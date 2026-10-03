@@ -3,7 +3,8 @@ name: Archive TAC Morning Report
 on:
   workflow_dispatch:
   schedule:
-    # 04:00 Taiwan time, Monday-Friday = 20:00 UTC, Sunday-Thursday
+    # 04:00 Taiwan time, Monday-Friday
+    # = 20:00 UTC, Sunday-Thursday
     - cron: "0 20 * * 0-4"
 
 permissions:
@@ -21,7 +22,15 @@ jobs:
         run: |
           test -f index.html
 
-          ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "yesterday" +%Y-%m-%d)
+          TODAY=$(TZ=Asia/Taipei date +%u)
+
+          if [ "$TODAY" -eq 1 ]; then
+            # Monday: previous report is Friday
+            ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "3 days ago" +%Y-%m-%d)
+          else
+            # Tuesday-Friday: previous report is yesterday
+            ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "yesterday" +%Y-%m-%d)
+          fi
 
           mkdir -p history
 
@@ -29,13 +38,41 @@ jobs:
 
           echo "Archived index.html to history/index_${ARCHIVE_DATE}.html"
 
-      - name: Commit archived report
+          export ARCHIVE_DATE
+
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("history/index.json")
+
+          if path.exists():
+              data = json.loads(path.read_text(encoding="utf-8"))
+          else:
+              data = {"reports": []}
+
+          reports = set(data.get("reports", []))
+          reports.add(os.environ["ARCHIVE_DATE"])
+
+          # Newest date first
+          data["reports"] = sorted(reports, reverse=True)
+
+          path.write_text(
+              json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+
+          print(f"Updated history/index.json with {os.environ['ARCHIVE_DATE']}")
+          PY
+
+      - name: Commit archived report and history index
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add history/
 
-          git diff --cached --quiet || git commit -m "Archive TAC report"
+          git diff --cached --quiet || git commit -m "Archive TAC report and update history index"
 
           git push
