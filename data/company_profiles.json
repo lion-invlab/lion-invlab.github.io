@@ -424,7 +424,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:19:29.220349+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AMD": {
       "ticker": "AMD",
@@ -495,7 +498,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:19:30.889328+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AES": {
       "ticker": "AES",
@@ -850,7 +856,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:19:39.154289+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AKAM": {
       "ticker": "AKAM",
@@ -1418,7 +1427,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:19:52.072472+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GOOG": {
       "ticker": "GOOG",
@@ -1489,7 +1501,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:19:53.623222+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MO": {
       "ticker": "MO",
@@ -1631,7 +1646,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:19:56.842307+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AMCR": {
       "ticker": "AMCR",
@@ -1844,7 +1862,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:01.676226+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AXP": {
       "ticker": "AXP",
@@ -2341,7 +2362,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:12.524932+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "APH": {
       "ticker": "APH",
@@ -2483,7 +2507,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:15.713597+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AON": {
       "ticker": "AON",
@@ -2767,7 +2794,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:22.188265+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AMAT": {
       "ticker": "AMAT",
@@ -2838,7 +2868,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:23.874806+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "APP": {
       "ticker": "APP",
@@ -2909,7 +2942,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:25.572216+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "APTV": {
       "ticker": "APTV",
@@ -3619,7 +3655,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:41.629131+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ADP": {
       "ticker": "ADP",
@@ -3690,7 +3729,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:43.175504+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AZO": {
       "ticker": "AZO",
@@ -3903,7 +3945,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:47.727071+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BKR": {
       "ticker": "BKR",
@@ -3974,7 +4019,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:20:49.185371+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BALL": {
       "ticker": "BALL",
@@ -5039,7 +5087,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:21:12.829215+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BSX": {
       "ticker": "BSX",
@@ -5252,7 +5303,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:21:17.348791+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BR": {
       "ticker": "BR",
@@ -5749,7 +5803,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:21:28.738906+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CPT": {
       "ticker": "CPT",
@@ -7595,7 +7652,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:10.103975+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CSCO": {
       "ticker": "CSCO",
@@ -7666,7 +7726,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:11.874671+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "C": {
       "ticker": "C",
@@ -8447,7 +8510,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:29.093825+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FIX": {
       "ticker": "FIX",
@@ -8802,7 +8868,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:36.977668+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "COO": {
       "ticker": "COO",
@@ -8944,7 +9013,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:40.208124+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GLW": {
       "ticker": "GLW",
@@ -9299,7 +9371,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:47.612021+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CRH": {
       "ticker": "CRH",
@@ -9441,7 +9516,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:50.729400+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CCI": {
       "ticker": "CCI",
@@ -9583,7 +9661,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:22:53.853447+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CMI": {
       "ticker": "CMI",
@@ -9938,7 +10019,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:23:01.931384+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DVA": {
       "ticker": "DVA",
@@ -10435,7 +10519,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:23:12.941278+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FANG": {
       "ticker": "FANG",
@@ -10506,7 +10593,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:23:14.541059+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DLR": {
       "ticker": "DLR",
@@ -10932,7 +11022,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:23:24.060850+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DOV": {
       "ticker": "DOV",
@@ -12920,7 +13013,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:24:10.847862+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "EXE": {
       "ticker": "EXE",
@@ -13559,7 +13655,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:24:25.087866+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FRT": {
       "ticker": "FRT",
@@ -14411,7 +14510,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:24:44.142390+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FTV": {
       "ticker": "FTV",
@@ -15050,7 +15152,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:24:59.041248+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GEV": {
       "ticker": "GEV",
@@ -15618,7 +15723,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:25:11.774413+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GPN": {
       "ticker": "GPN",
@@ -16683,7 +16791,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:25:35.211495+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "HON": {
       "ticker": "HON",
@@ -16754,7 +16865,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:25:36.851292+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "HRL": {
       "ticker": "HRL",
@@ -17535,7 +17649,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:25:54.192922+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ITW": {
       "ticker": "ITW",
@@ -17961,7 +18078,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:26:04.052378+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "IBKR": {
       "ticker": "IBKR",
@@ -18316,7 +18436,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:26:12.146348+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ISRG": {
       "ticker": "ISRG",
@@ -18387,7 +18510,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:26:13.773198+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "IVZ": {
       "ticker": "IVZ",
@@ -19310,7 +19436,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:26:35.038282+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "KEY": {
       "ticker": "KEY",
@@ -19807,7 +19936,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:26:46.885185+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "KHC": {
       "ticker": "KHC",
@@ -20162,7 +20294,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:26:55.200274+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "LVS": {
       "ticker": "LVS",
@@ -20588,7 +20723,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:04.965863+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "LYV": {
       "ticker": "LYV",
@@ -21014,7 +21152,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:15.194413+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "LYB": {
       "ticker": "LYB",
@@ -21298,7 +21439,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:21.651587+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MRSH": {
       "ticker": "MRSH",
@@ -21511,7 +21655,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:26.612112+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MAS": {
       "ticker": "MAS",
@@ -22079,7 +22226,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:39.368844+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MET": {
       "ticker": "MET",
@@ -22363,7 +22513,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:45.676363+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MU": {
       "ticker": "MU",
@@ -22434,7 +22587,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:47.339096+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MSFT": {
       "ticker": "MSFT",
@@ -22505,7 +22661,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:48.829908+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MAA": {
       "ticker": "MAA",
@@ -22718,7 +22877,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:53.518194+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MPWR": {
       "ticker": "MPWR",
@@ -22789,7 +22951,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:55.323244+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MNST": {
       "ticker": "MNST",
@@ -22860,7 +23025,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:27:56.874400+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MCO": {
       "ticker": "MCO",
@@ -23428,7 +23596,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:09.421219+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "NEM": {
       "ticker": "NEM",
@@ -24422,7 +24593,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:32.092554+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "NVR": {
       "ticker": "NVR",
@@ -24564,7 +24738,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:35.245215+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ORLY": {
       "ticker": "ORLY",
@@ -24635,7 +24812,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:36.629316+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "OXY": {
       "ticker": "OXY",
@@ -24777,7 +24957,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:39.814898+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "OMC": {
       "ticker": "OMC",
@@ -25203,7 +25386,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:49.781391+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PKG": {
       "ticker": "PKG",
@@ -25345,7 +25531,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:52.963366+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PANW": {
       "ticker": "PANW",
@@ -25416,7 +25605,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:54.646675+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PSKY": {
       "ticker": "PSKY",
@@ -25629,7 +25821,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:28:59.499334+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PYPL": {
       "ticker": "PYPL",
@@ -25700,7 +25895,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:29:01.192663+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PNR": {
       "ticker": "PNR",
@@ -25842,7 +26040,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:29:04.380382+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PFE": {
       "ticker": "PFE",
@@ -27191,7 +27392,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:29:34.424863+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DGX": {
       "ticker": "DGX",
@@ -27830,7 +28034,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:29:49.108238+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "RF": {
       "ticker": "RF",
@@ -28398,7 +28605,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:02.043594+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ROST": {
       "ticker": "ROST",
@@ -28469,7 +28679,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:03.573599+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "RCL": {
       "ticker": "RCL",
@@ -28753,7 +28966,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:10.247391+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "SBAC": {
       "ticker": "SBAC",
@@ -28966,7 +29182,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:15.179659+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "SRE": {
       "ticker": "SRE",
@@ -29889,7 +30108,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:36.206166+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "STT": {
       "ticker": "STT",
@@ -30386,7 +30608,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:46.964280+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "SYY": {
       "ticker": "SYY",
@@ -30528,7 +30753,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:50.339852+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TROW": {
       "ticker": "TROW",
@@ -30670,7 +30898,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:30:53.662722+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TPR": {
       "ticker": "TPR",
@@ -31096,7 +31327,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:31:02.962340+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TSLA": {
       "ticker": "TSLA",
@@ -31167,7 +31401,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:31:04.539090+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TXN": {
       "ticker": "TXN",
@@ -31238,7 +31475,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:31:06.191428+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TPL": {
       "ticker": "TPL",
@@ -33439,7 +33679,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:31:55.728216+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "VRT": {
       "ticker": "VRT",
@@ -34220,7 +34463,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:32:13.001877+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DIS": {
       "ticker": "DIS",
@@ -34362,7 +34608,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:32:16.021364+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "WM": {
       "ticker": "WM",
@@ -34859,7 +35108,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:32:27.421045+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "WY": {
       "ticker": "WY",
@@ -35214,7 +35466,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:32:35.219024+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "WYNN": {
       "ticker": "WYNN",
@@ -35356,7 +35611,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:32:38.329793+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "XYL": {
       "ticker": "XYL",
@@ -35712,22 +35970,1296 @@
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-09-30T16:32:46.388732+00:00"
       }
+    },
+    "ALAB": {
+      "ticker": "ALAB",
+      "yahoo_ticker": "ALAB",
+      "company": "Astera Labs, Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "industry_key": "semiconductors",
+      "location": {
+        "city": "San Jose",
+        "state": "CA",
+        "country": "United States"
+      },
+      "website": "https://www.asteralabs.com",
+      "business": {
+        "summary": "Astera Labs, Inc. designs, manufactures, and sells semiconductor-based connectivity solutions for cloud and AI infrastructure in Taiwan and the United States. It offers an intelligent connectivity platform, comprised of semiconductor-based, high-speed, mixed-signal connectivity products that integrate a matrix of microcontrollers and sensors, and COSMOS. The company provides COSMOS software suite, a connectivity system management and optimization software that enables management and optimization of resources for large fleets at cloud-scale via link, fleet, and RAS management capabilities. In addition, it offers PCIe/CXL smart DSP retimers and cable modules; ethernet smart cable modules for cloud and AI infrastructure; CXL memory connectivity controllers; and smart fabric switches. The company serves hyperscalers and system original equipment manufacturers. Astera Labs, Inc. was incorporated in 2017 and is based in San Jose, California.",
+        "employees": 756
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 852525000.0,
+        "revenue_growth_yoy": 1.151265487395594,
+        "gross_margin": 0.756882202867951,
+        "operating_margin": 0.20342277352570307,
+        "net_margin": 0.2570411424884901,
+        "eps_diluted": 1.22,
+        "roe": 0.25826,
+        "roa": 0.10672,
+        "operating_cash_flow": 319306000.0,
+        "free_cash_flow": 281762000.0,
+        "cash": 1188816000.0,
+        "total_debt": 4146000.0,
+        "debt_to_equity": 2.574,
+        "current_ratio": 10.237594143202898
+      },
+      "valuation": {
+        "market_cap": 60777033728.0,
+        "trailing_pe": 172.57635,
+        "forward_pe": 54.794884,
+        "price_to_book": 35.219666,
+        "price_to_sales": 50.566666,
+        "peg_ratio": null,
+        "ev_to_ebitda": 208.722,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 350.33,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:47.004722+00:00"
+      }
+    },
+    "ALNY": {
+      "ticker": "ALNY",
+      "yahoo_ticker": "ALNY",
+      "company": "Alnylam Pharmaceuticals, Inc.",
+      "sector": "Healthcare",
+      "industry": "Biotechnology",
+      "industry_key": "biotechnology",
+      "location": {
+        "city": "Cambridge",
+        "state": "MA",
+        "country": "United States"
+      },
+      "website": "https://www.alnylam.com",
+      "business": {
+        "summary": "Alnylam Pharmaceuticals, Inc. discovers, develops, manufactures, and commercializes therapeutics based on ribonucleic acid interference in the United States, Europe, and internationally. The company offers ONPATTRO for hereditary transthyretin-mediated (hATTR) amyloidosis; AMVUTTRA for ATTR and hATTR amyloidosis; Leqvio for hypercholesterolemia; Qfitlia for hemophilia A or B; GIVLAARI for acute hepatic porphyria; and OXLUMO for primary hyperoxaluria type 1. It also develops a range of products in Phase 3 trial, such as Nucresiran for ATTR amyloidosis; Zilebesiran for hypertension; Cemdisiran for myasthenia gravis, paroxysmal nocturnal hemoglobinuria, and geographic atrophy; and Elebsiran for hepatitis D virus infections. In addition, the company is developing various products in Phase 2 trial, including Rapirosiran for metabolic dysfunction-associated steatohepatitis; ALN-ANG3 for diabetic kidney disease; ALN-4324 for type 2 diabetes mellitus; Mivelsiran for cerebral amyloid angiopathy, as well as in Phase 1 trial for Alzheimer's disease; and ALN-6400 for bleeding disorders. Further, it develops a range of products in Phase 1 trial, such as ALN-2232 for obesity and weight management; ALN-PNP for non-alcoholic fatty liver disease; ALN-APOC3 for dyslipidemia; ALN-CIDEB for metabolic dysfunction-associated steatohepatitis; ALN-HTT02 for Huntington's disease; ALN-5288 for Alzheimer's disease; ALN-SOD for SOD1 amyotrophic lateral sclerosis; ALN-SNCA for Parkinson's disease; AG-236 for polycythemia vera; ALN-CFB for paroxysmal nocturnal hemoglobinuria; ALN-BCAT for hepatocellular carcinoma; and ALN-4285, ALN-4915, and ALN-F1202 for healthy volunteers. The company has collaborations with Regeneron Pharmaceuticals, Inc.; Roche Holding AG; Sanofi S.A.; Novartis AG; PeptiDream, Inc; Dicerna Pharmaceuticals, Inc.; and Ionis Pharmaceuticals, Inc. Alnylam Pharmaceuticals, Inc. was founded in 2002 and is headquartered in Cambridge, Massachusetts.",
+        "employees": 2500
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 3713937000.0,
+        "revenue_growth_yoy": 0.6519286393864008,
+        "gross_margin": 0.816402109136477,
+        "operating_margin": 0.13505291015975768,
+        "net_margin": 0.08447827736442487,
+        "eps_diluted": 2.33,
+        "roe": 0.96555,
+        "roa": 0.123430006,
+        "operating_cash_flow": 524080000.0,
+        "free_cash_flow": 465383000.0,
+        "cash": 2908484000.0,
+        "total_debt": 1278389000.0,
+        "debt_to_equity": 220.623,
+        "current_ratio": 2.76241331361088
+      },
+      "valuation": {
+        "market_cap": 29400539136.0,
+        "trailing_pe": 38.34555,
+        "forward_pe": 17.617796,
+        "price_to_book": 21.70074,
+        "price_to_sales": 6.1197805,
+        "peg_ratio": 0.3,
+        "ev_to_ebitda": 27.576,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 219.72,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:48.530322+00:00"
+      }
+    },
+    "ARM": {
+      "ticker": "ARM",
+      "yahoo_ticker": "ARM",
+      "company": "Arm Holdings plc",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "industry_key": "semiconductors",
+      "location": {
+        "city": "Cambridge",
+        "state": null,
+        "country": "United Kingdom"
+      },
+      "website": "https://www.arm.com",
+      "business": {
+        "summary": "Arm Holdings plc researches, develops, licenses, and markets central processing unit (CPU) intellectual property (IP), graphics processing unit IP, systems IP, compute subsystems (CSS), and associated software, tools and related services. The company provides a product portfolio, including CPU IP, GPU and neural processing unit (NPU) accelerators, system IP such as interconnects, compute platform products including pre-integrated CSSs, and development tools and software. The company serves semiconductor companies, original equipment manufacturers (OEMs), cloud service providers (CSPs), and organizations developing chips for end markets such as smartphones, consumer electronics, industrial IoT, embedded systems, cloud data centers, networking, automotive, and robotics. It provides its products and services in the United States, China, Japan, Taiwan, Korea, and internationally. The company was founded in 1990 and is based in Cambridge, United Kingdom. Arm Holdings plc operates as a subsidiary of SoftBank Group Corp.",
+        "employees": 9584
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 4920000000.0,
+        "revenue_growth_yoy": 0.22785126029448466,
+        "gross_margin": 0.9754065040650407,
+        "operating_margin": 0.18455284552845527,
+        "net_margin": 0.183739837398374,
+        "eps_diluted": 0.85,
+        "roe": 0.13352999,
+        "roa": 0.05415,
+        "operating_cash_flow": 1524000000.0,
+        "free_cash_flow": 949000000.0,
+        "cash": 3601000000.0,
+        "total_debt": 457000000.0,
+        "debt_to_equity": 5.62,
+        "current_ratio": 5.996153846153846
+      },
+      "valuation": {
+        "market_cap": 328398864384.0,
+        "trailing_pe": 310.59595,
+        "forward_pe": 100.659294,
+        "price_to_book": 38.05098,
+        "price_to_sales": 63.69257,
+        "peg_ratio": 2.4,
+        "ev_to_ebitda": 305.534,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 307.49,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2026-03-31 00:00:00",
+        "revenue_growth": "2026-03-31 00:00:00 vs 2025-03-31 00:00:00",
+        "gross_profit": "2026-03-31 00:00:00",
+        "operating_income": "2026-03-31 00:00:00",
+        "net_income": "2026-03-31 00:00:00",
+        "eps": "2026-03-31 00:00:00",
+        "operating_cash_flow": "2026-03-31 00:00:00",
+        "capex": "2026-03-31 00:00:00",
+        "cash": "2026-03-31 00:00:00",
+        "total_debt": "2026-03-31 00:00:00",
+        "current_assets": "2026-03-31 00:00:00",
+        "current_liabilities": "2026-03-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:50.110569+00:00"
+      }
+    },
+    "ASML": {
+      "ticker": "ASML",
+      "yahoo_ticker": "ASML",
+      "company": "ASML Holding N.V.",
+      "sector": "Technology",
+      "industry": "Semiconductor Equipment & Materials",
+      "industry_key": "semiconductor-equipment-materials",
+      "location": {
+        "city": "Veldhoven",
+        "state": null,
+        "country": "Netherlands"
+      },
+      "website": "https://www.asml.com",
+      "business": {
+        "summary": "ASML Holding N.V. provides lithography solutions for the development, production, marketing, sales, upgrading, and servicing of advanced semiconductor equipment systems. The company offers lithography, metrology, and inspection systems. It also provides extreme ultraviolet lithography systems; and deep ultraviolet lithography systems comprising immersion and dry lithography systems solutions to manufacture various range of semiconductor nodes and technologies. In addition, the company offers metrology and inspection systems, including YieldStar optical metrology systems, a diffraction-based wafer metrology platform to assess the quality of patterns on the wafers; and HMI electron beam solutions to locate and analyze individual chip defects. Further, it provides computational lithography solutions, and lithography systems and control software solutions; and refurbishes and upgrades lithography systems, as well as offers customer support and related services. Additionally, the company offers hardware, software, and services to chipmakers to produce the patterns of integrated circuits. It operates in Japan, South Korea, Singapore, Taiwan, China, rest of Asia, the Netherlands, rest of Europe, the Middle East, Africa, and the United States. The company was formerly known as ASM Lithography Holding N.V. and changed its name to ASML Holding N.V. in 2001. ASML Holding N.V. was founded in 1984 and is headquartered in Veldhoven, the Netherlands.",
+        "employees": 43938
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 32667300000.0,
+        "revenue_growth_yoy": 0.15583680372502462,
+        "gross_margin": 0.5282958799778371,
+        "operating_margin": 0.34595451720833986,
+        "net_margin": 0.29415960302810457,
+        "eps_diluted": 24.71,
+        "roe": 0.53942,
+        "roa": 0.16454001,
+        "operating_cash_flow": null,
+        "free_cash_flow": null,
+        "cash": 13321900000.0,
+        "total_debt": 4390900000.0,
+        "debt_to_equity": 9.092,
+        "current_ratio": 1.2617963311751201
+      },
+      "valuation": {
+        "market_cap": 717233782784.0,
+        "trailing_pe": 64.94991,
+        "forward_pe": 31.745806,
+        "price_to_book": 1611.8478,
+        "price_to_sales": 20.302422,
+        "peg_ratio": 1.11,
+        "ev_to_ebitda": 2953.703,
+        "price_to_fcf": null,
+        "dividend_yield": 0.5
+      },
+      "market": {
+        "current_price": 1867.31,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": null,
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:51.747099+00:00"
+      }
+    },
+    "CCEP": {
+      "ticker": "CCEP",
+      "yahoo_ticker": "CCEP",
+      "company": "Coca-Cola Europacific Partners PLC",
+      "sector": "Consumer Defensive",
+      "industry": "Beverages - Non-Alcoholic",
+      "industry_key": "beverages-non-alcoholic",
+      "location": {
+        "city": "Uxbridge",
+        "state": null,
+        "country": "United Kingdom"
+      },
+      "website": "https://www.cocacolaep.com",
+      "business": {
+        "summary": "Coca-Cola Europacific Partners PLC, together with its subsidiaries, produces, distributes, and sells a range of non-alcoholic ready-to-drink beverages. It offers flavours, mixers, energy drinks, soft drinks, water, enhanced water, isotonic drinks, tea and coffee, juices, and other drinks. The company provides its products under the Coca-Cola Original Taste, Coca-Cola Zero Sugar, Diet Coke, Sprite, Sprite Zero Sugar, Fanta, Fanta Zero Sugar, Monster Energy, A&W, Absolut Vodka & SPRITE, Ades, Appletiser, aquaBona, Aquarius, BACARDÍ Mixed with Coca Cola RTD, Barista Bros, Bonaqua, BURN, Deep Spring, Dr Pepper, Dr Pepper Zero Sugar, Feral Brewing Co, Fuze Tea, Giancarlo Coffee, GLACEAU smartwater, Grinders, HALO, Jack Daniel's & Coca-Cola ready-to-drink, Kristal, L&P, MER, Minute Maid, Mother, Mount Franklin, Nordic Mist, Nutriboost, Oasis, Pulpy, pump, pumped, Reign, Rekorderlig Cider, Relentless, Royal, Royal Bliss, Schweppes, Schweppes Mix, SOCO, URGE, Vilas del Turbón, Voyage, Wilkins Pure, and Zephyr Coffee Co brands. It is also involved in the bottling and other operations. The company was formerly known as Coca-Cola European Partners plc and changed its name to Coca-Cola Europacific Partners PLC in May 2021. The company was founded in 1904 and is based in Uxbridge, United Kingdom.",
+        "employees": 37003
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 20901000000.0,
+        "revenue_growth_yoy": 0.022653880027399875,
+        "gross_margin": 0.35596382948184296,
+        "operating_margin": 0.13358212525716473,
+        "net_margin": 0.0929142146308789,
+        "eps_diluted": 4.26,
+        "roe": 0.23544,
+        "roa": 0.056350004,
+        "operating_cash_flow": 2953000000.0,
+        "free_cash_flow": 2003000000.0,
+        "cash": 957000000.0,
+        "total_debt": 10694000000.0,
+        "debt_to_equity": 139.064,
+        "current_ratio": 0.8014502307185234
+      },
+      "valuation": {
+        "market_cap": 44439240704.0,
+        "trailing_pe": 20.051586,
+        "forward_pe": 18.11806,
+        "price_to_book": 4.753722,
+        "price_to_sales": 2.0813658,
+        "peg_ratio": 2.67,
+        "ev_to_ebitda": 15.709,
+        "price_to_fcf": null,
+        "dividend_yield": 2.39
+      },
+      "market": {
+        "current_price": 101.06,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:53.328813+00:00"
+      }
+    },
+    "CRWV": {
+      "ticker": "CRWV",
+      "yahoo_ticker": "CRWV",
+      "company": "CoreWeave, Inc.",
+      "sector": "Technology",
+      "industry": "Software - Infrastructure",
+      "industry_key": "software-infrastructure",
+      "location": {
+        "city": "Livingston",
+        "state": "NJ",
+        "country": "United States"
+      },
+      "website": "https://www.coreweave.com",
+      "business": {
+        "summary": "CoreWeave, Inc. operates as a cloud infrastructure technology company in the United States. The company offers CoreWeave Cloud platform that comprises proprietary software and cloud services that deliver the automation and efficiency needed to manage complex artificial intelligence (AI) infrastructure at scale. It also offers data and storage solutions, such as Local Object Transport Accelerator; infrastructure control solutions, including CoreWeave Kubernetes service; mission control services, including node, rack, and fleet lifecycle management; model and agent development tools comprising Weights & Biases, an AI developer platform; and runtime acceleration. In addition, the company offers graphics processing unit compute, CPU compute, networking services, managed services, and virtual and bare metal servers. Its services also include visual effects rendering, machine learning, pixel streaming, and batch processing. The company was formerly known as Atlantic Crypto Corporation and changed its name to CoreWeave, Inc. in December 2019. CoreWeave, Inc. was incorporated in 2017 and is based in Livingston, New Jersey.",
+        "employees": 2189
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 5131000000.0,
+        "revenue_growth_yoy": 1.679373368146214,
+        "gross_margin": 0.7168193334632625,
+        "operating_margin": -0.00896511401286299,
+        "net_margin": -0.22744104463067627,
+        "eps_diluted": -2.81,
+        "roe": -0.43596,
+        "roa": -0.00244,
+        "operating_cash_flow": 3058000000.0,
+        "free_cash_flow": -7251000000.0,
+        "cash": 3161000000.0,
+        "total_debt": 29822000000.0,
+        "debt_to_equity": 1027.329,
+        "current_ratio": 0.4554744525547445
+      },
+      "valuation": {
+        "market_cap": 49428709376.0,
+        "trailing_pe": null,
+        "forward_pe": null,
+        "price_to_book": 9.82891,
+        "price_to_sales": 6.5123463,
+        "peg_ratio": null,
+        "ev_to_ebitda": 25.205,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 89.62,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:54.895345+00:00"
+      }
+    },
+    "FER": {
+      "ticker": "FER",
+      "yahoo_ticker": "FER",
+      "company": "Ferrovial N.V.",
+      "sector": "Industrials",
+      "industry": "Engineering & Construction",
+      "industry_key": "engineering-construction",
+      "location": {
+        "city": "Amsterdam",
+        "state": null,
+        "country": "Netherlands"
+      },
+      "website": "https://www.ferrovial.com",
+      "business": {
+        "summary": "Ferrovial N.V., together with its subsidiaries, engages in the development, construction, and operation of highways and airports in the United States, Poland, Spain, the United Kingdom, Canada, and internationally. It operates through four segments: Construction, Highways, Airports, and Energy. The company is involved in the development, financing, and operation of toll road infrastructure and construction activities, including the design and construction of public and private works; construction of public infrastructures; and development, financing, investing, and operation of airports. It engages in the development and construction of energy transmission and renewable generation energy infrastructure, as well as rendering of services regarding energy efficiency; and operation of waste management plants. The company was founded in 1952 and is based in Amsterdam, the Netherlands.",
+        "employees": 22359
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 9627000000.0,
+        "revenue_growth_yoy": 0.05236117184083944,
+        "gross_margin": 0.88324503999169,
+        "operating_margin": 0.10044666043419549,
+        "net_margin": 0.09224057338734809,
+        "eps_diluted": 1.24,
+        "roe": 0.11615,
+        "roa": 0.02624,
+        "operating_cash_flow": 1926000000.0,
+        "free_cash_flow": 1739000000.0,
+        "cash": 4242000000.0,
+        "total_debt": 10732000000.0,
+        "debt_to_equity": 144.091,
+        "current_ratio": 1.1308787128712872
+      },
+      "valuation": {
+        "market_cap": 38625206272.0,
+        "trailing_pe": 57.063828,
+        "forward_pe": 40.271378,
+        "price_to_book": 5.813406,
+        "price_to_sales": 3.9177608,
+        "peg_ratio": 9.74,
+        "ev_to_ebitda": 30.457,
+        "price_to_fcf": null,
+        "dividend_yield": 3.13
+      },
+      "market": {
+        "current_price": 53.64,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:56.566232+00:00"
+      }
+    },
+    "MELI": {
+      "ticker": "MELI",
+      "yahoo_ticker": "MELI",
+      "company": "MercadoLibre, Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "industry_key": "internet-retail",
+      "location": {
+        "city": "Montevideo",
+        "state": null,
+        "country": "Uruguay"
+      },
+      "website": "https://www.mercadolibre.com",
+      "business": {
+        "summary": "MercadoLibre, Inc. operates online commerce platforms in Brazil, Mexico, Argentina, and internationally. The company operates Mercado Libre Marketplace, an online commerce platform that can be accessed through mobile app or website; and Mercado Pago, a financial technology solution platform, which offers comprehensive set of financial technology services to users and other users of its e-commerce platform. It also provides Mercado Fondo that allows users to invest funds deposited in their Mercado Pago accounts; Mercado Credito, which grants loans and obtains better funding alternatives; and Mercado Mercado Envios that facilitates the shipping of goods from the Company and sellers to buyers. In addition, the company provides Mercado Libre Classifieds, where users can list vehicles, properties, and services; Mercado Ads, an advertising platform, which enables retailers and brands to promote their products and services on the platform. MercadoLibre, Inc. was incorporated in 1999 and is headquartered in Montevideo, Uruguay.",
+        "employees": 123670
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 28893000000.0,
+        "revenue_growth_yoy": 0.3906242479665014,
+        "gross_margin": 0.44502128543245767,
+        "operating_margin": 0.1107880801578237,
+        "net_margin": 0.06911708718374693,
+        "eps_diluted": 39.4,
+        "roe": 0.27504,
+        "roa": 0.0431,
+        "operating_cash_flow": 12116000000.0,
+        "free_cash_flow": 10773000000.0,
+        "cash": 5513000000.0,
+        "total_debt": 11392000000.0,
+        "debt_to_equity": 168.586,
+        "current_ratio": 1.172528201725282
+      },
+      "valuation": {
+        "market_cap": 86010167296.0,
+        "trailing_pe": 46.077133,
+        "forward_pe": 30.349684,
+        "price_to_book": 10.9790535,
+        "price_to_sales": 2.444721,
+        "peg_ratio": 0.92,
+        "ev_to_ebitda": 24.016,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 1696.56,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:58.176527+00:00"
+      }
+    },
+    "MSTR": {
+      "ticker": "MSTR",
+      "yahoo_ticker": "MSTR",
+      "company": "Strategy Inc",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "industry_key": "software-application",
+      "location": {
+        "city": "Tysons Corner",
+        "state": "VA",
+        "country": "United States"
+      },
+      "website": "https://www.strategy.com",
+      "business": {
+        "summary": "Strategy Inc, together with its subsidiaries, operates as a bitcoin treasury company in the United States, Europe, the Middle East, Africa, and internationally. It offers investors varying degrees of economic exposure to Bitcoin by offering a range of securities, including equity and fixed income instruments. The company also provides AI-powered enterprise analytics software, including Strategy One, which provides non-technical users with the ability to directly access novel and actionable insights for decision-making. In addition, the company provides Strategy Mosaic, a universal intelligence layer that offers enterprises with consistent definitions and governance across data sources, regardless of where that data resides or which tools access it. The company was formerly known as MicroStrategy Incorporated and changed its name to Strategy Inc in August 2025. The company was incorporated in 1989 and is headquartered in Tysons Corner, Virginia.",
+        "employees": 1539
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 477233000.0,
+        "revenue_growth_yoy": 0.029726662293723782,
+        "gross_margin": 0.686909748487636,
+        "operating_margin": -0.08572123051004436,
+        "net_margin": -8.063465854205388,
+        "eps_diluted": -15.23,
+        "roe": -0.63562,
+        "roa": -0.38731,
+        "operating_cash_flow": -67241000.0,
+        "free_cash_flow": -22579536000.0,
+        "cash": 2301470000.0,
+        "total_debt": 8236290000.0,
+        "debt_to_equity": 14.938,
+        "current_ratio": 5.617046958106604
+      },
+      "valuation": {
+        "market_cap": 63804116992.0,
+        "trailing_pe": null,
+        "forward_pe": 3.2331781,
+        "price_to_book": 1.9251407,
+        "price_to_sales": 128.03151,
+        "peg_ratio": 2.85,
+        "ev_to_ebitda": -2.207,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 160.01,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:30:59.705138+00:00"
+      }
+    },
+    "NBIS": {
+      "ticker": "NBIS",
+      "yahoo_ticker": "NBIS",
+      "company": "Nebius Group N.V.",
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information",
+      "industry_key": "internet-content-information",
+      "location": {
+        "city": "Schiphol",
+        "state": null,
+        "country": "Netherlands"
+      },
+      "website": "https://nebius.com",
+      "business": {
+        "summary": "Nebius Group N.V., a technology company, engages in building full-stack infrastructure to service the global AI industry in the United States, the United Kingdom, and internationally. It offers Nebius builds full-stack infrastructure for AI, including large-scale GPU clusters, cloud platforms, and tools and services for developers. The company also provides TripleTen, an edtech platform for re-skilling individuals for careers in technolgy; and Avride, which develops autonomous driving technology for self-driving cars and delivery robotics. It has a strategic alliance with NVIDIA Corporation to support the expansion of the company's AI cloud infrastructure. The company was formerly known as Yandex N.V. and changed its name to Nebius Group N.V. in August 2024. Nebius Group N.V. was founded in 1989 and is based in Schiphol, the Netherlands.",
+        "employees": 1543
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 529800000.0,
+        "revenue_growth_yoy": 4.7901639344262295,
+        "gross_margin": 0.6862967157417894,
+        "operating_margin": -1.154586636466591,
+        "net_margin": 0.15571913929784825,
+        "eps_diluted": 0.33,
+        "roe": 0.00601,
+        "roa": -0.01918,
+        "operating_cash_flow": 384800000.0,
+        "free_cash_flow": -3681200000.0,
+        "cash": 3678100000.0,
+        "total_debt": 4973100000.0,
+        "debt_to_equity": 98.596,
+        "current_ratio": 3.0837805995549155
+      },
+      "valuation": {
+        "market_cap": 66009169920.0,
+        "trailing_pe": null,
+        "forward_pe": null,
+        "price_to_book": 6.436827,
+        "price_to_sales": 48.71166,
+        "peg_ratio": 0.53,
+        "ev_to_ebitda": 266.311,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 242.81,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:01.210475+00:00"
+      }
+    },
+    "PDD": {
+      "ticker": "PDD",
+      "yahoo_ticker": "PDD",
+      "company": "PDD Holdings Inc.",
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail",
+      "industry_key": "internet-retail",
+      "location": {
+        "city": "Dublin",
+        "state": null,
+        "country": "Ireland"
+      },
+      "website": "https://www.pddholdings.com",
+      "business": {
+        "summary": "PDD Holdings Inc., a multinational commerce group that owns and operates a portfolio of businesses. The company operates Pinduoduo platform, which provides various product categories and interactive shopping experiences; and Temu, an online platform, which enables merchants to streamline their manufacturing and commercial operations. The company was formerly known as Pinduoduo Inc. and changed its name to PDD Holdings Inc. in February 2023. PDD Holdings Inc. was incorporated in 2015 and is based in Dublin, Ireland.",
+        "employees": 25474
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 431845713000.0,
+        "revenue_growth_yoy": 0.09651125503612734,
+        "gross_margin": 0.5628027619206677,
+        "operating_margin": 0.21559118962470747,
+        "net_margin": 0.2265682767122896,
+        "eps_diluted": 67.04,
+        "roe": 0.22745001,
+        "roa": 0.100109994,
+        "operating_cash_flow": 106938690000.0,
+        "free_cash_flow": 105793613000.0,
+        "cash": 422308269000.0,
+        "total_debt": 5378795000.0,
+        "debt_to_equity": 1.082,
+        "current_ratio": 2.4281218697536033
+      },
+      "valuation": {
+        "market_cap": 107295621120.0,
+        "trailing_pe": 8.1141,
+        "forward_pe": 6.1203527,
+        "price_to_book": 1.589143,
+        "price_to_sales": 0.23802441,
+        "peg_ratio": 0.67,
+        "ev_to_ebitda": -3.487,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 75.38,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:02.660127+00:00"
+      }
+    },
+    "RKLB": {
+      "ticker": "RKLB",
+      "yahoo_ticker": "RKLB",
+      "company": "Rocket Lab Corporation",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "industry_key": "aerospace-defense",
+      "location": {
+        "city": "Long Beach",
+        "state": "CA",
+        "country": "United States"
+      },
+      "website": "https://rocketlabcorp.com",
+      "business": {
+        "summary": "Rocket Lab Corporation, a space company, provides launch services and space systems solutions in the United States, Canada, Japan, and internationally. The company operates through launch services and space systems segments. The company provides launch services, spacecraft design services, spacecraft components, spacecraft manufacturing, optical systems, and other spacecraft and on-orbit management solutions and constellation management services, as well as designs and manufactures small and medium-class rockets and develops flight and ground software. It also designs, manufactures, and sells Electron, an orbital small launch vehicle for small spacecraft launch services, as well as develops Neutron launch vehicles for large constellation deployments, interplanetary missions, and potentially for human spaceflight. In addition, the company designs and manufactures a range of components and subsystems for its launch vehicles and spacecraft. It serves commercial, aerospace prime contractors, and government customers. Rocket Lab Corporation was formerly known as Rocket Lab USA, Inc. and changed its name to Rocket Lab Corporation in August 2021. The company was founded in 2006 and is headquartered in Long Beach, California.",
+        "employees": 2600
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 601799000.0,
+        "revenue_growth_yoy": 0.3795957947246076,
+        "gross_margin": 0.3442694321525958,
+        "operating_margin": -0.38025653083504624,
+        "net_margin": -0.3293607998683946,
+        "eps_diluted": -0.37,
+        "roe": -0.07915,
+        "roa": -0.046230003,
+        "operating_cash_flow": -165521000.0,
+        "free_cash_flow": -321806000.0,
+        "cash": 1016577000.0,
+        "total_debt": 253955000.0,
+        "debt_to_equity": 3.828,
+        "current_ratio": 4.082636721319317
+      },
+      "valuation": {
+        "market_cap": 47265259520.0,
+        "trailing_pe": null,
+        "forward_pe": 1369.1425,
+        "price_to_book": 12.661871,
+        "price_to_sales": 61.45161,
+        "peg_ratio": null,
+        "ev_to_ebitda": -279.44,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 73.92,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:04.155249+00:00"
+      }
+    },
+    "SHOP": {
+      "ticker": "SHOP",
+      "yahoo_ticker": "SHOP",
+      "company": "Shopify Inc.",
+      "sector": "Technology",
+      "industry": "Software - Application",
+      "industry_key": "software-application",
+      "location": {
+        "city": "Ottawa",
+        "state": "ON",
+        "country": "Canada"
+      },
+      "website": "https://www.shopify.com",
+      "business": {
+        "summary": "Shopify Inc., a commerce technology company, provides tools to start, scale, market, and run a business of various sizes in Canada, the United States, Europe, the Middle East, Africa, the Asia Pacific, and Latin America. The Company offers Shopify platform that enables merchants to manage products and inventory, process orders and payments, fulfill and ship orders, build customer relationships, source products, leverage analytics, and reporting and access financing for running their business across all of their sales channels, including web and mobile storefronts, physical retail locations, social media storefronts, and marketplaces. It also provides Shopify Payments, a fully integrated payment processing service that allows merchants to accept and process payment cards online and offline. In addition, the company engages in the sale of themes and apps; shipping labels through Shopify Shipping; point-of-sale hardware; advertising on the Shopify App Store; and Shop Campaigns for buyer acquisitions, as well as registration of domain names. The company was formerly known as Jaded Pixel Technologies Inc. and changed its name to Shopify Inc. in November 2011. Shopify Inc. was incorporated in 2004 and is based in Ottawa, Canada.",
+        "employees": 7600
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 11556000000.0,
+        "revenue_growth_yoy": 0.30135135135135127,
+        "gross_margin": 0.48070266528210454,
+        "operating_margin": 0.16311872620283835,
+        "net_margin": 0.10652474904811353,
+        "eps_diluted": 0.944088,
+        "roe": 0.15543,
+        "roa": 0.10187,
+        "operating_cash_flow": 2033000000.0,
+        "free_cash_flow": 2007000000.0,
+        "cash": 5767000000.0,
+        "total_debt": 188000000.0,
+        "debt_to_equity": 1.403,
+        "current_ratio": 5.959770114942529
+      },
+      "valuation": {
+        "market_cap": 196451942400.0,
+        "trailing_pe": 102.29054,
+        "forward_pe": 61.782253,
+        "price_to_book": 15.386726,
+        "price_to_sales": 14.805331,
+        "peg_ratio": 1.73,
+        "ev_to_ebitda": 79.339,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 151.39,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:05.736597+00:00"
+      }
+    },
+    "SKHY": {
+      "ticker": "SKHY",
+      "yahoo_ticker": "SKHY",
+      "company": "SK hynix Inc.",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "industry_key": "semiconductors",
+      "location": {
+        "city": "Icheon-si",
+        "state": null,
+        "country": "South Korea"
+      },
+      "website": "https://www.skhynix.com",
+      "business": {
+        "summary": "SK hynix Inc. through its subsidiaries, engages in research, develops, manufactures, distributes, and sells semiconductor devices in Korea, China, rest of Asia, the United States, Europe, and internationally. It offers DRAM, such as server memory, graphics memory, mobile memory, PC memory, consumer memory; NAND flash memory; SSD; and MCP products. It also engages in foundry business, produces non-memory semiconductors. The company serves its products for server, networking, mobile, personal computer, consumer, and automotive applications. The company was formerly known as Hynix Semiconductor Inc. and changed its name to SK hynix Inc. in March 2012. SK hynix Inc. was incorporated in 1949 and is headquartered in Icheon-si, South Korea.",
+        "employees": 36042
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 97146675000000.0,
+        "revenue_growth_yoy": 0.46762850611303675,
+        "gross_margin": 0.6041461532265515,
+        "operating_margin": 0.4859283037736495,
+        "net_margin": 0.44179882636230217,
+        "eps_diluted": 6037.8,
+        "roe": 0.92679,
+        "roa": 0.33661,
+        "operating_cash_flow": 53373126000000.0,
+        "free_cash_flow": 24793783000000.0,
+        "cash": 35137512000000.0,
+        "total_debt": 24757848000000.0,
+        "debt_to_equity": 8.037,
+        "current_ratio": 1.8582111575540052
+      },
+      "valuation": {
+        "market_cap": 1387521638400.0,
+        "trailing_pe": 11.594177,
+        "forward_pe": 5.77708,
+        "price_to_book": 419.66443,
+        "price_to_sales": 0.007334763,
+        "peg_ratio": 0.28,
+        "ev_to_ebitda": -0.454,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 195.13,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:07.162364+00:00"
+      }
+    },
+    "SPCX": {
+      "ticker": "SPCX",
+      "yahoo_ticker": "SPCX",
+      "company": "Space Exploration Technologies Corp.",
+      "sector": "Industrials",
+      "industry": "Aerospace & Defense",
+      "industry_key": "aerospace-defense",
+      "location": {
+        "city": "Starbase",
+        "state": "TX",
+        "country": "United States"
+      },
+      "website": "https://www.spacex.com",
+      "business": {
+        "summary": "Space Exploration Technologies Corp. provides satellite-based broadband services in the United States, Ireland, Canada, and internationally. It operates through three operating segments: Space, Connectivity, and AI. The Space segment designs, manufactures, and launches reusable rockets to provide access to space. It also provides launch services for the deployment of payloads to intended orbits for commercial and government customers utilizing Falcon 9 and Falcon Heavy; and engages in the launch and development for the development of spacecraft and the provision of launch and mission services for government agency space programs utilizing Falcon 9, Falcon Heavy, Starship, and Dragon. Its company's Connectivity segment operates broadband data and communications network by various Starlink satellites in low-earth orbit, delivering connectivity to various consumers, enterprise, and government customers. The company's AI segment operates a vertically integrated AI platform spanning a frontier LLM Grok; AI solutions for consumer and enterprise customers; X, a real-time information, entertainment, and free speech platform; and AI computational infrastructure. Space Exploration Technologies Corp. was incorporated in 2002 and is based in Starbase, Texas.",
+        "employees": 21000
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 18674000000.0,
+        "revenue_growth_yoy": 0.3324295397788084,
+        "gross_margin": 0.49389525543536467,
+        "operating_margin": -0.11052800685445004,
+        "net_margin": -0.2643782799614437,
+        "eps_diluted": -0.51,
+        "roe": null,
+        "roa": null,
+        "operating_cash_flow": 6785000000.0,
+        "free_cash_flow": -14121000000.0,
+        "cash": 24747000000.0,
+        "total_debt": 23318000000.0,
+        "debt_to_equity": 31.211,
+        "current_ratio": 1.446355140186916
+      },
+      "valuation": {
+        "market_cap": 2095375843328.0,
+        "trailing_pe": null,
+        "forward_pe": 91.19124,
+        "price_to_book": 16.462303,
+        "price_to_sales": 90.929344,
+        "peg_ratio": null,
+        "ev_to_ebitda": 700.433,
+        "price_to_fcf": null,
+        "dividend_yield": null
+      },
+      "market": {
+        "current_price": 158.96,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:08.768045+00:00"
+      }
+    },
+    "TRI": {
+      "ticker": "TRI",
+      "yahoo_ticker": "TRI",
+      "company": "Thomson Reuters Corporation",
+      "sector": "Industrials",
+      "industry": "Specialty Business Services",
+      "industry_key": "specialty-business-services",
+      "location": {
+        "city": "Toronto",
+        "state": "ON",
+        "country": "Canada"
+      },
+      "website": "https://www.thomsonreuters.com",
+      "business": {
+        "summary": "Thomson Reuters Corporation operates as a content and technology company in the Americas, Europe, the Middle East, Africa, and the Asia Pacific. It operates through five segments: Legal Professionals, Corporates, Tax, Audit & Accounting Professionals, Reuters News, and Global Print. The Legal Professionals segment offers research and workflow products focusing on legal research and integrated legal workflow solutions that combine content, tools, and analytics to law firms and governments. The Corporates segment provides a suite of content-driven technologies, including generative AI and integrated compliance workflow solutions to small businesses and multinational organizations. Tax, Audit & Accounting Professionals segment offers research and workflow products to tax, audit, and accounting firms. The Reuters News segment provides business, financial, and international news to media organizations, professional, and news consumers through Reuters News Agency, Reuters.com, Reuters Events, Thomson Reuters products, and to financial firms. The Global Print segment offers legal and tax information primarily in print format. The company was formerly known as The Thomson Corporation and changed its name to Thomson Reuters Corporation in April 2008. The company was founded in 1799 and is headquartered in Toronto, Canada. Thomson Reuters Corporation is a subsidiary of The Woodbridge Company Limited.",
+        "employees": 27100
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 7476000000.0,
+        "revenue_growth_yoy": 0.03003582254064474,
+        "gross_margin": 0.7580256821829856,
+        "operating_margin": 0.2660513643659711,
+        "net_margin": 0.2009095773140717,
+        "eps_diluted": 3.382221,
+        "roe": 0.1417,
+        "roa": 0.07439,
+        "operating_cash_flow": 2651000000.0,
+        "free_cash_flow": 2017000000.0,
+        "cash": 465000000.0,
+        "total_debt": 2372000000.0,
+        "debt_to_equity": 28.809,
+        "current_ratio": 0.6424452133794695
+      },
+      "valuation": {
+        "market_cap": 42294001664.0,
+        "trailing_pe": 25.757257,
+        "forward_pe": 19.202473,
+        "price_to_book": 3.8014019,
+        "price_to_sales": 5.4001536,
+        "peg_ratio": 1.22,
+        "ev_to_ebitda": 19.539,
+        "price_to_fcf": null,
+        "dividend_yield": 2.64
+      },
+      "market": {
+        "current_price": 97.62,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:10.293066+00:00"
+      }
+    },
+    "TSM": {
+      "ticker": "TSM",
+      "yahoo_ticker": "TSM",
+      "company": "Taiwan Semiconductor Manufacturing Company Limited",
+      "sector": "Technology",
+      "industry": "Semiconductors",
+      "industry_key": "semiconductors",
+      "location": {
+        "city": "Hsinchu City",
+        "state": null,
+        "country": "Taiwan"
+      },
+      "website": "https://www.tsmc.com",
+      "business": {
+        "summary": "Taiwan Semiconductor Manufacturing Company Limited, together with its subsidiaries, manufactures, packages, tests, and sells integrated circuits and other semiconductor devices in Taiwan, China, Europe, the Middle East, Africa, Japan, the United States, and internationally. It provides various wafer fabrication processes, such as processes to manufacture complementary metal- oxide-semiconductor (CMOS) logic, mixed-signal, radio frequency, embedded memory, bipolar CMOS mixed-signal, and others. The company also involved in providing customer and engineering support services; manufacturing of masks; investment in technology start-up companies; research, designing, developing, manufacturing, packaging, testing, and sale of color filters; and investment activities. Its products are used in high performance computing, smartphones, Internet of things, automotive, and digital consumer electronics. Taiwan Semiconductor Manufacturing Company Limited was incorporated in 1987 and is headquartered in Hsinchu City, Taiwan.",
+        "employees": 76907
+      },
+      "competitive_advantages": null,
+      "competitive_advantages_source": null,
+      "competitive_advantages_status": "待以最新10-K／公司IR公開資料整理；目前不做推論",
+      "financials": {
+        "revenue": 3809054300000.0,
+        "revenue_growth_yoy": 0.3160502250676387,
+        "gross_margin": 0.5989134888415741,
+        "operating_margin": 0.5082877395578215,
+        "net_margin": 0.4456759778929904,
+        "eps_diluted": 331.25,
+        "roe": 0.39969003,
+        "roa": 0.19002001,
+        "operating_cash_flow": 2274975600000.0,
+        "free_cash_flow": 992378400000.0,
+        "cash": 3128068100000.0,
+        "total_debt": 1064582700000.0,
+        "debt_to_equity": 16.504,
+        "current_ratio": 2.5072882934602547
+      },
+      "valuation": {
+        "market_cap": 2452061159424.0,
+        "trailing_pe": 35.25578,
+        "forward_pe": 21.563414,
+        "price_to_book": 97.21941,
+        "price_to_sales": 0.5522048,
+        "peg_ratio": 0.87,
+        "ev_to_ebitda": 5.433,
+        "price_to_fcf": null,
+        "dividend_yield": 0.89
+      },
+      "market": {
+        "current_price": 472.78,
+        "currency": "USD"
+      },
+      "periods": {
+        "revenue": "2025-12-31 00:00:00",
+        "revenue_growth": "2025-12-31 00:00:00 vs 2024-12-31 00:00:00",
+        "gross_profit": "2025-12-31 00:00:00",
+        "operating_income": "2025-12-31 00:00:00",
+        "net_income": "2025-12-31 00:00:00",
+        "eps": "2025-12-31 00:00:00",
+        "operating_cash_flow": "2025-12-31 00:00:00",
+        "capex": "2025-12-31 00:00:00",
+        "cash": "2025-12-31 00:00:00",
+        "total_debt": "2025-12-31 00:00:00",
+        "current_assets": "2025-12-31 00:00:00",
+        "current_liabilities": "2025-12-31 00:00:00"
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ],
+      "source": {
+        "profile_and_market": "Yahoo Finance via yfinance",
+        "financial_statements": "Yahoo Finance via yfinance",
+        "constituent_source": "Nasdaq-100",
+        "fetched_at_utc": "2026-10-03T02:31:11.955290+00:00"
+      }
     }
   },
   "meta": {
-    "title": "S&P 500 Company Profiles",
-    "updated_at_utc": "2026-09-30T16:32:47.138988+00:00",
+    "title": "S&P 500 + Nasdaq-100 Company Profiles",
+    "updated_at_utc": "2026-10-03T02:31:12.705443+00:00",
     "data_type": "actual",
     "demo_data": false,
     "profile_source": "Yahoo Finance via yfinance",
-    "constituent_source": "GitHub historical_sp500_constituents",
-    "competitive_advantages_note": "競爭優勢不由模型推測；待以10-K／公司IR資料補充並標註來源。"
+    "constituent_source": "S&P 500 existing cache + Nasdaq-100"
   },
   "data_quality": {
-    "constituent_count": 503,
-    "successful_this_run": 503,
+    "nasdaq100_universe": 103,
+    "already_existing": 86,
+    "newly_added_this_run": 17,
     "failed_this_run": 0,
-    "records_in_cache": 503,
-    "coverage": 1.0
+    "nasdaq100_profile_coverage": 1.0
   }
 }
