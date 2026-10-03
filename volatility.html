@@ -20,7 +20,6 @@ nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:
 .label{font-size:10px;color:var(--muted);font-weight:850}.value{font-size:22px;font-weight:950;margin-top:5px}.sub,.note{font-size:10px;color:var(--muted);line-height:1.65}
 .title{font-size:15px;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;gap:10px}.title small{font-size:10px;color:var(--muted)}
 .bluf{border-left:4px solid var(--red)}.bluf h1{font-size:20px;margin:0 0 8px}.bluf p{font-size:12px;line-height:1.65;color:#4e535a}
-.switcher{display:flex;gap:8px;margin-bottom:14px}.switcher button{border:1px solid var(--line);background:#fff;color:#555;border-radius:9px;padding:9px 16px;font:inherit;font-size:12px;font-weight:950;cursor:pointer}.switcher button.active{background:var(--black);color:#fff;border-color:var(--black)}
 .chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
 .rankgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.rankrow{display:grid;grid-template-columns:30px 1fr 75px;gap:7px;padding:7px 0;border-bottom:1px solid #eee}
 .rankname b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rankname span{font-size:10px;color:var(--muted)}.rankval{text-align:right;font-weight:950}.rankno{color:var(--muted);font-weight:900}
@@ -56,26 +55,20 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 </head>
 <body>
 <header class="top">
-<div class="topin"><div class="logo"><i>TAC</i> 投資早報｜<span id="universeTitle">S&P 500</span> 波動率</div><div class="status" id="status">載入中…</div></div>
+<div class="topin"><div class="logo"><i>TAC</i> 投資早報｜美股個股波動率</div><div class="status" id="status">載入中…</div></div>
 <div class="updatebar"><span>● 資料更新：<b id="updatedTW">載入中…</b></span><span>● 預定更新：<b>美股收盤後自動更新</b></span></div>
 <nav><a href="index.html">← 投資早報</a><a href="#overview">總覽</a><a href="#ranking">排名</a><a href="#sectors">產業</a><a href="#stocks">成分股</a></nav>
 </header>
 
 <main class="wrap">
 <section id="overview">
-<div class="switcher">
-<button id="spBtn" class="active">S&P 500</button>
-<button id="ndxBtn">Nasdaq-100</button>
-</div>
-
 <div class="grid kpi" id="kpis"></div>
 <div style="height:14px"></div>
-
 <section class="grid two">
 <article class="card bluf">
-<div class="title"><span id="overviewTitle">S&P 500 波動率總覽</span><small>Actual Data</small></div>
+<div class="title"><span>美股個股波動率總覽</span><small>Actual Data</small></div>
 <h1>20D / 30D / 60D / 90D 年化歷史波動率</h1>
-<p>公式：<b>std[ln(Pt/Pt−1)] × √252</b>。90D 指最近90個交易日。資料由 GitHub Actions 更新；資料不足不估算。</p>
+<p>股票池：<b>S&P 500 + Nasdaq-100</b>。兩指數重複成分只計算一次；全部股票放在同一排名池中直接比較。公式：<b>std[ln(Pt/Pt−1)] × √252</b>。90D 指最近90個交易日；資料不足不估算。</p>
 <div class="chips"><span class="chip">90D</span><span class="chip">60D</span><span class="chip">30D</span><span class="chip">20D</span><span class="chip">20D/90D</span></div>
 </article>
 <article class="card"><div class="title">資料品質</div><div id="quality" class="note">載入中…</div></article>
@@ -84,19 +77,19 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 
 <div style="height:14px"></div>
 <section id="ranking" class="card">
-<div class="title">90D 波動率排名 <small>年化</small></div>
+<div class="title">90D 波動率排名 <small>年化｜S&P 500 + Nasdaq-100 綜合</small></div>
 <div class="rankgrid"><div><div class="label">最高 Top 20</div><div id="top20"></div></div><div><div class="label">最低 Bottom 20</div><div id="bottom20"></div></div></div>
 </section>
 
 <div style="height:14px"></div>
 <section id="sectors" class="card">
-<div class="title"><span id="sectorTitle">11大產業波動率</span><small>90D 平均／中位數</small></div>
+<div class="title"><span>11大產業波動率</span><small>90D 平均／中位數｜綜合股票池</small></div>
 <div id="sectorGrid" class="sectors"></div>
 </section>
 
 <div style="height:14px"></div>
 <section id="stocks" class="card">
-<div class="title"><span id="stocksTitle">S&P 500 + Nasdaq 100 成份股</span><small id="count"></small></div>
+<div class="title"><span>S&P 500 + Nasdaq 100 成份股</span><small id="count"></small></div>
 <div class="controls">
 <input id="search" placeholder="搜尋代號或公司名稱…">
 <select id="sector"><option value="">全部產業</option></select>
@@ -131,49 +124,75 @@ const CN={
 "Information Technology":"資訊科技","Materials":"原材料","Real Estate":"房地產","Utilities":"公用事業"
 };
 
-const UNIVERSES={
-sp500:{name:"S&P 500",file:"data/sp500_volatility.json",label:"S&P 500",note:"標普500"},
-nasdaq100:{name:"Nasdaq-100",file:"data/nasdaq100_volatility.json",label:"Nasdaq-100",note:"Nasdaq-100"}
-};
-
-let universe="sp500",D=null,S=[],P={},key="vol_90d",desc=true;
+let D=null,S=[],P={},key="vol_90d",desc=true;
 
 const pct=x=>Number.isFinite(Number(x))?(Number(x)*100).toFixed(2)+"%":"—";
 const num=x=>Number.isFinite(Number(x))?Number(x).toLocaleString(undefined,{maximumFractionDigits:2}):"—";
 const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
 function formatTW(iso){let d=new Date(iso);if(!Number.isFinite(d.getTime()))return iso;return new Intl.DateTimeFormat("zh-TW",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)}
 
-function setUniverseButtons(){
-  spBtn.classList.toggle("active",universe==="sp500");
-  ndxBtn.classList.toggle("active",universe==="nasdaq100");
+function mergeStocks(sp,ndx){
+  const map=new Map();
+  [...sp,...ndx].forEach(x=>{
+    const t=String(x.ticker||"").trim().toUpperCase();
+    if(!t)return;
+    if(!map.has(t))map.set(t,{...x});
+    else{
+      const old=map.get(t);
+      map.set(t,{
+        ...old,...x,
+        company:old.company||x.company,
+        sector:old.sector||x.sector,
+        price:Number.isFinite(Number(old.price))?old.price:x.price,
+        vol_20d:Number.isFinite(Number(old.vol_20d))?old.vol_20d:x.vol_20d,
+        vol_30d:Number.isFinite(Number(old.vol_30d))?old.vol_30d:x.vol_30d,
+        vol_60d:Number.isFinite(Number(old.vol_60d))?old.vol_60d:x.vol_60d,
+        vol_90d:Number.isFinite(Number(old.vol_90d))?old.vol_90d:x.vol_90d,
+        return_90d:Number.isFinite(Number(old.return_90d))?old.return_90d:x.return_90d,
+        max_drawdown_90d:Number.isFinite(Number(old.max_drawdown_90d))?old.max_drawdown_90d:x.max_drawdown_90d,
+        vol_ratio_20d_90d:Number.isFinite(Number(old.vol_ratio_20d_90d))?old.vol_ratio_20d_90d:x.vol_ratio_20d_90d
+      });
+    }
+  });
+  return [...map.values()];
+}
+
+function makeSummary(arr){
+  const v=arr.filter(x=>x.valid&&Number.isFinite(Number(x.vol_90d))).map(x=>Number(x.vol_90d));
+  const avg=v.length?v.reduce((a,b)=>a+b,0)/v.length:null;
+  const s=[...v].sort((a,b)=>a-b);
+  const med=s.length?s[Math.floor((s.length-1)/2)]:null;
+  return {constituents:arr.length,valid:v.length,average_vol_90d:avg,median_vol_90d:med,max_vol_90d:v.length?Math.max(...v):null,min_vol_90d:v.length?Math.min(...v):null};
 }
 
 function renderKPI(){
-  let s=D.summary||{},q=D.data_quality||{};
+  let s=makeSummary(S);
+  let coverage=S.length?s.valid/S.length:0;
   let arr=[
-    ["成分證券",s.constituents??S.length,"實際納入"],
-    ["有效資料",s.valid??q.valid_count??0,pct(q.coverage||0)+" 覆蓋"],
+    ["綜合成分證券",s.constituents,"S&P 500 + Nasdaq-100 去重"],
+    ["有效資料",s.valid,pct(coverage)+" 覆蓋"],
     ["90D平均",pct(s.average_vol_90d),"年化"],
     ["90D中位數",pct(s.median_vol_90d),"年化"],
-    ["90D最高",pct(s.max_vol_90d),"成分證券最高"],
-    ["90D最低",pct(s.min_vol_90d),"成分證券最低"]
+    ["90D最高",pct(s.max_vol_90d),"綜合股票池最高"],
+    ["90D最低",pct(s.min_vol_90d),"綜合股票池最低"]
   ];
   kpis.innerHTML=arr.map(x=>'<div class="card"><div class="label">'+x[0]+'</div><div class="value">'+x[1]+'</div><div class="sub">'+x[2]+'</div></div>').join("");
 }
 
 function renderQuality(){
-  let q=D.data_quality||{},m=D.meta||{};
-  let tw=formatTW(m.updated_at);
+  const metas=[D.meta_sp500||{},D.meta_nasdaq100||{}];
+  const dates=metas.map(m=>m.updated_at).filter(Boolean).sort().reverse();
+  const tw=dates.length?formatTW(dates[0]):"—";
   updatedTW.textContent=tw+"（台灣時間）";
+  const spN=D.source_counts?.sp500??"—", ndxN=D.source_counts?.nasdaq100??"—";
   quality.innerHTML=
-    '<b>更新：</b>'+esc(tw)+'<br>'+
-    '<b>價格來源：</b>'+esc(m.price_source||"—")+'<br>'+
-    '<b>成分股來源：</b>'+esc(m.constituent_source||"—")+'<br>'+
-    '<b>型態：</b><span class="pos">'+esc(m.data_type||"Actual")+'｜非 Demo</span><br>'+
-    '<b>有效：</b>'+esc(q.valid_count??"—")+' / '+esc(q.constituent_count??S.length)+
-    '｜<b>缺失：</b>'+esc(q.missing_count??"—")+
-    (universe==="nasdaq100"?'<br><b>說明：</b>Nasdaq-100 可因多重股權類別而出現超過100檔證券。':"");
-  status.textContent="更新："+tw+"｜Actual｜"+UNIVERSES[universe].name;
+    "<b>更新：</b>"+esc(tw)+"<br>"+
+    "<b>股票池：</b>S&P 500 + Nasdaq-100，重複股票去重<br>"+
+    "<b>來源：</b>S&P 500 與 Nasdaq-100 各自波動率資料檔合併<br>"+
+    "<b>型態：</b><span class=\"pos\">Actual｜非 Demo</span><br>"+
+    "<b>原始資料：</b>S&P 500 "+spN+" 檔｜Nasdaq-100 "+ndxN+" 檔<br>"+
+    "<b>綜合有效：</b>"+S.filter(x=>x.valid&&Number.isFinite(Number(x.vol_90d))).length+" / "+S.length;
+  status.textContent="更新："+tw+"｜Actual｜S&P 500 + Nasdaq-100 綜合";
 }
 
 function renderRank(){
@@ -218,7 +237,6 @@ function renderTable(){
     '<td class="neg">'+pct(x.max_drawdown_90d)+'</td>'+
     '<td>'+((Number.isFinite(Number(x.vol_ratio_20d_90d)))?Number(x.vol_ratio_20d_90d).toFixed(2):"—")+
     '</td></tr>').join("");
-
   document.querySelectorAll("#body tr").forEach(r=>r.onclick=e=>{if(!e.target.closest(".tickerbtn"))showDetail(r.dataset.t)});
   document.querySelectorAll(".tickerbtn").forEach(b=>b.onclick=e=>{e.stopPropagation();openProfile(b.dataset.t)});
 }
@@ -248,60 +266,31 @@ function openProfile(t){
   let profiles=P.companies||{};
   let p=profiles[t]||profiles[x.yahoo_ticker]||{};
   let fin=p.financials||{},val=p.valuation||{},biz=p.business||{},loc=p.location||{},market=p.market||{},src=p.source||{},periods=p.periods||{};
-
   pmTitle.textContent=(p.company||x.company||t)+"｜"+t;
-  pmSub.textContent=[
-    CN[p.sector]||p.sector||CN[x.sector]||x.sector,
-    p.industry,loc.city,loc.state,loc.country
-  ].filter(Boolean).join("｜")||"公司基本面";
-
+  pmSub.textContent=[CN[p.sector]||p.sector||CN[x.sector]||x.sector,p.industry,loc.city,loc.state,loc.country].filter(Boolean).join("｜")||"公司基本面";
   const pctField=v=>Number.isFinite(Number(v))?(Number(v)*100).toFixed(2)+"%":"—";
-  const multiple=v=>{
-    if(!Number.isFinite(Number(v)))return "—";
-    let n=Number(v);
-    return n<=0?"不適用":n.toFixed(2)+"x";
-  };
-  const peNote=v=>{
-    if(!Number.isFinite(Number(v)))return "—";
-    let n=Number(v);
-    return n<=0?"虧損／P/E不適用":n.toFixed(2)+"x";
-  };
-
+  const multiple=v=>{if(!Number.isFinite(Number(v)))return "—";let n=Number(v);return n<=0?"不適用":n.toFixed(2)+"x"};
+  const peNote=v=>{if(!Number.isFinite(Number(v)))return "—";let n=Number(v);return n<=0?"虧損／P/E不適用":n.toFixed(2)+"x"};
   let stats=[
-    ["市值",fmtMoney(val.market_cap)],
-    ["TTM P/E",peNote(val.trailing_pe)],
-    ["Forward P/E",multiple(val.forward_pe)],
-    ["P/B",multiple(val.price_to_book)],
-    ["ROE",pctField(fin.roe)],
-    ["自由現金流",fmtMoney(fin.free_cash_flow)],
-    ["目前價格",fv(market.current_price)],
-    ["90D 波動率",pct(x.vol_90d)]
+    ["市值",fmtMoney(val.market_cap)],["TTM P/E",peNote(val.trailing_pe)],["Forward P/E",multiple(val.forward_pe)],["P/B",multiple(val.price_to_book)],
+    ["ROE",pctField(fin.roe)],["自由現金流",fmtMoney(fin.free_cash_flow)],["目前價格",fv(market.current_price)],["90D 波動率",pct(x.vol_90d)]
   ];
-  pmStats.innerHTML=stats.map(a=>'<div class="pmini"><div class="label">'+a[0]+'</div><div class="pv">'+a[1]+'</div></div>').join("");
-
+  pmStats.innerHTML=stats.map(a=>'<div class="pmini"><div class="label">'+a[0]+'</div><div class="pv">'+a[1]+"</div></div>").join("");
   let financial=[
-    ["營收",fmtMoney(fin.revenue)],["營收成長 YoY",pctField(fin.revenue_growth_yoy)],
-    ["毛利率",pctField(fin.gross_margin)],["營業利益率",pctField(fin.operating_margin)],
-    ["淨利率",pctField(fin.net_margin)],["EPS",fv(fin.eps_diluted)],
-    ["ROE",pctField(fin.roe)],["ROA",pctField(fin.roa)],
-    ["營業現金流",fmtMoney(fin.operating_cash_flow)],["自由現金流",fmtMoney(fin.free_cash_flow)],
-    ["現金",fmtMoney(fin.cash)],["總負債",fmtMoney(fin.total_debt)],
+    ["營收",fmtMoney(fin.revenue)],["營收成長 YoY",pctField(fin.revenue_growth_yoy)],["毛利率",pctField(fin.gross_margin)],["營業利益率",pctField(fin.operating_margin)],
+    ["淨利率",pctField(fin.net_margin)],["EPS",fv(fin.eps_diluted)],["ROE",pctField(fin.roe)],["ROA",pctField(fin.roa)],
+    ["營業現金流",fmtMoney(fin.operating_cash_flow)],["自由現金流",fmtMoney(fin.free_cash_flow)],["現金",fmtMoney(fin.cash)],["總負債",fmtMoney(fin.total_debt)],
     ["Debt / Equity",fv(fin.debt_to_equity)],["Current Ratio",fv(fin.current_ratio)]
   ];
   let valuation=[
-    ["TTM P/E",peNote(val.trailing_pe)],["Forward P/E",multiple(val.forward_pe)],
-    ["P/B",multiple(val.price_to_book)],["P/S",multiple(val.price_to_sales)],
-    ["PEG",multiple(val.peg_ratio)],["EV / EBITDA",multiple(val.ev_to_ebitda)],
-    ["P / FCF",multiple(val.price_to_fcf)],["股息殖利率",pctField(val.dividend_yield)]
+    ["TTM P/E",peNote(val.trailing_pe)],["Forward P/E",multiple(val.forward_pe)],["P/B",multiple(val.price_to_book)],["P/S",multiple(val.price_to_sales)],
+    ["PEG",multiple(val.peg_ratio)],["EV / EBITDA",multiple(val.ev_to_ebitda)],["P / FCF",multiple(val.price_to_fcf)],["股息殖利率",pctField(val.dividend_yield)]
   ];
   let volatility=[
-    ["20D HV",pct(x.vol_20d)],["30D HV",pct(x.vol_30d)],["60D HV",pct(x.vol_60d)],
-    ["90D HV",pct(x.vol_90d)],["90D 報酬",pct(x.return_90d)],
-    ["最大回撤",pct(x.max_drawdown_90d)],
-    ["20D / 90D",Number.isFinite(Number(x.vol_ratio_20d_90d))?Number(x.vol_ratio_20d_90d).toFixed(2):"—"]
+    ["20D HV",pct(x.vol_20d)],["30D HV",pct(x.vol_30d)],["60D HV",pct(x.vol_60d)],["90D HV",pct(x.vol_90d)],["90D 報酬",pct(x.return_90d)],
+    ["最大回撤",pct(x.max_drawdown_90d)],["20D / 90D",Number.isFinite(Number(x.vol_ratio_20d_90d))?Number(x.vol_ratio_20d_90d).toFixed(2):"—"]
   ];
-  const rows=arr=>arr.map(a=>'<div class="prow"><div>'+a[0]+'</div><div>'+a[1]+'</div></div>').join("");
-
+  const rows=arr=>arr.map(a=>'<div class="prow"><div>'+a[0]+'</div><div>'+a[1]+"</div></div>").join("");
   const businessSummary=biz.summary||"目前尚未取得公司公開業務簡介。";
   const advantage=p.competitive_advantages||"公開資料尚未完成競爭優勢整理；暫不以推測代替事實。";
   const advantageSource=p.competitive_advantages_source||p.competitive_advantages_status||"待補充來源";
@@ -309,80 +298,56 @@ function openProfile(t){
   const financialSource=src.financial_statements||sourceName;
   const fetched=src.fetched_at_utc||"";
   const periodNote=periods.revenue||periods.net_income||"—";
-
   let profileNotice="";
-  if(universe==="nasdaq100" && !p.company){
-    profileNotice='<div class="warn">目前 Nasdaq-100 已有實際波動率資料；公司基本面資料庫尚未涵蓋此公司，因此下方基本面欄位不以推測補值。待公司資料管線擴充後再顯示。</div>';
-  }
-
-  pmContent.innerHTML=
-    profileNotice+
-    '<div class="psection"><h3>核心業務</h3><div class="ptext">'+esc(businessSummary)+'</div></div>'+
-    '<div class="psection"><h3>競爭優勢／競爭地位</h3><div class="ptext">'+esc(advantage)+'</div><div class="note" style="margin-top:6px">來源／狀態：'+esc(advantageSource)+'</div></div>'+
-    '<div class="psection"><h3>財務狀況</h3><div class="ptable">'+rows(financial)+'</div></div>'+
-    '<div class="psection"><h3>估值</h3><div class="ptable">'+rows(valuation)+'</div></div>'+
-    '<div class="psection"><h3>波動與報酬</h3><div class="ptable">'+rows(volatility)+'</div></div>'+
+  if(!p.company) profileNotice='<div class="warn">目前已有實際個股波動率資料；公司基本面資料庫尚未涵蓋此公司，因此下方基本面欄位不以推測補值。</div>';
+  pmContent.innerHTML=profileNotice+
+    '<div class="psection"><h3>核心業務</h3><div class="ptext">'+esc(businessSummary)+"</div></div>"+
+    '<div class="psection"><h3>競爭優勢／競爭地位</h3><div class="ptext">'+esc(advantage)+'</div><div class="note" style="margin-top:6px">來源／狀態：'+esc(advantageSource)+"</div></div>"+
+    '<div class="psection"><h3>財務狀況</h3><div class="ptable">'+rows(financial)+"</div></div>"+
+    '<div class="psection"><h3>估值</h3><div class="ptable">'+rows(valuation)+"</div></div>"+
+    '<div class="psection"><h3>波動與報酬</h3><div class="ptable">'+rows(volatility)+"</div></div>"+
     '<div class="psection"><h3>資料期間與來源</h3><div class="ptext">財務資料期間：'+esc(periodNote)+
-    '\n資料抓取時間：'+esc(fetched||"—")+
-    '\n公司基本面／市場資料：'+esc(sourceName)+
-    '\n財務報表資料：'+esc(financialSource)+
-    '\n個股波動率：'+esc(D?.meta?.price_source||"—")+'</div></div>'+
-    '<div class="profilelinks">'+
-    (p.website?'<a target="_blank" rel="noopener" href="'+esc(p.website)+'">公司網站</a>':'')+
-    '<a target="_blank" rel="noopener" href="https://finance.yahoo.com/quote/'+encodeURIComponent(t)+'">Yahoo Finance</a>'+
-    '</div>';
-
+    "\\n資料抓取時間："+esc(fetched||"—")+"\\n公司基本面／市場資料："+esc(sourceName)+"\\n財務報表資料："+esc(financialSource)+
+    "\\n個股波動率：Yahoo Finance via yfinance</div></div>"+
+    '<div class="profilelinks">'+(p.website?'<a target="_blank" rel="noopener" href="'+esc(p.website)+'">公司網站</a>':"")+
+    '<a target="_blank" rel="noopener" href="https://finance.yahoo.com/quote/'+encodeURIComponent(t)+'">Yahoo Finance</a></div>';
   profileModal.classList.add("show");profileModal.setAttribute("aria-hidden","false");
 }
-
 function closeProfile(){profileModal.classList.remove("show");profileModal.setAttribute("aria-hidden","true")}
 
-async function loadUniverse(next){
-  universe=next;
-  setUniverseButtons();
-  document.getElementById("detail").classList.remove("show");
-  let u=UNIVERSES[universe];
+async function init(){
   try{
-    status.textContent="載入 "+u.name+"…";
-    let r=await fetch(u.file+"?v="+Date.now(),{cache:"no-store"});
-    if(!r.ok)throw Error("波動率資料 HTTP "+r.status);
-    D=await r.json();
-    S=D.stocks||[];
-    if(!Array.isArray(S)||!S.length)throw Error("資料格式錯誤：stocks 為空");
-
-    universeTitle.textContent=u.name;
-    overviewTitle.textContent=u.name+" 波動率總覽";
-    stocksTitle.textContent=u.name+" 成分證券";
-    sectorTitle.textContent=(universe==="sp500"?"11大產業":"Nasdaq-100 產業")+"波動率";
-
+    const [spR,ndxR,prR]=await Promise.all([
+      fetch("data/sp500_volatility.json?v="+Date.now(),{cache:"no-store"}),
+      fetch("data/nasdaq100_volatility.json?v="+Date.now(),{cache:"no-store"}),
+      fetch("data/company_profiles.json?v="+Date.now(),{cache:"no-store"})
+    ]);
+    if(!spR.ok)throw Error("S&P 500 資料 HTTP "+spR.status);
+    if(!ndxR.ok)throw Error("Nasdaq-100 資料 HTTP "+ndxR.status);
+    const sp=await spR.json(),ndx=await ndxR.json();
+    P=prR.ok?await prR.json():{companies:{}};
+    S=mergeStocks(sp.stocks||[],ndx.stocks||[]);
+    if(!S.length)throw Error("綜合資料為空");
+    D={
+      stocks:S,
+      meta_sp500:sp.meta||{},
+      meta_nasdaq100:ndx.meta||{},
+      source_counts:{sp500:(sp.stocks||[]).length,nasdaq100:(ndx.stocks||[]).length}
+    };
     renderKPI();renderQuality();renderRank();renderSectors();
-
     let ss=[...new Set(S.map(x=>x.sector).filter(Boolean))].sort();
     sector.innerHTML='<option value="">全部產業</option>'+ss.map(x=>'<option value="'+esc(x)+'">'+esc(CN[x]||x)+"</option>").join("");
     renderTable();
   }catch(e){
     status.textContent="資料載入失敗";
     quality.innerHTML='<b style="color:#c62828">資料載入失敗：</b>'+esc(e.message);
-    body.innerHTML='<tr><td colspan="12" style="text-align:center;padding:30px;color:#c62828">無法載入資料：'+esc(e.message)+"</td></tr>";
+    body.innerHTML='<tr><td colspan="12" style="text-align:center;padding:30px;color:#c62828">無法載入綜合資料：'+esc(e.message)+"</td></tr>";
   }
 }
-
-async function init(){
-  try{
-    let pr=await fetch("data/company_profiles.json?v="+Date.now(),{cache:"no-store"});
-    if(pr.ok)P=await pr.json();else P={companies:{}};
-  }catch(e){P={companies:{}}}
-  await loadUniverse("sp500");
-}
-
-spBtn.onclick=()=>loadUniverse("sp500");
-ndxBtn.onclick=()=>loadUniverse("nasdaq100");
 pmClose.onclick=closeProfile;
 profileModal.onclick=e=>{if(e.target===profileModal)closeProfile()};
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeProfile()});
-search.oninput=renderTable;
-sector.onchange=renderTable;
-metric.onchange=e=>{key=e.target.value;renderTable()};
+search.oninput=renderTable;sector.onchange=renderTable;metric.onchange=e=>{key=e.target.value;renderTable()};
 dir.onclick=e=>{desc=!desc;e.target.textContent=desc?"由高至低":"由低至高";renderTable()};
 init();
 </script>
