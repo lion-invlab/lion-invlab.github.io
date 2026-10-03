@@ -2,6 +2,10 @@
 Nasdaq-100 historical volatility data updater.
 
 Primary constituent source:
+    Nasdaq official API endpoint on api.nasdaq.com
+    https://api.nasdaq.com/api/quote/list-type/nasdaq100
+
+Reference:
     Nasdaq Global Indexes - NDX Weighting
     https://indexes.nasdaq.com/Index/Weighting/NDX
 
@@ -27,14 +31,15 @@ import os
 import re
 import time
 from datetime import datetime, timezone
-from html.parser import HTMLParser
+from datetime import date, datetime, timezone
 
 import pandas as pd
 import requests
 import yfinance as yf
 
 
-CONSTITUENTS_URL = "https://indexes.nasdaq.com/Index/Weighting/NDX"
+CONSTITUENTS_URL = "https://api.nasdaq.com/api/quote/list-type/nasdaq100"
+OFFICIAL_WEIGHTING_URL = "https://indexes.nasdaq.com/Index/Weighting/NDX"
 OUTPUT_FILE = "data/nasdaq100_volatility.json"
 
 MIN_REQUIRED_DAYS = 95
@@ -46,53 +51,6 @@ UA = (
     "AppleWebKit/537.36 (KHTML, like Gecko) "
     "Chrome/140.0 Safari/537.36"
 )
-
-
-class TableParser(HTMLParser):
-    """Small stdlib-only HTML table parser."""
-
-    def __init__(self):
-        super().__init__()
-        self.in_table = False
-        self.in_row = False
-        self.in_cell = False
-        self.current_row = []
-        self.current_cell = []
-        self.tables = []
-        self._table_depth = 0
-
-    def handle_starttag(self, tag, attrs):
-        tag = tag.lower()
-        if tag == "table":
-            self.in_table = True
-            self._table_depth += 1
-        elif self.in_table and tag == "tr":
-            self.in_row = True
-            self.current_row = []
-        elif self.in_table and tag in ("td", "th") and self.in_row:
-            self.in_cell = True
-            self.current_cell = []
-
-    def handle_endtag(self, tag):
-        tag = tag.lower()
-        if tag in ("td", "th") and self.in_cell:
-            value = " ".join("".join(self.current_cell).split())
-            self.current_row.append(value)
-            self.current_cell = []
-            self.in_cell = False
-        elif tag == "tr" and self.in_row:
-            if self.current_row:
-                self.tables.append(self.current_row)
-            self.current_row = []
-            self.in_row = False
-        elif tag == "table":
-            self._table_depth = max(0, self._table_depth - 1)
-            if self._table_depth == 0:
-                self.in_table = False
-
-    def handle_data(self, data):
-        if self.in_cell:
-            self.current_cell.append(data)
 
 
 def yahoo_symbol(symbol):
@@ -145,121 +103,124 @@ def max_drawdown(prices):
     return float(drawdown.min())
 
 
-def normalize_header(value):
-    return re.sub(r"[^a-z0-9]+", " ", str(value).lower()).strip()
-
-
-def extract_nasdaq_rows(html):
-    """
-    Extract rows containing a company name and security symbol from Nasdaq's
-    official NDX weighting page.
-
-    The page is allowed to change its HTML layout. We therefore search all
-    parsed table rows rather than depending on a fixed table number.
-    """
-    parser = TableParser()
-    parser.feed(html)
-
-    candidates = []
-
-    for row in parser.tables:
-        if len(row) < 2:
-            continue
-
-        normalized = [normalize_header(x) for x in row]
-
-        # Typical official Nasdaq table:
-        # Number | Company Name | Security Symbol
-        symbol_index = None
-        company_index = None
-
-        for i, value in enumerate(normalized):
-            if value in ("security symbol", "symbol", "ticker"):
-                symbol_index = i
-            if value in ("company name", "company"):
-                company_index = i
-
-        if symbol_index is not None and company_index is not None:
-            continue  # header row
-
-        # For data rows, infer the last short uppercase token as ticker.
-        ticker = None
-        ticker_index = None
-        for i in range(len(row) - 1, -1, -1):
-            token = str(row[i]).strip().upper()
-            if re.fullmatch(r"[A-Z][A-Z0-9.-]{0,9}", token):
-                if token not in {
-                    "NDX", "NASDAQ", "NUMBER", "COMPANY", "NAME",
-                    "SECURITY", "SYMBOL", "DATE", "FILTER"
-                }:
-                    ticker = token
-                    ticker_index = i
-                    break
-
-        if not ticker or ticker_index is None:
-            continue
-
-        # Company name is normally immediately before the symbol.
-        company = ""
-        for i in range(ticker_index - 1, -1, -1):
-            text = str(row[i]).strip()
-            if text and not text.isdigit():
-                company = text
-                break
-
-        if not company:
-            continue
-
-        candidates.append(
-            {
-                "ticker": ticker,
-                "company": company,
-            }
-        )
-
-    # Deduplicate while preserving order.
-    seen = set()
-    result = []
-    for item in candidates:
-        ticker = yahoo_symbol(item["ticker"])
-        if ticker in seen:
-            continue
-        seen.add(ticker)
-        result.append(
-            {
-                "ticker": item["ticker"],
-                "yahoo_ticker": ticker,
-                "company": item["company"],
-            }
-        )
-
-    # The NDX represents 100 companies, but may contain slightly more
-    # securities because multiple eligible share classes can be included.
-    if not (95 <= len(result) <= 110):
-        raise RuntimeError(
-            f"Unexpected Nasdaq-100 constituent count: {len(result)}. "
-            "Official Nasdaq page layout/content may have changed; "
-            "refusing to write potentially incorrect data."
-        )
-
-    return result
+def clean_company_name(value):
+    name = str(value).strip()
+    # Keep the official Nasdaq name, but remove the generic security suffix
+    # so the Dashboard displays a cleaner company name.
+    name = re.sub(
+        r"\\s+(Common Stock|Class A Common Stock|Class B Common Stock|"
+        r"Class C Capital Stock|Ordinary Shares|American Depositary Shares)$",
+        "",
+        name,
+        flags=re.IGNORECASE,
+    )
+    return name.strip()
 
 
 def download_official_constituents():
-    print("Loading Nasdaq-100 constituents from official Nasdaq...")
+    """
+    Retrieve the Nasdaq-100 security list from Nasdaq's own API endpoint.
+
+    The public Nasdaq weighting page is dynamically rendered, so the old
+    HTML-table parser could see zero rows inside GitHub Actions. The
+    api.nasdaq.com endpoint returns the component list as JSON and is hosted
+    on Nasdaq's own domain.
+
+    Nasdaq announced on 2026-10-01 that MRNA will replace WBD effective
+    before market open on 2026-10-09. We apply that announced effective-date
+    change locally so the pipeline does not wait for a stale API snapshot.
+    """
+    print("Loading Nasdaq-100 constituents from Nasdaq...")
+
     response = requests.get(
         CONSTITUENTS_URL,
-        headers={"User-Agent": UA},
+        headers={
+            "User-Agent": UA,
+            "Accept": "application/json, text/plain, */*",
+            "Referer": OFFICIAL_WEIGHTING_URL,
+        },
         timeout=30,
     )
     response.raise_for_status()
 
-    rows = extract_nasdaq_rows(response.text)
+    payload = response.json()
+    rows = (
+        payload.get("data", {})
+        .get("data", {})
+        .get("rows", [])
+    )
 
-    print(f"Official Nasdaq constituent securities found: {len(rows)}")
+    if not rows:
+        raise RuntimeError(
+            "Nasdaq API returned no constituent rows; "
+            "refusing to write potentially incorrect data."
+        )
 
-    return rows
+    api_date = payload.get("data", {}).get("date")
 
+    constituents = []
+    seen = set()
+
+    for row in rows:
+        symbol = str(row.get("symbol", "")).strip().upper()
+        company = clean_company_name(row.get("companyName", ""))
+
+        if not symbol or not company:
+            continue
+
+        yahoo_ticker = yahoo_symbol(symbol)
+
+        if yahoo_ticker in seen:
+            continue
+
+        seen.add(yahoo_ticker)
+        constituents.append(
+            {
+                "ticker": symbol,
+                "yahoo_ticker": yahoo_ticker,
+                "company": company,
+            }
+        )
+
+    # Nasdaq's API may temporarily lag the live GIW page. The latest
+    # announced constituent change is effective 2026-10-09.
+    effective_date = date(2026, 10, 9)
+
+    symbols = {x["ticker"] for x in constituents}
+
+    if date.today() >= effective_date:
+        constituents = [
+            x for x in constituents
+            if x["ticker"] != "WBD"
+        ]
+
+        if "MRNA" not in symbols:
+            constituents.append(
+                {
+                    "ticker": "MRNA",
+                    "yahoo_ticker": "MRNA",
+                    "company": "Moderna, Inc.",
+                }
+            )
+
+    # The Nasdaq-100 can have more than 100 securities because multiple
+    # share classes can be represented. Nasdaq's current fact sheet reports
+    # 101 securities. Refuse obviously broken responses.
+    if not (95 <= len(constituents) <= 110):
+        raise RuntimeError(
+            f"Unexpected Nasdaq-100 constituent count: {len(constituents)}. "
+            "Refusing to write potentially incorrect data."
+        )
+
+    print(
+        f"Nasdaq API snapshot date: {api_date}; "
+        f"constituent securities after announced changes: {len(constituents)}"
+    )
+
+    if date.today() < effective_date:
+        print("Scheduled change: MRNA replaces WBD effective 2026-10-09.")
+
+    return constituents
 
 def download_prices(tickers):
     print(f"Downloading {len(tickers)} tickers from Yahoo Finance...")
@@ -476,6 +437,7 @@ def main():
                 "Nasdaq Global Indexes - NDX Weighting"
             ),
             "constituent_url": CONSTITUENTS_URL,
+            "official_weighting_page": OFFICIAL_WEIGHTING_URL,
             "data_type": "actual",
             "demo_data": False,
         },
