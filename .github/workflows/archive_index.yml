@@ -1,0 +1,41 @@
+name: Archive TAC Morning Report
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * *"
+      timezone: "Asia/Taipei"
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Archive previous TAC report
+        run: |
+          test -f index.html
+
+          ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "yesterday" +%Y-%m-%d)
+
+          mkdir -p history
+
+          cp index.html "history/index_${ARCHIVE_DATE}.html"
+
+          echo "Archived index.html to history/index_${ARCHIVE_DATE}.html"
+
+      - name: Commit archived report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add history/
+
+          git diff --cached --quiet || git commit -m "Archive TAC report"
+
+          git push
