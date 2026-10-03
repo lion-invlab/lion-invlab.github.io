@@ -3,215 +3,237 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TAC 投資早報｜2026/10/03（六） Dashboard</title>
+<title>TAC 投資早報｜2026/10/02 Dashboard</title>
 <style>
-:root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
+:root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00;--soft:#fafafa}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
 .top{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.topin{max-width:1540px;margin:auto;padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--red)}.status{font-size:12px;color:var(--muted)}
-.nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}.nav a.vol{background:#000;color:#ffd400}
-.wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:10px;color:var(--muted);font-weight:850;letter-spacing:.3px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
+.nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}
+.switch{display:flex;gap:6px;flex-wrap:wrap;margin:-2px 0 12px}.volbtn{display:inline-block;background:var(--black);color:#fff;text-decoration:none;font-weight:900;border-radius:8px;padding:8px 12px;font-size:11px}.nav a.vol{background:#000;color:#ffd400}.nav a.vol:hover{background:#111;color:#ffd400}
+.wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}
+.label{font-size:10px;color:var(--muted);font-weight:850;letter-spacing:.3px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
 .title{font-size:15px;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
-.sent{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
+.sent{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.switch{display:flex;gap:6px;flex-wrap:wrap;margin:-2px 0 12px}.switch a{display:inline-block;text-decoration:none;color:var(--ink);background:#f4f5f6;border:1px solid var(--line);border-radius:99px;padding:7px 12px;font-size:11px;font-weight:900}.switch a:hover{background:var(--black);color:#fff;border-color:var(--black)}.volbox{border:1px solid var(--line);border-radius:9px;padding:13px}.volbox .v{font-size:28px;font-weight:950;font-variant-numeric:tabular-nums}.volbox .meta{font-size:10px;color:var(--muted);line-height:1.5;margin-top:5px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
 table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
 .event{display:grid;grid-template-columns:58px 1fr 68px;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.event:last-child{border:0}.event .d{font-weight:950;color:var(--red)}.event b{display:block}.event span{font-size:10px;color:var(--muted);line-height:1.5}.impact{text-align:right;font-weight:900}.high{color:var(--red)}
 .callout{padding:12px;border-radius:8px;background:#fafafa;border:1px solid var(--line);line-height:1.65;font-size:12px}.key{font-size:12px;line-height:1.7}.key b{font-weight:950}.pill{display:inline-block;border-radius:99px;padding:3px 7px;font-size:10px;font-weight:900;border:1px solid var(--line);margin-left:5px}
-.newsitem{padding:8px 0;border-bottom:1px solid #eee}.newsitem:last-child{border-bottom:0}.newsitem h3{font-size:13px;margin:0 0 4px}.newsitem p{font-size:11px;color:#555b63;line-height:1.55;margin:0}.newsmeta{font-size:9px;color:var(--muted);margin-top:4px}
+.sourcegrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.src{border:1px solid var(--line);border-radius:8px;padding:10px;font-size:11px;line-height:1.55}.src b{display:block;margin-bottom:3px}
 .footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
-@media(max-width:1200px){.kpi{grid-template-columns:repeat(4,1fr)}.three,.two{grid-template-columns:1fr}.sent{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.sent{grid-template-columns:1fr 1fr}.value{font-size:20px}.bluf h1{font-size:19px}.row{grid-template-columns:1.2fr .9fr .65fr}.footer{padding:0 14px 30px}}
-.report-date{font-size:.62em;font-weight:700;margin-left:5px;white-space:nowrap;color:#17191d}
-.market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
-.market-reason b{color:var(--red)}
-@media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
-.headline-desc{line-height:1.55;margin:7px 0 6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
-@media(max-width:700px){.headline-desc{line-height:1.5;-webkit-line-clamp:3}}
-
-.sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
-.sector-row{display:grid;grid-template-columns:32px 1fr 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
-.sector-row .rank{font-weight:800;color:#777;text-align:center}
-.sector-name b{font-size:14px}
-.sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
-.sector-pct{text-align:right;font-weight:800}
-.sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
-@media(max-width:700px){.sector-row{grid-template-columns:28px 1fr 64px}}
+@media(max-width:1200px){.kpi{grid-template-columns:repeat(4,1fr)}.three,.two{grid-template-columns:1fr}.sent{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.sent{grid-template-columns:1fr 1fr}.value{font-size:20px}.bluf h1{font-size:19px}.row{grid-template-columns:1.2fr .9fr .65fr}.footer{padding:0 14px 30px}}
 </style>
 </head>
 <body>
 <header class="top">
-<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/03（六）</span></div><div class="status">2026/10/03（六）｜資料基準：10/2 美國收盤；亞洲／歐洲採最新可核對收盤</div></div>
-<nav class="nav">
-<a class="vol" href="https://lion-invlab.github.io/volatility.html">📊 美股波動率查詢</a>
-<a href="#overview" class="active">總覽</a><a href="#global-focus">全球焦點新聞</a><a href="#headlines">市場熱門頭條</a><a href="#global">美國市場</a><a href="#us">產業表現</a><a href="#asia">亞洲市場</a><a href="#bonds">債券</a><a href="#fx">匯率</a><a href="#commodities">商品</a><a href="#sentiment">市場情緒</a><a href="#calendar">經濟行事曆</a><a href="#fed">Fed / FOMC</a><a href="#view">市場觀點</a>
-</nav></header>
+ <div class="topin"><div class="logo"><i>TAC</i> 投資早報</div><div class="status">2026/10/02｜資料基準：10/1 美國收盤；亞洲／歐洲採最新可核對收盤</div></div>
+ <nav class="nav"><a class="vol" href="https://lion-invlab.github.io/volatility.html">📊 S&amp;P 500 波動率</a>
+  <a href="#overview" class="active">總覽</a><a href="#global-focus">今日全球焦點</a><a href="#headlines">市場熱門頭條</a><a href="#global">美國市場</a><a href="#us">產業表現</a><a href="#asia">亞洲市場</a><a href="#bonds">債券</a><a href="#fx">匯率</a><a href="#commodities">商品</a><a href="#sentiment">市場情緒</a><a href="#calendar">經濟行事曆</a><a href="#fed">Fed / FOMC</a><a href="#view">市場觀點</a><a href="#sources">資料品質</a>
+ </nav>
+</header>
 
 <main class="wrap" id="overview">
-<section class="card" style="background:#000;color:#fff;border-color:#000;margin-bottom:14px">
-<div class="title" style="color:#fff"><span>📊 美股波動率查詢 Dashboard</span><small style="color:#bdbdbd">獨立 GitHub Pages</small></div>
-<div style="font-size:12px;line-height:1.75;color:#e8e8e8"><b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br><b>主要功能：</b>20D／30D／60D／90D 歷史波動率、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 + Nasdaq 100 成分股 Top／Bottom 20、11 大產業比較、波動率分布與個股 Rolling 90D HV。<br><b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態。</div>
-<a href="https://lion-invlab.github.io/volatility.html" style="display:inline-block;margin-top:12px;color:#ffd400;font-weight:950;text-decoration:none">→ 開啟 美股波動率查詢 Dashboard</a>
-</section>
+ <section class="card" style="background:#000;color:#fff;border-color:#000;margin-bottom:14px">
+  <div class="title" style="color:#fff"><span>📊 S&amp;P 500 波動率 Dashboard</span><small style="color:#bdbdbd">獨立 GitHub Pages</small></div>
+  <div style="font-size:12px;line-height:1.75;color:#e8e8e8">
+   <b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br>
+   <b>主要功能：</b>20D／30D／60D／90D 歷史波動率（HV）、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 500+ 成分股 Top／Bottom 20、11 大產業比較、波動率分布、個股頁與 Rolling 90D HV。<br>
+   <b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態，方便快速確認資料完整性。
+  </div>
+  <a href="https://lion-invlab.github.io/volatility.html" style="display:inline-block;margin-top:12px;color:#ffd400;font-weight:950;text-decoration:none">→ 開啟 S&amp;P 500 波動率 Dashboard</a>
+ </section>
+ <section class="grid kpi">
+  <div class="card"><div class="label">標普500指數（S&P 500）</div><div class="value">7,666.48</div><div class="chg up">+0.20%</div></div>
+  <div class="card"><div class="label">那斯達克綜合指數（NASDAQ）</div><div class="value">26,871.60</div><div class="chg up">+0.04%</div></div>
+  <div class="card"><div class="label">道瓊工業指數（Dow Jones）</div><div class="value">50,926.74</div><div class="chg up">+0.04%</div></div>
+  <div class="card"><div class="label">羅素2000指數（Russell 2000）</div><div class="value">2,806.63</div><div class="chg up">+0.35%</div></div>
+  <div class="card"><div class="label">費城半導體指數（SOX）</div><div class="value">12,829.00</div><div class="chg up">+1.59%</div></div>
+  <div class="card"><div class="label">美國10年期公債殖利率（10Y）</div><div class="value">5.237%</div><div class="chg down">-5bp</div></div>
+  <div class="card"><div class="label">西德州原油（WTI）</div><div class="value">$92.87</div><div class="chg up">+2.71%</div></div>
+  <div class="card"><div class="label">布蘭特原油（Brent）</div><div class="value">$102.31</div><div class="chg up">+4.37%</div></div>
+  <div class="card"><div class="label">黃金現貨</div><div class="value">$4,177.63</div><div class="chg up">+0.52%</div></div>
+  <div class="card"><div class="label">白銀現貨</div><div class="value">$60.60</div><div class="chg up">+0.51%</div></div>
+ </section>
 
-<section class="grid kpi">
-<div class="card"><div class="label">標普500指數（S&amp;P 500）</div><div class="value">7,722.72</div><div class="chg up">+0.73%</div></div>
-<div class="card"><div class="label">那斯達克綜合指數（NASDAQ）</div><div class="value">27,190.86</div><div class="chg up">+1.19%</div></div>
-<div class="card"><div class="label">道瓊工業指數（Dow Jones）</div><div class="value">51,176.96</div><div class="chg up">+0.49%</div></div>
-<div class="card"><div class="label">羅素2000指數（Russell 2000）</div><div class="value">2,832.90</div><div class="chg up">+0.93%</div></div>
-<div class="card"><div class="label">費城半導體指數（SOX）</div><div class="value">13,136.68</div><div class="chg up">+2.40%</div></div>
-<div class="card"><div class="label">美國10年期公債殖利率（10Y）</div><div class="value">約5.28%</div><div class="chg flat">高檔震盪</div></div>
-<div class="card"><div class="label">西德州原油（WTI）</div><div class="value">$91.90</div><div class="chg flat">—</div></div>
-<div class="card"><div class="label">布蘭特原油（Brent）</div><div class="value">$102.77</div><div class="chg flat">—</div></div>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid two">
+  <article class="card bluf">
+   <div class="title">今日觀察重點 <small>BLUF</small></div>
+   <h1>殖利率由高檔回落、美股止跌；SOX 強彈 1.59%，但 CNN Fear &amp; Greed 仍在 Fear，市場焦點轉向非農。</h1>
+   <p>10/1 美國主要指數小幅反彈：標普500 +0.20%、那斯達克 +0.04%、道瓊 +0.04%；10Y 收於約 5.24%，盤中一度升至 5.34%。使用者指定原始截圖顯示 SOX 12,829.00、VIX 16.39、MOVE 108.13、CNN Fear &amp; Greed 28。10/2 的核心事件為 9 月非農就業報告。</p>
+   <div class="chips"><span class="chip">PCE</span><span class="chip">FedWatch</span><span class="chip">美國10年期公債殖利率（10Y）</span><span class="chip">SOX</span><span class="chip">美債波動率指數（MOVE）</span></div>
+  </article>
+  <article class="card" id="sentiment">
+   <div class="title">市場情緒 <small>10/1 使用者指定原始截圖優先</small></div>
+   <div class="sent">
+    <div class="sbox"><div class="label">芝加哥選擇權交易所波動率指數（VIX）</div><strong>16.39</strong><span class="up">+0.31%</span><div class="source">10/1 15:15 CDT<br>使用者原始截圖</div></div>
+    <div class="sbox"><div class="label">美債波動率指數（MOVE）</div><strong>108.13</strong><span class="down">-2.11%</span><div class="source">10/1 16:17 EDT<br>使用者原始截圖</div></div>
+    <div class="sbox"><div class="label">CNN 恐懼與貪婪指數（Fear &amp; Greed）</div><strong>28</strong><span class="warn">Fear</span><div class="source">10/1 指定原始截圖<br>使用者提供</div></div>
+   </div>
+   <div class="source" style="margin-top:10px">訊號：VIX 16.39、MOVE 108.13、CNN Fear &amp; Greed 28（Fear）→ 股市波動仍低，債券波動較高但較前一日回落。</div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid two">
-<article class="card bluf">
-<div class="title">今日觀察重點 <small>BLUF</small></div>
-<h1>弱於預期的非農明顯降溫，市場下修10月升息預期；Nasdaq、SOX同步走強，但長端殖利率與油價仍在高檔。</h1>
-<p>美國9月非農僅增加29,000人，失業率4.2%；7、8月就業數據也同步下修。美股10/2收高，Nasdaq +1.19%、S&amp;P 500 +0.73%、SOX +2.40%。</p>
-<div class="chips"><span class="chip">非農 +29K</span><span class="chip">FedWatch 約22.7%</span><span class="chip">SOX 13,136.68</span><span class="chip">油價 &gt;$100</span></div>
-</article>
-<article class="card" id="sentiment">
-<div class="title">市場情緒 <small>10/2 最新可核對值</small></div>
-<div class="sent">
-<div class="sbox"><div class="label">芝加哥選擇權交易所波動率指數（VIX）</div><strong>15.31</strong><span class="down">-6.59%</span><div class="source">10/2 收盤口徑</div></div>
-<div class="sbox"><div class="label">美債波動率指數（MOVE）</div><strong>107.29</strong><span class="down">-0.78%</span><div class="source">10/2 最新值</div></div>
-<div class="sbox"><div class="label">CNN 恐懼與貪婪指數</div><strong>31</strong><span class="warn">Fear</span><div class="source">10/2</div></div>
-</div>
-<div class="source" style="margin-top:10px">VIX下降、MOVE小幅回落；CNN Fear &amp; Greed仍位於Fear區間。</div>
-</article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid two" id="global-focus">
+  <article class="card">
+   <div class="title">今日全球焦點 <small>10/02｜全球重大財經／地緣經濟事件</small></div>
+   <div class="newsitem"><h3>① 美中貿易議題仍在延伸：G20談判未形成共識</h3><p>AP報導，G20貿易部長會議未就「產能過剩」與強迫勞動商品等議題達成實質共識。美中貿易政策仍是全球供應鏈與關稅政策的重要觀察點。</p><div class="newsmeta">AP｜10/01</div></div>
+   <div class="newsitem"><h3>② 中東局勢推升能源供應風險，油價重新站上關鍵區</h3><p>Reuters指出，美方增派軍力與中國暫停部分油品出口，使市場重新評估中東供應風險；Brent 10/1結算升至102.31美元。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>③ 全球製造業受AI需求帶動，台灣PMI升至56.7</h3><p>Reuters報導，9月歐元區製造業PMI升至52.9；台灣PMI升至56.7，南韓出口成長創逾15年高點，AI與半導體需求是重要推力。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>④ 日本企業信心升至8年高點，BOJ政策路徑受關注</h3><p>Reuters報導，日本Tank​an調查顯示企業信心達8年高點；BOJ部分官員認為有必要加快正常化進程，日圓與日本債市政策敏感度上升。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>⑤ 美債殖利率創2002年以來高點後回落，全球利率環境仍偏緊</h3><p>美國10年期公債殖利率盤中一度觸及5.34%，創2002年以來高點，之後回落。長端利率仍是全球股票、債券與匯率的重要定價變數。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="source" style="margin-top:8px">本區定位：全球重大財經、央行、貿易、能源、供應鏈與地緣經濟事件；不重複美股盤面摘要。</div>
+  </article>
+  <article class="card" id="headlines">
+   <div class="title">市場熱門頭條 <small>快速掃描｜標題＋3行內摘要</small></div>
+   <div class="newsitem"><h3>美10Y盤中觸及5.34%</h3><p>10年期美債殖利率創2002年以來高點後回落，債市波動仍是全球資產定價核心。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>Brent突破100美元</h3><p>Brent結算102.31美元、WTI 92.87美元；中東與油品出口消息重新推升供應風險溢價。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>Micron AI記憶體需求維持強勁</h3><p>Micron上調營收展望並披露客戶長約承諾達320億美元，AI記憶體需求仍是半導體市場焦點。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>美國初領失業金197K</h3><p>低於市場預期的200K，勞動市場仍具韌性；後續非農數據將影響利率定價。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>全球製造業擴張受AI支出帶動</h3><p>歐元區PMI升至52.9，台灣56.7，南韓出口成長創15年以上高點，AI資本支出仍提供需求支撐。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>日本企業信心創8年高</h3><p>Tank​an顯示企業景氣改善，部分BOJ官員支持更快緊縮，日銀政策正常化仍受市場關注。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>G20貿易談判進展有限</h3><p>各國未能就產能過剩與強迫勞動商品形成共識，美加及美中貿易議題仍是後續觀察重點。</p><div class="newsmeta">AP｜10/01</div></div>
+   <div class="newsitem"><h3>美國10月升息定價快速降溫</h3><p>Reuters報導，市場定價的10月升息至少25bp機率降至28.2%，一週前約68.6%。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>美股在殖利率回落後小幅反彈</h3><p>S&amp;P 500、NASDAQ與Dow收高；能源與科技板塊提供支撐，市場等待非農就業數據。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="newsitem"><h3>全球債券市場仍處高波動環境</h3><p>美、英、日及歐洲長債殖利率同步受到壓力，全球融資成本與資產估值敏感度上升。</p><div class="newsmeta">Reuters｜10/01</div></div>
+   <div class="source" style="margin-top:8px">字體刻意縮小：標題約14px、摘要12px，每則摘要限制3行內，適合快速掃讀。</div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid two" id="global-focus">
-<article class="card">
-<div class="title">全球焦點新聞 <small>10/03｜美國・歐洲・亞洲・中東・全球</small></div>
-<div class="newsitem"><h3>① 🇺🇸 美國｜就業降溫，Fed升息預期下修</h3><p>9月非農新增2.9萬，遠低於預期9萬，失業率升至4.2%。弱就業數據降低10月升息押注，但10年期美債殖利率仍維持高檔。</p><div class="newsmeta">BLS／Reuters｜10/02</div></div>
-<div class="newsitem"><h3>② 🇪🇺 歐洲｜法德公債利差擴大</h3><p>法德10年期公債利差擴大至歐債危機以來最寬附近，法國財政疑慮持續牽動歐洲債券、歐元與股市。</p><div class="newsmeta">Reuters｜10/02</div></div>
-<div class="newsitem"><h3>③ 🌏 亞洲｜股市分化</h3><p>台股續創收盤新高，日股與港股走弱；美債殖利率、美元及能源價格仍是亞洲股匯市場的重要外部變數。</p><div class="newsmeta">Reuters／亞洲市場資料｜10/02</div></div>
-<div class="newsitem"><h3>④ 🕌 中東｜能源供應牽動通膨</h3><p>中東能源供應不確定性使Brent維持100美元上方。油價高檔若延續，可能重新推升全球通膨與利率壓力。</p><div class="newsmeta">Reuters｜10/02</div></div>
-<div class="newsitem"><h3>⑤ 🌐 全球｜債券市場維持高波動</h3><p>美國10年期殖利率收在5.281%，全球長債仍受通膨、能源與財政風險牽動，金融條件尚未明顯放鬆。</p><div class="newsmeta">Reuters｜10/02</div></div>
-</article>
-<article class="card" id="headlines">
-<div class="title">市場熱門頭條 <small>10則｜宏觀＋企業／個股</small></div>
-<div class="newsitem"><h3>01｜美國9月非農僅增2.9萬</h3><p class="headline-desc">9月非農新增僅2.9萬，遠低於市場預期9萬；失業率升至4.2%，且前兩月就業數據同步下修。市場因此降低10月升息押注，利率敏感型資產獲支撐。</p><div class="newsmeta">BLS／Reuters</div></div>
-<div class="newsitem"><h3>02｜Nasdaq +1.19%，S&amp;P 500 +0.73%</h3><p class="headline-desc">美股主要指數同步反彈，Nasdaq、S&P 500與Russell 2000分別上漲1.19%、0.73%與0.93%。弱就業數據降低短期升息壓力，科技與小型股表現較強。</p><div class="newsmeta">Reuters／AP</div></div>
-<div class="newsitem"><h3>03｜NVIDIA上漲，AI題材延續</h3><p class="headline-desc">NVIDIA收漲約1.3%，AI基礎建設需求仍是市場主線。投資人持續關注AI資本支出、資料中心需求及大型科技股後續獲利能否支撐高估值。</p><div class="newsmeta">Reuters</div></div>
-<div class="newsitem"><h3>04｜Nike跌3.6%</h3><p class="headline-desc">Nike股價下跌3.6%，市場關注中國需求疲弱與復甦速度。公司對後續營收展望仍偏保守，品牌轉型、庫存改善與成本控制進度成為主要觀察焦點。</p><div class="newsmeta">Reuters</div></div>
-<div class="newsitem"><h3>05｜ON Semiconductor宣布收購Synaptics</h3><p class="headline-desc">ON Semiconductor宣布以約57億美元收購Synaptics，強化邊緣運算、工業與汽車半導體布局。交易將擴大產品組合，也使市場重新評估整合效益。</p><div class="newsmeta">Barron's／市場資料</div></div>
-<div class="newsitem"><h3>06｜Western Digital、Seagate約跌10%</h3><p class="headline-desc">Western Digital與Seagate股價約跌10%，市場消化Toshiba擴大AI資料中心硬碟產能的消息。投資人擔心供給增加可能改變硬碟市場的供需與價格環境。</p><div class="newsmeta">Reuters</div></div>
-<div class="newsitem"><h3>07｜Tesla上漲4.7%</h3><p class="headline-desc">Tesla股價上漲4.7%，第三季交車48.65萬輛，高於市場預期。市場重新聚焦交車動能、降價策略與後續利潤率，以及新車與能源業務成長。</p><div class="newsmeta">Barron's</div></div>
-<div class="newsitem"><h3>08｜HPE上漲7.4%</h3><p class="headline-desc">HPE股價上漲7.4%，AI網路與資料中心業務展望受到市場關注。投資人持續觀察AI伺服器與網路設備需求，以及企業資本支出的延續性。</p><div class="newsmeta">Barron's</div></div>
-<div class="newsitem"><h3>09｜Brent維持100美元上方</h3><p class="headline-desc">Brent原油仍在100美元上方，WTI約91.90美元。能源價格高檔可能透過通膨預期影響Fed利率路徑，也使企業成本與消費端壓力成為市場焦點。</p><div class="newsmeta">Reuters</div></div>
-<div class="newsitem"><h3>10｜台股10/2再創收盤新高</h3><p class="headline-desc">台灣加權指數10/2收48,475.74點、上漲0.25%，再創收盤新高。電子與部分傳產支撐盤勢，外資同步維持淨買超，市場續看美股與AI族群動向。</p><div class="newsmeta">台灣市場資料</div></div>
-</article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid three" id="global">
+  <article class="card"><div class="title">美國市場 <small>10/1 Close</small></div>
+   <div class="row"><b>標普500指數（S&P 500）</b><span class="r">7,666.48</span><span class="r up">+0.20%</span></div>
+   <div class="row"><b>那斯達克綜合指數（NASDAQ）</b><span class="r">26,871.60</span><span class="r up">+0.04%</span></div>
+   <div class="row"><b>道瓊工業指數（Dow Jones）</b><span class="r">50,926.74</span><span class="r up">+0.04%</span></div>
+   <div class="row"><b>羅素2000指數（Russell 2000）</b><span class="r">2,806.63</span><span class="r up">+0.35%</span></div>
+   <div class="row"><b>費城半導體指數（SOX）</b><span class="r">12,829.00</span><span class="r up">+1.59%</span></div>
+  </article>
+  <article class="card" id="asia"><div class="title">亞洲市場 <small>10/1 Close</small></div>
+   <div class="row"><b>台灣加權</b><span class="r">47,940.13</span><span class="r down">-0.82%</span></div>
+   <div class="row"><b>日經225</b><span class="r">66,753.72</span><span class="r up">+1.94%</span></div>
+   <div class="row"><b>韓國KOSPI</b><span class="r">6,838.04</span><span class="r down">-0.48%</span></div>
+   <div class="row"><b>香港恆生</b><span class="r">24,613.27</span><span class="r up">+0.37%</span></div>
+   <div class="row"><b>上海綜合</b><span class="r">3,842.19</span><span class="r up">+0.31%</span></div>
+   <div class="row"><b>滬深300</b><span class="r">4,357.88</span><span class="r up">+0.29%</span></div>
+   <div class="row"><b>印度Nifty 50</b><span class="r">22,620.45</span><span class="r down">-0.42%</span></div>
+  </article>
+  <article class="card"><div class="title">歐洲市場 <small>9/30 Close</small></div>
+   <div class="row"><b>英國FTSE 100</b><span class="r">10,606.00</span><span class="r down">-0.29%</span></div>
+   <div class="row"><b>德國DAX</b><span class="r">25,199.19</span><span class="r down">-0.79%</span></div>
+   <div class="row"><b>法國CAC 40</b><span class="r">7,964.51</span><span class="r down">-0.89%</span></div>
+   <div class="row"><b>Euro Stoxx 50</b><span class="r">6,269.02</span><span class="r down">-0.81%</span></div>
+   <div class="source" style="margin-top:8px">歐股交叉資料：STOXX Europe 600 約 -0.50%，高殖利率壓抑風險偏好。</div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid three" id="global">
-<article class="card"><div class="title">美國市場 <small>10/02 Close</small></div>
-<div class="row"><b>標普500指數（S&amp;P 500）</b><span class="r">7,722.72</span><span class="r up">+0.73%</span></div>
-<div class="row"><b>那斯達克綜合指數（NASDAQ）</b><span class="r">27,190.86</span><span class="r up">+1.19%</span></div>
-<div class="row"><b>道瓊工業指數（Dow Jones）</b><span class="r">51,176.96</span><span class="r up">+0.49%</span></div>
-<div class="row"><b>羅素2000指數（Russell 2000）</b><span class="r">2,832.90</span><span class="r up">+0.93%</span></div>
-<div class="row"><b>費城半導體指數（SOX）</b><span class="r">13,136.68</span><span class="r up">+2.40%</span></div>
-<div class="market-reason"><b>📌 漲跌原因</b><br>
-9月非農新增僅2.9萬，明顯低於預期，市場下調10月升息預期，科技股與小型股受惠；但10年期美債殖利率仍在高檔，估值壓力尚未完全消除。</div></article>
-<article class="card" id="asia"><div class="title">亞洲市場 <small>10/02 Close</small></div>
-<div class="row"><b>台灣加權</b><span class="r">48,475.74</span><span class="r up">+0.25%</span></div>
-<div class="row"><b>日經225</b><span class="r">68,309</span><span class="r down">-0.94%</span></div>
-<div class="row"><b>韓國KOSPI</b><span class="r">約7,003</span><span class="r up">+0.46%</span></div>
-<div class="row"><b>香港恆生</b><span class="r">23,972</span><span class="r down">-2.60%</span></div>
-<div class="row"><b>新加坡海峽</b><span class="r">5,634</span><span class="r down">-0.58%</span></div>
-<div class="row"><b>澳洲ASX 200</b><span class="r">8,682</span><span class="r up">+0.79%</span></div>
-<div class="market-reason"><b>📌 漲跌原因</b><br>
-亞洲市場受美債殖利率、美元與能源價格波動影響而分化；日本股市走弱，台股則由電子及部分傳產支撐，維持高檔。</div></article>
-<article class="card"><div class="title">歐洲市場 <small>10/02</small></div>
-<div class="row"><b>STOXX Europe 600</b><span class="r">—</span><span class="r up">+0.75%</span></div>
-<div class="row"><b>德國10Y殖利率</b><span class="r">約3.45%</span><span class="r down">-6bp</span></div>
-<div class="row"><b>法德10Y利差</b><span class="r">高檔</span><span class="r warn">擴大</span></div>
-<div class="source" style="margin-top:8px">歐洲債市仍受財政與能源價格因素影響。</div>
-<div class="market-reason"><b>📌 漲跌原因</b><br>
-美國就業數據偏弱使短期升息預期降溫，帶動歐股反彈；但法德公債利差擴大、財政與能源風險仍是市場關注焦點。</div></article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid three">
+  <article class="card" id="us"><div class="title">產業表現 <small>S&amp;P 500 11大產業板塊</small></div>
+   <div class="row"><b>資訊科技</b><span class="r up">+0.76%</span><span class="r">10/1</span></div>
+   <div class="row"><b>通訊服務</b><span class="r down">-1.19%</span><span class="r">10/1</span></div>
+   <div class="row"><b>非必需消費</b><span class="r down">-0.15%</span><span class="r">10/1</span></div>
+   <div class="row"><b>必需消費</b><span class="r down">-0.29%</span><span class="r">10/1</span></div>
+   <div class="row"><b>金融</b><span class="r up">+0.16%</span><span class="r">10/1</span></div>
+   <div class="row"><b>醫療保健</b><span class="r down">-1.30%</span><span class="r">10/1</span></div>
+   <div class="row"><b>工業</b><span class="r up">+1.00%</span><span class="r">10/1</span></div>
+   <div class="row"><b>能源</b><span class="r up">+1.92%</span><span class="r">10/1</span></div>
+   <div class="row"><b>原材料</b><span class="r down">-0.45%</span><span class="r">10/1</span></div>
+   <div class="row"><b>公用事業</b><span class="r up">+0.61%</span><span class="r">10/1</span></div>
+   <div class="row"><b>房地產</b><span class="r down">-0.62%</span><span class="r">10/1</span></div>
+   <div class="source" style="margin-top:8px">來源：S&amp;P 500 11大產業板塊；以 10/1 收盤表現交叉核對 Reuters 與 The Edge Research Team。</div>
+  </article>
+  <article class="card" id="bonds"><div class="title">債券市場 <small>Rates</small></div>
+   <div class="row"><b>美國10年期公債殖利率（10Y）</b><span class="r">5.237%</span><span class="r down">-5bp</span></div>
+   <div class="row"><b>UST 30Y</b><span class="r">5.61%</span><span class="r down">-3bp</span></div>
+   <div class="row"><b>Fed Funds</b><span class="r">3.75–4.00%</span><span class="r">9/16後</span></div>
+   <div class="callout" style="margin-top:10px"><b>關鍵</b><br>10Y 5.30%附近是短線重要觀察位；30Y 5.6298%已處極高歷史區間。</div>
+  </article>
+  <article class="card" id="fx"><div class="title">匯率 <small>9/30</small></div>
+   <div class="row"><b>美元指數（DXY）</b><span class="r">101.421</span><span class="r up">16M高位</span></div>
+   <div class="row"><b>EUR/USD</b><span class="r">1.1312</span><span class="r down">美元強</span></div>
+   <div class="row"><b>美元／日圓（USD/JPY）</b><span class="r">157.30</span><span class="r flat">—</span></div>
+   <div class="row"><b>澳幣／美元（AUD/USD）</b><span class="r">0.66</span><span class="r flat">—</span></div>
+   <div class="row"><b>美元／新台幣（USD/TWD）</b><span class="r">31.88</span><span class="r flat">9/29 截圖口徑</span></div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid three">
-<article class="card" id="us">
-<div class="title">產業表現 <small>S&amp;P 500｜10/02 Close</small></div>
-<div class="sector-list"><div class="sector-row"><span class="rank">1</span><span class="sector-name"><b>非必需消費</b><small>Consumer Discretionary</small></span><span class="sector-pct up">+1.38%</span></div><div class="sector-row"><span class="rank">2</span><span class="sector-name"><b>資訊科技</b><small>Information Technology</small></span><span class="sector-pct up">+1.06%</span></div><div class="sector-row"><span class="rank">3</span><span class="sector-name"><b>原材料</b><small>Materials</small></span><span class="sector-pct up">+1.00%</span></div><div class="sector-row"><span class="rank">4</span><span class="sector-name"><b>通訊服務</b><small>Communication Services</small></span><span class="sector-pct up">+0.88%</span></div><div class="sector-row"><span class="rank">5</span><span class="sector-name"><b>工業</b><small>Industrials</small></span><span class="sector-pct up">+0.78%</span></div><div class="sector-row"><span class="rank">6</span><span class="sector-name"><b>公用事業</b><small>Utilities</small></span><span class="sector-pct up">+0.37%</span></div><div class="sector-row"><span class="rank">7</span><span class="sector-name"><b>房地產</b><small>Real Estate</small></span><span class="sector-pct up">+0.36%</span></div><div class="sector-row"><span class="rank">8</span><span class="sector-name"><b>能源</b><small>Energy</small></span><span class="sector-pct up">+0.21%</span></div><div class="sector-row"><span class="rank">9</span><span class="sector-name"><b>必需消費</b><small>Consumer Staples</small></span><span class="sector-pct up">+0.16%</span></div><div class="sector-row"><span class="rank">10</span><span class="sector-name"><b>金融</b><small>Financials</small></span><span class="sector-pct up">+0.01%</span></div><div class="sector-row"><span class="rank">11</span><span class="sector-name"><b>醫療保健</b><small>Health Care</small></span><span class="sector-pct down">-0.04%</span></div></div>
-<div class="source" style="margin-top:8px">完整11個GICS板塊，依10/02單日漲跌幅由高至低排序；10個上漲、1個下跌。citeturn1search0</div>
-</article>
-<article class="card" id="bonds"><div class="title">債券市場 <small>Rates</small></div>
-<div class="row"><b>美國10年期公債殖利率</b><span class="r">約5.28%</span><span class="r flat">高檔</span></div>
-<div class="row"><b>10Y盤中高點</b><span class="r">約5.34%</span><span class="r warn">關鍵</span></div>
-<div class="row"><b>Fed Funds</b><span class="r">3.75–4.00%</span><span class="r">9/16後</span></div>
-<div class="callout" style="margin-top:10px"><b>觀察：</b>弱非農帶動殖利率先降，但油價與財政因素使長端殖利率仍維持高檔。</div>
-</article>
-<article class="card" id="fx"><div class="title">匯率 <small>10/02</small></div>
-<div class="row"><b>EUR/USD</b><span class="r">1.1259</span><span class="r up">+0.16%</span></div>
-<div class="row"><b>美元／日圓（USD/JPY）</b><span class="r">157.79</span><span class="r down">-0.18%</span></div>
-<div class="row"><b>澳幣／美元（AUD/USD）</b><span class="r">約0.6900</span><span class="r flat">10/02參考</span></div>
-<div class="row"><b>美元／新台幣（USD/TWD）</b><span class="r">31.830</span><span class="r flat">銀行間收盤</span></div>
-</article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid three" id="commodities">
+  <article class="card"><div class="title">能源 <small>期貨結算</small></div>
+   <div class="row"><b>西德州原油（WTI）</b><span class="r">$92.87</span><span class="r up">+2.71%</span></div>
+   <div class="row"><b>布蘭特原油（Brent）</b><span class="r">$102.31</span><span class="r up">+4.37%</span></div>
+   <div class="source">Reuters：9/30 正式結算；西德州原油（WTI）與布蘭特原油（Brent）均為期貨，不是現貨。</div>
+  </article>
+  <article class="card"><div class="title">貴金屬 <small>現貨／期貨分開</small></div>
+   <div class="row"><b>黃金現貨</b><span class="r">$4,177.63/oz</span><span class="r up">+0.52%</span></div>
+   <div class="row"><b>黃金期貨</b><span class="r">$4,186.70/oz</span><span class="r up">+0.3%</span></div>
+   <div class="row"><b>白銀現貨</b><span class="r">$60.60/oz</span><span class="r up">+0.51%</span></div>
+   <div class="row"><b>白銀期貨</b><span class="r">$60.18/oz</span><span class="r down">-0.92%</span></div>
+   <div class="source">Reuters：9/30 黃金現貨約13:55 ET；白銀現貨約同期市場口徑。WSJ：COMEX期貨結算。現貨與期貨分開列示。</div>
+  </article>
+  <article class="card"><div class="title">原油關鍵價位</div>
+   <div class="key"><b>布蘭特原油（Brent） $100</b>：心理關卡<br><b>布蘭特原油（Brent） $105–107</b>：前波壓力區<br><b>西德州原油（WTI） $90</b>：短線心理關卡<br><b>西德州原油（WTI） $86–88</b>：下方觀察區</div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid three" id="commodities">
-<article class="card"><div class="title">能源</div>
-<div class="row"><b>西德州原油（WTI）</b><span class="r">$91.90</span><span class="r">10/02</span></div>
-<div class="row"><b>布蘭特原油（Brent）</b><span class="r">$102.77</span><span class="r">10/02</span></div>
-<div class="source">Reuters全球市場收盤口徑；原油為期貨價格。</div>
-</article>
-<article class="card"><div class="title">貴金屬</div>
-<div class="row"><b>黃金現貨</b><span class="r">$4,135.68</span><span class="r down">-1.01%</span></div>
-<div class="row"><b>白銀現貨</b><span class="r">60.6207</span><span class="r flat">待核</span></div>
-<div class="source">黃金採Reuters現貨口徑；現貨與期貨分開。</div>
-</article>
-<article class="card"><div class="title">商品關鍵價位</div>
-<div class="key"><b>Brent：</b>$100心理關卡；$105／$110上方壓力。<br><b>WTI：</b>$90心理關卡；$95上方為下一觀察區。<br><b>黃金：</b>$4,100附近為短線心理位。</div>
-</article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid two" id="calendar">
+  <article class="card"><div class="title">今日重要經濟數據 <small>10/02｜美東時間</small></div>
+   <div class="event"><div class="d">08:30</div><div><b>美國9月非農就業報告</b><span>非農新增、失業率、平均時薪；本週最高權重數據</span></div><div class="impact high">最高</div></div>
+   <div class="event"><div class="d">08:30</div><div><b>失業率</b><span>與非農同步公布，觀察勞動市場降溫程度</span></div><div class="impact high">高</div></div>
+   <div class="event"><div class="d">08:30</div><div><b>平均時薪</b><span>薪資通膨與服務通膨的重要觀察項目</span></div><div class="impact high">高</div></div>
+  </article>
+  <article class="card"><div class="title">明日與本週其他重要事件 <small>10/02及後續</small></div>
+   <div class="event"><div class="d">10/01</div><div><b>美國初領失業金</b><span>Forecast 200K｜Previous 197K</span></div><div class="impact high">高</div></div>
+   <div class="event"><div class="d">10/01</div><div><b>ISM 製造業</b><span>Forecast 54.9｜Previous 54.6</span></div><div class="impact high">高</div></div>
+   <div class="event"><div class="d">10/01</div><div><b>中國國慶假期</b><span>陸股休市，10/8恢復交易</span></div><div class="impact">市場</div></div>
+   <div class="event"><div class="d">10/02</div><div><b>美國9月非農就業報告</b><span>就業／失業率／薪資為本週最後大型數據</span></div><div class="impact high">最高</div></div>
+   <div class="event"><div class="d">10/02</div><div><b>Fed官員談話</b><span>持續觀察利率路徑與通膨風險訊號</span></div><div class="impact">高</div></div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid two" id="calendar">
-<article class="card"><div class="title">今日重要經濟數據 <small>10/03</small></div>
-<div class="event"><div class="d">已公布</div><div><b>美國9月非農就業</b><span>+29K｜預期約+90K</span></div><div class="impact high">最高</div></div>
-<div class="event"><div class="d">已公布</div><div><b>失業率</b><span>4.2%｜前值4.1%</span></div><div class="impact high">高</div></div>
-<div class="event"><div class="d">已公布</div><div><b>平均時薪</b><span>月增0.1%｜年增3.0%</span></div><div class="impact high">高</div></div>
-</article>
-<article class="card"><div class="title">接下來重要事件 <small>10/05–10/15</small></div>
-<div class="event"><div class="d">10/05</div><div><b>ISM服務業</b><span>觀察服務業需求與價格分項</span></div><div class="impact high">高</div></div>
-<div class="event"><div class="d">10/06</div><div><b>美國貿易數據</b><span>觀察外需與美元影響</span></div><div class="impact">中</div></div>
-<div class="event"><div class="d">10/07</div><div><b>FOMC會議紀要</b><span>確認9月會議內部利率分歧</span></div><div class="impact high">高</div></div>
-<div class="event"><div class="d">10/08</div><div><b>初領失業救濟金</b><span>觀察非農後勞動市場趨勢</span></div><div class="impact">中</div></div>
-<div class="event"><div class="d">10/09</div><div><b>密西根消費者信心初值</b><span>通膨預期值得關注</span></div><div class="impact">中</div></div>
-<div class="event"><div class="d">10/14</div><div><b>CPI</b><span>10月利率定價重要數據</span></div><div class="impact high">最高</div></div>
-<div class="event"><div class="d">10/15</div><div><b>PPI＋零售銷售</b><span>通膨與消費雙重觀察</span></div><div class="impact high">高</div></div>
-</article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid two" id="fed">
+  <article class="card"><div class="title">CME FedWatch <small>10/1 收盤附近市場定價</small></div>
+   <div class="callout"><b>10/28 FOMC｜升息至少25bp</b><br><span style="font-size:24px;font-weight:950">約26%</span><span class="pill">10/28升息機率</span><br><span class="source">CME FedWatch：10/1 尾盤升息機率約26%；Reuters 同日較早時段約38%，盤中定價快速變動。</span></div>
+   <div class="source" style="margin-top:10px">本頁不把單一時點的機率當作預測結果；FedWatch 是市場衍生定價，會隨期貨價格即時變動。</div>
+  </article>
+  <article class="card"><div class="title">Fed / 利率背景</div>
+   <div class="row"><b>目前 Fed Funds</b><span class="r">3.75–4.00%</span><span class="r">9/16後</span></div>
+   <div class="row"><b>下一次FOMC</b><span class="r">10/28/2026</span><span class="r">決議日</span></div>
+   <div class="row"><b>10Y關鍵位</b><span class="r">5.30%</span><span class="r warn">觀察</span></div>
+   <div class="row"><b>30Y</b><span class="r">5.61%</span><span class="r down">-3bp</span></div>
+  </article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid two" id="fed">
-<article class="card"><div class="title">CME FedWatch <small>10/02收盤附近</small></div>
-<div class="callout"><b>10/28 FOMC｜至少升息25bp</b><br><span style="font-size:24px;font-weight:950">約22.7%</span><span class="pill">市場定價</span><br><span class="source">Reuters：弱非農後，10月底至少升息25bp機率降至22.7%，前一交易日24.4%、一週前64.2%。</span></div>
-<div class="source" style="margin-top:10px">FedWatch為市場衍生定價，並非Fed官方預測。</div>
-</article>
-<article class="card"><div class="title">Fed / FOMC</div>
-<div class="row"><b>目前Fed Funds</b><span class="r">3.75–4.00%</span><span class="r">9/16後</span></div>
-<div class="row"><b>下一次FOMC</b><span class="r">10/27–10/28</span><span class="r">決議</span></div>
-<div class="row"><b>10/07</b><span class="r">FOMC紀要</span><span class="r">重要</span></div>
-<div class="row"><b>核心觀察</b><span class="r">就業＋通膨</span><span class="r warn">高</span></div>
-</article>
-</section>
+ <div style="height:14px"></div>
+ <section class="grid three" id="view">
+  <article class="card"><div class="title">市場觀點</div><div class="key"><b>① 利率：</b>10Y 收於約 5.24%，盤中一度升至 5.34%，仍是全球資產估值核心變數。<br><b>② 債券波動：</b>美債波動率指數（MOVE） 108.13 高於芝加哥選擇權交易所波動率指數（VIX） 16.39所反映的股票波動程度。<br><b>③ 半導體：</b>SOX 12,829.00、日變化 +1.59%，半導體明顯強於大盤。<br><b>④ 通膨：</b>布蘭特原油（Brent）仍在$100以上，能源價格仍可能影響PCE與Fed定價。</div></article>
+  <article class="card"><div class="title">今日關鍵價位</div><div class="key"><b>S&amp;P 500：</b>7,650／7,600 支撐；7,700／7,750 壓力<br><b>NASDAQ：</b>26,700／26,500 支撐；27,000 壓力<br><b>SOX：</b>12,500／12,300 支撐；12,800／13,000 壓力<br><b>美國10年期公債殖利率（10Y）：</b>5.20%／5.25%／5.30%<br><b>布蘭特原油（Brent）：</b>$100／$96；$105–107</div></article>
+  <article class="card"><div class="title">今日核心觀察</div><div class="callout"><b>第一：</b>Core PCE 是否高於0.3%。<br><b>第二：</b>10Y 能否重新回到5.20%以下。<br><b>第三：</b>FedWatch 10月升息機率是否重新升破60%。<br><b>第四：</b>SOX能否守住12,600。<br><b>第五：</b>美債波動率指數（MOVE）能否維持在110以下。</div></article>
+ </section>
 
-<div style="height:14px"></div>
-<section class="grid three" id="view">
-<article class="card"><div class="title">市場觀點</div><div class="key"><b>① 利率：</b>弱非農降低10月底升息定價，但10Y仍在5.2%上方。<br><b>② 半導體：</b>SOX 13,136.68、+2.40%，強於大盤。<br><b>③ 油價：</b>Brent維持100美元上方，通膨風險仍未消失。<br><b>④ 股市：</b>Nasdaq創收盤新高，市場重新提高對科技股的風險偏好。</div></article>
-<article class="card"><div class="title">今日關鍵價位</div><div class="key"><b>S&amp;P 500：</b>7,700支撐；7,750／7,800壓力<br><b>NASDAQ：</b>27,000支撐；27,300／27,500壓力<br><b>SOX：</b>13,000／12,800支撐；13,270／13,500壓力<br><b>台股：</b>48,000支撐；48,500／49,000壓力<br><b>10Y：</b>5.20%支撐；5.30%／5.34%壓力<br><b>Brent：</b>$100支撐；$105／$110壓力</div></article>
-<article class="card"><div class="title">今日核心觀察</div><div class="callout"><b>第一：</b>非農弱勢是否延續至後續勞動數據。<br><b>第二：</b>10Y能否回到5.20%以下。<br><b>第三：</b>10月升息定價是否進一步下降。<br><b>第四：</b>SOX能否站穩13,000。<br><b>第五：</b>Brent能否維持100美元上方。</div></article>
-</section>
-
-<div style="height:14px"></div>
+ <div style="height:14px"></div>
+ <section class="card" id="sources">
+  <div class="title">資料品質與交叉核對 <small>TAC Data Integrity</small></div>
+  <table>
+   <thead><tr><th>資料</th><th>第一層</th><th>第二層／交叉</th><th>口徑</th><th>狀態</th></tr></thead>
+   <tbody>
+    <tr><td>美股主要指數</td><td>市場／指數資料</td><td>AP＋Reuters</td><td>9/30 Close</td><td class="up">雙核</td></tr>
+    <tr><td>費城半導體指數（SOX）</td><td>Nasdaq歷史頁＋使用者原始截圖</td><td>交叉比對</td><td>10/1，截圖17:15 EDT</td><td class="up">鎖定</td></tr>
+    <tr><td>芝加哥選擇權交易所波動率指數（VIX）</td><td>Cboe／使用者原始截圖</td><td>歷史資料交叉</td><td>10/1 15:15 CDT：16.39（指定截圖）</td><td class="up">鎖定</td></tr>
+    <tr><td>美債波動率指數（MOVE）</td><td>使用者原始截圖</td><td>市場資料交叉</td><td>10/1 16:17 EDT 108.13</td><td class="up">鎖定</td></tr>
+    <tr><td>西德州原油（WTI） / 布蘭特原油（Brent）</td><td>交易所期貨口徑</td><td>Reuters</td><td>9/30 Futures Settlement</td><td class="up">雙核</td></tr>
+    <tr><td>黃金／白銀</td><td>Reuters／Kitco現貨＋COMEX期貨</td><td>Reuters＋WSJ</td><td>9/30；現貨／期貨分開</td><td class="up">雙核</td></tr>
+    <tr><td>美國10年期公債殖利率（10Y） / 30Y</td><td>美國財政部／市場資料</td><td>Reuters</td><td>9/30 market level</td><td class="up">雙核</td></tr>
+    <tr><td>PCE / GDP / ADP</td><td>BEA／ADP</td><td>MarketWatch／ALFRED</td><td>9/30 ET release</td><td class="up">已核行事曆</td></tr>
+   </tbody>
+  </table>
+  <div class="source" style="margin-top:10px">TAC資料規則：官方／交易所第一來源 → Reuters/LSEG第二層 → AP、Yonhap、Investing、Trading Economics、Koyfin等作必要交叉。若來源時間、收盤基準或現貨／期貨口徑不同，頁面明確標示；無法可靠雙重確認的數值不填入。</div>
+ </section>
 </main>
-<footer class="footer">TAC 投資早報｜2026/10/03（六）｜資訊整理與教育用途，不構成投資建議。</footer>
-</body></html>
+
+<footer class="footer">TAC 投資早報｜2026/10/02｜本頁為資訊整理與教育用途，不構成投資建議。<br>主要資料來源：Nasdaq、Cboe、U.S. Treasury、BEA、ADP、Reuters、AP、Trading Economics、TradingCharts、使用者提供原始截圖。</footer>
+</body>
+</html>
