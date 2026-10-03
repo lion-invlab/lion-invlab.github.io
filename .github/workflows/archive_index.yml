@@ -3,8 +3,8 @@ name: Archive TAC Morning Report
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 4 * * *"
-      timezone: "Asia/Taipei"
+    # 04:00 Taiwan time, Monday-Friday = 20:00 UTC, Sunday-Thursday
+    - cron: "0 20 * * 0-4"
 
 permissions:
   contents: write
