@@ -86,6 +86,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
     <button class="history-btn secondary" type="button" onclick="historyMove(-1)">‹ 前一天</button>
     <button class="history-btn secondary" type="button" onclick="historyMove(1)">後一天 ›</button>
     <button class="history-btn primary" type="button" onclick="openHistoryReport()">開啟舊版早報</button>
+    <button class="history-btn secondary" type="button" onclick="goLatestReport()">回到最新早報</button>
   </div>
   <div id="historyStatus" class="history-status"></div>
 </section>
@@ -277,6 +278,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
     clearHistoryStatus();
   };
 
+  window.goLatestReport = function(){
+    window.location.href = '/index.html';
+  };
+
   window.openHistoryReport = async function(){
     const value = input.value;
     if(!value){
@@ -285,7 +290,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
     }
 
     if(value === currentDate){
-      window.location.href = '../index.html';
+      window.location.href = '/index.html';
       return;
     }
 
