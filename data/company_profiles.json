@@ -37249,7 +37249,7 @@
   },
   "meta": {
     "title": "S&P 500 + Nasdaq-100 Company Profiles",
-    "updated_at_utc": "2026-10-03T02:31:12.705443+00:00",
+    "updated_at_utc": "2026-10-04T02:55:38.347509+00:00",
     "data_type": "actual",
     "demo_data": false,
     "profile_source": "Yahoo Finance via yfinance",
@@ -37257,8 +37257,8 @@
   },
   "data_quality": {
     "nasdaq100_universe": 103,
-    "already_existing": 86,
-    "newly_added_this_run": 17,
+    "already_existing": 103,
+    "newly_added_this_run": 0,
     "failed_this_run": 0,
     "nasdaq100_profile_coverage": 1.0
   }
