@@ -5,7 +5,7 @@ on:
   schedule:
     # 04:00 Taiwan time, Monday-Friday
     # = 20:00 UTC, Sunday-Thursday
-    - cron: "0 20 * * 0-4"
+    - cron: "10 20 * * 0-4"
 
 permissions:
   contents: write
