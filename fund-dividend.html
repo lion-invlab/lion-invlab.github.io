@@ -103,8 +103,7 @@ function upcomingHTML(limit){
 function render(){
  document.getElementById("upcomingHero").innerHTML=upcomingHTML(4);
  document.getElementById("upcomingAll").innerHTML=upcomingHTML(10);
- document.getElementById("count").textContent="顯示 "+data.length+" 筆";
- document.getElementById("rows").innerHTML=data.map(x=>`<tr><td class="date">${x[0]?x[0].slice(5).replace("-","/"):"—"}</td><td><b>${x[1]}</b></td><td><span class="tag">${x[2]}</span></td><td>${x[3]}</td><td><span class="tag">${x[4]}</span></td></tr>`).join("");
+`<tr><td class="date">${x[0]?x[0].slice(5).replace("-","/"):"—"}</td><td><b>${x[1]}</b></td><td><span class="tag">${x[2]}</span></td><td>${x[3]}</td><td><span class="tag">${x[4]}</span></td></tr>`).join("");
 }
 render();
 </script>
