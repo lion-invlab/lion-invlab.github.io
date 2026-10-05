@@ -19,10 +19,12 @@ const gradePrefix={
 "安聯全球多元投資風格股票基金":["安聯全球多元投資風格股票基金"]
 };
 function shortGrade(main,grade){
- let s=String(grade||"");
+ let s=String(grade||"").trim();
  const prefixes=[main,...(gradePrefix[main]||[])].sort((a,b)=>b.length-a.length);
- for(const p of prefixes){if(s.startsWith(p)){s=s.slice(p.length);break;}}
- return s.trim().replace(/^\s*[-－–—]\s*/,"").trim();
+ for(const p of prefixes){
+   if(s.startsWith(p)){s=s.slice(p.length).trim();break;}
+ }
+ return s.replace(/^[-－–—]\s*/,"").trim();
 }
 function render(){if(!mains.includes(current))current=mains[0];const s=document.getElementById("fundSelect");s.innerHTML=mains.map(x=>`<option value="${esc(x)}">${esc(friendly[x]||x)}</option>`).join("");s.value=current;const out=rows.filter(x=>x[1]===current);document.getElementById("title").textContent=(friendly[current]||current)+"｜基金級別資訊";document.getElementById("count").textContent=out.length+" 個基金級別";document.getElementById("rows").innerHTML=out.map(x=>`<tr><td>${esc(x[0])}</td><td><b>${esc(x[1])}</b></td><td>${esc(shortGrade(current,x[2]))}</td><td>${esc(x[3])}</td><td class="code">${esc(x[4])}</td><td>${esc(x[5])}</td><td>${esc(x[6])}</td><td class="red">${esc(x[7])}</td><td>${esc(x[8])}</td><td>${x[9]?'<a href="'+esc(x[9])+'" target="_blank" rel="noopener">查看</a>':"—"}</td><td class="isin">${esc(x[10])}</td></tr>`).join("");}
 function changeFund(){current=document.getElementById("fundSelect").value;location.href="fund-detail.html?fund="+encodeURIComponent(current);}
