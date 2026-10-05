@@ -15,7 +15,7 @@
 .kpi .card{min-height:112px}.red{color:var(--red)}.green{color:var(--green)}.gold{color:var(--gold)}
 .filters{display:grid;grid-template-columns:1.2fr .8fr .8fr auto;gap:9px;align-items:end}.field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}.field select,.field input{width:100%;height:38px;border:1px solid var(--line);border-radius:7px;background:#fff;padding:0 9px;font-weight:750}.btn{height:38px;border:0;border-radius:7px;padding:0 15px;font-weight:900;background:var(--black);color:#fff;cursor:pointer}.btn.red{background:var(--red);color:#fff}
 table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:left;padding:8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:9px 7px;border-bottom:1px solid #eee;vertical-align:middle}tr:last-child td{border-bottom:0}.date{font-weight:950;color:var(--red);white-space:nowrap}.rate{font-weight:950;white-space:nowrap}.isin{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:#555}.tag{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:3px 7px;font-size:9px;font-weight:900;white-space:nowrap}.source{font-size:10px;color:var(--muted);line-height:1.6}.notice{padding:11px 13px;border-radius:8px;background:#fafafa;border:1px solid var(--line);font-size:11px;line-height:1.7}
-.timeline{display:flex;gap:8px;overflow:auto;padding:3px 0 5px}.month{min-width:260px;border:1px solid var(--line);border-radius:9px;background:#fafafa;padding:12px}.month b{font-size:13px}.event{margin-top:9px;padding:9px;background:#fff;border:1px solid var(--line);border-radius:7px}.event .d{font-size:16px;font-weight:950;color:var(--red)}.event small{display:block;color:var(--muted);margin-top:2px}
+.timeline{display:flex;gap:8px;overflow:auto;padding:3px 0 5px}.month{min-width:260px;border:1px solid var(--line);border-radius:9px;background:#fafafa;padding:12px}.month b{font-size:13px}.event{margin-top:9px;padding:9px;background:#fff;border:1px solid var(--line);border-radius:7px}.event .d{font-size:16px;font-weight:950;color:var(--red)}.event small{display:block;color:var(--muted);margin-top:2px}.event-row{display:grid;grid-template-columns:11px 44px minmax(0,1fr) auto;gap:7px;align-items:start}.event-row .dot{width:9px;height:9px;border-radius:50%;margin-top:5px}.event-row .name{font-weight:850;line-height:1.35;min-width:0}.event-row .days{font-weight:950;white-space:nowrap}.event-row .red{color:var(--red)}.event-row .yellow{color:var(--gold)}.event-row .green{color:var(--green)}.event-row .dot.red{background:var(--red)}.event-row .dot.yellow{background:#e0a800}.event-row .dot.green{background:var(--green)}
 .footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
 @media(max-width:1000px){.kpi{grid-template-columns:repeat(2,1fr)}.three,.two{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.filters .btn{width:100%}}
 @media(max-width:650px){.hero-title{font-size:18px}.hero-title small{display:none}.hero p{font-size:15px}.up-item{grid-template-columns:14px 58px minmax(0,1fr) auto;gap:6px;padding:7px 8px}.up-days{min-width:66px;font-size:13px}.up-name{font-size:13px;white-space:normal;overflow:visible;text-overflow:clip}.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:1fr 1fr}.hero h1{font-size:21px}.filters{grid-template-columns:1fr}.footer{padding:0 14px 30px}table{font-size:11px;min-width:850px}.table-wrap{overflow:auto}.month{min-width:235px}}
@@ -35,8 +35,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <section class="grid two">
 <article class="card hero">
 <div class="title hero-title">Q4 精選基金｜基準日來即將「息」 <small>獨立 GitHub Pages</small></div>
-<p>先看最急的基金：<b>最近基準日＝紅燈、第二近＝黃燈、其後＝綠燈</b>。倒數天數會依今日日期自動更新。</p>
-<div id="upcomingHero" class="upcoming-list"></div>
+<p>Q4 配息基準日以時間軸呈現；日期越近，提醒燈號越醒目，倒數天數會依今日日期自動更新。</p>
 <div class="legend">🔴 最近基準日　🟡 第二近基準日　🟢 其後基準日</div>
 </article>
 <article class="card">
@@ -55,8 +54,8 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 
 <div style="height:14px"></div>
 <section class="card">
-<div class="title"><span>即將配息基金｜倒數排序</span><small>基準日越近越前面</small></div>
-<div id="upcomingAll" class="upcoming-list"></div>
+<div class="title"><span>Q4 配息時間軸</span><small>基準日越近越前面</small></div>
+<div id="timeline" class="timeline"></div>
 </section>
 
 <div style="height:14px"></div>
@@ -78,30 +77,37 @@ function daysFromToday(s){
  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
  return Math.ceil((t-today)/86400000);
 }
-function lightClass(days,index){
+function lightClass(index){
  if(index===0)return "red";
  if(index===1)return "yellow";
  return "green";
 }
-function upcomingHTML(limit){
+function renderTimeline(){
+ const el=document.getElementById("timeline");
  const grouped={};
  data.filter(x=>x[0]).forEach(x=>{
-   const d=daysFromToday(x[0]);
-   if(d>=0){
-     if(!grouped[x[0]])grouped[x[0]]=[];
-     grouped[x[0]].push(x);
-   }
+   if(!grouped[x[0]])grouped[x[0]]=[];
+   grouped[x[0]].push(x);
  });
- return Object.keys(grouped).sort().slice(0,limit).map((date,index)=>{
-   const days=daysFromToday(date), cls=lightClass(days,index);
-   const names=[...new Set(grouped[date].map(x=>x[1]))];
-   const label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";
-   return `<div class="up-item"><span class="light ${cls}"></span><span class="up-date">${date.slice(5).replace("-","/")}</span><span class="up-name">${names.join("／")}</span><span class="up-days ${cls}">${label}</span></div>`;
+ const dates=Object.keys(grouped).sort();
+ const rank={}; dates.forEach((d,i)=>rank[d]=i);
+ const months={};
+ dates.forEach(date=>{
+   const month=date.slice(5,7);
+   if(!months[month])months[month]=[];
+   grouped[date].forEach(x=>months[month].push({date,x}));
+ });
+ el.innerHTML=Object.keys(months).sort().map(month=>{
+   const rows=months[month].map(({date,x})=>{
+     const idx=rank[date], cls=lightClass(idx), days=daysFromToday(date);
+     const label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";
+     return `<div class="event"><div class="event-row"><span class="dot ${cls}"></span><b>${date.slice(5).replace("-","/")}</b><span class="name">${x[1]}</span><span class="days ${cls}">${label}</span></div></div>`;
+   }).join("");
+   return `<div class="month"><b>${month==="10"?"10 月":month==="11"?"11 月":"12 月"}</b>${rows}</div>`;
  }).join("");
 }
 function render(){
- document.getElementById("upcomingHero").innerHTML=upcomingHTML(4);
- document.getElementById("upcomingAll").innerHTML=upcomingHTML(10);
+ renderTimeline();
 }
 render();
 </script>
