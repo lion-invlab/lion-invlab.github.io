@@ -36,9 +36,9 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <article class="card hero">
 <div class="title">Q4 精選基金｜基準日來即將「息」 <small>獨立 GitHub Pages</small></div>
 <h1>即將配息｜依基準日倒數排序</h1>
-<p>先看最急的基金：<b>紅燈＝3天內、黃燈＝4–7天、綠燈＝8天以上</b>。倒數天數會依今日日期自動更新。</p>
+<p>先看最急的基金：<b>最近基準日＝紅燈、第二近＝黃燈、其後＝綠燈</b>。倒數天數會依今日日期自動更新。</p>
 <div id="upcomingHero" class="upcoming-list"></div>
-<div class="legend">🔴 最急迫　🟡 次接近　🟢 尚有時間</div>
+<div class="legend">🔴 最近基準日　🟡 第二近基準日　🟢 其後基準日</div>
 </article>
 <article class="card">
 <div class="title">資料規則 <small>已鎖定</small></div>
@@ -79,9 +79,9 @@ function daysFromToday(s){
  const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
  return Math.ceil((t-today)/86400000);
 }
-function lightClass(days){
- if(days<=3)return "red";
- if(days<=7)return "yellow";
+function lightClass(days,index){
+ if(index===0)return "red";
+ if(index===1)return "yellow";
  return "green";
 }
 function upcomingHTML(limit){
@@ -93,8 +93,8 @@ function upcomingHTML(limit){
      grouped[x[0]].push(x);
    }
  });
- return Object.keys(grouped).sort().slice(0,limit).map(date=>{
-   const days=daysFromToday(date), cls=lightClass(days);
+ return Object.keys(grouped).sort().slice(0,limit).map((date,index)=>{
+   const days=daysFromToday(date), cls=lightClass(days,index);
    const names=[...new Set(grouped[date].map(x=>x[1]))];
    const label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";
    return `<div class="up-item"><span class="light ${cls}"></span><span class="up-date">${date.slice(5).replace("-","/")}</span><span class="up-name">${names.join("／")}</span><span class="up-days ${cls}">${label}</span></div>`;
@@ -103,7 +103,6 @@ function upcomingHTML(limit){
 function render(){
  document.getElementById("upcomingHero").innerHTML=upcomingHTML(4);
  document.getElementById("upcomingAll").innerHTML=upcomingHTML(10);
-`<tr><td class="date">${x[0]?x[0].slice(5).replace("-","/"):"—"}</td><td><b>${x[1]}</b></td><td><span class="tag">${x[2]}</span></td><td>${x[3]}</td><td><span class="tag">${x[4]}</span></td></tr>`).join("");
 }
 render();
 </script>
