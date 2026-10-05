@@ -58,7 +58,7 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 .rank-single{width:100%}
 @media(max-width:700px){.period-tabs{gap:6px}.period-tab{flex:1;min-width:70px;padding:9px 10px}.rank-single .label{font-size:15px}}
 
-.multi-sector{position:relative;min-width:180px;flex:1}.multi-sector-btn{width:100%;text-align:left;border:1px solid #ddd;background:#fff;color:#111;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:800;cursor:pointer}.multi-sector-menu{display:none;position:absolute;z-index:9999;top:calc(100% + 6px);left:0;right:0;background:#fff!important;color:#111!important;border:1px solid #d7d7d7;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.16);padding:8px;max-height:360px;overflow-y:auto;overflow-x:hidden;-webkit-text-fill-color:#111}.multi-sector.open .multi-sector-menu{display:block!important}.sector-option{display:flex!important;align-items:center;gap:10px;width:100%;min-height:42px;padding:9px 8px;font-size:14px!important;font-weight:700!important;color:#111!important;line-height:1.35;cursor:pointer;-webkit-text-fill-color:#111}.sector-option input{width:18px!important;height:18px!important;flex:0 0 18px!important;accent-color:#111}.sector-label{display:block!important;flex:1;visibility:visible!important;opacity:1!important;color:#111!important;font-size:14px!important;font-weight:700!important;-webkit-text-fill-color:#111!important}.sector-all{border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:10px}
+.multi-sector{position:relative;min-width:180px;flex:1}.multi-sector-btn{width:100%;text-align:left;border:1px solid #ddd;background:#fff;color:#111;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:800;cursor:pointer}.multi-sector-menu{display:none;position:absolute;z-index:99999;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #d7d7d7;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.16);padding:8px;max-height:360px;overflow-y:auto}.multi-sector.open .multi-sector-menu{display:block}.sector-choice{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:10px 8px;border:0;border-radius:8px;background:#fff;color:#111;text-align:left;font-family:inherit;font-size:15px;font-weight:700;line-height:1.35;cursor:pointer}.sector-choice:hover{background:#f5f5f5}.sector-choice.selected{background:#f0f0f0}.sector-mark{width:20px;height:20px;flex:0 0 20px;border:2px solid #888;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#fff;background:#fff}.sector-choice.selected .sector-mark{background:#111;border-color:#111}.sector-text{display:block;flex:1;color:#111;white-space:nowrap}.sector-all{border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -393,24 +393,21 @@ function initSectorMulti(){
    ["Energy","能源"],["Financials","金融"],["Health Care","醫療保健"],["Industrials","工業"],
    ["Information Technology","資訊科技"],["Materials","原材料"],["Real Estate","房地產"],["Utilities","公用事業"]
  ];
- menu.innerHTML='<label class="sector-option sector-all"><input type="checkbox" id="sectorAll" checked><span class="sector-label">全部產業</span></label>'+
-   sectorDefs.map(d=>'<label class="sector-option"><input type="checkbox" value="'+d[0]+'"><span class="sector-label">'+d[1]+'</span></label>').join('');
- const all=menu.querySelector('#sectorAll'), boxes=[...menu.querySelectorAll('input[type=checkbox]:not(#sectorAll)')];
+ menu.innerHTML='<button type="button" class="sector-choice sector-all" data-sector="__ALL__"><span class="sector-mark">✓</span><span class="sector-text">全部產業</span></button>'+
+   sectorDefs.map(d=>'<button type="button" class="sector-choice" data-sector="'+d[0]+'"><span class="sector-mark"></span><span class="sector-text">'+d[1]+'</span></button>').join('');
+ const choices=[...menu.querySelectorAll('.sector-choice:not(.sector-all)')], all=menu.querySelector('.sector-all');
  function apply(){
-   const selected=boxes.filter(x=>x.checked).map(x=>x.value);
+   const selected=choices.filter(x=>x.classList.contains('selected')).map(x=>x.dataset.sector);
    if(!selected.length){
-     all.checked=true; hidden.value=''; btn.textContent='全部產業⌄';
+     all.classList.add('selected'); all.querySelector('.sector-mark').textContent='✓'; hidden.value=''; btn.textContent='全部產業⌄';
    }else{
-     all.checked=false; hidden.value=selected.join('|'); btn.textContent='已選 '+selected.length+' 個產業⌄';
+     all.classList.remove('selected'); all.querySelector('.sector-mark').textContent='';
+     hidden.value=selected.join('|'); btn.textContent='已選 '+selected.length+' 個產業⌄';
    }
    renderTable();
  }
- all.addEventListener('change',()=>{
-   if(all.checked) boxes.forEach(x=>x.checked=false);
-   else if(!boxes.some(x=>x.checked)) all.checked=true;
-   apply();
- });
- boxes.forEach(x=>x.addEventListener('change',apply));
+ all.addEventListener('click',()=>{choices.forEach(x=>x.classList.remove('selected'));apply();});
+ choices.forEach(x=>x.addEventListener('click',()=>{x.classList.toggle('selected');apply();}));
  btn.addEventListener('click',e=>{e.stopPropagation();wrap.classList.toggle('open')});
  menu.addEventListener('click',e=>e.stopPropagation());
  document.addEventListener('click',e=>{if(!wrap.contains(e.target))wrap.classList.remove('open')});
