@@ -148,9 +148,9 @@ const num=x=>Number.isFinite(Number(x))?Number(x).toLocaleString(undefined,{maxi
 const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
 function formatTW(iso){let d=new Date(iso);if(!Number.isFinite(d.getTime()))return iso;return new Intl.DateTimeFormat("zh-TW",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)}
 
-function mergeStocks(sp,ndx){
+function mergeStocks(sp,ndx,watch=[]){
   const map=new Map();
-  [...sp,...ndx].forEach(x=>{
+  [...sp,...ndx,...watch].forEach(x=>{
     const t=String(x.ticker||"").trim().toUpperCase();
     if(!t)return;
     if(!map.has(t))map.set(t,{...x});
@@ -332,22 +332,25 @@ function closeProfile(){profileModal.classList.remove("show");profileModal.setAt
 
 async function init(){
   try{
-    const [spR,ndxR,prR]=await Promise.all([
+    const [spR,ndxR,prR,watchR]=await Promise.all([
       fetch("data/sp500_volatility.json?v="+Date.now(),{cache:"no-store"}),
       fetch("data/nasdaq100_volatility.json?v="+Date.now(),{cache:"no-store"}),
-      fetch("data/company_profiles.json?v="+Date.now(),{cache:"no-store"})
+      fetch("data/company_profiles.json?v="+Date.now(),{cache:"no-store"}),
+      fetch("data/tac_watchlist_volatility.json?v="+Date.now(),{cache:"no-store"})
     ]);
     if(!spR.ok)throw Error("S&P 500 資料 HTTP "+spR.status);
     if(!ndxR.ok)throw Error("Nasdaq-100 資料 HTTP "+ndxR.status);
     const sp=await spR.json(),ndx=await ndxR.json();
+    const watch=watchR.ok?await watchR.json():{stocks:[]};
     P=prR.ok?await prR.json():{companies:{}};
-    S=mergeStocks(sp.stocks||[],ndx.stocks||[]);
+    S=mergeStocks(sp.stocks||[],ndx.stocks||[],watch.stocks||[]);
     if(!S.length)throw Error("綜合資料為空");
     D={
       stocks:S,
       meta_sp500:sp.meta||{},
       meta_nasdaq100:ndx.meta||{},
-      source_counts:{sp500:(sp.stocks||[]).length,nasdaq100:(ndx.stocks||[]).length}
+      meta_watchlist:pr.meta||{},
+      source_counts:{sp500:(sp.stocks||[]).length,nasdaq100:(ndx.stocks||[]).length,tac_watchlist:(pr.stocks||[]).length}
     };
     renderKPI();renderQuality();renderRank();renderSectors();
     let ss=[...new Set(S.map(x=>x.sector).filter(Boolean))].sort();
