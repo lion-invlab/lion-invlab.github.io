@@ -349,8 +349,8 @@ async function init(){
       stocks:S,
       meta_sp500:sp.meta||{},
       meta_nasdaq100:ndx.meta||{},
-      meta_watchlist:pr.meta||{},
-      source_counts:{sp500:(sp.stocks||[]).length,nasdaq100:(ndx.stocks||[]).length,tac_watchlist:(pr.stocks||[]).length}
+      meta_watchlist:watch.meta||{},
+      source_counts:{sp500:(sp.stocks||[]).length,nasdaq100:(ndx.stocks||[]).length,tac_watchlist:(watch.stocks||[]).length}
     };
     renderKPI();renderQuality();renderRank();renderSectors();
     let ss=[...new Set(S.map(x=>x.sector).filter(Boolean))].sort();
