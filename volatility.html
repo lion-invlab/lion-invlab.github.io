@@ -7,7 +7,6 @@
 <style>
 :root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--blue:#1264a3}
 *{box-sizing:border-box}
-html,body{width:100%;max-width:100%;overflow-x:hidden}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
 .top{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
 .topin{max-width:1500px;margin:auto;padding:13px 20px 7px;display:flex;justify-content:space-between;gap:12px}
@@ -16,13 +15,13 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .updatebar span:first-child{color:var(--ink)}
 nav{max-width:1500px;margin:auto;padding:0 20px 10px;display:flex;gap:5px;overflow:auto;white-space:nowrap}
 nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}
-.wrap{max-width:1500px;width:100%;margin:auto;padding:18px 20px 40px;min-width:0}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(6,1fr)}.two{grid-template-columns:1.25fr .75fr}
-.card{min-width:0;max-width:100%;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #0001}
+.wrap{max-width:1500px;margin:auto;padding:18px 20px 40px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(6,1fr)}.two{grid-template-columns:1.25fr .75fr}
+.card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #0001}
 .label{font-size:10px;color:var(--muted);font-weight:850}.value{font-size:22px;font-weight:950;margin-top:5px}.sub,.note{font-size:10px;color:var(--muted);line-height:1.65}
 .title{font-size:15px;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;gap:10px}.title small{font-size:10px;color:var(--muted)}
 .bluf{border-left:4px solid var(--red)}.bluf h1{font-size:20px;margin:0 0 8px}.bluf p{font-size:12px;line-height:1.65;color:#4e535a}
 .chips{display:flex;gap:7px;flex-wrap:wrap}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
-.rankgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;min-width:0;max-width:100%}.rankgrid>div{min-width:0;max-width:100%}.rankrow{display:grid;grid-template-columns:30px minmax(0,1fr) 75px;gap:7px;padding:7px 0;border-bottom:1px solid #eee;min-width:0;max-width:100%;overflow:hidden}.rankname{min-width:0;max-width:100%;overflow:hidden}.rankname b{display:block;min-width:0;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rankval{min-width:0;width:75px;max-width:75px;text-align:right;white-space:nowrap;overflow:hidden}
+.rankgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.rankrow{display:grid;grid-template-columns:30px 1fr 75px;gap:7px;padding:7px 0;border-bottom:1px solid #eee}
 .rankname b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rankname span{font-size:10px;color:var(--muted)}.rankval{text-align:right;font-weight:950}.rankno{color:var(--muted);font-weight:900}
 .sectors{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.sector{border:1px solid var(--line);border-radius:8px;padding:10px}
 .sectorline{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:5px}.bar{height:6px;background:#eee;border-radius:99px;margin-top:7px;overflow:hidden}.bar i{display:block;height:100%;background:#222}
@@ -51,7 +50,15 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 .profilelinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.profilelinks a{font-size:11px;color:var(--blue);text-decoration:none;border:1px solid var(--line);padding:7px 10px;border-radius:7px}
 .warn{color:#8a5b00;background:#fff8e1;border:1px solid #f0dfad;border-radius:8px;padding:9px;font-size:11px;line-height:1.6}
 @media(max-width:1100px){.kpi{grid-template-columns:repeat(3,1fr)}.two{grid-template-columns:1fr}.sectors{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:700px){.topin{padding:12px 14px 7px}.status{display:none}.updatebar{padding:0 14px 7px;font-size:9px;gap:8px}nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.rankgrid,.sectors{grid-template-columns:1fr}.rankrow{grid-template-columns:28px minmax(0,1fr) 68px;gap:6px}.rankval{width:68px;max-width:68px;font-size:12px;text-align:right;white-space:nowrap;overflow:hidden}.detailgrid{grid-template-columns:repeat(2,1fr)}.controls input{min-width:180px}.modal{padding:0}.modalbox{max-height:100vh;border-radius:0}.profilegrid{grid-template-columns:repeat(2,1fr)}.modalhead{padding:14px}.profilebody{padding:14px}.modalhead h2{font-size:19px}}
+@media(max-width:700px){.topin{padding:12px 14px 7px}.status{display:none}.updatebar{padding:0 14px 7px;font-size:9px;gap:8px}nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.rankgrid,.sectors{grid-template-columns:1fr}.detailgrid{grid-template-columns:repeat(2,1fr)}.controls input{min-width:180px}.modal{padding:0}.modalbox{max-height:100vh;border-radius:0}.profilegrid{grid-template-columns:repeat(2,1fr)}.modalhead{padding:14px}.profilebody{padding:14px}.modalhead h2{font-size:19px}}
+
+.period-tabs{display:flex;gap:8px;margin:10px 0 14px;flex-wrap:wrap}
+.period-tab{border:1px solid #d7d7d7;background:#fff;border-radius:10px;padding:8px 18px;font-weight:900;font-size:14px;cursor:pointer}
+.period-tab.active{background:#111;color:#fff;border-color:#111}
+.rank-single{width:100%}
+@media(max-width:700px){.period-tabs{gap:6px}.period-tab{flex:1;min-width:70px;padding:9px 10px}.rank-single .label{font-size:15px}}
+
+.multi-sector{position:relative;min-width:180px}.multi-sector-btn{width:100%;text-align:left;border:1px solid #ddd;background:#fff;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:800}.multi-sector-menu{display:none;position:absolute;z-index:30;top:calc(100% + 6px);left:0;right:0;background:#fff;border:1px solid #ddd;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.16);padding:8px;max-height:340px;overflow:auto}.multi-sector.open .multi-sector-menu{display:block}.sector-option{display:flex;align-items:center;gap:9px;padding:9px 7px;font-size:14px}.sector-option input{width:18px;height:18px}.sector-all{border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -78,8 +85,14 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 
 <div style="height:14px"></div>
 <section id="ranking" class="card">
-<div class="title">90D 波動率排名 <small>年化｜S&P 500 + Nasdaq-100 綜合</small></div>
-<div class="rankgrid"><div><div class="label">最高 Top 20</div><div id="top20"></div></div><div><div class="label">最低 Bottom 20</div><div id="bottom20"></div></div></div>
+<div class="title"><span id="rankTitle">90D 波動率排名</span> <small>年化｜S&P 500 + Nasdaq-100 綜合</small></div>
+<div class="period-tabs" role="tablist" aria-label="波動率期間">
+<button class="period-tab" data-period="20">20D</button>
+<button class="period-tab" data-period="30">30D</button>
+<button class="period-tab" data-period="60">60D</button>
+<button class="period-tab active" data-period="90">90D</button>
+</div>
+<div class="rank-single"><div class="label" id="rankLabel">最高 Top 40</div><div id="top40"></div></div>
 </section>
 
 <div style="height:14px"></div>
@@ -93,7 +106,11 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 <div class="title"><span>S&P 500 + Nasdaq 100 成份股</span><small id="count"></small></div>
 <div class="controls">
 <input id="search" placeholder="搜尋代號或公司名稱…">
-<select id="sector"><option value="">全部產業</option></select>
+<div class="multi-sector" id="sectorMulti">
+<button type="button" class="multi-sector-btn" id="sectorBtn">全部產業⌄</button>
+<div class="multi-sector-menu" id="sectorMenu"></div>
+</div>
+<input type="hidden" id="sector" value="">
 <select id="metric">
 <option value="vol_90d">90D波動率</option><option value="vol_60d">60D波動率</option><option value="vol_30d">30D波動率</option><option value="vol_20d">20D波動率</option><option value="return_90d">90D報酬</option><option value="vol_ratio_20d_90d">20D/90D</option>
 </select>
@@ -125,7 +142,7 @@ const CN={
 "Information Technology":"資訊科技","Materials":"原材料","Real Estate":"房地產","Utilities":"公用事業"
 };
 
-let D=null,S=[],P={},key="vol_90d",desc=true;
+let D=null,S=[],P={},key="vol_90d",desc=true,rankPeriod=90;
 
 const pct=x=>Number.isFinite(Number(x))?(Number(x)*100).toFixed(2)+"%":"—";
 const num=x=>Number.isFinite(Number(x))?Number(x).toLocaleString(undefined,{maximumFractionDigits:2}):"—";
@@ -197,11 +214,8 @@ function renderQuality(){
 }
 
 function renderRank(){
-  let v=S.filter(x=>x.valid&&Number.isFinite(Number(x.vol_90d)));
-  let hi=[...v].sort((a,b)=>b.vol_90d-a.vol_90d).slice(0,20);
-  let lo=[...v].sort((a,b)=>a.vol_90d-b.vol_90d).slice(0,20);
-  const f=a=>a.map((x,i)=>'<div class="rankrow"><div class="rankno">'+(i+1)+'</div><div class="rankname"><b>'+esc(x.ticker)+"｜"+esc(x.company)+'</b><span>'+esc(CN[x.sector]||x.sector||"—")+'</span></div><div class="rankval">'+pct(x.vol_90d)+"</div></div>").join("");
-  top20.innerHTML=f(hi);bottom20.innerHTML=f(lo);
+  rankPeriod=90;
+  renderTop40ByPeriod();
 }
 
 function renderSectors(){
@@ -221,7 +235,8 @@ function renderSectors(){
 
 function renderTable(){
   let q=search.value.toLowerCase().trim(),z=sector.value;
-  let a=S.filter(x=>(!q||String(x.ticker||"").toLowerCase().includes(q)||String(x.company||"").toLowerCase().includes(q))&&(!z||x.sector===z));
+  let selected=z?z.split("|").filter(Boolean):[];
+  let a=S.filter(x=>(!q||String(x.ticker||"").toLowerCase().includes(q)||String(x.company||"").toLowerCase().includes(q))&&(!selected.length||selected.includes(x.sector)));
   a.sort((x,y)=>{
     let xv=Number(x[key]),yv=Number(y[key]);
     if(!Number.isFinite(xv))xv=desc?-Infinity:Infinity;
@@ -351,6 +366,40 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeProfile()});
 search.oninput=renderTable;sector.onchange=renderTable;metric.onchange=e=>{key=e.target.value;renderTable()};
 dir.onclick=e=>{desc=!desc;e.target.textContent=desc?"由高至低":"由低至高";renderTable()};
 init();
+
+// V5 review controls: 20D / 30D / 60D / 90D, default 90D; Top 40 only.
+function renderTop40ByPeriod(){
+  const el=document.getElementById('top40');
+  const title=document.getElementById('rankTitle');
+  const label=document.getElementById('rankLabel');
+  if(!el||!Array.isArray(S)) return;
+  const field='vol_'+rankPeriod+'d';
+  const rows=S.filter(x=>Number.isFinite(Number(x[field]))).slice().sort((a,b)=>Number(b[field])-Number(a[field])).slice(0,40);
+  title.textContent=rankPeriod+'D 波動率排名';
+  label.textContent='最高 Top 40';
+  el.innerHTML=rows.map((x,i)=>`<div class="rankrow"><span class="ranknum">${i+1}</span><b>${esc(x.ticker||'')}</b><span class="rankname">${esc(x.name||x.company||'')}</span><strong>${pct(Number(x[field]))}</strong></div>`).join('');
+}
+document.querySelectorAll('.period-tab').forEach(btn=>btn.addEventListener('click',()=>{
+ document.querySelectorAll('.period-tab').forEach(b=>b.classList.remove('active')); btn.classList.add('active');
+ rankPeriod=Number(btn.dataset.period); renderTop40ByPeriod();
+}));
+
+// Multi-select sectors for V5 review
+function initSectorMulti(){
+ const wrap=document.getElementById('sectorMulti'), menu=document.getElementById('sectorMenu'), btn=document.getElementById('sectorBtn'), hidden=document.getElementById('sector');
+ if(!wrap||!menu||!btn||!hidden) return;
+ const names=[...new Set((S||[]).map(x=>x.sector||x.industry).filter(Boolean))].sort();
+ menu.innerHTML='<label class="sector-option sector-all"><input type="checkbox" id="sectorAll" checked> 全部產業</label>'+names.map(n=>`<label class="sector-option"><input type="checkbox" value="${esc(n)}"> ${esc(CN[n]||n)}</label>`).join('');
+ const all=menu.querySelector('#sectorAll'), boxes=[...menu.querySelectorAll('input[type=checkbox]:not(#sectorAll)')];
+ function sync(){const selected=boxes.filter(x=>x.checked).map(x=>x.value); if(!selected.length){all.checked=true;hidden.value='';btn.textContent='全部產業⌄';}else{all.checked=false;hidden.value=selected.join('|');btn.textContent='已選 '+selected.length+' 個產業⌄';} if(typeof render==='function') render();}
+ all.addEventListener('change',()=>{boxes.forEach(x=>x.checked=false);hidden.value='';btn.textContent='全部產業⌄';if(typeof render==='function')render();});
+ boxes.forEach(x=>x.addEventListener('change',sync));
+ btn.addEventListener('click',()=>wrap.classList.toggle('open'));
+ document.addEventListener('click',e=>{if(!wrap.contains(e.target))wrap.classList.remove('open')});
+}
+const _oldRender=window.render;
+
+setTimeout(initSectorMulti,500);
 </script>
 </body>
 </html>
