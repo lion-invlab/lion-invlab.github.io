@@ -48,7 +48,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <div style="height:14px"></div>
 <section class="grid kpi">
 <div class="card"><div class="label">Q4 精選基金</div><div class="value">15 檔</div><div class="sub">目前鎖定的精選基金範圍</div></div>
-<div class="card"><div class="label">已核實官方基準日</div><div class="value red">4 組</div><div class="sub">目前已完成的 Q4 官方資料</div></div>
+<div class="card"><div class="label">已核實官方基準日</div><div class="value red">4 組</div><div class="sub">目前已完成官方日期核實</div></div>
 <div class="card"><div class="label">下一個已知基準日</div><div class="value red">10/14</div><div class="sub">安聯全球多元投資風格股票基金</div></div>
 <div class="card"><div class="label">資料更新</div><div class="value">Q4</div><div class="sub">後續持續補齊官方行事曆</div></div>
 </section>
@@ -63,14 +63,15 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <div class="event"><div class="d">10/28</div><b>施羅德環球收益成長</b><small>月配級別｜官方基準日</small></div>
 <div class="event"><div class="d">10/29</div><b>聯博－美國成長基金</b><small>月配級別｜官方基準日</small></div>
 </div>
-<div class="month"><b>11 月</b><div class="event"><div class="d">—</div><b>尚待官方公布</b><small>不自行推算</small></div></div>
+<div class="month"><b>11 月</b><div class="event"><div class="d">—</div><b>摩根多重收益基金</b><small>Q4 官方基準日尚待公布｜不自行推算</small></div>
+<div class="event"><div class="d">—</div><b>其他待公布基金</b><small>依各基金公司官方行事曆補齊</small></div></div>
 <div class="month"><b>12 月</b><div class="event"><div class="d">12/14</div><b>安聯全球多元投資風格股票基金</b><small>2455｜官方基準日</small></div></div>
 </div>
 </section>
 
 <div style="height:14px"></div>
 <section class="card">
-<div class="title"><span>Q4 精選基金明細</span><small id="count">已核實資料</small></div>
+<div class="title"><span>Q4 精選基金明細</span><small id="count">15 檔主基金</small></div>
 <div class="filters">
 <div class="field"><label>搜尋基金／級別／ISIN</label><input id="q" placeholder="例如：2457、ISIN、基金名稱"></div>
 <div class="field"><label>月份</label><select id="month"><option value="">全部 Q4</option><option value="10">10 月</option><option value="11">11 月</option><option value="12">12 月</option></select></div>
@@ -81,7 +82,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <div class="table-wrap">
 <table><thead><tr><th>基準日</th><th>基金</th><th>基金級別</th><th>ISIN Code</th><th>配息</th><th>MoneyDJ 最新年化配息率</th><th>資料來源</th></tr></thead><tbody id="rows"></tbody></table>
 </div>
-<div class="source" style="margin-top:9px">註：目前先呈現已完成官方核實的資料；其餘 Q4 精選基金會依官方行事曆逐一補齊。年化配息率不由本頁自行計算。</div>
+<div class="source" style="margin-top:9px">註：15 檔主基金均列入。已公布者顯示官方基準日；尚未公布者顯示「尚未公布」，不自行推算。摩根日本基金為累積級別／不配息，基準日不適用。年化配息率不由本頁自行計算。</div>
 </section>
 </main>
 <footer class="footer">TAC 投資早報｜Q4 精選基金｜基準日來「息」｜資訊整理與教育用途，不構成投資建議。</footer>
@@ -89,10 +90,22 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <script>
 const data=[
 {date:"2026-10-14",fund:"安聯全球多元投資風格股票基金",classes:"2457／T407",isin:"依級別官方ISIN對應",freq:"月",rate:"9.11%／9.12%",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-10-28",fund:"施羅德環球收息債券",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-10-28",fund:"施羅德環球收益成長",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-10-29",fund:"聯博－美國成長基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-12-14",fund:"安聯全球多元投資風格股票基金",classes:"2455",isin:"依級別官方ISIN對應",freq:"月",rate:"1.64%",status:"published",source:"基金公司官方行事曆"}
+{date:"2026-10-28",fund:"施羅德環球收息債券基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
+{date:"2026-10-28",fund:"施羅德環球收益成長基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
+{date:"2026-10-29",fund:"聯博美國成長股票基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
+{date:"2026-12-14",fund:"安聯全球多元投資風格股票基金",classes:"2455",isin:"依級別官方ISIN對應",freq:"月",rate:"1.64%",status:"published",source:"基金公司官方行事曆"},
+{date:"",fund:"摩根多重收益基金",classes:"022A／022N／0285／0286／0287／0288／T602–T606",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"摩根官方行事曆：待公布"},
+{date:"",fund:"摩根日本基金",classes:"0235／0236／T616／T617",isin:"LU0235639324／LU0927678507／LU2751702080／LU2831197772",freq:"無",rate:"—",status:"pending",source:"累積級別／不配息"},
+{date:"",fund:"PIMCO多元收益債券基金",classes:"收息／月配級別",isin:"依級別官方 ISIN 對應",freq:"季／月",rate:"依 MoneyDJ 最新值",status:"pending",source:"PIMCO 官方行事曆"},
+{date:"",fund:"摩根多重收益基金",classes:"主基金其餘配息級別",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"摩根官方行事曆：待公布"},
+{date:"",fund:"滙豐超核心多重資產基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"HSBC 官方行事曆"},
+{date:"",fund:"PIMCO收益增長基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"PIMCO 官方行事曆"},
+{date:"",fund:"貝萊德全球智慧數據股票入息基金(複雜型)",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"BlackRock 官方資料"},
+{date:"",fund:"安聯AI人工智慧基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"Allianz 官方行事曆"},
+{date:"",fund:"滙豐全球基礎建設收益基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"HSBC 官方行事曆"},
+{date:"",fund:"施羅德環球基金系列－環球永續增長",classes:"累積級別",isin:"依級別官方 ISIN 對應",freq:"無",rate:"—",status:"pending",source:"不配息／基準日不適用"},
+{date:"",fund:"施羅德環球黃金",classes:"累積級別",isin:"依級別官方 ISIN 對應",freq:"無",rate:"—",status:"pending",source:"不配息／基準日不適用"},
+{date:"",fund:"安聯台灣科技基金",classes:"累積級別",isin:"TW000T3604Y3",freq:"無",rate:"—",status:"pending",source:"不配息／基準日不適用"}
 ];
 function render(){
  const q=(document.getElementById("q").value||"").toLowerCase();
