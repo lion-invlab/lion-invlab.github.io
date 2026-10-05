@@ -11,7 +11,7 @@
 .nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover{background:var(--black);color:#fff}.nav .active{background:var(--red);color:#fff}
 .wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(4,1fr)}.two{grid-template-columns:1.35fr .65fr}.three{grid-template-columns:repeat(3,1fr)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.title{font-size:15px;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750}.label{font-size:10px;color:var(--muted);font-weight:850}.value{font-size:25px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.sub{font-size:11px;color:#555b63;line-height:1.6;margin-top:5px}
-.hero{border-left:4px solid var(--red)}.hero h1{font-size:27px;line-height:1.35;margin:0 0 8px}.hero p{margin:0;color:#4e535a;line-height:1.7}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
+.hero{border-left:4px solid var(--red)}.hero h1{font-size:27px;line-height:1.35;margin:0 0 8px}.hero p{margin:0;color:#4e535a;line-height:1.7}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}.upcoming-list{display:grid;gap:7px;margin-top:10px}.up-item{display:grid;grid-template-columns:18px 72px 1fr auto;gap:8px;align-items:center;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:#fafafa}.light{width:11px;height:11px;border-radius:50%;display:block}.light.red{background:var(--red);box-shadow:0 0 0 3px #c6282820}.light.yellow{background:#e0a800;box-shadow:0 0 0 3px #e0a80020}.light.green{background:var(--green);box-shadow:0 0 0 3px #16834c20}.up-date{font-weight:950;white-space:nowrap}.up-name{font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.up-days{font-weight:950;white-space:nowrap}.up-days.red{color:var(--red)}.up-days.yellow{color:#b47b00}.up-days.green{color:var(--green)}.legend{font-size:10px;color:var(--muted);margin-top:8px}
 .kpi .card{min-height:112px}.red{color:var(--red)}.green{color:var(--green)}.gold{color:var(--gold)}
 .filters{display:grid;grid-template-columns:1.2fr .8fr .8fr auto;gap:9px;align-items:end}.field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}.field select,.field input{width:100%;height:38px;border:1px solid var(--line);border-radius:7px;background:#fff;padding:0 9px;font-weight:750}.btn{height:38px;border:0;border-radius:7px;padding:0 15px;font-weight:900;background:var(--black);color:#fff;cursor:pointer}.btn.red{background:var(--red);color:#fff}
 table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:left;padding:8px 7px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:9px 7px;border-bottom:1px solid #eee;vertical-align:middle}tr:last-child td{border-bottom:0}.date{font-weight:950;color:var(--red);white-space:nowrap}.rate{font-weight:950;white-space:nowrap}.isin{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;color:#555}.tag{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:3px 7px;font-size:9px;font-weight:900;white-space:nowrap}.source{font-size:10px;color:var(--muted);line-height:1.6}.notice{padding:11px 13px;border-radius:8px;background:#fafafa;border:1px solid var(--line);font-size:11px;line-height:1.7}
@@ -35,9 +35,10 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <section class="grid two">
 <article class="card hero">
 <div class="title">Q4 精選基金｜基準日來即將「息」 <small>獨立 GitHub Pages</small></div>
-<h1>掌握 Q4 配息基準日，基金配息領起來！</h1>
-<p>本頁專門整理 Q4 精選基金的官方配息基準日。基準日資料以各基金公司官方網站／官方配息行事曆為準，並以 <b>ISIN Code＋基金級別</b> 對應；年化配息率則獨立採 MoneyDJ 最新一筆「年化配息率%」。</p>
-<div class="chips"><span class="chip">Q4 2026</span><span class="chip">官方基準日</span><span class="chip">ISIN 對應</span><span class="chip">MoneyDJ 年化配息率</span></div>
+<h1>即將配息｜依基準日倒數排序</h1>
+<p>先看最急的基金：<b>紅燈＝3天內、黃燈＝4–7天、綠燈＝8天以上</b>。倒數天數會依今日日期自動更新。</p>
+<div id="upcomingHero" class="upcoming-list"></div>
+<div class="legend">🔴 最急迫　🟡 次接近　🟢 尚有時間</div>
 </article>
 <article class="card">
 <div class="title">資料規則 <small>已鎖定</small></div>
@@ -55,33 +56,8 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 
 <div style="height:14px"></div>
 <section class="card">
-<div class="title"><span>Q4 配息時間軸</span><small>2026 官方配息基準日</small></div>
-<div class="timeline">
-<div class="month"><b>10 月</b>
-<div class="event"><div class="d">10/07</div><b>摩根多重收益</b><small>月配</small></div>
-<div class="event"><div class="d">10/14</div><b>安聯 AI／安聯全球多元風格</b><small>月配</small></div>
-<div class="event"><div class="d">10/28</div><b>施羅德收息債券／收益成長</b><small>月配</small></div>
-<div class="event"><div class="d">10/28</div><b>PIMCO 多元收益／收益增長</b><small>月配</small></div>
-<div class="event"><div class="d">10/29</div><b>貝萊德／聯博美國成長</b><small>月配</small></div>
-<div class="event"><div class="d">10/30</div><b>滙豐超核心／全球基礎建設</b><small>月配</small></div>
-</div>
-<div class="month"><b>11 月</b>
-<div class="event"><div class="d">11/09</div><b>摩根多重收益</b><small>月配＋季配</small></div>
-<div class="event"><div class="d">11/13</div><b>安聯 AI／安聯全球多元風格</b><small>月配</small></div>
-<div class="event"><div class="d">11/18</div><b>施羅德收息債券／收益成長</b><small>月配</small></div>
-<div class="event"><div class="d">11/24</div><b>PIMCO 多元收益／收益增長</b><small>月配</small></div>
-<div class="event"><div class="d">11/27</div><b>貝萊德／聯博美國成長</b><small>月配</small></div>
-<div class="event"><div class="d">11/30</div><b>滙豐超核心／全球基礎建設</b><small>月配</small></div>
-</div>
-<div class="month"><b>12 月</b>
-<div class="event"><div class="d">12/07</div><b>摩根多重收益</b><small>月配</small></div>
-<div class="event"><div class="d">12/14</div><b>安聯 AI／安聯全球多元風格</b><small>月配；2455另有配息類</small></div>
-<div class="event"><div class="d">12/15</div><b>施羅德收息債券／收益成長</b><small>月配</small></div>
-<div class="event"><div class="d">12/29</div><b>PIMCO 多元收益／收益增長</b><small>月配</small></div>
-<div class="event"><div class="d">12/30</div><b>貝萊德／聯博美國成長</b><small>月配</small></div>
-<div class="event"><div class="d">12/31</div><b>滙豐超核心／全球基礎建設</b><small>月配</small></div>
-</div>
-</div>
+<div class="title"><span>即將配息基金｜倒數排序</span><small>基準日越近越前面</small></div>
+<div id="upcomingAll" class="upcoming-list"></div>
 </section>
 
 <div style="height:14px"></div>
@@ -96,7 +72,37 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 <script>
 function goFundDetail(){const v=document.getElementById("fundSelect").value;if(v)location.href="fund-detail-v2.html?fund="+encodeURIComponent(v)+"&v=20261006";}
 const data=[["2026-10-28","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-10-28","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-10-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-12-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","0285／0286","季配","摩根官方"],["2026-10-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-11-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-12-31","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-10-28","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-10-28","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-10-29","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-11-27","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-12-30","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-10-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-10-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-11-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-12-31","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["","安聯台灣科技基金","5503｜累積","不配息","安聯／級別資料"],["","施羅德環球基金系列－環球永續增長","053L／T107｜累積","不配息","級別資料"],["","施羅德環球黃金","053W／053X／T109｜累積","不配息","級別資料"],["","摩根日本基金","0235／0236／T616／T617｜累積","不配息","級別資料"],["2026-10-29","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-11-27","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-12-30","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-10-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2455｜配息類股","配息","Allianz 2026 官方行事曆"]];
+function daysFromToday(s){
+ if(!s)return null;
+ const t=new Date(s+"T00:00:00");
+ const now=new Date();
+ const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+ return Math.ceil((t-today)/86400000);
+}
+function lightClass(days){
+ if(days<=3)return "red";
+ if(days<=7)return "yellow";
+ return "green";
+}
+function upcomingHTML(limit){
+ const grouped={};
+ data.filter(x=>x[0]).forEach(x=>{
+   const d=daysFromToday(x[0]);
+   if(d>=0){
+     if(!grouped[x[0]])grouped[x[0]]=[];
+     grouped[x[0]].push(x);
+   }
+ });
+ return Object.keys(grouped).sort().slice(0,limit).map(date=>{
+   const days=daysFromToday(date), cls=lightClass(days);
+   const names=[...new Set(grouped[date].map(x=>x[1]))];
+   const label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";
+   return `<div class="up-item"><span class="light ${cls}"></span><span class="up-date">${date.slice(5).replace("-","/")}</span><span class="up-name">${names.join("／")}</span><span class="up-days ${cls}">${label}</span></div>`;
+ }).join("");
+}
 function render(){
+ document.getElementById("upcomingHero").innerHTML=upcomingHTML(4);
+ document.getElementById("upcomingAll").innerHTML=upcomingHTML(10);
  document.getElementById("count").textContent="顯示 "+data.length+" 筆";
  document.getElementById("rows").innerHTML=data.map(x=>`<tr><td class="date">${x[0]?x[0].slice(5).replace("-","/"):"—"}</td><td><b>${x[1]}</b></td><td><span class="tag">${x[2]}</span></td><td>${x[3]}</td><td><span class="tag">${x[4]}</span></td></tr>`).join("");
 }
