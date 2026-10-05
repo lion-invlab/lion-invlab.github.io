@@ -125,6 +125,19 @@ function render(){
  renderUpcoming();
  renderTimeline();
 }
+
+// 每日午夜自動重新計算倒數，不需要修改 GitHub。
+function scheduleDailyRefresh(){
+  const now=new Date();
+  const next=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,2,0);
+  const delay=next-now;
+  setTimeout(()=>{
+    render();
+    scheduleDailyRefresh();
+  },delay);
+}
+
 render();
+scheduleDailyRefresh();
 </script>
 </body></html>
