@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "title": "TAC Custom Watchlist Historical Volatility",
+    "updated_at": "2026-10-05T21:32:39.645585+00:00",
+    "calculation": "std(log(Pt/Pt-1)) * sqrt(252)",
+    "windows": [
+      90,
+      60,
+      30,
+      20
+    ],
+    "price_source": "Yahoo Finance historical daily data",
+    "constituent_source": "TAC custom watchlist",
+    "data_type": "actual",
+    "demo_data": false
+  },
+  "summary": {
+    "constituents": 3,
+    "valid": 1,
+    "average_vol_90d": 0.43165999012581957,
+    "median_vol_90d": 0.43165999012581957,
+    "max_vol_90d": 0.43165999012581957,
+    "min_vol_90d": 0.43165999012581957
+  },
+  "data_quality": {
+    "constituent_count": 3,
+    "valid_count": 1,
+    "missing_count": 2,
+    "coverage": 0.3333333333333333
+  },
+  "stocks": [
+    {
+      "ticker": "TSM",
+      "yahoo_ticker": "TSM",
+      "company": "Taiwan Semiconductor Manufacturing",
+      "sector": "Information Technology",
+      "source_group": "TAC Watchlist",
+      "price": 485.79998779296875,
+      "vol_90d": 0.43165999012581957,
+      "vol_60d": 0.3364207222269319,
+      "vol_30d": 0.2680067681309635,
+      "vol_20d": 0.27105912285959166,
+      "return_90d": 0.1549782995728406,
+      "max_drawdown_90d": -0.2154658010802104,
+      "vol_ratio_20d_90d": 0.6279459043229458,
+      "valid": true,
+      "price_days": 251
+    },
+    {
+      "ticker": "SKHY",
+      "yahoo_ticker": "SKHY",
+      "company": "SK hynix",
+      "sector": "Information Technology",
+      "source_group": "TAC Watchlist",
+      "price": null,
+      "vol_90d": null,
+      "vol_60d": null,
+      "vol_30d": null,
+      "vol_20d": null,
+      "return_90d": null,
+      "max_drawdown_90d": null,
+      "vol_ratio_20d_90d": null,
+      "valid": false,
+      "price_days": 0
+    },
+    {
+      "ticker": "SPCX",
+      "yahoo_ticker": "SPCX",
+      "company": "ConvexityShares 1x SPIKES Futures ETF",
+      "sector": "Other",
+      "source_group": "TAC Watchlist",
+      "price": null,
+      "vol_90d": null,
+      "vol_60d": null,
+      "vol_30d": null,
+      "vol_20d": null,
+      "return_90d": null,
+      "max_drawdown_90d": null,
+      "vol_ratio_20d_90d": null,
+      "valid": false,
+      "price_days": 0
+    }
+  ]
+}
