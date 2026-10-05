@@ -58,7 +58,7 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 .rank-single{width:100%}
 @media(max-width:700px){.period-tabs{gap:6px}.period-tab{flex:1;min-width:70px;padding:9px 10px}.rank-single .label{font-size:15px}}
 
-.multi-sector{position:relative;min-width:180px;flex:1}.multi-sector-btn{width:100%;text-align:left;border:1px solid #ddd;background:#fff;color:#111;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:800;cursor:pointer}.multi-sector-menu{display:none;position:absolute;z-index:100;top:calc(100% + 6px);left:0;right:0;background:#fff;color:#111;border:1px solid #d7d7d7;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.16);padding:8px;max-height:340px;overflow-y:auto;overflow-x:hidden}.multi-sector.open .multi-sector-menu{display:block}.sector-option{display:flex;align-items:center;gap:9px;width:100%;padding:9px 7px;font-size:14px;font-weight:700;color:#111;line-height:1.35;cursor:pointer}.sector-option span{display:block;color:#111}.sector-option input{width:18px;height:18px;flex:0 0 18px;accent-color:#111}.sector-all{border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:10px}
+.multi-sector{position:relative;min-width:180px;flex:1}.multi-sector-btn{width:100%;text-align:left;border:1px solid #ddd;background:#fff;color:#111;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:800;cursor:pointer}.multi-sector-menu{display:none;position:absolute;z-index:9999;top:calc(100% + 6px);left:0;right:0;background:#fff!important;color:#111!important;border:1px solid #d7d7d7;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.16);padding:8px;max-height:360px;overflow-y:auto;overflow-x:hidden;-webkit-text-fill-color:#111}.multi-sector.open .multi-sector-menu{display:block!important}.sector-option{display:flex!important;align-items:center;gap:10px;width:100%;min-height:42px;padding:9px 8px;font-size:14px!important;font-weight:700!important;color:#111!important;line-height:1.35;cursor:pointer;-webkit-text-fill-color:#111}.sector-option input{width:18px!important;height:18px!important;flex:0 0 18px!important;accent-color:#111}.sector-label{display:block!important;flex:1;visibility:visible!important;opacity:1!important;color:#111!important;font-size:14px!important;font-weight:700!important;-webkit-text-fill-color:#111!important}.sector-all{border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -389,12 +389,25 @@ function initSectorMulti(){
  const wrap=document.getElementById('sectorMulti'), menu=document.getElementById('sectorMenu'), btn=document.getElementById('sectorBtn'), hidden=document.getElementById('sector');
  if(!wrap||!menu||!btn||!hidden) return;
  const names=[...new Set((S||[]).map(x=>x.sector||x.industry).filter(Boolean))].sort();
- menu.innerHTML='<label class="sector-option sector-all"><input type="checkbox" id="sectorAll" checked><span>全部產業</span></label>'+names.map(n=>`<label class="sector-option"><input type="checkbox" value="${esc(n)}"><span>${esc(CN[n]||n)}</span></label>`).join('');
+ menu.innerHTML='<label class="sector-option sector-all"><input type="checkbox" id="sectorAll" checked><span class="sector-label">全部產業</span></label>'+names.map(n=>'<label class="sector-option"><input type="checkbox" value="'+esc(n)+'"><span class="sector-label">'+esc(CN[n]||n)+'</span></label>').join('');
  const all=menu.querySelector('#sectorAll'), boxes=[...menu.querySelectorAll('input[type=checkbox]:not(#sectorAll)')];
- function sync(){const selected=boxes.filter(x=>x.checked).map(x=>x.value); if(!selected.length){all.checked=true;hidden.value='';btn.textContent='全部產業⌄';}else{all.checked=false;hidden.value=selected.join('|');btn.textContent='已選 '+selected.length+' 個產業⌄';} if(typeof render==='function') render();}
- all.addEventListener('change',()=>{boxes.forEach(x=>x.checked=false);hidden.value='';btn.textContent='全部產業⌄';if(typeof render==='function')render();});
- boxes.forEach(x=>x.addEventListener('change',sync));
- btn.addEventListener('click',()=>wrap.classList.toggle('open'));
+ function apply(){
+   const selected=boxes.filter(x=>x.checked).map(x=>x.value);
+   if(!selected.length){
+     all.checked=true; hidden.value=''; btn.textContent='全部產業⌄';
+   }else{
+     all.checked=false; hidden.value=selected.join('|'); btn.textContent='已選 '+selected.length+' 個產業⌄';
+   }
+   renderTable();
+ }
+ all.addEventListener('change',()=>{
+   if(all.checked) boxes.forEach(x=>x.checked=false);
+   else if(!boxes.some(x=>x.checked)) all.checked=true;
+   apply();
+ });
+ boxes.forEach(x=>x.addEventListener('change',apply));
+ btn.addEventListener('click',e=>{e.stopPropagation();wrap.classList.toggle('open')});
+ menu.addEventListener('click',e=>e.stopPropagation());
  document.addEventListener('click',e=>{if(!wrap.contains(e.target))wrap.classList.remove('open')});
 }
 const _oldRender=window.render;
