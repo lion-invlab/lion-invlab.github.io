@@ -197,19 +197,19 @@ function renderKPI(){
 }
 
 function renderQuality(){
-  const metas=[D.meta_sp500||{},D.meta_nasdaq100||{}];
+  const metas=[D.meta_sp500||{},D.meta_nasdaq100||{},D.meta_watchlist||{}];
   const dates=metas.map(m=>m.updated_at).filter(Boolean).sort().reverse();
   const tw=dates.length?formatTW(dates[0]):"—";
   updatedTW.textContent=tw+"（台灣時間）";
-  const spN=D.source_counts?.sp500??"—", ndxN=D.source_counts?.nasdaq100??"—";
+  const spN=D.source_counts?.sp500??"—", ndxN=D.source_counts?.nasdaq100??"—", watchN=D.source_counts?.tac_watchlist??"—";
   quality.innerHTML=
     "<b>更新：</b>"+esc(tw)+"<br>"+
-    "<b>股票池：</b>S&P 500 + Nasdaq-100，重複股票去重<br>"+
-    "<b>來源：</b>S&P 500 與 Nasdaq-100 各自波動率資料檔合併<br>"+
+    "<b>股票池：</b>S&P 500 + Nasdaq-100 + TAC 自訂追蹤，重複股票去重<br>"+
+    "<b>來源：</b>S&P 500 "+spN+" 檔｜Nasdaq-100 "+ndxN+" 檔｜TAC Watchlist "+watchN+" 檔<br>"+
     "<b>型態：</b><span class=\"pos\">Actual｜非 Demo</span><br>"+
-    "<b>原始資料：</b>S&P 500 "+spN+" 檔｜Nasdaq-100 "+ndxN+" 檔<br>"+
+    "<b>原始資料：</b>Yahoo Finance 歷史日線<br>"+
     "<b>綜合有效：</b>"+S.filter(x=>x.valid&&Number.isFinite(Number(x.vol_90d))).length+" / "+S.length;
-  status.textContent="更新："+tw+"｜Actual｜S&P 500 + Nasdaq-100 綜合";
+  status.textContent="更新："+tw+"｜Actual｜S&P 500 + Nasdaq-100 + TAC Watchlist 綜合";
 }
 
 function renderRank(){
