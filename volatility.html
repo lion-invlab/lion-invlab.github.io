@@ -388,8 +388,13 @@ document.querySelectorAll('.period-tab').forEach(btn=>btn.addEventListener('clic
 function initSectorMulti(){
  const wrap=document.getElementById('sectorMulti'), menu=document.getElementById('sectorMenu'), btn=document.getElementById('sectorBtn'), hidden=document.getElementById('sector');
  if(!wrap||!menu||!btn||!hidden) return;
- const names=[...new Set((S||[]).map(x=>x.sector||x.industry).filter(Boolean))].sort();
- menu.innerHTML='<label class="sector-option sector-all"><input type="checkbox" id="sectorAll" checked><span class="sector-label">全部產業</span></label>'+names.map(n=>'<label class="sector-option"><input type="checkbox" value="'+esc(n)+'"><span class="sector-label">'+esc(CN[n]||n)+'</span></label>').join('');
+ const sectorDefs=[
+   ["Communication Services","通訊服務"],["Consumer Discretionary","非必需消費"],["Consumer Staples","必需消費"],
+   ["Energy","能源"],["Financials","金融"],["Health Care","醫療保健"],["Industrials","工業"],
+   ["Information Technology","資訊科技"],["Materials","原材料"],["Real Estate","房地產"],["Utilities","公用事業"]
+ ];
+ menu.innerHTML='<label class="sector-option sector-all"><input type="checkbox" id="sectorAll" checked><span class="sector-label">全部產業</span></label>'+
+   sectorDefs.map(d=>'<label class="sector-option"><input type="checkbox" value="'+d[0]+'"><span class="sector-label">'+d[1]+'</span></label>').join('');
  const all=menu.querySelector('#sectorAll'), boxes=[...menu.querySelectorAll('input[type=checkbox]:not(#sectorAll)')];
  function apply(){
    const selected=boxes.filter(x=>x.checked).map(x=>x.value);
