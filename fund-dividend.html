@@ -89,23 +89,21 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 
 <script>
 const data=[
-{date:"2026-10-14",fund:"安聯全球多元投資風格股票基金",classes:"2457／T407",isin:"依級別官方ISIN對應",freq:"月",rate:"9.11%／9.12%",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-10-28",fund:"施羅德環球收息債券基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-10-28",fund:"施羅德環球收益成長基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-10-29",fund:"聯博美國成長股票基金",classes:"月配級別",isin:"依級別官方ISIN對應",freq:"月",rate:"MoneyDJ 最新值",status:"published",source:"基金公司官方行事曆"},
-{date:"2026-12-14",fund:"安聯全球多元投資風格股票基金",classes:"2455",isin:"依級別官方ISIN對應",freq:"月",rate:"1.64%",status:"published",source:"基金公司官方行事曆"},
-{date:"",fund:"摩根多重收益基金",classes:"022A／022N／0285／0286／0287／0288／T602–T606",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"摩根官方行事曆：待公布"},
-{date:"",fund:"摩根日本基金",classes:"0235／0236／T616／T617",isin:"LU0235639324／LU0927678507／LU2751702080／LU2831197772",freq:"無",rate:"—",status:"pending",source:"累積級別／不配息"},
+{date:"2026-10-28",fund:"施羅德環球收息債券基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"published",source:"施羅德官方行事曆"},
 {date:"",fund:"PIMCO多元收益債券基金",classes:"收息／月配級別",isin:"依級別官方 ISIN 對應",freq:"季／月",rate:"依 MoneyDJ 最新值",status:"pending",source:"PIMCO 官方行事曆"},
-{date:"",fund:"摩根多重收益基金",classes:"主基金其餘配息級別",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"摩根官方行事曆：待公布"},
+{date:"",fund:"摩根多重收益基金",classes:"022A／022N／0285／0286／0287／0288／T602–T606",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"摩根官方行事曆：待公布"},
 {date:"",fund:"滙豐超核心多重資產基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"HSBC 官方行事曆"},
 {date:"",fund:"PIMCO收益增長基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月／季",rate:"依 MoneyDJ 最新值",status:"pending",source:"PIMCO 官方行事曆"},
+{date:"2026-10-28",fund:"施羅德環球收益成長基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"published",source:"施羅德官方行事曆"},
 {date:"",fund:"貝萊德全球智慧數據股票入息基金(複雜型)",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"BlackRock 官方資料"},
 {date:"",fund:"安聯AI人工智慧基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"Allianz 官方行事曆"},
 {date:"",fund:"滙豐全球基礎建設收益基金",classes:"配息級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"pending",source:"HSBC 官方行事曆"},
-{date:"",fund:"施羅德環球基金系列－環球永續增長",classes:"累積級別",isin:"依級別官方 ISIN 對應",freq:"無",rate:"—",status:"pending",source:"不配息／基準日不適用"},
-{date:"",fund:"施羅德環球黃金",classes:"累積級別",isin:"依級別官方 ISIN 對應",freq:"無",rate:"—",status:"pending",source:"不配息／基準日不適用"},
-{date:"",fund:"安聯台灣科技基金",classes:"累積級別",isin:"TW000T3604Y3",freq:"無",rate:"—",status:"pending",source:"不配息／基準日不適用"}
+{date:"",fund:"安聯台灣科技基金",classes:"5503",isin:"TW000T3604Y3",freq:"無",rate:"—",status:"pending",source:"累積級別／不配息"},
+{date:"",fund:"施羅德環球基金系列－環球永續增長",classes:"053L／T107",isin:"LU0557290698／LU2323197553",freq:"無",rate:"—",status:"pending",source:"累積級別／不配息"},
+{date:"",fund:"施羅德環球黃金",classes:"053W／053X／T109",isin:"依級別官方 ISIN 對應",freq:"無",rate:"—",status:"pending",source:"累積級別／不配息"},
+{date:"",fund:"摩根日本基金",classes:"0235／0236／T616／T617",isin:"LU0235639324／LU0927678507／LU2751702080／LU2831197772",freq:"無",rate:"—",status:"pending",source:"累積級別／不配息"},
+{date:"2026-10-29",fund:"聯博美國成長股票基金",classes:"月配級別",isin:"依級別官方 ISIN 對應",freq:"月",rate:"依 MoneyDJ 最新值",status:"published",source:"聯博官方資料"},
+{date:"2026-10-14",fund:"安聯全球多元投資風格股票基金",classes:"2457／T407",isin:"依級別官方 ISIN 對應",freq:"月",rate:"9.11%／9.12%",status:"published",source:"Allianz 官方行事曆"}
 ];
 function render(){
  const q=(document.getElementById("q").value||"").toLowerCase();
