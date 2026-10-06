@@ -155,7 +155,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
     <button class="history-btn secondary" type="button" onclick="historyMove(-1)">‹ 前一天</button>
     <button class="history-btn secondary" type="button" onclick="historyMove(1)">後一天 ›</button>
     <button class="history-btn primary" type="button" onclick="openHistoryReport()">開啟舊版早報</button>
-    <button class="history-btn latest" type="button" onclick="window.location.href='#overview'">回到最新早報</button>
+    <button class="history-btn latest" type="button" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth',block:'start'})" style="display:block!important;visibility:visible!important;opacity:1!important;background:#202328!important;color:#fff!important;min-width:140px!important;">🏠 回到最新早報</button>
   </div>
   <div class="history-note">歷史早報採「日期封存檔」方式保存；目前已封存資料可由日期直接開啟。最新早報仍以首頁為準。</div>
   <div id="historyStatus" class="history-status ok">目前可查閱：2026/10/02</div>
