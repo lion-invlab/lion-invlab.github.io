@@ -16,6 +16,7 @@ WATCHLIST = [
     {"ticker": "TSM", "company": "Taiwan Semiconductor Manufacturing", "sector": "Information Technology"},
     {"ticker": "SKHY", "company": "SK hynix", "sector": "Information Technology"},
     {"ticker": "SPCX", "company": "ConvexityShares 1x SPIKES Futures ETF", "sector": "Other"},
+    {"ticker": "AAOI", "company": "Applied Optoelectronics", "sector": "Information Technology"},
 ]
 
 def annualized_volatility(prices, window):
