@@ -53,7 +53,7 @@ jobs:
           cp index.html "$ARCHIVE_FILE"
           test -s "$ARCHIVE_FILE"
           echo "Created: $ARCHIVE_FILE"
-          echo "Archive size: $(wc -c < "${ARCHIVE_DATE}") bytes"
+          echo "Archive size: $(wc -c < "$ARCHIVE_FILE") bytes"
           python - <<'PY'
           import json, os
           from pathlib import Path
