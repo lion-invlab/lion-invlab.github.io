@@ -19,74 +19,120 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 50
 
       - name: Archive previous TAC report
         shell: bash
         run: |
           set -euo pipefail
           test -s index.html
+
           TODAY=$(TZ=Asia/Taipei date +%u)
           if [ "$TODAY" -eq 1 ]; then
             ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "3 days ago" +%Y-%m-%d)
           else
             ARCHIVE_DATE=$(TZ=Asia/Taipei date -d "yesterday" +%Y-%m-%d)
           fi
+
           echo "Taiwan weekday: $TODAY"
           echo "Archive date: ${ARCHIVE_DATE}"
           export ARCHIVE_DATE
+
           python - <<'PY'
-          import re, os
+          import os, re, subprocess
           from pathlib import Path
+
           expected = os.environ["ARCHIVE_DATE"]
-          html = Path("index.html").read_text(encoding="utf-8")
-          m = re.search(r"TAC 投資早報[｜|]\s*(\d{4})/(\d{2})/(\d{2})", html)
-          if not m:
-              m = re.search(r"(\d{4})/(\d{2})/(\d{2})", html)
-          if not m: raise SystemExit("ERROR: Cannot determine report date from index.html")
-          actual = f"{m.group(1)}-{m.group(2)}-{m.group(3)}"
-          if actual != expected: raise SystemExit(f"ERROR: Homepage report date is {actual}, expected {expected}. Refusing mislabeled archive.")
-          print(f"Homepage date verified: {actual}")
+          expected_slash = expected.replace("-", "/")
+
+          commits = subprocess.check_output(
+              ["git", "log", "--format=%H", "--", "index.html"],
+              text=True
+          ).splitlines()
+
+          found = None
+          for commit in commits:
+              try:
+                  html = subprocess.check_output(
+                      ["git", "show", f"{commit}:index.html"],
+                      text=True,
+                      stderr=subprocess.DEVNULL
+                  )
+              except subprocess.CalledProcessError:
+                  continue
+
+              if re.search(rf"TAC 投資早報[｜|]\s*{re.escape(expected_slash)}", html):
+                  found = (commit, html)
+                  break
+
+          if found is None:
+              raise SystemExit(
+                  f"ERROR: Could not find a Git version of index.html for report date {expected}."
+              )
+
+          commit, html = found
+          Path("/tmp/archive_source.html").write_text(html, encoding="utf-8")
+          print(f"Found report {expected} in commit {commit}")
+          print(f"Source size: {len(html.encode('utf-8'))} bytes")
           PY
+
           mkdir -p history
           ARCHIVE_FILE="history/index_${ARCHIVE_DATE}.html"
 
           if [ -f "$ARCHIVE_FILE" ]; then
             echo "Archive already exists: $ARCHIVE_FILE"
             test -s "$ARCHIVE_FILE"
+
             python - <<'PY'
           from pathlib import Path
           import hashlib, os
-          homepage = Path("index.html").read_bytes()
+
+          source = Path("/tmp/archive_source.html").read_bytes()
           archive = Path("history") / ("index_" + os.environ["ARCHIVE_DATE"] + ".html")
-          if hashlib.sha256(homepage).digest() != hashlib.sha256(archive.read_bytes()).digest():
-              raise SystemExit(f"ERROR: Existing archive differs from current homepage: {archive}")
+
+          if hashlib.sha256(source).digest() != hashlib.sha256(archive.read_bytes()).digest():
+              raise SystemExit(f"ERROR: Existing archive differs from Git source report: {archive}")
+
           print(f"Existing archive verified: {archive}")
           PY
           else
-            cp index.html "$ARCHIVE_FILE"
+            cp /tmp/archive_source.html "$ARCHIVE_FILE"
             test -s "$ARCHIVE_FILE"
             echo "Created: $ARCHIVE_FILE"
           fi
+
           echo "Archive size: $(wc -c < "$ARCHIVE_FILE") bytes"
+
           python - <<'PY'
           import json, os
           from pathlib import Path
+
           archive_date = os.environ["ARCHIVE_DATE"]
           history = Path("history")
           index_file = history / "index.json"
-          data = json.loads(index_file.read_text(encoding="utf-8")) if index_file.exists() else {"reports":[]}
-          reports = set(data.get("reports", [])); reports.add(archive_date)
+
+          data = json.loads(index_file.read_text(encoding="utf-8")) if index_file.exists() else {"reports": []}
+          reports = set(data.get("reports", []))
+          reports.add(archive_date)
+
           valid = []
           for date in reports:
-              f = history / f"index_{date}.html"
-              if f.is_file() and f.stat().st_size > 0: valid.append(date)
+              file = history / f"index_{date}.html"
+              if file.is_file() and file.stat().st_size > 0:
+                  valid.append(date)
+
           valid.sort(reverse=True)
-          index_file.write_text(json.dumps({"reports":valid}, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+          index_file.write_text(
+              json.dumps({"reports": valid}, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8"
+          )
+
           for date in valid:
-              f = history / f"index_{date}.html"
-              if not f.is_file() or f.stat().st_size == 0: raise SystemExit(f"ERROR: invalid archive for {date}")
-          print(json.dumps({"reports":valid}, ensure_ascii=False, indent=2))
+              file = history / f"index_{date}.html"
+              if not file.is_file() or file.stat().st_size == 0:
+                  raise SystemExit(f"ERROR: history index references invalid archive: {file}")
+
+          print(json.dumps({"reports": valid}, ensure_ascii=False, indent=2))
           PY
 
       - name: Verify homepage was not changed
@@ -95,6 +141,7 @@ jobs:
           set -euo pipefail
           test -s index.html
           test -z "$(git diff -- index.html)"
+          echo "Homepage remains unchanged."
 
       - name: Commit archive only
         shell: bash
@@ -103,7 +150,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add history/
-          if git diff --cached --quiet; then echo "No history changes to commit."; exit 0; fi
+          if git diff --cached --quiet; then
+            echo "No history changes to commit."
+            exit 0
+          fi
           git diff --cached --name-status
           git commit -m "Archive TAC report and update history index"
           git push
