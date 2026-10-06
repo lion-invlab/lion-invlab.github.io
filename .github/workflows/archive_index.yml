@@ -50,9 +50,24 @@ jobs:
           PY
           mkdir -p history
           ARCHIVE_FILE="history/index_${ARCHIVE_DATE}.html"
-          cp index.html "$ARCHIVE_FILE"
-          test -s "$ARCHIVE_FILE"
-          echo "Created: $ARCHIVE_FILE"
+
+          if [ -f "$ARCHIVE_FILE" ]; then
+            echo "Archive already exists: $ARCHIVE_FILE"
+            test -s "$ARCHIVE_FILE"
+            python - <<'PY'
+          from pathlib import Path
+          import hashlib, os
+          homepage = Path("index.html").read_bytes()
+          archive = Path("history") / f"index_{os.environ["ARCHIVE_DATE"]}.html"
+          if hashlib.sha256(homepage).digest() != hashlib.sha256(archive.read_bytes()).digest():
+              raise SystemExit(f"ERROR: Existing archive differs from current homepage: {archive}")
+          print(f"Existing archive verified: {archive}")
+          PY
+          else
+            cp index.html "$ARCHIVE_FILE"
+            test -s "$ARCHIVE_FILE"
+            echo "Created: $ARCHIVE_FILE"
+          fi
           echo "Archive size: $(wc -c < "$ARCHIVE_FILE") bytes"
           python - <<'PY'
           import json, os
