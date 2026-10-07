@@ -23,7 +23,11 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 .market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
 .market-reason b{color:var(--red)}
 #bonds .row b{white-space:nowrap}
-@media(max-width:700px){#bonds .row{grid-template-columns:1.55fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}}
+#bonds .bond-head{display:grid;grid-template-columns:1.55fr .8fr .8fr .55fr;gap:8px;padding:0 0 5px;font-size:10px;color:var(--muted);font-weight:850;text-align:right}
+#bonds .bond-head span:first-child{text-align:left}
+#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr}
+#bonds .prev-rate{color:#737981}
+@media(max-width:700px){#bonds .bond-head{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}#bonds .bond-head{font-size:9px}}
 @media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
 .headline-desc{line-height:1.55;margin:7px 0 6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
 @media(max-width:700px){.headline-desc{line-height:1.5;-webkit-line-clamp:3}}
@@ -291,10 +295,10 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 <div class="market-reason"><b>📌 產業觀察</b><br>最大亮點不是科技，而是<strong>公用事業 +3.01%</strong>。核能供電與AI資料中心電力需求讓市場重新評價電力基礎建設，AI投資正在由晶片向能源基建延伸。</div>
 </article>
 <article class="card" id="bonds"><div class="title">債券市場 <small>10/06 Rates</small></div>
-<div class="row"><b>2年期美國公債殖利率</b><span class="r">4.79%</span><span class="r down">-4bp</span></div>
-<div class="row"><b>10年期美國公債殖利率</b><span class="r">5.27%</span><span class="r down">-4bp</span></div>
-<div class="row"><b>30年期美國公債殖利率</b><span class="r">5.64%</span><span class="r down">-2bp</span></div>
-<div class="source" style="margin-top:8px">前一日：2Y 4.83%｜10Y 5.31%｜30Y 5.66%</div>
+<div class="bond-head"><span></span><span>前一日</span><span>10/06</span><span>變動</span></div>
+<div class="row"><b>2年期美國公債殖利率</b><span class="r prev-rate">4.83%</span><span class="r">4.79%</span><span class="r down">-4bp</span></div>
+<div class="row"><b>10年期美國公債殖利率</b><span class="r prev-rate">5.31%</span><span class="r">5.27%</span><span class="r down">-4bp</span></div>
+<div class="row"><b>30年期美國公債殖利率</b><span class="r prev-rate">5.66%</span><span class="r">5.64%</span><span class="r down">-2bp</span></div>
 <div class="market-reason"><b>📌 債券觀察</b><br>短端殖利率下降反映市場降低近期升息預期；但長端仍維持高檔，代表<strong>財政供給、通膨與期限溢價</strong>仍是主要壓力。</div>
 </article>
 <article class="card" id="fx"><div class="title">匯率 <small>10/06</small></div>
