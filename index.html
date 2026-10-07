@@ -120,10 +120,21 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
 @media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 70px}}
 @media(max-width:700px){
-  .earnings-row{grid-template-columns:58px 1.4fr 1fr;gap:6px;padding:9px 4px}
-  .earnings-head:nth-child(n+3),.earnings-row>.earnings-cell:nth-child(n+3){display:none}
+  .earnings-row{grid-template-columns:58px 1fr;gap:6px 10px;padding:11px 4px}
+  .earnings-head{display:none}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(1){grid-column:1;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(2){grid-column:2;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3){grid-column:1;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4){grid-column:2;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5){grid-column:1;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:2;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3)::before{content:"EPS ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4)::before{content:"營收 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5)::before{content:"判讀 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"重要性 ";color:var(--muted);font-weight:800}
   .earnings-company b{font-size:12px}
-  .earnings-result{font-size:9px}
+  .earnings-company small{font-size:9px}
+  .earnings-result{font-size:9px;white-space:normal}
 }
 
 </style>
@@ -368,7 +379,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 <span class="earnings-result earnings-mixed">🟡 混合</span>＝<b>EPS與營收一優一劣</b>，方向不一致，需看哪一項偏離幅度較大。<br>
 <span class="earnings-result" style="color:#c62828">🔴 雙弱</span>＝<b>EPS低於預期＋營收低於預期</b>，代表獲利與營運規模同時弱於市場共識。<br>
 <b>指引另行判讀：</b><span style="color:#16834c;font-weight:950">🟢 上調</span>＝公司提高未來展望；<span style="color:#a56b00;font-weight:950">→ 維持</span>＝展望大致不變；<span style="color:#c62828;font-weight:950">🔴 下調</span>＝公司降低未來展望。<br>
-<b>最後看市場反應：</b>財報「優於預期」不等於股價一定上漲，若利多已被提前反映、指引不佳或市場預期更高，股價仍可能下跌。citeturn0search0turn0search2<br>
+<b>最後看市場反應：</b>財報「優於預期」不等於股價一定上漲，若利多已被提前反映、指引不佳或市場預期更高，股價仍可能下跌。<br>
 <span class="source">尚未公布一律標示「待公布」，不填猜測值。</span></div>
 
 <div class="earnings-group-title"><span class="earnings-badge published">已公布</span></div>
