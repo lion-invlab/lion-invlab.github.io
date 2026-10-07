@@ -10,7 +10,7 @@
 .top{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.topin{max-width:1540px;margin:auto;padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--red)}.status{font-size:12px;color:var(--muted)}
 .nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}.nav a.vol{background:#000;color:#ffd400}
 .wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:10px;color:var(--muted);font-weight:850;letter-spacing:.3px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:13px;color:var(--muted);font-weight:850;letter-spacing:.3px;line-height:1.35}.kpi .label small{display:block;font-size:10px;line-height:1.2;font-weight:700;color:var(--muted);margin-top:2px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
 .title{font-size:23px;line-height:1.3;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
 .sent{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
 table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
@@ -162,14 +162,14 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 </section>
 
 <section class="grid kpi">
-<div class="card"><div class="label">標普500指數（S&amp;P 500）</div><div class="value">7,818.93</div><div class="chg up">+0.58%</div></div>
-<div class="card"><div class="label">那斯達克綜合指數（NASDAQ）</div><div class="value">27,599.79</div><div class="chg up">+0.45%</div></div>
-<div class="card"><div class="label">道瓊工業指數（Dow Jones）</div><div class="value">51,521.28</div><div class="chg up">+0.49%</div></div>
-<div class="card"><div class="label">羅素2000指數（Russell 2000）</div><div class="value">2,830.30</div><div class="chg down">-0.59%</div></div>
-<div class="card"><div class="label">費城半導體指數（SOX）</div><div class="value">13,217.82</div><div class="chg up">+0.34%</div></div>
-<div class="card"><div class="label">美國10年期公債殖利率（10Y）</div><div class="value">5.27%</div><div class="chg down">-4bp</div></div>
-<div class="card"><div class="label">西德州原油（WTI）</div><div class="value">$89.44</div><div class="chg up">+0.01%</div></div>
-<div class="card"><div class="label">布蘭特原油（Brent）</div><div class="value">$100.58</div><div class="chg up">+0.26%</div></div>
+<div class="card"><div class="label">標普500指數<br><small>S&amp;P 500</small></div><div class="value">7,818.93</div><div class="chg up">+0.58%</div></div>
+<div class="card"><div class="label">那斯達克綜合指數<br><small>NASDAQ</small></div><div class="value">27,599.79</div><div class="chg up">+0.45%</div></div>
+<div class="card"><div class="label">道瓊工業指數<br><small>Dow Jones</small></div><div class="value">51,521.28</div><div class="chg up">+0.49%</div></div>
+<div class="card"><div class="label">羅素2000指數<br><small>Russell 2000</small></div><div class="value">2,830.30</div><div class="chg down">-0.59%</div></div>
+<div class="card"><div class="label">費城半導體指數<br><small>SOX</small></div><div class="value">13,217.82</div><div class="chg up">+0.34%</div></div>
+<div class="card"><div class="label">美國10年期公債殖利率<br><small>10Y</small></div><div class="value">5.27%</div><div class="chg down">-4bp</div></div>
+<div class="card"><div class="label">西德州原油<br><small>WTI</small></div><div class="value">$89.44</div><div class="chg up">+0.01%</div></div>
+<div class="card"><div class="label">布蘭特原油<br><small>Brent</small></div><div class="value">$100.58</div><div class="chg up">+0.26%</div></div>
 </section>
 
 <div style="height:14px"></div>
