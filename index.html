@@ -105,7 +105,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .earnings-badge.published{color:#16834c;border-color:#b9dfca;background:#effaf3}
 .earnings-badge.today{color:#b21824;border-color:#f0b8bd;background:#fff2f3}
 .earnings-badge.upcoming{color:#245b8e;border-color:#c6d9e9;background:#eef6fb}
-.earnings-row{display:grid;grid-template-columns:72px 1.35fr 1fr 1fr 1fr 78px;gap:8px;padding:9px 6px;border-bottom:1px solid #eee;align-items:center}
+.earnings-row{display:grid;grid-template-columns:72px 1.35fr 1fr 1fr 1fr 1fr 78px;gap:8px;padding:9px 6px;border-bottom:1px solid #eee;align-items:center}
 .earnings-row:last-child{border-bottom:0}
 .earnings-head{font-size:10px;color:var(--muted);font-weight:850}
 .earnings-cell{font-size:11px;line-height:1.45}
@@ -113,13 +113,14 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .earnings-company small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
 .earnings-metric{font-variant-numeric:tabular-nums}
 .earnings-metric b{font-weight:950}
+.earnings-reaction{font-size:10px;font-weight:950;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25;white-space:nowrap}.earnings-reaction.up{color:#16834c;border-color:#bfe3cf;background:#eef9f2}.earnings-reaction.down{color:#c62828;border-color:#efc1c1;background:#fff0f0}.earnings-reaction.wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
 .earnings-result{font-size:10px;font-weight:950;white-space:nowrap;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25}
 .earnings-double{color:#16834c;border-color:#bfe3cf;background:#eef9f2}
 .earnings-mixed{color:#a56b00;border-color:#ead79c;background:#fff8df}
 .earnings-wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
 .earnings-weak{color:#c62828;border-color:#efc1c1;background:#fff0f0}
 .earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
-@media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 70px}}
+@media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 1fr 70px}}
 @media(max-width:700px){
   .earnings-row{grid-template-columns:58px 1.05fr 1.35fr;gap:6px 10px;padding:11px 4px;align-items:start}
   .earnings-head{display:none}
@@ -128,11 +129,13 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
   .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3){grid-column:3;grid-row:1}
   .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4){grid-column:3;grid-row:2}
   .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5){grid-column:1 / span 2;grid-row:2}
-  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:3;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:1 / span 2;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7){grid-column:3;grid-row:3}
   .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3)::before{content:"EPS ";color:var(--muted);font-weight:800}
   .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4)::before{content:"營收 ";color:var(--muted);font-weight:800}
   .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5)::before{content:"判讀 ";color:var(--muted);font-weight:800}
-  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"重要性 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"股價反應 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7)::before{content:"重要性 ";color:var(--muted);font-weight:800}
   .earnings-company b{font-size:12px}
   .earnings-company small{font-size:9px}
   .earnings-result{font-size:9px;white-space:normal}
@@ -384,14 +387,14 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 <span class="source">尚未公布一律標示「待公布」，不填猜測值。</span></div>
 
 <div class="earnings-group-title"><span class="earnings-badge published">已公布</span></div>
-<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>重要性</div></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
 <div class="earnings-row">
   <div class="earnings-cell">10/06<br><small>盤前</small></div>
   <div class="earnings-cell earnings-company"><b>Lamb Weston</b><small>LW｜食品</small></div>
   <div class="earnings-cell earnings-metric"><b>$0.74</b> / $0.59</div>
   <div class="earnings-cell earnings-metric"><b>$1.67B</b> / $1.65B</div>
   <div class="earnings-cell earnings-result earnings-double">🟢 雙優<br><small>指引未更新</small></div>
-  <div class="earnings-cell high">⭐⭐⭐</div>
+  <div class="earnings-cell"><span class="earnings-reaction up">收盤 +7.49%</span></div><div class="earnings-cell"><span class="earnings-reaction down">盤後 -4.50%</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待公布</span></div><div class="earnings-cell high">⭐⭐⭐</div>
 </div>
 <div class="earnings-row">
   <div class="earnings-cell">10/06<br><small>盤後</small></div>
@@ -407,11 +410,11 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
   <div class="earnings-cell earnings-metric"><b>$1.98</b> / $1.95</div>
   <div class="earnings-cell earnings-metric"><b>$2.22B</b> / $2.22B</div>
   <div class="earnings-cell earnings-result earnings-mixed">🟢 盈利優於<br><small>營收符合｜指引未更新</small></div>
-  <div class="earnings-cell">⭐⭐</div>
+  <div class="earnings-cell"><span class="earnings-reaction up">收盤 +3.16%</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell">⭐⭐</div>
 </div>
 
 <div class="earnings-group-title"><span class="earnings-badge today">今天｜10/07</span></div>
-<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>重要性</div></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
 <div class="earnings-row">
   <div class="earnings-cell">10/07<br><small>盤後</small></div>
   <div class="earnings-cell earnings-company"><b>Applied Digital</b><small>APLD｜AI基礎建設</small></div>
@@ -430,7 +433,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 </div>
 
 <div class="earnings-group-title"><span class="earnings-badge upcoming">即將公布｜10/08～10/09</span></div>
-<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>重要性</div></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
 <div class="earnings-row">
   <div class="earnings-cell">10/08<br><small>盤前</small></div>
   <div class="earnings-cell earnings-company"><b>PepsiCo</b><small>PEP｜必需消費</small></div>
