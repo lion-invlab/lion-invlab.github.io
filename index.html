@@ -113,10 +113,11 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .earnings-company small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
 .earnings-metric{font-variant-numeric:tabular-nums}
 .earnings-metric b{font-weight:950}
-.earnings-result{font-size:10px;font-weight:950;white-space:nowrap}
-.earnings-double{color:#16834c}
-.earnings-mixed{color:#a56b00}
-.earnings-wait{color:#737981}
+.earnings-result{font-size:10px;font-weight:950;white-space:nowrap;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25}
+.earnings-double{color:#16834c;border-color:#bfe3cf;background:#eef9f2}
+.earnings-mixed{color:#a56b00;border-color:#ead79c;background:#fff8df}
+.earnings-wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-weak{color:#c62828;border-color:#efc1c1;background:#fff0f0}
 .earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
 @media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 70px}}
 @media(max-width:700px){
@@ -377,7 +378,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 <span class="earnings-result earnings-double">🟢 盈利優於</span>＝<b>EPS優於預期，但營收未優於預期</b>，需進一步觀察獲利改善是否來自成本／費用控制。<br>
 <span class="earnings-result earnings-double">🟢 營收優於</span>＝<b>營收優於預期，但EPS未優於預期</b>，代表需求較強，但利潤率或成本可能低於預期。<br>
 <span class="earnings-result earnings-mixed">🟡 混合</span>＝<b>EPS與營收一優一劣</b>，方向不一致，需看哪一項偏離幅度較大。<br>
-<span class="earnings-result" style="color:#c62828">🔴 雙弱</span>＝<b>EPS低於預期＋營收低於預期</b>，代表獲利與營運規模同時弱於市場共識。<br>
+<span class="earnings-result earnings-weak">🔴 雙弱</span>＝<b>EPS低於預期＋營收低於預期</b>，代表獲利與營運規模同時弱於市場共識。<br>
 <b>指引另行判讀：</b><span style="color:#16834c;font-weight:950">🟢 上調</span>＝公司提高未來展望；<span style="color:#a56b00;font-weight:950">→ 維持</span>＝展望大致不變；<span style="color:#c62828;font-weight:950">🔴 下調</span>＝公司降低未來展望。<br>
 <b>最後看市場反應：</b>財報「優於預期」不等於股價一定上漲，若利多已被提前反映、指引不佳或市場預期更高，股價仍可能下跌。<br>
 <span class="source">尚未公布一律標示「待公布」，不填猜測值。</span></div>
