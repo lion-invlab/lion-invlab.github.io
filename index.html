@@ -22,6 +22,8 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 .report-date{font-size:.62em;font-weight:700;margin-left:5px;white-space:nowrap;color:#17191d}
 .market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
 .market-reason b{color:var(--red)}
+#bonds .row b{white-space:nowrap}
+@media(max-width:700px){#bonds .row{grid-template-columns:1.55fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}}
 @media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
 .headline-desc{line-height:1.55;margin:7px 0 6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
 @media(max-width:700px){.headline-desc{line-height:1.5;-webkit-line-clamp:3}}
