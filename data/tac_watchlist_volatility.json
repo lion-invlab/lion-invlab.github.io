@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "TAC Custom Watchlist Historical Volatility",
-    "updated_at": "2026-10-07T21:23:35.404684+00:00",
+    "updated_at": "2026-10-08T21:23:49.960238+00:00",
     "calculation": "std(log(Pt/Pt-1)) * sqrt(252)",
     "windows": [
       90,
@@ -17,10 +17,10 @@
   "summary": {
     "constituents": 4,
     "valid": 2,
-    "average_vol_90d": 0.8597849201101877,
-    "median_vol_90d": 0.8597849201101877,
-    "max_vol_90d": 1.2869320572380918,
-    "min_vol_90d": 0.43263778298228356
+    "average_vol_90d": 0.8552077982343942,
+    "median_vol_90d": 0.8552077982343942,
+    "max_vol_90d": 1.2795583292922885,
+    "min_vol_90d": 0.43085726717649986
   },
   "data_quality": {
     "constituent_count": 4,
@@ -35,14 +35,14 @@
       "company": "Taiwan Semiconductor Manufacturing",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": 472.20001220703125,
-      "vol_90d": 0.43263778298228356,
-      "vol_60d": 0.3339989172934259,
-      "vol_30d": 0.2674214435665162,
-      "vol_20d": 0.27943198621134374,
-      "return_90d": 0.13412724671618714,
+      "price": 457.989990234375,
+      "vol_90d": 0.43085726717649986,
+      "vol_60d": 0.34050859516518306,
+      "vol_30d": 0.28569266503653645,
+      "vol_20d": 0.2966979251552261,
+      "return_90d": 0.05661696215026546,
       "max_drawdown_90d": -0.2154658010802104,
-      "vol_ratio_20d_90d": 0.6458797571611687,
+      "vol_ratio_20d_90d": 0.6886223066389277,
       "valid": true,
       "price_days": 251
     },
@@ -86,14 +86,14 @@
       "company": "Applied Optoelectronics",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": 122.54000091552734,
-      "vol_90d": 1.2869320572380918,
-      "vol_60d": 1.2073012429030603,
-      "vol_30d": 0.7274523791882549,
-      "vol_20d": 0.7884939984201723,
-      "return_90d": -0.22643773699477476,
+      "price": 105.9000015258789,
+      "vol_90d": 1.2795583292922885,
+      "vol_60d": 1.2104246769554468,
+      "vol_30d": 0.8452065848381298,
+      "vol_20d": 0.9428053517857696,
+      "return_90d": -0.4296332063863214,
       "max_drawdown_90d": -0.6228498355105693,
-      "vol_ratio_20d_90d": 0.6126927944528584,
+      "vol_ratio_20d_90d": 0.7368209250040413,
       "valid": true,
       "price_days": 251
     }
