@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC 投資早報｜2026/10/08 Dashboard</title>
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.topin{max-width:1540px;margin:auto;padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--red)}.status{font-size:12px;color:var(--muted)}
+.nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}.nav a.vol{background:#000;color:#ffd400}
+.wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:13px;color:var(--muted);font-weight:850;letter-spacing:.3px;line-height:1.35}.kpi .label small{display:block;font-size:10px;line-height:1.2;font-weight:700;color:var(--muted);margin-top:2px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
+.title{font-size:23px;line-height:1.3;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
+.sent{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
+table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
+.event{display:grid;grid-template-columns:58px 1fr 68px;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.event:last-child{border:0}.event .d{font-weight:950;color:var(--red)}.event b{display:block}.event span{font-size:10px;color:var(--muted);line-height:1.5}.impact{text-align:right;font-weight:900}.high{color:var(--red)}
+.callout{padding:12px;border-radius:8px;background:#fafafa;border:1px solid var(--line);line-height:1.65;font-size:12px}.key{font-size:12px;line-height:1.7}.key b{font-weight:950}.pill{display:inline-block;border-radius:99px;padding:3px 7px;font-size:10px;font-weight:900;border:1px solid var(--line);margin-left:5px}
+.newsitem{padding:8px 0;border-bottom:1px solid #eee}.newsitem:last-child{border-bottom:0}.newsitem h3{font-size:16px;line-height:1.4;margin:0 0 5px;font-weight:850}.newsitem p{font-size:11px;color:#555b63;line-height:1.55;margin:0}.newsmeta{font-size:9px;color:var(--muted);margin-top:4px}
+.footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
+@media(max-width:1200px){.kpi{grid-template-columns:repeat(4,1fr)}.three,.two{grid-template-columns:1fr}.sent{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.sent{grid-template-columns:1fr 1fr}.value{font-size:20px}.bluf h1{font-size:19px}.row{grid-template-columns:1.2fr .9fr .65fr}.footer{padding:0 14px 30px}}
+.report-date{font-size:.62em;font-weight:700;margin-left:5px;white-space:nowrap;color:#17191d}
+.market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
+.market-reason b{color:var(--red)}
+#bonds .row b{white-space:nowrap}
+#bonds .bond-head{display:grid;grid-template-columns:1.55fr .8fr .8fr .55fr;gap:8px;padding:0 0 5px;font-size:10px;color:var(--muted);font-weight:850;text-align:right}
+#bonds .bond-head span:first-child{text-align:left}
+#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr}
+#bonds .prev-rate{color:#737981}
+@media(max-width:700px){#bonds .bond-head{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}#bonds .bond-head{font-size:9px}}
+@media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
+.headline-desc{line-height:1.55;margin:7px 0 6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+@media(max-width:700px){.headline-desc{line-height:1.5;-webkit-line-clamp:3}}
+
+.sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.sector-row{display:grid;grid-template-columns:32px 1fr 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
+.sector-row .rank{font-weight:800;color:#777;text-align:center}
+.sector-name b{font-size:14px}
+.sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
+.sector-pct{text-align:right;font-weight:800}
+.sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
+@media(max-width:700px){.sector-row{grid-template-columns:28px 1fr 64px}}
+
+/* Q4 精選基金 Dashboard */
+.fund-report-card{background:#4a171c;border:1px solid #6f242b;border-radius:14px;margin-bottom:14px;padding:18px 22px 20px;box-shadow:0 3px 8px rgba(0,0,0,.10)}
+.fund-report-head{margin-bottom:12px}
+.fund-report-title{font-size:23px;line-height:1.3;font-weight:950;color:#fff;letter-spacing:.2px;white-space:nowrap}.red-highlight{color:#ffd35a}
+.fund-report-sub{margin-top:12px;font-size:18px;font-weight:950;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.fund-report-list{display:grid;gap:10px}
+.fund-date-row{display:grid;grid-template-columns:28px 72px 1fr 96px;align-items:center;gap:8px;min-height:66px;padding:9px 14px;border:1px solid #e1e3e6;border-radius:12px;background:#fff}
+.fund-dot{width:20px;height:20px;border-radius:50%;justify-self:center;box-shadow:0 0 0 6px rgba(0,0,0,.035)}
+.fund-date{font-size:24px;font-weight:950;color:#202328}
+.fund-names{font-size:15px;line-height:1.35;font-weight:850;color:#25292e}
+.fund-status{text-align:right;font-size:18px;font-weight:950;white-space:nowrap}
+.tomorrow{color:#c92f2f}
+.soon{color:#b88600}
+.later{color:#198754}
+.dashboard-link{display:flex;width:100%;height:56px;box-sizing:border-box;align-items:center;justify-content:center;margin-top:14px;padding:0 14px;border-radius:10px;text-align:center;font-size:17px;line-height:1.2;font-weight:950;text-decoration:none}.vol-dashboard-link{color:#ffd400!important;background:#202328}.fund-dashboard-link{color:#fff!important;background:#c62828;border:1px solid #ffd35a}
+.fund-dot.red{background:#c92f2f}
+.fund-dot.yellow{background:#e2ae00}
+.fund-dot.green{background:#198754}
+.mobile-only{display:none}
+.top-warning{font-size:9px;font-weight:600;color:#8a8f96;margin-left:10px;white-space:nowrap;letter-spacing:.1px}
+
+/* 歷史早報固定元件 */
+history-panel{margin-bottom:14px}
+history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+history-field{min-width:0;width:100%}
+history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+history-field input{display:block;width:100%;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:0 10px;font-size:14px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+history-btn.primary{background:var(--red);color:#fff}
+history-btn.secondary{background:#eef0f2;color:#202328}
+history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+history-status.ok{color:#16834c}
+history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important}
+.q4-nav{background:#8b1e1e;color:#fff!important;font-weight:900}
+@media(max-width:700px){.q4-nav{font-size:13px}}
+
+/* 歷史早報：固定採用已定稿版面 */
+.history-panel{margin-bottom:14px}
+.history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+.history-field{min-width:0;width:100%;overflow:hidden}
+.history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+.history-field input{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:2px 10px 0;font-size:14px;line-height:36px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+.history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+.history-btn.secondary{background:#eef0f2;color:#202328}
+.history-btn.primary{background:var(--red);color:#fff}
+.history-btn.latest{background:#202328;color:#fff}
+.history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+.history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+.history-status.ok{color:#16834c}
+.history-status.err{color:#c62828}
+@media(max-width:700px){
+.history-box{grid-template-columns:1fr 1fr}
+.history-field{grid-column:1/-1}
+.history-btn{width:100%}
+}
+
+/* 本週財報行事曆：固定必備版面 */
+.earnings-block{margin-top:14px}
+.earnings-group-title{font-size:13px;margin:14px 0 6px;font-weight:950}
+.earnings-badge{display:inline-block;border-radius:99px;padding:4px 9px;font-size:10px;font-weight:950;border:1px solid var(--line)}
+.earnings-badge.published{color:#16834c;border-color:#b9dfca;background:#effaf3}
+.earnings-badge.today{color:#b21824;border-color:#f0b8bd;background:#fff2f3}
+.earnings-badge.upcoming{color:#245b8e;border-color:#c6d9e9;background:#eef6fb}
+.earnings-row{display:grid;grid-template-columns:72px 1.35fr 1fr 1fr 1fr 1fr 78px;gap:8px;padding:9px 6px;border-bottom:1px solid #eee;align-items:center}
+.earnings-row:last-child{border-bottom:0}
+.earnings-head{font-size:10px;color:var(--muted);font-weight:850}
+.earnings-cell{font-size:11px;line-height:1.45}
+.earnings-company b{font-size:13px;font-weight:950}
+.earnings-company small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.earnings-metric{font-variant-numeric:tabular-nums}
+.earnings-metric b{font-weight:950}
+.earnings-reaction{font-size:10px;font-weight:950;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25;white-space:nowrap}.earnings-reaction.up{color:#16834c;border-color:#bfe3cf;background:#eef9f2}.earnings-reaction.down{color:#c62828;border-color:#efc1c1;background:#fff0f0}.earnings-reaction.wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-result{font-size:10px;font-weight:950;white-space:nowrap;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25}
+.earnings-double{color:#16834c;border-color:#bfe3cf;background:#eef9f2}
+.earnings-mixed{color:#a56b00;border-color:#ead79c;background:#fff8df}
+.earnings-wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-weak{color:#c62828;border-color:#efc1c1;background:#fff0f0}
+.earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
+@media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 1fr 70px}}
+@media(max-width:700px){
+  .earnings-row{grid-template-columns:58px 1.05fr 1.35fr;gap:6px 10px;padding:11px 4px;align-items:start}
+  .earnings-head{display:none}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(1){grid-column:1;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(2){grid-column:2;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3){grid-column:3;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4){grid-column:3;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5){grid-column:1 / span 2;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:1 / span 2;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7){grid-column:3;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3)::before{content:"EPS ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4)::before{content:"營收 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5)::before{content:"判讀 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"股價反應 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7)::before{content:"重要性 ";color:var(--muted);font-weight:800}
+  .earnings-company b{font-size:12px}
+  .earnings-company small{font-size:9px}
+  .earnings-result{font-size:9px;white-space:normal}
+}
+
+</style>
+</head>
+<body>
+<header class="top">
+<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/08（四）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/08（四）｜資料基準：10/7 全球主要市場完整收盤</div></div>
+<nav class="nav">
+<a class="vol" href="https://lion-invlab.github.io/volatility.html">📊 S&amp;P 500 波動率</a>
+<a href="https://lion-invlab.github.io/fund-dividend.html" class="q4-nav" href="https://lion-invlab.github.io/fund-dividend.html">💰 Q4 精選基金</a>
+<a href="#history" class="history-nav">📚 歷史早報</a>
+<a href="#overview" class="active">總覽</a>
+<a href="#global-focus">全球焦點新聞</a><a href="#headlines">市場熱門頭條</a>
+<a href="#global">全球主要股市</a><a href="#us">產業表現</a><a href="#bonds">債券</a>
+<a href="#fx">匯率</a><a href="#commodities">商品</a><a href="#sentiment">市場情緒</a>
+<a href="#calendar">經濟行事曆</a><a href="#earnings">財報行事曆</a><a href="#fed">Fed / FOMC</a><a href="#view">市場觀點</a>
+</nav></header>
+
+<main class="wrap" id="overview">
+<section class="card" style="background:#000;color:#fff;border-color:#000;margin-bottom:14px">
+<div class="title" style="color:#fff"><span>📊 美股波動率 Dashboard</span></div>
+<div style="font-size:12px;line-height:1.75;color:#e8e8e8"><b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br><b>主要功能：</b>20D／30D／60D／90D 歷史波動率、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 成分股 Top／Bottom 20、11 大產業比較、波動率分布與個股 Rolling 90D HV。<br><b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態。</div>
+<a class="dashboard-link vol-dashboard-link" href="https://lion-invlab.github.io/volatility.html">→ 開啟美股波動率 Dashboard</a>
+</section>
+
+<section class="card fund-report-card">
+<div class="fund-report-head">
+  <div class="fund-report-title">💰 Q4 精選基金｜基準日即將來<span class="red-highlight">息</span></div>
+  <div class="fund-report-sub">最近三個基準日</div>
+</div>
+<div class="fund-report-list">
+  <div class="fund-date-row"><div class="fund-dot yellow"></div><div class="fund-date">10/14</div><div class="fund-names">安聯AI人工智慧基金 / 安聯全球多元投資風格股票基金</div><div class="fund-status soon">倒數 6 天</div></div>
+  <div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/28</div><div class="fund-names">施羅德環球收益債券基金 / PIMCO多元收益債券基金 / PIMCO收益增長基金 / 施羅德環球收益成長基金</div><div class="fund-status later">倒數 20 天</div></div>
+  <div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/29</div><div class="fund-names">貝萊德全球智慧數據股票入息基金</div><div class="fund-status later">倒數 21 天</div></div>
+</div>
+<a class="dashboard-link fund-dashboard-link" href="https://lion-invlab.github.io/fund-dividend.html">→ 開啟 Q4 精選基金 Dashboard</a>
+</section>
+
+<section class="card history-panel" id="history">
+  <div class="title">
+    <span>📚 歷史早報</span>
+    <small>依日期查閱過往 TAC 投資早報</small>
+  </div>
+  <div class="history-box">
+    <div class="history-field">
+      <label for="historyDate">選擇早報日期</label>
+      <input id="historyDate" type="date" value="2026-10-02">
+    </div>
+    <button class="history-btn secondary" type="button" onclick="historyMove(-1)">‹ 前一天</button>
+    <button class="history-btn secondary" type="button" onclick="historyMove(1)">後一天 ›</button>
+    <button class="history-btn primary" type="button" onclick="openHistoryReport()">開啟舊版早報</button>
+    <button class="history-btn latest" type="button" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth',block:'start'})" style="display:block!important;visibility:visible!important;opacity:1!important;background:#202328!important;color:#fff!important;min-width:140px!important;">🏠 回到最新早報</button>
+  </div>
+  <div class="history-note">歷史早報採「日期封存檔」方式保存；目前已封存資料可由日期直接開啟。最新早報仍以首頁為準。</div>
+  <div id="historyStatus" class="history-status ok">目前可查閱：2026/10/02</div>
+</section>
+
+<div style="height:14px"></div>
+<section class="grid two">
+<article class="card bluf">
+<div class="title">BLUF</div>
+<h1>美股自歷史高點回落，市場轉向「大型股相對抗跌、小型股承壓」。</h1>
+<p>長天期美債殖利率一度升至多年高位，油價突破100美元與通膨疑慮壓抑風險偏好；10年期美債標售需求強勁，殖利率尾盤回落，限制了股市跌幅。</p>
+<div class="chips"><span class="chip">S&amp;P 500 -0.22%</span><span class="chip">Nasdaq -0.22%</span><span class="chip">Russell 2000 -1.31%</span><span class="chip">Brent $100.20</span></div>
+</article>
+<article class="card" id="sentiment">
+<div class="title">市場情緒 <small>10/07 最新可核對值</small></div>
+<div class="sent">
+<div class="sbox"><div class="label">VIX</div><strong>15.08</strong><span class="up">+0.47%</span><div class="source">Cboe / Yahoo Finance｜10/07 收盤</div></div>
+<div class="sbox"><div class="label">MOVE</div><strong>105.21</strong><span class="down">-7.39%</span><div class="source">ICE BofA MOVE／Saxo交叉核對｜10/07 收盤</div></div>
+<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>44</strong><span class="warn">Neutral</span><div class="source">CNN Business／FGScore｜10/07</div></div>
+<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">VIX 下降、MOVE 仍高；股票市場偏樂觀，但債券市場仍高度警戒。</div></div>
+</div>
+</article>
+</section>
+
+<div style="height:14px"></div>
+<section class="grid two" id="global-focus">
+<article class="card">
+<div class="title">全球焦點新聞 <small>10/07｜美國・歐洲・亞洲・中東・全球</small></div>
+<div class="newsitem"><h3>① 🇺🇸 美國｜殖利率急升壓抑股市</h3><p>10年期美債殖利率一度升至5.36%，長天期殖利率上升重新帶動通膨與融資成本疑慮，S&amp;P 500、Nasdaq自前一日高點回落。</p><div class="newsmeta">Reuters／AP</div></div>
+<div class="newsitem"><h3>② 🇪🇺 歐洲｜股市全面走弱</h3><p>STOXX 600下跌1%，銀行跌3.3%；法國財政疑慮與全球債券殖利率上升共同壓抑風險偏好。</p><div class="newsmeta">Reuters／歐洲市場資料</div></div>
+<div class="newsitem"><h3>③ 🌏 亞洲｜油價與殖利率壓力擴散</h3><p>日本、韓國、香港、台灣同步走弱；KOSPI跌1.98%、日經跌0.92%，油價與美債殖利率上升成為主要壓力。</p><div class="newsmeta">亞洲市場資料</div></div>
+<div class="newsitem"><h3>④ 🕌 中東｜Brent維持100美元附近</h3><p>供給疑慮較前期緩和，但地緣政治仍提供風險溢價，能源價格仍是全球通膨的重要變數。</p><div class="newsmeta">Reuters</div></div>
+<div class="newsitem"><h3>⑤ 🌐 全球｜股債波動出現分化</h3><p>VIX降至15附近，但MOVE仍在100以上，顯示股票市場風險偏好與債券市場利率警戒並存。</p><div class="newsmeta">市場資料</div></div>
+</article>
+<article class="card" id="headlines">
+<div class="title">市場熱門頭條 <small>10則｜宏觀＋企業／個股</small></div>
+<div class="newsitem"><h3>01｜美股自歷史高點回落</h3><p class="headline-desc">S&amp;P 500收7,801.77、-0.22%，Dow跌0.66%，Nasdaq跌0.22%。<br>Russell 2000跌1.31%，小型股明顯弱於大型股。<br>長天期殖利率上升與油價突破100美元，是主要壓力。</p></div>
+<div class="newsitem"><h3>02｜10年美債殖利率盤中衝至5.36%</h3><p class="headline-desc">長端殖利率一度創2002年以來高位，推升股票估值與融資成本壓力。<br>$39B 10年期美債標售需求強勁，殖利率尾盤回落至5.28%。<br>債市仍是第四季股市最重要的跨資產風險變數。</p></div>
+<div class="newsitem"><h3>03｜IEA加速釋放戰略石油庫存</h3><p class="headline-desc">IEA宣布加速釋放約1億桶尚未進場的戰略庫存，優先補充柴油。<br>消息降低市場對短期供給缺口的擔憂，油價由盤中高點回落。<br>Brent最終收100.20美元、WTI收88.28美元。</p></div>
+<div class="newsitem"><h3>04｜美元走強，DXY正式收102.24</h3><p class="headline-desc">DXY正式歷史收盤為102.24、+0.40%，高於前一日的101.83。<br>高油價與美債殖利率仍高，強化美元的利差與避險需求。<br>歐元、英鎊及澳幣同步承壓。</p></div>
+<div class="newsitem"><h3>05｜FOMC紀要：多數官員仍看年內再升息</h3><p class="headline-desc">9月會議紀要顯示，多數官員認為年內仍可能需要進一步升息。<br>但10月升息定價降至約17.2%，市場更偏向等待12月。<br>核心焦點仍是能源價格、通膨與就業。</p></div>
+<div class="newsitem"><h3>06｜法國財政風險再度衝擊歐股</h3><p class="headline-desc">法國政府財政與政治不確定性推升法德利差，壓抑歐洲風險偏好。<br>CAC 40跌1.22%，DAX跌1.35%，Euro Stoxx 50跌1.47%。<br>法國財政政策仍是歐洲債券市場的重要風險來源。</p></div>
+<div class="newsitem"><h3>07｜SpaceX傳尋求約400億美元融資</h3><p class="headline-desc">市場消息稱SpaceX考慮籌資約400億美元，用於AI資料中心與Nvidia晶片採購。<br>消息凸顯AI基礎建設的資本需求仍在快速擴張。<br>SpaceX相關市場情緒轉弱，成為AI資本支出新焦點。</p></div>
+<div class="newsitem"><h3>08｜Applied Digital財報雙優</h3><p class="headline-desc">APLD EPS約-$0.01，高於市場預期約-$0.29；營收$341.9M也遠高於約$116.3M。<br>AI資料中心需求開始直接轉化為營收，基本面訊號偏正面。<br>財報後股價盤後約上漲2.4%。</p></div>
+<div class="newsitem"><h3>09｜Levi Strauss EPS優於預期但營收略低</h3><p class="headline-desc">LEVI調整後EPS $0.48，高於市場預期$0.36。<br>營收$1.61B略低於約$1.62B共識，公司上調全年EPS展望。<br>盤後股價仍約下跌1.5%，反映市場對營收動能仍有疑慮。</p></div>
+<div class="newsitem"><h3>10｜S&amp;P 500產業轉向防禦</h3><p class="headline-desc">醫療保健上漲1.06%，成為11大產業中表現最強。<br>工業跌2.14%、原材料跌1.53%、房地產跌1.35%，週期與利率敏感產業承壓。<br>市場內部結構顯示風險偏好已明顯低於指數表面表現。</p></div>
+</article>
+</section>
+<div style="height:14px"></div>
+<section class="grid three" id="global">
+<article class="card"><div class="title">美國市場 <small>10/07 Close</small></div>
+<div class="row"><b>標普500指數<br><small>S&amp;P 500</small></b><span class="r">7,801.77</span><span class="r down">-0.22%</span></div>
+<div class="row"><b>那斯達克綜合指數<br><small>NASDAQ</small></b><span class="r">27,538.69</span><span class="r down">-0.22%</span></div>
+<div class="row"><b>道瓊工業指數<br><small>Dow Jones</small></b><span class="r">51,179.87</span><span class="r down">-0.66%</span></div>
+<div class="row"><b>羅素2000指數<br><small>Russell 2000</small></b><span class="r">2,793.20</span><span class="r down">-1.31%</span></div>
+<div class="row"><b>費城半導體指數<br><small>SOX</small></b><span class="r">13,061.48</span><span class="r down">-1.18%</span></div>
+<div class="market-reason"><b>📌 美股摘要</b><br>長天期美債殖利率升至多年代高位，油價與通膨疑慮壓抑風險偏好；小型股跌幅明顯大於大型股。</div></article>
+<article class="card" id="asia"><div class="title">亞洲市場 <small>10/07 Close</small></div>
+<div class="row"><b>日經225</b><span class="r">70,035.71</span><span class="r down">-0.92%</span></div>
+<div class="row"><b>韓國KOSPI</b><span class="r">6,803.90</span><span class="r down">-1.98%</span></div>
+<div class="row"><b>台灣加權</b><span class="r">49,806.37</span><span class="r down">-0.03%</span></div>
+<div class="row"><b>香港恆生</b><span class="r">24,130.50</span><span class="r down">-0.62%</span></div>
+<div class="row"><b>新加坡海峽</b><span class="r">5,608.44</span><span class="r down">-1.63%</span></div>
+<div class="row"><b>澳洲ASX 200</b><span class="r">8,727.70</span><span class="r down">-0.09%</span></div>
+<div class="row"><b>上海／深圳</b><span class="r">休市</span><span class="r">—</span></div>
+<div class="market-reason"><b>📌 亞股摘要</b><br>亞洲主要市場普遍走弱，KOSPI下跌1.98%、日經下跌0.92%，台股則近乎持平。<br>高油價、美元偏強與美債殖利率上升壓抑風險偏好；澳洲ASX 200亦小跌0.09%。</div></article>
+<article class="card"><div class="title">歐洲市場 <small>10/07 Close</small></div>
+<div class="row"><b>德國DAX</b><span class="r">25,104.36</span><span class="r down">-1.35%</span></div>
+<div class="row"><b>法國CAC 40</b><span class="r">7,769.21</span><span class="r down">-1.22%</span></div>
+<div class="row"><b>英國FTSE 100</b><span class="r">10,458.50</span><span class="r down">-0.79%</span></div>
+<div class="row"><b>Euro Stoxx 50</b><span class="r">6,180.29</span><span class="r down">-1.47%</span></div>
+<div class="market-reason"><b>📌 歐股摘要</b><br>法國財政疑慮、油價突破100美元與全球長債殖利率上升共同壓抑歐股。<br>DAX下跌1.35%、CAC 40下跌1.22%，Euro Stoxx 50下跌1.47%。</div></article>
+</section>
+<div style="height:14px"></div>
+<section class="grid three">
+<article class="card" id="us">
+<div class="title">S&amp;P 500｜11大產業 <small>10/07 Close</small></div>
+<div class="sector-list">
+<div class="sector-row"><span class="rank">1</span><span class="sector-name"><b>醫療保健</b><small>Health Care</small></span><span class="sector-pct up">+1.06%</span></div>
+<div class="sector-row"><span class="rank">2</span><span class="sector-name"><b>公用事業</b><small>Utilities</small></span><span class="sector-pct down">-0.01%</span></div>
+<div class="sector-row"><span class="rank">3</span><span class="sector-name"><b>必需消費</b><small>Consumer Staples</small></span><span class="sector-pct down">-0.10%</span></div>
+<div class="sector-row"><span class="rank">4</span><span class="sector-name"><b>資訊科技</b><small>Information Technology</small></span><span class="sector-pct down">-0.10%</span></div>
+<div class="sector-row"><span class="rank">5</span><span class="sector-name"><b>非必需消費</b><small>Consumer Discretionary</small></span><span class="sector-pct down">-0.15%</span></div>
+<div class="sector-row"><span class="rank">6</span><span class="sector-name"><b>通訊服務</b><small>Communication Services</small></span><span class="sector-pct down">-0.07%</span></div>
+<div class="sector-row"><span class="rank">7</span><span class="sector-name"><b>金融</b><small>Financials</small></span><span class="sector-pct down">-0.44%</span></div>
+<div class="sector-row"><span class="rank">8</span><span class="sector-name"><b>能源</b><small>Energy</small></span><span class="sector-pct down">-0.46%</span></div>
+<div class="sector-row"><span class="rank">9</span><span class="sector-name"><b>房地產</b><small>Real Estate</small></span><span class="sector-pct down">-1.35%</span></div>
+<div class="sector-row"><span class="rank">10</span><span class="sector-name"><b>原材料</b><small>Materials</small></span><span class="sector-pct down">-1.53%</span></div>
+<div class="sector-row"><span class="rank">11</span><span class="sector-name"><b>工業</b><small>Industrials</small></span><span class="sector-pct down">-2.14%</span></div>
+</div>
+<div class="market-reason"><b>📌 產業觀察</b><br><strong>醫療保健 +1.06%</strong>成為唯一明顯領漲主線；工業、原材料與房地產跌幅最大。<br>這與高長債殖利率對資本密集及利率敏感產業的壓力一致。</div>
+</article>
+<article class="card" id="bonds"><div class="title">債券市場 <small>10/07 Rates</small></div>
+<div class="bond-head"><span></span><span>前一日</span><span>10/07</span><span>變動</span></div>
+<div class="row"><b>2年期美國公債殖利率</b><span class="r prev-rate">4.79%</span><span class="r">4.77%</span><span class="r down">-2bp</span></div>
+<div class="row"><b>10年期美國公債殖利率</b><span class="r prev-rate">5.27%</span><span class="r">5.28%</span><span class="r up">+1bp</span></div>
+<div class="row"><b>30年期美國公債殖利率</b><span class="r prev-rate">5.64%</span><span class="r">5.67%</span><span class="r up">+3bp</span></div>
+<div class="market-reason"><b>📌 債券觀察</b><br>短端殖利率下降反映市場降低近期升息預期；但長端仍維持高檔，代表<strong>財政供給、通膨與期限溢價</strong>仍是主要壓力。</div>
+</article>
+<article class="card" id="fx"><div class="title">匯率 <small>10/07 Close</small></div>
+<div class="row"><b>美元指數（DXY）</b><span class="r">102.24</span><span class="r up">+0.40%</span></div>
+<div class="row"><b>美元／新台幣（USD/TWD）</b><span class="r">31.795</span><span class="r flat">收盤</span></div>
+<div class="row"><b>歐元／美元（EUR/USD）</b><span class="r">1.1194</span><span class="r down">-0.57%</span></div>
+<div class="row"><b>英鎊／美元（GBP/USD）</b><span class="r">1.3211</span><span class="r down">-0.49%</span></div>
+<div class="row"><b>澳幣／美元（AUD/USD）</b><span class="r">0.6967</span><span class="r down">-0.23%</span></div>
+<div class="row"><b>美元／日圓（USD/JPY）</b><span class="r">157.96</span><span class="r down">-0.14%</span></div>
+<div class="market-reason"><b>📌 匯率觀察</b><br>美元走強，DXY正式歷史收盤採102.24，不使用Reuters盤中102.13作為收盤值。<br>高油價、長債殖利率與Fed年內再升息預期共同支撐美元；歐元與英鎊承壓。</div>
+<div class="source" style="margin-top:8px">DXY：Investing.com歷史收盤／ICE口徑交叉核對；其他貨幣對採各自10/07收盤資料。</div>
+</article>
+</section>
+<div style="height:14px"></div>
+<section class="grid three" id="commodities">
+<article class="card"><div class="title">能源 <small>10/07 Close</small></div>
+<div class="row"><b>西德州原油（WTI）</b><span class="r">$88.28</span><span class="r down">-1.30%</span></div>
+<div class="row"><b>布蘭特原油（Brent）</b><span class="r">$100.20</span><span class="r down">-0.38%</span></div>
+<div class="market-reason"><b>📌 原油觀察</b><br>上漲因素：伊朗戰事、葉門胡塞武裝攻擊與墨西哥灣風暴威脅供給，Brent盤中一度突破102美元。<br>下跌因素：IEA宣布加速釋放戰略庫存、約1億桶仍待進場，供給緊張預期因此緩解，WTI收88.28、Brent收100.20。</div>
+<div class="source" style="margin-top:8px">Reuters／IEA／EIA｜10/07結算</div>
+</article>
+<article class="card"><div class="title">貴金屬 <small>10/07</small></div>
+<div class="row"><b>黃金現貨</b><span class="r">$4,113.89</span><span class="r down">-1.20%</span></div>
+<div class="row"><b>白銀現貨</b><span class="r">約$60.0</span><span class="r down">約-3%</span></div>
+<div class="market-reason"><b>📌 貴金屬觀察</b><br>美元走強與10年期殖利率升至多年高位，降低無息資產吸引力。<br>現貨黃金跌至兩個月低點；白銀跌幅更大，受到美元、利率與工業需求疑慮共同壓力。</div>
+</article>
+<article class="card"><div class="title">商品關鍵價位</div><div class="key"><b>Brent：</b>$100心理關卡；上方觀察$105。<br><b>WTI：</b>$88～90區間；上方觀察$95。<br><b>黃金：</b>$4,100附近為短線心理位。</div></article>
+</section>
+<div style="height:14px"></div>
+<section class="grid two" id="calendar">
+<article class="card" style="grid-column:1 / -1">
+<div class="title">本週經濟行事曆 <small>10/05～10/09｜台灣時間</small></div>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0">已公布</span></h3>
+<table><tr><th>日期</th><th>事件</th><th>前值</th><th>預測</th><th>實際</th><th>重要性</th></tr>
+<tr><td>10/07</td><td>FOMC 9月會議紀要</td><td>—</td><td>—</td><td class="b">已公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+<tr><td>10/07</td><td>EIA原油庫存</td><td>+0.922M</td><td>—</td><td class="b">-3.2M</td><td class="high">⭐⭐⭐⭐</td></tr>
+</table>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0;color:#b21824;border-color:#f0b8bd;background:#fff2f3">🔴 今日｜10/08</span></h3>
+<table><tr><th>時間</th><th>事件</th><th>前值</th><th>預測</th><th>實際</th><th>重要性</th></tr>
+<tr><td>晚間</td><td>初領失業金</td><td>—</td><td>—</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>晚間</td><td>30年期美債標售</td><td>—</td><td>—</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>20:30</td><td>PepsiCo Q3財報</td><td>—</td><td>—</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+</table>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0;color:#245b8e;border-color:#c6d9e9;background:#eef6fb">🔵 即將公布｜10/09</span></h3>
+<table><tr><th>日期</th><th>事件</th><th>前值</th><th>預測</th><th>實際</th><th>重要性</th></tr>
+<tr><td>10/09</td><td>密西根消費者信心初值</td><td>—</td><td>約47～48</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>10/09</td><td>密西根5年通膨預期</td><td>—</td><td>—</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>10/09</td><td>WASDE農業供需報告</td><td>—</td><td>—</td><td class="b">待公布</td><td>⭐⭐⭐</td></tr>
+</table>
+<div class="source" style="margin-top:10px">「實際」欄位採醒目粗體；尚未公布以「待公布」顯示，不填猜測值。</div>
+</article></section>
+
+<div style="height:14px"></div>
+<section class="grid two earnings-block" id="earnings">
+<article class="card" style="grid-column:1 / -1">
+<div class="title">本週財報行事曆 <small>10/05～10/09｜美國企業財報</small></div>
+<div class="callout"><b>📊 財報燈號判讀規則</b><br>
+<span class="earnings-result earnings-double">🟢 雙優</span>＝<b>EPS優於預期＋營收優於預期</b>；<span class="earnings-result earnings-double">🟢 盈利優於</span>＝<b>EPS優於預期、營收未優於預期</b>；<span class="earnings-result earnings-double">🟢 營收優於</span>＝<b>營收優於預期、EPS未優於預期</b>；<span class="earnings-result earnings-mixed">🟡 混合</span>＝EPS與營收一優一劣；<span class="earnings-result earnings-weak">🔴 雙弱</span>＝EPS與營收均低於預期。<br>
+<b>指引：</b><span style="color:#16834c;font-weight:950">🟢 上調</span>／<span style="color:#a56b00;font-weight:950">→ 維持</span>／<span style="color:#c62828;font-weight:950">🔴 下調</span>。<br>
+<b>股價反應：</b>盤前／盤中公布看當日收盤；盤後公布看盤後價格。尚未公布標示「待觀察」。</div>
+
+<div class="earnings-group-title"><span class="earnings-badge published">已公布</span></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
+<div class="earnings-row">
+<div class="earnings-cell">10/06<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>Lamb Weston</b><small>LW｜食品</small></div><div class="earnings-cell earnings-metric"><b>$0.74</b> / $0.59</div><div class="earnings-cell earnings-metric"><b>$1.67B</b> / $1.65B</div><div class="earnings-cell earnings-result earnings-double">🟢 雙優<br><small>指引未更新</small></div><div class="earnings-cell"><span class="earnings-reaction up">收盤 +7.49%</span></div><div class="earnings-cell high">⭐⭐⭐</div>
+</div>
+<div class="earnings-row">
+<div class="earnings-cell">10/06<br><small>盤後</small></div><div class="earnings-cell earnings-company"><b>Constellation Brands</b><small>STZ｜必需消費</small></div><div class="earnings-cell earnings-metric"><b>$3.74</b> / $3.61</div><div class="earnings-cell earnings-metric"><b>$2.63B</b> / $2.54B</div><div class="earnings-cell earnings-result earnings-double">🟢 雙優<br><small>指引未更新</small></div><div class="earnings-cell"><span class="earnings-reaction down">盤後 -4.50%</span></div><div class="earnings-cell high">⭐⭐⭐</div>
+</div>
+<div class="earnings-row">
+<div class="earnings-cell">10/06<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>RPM International</b><small>RPM｜工業</small></div><div class="earnings-cell earnings-metric"><b>$1.98</b> / $1.95</div><div class="earnings-cell earnings-metric"><b>$2.22B</b> / $2.22B</div><div class="earnings-cell earnings-result earnings-mixed">🟢 盈利優於<br><small>營收符合｜指引未更新</small></div><div class="earnings-cell"><span class="earnings-reaction up">收盤 +3.16%</span></div><div class="earnings-cell">⭐⭐</div>
+</div>
+<div class="earnings-row">
+<div class="earnings-cell">10/07<br><small>盤後</small></div><div class="earnings-cell earnings-company"><b>Applied Digital</b><small>APLD｜AI基礎建設</small></div><div class="earnings-cell earnings-metric"><b>$0.01</b> / -$0.29</div><div class="earnings-cell earnings-metric"><b>$341.9M</b> / $116.29M</div><div class="earnings-cell earnings-result earnings-double">🟢 雙優<br><small>指引待更新</small></div><div class="earnings-cell"><span class="earnings-reaction up">盤後 +2.4%</span></div><div class="earnings-cell high">⭐⭐⭐</div>
+</div>
+<div class="earnings-row">
+<div class="earnings-cell">10/07<br><small>盤後</small></div><div class="earnings-cell earnings-company"><b>Levi Strauss</b><small>LEVI｜消費</small></div><div class="earnings-cell earnings-metric"><b>$0.48</b> / $0.36</div><div class="earnings-cell earnings-metric"><b>$1.61B</b> / $1.62B</div><div class="earnings-cell earnings-result earnings-mixed">🟢 盈利優於<br><small>營收低於｜指引上調</small></div><div class="earnings-cell"><span class="earnings-reaction down">盤後約 -1.5%</span></div><div class="earnings-cell">⭐⭐</div>
+</div>
+
+<div class="earnings-group-title"><span class="earnings-badge today">今天｜10/08</span></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
+<div class="earnings-row">
+<div class="earnings-cell">10/08<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>PepsiCo</b><small>PEP｜必需消費</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $2.30</div><div class="earnings-cell earnings-metric"><b>待公布</b> / $24.97B</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>指引待更新</small></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell high">⭐⭐⭐</div>
+</div>
+
+<div class="earnings-group-title"><span class="earnings-badge upcoming">即將公布｜10/09</span></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
+<div class="earnings-row">
+<div class="earnings-cell">10/09<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>Delta Air Lines</b><small>DAL｜航空</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $1.92</div><div class="earnings-cell earnings-metric"><b>待公布</b> / $17.61B</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>指引待更新</small></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell high">⭐⭐⭐</div>
+</div>
+<div class="earnings-note"><b>📌 本週財報觀察：</b>APLD營收大幅優於預期，AI資料中心建置需求開始轉化為收入；LEVI EPS優於預期且上調全年獲利展望，但營收略低於共識。今日焦點為PepsiCo，明日看Delta Air Lines。</div>
+<div class="source" style="margin-top:10px">資料口徑：公司公告／IR優先，Reuters／LSEG交叉核對；共識預估交叉參考公開財報行事曆。尚未公布數據不預填實際值。</div>
+</article></section>
+
+<div style="height:14px"></div>
+<section class="grid two" id="fed">
+<article class="card"><div class="title">CME FedWatch <small>10/07附近</small></div>
+<div class="callout"><b>10/28 FOMC｜市場定價</b><br><span style="font-size:24px;font-weight:950">維持 79.5%</span><span class="pill">升息25bp：20.5%</span><br><span class="source">12/09 FOMC：維持15.5%／升息25bp 68.0%／升息50bp 16.5%。資料為CME FedWatch市場衍生定價，非Fed官方預測。</span></div>
+</article>
+<article class="card"><div class="title">Fed / FOMC</div>
+<div class="row"><b>目前政策利率</b><span class="r">3.75–4.00%</span><span class="r">9/16後</span></div>
+<div class="row"><b>10/07</b><span class="r">FOMC會議紀要</span><span class="r high">⭐⭐⭐⭐⭐</span></div>
+<div class="row"><b>核心觀察</b><span class="r">就業＋通膨</span><span class="r warn">高</span></div>
+</article>
+</section>
+
+<div style="height:14px"></div>
+<section class="grid three" id="view">
+<article class="card"><div class="title">市場觀點</div><div class="key"><b>① 利率：</b>10Y收5.28%，長端仍是主要估值壓力。<br><b>② 半導體：</b>SOX 13,061.48，-1.18%，高檔出現獲利了結。<br><b>③ 油價：</b>Brent收100.20美元，IEA釋儲抑制盤中漲勢，但供給風險仍高。<br><b>④ 股市：</b>大型股跌幅有限，但Russell 2000跌1.31%，市場廣度轉弱。</div></article>
+<article class="card"><div class="title">今日關鍵價位</div><div class="key"><b>S&amp;P 500：</b>7,800關卡；上方觀察歷史高點延伸。<br><b>NASDAQ：</b>27,500附近；關注高檔震盪。<br><b>SOX：</b>13,000支撐；13,500為上方觀察區。<br><b>台股：</b>49,500附近；50,000心理關卡。<br><b>10Y：</b>5.20%支撐；5.35%壓力。<br><b>Brent：</b>$100支撐；$105壓力。</div></article>
+<article class="card"><div class="title">今日核心觀察</div><div class="callout"><b>第一：</b>10Y能否維持在5.30%以下。<br><b>第二：</b>Brent能否守住100美元附近。<br><b>第三：</b>DXY升至102以上後是否持續強勢。<br><b>第四：</b>Russell 2000與市場廣度是否繼續弱於大型股。<br><b>第五：</b>PepsiCo財報與後續企業獲利指引。</div></article>
+</section>
+
+<div style="height:14px"></div>
+</main>
+<footer class="footer">TAC 投資早報｜2026/10/08（四）｜資料基準：2026/10/07｜資訊整理與教育用途，不構成投資建議。</footer>
+
+<script>
+function historyPath(dateStr){
+  return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
+}
+function historyMove(days){
+  const input=document.getElementById('historyDate');
+  if(!input || !input.value) return;
+  const d=new Date(input.value+'T00:00:00');
+  d.setDate(d.getDate()+days);
+  input.value=d.toISOString().slice(0,10);
+  updateHistoryStatus();
+}
+function updateHistoryStatus(){
+  const input=document.getElementById('historyDate');
+  const status=document.getElementById('historyStatus');
+  if(!input || !status) return;
+  const date=input.value;
+  if(date==='2026-10-02'){
+    status.className='history-status ok';
+    status.textContent='目前可查閱：2026/10/02';
+  }else{
+    status.className='history-status';
+    status.textContent='此日期將依 GitHub 歷史封存檔開啟；若尚未封存，請先完成當日封存。';
+  }
+}
+function goLatestReport(){ window.location.href='https://lion-invlab.github.io/'; }
+function openHistoryReport(){
+  const input=document.getElementById('historyDate');
+  if(!input || !input.value) return;
+  window.location.href=historyPath(input.value);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const input=document.getElementById('historyDate');
+  if(input) input.addEventListener('change',updateHistoryStatus);
+});
+</script>
+</body></html>
