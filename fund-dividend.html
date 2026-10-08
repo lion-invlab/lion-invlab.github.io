@@ -19,6 +19,14 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 .footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
 @media(max-width:1000px){.kpi{grid-template-columns:repeat(2,1fr)}.three,.two{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}.filters .btn{width:100%}}
 @media(max-width:650px){.hero-title{font-size:18px}.hero-title small{display:none}.hero p{font-size:15px}.up-item{grid-template-columns:14px 58px minmax(0,1fr) auto;gap:6px;padding:7px 8px}.up-days{min-width:66px;font-size:13px}.up-name{font-size:13px;white-space:normal;overflow:visible;text-overflow:clip}.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:1fr 1fr}.hero h1{font-size:21px}.filters{grid-template-columns:1fr}.footer{padding:0 14px 30px}table{font-size:11px;min-width:850px}.table-wrap{overflow:auto}.month{min-width:300px;flex:1}.event{padding:7px 9px}.event-row .date{font-size:13px}.event-row .days{font-size:12px}.event-row .name{font-size:12px;margin-left:15px}}
+
+/* 基金篩選器 */
+.filter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.filter-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}.filter-picker{min-height:42px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px 34px 10px 11px;font-weight:800;font-size:13px;position:relative;cursor:pointer}.filter-picker:after{content:"⌄";position:absolute;right:10px;top:7px;font-size:22px}.filter-actions{display:flex;gap:8px;margin-top:12px;align-items:center}.filter-clear{height:38px;border:0;border-radius:7px;padding:0 15px;font-weight:900;background:var(--black);color:#fff}.filter-count{margin-left:auto;font-size:12px;color:var(--muted);font-weight:850}.fund-table-wrap{overflow:auto;margin-top:14px;-webkit-overflow-scrolling:touch}.fund-table{width:100%;min-width:1080px;border-collapse:collapse;font-size:11px}.fund-table th{background:#fafafa;color:var(--muted);font-size:10px;text-align:left;padding:9px 7px;border-bottom:1px solid var(--line);white-space:nowrap}.fund-table td{padding:9px 7px;border-bottom:1px solid #eee;vertical-align:top}.fund-code,.fund-isin{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px}.fund-dist{font-weight:900;color:var(--green)}.fund-table a{color:#1769aa;text-decoration:none;font-weight:800}
+.modal{display:none;position:fixed;inset:0;background:#0005;z-index:30;align-items:center;justify-content:center;padding:18px}.modal.show{display:flex}.panel{width:min(520px,100%);max-height:84vh;overflow:auto;background:#fff;border-radius:22px;padding:16px;box-shadow:0 20px 60px #0004}.panel-head{position:sticky;top:-16px;background:#fff;padding:4px 0 11px;border-bottom:1px solid var(--line);z-index:2}.allrow{display:flex;align-items:center;gap:10px;padding:8px 3px;font-weight:900;font-size:17px}.allrow input,.opt input{width:21px;height:21px;accent-color:var(--red)}.selcount{margin-left:auto;color:var(--muted);font-size:11px}.opt{display:flex;gap:10px;align-items:flex-start;padding:12px 4px;border-bottom:1px solid #eee;font-size:15px;line-height:1.35}.modal-actions{position:sticky;bottom:-16px;background:#fff;padding-top:11px;display:flex;gap:8px}.modal-actions button{height:42px;border:0;border-radius:8px;font-weight:900;padding:0 16px}.m-cancel{background:#eee}.m-ok{background:var(--red);color:#fff;flex:1}
+@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.table-wrap{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.table-wrap table{min-width:1080px}.cards{display:none}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}
+@media(max-width:800px){.filter-grid{grid-template-columns:1fr 1fr}.fund-table-wrap{display:block}.fund-table{min-width:1080px}}
+@media(max-width:520px){.filter-grid{grid-template-columns:1fr}.filter-picker{font-size:13px}.fund-table-wrap{margin-left:-2px;margin-right:-2px}.fund-table{min-width:1080px}}
 </style>
 </head>
 <body>
@@ -59,23 +67,71 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 </section>
 
 <div style="height:14px"></div>
-<section class="card">
-<div class="title"><span>精選基金代號&amp;配息速查</span><small>15 檔主基金</small></div>
-<div class="filters"><div class="field" style="grid-column:1 / -1"><label>選擇主基金</label><select id="fundSelect" onchange="goFundDetail()"><option value="">請選擇 15 檔主基金</option><option value="施羅德環球收息債券">施羅德環球收息債券基金</option><option value="PIMCO多元收益債券基金">PIMCO多元收益債券基金</option><option value="JPM多重收益">摩根多重收益基金</option><option value="匯豐超核心多重資產基金">滙豐超核心多重資產基金</option><option value="PIMCO收益增長基金">PIMCO收益增長基金</option><option value="施羅德環球收益成長">施羅德環球收益成長基金</option><option value="貝萊德全球智慧數據股票入息基金">貝萊德全球智慧數據股票入息基金(複雜型)</option><option value="安聯AI人工智慧基金">安聯AI人工智慧基金</option><option value="匯豐全球基礎建設收益基金">滙豐全球基礎建設收益基金</option><option value="安聯台灣科技基金">安聯台灣科技基金</option><option value="施羅德環球永續增長">施羅德環球基金系列－環球永續增長</option><option value="施羅德環球黃金">施羅德環球黃金</option><option value="JPM日本股票">摩根日本基金</option><option value="聯博－美國成長基金">聯博美國成長股票基金</option><option value="安聯全球多元投資風格股票基金">安聯全球多元風格股票基金</option></select></div></div>
-<div class="source" style="margin-top:9px">選擇主基金後，直接進入該基金的「基金級別資訊」頁面。</div>
+<section class="card" id="fund-filter">
+<div class="title"><span>精選基金代號&amp;配息速查</span><small>完整基金級別資料庫</small></div>
+<div id="fundFilters" class="filter-grid"></div>
+<div class="filter-actions"><button id="fundClear" class="filter-clear">↺ 清除全部篩選</button><span id="fundCount" class="filter-count">載入中…</span></div>
+<div class="source" style="margin-top:9px">所有篩選條件皆可複選；下拉選單提供「全選／取消全選」。資料直接讀取基金級別資料庫。</div>
+<div id="fundTable" class="fund-table-wrap"></div>
 </section>
 </main>
 <footer class="footer">TAC 投資早報｜Q4 精選基金｜基準日即將來「息」｜資訊整理與教育用途，不構成投資建議。</footer>
 
 <script>
-function goFundDetail(){const v=document.getElementById("fundSelect").value;if(v)location.href="fund-detail-v2.html?fund="+encodeURIComponent(v)+"&v=20261006";}
+const FUND_SOURCE="fund-detail-v2.html";
+let fundRows=[],fundMains=[],fundFriendly={},fundActive={},fundPending=[];
+const fundLabels={main:"主基金（15檔）",type:"基金類型",risk:"風險等級",currency:"計價幣別",code:"基金代號",channel:"境內外／前後收",dist:"是否配息"};
+const fundKeys=["main","type","risk","currency","code","channel","dist"];
+const $f=id=>document.getElementById(id);
+function escF(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+async function loadFundDB(){
+ const text=await fetch(FUND_SOURCE,{cache:"no-store"}).then(r=>r.text());
+ const a=text.match(/const rows=(\[.*?\]),mains=(\[.*?\]),friendly=/s);
+ const b=text.match(/friendly=(\{.*?\});let current=/s);
+ if(!a||!b)throw new Error("找不到基金級別資料");
+ fundRows=Function("return "+a[1])();fundMains=Function("return "+a[2])();fundFriendly=Function("return "+b[1])();
+ fundActive={main:[...fundMains]};renderFundFilters();applyFundFilters();
+}
+function fundUnique(key){
+ if(key==="main")return fundMains;
+ const source=fundRows.filter(r=>fundActive.main?.length?fundActive.main.includes(r[1]):true);
+ if(key==="type")return [...new Set(source.map(r=>r[0]))].filter(Boolean).sort();
+ if(key==="risk")return [...new Set(source.map(r=>"RR"+r[6]))].filter(Boolean).sort();
+ if(key==="currency")return [...new Set(source.map(r=>r[3]))].filter(Boolean).sort();
+ if(key==="code")return [...new Set(source.map(r=>r[4]))].filter(Boolean).sort();
+ if(key==="channel")return [...new Set(source.map(r=>r[5]))].filter(Boolean).sort();
+ if(key==="dist")return [...new Set(source.map(r=>r[7]))].filter(Boolean).sort();
+}
+function fundSummary(key){const sel=fundActive[key]||[],all=fundUnique(key);return !sel.length||sel.length===all.length?"全部（全選）":"已選 "+sel.length+" 項";}
+function renderFundFilters(){$f("fundFilters").innerHTML="";fundKeys.forEach(key=>{const d=document.createElement("div");d.className="filter-field";d.innerHTML='<label>'+fundLabels[key]+'</label><div class="filter-picker">'+fundSummary(key)+'</div>';d.querySelector(".filter-picker").onclick=()=>openFundPicker(key);$f("fundFilters").appendChild(d);});}
+function openFundPicker(key){
+ const vals=fundUnique(key);fundPending=[...(fundActive[key]||[])];
+ $f("fundModalOptions").innerHTML=vals.map((v,i)=>'<label class="opt"><input type="checkbox" data-i="'+i+'"><span>'+escF(v)+'</span></label>').join("");
+ $f("fundModalOptions").querySelectorAll("input").forEach(x=>x.checked=fundPending.includes(vals[+x.dataset.i]));
+ syncFundModal(vals);
+ $f("fundModal").classList.add("show");document.body.style.overflow="hidden";
+}
+function syncFundModal(vals){$f("fundAll").checked=fundPending.length===vals.length;$f("fundAllLabel").textContent=fundPending.length===vals.length?"取消全選":"全選";$f("fundSelCount").textContent="已選 "+fundPending.length+"／"+vals.length;}
+function closeFundPicker(){$f("fundModal").classList.remove("show");document.body.style.overflow="";}
+function applyFundFilters(){
+ const src=fundRows.filter(r=>(!fundActive.main?.length||fundActive.main.includes(r[1]))&&(!fundActive.type?.length||fundActive.type.includes(r[0]))&&(!fundActive.risk?.length||fundActive.risk.includes("RR"+r[6]))&&(!fundActive.currency?.length||fundActive.currency.includes(r[3]))&&(!fundActive.code?.length||fundActive.code.includes(r[4]))&&(!fundActive.channel?.length||fundActive.channel.includes(r[5]))&&(!fundActive.dist?.length||fundActive.dist.includes(r[7])));
+ $f("fundCount").textContent=src.length+" 個基金級別";
+ $f("fundTable").innerHTML='<table class="fund-table"><thead><tr><th>基金類型</th><th>主基金</th><th>基金級別</th><th>計價幣別</th><th>基金代號</th><th>境內外／前後收</th><th>風險等級</th><th>是否配息</th><th>年化配息率</th><th>MoneyDJ</th><th>ISIN</th></tr></thead><tbody>'+src.map(r=>'<tr><td>'+escF(r[0])+'</td><td><b>'+escF(fundFriendly[r[1]]||r[1])+'</b></td><td>'+escF(r[2])+'</td><td>'+escF(r[3])+'</td><td class="fund-code">'+escF(r[4])+'</td><td>'+escF(r[5])+'</td><td>RR'+escF(r[6])+'</td><td class="fund-dist">'+escF(r[7])+'</td><td>'+escF(r[8]||"—")+'</td><td>'+(r[9]?'<a target="_blank" href="'+escF(r[9])+'">查看</a>':"—")+'</td><td class="fund-isin">'+escF(r[10])+'</td></tr>').join("")+'</tbody></table>';
+}
+document.addEventListener("DOMContentLoaded",()=>{
+ $f("fundModalOptions").addEventListener("change",()=>{const key=$f("fundModal").dataset.key;const vals=fundUnique(key);fundPending=[...$f("fundModalOptions").querySelectorAll("input:checked")].map(x=>vals[+x.dataset.i]);syncFundModal(vals);});
+ $f("fundAll").addEventListener("change",()=>{const key=$f("fundModal").dataset.key;const vals=fundUnique(key);const all=fundPending.length===vals.length;fundPending=all?[]:[...vals];$f("fundModalOptions").querySelectorAll("input").forEach(x=>x.checked=!all);syncFundModal(vals);});
+ $f("fundApply").onclick=()=>{const key=$f("fundModal").dataset.key;fundActive[key]=[...fundPending];closeFundPicker();renderFundFilters();applyFundFilters();};
+ $f("fundCancel").onclick=closeFundPicker;$f("fundModal").onclick=e=>{if(e.target===$f("fundModal"))closeFundPicker()};
+ $f("fundClear").onclick=()=>{fundActive={main:[...fundMains]};renderFundFilters();applyFundFilters();};
+ loadFundDB().catch(e=>{$f("fundCount").textContent="資料載入失敗";$f("fundTable").innerHTML='<div style="color:#c62828;font-weight:900;padding:12px">無法讀取基金資料：'+escF(e.message)+'</div>';});
+});
+function goFundDetail(){}
 const data=[["2026-10-28","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-10-28","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-10-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-12-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","0285／0286","季配","摩根官方"],["2026-10-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-11-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-12-31","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-10-28","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-10-28","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-10-29","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-11-27","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-12-30","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-10-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-10-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-11-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-12-31","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["","安聯台灣科技基金","5503｜累積","不配息","安聯／級別資料"],["","施羅德環球基金系列－環球永續增長","053L／T107｜累積","不配息","級別資料"],["","施羅德環球黃金","053W／053X／T109｜累積","不配息","級別資料"],["","摩根日本基金","0235／0236／T616／T617｜累積","不配息","級別資料"],["2026-10-29","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-11-27","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-12-30","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-10-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2455｜配息類股","配息","Allianz 2026 官方行事曆"]];
-function daysFromToday(s){if(!s)return null;const t=new Date(s+"T00:00:00");const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Math.ceil((t-today)/86400000)}
+function daysFromToday(s){if(!s)return null;const t=new Date(s+"T00:00:00"),now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Math.ceil((t-today)/86400000)}
 function lightClass(index){if(index===0)return"red";if(index===1)return"yellow";return"green"}
-function renderUpcoming(){const el=document.getElementById("upcomingHero");const grouped={};data.filter(x=>x[0]).forEach(x=>{if(!grouped[x[0]])grouped[x[0]]=[];grouped[x[0]].push(x)});const dates=Object.keys(grouped).sort().filter(d=>daysFromToday(d)>=0).slice(0,3);el.innerHTML=dates.map((date,index)=>{const days=daysFromToday(date),cls=lightClass(index);const names=[...new Set(grouped[date].map(x=>x[1]))];const label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";return `<div class="up-item"><span class="light ${cls}"></span><span class="up-date">${date.slice(5).replace("-","/")}</span><span class="up-name">${names.join("／")}</span><span class="up-days ${cls}">${label}</span></div>`}).join("")}
-function renderTimeline(){const el=document.getElementById("timeline");const grouped={};data.filter(x=>x[0]).forEach(x=>{if(!grouped[x[0]])grouped[x[0]]=[];grouped[x[0]].push(x)});const dates=Object.keys(grouped).sort();const rank={};dates.forEach((d,i)=>rank[d]=i);const months={};dates.forEach(date=>{const month=date.slice(5,7);if(!months[month])months[month]=[];grouped[date].forEach(x=>months[month].push({date,x}))});el.innerHTML=Object.keys(months).sort().map(month=>{const rows=months[month].map(({date,x})=>{const idx=rank[date],cls=lightClass(idx),days=daysFromToday(date);const label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";return `<div class="event"><div class="event-row"><div class="event-top"><span class="dot ${cls}"></span><span class="date">${date.slice(5).replace("-","/")}</span><span class="days ${cls}">${label}</span></div><span class="name">${x[1]}</span></div></div>`}).join("");return `<div class="month"><b>${month==="10"?"10 月":month==="11"?"11 月":"12 月"}</b>${rows}</div>`}).join("")}
-function render(){renderUpcoming();renderTimeline()}
-function scheduleDailyRefresh(){const now=new Date();const next=new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,2,0);const delay=next-now;setTimeout(()=>{render();scheduleDailyRefresh()},delay)}
-render();scheduleDailyRefresh();
+function renderUpcoming(){const el=document.getElementById("upcomingHero"),grouped={};data.filter(x=>x[0]).forEach(x=>{if(!grouped[x[0]])grouped[x[0]]=[];grouped[x[0]].push(x)});const dates=Object.keys(grouped).sort().filter(d=>daysFromToday(d)>=0).slice(0,3);el.innerHTML=dates.map((date,index)=>{const days=daysFromToday(date),cls=lightClass(index),names=[...new Set(grouped[date].map(x=>x[1]))],label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";return '<div class="up-item"><span class="light '+cls+'"></span><span class="up-date">'+date.slice(5).replace("-","/")+'</span><span class="up-name">'+names.join("／")+'</span><span class="up-days '+cls+'">'+label+'</span></div>'}).join("")}
+function renderTimeline(){const el=document.getElementById("timeline"),grouped={};data.filter(x=>x[0]).forEach(x=>{if(!grouped[x[0]])grouped[x[0]]=[];grouped[x[0]].push(x)});const dates=Object.keys(grouped).sort(),rank={};dates.forEach((d,i)=>rank[d]=i);const months={};dates.forEach(date=>{const month=date.slice(5,7);if(!months[month])months[month]=[];grouped[date].forEach(x=>months[month].push({date,x}))});el.innerHTML=Object.keys(months).sort().map(month=>{const rs=months[month].map(({date,x})=>{const idx=rank[date],cls=lightClass(idx),days=daysFromToday(date),label=days===0?"今天":days===1?"明天":"倒數 "+days+" 天";return '<div class="event"><div class="event-row"><div class="event-top"><span class="dot '+cls+'"></span><span class="date">'+date.slice(5).replace("-","/")+'</span><span class="days '+cls+'">'+label+'</span></div><span class="name">'+x[1]+'</span></div></div>'}).join("");return '<div class="month"><b>'+(month==="10"?"10 月":month==="11"?"11 月":"12 月")+'</b>'+rs+'</div>'}).join("")}
+renderUpcoming();renderTimeline();
 </script>
-</body></html>
+<div id="fundModal" class="modal"><div class="panel"><div class="panel-head"><div class="allrow"><input id="fundAll" type="checkbox"><span id="fundAllLabel">全選</span><span id="fundSelCount" class="selcount"></span></div></div><div id="fundModalOptions"></div><div class="modal-actions"><button class="m-cancel" id="fundCancel">取消</button><button class="m-ok" id="fundApply">套用</button></div></div></div></body></html>
