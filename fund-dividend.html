@@ -105,6 +105,7 @@ function fundUnique(key){
 function fundSummary(key){const sel=fundActive[key]||[],all=fundUnique(key);return !sel.length||sel.length===all.length?"全部（全選）":"已選 "+sel.length+" 項";}
 function renderFundFilters(){$f("fundFilters").innerHTML="";fundKeys.forEach(key=>{const d=document.createElement("div");d.className="filter-field";d.innerHTML='<label>'+fundLabels[key]+'</label><div class="filter-picker">'+fundSummary(key)+'</div>';d.querySelector(".filter-picker").onclick=()=>openFundPicker(key);$f("fundFilters").appendChild(d);});}
 function openFundPicker(key){
+ $f("fundModal").dataset.key=key;
  const vals=fundUnique(key);fundPending=[...(fundActive[key]||[])];
  $f("fundModalOptions").innerHTML=vals.map((v,i)=>'<label class="opt"><input type="checkbox" data-i="'+i+'"><span>'+escF(v)+'</span></label>').join("");
  $f("fundModalOptions").querySelectorAll("input").forEach(x=>x.checked=fundPending.includes(vals[+x.dataset.i]));
