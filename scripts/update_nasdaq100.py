@@ -42,6 +42,53 @@ CONSTITUENTS_URL = "https://api.nasdaq.com/api/quote/list-type/nasdaq100"
 OFFICIAL_WEIGHTING_URL = "https://indexes.nasdaq.com/Index/Weighting/NDX"
 OUTPUT_FILE = "data/nasdaq100_volatility.json"
 
+# Canonical 11 GICS sectors. Prefer the already-validated S&P 500 dataset
+# for constituents shared by both indexes; use reviewed overrides only for
+# Nasdaq-100 constituents outside the S&P 500.
+VALID_GICS_SECTORS = {
+    "Communication Services", "Consumer Discretionary", "Consumer Staples",
+    "Energy", "Financials", "Health Care", "Industrials",
+    "Information Technology", "Materials", "Real Estate", "Utilities",
+}
+NON_SP500_SECTOR_OVERRIDES = {
+    "ASML": "Information Technology",
+    "MSTR": "Information Technology",
+    "ALNY": "Health Care",
+    "MELI": "Consumer Discretionary",
+    "NBIS": "Information Technology",
+    "SHOP": "Information Technology",
+    "CCEP": "Consumer Staples",
+    "PDD": "Consumer Discretionary",
+    "RKLB": "Industrials",
+    "ARM": "Information Technology",
+    "TRI": "Industrials",
+    "FER": "Industrials",
+    "ALAB": "Information Technology",
+    "CRWV": "Information Technology",
+    "SPCX": "Industrials",
+}
+
+
+def load_sector_map():
+    """Load validated S&P 500 GICS classifications and add reviewed exceptions."""
+    sectors = {}
+    try:
+        with open("data/sp500_volatility.json", encoding="utf-8") as f:
+            sp = json.load(f)
+        for stock in sp.get("stocks", []):
+            ticker = str(stock.get("ticker", "")).strip().upper()
+            sector = stock.get("sector")
+            if ticker and sector in VALID_GICS_SECTORS:
+                sectors[ticker] = sector
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(
+            "Cannot load data/sp500_volatility.json for sector fallback; "
+            "refusing to write Nasdaq data with missing sectors."
+        ) from exc
+
+    sectors.update(NON_SP500_SECTOR_OVERRIDES)
+    return sectors
+
 MIN_REQUIRED_DAYS = 95
 DOWNLOAD_PERIOD = "1y"
 BATCH_SIZE = 50
@@ -305,6 +352,20 @@ def main():
     print("=" * 60)
 
     constituents = download_official_constituents()
+    sector_map = load_sector_map()
+
+    # Fail before downloading/writing if any newly added constituent lacks a
+    # reviewed sector mapping. Never publish null/unknown sector values.
+    missing_sector = [
+        row["ticker"] for row in constituents
+        if sector_map.get(row["ticker"]) not in VALID_GICS_SECTORS
+    ]
+    if missing_sector:
+        raise RuntimeError(
+            "Missing GICS sector mapping for: "
+            + ", ".join(missing_sector)
+            + ". Update NON_SP500_SECTOR_OVERRIDES before publishing."
+        )
 
     tickers = [row["yahoo_ticker"] for row in constituents]
 
@@ -323,7 +384,7 @@ def main():
             "ticker": original_symbol,
             "yahoo_ticker": ticker,
             "company": str(row["company"]),
-            "sector": None,
+            "sector": sector_map[original_symbol],
             "price": None,
             "vol_90d": None,
             "vol_60d": None,
@@ -377,6 +438,15 @@ def main():
             record["valid"] = True
 
         results.append(record)
+
+    invalid_sectors = [
+        r["ticker"] for r in results
+        if r.get("sector") not in VALID_GICS_SECTORS
+    ]
+    if invalid_sectors:
+        raise RuntimeError(
+            "Invalid GICS sector values remain: " + ", ".join(invalid_sectors)
+        )
 
     valid_records = [r for r in results if r["valid"]]
 
