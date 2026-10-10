@@ -135,6 +135,24 @@ th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1
 </div>
 
 <script>
+const VALID_SECTORS=new Set([
+ "Communication Services","Consumer Discretionary","Consumer Staples","Energy",
+ "Financials","Health Care","Industrials","Information Technology","Materials",
+ "Real Estate","Utilities"
+]);
+const SECTOR_FALLBACK={
+ ASML:"Information Technology",MSTR:"Information Technology",ALNY:"Health Care",
+ MELI:"Consumer Discretionary",NBIS:"Information Technology",SHOP:"Information Technology",
+ CCEP:"Consumer Staples",PDD:"Consumer Discretionary",RKLB:"Industrials",
+ ARM:"Information Technology",TRI:"Industrials",FER:"Industrials",
+ ALAB:"Information Technology",CRWV:"Information Technology",SPCX:"Industrials"
+};
+function normalizeSector(value,ticker){
+ const s=String(value??"").trim();
+ if(VALID_SECTORS.has(s))return s;
+ const fallback=SECTOR_FALLBACK[String(ticker??"").trim().toUpperCase()];
+ return VALID_SECTORS.has(fallback)?fallback:"";
+}
 const CN={
 "Communication Services":"通訊服務","Consumer Discretionary":"非必需消費","Consumer Staples":"必需消費",
 "Energy":"能源","Financials":"金融","Health Care":"醫療保健","Industrials":"工業",
@@ -219,8 +237,9 @@ function renderRank(){
 
 function renderSectors(){
   let g={};
-  S.filter(x=>x.valid&&Number.isFinite(Number(x.vol_90d))).forEach(x=>(g[x.sector]??=[]).push(Number(x.vol_90d)));
-  let a=Object.entries(g).map(([k,v])=>{
+  S.filter(x=>x.valid&&VALID_SECTORS.has(x.sector)&&Number.isFinite(Number(x.vol_90d)))
+   .forEach(x=>(g[x.sector]??=[]).push(Number(x.vol_90d)));
+  let a=[...VALID_SECTORS].filter(k=>g[k]?.length).map(k=>[k,g[k]]).map(([k,v])=>{
     let sorted=[...v].sort((p,c)=>p-c);
     return {k,n:v.length,avg:v.reduce((p,c)=>p+c,0)/v.length,med:sorted[Math.floor((sorted.length-1)/2)]};
   }).sort((a,b)=>b.avg-a.avg);
@@ -353,7 +372,7 @@ async function init(){
       source_counts:{sp500:(sp.stocks||[]).length,nasdaq100:(ndx.stocks||[]).length,tac_watchlist:(watch.stocks||[]).length}
     };
     renderKPI();renderQuality();renderRank();renderSectors();
-    let ss=[...new Set(S.map(x=>x.sector).filter(Boolean))].sort();
+    let ss=[...VALID_SECTORS].filter(k=>S.some(x=>x.sector===k)).sort();
     sector.innerHTML='<option value="">全部產業</option>'+ss.map(x=>'<option value="'+esc(x)+'">'+esc(CN[x]||x)+"</option>").join("");
     renderTable();
   }catch(e){
