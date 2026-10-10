@@ -239,16 +239,15 @@ function renderSectors(){
   let g={};
   S.filter(x=>x.valid&&VALID_SECTORS.has(x.sector)&&Number.isFinite(Number(x.vol_90d)))
    .forEach(x=>(g[x.sector]??=[]).push(Number(x.vol_90d)));
-  let a=[...VALID_SECTORS].filter(k=>g[k]?.length).map(k=>[k,g[k]]).map(([k,v])=>{
-    let sorted=[...v].sort((p,c)=>p-c);
-    return {k,n:v.length,avg:v.reduce((p,c)=>p+c,0)/v.length,med:sorted[Math.floor((sorted.length-1)/2)]};
-  }).sort((a,b)=>b.avg-a.avg);
-  if(!a.length){sectorGrid.innerHTML='<div class="note">目前沒有足夠的產業資料。</div>';return}
-  let m=Math.max(...a.map(x=>x.avg));
-  sectorGrid.innerHTML=a.map(x=>'<div class="sector"><b>'+esc(CN[x.k]||x.k||"未分類")+
-  '</b><div class="sectorline"><span>'+x.n+"檔</span><span>平均 "+pct(x.avg)+
-  '</span></div><div class="bar"><i style="width:'+Math.max(3,x.avg/m*100)+'%"></i></div>'+
-  '<div class="sectorline"><span>中位數</span><b>'+pct(x.med)+"</b></div></div>").join("");
+  let a=[...VALID_SECTORS].map(k=>{
+    let v=g[k]||[],sorted=[...v].sort((p,c)=>p-c);
+    return {k,n:v.length,avg:v.length?v.reduce((p,c)=>p+c,0)/v.length:null,med:sorted.length?sorted[Math.floor((sorted.length-1)/2)]:null};
+  }).sort((a,b)=>(b.avg??-1)-(a.avg??-1));
+  let m=Math.max(0,...a.map(x=>x.avg??0));
+  sectorGrid.innerHTML=a.map(x=>'<div class="sector"><b>'+esc(CN[x.k]||x.k)+
+  '</b><div class="sectorline"><span>'+x.n+"檔</span><span>平均 "+(x.n?pct(x.avg):"—")+
+  '</span></div><div class="bar"><i style="width:'+(x.n&&m?Math.max(3,x.avg/m*100):0)+'%"></i></div>'+
+  '<div class="sectorline"><span>中位數</span><b>'+(x.n?pct(x.med):"—")+"</b></div></div>").join("");
 }
 
 function renderTable(){
