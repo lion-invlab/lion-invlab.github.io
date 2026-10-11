@@ -438,5 +438,30 @@ document.addEventListener('DOMContentLoaded',()=>{
   const input=document.getElementById('historyDate');
   if(input) input.addEventListener('change',updateHistoryStatus);
 });
+
+/* TAC-FUND-COUNTDOWN-AUTO: calculate countdown from Taiwan local date */
+(function(){
+  function updateFundCountdowns(){
+    const parts = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    const p = Object.fromEntries(parts.map(x=>[x.type,x.value]));
+    const today = new Date(Date.UTC(Number(p.year),Number(p.month)-1,Number(p.day)));
+    document.querySelectorAll('.fund-date-row').forEach(row=>{
+      const dateEl=row.querySelector('.fund-date');
+      const status=row.querySelector('.fund-status');
+      if(!dateEl||!status) return;
+      const m=dateEl.textContent.trim().match(/^(\d{1,2})\/(\d{1,2})$/);
+      if(!m) return;
+      let year=Number(p.year), month=Number(m[1]), day=Number(m[2]);
+      let target=new Date(Date.UTC(year,month-1,day));
+      if(target<today && month < Number(p.month)) target=new Date(Date.UTC(year+1,month-1,day));
+      const diff=Math.round((target-today)/86400000);
+      status.textContent=diff<0?'基準日已過':diff===0?'今天基準日':'倒數 '+diff+' 天';
+      status.classList.remove('tomorrow','soon','later');
+      status.classList.add(diff<=1?'tomorrow':diff<=7?'soon':'later');
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',updateFundCountdowns);
+  else updateFundCountdowns();
+})();
 </script>
 </body></html>
