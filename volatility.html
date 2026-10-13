@@ -161,8 +161,8 @@ const CN={
 
 let D=null,S=[],P={},key="vol_90d",desc=true,rankPeriod=90;
 
-const pct=x=>Number.isFinite(Number(x))?(Number(x)*100).toFixed(2)+"%":"—";
-const num=x=>Number.isFinite(Number(x))?Number(x).toLocaleString(undefined,{maximumFractionDigits:2}):"—";
+const pct=x=>x!=null&&x!==""&&Number.isFinite(Number(x))?(Number(x)*100).toFixed(2)+"%":"—";
+const num=x=>x!=null&&x!==""&&Number.isFinite(Number(x))?Number(x).toLocaleString(undefined,{maximumFractionDigits:2}):"—";
 const esc=x=>String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
 function formatTW(iso){let d=new Date(iso);if(!Number.isFinite(d.getTime()))return iso;return new Intl.DateTimeFormat("zh-TW",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hour12:false}).format(d)}
 
@@ -268,7 +268,7 @@ function renderTable(){
     '</td><td>'+pct(x.vol_30d)+'</td><td>'+pct(x.vol_20d)+'</td>'+
     '<td class="'+(Number(x.return_90d)>=0?"pos":"neg")+'">'+pct(x.return_90d)+'</td>'+
     '<td class="neg">'+pct(x.max_drawdown_90d)+'</td>'+
-    '<td>'+((Number.isFinite(Number(x.vol_ratio_20d_90d)))?Number(x.vol_ratio_20d_90d).toFixed(2):"—")+
+    '<td>'+((x.vol_ratio_20d_90d!=null&&x.vol_ratio_20d_90d!==""&&Number.isFinite(Number(x.vol_ratio_20d_90d)))?Number(x.vol_ratio_20d_90d).toFixed(2):"—")+
     '</td></tr>').join("");
   document.querySelectorAll("#body tr").forEach(r=>r.onclick=e=>{if(!e.target.closest(".tickerbtn"))showDetail(r.dataset.t)});
   document.querySelectorAll(".tickerbtn").forEach(b=>b.onclick=e=>{e.stopPropagation();openProfile(b.dataset.t)});
@@ -281,7 +281,7 @@ function showDetail(t){
   let a=[["90D Vol",pct(x.vol_90d)],["60D Vol",pct(x.vol_60d)],["30D Vol",pct(x.vol_30d)],["20D Vol",pct(x.vol_20d)],["90D報酬",pct(x.return_90d)],["最大回撤",pct(x.max_drawdown_90d)]];
   dg.innerHTML=a.map(y=>'<div class="mini"><div class="label">'+y[0]+"</div><strong>"+y[1]+"</strong></div>").join("");
   dn.innerHTML="<b>產業：</b>"+esc(CN[x.sector]||x.sector||"—")+"｜<b>價格：</b>"+num(x.price)+
-    "｜<b>20D/90D：</b>"+(Number.isFinite(Number(x.vol_ratio_20d_90d))?Number(x.vol_ratio_20d_90d).toFixed(2):"—")+
+    "｜<b>20D/90D：</b>"+(x.vol_ratio_20d_90d!=null&&x.vol_ratio_20d_90d!==""&&Number.isFinite(Number(x.vol_ratio_20d_90d))?Number(x.vol_ratio_20d_90d).toFixed(2):"—")+
     "｜<b>有效價格天數：</b>"+esc(x.price_days??"—");
   document.getElementById("detail").scrollIntoView({behavior:"smooth"});
 }
@@ -301,7 +301,7 @@ function openProfile(t){
   let fin=p.financials||{},val=p.valuation||{},biz=p.business||{},loc=p.location||{},market=p.market||{},src=p.source||{},periods=p.periods||{};
   pmTitle.textContent=(p.company||x.company||t)+"｜"+t;
   pmSub.textContent=[CN[p.sector]||p.sector||CN[x.sector]||x.sector,p.industry,loc.city,loc.state,loc.country].filter(Boolean).join("｜")||"公司基本面";
-  const pctField=v=>Number.isFinite(Number(v))?(Number(v)*100).toFixed(2)+"%":"—";
+  const pctField=v=>v!=null&&v!==""&&Number.isFinite(Number(v))?(Number(v)*100).toFixed(2)+"%":"—";
   const multiple=v=>{if(!Number.isFinite(Number(v)))return "—";let n=Number(v);return n<=0?"不適用":n.toFixed(2)+"x"};
   const peNote=v=>{if(!Number.isFinite(Number(v)))return "—";let n=Number(v);return n<=0?"虧損／P/E不適用":n.toFixed(2)+"x"};
   let stats=[
@@ -394,7 +394,7 @@ function renderTop40ByPeriod(){
   const label=document.getElementById('rankLabel');
   if(!el||!Array.isArray(S)) return;
   const field='vol_'+rankPeriod+'d';
-  const rows=S.filter(x=>Number.isFinite(Number(x[field]))).slice().sort((a,b)=>Number(b[field])-Number(a[field])).slice(0,40);
+  const rows=S.filter(x=>x[field]!=null&&x[field]!==""&&Number.isFinite(Number(x[field]))).slice().sort((a,b)=>Number(b[field])-Number(a[field])).slice(0,40);
   title.textContent=rankPeriod+'D 波動率排名';
   label.textContent='最高 Top 40';
   el.innerHTML=rows.map((x,i)=>`<div class="rankrow"><span class="ranknum">${i+1}</span><b>${esc(x.ticker||'')}</b><span class="rankname">${esc(x.name||x.company||'')}</span><strong>${pct(Number(x[field]))}</strong></div>`).join('');
