@@ -193,7 +193,7 @@ function mergeStocks(sp,ndx,watch=[]){
 }
 
 function makeSummary(arr){
-  const v=arr.filter(x=>x.valid&&Number.isFinite(Number(x.vol_90d))).map(x=>Number(x.vol_90d));
+  const v=arr.filter(x=>x.valid&&x.vol_90d!=null&&x.vol_90d!==""&&Number.isFinite(Number(x.vol_90d))).map(x=>Number(x.vol_90d));
   const avg=v.length?v.reduce((a,b)=>a+b,0)/v.length:null;
   const s=[...v].sort((a,b)=>a-b);
   const med=s.length?s[Math.floor((s.length-1)/2)]:null;
