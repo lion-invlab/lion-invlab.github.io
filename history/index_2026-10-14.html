@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>TAC 投資早報｜2026/10/14 Dashboard</title>
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.topin{max-width:1540px;margin:auto;padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--red)}.status{font-size:12px;color:var(--muted)}
+.nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}.nav a.vol{background:#000;color:#ffd400}
+.wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:13px;color:var(--muted);font-weight:850;letter-spacing:.3px;line-height:1.35}.kpi .label small{display:block;font-size:10px;line-height:1.2;font-weight:700;color:var(--muted);margin-top:2px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
+.title{font-size:23px;line-height:1.3;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
+.sent{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
+table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
+.event{display:grid;grid-template-columns:58px 1fr 68px;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.event:last-child{border:0}.event .d{font-weight:950;color:var(--red)}.event b{display:block}.event span{font-size:10px;color:var(--muted);line-height:1.5}.impact{text-align:right;font-weight:900}.high{color:var(--red)}
+.callout{padding:12px;border-radius:8px;background:#fafafa;border:1px solid var(--line);line-height:1.65;font-size:12px}.key{font-size:12px;line-height:1.7}.key b{font-weight:950}.pill{display:inline-block;border-radius:99px;padding:3px 7px;font-size:10px;font-weight:900;border:1px solid var(--line);margin-left:5px}
+.newsitem{padding:8px 0;border-bottom:1px solid #eee}.newsitem:last-child{border-bottom:0}.newsitem h3{font-size:16px;line-height:1.4;margin:0 0 5px;font-weight:850}.newsitem p{font-size:11px;color:#555b63;line-height:1.55;margin:0}.newsmeta{font-size:9px;color:var(--muted);margin-top:4px}
+.footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
+@media(max-width:1200px){.kpi{grid-template-columns:repeat(4,1fr)}.three,.two{grid-template-columns:1fr}.sent{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.sent{grid-template-columns:1fr 1fr}.value{font-size:20px}.bluf h1{font-size:19px}.row{grid-template-columns:1.2fr .9fr .65fr}.footer{padding:0 14px 30px}}
+.report-date{font-size:.62em;font-weight:700;margin-left:5px;white-space:nowrap;color:#17191d}
+.market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
+.market-reason b{color:var(--red)}
+#bonds .row b{white-space:nowrap}
+#bonds .bond-head{display:grid;grid-template-columns:1.55fr .8fr .8fr .55fr;gap:8px;padding:0 0 5px;font-size:10px;color:var(--muted);font-weight:850;text-align:right}
+#bonds .bond-head span:first-child{text-align:left}
+#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr}
+#bonds .prev-rate{color:#737981}
+@media(max-width:700px){#bonds .bond-head{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}#bonds .bond-head{font-size:9px}}
+@media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
+.headline-desc{line-height:1.55;margin:7px 0 6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+@media(max-width:700px){.headline-desc{line-height:1.5;-webkit-line-clamp:3}}
+
+.sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.sector-row{display:grid;grid-template-columns:32px minmax(0,1fr) 88px 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
+.sector-row .rank{font-weight:800;color:#777;text-align:center}
+.sector-name b{font-size:14px}
+.sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
+.sector-pct{text-align:right;font-weight:800}.sector-pct small{display:block;font-size:10px;font-weight:600;margin-top:2px}.sector-values{text-align:right;white-space:nowrap}.sector-values b{display:block;font-size:13px}.sector-source{font-size:10px;color:#737981;text-decoration:underline}
+.sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
+@media(max-width:700px){.sector-row{grid-template-columns:24px minmax(0,1fr) 66px 58px;gap:5px;padding:7px 6px}.sector-name b{font-size:12px}.sector-name small{font-size:9px}.sector-values b{font-size:12px}.sector-pct{font-size:12px}.sector-pct small{font-size:9px}}
+
+/* Q4 精選基金 Dashboard */
+.fund-report-card{background:#4a171c;border:1px solid #6f242b;border-radius:14px;margin-bottom:14px;padding:18px 22px 20px;box-shadow:0 3px 8px rgba(0,0,0,.10)}
+.fund-report-head{margin-bottom:12px}
+.fund-report-title{font-size:23px;line-height:1.3;font-weight:950;color:#fff;letter-spacing:.2px;white-space:nowrap}.red-highlight{color:#ffd35a}
+.fund-report-sub{margin-top:12px;font-size:18px;font-weight:950;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.fund-report-list{display:grid;gap:10px}
+.fund-date-row{display:grid;grid-template-columns:28px 72px 1fr 96px;align-items:center;gap:8px;min-height:66px;padding:9px 14px;border:1px solid #e1e3e6;border-radius:12px;background:#fff}
+.fund-dot{width:20px;height:20px;border-radius:50%;justify-self:center;box-shadow:0 0 0 6px rgba(0,0,0,.035)}
+.fund-date{font-size:24px;font-weight:950;color:#202328}
+.fund-names{font-size:15px;line-height:1.35;font-weight:850;color:#25292e}
+.fund-status{text-align:right;font-size:18px;font-weight:950;white-space:nowrap}
+.tomorrow{color:#c92f2f}
+.soon{color:#b88600}
+.later{color:#198754}
+.dashboard-link{display:flex;width:100%;height:56px;box-sizing:border-box;align-items:center;justify-content:center;margin-top:14px;padding:0 14px;border-radius:10px;text-align:center;font-size:17px;line-height:1.2;font-weight:950;text-decoration:none}.vol-dashboard-link{color:#ffd400!important;background:#202328}.fund-dashboard-link{color:#fff!important;background:#c62828;border:1px solid #ffd35a}
+.fund-dot.red{background:#c92f2f}
+.fund-dot.yellow{background:#e2ae00}
+.fund-dot.green{background:#198754}
+.mobile-only{display:none}
+.top-warning{font-size:9px;font-weight:600;color:#8a8f96;margin-left:10px;white-space:nowrap;letter-spacing:.1px}
+
+/* 歷史早報固定元件 */
+history-panel{margin-bottom:14px}
+history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+history-field{min-width:0;width:100%}
+history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+history-field input{display:block;width:100%;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:0 10px;font-size:14px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+history-btn.primary{background:var(--red);color:#fff}
+history-btn.secondary{background:#eef0f2;color:#202328}
+history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+history-status.ok{color:#16834c}
+history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important}
+.q4-nav{background:#8b1e1e;color:#fff!important;font-weight:900}
+@media(max-width:700px){.q4-nav{font-size:13px}}
+
+/* 歷史早報：固定採用已定稿版面 */
+.history-panel{margin-bottom:14px}
+.history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+.history-field{min-width:0;width:100%;overflow:hidden}
+.history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+.history-field input{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:2px 10px 0;font-size:14px;line-height:36px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+.history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+.history-btn.secondary{background:#eef0f2;color:#202328}
+.history-btn.primary{background:var(--red);color:#fff}
+.history-btn.latest{background:#202328;color:#fff}
+.history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+.history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+.history-status.ok{color:#16834c}
+.history-status.err{color:#c62828}
+@media(max-width:700px){
+.history-box{grid-template-columns:1fr 1fr}
+.history-field{grid-column:1/-1}
+.history-btn{width:100%}
+}
+
+/* 本週財報行事曆：固定必備版面 */
+.earnings-block{margin-top:14px}
+.earnings-group-title{font-size:13px;margin:14px 0 6px;font-weight:950}
+.earnings-badge{display:inline-block;border-radius:99px;padding:4px 9px;font-size:10px;font-weight:950;border:1px solid var(--line)}
+.earnings-badge.published{color:#16834c;border-color:#b9dfca;background:#effaf3}
+.earnings-badge.today{color:#b21824;border-color:#f0b8bd;background:#fff2f3}
+.earnings-badge.upcoming{color:#245b8e;border-color:#c6d9e9;background:#eef6fb}
+.earnings-row{display:grid;grid-template-columns:72px 1.35fr 1fr 1fr 1fr 1fr 78px;gap:8px;padding:9px 6px;border-bottom:1px solid #eee;align-items:center}
+.earnings-row:last-child{border-bottom:0}
+.earnings-head{font-size:10px;color:var(--muted);font-weight:850}
+.earnings-cell{font-size:11px;line-height:1.45}
+.earnings-company b{font-size:13px;font-weight:950}
+.earnings-company small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.earnings-metric{font-variant-numeric:tabular-nums}
+.earnings-metric b{font-weight:950}
+.earnings-reaction{font-size:10px;font-weight:950;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25;white-space:nowrap}.earnings-reaction.up{color:#16834c;border-color:#bfe3cf;background:#eef9f2}.earnings-reaction.down{color:#c62828;border-color:#efc1c1;background:#fff0f0}.earnings-reaction.wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-result{font-size:10px;font-weight:950;white-space:nowrap;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25}
+.earnings-double{color:#16834c;border-color:#bfe3cf;background:#eef9f2}
+.earnings-mixed{color:#a56b00;border-color:#ead79c;background:#fff8df}
+.earnings-wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-weak{color:#c62828;border-color:#efc1c1;background:#fff0f0}
+.earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
+@media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 1fr 70px}}
+@media(max-width:700px){
+  .earnings-row{grid-template-columns:58px 1.05fr 1.35fr;gap:6px 10px;padding:11px 4px;align-items:start}
+  .earnings-head{display:none}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(1){grid-column:1;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(2){grid-column:2;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3){grid-column:3;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4){grid-column:3;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5){grid-column:1 / span 2;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:1 / span 2;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7){grid-column:3;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3)::before{content:"EPS ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4)::before{content:"營收 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5)::before{content:"判讀 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"股價反應 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7)::before{content:"重要性 ";color:var(--muted);font-weight:800}
+  .earnings-company b{font-size:12px}
+  .earnings-company small{font-size:9px}
+  .earnings-result{font-size:9px;white-space:normal}
+}
+
+
+.instrument-name{display:block;line-height:1.28}
+.instrument-en{display:block;font-size:.76em;font-weight:500;line-height:1.25;color:#6b7280;margin-top:2px;letter-spacing:.01em}
+</style>
+</head>
+<body>
+<header class="top">
+<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/14（三）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/14（三）｜市場行情基準：各市場2026/10/13當地收盤；未完成或來源日期未通過者另行標示</div></div>
+<nav class="nav">
+<a class="vol" href="https://lion-invlab.github.io/volatility.html">📊 美股個股波動率</a>
+<a class="q4-nav" href="https://lion-invlab.github.io/fund-dividend.html">💰 Q4 精選基金</a>
+<a class="history-nav" href="#history">📚 歷史早報</a>
+<a class="active" href="#overview">總覽</a>
+<a href="#global-focus">全球焦點新聞</a><a href="#headlines">市場熱門頭條</a>
+<a href="#global">全球主要股市</a><a href="#us">產業表現</a><a href="#bonds">債券</a>
+<a href="#fx">匯率</a><a href="#commodities">商品</a><a href="#sentiment">市場情緒</a>
+<a href="#calendar">經濟行事曆</a><a href="#earnings">財報行事曆</a><a href="#fed">Fed / FOMC</a><a href="#view">市場觀點</a>
+</nav></header>
+<main class="wrap" id="overview">
+<section class="card" style="background:#000;color:#fff;border-color:#000;margin-bottom:14px">
+<div class="title" style="color:#fff"><span>📊 美股個股波動率 Dashboard</span></div>
+<div style="font-size:12px;line-height:1.75;color:#e8e8e8"><b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br/><b>主要功能：</b>20D／30D／60D／90D 歷史波動率、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 成分股 Top／Bottom 20、11 大產業比較、波動率分布與個股 Rolling 90D HV。<br/><b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態。</div>
+<a class="dashboard-link vol-dashboard-link" href="https://lion-invlab.github.io/volatility.html">→ 開啟美股個股波動率 Dashboard</a>
+</section>
+<section class="card fund-report-card">
+<div class="fund-report-head">
+<div class="fund-report-title">💰 Q4 精選基金｜基準日即將來<span class="red-highlight">息</span></div>
+<div class="fund-report-sub">最近三個基準日</div>
+</div>
+<div class="fund-report-list">
+<div class="fund-date-row"><div class="fund-dot yellow"></div><div class="fund-date">10/14</div><div class="fund-names">安聯AI人工智慧基金 / 安聯全球多元投資風格股票基金</div><div class="fund-status soon">今日基準日</div></div>
+<div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/28</div><div class="fund-names">施羅德環球收益債券基金 / PIMCO多元收益債券基金 / PIMCO收益增長基金 / 施羅德環球收益成長基金</div><div class="fund-status later">倒數 14 天</div></div>
+<div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/29</div><div class="fund-names">貝萊德全球智慧數據股票入息基金</div><div class="fund-status later">倒數 15 天</div></div>
+</div>
+<a class="dashboard-link fund-dashboard-link" href="https://lion-invlab.github.io/fund-dividend.html">→ 開啟 Q4 精選基金 Dashboard</a>
+</section>
+<section class="card history-panel" id="history">
+<div class="title">
+<span>📚 歷史早報</span>
+<small>依日期查閱過往 TAC 投資早報</small>
+</div>
+<div class="history-box">
+<div class="history-field">
+<label for="historyDate">選擇早報日期</label>
+<input id="historyDate" type="date" value="2026-10-02"/>
+</div>
+<button class="history-btn secondary" onclick="historyMove(-1)" type="button">‹ 前一天</button>
+<button class="history-btn secondary" onclick="historyMove(1)" type="button">後一天 ›</button>
+<button class="history-btn primary" onclick="openHistoryReport()" type="button">開啟舊版早報</button>
+<button class="history-btn latest" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth',block:'start'})" style="display:block!important;visibility:visible!important;opacity:1!important;background:#202328!important;color:#fff!important;min-width:140px!important;" type="button">🏠 回到最新早報</button>
+</div>
+<div class="history-note">歷史早報採「日期封存檔」方式保存；目前已封存資料可由日期直接開啟。最新早報仍以首頁為準。</div>
+<div class="history-status ok" id="historyStatus">目前可查閱：2026/10/02</div>
+</section>
+<div style="height:14px"></div>
+<section class="grid two">
+<article class="card bluf">
+<div class="title">BLUF</div>
+<h1>美股小幅收低，銀行財報分化；市場等待美國 CPI</h1>
+<p>10/13美股主要指數小跌，SOX依Investing.com歷史頁下跌0.23%；大型銀行財報有優有劣，個股反應分歧。市場接下來聚焦美國9月CPI（台灣時間10/14 20:30），評估能源推升的整體通膨是否擴散至核心通膨。</p>
+<div class="chips"><span class="chip">S&amp;P 500 -0.02%</span><span class="chip">Nasdaq -0.15%</span><span class="chip">Russell 2000 -0.40%</span><span class="chip">Brent $106.31</span></div>
+</article>
+<article class="card" id="sentiment"><div class="title">市場情緒<small>10/13資料；個別來源狀態分開標示</small></div><div class="sent">
+<div class="sbox"><div class="label">VIX｜Cboe 波動率指數</div><strong>15.47</strong><div class="chg up">+1.71%</div><div class="source">Yahoo Finance ^VIX 歷史收盤 10/13；Investing.com 顯示 15.50（+1.91%），差異待 Cboe 官方收盤確認。</div></div>
+<div class="sbox"><div class="label">MOVE｜美債波動率</div><strong>101.09</strong><div class="chg up">+2.62（+2.66%）</div><div class="source">Google Finance／INDEXNYSEGIS: MOVE，10/13 16:17 EDT 收盤；前收 98.47。依使用者當日截圖手動更新。</div></div>
+<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>45</strong><div class="chg flat">Neutral｜中性</div><div class="source">FGScore 轉載 CNN 原始指數，資料日期 10/13 UTC；CNN Business 原頁本輪未能獨立確認。</div></div>
+<div class="sbox"><div class="label">風險狀態</div><strong>股指小跌</strong><div class="chg flat">波動數據有待核對</div><div class="source">VIX/MOVE 來源日期與確認程度不同，不將其視為同等級的官方收盤確認。</div></div>
+</div><div class="market-reason"><b>📌 核心解讀</b><br/>10/13美股主要指數跌幅有限，但半導體與部分大型金融股走弱。VIX採Yahoo歷史收盤備援並保留與Investing.com的差異；MOVE尚無可核實的10/13收盤，不以舊值替代。</div><div class="source">來源：<a href="https://www.cboe.com/tradable_products/vix/">Cboe VIX 官方頁</a>、<a href="https://finance.yahoo.com/quote/%5EVIX/history/">Yahoo Finance ^VIX</a>、<a href="https://www.investing.com/indices/ice-bofaml-move-historical-data">Investing.com MOVE</a>、<a href="https://www.cnn.com/markets/fear-and-greed">CNN Fear &amp; Greed</a>、<a href="https://fgscore.com/en">FGScore</a>。</div></article>
+</section>
+<div style="height:14px"></div>
+<section class="grid two" id="global-focus"><article class="card"><div class="title">全球焦點新聞 <small>10/14</small></div>
+<div class="newsitem"><h3>① 🇺🇸 美國｜主要指數小幅收低，科技股與晶片股承壓</h3><p>10/13道瓊收51,670.10（-0.35%）、S&amp;P 500收7,805.45（-0.02%）、Nasdaq Composite收27,204.38（-0.15%）。<br/>半導體指數依Investing.com歷史頁收12,208.80、下跌0.23%，市場仍關注中國記憶體廠競爭與AI資本支出回報。<br/>指數跌幅有限，但個股分化明顯；市場焦點從單純AI需求轉向支出效率與競爭風險。</p><div class="newsmeta"><a href="https://www.investing.com/news/stock-market-news/us-stocks-lower-at-close-of-trade-dow-jones-industrial-average-down-035-4947511">Investing.com｜10/13美股收盤</a>／<a href="https://www.reuters.com/world/asia-pacific/global-markets-wrapup-1-2026-10-13/">Reuters交叉核對</a></div></div>
+<div class="newsitem"><h3>② 🏦 美國｜大型銀行財報表現分歧，交易業務強但貸款與債券業務承壓</h3><p>高盛EPS 17.01美元、營收186.8億美元，均高於市場預期；股票交易收入年增72%。<br/>花旗EPS 2.85美元、營收238.5億美元優於預期；富國銀行EPS 1.87美元勝預期，但營收218.7億美元低於共識。<br/>摩根大通調整後EPS 5.75美元仍低於約5.93美元預期，顯示交易收入強勁並未讓各銀行全面受惠。</p><div class="newsmeta"><a href="https://www.investing.com/news/stock-market-news/bank-earnings-scorecard-trading-gains-offset-lending-and-deal-slowdown-93CH-4947304">Investing.com財報彙整</a>／<a href="https://news.cnyes.com/news/id/6629573">鉅亨網 JPM</a></div></div>
+<div class="newsitem"><h3>③ 🌏 亞洲｜KOSPI重挫5.46%，台股與日股同步走弱</h3><p>KOSPI收6,035.35、下跌5.46%；台灣加權收48,341.31、下跌1.95%。<br/>日經225收67,777.52、下跌1.82%；恆生與上海綜合則分別上漲0.30%與0.10%。<br/>晶片股賣壓與AI競爭疑慮是區域市場關注焦點，但各市場跌幅仍須分別看待。</p><div class="newsmeta"><a href="https://edgeconsultancykw.com/asia-market-wrap-13-october-2026/">亞洲市場收盤彙整</a>／<a href="https://www.twse.com.tw/">TWSE</a></div></div>
+<div class="newsitem"><h3>④ 🇪🇺 歐洲｜晶片股賣壓抵銷油價回落，STOXX 600小幅收低</h3><p>STOXX 600收635.01、下跌0.10%；FTSE 100下跌0.06%，DAX與CAC 40均下跌約0.07%。<br/>市場重新評估AI相關企業的支出效率與中國晶片競爭，半導體股走弱壓過能源價格回落的部分支撐。<br/>歐洲指數跌幅不大，反映市場偏向調整部位，而非全面性急跌。</p><div class="newsmeta"><a href="https://uk.marketscreener.com/news/chip-selloff-pulls-european-stocks-back-from-one-week-high-ce785dddd08ef721">Reuters歐洲收盤</a></div></div>
+<div class="newsitem"><h3>⑤ 🛢️ 商品與利率｜油價回落但不同報價口徑仍有價差</h3><p>Reuters報導10/13 Brent期貨結算105.69美元／桶、WTI 94.14美元／桶；Investing.com指定歷史頁列值分別為106.31與94.35。<br/>差異可能來自合約月份、報價時點或結算口徑，不能直接混為同一條價格序列。<br/>美債市場交易報導顯示10年期殖利率約5.216%，仍處高檔，需與財政部官方日曲線分開閱讀。</p><div class="newsmeta"><a href="https://www.reuters.com/markets/commodities/">Reuters商品市場</a>／Investing.com指定歷史報價頁</div></div></article>
+<article class="card" id="headlines"><div class="title">市場熱門頭條 <small>10/14</small></div>
+<div class="newsitem"><h3>01｜道瓊、S&amp;P 500與Nasdaq小幅收低</h3><p class="headline-desc">道瓊收51,670.10，下跌0.35%。<br>S&amp;P 500收7,805.45，下跌0.02%。<br>Nasdaq Composite收27,204.38，下跌0.15%。</br></br></p><div class="newsmeta">AP／Investing.com</div></div>
+<div class="newsitem"><h3>02｜費城半導體指數連續承壓</h3><p class="headline-desc">Investing.com歷史頁列SOX收12,208.80，下跌0.23%。<br>Reuters指出晶片股受到中國競爭與AI支出疑慮影響。<br>指數資料採價格指數，不以半導體ETF替代。</br></br></p><div class="newsmeta">Investing.com／Reuters</div></div>
+<div class="newsitem"><h3>03｜高盛EPS與營收雙雙優於預期</h3><p class="headline-desc">高盛第三季EPS 17.01美元，市場預期約13.09美元。<br>營收186.8億美元，高於約168.6億美元共識。<br>股票交易收入年增72%，但股價收盤仍小跌約0.16%。</br></br></p><div class="newsmeta">鉅亨網／Investing.com</div></div>
+<div class="newsitem"><h3>04｜花旗獲利與營收勝預期，股價仍大幅下跌</h3><p class="headline-desc">花旗EPS 2.85美元，高於約2.65美元預期。<br>營收238.5億美元，略高於約237.2億美元共識。<br>股價收盤下跌約5.6%，市場仍關注業務動能與指引。</br></br></p><div class="newsmeta">鉅亨網／市場收盤彙整</div></div>
+<div class="newsitem"><h3>05｜富國銀行EPS勝預期、營收未達標</h3><p class="headline-desc">富國銀行EPS 1.87美元，高於1.84美元預期。<br>營收218.7億美元，低於約223.1億美元共識。<br>股價收盤下跌約3.1%，淨利息收入成為觀察重點。</br></br></p><div class="newsmeta">鉅亨網／Investing.com</div></div>
+<div class="newsitem"><h3>06｜摩根大通調整後EPS仍低於共識</h3><p class="headline-desc">調整後EPS 5.75美元，低於約5.93美元預期。<br/>營收約509億美元，低於約512.3億美元共識。<br/>股價收盤下跌約0.9%，證券處分損失影響報表EPS。</p><div class="newsmeta">鉅亨網／Investing.com</div></div>
+<div class="newsitem"><h3>07｜亞洲股市表現分歧，韓股跌幅居前</h3><p class="headline-desc">KOSPI收6,035.35，下跌5.46%。<br/>台灣加權下跌1.95%，日經225下跌1.82%。<br/>恆生與上海綜合分別上漲0.30%與0.10%。</p><div class="newsmeta">亞洲市場收盤彙整／TWSE</div></div>
+<div class="newsitem"><h3>08｜歐洲主要指數小幅回落</h3><p class="headline-desc">STOXX 600收635.01，下跌0.10%。<br/>FTSE 100下跌0.06%，DAX與CAC 40均下跌約0.07%。<br/>晶片股走弱抵銷油價回落帶來的部分支撐。</p><div class="newsmeta">Reuters</div></div>
+<div class="newsitem"><h3>09｜油價主來源與Reuters結算值有差異</h3><p class="headline-desc">Investing.com歷史頁列WTI 94.35、Brent 106.31美元／桶。<br/>Reuters報導的期貨結算值為94.14與105.69美元／桶。<br/>兩組數據口徑未完全鎖定，不直接混成單一序列。</p><div class="newsmeta">Investing.com／Reuters</div></div>
+<div class="newsitem"><h3>10｜美債殖利率需區分市場收盤與官方日曲線</h3><p class="headline-desc">10/13市場交易報導列2年期4.791%、10年期5.216%。<br/>30年期約5.562%，均為市場收盤參考。<br/>財政部官方日曲線最新可核實完整日期為10/09，兩種口徑分開列示。</p><div class="newsmeta">WSJ／U.S. Treasury</div></div>
+</article></section><div style="height:14px"></div>
+<section class="grid three" id="global">
+<article class="card"><div class="title">美國市場<small>10/13當地正式收盤</small></div>
+<div class="row"><b>道瓊工業指數<br/><small>Dow Jones</small></b><span class="r">51,670.10</span><span class="r down">-0.35%</span></div>
+<div class="row"><b>標普500指數<br/><small>S&amp;P 500</small></b><span class="r">7,805.45</span><span class="r down">-0.02%</span></div>
+<div class="row"><b>那斯達克綜合指數<br/><small>Nasdaq Composite</small></b><span class="r">27,204.38</span><span class="r down">-0.15%</span></div>
+<div class="row"><b>那斯達克100指數<br/><small>Nasdaq-100</small></b><span class="r">30,496.11</span><span class="r down">-0.55%</span></div>
+<div class="row"><b>羅素2000指數<br/><small>Russell 2000</small></b><span class="r">2,783.37</span><span class="r down">-0.40%</span></div>
+<div class="row"><b>費城半導體指數<br/><small>SOX</small></b><span class="r">12,208.80</span><span class="r down">-0.23%</span></div>
+<div class="market-reason"><b>📌 美股摘要</b><br/>大型指數表現分歧不大，反映市場尚未因財報季而形成明確方向；銀行獲利數字雖有部分優於預期，但投資人更在意未達標的利息收入、未來放貸與交易收入展望，因此利多未能全面推升金融股。<br/>半導體與記憶體股持續承壓，主因中國記憶體廠 CXMT 技術進展加深市場對供應競爭與價格壓力的疑慮；博通執行長對部分 AI 投資過熱的評論，也促使資金重新檢視 AI 題材估值。<br/>醫療保健股受嬌生醫療器材業務表現與公司策略消息拖累，抵銷部分大型科技股支撐；在通膨數據公布前，投資人降低追價意願，令主要指數收盤偏弱。</div>
+<div class="source">來源：<a href="https://apnews.com/article/a0a577dfd12f63ee6780a56ab02b55c4">AP 收盤數據</a>／<a href="https://www.investing.com/news/stock-market-news/us-stocks-lower-at-close-of-trade-dow-jones-industrial-average-down-035-4947511">Investing.com 收盤摘要</a>；SOX 採 <a href="https://www.investing.com/indices/phlx-semiconductor-historical-data">Investing.com SOX 歷史資料</a>。Nasdaq-100採Nasdaq官方10/13收盤30,496.11（-0.55%）；第三方頁報-0.31%，存在來源差異，已依官方第一來源採值。</div></article>
+<article class="card" id="asia"><div class="title">亞洲市場 <small>各市場10/13當地收盤</small></div>
+<div class="row"><b>台灣加權指數</b><span class="r">48,341.31</span><span class="r down">-1.95%</span></div>
+<div class="row"><b>香港恆生指數</b><span class="r">24,345.22</span><span class="r up">+0.30%</span></div>
+<div class="row"><b>上海綜合指數</b><span class="r">3,800.86</span><span class="r up">+0.10%</span></div>
+<div class="row"><b>深圳綜合指數</b><span class="r">2,329.11</span><span class="r up">+0.08%</span></div>
+<div class="row"><b>日經225</b><span class="r">67,777.52</span><span class="r down">-1.82%</span></div>
+<div class="row"><b>韓國KOSPI</b><span class="r">6,035.35</span><span class="r down">-5.46%</span></div>
+<div class="market-reason"><b>📌 亞股摘要</b><br/>韓股跌勢最重，核心壓力來自三星與 SK 海力士等大型記憶體股下挫；中國 CXMT 的技術進展引發市場擔憂，若供給競爭升高，可能壓縮記憶體產業的定價能力與高獲利預期。<br/>台股與日股同受全球 AI／半導體類股降溫影響，資金先行降低高波動科技股曝險；日經跌勢也反映日本大型出口與科技相關權值股承壓。這是跨市場風險傳導，不代表所有個股都由同一因素造成。<br/>港股與上海綜合小幅走高，顯示中國內地與香港市場並未完全跟隨區域科技股賣壓；市場內部產業權重及個別股票表現差異，是指數走勢分化的原因之一。</div>
+<div class="source">來源：<a href="https://www.twse.com.tw/">TWSE</a>、<a href="https://www.investing.com/indices/taiwan-weighted-historical-data">Investing.com 台股歷史資料</a>、<a href="https://edgeconsultancykw.com/asia-market-wrap-13-october-2026/">亞洲收盤彙整</a>；其他市場依當地收盤彙整交叉核對。</div></article>
+<article class="card"><div class="title">歐洲市場 <small>10/13當地收盤</small></div>
+<div class="row"><b>英國FTSE 100</b><span class="r">10,650.33</span><span class="r down">-0.06%</span></div>
+<div class="row"><b>德國DAX</b><span class="r">25,259.90</span><span class="r down">-0.07%</span></div>
+<div class="row"><b>法國CAC 40</b><span class="r">7,827.63</span><span class="r down">-0.07%</span></div>
+<div class="row"><b>STOXX Europe 600</b><span class="r">635.01</span><span class="r down">-0.10%</span></div>
+<div class="market-reason"><b>📌 歐股摘要</b><br/>歐股回落的主要壓力來自半導體設備與科技股：中國 CXMT 技術進展加深競爭疑慮，ASM International、Soitec 等晶片供應鏈股票遭到賣壓，科技類股因此拖累大盤。<br/>油價回落原本有助緩和能源成本與通膨壓力，但未能抵銷晶片股下跌；中東局勢仍使能源供應與通膨前景存在不確定性，市場因此沒有明顯擴大風險部位。<br/>個股方面，LVMH 銷售表現偏弱，反映中國需求疲軟仍壓抑精品消費；相對地，化工股及部分企業財報提供支撐，使大盤跌幅維持有限。</div>
+<div class="source">來源：<a href="https://www.ft.com/markets">Financial Times 市場數據</a>、<a href="https://www.reuters.com/markets/europe/">Reuters 歐洲市場</a>。STOXX 600 收盤 635.01；CAC 40採Investing.com歷史頁7,827.63（-0.07%），Reuters跌幅交叉核對。</div></article>
+</section><div style="height:14px"></div>
+<section class="grid three">
+<article class="card" id="us">
+<div class="title">S&amp;P 500｜11 大產業 ETF 表現<small>資料基準：2026/10/13；Investing.com 歷史行情；美元收盤價</small></div>
+<div class="sector-list"><div class="sector-row"><div class="rank">01</div><div class="sector-name"><b>能源</b><small>XLE · Energy</small></div><div class="sector-values"><b>$67.18</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-energy-select-sector-fund-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+1.77%<small>+1.17</small></div></div><div class="sector-row"><div class="rank">02</div><div class="sector-name"><b>通訊服務</b><small>XLC · Communication Services</small></div><div class="sector-values"><b>$112.28</b><a class="sector-source" href="https://www.investing.com/etfs/communication-services-select-spdr-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.74%<small>+0.83</small></div></div><div class="sector-row"><div class="rank">03</div><div class="sector-name"><b>公用事業</b><small>XLU · Utilities</small></div><div class="sector-values"><b>$41.87</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-select-sector---utilities-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.58%<small>+0.24</small></div></div><div class="sector-row"><div class="rank">04</div><div class="sector-name"><b>原材料</b><small>XLB · Materials</small></div><div class="sector-values"><b>$49.72</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-materials-select-sector-etf-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.57%<small>+0.28</small></div></div><div class="sector-row"><div class="rank">05</div><div class="sector-name"><b>非必需消費</b><small>XLY · Consumer Discretionary</small></div><div class="sector-values"><b>$112.36</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.08%<small>+0.09</small></div></div><div class="sector-row"><div class="rank">06</div><div class="sector-name"><b>資訊科技</b><small>XLK · Information Technology</small></div><div class="sector-values"><b>$196.28</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-select-sector---technology-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.04%<small>-0.08</small></div></div><div class="sector-row"><div class="rank">07</div><div class="sector-name"><b>房地產</b><small>XLRE · Real Estate</small></div><div class="sector-values"><b>$41.90</b><a class="sector-source" href="https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.05%<small>-0.03</small></div></div><div class="sector-row"><div class="rank">08</div><div class="sector-name"><b>工業</b><small>XLI · Industrials</small></div><div class="sector-values"><b>$168.67</b><a class="sector-source" href="https://www.investing.com/etfs/industrial-sector-spdr-trust-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.28%<small>-0.48</small></div></div><div class="sector-row"><div class="rank">09</div><div class="sector-name"><b>必需消費</b><small>XLP · Consumer Staples</small></div><div class="sector-values"><b>$84.18</b><a class="sector-source" href="https://www.investing.com/etfs/spdr---consumer-staples-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.28%<small>-0.24</small></div></div><div class="sector-row"><div class="rank">10</div><div class="sector-name"><b>金融</b><small>XLF · Financials</small></div><div class="sector-values"><b>$54.82</b><a class="sector-source" href="https://www.investing.com/etfs/financial-select-sector-spdr-fund-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.42%<small>-0.23</small></div></div><div class="sector-row"><div class="rank">11</div><div class="sector-name"><b>醫療保健</b><small>XLV · Health Care</small></div><div class="sector-values"><b>$169.66</b><a class="sector-source" href="https://www.investing.com/etfs/health-care-select-sector-spdr-fund-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-1.35%<small>-2.32</small></div></div></div><div class="market-reason"><b>📌 產業 ETF 表現觀察</b><br/>本區以 State Street Select Sector SPDR ETF 代表 S&amp;P 500 的 11 大產業，呈現 2026/10/13 美股收盤價、當日漲跌額與漲跌幅。能源（XLE）當日上漲 1.77%，為本表相對強勢；醫療保健（XLV）下跌 1.35%，相對弱勢。ETF 報酬受基金持股、費用及追蹤誤差影響，與官方產業指數報酬不完全相同。<br/>固定主要來源：Investing.com 歷史行情；若缺值或報價衝突，再以 State Street 官方資料交叉核對。其他早報區塊維持不變。</div>
+</article>
+<article class="card" id="bonds"><div class="title">美國公債殖利率<small>10/13市場收盤參考；官方日曲線另列</small></div>
+
+
+
+
+
+
+<div class="bond-head"><span>期限</span><span>10/13市場收盤</span><span>10/09官方日曲線</span><span>口徑</span></div>
+<div class="row"><b>2年期</b><span class="r">4.791%</span><span class="r prev-rate">4.80%</span><span class="r">市場／官方</span></div>
+<div class="row"><b>10年期</b><span class="r">5.216%</span><span class="r prev-rate">5.24%</span><span class="r">市場／官方</span></div>
+<div class="row"><b>30年期</b><span class="r">5.562%</span><span class="r prev-rate">5.60%</span><span class="r">市場／官方</span></div>
+<div class="market-reason"><b>📌 債券觀察</b><br/>長天期殖利率回落，與股市科技股賣壓引發的避險需求、以及油價下跌暫時緩和通膨壓力的方向一致；但中東衝突造成的能源供給風險，仍使市場不敢完全排除通膨再升溫。<br/>短天期殖利率則較受聯準會政策預期牽動。市場在即將公布的 CPI 前調整部位，若通膨高於預期，可能推升「利率維持高檔更久」的定價；若降溫，才可能減輕短端利率壓力。<br/>右側官方日曲線截至 10/09，左側是 10/13 市場收盤參考，兩者資料口徑與日期不同，不能直接拿來推算單日殖利率變化。</div>
+<div class="source">第一來源：<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>；10/13市場收盤參考：<a href="https://www.wsj.com/market-data">WSJ Market Data</a>。市場收盤參考仍需與 Investing.com 同口徑逐項核對。</div></article>
+<article class="card" id="fx"><div class="title">匯率<small>10/13市場歷史報價；USD/TWD為市場收盤非台銀牌告</small></div>
+<div class="row"><b class="instrument-name">美元指數<span class="instrument-en">DXY</span></b><span class="r">102.21</span><span class="r down">-0.37%</span></div>
+<div class="row"><b class="instrument-name">美元／新台幣<span class="instrument-en">USD/TWD</span></b><span class="r">32.085</span><span class="r up">+0.60%</span></div>
+<div class="row"><b class="instrument-name">歐元／美元<span class="instrument-en">EUR/USD</span></b><span class="r">1.1199</span><span class="r up">+0.35%</span></div>
+<div class="row"><b class="instrument-name">英鎊／美元<span class="instrument-en">GBP/USD</span></b><span class="r">1.3255</span><span class="r up">+0.35%</span></div>
+<div class="row"><b class="instrument-name">澳幣／美元<span class="instrument-en">AUD/USD</span></b><span class="r">0.6980</span><span class="r up">+0.35%</span></div>
+<div class="row"><b class="instrument-name">美元／日圓<span class="instrument-en">USD/JPY</span></b><span class="r">158.33</span><span class="r down">-0.13%</span></div>
+<div class="market-reason"><b>📌 匯率觀察</b><br/>美元指數偏弱，可能反映長天期美債殖利率回落與市場在通膨數據公布前降低美元多頭部位；不過短端利率仍受政策預期牽動，美元走勢仍需觀察 CPI 是否改變利率路徑定價。<br/>歐元與英鎊走高，與美元走弱的方向一致；澳幣亦受美元端變動影響，但其後續表現仍取決於全球風險偏好與商品需求。美元／日圓回落則代表日圓相對走強，市場避險情緒與利差預期均可能影響匯價。<br/>美元／新台幣此處採市場報價口徑，並非台灣銀行即期買入／賣出牌告；不同報價來源的收盤時間與定義可能造成差異。</div>
+<div class="source">來源：<a href="https://www.investing.com/indices/usdollar-historical-data">Investing.com DXY</a>、<a href="https://invest.cnyes.com/forex/detail/usdtwd">鉅亨網 USD/TWD</a>、<a href="https://www.investing.com/currencies/eur-usd-historical-data">EUR/USD</a>、<a href="https://www.investing.com/currencies/gbp-usd-historical-data">GBP/USD</a>、<a href="https://www.investing.com/currencies/aud-usd-historical-data">AUD/USD</a>、<a href="https://www.investing.com/currencies/usd-jpy-historical-data">USD/JPY</a>。</div>
+</article>
+</section><div style="height:14px"></div>
+<section class="grid three" id="commodities">
+<article class="card"><div class="title">能源<small>10/13期貨歷史報價；不同合約／結算口徑有差異</small></div>
+<div class="row"><b>WTI原油期貨</b><span class="r">$94.35</span><span class="r up">+0.65%</span></div>
+<div class="row"><b>Brent原油期貨</b><span class="r">$106.31</span><span class="r down">-0.32%</span></div>
+<div class="market-reason"><b>📌 原油觀察</b><br/>原油走勢分歧，反映供給風險與短期供應預期互相拉扯。中東衝突及對沙烏地阿拉伯能源設施的攻擊提高供應風險溢價；另一方面，市場評估俄羅斯可能增加柴油供應，對部分成品油供應的預期形成緩衝。<br/>WTI 與 Brent 當日方向不同，也可能受到各自合約、交割地點、期限結構及報價截點影響，不能只用單一地緣政治因素解釋。<br/>Investing.com 歷史頁與 Reuters 結算值並不完全一致，因此行情欄仍依指定主來源呈現；此差異屬報價口徑問題，不是價格漲跌的原因。</div>
+<div class="source">第一來源：<a href="https://www.investing.com/commodities/crude-oil-historical-data">Investing.com WTI 歷史資料</a>、<a href="https://www.investing.com/commodities/brent-oil-historical-data">Investing.com Brent 歷史資料</a>；交叉參考：<a href="https://www.reuters.com/markets/commodities/">Reuters 商品市場</a>。單位：美元／桶。</div>
+</article>
+<article class="card"><div class="title">貴金屬<small>10/13現貨歷史報價，美元／金衡盎司</small></div>
+<div class="row"><b class="instrument-name">黃金現貨<span class="instrument-en">XAU/USD</span></b><span class="r">$4,158.44</span><span class="r down">-0.30%</span></div>
+<div class="row"><b class="instrument-name">白銀現貨<span class="instrument-en">XAG/USD</span></b><span class="r">$59.1415</span><span class="r down">-1.84%</span></div>
+<div class="market-reason"><b>📌 貴金屬觀察</b><br/>黃金小幅走低，可能與美元走勢、利率預期及投資人在通膨數據公布前調整部位有關；當長天期殖利率回落時通常有利於不生息黃金，但若市場仍擔憂通膨與政策利率，金價也可能受到雙向拉扯。<br/>白銀跌幅較大，除貴金屬共同受到的美元與利率因素外，也更容易受工業需求及高波動資產減倉影響，因此不宜將白銀表現完全等同黃金。<br/>本區採 XAU/USD、XAG/USD 現貨口徑；不同地區頁面黃金報價有差異，且未以 GC=F／SI=F 期貨替代現貨。</div>
+<div class="source">第一來源：<a href="https://www.investing.com/currencies/xau-usd-historical-data">Investing.com XAU/USD</a>、<a href="https://www.investing.com/currencies/xag-usd-historical-data">Investing.com XAG/USD</a>；Yahoo GC=F／SI=F 僅作期貨備援。</div>
+</article>
+<article class="card"><div class="title">商品關鍵價位</div><div class="key"><b>Brent：</b>Investing.com 10/13歷史頁 106.31美元／桶；Reuters結算參考105.69。<br/><b>WTI：</b>Investing.com 10/13歷史頁 94.35美元／桶；Reuters結算參考94.14。<br/><b>黃金現貨：</b>4,158.44美元／金衡盎司，地區頁報價差異尚存。<br/><b>白銀現貨：</b>59.1415美元／金衡盎司。</div></article>
+</section><div style="height:14px"></div>
+<section class="grid two" id="calendar"><article class="card" style="grid-column:1 / -1"><div class="title">本週經濟行事曆 <small>10/12～10/16｜台灣時間 UTC+8</small></div>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0">今天｜尚未公布</span></h3>
+<table><tr><th>日期／台灣時間</th><th>地區</th><th>事件</th><th>前值</th><th>預估</th><th>實際</th><th>重要性</th></tr>
+<tr><td>10/14（週三）20:30</td><td>美國</td><td>9月CPI月增率</td><td>0.4%</td><td>0.6%</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+<tr><td>10/14（週三）20:30</td><td>美國</td><td>9月CPI年增率</td><td>3.4%</td><td>3.6%</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+<tr><td>10/14（週三）20:30</td><td>美國</td><td>9月核心CPI月增率／年增率</td><td>0.3%／2.4%</td><td>0.2%／2.5%</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+</table>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0">即將公布</span></h3>
+<table><tr><th>日期／台灣時間</th><th>地區</th><th>事件</th><th>前值</th><th>預估</th><th>實際</th><th>重要性</th></tr>
+<tr><td>10/15（週四）20:30</td><td>美國</td><td>9月PPI（生產者物價指數）</td><td>官方／共識數值待發布前核對</td><td>待核</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>10/16（週五）20:30</td><td>美國</td><td>9月進出口物價指數</td><td>官方前值待核</td><td>待核</td><td>尚未公布</td><td class="high">⭐⭐⭐</td></tr>
+<tr><td>10/16（週五）21:15</td><td>美國</td><td>9月工業生產與產能利用率</td><td>官方前值待核</td><td>待核</td><td>尚未公布</td><td class="high">⭐⭐⭐</td></tr>
+</table>
+<div class="earnings-note">CPI時間依BLS官方行事曆（08:30 ET＝台灣20:30）；前值取BLS 8月發布，預估取Investing.com經濟日曆10/12快照。PPI、進出口物價與工業生產的前值／預估仍需在發布前按官方資料及可靠共識逐項核實，故不猜填。已移除舊週（10/05–10/09）事件。<br/>主要來源：<a href="https://www.bls.gov/schedule/2026/10_sched_list.htm">BLS官方10月發布日曆</a>、<a href="https://www.investing.com/economic-calendar/">Investing.com經濟日曆</a>、<a href="https://www.bea.gov/">BEA</a>、<a href="https://www.federalreserve.gov/">Federal Reserve</a>、<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME</a>、Investing.com Economic Calendar。</div></article></section><div style="height:14px"></div>
+<section class="grid two earnings-block" id="earnings"><article class="card" style="grid-column:1 / -1"><div class="title">本週財報行事曆 <small>10/12～10/16｜美國企業財報，逐家公司列示</small></div>
+<div class="callout"><b>📊 判讀：</b>EPS與營收各自比較市場共識；股價反應依10/13收盤，不以盤前漲跌取代收盤表現。市場共識可能因資料供應商而異，以下標示來源口徑。</div>
+<div class="earnings-group-title"><span class="earnings-badge published">已公布｜10/13</span></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS實際／預期</div><div>營收實際／預期</div><div>判讀</div><div>股價反應（10/13）</div><div>重要性</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>高盛 GS</b><small>投資銀行／交易</small></div><div class="earnings-cell earnings-metric"><b>$17.01 / $13.09</b></div><div class="earnings-cell earnings-metric"><b>$18.68B / $16.86B</b></div><div class="earnings-cell"><span class="earnings-result earnings-double">雙優</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤 -0.16%</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>花旗 C</b><small>銀行／交易</small></div><div class="earnings-cell earnings-metric"><b>$2.85 / $2.65</b></div><div class="earnings-cell earnings-metric"><b>$23.85B / $23.72B</b></div><div class="earnings-cell"><span class="earnings-result earnings-double">雙優</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤約 -5.6%</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>富國銀行 WFC</b><small>銀行／消費金融</small></div><div class="earnings-cell earnings-metric"><b>$1.87 / $1.84</b></div><div class="earnings-cell earnings-metric"><b>$21.87B / $22.31B</b></div><div class="earnings-cell"><span class="earnings-result earnings-mixed">EPS優／營收弱</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤約 -3.1%</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>摩根大通 JPM</b><small>銀行／交易</small></div><div class="earnings-cell earnings-metric"><b>$5.75* / $5.93</b></div><div class="earnings-cell earnings-metric"><b>$50.90B / $51.23B</b></div><div class="earnings-cell"><span class="earnings-result earnings-weak">低於預期</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤約 -0.9%</span></div><div class="earnings-cell">⭐⭐⭐⭐⭐</div></div>
+<div class="earnings-note">* JPM EPS $5.75為扣除證券處分損失後的調整值；GAAP EPS報導為$5.57。各公司營收／EPS共識以Investing.com 10/13財報彙整為主，鉅亨網個別報導交叉核對；股價反應採當日收盤彙整。高盛股價盤前曾上漲約3%，但收盤下跌約0.16%，故不把盤前反應寫成收盤反應。</div>
+<div class="earnings-group-title"><span class="earnings-badge upcoming">即將公布｜10/14</span></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS預期</div><div>營收預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/14盤前</div><div class="earnings-cell earnings-company"><b>美國銀行 BAC</b><small>銀行</small></div><div class="earnings-cell">約$1.10</div><div class="earnings-cell">待可靠共識確認</div><div class="earnings-cell"><span class="earnings-result earnings-wait">待公布</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/14盤前</div><div class="earnings-cell earnings-company"><b>摩根士丹利 MS</b><small>投資銀行／財富管理</small></div><div class="earnings-cell">約$2.94</div><div class="earnings-cell">待可靠共識確認</div><div class="earnings-cell"><span class="earnings-result earnings-wait">待公布</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
+<div class="earnings-note">來源：<a href="https://www.investing.com/news/stock-market-news/bank-earnings-scorecard-trading-gains-offset-lending-and-deal-slowdown-93CH-4947304">Investing.com銀行財報彙整</a>、<a href="https://news.cnyes.com/news/id/6629573">鉅亨網 JPM</a>、<a href="https://news.cnyes.com/news/id/6629588">鉅亨網 WFC</a>、<a href="https://gfemobile.cnyes.com/news/id/6629578">鉅亨網 GS</a>。財報按公司獨立列示，不將多家公司合併成一列。</div></article></section>
+<div style="height:14px"></div>
+<section class="grid two" id="fed">
+<article class="card"><div class="title">CME FedWatch <small>官方工具</small></div>
+<div class="callout"><b>2026/10/28 FOMC 會議｜CME FedWatch</b><br/><span style="font-size:20px;font-weight:950">維持 375–400 bps：77.3%</span><br/><span style="font-size:20px;font-weight:950">升至 400–425 bps：22.7%</span><div class="row"><b>Fed Funds 期貨合約</b><span class="r">ZQV6</span><span class="r">到期 2026/10/30</span></div><div class="row"><b>Mid Price</b><span class="r">96.1163</span><span class="r">前量 7,081</span></div><div class="row"><b>Prior Open Interest</b><span class="r">725,725</span><span class="r">目前目標利率 375–400 bps</span></div><span class="source">依使用者提供之 CME FedWatch 截圖手動更新；截圖顯示 10/28/2026 會議機率，截圖時間約台灣時間 2026/10/14 06:28。期貨隱含機率非 Fed 承諾。</span><br/><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME FedWatch 官方工具</a></div>
+</article>
+<article class="card"><div class="title">Fed / FOMC</div>
+<div class="row"><b>目前政策利率</b><span class="r">以最新官方聲明核實</span><span class="r">依既有FOMC資料</span></div>
+<div class="row"><b>10/08</b><span class="r">10/13</span><span class="r high">銀行財報季／通膨觀察</span></div>
+<div class="row"><b>核心觀察</b><span class="r">就業＋通膨</span><span class="r warn">高</span></div>
+</article>
+</section>
+<div style="height:14px"></div>
+<section class="grid three" id="view">
+<article class="card"><div class="title">市場觀點</div><div class="key"><b>① 股市：</b>美股三大指數與Russell 2000小幅收低，指數跌幅有限。<br/><b>② 半導體：</b>SOX依Investing.com歷史頁收12,208.80、-0.23%；市場關注中國競爭與AI支出回報。<br/><b>③ 銀行財報：</b>高盛與花旗EPS、營收優於預期，但股價反應分歧；富國銀行營收不及預期。<br/><b>④ 原油：</b>Investing.com與Reuters結算值有合約／口徑差異，須分開閱讀。</div></article>
+<article class="card"><div class="title">今日關鍵價位</div><div class="key"><b>S&amp;P 500：</b>7,805.45，日跌0.02%。<br/><b>Nasdaq Composite：</b>27,204.38，日跌0.15%。<br/><b>SOX：</b>12,208.80，日跌0.23%（Investing.com歷史頁）。<br/><b>台股：</b>48,341.31，日跌1.95%。<br/><b>美債10Y：</b>10/13市場收盤參考5.216%；官方日曲線最新完整日期10/09為5.24%。<br/><b>Brent：</b>Investing.com歷史頁106.31美元／桶；Reuters結算參考105.69。</div></article>
+<article class="card"><div class="title">今日核心觀察</div><div class="callout"><b>第一：</b>美國大型銀行財報後續指引與股價反應。<br/><b>第二：</b>半導體與AI資本支出競爭風險是否擴散。<br/><b>第三：</b>10年期殖利率在高檔的變化，並維持官方日曲線與市場收盤口徑分離。<br/><b>第四：</b>原油來源報價差異需確認合約與結算口徑。<br/><b>第五：</b>MOVE、11大產業與CAC精確點位仍未通過日期／來源核對，不作假填。</div></article>
+</section>
+<div style="height:14px"></div>
+</main>
+<footer class="footer">TAC 投資早報｜2026/10/09（五）｜資料基準：各市場2026/10/08當地正式收盤；資訊整理與教育用途，不構成投資建議。</footer>
+<script>
+function historyPath(dateStr){
+  return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
+}
+function historyMove(days){
+  const input=document.getElementById('historyDate');
+  if(!input || !input.value) return;
+  const d=new Date(input.value+'T00:00:00');
+  d.setDate(d.getDate()+days);
+  input.value=d.toISOString().slice(0,10);
+  updateHistoryStatus();
+}
+function updateHistoryStatus(){
+  const input=document.getElementById('historyDate');
+  const status=document.getElementById('historyStatus');
+  if(!input || !status) return;
+  const date=input.value;
+  if(date==='2026-10-02'){
+    status.className='history-status ok';
+    status.textContent='目前可查閱：2026/10/02';
+  }else{
+    status.className='history-status';
+    status.textContent='此日期將依 GitHub 歷史封存檔開啟；若尚未封存，請先完成當日封存。';
+  }
+}
+function goLatestReport(){ window.location.href='https://lion-invlab.github.io/'; }
+function openHistoryReport(){
+  const input=document.getElementById('historyDate');
+  if(!input || !input.value) return;
+  window.location.href=historyPath(input.value);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const input=document.getElementById('historyDate');
+  if(input) input.addEventListener('change',updateHistoryStatus);
+});
+</script>
+</body></html>
