@@ -6,7 +6,7 @@ const startedAt = new Date().toISOString();
 const events = [];
 const errors = [];
 
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, args: ["--disable-http2"] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
 page.setDefaultTimeout(15000);
 
@@ -28,11 +28,17 @@ page.on("requestfailed", req => {
 });
 
 let navigationError = null;
-try {
-  await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForTimeout(20000);
-} catch (e) {
-  navigationError = String(e);
+for (let attempt = 1; attempt <= 3; attempt++) {
+  try {
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
+    await page.waitForTimeout(20000);
+    navigationError = null;
+    break;
+  } catch (e) {
+    navigationError = "attempt " + attempt + ": " + String(e);
+    errors.push(navigationError);
+    await page.waitForTimeout(attempt * 2000);
+  }
 }
 
 const frames = [];
