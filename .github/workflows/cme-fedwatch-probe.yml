@@ -1,6 +1,12 @@
 name: CME FedWatch Isolated Probe
 
 on:
+  push:
+    branches:
+      - test/cme-fedwatch-probe
+    paths:
+      - ".github/workflows/cme-fedwatch-probe.yml"
+      - "scripts/cme-fedwatch/**"
   workflow_dispatch:
 
 permissions:
