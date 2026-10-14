@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>TAC 投資早報｜2026/10/14 Dashboard</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC 投資早報｜2026/10/15 Dashboard</title>
 <style>
 :root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
@@ -34,13 +33,13 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 @media(max-width:700px){.headline-desc{line-height:1.5;-webkit-line-clamp:3}}
 
 .sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
-.sector-row{display:grid;grid-template-columns:32px minmax(0,1fr) 88px 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
+.sector-row{display:grid;grid-template-columns:32px 1fr 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
 .sector-row .rank{font-weight:800;color:#777;text-align:center}
 .sector-name b{font-size:14px}
 .sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
-.sector-pct{text-align:right;font-weight:800}.sector-pct small{display:block;font-size:10px;font-weight:600;margin-top:2px}.sector-values{text-align:right;white-space:nowrap}.sector-values b{display:block;font-size:13px}.sector-source{font-size:10px;color:#737981;text-decoration:underline}
+.sector-pct{text-align:right;font-weight:800}
 .sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
-@media(max-width:700px){.sector-row{grid-template-columns:24px minmax(0,1fr) 66px 58px;gap:5px;padding:7px 6px}.sector-name b{font-size:12px}.sector-name small{font-size:9px}.sector-values b{font-size:12px}.sector-pct{font-size:12px}.sector-pct small{font-size:9px}}
+@media(max-width:700px){.sector-row{grid-template-columns:28px 1fr 64px}}
 
 /* Q4 精選基金 Dashboard */
 .fund-report-card{background:#4a171c;border:1px solid #6f242b;border-radius:14px;margin-bottom:14px;padding:18px 22px 20px;box-shadow:0 3px 8px rgba(0,0,0,.10)}
@@ -145,210 +144,264 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 
 .instrument-name{display:block;line-height:1.28}
 .instrument-en{display:block;font-size:.76em;font-weight:500;line-height:1.25;color:#6b7280;margin-top:2px;letter-spacing:.01em}
+
+/* V8: collapsible source/audit notes */
+.source-details{margin-top:6px;font-size:.88em;color:#6b7280}
+.source-details>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:6px;padding:4px 0;color:#777;font-size:.88em;user-select:none}
+.source-details>summary::-webkit-details-marker{display:none}
+.source-details>summary:before{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border:1px solid #b8bec5;border-radius:50%;font-size:11px;line-height:1}
+.source-details[open]>summary:before{content:"−"}
+.source-details .source{margin-top:5px;line-height:1.6;overflow-wrap:anywhere}
+
+
 </style>
 </head>
 <body>
 <header class="top">
-<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/14（三）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/14（三）｜市場行情基準：各市場2026/10/13當地收盤；未完成或來源日期未通過者另行標示</div></div>
+<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/15（四）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/15（四）｜資料基準：各市場10/14當地收盤；未能可靠核實項目另行標示</div></div>
 <nav class="nav">
 <a class="vol" href="https://lion-invlab.github.io/volatility.html">📊 美股個股波動率</a>
-<a class="q4-nav" href="https://lion-invlab.github.io/fund-dividend.html">💰 Q4 精選基金</a>
-<a class="history-nav" href="#history">📚 歷史早報</a>
-<a class="active" href="#overview">總覽</a>
+<a href="https://lion-invlab.github.io/fund-dividend.html" class="q4-nav" href="https://lion-invlab.github.io/fund-dividend.html">💰 Q4 精選基金</a>
+<a href="#history" class="history-nav">📚 歷史早報</a>
+<a href="#overview" class="active">總覽</a>
 <a href="#global-focus">全球焦點新聞</a><a href="#headlines">市場熱門頭條</a>
 <a href="#global">全球主要股市</a><a href="#us">產業表現</a><a href="#bonds">債券</a>
 <a href="#fx">匯率</a><a href="#commodities">商品</a><a href="#sentiment">市場情緒</a>
 <a href="#calendar">經濟行事曆</a><a href="#earnings">財報行事曆</a><a href="#fed">Fed / FOMC</a><a href="#view">市場觀點</a>
 </nav></header>
+
 <main class="wrap" id="overview">
 <section class="card" style="background:#000;color:#fff;border-color:#000;margin-bottom:14px">
 <div class="title" style="color:#fff"><span>📊 美股個股波動率 Dashboard</span></div>
-<div style="font-size:12px;line-height:1.75;color:#e8e8e8"><b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br/><b>主要功能：</b>20D／30D／60D／90D 歷史波動率、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 成分股 Top／Bottom 20、11 大產業比較、波動率分布與個股 Rolling 90D HV。<br/><b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態。</div>
+<div style="font-size:12px;line-height:1.75;color:#e8e8e8"><b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br><b>主要功能：</b>20D／30D／60D／90D 歷史波動率、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 成分股 Top／Bottom 20、11 大產業比較、波動率分布與個股 Rolling 90D HV。<br><b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態。</div>
 <a class="dashboard-link vol-dashboard-link" href="https://lion-invlab.github.io/volatility.html">→ 開啟美股個股波動率 Dashboard</a>
 </section>
+
 <section class="card fund-report-card">
 <div class="fund-report-head">
-<div class="fund-report-title">💰 Q4 精選基金｜基準日即將來<span class="red-highlight">息</span></div>
-<div class="fund-report-sub">最近三個基準日</div>
+  <div class="fund-report-title">💰 Q4 精選基金｜基準日即將來<span class="red-highlight">息</span></div>
+  <div class="fund-report-sub">最近已知未來基準日</div>
 </div>
 <div class="fund-report-list">
-<div class="fund-date-row"><div class="fund-dot yellow"></div><div class="fund-date">10/14</div><div class="fund-names">安聯AI人工智慧基金 / 安聯全球多元投資風格股票基金</div><div class="fund-status soon">今日基準日</div></div>
-<div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/28</div><div class="fund-names">施羅德環球收益債券基金 / PIMCO多元收益債券基金 / PIMCO收益增長基金 / 施羅德環球收益成長基金</div><div class="fund-status later">倒數 14 天</div></div>
-<div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/29</div><div class="fund-names">貝萊德全球智慧數據股票入息基金</div><div class="fund-status later">倒數 15 天</div></div>
+  <div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/28</div><div class="fund-names">施羅德環球收益債券基金 / PIMCO多元收益債券基金 / PIMCO收益增長基金 / 施羅德環球收益成長基金</div><div class="fund-status later">倒數 13 天</div></div>
+  <div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">10/29</div><div class="fund-names">貝萊德全球智慧數據股票入息基金</div><div class="fund-status later">倒數 14 天</div></div>
 </div>
 <a class="dashboard-link fund-dashboard-link" href="https://lion-invlab.github.io/fund-dividend.html">→ 開啟 Q4 精選基金 Dashboard</a>
 </section>
+
 <section class="card history-panel" id="history">
-<div class="title">
-<span>📚 歷史早報</span>
-<small>依日期查閱過往 TAC 投資早報</small>
-</div>
-<div class="history-box">
-<div class="history-field">
-<label for="historyDate">選擇早報日期</label>
-<input id="historyDate" type="date" value="2026-10-02"/>
-</div>
-<button class="history-btn secondary" onclick="historyMove(-1)" type="button">‹ 前一天</button>
-<button class="history-btn secondary" onclick="historyMove(1)" type="button">後一天 ›</button>
-<button class="history-btn primary" onclick="openHistoryReport()" type="button">開啟舊版早報</button>
-<button class="history-btn latest" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth',block:'start'})" style="display:block!important;visibility:visible!important;opacity:1!important;background:#202328!important;color:#fff!important;min-width:140px!important;" type="button">🏠 回到最新早報</button>
-</div>
-<div class="history-note">歷史早報採「日期封存檔」方式保存；目前已封存資料可由日期直接開啟。最新早報仍以首頁為準。</div>
-<div class="history-status ok" id="historyStatus">目前可查閱：2026/10/02</div>
+  <div class="title">
+    <span>📚 歷史早報</span>
+    <small>依日期查閱過往 TAC 投資早報</small>
+  </div>
+  <div class="history-box">
+    <div class="history-field">
+      <label for="historyDate">選擇早報日期</label>
+      <input id="historyDate" type="date" value="2026-10-02">
+    </div>
+    <button class="history-btn secondary" type="button" onclick="historyMove(-1)">‹ 前一天</button>
+    <button class="history-btn secondary" type="button" onclick="historyMove(1)">後一天 ›</button>
+    <button class="history-btn primary" type="button" onclick="openHistoryReport()">開啟舊版早報</button>
+    <button class="history-btn latest" type="button" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth',block:'start'})" style="display:block!important;visibility:visible!important;opacity:1!important;background:#202328!important;color:#fff!important;min-width:140px!important;">🏠 回到最新早報</button>
+  </div>
+  <div class="history-note">歷史早報採「日期封存檔」方式保存；目前已封存資料可由日期直接開啟。最新早報仍以首頁為準。</div>
+  <div id="historyStatus" class="history-status ok">目前可查閱：2026/10/02</div>
 </section>
+
 <div style="height:14px"></div>
 <section class="grid two">
 <article class="card bluf">
 <div class="title">BLUF</div>
-<h1>美股小幅收低，銀行財報分化；市場等待美國 CPI</h1>
-<p>10/13美股主要指數小跌，SOX依Investing.com歷史頁下跌0.23%；大型銀行財報有優有劣，個股反應分歧。市場接下來聚焦美國9月CPI（台灣時間10/14 20:30），評估能源推升的整體通膨是否擴散至核心通膨。</p>
-<div class="chips"><span class="chip">S&amp;P 500 -0.02%</span><span class="chip">Nasdaq -0.15%</span><span class="chip">Russell 2000 -0.40%</span><span class="chip">Brent $106.31</span></div>
+<h1>美國通膨高於預期，科技與半導體重挫；市場重新評估升息風險。</h1>
+<p>市場主軸是通膨偏熱與企業成長預期的拉扯。9月CPI高於預期是已知事實；其可能推遲寬鬆預期、提高折現率，是解釋科技股承壓的主要傳導機制，但仍需觀察公債殖利率與利率期貨確認。11大產業ETF顯示醫療保健、必需消費相對強勢，資訊科技跌幅最大，反映市場短線提高防禦配置、降低高估值風險曝險的可能性。若接下來企業財報與指引仍強，回檔可能偏向估值修正；若獲利展望同步下修，則風險可能擴大。</p>
+<div class="chips"><span class="chip">S&amp;P 500 7,718.94｜-1.11%</span><span class="chip">Nasdaq Composite 26,692.87｜-1.88%</span><span class="chip">SOX 11,684.38｜-4.30%</span><span class="chip">WTI期貨 $95.08｜+1.00%</span><span class="chip">Brent期貨 $106.12｜+0.41%</span><span class="chip">11大產業ETF：XLB採用V20數值-0.10%，其餘按10/14歷史列核對</span></div>
 </article>
-<article class="card" id="sentiment"><div class="title">市場情緒<small>10/13資料；個別來源狀態分開標示</small></div><div class="sent">
-<div class="sbox"><div class="label">VIX｜Cboe 波動率指數</div><strong>15.47</strong><div class="chg up">+1.71%</div><div class="source">Yahoo Finance ^VIX 歷史收盤 10/13；Investing.com 顯示 15.50（+1.91%），差異待 Cboe 官方收盤確認。</div></div>
-<div class="sbox"><div class="label">MOVE｜美債波動率</div><strong>101.09</strong><div class="chg up">+2.62（+2.66%）</div><div class="source">Google Finance／INDEXNYSEGIS: MOVE，10/13 16:17 EDT 收盤；前收 98.47。依使用者當日截圖手動更新。</div></div>
-<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>45</strong><div class="chg flat">Neutral｜中性</div><div class="source">FGScore 轉載 CNN 原始指數，資料日期 10/13 UTC；CNN Business 原頁本輪未能獨立確認。</div></div>
-<div class="sbox"><div class="label">風險狀態</div><strong>股指小跌</strong><div class="chg flat">波動數據有待核對</div><div class="source">VIX/MOVE 來源日期與確認程度不同，不將其視為同等級的官方收盤確認。</div></div>
-</div><div class="market-reason"><b>📌 核心解讀</b><br/>10/13美股主要指數跌幅有限，但半導體與部分大型金融股走弱。VIX採Yahoo歷史收盤備援並保留與Investing.com的差異；MOVE尚無可核實的10/13收盤，不以舊值替代。</div><div class="source">來源：<a href="https://www.cboe.com/tradable_products/vix/">Cboe VIX 官方頁</a>、<a href="https://finance.yahoo.com/quote/%5EVIX/history/">Yahoo Finance ^VIX</a>、<a href="https://www.investing.com/indices/ice-bofaml-move-historical-data">Investing.com MOVE</a>、<a href="https://www.cnn.com/markets/fear-and-greed">CNN Fear &amp; Greed</a>、<a href="https://fgscore.com/en">FGScore</a>。</div></article>
+<article class="card" id="sentiment">
+<div class="title">市場情緒 <small>資料基準：2026/10/14；以各指標可核實日期為準</small></div>
+<div class="sent">
+<div class="sbox"><div class="label">VIX</div><strong>16.83</strong><span class="warn">10/14收盤｜來源差異0.01</span><details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">Tallac Options歷史列：10/14收盤16.83；另一歷史頁顯示16.84。Cboe官方歷史下載頁可供核對，但頁面未直接呈現當日表格；暫採歷史列16.83並註記0.01差異。</div></details></div>
+<div class="sbox"><div class="label">MOVE</div><strong>99.06</strong><span class="up">10/14｜-2.03（-2.01%）</span><details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">本次暫依使用者提供之 Google Finance 截圖：INDEXNYSEGIS: MOVE，2026/10/14 16:17 EDT 顯示 99.06，日變動 -2.03（-2.01%）；開盤96.91、最高104.92、最低96.65。Investing.com歷史頁當時未列出10/14，因此本日以使用者截圖為準，後續再交叉核對。</div></details></div>
+<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>37</strong><span class="warn">Fear｜恐懼</span><details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">FGScore轉載CNN原始指數｜資料截至10/14 UTC；CNN直接頁面存取受限。</div></details></div>
+<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">美國CPI超預期後，VIX升至16.83，顯示股市短期避險需求增加；MOVE依使用者提供的Google Finance截圖，10/14為99.06、下跌2.01%。CNN Fear &amp; Greed為37，處於Fear區間。VIX不同歷史來源有0.01差異；MOVE本日暫採使用者截圖值。</div></div>
+</div>
+</article>
 </section>
+
 <div style="height:14px"></div>
-<section class="grid two" id="global-focus"><article class="card"><div class="title">全球焦點新聞 <small>10/14</small></div>
-<div class="newsitem"><h3>① 🇺🇸 美國｜主要指數小幅收低，科技股與晶片股承壓</h3><p>10/13道瓊收51,670.10（-0.35%）、S&amp;P 500收7,805.45（-0.02%）、Nasdaq Composite收27,204.38（-0.15%）。<br/>半導體指數依Investing.com歷史頁收12,208.80、下跌0.23%，市場仍關注中國記憶體廠競爭與AI資本支出回報。<br/>指數跌幅有限，但個股分化明顯；市場焦點從單純AI需求轉向支出效率與競爭風險。</p><div class="newsmeta"><a href="https://www.investing.com/news/stock-market-news/us-stocks-lower-at-close-of-trade-dow-jones-industrial-average-down-035-4947511">Investing.com｜10/13美股收盤</a>／<a href="https://www.reuters.com/world/asia-pacific/global-markets-wrapup-1-2026-10-13/">Reuters交叉核對</a></div></div>
-<div class="newsitem"><h3>② 🏦 美國｜大型銀行財報表現分歧，交易業務強但貸款與債券業務承壓</h3><p>高盛EPS 17.01美元、營收186.8億美元，均高於市場預期；股票交易收入年增72%。<br/>花旗EPS 2.85美元、營收238.5億美元優於預期；富國銀行EPS 1.87美元勝預期，但營收218.7億美元低於共識。<br/>摩根大通調整後EPS 5.75美元仍低於約5.93美元預期，顯示交易收入強勁並未讓各銀行全面受惠。</p><div class="newsmeta"><a href="https://www.investing.com/news/stock-market-news/bank-earnings-scorecard-trading-gains-offset-lending-and-deal-slowdown-93CH-4947304">Investing.com財報彙整</a>／<a href="https://news.cnyes.com/news/id/6629573">鉅亨網 JPM</a></div></div>
-<div class="newsitem"><h3>③ 🌏 亞洲｜KOSPI重挫5.46%，台股與日股同步走弱</h3><p>KOSPI收6,035.35、下跌5.46%；台灣加權收48,341.31、下跌1.95%。<br/>日經225收67,777.52、下跌1.82%；恆生與上海綜合則分別上漲0.30%與0.10%。<br/>晶片股賣壓與AI競爭疑慮是區域市場關注焦點，但各市場跌幅仍須分別看待。</p><div class="newsmeta"><a href="https://edgeconsultancykw.com/asia-market-wrap-13-october-2026/">亞洲市場收盤彙整</a>／<a href="https://www.twse.com.tw/">TWSE</a></div></div>
-<div class="newsitem"><h3>④ 🇪🇺 歐洲｜晶片股賣壓抵銷油價回落，STOXX 600小幅收低</h3><p>STOXX 600收635.01、下跌0.10%；FTSE 100下跌0.06%，DAX與CAC 40均下跌約0.07%。<br/>市場重新評估AI相關企業的支出效率與中國晶片競爭，半導體股走弱壓過能源價格回落的部分支撐。<br/>歐洲指數跌幅不大，反映市場偏向調整部位，而非全面性急跌。</p><div class="newsmeta"><a href="https://uk.marketscreener.com/news/chip-selloff-pulls-european-stocks-back-from-one-week-high-ce785dddd08ef721">Reuters歐洲收盤</a></div></div>
-<div class="newsitem"><h3>⑤ 🛢️ 商品與利率｜油價回落但不同報價口徑仍有價差</h3><p>Reuters報導10/13 Brent期貨結算105.69美元／桶、WTI 94.14美元／桶；Investing.com指定歷史頁列值分別為106.31與94.35。<br/>差異可能來自合約月份、報價時點或結算口徑，不能直接混為同一條價格序列。<br/>美債市場交易報導顯示10年期殖利率約5.216%，仍處高檔，需與財政部官方日曲線分開閱讀。</p><div class="newsmeta"><a href="https://www.reuters.com/markets/commodities/">Reuters商品市場</a>／Investing.com指定歷史報價頁</div></div></article>
-<article class="card" id="headlines"><div class="title">市場熱門頭條 <small>10/14</small></div>
-<div class="newsitem"><h3>01｜道瓊、S&amp;P 500與Nasdaq小幅收低</h3><p class="headline-desc">道瓊收51,670.10，下跌0.35%。<br>S&amp;P 500收7,805.45，下跌0.02%。<br>Nasdaq Composite收27,204.38，下跌0.15%。</br></br></p><div class="newsmeta">AP／Investing.com</div></div>
-<div class="newsitem"><h3>02｜費城半導體指數連續承壓</h3><p class="headline-desc">Investing.com歷史頁列SOX收12,208.80，下跌0.23%。<br>Reuters指出晶片股受到中國競爭與AI支出疑慮影響。<br>指數資料採價格指數，不以半導體ETF替代。</br></br></p><div class="newsmeta">Investing.com／Reuters</div></div>
-<div class="newsitem"><h3>03｜高盛EPS與營收雙雙優於預期</h3><p class="headline-desc">高盛第三季EPS 17.01美元，市場預期約13.09美元。<br>營收186.8億美元，高於約168.6億美元共識。<br>股票交易收入年增72%，但股價收盤仍小跌約0.16%。</br></br></p><div class="newsmeta">鉅亨網／Investing.com</div></div>
-<div class="newsitem"><h3>04｜花旗獲利與營收勝預期，股價仍大幅下跌</h3><p class="headline-desc">花旗EPS 2.85美元，高於約2.65美元預期。<br>營收238.5億美元，略高於約237.2億美元共識。<br>股價收盤下跌約5.6%，市場仍關注業務動能與指引。</br></br></p><div class="newsmeta">鉅亨網／市場收盤彙整</div></div>
-<div class="newsitem"><h3>05｜富國銀行EPS勝預期、營收未達標</h3><p class="headline-desc">富國銀行EPS 1.87美元，高於1.84美元預期。<br>營收218.7億美元，低於約223.1億美元共識。<br>股價收盤下跌約3.1%，淨利息收入成為觀察重點。</br></br></p><div class="newsmeta">鉅亨網／Investing.com</div></div>
-<div class="newsitem"><h3>06｜摩根大通調整後EPS仍低於共識</h3><p class="headline-desc">調整後EPS 5.75美元，低於約5.93美元預期。<br/>營收約509億美元，低於約512.3億美元共識。<br/>股價收盤下跌約0.9%，證券處分損失影響報表EPS。</p><div class="newsmeta">鉅亨網／Investing.com</div></div>
-<div class="newsitem"><h3>07｜亞洲股市表現分歧，韓股跌幅居前</h3><p class="headline-desc">KOSPI收6,035.35，下跌5.46%。<br/>台灣加權下跌1.95%，日經225下跌1.82%。<br/>恆生與上海綜合分別上漲0.30%與0.10%。</p><div class="newsmeta">亞洲市場收盤彙整／TWSE</div></div>
-<div class="newsitem"><h3>08｜歐洲主要指數小幅回落</h3><p class="headline-desc">STOXX 600收635.01，下跌0.10%。<br/>FTSE 100下跌0.06%，DAX與CAC 40均下跌約0.07%。<br/>晶片股走弱抵銷油價回落帶來的部分支撐。</p><div class="newsmeta">Reuters</div></div>
-<div class="newsitem"><h3>09｜油價主來源與Reuters結算值有差異</h3><p class="headline-desc">Investing.com歷史頁列WTI 94.35、Brent 106.31美元／桶。<br/>Reuters報導的期貨結算值為94.14與105.69美元／桶。<br/>兩組數據口徑未完全鎖定，不直接混成單一序列。</p><div class="newsmeta">Investing.com／Reuters</div></div>
-<div class="newsitem"><h3>10｜美債殖利率需區分市場收盤與官方日曲線</h3><p class="headline-desc">10/13市場交易報導列2年期4.791%、10年期5.216%。<br/>30年期約5.562%，均為市場收盤參考。<br/>財政部官方日曲線最新可核實完整日期為10/09，兩種口徑分開列示。</p><div class="newsmeta">WSJ／U.S. Treasury</div></div>
-</article></section><div style="height:14px"></div>
+<section class="grid two" id="global-focus">
+<article class="card">
+<div class="title">全球焦點新聞 <small>10/15</small></div>
+<div class="newsitem"><h3>① 🇺🇸 美國｜通膨高於預期，美股明顯回落</h3><p>美國9月CPI年增3.7%，高於市場預期的3.6%；核心CPI月增0.3%，也高於預期的0.2%。<br/>10/14美股收低：道瓊下跌0.09%、S&amp;P 500下跌1.11%、Nasdaq Composite下跌1.88%，科技與通訊服務股領跌。<br/>通膨黏著可能推高短期利率預期，對高估值科技股與AI基建融資成本形成壓力；政策路徑仍需後續數據驗證。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-14/">Reuters</a>／<a href="https://www.bls.gov/news.release/archives/cpi_10142026.htm">BLS官方</a>｜10/14</div></div>
+<div class="newsitem"><h3>② 🇪🇺 歐洲｜半導體設備需求受關注，歐股小幅走高</h3><p>Reuters報導，泛歐STOXX 600於10/14上漲0.43%，與美股科技股大幅回落形成分化。<br/>市場關注ASML等半導體設備商對AI與先進製程需求的展望；高能源價格及利率波動仍是歐洲企業面臨的風險。<br/>若設備訂單與展望持續強韌，可能支撐部分科技股；但不能僅憑單日指數表現推論整體景氣轉強。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-14/">Reuters</a>／<a href="https://www.reuters.com/business/energy/how-european-stocks-can-weather-higher-energy-prices-2026-10-14/">Reuters能源成本分析</a>｜10/14</div></div>
+<div class="newsitem"><h3>③ 🇨🇳 中國與亞洲｜中國出口強勁，工業通膨同步升溫</h3><p>AP報導中國9月出口年增36.3%，貿易順差擴大至1,335億美元；高科技產品是出口成長的重要來源。<br/>Reuters報導，中國9月PPI年增5.0%，高於市場預期；CPI年增0.9%，低於預期，反映上游成本上升與內需偏弱並存。<br/>出口可支撐製造業，但若成本上漲未能轉化為終端需求，企業利潤與區域供應鏈仍可能承壓。</p><div class="newsmeta"><a href="https://apnews.com/article/db43e08437b65f65c2ead64c82f9b990">AP</a>／<a href="https://www.reuters.com/world/asia-pacific/chinas-factory-gate-inflation-accelerates-september-2026-10-14/">Reuters</a>｜10/14</div></div>
+<div class="newsitem"><h3>④ 🇪🇺 歐盟｜中國貿易失衡議題升溫，政策風險受關注</h3><p>中國出口快速成長、貿易順差擴大，使歐盟與其他主要貿易夥伴持續關注製造業競爭及市場准入問題。<br/>若歐盟擴大貿易防衛措施，汽車、工業品與跨境供應鏈可能面臨成本和訂單調整；目前應區分政策討論與正式生效措施。<br/>後續觀察歐盟官方決議、產業別措施及中國進口需求，避免把政策討論直接當作已實施的新限制。</p><div class="newsmeta"><a href="https://apnews.com/article/db43e08437b65f65c2ead64c82f9b990">AP</a>／<a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-14/">Reuters全球市場報導</a>｜10/14</div></div>
+<div class="newsitem"><h3>⑤ 🛢️ 中東｜荷姆茲海峽航運遇襲，油市供應風險升高</h3><p>Reuters報導，荷姆茲海峽附近船舶遇襲，伊朗相關威脅提高市場對能源運輸受阻的警戒。<br/>Investing.com Brent Oil Futures歷史頁10/14列為每桶106.12美元、上漲0.41%；此為該頁所列期貨合約歷史報價，不等同Reuters報導值或現貨價格。<br/>若航運風險持續，油價可能增加通膨壓力，並透過運輸與原料成本影響企業獲利及債券殖利率。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-14/">Reuters</a>｜10/14</div></div>
+</article>
+<article class="card" id="headlines">
+<div class="title">市場熱門頭條 <small>10/15</small></div>
+<div class="newsitem"><h3>01｜ASML財報優於預期，全年展望下限上調</h3><p class="headline-desc">ASML第三季每股盈餘高於市場預期，並上調全年銷售展望區間下限；營收則低於部分市場預估。<br>市場聚焦先進製程、AI晶片需求能否延續，以及設備訂單是否足以支撐後續成長。<br>財報表現與股價反應並不完全一致，需一併觀察管理層對2027年需求與出口限制的說法。</p><div class="newsmeta"><a href="https://www.investopedia.com/5-things-to-know-before-the-stock-market-opens-on-wednesday-october-14-2026-12173013">Investopedia</a>／<a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-14/">Reuters</a>｜10/14</div></div>
+<div class="newsitem"><h3>02｜美國銀行財報低於預期，監管和解費用拖累獲利</h3><p class="headline-desc">Bank of America第三季調整後每股盈餘為1.08美元，低於市場預期1.10美元；營收約300億美元，也低於預期。<br>約12億美元監管和解費用影響報告獲利，市場仍需區分一次性成本與核心銀行業務表現。<br>後續觀察淨利差、存款成本、信貸品質與管理層展望，判斷壓力是否延續。</p><div class="newsmeta"><a href="https://www.wsj.com/business/earnings/bank-of-america-settlement-charge-hits-profit-morgan-stanley-profit-climbs-d9cde716">WSJ</a>／<a href="https://www.investing.com/news/stock-market-news/">Investing.com</a>｜10/14</div></div>
+<div class="newsitem"><h3>03｜Morgan Stanley獲利超預期，交易與財富管理支撐營收</h3><p class="headline-desc">Morgan Stanley第三季營收約203億美元，高於市場預期的199.3億美元；每股盈餘3.03美元，也高於預期2.93美元。<br>機構證券業務、股票交易與財富管理收入提供支撐。<br>即使財報勝預期，股價仍可能受利率、估值與市場風險偏好牽動，應同時追蹤管理層對交易管線和客戶資產的說明。</p><div class="newsmeta"><a href="https://www.wsj.com/business/earnings/bank-of-america-settlement-charge-hits-profit-morgan-stanley-profit-climbs-d9cde716">WSJ</a>／<a href="https://www.reuters.com/business/finance/bond-trading-weakens-us-banks-interest-rate-volatility-affects-investors-2026-10-14/">Reuters</a>｜10/14</div></div>
+<div class="newsitem"><h3>04｜BlackRock資產管理規模與獲利優於預期</h3><p class="headline-desc">BlackRock第三季每股盈餘約15.93美元，高於市場預期14.32美元；營收約77.52億美元，也高於預期。<br>資產管理規模、資金流向與費用收入是評估成長品質的關鍵，不能只看單季EPS。<br>後續需留意市場波動是否改變客戶申贖、ETF資金流與管理費收入。</p><div class="newsmeta"><a href="https://www.investopedia.com/5-things-to-know-before-the-stock-market-opens-on-wednesday-october-14-2026-12173013">Investopedia</a>／<a href="https://www.tipranks.com/calendars/earnings/2026-10-14">TipRanks財報日曆</a>｜10/14</div></div>
+<div class="newsitem"><h3>05｜美國大型銀行交易收入分化，債券交易承壓</h3><p class="headline-desc">Reuters指出，利率波動與公債殖利率上升壓抑多家銀行固定收益、外匯及商品交易收入；股票交易收入則相對強勁。<br>摩根士丹利、摩根大通與美國銀行的固定收益交易收入均較去年同期下滑，花旗表現相對突出。<br>銀行財報解讀應拆分股票交易、固定收益交易、投行承銷、放款與信用成本，避免只用總獲利概括。</p><div class="newsmeta"><a href="https://www.reuters.com/business/finance/bond-trading-weakens-us-banks-interest-rate-volatility-affects-investors-2026-10-14/">Reuters</a>｜10/14</div></div>
+<div class="newsitem"><h3>06｜台積電財報將登場，AI需求與資本支出指引成焦點</h3><p class="headline-desc">台積電列入10/15財報日曆，市場將關注先進製程需求、AI加速器訂單、毛利率與全年資本支出展望。<br>近期月營收與市場預估可作為背景，但不能代替正式財報及法說會指引。<br>管理層對2027年需求、產能配置與海外建廠成本的說法，將影響半導體設備、晶圓代工及AI供應鏈評價。</p><div class="newsmeta"><a href="https://www.marketwatch.com/story/what-analysts-are-watching-with-key-semiconductor-maker-tsmc-set-to-report-results-c161e86b">MarketWatch</a>／<a href="https://www.tipranks.com/calendars/earnings/2026-10-15">TipRanks財報日曆</a>｜10/15待公布</div></div>
+<div class="newsitem"><h3>07｜AI基建與晶片股走弱，市場要求更清楚的投資回報</h3><p class="headline-desc">通膨高於預期後，AI基礎建設與部分晶片股承壓，市場擔心較高融資成本拉長資料中心投資回收期。<br>股價下跌是市場定價訊號，不等同企業需求已經轉弱。<br>後續應以公司財報、資本支出、訂單能見度及現金流驗證AI投資是否仍能轉化為營收與獲利。</p><div class="newsmeta"><a href="https://www.reuters.com/business/red-hot-cpi-report-fuels-ai-rout-2026-10-14/">Reuters</a>／<a href="https://www.wsj.com/finance/stocks/stock-futures-tick-higher-treasurys-strengthen-ahead-of-inflation-data-3fd584f5">WSJ</a>｜10/14</div></div>
+<div class="newsitem"><h3>08｜歐洲半導體設備股受財報與展望牽動</h3><p class="headline-desc">ASML財報與全年展望成為歐洲科技股的重要焦點，市場同時評估先進製程需求、訂單節奏及出口限制。<br>設備商展望可反映晶圓廠資本支出意向，但訂單與交貨認列存在時間差。<br>後續需觀察同業財報、訂單指引及客戶資本支出，判斷單一公司訊號是否擴散至整個產業。</p><div class="newsmeta"><a href="https://www.investopedia.com/5-things-to-know-before-the-stock-market-opens-on-wednesday-october-14-2026-12173013">Investopedia</a>／Reuters｜10/14</div></div>
+<div class="newsitem"><h3>09｜匯率與商品合併觀察：美元偏強、油價上漲，貴金屬回落</h3><p class="headline-desc">10/14市場報價顯示美元指數走高、原油期貨上漲，現貨黃金與白銀回落；各商品採用各自報價口徑，不將期貨結算價與現貨價混用。<br>美元與利率預期會影響非美元資產及以美元計價商品，能源價格則可能透過運輸與生產成本影響通膨。<br>此則將匯率、原油、黃金與白銀合併，避免商品行情占用多則頭條版位。</p><div class="newsmeta"><a href="https://www.investing.com/indices/usdollar-historical-data">Investing.com美元指數</a>／<a href="https://www.investing.com/commodities/crude-oil-historical-data">原油</a>／<a href="https://www.investing.com/currencies/xau-usd-historical-data">黃金現貨</a>｜10/14</div></div>
+<div class="newsitem"><h3>10｜今日財報觀察：台積電、Charles Schwab及其他金融與工業公司</h3><p class="headline-desc">10/15財報日曆列出台積電（TSM）與Charles Schwab（SCHW），另有多家金融、工業及科技企業預計公布業績。<br>實際公布時間可能因市場與公司安排而異，應以公司IR公告為準；財報日曆僅作追蹤清單。<br>重點比較EPS、營收、毛利率、管理層指引與盤後股價反應，並將已公布結果與尚未公布公司分開呈現。</p><div class="newsmeta"><a href="https://www.tipranks.com/calendars/earnings/2026-10-15">TipRanks</a>／<a href="https://beta.earningswhispers.com/calendar/20261015/1">Earnings Whispers</a>｜10/15</div></div>
+</article>
+</section><div style="height:14px"></div>
 <section class="grid three" id="global">
-<article class="card"><div class="title">美國市場<small>10/13當地正式收盤</small></div>
-<div class="row"><b>道瓊工業指數<br/><small>Dow Jones</small></b><span class="r">51,670.10</span><span class="r down">-0.35%</span></div>
-<div class="row"><b>標普500指數<br/><small>S&amp;P 500</small></b><span class="r">7,805.45</span><span class="r down">-0.02%</span></div>
-<div class="row"><b>那斯達克綜合指數<br/><small>Nasdaq Composite</small></b><span class="r">27,204.38</span><span class="r down">-0.15%</span></div>
-<div class="row"><b>那斯達克100指數<br/><small>Nasdaq-100</small></b><span class="r">30,496.11</span><span class="r down">-0.55%</span></div>
-<div class="row"><b>羅素2000指數<br/><small>Russell 2000</small></b><span class="r">2,783.37</span><span class="r down">-0.40%</span></div>
-<div class="row"><b>費城半導體指數<br/><small>SOX</small></b><span class="r">12,208.80</span><span class="r down">-0.23%</span></div>
-<div class="market-reason"><b>📌 美股摘要</b><br/>大型指數表現分歧不大，反映市場尚未因財報季而形成明確方向；銀行獲利數字雖有部分優於預期，但投資人更在意未達標的利息收入、未來放貸與交易收入展望，因此利多未能全面推升金融股。<br/>半導體與記憶體股持續承壓，主因中國記憶體廠 CXMT 技術進展加深市場對供應競爭與價格壓力的疑慮；博通執行長對部分 AI 投資過熱的評論，也促使資金重新檢視 AI 題材估值。<br/>醫療保健股受嬌生醫療器材業務表現與公司策略消息拖累，抵銷部分大型科技股支撐；在通膨數據公布前，投資人降低追價意願，令主要指數收盤偏弱。</div>
-<div class="source">來源：<a href="https://apnews.com/article/a0a577dfd12f63ee6780a56ab02b55c4">AP 收盤數據</a>／<a href="https://www.investing.com/news/stock-market-news/us-stocks-lower-at-close-of-trade-dow-jones-industrial-average-down-035-4947511">Investing.com 收盤摘要</a>；SOX 採 <a href="https://www.investing.com/indices/phlx-semiconductor-historical-data">Investing.com SOX 歷史資料</a>。Nasdaq-100採Nasdaq官方10/13收盤30,496.11（-0.55%）；第三方頁報-0.31%，存在來源差異，已依官方第一來源採值。</div></article>
-<article class="card" id="asia"><div class="title">亞洲市場 <small>各市場10/13當地收盤</small></div>
-<div class="row"><b>台灣加權指數</b><span class="r">48,341.31</span><span class="r down">-1.95%</span></div>
-<div class="row"><b>香港恆生指數</b><span class="r">24,345.22</span><span class="r up">+0.30%</span></div>
-<div class="row"><b>上海綜合指數</b><span class="r">3,800.86</span><span class="r up">+0.10%</span></div>
-<div class="row"><b>深圳綜合指數</b><span class="r">2,329.11</span><span class="r up">+0.08%</span></div>
-<div class="row"><b>日經225</b><span class="r">67,777.52</span><span class="r down">-1.82%</span></div>
-<div class="row"><b>韓國KOSPI</b><span class="r">6,035.35</span><span class="r down">-5.46%</span></div>
-<div class="market-reason"><b>📌 亞股摘要</b><br/>韓股跌勢最重，核心壓力來自三星與 SK 海力士等大型記憶體股下挫；中國 CXMT 的技術進展引發市場擔憂，若供給競爭升高，可能壓縮記憶體產業的定價能力與高獲利預期。<br/>台股與日股同受全球 AI／半導體類股降溫影響，資金先行降低高波動科技股曝險；日經跌勢也反映日本大型出口與科技相關權值股承壓。這是跨市場風險傳導，不代表所有個股都由同一因素造成。<br/>港股與上海綜合小幅走高，顯示中國內地與香港市場並未完全跟隨區域科技股賣壓；市場內部產業權重及個別股票表現差異，是指數走勢分化的原因之一。</div>
-<div class="source">來源：<a href="https://www.twse.com.tw/">TWSE</a>、<a href="https://www.investing.com/indices/taiwan-weighted-historical-data">Investing.com 台股歷史資料</a>、<a href="https://edgeconsultancykw.com/asia-market-wrap-13-october-2026/">亞洲收盤彙整</a>；其他市場依當地收盤彙整交叉核對。</div></article>
-<article class="card"><div class="title">歐洲市場 <small>10/13當地收盤</small></div>
-<div class="row"><b>英國FTSE 100</b><span class="r">10,650.33</span><span class="r down">-0.06%</span></div>
-<div class="row"><b>德國DAX</b><span class="r">25,259.90</span><span class="r down">-0.07%</span></div>
-<div class="row"><b>法國CAC 40</b><span class="r">7,827.63</span><span class="r down">-0.07%</span></div>
-<div class="row"><b>STOXX Europe 600</b><span class="r">635.01</span><span class="r down">-0.10%</span></div>
-<div class="market-reason"><b>📌 歐股摘要</b><br/>歐股回落的主要壓力來自半導體設備與科技股：中國 CXMT 技術進展加深競爭疑慮，ASM International、Soitec 等晶片供應鏈股票遭到賣壓，科技類股因此拖累大盤。<br/>油價回落原本有助緩和能源成本與通膨壓力，但未能抵銷晶片股下跌；中東局勢仍使能源供應與通膨前景存在不確定性，市場因此沒有明顯擴大風險部位。<br/>個股方面，LVMH 銷售表現偏弱，反映中國需求疲軟仍壓抑精品消費；相對地，化工股及部分企業財報提供支撐，使大盤跌幅維持有限。</div>
-<div class="source">來源：<a href="https://www.ft.com/markets">Financial Times 市場數據</a>、<a href="https://www.reuters.com/markets/europe/">Reuters 歐洲市場</a>。STOXX 600 收盤 635.01；CAC 40採Investing.com歷史頁7,827.63（-0.07%），Reuters跌幅交叉核對。</div></article>
+<article class="card"><div class="title">美國市場 <small>10/14當地收盤；來源差異另註</small></div>
+<div class="row"><b>道瓊工業指數<br><small>Dow Jones</small></b><span class="r">51,621.48</span><span class="r down">-0.09%</span></div>
+<div class="row"><b>標普500指數<br><small>S&amp;P 500</small></b><span class="r">7,718.94</span><span class="r down">-1.18%</span></div>
+<div class="row"><b>那斯達克綜合指數<br><small>Nasdaq Composite</small></b><span class="r">26,692.87</span><span class="r down">-1.88%</span></div>
+<div class="row"><b>那斯達克100指數<br><small>Nasdaq-100</small></b><span class="r">29,950.82</span><span class="r down">-2.02%｜10/14收盤</span></div>
+<div class="row"><b>羅素2000指數<br><small>Russell 2000</small></b><span class="r">2,729.53</span><span class="r down">-1.9%</span></div>
+<div class="row"><b>費城半導體指數<br><small>SOX</small></b><span class="r">11,684.38</span><span class="r down">-4.30%</span></div>
+<div class="market-reason"><b>📌 美股摘要</b><br>9月CPI年增3.7%高於預期，市場重新評估利率路徑；S&amp;P 500走低，Nasdaq Composite收26,692.87、下跌1.88%；SOX收11,684.38、下跌4.30%。<br>高利率可能提高AI資料中心、雲端與硬體投資的資金成本，對估值較高或槓桿較大的公司形成壓力。<br>道瓊與Russell採AP收盤報導值；S&amp;P 500採Investing.com歷史表格10/14列值，與AP報導存在差異。Nasdaq Composite採AP報導值，與Investing.com頁首相符，但該站歷史表格列值不同；仍待官方指數歷史資料進一步確認。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">來源：<a href="https://www.investing.com/indices/us-30-historical-data">Investing.com Dow</a>、<a href="https://www.investing.com/indices/us-spx-500-historical-data">S&amp;P 500</a>、<a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq官方COMP</a>、<a href="https://www.investing.com/indices/nq-100-historical-data">Nasdaq-100</a>、<a href="https://www.investing.com/indices/smallcap-2000-historical-data">Russell 2000</a>、<a href="https://www.investing.com/indices/phlx-semiconductor-historical-data">SOX</a>。</div></details></article>
+<article class="card" id="asia"><div class="title">亞洲市場 <small>各市場10/14當地收盤</small></div>
+<div class="row"><b>台灣加權指數</b><span class="r">48,625.83</span><span class="r up">+0.59%</span></div>
+<div class="row"><b>香港恆生指數</b><span class="r">24,314.17</span><span class="r down">-0.13%</span></div>
+<div class="row"><b>上海綜合指數</b><span class="r">3,767.23</span><span class="r down">-0.88%</span></div>
+<div class="row"><b>深圳綜合指數</b><span class="r">2,286.87</span><span class="r down">-1.81%</span></div>
+<div class="row"><b>日經225</b><span class="r">67,744.29</span><span class="r down">-0.05%</span></div>
+<div class="row"><b>韓國KOSPI</b><span class="r">6,008.81</span><span class="r down">-0.44%</span></div>
+<div class="market-reason"><b>📌 亞股摘要</b><br>10/14亞股走勢分歧偏弱：台灣加權指數上漲0.59%，日經225下跌0.05%，上海綜合下跌0.88%、深圳成份指數下跌1.97%，韓國KOSPI下跌0.44%，香港恒生指數約跌0.15%。主要壓力來自美國通膨數據公布前的觀望與部位調整、油價偏高帶來的通膨疑慮，以及半導體／AI類股前一交易日回檔後估值仍受檢視；中國9月PPI年增5%、CPI年增0.9%，反映上游價格上升但內需傳導仍有限，未能有效提振中國股市。台股逆勢上漲可能與前一交易日回檔後的買盤回補及權值科技股支撐有關，但單日反彈不足以證明風險偏好全面改善。若美國通膨推升利率與美元預期，將透過外資流向、匯率及科技股折現率影響亞洲市場；各市場漲跌仍有差異，不宜以單一原因概括。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">來源：<a href="https://www.investing.com/indices/taiwan-weighted-historical-data">Investing.com台灣加權</a>、<a href="https://www.investing.com/indices/shanghai-composite-historical-data">上海綜合</a>、<a href="https://www.investing.com/indices/szse-composite-historical-data">深圳綜合</a>、<a href="https://www.investing.com/indices/japan-ni225-historical-data">Nikkei 225</a>、<a href="https://www.investing.com/indices/kospi-historical-data">KOSPI</a>。香港恆生指數（HSI）以FT歷史頁為補充核對；另見Investing.com恒生綜合指數（HSCI），不是同一指數。</div></details></article>
+<article class="card"><div class="title">歐洲市場 <small>10/14當地收盤</small></div>
+<div class="row"><b>英國FTSE 100</b><span class="r">10,726.44</span><span class="r up">+0.71%</span></div>
+<div class="row"><b>德國DAX</b><span class="r">25,349.44</span><span class="r up">+0.35%</span></div>
+<div class="row"><b>法國CAC 40</b><span class="r">7,873.11</span><span class="r up">+0.58%</span></div>
+<div class="row"><b>STOXX Europe 600</b><span class="r warn">未核實</span><span class="r flat">未填入</span></div>
+<div class="market-reason"><b>📌 歐股摘要</b><br>10/14歐股主要指數同步收高：英國FTSE 100上漲0.71%、德國DAX上漲0.35%、法國CAC 40上漲0.58%；STOXX Europe 600本版未取得可靠核實值，因此不推定其漲幅。英國與法國指數漲幅較大，顯示當日買盤並非只集中於單一市場；可能的支撐包括醫療保健等防禦型類股表現，以及英鎊走弱對英國出口型企業的助益，但這些因素不能直接解釋所有國家指數。後續需觀察美國通膨與利率預期、能源價格及企業財報指引，因為殖利率上行會提高股票折現壓力，能源成本攀升則可能壓縮企業利潤。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">來源：<a href="https://www.investing.com/indices/uk-100-historical-data">FTSE 100</a>、<a href="https://www.investing.com/indices/germany-30-historical-data">DAX GDAXI</a>、<a href="https://ca.investing.com/indices/france-40-historical-data">CAC 40</a>。STOXX Europe 600本次未可靠核實。</div></details></article>
 </section><div style="height:14px"></div>
 <section class="grid three">
-<article class="card" id="us">
-<div class="title">S&amp;P 500｜11 大產業 ETF 表現<small>資料基準：2026/10/13；Investing.com 歷史行情；美元收盤價</small></div>
-<div class="sector-list"><div class="sector-row"><div class="rank">01</div><div class="sector-name"><b>能源</b><small>XLE · Energy</small></div><div class="sector-values"><b>$67.18</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-energy-select-sector-fund-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+1.77%<small>+1.17</small></div></div><div class="sector-row"><div class="rank">02</div><div class="sector-name"><b>通訊服務</b><small>XLC · Communication Services</small></div><div class="sector-values"><b>$112.28</b><a class="sector-source" href="https://www.investing.com/etfs/communication-services-select-spdr-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.74%<small>+0.83</small></div></div><div class="sector-row"><div class="rank">03</div><div class="sector-name"><b>公用事業</b><small>XLU · Utilities</small></div><div class="sector-values"><b>$41.87</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-select-sector---utilities-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.58%<small>+0.24</small></div></div><div class="sector-row"><div class="rank">04</div><div class="sector-name"><b>原材料</b><small>XLB · Materials</small></div><div class="sector-values"><b>$49.72</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-materials-select-sector-etf-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.57%<small>+0.28</small></div></div><div class="sector-row"><div class="rank">05</div><div class="sector-name"><b>非必需消費</b><small>XLY · Consumer Discretionary</small></div><div class="sector-values"><b>$112.36</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct up">+0.08%<small>+0.09</small></div></div><div class="sector-row"><div class="rank">06</div><div class="sector-name"><b>資訊科技</b><small>XLK · Information Technology</small></div><div class="sector-values"><b>$196.28</b><a class="sector-source" href="https://www.investing.com/etfs/spdr-select-sector---technology-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.04%<small>-0.08</small></div></div><div class="sector-row"><div class="rank">07</div><div class="sector-name"><b>房地產</b><small>XLRE · Real Estate</small></div><div class="sector-values"><b>$41.90</b><a class="sector-source" href="https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.05%<small>-0.03</small></div></div><div class="sector-row"><div class="rank">08</div><div class="sector-name"><b>工業</b><small>XLI · Industrials</small></div><div class="sector-values"><b>$168.67</b><a class="sector-source" href="https://www.investing.com/etfs/industrial-sector-spdr-trust-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.28%<small>-0.48</small></div></div><div class="sector-row"><div class="rank">09</div><div class="sector-name"><b>必需消費</b><small>XLP · Consumer Staples</small></div><div class="sector-values"><b>$84.18</b><a class="sector-source" href="https://www.investing.com/etfs/spdr---consumer-staples-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.28%<small>-0.24</small></div></div><div class="sector-row"><div class="rank">10</div><div class="sector-name"><b>金融</b><small>XLF · Financials</small></div><div class="sector-values"><b>$54.82</b><a class="sector-source" href="https://www.investing.com/etfs/financial-select-sector-spdr-fund-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-0.42%<small>-0.23</small></div></div><div class="sector-row"><div class="rank">11</div><div class="sector-name"><b>醫療保健</b><small>XLV · Health Care</small></div><div class="sector-values"><b>$169.66</b><a class="sector-source" href="https://www.investing.com/etfs/health-care-select-sector-spdr-fund-historical-data" target="_blank" rel="noopener">歷史行情</a></div><div class="sector-pct down">-1.35%<small>-2.32</small></div></div></div><div class="market-reason"><b>📌 產業 ETF 表現觀察</b><br/>本區以 State Street Select Sector SPDR ETF 代表 S&amp;P 500 的 11 大產業，呈現 2026/10/13 美股收盤價、當日漲跌額與漲跌幅。能源（XLE）當日上漲 1.77%，為本表相對強勢；醫療保健（XLV）下跌 1.35%，相對弱勢。ETF 報酬受基金持股、費用及追蹤誤差影響，與官方產業指數報酬不完全相同。<br/>固定主要來源：Investing.com 歷史行情；若缺值或報價衝突，再以 State Street 官方資料交叉核對。其他早報區塊維持不變。</div>
+<article class="card">
+<div class="title">S&amp;P 500｜11大產業 <small>ETF代理指標｜10/14收盤</small></div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">固定採用11檔 Select Sector SPDR ETF 作為產業代理指標；僅顯示當日漲跌幅，依漲幅由高至低排序。此為ETF價格報酬（Price Return），不等同官方產業指數報酬。</div></details>
+<div class="row"><b>醫療保健 <small>XLV</small></b><span class="r up">+2.51%</span></div>
+<div class="row"><b>必需消費 <small>XLP</small></b><span class="r up">+2.22%</span></div>
+<div class="row"><b>能源 <small>XLE</small></b><span class="r up">+0.54%</span></div>
+<div class="row"><b>公用事業 <small>XLU</small></b><span class="r down">-0.31%</span></div>
+<div class="row"><b>房地產 <small>XLRE</small></b><span class="r down">-0.53%</span></div>
+<div class="row"><b>金融 <small>XLF</small></b><span class="r down">-1.08%</span></div>
+<div class="row"><b>工業 <small>XLI</small></b><span class="r down">-0.97%</span></div>
+<div class="row"><b>非必需消費 <small>XLY</small></b><span class="r down">-1.11%</span></div>
+<div class="row"><b>原材料 <small>XLB</small></b><span class="r down">-0.10%</span></div>
+<div class="row"><b>通訊服務 <small>XLC</small></b><span class="r down">-1.30%</span></div>
+<div class="row"><b>資訊科技 <small>XLK</small></b><span class="r down">-2.98%</span></div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source" style="margin-top:10px">資料來源：Investing.com各ETF歷史資料頁（明確標示2026/10/14列）；ETF與產業對應依 <a href="https://www.ssga.com/us/en/intermediary/capabilities/equities/sector-investing/select-sector-etfs">State Street官方11大產業ETF清單</a>。本區不顯示ETF價格。</div></details>
 </article>
-<article class="card" id="bonds"><div class="title">美國公債殖利率<small>10/13市場收盤參考；官方日曲線另列</small></div>
-
-
-
-
-
-
-<div class="bond-head"><span>期限</span><span>10/13市場收盤</span><span>10/09官方日曲線</span><span>口徑</span></div>
-<div class="row"><b>2年期</b><span class="r">4.791%</span><span class="r prev-rate">4.80%</span><span class="r">市場／官方</span></div>
-<div class="row"><b>10年期</b><span class="r">5.216%</span><span class="r prev-rate">5.24%</span><span class="r">市場／官方</span></div>
-<div class="row"><b>30年期</b><span class="r">5.562%</span><span class="r prev-rate">5.60%</span><span class="r">市場／官方</span></div>
-<div class="market-reason"><b>📌 債券觀察</b><br/>長天期殖利率回落，與股市科技股賣壓引發的避險需求、以及油價下跌暫時緩和通膨壓力的方向一致；但中東衝突造成的能源供給風險，仍使市場不敢完全排除通膨再升溫。<br/>短天期殖利率則較受聯準會政策預期牽動。市場在即將公布的 CPI 前調整部位，若通膨高於預期，可能推升「利率維持高檔更久」的定價；若降溫，才可能減輕短端利率壓力。<br/>右側官方日曲線截至 10/09，左側是 10/13 市場收盤參考，兩者資料口徑與日期不同，不能直接拿來推算單日殖利率變化。</div>
-<div class="source">第一來源：<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>；10/13市場收盤參考：<a href="https://www.wsj.com/market-data">WSJ Market Data</a>。市場收盤參考仍需與 Investing.com 同口徑逐項核對。</div></article>
-<article class="card" id="fx"><div class="title">匯率<small>10/13市場歷史報價；USD/TWD為市場收盤非台銀牌告</small></div>
-<div class="row"><b class="instrument-name">美元指數<span class="instrument-en">DXY</span></b><span class="r">102.21</span><span class="r down">-0.37%</span></div>
-<div class="row"><b class="instrument-name">美元／新台幣<span class="instrument-en">USD/TWD</span></b><span class="r">32.085</span><span class="r up">+0.60%</span></div>
-<div class="row"><b class="instrument-name">歐元／美元<span class="instrument-en">EUR/USD</span></b><span class="r">1.1199</span><span class="r up">+0.35%</span></div>
-<div class="row"><b class="instrument-name">英鎊／美元<span class="instrument-en">GBP/USD</span></b><span class="r">1.3255</span><span class="r up">+0.35%</span></div>
-<div class="row"><b class="instrument-name">澳幣／美元<span class="instrument-en">AUD/USD</span></b><span class="r">0.6980</span><span class="r up">+0.35%</span></div>
-<div class="row"><b class="instrument-name">美元／日圓<span class="instrument-en">USD/JPY</span></b><span class="r">158.33</span><span class="r down">-0.13%</span></div>
-<div class="market-reason"><b>📌 匯率觀察</b><br/>美元指數偏弱，可能反映長天期美債殖利率回落與市場在通膨數據公布前降低美元多頭部位；不過短端利率仍受政策預期牽動，美元走勢仍需觀察 CPI 是否改變利率路徑定價。<br/>歐元與英鎊走高，與美元走弱的方向一致；澳幣亦受美元端變動影響，但其後續表現仍取決於全球風險偏好與商品需求。美元／日圓回落則代表日圓相對走強，市場避險情緒與利差預期均可能影響匯價。<br/>美元／新台幣此處採市場報價口徑，並非台灣銀行即期買入／賣出牌告；不同報價來源的收盤時間與定義可能造成差異。</div>
-<div class="source">來源：<a href="https://www.investing.com/indices/usdollar-historical-data">Investing.com DXY</a>、<a href="https://invest.cnyes.com/forex/detail/usdtwd">鉅亨網 USD/TWD</a>、<a href="https://www.investing.com/currencies/eur-usd-historical-data">EUR/USD</a>、<a href="https://www.investing.com/currencies/gbp-usd-historical-data">GBP/USD</a>、<a href="https://www.investing.com/currencies/aud-usd-historical-data">AUD/USD</a>、<a href="https://www.investing.com/currencies/usd-jpy-historical-data">USD/JPY</a>。</div>
+<article class="card" id="bonds"><div class="title">美國公債殖利率 <small>Investing.com市場殖利率｜10/14；非官方Par Yield Curve</small></div>
+<div class="bond-head"><span></span><span>10/13市場值</span><span>10/14市場值</span><span>變動</span></div>
+<div class="row"><b>2年期</b><span class="r prev-rate">4.793%</span><span class="r">4.806%</span><span class="r up">+1.3bp</span></div>
+<div class="row"><b>10年期</b><span class="r prev-rate">5.217%</span><span class="r">5.189%</span><span class="r down">-2.8bp</span></div>
+<div class="row"><b>30年期</b><span class="r prev-rate">5.563%</span><span class="r">5.529%</span><span class="r down">-3.4bp</span></div>
+<div class="market-reason"><b>📌 債券觀察</b><br>10/14歐洲股市整體走高：泛歐STOXX 600上漲0.43%，英國FTSE 100上漲0.7%。Reuters指出，ASML對先進晶片製造設備需求的展望緩解市場對AI需求的疑慮，帶動相關科技股；醫療保健股上漲亦提供支撐。英鎊走弱則有利於英國大型出口商的海外收入換算。影響上，企業展望與防禦型醫療保健股可抵銷部分能源價格及債券殖利率波動壓力；但不能因此推論歐洲所有市場或產業都上漲，仍須觀察能源成本、債券殖利率與後續財報。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">官方第一來源：<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>（資料日期可見，數值列未成功擷取）。第二來源：<a href="https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data">Investing.com 2Y</a>、<a href="https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data">10Y</a>、<a href="https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data">30Y</a>。單位：殖利率百分比。</div></details>
+</article>
+<article class="card" id="fx"><div class="title">匯率 <small>10/14市場歷史報價；USD/TWD為台銀非營業時間牌告</small></div>
+<div class="row"><b class="instrument-name">美元指數<span class="instrument-en">DXY</span></b><span class="r">102.54</span><span class="r up">+0.35%</span></div>
+<div class="row"><b class="instrument-name">美元／新台幣<span class="instrument-en">USD/TWD</span></b><span class="r">31.995／32.145</span><span class="r flat">即期買入／賣出</span></div>
+<div class="row"><b class="instrument-name">歐元／美元<span class="instrument-en">EUR/USD</span></b><span class="r">1.1155</span><span class="r down">-0.41%</span></div>
+<div class="row"><b class="instrument-name">英鎊／美元<span class="instrument-en">GBP/USD</span></b><span class="r">1.3190</span><span class="r down">-0.51%</span></div>
+<div class="row"><b class="instrument-name">澳幣／美元<span class="instrument-en">AUD/USD</span></b><span class="r">0.6970</span><span class="r down">-0.21%</span></div>
+<div class="row"><b class="instrument-name">美元／日圓<span class="instrument-en">USD/JPY</span></b><span class="r">158.34</span><span class="r up">+0.01%</span></div>
+<div class="market-reason"><b>📌 匯率觀察</b><br>DXY走強，EUR/USD與GBP/USD下跌；AUD/USD亦回落，USD/JPY上升。<br>USD/TWD採台灣銀行10/14非營業時間即期買入31.995、賣出32.145，並非國際市場單一收盤價。<br>其餘五項採Investing.com同日歷史頁報價；與即時頁面不同時，以資料日期列為準。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">來源：<a href="https://www.investing.com/indices/usdollar-historical-data">DXY</a>、<a href="https://www.investing.com/currencies/eur-usd-historical-data">EUR/USD</a>、<a href="https://www.investing.com/currencies/gbp-usd-historical-data">GBP/USD</a>、<a href="https://www.investing.com/currencies/aud-usd-historical-data">AUD/USD</a>、<a href="https://www.investing.com/currencies/usd-jpy-historical-data">USD/JPY</a>；<a href="https://rate.bot.com.tw/xrt/quote/ltm/USD/spot/1">台灣銀行非營業時間匯率</a>。</div></details>
 </article>
 </section><div style="height:14px"></div>
 <section class="grid three" id="commodities">
-<article class="card"><div class="title">能源<small>10/13期貨歷史報價；不同合約／結算口徑有差異</small></div>
-<div class="row"><b>WTI原油期貨</b><span class="r">$94.35</span><span class="r up">+0.65%</span></div>
-<div class="row"><b>Brent原油期貨</b><span class="r">$106.31</span><span class="r down">-0.32%</span></div>
-<div class="market-reason"><b>📌 原油觀察</b><br/>原油走勢分歧，反映供給風險與短期供應預期互相拉扯。中東衝突及對沙烏地阿拉伯能源設施的攻擊提高供應風險溢價；另一方面，市場評估俄羅斯可能增加柴油供應，對部分成品油供應的預期形成緩衝。<br/>WTI 與 Brent 當日方向不同，也可能受到各自合約、交割地點、期限結構及報價截點影響，不能只用單一地緣政治因素解釋。<br/>Investing.com 歷史頁與 Reuters 結算值並不完全一致，因此行情欄仍依指定主來源呈現；此差異屬報價口徑問題，不是價格漲跌的原因。</div>
-<div class="source">第一來源：<a href="https://www.investing.com/commodities/crude-oil-historical-data">Investing.com WTI 歷史資料</a>、<a href="https://www.investing.com/commodities/brent-oil-historical-data">Investing.com Brent 歷史資料</a>；交叉參考：<a href="https://www.reuters.com/markets/commodities/">Reuters 商品市場</a>。單位：美元／桶。</div>
+<article class="card"><div class="title">能源 <small>10/14期貨歷史報價｜Investing.com連續合約</small></div>
+<div class="row"><b>WTI原油期貨</b><span class="r">$95.61</span><span class="r up">+1.56%</span></div>
+<div class="row"><b>Brent原油期貨</b><span class="r">$106.56</span><span class="r up">+0.82%</span></div>
+<div class="market-reason"><b>📌 原油觀察</b><br>WTI與Brent連續期貨歷史頁10/14均收高，WTI漲幅較大。<br>中東航運與供應風險仍是油價波動的重要背景，油價上行可能加重通膨預期。<br>此欄使用Investing.com歷史頁連續合約報價，不等同所有交割月份的官方結算價。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">主要來源：<a href="https://www.investing.com/commodities/crude-oil-historical-data">Investing.com WTI</a>、<a href="https://www.investing.com/commodities/brent-oil-historical-data">Investing.com Brent</a>；EIA作供需背景交叉核對。單位：美元／桶。</div></details>
 </article>
-<article class="card"><div class="title">貴金屬<small>10/13現貨歷史報價，美元／金衡盎司</small></div>
-<div class="row"><b class="instrument-name">黃金現貨<span class="instrument-en">XAU/USD</span></b><span class="r">$4,158.44</span><span class="r down">-0.30%</span></div>
-<div class="row"><b class="instrument-name">白銀現貨<span class="instrument-en">XAG/USD</span></b><span class="r">$59.1415</span><span class="r down">-1.84%</span></div>
-<div class="market-reason"><b>📌 貴金屬觀察</b><br/>黃金小幅走低，可能與美元走勢、利率預期及投資人在通膨數據公布前調整部位有關；當長天期殖利率回落時通常有利於不生息黃金，但若市場仍擔憂通膨與政策利率，金價也可能受到雙向拉扯。<br/>白銀跌幅較大，除貴金屬共同受到的美元與利率因素外，也更容易受工業需求及高波動資產減倉影響，因此不宜將白銀表現完全等同黃金。<br/>本區採 XAU/USD、XAG/USD 現貨口徑；不同地區頁面黃金報價有差異，且未以 GC=F／SI=F 期貨替代現貨。</div>
-<div class="source">第一來源：<a href="https://www.investing.com/currencies/xau-usd-historical-data">Investing.com XAU/USD</a>、<a href="https://www.investing.com/currencies/xag-usd-historical-data">Investing.com XAG/USD</a>；Yahoo GC=F／SI=F 僅作期貨備援。</div>
+<article class="card"><div class="title">貴金屬 <small>10/14現貨歷史報價</small></div>
+<div class="row"><b class="instrument-name">黃金現貨<span class="instrument-en">XAU/USD</span></b><span class="r">$4,105.33</span><span class="r down">-1.20%</span></div>
+<div class="row"><b class="instrument-name">白銀現貨<span class="instrument-en">XAG/USD</span></b><span class="r">$55.6030</span><span class="r down">-5.74%</span></div>
+<div class="market-reason"><b>📌 貴金屬觀察</b><br>10/14現貨黃金與白銀均下跌，白銀跌幅更大。<br>美元走強與殖利率壓力可能降低無息資產吸引力，但此為市場傳導解讀。<br>本欄採XAU/USD、XAG/USD現貨歷史頁，不以GC=F或SI=F期貨價格代替。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">主要來源：<a href="https://ca.investing.com/currencies/xau-usd-historical-data">Investing.com XAU/USD</a>、<a href="https://www.investing.com/currencies/xag-usd-historical-data">Investing.com XAG/USD</a>；單位：美元／金衡盎司。</div></details>
 </article>
-<article class="card"><div class="title">商品關鍵價位</div><div class="key"><b>Brent：</b>Investing.com 10/13歷史頁 106.31美元／桶；Reuters結算參考105.69。<br/><b>WTI：</b>Investing.com 10/13歷史頁 94.35美元／桶；Reuters結算參考94.14。<br/><b>黃金現貨：</b>4,158.44美元／金衡盎司，地區頁報價差異尚存。<br/><b>白銀現貨：</b>59.1415美元／金衡盎司。</div></article>
+<article class="card"><div class="title">商品關鍵價位</div><div class="key"><b>Brent：</b>10/14歷史頁收106.56美元／桶；觀察107美元附近整數關卡。<br><b>WTI：</b>10/14歷史頁收95.61美元／桶；觀察96美元附近。<br><b>黃金現貨：</b>4,105.33美元／金衡盎司，較前一交易日下跌1.20%。<br><b>白銀現貨：</b>55.6030美元／金衡盎司，較前一交易日下跌5.74%。</div></article>
 </section><div style="height:14px"></div>
-<section class="grid two" id="calendar"><article class="card" style="grid-column:1 / -1"><div class="title">本週經濟行事曆 <small>10/12～10/16｜台灣時間 UTC+8</small></div>
-<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0">今天｜尚未公布</span></h3>
+<section class="grid two" id="calendar">
+<article class="card" style="grid-column:1 / -1">
+<div class="title">本週經濟行事曆 <small>10/12～10/16｜台灣時間 UTC+8</small></div>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0">已公布</span></h3>
 <table><tr><th>日期／台灣時間</th><th>地區</th><th>事件</th><th>前值</th><th>預估</th><th>實際</th><th>重要性</th></tr>
-<tr><td>10/14（週三）20:30</td><td>美國</td><td>9月CPI月增率</td><td>0.4%</td><td>0.6%</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
-<tr><td>10/14（週三）20:30</td><td>美國</td><td>9月CPI年增率</td><td>3.4%</td><td>3.6%</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
-<tr><td>10/14（週三）20:30</td><td>美國</td><td>9月核心CPI月增率／年增率</td><td>0.3%／2.4%</td><td>0.2%／2.5%</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+<tr><td>10/14（三）20:30</td><td>美國</td><td>9月CPI月增率／年增率</td><td>0.4%／3.4%</td><td>0.6%／3.6%</td><td class="b">0.6%／3.7%</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+<tr><td>10/15（四）02:00</td><td>美國</td><td>Fed Beige Book</td><td>—</td><td>—</td><td class="b">已公布；報告描述部分地區經濟活動停滯、價格壓力仍在</td><td class="high">⭐⭐⭐⭐</td></tr>
 </table>
-<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0">即將公布</span></h3>
+<h3 style="font-size:13px;margin:14px 0 6px"><span class="pill" style="margin-left:0;color:#b21824;border-color:#f0b8bd;background:#fff2f3">🔴 今天／即將公布｜10/15～10/16</span></h3>
 <table><tr><th>日期／台灣時間</th><th>地區</th><th>事件</th><th>前值</th><th>預估</th><th>實際</th><th>重要性</th></tr>
-<tr><td>10/15（週四）20:30</td><td>美國</td><td>9月PPI（生產者物價指數）</td><td>官方／共識數值待發布前核對</td><td>待核</td><td>尚未公布</td><td class="high">⭐⭐⭐⭐</td></tr>
-<tr><td>10/16（週五）20:30</td><td>美國</td><td>9月進出口物價指數</td><td>官方前值待核</td><td>待核</td><td>尚未公布</td><td class="high">⭐⭐⭐</td></tr>
-<tr><td>10/16（週五）21:15</td><td>美國</td><td>9月工業生產與產能利用率</td><td>官方前值待核</td><td>待核</td><td>尚未公布</td><td class="high">⭐⭐⭐</td></tr>
+<tr><td>10/15（四）20:30</td><td>美國</td><td>9月PPI最終需求月增率</td><td>+0.4%（8月）</td><td>公開日曆共識約+0.3%</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐⭐</td></tr>
+<tr><td>10/15（四）20:30</td><td>美國</td><td>初領失業金（截至10/10當週）</td><td>197K</td><td>197K</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>10/15（四）20:30</td><td>美國</td><td>核心PPI月增率</td><td>+0.2%</td><td>+0.3%</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
+<tr><td>10/16（五）20:30</td><td>美國</td><td>9月進出口價格指數</td><td>待前次公告逐項核對</td><td>未找到一致可靠共識</td><td class="b">待公布</td><td class="high">⭐⭐⭐⭐</td></tr>
 </table>
-<div class="earnings-note">CPI時間依BLS官方行事曆（08:30 ET＝台灣20:30）；前值取BLS 8月發布，預估取Investing.com經濟日曆10/12快照。PPI、進出口物價與工業生產的前值／預估仍需在發布前按官方資料及可靠共識逐項核實，故不猜填。已移除舊週（10/05–10/09）事件。<br/>主要來源：<a href="https://www.bls.gov/schedule/2026/10_sched_list.htm">BLS官方10月發布日曆</a>、<a href="https://www.investing.com/economic-calendar/">Investing.com經濟日曆</a>、<a href="https://www.bea.gov/">BEA</a>、<a href="https://www.federalreserve.gov/">Federal Reserve</a>、<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME</a>、Investing.com Economic Calendar。</div></article></section><div style="height:14px"></div>
-<section class="grid two earnings-block" id="earnings"><article class="card" style="grid-column:1 / -1"><div class="title">本週財報行事曆 <small>10/12～10/16｜美國企業財報，逐家公司列示</small></div>
-<div class="callout"><b>📊 判讀：</b>EPS與營收各自比較市場共識；股價反應依10/13收盤，不以盤前漲跌取代收盤表現。市場共識可能因資料供應商而異，以下標示來源口徑。</div>
-<div class="earnings-group-title"><span class="earnings-badge published">已公布｜10/13</span></div>
-<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS實際／預期</div><div>營收實際／預期</div><div>判讀</div><div>股價反應（10/13）</div><div>重要性</div></div>
-<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>高盛 GS</b><small>投資銀行／交易</small></div><div class="earnings-cell earnings-metric"><b>$17.01 / $13.09</b></div><div class="earnings-cell earnings-metric"><b>$18.68B / $16.86B</b></div><div class="earnings-cell"><span class="earnings-result earnings-double">雙優</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤 -0.16%</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
-<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>花旗 C</b><small>銀行／交易</small></div><div class="earnings-cell earnings-metric"><b>$2.85 / $2.65</b></div><div class="earnings-cell earnings-metric"><b>$23.85B / $23.72B</b></div><div class="earnings-cell"><span class="earnings-result earnings-double">雙優</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤約 -5.6%</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
-<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>富國銀行 WFC</b><small>銀行／消費金融</small></div><div class="earnings-cell earnings-metric"><b>$1.87 / $1.84</b></div><div class="earnings-cell earnings-metric"><b>$21.87B / $22.31B</b></div><div class="earnings-cell"><span class="earnings-result earnings-mixed">EPS優／營收弱</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤約 -3.1%</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
-<div class="earnings-row"><div class="earnings-cell">10/13盤前</div><div class="earnings-cell earnings-company"><b>摩根大通 JPM</b><small>銀行／交易</small></div><div class="earnings-cell earnings-metric"><b>$5.75* / $5.93</b></div><div class="earnings-cell earnings-metric"><b>$50.90B / $51.23B</b></div><div class="earnings-cell"><span class="earnings-result earnings-weak">低於預期</span></div><div class="earnings-cell"><span class="earnings-reaction down">收盤約 -0.9%</span></div><div class="earnings-cell">⭐⭐⭐⭐⭐</div></div>
-<div class="earnings-note">* JPM EPS $5.75為扣除證券處分損失後的調整值；GAAP EPS報導為$5.57。各公司營收／EPS共識以Investing.com 10/13財報彙整為主，鉅亨網個別報導交叉核對；股價反應採當日收盤彙整。高盛股價盤前曾上漲約3%，但收盤下跌約0.16%，故不把盤前反應寫成收盤反應。</div>
-<div class="earnings-group-title"><span class="earnings-badge upcoming">即將公布｜10/14</span></div>
-<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS預期</div><div>營收預期</div><div>判讀</div><div>股價反應</div><div>重要性</div></div>
-<div class="earnings-row"><div class="earnings-cell">10/14盤前</div><div class="earnings-cell earnings-company"><b>美國銀行 BAC</b><small>銀行</small></div><div class="earnings-cell">約$1.10</div><div class="earnings-cell">待可靠共識確認</div><div class="earnings-cell"><span class="earnings-result earnings-wait">待公布</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
-<div class="earnings-row"><div class="earnings-cell">10/14盤前</div><div class="earnings-cell earnings-company"><b>摩根士丹利 MS</b><small>投資銀行／財富管理</small></div><div class="earnings-cell">約$2.94</div><div class="earnings-cell">待可靠共識確認</div><div class="earnings-cell"><span class="earnings-result earnings-wait">待公布</span></div><div class="earnings-cell"><span class="earnings-reaction wait">待觀察</span></div><div class="earnings-cell">⭐⭐⭐⭐</div></div>
-<div class="earnings-note">來源：<a href="https://www.investing.com/news/stock-market-news/bank-earnings-scorecard-trading-gains-offset-lending-and-deal-slowdown-93CH-4947304">Investing.com銀行財報彙整</a>、<a href="https://news.cnyes.com/news/id/6629573">鉅亨網 JPM</a>、<a href="https://news.cnyes.com/news/id/6629588">鉅亨網 WFC</a>、<a href="https://gfemobile.cnyes.com/news/id/6629578">鉅亨網 GS</a>。財報按公司獨立列示，不將多家公司合併成一列。</div></article></section>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source" style="margin-top:10px">官方日期與時間：<a href="https://www.bls.gov/schedule/2026/home.htm">BLS 2026發布行事曆</a>、<a href="https://www.bls.gov/ppi/">BLS PPI</a>、<a href="https://www.newyorkfed.org/research/calendars/i-oct26.html">紐約聯準銀行經濟指標行事曆</a>。PPI與進出口價格發布時間均為美東08:30，換算台灣時間20:30。PPI前值+0.4%來自BLS 8月公告；+0.3%共識及初領197K前值／共識來自公開經濟日曆，屬市場預估而非官方預測。進出口價格共識未能一致核實，故不臆填。10/16沒有以籠統的「Fed官員行程」冒充已核實事件。</div></details>
+</article></section><div style="height:14px"></div>
+<section class="grid two earnings-block" id="earnings">
+<article class="card" style="grid-column:1 / -1">
+<div class="title">本週財報行事曆 <small>10/12～10/16｜美國企業財報；時間依公司公告與公開財報日曆，未確認者明確標示</small></div>
+<div class="callout"><b>📊 財報燈號判讀規則</b><br>
+<span class="earnings-result earnings-double">🟢 雙優</span>＝<b>EPS優於預期＋營收優於預期</b>；<span class="earnings-result earnings-mixed">🟡 混合</span>＝EPS與營收表現不一致；<span class="earnings-result earnings-weak">🔴 雙弱</span>＝EPS與營收均低於預期。<br><b>股價反應口徑：</b>已公布公司列財報日盤前市場反應或可查到的最近交易日變動；這不等同完整收盤後反應。尚未公布公司列最近可見的財報前交易日變動。</div>
+<div class="earnings-group-title"><span class="earnings-badge published">已公布</span> <small>實際值與市場共識</small></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>股價反應／最近變動</div><div>重要性</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/13<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>JPMorgan Chase</b><small>JPM｜銀行</small></div><div class="earnings-cell earnings-metric"><b>$5.75</b> / $5.94</div><div class="earnings-cell earnings-metric"><b>$50.17B</b> / $51.23B</div><div class="earnings-cell earnings-result earnings-weak">雙弱<br><small>EPS、營收低於預期</small></div><div class="earnings-cell"><span class="earnings-reaction down">10/13 -0.86%</span></div><div class="earnings-cell high">⭐⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/14<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>Bank of America</b><small>BAC｜銀行</small></div><div class="earnings-cell earnings-metric"><b>$1.08</b> / $1.10<br><small>調整後EPS</small></div><div class="earnings-cell earnings-metric"><b>$29.96B</b> / $30.58B</div><div class="earnings-cell earnings-result earnings-weak">雙弱<br><small>監管和解費用拖累</small></div><div class="earnings-cell"><span class="earnings-reaction down">盤前 -4.3%</span></div><div class="earnings-cell high">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/14<br><small>盤前</small></div><div class="earnings-cell earnings-company"><b>Morgan Stanley</b><small>MS｜金融服務</small></div><div class="earnings-cell earnings-metric"><b>$3.03</b> / $2.91</div><div class="earnings-cell earnings-metric"><b>$20.34B</b> / $19.95B</div><div class="earnings-cell earnings-result earnings-double">雙優<br><small>股票交易、財管支撐</small></div><div class="earnings-cell"><span class="earnings-reaction down">盤前約 -2.5%</span></div><div class="earnings-cell high">⭐⭐⭐⭐</div></div>
+<div class="earnings-group-title"><span class="earnings-badge today">今日關注｜10/15</span> <small>台灣時間</small></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>最近可見股價變動</div><div>重要性</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/15<br><small>法說14:00</small></div><div class="earnings-cell earnings-company"><b>台灣積體電路製造</b><small>TSM｜半導體</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / 約$4.42–$4.44</div><div class="earnings-cell earnings-metric"><b>待公布</b> / $44.6–45.8B公司指引<br><small>市場共識約$45.59B</small></div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>先看營收、毛利率與資本支出</small></div><div class="earnings-cell"><span class="earnings-reaction down">最近可見 -1.13%</span></div><div class="earnings-cell high">⭐⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/15<br><small>美股盤前</small></div><div class="earnings-cell earnings-company"><b>Charles Schwab</b><small>SCHW｜金融服務</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $1.66</div><div class="earnings-cell earnings-metric"><b>待公布</b> / $7.19B</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>觀察客戶資產與淨利息收入</small></div><div class="earnings-cell"><span class="earnings-reaction up">最近可見 +0.50%</span></div><div class="earnings-cell high">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/15<br><small>美股盤前</small></div><div class="earnings-cell earnings-company"><b>Prologis</b><small>PLD｜物流不動產</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $1.58</div><div class="earnings-cell earnings-metric"><b>待公布</b> / 約$2.31B</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>觀察出租率、租金與資金成本</small></div><div class="earnings-cell"><span class="earnings-reaction up">最近可見 +0.82%</span></div><div class="earnings-cell high">⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/15<br><small>美股盤前</small></div><div class="earnings-cell earnings-company"><b>U.S. Bancorp</b><small>USB｜銀行</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $1.32</div><div class="earnings-cell earnings-metric"><b>待公布</b> / 公開日曆未提供一致共識</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>觀察存款成本、信用品質</small></div><div class="earnings-cell"><span class="earnings-reaction down">最近可見 -0.92%</span></div><div class="earnings-cell high">⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/15<br><small>美股盤前</small></div><div class="earnings-cell earnings-company"><b>PNC Financial Services</b><small>PNC｜銀行</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $4.97</div><div class="earnings-cell earnings-metric"><b>待公布</b> / 公開日曆未提供一致共識</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>觀察放款、淨利差與信用成本</small></div><div class="earnings-cell"><span class="earnings-reaction down">最近可見 -0.80%</span></div><div class="earnings-cell high">⭐⭐⭐</div></div>
+<div class="earnings-group-title"><span class="earnings-badge upcoming">即將公布｜10/16</span></div>
+<div class="earnings-row earnings-head"><div>日期</div><div>公司／產業</div><div>EPS 實際／預期</div><div>營收 實際／預期</div><div>判讀</div><div>最近可見股價變動</div><div>重要性</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/16<br><small>美股盤前</small></div><div class="earnings-cell earnings-company"><b>Travelers Companies</b><small>TRV｜保險</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $7.03</div><div class="earnings-cell earnings-metric"><b>待公布</b> / 公開日曆未提供一致共識</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>觀察承保損益與災損成本</small></div><div class="earnings-cell"><span class="earnings-reaction wait">前一交易日待補核</span></div><div class="earnings-cell high">⭐⭐⭐⭐</div></div>
+<div class="earnings-row"><div class="earnings-cell">10/16<br><small>美股盤前</small></div><div class="earnings-cell earnings-company"><b>Truist Financial</b><small>TFC｜銀行</small></div><div class="earnings-cell earnings-metric"><b>待公布</b> / $1.17</div><div class="earnings-cell earnings-metric"><b>待公布</b> / 公開日曆未提供一致共識</div><div class="earnings-cell earnings-result earnings-wait">待公布<br><small>觀察存款成本、淨利差與信貸</small></div><div class="earnings-cell"><span class="earnings-reaction wait">前一交易日待補核</span></div><div class="earnings-cell high">⭐⭐⭐</div></div>
+<div class="earnings-note"><b>📌 財報觀察：</b>目前已補上JPM、BAC、MS的EPS／營收實際值與市場預期；JPM、BAC雙雙未達共識，MS則雙優，但MS股價盤前仍偏弱，反映股價不只由財報是否超預期決定。今日核心為台積電第三季財報與14:00台灣時間法說會，需核對實際營收、毛利率、營業利益率及第四季指引。公開日曆對部分公司只提供EPS預估，未提供一致營收共識，因此不以猜測填補。</div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source" style="margin-top:10px">
+已公布數據：<a href="https://www.marketbeat.com/stocks/NYSE/JPM/earnings/">MarketBeat｜JPM財報資料</a>、<a href="https://www.marketbeat.com/stocks/NYSE/BAC/earnings/">MarketBeat｜BAC財報資料</a>、<a href="https://www.sec.gov/Archives/edgar/data/895421/000089542126000288/a3q26msearningsrelease.htm">SEC／Morgan Stanley官方財報</a>、<a href="https://www.reuters.com/business/finance/morgan-stanley-profit-rises-equity-trading-strength-2026-10-14/">Reuters｜MS財報與交易收入</a>、<a href="https://www.wsj.com/business/earnings/bank-of-america-settlement-charge-hits-profit-morgan-stanley-profit-climbs-d9cde716">WSJ｜BAC與MS財報、盤前反應</a>。<br>
+未公布日程與共識：<a href="https://www.tipranks.com/calendars/earnings/2026-10-15">TipRanks｜10/15財報日曆</a>、<a href="https://therighttrader.com/earnings-calendar/this-week">The Right Trader｜本週財報日曆</a>、<a href="https://beta.earningswhispers.com/calendar/20261015/1">Earnings Whispers｜10/15發布時段</a>。台積電法說時間依<a href="https://investor.tsmc.com/english/quarterly-results/teleconference">台積電官方IR</a>，10/15 14:00台灣時間；公開市場共識與公司指引分開標示。股價變動來自公開財報日曆所列的最近可見交易日資料，未確認者不填數字。
+</div></details>
+</article></section>
+
 <div style="height:14px"></div>
 <section class="grid two" id="fed">
-<article class="card"><div class="title">CME FedWatch <small>官方工具</small></div>
-<div class="callout"><b>2026/10/28 FOMC 會議｜CME FedWatch</b><br/><span style="font-size:20px;font-weight:950">維持 375–400 bps：77.3%</span><br/><span style="font-size:20px;font-weight:950">升至 400–425 bps：22.7%</span><div class="row"><b>Fed Funds 期貨合約</b><span class="r">ZQV6</span><span class="r">到期 2026/10/30</span></div><div class="row"><b>Mid Price</b><span class="r">96.1163</span><span class="r">前量 7,081</span></div><div class="row"><b>Prior Open Interest</b><span class="r">725,725</span><span class="r">目前目標利率 375–400 bps</span></div><span class="source">依使用者提供之 CME FedWatch 截圖手動更新；截圖顯示 10/28/2026 會議機率，截圖時間約台灣時間 2026/10/14 06:28。期貨隱含機率非 Fed 承諾。</span><br/><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME FedWatch 官方工具</a></div>
+<article class="card"><div class="title">CME FedWatch <small>官方圖表快照｜2026/10/15 06:41（台灣時間）</small></div>
+<div class="callout"><b>2026/10/28 FOMC會議｜Target Rate Probabilities</b><br>
+<div class="row"><b>目前目標利率</b><span class="r">3.75%–4.00%</span></div>
+<div class="row"><b>維持 3.75%–4.00%</b><span class="r high">66.8%</span></div>
+<div class="row"><b>升至 4.00%–4.25%</b><span class="r high">33.2%</span></div>
+<div class="row"><b>合約／到期日</b><span class="r">ZQV6／2026/10/30</span></div>
+<span class="source">資料依使用者提供的CME FedWatch官方頁面快照逐項辨識；快照畫面狀態列顯示06:41，依本對話日期記錄為2026/10/15 06:41（台灣時間）。圖表僅顯示兩個利率區間，兩者機率合計100.0%。機率為期貨隱含值，不代表Fed承諾或官方預測。<br><a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html">CME FedWatch Tool 官方頁面</a></span></div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">來源：CME FedWatch官方圖表，由使用者提供截圖。截取時間：2026/10/15 06:41（台灣時間，依手機狀態列與本對話日期記錄）。會議日：2026/10/28；目前目標利率3.75%–4.00%；機率分布：3.75%–4.00%為66.8%，4.00%–4.25%為33.2%；合約ZQV6，到期2026/10/30。未將第三方轉述數值混入。</div></details>
 </article>
 <article class="card"><div class="title">Fed / FOMC</div>
-<div class="row"><b>目前政策利率</b><span class="r">以最新官方聲明核實</span><span class="r">依既有FOMC資料</span></div>
-<div class="row"><b>10/08</b><span class="r">10/13</span><span class="r high">銀行財報季／通膨觀察</span></div>
-<div class="row"><b>核心觀察</b><span class="r">就業＋通膨</span><span class="r warn">高</span></div>
+<div class="row"><b>目前政策利率</b><span class="r warn">待最新決議核實</span><span class="r">本次未確認官方最新值</span></div>
+<div class="row"><b>下一次FOMC</b><span class="r">10/27–10/28</span><span class="r high">⭐⭐⭐⭐⭐</span></div>
+<div class="row"><b>核心觀察</b><span class="r">CPI／PPI／就業</span><span class="r warn">高</span></div>
+<details class="source-details"><summary>資料來源與核對紀錄</summary><div class="source">政策區間與會議日程仍應以<a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm">Federal Reserve官方行事曆</a>及最新決議為準。</div></details>
 </article>
-</section>
-<div style="height:14px"></div>
+</section><div style="height:14px"></div>
 <section class="grid three" id="view">
-<article class="card"><div class="title">市場觀點</div><div class="key"><b>① 股市：</b>美股三大指數與Russell 2000小幅收低，指數跌幅有限。<br/><b>② 半導體：</b>SOX依Investing.com歷史頁收12,208.80、-0.23%；市場關注中國競爭與AI支出回報。<br/><b>③ 銀行財報：</b>高盛與花旗EPS、營收優於預期，但股價反應分歧；富國銀行營收不及預期。<br/><b>④ 原油：</b>Investing.com與Reuters結算值有合約／口徑差異，須分開閱讀。</div></article>
-<article class="card"><div class="title">今日關鍵價位</div><div class="key"><b>S&amp;P 500：</b>7,805.45，日跌0.02%。<br/><b>Nasdaq Composite：</b>27,204.38，日跌0.15%。<br/><b>SOX：</b>12,208.80，日跌0.23%（Investing.com歷史頁）。<br/><b>台股：</b>48,341.31，日跌1.95%。<br/><b>美債10Y：</b>10/13市場收盤參考5.216%；官方日曲線最新完整日期10/09為5.24%。<br/><b>Brent：</b>Investing.com歷史頁106.31美元／桶；Reuters結算參考105.69。</div></article>
-<article class="card"><div class="title">今日核心觀察</div><div class="callout"><b>第一：</b>美國大型銀行財報後續指引與股價反應。<br/><b>第二：</b>半導體與AI資本支出競爭風險是否擴散。<br/><b>第三：</b>10年期殖利率在高檔的變化，並維持官方日曲線與市場收盤口徑分離。<br/><b>第四：</b>原油來源報價差異需確認合約與結算口徑。<br/><b>第五：</b>MOVE、11大產業與CAC精確點位仍未通過日期／來源核對，不作假填。</div></article>
+<article class="card"><div class="title">市場觀點</div><div class="key"><b>① 通膨：</b>9月CPI年增3.7%、核心CPI年增2.6%，高於市場預期，短期利率預期可能維持偏緊。<br><b>② 半導體：</b>SOX收11,684.38、下跌4.30%（Investing.com歷史頁，10/14收盤），為當日主要弱勢族群。<br><b>③ 美元：</b>DXY收102.54、+0.35%，非美貨幣走弱。<br><b>④ 原油：</b>WTI期貨 $95.08、Brent期貨 $106.12，能源價格仍是通膨觀察變數。</div></article>
+<article class="card"><div class="title">今日關鍵價位</div><div class="key"><b>S&amp;P 500：</b>7,718.94；留意10/14低點與後續通膨數據。<br><b>Nasdaq Composite：</b>26,692.87、下跌1.88%（Reuters／AP與Investing.com歷史表交叉確認）。<br><b>SOX：</b>11,684.38、下跌4.30%（Investing.com歷史頁），追蹤半導體後續財報與資本支出訊號。<br><b>台股：</b>48,625.83；10/14收盤上漲0.59%。<br><b>10Y市場殖利率：</b>Investing.com 10/14為5.189%；非官方Par Yield Curve值。<br><b>Brent期貨：</b>$106.12、+0.41%；關注供應風險及整數關卡。</div></article>
+<article class="card"><div class="title">今日核心觀察</div><div class="callout"><b>第一：</b>美國9月PPI是否確認生產端價格壓力延續。<br><b>第二：</b>初領失業金與Fed Beige Book對勞動市場的描述。<br><b>第三：</b>台積電財報對AI晶片、先進製程與資本支出的展望。<br><b>第四：</b>SOX與AI基建股是否止跌，並觀察市場廣度。<br><b>第五：</b>MOVE暫採使用者提供的Google Finance截圖值；美債官方日曲線值仍待補核。</div></article>
 </section>
+
 <div style="height:14px"></div>
 </main>
-<footer class="footer">TAC 投資早報｜2026/10/09（五）｜資料基準：各市場2026/10/08當地正式收盤；資訊整理與教育用途，不構成投資建議。</footer>
+<footer class="footer">TAC 投資早報｜2026/10/15（四）｜資料基準：各市場2026/10/14當地收盤；部分指定來源數據待可靠核實。資訊整理與教育用途，不構成投資建議。</footer>
+
 <script>
 function historyPath(dateStr){
   return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
