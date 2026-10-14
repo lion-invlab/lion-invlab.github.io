@@ -28,6 +28,21 @@ jobs:
           npm init -y
           npm install --no-save playwright
           npx playwright install --with-deps chromium
+      - name: Diagnose CME HTTP connectivity (HTTP/1.1)
+        continue-on-error: true
+        run: |
+          mkdir -p artifacts
+          set +e
+          curl --http1.1 -L --max-time 35 --retry 1 --retry-delay 2 \\
+            -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36" \\
+            -D artifacts/cme-http-headers.txt \\
+            -o artifacts/cme-http-body.html \\
+            -w "http_code=%{http_code}\\nremote_ip=%{remote_ip}\\ntime_total=%{time_total}\\nurl_effective=%{url_effective}\\n" \\
+            "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" \\
+            > artifacts/cme-curl-summary.txt 2> artifacts/cme-curl-stderr.txt
+          echo "curl_exit_code=$?" >> artifacts/cme-curl-summary.txt
+          head -c 1000 artifacts/cme-http-body.html > artifacts/cme-http-body-preview.txt 2>/dev/null || true
+          cat artifacts/cme-curl-summary.txt
       - name: Probe CME FedWatch page
         run: node scripts/cme-fedwatch/probe.mjs
       - name: Upload diagnostic artifacts
