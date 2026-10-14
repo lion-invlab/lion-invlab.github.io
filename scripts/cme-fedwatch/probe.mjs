@@ -42,7 +42,7 @@ for (const frame of page.frames()) {
   catch (e) { bodyText = "[body text unavailable: " + String(e) + "]"; }
   frames.push({
     url: frame.url(),
-    name: await frame.name().catch(() => ""),
+    name: frame.name(),
     title: await frame.title().catch(() => ""),
     bodyText
   });
