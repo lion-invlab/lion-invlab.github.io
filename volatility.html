@@ -255,9 +255,13 @@ function renderTable(){
   let selected=z?z.split("|").filter(Boolean):[];
   let a=S.filter(x=>(!q||String(x.ticker||"").toLowerCase().includes(q)||String(x.company||"").toLowerCase().includes(q))&&(!selected.length||selected.includes(x.sector)));
   a.sort((x,y)=>{
-    let xv=Number(x[key]),yv=Number(y[key]);
-    if(!Number.isFinite(xv))xv=desc?-Infinity:Infinity;
-    if(!Number.isFinite(yv))yv=desc?-Infinity:Infinity;
+    const validValue=v=>v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v));
+    const xv=validValue(x[key])?Number(x[key]):null;
+    const yv=validValue(y[key])?Number(y[key]):null;
+    // Missing values always go last, regardless of sort direction.
+    if(xv===null&&yv===null)return 0;
+    if(xv===null)return 1;
+    if(yv===null)return -1;
     return desc?yv-xv:xv-yv;
   });
   count.textContent="顯示 "+a.length+" / "+S.length;
@@ -266,7 +270,7 @@ function renderTable(){
     '<td class="company">'+esc(x.company)+'</td><td>'+esc(CN[x.sector]||x.sector||"—")+
     '</td><td>'+num(x.price)+'</td><td>'+pct(x.vol_90d)+'</td><td>'+pct(x.vol_60d)+
     '</td><td>'+pct(x.vol_30d)+'</td><td>'+pct(x.vol_20d)+'</td>'+
-    '<td class="'+(Number(x.return_90d)>=0?"pos":"neg")+'">'+pct(x.return_90d)+'</td>'+
+    '<td class="'+(x.return_90d!==null&&x.return_90d!==undefined&&x.return_90d!==""&&Number.isFinite(Number(x.return_90d))?(Number(x.return_90d)>=0?"pos":"neg"):"")+'">'+pct(x.return_90d)+'</td>'+
     '<td class="neg">'+pct(x.max_drawdown_90d)+'</td>'+
     '<td>'+((x.vol_ratio_20d_90d!=null&&x.vol_ratio_20d_90d!==""&&Number.isFinite(Number(x.vol_ratio_20d_90d)))?Number(x.vol_ratio_20d_90d).toFixed(2):"—")+
     '</td></tr>').join("");
@@ -394,7 +398,7 @@ function renderTop40ByPeriod(){
   const label=document.getElementById('rankLabel');
   if(!el||!Array.isArray(S)) return;
   const field='vol_'+rankPeriod+'d';
-  const rows=S.filter(x=>x[field]!=null&&x[field]!==""&&Number.isFinite(Number(x[field]))).slice().sort((a,b)=>Number(b[field])-Number(a[field])).slice(0,40);
+  const rows=S.filter(x=>x.valid!==false&&x[field]!=null&&x[field]!==""&&Number.isFinite(Number(x[field]))).slice().sort((a,b)=>Number(b[field])-Number(a[field])).slice(0,40);
   title.textContent=rankPeriod+'D 波動率排名';
   label.textContent='最高 Top 40';
   el.innerHTML=rows.map((x,i)=>`<div class="rankrow"><span class="ranknum">${i+1}</span><b>${esc(x.ticker||'')}</b><span class="rankname">${esc(x.name||x.company||'')}</span><strong>${pct(Number(x[field]))}</strong></div>`).join('');
