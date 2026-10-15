@@ -27,7 +27,8 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 #bonds .bond-head{display:grid;grid-template-columns:1.55fr .8fr .8fr .55fr;gap:8px;padding:0 0 5px;font-size:10px;color:var(--muted);font-weight:850;text-align:right}
 #bonds .bond-head span:first-child{text-align:left}
 #bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr}
-#bonds .prev-rate{color:#737981}
+#bonds .prev-rate{color:#737981;font-weight:500}
+#bonds .current-rate{font-weight:900;color:#17191d}
 @media(max-width:700px){#bonds .bond-head{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}#bonds .bond-head{font-size:9px}}
 @media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
 .headline-desc{line-height:1.55;margin:7px 0 6px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
@@ -155,6 +156,16 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .method-details .method-body{padding:0 9px 9px}
 .method-details a{overflow-wrap:anywhere}
 @media(max-width:700px){.method-details{font-size:10px}.method-details summary{padding:7px 8px;min-height:34px}}
+</style>
+<style>
+
+/* Fed/FOMC 欄位對齊修正：桌機與手機共用固定欄位，長文字只在各自欄內換行 */
+#fed article:nth-child(2) .row{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(78px,.72fr);gap:10px;align-items:center}
+#fed article:nth-child(2) .row b{min-width:0;white-space:normal;overflow-wrap:anywhere}
+#fed article:nth-child(2) .row .r{min-width:0;text-align:right;overflow-wrap:anywhere;line-height:1.4}
+#fed article:nth-child(2) .row .high{white-space:nowrap;letter-spacing:-.5px}
+#fed article:nth-child(2) .source{overflow-wrap:anywhere}
+@media(max-width:700px){#fed article:nth-child(2) .row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(68px,.65fr);gap:7px;padding:9px 0}#fed article:nth-child(2) .row b{font-size:14px;line-height:1.4}#fed article:nth-child(2) .row .r{font-size:13px;line-height:1.45}#fed article:nth-child(2) .row .high{font-size:12px;letter-spacing:-1px}#fed article:nth-child(2) .source{font-size:10px;line-height:1.55}}
 </style>
 </head>
 <body>
@@ -295,9 +306,9 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 </article>
 <article class="card" id="bonds"><div class="title">美國公債殖利率 <small>官方曲線與市場收盤分開列示</small></div>
 <div class="bond-head"><span></span><span>官方曲線10/14</span><span>市場收盤10/15</span><span>市場日變動</span></div>
-<div class="row"><b>2年期</b><span class="r">4.82%</span><span class="r">4.747%</span><span class="r down">-5.3bp</span></div>
-<div class="row"><b>10年期</b><span class="r">5.19%</span><span class="r">5.086%</span><span class="r down">-10.2bp</span></div>
-<div class="row"><b>30年期</b><span class="r">5.52%</span><span class="r">5.427%</span><span class="r down">-9.7bp</span></div>
+<div class="row"><b>2年期</b><span class="r prev-rate">4.82%</span><span class="r current-rate">4.747%</span><span class="r down">-5.3bp</span></div>
+<div class="row"><b>10年期</b><span class="r prev-rate">5.19%</span><span class="r current-rate">5.086%</span><span class="r down">-10.2bp</span></div>
+<div class="row"><b>30年期</b><span class="r prev-rate">5.52%</span><span class="r current-rate">5.427%</span><span class="r down">-9.7bp</span></div>
 <div class="market-reason"><b>📌 債市觀察</b><br/>10/15市場收盤報導顯示2年、10年、30年期殖利率約為4.747%、5.086%、5.427%，分別較前一交易日下降約5.3、10.2、9.7個基點；長天期降幅較大，顯示避險買盤與成長疑慮對長端的影響更明顯。<br/>值得注意的是，美國9月PPI月增1.3%、年增6.3%，通膨數據偏熱，殖利率卻全面回落。這不是通膨壓力已解除的訊號，而是市場短線更擔心AI資本支出回收、企業負債與信用風險，資金因此轉向公債。若後續殖利率下跌伴隨信用利差擴大、科技股續弱，較可能是避險型下跌；若通膨與短端殖利率重新走高，則代表利率壓力再度主導。<br/><b>後續觀察：</b>2年期看升息預期是否回升；10年期看通膨與成長預期拉鋸；30年期看長期通膨及期限溢酬；並搭配MOVE與信用利差判斷避險是否加劇。<details class="method-details"><summary>查看資料口徑與核對說明</summary><div class="method-body">市場收盤報價與美國財政部官方Daily Treasury Par Yield Curve為不同口徑。官方曲線10/14值僅作最近可核對的官方參考，不能當作10/15收盤；市場收盤數值依公開市場收盤報導，仍須與官方10/15曲線列分開呈現。</div></details></div>
 <div class="source">官方第一來源：<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>；10/15市場收盤交叉參考：<a href="https://www.wsj.com/finance/stocks/stocks-gain-as-treasury-yields-give-back-some-recent-gains-abd77be3">WSJ</a>。10/14官方曲線值的公開重現資料：<a href="https://fedgazette.com/treasury-yield-curve/">Fed Gazette</a>；該頁非財政部官方來源。</div>
 </article>
