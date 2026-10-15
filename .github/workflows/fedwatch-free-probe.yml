@@ -35,8 +35,9 @@ jobs:
         run: |
           mkdir -p artifacts
           url="https://www.cmegroup.com/ftp/pub/pub/settle/TCF/TCF_20261014.csv"
-          code=$(curl -L --max-time 20 -sS -o artifacts/tcf-20261014.csv -w "%{http_code}" "$url" || true)
+          code=$(curl --http1.1 -L --max-time 25 -sS -o artifacts/tcf-20261014.csv -w "%{http_code}" "$url" 2> artifacts/tcf-curl-stderr.txt || true)
           echo "csv_http_code=$code"
+          cat artifacts/tcf-curl-stderr.txt
           if [ -f artifacts/tcf-20261014.csv ]; then
             echo "csv_bytes=$(wc -c < artifacts/tcf-20261014.csv)"
             head -n 8 artifacts/tcf-20261014.csv
