@@ -168,28 +168,35 @@ function formatTW(iso){let d=new Date(iso);if(!Number.isFinite(d.getTime()))retu
 
 function mergeStocks(sp,ndx,watch=[]){
   const map=new Map();
+  const hasNumber=v=>v!==null&&v!==undefined&&v!==""&&Number.isFinite(Number(v));
+  const pickValid=(a,b)=>hasNumber(a)?a:b;
   [...sp,...ndx,...watch].forEach(x=>{
     const t=String(x.ticker||"").trim().toUpperCase();
     if(!t)return;
     if(!map.has(t))map.set(t,{...x});
     else{
       const old=map.get(t);
-      map.set(t,{
+      const merged={
         ...old,...x,
         company:old.company||x.company,
         sector:old.sector||x.sector,
-        price:old.price!=null&&old.price!==""&&Number.isFinite(Number(old.price))?old.price:x.price,
-        vol_20d:old.vol_20d!=null&&old.vol_20d!==""&&Number.isFinite(Number(old.vol_20d))?old.vol_20d:x.vol_20d,
-        vol_30d:old.vol_30d!=null&&old.vol_30d!==""&&Number.isFinite(Number(old.vol_30d))?old.vol_30d:x.vol_30d,
-        vol_60d:old.vol_60d!=null&&old.vol_60d!==""&&Number.isFinite(Number(old.vol_60d))?old.vol_60d:x.vol_60d,
-        vol_90d:old.vol_90d!=null&&old.vol_90d!==""&&Number.isFinite(Number(old.vol_90d))?old.vol_90d:x.vol_90d,
-        return_90d:old.return_90d!=null&&old.return_90d!==""&&Number.isFinite(Number(old.return_90d))?old.return_90d:x.return_90d,
-        max_drawdown_90d:old.max_drawdown_90d!=null&&old.max_drawdown_90d!==""&&Number.isFinite(Number(old.max_drawdown_90d))?old.max_drawdown_90d:x.max_drawdown_90d,
-        vol_ratio_20d_90d:old.vol_ratio_20d_90d!=null&&old.vol_ratio_20d_90d!==""&&Number.isFinite(Number(old.vol_ratio_20d_90d))?old.vol_ratio_20d_90d:x.vol_ratio_20d_90d
-      });
+        price:pickValid(old.price,x.price),
+        vol_20d:pickValid(old.vol_20d,x.vol_20d),
+        vol_30d:pickValid(old.vol_30d,x.vol_30d),
+        vol_60d:pickValid(old.vol_60d,x.vol_60d),
+        vol_90d:pickValid(old.vol_90d,x.vol_90d),
+        return_90d:pickValid(old.return_90d,x.return_90d),
+        max_drawdown_90d:pickValid(old.max_drawdown_90d,x.max_drawdown_90d),
+        vol_ratio_20d_90d:pickValid(old.vol_ratio_20d_90d,x.vol_ratio_20d_90d)
+      };
+      // Recompute validity from the merged record, not the last source's flag.
+      // A duplicate source with null values must not invalidate valid data retained from another source.
+      merged.valid=hasNumber(merged.vol_90d);
+      map.set(t,merged);
     }
   });
-  return [...map.values()];
+  // Normalize validity for single-source records too.
+  return [...map.values()].map(x=>({...x,valid:hasNumber(x.vol_90d)}));
 }
 
 function makeSummary(arr){
