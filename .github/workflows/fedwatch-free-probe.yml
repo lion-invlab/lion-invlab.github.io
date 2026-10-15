@@ -1,0 +1,43 @@
+name: Free FedWatch Calculation Probe
+
+on:
+  push:
+    branches:
+      - test/cme-fedwatch-probe
+    paths:
+      - ".github/workflows/fedwatch-free-probe.yml"
+      - "scripts/cme-fedwatch/free_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fedwatch-free-probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install free FedWatch calculator
+        continue-on-error: true
+        run: python -m pip install cme-fedwatch
+      - name: Probe free public-settlement calculation
+        continue-on-error: true
+        run: python scripts/cme-fedwatch/free_probe.py
+      - name: Upload free-probe result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fedwatch-free-probe
+          path: artifacts/cme-fedwatch-free-probe.json
+          if-no-files-found: warn
+          retention-days: 14
