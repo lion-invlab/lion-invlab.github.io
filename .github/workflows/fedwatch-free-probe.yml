@@ -30,6 +30,19 @@ jobs:
       - name: Install free FedWatch calculator
         continue-on-error: true
         run: python -m pip install cme-fedwatch
+      - name: Inspect CME public settlement CSV fallback
+        continue-on-error: true
+        run: |
+          mkdir -p artifacts
+          url="https://www.cmegroup.com/ftp/pub/pub/settle/TCF/TCF_20261014.csv"
+          code=$(curl -L --max-time 20 -sS -o artifacts/tcf-20261014.csv -w "%{http_code}" "$url" || true)
+          echo "csv_http_code=$code"
+          if [ -f artifacts/tcf-20261014.csv ]; then
+            echo "csv_bytes=$(wc -c < artifacts/tcf-20261014.csv)"
+            head -n 8 artifacts/tcf-20261014.csv
+            echo "--- keyword matches ---"
+            grep -i -E "fed.?fund|federal funds|ZQ|30.?day" artifacts/tcf-20261014.csv | head -n 15 || true
+          fi
       - name: Probe free public-settlement calculation
         continue-on-error: true
         run: python scripts/cme-fedwatch/free_probe.py
