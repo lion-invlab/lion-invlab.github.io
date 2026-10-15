@@ -8,7 +8,7 @@ const errors = [];
 
 const browser = await chromium.launch({ headless: true, args: ["--disable-http2"] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, deviceScaleFactor: 1 });
-page.setDefaultTimeout(15000);
+page.setDefaultTimeout(8000);
 
 page.on("request", req => {
   if (/quikstrike|fedwatch|probab|meeting|api/i.test(req.url())) {
@@ -28,16 +28,16 @@ page.on("requestfailed", req => {
 });
 
 let navigationError = null;
-for (let attempt = 1; attempt <= 3; attempt++) {
+for (let attempt = 1; attempt <= 2; attempt++) {
   try {
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
-    await page.waitForTimeout(20000);
+    await page.goto(url, { waitUntil: "commit", timeout: 20000 });
+    await page.waitForTimeout(10000);
     navigationError = null;
     break;
   } catch (e) {
     navigationError = "attempt " + attempt + ": " + String(e);
     errors.push(navigationError);
-    await page.waitForTimeout(attempt * 2000);
+    await page.waitForTimeout(attempt * 1000);
   }
 }
 
