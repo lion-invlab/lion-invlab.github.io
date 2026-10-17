@@ -424,7 +424,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:17.025099+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AMD": {
       "ticker": "AMD",
@@ -495,7 +498,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:18.603941+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AES": {
       "ticker": "AES",
@@ -850,7 +856,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:26.224863+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AKAM": {
       "ticker": "AKAM",
@@ -1418,7 +1427,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:38.728296+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GOOG": {
       "ticker": "GOOG",
@@ -1489,7 +1501,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:40.310464+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MO": {
       "ticker": "MO",
@@ -1631,7 +1646,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:43.347305+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AMCR": {
       "ticker": "AMCR",
@@ -1844,7 +1862,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:48.119623+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AXP": {
       "ticker": "AXP",
@@ -2341,7 +2362,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:00:58.880286+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "APH": {
       "ticker": "APH",
@@ -2483,7 +2507,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:01.986730+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AON": {
       "ticker": "AON",
@@ -2767,7 +2794,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:08.048024+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AMAT": {
       "ticker": "AMAT",
@@ -2838,7 +2868,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:09.511975+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "APP": {
       "ticker": "APP",
@@ -2909,7 +2942,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:11.062220+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "APTV": {
       "ticker": "APTV",
@@ -3619,7 +3655,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:26.819178+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ADP": {
       "ticker": "ADP",
@@ -3690,7 +3729,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:28.334055+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "AZO": {
       "ticker": "AZO",
@@ -3903,7 +3945,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:32.757388+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BKR": {
       "ticker": "BKR",
@@ -3974,7 +4019,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:34.354022+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BALL": {
       "ticker": "BALL",
@@ -5039,7 +5087,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:01:57.519536+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BSX": {
       "ticker": "BSX",
@@ -5252,7 +5303,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:02:02.082905+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "BR": {
       "ticker": "BR",
@@ -5749,7 +5803,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:02:12.739243+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CPT": {
       "ticker": "CPT",
@@ -7595,7 +7652,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:02:54.082970+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CSCO": {
       "ticker": "CSCO",
@@ -7666,7 +7726,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:02:55.504627+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "C": {
       "ticker": "C",
@@ -8447,7 +8510,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:12.789008+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FIX": {
       "ticker": "FIX",
@@ -8802,7 +8868,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:20.658146+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "COO": {
       "ticker": "COO",
@@ -8944,7 +9013,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:23.630253+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GLW": {
       "ticker": "GLW",
@@ -9299,7 +9371,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:29.402650+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CRH": {
       "ticker": "CRH",
@@ -9441,7 +9516,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:32.677632+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CCI": {
       "ticker": "CCI",
@@ -9583,7 +9661,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:35.623360+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "CMI": {
       "ticker": "CMI",
@@ -9938,7 +10019,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:43.254996+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DVA": {
       "ticker": "DVA",
@@ -10435,7 +10519,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:53.969656+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FANG": {
       "ticker": "FANG",
@@ -10506,7 +10593,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:03:55.640112+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DLR": {
       "ticker": "DLR",
@@ -10932,7 +11022,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:04:04.851490+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DOV": {
       "ticker": "DOV",
@@ -12920,7 +13013,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:04:47.778630+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "EXE": {
       "ticker": "EXE",
@@ -13559,7 +13655,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:05:01.233421+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FRT": {
       "ticker": "FRT",
@@ -14411,7 +14510,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:05:19.839466+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "FTV": {
       "ticker": "FTV",
@@ -15050,7 +15152,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:05:33.295563+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GEV": {
       "ticker": "GEV",
@@ -15618,7 +15723,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:05:45.517255+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "GPN": {
       "ticker": "GPN",
@@ -16683,7 +16791,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:06:08.542405+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "HON": {
       "ticker": "HON",
@@ -16754,7 +16865,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:06:10.032404+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "HRL": {
       "ticker": "HRL",
@@ -17535,7 +17649,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:06:27.046622+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ITW": {
       "ticker": "ITW",
@@ -17961,7 +18078,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:06:36.602419+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "IBKR": {
       "ticker": "IBKR",
@@ -18316,7 +18436,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:06:44.387259+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ISRG": {
       "ticker": "ISRG",
@@ -18387,7 +18510,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:06:46.029245+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "IVZ": {
       "ticker": "IVZ",
@@ -19310,7 +19436,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:05.521704+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "KEY": {
       "ticker": "KEY",
@@ -19807,7 +19936,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:15.901707+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "KHC": {
       "ticker": "KHC",
@@ -20162,7 +20294,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:23.583756+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "LVS": {
       "ticker": "LVS",
@@ -20588,7 +20723,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:33.085377+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "LYV": {
       "ticker": "LYV",
@@ -21014,7 +21152,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:42.612042+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "LYB": {
       "ticker": "LYB",
@@ -21298,7 +21439,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:48.545206+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MRSH": {
       "ticker": "MRSH",
@@ -21511,7 +21655,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:07:53.410002+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MAS": {
       "ticker": "MAS",
@@ -22079,7 +22226,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:05.403043+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MET": {
       "ticker": "MET",
@@ -22363,7 +22513,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:11.734727+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MU": {
       "ticker": "MU",
@@ -22434,7 +22587,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:13.236921+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MSFT": {
       "ticker": "MSFT",
@@ -22505,7 +22661,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:14.715867+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MAA": {
       "ticker": "MAA",
@@ -22647,7 +22806,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:17.629804+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MDLZ": {
       "ticker": "MDLZ",
@@ -22718,7 +22880,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:19.049039+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MPWR": {
       "ticker": "MPWR",
@@ -22789,7 +22954,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:20.529316+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MNST": {
       "ticker": "MNST",
@@ -22860,7 +23028,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:22.162169+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "MCO": {
       "ticker": "MCO",
@@ -23428,7 +23599,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:34.454678+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "NEM": {
       "ticker": "NEM",
@@ -24422,7 +24596,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:56.184961+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "NVR": {
       "ticker": "NVR",
@@ -24564,7 +24741,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:08:59.371730+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ORLY": {
       "ticker": "ORLY",
@@ -24635,7 +24815,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:00.908350+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "OXY": {
       "ticker": "OXY",
@@ -24777,7 +24960,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:04.128893+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "OMC": {
       "ticker": "OMC",
@@ -25203,7 +25389,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:13.348806+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PKG": {
       "ticker": "PKG",
@@ -25345,7 +25534,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:16.261525+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PANW": {
       "ticker": "PANW",
@@ -25416,7 +25608,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:17.912626+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PSKY": {
       "ticker": "PSKY",
@@ -25629,7 +25824,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:21.068545+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PYPL": {
       "ticker": "PYPL",
@@ -25700,7 +25898,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:22.602717+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PNR": {
       "ticker": "PNR",
@@ -25842,7 +26043,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:25.882100+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "PFE": {
       "ticker": "PFE",
@@ -27191,7 +27395,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:09:55.709201+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DGX": {
       "ticker": "DGX",
@@ -27830,7 +28037,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:10:09.339200+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "RF": {
       "ticker": "RF",
@@ -28398,7 +28608,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:10:21.748604+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "ROST": {
       "ticker": "ROST",
@@ -28469,7 +28682,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:10:23.214163+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "RCL": {
       "ticker": "RCL",
@@ -28753,7 +28969,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:10:29.382134+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "SBAC": {
       "ticker": "SBAC",
@@ -28966,7 +29185,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:10:34.098071+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "SRE": {
       "ticker": "SRE",
@@ -29889,7 +30111,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:10:56.218112+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "STT": {
       "ticker": "STT",
@@ -30386,7 +30611,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:11:06.791153+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "SYY": {
       "ticker": "SYY",
@@ -30528,7 +30756,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:11:09.892392+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TROW": {
       "ticker": "TROW",
@@ -30670,7 +30901,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:11:12.988657+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TPR": {
       "ticker": "TPR",
@@ -31096,7 +31330,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:11:22.201084+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TSLA": {
       "ticker": "TSLA",
@@ -31167,7 +31404,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:11:23.677577+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TXN": {
       "ticker": "TXN",
@@ -31238,7 +31478,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:11:25.193850+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "TPL": {
       "ticker": "TPL",
@@ -33439,7 +33682,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:12:14.382240+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "VRT": {
       "ticker": "VRT",
@@ -34220,7 +34466,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:12:32.698563+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "DIS": {
       "ticker": "DIS",
@@ -34862,7 +35111,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:12:44.844391+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "WY": {
       "ticker": "WY",
@@ -35217,7 +35469,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:12:52.693197+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "WYNN": {
       "ticker": "WYNN",
@@ -35359,7 +35614,10 @@
         "profile_and_market": "Yahoo Finance via yfinance",
         "financial_statements": "Yahoo Finance via yfinance",
         "fetched_at_utc": "2026-10-17T22:12:55.797159+00:00"
-      }
+      },
+      "indexes": [
+        "Nasdaq-100"
+      ]
     },
     "XYL": {
       "ticker": "XYL",
@@ -37206,19 +37464,18 @@
     }
   },
   "meta": {
-    "title": "S&P 500 Company Profiles",
-    "updated_at_utc": "2026-10-17T22:13:03.918882+00:00",
+    "title": "S&P 500 + Nasdaq-100 Company Profiles",
+    "updated_at_utc": "2026-10-17T22:20:42.278211+00:00",
     "data_type": "actual",
     "demo_data": false,
     "profile_source": "Yahoo Finance via yfinance",
-    "constituent_source": "GitHub historical_sp500_constituents",
-    "competitive_advantages_note": "競爭優勢不由模型推測；待以10-K／公司IR資料補充並標註來源。"
+    "constituent_source": "S&P 500 existing cache + Nasdaq-100"
   },
   "data_quality": {
-    "constituent_count": 503,
-    "successful_this_run": 503,
+    "nasdaq100_universe": 103,
+    "already_existing": 103,
+    "newly_added_this_run": 0,
     "failed_this_run": 0,
-    "records_in_cache": 523,
-    "coverage": 1.0397614314115309
+    "nasdaq100_profile_coverage": 1.0
   }
 }
