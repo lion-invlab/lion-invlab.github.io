@@ -307,7 +307,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .tac-tab-panel{display:none;padding:12px 14px 16px}
 .tac-tab-panel>.card{width:100%;max-width:none;margin:0;box-shadow:none;border:0;padding:0;background:transparent}
 .tac-tab-panel>.card>.title{margin-top:0}
-#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #dfbd78}
+#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{background:#fff!important;color:#b42332!important;border-color:rgba(180,35,50,.12)!important;box-shadow:0 1px 3px rgba(0,0,0,.10),0 0 0 1px rgba(255,255,255,.8) inset!important;font-weight:650!important}
 #tac-news-0:checked~#tac-news-panel-0,#tac-news-1:checked~#tac-news-panel-1,#tac-region-0:checked~#tac-region-panel-0,#tac-region-1:checked~#tac-region-panel-1,#tac-region-2:checked~#tac-region-panel-2,#tac-assets-0:checked~#tac-assets-panel-0,#tac-assets-1:checked~#tac-assets-panel-1,#tac-assets-2:checked~#tac-assets-panel-2,#tac-assets-3:checked~#tac-assets-panel-3,#tac-assets-4:checked~#tac-assets-panel-4{display:block}
 .tac-tab-panel .market-reason{margin-top:12px}
 .tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) auto auto}
@@ -507,12 +507,27 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 }
 #overview>.title small,#sentiment>.title small{color:var(--muted)!important;font-size:10px!important}
 </style>
+<style id="tac-apple-tab-preview">
+/* Apple-inspired tab preview only — visual layer; content and tab behavior unchanged */
+:root{--tac-apple-bg:#f5f5f7;--tac-apple-line:#e5e5ea;--tac-apple-text:#33343a;--tac-apple-muted:#6e6e73}
+.tac-tabset .tac-tab-nav{background:var(--tac-apple-bg)!important;padding:5px!important;gap:4px!important;border:1px solid var(--tac-apple-line)!important;border-radius:14px!important;overflow-x:auto!important;box-shadow:inset 0 1px 1px rgba(0,0,0,.025)!important}
+.tac-tabset .tac-tab-nav label{background:transparent!important;color:var(--tac-apple-muted)!important;border:1px solid transparent!important;border-radius:10px!important;box-shadow:none!important;min-height:40px!important;padding:9px 13px!important;font-weight:550!important;line-height:1.25!important;transition:background .18s ease,color .18s ease,box-shadow .18s ease!important;white-space:nowrap}
+.tac-tabset .tac-tab-nav label:hover{background:rgba(255,255,255,.7)!important;color:var(--tac-apple-text)!important}
+.tac-tabset .tac-tab-nav label+label{border-left:0!important}
+.tac-tabset .tac-tab-nav label:first-child,.tac-tabset .tac-tab-nav label:last-child{border-radius:10px!important}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{gap:4px!important;padding:5px!important}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label{border:1px solid transparent!important;border-radius:10px!important}
+@media(max-width:600px){
+ .tac-tabset .tac-tab-nav{padding:4px!important;gap:3px!important;border-radius:12px!important}
+ .tac-tabset .tac-tab-nav label{min-height:38px!important;padding:8px 7px!important;font-size:13px!important;white-space:normal!important}
+ .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{gap:3px!important;padding:4px!important}
+}
+</style>
 <style id="tac-apple-tab-pop-animation">
-/* Apple-like selected-tab pop animation — stronger, more visible */
-.tac-tabset .tac-tab-nav label{transform:scale(1);transform-origin:center center;will-change:transform,box-shadow;transition:transform .28s cubic-bezier(.18,.9,.25,1.35),background .2s ease,color .2s ease,box-shadow .28s ease!important;position:relative;z-index:0}
-.tac-tabset .tac-tab-nav label:active{transform:scale(.94)!important}
-#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{transform:scale(1.14)!important;z-index:2;box-shadow:0 5px 14px rgba(20,25,35,.22),0 0 0 2px rgba(198,40,40,.18)!important}
-@media(max-width:700px){#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{transform:scale(1.18)!important}}
+/* Subtle original selected-tab scale; avoid neighboring-tab overlap */
+.tac-tabset .tac-tab-nav label{transform:scale(1);transform-origin:center center;transition:transform .2s ease,background .18s ease,color .18s ease,box-shadow .2s ease!important;position:relative;z-index:0}
+.tac-tabset .tac-tab-nav label:active{transform:scale(.98)!important}
+#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{transform:scale(1.045)!important;z-index:1;box-shadow:0 2px 7px rgba(20,25,35,.12)!important}
 @media(prefers-reduced-motion:reduce){.tac-tabset .tac-tab-nav label{transition:none!important}}
 </style>
 <style id="tac-apple-accordion-polish">
@@ -531,6 +546,82 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 @keyframes tacAccordionIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){#industry-bonds-fx-commodities .sector-collapse>summary{min-height:68px;padding:14px 13px;font-size:14px;gap:10px}#industry-bonds-fx-commodities .sector-collapse>summary:before{flex-basis:32px;width:32px;height:32px;font-size:22px}#industry-bonds-fx-commodities .sector-collapse>.audit-content{padding:10px 9px 12px}}
 @media(prefers-reduced-motion:reduce){#industry-bonds-fx-commodities .sector-collapse,#industry-bonds-fx-commodities .sector-collapse>summary,#industry-bonds-fx-commodities .sector-collapse>summary:before{transition:none!important}#industry-bonds-fx-commodities .sector-collapse>.audit-content{animation:none!important}}
+</style>
+<style id="tac-apple-calendar-accordions">
+/* Apple-style segmented headings for calendar status groups */
+#calendar .calendar-status-heading,#earnings .calendar-status-heading{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 13px;margin:8px 0 5px;background:#f1f1f5;border:1px solid rgba(60,60,67,.12);font-size:13px;font-weight:850;color:#555}
+#calendar .calendar-status-heading.published,#earnings .calendar-status-heading.published{background:#edf8f1;color:#18794e;border-color:rgba(24,121,78,.18)}
+#calendar .calendar-status-heading.today,#earnings .calendar-status-heading.today{background:#fff4e5;color:#945600;border-color:rgba(149,86,0,.18)}
+#calendar .calendar-status-heading.upcoming,#earnings .calendar-status-heading.upcoming{background:#eef4ff;color:#2459a9;border-color:rgba(36,89,169,.16)}
+/* Shared premium accordion interaction for all calendar expand/collapse panels */
+#calendar details.calendar-collapse,#earnings details.calendar-collapse,#calendar details.econ-event,#earnings details.earnings-accordion,#earnings details.econ-event{border:1px solid rgba(60,60,67,.14);border-radius:16px;background:rgba(255,255,255,.92);box-shadow:0 2px 9px rgba(20,24,35,.045);overflow:hidden;transition:box-shadow .2s ease,border-color .2s ease}
+#calendar details.calendar-collapse,#earnings details.calendar-collapse{padding:0;margin:10px 0 14px}
+#calendar details.calendar-collapse>summary,#earnings details.calendar-collapse>summary{min-height:58px;padding:12px 14px;background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%);gap:9px}
+#calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;flex:0 0 29px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:20px;font-weight:500;box-shadow:0 3px 8px rgba(198,40,40,.17)}
+#calendar details.calendar-collapse[open],#earnings details.calendar-collapse[open],#calendar details.econ-event[open],#earnings details.earnings-accordion[open],#earnings details.econ-event[open]{border-color:rgba(198,40,40,.22);box-shadow:0 5px 17px rgba(20,24,35,.075)}
+#calendar details.calendar-collapse[open]>summary,#earnings details.calendar-collapse[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%)}
+#calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
+#calendar details.econ-event,#earnings details.econ-event{margin:7px 0;background:#fff}
+#calendar details.econ-event>summary,#earnings details.econ-event>summary{padding:12px 13px;background:#fafafd}
+#calendar details.econ-event[open]>summary,#earnings details.econ-event[open]>summary{background:#fff7f7}
+#calendar details.calendar-collapse .event-group,#earnings details.calendar-collapse .event-group{padding:0 10px 10px}
+#earnings details.earnings-accordion{margin:8px 0}
+#earnings details.earnings-accordion>summary{background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%)}
+#earnings details.earnings-accordion[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%)}
+@media(max-width:700px){#calendar details.calendar-collapse>summary,#earnings details.calendar-collapse>summary{padding:12px 10px;gap:7px}#calendar .calendar-status-heading,#earnings .calendar-status-heading{font-size:12px}}
+@media(prefers-reduced-motion:reduce){#calendar details,#earnings details{transition:none!important}}
+</style>
+<style id="tac-calendar-v4-fix">
+/* V4: use the same round red expand control as the earnings accordion */
+#calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-width:32px;flex:0 0 32px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:22px;font-weight:500;line-height:1;box-shadow:0 3px 8px rgba(198,40,40,.2);border:0}
+#calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
+#calendar details.econ-event>summary .econ-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:#c62828;color:#fff;box-shadow:0 3px 8px rgba(198,40,40,.2);font-size:0;position:relative}
+#calendar details.econ-event>summary .econ-toggle:before{content:"＋";font-size:22px;font-weight:500;line-height:1}
+#calendar details.econ-event[open]>summary .econ-toggle:before{content:"−";background:#202328;border-radius:50%;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#calendar .week-econ-tab-labels,#earnings .week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:5px;border:1px solid #e5e5ea;border-radius:14px;background:#f5f5f7;box-shadow:inset 0 1px 1px rgba(0,0,0,.025);margin:10px 0 14px}
+#calendar .week-econ-tab-labels label,#earnings .week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:9px 5px;border:1px solid transparent;border-radius:10px;background:transparent;color:#6e6e73;font-size:13px;font-weight:650;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere;box-shadow:none;transition:background .18s ease,color .18s ease,box-shadow .18s ease}
+#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"],#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#fff!important;color:#b42332!important;border-color:rgba(60,60,67,.08)!important;box-shadow:0 2px 6px rgba(0,0,0,.09)!important}
+@media(max-width:700px){#calendar .week-econ-tab-labels label,#earnings .week-earnings-tab-labels label{min-height:46px;padding:8px 3px;font-size:12px}}
+</style>
+<style id="tac-apple-v5-earnings-fed-focus">
+/* Fix individual earnings expand icons: match the round red plus/minus control */
+#earnings details.earnings-accordion>summary{display:flex;align-items:center;gap:12px}
+#earnings details.earnings-accordion>summary .earnings-accordion-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;width:34px;height:34px;min-width:34px;border-radius:50%;background:#c62828;color:#fff;box-shadow:0 3px 8px rgba(198,40,40,.2);margin-left:auto;position:relative;font-size:0;line-height:1}
+#earnings details.earnings-accordion>summary .earnings-accordion-toggle:before{content:"＋";font-size:23px;font-weight:500;line-height:1}
+#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle{background:#202328}
+#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle:before{content:"−"}
+/* Shared Apple-style segmented control for Fed/FOMC and Today's Focus */
+.fed-live-tab-labels,.focus-tab-labels{display:grid!important;gap:5px!important;padding:5px!important;border:1px solid #e5e5ea!important;border-radius:14px!important;background:#f5f5f7!important;overflow:visible!important;box-shadow:inset 0 1px 1px rgba(0,0,0,.025)!important}
+.fed-live-tab-labels{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.focus-tab-labels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.fed-live-tab-labels label,.focus-tab-labels label{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;min-height:44px!important;padding:9px 5px!important;border:1px solid transparent!important;border-right:0!important;border-radius:10px!important;background:transparent!important;color:#6e6e73!important;font-size:13px!important;font-weight:650!important;line-height:1.25!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;box-shadow:none!important;transition:background .18s ease,color .18s ease,box-shadow .18s ease!important}
+#fed-live-tab-watch:checked~.fed-live-tab-labels label[for="fed-live-tab-watch"],#fed-live-tab-fomc:checked~.fed-live-tab-labels label[for="fed-live-tab-fomc"],#focus-tab-market:checked~.focus-tab-labels label[for="focus-tab-market"],#focus-tab-levels:checked~.focus-tab-labels label[for="focus-tab-levels"],#focus-tab-core:checked~.focus-tab-labels label[for="focus-tab-core"]{background:#fff!important;color:#b42332!important;border-color:rgba(60,60,67,.08)!important;box-shadow:0 2px 6px rgba(0,0,0,.09)!important}
+@media(max-width:700px){#earnings details.earnings-accordion>summary{gap:8px}#earnings details.earnings-accordion>summary .earnings-accordion-toggle{flex-basis:32px;width:32px;height:32px;min-width:32px}.fed-live-tab-labels label,.focus-tab-labels label{font-size:12px!important;padding:8px 3px!important;min-height:44px!important}}
+@media(prefers-reduced-motion:reduce){.fed-live-tab-labels label,.focus-tab-labels label{transition:none!important}}
+</style>
+<style id="tac-calendar-status-pill-v6">
+/* One unified capsule: remove colored nested badge/frame in calendar status header */
+#calendar .calendar-status-heading,#earnings .calendar-status-heading{display:inline-flex!important;align-items:center!important;gap:7px!important;padding:10px 15px!important;margin:8px 0 6px!important;border:1px solid #dfe1e6!important;border-radius:999px!important;background:#f5f5f7!important;color:#5e6066!important;box-shadow:none!important}
+#calendar .calendar-status-heading.published,#earnings .calendar-status-heading.published,#calendar .calendar-status-heading.today,#earnings .calendar-status-heading.today,#calendar .calendar-status-heading.upcoming,#earnings .calendar-status-heading.upcoming{border-color:#dfe1e6!important;background:#f5f5f7!important;color:#5e6066!important}
+#calendar .calendar-status-heading .status-pill,#earnings .calendar-status-heading .status-pill,#calendar .calendar-status-heading span,#earnings .calendar-status-heading span{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:inherit!important;padding:0!important}
+</style>
+<style id="tac-focus-content-cards-v8">
+/* Match the grey bordered card style across all Today's Focus tabs */
+.today-focus .focus-panel .key,
+.today-focus .focus-panel .callout{
+  display:block!important;
+  padding:14px 15px!important;
+  margin:0!important;
+  border:1px solid #dfe2e6!important;
+  border-radius:14px!important;
+  background:#f7f7f9!important;
+  color:var(--ink,#17191d)!important;
+  line-height:1.85!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(20,24,35,.025)!important;
+}
+.today-focus .focus-panels{padding-top:14px!important}
+.today-focus .focus-panel{min-width:0}
+@media(max-width:700px){.today-focus .focus-panel .key,.today-focus .focus-panel .callout{padding:13px 12px!important;border-radius:13px!important;line-height:1.8!important}}
 </style>
 </head>
 <body><!-- V23 calendar cards applied -->
@@ -716,7 +807,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 <div class="fed-live-tabs">
 <input checked="checked" id="fed-live-tab-watch" name="fed-live-tab" type="radio"/>
 <input id="fed-live-tab-fomc" name="fed-live-tab" type="radio"/>
-<div class="fed-live-tab-labels"><label for="fed-live-tab-watch">CME FedWatch</label><label for="fed-live-tab-fomc">Fed / FOMC</label></div>
+<div class="fed-live-tab-labels"><label for="fed-live-tab-watch">CME FedWatch</label><label for="fed-live-tab-fomc">FOMC 會議</label></div>
 <div class="fed-live-panels">
 <div class="fed-live-panel fed-live-watch"><div class="callout" style="padding:14px">
 <div style="font-size:11px;color:var(--muted);font-weight:850">2026/10/28 FOMC 會議｜目前目標利率 375–400 bps</div>
