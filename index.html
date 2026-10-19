@@ -1495,4 +1495,19 @@ document.addEventListener('DOMContentLoaded',function(){
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!root.hidden)close()});
  });
 })();
-</script></body></html>
+</script>
+<style id="tac-sentiment-remove-red-stripe-v18">
+/* V18: final override after all legacy CSS; CNN card must have no red top stripe */
+html body #sentiment .sent>.sbox:nth-child(3),
+html body #sentiment .sent>.sbox:nth-child(3):before,
+html body #sentiment .sent>.sbox:nth-child(3):after{
+ border-top:1px solid #394452!important;
+ background-image:none!important;
+ box-shadow:none!important;
+}
+html body #sentiment .sent>.sbox:nth-child(3)::before,
+html body #sentiment .sent>.sbox:nth-child(3)::after{
+ content:none!important;display:none!important;
+}
+</style>
+</body></html>
