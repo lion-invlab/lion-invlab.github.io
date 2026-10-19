@@ -633,21 +633,29 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 </style>
 
 <style id="tac-dashboard-home-integration-preview-v8">
-/* V8: minimalist white editorial modules with embedded data summaries */
-:root{--tac-v8-ink:#202124;--tac-v8-muted:#73777d;--tac-v8-line:#e7e8ea;--tac-v8-red:#b8202f;--tac-v8-soft:#f7f7f8}
-#volatilityDashboard,#volatility-dashboard,#volatility-card,.volatility-dashboard,.volatility-card,
-#q4FundDashboard,#q4-fund-dashboard,#fund-dashboard,.q4-fund-dashboard,.fund-dashboard{box-shadow:none!important;border:1px solid var(--tac-v8-line)!important;border-radius:12px!important;background:#fff!important}
-#volatilityDashboard h2,#volatility-dashboard h2,#volatility-card h2,.volatility-dashboard h2,.volatility-card h2,
-#q4FundDashboard h2,#q4-fund-dashboard h2,#fund-dashboard h2,.q4-fund-dashboard h2,.fund-dashboard h2{font-size:1.04rem!important;font-weight:750!important;letter-spacing:-.025em!important;color:var(--tac-v8-ink)!important;margin-bottom:5px!important}
-#volatilityDashboard::before,#volatility-dashboard::before,#volatility-card::before,.volatility-dashboard::before,.volatility-card::before,
-#q4FundDashboard::before,#q4-fund-dashboard::before,#fund-dashboard::before,.q4-fund-dashboard::before,.fund-dashboard::before{content:"";display:block;height:3px;width:34px;background:var(--tac-v8-red);border-radius:3px;margin-bottom:13px}
-#volatilityDashboard p,#volatility-dashboard p,#volatility-card p,.volatility-dashboard p,.volatility-card p,
-#q4FundDashboard p,#q4-fund-dashboard p,#fund-dashboard p,.q4-fund-dashboard p,.fund-dashboard p{color:var(--tac-v8-muted)!important;font-size:.84rem!important;line-height:1.5!important}
-#volatilityDashboard .stat,#volatility-dashboard .stat,#volatility-card .stat,.volatility-dashboard .stat,.volatility-card .stat,
-#q4FundDashboard .stat,#q4-fund-dashboard .stat,#fund-dashboard .stat,.q4-fund-dashboard .stat,.fund-dashboard .stat{background:var(--tac-v8-soft)!important;border:0!important;border-radius:8px!important;padding:10px 12px!important}
-#volatilityDashboard a,#volatility-dashboard a,#volatility-card a,.volatility-dashboard a,.volatility-card a,
-#q4FundDashboard a,#q4-fund-dashboard a,#fund-dashboard a,.q4-fund-dashboard a,.fund-dashboard a{border-radius:7px!important;box-shadow:none!important;font-weight:650!important}
-@media(min-width:900px){.dashboard-overview,.dashboard-grid,.dashboard-cards{gap:14px!important}}
+/* V8 minimalist embedded dashboard modules */
+.card:has(.vol-dashboard-link),.fund-report-card{background:#fff!important;color:#202328!important;border:1px solid #e6e7e9!important;border-radius:10px!important;box-shadow:none!important;padding:16px 18px 17px!important;margin-bottom:12px!important}
+.card:has(.vol-dashboard-link) .title{font-size:18px!important;font-weight:850!important;letter-spacing:-.35px!important;color:#202328!important;margin-bottom:9px!important}
+.card:has(.vol-dashboard-link) .title span{display:flex;align-items:center;gap:8px}
+.card:has(.vol-dashboard-link) .title span:before{content:"";display:inline-block;width:3px;height:19px;background:#b8202f;border-radius:2px}
+.card:has(.vol-dashboard-link)>div[style]{font-size:12px!important;line-height:1.85!important;color:#646970!important}
+.card:has(.vol-dashboard-link)>div[style] b{color:#282b30!important;font-weight:750!important}
+.fund-report-card{padding:16px 18px 17px!important}
+.fund-report-head{margin-bottom:10px!important}
+.fund-report-title{font-size:18px!important;line-height:1.4!important;font-weight:850!important;color:#202328!important;letter-spacing:-.3px!important;white-space:normal!important}
+.red-highlight{color:#b8202f!important}
+.fund-report-sub{margin-top:6px!important;font-size:11px!important;font-weight:750!important;color:#7b7f85!important;justify-content:flex-start!important;letter-spacing:.3px!important}
+.fund-report-list{grid-template-columns:1fr!important;gap:6px!important}
+.fund-date-row{grid-template-columns:22px 60px minmax(0,1fr) 68px!important;gap:8px!important;min-height:48px!important;padding:7px 10px!important;border:1px solid #ececef!important;border-radius:7px!important;background:#fafafa!important}
+.fund-dot{width:8px!important;height:8px!important;box-shadow:none!important}
+.fund-date{font-size:17px!important;font-weight:850!important;color:#24272b!important}
+.fund-names{font-size:12px!important;line-height:1.4!important;font-weight:700!important;color:#41454a!important}
+.fund-status{text-align:right!important;font-size:11px!important;font-weight:750!important}
+.dashboard-link{height:39px!important;margin-top:10px!important;padding:0 12px!important;border-radius:6px!important;font-size:12px!important;font-weight:750!important;letter-spacing:.1px!important}
+.vol-dashboard-link{color:#34373b!important;background:#f5f5f6!important;border:1px solid #dfe1e4!important}
+.fund-dashboard-link{color:#fff!important;background:#b8202f!important;border:1px solid #b8202f!important}
+@media(min-width:900px){main.wrap>section.card:has(.vol-dashboard-link),main.wrap>section.fund-report-card{padding:17px 20px!important}}
+@media(max-width:700px){.fund-date-row{grid-template-columns:18px 52px minmax(0,1fr) 58px!important;gap:6px!important;padding:7px 8px!important}.fund-date{font-size:15px!important}.fund-names{font-size:11px!important}.fund-status{font-size:10px!important}}
 </style>
 
 </head>
