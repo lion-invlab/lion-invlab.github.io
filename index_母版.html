@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>TAC 投資早報｜2026/10/19 三大區塊活頁標籤試作</title>
+<title>TAC 投資早報｜修正警語與內文膠囊 V11 預覽</title>
 <style>
 :root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
@@ -736,14 +736,221 @@ main.wrap section.card.history-panel > .title > span:before{height:22px!importan
 main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!important}
 }
 </style>
-</head>
+<style id="tac-sidebar-tools-v5-date-overflow-fix">
+/* V5: prevent iOS Safari date input's intrinsic control width from overflowing its history panel */
+.tac-history-mini{min-width:0!important;overflow:hidden!important}
+.tac-history-mini label{max-width:100%!important;box-sizing:border-box!important}
+.tac-history-mini input[type="date"]{
+ display:block!important;width:calc(100% - 12px)!important;max-width:calc(100% - 12px)!important;
+ min-width:0!important;box-sizing:border-box!important;margin-right:12px!important;
+ padding-left:6px!important;padding-right:6px!important;font-size:14px!important;
+}
+@media(max-width:380px){
+ .tac-history-mini input[type="date"]{width:calc(100% - 16px)!important;max-width:calc(100% - 16px)!important;margin-right:16px!important;font-size:13px!important}
+}
+</style>
+<style id="tac-sidebar-tools-v6-note-style">
+.tac-tools-hint{
+ display:none;box-sizing:border-box;width:100%;margin:0;padding:8px 18px 10px;
+ color:#8b2530;background:#f8f1f2;border-bottom:1px solid #eadbdd;
+ font-size:13px;line-height:1.5;font-weight:750;text-align:left;
+}
+.tac-tools-hint strong{font-weight:900}
+@media(max-width:1099px){.tac-tools-hint{display:block}}
+</style><style id="tac-fund-popup-v7-css">
+#tac-fund-notice{position:fixed;inset:0;z-index:100500;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(18,23,30,.66);backdrop-filter:blur(3px)}
+#tac-fund-notice[hidden]{display:none!important}
+#tac-fund-notice .tfn-dialog{width:min(760px,100%);max-height:88dvh;overflow:auto;background:#f3f5f6;border-radius:18px;box-shadow:0 18px 70px rgba(0,0,0,.35);border:1px solid #d9dee2}
+#tac-fund-notice .tfn-head{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid #e0e3e7;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#tac-fund-notice .tfn-head h2{margin:0;font-size:19px;color:#b42332;font-weight:950}
+#tac-fund-notice .tfn-x{border:1px solid #ddd;background:#fff;border-radius:10px;padding:6px 12px;font-size:20px;color:#555}
+#tac-fund-notice .tfn-body{padding:14px}
+#tac-fund-notice .tfn-card{background:#fff;border:1px solid #dfe2e5;border-top:5px solid #b92332;border-radius:14px;padding:15px 14px;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+#tac-fund-notice .tfn-title{font-size:18px;font-weight:950;line-height:1.4;margin-bottom:16px}
+#tac-fund-notice .tfn-subtitle{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:900;margin-bottom:10px}
+#tac-fund-notice .tfn-subtitle small{font-size:11px;color:#747b83;font-weight:700}
+#tac-fund-notice .tfn-list{display:grid;gap:9px}
+#tac-fund-notice .tfn-item{display:grid;grid-template-columns:12px 64px minmax(0,1fr) auto;gap:8px;align-items:start;background:#fafafa;border:1px solid #dedfe2;border-radius:11px;padding:11px 9px}
+#tac-fund-notice .tfn-light{width:11px;height:11px;border-radius:50%;margin-top:5px;background:#b92332;box-shadow:0 0 0 4px #f6e1e3}
+#tac-fund-notice .tfn-light.gold{background:#d9a400;box-shadow:0 0 0 4px #f8efcc}
+#tac-fund-notice .tfn-light.green{background:#16865a;box-shadow:0 0 0 4px #d9f0e6}
+#tac-fund-notice .tfn-date{font-size:16px;font-weight:950;white-space:nowrap}
+#tac-fund-notice .tfn-name{font-size:13px;font-weight:800;line-height:1.45;overflow-wrap:anywhere}
+#tac-fund-notice .tfn-days{font-size:12px;font-weight:900;white-space:nowrap;color:#b42332}
+#tac-fund-notice .tfn-days.gold{color:#a67800}.tfn-days.green{color:#16865a}
+#tac-fund-notice .tfn-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#fff;border-top:1px solid #e0e3e7;position:sticky;bottom:0}
+#tac-fund-notice .tfn-ack{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900;color:#202328}
+#tac-fund-notice .tfn-ack input{width:21px;height:21px;accent-color:#b92332}
+#tac-fund-notice .tfn-hint{font-size:11px;color:#777;text-align:right}
+@media(max-width:480px){
+ #tac-fund-notice{padding:10px}
+ #tac-fund-notice .tfn-dialog{max-height:86dvh;border-radius:15px}
+ #tac-fund-notice .tfn-head{padding:11px 13px}
+ #tac-fund-notice .tfn-head h2{font-size:17px}
+ #tac-fund-notice .tfn-body{padding:10px}
+ #tac-fund-notice .tfn-card{padding:12px 10px}
+ #tac-fund-notice .tfn-title{font-size:16px;margin-bottom:13px}
+ #tac-fund-notice .tfn-item{grid-template-columns:10px 52px minmax(0,1fr);gap:7px;padding:9px 7px}
+ #tac-fund-notice .tfn-name{font-size:12px}
+ #tac-fund-notice .tfn-days{grid-column:3;text-align:right;font-size:12px}
+ #tac-fund-notice .tfn-foot{align-items:flex-start;flex-direction:column}
+ #tac-fund-notice .tfn-hint{text-align:left}
+}
+</style><style id="tac-tools-hint-v8-pill">
+/* V8: render the mobile toolbar guidance as a compact pill */
+@media(max-width:1099px){
+ .tac-tools-hint{
+  display:block!important;
+  width:fit-content!important;
+  max-width:calc(100% - 32px)!important;
+  box-sizing:border-box!important;
+  margin:10px 16px 12px!important;
+  padding:9px 15px!important;
+  border:1px solid #e6c7cb!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#a92332!important;
+  box-shadow:0 2px 6px rgba(80,25,32,.06)!important;
+  font-size:12px!important;
+  line-height:1.5!important;
+  font-weight:800!important;
+  text-align:left!important;
+ }
+ .tac-tools-hint strong{color:#a92332!important}
+}
+</style><style id="tac-layout-hint-v9">
+/* V9 mobile: move internal-use warning inline to the right of the date; keep toolbar hint to one compact line */
+@media(max-width:1099px){
+ .tac-tools-hint{
+  display:block!important;
+  width:fit-content!important;
+  max-width:calc(100% - 32px)!important;
+  margin:8px 16px 10px auto!important;
+  padding:6px 12px!important;
+  border:1px solid #e6c7cb!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#a92332!important;
+  box-shadow:0 1px 4px rgba(80,25,32,.05)!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  font-weight:750!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+ }
+ .tac-tools-hint strong{color:#a92332!important}
+ /* Internal training warning shares the title row rather than occupying a full line */
+ header .warning,header .disclaimer,.header-warning,.internal-warning{ }
+}
+</style>
+<script id="tac-layout-hint-v9-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const header=document.querySelector('header');
+ if(!header)return;
+ const title=header.querySelector('h1');
+ if(!title)return;
+ const candidates=[...header.querySelectorAll('*')].filter(el=>{
+   if(el.children.length>0)return false;
+   const t=(el.textContent||'').trim();
+   return t.includes('資料僅供內部教育訓練使用');
+ });
+ if(!candidates.length)return;
+ let warning=candidates[0];
+ while(warning.parentElement&&warning.parentElement!==header&&warning.parentElement.children.length===1)warning=warning.parentElement;
+ const titleParent=title.parentElement;
+ if(!titleParent)return;
+ let row=titleParent;
+ if(!row.contains(warning)){
+   row.style.display='flex';
+   row.style.flexWrap='wrap';
+   row.style.alignItems='center';
+   row.style.columnGap='10px';
+   row.style.rowGap='4px';
+   row.style.minWidth='0';
+   title.style.margin='0';
+   warning.style.margin='0 0 0 auto';
+   warning.style.flex='0 1 auto';
+   warning.style.maxWidth='48%';
+   warning.style.fontSize='10px';
+   warning.style.lineHeight='1.25';
+   warning.style.whiteSpace='normal';
+   warning.style.textAlign='right';
+   warning.style.boxSizing='border-box';
+   row.appendChild(warning);
+ }
+});
+</script><style id="tac-layout-v10">
+@media(max-width:1099px){
+ /* Move pill into the article flow, immediately before the first main content section */
+ .tac-tools-hint{
+  display:block!important;float:none!important;position:static!important;
+  width:fit-content!important;max-width:calc(100% - 32px)!important;
+  margin:12px 16px 14px!important;padding:6px 12px!important;
+  border:1px solid #e6c7cb!important;border-radius:999px!important;
+  background:#fff!important;color:#a92332!important;
+  font-size:10px!important;line-height:1.25!important;font-weight:750!important;
+  text-align:center!important;white-space:nowrap!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+ }
+}
+</style>
+<script id="tac-layout-v10-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const hint=document.querySelector('.tac-tools-hint');
+ const main=document.querySelector('main')||document.querySelector('#main')||document.querySelector('.main-content')||document.querySelector('section');
+ if(hint&&main&&hint.parentElement!==main){
+  main.insertBefore(hint,main.firstChild);
+  hint.style.margin='12px 16px 14px';
+ }
+ const title=document.querySelector('header h1')||document.querySelector('h1');
+ if(!title)return;
+ const header=title.closest('header')||title.parentElement;
+ const leaves=[...header.querySelectorAll('*')].filter(el=>el.children.length===0&&(el.textContent||'').trim().includes('資料僅供內部教育訓練使用'));
+ if(!leaves.length)return;
+ let warning=leaves[0];
+ while(warning.parentElement&&warning.parentElement!==header&&warning.parentElement.children.length===1)warning=warning.parentElement;
+ const dateNodes=[...header.querySelectorAll('*')].filter(el=>el.children.length===0&&/20\d{2}\/\d{1,2}\/\d{1,2}/.test(el.textContent||''));
+ if(!dateNodes.length)return;
+ let dateNode=dateNodes[0];
+ while(dateNode.parentElement&&dateNode.parentElement!==header&&dateNode.parentElement.children.length===1)dateNode=dateNode.parentElement;
+ const row=dateNode.parentElement;
+ if(!row||row===header&&!row.contains(title))return;
+ row.style.display='flex';row.style.flexWrap='wrap';row.style.alignItems='center';row.style.columnGap='8px';row.style.rowGap='4px';row.style.minWidth='0';
+ warning.style.display='inline-block';warning.style.margin='0';warning.style.fontSize='10px';warning.style.lineHeight='1.2';warning.style.whiteSpace='nowrap';warning.style.flex='0 1 auto';warning.style.maxWidth='48%';warning.style.textAlign='left';warning.style.boxSizing='border-box';
+ row.appendChild(warning);
+});
+</script><style id="tac-layout-v11-actual-selectors">
+@media(max-width:1099px){
+ .tac-tools-hint{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:fit-content!important;max-width:calc(100% - 32px)!important;
+  margin:12px 16px 14px!important;padding:5px 11px!important;
+  border:1px solid #e6c7cb!important;border-radius:999px!important;
+  background:#fff!important;color:#a92332!important;
+  font-size:10px!important;line-height:1.15!important;font-weight:750!important;
+  text-align:center!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+ }
+ .topin .logo{
+  display:flex!important;flex-wrap:wrap!important;align-items:baseline!important;
+  column-gap:7px!important;row-gap:2px!important;min-width:0!important;
+ }
+ .topin .logo .report-date{display:inline!important;white-space:nowrap!important;font-size:clamp(12px,3.5vw,17px)!important}
+ .topin .logo .top-warning{
+  display:inline!important;position:static!important;float:none!important;
+  margin:0 0 0 2px!important;padding:0!important;
+  width:auto!important;max-width:none!important;flex:0 1 auto!important;
+  font-size:9px!important;line-height:1.2!important;white-space:nowrap!important;
+  color:#858b92!important;vertical-align:baseline!important;
+ }
+}
+</style></head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
 <div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/19（一）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/19（一）｜資料基準：各市場2026/10/16當地正式收盤；週末無新增收盤行情，未核實項目不填數字</div></div>
 <nav class="nav">
-<a class="vol" href="https://lion-invlab.github.io/volatility.html">📊 美股個股波動率</a>
-<a class="q4-nav" href="https://lion-invlab.github.io/fund-dividend.html">💰 Q4 精選基金</a>
-<a class="history-nav" href="#history">📚 歷史早報</a>
+
 <a class="active" href="#overview">總覽</a>
 <a href="#news-scan">重點新聞掃瞄</a>
 <a href="#global-markets">全球主要股市</a>
@@ -756,37 +963,6 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
 <a href="#view">今日觀察重點</a>
 </nav></header>
 <main class="wrap" id="overview">
-<section class="card" style="background:#000;color:#fff;border-color:#000;margin-bottom:14px">
-<div class="title" style="color:#fff"><span>📊 美股個股波動率 Dashboard</span></div>
-<div style="font-size:12px;line-height:1.75;color:#e8e8e8"><b>更新頻率：</b>每日更新 1 次，依最近完整美股交易日資料更新。<br/><b>主要功能：</b>20D／30D／60D／90D 歷史波動率、90D 報酬、最大回撤、20D／90D 波動率比值，以及 S&amp;P 500 成分股 Top／Bottom 20、11 大產業比較、波動率分布與個股 Rolling 90D HV。<br/><b>資料狀態：</b>顯示最新交易日、有效交易日數及 LIVE／PARTIAL／ERROR 狀態。</div>
-<a class="dashboard-link vol-dashboard-link" href="https://lion-invlab.github.io/volatility.html">→ 開啟美股個股波動率 Dashboard</a>
-</section>
-<section class="card fund-report-card">
-<div class="fund-report-head">
-<div class="fund-report-title">💰 Q4 精選基金｜基準日即將來<span class="red-highlight">息</span></div>
-<div class="fund-report-sub">最近三個基準日</div>
-</div>
-<div class="fund-report-list" id="homeFundUpcoming"><div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">載入中</div><div class="fund-names">正在同步 Q4 精選基金 Dashboard 最新基準日…</div><div class="fund-status later">同步中</div></div></div>
-<a class="dashboard-link fund-dashboard-link" href="https://lion-invlab.github.io/fund-dividend.html">→ 開啟 Q4 精選基金 Dashboard</a>
-</section>
-<section class="card history-panel" id="history">
-<div class="title">
-<span>📚 歷史早報</span>
-<small>依日期查閱過往 TAC 投資早報</small>
-</div>
-<div class="history-box">
-<div class="history-field">
-<label for="historyDate">選擇早報日期</label>
-<input id="historyDate" type="date" value="2026-10-16"/>
-</div>
-<button class="history-btn secondary" onclick="historyMove(-1)" type="button">‹ 前一天</button>
-<button class="history-btn secondary" onclick="historyMove(1)" type="button">後一天 ›</button>
-<button class="history-btn primary" onclick="openHistoryReport()" type="button">開啟舊版早報</button>
-<button class="history-btn latest" onclick="document.getElementById('overview').scrollIntoView({behavior:'smooth',block:'start'})" style="display:block!important;visibility:visible!important;opacity:1!important;background:#202328!important;color:#fff!important;min-width:140px!important;" type="button">🏠 回到最新早報</button>
-</div>
-<div class="history-note">歷史早報採「日期封存檔」方式保存；目前已封存資料可由日期直接開啟。最新早報仍以首頁為準。</div>
-<div class="history-status ok" id="historyStatus">最新可查閱日期：2026/10/16（歷史封存檔需確認是否已建立）</div>
-</section>
 <div style="height:14px"></div>
 <section class="grid two">
 <article class="card bluf" id="overview">
@@ -1153,4 +1329,145 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 }
 </style>
-</body></html>
+
+<style id="tac-sidebar-tools-preview-v2">
+@media(min-width:1100px){
+ body{padding-left:208px!important}
+ .tac-side-tools{position:fixed;z-index:10000;left:0;top:0;bottom:0;width:208px;box-sizing:border-box;padding:22px 14px;background:#fff;border-right:1px solid #e2e5e9;box-shadow:5px 0 18px rgba(22,28,36,.045);display:flex;flex-direction:column;gap:9px}
+ .tac-side-brand{font-weight:950;font-size:17px;color:#b8202f;padding:4px 8px 18px;border-bottom:1px solid #eceef1;margin-bottom:8px}
+ .tac-side-caption{font-size:10px;font-weight:800;color:#8a929d;letter-spacing:1.1px;padding:4px 9px}
+ .tac-side-link{display:flex;align-items:center;gap:10px;padding:12px 11px;border-radius:9px;text-decoration:none!important;color:#38414c!important;font-size:13px;font-weight:800;border:1px solid transparent}
+ .tac-side-link:hover{background:#fff4f4;border-color:#f0d4d7;color:#a92332!important}
+ .tac-side-icon{width:27px;height:27px;border-radius:7px;display:grid;place-items:center;background:#f0f2f5;font-size:15px;flex-shrink:0}
+ .tac-side-foot{margin-top:auto;font-size:10px;line-height:1.7;color:#98a0aa;padding:10px 8px;border-top:1px solid #eceef1}
+ .tac-side-open,.tac-side-close,.tac-side-backdrop{display:none!important}
+}
+@media(max-width:1099px){
+ .tac-side-tools{position:fixed;z-index:100001;inset:0 auto 0 0;width:min(82vw,310px);box-sizing:border-box;padding:22px 16px;background:#fff;box-shadow:12px 0 38px rgba(0,0,0,.22);transform:translateX(-110%);transition:transform .22s ease;display:flex;flex-direction:column;gap:9px;overflow-y:auto}
+ body.tac-side-open .tac-side-tools{transform:translateX(0)}
+ .tac-side-backdrop{position:fixed;z-index:100000;inset:0;background:rgba(10,15,22,.48);display:none}
+ body.tac-side-open .tac-side-backdrop{display:block}
+ .tac-side-brand{font-weight:950;font-size:18px;color:#b8202f;padding:4px 8px 17px;border-bottom:1px solid #eceef1;margin-bottom:8px}
+ .tac-side-caption{font-size:10px;font-weight:800;color:#8a929d;letter-spacing:1.1px;padding:4px 9px}
+ .tac-side-link{display:flex;align-items:center;gap:11px;padding:14px 12px;border-radius:9px;text-decoration:none!important;color:#38414c!important;font-size:14px;font-weight:800;border:1px solid #e6e9ed;background:#fff}
+ .tac-side-icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:#f0f2f5;font-size:16px;flex-shrink:0}
+ .tac-side-close{margin-left:auto;border:1px solid #e0e4e9;background:#fff;border-radius:8px;padding:6px 10px;font-size:18px}
+ .tac-side-open{position:fixed!important;z-index:99999;left:12px;bottom:18px;display:flex!important;align-items:center;gap:8px;border:0;border-radius:999px;padding:11px 15px;background:#202630;color:#fff;font-size:12px;font-weight:850;box-shadow:0 5px 18px rgba(0,0,0,.22)}
+ .tac-side-foot{margin-top:auto;font-size:11px;line-height:1.7;color:#98a0aa;padding:12px 8px;border-top:1px solid #eceef1}
+}
+.tac-history-mini{margin-top:8px;padding:10px;border:1px solid #e3e6ea;border-radius:9px;background:#f8f9fa}
+.tac-history-mini label{display:block;font-size:11px;font-weight:800;color:#606873;margin-bottom:6px}
+.tac-history-mini input{width:100%;box-sizing:border-box;height:38px;border:1px solid #dfe3e8;border-radius:7px;padding:0 8px;background:#fff;font-size:14px}
+.tac-history-mini button{width:100%;margin-top:7px;min-height:37px;border:0;border-radius:7px;padding:8px;background:#202630;color:#fff;font-size:12px;font-weight:800}
+.tac-history-mini button.primary{background:#b8202f}
+</style>
+<aside class="tac-side-tools" id="tac-side-tools" aria-label="TAC 工具欄">
+ <div style="display:flex;align-items:center;gap:8px"><div class="tac-side-brand" style="flex:1">TAC 工具欄</div><button class="tac-side-close" type="button" aria-label="關閉工具欄" onclick="document.body.classList.remove('tac-side-open')">×</button></div>
+ <div class="tac-side-caption">QUICK ACCESS</div>
+ <a class="tac-side-link" href="https://lion-invlab.github.io/volatility.html"><span class="tac-side-icon">📊</span><span>美股個股波動率</span></a>
+ <a class="tac-side-link" href="https://lion-invlab.github.io/fund-dividend.html"><span class="tac-side-icon">💰</span><span>Q4 精選基金</span></a>
+ <a class="tac-side-link" href="#tac-history-shortcut" id="tac-history-shortcut"><span class="tac-side-icon">📚</span><span>歷史早報</span></a>
+ <div class="tac-history-mini">
+  <label for="tacHistoryDate">選擇歷史早報日期</label>
+  <input id="tacHistoryDate" type="date" value="2026-10-16" />
+  <button type="button" onclick="tacHistoryShift(-1)">‹ 前一天</button>
+  <button type="button" onclick="tacHistoryShift(1)">後一天 ›</button>
+  <button class="primary" type="button" onclick="tacOpenHistory()">開啟歷史早報</button>
+ </div>
+ <div class="tac-side-foot">TAC 投資早報<br/>僅供內部教育訓練使用</div>
+</aside>
+<div class="tac-side-backdrop" onclick="document.body.classList.remove('tac-side-open')"></div>
+<button type="button" class="tac-side-open" onclick="document.body.classList.add('tac-side-open')" aria-label="開啟 TAC 工具欄">☰ <span>工具欄</span></button>
+<script id="tac-sidebar-tools-script-v2">
+function tacHistoryShift(days){
+ const el=document.getElementById('tacHistoryDate');if(!el||!el.value)return;
+ const d=new Date(el.value+'T12:00:00');d.setDate(d.getDate()+days);
+ el.value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function tacOpenHistory(){
+ const el=document.getElementById('tacHistoryDate');if(!el||!el.value)return;
+ window.location.href='https://lion-invlab.github.io/history/index_'+el.value+'.html';
+}
+document.addEventListener('DOMContentLoaded',function(){
+ const a=document.getElementById('tac-history-shortcut');
+ if(a)a.addEventListener('click',function(e){e.preventDefault();document.body.classList.add('tac-side-open');document.getElementById('tacHistoryDate').focus();});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('tac-side-open')});
+});
+</script>
+
+<style id="tac-sidebar-tools-preview-v4">
+/* V4 preview only: mobile trigger moved to the far-left of the navigation row. Desktop sidebar remains unchanged. */
+@media(max-width:1099px){
+ nav.nav{align-items:center!important;gap:5px!important}
+ .tac-side-open{
+   position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;
+   z-index:10!important;display:inline-flex!important;flex:0 0 auto!important;width:max-content!important;
+   align-items:center!important;gap:7px!important;margin:0 5px 0 0!important;padding:7px 10px!important;
+   border:1px solid #e5c5c9!important;border-radius:8px!important;background:#fff!important;color:#a92332!important;
+   font-size:12px!important;font-weight:850!important;line-height:1.2!important;box-shadow:none!important;
+ }
+ .tac-side-open:active{background:#fff4f4!important}
+ .tac-side-tools{z-index:100001}
+}
+@media(min-width:1100px){.tac-side-open{display:none!important}}
+</style>
+<script id="tac-sidebar-tools-script-v4">
+document.addEventListener('DOMContentLoaded',function(){
+ const btn=document.querySelector('.tac-side-open');
+ const nav=document.querySelector('nav.nav');
+ if(btn&&nav){
+   nav.insertBefore(btn,nav.firstChild);
+   btn.setAttribute('aria-label','開啟 TAC 工具欄');
+ }
+});
+</script>
+<script id="tac-sidebar-tools-v6-note-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const nav=document.querySelector('nav.nav');
+ if(!nav||document.getElementById('tac-tools-hint'))return;
+ const hint=document.createElement('div');
+ hint.id='tac-tools-hint';
+ hint.className='tac-tools-hint';
+ hint.innerHTML='「美股波動率」、「精選基金」、「歷史早報」請由上方「<strong>工具欄</strong>」開啟進入。';
+ const main=document.querySelector('main.wrap')||document.querySelector('main');
+ if(main)main.insertBefore(hint,main.firstChild);
+});
+</script><div id="tac-fund-notice" hidden role="dialog" aria-modal="true" aria-labelledby="tfn-title">
+ <div class="tfn-dialog">
+  <div class="tfn-head"><h2 id="tfn-title">Q4 精選基金｜基準日倒數提醒</h2><button type="button" class="tfn-x" id="tfn-close" aria-label="關閉提醒">×</button></div>
+  <div class="tfn-body"><section class="tfn-card">
+   <div class="tfn-title">Q4 精選基金｜基準日即將來「息」</div>
+   <div class="tfn-subtitle"><span>最近三個基準日</span><small>日期越近越前面</small></div>
+   <div id="tfn-list" class="tfn-list"><div>正在載入基準日資料…</div></div>
+  </section></div>
+  <div class="tfn-foot"><label class="tfn-ack"><input type="checkbox" id="tfn-ack"><span>我知道了</span></label><span class="tfn-hint">勾選後立即關閉此提醒</span></div>
+ </div>
+</div><script id="tac-fund-popup-v7-js">
+(function(){
+ const data=[["2026-10-28","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-10-28","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-10-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-12-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","0285／0286","季配","摩根官方"],["2026-10-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-11-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-12-31","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-10-28","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-10-28","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-10-29","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-11-27","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-12-30","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-10-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-10-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-11-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-12-31","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["","安聯台灣科技基金","5503｜累積","不配息","安聯／級別資料"],["","施羅德環球基金系列－環球永續增長","053L／T107｜累積","不配息","級別資料"],["","施羅德環球黃金","053W／053X／T109｜累積","不配息","級別資料"],["","摩根日本基金","0235／0236／T616／T617｜累積","不配息","級別資料"],["2026-10-29","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-11-27","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-12-30","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-10-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2455｜配息類股","配息","Allianz 2026 官方行事曆"]];
+ const root=document.getElementById('tac-fund-notice');
+ if(!root)return;
+ const list=document.getElementById('tfn-list');
+ const close=()=>{root.hidden=true;document.body.style.overflow='';};
+ const daysFromToday=date=>{const a=new Date(date+'T00:00:00');const n=new Date();n.setHours(0,0,0,0);return Math.round((a-n)/86400000)};
+ const lightClass=i=>i===0?'red':i===1?'gold':'green';
+ function render(){
+  const grouped={};
+  data.filter(x=>x[0]).forEach(x=>{if(!grouped[x[0]])grouped[x[0]]=[];grouped[x[0]].push(x)});
+  const dates=Object.keys(grouped).sort().filter(d=>daysFromToday(d)>=0).slice(0,3);
+  if(!dates.length){list.innerHTML='<div>目前沒有尚未到期的基準日。</div>';return;}
+  list.innerHTML=dates.map((date,index)=>{
+   const days=daysFromToday(date),cls=lightClass(index),names=[...new Set(grouped[date].map(x=>x[1]))];
+   const label=days===0?'今天':days===1?'明天':'倒數 '+days+' 天';
+   return '<div class="tfn-item"><span class="tfn-light '+cls+'"></span><span class="tfn-date">'+date.slice(5).replace('-','/')+'</span><span class="tfn-name">'+names.join('／')+'</span><span class="tfn-days '+cls+'">'+label+'</span></div>';
+  }).join('');
+ }
+ document.addEventListener('DOMContentLoaded',function(){
+  render();root.hidden=false;document.body.style.overflow='hidden';
+  document.getElementById('tfn-ack').addEventListener('change',function(){if(this.checked)close()});
+  document.getElementById('tfn-close').addEventListener('click',close);
+  root.addEventListener('click',function(e){if(e.target===root)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!root.hidden)close()});
+ });
+})();
+</script></body></html>
