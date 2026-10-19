@@ -996,4 +996,161 @@ document.addEventListener('DOMContentLoaded',()=>{
  }catch(err){host.innerHTML=fallback;console.warn('Q4 基金基準日同步失敗',err);}
 })();
 </script>
+<style id="tac-trading-room-preview-v14">
+/* V14: Institutional trading-room concept. Preview only; all report text and data retained. */
+@media(min-width:900px){
+  main.wrap section.grid.two:has(>#overview):has(>#sentiment){grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:16px!important;align-items:stretch}
+}
+#overview.card.bluf{
+  background:linear-gradient(135deg,#fff 0%,#fff 70%,#fff8f8 100%)!important;
+  border:1px solid #d9dde3!important;border-top:5px solid #bd202e!important;
+  border-radius:10px!important;box-shadow:0 8px 24px rgba(18,24,33,.07)!important;
+  padding:22px!important;min-height:100%!important
+}
+#overview>.title,#sentiment>.title{
+  display:flex!important;align-items:center!important;gap:10px!important;
+  margin-bottom:20px!important;letter-spacing:.2px!important
+}
+#overview>.title:before{content:"";display:inline-block;width:5px;height:22px;background:#c62828;border-radius:1px}
+#overview h1{font-size:clamp(23px,2.15vw,31px)!important;line-height:1.38!important;font-weight:950!important;letter-spacing:-.4px!important;color:#16191f!important;margin:8px 0 16px!important}
+#overview p{font-size:15px!important;line-height:1.9!important;color:#414751!important}
+#overview .chips{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important;margin-top:20px!important}
+#overview .chip{display:flex!important;align-items:center!important;justify-content:center!important;min-height:38px!important;padding:8px 10px!important;border:1px solid #e1e4e8!important;border-radius:5px!important;background:#f5f6f8!important;font-weight:850!important;font-size:13px!important}
+#sentiment.card{
+  position:relative!important;overflow:hidden!important;
+  background:linear-gradient(150deg,#171b22 0%,#202630 60%,#12161c 100%)!important;
+  color:#f5f7fa!important;border:1px solid #313946!important;border-top:5px solid #e0b04b!important;
+  border-radius:10px!important;box-shadow:0 8px 24px rgba(18,24,33,.16)!important;
+  padding:22px!important;min-height:100%!important
+}
+#sentiment>.title{color:#fff!important;font-size:21px!important;font-weight:950!important}
+#sentiment>.title:before{content:"";display:inline-block;width:5px;height:22px;background:#e0b04b;border-radius:1px}
+#sentiment>.title small{margin-left:auto!important;color:#aeb7c4!important;font-size:11px!important;font-weight:650!important}
+#sentiment .sent{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+#sentiment .sbox{background:#252d38!important;border:1px solid #394452!important;border-radius:7px!important;padding:15px!important;min-width:0!important}
+#sentiment .sbox .label{color:#c0c9d5!important;font-size:13px!important;font-weight:850!important}
+#sentiment .sbox strong{color:#fff!important;font-size:clamp(25px,2.4vw,34px)!important;font-weight:950!important;letter-spacing:-.5px!important}
+#sentiment .sbox .up{color:#ff6d75!important;font-weight:850!important}
+#sentiment .sbox .down{color:#48d597!important;font-weight:850!important}
+#sentiment .sbox .warn{color:#f4c45d!important;font-weight:850!important}
+#sentiment .source-details summary{color:#aeb8c5!important}
+#sentiment .source-details{color:#c4ccd6!important}
+#sentiment .interpretation,#sentiment .sentiment-interpretation,#sentiment .callout{
+  background:#302d25!important;border:1px solid #645335!important;color:#f7e7bd!important;border-radius:6px!important
+}
+#sentiment .sentiment-interpretation strong,#sentiment .callout strong{color:#ffd77d!important}
+#sentiment p,#sentiment .note{color:#c6ced8!important}
+@media(max-width:700px){
+  #overview.card.bluf,#sentiment.card{padding:17px!important}
+  #overview h1{font-size:23px!important}
+  #overview .chips{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #sentiment>.title{flex-wrap:wrap!important}
+  #sentiment>.title small{width:100%!important;margin-left:15px!important}
+}
+</style>
+<style id="tac-trading-room-preview-v15">
+/* V15: left-aligned headings and full-width sentiment interpretation; preview only */
+#overview>.title,#sentiment>.title{
+  position:relative!important;left:auto!important;right:auto!important;
+  float:none!important;text-align:left!important;justify-content:flex-start!important;
+  align-self:stretch!important;width:100%!important;margin:0 0 20px!important;
+  inset:auto!important;transform:none!important
+}
+#overview>.title:before,#sentiment>.title:before{flex:0 0 5px!important}
+#sentiment>.title small{margin-left:auto!important;text-align:right!important}
+#sentiment .sent{
+  display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  grid-auto-flow:row!important;align-items:stretch!important;gap:10px!important
+}
+#sentiment .sent>.sbox{min-width:0!important;min-height:0!important}
+#sentiment .sent>.sbox:last-child{
+  grid-column:1/-1!important;
+  display:grid!important;grid-template-columns:minmax(120px,.32fr) minmax(0,1fr)!important;
+  align-items:center!important;column-gap:18px!important;
+  background:#2c3038!important;border:1px solid #645335!important;
+  border-left:4px solid #e0b04b!important;padding:15px 17px!important
+}
+#sentiment .sent>.sbox:last-child .label{
+  align-self:start!important;color:#f4c45d!important;font-size:14px!important
+}
+#sentiment .sent>.sbox:last-child>div[style]{
+  margin-top:0!important;color:#f2f4f7!important;line-height:1.75!important
+}
+#sentiment .sent>.sbox:last-child details{grid-column:1/-1!important;margin-top:8px!important}
+@media(max-width:700px){
+  #overview>.title,#sentiment>.title{font-size:21px!important;text-align:left!important}
+  #sentiment>.title{display:flex!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap!important}
+  #sentiment>.title small{width:100%!important;margin:0 0 0 15px!important;text-align:left!important}
+  #sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+  #sentiment .sent>.sbox:last-child{grid-template-columns:1fr!important;row-gap:8px!important}
+  #sentiment .sent>.sbox:last-child>div[style]{font-size:13px!important}
+}
+</style>
+<style id="tac-trading-room-preview-v16">
+/* V16: eliminate the orphaned lower-right cell by making CNN sentiment a full-width row */
+#sentiment .sent>.sbox:nth-child(3){
+  grid-column:1/-1!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  grid-template-rows:auto auto auto!important;
+  align-items:center!important;
+  column-gap:14px!important;
+  row-gap:4px!important;
+  border-left:1px solid #394452!important;
+  border-top:3px solid #b8202f!important;
+  padding:13px 16px!important;
+}
+#sentiment .sent>.sbox:nth-child(3) .label{
+  grid-column:1!important;grid-row:1!important;
+}
+#sentiment .sent>.sbox:nth-child(3) strong{
+  grid-column:1!important;grid-row:2!important;
+  font-size:clamp(27px,3vw,34px)!important;margin:0!important;
+}
+#sentiment .sent>.sbox:nth-child(3) .warn{
+  grid-column:2!important;grid-row:2!important;
+  text-align:right!important;align-self:center!important;
+}
+#sentiment .sent>.sbox:nth-child(3) details{
+  grid-column:1/-1!important;grid-row:3!important;margin-top:3px!important;
+}
+#sentiment .sent>.sbox:last-child{
+  grid-column:1/-1!important;
+}
+@media(max-width:700px){
+  #sentiment .sent>.sbox:nth-child(3){
+    grid-template-columns:minmax(0,1fr) minmax(0,auto)!important;
+    padding:13px 14px!important;
+  }
+  #sentiment .sent>.sbox:nth-child(3) .warn{
+    max-width:100%!important;font-size:13px!important;white-space:normal!important;
+  }
+}
+</style>
+<style id="tac-trading-room-preview-v19">
+/* V19 hotfix: override legacy high-specificity 2x2 chip grid with true capsule layout */
+#overview article.card.bluf .chips{
+  display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
+  grid-template-columns:none!important;align-items:center!important;
+  gap:8px!important;width:100%!important
+}
+#overview article.card.bluf .chips .chip,
+#overview article.card.bluf .chips .chip:first-child{
+  display:inline-flex!important;flex:0 0 auto!important;width:auto!important;
+  min-height:0!important;min-width:0!important;
+  padding:8px 13px!important;margin:0!important;
+  border:1px solid #e1e4e8!important;border-left:1px solid #e1e4e8!important;
+  border-radius:999px!important;background:#fff!important;
+  box-shadow:none!important;white-space:nowrap!important;
+  font-size:13px!important;line-height:1.25!important
+}
+@media(max-width:700px){
+  #overview article.card.bluf .chips{gap:7px!important}
+  #overview article.card.bluf .chips .chip,
+  #overview article.card.bluf .chips .chip:first-child{
+    padding:7px 11px!important;font-size:12px!important
+  }
+}
+</style>
 </body></html>
