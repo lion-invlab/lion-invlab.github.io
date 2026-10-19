@@ -523,6 +523,13 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{gap:3px!important;padding:4px!important}
 }
 </style>
+<style id="tac-apple-tab-pop-animation">
+/* Apple-like selected-tab pop animation */
+.tac-tabset .tac-tab-nav label{transform:scale(1);transform-origin:center center;will-change:transform,box-shadow;transition:transform .22s cubic-bezier(.2,.8,.2,1),background .18s ease,color .18s ease,box-shadow .22s ease!important;position:relative;z-index:0}
+.tac-tabset .tac-tab-nav label:active{transform:scale(.96)!important}
+#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{transform:scale(1.045)!important;z-index:2}
+@media(prefers-reduced-motion:reduce){.tac-tabset .tac-tab-nav label{transition:none!important}}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
