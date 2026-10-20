@@ -40,9 +40,8 @@ const labels={
 };
 async function load(){
  try{
-  const r=await fetch("./cnn-fear-greed.json?ts="+Date.now(),{cache:"no-store"});
-  if(!r.ok) throw new Error("JSON HTTP "+r.status);
-  const d=await r.json();
+  // 只供版面預覽的第三方快照；不是 CNN 官方即時資料。
+  const d={score:22,rating:"extreme fear",timestamp:"2026-10-20T13:53:00Z",source:"第三方追蹤頁快照（未與 CNN 官方即時數值核對）"};
   if(typeof d.score!=="number"||d.score<0||d.score>100||!d.rating||!d.timestamp) throw new Error("資料欄位驗證失敗");
   const rating=String(d.rating).toLowerCase();
   const label=labels[rating]||[rating.toUpperCase(),rating.toUpperCase()];
