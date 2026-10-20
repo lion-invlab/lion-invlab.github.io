@@ -436,7 +436,13 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 /* 導覽列：固定功能＋13個正文大版面 */
 .nav{align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 .nav a{flex:0 0 auto;white-space:nowrap}
- .region-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .region-source > summary::marker{color:#B8BEC5;} .region-source > summary::-webkit-details-marker{color:#B8BEC5;}  .sector-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .sector-source > summary::marker{color:#B8BEC5;} .sector-source > summary::-webkit-details-marker{color:#B8BEC5;} </style>
+ .region-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .region-source > summary::marker{color:#B8BEC5;} .region-source > summary::-webkit-details-marker{color:#B8BEC5;}  .sector-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .sector-source > summary::marker{color:#B8BEC5;} .sector-source > summary::-webkit-details-marker{color:#B8BEC5;} /* TAC_NEWS_ZEBRA_V31: alternating backgrounds for news items */
+.newsitem{border-radius:8px;transition:background-color .18s ease;padding:12px 10px}
+.newsitem:nth-child(even){background:#f4f6f9}
+.newsitem:nth-child(odd){background:#fff}
+@media(max-width:700px){.newsitem{padding:11px 9px}}
+/* /TAC_NEWS_ZEBRA_V31 */
+</style>
 <meta content="V22" name="report-version"/><meta content="2026-10-20" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
 .econ-event-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:8px 0 12px}
@@ -969,6 +975,12 @@ document.addEventListener('DOMContentLoaded',function(){
 #sentiment .sent>.sbox:nth-child(3){
  border-top:1px solid #394452!important;
 }
+</style>
+<style>
+/* V30 試作：全球主要股市報價欄左移，改善右側擁擠與中間留白 */
+.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(112px,.72fr) minmax(76px,.48fr);column-gap:10px;padding-right:clamp(12px,2.2vw,24px)}
+.tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
+@media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
 </head>
 <body><!-- V23 calendar cards applied -->
@@ -1513,47 +1525,6 @@ html body .tac-history-mini input[type="date"]{
   height:44px!important;min-height:44px!important;line-height:44px!important;
   padding-top:0!important;padding-bottom:0!important;
  }
-}
-</style>
-
-<style id="tac-history-sidebar-desktop-scroll-v30">
-/* V30: ensure all history controls remain reachable in the desktop sidebar */
-@media(min-width:1100px){
-  html body .tac-side-tools{
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    overscroll-behavior:contain;
-  }
-  html body .tac-history-mini{
-    flex-shrink:0!important;
-    margin-bottom:8px!important;
-  }
-  html body .tac-side-foot{flex-shrink:0!important}
-}
-</style>
-
-<style id="tac-headline-zebra-v31">
-/* V31: subtle alternating backgrounds for global focus and market headline cards */
-#global-focus .newsitem,
-#headlines .newsitem{
-  box-sizing:border-box;
-  padding:14px 15px 12px;
-  margin:0;
-  border-bottom:1px solid #e6e6e6;
-  border-radius:0;
-  transition:background-color .18s ease;
-}
-#global-focus .newsitem:nth-of-type(even),
-#headlines .newsitem:nth-of-type(even){background:#f8f3f3}
-#global-focus .newsitem:nth-of-type(odd),
-#headlines .newsitem:nth-of-type(odd){background:#ffffff}
-#global-focus .newsitem h3,
-#headlines .newsitem h3{margin-top:0}
-#global-focus .newsitem .newsmeta,
-#headlines .newsitem .newsmeta{margin-bottom:0}
-@media(max-width:700px){
-  #global-focus .newsitem,
-  #headlines .newsitem{padding:13px 12px 11px}
 }
 </style>
 </body></html>
