@@ -1531,4 +1531,27 @@ html body .tac-history-mini input[type="date"]{
   html body .tac-side-foot{flex-shrink:0!important}
 }
 </style>
+
+<style id="tac-headline-zebra-v31">
+/* V31: subtle alternating backgrounds for market headline cards only */
+#headlines .newsitem{
+  box-sizing:border-box;
+  padding:14px 15px 12px;
+  margin:0;
+  border-bottom:1px solid #e6e6e6;
+  border-radius:0;
+  transition:background-color .18s ease;
+}
+#headlines .newsitem:nth-of-type(even){
+  background:#f8f3f3;
+}
+#headlines .newsitem:nth-of-type(odd){
+  background:#ffffff;
+}
+#headlines .newsitem h3{margin-top:0}
+#headlines .newsitem .newsmeta{margin-bottom:0}
+@media(max-width:700px){
+  #headlines .newsitem{padding:13px 12px 11px}
+}
+</style>
 </body></html>
