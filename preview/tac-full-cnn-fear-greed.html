@@ -1677,3 +1677,28 @@ html body .tac-history-mini input[type="date"]{
   }
 }
 </style>
+
+<style id="tac-preview-exact-english-label-font-size-v18">
+/* V18: Explicitly normalize only the English title text, independent of Chinese subtitles */
+#sentiment .sent .sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+  font-size:18px!important;
+  font-weight:750!important;
+  letter-spacing:0!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  font-size:14px!important;
+  font-weight:650!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+    font-size:18px!important;
+  }
+  #sentiment .sent .sbox .label .label-zh,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+    font-size:14px!important;
+  }
+}
+</style>
