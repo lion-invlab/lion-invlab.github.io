@@ -985,6 +985,86 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 
 
+<style id="tac-full-preview-cnn-fg-band-v10">
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{white-space:normal!important;font-size:18px!important;line-height:1.35!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-top:14px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:38px!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{margin-left:auto!important;text-align:right!important;justify-content:flex-end!important;font-size:15px!important;color:#f3c65e!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{margin-top:18px!important}
+@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}}
+</style>
+<style id="tac-home-cnn-preview-migration-v24">
+/* Port the approved preview card layout to homepage; neutralize legacy nth-child rules only for CNN */
+#sentiment .sent>section.sbox.cnn-fg-preview{
+ grid-column:1/-1!important;grid-row:auto!important;
+ display:block!important;float:none!important;position:relative!important;
+ grid-template-columns:none!important;grid-template-rows:none!important;
+ align-items:initial!important;column-gap:normal!important;row-gap:normal!important;
+ border:1px solid #394452!important;border-top:1px solid #394452!important;
+ border-left:1px solid #394452!important;padding:18px!important;
+ background:#252d38!important;min-width:0!important;overflow:visible!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+ display:block!important;width:100%!important;margin:0!important;padding:0!important;
+ white-space:normal!important;line-height:1.35!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ justify-content:space-between!important;gap:12px!important;width:100%!important;
+ margin-top:14px!important;position:static!important;transform:none!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{
+ display:flex!important;align-items:baseline!important;gap:2px!important;
+ font-size:38px!important;white-space:nowrap!important;position:static!important;
+ transform:none!important;margin:0!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{
+ font-size:35px!important;line-height:1.08!important;font-weight:900!important;color:#fff!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{
+ font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ justify-content:flex-end!important;gap:5px!important;margin-left:auto!important;
+ text-align:right!important;font-size:15px!important;color:#f3c65e!important;
+ white-space:nowrap!important;position:static!important;transform:none!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{
+ display:block!important;position:relative!important;width:100%!important;
+ max-width:100%!important;margin-top:18px!important;padding:0!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{
+ display:flex!important;position:relative!important;width:100%!important;
+ min-width:100%!important;max-width:100%!important;height:12px!important;margin:0!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker{
+ display:block!important;position:absolute!important;left:23%!important;top:-5px!important;
+ transform:translateX(-50%)!important;z-index:2!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{
+ display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
+ position:static!important;width:100%!important;margin:10px 0 0!important;
+ padding:0!important;text-align:center!important;gap:3px!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview>details.source-details{
+ display:block!important;margin:13px 0 0!important;
+}
+@media(max-width:390px){
+ #sentiment .sent>section.sbox.cnn-fg-preview{padding:17px 16px 14px!important}
+ #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:18px!important}
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:32px!important}
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}
+}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
