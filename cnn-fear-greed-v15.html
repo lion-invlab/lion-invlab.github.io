@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC｜CNN Fear &amp; Greed V15 預覽</title>
+<style>
+:root{color-scheme:dark;--panel:#242d37;--border:#3a4653;--text:#e7edf4;--muted:#aab4c0;--gold:#f3c45b}
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:#eef1f4;font-family:Arial,"Noto Sans TC",sans-serif;color:var(--text)}
+.wrap{max-width:760px;margin:0 auto}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:22px;padding:28px 30px;box-shadow:0 12px 32px #10182020}
+.title{font-size:clamp(17px,2.5vw,23px);font-weight:750;letter-spacing:.1px}
+.cn{font-size:.88em;color:#c4ccd6;font-weight:650}
+.main{display:flex;align-items:center;justify-content:space-between;gap:22px;margin:30px 0 24px}
+.scoreline{display:flex;align-items:baseline;gap:8px;white-space:nowrap}
+.score{font-size:54px;line-height:1;font-weight:800;letter-spacing:-1.5px}
+.total{font-size:25px;color:#aeb8c4;font-weight:650}
+.status{text-align:right;white-space:nowrap}
+.status-cn{font-size:23px;font-weight:800;color:var(--gold)}
+.status-en{font-size:13px;letter-spacing:1.5px;color:#bac4cf;margin-top:5px}
+.scale{height:20px;border-radius:999px;position:relative;margin:0 3px;background:linear-gradient(90deg,#df4c52 0%,#ef8849 25%,#efd14e 50%,#9cc35d 75%,#36a17e 100%);box-shadow:inset 0 1px 2px #0002}
+.marker{position:absolute;top:50%;left:23%;width:22px;height:22px;background:#fff;border:2px solid #dbe5ef;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 3px #ffffff24,0 2px 7px #0008;z-index:2}
+.labels{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:start;margin-top:15px;color:#bac4cf;font-size:14px;line-height:1.45}
+.labels span:nth-child(1){text-align:left}.labels span:nth-child(2){text-align:center}.labels span:nth-child(3){text-align:right}
+.divider{height:1px;background:#46515c;margin:24px 0 18px}
+.source{display:flex;align-items:center;gap:12px;color:#aab4c0;font-size:14px}
+.plus{font-size:28px;line-height:1;color:#e4545b;font-weight:700}
+.note{font-size:13px;line-height:1.6;color:#778391;margin:14px 4px 0}
+@media(max-width:520px){body{padding:14px}.card{padding:22px 20px;border-radius:18px}.main{gap:10px;margin:26px 0 23px}.score{font-size:48px}.total{font-size:22px}.status-cn{font-size:18px}.status-en{font-size:10px;letter-spacing:1px}.labels{font-size:12px}.scale{height:18px}.marker{width:21px;height:21px}}
+@media(max-width:360px){.main{align-items:flex-start;flex-direction:column}.status{text-align:left;display:flex;align-items:baseline;gap:8px}.status-en{margin-top:0}.score{font-size:46px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section class="card" aria-label="CNN Fear and Greed 指數版面預覽">
+<div class="title">CNN Fear &amp; Greed <span class="cn">｜恐懼與貪婪指數</span></div>
+<div class="main">
+<div class="scoreline"><span class="score">23</span><span class="total">/100</span></div>
+<div class="status"><div class="status-cn">極度恐慌</div><div class="status-en">EXTREME FEAR</div></div>
+</div>
+<div class="scale" role="img" aria-label="分數23，位於極度恐慌區域"><span class="marker" style="left:23%"></span></div>
+<div class="labels"><span>極度恐慌</span><span>中性</span><span>極度貪婪</span></div>
+<div class="divider"></div>
+<div class="source"><span class="plus">＋</span><span>資料來源</span></div>
+</section>
+<p class="note">V15 獨立預覽｜固定示意分數 23，非即時行情。已移除資料日期；分數以「23/100」呈現，23 較大、/100 較小；漸層色帶連續融合，白色圓點帶淺色外框與陰影。正式首頁未修改。</p>
+</main>
+</body>
+</html>
