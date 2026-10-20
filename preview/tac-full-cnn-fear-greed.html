@@ -1022,6 +1022,38 @@ document.addEventListener('DOMContentLoaded',function(){
 @media(max-width:370px){#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:16px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:12px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:8px!important}}
 </style>
 
+
+<style id="tac-preview-explicit-label-en-normalization-v19">
+/* V19: Give all three English titles a dedicated span, independent of subtitle and legacy card rules */
+#sentiment .sent .sbox .label .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+  display:inline!important;
+  font-family:inherit!important;
+  font-size:18px!important;
+  font-weight:750!important;
+  line-height:1.35!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  vertical-align:baseline!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  font-size:14px!important;
+  font-weight:650!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label .label-en,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+    font-size:18px!important;
+  }
+  #sentiment .sent .sbox .label .label-zh,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+    font-size:14px!important;
+  }
+}
+</style>
+
 </head>
 <body><div class="preview-only-banner">獨立完整版預覽｜非正式首頁｜CNN Fear &amp; Greed 色帶為測試樣式，所有行情內容仍須逐項核實</div><!-- V23 calendar cards applied -->
 <header class="top">
@@ -1051,10 +1083,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <article class="card" id="sentiment">
 <div class="title">市場情緒</div>
 <div class="sent">
-<div class="sbox"><div class="label">VIX <span class="label-zh">｜恐慌指數</span></div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
-<div class="sbox"><div class="label">MOVE <span class="label-zh">｜債券市場波動率指數</span></div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債券市場波動率指數</span></div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
-  <div class="fg6-title">CNN Fear &amp; Greed <span class="label-zh">｜恐懼與貪婪指數</span></div>
+  <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
   <div class="fg6-date">資料日期 2026/10/19</div>
   <div class="fg6-score-row">
     <div class="fg6-score"><span class="fg6-score-main">23</span><span class="fg6-outof">/100</span></div>
