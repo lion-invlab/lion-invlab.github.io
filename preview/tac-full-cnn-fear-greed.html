@@ -1669,6 +1669,43 @@ html body .tac-history-mini input[type="date"]{
  #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:29px!important;line-height:1.08!important}
 }
 </style>
+
+<style id="tac-preview-market-sentiment-fit-v22">
+/* V22: subtitles must remain visible; compact to fit without clipping them away */
+html body #sentiment .sent .sbox .label,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+  display:flex!important; align-items:baseline!important; flex-wrap:nowrap!important;
+  gap:5px!important; width:100%!important; max-width:100%!important;
+  min-width:0!important; box-sizing:border-box!important; overflow:hidden!important;
+  white-space:nowrap!important; line-height:1.3!important;
+}
+html body #sentiment .sent .sbox .label .label-en,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+  display:inline!important; flex:0 0 auto!important; width:auto!important;
+  min-width:0!important; max-width:none!important; overflow:visible!important;
+  white-space:nowrap!important; font-size:18px!important; line-height:1.3!important;
+}
+html body #sentiment .sent .sbox .label .label-zh,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+  display:inline!important; flex:0 1 auto!important; width:auto!important;
+  min-width:0!important; max-width:48%!important; overflow:hidden!important;
+  white-space:nowrap!important; font-size:9px!important; line-height:1.3!important;
+  font-weight:650!important; letter-spacing:0!important; color:#b9c3cf!important;
+}
+@media(max-width:700px) {
+ html body #sentiment .sent .sbox .label,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+   gap:4px!important; overflow:hidden!important;
+ }
+ html body #sentiment .sent .sbox .label .label-en,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {font-size:18px!important}
+ html body #sentiment .sent .sbox .label .label-zh,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+   display:inline!important; width:auto!important; max-width:48%!important;
+   font-size:9px!important; overflow:hidden!important;
+ }
+}
+</style>
 </body></html>
 <style id="tac-history-button-visibility-v32">
 @media(min-width:1100px){
