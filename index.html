@@ -983,30 +983,20 @@ document.addEventListener('DOMContentLoaded',function(){
 .tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
-<style id="tac-fear-greed-card-preview">/* Independent full-page visual test: enhanced CNN Fear & Greed card only */
-#sentiment .sent>.fear-greed-card{grid-column:1/-1!important;border:1px solid #465161!important;border-radius:14px!important;background:linear-gradient(145deg,#263140 0%,#202833 70%,#1d2530 100%)!important;padding:17px 17px 13px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important}
-#sentiment .fear-greed-card .fg-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-#sentiment .fear-greed-card .label{font-size:17px!important;font-weight:950!important;letter-spacing:.1px!important}
-#sentiment .fg-source-tag{font-size:9px;letter-spacing:.12em;color:#aeb9c8;font-weight:850;border:1px solid #4b586a;border-radius:999px;padding:4px 7px}
-#sentiment .fg-main{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap;margin:8px 0 16px}
-#sentiment .fg-score{font-size:clamp(36px,6vw,44px);font-weight:950;letter-spacing:-.055em;line-height:1;color:#fff}
-#sentiment .fg-score span{font-size:14px;letter-spacing:0;color:#aeb9c8;margin-left:4px}
-#sentiment .fg-class{font-size:16px;font-weight:900;color:#f3b45e}
-#sentiment .fg-class small{display:block;font-size:9px;letter-spacing:.12em;color:#b8c3d0;margin-top:3px}
-#sentiment .fg-meter{position:relative;display:block;width:100%;min-width:0;box-sizing:border-box;margin:0;height:17px}
-#sentiment .fg-gradient{position:absolute;left:0;right:0;top:5px;height:8px;border-radius:999px;background:linear-gradient(90deg,#c94551 0%,#e77f50 24%,#e4c45b 50%,#89bd78 75%,#2b9a6d 100%)}
-#sentiment .fg-pointer{position:absolute;top:0;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #263140;box-shadow:0 0 0 1px rgba(255,255,255,.9)}
-#sentiment .fg-pointer span{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:10px;font-weight:900;color:#202833;background:#fff;border-radius:5px;padding:3px 5px}
-#sentiment .fg-scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:0;margin:8px 0 0;color:#aeb9c8;font-size:9px;font-weight:750;width:100%;min-width:0;box-sizing:border-box}#sentiment .fg-scale span{display:block;width:100%;min-width:0;text-align:center;white-space:nowrap;line-height:1.35}
-#sentiment .fear-greed-card .source-details{margin-top:13px;padding-top:8px;border-top:1px solid #3b4655}
-@media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:15px 13px 12px!important}#sentiment .fear-greed-card .label{font-size:16px!important}#sentiment .fg-score{font-size:38px}#sentiment .fg-class{font-size:15px}#sentiment .fg-scale{font-size:8px}#sentiment .fg-meter{width:100%;margin:0}#sentiment .fg-scale{grid-template-columns:repeat(5,minmax(0,1fr));width:100%}#sentiment .fg-scale span{font-size:clamp(7px,1.8vw,8px);letter-spacing:-.04em}}
-/* V5: force meter and labels into two stacked rows with identical width */
-#sentiment .fear-greed-card .fg-scale-wrap{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-auto-flow:row!important;align-items:stretch!important;justify-items:stretch!important;gap:0!important;width:100%!important;max-width:420px!important;margin:0 auto!important;box-sizing:border-box!important}
-#sentiment .fear-greed-card .fg-meter{display:block!important;position:relative!important;grid-column:1!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;height:17px!important;box-sizing:border-box!important}
-#sentiment .fear-greed-card .fg-gradient{display:block!important;position:absolute!important;left:0!important;right:0!important;width:auto!important;box-sizing:border-box!important}
-#sentiment .fear-greed-card .fg-scale{display:grid!important;position:static!important;grid-column:1!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;width:100%!important;max-width:none!important;min-width:0!important;margin:8px 0 0!important;padding:0!important;gap:0!important;box-sizing:border-box!important}
-#sentiment .fear-greed-card .fg-scale span{display:block!important;width:100%!important;min-width:0!important;text-align:center!important;white-space:nowrap!important;line-height:1.35!important;font-size:clamp(7px,1.8vw,9px)!important;letter-spacing:-.04em!important;box-sizing:border-box!important}
-@media(max-width:700px){#sentiment .fear-greed-card .fg-scale-wrap{width:100%!important;max-width:none!important}#sentiment .fear-greed-card .fg-scale span{font-size:clamp(7px,1.8vw,8px)!important;letter-spacing:-.055em!important}}
+<style id="tac-fear-greed-card-preview">
+/* Revert to the simpler original Fear & Greed card concept shown in trial A */
+#sentiment .sent>.fear-greed-card{grid-column:1/-1!important;border:1px solid #465161!important;border-radius:14px!important;background:#242e3a!important;padding:18px 18px 16px!important;box-shadow:none!important}
+#sentiment .fear-greed-card .fg-simple-head{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#c4ccd7;font-size:14px;font-weight:850}
+#sentiment .fear-greed-card .fg-simple-score{font-size:30px;font-weight:950;line-height:1.2;color:#f5f7fa;margin:24px 0 10px}
+#sentiment .fear-greed-card .fg-simple-score span{font-size:16px;font-weight:850}
+#sentiment .fear-greed-card .fg-simple-status{font-size:16px;font-weight:900;color:#e6bb56;margin-bottom:20px}
+#sentiment .fear-greed-card .fg-simple-meter{position:relative;width:100%;height:22px;margin:0 0 12px}
+#sentiment .fear-greed-card .fg-simple-gradient{position:absolute;left:0;right:0;top:3px;height:16px;border-radius:999px;background:linear-gradient(90deg,#d94e59 0%,#ed9a4e 25%,#e7ca5c 50%,#85bd7d 75%,#2da276 100%)}
+#sentiment .fear-greed-card .fg-simple-pointer{position:absolute;left:50%;top:0;transform:translateX(-50%);width:22px;height:22px;border:4px solid #24303d;background:#fff;border-radius:50%;box-shadow:0 0 0 1px #fff}
+#sentiment .fear-greed-card .fg-simple-labels{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#aeb9c8;font-size:12px;line-height:1.4}
+#sentiment .fear-greed-card .fg-simple-note{font-size:12px;color:#aeb9c8;line-height:1.6;margin-top:20px}
+#sentiment .fear-greed-card .source-details{margin-top:12px;padding-top:8px;border-top:1px solid #3b4655}
+@media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:16px 13px 14px!important}#sentiment .fear-greed-card .fg-simple-head{font-size:12px}#sentiment .fear-greed-card .fg-simple-score{font-size:28px;margin-top:22px}#sentiment .fear-greed-card .fg-simple-status{font-size:15px}#sentiment .fear-greed-card .fg-simple-labels{font-size:11px;gap:4px}#sentiment .fear-greed-card .fg-simple-note{font-size:11px}}
 </style>
 </head>
 <body><!-- V23 calendar cards applied -->
@@ -1040,10 +1030,14 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
 <div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
 <div class="sbox fear-greed-card">
-<div class="fg-head"><div class="label">CNN Fear &amp; Greed</div><span class="fg-source-tag">MARKET SENTIMENT</span></div>
-<div class="fg-main"><div class="fg-score">23<span>/100</span></div><div class="fg-class">極度恐懼 <small>EXTREME FEAR</small></div></div>
-<div class="fg-scale-wrap"><div class="fg-meter" role="img" aria-label="恐懼與貪婪指數23，位於極度恐懼區"><div class="fg-gradient"></div><div class="fg-pointer" style="left:23%"><span>23</span></div></div><div class="fg-scale"><span>極度恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度貪婪</span></div></div>
-<details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；現有首頁記錄值為23／100（Extreme Fear）。此版僅調整呈現方式，未重新核驗行情。</div></details>
+<div class="fg-simple-head"><span>Fear &amp; Greed Index</span><span>CNN 市場情緒</span></div>
+<div class="fg-simple-score">— <span>/ 100</span></div>
+<div class="fg-simple-status">待核實最新數值</div>
+<div class="fg-simple-meter" role="img" aria-label="恐懼與貪婪指數範圍示意，尚未填入最新數值"><div class="fg-simple-gradient"></div><div class="fg-simple-pointer"></div></div>
+<div class="fg-simple-labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
+<div class="fg-simple-note">情緒分類與分數需依 CNN 最新公布資料更新</div>
+<details class="source-details"><summary>資料來源</summary><div class="source">本試作版暫不填入未重新核實的數值；正式版須標示 CNN 資料日期與擷取時間。</div></details>
+</div>
 </div>
 <div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
