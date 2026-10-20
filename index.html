@@ -1137,6 +1137,81 @@ document.addEventListener('DOMContentLoaded',function(){
  #sentiment .sent>.cnn-fg-preview .fg6-labels{font-size:9px!important}
 }
 </style>
+<style id="tac-home-sentiment-cnn-layout-fix-v23">
+/* Final layout reset: independent rows within the CNN card only */
+#sentiment .sent>.cnn-fg-preview{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ justify-content:flex-start!important;gap:0!important;position:static!important;
+ float:none!important;transform:none!important;overflow:visible!important;
+ width:100%!important;min-width:0!important;grid-column:1/-1!important;
+}
+#sentiment .sent>.cnn-fg-preview>.fg6-title{
+ order:1!important;display:flex!important;flex-direction:row!important;
+ flex-wrap:nowrap!important;align-items:baseline!important;justify-content:flex-start!important;
+ gap:6px!important;position:static!important;float:none!important;transform:none!important;
+ inset:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;
+ height:auto!important;margin:0 0 14px!important;padding:0!important;
+ white-space:nowrap!important;overflow:visible!important;line-height:1.4!important;
+}
+#sentiment .sent>.cnn-fg-preview>.fg6-title .label-en{
+ display:inline-block!important;flex:0 0 auto!important;width:auto!important;max-width:none!important;
+ white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;
+ font-size:18px!important;line-height:1.4!important;font-weight:750!important;
+}
+#sentiment .sent>.cnn-fg-preview>.fg6-title .label-zh{
+ display:inline-block!important;flex:0 1 auto!important;width:auto!important;max-width:none!important;
+ white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;
+ font-size:14px!important;line-height:1.4!important;font-weight:650!important;
+}
+#sentiment .sent>.cnn-fg-preview>.fg6-score-row{
+ order:2!important;display:flex!important;flex-direction:row!important;
+ align-items:center!important;justify-content:space-between!important;flex-wrap:nowrap!important;
+ position:static!important;float:none!important;transform:none!important;inset:auto!important;
+ width:100%!important;max-width:100%!important;height:auto!important;
+ margin:0!important;padding:0!important;gap:8px!important;clear:both!important;
+}
+#sentiment .sent>.cnn-fg-preview .fg6-score{
+ display:flex!important;flex:0 0 auto!important;position:static!important;float:none!important;
+ transform:none!important;inset:auto!important;margin:0!important;padding:0!important;
+ align-items:baseline!important;white-space:nowrap!important;
+}
+#sentiment .sent>.cnn-fg-preview .fg6-status{
+ display:flex!important;flex:0 1 auto!important;position:static!important;float:none!important;
+ transform:none!important;inset:auto!important;margin:0 0 0 auto!important;padding:0!important;
+ align-items:center!important;justify-content:flex-end!important;flex-wrap:nowrap!important;
+ white-space:nowrap!important;text-align:right!important;
+}
+#sentiment .sent>.cnn-fg-preview>.fg6-scale-wrap{
+ order:3!important;display:block!important;position:relative!important;float:none!important;
+ transform:none!important;inset:auto!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;height:auto!important;margin:22px 0 0!important;padding:0!important;
+ clear:both!important;
+}
+#sentiment .sent>.cnn-fg-preview .fg6-band{
+ display:block!important;position:relative!important;float:none!important;transform:none!important;
+ width:100%!important;min-width:100%!important;max-width:100%!important;height:12px!important;
+ margin:0!important;padding:0!important;
+}
+#sentiment .sent>.cnn-fg-preview .fg6-marker{
+ position:absolute!important;left:23%!important;top:-5px!important;transform:translateX(-50%)!important;
+}
+#sentiment .sent>.cnn-fg-preview .fg6-labels{
+ display:grid!important;position:static!important;float:none!important;transform:none!important;
+ grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;
+ width:100%!important;max-width:100%!important;margin:10px 0 0!important;padding:0!important;
+ text-align:center!important;white-space:normal!important;
+}
+#sentiment .sent>.cnn-fg-preview>.source-details{order:4!important;display:block!important;position:static!important;margin-top:14px!important}
+@media(max-width:700px){
+ #sentiment .sent>.cnn-fg-preview>.fg6-title{gap:5px!important}
+ #sentiment .sent>.cnn-fg-preview>.fg6-title .label-en{font-size:17px!important}
+ #sentiment .sent>.cnn-fg-preview>.fg6-title .label-zh{font-size:13px!important}
+ #sentiment .sent>.cnn-fg-preview .fg6-score-main{font-size:35px!important}
+ #sentiment .sent>.cnn-fg-preview .fg6-status{font-size:12px!important;gap:4px!important}
+ #sentiment .sent>.cnn-fg-preview>.fg6-scale-wrap{margin-top:22px!important}
+ #sentiment .sent>.cnn-fg-preview .fg6-labels{font-size:9px!important}
+}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
