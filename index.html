@@ -1533,7 +1533,8 @@ html body .tac-history-mini input[type="date"]{
 </style>
 
 <style id="tac-headline-zebra-v31">
-/* V31: subtle alternating backgrounds for market headline cards only */
+/* V31: subtle alternating backgrounds for global focus and market headline cards */
+#global-focus .newsitem,
 #headlines .newsitem{
   box-sizing:border-box;
   padding:14px 15px 12px;
@@ -1542,15 +1543,16 @@ html body .tac-history-mini input[type="date"]{
   border-radius:0;
   transition:background-color .18s ease;
 }
-#headlines .newsitem:nth-of-type(even){
-  background:#f8f3f3;
-}
-#headlines .newsitem:nth-of-type(odd){
-  background:#ffffff;
-}
+#global-focus .newsitem:nth-of-type(even),
+#headlines .newsitem:nth-of-type(even){background:#f8f3f3}
+#global-focus .newsitem:nth-of-type(odd),
+#headlines .newsitem:nth-of-type(odd){background:#ffffff}
+#global-focus .newsitem h3,
 #headlines .newsitem h3{margin-top:0}
+#global-focus .newsitem .newsmeta,
 #headlines .newsitem .newsmeta{margin-bottom:0}
 @media(max-width:700px){
+  #global-focus .newsitem,
   #headlines .newsitem{padding:13px 12px 11px}
 }
 </style>
