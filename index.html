@@ -983,6 +983,47 @@ document.addEventListener('DOMContentLoaded',function(){
 .tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
+
+<style id="tac-sentiment-trial-20261020">
+/* Trial only: restyle the existing Market Sentiment section using homepage values */
+#sentiment{background:linear-gradient(145deg,#171c24,#202833)!important;color:#f5f7fa!important;border-top:5px solid #e4b847!important;border-radius:20px!important;padding:22px!important;box-shadow:0 16px 32px rgba(0,0,0,.14)!important}
+#sentiment .title{font-size:23px!important;line-height:1.2!important;font-weight:900!important;color:#f5f7fa!important;margin:0 0 12px!important}
+#sentiment .title:before{content:"";display:inline-block;width:8px;height:32px;background:#e4b847;border-radius:8px;margin-right:14px;vertical-align:middle}
+#sentiment .sent-intro{font-size:11px;line-height:1.35;white-space:nowrap;color:#aeb7c4;margin:0 0 18px;letter-spacing:0}
+#sentiment .sent{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+#sentiment .sent .sbox{min-width:0;background:#252f3b!important;border:1px solid #3b4755!important;border-radius:17px!important;padding:16px!important;color:#f5f7fa!important}
+#sentiment .sent .sbox .label{font-size:13px!important;line-height:1.35!important;color:#b9c2ce!important;font-weight:800!important}
+#sentiment .sent .sbox strong{display:block!important;font-size:28px!important;line-height:1.15!important;margin:12px 0!important;color:#f8fafc!important}
+#sentiment .sent .sbox .up,#sentiment .sent .sbox .down,#sentiment .sent .sbox .warn{display:block!important;font-size:15px!important;font-weight:850!important;line-height:1.4!important}
+#sentiment .sent .sbox .down{color:#38c994!important}#sentiment .sent .sbox .up{color:#ff717d!important}#sentiment .sent .sbox .warn{color:#f3c451!important}
+#sentiment .sent .sbox .source-details{margin-top:10px!important;color:#aeb7c4!important}
+#sentiment .sent .sbox .source-details summary{font-size:11px!important;color:#aeb7c4!important}
+#sentiment .sent .sbox .source-details .source{font-size:11px!important;color:#aeb7c4!important}
+#sentiment .sent .sbox:nth-child(3){grid-column:1/-1!important;display:grid!important;grid-template-columns:1fr auto!important;align-items:center!important;column-gap:12px!important}
+#sentiment .sent .sbox:nth-child(3) .label{grid-column:1/-1!important;font-size:13px!important}
+#sentiment .sent .sbox:nth-child(3) strong{font-size:34px!important;margin:12px 0 4px!important}
+#sentiment .sent .sbox:nth-child(3) .warn{text-align:right!important;grid-column:2!important;grid-row:2!important}
+#sentiment .sent .sbox:nth-child(3) .source-details{grid-column:1/-1!important}
+#sentiment .sent .sbox:nth-child(4){grid-column:1/-1!important;border-left:5px solid #e4b847!important;background:#2b303a!important}
+#sentiment .sent .sbox:nth-child(4) .label{font-size:17px!important;color:#f3c451!important}
+#sentiment .sent .sbox:nth-child(4) div[style*="font-size:14px"]{font-size:14px!important;line-height:1.7!important;margin-top:10px!important;color:#eef1f5!important}
+#sentiment .fear-scale{grid-column:1/-1;height:15px;border-radius:20px;background:linear-gradient(90deg,#df4d5c 0%,#f0b44b 38%,#e6d65f 55%,#2da67d 100%);position:relative;margin:12px 0 4px}
+#sentiment .fear-scale:after{content:"";position:absolute;left:23%;top:50%;width:25px;height:25px;transform:translate(-50%,-50%);border:4px solid #d8e0e8;border-radius:50%;background:#fff;box-shadow:0 0 0 3px #202833}
+#sentiment .fear-labels{grid-column:1/-1;display:flex;justify-content:space-between;color:#aeb7c4;font-size:11px;margin:6px 0 8px}
+@media(max-width:700px){
+ #sentiment{padding:16px!important;border-radius:17px!important}
+ #sentiment .title{font-size:23px!important}
+ #sentiment .sent-intro{font-size:11px;white-space:nowrap;letter-spacing:-.25px;overflow:hidden}
+ #sentiment .sent{gap:10px!important}
+ #sentiment .sent .sbox{padding:13px!important;border-radius:15px!important}
+ #sentiment .sent .sbox .label{font-size:12px!important}
+ #sentiment .sent .sbox strong{font-size:25px!important}
+ #sentiment .sent .sbox .up,#sentiment .sent .sbox .down,#sentiment .sent .sbox .warn{font-size:13px!important}
+ #sentiment .sent .sbox:nth-child(3) strong{font-size:32px!important}
+ #sentiment .sent .sbox:nth-child(4) .label{font-size:16px!important}
+ #sentiment .sent .sbox:nth-child(4) div[style*="font-size:14px"]{font-size:14px!important;line-height:1.7!important}
+}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
@@ -1011,10 +1052,11 @@ document.addEventListener('DOMContentLoaded',function(){
 </article>
 <article class="card" id="sentiment">
 <div class="title">市場情緒</div>
+<div class="sent-intro">波動率指標提供市場風險溫度參考；請搭配利率、信用與價格趨勢綜合判讀。</div>
 <div class="sent">
 <div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
 <div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
-<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>23</strong><span class="warn">Extreme Fear｜極度恐懼</span><details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details></div>
+<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>23 <span style="font-size:20px;color:#b9c2ce">/100</span></strong><span class="warn">Extreme Fear｜極度恐懼</span><div class="fear-scale"></div><div class="fear-labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div><details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details></div>
 <div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
 </article>
