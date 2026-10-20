@@ -1000,13 +1000,13 @@ document.addEventListener('DOMContentLoaded',function(){
 #sentiment .fg-scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;gap:0;margin:8px 0 0;color:#aeb9c8;font-size:9px;font-weight:750;width:100%;min-width:0;box-sizing:border-box}#sentiment .fg-scale span{display:block;width:100%;min-width:0;text-align:center;white-space:nowrap;line-height:1.35}
 #sentiment .fear-greed-card .source-details{margin-top:13px;padding-top:8px;border-top:1px solid #3b4655}
 @media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:15px 13px 12px!important}#sentiment .fear-greed-card .label{font-size:16px!important}#sentiment .fg-score{font-size:38px}#sentiment .fg-class{font-size:15px}#sentiment .fg-scale{font-size:8px}#sentiment .fg-meter{width:100%;margin:0}#sentiment .fg-scale{grid-template-columns:repeat(5,minmax(0,1fr));width:100%}#sentiment .fg-scale span{font-size:clamp(7px,1.8vw,8px);letter-spacing:-.04em}}
-/* V4: one shared, narrower track for meter and all five labels */
-#sentiment .fear-greed-card .fg-scale-wrap{width:100%;max-width:420px;margin:0 auto;box-sizing:border-box}
-#sentiment .fear-greed-card .fg-meter{width:100%;margin:0;height:17px;box-sizing:border-box}
-#sentiment .fear-greed-card .fg-gradient{left:0;right:0}
-#sentiment .fear-greed-card .fg-scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));width:100%;margin:8px 0 0;padding:0;gap:0;box-sizing:border-box}
-#sentiment .fear-greed-card .fg-scale span{width:100%;min-width:0;text-align:center;white-space:nowrap;line-height:1.35;font-size:clamp(7px,1.8vw,9px);letter-spacing:-.035em}
-@media(max-width:700px){#sentiment .fear-greed-card .fg-scale-wrap{max-width:none;width:100%}#sentiment .fear-greed-card .fg-scale span{font-size:clamp(7px,1.8vw,8px);letter-spacing:-.055em}}
+/* V5: force meter and labels into two stacked rows with identical width */
+#sentiment .fear-greed-card .fg-scale-wrap{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-auto-flow:row!important;align-items:stretch!important;justify-items:stretch!important;gap:0!important;width:100%!important;max-width:420px!important;margin:0 auto!important;box-sizing:border-box!important}
+#sentiment .fear-greed-card .fg-meter{display:block!important;position:relative!important;grid-column:1!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;height:17px!important;box-sizing:border-box!important}
+#sentiment .fear-greed-card .fg-gradient{display:block!important;position:absolute!important;left:0!important;right:0!important;width:auto!important;box-sizing:border-box!important}
+#sentiment .fear-greed-card .fg-scale{display:grid!important;position:static!important;grid-column:1!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;width:100%!important;max-width:none!important;min-width:0!important;margin:8px 0 0!important;padding:0!important;gap:0!important;box-sizing:border-box!important}
+#sentiment .fear-greed-card .fg-scale span{display:block!important;width:100%!important;min-width:0!important;text-align:center!important;white-space:nowrap!important;line-height:1.35!important;font-size:clamp(7px,1.8vw,9px)!important;letter-spacing:-.04em!important;box-sizing:border-box!important}
+@media(max-width:700px){#sentiment .fear-greed-card .fg-scale-wrap{width:100%!important;max-width:none!important}#sentiment .fear-greed-card .fg-scale span{font-size:clamp(7px,1.8vw,8px)!important;letter-spacing:-.055em!important}}
 </style>
 </head>
 <body><!-- V23 calendar cards applied -->
