@@ -1051,10 +1051,10 @@ document.addEventListener('DOMContentLoaded',function(){
 <article class="card" id="sentiment">
 <div class="title">市場情緒</div>
 <div class="sent">
-<div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
-<div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
+<div class="sbox"><div class="label">VIX <span class="label-zh">｜恐慌指數</span></div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
+<div class="sbox"><div class="label">MOVE <span class="label-zh">｜債券市場波動率指數</span></div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
-  <div class="fg6-title">CNN Fear &amp; Greed</div>
+  <div class="fg6-title">CNN Fear &amp; Greed <span class="label-zh">｜恐懼與貪婪指數</span></div>
   <div class="fg6-date">資料日期 2026/10/19</div>
   <div class="fg6-score-row">
     <div class="fg6-score"><span class="fg6-score-main">23</span><span class="fg6-outof">/100</span></div>
@@ -1635,5 +1635,15 @@ html body .tac-history-mini input[type="date"]{
 }
 @media(max-width:390px){
  #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{font-size:32px!important}
+}
+</style>
+
+<style id="tac-preview-bilingual-indicator-labels-v15">
+#sentiment .sent .label .label-zh,
+#sentiment .sent .fg6-title .label-zh{font-size:.78em!important;font-weight:650!important;color:#b9c3cf!important;white-space:normal!important}
+#sentiment .sent .fg6-title{line-height:1.35!important}
+@media(max-width:390px){
+ #sentiment .sent .label .label-zh{font-size:.72em!important}
+ #sentiment .sent .fg6-title .label-zh{display:inline!important;font-size:.72em!important}
 }
 </style>
