@@ -1,0 +1,35 @@
+name: CNN Fear & Greed preview data test
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 21 * * 0-5" # 05:20 Taiwan time, Monday-Saturday
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout selected preview branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch CNN data and validate before writing
+        run: python scripts/test_cnn_fear_greed.py
+      - name: Commit validated preview JSON only
+        run: |
+          if git diff --quiet -- preview/cnn-fear-greed.json; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add preview/cnn-fear-greed.json
+          git commit -m "test: refresh CNN Fear & Greed preview data"
+          git push origin HEAD:${{ github.ref_name }}
