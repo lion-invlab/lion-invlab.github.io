@@ -29,7 +29,7 @@ body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",s
 <div class="scale" role="img" aria-label="恐懼與貪婪指數刻度"><span class="marker" id="marker"></span></div>
 <div class="labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
 <div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：待核對</span></div>
-<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：2026/10/20 多個第三方頁面分別顯示 20 與 22 分；此卡只顯示測試程式成功寫入的資料。若讀取失敗，會顯示資料未驗證，不會沿用舊分數。</div>
+<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：第三方快照不等於 CNN 官方即時數值。只有完成來源驗證的資料才可視為正式讀值；若目前顯示第三方快照，會明確標示，讀取失敗則不沿用舊分數。</div>
 </main>
 <script>
 const labels={
@@ -41,7 +41,7 @@ const labels={
 };
 async function load(){
  try{
-  // 只讀取測試程式成功驗證後寫入的 JSON；不使用硬編碼分數。
+  // 讀取 JSON；若資料標示為第三方快照，明確標記為未經 CNN 官方核實。
   const response=await fetch("./cnn-fear-greed.json?ts="+Date.now(),{cache:"no-store"});
   if(!response.ok) throw new Error("JSON HTTP "+response.status);
   const d=await response.json();
@@ -53,7 +53,8 @@ async function load(){
   document.getElementById("english").textContent=label[1];
   document.getElementById("marker").style.left=d.score+"%";
   document.getElementById("updated").textContent="資料時間："+new Date(d.timestamp).toLocaleString("zh-TW",{timeZone:"Asia/Taipei",hour12:false});
-  document.getElementById("source").textContent="來源："+(d.source||"未標示");
+  document.getElementById("source").textContent=(d.snapshot===true?"⚠ 第三方快照／未核實｜":"來源：")+(d.source||"未標示");
+  if(d.snapshot===true){document.getElementById("status").textContent=label[0]+"（第三方快照）";document.getElementById("english").textContent="UNVERIFIED THIRD-PARTY SNAPSHOT";}
  }catch(e){
   document.getElementById("score").textContent="— / 100";
   document.getElementById("status").textContent="尚無有效測試資料";
