@@ -29,7 +29,7 @@ body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",s
 <div class="scale" role="img" aria-label="恐懼與貪婪指數刻度"><span class="marker" id="marker"></span></div>
 <div class="labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
 <div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：待核對</span></div>
-<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：2026/10/20 多個第三方頁面分別顯示 20 與 22 分；本卡暫採 FGScore 第三方頁面標示的 20 分作版面示意；另有第三方頁面顯示 22 分。尚未確認 CNN 官方端點當下回傳值，不可作為正式行情。</div>
+<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：2026/10/20 多個第三方頁面分別顯示 20 與 22 分；此卡只顯示測試程式成功寫入的資料。若讀取失敗，會顯示資料未驗證，不會沿用舊分數。</div>
 </main>
 <script>
 const labels={
@@ -41,16 +41,18 @@ const labels={
 };
 async function load(){
  try{
-  // 只供版面預覽的第三方快照；不是 CNN 官方即時資料。
-  const d={score:20,rating:"extreme fear",date:"2026-10-20",source:"FGScore 第三方追蹤頁（標示 UTC 日期；非 CNN 官方即時驗證）"};
-  if(typeof d.score!=="number"||d.score<0||d.score>100||!d.rating||!d.date) throw new Error("資料欄位驗證失敗");
+  // 只讀取測試程式成功驗證後寫入的 JSON；不使用硬編碼分數。
+  const response=await fetch("./cnn-fear-greed.json?ts="+Date.now(),{cache:"no-store"});
+  if(!response.ok) throw new Error("JSON HTTP "+response.status);
+  const d=await response.json();
+  if(typeof d.score!=="number"||d.score<0||d.score>100||!d.rating||!d.timestamp) throw new Error("資料欄位驗證失敗");
   const rating=String(d.rating).toLowerCase();
   const label=labels[rating]||[rating.toUpperCase(),rating.toUpperCase()];
   document.getElementById("score").textContent=Math.round(d.score)+" / 100";
   document.getElementById("status").textContent=label[0];
   document.getElementById("english").textContent=label[1];
   document.getElementById("marker").style.left=d.score+"%";
-  document.getElementById("updated").textContent="資料日期："+d.date+"（UTC；頁面未提供精確時刻）";
+  document.getElementById("updated").textContent="資料時間："+new Date(d.timestamp).toLocaleString("zh-TW",{timeZone:"Asia/Taipei",hour12:false});
   document.getElementById("source").textContent="來源："+(d.source||"未標示");
  }catch(e){
   document.getElementById("score").textContent="— / 100";
