@@ -3,44 +3,42 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CNN Fear & Greed｜隔離測試卡</title>
+<title>V15｜CNN Fear &amp; Greed 預覽</title>
 <style>
-:root{color-scheme:light;--ink:#242424;--muted:#737373}
 *{box-sizing:border-box}
-body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",sans-serif;color:var(--ink)}
-.card{max-width:420px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:22px;box-shadow:0 8px 28px #1111110b}
-.heading{font-size:18px;font-weight:750;letter-spacing:.1px;white-space:nowrap}
-.reading{display:flex;align-items:baseline;gap:12px;margin:18px 0 12px;flex-wrap:wrap}
-.score{font-size:42px;font-weight:800;line-height:1}
-.status{font-size:20px;font-weight:750}
-.en{font-size:12px;letter-spacing:1.2px;color:var(--muted);font-weight:700}
-.scale{height:14px;border-radius:999px;position:relative;background:linear-gradient(90deg,#b91c1c 0%,#f97316 25%,#facc15 50%,#84cc16 75%,#15803d 100%);margin:24px 7px 12px}
-.marker{position:absolute;top:50%;left:22%;width:24px;height:24px;background:#fff;border:2px solid #dbe4ee;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 5px #0005;z-index:2}
-.labels{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#555}
-.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:12px;border-top:1px solid #eee;color:var(--muted);font-size:12px}
-.error{color:#b91c1c;font-weight:700}.notice{border-top:1px solid #eee;padding-top:12px}
-@media(max-width:420px){body{padding:12px}.card{padding:18px}.heading{font-size:16px}.score{font-size:36px}.status{font-size:18px}.labels{font-size:10px}}
+body{margin:0;padding:24px;background:#eef1f4;font-family:Arial,"Noto Sans TC",sans-serif;color:#dbe3ec}
+.card{max-width:760px;margin:0 auto;background:#242d37;border:1px solid #43505e;border-radius:26px;padding:28px 32px;box-shadow:0 12px 28px #10182022}
+.heading{font-size:24px;font-weight:750;line-height:1.35}
+.heading span{font-size:.78em;color:#aeb8c4;font-weight:600;margin-left:10px}
+.main{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:34px}
+.scoreline{display:flex;align-items:baseline;gap:9px;white-space:nowrap}
+.score{font-size:76px;font-weight:800;line-height:1;letter-spacing:-2px;color:#fff}
+.total{font-size:32px;font-weight:650;color:#aeb8c4}
+.mood{text-align:right;white-space:nowrap}
+.status{font-size:30px;font-weight:800;color:#f4c85a}
+.en{margin-top:5px;font-size:16px;letter-spacing:2px;color:#b8c1cc}
+.scale{height:26px;border-radius:999px;position:relative;background:linear-gradient(90deg,#df4d55 0%,#f28b49 25%,#e8d858 50%,#8cc47a 75%,#2c9e7b 100%);margin:42px 0 22px}
+.marker{position:absolute;top:50%;left:23%;width:42px;height:42px;background:#fff;border:4px solid #dce5ee;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 3px 9px #0008,0 0 0 2px #ffffff22}
+.labels{display:flex;justify-content:space-between;gap:8px;font-size:16px;color:#b8c1cc}
+.rule{height:1px;background:#46515d;margin:28px 0 20px}
+.source{font-size:16px;color:#aeb8c4}
+.source b{color:#f06a70;font-size:26px;margin-right:12px;vertical-align:-2px}
+.note{max-width:760px;margin:14px auto 0;color:#788391;font-size:14px;line-height:1.6}
+@media(max-width:560px){body{padding:14px}.card{padding:22px 20px;border-radius:22px}.heading{font-size:18px}.heading span{display:block;margin:4px 0 0;font-size:14px}.main{gap:8px;margin-top:24px;flex-wrap:wrap}.score{font-size:58px}.total{font-size:24px}.status{font-size:21px}.en{font-size:11px;letter-spacing:1px}.scale{height:20px;margin:34px 0 20px}.marker{width:34px;height:34px;border-width:3px}.labels{font-size:12px}.source{font-size:14px}}
 </style>
 </head>
 <body>
-<main class="card" aria-live="polite">
-<div class="heading">CNN Fear &amp; Greed｜恐懼與貪婪指數</div>
-<div class="reading"><div class="score" id="score">載入中</div><div><div class="status" id="status">讀取測試資料</div><div class="en" id="english">CNN FEAR &amp; GREED INDEX</div></div></div>
-<div class="scale" role="img" aria-label="恐懼與貪婪指數刻度"><span class="marker" id="marker"></span></div>
-<div class="labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
-<div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：待核對</span></div>
-<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：第三方快照不等於 CNN 官方即時數值。只有完成來源驗證的資料才可視為正式讀值；若目前顯示第三方快照，會明確標示，讀取失敗則不沿用舊分數。</div>
+<main class="card">
+  <div class="heading">CNN Fear &amp; Greed <span>｜恐懼與貪婪指數</span></div>
+  <div class="main">
+    <div class="scoreline"><span class="score">23</span><span class="total">/100</span></div>
+    <div class="mood"><div class="status">極度恐懼</div><div class="en">EXTREME FEAR</div></div>
+  </div>
+  <div class="scale" role="img" aria-label="恐懼與貪婪指數 23 分，白色圓點位於 23%"><span class="marker"></span></div>
+  <div class="labels"><span>極度恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度貪婪</span></div>
+  <div class="rule"></div>
+  <div class="source"><b>＋</b>資料來源</div>
 </main>
-<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">版面測試：此頁分數僅用來確認色帶與指標位置，不代表 CNN 即時報價。</div>
-</main>
-<script>
-const demoScore=23;
-document.getElementById("score").textContent=demoScore+" / 100";
-document.getElementById("status").textContent="極度恐懼";
-document.getElementById("english").textContent="LAYOUT PREVIEW ONLY";
-document.getElementById("marker").style.left=demoScore+"%";
-document.getElementById("updated").textContent="測試位置："+demoScore+" / 100";
-document.getElementById("source").textContent="非即時數據";
-</script>
+<div class="note">V15 獨立預覽頁｜23 分為版面示意值，非即時行情。正式首頁尚未修改。</div>
 </body>
 </html>
