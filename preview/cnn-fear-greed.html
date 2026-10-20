@@ -31,38 +31,16 @@ body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",s
 <div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：待核對</span></div>
 <div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：第三方快照不等於 CNN 官方即時數值。只有完成來源驗證的資料才可視為正式讀值；若目前顯示第三方快照，會明確標示，讀取失敗則不沿用舊分數。</div>
 </main>
+<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">版面測試：此頁分數僅用來確認色帶與指標位置，不代表 CNN 即時報價。</div>
+</main>
 <script>
-const labels={
-"extreme fear":["極度恐懼","EXTREME FEAR"],
-"fear":["恐懼","FEAR"],
-"neutral":["中性","NEUTRAL"],
-"greed":["貪婪","GREED"],
-"extreme greed":["極度貪婪","EXTREME GREED"]
-};
-async function load(){
- try{
-  // 讀取 JSON；若資料標示為第三方快照，明確標記為未經 CNN 官方核實。
-  const response=await fetch("./cnn-fear-greed.json?ts="+Date.now(),{cache:"no-store"});
-  if(!response.ok) throw new Error("JSON HTTP "+response.status);
-  const d=await response.json();
-  if(typeof d.score!=="number"||d.score<0||d.score>100||!d.rating||!d.timestamp) throw new Error("資料欄位驗證失敗");
-  const rating=String(d.rating).toLowerCase();
-  const label=labels[rating]||[rating.toUpperCase(),rating.toUpperCase()];
-  document.getElementById("score").textContent=Math.round(d.score)+" / 100";
-  document.getElementById("status").textContent=label[0];
-  document.getElementById("english").textContent=label[1];
-  document.getElementById("marker").style.left=d.score+"%";
-  document.getElementById("updated").textContent="資料時間："+new Date(d.timestamp).toLocaleString("zh-TW",{timeZone:"Asia/Taipei",hour12:false});
-  document.getElementById("source").textContent=(d.snapshot===true?"⚠ 第三方快照／未核實｜":"來源：")+(d.source||"未標示");
-  if(d.snapshot===true){document.getElementById("status").textContent=label[0]+"（第三方快照）";document.getElementById("english").textContent="UNVERIFIED THIRD-PARTY SNAPSHOT";}
- }catch(e){
-  document.getElementById("score").textContent="— / 100";
-  document.getElementById("status").textContent="尚無有效測試資料";
-  document.getElementById("english").textContent="DATA NOT VERIFIED";
-  document.getElementById("updated").innerHTML='<span class="error">資料讀取／驗證失敗，未顯示舊範例值</span>';
- }
-}
-load();
+const demoScore=23;
+document.getElementById("score").textContent=demoScore+" / 100";
+document.getElementById("status").textContent="極度恐懼";
+document.getElementById("english").textContent="LAYOUT PREVIEW ONLY";
+document.getElementById("marker").style.left=demoScore+"%";
+document.getElementById("updated").textContent="測試位置："+demoScore+" / 100";
+document.getElementById("source").textContent="非即時數據";
 </script>
 </body>
 </html>
