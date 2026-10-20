@@ -1024,6 +1024,21 @@ document.addEventListener('DOMContentLoaded',function(){
 #sentiment .fg6-labels{font-size:10px!important}
 }
 </style>
+<style id="tac-motherboard-market-sentiment-v9">
+#sentiment .sent{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important}
+#sentiment .sent>.sbox{min-width:0!important;max-width:100%!important;overflow:hidden!important;background:#242d37!important;border:1px solid #3b4652!important;border-radius:14px!important;padding:15px!important;color:#e8edf3!important}
+#sentiment .sent>.sbox .label,#sentiment .sent>section.cnn-fg-preview>.fg6-title{display:flex!important;align-items:baseline!important;gap:4px!important;min-width:0!important;max-width:100%!important;white-space:nowrap!important;overflow:hidden!important;line-height:1.25!important;font-size:18px!important;font-weight:750!important;letter-spacing:0!important}
+#sentiment .label-en,#sentiment .fg6-title .label-en{flex:0 0 auto!important;white-space:nowrap!important;font-size:18px!important;font-weight:750!important;line-height:1.25!important}
+#sentiment .label-zh,#sentiment .fg6-title .label-zh{flex:0 1 auto!important;min-width:0!important;white-space:nowrap!important;font-size:12px!important;font-weight:650!important;line-height:1.25!important;letter-spacing:0!important}
+#sentiment .sent>section.cnn-fg-preview{grid-column:1/-1!important;width:100%!important;min-width:0!important}
+#sentiment .sent>.sbox strong{font-size:30px!important;line-height:1.2!important}
+#sentiment .fg6-date{font-size:11px!important;color:#aab4c0!important}
+#sentiment .fg6-score-main{font-size:46px!important;font-weight:850!important;line-height:1!important}
+#sentiment .fg6-outof{font-size:18px!important;color:#aab4c0!important;font-weight:750!important}
+#sentiment .fg6-status{font-size:clamp(12px,3.3vw,18px)!important;white-space:nowrap!important}
+#sentiment .fg6-labels{font-size:11px!important}
+@media(max-width:700px){#sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}#sentiment .sent>.sbox{padding:12px!important}#sentiment .sent>.sbox .label,#sentiment .sent>section.cnn-fg-preview>.fg6-title{gap:3px!important;font-size:clamp(9px,2.7vw,12px)!important;white-space:nowrap!important}#sentiment .label-en,#sentiment .fg6-title .label-en{font-size:clamp(12px,3.7vw,18px)!important}#sentiment .label-zh,#sentiment .fg6-title .label-zh{font-size:clamp(7px,2.1vw,10px)!important}#sentiment .sent>.sbox strong{font-size:clamp(23px,6vw,30px)!important}#sentiment .sent>.sbox .up,#sentiment .sent>.sbox .down,#sentiment .sent>.sbox .warn{font-size:clamp(11px,3vw,14px)!important}#sentiment .fg6-score-main{font-size:clamp(36px,10vw,46px)!important}#sentiment .fg6-outof{font-size:16px!important}#sentiment .fg6-status{font-size:clamp(10px,3vw,15px)!important}#sentiment .fg6-labels{font-size:10px!important}}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
