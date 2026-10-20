@@ -1026,7 +1026,7 @@ document.addEventListener('DOMContentLoaded',function(){
 #sentiment .sbox .source-details[open] summary:before{content:"－"}
 #sentiment .sbox .source-details .source{font-size:11px;line-height:1.65;color:#b7c0cd;padding-top:8px}
 #sentiment .fear-card{grid-column:1/-1;padding:18px}
-#sentiment .fear-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 18px}#sentiment .fear-top>.label{flex:1 1 34%;min-width:0;white-space:normal;overflow-wrap:normal;font-size:clamp(11px,2.7vw,15px);line-height:1.3;margin:0}#sentiment .fear-score{flex:0 0 auto}#sentiment .fear-state{flex:0 0 auto}
+#sentiment .fear-top{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"label label" "score state";align-items:center;column-gap:12px;row-gap:10px;margin:4px 0 22px}#sentiment .fear-top>.label{grid-area:label;min-width:0;white-space:normal;overflow-wrap:normal;font-size:14px;line-height:1.35;margin:0}#sentiment .fear-score{grid-area:score;min-width:0;font-size:42px;white-space:nowrap}#sentiment .fear-state{grid-area:state;justify-self:end;text-align:right;font-size:17px;white-space:nowrap}
 #sentiment .fear-score{font-size:42px;line-height:1;font-weight:950;letter-spacing:-1px}
 #sentiment .fear-score small{font-size:22px;color:#bfc8d4;letter-spacing:0}
 #sentiment .fear-state{text-align:right;color:#f4c451;font-weight:900;font-size:17px}
