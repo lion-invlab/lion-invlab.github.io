@@ -1023,7 +1023,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="tac-fg-status">極度恐懼 <small>EXTREME FEAR</small></div>
 <div class="tac-fg-meter" role="img" aria-label="Fear and Greed 指數 23/100，極度恐懼"><div class="tac-fg-gradient"></div><div class="tac-fg-pointer"></div></div>
 <div class="tac-fg-labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
-<p class="tac-fg-note">情緒分類與分數依 CNN 最新公布資料更新</p>
+
 <details class="source-details"><summary>資料來源</summary><div class="source">Fear &amp; Greed 測試值 23/100（極度恐懼），資料日期 2026/10/19；正式發布前仍須依 CNN 最新公布資料確認。VIX：The Daily Tape 2026/10/19 美股收盤快照；MOVE：使用者提供的 Google Finance INDEXNYSEGIS: MOVE 截圖，2026/10/19 下午 4:17 EDT。</div></details>
 </div>
 </div>
@@ -1555,11 +1555,15 @@ html body .tac-history-mini input[type="date"]{
 #sentiment .tac-risk-down{color:#32b784!important}#sentiment .tac-risk-up{color:#f16d7b!important}
 #sentiment .tac-risk-box>small{display:block!important;color:#9da8b8!important;font-size:14px!important;line-height:1.5!important}
 #sentiment .tac-risk-interpret>strong{font-size:27px!important;margin-bottom:12px!important}
-#sentiment .tac-fg-box{grid-column:1/-1!important;padding:20px!important}
-#sentiment .tac-fg-score{font-size:48px!important;line-height:1.1!important;font-weight:950!important;letter-spacing:-.04em!important;color:#fff!important;margin:26px 0 12px!important}
+#sentiment .tac-fg-box{grid-column:1/-1!important;padding:20px!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;column-gap:14px!important;align-items:center!important}
+#sentiment .tac-fg-box>.tac-risk-label{grid-column:1/-1!important}
+#sentiment .tac-fg-score{font-size:48px!important;line-height:1.1!important;font-weight:950!important;letter-spacing:-.04em!important;color:#fff!important;margin:18px 0 8px!important;grid-column:1!important;grid-row:2!important}
 #sentiment .tac-fg-score span{font-size:22px!important;color:#b8c2cf!important;letter-spacing:0!important}
-#sentiment .tac-fg-status{font-size:21px!important;font-weight:900!important;color:#e4bd51!important;margin-bottom:18px!important}
-#sentiment .tac-fg-status small{font-size:12px!important;letter-spacing:.16em!important;color:#b8c2cf!important;margin-left:8px!important}
+#sentiment .tac-fg-status{font-size:19px!important;font-weight:900!important;color:#e4bd51!important;margin:18px 0 8px!important;grid-column:2!important;grid-row:2!important;justify-self:end!important;white-space:nowrap!important;text-align:right!important}
+#sentiment .tac-fg-status small{display:block!important;font-size:11px!important;letter-spacing:.13em!important;color:#b8c2cf!important;margin:4px 0 0!important}
+#sentiment .tac-fg-meter,#sentiment .tac-fg-labels,#sentiment .tac-fg-note,#sentiment .tac-fg-box>.source-details{grid-column:1/-1!important}
+#sentiment .tac-fg-note{display:none!important}
+@media(max-width:420px){#sentiment .tac-fg-box{column-gap:8px!important;padding:16px!important}#sentiment .tac-fg-score{font-size:40px!important}#sentiment .tac-fg-score span{font-size:18px!important}#sentiment .tac-fg-status{font-size:16px!important}#sentiment .tac-fg-status small{font-size:9px!important;letter-spacing:.08em!important}}
 #sentiment .tac-fg-meter{position:relative!important;width:100%!important;height:26px!important;margin:0 0 10px!important;box-sizing:border-box!important}
 #sentiment .tac-fg-gradient{position:absolute!important;left:0!important;right:0!important;top:4px!important;height:18px!important;border-radius:999px!important;background:linear-gradient(90deg,#d94c57 0%,#e7954b 25%,#e6c75b 50%,#83bd81 75%,#299b70 100%)!important}
 #sentiment .tac-fg-pointer{position:absolute!important;left:23%!important;top:0!important;transform:translateX(-50%)!important;width:26px!important;height:26px!important;border:4px solid #1b222c!important;border-radius:50%!important;background:#fff!important;box-shadow:0 0 0 2px #dbe3ec!important}
