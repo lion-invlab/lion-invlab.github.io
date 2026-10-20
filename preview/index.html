@@ -1025,8 +1025,8 @@ document.addEventListener('DOMContentLoaded',function(){
 #sentiment .sbox .source-details summary:before{content:"＋";color:#e34b52;margin-right:7px;font-size:16px}
 #sentiment .sbox .source-details[open] summary:before{content:"－"}
 #sentiment .sbox .source-details .source{font-size:11px;line-height:1.65;color:#b7c0cd;padding-top:8px}
-#sentiment .fear-card{grid-column:1/-1;padding:18px}#sentiment .fear-card>.label{display:block;width:100%;white-space:nowrap;overflow-wrap:normal;font-size:clamp(11px,3.5vw,14px);letter-spacing:0;margin-bottom:12px}
-#sentiment .fear-top{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin:4px 0 18px}
+#sentiment .fear-card{grid-column:1/-1;padding:18px}
+#sentiment .fear-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 18px}#sentiment .fear-top>.label{flex:1 1 34%;min-width:0;white-space:normal;overflow-wrap:normal;font-size:clamp(11px,2.7vw,15px);line-height:1.3;margin:0}#sentiment .fear-score{flex:0 0 auto}#sentiment .fear-state{flex:0 0 auto}
 #sentiment .fear-score{font-size:42px;line-height:1;font-weight:950;letter-spacing:-1px}
 #sentiment .fear-score small{font-size:22px;color:#bfc8d4;letter-spacing:0}
 #sentiment .fear-state{text-align:right;color:#f4c451;font-weight:900;font-size:17px}
@@ -1044,7 +1044,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="sent">
 <div class="sbox"><div class="label">VIX（股票波動率指數）</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
 <div class="sbox"><div class="label">MOVE（債券波動率指數）</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。</div></details></div>
-<div class="sbox fear-card"><div class="label">CNN Fear &amp; Greed｜恐懼與貪婪指數</div><div class="fear-top"><div class="fear-score">23<small> / 100</small></div><div class="fear-state">極度恐懼<small>EXTREME FEAR</small></div></div><div class="fear-track"><span class="fear-pointer"></span></div><div class="fear-legend"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div><details class="source-details"><summary>資料來源</summary><div class="source">資料日期 2026/10/19；使用者提供 CNN Fear &amp; Greed 截圖顯示 23/100。</div></details></div>
+<div class="sbox fear-card"><div class="fear-top"><div class="label">CNN Fear &amp; Greed｜恐懼與貪婪指數</div><div class="fear-score">23<small> / 100</small></div><div class="fear-state">極度恐懼<small>EXTREME FEAR</small></div></div><div class="fear-track"><span class="fear-pointer"></span></div><div class="fear-legend"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div><details class="source-details"><summary>資料來源</summary><div class="source">資料日期 2026/10/19；使用者提供 CNN Fear &amp; Greed 截圖顯示 23/100。</div></details></div>
 <div class="sbox core-card"><div class="core-title">📌 核心解讀</div><div class="core-text">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
 </article>
