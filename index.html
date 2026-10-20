@@ -983,6 +983,23 @@ document.addEventListener('DOMContentLoaded',function(){
 .tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
+<style id="tac-fear-greed-card-preview">/* Independent full-page visual test: enhanced CNN Fear & Greed card only */
+#sentiment .sent>.fear-greed-card{grid-column:1/-1!important;border:1px solid #465161!important;border-radius:14px!important;background:linear-gradient(145deg,#263140 0%,#202833 70%,#1d2530 100%)!important;padding:17px 17px 13px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.035)!important}
+#sentiment .fear-greed-card .fg-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+#sentiment .fear-greed-card .label{font-size:17px!important;font-weight:950!important;letter-spacing:.1px!important}
+#sentiment .fg-source-tag{font-size:9px;letter-spacing:.12em;color:#aeb9c8;font-weight:850;border:1px solid #4b586a;border-radius:999px;padding:4px 7px}
+#sentiment .fg-main{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap;margin:8px 0 16px}
+#sentiment .fg-score{font-size:clamp(36px,6vw,44px);font-weight:950;letter-spacing:-.055em;line-height:1;color:#fff}
+#sentiment .fg-score span{font-size:14px;letter-spacing:0;color:#aeb9c8;margin-left:4px}
+#sentiment .fg-class{font-size:16px;font-weight:900;color:#f3b45e}
+#sentiment .fg-class small{display:block;font-size:9px;letter-spacing:.12em;color:#b8c3d0;margin-top:3px}
+#sentiment .fg-meter{position:relative;margin:0 5px;height:17px}
+#sentiment .fg-gradient{position:absolute;left:0;right:0;top:5px;height:8px;border-radius:999px;background:linear-gradient(90deg,#c94551 0%,#e77f50 24%,#e4c45b 50%,#89bd78 75%,#2b9a6d 100%)}
+#sentiment .fg-pointer{position:absolute;top:0;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #263140;box-shadow:0 0 0 1px rgba(255,255,255,.9)}
+#sentiment .fg-pointer span{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:10px;font-weight:900;color:#202833;background:#fff;border-radius:5px;padding:3px 5px}
+#sentiment .fg-scale{display:flex;justify-content:space-between;gap:3px;margin-top:8px;color:#aeb9c8;font-size:9px;font-weight:750}
+#sentiment .fear-greed-card .source-details{margin-top:13px;padding-top:8px;border-top:1px solid #3b4655}
+@media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:15px 13px 12px!important}#sentiment .fear-greed-card .label{font-size:16px!important}#sentiment .fg-score{font-size:38px}#sentiment .fg-class{font-size:15px}#sentiment .fg-scale{font-size:8px}}</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
@@ -1014,7 +1031,13 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="sent">
 <div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
 <div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
-<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>23</strong><span class="warn">Extreme Fear｜極度恐懼</span><details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details></div>
+<div class="sbox fear-greed-card">
+<div class="fg-head"><div class="label">CNN Fear &amp; Greed</div><span class="fg-source-tag">MARKET SENTIMENT</span></div>
+<div class="fg-main"><div class="fg-score">23<span>/100</span></div><div class="fg-class">極度恐懼 <small>EXTREME FEAR</small></div></div>
+<div class="fg-meter" role="img" aria-label="恐懼與貪婪指數23，位於極度恐懼區"><div class="fg-gradient"></div><div class="fg-pointer" style="left:23%"><span>23</span></div></div>
+<div class="fg-scale"><span>極度恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度貪婪</span></div>
+<details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；現有首頁記錄值為23／100（Extreme Fear）。此版僅調整呈現方式，未重新核驗行情。</div></details>
+</div>
 <div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
 </article>
