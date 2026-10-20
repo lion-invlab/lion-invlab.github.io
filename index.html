@@ -983,197 +983,115 @@ document.addEventListener('DOMContentLoaded',function(){
 .tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
+<meta name="tac-mother-version" content="Tue-Fri V33 baseline">
 
 
-<style id="tac-full-preview-cnn-fg-band-v10">
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{white-space:normal!important;font-size:18px!important;line-height:1.35!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-top:14px!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:38px!important;white-space:nowrap!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{margin-left:auto!important;text-align:right!important;justify-content:flex-end!important;font-size:15px!important;color:#f3c65e!important;white-space:nowrap!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{margin-top:18px!important}
-@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}}
-</style>
-<style id="tac-home-cnn-preview-migration-v24">
-/* Port the approved preview card layout to homepage; neutralize legacy nth-child rules only for CNN */
+<style id="tac-full-preview-cnn-fg-band-v9">
+/* V9: force a single-column card layout and continuous blended spectrum */
 #sentiment .sent>section.sbox.cnn-fg-preview{
- grid-column:1/-1!important;grid-row:auto!important;
- display:block!important;float:none!important;position:relative!important;
- grid-template-columns:none!important;grid-template-rows:none!important;
- align-items:initial!important;column-gap:normal!important;row-gap:normal!important;
- border:1px solid #394452!important;border-top:1px solid #394452!important;
- border-left:1px solid #394452!important;padding:18px!important;
- background:#252d38!important;min-width:0!important;overflow:visible!important;
+ display:block!important;grid-column:1/-1!important;grid-template-columns:none!important;
+ position:relative!important;float:none!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;box-sizing:border-box!important;padding:18px 18px 16px!important;
+ overflow:hidden!important;background:#242d37!important;border:1px solid #394452!important;border-radius:14px!important;
 }
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
- display:block!important;width:100%!important;margin:0!important;padding:0!important;
- white-space:normal!important;line-height:1.35!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{
- display:flex!important;flex-direction:row!important;align-items:center!important;
- justify-content:space-between!important;gap:12px!important;width:100%!important;
- margin-top:14px!important;position:static!important;transform:none!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{
- display:flex!important;align-items:baseline!important;gap:2px!important;
- font-size:38px!important;white-space:nowrap!important;position:static!important;
- transform:none!important;margin:0!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{
- font-size:35px!important;line-height:1.08!important;font-weight:900!important;color:#fff!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{
- font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{
- display:flex!important;flex-direction:row!important;align-items:center!important;
- justify-content:flex-end!important;gap:5px!important;margin-left:auto!important;
- text-align:right!important;font-size:15px!important;color:#f3c65e!important;
- white-space:nowrap!important;position:static!important;transform:none!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{
- display:block!important;position:relative!important;width:100%!important;
- max-width:100%!important;margin-top:18px!important;padding:0!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{
- display:flex!important;position:relative!important;width:100%!important;
- min-width:100%!important;max-width:100%!important;height:12px!important;margin:0!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker{
- display:block!important;position:absolute!important;left:23%!important;top:-5px!important;
- transform:translateX(-50%)!important;z-index:2!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{
- display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
- position:static!important;width:100%!important;margin:10px 0 0!important;
- padding:0!important;text-align:center!important;gap:3px!important;
-}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap,
 #sentiment .sent>section.sbox.cnn-fg-preview>details.source-details{
- display:block!important;margin:13px 0 0!important;
+ position:relative!important;float:none!important;left:auto!important;right:auto!important;top:auto!important;
+ grid-column:1/-1!important;width:100%!important;max-width:100%!important;min-width:0!important;
+ box-sizing:border-box!important;transform:none!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{display:block!important;margin:0!important;padding:0!important;font-size:19px!important;line-height:1.35!important;font-weight:900!important;color:#d7dee8!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:block!important;margin:3px 0 0!important;padding:0!important;font-size:10px!important;line-height:1.4!important;color:#8d99a8!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;gap:5px!important;margin:12px 0 0!important;padding:0!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{display:block!important;position:static!important;float:none!important;margin:0!important;padding:0!important;font-size:40px!important;line-height:1.1!important;font-weight:950!important;color:#fff!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{display:flex!important;position:static!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;margin:0!important;padding:0!important;font-size:14px!important;line-height:1.5!important;font-weight:850!important;color:#f3c65e!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:block!important;width:1px!important;height:14px!important;background:#8d99a8!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status b{display:inline!important;position:static!important;margin:0!important;padding:0!important;font:inherit!important;color:inherit!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{display:block!important;margin:22px 0 0!important;padding:0!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{display:block!important;position:static!important;width:100%!important;height:13px!important;margin:0!important;padding:0!important;border-radius:999px!important;overflow:hidden!important;background:linear-gradient(90deg,#d84a45 0%,#e66b43 22%,#ed9849 35%,#e8c84b 50%,#b2c45a 66%,#72b86b 80%,#3c9b72 100%)!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band span{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker{display:block!important;position:absolute!important;left:23%!important;top:-5px!important;transform:translateX(-50%)!important;width:22px!important;height:22px!important;background:#fff!important;border:3px solid #f4f8fc!important;border-radius:50%!important;box-shadow:0 0 0 2px rgba(255,255,255,.48),0 3px 9px rgba(0,0,0,.55)!important;z-index:2!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker span{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{display:grid!important;position:static!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;width:100%!important;margin:10px 0 0!important;padding:0!important;color:#aeb8c6!important;font-size:10px!important;font-weight:700!important;line-height:1.4!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels span{display:block!important;position:static!important;float:none!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;word-break:keep-all!important;overflow-wrap:normal!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>details.source-details{display:block!important;margin:13px 0 0!important}
+@media(max-width:700px){#sentiment .sent>section.sbox.cnn-fg-preview{padding:17px 16px 14px!important}#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:18px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:37px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{height:12px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}}
+@media(max-width:370px){#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:16px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:12px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:8px!important}}
+</style>
+
+
+<style id="tac-preview-explicit-label-en-normalization-v19">
+/* V19: Give all three English titles a dedicated span, independent of subtitle and legacy card rules */
+#sentiment .sent .sbox .label .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+  display:inline!important;
+  font-family:inherit!important;
+  font-size:18px!important;
+  font-weight:750!important;
+  line-height:1.35!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  vertical-align:baseline!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  font-size:14px!important;
+  font-weight:650!important;
+  line-height:1.35!important;
 }
 @media(max-width:390px){
- #sentiment .sent>section.sbox.cnn-fg-preview{padding:17px 16px 14px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:18px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:32px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}
+  #sentiment .sent .sbox .label .label-en,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+    font-size:18px!important;
+  }
+  #sentiment .sent .sbox .label .label-zh,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+    font-size:14px!important;
+  }
 }
 </style>
-<style id="tac-home-cnn-preview-band-marker-v25">
-/* Restore the exact gradient band and white marker from the approved preview */
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{
- display:block!important;position:relative!important;width:100%!important;
- max-width:100%!important;min-width:0!important;margin:18px 0 0!important;padding:0!important;
- box-sizing:border-box!important;overflow:visible!important;
+
+
+<style id="tac-preview-market-sentiment-fit-v21">
+/* V21: hard cap bilingual titles to each card's content width on mobile */
+html body #sentiment .sent > .sbox,
+html body #sentiment .sent > section.sbox.cnn-fg-preview { min-width:0!important; }
+html body #sentiment .sent > .sbox .label,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+  display:flex!important; width:100%!important; max-width:100%!important;
+  min-width:0!important; box-sizing:border-box!important; overflow:hidden!important;
+  align-items:baseline!important; flex-wrap:nowrap!important; gap:4px!important;
+  white-space:nowrap!important; font-size:18px!important; line-height:1.3!important;
 }
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{
- display:block!important;position:relative!important;width:100%!important;
- min-width:100%!important;max-width:100%!important;height:12px!important;
- margin:0!important;padding:0!important;border:0!important;border-radius:999px!important;
- overflow:hidden!important;
- background:linear-gradient(90deg,#d84a45 0%,#e66b43 22%,#ed9849 35%,#e8c84b 50%,#b2c45a 66%,#72b86b 80%,#3c9b72 100%)!important;
- box-sizing:border-box!important;
+html body #sentiment .sent > .sbox .label .label-en,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+  display:inline-block!important; flex:0 0 auto!important; min-width:0!important;
+  white-space:nowrap!important; font-size:18px!important; line-height:1.3!important;
 }
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band span{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker{
- display:block!important;position:absolute!important;left:23%!important;top:-5px!important;
- transform:translateX(-50%)!important;width:22px!important;height:22px!important;
- margin:0!important;padding:0!important;background:#fff!important;
- border:3px solid #f4f8fc!important;border-radius:50%!important;
- box-shadow:0 0 0 2px rgba(255,255,255,.48),0 3px 9px rgba(0,0,0,.55)!important;
- z-index:5!important;box-sizing:border-box!important;
+html body #sentiment .sent > .sbox .label .label-zh,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+  display:inline-block!important; flex:1 1 0%!important; width:0!important;
+  min-width:0!important; max-width:100%!important; overflow:hidden!important;
+  white-space:nowrap!important; font-size:9px!important; line-height:1.3!important;
+  font-weight:650!important; letter-spacing:-.2px!important;
 }
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker span{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{
- display:grid!important;position:static!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;
- gap:3px!important;width:100%!important;max-width:100%!important;margin:10px 0 0!important;
- padding:0!important;color:#aeb8c6!important;font-size:10px!important;font-weight:700!important;
- line-height:1.4!important;text-align:center!important;box-sizing:border-box!important;
-}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels span{
- display:block!important;position:static!important;float:none!important;min-width:0!important;
- width:auto!important;margin:0!important;padding:0!important;text-align:center!important;
- white-space:normal!important;word-break:keep-all!important;overflow-wrap:normal!important;
-}
-@media(max-width:700px){
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{height:12px!important}
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}
-}
-</style>
-<style id="tac-sentiment-heading-single-line-v26">
-/* Keep the three sentiment card headings the same size and on one line */
-#sentiment .sent .sbox .label,
-#sentiment .sent .sbox .label .label-en,
-#sentiment .sent .sbox .label .label-zh,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{
- font-size:18px!important;font-weight:700!important;line-height:1.25!important;
- letter-spacing:0!important;
-}
-#sentiment .sent .sbox .label,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title{
- display:flex!important;align-items:baseline!important;gap:7px!important;
- flex-wrap:nowrap!important;white-space:nowrap!important;
- width:max-content!important;max-width:none!important;
-}
-#sentiment .sent .sbox .label .label-zh,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{
- white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;
-}
-#sentiment .sent .sbox .label .label-en,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{
- flex:0 0 auto!important;white-space:nowrap!important;
-}
-#sentiment .sent .sbox .label .label-zh{font-size:16px!important}
-#sentiment .sent .sbox .label .label-en{font-size:18px!important}
-#sentiment .sent .sbox:has(.label-en) .label-zh{font-size:16px!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title{font-size:18px!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:16px!important}
-@media(max-width:700px){
- #sentiment .sent .sbox .label,
- #sentiment .sent .sbox .label .label-en,
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title,
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{font-size:18px!important}
- #sentiment .sent .sbox .label .label-zh,
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:16px!important}
-}
-</style>
-<style id="tac-sentiment-heading-fit-v27">
-/* Compact all three labels equally so they fit their own cards on mobile */
-#sentiment .sent>.sbox .label,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title{
- display:flex!important;align-items:baseline!important;flex-wrap:nowrap!important;
- gap:5px!important;width:100%!important;max-width:100%!important;min-width:0!important;
- white-space:nowrap!important;overflow:hidden!important;box-sizing:border-box!important;
-}
-#sentiment .sent>.sbox .label .label-en,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{
- flex:0 0 auto!important;font-size:18px!important;font-weight:700!important;
- line-height:1.2!important;letter-spacing:0!important;white-space:nowrap!important;
-}
-#sentiment .sent>.sbox .label .label-zh,
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{
- flex:0 1 auto!important;min-width:0!important;font-size:14px!important;
- font-weight:650!important;line-height:1.25!important;letter-spacing:0!important;
- white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;
-}
-#sentiment .sent>.sbox .label{overflow:visible!important}
-@media(max-width:700px){
- #sentiment .sent>.sbox .label .label-en,
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{font-size:18px!important}
- #sentiment .sent>.sbox .label .label-zh,
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:13px!important}
+@media(max-width:700px) {
+ html body #sentiment .sent > .sbox .label,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+   width:100%!important; max-width:100%!important; overflow:hidden!important;
+   gap:3px!important; font-size:18px!important;
+ }
+ html body #sentiment .sent > .sbox .label .label-en,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {font-size:18px!important}
+ html body #sentiment .sent > .sbox .label .label-zh,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {font-size:9px!important}
 }
 </style>
 </head>
-<body><!-- V23 calendar cards applied -->
+<body><div class="preview-only-banner">獨立完整版預覽｜非正式首頁｜CNN Fear &amp; Greed 色帶為測試樣式，所有行情內容仍須逐項核實</div><!-- V23 calendar cards applied -->
 <header class="top">
 <div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/20（二）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/20（二）｜美股及可核實海外市場採2026/10/19當地收盤；未核實市場不沿用舊報價</div></div>
 <nav class="nav">
@@ -1202,7 +1120,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="title">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
-<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債券市場波動率指數</span></div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
   <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
   <div class="fg6-date">資料日期 2026/10/19</div>
@@ -1215,7 +1133,7 @@ document.addEventListener('DOMContentLoaded',function(){
     <div class="fg6-marker"><span></span></div>
     <div class="fg6-labels"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
   </div>
-  <details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details>
+  <details class="source-details"><summary>資料來源</summary><div class="source">資料日期 2026/10/19；此為版面預覽，分數 23 為固定示例值。</div></details>
 </section>
 <div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
@@ -1730,6 +1648,64 @@ html body .tac-history-mini input[type="date"]{
  }
 }
 </style>
+<style id="tac-full-preview-cnn-fg-score-v11">
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{display:flex!important;align-items:baseline!important;gap:2px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:42px!important;line-height:1!important;font-weight:950!important;color:#fff!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:16px!important;line-height:1!important;font-weight:700!important;color:#aeb8c6!important}
+@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:38px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:14px!important}}
+</style>
+<style id="tac-preview-market-number-size-v13">
+/* Slightly reduce all three primary quote values while keeping identical sizing */
+#sentiment .sent>.sbox:not(.cnn-fg-preview)>strong,
+#sentiment .sent>.sbox:not(.cnn-fg-preview) .value,
+#sentiment .sent>.sbox:not(.cnn-fg-preview) .metric-value,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{
+ font-size:32px!important;line-height:1.08!important;font-weight:900!important;
+}
+@media(max-width:390px){
+ #sentiment .sent>.sbox:not(.cnn-fg-preview)>strong,
+ #sentiment .sent>.sbox:not(.cnn-fg-preview) .value,
+ #sentiment .sent>.sbox:not(.cnn-fg-preview) .metric-value,
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:29px!important;line-height:1.08!important}
+}
+</style>
+
+<style id="tac-preview-market-sentiment-fit-v22">
+/* V22: subtitles must remain visible; compact to fit without clipping them away */
+html body #sentiment .sent .sbox .label,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+  display:flex!important; align-items:baseline!important; flex-wrap:nowrap!important;
+  gap:5px!important; width:100%!important; max-width:100%!important;
+  min-width:0!important; box-sizing:border-box!important; overflow:hidden!important;
+  white-space:nowrap!important; line-height:1.3!important;
+}
+html body #sentiment .sent .sbox .label .label-en,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+  display:inline!important; flex:0 0 auto!important; width:auto!important;
+  min-width:0!important; max-width:none!important; overflow:visible!important;
+  white-space:nowrap!important; font-size:18px!important; line-height:1.3!important;
+}
+html body #sentiment .sent .sbox .label .label-zh,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+  display:inline!important; flex:0 1 auto!important; width:auto!important;
+  min-width:0!important; max-width:48%!important; overflow:hidden!important;
+  white-space:nowrap!important; font-size:9px!important; line-height:1.3!important;
+  font-weight:650!important; letter-spacing:0!important; color:#b9c3cf!important;
+}
+@media(max-width:700px) {
+ html body #sentiment .sent .sbox .label,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+   gap:4px!important; overflow:hidden!important;
+ }
+ html body #sentiment .sent .sbox .label .label-en,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {font-size:18px!important}
+ html body #sentiment .sent .sbox .label .label-zh,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+   display:inline!important; width:auto!important; max-width:48%!important;
+   font-size:9px!important; overflow:hidden!important;
+ }
+}
+</style>
 </body></html>
 <style id="tac-history-button-visibility-v32">
 @media(min-width:1100px){
@@ -1743,5 +1719,143 @@ html body .tac-history-mini input[type="date"]{
 /* User adjustment: enlarge energy futures names to match precious-metal spot labels */
 @media(max-width:700px){
   .energy-card .row b{font-size:16px!important;letter-spacing:-.4px!important;white-space:nowrap!important}
+}
+
+<style id="tac-full-preview-cnn-fg-band-v10">
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{white-space:normal!important;font-size:18px!important;line-height:1.35!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-top:14px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:38px!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{margin-left:auto!important;text-align:right!important;justify-content:flex-end!important;font-size:15px!important;color:#f3c65e!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{margin-top:18px!important}
+@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}}
+</style></style>
+
+<style id="tac-preview-cnn-score-optical-match-v14">
+/* Optical correction: CNN 23 appeared smaller than VIX/MOVE despite shared nominal size */
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{
+ font-size:35px!important;line-height:1.08!important;font-weight:900!important;
+}
+@media(max-width:390px){
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{font-size:32px!important}
+}
+</style>
+
+<style id="tac-preview-bilingual-indicator-labels-v15">
+#sentiment .sent .label .label-zh,
+#sentiment .sent .fg6-title .label-zh{font-size:.78em!important;font-weight:650!important;color:#b9c3cf!important;white-space:normal!important}
+#sentiment .sent .fg6-title{line-height:1.35!important}
+@media(max-width:390px){
+ #sentiment .sent .label .label-zh{font-size:.72em!important}
+ #sentiment .sent .fg6-title .label-zh{display:inline!important;font-size:.72em!important}
+}
+</style>
+
+<style id="tac-preview-unify-vix-move-cnn-english-title-size-v16">
+/* V16: Keep the English indicator titles VIX, MOVE, and CNN Fear & Greed at the same font size */
+#sentiment .sent .label,
+#sentiment .sent .fg6-title{
+  font-size:18px!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .label,
+  #sentiment .sent .fg6-title{
+    font-size:18px!important;
+  }
+}
+</style>
+
+<style id="tac-preview-unify-vix-move-cnn-english-title-size-v17">
+/* V17: Override the more-specific CNN card title rules so all three English labels render equally */
+#sentiment .sent .sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+  font-size:18px!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+    font-size:18px!important;
+  }
+}
+</style>
+
+<style id="tac-preview-exact-english-label-font-size-v18">
+/* V18: Explicitly normalize only the English title text, independent of Chinese subtitles */
+#sentiment .sent .sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+  font-size:18px!important;
+  font-weight:750!important;
+  letter-spacing:0!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  font-size:14px!important;
+  font-weight:650!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+    font-size:18px!important;
+  }
+  #sentiment .sent .sbox .label .label-zh,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+    font-size:14px!important;
+  }
+}
+</style>
+
+
+<style id="tac-preview-market-sentiment-fit-v20">
+/* V20: prevent sentiment titles from overflowing on mobile; preserve all other sections */
+html body #sentiment .sent > .sbox .label,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+  display:flex!important;
+  align-items:baseline!important;
+  flex-wrap:nowrap!important;
+  gap:5px!important;
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  font-size:18px!important;
+  line-height:1.3!important;
+  letter-spacing:0!important;
+}
+html body #sentiment .sent > .sbox .label .label-en,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+  font-size:18px!important;
+  font-weight:750!important;
+}
+html body #sentiment .sent > .sbox .label .label-zh,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+  flex:0 1 auto!important;
+  min-width:0!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+  font-size:12px!important;
+  line-height:1.3!important;
+  font-weight:650!important;
+}
+@media(max-width:700px) {
+  html body #sentiment .sent > .sbox .label,
+  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+    font-size:18px!important;
+    white-space:nowrap!important;
+  }
+  html body #sentiment .sent > .sbox .label .label-en,
+  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+    font-size:18px!important;
+  }
+  html body #sentiment .sent > .sbox .label .label-zh,
+  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+    font-size:12px!important;
+  }
 }
 </style>
