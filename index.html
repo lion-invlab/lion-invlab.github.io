@@ -983,6 +983,27 @@ document.addEventListener('DOMContentLoaded',function(){
 .tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
+
+<style id="tac-home-unify-vix-move-cnn-english-title-v19">
+/* Home: equal English indicator title sizing; Chinese subtitles remain independently sized */
+#sentiment .sent .sbox .label .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+  display:inline!important;font-size:18px!important;font-weight:750!important;
+  line-height:1.35!important;letter-spacing:0!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  display:inline!important;font-size:14px!important;font-weight:650!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+ #sentiment .sent .sbox .label .label-en,
+ #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{font-size:18px!important}
+ #sentiment .sent .sbox .label .label-zh,
+ #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{font-size:14px!important}
+}
+</style>
+
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
@@ -1012,9 +1033,22 @@ document.addEventListener('DOMContentLoaded',function(){
 <article class="card" id="sentiment">
 <div class="title">市場情緒</div>
 <div class="sent">
-<div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
-<div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
-<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>23</strong><span class="warn">Extreme Fear｜極度恐懼</span><details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債券市場波動率指數</span></div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
+<section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
+  <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
+  <div class="fg6-date">資料日期 2026/10/19</div>
+  <div class="fg6-score-row">
+    <div class="fg6-score"><span class="fg6-score-main">23</span><span class="fg6-outof">/100</span></div>
+    <div class="fg6-status"><span>Extreme Fear</span><i></i><b>極度恐懼</b></div>
+  </div>
+  <div class="fg6-scale-wrap" aria-label="Fear and Greed scale">
+    <div class="fg6-band"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="fg6-marker"><span></span></div>
+    <div class="fg6-labels"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
+  </div>
+  <details class="source-details"><summary>資料來源</summary><div class="source">資料日期 2026/10/19；此為版面預覽，分數 23 為固定示例值。</div></details>
+</section>
 <div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
 </article>
