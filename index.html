@@ -1106,6 +1106,45 @@ document.addEventListener('DOMContentLoaded',function(){
  #sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}
 }
 </style>
+<style id="tac-sentiment-heading-single-line-v26">
+/* Keep the three sentiment card headings the same size and on one line */
+#sentiment .sent .sbox .label,
+#sentiment .sent .sbox .label .label-en,
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{
+ font-size:18px!important;font-weight:700!important;line-height:1.25!important;
+ letter-spacing:0!important;
+}
+#sentiment .sent .sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title{
+ display:flex!important;align-items:baseline!important;gap:7px!important;
+ flex-wrap:nowrap!important;white-space:nowrap!important;
+ width:max-content!important;max-width:none!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{
+ white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;
+}
+#sentiment .sent .sbox .label .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{
+ flex:0 0 auto!important;white-space:nowrap!important;
+}
+#sentiment .sent .sbox .label .label-zh{font-size:16px!important}
+#sentiment .sent .sbox .label .label-en{font-size:18px!important}
+#sentiment .sent .sbox:has(.label-en) .label-zh{font-size:16px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title{font-size:18px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:16px!important}
+@media(max-width:700px){
+ #sentiment .sent .sbox .label,
+ #sentiment .sent .sbox .label .label-en,
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title,
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{font-size:18px!important}
+ #sentiment .sent .sbox .label .label-zh,
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:16px!important}
+}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
