@@ -986,72 +986,27 @@ document.addEventListener('DOMContentLoaded',function(){
 <meta name="tac-mother-version" content="Tue-Fri V33 baseline">
 
 
-<style id="tac-full-preview-cnn-fg-band-v6">
-/* V6: wide title row, separate score row, full-width band */
-#sentiment .sent>.sbox.cnn-fg-preview{
- grid-column:1/-1!important;display:block!important;float:none!important;
- width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important;
- padding:19px 20px 16px!important;background:#242d37!important;border:1px solid #394452!important;
- border-radius:14px!important;overflow:hidden!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-head{
- display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;
- align-items:baseline!important;justify-content:space-between!important;gap:10px!important;
- width:100%!important;min-width:0!important;margin:0!important;padding:0!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-head .label{
- display:block!important;flex:1 1 auto!important;width:auto!important;min-width:0!important;max-width:none!important;
- margin:0!important;padding:0!important;font-size:17px!important;line-height:1.35!important;
- font-weight:900!important;color:#d7dee8!important;white-space:nowrap!important;
- overflow-wrap:normal!important;word-break:normal!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-date{
- display:block!important;flex:0 0 auto!important;margin:0!important;padding:0!important;
- font-size:10px!important;line-height:1.4!important;color:#8d99a8!important;white-space:nowrap!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-reading{
- display:flex!important;flex-direction:row!important;flex-wrap:wrap!important;
- align-items:baseline!important;justify-content:flex-start!important;gap:5px 14px!important;
- width:100%!important;min-width:0!important;margin:13px 0 0!important;padding:0!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-reading strong{
- display:block!important;position:static!important;flex:0 0 auto!important;
- margin:0!important;padding:0!important;font-size:38px!important;line-height:1.1!important;
- font-weight:950!important;color:#fff!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-reading .warn{
- display:inline-flex!important;position:static!important;flex:0 1 auto!important;
- align-items:baseline!important;flex-wrap:wrap!important;width:auto!important;
- margin:0!important;padding:0!important;font-size:14px!important;line-height:1.5!important;
- font-weight:850!important;color:#f3c65e!important;
-}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-divider{display:inline-block!important;height:12px!important;border-left:1px solid #8d99a8!important;margin:0 8px -1px!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-band-wrap{display:block!important;position:relative!important;width:100%!important;min-width:0!important;box-sizing:border-box!important;margin:21px 0 0!important;padding:0!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-band{display:flex!important;flex-direction:row!important;width:100%!important;height:13px!important;gap:3px!important;overflow:hidden!important;border-radius:999px!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-seg{display:block!important;flex:1 1 0!important;min-width:0!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-1{background:#d84a45!important}#sentiment .sent>.sbox.cnn-fg-preview .fg-2{background:#ed8c49!important}#sentiment .sent>.sbox.cnn-fg-preview .fg-3{background:#e8c84b!important}#sentiment .sent>.sbox.cnn-fg-preview .fg-4{background:#9dbd56!important}#sentiment .sent>.sbox.cnn-fg-preview .fg-5{background:#3c9b72!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-marker{position:absolute!important;left:23%!important;top:-5px!important;transform:translateX(-50%)!important;height:23px!important;width:3px!important;border-radius:3px!important;background:#fff!important;box-shadow:0 0 0 1px #202833,0 1px 3px #0008!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-marker span{position:absolute!important;top:-3px!important;left:50%!important;transform:translateX(-50%)!important;width:9px!important;height:9px!important;border-radius:50%!important;background:#fff!important;border:1px solid #202833!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-scale{display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:4px!important;width:100%!important;margin:10px 0 0!important;padding:0!important;font-size:10px!important;line-height:1.35!important;font-weight:700!important;color:#aeb8c6!important}
-#sentiment .sent>.sbox.cnn-fg-preview .fg-scale span{display:block!important;min-width:0!important;width:auto!important;margin:0!important;padding:0 1px!important;text-align:center!important;white-space:normal!important;overflow-wrap:normal!important;word-break:keep-all!important}
+<style id="tac-full-preview-cnn-fg-band-v7">
+/* Fully isolated CNN preview card; avoids inherited .label/.strong layout rules */
+#sentiment .sent>.sbox.cnn-fg-preview{display:block!important;position:relative!important;float:none!important;grid-column:1/-1!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:18px 18px 16px!important;overflow:hidden!important;background:#242d37!important;border:1px solid #394452!important;border-radius:14px!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-title{display:block!important;position:static!important;width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;padding:0!important;font-size:19px!important;line-height:1.35!important;font-weight:900!important;color:#d7dee8!important;white-space:normal!important;overflow-wrap:normal!important;word-break:normal!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-date{display:block!important;position:static!important;margin:3px 0 0!important;padding:0!important;font-size:10px!important;line-height:1.4!important;color:#8d99a8!important;white-space:nowrap!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-score-row{display:flex!important;position:static!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;flex-wrap:wrap!important;gap:8px 16px!important;width:100%!important;margin:12px 0 0!important;padding:0!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-score{display:block!important;position:static!important;flex:none!important;margin:0!important;padding:0!important;font-size:40px!important;line-height:1.1!important;font-weight:950!important;color:#fff!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-status{display:flex!important;position:static!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;margin:0!important;padding:0!important;font-size:14px!important;line-height:1.5!important;font-weight:850!important;color:#f3c65e!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-status i{display:block!important;width:1px!important;height:14px!important;background:#8d99a8!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-status b{display:inline!important;position:static!important;margin:0!important;padding:0!important;font:inherit!important;color:inherit!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-scale-wrap{display:block!important;position:relative!important;width:100%!important;min-width:0!important;margin:22px 0 0!important;padding:0!important;box-sizing:border-box!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-band{display:flex!important;position:static!important;flex-direction:row!important;gap:3px!important;width:100%!important;height:13px!important;overflow:hidden!important;border-radius:999px!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-band span{display:block!important;position:static!important;flex:1 1 0!important;min-width:0!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-band span:nth-child(1){background:#d84a45!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-band span:nth-child(2){background:#ed8c49!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-band span:nth-child(3){background:#e8c84b!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-band span:nth-child(4){background:#9dbd56!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-band span:nth-child(5){background:#3c9b72!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-marker{display:block!important;position:absolute!important;left:23%!important;top:-5px!important;transform:translateX(-50%)!important;width:3px!important;height:23px!important;background:#fff!important;border-radius:3px!important;box-shadow:0 0 0 1px #202833!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-marker span{display:block!important;position:absolute!important;left:50%!important;top:-3px!important;transform:translateX(-50%)!important;width:9px!important;height:9px!important;border:1px solid #202833!important;border-radius:50%!important;background:#fff!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-labels{display:grid!important;position:static!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;width:100%!important;margin:10px 0 0!important;padding:0!important;color:#aeb8c6!important;font-size:10px!important;font-weight:700!important;line-height:1.4!important}
+#sentiment .sent>.sbox.cnn-fg-preview .fg6-labels span{display:block!important;position:static!important;min-width:0!important;margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;word-break:keep-all!important;overflow-wrap:normal!important}
 #sentiment .sent>.sbox.cnn-fg-preview .source-details{display:block!important;margin-top:13px!important}
-@media(max-width:700px){
- #sentiment .sent>.sbox.cnn-fg-preview{padding:17px 16px 14px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-head{align-items:flex-start!important;flex-direction:column!important;gap:3px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-head .label{font-size:17px!important;white-space:nowrap!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-date{font-size:9px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-reading{margin-top:12px!important;gap:5px 13px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-reading strong{font-size:36px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-reading .warn{font-size:13px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-band{height:12px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-scale{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;font-size:9px!important;line-height:1.4!important}
-}
-@media(max-width:370px){
- #sentiment .sent>.sbox.cnn-fg-preview .fg-head .label{font-size:15px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-reading{column-gap:9px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-reading .warn{font-size:12px!important}
- #sentiment .sent>.sbox.cnn-fg-preview .fg-scale{font-size:8px!important}
-}
+@media(max-width:700px){#sentiment .sent>.sbox.cnn-fg-preview{padding:17px 16px 14px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-title{font-size:18px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-score{font-size:37px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-band{height:12px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}}
+@media(max-width:370px){#sentiment .sent>.sbox.cnn-fg-preview .fg6-title{font-size:16px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-status{font-size:12px!important}#sentiment .sent>.sbox.cnn-fg-preview .fg6-labels{font-size:8px!important}}
 </style>
 
 </head>
@@ -1085,19 +1040,20 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="sent">
 <div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
 <div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
-<div class="sbox cnn-fg-preview">
-  <div class="fg-head">
-    <div class="label">CNN Fear &amp; Greed</div>
-    <span class="fg-date">資料日期 2026/10/19</span>
+<section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
+  <div class="fg6-title">CNN Fear &amp; Greed</div>
+  <div class="fg6-date">資料日期 2026/10/19</div>
+  <div class="fg6-score-row">
+    <div class="fg6-score">23</div>
+    <div class="fg6-status"><span>Extreme Fear</span><i></i><b>極度恐懼</b></div>
   </div>
-  <div class="fg-reading"><strong>23</strong><span class="warn">Extreme Fear <span class="fg-divider"></span> 極度恐懼</span></div>
-  <div class="fg-band-wrap" aria-label="Fear and Greed scale from 0 to 100">
-    <div class="fg-band"><span class="fg-seg fg-1"></span><span class="fg-seg fg-2"></span><span class="fg-seg fg-3"></span><span class="fg-seg fg-4"></span><span class="fg-seg fg-5"></span></div>
-    <div class="fg-marker" aria-hidden="true"><span></span></div>
-    <div class="fg-scale"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
+  <div class="fg6-scale-wrap" aria-label="Fear and Greed scale">
+    <div class="fg6-band"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="fg6-marker"><span></span></div>
+    <div class="fg6-labels"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
   </div>
-  <details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details>
-</div>
+  <details class="source-details"><summary>資料來源</summary><div class="source">資料日期 2026/10/19；此為版面預覽，分數 23 為固定示例值。</div></details>
+</section>
 <div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
 </div>
 </article>
