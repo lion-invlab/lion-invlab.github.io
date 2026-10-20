@@ -984,6 +984,15 @@ document.addEventListener('DOMContentLoaded',function(){
 </style>
 <meta name="tac-mother-version" content="Monday V33 baseline">
 <style>.last-week-placeholder .calendar-status-group{display:block!important}.last-week-placeholder .calendar-status-empty{padding:14px;border:1px dashed #d5dcdf;border-radius:10px;color:#59616a;line-height:1.65;background:#f8fafb}</style>
+<style id="tac-last-week-published-tabs">
+/* V33 dual-mother preview: independent one-state published tabs for prior-week sections */
+.last-week-econ-tabs,.last-week-earnings-tabs{margin-top:12px}
+.last-week-econ-tabs>input,.last-week-earnings-tabs>input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.last-week-tab-labels{display:grid;grid-template-columns:minmax(0,1fr);margin:0 0 12px;border:1px solid #b9dfca;border-radius:10px;overflow:hidden;background:#effaf3}
+.last-week-tab-labels label{display:flex;align-items:center;justify-content:center;min-height:42px;padding:8px 10px;color:#16834c;font-size:13px;font-weight:900;line-height:1.25;cursor:default}
+.last-week-panels{display:block}
+#last-week-econ-published:checked~.last-week-tab-labels label[for="last-week-econ-published"],#last-week-earnings-published:checked~.last-week-tab-labels label[for="last-week-earnings-published"]{background:#effaf3;color:#16834c}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
@@ -1064,23 +1073,27 @@ document.addEventListener('DOMContentLoaded',function(){
 </section><div style="height:14px"></div>
 <div style="height:14px"></div>
 <section class="grid two" id="last-week-calendar">
-
 <article class="card calendar-card last-week-placeholder" style="grid-column:1 / -1">
-<div class="title">上週經濟行事曆 <small>上週週一至週五｜台灣時間 UTC+8</small></div>
-<div class="calendar-status-group">
-<h4 class="calendar-status-heading published"><span class="earnings-badge published">已公布</span></h4>
-<div class="calendar-status-empty">此區僅列上週實際已公布的重要經濟數據，包含公布日期、台灣時間、國家、前值、預估、實際值及重要性。製作每日早報時依可靠來源填入；尚未核實的資料不得以本週資料代替。</div>
-</div>
+<div class="title">上週經濟行事曆 <small>上週週一至週五｜僅列實際已公布資料；台灣時間 UTC+8</small></div>
+<div class="last-week-econ-tabs" role="group" aria-label="上週經濟行事曆狀態">
+<input checked type="radio" id="last-week-econ-published" name="last-week-econ-tab"/>
+<div class="last-week-tab-labels"><label for="last-week-econ-published">已公布</label></div>
+<div class="last-week-panels" id="last-week-econ-published-panel">
+<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">上週已公布</span></h4>
+<div class="calendar-status-empty">目前母版未預載上週每日實際公布紀錄。每日製作時只填入上週日期範圍內、已由可靠來源確認的經濟數據；若無可核實資料，保留此提示，不得以本週資料代替。資料欄位：公布日期、台灣時間、國家、事件、前值、預估、實際與重要性。</div>
+</div></div>
 </article>
 </section><div style="height:14px"></div>
 <section class="grid two earnings-block" id="last-week-earnings">
-
 <article class="card calendar-card last-week-placeholder" style="grid-column:1 / -1">
-<div class="title">上週財報行事曆 <small>上週週一至週五｜台灣時間 UTC+8</small></div>
-<div class="calendar-status-group">
-<h4 class="calendar-status-heading published"><span class="earnings-badge published">已公布</span></h4>
-<div class="calendar-status-empty">此區僅列上週實際已公布的企業財報，包含公司、公布日期／台灣時間、EPS 與營收實際值及市場預估、股價表現與重要性。製作每日早報時依可靠來源填入；尚未核實的資料不得以本週資料代替。</div>
-</div>
+<div class="title">上週財報行事曆 <small>上週週一至週五｜僅列實際已公布財報；台灣時間 UTC+8</small></div>
+<div class="last-week-earnings-tabs" role="group" aria-label="上週財報行事曆狀態">
+<input checked type="radio" id="last-week-earnings-published" name="last-week-earnings-tab"/>
+<div class="last-week-tab-labels"><label for="last-week-earnings-published">已公布</label></div>
+<div class="last-week-panels" id="last-week-earnings-published-panel">
+<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">上週已公布</span></h4>
+<div class="calendar-status-empty">目前母版未預載上週每日實際財報紀錄。每日製作時只填入上週日期範圍內、已由可靠來源確認的公司財報；若無可核實資料，保留此提示，不得以本週資料代替。資料欄位：公司、公布日期／台灣時間、EPS 與營收實際值及市場預估、股價表現與重要性。</div>
+</div></div>
 </article>
 </section>
 <section class="grid two" id="calendar">
