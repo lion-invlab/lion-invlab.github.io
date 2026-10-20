@@ -1070,6 +1070,8 @@ document.addEventListener('DOMContentLoaded',function(){
 </article></div></section>
 <section class="grid three">
 </section><div style="height:14px"></div>
+<details class="tac-prior-week-collapse">
+<summary><span>上週經濟行事曆</span><small>10/12–10/16｜點擊展開／收折</small></summary>
 <section class="grid two" id="last-week-calendar">
 <article class="card calendar-card" style="grid-column:1 / -1">
 <div class="title">上週經濟行事曆 <small>10/12～10/16｜參考 10/19（一）歷史早報；只列上週已公布事件</small></div>
@@ -1089,7 +1091,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="source">來源：10/19（一）歷史早報及其行情／行事曆核對紀錄；CPI、PPI以美國勞工統計局公布資料為準。進出口物價指數數值在原早報中標示尚未核實，沿用該狀態，不補猜測值。</div>
 </div></div>
 </article>
-</section><div style="height:14px"></div>
+</section>
+</details><div style="height:14px"></div>
 
 <section class="grid two" id="calendar">
 
@@ -1110,6 +1113,8 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="source">來源：<a href="https://www.bls.gov/schedule/2026/10_sched_list.htm">BLS官方日程</a>、<a href="https://www.newyorkfed.org/research/calendars/i-oct26.html">紐約聯準銀行經濟指標日曆</a>、<a href="https://www.federalreserve.gov/newsevents/2026-october.htm">聯準會10月官方行事曆</a>。官方時間為美東時間；台灣時間換算以UTC+8計。</div>
 </article>
 </section><div style="height:14px"></div>
+<details class="tac-prior-week-collapse">
+<summary><span>上週財報行事曆</span><small>10/12–10/16｜點擊展開／收折</small></summary>
 <section class="grid two earnings-block" id="last-week-earnings">
 <article class="card calendar-card" style="grid-column:1 / -1">
 <div class="title">上週財報行事曆 <small>10/12～10/16｜參考 10/19（一）歷史早報；僅列上週已公布財報</small></div>
@@ -1135,6 +1140,7 @@ document.addEventListener('DOMContentLoaded',function(){
 </div></div>
 </article>
 </section>
+</details>
 <section class="grid two earnings-block" id="earnings">
 
 <article class="card calendar-card" style="grid-column:1 / -1">
@@ -1591,4 +1597,16 @@ html body .tac-history-mini input[type="date"]{
   .tac-side-foot{flex:0 0 auto!important;margin-top:10px!important}
 }
 .tfn-ack .tfn-royal-char{display:inline-block!important;font-size:160%!important;font-weight:inherit!important;line-height:1!important;vertical-align:-0.12em!important}
+
+/* 週一版：上週行事曆區塊可收折 */
+.tac-prior-week-collapse{margin:0 0 14px;border:1px solid var(--line,#d9dee7);border-radius:12px;background:var(--card,#fff);overflow:hidden}
+.tac-prior-week-collapse>summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;cursor:pointer;list-style:none;font-weight:800;color:var(--text,#202632)}
+.tac-prior-week-collapse>summary::-webkit-details-marker{display:none}
+.tac-prior-week-collapse>summary::after{content:'＋';font-size:18px;font-weight:700;margin-left:auto}
+.tac-prior-week-collapse[open]>summary::after{content:'−'}
+.tac-prior-week-collapse>summary small{font-size:12px;font-weight:500;color:var(--muted,#687385)}
+.tac-prior-week-collapse>section{margin:0!important}
+.tac-prior-week-collapse>section>.grid{margin-bottom:0}
+.tac-prior-week-collapse>section>article>.title{display:none}
+@media(max-width:640px){.tac-prior-week-collapse>summary{align-items:flex-start;flex-wrap:wrap}.tac-prior-week-collapse>summary small{width:100%;padding-right:28px}}
 </style>
