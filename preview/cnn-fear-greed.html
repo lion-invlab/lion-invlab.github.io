@@ -28,7 +28,7 @@ body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",s
 <div class="reading"><div class="score" id="score">載入中</div><div><div class="status" id="status">讀取測試資料</div><div class="en" id="english">CNN FEAR &amp; GREED INDEX</div></div></div>
 <div class="scale" role="img" aria-label="恐懼與貪婪指數刻度"><span class="marker" id="marker"></span></div>
 <div class="labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
-<div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：CNN</span></div>
+<div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：待核對</span></div>
 </main>
 <script>
 const labels={
@@ -50,7 +50,8 @@ async function load(){
   document.getElementById("status").textContent=label[0];
   document.getElementById("english").textContent=label[1];
   document.getElementById("marker").style.left=d.score+"%";
-  document.getElementById("updated").textContent="CNN 指數時間："+new Date(d.timestamp).toLocaleString("zh-TW",{timeZone:"Asia/Taipei",hour12:false});
+  document.getElementById("updated").textContent="資料時間："+new Date(d.timestamp).toLocaleString("zh-TW",{timeZone:"Asia/Taipei",hour12:false});
+  document.getElementById("source").textContent="來源："+(d.source||"未標示");
  }catch(e){
   document.getElementById("score").textContent="— / 100";
   document.getElementById("status").textContent="尚無有效測試資料";
