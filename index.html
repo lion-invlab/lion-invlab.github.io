@@ -997,9 +997,9 @@ document.addEventListener('DOMContentLoaded',function(){
 #sentiment .fg-gradient{position:absolute;left:0;right:0;top:5px;height:8px;border-radius:999px;background:linear-gradient(90deg,#c94551 0%,#e77f50 24%,#e4c45b 50%,#89bd78 75%,#2b9a6d 100%)}
 #sentiment .fg-pointer{position:absolute;top:0;transform:translateX(-50%);width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #263140;box-shadow:0 0 0 1px rgba(255,255,255,.9)}
 #sentiment .fg-pointer span{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:10px;font-weight:900;color:#202833;background:#fff;border-radius:5px;padding:3px 5px}
-#sentiment .fg-scale{display:flex;justify-content:space-between;gap:3px;margin-top:8px;color:#aeb9c8;font-size:9px;font-weight:750}
+#sentiment .fg-scale{display:flex;justify-content:stretch;align-items:flex-start;gap:0;margin:8px 0 0;color:#aeb9c8;font-size:9px;font-weight:750;width:100%}#sentiment .fg-scale span{display:block;flex:1 1 0;min-width:0;text-align:center;white-space:nowrap;line-height:1.35}
 #sentiment .fear-greed-card .source-details{margin-top:13px;padding-top:8px;border-top:1px solid #3b4655}
-@media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:15px 13px 12px!important}#sentiment .fear-greed-card .label{font-size:16px!important}#sentiment .fg-score{font-size:38px}#sentiment .fg-class{font-size:15px}#sentiment .fg-scale{font-size:8px}}</style>
+@media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:15px 13px 12px!important}#sentiment .fear-greed-card .label{font-size:16px!important}#sentiment .fg-score{font-size:38px}#sentiment .fg-class{font-size:15px}#sentiment .fg-scale{font-size:8px}#sentiment .fg-meter{margin:0}#sentiment .fg-scale span{letter-spacing:-.02em}}</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
