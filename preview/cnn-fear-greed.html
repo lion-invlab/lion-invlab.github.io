@@ -15,10 +15,10 @@ body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",s
 .status{font-size:20px;font-weight:750}
 .en{font-size:12px;letter-spacing:1.2px;color:var(--muted);font-weight:700}
 .scale{height:14px;border-radius:999px;position:relative;background:linear-gradient(90deg,#b91c1c 0%,#f97316 25%,#facc15 50%,#84cc16 75%,#15803d 100%);margin:34px 7px 12px}
-.marker{position:absolute;top:50%;left:23%;width:22px;height:22px;background:#fff;border:3px solid #252525;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 5px #0003}
+.marker{position:absolute;top:50%;left:22%;width:22px;height:22px;background:#fff;border:3px solid #252525;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 5px #0003}
 .labels{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#555}
 .foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:12px;border-top:1px solid #eee;color:var(--muted);font-size:12px}
-.error{color:#b91c1c;font-weight:700}
+.error{color:#b91c1c;font-weight:700}.notice{border-top:1px solid #eee;padding-top:12px}
 @media(max-width:420px){body{padding:12px}.card{padding:18px}.heading{font-size:16px}.score{font-size:36px}.status{font-size:18px}.labels{font-size:10px}}
 </style>
 </head>
@@ -29,6 +29,7 @@ body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",s
 <div class="scale" role="img" aria-label="恐懼與貪婪指數刻度"><span class="marker" id="marker"></span></div>
 <div class="labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
 <div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：待核對</span></div>
+<div class="notice" style="margin-top:14px;font-size:12px;line-height:1.6;color:#737373">核對提醒：2026/10/20 多個第三方頁面分別顯示 20 與 22 分；本卡數值僅作版面示意，尚未確認 CNN 官方端點當下回傳值，不可作為正式行情。</div>
 </main>
 <script>
 const labels={
