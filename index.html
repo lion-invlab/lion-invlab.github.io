@@ -984,19 +984,20 @@ document.addEventListener('DOMContentLoaded',function(){
 @media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
 </style>
 <style id="tac-fear-greed-card-preview">
-/* Revert to the simpler original Fear & Greed card concept shown in trial A */
-#sentiment .sent>.fear-greed-card{grid-column:1/-1!important;border:1px solid #465161!important;border-radius:14px!important;background:#242e3a!important;padding:18px 18px 16px!important;box-shadow:none!important}
-#sentiment .fear-greed-card .fg-simple-head{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#c4ccd7;font-size:14px;font-weight:850}
-#sentiment .fear-greed-card .fg-simple-score{font-size:30px;font-weight:950;line-height:1.2;color:#f5f7fa;margin:24px 0 10px}
-#sentiment .fear-greed-card .fg-simple-score span{font-size:16px;font-weight:850}
-#sentiment .fear-greed-card .fg-simple-status{font-size:16px;font-weight:900;color:#e6bb56;margin-bottom:20px}
-#sentiment .fear-greed-card .fg-simple-meter{position:relative;width:100%;height:22px;margin:0 0 12px}
-#sentiment .fear-greed-card .fg-simple-gradient{position:absolute;left:0;right:0;top:3px;height:16px;border-radius:999px;background:linear-gradient(90deg,#d94e59 0%,#ed9a4e 25%,#e7ca5c 50%,#85bd7d 75%,#2da276 100%)}
-#sentiment .fear-greed-card .fg-simple-pointer{position:absolute;left:50%;top:0;transform:translateX(-50%);width:22px;height:22px;border:4px solid #24303d;background:#fff;border-radius:50%;box-shadow:0 0 0 1px #fff}
-#sentiment .fear-greed-card .fg-simple-labels{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#aeb9c8;font-size:12px;line-height:1.4}
-#sentiment .fear-greed-card .fg-simple-note{font-size:12px;color:#aeb9c8;line-height:1.6;margin-top:20px}
-#sentiment .fear-greed-card .source-details{margin-top:12px;padding-top:8px;border-top:1px solid #3b4655}
-@media(max-width:700px){#sentiment .sent>.fear-greed-card{padding:16px 13px 14px!important}#sentiment .fear-greed-card .fg-simple-head{font-size:12px}#sentiment .fear-greed-card .fg-simple-score{font-size:28px;margin-top:22px}#sentiment .fear-greed-card .fg-simple-status{font-size:15px}#sentiment .fear-greed-card .fg-simple-labels{font-size:11px;gap:4px}#sentiment .fear-greed-card .fg-simple-note{font-size:11px}}
+/* Match the original Trial A fear gauge layout, scoped only to this card */
+#sentiment .sent>.fear-greed-card{grid-column:1/-1!important;display:block!important;min-width:0!important;background:#252d39!important;border:1px solid #3b4655!important;border-radius:14px!important;padding:16px!important;box-shadow:none!important;color:#f7f8fa!important}
+#sentiment .fear-greed-card .fg-simple-head{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:12px!important;color:#b8c2cf!important;font-size:14px!important;font-weight:800!important;line-height:1.4!important}
+#sentiment .fear-greed-card .fg-simple-layout{display:grid!important;grid-template-columns:minmax(120px,.8fr) minmax(0,1.5fr)!important;align-items:center!important;gap:18px!important;margin-top:10px!important}
+#sentiment .fear-greed-card .fg-simple-score{font-size:31px!important;line-height:1.2!important;font-weight:900!important;letter-spacing:-.04em!important;color:#f7f8fa!important;margin:0 0 10px!important;white-space:nowrap!important}
+#sentiment .fear-greed-card .fg-simple-score span{font-size:15px!important;letter-spacing:0!important}
+#sentiment .fear-greed-card .fg-simple-status{font-size:15px!important;font-weight:850!important;color:#e4b94e!important;line-height:1.5!important}
+#sentiment .fear-greed-card .fg-simple-meter{position:relative!important;display:block!important;width:100%!important;height:20px!important;margin:0 0 10px!important;box-sizing:border-box!important}
+#sentiment .fear-greed-card .fg-simple-gradient{position:absolute!important;left:0!important;right:0!important;top:4px!important;height:12px!important;border-radius:999px!important;background:linear-gradient(90deg,#d84c57 0%,#e59b4b 25%,#e5c85a 50%,#7fbd81 75%,#2a9c70 100%)!important}
+#sentiment .fear-greed-card .fg-simple-pointer{position:absolute!important;left:23%!important;top:1px!important;transform:translateX(-50%)!important;width:19px!important;height:19px!important;border:3px solid #252d39!important;background:#fff!important;border-radius:50%!important;box-shadow:0 0 0 1px rgba(255,255,255,.85)!important}
+#sentiment .fear-greed-card .fg-simple-labels{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:5px!important;width:100%!important;color:#b8c2cf!important;font-size:10px!important;line-height:1.4!important;white-space:nowrap!important}
+#sentiment .fear-greed-card .fg-simple-note{font-size:11px!important;color:#9ea9b8!important;line-height:1.6!important;margin-top:13px!important}
+#sentiment .fear-greed-card .source-details{margin-top:12px!important;padding-top:8px!important;border-top:1px solid #3b4655!important}
+@media(max-width:700px){#sentiment .fear-greed-card .fg-simple-layout{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}#sentiment .fear-greed-card .fg-simple-head{font-size:13px!important}#sentiment .fear-greed-card .fg-simple-score{font-size:30px!important}#sentiment .fear-greed-card .fg-simple-labels{font-size:10px!important}}
 </style>
 </head>
 <body><!-- V23 calendar cards applied -->
@@ -1021,14 +1022,21 @@ document.addEventListener('DOMContentLoaded',function(){
 <article class="card bluf" id="overview">
 <div class="title">總結</div>
 <h1>科技股反彈尚待財報驗證，AI融資、利率與地緣能源風險仍是市場關鍵。</h1>
-<p>美股10/19由科技與半導體股領漲：Nasdaq上漲1.11%、S&P 500上漲0.41%，但道瓊下跌0.07%，顯示反彈集中於科技股，並非所有產業同步轉強。接下來Meta、Tesla等企業財報與展望，將檢驗AI資本支出能否轉化為實際營收與現金流；若融資成本偏高、投資回收不如預期，科技股仍可能再度承壓。另一方面，中東航運與俄烏能源設施風險可能推升油價及通膨預期，進而影響債券殖利率與股市估值。短線不宜只看指數反彈，應同步觀察財報指引、債券殖利率、油價及上漲家數是否改善。</p>
-<div class="chips"><span class="chip">S&amp;P 500 +0.41%</span><span class="chip">Nasdaq +1.11%</span><span class="chip">SOX +1.61%</span><span class="chip">VIX -8.80%</span></div>
-</article>
-<article class="card" id="sentiment">
-<div class="title">市場情緒</div>
-<div class="sent">
-<div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
-<div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
+<p>美股10/19由科技與半導體股領漲：Nasdaq上漲1.11%、S&P 500上漲0.41%，但道瓊下跌0.07%，顯示反彈集中於科技股，並非所有產業同步轉強。接下來Meta、Tesla等企業財報與展望，將檢驗AI資本支出能否轉化為實際營收與現金流；若融資成本偏高、投資回收不如預期，科技股仍可能再度承壓。另一方面，中東航運與俄烏能源設施風險可能推升油價及通膨預期，進而影響債券殖利率與股市估值。短線不宜只看指數反彈，應同步觀察<div class="sbox fear-greed-card">
+<div class="fg-simple-head"><span>Fear &amp; Greed Index</span><span>CNN 市場情緒</span></div>
+<div class="fg-simple-layout">
+  <div>
+    <div class="fg-simple-score">23 <span>/ 100</span></div>
+    <div class="fg-simple-status">極度恐懼｜EXTREME FEAR</div>
+  </div>
+  <div>
+    <div class="fg-simple-meter" role="img" aria-label="恐懼與貪婪指數23，位於極度恐懼區"><div class="fg-simple-gradient"></div><div class="fg-simple-pointer"></div></div>
+    <div class="fg-simple-labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
+  </div>
+</div>
+<details class="source-details"><summary>資料來源</summary><div class="source">試作指定展示值：23/100（極度恐懼）。正式發布前請依 CNN 最新公布資料確認日期與擷取時間。</div></details>
+</div>
+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
 <div class="sbox fear-greed-card">
 <div class="fg-simple-head"><span>Fear &amp; Greed Index</span><span>CNN 市場情緒</span></div>
 <div class="fg-simple-score">— <span>/ 100</span></div>
