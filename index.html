@@ -443,6 +443,17 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .newsitem:nth-child(odd){background:#fff}
 @media(max-width:700px){.newsitem{padding:11px 9px}}
 /* /TAC_NEWS_ZEBRA_V31 */
+
+/* FINAL MOBILE ALIGNMENT PATCH: score and sentiment on one row; remove explanatory note */
+#sentiment .tac-fg-box{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-rows:auto auto auto auto auto!important;align-items:center!important;column-gap:12px!important;row-gap:8px!important}
+#sentiment .tac-fg-box>.tac-risk-label{grid-column:1/-1!important;grid-row:1!important}
+#sentiment .tac-fg-box>.tac-fg-score{grid-column:1!important;grid-row:2!important;align-self:center!important;margin:0!important;white-space:nowrap!important}
+#sentiment .tac-fg-box>.tac-fg-status{grid-column:2!important;grid-row:2!important;align-self:center!important;justify-self:end!important;text-align:right!important;margin:0!important;white-space:nowrap!important}
+#sentiment .tac-fg-box>.tac-fg-meter{grid-column:1/-1!important;grid-row:3!important}
+#sentiment .tac-fg-box>.tac-fg-labels{grid-column:1/-1!important;grid-row:4!important}
+#sentiment .tac-fg-box>.source-details{grid-column:1/-1!important;grid-row:5!important}
+#sentiment .tac-fg-note{display:none!important}
+@media(max-width:420px){#sentiment .tac-fg-box{column-gap:6px!important;padding:16px!important}#sentiment .tac-fg-box>.tac-fg-score{font-size:38px!important}#sentiment .tac-fg-box>.tac-fg-score span{font-size:17px!important}#sentiment .tac-fg-box>.tac-fg-status{font-size:15px!important}#sentiment .tac-fg-box>.tac-fg-status small{font-size:9px!important;letter-spacing:.06em!important;margin-left:3px!important}}
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-20" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
