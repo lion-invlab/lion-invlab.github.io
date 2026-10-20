@@ -1073,26 +1073,45 @@ document.addEventListener('DOMContentLoaded',function(){
 </section><div style="height:14px"></div>
 <div style="height:14px"></div>
 <section class="grid two" id="last-week-calendar">
-<article class="card calendar-card last-week-placeholder" style="grid-column:1 / -1">
-<div class="title">上週經濟行事曆 <small>上週週一至週五｜僅列實際已公布資料；台灣時間 UTC+8</small></div>
+<article class="card calendar-card" style="grid-column:1 / -1">
+<div class="title">上週經濟行事曆 <small>10/12～10/16｜參考 10/19（一）歷史早報；只列上週已公布事件</small></div>
 <div class="last-week-econ-tabs" role="group" aria-label="上週經濟行事曆狀態">
 <input checked type="radio" id="last-week-econ-published" name="last-week-econ-tab"/>
 <div class="last-week-tab-labels"><label for="last-week-econ-published">已公布</label></div>
 <div class="last-week-panels" id="last-week-econ-published-panel">
-<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">上週已公布</span></h4>
-<div class="calendar-status-empty">目前母版未預載上週每日實際公布紀錄。每日製作時只填入上週日期範圍內、已由可靠來源確認的經濟數據；若無可核實資料，保留此提示，不得以本週資料代替。資料欄位：公布日期、台灣時間、國家、事件、前值、預估、實際與重要性。</div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">已公布｜2026/10/12–10/16</span></h4>
+<div class="event-table-wrap"><table class="event-table"><thead><tr><th>日期</th><th>台灣時間</th><th>國家</th><th>事件</th><th>前值</th><th>預估</th><th>實際</th><th>重要性</th></tr></thead><tbody>
+<tr><td>10/14（三）</td><td>20:30</td><td>美國</td><td>9月 CPI 月增率</td><td>+0.4%</td><td>+0.6%</td><td><b>+0.6%</b></td><td>★★★★★</td></tr>
+<tr><td>10/14（三）</td><td>20:30</td><td>美國</td><td>9月 CPI 年增率</td><td>+3.4%</td><td>約+3.7%</td><td><b>+3.7%</b></td><td>★★★★★</td></tr>
+<tr><td>10/15（四）</td><td>20:30</td><td>美國</td><td>9月 PPI 月增率</td><td>+0.5%（8月修正值）</td><td>約+0.5%</td><td><b>+1.3%</b></td><td>★★★★★</td></tr>
+<tr><td>10/16（五）</td><td>20:30</td><td>美國</td><td>9月進出口物價指數</td><td>未於歷史早報中核實</td><td>未於歷史早報中核實</td><td>未完成核實，不填猜測值</td><td>★★★★☆</td></tr>
+</tbody></table></div>
+<div class="source">來源：10/19（一）歷史早報及其行情／行事曆核對紀錄；CPI、PPI以美國勞工統計局公布資料為準。進出口物價指數數值在原早報中標示尚未核實，沿用該狀態，不補猜測值。</div>
 </div></div>
 </article>
 </section><div style="height:14px"></div>
 <section class="grid two earnings-block" id="last-week-earnings">
-<article class="card calendar-card last-week-placeholder" style="grid-column:1 / -1">
-<div class="title">上週財報行事曆 <small>上週週一至週五｜僅列實際已公布財報；台灣時間 UTC+8</small></div>
+<article class="card calendar-card" style="grid-column:1 / -1">
+<div class="title">上週財報行事曆 <small>10/12～10/16｜參考 10/19（一）歷史早報；僅列上週已公布財報</small></div>
 <div class="last-week-earnings-tabs" role="group" aria-label="上週財報行事曆狀態">
 <input checked type="radio" id="last-week-earnings-published" name="last-week-earnings-tab"/>
 <div class="last-week-tab-labels"><label for="last-week-earnings-published">已公布</label></div>
 <div class="last-week-panels" id="last-week-earnings-published-panel">
-<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">上週已公布</span></h4>
-<div class="calendar-status-empty">目前母版未預載上週每日實際財報紀錄。每日製作時只填入上週日期範圍內、已由可靠來源確認的公司財報；若無可核實資料，保留此提示，不得以本週資料代替。資料欄位：公司、公布日期／台灣時間、EPS 與營收實際值及市場預估、股價表現與重要性。</div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">已公布｜2026/10/12–10/16｜重要性★★★★☆以上</span></h4>
+<div class="event-table-wrap"><table class="event-table earnings-calendar"><thead><tr><th>日期</th><th>公司／產業</th><th>EPS 實際／預期</th><th>營收實際／預期</th><th>財報判讀</th><th>股價反應</th><th>重要性</th></tr></thead><tbody>
+<tr><td>10/13（二）盤前</td><td><b>JPMorgan Chase</b><small>JPM｜銀行</small></td><td>$5.57／$5.93</td><td>$50.17B／$51.23B</td><td><span class="earnings-result earnings-weak">🔴 EPS、營收低於共識</span></td><td>10/13 收盤 $331.43，當日 -0.86%</td><td>★★★★★</td></tr>
+<tr><td>10/13（二）盤前</td><td><b>Johnson &amp; Johnson</b><small>JNJ｜醫療保健</small></td><td>調整後 $2.59／$2.53</td><td>$25.40B／$25.38B</td><td><span class="earnings-result earnings-double">🟢 EPS、營收優於共識</span></td><td>10/13 收盤跌幅約 -5.73%（歷史早報紀錄）</td><td>★★★★☆</td></tr>
+<tr><td>10/13（二）盤前</td><td><b>Wells Fargo</b><small>WFC｜銀行</small></td><td>$1.87／$1.85</td><td>$21.87B／$22.31B</td><td><span class="earnings-result earnings-mixed">🟡 EPS 優、營收低於共識</span></td><td>10/13 收盤跌幅約 -3.10%（歷史早報紀錄）</td><td>★★★★☆</td></tr>
+<tr><td>10/13（二）盤前</td><td><b>Goldman Sachs</b><small>GS｜投資銀行</small></td><td>$17.01／$12.86</td><td>$18.68B／$16.83B</td><td><span class="earnings-result earnings-double">🟢 EPS、營收優於共識</span></td><td>精確收盤漲跌幅尚待核實</td><td>★★★★☆</td></tr>
+<tr><td>10/13（二）盤前</td><td><b>Citigroup</b><small>C｜銀行</small></td><td>$2.85／$2.65</td><td>$23.85B／$23.72B</td><td><span class="earnings-result earnings-double">🟢 EPS、營收優於共識</span></td><td>收盤跌幅約 -5.6%（歷史早報紀錄）</td><td>★★★★☆</td></tr>
+<tr><td>10/14（三）</td><td><b>UnitedHealth Group</b><small>UNH｜醫療保險</small></td><td>調整後 $4.69／$4.14</td><td>$112.69B／$111.31B</td><td><span class="earnings-result earnings-double">🟢 EPS、營收優於共識</span></td><td>股價反應未在可核對紀錄中確認</td><td>★★★★☆</td></tr>
+<tr><td>10/14（三）</td><td><b>Bank of America</b><small>BAC｜銀行</small></td><td>調整後 $1.08／$1.10</td><td>$29.96B／$30.58B</td><td><span class="earnings-result earnings-weak">🔴 EPS、營收低於共識</span></td><td>股價反應未在可核對紀錄中確認</td><td>★★★★☆</td></tr>
+<tr><td>10/14（三）</td><td><b>ASML</b><small>ASML｜半導體設備；ADR 美元口徑</small></td><td>$14.50／$12.17</td><td>$13.05B／$13.14B</td><td><span class="earnings-result earnings-mixed">🟡 EPS 優、營收略低於共識</span></td><td>股價反應未在可核對紀錄中確認</td><td>★★★★★</td></tr>
+<tr><td>10/15（四）</td><td><b>台積電 TSMC</b><small>2330.TW／TSM｜半導體代工</small></td><td>ADR EPS $4.60／$4.46；台股 EPS NT$29.43（不同幣別／股數口徑）</td><td>US$46.72B／US$45.67B；台幣營收 NT$1,494.24B</td><td><span class="earnings-result earnings-double">🟢 優於市場共識</span></td><td>ADR 當日下跌；半導體族群賣壓抵銷財報利多</td><td>★★★★★</td></tr>
+<tr><td>10/15（四）</td><td><b>Morgan Stanley</b><small>MS｜投資銀行</small></td><td>$3.03／$2.93</td><td>$20.34B／$19.93B</td><td><span class="earnings-result earnings-double">🟢 EPS、營收優於共識</span></td><td>股價反應未在可核對紀錄中確認</td><td>★★★★☆</td></tr>
+</tbody></table></div>
+<div class="earnings-note">口徑說明：EPS 與營收以歷史早報／行情抓取紀錄所列的同口徑實際值與市場預期為準；台積電同時列出台股新台幣財報與 ADR 美元市場共識，兩者不可直接混算。原紀錄中標示待核實的股價反應維持待核實，不自行補值。</div>
+<div class="source">來源：2026/10/19（一）歷史早報、2026/10/16 財報行情修訂紀錄及各公司官方公告／公開市場共識；未核實的股價反應明確保留待核狀態。</div>
 </div></div>
 </article>
 </section>
