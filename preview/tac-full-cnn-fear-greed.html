@@ -1057,7 +1057,7 @@ document.addEventListener('DOMContentLoaded',function(){
   <div class="fg6-title">CNN Fear &amp; Greed</div>
   <div class="fg6-date">資料日期 2026/10/19</div>
   <div class="fg6-score-row">
-    <div class="fg6-score">23</div>
+    <div class="fg6-score"><span class="fg6-score-main">23</span><span class="fg6-outof">/100</span></div>
     <div class="fg6-status"><span>Extreme Fear</span><i></i><b>極度恐懼</b></div>
   </div>
   <div class="fg6-scale-wrap" aria-label="Fear and Greed scale">
@@ -1579,6 +1579,12 @@ html body .tac-history-mini input[type="date"]{
   padding-top:0!important;padding-bottom:0!important;
  }
 }
+</style>
+<style id="tac-full-preview-cnn-fg-score-v11">
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{display:flex!important;align-items:baseline!important;gap:2px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:42px!important;line-height:1!important;font-weight:950!important;color:#fff!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:16px!important;line-height:1!important;font-weight:700!important;color:#aeb8c6!important}
+@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score-main{font-size:38px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:14px!important}}
 </style>
 </body></html>
 <style id="tac-history-button-visibility-v32">
