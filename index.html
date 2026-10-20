@@ -1145,6 +1145,33 @@ document.addEventListener('DOMContentLoaded',function(){
  #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:16px!important}
 }
 </style>
+<style id="tac-sentiment-heading-fit-v27">
+/* Compact all three labels equally so they fit their own cards on mobile */
+#sentiment .sent>.sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title{
+ display:flex!important;align-items:baseline!important;flex-wrap:nowrap!important;
+ gap:5px!important;width:100%!important;max-width:100%!important;min-width:0!important;
+ white-space:nowrap!important;overflow:hidden!important;box-sizing:border-box!important;
+}
+#sentiment .sent>.sbox .label .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{
+ flex:0 0 auto!important;font-size:18px!important;font-weight:700!important;
+ line-height:1.2!important;letter-spacing:0!important;white-space:nowrap!important;
+}
+#sentiment .sent>.sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{
+ flex:0 1 auto!important;min-width:0!important;font-size:14px!important;
+ font-weight:650!important;line-height:1.25!important;letter-spacing:0!important;
+ white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;
+}
+#sentiment .sent>.sbox .label{overflow:visible!important}
+@media(max-width:700px){
+ #sentiment .sent>.sbox .label .label-en,
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-en{font-size:18px!important}
+ #sentiment .sent>.sbox .label .label-zh,
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-title .label-zh{font-size:13px!important}
+}
+</style>
 </head>
 <body><!-- V23 calendar cards applied -->
 <header class="top">
