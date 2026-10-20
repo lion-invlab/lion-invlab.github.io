@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CNN Fear & Greed｜隔離測試卡</title>
+<style>
+:root{color-scheme:light;--ink:#242424;--muted:#737373}
+*{box-sizing:border-box}
+body{margin:0;padding:24px;background:#f4f5f7;font-family:Arial,"Noto Sans TC",sans-serif;color:var(--ink)}
+.card{max-width:760px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;box-shadow:0 8px 28px #1111110b}
+.heading{font-size:18px;font-weight:750;letter-spacing:.1px;white-space:nowrap}
+.reading{display:flex;align-items:baseline;gap:12px;margin:20px 0 18px;flex-wrap:wrap}
+.score{font-size:42px;font-weight:800;line-height:1}
+.status{font-size:20px;font-weight:750}
+.en{font-size:12px;letter-spacing:1.2px;color:var(--muted);font-weight:700}
+.scale{height:14px;border-radius:999px;position:relative;background:linear-gradient(90deg,#b91c1c 0%,#f97316 25%,#facc15 50%,#84cc16 75%,#15803d 100%);margin:34px 7px 12px}
+.marker{position:absolute;top:50%;left:23%;width:22px;height:22px;background:#fff;border:3px solid #252525;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 1px 5px #0003}
+.labels{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:#555}
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;padding-top:12px;border-top:1px solid #eee;color:var(--muted);font-size:12px}
+.error{color:#b91c1c;font-weight:700}
+@media(max-width:420px){body{padding:12px}.card{padding:18px}.heading{font-size:16px}.score{font-size:36px}.status{font-size:18px}.labels{font-size:10px}}
+</style>
+</head>
+<body>
+<main class="card" aria-live="polite">
+<div class="heading">CNN Fear &amp; Greed｜恐懼與貪婪指數</div>
+<div class="reading"><div class="score" id="score">載入中</div><div><div class="status" id="status">讀取測試資料</div><div class="en" id="english">CNN FEAR &amp; GREED INDEX</div></div></div>
+<div class="scale" role="img" aria-label="恐懼與貪婪指數刻度"><span class="marker" id="marker"></span></div>
+<div class="labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
+<div class="foot"><span id="updated">資料時間：讀取中</span><span id="source">來源：CNN</span></div>
+</main>
+<script>
+const labels={
+"extreme fear":["極度恐懼","EXTREME FEAR"],
+"fear":["恐懼","FEAR"],
+"neutral":["中性","NEUTRAL"],
+"greed":["貪婪","GREED"],
+"extreme greed":["極度貪婪","EXTREME GREED"]
+};
+async function load(){
+ try{
+  const r=await fetch("./cnn-fear-greed.json?ts="+Date.now(),{cache:"no-store"});
+  if(!r.ok) throw new Error("JSON HTTP "+r.status);
+  const d=await r.json();
+  if(typeof d.score!=="number"||d.score<0||d.score>100||!d.rating||!d.timestamp) throw new Error("資料欄位驗證失敗");
+  const rating=String(d.rating).toLowerCase();
+  const label=labels[rating]||[rating.toUpperCase(),rating.toUpperCase()];
+  document.getElementById("score").textContent=Math.round(d.score)+" / 100";
+  document.getElementById("status").textContent=label[0];
+  document.getElementById("english").textContent=label[1];
+  document.getElementById("marker").style.left=d.score+"%";
+  document.getElementById("updated").textContent="CNN 指數時間："+new Date(d.timestamp).toLocaleString("zh-TW",{timeZone:"Asia/Taipei",hour12:false});
+ }catch(e){
+  document.getElementById("score").textContent="— / 100";
+  document.getElementById("status").textContent="尚無有效測試資料";
+  document.getElementById("english").textContent="DATA NOT VERIFIED";
+  document.getElementById("updated").innerHTML='<span class="error">資料讀取／驗證失敗，未顯示舊範例值</span>';
+ }
+}
+load();
+</script>
+</body>
+</html>
