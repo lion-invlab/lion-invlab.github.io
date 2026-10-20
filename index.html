@@ -1010,13 +1010,25 @@ document.addEventListener('DOMContentLoaded',function(){
 <div class="chips"><span class="chip">S&amp;P 500 +0.41%</span><span class="chip">Nasdaq +1.11%</span><span class="chip">SOX +1.61%</span><span class="chip">VIX -8.80%</span></div>
 </article>
 <article class="card" id="sentiment">
-<div class="title">市場情緒</div>
-<div class="sent">
-<div class="sbox"><div class="label">VIX</div><strong>18.23</strong><span class="down">-8.80%</span><details class="source-details"><summary>資料來源</summary><div class="source">The Daily Tape 2026/10/19 美股收盤快照；VIX 18.23，-8.80%。待 Cboe 官方歷史收盤值交叉確認。</div></details></div>
-<div class="sbox"><div class="label">MOVE</div><strong>101.30</strong><span class="up">+0.20（+0.19%）</span><details class="source-details"><summary>資料來源</summary><div class="source">使用者提供的Google Finance INDEXNYSEGIS: MOVE截圖｜2026/10/19 下午4:17 EDT｜畫面顯示101.30，+0.20（+0.19%）。依使用者指定，MOVE採用此截圖數據；畫面另標示上次收盤價101.10，故此數值按截圖當下報價呈現，不另改用歷史頁的10/16收盤值。</div></details></div>
-<div class="sbox"><div class="label">CNN Fear &amp; Greed</div><strong>23</strong><span class="warn">Extreme Fear｜極度恐懼</span><details class="source-details"><summary>資料來源</summary><div class="source">資料日期2026/10/19；使用者提供CNN Fear &amp; Greed截圖顯示23，交叉參考公開指數追蹤頁亦列示23／100（Extreme Fear）。</div></details></div>
-<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/19美股科技與半導體反彈，帶動VIX回落，反映短線避險需求降溫；但MOVE約101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed為23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的AI與半導體股、等待Meta與Tesla等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</div></div>
+<div class="tac-risk-head"><div class="title">市場情緒 <span>RISK MONITOR</span></div></div>
+<p class="tac-risk-intro">波動率指標提供市場風險溫度參考；請搭配利率、信用與價格趨勢綜合判讀。</p>
+<div class="tac-risk-grid">
+<div class="tac-risk-box"><div class="tac-risk-label"><span>VIX</span><span>股票波動率</span></div><strong>18.23</strong><b class="tac-risk-down">−8.80%</b><small>較前一交易日下降</small></div>
+<div class="tac-risk-box"><div class="tac-risk-label"><span>MOVE</span><span>債券波動率</span></div><strong>101.30</strong><b class="tac-risk-up">+0.20（+0.19%）</b><small>較前一交易日上升</small></div>
+<div class="tac-risk-box tac-risk-interpret"><div class="tac-risk-label"><span>市場解讀</span><span>股票端</span></div><strong>波動降溫</strong><small>VIX 回落，但不等於風險解除</small></div>
+<div class="tac-risk-box tac-risk-interpret"><div class="tac-risk-label"><span>市場解讀</span><span>債券端</span></div><strong>仍需觀察</strong><small>MOVE 變動與殖利率方向需搭配判讀</small></div>
+<div class="tac-risk-box tac-fg-box">
+<div class="tac-risk-label"><span>Fear &amp; Greed Index</span><span>CNN 市場情緒</span></div>
+<div class="tac-fg-score">23<span> / 100</span></div>
+<div class="tac-fg-status">極度恐懼 <small>EXTREME FEAR</small></div>
+<div class="tac-fg-meter" role="img" aria-label="Fear and Greed 指數 23/100，極度恐懼"><div class="tac-fg-gradient"></div><div class="tac-fg-pointer"></div></div>
+<div class="tac-fg-labels"><span>極度恐懼</span><span>中性</span><span>極度貪婪</span></div>
+<p class="tac-fg-note">情緒分類與分數依 CNN 最新公布資料更新</p>
+<details class="source-details"><summary>資料來源</summary><div class="source">Fear &amp; Greed 測試值 23/100（極度恐懼），資料日期 2026/10/19；正式發布前仍須依 CNN 最新公布資料確認。VIX：The Daily Tape 2026/10/19 美股收盤快照；MOVE：使用者提供的 Google Finance INDEXNYSEGIS: MOVE 截圖，2026/10/19 下午 4:17 EDT。</div></details>
 </div>
+</div>
+<div class="tac-risk-footnote">資料示意：本區為版面試作，VIX／MOVE 數值沿用使用者提供的畫面作展示；Fear &amp; Greed 顯示測試值 23。正式版需標示資料來源、資料日期與擷取時間。</div>
+<div class="tac-risk-core"><div class="tac-risk-core-title">📌 核心解讀</div><p>10/19 美股科技與半導體反彈，帶動 VIX 回落，反映短線避險需求降溫；但 MOVE 約 101.30，顯示債券市場對利率與通膨路徑仍保持警戒。Fear &amp; Greed 為 23、處於極度恐懼區，代表股市反彈尚未扭轉整體風險偏好偏弱的狀態。當日波動變化的主要背景，是投資人逢低買進前期超跌的 AI 與半導體股、等待 Meta 與 Tesla 等大型科技財報；另一方面，美債殖利率上升、油價與地緣政治風險，以及市場下跌家數仍多於上漲家數，限制了情緒全面改善。</p></div>
 </article>
 </section>
 <div style="height:14px"></div>
@@ -1528,7 +1540,41 @@ html body .tac-history-mini input[type="date"]{
  }
 }
 </style>
-</body></html>
+<style id="tac-full-sentiment-preview">
+#sentiment{background:#1b222c!important;color:#f5f7fa!important;border:1px solid #3a4552!important;border-top:8px solid #e3b94c!important;border-radius:20px!important;padding:24px!important;box-shadow:0 16px 36px rgba(16,24,40,.12)!important}
+#sentiment>.title{display:none!important}
+#sentiment .tac-risk-head .title{display:block!important;color:#f7f8fa!important;font-size:24px!important;font-weight:900!important;line-height:1.3!important;margin:0 0 16px!important}
+#sentiment .tac-risk-head .title:before{content:""!important;display:inline-block!important;width:8px!important;height:40px!important;border-radius:8px!important;background:#e3b94c!important;vertical-align:middle!important;margin-right:14px!important}
+#sentiment .tac-risk-head .title span{font-size:13px!important;letter-spacing:.16em!important;color:#9da8b8!important;margin-left:10px!important}
+#sentiment .tac-risk-intro{color:#aeb7c3!important;font-size:15px!important;line-height:1.7!important;margin:0 0 20px!important}
+#sentiment .tac-risk-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+#sentiment .tac-risk-box{min-width:0!important;box-sizing:border-box!important;background:#252e3b!important;border:1px solid #3b4858!important;border-radius:18px!important;padding:18px!important;overflow:hidden!important}
+#sentiment .tac-risk-label{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:8px!important;color:#b8c2cf!important;font-size:14px!important;font-weight:800!important;line-height:1.4!important;margin-bottom:14px!important}
+#sentiment .tac-risk-box>strong{display:block!important;font-size:34px!important;line-height:1.1!important;letter-spacing:-.03em!important;color:#f7f9fb!important;margin-bottom:14px!important}
+#sentiment .tac-risk-box>b{display:block!important;font-size:17px!important;font-weight:900!important;margin-bottom:12px!important}
+#sentiment .tac-risk-down{color:#32b784!important}#sentiment .tac-risk-up{color:#f16d7b!important}
+#sentiment .tac-risk-box>small{display:block!important;color:#9da8b8!important;font-size:14px!important;line-height:1.5!important}
+#sentiment .tac-risk-interpret>strong{font-size:27px!important;margin-bottom:12px!important}
+#sentiment .tac-fg-box{grid-column:1/-1!important;padding:20px!important}
+#sentiment .tac-fg-score{font-size:48px!important;line-height:1.1!important;font-weight:950!important;letter-spacing:-.04em!important;color:#fff!important;margin:26px 0 12px!important}
+#sentiment .tac-fg-score span{font-size:22px!important;color:#b8c2cf!important;letter-spacing:0!important}
+#sentiment .tac-fg-status{font-size:21px!important;font-weight:900!important;color:#e4bd51!important;margin-bottom:18px!important}
+#sentiment .tac-fg-status small{font-size:12px!important;letter-spacing:.16em!important;color:#b8c2cf!important;margin-left:8px!important}
+#sentiment .tac-fg-meter{position:relative!important;width:100%!important;height:26px!important;margin:0 0 10px!important;box-sizing:border-box!important}
+#sentiment .tac-fg-gradient{position:absolute!important;left:0!important;right:0!important;top:4px!important;height:18px!important;border-radius:999px!important;background:linear-gradient(90deg,#d94c57 0%,#e7954b 25%,#e6c75b 50%,#83bd81 75%,#299b70 100%)!important}
+#sentiment .tac-fg-pointer{position:absolute!important;left:23%!important;top:0!important;transform:translateX(-50%)!important;width:26px!important;height:26px!important;border:4px solid #1b222c!important;border-radius:50%!important;background:#fff!important;box-shadow:0 0 0 2px #dbe3ec!important}
+#sentiment .tac-fg-labels{display:grid!important;grid-template-columns:1fr 1fr 1fr!important;gap:6px!important;width:100%!important;color:#aeb7c3!important;font-size:13px!important;line-height:1.5!important;margin:4px 0 12px!important;white-space:nowrap!important}
+#sentiment .tac-fg-labels span:nth-child(1){text-align:left!important}#sentiment .tac-fg-labels span:nth-child(2){text-align:center!important}#sentiment .tac-fg-labels span:nth-child(3){text-align:right!important}
+#sentiment .tac-fg-note{color:#9da8b8!important;font-size:14px!important;line-height:1.6!important;margin:12px 0!important}
+#sentiment .tac-fg-box .source-details{margin-top:12px!important;padding-top:12px!important;border-top:1px solid #3b4858!important}
+#sentiment .tac-risk-footnote{color:#aeb7c3!important;border-top:1px solid #3b4858!important;padding-top:16px!important;margin-top:20px!important;font-size:13px!important;line-height:1.7!important}
+#sentiment .tac-risk-core{background:#2b3039!important;border:1px solid #78663a!important;border-left:6px solid #e3b94c!important;border-radius:14px!important;padding:18px!important;margin-top:18px!important}
+#sentiment .tac-risk-core-title{color:#e3b94c!important;font-size:20px!important;font-weight:900!important;margin-bottom:10px!important}
+#sentiment .tac-risk-core p{color:#edf0f4!important;font-size:15px!important;line-height:1.85!important;margin:0!important}
+#sentiment .source-details summary{color:#aeb7c3!important;cursor:pointer!important}
+#sentiment .source-details .source{color:#aeb7c3!important}
+@media(max-width:600px){#sentiment{padding:18px!important;border-radius:17px!important}#sentiment .tac-risk-head .title{font-size:22px!important}#sentiment .tac-risk-head .title:before{height:34px!important}#sentiment .tac-risk-head .title span{font-size:10px!important;letter-spacing:.12em!important}#sentiment .tac-risk-grid{gap:10px!important}#sentiment .tac-risk-box{padding:14px!important;border-radius:15px!important}#sentiment .tac-risk-label{font-size:12px!important;gap:5px!important;flex-wrap:wrap!important;margin-bottom:12px!important}#sentiment .tac-risk-box>strong{font-size:29px!important}#sentiment .tac-risk-box>b{font-size:14px!important}#sentiment .tac-risk-box>small{font-size:12px!important}#sentiment .tac-risk-interpret>strong{font-size:22px!important}#sentiment .tac-fg-box{padding:16px!important}#sentiment .tac-fg-score{font-size:44px!important;margin-top:22px!important}#sentiment .tac-fg-status{font-size:18px!important}#sentiment .tac-fg-labels{font-size:11px!important;gap:2px!important}#sentiment .tac-risk-core{padding:15px!important}#sentiment .tac-risk-core p{font-size:14px!important}}
+</style></body></html>
 <style id="tac-history-button-visibility-v32">
 @media(min-width:1100px){
   .tac-side-tools{overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
