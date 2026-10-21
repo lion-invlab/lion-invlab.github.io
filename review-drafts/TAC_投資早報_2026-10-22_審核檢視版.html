@@ -1589,7 +1589,21 @@ html body #global-markets .tac-tab-panel .row span.r.down,
 html body #global-markets .tac-tab-panel .row .r.down,
 html body #global-markets .tac-tab-panel .row span.down { color:#16834c !important; }
 </style>
-</head>
+<style id="tac-calendar-tab-visibility-fix-20261022">
+/* Fix calendar tab panels by semantic class rather than fragile nth-child positions */
+#week-econ-today:checked~.week-econ-panels>.calendar-status-group,
+#week-econ-upcoming:checked~.week-econ-panels>.calendar-status-group,
+#week-econ-published:checked~.week-econ-panels>.calendar-status-group,
+#week-earnings-today:checked~.week-earnings-panels>.calendar-status-group,
+#week-earnings-upcoming:checked~.week-earnings-panels>.calendar-status-group,
+#week-earnings-published:checked~.week-earnings-panels>.calendar-status-group{display:none!important}
+#week-econ-today:checked~.week-econ-panels>.calendar-status-group:has(.calendar-status-heading.today),
+#week-earnings-today:checked~.week-earnings-panels>.calendar-status-group:has(.calendar-status-heading.today){display:block!important}
+#week-econ-upcoming:checked~.week-econ-panels>.calendar-status-group:has(.calendar-status-heading.upcoming),
+#week-earnings-upcoming:checked~.week-earnings-panels>.calendar-status-group:has(.calendar-status-heading.upcoming){display:block!important}
+#week-econ-published:checked~.week-econ-panels>.calendar-status-group:has(.calendar-status-heading.published),
+#week-earnings-published:checked~.week-earnings-panels>.calendar-status-group:has(.calendar-status-heading.published){display:block!important}
+</style></head>
 <body>
 <div style="margin:12px auto;max-width:1500px;padding:12px 18px;border:1px solid #c28b00;background:#fff7df;color:#594200;border-radius:10px;font:14px/1.65 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif"><strong>2026/10/22｜審核檢視版（資料尚未全部驗證，不可發布）</strong><br>此檔以 GitHub main/index_母版.html 為起點，保留原版網頁結構與互動。這次先提供可檢視的母版版面，不代表當日行情已更新完成。MOVE、美國公債 2Y／10Y／30Y、S&P 500 十一大產業，以及其他市場行情、匯率、行事曆、FedWatch 和新聞，仍須依核准來源逐項核對後才能成為正式早報。請勿將母版中既有數值視為 10/21 收盤資料。</div>
 
