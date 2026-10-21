@@ -1159,6 +1159,293 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   }
 }
 </style>
+
+
+<style id="tac-history-button-visibility-v32">
+@media(min-width:1100px){
+  .tac-side-tools{overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
+  .tac-history-mini{flex:0 0 auto!important;min-height:max-content!important;padding-bottom:10px!important}
+  .tac-history-mini button.primary{display:block!important;position:relative!important;z-index:2!important;width:100%!important;min-height:42px!important;height:auto!important;white-space:normal!important;line-height:1.35!important;padding:10px 8px!important;margin-top:7px!important;flex-shrink:0!important;visibility:visible!important;opacity:1!important}
+  .tac-side-foot{flex:0 0 auto!important;margin-top:10px!important}
+}
+.tfn-ack .tfn-royal-char{display:inline-block!important;font-size:160%!important;font-weight:inherit!important;line-height:1!important;vertical-align:-0.12em!important}
+
+/* User adjustment: enlarge energy futures names to match precious-metal spot labels */
+@media(max-width:700px){
+  .energy-card .row b{font-size:16px!important;letter-spacing:-.4px!important;white-space:nowrap!important}
+}
+
+<style id="tac-full-preview-cnn-fg-band-v10">
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{white-space:normal!important;font-size:18px!important;line-height:1.35!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-top:14px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:38px!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{margin-left:auto!important;text-align:right!important;justify-content:flex-end!important;font-size:15px!important;color:#f3c65e!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{margin-top:18px!important}
+@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}}
+</style></style>
+
+<style id="tac-preview-cnn-score-optical-match-v14">
+/* Optical correction: CNN 23 appeared smaller than VIX/MOVE despite shared nominal size */
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{
+ font-size:35px!important;line-height:1.08!important;font-weight:900!important;
+}
+@media(max-width:390px){
+ #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{font-size:32px!important}
+}
+</style>
+
+<style id="tac-preview-bilingual-indicator-labels-v15">
+#sentiment .sent .label .label-zh,
+#sentiment .sent .fg6-title .label-zh{font-size:.78em!important;font-weight:650!important;color:#b9c3cf!important;white-space:normal!important}
+#sentiment .sent .fg6-title{line-height:1.35!important}
+@media(max-width:390px){
+ #sentiment .sent .label .label-zh{font-size:.72em!important}
+ #sentiment .sent .fg6-title .label-zh{display:inline!important;font-size:.72em!important}
+}
+</style>
+
+<style id="tac-preview-unify-vix-move-cnn-english-title-size-v16">
+/* V16: Keep the English indicator titles VIX, MOVE, and CNN Fear & Greed at the same font size */
+#sentiment .sent .label,
+#sentiment .sent .fg6-title{
+  font-size:18px!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .label,
+  #sentiment .sent .fg6-title{
+    font-size:18px!important;
+  }
+}
+</style>
+
+<style id="tac-preview-unify-vix-move-cnn-english-title-size-v17">
+/* V17: Override the more-specific CNN card title rules so all three English labels render equally */
+#sentiment .sent .sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+  font-size:18px!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+    font-size:18px!important;
+  }
+}
+</style>
+
+<style id="tac-preview-exact-english-label-font-size-v18">
+/* V18: Explicitly normalize only the English title text, independent of Chinese subtitles */
+#sentiment .sent .sbox .label,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+  font-size:18px!important;
+  font-weight:750!important;
+  letter-spacing:0!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  font-size:14px!important;
+  font-weight:650!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
+    font-size:18px!important;
+  }
+  #sentiment .sent .sbox .label .label-zh,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+    font-size:14px!important;
+  }
+}
+</style>
+
+
+<style id="tac-preview-market-sentiment-fit-v20">
+/* V20: prevent sentiment titles from overflowing on mobile; preserve all other sections */
+html body #sentiment .sent > .sbox .label,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+  display:flex!important;
+  align-items:baseline!important;
+  flex-wrap:nowrap!important;
+  gap:5px!important;
+  min-width:0!important;
+  max-width:100%!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  font-size:18px!important;
+  line-height:1.3!important;
+  letter-spacing:0!important;
+}
+html body #sentiment .sent > .sbox .label .label-en,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+  font-size:18px!important;
+  font-weight:750!important;
+}
+html body #sentiment .sent > .sbox .label .label-zh,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+  flex:0 1 auto!important;
+  min-width:0!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+  font-size:12px!important;
+  line-height:1.3!important;
+  font-weight:650!important;
+}
+@media(max-width:700px) {
+  html body #sentiment .sent > .sbox .label,
+  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+    font-size:18px!important;
+    white-space:nowrap!important;
+  }
+  html body #sentiment .sent > .sbox .label .label-en,
+  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+    font-size:18px!important;
+  }
+  html body #sentiment .sent > .sbox .label .label-zh,
+  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+    font-size:12px!important;
+  }
+}
+</style>
+
+
+<style id="tac-desktop-demo-v3">
+/* V3: compact desktop navigation + independently scrollable sidebar. Desktop only; mobile unchanged. */
+@media (min-width: 1000px) {
+  html body .tac-side-tools {
+    position: fixed !important; top: 245px !important; bottom: 18px !important; left: 14px !important;
+    width: 178px !important; max-height: none !important; height: auto !important;
+    overflow-y: auto !important; overflow-x: hidden !important; overscroll-behavior: contain !important;
+    scrollbar-gutter: stable; padding: 14px 12px !important; box-sizing: border-box !important; z-index: 1000 !important;
+  }
+  html body .tac-side-tools .tac-side-link { min-height: 42px !important; padding: 9px 7px !important; gap: 7px !important; }
+  html body .tac-side-tools .tac-side-brand { font-size: 15px !important; }
+  html body .tac-side-tools .tac-side-caption { margin: 14px 0 8px !important; }
+  html body .tac-side-tools .tac-history-mini { padding: 8px !important; }
+  html body .topin, html body .nav, html body .wrap {
+    margin-left: 205px !important; width: calc(100% - 205px) !important; max-width: none !important; box-sizing: border-box !important;
+  }
+  html body .topin { padding: 20px 28px 10px !important; }
+  html body .nav {
+    padding: 0 28px 14px !important; display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 6px !important;
+    overflow: visible !important; white-space: normal !important;
+  }
+  html body .nav a {
+    display: flex !important; justify-content: center !important; align-items: center !important;
+    min-height: 36px !important; padding: 7px 8px !important; text-align: center !important;
+    line-height: 1.35 !important; white-space: normal !important; font-size: 12px !important; box-sizing: border-box !important;
+  }
+  html body .wrap { padding: 24px 28px 60px !important; }
+}
+</style>
+
+
+<style id="tac-desktop-demo-v4">
+/* V4: compact left-aligned nav and taller sidebar viewport; desktop only. */
+@media (min-width: 1000px) {
+  html body .tac-side-tools {
+    top: 155px !important;
+    bottom: 14px !important;
+    left: 12px !important;
+    width: 184px !important;
+    padding: 14px 11px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  html body .topin, html body .nav, html body .wrap {
+    margin-left: 212px !important;
+    width: calc(100% - 212px) !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+  html body .topin {
+    padding: 18px 26px 8px !important;
+  }
+  html body .nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 6px 8px !important;
+    padding: 0 26px 12px !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  html body .nav a {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 32px !important;
+    max-width: 210px !important;
+    padding: 7px 11px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+    font-size: 12px !important;
+  }
+  html body .wrap {
+    padding: 22px 26px 58px !important;
+  }
+}
+</style>
+
+<style id="tac-desktop-demo-v7">
+/* V7: final desktop-only override after all desktop rules; mobile styling remains untouched. */
+@media (min-width: 1000px) {
+  html body .tac-side-tools {
+    position: fixed !important;
+    top: 178px !important;
+    bottom: 12px !important;
+    left: 12px !important;
+    width: 184px !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important;
+    padding: 14px 11px !important;
+    box-sizing: border-box !important;
+    z-index: 9999 !important;
+  }
+  html body .topin, html body .nav, html body .wrap {
+    margin-left: 212px !important;
+    width: calc(100% - 212px) !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+  html body .topin { padding: 18px 26px 8px !important; }
+  html body .nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 5px 7px !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    padding: 0 26px 10px !important;
+  }
+  html body .nav a {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: 210px !important;
+    min-height: 30px !important;
+    padding: 6px 9px !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    text-align: left !important;
+    white-space: normal !important;
+  }
+  html body .wrap { padding: 22px 26px 58px !important; }
+}
+</style>
 </head>
 <body>
 
@@ -1865,239 +2152,5 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   .nav a:focus-visible { outline:2px solid #c62828; outline-offset:3px; }
 }
 </style>
-
-</body></html>
-<style id="tac-history-button-visibility-v32">
-@media(min-width:1100px){
-  .tac-side-tools{overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain}
-  .tac-history-mini{flex:0 0 auto!important;min-height:max-content!important;padding-bottom:10px!important}
-  .tac-history-mini button.primary{display:block!important;position:relative!important;z-index:2!important;width:100%!important;min-height:42px!important;height:auto!important;white-space:normal!important;line-height:1.35!important;padding:10px 8px!important;margin-top:7px!important;flex-shrink:0!important;visibility:visible!important;opacity:1!important}
-  .tac-side-foot{flex:0 0 auto!important;margin-top:10px!important}
-}
-.tfn-ack .tfn-royal-char{display:inline-block!important;font-size:160%!important;font-weight:inherit!important;line-height:1!important;vertical-align:-0.12em!important}
-
-/* User adjustment: enlarge energy futures names to match precious-metal spot labels */
-@media(max-width:700px){
-  .energy-card .row b{font-size:16px!important;letter-spacing:-.4px!important;white-space:nowrap!important}
-}
-
-<style id="tac-full-preview-cnn-fg-band-v10">
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{white-space:normal!important;font-size:18px!important;line-height:1.35!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;margin-top:14px!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:38px!important;white-space:nowrap!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:18px!important;font-weight:750!important;color:#aeb8c6!important;margin-left:3px!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{margin-left:auto!important;text-align:right!important;justify-content:flex-end!important;font-size:15px!important;color:#f3c65e!important;white-space:nowrap!important}
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:none!important}
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{margin-top:18px!important}
-@media(max-width:390px){#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:34px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-outof{font-size:15px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}}
-</style></style>
-
-<style id="tac-preview-cnn-score-optical-match-v14">
-/* Optical correction: CNN 23 appeared smaller than VIX/MOVE despite shared nominal size */
-#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{
- font-size:35px!important;line-height:1.08!important;font-weight:900!important;
-}
-@media(max-width:390px){
- #sentiment .sent>section.sbox.cnn-fg-preview .fg6-score .fg6-score-main{font-size:32px!important}
-}
-</style>
-
-<style id="tac-preview-bilingual-indicator-labels-v15">
-#sentiment .sent .label .label-zh,
-#sentiment .sent .fg6-title .label-zh{font-size:.78em!important;font-weight:650!important;color:#b9c3cf!important;white-space:normal!important}
-#sentiment .sent .fg6-title{line-height:1.35!important}
-@media(max-width:390px){
- #sentiment .sent .label .label-zh{font-size:.72em!important}
- #sentiment .sent .fg6-title .label-zh{display:inline!important;font-size:.72em!important}
-}
-</style>
-
-<style id="tac-preview-unify-vix-move-cnn-english-title-size-v16">
-/* V16: Keep the English indicator titles VIX, MOVE, and CNN Fear & Greed at the same font size */
-#sentiment .sent .label,
-#sentiment .sent .fg6-title{
-  font-size:18px!important;
-  line-height:1.35!important;
-}
-@media(max-width:390px){
-  #sentiment .sent .label,
-  #sentiment .sent .fg6-title{
-    font-size:18px!important;
-  }
-}
-</style>
-
-<style id="tac-preview-unify-vix-move-cnn-english-title-size-v17">
-/* V17: Override the more-specific CNN card title rules so all three English labels render equally */
-#sentiment .sent .sbox .label,
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
-  font-size:18px!important;
-  line-height:1.35!important;
-}
-@media(max-width:390px){
-  #sentiment .sent .sbox .label,
-  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
-    font-size:18px!important;
-  }
-}
-</style>
-
-<style id="tac-preview-exact-english-label-font-size-v18">
-/* V18: Explicitly normalize only the English title text, independent of Chinese subtitles */
-#sentiment .sent .sbox .label,
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
-  font-size:18px!important;
-  font-weight:750!important;
-  letter-spacing:0!important;
-}
-#sentiment .sent .sbox .label .label-zh,
-#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
-  font-size:14px!important;
-  font-weight:650!important;
-}
-@media(max-width:390px){
-  #sentiment .sent .sbox .label,
-  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{
-    font-size:18px!important;
-  }
-  #sentiment .sent .sbox .label .label-zh,
-  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
-    font-size:14px!important;
-  }
-}
-</style>
-
-
-<style id="tac-preview-market-sentiment-fit-v20">
-/* V20: prevent sentiment titles from overflowing on mobile; preserve all other sections */
-html body #sentiment .sent > .sbox .label,
-html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
-  display:flex!important;
-  align-items:baseline!important;
-  flex-wrap:nowrap!important;
-  gap:5px!important;
-  min-width:0!important;
-  max-width:100%!important;
-  white-space:nowrap!important;
-  overflow:hidden!important;
-  font-size:18px!important;
-  line-height:1.3!important;
-  letter-spacing:0!important;
-}
-html body #sentiment .sent > .sbox .label .label-en,
-html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
-  flex:0 0 auto!important;
-  white-space:nowrap!important;
-  font-size:18px!important;
-  font-weight:750!important;
-}
-html body #sentiment .sent > .sbox .label .label-zh,
-html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
-  flex:0 1 auto!important;
-  min-width:0!important;
-  white-space:nowrap!important;
-  overflow:hidden!important;
-  text-overflow:clip!important;
-  font-size:12px!important;
-  line-height:1.3!important;
-  font-weight:650!important;
-}
-@media(max-width:700px) {
-  html body #sentiment .sent > .sbox .label,
-  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
-    font-size:18px!important;
-    white-space:nowrap!important;
-  }
-  html body #sentiment .sent > .sbox .label .label-en,
-  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
-    font-size:18px!important;
-  }
-  html body #sentiment .sent > .sbox .label .label-zh,
-  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
-    font-size:12px!important;
-  }
-}
-</style>
-
-
-<style id="tac-desktop-demo-v3">
-/* V3: compact desktop navigation + independently scrollable sidebar. Desktop only; mobile unchanged. */
-@media (min-width: 1000px) {
-  html body .tac-side-tools {
-    position: fixed !important; top: 245px !important; bottom: 18px !important; left: 14px !important;
-    width: 178px !important; max-height: none !important; height: auto !important;
-    overflow-y: auto !important; overflow-x: hidden !important; overscroll-behavior: contain !important;
-    scrollbar-gutter: stable; padding: 14px 12px !important; box-sizing: border-box !important; z-index: 1000 !important;
-  }
-  html body .tac-side-tools .tac-side-link { min-height: 42px !important; padding: 9px 7px !important; gap: 7px !important; }
-  html body .tac-side-tools .tac-side-brand { font-size: 15px !important; }
-  html body .tac-side-tools .tac-side-caption { margin: 14px 0 8px !important; }
-  html body .tac-side-tools .tac-history-mini { padding: 8px !important; }
-  html body .topin, html body .nav, html body .wrap {
-    margin-left: 205px !important; width: calc(100% - 205px) !important; max-width: none !important; box-sizing: border-box !important;
-  }
-  html body .topin { padding: 20px 28px 10px !important; }
-  html body .nav {
-    padding: 0 28px 14px !important; display: grid !important;
-    grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 6px !important;
-    overflow: visible !important; white-space: normal !important;
-  }
-  html body .nav a {
-    display: flex !important; justify-content: center !important; align-items: center !important;
-    min-height: 36px !important; padding: 7px 8px !important; text-align: center !important;
-    line-height: 1.35 !important; white-space: normal !important; font-size: 12px !important; box-sizing: border-box !important;
-  }
-  html body .wrap { padding: 24px 28px 60px !important; }
-}
-</style>
-
-
-<style id="tac-desktop-demo-v4">
-/* V4: compact left-aligned nav and taller sidebar viewport; desktop only. */
-@media (min-width: 1000px) {
-  html body .tac-side-tools {
-    top: 155px !important;
-    bottom: 14px !important;
-    left: 12px !important;
-    width: 184px !important;
-    padding: 14px 11px !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-  }
-  html body .topin, html body .nav, html body .wrap {
-    margin-left: 212px !important;
-    width: calc(100% - 212px) !important;
-    max-width: none !important;
-    box-sizing: border-box !important;
-  }
-  html body .topin {
-    padding: 18px 26px 8px !important;
-  }
-  html body .nav {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 6px 8px !important;
-    padding: 0 26px 12px !important;
-    overflow: visible !important;
-    white-space: normal !important;
-  }
-  html body .nav a {
-    display: inline-flex !important;
-    flex: 0 0 auto !important;
-    width: auto !important;
-    min-height: 32px !important;
-    max-width: 210px !important;
-    padding: 7px 11px !important;
-    text-align: center !important;
-    white-space: normal !important;
-    line-height: 1.3 !important;
-    font-size: 12px !important;
-  }
-  html body .wrap {
-    padding: 22px 26px 58px !important;
-  }
-}
-</style>
+</body>
+</html>
