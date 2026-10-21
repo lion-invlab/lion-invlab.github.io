@@ -1983,3 +1983,53 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   html body .wrap { padding: 24px 28px 60px !important; }
 }
 </style>
+
+
+<style id="tac-desktop-demo-v4">
+/* V4: compact left-aligned nav and taller sidebar viewport; desktop only. */
+@media (min-width: 1000px) {
+  html body .tac-side-tools {
+    top: 155px !important;
+    bottom: 14px !important;
+    left: 12px !important;
+    width: 184px !important;
+    padding: 14px 11px !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  html body .topin, html body .nav, html body .wrap {
+    margin-left: 212px !important;
+    width: calc(100% - 212px) !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+  html body .topin {
+    padding: 18px 26px 8px !important;
+  }
+  html body .nav {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 6px 8px !important;
+    padding: 0 26px 12px !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  html body .nav a {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-height: 32px !important;
+    max-width: 210px !important;
+    padding: 7px 11px !important;
+    text-align: center !important;
+    white-space: normal !important;
+    line-height: 1.3 !important;
+    font-size: 12px !important;
+  }
+  html body .wrap {
+    padding: 22px 26px 58px !important;
+  }
+}
+</style>
