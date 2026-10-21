@@ -1229,13 +1229,13 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 @media(max-width:560px){.fed-compact-preview .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px}.fed-compact-preview .fc-fomc .fc-fomc-meeting,.fed-compact-preview .fc-fomc .fc-fomc-rate{min-height:94px;padding:11px 10px}.fed-compact-preview .fc-fomc .fc-fomc-meeting>b{font-size:13px}.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:clamp(19px,5vw,25px)}.fed-compact-preview .fc-fomc .fc-fomc-rate small{font-size:9px;padding:3px 5px}}
 </style>
 <style>
-/* FIX: actually enable grid layout for side-by-side FOMC cards */
-.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important;align-items:stretch!important}
+/* FOMC layout: meeting date + core observation on top, target rate below */
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto!important;gap:8px!important;align-items:stretch!important}
 .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
-.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate{grid-column:2!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
-.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation{grid-column:1/-1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation{grid-column:2!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate{grid-column:1/-1!important;grid-row:2!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
 .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1/-1!important}
-@media(max-width:560px){.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate b{font-size:clamp(18px,4.8vw,25px)!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting>b{font-size:clamp(12px,3.1vw,14px)!important}}
+@media(max-width:560px){.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate b{font-size:clamp(22px,6vw,30px)!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting>b{font-size:clamp(12px,3.1vw,14px)!important}}
 </style>
 </head>
 <body>
