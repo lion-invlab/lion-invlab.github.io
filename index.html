@@ -2689,14 +2689,13 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 @media(max-width:1099px){
  .tac-tools-hint{position:relative!important;box-sizing:border-box!important;padding-left:12px!important;overflow:visible!important}
  .tac-tools-arrow-live{
- display:flex!important;position:fixed!important;left:calc(24px + env(safe-area-inset-left, 0px))!important;top:205px!important;
+ display:flex!important;position:fixed!important;left:var(--tac-hand-x,24px)!important;top:var(--tac-hand-y,205px)!important;right:auto!important;bottom:auto!important;margin:0!important;
  width:40px!important;height:40px!important;align-items:center!important;justify-content:center!important;
  box-sizing:border-box!important;border-radius:50%!important;background:rgba(255,238,240,.98)!important;
  color:#a91528!important;border:2px solid rgba(180,35,50,.42)!important;box-shadow:0 3px 10px rgba(110,20,35,.25)!important;
  font-family:system-ui,-apple-system,sans-serif!important;font-size:29px!important;font-weight:900!important;line-height:1!important;
  z-index:2147483647!important;pointer-events:none!important;transform-origin:center center!important;
- animation:tac-hand-toolbar-tap-v12 1.8s ease-in-out infinite!important;-webkit-animation:tac-hand-toolbar-tap-v12 1.8s ease-in-out infinite!important;
- animation-play-state:running!important;-webkit-animation-play-state:running!important;will-change:top,transform!important;
+ animation:none!important;-webkit-animation:none!important;will-change:top,transform!important;
  }
  @keyframes tac-hand-toolbar-tap-v12{
  0%,10%{top:205px;transform:scale(1)}
@@ -2764,51 +2763,27 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 }
 @media(min-width:1100px){.tac-tools-arrow-live.tac-toolbar-hand-target{display:none!important}}
 </style>
-<script id="tac-toolbar-hand-target-v13-js">
+<script id="tac-toolbar-hand-target-v14-js">
 (function(){
  function setup(){
-  var hint=document.querySelector('.tac-tools-hint');
-  var hand=document.querySelector('.tac-tools-arrow-live');
-  if(!hint||!hand)return;
-  if(hand.parentElement!==document.body)document.body.appendChild(hand);
-  hand.classList.add('tac-toolbar-hand-target');
+  var hint=document.querySelector('.tac-tools-hint'),hand=document.querySelector('.tac-tools-arrow-live');if(!hint||!hand)return;
+  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el,i){if(i>0)el.remove()});
+  hand.textContent='👆';if(hand.parentElement!==document.body)document.body.appendChild(hand);hand.classList.add('tac-toolbar-hand-target');
   var anim=null;
   function findToolbar(){
-   var nodes=Array.from(document.querySelectorAll('a,button,[role="button"]'));
-   return nodes.find(function(el){
-    var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim();
-    var r=el.getBoundingClientRect();
-    return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0;
-   });
+   var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
+   var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
+   matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
   }
   function move(){
    if(window.matchMedia('(min-width:1100px)').matches){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
-   hand.style.display='flex';
-   var target=findToolbar();
-   if(!target)return;
-   var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
-   var x=Math.max(8,Math.min(window.innerWidth-48,tr.left+tr.width/2-20));
-   var targetY=Math.max(8,tr.top+tr.height/2-20);
-   var startY=Math.max(targetY+42,Math.min(window.innerHeight-50,hr.top+hr.height/2-20));
-   hand.style.setProperty('--tac-hand-x',x+'px');
+   hand.style.display='flex';var target=findToolbar();if(!target)return;
+   var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect(),x=Math.max(4,Math.min(window.innerWidth-48,tr.left+tr.width/2-20)),ty=Math.max(4,tr.top+tr.height/2-20),sy=Math.max(ty+38,Math.min(window.innerHeight-54,hr.top+hr.height/2-20));
+   hand.style.setProperty('--tac-hand-x',x+'px');hand.style.setProperty('--tac-hand-y',sy+'px');
    if(anim){anim.cancel();anim=null}
-   if(typeof hand.animate==='function'){
-    anim=hand.animate([
-     {top:startY+'px',transform:'scale(1)'},
-     {top:targetY+'px',transform:'scale(1.08)',offset:.42},
-     {top:(targetY-3)+'px',transform:'scale(1.58)',offset:.50},
-     {top:targetY+'px',transform:'scale(1.12)',offset:.58},
-     {top:startY+'px',transform:'scale(1)',offset:1}
-    ],{duration:2100,iterations:Infinity,easing:'ease-in-out'});
-   }else{
-    hand.style.top=targetY+'px';
-   }
+   if(hand.animate)anim=hand.animate([{top:sy+'px',transform:'scale(.82)',opacity:.88},{top:ty+'px',transform:'scale(1.12)',opacity:1,offset:.42},{top:(ty-2)+'px',transform:'scale(1.62)',opacity:1,offset:.50},{top:ty+'px',transform:'scale(1.12)',opacity:1,offset:.58},{top:sy+'px',transform:'scale(.82)',opacity:.88,offset:1}],{duration:2200,iterations:Infinity,easing:'ease-in-out'});
   }
-  move();
-  window.addEventListener('resize',move,{passive:true});
-  window.addEventListener('orientationchange',function(){setTimeout(move,250)},{passive:true});
-  window.addEventListener('pageshow',move);
-  setTimeout(move,400);setTimeout(move,1200);
+  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('orientationchange',function(){setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
