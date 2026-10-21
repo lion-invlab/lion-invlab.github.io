@@ -1093,36 +1093,25 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 </style>
 
 <style id="tac-assets-unified-type-v1">
-/* 2026/10/21 preview: align asset-tab product names, quotes and changes with Global Markets typography */
-#industry-bonds-fx-commodities .tac-tab-panel .row>b,
-#industry-bonds-fx-commodities .tac-tab-panel .row>.r{
+/* Match the actual Global Markets .row typography; keep the preview's existing colors/backgrounds */
+#industry-bonds-fx-commodities .tac-tab-panel .row b,
+#industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+#industry-bonds-fx-commodities .tac-tab-panel .sector-label b,
+#industry-bonds-fx-commodities .tac-tab-panel .sector-row span.r{
   font-size:16px!important;
   line-height:1.35!important;
 }
-#industry-bonds-fx-commodities .tac-tab-panel .row>b{
-  font-weight:850!important;
-}
-#industry-bonds-fx-commodities .tac-tab-panel .row>.r{
-  font-weight:500!important;
-  font-variant-numeric:tabular-nums;
-}
-#industry-bonds-fx-commodities .tac-tab-panel .sector-label>b{
-  font-size:16px!important;
-  line-height:1.35!important;
-  font-weight:850!important;
-}
-#industry-bonds-fx-commodities .tac-tab-panel .sector-row>.r{
-  font-size:16px!important;
-  line-height:1.35!important;
-  font-weight:850!important;
-}
-@media(max-width:700px){
-  #industry-bonds-fx-commodities .tac-tab-panel .row>b,
-  #industry-bonds-fx-commodities .tac-tab-panel .row>.r,
-  #industry-bonds-fx-commodities .tac-tab-panel .sector-label>b,
-  #industry-bonds-fx-commodities .tac-tab-panel .sector-row>.r{
-    font-size:16px!important;
-  }
+#industry-bonds-fx-commodities .tac-tab-panel .row b,
+#industry-bonds-fx-commodities .tac-tab-panel .sector-label b{font-weight:700!important}
+#industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+#industry-bonds-fx-commodities .tac-tab-panel .sector-row span.r{font-weight:500!important;font-variant-numeric:tabular-nums}
+#industry-bonds-fx-commodities #bonds .row b{font-size:16px!important;white-space:normal!important}
+@media(max-width:600px){
+ #industry-bonds-fx-commodities .tac-tab-panel .row b,
+ #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+ #industry-bonds-fx-commodities .tac-tab-panel .sector-label b,
+ #industry-bonds-fx-commodities .tac-tab-panel .sector-row span.r,
+ #industry-bonds-fx-commodities #bonds .row b{font-size:16px!important}
 }
 </style>
 
