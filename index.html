@@ -765,23 +765,25 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
 }
 .tac-tools-hint strong{font-weight:900}
 @media(max-width:1099px){.tac-tools-hint{display:block}}
-</style><style id="tac-tools-hint-up-arrow">/* Upward cue beside the mobile tools hint capsule */
+</style><style id="tac-tools-hint-up-arrow">/* Arrow sits just outside the capsule so it never overlaps the hint text */
 @media(max-width:1099px){
  .tac-tools-hint{
-   display:flex!important;align-items:center;gap:9px;
-   width:fit-content;max-width:calc(100% - 24px);
-   margin:12px auto 14px!important;
+   display:block!important;position:relative!important;box-sizing:border-box!important;
+   width:fit-content!important;max-width:calc(100% - 24px)!important;
+   margin:26px auto 14px!important;
    padding:8px 13px!important;
    border:1px solid rgba(180,35,50,.22)!important;
    border-radius:999px!important;
    background:rgba(255,255,255,.92)!important;
    box-shadow:0 3px 12px rgba(35,45,55,.06)!important;
+   text-align:center!important;overflow:visible!important;
  }
  .tac-tools-hint:before{
-   content:"↑";display:inline-flex;flex:0 0 auto;
-   align-items:center;justify-content:center;
+   content:"↑";position:absolute;left:20px;top:-25px;
+   display:flex;align-items:center;justify-content:center;
    width:24px;height:24px;border-radius:50%;
-   color:#b42332;background:rgba(180,35,50,.09);
+   color:#b42332;background:rgba(255,255,255,.94);
+   border:1px solid rgba(180,35,50,.16);
    font-size:22px;font-weight:950;line-height:1;
    animation:tac-tools-arrow-nudge 1.8s ease-in-out infinite;
  }
