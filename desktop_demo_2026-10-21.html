@@ -1951,3 +1951,35 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   }
 }
 </style>
+
+
+<style id="tac-desktop-demo-v3">
+/* V3: compact desktop navigation + independently scrollable sidebar. Desktop only; mobile unchanged. */
+@media (min-width: 1000px) {
+  html body .tac-side-tools {
+    position: fixed !important; top: 245px !important; bottom: 18px !important; left: 14px !important;
+    width: 178px !important; max-height: none !important; height: auto !important;
+    overflow-y: auto !important; overflow-x: hidden !important; overscroll-behavior: contain !important;
+    scrollbar-gutter: stable; padding: 14px 12px !important; box-sizing: border-box !important; z-index: 1000 !important;
+  }
+  html body .tac-side-tools .tac-side-link { min-height: 42px !important; padding: 9px 7px !important; gap: 7px !important; }
+  html body .tac-side-tools .tac-side-brand { font-size: 15px !important; }
+  html body .tac-side-tools .tac-side-caption { margin: 14px 0 8px !important; }
+  html body .tac-side-tools .tac-history-mini { padding: 8px !important; }
+  html body .topin, html body .nav, html body .wrap {
+    margin-left: 205px !important; width: calc(100% - 205px) !important; max-width: none !important; box-sizing: border-box !important;
+  }
+  html body .topin { padding: 20px 28px 10px !important; }
+  html body .nav {
+    padding: 0 28px 14px !important; display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important; gap: 6px !important;
+    overflow: visible !important; white-space: normal !important;
+  }
+  html body .nav a {
+    display: flex !important; justify-content: center !important; align-items: center !important;
+    min-height: 36px !important; padding: 7px 8px !important; text-align: center !important;
+    line-height: 1.35 !important; white-space: normal !important; font-size: 12px !important; box-sizing: border-box !important;
+  }
+  html body .wrap { padding: 24px 28px 60px !important; }
+}
+</style>
