@@ -2684,28 +2684,37 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* The animated arrow is a real sibling element so pill overflow and pseudo-element
-   animation quirks in iOS Safari cannot clip or delay it. */
+/* Keep the arrow inside the capsule: no overflow clipping, no overlap with sticky nav. */
 .tac-tools-hint:before{content:none!important;display:none!important}
 .tac-tools-arrow-live{display:none!important}
 @media(max-width:1099px){
+ .tac-tools-hint{
+   position:relative!important;
+   box-sizing:border-box!important;
+   padding-left:42px!important;
+   overflow:visible!important;
+ }
  .tac-tools-arrow-live{
-   display:flex!important;position:absolute!important;left:12px!important;top:-34px!important;
-   width:30px!important;height:30px!important;align-items:center!important;justify-content:center!important;
+   display:flex!important;
+   position:absolute!important;
+   left:9px!important;top:50%!important;
+   width:27px!important;height:27px!important;
+   align-items:center!important;justify-content:center!important;
    box-sizing:border-box!important;border-radius:50%!important;
    background:rgba(255,238,240,.98)!important;color:#a91528!important;
-   border:2px solid rgba(180,35,50,.35)!important;box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
-   font-size:27px!important;font-weight:1000!important;line-height:1!important;
-   z-index:2147483647!important;pointer-events:none!important;
-   animation:tac-arrow-real-autostart-v7 .7s ease-in-out infinite!important;
-   -webkit-animation:tac-arrow-real-autostart-v7 .7s ease-in-out infinite!important;
+   border:2px solid rgba(180,35,50,.35)!important;
+   box-shadow:0 2px 7px rgba(110,20,35,.2)!important;
+   font-size:25px!important;font-weight:1000!important;line-height:1!important;
+   z-index:10!important;pointer-events:none!important;
+   animation:tac-arrow-pill-visible-v9 .7s ease-in-out infinite!important;
+   -webkit-animation:tac-arrow-pill-visible-v9 .7s ease-in-out infinite!important;
    animation-play-state:running!important;-webkit-animation-play-state:running!important;
    will-change:transform!important;
  }
- @keyframes tac-arrow-real-autostart-v7{0%,100%{transform:translateY(2px) scale(1)}50%{transform:translateY(-6px) scale(1.17)}}
- @-webkit-keyframes tac-arrow-real-autostart-v7{0%,100%{-webkit-transform:translateY(2px) scale(1)}50%{-webkit-transform:translateY(-6px) scale(1.17)}}
+ @keyframes tac-arrow-pill-visible-v9{0%,100%{transform:translateY(-50%) translateY(2px) scale(1)}50%{transform:translateY(-50%) translateY(-3px) scale(1.12)}}
+ @-webkit-keyframes tac-arrow-pill-visible-v9{0%,100%{-webkit-transform:translateY(-50%) translateY(2px) scale(1)}50%{-webkit-transform:translateY(-50%) translateY(-3px) scale(1.12)}}
 }
-@media(prefers-reduced-motion:reduce){.tac-tools-arrow-live{animation:none!important;-webkit-animation:none!important}}
+@media(min-width:1100px){.tac-tools-arrow-live{display:none!important}}
 </style>
 <script id="tac-tools-arrow-real-element-v8">
 (function(){
