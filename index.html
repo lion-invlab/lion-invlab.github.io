@@ -2737,13 +2737,15 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
   var hint=document.querySelector('.tac-tools-hint');if(!hint)return;
   document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
   var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.textContent='👆';document.body.appendChild(hand);
-  var anim=null;
+  var anim=null,expired=false;
+  setTimeout(function(){expired=true;hand.style.display='none';if(anim){anim.cancel();anim=null}},5000);
   function findToolbar(){
    var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
    var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
    matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
   }
   function move(){
+   if(expired){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
    if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
    hand.style.display='flex';var target=findToolbar();if(!target)return;
    var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
