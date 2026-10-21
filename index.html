@@ -8,7 +8,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>TAC 投資早報｜2026/10/21 審核版 V2</title>
+<title>TAC 投資早報｜2026/10/21 審核版 V3</title>
 <style>
 :root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
@@ -1091,6 +1091,440 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
  html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {font-size:9px!important}
 }
 </style>
+<style>
+/* Independent preview: cleaner, more compact Fed live panel */
+.fed-compact-preview .fed-live-title{color:#a92332!important;font-size:clamp(21px,3vw,28px)!important;font-weight:900!important;line-height:1.25!important;margin-bottom:10px}
+.fed-compact-preview .fed-live-tab-labels{border-radius:10px;background:#f3f5f7;border-color:#e1e5e9}
+.fed-compact-preview .fed-live-tab-labels label{min-height:40px;font-size:13px;padding:8px;color:#626c76}
+.fed-compact-preview .fed-live-panels{margin-top:10px}
+.fed-compact-preview .fed-live-watch{padding:0}
+.fed-compact-preview .fc-current-rate{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 2px 2px;margin:10px 0 0}.fed-compact-preview .fc-current-rate>span:first-child{font-size:12px;color:#68737e;font-weight:800}.fed-compact-preview .fc-current-rate strong{font-size:21px;line-height:1.2;color:#283440;font-weight:950;letter-spacing:-.02em}.fed-compact-preview .fc-current-rate .fc-pill{margin-left:auto}
+
+
+.fed-compact-preview .fc-current{font-size:11px;color:#68737e;margin-top:4px}
+.fed-compact-preview .fc-current b{color:#283440}
+.fed-compact-preview .fc-pill{white-space:nowrap;font-size:10px;font-weight:800;padding:5px 7px;border-radius:6px;color:#a92332;background:#fff0f1}
+.fed-compact-preview .fc-probs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.fed-compact-preview .fc-prob{min-width:0;border-radius:11px;padding:12px;border:1px solid transparent}
+.fed-compact-preview .fc-hold{background:#eef6fb;border-color:#dbeaf4}.fed-compact-preview .fc-hike{background:#fff5e9;border-color:#f4e3cd}
+.fed-compact-preview .fc-prob>span{display:block;font-size:11px;font-weight:850}
+.fed-compact-preview .fc-hold>span{color:#416d88}.fed-compact-preview .fc-hike>span{color:#8b602f}
+.fed-compact-preview .fc-prob strong{display:block;font-size:28px;line-height:1.15;letter-spacing:-.03em;margin-top:4px;font-weight:950}
+.fed-compact-preview .fc-hold strong{color:#176b9b}.fed-compact-preview .fc-hike strong{color:#b66a20}
+.fed-compact-preview .fc-prob strong small{font-size:14px}
+.fed-compact-preview .fc-range{font-size:10px;margin-top:3px;color:#68737e}
+.fed-compact-preview .fc-bar{height:4px;border-radius:99px;background:rgba(80,100,120,.14);margin-top:9px;overflow:hidden}
+.fed-compact-preview .fc-bar i{height:100%;display:block;border-radius:99px;background:#2b83b9}.fed-compact-preview .fc-hike .fc-bar i{background:#d28a3e}
+.fed-compact-preview .fedwatch-time{font-size:10px;margin-top:9px;color:#707b85}.fed-compact-preview .fedwatch-time summary{cursor:pointer;font-weight:800}
+.fed-compact-preview .fc-source{font-size:10px;color:#77818b;margin-top:7px}.fed-compact-preview .fc-source a{color:#a92332;text-decoration:none;font-weight:750}
+.fed-compact-preview .fc-fomc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.fed-compact-preview .fc-fomc>div{padding:11px;border:1px solid #e6e9ed;border-radius:9px;background:#fafbfc;min-width:0}
+.fed-compact-preview .fc-fomc span{display:block;font-size:10px;color:#7a8490;margin-bottom:5px}
+.fed-compact-preview .fc-fomc b{display:block;font-size:12px;color:#303a45;line-height:1.45}
+.fed-compact-preview .fc-fomc p{grid-column:1/-1;font-size:10px;color:#7a8490;margin:0}
+@media(max-width:560px){.fed-compact-preview .fc-current-rate strong{font-size:20px}.fed-compact-preview .fed-live-title{font-size:clamp(21px,5.4vw,28px)!important}.fed-compact-preview .fc-probs{gap:6px}.fed-compact-preview .fc-prob{padding:10px}.fed-compact-preview .fc-prob strong{font-size:25px}.fed-compact-preview .fc-fomc{grid-template-columns:1fr}.fed-compact-preview .fc-fomc p{grid-column:auto}}
+</style>
+<style>
+/* Refined probability presentation: remove duplicate individual progress bars */
+.fed-compact-preview .fc-probs-refined{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.fed-compact-preview .fc-probs-refined .fc-prob{padding:14px 15px 13px;border-radius:12px;box-shadow:0 1px 0 rgba(20,35,50,.025)}
+.fed-compact-preview .fc-prob-label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:850}
+.fed-compact-preview .fc-prob-label .fc-dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#2b83b9}
+.fed-compact-preview .fc-hike .fc-prob-label .fc-dot{background:#d28a3e}
+.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:clamp(27px,4vw,34px);margin:7px 0 3px;letter-spacing:-.035em}
+.fed-compact-preview .fc-probs-refined .fc-prob strong small{font-size:15px}
+.fed-compact-preview .fc-probs-refined .fc-range{font-size:11px}
+.fed-compact-preview .fc-split-wrap{margin-top:15px;padding:13px 14px 12px;border:1px solid #e7eaee;border-radius:11px;background:linear-gradient(180deg,#fff 0%,#fafbfc 100%)}
+.fed-compact-preview .fc-split-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px;font-weight:850;color:#46515c;margin-bottom:10px}
+.fed-compact-preview .fc-split-head span:last-child{font-size:10px;color:#8a949d;font-weight:700}
+.fed-compact-preview .fc-split-bar{display:flex;width:100%;height:12px;overflow:hidden;border-radius:99px;background:#e7ebef;gap:3px}
+.fed-compact-preview .fc-split-hold{display:block;height:100%;background:linear-gradient(90deg,#237cae,#3895c4);border-radius:99px 3px 3px 99px}
+.fed-compact-preview .fc-split-hike{display:block;height:100%;background:linear-gradient(90deg,#d18b40,#e1a45d);border-radius:3px 99px 99px 3px}
+.fed-compact-preview .fc-split-legend{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 14px;margin-top:10px;font-size:10px;color:#68737e}
+.fed-compact-preview .fc-split-legend span{display:inline-flex;align-items:center;gap:5px}
+.fed-compact-preview .fc-split-legend i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.fed-compact-preview .fc-legend-hold{background:#2b83b9}.fed-compact-preview .fc-legend-hike{background:#d28a3e}
+.fed-compact-preview .fc-split-legend b{font-size:10px;color:#313b45}
+@media(max-width:560px){.fed-compact-preview .fc-probs-refined{gap:7px}.fed-compact-preview .fc-probs-refined .fc-prob{padding:11px 10px}.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:27px}.fed-compact-preview .fc-split-wrap{padding:11px}.fed-compact-preview .fc-split-legend{gap:7px}}
+</style>
+<style>
+/* Institutional financial-services style: navy, slate, restrained blue and amber */
+.fed-compact-preview .fed-live-title{color:#a92332!important}
+.fed-compact-preview .fed-live-tab-labels{background:#edf1f5;border:1px solid #d7dee7;border-radius:8px;box-shadow:none}
+.fed-compact-preview .fed-live-tab-labels label{color:#596879;font-weight:750}
+.fed-compact-preview .fed-live-tab-labels label:hover{color:#193b5a}
+.fed-compact-preview .fc-current-rate{background:#f4f7fa;border:1px solid #dce4ec;border-left:4px solid #254f73;border-radius:8px;padding:13px 14px;margin-top:12px}
+.fed-compact-preview .fc-current-rate>span:first-child{color:#526477;font-size:12px;font-weight:800}
+.fed-compact-preview .fc-current-rate strong{color:#183b5a;font-size:25px;font-weight:900;letter-spacing:-.025em}
+.fed-compact-preview .fc-current-rate .fc-pill{background:#e5edf5;color:#254f73;border-radius:5px;font-size:10px;font-weight:800}
+.fed-compact-preview .fc-probs-refined{gap:10px;margin-top:10px}
+.fed-compact-preview .fc-probs-refined .fc-prob{border-radius:8px;box-shadow:none;padding:14px 15px;background:#fff;border:1px solid #d9e1e9;border-top:3px solid #2d6d9b}
+.fed-compact-preview .fc-probs-refined .fc-hike{border-top-color:#b77b35;background:#fff;border-color:#e4e0d8;border-top-color:#b77b35}
+.fed-compact-preview .fc-prob-label{color:#526477;font-size:12px;letter-spacing:.01em}
+.fed-compact-preview .fc-prob-label .fc-dot{background:#2d6d9b;width:6px;height:6px}
+.fed-compact-preview .fc-hike .fc-prob-label .fc-dot{background:#b77b35}
+.fed-compact-preview .fc-probs-refined .fc-hold strong{color:#1e5e88}
+.fed-compact-preview .fc-probs-refined .fc-hike strong{color:#9a6427}
+.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:32px;font-weight:900}
+.fed-compact-preview .fc-probs-refined .fc-range{color:#647487;font-size:11px}
+.fed-compact-preview .fc-split-wrap{border:1px solid #d9e1e9;border-radius:8px;background:#f8fafc;box-shadow:none}
+.fed-compact-preview .fc-split-head{color:#33485d;text-transform:none}
+.fed-compact-preview .fc-split-head span:last-child{color:#758394}
+.fed-compact-preview .fc-split-bar{height:9px;gap:2px;background:#e1e7ed;border-radius:3px}
+.fed-compact-preview .fc-split-hold{background:#2d6d9b;border-radius:2px}
+.fed-compact-preview .fc-split-hike{background:#b77b35;border-radius:2px}
+.fed-compact-preview .fc-split-legend{color:#657487}
+.fed-compact-preview .fc-split-legend b{color:#243b52}
+.fed-compact-preview .fedwatch-time{border-top:1px solid #e1e6ec;padding-top:10px}
+.fed-compact-preview .fc-source{color:#657487}
+.fed-compact-preview .fc-source a{color:#254f73}
+@media(max-width:560px){.fed-compact-preview .fc-current-rate{padding:11px}.fed-compact-preview .fc-current-rate strong{font-size:22px}.fed-compact-preview .fc-probs-refined .fc-prob{padding:11px 10px}.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:27px}}
+</style>
+<style>
+.fed-compact-preview .fc-fomc .fc-fomc-rate{background:#f2f6fa;border-left:3px solid #254f73;border-radius:7px;padding:12px 14px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate span{display:block;font-size:12px;color:#526477;font-weight:800;margin-bottom:5px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate b{display:block;font-size:24px;line-height:1.25;color:#183b5a;font-weight:900;letter-spacing:-.02em}
+.fed-compact-preview .fc-fomc .fc-fomc-rate small{display:block;margin-top:5px;font-size:10px;color:#7a8794}
+</style>
+<style>
+/* FOMC tab: polished institutional policy panel */
+.fed-compact-preview .fed-live-panel.fed-live-fomc{padding:16px 16px 18px}
+.fed-compact-preview .fc-fomc{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+.fed-compact-preview .fc-fomc>div{margin:0;min-width:0;border:1px solid #dfe5ec;border-radius:10px;background:#fff;padding:13px 14px}
+.fed-compact-preview .fc-fomc>div:first-child{background:#f8fafc}
+.fed-compact-preview .fc-fomc>div>span{display:block;color:#778493;font-size:11px;font-weight:800;letter-spacing:.035em;margin-bottom:7px}
+.fed-compact-preview .fc-fomc>div>b{display:block;color:#334557;font-size:16px;font-weight:850;line-height:1.35}
+.fed-compact-preview .fc-fomc .fc-fomc-rate{grid-column:1/-1;position:relative;overflow:hidden;background:linear-gradient(112deg,#183b5a 0%,#244f72 100%);border:0;border-radius:12px;padding:19px 18px 15px;box-shadow:0 5px 14px rgba(24,59,90,.12)}
+.fed-compact-preview .fc-fomc .fc-fomc-rate:after{content:"";position:absolute;right:-25px;top:-44px;width:150px;height:150px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.025),0 0 0 38px rgba(255,255,255,.025);pointer-events:none}
+.fed-compact-preview .fc-fomc .fc-fomc-rate span{position:relative;z-index:1;color:#c6d5e2;font-size:12px;letter-spacing:.04em;margin-bottom:8px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate b{position:relative;z-index:1;color:#fff;font-size:clamp(29px,6vw,38px);font-weight:850;letter-spacing:-.035em;line-height:1.15}
+.fed-compact-preview .fc-fomc .fc-fomc-rate small{position:relative;z-index:1;display:inline-flex;margin-top:11px;padding:4px 8px;border-radius:4px;background:rgba(255,255,255,.12);color:#e1eaf1;font-size:10px;font-weight:750}
+.fed-compact-preview .fc-fomc>div:nth-child(3){grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f8fafc}
+.fed-compact-preview .fc-fomc>div:nth-child(3)>span{margin:0;white-space:nowrap}
+.fed-compact-preview .fc-fomc>div:nth-child(3)>b{font-size:13px;text-align:right}
+.fed-compact-preview .fc-fomc>p{grid-column:1/-1;margin:2px 0 0;padding:10px 2px 0;border-top:1px solid #e7ebf0;color:#87919c;font-size:11px;line-height:1.5}
+@media(max-width:560px){.fed-compact-preview .fed-live-panel.fed-live-fomc{padding:13px}.fed-compact-preview .fc-fomc{gap:8px}.fed-compact-preview .fc-fomc>div{padding:11px 12px}.fed-compact-preview .fc-fomc>div>b{font-size:14px}.fed-compact-preview .fc-fomc .fc-fomc-rate{padding:17px 15px}.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:31px}.fed-compact-preview .fc-fomc>div:nth-child(3){align-items:flex-start;flex-direction:column;gap:5px}.fed-compact-preview .fc-fomc>div:nth-child(3)>b{text-align:left}}
+</style>
+<style>
+/* Move the observation strip upward: compact gap after the rate hero */
+.fed-compact-preview .fc-fomc{row-gap:7px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate{margin-bottom:0}
+.fed-compact-preview .fc-fomc .fc-fomc-observation{margin-top:-1px;padding:9px 13px;border-radius:8px;background:#f5f8fb;border:1px solid #dfe6ed;min-height:0}
+.fed-compact-preview .fc-fomc .fc-fomc-observation>span{margin-bottom:3px;font-size:10px}
+.fed-compact-preview .fc-fomc .fc-fomc-observation>b{font-size:12px;line-height:1.25}
+.fed-compact-preview .fc-fomc>p{margin-top:0;padding-top:8px}
+@media(max-width:560px){.fed-compact-preview .fc-fomc{row-gap:6px}.fed-compact-preview .fc-fomc .fc-fomc-observation{padding:8px 12px}}
+</style>
+<style>
+/* FOMC: meeting date and policy rate displayed side by side */
+.fed-compact-preview .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:stretch}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;min-height:98px;background:#f4f7fa;border:1px solid #dfe5ec;border-radius:10px;padding:13px}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>span{font-size:11px;line-height:1.4;margin-bottom:7px}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>b{font-size:clamp(13px,3.4vw,17px);line-height:1.4;overflow-wrap:anywhere}
+.fed-compact-preview .fc-fomc .fc-fomc-rate{grid-column:2;grid-row:1;min-height:98px;display:flex;flex-direction:column;justify-content:center;padding:14px 13px;border-radius:10px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:clamp(21px,5.2vw,31px);overflow-wrap:anywhere}
+.fed-compact-preview .fc-fomc .fc-fomc-rate small{align-self:flex-start;margin-top:7px}
+.fed-compact-preview .fc-fomc .fc-fomc-observation{grid-column:1/-1}
+.fed-compact-preview .fc-fomc>div:nth-child(3){grid-column:1/-1}
+@media(max-width:560px){.fed-compact-preview .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px}.fed-compact-preview .fc-fomc .fc-fomc-meeting,.fed-compact-preview .fc-fomc .fc-fomc-rate{min-height:94px;padding:11px 10px}.fed-compact-preview .fc-fomc .fc-fomc-meeting>b{font-size:13px}.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:clamp(19px,5vw,25px)}.fed-compact-preview .fc-fomc .fc-fomc-rate small{font-size:9px;padding:3px 5px}}
+</style>
+<style>
+/* FOMC layout: meeting date + core observation on top, target rate below */
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto!important;gap:8px!important;align-items:stretch!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation{grid-column:2!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate{grid-column:1/-1!important;grid-row:2!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1/-1!important}
+@media(max-width:560px){.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate b{font-size:clamp(22px,6vw,30px)!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting>b{font-size:clamp(12px,3.1vw,14px)!important}}
+</style>
+<style>
+/* FINAL FOMC composition: top row = meeting + observation; bottom row = rate */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto!important;column-gap:8px!important;row-gap:8px!important;align-items:stretch!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting{grid-column:1!important;grid-row:1!important;min-width:0!important;width:auto!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:2!important;grid-row:1!important;min-width:0!important;width:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:2!important;min-width:0!important;width:auto!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:3!important}
+@media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{padding:11px 10px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{padding:17px 15px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate b{font-size:clamp(24px,6vw,32px)!important}}
+</style>
+<style>
+/* Alignment fix: equal top padding and matching label/value baselines */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  box-sizing:border-box!important;
+  min-height:112px!important;
+  height:112px!important;
+  padding:14px 12px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  gap:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>span{
+  display:block!important;
+  margin:0 0 9px!important;
+  min-height:16px!important;
+  line-height:16px!important;
+  font-size:12px!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{
+  display:block!important;
+  margin:0!important;
+  line-height:1.35!important;
+  text-align:left!important;
+  overflow-wrap:anywhere!important;
+}
+@media(max-width:560px){
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  min-height:112px!important;height:112px!important;padding:14px 10px!important;
+ }
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b{font-size:clamp(12px,3.5vw,16px)!important}
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{font-size:clamp(12px,3.5vw,16px)!important}
+}
+</style>
+<style>
+/* FOMC: add Taiwan-local press conference time; observation spans above rate */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;row-gap:8px!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting{grid-column:1!important;grid-row:1!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{grid-column:2!important;grid-row:1!important;box-sizing:border-box!important;min-width:0!important;min-height:112px!important;height:112px!important;padding:14px 12px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:flex-start!important;gap:0!important;background:#f4f7fa!important;border:1px solid #dfe5ec!important;border-radius:10px!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>span{display:block!important;margin:0 0 9px!important;line-height:16px!important;min-height:16px!important;font-size:12px!important;color:#64748b!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>b{display:block!important;margin:0!important;line-height:1.35!important;text-align:left!important;overflow-wrap:anywhere!important;font-size:clamp(12px,3.5vw,16px)!important;color:#334155!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:1 / -1!important;grid-row:2!important;min-height:0!important;height:auto!important;padding:10px 12px!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:3!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:4!important}
+@media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{min-height:112px!important;height:112px!important;padding:14px 9px!important}}
+</style>
+
+<style id="fomc-compact-cards-v7">
+/* V7: compact the two FOMC metadata cards; preserve the existing palette and rate card */
+.fed-compact-preview .fc-fomc .fc-fomc-meeting,
+.fed-compact-preview .fc-fomc .fc-fomc-press{
+  min-height:0 !important;
+  height:auto !important;
+  justify-content:flex-start !important;
+  padding:10px 12px !important;
+  align-self:start !important;
+}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>span,
+.fed-compact-preview .fc-fomc .fc-fomc-press>span{
+  margin-bottom:4px !important;
+  line-height:1.3 !important;
+}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>b,
+.fed-compact-preview .fc-fomc .fc-fomc-press>b{
+  line-height:1.3 !important;
+}
+</style>
+
+
+<style id="fomc-compact-cards-v8">
+/* V8 修正：縮短兩張資訊卡，恢復目標利率深藍底與白字；只作用於獨立預覽的 FOMC 區塊 */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{
+  box-sizing:border-box!important;
+  min-height:0!important;
+  height:78px!important;
+  padding:10px 12px!important;
+  align-self:stretch!important;
+  justify-content:center!important;
+  background:#f4f7fa!important;
+  border:1px solid #dfe5ec!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>span{
+  margin:0 0 5px!important;
+  line-height:1.25!important;
+  min-height:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>b{
+  line-height:1.3!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  min-height:0!important;
+  height:auto!important;
+  padding:8px 12px!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  background:#f5f8fb!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>span{
+  flex:0 0 auto!important;
+  margin:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{
+  text-align:right!important;
+  line-height:1.3!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{
+  grid-column:1 / -1!important;
+  grid-row:3!important;
+  box-sizing:border-box!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:15px 17px!important;
+  background:linear-gradient(125deg,#173f5c 0%,#245575 100%)!important;
+  border:1px solid #214f6e!important;
+  border-radius:12px!important;
+  box-shadow:0 8px 20px rgba(28,69,96,.16)!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>small{
+  color:#fff!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>span{opacity:.82!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>b{
+  font-size:clamp(24px,6vw,34px)!important;
+  line-height:1.2!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>small{
+  display:inline-block!important;
+  align-self:flex-start!important;
+  margin-top:7px!important;
+  padding:3px 7px!important;
+  border-radius:5px!important;
+  background:rgba(255,255,255,.14)!important;
+  color:#e5edf3!important;
+}
+@media(max-width:560px){
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{
+   height:78px!important;
+   padding:9px 10px!important;
+ }
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{gap:7px!important}
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{font-size:12px!important}
+}
+</style>
+
+
+<style id="assets-product-quote-typography-v1">
+/* 產業債匯商品：統一各分頁商品名稱、報價與漲跌幅字級 */
+html body #industry-bonds-fx-commodities .tac-tab-panel .row{
+  align-items:center!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .label{
+  font-size:14px!important;
+  line-height:1.35!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"]{
+  font-size:15px!important;
+  line-height:1.35!important;
+  font-weight:750!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+  font-size:13px!important;
+  font-weight:650!important;
+  white-space:nowrap!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .tab-panel-meta,
+html body #industry-bonds-fx-commodities .tac-tab-panel .title small{
+  font-size:12px!important;
+  line-height:1.45!important;
+}
+@media(max-width:600px){
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .label{
+   font-size:13px!important;
+ }
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"]{
+   font-size:14px!important;
+ }
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+   font-size:12px!important;
+ }
+}
+</style>
+
+
+<style id="assets-product-quote-typography-v2">
+/* 比照「全球主要股市」列表：商品名稱、報價與漲跌幅採相同視覺字級 */
+html body #industry-bonds-fx-commodities .tac-tab-panel .row{
+  align-items:center!important;
+  font-size:16px!important;
+  line-height:1.5!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .label{
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"]{
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:500!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:500!important;
+  white-space:nowrap!important;
+}
+@media(max-width:600px){
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .label,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"],
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+   font-size:15px!important;
+ }
+}
+</style>
+
+
+<style id="fed-probability-card-background-fix-v3">
+/* V3：明確覆蓋後續樣式，讓兩張 FedWatch 機率小卡確實顯示對應底色 */
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold{
+  background:#eaf4fb!important;
+  background-color:#eaf4fb!important;
+  border:1px solid #cfe5f4!important;
+  border-top:4px solid #2b83b9!important;
+}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike{
+  background:#fff3e5!important;
+  background-color:#fff3e5!important;
+  border:1px solid #f0dcc1!important;
+  border-top:4px solid #c18435!important;
+}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold .fc-prob-label,
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold .fc-range{color:#416d88!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike .fc-prob-label,
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike .fc-range{color:#8b602f!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold strong{color:#176b9b!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike strong{color:#b66a20!important}
+</style>
+
 </head>
 <body>
 
@@ -1193,8 +1627,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 </article></div><div class="tac-tab-panel" id="tac-assets-panel-3"><article class="card energy-card"><div class="tab-panel-meta">2026/10/20期貨報價；WTI採近月11月合約，Brent採Reuters報導報價</div>
 <div class="row"><b>WTI原油期貨</b><span class="r">$101.79</span><span class="r down">-$1.87</span></div><div class="row"><b>Brent原油期貨</b><span class="r">$108.79</span><span class="r down">-$0.76</span></div><div class="market-reason"><b>📌 原油觀察</b><br/>油價自盤中高點回落，反映市場評估外交接觸可能降低部分供應中斷風險，並出現短線獲利了結；但中東能源設施與航運安全仍有不確定性，地緣政治風險溢價尚未消失。油價降溫可暫時緩和通膨預期及航空、運輸等能源密集產業成本，為股債市場帶來喘息；若供應風險再升高，油價仍可能快速反彈。後續要看實際航運與供應變化，而不只依據外交消息判斷趨勢。</div>
 <div class="source">主要來源：<a href="https://www.investing.com/commodities/crude-oil">Investing.com WTI</a>、<a href="https://www.investing.com/commodities/brent-oil">Investing.com Brent</a>；交叉核對：<a href="https://www.eia.gov/petroleum/">EIA</a>／Reuters。單位：美元／桶。</div>
-</article></div><div class="tac-tab-panel" id="tac-assets-panel-4"><article class="card"><div class="title">貴金屬 <small>2026/10/20現貨歷史收盤報價</small></div>
-<div class="row"><b>黃金現貨 XAU/USD</b><span class="r">$4,120.45</span><span class="r down">-0.29%</span></div><div class="row"><b>白銀現貨 XAG/USD</b><span class="r">$57.9965</span><span class="r up">+1.93%</span></div><div class="market-reason"><b>📌 貴金屬觀察</b><br/>黃金受美元與實質利率牽動，即使地緣政治風險支撐避險需求，較高利率仍會提高持有無息黃金的機會成本。白銀則兼具工業金屬屬性，短線可能受到工業需求預期、技術性反彈與資金回補影響，因此與黃金不同步。若美元及實質殖利率持續回落，通常有利黃金；若工業需求預期轉弱，白銀的波動可能更大。</div>
+</article></div><div class="tac-tab-panel" id="tac-assets-panel-4"><article class="card"><div class="row"><b>黃金現貨 XAU/USD</b><span class="r">$4,120.45</span><span class="r down">-0.29%</span></div><div class="row"><b>白銀現貨 XAG/USD</b><span class="r">$57.9965</span><span class="r up">+1.93%</span></div><div class="market-reason"><b>📌 貴金屬觀察</b><br/>黃金受美元與實質利率牽動，即使地緣政治風險支撐避險需求，較高利率仍會提高持有無息黃金的機會成本。白銀則兼具工業金屬屬性，短線可能受到工業需求預期、技術性反彈與資金回補影響，因此與黃金不同步。若美元及實質殖利率持續回落，通常有利黃金；若工業需求預期轉弱，白銀的波動可能更大。</div>
 <div class="source">主要來源：<a href="https://www.investing.com/currencies/xau-usd-historical-data">Investing.com XAU/USD</a>、<a href="https://www.investing.com/currencies/xag-usd-historical-data">Investing.com XAG/USD</a>；Yahoo GC=F／SI=F僅作期貨備援，不與現貨混用。</div>
 </article></div></section>
 <section class="grid three">
@@ -1263,48 +1696,43 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 </article>
 </section>
 <section class="card earnings-health" id="sp500-earnings-health" style="margin-top:14px">
-<div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet Earnings Insight｜基準 10/16；補充 10/19</small></div>
-<div class="muted" style="font-size:11px;line-height:1.55;margin:-2px 0 12px">2026 年第三季財報季｜整體統計基準仍為 FactSet 10/16（僅 9% 成份企業公布）；另補入 FactSet 10/19 盈餘集中度分析。尚無更新的整體統計前，不將 10/16 數值標為 10/21 即時值。</div>
-<div class="grid two" style="gap:10px">
-<div class="callout" style="padding:12px"><div class="muted" style="font-size:11px;font-weight:800">本季混合盈餘年增率</div><div style="font-size:25px;font-weight:950;margin:3px 0;color:var(--red)">+29.0%</div><div style="font-size:11px;line-height:1.5">上週 +29.4%｜季末初始估值 +29.2%<br/>若維持，將連續第 3 季成長逾 25%、第 8 季雙位數成長。</div></div>
-<div class="callout" style="padding:12px"><div class="muted" style="font-size:11px;font-weight:800">EPS 優於預期企業比例</div><div style="font-size:25px;font-weight:950;margin:3px 0;color:#16834c">84%</div><div style="font-size:11px;line-height:1.5">高於 5 年平均 78% 與 10 年平均 77%。</div></div>
-<div class="callout" style="padding:12px"><div class="muted" style="font-size:11px;font-weight:800">EPS 超預期幅度（整體）</div><div style="font-size:25px;font-weight:950;margin:3px 0;color:#b7791f">+2.6%</div><div style="font-size:11px;line-height:1.5">低於 5 年平均 +7.5% 與 10 年平均 +8.0%。</div></div>
-<div class="callout" style="padding:12px"><div class="muted" style="font-size:11px;font-weight:800">本週盈餘成長預估變化</div><div style="font-size:22px;font-weight:950;margin:3px 0">29.4% → 29.0%</div><div style="font-size:11px;line-height:1.5">一週下修 0.4 個百分點；醫療保健業下修是主要拖累，能源業上修部分抵銷。</div></div>
+<div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet｜10/16–10/19 快照</small></div>
+<div style="margin-top:10px;padding:14px 15px;background:#f1f6fb;border:1px solid #d6e3ee;border-left:5px solid var(--red);border-radius:11px">
+<div style="font-size:11px;font-weight:850;color:var(--muted);margin-bottom:5px">TAC 核心判讀</div>
+<div style="font-size:18px;line-height:1.45;font-weight:950;margin-bottom:6px">獲利成長強，但成長品質與廣度仍有疑慮。</div>
+<div style="font-size:13px;line-height:1.7">目前是「成長高、超預期幅度低、集中度高」。獲利數據有支撐，但尚不能解讀為所有產業同步轉強；指數盈餘成長仍對少數大型公司敏感。</div>
 </div>
-<div class="grid two" style="gap:10px;margin-top:10px">
-<div class="callout" style="padding:12px"><div class="muted" style="font-size:11px;font-weight:800">七巨頭預估盈餘年增率｜10/19</div><div style="font-size:23px;font-weight:950;margin:3px 0;color:var(--red)">+33.2%</div><div style="font-size:11px;line-height:1.5">FactSet 估計；其餘 493 家成份企業混合盈餘成長率為 +27.7%。</div></div>
-<div class="callout" style="padding:12px"><div class="muted" style="font-size:11px;font-weight:800">大型個股集中度風險｜10/19</div><div style="font-size:23px;font-weight:950;margin:3px 0;color:#b7791f">29.0% → 20.0%</div><div style="font-size:11px;line-height:1.5">若排除 Micron 與 NVIDIA，S&amp;P 500 混合盈餘成長率將降至 20.0%。</div></div>
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:10px">
+<div style="padding:11px 12px;background:#f3f8fc;border:1px solid #d8e5ef;border-radius:10px"><div style="font-size:11px;font-weight:800;color:var(--muted)">混合盈餘年增率</div><div style="font-size:25px;font-weight:950;color:var(--red);margin:3px 0">+29.0%</div><div style="font-size:11px;line-height:1.45">成長動能強</div></div>
+<div style="padding:11px 12px;background:#eff8f2;border:1px solid #d3e8da;border-radius:10px"><div style="font-size:11px;font-weight:800;color:var(--muted)">EPS 優於預期</div><div style="font-size:25px;font-weight:950;color:#16804a;margin:3px 0">84%</div><div style="font-size:11px;line-height:1.45">高於長期平均</div></div>
+<div style="padding:11px 12px;background:#fff7eb;border:1px solid #f0dfc2;border-radius:10px"><div style="font-size:11px;font-weight:800;color:var(--muted)">平均超預期幅度</div><div style="font-size:25px;font-weight:950;color:#ad7427;margin:3px 0">+2.6%</div><div style="font-size:11px;line-height:1.45">低於 5 年均值 +7.5%</div></div>
 </div>
-<div style="margin-top:12px;padding:12px 14px;border-left:4px solid var(--red);background:var(--soft);border-radius:8px">
-<div style="font-size:12px;font-weight:950;margin-bottom:5px">TAC 核心判讀｜成長強，財報品質訊號尚未同步轉強</div>
-<div style="font-size:12px;line-height:1.7">29% 的盈餘成長預估仍強，且 EPS 優於預期的企業比例高於歷史平均；但企業整體只超出預估 2.6%，低於長期平均，顯示「超預期的廣度」尚可，「超預期的幅度」仍弱。FactSet 10/19 進一步指出，七巨頭預估盈餘成長 33.2%，其餘 493 家為 27.7%；若排除 Micron 與 NVIDIA，S&P 500 混合成長率將由 29.0% 降至 20.0%。因此整體成長仍受少數大型公司明顯影響。10/16 統計時僅 9% 企業公布，樣本仍處早期；待更多財報發布後，再更新整體盈餘與超預期幅度。</div>
+<div style="margin-top:10px;padding:12px 14px;border:1px solid var(--line,#e1e5e9);border-radius:10px">
+<div style="font-size:13px;font-weight:900;margin-bottom:6px">如何解讀</div>
+<div style="font-size:13px;line-height:1.75"><b>正面：</b>84% 已公布企業 EPS 優於預期，獲利表現整體有韌性。<br><b>保留：</b>平均超預期幅度只有 +2.6%，遠低於 5 年平均 +7.5%；勝過預期不代表大幅超標。<br><b>主要風險：</b>FactSet 10/19 分析指出，若排除 Micron 與 NVIDIA，S&amp;P 500 盈餘成長預估會由 29.0% 降至 20.0%，成長集中度偏高。</div>
 </div>
-<details style="margin-top:10px;font-size:11px;color:var(--muted)"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">來源：FactSet《S&amp;P 500 Earnings Season Update: October 16, 2026》及《Are “Magnificent 7” Companies Still Top Contributors to S&amp;P 500 Earnings Growth for Q3?》（10/19）。整體 29.0%、9% 已公布、84% EPS beat、+2.6% surprise 為 10/16 快照；七巨頭 33.2%、其餘 493 家 27.7%、排除 Micron 與 NVIDIA 後 20.0% 為 10/19 分析。混合盈餘成長率結合已公布實績與尚未公布企業的分析師預估。<br/><a href="https://insight.factset.com/sp-500-earnings-season-update-october-16-2026" rel="noopener" target="_blank">FactSet 10/16 官方報告</a>｜<a href="https://insight.factset.com/are-magnificent-7-companies-still-top-contributors-to-sp-500-earnings-growth-for-q3" rel="noopener" target="_blank">FactSet 10/19 盈餘集中度分析</a></div></details>
+<div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65"><b>接下來看三件事：</b>超預期幅度是否回升、獲利成長是否擴散至更多產業、整體盈餘預估是否停止下修。<span style="color:var(--muted)"> 數據為 FactSet 10/16 與 10/19 快照，不是 10/21 即時統計；當時僅約 9% 企業公布財報。</span></div>
+<details style="margin-top:8px;font-size:11px;color:var(--muted)"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">FactSet 10/16 盈餘季報與 10/19 七巨頭盈餘集中度分析。混合盈餘成長率結合已公布實績與未公布企業分析師預估，不等同全體最終實績。<br><a href="https://insight.factset.com/sp-500-earnings-season-update-october-16-2026" target="_blank" rel="noopener">FactSet 10/16 官方報告</a>｜<a href="https://insight.factset.com/are-magnificent-7-companies-still-top-contributors-to-sp-500-earnings-growth-for-q3" target="_blank" rel="noopener">FactSet 10/19 盈餘集中度分析</a></div></details>
 </section>
-<div style="height:14px"></div>
-<section class="card fed-live" id="fed">
+<div style="height:14px"></div><section class="card fed-live fed-compact-preview" id="fed">
 <div class="title fed-live-title">Fed限時動態</div>
 <div class="fed-live-tabs">
 <input checked="checked" id="fed-live-tab-watch" name="fed-live-tab" type="radio"/>
 <input id="fed-live-tab-fomc" name="fed-live-tab" type="radio"/>
 <div class="fed-live-tab-labels"><label for="fed-live-tab-watch">CME FedWatch</label><label for="fed-live-tab-fomc">FOMC 會議</label></div>
 <div class="fed-live-panels">
-<div class="fed-live-panel fed-live-watch"><div class="callout fedwatch-modern" style="padding:16px;border:1px solid #e2e7ec;border-radius:16px;background:linear-gradient(145deg,#ffffff 0%,#f7f9fc 100%);box-shadow:0 8px 22px rgba(23,39,56,.06)">
-<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap"><div><div style="font-size:11px;color:var(--muted);font-weight:850;letter-spacing:.04em">CME FEDWATCH SNAPSHOT</div><div style="font-size:13px;color:#4b5563;font-weight:800;margin-top:4px">2026/10/28 FOMC 會議</div><div style="font-size:12px;color:#6b7280;margin-top:3px">目前目標利率 3.75%–4.00%</div></div><span style="display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#edf5fb;color:#216b9b;font-size:11px;font-weight:800;white-space:nowrap">截圖快照</span></div>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0 15px">
-<div style="padding:13px;border-radius:12px;background:#edf6fc;border:1px solid #d7eaf7"><div style="font-size:12px;color:#41677f;font-weight:800">維持不變</div><div style="font-size:27px;line-height:1.2;font-weight:950;color:#176b9b;margin-top:5px">83.9<span style="font-size:15px">%</span></div><div style="font-size:11px;color:#41677f;margin-top:4px">維持 375–400 bps</div></div>
-<div style="padding:13px;border-radius:12px;background:#fff4e8;border:1px solid #f4dfc8"><div style="font-size:12px;color:#8d5a25;font-weight:800">升息一碼</div><div style="font-size:27px;line-height:1.2;font-weight:950;color:#b66a20;margin-top:5px">16.1<span style="font-size:15px">%</span></div><div style="font-size:11px;color:#8d5a25;margin-top:4px">升至 400–425 bps</div></div>
+<div class="fed-live-panel fed-live-watch">
+<div class="fc-probs fc-probs-refined">
+<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>83.9<small>%</small></strong><div class="fc-range">維持 3.75%–4.00%</div></div>
+<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>16.1<small>%</small></strong><div class="fc-range">升至 4.00%–4.25%</div></div>
 </div>
-<div style="display:grid;gap:12px;margin:4px 0 14px">
-<div><div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:850;margin-bottom:6px"><span>維持 375–400 bps</span><span>83.9%</span></div><div style="height:9px;background:#e8edf2;border-radius:99px;overflow:hidden"><div style="width:83.9%;height:100%;background:#2b83b9;border-radius:99px"></div></div></div>
-<div><div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;font-weight:850;margin-bottom:6px"><span>升息至 400–425 bps</span><span>16.1%</span></div><div style="height:9px;background:#e8edf2;border-radius:99px;overflow:hidden"><div style="width:16.1%;height:100%;background:#d28a3e;border-radius:99px"></div></div></div>
-</div>
+<div class="fc-split-wrap"><div class="fc-split-head"><span>情境機率分布</span><span>合計 100%</span></div><div class="fc-split-bar" role="img" aria-label="維持不變 83.9%，升息一碼 16.1%"><span class="fc-split-hold" style="width:83.9%"></span><span class="fc-split-hike" style="width:16.1%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>83.9%</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>16.1%</b></span></div></div>
 <details class="audit-details fedwatch-time"><summary>資料時間與快照口徑</summary><div class="audit-content">資料時間：2026/10/21 06:15（台灣時間；來源頁標示 2026/10/20 18:15 EDT）。10/28/2026 FOMC：維持 3.75%–4.00% 機率 83.9%；升息一碼至 4.00%–4.25% 機率 16.1%。此為截圖快照，機率會隨期貨價格變動。</div></details>
-<div class="source" style="margin-top:8px">交叉參考：<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" rel="noopener" target="_blank">CME FedWatch 官方工具</a>｜<a href="https://www.investing.com/central-banks/fed-rate-monitor" rel="noopener" target="_blank">Investing.com Fed Rate Monitor</a>（10/20 18:15 EDT 顯示同一組 83.9%／16.1%）</div>
-</div></div>
-<div class="fed-live-panel fed-live-fomc"><div class="fed-fomc-rows">
-<div class="row"><b>下一次會議</b><span class="r">10/27–10/28/2026</span><span class="r high">⭐⭐⭐⭐⭐</span></div><div class="row"><b>政策利率</b><span class="r">3.75%–4.00%</span><span class="r flat">目前區間</span></div><div class="row"><b>核心觀察</b><span class="r">通膨／油價／AI融資</span><span class="r warn">高</span></div><div class="source">政策利率區間依 CME 截圖顯示；下次會議日期仍應以聯準會官方行事曆核對。</div>
-</div></div>
+<div class="fc-source">交叉參考：<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" rel="noopener" target="_blank">CME FedWatch</a> · <a href="https://www.investing.com/central-banks/fed-rate-monitor" rel="noopener" target="_blank">Investing.com</a></div>
+</div>
+<div class="fed-live-panel fed-live-fomc"><div class="fc-fomc">
+<div class="fc-fomc-meeting"><span>下次 FOMC 會議</span><b>2026/10/27–10/28</b></div><div class="fc-fomc-press"><span>記者會時間（台灣時間）</span><b>10/29（四）02:30</b></div><div class="fc-fomc-rate"><span>目前目標利率</span><b>3.75%–4.00%</b><small>2026/10/21 快照</small></div><div class="fc-fomc-observation"><span>核心觀察</span><b>通膨／油價／AI 融資</b></div>
+<p>會議日期與政策資訊請以聯準會官方公告為準。</p></div></div>
 </div></div></section><div style="height:14px"></div><section class="card today-focus" id="view"><div class="title today-focus-title">今日觀察重點</div><div class="focus-tabs"><input checked="checked" id="focus-tab-market" name="focus-tab" type="radio"/><input id="focus-tab-levels" name="focus-tab" type="radio"/><input id="focus-tab-core" name="focus-tab" type="radio"/><div class="focus-tab-labels"><label for="focus-tab-market">市場觀點</label><label for="focus-tab-levels">今日關鍵價位</label><label for="focus-tab-core">今日核心觀察</label></div><div class="focus-panels"><div class="focus-panel focus-market"><div class="key"><b>① 市場分化：</b>10/20美股收盤道瓊上漲1.02%、S&amp;P 500上漲0.28%、Nasdaq Composite下跌0.02%，Russell 2000上漲1.65%。道瓊與小型股較強、科技股落後，反映資金並非全面追逐大型科技股。<br/><b>② 財報與AI支出：</b>3M上調全年展望帶動工業股，RTX等企業財報也提供支撐；但市場仍在檢視AI基礎建設的資本支出、融資負擔與回報，接下來Meta、Tesla等財報及指引是焦點。<br/><b>③ 利率與房市：</b>美國10年期公債殖利率回落至約5.116%，30年期約5.425%；9月新屋開工與成屋待完成銷售偏弱，長天期殖利率下降有助緩和估值壓力，但殖利率仍處高檔。<br/><b>④ 原油與地緣政治：</b>WTI 11月期貨收101.79美元／桶、Brent收108.79美元／桶，均自盤中高點回落；美伊外交斡旋與中東供應風險仍可能令油價劇烈波動，並影響通膨預期。</div></div><div class="focus-panel focus-levels"><div class="key"><b>道瓊工業指數｜收盤 52,495.88：</b>支撐 51,910–52,000；壓力 52,690–52,800。觀察能否守住短線支撐並突破近期高點。<br/><b>S&amp;P 500｜收盤 7,712.57：</b>支撐 7,668–7,685；壓力 7,748–7,755。若跌破支撐，留意回測前一交易日低點；若突破壓力，觀察漲勢是否擴大。<br/><b>Nasdaq Composite｜收盤 26,424.82：</b>支撐 26,180–26,345；壓力 26,601–26,613。科技股需觀察能否站回壓力區上方。<br/><b>費城半導體指數（SOX）｜10/20 收盤 11,283.8（-0.29%）：</b>支撐 11,043–11,128；壓力 11,316–11,551。支撐區依 10/16 低點與 10/20 低點整理；壓力區參考 10/19 收盤及當日高點。若跌破 11,043，留意是否續探更低支撐；若站回 11,551 上方，才較有利於短線反彈延續。<br/><span class="muted" style="font-size:11px">資料來源：Investing.com SOX 歷史行情；價位為依近期高低點整理的技術觀察區，不代表保證有效的支撐／壓力。</span></div></div><div class="focus-panel focus-core"><div class="callout"><b>第一｜科技股財報：</b>Meta、Tesla、IBM、Lam Research及Texas Instruments預計於10/21美股盤後公布財報；重點不只EPS是否超預期，更要看AI資本支出、訂單、毛利率與現金流。<br/><b>第二｜市場廣度與輪動：</b>道瓊+1.02%、Russell 2000+1.65%，但Nasdaq -0.02%；若漲勢持續集中於工業、小型股與防禦型產業，科技股仍可能相對落後。<br/><b>第三｜殖利率仍高：</b>10年期殖利率約5.116%、30年期約5.425%；即使長天期殖利率回落，融資成本仍高，對高估值與重資本支出公司構成約束。<br/><b>第四｜油價與通膨：</b>WTI 11月期貨101.79美元、Brent 108.79美元；若外交進展帶動油價續跌，通膨壓力可望緩和，若供應風險再升溫則可能反轉。<br/><b>第五｜Fed政策預期：</b>CME FedWatch截圖快照顯示10/28會議維持利率機率83.9%、升息一碼16.1%；此為市場定價而非Fed承諾，需隨期貨價格變動更新。</div></div></div></div></section>
 <div style="height:14px"></div>
 </main>
@@ -1908,5 +2336,38 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
     font-size:12px!important;
   }
+}
+
+/* FedWatch probability cards: restore distinct soft fills */
+.fed-compact-preview .fc-probs-refined .fc-prob.fc-hold{
+  background:#eaf5fc !important;
+  border:1px solid #cfe6f5 !important;
+}
+.fed-compact-preview .fc-probs-refined .fc-prob.fc-hike{
+  background:#fff3e5 !important;
+  border:1px solid #f2dcc0 !important;
+}
+.fed-compact-preview .fc-probs-refined .fc-hold .fc-prob-label,
+.fed-compact-preview .fc-probs-refined .fc-hold .fc-range{color:#416d88}
+.fed-compact-preview .fc-probs-refined .fc-hike .fc-prob-label,
+.fed-compact-preview .fc-probs-refined .fc-hike .fc-range{color:#8b602f}
+</style>
+
+
+<style id="fed-probability-card-background-fix-v4">
+/* V4：放在文件最末端，直接針對實際預覽容器與小卡套用底色 */
+.fed-compact-preview .fc-probs-refined .fc-prob.fc-hold,
+.fed-compact-preview .fed-live-watch .fc-probs-refined .fc-prob.fc-hold{
+  background:#eaf5fc !important;
+  background-color:#eaf5fc !important;
+  border:1px solid #cfe6f5 !important;
+  border-top:4px solid #2d6d9b !important;
+}
+.fed-compact-preview .fc-probs-refined .fc-prob.fc-hike,
+.fed-compact-preview .fed-live-watch .fc-probs-refined .fc-prob.fc-hike{
+  background:#fff3e5 !important;
+  background-color:#fff3e5 !important;
+  border:1px solid #f2dcc0 !important;
+  border-top:4px solid #b77b35 !important;
 }
 </style>
