@@ -2738,16 +2738,27 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
   document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
   var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.textContent='👆';document.body.appendChild(hand);
   var anim=null,expired=false;
-  setTimeout(function(){expired=true;hand.style.display='none';if(anim){anim.cancel();anim=null}},5000);
+  function stopAndRemove(){
+   expired=true;
+   if(anim){try{anim.cancel()}catch(e){}anim=null}
+   hand.style.setProperty('display','none','important');
+   hand.remove();
+   window.removeEventListener('resize',move);
+   window.removeEventListener('scroll',move);
+   window.removeEventListener('pageshow',move);
+  }
+  /* Hard deadline: remove the element, so scroll/resize/pageshow cannot bring it back. */
+  var expiryTimer=window.setTimeout(stopAndRemove,5000);
   function findToolbar(){
    var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
-   var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
+   var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
    matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
   }
   function move(){
-   if(expired){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
-   if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
-   hand.style.display='flex';var target=findToolbar();if(!target)return;
+   if(expired||!hand.isConnected)return;
+   if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.setProperty('display','none','important');if(anim){anim.cancel();anim=null}return}
+   var target=findToolbar();if(!target)return;
+   hand.style.setProperty('display','flex','important');
    var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
    var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
    var ty=Math.max(4,tr.top+tr.height/2-20);
@@ -2762,7 +2773,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     {transform:'translateY('+(sy-ty)+'px) scale(.78)',opacity:.75,offset:1}
    ],{duration:1900,iterations:Infinity,easing:'ease-in-out'});
   }
-  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('scroll',move,{passive:true});window.addEventListener('orientationchange',function(){setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
+  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('scroll',move,{passive:true});window.addEventListener('orientationchange',function(){if(!expired)setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
