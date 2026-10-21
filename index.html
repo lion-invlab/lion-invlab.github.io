@@ -2736,7 +2736,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
  function setup(){
   var hint=document.querySelector('.tac-tools-hint');if(!hint)return;
   document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
-  var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.textContent='👆';document.body.appendChild(hand);
+  var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.innerHTML='<span style="display:inline-block;filter:grayscale(1) brightness(0) invert(1)">👆</span>';document.body.appendChild(hand);
   var anim=null,expired=false;
   function stopAndRemove(){
    expired=true;
