@@ -2683,19 +2683,20 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* More noticeable upward cue, clearly separated from the guidance pill. */
+/* Place animated arrow in its own reserved row above the pill, clear of sticky nav. */
 @media(max-width:1099px){
   .tac-tools-hint{
     position:relative!important;
     box-sizing:border-box!important;
+    margin-top:54px!important;
     padding-left:11px!important;
     overflow:visible!important;
   }
   .tac-tools-hint:before{
     position:absolute!important;
     left:12px!important;
-    top:-39px!important;
-    transform:none!important;
+    top:-43px!important;
+    transform:translateY(0)!important;
     z-index:3!important;
     display:inline-flex!important;
     width:32px!important;height:32px!important;
@@ -2708,11 +2709,11 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
     font-size:28px!important;font-weight:1000!important;line-height:1!important;
     opacity:1!important;visibility:visible!important;
-    animation:tac-tools-arrow-strong-nudge .85s ease-in-out infinite!important;
+    animation:tac-tools-arrow-strong-nudge-v2 .7s ease-in-out infinite!important;
   }
-  @keyframes tac-tools-arrow-strong-nudge{
-    0%,100%{transform:translateY(2px) scale(1)}
-    50%{transform:translateY(-5px) scale(1.12)}
+  @keyframes tac-tools-arrow-strong-nudge-v2{
+    0%,100%{transform:translateY(0) scale(1)}
+    50%{transform:translateY(-9px) scale(1.18)}
   }
   .tac-tools-hint strong{position:relative!important;z-index:1!important}
 }
