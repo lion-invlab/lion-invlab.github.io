@@ -2683,7 +2683,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Anchor the animated arrow to the pill, not the viewport, so it cannot cover report text. */
+/* Keep the cue attached to the pill; raise it above the sticky navigation layer. */
 @media(max-width:1099px){
   .tac-tools-hint{
     position:relative!important;
@@ -2691,13 +2691,14 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     margin-top:8px!important;
     padding-left:11px!important;
     overflow:visible!important;
+    isolation:auto!important;
   }
   .tac-tools-hint:before{
     position:absolute!important;
     left:12px!important;
-    top:-27px!important;
+    top:-34px!important;
     transform:translateY(0)!important;
-    z-index:5!important;
+    z-index:2147483647!important;
     display:inline-flex!important;
     width:30px!important;height:30px!important;
     align-items:center!important;justify-content:center!important;
@@ -2709,10 +2710,11 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
     font-size:27px!important;font-weight:1000!important;line-height:1!important;
     opacity:1!important;visibility:visible!important;
-    animation:tac-tools-arrow-pill-nudge-v4 .7s ease-in-out infinite!important;
+    animation:tac-tools-arrow-pill-nudge-v5 .7s ease-in-out infinite!important;
     will-change:transform!important;
+    pointer-events:none!important;
   }
-  @keyframes tac-tools-arrow-pill-nudge-v4{
+  @keyframes tac-tools-arrow-pill-nudge-v5{
     0%,100%{transform:translateY(2px) scale(1)}
     50%{transform:translateY(-5px) scale(1.15)}
   }
