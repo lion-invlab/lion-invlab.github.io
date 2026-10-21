@@ -2501,3 +2501,40 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   #sentiment:before{right:-290px;top:-70px}
   #sentiment:after{left:-255px;top:180px}
 }
+
+/* TAC sentiment panel: visible concentric orbital arcs, isolated from card content */
+#sentiment{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  background:
+    radial-gradient(circle at 63% 18%,
+      transparent 0 128px,
+      rgba(65,112,139,.13) 129px 160px,
+      transparent 161px 196px,
+      rgba(65,112,139,.10) 197px 230px,
+      transparent 231px 266px,
+      rgba(65,112,139,.075) 267px 300px,
+      transparent 301px),
+    linear-gradient(135deg,#171c23 0%,#1b222b 52%,#141a20 100%)!important;
+  border:1px solid #35404b!important;
+  border-top:4px solid #e2b84d!important;
+  border-radius:18px!important;
+  box-shadow:0 12px 28px rgba(18,28,38,.15)!important;
+}
+#sentiment:before,#sentiment:after{content:none!important;display:none!important}
+#sentiment>.title,#sentiment>.sent{position:relative!important;z-index:1!important}
+@media(max-width:700px){
+  #sentiment{
+    background:
+      radial-gradient(circle at 67% 14%,
+        transparent 0 110px,
+        rgba(65,112,139,.13) 111px 138px,
+        transparent 139px 169px,
+        rgba(65,112,139,.10) 170px 198px,
+        transparent 199px 230px,
+        rgba(65,112,139,.075) 231px 258px,
+        transparent 259px),
+      linear-gradient(135deg,#171c23 0%,#1b222b 52%,#141a20 100%)!important;
+  }
+}
