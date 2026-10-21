@@ -1553,6 +1553,28 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   }
 }
 </style>
+
+<style id="tac-desktop-demo-v11">
+/* V11: keep the compact layout while restoring enough sidebar width for labels/date controls. */
+@media (min-width: 1000px) {
+  html body .tac-side-tools {
+    width: 178px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  html body .topin, html body .nav, html body .wrap {
+    margin-left: 202px !important;
+    width: calc(100% - 202px) !important;
+  }
+  html body .tac-side-tools input[type="date"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    font-size: 12px !important;
+  }
+}
+</style>
 </head>
 <body>
 
