@@ -2683,7 +2683,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Animated upward arrow is mobile-only; hide it on desktop and larger tablets. */
+/* Mobile-only animated cue; run continuously on initial page load without user interaction. */
 .tac-tools-hint:before{display:none!important;content:none!important}
 @media(max-width:1099px){
   .tac-tools-hint{
@@ -2712,15 +2712,26 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
     font-size:27px!important;font-weight:1000!important;line-height:1!important;
     opacity:1!important;visibility:visible!important;
-    animation:tac-tools-arrow-pill-nudge-v5 .7s ease-in-out infinite!important;
+    animation:tac-tools-arrow-pill-autostart-v6 .7s ease-in-out infinite!important;
+    animation-delay:0s!important;
+    animation-play-state:running!important;
+    -webkit-animation:tac-tools-arrow-pill-autostart-v6 .7s ease-in-out infinite!important;
+    -webkit-animation-play-state:running!important;
     will-change:transform!important;
     pointer-events:none!important;
   }
-  @keyframes tac-tools-arrow-pill-nudge-v5{
+  @keyframes tac-tools-arrow-pill-autostart-v6{
     0%,100%{transform:translateY(2px) scale(1)}
     50%{transform:translateY(-5px) scale(1.15)}
   }
+  @-webkit-keyframes tac-tools-arrow-pill-autostart-v6{
+    0%,100%{-webkit-transform:translateY(2px) scale(1)}
+    50%{-webkit-transform:translateY(-5px) scale(1.15)}
+  }
   .tac-tools-hint strong{position:relative!important;z-index:1!important}
+}
+@media(prefers-reduced-motion:reduce) and (max-width:1099px){
+  .tac-tools-hint:before{animation:none!important;-webkit-animation:none!important}
 }
 </style>
 
