@@ -1124,6 +1124,29 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 .fed-compact-preview .fc-fomc p{grid-column:1/-1;font-size:10px;color:#7a8490;margin:0}
 @media(max-width:560px){.fed-compact-preview .fc-current-rate strong{font-size:20px}.fed-compact-preview .fed-live-title{font-size:clamp(21px,5.4vw,28px)!important}.fed-compact-preview .fc-probs{gap:6px}.fed-compact-preview .fc-prob{padding:10px}.fed-compact-preview .fc-prob strong{font-size:25px}.fed-compact-preview .fc-fomc{grid-template-columns:1fr}.fed-compact-preview .fc-fomc p{grid-column:auto}}
 </style>
+<style>
+/* Refined probability presentation: remove duplicate individual progress bars */
+.fed-compact-preview .fc-probs-refined{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.fed-compact-preview .fc-probs-refined .fc-prob{padding:14px 15px 13px;border-radius:12px;box-shadow:0 1px 0 rgba(20,35,50,.025)}
+.fed-compact-preview .fc-prob-label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:850}
+.fed-compact-preview .fc-prob-label .fc-dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#2b83b9}
+.fed-compact-preview .fc-hike .fc-prob-label .fc-dot{background:#d28a3e}
+.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:clamp(27px,4vw,34px);margin:7px 0 3px;letter-spacing:-.035em}
+.fed-compact-preview .fc-probs-refined .fc-prob strong small{font-size:15px}
+.fed-compact-preview .fc-probs-refined .fc-range{font-size:11px}
+.fed-compact-preview .fc-split-wrap{margin-top:15px;padding:13px 14px 12px;border:1px solid #e7eaee;border-radius:11px;background:linear-gradient(180deg,#fff 0%,#fafbfc 100%)}
+.fed-compact-preview .fc-split-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px;font-weight:850;color:#46515c;margin-bottom:10px}
+.fed-compact-preview .fc-split-head span:last-child{font-size:10px;color:#8a949d;font-weight:700}
+.fed-compact-preview .fc-split-bar{display:flex;width:100%;height:12px;overflow:hidden;border-radius:99px;background:#e7ebef;gap:3px}
+.fed-compact-preview .fc-split-hold{display:block;height:100%;background:linear-gradient(90deg,#237cae,#3895c4);border-radius:99px 3px 3px 99px}
+.fed-compact-preview .fc-split-hike{display:block;height:100%;background:linear-gradient(90deg,#d18b40,#e1a45d);border-radius:3px 99px 99px 3px}
+.fed-compact-preview .fc-split-legend{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 14px;margin-top:10px;font-size:10px;color:#68737e}
+.fed-compact-preview .fc-split-legend span{display:inline-flex;align-items:center;gap:5px}
+.fed-compact-preview .fc-split-legend i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.fed-compact-preview .fc-legend-hold{background:#2b83b9}.fed-compact-preview .fc-legend-hike{background:#d28a3e}
+.fed-compact-preview .fc-split-legend b{font-size:10px;color:#313b45}
+@media(max-width:560px){.fed-compact-preview .fc-probs-refined{gap:7px}.fed-compact-preview .fc-probs-refined .fc-prob{padding:11px 10px}.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:27px}.fed-compact-preview .fc-split-wrap{padding:11px}.fed-compact-preview .fc-split-legend{gap:7px}}
+</style>
 </head>
 <body>
 
@@ -1324,10 +1347,11 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 <div class="fed-live-panels">
 <div class="fed-live-panel fed-live-watch">
 <div class="fc-current-rate"><span>目前目標利率</span><strong>3.75%–4.00%</strong><span class="fc-pill">10/21 快照</span></div><span class="fc-pill">10/21 快照</span></div>
-<div class="fc-probs">
-<div class="fc-prob fc-hold"><span>維持不變</span><strong>83.9<small>%</small></strong><div class="fc-range">維持 3.75%–4.00%</div><div class="fc-bar"><i style="width:83.9%"></i></div></div>
-<div class="fc-prob fc-hike"><span>升息一碼</span><strong>16.1<small>%</small></strong><div class="fc-range">升至 4.00%–4.25%</div><div class="fc-bar"><i style="width:16.1%"></i></div></div>
+<div class="fc-probs fc-probs-refined">
+<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>83.9<small>%</small></strong><div class="fc-range">維持 3.75%–4.00%</div></div>
+<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>16.1<small>%</small></strong><div class="fc-range">升至 4.00%–4.25%</div></div>
 </div>
+<div class="fc-split-wrap"><div class="fc-split-head"><span>情境機率分布</span><span>合計 100%</span></div><div class="fc-split-bar" role="img" aria-label="維持不變 83.9%，升息一碼 16.1%"><span class="fc-split-hold" style="width:83.9%"></span><span class="fc-split-hike" style="width:16.1%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>83.9%</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>16.1%</b></span></div></div>
 <details class="audit-details fedwatch-time"><summary>資料時間與快照口徑</summary><div class="audit-content">資料時間：2026/10/21 06:15（台灣時間；來源頁標示 2026/10/20 18:15 EDT）。10/28/2026 FOMC：維持 3.75%–4.00% 機率 83.9%；升息一碼至 4.00%–4.25% 機率 16.1%。此為截圖快照，機率會隨期貨價格變動。</div></details>
 <div class="fc-source">交叉參考：<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" rel="noopener" target="_blank">CME FedWatch</a> · <a href="https://www.investing.com/central-banks/fed-rate-monitor" rel="noopener" target="_blank">Investing.com</a></div>
 </div>
