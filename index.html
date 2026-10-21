@@ -2753,5 +2753,65 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 }
 </style>
 
+
+<style id="tac-toolbar-hand-target-v13">
+@media(max-width:1099px){
+ .tac-tools-arrow-live.tac-toolbar-hand-target{
+  position:fixed!important;left:var(--tac-hand-x,24px)!important;top:var(--tac-hand-y,200px)!important;
+  right:auto!important;bottom:auto!important;margin:0!important;transform:none!important;
+  z-index:2147483647!important;pointer-events:none!important;
+ }
+}
+@media(min-width:1100px){.tac-tools-arrow-live.tac-toolbar-hand-target{display:none!important}}
+</style>
+<script id="tac-toolbar-hand-target-v13-js">
+(function(){
+ function setup(){
+  var hint=document.querySelector('.tac-tools-hint');
+  var hand=document.querySelector('.tac-tools-arrow-live');
+  if(!hint||!hand)return;
+  if(hand.parentElement!==document.body)document.body.appendChild(hand);
+  hand.classList.add('tac-toolbar-hand-target');
+  var anim=null;
+  function findToolbar(){
+   var nodes=Array.from(document.querySelectorAll('a,button,[role="button"]'));
+   return nodes.find(function(el){
+    var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim();
+    var r=el.getBoundingClientRect();
+    return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0;
+   });
+  }
+  function move(){
+   if(window.matchMedia('(min-width:1100px)').matches){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
+   hand.style.display='flex';
+   var target=findToolbar();
+   if(!target)return;
+   var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
+   var x=Math.max(8,Math.min(window.innerWidth-48,tr.left+tr.width/2-20));
+   var targetY=Math.max(8,tr.top+tr.height/2-20);
+   var startY=Math.max(targetY+42,Math.min(window.innerHeight-50,hr.top+hr.height/2-20));
+   hand.style.setProperty('--tac-hand-x',x+'px');
+   if(anim){anim.cancel();anim=null}
+   if(typeof hand.animate==='function'){
+    anim=hand.animate([
+     {top:startY+'px',transform:'scale(1)'},
+     {top:targetY+'px',transform:'scale(1.08)',offset:.42},
+     {top:(targetY-3)+'px',transform:'scale(1.58)',offset:.50},
+     {top:targetY+'px',transform:'scale(1.12)',offset:.58},
+     {top:startY+'px',transform:'scale(1)',offset:1}
+    ],{duration:2100,iterations:Infinity,easing:'ease-in-out'});
+   }else{
+    hand.style.top=targetY+'px';
+   }
+  }
+  move();
+  window.addEventListener('resize',move,{passive:true});
+  window.addEventListener('orientationchange',function(){setTimeout(move,250)},{passive:true});
+  window.addEventListener('pageshow',move);
+  setTimeout(move,400);setTimeout(move,1200);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
 </body>
 </html>
