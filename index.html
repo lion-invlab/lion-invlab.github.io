@@ -2106,6 +2106,7 @@ document.addEventListener('DOMContentLoaded',function(){
  hint.id='tac-tools-hint';
  hint.className='tac-tools-hint';
  hint.innerHTML='「美股波動率」、「精選基金」、「歷史早報」請由上方「<strong>工具欄</strong>」開啟進入。';
+  const arrow=document.createElement('span');arrow.className='tac-tools-arrow-live';arrow.setAttribute('aria-hidden','true');arrow.textContent='↑';hint.appendChild(arrow);
  const main=document.querySelector('main.wrap')||document.querySelector('main');
  if(main)main.insertBefore(hint,main.firstChild);
 });
@@ -2706,27 +2707,22 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 }
 @media(prefers-reduced-motion:reduce){.tac-tools-arrow-live{animation:none!important;-webkit-animation:none!important}}
 </style>
-<script id="tac-tools-arrow-real-element-v7">
+<script id="tac-tools-arrow-real-element-v8">
 (function(){
- function mountArrow(){
-   var hint=document.querySelector('.tac-tools-hint');
-   if(!hint){return false;}
-   if(getComputedStyle(hint).position==='static')hint.style.position='relative';
-   var arrow=hint.querySelector('.tac-tools-arrow-live');
-   if(!arrow){
-     arrow=document.createElement('span');
-     arrow.className='tac-tools-arrow-live';
-     arrow.setAttribute('aria-hidden','true');
-     arrow.textContent='↑';
-     hint.insertBefore(arrow,hint.firstChild);
-   }
-   return true;
+ function ensure(){
+  var hint=document.querySelector('.tac-tools-hint');
+  if(!hint)return;
+  if(getComputedStyle(hint).position==='static')hint.style.position='relative';
+  if(!hint.querySelector('.tac-tools-arrow-live')){
+   var arrow=document.createElement('span');arrow.className='tac-tools-arrow-live';
+   arrow.setAttribute('aria-hidden','true');arrow.textContent='↑';hint.insertBefore(arrow,hint.firstChild);
+  }
  }
- if(!mountArrow()){
-   document.addEventListener('DOMContentLoaded',mountArrow,{once:true});
-   var observer=new MutationObserver(function(){if(mountArrow())observer.disconnect();});
-   observer.observe(document.documentElement,{childList:true,subtree:true});
- }
+ ensure();
+ document.addEventListener('DOMContentLoaded',ensure);
+ window.addEventListener('pageshow',ensure);
+ var observer=new MutationObserver(ensure);
+ observer.observe(document.documentElement,{childList:true,subtree:true});
 })();
 </script>
 <style id="tac-assets-instrument-font-size-v1">
