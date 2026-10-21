@@ -2684,45 +2684,36 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Mobile guidance: a pointing-hand travels toward the toolbar, then performs a visible tap. */
 .tac-tools-hint:before{content:none!important;display:none!important}
 .tac-tools-arrow-live{display:none!important}
 @media(max-width:1099px){
- .tac-tools-hint{
-   position:relative!important;box-sizing:border-box!important;
-   padding-left:42px!important;overflow:visible!important;
- }
+ .tac-tools-hint{position:relative!important;box-sizing:border-box!important;padding-left:42px!important;overflow:visible!important}
  .tac-tools-arrow-live{
-   display:flex!important;position:absolute!important;left:9px!important;top:50%!important;
-   width:30px!important;height:30px!important;align-items:center!important;justify-content:center!important;
-   box-sizing:border-box!important;border-radius:50%!important;
-   background:rgba(255,238,240,.98)!important;color:#a91528!important;
-   border:2px solid rgba(180,35,50,.35)!important;box-shadow:0 2px 7px rgba(110,20,35,.2)!important;
-   font-family:system-ui,-apple-system,sans-serif!important;font-size:24px!important;font-weight:900!important;
-   line-height:1!important;z-index:2147483647!important;pointer-events:none!important;
-   transform-origin:center center!important;
-   animation:tac-hand-travel-tap-v10 1.8s ease-in-out infinite!important;
-   -webkit-animation:tac-hand-travel-tap-v10 1.8s ease-in-out infinite!important;
-   animation-play-state:running!important;-webkit-animation-play-state:running!important;
-   will-change:transform!important;
+ display:flex!important;position:absolute!important;left:9px!important;top:50%!important;
+ width:30px!important;height:30px!important;align-items:center!important;justify-content:center!important;
+ box-sizing:border-box!important;border-radius:50%!important;background:rgba(255,238,240,.98)!important;
+ color:#a91528!important;border:2px solid rgba(180,35,50,.35)!important;box-shadow:0 2px 7px rgba(110,20,35,.2)!important;
+ font-family:system-ui,-apple-system,sans-serif!important;font-size:24px!important;font-weight:900!important;line-height:1!important;
+ z-index:2147483647!important;pointer-events:none!important;transform-origin:center center!important;
+ animation:tac-hand-travel-tap-v11 1.8s linear infinite!important;-webkit-animation:tac-hand-travel-tap-v11 1.8s linear infinite!important;
+ animation-play-state:running!important;-webkit-animation-play-state:running!important;will-change:top,transform!important;
  }
- @keyframes tac-hand-travel-tap-v10{
-   0%,12%{transform:translateY(-50%) translateY(0) scale(1)}
-   42%{transform:translateY(-50%) translateY(-94px) scale(1.25)}
-   50%{transform:translateY(-50%) translateY(-104px) scale(1.52)}
-   57%{transform:translateY(-50%) translateY(-94px) scale(1.28)}
-   68%,100%{transform:translateY(-50%) translateY(0) scale(1)}
+ @keyframes tac-hand-travel-tap-v11{
+ 0%,10%{top:50%;transform:scale(1)}
+ 42%{top:calc(50% - 86px);transform:scale(1.25)}
+ 50%{top:calc(50% - 94px);transform:scale(1.6)}
+ 58%{top:calc(50% - 86px);transform:scale(1.25)}
+ 75%,100%{top:50%;transform:scale(1)}
  }
- @-webkit-keyframes tac-hand-travel-tap-v10{
-   0%,12%{-webkit-transform:translateY(-50%) translateY(0) scale(1)}
-   42%{-webkit-transform:translateY(-50%) translateY(-94px) scale(1.25)}
-   50%{-webkit-transform:translateY(-50%) translateY(-104px) scale(1.52)}
-   57%{-webkit-transform:translateY(-50%) translateY(-94px) scale(1.28)}
-   68%,100%{-webkit-transform:translateY(-50%) translateY(0) scale(1)}
+ @-webkit-keyframes tac-hand-travel-tap-v11{
+ 0%,10%{top:50%;-webkit-transform:scale(1)}
+ 42%{top:calc(50% - 86px);-webkit-transform:scale(1.25)}
+ 50%{top:calc(50% - 94px);-webkit-transform:scale(1.6)}
+ 58%{top:calc(50% - 86px);-webkit-transform:scale(1.25)}
+ 75%,100%{top:50%;-webkit-transform:scale(1)}
  }
 }
 @media(min-width:1100px){.tac-tools-arrow-live{display:none!important}}
-@media(prefers-reduced-motion:reduce){.tac-tools-arrow-live{animation:none!important;-webkit-animation:none!important}}
 </style>
 <script id="tac-tools-arrow-real-element-v8">
 (function(){
