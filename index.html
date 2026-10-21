@@ -765,32 +765,17 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
 }
 .tac-tools-hint strong{font-weight:900}
 @media(max-width:1099px){.tac-tools-hint{display:block}}
-</style><style id="tac-tools-hint-up-arrow">/* Arrow sits just outside the capsule so it never overlaps the hint text */
+</style><style id="tac-tools-hint-up-arrow">
 @media(max-width:1099px){
  .tac-tools-hint{
    display:block!important;position:relative!important;box-sizing:border-box!important;
    width:fit-content!important;max-width:calc(100% - 24px)!important;
-   margin:26px auto 14px!important;
-   padding:8px 13px!important;
-   border:1px solid rgba(180,35,50,.22)!important;
-   border-radius:999px!important;
-   background:rgba(255,255,255,.92)!important;
-   box-shadow:0 3px 12px rgba(35,45,55,.06)!important;
+   margin:26px auto 14px!important;padding:8px 13px!important;
+   border:1px solid rgba(180,35,50,.22)!important;border-radius:999px!important;
+   background:rgba(255,255,255,.92)!important;box-shadow:0 3px 12px rgba(35,45,55,.06)!important;
    text-align:center!important;overflow:visible!important;
  }
- .tac-tools-hint:before{
-   content:"↑";position:absolute;left:20px;top:-25px;
-   display:flex;align-items:center;justify-content:center;
-   width:24px;height:24px;border-radius:50%;
-   color:#b42332;background:rgba(255,255,255,.94);
-   border:1px solid rgba(180,35,50,.16);
-   font-size:22px;font-weight:950;line-height:1;
-   animation:tac-tools-arrow-nudge 1.8s ease-in-out infinite;
- }
-}
-@keyframes tac-tools-arrow-nudge{
- 0%,100%{transform:translateY(2px)}
- 50%{transform:translateY(-2px)}
+ .tac-tools-hint:before{content:none!important;display:none!important}
 }
 </style><style id="tac-fund-popup-v7-css">
 #tac-fund-notice{position:fixed;inset:0;z-index:100500;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(18,23,30,.66);backdrop-filter:blur(3px)}
@@ -2792,7 +2777,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     {transform:'translateY('+(sy-ty)+'px) scale(.78)',opacity:.75,offset:1}
    ],{duration:1900,iterations:Infinity,easing:'ease-in-out'});
   }
-  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('orientationchange',function(){setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
+  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('scroll',move,{passive:true});window.addEventListener('orientationchange',function(){setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
