@@ -2699,24 +2699,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 }
 @media(min-width:1100px){.tac-tools-arrow-live{display:none!important}}
 </style>
-<script id="tac-tools-arrow-real-element-v8">
-(function(){
- function ensure(){
-  var hint=document.querySelector('.tac-tools-hint');
-  if(!hint)return;
-  if(getComputedStyle(hint).position==='static')hint.style.position='relative';
-  if(!hint.querySelector('.tac-tools-arrow-live')){
-   var arrow=document.createElement('span');arrow.className='tac-tools-arrow-live';
-   arrow.setAttribute('aria-hidden','true');arrow.textContent='↑';hint.insertBefore(arrow,hint.firstChild);
-  }
- }
- ensure();
- document.addEventListener('DOMContentLoaded',ensure);
- window.addEventListener('pageshow',ensure);
- var observer=new MutationObserver(ensure);
- observer.observe(document.documentElement,{childList:true,subtree:true});
-})();
-</script>
+<!-- Legacy arrow creator removed to prevent duplicate red arrow. -->
 <style id="tac-assets-instrument-font-size-v1">
 /* 商品名稱字級統一對齊「費城半導體指數」；僅影響產業債匯商品活頁內的商品名稱 */
 #industry-bonds-fx-commodities #bonds .row>b,
@@ -2751,9 +2734,9 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 <script id="tac-toolbar-hand-target-v15-js">
 (function(){
  function setup(){
-  var hint=document.querySelector('.tac-tools-hint'),hand=document.querySelector('.tac-tools-arrow-live');if(!hint||!hand)return;
-  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el,i){if(i>0)el.remove()});
-  hand.textContent='👆';if(hand.parentElement!==document.body)document.body.appendChild(hand);hand.classList.add('tac-toolbar-hand-target');
+  var hint=document.querySelector('.tac-tools-hint');if(!hint)return;
+  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
+  var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.textContent='👆';document.body.appendChild(hand);
   var anim=null;
   function findToolbar(){
    var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
@@ -2761,7 +2744,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
    matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
   }
   function move(){
-   if(window.matchMedia('(min-width:1100px)').matches){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
+   if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.display='none';if(anim){anim.cancel();anim=null}return}
    hand.style.display='flex';var target=findToolbar();if(!target)return;
    var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
    var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
