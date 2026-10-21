@@ -2566,3 +2566,19 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
       linear-gradient(135deg,#171c23 0%,#1b222b 52%,#141a20 100%)!important;
   }
 }
+
+
+<style id="tac-sentiment-card-transparency-test">
+/* Trial: subtly reveal the concentric arcs through the three market-sentiment indicator cards only */
+#sentiment .sent > .sbox:nth-child(1),
+#sentiment .sent > .sbox:nth-child(2){
+  background:rgba(37,45,56,.78)!important;
+  -webkit-backdrop-filter:blur(1px);
+  backdrop-filter:blur(1px);
+}
+#sentiment .sent > section.sbox.cnn-fg-preview{
+  background:rgba(36,45,55,.78)!important;
+  -webkit-backdrop-filter:blur(1px);
+  backdrop-filter:blur(1px);
+}
+</style>
