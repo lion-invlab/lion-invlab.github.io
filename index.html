@@ -2683,7 +2683,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Compact mobile layout: arrow crosses the nav boundary without adding vertical space. */
+/* Anchor the animated arrow to the pill, not the viewport, so it cannot cover report text. */
 @media(max-width:1099px){
   .tac-tools-hint{
     position:relative!important;
@@ -2693,13 +2693,13 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     overflow:visible!important;
   }
   .tac-tools-hint:before{
-    position:fixed!important;
+    position:absolute!important;
     left:12px!important;
-    top:clamp(245px, 35vh, 330px)!important;
+    top:-27px!important;
     transform:translateY(0)!important;
-    z-index:99999!important;
+    z-index:5!important;
     display:inline-flex!important;
-    width:32px!important;height:32px!important;
+    width:30px!important;height:30px!important;
     align-items:center!important;justify-content:center!important;
     margin:0!important;
     border-radius:50%!important;
@@ -2707,14 +2707,14 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     color:#a91528!important;
     border:2px solid rgba(180,35,50,.35)!important;
     box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
-    font-size:28px!important;font-weight:1000!important;line-height:1!important;
+    font-size:27px!important;font-weight:1000!important;line-height:1!important;
     opacity:1!important;visibility:visible!important;
-    animation:tac-tools-arrow-cross-nav-v3 .8s ease-in-out infinite!important;
+    animation:tac-tools-arrow-pill-nudge-v4 .7s ease-in-out infinite!important;
     will-change:transform!important;
   }
-  @keyframes tac-tools-arrow-cross-nav-v3{
-    0%,100%{transform:translateY(5px) scale(1)}
-    50%{transform:translateY(-8px) scale(1.2)}
+  @keyframes tac-tools-arrow-pill-nudge-v4{
+    0%,100%{transform:translateY(2px) scale(1)}
+    50%{transform:translateY(-5px) scale(1.15)}
   }
   .tac-tools-hint strong{position:relative!important;z-index:1!important}
 }
