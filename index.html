@@ -2453,6 +2453,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 </style>
 
 
+<style id="tac-sentiment-panel-v26-css">
 /* V26：市場情緒深藍機構風格；僅作用於 #sentiment，不影響其他首頁卡片 */
 #sentiment{
   position:relative!important;
@@ -2570,7 +2571,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
       linear-gradient(135deg,#171c23 0%,#1b222b 52%,#141a20 100%)!important;
   }
 }
-
+</style>
 
 <style id="tac-sentiment-card-transparency-test">
 /* Trial: subtly reveal the concentric arcs through the three market-sentiment indicator cards only */
@@ -2587,20 +2588,56 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 }
 </style>
 
-<style id="tac-sentiment-glass-test-v2">
-/* V2 glass trial: stronger translucent glass on VIX, MOVE and CNN cards only */
+<style id="tac-sentiment-glass-reflection-v3">
+/* V3: translucent glass and soft specular highlights on VIX, MOVE and CNN cards only */
 html body #sentiment .sent > .sbox:nth-child(1),
 html body #sentiment .sent > .sbox:nth-child(2),
 html body #sentiment .sent > section.sbox.cnn-fg-preview {
+  position:relative!important;
+  overflow:hidden!important;
   background:
-    linear-gradient(135deg, rgba(255,255,255,.105) 0%, rgba(255,255,255,.025) 42%, rgba(10,20,31,.16) 100%),
-    rgba(34,45,57,.56) !important;
-  border: 1px solid rgba(198,222,239,.23) !important;
+    linear-gradient(118deg,
+      rgba(255,255,255,.19) 0%,
+      rgba(255,255,255,.065) 13%,
+      rgba(255,255,255,.015) 34%,
+      transparent 49%,
+      rgba(101,164,197,.07) 67%,
+      rgba(8,20,32,.13) 100%),
+    rgba(35,48,62,.49)!important;
+  border:1px solid rgba(205,229,245,.30)!important;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.19),
-    inset 0 -1px 0 rgba(255,255,255,.045),
-    0 8px 22px rgba(0,0,0,.10) !important;
-  -webkit-backdrop-filter: blur(4px) saturate(128%) !important;
-  backdrop-filter: blur(4px) saturate(128%) !important;
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 1px 0 0 rgba(255,255,255,.08),
+    inset 0 -1px 0 rgba(255,255,255,.07),
+    0 8px 24px rgba(0,0,0,.13)!important;
+  -webkit-backdrop-filter:blur(7px) saturate(145%)!important;
+  backdrop-filter:blur(7px) saturate(145%)!important;
+}
+html body #sentiment .sent > .sbox:nth-child(1)::after,
+html body #sentiment .sent > .sbox:nth-child(2)::after,
+html body #sentiment .sent > section.sbox.cnn-fg-preview::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:inherit;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.10),transparent 24% 72%,rgba(137,194,221,.045)),
+    radial-gradient(ellipse at 8% 0%,rgba(255,255,255,.13),transparent 42%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);
+}
+html body #sentiment .sent > .sbox:nth-child(1) > *,
+html body #sentiment .sent > .sbox:nth-child(2) > *,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
+  position:relative;
+  z-index:1;
+}
+@media(max-width:700px){
+  html body #sentiment .sent > .sbox:nth-child(1),
+  html body #sentiment .sent > .sbox:nth-child(2),
+  html body #sentiment .sent > section.sbox.cnn-fg-preview {
+    -webkit-backdrop-filter:blur(5px) saturate(138%)!important;
+    backdrop-filter:blur(5px) saturate(138%)!important;
+  }
 }
 </style>
