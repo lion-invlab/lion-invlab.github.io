@@ -2683,57 +2683,52 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Mobile-only animated cue; run continuously on initial page load without user interaction. */
-.tac-tools-hint:before{display:none!important;content:none!important}
+/* The animated arrow is a real sibling element so pill overflow and pseudo-element
+   animation quirks in iOS Safari cannot clip or delay it. */
+.tac-tools-hint:before{content:none!important;display:none!important}
+.tac-tools-arrow-live{display:none!important}
 @media(max-width:1099px){
-  .tac-tools-hint{
-    position:relative!important;
-    box-sizing:border-box!important;
-    margin-top:8px!important;
-    padding-left:11px!important;
-    overflow:visible!important;
-    isolation:auto!important;
-  }
-  .tac-tools-hint:before{
-    content:"↑"!important;
-    position:absolute!important;
-    left:12px!important;
-    top:-34px!important;
-    transform:translateY(0)!important;
-    z-index:2147483647!important;
-    display:inline-flex!important;
-    width:30px!important;height:30px!important;
-    align-items:center!important;justify-content:center!important;
-    margin:0!important;
-    border-radius:50%!important;
-    background:rgba(255,238,240,.98)!important;
-    color:#a91528!important;
-    border:2px solid rgba(180,35,50,.35)!important;
-    box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
-    font-size:27px!important;font-weight:1000!important;line-height:1!important;
-    opacity:1!important;visibility:visible!important;
-    animation:tac-tools-arrow-pill-autostart-v6 .7s ease-in-out infinite!important;
-    animation-delay:0s!important;
-    animation-play-state:running!important;
-    -webkit-animation:tac-tools-arrow-pill-autostart-v6 .7s ease-in-out infinite!important;
-    -webkit-animation-play-state:running!important;
-    will-change:transform!important;
-    pointer-events:none!important;
-  }
-  @keyframes tac-tools-arrow-pill-autostart-v6{
-    0%,100%{transform:translateY(2px) scale(1)}
-    50%{transform:translateY(-5px) scale(1.15)}
-  }
-  @-webkit-keyframes tac-tools-arrow-pill-autostart-v6{
-    0%,100%{-webkit-transform:translateY(2px) scale(1)}
-    50%{-webkit-transform:translateY(-5px) scale(1.15)}
-  }
-  .tac-tools-hint strong{position:relative!important;z-index:1!important}
+ .tac-tools-arrow-live{
+   display:flex!important;position:absolute!important;left:12px!important;top:-34px!important;
+   width:30px!important;height:30px!important;align-items:center!important;justify-content:center!important;
+   box-sizing:border-box!important;border-radius:50%!important;
+   background:rgba(255,238,240,.98)!important;color:#a91528!important;
+   border:2px solid rgba(180,35,50,.35)!important;box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
+   font-size:27px!important;font-weight:1000!important;line-height:1!important;
+   z-index:2147483647!important;pointer-events:none!important;
+   animation:tac-arrow-real-autostart-v7 .7s ease-in-out infinite!important;
+   -webkit-animation:tac-arrow-real-autostart-v7 .7s ease-in-out infinite!important;
+   animation-play-state:running!important;-webkit-animation-play-state:running!important;
+   will-change:transform!important;
+ }
+ @keyframes tac-arrow-real-autostart-v7{0%,100%{transform:translateY(2px) scale(1)}50%{transform:translateY(-6px) scale(1.17)}}
+ @-webkit-keyframes tac-arrow-real-autostart-v7{0%,100%{-webkit-transform:translateY(2px) scale(1)}50%{-webkit-transform:translateY(-6px) scale(1.17)}}
 }
-@media(prefers-reduced-motion:reduce) and (max-width:1099px){
-  .tac-tools-hint:before{animation:none!important;-webkit-animation:none!important}
-}
+@media(prefers-reduced-motion:reduce){.tac-tools-arrow-live{animation:none!important;-webkit-animation:none!important}}
 </style>
+<script id="tac-tools-arrow-real-element-v7">
+(function(){
+ function mountArrow(){
+   var hint=document.querySelector('.tac-tools-hint');
+   if(!hint){return false;}
+   if(getComputedStyle(hint).position==='static')hint.style.position='relative';
+   var arrow=hint.querySelector('.tac-tools-arrow-live');
+   if(!arrow){
+     arrow=document.createElement('span');
+     arrow.className='tac-tools-arrow-live';
+     arrow.setAttribute('aria-hidden','true');
+     arrow.textContent='↑';
+     hint.insertBefore(arrow,hint.firstChild);
+   }
+   return true;
+ }
+ if(!mountArrow()){
+   document.addEventListener('DOMContentLoaded',mountArrow,{once:true});
+   var observer=new MutationObserver(function(){if(mountArrow())observer.disconnect();});
+   observer.observe(document.documentElement,{childList:true,subtree:true});
+ }
+})();
+</script>
 <style id="tac-assets-instrument-font-size-v1">
 /* 商品名稱字級統一對齊「費城半導體指數」；僅影響產業債匯商品活頁內的商品名稱 */
 #industry-bonds-fx-commodities #bonds .row>b,
