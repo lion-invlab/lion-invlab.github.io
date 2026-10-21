@@ -1246,6 +1246,45 @@ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-r
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:3!important}
 @media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{padding:11px 10px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{padding:17px 15px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate b{font-size:clamp(24px,6vw,32px)!important}}
 </style>
+<style>
+/* Alignment fix: equal top padding and matching label/value baselines */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  box-sizing:border-box!important;
+  min-height:112px!important;
+  height:112px!important;
+  padding:14px 12px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  gap:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>span{
+  display:block!important;
+  margin:0 0 9px!important;
+  min-height:16px!important;
+  line-height:16px!important;
+  font-size:12px!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{
+  display:block!important;
+  margin:0!important;
+  line-height:1.35!important;
+  text-align:left!important;
+  overflow-wrap:anywhere!important;
+}
+@media(max-width:560px){
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  min-height:112px!important;height:112px!important;padding:14px 10px!important;
+ }
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b{font-size:clamp(12px,3.5vw,16px)!important}
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{font-size:clamp(12px,3.5vw,16px)!important}
+}
+</style>
 </head>
 <body>
 
