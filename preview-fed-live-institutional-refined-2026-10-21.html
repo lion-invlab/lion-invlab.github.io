@@ -1502,6 +1502,29 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
 }
 </style>
 
+
+<style id="fed-probability-card-background-fix-v3">
+/* V3：明確覆蓋後續樣式，讓兩張 FedWatch 機率小卡確實顯示對應底色 */
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold{
+  background:#eaf4fb!important;
+  background-color:#eaf4fb!important;
+  border:1px solid #cfe5f4!important;
+  border-top:4px solid #2b83b9!important;
+}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike{
+  background:#fff3e5!important;
+  background-color:#fff3e5!important;
+  border:1px solid #f0dcc1!important;
+  border-top:4px solid #c18435!important;
+}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold .fc-prob-label,
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold .fc-range{color:#416d88!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike .fc-prob-label,
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike .fc-range{color:#8b602f!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold strong{color:#176b9b!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike strong{color:#b66a20!important}
+</style>
+
 </head>
 <body>
 
