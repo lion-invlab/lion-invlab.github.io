@@ -1297,6 +1297,28 @@ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-r
 html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:4!important}
 @media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{min-height:112px!important;height:112px!important;padding:14px 9px!important}}
 </style>
+
+<style id="fomc-compact-cards-v7">
+/* V7: compact the two FOMC metadata cards; preserve the existing palette and rate card */
+.fed-compact-preview .fc-fomc .fc-fomc-meeting,
+.fed-compact-preview .fc-fomc .fc-fomc-press{
+  min-height:0 !important;
+  height:auto !important;
+  justify-content:flex-start !important;
+  padding:10px 12px !important;
+  align-self:start !important;
+}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>span,
+.fed-compact-preview .fc-fomc .fc-fomc-press>span{
+  margin-bottom:4px !important;
+  line-height:1.3 !important;
+}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>b,
+.fed-compact-preview .fc-fomc .fc-fomc-press>b{
+  line-height:1.3 !important;
+}
+</style>
+
 </head>
 <body>
 
