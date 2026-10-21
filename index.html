@@ -2683,7 +2683,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Keep the arrow completely above the glass pill; never overlay the capsule or its text. */
+/* More noticeable upward cue, clearly separated from the guidance pill. */
 @media(max-width:1099px){
   .tac-tools-hint{
     position:relative!important;
@@ -2694,18 +2694,25 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
   .tac-tools-hint:before{
     position:absolute!important;
     left:12px!important;
-    top:-25px!important;
+    top:-39px!important;
     transform:none!important;
     z-index:3!important;
     display:inline-flex!important;
-    width:24px!important;height:24px!important;
+    width:32px!important;height:32px!important;
     align-items:center!important;justify-content:center!important;
     margin:0!important;
     border-radius:50%!important;
-    background:#f8e9eb!important;
-    color:#b42332!important;
-    font-size:22px!important;line-height:1!important;
+    background:rgba(255,238,240,.98)!important;
+    color:#a91528!important;
+    border:2px solid rgba(180,35,50,.35)!important;
+    box-shadow:0 3px 10px rgba(110,20,35,.22)!important;
+    font-size:28px!important;font-weight:1000!important;line-height:1!important;
     opacity:1!important;visibility:visible!important;
+    animation:tac-tools-arrow-strong-nudge .85s ease-in-out infinite!important;
+  }
+  @keyframes tac-tools-arrow-strong-nudge{
+    0%,100%{transform:translateY(2px) scale(1)}
+    50%{transform:translateY(-5px) scale(1.12)}
   }
   .tac-tools-hint strong{position:relative!important;z-index:1!important}
 }
