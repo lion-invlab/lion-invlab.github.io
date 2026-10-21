@@ -765,6 +765,31 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
 }
 .tac-tools-hint strong{font-weight:900}
 @media(max-width:1099px){.tac-tools-hint{display:block}}
+</style><style id="tac-tools-hint-up-arrow">/* Upward cue beside the mobile tools hint capsule */
+@media(max-width:1099px){
+ .tac-tools-hint{
+   display:flex!important;align-items:center;gap:9px;
+   width:fit-content;max-width:calc(100% - 24px);
+   margin:12px auto 14px!important;
+   padding:8px 13px!important;
+   border:1px solid rgba(180,35,50,.22)!important;
+   border-radius:999px!important;
+   background:rgba(255,255,255,.92)!important;
+   box-shadow:0 3px 12px rgba(35,45,55,.06)!important;
+ }
+ .tac-tools-hint:before{
+   content:"↑";display:inline-flex;flex:0 0 auto;
+   align-items:center;justify-content:center;
+   width:24px;height:24px;border-radius:50%;
+   color:#b42332;background:rgba(180,35,50,.09);
+   font-size:22px;font-weight:950;line-height:1;
+   animation:tac-tools-arrow-nudge 1.8s ease-in-out infinite;
+ }
+}
+@keyframes tac-tools-arrow-nudge{
+ 0%,100%{transform:translateY(2px)}
+ 50%{transform:translateY(-2px)}
+}
 </style><style id="tac-fund-popup-v7-css">
 #tac-fund-notice{position:fixed;inset:0;z-index:100500;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(18,23,30,.66);backdrop-filter:blur(3px)}
 #tac-fund-notice[hidden]{display:none!important}
