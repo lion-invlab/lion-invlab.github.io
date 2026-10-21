@@ -2185,6 +2185,54 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
  }
 }
 </style>
+
+<style id="tac-sentiment-concentric-arcs-v31">
+/* V31: restore the subtle concentric-circle geometry from the approved market-sentiment mockup; decorative layer only */
+#sentiment{
+ position:relative!important;
+ isolation:isolate!important;
+ overflow:hidden!important;
+ background:
+   radial-gradient(ellipse 78% 62% at 18% 18%,rgba(42,91,119,.13) 0%,rgba(42,91,119,.06) 42%,transparent 72%),
+   linear-gradient(135deg,#171c23 0%,#1b222b 52%,#141a20 100%)!important;
+}
+#sentiment::before,
+#sentiment::after{
+ content:""!important;
+ position:absolute!important;
+ display:block!important;
+ pointer-events:none!important;
+ border-radius:50%!important;
+ z-index:0!important;
+}
+#sentiment::before{
+ width:clamp(390px,86vw,900px)!important;
+ height:clamp(390px,86vw,900px)!important;
+ left:clamp(-330px,-28vw,-145px)!important;
+ top:clamp(-270px,-22vw,-100px)!important;
+ border:1px solid rgba(108,160,190,.17)!important;
+ box-shadow:
+  0 0 0 38px rgba(0,0,0,0),
+  0 0 0 39px rgba(108,160,190,.095),
+  0 0 0 86px rgba(0,0,0,0),
+  0 0 0 87px rgba(108,160,190,.075),
+  0 0 0 142px rgba(0,0,0,0),
+  0 0 0 143px rgba(108,160,190,.055)!important;
+}
+#sentiment::after{
+ width:clamp(320px,66vw,700px)!important;
+ height:clamp(320px,66vw,700px)!important;
+ right:clamp(-470px,-42vw,-190px)!important;
+ bottom:clamp(-390px,-34vw,-140px)!important;
+ border:1px solid rgba(108,160,190,.12)!important;
+ box-shadow:
+  0 0 0 34px rgba(0,0,0,0),
+  0 0 0 35px rgba(108,160,190,.065),
+  0 0 0 78px rgba(0,0,0,0),
+  0 0 0 79px rgba(108,160,190,.045)!important;
+}
+#sentiment>*{position:relative;z-index:1}
+</style>
 </body></html>
 <style id="tac-history-button-visibility-v32">
 @media(min-width:1100px){
