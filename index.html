@@ -1525,6 +1525,34 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
 .fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike strong{color:#b66a20!important}
 </style>
 
+
+<style id="tac-mobile-horizontal-overflow-fix-v27">
+/* V27：修正手機整頁可左右拖出螢幕；只限制橫向溢出，不改桌機版面 */
+html{width:100%;max-width:100%;overflow-x:clip!important}
+body{width:100%;max-width:100%;overflow-x:clip!important}
+@supports not (overflow:clip){html,body{overflow-x:hidden!important}}
+.top,.topin,.nav,.wrap,.footer,#sentiment{max-width:100%;min-width:0}
+.wrap{width:100%}
+#sentiment{width:100%;min-width:0;overflow:hidden}
+#sentiment .sent,
+#sentiment .sbox,
+#sentiment .title,
+#sentiment .sbox>*{min-width:0;max-width:100%}
+#sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))}
+#sentiment .sent>.sbox:last-child{grid-column:1/-1}
+#sentiment .sbox{overflow-wrap:anywhere}
+#sentiment .fg6-scale-wrap,
+#sentiment .fg6-scale,
+#sentiment .fg6-bar{max-width:100%;min-width:0}
+@media(max-width:700px){
+  .topin,.nav,.wrap{padding-left:14px;padding-right:14px}
+  #sentiment{padding-left:16px!important;padding-right:16px!important}
+  #sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #sentiment .sbox{min-width:0}
+  #sentiment .sbox strong{overflow-wrap:anywhere}
+}
+</style>
+
 </head>
 <body>
 
