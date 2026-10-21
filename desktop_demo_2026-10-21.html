@@ -2369,5 +2369,33 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   .nav a:focus-visible { outline:2px solid #c62828; outline-offset:3px; }
 }
 </style>
+
+<style id="tac-desktop-demo-v16">
+/* Desktop only: remove the unused gutter between the fixed tool rail and report. */
+@media (min-width: 1000px) {
+  body header.topin,
+  body header.nav,
+  body main.wrap {
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 270px !important;
+    margin-right: 20px !important;
+    box-sizing: border-box !important;
+  }
+  body header.topin {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+  body header.nav {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    justify-content: flex-start !important;
+  }
+  body main.wrap {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+}
+</style>
 </body>
 </html>
