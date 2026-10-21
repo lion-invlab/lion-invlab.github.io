@@ -2683,7 +2683,8 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 <style id="tac-tools-hint-arrow-visibility-fix">
-/* Keep the cue attached to the pill; raise it above the sticky navigation layer. */
+/* Animated upward arrow is mobile-only; hide it on desktop and larger tablets. */
+.tac-tools-hint:before{display:none!important;content:none!important}
 @media(max-width:1099px){
   .tac-tools-hint{
     position:relative!important;
@@ -2694,6 +2695,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
     isolation:auto!important;
   }
   .tac-tools-hint:before{
+    content:"↑"!important;
     position:absolute!important;
     left:12px!important;
     top:-34px!important;
