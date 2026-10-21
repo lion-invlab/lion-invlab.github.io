@@ -2555,7 +2555,19 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
   border-radius:18px!important;
   box-shadow:0 12px 28px rgba(18,28,38,.15)!important;
 }
-#sentiment:before,#sentiment:after{content:none!important;display:none!important}
+#sentiment:before,#sentiment:after{
+  content:""!important;display:block!important;position:absolute!important;
+  z-index:0!important;pointer-events:none!important;border-radius:50%!important;
+  border:1px solid rgba(111,169,198,.22)!important;
+}
+#sentiment:before{
+  width:460px!important;height:460px!important;right:-175px!important;top:-115px!important;
+  box-shadow:0 0 0 28px rgba(111,169,198,.075),0 0 0 58px rgba(111,169,198,.055),0 0 0 92px rgba(111,169,198,.035)!important;
+}
+#sentiment:after{
+  width:330px!important;height:330px!important;left:-215px!important;top:250px!important;
+  box-shadow:0 0 0 28px rgba(111,169,198,.055),0 0 0 58px rgba(111,169,198,.035)!important;
+}
 #sentiment>.title,#sentiment>.sent{position:relative!important;z-index:1!important}
 @media(max-width:700px){
   #sentiment{
