@@ -2921,9 +2921,9 @@ main.wrap [data-main-section-title]{
    var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
    var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
    var ty=Math.max(4,Math.min(window.innerHeight-44,tr.bottom+2));
-   /* Start exactly at the capsule bottom edge, with the fingertip path vertically aligned to the toolbar target. */
-   var sy=Math.max(ty+12,Math.min(window.innerHeight-54,hr.bottom+2));
-   var dx=0,dy=sy-ty;
+   /* Align the fingertip (not the hand element's top) with the capsule's measured bottom edge.
+      The 40px hand is center-scaled; compensate for the 0.78 start scale and a small glyph inset. */
+   var dx=0,dy=Math.max(0,hr.bottom-ty-6);
    hand.style.setProperty('--tac-hand-x',x+'px');hand.style.setProperty('--tac-hand-y',ty+'px');
    if(anim){anim.cancel();anim=null}
    if(hand.animate)anim=hand.animate([
