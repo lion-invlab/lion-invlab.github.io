@@ -796,6 +796,30 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
  }
  .tac-tools-hint strong{color:#c62828!important}
 }
+/* PREVIEW V1: force bright yellow capsule fill and red text above earlier styles */
+@media(max-width:1099px){
+  body #tac-tools-hint.tac-tools-hint{
+    display:block!important;
+    position:relative!important;
+    box-sizing:border-box!important;
+    width:max-content!important;
+    max-width:calc(100% - 32px)!important;
+    margin:10px auto 6px!important;
+    padding:8px 14px!important;
+    background-color:#ffeb00!important;
+    background-image:none!important;
+    border:1px solid #ffeb00!important;
+    border-radius:999px!important;
+    color:#c62828!important;
+    -webkit-text-fill-color:#c62828!important;
+    text-align:center!important;
+    box-shadow:0 3px 12px rgba(190,150,0,.22)!important;
+    left:auto!important;
+    right:auto!important;
+    transform:none!important;
+  }
+  body #tac-tools-hint.tac-tools-hint strong{color:#c62828!important;-webkit-text-fill-color:#c62828!important}
+}
 </style><style id="tac-fund-popup-v7-css">
 #tac-fund-notice{position:fixed;inset:0;z-index:100500;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(18,23,30,.66);backdrop-filter:blur(3px)}
 #tac-fund-notice[hidden]{display:none!important}
@@ -2124,7 +2148,7 @@ document.addEventListener('DOMContentLoaded',function(){
  const hint=document.createElement('div');
  hint.id='tac-tools-hint';
  hint.className='tac-tools-hint';
- hint.innerHTML='「美股波動率」、「精選基金」、「歷史早報」請由上方「<strong>工具欄</strong>」開啟進入。';
+ hint.innerHTML='「美股波動率」、「精選基金」、「歷史早報」請由上方「<strong>工具欄</strong>」開啟進入';
   const arrow=document.createElement('span');arrow.className='tac-tools-arrow-live';arrow.setAttribute('aria-hidden','true');arrow.textContent='👆';hint.appendChild(arrow);
  const main=document.querySelector('main.wrap')||document.querySelector('main');
  if(main)main.insertBefore(hint,main.firstChild);
