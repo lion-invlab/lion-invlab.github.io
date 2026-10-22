@@ -2795,6 +2795,17 @@ main.wrap>.tac-main-panel>.card{margin:0!important}
     letter-spacing:0!important;
   }
 }
+/* FIX: match the BLUF heading size to the other main section headings */
+main.wrap .card.bluf>.title{
+  font-size:var(--tac-main-heading-size,clamp(21px,2.4vw,26px))!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+}
+@media(max-width:700px){
+  main.wrap .card.bluf>.title{
+    font-size:clamp(21px,2.4vw,26px)!important;
+  }
+}
 /* FIX: unify all ten main-panel heading sizes in the preview only */
 :root{--tac-main-heading-size:clamp(21px,2.4vw,26px)}
 main.wrap .card>.title,
