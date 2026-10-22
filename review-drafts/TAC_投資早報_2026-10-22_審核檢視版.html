@@ -2775,9 +2775,13 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
  }
 }
 @media(min-width:1100px){.tac-tools-arrow-live.tac-toolbar-hand-target{display:none!important}}
-<style id="fix-industry-observation-tab-scope">/* 產業觀察只屬於「標普11大產業」活頁；切換債券、匯率、能源、貴金屬時隱藏 */
-#industry-bonds-fx-commodities .industry-observation{display:none!important}
-#industry-bonds-fx-commodities #tac-assets-0:checked~#tac-assets-panel-0 .industry-observation{display:block!important}
+<style id="fix-industry-observation-tab-scope">/* 強制每次只顯示目前選中的產業債匯商品活頁，避免產業觀察連帶露出 */
+#industry-bonds-fx-commodities .tac-tab-panel{display:none!important}
+#industry-bonds-fx-commodities #tac-assets-0:checked~#tac-assets-panel-0,
+#industry-bonds-fx-commodities #tac-assets-1:checked~#tac-assets-panel-1,
+#industry-bonds-fx-commodities #tac-assets-2:checked~#tac-assets-panel-2,
+#industry-bonds-fx-commodities #tac-assets-3:checked~#tac-assets-panel-3,
+#industry-bonds-fx-commodities #tac-assets-4:checked~#tac-assets-panel-4{display:block!important}
 </style>
 </style>
 <script id="tac-toolbar-hand-target-v15-js">
