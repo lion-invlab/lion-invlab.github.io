@@ -2748,6 +2748,10 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 @media(min-width:1100px){.tac-tools-arrow-live.tac-toolbar-hand-target{display:none!important}}
 
 /* PREVIEW V1: isolated main panels and consistent spacing; preserve original capsule/hand UI */
+
+/* FIX: force news scan to remain a standalone flex item; following panels start outside its frame */
+main.wrap>#news-scan{display:block!important;position:relative!important;flex:0 0 auto!important;align-self:stretch!important;width:auto!important;height:auto!important;min-height:0!important;overflow:hidden!important;}
+main.wrap>#global-markets{display:block!important;position:relative!important;flex:0 0 auto!important;align-self:stretch!important;width:auto!important;}
 main.wrap{display:flex!important;flex-direction:column!important;gap:16px!important}
 main.wrap>.grid.two:first-of-type{display:contents!important}
 main.wrap>.tac-section-gap{height:0!important;min-height:0!important;margin:0!important;padding:0!important}
