@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TAC 全球主要股市｜迷你走勢圖測試</title>
+<style>
+:root{color-scheme:light;--red:#c62828;--ink:#222;--muted:#6b7280;--line:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;background:#f3f4f6;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
+header{background:#fff;border-bottom:3px solid var(--red);padding:18px 16px}.wrap{max-width:1040px;margin:auto}.eyebrow{font-size:12px;color:var(--muted);letter-spacing:.08em}h1{font-size:22px;line-height:1.3;margin:5px 0 8px;color:var(--red)}.note{font-size:13px;line-height:1.6;color:#4b5563;margin:0}
+main{max-width:1040px;margin:16px auto;padding:0 12px 28px}.notice{background:#fff8e1;border:1px solid #f3d58a;border-radius:10px;padding:12px 14px;font-size:13px;line-height:1.6;margin-bottom:16px}
+.tabs{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.tab{border:1px solid #d1d5db;background:white;border-radius:999px;padding:8px 14px;font-weight:650;font-size:13px;cursor:pointer}.tab.active{background:#222;color:#fff;border-color:#222}.group{display:none}.group.active{display:block}.rows{display:flex;flex-direction:column;gap:10px}
+.row{display:grid;grid-template-columns:minmax(116px,160px) minmax(0,1fr);gap:10px;align-items:center;background:white;border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-height:136px;box-shadow:0 1px 2px #00000008}.name{font-size:14px;font-weight:750;line-height:1.45}.symbol{font-size:11px;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.chart{height:118px;min-width:0;overflow:hidden}.chart tv-mini-chart{display:block;width:100%;height:100%}
+footer{font-size:12px;line-height:1.7;color:#6b7280;padding:14px 2px}@media(max-width:560px){header{padding:15px 13px}h1{font-size:19px}main{padding:0 9px 22px;margin-top:10px}.row{grid-template-columns:100px minmax(0,1fr);gap:6px;padding:8px;min-height:122px}.name{font-size:12px}.symbol{font-size:10px}.chart{height:106px}}
+</style>
+<script type="module" src="https://www.tradingview-widget.com/w/en/tv-mini-chart.js"></script>
+</head>
+<body><header><div class="wrap"><div class="eyebrow">TAC INVESTMENT MORNING REPORT · ISOLATED TEST</div><h1>全球主要股市｜迷你走勢圖測試</h1><p class="note">獨立測試頁，不連接、不修改 TAC 正式首頁或母版。請在有網路的瀏覽器中開啟，觀察圖表是否載入與是否有盤中線。</p></div></header>
+<main><div class="notice"><strong>測試重點：</strong>驗證官方 Mini Chart 元件能否載入、手機版排版，以及各代碼是否可顯示。圖表出現不代表資料必然即時；休市或資料僅提供日終時，可能沒有當日盤中走勢。</div>
+<div class="tabs" role="tablist"><button class="tab active" data-tab="us">美國</button><button class="tab" data-tab="asia">亞洲</button><button class="tab" data-tab="eu">歐洲</button></div>
+<section class="group active" id="us"><div class="rows">
+<div class="row"><div><div class="name">標普 500</div><div class="symbol">FOREXCOM:SPXUSD</div></div><div class="chart"><tv-mini-chart symbol="FOREXCOM:SPXUSD" theme="light"></tv-mini-chart></div></div>
+<div class="row"><div><div class="name">道瓊工業指數</div><div class="symbol">FOREXCOM:DJI</div></div><div class="chart"><tv-mini-chart symbol="FOREXCOM:DJI" theme="light"></tv-mini-chart></div></div>
+<div class="row"><div><div class="name">那斯達克 100（測試代碼）</div><div class="symbol">FOREXCOM:NSXUSD</div></div><div class="chart"><tv-mini-chart symbol="FOREXCOM:NSXUSD" theme="light"></tv-mini-chart></div></div>
+</div></section>
+<section class="group" id="asia"><div class="rows">
+<div class="row"><div><div class="name">台灣加權指數</div><div class="symbol">TWSE:IX0001</div></div><div class="chart"><tv-mini-chart symbol="TWSE:IX0001" theme="light"></tv-mini-chart></div></div>
+<div class="row"><div><div class="name">日經 225</div><div class="symbol">INDEX:NKY</div></div><div class="chart"><tv-mini-chart symbol="INDEX:NKY" theme="light"></tv-mini-chart></div></div>
+<div class="row"><div><div class="name">香港恆生指數</div><div class="symbol">HSI</div></div><div class="chart"><tv-mini-chart symbol="HSI" theme="light"></tv-mini-chart></div></div>
+</div></section>
+<section class="group" id="eu"><div class="rows">
+<div class="row"><div><div class="name">英國 FTSE 100</div><div class="symbol">FOREXCOM:UKXGBP</div></div><div class="chart"><tv-mini-chart symbol="FOREXCOM:UKXGBP" theme="light"></tv-mini-chart></div></div>
+<div class="row"><div><div class="name">德國 DAX</div><div class="symbol">INDEX:DEU40</div></div><div class="chart"><tv-mini-chart symbol="INDEX:DEU40" theme="light"></tv-mini-chart></div></div>
+<div class="row"><div><div class="name">法國 CAC 40（測試代碼）</div><div class="symbol">TVC:CAC40</div></div><div class="chart"><tv-mini-chart symbol="TVC:CAC40" theme="light"></tv-mini-chart></div></div>
+</div></section>
+<footer>資料與圖表由 TradingView Widget 提供；本頁不自行抓取行情、不儲存行情，也不代表正式網站已部署。免費網站元件的資料頻率因商品與交易所而異。<br><a href="https://www.tradingview.com/widget-docs/widgets/charts/mini-chart/" target="_blank" rel="noopener">官方 Mini Chart 說明</a> · <a href="https://www.tradingview.com/widget-docs/faq/data/" target="_blank" rel="noopener">資料頻率與限制</a></footer></main>
+<script>document.querySelectorAll('.tab').forEach(button=>{button.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b===button));document.querySelectorAll('.group').forEach(g=>g.classList.toggle('active',g.id===button.dataset.tab));});});</script></body></html>
