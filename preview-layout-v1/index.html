@@ -2770,6 +2770,21 @@ main.wrap>.tac-main-panel>.card{margin:0!important}
 .nav{gap:6px!important;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
 
+
+/* FIX: unify all ten main-panel heading sizes in the preview only */
+:root{--tac-main-heading-size:clamp(21px,2.4vw,26px)}
+main.wrap .card>.title,
+main.wrap .tac-section-heading h2,
+main.wrap .section-title,
+main.wrap h2.section-heading,
+main.wrap .panel-title,
+main.wrap .card-title,
+main.wrap [data-main-section-title]{
+  font-size:var(--tac-main-heading-size)!important;
+  line-height:1.25!important;
+  font-weight:900!important;
+}
+
 </style>
 <script id="tac-toolbar-hand-target-v15-js">
 (function(){
