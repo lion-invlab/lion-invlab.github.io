@@ -2920,7 +2920,7 @@ main.wrap [data-main-section-title]{
    hand.style.setProperty('display','flex','important');
    var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
    var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
-   var ty=Math.max(4,tr.top+tr.height/2-20);
+   var ty=Math.max(4,Math.min(window.innerHeight-44,tr.bottom+2));
    var sy=Math.max(ty+54,Math.min(window.innerHeight-54,hr.top+hr.height/2-20));
    hand.style.setProperty('--tac-hand-x',x+'px');hand.style.setProperty('--tac-hand-y',ty+'px');
    if(anim){anim.cancel();anim=null}
