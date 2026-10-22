@@ -2746,6 +2746,32 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 }
 @media(min-width:1100px){.tac-tools-arrow-live.tac-toolbar-hand-target{display:none!important}}
 
+/* FIX: equal vertical spacing between main panels in the preview */
+main.wrap{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:16px!important;
+}
+main.wrap>div[style*="height:14px"]{
+  display:none!important;
+  height:0!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+main.wrap>section,
+main.wrap>section.grid,
+main.wrap>section.tac-tabset,
+main.wrap>section.card,
+main.wrap>div[id],
+main.wrap>.tac-main-panel{
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
+main.wrap>section.grid>article.card{
+  margin-top:0!important;
+  margin-bottom:0!important;
+}
 /* PREVIEW V1: isolated main panels and consistent spacing; preserve original capsule/hand UI */
 
 /* FIX: force news scan to remain a standalone flex item; following panels start outside its frame */
