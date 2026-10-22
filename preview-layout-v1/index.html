@@ -1610,9 +1610,13 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 
 
 <style id="tac-preview-overview-sentiment-gap-fix">
-/* PREVIEW V1: make the gap between Summary and Market Sentiment match the other main panels */
+/* PREVIEW V1: use one consistent 16px vertical gap between the main panels */
 @media(max-width:1099px){
-  main.wrap>.tac-section-gap + section#sentiment{margin-top:-10px!important}
+  main.wrap>.tac-section-gap{display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important}
+  main.wrap>section.grid + .tac-section-gap + section.grid,
+  main.wrap>section.grid + section.grid{margin-top:16px!important}
+  main.wrap>section.grid + .tac-section-gap + section.grid#sentiment{margin-top:16px!important}
+  main.wrap>section.grid + section.grid{row-gap:16px!important}
 }
 </style>
 
