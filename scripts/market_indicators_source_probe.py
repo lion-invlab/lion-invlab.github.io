@@ -51,6 +51,22 @@ with sync_playwright() as p:
             page.wait_for_timeout(6500)
             item["title"] = page.title()
             item["final_url"] = page.url
+            # Yahoo's ticker symbol alone is not enough to establish instrument identity.
+            # The current ^MOVE page title identifies a Northern Trust iBoxx 5-Year
+            # Treasury instrument, not the ICE BofA MOVE Index. Exclude it from fallback
+            # validation unless the page title explicitly identifies the target index.
+            if source["key"] == "move_yahoo_history":
+                title = item["title"].casefold()
+                item["instrument_identity_valid"] = (
+                    "merrill lynch option volatility estimate" in title
+                    or "ice bofa move index" in title
+                    or "ice bofaml move index" in title
+                )
+                if not item["instrument_identity_valid"]:
+                    item["instrument_identity_warning"] = (
+                        "Ticker ^MOVE page title does not identify the ICE BofA MOVE Index; "
+                        "rows must not be treated as independent MOVE-index history."
+                    )
             try:
                 body = page.locator("body").inner_text(timeout=10000)
             except Exception as exc:
@@ -334,7 +350,11 @@ with sync_playwright() as p:
             except Exception as exc:
                 item["screenshot_status"] = "failed"
                 item["screenshot_error"] = f"{type(exc).__name__}: {exc}"
-            item["ok"] = bool(response and response.status == 200 and len(body) > 100 and all(x["close_candidate"] is not None for x in item["rows"]))
+            item["ok"] = bool(
+                response and response.status == 200 and len(body) > 100
+                and all(x["close_candidate"] is not None for x in item["rows"])
+                and item.get("instrument_identity_valid", True)
+            )
             item["note"] = "Historical row values are candidates; verify column semantics and source publication date before production use."
         except Exception as exc:
             item["error"] = f"{type(exc).__name__}: {exc}"
