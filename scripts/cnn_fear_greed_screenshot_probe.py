@@ -141,3 +141,4 @@ if result["status"] != "validated":
     raise SystemExit(1)
 
 # Repeatability note: this isolated probe is intentionally fail-closed on missing fields.
+# Validation pass 2: re-run on a fresh GitHub runner to check repeatability.
