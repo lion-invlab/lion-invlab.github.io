@@ -58,3 +58,5 @@ jobs:
             market-indicators-source-probe.log
           if-no-files-found: warn
           retention-days: 30
+
+# Queue the corrected Cboe CSV date parser validation run.
