@@ -446,7 +446,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 /* /TAC_NEWS_ZEBRA_V31 */
 
 </style>
-<meta content="V22" name="report-version"/><meta content="2026-10-20" name="report-date"/><style>
+<meta content="V22" name="report-version"/><meta content="2026-10-22" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
 .econ-event-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:8px 0 12px}
 .econ-event{border:1px solid #dfe3e6;border-radius:14px;background:#fff;overflow:hidden;min-width:0}
@@ -1682,7 +1682,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 }
 </style>
 
-<meta name="tac-correction-test" content="僅修正今日關鍵價位；正式母版未修改；行情未更新"></head>
+<meta name="tac-correction-test" content="修正報告與行情日期錯置；關鍵價位待來源核實；正式母版未修改"></head>
 <body>
 
 <header class="top">
@@ -1700,12 +1700,12 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <a href="#view">今日觀察重點</a>
 </nav></header>
 <main class="wrap" id="overview">
-<div class="data-sync-warning" role="status" style="margin:12px 0;padding:12px 14px;border:1px solid #d97706;border-left:5px solid #d97706;border-radius:10px;background:#fff7ed;color:#7c2d12;font-size:13px;line-height:1.6;font-weight:750">測試母版資料同步警示：市場情緒與多數市場報價仍是 2026/10/21，今日關鍵價位基準為 2026/10/22。兩者日期尚未同步；新聞也尚未逐則核實原始發布時間、時區及最後更新時間，不能視為已通過新聞時間窗檢查。請勿直接發布；每日製作時須先更新報價、新聞與摘要評論，逐則驗證新聞時間窗，再重新驗證關鍵價位。</div>
+<div class="data-sync-warning" role="status" style="margin:12px 0;padding:12px 14px;border:1px solid #d97706;border-left:5px solid #d97706;border-radius:10px;background:#fff7ed;color:#7c2d12;font-size:13px;line-height:1.6;font-weight:750">測試母版日期同步警示：本報告日期為 2026/10/22，美股應採 2026/10/21 當地正式收盤。VIX、MOVE 與 CNN Fear & Greed 已按 10/21 資料口徑呈現；全球市場報價、關鍵價位 OHLC 與評論仍須逐項交叉核對。關鍵價位在同一交易日 OHLC 未核實前不顯示數值；新聞尚未逐則核實原始發布時間、時區及最後更新時間。此測試版不可直接發布。</div>
 <section class="grid two">
 <article class="card bluf">
 <div class="title">總結</div>
 <h1>同日市場摘要待核實</h1>
-<p><b>市場定調｜待同步核實</b><br/>本測試母版的關鍵價位已使用 2026/10/22 同日 OHLC；但總結摘要仍未完成 2026/10/22 收盤行情與主要驅動因素的來源交叉核對。為避免將 10/21 舊資料誤當最新市場結論，本區暫停沿用舊行情與評論，待同日數據核實後再更新。</p>
+<p><b>市場定調｜待同步核實</b><br/>本報告日期為 2026/10/22，美股行情基準應為 2026/10/21 當地正式收盤。VIX、MOVE 與 CNN Fear &amp; Greed 的 10/21 指標已核對到可查歷史資料；但全球指數、產業、利率／商品與新聞尚未全部完成交叉核對，因此不沿用未驗證的市場摘要與評論。</p>
 
 </article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
 <div class="title">市場情緒</div>
@@ -1897,15 +1897,15 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="fc-fomc-meeting"><span>下次 FOMC 會議</span><b>2026/10/27–10/28</b></div><div class="fc-fomc-press"><span>記者會時間（台灣時間）</span><b>10/29（四）02:30</b></div><div class="fc-fomc-rate"><span>目前目標利率</span><b>3.75%–4.00%</b><small>2026/10/21 快照</small></div><div class="fc-fomc-observation"><span>核心觀察</span><b>通膨／油價／AI 融資</b></div>
 <p>會議日期與政策資訊請以聯準會官方公告為準。</p></div></div>
 </div></div></section><div style="height:14px"></div><section class="card today-focus" id="view"><div class="title today-focus-title">今日觀察重點</div><div class="focus-tabs"><input checked="checked" id="focus-tab-market" name="focus-tab" type="radio"/><input id="focus-tab-levels" name="focus-tab" type="radio"/><input id="focus-tab-core" name="focus-tab" type="radio"/><div class="focus-tab-labels"><label for="focus-tab-market">市場觀點</label><label for="focus-tab-levels">今日關鍵價位</label><label for="focus-tab-core">今日核心觀察</label></div><div class="focus-panels"><div class="focus-panel focus-market"><div class="key"><b>市場觀點｜待同步核實</b><br/>目前關鍵價位使用 2026/10/22 同日 OHLC，但市場觀點仍含 2026/10/21 收盤行情及舊催化劑。因尚未完成同一交易日的指數、產業、利率／商品與新聞交叉核對，暫停顯示舊評論；不以推測補值。待 2026/10/22 正式收盤資料與來源核實完成後，再同步更新觀察結論。</div></div><div class="focus-panel focus-levels"><div class="key">
-<b>道瓊工業指數：</b>支撐 S1：52,608.28｜中樞 P：52,768.08｜壓力 R1：53,027.78<br/>
-<b>S&amp;P 500：</b>支撐 S1：7,632.88｜中樞 P：7,667.91｜壓力 R1：7,698.46<br/>
-<b>Nasdaq Composite：</b>支撐 S1：25,831.50｜中樞 P：26,095.45｜壓力 R1：26,272.82<br/>
-<b>費城半導體指數（SOX）：</b>支撐 S1：10,552.15｜中樞 P：10,846.24｜壓力 R1：11,026.07<br/>
-<b>Russell 2000：</b>支撐 S1：2,769.43｜中樞 P：2,777.18｜壓力 R1：2,791.77<br/>
+<b>道瓊工業指數：</b>支撐／中樞／壓力：待核實（10/21 OHLC）<br/>
+<b>S&amp;P 500：</b>支撐／中樞／壓力：待核實（10/21 OHLC）<br/>
+<b>Nasdaq Composite：</b>支撐／中樞／壓力：待核實（10/21 OHLC）<br/>
+<b>費城半導體指數（SOX）：</b>支撐／中樞／壓力：待核實（10/21 OHLC）<br/>
+<b>Russell 2000：</b>支撐／中樞／壓力：待核實（10/21 OHLC）<br/>
 <details class="audit-details"><summary>價位計算與資料驗證規則</summary><div class="audit-content">只有在同一交易日的收盤價與 OHLC 資料日期一致、來源可讀且數值完整時，才計算並顯示支撐／壓力區。若來源缺漏、交易日不一致或擷取失敗，前台不沿用舊價位、不推估數字，改顯示待更新狀態。</div></details>
 </div></div><div class="focus-panel focus-core"><div class="callout">
-<b>今日核心觀察：</b>本測試檔目前的核心觀察仍引用 10/22 的行事曆與 10/21 的市場資料，未完成最新交易日及當日催化劑的交叉核對，因此不把舊內容冒充為今日更新。
-<details class="audit-details"><summary>核心觀察更新與失敗處理</summary><div class="audit-content"><b>新聞時間窗與篩選規則：</b>新聞時間窗｜週二至週五版：前一日12:00至本次實際截稿時間（台灣時間）。每則新聞記錄原始發布時間、時區、最後更新時間及來源；時間窗以實際截稿時間為上限，不可用搜尋結果排序時間代替發布時間。時間窗外舊聞不得當作新消息；同一事件的重複報導應合併。全球焦點須平衡美國、亞洲、歐洲與能源／商品；財報季提高重要公司財報與財測權重。若原始時間無法核實，標示待核實或剔除，不得猜測。</div><div class="audit-content">核心觀察須以最新已完成交易日的指數、產業廣度、利率／商品變動、當日經濟行事曆與重要公司財報交叉整理。每筆資料應記錄資料日期、來源與擷取時間；若日期過期、來源無回應或欄位不足，應標示待核實並阻止舊結論被當成今日結論。本次僅修正測試版的過期資料提示，尚未接上即時行情或新聞擷取服務。</div></details>
+<b>今日核心觀察：</b>本報告日期為 10/22，美股行情基準為 10/21 當地正式收盤。市場觀察與評論待全球市場報價、產業表現、利率／商品及新聞來源交叉核對後更新；在資料同步完成前不得發布為已驗收版本。
+<details class="audit-details"><summary>核心觀察更新與失敗處理</summary><div class="audit-content"><b>新聞時間窗與篩選規則：</b>新聞時間窗｜週二至週五版：前一日12:00至本次實際截稿時間（台灣時間）。每則新聞記錄原始發布時間、時區、最後更新時間及來源；時間窗以實際截稿時間為上限，不可用搜尋結果排序時間代替發布時間。時間窗外舊聞不得當作新消息；同一事件的重複報導應合併。全球焦點須平衡美國、亞洲、歐洲與能源／商品；財報季提高重要公司財報與財測權重。若原始時間無法核實，標示待核實或剔除，不得猜測。</div><div class="audit-content">核心觀察須以最新已完成交易日的指數、產業廣度、利率／商品變動、當日經濟行事曆與重要公司財報交叉整理。每筆資料應記錄資料日期、來源與擷取時間；若日期過期、來源無回應或欄位不足，應標示待核實並阻止舊結論被當成今日結論。本次測試版已移除未核實的關鍵價位數值，避免將錯置交易日的 OHLC 計算結果當成有效價位；尚未完成所有市場報價及新聞逐則驗證。</div></details>
 </div></div></div></div></section>
 <div style="height:14px"></div>
 </main>
