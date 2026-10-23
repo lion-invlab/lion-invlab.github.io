@@ -144,6 +144,38 @@ def probe_vix_fred():
         item.update({"status":"failed","error":f"{type(e).__name__}: {e}"})
     return item
 
+
+def probe_tradingview_move():
+    url = "https://scanner.tradingview.com/america/scan"
+    item = {"source":"TradingView scanner (TVC:MOVE)", "url":"https://tw.tradingview.com/symbols/TVC-MOVE/"}
+    payload = json.dumps({
+        "symbols":{"tickers":["TVC:MOVE"],"query":{"types":[]}},
+        "columns":["close","change","name","description","update_mode","currency","pricescale","type","typespecs"]
+    }).encode("utf-8")
+    try:
+        req = Request(url, data=payload, headers={"User-Agent":UA,"Content-Type":"application/json",
+                    "Accept":"application/json","Origin":"https://www.tradingview.com",
+                    "Referer":"https://www.tradingview.com/"}, method="POST")
+        with urlopen(req, timeout=20) as r:
+            body = r.read()
+            status = r.status
+        data = json.loads(body.decode("utf-8"))
+        rows = data.get("data") or []
+        row = next((x for x in rows if x.get("s") == "TVC:MOVE"), rows[0] if rows else None)
+        if not row or not isinstance(row.get("d"), list) or row["d"][0] is None:
+            raise ValueError("TradingView scanner returned no close value for TVC:MOVE")
+        vals = row["d"]
+        item.update({"status":"ok","http_status":status,"symbol":row.get("s"),
+                     "value":vals[0],"change_percent":vals[1],
+                     "name":vals[2],"description":vals[3],"update_mode":vals[4],
+                     "currency":vals[5],"price_scale":vals[6],"instrument_type":vals[7],
+                     "captured_at_utc":datetime.now(timezone.utc).isoformat(),
+                     "quote_type":"TradingView scanner snapshot; session date and official close not independently confirmed",
+                     "usable_as_official_daily_close":False})
+    except Exception as e:
+        item.update({"status":"failed","error":f"{type(e).__name__}: {e}"})
+    return item
+
 def probe_move_web():
     urls = [
         "https://www.google.com/finance/quote/MOVE:INDEXNYSEGIS",
@@ -209,7 +241,12 @@ if report["sources"]["VIX"].get("status") != "ok":
         report["sources"]["VIX"]["status"] = "ok_via_fallback"
         report["sources"]["VIX"]["latest_daily_close"] = vix_fb["latest_daily_close"]
         report["sources"]["VIX"]["effective_source"] = vix_fb["source"]
-report["sources"]["MOVE"] = probe_move_web()
+report["sources"]["MOVE"] = probe_tradingview_move()
+if report["sources"]["MOVE"].get("status") != "ok":
+    report["sources"]["MOVE"]["fallback"] = probe_move_web()
+    if report["sources"]["MOVE"]["fallback"].get("status") == "ok":
+        report["sources"]["MOVE"]["status"] = "ok_via_fallback"
+        report["sources"]["MOVE"]["effective_source"] = report["sources"]["MOVE"]["fallback"]["source"]
 if report["sources"]["MOVE"].get("status") != "ok":
     report["sources"]["MOVE"]["fallback"] = probe_move_web()
     if report["sources"]["MOVE"]["fallback"].get("status") == "ok":
