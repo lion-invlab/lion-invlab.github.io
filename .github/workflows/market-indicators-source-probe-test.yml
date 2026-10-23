@@ -1,4 +1,5 @@
 name: TAC VIX MOVE SOX Source Access Isolated Test
+# Validate Nasdaq official quote parsing after isolated parser update.
 
 on:
   push:
