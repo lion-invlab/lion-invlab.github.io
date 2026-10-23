@@ -9,6 +9,7 @@ SESSION = date.fromisoformat(sys.argv[1]) if __name__ == "__main__" and len(sys.
 YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ESOX"
 FRED_URL = "https://fred.stlouisfed.org/data/NASDAQSOX"
 INVESTING_URL = "https://ph.investing.com/indices/phlx-semiconductor-historical-data"
+YCHARTS_URL = "https://ycharts.com/indices/%5ESOX/level"
 NASDAQ_URLS = {
     "Nasdaq OMX overview": "https://indexes.nasdaqomx.com/Index/Overview/SOX",
     "Nasdaq indexes overview": "https://indexes.nasdaq.com/index/overview/SOX",
@@ -51,6 +52,24 @@ def extract_investing_row(html, session):
     return {"Open": open_, "High": high, "Low": low, "Close": close}
 
 
+def extract_ycharts_row(html, session):
+    """Parse YCharts public historical OHLC table for the exact session date."""
+    flat = clean_html(html)
+    month = session.strftime("%b")
+    # YCharts table order is Date, Open, High, Low, Close.
+    pattern = (
+        rf"\b{re.escape(month)}\s+{session.day},\s*{session.year}\s+"
+        rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)\s+"
+        rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)"
+    )
+    m = re.search(pattern, flat, re.I)
+    if not m:
+        return None
+    values = [float(x.replace(",", "")) for x in m.groups()]
+    open_, high, low, close = values
+    return {"Open": open_, "High": high, "Low": low, "Close": close}
+
+
 def main():
     print(f"SOX 指定交易日數值驗證｜date={SESSION}｜測試分支專用，不寫入正式早報/JSON")
     s = requests.Session()
@@ -85,25 +104,39 @@ def main():
         failures.append(f"Yahoo OHLC 來源失敗：{type(e).__name__}: {e}")
         print("YAHOO_API｜FAIL｜" + failures[-1])
 
-    # Independent public historical-table cross-check. Investing.com is not
-    # treated as an official Nasdaq source; it verifies the exact-date OHLC
-    # independently of Yahoo when its historical row is accessible.
-    investing = None
+    # Independent public historical-table cross-check. Prefer Investing.com;
+    # fall back to YCharts when Investing blocks automated requests (e.g. HTTP 403).
+    secondary = None
+    secondary_name = None
     try:
         r = s.get(INVESTING_URL, timeout=(5, 20))
         r.raise_for_status()
-        investing = extract_investing_row(r.text, SESSION)
-        if investing is None:
-            preview = clean_html(r.text)
-            print(f"INVESTING｜UNPARSEABLE｜HTTP={r.status_code}｜body_chars={len(r.text)}｜preview={preview[:180]}")
+        secondary = extract_investing_row(r.text, SESSION)
+        if secondary is None:
+            print(f"INVESTING｜UNPARSEABLE｜HTTP={r.status_code}｜body_chars={len(r.text)}")
         else:
-            print(f"INVESTING｜PASS｜date={SESSION}｜O={investing['Open']:.2f} H={investing['High']:.2f} L={investing['Low']:.2f} C={investing['Close']:.2f}")
-            if yahoo is not None:
-                for key in ("Open", "High", "Low", "Close"):
-                    if abs(investing[key] - yahoo[key]) > TOLERANCE:
-                        failures.append(f"Investing.com {key} 與 Yahoo 不一致：Investing={investing[key]:.2f}, Yahoo={yahoo[key]:.2f}")
+            secondary_name = "Investing.com"
+            print(f"INVESTING｜PASS｜date={SESSION}｜O={secondary['Open']:.2f} H={secondary['High']:.2f} L={secondary['Low']:.2f} C={secondary['Close']:.2f}")
     except Exception as e:
         print(f"INVESTING｜UNAVAILABLE｜{type(e).__name__}: {e}")
+
+    if secondary is None:
+        try:
+            r = s.get(YCHARTS_URL, timeout=(5, 20))
+            r.raise_for_status()
+            secondary = extract_ycharts_row(r.text, SESSION)
+            if secondary is None:
+                print(f"YCHARTS｜UNPARSEABLE｜HTTP={r.status_code}｜body_chars={len(r.text)}")
+            else:
+                secondary_name = "YCharts"
+                print(f"YCHARTS｜PASS｜date={SESSION}｜O={secondary['Open']:.2f} H={secondary['High']:.2f} L={secondary['Low']:.2f} C={secondary['Close']:.2f}")
+        except Exception as e:
+            print(f"YCHARTS｜UNAVAILABLE｜{type(e).__name__}: {e}")
+
+    if secondary is not None and yahoo is not None:
+        for key in ("Open", "High", "Low", "Close"):
+            if abs(secondary[key] - yahoo[key]) > TOLERANCE:
+                failures.append(f"{secondary_name} {key} 與 Yahoo 不一致：{secondary[key]:.2f} vs {yahoo[key]:.2f}")
 
     # Compare machine-readable Yahoo close against each parseable official
     # Nasdaq snapshot. Stale dates and variant disagreements are hard failures.
@@ -180,18 +213,18 @@ def main():
         print(f"FRED｜DIAGNOSTIC_UNAVAILABLE｜{type(e).__name__}: {e}")
 
     independent_crosscheck = (
-        yahoo is not None and investing is not None and
-        all(abs(investing[k] - yahoo[k]) <= TOLERANCE for k in ("Open", "High", "Low", "Close"))
+        yahoo is not None and secondary is not None and
+        all(abs(secondary[k] - yahoo[k]) <= TOLERANCE for k in ("Open", "High", "Low", "Close"))
     )
     if not independent_crosscheck:
-        failures.append("未能完成 Yahoo Finance 與 Investing.com 的指定日 OHLC 雙來源交叉驗證")
+        failures.append("未能完成 Yahoo Finance 與第二公開歷史來源的指定日 OHLC 雙來源交叉驗證")
 
     if failures:
         print("FINAL｜FAIL｜不可將此日期 SOX 資料視為驗收通過")
         for issue in failures:
             print("REASON｜" + issue)
         sys.exit(1)
-    print("FINAL｜PASS_WITH_LIMITATION｜Yahoo Finance 與 Investing.com 指定日 OHLC 一致；Nasdaq 公開頁面未提供可驗證的同日歷史快照，官方歷史服務需 GIW 權限，故不宣稱 Nasdaq 官方交叉驗收通過。")
+    print("FINAL｜PASS_WITH_LIMITATION｜Yahoo Finance 與第二公開歷史來源（Investing.com 優先，YCharts 備援）指定日 OHLC 一致；Nasdaq 公開頁面未提供可驗證的同日歷史快照，官方歷史服務需 GIW 權限，故不宣稱 Nasdaq 官方交叉驗收通過。")
 
 if __name__ == "__main__":
     main()
