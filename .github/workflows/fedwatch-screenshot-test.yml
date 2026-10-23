@@ -1,0 +1,48 @@
+name: TAC FedWatch Screenshot Isolated Test
+
+on:
+  push:
+    branches:
+      - test/market-sentiment-auto-20261023
+    paths:
+      - ".github/workflows/fedwatch-screenshot-test.yml"
+      - "scripts/fedwatch_screenshot_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-fedwatch-screenshot-isolated-test
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Open CME FedWatch and capture evidence
+        run: python scripts/fedwatch_screenshot_probe.py | tee fedwatch-screenshot-test.log
+      - name: Upload screenshot and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-fedwatch-screenshot-${{ github.run_id }}
+          path: |
+            fedwatch-evidence/
+            fedwatch-screenshot-test.log
+          if-no-files-found: warn
+          retention-days: 30
