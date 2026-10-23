@@ -1,0 +1,28 @@
+name: Test TAC Key Levels Data Source
+
+on:
+  workflow_dispatch:
+    inputs:
+      session_date:
+        description: "Expected US trading session date (YYYY-MM-DD)"
+        required: true
+        default: "2026-10-22"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validation dependencies
+        run: python -m pip install --disable-pip-version-check yfinance pandas
+      - name: Validate key levels for requested session
+        run: python scripts/test_tac_key_levels.py "${{ inputs.session_date }}"
