@@ -59,6 +59,50 @@ with sync_playwright() as p:
             item["candidate_quote_source"] = None
             item["candidate_quote_status"] = "not_found"
             lines = [line.strip() for line in body.splitlines() if line.strip()]
+            # Explicitly separate quote date/time from capture time. Google Finance's
+            # "Today" is not sufficient evidence of a prior-session close.
+            item["candidate_quote_date"] = None
+            item["candidate_quote_timestamp"] = None
+            item["previous_close"] = item.get("previous_close")
+            item["previous_close_source"] = item.get("previous_close_source")
+            item["close_interpretation"] = "unclassified; do not publish as validated close"
+            if source["key"] == "vix_cboe":
+                asof = re.search(r"\(as of\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})\)", body, re.I)
+                if asof:
+                    try:
+                        item["candidate_quote_date"] = datetime.strptime(asof.group(1), "%B %d, %Y").date().isoformat()
+                    except ValueError:
+                        pass
+                data_asof = re.search(r"Data as of\s+([0-9:]+\s*[AP]M)\s+(\d{1,2}/\d{1,2}/\d{4})", body, re.I)
+                if data_asof:
+                    item["candidate_quote_timestamp"] = f"{data_asof.group(2)} {data_asof.group(1)}"
+            elif source["key"] == "sox_nasdaq":
+                asof = re.search(r"DATA AS OF\s+(\d{1,2}/\d{1,2}/\d{4})", body, re.I)
+                if asof:
+                    try:
+                        item["candidate_quote_date"] = datetime.strptime(asof.group(1), "%m/%d/%Y").date().isoformat()
+                    except ValueError:
+                        pass
+            elif source["key"] in ("vix_google", "move_google", "sox_google"):
+                # Google Finance typically renders a quote timestamp like
+                # "Oct 22, 4:17:30 PM UTC-4" in the visible page text.
+                ts = re.search(r"\b([A-Za-z]{3}\s+\d{1,2},\s+\d{1,2}:\d{2}(?::\d{2})?\s*[AP]M\s+UTC[+-]\d+)\b", body)
+                if ts:
+                    item["candidate_quote_timestamp"] = ts.group(1)
+                    try:
+                        parsed = datetime.strptime(ts.group(1).split(" UTC")[0], "%b %d, %I:%M:%S %p")
+                    except ValueError:
+                        try:
+                            parsed = datetime.strptime(ts.group(1).split(" UTC")[0], "%b %d, %I:%M %p")
+                        except ValueError:
+                            parsed = None
+                    if parsed:
+                        item["candidate_quote_date"] = parsed.replace(year=2026).date().isoformat()
+            prev_google = re.search(r"Prev\. close\s+([0-9,]+\.\d+)", body, re.I)
+            if prev_google and source["key"] in ("vix_google", "move_google", "sox_google"):
+                item["previous_close"] = float(prev_google.group(1).replace(",", ""))
+                item["previous_close_source"] = "Google Finance explicitly labelled Prev. close; candidate only"
+                item["previous_close_status"] = "candidate_only_previous_session_close"
             label_by_key = {
                 "vix_google": ["VIX"],
                 "move_google": ["Merrill Lynch Option Volatility Estimate", "MOVE"],
@@ -117,6 +161,20 @@ with sync_playwright() as p:
             item["ok"] = bool(response and response.status == 200 and len(body) > 100 and all(item["keyword_checks"].values()) and screenshot_path.exists())
             if not item["ok"]:
                 result["validation_errors"].append(f"{source['label']}: page/keyword/screenshot validation failed")
+            # Classify semantics, not just successful numeric extraction.
+            if source["key"] == "vix_cboe" and item.get("previous_close") is not None:
+                item["close_interpretation"] = "previous_close field extracted; session date must be independently confirmed"
+            elif source["key"] == "sox_nasdaq" and item.get("candidate_quote_date"):
+                item["close_interpretation"] = "dated official index quote candidate; compare with independent source and verify change arithmetic"
+                pc = re.search(r"Previous Close\s+([0-9,]+\.\d+)", body, re.I)
+                if pc:
+                    item["previous_close"] = float(pc.group(1).replace(",", ""))
+                    item["previous_close_source"] = "Nasdaq official Previous Close field; candidate only"
+                    item["previous_close_status"] = "candidate_only_previous_session_close"
+            elif source["key"] in ("move_google", "sox_google") and item.get("candidate_quote_date"):
+                item["close_interpretation"] = "timestamped quote candidate; timestamp and independent source must confirm regular-session close"
+            elif source["key"] == "vix_google" and item.get("candidate_quote_timestamp"):
+                item["close_interpretation"] = "timestamped VIX quote; do not assume it is prior-session close"
             # Do not treat a displayed quote as validated until extraction and independent numeric cross-check exist.
             item["quote_extraction_status"] = item.get("candidate_quote_status", "not_applicable_official_page_capture_only")
         except Exception as exc:
@@ -126,6 +184,27 @@ with sync_playwright() as p:
         page.close()
     browser.close()
 
+# Cross-source comparison is deliberately limited to SOX quotes from the same dated session.
+by_key = {x.get("key"): x for x in result["sources"]}
+g = by_key.get("sox_google", {})
+n = by_key.get("sox_nasdaq", {})
+result["cross_source_checks"] = []
+if g.get("candidate_quote") is not None and n.get("candidate_quote") is not None:
+    same_date = bool(g.get("candidate_quote_date") and g.get("candidate_quote_date") == n.get("candidate_quote_date"))
+    same_value = abs(float(g["candidate_quote"]) - float(n["candidate_quote"])) < 0.02
+    result["cross_source_checks"].append({
+        "pair": ["sox_google", "sox_nasdaq"],
+        "same_quote_date": same_date,
+        "values_match_within_0_02": same_value,
+        "result": "candidate_sources_agree" if same_date and same_value else "needs_manual_review",
+        "note": "Agreement is a diagnostic only; it does not certify source accuracy or production readiness."
+    })
+result["interpretation_policy"] = {
+    "capture_timestamp_is_not_quote_timestamp": True,
+    "previous_close_must_not_be_confused_with_current_quote": True,
+    "production_approval": False,
+    "reason": "Probe captures visible fields only; no automated external historical-source adjudication is performed."
+}
 result["finished_at"] = stamp()
 result["status"] = "capture_passed_needs_numeric_validation" if not result["validation_errors"] else "failed"
 (OUT / "market-indicators-source-probe.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
