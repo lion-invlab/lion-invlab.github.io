@@ -42,6 +42,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          echo "Running isolated quote candidate parser validation"
           xvfb-run -a python scripts/market_indicators_source_probe.py | tee market-indicators-source-probe.log
       - name: Upload screenshots and diagnostics
         if: always()
