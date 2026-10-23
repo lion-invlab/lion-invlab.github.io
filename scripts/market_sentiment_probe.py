@@ -208,6 +208,37 @@ def probe_move_web():
                                  "quote_type":"page snapshot; session date not confirmed",
                                  "validation_note":"Do not label as previous close unless page exposes and validates the session date."})
                     return item
+            # Investing.com historical table rows: Date | Price | Open | High | Low | Vol. | Change %.
+            if "investing.com/indices/ice-bofaml-move-historical-data" in url:
+                inv_rows = []
+                for row_html in re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.I|re.S):
+                    cells = [re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", " ", cell)).strip()
+                             for cell in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row_html, re.I|re.S)]
+                    if len(cells) < 2:
+                        continue
+                    date_text = cells[0].strip()
+                    dt = None
+                    for fmt in ("%d/%m/%Y", "%b %d, %Y", "%B %d, %Y"):
+                        try:
+                            dt = datetime.strptime(date_text, fmt).date()
+                            break
+                        except ValueError:
+                            pass
+                    if dt is None:
+                        continue
+                    price_text = re.sub(r"[^0-9.\\-]", "", cells[1])
+                    try:
+                        price = float(price_text)
+                    except ValueError:
+                        continue
+                    if 20 <= price <= 250:
+                        inv_rows.append({"date": dt.isoformat(), "close": price})
+                if inv_rows:
+                    item.update({"status":"ok","http_status":status,"latest_daily_close":inv_rows[0],
+                                 "history":inv_rows[:5],"quote_type":"daily close from structured Investing.com historical table",
+                                 "validation_note":"Verify the latest session date against an independent source before publishing.",
+                                 "attempts_before_success":errors[:]})
+                    return item
             # EODData uses structured table rows: Date | Open | High | Low | Close | Volume.
             if "eoddata.com" in url:
                 eod_rows = []
