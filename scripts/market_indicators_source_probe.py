@@ -318,8 +318,8 @@ for live_key, hist_key in [("vix_google", "vix_yahoo_history"), ("move_google", 
     # A one-decimal backup (EODData) can only support a rounded comparison, not exact agreement.
     displayed_precision = None
     if prior and prior.get("row_text"):
-        date_stripped = re.sub(r"^.*?\\b(?:26|2026)\\b", "", prior["row_text"], count=1)
-        numeric_tokens = re.findall(r"(?<![A-Za-z])[-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.\\d+)?", date_stripped)
+        date_stripped = re.sub(r"^.*?\b(?:26|2026)\b", "", prior["row_text"], count=1)
+        numeric_tokens = re.findall(r"(?<![A-Za-z])[-+]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?", date_stripped)
         if numeric_tokens:
             token = numeric_tokens[hist.get("value_index", 0)]
             displayed_precision = len(token.rsplit(".", 1)[1]) if "." in token else 0
