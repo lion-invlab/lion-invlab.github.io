@@ -7,6 +7,7 @@ on:
     paths:
       - ".github/workflows/tac-market-data.yml"
       - "scripts/collect_tac_market_data.py"
+      - "scripts/collect_tac_news.py"
   workflow_dispatch:
   schedule:
     # 04:10 Taiwan time, Mon-Fri (20:10 UTC, previous day)
@@ -38,17 +39,27 @@ jobs:
         id: collect
         continue-on-error: true
         run: python scripts/collect_tac_market_data.py
-      - name: Commit dated snapshot and FedWatch source snapshot
+      - name: Collect Cnyes news candidates
+        id: news
+        continue-on-error: true
+        run: python scripts/collect_tac_news.py
+      - name: Commit market and news snapshots
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/tac_market_snapshot.json
+          if [ -f data/tac_news_snapshot.json ]; then git add data/tac_news_snapshot.json; fi
           if [ -f data/fedwatch_snapshot.html ]; then git add data/fedwatch_snapshot.html; fi
-          git diff --cached --quiet || git commit -m "Collect TAC market data snapshot"
+          git diff --cached --quiet || git commit -m "Collect TAC market and Cnyes news snapshots"
           git push
-      - name: Fail run if validation incomplete
+      - name: Fail run if market validation incomplete
         if: steps.collect.outcome != 'success'
         run: |
           echo "Collection incomplete; inspect data/tac_market_snapshot.json and workflow logs."
+          exit 1
+      - name: Fail run if news collection unavailable
+        if: steps.news.outcome != 'success'
+        run: |
+          echo "News collection unavailable; inspect data/tac_news_snapshot.json and workflow logs."
           exit 1
