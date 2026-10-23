@@ -30,6 +30,7 @@ result = {
     "status": "running",
     "sources": [],
     "validation_errors": [],
+    "nonblocking_warnings": [],
 }
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=False, args=["--disable-dev-shm-usage"])
@@ -175,7 +176,17 @@ with sync_playwright() as p:
             item["keyword_checks"] = {word: bool(re.search(re.escape(word), body, re.I)) for word in source["needles"]}
             item["ok"] = bool(response and response.status == 200 and len(body) > 100 and all(item["keyword_checks"].values()) and screenshot_path.exists())
             if not item["ok"]:
-                result["validation_errors"].append(f"{source['label']}: page/keyword/screenshot validation failed")
+                message = f"{source['label']}: page/keyword/screenshot validation failed"
+                # Barchart historical endpoint is optional; HTTP 403/access denial
+                # should remain visible but must not fail the whole capture probe.
+                if source["key"] == "move_barchart_api":
+                    result["nonblocking_warnings"].append(message)
+                    item["blocking_for_capture"] = False
+                else:
+                    result["validation_errors"].append(message)
+                    item["blocking_for_capture"] = True
+            else:
+                item["blocking_for_capture"] = False
             # Classify semantics, not just successful numeric extraction.
             if source["key"] == "vix_cboe" and item.get("previous_close") is not None:
                 item["close_interpretation"] = "previous_close field extracted; session date must be independently confirmed"
