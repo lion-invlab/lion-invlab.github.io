@@ -234,8 +234,8 @@ if g.get("candidate_quote") is not None and n.get("candidate_quote") is not None
 # Validate VIX displayed daily point changes against each page's own quote and previous close.
 # These arithmetic checks catch extraction/label errors but do not establish which source is correct.
 for key, pattern in [
-    ("vix_google", r"\\(([+-][0-9,]+\\.\\d+)\\)\\s*Today"),
-    ("vix_cboe", r"([0-9]+\\.\\d+)%\\s*\\(([+-][0-9,]+\\.\\d+)\\)\\s*CHANGE"),
+    ("vix_google", r"\(([+-][0-9,]+\.\d+)\)\s*Today"),
+    ("vix_cboe", r"([0-9]+\.\d+)%\s*\(([+-][0-9,]+\.\d+)\)\s*CHANGE"),
 ]:
     item = by_key.get(key, {})
     if item.get("candidate_quote") is not None and item.get("previous_close") is not None:
