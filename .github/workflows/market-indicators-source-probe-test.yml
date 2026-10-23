@@ -68,3 +68,5 @@ jobs:
 # 2026-10-23: retry canonical Investing.com MOVE historical endpoint after AU endpoint was blocked.
 
 # 2026-10-23: test UK Investing.com MOVE history page after canonical endpoint remained blocked.
+
+# 2026-10-23: test direct Barchart MOVE historical page capture after Investing.com endpoints returned HTTP 403.
