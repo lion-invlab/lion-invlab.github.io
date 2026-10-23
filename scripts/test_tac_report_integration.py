@@ -172,5 +172,29 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                               "熱門頭條需保留最終時間核驗提醒")
 
 
+class DatedReportKeyLevelsTests(unittest.TestCase):
+    """Regression checks for the dated 2026-10-23 test report, based on the 2026-10-22 US close."""
+    def test_dated_report_has_verified_russell_levels_and_no_placeholder(self):
+        html = Path("2026-10-23.html").read_text(encoding="utf-8")
+        start = html.find(START)
+        end = html.find(END, start + len(START))
+        self.assertGreaterEqual(start, 0, "2026-10-23.html 缺少今日關鍵價位面板")
+        self.assertGreater(end, start, "2026-10-23.html 的關鍵價位面板邊界錯誤")
+        panel = html[start:end]
+        self.assertIn("Russell 2000｜2,784.03（+0.11%）", panel)
+        self.assertIn("支撐：2,769.43　｜　壓力：2,791.77", panel)
+        self.assertIn("P=2,777.18、S1=2,769.43、R1=2,791.77", panel)
+        self.assertIn("High 2,784.92、Low 2,762.58、Close 2,784.03", panel)
+        for source in ("Yahoo Finance", "YCharts", "ChartExchange"):
+            self.assertIn(source, panel, f"2026-10-23.html 缺少 Russell 2000 來源：{source}")
+        self.assertNotIn("本次來源測試未涵蓋", panel)
+        self.assertNotIn("Russell 2000 尚未納入本次來源驗證", panel)
+
+    def test_dated_report_market_pin_mentions_russell_relative_resilience(self):
+        html = Path("2026-10-23.html").read_text(encoding="utf-8")
+        self.assertIn("Russell 2000 僅上漲 0.11%，相對抗跌", html)
+        self.assertIn("資料日期：2026/10/22 美國正式收盤", html)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
