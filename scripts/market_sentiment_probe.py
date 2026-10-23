@@ -159,11 +159,15 @@ def probe_tradingview_move():
         with urlopen(req, timeout=20) as r:
             body = r.read()
             status = r.status
-        data = json.loads(body.decode("utf-8"))
+        raw_text = body.decode("utf-8", errors="replace")
+        try:
+            data = json.loads(raw_text)
+        except Exception:
+            raise ValueError(f"Non-JSON response HTTP {status}: {raw_text[:500]}")
         rows = data.get("data") or []
         row = next((x for x in rows if x.get("s") == "TVC:MOVE"), rows[0] if rows else None)
         if not row or not isinstance(row.get("d"), list) or row["d"][0] is None:
-            raise ValueError("TradingView scanner returned no close value for TVC:MOVE")
+            raise ValueError(f"No close row for TVC:MOVE; response={raw_text[:1000]}")
         vals = row["d"]
         item.update({"status":"ok","http_status":status,"symbol":row.get("s"),
                      "value":vals[0],"change_percent":vals[1],
