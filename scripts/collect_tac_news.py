@@ -28,7 +28,7 @@ adapter = HTTPAdapter(max_retries=retry)
 session.mount("https://", adapter)
 
 def clean(value):
-    return re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", " ", value or "")).strip()
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", value or "")).strip()
 
 def parse_date(value):
     if not value:
@@ -99,7 +99,7 @@ def main():
             errors.append({"source": feed["name"], "url": feed["url"], "error": error})
     seen, unique = set(), []
     for item in sorted(collected, key=lambda x: x.get("published_utc") or "", reverse=True):
-        key = re.sub(r"[^a-z0-9\\u4e00-\\u9fff]", "", item["title"].lower())
+        key = "".join(ch for ch in item["title"].lower() if ch.isalnum())
         if key in seen:
             continue
         seen.add(key)
