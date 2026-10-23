@@ -1,0 +1,55 @@
+name: TAC CNN Fear & Greed Screenshot Isolated Test
+
+on:
+  push:
+    branches:
+      - test/cnn-fear-greed-screenshot-20261023
+    paths:
+      - ".github/workflows/cnn-fear-greed-screenshot-test.yml"
+      - "scripts/cnn_fear_greed_screenshot_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-cnn-fear-greed-isolated-test
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright and verify X virtual framebuffer
+        run: |
+          if ! command -v xvfb-run >/dev/null 2>&1; then
+            sudo apt-get install -y xvfb
+          fi
+          command -v xvfb-run
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install chromium
+      - name: Open CNN official page, capture screenshot and validate data
+        shell: bash
+        run: |
+          set -o pipefail
+          xvfb-run -a python scripts/cnn_fear_greed_screenshot_probe.py | tee cnn-fear-greed-screenshot-test.log
+      - name: Upload screenshot and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-cnn-fear-greed-screenshot-${{ github.run_id }}
+          path: |
+            cnn-fg-evidence/
+            cnn-fear-greed-screenshot-test.log
+          if-no-files-found: warn
+          retention-days: 30
