@@ -45,6 +45,8 @@ with sync_playwright() as p:
     try:
         response = page.goto(URL, wait_until="domcontentloaded", timeout=30000)
         result["http_status"] = response.status if response else None
+        if response is None or response.status != 200:
+            result["validation_errors"].append(f"CNN official page returned HTTP {response.status if response else 'no response'}.")
         page.wait_for_timeout(7000)
         result["title"] = page.title()
         result["final_url"] = page.url
@@ -57,6 +59,11 @@ with sync_playwright() as p:
             result["screenshots"].append("cnn-fg-evidence/cnn-fear-greed-official-page.png")
         except Exception as exc:
             result["validation_errors"].append(f"Official CNN page screenshot failed: {type(exc).__name__}: {exc}")
+
+        if "Fear & Greed" not in result.get("page_text_excerpt", ""):
+            result["validation_errors"].append("Official page text does not contain the Fear & Greed heading.")
+        if not result["screenshots"]:
+            result["validation_errors"].append("Official page screenshot is missing.")
 
         # CNN's page renders this JSON endpoint. Request it with browser-like headers and retain raw evidence.
         api = context.request.get(DATA_URL, headers={
@@ -96,6 +103,26 @@ with sync_playwright() as p:
                 result["source_timestamp_raw"] = timestamp
                 result["score_source_key"] = "fear_and_greed.score" if "score" in fg else "fear_and_greed.value"
                 result["payload_top_level_keys"] = list(payload.keys())[:40] if isinstance(payload, dict) else []
+                if score is not None:
+                    displayed_score = str(round(score))
+                    body = result.get("page_text_excerpt", "")
+                    if not re.search(rf"(?<!\\d){re.escape(displayed_score)}(?!\\d)", body):
+                        result["validation_errors"].append(
+                            f"Rounded API score {displayed_score} was not found in official page text."
+                        )
+                if isinstance(rating, str) and rating.strip():
+                    normalized_rating = rating.strip().lower()
+                    rating_display = {
+                        "extreme fear": "Extreme Fear",
+                        "fear": "Fear",
+                        "neutral": "Neutral",
+                        "greed": "Greed",
+                        "extreme greed": "Extreme Greed",
+                    }.get(normalized_rating)
+                    if rating_display and rating_display not in result.get("page_text_excerpt", ""):
+                        result["validation_errors"].append(
+                            f"API rating {rating_display!r} was not found in official page text."
+                        )
                 if score is not None and isinstance(rating, str) and rating.strip() and timestamp is not None:
                     result["validated"] = True
 
