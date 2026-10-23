@@ -123,7 +123,7 @@ with sync_playwright() as p:
             qtext, re.I
         )
         next_row = re.search(
-            r"(?m)^\s*(\d{3}-\d{3})\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%",
+            r"(?m)^\s*(\d{3}-\d{3})\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%\s+[0-9]+(?:\.[0-9]+)?%\s+[0-9]+(?:\.[0-9]+)?%\s*$",
             qtext, re.I
         )
         errors = result["validation_errors"]
