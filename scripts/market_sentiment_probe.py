@@ -160,11 +160,17 @@ if report["sources"]["VIX"].get("status") != "ok":
     report["sources"]["VIX"]["fallback"] = probe_vix_fred()
     if report["sources"]["VIX"]["fallback"].get("status") == "ok":
         report["sources"]["VIX"]["fallback_used"] = True
+        report["sources"]["VIX"]["status"] = "ok_via_fallback"
+        report["sources"]["VIX"]["latest_daily_close"] = report["sources"]["VIX"]["fallback"]["latest_daily_close"]
+        report["sources"]["VIX"]["effective_source"] = report["sources"]["VIX"]["fallback"]["source"]
 report["sources"]["MOVE"] = probe_yahoo("%5EMOVE", "MOVE")
 if report["sources"]["MOVE"].get("status") != "ok":
     report["sources"]["MOVE"]["fallback"] = probe_move_web()
     if report["sources"]["MOVE"]["fallback"].get("status") == "ok":
         report["sources"]["MOVE"]["fallback_used"] = True
+        report["sources"]["MOVE"]["status"] = "ok_via_fallback"
+        report["sources"]["MOVE"]["latest_daily_close"] = report["sources"]["MOVE"]["fallback"]["latest_daily_close"]
+        report["sources"]["MOVE"]["effective_source"] = report["sources"]["MOVE"]["fallback"]["source"]
 report["sources"]["CNN_FEAR_GREED"] = probe_cnn()
 report["sources"]["CME_FEDWATCH"] = probe_cme_page()
 now = datetime.now(timezone.utc)
@@ -173,7 +179,7 @@ report["captured_at_utc"] = now.isoformat()
 report["captured_at_taipei"] = now.astimezone(ZoneInfo("Asia/Taipei")).isoformat()
 report["summary"] = {k: v.get("status") for k,v in report["sources"].items()}
 report["automatically_usable_count"] = sum(1 for k,v in report["sources"].items()
-    if v.get("status") == "ok" and k != "CME_FEDWATCH")
+    if v.get("status") in ("ok", "ok_via_fallback") and k != "CME_FEDWATCH")
 print(json.dumps(report, ensure_ascii=False, indent=2))
 with open("market-sentiment-probe.json", "w", encoding="utf-8") as f:
     json.dump(report, f, ensure_ascii=False, indent=2)
