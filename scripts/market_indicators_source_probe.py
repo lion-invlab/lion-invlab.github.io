@@ -250,7 +250,7 @@ with sync_playwright() as p:
                 matching = next((line for line in lines if re.search(date_pattern, line, re.I)), None)
                 row = {"date": target_date, "row_text": matching, "close_candidate": None, "status": "row_not_found"}
                 if matching:
-                    nums = re.findall(r"(?<![A-Za-z])[-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.\\d+)?", matching)
+                    row_payload = re.sub(date_pattern, "", matching, count=1, flags=re.I)\n                    nums = re.findall(r"(?<![A-Za-z])[-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.\\d+)?", row_payload)
                     # Yahoo rows start with the date followed by Open/High/Low/Close;
                     # Investing.com rows start with date then Price (close candidate).
                     if len(nums) > source["value_index"]:
