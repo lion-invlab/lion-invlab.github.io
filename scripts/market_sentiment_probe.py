@@ -104,8 +104,67 @@ def probe_cme_page():
         item.update({"status":"failed", "error":f"{type(e).__name__}: {e}"})
     return item
 
+
+def probe_vix_fred():
+    url = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS"
+    item = {"source":"FRED VIXCLS daily close (CBOE-sourced fallback)", "url":url}
+    try:
+        status, ctype, body = fetch(url, {"Accept":"text/csv"})
+        rows = [x.strip().split(",") for x in body.decode("utf-8-sig").splitlines() if x.strip()]
+        valid = [{"date":r[0], "close":float(r[1])} for r in rows[1:] if len(r)>1 and re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}",r[0]) and r[1] not in (".","")]
+        if not valid: raise ValueError("No dated VIX close rows")
+        item.update({"status":"ok","http_status":status,"latest_daily_close":valid[-1],
+                     "history":valid[-5:],"quote_type":"daily close","note":"FRED can lag the latest trading session; validate session date before report use."})
+    except Exception as e:
+        item.update({"status":"failed","error":f"{type(e).__name__}: {e}"})
+    return item
+
+def probe_move_web():
+    urls = [
+        "https://www.investing.com/indices/ice-bofaml-move-historical-data",
+        "https://www.eoddata.com/stockquote/INDEX/MOVE.htm"
+    ]
+    errors = []
+    for url in urls:
+        item = {"source":"MOVE public historical page fallback", "url":url}
+        try:
+            status, ctype, body = fetch(url, {"Accept":"text/html,application/xhtml+xml"})
+            html = body.decode("utf-8", errors="replace")
+            plain = re.sub(r"<[^>]+>", " ", html)
+            plain = re.sub(r"\\s+", " ", plain)
+            # Match a dated row and the first numeric field following the date; keep raw evidence for review.
+            matches = []
+            for m in re.finditer(r"(Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\\s+\\d{1,2},?\\s+20\\d{2}", plain):
+                tail = plain[m.end():m.end()+100]
+                nums = re.findall(r"(?<![\\w])\\d{2,3}\\.\\d{2}(?![\\w])", tail)
+                if nums:
+                    matches.append({"date_text":m.group(0),"close":float(nums[0])})
+            if not matches:
+                # EODData can render a compact table; use ISO-like or abbreviated day rows.
+                for m in re.finditer(r"(\\d{1,2}\\s+(?:Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\\s+\\d{2})", plain):
+                    nums = re.findall(r"(?<![\\w])\\d{2,3}\\.\\d{2}(?![\\w])", plain[m.end():m.end()+100])
+                    if nums: matches.append({"date_text":m.group(0),"close":float(nums[0])})
+            if not matches:
+                raise ValueError("Page returned but no dated MOVE daily close rows could be parsed")
+            item.update({"status":"ok","http_status":status,"latest_daily_close":matches[0],
+                         "history":matches[:5],"quote_type":"daily close candidate",
+                         "validation_note":"Confirm parsed row and session date against a second independent source before publishing."})
+            return item
+        except Exception as e:
+            errors.append({"url":url,"error":f"{type(e).__name__}: {e}"})
+    return {"source":"MOVE public historical page fallback","status":"failed","attempts":errors}
+
+
 report["sources"]["VIX"] = probe_yahoo("%5EVIX", "VIX")
+if report["sources"]["VIX"].get("status") != "ok":
+    report["sources"]["VIX"]["fallback"] = probe_vix_fred()
+    if report["sources"]["VIX"]["fallback"].get("status") == "ok":
+        report["sources"]["VIX"]["fallback_used"] = True
 report["sources"]["MOVE"] = probe_yahoo("%5EMOVE", "MOVE")
+if report["sources"]["MOVE"].get("status") != "ok":
+    report["sources"]["MOVE"]["fallback"] = probe_move_web()
+    if report["sources"]["MOVE"]["fallback"].get("status") == "ok":
+        report["sources"]["MOVE"]["fallback_used"] = True
 report["sources"]["CNN_FEAR_GREED"] = probe_cnn()
 report["sources"]["CME_FEDWATCH"] = probe_cme_page()
 now = datetime.now(timezone.utc)
