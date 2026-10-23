@@ -113,13 +113,13 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertIn("今日核心觀察", html)
                 self.assertIn("class=\"data-sync-warning\"", html,
                               f"{path.name} 未提示市場報價日期與關鍵價位日期不一致")
-                self.assertIn("其餘市場評論與新聞仍須逐項交叉核對", html,
+                self.assertIn("其他市場評論與新聞仍須逐項交叉核對", html,
                               f"{path.name} 未明示仍未同步的主要報價日期")
-                self.assertIn("VIX、MOVE 與 CNN Fear &amp; Greed 已按 10/21 資料口徑呈現", html,
+                self.assertIn("VIX、MOVE 與 CNN Fear & Greed 已按 10/21 資料口徑呈現", html,
                               f"{path.name} 未明示已更新的市場情緒指標日期")
                 self.assertIn("基準交易日：2026/10/21", html,
                               f"{path.name} 未明示關鍵價位日期")
-                self.assertIn("請勿直接發布", html,
+                self.assertIn("此測試版不可直接發布", html,
                               f"{path.name} 未阻止未同步母版直接發布")
                 self.assertIn("新聞尚未逐則核實原始發布時間、時區及最後更新時間", html,
                               f"{path.name} 未警示新聞時間戳尚未逐則驗證")
