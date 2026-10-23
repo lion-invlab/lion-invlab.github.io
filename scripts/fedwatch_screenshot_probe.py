@@ -77,10 +77,10 @@ with sync_playwright() as p:
             if i == 0 or "quikstrike" not in frame.url.lower():
                 continue
             try:
-                body_text = frame.locator("body").inner_text(timeout=4000)[:6000]
+                body_text = frame.locator("body").inner_text(timeout=4000)
             except Exception as exc:
                 body_text = f"[frame body unavailable: {type(exc).__name__}: {exc}]"
-            item = {"index": i, "url": frame.url, "name": frame.name, "text_excerpt": body_text}
+            item = {"index": i, "url": frame.url, "name": frame.name, "text_excerpt": body_text[:6000], "text_full": body_text}
             result["frames"].append(item)
             try:
                 frame.locator("body").screenshot(path=str(OUT / f"fedwatch-frame-{i}.png"), timeout=8000)
@@ -94,26 +94,40 @@ with sync_playwright() as p:
             h in all_text.lower() for h in ["probability", "target rate", "no change", "meeting", "加息", "降息"]
         )
 
-        # Parse only the embedded QuikStrike frame text; do not infer values from page-level marketing text.
-        qtext = "\n".join(t for f, t in zip(result["frames"], frame_texts) if "quikstrike" in f.get("url", "").lower())
-        meeting = re.search(r"MEETING INFORMATION\s+MEETING DATE\s+CONTRACT.*?\n(\d{1,2}\s+[A-Z][a-z]{2}\s+\d{4})\b", qtext, re.S)
+        # Parse only the embedded QuikStrike frame text; normalize invisible Unicode separators first.
+        qtext_raw = "\\n".join(
+            f.get("text_full", f.get("text_excerpt", ""))
+            for f in result["frames"]
+            if "quikstrike" in f.get("url", "").lower()
+        )
+        qtext = re.sub(r"[\\u200b\\u200c\\u200d\\ufeff\\u00a0]+", " ", qtext_raw)
+        qtext = re.sub(r"[ \\t]+", " ", qtext)
+        qtext = re.sub(r"\\n{2,}", "\\n", qtext)
+
+        meeting = (
+            re.search(r"Target Rate Probabilities for\\s+(\\d{1,2}\\s+[A-Z][a-z]{2}\\s+\\d{4})\\s+Fed Meeting", qtext, re.I)
+            or re.search(r"MEETING INFORMATION.*?MEETING DATE.*?\\n(\\d{1,2}\\s+[A-Z][a-z]{2}\\s+\\d{4})\\b", qtext, re.S | re.I)
+        )
         prob_section = re.search(
-            r"PROBABILITIES\s+EASE\s+NO CHANGE\s+HIKE\s+([0-9]+(?:\.[0-9]+)?)\s*%\s+([0-9]+(?:\.[0-9]+)?)\s*%\s+([0-9]+(?:\.[0-9]+)?)\s*%",
+            r"PROBABILITIES\\s+EASE\\s+NO CHANGE\\s+HIKE\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%",
             qtext, re.I | re.S
         )
-        current_rate = re.search(r"Current target rate is\s+(\d{3}-\d{3})", qtext, re.I)
-        data_stamp = re.search(r"Data as of\s+([^\n]+)", qtext, re.I)
+        current_rate = (
+            re.search(r"(\\d{3}-\\d{3})\\s*\\(Current\\)", qtext, re.I)
+            or re.search(r"Current target rate is\\s+(\\d{3}-\\d{3})", qtext, re.I)
+        )
+        data_stamp = re.search(r"Data as of\\s+([^\\n]+)", qtext, re.I)
         errors = result["validation_errors"]
         if not result["has_quikstrike_frame"]:
             errors.append("Missing embedded QuikStrike frame.")
         if not meeting:
-            errors.append("Could not parse meeting date from MEETING INFORMATION.")
+            errors.append("Could not parse Fed meeting date from embedded QuikStrike text.")
         if not prob_section:
-            errors.append("Could not parse EASE / NO CHANGE / HIKE probabilities.")
+            errors.append("Could not parse EASE / NO CHANGE / HIKE probabilities from embedded QuikStrike text.")
         if not current_rate:
-            errors.append("Could not parse current target rate range.")
+            errors.append("Could not parse current target rate range from embedded QuikStrike text.")
         if not data_stamp:
-            errors.append("Could not parse source data timestamp.")
+            errors.append("Could not parse source data timestamp from embedded QuikStrike text.")
         if prob_section:
             ease, unchanged, hike = [float(x) for x in prob_section.groups()]
             total = ease + unchanged + hike
@@ -126,6 +140,8 @@ with sync_playwright() as p:
             result["current_target_rate_bps"] = current_rate.group(1)
         if data_stamp:
             result["source_data_timestamp"] = data_stamp.group(1).strip()
+        result["parser_text_length"] = len(qtext)
+        result["parser_text_excerpt"] = qtext[:10000]
         result["validated_probabilities"] = not errors and bool(result.get("probabilities_pct"))
         result["interpretation"] = (
             "Machine checks passed; human review is still required before publishing."
