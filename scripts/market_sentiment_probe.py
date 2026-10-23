@@ -186,6 +186,7 @@ def probe_move_web():
         "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "https://au.investing.com/indices/ice-bofaml-move-historical-data",
     "https://ca.investing.com/indices/ice-bofaml-move-historical-data",
+    "https://stock-marketdata.com/merrill-lynch-option-volatility-estimate",
         "https://www.eoddata.com/stockquote/INDEX/MOVE.htm"
     ]
     errors = []
@@ -208,6 +209,31 @@ def probe_move_web():
                                  "captured_at_utc":datetime.now(timezone.utc).isoformat()},
                                  "quote_type":"page snapshot; session date not confirmed",
                                  "validation_note":"Do not label as previous close unless page exposes and validates the session date."})
+                    return item
+            # Japanese Stock Market Data publishes a dated MOVE time-series table.
+            if "stock-marketdata.com/merrill-lynch-option-volatility-estimate" in url:
+                jp_rows = []
+                for row_html in re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.I|re.S):
+                    cells = [re.sub(r"\\s+", " ", re.sub(r"<[^>]+>", " ", cell)).strip()
+                             for cell in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row_html, re.I|re.S)]
+                    if len(cells) < 2:
+                        continue
+                    date_match = re.search(r"(20\\d{2})年(\\d{1,2})月(\\d{1,2})日", cells[0])
+                    if not date_match:
+                        continue
+                    value_text = re.sub(r"[^0-9.\\-]", "", cells[1])
+                    try:
+                        value = float(value_text)
+                    except ValueError:
+                        continue
+                    if 20 <= value <= 250:
+                        jp_rows.append({"date":f"{int(date_match.group(1)):04d}-{int(date_match.group(2)):02d}-{int(date_match.group(3)):02d}",
+                                        "close":value})
+                if jp_rows:
+                    item.update({"status":"ok","http_status":status,"latest_daily_close":jp_rows[0],
+                                 "history":jp_rows[:10],"quote_type":"dated MOVE daily close from Japanese market-data table",
+                                 "validation_note":"Cross-check date and closing value against a second source before publishing.",
+                                 "attempts_before_success":errors[:]})
                     return item
             # Investing.com historical table rows: Date | Price | Open | High | Low | Vol. | Change %.
             if "investing.com/indices/ice-bofaml-move-historical-data" in url:
