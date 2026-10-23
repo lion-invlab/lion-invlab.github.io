@@ -53,18 +53,6 @@ with sync_playwright() as p:
                 item["body_error"] = f"{type(exc).__name__}: {exc}"
             item["body_text"] = body[:12000]
             item["body_text_length"] = len(body)
-            # Extract a quote candidate from the visible page text near the exact ticker.
-            # Candidate values are diagnostic only until date/close semantics are validated.
-            ticker = {"vix_google": "VIX", "move_google": "MOVE", "sox_google": "SOX"}.get(source["key"])
-            if ticker:
-                ticker_pattern = rf"(?:^|\\n){re.escape(ticker)}\\s*\\n\\s*([0-9]{{1,3}}(?:,[0-9]{{3}})*(?:\\.[0-9]+)?|[0-9]+(?:\\.[0-9]+)?)\\s*\\n"
-                match = re.search(ticker_pattern, body, re.I | re.M)
-                if match:
-                    item["candidate_quote"] = float(match.group(1).replace(",", ""))
-                    item["candidate_quote_source"] = "visible page text: exact ticker followed by numeric quote"
-                    item["candidate_quote_status"] = "candidate_only"
-                else:
-                    item["candidate_quote_status"] = "ticker_quote_pattern_not_found"
             # Extract Google Finance's visible headline quote as a candidate only.
             # This is not publication-approved until independently cross-checked.
             item["candidate_quote"] = None
@@ -84,6 +72,19 @@ with sync_playwright() as p:
                     item["candidate_quote_display_text"] = quote_text[:120]
                 except Exception as exc:
                     item["candidate_quote_status"] = f"selector_unavailable: {type(exc).__name__}: {exc}"
+
+            # Extract a quote candidate from the visible page text near the exact ticker.
+            # Candidate values are diagnostic only until date/close semantics are validated.
+            ticker = {"vix_google": "VIX", "move_google": "MOVE", "sox_google": "SOX"}.get(source["key"])
+            if ticker:
+                ticker_pattern = rf"(?:^|\n){re.escape(ticker)}\s*\n\s*([0-9]{{1,3}}(?:,[0-9]{{3}})*(?:\.[0-9]+)?|[0-9]+(?:\.[0-9]+)?)\s*\n"
+                match = re.search(ticker_pattern, body, re.I | re.M)
+                if match:
+                    item["candidate_quote"] = float(match.group(1).replace(",", ""))
+                    item["candidate_quote_source"] = "visible page text: exact ticker followed by numeric quote"
+                    item["candidate_quote_status"] = "candidate_only"
+                else:
+                    item["candidate_quote_status"] = "ticker_quote_pattern_not_found"
             screenshot_path = OUT / f"{source['key']}.png"
             try:
                 page.screenshot(path=str(screenshot_path), full_page=False, timeout=12000)
