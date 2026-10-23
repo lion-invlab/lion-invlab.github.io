@@ -75,9 +75,9 @@ def extract_closelook_row(html, session):
     """Parse Closelook public history table by ISO date, never a live snapshot."""
     flat = clean_html(html)
     pattern = (
-        rf"\\b{session.isoformat()}\\s+"
-        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)\\s+"
-        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)"
+        rf"\b{session.isoformat()}\s+"
+        rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)\s+"
+        rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)"
     )
     m = re.search(pattern, flat, re.I)
     if not m:
