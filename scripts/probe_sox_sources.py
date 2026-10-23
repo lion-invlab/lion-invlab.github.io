@@ -39,9 +39,9 @@ def extract_investing_row(html, session):
     month = session.strftime("%b")
     # Table order is Date, Price (close), Open, High, Low.
     pattern = (
-        rf"\\b{re.escape(month)}\\s+{session.day},\\s*{session.year}\\s+"
-        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)\\s+"
-        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)"
+        rf"\b{re.escape(month)}\s+{session.day},\s*{session.year}\s+"
+        rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)\s+"
+        rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)"
     )
     m = re.search(pattern, flat, re.I)
     if not m:
