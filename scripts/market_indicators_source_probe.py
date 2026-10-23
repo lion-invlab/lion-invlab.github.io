@@ -229,11 +229,20 @@ with sync_playwright() as p:
                 if change_match and item.get("previous_close") is not None and item.get("candidate_quote") is not None:
                     displayed_change = float(change_match.group(1).replace(",", ""))
                     calculated_change = float(item["candidate_quote"]) - float(item["previous_close"])
+                    arithmetic_match = abs(displayed_change - calculated_change) < 0.02
                     item["change_arithmetic_check"] = {
                         "displayed_change": displayed_change,
                         "calculated_change": round(calculated_change, 2),
-                        "matches_within_0_02": abs(displayed_change - calculated_change) < 0.02
+                        "matches_within_0_02": arithmetic_match,
+                        "status": "consistent" if arithmetic_match else "official_page_change_conflicts_with_quote_and_previous_close",
+                        "production_blocking": not arithmetic_match
                     }
+                    if not arithmetic_match:
+                        result["validation_errors"].append(
+                            f"SOX Nasdaq official page arithmetic mismatch: displayed change {displayed_change:.2f}, "
+                            f"but quote {item['candidate_quote']:.2f} minus previous close {item['previous_close']:.2f} "
+                            f"equals {calculated_change:.2f}"
+                        )
             elif source["key"] in ("move_google", "sox_google") and item.get("candidate_quote_date"):
                 item["close_interpretation"] = "timestamped quote candidate; timestamp and independent source must confirm regular-session close"
             elif source["key"] == "vix_google" and item.get("candidate_quote_timestamp"):
