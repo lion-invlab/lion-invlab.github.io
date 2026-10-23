@@ -205,7 +205,7 @@ with sync_playwright() as p:
         page.close()
     browser.close()
 
-# Cross-source comparison is deliberately limited to SOX quotes from the same dated session.
+# Cross-source comparison is deliberately limited to dated, comparable fields.
 by_key = {x.get("key"): x for x in result["sources"]}
 g = by_key.get("sox_google", {})
 n = by_key.get("sox_nasdaq", {})
@@ -220,6 +220,35 @@ if g.get("candidate_quote") is not None and n.get("candidate_quote") is not None
         "result": "candidate_sources_agree" if same_date and same_value else "needs_manual_review",
         "note": "Agreement is a diagnostic only; it does not certify source accuracy or production readiness."
     })
+# Compare the VIX previous-close candidates. A disagreement is a useful
+# warning because Google Finance may lag or expose a stale quote widget.
+vg = by_key.get("vix_google", {})
+vc = by_key.get("vix_cboe", {})
+if vg.get("previous_close") is not None and vc.get("previous_close") is not None:
+    delta = abs(float(vg["previous_close"]) - float(vc["previous_close"]))
+    result["cross_source_checks"].append({
+        "pair": ["vix_google.previous_close", "vix_cboe.previous_close"],
+        "values_match_within_0_02": delta < 0.02,
+        "absolute_difference": round(delta, 4),
+        "result": "candidate_sources_agree" if delta < 0.02 else "previous_close_mismatch",
+        "note": "Mismatch blocks automatic close approval; confirm both values refer to the same prior trading session."
+    })
+mg = by_key.get("move_google", {})
+if mg.get("candidate_quote") is not None and mg.get("previous_close") is not None:
+    # The displayed daily change is useful arithmetic validation, not an independent source.
+    body = mg.get("body_text", "")
+    change = re.search(r"([+-][0-9,]+\\.\\d+)\\s*\\(.*?\\)\\s*Today", body, re.I)
+    if change:
+        displayed = float(change.group(1).replace(",", ""))
+        calculated = float(mg["candidate_quote"]) - float(mg["previous_close"])
+        result["cross_source_checks"].append({
+            "pair": ["move_google.quote", "move_google.previous_close"],
+            "displayed_change": displayed,
+            "calculated_change": round(calculated, 2),
+            "change_matches_within_0_02": abs(displayed - calculated) < 0.02,
+            "result": "arithmetic_consistent" if abs(displayed - calculated) < 0.02 else "change_arithmetic_mismatch",
+            "note": "Same-page arithmetic is not an independent source validation."
+        })
 result["interpretation_policy"] = {
     "capture_timestamp_is_not_quote_timestamp": True,
     "previous_close_must_not_be_confused_with_current_quote": True,
