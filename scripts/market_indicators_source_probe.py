@@ -209,12 +209,31 @@ with sync_playwright() as p:
                 item["close_interpretation"] = "previous_close field extracted; session date must be independently confirmed"
             elif source["key"] in ("sox_nasdaq", "sox_nasdaq_omx") and item.get("candidate_quote_date"):
                 item["close_interpretation"] = "dated official index quote candidate; compare with independent source and verify change arithmetic"
-                pc = re.search(r"Previous Close\s+([0-9,]+\.\d+)", body, re.I)
-                if pc:
-                    parsed_previous = float(pc.group(1).replace(",", ""))
+                # The Nasdaq page may repeat a bad "Previous Close" in its
+                # top key-stats block while Summary Details carries the actual
+                # previous-session close. Prefer the section-scoped value.
+                summary_pc = re.search(
+                    r"Summary Details.*?Previous Close\s+([0-9,]+\.\d+)",
+                    body, re.I | re.S
+                )
+                all_pc = [float(x.replace(",", "")) for x in re.findall(r"Previous Close\s+([0-9,]+\.\d+)", body, re.I)]
+                if summary_pc:
+                    parsed_previous = float(summary_pc.group(1).replace(",", ""))
+                    item["previous_close"] = parsed_previous
+                    item["previous_close_source"] = "Nasdaq official Summary Details Previous Close; candidate only"
+                    item["previous_close_status"] = "candidate_only_previous_session_close_section_scoped"
+                    item["previous_close_validation"] = "not_independently_verified"
+                    item["previous_close_all_page_values"] = all_pc
+                    item["previous_close_top_key_stats_conflict"] = bool(
+                        item.get("candidate_quote") is not None
+                        and any(abs(v-float(item["candidate_quote"])) < 0.02 for v in all_pc)
+                        and abs(parsed_previous-float(item["candidate_quote"])) >= 0.02
+                    )
+                    if item["previous_close_top_key_stats_conflict"]:
+                        item["previous_close_note"] = "Top key-stats Previous Close mirrors current quote; section-scoped Summary Details value retained as candidate."
+                elif all_pc:
+                    parsed_previous = all_pc[0]
                     if item.get("candidate_quote") is not None and abs(parsed_previous - float(item["candidate_quote"])) < 0.02:
-                        # Some Nasdaq page variants incorrectly mirror the current
-                        # quote into the Previous Close field. Flag rather than trust it.
                         item["previous_close"] = None
                         item["previous_close_source"] = "Nasdaq official Previous Close field rejected: identical to current quote"
                         item["previous_close_status"] = "rejected_suspected_page_variant_error"
@@ -224,7 +243,7 @@ with sync_playwright() as p:
                         result["validation_errors"].append(
                             f"SOX Nasdaq official page reports Previous Close {parsed_previous:.2f}, "
                             f"identical to its current quote {item['candidate_quote']:.2f}; "
-                            "official previous-close field is invalid for daily-change validation"
+                            "no section-scoped Summary Details previous close was found"
                         )
                     else:
                         item["previous_close"] = parsed_previous
