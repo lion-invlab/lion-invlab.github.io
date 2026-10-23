@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: tac-fedwatch-screenshot-isolated-test
+  group: tac-fedwatch-screenshot-isolated-test-v2
   cancel-in-progress: true
 
 jobs:
