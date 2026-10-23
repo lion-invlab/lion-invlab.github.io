@@ -144,7 +144,7 @@ with sync_playwright() as p:
             errors.append("Could not parse the detailed NOW/current target-rate table row.")
         if not next_row:
             errors.append("Could not parse the next target-rate probability table row.")
-        if not any(name.startswith("fedwatch-frame-") for name in result["screenshots"]):
+        if not any(Path(name).name.startswith("fedwatch-frame-") for name in result["screenshots"]):
             errors.append("Missing screenshot of the embedded QuikStrike frame; parent-page screenshot alone is insufficient.")
         if prob_section and now_row and next_row:
             try:
