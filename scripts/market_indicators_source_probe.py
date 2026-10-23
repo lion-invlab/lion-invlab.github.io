@@ -231,6 +231,27 @@ if g.get("candidate_quote") is not None and n.get("candidate_quote") is not None
         "result": "candidate_sources_agree" if same_date and same_value else "needs_manual_review",
         "note": "Agreement is a diagnostic only; it does not certify source accuracy or production readiness."
     })
+# Validate VIX displayed daily point changes against each page's own quote and previous close.
+# These arithmetic checks catch extraction/label errors but do not establish which source is correct.
+for key, pattern in [
+    ("vix_google", r"\\(([+-][0-9,]+\\.\\d+)\\)\\s*Today"),
+    ("vix_cboe", r"([0-9]+\\.\\d+)%\\s*\\(([+-][0-9,]+\\.\\d+)\\)\\s*CHANGE"),
+]:
+    item = by_key.get(key, {})
+    if item.get("candidate_quote") is not None and item.get("previous_close") is not None:
+        body = item.get("body_text", "")
+        match = re.search(pattern, body, re.I)
+        if match:
+            displayed = float((match.group(2) if key == "vix_cboe" else match.group(1)).replace(",", ""))
+            calculated = float(item["candidate_quote"]) - float(item["previous_close"])
+            result["cross_source_checks"].append({
+                "pair": [f"{key}.quote", f"{key}.previous_close"],
+                "displayed_change": displayed,
+                "calculated_change": round(calculated, 2),
+                "change_matches_within_0_02": abs(displayed - calculated) < 0.02,
+                "result": "arithmetic_consistent" if abs(displayed - calculated) < 0.02 else "change_arithmetic_mismatch",
+                "note": "Same-page arithmetic is not an independent source validation; cross-source disagreements remain blocking."
+            })
 # Compare the VIX previous-close candidates. A disagreement is a useful
 # warning because Google Finance may lag or expose a stale quote widget.
 vg = by_key.get("vix_google", {})
