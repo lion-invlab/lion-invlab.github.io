@@ -74,11 +74,18 @@ with sync_playwright() as p:
                     item["candidate_quote_status"] = "candidate_only"
             elif source["key"] == "vix_cboe":
                 # Cboe's official page exposes the VIX spot price and an explicit as-of date.
-                match = re.search(r"as of\s+([A-Za-z]+\s+\d{1,2},\s+\d{4}).{0,300}?\$([0-9]+\.\d+)", body, re.I | re.S)
+                # Capture both current spot and the explicitly labelled previous close;
+                # never confuse an intraday spot quote with the prior session's close.
+                match = re.search(r"\(as of\s+([A-Za-z]+\s+\d{1,2},\s+\d{4})\)\s+\$([0-9]+\.\d+)", body, re.I | re.S)
+                prev = re.search(r"VIX\s+PREV\. CLOSE\s+([0-9]+\.\d+)", body, re.I)
                 if match:
                     item["candidate_quote"] = float(match.group(2))
                     item["candidate_quote_source"] = f"Cboe official VIX spot price; as of {match.group(1)}"
-                    item["candidate_quote_status"] = "candidate_only"
+                    item["candidate_quote_status"] = "candidate_only_intraday"
+                if prev:
+                    item["previous_close"] = float(prev.group(1))
+                    item["previous_close_source"] = "Cboe official VIX PREV. CLOSE field"
+                    item["previous_close_status"] = "candidate_only_previous_session_close"
             elif labels:
                 for idx, line in enumerate(lines):
                     if any(line.casefold() == label.casefold() for label in labels):
