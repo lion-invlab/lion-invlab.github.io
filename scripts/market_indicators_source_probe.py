@@ -258,12 +258,24 @@ vg = by_key.get("vix_google", {})
 vc = by_key.get("vix_cboe", {})
 if vg.get("previous_close") is not None and vc.get("previous_close") is not None:
     delta = abs(float(vg["previous_close"]) - float(vc["previous_close"]))
+    # Both fields are explicitly labelled previous close, but only Cboe's
+    # capture also carries an as-of date. A mismatch is a blocking alert;
+    # it cannot by itself prove Google is stale because snapshot/session
+    # semantics and market holidays must be checked against historical data.
+    google_date = vg.get("candidate_quote_date")
+    cboe_date = vc.get("candidate_quote_date")
     result["cross_source_checks"].append({
         "pair": ["vix_google.previous_close", "vix_cboe.previous_close"],
+        "google_quote_date": google_date,
+        "cboe_quote_date": cboe_date,
+        "google_previous_close": float(vg["previous_close"]),
+        "cboe_previous_close": float(vc["previous_close"]),
         "values_match_within_0_02": delta < 0.02,
         "absolute_difference": round(delta, 4),
         "result": "candidate_sources_agree" if delta < 0.02 else "previous_close_mismatch",
-        "note": "Mismatch blocks automatic close approval; confirm both values refer to the same prior trading session."
+        "root_cause_status": "not_proven",
+        "next_validation": "Check each value against dated official historical closes for the immediately preceding trading session; do not infer staleness from mismatch alone.",
+        "note": "Mismatch blocks automatic close approval. The probe does not fetch historical close series and must not label a source stale without date-matched evidence."
     })
 # Validate SOX's displayed daily point change against its explicitly labelled previous close.
 # This is same-page arithmetic only; it is not independent source verification.
@@ -316,8 +328,10 @@ if mg.get("candidate_quote") is not None and mg.get("previous_close") is not Non
 result["interpretation_policy"] = {
     "capture_timestamp_is_not_quote_timestamp": True,
     "previous_close_must_not_be_confused_with_current_quote": True,
+    "a_previous_close_mismatch_does_not_prove_which_source_is_stale": True,
+    "dated_historical_close_validation_required": True,
     "production_approval": False,
-    "reason": "Probe captures visible fields only; no automated external historical-source adjudication is performed."
+    "reason": "Probe captures visible fields and compares candidates; it does not fetch a date-matched historical close series, so mismatches remain unresolved until independently verified."
 }
 result["finished_at"] = stamp()
 result["status"] = "capture_passed_needs_numeric_validation" if not result["validation_errors"] else "failed"
