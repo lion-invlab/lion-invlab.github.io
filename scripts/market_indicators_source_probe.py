@@ -386,12 +386,24 @@ vg = by_key.get("vix_google", {})
 vc = by_key.get("vix_cboe", {})
 if vg.get("previous_close") is not None and vc.get("previous_close") is not None:
     delta = abs(float(vg["previous_close"]) - float(vc["previous_close"]))
-    # Both fields are explicitly labelled previous close, but only Cboe's
-    # capture also carries an as-of date. A mismatch is a blocking alert;
-    # it cannot by itself prove Google is stale because snapshot/session
-    # semantics and market holidays must be checked against historical data.
     google_date = vg.get("candidate_quote_date")
     cboe_date = vc.get("candidate_quote_date")
+    vix_hist = history_by_key.get("vix_yahoo_history", {})
+    vix_rows = vix_hist.get("rows", [])
+    row_by_date = {row.get("date"): row for row in vix_rows if row.get("date")}
+    # A one-session-lag diagnosis requires all three dates and values:
+    # Cboe prev close == immediately prior session; Google prev close == the older session.
+    prior_row = next((row for row in vix_rows if row.get("date") and google_date and row["date"] < google_date), None)
+    older_row = None
+    if prior_row:
+        older_row = next((row for row in vix_rows if row.get("date") and row["date"] < prior_row["date"]), None)
+    prior_value = prior_row.get("close_candidate") if prior_row else None
+    older_value = older_row.get("close_candidate") if older_row else None
+    cboe_matches_prior = bool(prior_value is not None and abs(float(vc["previous_close"]) - float(prior_value)) < 0.02)
+    google_matches_older = bool(older_value is not None and abs(float(vg["previous_close"]) - float(older_value)) < 0.02)
+    google_differs_prior = bool(prior_value is not None and abs(float(vg["previous_close"]) - float(prior_value)) >= 0.02)
+    lag_supported = bool(google_date and cboe_date == google_date and cboe_matches_prior and google_matches_older and google_differs_prior)
+    root_status = "google_previous_close_matches_two_sessions_back_one_session_stale_supported" if lag_supported else "not_proven"
     result["cross_source_checks"].append({
         "pair": ["vix_google.previous_close", "vix_cboe.previous_close"],
         "google_quote_date": google_date,
@@ -400,10 +412,18 @@ if vg.get("previous_close") is not None and vc.get("previous_close") is not None
         "cboe_previous_close": float(vc["previous_close"]),
         "values_match_within_0_02": delta < 0.02,
         "absolute_difference": round(delta, 4),
+        "historical_immediately_prior_session_date": prior_row.get("date") if prior_row else None,
+        "historical_immediately_prior_session_close": prior_value,
+        "historical_two_sessions_back_date": older_row.get("date") if older_row else None,
+        "historical_two_sessions_back_close": older_value,
+        "cboe_previous_close_matches_prior_session": cboe_matches_prior,
+        "google_previous_close_matches_two_sessions_back": google_matches_older,
+        "google_previous_close_differs_from_prior_session": google_differs_prior,
         "result": "candidate_sources_agree" if delta < 0.02 else "previous_close_mismatch",
-        "root_cause_status": "not_proven",
-        "next_validation": "Check each value against dated official historical closes for the immediately preceding trading session; do not infer staleness from mismatch alone.",
-        "note": "Mismatch blocks automatic close approval. The probe does not fetch historical close series and must not label a source stale without date-matched evidence."
+        "root_cause_status": root_status,
+        "production_blocking": bool(delta >= 0.02),
+        "next_validation": "A supported one-session lag diagnosis is still a source-quality finding, not production approval; keep this field blocked until a reliable current-session close source is selected.",
+        "note": "Date-based diagnostic uses captured historical rows. It only supports a one-session-lag finding when the Cboe prior close matches the immediately prior session and Google's value matches the older session."
     })
 # Validate SOX's displayed daily point change against its explicitly labelled previous close.
 # This is same-page arithmetic only; it is not independent source verification.
