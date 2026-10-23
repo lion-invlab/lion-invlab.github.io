@@ -8,6 +8,7 @@ import requests
 SESSION = date.fromisoformat(sys.argv[1]) if __name__ == "__main__" and len(sys.argv) > 1 else date.today()
 YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ESOX"
 FRED_URL = "https://fred.stlouisfed.org/data/NASDAQSOX"
+INVESTING_URL = "https://ph.investing.com/indices/phlx-semiconductor-historical-data"
 NASDAQ_URLS = {
     "Nasdaq OMX overview": "https://indexes.nasdaqomx.com/Index/Overview/SOX",
     "Nasdaq indexes overview": "https://indexes.nasdaq.com/index/overview/SOX",
@@ -31,6 +32,24 @@ def extract_nasdaq_snapshot(html):
     snapshot_date = date(yyyy, mm, dd)
     close = float(m.group(2))
     return snapshot_date, close
+
+def extract_investing_row(html, session):
+    """Parse the exact-date historical row from Investing.com HTML when present."""
+    flat = clean_html(html)
+    month = session.strftime("%b")
+    # Table order is Date, Price (close), Open, High, Low.
+    pattern = (
+        rf"\\b{re.escape(month)}\\s+{session.day},\\s*{session.year}\\s+"
+        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)\\s+"
+        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)"
+    )
+    m = re.search(pattern, flat, re.I)
+    if not m:
+        return None
+    values = [float(x.replace(",", "")) for x in m.groups()]
+    close, open_, high, low = values
+    return {"Open": open_, "High": high, "Low": low, "Close": close}
+
 
 def main():
     print(f"SOX 指定交易日數值驗證｜date={SESSION}｜測試分支專用，不寫入正式早報/JSON")
@@ -65,6 +84,26 @@ def main():
     except Exception as e:
         failures.append(f"Yahoo OHLC 來源失敗：{type(e).__name__}: {e}")
         print("YAHOO_API｜FAIL｜" + failures[-1])
+
+    # Independent public historical-table cross-check. Investing.com is not
+    # treated as an official Nasdaq source; it verifies the exact-date OHLC
+    # independently of Yahoo when its historical row is accessible.
+    investing = None
+    try:
+        r = s.get(INVESTING_URL, timeout=(5, 20))
+        r.raise_for_status()
+        investing = extract_investing_row(r.text, SESSION)
+        if investing is None:
+            preview = clean_html(r.text)
+            print(f"INVESTING｜UNPARSEABLE｜HTTP={r.status_code}｜body_chars={len(r.text)}｜preview={preview[:180]}")
+        else:
+            print(f"INVESTING｜PASS｜date={SESSION}｜O={investing['Open']:.2f} H={investing['High']:.2f} L={investing['Low']:.2f} C={investing['Close']:.2f}")
+            if yahoo is not None:
+                for key in ("Open", "High", "Low", "Close"):
+                    if abs(investing[key] - yahoo[key]) > TOLERANCE:
+                        failures.append(f"Investing.com {key} 與 Yahoo 不一致：Investing={investing[key]:.2f}, Yahoo={yahoo[key]:.2f}")
+    except Exception as e:
+        print(f"INVESTING｜UNAVAILABLE｜{type(e).__name__}: {e}")
 
     # Compare machine-readable Yahoo close against each parseable official
     # Nasdaq snapshot. Stale dates and variant disagreements are hard failures.
