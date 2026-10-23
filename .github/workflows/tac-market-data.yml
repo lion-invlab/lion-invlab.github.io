@@ -1,6 +1,12 @@
 name: TAC Market Data Collection (Review Branch)
 
 on:
+  push:
+    branches:
+      - tac-test-2026-10-23
+    paths:
+      - ".github/workflows/tac-market-data.yml"
+      - "scripts/collect_tac_market_data.py"
   workflow_dispatch:
   schedule:
     # 04:10 Taiwan time, Mon-Fri (20:10 UTC, previous day)
