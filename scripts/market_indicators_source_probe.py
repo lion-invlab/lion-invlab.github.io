@@ -153,10 +153,21 @@ with sync_playwright() as p:
                 item["candidate_quote_status"] = "label_quote_pattern_not_found"
             screenshot_path = OUT / f"{source['key']}.png"
             try:
-                page.screenshot(path=str(screenshot_path), full_page=False, timeout=12000)
+                # Google Finance sometimes fails a first screenshot while fonts /
+                # charts are still settling. Retry with animations disabled and a
+                # longer timeout before marking visual evidence unavailable.
+                page.screenshot(path=str(screenshot_path), full_page=False, timeout=30000, animations="disabled")
                 item["screenshot"] = str(screenshot_path)
-            except Exception as exc:
-                item["screenshot_error"] = f"{type(exc).__name__}: {exc}"
+                item["screenshot_status"] = "captured"
+            except Exception as first_exc:
+                item["screenshot_first_error"] = f"{type(first_exc).__name__}: {first_exc}"
+                try:
+                    page.screenshot(path=str(screenshot_path), full_page=False, timeout=30000, animations="disabled", type="png")
+                    item["screenshot"] = str(screenshot_path)
+                    item["screenshot_status"] = "captured_on_retry"
+                except Exception as retry_exc:
+                    item["screenshot_error"] = f"{type(retry_exc).__name__}: {retry_exc}"
+                    item["screenshot_status"] = "failed_after_retry"
             item["keyword_checks"] = {word: bool(re.search(re.escape(word), body, re.I)) for word in source["needles"]}
             item["ok"] = bool(response and response.status == 200 and len(body) > 100 and all(item["keyword_checks"].values()) and screenshot_path.exists())
             if not item["ok"]:
