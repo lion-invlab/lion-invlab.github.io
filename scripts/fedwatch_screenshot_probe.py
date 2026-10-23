@@ -141,22 +141,22 @@ with sync_playwright() as p:
             errors.append("Could not parse the detailed NOW/current target-rate table row.")
         if not next_row:
             errors.append("Could not parse the next target-rate probability table row.")
-        if prob_section and now_row:
+        if prob_section and now_row and next_row:
             try:
                 summary_no_change = float(prob_section.group(2))
                 summary_hike = float(prob_section.group(3))
                 table_no_change = float(now_row.group(2))
-                table_hike = float(now_row.group(3))
+                # The next rate row's first probability is the NOW probability of a hike.
+                table_hike = float(next_row.group(2))
                 if abs(summary_no_change - table_no_change) > 0.01:
-                    errors.append("Summary no-change probability does not match the detailed NOW table.")
+                    errors.append("Summary no-change probability does not match the current-rate NOW table value.")
                 if abs(summary_hike - table_hike) > 0.01:
-                    errors.append("Summary hike probability does not match the detailed NOW table.")
+                    errors.append("Summary hike probability does not match the next-rate NOW table value.")
                 result["table_crosscheck"] = {
                     "current_rate": now_row.group(1),
                     "no_change_pct": table_no_change,
+                    "next_rate": next_row.group(1),
                     "hike_pct": table_hike,
-                    "next_rate": next_row.group(1) if next_row else None,
-                    "next_rate_now_pct": float(next_row.group(2)) if next_row else None,
                     "passed": abs(summary_no_change - table_no_change) <= 0.01 and abs(summary_hike - table_hike) <= 0.01
                 }
             except (ValueError, IndexError) as exc:
