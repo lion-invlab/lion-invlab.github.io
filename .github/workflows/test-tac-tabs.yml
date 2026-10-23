@@ -1,0 +1,34 @@
+name: Test TAC Tab Interactions
+
+on:
+  push:
+    branches:
+      - tac-test-2026-10-23
+    paths:
+      - ".github/workflows/test-tac-tabs.yml"
+      - "scripts/test_tac_tabs_playwright.cjs"
+      - "index.html"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout test branch
+        uses: actions/checkout@v4
+        with:
+          ref: tac-test-2026-10-23
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright
+        run: npm install --no-save playwright
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test tab switching on mobile and desktop viewports
+        run: node scripts/test_tac_tabs_playwright.cjs
