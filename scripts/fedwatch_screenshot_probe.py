@@ -8,22 +8,56 @@ from playwright.sync_api import sync_playwright
 
 OUT = Path("fedwatch-evidence")
 OUT.mkdir(exist_ok=True)
-URL = "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+URLS = [
+    "https://www.cmegroup.com/fedwatch",
+    "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+]
 result = {
     "source": "CME FedWatch official public page",
-    "url": URL,
+    "candidate_urls": URLS,
     "captured_at_utc": datetime.now(timezone.utc).isoformat(),
     "captured_at_taipei": datetime.now(timezone.utc).astimezone(ZoneInfo("Asia/Taipei")).isoformat(),
     "status": "starting",
     "screenshots": [],
     "frames": [],
+    "navigation_attempts": [],
     "validated_probabilities": False,
 }
 with sync_playwright() as p:
-    browser = p.chromium.launch(headless=True)
-    page = browser.new_page(viewport={"width": 1600, "height": 1200}, device_scale_factor=1)
+    # CME's edge occasionally resets HTTP/2 sessions from hosted runners.
+    browser = p.chromium.launch(headless=True, args=["--disable-http2"])
+    page = browser.new_page(
+        viewport={"width": 1600, "height": 1200},
+        device_scale_factor=1,
+        locale="en-US",
+        timezone_id="America/New_York",
+        extra_http_headers={
+            "Accept-Language": "en-US,en;q=0.9",
+            "Upgrade-Insecure-Requests": "1",
+        },
+    )
+    page.set_default_timeout(10000)
+    page.on("requestfailed", lambda req: result.setdefault("request_failures", []).append({
+        "url": req.url, "failure": req.failure
+    }) if len(result.get("request_failures", [])) < 25 else None)
+    response = None
+    for candidate in URLS:
+        try:
+            response = page.goto(candidate, wait_until="domcontentloaded", timeout=45000)
+            result["navigation_attempts"].append({
+                "url": candidate,
+                "http_status": response.status if response else None,
+                "title": page.title(),
+            })
+            result["active_url"] = page.url
+            break
+        except Exception as exc:
+            result["navigation_attempts"].append({
+                "url": candidate, "error": f"{type(exc).__name__}: {exc}"
+            })
     try:
-        response = page.goto(URL, wait_until="domcontentloaded", timeout=60000)
+        if not result.get("active_url"):
+            raise RuntimeError("All CME FedWatch URL attempts failed")
         result["http_status"] = response.status if response else None
         result["initial_title"] = page.title()
         try:
@@ -31,7 +65,6 @@ with sync_playwright() as p:
         except Exception:
             pass
         page.wait_for_timeout(12000)
-        # Dismiss common consent overlays only when an obvious button is present.
         for pattern in ["Accept All", "Accept all", "I Agree", "Agree", "Accept"]:
             try:
                 button = page.get_by_role("button", name=pattern, exact=True).first
@@ -68,7 +101,7 @@ with sync_playwright() as p:
         visible_text = " ".join([result.get("page_text_excerpt", "")] + [f.get("text_excerpt", "") for f in result["frames"]])
         result["has_probability_or_rate_table_hints"] = any(x in visible_text.lower() for x in ["probability", "target rate", "no change", "meeting"])
         result["validated_probabilities"] = False
-        result["interpretation"] = "Screenshots and diagnostic text only. Human review is required; this test does not certify any probability values."
+        result["interpretation"] = "Screenshot capture is not proof that current probabilities loaded. Human review and meeting/date validation are required."
         result["status"] = "captured" if result["screenshots"] else "capture_failed"
     except Exception as exc:
         result["status"] = "failed"
