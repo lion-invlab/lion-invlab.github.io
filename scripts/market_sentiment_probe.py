@@ -105,6 +105,31 @@ def probe_cme_page():
     return item
 
 
+
+def probe_vix_cboe():
+    url = "https://cdn-api.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
+    item = {"source":"Cboe official VIX historical CSV", "url":url}
+    try:
+        status, ctype, body = fetch(url, {"Accept":"text/csv"})
+        rows = [x.strip().split(",") for x in body.decode("utf-8-sig").splitlines() if x.strip()]
+        valid = []
+        for r in rows[1:]:
+            if len(r) >= 5:
+                date_text = r[0].strip()
+                try:
+                    # Cboe historical CSV commonly uses MM/DD/YYYY.
+                    dt = datetime.strptime(date_text, "%m/%d/%Y").date()
+                    close = float(r[4])
+                    valid.append({"date":dt.isoformat(),"close":close})
+                except (ValueError, TypeError):
+                    continue
+        if not valid: raise ValueError("No valid dated Cboe VIX daily close rows parsed")
+        item.update({"status":"ok","http_status":status,"latest_daily_close":valid[-1],
+                     "history":valid[-5:],"quote_type":"official daily close"})
+    except Exception as e:
+        item.update({"status":"failed","error":f"{type(e).__name__}: {e}"})
+    return item
+
 def probe_vix_fred():
     url = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=VIXCLS"
     item = {"source":"FRED VIXCLS daily close (CBOE-sourced fallback)", "url":url}
@@ -121,6 +146,7 @@ def probe_vix_fred():
 
 def probe_move_web():
     urls = [
+        "https://www.google.com/finance/quote/MOVE:INDEXNYSEGIS",
         "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "https://www.eoddata.com/stockquote/INDEX/MOVE.htm"
     ]
@@ -130,6 +156,16 @@ def probe_move_web():
         try:
             status, ctype, body = fetch(url, {"Accept":"text/html,application/xhtml+xml"})
             html = body.decode("utf-8", errors="replace")
+            if "google.com/finance" in url:
+                candidates = re.findall(r'data-last-price="([0-9]+(?:\\.[0-9]+)?)"', html)
+                if not candidates:
+                    candidates = re.findall(r'<div[^>]*class="[^"]*YMlKec[^"]*fxKbKc[^"]*"[^>]*>\\s*([0-9]+(?:\\.[0-9]+)?)\\s*</div>', html)
+                if candidates:
+                    item.update({"status":"ok","http_status":status,"latest_snapshot":{"value":float(candidates[0]),
+                                 "captured_at_utc":datetime.now(timezone.utc).isoformat()},
+                                 "quote_type":"page snapshot; session date not confirmed",
+                                 "validation_note":"Do not label as previous close unless page exposes and validates the session date."})
+                    return item
             plain = re.sub(r"<[^>]+>", " ", html)
             plain = re.sub(r"\\s+", " ", plain)
             # Match a dated row and the first numeric field following the date; keep raw evidence for review.
@@ -155,21 +191,26 @@ def probe_move_web():
     return {"source":"MOVE public historical page fallback","status":"failed","attempts":errors}
 
 
-report["sources"]["VIX"] = probe_yahoo("%5EVIX", "VIX")
+report["sources"]["VIX"] = probe_vix_cboe()
 if report["sources"]["VIX"].get("status") != "ok":
-    report["sources"]["VIX"]["fallback"] = probe_vix_fred()
-    if report["sources"]["VIX"]["fallback"].get("status") == "ok":
+    report["sources"]["VIX"]["fallback"] = probe_yahoo("%5EVIX", "VIX")
+    if report["sources"]["VIX"]["fallback"].get("status") != "ok":
+        report["sources"]["VIX"]["fallback_2"] = probe_vix_fred()
+    vix_fb = report["sources"]["VIX"].get("fallback", {})
+    if vix_fb.get("status") != "ok":
+        vix_fb = report["sources"]["VIX"].get("fallback_2", {})
+    if vix_fb.get("status") == "ok":
         report["sources"]["VIX"]["fallback_used"] = True
         report["sources"]["VIX"]["status"] = "ok_via_fallback"
-        report["sources"]["VIX"]["latest_daily_close"] = report["sources"]["VIX"]["fallback"]["latest_daily_close"]
-        report["sources"]["VIX"]["effective_source"] = report["sources"]["VIX"]["fallback"]["source"]
-report["sources"]["MOVE"] = probe_yahoo("%5EMOVE", "MOVE")
+        report["sources"]["VIX"]["latest_daily_close"] = vix_fb["latest_daily_close"]
+        report["sources"]["VIX"]["effective_source"] = vix_fb["source"]
+report["sources"]["MOVE"] = probe_move_web()
 if report["sources"]["MOVE"].get("status") != "ok":
     report["sources"]["MOVE"]["fallback"] = probe_move_web()
     if report["sources"]["MOVE"]["fallback"].get("status") == "ok":
         report["sources"]["MOVE"]["fallback_used"] = True
         report["sources"]["MOVE"]["status"] = "ok_via_fallback"
-        report["sources"]["MOVE"]["latest_daily_close"] = report["sources"]["MOVE"]["fallback"]["latest_daily_close"]
+        report["sources"]["MOVE"]["latest_daily_close"] = report["sources"]["MOVE"]["fallback"].get("latest_daily_close") or report["sources"]["MOVE"]["fallback"].get("latest_snapshot")
         report["sources"]["MOVE"]["effective_source"] = report["sources"]["MOVE"]["fallback"]["source"]
 report["sources"]["CNN_FEAR_GREED"] = probe_cnn()
 report["sources"]["CME_FEDWATCH"] = probe_cme_page()
