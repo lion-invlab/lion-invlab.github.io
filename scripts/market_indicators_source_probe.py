@@ -65,15 +65,20 @@ with sync_playwright() as p:
                 "sox_google": ["PHLX Semiconductor Sector", "SOX"],
             }
             labels = label_by_key.get(source["key"], [])
-            if labels:
+            if source["key"] == "sox_nasdaq":
+                # Nasdaq official page presents the quote immediately after its DATA AS OF line.
+                match = re.search(r"DATA AS OF\\s+\\d{1,2}/\\d{1,2}/\\d{4}\\s+([0-9,]+\\.\\d+)", body, re.I)
+                if match:
+                    item["candidate_quote"] = float(match.group(1).replace(",", ""))
+                    item["candidate_quote_source"] = "Nasdaq official DATA AS OF quote"
+                    item["candidate_quote_status"] = "candidate_only"
+            elif labels:
                 for idx, line in enumerate(lines):
                     if any(line.casefold() == label.casefold() for label in labels):
-                        # Search the next few visible lines for a quote-like number.
                         for candidate_line in lines[idx + 1:idx + 5]:
                             cleaned = candidate_line.replace(",", "").replace("$", "").strip()
-                            if re.fullmatch(r"[+-]?\d+(?:\.\d+)?", cleaned):
+                            if re.fullmatch(r"[+-]?\\d+(?:\\.\\d+)?", cleaned):
                                 value = float(cleaned)
-                                # Filter obvious dates / percentages and implausible page numbers.
                                 if source["key"] == "vix_google" and 0 <= value <= 150:
                                     item["candidate_quote"] = value
                                 elif source["key"] == "move_google" and 0 <= value <= 300:
@@ -86,7 +91,7 @@ with sync_playwright() as p:
                                     break
                         if item["candidate_quote"] is not None:
                             break
-            if item["candidate_quote"] is None and "google.com/finance" in source["url"]:
+            if item["candidate_quote"] is None and source["key"] in ("vix_google", "move_google", "sox_google", "sox_nasdaq"):
                 item["candidate_quote_status"] = "label_quote_pattern_not_found"
             screenshot_path = OUT / f"{source['key']}.png"
             try:
