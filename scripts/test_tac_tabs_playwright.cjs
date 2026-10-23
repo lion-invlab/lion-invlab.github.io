@@ -33,6 +33,42 @@ const groups = [
           waitUntil: 'domcontentloaded', timeout: 30000
         });
 
+        // Validate that the summary no longer presents the stale 10/21 headline as current.
+        const summaryHeadline = (await page.locator('.bluf h1').innerText()).trim();
+        if (summaryHeadline !== '同日市場摘要待核實') {
+          throw new Error(`${target.label}: stale or unexpected summary headline: ${summaryHeadline}`);
+        }
+        const summaryWarning = await page.locator('.bluf').innerText();
+        if (!summaryWarning.includes('待同步核實') || !summaryWarning.includes('2026/10/22')) {
+          throw new Error(`${target.label}: same-session verification warning/date is missing`);
+        }
+        const datedMarketPanel = await page.locator('#global-markets .tab-panel-meta').first().innerText();
+        if (!/20\\d{2}\\/\\d{2}\\/\\d{2}/.test(datedMarketPanel)) {
+          throw new Error(`${target.label}: market data source date label is missing`);
+        }
+
+        // Check page-level horizontal overflow. Horizontal navigation and explicitly
+        // scrollable calendar tables are intentional and excluded from the document width.
+        const overflow = await page.evaluate(() => ({
+          viewport: document.documentElement.clientWidth,
+          document: document.documentElement.scrollWidth,
+          offenders: [...document.querySelectorAll('body *')]
+            .filter(el => {
+              if (el.closest('.nav, .event-table-wrap')) return false;
+              const r = el.getBoundingClientRect();
+              const style = getComputedStyle(el);
+              return style.position !== 'fixed' && r.width > 0 &&
+                (r.right > document.documentElement.clientWidth + 2 || r.left < -2) &&
+                style.overflowX !== 'auto' && style.overflowX !== 'scroll';
+            })
+            .slice(0, 8)
+            .map(el => ({tag: el.tagName, id: el.id, className: String(el.className).slice(0, 80),
+              left: Math.round(el.getBoundingClientRect().left), right: Math.round(el.getBoundingClientRect().right)}))
+        }));
+        if (overflow.document > overflow.viewport + 2 || overflow.offenders.length) {
+          throw new Error(`${target.label}: horizontal overflow at ${viewport.width}px: ${JSON.stringify(overflow)}`);
+        }
+
         // Dismiss the fund-date modal so it cannot intercept tab clicks.
         const fundNotice = page.locator('#tac-fund-notice');
         await fundNotice.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
