@@ -130,6 +130,47 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertIn("新聞驅動與其他市場聯動仍待逐則核實", html,
                               f"{path.name} 未保留核心觀察的資料時效警示")
 
+    def test_both_test_masters_news_are_filtered_to_report_window(self):
+        paths = (
+            Path("test-masters/index_母版_修正測試_週一.html"),
+            Path("test-masters/index_母版_修正測試_週二至週五.html"),
+        )
+        forbidden_late_news = (
+            "10/22 12:13 GMT", "10/22 09:39 UTC", "10/22 12:36 UTC",
+            "2026/10/22 20:47 UTC", "113.17 美元", "7,663.43",
+        )
+        for path in paths:
+            with self.subTest(master=path.name):
+                html = path.read_text(encoding="utf-8")
+                focus_start = html.find('<article class="card" id="global-focus">')
+                headline_start = html.find('<article class="card" id="headlines">')
+                market_start = html.find('<section aria-label="全球主要股市"')
+                self.assertGreaterEqual(focus_start, 0, "缺少全球焦點新聞區")
+                self.assertGreater(headline_start, focus_start, "熱門頭條區順序或邊界錯誤")
+                self.assertGreater(market_start, headline_start, "新聞區與全球市場區邊界錯誤")
+                focus = html[focus_start:headline_start]
+                headlines = html[headline_start:market_start]
+                self.assertEqual(len(re.findall(r'class="newsitem"', focus)), 5,
+                                 "全球焦點應為 5 則")
+                self.assertEqual(len(re.findall(r'class="newsitem"', headlines)), 10,
+                                 "市場熱門頭條應為 10 則")
+                self.assertIn("2026/10/21 12:00 至 2026/10/22 05:00", focus,
+                              "焦點新聞未標示本次台灣時間窗口")
+                self.assertIn("2026/10/21 12:00–2026/10/22 05:00", headlines,
+                              "熱門頭條未標示本次台灣時間窗口")
+                for late in forbidden_late_news:
+                    self.assertNotIn(late, focus + headlines,
+                                     f"仍含有截稿後新聞或行情：{late}")
+                for duplicated_topic in ("Meta 第三季", "Jio Platforms IPO", "義大利南部兩座機場"):
+                    self.assertFalse(
+                        duplicated_topic in focus and duplicated_topic in headlines,
+                        f"焦點與熱門頭條重複事件：{duplicated_topic}",
+                    )
+                self.assertIn("新聞時間窗尚未驗收", focus,
+                              "焦點新聞需保留原始時間驗收警示")
+                self.assertIn("仍需在最終發布前確認事件原始時間", headlines,
+                              "熱門頭條需保留最終時間核驗提醒")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
