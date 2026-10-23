@@ -159,7 +159,11 @@ def probe_move_web():
             if "google.com/finance" in url:
                 candidates = re.findall(r'data-last-price="([0-9]+(?:\\.[0-9]+)?)"', html)
                 if not candidates:
-                    candidates = re.findall(r'<div[^>]*class="[^"]*YMlKec[^"]*fxKbKc[^"]*"[^>]*>\\s*([0-9]+(?:\\.[0-9]+)?)\\s*</div>', html)
+                    candidates = re.findall(r'<div[^>]*class="[^"]*(?:YMlKec[^"]*fxKbKc|fxKbKc[^"]*YMlKec)[^"]*"[^>]*>\\s*([0-9]+(?:\\.[0-9]+)?)\\s*</div>', html)
+                if not candidates:
+                    candidates = re.findall(r'<meta[^>]*itemprop="price"[^>]*content="([0-9]+(?:\\.[0-9]+)?)"', html, re.I)
+                if not candidates:
+                    candidates = re.findall(r'"(?:lastPrice|price|close)"\\s*:\\s*"?([0-9]+(?:\\.[0-9]+)?)"?', html, re.I)
                 if candidates:
                     item.update({"status":"ok","http_status":status,"latest_snapshot":{"value":float(candidates[0]),
                                  "captured_at_utc":datetime.now(timezone.utc).isoformat()},
@@ -187,7 +191,8 @@ def probe_move_web():
                          "validation_note":"Confirm parsed row and session date against a second independent source before publishing."})
             return item
         except Exception as e:
-            errors.append({"url":url,"error":f"{type(e).__name__}: {e}"})
+            errors.append({"url":url,"error":f"{type(e).__name__}: {e}",
+                           "response_preview":re.sub(r"\\s+"," ",body.decode("utf-8",errors="replace"))[:500] if "body" in locals() else None})
     return {"source":"MOVE public historical page fallback","status":"failed","attempts":errors}
 
 
