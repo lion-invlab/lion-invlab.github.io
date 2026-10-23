@@ -72,12 +72,19 @@ with sync_playwright() as p:
                     item["candidate_quote"] = float(match.group(1).replace(",", ""))
                     item["candidate_quote_source"] = "Nasdaq official DATA AS OF quote"
                     item["candidate_quote_status"] = "candidate_only"
+            elif source["key"] == "vix_cboe":
+                # Cboe's official page exposes the VIX spot price and an explicit as-of date.
+                match = re.search(r"as of\s+([A-Za-z]+\s+\d{1,2},\s+\d{4}).{0,300}?\$([0-9]+\.\d+)", body, re.I | re.S)
+                if match:
+                    item["candidate_quote"] = float(match.group(2))
+                    item["candidate_quote_source"] = f"Cboe official VIX spot price; as of {match.group(1)}"
+                    item["candidate_quote_status"] = "candidate_only"
             elif labels:
                 for idx, line in enumerate(lines):
                     if any(line.casefold() == label.casefold() for label in labels):
                         for candidate_line in lines[idx + 1:idx + 5]:
                             cleaned = candidate_line.replace(",", "").replace("$", "").strip()
-                            if re.fullmatch(r"[+-]?\\d+(?:\\.\\d+)?", cleaned):
+                            if re.fullmatch(r"[+-]?\d+(?:\.\d+)?", cleaned):
                                 value = float(cleaned)
                                 if source["key"] == "vix_google" and 0 <= value <= 150:
                                     item["candidate_quote"] = value
