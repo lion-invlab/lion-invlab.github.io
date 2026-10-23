@@ -119,6 +119,8 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                               f"{path.name} 未明示關鍵價位日期")
                 self.assertIn("請勿直接發布", html,
                               f"{path.name} 未阻止未同步母版直接發布")
+                self.assertIn("新聞也尚未逐則核實原始發布時間、時區及最後更新時間", html,
+                              f"{path.name} 未警示新聞時間戳尚未逐則驗證")
                 self.assertIn("未完成最新交易日及當日催化劑的交叉核對", html,
                               f"{path.name} 未保留核心觀察的資料時效警示")
 
