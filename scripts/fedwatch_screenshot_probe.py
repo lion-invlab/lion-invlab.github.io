@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Bounded-time CME FedWatch screenshot probe; test branch only."""
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -27,6 +28,7 @@ result = {
     "frames": [],
     "navigation_attempts": [],
     "validated_probabilities": False,
+    "validation_errors": [],
 }
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=False, args=["--disable-http2", "--disable-dev-shm-usage"])
@@ -85,13 +87,52 @@ with sync_playwright() as p:
                 result["screenshots"].append(f"fedwatch-evidence/fedwatch-frame-{i}.png")
             except Exception as exc:
                 item["screenshot_error"] = f"{type(exc).__name__}: {exc}"
-        all_text = " ".join([result.get("page_text_excerpt", "")] + [f.get("text_excerpt", "") for f in result["frames"]])
-        hints = ["probability", "target rate", "no change", "meeting", "target rate probabilities", "加息", "降息"]
-        result["has_probability_or_rate_table_hints"] = any(h in all_text.lower() for h in hints)
+        frame_texts = [f.get("text_excerpt", "") for f in result["frames"]]
+        all_text = "\\n".join([result.get("page_text_excerpt", "")] + frame_texts)
         result["has_quikstrike_frame"] = any("quikstrike" in f.get("url", "").lower() for f in result["frames"])
-        result["validated_probabilities"] = False
-        result["interpretation"] = "Capture only; verify meeting date, rate bands and probabilities before publication."
-        result["status"] = "captured" if result["screenshots"] else "capture_failed"
+        result["has_probability_or_rate_table_hints"] = any(
+            h in all_text.lower() for h in ["probability", "target rate", "no change", "meeting", "加息", "降息"]
+        )
+
+        # Parse only the embedded QuikStrike frame text; do not infer values from page-level marketing text.
+        qtext = "\\n".join(t for f, t in zip(result["frames"], frame_texts) if "quikstrike" in f.get("url", "").lower())
+        meeting = re.search(r"MEETING INFORMATION\\s+MEETING DATE\\s+CONTRACT.*?\\n(\\d{1,2}\\s+[A-Z][a-z]{2}\\s+\\d{4})\\b", qtext, re.S)
+        prob_section = re.search(
+            r"PROBABILITIES\\s+EASE\\s+NO CHANGE\\s+HIKE\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%",
+            qtext, re.I | re.S
+        )
+        current_rate = re.search(r"Current target rate is\\s+(\\d{3}-\\d{3})", qtext, re.I)
+        data_stamp = re.search(r"Data as of\\s+([^\\n]+)", qtext, re.I)
+        errors = result["validation_errors"]
+        if not result["has_quikstrike_frame"]:
+            errors.append("Missing embedded QuikStrike frame.")
+        if not meeting:
+            errors.append("Could not parse meeting date from MEETING INFORMATION.")
+        if not prob_section:
+            errors.append("Could not parse EASE / NO CHANGE / HIKE probabilities.")
+        if not current_rate:
+            errors.append("Could not parse current target rate range.")
+        if not data_stamp:
+            errors.append("Could not parse source data timestamp.")
+        if prob_section:
+            ease, unchanged, hike = [float(x) for x in prob_section.groups()]
+            total = ease + unchanged + hike
+            result["probabilities_pct"] = {"ease": ease, "no_change": unchanged, "hike": hike, "sum": round(total, 4)}
+            if abs(total - 100.0) > 0.2:
+                errors.append(f"Probability total is {total:.2f}%, outside 100% ± 0.2%.")
+        if meeting:
+            result["meeting_date"] = meeting.group(1)
+        if current_rate:
+            result["current_target_rate_bps"] = current_rate.group(1)
+        if data_stamp:
+            result["source_data_timestamp"] = data_stamp.group(1).strip()
+        result["validated_probabilities"] = not errors and bool(result.get("probabilities_pct"))
+        result["interpretation"] = (
+            "Machine checks passed; human review is still required before publishing."
+            if result["validated_probabilities"]
+            else "Do not publish values: screenshot/text validation failed; inspect evidence and logs."
+        )
+        result["status"] = "validated" if result["validated_probabilities"] and result["screenshots"] else "validation_failed"
     except Exception as exc:
         result["status"] = "failed"
         result["error"] = f"{type(exc).__name__}: {exc}"
@@ -100,5 +141,5 @@ with sync_playwright() as p:
 result["completed_at"] = stamp()
 (OUT / "fedwatch-diagnostic.json").write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
 print(json.dumps(result, ensure_ascii=False, indent=2))
-if result["status"] != "captured":
+if result["status"] != "validated":
     raise SystemExit(1)
