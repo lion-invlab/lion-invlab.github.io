@@ -223,10 +223,10 @@ with sync_playwright() as p:
                         item["previous_close_validation"] = "failed_same_as_current_quote"
                         item["previous_close_reported_value"] = parsed_previous
                         item["previous_close_validation_blocking"] = True
-                        result["validation_errors"].append(
-                            f"SOX Nasdaq official page reports Previous Close {parsed_previous:.2f}, "
+                        result["nonblocking_warnings"].append(
+                            f"SOX Nasdaq official page reports unusable Previous Close {parsed_previous:.2f}, "
                             f"identical to its current quote {item['candidate_quote']:.2f}; "
-                            "all parsed Previous Close fields are unusable"
+                            "daily-change validation must use displayed change plus dated independent history"
                         )
                     else:
                         item["previous_close"] = parsed_previous
@@ -485,6 +485,35 @@ if move_history_check and move_history_check.get("result") != "exact_match_withi
 g = by_key.get("sox_google", {})
 n = by_key.get("sox_nasdaq", {})
 result["cross_source_checks"] = []
+# Validate the implied SOX previous close from Nasdaq's displayed point change
+# against Yahoo's date-labelled prior-session close. The implied value is not
+# treated as a provider-reported field.
+sox_implied = n.get("implied_previous_close_from_displayed_change")
+sox_hist = next(
+    (x for x in result.get("dated_history_checks", [])
+     if x.get("live_source") == "sox_google"
+     and x.get("historical_source") == "sox_yahoo_history"),
+    None,
+)
+if sox_implied is not None and sox_hist and sox_hist.get("historical_close_candidate") is not None:
+    hist_close = float(sox_hist["historical_close_candidate"])
+    delta = abs(float(sox_implied)-hist_close)
+    result["cross_source_checks"].append({
+        "pair": ["sox_nasdaq.implied_previous_close", "sox_yahoo_history.close"],
+        "target_session_date": sox_hist.get("target_session_date"),
+        "implied_previous_close": float(sox_implied),
+        "yahoo_historical_close": hist_close,
+        "absolute_difference": round(delta, 4),
+        "matches_within_0_02": delta < 0.02,
+        "result": "implied_close_matches_dated_history" if delta < 0.02 else "implied_close_history_mismatch",
+        "production_blocking": delta >= 0.02,
+        "note": "The Nasdaq key-stat Previous Close field is rejected; this validates the arithmetic-derived prior close against dated Yahoo history, not Nasdaq's broken previous-close field."
+    })
+    if delta >= 0.02:
+        result["validation_errors"].append(
+            f"SOX implied prior close {float(sox_implied):.2f} differs from dated Yahoo history "
+            f"{hist_close:.2f} for {sox_hist.get('target_session_date')}"
+        )
 # Compare the official Cboe CSV and Yahoo's dated VIX history directly.
 # This detects disagreement between historical baselines even when both pages parse.
 cboe_hist = history_by_key.get("vix_cboe_history", {})
