@@ -53,38 +53,41 @@ with sync_playwright() as p:
                 item["body_error"] = f"{type(exc).__name__}: {exc}"
             item["body_text"] = body[:12000]
             item["body_text_length"] = len(body)
-            # Extract Google Finance's visible headline quote as a candidate only.
-            # This is not publication-approved until independently cross-checked.
+            # Extract numeric quote candidates from visible text labels. Diagnostic only;
+            # date/close semantics and independent agreement must be checked before publication.
             item["candidate_quote"] = None
             item["candidate_quote_source"] = None
             item["candidate_quote_status"] = "not_found"
-            if "google.com/finance" in source["url"]:
-                try:
-                    quote_el = page.locator("div.YMlKec.fxKbKc").first
-                    quote_text = quote_el.inner_text(timeout=5000).strip()
-                    quote_match = re.search(r"[-+]?\\d[\\d,]*(?:\\.\\d+)?", quote_text)
-                    if quote_match:
-                        item["candidate_quote"] = float(quote_match.group(0).replace(",", ""))
-                        item["candidate_quote_source"] = "Google Finance visible headline selector div.YMlKec.fxKbKc"
-                        item["candidate_quote_status"] = "candidate_only"
-                    else:
-                        item["candidate_quote_status"] = "selector_text_not_numeric"
-                    item["candidate_quote_display_text"] = quote_text[:120]
-                except Exception as exc:
-                    item["candidate_quote_status"] = f"selector_unavailable: {type(exc).__name__}: {exc}"
-
-            # Extract a quote candidate from the visible page text near the exact ticker.
-            # Candidate values are diagnostic only until date/close semantics are validated.
-            ticker = {"vix_google": "VIX", "move_google": "MOVE", "sox_google": "SOX"}.get(source["key"])
-            if ticker:
-                ticker_pattern = rf"(?:^|\n){re.escape(ticker)}\s*\n\s*([0-9]{{1,3}}(?:,[0-9]{{3}})*(?:\.[0-9]+)?|[0-9]+(?:\.[0-9]+)?)\s*\n"
-                match = re.search(ticker_pattern, body, re.I | re.M)
-                if match:
-                    item["candidate_quote"] = float(match.group(1).replace(",", ""))
-                    item["candidate_quote_source"] = "visible page text: exact ticker followed by numeric quote"
-                    item["candidate_quote_status"] = "candidate_only"
-                else:
-                    item["candidate_quote_status"] = "ticker_quote_pattern_not_found"
+            lines = [line.strip() for line in body.splitlines() if line.strip()]
+            label_by_key = {
+                "vix_google": ["VIX"],
+                "move_google": ["Merrill Lynch Option Volatility Estimate", "MOVE"],
+                "sox_google": ["PHLX Semiconductor Sector", "SOX"],
+            }
+            labels = label_by_key.get(source["key"], [])
+            if labels:
+                for idx, line in enumerate(lines):
+                    if any(line.casefold() == label.casefold() for label in labels):
+                        # Search the next few visible lines for a quote-like number.
+                        for candidate_line in lines[idx + 1:idx + 5]:
+                            cleaned = candidate_line.replace(",", "").replace("$", "").strip()
+                            if re.fullmatch(r"[+-]?\\d+(?:\\.\\d+)?", cleaned):
+                                value = float(cleaned)
+                                # Filter obvious dates / percentages and implausible page numbers.
+                                if source["key"] == "vix_google" and 0 <= value <= 150:
+                                    item["candidate_quote"] = value
+                                elif source["key"] == "move_google" and 0 <= value <= 300:
+                                    item["candidate_quote"] = value
+                                elif source["key"] == "sox_google" and 100 <= value <= 100000:
+                                    item["candidate_quote"] = value
+                                if item["candidate_quote"] is not None:
+                                    item["candidate_quote_source"] = f"visible page text after label: {line}"
+                                    item["candidate_quote_status"] = "candidate_only"
+                                    break
+                        if item["candidate_quote"] is not None:
+                            break
+            if item["candidate_quote"] is None and "google.com/finance" in source["url"]:
+                item["candidate_quote_status"] = "label_quote_pattern_not_found"
             screenshot_path = OUT / f"{source['key']}.png"
             try:
                 page.screenshot(path=str(screenshot_path), full_page=False, timeout=12000)
