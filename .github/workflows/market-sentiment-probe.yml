@@ -1,0 +1,43 @@
+name: TAC Market Sentiment Isolated Probe
+
+on:
+  push:
+    branches:
+      - test/market-sentiment-auto-20261023
+    paths:
+      - ".github/workflows/market-sentiment-probe.yml"
+      - "scripts/market_sentiment_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-market-sentiment-isolated-probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Probe four sentiment indicators
+        run: python scripts/market_sentiment_probe.py | tee market-sentiment-probe.log
+      - name: Upload timestamped probe evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-market-sentiment-probe-${{ github.run_id }}
+          path: |
+            market-sentiment-probe.json
+            market-sentiment-probe.log
+          if-no-files-found: warn
+          retention-days: 30
