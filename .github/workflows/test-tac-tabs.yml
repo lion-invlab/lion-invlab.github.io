@@ -8,6 +8,8 @@ on:
       - ".github/workflows/test-tac-tabs.yml"
       - "scripts/test_tac_tabs_playwright.cjs"
       - "index.html"
+      - "test-masters/index_母版_修正測試_週一.html"
+      - "test-masters/index_母版_修正測試_週二至週五.html"
   workflow_dispatch:
 
 permissions:
