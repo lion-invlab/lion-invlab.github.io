@@ -88,21 +88,21 @@ with sync_playwright() as p:
             except Exception as exc:
                 item["screenshot_error"] = f"{type(exc).__name__}: {exc}"
         frame_texts = [f.get("text_excerpt", "") for f in result["frames"]]
-        all_text = "\\n".join([result.get("page_text_excerpt", "")] + frame_texts)
+        all_text = "\n".join([result.get("page_text_excerpt", "")] + frame_texts)
         result["has_quikstrike_frame"] = any("quikstrike" in f.get("url", "").lower() for f in result["frames"])
         result["has_probability_or_rate_table_hints"] = any(
             h in all_text.lower() for h in ["probability", "target rate", "no change", "meeting", "加息", "降息"]
         )
 
         # Parse only the embedded QuikStrike frame text; do not infer values from page-level marketing text.
-        qtext = "\\n".join(t for f, t in zip(result["frames"], frame_texts) if "quikstrike" in f.get("url", "").lower())
-        meeting = re.search(r"MEETING INFORMATION\\s+MEETING DATE\\s+CONTRACT.*?\\n(\\d{1,2}\\s+[A-Z][a-z]{2}\\s+\\d{4})\\b", qtext, re.S)
+        qtext = "\n".join(t for f, t in zip(result["frames"], frame_texts) if "quikstrike" in f.get("url", "").lower())
+        meeting = re.search(r"MEETING INFORMATION\s+MEETING DATE\s+CONTRACT.*?\n(\d{1,2}\s+[A-Z][a-z]{2}\s+\d{4})\b", qtext, re.S)
         prob_section = re.search(
-            r"PROBABILITIES\\s+EASE\\s+NO CHANGE\\s+HIKE\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%",
+            r"PROBABILITIES\s+EASE\s+NO CHANGE\s+HIKE\s+([0-9]+(?:\.[0-9]+)?)\s*%\s+([0-9]+(?:\.[0-9]+)?)\s*%\s+([0-9]+(?:\.[0-9]+)?)\s*%",
             qtext, re.I | re.S
         )
-        current_rate = re.search(r"Current target rate is\\s+(\\d{3}-\\d{3})", qtext, re.I)
-        data_stamp = re.search(r"Data as of\\s+([^\\n]+)", qtext, re.I)
+        current_rate = re.search(r"Current target rate is\s+(\d{3}-\d{3})", qtext, re.I)
+        data_stamp = re.search(r"Data as of\s+([^\n]+)", qtext, re.I)
         errors = result["validation_errors"]
         if not result["has_quikstrike_frame"]:
             errors.append("Missing embedded QuikStrike frame.")
