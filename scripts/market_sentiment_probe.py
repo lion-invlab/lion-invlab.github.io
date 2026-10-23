@@ -87,7 +87,8 @@ def probe_cme_page():
     item = {"source":"CME FedWatch official public page (diagnostic, not authenticated API)", "url":url,
             "official_api_note":"CME intraday REST API requires API ID entitlement and OAuth bearer token."}
     try:
-        status, ctype, body = fetch(url, {"Accept":"text/html,application/xhtml+xml"})
+        headers = {"Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "Accept-Language":"en-US,en;q=0.9", "Referer":"https://www.investing.com/", "Origin":"https://www.investing.com", "Sec-Fetch-Dest":"document", "Sec-Fetch-Mode":"navigate", "Sec-Fetch-Site":"same-origin"}
+            status, ctype, body = fetch(url, headers)
         html = body.decode("utf-8", errors="replace")
         title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.I|re.S)
         # Detect data hints without claiming the percentages are validated.
