@@ -67,7 +67,7 @@ with sync_playwright() as p:
             labels = label_by_key.get(source["key"], [])
             if source["key"] == "sox_nasdaq":
                 # Nasdaq official page presents the quote immediately after its DATA AS OF line.
-                match = re.search(r"DATA AS OF\\s+\\d{1,2}/\\d{1,2}/\\d{4}\\s+([0-9,]+\\.\\d+)", body, re.I)
+                match = re.search(r"DATA AS OF\s+\d{1,2}/\d{1,2}/\d{4}\s+([0-9,]+\.\d+)", body, re.I)
                 if match:
                     item["candidate_quote"] = float(match.group(1).replace(",", ""))
                     item["candidate_quote_source"] = "Nasdaq official DATA AS OF quote"
