@@ -98,7 +98,7 @@ with sync_playwright() as p:
                 data_asof = re.search(r"Data as of\s+([0-9:]+\s*[AP]M)\s+(\d{1,2}/\d{1,2}/\d{4})", body, re.I)
                 if data_asof:
                     item["candidate_quote_timestamp"] = f"{data_asof.group(2)} {data_asof.group(1)}"
-            elif source["key"] == "sox_nasdaq":
+            elif source["key"] in ("sox_nasdaq", "sox_nasdaq_omx"):
                 asof = re.search(r"DATA AS OF\s+(\d{1,2}/\d{1,2}/\d{4})", body, re.I)
                 if asof:
                     try:
@@ -131,7 +131,7 @@ with sync_playwright() as p:
                 "sox_google": ["PHLX Semiconductor Sector", "SOX"],
             }
             labels = label_by_key.get(source["key"], [])
-            if source["key"] == "sox_nasdaq":
+            if source["key"] in ("sox_nasdaq", "sox_nasdaq_omx"):
                 # Nasdaq official page presents the quote immediately after its DATA AS OF line.
                 match = re.search(r"DATA AS OF\s+\d{1,2}/\d{1,2}/\d{4}\s+([0-9,]+\.\d+)", body, re.I)
                 if match:
@@ -171,7 +171,7 @@ with sync_playwright() as p:
                                     break
                         if item["candidate_quote"] is not None:
                             break
-            if item["candidate_quote"] is None and source["key"] in ("vix_google", "move_google", "sox_google", "sox_nasdaq"):
+            if item["candidate_quote"] is None and source["key"] in ("vix_google", "move_google", "sox_google", "sox_nasdaq", "sox_nasdaq_omx"):
                 item["candidate_quote_status"] = "label_quote_pattern_not_found"
             screenshot_path = OUT / f"{source['key']}.png"
             try:
@@ -207,7 +207,7 @@ with sync_playwright() as p:
             # Classify semantics, not just successful numeric extraction.
             if source["key"] == "vix_cboe" and item.get("previous_close") is not None:
                 item["close_interpretation"] = "previous_close field extracted; session date must be independently confirmed"
-            elif source["key"] == "sox_nasdaq" and item.get("candidate_quote_date"):
+            elif source["key"] in ("sox_nasdaq", "sox_nasdaq_omx") and item.get("candidate_quote_date"):
                 item["close_interpretation"] = "dated official index quote candidate; compare with independent source and verify change arithmetic"
                 pc = re.search(r"Previous Close\s+([0-9,]+\.\d+)", body, re.I)
                 if pc:
@@ -608,6 +608,34 @@ if vg.get("candidate_quote") is not None and vc.get("candidate_quote") is not No
         "result": "current_quotes_close" if quote_delta < 0.05 else "current_quote_mismatch",
         "note": "Snapshot times may differ. This check flags discrepancies; it does not substitute Cboe's prior close into Google's quote calculation."
     })
+# Compare both official Nasdaq host variants. A second official URL is not
+# independent ownership, but it identifies host/page-specific stale fields.
+nasdaq_primary = by_key.get("sox_nasdaq", {})
+nasdaq_alt = by_key.get("sox_nasdaq_omx", {})
+if nasdaq_primary.get("candidate_quote") is not None and nasdaq_alt.get("candidate_quote") is not None:
+    primary_quote = float(nasdaq_primary["candidate_quote"])
+    alt_quote = float(nasdaq_alt["candidate_quote"])
+    primary_prev = nasdaq_primary.get("previous_close")
+    alt_prev = nasdaq_alt.get("previous_close")
+    result["cross_source_checks"].append({
+        "pair": ["sox_nasdaq.quote", "sox_nasdaq_omx.quote"],
+        "primary_quote": primary_quote,
+        "alternate_quote": alt_quote,
+        "primary_previous_close": primary_prev,
+        "alternate_previous_close": alt_prev,
+        "quote_values_match_within_0_02": abs(primary_quote-alt_quote) < 0.02,
+        "previous_close_values_match_within_0_02": (
+            primary_prev is not None and alt_prev is not None
+            and abs(float(primary_prev)-float(alt_prev)) < 0.02
+        ),
+        "result": "official_host_variants_agree" if (
+            abs(primary_quote-alt_quote) < 0.02
+            and primary_prev is not None and alt_prev is not None
+            and abs(float(primary_prev)-float(alt_prev)) < 0.02
+        ) else "official_host_variant_mismatch",
+        "note": "Both pages are Nasdaq official hosts, not independent providers; mismatch diagnoses page inconsistency only."
+    })
+
 sg = by_key.get("sox_google", {})
 if sg.get("candidate_quote") is not None and sg.get("previous_close") is not None:
     body = sg.get("body_text", "")
