@@ -1,5 +1,5 @@
 name: TAC VIX MOVE SOX Source Access Isolated Test
-# Validate Nasdaq official quote parsing after isolated parser update.
+# Isolated capture test for VIX/MOVE/SOX; VIX previous-close mismatches remain unapproved pending dated historical verification.
 
 on:
   push:
