@@ -71,7 +71,7 @@ with sync_playwright() as p:
                         # Search the next few visible lines for a quote-like number.
                         for candidate_line in lines[idx + 1:idx + 5]:
                             cleaned = candidate_line.replace(",", "").replace("$", "").strip()
-                            if re.fullmatch(r"[+-]?\\d+(?:\\.\\d+)?", cleaned):
+                            if re.fullmatch(r"[+-]?\d+(?:\.\d+)?", cleaned):
                                 value = float(cleaned)
                                 # Filter obvious dates / percentages and implausible page numbers.
                                 if source["key"] == "vix_google" and 0 <= value <= 150:
