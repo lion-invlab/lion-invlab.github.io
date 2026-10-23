@@ -397,6 +397,29 @@ for live_key, hist_key in [("vix_google", "vix_cboe_history"), ("move_google", "
 g = by_key.get("sox_google", {})
 n = by_key.get("sox_nasdaq", {})
 result["cross_source_checks"] = []
+# Compare the official Cboe CSV and Yahoo's dated VIX history directly.
+# This detects disagreement between historical baselines even when both pages parse.
+cboe_hist = history_by_key.get("vix_cboe_history", {})
+yahoo_hist = history_by_key.get("vix_yahoo_history", {})
+cboe_rows = {row.get("date"): row for row in cboe_hist.get("rows", []) if row.get("date")}
+yahoo_rows = {row.get("date"): row for row in yahoo_hist.get("rows", []) if row.get("date")}
+for session_date in sorted(set(cboe_rows) & set(yahoo_rows), reverse=True):
+    cboe_close = cboe_rows[session_date].get("close_candidate")
+    yahoo_close = yahoo_rows[session_date].get("close_candidate")
+    if cboe_close is None or yahoo_close is None:
+        continue
+    delta = abs(float(cboe_close) - float(yahoo_close))
+    result["cross_source_checks"].append({
+        "pair": ["vix_cboe_history.close", "vix_yahoo_history.close"],
+        "session_date": session_date,
+        "cboe_close": float(cboe_close),
+        "yahoo_close": float(yahoo_close),
+        "absolute_difference": round(delta, 6),
+        "values_match_within_0_02": delta < 0.02,
+        "result": "historical_sources_agree" if delta < 0.02 else "historical_close_mismatch",
+        "production_blocking": bool(delta >= 0.02),
+        "note": "Dated close-to-close comparison; mismatches block approval and require source/date/field investigation."
+    })
 if g.get("candidate_quote") is not None and n.get("candidate_quote") is not None:
     same_date = bool(g.get("candidate_quote_date") and g.get("candidate_quote_date") == n.get("candidate_quote_date"))
     same_value = abs(float(g["candidate_quote"]) - float(n["candidate_quote"])) < 0.02
