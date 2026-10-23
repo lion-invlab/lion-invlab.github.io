@@ -462,6 +462,25 @@ for live_key, hist_key in [("vix_google", "vix_cboe_history"), ("move_google", "
         "note": "Exact matches and rounded matches are distinct. A rounded match is not exact agreement; mismatches block approval and do not establish which provider is stale."
     })
 
+# A one-decimal EODData match is only a rounded plausibility check, not an exact
+# independent confirmation of the MOVE close. The Yahoo ^MOVE history is excluded
+# when its page title identifies a different instrument; Investing.com/Barchart
+# currently return access-denied responses in the automated browser.
+move_history_check = next(
+    (x for x in result.get("dated_history_checks", [])
+     if x.get("live_source") == "move_google"),
+    None,
+)
+if move_history_check and move_history_check.get("result") != "exact_match_within_0_02":
+    result["validation_errors"].append(
+        "MOVE historical close lacks exact independent validation: "
+        f"{move_history_check.get('historical_source')} returned "
+        f"{move_history_check.get('historical_close_candidate')} for "
+        f"{move_history_check.get('target_session_date')} versus Google previous close "
+        f"{move_history_check.get('live_previous_close_candidate')}; "
+        f"status={move_history_check.get('result')}. Do not treat rounded agreement as validated."
+    )
+
 g = by_key.get("sox_google", {})
 n = by_key.get("sox_nasdaq", {})
 result["cross_source_checks"] = []
