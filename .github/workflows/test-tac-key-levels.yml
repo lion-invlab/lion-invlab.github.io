@@ -31,4 +31,4 @@ jobs:
 
       - name: Probe public SOX source consistency (diagnostic only)
         timeout-minutes: 2
-        run: python scripts/probe_sox_sources.py
+        run: python scripts/probe_sox_sources.py "${{ inputs.session_date }}"
