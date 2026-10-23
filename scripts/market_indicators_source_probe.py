@@ -218,6 +218,13 @@ with sync_playwright() as p:
                         item["previous_close_source"] = "Nasdaq official Previous Close field rejected: identical to current quote"
                         item["previous_close_status"] = "rejected_suspected_page_variant_error"
                         item["previous_close_validation"] = "failed_same_as_current_quote"
+                        item["previous_close_reported_value"] = parsed_previous
+                        item["previous_close_validation_blocking"] = True
+                        result["validation_errors"].append(
+                            f"SOX Nasdaq official page reports Previous Close {parsed_previous:.2f}, "
+                            f"identical to its current quote {item['candidate_quote']:.2f}; "
+                            "official previous-close field is invalid for daily-change validation"
+                        )
                     else:
                         item["previous_close"] = parsed_previous
                         item["previous_close_source"] = "Nasdaq official Previous Close field; candidate only"
