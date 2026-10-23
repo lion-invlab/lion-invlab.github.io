@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""Isolated TAC market-sentiment data probe. Does not update homepage, JSON, or schedules."""
+import json, re, time
+from datetime import datetime, timezone
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
+
+UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36"
+started = datetime.now(timezone.utc).isoformat()
+report = {
+    "purpose": "isolated market sentiment source test only",
+    "started_at_utc": started,
+    "captured_at_utc": None,
+    "captured_at_taipei": None,
+    "sources": {},
+    "notes": [
+        "Yahoo chart results are a fallback probe, not a replacement for the preferred official source.",
+        "CNN Fear & Greed endpoint is undocumented and may change or block automated requests.",
+        "CME FedWatch intraday API requires an entitled API ID/OAuth token; public page extraction is diagnostic only.",
+        "No report HTML, production JSON, homepage, or existing schedule is modified."
+    ]
+}
+
+def fetch(url, headers=None, timeout=20):
+    req = Request(url, headers={"User-Agent": UA, "Accept": "application/json, text/html, */*", **(headers or {})})
+    with urlopen(req, timeout=timeout) as r:
+        body = r.read()
+        return r.status, r.headers.get("content-type", ""), body
+
+def probe_yahoo(symbol, label):
+    url = "https://query1.finance.yahoo.com/v8/finance/chart/" + symbol + "?range=5d&interval=1d"
+    item = {"source": "Yahoo Finance chart API (fallback probe)", "url": url}
+    try:
+        status, ctype, body = fetch(url, {"Accept": "application/json"})
+        data = json.loads(body.decode("utf-8"))
+        result = (data.get("chart", {}).get("result") or [None])[0]
+        if not result:
+            raise ValueError(str(data.get("chart", {}).get("error") or "empty chart result"))
+        meta = result.get("meta", {})
+        timestamps = result.get("timestamp") or []
+        quote = ((result.get("indicators") or {}).get("quote") or [{}])[0]
+        closes = quote.get("close") or []
+        points = []
+        for ts, close in zip(timestamps, closes):
+            if close is not None:
+                points.append({"timestamp_utc": datetime.fromtimestamp(ts, timezone.utc).isoformat(),
+                               "date_utc": datetime.fromtimestamp(ts, timezone.utc).date().isoformat(),
+                               "close": close})
+        if not points:
+            raise ValueError("No non-null daily close points returned")
+        item.update({"status": "ok", "http_status": status, "symbol": meta.get("symbol", symbol),
+                     "currency": meta.get("currency"), "exchange_timezone": meta.get("exchangeTimezoneName"),
+                     "latest_daily_close": points[-1], "history": points})
+    except Exception as e:
+        item.update({"status": "failed", "error": f"{type(e).__name__}: {e}"})
+    return item
+
+def probe_cnn():
+    url = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+    item = {"source": "CNN Fear & Greed (undocumented endpoint)", "url": url}
+    try:
+        status, ctype, body = fetch(url, {"Accept":"application/json", "Origin":"https://www.cnn.com",
+            "Referer":"https://www.cnn.com/markets/fear-and-greed"})
+        payload = json.loads(body.decode("utf-8"))
+        headline = payload.get("fear_and_greed") or payload.get("fearAndGreed") or payload.get("current") or payload
+        score = headline.get("score") if isinstance(headline, dict) else None
+        rating = headline.get("rating") if isinstance(headline, dict) else None
+        timestamp = headline.get("timestamp") if isinstance(headline, dict) else None
+        if score is None:
+            # Some graphdata responses only expose history; use the last point only if its shape is explicit.
+            series = payload.get("fear_and_greed_historical") or payload.get("history") or []
+            if isinstance(series, list) and series:
+                last = series[-1]
+                if isinstance(last, dict):
+                    score = last.get("y", last.get("score", last.get("value")))
+                    timestamp = last.get("x", last.get("date", last.get("timestamp")))
+        if not isinstance(score, (int, float)) or not 0 <= float(score) <= 100:
+            raise ValueError("Response received but no validated 0-100 score was found; schema may differ")
+        item.update({"status":"ok", "http_status":status, "score":round(float(score),2),
+                     "rating":rating, "source_timestamp":timestamp, "payload_keys":list(payload.keys())[:30]})
+    except Exception as e:
+        item.update({"status":"failed", "error":f"{type(e).__name__}: {e}"})
+    return item
+
+def probe_cme_page():
+    url = "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+    item = {"source":"CME FedWatch official public page (diagnostic, not authenticated API)", "url":url,
+            "official_api_note":"CME intraday REST API requires API ID entitlement and OAuth bearer token."}
+    try:
+        status, ctype, body = fetch(url, {"Accept":"text/html,application/xhtml+xml"})
+        html = body.decode("utf-8", errors="replace")
+        title_match = re.search(r"<title[^>]*>(.*?)</title>", html, re.I|re.S)
+        # Detect data hints without claiming the percentages are validated.
+        date_strings = sorted(set(re.findall(r"20\\d{2}-\\d{2}-\\d{2}", html)))
+        pct_strings = re.findall(r"(?<![\\w.])\\d{1,3}(?:\\.\\d{1,3})?\\s*%", html)
+        api_hints = sorted(set(re.findall(r"https?[^\\\"' ]{0,250}(?:fedwatch|quikstrike|forecast|probab)[^\\\"' ]{0,250}", html, re.I)))[:20]
+        item.update({"status":"diagnostic_only", "http_status":status, "content_type":ctype,
+                     "title":re.sub(r"\\s+"," ",title_match.group(1)).strip() if title_match else None,
+                     "html_bytes":len(body), "date_string_samples":date_strings[-20:],
+                     "percentage_string_samples":pct_strings[:30], "api_url_hints":api_hints,
+                     "validated_meeting_probabilities":False,
+                     "reason":"Public HTML retrieval does not prove the displayed meeting probability tree was loaded or current."})
+    except Exception as e:
+        item.update({"status":"failed", "error":f"{type(e).__name__}: {e}"})
+    return item
+
+report["sources"]["VIX"] = probe_yahoo("%5EVIX", "VIX")
+report["sources"]["MOVE"] = probe_yahoo("%5EMOVE", "MOVE")
+report["sources"]["CNN_FEAR_GREED"] = probe_cnn()
+report["sources"]["CME_FEDWATCH"] = probe_cme_page()
+now = datetime.now(timezone.utc)
+from zoneinfo import ZoneInfo
+report["captured_at_utc"] = now.isoformat()
+report["captured_at_taipei"] = now.astimezone(ZoneInfo("Asia/Taipei")).isoformat()
+report["summary"] = {k: v.get("status") for k,v in report["sources"].items()}
+report["automatically_usable_count"] = sum(1 for k,v in report["sources"].items()
+    if v.get("status") == "ok" and k != "CME_FEDWATCH")
+print(json.dumps(report, ensure_ascii=False, indent=2))
+with open("market-sentiment-probe.json", "w", encoding="utf-8") as f:
+    json.dump(report, f, ensure_ascii=False, indent=2)
