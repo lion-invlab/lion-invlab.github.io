@@ -6,7 +6,7 @@ import unittest
 
 HTML = Path("index.html").read_text(encoding="utf-8")
 START = '<div class="focus-panel focus-levels">'
-END = '<div class="focus-panel focus-core">'
+END = '<div class="callout">'
 
 def levels_panel():
     start = HTML.find(START)
@@ -31,13 +31,14 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
 
     def test_methodology_is_collapsed_and_ohlc_not_displayed(self):
         panel = levels_panel()
-        self.assertRegex(panel, r"<details class=\"source-details\">\s*<summary>關鍵價位計算方式與資料來源</summary>")
-        self.assertNotRegex(panel, r"(?i)\bOHLC\s*[:=]")
+        self.assertRegex(panel, r'<details class="source-details">\s*<summary>關鍵價位計算方式與資料來源</summary>')
+        self.assertNotRegex(panel, r"(?i)\\bOHLC\\s*[:=]")
 
     def test_unverified_russell_is_not_fabricated(self):
         panel = levels_panel()
+        self.assertIn("Russell 2000", panel)
+        self.assertIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
         self.assertIn("Russell 2000 未完成同日來源驗證", panel)
-        self.assertIn("暫不發布推算值", panel)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
