@@ -8,6 +8,10 @@ on:
       - ".github/workflows/market-sentiment-probe.yml"
       - "scripts/market_sentiment_probe.py"
   workflow_dispatch:
+  schedule:
+    # 05:15 Taiwan time, Monday-Friday (21:15 UTC, Sunday-Thursday).
+    # GitHub scheduled workflows run only from the default branch; this remains inactive until explicitly promoted.
+    - cron: "15 21 * * 0-4"
 
 permissions:
   contents: read
