@@ -1702,7 +1702,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <a href="#view">今日觀察重點</a>
 </nav></header>
 <main class="wrap" id="overview">
-<div class="data-sync-warning" role="status" style="margin:12px 0;padding:12px 14px;border:1px solid #d97706;border-left:5px solid #d97706;border-radius:10px;background:#fff7ed;color:#7c2d12;font-size:13px;line-height:1.6;font-weight:750">測試母版資料同步警示：VIX、MOVE 與 CNN Fear & Greed 已核對至 2026/10/22；但多數全球股市、11大產業ETF、債匯商品仍停留於 2026/10/21，與今日關鍵價位基準 2026/10/22 不一致。新聞時間窗亦尚未全數通過逐則驗證。請勿直接發布；其餘報價與摘要評論完成同日交叉核對前，仍視為未完成同步。</div>
+<div class="data-sync-warning" role="status" style="margin:12px 0;padding:12px 14px;border:1px solid #d97706;border-left:5px solid #d97706;border-radius:10px;background:#fff7ed;color:#7c2d12;font-size:13px;line-height:1.6;font-weight:750">測試母版資料同步警示：市場情緒與多數市場報價仍是 2026/10/21，今日關鍵價位基準為 2026/10/22。兩者日期尚未同步；新聞也尚未逐則核實原始發布時間、時區及最後更新時間，不能視為已通過新聞時間窗檢查。請勿直接發布；每日製作時須先更新報價、新聞與摘要評論，逐則驗證新聞時間窗，再重新驗證關鍵價位。</div>
 <section class="grid two">
 <article class="card bluf">
 <div class="title">總結</div>
@@ -1712,11 +1712,11 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 </article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
 <div class="title">市場情緒</div>
 <div class="sent">
-<div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>19.03</strong><span class="up">+14.09%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/22收盤：19.03；較前次收盤16.68上升2.35（+14.09%）。來源：Yahoo Finance 歷史收盤資料，並以 Cboe 指數頁面交叉參考。</div></details></div>
-<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>106.84</strong><span class="up">+11.36%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/22收盤：106.84；較前次收盤95.94上升10.90（+11.36%）。來源：Investing.com ICE BofAML MOVE 歷史資料。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>16.68</strong><span class="down">-3.64%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/21收盤：16.68；較前次收盤17.31下跌0.63（-3.64%）。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>95.94</strong><span class="down">-5.66%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/21收盤：95.94；較前次收盤101.70下跌5.76（-5.66%）。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
   <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
-  <div class="fg6-date">CNN Fear &amp; Greed｜2026/10/22 UTC 最新可查讀值</div>
+  <div class="fg6-date">CNN Fear &amp; Greed｜2026/10/21 最新可查讀值</div>
   <div class="fg6-score-row">
     <div class="fg6-score"><span class="fg6-score-main">31</span><span class="fg6-outof">/100</span></div>
     <div class="fg6-status"><span>Fear</span><i></i><b>恐懼</b></div>
@@ -1726,9 +1726,9 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
     <div class="fg6-marker"><span></span></div>
     <div class="fg6-labels"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
   </div>
-  <details class="source-details"><summary>資料來源</summary><div class="source">CNN Fear &amp; Greed 最新可查資料日期為2026/10/22（UTC），讀值20（Extreme Fear／極度恐懼）；來源：fgscore.com所列CNN原始指數資料，非CNN官方截圖。另有第三方頁面顯示不同讀值，故此項仍須保留來源口徑並於正式發布前再核對。</div></details>
+  <details class="source-details"><summary>資料來源</summary><div class="source">CNN Fear &amp; Greed 最新可查資料日期為2026/10/21，讀值31（Fear／恐懼）；來源：fgscore.com轉載的CNN原始指數資料，尚非CNN官方截圖，應保留資料來源口徑說明。</div></details>
 </section>
-<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/22 VIX 收於19.03、單日上升14.09%；MOVE 收於106.84、單日上升11.36%，股市與債市隱含波動同步升高。fgscore.com列示的CNN Fear &amp; Greed為20，落在極度恐懼區；但不同第三方頁面存在讀值差異，情緒分數仍需按指定來源再次核對。整體而言，當日風險指標轉向防禦，且多數市場報價尚未完成同日更新，因此不據此直接下整體市場定調。</div></div>
+<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/21 VIX 收於16.68，單日下跌3.64%；MOVE 收於95.94，單日下跌5.66%，顯示當日股市隱含波動與債市利率波動指標同步回落。CNN Fear &amp; Greed 為31，仍處於恐懼區，代表情緒修復尚不全面。整體而言，財報帶動風險偏好回升，但仍需觀察大型科技財報、殖利率及市場廣度是否持續改善。</div></div>
 </div>
 </article>
 </section>
