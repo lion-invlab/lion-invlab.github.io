@@ -244,6 +244,23 @@ if vg.get("previous_close") is not None and vc.get("previous_close") is not None
         "result": "candidate_sources_agree" if delta < 0.02 else "previous_close_mismatch",
         "note": "Mismatch blocks automatic close approval; confirm both values refer to the same prior trading session."
     })
+# Validate SOX's displayed daily point change against its explicitly labelled previous close.
+# This is same-page arithmetic only; it is not independent source verification.
+sg = by_key.get("sox_google", {})
+if sg.get("candidate_quote") is not None and sg.get("previous_close") is not None:
+    body = sg.get("body_text", "")
+    change = re.search(r"\(([+-][0-9,]+\.\d+)\)\s*Today", body, re.I)
+    if change:
+        displayed = float(change.group(1).replace(",", ""))
+        calculated = float(sg["candidate_quote"]) - float(sg["previous_close"])
+        result["cross_source_checks"].append({
+            "pair": ["sox_google.quote", "sox_google.previous_close"],
+            "displayed_change": displayed,
+            "calculated_change": round(calculated, 2),
+            "change_matches_within_0_02": abs(displayed - calculated) < 0.02,
+            "result": "arithmetic_consistent" if abs(displayed - calculated) < 0.02 else "change_arithmetic_mismatch",
+            "note": "Same-page arithmetic is not an independent source validation."
+        })
 mg = by_key.get("move_google", {})
 if mg.get("candidate_quote") is not None and mg.get("previous_close") is not None:
     # The displayed daily change is useful arithmetic validation, not an independent source.
