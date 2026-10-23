@@ -45,6 +45,9 @@ jobs:
       - name: Validate same-session OHLC and calculate classic pivot levels
         run: python scripts/test_tac_key_levels.py "${{ inputs.session_date || '2026-10-21' }}"
 
+      - name: Validate dated 2026-10-23 report session OHLC and pivots
+        run: python scripts/test_tac_key_levels.py "2026-10-22"
+
       - name: Probe public SOX source consistency (diagnostic only)
         timeout-minutes: 2
         continue-on-error: true
