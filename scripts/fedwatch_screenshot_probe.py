@@ -118,6 +118,7 @@ with sync_playwright() as p:
         )
         data_stamp = re.search(r"Data as of\s+([^\n]+)", qtext, re.I)
         # Cross-check the summary probabilities against the detailed NOW target-rate table.
+        # Regression check: require summary and detailed rows to agree before any values are publishable.
         now_row = re.search(
             r"(?m)^\s*(\d{3}-\d{3})\s*\(Current\)\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%",
             qtext, re.I
