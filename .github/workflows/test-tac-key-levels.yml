@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install validator dependencies
-        run: python -m pip install --upgrade pip yfinance pandas
+        run: python -m pip install --upgrade pip yfinance pandas requests
       - name: Validate same-session OHLC and calculate classic pivot levels
         run: python scripts/test_tac_key_levels.py "${{ inputs.session_date }}"
+
+      - name: Probe public SOX source consistency (diagnostic only)
+        run: python scripts/probe_sox_sources.py
