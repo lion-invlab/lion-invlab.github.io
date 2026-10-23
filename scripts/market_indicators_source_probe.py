@@ -194,7 +194,7 @@ with sync_playwright() as p:
                         item["previous_close_validation"] = "not_independently_verified"
                 # Validate the official page's displayed point change against the
                 # extracted current quote and prior close when both are plausible.
-                change_match = re.search(r"DATA AS OF\\s+\\d{1,2}/\\d{1,2}/\\d{4}\\s+[0-9,]+\\.\\d+\\s+([+-][0-9,]+\\.\\d+)", body, re.I)
+                change_match = re.search(r"DATA AS OF\s+\d{1,2}/\d{1,2}/\d{4}\s+[0-9,]+\.\d+\s+([+-][0-9,]+\.\d+)", body, re.I)
                 if change_match and item.get("previous_close") is not None and item.get("candidate_quote") is not None:
                     displayed_change = float(change_match.group(1).replace(",", ""))
                     calculated_change = float(item["candidate_quote"]) - float(item["previous_close"])
@@ -248,7 +248,7 @@ mg = by_key.get("move_google", {})
 if mg.get("candidate_quote") is not None and mg.get("previous_close") is not None:
     # The displayed daily change is useful arithmetic validation, not an independent source.
     body = mg.get("body_text", "")
-    change = re.search(r"([+-][0-9,]+\\.\\d+)\\s*\\(.*?\\)\\s*Today", body, re.I)
+    change = re.search(r"([+-][0-9,]+\.\d+)\s*\(.*?\)\s*Today", body, re.I)
     if change:
         displayed = float(change.group(1).replace(",", ""))
         calculated = float(mg["candidate_quote"]) - float(mg["previous_close"])
