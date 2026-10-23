@@ -1,4 +1,5 @@
 name: TAC Market Sentiment Isolated Probe
+# Diagnostic run marker: validate additional regional MOVE history source.
 
 on:
   push:
