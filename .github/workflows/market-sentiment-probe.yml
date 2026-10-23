@@ -1,5 +1,6 @@
 name: TAC Market Sentiment Isolated Probe
 # Diagnostic run marker: validate additional regional MOVE history source.
+# Diagnostic run marker 2: validate Japanese public MOVE history source.
 
 on:
   push:
