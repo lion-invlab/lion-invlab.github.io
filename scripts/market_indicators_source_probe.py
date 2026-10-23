@@ -282,18 +282,39 @@ with sync_playwright() as p:
 # historical row for the immediately preceding session was successfully extracted.
 history_by_key = {x.get("key"): x for x in result["historical_references"]}
 for live_key, hist_key in [("vix_google", "vix_yahoo_history"), ("move_google", "move_investing_history"), ("sox_google", "sox_yahoo_history")]:
-    live = by_key.get(live_key, {}) if "by_key" in globals() else {}
+    live = by_key.get(live_key, {})
     hist = history_by_key.get(hist_key, {})
-    prior = next((row for row in hist.get("rows", []) if row.get("date") == "2026-10-22"), None)
+    # The correct historical row is determined from the live quote's own date,
+    # not a fixed date shared by all instruments. A quote dated 2026-10-23
+    # should compare its previous close with 2026-10-22; a quote dated
+    # 2026-10-22 should compare with 2026-10-21.
+    quote_date = live.get("candidate_quote_date")
+    rows = hist.get("rows", [])
+    row_dates = [row.get("date") for row in rows if row.get("date")]
+    expected_date = None
+    if quote_date and quote_date in row_dates:
+        # Historical providers expose trading sessions in descending order.
+        # Use the immediately following row as the prior trading session.
+        idx = row_dates.index(quote_date)
+        if idx + 1 < len(row_dates):
+            expected_date = row_dates[idx + 1]
+    if expected_date is None and quote_date:
+        # If the quote date itself is absent from the historical table (e.g.
+        # live page is intraday and history is not yet updated), use the latest
+        # available history date strictly before the quote date.
+        expected_date = next((d for d in row_dates if d < quote_date), None)
+    prior = next((row for row in rows if row.get("date") == expected_date), None)
+    matches = bool(prior and prior.get("close_candidate") is not None and live.get("previous_close") is not None and abs(float(prior["close_candidate"]) - float(live["previous_close"])) < 0.02)
     result.setdefault("dated_history_checks", []).append({
         "live_source": live_key,
         "historical_source": hist_key,
-        "target_session_date": "2026-10-22",
+        "quote_date": quote_date,
+        "target_session_date": expected_date,
         "historical_close_candidate": prior.get("close_candidate") if prior else None,
         "live_previous_close_candidate": live.get("previous_close"),
-        "matches_within_0_02": (prior is not None and prior.get("close_candidate") is not None and live.get("previous_close") is not None and abs(float(prior["close_candidate"]) - float(live["previous_close"])) < 0.02),
-        "result": "comparable_candidates_match" if (prior is not None and prior.get("close_candidate") is not None and live.get("previous_close") is not None and abs(float(prior["close_candidate"]) - float(live["previous_close"])) < 0.02) else "not_verified_or_mismatch",
-        "note": "Date-matched historical row is captured for audit; a mismatch remains blocking and does not automatically establish which provider is stale."
+        "matches_within_0_02": matches,
+        "result": "comparable_candidates_match" if matches else ("historical_source_unavailable" if not hist.get("ok") else "not_verified_or_mismatch"),
+        "note": "Comparison date is derived from the quote's date and prior trading session; mismatches block approval and do not establish which provider is stale."
     })
 
 g = by_key.get("sox_google", {})
