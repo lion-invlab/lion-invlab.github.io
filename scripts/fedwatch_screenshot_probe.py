@@ -117,6 +117,15 @@ with sync_playwright() as p:
             or re.search(r"Current target rate is\s+(\d{3}-\d{1,3})", qtext, re.I)
         )
         data_stamp = re.search(r"Data as of\s+([^\n]+)", qtext, re.I)
+        # Cross-check the summary probabilities against the detailed NOW target-rate table.
+        now_row = re.search(
+            r"(?m)^\s*(\d{3}-\d{3})\s*\(Current\)\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%",
+            qtext, re.I
+        )
+        next_row = re.search(
+            r"(?m)^\s*(\d{3}-\d{3})\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%",
+            qtext, re.I
+        )
         errors = result["validation_errors"]
         if not result["has_quikstrike_frame"]:
             errors.append("Missing embedded QuikStrike frame.")
@@ -128,6 +137,30 @@ with sync_playwright() as p:
             errors.append("Could not parse current target rate range from embedded QuikStrike text.")
         if not data_stamp:
             errors.append("Could not parse source data timestamp from embedded QuikStrike text.")
+        if not now_row:
+            errors.append("Could not parse the detailed NOW/current target-rate table row.")
+        if not next_row:
+            errors.append("Could not parse the next target-rate probability table row.")
+        if prob_section and now_row:
+            try:
+                summary_no_change = float(prob_section.group(2))
+                summary_hike = float(prob_section.group(3))
+                table_no_change = float(now_row.group(2))
+                table_hike = float(now_row.group(3))
+                if abs(summary_no_change - table_no_change) > 0.01:
+                    errors.append("Summary no-change probability does not match the detailed NOW table.")
+                if abs(summary_hike - table_hike) > 0.01:
+                    errors.append("Summary hike probability does not match the detailed NOW table.")
+                result["table_crosscheck"] = {
+                    "current_rate": now_row.group(1),
+                    "no_change_pct": table_no_change,
+                    "hike_pct": table_hike,
+                    "next_rate": next_row.group(1) if next_row else None,
+                    "next_rate_now_pct": float(next_row.group(2)) if next_row else None,
+                    "passed": abs(summary_no_change - table_no_change) <= 0.01 and abs(summary_hike - table_hike) <= 0.01
+                }
+            except (ValueError, IndexError) as exc:
+                errors.append(f"Could not validate summary against detailed target-rate table: {exc}")
         if prob_section:
             ease, unchanged, hike = [float(x) for x in prob_section.groups()]
             total = ease + unchanged + hike
