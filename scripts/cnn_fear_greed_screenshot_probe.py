@@ -112,3 +112,5 @@ with sync_playwright() as p:
 print(json.dumps(result, ensure_ascii=False, indent=2))
 if result["status"] != "validated":
     raise SystemExit(1)
+
+# Repeatability note: this isolated probe is intentionally fail-closed on missing fields.
