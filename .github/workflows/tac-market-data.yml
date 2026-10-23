@@ -37,7 +37,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/tac_market_snapshot.json data/fedwatch_snapshot.html
+          git add data/tac_market_snapshot.json
+          if [ -f data/fedwatch_snapshot.html ]; then git add data/fedwatch_snapshot.html; fi
           git diff --cached --quiet || git commit -m "Collect TAC market data snapshot"
           git push
       - name: Fail run if validation incomplete
