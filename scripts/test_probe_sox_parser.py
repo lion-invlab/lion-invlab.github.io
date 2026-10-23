@@ -67,6 +67,23 @@ class NasdaqSnapshotParserTests(unittest.TestCase):
         )
         self.assertIsNone(probe.extract_ycharts_row(html, date(2026, 10, 21)))
 
+    def test_parses_exact_date_in_closelook_historical_table(self):
+        html = (
+            '<tr><td>2026-10-21</td><td>11494.43</td><td>11562.25</td>'
+            '<td>11355.29</td><td>11505.56</td><td>+1.97%</td></tr>'
+        )
+        parsed = probe.extract_closelook_row(html, date(2026, 10, 21))
+        self.assertEqual(parsed, {
+            "Open": 11494.43, "High": 11562.25, "Low": 11355.29, "Close": 11505.56
+        })
+
+    def test_closelook_parser_does_not_accept_other_dates(self):
+        html = (
+            '<tr><td>2026-10-22</td><td>11049.07</td><td>11140.33</td>'
+            '<td>10666.41</td><td>10731.98</td><td>-6.72%</td></tr>'
+        )
+        self.assertIsNone(probe.extract_closelook_row(html, date(2026, 10, 21)))
+
     def test_invalid_calendar_date_fails_loudly(self):
         with self.assertRaises(ValueError):
             probe.extract_nasdaq_snapshot(
