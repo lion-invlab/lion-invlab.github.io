@@ -30,4 +30,5 @@ jobs:
         run: python scripts/test_tac_key_levels.py "${{ inputs.session_date }}"
 
       - name: Probe public SOX source consistency (diagnostic only)
+        timeout-minutes: 2
         run: python scripts/probe_sox_sources.py
