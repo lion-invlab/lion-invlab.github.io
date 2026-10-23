@@ -9,6 +9,7 @@ const viewports = [
   { width: 390, height: 844, label: 'mobile-sized' },
   { width: 1365, height: 900, label: 'desktop-sized' },
 ];
+const masterSignatures = {};
 const groups = [
   { root: '#news-scan', name: 'tac-news', tabs: 2 },
   { root: '#global-markets', name: 'tac-region', tabs: 3 },
@@ -45,6 +46,22 @@ const groups = [
         const datedMarketPanel = await page.locator('#global-markets .tab-panel-meta').first().innerText();
         if (!/20\\d{2}\\/\\d{2}\\/\\d{2}/.test(datedMarketPanel)) {
           throw new Error(`${target.label}: market data source date label is missing`);
+        }
+
+        // Shared content should stay aligned between Monday and Tue-Fri masters;
+        // Monday's two additional "last week" sections are intentionally excluded.
+        const signature = {
+          headline: summaryHeadline,
+          warning: summaryWarning,
+          weeklyCalendar: (await page.locator('#calendar .title').innerText()).trim(),
+          weeklyEarnings: (await page.locator('#earnings .title').innerText()).trim(),
+          tabLabels: await page.locator('.tac-tabset .tac-tab-nav label').allInnerTexts(),
+          sourceDate: datedMarketPanel.trim()
+        };
+        const viewportSignature = JSON.stringify(signature);
+        if (!masterSignatures[target.label]) masterSignatures[target.label] = viewportSignature;
+        else if (masterSignatures[target.label] !== viewportSignature) {
+          throw new Error(`${target.label}: shared content/date labels differ by viewport size`);
         }
 
         // Check page-level horizontal overflow. Horizontal navigation and explicitly
@@ -105,6 +122,12 @@ const groups = [
         await page.close();
       }
     }
+    const mondaySignature = masterSignatures['Monday master'];
+    const weekdaySignature = masterSignatures['Tuesday-Friday master'];
+    if (mondaySignature !== weekdaySignature) {
+      throw new Error('Monday and Tue-Fri masters have diverged in shared summary, weekly calendar/earnings dates, tab labels, or market source-date labels');
+    }
+    console.log('PASS shared master sync: summary warnings, weekly calendar/earnings labels, tab labels, and market source-date labels match');
   } finally {
     if (browser) await browser.close();
     server.kill('SIGTERM');
