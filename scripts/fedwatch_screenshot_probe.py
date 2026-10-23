@@ -144,6 +144,8 @@ with sync_playwright() as p:
             errors.append("Could not parse the detailed NOW/current target-rate table row.")
         if not next_row:
             errors.append("Could not parse the next target-rate probability table row.")
+        if not any(name.startswith("fedwatch-frame-") for name in result["screenshots"]):
+            errors.append("Missing screenshot of the embedded QuikStrike frame; parent-page screenshot alone is insufficient.")
         if prob_section and now_row and next_row:
             try:
                 summary_no_change = float(prob_section.group(2))
@@ -151,6 +153,10 @@ with sync_playwright() as p:
                 table_no_change = float(now_row.group(2))
                 # The next rate row's first probability is the NOW probability of a hike.
                 table_hike = float(next_row.group(2))
+                current_low, current_high = [int(v) for v in now_row.group(1).split("-")]
+                next_low, next_high = [int(v) for v in next_row.group(1).split("-")]
+                if next_low != current_high or next_high - next_low != 25:
+                    errors.append("Next target-rate row is not the adjacent 25-bps rate range after the current target range.")
                 if abs(summary_no_change - table_no_change) > 0.01:
                     errors.append("Summary no-change probability does not match the current-rate NOW table value.")
                 if abs(summary_hike - table_hike) > 0.01:
@@ -160,7 +166,8 @@ with sync_playwright() as p:
                     "no_change_pct": table_no_change,
                     "next_rate": next_row.group(1),
                     "hike_pct": table_hike,
-                    "passed": abs(summary_no_change - table_no_change) <= 0.01 and abs(summary_hike - table_hike) <= 0.01
+                    "adjacent_25bp_row": next_low == current_high and next_high - next_low == 25,
+                    "passed": abs(summary_no_change - table_no_change) <= 0.01 and abs(summary_hike - table_hike) <= 0.01 and next_low == current_high and next_high - next_low == 25
                 }
             except (ValueError, IndexError) as exc:
                 errors.append(f"Could not validate summary against detailed target-rate table: {exc}")
