@@ -13,26 +13,25 @@ TICKERS = {
     "費城半導體指數（SOX）": "^SOX",
 }
 
-# Verified Nasdaq official SOX session snapshot used only as a regression fixture.
-# The public page currently exposes inconsistent values across URL variants, so
-# do not treat Yahoo's SOX OHLC as authoritative for this session.
-OFFICIAL_SESSION_FIXTURES = {
+# Historical regression fixture from Yahoo Finance's dated SOX history table.
+# This fixture checks calculations only; it is NOT a live feed.
+SESSION_FIXTURES = {
     ("費城半導體指數（SOX）", date(2026, 10, 22)): {
-        "High": 11140.33, "Low": 10714.68, "Close": 10742.76,
-        "source": "Nasdaq official SOX overview (verified snapshot)"
+        "High": 11140.33, "Low": 10666.41, "Close": 10731.98,
+        "source": "Yahoo Finance dated historical table (regression fixture)"
     },
 }
 
 def main():
     print(f"TAC 關鍵價位資料源測試｜預期交易日：{EXPECTED_SESSION.isoformat()}")
     print("一般指數來源：Yahoo Finance chart data via yfinance。")
-    print("SOX 2026-10-22 使用 Nasdaq 官方核對快照作回歸測試；此快照不是即時資料管線。")
+    print("SOX 固定日期若使用回歸快照，僅驗證計算；不可視為即時來源驗收。")
     errors = []
     live_passes = 0
     fixture_passes = 0
     for name, ticker in TICKERS.items():
         try:
-            fixture = OFFICIAL_SESSION_FIXTURES.get((name, EXPECTED_SESSION))
+            fixture = SESSION_FIXTURES.get((name, EXPECTED_SESSION))
             if fixture:
                 vals = {k: float(fixture[k]) for k in ("High", "Low", "Close")}
                 source = fixture["source"]
