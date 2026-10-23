@@ -259,7 +259,8 @@ def probe_move_web():
                 if eod_rows:
                     item.update({"status":"ok","http_status":status,"latest_daily_close":eod_rows[0],
                                  "history":eod_rows[:5],"quote_type":"daily close from structured EODData table",
-                                 "validation_note":"Confirm parsed row and session date against a second independent source before publishing."})
+                                 "validation_note":"Confirm parsed row and session date against a second independent source before publishing.",
+                                 "attempts_before_success":errors[:]})
                     return item
             plain = re.sub(r"<[^>]+>", " ", html)
             plain = re.sub(r"\s+", " ", plain)
