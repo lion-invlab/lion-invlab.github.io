@@ -1,0 +1,55 @@
+name: TAC VIX MOVE SOX Source Access Isolated Test
+
+on:
+  push:
+    branches:
+      - test/vix-move-sox-source-probe-20261023
+    paths:
+      - ".github/workflows/market-indicators-source-probe-test.yml"
+      - "scripts/market_indicators_source_probe.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-market-indicators-source-probe-test
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout isolated test branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Playwright and browser
+        run: |
+          if ! command -v xvfb-run >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y xvfb
+          fi
+          python -m pip install --upgrade pip
+          python -m pip install playwright
+          python -m playwright install chromium
+      - name: Capture source pages and validate reachability
+        shell: bash
+        run: |
+          set -o pipefail
+          xvfb-run -a python scripts/market_indicators_source_probe.py | tee market-indicators-source-probe.log
+      - name: Upload screenshots and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-market-indicators-source-probe-${{ github.run_id }}
+          path: |
+            market-indicators-evidence/
+            market-indicators-source-probe.log
+          if-no-files-found: warn
+          retention-days: 30
