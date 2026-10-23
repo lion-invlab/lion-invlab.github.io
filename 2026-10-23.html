@@ -2909,5 +2909,44 @@ main.wrap [data-main-section-title]{
 .today-focus-collapse[open] .today-focus-hint:after{content:"點擊收合";font-size:12px}
 .today-focus-body{padding-top:10px}
 </style>
+
+<!-- TAC focus-tab interaction reliability fix -->
+<script id="tac-focus-tabs-interaction-fix-v1">
+(function(){
+  function initFocusTabs(){
+    document.querySelectorAll('.today-focus .focus-tabs').forEach(function(root){
+      var inputs=Array.from(root.querySelectorAll('input[type="radio"][id^="focus-tab-"]'));
+      var labels=root.querySelector('.focus-tab-labels');
+      var panels=root.querySelector('.focus-panels');
+      if(!inputs.length||!labels||!panels)return;
+      function sync(){
+        var selected=inputs.find(function(input){return input.checked;})||inputs[0];
+        selected.checked=true;
+        inputs.forEach(function(input){
+          var suffix=input.id.replace(/^focus-tab-/,'');
+          var panel=panels.querySelector('.focus-'+suffix);
+          var label=labels.querySelector('label[for="'+input.id+'"]');
+          var active=input===selected;
+          if(panel){panel.style.display=active?'block':'none';panel.setAttribute('aria-hidden',active?'false':'true');}
+          if(label){label.setAttribute('aria-selected',active?'true':'false');label.setAttribute('role','tab');}
+        });
+        labels.setAttribute('role','tablist');
+      }
+      labels.addEventListener('click',function(event){
+        var label=event.target.closest('label[for]');
+        if(!label||!labels.contains(label))return;
+        var input=inputs.find(function(item){return item.id===label.getAttribute('for');});
+        if(!input)return;
+        input.checked=true;
+        sync();
+      });
+      inputs.forEach(function(input){input.addEventListener('change',sync);});
+      sync();
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initFocusTabs,{once:true});
+  else initFocusTabs();
+})();
+</script>
 </body>
 </html>
