@@ -121,7 +121,10 @@ def main():
             state = "CURRENT" if snap_date == SESSION else "STALE_OR_WRONG_DATE"
             print(f"NASDAQ｜{label}｜{state}｜date={snap_date}｜snapshot_close={close:.2f}")
             if snap_date != SESSION:
-                failures.append(f"{label} 日期不符：頁面={snap_date}，要求={SESSION}")
+                # Live SEO snapshot is not a historical observation for SESSION.
+                # Report the limitation but do not treat a wrong-date quote as
+                # a conflicting same-session close.
+                pass
             elif yahoo is not None and abs(close - yahoo["Close"]) > TOLERANCE:
                 failures.append(f"{label} 收盤與 Yahoo 不一致：Nasdaq={close:.2f}, Yahoo={yahoo['Close']:.2f}")
         except Exception as e:
@@ -129,7 +132,7 @@ def main():
 
     current_official = [(n, d, c) for n, d, c in official_snapshots if d == SESSION]
     if not current_official:
-        failures.append("沒有任何 Nasdaq 官方頁面成功解析出指定交易日快照")
+        print("NASDAQ_HISTORY｜NO_PUBLIC_EXACT_DATE_SNAPSHOT｜公開頁面只解析到即時快照；歷史服務需要 GIW 權限，未計入第二來源")
     if len(current_official) >= 2:
         vals = [x[2] for x in current_official]
         if max(vals) - min(vals) > TOLERANCE:
@@ -176,12 +179,19 @@ def main():
     except Exception as e:
         print(f"FRED｜DIAGNOSTIC_UNAVAILABLE｜{type(e).__name__}: {e}")
 
+    independent_crosscheck = (
+        yahoo is not None and investing is not None and
+        all(abs(investing[k] - yahoo[k]) <= TOLERANCE for k in ("Open", "High", "Low", "Close"))
+    )
+    if not independent_crosscheck:
+        failures.append("未能完成 Yahoo Finance 與 Investing.com 的指定日 OHLC 雙來源交叉驗證")
+
     if failures:
         print("FINAL｜FAIL｜不可將此日期 SOX 資料視為驗收通過")
         for issue in failures:
             print("REASON｜" + issue)
         sys.exit(1)
-    print("FINAL｜PASS｜Yahoo 指定日 OHLC 合法，且至少一個 Nasdaq 官方頁面日期與收盤一致；其他官方頁面若無法解析會明確保留診斷狀態。")
+    print("FINAL｜PASS_WITH_LIMITATION｜Yahoo Finance 與 Investing.com 指定日 OHLC 一致；Nasdaq 公開頁面未提供可驗證的同日歷史快照，官方歷史服務需 GIW 權限，故不宣稱 Nasdaq 官方交叉驗收通過。")
 
 if __name__ == "__main__":
     main()
