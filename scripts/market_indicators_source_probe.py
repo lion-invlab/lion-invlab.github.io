@@ -53,6 +53,25 @@ with sync_playwright() as p:
                 item["body_error"] = f"{type(exc).__name__}: {exc}"
             item["body_text"] = body[:12000]
             item["body_text_length"] = len(body)
+            # Extract Google Finance's visible headline quote as a candidate only.
+            # This is not publication-approved until independently cross-checked.
+            item["candidate_quote"] = None
+            item["candidate_quote_source"] = None
+            item["candidate_quote_status"] = "not_found"
+            if "google.com/finance" in source["url"]:
+                try:
+                    quote_el = page.locator("div.YMlKec.fxKbKc").first
+                    quote_text = quote_el.inner_text(timeout=5000).strip()
+                    quote_match = re.search(r"[-+]?\\d[\\d,]*(?:\\.\\d+)?", quote_text)
+                    if quote_match:
+                        item["candidate_quote"] = float(quote_match.group(0).replace(",", ""))
+                        item["candidate_quote_source"] = "Google Finance visible headline selector div.YMlKec.fxKbKc"
+                        item["candidate_quote_status"] = "candidate_only"
+                    else:
+                        item["candidate_quote_status"] = "selector_text_not_numeric"
+                    item["candidate_quote_display_text"] = quote_text[:120]
+                except Exception as exc:
+                    item["candidate_quote_status"] = f"selector_unavailable: {type(exc).__name__}: {exc}"
             screenshot_path = OUT / f"{source['key']}.png"
             try:
                 page.screenshot(path=str(screenshot_path), full_page=False, timeout=12000)
@@ -64,7 +83,7 @@ with sync_playwright() as p:
             if not item["ok"]:
                 result["validation_errors"].append(f"{source['label']}: page/keyword/screenshot validation failed")
             # Do not treat a displayed quote as validated until extraction and independent numeric cross-check exist.
-            item["quote_extraction_status"] = "not_implemented_capture_only"
+            item["quote_extraction_status"] = item.get("candidate_quote_status", "not_applicable_official_page_capture_only")
         except Exception as exc:
             item["error"] = f"{type(exc).__name__}: {exc}"
             result["validation_errors"].append(f"{source['label']}: {item['error']}")
