@@ -10,6 +10,7 @@ on:
       - "scripts/probe_sox_sources.py"
       - "scripts/test_tac_report_integration.py"
       - "index.html"
+      - "test-masters/**"
   workflow_dispatch:
     inputs:
       session_date:
