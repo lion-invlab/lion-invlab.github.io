@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Numeric SOX source check. Diagnostic/test branch only; never writes report data or JSON."""
 from datetime import date, datetime, timedelta, timezone
-import json
 import re
 import sys
 import requests
@@ -54,14 +53,18 @@ def main():
         errors.append(f"Yahoo chart API: {type(e).__name__}: {e}")
         print(f"YAHOO_API｜FAIL｜{errors[-1]}")
 
-    # FRED published daily series is a second close-only cross-check.
+    # FRED published daily series is a second close-only cross-check. It can lag;
+    # stale/missing target dates are explicitly reported, never treated as current.
     try:
         r = s.get(FRED_URL, timeout=(5, 20))
         r.raise_for_status()
         rows = re.findall(r"(?m)^\s*(\d{4}-\d{2}-\d{2})\s+([0-9]+(?:\.[0-9]+)?|\.)\s*$", r.text)
         row = next((value for day, value in rows if day == SESSION.isoformat()), None)
         if row is None or row == ".":
-            raise ValueError("FRED 沒有指定交易日有效收盤列")
+            latest_valid = next(((day, value) for day, value in reversed(rows) if value != "."), None)
+            if latest_valid:
+                raise ValueError(f"FRED 尚無指定交易日資料；該序列最新有效列={latest_valid[0]}:{latest_valid[1]}（視為延遲，不可當第二來源）")
+            raise ValueError("FRED 沒有可用的有效收盤列")
         fred_close = float(row)
         print(f"FRED｜PASS｜date={SESSION}｜C={fred_close:.2f}")
     except Exception as e:
@@ -98,6 +101,7 @@ def main():
         errors.append("無法同時取得 Yahoo OHLC 與 FRED 收盤，不能完成雙來源數值驗證")
 
     print(f"OFFICIAL_PAGE_STATUS｜reachable={official_reachable}/{len(NASDAQ_URLS)}｜raw_html_unparsed={official_unparsed}")
+    print("驗收規則｜只有 Yahoo 指定日 OHLC 完整且與 FRED 同日收盤差距 <= 0.02 才能 PASS；FRED 延遲或官方頁無法解析均不得假裝完成獨立來源交叉驗證。")
     if official_unparsed:
         print("OFFICIAL_PAGE_NOTE｜官方頁面原始 HTML 未完整暴露可驗證的日期/收盤欄位；HTTP 200 不等於數值驗證通過。")
     if errors:
