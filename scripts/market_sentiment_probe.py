@@ -207,6 +207,28 @@ def probe_move_web():
                                  "quote_type":"page snapshot; session date not confirmed",
                                  "validation_note":"Do not label as previous close unless page exposes and validates the session date."})
                     return item
+            # EODData uses structured table rows: Date | Open | High | Low | Close | Volume.
+            if "eoddata.com" in url:
+                eod_rows = []
+                for row_html in re.findall(r"<tr[^>]*>(.*?)</tr>", html, re.I|re.S):
+                    cells = [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", cell)).strip()
+                             for cell in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", row_html, re.I|re.S)]
+                    if not cells:
+                        continue
+                    date_match = re.search(r"(\d{1,2}\s+(?:Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\s+\d{2})", cells[0], re.I)
+                    if date_match and len(cells) >= 5:
+                        numeric_cells = [re.sub(r"[^0-9.\-]", "", x) for x in cells[1:]]
+                        try:
+                            prices = [float(x) for x in numeric_cells if x and re.fullmatch(r"-?\d+(?:\.\d+)?", x)]
+                        except ValueError:
+                            continue
+                        if len(prices) >= 4:
+                            eod_rows.append({"date_text":date_match.group(1),"close":prices[3]})
+                if eod_rows:
+                    item.update({"status":"ok","http_status":status,"latest_daily_close":eod_rows[0],
+                                 "history":eod_rows[:5],"quote_type":"daily close from structured EODData table",
+                                 "validation_note":"Confirm parsed row and session date against a second independent source before publishing."})
+                    return item
             plain = re.sub(r"<[^>]+>", " ", html)
             plain = re.sub(r"\s+", " ", plain)
             # Match a dated row and the first numeric field following the date; keep raw evidence for review.
