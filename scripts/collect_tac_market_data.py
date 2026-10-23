@@ -93,23 +93,40 @@ def collect_cnn():
         except Exception as e: errors.append(f"{url}: {type(e).__name__}: {e}")
     return {"value":None,"date":None,"source":"CNN Business Fear & Greed endpoint","status":"missing","error":" | ".join(errors)}
 def collect_fedwatch():
-    # Keep a dated source snapshot even if the site changes its markup. Only mark
-    # parsed probabilities valid when explicit named outcomes and percentages exist.
-    url="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
-    try:
-        r=SESSION.get(url, timeout=(8,25)); r.raise_for_status()
-        html=r.text
-        Path("data").mkdir(exist_ok=True)
-        Path("data/fedwatch_snapshot.html").write_text(html, encoding="utf-8")
-        text=re.sub(r"<[^>]+>", " ", html)
-        text=re.sub(r"\\s+", " ", text)
-        # No fabricated probability: a parser pass requires a recognizable outcome and percent.
-        matches=re.findall(r"(?:Target Rate|No Change|Maintain|25 bps|25 Basis Points)[^%]{0,100}(\\d{1,3}(?:\\.\\d+)?)\\s*%", text, re.I)
-        return {"value": matches if matches else None, "date": NOW.isoformat(timespec="seconds"),
-                "source":url,"status":"snapshot_saved_parse_pending" if not matches else "parsed_candidate",
-                "note":"Saved raw HTML snapshot; verify parsed outcomes against rendered FedWatch table."}
-    except Exception as e:
-        return {"value":None,"date":None,"source":url,"status":"missing","error":f"{type(e).__name__}: {e}"}
+    # Try the public CME page first, then its embedded QuikStrike view with an explicit
+    # same-site Referer. Save the actual fetched HTML and only parse explicit percentages.
+    urls = [
+        ("https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+         {"User-Agent": UA["User-Agent"]}),
+        ("https://cmegroup-tools.quikstrike.net/User/QuikStrikeTools.aspx?company=&companyType=&jobRole=&userId=lwolf&viewitemid=IntegratedFedWatchTool",
+         {"User-Agent": UA["User-Agent"],
+          "Referer": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+          "Origin": "https://www.cmegroup.com"})
+    ]
+    errors=[]
+    Path("data").mkdir(exist_ok=True)
+    for url, headers in urls:
+        try:
+            r=SESSION.get(url, headers=headers, timeout=(8,25))
+            r.raise_for_status()
+            html=r.text
+            Path("data/fedwatch_snapshot.html").write_text(html, encoding="utf-8")
+            text=re.sub(r"<[^>]+>", " ", html)
+            text=re.sub(r"\s+", " ", text)
+            # Do not treat a percentage as verified unless its outcome label is present.
+            matches=re.findall(r"(?:No Change|Maintain|25 bps|25 Basis Points|Target Rate)[^%]{0,160}(\d{1,3}(?:\.\d+)?)\s*%", text, re.I)
+            if matches:
+                return {"value": matches, "date": NOW.isoformat(timespec="seconds"),
+                        "source":url,"status":"parsed_candidate",
+                        "note":"Parsed candidate percentages from fetched HTML; verify the rendered meeting row before publication."}
+            # Preserve a successfully fetched snapshot for inspection, but don't guess.
+            errors.append(f"{url}: HTML fetched ({len(html)} chars) but outcome probabilities not parsable")
+        except Exception as e:
+            errors.append(f"{url}: {type(e).__name__}: {e}")
+    return {"value":None,"date":NOW.isoformat(timespec="seconds"),
+            "source":"CME FedWatch page / embedded QuikStrike fallback",
+            "status":"missing","error":" | ".join(errors)}
+
 def main():
     result={"schema_version":1,"fetched_at_utc":NOW.isoformat(timespec="seconds"),
             "fetched_at_taipei":TAIPEI,"branch":"tac-test-2026-10-23","indicators":{},"key_levels":{},
