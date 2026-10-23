@@ -13,6 +13,13 @@ TICKERS = {
     "費城半導體指數（SOX）": "^SOX",
 }
 
+# Official Nasdaq SOX close observed for this regression-test session.
+# If Yahoo differs materially, fail closed rather than publish questionable levels.
+OFFICIAL_CLOSE_CHECKS = {
+    ("費城半導體指數（SOX）", date(2026, 10, 22)): 10742.76,
+}
+CLOSE_TOLERANCE = 1.00
+
 def main():
     print(f"TAC 關鍵價位資料源測試｜預期交易日：{EXPECTED_SESSION.isoformat()}")
     print("來源：Yahoo Finance chart data via yfinance；本測試不更新 HTML/JSON。")
@@ -38,6 +45,14 @@ def main():
                 raise ValueError(f"OHLC 欄位缺漏或非正值：{vals}")
             if vals["High"] < vals["Low"] or not (vals["Low"] <= vals["Close"] <= vals["High"]):
                 raise ValueError(f"OHLC 邏輯驗證失敗：{vals}")
+            official_close = OFFICIAL_CLOSE_CHECKS.get((name, EXPECTED_SESSION))
+            if official_close is not None and abs(vals["Close"] - official_close) > CLOSE_TOLERANCE:
+                raise ValueError(
+                    f"來源交叉核對失敗：Yahoo 收盤 {vals['Close']:,.2f}，"
+                    f"Nasdaq 官方收盤 {official_close:,.2f}，"
+                    f"差異 {vals['Close'] - official_close:+,.2f} 點；"
+                    "停止輸出關鍵價位，待來源差異釐清"
+                )
             p = (vals["High"] + vals["Low"] + vals["Close"]) / 3
             r1 = 2 * p - vals["Low"]
             s1 = 2 * p - vals["High"]
