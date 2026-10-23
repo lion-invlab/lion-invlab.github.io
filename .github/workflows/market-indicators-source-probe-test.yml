@@ -60,3 +60,5 @@ jobs:
           retention-days: 30
 
 # Queue the corrected Cboe CSV date parser validation run.
+
+# 2026-10-23: rerun after adding direct historical Cboe-vs-Yahoo close comparison.
