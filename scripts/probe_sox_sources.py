@@ -17,7 +17,7 @@ def main():
     for name, url in URLS.items():
         print(f"\nSOURCE｜{name}\nURL｜{url}")
         try:
-            response = sessions.get(url, timeout=20)
+            response = sessions.get(url, timeout=(3, 6))
             print(f"HTTP｜{response.status_code}｜bytes={len(response.content)}")
             response.raise_for_status()
             html = response.text
