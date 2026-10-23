@@ -226,6 +226,7 @@ HISTORY_SOURCES = [
     {"key": "vix_cboe_history", "label": "VIX Cboe official historical CSV", "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv", "date_patterns": [r"10/22/2026", r"10/21/2026"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
     {"key": "vix_yahoo_history", "label": "VIX Yahoo Finance historical closes", "url": "https://hk.finance.yahoo.com/quote/%5EVIX/history/", "date_patterns": [r"22 Oct 2026|Oct 22, 2026|2026年10月22日", r"21 Oct 2026|Oct 21, 2026|2026年10月21日"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
     {"key": "move_investing_history", "label": "MOVE Investing.com historical prices", "url": "https://uk.investing.com/indices/ice-bofaml-move-historical-data", "date_patterns": [r"22/10/2026|22 Oct 2026|Oct 22, 2026", r"21/10/2026|21 Oct 2026|Oct 21, 2026"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 0},
+    {"key": "move_yahoo_history", "label": "MOVE Yahoo Finance historical closes", "url": "https://finance.yahoo.com/quote/%5EMOVE/history/", "date_patterns": [r"22 Oct 2026|Oct 22, 2026|2026年10月22日", r"21 Oct 2026|Oct 21, 2026|2026年10月21日"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
     {"key": "move_barchart_history", "label": "MOVE Barchart historical prices", "url": "https://www.barchart.com/stocks/quotes/%24MOVE/historical-download", "date_patterns": [r"Oct 22, 2026|10/22/2026|2026-10-22", r"Oct 21, 2026|10/21/2026|2026-10-21"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
     {"key": "move_eoddata_history", "label": "MOVE EODData end-of-day history", "url": "https://www.eoddata.com/stockquote/INDEX/MOVE.htm", "date_patterns": [r"22 Oct 26|Oct 22, 2026", r"21 Oct 26|Oct 21, 2026"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
     {"key": "sox_yahoo_history", "label": "SOX Yahoo Finance historical closes", "url": "https://hk.finance.yahoo.com/quote/%5ESOX/history/", "date_patterns": [r"22 Oct 2026|Oct 22, 2026|2026年10月22日", r"21 Oct 2026|Oct 21, 2026|2026年10月21日"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
@@ -336,12 +337,16 @@ history_by_key = {x.get("key"): x for x in result["historical_references"]}
 for live_key, hist_key in [("vix_google", "vix_cboe_history"), ("move_google", "move_investing_history"), ("sox_google", "sox_yahoo_history")]:
     live = by_key.get(live_key, {})
     hist = history_by_key.get(hist_key, {})
-    fallback_hist_key = "move_eoddata_history" if live_key == "move_google" else None
+    fallback_hist_key = "move_yahoo_history" if live_key == "move_google" else None
     fallback_hist = history_by_key.get(fallback_hist_key, {}) if fallback_hist_key else {}
-    # If the primary MOVE history endpoint is blocked, try a second independently
-    # captured EOD source rather than treating HTTP 403 as a numeric mismatch.
+    # If the primary MOVE history endpoint is blocked, try Yahoo's index symbol
+    # first, then EODData. Do not treat a successful page load as a verified close.
     if not hist.get("ok") and fallback_hist.get("ok"):
         hist_key, hist = fallback_hist_key, fallback_hist
+    if live_key == "move_google" and not hist.get("ok"):
+        eod_fallback = history_by_key.get("move_eoddata_history", {})
+        if eod_fallback.get("ok"):
+            hist_key, hist = "move_eoddata_history", eod_fallback
     # The correct historical row is determined from the live quote's own date,
     # not a fixed date shared by all instruments. A quote dated 2026-10-23
     # should compare its previous close with 2026-10-22; a quote dated
