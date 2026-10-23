@@ -1688,7 +1688,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 
 <meta name="tac-correction-test" content="修正報告與行情日期錯置；關鍵價位待來源核實；正式母版未修改"></head>
 <body>
-<div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已完成 10/23 美股主要指數與五項指數 OHLC、11 檔產業 ETF 同日排序、CNN Fear & Greed 官方端點擷取、債券 Par 殖利率、DXY 與部分商品／匯率更新。仍待完成：CME FedWatch 本次快照（GitHub 擷取遭 403，已測試嵌入頁備援）、Google Finance MOVE 的 10/23 更新、部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目仍不得當成已驗收。</div>
+<div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已手動觸發 GitHub Actions 抓取 MOVE、CNN Fear & Greed、FedWatch 與市場資料。MOVE／CNN 已取得 10/23 讀值（MOVE 的 Google Finance 主來源仍落後，故使用備援並標示）；FedWatch 已試 CME 官方頁及 QuikStrike 嵌入頁，官方頁回 403、嵌入頁未回傳可解析機率，仍標示待更新。其餘待完成：部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目不得當成已驗收。</div>
 
 <header class="top">
 <div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/26（一）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/26（一）｜週一版；行情與行事曆須依正式資料逐項更新後方可審核</div></div>
@@ -1718,7 +1718,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="title">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>19.65</strong><span class="warn">+3.26%</span><details class="source-details"><summary>資料來源</summary><div class="source">Cboe 官方頁：2026/10/23 VIX 19.65、變動 +3.26%；Yahoo Finance 歷史快照為 19.45、+2.96%。兩來源讀值有差異，卡片採 Cboe 官方值並保留差異說明，避免混用百分比。</div></details></div>
-<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>106.84</strong><span class="warn">+11.36%｜10/22</span><details class="source-details"><summary>資料來源</summary><div class="source">Google Finance MOVE（INDEXNYSEGIS）主來源目前顯示最後更新為 2026/10/22 16:17 ET：106.84、+11.36%；尚未顯示 10/23 新讀值。GitHub 擷取快照的 Yahoo Finance ^MOVE 顯示 10/23 為 103.31，但與 Google Finance 日期不同且方向不一致，因此卡片保留主來源最新可用值並明確標記 10/22，不能視為 10/23 收盤。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>103.31</strong><span class="warn">10/23｜GitHub 抓取</span><details class="source-details"><summary>資料來源</summary><div class="source">已依規則手動觸發 GitHub Actions 重新抓取。Yahoo Finance chart API 的 ^MOVE 最新日線為 2026/10/23：103.31；這是備援來源讀值。指定主來源 Google Finance（INDEXNYSEGIS）目前仍停留在 2026/10/22 的 106.84（+11.36%），兩來源日期／讀值口徑不一致，故本卡顯示最新抓取的 10/23 備援值並明確標示來源狀態，不宣稱已完成 Google Finance 主來源核驗。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
   <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
   <div class="fg6-date">CNN Fear &amp; Greed｜2026/10/23 讀值｜擷取 2026/10/24 07:12 台灣時間</div>
@@ -1869,10 +1869,10 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="fed-live-panels">
 <div class="fed-live-panel fed-live-watch">
 <div class="fc-probs fc-probs-refined">
-<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>待更新</strong><div class="fc-range">維持 3.75%–4.00%</div></div>
-<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>待更新</strong><div class="fc-range">升至 4.00%–4.25%</div></div>
+<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>待更新｜已試 2 種抓取路徑</strong><div class="fc-range">維持 3.75%–4.00%</div></div>
+<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>待更新｜未取得有效快照</strong><div class="fc-range">升至 4.00%–4.25%</div></div>
 </div>
-<div class="fc-split-wrap"><div class="fc-split-head"><span>情境機率分布</span><span>尚未取得有效快照</span></div><div class="fc-split-bar" role="img" aria-label="維持不變與升息機率尚未擷取"><span class="fc-split-hold" style="width:0%"></span><span class="fc-split-hike" style="width:0%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>待更新</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>待更新</b></span></div></div>
+<div class="fc-split-wrap"><div class="fc-split-head"><span>情境機率分布</span><span>擷取時間：2026/10/24 07:12 台灣時間｜官方頁 403；嵌入頁已抓取但無機率欄位</span></div><div class="fc-split-bar" role="img" aria-label="維持不變與升息機率尚未擷取"><span class="fc-split-hold" style="width:0%"></span><span class="fc-split-hike" style="width:0%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>待更新</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>待更新</b></span></div></div>
 <details class="audit-details fedwatch-time"><summary>資料時間與快照口徑</summary><div class="audit-content">GitHub Actions 擷取時間：2026/10/24 07:12（台灣時間）。CME FedWatch 主頁回應 HTTP 403；改抓嵌入 QuikStrike 頁後取得 3,379 字元 ASP.NET 表單／登入頁，未包含可解析的利率機率。外部次級儀表板以 10/23 Fed Funds futures 估算維持不變 92%、升息一碼 8%，但不是 CME FedWatch 實際快照，因此不填入主機率圖；待取得 CME 畫面或可核驗官方資料後再更新。</div></details>
 <div class="fc-source">交叉參考：<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" rel="noopener" target="_blank">CME FedWatch</a> · <a href="https://www.investing.com/central-banks/fed-rate-monitor" rel="noopener" target="_blank">Investing.com</a></div>
 </div>
