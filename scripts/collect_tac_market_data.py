@@ -5,11 +5,20 @@ from datetime import datetime, timezone, date
 from pathlib import Path
 from zoneinfo import ZoneInfo
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 OUT = Path("data/tac_market_snapshot.json")
 UA = {"User-Agent": "Mozilla/5.0 (compatible; TACMarketCollector/1.0)"}
 SESSION = requests.Session()
 SESSION.headers.update(UA)
+# Automatic network retries: transient connection/read errors, rate limits and 5xx.
+_RETRY = Retry(total=3, connect=3, read=3, status=3, backoff_factor=1.2,
+               status_forcelist=(429, 500, 502, 503, 504),
+               allowed_methods=frozenset(["GET"]), raise_on_status=False)
+_ADAPTER = HTTPAdapter(max_retries=_RETRY)
+SESSION.mount("https://", _ADAPTER)
+SESSION.mount("http://", _ADAPTER)
 NOW = datetime.now(timezone.utc)
 TAIPEI = datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
 INDEXES = {
@@ -33,10 +42,29 @@ def yahoo_chart(symbol, range_="10d", interval="1d"):
         rows.append({"date": d, **vals})
     return rows
 def valid_close_rows(symbol):
-    rows = yahoo_chart(symbol)
-    valid = [r for r in rows if r.get("Close") is not None]
-    if not valid: raise RuntimeError("no close values")
-    return valid
+    # Retry whole request/parse cycle in addition to HTTP-level retries.
+    errors = []
+    for attempt in range(1, 4):
+        try:
+            rows = yahoo_chart(symbol)
+            valid = [r for r in rows if r.get("Close") is not None]
+            if not valid:
+                raise RuntimeError("no close values")
+            # Reject malformed OHLC rows; never silently use an invalid latest row.
+            checked = []
+            for row in valid:
+                o, h, l, close = (row.get(k) for k in ("Open", "High", "Low", "Close"))
+                if close is None:
+                    continue
+                if h is not None and l is not None and (h < l or not l <= close <= h):
+                    raise ValueError(f"OHLC bounds invalid for {row.get('date')}: {row}")
+                checked.append(row)
+            if not checked:
+                raise RuntimeError("no valid close rows after validation")
+            return checked
+        except Exception as e:
+            errors.append(f"attempt {attempt}: {type(e).__name__}: {e}")
+    raise RuntimeError("3 collection attempts failed: " + " | ".join(errors))
 def collect_indicator(label, symbols):
     errors=[]
     for symbol in symbols:
@@ -114,8 +142,15 @@ def main():
     keys_ok=all(v.get("status")=="ok" for v in result["key_levels"].values())
     fed_ok=result["indicators"]["CME FedWatch"].get("status")=="parsed_candidate"
     result["overall_status"]="complete_candidate" if indicator_ok and keys_ok and fed_ok else "incomplete"
+    # Explicit freshness audit. Weekend/holiday handling is not inferred here:
+    # report generation must compare each market's date with its own trading calendar.
+    dates = sorted({v.get("date") for v in result["key_levels"].values() if v.get("date")})
+    indicator_dates = {k: v.get("date") for k, v in result["indicators"].items()}
     result["validation"]={"all_five_indexes_ohlc_ok":keys_ok,"indicators_ok":indicator_ok,
-      "fedwatch_probabilities_parsed":fed_ok,"errors":errors}
+      "fedwatch_probabilities_parsed":fed_ok,"key_level_dates_seen":dates,
+      "indicator_dates":indicator_dates,
+      "freshness_check":"dates recorded; must be checked against each market's expected session before publication",
+      "errors":errors}
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding="utf-8")
     print(json.dumps({"output":str(OUT),"fetched_at_taipei":TAIPEI,"overall_status":result["overall_status"],
