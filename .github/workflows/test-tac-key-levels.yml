@@ -16,7 +16,7 @@ on:
       session_date:
         description: "Expected US trading session date (YYYY-MM-DD)"
         required: true
-        default: "2026-10-22"
+        default: "2026-10-21"
 
 permissions:
   contents: read
@@ -43,9 +43,9 @@ jobs:
         run: python -m unittest scripts/test_tac_report_integration.py -v
 
       - name: Validate same-session OHLC and calculate classic pivot levels
-        run: python scripts/test_tac_key_levels.py "${{ inputs.session_date || '2026-10-22' }}"
+        run: python scripts/test_tac_key_levels.py "${{ inputs.session_date || '2026-10-21' }}"
 
       - name: Probe public SOX source consistency (diagnostic only)
         timeout-minutes: 2
         continue-on-error: true
-        run: python scripts/probe_sox_sources.py "${{ inputs.session_date || '2026-10-22' }}"
+        run: python scripts/probe_sox_sources.py "${{ inputs.session_date || '2026-10-21' }}"
