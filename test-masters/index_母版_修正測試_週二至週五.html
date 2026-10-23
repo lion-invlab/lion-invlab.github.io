@@ -1913,7 +1913,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <details class="audit-details"><summary>價位計算與資料驗證規則</summary><div class="audit-content">只有在同一交易日的收盤價與 OHLC 資料日期一致、來源可讀且數值完整時，才計算並顯示支撐／壓力區。若來源缺漏、交易日不一致或擷取失敗，前台不沿用舊價位、不推估數字，改顯示待更新狀態。</div></details>
 </div></div><div class="focus-panel focus-core"><div class="callout">
 <b>今日核心觀察：</b>本測試檔目前的核心觀察仍引用 10/22 的行事曆與 10/21 的市場資料，未完成最新交易日及當日催化劑的交叉核對，因此不把舊內容冒充為今日更新。
-<details class="audit-details"><summary>核心觀察更新與失敗處理</summary><div class="audit-content">核心觀察須以最新已完成交易日的指數、產業廣度、利率／商品變動、當日經濟行事曆與重要公司財報交叉整理。每筆資料應記錄資料日期、來源與擷取時間；若日期過期、來源無回應或欄位不足，應標示待核實並阻止舊結論被當成今日結論。本次僅修正測試版的過期資料提示，尚未接上即時行情或新聞擷取服務。</div></details>
+<details class="audit-details"><summary>核心觀察更新與失敗處理</summary><div class="audit-content"><b>新聞時間窗與篩選規則：</b>新聞時間窗｜週二至週五版：前一日12:00至本次實際截稿時間（台灣時間）。每則新聞記錄原始發布時間、時區、最後更新時間及來源；時間窗以實際截稿時間為上限，不可用搜尋結果排序時間代替發布時間。時間窗外舊聞不得當作新消息；同一事件的重複報導應合併。全球焦點須平衡美國、亞洲、歐洲與能源／商品；財報季提高重要公司財報與財測權重。若原始時間無法核實，標示待核實或剔除，不得猜測。</div><div class="audit-content">核心觀察須以最新已完成交易日的指數、產業廣度、利率／商品變動、當日經濟行事曆與重要公司財報交叉整理。每筆資料應記錄資料日期、來源與擷取時間；若日期過期、來源無回應或欄位不足，應標示待核實並阻止舊結論被當成今日結論。本次僅修正測試版的過期資料提示，尚未接上即時行情或新聞擷取服務。</div></details>
 </div></div></div></div></section>
 <div style="height:14px"></div>
 </main>
