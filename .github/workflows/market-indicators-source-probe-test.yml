@@ -70,3 +70,5 @@ jobs:
 # 2026-10-23: test UK Investing.com MOVE history page after canonical endpoint remained blocked.
 
 # 2026-10-23: test direct Barchart MOVE historical page capture after Investing.com endpoints returned HTTP 403.
+
+# 2026-10-23: test Barchart historical-download URL after price-history page returned no dated rows.
