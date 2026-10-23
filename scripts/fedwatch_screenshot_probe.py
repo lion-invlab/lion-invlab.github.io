@@ -122,9 +122,11 @@ with sync_playwright() as p:
             r"(?m)^\s*(\d{3}-\d{3})\s*\(Current\)\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%",
             qtext, re.I
         )
+        table_start = qtext.find("TARGET RATE (BPS)")
+        detailed_table_text = qtext[table_start:] if table_start >= 0 else ""
         next_row = re.search(
-            r"(?m)^\s*(\d{3}-\d{3})\s+([0-9]+(?:\.[0-9]+)?)%\s+([0-9]+(?:\.[0-9]+)?)%\s+[0-9]+(?:\.[0-9]+)?%\s+[0-9]+(?:\.[0-9]+)?%\s*$",
-            qtext, re.I
+            r"(?m)^\\s*(\\d{3}-\\d{3})\\s+([0-9]+(?:\\.[0-9]+)?)%\\s+([0-9]+(?:\\.[0-9]+)?)%\\s+([0-9]+(?:\\.[0-9]+)?)%\\s+([0-9]+(?:\\.[0-9]+)?)%\\s*$",
+            detailed_table_text, re.I
         )
         errors = result["validation_errors"]
         if not result["has_quikstrike_frame"]:
