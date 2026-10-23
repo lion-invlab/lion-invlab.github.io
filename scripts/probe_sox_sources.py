@@ -10,6 +10,7 @@ YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ESOX"
 FRED_URL = "https://fred.stlouisfed.org/data/NASDAQSOX"
 INVESTING_URL = "https://ph.investing.com/indices/phlx-semiconductor-historical-data"
 YCHARTS_URL = "https://ycharts.com/indices/%5ESOX/level"
+CLOSELOOK_URL = "https://www.closelook.io/indices/stock/sox.indx/price-history"
 NASDAQ_URLS = {
     "Nasdaq OMX overview": "https://indexes.nasdaqomx.com/Index/Overview/SOX",
     "Nasdaq indexes overview": "https://indexes.nasdaq.com/index/overview/SOX",
@@ -61,6 +62,22 @@ def extract_ycharts_row(html, session):
         rf"\b{re.escape(month)}\s+{session.day},\s*{session.year}\s+"
         rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)\s+"
         rf"([0-9,]+\.\d+)\s+([0-9,]+\.\d+)"
+    )
+    m = re.search(pattern, flat, re.I)
+    if not m:
+        return None
+    values = [float(x.replace(",", "")) for x in m.groups()]
+    open_, high, low, close = values
+    return {"Open": open_, "High": high, "Low": low, "Close": close}
+
+
+def extract_closelook_row(html, session):
+    """Parse Closelook public history table by ISO date, never a live snapshot."""
+    flat = clean_html(html)
+    pattern = (
+        rf"\\b{session.isoformat()}\\s+"
+        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)\\s+"
+        rf"([0-9,]+\\.\\d+)\\s+([0-9,]+\\.\\d+)"
     )
     m = re.search(pattern, flat, re.I)
     if not m:
@@ -132,6 +149,19 @@ def main():
                 print(f"YCHARTS｜PASS｜date={SESSION}｜O={secondary['Open']:.2f} H={secondary['High']:.2f} L={secondary['Low']:.2f} C={secondary['Close']:.2f}")
         except Exception as e:
             print(f"YCHARTS｜UNAVAILABLE｜{type(e).__name__}: {e}")
+
+    if secondary is None:
+        try:
+            r = s.get(CLOSELOOK_URL, timeout=(5, 20))
+            r.raise_for_status()
+            secondary = extract_closelook_row(r.text, SESSION)
+            if secondary is None:
+                print(f"CLOSELOOK｜UNPARSEABLE｜HTTP={r.status_code}｜body_chars={len(r.text)}")
+            else:
+                secondary_name = "Closelook"
+                print(f"CLOSELOOK｜PASS｜date={SESSION}｜O={secondary['Open']:.2f} H={secondary['High']:.2f} L={secondary['Low']:.2f} C={secondary['Close']:.2f}")
+        except Exception as e:
+            print(f"CLOSELOOK｜UNAVAILABLE｜{type(e).__name__}: {e}")
 
     if secondary is not None and yahoo is not None:
         for key in ("Open", "High", "Low", "Close"):
@@ -224,7 +254,7 @@ def main():
         for issue in failures:
             print("REASON｜" + issue)
         sys.exit(1)
-    print("FINAL｜PASS_WITH_LIMITATION｜Yahoo Finance 與第二公開歷史來源（Investing.com 優先，YCharts 備援）指定日 OHLC 一致；Nasdaq 公開頁面未提供可驗證的同日歷史快照，官方歷史服務需 GIW 權限，故不宣稱 Nasdaq 官方交叉驗收通過。")
+    print("FINAL｜PASS_WITH_LIMITATION｜Yahoo Finance 與第二公開歷史來源（Investing.com 優先，YCharts／Closelook 備援）指定日 OHLC 一致；Nasdaq 公開頁面未提供可驗證的同日歷史快照，官方歷史服務需 GIW 權限，故不宣稱 Nasdaq 官方交叉驗收通過。")
 
 if __name__ == "__main__":
     main()
