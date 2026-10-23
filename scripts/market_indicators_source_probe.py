@@ -267,6 +267,21 @@ if vg.get("previous_close") is not None and vc.get("previous_close") is not None
     })
 # Validate SOX's displayed daily point change against its explicitly labelled previous close.
 # This is same-page arithmetic only; it is not independent source verification.
+# Compare Google's current VIX quote with Cboe's official current spot quote.
+# This is a cross-source snapshot comparison, not a close-price adjudication.
+if vg.get("candidate_quote") is not None and vc.get("candidate_quote") is not None:
+    quote_delta = abs(float(vg["candidate_quote"]) - float(vc["candidate_quote"]))
+    implied_change_vs_cboe_prev = float(vg["candidate_quote"]) - float(vc["previous_close"]) if vc.get("previous_close") is not None else None
+    result["cross_source_checks"].append({
+        "pair": ["vix_google.quote", "vix_cboe.quote"],
+        "google_quote": float(vg["candidate_quote"]),
+        "cboe_quote": float(vc["candidate_quote"]),
+        "absolute_difference": round(quote_delta, 4),
+        "values_match_within_0_05": quote_delta < 0.05,
+        "google_quote_minus_cboe_previous_close": round(implied_change_vs_cboe_prev, 2) if implied_change_vs_cboe_prev is not None else None,
+        "result": "current_quotes_close" if quote_delta < 0.05 else "current_quote_mismatch",
+        "note": "Snapshot times may differ. This check flags discrepancies; it does not substitute Cboe's prior close into Google's quote calculation."
+    })
 sg = by_key.get("sox_google", {})
 if sg.get("candidate_quote") is not None and sg.get("previous_close") is not None:
     body = sg.get("body_text", "")
