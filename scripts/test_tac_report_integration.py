@@ -51,11 +51,11 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
             Path("test-masters/index_母版_修正測試_週二至週五.html"),
         )
         expected = (
-            "支撐 S1：52,608.28", "中樞 P：52,768.08", "壓力 R1：53,027.78",
-            "支撐 S1：7,632.88", "中樞 P：7,667.91", "壓力 R1：7,698.46",
-            "支撐 S1：25,831.50", "中樞 P：26,095.45", "壓力 R1：26,272.82",
-            "支撐 S1：10,552.15", "中樞 P：10,846.24", "壓力 R1：11,026.07",
-            "支撐 S1：2,769.43", "中樞 P：2,777.18", "壓力 R1：2,791.77",
+            "支撐 S1：52,545.54", "中樞 P：52,702.83", "壓力 R1：53,013.37",
+            "支撐 S1：7,720.87", "中樞 P：7,745.64", "壓力 R1：7,781.93",
+            "支撐 S1：26,546.99", "中樞 P：26,662.94", "壓力 R1：26,818.82",
+            "支撐 S1：11,386.48", "中樞 P：11,474.37", "壓力 R1：11,593.44",
+            "支撐 S1：2,771.65", "中樞 P：2,781.69", "壓力 R1：2,791.05",
         )
         for path in paths:
             with self.subTest(master=path.name):
@@ -102,7 +102,7 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                               f"{path.name} 的美股摘要未標示資料待核實")
                 self.assertIn("市場觀點｜待同步核實", html,
                               f"{path.name} 的市場觀點未標示資料待核實")
-                self.assertIn("2026/10/22 同日 OHLC", html,
+                self.assertIn("2026/10/21 同日 OHLC", html,
                               f"{path.name} 未標示關鍵價位的交易日基準")
                 self.assertIn("2026/10/21", html,
                               f"{path.name} 未說明尚未核實的舊資料日期")
@@ -113,11 +113,11 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertIn("今日核心觀察", html)
                 self.assertIn("class=\"data-sync-warning\"", html,
                               f"{path.name} 未提示市場報價日期與關鍵價位日期不一致")
-                self.assertIn("多數全球股市、11大產業ETF、債匯商品仍停留於 2026/10/21", html,
+                self.assertIn("其餘市場評論與新聞仍須逐項交叉核對", html,
                               f"{path.name} 未明示仍未同步的主要報價日期")
-                self.assertIn("VIX、MOVE 與 CNN Fear & Greed 已核對至 2026/10/22", html,
+                self.assertIn("VIX、MOVE 與 CNN Fear & Greed 已按 10/21 資料口徑呈現", html,
                               f"{path.name} 未明示已更新的市場情緒指標日期")
-                self.assertIn("今日關鍵價位基準為 2026/10/22", html,
+                self.assertIn("基準交易日：2026/10/21", html,
                               f"{path.name} 未明示關鍵價位日期")
                 self.assertIn("請勿直接發布", html,
                               f"{path.name} 未阻止未同步母版直接發布")
@@ -125,9 +125,9 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                               f"{path.name} 未警示新聞時間戳尚未逐則驗證")
                 self.assertIn("news-window-warning", html,
                               f"{path.name} 未在新聞區顯示時間窗警示")
-                self.assertIn("這些日期不能直接視為窗口內新消息", html,
+                self.assertIn("不得將現有清單視為已符合 2026/10/21 12:00 至 2026/10/22 05:00", html,
                               f"{path.name} 未明示超出時間窗的新聞不可當作新消息")
-                self.assertIn("未完成最新交易日及當日催化劑的交叉核對", html,
+                self.assertIn("新聞驅動與其他市場聯動仍待逐則核實", html,
                               f"{path.name} 未保留核心觀察的資料時效警示")
 
 
