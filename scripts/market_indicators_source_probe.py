@@ -321,6 +321,20 @@ with sync_playwright() as p:
             page.wait_for_timeout(4500)
             item["title"] = page.title()
             item["final_url"] = page.url
+            # Validate instrument identity in the historical-reference loop itself.
+            # The Yahoo ^MOVE symbol can resolve to a different Treasury instrument.
+            if source["key"] == "move_yahoo_history":
+                title = item["title"].casefold()
+                item["instrument_identity_valid"] = (
+                    "merrill lynch option volatility estimate" in title
+                    or "ice bofa move index" in title
+                    or "ice bofaml move index" in title
+                )
+                if not item["instrument_identity_valid"]:
+                    item["instrument_identity_warning"] = (
+                        "Yahoo ^MOVE title does not identify the ICE BofA MOVE Index; "
+                        "do not use these rows as independent MOVE-index history."
+                    )
             body = page.locator("body").inner_text(timeout=10000)
             item["body_text"] = body[:16000]
             item["body_text_length"] = len(body)
