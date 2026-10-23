@@ -11,6 +11,7 @@ TICKERS = {
     "S&P 500": "^GSPC",
     "Nasdaq Composite": "^IXIC",
     "費城半導體指數（SOX）": "^SOX",
+    "Russell 2000": "^RUT",
 }
 
 def main():
