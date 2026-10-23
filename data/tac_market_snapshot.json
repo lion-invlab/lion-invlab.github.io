@@ -1,26 +1,26 @@
 {
   "schema_version": 1,
-  "fetched_at_utc": "2026-10-23T17:12:33+00:00",
-  "fetched_at_taipei": "2026-10-24T01:12:33+08:00",
+  "fetched_at_utc": "2026-10-23T21:50:34+00:00",
+  "fetched_at_taipei": "2026-10-24T05:50:34+08:00",
   "branch": "tac-test-2026-10-23",
   "indicators": {
     "VIX": {
-      "value": 19.899999618530273,
+      "value": 19.450000762939453,
       "date": "2026-10-23",
       "symbol": "^VIX",
       "source": "Yahoo Finance chart API",
       "status": "ok"
     },
     "MOVE": {
-      "value": 102.01260375976562,
+      "value": 103.31230163574219,
       "date": "2026-10-23",
       "symbol": "^MOVE",
       "source": "Yahoo Finance chart API",
       "status": "ok"
     },
     "CNN Fear & Greed": {
-      "value": 20.1766233766234,
-      "date": "2026-10-23T17:08:54+00:00",
+      "value": 20.9809523809524,
+      "date": "2026-10-23T21:34:15+00:00",
       "source": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/",
       "status": "ok",
       "rating": "extreme fear"
@@ -33,7 +33,7 @@
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
     },
     "SOX": {
-      "value": 10803.701171875,
+      "value": 10779.4638671875,
       "date": "2026-10-23",
       "symbol": "^SOX",
       "source": "Yahoo Finance chart API",
@@ -48,10 +48,10 @@
       "Open": 52696.69921875,
       "High": 52696.69921875,
       "Low": 52055.1015625,
-      "Close": 52247.71875,
-      "S1": 51969.6471,
-      "P": 52333.1732,
-      "R1": 52611.2448,
+      "Close": 52215.16015625,
+      "S1": 51947.9414,
+      "P": 52322.3203,
+      "R1": 52589.5391,
       "status": "ok"
     },
     "S&P 500": {
@@ -61,10 +61,10 @@
       "Open": 7637.18017578125,
       "High": 7660.14990234375,
       "Low": 7612.06982421875,
-      "Close": 7631.14990234375,
-      "S1": 7608.7632,
-      "P": 7634.4565,
-      "R1": 7656.8433,
+      "Close": 7623.68017578125,
+      "S1": 7603.7834,
+      "P": 7631.9666,
+      "R1": 7651.8634,
       "status": "ok"
     },
     "Nasdaq Composite": {
@@ -74,10 +74,10 @@
       "Open": 25893.953125,
       "High": 26111.623046875,
       "Low": 25866.15234375,
-      "Close": 25996.732421875,
-      "S1": 25871.3822,
-      "P": 25991.5026,
-      "R1": 26116.8529,
+      "Close": 25955.341796875,
+      "S1": 25843.7884,
+      "P": 25977.7057,
+      "R1": 26089.2591,
       "status": "ok"
     },
     "費城半導體指數（SOX）": {
@@ -87,10 +87,10 @@
       "Open": 10675.5419921875,
       "High": 10923.1796875,
       "Low": 10667.9228515625,
-      "Close": 10803.701171875,
-      "S1": 10673.3561,
-      "P": 10798.2679,
-      "R1": 10928.613,
+      "Close": 10779.4638671875,
+      "S1": 10657.1979,
+      "P": 10790.1888,
+      "R1": 10912.4548,
       "status": "ok"
     },
     "Russell 2000": {
@@ -100,10 +100,10 @@
       "Open": 2775.950927734375,
       "High": 2778.565673828125,
       "Low": 2752.626953125,
-      "Close": 2775.189697265625,
-      "S1": 2759.0225,
-      "P": 2768.7941,
-      "R1": 2784.9613,
+      "Close": 2775.898681640625,
+      "S1": 2759.4952,
+      "P": 2769.0304,
+      "R1": 2785.4339,
       "status": "ok"
     }
   },
@@ -112,6 +112,17 @@
     "all_five_indexes_ohlc_ok": true,
     "indicators_ok": true,
     "fedwatch_probabilities_parsed": false,
+    "key_level_dates_seen": [
+      "2026-10-23"
+    ],
+    "indicator_dates": {
+      "VIX": "2026-10-23",
+      "MOVE": "2026-10-23",
+      "CNN Fear & Greed": "2026-10-23T21:34:15+00:00",
+      "CME FedWatch": null,
+      "SOX": "2026-10-23"
+    },
+    "freshness_check": "dates recorded; must be checked against each market's expected session before publication",
     "errors": []
   }
 }
