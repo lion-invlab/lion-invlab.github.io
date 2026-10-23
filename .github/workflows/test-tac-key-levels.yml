@@ -8,6 +8,8 @@ on:
       - ".github/workflows/test-tac-key-levels.yml"
       - "scripts/test_tac_key_levels.py"
       - "scripts/probe_sox_sources.py"
+      - "scripts/test_tac_report_integration.py"
+      - "index.html"
   workflow_dispatch:
     inputs:
       session_date:
@@ -35,6 +37,9 @@ jobs:
         run: python -m pip install --upgrade pip yfinance pandas requests
       - name: Test SOX source parser regression cases
         run: python -m unittest scripts/test_probe_sox_parser.py -v
+
+      - name: Verify rendered report key-level integration
+        run: python -m unittest scripts/test_tac_report_integration.py -v
 
       - name: Validate same-session OHLC and calculate classic pivot levels
         run: python scripts/test_tac_key_levels.py "${{ inputs.session_date || '2026-10-22' }}"
