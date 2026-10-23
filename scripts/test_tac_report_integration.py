@@ -96,6 +96,14 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertNotIn("① 反彈能否延續", html,
                                  f"{path.name} 仍顯示未完成同日核對的舊市場觀點")
                 self.assertIn("今日核心觀察", html)
+                self.assertIn("class=\"data-sync-warning\"", html,
+                              f"{path.name} 未提示市場報價日期與關鍵價位日期不一致")
+                self.assertIn("市場情緒與多數市場報價仍是 2026/10/21", html,
+                              f"{path.name} 未明示舊報價日期")
+                self.assertIn("今日關鍵價位基準為 2026/10/22", html,
+                              f"{path.name} 未明示關鍵價位日期")
+                self.assertIn("請勿直接發布", html,
+                              f"{path.name} 未阻止未同步母版直接發布")
                 self.assertIn("未完成最新交易日及當日催化劑的交叉核對", html,
                               f"{path.name} 未保留核心觀察的資料時效警示")
 
