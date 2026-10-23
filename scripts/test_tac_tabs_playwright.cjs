@@ -72,6 +72,9 @@ const groups = [
           offenders: [...document.querySelectorAll('body *')]
             .filter(el => {
               if (el.closest('.nav, .event-table-wrap')) return false;
+              // The mobile quick-access sidebar is intentionally translated off-canvas
+              // while closed; its descendants are not page-level overflow.
+              if (!document.body.classList.contains('tac-side-open') && el.closest('.tac-side-tools')) return false;
               const r = el.getBoundingClientRect();
               const style = getComputedStyle(el);
               return style.position !== 'fixed' && r.width > 0 &&
