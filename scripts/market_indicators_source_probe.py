@@ -311,17 +311,41 @@ for live_key, hist_key in [("vix_google", "vix_yahoo_history"), ("move_google", 
         # available history date strictly before the quote date.
         expected_date = next((d for d in row_dates if d < quote_date), None)
     prior = next((row for row in rows if row.get("date") == expected_date), None)
-    matches = bool(prior and prior.get("close_candidate") is not None and live.get("previous_close") is not None and abs(float(prior["close_candidate"]) - float(live["previous_close"])) < 0.02)
+    hist_value = prior.get("close_candidate") if prior else None
+    live_value = live.get("previous_close")
+    exact_match = bool(hist_value is not None and live_value is not None and abs(float(hist_value) - float(live_value)) < 0.02)
+    # Derive the historical source's displayed precision from its original row text.
+    # A one-decimal backup (EODData) can only support a rounded comparison, not exact agreement.
+    displayed_precision = None
+    if prior and prior.get("row_text"):
+        date_stripped = re.sub(r"^.*?\\b(?:26|2026)\\b", "", prior["row_text"], count=1)
+        numeric_tokens = re.findall(r"(?<![A-Za-z])[-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.\\d+)?", date_stripped)
+        if numeric_tokens:
+            token = numeric_tokens[hist.get("value_index", 0)]
+            displayed_precision = len(token.rsplit(".", 1)[1]) if "." in token else 0
+    rounded_tolerance = (0.5 * (10 ** (-displayed_precision))) if displayed_precision is not None else None
+    rounded_match = bool(not exact_match and hist_value is not None and live_value is not None and rounded_tolerance is not None and abs(float(hist_value) - float(live_value)) <= rounded_tolerance + 1e-9)
+    if exact_match:
+        comparison_result = "exact_match_within_0_02"
+    elif rounded_match:
+        comparison_result = "rounded_match_at_source_display_precision"
+    elif not hist.get("ok"):
+        comparison_result = "historical_source_unavailable"
+    else:
+        comparison_result = "not_verified_or_mismatch"
     result.setdefault("dated_history_checks", []).append({
         "live_source": live_key,
         "historical_source": hist_key,
         "quote_date": quote_date,
         "target_session_date": expected_date,
-        "historical_close_candidate": prior.get("close_candidate") if prior else None,
-        "live_previous_close_candidate": live.get("previous_close"),
-        "matches_within_0_02": matches,
-        "result": "comparable_candidates_match" if matches else ("historical_source_unavailable" if not hist.get("ok") else "not_verified_or_mismatch"),
-        "note": "Comparison date is derived from the quote's date and prior trading session; mismatches block approval and do not establish which provider is stale."
+        "historical_close_candidate": hist_value,
+        "live_previous_close_candidate": live_value,
+        "historical_displayed_decimal_places": displayed_precision,
+        "rounded_comparison_tolerance": rounded_tolerance,
+        "matches_within_0_02": exact_match,
+        "rounded_match_at_source_precision": rounded_match,
+        "result": comparison_result,
+        "note": "Exact matches and rounded matches are distinct. A rounded match is not exact agreement; mismatches block approval and do not establish which provider is stale."
     })
 
 g = by_key.get("sox_google", {})
