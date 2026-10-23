@@ -77,7 +77,7 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
         monday = Path("test-masters/index_母版_修正測試_週一.html").read_text(encoding="utf-8")
         weekdays = Path("test-masters/index_母版_修正測試_週二至週五.html").read_text(encoding="utf-8")
         self.assertIn("前一個美股交易日12:00至本次實際截稿時間（台灣時間；週末消息一併納入）", monday)
-        self.assertIn("前一日12:00至實際截稿時間（台灣時間）", weekdays)
+        self.assertIn("前一日12:00至本次實際截稿時間（台灣時間）", weekdays)
         for html in (monday, weekdays):
             self.assertIn("新聞時間窗與篩選規則", html, "缺少可收折查看的新聞篩選稽核規則")
             self.assertIn("核對原始發布時間", html, "新聞規則未要求核對原始發布時間")
