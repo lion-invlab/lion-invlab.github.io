@@ -196,5 +196,16 @@ class DatedReportKeyLevelsTests(unittest.TestCase):
         self.assertIn("資料日期：2026/10/22 美國正式收盤", html)
 
 
+    def test_dated_report_discloses_news_window_and_timestamp_audit_limits(self):
+        html = Path("2026-10-23.html").read_text(encoding="utf-8")
+        self.assertIn("新聞時間窗口：台灣時間 2026/10/22 12:00 至 2026/10/23 06:25", html)
+        self.assertIn("依本版實際截稿時間標示", html)
+        self.assertIn("尚未逐則完成原始發布時間、時區及最後更新時間的獨立核驗", html)
+        self.assertIn("不可用搜尋結果排序時間代替發布時間", html)
+        self.assertIn("時間窗外舊聞不得當作新消息", html)
+        self.assertIn("重複報導應合併", html)
+        self.assertIn("不得猜測", html)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
