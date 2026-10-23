@@ -40,5 +40,24 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
         self.assertIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
         self.assertIn("Russell 2000 未完成同日來源驗證", panel)
 
+    def test_both_test_masters_keep_russell_and_sox_guards(self):
+        paths = (
+            Path("test-masters/index_母版_修正測試_週一.html"),
+            Path("test-masters/index_母版_修正測試_週二至週五.html"),
+        )
+        for path in paths:
+            with self.subTest(master=path.name):
+                self.assertTrue(path.exists(), f"測試母版不存在：{path}")
+                html = path.read_text(encoding="utf-8")
+                start = html.find(START)
+                end = html.find(END, start + len(START))
+                self.assertGreaterEqual(start, 0, f"{path.name} 缺少今日關鍵價位面板")
+                self.assertGreater(end, start, f"{path.name} 的關鍵價位面板邊界錯誤")
+                panel = html[start:end]
+                self.assertIn("Russell 2000", panel, f"{path.name} 缺少 Russell 2000 狀態")
+                self.assertIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
+                self.assertIn("費城半導體指數（SOX）", panel)
+                self.assertIn("待更新｜最新交易日價位尚未完成同日資料核對。", panel)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
