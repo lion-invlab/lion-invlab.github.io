@@ -209,33 +209,16 @@ with sync_playwright() as p:
                 item["close_interpretation"] = "previous_close field extracted; session date must be independently confirmed"
             elif source["key"] in ("sox_nasdaq", "sox_nasdaq_omx") and item.get("candidate_quote_date"):
                 item["close_interpretation"] = "dated official index quote candidate; compare with independent source and verify change arithmetic"
-                # The Nasdaq page may repeat a bad "Previous Close" in its
-                # top key-stats block while Summary Details carries the actual
-                # previous-session close. Prefer the section-scoped value.
-                summary_pc = re.search(
-                    r"Summary Details.*?Previous Close\s+([0-9,]+\.\d+)",
-                    body, re.I | re.S
-                )
+                # Nasdaq currently repeats the current index value in both
+                # Previous Close locations. Do not call the lower location valid
+                # merely because it appears under Summary Details.
                 all_pc = [float(x.replace(",", "")) for x in re.findall(r"Previous Close\s+([0-9,]+\.\d+)", body, re.I)]
-                if summary_pc:
-                    parsed_previous = float(summary_pc.group(1).replace(",", ""))
-                    item["previous_close"] = parsed_previous
-                    item["previous_close_source"] = "Nasdaq official Summary Details Previous Close; candidate only"
-                    item["previous_close_status"] = "candidate_only_previous_session_close_section_scoped"
-                    item["previous_close_validation"] = "not_independently_verified"
+                if all_pc:
                     item["previous_close_all_page_values"] = all_pc
-                    item["previous_close_top_key_stats_conflict"] = bool(
-                        item.get("candidate_quote") is not None
-                        and any(abs(v-float(item["candidate_quote"])) < 0.02 for v in all_pc)
-                        and abs(parsed_previous-float(item["candidate_quote"])) >= 0.02
-                    )
-                    if item["previous_close_top_key_stats_conflict"]:
-                        item["previous_close_note"] = "Top key-stats Previous Close mirrors current quote; section-scoped Summary Details value retained as candidate."
-                elif all_pc:
-                    parsed_previous = all_pc[0]
-                    if item.get("candidate_quote") is not None and abs(parsed_previous - float(item["candidate_quote"])) < 0.02:
+                    parsed_previous = all_pc[-1]
+                    if item.get("candidate_quote") is not None and abs(parsed_previous-float(item["candidate_quote"])) < 0.02:
                         item["previous_close"] = None
-                        item["previous_close_source"] = "Nasdaq official Previous Close field rejected: identical to current quote"
+                        item["previous_close_source"] = "Nasdaq official Previous Close field rejected: all parsed fields mirror current quote"
                         item["previous_close_status"] = "rejected_suspected_page_variant_error"
                         item["previous_close_validation"] = "failed_same_as_current_quote"
                         item["previous_close_reported_value"] = parsed_previous
@@ -243,33 +226,31 @@ with sync_playwright() as p:
                         result["validation_errors"].append(
                             f"SOX Nasdaq official page reports Previous Close {parsed_previous:.2f}, "
                             f"identical to its current quote {item['candidate_quote']:.2f}; "
-                            "no section-scoped Summary Details previous close was found"
+                            "all parsed Previous Close fields are unusable"
                         )
                     else:
                         item["previous_close"] = parsed_previous
                         item["previous_close_source"] = "Nasdaq official Previous Close field; candidate only"
                         item["previous_close_status"] = "candidate_only_previous_session_close"
                         item["previous_close_validation"] = "not_independently_verified"
-                # Validate the official page's displayed point change against the
-                # extracted current quote and prior close when both are plausible.
-                change_match = re.search(r"DATA AS OF\s+\d{1,2}/\d{1,2}/\d{4}\s+[0-9,]+\.\d+\s+([+-][0-9,]+\.\d+)", body, re.I)
-                if change_match and item.get("previous_close") is not None and item.get("candidate_quote") is not None:
-                    displayed_change = float(change_match.group(1).replace(",", ""))
-                    calculated_change = float(item["candidate_quote"]) - float(item["previous_close"])
-                    arithmetic_match = abs(displayed_change - calculated_change) < 0.02
+                # Use the displayed daily change to derive an implied prior close,
+                # but never mislabel that arithmetic inference as a reported field.
+                change_match = re.search(r"DATA AS OF\s+\d{1,2}/\d{1,2}/\d{4}\s+([0-9,]+\.\d+)\s+([+-][0-9,]+\.\d+)", body, re.I)
+                if change_match and item.get("candidate_quote") is not None:
+                    displayed_quote = float(change_match.group(1).replace(",", ""))
+                    displayed_change = float(change_match.group(2).replace(",", ""))
+                    implied_previous = round(displayed_quote-displayed_change, 2)
+                    item["implied_previous_close_from_displayed_change"] = implied_previous
+                    item["implied_previous_close_status"] = "arithmetic_inference_not_a_reported_previous_close"
                     item["change_arithmetic_check"] = {
+                        "displayed_quote": displayed_quote,
+                        "candidate_quote": float(item["candidate_quote"]),
                         "displayed_change": displayed_change,
-                        "calculated_change": round(calculated_change, 2),
-                        "matches_within_0_02": arithmetic_match,
-                        "status": "consistent" if arithmetic_match else "official_page_change_conflicts_with_quote_and_previous_close",
-                        "production_blocking": not arithmetic_match
+                        "implied_previous_close": implied_previous,
+                        "quote_matches_within_0_02": abs(displayed_quote-float(item["candidate_quote"])) < 0.02,
+                        "status": "implied_previous_close_calculated",
+                        "production_blocking": False
                     }
-                    if not arithmetic_match:
-                        result["validation_errors"].append(
-                            f"SOX Nasdaq official page arithmetic mismatch: displayed change {displayed_change:.2f}, "
-                            f"but quote {item['candidate_quote']:.2f} minus previous close {item['previous_close']:.2f} "
-                            f"equals {calculated_change:.2f}"
-                        )
             elif source["key"] in ("move_google", "sox_google") and item.get("candidate_quote_date"):
                 item["close_interpretation"] = "timestamped quote candidate; timestamp and independent source must confirm regular-session close"
             elif source["key"] == "vix_google" and item.get("candidate_quote_timestamp"):
