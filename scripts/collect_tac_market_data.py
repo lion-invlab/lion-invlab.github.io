@@ -120,6 +120,35 @@ def main():
     result["indicators"]["CNN Fear & Greed"]=collect_cnn()
     result["indicators"]["CME FedWatch"]=collect_fedwatch()
     result["indicators"]["SOX"]=collect_indicator("SOX",["^SOX"])
+    # Collect all 11 S&P 500 sector proxy ETFs from the same Yahoo chart API/session.
+    # The report layer must reject any sector whose date differs from the expected session.
+    sector_etfs = {
+        "資訊科技": "XLK", "醫療保健": "XLV", "金融": "XLF",
+        "非必需消費": "XLY", "通訊服務": "XLC", "工業": "XLI",
+        "必需消費": "XLP", "能源": "XLE", "公用事業": "XLU",
+        "房地產": "XLRE", "原材料": "XLB",
+    }
+    result["sector_etfs"] = {}
+    for sector, ticker in sector_etfs.items():
+        try:
+            rows = valid_close_rows(ticker)
+            row = rows[-1]
+            prior = rows[-2] if len(rows) > 1 else None
+            if not row.get("Close") or not prior or not prior.get("Close"):
+                raise ValueError("current/prior close unavailable")
+            change_pct = (float(row["Close"]) / float(prior["Close"]) - 1) * 100
+            result["sector_etfs"][sector] = {
+                "ticker": ticker, "date": row["date"],
+                "close": float(row["Close"]), "previous_close": float(prior["Close"]),
+                "change_pct": round(change_pct, 4),
+                "source": "Yahoo Finance chart API", "status": "ok"
+            }
+        except Exception as e:
+            result["sector_etfs"][sector] = {
+                "ticker": ticker, "date": None, "change_pct": None,
+                "source": "Yahoo Finance chart API", "status": "missing",
+                "error": f"{type(e).__name__}: {e}"
+            }
     errors=[]
     for name,ticker in INDEXES.items():
         try:
