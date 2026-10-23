@@ -219,6 +219,7 @@ with sync_playwright() as p:
 # Dated-history references: regression fixture for the last US session (2026-10-22)
 # as observed on 2026-10-23 Taiwan time. Keep history captures separate from live quote widgets.
 HISTORY_SOURCES = [
+    {"key": "vix_cboe_history", "label": "VIX Cboe official historical CSV", "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv", "date_patterns": [r"2026-10-22", r"2026-10-21"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 4},
     {"key": "vix_yahoo_history", "label": "VIX Yahoo Finance historical closes", "url": "https://hk.finance.yahoo.com/quote/%5EVIX/history/", "date_patterns": [r"22 Oct 2026|Oct 22, 2026|2026年10月22日", r"21 Oct 2026|Oct 21, 2026|2026年10月21日"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
     {"key": "move_investing_history", "label": "MOVE Investing.com historical prices", "url": "https://ng.investing.com/indices/ice-bofaml-move-historical-data", "date_patterns": [r"22/10/2026|Oct 22, 2026", r"21/10/2026|Oct 21, 2026"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 0},
     {"key": "move_eoddata_history", "label": "MOVE EODData end-of-day history", "url": "https://www.eoddata.com/stockquote/INDEX/MOVE.htm", "date_patterns": [r"22 Oct 26|Oct 22, 2026", r"21 Oct 26|Oct 21, 2026"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
@@ -283,7 +284,7 @@ with sync_playwright() as p:
 # Compare historical close candidates to live-page previous-close fields only when the
 # historical row for the immediately preceding session was successfully extracted.
 history_by_key = {x.get("key"): x for x in result["historical_references"]}
-for live_key, hist_key in [("vix_google", "vix_yahoo_history"), ("move_google", "move_investing_history"), ("sox_google", "sox_yahoo_history")]:
+for live_key, hist_key in [("vix_google", "vix_cboe_history"), ("move_google", "move_investing_history"), ("sox_google", "sox_yahoo_history")]:
     live = by_key.get(live_key, {})
     hist = history_by_key.get(hist_key, {})
     fallback_hist_key = "move_eoddata_history" if live_key == "move_google" else None
@@ -388,7 +389,7 @@ if vg.get("previous_close") is not None and vc.get("previous_close") is not None
     delta = abs(float(vg["previous_close"]) - float(vc["previous_close"]))
     google_date = vg.get("candidate_quote_date")
     cboe_date = vc.get("candidate_quote_date")
-    vix_hist = history_by_key.get("vix_yahoo_history", {})
+    vix_hist = history_by_key.get("vix_cboe_history", {})
     vix_rows = vix_hist.get("rows", [])
     row_by_date = {row.get("date"): row for row in vix_rows if row.get("date")}
     # A one-session-lag diagnosis requires all three dates and values:
