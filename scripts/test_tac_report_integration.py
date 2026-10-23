@@ -73,6 +73,16 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertIn("費城半導體指數（SOX）", panel)
 
 
+    def test_both_test_masters_publish_explicit_taiwan_time_news_windows(self):
+        monday = Path("test-masters/index_母版_修正測試_週一.html").read_text(encoding="utf-8")
+        weekdays = Path("test-masters/index_母版_修正測試_週二至週五.html").read_text(encoding="utf-8")
+        self.assertIn("前一個美股交易日12:00至本次實際截稿時間（台灣時間；週末消息一併納入）", monday)
+        self.assertIn("前一日12:00至實際截稿時間（台灣時間）", weekdays)
+        for html in (monday, weekdays):
+            self.assertIn("核對原始發布時間", html, "新聞規則未要求核對原始發布時間")
+            self.assertIn("時區", html, "新聞規則未要求核對時區")
+            self.assertIn("重複", html, "新聞規則未要求合併重複事件")
+
     def test_both_test_masters_suppress_stale_commentary_until_same_session_is_verified(self):
         paths = (
             Path("test-masters/index_母版_修正測試_週一.html"),
