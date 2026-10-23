@@ -44,7 +44,7 @@ const groups = [
           throw new Error(`${target.label}: same-session verification warning/date is missing`);
         }
         const datedMarketPanel = await page.locator('#global-markets .tab-panel-meta').first().innerText();
-        if (!/20\\d{2}\\/\\d{2}\\/\\d{2}/.test(datedMarketPanel)) {
+        if (!/20\d{2}\/\d{2}\/\d{2}/.test(datedMarketPanel)) {
           throw new Error(`${target.label}: market data source date label is missing`);
         }
 
