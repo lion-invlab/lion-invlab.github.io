@@ -67,5 +67,33 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertNotIn("待更新｜最新交易日價位尚未完成同日資料核對。", panel)
                 self.assertIn("費城半導體指數（SOX）", panel)
 
+
+    def test_both_test_masters_suppress_stale_commentary_until_same_session_is_verified(self):
+        paths = (
+            Path("test-masters/index_母版_修正測試_週一.html"),
+            Path("test-masters/index_母版_修正測試_週二至週五.html"),
+        )
+        for path in paths:
+            with self.subTest(master=path.name):
+                html = path.read_text(encoding="utf-8")
+                self.assertIn("市場定調｜待同步核實", html,
+                              f"{path.name} 的總結仍可能呈現未核實的舊行情")
+                self.assertIn("美股摘要｜待同步核實", html,
+                              f"{path.name} 的美股摘要未標示資料待核實")
+                self.assertIn("市場觀點｜待同步核實", html,
+                              f"{path.name} 的市場觀點未標示資料待核實")
+                self.assertIn("2026/10/22 同日 OHLC", html,
+                              f"{path.name} 未標示關鍵價位的交易日基準")
+                self.assertIn("2026/10/21", html,
+                              f"{path.name} 未說明尚未核實的舊資料日期")
+                self.assertNotIn("SpaceX 公布上市後首季獲利", html,
+                                 f"{path.name} 仍顯示未完成同日核對的舊催化劑")
+                self.assertNotIn("① 反彈能否延續", html,
+                                 f"{path.name} 仍顯示未完成同日核對的舊市場觀點")
+                self.assertIn("今日核心觀察", html)
+                self.assertIn("未完成最新交易日及當日催化劑的交叉核對", html,
+                              f"{path.name} 未保留核心觀察的資料時效警示")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
