@@ -105,16 +105,16 @@ with sync_playwright() as p:
         qtext = re.sub(r"\\n{2,}", "\\n", qtext)
 
         meeting = (
-            re.search(r"Target Rate Probabilities for\\s+(\\d{1,2}\\s+[A-Z][a-z]{2}\\s+\\d{4})\\s+Fed Meeting", qtext, re.I)
-            or re.search(r"MEETING INFORMATION.*?MEETING DATE.*?\\n(\\d{1,2}\\s+[A-Z][a-z]{2}\\s+\\d{4})\\b", qtext, re.S | re.I)
+            re.search(r"Target Rate Probabilities for\\s+([0-9]{1,2}\\s+[A-Z][a-z]{2}\\s+[0-9]{1,4})\\s+Fed Meeting", qtext, re.I)
+            or re.search(r"MEETING INFORMATION.*?MEETING DATE.*?\\n(.*?)(?:\\t|\\s{2,})[A-Z0-9]{3,}.*?\\n", qtext, re.S | re.I)
         )
         prob_section = re.search(
-            r"PROBABILITIES\\s+EASE\\s+NO CHANGE\\s+HIKE\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%\\s+([0-9]+(?:\\.[0-9]+)?)\\s*%",
+            r"PROBABILITIES\\s+EASE\\s+NO CHANGE\\s+HIKE\\s+([0-9.]+)\\s*%\\s+([0-9.]+)\\s*%\\s+([0-9.]+)\\s*%",
             qtext, re.I | re.S
         )
         current_rate = (
-            re.search(r"(\\d{3}-\\d{3})\\s*\\(Current\\)", qtext, re.I)
-            or re.search(r"Current target rate is\\s+(\\d{3}-\\d{3})", qtext, re.I)
+            re.search(r"(\\d{3}-\\d{1,3})\\s*\\(Current\\)", qtext, re.I)
+            or re.search(r"Current target rate is\\s+(\\d{3}-\\d{1,3})", qtext, re.I)
         )
         data_stamp = re.search(r"Data as of\\s+([^\\n]+)", qtext, re.I)
         errors = result["validation_errors"]
