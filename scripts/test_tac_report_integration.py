@@ -40,10 +40,17 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
         self.assertIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
         self.assertIn("Russell 2000 未完成同日來源驗證", panel)
 
-    def test_both_test_masters_keep_russell_and_sox_guards(self):
+    def test_both_test_masters_render_verified_2026_10_22_levels(self):
         paths = (
             Path("test-masters/index_母版_修正測試_週一.html"),
             Path("test-masters/index_母版_修正測試_週二至週五.html"),
+        )
+        expected = (
+            "支撐 S1：52,608.28", "中樞 P：52,768.08", "壓力 R1：53,027.78",
+            "支撐 S1：7,632.88", "中樞 P：7,667.91", "壓力 R1：7,698.46",
+            "支撐 S1：25,831.50", "中樞 P：26,095.45", "壓力 R1：26,272.82",
+            "支撐 S1：10,552.15", "中樞 P：10,846.24", "壓力 R1：11,026.07",
+            "支撐 S1：2,769.43", "中樞 P：2,777.18", "壓力 R1：2,791.77",
         )
         for path in paths:
             with self.subTest(master=path.name):
@@ -54,10 +61,11 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                 self.assertGreaterEqual(start, 0, f"{path.name} 缺少今日關鍵價位面板")
                 self.assertGreater(end, start, f"{path.name} 的關鍵價位面板邊界錯誤")
                 panel = html[start:end]
-                self.assertIn("Russell 2000", panel, f"{path.name} 缺少 Russell 2000 狀態")
-                self.assertIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
+                for value in expected:
+                    self.assertIn(value, panel, f"{path.name} 缺少已驗證價位：{value}")
+                self.assertNotIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
+                self.assertNotIn("待更新｜最新交易日價位尚未完成同日資料核對。", panel)
                 self.assertIn("費城半導體指數（SOX）", panel)
-                self.assertIn("待更新｜最新交易日價位尚未完成同日資料核對。", panel)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
