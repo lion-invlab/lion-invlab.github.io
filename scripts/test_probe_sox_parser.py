@@ -33,6 +33,23 @@ class NasdaqSnapshotParserTests(unittest.TestCase):
             '<div>DATA AS OF 10/22/2026 10731</div>'
         ))
 
+    def test_parses_exact_date_in_investing_historical_table(self):
+        html = (
+            '<tr><td>Oct 21, 2026</td><td>11,505.6</td><td>11,494.4</td>'
+            '<td>11,562.2</td><td>11,355.3</td></tr>'
+        )
+        parsed = probe.extract_investing_row(html, date(2026, 10, 21))
+        self.assertEqual(parsed, {
+            "Open": 11494.4, "High": 11562.2, "Low": 11355.3, "Close": 11505.6
+        })
+
+    def test_investing_parser_does_not_accept_other_dates(self):
+        html = (
+            '<tr><td>Oct 22, 2026</td><td>10,731.9</td><td>11,049.0</td>'
+            '<td>11,140.0</td><td>10,666.4</td></tr>'
+        )
+        self.assertIsNone(probe.extract_investing_row(html, date(2026, 10, 21)))
+
     def test_invalid_calendar_date_fails_loudly(self):
         with self.assertRaises(ValueError):
             probe.extract_nasdaq_snapshot(
