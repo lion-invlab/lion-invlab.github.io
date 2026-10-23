@@ -248,7 +248,7 @@ mg = by_key.get("move_google", {})
 if mg.get("candidate_quote") is not None and mg.get("previous_close") is not None:
     # The displayed daily change is useful arithmetic validation, not an independent source.
     body = mg.get("body_text", "")
-    change = re.search(r"([+-][0-9,]+\.\d+)\s*\(.*?\)\s*Today", body, re.I)
+    change = re.search(r"\(([+-][0-9,]+\.\d+)\)\s*Today", body, re.I)
     if change:
         displayed = float(change.group(1).replace(",", ""))
         calculated = float(mg["candidate_quote"]) - float(mg["previous_close"])
