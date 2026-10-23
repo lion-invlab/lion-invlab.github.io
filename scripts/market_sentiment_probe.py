@@ -194,13 +194,13 @@ def probe_move_web():
             status, ctype, body = fetch(url, headers)
             html = body.decode("utf-8", errors="replace")
             if "google.com/finance" in url:
-                candidates = re.findall(r'data-last-price="([0-9]+(?:\\.[0-9]+)?)"', html)
+                candidates = re.findall(r'data-last-price="([0-9]+(?:\.[0-9]+)?)"', html)
                 if not candidates:
-                    candidates = re.findall(r'<div[^>]*class="[^"]*(?:YMlKec[^"]*fxKbKc|fxKbKc[^"]*YMlKec)[^"]*"[^>]*>\\s*([0-9]+(?:\\.[0-9]+)?)\\s*</div>', html)
+                    candidates = re.findall(r'<div[^>]*class="[^"]*(?:YMlKec[^"]*fxKbKc|fxKbKc[^"]*YMlKec)[^"]*"[^>]*>\s*([0-9]+(?:\.[0-9]+)?)\s*</div>', html)
                 if not candidates:
-                    candidates = re.findall(r'<meta[^>]*itemprop="price"[^>]*content="([0-9]+(?:\\.[0-9]+)?)"', html, re.I)
+                    candidates = re.findall(r'<meta[^>]*itemprop="price"[^>]*content="([0-9]+(?:\.[0-9]+)?)"', html, re.I)
                 if not candidates:
-                    candidates = re.findall(r'"(?:lastPrice|price|close)"\\s*:\\s*"?([0-9]+(?:\\.[0-9]+)?)"?', html, re.I)
+                    candidates = re.findall(r'"(?:lastPrice|price|close)"\s*:\s*"?([0-9]+(?:\.[0-9]+)?)"?', html, re.I)
                 if candidates:
                     item.update({"status":"ok","http_status":status,"latest_snapshot":{"value":float(candidates[0]),
                                  "captured_at_utc":datetime.now(timezone.utc).isoformat()},
@@ -208,18 +208,18 @@ def probe_move_web():
                                  "validation_note":"Do not label as previous close unless page exposes and validates the session date."})
                     return item
             plain = re.sub(r"<[^>]+>", " ", html)
-            plain = re.sub(r"\\s+", " ", plain)
+            plain = re.sub(r"\s+", " ", plain)
             # Match a dated row and the first numeric field following the date; keep raw evidence for review.
             matches = []
-            for m in re.finditer(r"(Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\\s+\\d{1,2},?\\s+20\\d{2}", plain):
+            for m in re.finditer(r"(Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\s+\d{1,2},?\s+20\d{2}", plain):
                 tail = plain[m.end():m.end()+100]
-                nums = re.findall(r"(?<![\\w])\\d{2,3}\\.\\d{2}(?![\\w])", tail)
+                nums = re.findall(r"(?<![\w])\d{2,3}\.\d{2}(?![\w])", tail)
                 if nums:
                     matches.append({"date_text":m.group(0),"close":float(nums[0])})
             if not matches:
                 # EODData can render a compact table; use ISO-like or abbreviated day rows.
-                for m in re.finditer(r"(\\d{1,2}\\s+(?:Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\\s+\\d{2})", plain):
-                    nums = re.findall(r"(?<![\\w])\\d{2,3}\\.\\d{2}(?![\\w])", plain[m.end():m.end()+100])
+                for m in re.finditer(r"(\d{1,2}\s+(?:Oct|Sep|Nov|Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug)\s+\d{2})", plain):
+                    nums = re.findall(r"(?<![\w])\d{2,3}\.\d{2}(?![\w])", plain[m.end():m.end()+100])
                     if nums: matches.append({"date_text":m.group(0),"close":float(nums[0])})
             if not matches:
                 raise ValueError("Page returned but no dated MOVE daily close rows could be parsed")
@@ -229,7 +229,7 @@ def probe_move_web():
             return item
         except Exception as e:
             errors.append({"url":url,"error":f"{type(e).__name__}: {e}",
-                           "response_preview":re.sub(r"\\s+"," ",body.decode("utf-8",errors="replace"))[:500] if "body" in locals() else None})
+                           "response_preview":re.sub(r"\s+"," ",body.decode("utf-8",errors="replace"))[:500] if "body" in locals() else None})
     return {"source":"MOVE public historical page fallback","status":"failed","attempts":errors}
 
 
