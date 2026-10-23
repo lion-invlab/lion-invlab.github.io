@@ -185,6 +185,7 @@ def probe_move_web():
         "https://www.google.com/finance/quote/MOVE:INDEXNYSEGIS",
         "https://www.investing.com/indices/ice-bofaml-move-historical-data",
         "https://au.investing.com/indices/ice-bofaml-move-historical-data",
+    "https://ca.investing.com/indices/ice-bofaml-move-historical-data",
         "https://www.eoddata.com/stockquote/INDEX/MOVE.htm"
     ]
     errors = []
