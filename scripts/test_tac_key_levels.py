@@ -28,12 +28,15 @@ def main():
     print("一般指數來源：Yahoo Finance chart data via yfinance。")
     print("SOX 2026-10-22 使用 Nasdaq 官方核對快照作回歸測試；此快照不是即時資料管線。")
     errors = []
+    live_passes = 0
+    fixture_passes = 0
     for name, ticker in TICKERS.items():
         try:
             fixture = OFFICIAL_SESSION_FIXTURES.get((name, EXPECTED_SESSION))
             if fixture:
                 vals = {k: float(fixture[k]) for k in ("High", "Low", "Close")}
                 source = fixture["source"]
+                fixture_passes += 1
             else:
                 df = yf.download(ticker, period="10d", interval="1d", auto_adjust=False,
                                  progress=False, threads=False, group_by="column")
@@ -50,6 +53,7 @@ def main():
                     row = row.iloc[-1]
                 vals = {k: float(row[k]) for k in ("High", "Low", "Close")}
                 source = "Yahoo Finance chart data via yfinance"
+                live_passes += 1
             if not all(pd.notna(v) and v > 0 for v in vals.values()):
                 raise ValueError(f"OHLC 欄位缺漏或非正值：{vals}")
             if vals["High"] < vals["Low"] or not (vals["Low"] <= vals["Close"] <= vals["High"]):
@@ -61,7 +65,10 @@ def main():
         except Exception as exc:
             errors.append(f"{name} ({ticker}): {exc}")
             print(f"FAIL｜{name}｜待核實｜{exc}")
-    print(f"驗證結果：{len(TICKERS)-len(errors)}/{len(TICKERS)} 通過")
+    print(f"數值與計算檢查：{len(TICKERS)-len(errors)}/{len(TICKERS)} 通過")
+    print(f"即時來源取數通過：{live_passes}/{len(TICKERS)}；固定快照回歸測試：{fixture_passes}/{len(TICKERS)}")
+    if fixture_passes:
+        print("注意：固定快照只驗證計算與資料格式，不算自動化來源通過；整體來源驗收仍未完成。")
     if errors:
         print("未通過項目：")
         for err in errors:
