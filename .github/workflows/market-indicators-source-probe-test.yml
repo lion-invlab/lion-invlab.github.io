@@ -2,6 +2,7 @@ name: TAC VIX MOVE SOX Source Access Isolated Test
 # Isolated capture test for VIX/MOVE/SOX; VIX previous-close mismatches remain unapproved pending dated historical verification.
 # 2026-10-23: trigger an isolated rerun after adding the date-based VIX lag diagnostic.
 # 2026-10-23: verify direct Cboe historical CSV closes against VIX live-page fields.
+# 2026-10-23: match Cboe CSV's published MM/DD/YYYY date format.
 
 on:
   push:
