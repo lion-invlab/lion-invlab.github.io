@@ -79,9 +79,14 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
         self.assertIn("前一個美股交易日12:00至本次實際截稿時間（台灣時間；週末消息一併納入）", monday)
         self.assertIn("前一日12:00至實際截稿時間（台灣時間）", weekdays)
         for html in (monday, weekdays):
+            self.assertIn("新聞時間窗與篩選規則", html, "缺少可收折查看的新聞篩選稽核規則")
             self.assertIn("核對原始發布時間", html, "新聞規則未要求核對原始發布時間")
             self.assertIn("時區", html, "新聞規則未要求核對時區")
-            self.assertIn("重複", html, "新聞規則未要求合併重複事件")
+            self.assertIn("最後更新時間", html, "新聞規則未要求核對最後更新時間")
+            self.assertIn("搜尋結果排序時間", html, "新聞規則未禁止以搜尋排序時間代替發布時間")
+            self.assertIn("時間窗外舊聞不得當作新消息", html, "新聞規則未排除時間窗外舊聞")
+            self.assertIn("重複報導應合併", html, "新聞規則未要求合併重複報導")
+            self.assertIn("不得猜測", html, "新聞原始時間無法核實時未禁止猜測")
 
     def test_both_test_masters_suppress_stale_commentary_until_same_session_is_verified(self):
         paths = (
