@@ -5,7 +5,7 @@ import re
 import sys
 import requests
 
-SESSION = date.fromisoformat(sys.argv[1]) if len(sys.argv) > 1 else date.today()
+SESSION = date.fromisoformat(sys.argv[1]) if __name__ == "__main__" and len(sys.argv) > 1 else date.today()
 YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/%5ESOX"
 FRED_URL = "https://fred.stlouisfed.org/data/NASDAQSOX"
 NASDAQ_URLS = {
