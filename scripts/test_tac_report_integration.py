@@ -125,7 +125,7 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                               f"{path.name} 未警示新聞時間戳尚未逐則驗證")
                 self.assertIn("news-window-warning", html,
                               f"{path.name} 未在新聞區顯示時間窗警示")
-                self.assertIn("不得將現有清單視為已符合 2026/10/21 12:00 至 2026/10/22 05:00", html,
+                self.assertIn("新聞時間窗尚未最終驗收", html,
                               f"{path.name} 未明示超出時間窗的新聞不可當作新消息")
                 self.assertIn("新聞驅動與其他市場聯動仍待逐則核實", html,
                               f"{path.name} 未保留核心觀察的資料時效警示")
@@ -166,7 +166,7 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
                         duplicated_topic in focus and duplicated_topic in headlines,
                         f"焦點與熱門頭條重複事件：{duplicated_topic}",
                     )
-                self.assertIn("新聞時間窗尚未驗收", focus,
+                self.assertIn("新聞時間窗尚未最終驗收", focus,
                               "焦點新聞需保留原始時間驗收警示")
                 self.assertIn("仍需在最終發布前確認事件原始時間", headlines,
                               "熱門頭條需保留最終時間核驗提醒")
