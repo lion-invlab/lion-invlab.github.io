@@ -16,6 +16,14 @@ const path = require('node:path');
       page.on('pageerror', error => errors.push(error.message));
       await page.goto('http://127.0.0.1:8765/index.html', { waitUntil: 'domcontentloaded' });
 
+      // Dismiss the page's real fund-date modal so it cannot intercept tab clicks.
+      const fundNotice = page.locator('#tac-fund-notice');
+      await fundNotice.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+      if (await fundNotice.isVisible()) {
+        await page.locator('#tfn-close').click();
+        await fundNotice.waitFor({ state: 'hidden', timeout: 3000 });
+      }
+
       const groups = [
         { root: '#news-scan', name: 'tac-news', tabs: 2 },
         { root: '#global-markets', name: 'tac-region', tabs: 3 },
