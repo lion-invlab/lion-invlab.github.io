@@ -216,8 +216,85 @@ with sync_playwright() as p:
         page.close()
     browser.close()
 
+# Dated-history references: regression fixture for the last US session (2026-10-22)
+# as observed on 2026-10-23 Taiwan time. Keep history captures separate from live quote widgets.
+HISTORY_SOURCES = [
+    {"key": "vix_yahoo_history", "label": "VIX Yahoo Finance historical closes", "url": "https://hk.finance.yahoo.com/quote/%5EVIX/history/", "date_patterns": [r"2026年10月22日", r"2026年10月21日"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
+    {"key": "move_investing_history", "label": "MOVE Investing.com historical prices", "url": "https://www.investing.com/indices/ice-bofaml-move-historical-data", "date_patterns": [r"Oct 22, 2026", r"Oct 21, 2026"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 0},
+    {"key": "sox_yahoo_history", "label": "SOX Yahoo Finance historical closes", "url": "https://hk.finance.yahoo.com/quote/%5ESOX/history/", "date_patterns": [r"2026年10月22日", r"2026年10月21日"], "target_dates": ["2026-10-22", "2026-10-21"], "value_index": 3},
+]
+
 # Cross-source comparison is deliberately limited to dated, comparable fields.
 by_key = {x.get("key"): x for x in result["sources"]}
+# Capture date-matched historical rows as an independent validation layer.
+# Parsing is conservative: retain source row text and extracted numeric columns for audit.
+result["historical_references"] = []
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=True, args=["--disable-dev-shm-usage"])
+    context = browser.new_context(viewport={"width": 1600, "height": 1200}, locale="en-US", timezone_id="Asia/Taipei", extra_http_headers={"Accept-Language": "en-US,en;q=0.9"})
+    for source in HISTORY_SOURCES:
+        item = {**source, "captured_at": stamp(), "ok": False, "rows": []}
+        page = context.new_page()
+        page.set_default_timeout(12000)
+        try:
+            response = page.goto(source["url"], wait_until="domcontentloaded", timeout=30000)
+            item["http_status"] = response.status if response else None
+            page.wait_for_timeout(4500)
+            item["title"] = page.title()
+            item["final_url"] = page.url
+            body = page.locator("body").inner_text(timeout=10000)
+            item["body_text"] = body[:16000]
+            item["body_text_length"] = len(body)
+            lines = [line.strip() for line in body.splitlines() if line.strip()]
+            for target_date, date_pattern in zip(source["target_dates"], source["date_patterns"]):
+                matching = next((line for line in lines if re.search(date_pattern, line, re.I)), None)
+                row = {"date": target_date, "row_text": matching, "close_candidate": None, "status": "row_not_found"}
+                if matching:
+                    nums = re.findall(r"(?<![A-Za-z])[-+]?(?:\\d{1,3}(?:,\\d{3})+|\\d+)(?:\\.\\d+)?", matching)
+                    # Yahoo rows start with the date followed by Open/High/Low/Close;
+                    # Investing.com rows start with date then Price (close candidate).
+                    if len(nums) > source["value_index"]:
+                        try:
+                            row["close_candidate"] = float(nums[source["value_index"]].replace(",", ""))
+                            row["numeric_columns"] = [float(v.replace(",", "")) for v in nums]
+                            row["status"] = "candidate_extracted_not_yet_certified"
+                        except ValueError:
+                            row["status"] = "numeric_parse_failed"
+                item["rows"].append(row)
+            shot = OUT / f"{source['key']}.png"
+            try:
+                page.screenshot(path=str(shot), full_page=False, timeout=30000, animations="disabled")
+                item["screenshot"] = str(shot)
+                item["screenshot_status"] = "captured"
+            except Exception as exc:
+                item["screenshot_status"] = "failed"
+                item["screenshot_error"] = f"{type(exc).__name__}: {exc}"
+            item["ok"] = bool(response and response.status == 200 and len(body) > 100 and all(x["close_candidate"] is not None for x in item["rows"]))
+            item["note"] = "Historical row values are candidates; verify column semantics and source publication date before production use."
+        except Exception as exc:
+            item["error"] = f"{type(exc).__name__}: {exc}"
+        result["historical_references"].append(item)
+        page.close()
+    browser.close()
+
+# Compare historical close candidates to live-page previous-close fields only when the
+# historical row for the immediately preceding session was successfully extracted.
+history_by_key = {x.get("key"): x for x in result["historical_references"]}
+for live_key, hist_key in [("vix_google", "vix_yahoo_history"), ("move_google", "move_investing_history"), ("sox_google", "sox_yahoo_history")]:
+    live = by_key.get(live_key, {}) if "by_key" in globals() else {}
+    hist = history_by_key.get(hist_key, {})
+    prior = next((row for row in hist.get("rows", []) if row.get("date") == "2026-10-22"), None)
+    result.setdefault("dated_history_checks", []).append({
+        "live_source": live_key,
+        "historical_source": hist_key,
+        "target_session_date": "2026-10-22",
+        "historical_close_candidate": prior.get("close_candidate") if prior else None,
+        "live_previous_close_candidate": live.get("previous_close"),
+        "matches_within_0_02": (prior is not None and prior.get("close_candidate") is not None and live.get("previous_close") is not None and abs(float(prior["close_candidate"]) - float(live["previous_close"])) < 0.02),
+        "result": "comparable_candidates_match" if (prior is not None and prior.get("close_candidate") is not None and live.get("previous_close") is not None and abs(float(prior["close_candidate"]) - float(live["previous_close"])) < 0.02) else "not_verified_or_mismatch",
+        "note": "Date-matched historical row is captured for audit; a mismatch remains blocking and does not automatically establish which provider is stale."
+    })
+
 g = by_key.get("sox_google", {})
 n = by_key.get("sox_nasdaq", {})
 result["cross_source_checks"] = []
@@ -331,7 +408,7 @@ result["interpretation_policy"] = {
     "a_previous_close_mismatch_does_not_prove_which_source_is_stale": True,
     "dated_historical_close_validation_required": True,
     "production_approval": False,
-    "reason": "Probe captures visible fields and compares candidates; it does not fetch a date-matched historical close series, so mismatches remain unresolved until independently verified."
+    "reason": "Probe captures live fields plus date-matched historical reference rows; historical parsing and cross-source agreement remain candidates and production approval stays false."
 }
 result["finished_at"] = stamp()
 result["status"] = "capture_passed_needs_numeric_validation" if not result["validation_errors"] else "failed"
