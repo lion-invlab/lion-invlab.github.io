@@ -543,6 +543,13 @@ if vg.get("previous_close") is not None and vc.get("previous_close") is not None
     google_differs_prior = bool(prior_value is not None and abs(float(vg["previous_close"]) - float(prior_value)) >= 0.02)
     lag_supported = bool(google_date and cboe_date == google_date and cboe_matches_prior and google_matches_older and google_differs_prior)
     root_status = "google_previous_close_matches_two_sessions_back_one_session_stale_supported" if lag_supported else "not_proven"
+    if delta >= 0.02:
+        result["validation_errors"].append(
+            "VIX Google Finance previous close conflicts with Cboe official previous close "
+            f"({float(vg['previous_close']):.2f} vs {float(vc['previous_close']):.2f}); "
+            f"historical dates indicate Google matches the older session ({root_status}). "
+            "Do not use Google previous-close field for a production daily-change calculation."
+        )
     result["cross_source_checks"].append({
         "pair": ["vix_google.previous_close", "vix_cboe.previous_close"],
         "google_quote_date": google_date,
