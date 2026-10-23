@@ -23,6 +23,7 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
             "支撐 S1：7,632.88", "中樞 P：7,667.91", "壓力 R1：7,698.46",
             "支撐 S1：25,831.50", "中樞 P：26,095.45", "壓力 R1：26,272.82",
             "支撐 S1：10,552.15", "中樞 P：10,846.24", "壓力 R1：11,026.07",
+            "支撐 S1：2,769.43", "中樞 P：2,777.18", "壓力 R1：2,791.77",
         ):
             self.assertIn(value, panel, f"面板缺少已核實價位：{value}")
 
@@ -34,11 +35,15 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
         self.assertRegex(panel, r'<details class="source-details">\s*<summary>關鍵價位計算方式與資料來源</summary>')
         self.assertNotRegex(panel, r"(?i)\\bOHLC\\s*[:=]")
 
-    def test_unverified_russell_is_not_fabricated(self):
+    def test_russell_levels_require_cross_checked_same_session_data(self):
         panel = levels_panel()
-        self.assertIn("Russell 2000", panel)
-        self.assertIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
-        self.assertIn("Russell 2000 未完成同日來源驗證", panel)
+        self.assertIn("Russell 2000｜2,784.03（+0.11%）", panel)
+        self.assertIn("支撐 S1：2,769.43", panel)
+        self.assertIn("中樞 P：2,777.18", panel)
+        self.assertIn("壓力 R1：2,791.77", panel)
+        self.assertIn("ChartExchange 與 Tallac Options 交叉核對", panel)
+        self.assertIn("樞紐點計算只使用高、低、收盤價", panel)
+        self.assertNotIn("本輪尚未完成同日 OHLC 驗證，暫不發布推算值", panel)
 
     def test_both_test_masters_render_verified_2026_10_22_levels(self):
         paths = (
