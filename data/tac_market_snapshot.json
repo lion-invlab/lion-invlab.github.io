@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "fetched_at_utc": "2026-10-23T23:08:28+00:00",
-  "fetched_at_taipei": "2026-10-24T07:08:28+08:00",
+  "fetched_at_utc": "2026-10-23T23:10:32+00:00",
+  "fetched_at_taipei": "2026-10-24T07:10:32+08:00",
   "branch": "tac-test-2026-10-23",
   "indicators": {
     "VIX": {
@@ -20,7 +20,7 @@
     },
     "CNN Fear & Greed": {
       "value": 20.9809523809524,
-      "date": "2026-10-23T22:49:30+00:00",
+      "date": "2026-10-23T22:54:33+00:00",
       "source": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/",
       "status": "ok",
       "rating": "extreme fear"
@@ -108,6 +108,107 @@
     }
   },
   "overall_status": "incomplete",
+  "sector_etfs": {
+    "資訊科技": {
+      "ticker": "XLK",
+      "date": "2026-10-23",
+      "close": 183.22999572753906,
+      "previous_close": 182.33999633789062,
+      "change_pct": 0.4881,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "醫療保健": {
+      "ticker": "XLV",
+      "date": "2026-10-23",
+      "close": 179.27999877929688,
+      "previous_close": 181.3000030517578,
+      "change_pct": -1.1142,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "金融": {
+      "ticker": "XLF",
+      "date": "2026-10-23",
+      "close": 55.900001525878906,
+      "previous_close": 56.650001525878906,
+      "change_pct": -1.3239,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "非必需消費": {
+      "ticker": "XLY",
+      "date": "2026-10-23",
+      "close": 113.0999984741211,
+      "previous_close": 115.01000213623047,
+      "change_pct": -1.6607,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "通訊服務": {
+      "ticker": "XLC",
+      "date": "2026-10-23",
+      "close": 105.51000213623047,
+      "previous_close": 107.41999816894531,
+      "change_pct": -1.7781,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "工業": {
+      "ticker": "XLI",
+      "date": "2026-10-23",
+      "close": 164.6199951171875,
+      "previous_close": 166.72999572753906,
+      "change_pct": -1.2655,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "必需消費": {
+      "ticker": "XLP",
+      "date": "2026-10-23",
+      "close": 88.26000213623047,
+      "previous_close": 89.98999786376953,
+      "change_pct": -1.9224,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "能源": {
+      "ticker": "XLE",
+      "date": "2026-10-23",
+      "close": 69.33000183105469,
+      "previous_close": 67.56999969482422,
+      "change_pct": 2.6047,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "公用事業": {
+      "ticker": "XLU",
+      "date": "2026-10-23",
+      "close": 42.560001373291016,
+      "previous_close": 42.869998931884766,
+      "change_pct": -0.7231,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "房地產": {
+      "ticker": "XLRE",
+      "date": "2026-10-23",
+      "close": 42.56999969482422,
+      "previous_close": 42.52000045776367,
+      "change_pct": 0.1176,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    },
+    "原材料": {
+      "ticker": "XLB",
+      "date": "2026-10-23",
+      "close": 51.310001373291016,
+      "previous_close": 51.689998626708984,
+      "change_pct": -0.7351,
+      "source": "Yahoo Finance chart API",
+      "status": "ok"
+    }
+  },
   "validation": {
     "all_five_indexes_ohlc_ok": true,
     "indicators_ok": true,
@@ -118,7 +219,7 @@
     "indicator_dates": {
       "VIX": "2026-10-23",
       "MOVE": "2026-10-23",
-      "CNN Fear & Greed": "2026-10-23T22:49:30+00:00",
+      "CNN Fear & Greed": "2026-10-23T22:54:33+00:00",
       "CME FedWatch": null,
       "SOX": "2026-10-23"
     },
