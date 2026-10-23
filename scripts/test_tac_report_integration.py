@@ -80,7 +80,7 @@ class KeyLevelsIntegrationTests(unittest.TestCase):
         self.assertIn("前一日12:00至本次實際截稿時間（台灣時間）", weekdays)
         for html in (monday, weekdays):
             self.assertIn("新聞時間窗與篩選規則", html, "缺少可收折查看的新聞篩選稽核規則")
-            self.assertIn("核對原始發布時間", html, "新聞規則未要求核對原始發布時間")
+            self.assertIn("每則新聞記錄原始發布時間", html, "新聞規則未要求記錄每則新聞的原始發布時間")
             self.assertIn("時區", html, "新聞規則未要求核對時區")
             self.assertIn("最後更新時間", html, "新聞規則未要求核對最後更新時間")
             self.assertIn("搜尋結果排序時間", html, "新聞規則未禁止以搜尋排序時間代替發布時間")
