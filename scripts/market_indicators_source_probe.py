@@ -16,6 +16,7 @@ SOURCES = [
     {"key": "vix_google", "label": "VIX Google Finance", "url": "https://www.google.com/finance/quote/VIX:INDEXCBOE", "needles": ["VIX"]},
     {"key": "vix_cboe", "label": "VIX Cboe official", "url": "https://www.cboe.com/tradable_products/vix/", "needles": ["VIX"]},
     {"key": "move_google", "label": "MOVE Google Finance", "url": "https://www.google.com/finance/quote/MOVE:INDEXNYSEGIS", "needles": ["MOVE"]},
+    {"key": "move_barchart_api", "label": "MOVE Barchart historical API reachability probe", "url": "https://www.barchart.com/proxies/core-api/v1/historical/get?symbol=%24MOVE&fields=tradeTime.format%28m%252Fd%252FY%29%252CopenPrice%252ChighPrice%252ClowPrice%252ClastPrice%252CpriceChange%252CpercentChange%252Cvolume%252CsymbolCode%252CsymbolType&type=eod&orderBy=tradeTime&orderDir=desc&limit=10&meta=field.shortName%252Cfield.type%252Cfield.description&raw=1", "needles": ["MOVE", "tradeTime"]},
     {"key": "sox_google", "label": "SOX Google Finance", "url": "https://www.google.com/finance/quote/SOX:INDEXNASDAQ", "needles": ["SOX", "Semiconductor"]},
     {"key": "sox_nasdaq", "label": "SOX Nasdaq official", "url": "https://indexes.nasdaq.com/Index/Overview/SOX", "needles": ["SOX", "Semiconductor"]},
 ]
