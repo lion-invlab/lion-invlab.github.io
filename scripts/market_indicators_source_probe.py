@@ -168,9 +168,30 @@ with sync_playwright() as p:
                 item["close_interpretation"] = "dated official index quote candidate; compare with independent source and verify change arithmetic"
                 pc = re.search(r"Previous Close\s+([0-9,]+\.\d+)", body, re.I)
                 if pc:
-                    item["previous_close"] = float(pc.group(1).replace(",", ""))
-                    item["previous_close_source"] = "Nasdaq official Previous Close field; candidate only"
-                    item["previous_close_status"] = "candidate_only_previous_session_close"
+                    parsed_previous = float(pc.group(1).replace(",", ""))
+                    if item.get("candidate_quote") is not None and abs(parsed_previous - float(item["candidate_quote"])) < 0.02:
+                        # Some Nasdaq page variants incorrectly mirror the current
+                        # quote into the Previous Close field. Flag rather than trust it.
+                        item["previous_close"] = None
+                        item["previous_close_source"] = "Nasdaq official Previous Close field rejected: identical to current quote"
+                        item["previous_close_status"] = "rejected_suspected_page_variant_error"
+                        item["previous_close_validation"] = "failed_same_as_current_quote"
+                    else:
+                        item["previous_close"] = parsed_previous
+                        item["previous_close_source"] = "Nasdaq official Previous Close field; candidate only"
+                        item["previous_close_status"] = "candidate_only_previous_session_close"
+                        item["previous_close_validation"] = "not_independently_verified"
+                # Validate the official page's displayed point change against the
+                # extracted current quote and prior close when both are plausible.
+                change_match = re.search(r"DATA AS OF\\s+\\d{1,2}/\\d{1,2}/\\d{4}\\s+[0-9,]+\\.\\d+\\s+([+-][0-9,]+\\.\\d+)", body, re.I)
+                if change_match and item.get("previous_close") is not None and item.get("candidate_quote") is not None:
+                    displayed_change = float(change_match.group(1).replace(",", ""))
+                    calculated_change = float(item["candidate_quote"]) - float(item["previous_close"])
+                    item["change_arithmetic_check"] = {
+                        "displayed_change": displayed_change,
+                        "calculated_change": round(calculated_change, 2),
+                        "matches_within_0_02": abs(displayed_change - calculated_change) < 0.02
+                    }
             elif source["key"] in ("move_google", "sox_google") and item.get("candidate_quote_date"):
                 item["close_interpretation"] = "timestamped quote candidate; timestamp and independent source must confirm regular-session close"
             elif source["key"] == "vix_google" and item.get("candidate_quote_timestamp"):
