@@ -249,7 +249,7 @@ with sync_playwright() as p:
             lines = [line.strip() for line in body.splitlines() if line.strip()]
             for target_date, date_pattern in zip(source["target_dates"], source["date_patterns"]):
                 matching = next((line for line in lines if re.search(date_pattern, line, re.I)), None)
-                row = {"date": target_date, "row_text": matching, "close_candidate": None, "status": "row_not_found"}
+                row = {"date": target_date, "row_text": matching, "close_candidate": None, "close_display_text": None, "status": "row_not_found"}
                 if matching:
                     row_payload = re.sub(date_pattern, "", matching, count=1, flags=re.I)
                     nums = re.findall(r"(?<![A-Za-z])[-+]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?", row_payload)
@@ -257,7 +257,8 @@ with sync_playwright() as p:
                     # Investing.com rows start with date then Price (close candidate).
                     if len(nums) > source["value_index"]:
                         try:
-                            row["close_candidate"] = float(nums[source["value_index"]].replace(",", ""))
+                            row["close_display_text"] = nums[source["value_index"]]
+                            row["close_candidate"] = float(row["close_display_text"].replace(",", ""))
                             row["numeric_columns"] = [float(v.replace(",", "")) for v in nums]
                             row["status"] = "candidate_extracted_not_yet_certified"
                         except ValueError:
@@ -317,12 +318,9 @@ for live_key, hist_key in [("vix_google", "vix_yahoo_history"), ("move_google", 
     # Derive the historical source's displayed precision from its original row text.
     # A one-decimal backup (EODData) can only support a rounded comparison, not exact agreement.
     displayed_precision = None
-    if prior and prior.get("row_text"):
-        date_stripped = re.sub(r"^.*?\b(?:26|2026)\b", "", prior["row_text"], count=1)
-        numeric_tokens = re.findall(r"(?<![A-Za-z])[-+]?(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?", date_stripped)
-        if numeric_tokens:
-            token = numeric_tokens[hist.get("value_index", 0)]
-            displayed_precision = len(token.rsplit(".", 1)[1]) if "." in token else 0
+    if prior and prior.get("close_display_text") is not None:
+        token = prior["close_display_text"]
+        displayed_precision = len(token.rsplit(".", 1)[1]) if "." in token else 0
     rounded_tolerance = (0.5 * (10 ** (-displayed_precision))) if displayed_precision is not None else None
     rounded_match = bool(not exact_match and hist_value is not None and live_value is not None and rounded_tolerance is not None and abs(float(hist_value) - float(live_value)) <= rounded_tolerance + 1e-9)
     if exact_match:
