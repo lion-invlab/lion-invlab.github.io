@@ -64,3 +64,5 @@ jobs:
 # 2026-10-23: rerun after adding direct historical Cboe-vs-Yahoo close comparison.
 
 # 2026-10-23: retry MOVE historical capture through AU Investing.com after NG endpoint returned HTTP 403.
+
+# 2026-10-23: retry canonical Investing.com MOVE historical endpoint after AU endpoint was blocked.
