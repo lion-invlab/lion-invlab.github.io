@@ -96,6 +96,29 @@ def main():
         if max(vals) - min(vals) > TOLERANCE:
             failures.append("Nasdaq 官方不同網址的收盤值互相不一致：" + str([(n, round(c, 2)) for n, d, c in current_official]))
 
+    # Nasdaq's documented legacy historical endpoint is date-scoped. Probe it
+    # separately from the live DATA AS OF snapshot; diagnostic only until its
+    # schema and symbol identifier are validated across several sessions.
+    history_url = "https://indexes.nasdaqomx.com/reports2/history.ashx"
+    try:
+        r = s.get(history_url, params={
+            "IndexSymbol": "SOX",
+            "StartDate": SESSION.isoformat(),
+            "EndDate": SESSION.isoformat(),
+            "Type": "csv",
+            "FileType": "EOD",
+        }, timeout=(5, 15))
+        r.raise_for_status()
+        body = r.text.strip()
+        preview = re.sub(r"\\s+", " ", body)[:500]
+        print(f"NASDAQ_HISTORY_API｜HTTP={r.status_code}｜bytes={len(r.content)}｜preview={preview}")
+        if not body or len(body) < 20 or re.search(r"(?i)not found|invalid|error|unauthorized|exception", body[:1000]):
+            print("NASDAQ_HISTORY_API｜NOT_VALIDATED｜回應內容不足或含錯誤訊號")
+        else:
+            print("NASDAQ_HISTORY_API｜RAW_RESPONSE_ONLY｜尚未驗證欄位與指定日期，不計入交叉驗收")
+    except Exception as e:
+        print(f"NASDAQ_HISTORY_API｜UNAVAILABLE｜{type(e).__name__}: {e}")
+
     # FRED is diagnostic only because its publication can lag. Never require it
     # as the same-day second source and never count stale observations as passes.
     try:
