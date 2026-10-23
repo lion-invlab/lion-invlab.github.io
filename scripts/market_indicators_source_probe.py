@@ -2,6 +2,9 @@
 """Isolated source-access probe for VIX, MOVE and SOX. Capture-only; not production data."""
 import json
 import re
+import csv
+import io
+import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -239,6 +242,50 @@ with sync_playwright() as p:
         page = context.new_page()
         page.set_default_timeout(12000)
         try:
+            # Cboe serves this endpoint as a file download, not an HTML page.
+            # Playwright page.goto() raises "Download is starting", so fetch and
+            # parse the official CSV directly with the standard library.
+            if source["key"] == "vix_cboe_history":
+                request = urllib.request.Request(
+                    source["url"],
+                    headers={"User-Agent": "Mozilla/5.0 TAC-source-probe/1.0", "Accept": "text/csv,*/*"},
+                )
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    body = response.read().decode("utf-8-sig")
+                    item["http_status"] = response.status
+                    item["final_url"] = response.geturl()
+                item["body_text"] = body[:16000]
+                item["body_text_length"] = len(body)
+                reader = csv.reader(io.StringIO(body))
+                header = next(reader, [])
+                item["csv_header"] = header
+                parsed = {}
+                for raw_row in reader:
+                    if len(raw_row) < 5:
+                        continue
+                    try:
+                        date_key = datetime.strptime(raw_row[0].strip(), "%m/%d/%Y").date().isoformat()
+                        close = float(raw_row[4].replace(",", "").strip())
+                    except (ValueError, IndexError):
+                        continue
+                    if date_key in source["target_dates"]:
+                        parsed[date_key] = {
+                            "date": date_key,
+                            "row_text": ",".join(raw_row),
+                            "close_candidate": close,
+                            "close_display_text": raw_row[4].strip(),
+                            "numeric_columns": [float(v.replace(",", "").strip()) for v in raw_row[1:5]],
+                            "status": "candidate_extracted_not_yet_certified",
+                        }
+                item["rows"] = [parsed[d] for d in source["target_dates"] if d in parsed]
+                item["ok"] = bool(item["http_status"] == 200 and all(d in parsed for d in source["target_dates"]))
+                item["note"] = "Official Cboe CSV fetched directly; rows/close values are candidates pending cross-source validation."
+                item["screenshot_status"] = "not_applicable_raw_csv_source"
+                if not item["ok"]:
+                    item["error"] = "Official Cboe CSV did not contain all requested dated rows."
+                result["historical_references"].append(item)
+                page.close()
+                continue
             response = page.goto(source["url"], wait_until="domcontentloaded", timeout=30000)
             item["http_status"] = response.status if response else None
             page.wait_for_timeout(4500)
