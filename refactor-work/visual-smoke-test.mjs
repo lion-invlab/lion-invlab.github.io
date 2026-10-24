@@ -46,7 +46,7 @@ async function loadPage(browser, file, viewport) {
     const style = hand ? getComputedStyle(hand) : null;
     document.documentElement.dataset.tacHandPresentBeforeCleanup = String(!!hand);
     document.documentElement.dataset.tacHandMobileExpected = String(mobile);
-    document.documentElement.dataset.tacHandColorContract = String(!!hand && /255, 255, 255/.test(hand.innerHTML) && /#c62828|198, 40, 40/i.test(hand.innerHTML));
+    document.documentElement.dataset.tacHandColorContract = String(!!hand && /#fff|255, 255, 255/i.test(hand.innerHTML) && /#c62828|198, 40, 40/i.test(hand.innerHTML));
     document.documentElement.dataset.tacHandPointerEventsNone = String(!!style && style.pointerEvents === "none");
     document.documentElement.dataset.tacHandInitialVisibility = style ? style.display : "missing";
     document.querySelectorAll(".tac-tools-arrow-live, .tac-toolbar-hand-target").forEach(el => el.remove());
