@@ -5,3 +5,4 @@ Scope: verify 11 sector rows use the unified grid/card style and responsive radi
 Retry sector row radius assertion after correcting expected desktop/mobile values.
 
 Rerun sector disclosure toggle test with state-independent assertion.
+rerun-sector-disclosure-after-scroll-stabilization-2026-10-25T0017+0800
