@@ -1892,6 +1892,33 @@ body main.wrap section.tac-tabset > .tac-section-heading h2::before {
 
 
 
+
+<style id="tac-final-single-marker-v8">
+body main.wrap #news-scan > .tac-section-heading h2::before,
+body main.wrap #global-markets > .tac-section-heading h2::before,
+body main.wrap #assets > .tac-section-heading h2::before {
+  content:""!important;
+  display:inline-block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  flex:0 0 5px!important;
+  width:5px!important;
+  min-width:5px!important;
+  height:1.05em!important;
+  min-height:20px!important;
+  margin-right:0!important;
+  border-radius:2px!important;
+  background:#c62828!important;
+}
+body main.wrap #news-scan > .tac-section-heading h2,
+body main.wrap #global-markets > .tac-section-heading h2,
+body main.wrap #assets > .tac-section-heading h2 {
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+</style>
+
 </head>
 <body>
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已手動觸發 GitHub Actions 抓取 MOVE、CNN Fear & Greed、FedWatch 與市場資料。MOVE／CNN 已取得 10/23 讀值（MOVE 的 Google Finance 主來源仍落後，故使用備援並標示）；FedWatch 已試 CME 官方頁及 QuikStrike 嵌入頁，官方頁回 403、嵌入頁未回傳可解析機率，仍標示待更新。其餘待完成：部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目不得當成已驗收。</div>
