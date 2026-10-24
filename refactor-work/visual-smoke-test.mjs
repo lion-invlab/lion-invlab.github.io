@@ -79,8 +79,9 @@ try {
     const baseReport = await inspect(base.page);
     const report = await inspect(cand.page);
 
-    const baseShot = await base.page.screenshot({ path: path.join(outDir, "baseline-" + viewport.name + ".png"), fullPage: true, animations: "disabled" });
-    const candShot = await cand.page.screenshot({ path: path.join(outDir, "candidate-" + viewport.name + ".png"), fullPage: true, animations: "disabled" });
+    const fullPageShot = viewport.name === "desktop";
+    const baseShot = await base.page.screenshot({ path: path.join(outDir, "baseline-" + viewport.name + ".png"), fullPage: fullPageShot, animations: "disabled" });
+    const candShot = await cand.page.screenshot({ path: path.join(outDir, "candidate-" + viewport.name + ".png"), fullPage: fullPageShot, animations: "disabled" });
     const basePng = PNG.sync.read(baseShot);
     const candPng = PNG.sync.read(candShot);
     let diffPixels = null;
