@@ -167,6 +167,48 @@ migrated_tab_labels = re.findall(r'<label\b[^>]*class="[^"]*\btac-ds-tabs__tab\b
 if len(migrated_tab_labels) != 21:
     raise SystemExit(f"Refusing build: expected 21 shared tab labels, found {len(migrated_tab_labels)}.")
 
+
+def add_classes_to_tag(tag, class_names):
+    class_match = re.search(r'\bclass="([^"]*)"', tag, re.I)
+    if not class_match:
+        return tag[:-1] + f' class="{class_names}">'
+    names = class_match.group(1).split()
+    for name in class_names.split():
+        if name not in names:
+            names.append(name)
+    return tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
+
+def add_classes_to_tags(fragment, pattern, class_names):
+    return re.sub(pattern, lambda m: add_classes_to_tag(m.group(0), class_names), fragment, flags=re.I)
+
+source_details_pattern = r'<details\b(?=[^>]*\bclass="[^"]*\bsource-details\b[^"]*")[^>]*>'
+method_details_pattern = r'<details\b(?=[^>]*\bclass="[^"]*\bcompact-disclosure\b[^"]*")[^>]*>'
+empty_state_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bcalendar-status-empty\b[^"]*")[^>]*>'
+
+# Standardize source/method disclosures without changing their content or open state.
+html = add_classes_to_tags(html, source_details_pattern, "tac-ds-disclosure")
+html = add_classes_to_tags(html, method_details_pattern, "tac-ds-disclosure tac-ds-disclosure--method")
+html = add_classes_to_tags(html, empty_state_pattern, "tac-ds-empty")
+
+# Preserve the dark sentiment cards with a dedicated disclosure variant.
+sentiment_id_pos = html.find('id="sentiment"')
+if sentiment_id_pos < 0:
+    raise SystemExit("Refusing build: sentiment panel not found.")
+sentiment_start = html.rfind("<article", 0, sentiment_id_pos)
+sentiment_end = html.find("</article>", sentiment_id_pos)
+if sentiment_start < 0 or sentiment_end < 0:
+    raise SystemExit("Refusing build: sentiment article bounds not found.")
+sentiment_fragment = html[sentiment_start:sentiment_end]
+sentiment_fragment = add_classes_to_tags(sentiment_fragment, source_details_pattern, "tac-ds-disclosure--dark")
+html = html[:sentiment_start] + sentiment_fragment + html[sentiment_end:]
+
+source_disclosure_count = len(re.findall(r'<details\b[^>]*class="[^"]*\btac-ds-disclosure\b[^"]*"', html, flags=re.I))
+empty_state_count = len(re.findall(r'<div\b[^>]*class="[^"]*\btac-ds-empty\b[^"]*"', html, flags=re.I))
+if source_disclosure_count < 13:
+    raise SystemExit(f"Refusing build: expected at least 13 shared source/method disclosures, found {source_disclosure_count}.")
+if empty_state_count != 4:
+    raise SystemExit(f"Refusing build: expected 4 calendar empty states, found {empty_state_count}.")
+
 source_scripts = re.findall(r"<script\b[^>]*>[\s\S]*?</script>", html, flags=re.I)
 source_style_tags = re.findall(r"<style\b[^>]*>[\s\S]*?</style>", html, flags=re.I)
 if not source_style_tags:
