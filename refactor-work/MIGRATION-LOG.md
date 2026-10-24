@@ -130,3 +130,12 @@
 - Mobile pixel diffs were recorded (390px: ~10.0%; 320px: ~12.7%) and remain subject to screenshot review; automated success is not a claim that all visual differences have been manually approved.
 - Screenshots, pixel diffs, report and candidate HTML artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40112871889/artifacts/12567511267 (7-day retention).
 - Next gate: inspect the candidate/baseline/diff screenshots, then proceed to source/method disclosure or calendar status-group refinement based on risk. Do not bulk-delete legacy CSS; no production homepage or JSON/schedule was changed.
+
+
+## 2026-10-25 — Special background theme isolation added (awaiting browser verification)
+
+- Added Design System v1.9 scoped background contract for `#sentiment.tac-ds-panel--sentiment`: panel-local color tokens, layered gradients, concentric orbital rings, gold top accent, isolated stacking context and mobile-specific background.
+- Added browser smoke assertions for the sentiment theme class, layered gradient background and both pseudo-element orbit/shadow layers at desktop 1440px, mobile 390px and narrow mobile 320px.
+- Intent: future background customization of another main panel should not overwrite the sentiment theme; new themed panels should receive their own scoped variant instead of global background overrides.
+- Current status: code committed to isolated refactor branch; GitHub Actions browser run pending. Do not treat as passed until all three viewport assertions pass and screenshots are reviewed.
+- No production homepage, JSON data or scheduled automation changed.
