@@ -149,6 +149,9 @@ def add_tac_tab_label(match):
     return tag[:-1] + ' class="tac-ds-tabs__tab">'
 
 html = re.sub(r'<label\b[^>]*>', add_tac_tab_label, html, flags=re.I)
+migrated_tab_labels = re.findall(r'<label\b[^>]*class="[^"]*\btac-ds-tabs__tab\b[^"]*"[^>]*>', html, flags=re.I)
+if len(migrated_tab_labels) != 21:
+    raise SystemExit(f"Refusing build: expected 21 shared tab labels, found {len(migrated_tab_labels)}.")
 
 source_scripts = re.findall(r"<script\b[^>]*>[\s\S]*?</script>", html, flags=re.I)
 source_style_tags = re.findall(r"<style\b[^>]*>[\s\S]*?</style>", html, flags=re.I)
