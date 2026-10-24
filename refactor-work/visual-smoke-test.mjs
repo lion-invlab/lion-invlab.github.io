@@ -1,10 +1,13 @@
 import { chromium } from "playwright";
+import pixelmatch from "pixelmatch";
+import { PNG } from "pngjs";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const candidate = path.join(here, "candidate-build.html");
+const baseline = path.join(here, "source-baseline-2026-10-26.html");
 const outDir = path.join(here, "browser-results");
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -23,56 +26,84 @@ const tabCases = [
   { input: "#focus-tab-core", label: 'label[for="focus-tab-core"]', panel: ".focus-core" }
 ];
 
+async function dismissNotice(page) {
+  const closeButton = page.locator("#tfn-close");
+  if (await closeButton.count()) await closeButton.click({ force: true }).catch(() => {});
+  await page.waitForTimeout(150);
+}
+async function loadPage(browser, file, viewport) {
+  const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
+  const pageErrors = [];
+  page.on("pageerror", e => pageErrors.push(String(e)));
+  page.on("console", msg => { if (msg.type() === "error") pageErrors.push("console: " + msg.text()); });
+  await page.goto("file://" + file, { waitUntil: "domcontentloaded" });
+  await page.waitForTimeout(650);
+  await dismissNotice(page);
+  // Wait for the temporary toolbar hand animation to expire so screenshot timing is deterministic.
+  await page.waitForTimeout(4550);
+  await page.evaluate(() => document.fonts && document.fonts.ready);
+  return { page, pageErrors };
+}
+async function inspect(page) {
+  return page.evaluate(({ panelIds }) => {
+    const ids = [...document.querySelectorAll("[id]")].map(el => el.id);
+    const duplicateIds = ids.filter((id, i) => ids.indexOf(id) !== i);
+    const navLinks = [...document.querySelectorAll("nav a[href^='#']")];
+    const unmatchedNav = navLinks.filter(a => !document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1))))
+      .map(a => ({ label: a.textContent.trim(), href: a.getAttribute("href") }));
+    return {
+      title: document.title,
+      width: window.innerWidth,
+      docWidth: document.documentElement.scrollWidth,
+      horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
+      duplicateIds: [...new Set(duplicateIds)],
+      missingPanels: panelIds.filter(id => !document.getElementById(id)),
+      navCount: navLinks.length,
+      unmatchedNav,
+      styleTagCount: document.querySelectorAll("style").length,
+      scriptCount: document.querySelectorAll("script").length
+    };
+  }, { panelIds });
+}
+
 const browser = await chromium.launch({ headless: true });
-const results = { candidate, viewports: [], static: {}, errors: [] };
+const results = { candidate, baseline, viewports: [], errors: [], visualDiffs: [] };
 try {
   for (const viewport of [
     { name: "desktop", width: 1440, height: 1000 },
     { name: "mobile", width: 390, height: 844 },
     { name: "narrow-mobile", width: 320, height: 800 }
   ]) {
-    const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
-    const pageErrors = [];
-    page.on("pageerror", e => pageErrors.push(String(e)));
-    page.on("console", msg => { if (msg.type() === "error") pageErrors.push("console: " + msg.text()); });
-    await page.goto("file://" + candidate, { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(700);
-    // The baseline intentionally opens a Q4 fund notice on first load; dismiss it before interaction tests.
-    const fundNotice = page.locator("#tac-fund-notice");
-    if (await fundNotice.count() && await fundNotice.isVisible().catch(() => false)) {
-      const closeButton = page.locator("#tfn-close");
-      if (await closeButton.count()) await closeButton.click({ force: true }).catch(() => {});
-      await page.waitForTimeout(150);
+    const base = await loadPage(browser, baseline, viewport);
+    const cand = await loadPage(browser, candidate, viewport);
+    const baseReport = await inspect(base.page);
+    const report = await inspect(cand.page);
+
+    const baseShot = await base.page.screenshot({ path: path.join(outDir, "baseline-" + viewport.name + ".png"), fullPage: true, animations: "disabled" });
+    const candShot = await cand.page.screenshot({ path: path.join(outDir, "candidate-" + viewport.name + ".png"), fullPage: true, animations: "disabled" });
+    const basePng = PNG.sync.read(baseShot);
+    const candPng = PNG.sync.read(candShot);
+    let diffPixels = null;
+    let diffRatio = null;
+    let dimensionsMatch = basePng.width === candPng.width && basePng.height === candPng.height;
+    if (dimensionsMatch) {
+      const diff = new PNG({ width: basePng.width, height: basePng.height });
+      diffPixels = pixelmatch(basePng.data, candPng.data, diff.data, basePng.width, basePng.height, { threshold: 0.1, includeAA: false });
+      diffRatio = diffPixels / (basePng.width * basePng.height);
+      fs.writeFileSync(path.join(outDir, "diff-" + viewport.name + ".png"), PNG.sync.write(diff));
     }
-    const report = await page.evaluate(({ panelIds }) => {
-      const ids = [...document.querySelectorAll("[id]")].map(el => el.id);
-      const duplicateIds = ids.filter((id, i) => ids.indexOf(id) !== i);
-      const navLinks = [...document.querySelectorAll("nav a[href^='#']")];
-      const unmatchedNav = navLinks.filter(a => !document.getElementById(decodeURIComponent(a.getAttribute("href").slice(1))))
-        .map(a => ({ label: a.textContent.trim(), href: a.getAttribute("href") }));
-      return {
-        title: document.title,
-        width: window.innerWidth,
-        docWidth: document.documentElement.scrollWidth,
-        horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
-        duplicateIds: [...new Set(duplicateIds)],
-        missingPanels: panelIds.filter(id => !document.getElementById(id)),
-        navCount: navLinks.length,
-        unmatchedNav,
-        styleTagCount: document.querySelectorAll("style").length,
-        scriptCount: document.querySelectorAll("script").length
-      };
-    }, { panelIds });
+    results.visualDiffs.push({ viewport: viewport.name, dimensionsMatch, baselineSize: [basePng.width, basePng.height], candidateSize: [candPng.width, candPng.height], diffPixels, diffRatio });
+
     const tabResults = [];
     for (const tab of tabCases) {
-      const label = page.locator(tab.label).first();
-      const input = page.locator(tab.input).first();
+      const label = cand.page.locator(tab.label).first();
+      const input = cand.page.locator(tab.input).first();
       if (await label.count() && await input.count()) {
         try {
           await label.click({ timeout: 3000 });
           const checked = await input.isChecked();
           let panelVisible = null;
-          if (await page.locator(tab.panel).count()) panelVisible = await page.locator(tab.panel).first().isVisible();
+          if (await cand.page.locator(tab.panel).count()) panelVisible = await cand.page.locator(tab.panel).first().isVisible();
           tabResults.push({ input: tab.input, checked, panelVisible });
         } catch (error) {
           tabResults.push({ input: tab.input, interactionError: String(error).split("\\n")[0] });
@@ -81,52 +112,55 @@ try {
         tabResults.push({ input: tab.input, missingLabelOrInput: true });
       }
     }
-    const collapse = page.locator("#last-week-calendar details").first();
+    const collapse = cand.page.locator("#last-week-calendar details").first();
     let collapseWorks = null;
     if (await collapse.count()) {
-      await collapse.locator("summary").click();
+      await collapse.locator("summary").click({ timeout: 3000 }).catch(() => {});
       collapseWorks = await collapse.evaluate(el => el.open);
     }
-    const screenshotPath = path.join(outDir, viewport.name + ".png");
-    await page.screenshot({ path: screenshotPath, fullPage: true, animations: "disabled" });
+    const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, ...report, tabResults, collapseWorks, pageErrors,
-      screenshot: path.basename(screenshotPath)
+      ...viewport, baseline: baseReport, ...report, tabResults, collapseWorks,
+      baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
+      screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
-    results.errors.push(...pageErrors.map(error => ({ viewport: viewport.name, error })));
-    await page.close();
+    results.errors.push(...newErrors.map(error => ({ viewport: viewport.name, error })));
+    await base.page.close();
+    await cand.page.close();
   }
   results.static = {
     requiredPanelIds: panelIds,
     requiredTabCaseCount: tabCases.length,
-    scriptBlocksExpected: 10,
-    note: "Browser smoke test; visual screenshots require human comparison with the frozen baseline."
+    expectedScripts: 10,
+    note: "Pixel diffs compare the frozen baseline with the CSS-extracted candidate. A zero diff verifies parity, not design improvement."
   };
   fs.writeFileSync(path.join(outDir, "results.json"), JSON.stringify(results, null, 2));
   const summary = [
     "# TAC Refactor Browser Smoke Test",
     "",
     ...results.viewports.map(v => `## ${v.name} — ${v.width}×${v.height}
-- Document width: ${v.docWidth}; horizontal overflow: ${v.horizontalOverflow}
+- Document width: baseline=${v.baseline.docWidth}, candidate=${v.docWidth}
+- Horizontal overflow: baseline=${v.baseline.horizontalOverflow}, candidate=${v.horizontalOverflow}
 - Missing panel IDs: ${v.missingPanels.join(", ") || "none"}
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Disclosure opens: ${v.collapseWorks}
-- Page errors: ${v.pageErrors.length}
-- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
+- New browser errors: ${v.newErrors.length}
+- Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
+- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
-    "Screenshots: desktop.png, mobile.png, narrow-mobile.png",
-    "",
-    "Note: passing smoke tests do not by themselves prove that visual quality exceeds the baseline."
+    "Screenshots include baseline, candidate, and pixel-diff images for each viewport.",
+    "Passing parity tests do not by themselves prove the design is more refined than baseline."
   ].join("\n");
   fs.writeFileSync(path.join(outDir, "summary.md"), summary);
   console.log(summary);
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
-    v.horizontalOverflow || v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false) ||
-    v.collapseWorks === false || v.pageErrors.length
-  );
+    (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
+    v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
+    v.collapseWorks === false || v.newErrors.length
+  ) || results.visualDiffs.some(d => !d.dimensionsMatch || d.diffPixels > 0);
   if (failed) process.exitCode = 1;
 } finally {
   await browser.close();
