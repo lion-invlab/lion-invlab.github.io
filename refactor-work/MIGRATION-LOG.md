@@ -94,3 +94,11 @@
 - Exactly 15 news items now use `tac-ds-card--news`; their backgrounds are uniformly white, border radii are 12px on desktop and 10px on mobile, with no overflow or new browser errors.
 - Content, timestamps, source URLs, news selection and deduplication logic were not changed.
 - Next inner-component pilot: economic event cards, preserving details/summary expansion and field layout.
+
+
+## 2026-10-24 — Economic event-card pilot passed
+
+- SHA-pinned browser run: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40084950673 — `success`.
+- 12 economic event cards use `tac-ds-event`; desktop radius 12px, mobile/narrow-mobile radius 10px; event details expand/collapse successfully.
+- Existing weekly economics/earnings disclosures, 21 shared tab labels, 15 news cards, 15 source/method disclosures and 4 empty states continue to pass regression.
+- Event fields and content were not changed. Next pilot: the 22 earnings accordion cards.
