@@ -10,3 +10,4 @@ rerun-sector-disclosure-close-state-2026-10-25
 actual-earnings-card-pilot-2026-10-25
 regex-guard-fix-rerun-2026-10-25
 special-background-isolation-regression-2026-10-25
+nav-anchor-hand-indicator-regression-2026-10-25
