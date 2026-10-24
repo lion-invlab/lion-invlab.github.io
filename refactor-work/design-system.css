@@ -650,3 +650,51 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label b { font-size: 13px; }
   #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .r { font-size: 14px; }
 }
+
+/* --- TAC Design System v1.8: prior-week actual earnings result cards --- */
+#last-week-earnings .tac-ds-earnings-actual-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid var(--tac-ds-color-line);
+  border-radius: 14px;
+  padding: 12px;
+  background: var(--tac-ds-color-surface);
+  box-shadow: 0 3px 12px rgba(20, 30, 40, .045);
+  overflow-wrap: anywhere;
+}
+#last-week-earnings .tac-ds-earnings-actual-card.beat { border-top: 3px solid #16834c; }
+#last-week-earnings .tac-ds-earnings-actual-card.miss { border-top: 3px solid #a56b13; }
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-card-title {
+  color: var(--tac-ds-color-ink); font-size: 14px; font-weight: 950; margin-bottom: 10px;
+}
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line {
+  display: flex; flex-direction: row; justify-content: space-between; align-items: flex-start;
+  gap: 8px; margin: 0; padding: 5px 0; border-bottom: 1px solid #f0f1f3;
+}
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line:last-of-type { border-bottom: 0; }
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line span {
+  flex: 0 0 auto; color: var(--tac-ds-color-muted); font-size: 12px;
+}
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line strong {
+  font-size: 14px; font-weight: 900; text-align: right; overflow-wrap: anywhere;
+}
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status {
+  margin-top: 10px; padding: 5px 9px; border-radius: 999px; font-size: 12px; font-weight: 900;
+}
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status.beat { color: #16834c; background: #eaf7ef; }
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status.miss { color: #a56b13; background: #fff4df; }
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status.pending { color: #596170; background: #f0f2f5; }
+#last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-note {
+  color: var(--tac-ds-color-muted); font-size: 11px; line-height: 1.5; margin-top: 9px;
+}
+@media (max-width: 640px) {
+  #last-week-earnings .tac-ds-earnings-actual-card { padding: 9px; border-radius: 12px; }
+  #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-card-title { font-size: 12px; }
+  #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line { flex-direction: column; gap: 2px; }
+  #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line strong { font-size: 12px; text-align: left; }
+  #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-line span { font-size: 10px; }
+  #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status { font-size: 10px; padding: 4px 6px; }
+}
+
