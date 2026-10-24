@@ -1,0 +1,746 @@
+<!-- TAC 長期制式母版｜週一版
+實際版型來源：2026/10/23 測試分支內已調整的「index_母版_修正測試_週一.html」。
+2026/10/26 早報僅是這條修正流程的起始基礎，不是本母版的直接來源。
+本檔保留經修正測試版驗收的版面、欄位、互動與樣式；日期相關示範資料僅供參考，產製每日審核版前必須按製作規則全量更新。
+-->
+<!-- TAC 製作規則層（內部規範，不顯示給讀者）
+1. 週別口徑：週一早報回顧上週整體市場與原先判斷，再展望本週；週二至週五只分析上一個實際交易日，不做上週回顧。休市時依最近一個實際交易日判定。
+2. 圖釘評論原則：不反覆抄寫漲跌幅，應解釋漲跌原因、後勢情境及投資應對／建議。
+3. 資料補齊同步：任何行情或數據修正後，逐一同步相關摘要、觀察、核心觀察、圖釘評論及總結；評論須以最新已核實資料為依據。
+4. 新聞規則：全球焦點新聞與市場熱門頭條使用同一台灣時間窗口；依原始發布時間與事件獨立性篩選。不得以頁面更新時間冒充原始發布時間；無法核實者剔除或明確標示待驗收。
+5. 審核狀態：每次修改內容或完成驗收，必須同步更新可見審核狀態；已完成項目移出待辦，未完成項目不得標示完成。交付前重新讀取檔案，核對正文、評論、總結與狀態。
+6. 發布分層：本檔審核版保留必要的內部驗收提示；正式發布版須在所有相關項目驗收完成後，才移除內部提示。不得只隱藏警示而未完成驗收。
+7. 這段規範只記錄在本日審核 HTML 原始碼中；仍須同步至正式週一／週二至週五母版及交接規則檔，才算完成長期制度化。
+-->
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>TAC 投資早報｜2026/10/26（一）審核版</title>
+
+<meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/>
+<!-- 2026/10/20 審核版：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id="tac-layout-hint-v9-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const header=document.querySelector('header');
+ if(!header)return;
+ const title=header.querySelector('h1');
+ if(!title)return;
+ const candidates=[...header.querySelectorAll('*')].filter(el=>{
+   if(el.children.length>0)return false;
+   const t=(el.textContent||'').trim();
+   return t.includes('資料僅供內部教育訓練使用');
+ });
+ if(!candidates.length)return;
+ let warning=candidates[0];
+ while(warning.parentElement&&warning.parentElement!==header&&warning.parentElement.children.length===1)warning=warning.parentElement;
+ const titleParent=title.parentElement;
+ if(!titleParent)return;
+ let row=titleParent;
+ if(!row.contains(warning)){
+   row.style.display='flex';
+   row.style.flexWrap='wrap';
+   row.style.alignItems='center';
+   row.style.columnGap='10px';
+   row.style.rowGap='4px';
+   row.style.minWidth='0';
+   title.style.margin='0';
+   warning.style.margin='0 0 0 auto';
+   warning.style.flex='0 1 auto';
+   warning.style.maxWidth='48%';
+   warning.style.fontSize='10px';
+   warning.style.lineHeight='1.25';
+   warning.style.whiteSpace='normal';
+   warning.style.textAlign='right';
+   warning.style.boxSizing='border-box';
+   row.appendChild(warning);
+ }
+});
+</script>
+<script id="tac-layout-v10-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const hint=document.querySelector('.tac-tools-hint');
+ const main=document.querySelector('main')||document.querySelector('#main')||document.querySelector('.main-content')||document.querySelector('section');
+ if(hint&&main&&hint.parentElement!==main){
+  main.insertBefore(hint,main.firstChild);
+  hint.style.margin='12px 16px 14px';
+ }
+ const title=document.querySelector('header h1')||document.querySelector('h1');
+ if(!title)return;
+ const header=title.closest('header')||title.parentElement;
+ const leaves=[...header.querySelectorAll('*')].filter(el=>el.children.length===0&&(el.textContent||'').trim().includes('資料僅供內部教育訓練使用'));
+ if(!leaves.length)return;
+ let warning=leaves[0];
+ while(warning.parentElement&&warning.parentElement!==header&&warning.parentElement.children.length===1)warning=warning.parentElement;
+ const dateNodes=[...header.querySelectorAll('*')].filter(el=>el.children.length===0&&/20\d{2}\/\d{1,2}\/\d{1,2}/.test(el.textContent||''));
+ if(!dateNodes.length)return;
+ let dateNode=dateNodes[0];
+ while(dateNode.parentElement&&dateNode.parentElement!==header&&dateNode.parentElement.children.length===1)dateNode=dateNode.parentElement;
+ const row=dateNode.parentElement;
+ if(!row||row===header&&!row.contains(title))return;
+ row.style.display='flex';row.style.flexWrap='wrap';row.style.alignItems='center';row.style.columnGap='8px';row.style.rowGap='4px';row.style.minWidth='0';
+ warning.style.display='inline-block';warning.style.margin='0';warning.style.fontSize='10px';warning.style.lineHeight='1.2';warning.style.whiteSpace='nowrap';warning.style.flex='0 1 auto';warning.style.maxWidth='48%';warning.style.textAlign='left';warning.style.boxSizing='border-box';
+ row.appendChild(warning);
+});
+</script>
+
+
+
+
+<meta name="tac-mother-version" content="Tue-Fri V33 baseline">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="tac-correction-test" content="修正報告與行情日期錯置；關鍵價位待來源核實；正式母版未修改">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./legacy-cascade.css" data-tac-legacy-cascade="extracted-in-order">
+<link rel="stylesheet" href="./design-system.css" data-tac-design-system="v1">
+</head>
+<body class="release-ready">
+<div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態｜本次已完成：合併重複審核框、統一兩個新聞區塊的時間窗口徑，並記錄週別總結、圖釘評論與資料補齊後同步規則。已依既定流程核對的 VIX、MOVE、CNN Fear &amp; Greed、SOX、11 大產業 ETF 與 FedWatch 不重啟來源驗證。仍待逐項驗收：新聞原始發布時間與事件獨立性、全球經濟行事曆完整性、部分財報實績，以及債匯商品報價口徑。正式母版與交接規則檔尚未同步；本檔規範不代表長期制度化已完成。</div>
+
+<header class="top">
+<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/26（一）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/26（一）｜週一版；行情與行事曆須依正式資料逐項更新後方可審核</div></div>
+<nav class="nav">
+<a class="active" href="#overview">總結</a>
+<a href="#sentiment">市場情緒</a>
+<a href="#news-scan">重點新聞掃瞄</a>
+<a href="#global-markets">全球主要股市</a>
+<a href="#industry-bonds-fx-commodities">產業債匯商品</a>
+<a href="#last-week-calendar">上週經濟行事曆</a>
+<a href="#last-week-earnings">上週財報行事曆</a>
+<a href="#calendar">本週經濟行事曆</a>
+<a href="#earnings">本週財報行事曆</a>
+<a href="#sp500-earnings-health">S&amp;P 500 財報健康度</a>
+<a href="#fed">Fed 限時動態</a>
+<a href="#view">今日觀察重點</a>
+</nav></header>
+<main class="wrap" id="overview">
+
+<section class="grid two">
+<article class="card bluf">
+<div class="title" style="color:#b42332!important">總結</div>
+<h1>上週修正後，本週市場迎來關鍵考驗</h1>
+<p><b>上週回顧｜高估值修正與風險升溫</b><br/>科技股在財報未完全滿足高預期、AI 投資回報疑慮升溫之際承壓；週五油價急升與美債殖利率走高又加重賣壓。惟全週並非所有板塊同步走弱，較像資金重新定價，尚不足以單憑一週走勢確認全面熊市。<br/><b>本週展望｜等待財報與利率給出方向</b><br/>不因跌深就假設必然反彈，也不在恐慌中一概看空。大型科技財報與聯準會決策將是重要驗證點，重點看 AI 支出能否轉化為營收、獲利與現金流，以及油價和長天期殖利率是否降溫。<br/><b>投資應對｜分批布局、避免押單邊</b><br/>若財報有力、利率壓力緩和，市場有機會止穩修復；若油價與殖利率續升、財測又不如預期，仍可能再測低點。建議控制槓桿、分批進出，避免追價或一次性抄底。</p>
+
+</article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
+<div class="title" style="color:#fff!important">市場情緒</div>
+<div class="sent">
+<div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>19.45</strong><span class="warn">+2.21%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/23 VIX 收盤採 19.45、當日 +0.42（+2.21%）；YCharts 歷史值與鉅亨網同日歷史資料一致。先前卡片的 19.65／+3.26% 與交叉核對來源不一致，已更正；已依既定核對流程確認，沿用本次核對值。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>103.31</strong><span class="down">-3.30%</span><details class="source-details"><summary>資料來源</summary><div class="source">Investing.com ICE BofA MOVE 歷史資料：2026/10/23 收盤 103.31，當日 -3.30%；前一交易日 10/22 收盤 106.84。依同一來源、同一交易日口徑計算。GitHub Actions／Yahoo Finance 備援資料亦回傳 10/23 收盤 103.31。</div></details></div>
+<section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
+  <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
+  <div class="fg6-date">CNN Fear &amp; Greed｜2026/10/23 讀值｜擷取 2026/10/24 07:12 台灣時間</div>
+  <div class="fg6-score-row">
+    <div class="fg6-score"><span class="fg6-score-main">21.0</span><span class="fg6-outof">/100</span></div>
+  <div class="fg6-status"><span>Extreme Fear</span><i></i><b>極度恐懼</b></div>
+  </div>
+  <div class="fg6-scale-wrap" aria-label="Fear and Greed scale">
+    <div class="fg6-band"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="fg6-marker" style="left:20.98%"><span></span></div>
+    <div class="fg6-labels"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
+  </div>
+  <details class="source-details"><summary>資料來源</summary><div class="source">GitHub Actions 2026/10/24 07:12（台灣時間）成功擷取 CNN Business 官方 JSON endpoint：score 20.98095、rating extreme fear，資料時間 2026/10/23 22:54:33 UTC（台灣時間 10/24 06:54:33）。fgscore.com 同日顯示 20／100、Extreme Fear；兩來源方向一致，數值差異來自原始精度／呈現取整，卡片保留 CNN 原始值 21.0。</div></details>
+</section>
+<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">市場情緒偏向防禦，但股債波動並未同步擴大：股市避險需求升溫，債市波動反而回落，顯示投資人正在重新定價不同風險，而非所有資產一致失序。FedWatch 快照仍以維持利率不變為主情境，升息機率較低但不可忽視。下週需觀察油價是否把通膨疑慮推高、長天期殖利率是否再上行，以及大型科技財報能否提供足夠的獲利與 AI 投資回報證據；若三者同時不利，宜降低高估值與高槓桿曝險。</div></div>
+</div>
+</article>
+</section>
+<div style="height:14px"></div>
+<section aria-label="重點新聞掃瞄" class="tac-tabset" id="news-scan"><div class="tac-section-heading"><h2 style="display:flex!important;align-items:center!important;gap:12px!important">重點新聞掃瞄</h2></div><input checked="checked" class="tac-tab-radio" id="tac-news-0" name="tac-news" type="radio"/><input class="tac-tab-radio" id="tac-news-1" name="tac-news" type="radio"/><div class="tac-tab-nav"><label for="tac-news-0">全球焦點新聞</label><label for="tac-news-1">市場熱門頭條</label></div><div class="tac-tab-panel" id="tac-news-panel-0"><article class="card" id="global-focus">
+<div class="news-window-warning" role="alert" style="margin:10px 0;padding:11px 13px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:9px;background:#fffbeb;color:#78350f;font-size:12px;line-height:1.65;font-weight:750">新聞時間窗｜統一口徑：2026/10/23 12:00–2026/10/26 05:00（台灣時間）。全球焦點與市場熱門頭條均依此時間窗篩選；逐則核對原始刊登時間與事件是否重複。若來源只提供日期或頁面更新時間，不能當作精確發布時間；無法確認符合時間窗或事件獨立性的項目，應剔除，不以更新時間代替事件時間。</div>
+<div class="tab-panel-meta">全球焦點｜報告日期 2026/10/26｜新聞窗：2026/10/23 12:00–2026/10/26 05:00（台灣時間）</div>
+<div class="newsitem"><h3>1. 🇺🇸 美股週五回落，油價急升與殖利率上行成為壓力</h3><p>10/23 美股道瓊下跌 1.23%、S&amp;P 500 下跌 0.52%、Nasdaq Composite 下跌 0.21%。Brent 原油升至每桶約 116 美元以上，美國 10 年期公債殖利率接近 4.99%。能源供應地緣風險與利率壓力同時升高，市場下週將檢視財報能否抵銷宏觀不確定性。</p><div class="newsmeta"><a href="https://apnews.com/article/e07c72bc5cbe5dffe352ddf30054e35f" target="_blank" rel="noopener">AP｜2026/10/23 美股收盤報導｜閱讀原文 ↗</a></div></div>
+<div class="newsitem"><h3>2. 🌍 Reuters：AI 投資疑慮與中東能源風險壓抑全球股市</h3><p>Reuters 指出，AI 投資回報疑慮延續，油價因中東供應風險走高，全球股市週五偏弱。美股科技股在前一交易日大幅修正後表現分化；本週大型科技財報將檢驗市場對資料中心支出、營收成長與獲利率的預期。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-23/" target="_blank" rel="noopener">Reuters｜2026/10/23 全球市場｜閱讀原文 ↗</a></div></div>
+<div class="newsitem"><h3>3. 🛢️ Brent 原油升至 2022 年以來高位區間，能源成本再成焦點</h3><p>Reuters 報導 Brent 當日上漲約 3.14% 至每桶 116.72 美元，報導將走勢與中東能源供應風險連結。油價持續走高可能延後通膨降溫，並透過運輸、化工與消費成本影響企業獲利；仍須與實際期貨結算價區分。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-23/" target="_blank" rel="noopener">Reuters｜Brent 盤面報導｜閱讀原文 ↗</a></div></div>
+<div class="newsitem"><h3>4. 🇪🇺 歐股週線承壓，法國財政與政治風險仍受關注</h3><p>Reuters 指出泛歐 STOXX 600 週五下跌約 0.31%，全週下跌約 1.4%，是 9 月初以來最大單週跌幅之一。法國預算協商與政治不確定性、債券殖利率波動，以及能源成本上行，仍可能牽動歐洲風險溢酬。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-23/" target="_blank" rel="noopener">Reuters｜歐洲市場收盤摘要｜閱讀原文 ↗</a></div></div>
+<div class="newsitem"><h3>5. 🧠 本週大型科技財報與聯準會會議，將檢驗 AI 行情韌性</h3><p>Reuters 提醒，Alphabet、Microsoft、Amazon 等大型科技公司財報與聯準會會議將是下週市場關鍵。除了營收與每股盈餘，投資人更需關注 AI 資本支出、資料中心建置節奏、自由現金流與管理層對需求的指引。</p><div class="newsmeta"><a href="https://www.investing.com/news/economy-news/earnings-flood-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally-4968724" target="_blank" rel="noopener">Reuters／Investing.com｜2026/10/23｜閱讀原文 ↗</a></div></div></article></div><div class="tac-tab-panel" id="tac-news-panel-1"><article class="card" id="headlines">
+<div class="news-window-warning" role="alert" style="margin:10px 0;padding:11px 13px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:9px;background:#fffbeb;color:#78350f;font-size:12px;line-height:1.65;font-weight:750">新聞時間窗｜統一口徑：2026/10/23 12:00–2026/10/26 05:00（台灣時間），與「全球焦點新聞」完全一致。熱門頭條逐則核對原始刊登時間及事件獨立性；若來源只提供日期或頁面更新時間，不視為精確發布時間。無法確認符合時間窗或與其他條目屬不同事件者，應剔除，不得以較早／較新的時間窗替代。</div>
+<div class="tab-panel-meta">市場熱門頭條｜報告日期 2026/10/26｜新聞窗：2026/10/23 12:00–2026/10/26 05:00（台灣時間）。部分條目為市場綜述中的不同重點，正式發布前仍需核對原始發布時間與事件獨立性。</div><div class="newsitem"><h3>01｜美股三大指數週五收跌，道瓊跌幅逾 1%</h3><p class="headline-desc">道瓊收 52,215.16（-1.23%），S&amp;P 500 收 7,623.68（-0.52%），Nasdaq Composite 收 25,955.34（-0.21%）。</p><div class="newsmeta"><a href="https://apnews.com/article/e07c72bc5cbe5dffe352ddf30054e35f" target="_blank" rel="noopener">AP｜10/23｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>02｜Brent 原油升至每桶 116 美元上方</h3><p class="headline-desc">Brent 當日漲逾 3%，中東供應風險使能源價格再受市場關注；盤中報價與正式結算價需區分。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-23/" target="_blank" rel="noopener">Reuters｜10/23｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>03｜美國 10 年期公債殖利率升近 4.99%</h3><p class="headline-desc">殖利率上行提高股票估值折現壓力，對高估值科技股尤其重要；需持續追蹤下週經濟數據與央行訊號。</p><div class="newsmeta"><a href="https://apnews.com/article/e07c72bc5cbe5dffe352ddf30054e35f" target="_blank" rel="noopener">AP｜10/23｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>04｜AI 資本支出與投資回報成大型科技財報焦點</h3><p class="headline-desc">市場將檢視雲端需求、資料中心支出、自由現金流及財測，而非只看單季 EPS 是否超標。</p><div class="newsmeta"><a href="https://www.investing.com/news/economy-news/earnings-flood-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally-4968724" target="_blank" rel="noopener">Reuters／Investing.com｜10/23｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>05｜下週 Alphabet、Microsoft 等大型科技公司將公布財報</h3><p class="headline-desc">財報季進入重要密集期，管理層對 AI 需求與資本支出的說法可能影響科技股整體評價。</p><div class="newsmeta"><a href="https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026" target="_blank" rel="noopener">StockTitan｜下週財報行事曆｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>06｜費城半導體指數週五小幅反彈，與大盤走勢分化</h3><p class="headline-desc">Investing.com 歷史頁與 Yahoo Finance 同日資料均顯示 SOX 10/23 收約 10,779.5、上漲 0.44%；Nasdaq 官方頁面出現不同即時快照，故採同日歷史資料一致值。</p><div class="newsmeta"><a href="https://www.investing.com/indices/phlx-semiconductor-historical-data" target="_blank" rel="noopener">Investing.com｜10/23 歷史資料｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>07｜歐股週五下跌，泛歐 STOXX 600 週線走弱</h3><p class="headline-desc">歐洲市場受法國財政與政治風險、能源成本及殖利率變化牽動，需觀察風險溢酬是否擴大。</p><div class="newsmeta"><a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-23/" target="_blank" rel="noopener">Reuters｜10/23｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>08｜台股 10/23 因薔琵颱風休市</h3><p class="headline-desc">台灣證交所與櫃買市場當日停止交易；因此 10/23 不顯示前一日收盤價作為當日行情。此為市場狀態資訊，非新聞窗口內新事件。</p><div class="newsmeta"><a href="https://www.cna.com.tw/news/afe/202610220388.aspx" target="_blank" rel="noopener">中央社｜10/22 公告｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>09｜VIX 歷史摘要顯示週五收於 19.71</h3><p class="headline-desc">此數值來自公開歷史摘要，仍待 Cboe 官方頁與 Yahoo Finance 同日收盤交叉確認；未核實前不把它解讀成完整風險情緒結論。</p><div class="newsmeta"><a href="https://www.portfolio-terminal.com/markets/stock-market-close/october-23-2026" target="_blank" rel="noopener">公開歷史摘要｜10/23｜閱讀原文 ↗</a></div></div><div class="newsitem"><h3>10｜本週需同時追蹤財報、聯準會與能源價格</h3><p class="headline-desc">油價與殖利率上升可能提高通膨疑慮；大型科技財報則檢驗 AI 投資能否轉化為收入與現金流，兩者共同影響市場風險偏好。</p><div class="newsmeta"><a href="https://www.investing.com/news/economy-news/earnings-flood-fed-meeting-pose-pivotal-tests-for-rickety-ai-market-rally-4968724" target="_blank" rel="noopener">Reuters／Investing.com｜10/23｜閱讀原文 ↗</a></div></div></section>
+<section aria-label="全球主要股市" class="tac-tabset" id="global-markets"><div class="tac-section-heading"><h2 style="display:flex!important;align-items:center!important;gap:12px!important">全球主要股市</h2></div><input checked="checked" class="tac-tab-radio" id="tac-region-0" name="tac-region" type="radio"/><input class="tac-tab-radio" id="tac-region-1" name="tac-region" type="radio"/><input class="tac-tab-radio" id="tac-region-2" name="tac-region" type="radio"/><div class="tac-tab-nav"><label for="tac-region-0">美國</label><label for="tac-region-1">亞洲</label><label for="tac-region-2">歐洲</label></div><div class="tac-tab-panel" id="tac-region-panel-0"><article class="card"><div class="tab-panel-meta">2026/10/23當地正式收盤｜Nasdaq官方指數頁優先；其餘採AP／Reuters；SOX採公開歷史資料交叉參考（Nasdaq官方同日歷史快照尚未驗收）</div><div class="row"><b>道瓊工業指數</b><span class="r">52,215.16</span><span class="r down">-1.23%</span></div><div class="row"><b>標普500指數</b><span class="r">7,623.68</span><span class="r down">-0.52%</span></div><div class="row"><b>那斯達克綜合指數</b><span class="r">25,955.34</span><span class="r down">-0.21%</span></div><div class="row"><b>羅素2000指數</b><span class="r">2,775.90</span><span class="r down">-0.29%</span></div><div class="row"><b>費城半導體指數</b><span class="r">10,779.46</span><span class="r up">+0.44%</span></div><div class="market-reason"><b>📌 美股摘要</b><br/>油價與美債殖利率同步走高，增加通膨再起與折現率上升的疑慮，是週五美股承壓的主要宏觀背景；道瓊相對弱勢，反映市場降低景氣循環與利率敏感部位。半導體逆勢走強，可能與個別晶片需求及財報前布局有關，但單日相對抗跌尚不足以確認新一輪上漲。下週關鍵在大型科技公司對 AI 需求、資本支出、毛利率及自由現金流的說明；若指引未能支持高估值，反彈可能受限。SOX 收盤與漲跌幅已完成交叉核對。</div>
+<details class="source-details region-source"><summary>資料來源</summary><div class="source">來源：AP／Yahoo Finance 摘要交叉參考主要指數；SOX 採 Investing.com 歷史頁 10/23 收盤 10,779.5（+0.44%），並與 Yahoo Finance chart API 10,779.46 交叉核對；Nasdaq 官方頁顯示不同快照，故已記錄來源差異。資料日期：2026/10/23 美國當地收盤。</div></details></article></div><div class="tac-tab-panel" id="tac-region-panel-1"><article class="card" id="asia"><div class="tab-panel-meta">2026/10/23當地正式收盤｜亞洲市場依各交易所／市場報導核對</div>
+<div class="row"><b>台灣加權指數</b><span class="r">休市</span><span class="r flat">薔琵颱風</span></div><div class="row"><b>香港恆生指數</b><span class="r">23,093.37</span><span class="r up">+0.69%</span></div><div class="row"><b>上海綜合指數</b><span class="r">3,690.48</span><span class="r up">+0.89%</span></div><div class="row"><b>深證成指</b><span class="r">11,673.83</span><span class="r up">+2.79%</span></div><div class="row"><b>日經225</b><span class="r">62,693.16</span><span class="r down">-0.34%</span></div><div class="row"><b>韓國KOSPI</b><span class="r">5,550.30</span><span class="r up">+0.30%</span></div><div class="market-reason"><b>📌 亞股摘要</b><br/>亞洲市場呈現區域分化，中港股市相對有承接，日股則受全球風險情緒與匯率／利率變化牽動。中國市場的反彈能否延續，仍需後續成交、政策訊號與企業獲利確認，不宜單憑一日漲勢追高；日韓科技供應鏈則需留意大型美國科技公司對 AI 需求及半導體資本支出的最新指引。台灣 10/23 因薔琵颱風休市，沒有當日成交訊號可供判讀。</div>
+<details class="source-details region-source"><summary>資料來源</summary><div class="source">來源：各市場2026/10/23當地收盤資料；亞洲市場綜述參考 Yonhap Infomax、The Edge 與 Reuters，指數數值以各市場收盤資料為準。</div></details></article></div><div class="tac-tab-panel" id="tac-region-panel-2"><article class="card"><div class="tab-panel-meta">2026/10/23當地收盤｜FTSE 100採Reuters／Investors Chronicle；DAX、CAC採Investing.com歷史收盤資料</div>
+<div class="row"><b>英國FTSE 100</b><span class="r">10,690.36</span><span class="r down">-0.32%</span></div><div class="row"><b>德國DAX</b><span class="r">25,181.65</span><span class="r down">-0.75%</span></div><div class="row"><b>法國CAC 40</b><span class="r">7,782.82</span><span class="r down">-0.36%</span></div><div class="market-reason"><b>📌 歐股摘要</b><br/>歐洲股市面對三重壓力：能源價格抬高企業成本與通膨風險、利率維持高檔壓抑估值，法國財政與政治不確定性則增加區域風險溢酬。若能源價格持續高位，工業、運輸及消費相關企業的成本轉嫁能力將成為分化關鍵；配置上宜留意現金流穩定、定價能力較佳的公司，並觀察下週央行訊號是否改變利率預期。</div>
+<details class="source-details region-source"><summary>資料來源</summary><div class="source">來源：Reuters 2026/10/23歐股收盤報導；Investing.com DAX與CAC 40歷史資料交叉參考。</div></details></article></div></section><section aria-label="產業債匯商品" class="tac-tabset" id="industry-bonds-fx-commodities"><div class="tac-section-heading"><h2 style="display:flex!important;align-items:center!important;gap:12px!important">產業債匯商品</h2></div><input checked="checked" class="tac-tab-radio" id="tac-assets-0" name="tac-assets" type="radio"/><input class="tac-tab-radio" id="tac-assets-1" name="tac-assets" type="radio"/><input class="tac-tab-radio" id="tac-assets-2" name="tac-assets" type="radio"/><input class="tac-tab-radio" id="tac-assets-3" name="tac-assets" type="radio"/><input class="tac-tab-radio" id="tac-assets-4" name="tac-assets" type="radio"/><div class="tac-tab-nav"><label for="tac-assets-0">標普11大產業</label><label for="tac-assets-1">美國公債殖利率</label><label for="tac-assets-2">匯率</label><label for="tac-assets-3">能源</label><label for="tac-assets-4">貴金屬</label></div><div class="tac-tab-panel" id="tac-assets-panel-0"><article class="card" id="us">
+<div class="tab-panel-meta">11檔產業ETF單日漲跌幅｜2026/10/23美股收盤｜依漲跌幅由高至低排序；百分比以公開 ETF 收盤表四捨五入至小數點後兩位</div>
+<details class="audit-details sector-collapse"><summary>展開查看 11 大產業漲跌幅（預設收合）</summary><div class="audit-content">
+<div class="sector-list"><div class="sector-row"><span class="rank">1</span><div class="sector-label"><b>能源</b><small>Energy | XLE</small></div><span class="r up">+2.60%</span></div><div class="sector-row"><span class="rank">2</span><div class="sector-label"><b>資訊科技</b><small>Information Technology | XLK</small></div><span class="r up">+0.50%</span></div><div class="sector-row"><span class="rank">3</span><div class="sector-label"><b>房地產</b><small>Real Estate | XLRE</small></div><span class="r up">+0.10%</span></div><div class="sector-row"><span class="rank">4</span><div class="sector-label"><b>公用事業</b><small>Utilities | XLU</small></div><span class="r down">-0.70%</span></div><div class="sector-row"><span class="rank">5</span><div class="sector-label"><b>原材料</b><small>Materials | XLB</small></div><span class="r down">-0.80%</span></div><div class="sector-row"><span class="rank">6</span><div class="sector-label"><b>醫療保健</b><small>Health Care | XLV</small></div><span class="r down">-1.10%</span></div><div class="sector-row"><span class="rank">7</span><div class="sector-label"><b>工業</b><small>Industrials | XLI</small></div><span class="r down">-1.30%</span></div><div class="sector-row"><span class="rank">8</span><div class="sector-label"><b>金融</b><small>Financials | XLF</small></div><span class="r down">-1.30%</span></div><div class="sector-row"><span class="rank">9</span><div class="sector-label"><b>非必需消費</b><small>Consumer Discretionary | XLY</small></div><span class="r down">-1.70%</span></div><div class="sector-row"><span class="rank">10</span><div class="sector-label"><b>通訊服務</b><small>Communication Services | XLC</small></div><span class="r down">-1.80%</span></div><div class="sector-row"><span class="rank">11</span><div class="sector-label"><b>必需消費</b><small>Consumer Staples | XLP</small></div><span class="r down">-1.90%</span></div></div></div><div class="audit-content"><details class="source-details sector-source"><summary>資料來源</summary><div class="source">GitHub Actions 擷取時間：2026/10/24 07:10（台灣時間）。11 檔 ETF 由 Yahoo Finance chart API 取得 2026/10/23 與前一交易日收盤並計算；另以 ETF.net 2026/10/23 產業 ETF 收盤摘要交叉核對方向與排序，畫面百分比採公開摘要顯示精度四捨五入至小數點後兩位。ETF：XLK、XLI、XLF、XLU、XLE、XLB、XLY、XLV、XLP、XLRE、XLC。來源：<a href="https://www.etf.net/news/tech-holds-as-dow-falls-2026-10-23" target="_blank" rel="noopener">ETF.net｜2026/10/23 產業 ETF 收盤摘要</a>。</div></details></div></details><div class="market-reason"><b>📌 產業觀察</b><br/>產業表現呈現明顯防禦與成本題材分化：能源可能受油價急升帶動，科技內部則因半導體相對有承接而未全面轉弱；消費與通訊服務走弱，顯示市場對成本壓力、估值及需求韌性更敏感。接下來要看油價高檔是否持續，以及大型科技財報能否證明 AI 支出帶來可衡量的營收與現金流。配置上避免只追逐單日領漲產業，應優先檢視獲利能見度、定價能力與估值是否匹配。</div>
+</article></div><div class="tac-tab-panel" id="tac-assets-panel-1"><article class="card" id="bonds"><div class="tab-panel-meta">2026/10/23 美國財政部 Daily Treasury Par Yield Curve Rates｜官方 Par 殖利率口徑</div><div class="row"><b>2年期美債殖利率</b><span class="r" style="font-weight:900">4.69%</span><span class="r up">+4 bp</span></div><div class="row"><b>10年期美債殖利率</b><span class="r" style="font-weight:900">5.00%</span><span class="r up">+4 bp</span></div><div class="row"><b>30年期美債殖利率</b><span class="r" style="font-weight:900">5.33%</span><span class="r up">+4 bp</span></div>
+<div class="market-reason"><b>📌 債券觀察</b><br/>殖利率曲線整體上移，代表市場對通膨、財政供給或政策利率維持高檔的風險要求更高；這會提高企業融資成本，並壓縮遠期獲利占比高的成長股估值。接下來要分辨升息壓力來自通膨預期還是期限溢酬：若長端升幅持續大於短端，應更謹慎看待高久期資產；若經濟數據轉弱而殖利率回落，才有利於估值壓力緩解。</div>
+<details class="source-details"><summary>資料來源</summary><div class="source">主要來源：<a href="https://www.wsj.com/finance/stocks/u-s-stocks-rise-as-spacex-spurs-ai-relief-rally-9d3763e7">WSJ 2026/10/23美股與美債收盤報導</a>（引述當日市場數據）；<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>供官方Par殖利率交叉參考（不同統計口徑不混用）。</div></details>
+</article></div><div class="tac-tab-panel" id="tac-assets-panel-2"><article class="card" id="fx"><div class="tab-panel-meta">2026/10/23 外匯參考快照｜DXY、USD/TWD 依 Investing.com 歷史頁；台灣在地外匯市場休市</div>
+<div class="row"><b class="instrument-name">美元指數<span class="instrument-en">DXY</span></b><span class="r">101.80</span><span class="r up">+0.19%</span></div>
+<div class="row"><b class="instrument-name">美元／新台幣<span class="instrument-en">USD/TWD</span></b><span class="r">32.586*</span><span class="r down">-0.09%</span></div>
+<div class="row"><b class="instrument-name">歐元／美元<span class="instrument-en">EUR/USD</span></b><span class="r">1.1193</span><span class="r down">-0.25%</span></div>
+<div class="row"><b class="instrument-name">英鎊／美元<span class="instrument-en">GBP/USD</span></b><span class="r">1.3373</span><span class="r down">-0.21%</span></div>
+<div class="row"><b class="instrument-name">澳幣／美元<span class="instrument-en">AUD/USD</span></b><span class="r">0.7018</span><span class="r down">-0.01%</span></div>
+<div class="row"><b class="instrument-name">美元／日圓<span class="instrument-en">USD/JPY</span></b><span class="r">156.90</span><span class="r up">+0.23%</span></div>
+<div class="market-reason"><b>📌 匯率觀察</b><br/>美元走強與日圓偏弱，反映市場仍在衡量美國利率維持高檔的可能性；若美債殖利率續升，美元可能再獲支撐，並對新興市場資金流與以美元計價的大宗商品形成牽動。日圓匯率接近高位區間時，需留意日本官方口頭干預或政策訊號引發的快速反轉。台灣在地外匯市場休市，USD/TWD 平台參考價不能視為銀行牌告或正式定盤；跨平台報價時間不同，判讀以方向與利率差為主，不將快照差異解讀為確定趨勢。</div>
+<details class="source-details"><summary>資料來源</summary><div class="source">資料日期：2026/10/23。DXY 101.80（+0.19%）、USD/TWD 32.586（-0.09%）、EUR/USD 1.1193（-0.25%）、GBP/USD 1.3373（-0.21%）、USD/JPY 156.90（+0.23%）採 Investing.com 歷史頁；AUD/USD 0.7018（-0.01%）採 PoundSterlingLive 歷史頁。USD/TWD 為平台參考價，台灣在地匯市當日休市。來源：<a href="https://www.investing.com/indices/usdollar-historical-data">Investing.com DXY</a>、<a href="https://www.investing.com/currencies/usd-twd-historical-data">Investing.com USD/TWD</a>、<a href="https://www.investing.com/currencies/eur-usd-historical-data">Investing.com EUR/USD</a>、<a href="https://www.investing.com/currencies/gbp-usd-historical-data">Investing.com GBP/USD</a>、<a href="https://www.investing.com/currencies/usd-jpy-historical-data">Investing.com USD/JPY</a>、<a href="https://www.poundsterlinglive.com/history/AUD-USD-2026/">PoundSterlingLive AUD/USD 歷史資料</a>。</div></details>
+</article></div><div class="tac-tab-panel" id="tac-assets-panel-3"><article class="card energy-card"><div class="tab-panel-meta">2026/10/23當地結算｜WTI與Brent採Reuters報導的期貨結算價；非現貨報價</div>
+<div class="row"><b>WTI原油期貨</b><span class="r">$103.28</span><span class="r up">+3.83%</span></div><div class="row"><b>Brent原油期貨</b><span class="r">$116.72</span><span class="r up">+3.14%</span></div><div class="market-reason"><b>📌 原油觀察</b><br/>油價急升的核心風險在於能源供應地緣不確定性可能把短期價格衝擊延伸成通膨與企業成本壓力，進而限制央行寬鬆空間。若高油價持續，能源生產商相對受惠，但航空、運輸、化工及消費產業可能面臨成本與需求雙重擠壓；投資上不宜只追逐能源股單日強勢，應同時追蹤供應風險是否實際擴大、油價能否站穩高位及企業轉嫁成本能力。</div>
+<details class="source-details"><summary>資料來源</summary><div class="source">主要來源：<a href="https://www.reuters.com/world/china/global-markets-global-markets-2026-10-23/">Reuters 2026/10/23 全球市場收盤報導</a>，Brent 約 116.72 美元／桶、+3.14%；WTI 約 103.28 美元／桶、+3.83%。這是新聞報導的市場收盤口徑，仍需依指定到期月份與交易所結算資料做最後核對；已移除母版舊的 10/21 數字。</div></details>
+</article></div><div class="tac-tab-panel" id="tac-assets-panel-4"><article class="card"><div class="tab-panel-meta">2026/10/23 期貨市場報導／結算摘要（非現貨）；黃金為 12 月合約，白銀合約月份待核對</div><div class="row"><b>黃金期貨 GC</b><span class="r">$4,007.90</span><span class="r down">-1.30%</span></div><div class="row"><b>白銀期貨 SI</b><span class="r">$53.711</span><span class="r down">-1.90%</span></div><div class="market-reason"><b>📌 貴金屬觀察</b><br/>油價推升通膨風險，不代表黃金必然同步上漲；若市場因此提高對利率維持高檔的預期，實質利率與美元走強反而可能壓抑金價。黃金短線需觀察美元、實質殖利率與避險需求誰占上風；白銀兼具工業金屬屬性，若全球成長疑慮升高，可能較黃金更容易承壓。配置上宜避免把單日價格變化當成單一方向訊號，並留意期貨合約月份與現貨報價不可混用。</div>
+<details class="source-details"><summary>資料來源</summary><div class="source">主要來源：<a href="https://www.reuters.com/world/india/gold-heads-steep-weekly-loss-oil-prices-fuel-fed-rate-concerns-2026-10-23/">Reuters 2026/10/23 黃金期貨報導</a>（12 月 GC 合約結算約 4,007.90 美元／盎司，-1.30%）；<a href="https://comexlive.org/page/101/">COMEX 公開市場摘要</a>（白銀約 53.711 美元／盎司，-1.90%，合約月份仍待核對）。此處呈現期貨，不是 XAU/USD、XAG/USD 現貨。</div></details>
+</article></div></section>
+<section class="grid three">
+</section><div style="height:14px"></div>
+<div style="height:14px"></div>
+<section class="grid two" id="last-week-calendar" data-template-note="週一母版：每週一更新為上週已公布的經濟事件；不可沿用本週日期或數值。">
+<article class="card calendar-card" style="grid-column:1 / -1">
+<div class="title" style="color:#b42332!important">上週經濟行事曆 <small>2026/10/19～10/23｜台灣時間 UTC+8</small></div>
+<details class="last-week-calendar-collapse"><summary>展開上週經濟行事曆（10/19～10/23）</summary>
+
+<div class="calendar-status-group"><h4 class="calendar-status-heading published">上週已公布｜全球五顆星重要經濟事件</h4><div class="econ-event-list">
+<details class="econ-event"><summary><div class="econ-meta"><span class="econ-date">10/19（一）</span><span class="econ-time">10:00</span><span class="econ-country">中國</span><div class="econ-name">第三季 GDP、9 月工業生產與零售銷售</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">GDP 年增 4.3%；工業生產年增 5.2%；零售銷售年增 0.4%</div></div><div class="econ-field"><label>預估</label><div class="econ-value">GDP 年增 4.4%；工業生產年增 5.4%；零售銷售年增 0.5%</div></div><div class="econ-field"><label>實際</label><div class="econ-value">GDP 年增 4.5%、季增 1.2%；工業生產年增 5.5%；零售銷售年增 1.1%</div></div><div class="econ-field"><label>來源</label><div class="econ-value"><a href="https://www.stats.gov.cn/english/PressRelease/202610/t20261019_1965619.html" target="_blank" rel="noopener">中國國家統計局</a>；<a href="https://www.reuters.com/world/asia-pacific/view-chinas-economic-growth-accelerates-45-third-quarter-2026-10-19/" target="_blank" rel="noopener">Reuters</a></div></div></div></details>
+<details class="econ-event"><summary><div class="econ-meta"><span class="econ-date">10/21（三）</span><span class="econ-time">14:00</span><span class="econ-country">英國</span><div class="econ-name">9 月消費者物價指數 CPI（年增）</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">3.1%</div></div><div class="econ-field"><label>預估</label><div class="econ-value">3.4%</div></div><div class="econ-field"><label>實際</label><div class="econ-value">3.5%</div></div><div class="econ-field"><label>來源</label><div class="econ-value"><a href="https://www.ons.gov.uk/releases/consumerpriceinflationukseptember2026" target="_blank" rel="noopener">英國國家統計局（ONS）</a></div></div></div></details>
+<details class="econ-event"><summary><div class="econ-meta"><span class="econ-date">10/23（五）</span><span class="econ-time">15:00</span><span class="econ-country">歐元區</span><div class="econ-name">10 月 S&amp;P Global 綜合 PMI 初值</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">53.1</div></div><div class="econ-field"><label>預估</label><div class="econ-value">52.7</div></div><div class="econ-field"><label>實際</label><div class="econ-value">51.9</div></div><div class="econ-field"><label>來源</label><div class="econ-value"><a href="https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/10/eurozone-flash-pmi-growth-spurt-wanes-amid-renewed-french-downturn-and-elevated-inflation" target="_blank" rel="noopener">S&amp;P Global</a></div></div></div></details>
+</div></div>
+</div></div>
+</article></section>
+<section class="grid two earnings-block" id="last-week-earnings" data-template-note="週一母版：每週一更新為上週已公布財報；不可沿用本週日期或數值。">
+<article class="card calendar-card" style="grid-column:1 / -1">
+<div class="title" style="color:#b42332!important">上週財報行事曆 <small>2026/10/19～10/23｜台灣時間 UTC+8</small></div>
+<details class="last-week-earnings-collapse"><summary>展開上週財報行事曆（10/19～10/23）</summary>
+<div class="calendar-status-group">
+<h4 class="calendar-status-heading published">上週已公布｜重要性 4–5 星，依公布日期排序</h4>
+
+<div class="earnings-accordion-list">
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/20（二）盤後</span><span class="earnings-tw-date">台灣時間 10/21（三）凌晨</span></div><div class="earnings-company-name five-star-company">Netflix</div><div class="earnings-company-sub">NFLX｜串流媒體</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>US$0.87</strong></div><div class="earnings-actual-line"><span>預期</span><strong>US$0.84</strong></div><div class="earnings-actual-status beat">高於預期</div><div class="earnings-actual-note">公司公布 EPS</div></div><div class="earnings-actual-card miss"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>US$12.874B</strong></div><div class="earnings-actual-line"><span>預期</span><strong>約 US$13.13B</strong></div><div class="earnings-actual-status miss">低於預期</div><div class="earnings-actual-note">營收</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">營收年增 12%，營業利益率 34.6%；訂閱與價格提升帶動營收，廣告業務亦有貢獻。應留意營收是否達成市場預期及後續展望。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於美股 10/20 盤後公布；10/21 首個交易日收盤下跌約 5.3%。此為正常交易時段收盤反應，非盤後即時漲跌。來源：AP 報導、Investing.com 財報週回顧。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://ir.netflix.net/investor-news-and-events/financial-releases/press-release-details/2026/Netflix-to-Announce-Third-Quarter-2026-Financial-Results/default.aspx" target="_blank" rel="noopener">Netflix 官方發布時程</a>；<a href="https://www.sec.gov/Archives/edgar/data/1065280/000106528026000291/nflx-20260930.htm" target="_blank" rel="noopener">SEC 財報</a>；<a href="https://terminal.hyperstocks.io/earnings-calendar/this-week" target="_blank" rel="noopener">Hyper Stocks 市場預估</a></div></div>
+</div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/21（三）盤後</span><span class="earnings-tw-date">台灣時間 10/22（四）凌晨</span></div><div class="earnings-company-name five-star-company">Meta Platforms</div><div class="earnings-company-sub">META｜數位廣告／AI</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card pending"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>調整後 US$7.40</strong></div><div class="earnings-actual-line"><span>預期</span><strong>未能核實</strong></div><div class="earnings-actual-status pending">尚未確認</div><div class="earnings-actual-note">GAAP EPS US$3.83，含約 US$9.89B 法律和解費用；不可與調整後 EPS 混用</div></div><div class="earnings-actual-card miss"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>US$64.60B</strong></div><div class="earnings-actual-line"><span>預期</span><strong>約 US$64.64B</strong></div><div class="earnings-actual-status miss">低於預期</div><div class="earnings-actual-note">年增 26%</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">廣告業務保持強勁，但費用大增、AI 資本支出上升及新設非投票權股票計畫引發市場對資本投入與治理的疑慮。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於 10/21 美股盤後公布；10/22 首個交易日收盤下跌約 7.0%。財報公布前 10/21 正常交易時段曾上漲約 3.4%，兩者不可混為一談。來源：Reuters／Investing.com、10/22 市場回顧。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx" target="_blank" rel="noopener">Meta 官方財報</a>；<a href="https://terminal.hyperstocks.io/earnings-calendar/this-week" target="_blank" rel="noopener">Hyper Stocks 市場預估</a></div></div>
+</div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/21（三）盤後</span><span class="earnings-tw-date">台灣時間 10/22（四）清晨</span></div><div class="earnings-company-name five-star-company">Tesla</div><div class="earnings-company-sub">TSLA｜電動車／能源</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>US$0.48</strong></div><div class="earnings-actual-line"><span>預期</span><strong>US$0.44</strong></div><div class="earnings-actual-status beat">高於預期</div><div class="earnings-actual-note">市場日曆列示；待公司財報口徑複核</div></div><div class="earnings-actual-card pending"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>尚待核實</strong></div><div class="earnings-actual-line"><span>預期</span><strong>US$28.44B</strong></div><div class="earnings-actual-status pending">尚未確認</div><div class="earnings-actual-note">暫不判定高於或低於預期</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">EPS 高於該日曆預估；需搭配汽車毛利率、交車與能源業務、自由現金流及管理層展望判讀，不能只依 EPS 判定財報全面優於預期。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於 10/21 美股盤後公布；10/22 首個交易日收盤下跌約 3.08%。來源：10/22 個股收盤行情與財報週回顧。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://ir.tesla.com/press-release/tesla-releases-third-quarter-2026-financial-results" target="_blank" rel="noopener">Tesla 官方公告</a>；<a href="https://www.sec.gov/Archives/edgar/data/1318605/000162828026066738/tsla-20261021.htm" target="_blank" rel="noopener">SEC 財報申報</a>；<a href="https://terminal.hyperstocks.io/earnings-calendar/this-week" target="_blank" rel="noopener">Hyper Stocks 市場預估</a></div></div>
+</div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/22（四）盤後</span><span class="earnings-tw-date">台灣時間 10/23（五）清晨</span></div><div class="earnings-company-name five-star-company">Bloom Energy</div><div class="earnings-company-sub">BE｜燃料電池／資料中心能源</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>非 GAAP US$0.94</strong></div><div class="earnings-actual-line"><span>預期</span><strong>約 US$0.70</strong></div><div class="earnings-actual-status beat">高於預期</div><div class="earnings-actual-note">非 GAAP EPS</div></div><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>US$1.236B</strong></div><div class="earnings-actual-line"><span>預期</span><strong>約 US$1.09B</strong></div><div class="earnings-actual-status beat">高於預期</div><div class="earnings-actual-note">營收</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">營收年增 138.1%，公司上調全年營收指引至 US$4.4B–4.6B，非 GAAP EPS 指引 US$3.10–3.40；需持續觀察訂單轉換、毛利率及產能擴張。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於 10/22 美股盤後公布；10/23 首個交易日收盤下跌約 12%。雖 EPS 與營收高於預期，市場仍關注自由現金流轉負。來源：Investing.com／Reuters 市場報導、Investopedia 10/23 報導。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://www.bloomenergy.com/news/bloom-energy-reports-record-third-quarter-2026-financial-results-and-raises-full-year-2026-guidance/" target="_blank" rel="noopener">Bloom Energy 官方財報</a>；<a href="https://terminal.hyperstocks.io/earnings-calendar/this-week" target="_blank" rel="noopener">Hyper Stocks 市場預估</a></div></div>
+</div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/23（五）盤前</span><span class="earnings-tw-date">台灣時間 10/23（五）晚間</span></div><div class="earnings-company-name five-star-company">American Express</div><div class="earnings-company-sub">AXP｜支付／消費金融</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card pending"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>GAAP US$5.42；調整後 US$4.68</strong></div><div class="earnings-actual-line"><span>預期</span><strong>尚未核實</strong></div><div class="earnings-actual-status pending">尚未確認</div><div class="earnings-actual-note">不同 EPS 口徑分開列示</div></div><div class="earnings-actual-card pending"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>US$20.06B</strong></div><div class="earnings-actual-line"><span>預期</span><strong>尚未核實</strong></div><div class="earnings-actual-status pending">尚未確認</div><div class="earnings-actual-note">扣除利息費用；年增 9%</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">公司上調全年 EPS 指引；刷卡消費、利息收入與卡費收入支持成長，信用損失準備下降。GAAP EPS 含出售 GBTG 股權相關收益與重整項目，應同時看調整後 EPS。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於 10/23 美股盤前公布；當日股價下跌約 3.7%。公司上調全年 EPS 展望，但營收略低於市場預期。來源：Reuters 市場報導（10/23）。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://www.sec.gov/Archives/edgar/data/4962/000000496226000405/q326exhibit991.htm" target="_blank" rel="noopener">SEC／American Express Q3 2026 官方財報</a></div></div>
+</div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/20（二）盤前</span><span class="earnings-tw-date">台灣時間 10/20（二）晚間</span></div><div class="earnings-company-name five-star-company">GE Aerospace</div><div class="earnings-company-sub">GE｜航空引擎／服務</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>US$2.25</strong></div><div class="earnings-actual-line"><span>預期</span><strong>US$2.07</strong></div><div class="earnings-actual-status beat">高於預期</div><div class="earnings-actual-note">市場日曆列示；待官方財報口徑複核</div></div><div class="earnings-actual-card pending"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>尚待核實</strong></div><div class="earnings-actual-line"><span>預期</span><strong>約 US$13.26B</strong></div><div class="earnings-actual-status pending">尚未確認</div><div class="earnings-actual-note">暫不判定高於或低於預期</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">EPS 高於該日曆預估；重點在商用航空售後服務、引擎交付、訂單與全年展望。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於 10/20 美股盤前公布；當日正常交易時段收盤下跌約 3.67%。來源：10/20–10/23 財報週股價反應統計。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://terminal.hyperstocks.io/earnings-calendar/this-week" target="_blank" rel="noopener">Hyper Stocks 財報日曆</a>；公司官方財報數據待補核。</div></div>
+</div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/21（三）盤後</span><span class="earnings-tw-date">台灣時間 10/22（四）清晨</span></div><div class="earnings-company-name five-star-company">IBM</div><div class="earnings-company-sub">IBM｜企業軟體／混合雲／AI</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details">
+<div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>US$2.95</strong></div><div class="earnings-actual-line"><span>預期</span><strong>US$2.89</strong></div><div class="earnings-actual-status beat">高於預期</div><div class="earnings-actual-note">市場日曆列示；待官方財報口徑複核</div></div><div class="earnings-actual-card pending"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>尚待核實</strong></div><div class="earnings-actual-line"><span>預期</span><strong>約 US$16.99B</strong></div><div class="earnings-actual-status pending">尚未確認</div><div class="earnings-actual-note">暫不判定高於或低於預期</div></div></div>
+<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">EPS 高於該日曆預估；需留意軟體成長、顧問服務需求、自由現金流及 AI 相關訂單轉換。</div></div>
+<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">財報於 10/21 美股盤後公布；盤後即時一度下跌約 4.7%。此數字是盤後反應，不代表 10/22 正常交易時段收盤漲跌幅。來源：Market Wrap 財報反應表（10/22）。</div></div>
+<div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://terminal.hyperstocks.io/earnings-calendar/this-week" target="_blank" rel="noopener">Hyper Stocks 財報日曆</a>；公司官方財報數據待補核。</div></div>
+</div></details>
+</div>
+<div class="source">排序依美國公司實際公布日期（10/20→10/23）；台灣時間另列。僅納入重要性 4–5 星的代表性公司，非所有市場財報完整清單。EPS 及營收採 GAAP／非 GAAP 時已註明口徑；未能以公司公告或一致來源核實的欄位明確標示待核，不以估值填補。</div>
+
+</div>
+</details>
+</article>
+</section>
+<section class="grid two" id="calendar">
+<article class="card calendar-card" style="grid-column:1 / -1">
+<div class="title" style="color:#b42332!important">本週經濟行事曆 <small>2026/10/26～10/30｜台灣時間 UTC+8</small></div>
+<div class="source">依事件實際公布日期分流。未確認的官方發布時間、前值或市場預估明確標示待核，不視為已核實。</div>
+<div class="week-econ-tabs">
+<input checked="checked" id="week-econ-today" name="week-econ-tab" type="radio"/>
+<input id="week-econ-upcoming" name="week-econ-tab" type="radio"/>
+<input id="week-econ-published" name="week-econ-tab" type="radio"/>
+<div class="week-econ-tab-labels"><label for="week-econ-today">今日公布</label><label for="week-econ-upcoming">即將公布</label><label for="week-econ-published">已公布</label></div>
+<div class="week-econ-panels">
+<div class="calendar-status-group"><h4 class="calendar-status-heading upcoming">今日公布｜2026/10/26</h4><div class="calendar-status-empty">目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要經濟事件。若官方日程更新，需按實際公布日期移入本活頁。</div></div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading upcoming">即將公布｜依事件日期排序</h4><div class="econ-event-list"><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">耐久財訂單（9 月初值）</div><div class="econ-stars">★★★★☆</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">前值 0.0%（8 月初值；公布前仍需確認是否有修正）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">尚未找到可交叉核實的共識值</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.census.gov/economic-indicators/calendar" target="_blank" rel="noopener">U.S. Census Bureau 官方日程</a>；<a href="https://www.newyorkfed.org/research/calendars/i-oct26.html" target="_blank" rel="noopener">Federal Reserve Bank of New York 經濟日曆</a></div></div></div></details>
+<details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">22:00</span><span class="econ-country">美國</span><div class="econ-name">消費者信心指數（Conference Board）</div><div class="econ-stars">★★★★☆</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">81.9（2026 年 9 月）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">尚未找到可交叉核實的共識值</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field wide"><label>觀察重點</label><div class="econ-value">消費者對就業、收入及景氣前景的看法。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank" rel="noopener">The Conference Board</a>；<a href="https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.calendar-of-economic-release-dates.calendar-of-economic-release-dates--october-2026-.html" target="_blank" rel="noopener">Scotiabank 10 月經濟日曆</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">22:00</span><span class="econ-country">美國</span><div class="econ-name">新屋銷售（9 月）</div><div class="econ-stars">★★★★☆</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field wide"><label>觀察重點</label><div class="econ-value">房貸成本與住宅需求變化。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.census.gov/construction/nrs/" target="_blank" rel="noopener">U.S. Census Bureau｜New Residential Sales</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/28（三）</span><span class="econ-time">21:45</span><span class="econ-country">加拿大</span><div class="econ-name">加拿大央行利率決議與貨幣政策報告</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核對最新政策利率</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field wide"><label>觀察重點</label><div class="econ-value">政策利率、通膨與成長預測。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bankofcanada.ca/press/upcoming-events/" target="_blank" rel="noopener">Bank of Canada 官方行事曆</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">02:00</span><span class="econ-country">美國</span><div class="econ-name">FOMC 利率決議與政策聲明（美東 10/28 14:00）</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">3.75%–4.00%（目標區間；官方歷史政策區間）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">依使用者提供的 CME FedWatch 截圖（2026/10/24 09:44 台灣時間）：維持 3.75%–4.00% 為 90.0%，升至 4.00%–4.25% 為 10.0%；官方網頁自動擷取仍回 403</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>觀察重點</label><div class="econ-value">政策利率、聲明措辭與記者會對通膨、成長及後續利率路徑的訊號。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.federalreserve.gov/newsevents/2026-october.htm" target="_blank" rel="noopener">Federal Reserve｜2026 年 10 月行事曆</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">第三季 GDP 初值、9 月個人所得與 PCE 物價</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">GDP：Q2 第三次估值 +2.2%；核心 PCE：8 月月增 +0.2%、年增 +3.0%</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">GDP Q3 共識約 +3.0%（Investing.com）；9 月核心 PCE 共識尚未核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>觀察重點</label><div class="econ-value">GDP 成長動能與核心 PCE 通膨；兩者將影響市場對成長、通膨及利率的判斷。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bea.gov/news/schedule" target="_blank" rel="noopener">BEA 官方發布日程</a>；<a href="https://www.investing.com/economic-calendar/pil-375" target="_blank" rel="noopener">Investing.com GDP 共識</a>；<a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index-excluding-food-and-energy" target="_blank" rel="noopener">BEA 核心 PCE 官方歷史</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">20:15</span><span class="econ-country">歐元區</span><div class="econ-name">歐洲央行利率決議</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核對最新存款利率</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html" target="_blank" rel="noopener">ECB 官方會議日曆</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/30（五）</span><span class="econ-time">時間待官方公布</span><span class="econ-country">日本</span><div class="econ-name">日本銀行利率決議與展望報告</div><div class="econ-stars">★★★★★</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核對最新政策利率</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field wide"><label>觀察重點</label><div class="econ-value">政策利率、日圓走勢與通膨預測；日本央行官方未提供精確決議時間，因此不臆測。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.boj.or.jp/en/about/calendar/index.htm" target="_blank" rel="noopener">日本銀行官方日程</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/30（五）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">第三季就業成本指數（ECI）</div><div class="econ-stars">★★★★☆</div></div></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>觀察重點</label><div class="econ-value">工資與福利成本增速，評估服務通膨及企業成本壓力。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bls.gov/schedule/" target="_blank" rel="noopener">U.S. Bureau of Labor Statistics 發布日程</a></div></div></div></details></div></div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading published">已公布｜本週已發布數據</h4><div class="calendar-status-empty">目前尚無本週已公布且完成實際值核對的事件。</div></div>
+</div></div>
+<div class="source">範圍為目前已整理的主要事件，仍需補查美國、歐洲、亞洲及主要央行完整日程；本版尚未完成行事曆資料驗收。</div>
+</article></section>
+<section class="grid two earnings-block" id="earnings">
+<article class="card calendar-card" style="grid-column:1 / -1">
+<div class="title" style="color:#b42332!important">本週財報行事曆 <small>10/26～10/30｜更新：2026/10/24 台灣時間</small></div>
+<div class="source">依公開財報行事曆與公司公告交叉整理。美國盤前／盤後時間換算為台灣時間；未確認公司正式時間的項目不填入精確時刻。EPS 為市場共識估計，仍須於發布前再次核對。</div>
+<div class="week-earnings-tabs">
+<input checked="checked" id="week-earnings-today" name="week-earnings-tab" type="radio"/>
+<input id="week-earnings-upcoming" name="week-earnings-tab" type="radio"/>
+<input id="week-earnings-published" name="week-earnings-tab" type="radio"/>
+<div class="week-earnings-tab-labels"><label for="week-earnings-today">今日公布</label><label for="week-earnings-upcoming">即將公布</label><label for="week-earnings-published">已公布</label></div>
+<div class="week-earnings-panels">
+<div class="calendar-status-group"><h4 class="calendar-status-heading upcoming">今日公布｜2026/10/26</h4><div class="calendar-status-empty">目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要公司財報。</div></div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading upcoming">即將公布｜大型權值股優先</h4><div class="earnings-accordion-list">
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）</span><span class="earnings-tw-date">台灣時間 10/27（美股盤前／盤後依公司公告）</span></div><div class="earnings-company-name five-star-company">Visa</div><div class="earnings-company-sub">V｜支付網路</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">支付量、跨境交易、消費支出與全年財測；確切發布時段及 EPS 預估待公司公告／可靠日曆再次核對。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）</span><span class="earnings-tw-date">美國日期 10/27；台灣時間待公司公告</span></div><div class="earnings-company-name five-star-company">Coca-Cola</div><div class="earnings-company-sub">KO｜飲料與消費品</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">有機營收、銷量與價格組合、匯率影響及全年財測。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）盤前</span><span class="earnings-tw-date">台灣時間 10/27 晚間；正式時刻待公司確認</span></div><div class="earnings-company-name five-star-company">United Parcel Service</div><div class="earnings-company-sub">UPS｜物流與貨運</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">包裹量、單件收益、成本控制及全年營運展望。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://earningswhispers.com/calweek/20261026" target="_blank" rel="noopener">Earnings Whispers 週曆</a>；正式發布時間待公司公告確認。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）盤後</span><span class="earnings-tw-date">台灣時間 10/28 凌晨；正式時刻待公司確認</span></div><div class="earnings-company-name five-star-company">Robinhood Markets</div><div class="earnings-company-sub">HOOD｜金融科技與券商平台</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">交易活躍度、加密資產相關收入、淨利息收入與用戶成長。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://earningswhispers.com/calweek/20261026" target="_blank" rel="noopener">Earnings Whispers 週曆</a>；正式發布時間待公司公告確認。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）盤後</span><span class="earnings-tw-date">台灣時間 10/29 凌晨</span></div><div class="earnings-company-name five-star-company">Microsoft</div><div class="earnings-company-sub">MSFT｜雲端與 AI</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>EPS 共識</label><div class="earnings-detail-value">約 US$4.71（截至 10/23 公開日曆；發布前再核對）</div></div><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">Azure 成長、AI 服務變現、資料中心資本支出及自由現金流。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）盤後</span><span class="earnings-tw-date">台灣時間 10/29 凌晨 04:30 法說會</span></div><div class="earnings-company-name five-star-company">Alphabet</div><div class="earnings-company-sub">GOOGL｜搜尋、YouTube 與雲端</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>EPS 共識</label><div class="earnings-detail-value">約 US$2.94（截至 10/23 公開日曆；發布前再核對）</div></div><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">Google Cloud 成長、搜尋廣告、AI 投資與資本支出。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）盤後</span><span class="earnings-tw-date">台灣時間 10/29 凌晨</span></div><div class="earnings-company-name five-star-company">ServiceNow</div><div class="earnings-company-sub">NOW｜企業軟體與 AI 工作流程</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">訂閱營收、續約與大型合約、AI 產品商業化及全年指引。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://earningswhispers.com/calweek/20261026" target="_blank" rel="noopener">Earnings Whispers 週曆</a>；公布時刻仍應以公司公告核對。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）盤後</span><span class="earnings-tw-date">台灣時間 10/29 凌晨</span></div><div class="earnings-company-name five-star-company">KLA Corporation</div><div class="earnings-company-sub">KLAC｜半導體製程控制設備</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">先進製程與封裝需求、設備訂單、毛利率及半導體資本支出。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://earningswhispers.com/calweek/20261026" target="_blank" rel="noopener">Earnings Whispers 週曆</a>；公布時刻仍應以公司公告核對。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）盤後</span><span class="earnings-tw-date">台灣時間 10/30 凌晨 05:00 法說會</span></div><div class="earnings-company-name five-star-company">Amazon</div><div class="earnings-company-sub">AMZN｜電商與 AWS</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>EPS 共識</label><div class="earnings-detail-value">約 US$2.01（截至 10/23 公開日曆；發布前再核對）</div></div><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">AWS 成長、零售營業利益、物流效率與 AI 基礎設施支出。</div></div></div></details>
+<details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）盤前</span><span class="earnings-tw-date">台灣時間 10/29 晚間</span></div><div class="earnings-company-name">Eli Lilly</div><div class="earnings-company-sub">LLY｜製藥</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>EPS 共識</label><div class="earnings-detail-value">約 US$5.38（截至 10/23 公開日曆；發布前再核對）</div></div><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">GLP-1 產品供需、產能擴張、產品組合與全年指引。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）盤後</span><span class="earnings-tw-date">台灣時間 10/30 凌晨</span></div><div class="earnings-company-name five-star-company">Intel</div><div class="earnings-company-sub">INTC｜半導體</div><div class="earnings-stars">★★★★★</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>EPS 共識</label><div class="earnings-detail-value">約 US$0.28（截至 10/23 公開日曆，發布前再核對）</div></div><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">資料中心與 PC 需求、代工業務進展、毛利率及資本支出。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026" target="_blank" rel="noopener">StockTitan 週財報行事曆</a>；時間依公司公告核對。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）盤後</span><span class="earnings-tw-date">台灣時間 10/30 凌晨</span></div><div class="earnings-company-name five-star-company">Sandisk</div><div class="earnings-company-sub">SNDK｜NAND Flash 與儲存</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">NAND 價格、資料中心儲存需求、庫存與毛利率。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026" target="_blank" rel="noopener">StockTitan 週財報行事曆</a>；時間依公司公告核對。</div></div></div></details>
+<details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/30（五）盤前</span><span class="earnings-tw-date">台灣時間 10/30 晚間</span></div><div class="earnings-company-name">ExxonMobil</div><div class="earnings-company-sub">XOM｜能源</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>EPS 共識</label><div class="earnings-detail-value">約 US$3.96（截至 10/23 公開日曆；發布前再核對）</div></div><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">油價、產量、煉油利差、資本支出與股東回報。</div></div></div></details>
+<details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/30（五）盤前</span><span class="earnings-tw-date">台灣時間 10/30 晚間</span></div><div class="earnings-company-name">Chevron</div><div class="earnings-company-sub">CVX｜能源</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">上游產量、成本、煉油利差及資本紀律；EPS 共識待核實。</div></div></div></details>
+<details class="earnings-accordion five-star-earnings"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/30（五）盤前</span><span class="earnings-tw-date">台灣時間 10/30 晚間</span></div><div class="earnings-company-name five-star-company">AbbVie</div><div class="earnings-company-sub">ABBV｜生技製藥</div><div class="earnings-stars">★★★★☆</div></div></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>觀察重點</label><div class="earnings-detail-value">免疫學藥品銷售、產品接替進度、研發管線與全年指引。</div></div><div class="earnings-detail-field wide"><label>來源</label><div class="earnings-detail-value"><a href="https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026" target="_blank" rel="noopener">StockTitan 週財報行事曆</a>；時間依公司公告核對。</div></div></div></details>
+</div></div><div class="calendar-status-group"><h4 class="calendar-status-heading published">已公布｜本週已發布財報</h4><div class="calendar-status-empty">目前尚無本週已公布且完成實際值核對的公司財報。</div></div></div></div>
+<div class="source"><a href="https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026" target="_blank" rel="noopener">來源：StockTitan 10/26–10/30 財報行事曆（發布於 10/23）</a>；公司正式公告與 EPS 共識仍應於財報日前再次核對。此為本週重要公司精選，非全市場完整財報清單。</div>
+</article></section>
+<section class="card earnings-health" id="sp500-earnings-health" style="margin-top:14px">
+<div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet｜2026/10/23 快照</small></div>
+<div style="margin-top:10px;padding:14px 15px;background:#f1f6fb;border:1px solid #d6e3ee;border-left:5px solid #c62828;border-radius:11px;color:#202124">
+<div style="font-size:11px;font-weight:850;color:#626a73;margin-bottom:5px">TAC 核心判讀</div>
+<div style="font-size:18px;line-height:1.45;font-weight:950;margin-bottom:6px;color:#202124">獲利成長維持強勁，但超預期幅度與營收驚喜仍偏弱。</div>
+<div style="font-size:13px;line-height:1.7;color:#30343a">截至 10/23，24% 的標普500成份股已公布第三季財報。EPS 優於預期的公司比例高於歷史均值，但整體超預期幅度低於歷史均值；需同時觀察成長率與成長品質。</div></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px">
+<div style="padding:11px 12px;background:#fff5f4;border:1px solid #f0d6d4;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">混合盈餘年增率</div><div style="font-size:25px;font-weight:950;color:#c62828;margin:3px 0">+29.5%</div><div style="font-size:11px;line-height:1.45;color:#30343a">前週 +29.2%；連續第三季高於 25%</div></div>
+<div style="padding:11px 12px;background:#eff8f2;border:1px solid #d3e8da;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">EPS 優於預期公司比例</div><div style="font-size:25px;font-weight:950;color:#16804a;margin:3px 0">83%</div><div style="font-size:11px;line-height:1.45;color:#30343a">高於 5 年均值 78%／10 年均值 77%</div></div>
+<div style="padding:11px 12px;background:#fff7eb;border:1px solid #f0dfc2;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">EPS 平均超預期幅度</div><div style="font-size:25px;font-weight:950;color:#ad7427;margin:3px 0">+2.1%</div><div style="font-size:11px;line-height:1.45;color:#30343a">低於 5 年均值 +7.5%／10 年均值 +8.0%</div></div>
+<div style="padding:11px 12px;background:#f1f6fb;border:1px solid #d6e3ee;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">混合營收年增率</div><div style="font-size:25px;font-weight:950;color:#c62828;margin:3px 0">+12.7%</div><div style="font-size:11px;line-height:1.45;color:#30343a">前週 +12.4%；11 大產業營收皆年增</div></div></div>
+<div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>83% 的已公布企業 EPS 優於預期，混合盈餘年增率達 29.5%。<br><b style="color:#ad7427">保留：</b>EPS 平均只超預期 2.1%；營收優於預期比例為 66%，低於 5 年均值 70%。<br><b style="color:#202124">估值：</b>未來 12 個月預估本益比 18.7 倍，低於 5 年均值 19.8 倍及 10 年均值 19.1 倍。</div></div>
+<div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65;color:#30343a"><b style="color:#202124">接下來看三件事：</b>EPS 超預期幅度是否回升、營收超預期比例能否改善、獲利成長是否擴散至更多產業。<span style="color:#626a73"> 179 家標普500公司預計於 10/26–10/30 公布財報。</span></div>
+<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">FactSet《S&amp;P 500 Earnings Season Update: October 23, 2026》，發布日期 2026/10/23。混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估；截至報告日 24% 的成份股已公布財報。<br><a href="https://insight.factset.com/sp-500-earnings-season-update-october-23-2026" target="_blank" rel="noopener" style="color:#1d4ed8">FactSet 10/23 官方報告</a></div></details>
+</section>
+<div style="height:14px"></div><section class="card fed-live fed-compact-preview" id="fed">
+<div class="title fed-live-title">Fed限時動態</div>
+<div class="fed-live-tabs">
+<input checked="checked" id="fed-live-tab-watch" name="fed-live-tab" type="radio"/>
+<input id="fed-live-tab-fomc" name="fed-live-tab" type="radio"/>
+<div class="fed-live-tab-labels"><label for="fed-live-tab-watch">CME FedWatch</label><label for="fed-live-tab-fomc">FOMC 會議</label></div>
+<div class="fed-live-panels">
+<div class="fed-live-panel fed-live-watch">
+<div class="fc-probs fc-probs-refined">
+<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>90.0%</strong><div class="fc-range">維持 3.75%–4.00%</div></div>
+<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>10.0%</strong><div class="fc-range">升至 4.00%–4.25%</div></div>
+</div>
+<div class="fc-split-wrap"><div class="fc-split-head"><span>情境機率分布</span><span>使用者提供 CME FedWatch 截圖｜2026/10/24 09:44 台灣時間</span></div><div class="fc-split-bar" role="img" aria-label="維持不變 90%，升息一碼 10%"><span class="fc-split-hold" style="width:90%"></span><span class="fc-split-hike" style="width:10%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>90.0%</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>10.0%</b></span></div></div>
+<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料時間與快照口徑</summary><div style="padding:8px 0;line-height:1.6;color:#626a73">資料來源：使用者提供的 CME FedWatch 截圖。截圖時間：2026/10/24 09:44（台灣時間）。會議：2026/10/28；當前目標利率區間：3.75%–4.00%。截圖顯示維持 3.75%–4.00% 機率 90.0%，升至 4.00%–4.25% 機率 10.0%。此欄依指定時間的截圖快照呈現，不以後續或其他來源數值覆蓋。</div></details>
+<div class="fc-source">交叉參考：<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" rel="noopener" target="_blank">CME FedWatch</a> · <a href="https://www.investing.com/central-banks/fed-rate-monitor" rel="noopener" target="_blank">Investing.com</a></div>
+</div>
+<div class="fed-live-panel fed-live-fomc"><div class="fc-fomc">
+<div class="fc-fomc-meeting"><span>下次 FOMC 會議</span><b>2026/10/27–10/28</b></div><div class="fc-fomc-press"><span>記者會時間（台灣時間）</span><b>10/29（四）02:30</b></div><div class="fc-fomc-rate"><span>目前目標利率</span><b>3.75%–4.00%</b><small>2026/10/23 快照</small></div><div class="fc-fomc-observation"><span>核心觀察</span><b>通膨／油價／AI 融資</b></div>
+<p>會議日期與政策資訊請以聯準會官方公告為準。</p></div></div>
+</div></div></section><div style="height:14px"></div><section class="card today-focus" id="view"><div class="title today-focus-title">今日觀察重點</div><div class="focus-tabs"><input checked="checked" id="focus-tab-market" name="focus-tab" type="radio"/><input id="focus-tab-levels" name="focus-tab" type="radio"/><input id="focus-tab-core" name="focus-tab" type="radio"/><div class="focus-tab-labels"><label for="focus-tab-market">市場觀點</label><label for="focus-tab-levels">今日關鍵價位</label><label for="focus-tab-core">今日核心觀察</label></div><div class="focus-panels"><div class="focus-panel focus-market"><div class="key"><b>市場觀點</b><br/>10/23 美股主要指數普遍下跌，道瓊跌幅最大；費城半導體指數（SOX）收於 10,779.46，單日上漲 0.44%，與大盤走勢分化。油價與美債殖利率走高，使通膨與估值壓力再受關注。下週大型科技公司財報、AI 資本支出指引與聯準會會議將是關鍵觀察點。SOX 收盤與漲跌幅已完成交叉核對；關鍵價位依 2026/10/23 同日 OHLC 計算。</div></div><div class="focus-panel focus-levels"><div class="key">
+<b>道瓊工業指數：</b>支撐 S1：51,947.94｜中樞 P：52,322.32｜壓力 R1：52,589.54<br/>
+<b>S&amp;P 500：</b>支撐 S1：7,603.78｜中樞 P：7,631.97｜壓力 R1：7,651.86<br/>
+<b>Nasdaq Composite：</b>支撐 S1：25,843.79｜中樞 P：25,977.71｜壓力 R1：26,089.26<br/>
+<b>費城半導體指數（SOX）：</b>支撐 S1：10,657.20｜中樞 P：10,790.19｜壓力 R1：10,912.45<br/>
+<b>Russell 2000：</b>支撐 S1：2,759.50｜中樞 P：2,769.03｜壓力 R1：2,785.43<br/>
+<details class="compact-disclosure" style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">價位計算方式與資料來源</summary><div style="padding:8px 0;line-height:1.6;color:#626a73"><b>「今日關鍵價位」工作規則：</b>「今日」一律指報告日期當天即將展開的交易日；價位以最近一個已正式收盤交易日的指數行情計算，並明確標示基準交易日。主版只呈現股市指數名稱、支撐位與壓力位；計算公式、OHLC 與來源放在本收折區。不得把前一交易日價位誤標為當日即時行情；資料不足或尚未交叉核對者標示「待核實」。<br><br>基準交易日：2026/10/23（美國當地正式收盤；對應台灣時間2026/10/26清晨）。GitHub Actions 擷取時間：2026/10/24 07:08（台灣時間）。五項指數均為 Yahoo Finance chart API 2026/10/23 同日 OHLC；經典樞紐點公式 P=(H+L+C)/3；S1=2P−H；R1=2P−L。數值依此來源計算，SOX 報價已完成交叉核對；價位依本段列示來源與同日 OHLC 計算。來源逐項核對：道瓊採 <a href="https://finance.yahoo.com/quote/%5EDJI/history/?frequency=1d" target="_blank" rel="noopener">Yahoo Finance 歷史資料</a>、<a href="https://ycharts.com/indices/%5EDJI/level" target="_blank" rel="noopener">YCharts</a> 與 <a href="https://www.statmuse.com/money/ask/dow-jones-close-october-2026" target="_blank" rel="noopener">StatMuse</a> 一致數值；Yahoo 搜尋快取另有一筆不一致列，本版採與 YCharts、StatMuse 一致的高點 52,860.11。S&amp;P 500 採 <a href="https://finance.yahoo.com/quote/%5EGSPC/history/?p=%5EGSPC" target="_blank" rel="noopener">Yahoo Finance</a>、<a href="https://ycharts.com/indices/%5ESPX/level" target="_blank" rel="noopener">YCharts</a> 與 <a href="https://markets.ft.markitdigital.com/data/indices/tearsheet/historical?s=INX%3AIOM" target="_blank" rel="noopener">Financial Times</a> 交叉核對；Nasdaq Composite 採 <a href="https://finance.yahoo.com/quote/%5EIXIC/history/?frequency=1d" target="_blank" rel="noopener">Yahoo Finance</a> 與 <a href="https://indexes.nasdaqomx.com/Index/History/COMP?selectedDate=10%2F21%2F2026" target="_blank" rel="noopener">Nasdaq 官方歷史資料</a>；SOX 採 <a href="https://finance.yahoo.com/quote/%5ESOX/history/" target="_blank" rel="noopener">Yahoo Finance</a> 與 <a href="https://www.closelook.io/indices/stock/sox.indx/price-history" target="_blank" rel="noopener">Closelook</a> 一致高點 11,562.25，<a href="https://ycharts.com/indices/%5ESOX/level" target="_blank" rel="noopener">YCharts</a> 顯示 11,562.24，差 0.01 點且會影響部分兩位小數結果，故記錄來源差異並採兩個一致來源的數值；Russell 2000 採 <a href="https://finance.yahoo.com/quote/%5ERUT/history/" target="_blank" rel="noopener">Yahoo Finance</a>、<a href="https://ycharts.com/indices/%5ERUT/level" target="_blank" rel="noopener">YCharts</a> 與 <a href="https://chartexchange.com/symbol/index-rut/historical/" target="_blank" rel="noopener">ChartExchange</a> 交叉核對。公式與來源收折顯示，不佔主版面；若後續官方值確認有差異，須重新核算並更新評論，不沿用舊價位。</div></details>
+</div></div><div class="focus-panel focus-core"><div class="callout">
+<b>今日核心觀察：</b>10/26 交易日的關鍵在於油價與長天期殖利率是否續升：若能源供應風險推高通膨預期、同時折現率上行，高估值科技股可能再受壓；反之，若大型科技財報證明 AI 支出正轉化為需求、營收與現金流，半導體及相關供應鏈可能相對有支撐。操作上避免只憑單日相對強勢追價，等待財報指引與利率方向提供確認；若油價、殖利率同升而財測不佳，優先控管部位與槓桿。台股 10/23 因薔琵颱風休市，無當日行情可供判讀。
+<details class="compact-disclosure" style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">核心觀察更新與失敗處理</summary><div style="padding:8px 0;line-height:1.6;color:#626a73"><b>「今日觀察重點」工作規則：</b>內容面向報告日期當天即將展開的交易日，整理市場催化因素、重要事件、潛在風險與情境判斷；以最近已完成交易日的行情為分析基礎，不寫成前一交易日的回顧摘要。<br><br><b>新聞時間窗與篩選規則：</b>新聞時間窗｜週一版：前一個美股交易日12:00至本次實際截稿時間（台灣時間；週末消息一併納入）。每則新聞記錄原始發布時間、時區、最後更新時間及來源；時間窗以實際截稿時間為上限，不可用搜尋結果排序時間代替發布時間。時間窗外舊聞不得當作新消息；同一事件的重複報導應合併。全球焦點須平衡美國、亞洲、歐洲與能源／商品；財報季提高重要公司財報與財測權重。若原始時間無法核實，標示待核實或剔除，不得猜測。</div><div style="padding:8px 0;line-height:1.6;color:#626a73">核心觀察須以最新已完成交易日的指數、產業廣度、利率／商品變動、當日經濟行事曆與重要公司財報交叉整理。本次 GitHub Actions 於 2026/10/24 07:12（台灣時間）成功擷取 11 檔 ETF 與五項指數同日 OHLC；CME FedWatch 官方頁自動擷取遭 403，嵌入頁未回傳可解析機率；已改採使用者提供的 2026/10/24 09:44（台灣時間）CME 截圖快照，維持不變 90%、升息一碼 10%，不可改用非同時點的第三方機率覆蓋。SOX、VIX、MOVE、CNN Fear &amp; Greed 與 FedWatch 均依已建立的擷取／核對流程更新。VIX 19.45、MOVE 103.31、CNN Fear &amp; Greed 21.0/100（極度恐懼），FedWatch 採使用者提供的 2026/10/24 09:44（台灣時間）截圖：維持不變 90%、升息一碼 10%。後續若資料有新變動，只更新受影響的摘要、觀察與總結，不重啟已完成的來源驗證。</div></details>
+</div></div></div></div></section>
+<div style="height:14px"></div>
+</main>
+<footer class="footer">TAC 投資早報｜2026/10/26（一）修正測試版｜提醒膠囊與彈窗保留原母版結構｜美股主要指數採2026/10/23當地正式收盤；各市場與個別指標依頁面標示日期及口徑，未完成交叉核對者明確註記。資訊整理與教育用途，不構成投資建議。</footer>
+<script>
+function historyPath(dateStr){
+  return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
+}
+function historyMove(days){
+  const input=document.getElementById('historyDate');
+  if(!input || !input.value) return;
+  const d=new Date(input.value+'T00:00:00');
+  d.setDate(d.getDate()+days);
+  input.value=d.toISOString().slice(0,10);
+  updateHistoryStatus();
+}
+function updateHistoryStatus(){
+  const input=document.getElementById('historyDate');
+  const status=document.getElementById('historyStatus');
+  if(!input || !status) return;
+  const date=input.value;
+  if(date==='2026-10-16'){
+    status.className='history-status';
+    status.textContent='2026/10/16：需確認歷史封存檔是否已發布。';
+  }else{
+    status.className='history-status';
+    status.textContent='此日期將依 GitHub 歷史封存檔開啟；若尚未封存，請先完成當日封存。';
+  }
+}
+function goLatestReport(){ window.location.href='https://lion-invlab.github.io/'; }
+function openHistoryReport(){
+  const input=document.getElementById('historyDate');
+  if(!input || !input.value) return;
+  window.location.href=historyPath(input.value);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  const input=document.getElementById('historyDate');
+  if(input) input.addEventListener('change',updateHistoryStatus);
+});
+</script>
+<script>
+// 首頁 Q4 基準日直接讀取同站 fund-dividend.html 的官方資料陣列，避免首頁與子頁資料分離。
+(async function syncHomeFundUpcoming(){
+ const host=document.getElementById('homeFundUpcoming'); if(!host)return;
+ const fallback='<div class="fund-date-row"><div class="fund-dot green"></div><div class="fund-date">暫無資料</div><div class="fund-names">無法同步基金 Dashboard，請開啟子網頁確認最新基準日。</div><div class="fund-status later">待更新</div></div>';
+ try{
+  const response=await fetch('https://lion-invlab.github.io/fund-dividend.html',{cache:'no-store'});
+  if(!response.ok)throw new Error('HTTP '+response.status);
+  const html=await response.text();
+  const match=html.match(/const\s+data\s*=\s*(\[[\s\S]*?\])\s*;\s*function\s+daysFromToday/);
+  if(!match)throw new Error('找不到 Dashboard 基準日資料');
+  const rows=JSON.parse(match[1]);
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  const grouped={};
+  rows.filter(r=>r[0]&&/^\d{4}-\d{2}-\d{2}$/.test(r[0])).forEach(r=>{if(!grouped[r[0]])grouped[r[0]]=new Set();grouped[r[0]].add(r[1]);});
+  const dates=Object.keys(grouped).filter(d=>{const dt=new Date(d+'T00:00:00');return dt>=today;}).sort().slice(0,3);
+  if(!dates.length)throw new Error('目前沒有未來基準日');
+  host.innerHTML=dates.map((date,i)=>{const dt=new Date(date+'T00:00:00'),days=Math.round((dt-today)/86400000),label=days===0?'今天':days===1?'明天':'倒數 '+days+' 天',cls=i===0?'red':i===1?'yellow':'green';const names=[...grouped[date]].join(' / ');return '<div class="fund-date-row"><div class="fund-dot '+cls+'"></div><div class="fund-date">'+date.slice(5).replace('-','/')+'</div><div class="fund-names">'+names+'</div><div class="fund-status '+(days<=1?'soon':'later')+'">'+label+'</div></div>';}).join('');
+ }catch(err){host.innerHTML=fallback;console.warn('Q4 基金基準日同步失敗',err);}
+})();
+</script>
+
+
+
+
+
+
+<aside class="tac-side-tools" id="tac-side-tools" aria-label="TAC 工具欄">
+ <div style="display:flex;align-items:center;gap:8px"><div class="tac-side-brand" style="flex:1">TAC 工具欄</div><button class="tac-side-close" type="button" aria-label="關閉工具欄" onclick="document.body.classList.remove('tac-side-open')">×</button></div>
+ <div class="tac-side-caption">QUICK ACCESS</div>
+ <a class="tac-side-link" href="https://lion-invlab.github.io/volatility.html"><span class="tac-side-icon">📊</span><span>美股個股波動率</span></a>
+ <a class="tac-side-link" href="https://lion-invlab.github.io/fund-dividend.html"><span class="tac-side-icon">💰</span><span>Q4 精選基金</span></a>
+ <a class="tac-side-link" href="#tac-history-shortcut" id="tac-history-shortcut"><span class="tac-side-icon">📚</span><span>歷史早報</span></a>
+ <div class="tac-history-mini">
+  <label for="tacHistoryDate">選擇歷史早報日期</label>
+  <input id="tacHistoryDate" type="date" value="2026-10-16" />
+  <button type="button" onclick="tacHistoryShift(-1)">‹ 前一天</button>
+  <button type="button" onclick="tacHistoryShift(1)">後一天 ›</button>
+  <button class="primary" type="button" onclick="tacOpenHistory()">開啟歷史早報</button>
+ </div>
+ <div class="tac-side-foot">TAC 投資早報<br/>僅供內部教育訓練使用</div>
+</aside>
+<div class="tac-side-backdrop" onclick="document.body.classList.remove('tac-side-open')"></div>
+<button type="button" class="tac-side-open" onclick="document.body.classList.add('tac-side-open')" aria-label="開啟 TAC 工具欄">☰ <span>工具欄</span></button>
+<script id="tac-sidebar-tools-script-v2">
+function tacHistoryShift(days){
+ const el=document.getElementById('tacHistoryDate');if(!el||!el.value)return;
+ const d=new Date(el.value+'T12:00:00');d.setDate(d.getDate()+days);
+ el.value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function tacOpenHistory(){
+ const el=document.getElementById('tacHistoryDate');if(!el||!el.value)return;
+ window.location.href='https://lion-invlab.github.io/history/index_'+el.value+'.html';
+}
+document.addEventListener('DOMContentLoaded',function(){
+ const a=document.getElementById('tac-history-shortcut');
+ if(a)a.addEventListener('click',function(e){e.preventDefault();document.body.classList.add('tac-side-open');document.getElementById('tacHistoryDate').focus();});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('tac-side-open')});
+});
+</script>
+
+
+<script id="tac-sidebar-tools-script-v4">
+document.addEventListener('DOMContentLoaded',function(){
+ const btn=document.querySelector('.tac-side-open');
+ const nav=document.querySelector('nav.nav');
+ if(btn&&nav){
+   nav.insertBefore(btn,nav.firstChild);
+   btn.setAttribute('aria-label','開啟 TAC 工具欄');
+ }
+});
+</script>
+<script id="tac-sidebar-tools-v6-note-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const nav=document.querySelector('nav.nav');
+ if(!nav||document.getElementById('tac-tools-hint'))return;
+ const hint=document.createElement('div');
+ hint.id='tac-tools-hint';
+ hint.className='tac-tools-hint';
+ hint.innerHTML='「美股波動率」、「精選基金」、「歷史早報」請由上方「<strong>工具欄</strong>」開啟進入';
+  const arrow=document.createElement('span');arrow.className='tac-tools-arrow-live';arrow.setAttribute('aria-hidden','true');arrow.textContent='👆';hint.appendChild(arrow);
+ const main=document.querySelector('main.wrap')||document.querySelector('main');
+ if(main)main.insertBefore(hint,main.firstChild);
+});
+</script><div id="tac-fund-notice" hidden role="dialog" aria-modal="true" aria-labelledby="tfn-title">
+ <div class="tfn-dialog">
+  <div class="tfn-head"><h2 id="tfn-title">Q4 精選基金｜基準日倒數提醒</h2><button type="button" class="tfn-x" id="tfn-close" aria-label="關閉提醒">×</button></div>
+  <div class="tfn-body"><section class="tfn-card">
+   <div class="tfn-title">Q4 精選基金｜基準日即將來「息」</div>
+   <div class="tfn-subtitle"><span>最近三個基準日</span><small>日期越近越前面</small></div>
+   <div id="tfn-list" class="tfn-list"><div>正在載入基準日資料…</div></div>
+  </section></div>
+  <div class="tfn-foot"><label class="tfn-ack"><input type="checkbox" id="tfn-ack"><span><span class="tfn-royal-char">朕</span>知道了</span></label><span class="tfn-hint">勾選後立即關閉此提醒</span></div>
+ </div>
+</div><script id="tac-fund-popup-v7-js">
+(function(){
+ const data=[["2026-10-28","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收息債券基金","配息級別","月配","施羅德官方"],["2026-10-28","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO多元收益債券基金","配息級別","月配","PIMCO 官方"],["2026-10-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-12-07","摩根多重收益基金","022A／022N／0287／0288／T602–T606","月配","摩根官方"],["2026-11-09","摩根多重收益基金","0285／0286","季配","摩根官方"],["2026-10-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-11-30","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-12-31","滙豐超核心多重資產基金","配息級別","月配","HSBC 官方"],["2026-10-28","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-11-24","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-12-29","PIMCO收益增長基金","配息級別","月配","PIMCO 官方"],["2026-10-28","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-11-18","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-12-15","施羅德環球收益成長基金","配息級別","月配","施羅德官方"],["2026-10-29","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-11-27","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-12-30","貝萊德全球智慧數據股票入息基金(複雜型)","境外月配息級別","月配","BlackRock 2026 官方行事曆"],["2026-10-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯AI人工智慧基金","AMf2／BMf9","月配","Allianz 2026 官方行事曆"],["2026-10-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-11-30","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["2026-12-31","滙豐全球基礎建設收益基金","8832／MD08／ME12","月配","HSBC 2026 官方行事曆"],["","安聯台灣科技基金","5503｜累積","不配息","安聯／級別資料"],["","施羅德環球基金系列－環球永續增長","053L／T107｜累積","不配息","級別資料"],["","施羅德環球黃金","053W／053X／T109｜累積","不配息","級別資料"],["","摩根日本基金","0235／0236／T616／T617｜累積","不配息","級別資料"],["2026-10-29","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-11-27","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-12-30","聯博美國成長股票基金","092N／092P／092T／093M／093N／T201–T205","月配","聯博 2026 官方行事曆"],["2026-10-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-11-13","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2457／T407","月配","Allianz 2026 官方行事曆"],["2026-12-14","安聯全球多元投資風格股票基金","2455｜配息類股","配息","Allianz 2026 官方行事曆"]];
+ const root=document.getElementById('tac-fund-notice');
+ if(!root)return;
+ const list=document.getElementById('tfn-list');
+ const close=()=>{root.hidden=true;document.body.style.overflow='';};
+ const daysFromToday=date=>{const a=new Date(date+'T00:00:00');const n=new Date();n.setHours(0,0,0,0);return Math.round((a-n)/86400000)};
+ const lightClass=i=>i===0?'red':i===1?'gold':'green';
+ function render(){
+  const grouped={};
+  data.filter(x=>x[0]).forEach(x=>{if(!grouped[x[0]])grouped[x[0]]=[];grouped[x[0]].push(x)});
+  const dates=Object.keys(grouped).sort().filter(d=>daysFromToday(d)>=0).slice(0,3);
+  if(!dates.length){list.innerHTML='<div>目前沒有尚未到期的基準日。</div>';return;}
+  list.innerHTML=dates.map((date,index)=>{
+   const days=daysFromToday(date),cls=lightClass(index),names=[...new Set(grouped[date].map(x=>x[1]))];
+   const label=days===0?'今天':days===1?'明天':'倒數 '+days+' 天';
+   return '<div class="tfn-item"><span class="tfn-light '+cls+'"></span><span class="tfn-date">'+date.slice(5).replace('-','/')+'</span><span class="tfn-name">'+names.join('／')+'</span><span class="tfn-days '+cls+'">'+label+'</span></div>';
+  }).join('');
+ }
+ document.addEventListener('DOMContentLoaded',function(){
+  render();root.hidden=false;document.body.style.overflow='hidden';
+  document.getElementById('tfn-ack').addEventListener('change',function(){if(this.checked)close()});
+  document.getElementById('tfn-close').addEventListener('click',close);
+  root.addEventListener('click',function(e){if(e.target===root)close()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!root.hidden)close()});
+ });
+})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Legacy arrow creator removed to prevent duplicate red arrow. -->
+
+
+
+
+<script id="tac-toolbar-hand-target-v15-js">
+(function(){
+ function setup(){
+  var hint=document.querySelector('.tac-tools-hint');if(!hint)return;
+  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
+  var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.innerHTML='<span style="position:relative;display:inline-block;font-size:34px;line-height:1;color:#c62828;-webkit-text-stroke:1.5px #c62828;text-shadow:0 0 1px #c62828">👆<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:29px;color:#fff;-webkit-text-stroke:0;filter:grayscale(1) brightness(0) invert(1);text-shadow:none">👆</span></span>';document.body.appendChild(hand);
+  var anim=null,expired=false;
+  function stopAndRemove(){
+   expired=true;
+   if(anim){try{anim.cancel()}catch(e){}anim=null}
+   hand.style.setProperty('display','none','important');
+   hand.remove();
+   window.removeEventListener('resize',move);
+   window.removeEventListener('scroll',move);
+   window.removeEventListener('pageshow',move);
+  }
+  /* Hard deadline: remove the element, so scroll/resize/pageshow cannot bring it back. */
+  var expiryTimer=window.setTimeout(stopAndRemove,5000);
+  function findToolbar(){
+   var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
+   var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
+   matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
+  }
+  function move(){
+   if(expired||!hand.isConnected)return;
+   if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.setProperty('display','none','important');if(anim){anim.cancel();anim=null}return}
+   var target=findToolbar();if(!target)return;
+   hand.style.setProperty('display','flex','important');
+   var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
+   var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
+   var ty=Math.max(4,Math.min(window.innerHeight-44,tr.bottom+2));
+   /* Align the bottom edge of the hand icon with the capsule's measured bottom edge.
+      At the start scale (0.78), the 40px element is 31.2px tall and center-origin adds a 4.4px top inset. */
+   var dx=0,dy=hr.bottom-ty-35.6;
+   hand.style.setProperty('--tac-hand-x',x+'px');hand.style.setProperty('--tac-hand-y',ty+'px');
+   if(anim){anim.cancel();anim=null}
+   if(hand.animate)anim=hand.animate([
+    {transform:'translate('+dx+'px,'+dy+'px) scale(.78)',opacity:.75},
+    {transform:'translate('+(dx*.62)+'px,'+(dy*.62)+'px) scale(1.05)',opacity:1,offset:.38},
+    {transform:'translate(0px,0px) scale(1.55)',opacity:1,offset:.48},
+    {transform:'translate(0px,5px) scale(1.12)',opacity:1,offset:.58},
+    {transform:'translate('+dx+'px,'+dy+'px) scale(.78)',opacity:.75,offset:1}
+   ],{duration:3800,iterations:Infinity,easing:'ease-in-out'});
+  }
+  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('scroll',move,{passive:true});window.addEventListener('orientationchange',function(){if(!expired)setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
+
+
+<script id="tac-verify-five-star-color-rule">
+(function(){
+  function applyFiveStarRules(){
+    document.querySelectorAll('.earnings-accordion').forEach(function(card){
+      var star=card.querySelector('.earnings-stars');
+      var name=card.querySelector('.earnings-company-name');
+      var isFive=!!star && star.textContent.replace(/\s/g,'')==='★★★★★';
+      card.classList.toggle('star-verified-five',isFive);
+      if(name) name.classList.toggle('five-star-company',isFive);
+    });
+    document.querySelectorAll('.econ-event').forEach(function(card){
+      var star=card.querySelector('.econ-stars');
+      var name=card.querySelector('.econ-name');
+      var isFive=!!star && star.textContent.replace(/\s/g,'')==='★★★★★';
+      card.classList.toggle('star-verified-five',isFive);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyFiveStarRules);
+  else applyFiveStarRules();
+})();
+</script>
+
+
+
+
+
+
+</body>
+</html>
