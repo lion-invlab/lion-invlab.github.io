@@ -197,9 +197,9 @@ if sector_row_count != 11:
     raise SystemExit(f"Refusing build: expected 11 shared sector rows, found {sector_row_count}.")
 
 # Standardize the 14 actual-result cards inside the prior-week earnings disclosure.
-actual_earnings_pattern = r'<div\\b(?=[^>]*\\bclass="[^"]*\\bearnings-actual-card(?:\\s|")[^"]*")[^>]*>'
+actual_earnings_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bearnings-actual-card(?:\s|")[^"]*")[^>]*>'
 html = add_classes_to_tags(html, actual_earnings_pattern, "tac-ds-earnings-actual-card")
-actual_earnings_count = len(re.findall(r'<div\\b[^>]*class="[^"]*\\btac-ds-earnings-actual-card(?:\\s|")[^"]*"', html, flags=re.I))
+actual_earnings_count = len(re.findall(r'<div\b[^>]*class="[^"]*\btac-ds-earnings-actual-card(?:\s|")[^"]*"', html, flags=re.I))
 if actual_earnings_count != 14:
     raise SystemExit(f"Refusing build: expected 14 shared actual earnings result cards, found {actual_earnings_count}.")
 
