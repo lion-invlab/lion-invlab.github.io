@@ -105,6 +105,8 @@ try {
       if (await label.count() && await input.count()) {
         try {
           await label.click({ timeout: 3000 });
+          // Let the shared color transition finish before comparing computed styles.
+          await cand.page.waitForTimeout(260);
           const checked = await input.isChecked();
           // Clear :hover so the assertion reads the selected state, not the hover state.
           await cand.page.mouse.move(1, 1);
