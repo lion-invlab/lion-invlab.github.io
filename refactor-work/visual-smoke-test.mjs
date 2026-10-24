@@ -165,7 +165,7 @@ try {
 - Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
     "Screenshots include baseline, candidate, and pixel-diff images for each viewport.",
-    "Passing parity tests do not by themselves prove the design is more refined than baseline."
+    "Pixel differences are expected during the design migration; inspect baseline/candidate/diff artifacts for quality and regressions."
   ].join("\n");
   fs.writeFileSync(path.join(outDir, "summary.md"), summary);
   console.log(summary);
@@ -174,7 +174,7 @@ try {
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
     v.collapseWorks === false || v.newErrors.length
-  ) || results.visualDiffs.some(d => !d.dimensionsMatch || d.diffPixels > 0);
+  ) || results.visualDiffs.some(d => !d.dimensionsMatch);
   if (failed) process.exitCode = 1;
 } finally {
   await browser.close();
