@@ -102,7 +102,7 @@ def add_tac_tab_nav(match):
             names.append(name)
     return tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
 
-html = re.sub(r'<div\\b[^>]*\\bclass="tac-tab-nav"[^>]*>', add_tac_tab_nav, html, flags=re.I)
+html = re.sub(r'<div\b[^>]*\bclass="tac-tab-nav"[^>]*>', add_tac_tab_nav, html, flags=re.I)
 if tab_nav_index != 3:
     raise SystemExit(f"Refusing build: expected 3 primary tab navigations, found {tab_nav_index}.")
 
@@ -113,7 +113,7 @@ tab_wrapper_variants = {
     "focus-tab-labels": "tac-ds-tabs--equal-3",
 }
 for original_class, variant in tab_wrapper_variants.items():
-    pattern = re.compile(r'(<div\\b[^>]*\\bclass="[^"]*\\b' + re.escape(original_class) + r'\b[^"]*"[^>]*>)', re.I)
+    pattern = re.compile(r'(<div\b[^>]*\bclass="[^"]*\b' + re.escape(original_class) + r'\b[^"]*"[^>]*>)', re.I)
     matches = list(pattern.finditer(html))
     if len(matches) != 1:
         raise SystemExit(f"Refusing build: expected one {original_class} wrapper, found {len(matches)}.")
@@ -148,7 +148,7 @@ def add_tac_tab_label(match):
         return tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
     return tag[:-1] + ' class="tac-ds-tabs__tab">'
 
-html = re.sub(r'<label\\b[^>]*>', add_tac_tab_label, html, flags=re.I)
+html = re.sub(r'<label\b[^>]*>', add_tac_tab_label, html, flags=re.I)
 
 source_scripts = re.findall(r"<script\b[^>]*>[\s\S]*?</script>", html, flags=re.I)
 source_style_tags = re.findall(r"<style\b[^>]*>[\s\S]*?</style>", html, flags=re.I)
