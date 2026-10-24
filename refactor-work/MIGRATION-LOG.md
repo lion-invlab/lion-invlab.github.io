@@ -86,3 +86,11 @@
 - Source disclosure open/close works and the triangle marker is present; both prior-week calendar disclosures still open. Seven tab families keep the consistent burgundy active state with white text.
 - Latest self-contained candidate generated from the reproducible builder and extracted to `/mnt/data/TAC_投資早報_設計系統_試點版.html`. It has one consolidated style block, 10 preserved script blocks and one DOCTYPE.
 - This remains an isolated pilot, not the official mother template. The next stage migrates inner news/event/earnings/sector components and only then removes verified-unused legacy rules.
+
+
+## 2026-10-24 — News-card pilot passed
+
+- SHA-pinned browser run: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40084737163 — `success`.
+- Exactly 15 news items now use `tac-ds-card--news`; their backgrounds are uniformly white, border radii are 12px on desktop and 10px on mobile, with no overflow or new browser errors.
+- Content, timestamps, source URLs, news selection and deduplication logic were not changed.
+- Next inner-component pilot: economic event cards, preserving details/summary expansion and field layout.
