@@ -206,10 +206,10 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 #focus-tab-core:checked~.focus-tab-labels label[for=focus-tab-core],
 .tac-ds-tabs .tac-ds-tabs__tab.is-active,
 .tac-ds-tabs .tac-ds-tabs__tab[aria-selected="true"] {
-  background: #fff !important;
-  color: var(--tac-ds-color-brand) !important;
-  border-color: rgba(180, 35, 50, .16) !important;
-  box-shadow: 0 2px 6px rgba(20, 27, 38, .075), inset 0 1px 0 rgba(255, 255, 255, .95) !important;
+  background: var(--tac-ds-color-brand) !important;
+  color: #fff !important;
+  border-color: var(--tac-ds-color-brand) !important;
+  box-shadow: 0 2px 6px rgba(180, 35, 50, .18), inset 0 1px 0 rgba(255, 255, 255, .16) !important;
   font-weight: 850 !important;
   transform: none !important;
 }
