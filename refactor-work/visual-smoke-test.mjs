@@ -106,6 +106,9 @@ try {
         try {
           await label.click({ timeout: 3000 });
           const checked = await input.isChecked();
+          // Clear :hover so the assertion reads the selected state, not the hover state.
+          await cand.page.mouse.move(1, 1);
+          await cand.page.waitForTimeout(50);
           const backgroundColor = await label.evaluate(el => getComputedStyle(el).backgroundColor);
           const textColor = await label.evaluate(el => getComputedStyle(el).color);
           let panelVisible = null;
