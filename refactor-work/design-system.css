@@ -420,3 +420,62 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 .tac-ds-empty {
   margin-top: 4px;
 }
+
+
+/* --- TAC Design System v1.4: news cards --- */
+.tac-ds-panel--tabbed .tac-ds-card--news {
+  display: block;
+  min-width: 0;
+  margin: 0 0 10px;
+  padding: 14px 16px;
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 7px rgba(25, 31, 42, .035);
+}
+.tac-ds-panel--tabbed .tac-ds-card--news:nth-child(odd),
+.tac-ds-panel--tabbed .tac-ds-card--news:nth-child(even) {
+  background: #fff;
+}
+.tac-ds-panel--tabbed .tac-ds-card--news h3 {
+  margin: 0 0 7px;
+  color: var(--tac-ds-color-ink);
+  font-size: 15px;
+  font-weight: 850;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+.tac-ds-panel--tabbed .tac-ds-card--news p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.tac-ds-panel--tabbed .tac-ds-card--news .newsmeta {
+  margin-top: 9px;
+  padding-top: 8px;
+  border-top: 1px solid #eef0f3;
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.tac-ds-panel--tabbed .tac-ds-card--news .newsmeta a {
+  color: #626b78;
+  text-decoration-thickness: .06em;
+  text-underline-offset: 2px;
+  overflow-wrap: anywhere;
+}
+.tac-ds-panel--tabbed .tac-ds-card--news .newsmeta a:hover {
+  color: var(--tac-ds-color-brand);
+}
+@media (max-width: 700px) {
+  .tac-ds-panel--tabbed .tac-ds-card--news {
+    margin-bottom: 8px;
+    padding: 11px 12px;
+    border-radius: 10px;
+  }
+  .tac-ds-panel--tabbed .tac-ds-card--news h3 { font-size: 14px; }
+  .tac-ds-panel--tabbed .tac-ds-card--news p { font-size: 12px; line-height: 1.6; }
+  .tac-ds-panel--tabbed .tac-ds-card--news .newsmeta { font-size: 10px; }
+}
