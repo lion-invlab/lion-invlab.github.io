@@ -20,6 +20,12 @@
 - Visual quality upgrade: not yet verified; no claim of completion.
 - Official homepage / official mother templates: untouched.
 
+## Browser smoke-test harness
+
+- Added `.github/workflows/tac-refactor-browser-test.yml`, restricted to pushes on this isolated refactor branch; it does not schedule or modify any existing daily automation.
+- Added `visual-smoke-test.mjs` to check 12 panel IDs, navigation targets, radio tabs, native disclosures, duplicate IDs, browser errors and horizontal overflow at desktop/mobile widths.
+- Workflow dispatch has not yet been observed in Actions; browser test results remain pending until a run is visible.
+
 ## Next work
 
 1. Add a browser-capable visual regression step before applying broad appearance changes.
