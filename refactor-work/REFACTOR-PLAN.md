@@ -113,7 +113,7 @@ JavaScript 原則：
 ### Gate 1 — 現況盤點
 - [x] 初步 HTML 結構統計。
 - [x] 初步重複 ID 掃描。
-- [ ] 精確核對 12 個主版面及每個活頁 DOM 關係。
+- [x] 精確核對 12 個主版面及每個活頁 DOM 關係。
 - [ ] 建立 CSS 區塊／重複覆蓋／高特異性規則清冊。
 - [ ] 建立 JavaScript 函式、事件與 DOM 依賴清冊。
 - [ ] 記錄目前桌機／手機的基準畫面和已知問題。
@@ -158,3 +158,12 @@ JavaScript 原則：
 - 不重寫行情／新聞／經濟數據的抓取與計算機制。
 - 不因重構自行刪除已核准的視覺效果。
 - 不把新版本直接部署到正式網站。
+
+
+## 10. 已執行的第一輪施工（2026-10-24）
+
+- 已將 95 個舊 style 區塊依原始 DOM 順序抽取至 `legacy-cascade.css`；不刪改其規則順序。
+- 已將原始主題 token（`--bg`、`--card`、`--ink`、`--muted`、`--line`、`--red`、`--green`、`--black`、`--amber`）搬入 `design-system.css`，值保持一致；legacy stylesheet 中只移除這一組重複宣告。
+- 已建立自包含候選 `candidate-v4-self-contained.html`：單一 style 區塊、單一 DOCTYPE、10 個 script 區塊保留、無重複 ID、12 個主版面 ID 保留。
+- 已建立 `build-candidate.py`，提供可重複的自包含 HTML 建置流程。
+- **重要限制：** 目前完成的是 CSS 結構整理與 token 搬移，不代表畫面已升級或通過瀏覽器驗收；舊 CSS 規則仍保留在 legacy cascade，後續須逐元件遷移、回歸測試後才能移除舊規則。
