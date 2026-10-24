@@ -437,9 +437,9 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 /* /TAC_NEWS_ZEBRA_V31 */
 
 
-/* 上週經濟行事曆預設收折 */
-.last-week-calendar-collapse{margin-top:10px;border:1px solid #e1e4e8;border-radius:10px;background:#fafafa;padding:10px 12px}.last-week-calendar-collapse>summary{cursor:pointer;font-weight:850;color:#6b7077;font-size:13px;list-style:none}.last-week-calendar-collapse>summary::-webkit-details-marker{display:none}.last-week-calendar-collapse>summary:before{content:"▸";display:inline-block;margin-right:7px;transition:transform .15s}.last-week-calendar-collapse[open]>summary:before{transform:rotate(90deg)}.last-week-calendar-collapse .calendar-status-group{margin-top:10px}
-.last-week-earnings-collapse{margin-top:10px;border:1px solid #e1e4e8;border-radius:10px;background:#fafafa;padding:10px 12px}.last-week-earnings-collapse>summary{cursor:pointer;font-weight:850;color:#6b7077;font-size:13px;list-style:none}.last-week-earnings-collapse>summary::-webkit-details-marker{display:none}.last-week-earnings-collapse>summary:before{content:"▸";display:inline-block;margin-right:7px;transition:transform .15s}.last-week-earnings-collapse[open]>summary:before{transform:rotate(90deg)}.last-week-earnings-collapse .calendar-status-group{margin-top:10px}
+/* The two outer disclosure shells use the shared design-system component. Keep only content spacing here. */
+.last-week-calendar-collapse{margin-top:10px}.last-week-calendar-collapse .calendar-status-group{margin-top:10px}
+.last-week-earnings-collapse{margin-top:10px}.last-week-earnings-collapse .calendar-status-group{margin-top:10px}
 
 /* Compact disclosures: align with the small grey triangle source rows */
 main.wrap details.compact-disclosure{margin-top:8px!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;padding:0!important;box-shadow:none!important}
@@ -1717,7 +1717,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 
 /* HOTFIX 2026-10-24: ensure native details actually collapse in Safari/mobile */
 #last-week-earnings details.last-week-earnings-collapse:not([open]) > :not(summary){display:none!important}
-#last-week-earnings details.last-week-earnings-collapse > summary{display:block!important;visibility:visible!important;cursor:pointer!important;padding:10px 12px!important;border-radius:8px!important;background:#f5f5f6!important;color:#333!important;font-weight:850!important;list-style:none!important}
+#last-week-earnings details.last-week-earnings-collapse > summary{display:block!important;visibility:visible!important;cursor:pointer!important;list-style:none!important}
 #last-week-earnings details.last-week-earnings-collapse > summary::-webkit-details-marker{display:none!important}
 #last-week-earnings details.earnings-accordion:not([open]) > .earnings-accordion-details{display:none!important}
 #last-week-earnings details.earnings-accordion > summary{display:flex!important;visibility:visible!important}
