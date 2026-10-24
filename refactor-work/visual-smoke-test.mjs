@@ -109,8 +109,9 @@ try {
           await cand.page.waitForTimeout(260);
           const checked = await input.isChecked();
           // Clear :hover so the assertion reads the selected state, not the hover state.
-          await cand.page.mouse.move(1, 1);
-          await cand.page.waitForTimeout(50);
+          const safePoint = await cand.page.evaluate(() => ({ x: Math.max(1, innerWidth - 6), y: Math.max(1, innerHeight - 6) }));
+          await cand.page.mouse.move(safePoint.x, safePoint.y);
+          await cand.page.waitForTimeout(80);
           const backgroundColor = await label.evaluate(el => getComputedStyle(el).backgroundColor);
           const textColor = await label.evaluate(el => getComputedStyle(el).color);
           const selectorMatch = await cand.page.evaluate((inputSelector) => {
