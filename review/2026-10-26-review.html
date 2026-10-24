@@ -1788,12 +1788,12 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="data-sync-warning" role="status" style="margin:12px 0;padding:12px 14px;border:1px solid #d97706;border-left:5px solid #d97706;border-radius:10px;background:#fff7ed;color:#7c2d12;font-size:13px;line-height:1.6;font-weight:750">審核狀態：美股主要指數已更新至 2026/10/23 當地收盤；亞洲、歐洲部分指數已依可查資料更新，台灣因薔琵颱風於 10/23 休市。MOVE、CNN Fear & Greed、11 大產業 ETF、債匯商品、FedWatch、行事曆與部分新聞原始時間仍需進一步核實；未核實欄位明確標示，不可視為已完成。此版本供內容審核，不可直接發布。</div>
 <section class="grid two">
 <article class="card bluf">
-<div class="title">總結</div>
+<div class="title" style="color:#b42332!important">總結</div>
 <h1>油價與殖利率升高，週末前美股回落</h1>
 <p><b>市場定調｜風險偏好轉弱、產業分化</b><br/>美股 10/23 收盤，道瓊下跌 1.23% 至 52,215.16，S&amp;P 500 下跌 0.52% 至 7,623.68，Nasdaq Composite 下跌 0.21% 至 25,955.34；SOX 收於 10,779.46、上漲 0.44%，半導體表現與大盤分化。Reuters／AP 指出 Brent 原油升至每桶約 116 美元以上、美國 10 年期公債殖利率接近 4.99%，能源供應地緣風險與大型科技財報不確定性成為下週焦點。台股 10/23 因薔琵颱風休市，未以 10/22 收盤冒充當日行情。</p>
 
 </article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
-<div class="title">市場情緒</div>
+<div class="title" style="color:#fff!important">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>19.65</strong><span class="warn">+3.26%</span><details class="source-details"><summary>資料來源</summary><div class="source">Cboe 官方頁：2026/10/23 VIX 19.65、變動 +3.26%；Yahoo Finance 歷史快照為 19.45、+2.96%。兩來源讀值有差異，卡片採 Cboe 官方值並保留差異說明，避免混用百分比。</div></details></div>
 <div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>103.31</strong><span class="down">-3.30%</span><details class="source-details"><summary>資料來源</summary><div class="source">Investing.com ICE BofA MOVE 歷史資料：2026/10/23 收盤 103.31，當日 -3.30%；前一交易日 10/22 收盤 106.84。依同一來源、同一交易日口徑計算。GitHub Actions／Yahoo Finance 備援資料亦回傳 10/23 收盤 103.31。</div></details></div>
@@ -3192,6 +3192,15 @@ main.wrap #sentiment > .title,
 main.wrap #sentiment .title:first-child {
   color:#fff!important;
 }
+</style>
+
+<style id="tac-major-headings-inline-guard">
+#overview > section > article.card.bluf > .title,
+#last-week-calendar > article.card.calendar-card > .title,
+#last-week-earnings > article.card.calendar-card > .title,
+#calendar > article.card.calendar-card > .title,
+#earnings > article.card.calendar-card > .title { color:#b42332!important; }
+#sentiment > .title { color:#fff!important; }
 </style>
 </body>
 </html>
