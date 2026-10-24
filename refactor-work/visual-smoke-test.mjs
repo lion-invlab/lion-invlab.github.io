@@ -75,7 +75,10 @@ async function inspect(page) {
       sharedEventCardCount: document.querySelectorAll("details.tac-ds-event").length,
       sharedEventCardRadii: [...new Set([...document.querySelectorAll("details.tac-ds-event")].map(el => getComputedStyle(el).borderRadius))],
       sharedEarningsCardCount: document.querySelectorAll("details.tac-ds-earnings-card").length,
-      sharedEarningsCardRadii: [...new Set([...document.querySelectorAll("details.tac-ds-earnings-card")].map(el => getComputedStyle(el).borderRadius))]
+      sharedEarningsCardRadii: [...new Set([...document.querySelectorAll("details.tac-ds-earnings-card")].map(el => getComputedStyle(el).borderRadius))],
+      sharedSectorRowCount: document.querySelectorAll(".tac-ds-data-row--sector").length,
+      sharedSectorRowRadii: [...new Set([...document.querySelectorAll(".tac-ds-data-row--sector")].map(el => getComputedStyle(el).borderRadius))],
+      sharedSectorRowBackgrounds: [...new Set([...document.querySelectorAll(".tac-ds-data-row--sector")].map(el => getComputedStyle(el).backgroundColor))]
     };
   }, { panelIds });
 }
@@ -221,13 +224,36 @@ try {
         earningsAccordionCloses = !(await earningsAccordion.evaluate(el => el.open));
       }
     }
+    const sectorTabLabel = cand.page.locator('#industry-bonds-fx-commodities label[for="tac-assets-0"]').first();
+    let sectorTabWorks = false;
+    let sectorTabColor = null;
+    let sectorTabTextColor = null;
+    let sectorCollapseWorks = null;
+    let sectorCollapseCloses = null;
+    if (await sectorTabLabel.count()) {
+      await sectorTabLabel.click({ timeout: 3000, force: true }).catch(() => {});
+      await cand.page.waitForTimeout(260);
+      sectorTabWorks = await cand.page.locator("#tac-assets-0").isChecked().catch(() => false);
+      sectorTabColor = await sectorTabLabel.evaluate(el => getComputedStyle(el).backgroundColor);
+      sectorTabTextColor = await sectorTabLabel.evaluate(el => getComputedStyle(el).color);
+      const sectorDisclosure = cand.page.locator("#industry-bonds-fx-commodities details.sector-collapse").first();
+      if (await sectorDisclosure.count()) {
+        const sectorSummary = sectorDisclosure.locator("summary");
+        await sectorSummary.click({ timeout: 3000, force: true }).catch(() => {});
+        await cand.page.waitForTimeout(100);
+        sectorCollapseWorks = await sectorDisclosure.evaluate(el => el.open);
+        await sectorSummary.click({ timeout: 3000, force: true }).catch(() => {});
+        await cand.page.waitForTimeout(100);
+        sectorCollapseCloses = !(await sectorDisclosure.evaluate(el => el.open));
+      }
+    }
     const selectedTabColors = tabResults.filter(t => t.backgroundColor).map(t => t.backgroundColor);
     const selectedTabTextColors = tabResults.filter(t => t.textColor).map(t => t.textColor);
     const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)");
     const consistentSelectedTabTextColor = selectedTabTextColors.length > 0 && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses,
+      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -253,7 +279,7 @@ try {
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
-- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}
+- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
@@ -268,7 +294,7 @@ try {
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
     v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
-    JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true ||
+    JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "9px" : "10px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
