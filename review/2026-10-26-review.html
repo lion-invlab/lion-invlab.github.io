@@ -464,6 +464,10 @@ main.wrap details.compact-disclosure[open]>summary::before{transform:rotate(90de
 main.wrap details.compact-disclosure>summary::after{content:none!important;display:none!important}
 main.wrap details.compact-disclosure>div{padding:8px 0!important;border:0!important;background:transparent!important;color:#626a73!important;font-size:11px!important;line-height:1.6!important}
 
+
+/* 發布版規則：只有全部驗收完成、明確加上 body.release-ready 後，才隱藏內部審核提示；審核版仍保留警示。 */
+body.release-ready .data-sync-warning,
+body.release-ready .news-window-warning { display: none !important; }
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
