@@ -4,7 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const candidate = path.join(here, "candidate-v4-self-contained.html");
+const candidate = path.join(here, "candidate-build.html");
 const outDir = path.join(here, "browser-results");
 fs.mkdirSync(outDir, { recursive: true });
 
@@ -37,6 +37,13 @@ try {
     page.on("console", msg => { if (msg.type() === "error") pageErrors.push("console: " + msg.text()); });
     await page.goto("file://" + candidate, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(700);
+    // The baseline intentionally opens a Q4 fund notice on first load; dismiss it before interaction tests.
+    const fundNotice = page.locator("#tac-fund-notice");
+    if (await fundNotice.count() && await fundNotice.isVisible().catch(() => false)) {
+      const closeButton = page.locator("#tfn-close");
+      if (await closeButton.count()) await closeButton.click({ force: true }).catch(() => {});
+      await page.waitForTimeout(150);
+    }
     const report = await page.evaluate(({ panelIds }) => {
       const ids = [...document.querySelectorAll("[id]")].map(el => el.id);
       const duplicateIds = ids.filter((id, i) => ids.indexOf(id) !== i);
@@ -61,11 +68,15 @@ try {
       const label = page.locator(tab.label).first();
       const input = page.locator(tab.input).first();
       if (await label.count() && await input.count()) {
-        await label.click({ timeout: 3000 });
-        const checked = await input.isChecked();
-        let panelVisible = null;
-        if (await page.locator(tab.panel).count()) panelVisible = await page.locator(tab.panel).first().isVisible();
-        tabResults.push({ input: tab.input, checked, panelVisible });
+        try {
+          await label.click({ timeout: 3000 });
+          const checked = await input.isChecked();
+          let panelVisible = null;
+          if (await page.locator(tab.panel).count()) panelVisible = await page.locator(tab.panel).first().isVisible();
+          tabResults.push({ input: tab.input, checked, panelVisible });
+        } catch (error) {
+          tabResults.push({ input: tab.input, interactionError: String(error).split("\\n")[0] });
+        }
       } else {
         tabResults.push({ input: tab.input, missingLabelOrInput: true });
       }
