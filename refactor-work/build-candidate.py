@@ -83,6 +83,73 @@ add_class_to_id("sp500-earnings-health", "tac-ds-panel tac-ds-panel--earnings-he
 add_class_to_id("fed", "tac-ds-panel tac-ds-panel--fed")
 add_class_to_id("view", "tac-ds-panel tac-ds-panel--focus")
 
+# Apply the shared radio-tab component without changing radio IDs, labels, names, or panel IDs.
+tab_nav_variants = [
+    "tac-ds-tabs--scroll",
+    "tac-ds-tabs--scroll",
+    "tac-ds-tabs--industry",
+]
+tab_nav_index = 0
+def add_tac_tab_nav(match):
+    global tab_nav_index
+    variant = tab_nav_variants[tab_nav_index]
+    tab_nav_index += 1
+    tag = match.group(0)
+    class_match = re.search(r'\\bclass="([^"]*)"', tag, re.I)
+    names = class_match.group(1).split()
+    for name in ("tac-ds-tabs", variant):
+        if name not in names:
+            names.append(name)
+    return tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
+
+html = re.sub(r'<div\\b[^>]*\\bclass="tac-tab-nav"[^>]*>', add_tac_tab_nav, html, flags=re.I)
+if tab_nav_index != 3:
+    raise SystemExit(f"Refusing build: expected 3 primary tab navigations, found {tab_nav_index}.")
+
+tab_wrapper_variants = {
+    "week-econ-tab-labels": "tac-ds-tabs--equal-3",
+    "week-earnings-tab-labels": "tac-ds-tabs--equal-3",
+    "fed-live-tab-labels": "tac-ds-tabs--equal-2",
+    "focus-tab-labels": "tac-ds-tabs--equal-3",
+}
+for original_class, variant in tab_wrapper_variants.items():
+    pattern = re.compile(r'(<div\\b[^>]*\\bclass="[^"]*\\b' + re.escape(original_class) + r'\\b[^"]*"[^>]*>)', re.I)
+    matches = list(pattern.finditer(html))
+    if len(matches) != 1:
+        raise SystemExit(f"Refusing build: expected one {original_class} wrapper, found {len(matches)}.")
+    tag = matches[0].group(1)
+    class_match = re.search(r'\\bclass="([^"]*)"', tag, re.I)
+    names = class_match.group(1).split()
+    for name in ("tac-ds-tabs", variant):
+        if name not in names:
+            names.append(name)
+    updated_tag = tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
+    html = html[:matches[0].start(1)] + updated_tag + html[matches[0].end(1):]
+
+tab_label_for_ids = {
+    "tac-news-0", "tac-news-1",
+    "tac-region-0", "tac-region-1", "tac-region-2",
+    "tac-assets-0", "tac-assets-1", "tac-assets-2", "tac-assets-3", "tac-assets-4",
+    "week-econ-today", "week-econ-upcoming", "week-econ-published",
+    "week-earnings-today", "week-earnings-upcoming", "week-earnings-published",
+    "fed-live-tab-watch", "fed-live-tab-fomc",
+    "focus-tab-market", "focus-tab-levels", "focus-tab-core",
+}
+def add_tac_tab_label(match):
+    tag = match.group(0)
+    for_match = re.search(r'\\bfor=["\\']([^"\\']+)["\\']', tag, re.I)
+    if not for_match or for_match.group(1) not in tab_label_for_ids:
+        return tag
+    class_match = re.search(r'\\bclass=["\\']([^"\\']*)["\\']', tag, re.I)
+    if class_match:
+        names = class_match.group(1).split()
+        if "tac-ds-tabs__tab" not in names:
+            names.append("tac-ds-tabs__tab")
+        return tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
+    return tag[:-1] + ' class="tac-ds-tabs__tab">'
+
+html = re.sub(r'<label\\b[^>]*>', add_tac_tab_label, html, flags=re.I)
+
 source_scripts = re.findall(r"<script\b[^>]*>[\s\S]*?</script>", html, flags=re.I)
 source_style_tags = re.findall(r"<style\b[^>]*>[\s\S]*?</style>", html, flags=re.I)
 if not source_style_tags:
