@@ -139,7 +139,7 @@ try {
     const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)") && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, collapseWorks, collapseBefore, collapseAfter, collapseClickError,
+      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, collapseWorks, collapseBefore, collapseAfter, collapseClickError,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -167,7 +167,7 @@ try {
 - Disclosure opens: ${v.collapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
-- Selected tab color unified: ${v.consistentSelectedTabColor}
+- Selected tab color unified: ${v.consistentSelectedTabColor}; selected text white: ${v.consistentSelectedTabTextColor}
 - Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, bg=${t.backgroundColor || ""}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
     "Screenshots include baseline, candidate, and pixel-diff images for each viewport.",
@@ -179,7 +179,7 @@ try {
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
-    !v.consistentSelectedTabColor || v.collapseWorks === false || v.newErrors.length
+    !v.consistentSelectedTabColor || !v.consistentSelectedTabTextColor || v.collapseWorks === false || v.newErrors.length
   ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
   if (failed) process.exitCode = 1;
 } finally {
