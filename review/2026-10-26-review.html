@@ -1912,12 +1912,11 @@ body main.wrap #sentiment > .title { color:#fff!important; }
 
 
 <style id="tac-anchor-offset-fix">
-/* 導覽列錨點微調：只保留必要空間，避免標題被遮住或留白過大 */
-html { scroll-padding-top: 56px; }
-main section[id] { scroll-margin-top: 56px; }
+/* 錨點定位只使用單一偏移，避免 scroll-padding 與 scroll-margin 疊加 */
+html { scroll-padding-top: 0; }
+main section[id] { scroll-margin-top: 0; }
 @media (max-width: 700px) {
-  html { scroll-padding-top: 76px; }
-  main section[id] { scroll-margin-top: 76px; }
+  main section[id] { scroll-margin-top: 64px; }
 }
 </style>
 </head>
