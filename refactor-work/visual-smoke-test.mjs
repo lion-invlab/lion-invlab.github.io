@@ -106,9 +106,11 @@ try {
         try {
           await label.click({ timeout: 3000 });
           const checked = await input.isChecked();
+          const backgroundColor = await label.evaluate(el => getComputedStyle(el).backgroundColor);
+          const textColor = await label.evaluate(el => getComputedStyle(el).color);
           let panelVisible = null;
           if (await cand.page.locator(tab.panel).count()) panelVisible = await cand.page.locator(tab.panel).first().isVisible();
-          tabResults.push({ input: tab.input, checked, panelVisible });
+          tabResults.push({ input: tab.input, checked, panelVisible, backgroundColor, textColor });
         } catch (error) {
           tabResults.push({ input: tab.input, interactionError: String(error).split("\\n")[0] });
         }
@@ -132,9 +134,11 @@ try {
       collapseAfter = await collapse.evaluate(el => el.open);
       collapseWorks = collapseBefore === false && collapseAfter === true;
     }
+    const selectedTabColors = tabResults.filter(t => t.backgroundColor).map(t => t.backgroundColor);
+    const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, tabResults, collapseWorks, collapseBefore, collapseAfter, collapseClickError,
+      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, collapseWorks, collapseBefore, collapseAfter, collapseClickError,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -162,7 +166,8 @@ try {
 - Disclosure opens: ${v.collapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
-- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
+- Selected tab color unified: ${v.consistentSelectedTabColor}
+- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, bg=${t.backgroundColor || ""}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
     "Screenshots include baseline, candidate, and pixel-diff images for each viewport.",
     "Pixel differences are expected during the design migration; inspect baseline/candidate/diff artifacts for quality and regressions."
@@ -173,7 +178,7 @@ try {
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
-    v.collapseWorks === false || v.newErrors.length
+    !v.consistentSelectedTabColor || v.collapseWorks === false || v.newErrors.length
   ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
   if (failed) process.exitCode = 1;
 } finally {
