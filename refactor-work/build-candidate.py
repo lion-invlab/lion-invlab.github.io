@@ -23,6 +23,66 @@ html = SOURCE.read_text(encoding="utf-8")
 legacy_css = LEGACY.read_text(encoding="utf-8")
 design_css = DESIGN.read_text(encoding="utf-8")
 
+# Apply the first shared panel-shell migration to the frozen DOM.
+def add_class_to_id(element_id, class_names):
+    global html
+    pattern = re.compile(r'<(section|article)\b[^>]*\bid="' + re.escape(element_id) + r'"[^>]*>', re.I)
+    match = pattern.search(html)
+    if not match:
+        raise SystemExit(f"Refusing build: panel element not found: {element_id}")
+    tag = match.group(0)
+    class_match = re.search(r'\bclass="([^"]*)"', tag, re.I)
+    if class_match:
+        names = class_match.group(1).split()
+        for name in class_names.split():
+            if name not in names:
+                names.append(name)
+        updated_tag = tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
+    else:
+        updated_tag = tag[:-1] + f' class="{class_names}">'
+    html = html[:match.start()] + updated_tag + html[match.end():]
+
+def add_class_to_calendar_article(section_id, class_names):
+    global html
+    section_pattern = re.compile(r'<section\b[^>]*\bid="' + re.escape(section_id) + r'"[^>]*>[\s\S]*?</section>', re.I)
+    match = section_pattern.search(html)
+    if not match:
+        raise SystemExit(f"Refusing build: calendar section not found: {section_id}")
+    fragment = match.group(0)
+    article_pattern = re.compile(r'<article\b[^>]*\bclass="([^"]*\bcalendar-card\b[^"]*)"[^>]*>', re.I)
+    article = article_pattern.search(fragment)
+    if not article:
+        raise SystemExit(f"Refusing build: calendar article not found in: {section_id}")
+    names = article.group(1).split()
+    for name in class_names.split():
+        if name not in names:
+            names.append(name)
+    updated_tag = article.group(0)[:article.start(1)-article.start()] + " ".join(names) + article.group(0)[article.end(1)-article.start():]
+    fragment = fragment[:article.start()] + updated_tag + fragment[article.end():]
+    html = html[:match.start()] + fragment + html[match.end():]
+
+# BLUF and sentiment retain their unique visual identities.
+bluf_pattern = re.compile(r'<article\b[^>]*\bclass="([^"]*\bbluf\b[^"]*)"[^>]*>', re.I)
+bluf_match = bluf_pattern.search(html)
+if not bluf_match:
+    raise SystemExit("Refusing build: BLUF article not found.")
+bluf_names = bluf_match.group(1).split()
+for name in ("tac-ds-panel", "tac-ds-panel--bluf"):
+    if name not in bluf_names:
+        bluf_names.append(name)
+bluf_tag = bluf_match.group(0)
+bluf_tag_new = bluf_tag[:bluf_match.start(1)-bluf_match.start()] + " ".join(bluf_names) + bluf_tag[bluf_match.end(1)-bluf_match.start():]
+html = html[:bluf_match.start()] + bluf_tag_new + html[bluf_match.end():]
+
+add_class_to_id("sentiment", "tac-ds-panel--sentiment")
+for element_id in ("news-scan", "global-markets", "industry-bonds-fx-commodities"):
+    add_class_to_id(element_id, "tac-ds-panel tac-ds-panel--tabbed")
+for section_id in ("last-week-calendar", "last-week-earnings", "calendar", "earnings"):
+    add_class_to_calendar_article(section_id, "tac-ds-panel tac-ds-panel--calendar")
+add_class_to_id("sp500-earnings-health", "tac-ds-panel tac-ds-panel--earnings-health")
+add_class_to_id("fed", "tac-ds-panel tac-ds-panel--fed")
+add_class_to_id("view", "tac-ds-panel tac-ds-panel--focus")
+
 source_scripts = re.findall(r"<script\b[^>]*>[\s\S]*?</script>", html, flags=re.I)
 source_style_tags = re.findall(r"<style\b[^>]*>[\s\S]*?</style>", html, flags=re.I)
 if not source_style_tags:
