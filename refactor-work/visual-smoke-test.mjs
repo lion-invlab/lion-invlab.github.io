@@ -64,7 +64,11 @@ async function inspect(page) {
       navCount: navLinks.length,
       unmatchedNav,
       styleTagCount: document.querySelectorAll("style").length,
-      scriptCount: document.querySelectorAll("script").length
+      scriptCount: document.querySelectorAll("script").length,
+      sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
+      sharedDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure").length,
+      darkDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure--dark").length,
+      sharedEmptyStateCount: document.querySelectorAll(".tac-ds-empty").length
     };
   }, { panelIds });
 }
@@ -140,6 +144,20 @@ try {
         tabResults.push({ input: tab.input, missingLabelOrInput: true });
       }
     }
+    const sourceDisclosure = cand.page.locator("#sentiment details.source-details").first();
+    let sourceDisclosureWorks = null;
+    let sourceDisclosureCloses = null;
+    let sourceDisclosureMarker = null;
+    if (await sourceDisclosure.count()) {
+      const sourceSummary = sourceDisclosure.locator("summary");
+      await sourceSummary.click({ timeout: 3000, force: true }).catch(() => {});
+      await cand.page.waitForTimeout(80);
+      sourceDisclosureWorks = await sourceDisclosure.evaluate(el => el.open);
+      sourceDisclosureMarker = await sourceSummary.evaluate(el => getComputedStyle(el, "::before").content);
+      await sourceSummary.click({ timeout: 3000, force: true }).catch(() => {});
+      await cand.page.waitForTimeout(80);
+      sourceDisclosureCloses = !(await sourceDisclosure.evaluate(el => el.open));
+    }
     const collapse = cand.page.locator("#last-week-calendar .last-week-calendar-collapse").first();
     const earningsCollapse = cand.page.locator("#last-week-earnings .last-week-earnings-collapse").first();
     let earningsCollapseWorks = null;
@@ -209,6 +227,8 @@ try {
   console.log(summary);
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
+    v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 ||
+    v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
     !v.consistentSelectedTabColor || !v.consistentSelectedTabTextColor || v.collapseWorks === false || v.earningsCollapseWorks === false || v.newErrors.length
