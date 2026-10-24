@@ -111,9 +111,25 @@ try {
           await cand.page.waitForTimeout(50);
           const backgroundColor = await label.evaluate(el => getComputedStyle(el).backgroundColor);
           const textColor = await label.evaluate(el => getComputedStyle(el).color);
+          const selectorMatch = await cand.page.evaluate((inputSelector) => {
+            const id = inputSelector.slice(1);
+            const input = document.getElementById(id);
+            const labelEl = document.querySelector('label[for="' + id + '"]');
+            const wrapperClass = id.startsWith("tac-news-") ? ".tac-ds-tabs" :
+              id.startsWith("tac-region-") ? ".tac-ds-tabs" :
+              id.startsWith("tac-assets-") ? ".tac-ds-tabs" :
+              id.startsWith("week-econ-") ? ".week-econ-tab-labels" :
+              id.startsWith("week-earnings-") ? ".week-earnings-tab-labels" :
+              id.startsWith("fed-live-tab-") ? ".fed-live-tab-labels" : ".focus-tab-labels";
+            return {
+              checked: !!input?.checked,
+              matchingSelector: !!document.querySelector("#" + id + ":checked ~ " + wrapperClass + ' label[for="' + id + '"]'),
+              sameParent: !!input && !!labelEl && input.parentElement === labelEl.parentElement.parentElement
+            };
+          }, tab.input);
           let panelVisible = null;
           if (await cand.page.locator(tab.panel).count()) panelVisible = await cand.page.locator(tab.panel).first().isVisible();
-          tabResults.push({ input: tab.input, checked, panelVisible, backgroundColor, textColor });
+          tabResults.push({ input: tab.input, checked, panelVisible, backgroundColor, textColor, selectorMatch });
         } catch (error) {
           tabResults.push({ input: tab.input, interactionError: String(error).split("\\n")[0] });
         }
@@ -172,7 +188,7 @@ try {
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
 - Selected tab color unified: ${v.consistentSelectedTabColor}; selected text white: ${v.consistentSelectedTabTextColor}
-- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, bg=${t.backgroundColor || ""}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
+- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, bg=${t.backgroundColor || ""}, selector=${JSON.stringify(t.selectorMatch || {})}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
     "Screenshots include baseline, candidate, and pixel-diff images for each viewport.",
     "Pixel differences are expected during the design migration; inspect baseline/candidate/diff artifacts for quality and regressions."
