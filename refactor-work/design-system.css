@@ -186,3 +186,78 @@
   .tac-ds-tabs__tab { padding-inline: 9px; }
 }
 @media (prefers-reduced-motion: reduce) { .tac-ds-tabs__tab, .tac-ds-disclosure > summary::before { transition: none; } }
+
+
+/* --- TAC Design System v1.1: first real panel-shell migration --- */
+.tac-ds-panel {
+  background: var(--tac-ds-color-surface);
+  border: 1px solid var(--tac-ds-color-line);
+  border-radius: 15px;
+  box-shadow: 0 4px 14px rgba(25, 31, 42, .055), 0 1px 3px rgba(25, 31, 42, .045);
+  padding: 20px;
+}
+.tac-ds-panel--bluf {
+  border-left: 5px solid var(--tac-ds-color-brand);
+  background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
+}
+.tac-ds-panel--sentiment { min-width: 0; }
+.tac-ds-panel--tabbed,
+.tac-ds-panel--calendar,
+.tac-ds-panel--earnings-health,
+.tac-ds-panel--fed,
+.tac-ds-panel--focus { padding: 20px; }
+.tac-ds-panel > .title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-width: 0;
+  margin: 0 0 16px;
+  padding: 1px 0 1px 12px;
+  border-left: 4px solid var(--tac-ds-color-brand);
+  color: var(--tac-ds-color-brand) !important;
+  font: 900 clamp(18px, 1.5vw, 22px)/1.35 var(--tac-ds-font-body);
+  letter-spacing: -.015em;
+}
+.tac-ds-panel > .title small {
+  margin-left: auto;
+  color: var(--tac-ds-color-muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: normal;
+}
+.tac-ds-panel > .tac-section-heading { margin: 0 0 16px; }
+.tac-ds-panel > .tac-section-heading h2 {
+  min-width: 0;
+  margin: 0;
+  padding: 1px 0 1px 12px;
+  border-left: 4px solid var(--tac-ds-color-brand);
+  color: var(--tac-ds-color-brand) !important;
+  font: 900 clamp(18px, 1.5vw, 22px)/1.35 var(--tac-ds-font-body);
+  letter-spacing: -.015em;
+}
+.tac-ds-panel--tabbed .tac-tab-nav,
+.tac-ds-panel--tabbed .tac-tab-labels { gap: 8px; }
+@media (min-width: 1100px) { .tac-ds-panel { padding: 22px; } }
+@media (max-width: 700px) {
+  .tac-ds-panel,
+  .tac-ds-panel--tabbed,
+  .tac-ds-panel--calendar,
+  .tac-ds-panel--earnings-health,
+  .tac-ds-panel--fed,
+  .tac-ds-panel--focus { padding: 14px; border-radius: 13px; }
+  .tac-ds-panel > .title { font-size: 18px; margin-bottom: 14px; }
+  .tac-ds-panel > .title small { flex: 1 1 100%; margin-left: 0; font-size: 10px; }
+  .tac-ds-panel > .tac-section-heading h2 { font-size: 18px; }
+}
+@media (max-width: 380px) {
+  .tac-ds-panel,
+  .tac-ds-panel--tabbed,
+  .tac-ds-panel--calendar,
+  .tac-ds-panel--earnings-health,
+  .tac-ds-panel--fed,
+  .tac-ds-panel--focus { padding: 12px; }
+  .tac-ds-panel > .title,
+  .tac-ds-panel > .tac-section-heading h2 { font-size: 16px; }
+}
