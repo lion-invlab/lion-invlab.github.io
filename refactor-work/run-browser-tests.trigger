@@ -1,3 +1,3 @@
-Run browser regression for source/method disclosure and calendar empty-state pilot — final test pass
+Run browser regression for source/method disclosure and calendar empty-state pilot — report-field fix
 Date: 2026-10-24
-Scope: verify 21 shared tab labels, 11 source disclosures with dark sentiment variant, 2 method disclosures, 4 calendar empty states, source disclosure open/close and triangle marker, prior-week collapses, desktop/mobile/narrow-mobile.
+Scope: persist source disclosure open/close/triangle results and rerun 21 tabs, 15 disclosures, 4 empty states, weekly collapses and desktop/mobile layout checks.
