@@ -135,7 +135,8 @@ try {
       collapseWorks = collapseBefore === false && collapseAfter === true;
     }
     const selectedTabColors = tabResults.filter(t => t.backgroundColor).map(t => t.backgroundColor);
-    const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)");
+    const selectedTabTextColors = tabResults.filter(t => t.textColor).map(t => t.textColor);
+    const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(255, 255, 255)") && selectedTabTextColors.every(color => color === "rgb(180, 35, 50)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
       ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, collapseWorks, collapseBefore, collapseAfter, collapseClickError,
