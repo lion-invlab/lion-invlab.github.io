@@ -18,3 +18,5 @@ nav-anchor-real-click-geometry-regression-2026-10-25
 nav-anchor-geometry-debug-2026-10-25
 anchor-root-scroll-padding-112px-rerun-2026-10-25
 anchor-cascade-override-removed-rerun-2026-10-25
+
+anchor-scroll-padding-in-design-system-rerun-2026-10-25
