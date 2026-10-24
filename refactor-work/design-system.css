@@ -518,3 +518,32 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #earnings details.tac-ds-event > summary,
   #last-week-earnings details.tac-ds-event > summary { padding: 10px 11px; }
 }
+
+
+/* --- TAC Design System v1.6: earnings accordion cards --- */
+#earnings details.tac-ds-earnings-card,
+#last-week-earnings details.tac-ds-earnings-card {
+  margin: 8px 0;
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(25, 31, 42, .035);
+  overflow: clip;
+}
+#earnings details.tac-ds-earnings-card > summary,
+#last-week-earnings details.tac-ds-earnings-card > summary {
+  border-radius: 12px;
+  background: #f7f8fa;
+  transition: background-color .16s ease;
+}
+#earnings details.tac-ds-earnings-card[open] > summary,
+#last-week-earnings details.tac-ds-earnings-card[open] > summary {
+  background: #fff7f8;
+  border-bottom: 1px solid #f0dfe2;
+}
+@media (max-width: 700px) {
+  #earnings details.tac-ds-earnings-card,
+  #last-week-earnings details.tac-ds-earnings-card { border-radius: 10px; }
+  #earnings details.tac-ds-earnings-card > summary,
+  #last-week-earnings details.tac-ds-earnings-card > summary { border-radius: 10px; }
+}
