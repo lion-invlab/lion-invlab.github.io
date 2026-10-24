@@ -66,3 +66,15 @@
 
 - 22 個 `.earnings-accordion` 均加入 `tac-ds-earnings-card`；桌機圓角 12px，手機／窄手機 10px。
 - 瀏覽器回歸確認「即將公布」頁籤可選取，財報卡可展開／收合；EPS 共識、公司、時區與觀察欄位未更動。
+
+
+## 7. 產業 ETF 資料列試點已通過
+
+- 11 個產業列使用 `tac-ds-data-row--sector`；桌機 12px、手機／窄手機 10px 圓角，白色卡面一致。
+- GitHub Actions：`40111101979`，三種 viewport 的產業頁籤、收折開啟／關閉循環均通過。
+- 漲跌幅排序、ETF 口徑、紅漲綠跌及只顯示百分比規則未更動。
+
+## 8. 下一批：已公布財報結果卡
+
+- 預計整理 `.earnings-actual-card`、標題、EPS／營收行與狀態標記的共同外觀。
+- 必須保留 beat／miss／pending 狀態、EPS 與營收欄位、實際值及既有雙欄排版；先檢查 `#last-week-earnings` 下多組 `!important` 修補規則，不可直接刪除。
