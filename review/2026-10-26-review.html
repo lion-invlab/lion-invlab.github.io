@@ -1844,80 +1844,23 @@ body main.wrap section.card > .title::before {
   width:5px!important; height:1.05em!important; min-height:20px!important;
   border-radius:2px!important; background:#c62828!important;
 }
-body main.wrap .tac-section-heading h2 {
-  display:flex!important; align-items:center!important; gap:10px!important;
-}
-body main.wrap .tac-section-heading h2::before {
-  content:""!important; display:inline-block!important; flex:0 0 5px!important;
-  width:5px!important; height:1.05em!important; min-height:20px!important;
-  border-radius:2px!important; background:#c62828!important;
-}
 body main.wrap #sentiment > .title::before { background:#e0b04b!important; }
 body main.wrap #sentiment > .title { color:#fff!important; }
 @media(max-width:700px) {
- body main.wrap article.card > .title, body main.wrap section.card > .title,
- body main.wrap .tac-section-heading h2 { gap:9px!important; }
- body main.wrap article.card > .title::before, body main.wrap section.card > .title::before,
- body main.wrap .tac-section-heading h2::before { min-height:18px!important; }
+ body main.wrap article.card > .title, body main.wrap section.card > .title { gap:9px!important; }
+ body main.wrap article.card > .title::before, body main.wrap section.card > .title::before { min-height:18px!important; }
 }
 </style>
 
 
 /* TAC targeted marker fix: three tabset panels confirmed missing markers */
-<style id="tac-three-tabset-heading-marker-v1">
-body main.wrap section.tac-tabset > .tac-section-heading,
-body main.wrap section.tac-tabset > .tac-section-heading h2 {
-  display:flex!important;
-  align-items:center!important;
-}
-body main.wrap section.tac-tabset > .tac-section-heading h2 {
-  gap:10px!important;
-}
-body main.wrap section.tac-tabset > .tac-section-heading h2::before {
-  content:""!important;
-  display:inline-block!important;
-  flex:0 0 5px!important;
-  width:5px!important;
-  height:1.05em!important;
-  min-height:20px!important;
-  border-radius:2px!important;
-  background:#c62828!important;
-}
-@media(max-width:700px){
- body main.wrap section.tac-tabset > .tac-section-heading h2 {gap:9px!important}
- body main.wrap section.tac-tabset > .tac-section-heading h2::before {min-height:18px!important}
-}
-</style>
 
 
 
 
 
-<style id="tac-final-single-marker-v8">
-body main.wrap #news-scan > .tac-section-heading h2::before,
-body main.wrap #global-markets > .tac-section-heading h2::before,
-body main.wrap #assets > .tac-section-heading h2::before {
-  content:""!important;
-  display:inline-block!important;
-  visibility:visible!important;
-  opacity:1!important;
-  flex:0 0 5px!important;
-  width:5px!important;
-  min-width:5px!important;
-  height:1.05em!important;
-  min-height:20px!important;
-  margin-right:0!important;
-  border-radius:2px!important;
-  background:#c62828!important;
-}
-body main.wrap #news-scan > .tac-section-heading h2,
-body main.wrap #global-markets > .tac-section-heading h2,
-body main.wrap #assets > .tac-section-heading h2 {
-  display:flex!important;
-  align-items:center!important;
-  gap:10px!important;
-}
-</style>
+
+
 
 
 <style id="tac-heading-marker-single-source-v9">
@@ -1927,6 +1870,11 @@ body main.wrap #assets > .tac-section-heading h2 {
 #assets > .tac-section-heading > h2::before { content:""!important; display:inline-block!important; }
 </style>
 
+
+<style id="tac-single-tabset-marker-final">
+body main.wrap section.tac-tabset > .tac-section-heading h2 {display:flex!important;align-items:center!important;gap:9px!important}
+body main.wrap section.tac-tabset > .tac-section-heading h2::before {content:""!important;display:inline-block!important;flex:0 0 5px!important;width:5px!important;height:1.05em!important;min-height:18px!important;border-radius:2px!important;background:#c62828!important}
+</style>
 </head>
 <body>
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已手動觸發 GitHub Actions 抓取 MOVE、CNN Fear & Greed、FedWatch 與市場資料。MOVE／CNN 已取得 10/23 讀值（MOVE 的 Google Finance 主來源仍落後，故使用備援並標示）；FedWatch 已試 CME 官方頁及 QuikStrike 嵌入頁，官方頁回 403、嵌入頁未回傳可解析機率，仍標示待更新。其餘待完成：部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目不得當成已驗收。</div>
