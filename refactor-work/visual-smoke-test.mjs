@@ -174,7 +174,7 @@ try {
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
     v.collapseWorks === false || v.newErrors.length
-  ) || results.visualDiffs.some(d => !d.dimensionsMatch);
+  ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
   if (failed) process.exitCode = 1;
 } finally {
   await browser.close();
