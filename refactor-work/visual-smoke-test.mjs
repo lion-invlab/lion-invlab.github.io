@@ -116,7 +116,7 @@ try {
         tabResults.push({ input: tab.input, missingLabelOrInput: true });
       }
     }
-    const collapse = cand.page.locator("#last-week-calendar details").first();
+    const collapse = cand.page.locator("#last-week-calendar details.last-week-calendar-collapse").first();
     let collapseWorks = null;
     if (await collapse.count()) {
       await collapse.locator("summary").click({ timeout: 3000 }).catch(() => {});
