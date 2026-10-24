@@ -588,3 +588,65 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label small { font-size: 10px; }
   #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .r { font-size: 13px; }
 }
+
+
+/* --- TAC Design System v1.7: sector ETF data rows --- */
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 92px;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  min-height: 62px;
+  margin: 0 0 8px;
+  padding: 12px 14px;
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(25, 31, 42, .035);
+}
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector:last-child {
+  margin-bottom: 0;
+}
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label b {
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label small {
+  color: #747b87;
+  font-size: 10px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .rank {
+  color: #737b87;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+}
+#industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .r {
+  font-size: 16px;
+  font-weight: 850;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 700px) {
+  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector {
+    grid-template-columns: 28px minmax(0, 1fr) 72px;
+    gap: 8px;
+    min-height: 56px;
+    margin-bottom: 7px;
+    padding: 10px 10px;
+    border-radius: 10px;
+  }
+  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label b { font-size: 13px; }
+  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .r { font-size: 14px; }
+}
