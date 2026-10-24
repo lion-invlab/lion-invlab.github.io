@@ -1726,6 +1726,13 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 #last-week-earnings .earnings-accordion-details>.earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-column:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;align-self:stretch!important;box-sizing:border-box!important}
 #last-week-earnings .earnings-results-grid>.earnings-actual-card{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
 </style>
+<style>
+/* FIX v3: force the EPS/revenue grid to span both columns of the existing details grid */
+#last-week-earnings .earnings-accordion-details > .earnings-results-grid{grid-column:1 / -1!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;width:100%!important;max-width:100%!important;justify-self:stretch!important;box-sizing:border-box!important}
+#last-week-earnings .earnings-results-grid > .earnings-actual-card{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important}
+#last-week-earnings .earnings-actual-line strong{font-size:13px!important;overflow-wrap:normal!important;word-break:normal!important}
+#last-week-earnings .earnings-actual-note{overflow-wrap:anywhere!important}
+</style>
 </head>
 <body>
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已手動觸發 GitHub Actions 抓取 MOVE、CNN Fear & Greed、FedWatch 與市場資料。MOVE／CNN 已取得 10/23 讀值（MOVE 的 Google Finance 主來源仍落後，故使用備援並標示）；FedWatch 已試 CME 官方頁及 QuikStrike 嵌入頁，官方頁回 403、嵌入頁未回傳可解析機率，仍標示待更新。其餘待完成：部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目不得當成已驗收。</div>
