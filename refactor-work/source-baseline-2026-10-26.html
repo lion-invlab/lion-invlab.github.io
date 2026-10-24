@@ -1912,12 +1912,8 @@ body main.wrap #sentiment > .title { color:#fff!important; }
 
 
 <style id="tac-anchor-offset-fix">
-/* 錨點定位只使用單一偏移，避免 scroll-padding 與 scroll-margin 疊加 */
-html { scroll-padding-top: 0; }
-main section[id] { scroll-margin-top: 0; }
-@media (max-width: 700px) {
-  main section[id] { scroll-margin-top: 48px; }
-}
+/* 錨點定位只採根捲動容器的單一偏移；涵蓋 main#overview 與所有 section 目標 */
+html { scroll-padding-top: 112px; }
 </style>
 </head>
 <body class="release-ready">
