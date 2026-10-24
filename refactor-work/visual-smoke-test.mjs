@@ -214,6 +214,8 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
+- Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
+- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
