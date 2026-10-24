@@ -3175,5 +3175,23 @@ main.wrap > section.card.fed-live > .title,
   else applyFiveStarRules();
 })();
 </script>
+
+<style id="tac-major-heading-specificity-fix-v2">
+/* Fix: major panel headings are .title divs inside article.card, not direct section children */
+main.wrap article.card.calendar-card > .title,
+main.wrap article.card > .title,
+main.wrap .card.bluf > .title,
+main.wrap .tac-main-panel > .title,
+main.wrap .tac-main-panel article.card > .title,
+main.wrap .tac-tabset > .title,
+main.wrap [data-main-section-title] {
+  color:#b42332!important;
+}
+/* The sentiment panel is the deliberate exception: its colored background requires white title text */
+main.wrap #sentiment > .title,
+main.wrap #sentiment .title:first-child {
+  color:#fff!important;
+}
+</style>
 </body>
 </html>
