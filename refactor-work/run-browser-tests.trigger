@@ -12,3 +12,5 @@ regex-guard-fix-rerun-2026-10-25
 special-background-isolation-regression-2026-10-25
 nav-anchor-hand-indicator-regression-2026-10-25
 fix-hand-color-contract-regression-2026-10-25
+
+nav-anchor-real-click-geometry-regression-2026-10-25
