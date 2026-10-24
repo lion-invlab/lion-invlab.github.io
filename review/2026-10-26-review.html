@@ -1733,6 +1733,37 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 #last-week-earnings .earnings-actual-line strong{font-size:13px!important;overflow-wrap:normal!important;word-break:normal!important}
 #last-week-earnings .earnings-actual-note{overflow-wrap:anywhere!important}
 </style>
+
+<style id="earnings-card-preview-v1-applied">
+/* 已公布財報小卡：套用核准預覽版視覺，不改動財報數值 */
+#last-week-earnings .earnings-accordion-details{background:#fff;padding:12px!important;gap:10px}
+#last-week-earnings .earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;padding:0!important;background:transparent!important}
+#last-week-earnings .earnings-actual-card{border:1px solid #e1e5e9!important;border-radius:14px!important;padding:12px!important;background:#fff!important;box-shadow:0 3px 12px rgba(20,30,40,.045)}
+#last-week-earnings .earnings-actual-card.beat{border-top:3px solid #16834c!important}
+#last-week-earnings .earnings-actual-card.miss{border-top:3px solid #a56b13!important}
+#last-week-earnings .earnings-actual-card-title{font-size:14px!important;font-weight:950!important;color:#20242b!important;margin-bottom:10px!important}
+#last-week-earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:flex-start!important;gap:8px!important;padding:5px 0!important;margin:0!important;border-bottom:1px solid #f0f1f3}
+#last-week-earnings .earnings-actual-line:last-of-type{border-bottom:0}
+#last-week-earnings .earnings-actual-line span{font-size:12px!important;color:#6b7280!important;flex:0 0 auto}
+#last-week-earnings .earnings-actual-line strong{font-size:14px!important;font-weight:900!important;text-align:right;overflow-wrap:anywhere}
+#last-week-earnings .earnings-actual-status{font-size:12px!important;font-weight:900!important;margin-top:10px!important;padding:5px 9px!important;border-radius:999px!important}
+#last-week-earnings .earnings-actual-status.beat{color:#16834c!important;background:#eaf7ef!important}
+#last-week-earnings .earnings-actual-status.miss{color:#a56b13!important;background:#fff4df!important}
+#last-week-earnings .earnings-actual-status.pending{color:#596170!important;background:#f0f2f5!important}
+#last-week-earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
+#last-week-earnings .earnings-detail-field.wide{border:1px solid #e5e7eb;border-radius:11px;padding:11px 12px;background:#fbfcfe}
+#last-week-earnings .earnings-detail-field.wide label{font-size:12px;font-weight:900;color:#596170}
+#last-week-earnings .earnings-detail-field.wide .earnings-detail-value{font-size:13px;line-height:1.65}
+@media(max-width:640px){
+#last-week-earnings .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+#last-week-earnings .earnings-actual-card{padding:9px!important;border-radius:12px!important}
+#last-week-earnings .earnings-actual-card-title{font-size:12px!important}
+#last-week-earnings .earnings-actual-line{flex-direction:column!important;gap:2px!important}
+#last-week-earnings .earnings-actual-line strong{font-size:12px!important;text-align:left!important}
+#last-week-earnings .earnings-actual-line span{font-size:10px!important}
+#last-week-earnings .earnings-actual-status{font-size:10px!important;padding:4px 6px!important}
+}
+</style>
 </head>
 <body>
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已手動觸發 GitHub Actions 抓取 MOVE、CNN Fear & Greed、FedWatch 與市場資料。MOVE／CNN 已取得 10/23 讀值（MOVE 的 Google Finance 主來源仍落後，故使用備援並標示）；FedWatch 已試 CME 官方頁及 QuikStrike 嵌入頁，官方頁回 403、嵌入頁未回傳可解析機率，仍標示待更新。其餘待完成：部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目不得當成已驗收。</div>
