@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - tac-design-system-work-2026-10-24
+    paths:
+      - "refactor-work/run-browser-tests.trigger"
 
 concurrency:
   group: tac-refactor-browser-regression
