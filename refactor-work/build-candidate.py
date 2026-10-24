@@ -171,6 +171,13 @@ html = add_classes_to_tags(html, source_details_pattern, "tac-ds-disclosure tac-
 html = add_classes_to_tags(html, method_details_pattern, "tac-ds-disclosure tac-ds-disclosure--method")
 html = add_classes_to_tags(html, empty_state_pattern, "tac-ds-empty")
 
+# News cards share a visual shell while their headlines, body text and source links remain untouched.
+news_item_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bnewsitem\b[^"]*")[^>]*>'
+html = add_classes_to_tags(html, news_item_pattern, "tac-ds-card tac-ds-card--news")
+news_card_count = len(re.findall(r'<div\b[^>]*class="[^"]*\btac-ds-card--news\b[^"]*"', html, flags=re.I))
+if news_card_count != 15:
+    raise SystemExit(f"Refusing build: expected 15 shared news cards, found {news_card_count}.")
+
 # Preserve the dark sentiment cards with a dedicated disclosure variant.
 sentiment_id_pos = html.find('id="sentiment"')
 if sentiment_id_pos < 0:
