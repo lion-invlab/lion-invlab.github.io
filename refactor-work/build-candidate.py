@@ -184,6 +184,12 @@ event_card_count = len(re.findall(r'<details\b[^>]*class="[^"]*\btac-ds-event\b[
 if event_card_count != 12:
     raise SystemExit(f"Refusing build: expected 12 shared economic event cards, found {event_card_count}.")
 
+earnings_card_pattern = r'<details\b(?=[^>]*\bclass="[^"]*\bearnings-accordion\b[^"]*")[^>]*>'
+html = add_classes_to_tags(html, earnings_card_pattern, "tac-ds-earnings-card")
+earnings_card_count = len(re.findall(r'<details\b[^>]*class="[^"]*\btac-ds-earnings-card\b[^"]*"', html, flags=re.I))
+if earnings_card_count != 22:
+    raise SystemExit(f"Refusing build: expected 22 shared earnings accordion cards, found {earnings_card_count}.")
+
 # Preserve the dark sentiment cards with a dedicated disclosure variant.
 sentiment_id_pos = html.find('id="sentiment"')
 if sentiment_id_pos < 0:
