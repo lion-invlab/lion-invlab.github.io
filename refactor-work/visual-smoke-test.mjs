@@ -116,15 +116,25 @@ try {
         tabResults.push({ input: tab.input, missingLabelOrInput: true });
       }
     }
-    const collapse = cand.page.locator("#last-week-calendar details.last-week-calendar-collapse").first();
+    const collapse = cand.page.locator("#last-week-calendar .last-week-calendar-collapse").first();
     let collapseWorks = null;
+    let collapseBefore = null;
+    let collapseClickError = null;
+    let collapseAfter = null;
     if (await collapse.count()) {
-      await collapse.locator("summary").click({ timeout: 3000 }).catch(() => {});
-      collapseWorks = await collapse.evaluate(el => el.open);
+      collapseBefore = await collapse.evaluate(el => el.open);
+      try {
+        await collapse.locator("summary").first().click({ timeout: 3000, force: true });
+        await cand.page.waitForTimeout(100);
+      } catch (error) {
+        collapseClickError = String(error).split("\\n")[0];
+      }
+      collapseAfter = await collapse.evaluate(el => el.open);
+      collapseWorks = collapseBefore === false && collapseAfter === true;
     }
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, tabResults, collapseWorks,
+      ...viewport, baseline: baseReport, ...report, tabResults, collapseWorks, collapseBefore, collapseAfter, collapseClickError,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -149,7 +159,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
-- Disclosure opens: ${v.collapseWorks}
+- Disclosure opens: ${v.collapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
 - Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
