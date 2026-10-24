@@ -83,8 +83,7 @@ async function inspect(page) {
       sharedActualEarningsCardRadii: [...new Set([...document.querySelectorAll("#last-week-earnings .tac-ds-earnings-actual-card")].map(el => getComputedStyle(el).borderRadius))],
       sharedActualEarningsCardBackgrounds: [...new Set([...document.querySelectorAll("#last-week-earnings .tac-ds-earnings-actual-card")].map(el => getComputedStyle(el).backgroundColor))],
       actualEarningsBeatCount: document.querySelectorAll("#last-week-earnings .tac-ds-earnings-actual-card.beat").length,
-      actualEarningsMissCount: document.querySelectorAll("#last-week-earnings .tac-ds-earnings-actual-card.miss").length
-      ,
+      actualEarningsMissCount: document.querySelectorAll("#last-week-earnings .tac-ds-earnings-actual-card.miss").length,
       sentimentThemeClassPresent: document.getElementById("sentiment")?.classList.contains("tac-ds-panel--sentiment") || false,
       sentimentBackgroundImage: getComputedStyle(document.getElementById("sentiment")).backgroundImage,
       sentimentBeforeContent: getComputedStyle(document.getElementById("sentiment"), "::before").content,
