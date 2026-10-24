@@ -39,9 +39,12 @@ async function loadPage(browser, file, viewport) {
   await page.goto("file://" + file, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(650);
   await dismissNotice(page);
-  // Wait for the temporary toolbar hand animation to expire so screenshot timing is deterministic.
-  await page.waitForTimeout(4550);
-  await page.evaluate(() => document.fonts && document.fonts.ready);
+  // Remove the transient onboarding hand in the test context; it is not part of the report layout.
+  await page.evaluate(() => {
+    document.querySelectorAll(".tac-tools-arrow-live, .tac-toolbar-hand-target").forEach(el => el.remove());
+    document.body.style.overflow = "";
+  });
+  await page.waitForTimeout(120);
   return { page, pageErrors };
 }
 async function inspect(page) {
