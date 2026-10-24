@@ -1906,12 +1906,7 @@ body main.wrap #sentiment > .title { color:#fff!important; }
 
 /* Original style block 65 */
 
-/* 錨點定位只使用單一偏移，避免 scroll-padding 與 scroll-margin 疊加 */
-html { scroll-padding-top: 0; }
-main section[id] { scroll-margin-top: 0; }
-@media (max-width: 700px) {
-  main section[id] { scroll-margin-top: 48px; }
-}
+/* 錨點偏移統一由 source baseline 的 #tac-anchor-offset-fix 管理；此處不再重複宣告。 */
 
 
 /* Original style block 66 */
