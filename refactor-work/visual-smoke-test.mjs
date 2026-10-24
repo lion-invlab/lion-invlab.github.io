@@ -137,6 +137,45 @@ try {
     }
     results.visualDiffs.push({ viewport: viewport.name, dimensionsMatch, baselineSize: [basePng.width, basePng.height], candidateSize: [candPng.width, candPng.height], diffPixels, diffRatio });
 
+    // Real navigation-anchor geometry: click every main nav link and measure the target heading against the sticky header/nav bottom.
+    const navAnchorResults = [];
+    const navLinksForAnchors = cand.page.locator("nav.nav a[href^='#']");
+    for (let i = 0; i < await navLinksForAnchors.count(); i++) {
+      const link = navLinksForAnchors.nth(i);
+      const label = (await link.innerText()).trim();
+      const href = await link.getAttribute("href");
+      try {
+        await link.click({ timeout: 5000 });
+        await cand.page.waitForTimeout(420);
+        const measurement = await cand.page.evaluate((targetHref) => {
+          const id = decodeURIComponent((targetHref || "").slice(1));
+          const target = document.getElementById(id);
+          const heading = target?.matches(".title,h1,h2,h3") ? target : target?.querySelector(".title,h1,h2,h3");
+          const sticky = document.querySelector("header.top, .top");
+          const nav = document.querySelector("nav.nav");
+          const stickyRect = sticky?.getBoundingClientRect();
+          const navRect = nav?.getBoundingClientRect();
+          const headingRect = heading?.getBoundingClientRect();
+          const visibleBottom = Math.max(stickyRect?.bottom || 0, navRect?.bottom || 0);
+          return {
+            targetFound: !!target, headingFound: !!heading,
+            headingTop: headingRect ? Math.round(headingRect.top) : null,
+            headingBottom: headingRect ? Math.round(headingRect.bottom) : null,
+            stickyBottom: Math.round(stickyRect?.bottom || 0),
+            navBottom: Math.round(navRect?.bottom || 0),
+            visibleHeaderBottom: Math.round(visibleBottom),
+            clearance: headingRect ? Math.round(headingRect.top - visibleBottom) : null,
+            headingVisible: !!headingRect && headingRect.bottom > visibleBottom && headingRect.top < innerHeight
+          };
+        }, href);
+        navAnchorResults.push({ label, href, ...measurement });
+      } catch (error) {
+        navAnchorResults.push({ label, href, interactionError: String(error.message || error).slice(0, 220) });
+      }
+    }
+    const navAnchorsPass = navAnchorResults.length > 0 && navAnchorResults.every(x =>
+      x.targetFound && x.headingFound && x.headingVisible && x.clearance !== null && x.clearance >= 6 && !x.interactionError
+    );
     const tabResults = [];
     for (const tab of tabCases) {
       const label = cand.page.locator(tab.label).first();
@@ -296,7 +335,7 @@ try {
     const consistentSelectedTabTextColor = selectedTabTextColors.length > 0 && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
+      ...viewport, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -336,7 +375,7 @@ try {
   fs.writeFileSync(path.join(outDir, "summary.md"), summary);
   console.log(summary);
   const failed = results.viewports.some(v =>
-    v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
+    v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length || !v.navAnchorsPass ||
     (v.handMobileExpected && (!v.handPresentBeforeCleanup || !v.handColorContract || !v.handPointerEventsNone)) ||
     (!v.handMobileExpected && v.handInitialVisibility !== "none") ||
     v.sentimentThemeClassPresent !== true || !String(v.sentimentBackgroundImage || "").includes("gradient") || v.sentimentBeforeContent === "none" || v.sentimentBeforeContent === "normal" || !String(v.sentimentBeforeBoxShadow || "").includes("rgba") || v.sentimentAfterContent === "none" || v.sentimentAfterContent === "normal" || !String(v.sentimentAfterBoxShadow || "").includes("rgba") ||
