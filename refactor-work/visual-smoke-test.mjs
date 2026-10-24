@@ -359,6 +359,7 @@ try {
 - Missing panel IDs: ${v.missingPanels.join(", ") || "none"}
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
+- Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
 - Animated hand indicator: present before screenshot cleanup=${v.handPresentBeforeCleanup}, mobile expected=${v.handMobileExpected}, white/red color contract=${v.handColorContract}, pointer-events disabled=${v.handPointerEventsNone}, initial display=${v.handInitialVisibility}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
