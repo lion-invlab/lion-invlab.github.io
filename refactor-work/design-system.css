@@ -479,3 +479,42 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   .tac-ds-panel--tabbed .tac-ds-card--news p { font-size: 12px; line-height: 1.6; }
   .tac-ds-panel--tabbed .tac-ds-card--news .newsmeta { font-size: 10px; }
 }
+
+
+/* --- TAC Design System v1.5: economic event cards --- */
+#calendar details.tac-ds-event,
+#last-week-calendar details.tac-ds-event,
+#earnings details.tac-ds-event,
+#last-week-earnings details.tac-ds-event {
+  margin: 8px 0;
+  border: 1px solid #e1e5eb;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(25, 31, 42, .035);
+  overflow: clip;
+}
+#calendar details.tac-ds-event > summary,
+#last-week-calendar details.tac-ds-event > summary,
+#earnings details.tac-ds-event > summary,
+#last-week-earnings details.tac-ds-event > summary {
+  padding: 12px 13px;
+  background: #f7f8fa;
+  transition: background-color .16s ease;
+}
+#calendar details.tac-ds-event[open] > summary,
+#last-week-calendar details.tac-ds-event[open] > summary,
+#earnings details.tac-ds-event[open] > summary,
+#last-week-earnings details.tac-ds-event[open] > summary {
+  background: #fff7f8;
+  border-bottom: 1px solid #f0dfe2;
+}
+@media (max-width: 700px) {
+  #calendar details.tac-ds-event,
+  #last-week-calendar details.tac-ds-event,
+  #earnings details.tac-ds-event,
+  #last-week-earnings details.tac-ds-event { border-radius: 10px; }
+  #calendar details.tac-ds-event > summary,
+  #last-week-calendar details.tac-ds-event > summary,
+  #earnings details.tac-ds-event > summary,
+  #last-week-earnings details.tac-ds-event > summary { padding: 10px 11px; }
+}
