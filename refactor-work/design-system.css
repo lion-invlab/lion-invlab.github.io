@@ -784,3 +784,13 @@ html body main.wrap #sentiment.tac-ds-panel--sentiment > .sent {
       linear-gradient(135deg,var(--tac-sentiment-canvas-a) 0%,var(--tac-sentiment-canvas-b) 52%,var(--tac-sentiment-canvas-c) 100%) !important;
   }
 }
+
+
+/* --- Navigation anchor offset fix: keep target headings below the fixed top header and nav. --- */
+html {
+  scroll-padding-top: 124px !important;
+  scroll-behavior: auto;
+}
+@media (max-width: 700px) {
+  html { scroll-padding-top: 132px !important; }
+}
