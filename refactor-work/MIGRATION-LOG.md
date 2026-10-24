@@ -32,3 +32,17 @@
 2. Migrate shared panel shell and heading styles with a documented selector map.
 3. Migrate radio tabs and disclosures separately, preserving their checked-state selectors and mobile behavior.
 4. Remove legacy overrides only after each component's visual and interaction regression passes.
+
+
+## 2026-10-24 — Shared panel and tab migration passed browser smoke tests
+
+- Candidate build used the frozen source, consolidated CSS, design-system tokens, shared panel classes, and 21 shared tab-label classes.
+- Successful browser run: [GitHub Actions run 40083543167](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40083543167), commit `91772056e4ae6acd4939a79e9a4a3cf3de99362d`.
+- Viewports tested: desktop 1440×1000, mobile 390×844, narrow mobile 320×800.
+- Passed: all 12 panel IDs present; no duplicate IDs; no unmatched in-page navigation links; 10 original script blocks preserved; one consolidated style block; no new browser errors; no horizontal overflow at any tested viewport.
+- Passed: seven representative tab interactions across news, regional markets, assets, economic calendar, earnings calendar, Fed/FOMC, and today's focus; selected state consistently burgundy with white text.
+- Passed: native previous-week economic-calendar disclosure opens.
+- Visual inspection of the candidate screenshots shows more consistent panel shells, heading accents, spacing, and selected-tab states. The market-sentiment dark/glass treatment remains a distinct exception.
+- The current visual difference is intentional. Desktop full-page height differs because panel padding and spacing are larger; mobile screenshots show expected styling differences. No screenshot test can alone prove aesthetic superiority, so human visual review remains part of the gate.
+- This completes the **first component migration pass** (panel shell, headings, tab navigation), not the full refactor. Inner cards, data rows, disclosure components, and legacy selector cleanup remain.
+
