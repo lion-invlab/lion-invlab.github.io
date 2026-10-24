@@ -1,3 +1,3 @@
-Run browser regression for news-card visual migration
+Run browser regression for economic-event card migration
 Date: 2026-10-24
-Scope: verify 15 shared news cards have uniform white surface/radius at desktop/mobile, while preserving 12 panels, 21 tabs, disclosures, empty states, collapses and no-overflow checks.
+Scope: verify 12 event cards use unified 12px desktop / 10px mobile radius and still expand/collapse, alongside news cards, tabs, source disclosures, empty states and prior-week sections.
