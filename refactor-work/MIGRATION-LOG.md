@@ -109,3 +109,12 @@
 - SHA-pinned browser run: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40085163426 — `success`.
 - All 22 earnings accordions use `tac-ds-earnings-card`; desktop radius 12px, mobile/narrow-mobile radius 10px; upcoming earnings tab and accordion open/close passed.
 - No changes to earnings content, EPS consensus, event times, source URLs or data selection. Next pilot: sector ETF rows and prior-week actual earnings result cards.
+
+
+## 2026-10-24 — Sector ETF row pilot passed
+
+- GitHub Actions: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40111101979 — `success`.
+- 11 個產業 ETF 列已使用共用資料列變體；桌機圓角 12px、手機／窄手機 10px，白色卡面一致。
+- 三種 viewport 均通過產業頁籤切換、收折開啟與關閉循環；瀏覽器新增錯誤為 0，沒有橫向溢出、重複 ID 或未匹配導覽連結。
+- 產業排序、ETF 報酬百分比、漲跌顏色、資料來源及資料內容未更動；不顯示價格的規則保留。
+- 下一批：上週已公布財報的 EPS／營收結果卡，需保留 beat/miss 狀態色及雙欄排列，並先處理既有多組高特異性 CSS 的覆蓋風險。
