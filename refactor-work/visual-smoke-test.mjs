@@ -68,7 +68,10 @@ async function inspect(page) {
       sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
       sharedDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure").length,
       darkDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure--dark").length,
-      sharedEmptyStateCount: document.querySelectorAll(".tac-ds-empty").length
+      sharedEmptyStateCount: document.querySelectorAll(".tac-ds-empty").length,
+      sharedNewsCardCount: document.querySelectorAll(".tac-ds-card--news").length,
+      sharedNewsCardBackgrounds: [...new Set([...document.querySelectorAll(".tac-ds-card--news")].map(el => getComputedStyle(el).backgroundColor))],
+      sharedNewsCardRadii: [...new Set([...document.querySelectorAll(".tac-ds-card--news")].map(el => getComputedStyle(el).borderRadius))]
     };
   }, { panelIds });
 }
@@ -215,7 +218,7 @@ try {
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
-- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}
+- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
@@ -229,7 +232,8 @@ try {
   console.log(summary);
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
-    v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 ||
+    v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
+    JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
