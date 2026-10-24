@@ -252,7 +252,16 @@ try {
           await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | retry: " + String(e.message || e).slice(0, 180); });
           await cand.page.waitForTimeout(350);
         }
+        await sectorSummary.scrollIntoViewIfNeeded().catch(() => {});
+        await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | close: " + String(e.message || e).slice(0, 180); });
+        await cand.page.waitForTimeout(350);
         sectorCollapseCloses = (await sectorDisclosure.evaluate(el => el.open)) === sectorBefore;
+        if (!sectorCollapseCloses) {
+          await sectorSummary.scrollIntoViewIfNeeded().catch(() => {});
+          await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | close retry: " + String(e.message || e).slice(0, 180); });
+          await cand.page.waitForTimeout(350);
+          sectorCollapseCloses = (await sectorDisclosure.evaluate(el => el.open)) === sectorBefore;
+        }
         results.sectorCollapseClickError = sectorClickError;
       }
     }
