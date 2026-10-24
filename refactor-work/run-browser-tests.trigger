@@ -1,3 +1,3 @@
-Run browser regression for earnings accordion card migration
+Run browser regression for sector ETF row migration
 Date: 2026-10-24
-Scope: verify 22 earnings accordion cards share the standard radius, the upcoming earnings tab selects correctly, cards open/close, and all prior panel/news/event/disclosure checks remain green.
+Scope: verify 11 sector rows use the unified grid/card style and responsive radii; preserve rank, Chinese sector name, ETF code and percentage-only values; check all prior panel, tab, disclosure, news, event and earnings interactions.
