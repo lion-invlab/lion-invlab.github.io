@@ -698,3 +698,89 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status { font-size: 10px; padding: 4px 6px; }
 }
 
+
+
+/* --- TAC Design System v1.9: isolated special-background theme contract --- */
+/* Keep panel-specific atmosphere in one scoped definition. Change these tokens to
+   restyle this panel; do not edit global surface tokens or other panel selectors. */
+#sentiment.tac-ds-panel--sentiment {
+  --tac-sentiment-canvas-a: #171c23;
+  --tac-sentiment-canvas-b: #1b222b;
+  --tac-sentiment-canvas-c: #141a20;
+  --tac-sentiment-orbit: rgba(111,169,198,.22);
+  --tac-sentiment-orbit-soft: rgba(111,169,198,.075);
+  --tac-sentiment-orbit-mid: rgba(111,169,198,.055);
+  --tac-sentiment-orbit-faint: rgba(111,169,198,.035);
+  --tac-sentiment-accent: #e2b84d;
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  background:
+    radial-gradient(circle at 63% 18%,
+      transparent 0 128px,
+      rgba(65,112,139,.13) 129px 160px,
+      transparent 161px 196px,
+      rgba(65,112,139,.10) 197px 230px,
+      transparent 231px 266px,
+      rgba(65,112,139,.075) 267px 300px,
+      transparent 301px),
+    radial-gradient(ellipse 78% 62% at 18% 18%,rgba(42,91,119,.13) 0%,rgba(42,91,119,.06) 42%,transparent 72%),
+    linear-gradient(135deg,var(--tac-sentiment-canvas-a) 0%,var(--tac-sentiment-canvas-b) 52%,var(--tac-sentiment-canvas-c) 100%) !important;
+  border: 1px solid #35404b !important;
+  border-top: 4px solid var(--tac-sentiment-accent) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 12px 28px rgba(18,28,38,.15) !important;
+}
+html body main.wrap #sentiment.tac-ds-panel--sentiment::before,
+html body main.wrap #sentiment.tac-ds-panel--sentiment::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  border-radius: 50% !important;
+  border: 1px solid var(--tac-sentiment-orbit) !important;
+}
+html body main.wrap #sentiment.tac-ds-panel--sentiment::before {
+  width: 460px !important;
+  height: 460px !important;
+  right: -175px !important;
+  top: -115px !important;
+  left: auto !important;
+  bottom: auto !important;
+  box-shadow:
+    0 0 0 28px var(--tac-sentiment-orbit-soft),
+    0 0 0 58px var(--tac-sentiment-orbit-mid),
+    0 0 0 92px var(--tac-sentiment-orbit-faint) !important;
+}
+html body main.wrap #sentiment.tac-ds-panel--sentiment::after {
+  width: 330px !important;
+  height: 330px !important;
+  left: -215px !important;
+  top: 250px !important;
+  right: auto !important;
+  bottom: auto !important;
+  box-shadow:
+    0 0 0 28px rgba(111,169,198,.055),
+    0 0 0 58px rgba(111,169,198,.035) !important;
+}
+html body main.wrap #sentiment.tac-ds-panel--sentiment > .title,
+html body main.wrap #sentiment.tac-ds-panel--sentiment > .sent {
+  position: relative !important;
+  z-index: 1 !important;
+}
+@media (max-width: 700px) {
+  #sentiment.tac-ds-panel--sentiment {
+    background:
+      radial-gradient(circle at 67% 14%,
+        transparent 0 110px,
+        rgba(65,112,139,.13) 111px 138px,
+        transparent 139px 169px,
+        rgba(65,112,139,.10) 170px 198px,
+        transparent 199px 230px,
+        rgba(65,112,139,.075) 231px 258px,
+        transparent 259px),
+      radial-gradient(ellipse 78% 62% at 18% 18%,rgba(42,91,119,.13) 0%,rgba(42,91,119,.06) 42%,transparent 72%),
+      linear-gradient(135deg,var(--tac-sentiment-canvas-a) 0%,var(--tac-sentiment-canvas-b) 52%,var(--tac-sentiment-canvas-c) 100%) !important;
+  }
+}
