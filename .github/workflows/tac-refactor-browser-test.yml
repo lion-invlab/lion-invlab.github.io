@@ -43,6 +43,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tac-refactor-browser-results
-          path: refactor-work/browser-results/
+          path: |
+            refactor-work/browser-results/
+            refactor-work/candidate-build.html
           if-no-files-found: warn
           retention-days: 7
