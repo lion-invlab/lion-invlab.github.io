@@ -3133,5 +3133,47 @@ main.wrap [data-main-section-title]{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
+
+<style id="tac-title-and-star-rule-fix-2026-10-24">
+/* 規則修正：所有主要版面標題使用酒紅；市場情緒特殊底色，標題白色 */
+main.wrap > section.card > .title,
+main.wrap > section.tac-main-panel > article.card > .title,
+main.wrap > section.card.calendar-card > .title,
+main.wrap > section.card.earnings-health > .title,
+main.wrap > section.card.today-focus > .title,
+main.wrap > section.card.fed-live > .title,
+.tac-section-heading h2 {
+  color:#a92332!important;
+}
+#sentiment > .title { color:#fff!important; }
+/* 星級顏色規則：僅五星標題紅色；四星及以下標題黑色 */
+.earnings-accordion .earnings-company-name { color:#202124!important; }
+.earnings-accordion.five-star-earnings .earnings-company-name,
+.earnings-accordion .earnings-company-name.five-star-company { color:#202124!important; }
+.earnings-accordion.five-star-earnings.star-verified-five .earnings-company-name { color:#c62828!important; }
+.econ-event .econ-name { color:#202124!important; }
+.econ-event.star-verified-five .econ-name { color:#c62828!important; }
+</style>
+<script id="tac-verify-five-star-color-rule">
+(function(){
+  function applyFiveStarRules(){
+    document.querySelectorAll('.earnings-accordion').forEach(function(card){
+      var star=card.querySelector('.earnings-stars');
+      var name=card.querySelector('.earnings-company-name');
+      var isFive=!!star && star.textContent.replace(/\s/g,'')==='★★★★★';
+      card.classList.toggle('star-verified-five',isFive);
+      if(name) name.classList.toggle('five-star-company',isFive);
+    });
+    document.querySelectorAll('.econ-event').forEach(function(card){
+      var star=card.querySelector('.econ-stars');
+      var name=card.querySelector('.econ-name');
+      var isFive=!!star && star.textContent.replace(/\s/g,'')==='★★★★★';
+      card.classList.toggle('star-verified-five',isFive);
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',applyFiveStarRules);
+  else applyFiveStarRules();
+})();
+</script>
 </body>
 </html>
