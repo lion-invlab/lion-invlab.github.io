@@ -5,6 +5,10 @@ on:
     branches:
       - tac-design-system-work-2026-10-24
 
+concurrency:
+  group: tac-refactor-browser-regression
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
