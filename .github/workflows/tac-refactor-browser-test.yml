@@ -22,7 +22,7 @@ jobs:
       - name: Checkout isolated refactor branch
         uses: actions/checkout@v4
         with:
-          ref: tac-design-system-work-2026-10-24
+          ref: ${{ github.sha }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
