@@ -238,15 +238,22 @@ try {
       sectorTabTextColor = await sectorTabLabel.evaluate(el => getComputedStyle(el).color);
       const sectorDisclosure = cand.page.locator("#industry-bonds-fx-commodities details.sector-collapse").first();
       if (await sectorDisclosure.count()) {
-        const sectorSummary = sectorDisclosure.locator("summary");
+        const sectorSummary = sectorDisclosure.locator(":scope > summary");
+        await sectorSummary.scrollIntoViewIfNeeded().catch(() => {});
+        await cand.page.waitForTimeout(350);
         const sectorBefore = await sectorDisclosure.evaluate(el => el.open);
-        await sectorSummary.click({ timeout: 3000, force: true }).catch(() => {});
-        await cand.page.waitForTimeout(100);
+        let sectorClickError = "";
+        await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError = String(e.message || e).slice(0, 240); });
+        await cand.page.waitForTimeout(350);
         const sectorAfterToggle = await sectorDisclosure.evaluate(el => el.open);
         sectorCollapseWorks = sectorAfterToggle !== sectorBefore;
-        await sectorSummary.click({ timeout: 3000, force: true }).catch(() => {});
-        await cand.page.waitForTimeout(100);
+        if (!sectorCollapseWorks) {
+          // Retry once after tab/panel transition has fully settled; preserve a real pointer interaction.
+          await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | retry: " + String(e.message || e).slice(0, 180); });
+          await cand.page.waitForTimeout(350);
+        }
         sectorCollapseCloses = (await sectorDisclosure.evaluate(el => el.open)) === sectorBefore;
+        results.sectorCollapseClickError = sectorClickError;
       }
     }
     const selectedTabColors = tabResults.filter(t => t.backgroundColor).map(t => t.backgroundColor);
