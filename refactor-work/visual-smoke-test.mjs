@@ -239,12 +239,14 @@ try {
       const sectorDisclosure = cand.page.locator("#industry-bonds-fx-commodities details.sector-collapse").first();
       if (await sectorDisclosure.count()) {
         const sectorSummary = sectorDisclosure.locator("summary");
+        const sectorBefore = await sectorDisclosure.evaluate(el => el.open);
         await sectorSummary.click({ timeout: 3000, force: true }).catch(() => {});
         await cand.page.waitForTimeout(100);
-        sectorCollapseWorks = await sectorDisclosure.evaluate(el => el.open);
+        const sectorAfterToggle = await sectorDisclosure.evaluate(el => el.open);
+        sectorCollapseWorks = sectorAfterToggle !== sectorBefore;
         await sectorSummary.click({ timeout: 3000, force: true }).catch(() => {});
         await cand.page.waitForTimeout(100);
-        sectorCollapseCloses = !(await sectorDisclosure.evaluate(el => el.open));
+        sectorCollapseCloses = (await sectorDisclosure.evaluate(el => el.open)) === sectorBefore;
       }
     }
     const selectedTabColors = tabResults.filter(t => t.backgroundColor).map(t => t.backgroundColor);
