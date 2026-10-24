@@ -1871,7 +1871,12 @@ body main.wrap #sentiment > .title { color:#fff!important; }
 #news-scan > .tac-section-heading > h2,
 #global-markets > .tac-section-heading > h2,
 #industry-bonds-fx-commodities > .tac-section-heading > h2 {
-  display:flex!important; align-items:center!important; gap:10px!important;
+  display:flex!important; align-items:center!important; column-gap:16px!important; gap:16px!important;
+}
+#news-scan > .tac-section-heading > h2::before,
+#global-markets > .tac-section-heading > h2::before,
+#industry-bonds-fx-commodities > .tac-section-heading > h2::before {
+  margin-right:0!important; transform:translateX(0)!important;
 }
 #news-scan > .tac-section-heading > h2::before,
 #global-markets > .tac-section-heading > h2::before,
