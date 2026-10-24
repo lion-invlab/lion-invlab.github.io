@@ -261,3 +261,13 @@
   .tac-ds-panel > .title,
   .tac-ds-panel > .tac-section-heading h2 { font-size: 16px; }
 }
+
+
+/* A shared heading accent replaces the old pseudo-marker; prevent double vertical bars. */
+.tac-ds-panel > .title::before,
+html body main.wrap .tac-ds-panel > .title::before,
+.tac-ds-panel > .tac-section-heading h2::before,
+html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
+  content: none !important;
+  display: none !important;
+}
