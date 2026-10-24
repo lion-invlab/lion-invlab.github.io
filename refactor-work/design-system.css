@@ -277,7 +277,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 }
 .tac-ds-disclosure > summary::-webkit-details-marker { display: none; }
 .tac-ds-disclosure > summary::before {
-  content: "›";
+  content: "▸";
   flex: 0 0 12px;
   color: var(--tac-ds-color-brand);
   font-size: 22px;
@@ -350,4 +350,73 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 @media (prefers-reduced-motion: reduce) {
   .tac-ds-tabs__tab,
   .tac-ds-disclosure > summary::before { transition: none; }
+}
+
+
+/* --- TAC Design System v1.3: source/method disclosure and empty-state pilot --- */
+.tac-ds-disclosure--source {
+  margin-top: 6px;
+  border-radius: 8px;
+  background: #fafbfc;
+  box-shadow: none;
+}
+.tac-ds-disclosure--source > summary {
+  min-height: 32px;
+  padding: 6px 10px;
+  background: #f5f6f8;
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+.tac-ds-disclosure--source[open] > summary {
+  background: #f1f3f6;
+}
+.tac-ds-disclosure--source > .source {
+  padding: 0 10px 9px;
+  margin-top: 0;
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.tac-ds-disclosure--dark {
+  border-color: rgba(255, 255, 255, .14);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, .025);
+  box-shadow: none;
+}
+.tac-ds-disclosure--dark > summary,
+.tac-ds-disclosure--dark[open] > summary {
+  min-height: 30px;
+  padding: 5px 0;
+  border-bottom: 0;
+  background: transparent;
+  color: #aebbc8;
+  font-size: 11px;
+  font-weight: 800;
+}
+#sentiment .tac-ds-disclosure--dark > summary::before {
+  content: "▸" !important;
+  color: #e2b84d !important;
+  font-size: 15px;
+  flex-basis: 10px;
+}
+.tac-ds-disclosure--dark[open] > summary::before {
+  transform: rotate(90deg);
+}
+.tac-ds-disclosure--dark > .source {
+  padding: 0 0 2px;
+  color: #c2ccd6 !important;
+  font-size: 10px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.tac-ds-disclosure--method {
+  box-shadow: none;
+}
+.tac-ds-disclosure--method > summary {
+  min-height: 24px;
+  font-size: 11px;
+}
+.tac-ds-empty {
+  margin-top: 4px;
 }
