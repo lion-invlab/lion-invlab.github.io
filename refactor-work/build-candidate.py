@@ -95,7 +95,7 @@ def add_tac_tab_nav(match):
     variant = tab_nav_variants[tab_nav_index]
     tab_nav_index += 1
     tag = match.group(0)
-    class_match = re.search(r'\\bclass="([^"]*)"', tag, re.I)
+    class_match = re.search(r'\bclass="([^"]*)"', tag, re.I)
     names = class_match.group(1).split()
     for name in ("tac-ds-tabs", variant):
         if name not in names:
@@ -113,12 +113,12 @@ tab_wrapper_variants = {
     "focus-tab-labels": "tac-ds-tabs--equal-3",
 }
 for original_class, variant in tab_wrapper_variants.items():
-    pattern = re.compile(r'(<div\\b[^>]*\\bclass="[^"]*\\b' + re.escape(original_class) + r'\\b[^"]*"[^>]*>)', re.I)
+    pattern = re.compile(r'(<div\\b[^>]*\\bclass="[^"]*\\b' + re.escape(original_class) + r'\b[^"]*"[^>]*>)', re.I)
     matches = list(pattern.finditer(html))
     if len(matches) != 1:
         raise SystemExit(f"Refusing build: expected one {original_class} wrapper, found {len(matches)}.")
     tag = matches[0].group(1)
-    class_match = re.search(r'\\bclass="([^"]*)"', tag, re.I)
+    class_match = re.search(r'\bclass="([^"]*)"', tag, re.I)
     names = class_match.group(1).split()
     for name in ("tac-ds-tabs", variant):
         if name not in names:
@@ -137,10 +137,10 @@ tab_label_for_ids = {
 }
 def add_tac_tab_label(match):
     tag = match.group(0)
-    for_match = re.search(r'\\bfor=["\\']([^"\\']+)["\\']', tag, re.I)
+    for_match = re.search(r"\bfor=[\"']([^\"']+)[\"']", tag, re.I)
     if not for_match or for_match.group(1) not in tab_label_for_ids:
         return tag
-    class_match = re.search(r'\\bclass=["\\']([^"\\']*)["\\']', tag, re.I)
+    class_match = re.search(r"\bclass=[\"']([^\"']*)[\"']", tag, re.I)
     if class_match:
         names = class_match.group(1).split()
         if "tac-ds-tabs__tab" not in names:
