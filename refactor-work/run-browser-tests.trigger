@@ -6,3 +6,4 @@ Retry sector row radius assertion after correcting expected desktop/mobile value
 
 Rerun sector disclosure toggle test with state-independent assertion.
 rerun-sector-disclosure-after-scroll-stabilization-2026-10-25T0017+0800
+rerun-sector-disclosure-close-state-2026-10-25
