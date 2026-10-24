@@ -1765,7 +1765,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="title">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>19.65</strong><span class="warn">+3.26%</span><details class="source-details"><summary>資料來源</summary><div class="source">Cboe 官方頁：2026/10/23 VIX 19.65、變動 +3.26%；Yahoo Finance 歷史快照為 19.45、+2.96%。兩來源讀值有差異，卡片採 Cboe 官方值並保留差異說明，避免混用百分比。</div></details></div>
-<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>103.31</strong><span class="warn">10/23｜GitHub 抓取</span><details class="source-details"><summary>資料來源</summary><div class="source">已依規則手動觸發 GitHub Actions 重新抓取。Yahoo Finance chart API 的 ^MOVE 最新日線為 2026/10/23：103.31；這是備援來源讀值。指定主來源 Google Finance（INDEXNYSEGIS）目前仍停留在 2026/10/22 的 106.84（+11.36%），兩來源日期／讀值口徑不一致，故本卡顯示最新抓取的 10/23 備援值並明確標示來源狀態，不宣稱已完成 Google Finance 主來源核驗。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span> <span class="label-zh">｜債市波動率</span></div><strong>103.31</strong><span class="warn">+?%</span><details class="source-details"><summary>資料來源</summary><div class="source">已依規則手動觸發 GitHub Actions 重新抓取。Yahoo Finance chart API 的 ^MOVE 最新日線為 2026/10/23：103.31；這是備援來源讀值。指定主來源 Google Finance（INDEXNYSEGIS）目前仍停留在 2026/10/22 的 106.84（+11.36%），兩來源日期／讀值口徑不一致，故本卡顯示最新抓取的 10/23 備援值並明確標示來源狀態，不宣稱已完成 Google Finance 主來源核驗。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
   <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
   <div class="fg6-date">CNN Fear &amp; Greed｜2026/10/23 讀值｜擷取 2026/10/24 07:12 台灣時間</div>
@@ -3047,6 +3047,11 @@ main.wrap [data-main-section-title]{
   font-weight:900!important;
 }
 
+/* TAC market sentiment title and change conventions */
+#sentiment > .title{color:var(--red)!important}
+#sentiment .sbox .up{color:var(--red)!important}
+#sentiment .sbox .down{color:var(--green)!important}
+#sentiment .sbox .warn{color:#e0b84f!important}
 </style>
 <script id="tac-toolbar-hand-target-v15-js">
 (function(){
