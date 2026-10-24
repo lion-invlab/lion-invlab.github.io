@@ -178,6 +178,12 @@ news_card_count = len(re.findall(r'<div\b[^>]*class="[^"]*\btac-ds-card--news\b[
 if news_card_count != 15:
     raise SystemExit(f"Refusing build: expected 15 shared news cards, found {news_card_count}.")
 
+event_pattern = r'<details\b(?=[^>]*\bclass="[^"]*\becon-event\b[^"]*")[^>]*>'
+html = add_classes_to_tags(html, event_pattern, "tac-ds-event")
+event_card_count = len(re.findall(r'<details\b[^>]*class="[^"]*\btac-ds-event\b[^"]*"', html, flags=re.I))
+if event_card_count != 12:
+    raise SystemExit(f"Refusing build: expected 12 shared economic event cards, found {event_card_count}.")
+
 # Preserve the dark sentiment cards with a dedicated disclosure variant.
 sentiment_id_pos = html.find('id="sentiment"')
 if sentiment_id_pos < 0:
