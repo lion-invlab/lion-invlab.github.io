@@ -1690,7 +1690,15 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 }
 </style>
 
-<meta name="tac-correction-test" content="修正報告與行情日期錯置；關鍵價位待來源核實；正式母版未修改"></head>
+<meta name="tac-correction-test" content="修正報告與行情日期錯置；關鍵價位待來源核實；正式母版未修改"><style>
+/* HOTFIX 2026-10-24: ensure native details actually collapse in Safari/mobile */
+#last-week-earnings details.last-week-earnings-collapse:not([open]) > :not(summary){display:none!important}
+#last-week-earnings details.last-week-earnings-collapse > summary{display:block!important;visibility:visible!important;cursor:pointer!important;padding:10px 12px!important;border-radius:8px!important;background:#f5f5f6!important;color:#333!important;font-weight:850!important;list-style:none!important}
+#last-week-earnings details.last-week-earnings-collapse > summary::-webkit-details-marker{display:none!important}
+#last-week-earnings details.earnings-accordion:not([open]) > .earnings-accordion-details{display:none!important}
+#last-week-earnings details.earnings-accordion > summary{display:flex!important;visibility:visible!important}
+</style>
+</head>
 <body>
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">審核狀態：已手動觸發 GitHub Actions 抓取 MOVE、CNN Fear & Greed、FedWatch 與市場資料。MOVE／CNN 已取得 10/23 讀值（MOVE 的 Google Finance 主來源仍落後，故使用備援並標示）；FedWatch 已試 CME 官方頁及 QuikStrike 嵌入頁，官方頁回 403、嵌入頁未回傳可解析機率，仍標示待更新。其餘待完成：部分 FX 同源核對、新聞原始發布時間抽查、上週全球行事曆完整性與部分財報時間。未完成項目不得當成已驗收。</div>
 
