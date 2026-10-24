@@ -1,8 +1,10 @@
-/* TAC Design System v1 — foundational tokens and reusable components.
-   Deliberately opt-in via .tac-ds-* classes. Migrate one verified component at a time. */
+/* TAC Design System v1.2
+   One source of truth for shared tokens and reusable components.
+   Legacy selectors remain temporarily for regression-safe, staged migration.
+   Do not add one-off overrides here; update the component definition or documented variant. */
 
+/* 1. Theme tokens */
 :root {
-  /* Original TAC theme tokens — moved from the legacy stylesheet without changing values. */
   --bg: #f3f4f6;
   --card: #fff;
   --ink: #17191d;
@@ -13,7 +15,6 @@
   --black: #202328;
   --amber: #a56b00;
 
-  /* Design-system aliases keep the shared components aligned with the existing palette. */
   --tac-ds-color-canvas: var(--bg);
   --tac-ds-color-surface: var(--card);
   --tac-ds-color-ink: var(--ink);
@@ -26,7 +27,8 @@
   --tac-ds-color-neutral: var(--muted);
   --tac-ds-color-amber: var(--amber);
   --tac-ds-color-night: var(--black);
-  --tac-ds-radius-panel: 14px;
+
+  --tac-ds-radius-panel: 15px;
   --tac-ds-radius-card: 11px;
   --tac-ds-radius-control: 9px;
   --tac-ds-space-1: 4px;
@@ -36,15 +38,15 @@
   --tac-ds-space-5: 20px;
   --tac-ds-space-6: 24px;
   --tac-ds-panel-gap: 16px;
-  --tac-ds-panel-padding: 18px;
-  --tac-ds-shadow-panel: 0 2px 8px rgba(20, 27, 38, .045), 0 1px 2px rgba(20, 27, 38, .04);
+  --tac-ds-panel-padding: 20px;
+  --tac-ds-shadow-panel: 0 4px 14px rgba(25, 31, 42, .055), 0 1px 3px rgba(25, 31, 42, .045);
   --tac-ds-shadow-hover: 0 7px 20px rgba(20, 27, 38, .075), 0 2px 5px rgba(20, 27, 38, .045);
   --tac-ds-font-body: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   --tac-ds-line-height-body: 1.65;
   --tac-ds-focus-ring: 0 0 0 3px rgba(180, 35, 50, .18);
 }
 
-/* Shared panel shell; sentiment panel retains its intentional dark/glass variant. */
+/* 2. Shared panel shells */
 .tac-ds-panel {
   min-width: 0;
   background: var(--tac-ds-color-surface);
@@ -53,68 +55,193 @@
   box-shadow: var(--tac-ds-shadow-panel);
   padding: var(--tac-ds-panel-padding);
 }
-.tac-ds-panel__heading {
+.tac-ds-panel--bluf {
+  border-left: 5px solid var(--tac-ds-color-brand);
+  background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
+}
+.tac-ds-panel--sentiment { min-width: 0; }
+.tac-ds-panel--tabbed,
+.tac-ds-panel--calendar,
+.tac-ds-panel--earnings-health,
+.tac-ds-panel--fed,
+.tac-ds-panel--focus { padding: 20px; }
+
+/* 3. Shared panel headings */
+.tac-ds-panel > .title {
   display: flex;
   align-items: center;
-  gap: var(--tac-ds-space-3);
+  flex-wrap: wrap;
+  gap: 8px 12px;
   min-width: 0;
-  margin: 0 0 var(--tac-ds-space-4);
-  color: var(--tac-ds-color-brand);
-  font: 900 clamp(18px, 1.5vw, 23px)/1.35 var(--tac-ds-font-body);
+  margin: 0 0 16px;
+  padding: 1px 0 1px 12px;
+  border-left: 4px solid var(--tac-ds-color-brand);
+  color: var(--tac-ds-color-brand) !important;
+  font: 900 clamp(18px, 1.5vw, 22px)/1.35 var(--tac-ds-font-body);
   letter-spacing: -.015em;
 }
-.tac-ds-panel__heading::before {
-  content: "";
-  flex: 0 0 4px;
-  align-self: stretch;
-  min-height: 1.15em;
-  border-radius: 99px;
-  background: currentColor;
+.tac-ds-panel > .title::before,
+html body main.wrap .tac-ds-panel > .title::before,
+.tac-ds-panel > .tac-section-heading h2::before,
+html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
+  content: none !important;
+  display: none !important;
 }
-.tac-ds-panel__heading-text { flex: 1 1 auto; min-width: 0; }
-.tac-ds-panel__meta { color: var(--tac-ds-color-muted); font-size: 11px; font-weight: 700; line-height: 1.5; }
+.tac-ds-panel > .title small {
+  margin-left: auto;
+  color: var(--tac-ds-color-muted);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: normal;
+}
+.tac-ds-panel > .tac-section-heading { margin: 0 0 16px; }
+.tac-ds-panel > .tac-section-heading h2 {
+  min-width: 0;
+  margin: 0;
+  padding: 1px 0 1px 12px;
+  border-left: 4px solid var(--tac-ds-color-brand);
+  color: var(--tac-ds-color-brand) !important;
+  font: 900 clamp(18px, 1.5vw, 22px)/1.35 var(--tac-ds-font-body);
+  letter-spacing: -.015em;
+}
+
+/* 4. Shared radio-tab navigation: one visual language, layout-specific variants */
+.tac-ds-tabs {
+  min-width: 0;
+  margin: 0 0 14px;
+  padding: 5px;
+  background: #f3f4f6;
+  border: 1px solid #e1e4e8;
+  border-radius: 12px;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
+.tac-tabset .tac-ds-tabs--scroll {
+  display: flex !important;
+  align-items: stretch;
+  gap: 5px !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+.tac-ds-tabs--equal-3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 4px !important;
+  overflow: visible !important;
+}
+.tac-ds-tabs--equal-2 {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 4px !important;
+  overflow: visible !important;
+}
+.tac-ds-tabs__tab {
+  min-width: 0;
+  min-height: 40px;
+  padding: 9px 12px;
+  border: 1px solid transparent;
+  border-radius: var(--tac-ds-radius-control);
+  background: transparent;
+  color: #606975;
+  font: 800 13px/1.35 var(--tac-ds-font-body);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+  flex: 0 0 auto !important;
+  min-width: 0 !important;
+  min-height: 40px !important;
+  padding: 9px 12px !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--tac-ds-radius-control) !important;
+  background: transparent !important;
+  color: #606975 !important;
+  font: 800 13px/1.35 var(--tac-ds-font-body) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  white-space: nowrap;
+}
+.tac-ds-tabs--equal-3 .tac-ds-tabs__tab,
+.tac-ds-tabs--equal-2 .tac-ds-tabs__tab {
+  width: 100%;
+  white-space: normal;
+}
+.tac-ds-tabs__tab:hover,
+.tac-tabset .tac-ds-tabs .tac-ds-tabs__tab:hover {
+  background: #fff !important;
+  color: var(--tac-ds-color-brand) !important;
+  border-color: rgba(180, 35, 50, .12) !important;
+}
+.tac-ds-tabs__tab:focus-visible,
+.tac-ds-disclosure > summary:focus-visible,
+.tac-ds-control:focus-visible {
+  outline: none;
+  box-shadow: var(--tac-ds-focus-ring);
+}
+
+/* Selected state for all five tab families */
+#tac-news-0:checked~.tac-ds-tabs label[for=tac-news-0],
+#tac-news-1:checked~.tac-ds-tabs label[for=tac-news-1],
+#tac-region-0:checked~.tac-ds-tabs label[for=tac-region-0],
+#tac-region-1:checked~.tac-ds-tabs label[for=tac-region-1],
+#tac-region-2:checked~.tac-ds-tabs label[for=tac-region-2],
+#tac-assets-0:checked~.tac-ds-tabs label[for=tac-assets-0],
+#tac-assets-1:checked~.tac-ds-tabs label[for=tac-assets-1],
+#tac-assets-2:checked~.tac-ds-tabs label[for=tac-assets-2],
+#tac-assets-3:checked~.tac-ds-tabs label[for=tac-assets-3],
+#tac-assets-4:checked~.tac-ds-tabs label[for=tac-assets-4],
+#week-econ-today:checked~.week-econ-tab-labels label[for=week-econ-today],
+#week-econ-upcoming:checked~.week-econ-tab-labels label[for=week-econ-upcoming],
+#week-econ-published:checked~.week-econ-tab-labels label[for=week-econ-published],
+#week-earnings-today:checked~.week-earnings-tab-labels label[for=week-earnings-today],
+#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for=week-earnings-upcoming],
+#week-earnings-published:checked~.week-earnings-tab-labels label[for=week-earnings-published],
+#fed-live-tab-watch:checked~.fed-live-tab-labels label[for=fed-live-tab-watch],
+#fed-live-tab-fomc:checked~.fed-live-tab-labels label[for=fed-live-tab-fomc],
+#focus-tab-market:checked~.focus-tab-labels label[for=focus-tab-market],
+#focus-tab-levels:checked~.focus-tab-labels label[for=focus-tab-levels],
+#focus-tab-core:checked~.focus-tab-labels label[for=focus-tab-core],
+.tac-ds-tabs .tac-ds-tabs__tab.is-active,
+.tac-ds-tabs .tac-ds-tabs__tab[aria-selected="true"] {
+  background: #fff !important;
+  color: var(--tac-ds-color-brand) !important;
+  border-color: rgba(180, 35, 50, .16) !important;
+  box-shadow: 0 2px 6px rgba(20, 27, 38, .075), inset 0 1px 0 rgba(255, 255, 255, .95) !important;
+  font-weight: 850 !important;
+  transform: none !important;
+}
+
+/* Industry tabs preserve the established two-row arrangement on narrow screens. */
+.tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry {
+  display: flex;
+  gap: 5px !important;
+  overflow-x: auto !important;
+}
+@media (max-width: 700px) {
+  .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry {
+    display: grid !important;
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+    grid-auto-flow: row;
+    gap: 4px !important;
+    overflow: visible !important;
+  }
+  .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(1),
+  .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(2) { grid-column: span 3; }
+  .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(3),
+  .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(4),
+  .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(5) { grid-column: span 2; }
+}
+
+/* 5. Cards, data rows, disclosures and supporting notes */
 .tac-ds-card {
   min-width: 0;
   background: var(--tac-ds-color-surface);
   border: 1px solid var(--tac-ds-color-line);
   border-radius: var(--tac-ds-radius-card);
   padding: var(--tac-ds-space-4);
-}
-.tac-ds-tabs {
-  display: flex;
-  align-items: stretch;
-  gap: var(--tac-ds-space-2);
-  min-width: 0;
-  margin: 0 0 var(--tac-ds-space-4);
-  padding: 0 0 var(--tac-ds-space-2);
-  border-bottom: 1px solid var(--tac-ds-color-line);
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scrollbar-width: thin;
-}
-.tac-ds-tabs__tab {
-  flex: 0 0 auto;
-  min-height: 38px;
-  padding: 8px 14px;
-  border: 1px solid transparent;
-  border-radius: var(--tac-ds-radius-control);
-  background: transparent;
-  color: #5f646b;
-  font: 800 13px/1.35 var(--tac-ds-font-body);
-  text-align: center;
-  cursor: pointer;
-  transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
-}
-.tac-ds-tabs__tab:hover { background: #f7f2f3; color: var(--tac-ds-color-brand); }
-.tac-ds-tabs__tab[aria-selected="true"], .tac-ds-tabs__tab.is-active {
-  background: var(--tac-ds-color-brand);
-  border-color: var(--tac-ds-color-brand);
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(180, 35, 50, .16);
-}
-.tac-ds-tabs__tab:focus-visible, .tac-ds-disclosure > summary:focus-visible, .tac-ds-control:focus-visible {
-  outline: none;
-  box-shadow: var(--tac-ds-focus-ring);
 }
 .tac-ds-disclosure {
   min-width: 0;
@@ -171,76 +298,13 @@
   line-height: 1.6;
 }
 .tac-ds-control { font: inherit; }
-@media (min-width: 1100px) { .tac-ds-panel { padding: 20px; } }
-@media (max-width: 700px) {
-  :root { --tac-ds-panel-padding: 13px; --tac-ds-panel-gap: 12px; }
-  .tac-ds-panel { border-radius: 12px; }
-  .tac-ds-panel__heading { gap: 9px; font-size: 18px; line-height: 1.4; }
-  .tac-ds-panel__meta { font-size: 10px; }
-  .tac-ds-tabs { gap: 6px; }
-  .tac-ds-tabs__tab { min-height: 40px; padding: 9px 11px; font-size: 12px; }
-  .tac-ds-data-row { grid-template-columns: minmax(0, 1fr) minmax(70px, .75fr) minmax(64px, .6fr); gap: 6px; }
-}
-@media (max-width: 380px) {
-  .tac-ds-panel__heading { font-size: 16px; }
-  .tac-ds-tabs__tab { padding-inline: 9px; }
-}
-@media (prefers-reduced-motion: reduce) { .tac-ds-tabs__tab, .tac-ds-disclosure > summary::before { transition: none; } }
 
-
-/* --- TAC Design System v1.1: first real panel-shell migration --- */
-.tac-ds-panel {
-  background: var(--tac-ds-color-surface);
-  border: 1px solid var(--tac-ds-color-line);
-  border-radius: 15px;
-  box-shadow: 0 4px 14px rgba(25, 31, 42, .055), 0 1px 3px rgba(25, 31, 42, .045);
-  padding: 20px;
+/* 6. Responsive behavior */
+@media (min-width: 1100px) {
+  .tac-ds-panel { padding: 22px; }
 }
-.tac-ds-panel--bluf {
-  border-left: 5px solid var(--tac-ds-color-brand);
-  background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
-}
-.tac-ds-panel--sentiment { min-width: 0; }
-.tac-ds-panel--tabbed,
-.tac-ds-panel--calendar,
-.tac-ds-panel--earnings-health,
-.tac-ds-panel--fed,
-.tac-ds-panel--focus { padding: 20px; }
-.tac-ds-panel > .title {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  min-width: 0;
-  margin: 0 0 16px;
-  padding: 1px 0 1px 12px;
-  border-left: 4px solid var(--tac-ds-color-brand);
-  color: var(--tac-ds-color-brand) !important;
-  font: 900 clamp(18px, 1.5vw, 22px)/1.35 var(--tac-ds-font-body);
-  letter-spacing: -.015em;
-}
-.tac-ds-panel > .title small {
-  margin-left: auto;
-  color: var(--tac-ds-color-muted);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.5;
-  white-space: normal;
-}
-.tac-ds-panel > .tac-section-heading { margin: 0 0 16px; }
-.tac-ds-panel > .tac-section-heading h2 {
-  min-width: 0;
-  margin: 0;
-  padding: 1px 0 1px 12px;
-  border-left: 4px solid var(--tac-ds-color-brand);
-  color: var(--tac-ds-color-brand) !important;
-  font: 900 clamp(18px, 1.5vw, 22px)/1.35 var(--tac-ds-font-body);
-  letter-spacing: -.015em;
-}
-.tac-ds-panel--tabbed .tac-tab-nav,
-.tac-ds-panel--tabbed .tac-tab-labels { gap: 8px; }
-@media (min-width: 1100px) { .tac-ds-panel { padding: 22px; } }
 @media (max-width: 700px) {
+  :root { --tac-ds-panel-padding: 14px; --tac-ds-panel-gap: 12px; }
   .tac-ds-panel,
   .tac-ds-panel--tabbed,
   .tac-ds-panel--calendar,
@@ -250,6 +314,8 @@
   .tac-ds-panel > .title { font-size: 18px; margin-bottom: 14px; }
   .tac-ds-panel > .title small { flex: 1 1 100%; margin-left: 0; font-size: 10px; }
   .tac-ds-panel > .tac-section-heading h2 { font-size: 18px; }
+  .tac-ds-tabs__tab { min-height: 40px; padding: 8px 9px; font-size: 12px; }
+  .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab { padding: 8px 9px !important; font-size: 12px !important; }
 }
 @media (max-width: 380px) {
   .tac-ds-panel,
@@ -260,84 +326,9 @@
   .tac-ds-panel--focus { padding: 12px; }
   .tac-ds-panel > .title,
   .tac-ds-panel > .tac-section-heading h2 { font-size: 16px; }
+  .tac-ds-tabs__tab { padding-inline: 7px; }
 }
-
-
-/* A shared heading accent replaces the old pseudo-marker; prevent double vertical bars. */
-.tac-ds-panel > .title::before,
-html body main.wrap .tac-ds-panel > .title::before,
-.tac-ds-panel > .tac-section-heading h2::before,
-html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
-  content: none !important;
-  display: none !important;
-}
-
-
-/* --- TAC Design System v1.2: unified tab controls across all five tab families --- */
-.tac-ds-panel--tabbed .tac-tab-nav {
-  gap: 8px;
-  padding: 8px 18px;
-  border-bottom: 1px solid var(--tac-ds-color-line);
-  background: transparent;
-}
-.tac-ds-panel--tabbed .tac-tab-nav label,
-.tac-ds-panel--calendar .week-econ-tab-labels label,
-.tac-ds-panel--calendar .week-earnings-tab-labels label,
-.tac-ds-panel--fed .fed-live-tab-labels label,
-.tac-ds-panel--focus .focus-tab-labels label {
-  min-height: 40px;
-  padding: 9px 12px;
-  border: 1px solid #dfe3e8 !important;
-  border-radius: var(--tac-ds-radius-control) !important;
-  background: #f5f6f8 !important;
-  color: #525963 !important;
-  box-shadow: none !important;
-  font-size: 13px;
-  font-weight: 800 !important;
-  line-height: 1.35;
-  transition: color .18s ease, background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
-}
-.tac-ds-panel--tabbed .tac-tab-nav label:hover,
-.tac-ds-panel--calendar .week-econ-tab-labels label:hover,
-.tac-ds-panel--calendar .week-earnings-tab-labels label:hover,
-.tac-ds-panel--fed .fed-live-tab-labels label:hover,
-.tac-ds-panel--focus .focus-tab-labels label:hover {
-  border-color: rgba(180, 35, 50, .4) !important;
-  background: #fff8f8 !important;
-  color: var(--tac-ds-color-brand) !important;
-}
-#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],
-#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],
-#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],
-#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],
-#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],
-#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],
-#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],
-#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],
-#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],
-#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4],
-#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],
-#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],
-#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"],
-#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],
-#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],
-#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"],
-#fed-live-tab-watch:checked~.fed-live-tab-labels label[for="fed-live-tab-watch"],
-#fed-live-tab-fomc:checked~.fed-live-tab-labels label[for="fed-live-tab-fomc"],
-#focus-tab-market:checked~.focus-tab-labels label[for="focus-tab-market"],
-#focus-tab-levels:checked~.focus-tab-labels label[for="focus-tab-levels"],
-#focus-tab-core:checked~.focus-tab-labels label[for="focus-tab-core"] {
-  background: var(--tac-ds-color-brand) !important;
-  color: #fff !important;
-  border-color: var(--tac-ds-color-brand) !important;
-  box-shadow: 0 2px 6px rgba(180, 35, 50, .16) !important;
-  font-weight: 850 !important;
-}
-@media (max-width: 700px) {
-  .tac-ds-panel--tabbed .tac-tab-nav { gap: 6px; padding: 8px 12px; }
-  .tac-ds-panel--tabbed .tac-tab-nav label,
-  .tac-ds-panel--calendar .week-econ-tab-labels label,
-  .tac-ds-panel--calendar .week-earnings-tab-labels label,
-  .tac-ds-panel--fed .fed-live-tab-labels label,
-  .tac-ds-panel--focus .focus-tab-labels label { min-height: 40px; padding: 8px 9px; font-size: 12px; }
+@media (prefers-reduced-motion: reduce) {
+  .tac-ds-tabs__tab,
+  .tac-ds-disclosure > summary::before { transition: none; }
 }
