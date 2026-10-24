@@ -118,3 +118,15 @@
 - 三種 viewport 均通過產業頁籤切換、收折開啟與關閉循環；瀏覽器新增錯誤為 0，沒有橫向溢出、重複 ID 或未匹配導覽連結。
 - 產業排序、ETF 報酬百分比、漲跌顏色、資料來源及資料內容未更動；不顯示價格的規則保留。
 - 下一批：上週已公布財報的 EPS／營收結果卡，需保留 beat/miss 狀態色及雙欄排列，並先處理既有多組高特異性 CSS 的覆蓋風險。
+
+
+## 2026-10-24 — Prior-week actual earnings result-card pilot passed
+
+- GitHub Actions run: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40112871889 — `success`; tested commit `8e4dd02e789a896bde68516dee90c019681776b7`.
+- Exactly 14 `.earnings-actual-card` result cards were found and styled within `#last-week-earnings`; desktop radius 14px, mobile/narrow-mobile radius 12px, white backgrounds.
+- Browser smoke-test detected 6 beat and 2 miss statuses; all 14 cards remain present. Three viewport checks completed at 1440×1000, 390×844 and 320×800.
+- No added browser errors, horizontal overflow, duplicate IDs, unmatched navigation links or missing panel IDs. Prior-week economics and earnings disclosures still open correctly; seven representative tab checks remain passing.
+- EPS/revenue values, actuals, status logic and existing data-selection logic were not changed by the visual pilot.
+- Mobile pixel diffs were recorded (390px: ~10.0%; 320px: ~12.7%) and remain subject to screenshot review; automated success is not a claim that all visual differences have been manually approved.
+- Screenshots, pixel diffs, report and candidate HTML artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40112871889/artifacts/12567511267 (7-day retention).
+- Next gate: inspect the candidate/baseline/diff screenshots, then proceed to source/method disclosure or calendar status-group refinement based on risk. Do not bulk-delete legacy CSS; no production homepage or JSON/schedule was changed.
