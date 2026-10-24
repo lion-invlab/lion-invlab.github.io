@@ -1,0 +1,41 @@
+name: TAC Refactor Browser Smoke Test
+
+on:
+  push:
+    branches:
+      - tac-design-system-work-2026-10-24
+
+permissions:
+  contents: read
+
+jobs:
+  browser-smoke-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout isolated refactor branch
+        uses: actions/checkout@v4
+        with:
+          ref: tac-design-system-work-2026-10-24
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Run desktop and mobile smoke tests
+        run: node refactor-work/visual-smoke-test.mjs
+
+      - name: Upload screenshots and test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-refactor-browser-results
+          path: refactor-work/browser-results/
+          if-no-files-found: warn
+          retention-days: 7
