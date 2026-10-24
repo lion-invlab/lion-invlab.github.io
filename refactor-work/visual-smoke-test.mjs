@@ -73,7 +73,9 @@ async function inspect(page) {
       sharedNewsCardBackgrounds: [...new Set([...document.querySelectorAll(".tac-ds-card--news")].map(el => getComputedStyle(el).backgroundColor))],
       sharedNewsCardRadii: [...new Set([...document.querySelectorAll(".tac-ds-card--news")].map(el => getComputedStyle(el).borderRadius))],
       sharedEventCardCount: document.querySelectorAll("details.tac-ds-event").length,
-      sharedEventCardRadii: [...new Set([...document.querySelectorAll("details.tac-ds-event")].map(el => getComputedStyle(el).borderRadius))]
+      sharedEventCardRadii: [...new Set([...document.querySelectorAll("details.tac-ds-event")].map(el => getComputedStyle(el).borderRadius))],
+      sharedEarningsCardCount: document.querySelectorAll("details.tac-ds-earnings-card").length,
+      sharedEarningsCardRadii: [...new Set([...document.querySelectorAll("details.tac-ds-earnings-card")].map(el => getComputedStyle(el).borderRadius))]
     };
   }, { panelIds });
 }
@@ -200,13 +202,32 @@ try {
       await cand.page.waitForTimeout(80);
       eventCardCloses = !(await eventCard.evaluate(el => el.open));
     }
+    const earningsUpcomingLabel = cand.page.locator('#earnings label[for="week-earnings-upcoming"]').first();
+    let earningsUpcomingTabWorks = false;
+    let earningsAccordionWorks = null;
+    let earningsAccordionCloses = null;
+    if (await earningsUpcomingLabel.count()) {
+      await earningsUpcomingLabel.click({ timeout: 3000, force: true }).catch(() => {});
+      await cand.page.waitForTimeout(260);
+      earningsUpcomingTabWorks = await cand.page.locator("#week-earnings-upcoming").isChecked().catch(() => false);
+      const earningsAccordion = cand.page.locator("#earnings details.tac-ds-earnings-card").first();
+      if (await earningsAccordion.count()) {
+        const earningsSummary = earningsAccordion.locator("summary");
+        await earningsSummary.click({ timeout: 3000, force: true }).catch(() => {});
+        await cand.page.waitForTimeout(80);
+        earningsAccordionWorks = await earningsAccordion.evaluate(el => el.open);
+        await earningsSummary.click({ timeout: 3000, force: true }).catch(() => {});
+        await cand.page.waitForTimeout(80);
+        earningsAccordionCloses = !(await earningsAccordion.evaluate(el => el.open));
+      }
+    }
     const selectedTabColors = tabResults.filter(t => t.backgroundColor).map(t => t.backgroundColor);
     const selectedTabTextColors = tabResults.filter(t => t.textColor).map(t => t.textColor);
     const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)");
     const consistentSelectedTabTextColor = selectedTabTextColors.length > 0 && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses,
+      ...viewport, baseline: baseReport, ...report, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -232,7 +253,7 @@ try {
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
-- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}
+- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
@@ -247,7 +268,7 @@ try {
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length ||
     v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
-    JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true ||
+    JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
