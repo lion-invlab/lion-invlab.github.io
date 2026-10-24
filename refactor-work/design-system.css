@@ -547,3 +547,44 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #earnings details.tac-ds-earnings-card > summary,
   #last-week-earnings details.tac-ds-earnings-card > summary { border-radius: 10px; }
 }
+
+
+/* --- TAC Design System v1.7: sector ETF data rows --- */
+#industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector {
+  border: 1px solid #e1e5eb;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(25, 31, 42, .025);
+}
+#industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .rank {
+  color: #727b87;
+  font-size: 13px;
+  font-weight: 850;
+}
+#industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label {
+  min-width: 0;
+}
+#industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label b {
+  color: var(--tac-ds-color-ink);
+  font-size: 13px;
+  font-weight: 850;
+}
+#industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label small {
+  color: var(--tac-ds-color-muted);
+  font-size: 10px;
+  overflow-wrap: anywhere;
+}
+#industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .r {
+  font-size: 14px;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+@media (max-width: 700px) {
+  #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector {
+    border-radius: 9px;
+  }
+  #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label b { font-size: 13px; }
+  #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label small { font-size: 10px; }
+  #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .r { font-size: 13px; }
+}
