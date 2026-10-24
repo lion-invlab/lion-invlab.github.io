@@ -186,7 +186,7 @@ method_details_pattern = r'<details\b(?=[^>]*\bclass="[^"]*\bcompact-disclosure\
 empty_state_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bcalendar-status-empty\b[^"]*")[^>]*>'
 
 # Standardize source/method disclosures without changing their content or open state.
-html = add_classes_to_tags(html, source_details_pattern, "tac-ds-disclosure")
+html = add_classes_to_tags(html, source_details_pattern, "tac-ds-disclosure tac-ds-disclosure--source")
 html = add_classes_to_tags(html, method_details_pattern, "tac-ds-disclosure tac-ds-disclosure--method")
 html = add_classes_to_tags(html, empty_state_pattern, "tac-ds-empty")
 
