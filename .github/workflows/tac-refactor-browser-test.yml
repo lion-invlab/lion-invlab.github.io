@@ -1,4 +1,4 @@
-name: TAC Refactor Browser Smoke Test
+name: TAC Refactor Browser Regression Test
 
 on:
   push:
