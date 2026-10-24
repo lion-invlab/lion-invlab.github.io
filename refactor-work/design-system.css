@@ -2,18 +2,30 @@
    Deliberately opt-in via .tac-ds-* classes. Migrate one verified component at a time. */
 
 :root {
-  --tac-ds-color-canvas: #f3f4f6;
-  --tac-ds-color-surface: #ffffff;
-  --tac-ds-color-ink: #17191d;
-  --tac-ds-color-muted: #737981;
-  --tac-ds-color-line: #e1e4e8;
+  /* Original TAC theme tokens — moved from the legacy stylesheet without changing values. */
+  --bg: #f3f4f6;
+  --card: #fff;
+  --ink: #17191d;
+  --muted: #737981;
+  --line: #e1e4e8;
+  --red: #c62828;
+  --green: #16834c;
+  --black: #202328;
+  --amber: #a56b00;
+
+  /* Design-system aliases keep the shared components aligned with the existing palette. */
+  --tac-ds-color-canvas: var(--bg);
+  --tac-ds-color-surface: var(--card);
+  --tac-ds-color-ink: var(--ink);
+  --tac-ds-color-muted: var(--muted);
+  --tac-ds-color-line: var(--line);
   --tac-ds-color-brand: #b42332;
-  --tac-ds-color-brand-strong: #c62828;
+  --tac-ds-color-brand-strong: var(--red);
   --tac-ds-color-positive: #c00000;
-  --tac-ds-color-negative: #16834c;
-  --tac-ds-color-neutral: #737981;
-  --tac-ds-color-amber: #a56b00;
-  --tac-ds-color-night: #202328;
+  --tac-ds-color-negative: var(--green);
+  --tac-ds-color-neutral: var(--muted);
+  --tac-ds-color-amber: var(--amber);
+  --tac-ds-color-night: var(--black);
   --tac-ds-radius-panel: 14px;
   --tac-ds-radius-card: 11px;
   --tac-ds-radius-control: 9px;
