@@ -790,70 +790,7 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
  .tac-history-mini input[type="date"]{width:calc(100% - 16px)!important;max-width:calc(100% - 16px)!important;margin-right:16px!important;font-size:13px!important}
 }
 </style>
-<style id="tac-sidebar-tools-v6-note-style">
-.tac-tools-hint{
- display:none;box-sizing:border-box;width:100%;margin:0;padding:8px 18px 10px;
- color:#8b2530;background:#f8f1f2;border-bottom:1px solid #eadbdd;
- font-size:13px;line-height:1.5;font-weight:750;text-align:left;
-}
-.tac-tools-hint strong{font-weight:900}
-@media(max-width:1099px){.tac-tools-hint{display:block}}
-</style><style id="tac-tools-hint-up-arrow">
-@media(max-width:1099px){
- .tac-tools-hint{
-   display:block!important;position:relative!important;box-sizing:border-box!important;
-   width:fit-content!important;max-width:calc(100% - 24px)!important;
-   margin:10px auto 6px!important;padding:8px 13px!important;
-   border:1px solid rgba(180,35,50,.22)!important;border-radius:999px!important;
-   background:rgba(255,255,255,.92)!important;box-shadow:0 3px 12px rgba(35,45,55,.06)!important;
-   text-align:center!important;overflow:visible!important;left:auto!important;right:auto!important;
- }
- .tac-tools-hint:before{content:none!important;display:none!important}
-}
-/* PREVIEW: center the toolbar hint capsule and use a clearer warm-yellow fill */
-@media(max-width:1099px){
- .tac-tools-hint{
-   display:block!important;
-   width:max-content!important;
-   max-width:calc(100% - 32px)!important;
-   margin:10px auto 6px!important;
-   padding:8px 14px!important;
-   background:#ffeb00!important;
-   border:1px solid #ffeb00!important;
-   color:#c62828!important;
-   box-shadow:0 3px 12px rgba(190,150,0,.22)!important;
-   text-align:center!important;
-   left:auto!important;
-   right:auto!important;
-   transform:none!important;
- }
- .tac-tools-hint strong{color:#c62828!important}
-}
-/* PREVIEW V1: force bright yellow capsule fill and red text above earlier styles */
-@media(max-width:1099px){
-  body #tac-tools-hint.tac-tools-hint{
-    display:block!important;
-    position:relative!important;
-    box-sizing:border-box!important;
-    width:max-content!important;
-    max-width:calc(100% - 32px)!important;
-    margin:10px auto 6px!important;
-    padding:8px 14px!important;
-    background-color:#ffeb00!important;
-    background-image:none!important;
-    border:1px solid #ffeb00!important;
-    border-radius:999px!important;
-    color:#c62828!important;
-    -webkit-text-fill-color:#c62828!important;
-    text-align:center!important;
-    box-shadow:0 3px 12px rgba(190,150,0,.22)!important;
-    left:auto!important;
-    right:auto!important;
-    transform:none!important;
-  }
-  body #tac-tools-hint.tac-tools-hint strong{color:#c62828!important;-webkit-text-fill-color:#c62828!important}
-}
-</style><style id="tac-fund-popup-v7-css">
+<style id="tac-fund-popup-v7-css">
 #tac-fund-notice{position:fixed;inset:0;z-index:100500;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(18,23,30,.66);backdrop-filter:blur(3px)}
 #tac-fund-notice[hidden]{display:none!important}
 #tac-fund-notice .tfn-dialog{width:min(760px,100%);max-height:88dvh;overflow:auto;background:#f3f5f6;border-radius:18px;box-shadow:0 18px 70px rgba(0,0,0,.35);border:1px solid #d9dee2}
@@ -891,28 +828,6 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
  #tac-fund-notice .tfn-days{grid-column:3;text-align:right;font-size:12px}
  #tac-fund-notice .tfn-foot{align-items:flex-start;flex-direction:column}
  #tac-fund-notice .tfn-hint{text-align:left}
-}
-</style><style id="tac-tools-hint-v8-pill">
-/* V8: render the mobile toolbar guidance as a compact pill */
-@media(max-width:1099px){
- .tac-tools-hint{
-  display:block!important;
-  width:fit-content!important;
-  max-width:calc(100% - 32px)!important;
-  box-sizing:border-box!important;
-  margin:10px 16px 12px!important;
-  padding:9px 15px!important;
-  border:1px solid #e6c7cb!important;
-  border-radius:999px!important;
-  background:#fff!important;
-  color:#a92332!important;
-  box-shadow:0 2px 6px rgba(80,25,32,.06)!important;
-  font-size:12px!important;
-  line-height:1.5!important;
-  font-weight:800!important;
-  text-align:left!important;
- }
- .tac-tools-hint strong{color:#a92332!important}
 }
 </style><style id="tac-layout-hint-v9">
 /* V9 mobile: move internal-use warning inline to the right of the date; keep toolbar hint to one compact line */
@@ -2477,19 +2392,7 @@ document.addEventListener('DOMContentLoaded',function(){
  }
 });
 </script>
-<script id="tac-sidebar-tools-v6-note-script">
-document.addEventListener('DOMContentLoaded',function(){
- const nav=document.querySelector('nav.nav');
- if(!nav||document.getElementById('tac-tools-hint'))return;
- const hint=document.createElement('div');
- hint.id='tac-tools-hint';
- hint.className='tac-tools-hint';
- hint.innerHTML='「美股波動率」、「精選基金」、「歷史早報」請由上方「<strong>工具欄</strong>」開啟進入';
-  const arrow=document.createElement('span');arrow.className='tac-tools-arrow-live';arrow.setAttribute('aria-hidden','true');arrow.textContent='👆';hint.appendChild(arrow);
- const main=document.querySelector('main.wrap')||document.querySelector('main');
- if(main)main.insertBefore(hint,main.firstChild);
-});
-</script><div id="tac-fund-notice" hidden role="dialog" aria-modal="true" aria-labelledby="tfn-title">
+<div id="tac-fund-notice" hidden role="dialog" aria-modal="true" aria-labelledby="tfn-title">
  <div class="tfn-dialog">
   <div class="tfn-head"><h2 id="tfn-title">Q4 精選基金｜基準日倒數提醒</h2><button type="button" class="tfn-x" id="tfn-close" aria-label="關閉提醒">×</button></div>
   <div class="tfn-body"><section class="tfn-card">
@@ -3062,37 +2965,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 }
 </style>
 
-<style id="tac-tools-hint-arrow-visibility-fix">
-.tac-tools-hint:before{content:none!important;display:none!important}
-.tac-tools-arrow-live{display:none!important}
-@media(max-width:1099px){
- .tac-tools-hint{position:relative!important;box-sizing:border-box!important;padding-left:12px!important;overflow:visible!important}
- .tac-tools-arrow-live{
- display:flex!important;position:fixed!important;left:var(--tac-hand-x,24px)!important;top:var(--tac-hand-y,205px)!important;right:auto!important;bottom:auto!important;margin:0!important;
- width:40px!important;height:40px!important;align-items:center!important;justify-content:center!important;
- box-sizing:border-box!important;border-radius:50%!important;background:rgba(255,238,240,.98)!important;
- color:#a91528!important;border:2px solid rgba(180,35,50,.42)!important;box-shadow:0 3px 10px rgba(110,20,35,.25)!important;
- font-family:system-ui,-apple-system,sans-serif!important;font-size:29px!important;font-weight:900!important;line-height:1!important;
- z-index:2147483647!important;pointer-events:none!important;transform-origin:center center!important;
- animation:none!important;-webkit-animation:none!important;will-change:top,transform!important;
- }
- @keyframes tac-hand-toolbar-tap-v12{
- 0%,10%{top:205px;transform:scale(1)}
- 42%{top:118px;transform:scale(1.18)}
- 50%{top:108px;transform:scale(1.55)}
- 58%{top:118px;transform:scale(1.18)}
- 75%,100%{top:205px;transform:scale(1)}
- }
- @-webkit-keyframes tac-hand-toolbar-tap-v12{
- 0%,10%{top:205px;-webkit-transform:scale(1)}
- 42%{top:118px;-webkit-transform:scale(1.18)}
- 50%{top:108px;-webkit-transform:scale(1.55)}
- 58%{top:118px;-webkit-transform:scale(1.18)}
- 75%,100%{top:205px;-webkit-transform:scale(1)}
- }
-}
-@media(min-width:1100px){.tac-tools-arrow-live{display:none!important}}
-</style>
+
 <!-- Legacy arrow creator removed to prevent duplicate red arrow. -->
 <style id="tac-assets-instrument-font-size-v1">
 /* 商品名稱字級統一對齊「費城半導體指數」；僅影響產業債匯商品活頁內的商品名稱 */
