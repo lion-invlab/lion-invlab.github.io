@@ -60,7 +60,7 @@
   background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
 }
 .tac-ds-panel--sentiment { min-width: 0; }
-.tac-ds-panel--tabbed { padding: 8px; }
+.tac-ds-panel--tabbed { padding: 0 !important; }
 .tac-ds-panel--calendar,
 .tac-ds-panel--earnings-health,
 .tac-ds-panel--fed,
@@ -438,25 +438,25 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   background: #fff;
 }
 .tac-ds-panel--tabbed .tac-ds-card--news h3 {
-  margin: 0 0 7px;
+  margin: 0 0 5px;
   color: var(--tac-ds-color-ink);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 850;
-  line-height: 1.45;
+  line-height: 1.4;
   overflow-wrap: anywhere;
 }
-.tac-ds-panel--tabbed .tac-ds-card--news p {
+ .tac-ds-panel--tabbed .tac-ds-card--news p {
   margin: 0;
   color: #4b5563;
-  font-size: 13px;
-  line-height: 1.65;
+  font-size: 11px;
+  line-height: 1.55;
   overflow-wrap: anywhere;
 }
-.tac-ds-panel--tabbed .tac-ds-card--news .newsmeta {
-  margin-top: 9px;
-  padding-top: 8px;
-  border-top: 1px solid #eef0f3;
-  font-size: 11px;
+ .tac-ds-panel--tabbed .tac-ds-card--news .newsmeta {
+  margin-top: 4px;
+  padding-top: 0;
+  border-top: 0;
+  font-size: 9px;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
@@ -470,16 +470,16 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   color: var(--tac-ds-color-brand);
 }
 @media (max-width: 700px) {
-  .tac-ds-panel--tabbed { padding: 8px; }
+  .tac-ds-panel--tabbed { padding: 0 !important; }
   .tac-ds-panel--tabbed .tac-ds-tabs { margin-bottom: 8px; }
   .tac-ds-panel--tabbed .tac-ds-card--news {
     margin-bottom: 4px;
     padding: 11px 9px;
     border-radius: 10px;
   }
-  .tac-ds-panel--tabbed .tac-ds-card--news h3 { font-size: 14px; }
-  .tac-ds-panel--tabbed .tac-ds-card--news p { font-size: 12px; line-height: 1.6; }
-  .tac-ds-panel--tabbed .tac-ds-card--news .newsmeta { font-size: 10px; }
+  .tac-ds-panel--tabbed .tac-ds-card--news h3 { font-size: 16px; }
+  .tac-ds-panel--tabbed .tac-ds-card--news p { font-size: 11px; line-height: 1.55; }
+  .tac-ds-panel--tabbed .tac-ds-card--news .newsmeta { font-size: 9px; }
 }
 
 
@@ -796,3 +796,8 @@ html {
 @media (max-width: 700px) {
   html { scroll-padding-top: 132px !important; }
 }
+
+/* Geometry parity trial: the legacy news/markets panels had no outer card padding. */
+#news-scan.tac-ds-panel--tabbed,
+#global-markets.tac-ds-panel--tabbed,
+#industry-bonds-fx-commodities.tac-ds-panel--tabbed { padding: 0 !important; }
