@@ -801,3 +801,17 @@ html {
 #news-scan.tac-ds-panel--tabbed,
 #global-markets.tac-ds-panel--tabbed,
 #industry-bonds-fx-commodities.tac-ds-panel--tabbed { padding: 0 !important; }
+
+
+/* Geometry diagnosis fix: preserve the compact legacy disclosure summaries for prior-week panels.
+   The shared disclosure shell was forcing a 46px minimum-height flex summary, creating
+   13–32px of avoidable height on narrow screens. Keep the shared outer shell but restore
+   the prior-week summary's natural, content-driven height. */
+#last-week-calendar .tac-ds-disclosure.last-week-calendar-collapse > summary,
+#last-week-earnings .tac-ds-disclosure.last-week-earnings-collapse > summary {
+  display: block !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 10px 12px !important;
+  line-height: normal !important;
+}
