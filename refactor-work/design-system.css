@@ -868,3 +868,15 @@ html {
   background: transparent !important;
   line-height: 1.4 !important;
 }
+
+
+/* Prior-week section containers are layout wrappers, not padded panels.
+   Preserve the legacy full-width inner cards at desktop and mobile sizes. */
+#last-week-calendar.tac-ds-panel--calendar,
+#last-week-earnings.tac-ds-panel--calendar {
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
