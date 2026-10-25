@@ -2369,7 +2369,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <style id="tac-sidebar-tools-preview-v4">
 /* V4 preview only: mobile trigger moved to the far-left of the navigation row. Desktop sidebar remains unchanged. */
 @media(max-width:1099px){
- nav.nav{align-items:center!important;gap:5px!important}
+ .nav{align-items:center!important;gap:5px!important}
  .tac-side-open{
    position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;top:auto!important;
    z-index:10!important;display:inline-flex!important;flex:0 0 auto!important;width:max-content!important;
@@ -2385,7 +2385,7 @@ document.addEventListener('DOMContentLoaded',function(){
 <script id="tac-sidebar-tools-script-v4">
 document.addEventListener('DOMContentLoaded',function(){
  const btn=document.querySelector('.tac-side-open');
- const nav=document.querySelector('nav.nav');
+ const nav=document.querySelector('.nav');
  if(btn&&nav){
    nav.insertBefore(btn,nav.firstChild);
    btn.setAttribute('aria-label','開啟 TAC 工具欄');
