@@ -851,11 +851,12 @@ html {
 }
 
 
-/* Final legacy geometry correction: the original padding belongs to the outer <details>,
-   not its <summary>. Avoid doubling vertical padding after the shared disclosure migration. */
+/* Restore the legacy prior-week disclosure summary geometry.
+   The outer details shell stays unpadded; vertical/horizontal breathing room belongs
+   on the summary itself. This avoids clipping the label and restores wrapped mobile rows. */
 .last-week-calendar-collapse.tac-ds-disclosure,
 .last-week-earnings-collapse.tac-ds-disclosure {
-  padding: 10px 12px !important;
+  padding: 0 !important;
 }
 .last-week-calendar-collapse.tac-ds-disclosure > summary,
 .last-week-earnings-collapse.tac-ds-disclosure > summary {
@@ -863,10 +864,10 @@ html {
   min-height: 0 !important;
   height: auto !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 10px 12px !important;
   border: 0 !important;
-  background: transparent !important;
   line-height: 1.4 !important;
+  white-space: normal !important;
 }
 
 
