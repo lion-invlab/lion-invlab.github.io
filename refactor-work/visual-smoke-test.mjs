@@ -117,6 +117,14 @@ async function inspect(page) {
       fiveStarRedCount: [...document.querySelectorAll(".earnings-accordion.star-verified-five .earnings-stars, .econ-event.star-verified-five .econ-stars")].filter(el => getComputedStyle(el).color === "rgb(198, 40, 40)").length,
       sourceTrianglesPresent: [...document.querySelectorAll("main.wrap details.source-details > summary")].filter(el => getComputedStyle(el, "::before").content.includes("▸")).length,
       doubleBarHeadings: [...document.querySelectorAll(".tac-tabset .tac-section-heading h2")].filter(el => getComputedStyle(el).borderLeftWidth !== "0px" && getComputedStyle(el, "::before").display !== "none").length,
+      globalMarketNameFontSizes: [...new Set([...document.querySelectorAll("#global-markets .row b, #global-markets .instrument-name")].slice(0,20).map(el => getComputedStyle(el).fontSize))],
+      industryInstrumentFontSizes: [...new Set([...document.querySelectorAll("#industry-bonds-fx-commodities #bonds .row b, #industry-bonds-fx-commodities .row .instrument-name")].map(el => getComputedStyle(el).fontSize))],
+      mainTabStyleSignatures: ["#news-scan", "#global-markets", "#industry-bonds-fx-commodities"].map(id => {
+        const el = document.querySelector(id + " .tac-tab-nav label");
+        if (!el) return {id, missing:true};
+        const s = getComputedStyle(el);
+        return {id, fontSize:s.fontSize, minHeight:s.minHeight, padding:s.padding, borderRadius:s.borderRadius, whiteSpace:s.whiteSpace};
+      }),
       styleTagCount: document.querySelectorAll("style").length,
       scriptCount: document.querySelectorAll("script").length,
       sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
@@ -449,6 +457,8 @@ try {
     v.temporaryPreviewFooterText || !Number.isFinite(v.fearGreedScore) || !Number.isFinite(v.fearGreedMarkerPosition) ||
     Math.abs(v.fearGreedScore - v.fearGreedMarkerPosition) > 0.1 || v.fiveStarRedCount < 1 ||
     v.sourceTrianglesPresent < 1 || v.doubleBarHeadings > 0 ||
+    (v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.some(size => !v.globalMarketNameFontSizes.includes(size))) ||
+    new Set(v.mainTabStyleSignatures.filter(x => !x.missing).map(x => JSON.stringify({fontSize:x.fontSize,minHeight:x.minHeight,padding:x.padding,borderRadius:x.borderRadius,whiteSpace:x.whiteSpace}))).size > 1 ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
     !v.consistentSelectedTabColor || !v.consistentSelectedTabTextColor || v.collapseWorks === false || v.earningsCollapseWorks === false || v.newErrors.length
   ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
