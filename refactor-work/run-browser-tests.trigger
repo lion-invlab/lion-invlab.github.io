@@ -39,3 +39,5 @@ fix-prior-week-summary-selector-scope-2026-10-25
 remove-doubled-prior-week-disclosure-padding-2026-10-25
 
 preserve-prior-week-wrapper-and-disclosure-legacy-geometry-2026-10-25
+
+compact-tabs-and-source-summary-geometry-parity-2026-10-25
