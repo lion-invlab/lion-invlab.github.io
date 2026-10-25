@@ -47,3 +47,5 @@ final-news-scan-spacing-pass-2026-10-25
 mobile-toolbar-comic-bubble-v1-2026-10-25
 
 retry-coach-test-syntax-fix-2026-10-25
+
+coach-inline-style-and-legacy-hand-cleanup-rerun-2026-10-25
