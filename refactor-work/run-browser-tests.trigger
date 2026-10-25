@@ -27,3 +27,5 @@ compare-legacy-and-shared-card-geometry-2026-10-25
 compact-tabbed-panel-and-news-card-geometry-trial-2026-10-25
 
 restore-news-text-rhythm-and-panel-geometry-2026-10-25
+
+reduce-tab-navigation-vertical-footprint-2026-10-25
