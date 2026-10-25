@@ -1161,7 +1161,7 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
 /* Direction B follow-up — recover a little vertical room on narrow news cards
    without reducing type size, clipping text, or changing card order/content. */
 @media (max-width: 380px) {
-  #news-scan .tac-tabset .tac-ds-card--news {
+  #news-scan .tac-ds-card--news {
     padding-top: 8px !important;
     padding-bottom: 8px !important;
   }
