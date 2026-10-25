@@ -39,17 +39,20 @@ async function loadPage(browser, file, viewport) {
   await page.goto("file://" + file, { waitUntil: "domcontentloaded" });
   await page.waitForTimeout(650);
   await dismissNotice(page);
-  // Capture the transient onboarding hand before removing it from clean layout screenshots.
+  // Validate the transient comic-bubble onboarding before cleaning screenshots.
   await page.evaluate(() => {
-    const hand = document.querySelector(".tac-tools-arrow-live.tac-toolbar-hand-target");
+    const bubble = document.querySelector("#tac-toolbar-coach-bubble");
+    const target = document.querySelector(".tac-toolbar-coach-target");
     const mobile = window.innerWidth < 1100;
-    const style = hand ? getComputedStyle(hand) : null;
-    document.documentElement.dataset.tacHandPresentBeforeCleanup = String(!!hand);
-    document.documentElement.dataset.tacHandMobileExpected = String(mobile);
-    document.documentElement.dataset.tacHandColorContract = String(!!hand && /#fff|255, 255, 255/i.test(hand.innerHTML) && /#c62828|198, 40, 40/i.test(hand.innerHTML));
-    document.documentElement.dataset.tacHandPointerEventsNone = String(!!style && style.pointerEvents === "none");
-    document.documentElement.dataset.tacHandInitialVisibility = style ? style.display : "missing";
-    document.querySelectorAll(".tac-tools-arrow-live, .tac-toolbar-hand-target").forEach(el => el.remove());
+    const style = bubble ? getComputedStyle(bubble) : null;
+    document.documentElement.dataset.tacCoachPresentBeforeCleanup = String(!!bubble);
+    document.documentElement.dataset.tacCoachMobileExpected = String(mobile);
+    document.documentElement.dataset.tacCoachTextContract = String(!!bubble && /工具欄/.test(bubble.textContent));
+    document.documentElement.dataset.tacCoachPointerEventsNone = String(!!style && style.pointerEvents === "none");
+    document.documentElement.dataset.tacCoachTargetPulse = String(!!target && getComputedStyle(target).animationName.includes("tac-toolbar-coach-pulse"));
+    document.documentElement.dataset.tacCoachInitialVisibility = style ? style.display : "missing";
+    document.querySelectorAll("#tac-toolbar-coach-bubble").forEach(el => el.remove());
+    document.querySelectorAll(".tac-toolbar-coach-target").forEach(el => el.classList.remove("tac-toolbar-coach-target"));
     document.body.style.overflow = "";
   });
   await page.waitForTimeout(120);
@@ -86,11 +89,12 @@ async function inspect(page) {
       missingPanels: panelIds.filter(id => !document.getElementById(id)),
       navCount: navLinks.length,
       unmatchedNav,
-      handPresentBeforeCleanup: document.documentElement.dataset.tacHandPresentBeforeCleanup === "true",
-      handMobileExpected: document.documentElement.dataset.tacHandMobileExpected === "true",
-      handColorContract: document.documentElement.dataset.tacHandColorContract === "true",
-      handPointerEventsNone: document.documentElement.dataset.tacHandPointerEventsNone === "true",
-      handInitialVisibility: document.documentElement.dataset.tacHandInitialVisibility || "missing",
+      coachPresentBeforeCleanup: document.documentElement.dataset.tacCoachPresentBeforeCleanup === "true",
+      coachMobileExpected: document.documentElement.dataset.tacCoachMobileExpected === "true",
+      coachTextContract: document.documentElement.dataset.tacCoachTextContract === "true",
+      coachPointerEventsNone: document.documentElement.dataset.tacCoachPointerEventsNone === "true",
+      coachTargetPulse: document.documentElement.dataset.tacCoachTargetPulse === "true",
+      coachInitialVisibility: document.documentElement.dataset.tacCoachInitialVisibility || "missing",
       styleTagCount: document.querySelectorAll("style").length,
       scriptCount: document.querySelectorAll("script").length,
       sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
@@ -375,8 +379,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
-- Animated hand indicator: present before screenshot cleanup=${v.handPresentBeforeCleanup}, mobile expected=${v.handMobileExpected}, white/red color contract=${v.handColorContract}, pointer-events disabled=${v.handPointerEventsNone}, initial display=${v.handInitialVisibility}
-- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
+- Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
 - Sentiment special background: class=${v.sentimentThemeClassPresent}, layered background=${v.sentimentBackgroundImage?.includes("gradient")}, orbit before=${v.sentimentBeforeContent}/${v.sentimentBeforeBoxShadow}, orbit after=${v.sentimentAfterContent}/${v.sentimentAfterBoxShadow}, canvas=${v.sentimentBackgroundColor}\n- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}, actual earnings result cards=${v.sharedActualEarningsCardCount}, radii=${v.sharedActualEarningsCardRadii?.join(",")}, backgrounds=${v.sharedActualEarningsCardBackgrounds?.join(",")}, beat/miss=${v.actualEarningsBeatCount}/${v.actualEarningsMissCount}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
@@ -392,9 +395,9 @@ try {
   console.log(summary);
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length || !v.navAnchorsPass ||
-    (v.handMobileExpected && (!v.handPresentBeforeCleanup || !v.handColorContract || !v.handPointerEventsNone)) ||
-    (!v.handMobileExpected && v.handInitialVisibility !== "none") ||
-    v.sentimentThemeClassPresent !== true || !String(v.sentimentBackgroundImage || "").includes("gradient") || v.sentimentBeforeContent === "none" || v.sentimentBeforeContent === "normal" || !String(v.sentimentBeforeBoxShadow || "").includes("rgba") || v.sentimentAfterContent === "none" || v.sentimentAfterContent === "normal" || !String(v.sentimentAfterBoxShadow || "").includes("rgba") ||
+    (v.coachMobileExpected && (!v.coachPresentBeforeCleanup || !v.coachTextContract || !v.coachPointerEventsNone || !v.coachTargetPulse)) ||
+    (!v.coachMobileExpected && v.coachInitialVisibility !== "missing") ||
+    v.sentimentThemeClassPresent    v.sentimentThemeClassPresent !== true || !String(v.sentimentBackgroundImage || "").includes("gradient") || v.sentimentBeforeContent === "none" || v.sentimentBeforeContent === "normal" || !String(v.sentimentBeforeBoxShadow || "").includes("rgba") || v.sentimentAfterContent === "none" || v.sentimentAfterContent === "normal" || !String(v.sentimentAfterBoxShadow || "").includes("rgba") ||
     v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
