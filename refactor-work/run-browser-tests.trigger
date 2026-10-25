@@ -81,3 +81,4 @@ restore-prior-week-disclosure-labels-and-arrows-2026-10-26T0620+0800
 capture-full-page-mobile-visual-regression-2026-10-26T0625+0800
 
 refine-320px-industry-tabs-and-earnings-card-2026-10-26T0700+0800
+refine-320px-tabs-test-contract-2026-10-26Tcontinued
