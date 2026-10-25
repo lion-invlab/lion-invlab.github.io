@@ -3231,51 +3231,29 @@ main.wrap [data-main-section-title]{
 #sentiment .sbox .down{color:var(--green)!important}
 #sentiment .sbox .warn{color:#e0b84f!important}
 </style>
-<script id="tac-toolbar-hand-target-v15-js">
+<style id="tac-toolbar-coach-v1-css">
+.tac-toolbar-coach-bubble{position:fixed!important;z-index:2147483646!important;display:block!important;box-sizing:border-box!important;max-width:min(260px,calc(100vw - 28px))!important;padding:9px 13px!important;border:2px solid #b42332!important;border-radius:15px!important;background:#fff9d9!important;color:#70202a!important;box-shadow:0 4px 14px rgba(40,20,20,.2)!important;font:800 13px/1.4 system-ui,-apple-system,"PingFang TC",sans-serif!important;text-align:center!important;pointer-events:none!important;white-space:normal!important;opacity:0;transform:translateY(5px) scale(.96);transform-origin:bottom center;animation:tac-toolbar-coach-in .22s ease-out forwards}
+.tac-toolbar-coach-bubble:after{content:"";position:absolute;bottom:-8px;left:var(--tac-bubble-tail-x,50%);width:12px;height:12px;background:#fff9d9;border-right:2px solid #b42332;border-bottom:2px solid #b42332;transform:translateX(-50%) rotate(45deg)}
+@keyframes tac-toolbar-coach-in{to{opacity:1;transform:translateY(0) scale(1)}}
+.tac-toolbar-coach-target{animation:tac-toolbar-coach-pulse .8s ease-in-out 4!important;transform-origin:center!important}
+@keyframes tac-toolbar-coach-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+@media(min-width:1100px){.tac-toolbar-coach-bubble{display:none!important}.tac-toolbar-coach-target{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.tac-toolbar-coach-bubble{animation:none;opacity:1;transform:none}.tac-toolbar-coach-target{animation:none!important}}
+</style>
+<script id="tac-toolbar-coach-v1-js">
 (function(){
  function setup(){
-  var hint=document.querySelector('.tac-tools-hint');if(!hint)return;
-  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
-  var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.innerHTML='<span style="position:relative;display:inline-block;font-size:34px;line-height:1;color:#c62828;-webkit-text-stroke:1.5px #c62828;text-shadow:0 0 1px #c62828">👆<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:29px;color:#fff;-webkit-text-stroke:0;filter:grayscale(1) brightness(0) invert(1);text-shadow:none">👆</span></span>';document.body.appendChild(hand);
-  var anim=null,expired=false;
-  function stopAndRemove(){
-   expired=true;
-   if(anim){try{anim.cancel()}catch(e){}anim=null}
-   hand.style.setProperty('display','none','important');
-   hand.remove();
-   window.removeEventListener('resize',move);
-   window.removeEventListener('scroll',move);
-   window.removeEventListener('pageshow',move);
-  }
-  /* Hard deadline: remove the element, so scroll/resize/pageshow cannot bring it back. */
-  var expiryTimer=window.setTimeout(stopAndRemove,5000);
-  function findToolbar(){
-   var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
-   var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
-   matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
-  }
-  function move(){
-   if(expired||!hand.isConnected)return;
-   if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.setProperty('display','none','important');if(anim){anim.cancel();anim=null}return}
-   var target=findToolbar();if(!target)return;
-   hand.style.setProperty('display','flex','important');
-   var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
-   var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
-   var ty=Math.max(4,Math.min(window.innerHeight-44,tr.bottom+2));
-   /* Align the bottom edge of the hand icon with the capsule's measured bottom edge.
-      At the start scale (0.78), the 40px element is 31.2px tall and center-origin adds a 4.4px top inset. */
-   var dx=0,dy=hr.bottom-ty-35.6;
-   hand.style.setProperty('--tac-hand-x',x+'px');hand.style.setProperty('--tac-hand-y',ty+'px');
-   if(anim){anim.cancel();anim=null}
-   if(hand.animate)anim=hand.animate([
-    {transform:'translate('+dx+'px,'+dy+'px) scale(.78)',opacity:.75},
-    {transform:'translate('+(dx*.62)+'px,'+(dy*.62)+'px) scale(1.05)',opacity:1,offset:.38},
-    {transform:'translate(0px,0px) scale(1.55)',opacity:1,offset:.48},
-    {transform:'translate(0px,5px) scale(1.12)',opacity:1,offset:.58},
-    {transform:'translate('+dx+'px,'+dy+'px) scale(.78)',opacity:.75,offset:1}
-   ],{duration:3800,iterations:Infinity,easing:'ease-in-out'});
-  }
-  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('scroll',move,{passive:true});window.addEventListener('orientationchange',function(){if(!expired)setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
+  if(window.matchMedia('(min-width:1100px)').matches||window.scrollY>35)return;
+  var candidates=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
+  var target=candidates.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight}).sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top})[0];
+  if(!target)return;
+  var bubble=document.createElement('div');bubble.id='tac-toolbar-coach-bubble';bubble.className='tac-toolbar-coach-bubble';bubble.setAttribute('role','note');bubble.setAttribute('aria-hidden','true');bubble.textContent='小提醒：點「工具欄」可開啟更多投資工具！';document.body.appendChild(bubble);
+  target.classList.add('tac-toolbar-coach-target');
+  var tr=target.getBoundingClientRect(),br=bubble.getBoundingClientRect();
+  var left=Math.max(14,Math.min(window.innerWidth-br.width-14,tr.left+tr.width/2-br.width/2)),top=Math.max(8,tr.top-br.height-12);
+  bubble.style.left=left+'px';bubble.style.top=top+'px';bubble.style.setProperty('--tac-bubble-tail-x',Math.max(12,Math.min(br.width-12,tr.left+tr.width/2-left))+'px');
+  var cleanup=function(){bubble.remove();target.classList.remove('tac-toolbar-coach-target');window.removeEventListener('scroll',cleanup);window.removeEventListener('resize',cleanup)};
+  window.setTimeout(cleanup,4000);window.addEventListener('scroll',cleanup,{once:true,passive:true});window.addEventListener('resize',cleanup,{once:true,passive:true});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
