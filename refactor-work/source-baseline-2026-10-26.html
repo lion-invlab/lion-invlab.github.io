@@ -3243,7 +3243,7 @@ main.wrap [data-main-section-title]{
 <script id="tac-toolbar-coach-v1-js">
 (function(){
  function setup(){
-  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
+  document.querySelectorAll('#tac-tools-hint,.tac-tools-arrow-live').forEach(function(el){el.remove()});
   if(window.matchMedia('(min-width:1100px)').matches||window.scrollY>35)return;
   var candidates=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
   var target=candidates.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight}).sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top})[0];
