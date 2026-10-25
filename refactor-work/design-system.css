@@ -60,7 +60,7 @@
   background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
 }
 .tac-ds-panel--sentiment { min-width: 0; }
-.tac-ds-panel--tabbed,
+.tac-ds-panel--tabbed { padding: 8px; }
 .tac-ds-panel--calendar,
 .tac-ds-panel--earnings-health,
 .tac-ds-panel--fed,
@@ -95,7 +95,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   line-height: 1.5;
   white-space: normal;
 }
-.tac-ds-panel > .tac-section-heading { margin: 0 0 16px; }
+.tac-ds-panel > .tac-section-heading { margin: 0 0 12px; }
 .tac-ds-panel > .tac-section-heading h2 {
   min-width: 0;
   margin: 0;
@@ -426,8 +426,8 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 .tac-ds-panel--tabbed .tac-ds-card--news {
   display: block;
   min-width: 0;
-  margin: 0 0 10px;
-  padding: 14px 16px;
+  margin: 0 0 6px;
+  padding: 12px 10px;
   border: 1px solid #e1e5eb;
   border-radius: 12px;
   background: #fff;
@@ -470,9 +470,11 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   color: var(--tac-ds-color-brand);
 }
 @media (max-width: 700px) {
+  .tac-ds-panel--tabbed { padding: 8px; }
+  .tac-ds-panel--tabbed .tac-ds-tabs { margin-bottom: 8px; }
   .tac-ds-panel--tabbed .tac-ds-card--news {
-    margin-bottom: 8px;
-    padding: 11px 12px;
+    margin-bottom: 4px;
+    padding: 11px 9px;
     border-radius: 10px;
   }
   .tac-ds-panel--tabbed .tac-ds-card--news h3 { font-size: 14px; }
