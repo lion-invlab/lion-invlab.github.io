@@ -834,3 +834,18 @@ html {
   line-height: 1.4 !important;
   white-space: normal !important;
 }
+
+
+/* Corrected selector scope: the prior-week disclosure details are nested in the outer section,
+   whose id is not guaranteed to be the immediate styling root. Override the shared summary
+   min-height directly on the uniquely named disclosure components. */
+.last-week-calendar-collapse.tac-ds-disclosure > summary,
+.last-week-earnings-collapse.tac-ds-disclosure > summary {
+  display: block !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 10px 12px !important;
+  line-height: 1.4 !important;
+  align-items: initial !important;
+  gap: 0 !important;
+}
