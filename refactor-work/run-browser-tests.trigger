@@ -33,3 +33,5 @@ reduce-tab-navigation-vertical-footprint-2026-10-25
 restore-prior-week-disclosure-geometry-2026-10-25
 
 restore-prior-week-event-stack-rhythm-2026-10-25
+
+fix-prior-week-summary-selector-scope-2026-10-25
