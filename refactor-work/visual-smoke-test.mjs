@@ -51,6 +51,10 @@ async function loadPage(browser, file, viewport) {
     document.documentElement.dataset.tacCoachPointerEventsNone = String(!!style && style.pointerEvents === "none");
     document.documentElement.dataset.tacCoachTargetPulse = String(!!target && getComputedStyle(target).animationName.includes("tac-toolbar-coach-pulse"));
     document.documentElement.dataset.tacCoachInitialVisibility = style ? style.display : "missing";
+    const bubbleRect = bubble ? bubble.getBoundingClientRect() : null;
+    document.documentElement.dataset.tacCoachBubbleInViewport = String(!!bubbleRect && bubbleRect.left >= -1 && bubbleRect.right <= window.innerWidth + 1);
+    document.documentElement.dataset.tacCoachBubbleWraps = String(!!bubble && !!style && style.whiteSpace !== "nowrap" && bubble.scrollWidth <= bubble.clientWidth + 1 && bubble.clientHeight < 90);
+    document.documentElement.dataset.tacCoachBubbleWidth = String(bubbleRect ? Math.round(bubbleRect.width) : 0);
     document.querySelectorAll("#tac-toolbar-coach-bubble").forEach(el => el.remove());
     document.querySelectorAll(".tac-toolbar-coach-target").forEach(el => el.classList.remove("tac-toolbar-coach-target"));
     document.body.style.overflow = "";
@@ -95,6 +99,9 @@ async function inspect(page) {
       coachPointerEventsNone: document.documentElement.dataset.tacCoachPointerEventsNone === "true",
       coachTargetPulse: document.documentElement.dataset.tacCoachTargetPulse === "true",
       coachInitialVisibility: document.documentElement.dataset.tacCoachInitialVisibility || "missing",
+      coachBubbleInViewport: document.documentElement.dataset.tacCoachBubbleInViewport === "true",
+      coachBubbleWraps: document.documentElement.dataset.tacCoachBubbleWraps === "true",
+      coachBubbleWidth: Number(document.documentElement.dataset.tacCoachBubbleWidth || 0),
       styleTagCount: document.querySelectorAll("style").length,
       scriptCount: document.querySelectorAll("script").length,
       sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
@@ -379,7 +386,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
-- Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
+- Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}, bubble in viewport=${v.coachBubbleInViewport}, wraps=${v.coachBubbleWraps}, width=${v.coachBubbleWidth}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
 - Sentiment special background: class=${v.sentimentThemeClassPresent}, layered background=${v.sentimentBackgroundImage?.includes("gradient")}, orbit before=${v.sentimentBeforeContent}/${v.sentimentBeforeBoxShadow}, orbit after=${v.sentimentAfterContent}/${v.sentimentAfterBoxShadow}, canvas=${v.sentimentBackgroundColor}\n- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}, actual earnings result cards=${v.sharedActualEarningsCardCount}, radii=${v.sharedActualEarningsCardRadii?.join(",")}, backgrounds=${v.sharedActualEarningsCardBackgrounds?.join(",")}, beat/miss=${v.actualEarningsBeatCount}/${v.actualEarningsMissCount}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
@@ -396,6 +403,7 @@ try {
   const failed = results.viewports.some(v =>
     v.duplicateIds.length || v.missingPanels.length || v.unmatchedNav.length || !v.navAnchorsPass ||
     (v.coachMobileExpected && (!v.coachPresentBeforeCleanup || !v.coachTextContract || !v.coachPointerEventsNone || !v.coachTargetPulse)) ||
+    (v.coachMobileExpected && (!v.coachBubbleInViewport || !v.coachBubbleWraps || v.coachBubbleWidth > Math.min(240, v.width - 28) + 1)) ||
     (!v.coachMobileExpected && v.coachInitialVisibility !== "missing") ||
     v.sentimentThemeClassPresent !== true || !String(v.sentimentBackgroundImage || "").includes("gradient") || v.sentimentBeforeContent === "none" || v.sentimentBeforeContent === "normal" || !String(v.sentimentBeforeBoxShadow || "").includes("rgba") || v.sentimentAfterContent === "none" || v.sentimentAfterContent === "normal" || !String(v.sentimentAfterBoxShadow || "").includes("rgba") ||
     v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
