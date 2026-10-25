@@ -2085,7 +2085,7 @@ html { scroll-padding-top: 112px; }
 </div></div></div></div></section>
 <div style="height:14px"></div>
 </main>
-<footer class="footer">TAC 投資早報｜2026/10/26（一）修正測試版｜提醒膠囊與彈窗保留原母版結構｜美股主要指數採2026/10/23當地正式收盤；各市場與個別指標依頁面標示日期及口徑，未完成交叉核對者明確註記。資訊整理與教育用途，不構成投資建議。</footer>
+<footer class="footer">TAC 投資早報｜2026/10/26（一）｜美股主要指數採 2026/10/23 當地正式收盤；各市場與個別指標依頁面標示日期及口徑，未完成交叉核對者明確註記。資訊整理與教育用途，不構成投資建議。</footer>
 <script>
 function historyPath(dateStr){
   return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
@@ -2383,14 +2383,18 @@ document.addEventListener('DOMContentLoaded',function(){
 @media(min-width:1100px){.tac-side-open{display:none!important}}
 </style>
 <script id="tac-sidebar-tools-script-v4">
-document.addEventListener('DOMContentLoaded',function(){
- const btn=document.querySelector('.tac-side-open');
- const nav=document.querySelector('.nav');
- if(btn&&nav){
-   nav.insertBefore(btn,nav.firstChild);
-   btn.setAttribute('aria-label','開啟 TAC 工具欄');
+(function(){
+ function placeToolbarButton(){
+  const btn=document.querySelector('.tac-side-open');
+  const nav=document.querySelector('.nav');
+  if(!btn||!nav)return;
+  if(btn.parentElement!==nav)nav.insertBefore(btn,nav.firstChild);
+  btn.setAttribute('aria-label','開啟 TAC 工具欄');
+  btn.setAttribute('data-tac-toolbar-placement','navigation');
  }
-});
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',placeToolbarButton,{once:true});
+ else placeToolbarButton();
+})();
 </script>
 <div id="tac-fund-notice" hidden role="dialog" aria-modal="true" aria-labelledby="tfn-title">
  <div class="tfn-dialog">
