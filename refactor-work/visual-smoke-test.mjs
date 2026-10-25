@@ -73,6 +73,14 @@ async function inspect(page) {
         const r = el.getBoundingClientRect();
         return { id, top: Math.round(r.top + window.scrollY), height: Math.round(r.height), bottom: Math.round(r.bottom + window.scrollY), width: Math.round(r.width), padding: getComputedStyle(el).padding, margin: getComputedStyle(el).margin, gap: getComputedStyle(el).gap };
       }),
+      detailedGeometry: ["news-scan","global-markets","industry-bonds-fx-commodities","last-week-calendar","last-week-earnings"].map(id => {
+        const root = document.getElementById(id);
+        if (!root) return { id, missing: true };
+        return { id, nodes: [...root.querySelectorAll(".tac-ds-card--news, .news-card, .region-card, .asset-card, details, .calendar-card, .tac-section-heading, .title, .news-list, .news-grid, .grid, .tac-ds-tabs")].slice(0,80).map((el,i) => {
+          const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+          return {i, tag:el.tagName, cls:String(el.className||"").slice(0,100), id:el.id, top:Math.round(r.top+window.scrollY), height:Math.round(r.height), width:Math.round(r.width), padding:s.padding, margin:s.margin, gap:s.gap, fontSize:s.fontSize, lineHeight:s.lineHeight, display:s.display};
+        })};
+      }),
       horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
       duplicateIds: [...new Set(duplicateIds)],
       missingPanels: panelIds.filter(id => !document.getElementById(id)),
