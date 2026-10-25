@@ -184,6 +184,13 @@ try {
       diffRatio = diffPixels / (basePng.width * basePng.height);
       fs.writeFileSync(path.join(outDir, "diff-" + viewport.name + ".png"), PNG.sync.write(diff));
     }
+    // Keep the existing viewport-sized screenshots for comparable pixel-diff metrics.
+    // Also capture full-page mobile views so reviewers can inspect below-the-fold panels
+    // that are not visible in the first 844px/800px viewport.
+    if (viewport.name !== "desktop") {
+      await base.page.screenshot({ path: path.join(outDir, "baseline-" + viewport.name + "-full.png"), fullPage: true, animations: "disabled" });
+      await cand.page.screenshot({ path: path.join(outDir, "candidate-" + viewport.name + "-full.png"), fullPage: true, animations: "disabled" });
+    }
     results.visualDiffs.push({ viewport: viewport.name, dimensionsMatch, baselineSize: [basePng.width, basePng.height], candidateSize: [candPng.width, candPng.height], diffPixels, diffRatio });
 
     // Real navigation-anchor geometry: click every main nav link and measure the target heading against the sticky header/nav bottom.
