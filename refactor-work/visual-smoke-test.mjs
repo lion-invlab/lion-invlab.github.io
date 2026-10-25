@@ -217,6 +217,26 @@ try {
     const navAnchorsPass = navAnchorResults.length > 0 && navAnchorResults.every(x =>
       x.targetFound && x.headingFound && x.headingVisible && x.clearance !== null && x.clearance >= 6 && !x.interactionError
     );
+    // Verify the mobile toolbar stays attached to the navigation after scrolling.
+    await cand.page.evaluate(() => window.scrollTo(0, Math.min(600, document.documentElement.scrollHeight - window.innerHeight)));
+    await cand.page.waitForTimeout(120);
+    const toolbarScrollCheck = await cand.page.evaluate(() => {
+      const btn = document.querySelector(".tac-side-open");
+      const nav = document.querySelector(".nav");
+      if (!btn || !nav) return { exists: false, buttonWithinNav: false, buttonInsideNavViewport: false };
+      const b = btn.getBoundingClientRect();
+      const n = nav.getBoundingClientRect();
+      return {
+        exists: true,
+        buttonWithinNav: btn.parentElement === nav,
+        buttonInsideNavViewport: b.top >= n.top - 1 && b.bottom <= n.bottom + 1,
+        buttonTop: Math.round(b.top), buttonBottom: Math.round(b.bottom),
+        navTop: Math.round(n.top), navBottom: Math.round(n.bottom),
+        scrollY: Math.round(window.scrollY)
+      };
+    });
+    await cand.page.evaluate(() => window.scrollTo(0, 0));
+    await cand.page.waitForTimeout(100);
     const tabResults = [];
     for (const tab of tabCases) {
       const label = cand.page.locator(tab.label).first();
@@ -376,7 +396,7 @@ try {
     const consistentSelectedTabTextColor = selectedTabTextColors.length > 0 && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
+      ...viewport, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -425,7 +445,7 @@ try {
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
-    !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || (v.width < 1100 && v.toolbarButtonPosition !== "relative") ||
+    !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || (v.width < 1100 && v.toolbarButtonPosition !== "relative") || (v.width < 1100 && (!v.toolbarScrollCheck?.buttonWithinNav || !v.toolbarScrollCheck?.buttonInsideNavViewport)) ||
     v.temporaryPreviewFooterText || !Number.isFinite(v.fearGreedScore) || !Number.isFinite(v.fearGreedMarkerPosition) ||
     Math.abs(v.fearGreedScore - v.fearGreedMarkerPosition) > 0.1 || v.fiveStarRedCount < 1 ||
     v.sourceTrianglesPresent < 1 || v.doubleBarHeadings > 0 ||
