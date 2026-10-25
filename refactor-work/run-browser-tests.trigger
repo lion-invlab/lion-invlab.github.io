@@ -68,3 +68,5 @@ scroll-position-toolbar-regression-2026-10-25
 instrument-font-and-tab-signature-regression-2026-10-25
 
 report-font-and-toolbar-diagnostics-2026-10-25
+
+fix-diagnostic-summary-newlines-rerun-2026-10-25
