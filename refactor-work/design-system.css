@@ -908,3 +908,26 @@ html {
     font-size: 12px !important;
   }
 }
+
+
+/* Final news-scan geometry pass: retain the tab affordance, reduce its footprint,
+   and avoid adding vertical gaps between legacy news cards. */
+#news-scan .tac-ds-tabs {
+  padding: 1px !important;
+  margin-bottom: 2px !important;
+}
+#news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+  min-height: 26px !important;
+  padding: 2px 7px !important;
+  line-height: 1.2 !important;
+}
+#news-scan .tac-ds-panel--tabbed .tac-ds-card--news {
+  margin-bottom: 0 !important;
+}
+@media (max-width: 700px) {
+  #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+    min-height: 26px !important;
+    padding: 2px 6px !important;
+    font-size: 11px !important;
+  }
+}
