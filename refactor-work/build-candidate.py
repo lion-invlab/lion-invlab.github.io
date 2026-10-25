@@ -64,19 +64,9 @@ add_class_to_id("sp500-earnings-health", "tac-ds-panel tac-ds-panel--earnings-he
 add_class_to_id("fed", "tac-ds-panel tac-ds-panel--fed")
 add_class_to_id("view", "tac-ds-panel tac-ds-panel--focus")
 
-# Migrate the two top-level prior-week calendar disclosures in this pass.
-for disclosure_class in ("last-week-calendar-collapse", "last-week-earnings-collapse"):
-    pattern = re.compile(r'(<details\b[^>]*\bclass="[^"]*\b' + re.escape(disclosure_class) + r'\b[^"]*"[^>]*>)', re.I)
-    matches = list(pattern.finditer(html))
-    if len(matches) != 1:
-        raise SystemExit(f"Refusing build: expected one {disclosure_class} disclosure, found {len(matches)}.")
-    tag = matches[0].group(1)
-    class_match = re.search(r'\bclass="([^"]*)"', tag, re.I)
-    names = class_match.group(1).split()
-    if "tac-ds-disclosure" not in names:
-        names.append("tac-ds-disclosure")
-    updated_tag = tag[:class_match.start(1)] + " ".join(names) + tag[class_match.end(1):]
-    html = html[:matches[0].start(1)] + updated_tag + html[matches[0].end(1):]
+# Keep prior-week disclosures on proven legacy geometry for this pass.
+# Shared disclosure minimum-height and padding changed wrapping at mobile widths;
+# leave these two legacy components unmigrated until parity can be proven.
 
 # Apply the shared radio-tab component without changing radio IDs, labels, names, or panel IDs.
 tab_nav_variants = [
