@@ -984,7 +984,16 @@ html {
 #global-markets .tac-tab-nav label {
   flex: 1 0 auto !important;
 }
-.tac-tabset .tac-tab-radio:checked ~ .tac-tab-nav label[for] {
+#tac-news-0:checked ~ .tac-tab-nav label[for="tac-news-0"],
+#tac-news-1:checked ~ .tac-tab-nav label[for="tac-news-1"],
+#tac-region-0:checked ~ .tac-tab-nav label[for="tac-region-0"],
+#tac-region-1:checked ~ .tac-tab-nav label[for="tac-region-1"],
+#tac-region-2:checked ~ .tac-tab-nav label[for="tac-region-2"],
+#tac-assets-0:checked ~ .tac-tab-nav label[for="tac-assets-0"],
+#tac-assets-1:checked ~ .tac-tab-nav label[for="tac-assets-1"],
+#tac-assets-2:checked ~ .tac-tab-nav label[for="tac-assets-2"],
+#tac-assets-3:checked ~ .tac-tab-nav label[for="tac-assets-3"],
+#tac-assets-4:checked ~ .tac-tab-nav label[for="tac-assets-4"] {
   background: #b42332 !important;
   color: #fff !important;
   border-color: #b42332 !important;
