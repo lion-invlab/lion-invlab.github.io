@@ -23,3 +23,5 @@ anchor-scroll-padding-in-design-system-rerun-2026-10-25
 measure-panel-geometry-height-regression-2026-10-25
 inspect-expanded-section-card-geometry-2026-10-25
 compare-legacy-and-shared-card-geometry-2026-10-25
+
+compact-tabbed-panel-and-news-card-geometry-trial-2026-10-25
