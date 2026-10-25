@@ -20,3 +20,4 @@ anchor-root-scroll-padding-112px-rerun-2026-10-25
 anchor-cascade-override-removed-rerun-2026-10-25
 
 anchor-scroll-padding-in-design-system-rerun-2026-10-25
+measure-panel-geometry-height-regression-2026-10-25
