@@ -55,7 +55,7 @@ async function loadPage(browser, file, viewport) {
     document.documentElement.dataset.tacCoachBubbleInViewport = String(!!bubbleRect && bubbleRect.left >= -1 && bubbleRect.right <= window.innerWidth + 1);
     document.documentElement.dataset.tacCoachBubbleWraps = String(!!bubble && !!style && style.whiteSpace !== "nowrap" && bubble.scrollWidth <= bubble.clientWidth + 1 && bubble.clientHeight < 90);
     document.documentElement.dataset.tacCoachBubbleWidth = String(bubbleRect ? Math.round(bubbleRect.width) : 0);
-    document.documentElement.dataset.tacLegacyHintRemoved = String(!document.querySelector("#tac-tools-hint"));
+    document.documentElement.dataset.tacLegacyHintRemoved = String(!document.querySelector("#tac-tools-hint") && !document.querySelector(".tac-tools-hint") && !document.querySelector(".tac-tools-arrow-live"));
     document.querySelectorAll("#tac-toolbar-coach-bubble").forEach(el => el.remove());
     document.querySelectorAll(".tac-toolbar-coach-target").forEach(el => el.classList.remove("tac-toolbar-coach-target"));
     document.body.style.overflow = "";
