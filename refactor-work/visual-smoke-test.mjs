@@ -108,6 +108,15 @@ async function inspect(page) {
       coachTextInsideBubble: document.documentElement.dataset.tacCoachTextInsideBubble === "true",
       coachBubbleWidth: Number(document.documentElement.dataset.tacCoachBubbleWidth || 0),
       coachLegacyHintRemoved: document.documentElement.dataset.tacLegacyHintRemoved === "true",
+      toolbarButtonInNav: !!document.querySelector(".nav .tac-side-open"),
+      toolbarButtonPlacement: document.querySelector(".tac-side-open")?.getAttribute("data-tac-toolbar-placement") || "",
+      toolbarButtonPosition: document.querySelector(".tac-side-open") ? getComputedStyle(document.querySelector(".tac-side-open")).position : "missing",
+      temporaryPreviewFooterText: /修正測試版|提醒膠囊與彈窗保留原母版結構/.test(document.querySelector("footer.footer")?.textContent || ""),
+      fearGreedScore: Number(document.querySelector("#sentiment .fg6-score-main")?.textContent || NaN),
+      fearGreedMarkerPosition: Number(document.querySelector("#sentiment .fg6-marker")?.getAttribute("data-score-position") || NaN),
+      fiveStarRedCount: [...document.querySelectorAll(".earnings-accordion.star-verified-five .earnings-stars, .econ-event.star-verified-five .econ-stars")].filter(el => getComputedStyle(el).color === "rgb(198, 40, 40)").length,
+      sourceTrianglesPresent: [...document.querySelectorAll("main.wrap details.source-details > summary")].filter(el => getComputedStyle(el, "::before").content.includes("▸")).length,
+      doubleBarHeadings: [...document.querySelectorAll(".tac-tabset .tac-section-heading h2")].filter(el => getComputedStyle(el).borderLeftWidth !== "0px" && getComputedStyle(el, "::before").display !== "none").length,
       styleTagCount: document.querySelectorAll("style").length,
       scriptCount: document.querySelectorAll("script").length,
       sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
@@ -416,6 +425,10 @@ try {
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
+    !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || v.toolbarButtonPosition !== "relative" ||
+    v.temporaryPreviewFooterText || !Number.isFinite(v.fearGreedScore) || !Number.isFinite(v.fearGreedMarkerPosition) ||
+    Math.abs(v.fearGreedScore - v.fearGreedMarkerPosition) > 0.1 || v.fiveStarRedCount < 1 ||
+    v.sourceTrianglesPresent < 1 || v.doubleBarHeadings > 0 ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
     !v.consistentSelectedTabColor || !v.consistentSelectedTabTextColor || v.collapseWorks === false || v.earningsCollapseWorks === false || v.newErrors.length
   ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
