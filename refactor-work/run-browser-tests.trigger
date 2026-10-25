@@ -45,3 +45,5 @@ compact-tabs-and-source-summary-geometry-parity-2026-10-25
 final-news-scan-spacing-pass-2026-10-25
 
 mobile-toolbar-comic-bubble-v1-2026-10-25
+
+retry-coach-test-syntax-fix-2026-10-25
