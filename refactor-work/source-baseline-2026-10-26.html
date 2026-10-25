@@ -2085,6 +2085,26 @@ html { scroll-padding-top: 112px; }
 </div></div></div></div></section>
 <div style="height:14px"></div>
 </main>
+<script id="tac-fear-greed-marker-sync">
+(function(){
+ function syncFearGreedMarker(){
+  var scoreEl=document.querySelector('#sentiment .fg6-score-main');
+  var marker=document.querySelector('#sentiment .fg6-marker');
+  var wrap=document.querySelector('#sentiment .fg6-scale-wrap');
+  if(!scoreEl||!marker||!wrap)return;
+  var score=parseFloat((scoreEl.textContent||'').replace(/[^0-9.\-]/g,''));
+  if(!Number.isFinite(score))return;
+  score=Math.max(0,Math.min(100,score));
+  wrap.style.setProperty('position','relative','important');
+  marker.style.setProperty('left',score+'%','important');
+  marker.style.setProperty('transform','translateX(-50%)','important');
+  marker.setAttribute('aria-label','恐懼與貪婪指數 '+score+'/100');
+  marker.setAttribute('data-score-position',String(score));
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncFearGreedMarker,{once:true});
+ else syncFearGreedMarker();
+})();
+</script>
 <footer class="footer">TAC 投資早報｜2026/10/26（一）｜美股主要指數採 2026/10/23 當地正式收盤；各市場與個別指標依頁面標示日期及口徑，未完成交叉核對者明確註記。資訊整理與教育用途，不構成投資建議。</footer>
 <script>
 function historyPath(dateStr){
