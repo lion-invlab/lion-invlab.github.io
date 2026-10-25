@@ -880,3 +880,31 @@ html {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+
+/* Geometry parity pass 2026-10-25: compact shared tabs and source summaries.
+   Keep the controls legible while removing avoidable vertical height versus legacy. */
+.tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+  min-height: 28px !important;
+  padding: 3px 8px !important;
+  line-height: 1.25 !important;
+}
+.tac-ds-tabs {
+  padding: 1px;
+  margin-bottom: 6px;
+}
+.tac-ds-disclosure--source {
+  margin-top: 2px;
+}
+.tac-ds-disclosure--source > summary {
+  min-height: 21px !important;
+  padding: 2px 10px !important;
+  line-height: 1.35 !important;
+}
+@media (max-width: 700px) {
+  .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+    min-height: 28px !important;
+    padding: 3px 7px !important;
+    font-size: 12px !important;
+  }
+}
