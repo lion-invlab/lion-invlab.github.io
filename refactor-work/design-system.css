@@ -815,3 +815,22 @@ html {
   padding: 10px 12px !important;
   line-height: normal !important;
 }
+
+
+/* Geometry parity: prior-week panels historically stack event cards without outer margins.
+   Keep the shared card surface while restoring the legacy stack rhythm in these two panels. */
+#last-week-calendar details.tac-ds-event,
+#last-week-earnings details.tac-ds-event {
+  margin: 0 !important;
+}
+#last-week-calendar details.tac-ds-disclosure.last-week-calendar-collapse > summary,
+#last-week-earnings details.tac-ds-disclosure.last-week-earnings-collapse > summary {
+  display: block !important;
+  align-items: initial !important;
+  gap: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 10px 12px !important;
+  line-height: 1.4 !important;
+  white-space: normal !important;
+}
