@@ -53,3 +53,4 @@ coach-inline-style-and-legacy-hand-cleanup-rerun-2026-10-25
 fix-coach-bubble-width-and-wrap-2026-10-25
 fix-coach-bubble-wrap-geometry-2026-10-25
 remove-legacy-toolbar-hint-2026-10-25
+remove-obsolete-toolbar-capsule-code-2026-10-25
