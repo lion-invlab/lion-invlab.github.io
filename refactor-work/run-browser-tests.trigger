@@ -77,3 +77,4 @@ panel-geometry-report-trigger-2026-10-26T0052+0800
 restore-prior-week-disclosure-padding-regression-2026-10-26T0525+0800
 fix-prior-week-legacy-selector-scope-2026-10-26T0530+0800
 restore-prior-week-disclosure-legacy-shell-parity-2026-10-26T0613+0800
+restore-prior-week-disclosure-labels-and-arrows-2026-10-26T0620+0800
