@@ -1111,3 +1111,48 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     font-size: 16px !important;
   }
 }
+
+
+/* Direction B — narrow-screen refinement only (320px class of devices).
+   Keep the current segmented-tab and card visual language; prevent the five
+   industry tabs from wrapping into an uneven second row, and tighten only the
+   S&P 500 earnings-health card's internal spacing at very narrow widths. */
+@media (max-width: 380px) {
+  #industry-bonds-fx-commodities .tac-tab-nav {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    gap: 3px !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    white-space: nowrap !important;
+    scrollbar-width: thin;
+    padding: 2px !important;
+  }
+  #industry-bonds-fx-commodities .tac-tab-nav label {
+    flex: 0 0 auto !important;
+    min-width: max-content !important;
+    min-height: 29px !important;
+    padding: 4px 7px !important;
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+  }
+  #sp500-earnings-health {
+    padding: 10px !important;
+  }
+  #sp500-earnings-health > .title {
+    gap: 5px !important;
+    margin-bottom: 10px !important;
+    line-height: 1.3 !important;
+  }
+  #sp500-earnings-health .tac-ds-card,
+  #sp500-earnings-health .tac-ds-earnings-actual-card {
+    min-width: 0 !important;
+    padding: 9px !important;
+  }
+  #sp500-earnings-health .tac-ds-data-row {
+    gap: 5px !important;
+    padding: 7px 0 !important;
+  }
+}
