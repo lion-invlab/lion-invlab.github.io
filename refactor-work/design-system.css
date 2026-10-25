@@ -851,15 +851,14 @@ html {
 }
 
 
-/* Restore the legacy prior-week disclosure summary geometry.
-   The outer details shell stays unpadded; vertical/horizontal breathing room belongs
-   on the summary itself. This avoids clipping the label and restores wrapped mobile rows. */
-.last-week-calendar-collapse.tac-ds-disclosure,
-.last-week-earnings-collapse.tac-ds-disclosure {
+/* Restore legacy prior-week disclosure spacing. These wrappers are legacy details
+   elements and do not carry the shared tac-ds-disclosure class in the candidate DOM. */
+.last-week-calendar-collapse,
+.last-week-earnings-collapse {
   padding: 0 !important;
 }
-.last-week-calendar-collapse.tac-ds-disclosure > summary,
-.last-week-earnings-collapse.tac-ds-disclosure > summary {
+.last-week-calendar-collapse > summary,
+.last-week-earnings-collapse > summary {
   display: block !important;
   min-height: 0 !important;
   height: auto !important;
