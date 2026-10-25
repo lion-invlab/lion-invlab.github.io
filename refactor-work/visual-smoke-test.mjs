@@ -66,6 +66,13 @@ async function inspect(page) {
       title: document.title,
       width: window.innerWidth,
       docWidth: document.documentElement.scrollWidth,
+      pageHeight: document.documentElement.scrollHeight,
+      panelGeometry: panelIds.map(id => {
+        const el = document.getElementById(id);
+        if (!el) return { id, missing: true };
+        const r = el.getBoundingClientRect();
+        return { id, top: Math.round(r.top + window.scrollY), height: Math.round(r.height), bottom: Math.round(r.bottom + window.scrollY), width: Math.round(r.width), padding: getComputedStyle(el).padding, margin: getComputedStyle(el).margin, gap: getComputedStyle(el).gap };
+      }),
       horizontalOverflow: document.documentElement.scrollWidth > window.innerWidth + 1,
       duplicateIds: [...new Set(duplicateIds)],
       missingPanels: panelIds.filter(id => !document.getElementById(id)),
