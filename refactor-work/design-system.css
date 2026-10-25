@@ -931,3 +931,137 @@ html {
     font-size: 11px !important;
   }
 }
+
+
+/* TAC unified review fixes — 2026-10-25
+   One heading marker, consistent tab appearance, accurate fear/greed scale,
+   consistent source disclosure arrows, star-five color, and instrument typography. */
+
+/* The legacy heading marker is the single red bar; remove any second border bar. */
+.tac-tabset .tac-section-heading h2 {
+  border-left: 0 !important;
+  padding-left: 0 !important;
+}
+.tac-tabset .tac-section-heading h2::before {
+  content: "" !important;
+  display: inline-block !important;
+  flex: 0 0 5px !important;
+  width: 5px !important;
+  height: 1.05em !important;
+  min-height: 18px !important;
+  border-radius: 2px !important;
+  background: #c62828 !important;
+}
+
+/* All three main tabsets share the same segmented-control visual language.
+   Keep the industry tab strip horizontally scrollable because it has five tabs. */
+.tac-tabset .tac-tab-nav {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: 4px !important;
+  padding: 3px !important;
+  border: 1px solid #e1e4e8 !important;
+  border-radius: 12px !important;
+  background: #f3f4f6 !important;
+  border-bottom: 1px solid #e1e4e8 !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+.tac-tabset .tac-tab-nav label {
+  flex: 1 0 auto !important;
+  min-width: max-content !important;
+  min-height: 34px !important;
+  padding: 6px 10px !important;
+  border: 1px solid transparent !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  color: #606975 !important;
+  font: 800 13px/1.35 var(--tac-ds-font-body) !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+#news-scan .tac-tab-nav label,
+#global-markets .tac-tab-nav label {
+  flex: 1 0 auto !important;
+}
+.tac-tabset .tac-tab-radio:checked ~ .tac-tab-nav label[for] {
+  background: #b42332 !important;
+  color: #fff !important;
+  border-color: #b42332 !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12) !important;
+  font-weight: 850 !important;
+}
+@media (max-width: 700px) {
+  .tac-tabset .tac-tab-nav { gap: 3px !important; padding: 2px !important; }
+  .tac-tabset .tac-tab-nav label { min-height: 32px !important; padding: 5px 8px !important; font-size: 12px !important; }
+}
+
+/* CNN Fear & Greed: position the marker from the displayed score, and align
+   labels with the five official bands instead of dividing them into equal fifths. */
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker {
+  left: 0 !important; /* overwritten by the score-sync script */
+  transform: translateX(-50%) !important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels {
+  grid-template-columns: 25fr 20fr 10fr 20fr 25fr !important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels span { text-align: center !important; }
+
+/* Show a triangle consistently on every source/method disclosure; suppress duplicate glyphs. */
+main.wrap details.source-details > summary,
+main.wrap details.calendar-source-collapse > summary,
+main.wrap details.audit-details > summary {
+  list-style: none !important;
+}
+main.wrap details.source-details > summary::-webkit-details-marker,
+main.wrap details.calendar-source-collapse > summary::-webkit-details-marker,
+main.wrap details.audit-details > summary::-webkit-details-marker { display: none !important; }
+main.wrap details.source-details > summary::marker,
+main.wrap details.calendar-source-collapse > summary::marker,
+main.wrap details.audit-details > summary::marker { content: "" !important; }
+main.wrap details.source-details > summary::before,
+main.wrap details.calendar-source-collapse > summary::before {
+  content: "▸" !important;
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  margin-right: 1px !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  color: #747b84 !important;
+  -webkit-text-fill-color: #747b84 !important;
+}
+main.wrap details.source-details[open] > summary::before,
+main.wrap details.calendar-source-collapse[open] > summary::before {
+  transform: rotate(90deg) !important;
+}
+main.wrap details.audit-details > summary::before {
+  content: "▸" !important;
+  display: inline-block !important;
+  color: #747b84 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+main.wrap details.audit-details[open] > summary::before { content: "▾" !important; }
+
+/* Five-star importance: red star glyphs in both economic and earnings calendars. */
+.earnings-accordion.star-verified-five .earnings-stars,
+.econ-event.star-verified-five .econ-stars,
+.earnings-calendar tr.five-star-earnings .earnings-stars,
+.earnings-calendar tr.five-star-earnings .earnings-stars span {
+  color: #c62828 !important;
+}
+
+/* Match bond / FX / commodity instrument names to the global-markets instrument size. */
+#industry-bonds-fx-commodities #bonds .row b,
+#industry-bonds-fx-commodities .row .instrument-name,
+#industry-bonds-fx-commodities .row b.instrument-name {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+@media (max-width: 700px) {
+  #industry-bonds-fx-commodities #bonds .row b,
+  #industry-bonds-fx-commodities .row .instrument-name,
+  #industry-bonds-fx-commodities .row b.instrument-name {
+    font-size: 16px !important;
+  }
+}
