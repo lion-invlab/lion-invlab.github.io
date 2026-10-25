@@ -435,7 +435,9 @@ try {
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
-- Instrument font sizes: global market=${JSON.stringify(v.globalMarketNameFontSizes)}, industry=${JSON.stringify(v.industryInstrumentFontSizes)}, comparable=${v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.length > 0 && v.industryInstrumentFontSizes.every(size => v.globalMarketNameFontSizes.includes(size))}\n- Main tab style signatures: ${JSON.stringify(v.mainTabStyleSignatures)}\n- Toolbar placement/scroll: nav=${v.toolbarButtonInNav}, placement=${v.toolbarButtonPlacement}, position=${v.toolbarButtonPosition}, scroll=${JSON.stringify(v.toolbarScrollCheck)}
+- Instrument font sizes: global market=${JSON.stringify(v.globalMarketNameFontSizes)}, industry=${JSON.stringify(v.industryInstrumentFontSizes)}, comparable=${v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.length > 0 && v.industryInstrumentFontSizes.every(size => v.globalMarketNameFontSizes.includes(size))}
+- Main tab style signatures: ${JSON.stringify(v.mainTabStyleSignatures)}
+- Toolbar placement/scroll: nav=${v.toolbarButtonInNav}, placement=${v.toolbarButtonPlacement}, position=${v.toolbarButtonPosition}, scroll=${JSON.stringify(v.toolbarScrollCheck)}
 - Selected tab color unified: ${v.consistentSelectedTabColor}; selected text white: ${v.consistentSelectedTabTextColor}
 - Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, bg=${t.backgroundColor || ""}, selector=${JSON.stringify(t.selectorMatch || {})}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
