@@ -173,3 +173,5 @@ Run 151: verify economic-event detail-field grid and responsive styles after leg
 Run 152: verify event summary ownership and removal of unused econ-toggle CSS selectors.
 
 Run 153: verify economic event-list wrapper migration and card layout across all viewports.
+
+Run 154: verify earnings accordion shell migration across all 22 cards and open/close states.
