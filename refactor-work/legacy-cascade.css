@@ -451,11 +451,11 @@ body.release-ready .news-window-warning { display: none !important; }
 
 .econ-event>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:6px 12px;padding:13px 14px;align-items:start}
 .econ-event>summary::-webkit-details-marker{display:none}
-.econ-event .econ-meta{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:8px 14px;align-items:center;font-size:13px;font-weight:850;color:#24272b;min-width:0}
-.econ-event .econ-country{color:#737981;font-weight:800}
-.econ-event .econ-name{grid-column:1/-1;font-size:15px;line-height:1.45;font-weight:900;overflow-wrap:anywhere;word-break:normal}
-.econ-event.five-star .econ-name{color:#c62828}
-.econ-event .econ-stars{grid-column:1/-1;color:#a56b00;font-size:14px;letter-spacing:0.5px}
+
+
+
+
+
 .econ-event .econ-toggle{grid-column:2;grid-row:1;align-self:center;color:#c62828;font-size:25px;font-weight:900;line-height:1}
 .econ-event .econ-toggle:before{content:"＋"}
 .econ-event[open] .econ-toggle:before{content:"−"}
@@ -465,7 +465,7 @@ body.release-ready .news-window-warning { display: none !important; }
 .econ-event .econ-field .econ-value{font-size:14px;color:#24272b;white-space:pre-wrap;overflow-wrap:anywhere}
 .econ-event .econ-field.wide{grid-column:1/-1}
 .econ-event .econ-field a{overflow-wrap:anywhere}
-@media(max-width:640px){.econ-event>summary{padding:12px 13px}.econ-event .econ-meta{grid-template-columns:auto auto minmax(0,1fr);gap:6px 10px;font-size:12px}.econ-event .econ-name{font-size:15px}.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
+@media(max-width:640px){.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
 
 
 /* Original style block 3 */
@@ -2815,8 +2815,8 @@ main.wrap > section.card.fed-live > .title,
 .earnings-accordion.five-star-earnings .earnings-company-name,
 .earnings-accordion .earnings-company-name.five-star-company { color:#202124!important; }
 .earnings-accordion.five-star-earnings.star-verified-five .earnings-company-name { color:#c62828!important; }
-.econ-event .econ-name { color:#202124!important; }
-.econ-event.star-verified-five .econ-name { color:#c62828!important; }
+
+
 
 
 /* Original style block 94 */
