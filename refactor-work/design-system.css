@@ -1721,19 +1721,11 @@ main.wrap details.audit-details > summary::before {
   -webkit-text-fill-color: #e2b84d !important;
 }
 
-/* Tabset headings use the shared border marker only; remove the legacy pseudo bar.
-   The source has a high-specificity important rule, so scope the override to each tabset panel. */
-html body main.wrap #news-scan .tac-tabset .tac-section-heading h2::before,
-html body main.wrap #global-markets .tac-tabset .tac-section-heading h2::before,
-html body main.wrap #industry-bonds-fx-commodities .tac-tabset .tac-section-heading h2::before,
-html body main.wrap #news-scan .tac-tabset .tac-section-heading h2:before,
-html body main.wrap #global-markets .tac-tabset .tac-section-heading h2:before,
-html body main.wrap #industry-bonds-fx-commodities .tac-tabset .tac-section-heading h2:before {
-  content: none !important;
-  display: none !important;
-  width: 0 !important;
-  min-width: 0 !important;
-  flex: 0 0 0 !important;
-  background: none !important;
-  border: 0 !important;
+/* Tabset headings retain the existing red pseudo-marker as the single bar.
+   The canonical shared h2 rule adds a border too, so remove that border only
+   inside tabsets; this avoids relying on pseudo-element cascade precedence. */
+html body main.wrap .tac-tabset .tac-section-heading h2,
+html body main.wrap .tac-tabset .tac-section-heading h2.tac-section-title {
+  border-left: 0 !important;
+  padding-left: 0 !important;
 }
