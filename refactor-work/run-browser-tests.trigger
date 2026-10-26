@@ -307,3 +307,5 @@ calendar-status-tabs-audit-2026-10-26
 shared-main-tab-font-12px-narrow-regression-2026-10-26
 
 geometry-diagnostic-2026-10-26T0915Z
+
+sp500-deep-geometry-2026-10-26T0918Z
