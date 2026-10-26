@@ -341,3 +341,11 @@
 - Artifact 12628914680 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；事件卡 12 張、財報卡 22 張、五星紅字 16；事件開／關與來源 disclosure 開／關通過；外框圓角桌機 12px、手機／窄手機 10px，面板幾何與 Run 152 一致。
 - 盤點確認 legacy-cascade.css 中已沒有 econ-event、econ-meta、econ-name、econ-details、econ-field、econ-toggle 或 econ-event-list selector 命中；經濟事件卡的外框、summary、metadata、內部欄位與列表容器已由 design-system.css 接管。這代表經濟事件元件的舊 selector 相依已清零；不等於整份 legacy CSS 可以移除，其他元件仍有大量相依。
 - 下一個候選是 earnings-accordion（舊 CSS 仍有大量 selector 命中、設計系統目前主要接管外框）；先量出其內部結構／樣式責任與候選 DOM 覆蓋率，再逐步移交。
+
+
+## 2026-10-26 財報手風琴外框責任移交（Run 154 通過）
+
+- 設計系統提交：c76a62a0abe06b298300298a8ef213fe5762939c；legacy 清理提交：480e4860e4790bc32a8e4e79444eb6d18cc2b80f；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40273144948。
+- 已確認候選 DOM 22 張 earnings-accordion 全部帶有 tac-ds-earnings-card。將 min-width、transition 與 open 狀態外框邊線／陰影納入設計系統，從 legacy 移除舊外框規則及已被新元件覆蓋的 margin／摘要背景覆寫；保留摘要列 toggle、公司名稱、詳細欄位、結果 grid 等內部規則。
+- Artifact 12627899961 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；經濟事件卡 12 張、財報卡 22 張、五星紅字 16；財報手風琴開／關、來源 disclosure 開／關通過；外框圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
+- 下一步先移交 earnings-accordion-list 容器的 grid／gap／margin，之後再處理摘要列與 toggle 控制。財報卡的內部欄位和結果 grid 有多層 legacy override，未完成逐條盤點前不批次清除。
