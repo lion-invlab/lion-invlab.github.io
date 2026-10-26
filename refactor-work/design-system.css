@@ -1248,3 +1248,19 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     min-height: 58px !important;
   }
 }
+
+
+/* News/global tab container parity: close small panel-height deltas while keeping shared label signatures. */
+@media (min-width: 701px) {
+  #news-scan .tac-tab-nav {
+    min-height: 39px !important;
+  }
+  #global-markets .tac-tab-nav {
+    min-height: 40px !important;
+  }
+}
+@media (min-width: 381px) and (max-width: 700px) {
+  #news-scan .tac-tab-nav {
+    min-height: 35px !important;
+  }
+}
