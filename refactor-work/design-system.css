@@ -1371,3 +1371,14 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   align-items: start;
 }
 .tac-ds-event > summary::-webkit-details-marker { display: none; }
+
+/* Economic event-list wrapper ownership. */
+#calendar .econ-event-list,
+#last-week-calendar .econ-event-list,
+#earnings .econ-event-list,
+#last-week-earnings .econ-event-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin: 8px 0 12px;
+}
