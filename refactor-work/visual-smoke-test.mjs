@@ -149,6 +149,25 @@ async function inspect(page) {
         return { selector, row:signature(row), name:signature(name), values:values.slice(0,2).map(signature) };
       }),
 
+      letterSpacingRuleAudit: (() => {
+        const selector = "html body #industry-bonds-fx-commodities .tac-tab-panel .row b";
+        const rules = [];
+        const visit = list => {
+          for (const rule of list) {
+            if (rule.selectorText === selector) rules.push({ selector:rule.selectorText, letterSpacing:rule.style.getPropertyValue("letter-spacing"), important:rule.style.getPropertyPriority("letter-spacing") === "important" });
+            if (rule.cssRules) visit(rule.cssRules);
+          }
+        };
+        for (const sheet of document.styleSheets) {
+          try { visit(sheet.cssRules); } catch (_) {}
+        }
+        return {
+          matchingNames: document.querySelectorAll(selector).length,
+          matchingEnergyLegacyNames: document.querySelectorAll("#industry-bonds-fx-commodities .energy-card .row b").length,
+          matchingRows: document.querySelectorAll("#industry-bonds-fx-commodities .tac-tab-panel .row b").length,
+          rules
+        };
+      })(),
       industryInstrumentFontSizes: [...new Set([...document.querySelectorAll("#industry-bonds-fx-commodities #bonds .row b, #industry-bonds-fx-commodities .row .instrument-name")].map(el => getComputedStyle(el).fontSize))],
       tabNavGeometry: ["#news-scan", "#global-markets", "#industry-bonds-fx-commodities"].map(id => {
         const root = document.querySelector(id);
