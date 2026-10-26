@@ -200,3 +200,10 @@
 - 修正已解決 320px 被舊 flex 規則覆寫的問題：候選窄手機導覽列現在為 grid、70px，而非上一輪 flex、35px。桌機導覽列 72px（baseline 96px），390px 70px（baseline 89px），320px 70px（baseline 89px）。因此目前已恢復 grid 排列及通過硬性回歸，但高度仍比基準短 19–24px，尚不能標記為幾何完全一致。
 - 產業整體面板高度目前桌機 396px（baseline 380px，+16）、手機 471px（baseline 448px，+23）、窄手機 458px（baseline 502px，-44）。差異同時受頁籤列與資料列高度影響；不以加大 tab 高度破壞三組主頁籤一致性，也不盲目增加間距。下一步應單獨對照 baseline／candidate 的產業 tab padding、row-gap 與 sector-row 內部文字換行，先確認最小可逆調整，再做下一輪驗收。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業資料列高度校準（待回歸驗收）
+
+- Run 134 artifact 的 baselineDetailedGeometry 與 candidate detailedGeometry 逐列比對後，確認產業資料列高度差是主要可控差異：桌機基準列 73px、候選列 62px；390px 基準列 68px、候選列 56px；320px 基準列多為 68px、長文字列 83px，候選列多為 56px、長文字列 70px。文字字級／行高相同，候選設計系統的 min-height 是主要固定高度差來源。
+- 已把 .sector-row.tac-ds-data-row--sector 桌機 min-height 由 62px 調回 73px，mobile 由 56px 調回 68px；保留原有 grid 欄位、padding、字體和互動，不另加間距。提交 9fbdf35f20239f5c71ea3ecbfb17981186529316。這是針對已量測差異的單元調整，尚待完整三視窗驗收，尤其需核對 320px 長文字列與整體 panel 高度。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
