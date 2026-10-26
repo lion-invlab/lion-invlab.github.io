@@ -175,3 +175,5 @@ Run 152: verify event summary ownership and removal of unused econ-toggle CSS se
 Run 153: verify economic event-list wrapper migration and card layout across all viewports.
 
 Run 154: verify earnings accordion shell migration across all 22 cards and open/close states.
+
+Run 155: verify earnings accordion-list wrapper migration and all accordion interactions.
