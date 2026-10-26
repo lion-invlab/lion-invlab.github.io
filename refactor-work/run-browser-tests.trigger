@@ -264,3 +264,5 @@ Run 196: retry Run 195 after Install Playwright stalled before candidate build/t
 Run 197: test removal of block 48 generic row b rule only; all 13 names are covered by specific bond/FX/energy/metal name selectors, inspect computed typography and all viewport regressions. 2026-10-26
 
 Run 198: remove only the redundant font-size declaration from block 48 generic row b rule; preserve line-height, weight, and letter-spacing after Run 197 exposed an energy letter-spacing shift. 2026-10-26
+
+Run 198: inventory direct children and computed styles under all 13 instrument rows before considering block 48 generic .row rule; do not remove rule without proving no unique styling dependency. 2026-10-26
