@@ -102,3 +102,10 @@
 - 桌面 1440、手機 390、窄手機 320px 均無水平溢出、缺少面板、重複 ID、未匹配導覽或新增瀏覽器錯誤；來源 disclosure 開／關均通過，標記仍為 `▸`，暗色 disclosure 3 個，新聞卡 15 張，五星紅字 16，全球／產業商品名稱字級皆為 16px。
 - 既有幾何差異仍存在：產業債匯商品面板桌機高度 332px，相較 baseline 380px 少 48px；窄手機相較 baseline 少 44px。這是先前遷移留下的差異，不是本次方法說明遷移新增的回歸，也尚未獲逐像素視覺核可。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+## 2026-10-26 清理紀錄：無對應 DOM 的日曆來源 selector（回歸測試待完成）
+
+- 候選建置檢查：`source-baseline-2026-10-26.html` 中沒有任何 `details.calendar-source-collapse` 或 `details.tac-ds-disclosure--calendar-source` 元素；該舊 selector 不應被計為一個已完成的元件遷移。
+- 清理提交：legacy 註解更新 `d1e921c8e2c6d14fb74b5be5b7a73e5c3cb64230`；移除未被使用的設計系統元件區塊 `7586b65931c4cedbdca31effcee3a05c2d8ce91b`。仍有實際用途的 inline-style disclosure 相容 selector 保留。
+- 驗收觸發提交：`fe1657eeca7a8ed411802bba859dab250f3308cb`；GitHub Actions [run 40261938319](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40261938319)。最近查詢仍停在 Install Playwright，尚未執行候選建置與瀏覽器測試；因此本項只記錄清理依據，不能標記為回歸驗收通過。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
