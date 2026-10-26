@@ -477,6 +477,26 @@ main.wrap details.compact-disclosure>div{padding:8px 0!important;border:0!import
 /* 發布版規則：只有全部驗收完成、明確加上 body.release-ready 後，才隱藏內部審核提示；審核版仍保留警示。 */
 body.release-ready .data-sync-warning,
 body.release-ready .news-window-warning { display: none !important; }
+
+/* 2026/10/27：美債表格欄位統一，期限、殖利率、bps 三欄垂直對齊 */
+#bonds .tab-panel-meta[style*="grid-template-columns"]{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.55fr) minmax(84px,.62fr) minmax(78px,.68fr)!important;
+  gap:8px!important;
+  text-align:left!important;
+  padding-right:12px!important;
+  box-sizing:border-box!important;
+}
+#bonds .row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.55fr) minmax(84px,.62fr) minmax(78px,.68fr)!important;
+  gap:8px!important;
+  padding-right:12px!important;
+  box-sizing:border-box!important;
+}
+#bonds .row>span:first-child{ text-align:left!important; }
+#bonds .row>strong.r{ text-align:right!important; white-space:nowrap!important; }
+#bonds .row>span:last-child{ text-align:left!important; white-space:nowrap!important; }
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
