@@ -2167,7 +2167,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 
 /* User adjustment: enlarge energy futures names to match precious-metal spot labels */
 @media(max-width:700px){
-  .energy-card .row b{font-size:16px!important;letter-spacing:-.4px!important;white-space:nowrap!important}
+  .energy-card .row b{font-size:16px!important;white-space:nowrap!important}
 }
 
 
