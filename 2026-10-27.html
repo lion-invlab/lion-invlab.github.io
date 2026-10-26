@@ -1,9 +1,18 @@
-<!-- TAC 正式母版基準：以 2026-10-22 已核對之最新首頁為唯一基礎。週二至週五版；每日製作時更新日期、行情、新聞、行事曆與分析，不沿用未核實數據。 -->
+<!-- TAC 製作規則層｜雙母版共用規範（內部註解，不顯示給讀者）
+1. 週別口徑：週一早報回顧上週整體市場與原先判斷，再展望本週；週二至週五不做上週回顧，只分析上一個實際交易日的走勢、主要原因、當日展望與投資應對。休市時依最近一個實際交易日判定，不以日曆日期冒充行情日期。
+2. 圖釘評論原則：避免重複列示漲跌幅；應提供漲跌原因、後勢情境、風險及投資應對／建議。
+3. 資料補齊同步：任何行情或數據修正後，必須同步更新受影響的摘要、觀察、核心觀察、圖釘評論及總結；評論只使用已核實資料。
+4. 新聞時間窗：全球焦點新聞與市場熱門頭條採用相同的台灣時間窗口；分別依原始發布時間、事件重要性與新聞獨立性篩選。不得以頁面更新時間冒充原始發布時間；無法確認符合時間窗或事件獨立性的項目應剔除或明確列為待驗收。
+5. 審核狀態同步：每次修改正文、數據、新聞或規則，均須同步更新當日審核版的可見審核狀態；已完成項目移出待辦，未完成項目不得標示完成。交付前重新讀取檔案，核對正文、摘要、圖釘評論、總結與審核狀態。
+6. 兩層架構：母版原始碼內部註解保存長期製作規則；每日審核版可見狀態只記錄該日已完成工作及未完成驗收項目。不得把長期規則整段顯示在讀者頁面。
+7. 發布提示：正式版只有在相關項目實際驗收完成後，才移除內部審核提示；不得只隱藏警示而未完成驗收。
+8. 雙母版同步：共用規則必須同時更新週一及週二至週五母版，並回讀比對。除兩個上週行事曆區塊、母版識別標記及標題外，不應產生無關差異。
+-->
 <!DOCTYPE html>
 
+<!DOCTYPE html>
 
-
-
+<!DOCTYPE html>
 
 <html lang="zh-Hant">
 <head>
@@ -1686,7 +1695,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <body>
 
 <header class="top">
-<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/27（二）</span><span class="top-warning">⚠️ 審核版（部分核心指標待核實）｜資料僅供內部教育訓練使用</span></div><div class="status">2026/10/27（二）｜美股採 2026/10/26 當地正式收盤；各市場依當地交易日與來源口徑標示</div></div>
+<div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/22（四）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/22（四）｜美股採2026/10/21當地收盤；各海外市場依當地最新正式交易日標示</div></div>
 <nav class="nav">
 <a class="active" href="#overview">總結</a>
 <a href="#sentiment">市場情緒</a>
@@ -1701,25 +1710,39 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 </nav></header>
 <main class="wrap" id="overview">
 <section class="grid two">
-<article class="card bluf" id="summary-card">
-<div class="title">總結｜2026/10/27（二）</div>
-<h1>美股 10/26 反彈，科技與工業領漲；但通訊服務落後，波動率與 FedWatch 關鍵快照仍有缺口。</h1>
-<p><b>市場定調｜</b>美東 10/26 正式收盤，道瓊 52,361.58（+0.3%）、S&amp;P 500 7,676.77（+0.7%）、Nasdaq Composite 26,169.38（+0.8%）、Russell 2000 2,786.42（+0.4%）；費城半導體指數 SOX 收 11,137.3、上漲 3.32%。11 大產業 ETF 中 7 檔上漲、1 檔持平、3 檔下跌；科技、工業與非必需消費領先，通訊服務最弱。<br/>
-<b>風險訊號｜</b>VIX 10/26 收盤 18.16、下跌 6.63%；MOVE 可讀歷史頁仍只顯示 10/23 的延遲值 103.31（-3.30%），不能當作 10/26 最新值；CNN Fear &amp; Greed 未取得收盤後可驗證快照。CME FedWatch 官方機率與截圖時間仍待核實，第三方機率只作非官方交叉參考。<br/>
-<b>今日催化劑｜</b>台灣時間 20:00 美國建築許可、20:30 耐久財與核心資本財訂單、22:00 消費者信心及新屋銷售；Coca-Cola 已核實盤前公布、電話會議台灣時間 20:30；Visa 已核實盤後公布、電話會議台灣時間 10/28 05:00。FOMC 決策預定 10/29 02:00，ECB 決策預定 10/29 21:15。<br/>
-<b>資料狀態｜</b><strong style="color:#b45309">審核版（有限制）</strong>：深證成指、MOVE、CNN Fear &amp; Greed、CME FedWatch 官方快照、主要指數完整關鍵價位及部分新聞精確發布時分仍待核實；未以推估值填補。製作截點：2026/10/27 04:30；最後驗收：2026/10/27 05:03（台灣時間 UTC+8）。</p></article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
-<div class="title">市場情緒｜最後驗收 2026/10/27 05:03；行情快照採 10/26 正式收盤</div>
+<article class="card bluf" id="overview">
+<div class="title">總結</div>
+<h1>美股四大指數同步收高、Nasdaq 領漲；財報帶動 AI 交易回暖，但情緒仍偏恐懼，反彈需要獲利與市場廣度確認。</h1>
+<p><b>市場定調｜</b>美東 10/21 正式收盤，道瓊 +0.69%、S&amp;P 500 +0.58%、Nasdaq Composite +1.05%、Russell 2000 +0.27%，但 Nasdaq 漲幅領先，顯示反彈主要由科技股帶動，而非全市場平均走強。VIX 降至 16.68、MOVE 降至 95.94；CNN Fear &amp; Greed 為 31，仍處恐懼區，風險情緒尚未全面修復。<br/><b>昨日主要驅動｜</b>SpaceX 公布上市後首季獲利，並傳出與 Tesla 評估合併的可能性；Super Micro Computer 提出優於預期的營收與利潤率展望，緩解市場對 AI 基礎建設需求及投資回報的疑慮，帶動半導體、HPE、Dell 等 AI 供應鏈走強。相對地，Netflix 因第四季獲利展望不佳下跌，AT&amp;T 與 T-Mobile 受 SpaceX 通訊業務競爭疑慮拖累，顯示這是科技／AI 主導的選擇性反彈，而非各產業全面轉強。<br/><b>財報訊號｜</b>Tesla 第三季營收與調整後 EPS 優於市場共識，但淨利年減 44%，盤後股價反應偏弱，反映市場不只看營收，也在意獲利品質、資本支出與 Robotaxi 執行進度。Meta 營收年增 26%、高於預期，但一次性法律相關費用壓低帳面獲利，AI 投資規模與營業利益率仍是關鍵；IBM 調整後 EPS 與營收高於預期，後續需觀察軟體成長及股價反應能否延續。<br/><b>今日催化劑｜</b>台灣時間 10/22 20:30 美國初領失業救濟金、22:00 領先經濟指標；企業面留意 P&amp;G、Honeywell 等財報。市場將比較實際數據與共識，並觀察利率與股價反應，而非只看數據單一方向。<br/><b>主要風險與策略觀察｜</b>若 AI 相關財報雖超預期但股價反應不佳，或漲勢仍集中在少數大型科技股，代表估值與獲利門檻偏高；若反彈擴散至更多產業、財測支撐資本支出回報，則有助行情延續。同步追蹤美債殖利率、原油供應風險及 S&amp;P 500 11 大產業漲跌幅。資料基準：美股 2026/10/21 當地正式收盤；10/22 尚未公布的數據不預填實際值。</p>
+
+</article></section><div class="tac-section-gap"></div><section class="grid one tac-main-panel"><article class="card" id="sentiment">
+<div class="title">市場情緒</div>
 <div class="sent">
-<div class="sbox"><div class="label"><span class="label-en">VIX</span><span class="label-zh">｜恐慌指數</span></div><strong>18.16</strong><span class="down">-6.63%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/26 美股正式收盤快照：18.16，較前一正式收盤下跌 6.63%。來源：<a href="https://tallacoptions.com/Data/EOD/VIX" target="_blank" rel="noopener">VIX EOD 歷史資料</a>。與部分即時頁面讀值不同，採明確標示 10/26 收盤的歷史資料。</div></details></div>
-<div class="sbox"><div class="label"><span class="label-en">MOVE</span><span class="label-zh">｜債市波動率</span></div><strong>待核實</strong><span class="flat">—</span><details class="source-details"><summary>資料來源</summary><div class="source">截至 05:03 可讀的 Investing.com 歷史頁仍只顯示延遲至 2026/10/23 的 103.31（當日 -3.30%），沒有可驗證的 10/26 正式收盤列。103.31 僅是最後可見舊值，主數值維持待核實，不代表最新。<a href="https://www.investing.com/indices/ice-bofaml-move-historical-data" target="_blank" rel="noopener">MOVE 歷史資料頁</a></div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>16.68</strong><span class="down">-3.64%</span><details class="source-details"><summary>資料來源</summary><div class="source">2026/10/21收盤：16.68；較前次收盤17.31下跌0.63（-3.64%）。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span><span class="label-zh">｜債市波動率</span></div><strong>102.19</strong><span class="flat">-1.08%</span><details class="source-details"><summary>資料來源</summary><div class="source">依使用者提供的 Google Finance 截圖：MOVE 102.19，變動 -1.12（-1.08%）；截圖標示 2026/10/26 4:17 PM EDT，當日高點 104.42、低點 102.18、前收 103.31。此為截圖所示指數資料，非美國財政部官方數據。</div></details></div>
 <section aria-label="CNN Fear and Greed preview" class="sbox cnn-fg-preview">
 <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span><span class="label-zh">｜恐懼與貪婪指數</span></div>
-<div class="fg6-date">最新可核實快照：待核實</div>
-<div class="fg6-score-row"><div class="fg6-score"><span class="fg6-score-main">待核實</span><span class="fg6-outof">/100</span></div><div class="fg6-status"><span>待核實</span><i></i><b>不判定</b></div></div>
-<details class="source-details"><summary>資料來源</summary><div class="source">可見第三方追蹤頁所列資料時間為 10/26 00:00，無法證明已更新至 10/26 美股收盤後，也未取得 CNN 官方可核對截圖；因此不將該讀值當成最新值。<a href="https://feargreedtracker.com/fear-greed-index-stock-market" target="_blank" rel="noopener">第三方追蹤頁（僅作線索）</a>；<a href="https://www.cnn.com/markets/fear-and-greed" target="_blank" rel="noopener">CNN Fear & Greed 官方頁面</a></div></details>
+<div class="fg6-date">最新可核實第三方歷史快照：2026/10/26</div>
+<div class="fg6-score-row"><div class="fg6-score"><span class="fg6-score-main">22</span><span class="fg6-outof">/100</span></div><div class="fg6-status"><span>Extreme Fear</span><i></i><b>極度恐懼</b></div></div>
+<details class="source-details"><summary>資料來源</summary><div class="source">第三方歷史追蹤資料列示 2026/10/26 指數 22/100（極度恐懼）；此為第三方歷史值，並非 CNN 官方截圖。<a href="https://feargreedtracker.com/fear-greed-index-stock-market" target="_blank" rel="noopener">第三方追蹤頁（僅作線索）</a>；<a href="https://www.cnn.com/markets/fear-and-greed" target="_blank" rel="noopener">CNN Fear & Greed 官方頁面</a></div></details>
 </section>
-<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">VIX 收盤回落，反映股市隱含波動下降；但 MOVE 與 CNN Fear &amp; Greed 的最新快照未通過日期驗證，不能據此判定股債情緒同步改善。市場反彈仍需結合產業廣度、殖利率與財報反應判讀。</div></div>
-</div></article>
+<section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
+  <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
+  <div class="fg6-date">CNN Fear &amp; Greed｜2026/10/21 最新可查讀值</div>
+  <div class="fg6-score-row">
+    <div class="fg6-score"><span class="fg6-score-main">31</span><span class="fg6-outof">/100</span></div>
+    <div class="fg6-status"><span>Fear</span><i></i><b>恐懼</b></div>
+  </div>
+  <div class="fg6-scale-wrap" aria-label="Fear and Greed scale">
+    <div class="fg6-band"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="fg6-marker"><span></span></div>
+    <div class="fg6-labels"><span>極度<br>恐懼</span><span>恐懼</span><span>中性</span><span>貪婪</span><span>極度<br>貪婪</span></div>
+  </div>
+  <details class="source-details"><summary>資料來源</summary><div class="source">CNN Fear &amp; Greed 最新可查資料日期為2026/10/21，讀值31（Fear／恐懼）；來源：fgscore.com轉載的CNN原始指數資料，尚非CNN官方截圖，應保留資料來源口徑說明。</div></details>
+</section>
+<div class="sbox"><div class="label">📌 核心解讀</div><div style="font-size:14px;line-height:1.7;margin-top:8px">10/21 VIX 收於16.68，單日下跌3.64%；MOVE 收於95.94，單日下跌5.66%，顯示當日股市隱含波動與債市利率波動指標同步回落。CNN Fear &amp; Greed 為31，仍處於恐懼區，代表情緒修復尚不全面。整體而言，財報帶動風險偏好回升，但仍需觀察大型科技財報、殖利率及市場廣度是否持續改善。</div></div>
+</div>
+</article>
 </section>
 <div style="height:14px"></div>
 <section aria-label="重點新聞掃瞄" class="tac-tabset" id="news-scan"><div class="tac-section-heading"><h2>重點新聞掃瞄</h2></div><input checked="checked" class="tac-tab-radio" id="tac-news-0" name="tac-news" type="radio"/><input class="tac-tab-radio" id="tac-news-1" name="tac-news" type="radio"/><div class="tac-tab-nav"><label for="tac-news-0">全球焦點新聞</label><label for="tac-news-1">市場熱門頭條</label></div><div class="tac-tab-panel" id="tac-news-panel-0"><article class="card" id="global-focus">
@@ -1747,9 +1770,9 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="row"><span>S&amp;P 500</span><strong class="r">7,676.77</strong><span class="up">+0.7%</span></div>
 <div class="row"><span>Nasdaq Composite</span><strong class="r">26,169.38</strong><span class="up">+0.8%</span></div>
 <div class="row"><span>Russell 2000</span><strong class="r">2,786.42</strong><span class="up">+0.4%</span></div>
-<div class="row"><span>費城半導體指數（SOX）</span><strong class="r">11,137.3</strong><span class="up">+3.32%</span><small class="muted">Investing.com 歷史資料列示 2026/10/26；為可核對的歷史頁值，非 Nasdaq 官方發布截圖。</small></div>
-<div class="market-reason">📌 美股摘要｜四大主要指數與 SOX 均收高；SOX +3.32% 顯示半導體反彈較大盤強，但產業 ETF 仍分化，通訊服務下跌，不能判定漲勢全面擴散。</div>
-<details class="source-details"><summary>資料來源與口徑</summary><div class="source"><a href="https://apnews.com/article/be3a56f58a77c5be863f0289d280be92" target="_blank" rel="noopener">AP 10/26 美股收盤報導</a>；<a href="https://ng.investing.com/indices/phlx-semiconductor-historical-data" target="_blank" rel="noopener">SOX 歷史行情（10/26：11,137.3，+3.32%）</a>。</div></details></article></div><div class="tac-tab-panel" id="tac-region-panel-1">
+<div class="row"><span>費城半導體指數（SOX）</span><strong class="r">11,083.5</strong><span class="up">+2.82%</span><small class="muted">Investing.com 歷史資料列示 2026/10/26；為可核對的歷史頁值，非 Nasdaq 官方發布截圖。</small></div>
+<div class="market-reason">📌 美股摘要｜四大主要指數與 SOX 均收高；SOX +2.82% 顯示半導體反彈較大盤強，但產業 ETF 仍分化，通訊服務下跌，不能判定漲勢全面擴散。</div>
+<details class="source-details"><summary>資料來源與口徑</summary><div class="source"><a href="https://apnews.com/article/be3a56f58a77c5be863f0289d280be92" target="_blank" rel="noopener">AP 10/26 美股收盤報導</a>；<a href="https://ng.investing.com/indices/phlx-semiconductor-historical-data" target="_blank" rel="noopener">SOX 歷史行情（10/26：11,083.5，+2.82%）</a>。</div></details></article></div><div class="tac-tab-panel" id="tac-region-panel-1">
 <article class="card" id="asia"><div class="tab-panel-meta">亞洲｜各市場採當地最近正式交易日；台股 10/23 休市、10/26 補假，最近交易日為 10/22</div>
 <div class="row"><span>台灣加權指數（最近交易日 10/22）</span><strong class="r">46,041.43</strong><span class="down">-1.81%</span></div>
 <div class="row"><span>日經 225（10/26）</span><strong class="r">62,189.65</strong><span class="down">-0.80%</span></div>
@@ -1842,10 +1865,10 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="fed-live-panels">
 <div class="fed-live-panel fed-live-watch">
 <div class="fc-probs fc-probs-refined">
-<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>待核實</strong><div class="fc-range">維持 3.75%–4.00%</div></div>
-<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>待核實</strong><div class="fc-range">升至 4.00%–4.25%</div></div></div>
-<div class="fc-split-wrap"><div class="fc-split-head"><span>官方機率分布</span><span>快照待核實</span></div><div aria-label="CME FedWatch 官方機率待核實" class="fc-split-bar" role="img"><span class="fc-split-hold" style="width:0%"></span><span class="fc-split-hike" style="width:0%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>待核實</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>待核實</b></span></div></div>
-<div class="source" style="margin:8px 0;padding:8px 10px;background:#fff8ed;border:1px solid #efdfc7;border-radius:8px">第三方交叉參考（非 CME 官方截圖）：SessionOpen 頁面標示資料截至 10/26 收盤，估算維持不變約 90%、升息一碼約 10%（非 CME 官方截圖）。此數字不能替代 CME 官方畫面；官方截圖時間與精確機率仍待核實。</div><details class="audit-details fedwatch-time"><summary>資料時間與快照口徑</summary><div class="audit-content">最後驗收時間：2026/10/27 05:03 台灣時間。CME 官方 FedWatch 頁可開啟，但可讀頁面未提供可驗證的最新機率值與截圖時間；第三方追蹤頁在取樣時間、更新延遲與模型口徑上可能不同，因此官方機率仍標示待核實，不把第三方值冒充為 CME 官方快照。</div></details>
+<div class="fc-prob fc-hold"><div class="fc-prob-label"><span class="fc-dot"></span><span>維持不變</span></div><strong>89.5%</strong><div class="fc-range">維持 3.75%–4.00%</div></div>
+<div class="fc-prob fc-hike"><div class="fc-prob-label"><span class="fc-dot"></span><span>升息一碼</span></div><strong>10.5%</strong><div class="fc-range">升至 4.00%–4.25%</div></div></div>
+<div class="fc-split-wrap"><div class="fc-split-head"><span>官方機率分布</span><span>使用者提供截圖；擷取時間未顯示</span></div><div aria-label="CME FedWatch 截圖機率" class="fc-split-bar" role="img"><span class="fc-split-hold" style="width:89.5%"></span><span class="fc-split-hike" style="width:10.5%"></span></div><div class="fc-split-legend"><span><i class="fc-legend-hold"></i>維持不變 <b>89.5%</b></span><span><i class="fc-legend-hike"></i>升息一碼 <b>10.5%</b></span></div></div>
+<div class="source" style="margin:8px 0;padding:8px 10px;background:#fff8ed;border:1px solid #efdfc7;border-radius:8px">第三方交叉參考（非 CME 官方截圖）：SessionOpen 頁面標示資料截至 10/26 收盤，估算維持不變約 90%、升息一碼約 10%（非 CME 官方截圖）。此數字不能替代 CME 官方畫面；官方截圖時間與精確機率仍待核實。</div><details class="audit-details fedwatch-time"><summary>資料時間與快照口徑</summary><div class="audit-content">FedWatch 數據依使用者提供之截圖：2026/10/28 會議，維持 3.75%–4.00% 機率 89.5%，升息至 4.00%–4.25% 機率 10.5%；截圖未顯示擷取時間，故不推定即時更新時間。</div></details>
 <div class="fc-source">來源：<a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">CME FedWatch 官方工具</a> · <a href="https://sessionopen.com/fed-watch" target="_blank" rel="noopener">SessionOpen 10/26 收盤交叉參考（非官方截圖）</a> · <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">Investing.com 交叉參考（非官方截圖）</a></div>
 </div>
 <div class="fed-live-panel fed-live-fomc"><div class="fc-fomc">
@@ -1861,9 +1884,9 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <div class="focus-tab-labels"><label for="focus-tab-market">市場觀點</label><label for="focus-tab-levels">今日關鍵價位</label><label for="focus-tab-core">今日核心觀察</label></div>
 <div class="focus-panels">
 <div class="focus-panel focus-market"><div class="key">
-<b>① 美股反彈是否擴散：</b>10/26 道瓊 +0.3%、S&amp;P 500 +0.7%、Nasdaq Composite +0.8%、Russell 2000 +0.4%；SOX 上漲 3.32%。11 大產業 ETF 有 7 檔上漲，但通訊服務下跌 1.57%。需觀察漲勢能否延續至更多產業。<br/>
+<b>① 美股反彈是否擴散：</b>10/26 道瓊 +0.3%、S&amp;P 500 +0.7%、Nasdaq Composite +0.8%、Russell 2000 +0.4%；SOX 上漲 2.82%。11 大產業 ETF 有 7 檔上漲，但通訊服務下跌 1.57%。需觀察漲勢能否延續至更多產業。<br/>
 <b>② 產業領先與落後：</b>XLK +1.69%、XLI +1.42%、XLY +1.03% 領先；XLC -1.57% 落後。反彈有廣度但不均衡，不能只用大盤收紅判定風險全面解除。<br/>
-<b>③ 波動指標尚未完整：</b>VIX 18.16（-6.63%）已核實；MOVE 僅有 10/23 延遲舊值，CNN Fear &amp; Greed 最新快照待核實，不以舊值補齊。<br/>
+<b>③ 波動指標尚未完整：</b>VIX 18.16（-6.63%）已核實；MOVE 僅有 10/23 延遲舊值，CNN Fear &amp; Greed 最新使用者提供截圖；擷取時間未顯示，不以舊值補齊。<br/>
 <b>④ 利率與央行：</b>FOMC 會議 10/27–28 進行，決策預定台灣時間 10/29 02:00；CME FedWatch 機率及截圖時間待核實。<br/>
 <b>⑤ 今晚數據／財報：</b>20:00 建築許可、20:30 耐久財與核心資本財訂單、22:00 消費者信心與新屋銷售；KO 盤前、V 盤後時間已核實，UPS 與 HOOD 精確時段仍待核實。</div></div>
 <div class="focus-panel focus-levels"><div class="key">
@@ -1871,7 +1894,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 <b>S&amp;P 500｜10/26 收盤 7,676.77：</b>支撐：待核實｜壓力：待核實。<br/>
 <b>Nasdaq Composite｜10/26 收盤 26,169.38：</b>支撐：待核實｜壓力：待核實。<br/>
 <b>Russell 2000｜10/26 收盤 2,786.42：</b>支撐：待核實｜壓力：待核實。<br/>
-<b>費城半導體指數（SOX）｜10/26 收盤 11,137.3（+3.32%）：</b>支撐：待核實｜壓力：待核實。<br/>
+<b>費城半導體指數（SOX）｜10/26 收盤 11,083.5（+2.82%）：</b>支撐：待核實｜壓力：待核實。<br/>
 <span class="muted" style="font-size:11px">原因：SOX 收盤與當日 OHLC 已可核對，但尚未完成與近 20 個交易日波段高低點的同口徑交叉驗收；道瓊、S&amp;P 500、Nasdaq Composite 與 Russell 2000 的完整 OHLC／近 20 日區間也尚未全部核實，因此不發布未完成驗證的支撐／壓力數字。方法說明維持收折。</span>
 <details class="source-details"><summary>關鍵價位計算方式與資料來源</summary><div class="source">先核實前一交易日正式行情，再以樞紐點、前一交易日高低點及近 20 個交易日波段高低點計算支撐／壓力。所有行情須採同一交易日與一致資料口徑；資料缺漏或來源不一致時不發布推算值。</div></details>
 </div></div>
@@ -1885,7 +1908,7 @@ main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;
 </div></div></section>
 <div style="height:14px"></div>
 </main>
-<footer><div>TAC 投資早報｜2026/10/27（二）｜審核版（有限制）</div><div>製作截點：2026/10/27 04:30 台灣時間（UTC+8）；最後完整驗收：2026/10/27 05:03。尚未核實的指標與實績均明確標示待核實；不得視為所有資料已通過最終驗收。</div></footer>
+<footer class="footer">TAC 投資早報｜2026/10/22（四）審核版 V11｜美股主要指數採2026/10/21當地正式收盤；各市場與個別指標依頁面標示日期及口徑，未完成交叉核對者明確註記。資訊整理與教育用途，不構成投資建議。</footer>
 <script>
 function historyPath(dateStr){
   return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
