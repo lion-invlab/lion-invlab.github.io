@@ -1146,6 +1146,13 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   }
 }
 
+/* Keep energy instrument names aligned with global-market names on narrow screens.
+   This intentionally outranks the older generic 15px row-label rule while leaving values at their compact size. */
+html body #industry-bonds-fx-commodities .tac-tab-panel .energy-card .row > b {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+
 
 /* Direction B — narrow-screen refinement only (320px class of devices).
    Keep the current segmented-tab and card visual language; prevent the five
