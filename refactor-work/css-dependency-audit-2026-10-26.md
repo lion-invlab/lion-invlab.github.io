@@ -166,3 +166,13 @@
 - 方法 disclosure 仍恰為 4 個且 inline style 數量為 0；三種視窗五星紅字均 16，全球／產業商品名稱字級一致為 16px；共用 tabs 21、news cards 15、sector rows 11，相關既有互動通過。
 - **保留的視覺驗收事項：**產業面板高度桌機 332px（baseline 380px，-48px）、手機 439px（baseline 448px，-9px）、窄手機 458px（baseline 502px，-44px）；窄手機 overview 面板短 97px，S&P 500 財報健康面板短 34px。這些幾何差異沒有在本輪修正，不能宣稱逐像素視覺核可。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 幾何差異診斷補記：配對基準／候選內部元素量測（Run 131）
+
+- GitHub Actions [run 40265412091](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40265412091) 已 completed / success；artifact 12625823663 已下載，檢查 results.json 的 baselineDetailedGeometry 與 detailedGeometry。三種 viewport 的 errors=[]，無水平溢出、缺少面板、重複 ID、未匹配導覽或新增瀏覽器錯誤。這代表 smoke assertions 通過，不代表像素相同。
+- 配對內部量測確認：產業資產 tabs 的導覽列在桌機由基準版 display:grid、高度 96px 變為候選版 display:flex、高度 40px（少 56px）；窄手機由 89px 變為 35px（少 54px）。這是候選 tabs 元件規格的明確幾何變動，並非外層面板 padding 單一造成。全球市場 tabs 在窄手機亦由 48px 變為 34px。
+- 11 個產業資料列的量測顯示：桌機多數列由 73px 變 62px（約 -11px／列）；窄手機多數列由 68px 變 56px（約 -12px／列），較長文字列另有差異。這與設計系統元件的 min-height、padding 與 grid 配置相符，是產業面板高度差的重要來源。尚未確認所有差異是否符合原設計意圖，因此不直接把舊高度硬塞回去。
+- 新聞卡在候選版大多維持原高度或增加約 2–3px；窄手機多數卡片約 -9px，但個別長文字卡因換行增加高度。S&P 500 財報健康區的主要內層區塊桌機高度相同；窄手機有一個 grid 區塊由 266px 變 235px（-31px），其餘多數內層高度相同。這些項目應分開檢查內容換行與容器寬度，不能只用整頁高度推斷。
+- 本輪只增加並驗證量測工具，未修改任何 CSS；目前尚未批准或實施幾何回復。下一步先讀取候選版與 frozen baseline 對應的 tabs／sector-row 原始 computed-style 及 CSS 規則，判定哪些變動是預期的元件標準化、哪些是真正非預期漂移，再逐元件做最小修正及回歸。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
