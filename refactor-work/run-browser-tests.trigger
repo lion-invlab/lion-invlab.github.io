@@ -221,3 +221,5 @@ Run 175: verify removing only the redundant white-color declaration from the sen
 Run 176: verify removing block 47 instrument-row declarations that are superseded by later block 48; retain metadata font rules and check all product tabs at desktop/mobile/narrow-mobile.
 
 Run 177: capture computed typography for representative bond, FX, energy, and precious-metal rows across all viewport widths before changing block 48/91.
+
+Run 172: verify removal of the five-selector block 95 heading color escalation; block 94 must continue styling all five target headings identically across desktop, mobile, and narrow mobile.
