@@ -1,11 +1,129 @@
 import { chromium } from "playwright";
-import fs from "node:fs"; import path from "node:path"; import { fileURLToPath } from "node:url";
-const here=path.dirname(fileURLToPath(import.meta.url)), candidate=path.join(here,"candidate-build.html"), baseline=path.join(here,"source-baseline-2026-10-26.html"), out=path.join(here,"browser-results","panel-child-geometry-diagnostic.json");
-fs.mkdirSync(path.dirname(out),{recursive:true});
-const targets=["overview","news-scan","sp500-earnings-health"], viewports=[{name:"desktop",width:1440,height:1000},{name:"mobile",width:390,height:844},{name:"narrow-mobile",width:320,height:800}], browser=await chromium.launch({headless:true}), results=[];
-try { for(const viewport of viewports){const context=await browser.newContext({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1}), pages=[await context.newPage(),await context.newPage()]; await Promise.all([pages[0].goto("file://"+baseline,{waitUntil:"domcontentloaded"}),pages[1].goto("file://"+candidate,{waitUntil:"domcontentloaded"})]); await Promise.all(pages.map(p=>p.waitForTimeout(400)));
-const inspect=page=>page.evaluate(ids=>ids.map(id=>{const panel=document.getElementById(id);if(!panel)return{id,missing:true};const rect=e=>{const r=e.getBoundingClientRect();return{top:Math.round(r.top),left:Math.round(r.left),width:Math.round(r.width),height:Math.round(r.height),bottom:Math.round(r.bottom)}};const style=e=>{const s=getComputedStyle(e);return{display:s.display,position:s.position,boxSizing:s.boxSizing,padding:s.padding,margin:s.margin,gap:s.gap,fontSize:s.fontSize,lineHeight:s.lineHeight}};const children=[...panel.children].filter(e=>getComputedStyle(e).display!=="none").map((e,i)=>({index:i,tag:e.tagName,id:e.id||"",className:typeof e.className==="string"?e.className:"",text:(e.innerText||"").trim().replace(/\\s+/g," ").slice(0,70),rect:rect(e),style:style(e)}));return{id,panelRect:rect(panel),panelStyle:style(panel),children}}),targets);
-const [b,c]=await Promise.all(pages.map(inspect));results.push({viewport:viewport.name,width:viewport.width,panels:targets.map(id=>({id,baseline:b.find(x=>x.id===id),candidate:c.find(x=>x.id===id)}))});await context.close();}}finally{await browser.close();}
-fs.writeFileSync(out,JSON.stringify({generatedAt:new Date().toISOString(),results},null,2));
-for(const v of results)for(const p of v.panels){const bh=p.baseline?.panelRect?.height,ch=p.candidate?.panelRect?.height;console.log(`[${v.width}px] #${p.id}: panel ${bh}px -> ${ch}px (Δ ${ch-bh}px)`);const b=p.baseline?.children||[],c=p.candidate?.children||[];for(let i=0;i<Math.max(b.length,c.length);i++){const x=b[i],y=c[i];if(!x||!y||x.id!==y.id||x.className!==y.className||Math.abs((x.rect?.height||0)-(y.rect?.height||0))>1||Math.abs((x.rect?.top||0)-(y.rect?.top||0))>1)console.log(` child[${i}] baseline=${x?x.tag+"#"+x.id+"."+x.className+" h"+x.rect.height+" top"+x.rect.top:"missing"} candidate=${y?y.tag+"#"+y.id+"."+y.className+" h"+y.rect.height+" top"+y.rect.top:"missing"}`);}}
-console.log("Saved detailed baseline/candidate child geometry:",out);
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const here = path.dirname(fileURLToPath(import.meta.url));
+const candidate = path.join(here, "candidate-build.html");
+const baseline = path.join(here, "source-baseline-2026-10-26.html");
+const out = path.join(here, "browser-results", "panel-child-geometry-diagnostic.json");
+fs.mkdirSync(path.dirname(out), { recursive: true });
+
+const targets = ["overview", "news-scan", "sp500-earnings-health"];
+const viewports = [
+  { name: "desktop", width: 1440, height: 1000 },
+  { name: "mobile", width: 390, height: 844 },
+  { name: "narrow-mobile", width: 320, height: 800 }
+];
+const browser = await chromium.launch({ headless: true });
+const results = [];
+
+try {
+  for (const viewport of viewports) {
+    const context = await browser.newContext({
+      viewport: { width: viewport.width, height: viewport.height },
+      deviceScaleFactor: 1
+    });
+    const pages = [await context.newPage(), await context.newPage()];
+    await Promise.all([
+      pages[0].goto("file://" + baseline, { waitUntil: "domcontentloaded" }),
+      pages[1].goto("file://" + candidate, { waitUntil: "domcontentloaded" })
+    ]);
+    await Promise.all(pages.map(page => page.waitForTimeout(400)));
+
+    const inspect = page => page.evaluate(ids => ids.map(id => {
+      const panel = document.getElementById(id);
+      if (!panel) return { id, missing: true };
+      const panelRect = panel.getBoundingClientRect();
+      const rect = element => {
+        const r = element.getBoundingClientRect();
+        return {
+          top: Math.round(r.top),
+          relativeTop: Math.round(r.top - panelRect.top),
+          left: Math.round(r.left),
+          width: Math.round(r.width),
+          height: Math.round(r.height),
+          bottom: Math.round(r.bottom)
+        };
+      };
+      const style = element => {
+        const s = getComputedStyle(element);
+        return {
+          display: s.display,
+          position: s.position,
+          boxSizing: s.boxSizing,
+          padding: s.padding,
+          margin: s.margin,
+          gap: s.gap,
+          fontSize: s.fontSize,
+          lineHeight: s.lineHeight
+        };
+      };
+      const children = [...panel.children]
+        .filter(element => getComputedStyle(element).display !== "none")
+        .map((element, index) => ({
+          index,
+          tag: element.tagName,
+          id: element.id || "",
+          className: typeof element.className === "string" ? element.className : "",
+          text: (element.innerText || "").trim().replace(/\s+/g, " ").slice(0, 70),
+          rect: rect(element),
+          style: style(element)
+        }));
+      return { id, panelRect: rect(panel), panelStyle: style(panel), children };
+    }), targets);
+
+    const [b, c] = await Promise.all(pages.map(inspect));
+    results.push({
+      viewport: viewport.name,
+      width: viewport.width,
+      panels: targets.map(id => ({
+        id,
+        baseline: b.find(item => item.id === id),
+        candidate: c.find(item => item.id === id)
+      }))
+    });
+    await context.close();
+  }
+} finally {
+  await browser.close();
+}
+
+fs.writeFileSync(out, JSON.stringify({ generatedAt: new Date().toISOString(), results }, null, 2));
+let changed = 0;
+for (const viewport of results) {
+  for (const panel of viewport.panels) {
+    const baselinePanel = panel.baseline;
+    const candidatePanel = panel.candidate;
+    const baseHeight = baselinePanel?.panelRect?.height;
+    const candidateHeight = candidatePanel?.panelRect?.height;
+    console.log(`[${viewport.width}px] #${panel.id}: panel ${baseHeight}px -> ${candidateHeight}px (Δ ${candidateHeight - baseHeight}px)`);
+    const baseChildren = baselinePanel?.children || [];
+    const candidateChildren = candidatePanel?.children || [];
+    if (baseChildren.length !== candidateChildren.length) {
+      console.log(`  CHILD COUNT baseline=${baseChildren.length}, candidate=${candidateChildren.length}`);
+    }
+    for (let i = 0; i < Math.max(baseChildren.length, candidateChildren.length); i++) {
+      const before = baseChildren[i];
+      const after = candidateChildren[i];
+      if (!before || !after) {
+        console.log(`  child[${i}] missing in ${before ? "candidate" : "baseline"}`);
+        changed++;
+        continue;
+      }
+      const deltas = {
+        relativeTop: after.rect.relativeTop - before.rect.relativeTop,
+        height: after.rect.height - before.rect.height,
+        width: after.rect.width - before.rect.width
+      };
+      if (before.id !== after.id || before.className !== after.className ||
+          Math.abs(deltas.relativeTop) > 1 || Math.abs(deltas.height) > 1 || Math.abs(deltas.width) > 1) {
+        console.log(`  child[${i}] ${before.tag}#${before.id}.${before.className}`);
+        console.log(`    relativeTop ${before.rect.relativeTop} -> ${after.rect.relativeTop} (Δ ${deltas.relativeTop}); height ${before.rect.height} -> ${after.rect.height} (Δ ${deltas.height}); width ${before.rect.width} -> ${after.rect.width} (Δ ${deltas.width})`);
+        if (before.text !== after.text) console.log(`    text changed: "${before.text}" -> "${after.text}"`);
+        changed++;
+      }
+    }
+  }
+}
+console.log(`Saved panel-relative geometry report: ${out}; changed child comparisons: ${changed}`);
