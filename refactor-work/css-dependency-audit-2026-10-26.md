@@ -399,3 +399,12 @@
 - 將 earnings-accordion-details、earnings-detail-field、wide 欄位、label 與 detail-value 的通用基礎樣式及 640px 響應式規則移入 tac-ds-earnings-card，保留 #last-week-earnings 的高優先級結果 grid 與 wide 欄位覆寫。
 - Artifact 12629791115 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；財報卡 22 張、結果卡 14 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
 - 下一步盤點已存在的 tac-ds-earnings-actual-card 與 legacy 通用 .earnings-results-grid／.earnings-actual-card 規則，確認它們是否都只作用於已標記的上週財報卡，再移除重複基礎規則；保留 #last-week-earnings 的特殊 !important 覆寫。
+
+
+## 2026-10-26 財報實際結果卡通用規則清理（Run 160 通過）
+
+- legacy 清理提交：ef014ecca036ed68121e7ca56186dc56bbd9048a；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40274674877。
+- 候選 DOM 結構檢查：7 個 earnings-results-grid、14 張 earnings-actual-card 全部位於 #last-week-earnings，14 張都帶 tac-ds-earnings-actual-card，沒有未標記卡片。
+- 從 legacy 移除 7 條通用 results-grid／actual-card 規則（含重複的 mobile 規則及 grid child sizing）；保留 #last-week-earnings 的高優先級 !important 覆寫，因為它們仍控制實際結果 grid 的兩欄寬度、卡片間距、欄位順序與響應式行為。
+- Artifact 12630085862 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；結果卡 14 張、財報手風琴 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；面板幾何與 Run 159 一致。
+- 下一步需將 #last-week-earnings 的特殊 results-grid／actual-card 覆寫按責任分組；先搬移能由設計系統元件 selector 等價表達的部分，逐條驗收，不批次刪除整組 !important 規則。
