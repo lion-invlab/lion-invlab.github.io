@@ -10,7 +10,7 @@
 .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:13px;color:var(--muted);font-weight:850;letter-spacing:.3px;line-height:1.35}.kpi .label small{display:block;font-size:10px;line-height:1.2;font-weight:700;color:var(--muted);margin-top:2px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
 .title{font-size:23px;line-height:1.3;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750;white-space:nowrap}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
 .sent{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.sent>.sbox:last-child{grid-column:1/-1}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}
-.calendar-source-collapse{margin-top:6px;font-size:11px;color:var(--muted)}.calendar-source-collapse>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px;opacity:.82}.calendar-source-collapse>summary::-webkit-details-marker{display:none}.calendar-source-collapse>summary:before{content:"▸";font-size:11px;transition:transform .15s}.calendar-source-collapse[open]>summary:before{transform:rotate(90deg)}.calendar-source-collapse .source{padding:5px 0 0 15px}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
+/* Calendar source disclosure visuals are owned by .tac-ds-disclosure--calendar-source. */.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
 table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
 .event{display:grid;grid-template-columns:58px 1fr 68px;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.event:last-child{border:0}.event .d{font-weight:950;color:var(--red)}.event b{display:block}.event span{font-size:10px;color:var(--muted);line-height:1.5}.impact{text-align:right;font-weight:900}.high{color:var(--red)}
 .callout{padding:12px;border-radius:8px;background:#fafafa;border:1px solid var(--line);line-height:1.65;font-size:12px}.key{font-size:12px;line-height:1.7}.key b{font-weight:950}.pill{display:inline-block;border-radius:99px;padding:3px 7px;font-size:10px;font-weight:900;border:1px solid var(--line);margin-left:5px}
@@ -1641,36 +1641,32 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 
 /* Original style block 52 */
 
-/* Source-details are owned by .tac-ds-disclosure modifiers; retain only unmigrated calendar and inline-style disclosures. */
-main.wrap details.calendar-source-collapse>summary,
+/* Inline-style disclosures remain in the compatibility layer until separately classified. */
 main.wrap details[style*="margin-top:8px"]>summary{
   display:inline-flex!important;align-items:center!important;gap:5px!important;
   font-size:12px!important;font-weight:650!important;line-height:1.4!important;
   color:#747b84!important;-webkit-text-fill-color:#747b84!important;
   cursor:pointer!important;list-style:none!important;
 }
-main.wrap details.calendar-source-collapse>summary::-webkit-details-marker,
 main.wrap details[style*="margin-top:8px"]>summary::-webkit-details-marker{display:none!important}
-main.wrap details.calendar-source-collapse>summary::marker,
 main.wrap details[style*="margin-top:8px"]>summary::marker{content:""!important}
-main.wrap details.calendar-source-collapse>summary::before,
 main.wrap details[style*="margin-top:8px"]>summary::before{
   content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;
   font-size:12px!important;font-weight:700!important;line-height:1!important;
   color:#747b84!important;-webkit-text-fill-color:#747b84!important;
   transform:rotate(0deg);transition:transform .15s ease!important;
 }
-main.wrap details.calendar-source-collapse[open]>summary::before,
 main.wrap details[style*="margin-top:8px"][open]>summary::before{transform:rotate(90deg)!important}
-main.wrap details.calendar-source-collapse>summary:after,
 main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;display:none!important}
 @media(max-width:700px){
-  main.wrap details.calendar-source-collapse>summary,
   main.wrap details[style*="margin-top:8px"]>summary{font-size:12px!important;font-weight:650!important;color:#747b84!important}
 }
 
 
 /* Original style block 53 */
+
+
+
 
 /* Future-proof: summary/BLUF never displays index-return capsules */
 #overview article.card.bluf .chips{display:none!important}
