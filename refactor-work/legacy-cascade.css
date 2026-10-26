@@ -1709,16 +1709,16 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 /* Original style block 58 */
 
 /* FIX v2: remove parent two-column grid constraint for past reported earnings */
-#last-week-earnings .earnings-accordion-details{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-accordion-details>.earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-column:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;align-self:stretch!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-results-grid>.earnings-actual-card{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+
+
+
 
 
 /* Original style block 59 */
 
 /* FIX v3: force the EPS/revenue grid to span both columns of the existing details grid */
-#last-week-earnings .earnings-accordion-details > .earnings-results-grid{grid-column:1 / -1!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;width:100%!important;max-width:100%!important;justify-self:stretch!important;box-sizing:border-box!important}
-#last-week-earnings .earnings-results-grid > .earnings-actual-card{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important}
+
+
 
 
 
@@ -1726,8 +1726,8 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 /* Original style block 60 */
 
 /* 已公布財報小卡：套用核准預覽版視覺，不改動財報數值 */
-#last-week-earnings .earnings-accordion-details{background:#fff;padding:12px!important;gap:10px}
-#last-week-earnings .earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;padding:0!important;background:transparent!important}
+
+
 
 
 
@@ -1745,7 +1745,7 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 #last-week-earnings .earnings-detail-field.wide label{font-size:12px;font-weight:900;color:#596170}
 #last-week-earnings .earnings-detail-field.wide .earnings-detail-value{font-size:13px;line-height:1.65}
 @media(max-width:640px){
-#last-week-earnings .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+
 
 
 
