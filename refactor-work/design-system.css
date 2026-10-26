@@ -430,6 +430,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 2px 7px rgba(25, 31, 42, .035);
+  transition: background-color .18s ease;
 }
 .tac-ds-panel--tabbed .tac-ds-card--news:nth-child(odd),
 .tac-ds-panel--tabbed .tac-ds-card--news:nth-child(even) {
