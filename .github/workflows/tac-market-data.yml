@@ -10,6 +10,7 @@ on:
       - ".github/workflows/tac-market-data.yml"
       - "scripts/collect_tac_market_data.py"
       - "scripts/collect_tac_news.py"
+      - "scripts/capture_fedwatch.mjs"
   workflow_dispatch:
   schedule:
     # 04:10 Taiwan time, Mon-Fri (20:10 UTC, previous day)
