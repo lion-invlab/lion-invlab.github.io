@@ -324,3 +324,11 @@
 - 將 econ-details、econ-field、欄位 label/value、wide 欄位及手機版內距／字級規則移入 .tac-ds-event；從 legacy 移除 9 條精確對應規則。沒有改動 DOM、事件資料或互動控制。
 - Artifact 12628682831 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；事件卡 12 張、財報卡 22 張、五星紅字 16；事件卡開／關、來源 disclosure 開／關均通過；桌機外框 12px、手機／窄手機 10px。主要面板幾何與 Run 150 一致，沒有新增高度回歸。
 - 下一步將事件 summary 的 marker suppression、grid layout 與 meta 佈局責任進一步收斂到 .tac-ds-event；保留尚未驗證的 toggle pseudo-element 規則，先檢查 DOM 確認是否有實際 .econ-toggle 元素，再決定清理範圍。
+
+
+## 2026-10-26 經濟事件摘要列移交（Run 152 通過）
+
+- 設計系統提交：e0c7e8e93b4064e12cf2b4604514ff0d5a29f0ce；legacy 清理提交：4ffb5232f7eaafe5fcf2681a1da90b789cf010cd；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40272700767。
+- 將事件 summary 的 list marker suppression、grid 列配置、cursor、gap 與 padding 移入 .tac-ds-event；檢查候選 DOM 後確認沒有任何 .econ-toggle 元素，故同步移除 6 組只作用於不存在 toggle 元素的舊 CSS selector。未改變 summary 的 DOM 結構，也未新增 toggle 元素。
+- Artifact 12628564839 已檢查：桌面／手機／窄手機 errors=[]、無水平溢出、缺少面板、重複 ID；事件卡 12 張、財報卡 22 張、五星紅字 16；事件卡開／關、來源 disclosure 開／關通過；圓角仍為桌機 12px、手機／窄手機 10px；版面幾何與 Run 151 一致。
+- 下一步可把 .econ-event-list 容器的 grid／gap／margin 移入設計系統，移除 legacy 的單一通用 wrapper rule；其後再評估事件卡內部剩餘相依與財報手風琴。
