@@ -300,3 +300,11 @@
 - 新聞掃描與全球市場面板：桌機新聞 807→807px、全球市場 477→477px；390px 新聞 1360→1360px、全球市場 578→578px，均與基準一致。主頁籤 label 的字級、min-height、padding、圓角、white-space 簽章仍一致，無新增瀏覽器錯誤、水平溢出、缺少面板、重複 ID 或未匹配導覽。
 - 修正方式只提高兩個 nav 容器的 grid/flex footprint，不修改共用 label 規則：新聞掃描桌機 min-height 39px、390px min-height 35px；全球市場桌機 min-height 40px。窄手機新聞掃描仍比基準短 25px，這是既有 320px 卡片內距緊縮規則造成，暫保留。
 - 桌機總內容高度相較基準約 +18px，主要由最上方主標題與 source disclosure 遷移樣式等累積，不再是新聞／全球市場面板高度造成。下一步應決定這些頂部共用元件差異是否屬預期設計更新；320px 的 -62px 則主要來自已知的新聞卡片緊縮（-25）、S&P 500 面板緊縮（-34）、Fed（-5）與 View（+4），不以整頁高度直接加補償。
+
+
+## 2026-10-26 經濟事件卡片外框責任移交（Run 149 通過）
+
+- 設計系統提交：9f564fb22748e727d1cb714563b9f37b2f7c9b85；legacy 清理提交：c89bae602cb7bf520eb97fad2a3701d71c53b9da；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40272039894。
+- 候選建置的 12 張經濟事件卡均有 tac-ds-event，沒有仍依賴舊外框 selector 的未標記卡片。已將 min-width、transition 與 open 狀態外框陰影／邊線納入設計系統，並從 legacy 移除通用 econ-event 外框、背景、margin、摘要列 padding／背景等重複 selector；保留事件內部欄位與互動規則。
+- Artifact 12629027417 已下載檢查：1440／390／320px 的 errors=[]、無水平溢出、缺少面板、重複 ID或未匹配導覽；經濟事件卡 12 張、財報卡 22 張、五星紅字 16；事件卡開啟／關閉與來源 disclosure 開啟／關閉皆通過。外框圓角桌機 12px、手機與窄手機 10px，與設計系統預期一致。
+- 本組只完成事件卡外框與 open 狀態的責任移交；事件摘要列、meta/name/stars、內部欄位 grid 仍保留在 legacy。下一步可先移交摘要列與 metadata 版型，保留資料欄位與星號規則，逐步減少 legacy 相依，不批次刪除整個 econ-event 區塊。
