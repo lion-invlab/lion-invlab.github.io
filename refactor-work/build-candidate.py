@@ -180,6 +180,30 @@ earnings_card_count = len(re.findall(r'<details\b[^>]*class="[^"]*\btac-ds-earni
 if earnings_card_count != 22:
     raise SystemExit(f"Refusing build: expected 22 shared earnings accordion cards, found {earnings_card_count}.")
 
+# Mark only exact five-star glyphs for the red importance rule. The source data
+# does not consistently carry a reliable five-star class, so derive it from the
+# visible star text while preserving all original content and other star levels.
+def mark_exact_five_star_cards(match, star_class):
+    fragment = match.group(0)
+    star_match = re.search(r'<(?:div|span)\\b[^>]*class="[^"]*\\b(?:econ-stars|earnings-stars)\\b[^"]*"[^>]*>([\\s\\S]*?)</(?:div|span)>', fragment, re.I)
+    if not star_match:
+        return fragment
+    stars = re.sub(r'<[^>]+>', '', star_match.group(1)).strip()
+    if stars != "★★★★★":
+        return fragment
+    return add_classes_to_tag(match.group(0), "star-verified-five")
+
+html = re.sub(
+    r'<details\\b(?=[^>]*\\bclass="[^"]*\\becon-event\\b[^"]*")[^>]*>[\\s\\S]*?</details>',
+    lambda m: mark_exact_five_star_cards(m, "star-verified-five"),
+    html, flags=re.I
+)
+html = re.sub(
+    r'<details\\b(?=[^>]*\\bclass="[^"]*\\bearnings-accordion\\b[^"]*")[^>]*>[\\s\\S]*?</details>',
+    lambda m: mark_exact_five_star_cards(m, "star-verified-five"),
+    html, flags=re.I
+)
+
 sector_row_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bsector-row\b[^"]*")[^>]*>'
 html = add_classes_to_tags(html, sector_row_pattern, "tac-ds-data-row tac-ds-data-row--sector")
 sector_row_count = len(re.findall(r'<div\b[^>]*class="[^"]*\btac-ds-data-row--sector\b[^"]*"', html, flags=re.I))
