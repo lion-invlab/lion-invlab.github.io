@@ -219,3 +219,5 @@ Run 174: verify removal of obsolete red sentiment-title color override; preserve
 Run 175: verify removing only the redundant white-color declaration from the sentiment title rule; preserve its font size/weight and all responsive styles.
 
 Run 176: verify removing block 47 instrument-row declarations that are superseded by later block 48; retain metadata font rules and check all product tabs at desktop/mobile/narrow-mobile.
+
+Run 177: capture computed typography for representative bond, FX, energy, and precious-metal rows across all viewport widths before changing block 48/91.
