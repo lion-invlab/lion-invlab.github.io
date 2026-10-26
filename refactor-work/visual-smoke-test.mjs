@@ -151,7 +151,7 @@ async function inspect(page) {
       }),
       mainHeadingCascade: ["overview","sentiment","news-scan","global-markets","industry-bonds-fx-commodities","last-week-calendar","last-week-earnings","calendar","earnings","sp500-earnings-health","fed","view"].map(id => {
         const root = document.getElementById(id);
-        const heading = root?.querySelector(":scope > .title, :scope > .tac-section-heading h2, :scope > article.card > .title, :scope > .calendar-card > .title, :scope > .tac-main-panel > .title, :scope > [data-main-section-title]");
+        const heading = root?.querySelector(".title, .tac-section-heading h2, [data-main-section-title]");
         if (!root || !heading) return { id, missing: true };
         const s = getComputedStyle(heading);
         const matchedRules = [];
@@ -167,7 +167,7 @@ async function inspect(page) {
             if (!rule.selectorText || !rule.style) continue;
             const selectors = rule.selectorText.split(",").map(x => x.trim());
             const matching = selectors.filter(selector => {
-              if (!/(\\.title|tac-section-heading h2|section-title|panel-title|card-title|data-main-section-title)/.test(selector)) return false;
+              if (!/(\.title|tac-section-heading h2|section-title|panel-title|card-title|data-main-section-title)/.test(selector)) return false;
               try { return heading.matches(selector); } catch { return false; }
             });
             if (!matching.length) continue;
