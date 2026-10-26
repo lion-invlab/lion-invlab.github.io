@@ -195,3 +195,5 @@ Run 162: verify prior-week earnings result-grid ownership after removing legacy 
 Run 163: verify prior-week wide detail-field variant migration.
 
 Run 164: verify removal of redundant earnings summary visibility override.
+
+Run 165: verify prior-week earnings accordion closed-detail visibility after moving the Safari/mobile collapse safeguard into the design system.
