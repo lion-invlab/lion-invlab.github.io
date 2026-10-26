@@ -1615,10 +1615,15 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 
 
-/* Heading-bar spacing refinement: keep the red accent bar visually separated
-   from heading text in the three lower report panels, without changing type size. */
+/* Heading-bar spacing refinement: add a clear text gap after the red accent
+   marker in the three lower report panels, without changing heading typography. */
 #calendar > .title,
 #earnings > .title,
 #sp500-earnings-health > .title {
-  padding-left: 10px !important;
+  padding-left: 16px !important;
+}
+#calendar > .tac-section-heading h2,
+#earnings > .tac-section-heading h2,
+#sp500-earnings-health > .tac-section-heading h2 {
+  gap: 10px !important;
 }
