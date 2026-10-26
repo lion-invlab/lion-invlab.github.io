@@ -520,3 +520,11 @@
 - 移除 `body main.wrap #sentiment > .title { color:#fff!important; }`。後續 block 94 的 `main.wrap #sentiment .title:first-child { color:#fff!important; }` specificity 更高，且命中同一個第一子元素標題。
 - 驗收：`errors=[]`；desktop 1440、mobile 390、narrow-mobile 320 全部 `horizontalOverflow=false`、`missingPanels=[]`、`duplicateIds=[]`；三個 viewport sentiment 標題 computed color 都是 `rgb(255,255,255)`。桌機／手機版面主要幾何與 Run 172 相同，財報與經濟行事曆互動維持正常。
 - 下一個最小候選：移除較早的 `#sentiment > .title{color:var(--red)!important}` 中僅有衝突的 color 宣告，保留同一段的 up/down/warn 顏色慣例；後續 block 94 的白色例外才是標題最終規則。須再做一次全 viewport 回歸。
+
+
+## Run 174 驗收：移除 sentiment 標題衝突的紅色宣告
+
+- Run 174：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40283400842；artifact 12633022160 的 `results.json` 與 `summary.md` 已檢查。
+- 從 legacy 的市場情緒顏色慣例區移除 `#sentiment > .title{color:var(--red)!important}`，保留同區的 `.sbox .up/.down/.warn` 顏色規則。標題最終白色由後續高 specificity 的白色例外負責。
+- 驗收：`errors=[]`；1440、390、320 viewport 均無水平溢出、缺少面板或重複 ID；三種 viewport 的 sentiment 標題 computed color 全為 `rgb(255,255,255)`。財報 22 張、經濟事件 12 張、開／關操作維持正常。
+- 下一個候選：block 66 的 `#sentiment>.title{color:#fff!important;font-size:21px!important;font-weight:950!important}` 可只移除 color 宣告、保留字級與字重；後續更高 specificity 的白色例外已驗收為最終色彩來源。
