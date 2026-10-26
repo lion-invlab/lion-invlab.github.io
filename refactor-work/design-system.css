@@ -1359,3 +1359,15 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   }
   .tac-ds-event .econ-field .econ-value { font-size: 13px; }
 }
+
+/* Event summary ownership: remove the unused legacy toggle hooks after confirming no .econ-toggle nodes exist. */
+.tac-ds-event > summary {
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px;
+  gap: 6px 12px;
+  padding: 13px 14px;
+  align-items: start;
+}
+.tac-ds-event > summary::-webkit-details-marker { display: none; }
