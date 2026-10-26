@@ -114,6 +114,21 @@ async function inspect(page) {
       temporaryPreviewFooterText: /修正測試版|提醒膠囊與彈窗保留原母版結構/.test(document.querySelector("footer.footer")?.textContent || ""),
       fearGreedScore: Number(document.querySelector("#sentiment .fg6-score-main")?.textContent || NaN),
       fearGreedMarkerPosition: Number(document.querySelector("#sentiment .fg6-marker")?.getAttribute("data-score-position") || NaN),
+      earningsAccordionStyle: ["#earnings", "#last-week-earnings"].map(id => {
+        const card = document.querySelector(id + " details.earnings-accordion");
+        if (!card) return { id, missing: true };
+        const summary = card.querySelector(":scope > summary");
+        const toggle = summary?.querySelector(".earnings-accordion-toggle");
+        const cs = getComputedStyle(card), ss = summary ? getComputedStyle(summary) : null;
+        const ts = toggle ? getComputedStyle(toggle) : null;
+        const ps = toggle ? getComputedStyle(toggle, "::before") : null;
+        return {
+          id,
+          card: { height: Math.round(card.getBoundingClientRect().height), minWidth: cs.minWidth, margin: cs.margin, borderRadius: cs.borderRadius, borderColor: cs.borderColor, backgroundColor: cs.backgroundColor, boxShadow: cs.boxShadow, overflow: cs.overflow, transition: cs.transition },
+          summary: ss ? { height: Math.round(summary.getBoundingClientRect().height), display: ss.display, flexDirection: ss.flexDirection, alignItems: ss.alignItems, justifyContent: ss.justifyContent, gap: ss.gap, padding: ss.padding, minHeight: ss.minHeight, borderRadius: ss.borderRadius, backgroundColor: ss.backgroundColor, listStyleType: ss.listStyleType, cursor: ss.cursor } : null,
+          toggle: ts ? { width: ts.width, height: ts.height, minWidth: ts.minWidth, minHeight: ts.minHeight, padding: ts.padding, border: ts.border, borderRadius: ts.borderRadius, backgroundColor: ts.backgroundColor, color: ts.color, fontSize: ts.fontSize, lineHeight: ts.lineHeight, position: ts.position, opacity: ts.opacity, visibility: ts.visibility, beforeContent: ps?.content, beforeColor: ps?.color, beforeFontSize: ps?.fontSize, beforeBackground: ps?.backgroundColor } : { missing: true }
+        };
+      }),
       fiveStarRedCount: [...document.querySelectorAll(".earnings-accordion.star-verified-five .earnings-stars, .econ-event.star-verified-five .econ-stars")].filter(el => getComputedStyle(el).color === "rgb(198, 40, 40)").length,
       sourceTrianglesPresent: [...document.querySelectorAll("main.wrap details.source-details > summary")].filter(el => getComputedStyle(el, "::before").content.includes("▸")).length,
       doubleBarHeadings: [...document.querySelectorAll(".tac-tabset .tac-section-heading h2")].filter(el => getComputedStyle(el).borderLeftWidth !== "0px" && getComputedStyle(el, "::before").display !== "none").length,
