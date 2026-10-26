@@ -50,7 +50,7 @@
 .tac-ds-panel {
   min-width: 0;
   background: var(--tac-ds-color-surface);
-  border: 1px solid var(--tac-ds-color-line);
+  border: 1px solid #e1e5e9;
   border-radius: var(--tac-ds-radius-panel);
   box-shadow: var(--tac-ds-shadow-panel);
   padding: var(--tac-ds-panel-padding);
@@ -733,7 +733,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status.miss { color: #a56b13; background: #fff4df; }
 #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-status.pending { color: #596170; background: #f0f2f5; }
 #last-week-earnings .tac-ds-earnings-actual-card .earnings-actual-note {
-  color: var(--tac-ds-color-muted); font-size: 11px; line-height: 1.5; margin-top: 9px;
+  color: var(--tac-ds-color-muted); font-size: 11px; line-height: 1.5; margin-top: 9px; overflow-wrap: anywhere;
 }
 @media (max-width: 640px) {
   #last-week-earnings .tac-ds-earnings-actual-card { padding: 9px; border-radius: 12px; }
