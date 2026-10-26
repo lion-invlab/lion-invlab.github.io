@@ -233,3 +233,5 @@ Run 181: verify restored block 91 FX-name specificity override after Run 180 sho
 Run 182: verify energy instrument names are 16px on desktop, mobile, and narrow mobile, while energy values retain their existing compact 15px mobile typography and all panels/interactions remain stable.
 
 Run 183: verify energy name typography remains 16px/1.35 on desktop/mobile/narrow mobile after removing its legacy block 91 selectors; keep precious-metal selectors intact.
+
+Run 184: verify removing only block 48 mobile generic row-b 15px selector preserves 16px names in bonds/FX/energy/metals while keeping compact 15px numeric values and .name/.label variants.
