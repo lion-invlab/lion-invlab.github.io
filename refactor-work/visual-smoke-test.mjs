@@ -614,7 +614,7 @@ try {
     Math.abs(v.fearGreedScore - v.fearGreedMarkerPosition) > 0.1 || v.fiveStarRedCount !== 16 ||
     v.sourceTrianglesPresent < 1 || v.doubleBarHeadings > 0 ||
     (v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.some(size => !v.globalMarketNameFontSizes.includes(size))) ||
-    (v.width > 380 && new Set(v.mainTabStyleSignatures.filter(x => !x.missing).map(x => JSON.stringify({fontSize:x.fontSize,minHeight:x.minHeight,padding:x.padding,borderRadius:x.borderRadius,whiteSpace:x.whiteSpace}))).size > 1) || (v.width <= 380 && v.mainTabStyleSignatures.some(x => !x.missing && x.whiteSpace !== "nowrap")) ||
+    (v.width > 380 && new Set(v.mainTabStyleSignatures.filter(x => !x.missing).map(x => JSON.stringify({fontSize:x.fontSize,minHeight:x.minHeight,padding:x.padding,borderRadius:x.borderRadius,whiteSpace:x.whiteSpace}))).size > 1) || (v.width <= 380 && v.mainTabStyleSignatures.some(x => !x.missing && (x.whiteSpace !== "nowrap" || x.fontSize !== "12px"))) ||
     v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError || (t.input.startsWith("#week-") && t.visibleStatusGroupCount !== 1)) ||
     !v.consistentSelectedTabColor || !v.consistentSelectedTabTextColor || v.collapseWorks === false || v.earningsCollapseWorks === false || v.newErrors.length
   ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
