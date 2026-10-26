@@ -109,8 +109,8 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 /* 4. Shared radio-tab navigation: one visual language, layout-specific variants */
 .tac-ds-tabs {
   min-width: 0;
-  margin: 0 0 8px;
-  padding: 2px;
+  margin: 0 0 6px;
+  padding: 1px;
   background: #f3f4f6;
   border: 1px solid #e1e4e8;
   border-radius: 12px;
@@ -920,10 +920,7 @@ html {
   padding: 3px 8px !important;
   line-height: 1.25 !important;
 }
-.tac-ds-tabs {
-  padding: 1px;
-  margin-bottom: 6px;
-}
+
 @media (max-width: 700px) {
   .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
     min-height: 28px !important;
