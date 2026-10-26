@@ -268,3 +268,5 @@ Run 198: remove only the redundant font-size declaration from block 48 generic r
 Run 198: inventory direct children and computed styles under all 13 instrument rows before considering block 48 generic .row rule; do not remove rule without proving no unique styling dependency. 2026-10-26
 
 Run 200: remove only font-size:16px!important from block 48 generic row rule; preserve alignment and line-height after DOM inventory found all direct children have dedicated typography. Verify computed styles and all viewports. 2026-10-26
+
+Run 201: remove only generic block 48 .row line-height:1.5 declaration; retain align-items and explicit child typography; verify computed line heights, row/panel geometry, and all viewport interactions. 2026-10-26
