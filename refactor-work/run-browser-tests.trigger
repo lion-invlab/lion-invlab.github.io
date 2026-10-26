@@ -241,3 +241,6 @@ Run 185: verify design-system ownership of precious-metal name typography at 16p
 Run 185: inspect block 48 desktop row-name typography overlap against design-system.css; no CSS deletion until selector coverage and computed styles are proven. 2026-10-26T15:30+0800
 
 Run 187: verify precious-metal name typography stays 16px/1.35 after removing block 91 legacy selectors; keep FX selector and validate all four product groups across desktop/mobile/narrow mobile.
+
+
+Run 188: rerun after fixing dangling commas in retained legacy FX typography selectors; verify CSS parses and FX/bonds/energy/metals computed styles plus all viewport smoke checks. 2026-10-26
