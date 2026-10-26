@@ -134,6 +134,21 @@ async function inspect(page) {
       sourceTrianglesPresent: [...document.querySelectorAll("main.wrap details.source-details > summary")].filter(el => getComputedStyle(el, "::before").content.includes("▸")).length,
       doubleBarHeadings: [...document.querySelectorAll(".tac-tabset .tac-section-heading h2")].filter(el => getComputedStyle(el).borderLeftWidth !== "0px" && getComputedStyle(el, "::before").display !== "none").length,
       globalMarketNameFontSizes: [...new Set([...document.querySelectorAll("#global-markets .row b, #global-markets .instrument-name")].slice(0,20).map(el => getComputedStyle(el).fontSize))],
+      industryRowTypography: ["#bonds","#fx",".energy-card","#tac-assets-panel-4"].map(selector => {
+        const root = document.querySelector("#industry-bonds-fx-commodities " + selector);
+        if (!root) return { selector, missing: true };
+        const row = root.querySelector(".row");
+        if (!row) return { selector, rowMissing: true };
+        const name = row.querySelector("b, .name, .label");
+        const values = [...row.querySelectorAll(".r")];
+        const signature = el => {
+          if (!el) return null;
+          const s = getComputedStyle(el);
+          return { tag:el.tagName, className:String(el.className||""), fontSize:s.fontSize, lineHeight:s.lineHeight, fontWeight:s.fontWeight, letterSpacing:s.letterSpacing, whiteSpace:s.whiteSpace, fontVariantNumeric:s.fontVariantNumeric };
+        };
+        return { selector, row:signature(row), name:signature(name), values:values.slice(0,2).map(signature) };
+      }),
+
       industryInstrumentFontSizes: [...new Set([...document.querySelectorAll("#industry-bonds-fx-commodities #bonds .row b, #industry-bonds-fx-commodities .row .instrument-name")].map(el => getComputedStyle(el).fontSize))],
       tabNavGeometry: ["#news-scan", "#global-markets", "#industry-bonds-fx-commodities"].map(id => {
         const root = document.querySelector(id);
