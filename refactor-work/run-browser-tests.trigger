@@ -207,3 +207,5 @@ Run 168: verify CSSOM heading-rule inventory includes matching legacy and design
 Run 169: verify removal of redundant low-specificity sentiment title color rule; compare all main heading computed styles and viewport regression checks with Run 168.
 
 Run 170: verify removal of lower-specificity sentiment title color override while retaining white title color and all responsive regressions.
+
+Run 171: verify removal of the early main.wrap sentiment-title white-color declaration; later stronger white exception must remain effective on all viewports.
