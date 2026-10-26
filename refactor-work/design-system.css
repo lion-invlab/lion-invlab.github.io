@@ -1158,11 +1158,11 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
 }
 
 
-/* Direction B follow-up — recover a little vertical room on narrow news cards
+/* Direction B follow-up — reduce excess vertical spacing between narrow news items
    without reducing type size, clipping text, or changing card order/content. */
 @media (max-width: 380px) {
-  #news-scan article.card {
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+  #news-scan .newsitem {
+    padding-top: 9px !important;
+    padding-bottom: 9px !important;
   }
 }
