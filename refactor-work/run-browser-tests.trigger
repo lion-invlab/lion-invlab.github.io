@@ -183,3 +183,5 @@ Run 156: capture final computed styles for earnings accordion shell, summary and
 Run 157: verify earnings accordion summary-row migration and confirm no visible layout regressions.
 
 Run 158: verify earnings company/date/subtitle/star typography migration and red-star contract.
+
+Run 159: verify earnings accordion detail-field base styles while preserving last-week results-grid overrides.
