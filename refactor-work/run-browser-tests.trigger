@@ -169,3 +169,5 @@ Run 149: verify economic-event shell migration after removing duplicate legacy o
 Run 150: verify economic-event summary metadata migration and five-star red styling across all viewports.
 
 Run 151: verify economic-event detail-field grid and responsive styles after legacy selector removal.
+
+Run 152: verify event summary ownership and removal of unused econ-toggle CSS selectors.
