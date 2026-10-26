@@ -518,6 +518,43 @@ body.release-ready .news-window-warning { display: none !important; }
 #earnings .earnings-source-collapse>summary{cursor:pointer;list-style:disclosure-closed;font-size:11px;font-weight:800;color:#7b838b;padding:4px 0}
 #earnings .earnings-source-collapse[open]>summary{list-style:disclosure-open}
 #earnings .earnings-source-collapse p{margin:6px 0 0;font-size:11px;line-height:1.65}
+
+/* FedWatch「資料時間與快照口徑」比照週一母版：純文字收折，不使用卡片框 */
+#fed.fed-compact-preview .fedwatch-time{
+  margin:8px 0 0!important;
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+#fed.fed-compact-preview .fedwatch-time summary{
+  display:block!important;
+  padding:2px 0!important;
+  border:0!important;
+  background:transparent!important;
+  color:#77818b!important;
+  font-size:11px!important;
+  font-weight:800!important;
+  line-height:1.5!important;
+  list-style:disclosure-closed!important;
+}
+#fed.fed-compact-preview .fedwatch-time summary::-webkit-details-marker{display:initial!important}
+#fed.fed-compact-preview .fedwatch-time summary:before{content:none!important;display:none!important}
+#fed.fed-compact-preview .fedwatch-time[open] summary{list-style:disclosure-open!important}
+#fed.fed-compact-preview .fedwatch-time .audit-content{
+  padding:5px 0 0!important;
+  font-size:10px!important;
+  line-height:1.6!important;
+  color:#77818b!important;
+}
+#fed.fed-compact-preview .fc-source{
+  margin-top:7px!important;
+  font-size:10px!important;
+  line-height:1.5!important;
+  font-weight:500!important;
+}
+#fed.fed-compact-preview .fc-source a{font-weight:650!important}
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
