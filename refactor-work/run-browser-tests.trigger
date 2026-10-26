@@ -133,3 +133,5 @@ Layout-drift diagnosis: expand detailed DOM geometry capture for overview, news,
 Compare baseline and candidate internal DOM geometry at all three viewports before layout changes. 2026-10-26T11:30+0800
 
 Restore baseline two-row industry tab geometry and verify all viewports 2026-10-26
+
+Retry after repairing industry tab CSS cascade and row sizing 2026-10-26
