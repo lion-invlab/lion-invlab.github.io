@@ -31,13 +31,13 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 @media(max-width:700px){.headline-desc{line-height:1.6;display:block;overflow:visible;-webkit-line-clamp:unset}}
 
 .sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
-.sector-row{display:grid;grid-template-columns:32px 1fr 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
-.sector-row .rank{font-weight:800;color:#777;text-align:center}
+
+
 .sector-name b{font-size:14px}
 .sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
 .sector-pct{text-align:right;font-weight:800}
 .sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
-@media(max-width:700px){.sector-row{grid-template-columns:28px 1fr 64px}}
+
 
 /* Q4 精選基金 Dashboard */
 .fund-report-card{background:#4a171c;border:1px solid #6f242b;border-radius:14px;margin-bottom:14px;padding:18px 22px 20px;box-shadow:0 3px 8px rgba(0,0,0,.10)}
@@ -157,12 +157,12 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .instrument-en{display:block;font-size:.76em;font-weight:500;line-height:1.25;color:#6b7280;margin-top:2px;letter-spacing:.01em}
 
 /* V3: sector card list and calendar tables */
-.sector-row{display:grid;grid-template-columns:34px minmax(0,1fr) 92px;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:#f6f6f6;min-height:62px}
-.sector-row .rank{font-size:19px;font-weight:850;color:#777;text-align:center}
-.sector-label{min-width:0;display:flex;flex-direction:column;gap:3px}
-.sector-label b{font-size:17px;font-weight:900;color:#202124}
-.sector-label small{font-size:13px;font-weight:500;color:#909399;line-height:1.25}
-.sector-row .r{font-size:20px;font-weight:900;text-align:right;white-space:nowrap}
+
+
+
+
+
+
 .event-group{margin-top:12px}
 .event-group h4{margin:8px 0;font-size:14px}
 .event-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
@@ -176,7 +176,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .event-table:not(.earnings-calendar) td:nth-child(4) b{color:#1769aa;font-weight:900}
 .event-table.earnings-calendar{min-width:960px}
 @media(max-width:700px){
-.sector-row{grid-template-columns:30px minmax(0,1fr) 78px;padding:11px 10px;gap:8px;min-height:58px}.sector-label b{font-size:16px}.sector-label small{font-size:12px}.sector-row .r{font-size:18px}
+
 /* Mobile calendar tables become stacked cards instead of overflowing horizontally */
 .event-table-wrap{overflow:hidden;width:100%;max-width:100%;min-width:0}
 .calendar-card,.event-group{min-width:0;max-width:100%}
