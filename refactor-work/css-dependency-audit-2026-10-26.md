@@ -268,3 +268,11 @@
 - Run 143（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40270454570）通過。381px 以上恢復 Fed／View 外框 padding 16px、標題 padding 0 與基準標題下距，並將 Fed 內容容器及 View focus-tabs 的自然高度底線恢復至基準。結果：Fed 桌機 422→423px（+1）、390px 416→416px（0）；View 桌機 244→245px（+1）、390px 320→320px（0）。無新增瀏覽器錯誤、水平溢出或主頁籤樣式簽章問題。
 - 窄手機保留現有緊縮規則：Fed 411px（基準 416，-5）、View 372px（基準 368，+4）；暫不改動，需與其他窄版差異一併評估。
 - 剩餘明確項目：經濟行事曆手機 +4px／窄手機 +7px；財報行事曆手機 +1px／窄手機 +2px。下一步補量測兩種行事曆內部標籤列、面板區域與上下 margin，避免以整體面板高度反推錯誤的 CSS 修正。
+
+
+## 2026-10-26 行事曆內部幾何診斷（Run 144 通過）
+
+- Run 144：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40270640388，Artifact 12628701038 已檢查；所有 viewport 無新增瀏覽器錯誤或水平溢出。
+- 經濟行事曆與財報行事曆面板外框差異，主要落在 tab label row 與內容區高度互相抵銷。經濟 tab labels：桌機基準 56px、候選 46px；390／320 基準 58px、候選 46px。經濟 panels 區：桌機基準 98px、候選 109px；390 基準 133px、候選 149px；320 基準 151px、候選 170px。
+- 財報行事曆亦有相同方向：labels 基準 56／58px，候選 46px；panels 區桌機基準 98px、候選 109px，390px 基準 115px、候選 129px，320px 基準 115px、候選 129px。這表示差異不能單靠 tab row 高度解決，需繼續比較 panels 內部事件群組、空狀態、事件卡與列表的實際高度。
+- 下一步為測試診斷擴充，量測 calendar-status-group／heading／empty、econ-event-list、earnings-accordion-list 與各事件卡的 bounding box。尚未修改行事曆版面 CSS。
