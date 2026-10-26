@@ -199,8 +199,8 @@ html = re.sub(earnings_pattern, mark_exact_five_star_cards, html, flags=re.I)
 
 verified_econ_count = len(re.findall(r'<details\b[^>]*\bclass="[^"]*\becon-event\b[^"]*\bstar-verified-five\b', html, flags=re.I))
 verified_earnings_count = len(re.findall(r'<details\b[^>]*\bclass="[^"]*\bearnings-accordion\b[^"]*\bstar-verified-five\b', html, flags=re.I))
-if verified_econ_count != 3:
-    raise SystemExit(f"Refusing build: expected 3 exact five-star economic events marked, found {verified_econ_count}.")
+if verified_econ_count != 8:
+    raise SystemExit(f"Refusing build: expected 8 exact five-star economic events marked, found {verified_econ_count}.")
 if verified_earnings_count < 1:
     raise SystemExit(f"Refusing build: expected exact five-star earnings cards marked, found {verified_earnings_count}.")
 
