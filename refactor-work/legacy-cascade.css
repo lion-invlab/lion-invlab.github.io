@@ -1649,8 +1649,7 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 
 /* Original style block 52 */
 
-/* PREVIEW V1: unify all source / methodology disclosure labels; use triangle marker consistently */
-main.wrap details.source-details>summary,
+/* Source-details are owned by .tac-ds-disclosure modifiers; retain only unmigrated calendar and inline-style disclosures. */
 main.wrap details.calendar-source-collapse>summary,
 main.wrap details[style*="margin-top:8px"]>summary{
   display:inline-flex!important;align-items:center!important;gap:5px!important;
@@ -1658,13 +1657,10 @@ main.wrap details[style*="margin-top:8px"]>summary{
   color:#747b84!important;-webkit-text-fill-color:#747b84!important;
   cursor:pointer!important;list-style:none!important;
 }
-main.wrap details.source-details>summary::-webkit-details-marker,
 main.wrap details.calendar-source-collapse>summary::-webkit-details-marker,
 main.wrap details[style*="margin-top:8px"]>summary::-webkit-details-marker{display:none!important}
-main.wrap details.source-details>summary::marker,
 main.wrap details.calendar-source-collapse>summary::marker,
 main.wrap details[style*="margin-top:8px"]>summary::marker{content:""!important}
-main.wrap details.source-details>summary::before,
 main.wrap details.calendar-source-collapse>summary::before,
 main.wrap details[style*="margin-top:8px"]>summary::before{
   content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;
@@ -1672,14 +1668,11 @@ main.wrap details[style*="margin-top:8px"]>summary::before{
   color:#747b84!important;-webkit-text-fill-color:#747b84!important;
   transform:rotate(0deg);transition:transform .15s ease!important;
 }
-main.wrap details.source-details[open]>summary::before,
 main.wrap details.calendar-source-collapse[open]>summary::before,
 main.wrap details[style*="margin-top:8px"][open]>summary::before{transform:rotate(90deg)!important}
-main.wrap details.source-details>summary:after,
 main.wrap details.calendar-source-collapse>summary:after,
 main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;display:none!important}
 @media(max-width:700px){
-  main.wrap details.source-details>summary,
   main.wrap details.calendar-source-collapse>summary,
   main.wrap details[style*="margin-top:8px"]>summary{font-size:12px!important;font-weight:650!important;color:#747b84!important}
 }
