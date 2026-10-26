@@ -189,3 +189,5 @@ Run 159: verify earnings accordion detail-field base styles while preserving las
 Run 160: verify removal of redundant generic earnings-results and actual-card styles.
 
 Run 161: verify prior-week actual-card styles moved to design system and no result-card visual regressions.
+
+Run 162: verify prior-week earnings result-grid ownership after removing legacy !important chains.
