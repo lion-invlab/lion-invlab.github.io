@@ -615,7 +615,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   align-items: center;
   gap: 12px;
   min-width: 0;
-  min-height: 62px;
+  min-height: 73px;
   margin: 0 0 8px;
   padding: 12px 14px;
   border: 1px solid #e1e5eb;
@@ -660,7 +660,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector {
     grid-template-columns: 28px minmax(0, 1fr) 72px;
     gap: 8px;
-    min-height: 56px;
+    min-height: 68px;
     margin-bottom: 7px;
     padding: 10px 10px;
     border-radius: 10px;
