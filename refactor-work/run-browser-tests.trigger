@@ -248,3 +248,5 @@ Run 188: rerun after fixing dangling commas in retained legacy FX typography sel
 Run 189: verify removing block 48 .row .name/.label selectors unused by the baseline DOM; preserve bold names, compact numeric values, and all desktop/mobile/narrow-mobile checks.
 
 Run 190: verify repaired block 48 .row b selector after removing unused .name/.label selectors; inspect artifact and all viewport styles. 2026-10-26
+
+Run 190: verify removing block 47 .tab-panel .title small selector with zero DOM matches while preserving .tab-panel-meta typography and all viewport regressions.
