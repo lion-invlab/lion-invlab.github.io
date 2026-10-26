@@ -447,7 +447,7 @@ body.release-ready .news-window-warning { display: none !important; }
 /* Original style block 2 */
 
 /* V23: economic calendar rows converted into individually expandable event cards */
-.econ-event-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:8px 0 12px}
+
 
 
 
