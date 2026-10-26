@@ -150,21 +150,29 @@ async function inspect(page) {
       }),
 
       letterSpacingRuleAudit: (() => {
-        const selector = "html body #industry-bonds-fx-commodities .tac-tab-panel .row b";
+        const legacySelector = "html body #industry-bonds-fx-commodities .tac-tab-panel .row b";
+        const sharedSelector = "#global-markets .row > b, html body #industry-bonds-fx-commodities .tac-tab-panel .row > b";
         const rules = [];
         const visit = list => {
           for (const rule of list) {
-            if (rule.selectorText === selector) rules.push({ selector:rule.selectorText, letterSpacing:rule.style.getPropertyValue("letter-spacing"), important:rule.style.getPropertyPriority("letter-spacing") === "important" });
+            if (rule.selectorText && (rule.selectorText.includes("#global-markets .row > b") || rule.selectorText.includes("#industry-bonds-fx-commodities .tac-tab-panel .row > b"))) {
+              rules.push({ selector:rule.selectorText, fontSize:rule.style.getPropertyValue("font-size"), lineHeight:rule.style.getPropertyValue("line-height"), fontWeight:rule.style.getPropertyValue("font-weight"), letterSpacing:rule.style.getPropertyValue("letter-spacing"), important:{fontSize:rule.style.getPropertyPriority("font-size")==="important",lineHeight:rule.style.getPropertyPriority("line-height")==="important",fontWeight:rule.style.getPropertyPriority("font-weight")==="important",letterSpacing:rule.style.getPropertyPriority("letter-spacing")==="important"} });
+            }
             if (rule.cssRules) visit(rule.cssRules);
           }
         };
         for (const sheet of document.styleSheets) {
           try { visit(sheet.cssRules); } catch (_) {}
         }
+        const styleSignature = el => {
+          const s = getComputedStyle(el);
+          return {text:(el.textContent||"").trim().slice(0,40),fontSize:s.fontSize,lineHeight:s.lineHeight,fontWeight:s.fontWeight,letterSpacing:s.letterSpacing};
+        };
         return {
-          matchingNames: document.querySelectorAll(selector).length,
-          matchingEnergyLegacyNames: document.querySelectorAll("#industry-bonds-fx-commodities .energy-card .row b").length,
-          matchingRows: document.querySelectorAll("#industry-bonds-fx-commodities .tac-tab-panel .row b").length,
+          matchingGlobalNames: document.querySelectorAll("#global-markets .row > b").length,
+          matchingIndustryNames: document.querySelectorAll("#industry-bonds-fx-commodities .tac-tab-panel .row > b").length,
+          computedGlobal: [...document.querySelectorAll("#global-markets .row > b")].slice(0,3).map(styleSignature),
+          computedIndustry: [...document.querySelectorAll("#industry-bonds-fx-commodities .tac-tab-panel .row > b")].slice(0,5).map(styleSignature),
           rules
         };
       })(),
