@@ -155,3 +155,14 @@
 - 舊 CSS 清理提交 `0db5a015ebd02f7b469760d7f31d487c05a2f498` 移除 5 條重複／覆寫色彩規則，保留設計系統既有色彩：摘要 `#AEBBC8`、箭頭 `#E2B84D`、來源文字 `#C2CCD6`。
 - 測試提交 `42722d67efa6ede9360f25537efd699c6bc30740` 新增三個深色 disclosure 的計算樣式斷言。因第八組 run `40262905487` 尚在執行，尚未觸發新 workflow，避免併發設定取消前一輪。第九組尚未驗收。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+### 第八、九組合併驗收補記：通過（2026-10-26）
+
+- 第八組首次 run `40262905487` 因 Playwright 安裝階段長時間停滯而被替代，不列為通過或失敗；替代 run `40263157833` 已進入瀏覽器測試，但測試斷言把計算後的 padding 字串預期寫成 `2px 0`，瀏覽器實際回傳 `2px 0px`，因此非版面問題而中止。
+- 測試斷言修正 commit `40d143c624518a0f3b3356b2bb6d43f5adb9a6d3`：將預期正規化為瀏覽器實際的 `2px 0px`；重新觸發 commit `bf0c5f4d9622f503cbdd52fc590a64cf023ebb3e`。
+- 最終驗收 GitHub Actions [run 40263417258](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40263417258) 為 `completed / success`；artifact `12625238188` 已下載並檢查 `results.json`、`summary.md` 與候選 HTML。
+- 1440、390、320px 三種視窗均 `errors=[]`；無水平溢出、缺少面板、重複 ID、未匹配導覽或新增瀏覽器錯誤。第八組四個摘要列均為 11px、字重 400、`rgb(156, 163, 175)`、padding `2px 0px`；第九組三個 sentiment 深色來源 disclosure 均為摘要 `rgb(174, 187, 200)`、箭頭 `rgb(226, 184, 77)`、來源文字 `rgb(194, 204, 214)`。
+- 方法 disclosure 仍恰為 4 個且 inline style 數量為 0；三種視窗五星紅字均 16，全球／產業商品名稱字級一致為 16px；共用 tabs 21、news cards 15、sector rows 11，相關既有互動通過。
+- **保留的視覺驗收事項：**產業面板高度桌機 332px（baseline 380px，-48px）、手機 439px（baseline 448px，-9px）、窄手機 458px（baseline 502px，-44px）；窄手機 overview 面板短 97px，S&P 500 財報健康面板短 34px。這些幾何差異沒有在本輪修正，不能宣稱逐像素視覺核可。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
