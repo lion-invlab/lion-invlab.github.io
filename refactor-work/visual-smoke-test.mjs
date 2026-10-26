@@ -115,7 +115,8 @@ async function inspect(page) {
       fearGreedScore: Number(document.querySelector("#sentiment .fg6-score-main")?.textContent || NaN),
       fearGreedMarkerPosition: Number(document.querySelector("#sentiment .fg6-marker")?.getAttribute("data-score-position") || NaN),
       earningsAccordionStyle: ["#earnings", "#last-week-earnings"].map(id => {
-        const card = document.querySelector(id + " details.earnings-accordion");
+        const cards = [...document.querySelectorAll(id + " details.earnings-accordion")];
+        const card = cards.find(el => el.getBoundingClientRect().height > 0) || cards[0];
         if (!card) return { id, missing: true };
         const summary = card.querySelector(":scope > summary");
         const toggle = summary?.querySelector(".earnings-accordion-toggle");
