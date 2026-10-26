@@ -159,6 +159,16 @@ empty_state_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bcalendar-status-empty\b[^"
 # Standardize source/method disclosures without changing their content or open state.
 html = add_classes_to_tags(html, source_details_pattern, "tac-ds-disclosure tac-ds-disclosure--source")
 html = add_classes_to_tags(html, method_details_pattern, "tac-ds-disclosure tac-ds-disclosure--method")
+
+# Transfer all four compact inline-style disclosures to the shared method component.
+inline_method_pattern = r'<details\\b(?=[^>]*\\bstyle="[^"]*\\bmargin-top:8px\\b[^"]*")[^>]*>'
+def normalize_inline_method_disclosure(match):
+    tag = add_classes_to_tag(match.group(0), "tac-ds-disclosure tac-ds-disclosure--method")
+    return re.sub(r'\\s+style="[^"]*"', "", tag, count=1, flags=re.I)
+
+html, inline_method_count = re.subn(inline_method_pattern, normalize_inline_method_disclosure, html, flags=re.I)
+if inline_method_count != 4:
+    raise SystemExit(f"Refusing build: expected 4 inline-style method disclosures, found {inline_method_count}.")
 html = add_classes_to_tags(html, empty_state_pattern, "tac-ds-empty")
 
 # News cards share a visual shell while their headlines, body text and source links remain untouched.
