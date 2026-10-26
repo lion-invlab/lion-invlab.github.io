@@ -448,3 +448,12 @@
 - legacy selector 命中盤點：econ-event、econ-meta、econ-details、econ-field、econ-toggle、econ-event-list、earnings-actual、earnings-detail-field 的元件舊規則已清零；earnings-accordion 字樣剩餘 2 次，但不代表一定是 selector（需逐行檢查是否註解或非元件規則）。
 - 已完成的驗收鏈：Run 150–164（含 Run 156 樣式診斷）均通過；每次 artifact 已確認 errors=[]、沒有水平溢出／缺少面板／重複 ID，並核對事件卡、財報卡、結果卡數量及互動。
 - 下一步不應繼續大批刪 CSS；先列出 legacy 剩餘 2 條 earnings-accordion 命中與相鄰規則，確認語義後再處理。然後更新母版／工作規範中的依賴圖與目前驗收基準；仍只在隔離分支工作，不碰正式首頁、正式母版、JSON 或排程。
+
+
+## 2026-10-26 財報手風琴收合保險規則移交（Run 165 通過）
+
+- 設計系統提交：f30508a0c8f15bb77a6a52f76b48f7d84a6eab24；legacy 清理提交：2388a5e87e995ac0db6556f8003b9237a4d5d92b；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40278522753。
+- 將原本唯一的 legacy 規則 `#last-week-earnings details.earnings-accordion:not([open]) > .earnings-accordion-details{display:none!important}` 移入 design-system.css，改以 `#last-week-earnings details.tac-ds-earnings-card:not([open]) > .earnings-accordion-details` 精確限定已標記的設計系統財報卡；legacy 只留說明註解。22 張財報卡已確認皆是共用元件，因此不擴大或縮小實際元件範圍。
+- Artifact 12631860073（`run165-results.zip`）已下載並檢查 `results.json` 與 `summary.md`：頂層 errors=[]；桌機 1440px、手機 390px、窄手機 320px 均無水平溢出、缺少面板、重複 ID 或新增瀏覽器錯誤；每個 viewport 都有財報卡 22 張、實際結果卡 14 張、五星紅字 16；財報手風琴開／關、上週財報收合與展開、經濟行事曆收合與展開、來源 disclosure 開／關均通過。面板幾何與基準大致一致；窄手機部分非目標面板有像素差異，屬 CSS 抽取基準既有差異，這次僅移動收合規則，未見目標元件或互動退化。
+- 修正前盤點：`earnings-accordion` 字樣實際只剩 1 條有效 legacy 選擇器（不是 2 條）；其餘命中來自不同搜尋／統計口徑。移交後 legacy 中 `earnings-accordion` 有效選擇器為 0，經濟事件與財報元件舊規則清零的盤點不變。
+- 下一步：開始整理非元件級 legacy 依賴地圖，先按區域／元件家族列出仍由 legacy 控制的規則、DOM 範圍與 !important 風險；優先選可驗收的單一元件簇，不批次刪除，也不碰正式首頁、正式母版、JSON 或排程。
