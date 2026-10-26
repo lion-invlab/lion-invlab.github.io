@@ -284,3 +284,5 @@ Run 206: retry Run 205 after Install Playwright stalled before candidate build/t
 Run 207: remove only redundant font-variant-numeric:tabular-nums!important from block 48 .row .r; base .r already sets tabular-nums and bonds rows reinforce it. Verify all 26 values across viewports. 2026-10-26
 
 Run 207: diagnostic-only browser regression to inspect letter-spacing selector match counts and CSSOM rule presence/priority; do not change CSS until the cause is identified. 2026-10-26
+
+Run 208: retry Run 207 after Install Playwright stalled before candidate build/tests; no CSS changes in this retry. Validate the tabular-numeric selector cleanup. 2026-10-26
