@@ -111,3 +111,5 @@ Architecture step 4: fold shared tab-container spacing into canonical rule; run 
 sector-label-mobile-duplicate-cleanup da3dc74f1ecec4abdd370e4ce5d670abedbff999
 
 news-card-legacy-rules-removed 582a02eebf484ca2d0be9aae1df5c4ee3415d91f 97ae9c8c42b98c202d76d99516f9406cf55b8345
+
+sector-row-legacy-rules-removed 8904b7d91be62648211b19377ec4de196c068253
