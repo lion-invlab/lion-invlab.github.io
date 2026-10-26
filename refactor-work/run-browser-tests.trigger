@@ -101,3 +101,5 @@ computed-five-star-color-assertion-2026-10-26
 Strict assertions enabled: fail on all recorded errors; require 16 red five-star glyphs and exactly 8 five-star earnings cards. Trigger 2026-10-26T01:40Z
 
 Architecture step 1: consolidate duplicate .tac-ds-empty rule; verify 320/390/1440 regression. 2026-10-26T02:00Z
+
+Architecture step 2: consolidate source-disclosure sizing into the canonical component rule; rerun strict browser regression. 2026-10-26T02:10Z
