@@ -607,6 +607,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   gap: 12px;
   padding: 13px 14px;
   min-width: 0;
+  visibility: visible;
   border-radius: 12px;
   background: #f7f8fa;
   transition: background-color .16s ease;
