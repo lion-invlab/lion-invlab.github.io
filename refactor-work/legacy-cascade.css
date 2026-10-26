@@ -1904,8 +1904,6 @@ body main.wrap #sentiment > .title { color:#fff!important; }
 #sentiment .sbox .up{color:#ff6d75!important;font-weight:850!important}
 #sentiment .sbox .down{color:#48d597!important;font-weight:850!important}
 #sentiment .sbox .warn{color:#f4c45d!important;font-weight:850!important}
-#sentiment .source-details summary{color:#aeb8c5!important}
-#sentiment .source-details{color:#c4ccd6!important}
 #sentiment .interpretation,#sentiment .sentiment-interpretation,#sentiment .callout{
   background:#302d25!important;border:1px solid #645335!important;color:#f7e7bd!important;border-radius:6px!important
 }
@@ -2483,9 +2481,6 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 #sentiment .sbox strong{color:#fff!important}
 #sentiment .sbox .down{color:#42d6a0!important}
 #sentiment .sbox .up{color:#ff777e!important}
-#sentiment .source-details summary{color:#aebbc8!important}
-#sentiment .source-details summary:before{color:#e2b84d!important}
-#sentiment .source-details .source{color:#c2ccd6!important}
 #sentiment .cnn-fg-preview{border-radius:18px!important}
 #sentiment .fg6-date{color:#9eacba!important}
 #sentiment .fg6-score-main{color:#fff!important}
