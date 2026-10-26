@@ -151,3 +151,5 @@ Run 140: verify S&P 500 earnings-health shell, title, and method-summary geometr
 Run 141: capture detailed child geometry for Fed, View, Calendar and Earnings panels before next parity fixes.
 
 Run 142: pair baseline and candidate child geometry for Fed, View, Calendar and Earnings.
+
+Run 143: verify Fed and View geometry restoration at desktop and standard mobile widths.
