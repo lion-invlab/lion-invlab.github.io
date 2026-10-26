@@ -215,3 +215,11 @@
 - 產業資料列高度現已與基準一致：桌機 11 列均 73px；390px 11 列均 68px；320px 多數 68px、長文字列 70px（基準長文字列為 83px，仍有局部換行／欄寬差異）。面板高度改善為桌機 364px（基準 380，-16）、390px 439px（基準 448，-9）、320px 493px（基準 502，-9）。
 - 目前主要剩餘幾何差異是產業頁籤列：桌機候選 72px 對基準 96px；手機與窄手機候選 70px 對基準 89px。由於其餘主頁籤需維持一致樣式，下一步先檢查基準與候選的 tab label 計算高度、padding、grid row sizing，然後只修正產業兩列 tab 的內部尺寸；不改動資料列、不以面板固定高度補差。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業資料列高度校準回歸（Run 135 通過）
+
+- GitHub Actions [run 40267253701](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40267253701) completed / success；artifact `12627420407` 已下載並檢查 results.json。三種 viewport errors=[]、16 個五星紅色標記全數符合，無新增瀏覽器錯誤，既有互動通過。
+- 產業資料列 min-height 回復後，桌機 11 列均為 73px、390px 多數列 68px、320px 多數列 68px；長文字列依換行自然增高（baseline 83px、candidate 70px），沒有硬塞固定高度。相較 Run 134，產業面板高度改善為桌機 364px（baseline 380，-16）、手機 439px（baseline 448，-9）、窄手機 493px（baseline 502，-9）。
+- 目前剩餘最明確的差異是 tabs 導覽列：桌機候選 72px／baseline 96px；手機與窄手機候選 70px／baseline 89px。資料列的主要固定高度差已處理；下一步針對 tabs 的行高、padding、grid row sizing 做配對檢查，避免直接加高整個導覽列或破壞其他兩組主頁籤的視覺一致性。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
