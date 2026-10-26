@@ -276,3 +276,5 @@ Run 202: remove the remaining block 48 align-items:center!important declaration;
 Run 203: remove only block 48 generic row b line-height:1.5!important; keep font-weight and letter-spacing, as specific bond/FX/energy/metal name rules already provide 21.6px line-height. Verify all typography and viewport geometry. 2026-10-26
 
 Run 204: remove only block 48 generic row b font-weight:700!important; retain letter-spacing:0!important because Run 197 showed the letter-spacing reset is necessary. Verify all four instrument name weights and typography across viewports. 2026-10-26
+
+Run 205: migrate the remaining instrument-name letter-spacing:0!important rule from legacy block 48 into design-system.css with the same selector/specificity; verify energy and all other instrument names retain their computed spacing across viewports. 2026-10-26
