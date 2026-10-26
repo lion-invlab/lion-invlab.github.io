@@ -286,3 +286,5 @@ Run 207: remove only redundant font-variant-numeric:tabular-nums!important from 
 Run 207: diagnostic-only browser regression to inspect letter-spacing selector match counts and CSSOM rule presence/priority; do not change CSS until the cause is identified. 2026-10-26
 
 Run 208: retry Run 207 after Install Playwright stalled before candidate build/tests; no CSS changes in this retry. Validate the tabular-numeric selector cleanup. 2026-10-26
+
+Run 210: retry the same tabular-numeric CSS candidate after Run 209 stalled at Playwright install; no CSS changes. If setup stalls again, stop retry churn and document the environment blocker. 2026-10-26
