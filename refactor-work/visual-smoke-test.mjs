@@ -166,7 +166,19 @@ async function inspect(page) {
         }
         const styleSignature = el => {
           const s = getComputedStyle(el);
-          return {text:(el.textContent||"").trim().slice(0,40),fontSize:s.fontSize,lineHeight:s.lineHeight,fontWeight:s.fontWeight,letterSpacing:s.letterSpacing};
+          const matchedLetterSpacingRules = [];
+          const inspect = list => {
+            for (const rule of list) {
+              if (rule.selectorText && rule.style && rule.style.getPropertyValue("letter-spacing")) {
+                try {
+                  if (el.matches(rule.selectorText)) matchedLetterSpacingRules.push({selector:rule.selectorText,value:rule.style.getPropertyValue("letter-spacing"),important:rule.style.getPropertyPriority("letter-spacing")==="important"});
+                } catch (_) {}
+              }
+              if (rule.cssRules) inspect(rule.cssRules);
+            }
+          };
+          for (const sheet of document.styleSheets) { try { inspect(sheet.cssRules); } catch (_) {} }
+          return {text:(el.textContent||"").trim().slice(0,40),fontSize:s.fontSize,lineHeight:s.lineHeight,fontWeight:s.fontWeight,letterSpacing:s.letterSpacing,matchedLetterSpacingRules};
         };
         return {
           matchingGlobalNames: document.querySelectorAll("#global-markets .row > b").length,
