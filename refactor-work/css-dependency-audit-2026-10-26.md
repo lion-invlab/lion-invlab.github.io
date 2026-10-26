@@ -141,3 +141,10 @@
 - 舊規則清理 commit `9968a4eb72a8272c68e07d37e5bc04831cb6bf03`；候選建置修正 commit `b26a58d817c92d9cc5a9051c8fc335daf3fa70be`；設計系統摘要列規格修正 commit `fd4db5d5ed404fe5bcf1fb5b85fac68da8cd8d90`。
 - 視覺差異仍需逐項審視，不能把功能測試成功等同逐像素核可。已知產業債匯商品面板桌機 332px（baseline 380px，-48px）、手機 439px（baseline 448px，-9px）、窄手機 458px（baseline 502px，-44px）；窄手機總覽面板亦短 97px，S&P 500 財報健康面板短 34px，需保留在整體視覺驗收清單。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+## 2026-10-26 遷移紀錄：區域／產業來源摘要列（第八組，驗收待執行）
+
+- 候選 DOM 中有 3 個 `details.region-source` 與 1 個 `details.sector-source`；它們已具有 `.tac-ds-disclosure--source`，但摘要字體／顏色／內距仍由 legacy selector 以 `!important` 提供。
+- 設計系統提交 `3cfa4e705a6ceaa226f66a0de7f5855ff66e80e2` 新增 `.tac-ds-disclosure--source.region-source` 與 `.tac-ds-disclosure--source.sector-source` 摘要列樣式；舊 CSS 提交 `e5e88f866f10e819d4a03a2130a425827f8c018a` 移除兩組 legacy summary／marker 規則。保留原本實際計算樣式：11px、font-weight 400、`#9CA3AF`、padding `2px 0`。
+- 測試提交 `5a7a5b05ad189e0287a5a678002ebe0011940c7e` 新增四個摘要列的硬性樣式驗收（字級、字重、顏色、padding），回歸觸發提交 `e642c7b7f700cba5d5009046b68b5ba74a1cba86`。等待 GitHub Actions 完成並檢查 artifact 後，才可將本組標記為通過。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
