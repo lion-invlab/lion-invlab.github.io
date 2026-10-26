@@ -731,3 +731,10 @@
 - Run 203：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290849446；artifact 12636627348 已下載並檢查 `results.json`、`summary.md`。workflow success；`errors=[]`；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，導航、7 組分頁與 disclosure／事件／財報／商品互動均通過。
 - 本輪只移除 block 48 的通用 `.row b` 行高宣告。債券、FX、能源、貴金屬名稱仍為 16px／21.6px／700，字距保持 normal；報價桌機 16px／24px、手機 15px／22.5px。產業商品面板高度仍為桌機 380px、手機 448px、窄手機 502px。
 - 下一候選：只移除同一規則中的 `font-weight:700!important`，保留 `letter-spacing:0!important`。名稱元素都是 `b`，且目前 computed font-weight 為 700；Run 204 將確認移除重要性宣告後，四類名稱仍是 700、字距不變且沒有版面／互動回歸。若有任何名稱字重改變，立即恢復。
+
+
+## Run 204 驗收：移除通用商品名稱字重宣告
+
+- Run 204：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291119029；artifact 12636446632 已下載並檢查 `results.json`。workflow success；`errors=[]`；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；7 組分頁、來源 disclosure、經濟事件、財報收合及商品分頁／收合通過。
+- 本輪只移除 block 48 通用名稱規則的 `font-weight:700!important`。四類名稱仍由語意元素 `b` 呈現 700 字重，字距維持 normal，名稱字級／行高仍是 16px／21.6px；報價桌機 16px／24px、手機 15px／22.5px，版面幾何不變。
+- 下一步：把最後剩餘的 `letter-spacing:0!important` 從 legacy block 48 移入 design-system.css，保留完全相同 selector 與重要性。Run 197 已證明這個字距重設不能直接刪除；Run 205 會驗證遷移後四類名稱的 computed letter-spacing、字級／行高、三種 viewport 幾何與互動。若能源名稱再度出現負字距，立即回復。
