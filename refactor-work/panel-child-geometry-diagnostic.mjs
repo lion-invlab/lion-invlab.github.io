@@ -9,7 +9,7 @@ const baseline = path.join(here, "source-baseline-2026-10-26.html");
 const out = path.join(here, "browser-results", "panel-child-geometry-diagnostic.json");
 fs.mkdirSync(path.dirname(out), { recursive: true });
 
-const targets = ["overview", "news-scan", "sp500-earnings-health", "fed", "view"];
+const targets = ["overview", "sentiment", "news-scan", "global-markets", "industry-bonds-fx-commodities", "last-week-calendar", "last-week-earnings", "calendar", "earnings", "sp500-earnings-health", "fed", "view"];
 const viewports = [
   { name: "desktop", width: 1440, height: 1000 },
   { name: "mobile", width: 390, height: 844 },
