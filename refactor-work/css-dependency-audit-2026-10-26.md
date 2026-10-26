@@ -391,3 +391,11 @@
 - 保留 #last-week-earnings 的高優先級 display:flex、padding/gap、結果 grid 欄位規則與 wide 欄位覆寫，避免破壞上週財報的特殊內容結構。
 - Artifact 12629791115 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；財報卡 22 張、結果卡 14 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
 - 財報手風琴通用 summary、日期／名稱／副標／星號與詳細欄位基礎樣式已移交；剩餘主要相依集中在上週財報專用的結果 grid 與寬欄位外觀。下一步先盤點這些規則與已存在的 tac-ds-earnings-actual-card 元件，不批次移除 #last-week-earnings 的 !important 覆寫。
+
+
+## 2026-10-26 財報手風琴 detail-field 基礎規則移交（Run 159 通過）
+
+- 設計系統提交：dd26192ae49903c6bb2c1e256e65efd058dfbd4c；legacy 清理提交：35dee602788efe3d62091e2889fc865f69647f89；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40274386745。
+- 將 earnings-accordion-details、earnings-detail-field、wide 欄位、label 與 detail-value 的通用基礎樣式及 640px 響應式規則移入 tac-ds-earnings-card，保留 #last-week-earnings 的高優先級結果 grid 與 wide 欄位覆寫。
+- Artifact 12629791115 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；財報卡 22 張、結果卡 14 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
+- 下一步盤點已存在的 tac-ds-earnings-actual-card 與 legacy 通用 .earnings-results-grid／.earnings-actual-card 規則，確認它們是否都只作用於已標記的上週財報卡，再移除重複基礎規則；保留 #last-week-earnings 的特殊 !important 覆寫。
