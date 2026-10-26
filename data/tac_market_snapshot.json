@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "fetched_at_utc": "2026-10-26T21:04:45+00:00",
-  "fetched_at_taipei": "2026-10-27T05:04:45+08:00",
+  "fetched_at_utc": "2026-10-26T21:11:22+00:00",
+  "fetched_at_taipei": "2026-10-27T05:11:22+08:00",
   "branch": "tac-test-2026-10-23",
   "indicators": {
     "VIX": {
@@ -20,14 +20,14 @@
     },
     "CNN Fear & Greed": {
       "value": 27.0788912579957,
-      "date": "2026-10-26T20:46:10+00:00",
+      "date": "2026-10-26T20:51:13+00:00",
       "source": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/",
       "status": "ok",
       "rating": "fear"
     },
     "CME FedWatch": {
       "value": null,
-      "date": "2026-10-26T21:04:45+00:00",
+      "date": "2026-10-26T21:11:22+00:00",
       "source": "CME FedWatch page / embedded QuikStrike fallback",
       "status": "missing",
       "error": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html: HTTPError: 403 Client Error: Forbidden for url: https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html | https://cmegroup-tools.quikstrike.net/User/QuikStrikeTools.aspx?company=&companyType=&jobRole=&userId=lwolf&viewitemid=IntegratedFedWatchTool: HTML fetched (3379 chars) but outcome probabilities not parsable"
@@ -219,8 +219,8 @@
     "indicator_dates": {
       "VIX": "2026-10-26",
       "MOVE": "2026-10-26",
-      "CNN Fear & Greed": "2026-10-26T20:46:10+00:00",
-      "CME FedWatch": "2026-10-26T21:04:45+00:00",
+      "CNN Fear & Greed": "2026-10-26T20:51:13+00:00",
+      "CME FedWatch": "2026-10-26T21:11:22+00:00",
       "SOX": "2026-10-26"
     },
     "freshness_check": "dates recorded; must be checked against each market's expected session before publication",
