@@ -278,3 +278,5 @@ Run 203: remove only block 48 generic row b line-height:1.5!important; keep font
 Run 204: remove only block 48 generic row b font-weight:700!important; retain letter-spacing:0!important because Run 197 showed the letter-spacing reset is necessary. Verify all four instrument name weights and typography across viewports. 2026-10-26
 
 Run 205: migrate the remaining instrument-name letter-spacing:0!important rule from legacy block 48 into design-system.css with the same selector/specificity; verify energy and all other instrument names retain their computed spacing across viewports. 2026-10-26
+
+Run 206: retry Run 205 after Install Playwright stalled before candidate build/tests; no CSS changes in this retry. Validate the letter-spacing migration artifact and computed styles. 2026-10-26
