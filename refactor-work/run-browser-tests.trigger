@@ -103,3 +103,5 @@ Strict assertions enabled: fail on all recorded errors; require 16 red five-star
 Architecture step 1: consolidate duplicate .tac-ds-empty rule; verify 320/390/1440 regression. 2026-10-26T02:00Z
 
 Architecture step 2: consolidate source-disclosure sizing into the canonical component rule; rerun strict browser regression. 2026-10-26T02:10Z
+
+Architecture step 3: remove duplicate tabbed-panel padding and redundant mobile news typography overrides; verify browser regression. 2026-10-26T02:20Z
