@@ -672,3 +672,11 @@
 - Run 196：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288906883；artifact 12635333220 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、分頁、來源 disclosure、事件／財報收合與商品分頁／收合互動通過。
 - 本輪驗收 block 48 的 `.row .down` 清理：DOM 中 6 個 `.down` 全部同時符合 `.row .r`，移除後全球股市與產業商品名稱三種 viewport 仍為 16px，報價維持桌機 16px、手機 15px。
 - 下一候選是 block 48 的通用 `.row b` 規則。DOM inventory 顯示 13 個商品名稱分別由債券（3）、FX 的 `.instrument-name`（6）、能源（2）及貴金屬（2）組成，皆已有更具體的名稱字級規則；目前 computed style 亦顯示字重為 700、字距為 normal。下一輪僅移除這條通用 `.row b` 規則作驗證，保留通用 `.row` 與數值 `.row .r`，檢查所有名稱的字級、行高、字重、字距及三種 viewport；若任何樣式偏移即恢復。
+
+
+## Run 196 驗收：移除重複的 block 48 .row .down selector
+
+- Run 195 因 Install Playwright 未完成而被 Run 196 取代，Run 195 不算通過。Run 196 完整成功：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288906883；artifact 12635333220 已下載並檢查 `results.json` 與 `summary.md`。
+- Run 196 的 errors=[]；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導航錨點、分頁、來源 disclosure、經濟事件／財報收合與商品分頁／收合互動通過。全球股市與產業債匯商品名稱在三種 viewport 均為 16px。
+- 本輪只移除 block 48 的 `.row .down` selector。candidate DOM 有 6 個 `.down`，且 `.down:not(.r)`=0；因此數值的既有 `.row .r` 規則已完整覆蓋，移除沒有造成版面或互動回歸。
+- Run 196 candidate DOM 的 13 個商品名稱分布為債券 3、FX 6、能源 2、貴金屬 2。design-system.css 已分別以 `#bonds .row b`、`.row .instrument-name`、`.energy-card .row > b`、`#tac-assets-panel-4 .row > b` 覆蓋這 13 個名稱的 16px 字級；下一輪只移除 block 48 `.row b` 的 `font-size:16px!important` 宣告，保留 `line-height:1.5`、字重與 letter-spacing，避免一次改動行高幾何。
