@@ -276,3 +276,11 @@
 - 經濟行事曆與財報行事曆面板外框差異，主要落在 tab label row 與內容區高度互相抵銷。經濟 tab labels：桌機基準 56px、候選 46px；390／320 基準 58px、候選 46px。經濟 panels 區：桌機基準 98px、候選 109px；390 基準 133px、候選 149px；320 基準 151px、候選 170px。
 - 財報行事曆亦有相同方向：labels 基準 56／58px，候選 46px；panels 區桌機基準 98px、候選 109px，390px 基準 115px、候選 129px，320px 基準 115px、候選 129px。這表示差異不能單靠 tab row 高度解決，需繼續比較 panels 內部事件群組、空狀態、事件卡與列表的實際高度。
 - 下一步為測試診斷擴充，量測 calendar-status-group／heading／empty、econ-event-list、earnings-accordion-list 與各事件卡的 bounding box。尚未修改行事曆版面 CSS。
+
+
+## 2026-10-26 行事曆高度差根因定位（Run 145 通過）
+
+- Run 145：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40270815531，Artifact 12627996963 已檢查；所有 viewport 無新增瀏覽器錯誤或水平溢出。
+- 經濟與財報行事曆的空狀態元件是可確認的主要差異：基準桌機 44px、候選 51px；390px 基準經濟 80px／財報 62px，候選 92px／72px；320px 基準經濟 98px／財報 62px，候選 113px／72px。候選空狀態套用了 14px padding（基準垂直 padding 12px），額外 margin-top:4px（基準 0），且字級／行高與基準不同；造成內容區多出 11–19px。
+- tab label row 也比基準短：桌機 46px 對 56px，手機／窄手機 46px 對 58px。這是共享樣式遷移後的計算高度差，不應以面板固定高度補償。
+- 下一輪採用兩個局部修正：行事曆 tab label 容器恢復基準 row footprint（56px 桌機、58px 手機），但保留共用 label 計算樣式；只在兩種行事曆內將空狀態的 padding、margin、字級與行高恢復為基準幾何。修正後再驗證整體面板與所有既有互動。
