@@ -334,3 +334,6 @@ Run 230: expand child-geometry diagnostics to Fed and Today Focus at 1440/390/32
 
 
 Run 231: expand panel-child geometry diagnostics from five panels to all 12 main panels across 1440/390/320; no CSS changes in this run. Identify the remaining largest local geometry differences before prioritizing further component migration. 2026-10-26Tcontinued
+
+
+Run 232: diagnostic-only CSS cascade trace for 320px news-scan, Fed and Today Focus; record matched padding, width, gap and tab sizing declarations against the frozen baseline before any geometry patch. Preserve all existing desktop/mobile/narrow-mobile browser, typography, navigation and interaction checks. 2026-10-26T19:15+0800
