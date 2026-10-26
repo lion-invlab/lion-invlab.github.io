@@ -1273,3 +1273,45 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     min-height: 35px !important;
   }
 }
+
+/* Event summary metadata ownership: keep labels, names and stars inside the design-system component. */
+.tac-ds-event .econ-meta {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  gap: 8px 14px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 850;
+  color: #24272b;
+  min-width: 0;
+}
+.tac-ds-event .econ-country {
+  color: #737981;
+  font-weight: 800;
+}
+.tac-ds-event .econ-name {
+  grid-column: 1 / -1;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  color: #202124 !important;
+}
+.tac-ds-event.star-verified-five .econ-name {
+  color: #c62828 !important;
+}
+.tac-ds-event .econ-stars {
+  grid-column: 1 / -1;
+  color: #a56b00;
+  font-size: 14px;
+  letter-spacing: .5px;
+}
+@media (max-width: 640px) {
+  .tac-ds-event .econ-meta {
+    grid-template-columns: auto auto minmax(0, 1fr);
+    gap: 6px 10px;
+    font-size: 12px;
+  }
+  .tac-ds-event .econ-name { font-size: 15px; }
+}
