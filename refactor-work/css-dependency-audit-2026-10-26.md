@@ -752,3 +752,10 @@
 - Run 206 errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；7 組分頁、來源 disclosure、經濟事件、財報收合與商品分頁／收合通過。四類商品名稱均為 16px／21.6px／700、letter-spacing normal；面板高度維持 380px／448px／502px。
 - 本輪把 `letter-spacing:0!important` 從 legacy block 48 移入 design-system.css 的相同 ID／元件範圍 selector，移除 legacy 名稱規則後，computed style 與 Run 204 完全一致。
 - 下一候選：移除 block 48 數值規則中的 `font-variant-numeric:tabular-nums!important`。原始通用 `.r` 規則已設 `font-variant-numeric:tabular-nums`，債券列也有專屬 tabular-nums；Run 207 將檢查 26 個報價／漲跌值在三種 viewport 仍保有 tabular-nums，且不影響其他數值樣式。
+
+
+## Run 206 驗收：字距規則移至 design-system.css
+
+- Run 206：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291703706；artifact 12636569083 已檢查 `results.json` 與 `summary.md`。workflow success；`errors=[]`；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、7 組主要分頁、來源 disclosure、事件／財報收合、商品分頁與收合互動通過。
+- 產業商品面板高度維持桌機 380px、手機 448px、窄手機 502px；商品名稱仍為 16px／21.6px／700，報價桌機 16px／24px、手機 15px／22.5px。CSS 規則已在 `design-system.css`，legacy block 48 不再保留名稱字距宣告。
+- 注意：此輪的報告記錄四類名稱 computed `letter-spacing: normal`；版面與互動無回歸，但尚未證明這條新規則實際命中所有商品列。不得把「規則搬移」視為字距行為已被完整驗收。後續需先查清 DOM／selector 命中原因，補上明確的字距 assertion，再做其他名稱規則清理。
