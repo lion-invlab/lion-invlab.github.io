@@ -38,7 +38,9 @@ jobs:
         run: python refactor-work/build-candidate.py refactor-work/candidate-build.html
 
       - name: Run desktop and mobile smoke tests
-        run: node refactor-work/visual-smoke-test.mjs
+        run: |
+          node refactor-work/visual-smoke-test.mjs
+          node refactor-work/instrument-typography-audit.mjs
 
       - name: Upload screenshots and test report
         if: always()
