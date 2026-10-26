@@ -197,3 +197,11 @@
 - 在 320px，首張核心判讀卡基準 219px、候選 219px；「如何解讀」卡均為 232px；提醒區均為 101px；來源 disclosure 內文均為 104px。故已排除上述子區塊單體高度是 -31px 的來源。390px 與桌面主面板整體差距分別只有約 -2px／-1px。
 - Run #222 的瀏覽器 smoke tests 未完成，因此不能把 artifact 當成本次回歸通過；沒有修改任何 CSS。正式首頁、母版、JSON、排程均未修改。
 - 下一步：在隔離分支檢查 `sp500DeepGeometry` 的 parent/child 關係和候選 HTML 中對應窄版 CSS，定位第二列 top 偏移與 grid track sizing 的確切來源。若診斷測試可在取消前完成，調整 workflow 的步驟／timeout 或拆分 diagnostic job；確認原因後才改 CSS，最後重跑 1440／390／320px 回歸。
+
+
+## 2026-10-26 — Run #222 子元素對照補充：已定位 -31px 的具體組成，待重新回歸
+- 對照 Run #222 artifact 中同一 320px viewport 的 `baseline.sp500DeepGeometry` 與候選 `sp500DeepGeometry` 後，確定 grid 由 266px 降至 235px（Δ -31px）不是整列 gap 單獨造成，而是第三、第四張指標卡由基準 137px 降至候選 106px（各 -31px）；第一、第二張卡維持 121px。
+- 根因是窄版規則 `#sp500-earnings-health .tac-ds-card, #sp500-earnings-health .tac-ds-earnings-actual-card { padding: 9px !important; }` 沒有命中這四張內嵌指標卡，因其 HTML 尚未加入相應的 Design System 卡片 class。真正造成第三、第四張卡高度差的則是候選版文字節點可用寬度增加：基準卡內容寬 99px，候選卡內容寬 105px。因為候選版外層容器／內卡幾何不同，兩個比較長的輔助文字列由 48px 降成 32px（EPS 平均超預期幅度卡）及由 48px 降成 32px（混合營收年增率卡），每張卡少 31px。
+- 此外，第三、第四張卡對應的輔助字串在基準寬度 99px 時都換成三行（48px），候選寬度 105px 時為兩行（32px）；這是可驗證的內容換行差異，而不是 grid 任意少高。這也表示 -31px 是兩張卡各自的高度少量，grid 的整體 track size 取兩列中較高的卡片後縮短 31px。
+- 尚不立即回退所有 9px 規則：需先比較 320px 寬度預算與卡片左右 padding 的實際影響，採用最小且可維持可讀性的修正，並確認資料列與其他卡片元件的樣式邊界。Run #222 的 smoke-test step 被取消，需將幾何診斷獨立為短工作或修正 workflow 的 cancellation/timeout 觸發條件後，重新完成 1440／390／320px 全回歸。
+- 未變更正式首頁、正式母版、JSON 或排程。
