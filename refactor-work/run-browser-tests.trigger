@@ -328,3 +328,6 @@ Run 228: restore S&P 500 title and method-disclosure baseline geometry at 320px 
 
 
 Run 229: fine-tune 320px S&P 500 heading line-height and method-summary min-height after Run 228 narrowed residual panel delta to 1px; verify all viewport smoke, typography, interaction and geometry checks. 2026-10-26Tcontinued
+
+
+Run 230: expand child-geometry diagnostics to Fed and Today Focus at 1440/390/320; isolate the 320px news/Fed/focus height deltas before deciding whether any CSS change is justified. Keep CSS unchanged in this run and rerun all browser, typography, interaction, and overflow checks. 2026-10-26Tcontinued
