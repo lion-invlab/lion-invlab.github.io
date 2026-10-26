@@ -105,3 +105,5 @@ Architecture step 1: consolidate duplicate .tac-ds-empty rule; verify 320/390/14
 Architecture step 2: consolidate source-disclosure sizing into the canonical component rule; rerun strict browser regression. 2026-10-26T02:10Z
 
 Architecture step 3: remove duplicate tabbed-panel padding and redundant mobile news typography overrides; verify browser regression. 2026-10-26T02:20Z
+
+Architecture step 4: fold shared tab-container spacing into canonical rule; run strict regression. 2026-10-26T02:30Z
