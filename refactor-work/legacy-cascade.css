@@ -1677,7 +1677,7 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 #last-week-earnings details.last-week-earnings-collapse > summary{display:block!important;visibility:visible!important;cursor:pointer!important;list-style:none!important}
 #last-week-earnings details.last-week-earnings-collapse > summary::-webkit-details-marker{display:none!important}
 #last-week-earnings details.earnings-accordion:not([open]) > .earnings-accordion-details{display:none!important}
-#last-week-earnings details.earnings-accordion > summary{display:flex!important;visibility:visible!important}
+
 
 
 /* Original style block 56 */
