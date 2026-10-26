@@ -284,3 +284,11 @@
 - 經濟與財報行事曆的空狀態元件是可確認的主要差異：基準桌機 44px、候選 51px；390px 基準經濟 80px／財報 62px，候選 92px／72px；320px 基準經濟 98px／財報 62px，候選 113px／72px。候選空狀態套用了 14px padding（基準垂直 padding 12px），額外 margin-top:4px（基準 0），且字級／行高與基準不同；造成內容區多出 11–19px。
 - tab label row 也比基準短：桌機 46px 對 56px，手機／窄手機 46px 對 58px。這是共享樣式遷移後的計算高度差，不應以面板固定高度補償。
 - 下一輪採用兩個局部修正：行事曆 tab label 容器恢復基準 row footprint（56px 桌機、58px 手機），但保留共用 label 計算樣式；只在兩種行事曆內將空狀態的 padding、margin、字級與行高恢復為基準幾何。修正後再驗證整體面板與所有既有互動。
+
+
+## 2026-10-26 行事曆幾何校準驗收（Run 146–147）
+
+- Run 146（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40271325462）通過，但首次空狀態覆寫在 320px 把經濟行事曆壓短 15px；該試驗不作為驗收。
+- Run 147（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40271499577）改回基準空狀態字級 13px、line-height normal，保留基準 padding 12px 14px、margin-top 0；並保留基準 label row footprint（桌機 56px、手機 58px）。已檢查 Artifact 12628857195，空狀態高度與基準在所有 viewport 完全一致，行事曆面板高度也完全一致：經濟桌機／手機／窄手機 305／399／417px；財報 305／412／427px。
+- Run 147 三種 viewport 均無新增瀏覽器錯誤、水平溢出、缺少面板、重複 ID 或未匹配導覽；三組主要頁籤的樣式簽章一致。行事曆幾何項目驗收完成。
+- 後續剩餘差異：桌機新聞掃描 -7px、全球市場 -4px；手機新聞掃描 -3px；窄手機新聞掃描 -25px、S&P 500 財報健康 -34px、Fed -5px、View +4px。窄手機的新聞卡片內距與 S&P 卡片間距有既有緊縮規則，應先標註為有意的窄版差異，再針對桌機／標準手機的微小差異逐項判斷是否值得修正。
