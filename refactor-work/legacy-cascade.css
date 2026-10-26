@@ -2796,9 +2796,5 @@ main.wrap #sentiment .title:first-child {
 
 /* Original style block 95 */
 
-#overview > section > article.card.bluf > .title,
-#last-week-calendar > article.card.calendar-card > .title,
-#last-week-earnings > article.card.calendar-card > .title,
-#calendar > article.card.calendar-card > .title,
-#earnings > article.card.calendar-card > .title { color:#b42332!important; }
+/* Redundant heading color escalation removed after block 94 was confirmed to cover all five title targets. */
 
