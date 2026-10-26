@@ -197,3 +197,5 @@ Run 163: verify prior-week wide detail-field variant migration.
 Run 164: verify removal of redundant earnings summary visibility override.
 
 Run 165: verify prior-week earnings accordion closed-detail visibility after moving the Safari/mobile collapse safeguard into the design system.
+
+Run 166: capture computed main-heading styles and matching CSS cascade rules across desktop, mobile, and narrow mobile to guide safe legacy cleanup.
