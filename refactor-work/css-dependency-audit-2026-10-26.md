@@ -605,3 +605,11 @@
 - computed style 抽查：債券、匯率、能源、貴金屬名稱三種 viewport 均為 16px/21.6px；手機與窄手機的報價數值仍為 15px/22.5px；桌機報價數值維持 16px/24px。財報 22 張、經濟事件 12 張、實際財報卡 14 張；財報手風琴、經濟事件開關、商品分頁與 disclosure 互動均正常。
 - 版面幾何：1440 與 390px 的主要商品面板高度一致；320px 所有面板仍存在且無溢出。窄手機 overview/news/標普財報等區域仍有既存 baseline-to-candidate 高度差，需在後續獨立幾何追蹤中處理，不應誤歸因於本次只涉及商品名稱字級的 selector。
 - 下一步：先盤點 block 48 桌機通用 `row b/.row .name/.row .label` 與 design-system.css 的重疊範圍、實際 DOM 命中及 computed-style；不要直接刪除桌機 selector 或手機 `.name/.label` 規則。每次只移除一個已證明冗餘的 selector，再做全 viewport 回歸。
+
+
+## Run 186 驗收：貴金屬名稱設計系統規則已驗證
+
+- Run 186：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40286310013；artifact 12634201852 已檢查。原本命名為 Run 185 的工作流程被併發執行取消；Run 186 的候選版本已包含本次 design-system 規則，故以此實際 artifact 驗收，不把已取消的 Run 185 當成通過。
+- design-system.css 已新增 `#industry-bonds-fx-commodities #tac-assets-panel-4 .row > b`，對貴金屬名稱設定 16px/1.35，specificity 足以壓過 block 48 通用手機 15px 規則。
+- 驗收：errors=[]；桌機、手機、窄手機均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；能源與貴金屬名稱三種 viewport 均為 16px/21.6px，商品名稱字級契約只出現 16px。
+- 下一步：從 block 91 桌機與手機兩處 selector group 移除 `#tac-assets-panel-4 .row>b`，由 design-system 規則接管，保留 FX 及其他仍有責任的 selector，然後用新 run 驗收。
