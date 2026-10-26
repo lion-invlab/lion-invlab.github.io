@@ -759,3 +759,9 @@
 - Run 206：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291703706；artifact 12636569083 已檢查 `results.json` 與 `summary.md`。workflow success；`errors=[]`；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、7 組主要分頁、來源 disclosure、事件／財報收合、商品分頁與收合互動通過。
 - 產業商品面板高度維持桌機 380px、手機 448px、窄手機 502px；商品名稱仍為 16px／21.6px／700，報價桌機 16px／24px、手機 15px／22.5px。CSS 規則已在 `design-system.css`，legacy block 48 不再保留名稱字距宣告。
 - 注意：此輪的報告記錄四類名稱 computed `letter-spacing: normal`；版面與互動無回歸，但尚未證明這條新規則實際命中所有商品列。不得把「規則搬移」視為字距行為已被完整驗收。後續需先查清 DOM／selector 命中原因，補上明確的字距 assertion，再做其他名稱規則清理。
+
+
+## Run 206 後續：補強字距 selector 命中診斷
+
+- Run 206 的瀏覽器回歸成功，但 `industryRowTypography` 顯示四類名稱的 computed `letter-spacing` 都是 `normal`，尚不足以證明搬入 design-system 的 `letter-spacing:0!important` 規則確實生效。
+- 已在隔離分支的 smoke test 加入 `letterSpacingRuleAudit`：逐 viewport 回報選擇器命中的名稱／列數、能源舊規則命中數，以及 CSSOM 中精確 selector 的宣告與 important 優先級。Run 207 只做診斷，暫不再改 CSS；依實際結果決定是 selector 範圍不符、CSS 規則未載入，或後續 cascade 覆蓋。
