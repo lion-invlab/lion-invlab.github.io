@@ -1171,3 +1171,32 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     grid-template-rows: 32px 33px !important;
   }
 }
+
+
+/* S&P 500 earnings-health geometry parity: restore baseline shell/title and compact method summary above narrow-mobile overrides. */
+@media (min-width: 381px) {
+  #sp500-earnings-health {
+    padding: 16px !important;
+  }
+  #sp500-earnings-health > .title {
+    padding: 0 !important;
+    margin-bottom: 11px !important;
+  }
+  #sp500-earnings-health details.tac-ds-disclosure--method > summary {
+    display: list-item !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: normal !important;
+    box-shadow: none !important;
+  }
+  #sp500-earnings-health details.tac-ds-disclosure--method > summary::before {
+    content: none !important;
+    display: none !important;
+  }
+}
