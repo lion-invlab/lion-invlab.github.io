@@ -159,3 +159,5 @@ Run 144: measure paired calendar/earnings tab-row and content-region geometry at
 Run 145: compare calendar event-group and empty-state heights between baseline and candidate.
 
 Run 146: verify calendar empty-state and tab-row geometry restoration at desktop, mobile and narrow mobile.
+
+Run 147: verify calendar empty-state typography using baseline font size and normal line-height.
