@@ -1481,8 +1481,7 @@ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-r
 /* Original style block 47 */
 
 /* Keep only metadata typography; row typography is superseded by block 48 below. */
-html body #industry-bonds-fx-commodities .tac-tab-panel .tab-panel-meta,
-html body #industry-bonds-fx-commodities .tac-tab-panel .title small{
+html body #industry-bonds-fx-commodities .tac-tab-panel .tab-panel-meta{
   font-size:12px!important;
   line-height:1.45!important;
 }
