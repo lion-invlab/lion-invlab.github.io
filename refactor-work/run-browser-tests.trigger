@@ -125,3 +125,4 @@ Dead calendar-source selector cleanup; verify no matching candidate DOM element 
 Method disclosure inline-style migration: normalize 4 elements, remove legacy selector, assert ownership 2026-10-26T11:20:00+08:00
 Fix disclosure block normalization and preserve summary typography; rerun browser regression 2026-10-26T11:30:00+08:00
 Region/sector source disclosure typography migration; assert four summary signatures 2026-10-26T11:45:00+08:00
+Retry after stale Playwright install; verify region/sector and sentiment dark disclosure CSS ownership 2026-10-26T12:05:00+08:00
