@@ -161,10 +161,16 @@ html = add_classes_to_tags(html, source_details_pattern, "tac-ds-disclosure tac-
 html = add_classes_to_tags(html, method_details_pattern, "tac-ds-disclosure tac-ds-disclosure--method")
 
 # Transfer all four compact inline-style disclosures to the shared method component.
-inline_method_pattern = r'<details\\b(?=[^>]*\\bstyle="[^"]*\\bmargin-top:8px\\b[^"]*")[^>]*>'
+inline_method_pattern = r'<details\b(?=[^>]*\bstyle="[^"]*\bmargin-top:8px\b[^"]*")[^>]*>[\s\S]*?</details>'
 def normalize_inline_method_disclosure(match):
-    tag = add_classes_to_tag(match.group(0), "tac-ds-disclosure tac-ds-disclosure--method")
-    return re.sub(r'\\s+style="[^"]*"', "", tag, count=1, flags=re.I)
+    block = match.group(0)
+    opening_end = block.find(">") + 1
+    opening = add_classes_to_tag(block[:opening_end], "tac-ds-disclosure tac-ds-disclosure--method")
+    opening = re.sub(r'\s+style="[^"]*"', "", opening, count=1, flags=re.I)
+    body = block[opening_end:-len("</details>")]
+    body = re.sub(r'(<summary\b[^>]*)\s+style="[^"]*"([^>]*>)', r'\1\2', body, count=1, flags=re.I)
+    body = re.sub(r'(<div\b[^>]*)\s+style="[^"]*"([^>]*>)', r'\1\2', body, flags=re.I)
+    return opening + body + "</details>"
 
 html, inline_method_count = re.subn(inline_method_pattern, normalize_inline_method_disclosure, html, flags=re.I)
 if inline_method_count != 4:
