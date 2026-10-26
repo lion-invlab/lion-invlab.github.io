@@ -529,7 +529,9 @@ body.release-ready .news-window-warning { display: none !important; }
   overflow:visible!important;
 }
 #fed.fed-compact-preview .fedwatch-time summary{
-  display:block!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:5px!important;
   padding:2px 0!important;
   border:0!important;
   background:transparent!important;
@@ -537,11 +539,19 @@ body.release-ready .news-window-warning { display: none !important; }
   font-size:11px!important;
   font-weight:800!important;
   line-height:1.5!important;
-  list-style:disclosure-closed!important;
+  list-style:none!important;
+  cursor:pointer!important;
 }
-#fed.fed-compact-preview .fedwatch-time summary::-webkit-details-marker{display:initial!important}
-#fed.fed-compact-preview .fedwatch-time summary:before{content:none!important;display:none!important}
-#fed.fed-compact-preview .fedwatch-time[open] summary{list-style:disclosure-open!important}
+#fed.fed-compact-preview .fedwatch-time summary::-webkit-details-marker{display:none!important}
+#fed.fed-compact-preview .fedwatch-time summary:before{
+  content:"▸"!important;
+  display:inline-block!important;
+  color:#77818b!important;
+  font-size:12px!important;
+  line-height:1!important;
+  flex:0 0 auto!important;
+}
+#fed.fed-compact-preview .fedwatch-time[open] summary:before{content:"▾"!important}
 #fed.fed-compact-preview .fedwatch-time .audit-content{
   padding:5px 0 0!important;
   font-size:10px!important;
