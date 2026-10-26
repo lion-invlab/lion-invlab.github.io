@@ -428,7 +428,7 @@ try {
     const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)");
     const consistentSelectedTabTextColor = selectedTabTextColors.length > 0 && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
     const baselineDetailedGeometry = await base.page.evaluate(() => {
-      const ids = ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health"];
+      const ids = ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health","last-week-calendar","last-week-earnings","calendar","earnings","fed","view"];
       return ids.map(id => {
         const root = document.getElementById(id);
         if (!root) return { id, missing: true };
