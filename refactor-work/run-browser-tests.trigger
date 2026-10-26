@@ -149,3 +149,5 @@ Run 139: verify industry tab row-height correction against baseline geometry and
 Run 140: verify S&P 500 earnings-health shell, title, and method-summary geometry at desktop and standard mobile widths.
 
 Run 141: capture detailed child geometry for Fed, View, Calendar and Earnings panels before next parity fixes.
+
+Run 142: pair baseline and candidate child geometry for Fed, View, Calendar and Earnings.
