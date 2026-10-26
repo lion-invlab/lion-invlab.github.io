@@ -275,12 +275,12 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 
 
 
-.earnings-accordion-details{border-top:1px solid #e7e7e7;padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.earnings-detail-field{background:#f4f8f9;border-radius:9px;padding:11px 12px;min-width:0}
-.earnings-detail-field.wide{grid-column:1/-1}
-.earnings-detail-field label{display:block;font-size:11px;color:#737b80;font-weight:850;margin-bottom:5px}
-.earnings-detail-value{font-size:14px;line-height:1.55;overflow-wrap:anywhere;word-break:normal}
-@media(max-width:640px){.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
+
+
+
+
+
+
 
 /* TAC three major content panels with native CSS-only tabs */
 .tac-tabset{background:#fff;border:1px solid #dce2e5;border-radius:18px;overflow:hidden;margin:14px 0 18px;box-shadow:0 2px 8px rgba(24,39,50,.04)}
