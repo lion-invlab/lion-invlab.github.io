@@ -1542,3 +1542,14 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   font-size: 13px;
   line-height: 1.65;
 }
+
+
+/* S&P 500 320px geometry parity: keep the report's original content width.
+   The 10px outer shell override made metric notes wider and removed a line
+   from two notes, reducing the internal grid by 31px. Restore baseline shell
+   padding; do not compensate by hard-coding card or grid heights. */
+@media (max-width: 380px) {
+  #sp500-earnings-health {
+    padding: 16px !important;
+  }
+}
