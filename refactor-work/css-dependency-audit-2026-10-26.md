@@ -717,3 +717,10 @@
 - Run 201：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290286474；artifact 12636475788 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，主要導覽與互動測試通過。
 - 本輪只移除 block 48 通用 `.row` 的 `line-height:1.5!important`。row 容器的 computed line-height 變為 `normal`，但 13 個名稱仍為 21.6px，26 個數值仍為桌機 24px／手機 22.5px；產業商品面板高度與 Run 200 相同（桌機 380px、手機 448px、窄手機 502px），無幾何回歸。
 - 下一個候選：移除 block 48 剩餘的 `align-items:center!important`。舊 CSS 的基礎 `.row` 已定義 `align-items:center`，13 個商品列的專屬規則只改欄寬／間距，未覆寫對齊；Run 202 將驗證移除高 specificity 宣告後，實際對齊、列高、面板幾何及互動是否不變。
+
+
+## Run 202 驗收：移除通用商品列 align-items 覆寫
+
+- Run 202：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290579471；artifact 12636356546 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，導覽與主要互動通過。
+- 本輪只移除 block 48 通用 `.row` 的 `align-items:center!important`。原始基礎 `.row` 的 `align-items:center` 接手後，三種 viewport 的商品列／面板幾何與 Run 201 相同；名稱 16px／21.6px，報價桌機 16px／24px、手機 15px／22.5px。
+- 下一候選：移除 block 48 的 `.row b` 通用 `line-height:1.5!important`。13 個商品名稱均由更具體的 bonds／FX／energy／metals 規則提供 21.6px 行高；下一輪只移除此一宣告，保留字重與字距，驗收 computed typography 及三種 viewport 幾何。
