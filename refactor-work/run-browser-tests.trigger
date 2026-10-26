@@ -339,3 +339,5 @@ Run 231: expand panel-child geometry diagnostics from five panels to all 12 main
 Run 232: diagnostic-only CSS cascade trace for 320px news-scan, Fed and Today Focus; record matched padding, width, gap and tab sizing declarations against the frozen baseline before any geometry patch. Preserve all existing desktop/mobile/narrow-mobile browser, typography, navigation and interaction checks. 2026-10-26T19:15+0800
 
 Run 233: validate Run 232 geometry-based narrow-mobile corrections: restore news tab row footprint and Fed/Today Focus 16px shell/title spacing, verify 320px panel deltas and full 1440/390/320 typography/interaction/overflow regression. 2026-10-26T19:25+0800
+
+Run 234: refine 320px news geometry after Run 233 measured tab row 38px vs 48px baseline and news-card vertical padding delta; restore near-baseline tab/card rhythm and rerun full browser/typography/interaction/overflow suite. 2026-10-26T19:35+0800
