@@ -132,3 +132,12 @@
 - 首次 run `40262457451` 的 Install Playwright 成功，但候選建置因 selector 正規表示式多了一層跳脫，回報 `expected 4 inline-style method disclosures, found 0`，未執行瀏覽器測試。此結果不是功能驗收失敗，而是建置器檢查條件沒有匹配到原始 HTML。
 - 修正提交 `b26a58d817c92d9cc5a9051c8fc335daf3fa70be`：改為對完整 disclosure 區塊做正規化，將元素、summary 與內容 div 的 inline style 移交給元件樣式；保留內容與連結。
 - 為避免外觀漂移，設計系統提交 `fd4db5d5ed404fe5bcf1fb5b85fac68da8cd8d90` 將 summary 字級、字重與箭頭大小調回舊規則的 12px／650／12px，並由元件接管 cursor。已重新觸發回歸測試，等待新的 run 結果。
+
+### 第七組驗收補記：四個方法／資料口徑 disclosure 遷移成功
+
+- 第二輪 GitHub Actions [run 40262568254](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40262568254) `completed / success`；已下載並實際檢查 artifact `12625520536` 的 `results.json`、`summary.md` 與候選 HTML。
+- 1440、390、320px 三種視窗 `errors=[]`，均無水平溢出、重複 ID、缺少面板、未匹配導覽或新增瀏覽器錯誤；每個視窗均恰有 4 個 `.tac-ds-disclosure--method`，且 0 個該元件仍保留 `margin-top:8px` inline style。候選 HTML 的 `details[style*="margin-top:8px"]` 數量也為 0。
+- 摘要列箭頭 `▸`，來源 disclosure 開／關通過；五星紅字 16；全球市場與產業商品名稱字級均為 16px；新聞卡 15、經濟事件 12、財報手風琴 22、產業資料列 11，相關既有互動均通過。
+- 舊規則清理 commit `9968a4eb72a8272c68e07d37e5bc04831cb6bf03`；候選建置修正 commit `b26a58d817c92d9cc5a9051c8fc335daf3fa70be`；設計系統摘要列規格修正 commit `fd4db5d5ed404fe5bcf1fb5b85fac68da8cd8d90`。
+- 視覺差異仍需逐項審視，不能把功能測試成功等同逐像素核可。已知產業債匯商品面板桌機 332px（baseline 380px，-48px）、手機 439px（baseline 448px，-9px）、窄手機 458px（baseline 502px，-44px）；窄手機總覽面板亦短 97px，S&P 500 財報健康面板短 34px，需保留在整體視覺驗收清單。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
