@@ -416,3 +416,11 @@
 - 將實際財報卡的 border、title、EPS／營收列、status pill、note 的基礎樣式與手機變體集中於 tac-ds-earnings-actual-card，從 legacy 移除通用規則及最終外觀重複覆寫；保留上週結果 grid 的寬度／欄位結構覆寫與 detail-field.wide 專用樣式。
 - Artifact 12630111168 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；結果卡 14 張、財報手風琴 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；幾何與 Run 160 一致。
 - 下一步只處理 #last-week-earnings 的結果 grid 佈局：先將目前散落於 FIX v2/v3 與 approved-preview 區塊的有效規則整理成一組設計系統 scoped rule，逐條移除 legacy 重複覆寫；不得更動財報資料或結果卡 DOM。
+
+
+## 2026-10-26 上週財報結果 grid 移交（Run 162 通過）
+
+- 設計系統提交：33be9f30f7bfa005b4fb8c769269ebf1177583f8；legacy 清理提交：17919573a7b12501481d4fce82c8893022e60369；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40275159788。
+- 將 #last-week-earnings 的 detail 容器方向、結果 grid 兩欄、gap、透明背景／零 padding、寬度／min-width、卡片 sizing 與手機 gap 收斂為設計系統 scoped rule；從 legacy 移除 8 條 FIX v2/v3／approved-preview 的重複結果 grid 覆寫。
+- Artifact 12629703653 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；結果卡 14 張、財報手風琴 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何與 Run 161 一致。
+- 剩餘 #last-week-earnings 專用 legacy 規則主要是 detail-field.wide 外觀與一條 summary visibility 修正；下一步移交 wide 欄位樣式，summary visibility 先保留直到確認它沒有遮蔽其他狀態。
