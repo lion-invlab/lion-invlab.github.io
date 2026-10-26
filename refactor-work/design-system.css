@@ -1451,6 +1451,11 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   .tac-ds-earnings-card .earnings-company-name { font-size: 15px; }
 }
 
+/* Prior-week earnings accordion: keep closed detail content hidden in Safari/mobile as well as native details behavior. */
+#last-week-earnings details.tac-ds-earnings-card:not([open]) > .earnings-accordion-details {
+  display: none !important;
+}
+
 /* Earnings detail-field ownership: base layout for the accordion's internal fields and values. */
 .tac-ds-earnings-card .earnings-accordion-details {
   border-top: 1px solid #e7e7e7;
