@@ -542,12 +542,14 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 #last-week-calendar details.tac-ds-event,
 #earnings details.tac-ds-event,
 #last-week-earnings details.tac-ds-event {
+  min-width: 0;
   margin: 8px 0;
   border: 1px solid #e1e5eb;
   border-radius: 12px;
   background: #fff;
   box-shadow: 0 1px 5px rgba(25, 31, 42, .035);
   overflow: clip;
+  transition: box-shadow .2s ease, border-color .2s ease;
 }
 #calendar details.tac-ds-event > summary,
 #last-week-calendar details.tac-ds-event > summary,
@@ -556,6 +558,13 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   padding: 12px 13px;
   background: #f7f8fa;
   transition: background-color .16s ease;
+}
+#calendar details.tac-ds-event[open],
+#last-week-calendar details.tac-ds-event[open],
+#earnings details.tac-ds-event[open],
+#last-week-earnings details.tac-ds-event[open] {
+  border-color: rgba(198, 40, 40, .22);
+  box-shadow: 0 5px 17px rgba(20, 24, 35, .075);
 }
 #calendar details.tac-ds-event[open] > summary,
 #last-week-calendar details.tac-ds-event[open] > summary,
