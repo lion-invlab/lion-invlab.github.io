@@ -654,3 +654,9 @@
 - Run 193：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288194007；artifact 12635400543 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、分頁、來源 disclosure、經濟事件與財報收合、商品分頁與商品收合互動均通過。
 - 本輪只從 block 48 桌機與手機 selector groups 移除 `span.r`。DOM inventory 顯示 `.row .r`=26、`span.r`=26、`.r:not(span)`=0，兩 selector 命中完全相同；商品名稱三種 viewport 均維持 16px。
 - DOM inventory 顯示 `span[style*="font-weight"]` 命中 3 次，且 `span[style*="font-weight"]:not(.r)`=0，這三個 inline-font-weight span 也全部被 `.row .r` 覆蓋。下一輪只移除該 inline-style selector，保留 `.row .r` 與 `.row .down`。
+
+## Run 194 驗收：移除 block 48 inline-font-weight selector
+
+- Run 194：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288410778；artifact 12634823806 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽、分頁與各 disclosure/accordion 互動均通過，商品名稱字級仍為 16px。
+- 本輪只移除 block 48 的 `span[style*="font-weight"]` selector。DOM inventory 顯示其 3 次命中全部也是 `.r`（`span[style*="font-weight"]:not(.r)`=0），因此由 `.row .r` 接管；數值與名稱樣式未退化。
+- 下一個候選：`.row .down` 命中 6 次且 `.down:not(.r)`=0，全部已由 `.row .r` 命中；桌機 `.row .down` 的字級／行高／字重／nowrap 與 `.row .r` 相同，手機規則也只重複設定 15px。下一輪只移除 `.row .down`，保留 `.row .r`。
