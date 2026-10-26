@@ -139,3 +139,15 @@
 - Intent: future background customization of another main panel should not overwrite the sentiment theme; new themed panels should receive their own scoped variant instead of global background overrides.
 - Current status: code committed to isolated refactor branch; GitHub Actions browser run pending. Do not treat as passed until all three viewport assertions pass and screenshots are reviewed.
 - No production homepage, JSON data or scheduled automation changed.
+
+
+## 2026-10-26 — 商品名稱共用字體與報價保留驗收通過
+
+- GitHub Actions Run #218: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40296309253 — `success`；測試分支 `tac-design-system-work-2026-10-24`，觸發 commit `d471b63c357c61a9a2610ea0404f30b02a067a97`。
+- 新增獨立 `instrument-typography-audit.mjs`，在 1440px、390px、320px 三種寬度逐項核對商品名稱及報價字體。
+- 27 個商品名稱（全球股市 14 個、產業債匯商品 13 個）均符合共用規則：16px 字體、21.6px 行高、700 字重；每個 viewport 僅有 1 條 canonical name rule。
+- 54 個報價值／每個 viewport，逐項與唯讀基準在同一寬度比較；全部符合基準字體簽章，未要求不同商品報價採用同一字級。
+- 三種寬度均無水平溢出、缺失主版面、重複 ID、未匹配導覽連結或新增瀏覽器錯誤；各主版面高度差：桌機 overview +18px，其餘主要面板在 ±2px 內；手機 overview -1px，窄手機另以報告為準。這些數據代表自動化回歸，不等於所有像素差異已人工核准。
+- Run #217 的失敗已定位為錯誤的報價字體測試假設；Run #218 改為基準逐項比較後通過，沒有為了讓測試變綠而修改報價 CSS。
+- 正式首頁、正式母版、JSON 與排程均未修改。
+- 下一步：延續 Gate 4，逐一檢視尚未完成的主版面／內層元件及 legacy CSS 覆蓋；不得把本次字體子任務通過視為整體重構完成。
