@@ -239,3 +239,5 @@ Run 184: verify removing only block 48 mobile generic row-b 15px selector preser
 Run 185: verify design-system ownership of precious-metal name typography at 16px/1.35 on desktop/mobile/narrow mobile before removing legacy block 91 selectors.
 
 Run 185: inspect block 48 desktop row-name typography overlap against design-system.css; no CSS deletion until selector coverage and computed styles are proven. 2026-10-26T15:30+0800
+
+Run 187: verify precious-metal name typography stays 16px/1.35 after removing block 91 legacy selectors; keep FX selector and validate all four product groups across desktop/mobile/narrow mobile.
