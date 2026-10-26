@@ -1688,17 +1688,22 @@ main.wrap .tac-section-heading h2::before,
 }
 
 
-/* Canonical disclosure-label color: all source/method collapse controls share
-   the same readable neutral tone regardless of panel-specific legacy styles. */
+/* Canonical source disclosure label on light surfaces.
+   Preserve the dedicated light-on-dark contract for dark audit disclosures. */
 main.wrap details.source-details > summary,
-main.wrap details.calendar-source-collapse > summary,
-main.wrap details.audit-details > summary {
-  color: #747b84 !important;
-  -webkit-text-fill-color: #747b84 !important;
+main.wrap details.calendar-source-collapse > summary {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
 }
 main.wrap details.source-details > summary *,
-main.wrap details.calendar-source-collapse > summary *,
-main.wrap details.audit-details > summary * {
-  color: #747b84 !important;
-  -webkit-text-fill-color: #747b84 !important;
+main.wrap details.calendar-source-collapse > summary * {
+  color: #9ca3af !important;
+  -webkit-text-fill-color: #9ca3af !important;
+}
+
+/* Tabset headings use the shared left marker only; suppress legacy duplicate bar. */
+main.wrap .tac-tabset .tac-section-heading h2::before,
+main.wrap .tac-tabset .tac-section-heading h2:before {
+  content: none !important;
+  display: none !important;
 }
