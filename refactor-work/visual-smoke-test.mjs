@@ -157,7 +157,7 @@ async function inspect(page) {
         const matchedRules = [];
         const walkRules = (rules, conditions = []) => {
           for (const rule of rules) {
-            if (rule.cssRules) {
+            if (rule.cssRules && !rule.selectorText) {
               const condition = rule.conditionText || rule.name || "";
               let applies = true;
               if (rule.media && rule.media.mediaText) applies = window.matchMedia(rule.media.mediaText).matches;
