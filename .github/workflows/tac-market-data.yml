@@ -41,6 +41,18 @@ jobs:
         id: collect
         continue-on-error: true
         run: python scripts/collect_tac_market_data.py
+      - name: Set up Node.js for FedWatch rendered fallback
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install browser for FedWatch evidence
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Capture rendered CME FedWatch page and embedded frames
+        id: fedwatch_browser
+        continue-on-error: true
+        run: node scripts/capture_fedwatch.mjs
       - name: Collect Cnyes news candidates
         id: news
         continue-on-error: true
@@ -55,6 +67,14 @@ jobs:
           if [ -f data/fedwatch_snapshot.html ]; then git add data/fedwatch_snapshot.html; fi
           git diff --cached --quiet || git commit -m "Collect TAC market and Cnyes news snapshots"
           git push
+      - name: Upload FedWatch browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-fedwatch-browser-evidence
+          path: data/fedwatch-evidence/
+          if-no-files-found: warn
+          retention-days: 7
       - name: Fail run if market validation incomplete
         if: steps.collect.outcome != 'success'
         run: |
