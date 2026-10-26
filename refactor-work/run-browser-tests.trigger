@@ -350,3 +350,4 @@ Run 236: capture nested child geometry inside #news-scan tab panel/news cards an
 
 
 Run 237: correct remaining 320px panel rhythm from Run 236 measurements: restore 11px of news tab-panel trailing space and reduce Today Focus panel-content top gap by 7px; verify exact 320px geometry and all 390/1440 typography, interaction, navigation, and overflow regressions. 2026-10-26T20:05+0800
+Run 238: verify lower-panel red accent-bar spacing for weekly calendar, earnings calendar, and S&P 500 earnings health; rerun 1440/390/320 geometry, heading typography, navigation, interaction, and overflow regression suite. 2026-10-26T20:10+0800
