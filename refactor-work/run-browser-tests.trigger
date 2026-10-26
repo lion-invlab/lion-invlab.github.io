@@ -205,3 +205,5 @@ Run 167: verify corrected main-heading cascade diagnostics and confirm heading c
 Run 168: verify CSSOM heading-rule inventory includes matching legacy and design-system selectors while preserving all viewport smoke checks.
 
 Run 169: verify removal of redundant low-specificity sentiment title color rule; compare all main heading computed styles and viewport regression checks with Run 168.
+
+Run 170: verify removal of lower-specificity sentiment title color override while retaining white title color and all responsive regressions.
