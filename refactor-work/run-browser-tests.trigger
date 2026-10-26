@@ -266,3 +266,5 @@ Run 197: test removal of block 48 generic row b rule only; all 13 names are cove
 Run 198: remove only the redundant font-size declaration from block 48 generic row b rule; preserve line-height, weight, and letter-spacing after Run 197 exposed an energy letter-spacing shift. 2026-10-26
 
 Run 198: inventory direct children and computed styles under all 13 instrument rows before considering block 48 generic .row rule; do not remove rule without proving no unique styling dependency. 2026-10-26
+
+Run 200: remove only font-size:16px!important from block 48 generic row rule; preserve alignment and line-height after DOM inventory found all direct children have dedicated typography. Verify computed styles and all viewports. 2026-10-26
