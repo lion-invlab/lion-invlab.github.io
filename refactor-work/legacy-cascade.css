@@ -1778,9 +1778,7 @@ main.wrap section.card > .title::before {
 main.wrap #sentiment > .title::before {
   background:#e0b04b!important;
 }
-main.wrap #sentiment > .title {
-  color:#fff!important;
-}
+
 @media(max-width:700px){
   main.wrap > .card > .title,
   main.wrap section.card > .title { gap:9px!important; }
