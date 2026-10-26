@@ -288,3 +288,5 @@ Run 207: diagnostic-only browser regression to inspect letter-spacing selector m
 Run 208: retry Run 207 after Install Playwright stalled before candidate build/tests; no CSS changes in this retry. Validate the tabular-numeric selector cleanup. 2026-10-26
 
 Run 210: retry the same tabular-numeric CSS candidate after Run 209 stalled at Playwright install; no CSS changes. If setup stalls again, stop retry churn and document the environment blocker. 2026-10-26
+
+Run 211: remove the redundant legacy energy-name letter-spacing override so the shared design-system rule owns letter spacing for bonds, FX, energy, and metals; verify computed typography and all viewport regressions. 2026-10-26
