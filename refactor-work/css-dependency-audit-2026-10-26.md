@@ -357,3 +357,11 @@
 - 將 earnings-accordion-list 的 display:grid、gap、margin 與 min-width 移入設計系統，從 legacy 移除單一通用 wrapper rule。
 - Artifact 12628169478 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；經濟事件卡 12 張、財報卡 22 張、五星紅字 16；財報手風琴開／關、來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
 - 下一步應先以計算樣式診斷確認財報摘要列與圓形 toggle 在桌機／手機的最終有效規則，再將最終樣式集中到 tac-ds-earnings-card，避免直接刪除目前多層 legacy !important 覆寫。
+
+
+## 2026-10-26 財報手風琴摘要列計算樣式診斷（Run 156）
+
+- Run 156：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40273584504，Artifact 12628384615 已檢查。
+- 兩個容器的摘要列計算樣式：桌機 padding 13px 14px、gap 12px；手機 padding 12px 11px；#earnings 的手機 gap 8px，#last-week-earnings 保持 12px。摘要列目前 display:flex、align-items:center、justify-content:space-between、min-width:0、list-style:none、cursor:pointer。
+- 候選 DOM 中 .earnings-accordion-toggle 元素數為 0；因此 legacy 中所有只針對此 toggle class 的圓形按鈕尺寸、背景、偽元素加減號規則皆未匹配任何 DOM，屬死規則。不要在這次 CSS-only 遷移中新增按鈕 DOM；只移除死規則，保持目前實際呈現與 summary 開／關行為。
+- 下一步將摘要列本身的 flex／padding／marker 樣式移入 tac-ds-earnings-card，並移除死 toggle selector；保留 last-week earnings 的 summary visibility 規則與卡片內容／結果 grid 覆寫。
