@@ -349,3 +349,11 @@
 - 已確認候選 DOM 22 張 earnings-accordion 全部帶有 tac-ds-earnings-card。將 min-width、transition 與 open 狀態外框邊線／陰影納入設計系統，從 legacy 移除舊外框規則及已被新元件覆蓋的 margin／摘要背景覆寫；保留摘要列 toggle、公司名稱、詳細欄位、結果 grid 等內部規則。
 - Artifact 12627899961 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；經濟事件卡 12 張、財報卡 22 張、五星紅字 16；財報手風琴開／關、來源 disclosure 開／關通過；外框圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
 - 下一步先移交 earnings-accordion-list 容器的 grid／gap／margin，之後再處理摘要列與 toggle 控制。財報卡的內部欄位和結果 grid 有多層 legacy override，未完成逐條盤點前不批次清除。
+
+
+## 2026-10-26 財報手風琴列表容器移交（Run 155 通過）
+
+- 設計系統提交：347f4b89a10f1bf78ca3871636adac8adea2e80d；legacy 清理提交：a231a699455dcecc319b21c3a68991d2586b006f；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40273362678。
+- 將 earnings-accordion-list 的 display:grid、gap、margin 與 min-width 移入設計系統，從 legacy 移除單一通用 wrapper rule。
+- Artifact 12628169478 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；經濟事件卡 12 張、財報卡 22 張、五星紅字 16；財報手風琴開／關、來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
+- 下一步應先以計算樣式診斷確認財報摘要列與圓形 toggle 在桌機／手機的最終有效規則，再將最終樣式集中到 tac-ds-earnings-card，避免直接刪除目前多層 legacy !important 覆寫。
