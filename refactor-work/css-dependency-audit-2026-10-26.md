@@ -765,3 +765,9 @@
 
 - Run 206 的瀏覽器回歸成功，但 `industryRowTypography` 顯示四類名稱的 computed `letter-spacing` 都是 `normal`，尚不足以證明搬入 design-system 的 `letter-spacing:0!important` 規則確實生效。
 - 已在隔離分支的 smoke test 加入 `letterSpacingRuleAudit`：逐 viewport 回報選擇器命中的名稱／列數、能源舊規則命中數，以及 CSSOM 中精確 selector 的宣告與 important 優先級。Run 207 只做診斷，暫不再改 CSS；依實際結果決定是 selector 範圍不符、CSS 規則未載入，或後續 cascade 覆蓋。
+
+
+## Run 207 狀態：Playwright 安裝停滯，尚無驗收結果
+
+- Run 207：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40292151384 在 `Install Playwright` 持續超過兩分鐘，候選建置與瀏覽器測試未開始，尚無 artifact。此 run 不算通過。
+- Run 208 對同一 CSS 版本重試，不更動 CSS；若 Run 207 被新觸發取消，只記錄為基礎設施重試。
