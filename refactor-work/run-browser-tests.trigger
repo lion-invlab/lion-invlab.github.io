@@ -270,3 +270,5 @@ Run 198: inventory direct children and computed styles under all 13 instrument r
 Run 200: remove only font-size:16px!important from block 48 generic row rule; preserve alignment and line-height after DOM inventory found all direct children have dedicated typography. Verify computed styles and all viewports. 2026-10-26
 
 Run 201: remove only generic block 48 .row line-height:1.5 declaration; retain align-items and explicit child typography; verify computed line heights, row/panel geometry, and all viewport interactions. 2026-10-26
+
+Run 202: remove the remaining block 48 align-items:center!important declaration; base .row already defines centered alignment and instrument-specific rules do not override it. Verify row geometry and all viewport interactions. 2026-10-26
