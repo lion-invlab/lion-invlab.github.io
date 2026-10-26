@@ -185,3 +185,5 @@ Run 157: verify earnings accordion summary-row migration and confirm no visible 
 Run 158: verify earnings company/date/subtitle/star typography migration and red-star contract.
 
 Run 159: verify earnings accordion detail-field base styles while preserving last-week results-grid overrides.
+
+Run 160: verify removal of redundant generic earnings-results and actual-card styles.
