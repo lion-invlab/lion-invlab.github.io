@@ -267,12 +267,12 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 
 
 
-.earnings-summary-main{min-width:0;flex:1}
-.earnings-summary-dates{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted,#70757a);font-size:12px;font-weight:750;margin-bottom:5px}
-.earnings-company-name{font-size:16px;font-weight:900;color:#1769aa;overflow-wrap:anywhere}
-.earnings-company-name.five-star-company{color:#c62828!important}
-.earnings-company-sub{font-size:12px;color:#777;margin-top:3px;overflow-wrap:anywhere}
-.earnings-stars{font-size:13px;letter-spacing:1px;color:#b17a12;margin-top:5px}
+
+
+
+
+
+
 
 
 .earnings-accordion-details{border-top:1px solid #e7e7e7;padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
@@ -280,7 +280,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .earnings-detail-field.wide{grid-column:1/-1}
 .earnings-detail-field label{display:block;font-size:11px;color:#737b80;font-weight:850;margin-bottom:5px}
 .earnings-detail-value{font-size:14px;line-height:1.55;overflow-wrap:anywhere;word-break:normal}
-@media(max-width:640px){.earnings-company-name{font-size:15px}.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
+@media(max-width:640px){.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
 
 /* TAC three major content panels with native CSS-only tabs */
 .tac-tabset{background:#fff;border:1px solid #dce2e5;border-radius:18px;overflow:hidden;margin:14px 0 18px;box-shadow:0 2px 8px rgba(24,39,50,.04)}
@@ -2811,10 +2811,10 @@ main.wrap > section.card.fed-live > .title,
 }
 #sentiment > .title { color:#fff!important; }
 /* 星級顏色規則：僅五星標題紅色；四星及以下標題黑色 */
-.earnings-accordion .earnings-company-name { color:#202124!important; }
-.earnings-accordion.five-star-earnings .earnings-company-name,
-.earnings-accordion .earnings-company-name.five-star-company { color:#202124!important; }
-.earnings-accordion.five-star-earnings.star-verified-five .earnings-company-name { color:#c62828!important; }
+
+
+
+
 
 
 
