@@ -148,3 +148,10 @@
 - 設計系統提交 `3cfa4e705a6ceaa226f66a0de7f5855ff66e80e2` 新增 `.tac-ds-disclosure--source.region-source` 與 `.tac-ds-disclosure--source.sector-source` 摘要列樣式；舊 CSS 提交 `e5e88f866f10e819d4a03a2130a425827f8c018a` 移除兩組 legacy summary／marker 規則。保留原本實際計算樣式：11px、font-weight 400、`#9CA3AF`、padding `2px 0`。
 - 測試提交 `5a7a5b05ad189e0287a5a678002ebe0011940c7e` 新增四個摘要列的硬性樣式驗收（字級、字重、顏色、padding），回歸觸發提交 `e642c7b7f700cba5d5009046b68b5ba74a1cba86`。等待 GitHub Actions 完成並檢查 artifact 後，才可將本組標記為通過。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+## 2026-10-26 遷移紀錄：Sentiment 深色來源 disclosure 色彩（第九組，等待前一輪後驗收）
+
+- 候選建置器會將 sentiment 的 `details.source-details` 標記為 `.tac-ds-disclosure--dark`；設計系統已負責摘要文字、箭頭與 `.source` 內容色彩，但 legacy cascade 仍有多處 `#sentiment .source-details` 顏色覆寫。
+- 舊 CSS 清理提交 `0db5a015ebd02f7b469760d7f31d487c05a2f498` 移除 5 條重複／覆寫色彩規則，保留設計系統既有色彩：摘要 `#AEBBC8`、箭頭 `#E2B84D`、來源文字 `#C2CCD6`。
+- 測試提交 `42722d67efa6ede9360f25537efd699c6bc30740` 新增三個深色 disclosure 的計算樣式斷言。因第八組 run `40262905487` 尚在執行，尚未觸發新 workflow，避免併發設定取消前一輪。第九組尚未驗收。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
