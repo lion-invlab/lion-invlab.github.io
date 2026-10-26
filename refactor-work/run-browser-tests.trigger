@@ -237,3 +237,5 @@ Run 183: verify energy name typography remains 16px/1.35 on desktop/mobile/narro
 Run 184: verify removing only block 48 mobile generic row-b 15px selector preserves 16px names in bonds/FX/energy/metals while keeping compact 15px numeric values and .name/.label variants.
 
 Run 185: verify design-system ownership of precious-metal name typography at 16px/1.35 on desktop/mobile/narrow mobile before removing legacy block 91 selectors.
+
+Run 185: inspect block 48 desktop row-name typography overlap against design-system.css; no CSS deletion until selector coverage and computed styles are proven. 2026-10-26T15:30+0800
