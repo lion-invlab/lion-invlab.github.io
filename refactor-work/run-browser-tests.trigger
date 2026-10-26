@@ -309,3 +309,6 @@ shared-main-tab-font-12px-narrow-regression-2026-10-26
 geometry-diagnostic-2026-10-26T0915Z
 
 sp500-deep-geometry-2026-10-26T0918Z
+
+
+restore-sp500-320px-baseline-padding-after-run-222-deep-geometry-2026-10-26T1807+0800
