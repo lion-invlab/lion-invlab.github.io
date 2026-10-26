@@ -201,3 +201,5 @@ Run 165: verify prior-week earnings accordion closed-detail visibility after mov
 Run 166: capture computed main-heading styles and matching CSS cascade rules across desktop, mobile, and narrow mobile to guide safe legacy cleanup.
 
 Run 167: verify corrected main-heading cascade diagnostics and confirm heading computed styles plus matching CSS rules across all viewports.
+
+Run 168: verify CSSOM heading-rule inventory includes matching legacy and design-system selectors while preserving all viewport smoke checks.
