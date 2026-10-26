@@ -1153,6 +1153,13 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .energy-card .row > b {
   line-height: 1.35 !important;
 }
 
+/* Precious-metal instrument names use the same 16px/1.35 treatment.
+   The ID-scoped panel selector outranks the legacy generic mobile row label rule. */
+#industry-bonds-fx-commodities #tac-assets-panel-4 .row > b {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+
 
 /* Direction B — narrow-screen refinement only (320px class of devices).
    Keep the current segmented-tab and card visual language; prevent the five
