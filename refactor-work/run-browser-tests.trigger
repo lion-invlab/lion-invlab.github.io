@@ -244,3 +244,5 @@ Run 187: verify precious-metal name typography stays 16px/1.35 after removing bl
 
 
 Run 188: rerun after fixing dangling commas in retained legacy FX typography selectors; verify CSS parses and FX/bonds/energy/metals computed styles plus all viewport smoke checks. 2026-10-26
+
+Run 189: verify removing block 48 .row .name/.label selectors unused by the baseline DOM; preserve bold names, compact numeric values, and all desktop/mobile/narrow-mobile checks.
