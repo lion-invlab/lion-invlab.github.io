@@ -528,3 +528,12 @@
 - 從 legacy 的市場情緒顏色慣例區移除 `#sentiment > .title{color:var(--red)!important}`，保留同區的 `.sbox .up/.down/.warn` 顏色規則。標題最終白色由後續高 specificity 的白色例外負責。
 - 驗收：`errors=[]`；1440、390、320 viewport 均無水平溢出、缺少面板或重複 ID；三種 viewport 的 sentiment 標題 computed color 全為 `rgb(255,255,255)`。財報 22 張、經濟事件 12 張、開／關操作維持正常。
 - 下一個候選：block 66 的 `#sentiment>.title{color:#fff!important;font-size:21px!important;font-weight:950!important}` 可只移除 color 宣告、保留字級與字重；後續更高 specificity 的白色例外已驗收為最終色彩來源。
+
+
+## Run 175 驗收：只移除 sentiment 標題重複 color，保留字級／字重
+
+- Run 175：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40283616490；artifact 12633346770 已解壓檢查。
+- 將 `#sentiment>.title{color:#fff!important;font-size:21px!important;font-weight:950!important}` 收斂為只保留 `font-size:21px!important;font-weight:950!important`，移除重複 color 宣告。
+- 驗收 `errors=[]`；desktop 1440、mobile 390、narrow-mobile 320 均無水平溢出、缺少面板或重複 ID；三個 viewport sentiment 標題 computed color 均為白色 `rgb(255,255,255)`，新增瀏覽器錯誤 0。
+- 診斷同時顯示 source-baseline 仍包含早期 `#sentiment > .title` 顏色宣告（紅色／淺色），而後續 block 94 的高 specificity 例外才決定最終白色。source-baseline 是比較基準，不直接修改；未來若要把它併入元件樣式，需另做來源責任與 cascade 遷移，不可把基準檔的命中誤判成剛移除的 legacy 規則仍存在。
+- 主標題這個最小清理簇先告一段落。下一步回到稽核表中「商品列字級」依賴：先盤點 legacy block 47/48/91 與 design-system 的命中範圍、實際生效字級、selector specificity，再挑一條確定重複且不改變能源／匯率／貴金屬範圍的規則進行單條移交。
