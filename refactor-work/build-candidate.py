@@ -201,8 +201,8 @@ verified_econ_count = len(re.findall(r'<details\b[^>]*\bclass="[^"]*\becon-event
 verified_earnings_count = len(re.findall(r'<details\b[^>]*\bclass="[^"]*\bearnings-accordion\b[^"]*\bstar-verified-five\b', html, flags=re.I))
 if verified_econ_count != 8:
     raise SystemExit(f"Refusing build: expected 8 exact five-star economic events marked, found {verified_econ_count}.")
-if verified_earnings_count < 1:
-    raise SystemExit(f"Refusing build: expected exact five-star earnings cards marked, found {verified_earnings_count}.")
+if verified_earnings_count != 8:
+    raise SystemExit(f"Refusing build: expected 8 exact five-star earnings cards marked, found {verified_earnings_count}.")
 
 sector_row_pattern = r'<div\b(?=[^>]*\bclass="[^"]*\bsector-row\b[^"]*")[^>]*>'
 html = add_classes_to_tags(html, sector_row_pattern, "tac-ds-data-row tac-ds-data-row--sector")
