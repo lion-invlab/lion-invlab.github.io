@@ -1641,26 +1641,7 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 
 /* Original style block 52 */
 
-/* Inline-style disclosures remain in the compatibility layer until separately classified. */
-main.wrap details[style*="margin-top:8px"]>summary{
-  display:inline-flex!important;align-items:center!important;gap:5px!important;
-  font-size:12px!important;font-weight:650!important;line-height:1.4!important;
-  color:#747b84!important;-webkit-text-fill-color:#747b84!important;
-  cursor:pointer!important;list-style:none!important;
-}
-main.wrap details[style*="margin-top:8px"]>summary::-webkit-details-marker{display:none!important}
-main.wrap details[style*="margin-top:8px"]>summary::marker{content:""!important}
-main.wrap details[style*="margin-top:8px"]>summary::before{
-  content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;
-  font-size:12px!important;font-weight:700!important;line-height:1!important;
-  color:#747b84!important;-webkit-text-fill-color:#747b84!important;
-  transform:rotate(0deg);transition:transform .15s ease!important;
-}
-main.wrap details[style*="margin-top:8px"][open]>summary::before{transform:rotate(90deg)!important}
-main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;display:none!important}
-@media(max-width:700px){
-  main.wrap details[style*="margin-top:8px"]>summary{font-size:12px!important;font-weight:650!important;color:#747b84!important}
-}
+/* Removed inline-style disclosure rules: all four matching elements are normalized to .tac-ds-disclosure--method in the candidate builder. */
 
 
 /* Original style block 53 */
