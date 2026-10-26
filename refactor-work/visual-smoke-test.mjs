@@ -88,6 +88,24 @@ async function inspect(page) {
         const r = el.getBoundingClientRect();
         return { id, top: Math.round(r.top + window.scrollY), height: Math.round(r.height), bottom: Math.round(r.bottom + window.scrollY), width: Math.round(r.width), padding: getComputedStyle(el).padding, margin: getComputedStyle(el).margin, gap: getComputedStyle(el).gap };
       }),
+      sp500DeepGeometry: (() => {
+        const root = document.getElementById("sp500-earnings-health");
+        if (!root) return { missing: true };
+        return [...root.querySelectorAll("*")].filter(el => {
+          const r = el.getBoundingClientRect();
+          return r.width > 0 && r.height > 0;
+        }).map((el, i) => {
+          const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+          const text = (el.innerText || el.textContent || "").trim().replace(/\\s+/g, " ");
+          return {
+            i, tag: el.tagName, id: el.id, cls: String(el.className || "").slice(0, 100),
+            top: Math.round(r.top + window.scrollY), height: Math.round(r.height), width: Math.round(r.width),
+            padding: s.padding, margin: s.margin, gap: s.gap, fontSize: s.fontSize, lineHeight: s.lineHeight,
+            clientHeight: el.clientHeight, scrollHeight: el.scrollHeight, textLength: text.length,
+            textPreview: text.slice(0, 110)
+          };
+        }).slice(0, 160);
+      })(),
       detailedGeometry: ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health","last-week-calendar","last-week-earnings","calendar","earnings","fed","view"].map(id => {
         const root = document.getElementById(id);
         if (!root) return { id, missing: true };
