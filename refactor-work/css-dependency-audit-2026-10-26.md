@@ -109,3 +109,11 @@
 - 清理提交：legacy 註解更新 `d1e921c8e2c6d14fb74b5be5b7a73e5c3cb64230`；移除未被使用的設計系統元件區塊 `7586b65931c4cedbdca31effcee3a05c2d8ce91b`。仍有實際用途的 inline-style disclosure 相容 selector 保留。
 - 驗收觸發提交：`fe1657eeca7a8ed411802bba859dab250f3308cb`；GitHub Actions [run 40261938319](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40261938319)。最近查詢仍停在 Install Playwright，尚未執行候選建置與瀏覽器測試；因此本項只記錄清理依據，不能標記為回歸驗收通過。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+### 回歸結果補記：無對應 DOM 的日曆來源 selector 清理
+
+- GitHub Actions [run 40261938319](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40261938319) 已完成 `success`；artifact `12625051399` 的 `results.json` 與 `summary.md` 已下載並實際檢查。
+- 桌面 1440px、手機 390px、窄手機 320px：`errors=[]`；三種視窗均無水平溢出、重複 ID、缺少面板、未匹配導覽連結或新增瀏覽器錯誤；來源 disclosure 開／關通過、標記 `▸`；五星紅字 16；全球股市與產業商品名稱均為 16px；新聞卡 15 張；事件卡 12 張、財報手風琴 22 張、產業資料列 11 列及既有互動均通過。
+- 因候選 DOM 沒有 `.calendar-source-collapse` 對應元素，這次通過代表刪除未使用的元件 CSS、清理註解後整體回歸正常，不代表日曆來源元件遷移已完成。
+- 既有視覺差異仍需單獨核對：產業債匯商品面板桌機 332px（baseline 380px，-48px）、手機 439px（baseline 448px，-9px）；另有其他面板幾何差異，功能 smoke test 不等於逐像素視覺核可。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
