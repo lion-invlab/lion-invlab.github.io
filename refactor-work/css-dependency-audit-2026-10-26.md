@@ -724,3 +724,10 @@
 - Run 202：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290579471；artifact 12636356546 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，導覽與主要互動通過。
 - 本輪只移除 block 48 通用 `.row` 的 `align-items:center!important`。原始基礎 `.row` 的 `align-items:center` 接手後，三種 viewport 的商品列／面板幾何與 Run 201 相同；名稱 16px／21.6px，報價桌機 16px／24px、手機 15px／22.5px。
 - 下一候選：移除 block 48 的 `.row b` 通用 `line-height:1.5!important`。13 個商品名稱均由更具體的 bonds／FX／energy／metals 規則提供 21.6px 行高；下一輪只移除此一宣告，保留字重與字距，驗收 computed typography 及三種 viewport 幾何。
+
+
+## Run 203 驗收：移除商品名稱通用行高宣告
+
+- Run 203：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290849446；artifact 12636627348 已下載並檢查 `results.json`、`summary.md`。workflow success；`errors=[]`；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，導航、7 組分頁與 disclosure／事件／財報／商品互動均通過。
+- 本輪只移除 block 48 的通用 `.row b` 行高宣告。債券、FX、能源、貴金屬名稱仍為 16px／21.6px／700，字距保持 normal；報價桌機 16px／24px、手機 15px／22.5px。產業商品面板高度仍為桌機 380px、手機 448px、窄手機 502px。
+- 下一候選：只移除同一規則中的 `font-weight:700!important`，保留 `letter-spacing:0!important`。名稱元素都是 `b`，且目前 computed font-weight 為 700；Run 204 將確認移除重要性宣告後，四類名稱仍是 700、字距不變且沒有版面／互動回歸。若有任何名稱字重改變，立即恢復。
