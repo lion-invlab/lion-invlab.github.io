@@ -537,3 +537,11 @@
 - 驗收 `errors=[]`；desktop 1440、mobile 390、narrow-mobile 320 均無水平溢出、缺少面板或重複 ID；三個 viewport sentiment 標題 computed color 均為白色 `rgb(255,255,255)`，新增瀏覽器錯誤 0。
 - 診斷同時顯示 source-baseline 仍包含早期 `#sentiment > .title` 顏色宣告（紅色／淺色），而後續 block 94 的高 specificity 例外才決定最終白色。source-baseline 是比較基準，不直接修改；未來若要把它併入元件樣式，需另做來源責任與 cascade 遷移，不可把基準檔的命中誤判成剛移除的 legacy 規則仍存在。
 - 主標題這個最小清理簇先告一段落。下一步回到稽核表中「商品列字級」依賴：先盤點 legacy block 47/48/91 與 design-system 的命中範圍、實際生效字級、selector specificity，再挑一條確定重複且不改變能源／匯率／貴金屬範圍的規則進行單條移交。
+
+
+## Run 176 驗收：清除被 block 48 完整覆蓋的商品列舊字級
+
+- Run 176：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40283852851；artifact 12632763016 已檢查。
+- 將 legacy block 47 中商品列的 align/font-size/line-height/font-weight/letter-spacing/數字對齊與手機覆寫移除；保留只由 block 47 負責的 `.tab-panel-meta` 與 `.title small` 字級規則。後續 block 48 使用相同範圍的 row selectors，且同樣含有手機媒體條件，原先較早的列字級宣告均被後續規則覆蓋。
+- 驗收：`errors=[]`；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；三種 viewport 商品名稱仍維持 16px，與全球主要股市商品名稱字級一致；財報 22 張、經濟事件 12 張與相關互動正常。
+- 下一步盤點 block 48 與 block 91 的關係：block 48 控制所有 tab-panel row 的 16px/1.5 排版，block 91 對債券、匯率、能源、貴金屬的特定 `b` 標籤強制 16px/1.35。兩者 line-height 不同且命中範圍不同，不能直接刪 block 48；先用 computed-style 診斷把四個分頁各種 row 的 line-height、font-size 與 selector 命中記錄出來。
