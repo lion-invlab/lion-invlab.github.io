@@ -223,20 +223,17 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   transform: none !important;
 }
 
-/* Industry tabs preserve the established two-row arrangement on narrow screens. */
+/* Preserve the frozen baseline's two-row industry tab layout at every viewport.
+   The generic tabset flex rule must not collapse this navigation into one short row. */
 .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry {
-  display: flex;
-  gap: 5px !important;
-  overflow-x: auto !important;
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  grid-auto-flow: row;
+  gap: 4px !important;
+  overflow: visible !important;
 }
 @media (max-width: 700px) {
   .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry {
-    display: grid !important;
-    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
-    grid-auto-flow: row;
-    gap: 4px !important;
-    overflow: visible !important;
-  }
   .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(1),
   .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(2) { grid-column: span 3; }
   .tac-tabset[aria-label="產業債匯商品"] .tac-ds-tabs--industry .tac-ds-tabs__tab:nth-child(3),
