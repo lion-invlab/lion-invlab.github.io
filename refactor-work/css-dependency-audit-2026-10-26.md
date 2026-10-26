@@ -250,3 +250,12 @@
 - Run 139 同時確認：產業 nav 實際高度桌機 88px、手機／窄手機 79px；雖低於基準 96px／89px，但由於候選面板其餘內容的內部間距略高，整體面板高度已與基準相符。保留這種以 grid row track 校準而不破壞共同 label 樣式的做法。
 - 下一項定位目標不是「overview 面板」本身，而是整頁總高度／累積差異：桌機頁面總高度約 +68px、390px 約 +8px、320px 約 -53px；個別剩餘差異集中在 S&P 500 財報健康（桌機 +27px、手機 +8px）、Fed（桌機 +17px）、View（桌機 +15px）、calendar（手機 +4px）等。下一輪逐項比對這些面板的可見子元件 bounding boxes，不以整頁總高度作單一元件的判斷。
 - 本輪只改動隔離分支的設計系統 CSS、瀏覽器測試診斷與觸發紀錄；正式首頁、正式母版、JSON 資料與排程均未修改。
+
+
+## 2026-10-26 S&P 500 財報健康面板幾何校準（Run 140 通過）
+
+- 測試：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40269870772；Artifact 12627054382 已下載並檢查。
+- 以基準的實際子元件數據定位到三個來源：桌機外框 padding 候選 22px、基準 16px；標題候選高度 35px、基準 33px（含 padding／margin 差）；資料來源 summary 候選 24px、基準 17px。390px 也有相同的標題與 summary 差異，但外框 padding 候選為 14px、基準 16px。
+- 在 381px 以上恢復面板 padding 16px、標題 padding 0／margin-bottom 11px，並將該面板方法摘要恢復為緊湊的原生 summary 樣式。驗收結果：桌機 583→582px（-1），390px 809→807px（-2）；無新增瀏覽器錯誤、水平溢出或頁籤簽章不一致。
+- 320px 仍維持既有窄版規則（外框 padding 10px、標題緊縮、卡片內距縮小），面板為 909px、比基準 943px 短 34px。此差異尚未驗收，不應宣稱全尺寸幾何一致；後續若處理，須逐卡片比較換行與內容完整性，不能只強行加高面板。
+- 下一步加入 Fed、View、Calendar、Earnings 面板的子元件幾何診斷，逐項確認剩餘差異（Fed 桌機 +17px、View 桌機 +15px、Calendar 手機 +4px），再做最小範圍修正。
