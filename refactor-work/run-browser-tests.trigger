@@ -359,3 +359,6 @@ Run 243: fix Run 241/242 regression discovered in Run 242 artifact: prior-week a
 
 
 Run 244: correct prior-week disclosure row selectors after DOM inspection. The actual event row classes are details.econ-event and details.earnings-accordion, not tac-ds-event/tac-ds-earnings-card. Apply shared flex geometry to the actual summary and its real toggle child, while preserving outer disclosure dimensions; rerun 1440/390/320 browser, typography, interaction and panel geometry audits. 2026-10-26T22:00+0800
+
+
+Run 245: fix Run 244 regression findings from artifact. Preserve dark audit disclosure label colors; unify light source disclosure labels to the existing canonical #9ca3af; suppress duplicate pseudo-element bars specifically on tabset section headings. Re-run all viewport, typography, interaction, and panel geometry checks after actual econ-event / earnings-accordion selector correction. 2026-10-26T22:15+0800
