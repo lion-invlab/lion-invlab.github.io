@@ -240,3 +240,13 @@
 - 試驗的產業頁籤列高度：桌機 98px、390px 94px、320px 94px；對比基準版 96px／89px／89px。產業面板總高度則為桌機 +10px、390px +15px、320px +15px，故試驗不接受。
 - 已回退該試驗專屬覆寫：`47ad8ade5f0c2727d2285f633d34008e65b3f396`。回歸驗證 Run 137 已觸發，待結果確認回退後的樣式一致性。
 - 後續不得再用不同字級或最小高度強行補足。應先逐標籤量測 baseline/candidate 的 bounding box 與實際 grid row 軌跡；目標是在保留三組主頁籤共同計算樣式簽章的前提下，定位原始差異究竟是 grid row 分配、label 基礎規則，或容器 padding/margin。不得只比較外層總高度。
+
+
+## 2026-10-26 產業頁籤幾何診斷與修正（Run 137–139）
+
+- Run 137（回退後回歸測試：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40269193751）通過：原先頁籤樣式簽章恢復一致，但產業面板仍比基準短 16px／9px／9px。
+- Run 138（新增逐標籤幾何量測：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40269414654）通過。Artifact 12627098634 的 results.json 顯示差異源頭是 grid 兩列高度：基準桌機 nav 96px、候選 72px；390px 與 320px 基準 89px、候選 70px。候選 label 的計算樣式仍須與另外兩組主要頁籤相同，不能直接提高 label 的 min-height、字級或 padding。
+- Run 139（產業頁籤列高校準：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40269619720）通過。只調整產業頁籤 grid row tracks，不改共用 label 樣式：桌機 rows 36px + 36px，手機 rows 32px + 33px。結果產業面板高度與基準完全一致：桌機 380px、390px 448px、320px 502px；三種 viewport 無新增瀏覽器錯誤、無水平溢出、無缺少面板、重複 ID 或未匹配導覽；三組主要頁籤樣式簽章保持一致。這是通過的局部幾何修正，不代表其他面板差異已完成。
+- Run 139 同時確認：產業 nav 實際高度桌機 88px、手機／窄手機 79px；雖低於基準 96px／89px，但由於候選面板其餘內容的內部間距略高，整體面板高度已與基準相符。保留這種以 grid row track 校準而不破壞共同 label 樣式的做法。
+- 下一項定位目標不是「overview 面板」本身，而是整頁總高度／累積差異：桌機頁面總高度約 +68px、390px 約 +8px、320px 約 -53px；個別剩餘差異集中在 S&P 500 財報健康（桌機 +27px、手機 +8px）、Fed（桌機 +17px）、View（桌機 +15px）、calendar（手機 +4px）等。下一輪逐項比對這些面板的可見子元件 bounding boxes，不以整頁總高度作單一元件的判斷。
+- 本輪只改動隔離分支的設計系統 CSS、瀏覽器測試診斷與觸發紀錄；正式首頁、正式母版、JSON 資料與排程均未修改。
