@@ -382,3 +382,12 @@
 - 將日期列、公司名稱、副標與星號文字樣式移入 tac-ds-earnings-card，並把名稱顏色規則集中為：一般名稱黑色，只有 star-verified-five 的公司名稱紅色；保留設計系統已接管的五星星號紅色規則。從 legacy 移除 11 條對應文字／顏色規則。
 - Artifact 12629082564 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；財報卡 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何與 Run 157 一致。
 - 下一步是財報卡內部詳細欄位的基礎樣式移交；先保留 last-week-earnings 的高優先級結果 grid 與容器覆寫，只移動沒有被特定面板覆寫的通用規則。
+
+
+## 2026-10-26 財報手風琴內部欄位基礎樣式移交（Run 159 通過）
+
+- 設計系統提交：dd26192ae49903c6bb2c1e256e65efd058dfbd4c；legacy 清理提交：35dee602788efe3d62091e2889fc865f69647f89；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40274386745。
+- 將 earnings-accordion-details、earnings-detail-field、wide 欄位、label 與 detail-value 的基礎樣式及 640px 響應式規則移入 tac-ds-earnings-card；移除 6 條通用 legacy 規則。
+- 保留 #last-week-earnings 的高優先級 display:flex、padding/gap、結果 grid 欄位規則與 wide 欄位覆寫，避免破壞上週財報的特殊內容結構。
+- Artifact 12629791115 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；財報卡 22 張、結果卡 14 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何未變。
+- 財報手風琴通用 summary、日期／名稱／副標／星號與詳細欄位基礎樣式已移交；剩餘主要相依集中在上週財報專用的結果 grid 與寬欄位外觀。下一步先盤點這些規則與已存在的 tac-ds-earnings-actual-card 元件，不批次移除 #last-week-earnings 的 !important 覆寫。
