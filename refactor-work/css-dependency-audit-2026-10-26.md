@@ -488,3 +488,12 @@
 | 約 2841–2848（block 95） | overview、兩個上週面板、calendar、earnings 的標題與情緒標題 | `#b42332!important`；情緒標題白色 | 對指定主面板是較晚的明確終局規則；但不取代 block 94 對其他卡片的涵蓋。 |
 
 **目前安全結論：**主面板常見標題最終顏色是 `#b42332`，市場情緒主標題刻意為白色；主標題字級統一規則與顏色規則分開。此表只記錄來源與重疊，不視為完成移除。下一個實際 CSS 變更前，需在瀏覽器測試輸出中補一份各 viewport 的主標題 computed-style／命中節點診斷，才可判斷哪些舊規則真正無效。
+
+
+## 2026-10-26 主標題 cascade 診斷與冗餘規則清理（Run 168–170）
+
+- Run 168 診斷驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40281696736；Run 169：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40281912199；Run 170：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40282162154。
+- 已將主標題診斷加入 `visual-smoke-test.mjs`：逐 viewport 擷取 12 個主面板標題的 computed color/font-size/line-height/font-weight，並列出實際匹配的 CSS selector、媒體條件及宣告。Run 166/167 的 CSSOM walker 仍未能列出匹配規則，已在 Run 168 修正遞迴條件；Run 168 artifact 已確認命中清單正常。
+- Run 169 移除 legacy block 95 最末端的低 specificity `#sentiment > .title { color:#fff!important; }` 重複宣告；Run 170 再移除較早的 `body #sentiment > .title { color:#fff!important; }`。兩條皆由後續更高 specificity 的白色例外覆蓋，逐條回歸後未改變 computed style。
+- Run 170 artifact 12632971133 已檢查：頂層 errors=[]；桌機、390px 手機、320px 窄手機均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；三種 viewport 的市場情緒標題 computed color 均為白色 `rgb(255,255,255)`，財報／經濟元件數量及開關互動維持正常。
+- 下一步：在市場情緒標題區繼續依診斷清單逐條核對剩餘低 specificity／重複白色宣告，先確認其後是否存在更強、同值的覆蓋；每次最多清理一條或一個已證明等價的最小規則群。避免觸及市場情緒深色背景、軌道偽元素與卡片玻璃效果，除非另行建立專項視覺驗收。
