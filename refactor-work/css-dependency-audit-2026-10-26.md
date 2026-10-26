@@ -505,3 +505,10 @@
 - 依 Run 168 的 CSSOM 命中診斷，逐條移除三條低 specificity、同為白色的市場情緒標題重複宣告：block 95 尾端 `#sentiment > .title { color:#fff!important; }`、block 62 的 `body #sentiment > .title { color:#fff!important; }`、block 61 的 `main.wrap #sentiment > .title { color:#fff!important; }`。後續仍有更高 specificity 的白色例外，逐次測試未改變最終樣式。
 - Run 171 artifact 12632966536 已檢查：errors=[]；桌機、390px 手機、320px 窄手機均無水平溢出、缺少面板、重複 ID；三種 viewport 市場情緒標題 computed color 都是 `rgb(255,255,255)`，命中規則清單仍可讀取。前一輪 Run 170 的財報卡／經濟事件卡數量、手風琴與 disclosure 互動均正常；Run 171 完整回歸也通過。
 - 目前不是把市場情緒標題白色規則整組刪除；剩餘白色宣告仍需逐條比較 specificity、順序與媒體條件。下一步可檢查 `body main.wrap #sentiment > .title { color:#fff!important; }` 是否仍被後面的更強白色例外完全覆蓋，再做一條一驗收；不觸碰背景、軌道偽元素、卡片玻璃效果。
+
+
+## Run 172 驗收與下一條白色例外判斷
+
+- Run 172：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40282957469；artifact 12633027611 已解壓檢查 `results.json` 與 `summary.md`。三種 viewport 均無水平溢出、缺少面板、重複 ID、未匹配導覽連結或新增瀏覽器錯誤；市場情緒標題在桌機、手機、窄手機 computed color 都維持 `rgb(255,255,255)`；22 張財報卡、12 張經濟事件卡與相關開關互動正常。
+- Run 172 移除 block 93 中 `#sentiment > .title { color:#fff!important; }`。後續 block 94 的 `main.wrap #sentiment > .title, main.wrap #sentiment .title:first-child { color:#fff!important; }` 仍接管該標題，驗收確認結果未變。
+- 注意：剩餘 `body main.wrap #sentiment > .title { color:#fff!important; }` 的 specificity 高於 block 94 第一個 selector，但低於第二個 `main.wrap #sentiment .title:first-child`（前提是標題維持 section 第一子元素）；在目前 HTML 中它確實命中同一標題。可用一條獨立回歸驗證移除後 computed color 仍白色。若結果有差異立即回復，不動背景、偽元素或其他 sentiment 視覺規則。
