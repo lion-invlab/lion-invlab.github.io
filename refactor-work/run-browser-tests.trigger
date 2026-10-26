@@ -181,3 +181,5 @@ Run 155: verify earnings accordion-list wrapper migration and all accordion inte
 Run 156: capture final computed styles for earnings accordion shell, summary and toggle at desktop/mobile widths.
 
 Run 157: verify earnings accordion summary-row migration and confirm no visible layout regressions.
+
+Run 158: verify earnings company/date/subtitle/star typography migration and red-star contract.
