@@ -218,3 +218,13 @@
 - 已確認：320px 下外層 S&P 面板 padding 16px → 10px，導致其內容寬度 258px → 270px；四張 inline-styled 指標卡的內容寬度因此 99px → 105px。第三、第四張卡各有一段 11px 輔助文字從 3 行（48px）變成 2 行（32px），卡高各由 137px 降至 106px，grid 整高由 266px 降至 235px。這是外層窄版 padding 引起的換行／高度變更，不是缺少卡片 padding 規則、也不是 gap 自行縮短。
 - 目前已能證明造成 -31px 的幾何鏈條；但不能單憑「高度接近基準」決定是否應修，還需確認窄螢幕設計目的。基準較窄內容會換更多行但減少水平空間；候選卡內容較寬、少一行且更緊湊。下一步先比較整區內外 padding 與視覺可讀性，修正應限於 S&P 這個 panel 的 mobile outer padding／內部 grid，不更動文字或資料。
 - Run #222 smoke-test step 已於長時間導覽回歸過程中被取消，artifact 數據可供診斷但不是驗收成功；因此任何 CSS 變更後仍必須重跑 1440／390／320px。
+
+
+## 2026-10-26 — Run #223 三尺寸瀏覽器回歸通過；修正效果已驗證
+- Run #223: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40305505809 — `success`，commit `bb93ce79a30804fea1d197a3b55a26cca8318a65`，分支 `tac-design-system-work-2026-10-24`。
+- Playwright 安裝、候選 HTML 建置、desktop/mobile smoke tests、artifact upload 均成功。artifact ID `12642425979`（7.25 MB）；已下載並分析 `browser-results/results.json`、`instrument-typography-audit.json` 與截圖。
+- S&P 500 panel 內層 grid 在 320px 已從 Run #222 的錯誤候選 235px 恢復至唯讀基準 266px；四張 metric cards 的高度對齊基準：121/121/137/137px。外層 panel 在 320px 為 943px，對比唯讀基準 943px，已修正原 -34px 差異。
+- 1440／390／320px 均完成瀏覽器 regression：新增瀏覽器錯誤 0、水平溢出 false、缺失主要面板 0、重複 ID 0、未匹配導覽連結 0；導航錨點、頁籤與來源 disclosure 等既有互動通過；16 個五星紅色標示通過。商品名稱 audit：27 個商品（14 全球市場＋13 產業債匯商品）均為 16px／21.6px／700；每個 viewport 1 條 canonical rule；54 個報價值逐項對基準，均通過。
+- 幾何剩餘事項：320px 新聞掃描仍比基準少 25px（符合已記錄的窄版頁籤／新聞卡 padding 緊湊化，仍待人工可讀性審核）；320px overview 長頁容器差異仍約 -62px，但首張 BLUF 卡只差 3px，不能誤讀為卡本身短 62px。標準手機 S&P panel 約 -2px，桌面約 -1px；整體全頁 desktop 高度 5147px vs 5165px，尚未宣稱像素級完全一致。
+- 本次 CSS 改動只在隔離分支的 `refactor-work/design-system.css`：在 `max-width:380px` 下還原 `#sp500-earnings-health` 的 padding 至 16px；不改動任何資料、文字、報價或互動邏輯。正式首頁、正式母版、JSON、排程均未修改。
+- 下一步：人工檢視本次 Run #223 的 candidate/baseline/diff 截圖，特別確認 320px 新聞卡內距的可讀性；再繼續下一個已量測的幾何差異與 Design System 元件／legacy CSS 遷移。不把單一回歸成功視為整體 CSS 重構完成。
