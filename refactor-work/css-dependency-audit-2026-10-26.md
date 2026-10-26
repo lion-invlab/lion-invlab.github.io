@@ -635,3 +635,10 @@
 - DOM inventory（run188 candidate-build.html）確認 `.tac-tab-panel .row .name` 與 `.tac-tab-panel .row .label` 命中數均為 0，因此從 block 48 桌機／手機 selector group 移除這兩個未使用 selector；保留實際存在的 `b`、`.r`、`span.r`、內嵌字重 span、`.up/.down` 規則。
 - 驗收：errors=[]；1440、390、320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；商品名稱字級契約三種 viewport 都只有 16px，導航錨點通過。
 - 下一步候選：block 47 殘留的 `.tab-panel .title small` selector 在 baseline DOM 命中 0 次，而同組的 `.tab-panel-meta` 命中 5 次；可只移除未使用的 `.title small` selector，保留實際使用的 metadata 字級。
+
+
+## Run 191 驗收：修正 block 48 selector 並移除 block 47 dead selector
+
+- Run 191：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40287599181；artifact 12635136644 已檢查 `results.json` 與 `summary.md`。errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、7 組分頁、來源 disclosure、經濟事件與財報收合互動通過；商品名稱三種 viewport 均為 16px。
+- 本輪候選包含 block 48 的 `.row b{...}` 懸空逗號修復，以及 block 47 移除零命中的 `.tab-panel .title small`，保留命中 5 次的 `.tab-panel-meta`。兩項均經 Run 191 完整 workflow 與 artifact 驗收。
+- DOM inventory（Run 191 candidate-build.html）：商品列共 13 列；`.row .name`=0、`.row .label`=0、`.row .up`=7，且 `.up:not(.r)`=0；7 個 `.up` 全部同時符合 `.r`，因此 block 48 的 `.row .up` 是 `.row .r` 已覆蓋的重複 selector。下一輪只移除 `.row .up`，保留 `.row .down` 及 `.r` 數值規則。
