@@ -1487,3 +1487,41 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   .tac-ds-earnings-card .earnings-detail-field { padding: 9px; }
   .tac-ds-earnings-card .earnings-detail-value { font-size: 13px; }
 }
+
+/* Prior-week earnings result-grid ownership: preserve the approved two-column card layout without legacy !important chains. */
+#last-week-earnings .tac-ds-earnings-card .earnings-accordion-details {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 12px;
+  gap: 10px;
+}
+#last-week-earnings .tac-ds-earnings-card .earnings-results-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+  background: transparent;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 0 0 auto;
+  align-self: stretch;
+  box-sizing: border-box;
+}
+#last-week-earnings .tac-ds-earnings-card .earnings-results-grid > .tac-ds-earnings-actual-card {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  #last-week-earnings .tac-ds-earnings-card .earnings-results-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
