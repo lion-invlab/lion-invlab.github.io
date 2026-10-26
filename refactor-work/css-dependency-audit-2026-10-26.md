@@ -440,3 +440,11 @@
 - 診斷確認 legacy 中唯一 #last-week-earnings summary visibility 保險規則沒有相反的 display:none／visibility:hidden 對手；已把 visibility:visible 納入設計系統摘要列並移除 legacy 的 display:flex!important／visibility:visible!important 重複規則。
 - Artifact 12630435447 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；結果卡 14 張、財報手風琴 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；面板幾何與 Run 163 一致。
 - 財報手風琴元件相關 legacy 覆寫已大幅清理；接下來盤點非元件級規則與 CSS 依賴總表，避免為了清理而改動其他面板。
+
+
+## 2026-10-26 依賴總盤點（Run 164 驗收後）
+
+- 已由 design-system.css 接管：經濟事件元件完整外觀與 metadata／detail fields／summary／list wrapper；財報手風琴外框、列表容器、摘要列、日期／公司名稱／副標／星號、詳細欄位基礎樣式、實際財報卡外觀、上週財報結果 grid 與 wide 欄位變體。
+- legacy selector 命中盤點：econ-event、econ-meta、econ-details、econ-field、econ-toggle、econ-event-list、earnings-actual、earnings-detail-field 的元件舊規則已清零；earnings-accordion 字樣剩餘 2 次，但不代表一定是 selector（需逐行檢查是否註解或非元件規則）。
+- 已完成的驗收鏈：Run 150–164（含 Run 156 樣式診斷）均通過；每次 artifact 已確認 errors=[]、沒有水平溢出／缺少面板／重複 ID，並核對事件卡、財報卡、結果卡數量及互動。
+- 下一步不應繼續大批刪 CSS；先列出 legacy 剩餘 2 條 earnings-accordion 命中與相鄰規則，確認語義後再處理。然後更新母版／工作規範中的依賴圖與目前驗收基準；仍只在隔離分支工作，不碰正式首頁、正式母版、JSON 或排程。
