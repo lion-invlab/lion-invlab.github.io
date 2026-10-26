@@ -143,3 +143,5 @@ industry-tab-baseline-geometry-run-136-2026-10-26T1223+0800
 revert-industry-tab-override-run-137-2026-10-26T1230+0800
 
 Run 138: capture exact nav label geometry to diagnose industry panel height mismatch after reverting the failed tab styling trial.
+
+Run 139: verify industry tab row-height correction against baseline geometry and shared style parity.
