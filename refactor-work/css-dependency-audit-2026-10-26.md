@@ -744,3 +744,11 @@
 
 - Run 205：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291363732 在 `Install Playwright` 超過兩分鐘仍未完成，候選建置與瀏覽器測試未開始，尚無 artifact。此 run 不算通過，也不能判斷 letter-spacing 遷移結果。
 - Run 206 將在不改動 CSS 的情況下重跑同一隔離分支版本；若 Run 205 被新觸發取消，只記錄為基礎設施重試。
+
+
+## Run 206 驗收：將商品名稱字距規則遷移至 design-system.css
+
+- Run 205 在 Playwright 安裝階段停滯並被 Run 206 取代，不算通過。Run 206 完整成功：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291703706；artifact 12636569083 已檢查 `results.json` 與 `summary.md`。
+- Run 206 errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；7 組分頁、來源 disclosure、經濟事件、財報收合與商品分頁／收合通過。四類商品名稱均為 16px／21.6px／700、letter-spacing normal；面板高度維持 380px／448px／502px。
+- 本輪把 `letter-spacing:0!important` 從 legacy block 48 移入 design-system.css 的相同 ID／元件範圍 selector，移除 legacy 名稱規則後，computed style 與 Run 204 完全一致。
+- 下一候選：移除 block 48 數值規則中的 `font-variant-numeric:tabular-nums!important`。原始通用 `.r` 規則已設 `font-variant-numeric:tabular-nums`，債券列也有專屬 tabular-nums；Run 207 將檢查 26 個報價／漲跌值在三種 viewport 仍保有 tabular-nums，且不影響其他數值樣式。
