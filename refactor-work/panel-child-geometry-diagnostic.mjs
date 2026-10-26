@@ -59,17 +59,23 @@ try {
           lineHeight: s.lineHeight
         };
       };
+      let previousBottom = panelRect.top;
       const children = [...panel.children]
         .filter(element => getComputedStyle(element).display !== "none")
-        .map((element, index) => ({
-          index,
-          tag: element.tagName,
-          id: element.id || "",
-          className: typeof element.className === "string" ? element.className : "",
-          text: (element.innerText || "").trim().replace(/\s+/g, " ").slice(0, 70),
-          rect: rect(element),
-          style: style(element)
-        }));
+        .map((element, index) => {
+          const elementRect = rect(element);
+          const gapBefore = Math.round(element.getBoundingClientRect().top - previousBottom);
+          previousBottom = element.getBoundingClientRect().bottom;
+          return {
+            index,
+            tag: element.tagName,
+            id: element.id || "",
+            className: typeof element.className === "string" ? element.className : "",
+            text: (element.innerText || "").trim().replace(/\s+/g, " ").slice(0, 70),
+            rect: { ...elementRect, gapBefore },
+            style: style(element)
+          };
+        });
       return { id, panelRect: rect(panel), panelStyle: style(panel), children };
     }), targets);
 
@@ -113,13 +119,14 @@ for (const viewport of results) {
       }
       const deltas = {
         relativeTop: after.rect.relativeTop - before.rect.relativeTop,
+        gapBefore: after.rect.gapBefore - before.rect.gapBefore,
         height: after.rect.height - before.rect.height,
         width: after.rect.width - before.rect.width
       };
       if (before.id !== after.id || before.className !== after.className ||
-          Math.abs(deltas.relativeTop) > 1 || Math.abs(deltas.height) > 1 || Math.abs(deltas.width) > 1) {
+          Math.abs(deltas.gapBefore) > 1 || Math.abs(deltas.height) > 1 || Math.abs(deltas.width) > 1) {
         console.log(`  child[${i}] ${before.tag}#${before.id}.${before.className}`);
-        console.log(`    relativeTop ${before.rect.relativeTop} -> ${after.rect.relativeTop} (Δ ${deltas.relativeTop}); height ${before.rect.height} -> ${after.rect.height} (Δ ${deltas.height}); width ${before.rect.width} -> ${after.rect.width} (Δ ${deltas.width})`);
+        console.log(`    relativeTop ${before.rect.relativeTop} -> ${after.rect.relativeTop} (Δ ${deltas.relativeTop}); gapBefore ${before.rect.gapBefore} -> ${after.rect.gapBefore} (Δ ${deltas.gapBefore}); height ${before.rect.height} -> ${after.rect.height} (Δ ${deltas.height}); width ${before.rect.width} -> ${after.rect.width} (Δ ${deltas.width})`);
         if (before.text !== after.text) console.log(`    text changed: "${before.text}" -> "${after.text}"`);
         changed++;
       }
