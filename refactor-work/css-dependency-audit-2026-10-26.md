@@ -497,3 +497,11 @@
 - Run 169 移除 legacy block 95 最末端的低 specificity `#sentiment > .title { color:#fff!important; }` 重複宣告；Run 170 再移除較早的 `body #sentiment > .title { color:#fff!important; }`。兩條皆由後續更高 specificity 的白色例外覆蓋，逐條回歸後未改變 computed style。
 - Run 170 artifact 12632971133 已檢查：頂層 errors=[]；桌機、390px 手機、320px 窄手機均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；三種 viewport 的市場情緒標題 computed color 均為白色 `rgb(255,255,255)`，財報／經濟元件數量及開關互動維持正常。
 - 下一步：在市場情緒標題區繼續依診斷清單逐條核對剩餘低 specificity／重複白色宣告，先確認其後是否存在更強、同值的覆蓋；每次最多清理一條或一個已證明等價的最小規則群。避免觸及市場情緒深色背景、軌道偽元素與卡片玻璃效果，除非另行建立專項視覺驗收。
+
+
+## 2026-10-26 市場情緒標題重複色彩宣告清理（Run 169–171 通過）
+
+- Run 169：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40281912199；Run 170：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40282162154；Run 171：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40282383260。
+- 依 Run 168 的 CSSOM 命中診斷，逐條移除三條低 specificity、同為白色的市場情緒標題重複宣告：block 95 尾端 `#sentiment > .title { color:#fff!important; }`、block 62 的 `body #sentiment > .title { color:#fff!important; }`、block 61 的 `main.wrap #sentiment > .title { color:#fff!important; }`。後續仍有更高 specificity 的白色例外，逐次測試未改變最終樣式。
+- Run 171 artifact 12632966536 已檢查：errors=[]；桌機、390px 手機、320px 窄手機均無水平溢出、缺少面板、重複 ID；三種 viewport 市場情緒標題 computed color 都是 `rgb(255,255,255)`，命中規則清單仍可讀取。前一輪 Run 170 的財報卡／經濟事件卡數量、手風琴與 disclosure 互動均正常；Run 171 完整回歸也通過。
+- 目前不是把市場情緒標題白色規則整組刪除；剩餘白色宣告仍需逐條比較 specificity、順序與媒體條件。下一步可檢查 `body main.wrap #sentiment > .title { color:#fff!important; }` 是否仍被後面的更強白色例外完全覆蓋，再做一條一驗收；不觸碰背景、軌道偽元素、卡片玻璃效果。
