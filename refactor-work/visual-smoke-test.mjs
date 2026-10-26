@@ -84,7 +84,7 @@ async function inspect(page) {
         const r = el.getBoundingClientRect();
         return { id, top: Math.round(r.top + window.scrollY), height: Math.round(r.height), bottom: Math.round(r.bottom + window.scrollY), width: Math.round(r.width), padding: getComputedStyle(el).padding, margin: getComputedStyle(el).margin, gap: getComputedStyle(el).gap };
       }),
-      detailedGeometry: ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health","last-week-calendar","last-week-earnings"].map(id => {
+      detailedGeometry: ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health","last-week-calendar","last-week-earnings","calendar","earnings","fed","view"].map(id => {
         const root = document.getElementById(id);
         if (!root) return { id, missing: true };
         return { id, nodes: [...root.querySelectorAll(":scope > *, .tac-ds-card--news, .newsitem, .news-card, .region-card, .asset-card, .econ-event, .earnings-accordion, details, .calendar-card, .tac-ds-event, .tac-ds-earnings-card, .tac-section-heading, .title, .news-list, .news-grid, .grid, .tac-ds-tabs, .row, .sector-row, .instrument-name, .sp500-health-row, .earnings-health-row")].slice(0,80).map((el,i) => {
