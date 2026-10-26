@@ -771,3 +771,9 @@
 
 - Run 207：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40292151384 在 `Install Playwright` 持續超過兩分鐘，候選建置與瀏覽器測試未開始，尚無 artifact。此 run 不算通過。
 - Run 208 對同一 CSS 版本重試，不更動 CSS；若 Run 207 被新觸發取消，只記錄為基礎設施重試。
+
+
+## Run 209 狀態：Playwright 安裝再次停滯
+
+- Run 209：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40292467141 仍停留在 `Install Playwright` 超過三分鐘，未建立候選頁面、未執行瀏覽器測試、沒有 artifact。此 run 不算通過。
+- 測試環境設定未能在本次執行中完成調整，因此 Run 210 只重試同一 CSS 候選，不變更 CSS；如安裝再次停滯，先停止重複觸發並保留明確的環境阻塞紀錄。
