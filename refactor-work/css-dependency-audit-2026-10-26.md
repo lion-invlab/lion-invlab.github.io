@@ -587,3 +587,11 @@
 - 移除 legacy block 91 的能源 `.energy-card .row>b` 桌機與手機 selector，保留貴金屬裸 `b` selector。新的 design-system 規則已覆蓋能源名稱並以更高 specificity 壓過 block 48 的舊手機規則。
 - 驗收：errors=[]；1440、390、320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；能源名稱三種 viewport 均為 16px/21.6px，貴金屬名稱也維持 16px/21.6px；商品名稱尺寸契約在三種 viewport 均只出現 16px。
 - 下一個最小候選：block 48 手機 media group 中的 `html body #industry-bonds-fx-commodities .tac-tab-panel .row b` 15px selector，對四個主要商品區的裸 `b` 名稱都已被更具體的 bonds／energy design-system 與 FX／貴金屬保留規則覆蓋。可只從手機 selector group 移除這一項，保留 `.row .name`、`.row .label` 與報價數字的 15px 緊湊規則，再驗收。
+
+
+## Run 184 驗收：清除 block 48 通用手機裸 b 字級規則
+
+- Run 184：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40286029448；artifact 12633948352 已檢查。
+- 只從 block 48 的 `@media(max-width:600px)` selector group 移除 `html body #industry-bonds-fx-commodities .tac-tab-panel .row b` 的 15px 規則；保留 `.row .name`、`.row .label`、報價 `.r` 與漲跌幅 `.up/.down` 的手機 15px 規則。
+- 驗收：errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；債券、FX、能源、貴金屬名稱皆維持 16px/21.6px，手機報價仍為 15px/22.5px，符合既有緊湊數值排版。
+- 下一個最小候選：將 block 91 的 `#tac-assets-panel-4 .row>b`（貴金屬名稱）兩處規則移到 design-system.css，建立比 block 48 更具體的元件規則，再逐條移除 legacy selector。保留能源與 FX 的已驗收狀態。
