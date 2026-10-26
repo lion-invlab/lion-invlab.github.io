@@ -211,3 +211,10 @@
 - 更精確的基準／候選 DOM 同序列比較顯示：基準 320px 下第三、第四張 metric card 高度均為 137px，候選均為 106px；它們的內文提示各少一行（48px → 32px），因而每張少約 31px，grid 高度取列中最大高度後由 266px 變 235px。
 - 但目前尚不能把根因定為「卡片 padding 規則未命中」；這四張內嵌卡在兩版量測的 padding 都是 11px 12px，真正待查的差異是基準內容寬 99px、候選內容寬 105px，導致同一段 11px 提示文字的斷行數不同。需檢查 320px 下外層面板 padding 16px → 10px、標題與卡片寬度的連帶影響，以及窄版 CSS 對 grid 子項的實際盒模型。
 - 因此不依目前數據直接回退或增加卡片 padding；先以獨立診斷 job 比較可用內容寬度、grid column/row gap 和 computed styles，再決定最小修正。
+
+
+## 2026-10-26 — Run #222 深度診斷結果已完整對照，進入最小修正前檢查
+- Run #222 artifact 中的 `baseline.sp500DeepGeometry` 與候選 `sp500DeepGeometry` 都有 35 筆 320px 子元素，現已逐筆對照。
+- 已確認：320px 下外層 S&P 面板 padding 16px → 10px，導致其內容寬度 258px → 270px；四張 inline-styled 指標卡的內容寬度因此 99px → 105px。第三、第四張卡各有一段 11px 輔助文字從 3 行（48px）變成 2 行（32px），卡高各由 137px 降至 106px，grid 整高由 266px 降至 235px。這是外層窄版 padding 引起的換行／高度變更，不是缺少卡片 padding 規則、也不是 gap 自行縮短。
+- 目前已能證明造成 -31px 的幾何鏈條；但不能單憑「高度接近基準」決定是否應修，還需確認窄螢幕設計目的。基準較窄內容會換更多行但減少水平空間；候選卡內容較寬、少一行且更緊湊。下一步先比較整區內外 padding 與視覺可讀性，修正應限於 S&P 這個 panel 的 mobile outer padding／內部 grid，不更動文字或資料。
+- Run #222 smoke-test step 已於長時間導覽回歸過程中被取消，artifact 數據可供診斷但不是驗收成功；因此任何 CSS 變更後仍必須重跑 1440／390／320px。
