@@ -228,13 +228,8 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 #sentiment .sbox .label{font-size:15px;line-height:1.35}
 #sentiment .sbox strong{font-size:27px;margin:5px 0}
 #sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:15px;line-height:1.45}
-#sentiment .source-details{margin-top:5px;font-size:11px;color:var(--muted)}
-#sentiment .source-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:750;padding:2px 0}
-#sentiment .source-details summary::-webkit-details-marker{display:none}
-#sentiment .source-details summary:before{content:"＋";font-weight:900;color:var(--red)}
-#sentiment .source-details[open] summary:before{content:"－"}
-#sentiment .source-details .source{font-size:11px;line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
-@media(max-width:700px){#sentiment .sbox .label{font-size:13px;letter-spacing:0;overflow-wrap:normal}#sentiment .sbox strong{font-size:22px}#sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:13px}#sentiment .source-details summary{font-size:10px}#sentiment .source-details .source{font-size:10px}}
+/* Sentiment source disclosure visuals are owned by .tac-ds-disclosure--dark. */
+@media(max-width:700px){#sentiment .sbox .label{font-size:13px;letter-spacing:0;overflow-wrap:normal}#sentiment .sbox strong{font-size:22px}#sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:13px}}
 
 /* V11: keep energy instrument names on one line on mobile */
 .energy-card .row{grid-template-columns:minmax(0,1.55fr) minmax(78px,.85fr) minmax(64px,.7fr);gap:6px}
