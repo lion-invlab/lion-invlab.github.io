@@ -1683,9 +1683,9 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 /* Original style block 56 */
 
 /* 已公布財報：EPS 與營收拆成獨立並列卡片 */
-.earnings-results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;background:#fff}
-.earnings-actual-card{min-width:0;border:1px solid #dfe5e7;border-radius:10px;padding:10px;background:#f4f8f9;overflow-wrap:anywhere}
-.earnings-actual-card-title{font-size:13px;font-weight:900;color:#424b50;margin-bottom:8px}
+
+
+
 .earnings-actual-line{display:flex;flex-direction:column;gap:2px;margin:6px 0}
 .earnings-actual-line span{font-size:11px;color:#727a7f;font-weight:750}
 .earnings-actual-line strong{font-size:14px;line-height:1.35;color:#202428;overflow-wrap:anywhere}
@@ -1694,16 +1694,16 @@ body{width:100%;max-width:100%;overflow-x:clip!important}
 .earnings-actual-status.miss{color:#946200;background:#fff0ce}
 .earnings-actual-status.pending{color:#687078;background:#e9edef}
 .earnings-actual-note{font-size:11px;line-height:1.45;color:#687078;margin-top:7px}
-@media(max-width:640px){.earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px}.earnings-actual-card{padding:8px}.earnings-actual-line strong{font-size:12px}.earnings-actual-card-title{font-size:12px}}
+
 
 
 /* Original style block 57 */
 
 /* HOTFIX: make EPS/revenue pair span the full company-card width */
-.earnings-accordion-details>.earnings-results-grid{grid-column:1/-1;width:100%;min-width:0;box-sizing:border-box}
-.earnings-results-grid>.earnings-actual-card{width:100%;min-width:0;box-sizing:border-box}
+
+
 .earnings-actual-line strong{overflow-wrap:break-word;word-break:normal}
-@media(max-width:640px){.earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:8px}.earnings-actual-card{padding:10px}.earnings-actual-line strong{font-size:13px;overflow-wrap:anywhere}}
+
 
 
 /* Original style block 58 */
