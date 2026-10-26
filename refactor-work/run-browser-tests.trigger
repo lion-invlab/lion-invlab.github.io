@@ -135,3 +135,5 @@ Compare baseline and candidate internal DOM geometry at all three viewports befo
 Restore baseline two-row industry tab geometry and verify all viewports 2026-10-26
 
 Retry after repairing industry tab CSS cascade and row sizing 2026-10-26
+
+2026-10-26 industry-tabs-grid-retest after 1a2b6af83bdf8103dd59de1a89075ff1ec7981d7
