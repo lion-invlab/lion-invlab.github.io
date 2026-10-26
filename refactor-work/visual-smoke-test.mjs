@@ -20,8 +20,12 @@ const tabCases = [
   { input: "#tac-news-1", label: 'label[for="tac-news-1"]', panel: "#tac-news-panel-1" },
   { input: "#tac-region-1", label: 'label[for="tac-region-1"]', panel: "#tac-region-panel-1" },
   { input: "#tac-assets-4", label: 'label[for="tac-assets-4"]', panel: "#tac-assets-panel-4" },
-  { input: "#week-econ-upcoming", label: 'label[for="week-econ-upcoming"]', panel: ".week-econ-panels > .calendar-status-group:nth-child(2)" },
-  { input: "#week-earnings-published", label: 'label[for="week-earnings-published"]', panel: ".week-earnings-panels > .calendar-status-group:nth-child(3)" },
+  { input: "#week-econ-today", label: 'label[for="week-econ-today"]', panel: "#calendar .week-econ-panels > .calendar-status-group:nth-child(1)" },
+  { input: "#week-econ-upcoming", label: 'label[for="week-econ-upcoming"]', panel: "#calendar .week-econ-panels > .calendar-status-group:nth-child(2)" },
+  { input: "#week-econ-published", label: 'label[for="week-econ-published"]', panel: "#calendar .week-econ-panels > .calendar-status-group:nth-child(3)" },
+  { input: "#week-earnings-today", label: 'label[for="week-earnings-today"]', panel: "#earnings .week-earnings-panels > .calendar-status-group:nth-child(1)" },
+  { input: "#week-earnings-upcoming", label: 'label[for="week-earnings-upcoming"]', panel: "#earnings .week-earnings-panels > .calendar-status-group:nth-child(2)" },
+  { input: "#week-earnings-published", label: 'label[for="week-earnings-published"]', panel: "#earnings .week-earnings-panels > .calendar-status-group:nth-child(3)" },
   { input: "#fed-live-tab-fomc", label: 'label[for="fed-live-tab-fomc"]', panel: ".fed-live-fomc" },
   { input: "#focus-tab-core", label: 'label[for="focus-tab-core"]', panel: ".focus-core" }
 ];
@@ -409,7 +413,10 @@ try {
           }, tab.input);
           let panelVisible = null;
           if (await cand.page.locator(tab.panel).count()) panelVisible = await cand.page.locator(tab.panel).first().isVisible();
-          tabResults.push({ input: tab.input, checked, panelVisible, backgroundColor, textColor, selectorMatch });
+          let visibleStatusGroupCount = null;
+          if (tab.input.startsWith("#week-econ-")) visibleStatusGroupCount = await cand.page.locator("#calendar .week-econ-panels > .calendar-status-group:visible").count();
+          if (tab.input.startsWith("#week-earnings-")) visibleStatusGroupCount = await cand.page.locator("#earnings .week-earnings-panels > .calendar-status-group:visible").count();
+          tabResults.push({ input: tab.input, checked, panelVisible, visibleStatusGroupCount, backgroundColor, textColor, selectorMatch });
         } catch (error) {
           tabResults.push({ input: tab.input, interactionError: String(error).split("\\n")[0] });
         }
@@ -585,7 +592,7 @@ try {
 - Main tab style signatures: ${JSON.stringify(v.mainTabStyleSignatures)}
 - Toolbar placement/scroll: nav=${v.toolbarButtonInNav}, placement=${v.toolbarButtonPlacement}, position=${v.toolbarButtonPosition}, scroll=${JSON.stringify(v.toolbarScrollCheck)}
 - Selected tab color unified: ${v.consistentSelectedTabColor}; selected text white: ${v.consistentSelectedTabTextColor}
-- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, bg=${t.backgroundColor || ""}, selector=${JSON.stringify(t.selectorMatch || {})}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
+- Tab checks: ${v.tabResults.map(t => `${t.input}: checked=${t.checked}, visible=${t.panelVisible}, visibleStatusGroups=${t.visibleStatusGroupCount ?? "n/a"}, bg=${t.backgroundColor || ""}, selector=${JSON.stringify(t.selectorMatch || {})}, error=${t.interactionError || ""}, missing=${t.missingLabelOrInput || false}`).join("; ")}`),
     "",
     "Screenshots include baseline, candidate, and pixel-diff images for each viewport.",
     "Pixel differences are expected during the design migration; inspect baseline/candidate/diff artifacts for quality and regressions."
@@ -608,7 +615,7 @@ try {
     v.sourceTrianglesPresent < 1 || v.doubleBarHeadings > 0 ||
     (v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.some(size => !v.globalMarketNameFontSizes.includes(size))) ||
     (v.width > 380 && new Set(v.mainTabStyleSignatures.filter(x => !x.missing).map(x => JSON.stringify({fontSize:x.fontSize,minHeight:x.minHeight,padding:x.padding,borderRadius:x.borderRadius,whiteSpace:x.whiteSpace}))).size > 1) || (v.width <= 380 && v.mainTabStyleSignatures.some(x => !x.missing && x.whiteSpace !== "nowrap")) ||
-    v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError) ||
+    v.tabResults.some(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError || (t.input.startsWith("#week-") && t.visibleStatusGroupCount !== 1)) ||
     !v.consistentSelectedTabColor || !v.consistentSelectedTabTextColor || v.collapseWorks === false || v.earningsCollapseWorks === false || v.newErrors.length
   ) || results.visualDiffs.some(d => d.baselineSize[0] !== d.candidateSize[0]);
   if (failed || results.errors.length > 0) process.exitCode = 1;
