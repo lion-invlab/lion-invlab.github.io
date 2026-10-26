@@ -259,3 +259,12 @@
 - 在 381px 以上恢復面板 padding 16px、標題 padding 0／margin-bottom 11px，並將該面板方法摘要恢復為緊湊的原生 summary 樣式。驗收結果：桌機 583→582px（-1），390px 809→807px（-2）；無新增瀏覽器錯誤、水平溢出或頁籤簽章不一致。
 - 320px 仍維持既有窄版規則（外框 padding 10px、標題緊縮、卡片內距縮小），面板為 909px、比基準 943px 短 34px。此差異尚未驗收，不應宣稱全尺寸幾何一致；後續若處理，須逐卡片比較換行與內容完整性，不能只強行加高面板。
 - 下一步加入 Fed、View、Calendar、Earnings 面板的子元件幾何診斷，逐項確認剩餘差異（Fed 桌機 +17px、View 桌機 +15px、Calendar 手機 +4px），再做最小範圍修正。
+
+
+## 2026-10-26 Fed／View 面板幾何校準（Run 141–143）
+
+- Run 141（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40270054416）與 Run 142（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40270212742）通過；擴大 paired detailed geometry，確認 Fed／View 桌機高度差主要來自外框 padding、標題 padding／margin，而不是內容資料。
+- Run 142 的量測：Fed 桌機候選外框 padding 22px、基準 16px；標題 35px／基準 33px、標題下距 16px／基準 10px；Fed 內容容器 343px／基準 346px。View 桌機外框 padding 22px／基準 16px；標題 35px／基準 33px、標題下距 16px／基準 11px；focus-tabs 163px／基準 167px。標準手機也呈現同方向差異，窄手機則有獨立緊縮規則。
+- Run 143（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40270454570）通過。381px 以上恢復 Fed／View 外框 padding 16px、標題 padding 0 與基準標題下距，並將 Fed 內容容器及 View focus-tabs 的自然高度底線恢復至基準。結果：Fed 桌機 422→423px（+1）、390px 416→416px（0）；View 桌機 244→245px（+1）、390px 320→320px（0）。無新增瀏覽器錯誤、水平溢出或主頁籤樣式簽章問題。
+- 窄手機保留現有緊縮規則：Fed 411px（基準 416，-5）、View 372px（基準 368，+4）；暫不改動，需與其他窄版差異一併評估。
+- 剩餘明確項目：經濟行事曆手機 +4px／窄手機 +7px；財報行事曆手機 +1px／窄手機 +2px。下一步補量測兩種行事曆內部標籤列、面板區域與上下 margin，避免以整體面板高度反推錯誤的 CSS 修正。
