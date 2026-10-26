@@ -137,3 +137,5 @@ Restore baseline two-row industry tab geometry and verify all viewports 2026-10-
 Retry after repairing industry tab CSS cascade and row sizing 2026-10-26
 
 2026-10-26 industry-tabs-grid-retest after 1a2b6af83bdf8103dd59de1a89075ff1ec7981d7
+
+2026-10-26 sector-row-height-retest after 0cb933eaaf6cc9ba713942aaca9c4c5896a4de8e
