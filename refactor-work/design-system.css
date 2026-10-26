@@ -1721,9 +1721,19 @@ main.wrap details.audit-details > summary::before {
   -webkit-text-fill-color: #e2b84d !important;
 }
 
-/* Tabset headings use one shared marker; override higher-specificity legacy pseudo bars. */
-html body main.wrap .tac-tabset .tac-section-heading h2::before,
-html body main.wrap .tac-tabset .tac-section-heading h2:before {
+/* Tabset headings use the shared border marker only; remove the legacy pseudo bar.
+   The source has a high-specificity important rule, so scope the override to each tabset panel. */
+html body main.wrap #news-scan .tac-tabset .tac-section-heading h2::before,
+html body main.wrap #global-markets .tac-tabset .tac-section-heading h2::before,
+html body main.wrap #industry-bonds-fx-commodities .tac-tabset .tac-section-heading h2::before,
+html body main.wrap #news-scan .tac-tabset .tac-section-heading h2:before,
+html body main.wrap #global-markets .tac-tabset .tac-section-heading h2:before,
+html body main.wrap #industry-bonds-fx-commodities .tac-tabset .tac-section-heading h2:before {
   content: none !important;
   display: none !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  flex: 0 0 0 !important;
+  background: none !important;
+  border: 0 !important;
 }
