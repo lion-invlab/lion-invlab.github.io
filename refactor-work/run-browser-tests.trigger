@@ -209,3 +209,5 @@ Run 169: verify removal of redundant low-specificity sentiment title color rule;
 Run 170: verify removal of lower-specificity sentiment title color override while retaining white title color and all responsive regressions.
 
 Run 171: verify removal of the early main.wrap sentiment-title white-color declaration; later stronger white exception must remain effective on all viewports.
+
+Run 172: validate removal of block 93 low-specificity sentiment title white override; block 94 higher-specificity white exception must preserve the computed title color.
