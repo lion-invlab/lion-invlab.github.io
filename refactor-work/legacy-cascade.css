@@ -265,22 +265,22 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 /* V25：本週財報改為可個別收折卡片 */
 
 
-.earnings-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;min-width:0}
-.earnings-accordion>summary::-webkit-details-marker{display:none}
+
+
 .earnings-summary-main{min-width:0;flex:1}
 .earnings-summary-dates{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted,#70757a);font-size:12px;font-weight:750;margin-bottom:5px}
 .earnings-company-name{font-size:16px;font-weight:900;color:#1769aa;overflow-wrap:anywhere}
 .earnings-company-name.five-star-company{color:#c62828!important}
 .earnings-company-sub{font-size:12px;color:#777;margin-top:3px;overflow-wrap:anywhere}
 .earnings-stars{font-size:13px;letter-spacing:1px;color:#b17a12;margin-top:5px}
-.earnings-accordion-toggle:before{content:'+';font-size:25px;line-height:1;color:#c62828;font-weight:800}
-.earnings-accordion[open] .earnings-accordion-toggle:before{content:'−'}
+
+
 .earnings-accordion-details{border-top:1px solid #e7e7e7;padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .earnings-detail-field{background:#f4f8f9;border-radius:9px;padding:11px 12px;min-width:0}
 .earnings-detail-field.wide{grid-column:1/-1}
 .earnings-detail-field label{display:block;font-size:11px;color:#737b80;font-weight:850;margin-bottom:5px}
 .earnings-detail-value{font-size:14px;line-height:1.55;overflow-wrap:anywhere;word-break:normal}
-@media(max-width:640px){.earnings-accordion>summary{padding:12px 11px}.earnings-company-name{font-size:15px}.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
+@media(max-width:640px){.earnings-company-name{font-size:15px}.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
 
 /* TAC three major content panels with native CSS-only tabs */
 .tac-tabset{background:#fff;border:1px solid #dce2e5;border-radius:18px;overflow:hidden;margin:14px 0 18px;box-shadow:0 2px 8px rgba(24,39,50,.04)}
@@ -610,18 +610,18 @@ body.release-ready .news-window-warning { display: none !important; }
 /* Original style block 11 */
 
 /* Fix individual earnings expand icons: match the round red plus/minus control */
-#earnings details.earnings-accordion>summary{display:flex;align-items:center;gap:12px}
-#earnings details.earnings-accordion>summary .earnings-accordion-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;width:34px;height:34px;min-width:34px;border-radius:50%;background:#c62828;color:#fff;box-shadow:0 3px 8px rgba(198,40,40,.2);margin-left:auto;position:relative;font-size:0;line-height:1}
-#earnings details.earnings-accordion>summary .earnings-accordion-toggle:before{content:"＋";font-size:23px;font-weight:500;line-height:1}
-#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle{background:#202328}
-#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle:before{content:"−"}
+
+
+
+
+
 /* Shared Apple-style segmented control for Fed/FOMC and Today's Focus */
 .fed-live-tab-labels,.focus-tab-labels{display:grid!important;gap:5px!important;padding:5px!important;border:1px solid #e5e5ea!important;border-radius:14px!important;background:#f5f5f7!important;overflow:visible!important;box-shadow:inset 0 1px 1px rgba(0,0,0,.025)!important}
 .fed-live-tab-labels{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .focus-tab-labels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
 .fed-live-tab-labels label,.focus-tab-labels label{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;min-height:44px!important;padding:9px 5px!important;border:1px solid transparent!important;border-right:0!important;border-radius:10px!important;background:transparent!important;color:#6e6e73!important;font-size:13px!important;font-weight:650!important;line-height:1.25!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;box-shadow:none!important;transition:background .18s ease,color .18s ease,box-shadow .18s ease!important}
 #fed-live-tab-watch:checked~.fed-live-tab-labels label[for="fed-live-tab-watch"],#fed-live-tab-fomc:checked~.fed-live-tab-labels label[for="fed-live-tab-fomc"],#focus-tab-market:checked~.focus-tab-labels label[for="focus-tab-market"],#focus-tab-levels:checked~.focus-tab-labels label[for="focus-tab-levels"],#focus-tab-core:checked~.focus-tab-labels label[for="focus-tab-core"]{background:#fff!important;color:#b42332!important;border-color:rgba(60,60,67,.08)!important;box-shadow:0 2px 6px rgba(0,0,0,.09)!important}
-@media(max-width:700px){#earnings details.earnings-accordion>summary{gap:8px}#earnings details.earnings-accordion>summary .earnings-accordion-toggle{flex-basis:32px;width:32px;height:32px;min-width:32px}.fed-live-tab-labels label,.focus-tab-labels label{font-size:12px!important;padding:8px 3px!important;min-height:44px!important}}
+@media(max-width:700px){#earnings details.earnings-accordion>summary{gap:8px}.fed-live-tab-labels label,.focus-tab-labels label{font-size:12px!important;padding:8px 3px!important;min-height:44px!important}}
 @media(prefers-reduced-motion:reduce){.fed-live-tab-labels label,.focus-tab-labels label{transition:none!important}}
 
 
@@ -656,11 +656,11 @@ body.release-ready .news-window-warning { display: none !important; }
 /* Original style block 14 */
 
 /* Fix: restore visible plus/minus glyph inside the red circular earnings expand button */
-#earnings details.earnings-accordion>summary .earnings-accordion-toggle{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 38px!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;padding:0!important;border:0!important;border-radius:50%!important;background:#c62828!important;color:#fff!important;font-size:0!important;line-height:1!important;box-sizing:border-box!important;position:relative!important;opacity:1!important;visibility:visible!important}
-#earnings details.earnings-accordion>summary .earnings-accordion-toggle::before{content:"＋"!important;display:block!important;position:static!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#fff!important;font-family:Arial,sans-serif!important;font-size:25px!important;font-weight:500!important;line-height:1!important;opacity:1!important;visibility:visible!important;transform:none!important}
-#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle{background:#202328!important}
-#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle::before{content:"−"!important;color:#fff!important}
-@media(max-width:700px){#earnings details.earnings-accordion>summary .earnings-accordion-toggle{flex-basis:38px!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}}
+
+
+
+
+
 
 
 /* Original style block 15 */
