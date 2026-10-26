@@ -628,3 +628,10 @@
 - Run 189：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40287322663；artifact 12634457375 已檢查 `results.json` 與 `summary.md`。errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；三種 viewport 的商品名稱診斷均為 16px，互動測試通過。
 - 但人工檢查 legacy-cascade.css 發現先前移除 `.row .name` 與 `.row .label` 後，桌機 selector group 的 `.row b,` 留下懸空逗號。瀏覽器 smoke test 未直接檢查 CSS selector 語法，因此 Run 189 只能作為版面/互動結果，不能單獨完成本次驗收。
 - 已修正該 group 為 `.row b{...}`，其餘規則與移除範圍不變。Run 190 將重新建置並驗收，確認 selector 語法修復後商品名稱、數值與所有 viewport 行為仍符合契約。
+
+## Run 189 驗收：移除 block 48 未使用的 .name/.label selector
+
+- Run 189：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40287322663；artifact 12634457375 已檢查。
+- DOM inventory（run188 candidate-build.html）確認 `.tac-tab-panel .row .name` 與 `.tac-tab-panel .row .label` 命中數均為 0，因此從 block 48 桌機／手機 selector group 移除這兩個未使用 selector；保留實際存在的 `b`、`.r`、`span.r`、內嵌字重 span、`.up/.down` 規則。
+- 驗收：errors=[]；1440、390、320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；商品名稱字級契約三種 viewport 都只有 16px，導航錨點通過。
+- 下一步候選：block 47 殘留的 `.tab-panel .title small` selector 在 baseline DOM 命中 0 次，而同組的 `.tab-panel-meta` 命中 5 次；可只移除未使用的 `.title small` selector，保留實際使用的 metadata 字級。
