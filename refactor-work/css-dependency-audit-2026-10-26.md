@@ -65,3 +65,11 @@
 - GitHub Actions： [run 40259133152](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40259133152) **completed / success**；已檢查 artifact `12623601255` 的 `results.json` 與 `summary.md`。
 - 桌面 1440、手機 390、窄手機 320：均無水平溢出、缺失面板、重複 ID、未匹配導覽連結或新增瀏覽器錯誤；紅色五星計數均為 16；全球主要股市與產業商品名稱字級均為 16px；11 筆產業列均存在，桌機圓角 12px、手機圓角 10px、背景白色；產業分頁及收折互動均通過。
 - 需留意的版面差異：桌機產業債匯商品面板高度由 380px 變為 332px（-48px）；手機由 448px 變為 439px（-9px）。這可能是清除多層重複 padding/min-height 後的緊縮，但目前 smoke test 只證明功能與基本樣式契約通過，未等於已完成逐像素視覺核可。正式首頁未修改。
+
+
+## 2026-10-26 遷移紀錄：產業資料列通用規則合併（第三組，已驗收）
+- 設計系統提交：`b10b6f78fdc3768fd1bf13a4b0cb38e1aecb172f`。移除 `design-system.css` 中一組 1,261 字元的泛用 sector row 樣式區塊；這些外觀設定已由後方更具體的 `.sector-row.tac-ds-data-row--sector` 元件規則完整接管，保留後方元件規則不動。
+- 驗收 run： [40260066596](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40260066596)，狀態 `completed / success`；已下載檢查 artifact `12624641053` 的 `results.json` 與 `summary.md`。
+- 1440、390、320px 均通過：沒有水平溢出、缺失面板、重複 ID、未匹配導覽或新增瀏覽器錯誤；紅色五星皆為 16；市場／產業商品名稱皆為 16px；11 筆 sector rows 存在，桌機圓角 12px、手機 10px、白色背景；分頁與收折互動通過。
+- 面板高度與上一輪相同（桌機 332px、手機 439px），未因本次刪除重複元件規則再產生高度變化。與原始 baseline 的高度差仍記錄於第二組驗收節，不應解讀為逐像素視覺核可。
+- 正式首頁、正式母版、JSON 資料與排程均未修改。
