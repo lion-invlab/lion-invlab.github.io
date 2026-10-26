@@ -129,6 +129,8 @@ async function inspect(page) {
       scriptCount: document.querySelectorAll("script").length,
       sharedTabLabelCount: document.querySelectorAll(".tac-ds-tabs__tab").length,
       sharedDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure").length,
+      methodDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure--method").length,
+      methodDisclosureInlineStyles: document.querySelectorAll("details.tac-ds-disclosure--method[style*=\"margin-top:8px\"]").length,
       darkDisclosureCount: document.querySelectorAll("details.tac-ds-disclosure--dark").length,
       sharedEmptyStateCount: document.querySelectorAll(".tac-ds-empty").length,
       sharedNewsCardCount: document.querySelectorAll(".tac-ds-card--news").length,
@@ -464,7 +466,7 @@ try {
     (v.coachMobileExpected && (!v.coachBubbleInViewport || !v.coachBubbleWraps || !v.coachTextInsideBubble || !v.coachLegacyHintRemoved || v.coachBubbleWidth > Math.min(240, v.width - 28) + 1)) ||
     (!v.coachMobileExpected && v.coachInitialVisibility !== "missing") ||
     v.sentimentThemeClassPresent !== true || !String(v.sentimentBackgroundImage || "").includes("gradient") || v.sentimentBeforeContent === "none" || v.sentimentBeforeContent === "normal" || !String(v.sentimentBeforeBoxShadow || "").includes("rgba") || v.sentimentAfterContent === "none" || v.sentimentAfterContent === "normal" || !String(v.sentimentAfterBoxShadow || "").includes("rgba") ||
-    v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
+    v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.methodDisclosureCount !== 4 || v.methodDisclosureInlineStyles !== 0 || v.darkDisclosureCount < 2 || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
