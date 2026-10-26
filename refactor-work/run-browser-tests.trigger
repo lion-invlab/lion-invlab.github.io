@@ -145,3 +145,5 @@ revert-industry-tab-override-run-137-2026-10-26T1230+0800
 Run 138: capture exact nav label geometry to diagnose industry panel height mismatch after reverting the failed tab styling trial.
 
 Run 139: verify industry tab row-height correction against baseline geometry and shared style parity.
+
+Run 140: verify S&P 500 earnings-health shell, title, and method-summary geometry at desktop and standard mobile widths.
