@@ -153,3 +153,5 @@ Run 141: capture detailed child geometry for Fed, View, Calendar and Earnings pa
 Run 142: pair baseline and candidate child geometry for Fed, View, Calendar and Earnings.
 
 Run 143: verify Fed and View geometry restoration at desktop and standard mobile widths.
+
+Run 144: measure paired calendar/earnings tab-row and content-region geometry at all three viewport sizes.
