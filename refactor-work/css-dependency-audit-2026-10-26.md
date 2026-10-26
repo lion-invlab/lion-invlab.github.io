@@ -660,3 +660,8 @@
 - Run 194：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288410778；artifact 12634823806 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽、分頁與各 disclosure/accordion 互動均通過，商品名稱字級仍為 16px。
 - 本輪只移除 block 48 的 `span[style*="font-weight"]` selector。DOM inventory 顯示其 3 次命中全部也是 `.r`（`span[style*="font-weight"]:not(.r)`=0），因此由 `.row .r` 接管；數值與名稱樣式未退化。
 - 下一個候選：`.row .down` 命中 6 次且 `.down:not(.r)`=0，全部已由 `.row .r` 命中；桌機 `.row .down` 的字級／行高／字重／nowrap 與 `.row .r` 相同，手機規則也只重複設定 15px。下一輪只移除 `.row .down`，保留 `.row .r`。
+
+## Run 195 狀態：安裝步驟停滯，未形成驗收結果
+
+- Run 195：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288608489 在 `Install Playwright` 持續停留，建置與瀏覽器測試尚未開始，沒有 artifact 可檢查。此 run 不算通過，也不能用來判定 CSS 變更。
+- 為避免無效等待，Run 196 將對同一隔離分支版本重新執行完整 workflow；若 Run 195 被新觸發取消，記錄為基礎設施重試，不算 CSS 驗收失敗或成功。
