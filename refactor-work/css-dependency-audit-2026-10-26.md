@@ -613,3 +613,11 @@
 - design-system.css 已新增 `#industry-bonds-fx-commodities #tac-assets-panel-4 .row > b`，對貴金屬名稱設定 16px/1.35，specificity 足以壓過 block 48 通用手機 15px 規則。
 - 驗收：errors=[]；桌機、手機、窄手機均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；能源與貴金屬名稱三種 viewport 均為 16px/21.6px，商品名稱字級契約只出現 16px。
 - 下一步：從 block 91 桌機與手機兩處 selector group 移除 `#tac-assets-panel-4 .row>b`，由 design-system 規則接管，保留 FX 及其他仍有責任的 selector，然後用新 run 驗收。
+
+
+## Run 188 驗收：貴金屬名稱規則移交設計系統
+
+- Run 187 因 block 91 selector group 移除最後一個 selector 後留下逗號，執行期間被新的修復流程取消；不把它當成驗收。Run 188 修正 selector 語法並完成回歸：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40286978576；artifact 12634741349 已解壓檢查。
+- block 91 的貴金屬 `#tac-assets-panel-4 .row>b` 桌機／手機規則已移除，改由 design-system.css 的 ID-scoped selector 負責。block 91 現在只保留 FX 名稱 selector；它不能直接刪除，因為 Run 180 已證明手機時 block 48 的 15px 規則會勝出。
+- Run 188 驗收：errors=[]；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；債券、FX、能源、貴金屬名稱全部為 16px/21.6px，商品名稱尺寸契約在三種 viewport 都只有 16px。手機報價仍保留原本 15px 緊湊數值排版。
+- 下一步：block 91 只剩 FX selector，且已證明受 block 48 高 specificity 手機規則影響。不要單獨刪除；若要移交，需先把 block 48 的 FX 名稱手機規則改成明確的設計系統變體，再逐步移除 FX legacy selector。接下來先盤點 block 48 的 `.row .name/.label` 以及數值 `.r/.up/.down` 命中範圍，建立哪些 selector 實際被 DOM 使用的清單，再決定下一個最小可安全遷移單位。
