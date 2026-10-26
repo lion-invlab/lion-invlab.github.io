@@ -272,3 +272,5 @@ Run 200: remove only font-size:16px!important from block 48 generic row rule; pr
 Run 201: remove only generic block 48 .row line-height:1.5 declaration; retain align-items and explicit child typography; verify computed line heights, row/panel geometry, and all viewport interactions. 2026-10-26
 
 Run 202: remove the remaining block 48 align-items:center!important declaration; base .row already defines centered alignment and instrument-specific rules do not override it. Verify row geometry and all viewport interactions. 2026-10-26
+
+Run 203: remove only block 48 generic row b line-height:1.5!important; keep font-weight and letter-spacing, as specific bond/FX/energy/metal name rules already provide 21.6px line-height. Verify all typography and viewport geometry. 2026-10-26
