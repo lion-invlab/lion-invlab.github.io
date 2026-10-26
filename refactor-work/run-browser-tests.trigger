@@ -316,3 +316,6 @@ restore-sp500-320px-baseline-padding-after-run-222-deep-geometry-2026-10-26T1807
 Run 224: architecture-safe duplicate CSS audit; classify repeated selector blocks as identical duplicates, responsive variants, intentional exceptions, or cascade-dependent rules; do not delete CSS in this diagnostic run. Re-run 1440/390/320 browser regressions and inspect artifacts. 2026-10-26T19:00+0800
 
 Run 225: add baseline-vs-candidate child geometry diagnostics for overview, news-scan, and S&P 500 earnings-health at 1440/390/320 before any CSS cleanup. 2026-10-26T19:30+0800
+
+
+Run 226: compare panel-relative child offsets rather than absolute document coordinates, so upstream vertical shifts do not masquerade as local component drift. Keep CSS unchanged; rerun typography, visual smoke, interaction, and 320/390/1440 geometry checks. 2026-10-26Tcontinued
