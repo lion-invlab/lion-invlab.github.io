@@ -1653,38 +1653,37 @@ main.wrap .tac-section-heading h2::before,
 
 
 /* Shared prior-week event-row summary/control geometry.
-   Scope to the actual event accordions only; never style the outer panel disclosure. */
-#last-week-calendar details.tac-ds-event > summary,
-#last-week-earnings details.tac-ds-event > summary,
-#last-week-earnings details.tac-ds-earnings-card > summary {
+   Match the real source DOM: econ-event / earnings-accordion; never the outer disclosure. */
+#last-week-calendar details.econ-event > summary,
+#last-week-earnings details.earnings-accordion > summary {
   box-sizing: border-box !important;
   width: 100% !important;
   min-width: 0 !important;
   text-align: left !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
 }
-#last-week-calendar details.tac-ds-event > summary {
-  grid-template-columns: minmax(0, 1fr) 24px !important;
-  column-gap: 12px !important;
+#last-week-calendar details.econ-event > summary > .econ-meta,
+#last-week-earnings details.earnings-accordion > summary > .earnings-summary-main {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  text-align: left !important;
 }
-#last-week-earnings details.tac-ds-event > summary,
-#last-week-earnings details.tac-ds-earnings-card > summary {
-  grid-template-columns: minmax(0, 1fr) 24px !important;
-  column-gap: 12px !important;
-}
-#last-week-calendar details.tac-ds-event > summary::after,
-#last-week-earnings details.tac-ds-event > summary::after,
-#last-week-earnings details.tac-ds-earnings-card > summary::after {
+#last-week-calendar details.econ-event > summary > .econ-toggle,
+#last-week-earnings details.earnings-accordion > summary > .earnings-accordion-toggle {
   box-sizing: border-box !important;
+  flex: 0 0 24px !important;
   width: 24px !important;
   min-width: 24px !important;
-  justify-self: end !important;
+  margin-left: auto !important;
   text-align: center !important;
 }
 @media (max-width: 700px) {
-  #last-week-calendar details.tac-ds-event > summary,
-  #last-week-earnings details.tac-ds-event > summary,
-  #last-week-earnings details.tac-ds-earnings-card > summary {
-    column-gap: 10px !important;
+  #last-week-calendar details.econ-event > summary,
+  #last-week-earnings details.earnings-accordion > summary {
+    gap: 10px !important;
   }
 }
 
