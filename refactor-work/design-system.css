@@ -468,16 +468,12 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   color: var(--tac-ds-color-brand);
 }
 @media (max-width: 700px) {
-  .tac-ds-panel--tabbed { padding: 0 !important; }
   .tac-ds-panel--tabbed .tac-ds-tabs { margin-bottom: 8px; }
   .tac-ds-panel--tabbed .tac-ds-card--news {
     margin-bottom: 4px;
     padding: 11px 9px;
     border-radius: 10px;
   }
-  .tac-ds-panel--tabbed .tac-ds-card--news h3 { font-size: 16px; }
-  .tac-ds-panel--tabbed .tac-ds-card--news p { font-size: 11px; line-height: 1.55; }
-  .tac-ds-panel--tabbed .tac-ds-card--news .newsmeta { font-size: 9px; }
 }
 
 
