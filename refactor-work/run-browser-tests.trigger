@@ -107,3 +107,5 @@ Architecture step 2: consolidate source-disclosure sizing into the canonical com
 Architecture step 3: remove duplicate tabbed-panel padding and redundant mobile news typography overrides; verify browser regression. 2026-10-26T02:20Z
 
 Architecture step 4: fold shared tab-container spacing into canonical rule; run strict regression. 2026-10-26T02:30Z
+
+sector-label-mobile-duplicate-cleanup da3dc74f1ecec4abdd370e4ce5d670abedbff999
