@@ -141,3 +141,5 @@ Retry after repairing industry tab CSS cascade and row sizing 2026-10-26
 2026-10-26 sector-row-height-retest after 0cb933eaaf6cc9ba713942aaca9c4c5896a4de8e
 industry-tab-baseline-geometry-run-136-2026-10-26T1223+0800
 revert-industry-tab-override-run-137-2026-10-26T1230+0800
+
+Run 138: capture exact nav label geometry to diagnose industry panel height mismatch after reverting the failed tab styling trial.
