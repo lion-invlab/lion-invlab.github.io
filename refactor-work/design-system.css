@@ -1315,3 +1315,47 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   }
   .tac-ds-event .econ-name { font-size: 15px; }
 }
+
+/* Event detail-field ownership: field grid, labels and values are part of the design-system event card. */
+.tac-ds-event .econ-details {
+  border-top: 1px solid #e7e9eb;
+  padding: 10px 12px 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+.tac-ds-event .econ-field {
+  background: #f3f7f8;
+  border-radius: 12px;
+  padding: 12px 13px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+.tac-ds-event .econ-field label {
+  display: block;
+  color: #737981;
+  font-size: 12px;
+  font-weight: 850;
+  margin-bottom: 5px;
+}
+.tac-ds-event .econ-field .econ-value {
+  font-size: 14px;
+  color: #24272b;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.tac-ds-event .econ-field.wide { grid-column: 1 / -1; }
+.tac-ds-event .econ-field a { overflow-wrap: anywhere; }
+@media (max-width: 640px) {
+  .tac-ds-event .econ-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 9px;
+  }
+  .tac-ds-event .econ-field {
+    padding: 10px;
+    font-size: 13px;
+  }
+  .tac-ds-event .econ-field .econ-value { font-size: 13px; }
+}
