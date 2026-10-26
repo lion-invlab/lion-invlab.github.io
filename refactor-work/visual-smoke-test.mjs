@@ -413,9 +413,20 @@ try {
     const selectedTabTextColors = tabResults.filter(t => t.textColor).map(t => t.textColor);
     const consistentSelectedTabColor = selectedTabColors.length > 0 && selectedTabColors.every(color => color === "rgb(180, 35, 50)");
     const consistentSelectedTabTextColor = selectedTabTextColors.length > 0 && selectedTabTextColors.every(color => color === "rgb(255, 255, 255)");
+    const baselineDetailedGeometry = await base.page.evaluate(() => {
+      const ids = ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health"];
+      return ids.map(id => {
+        const root = document.getElementById(id);
+        if (!root) return { id, missing: true };
+        return { id, nodes: [...root.querySelectorAll(":scope > *, .tac-ds-card--news, .newsitem, .news-card, .region-card, .asset-card, .econ-event, .earnings-accordion, details, .calendar-card, .tac-ds-event, .tac-ds-earnings-card, .tac-section-heading, .title, .news-list, .news-grid, .grid, .tac-ds-tabs, .row, .sector-row, .instrument-name, .sp500-health-row, .earnings-health-row")].slice(0,80).map((el,i) => {
+          const r=el.getBoundingClientRect(), s=getComputedStyle(el);
+          return {i,tag:el.tagName,cls:String(el.className||"").slice(0,100),id:el.id,top:Math.round(r.top+window.scrollY),height:Math.round(r.height),width:Math.round(r.width),padding:s.padding,margin:s.margin,gap:s.gap,fontSize:s.fontSize,lineHeight:s.lineHeight,display:s.display};
+        })};
+      });
+    });
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
     results.viewports.push({
-      ...viewport, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
+      ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
