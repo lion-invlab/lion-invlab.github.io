@@ -207,3 +207,11 @@
 - Run 134 artifact 的 baselineDetailedGeometry 與 candidate detailedGeometry 逐列比對後，確認產業資料列高度差是主要可控差異：桌機基準列 73px、候選列 62px；390px 基準列 68px、候選列 56px；320px 基準列多為 68px、長文字列 83px，候選列多為 56px、長文字列 70px。文字字級／行高相同，候選設計系統的 min-height 是主要固定高度差來源。
 - 已把 .sector-row.tac-ds-data-row--sector 桌機 min-height 由 62px 調回 73px，mobile 由 56px 調回 68px；保留原有 grid 欄位、padding、字體和互動，不另加間距。提交 9fbdf35f20239f5c71ea3ecbfb17981186529316。這是針對已量測差異的單元調整，尚待完整三視窗驗收，尤其需核對 320px 長文字列與整體 panel 高度。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業資料列高度校準驗收（Run 135 通過）
+
+- GitHub Actions [run 40267253701](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40267253701) completed / success；artifact 12627420407 已檢查。三個 viewport 均 errors=[]、新增瀏覽器錯誤 0、水平溢出 false、導航錨點通過、五星紅色 glyph 各 16。
+- 產業資料列高度現已與基準一致：桌機 11 列均 73px；390px 11 列均 68px；320px 多數 68px、長文字列 70px（基準長文字列為 83px，仍有局部換行／欄寬差異）。面板高度改善為桌機 364px（基準 380，-16）、390px 439px（基準 448，-9）、320px 493px（基準 502，-9）。
+- 目前主要剩餘幾何差異是產業頁籤列：桌機候選 72px 對基準 96px；手機與窄手機候選 70px 對基準 89px。由於其餘主頁籤需維持一致樣式，下一步先檢查基準與候選的 tab label 計算高度、padding、grid row sizing，然後只修正產業兩列 tab 的內部尺寸；不改動資料列、不以面板固定高度補差。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
