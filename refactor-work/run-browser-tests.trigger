@@ -163,3 +163,5 @@ Run 146: verify calendar empty-state and tab-row geometry restoration at desktop
 Run 147: verify calendar empty-state typography using baseline font size and normal line-height.
 
 Run 148: verify small news-scan/global-market panel-height deltas after scoped nav sizing.
+
+Run 149: verify economic-event shell migration after removing duplicate legacy outer-shell selectors.
