@@ -223,3 +223,11 @@
 - 產業資料列 min-height 回復後，桌機 11 列均為 73px、390px 多數列 68px、320px 多數列 68px；長文字列依換行自然增高（baseline 83px、candidate 70px），沒有硬塞固定高度。相較 Run 134，產業面板高度改善為桌機 364px（baseline 380，-16）、手機 439px（baseline 448，-9）、窄手機 493px（baseline 502，-9）。
 - 目前剩餘最明確的差異是 tabs 導覽列：桌機候選 72px／baseline 96px；手機與窄手機候選 70px／baseline 89px。資料列的主要固定高度差已處理；下一步針對 tabs 的行高、padding、grid row sizing 做配對檢查，避免直接加高整個導覽列或破壞其他兩組主頁籤的視覺一致性。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業資料列高度校準驗收（Run 135 通過）
+
+- GitHub Actions [run 40267253701](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40267253701) completed / success；artifact `12627420407` 已下載檢查。三種 viewport 的 `errors=[]`、16 個五星紅色標記均通過，沒有水平溢出、缺少面板、重複 ID、未匹配導覽或新增瀏覽器錯誤；三組主頁籤計算樣式一致，產業頁籤／收折互動正常。
+- 將 sector row min-height 桌機 62→73px、mobile 56→68px 後，產業面板高度：桌機 364px（baseline 380，-16）、390px 439px（baseline 448，-9）、320px 待依 summary 後段完整核對。桌機面板比前一輪 396px 減少 32px，表示這個修正確實改善高度偏差，但未完全回到 baseline；手機仍差 9px。桌機 tabs 仍 72px（baseline 96px），390／320 tabs 70px（baseline 89px），頁籤列仍有 19–24px 的基準差異。不要以整體面板高度判斷單一元件，下一輪應檢查候選／基準 tabs 的 padding、grid row-gap 和行高，尋找不影響三組主頁籤一致性的最小調整。
+- 其他主要面板差異：桌機 overview +52px、S&P 500 財報健康 +27px、Fed +17px、View +15px；手機 overview -1px、S&P 500 財報健康 +8px、calendar +4px。窄手機的差異仍需從 results.json 的 paired detailed geometry 逐項定位，不能只依整頁差值直接修改。
+- 稽核紀錄已更新。正式首頁、正式母版、JSON 資料與排程未修改。
