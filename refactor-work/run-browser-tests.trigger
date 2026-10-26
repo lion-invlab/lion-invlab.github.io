@@ -91,3 +91,5 @@ news-scan-320px-item-spacing-regression-2026-10-26
 news-scan-320px-item-padding-6px-2026-10-26
 news-scan-320px-remove-card-gaps-2026-10-26
 news-scan-all-widths-legacy-gap-parity-2026-10-26
+
+fix-exact-five-star-economic-and-earnings-markers-2026-10-26
