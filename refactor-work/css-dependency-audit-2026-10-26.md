@@ -554,3 +554,11 @@
 - 驗收：頂層 errors=[]；桌機 1440、手機 390、窄手機 320 均 `horizontalOverflow=false`、`missingPanels=[]`、`duplicateIds=[]`、`newErrors=[]`；12 個主標題診斷可正常輸出，五個目標標題三種 viewport 均為酒紅 `rgb(180,35,50)`，市場情緒標題均為白色。財報 22 張、經濟事件 12 張、實際財報卡 14 張；財報手風琴開／關正常。
 - Pixel diff 存在，但與先前設計系統抽取分支的既有差異一致；本次只刪除 color escalation，主面板幾何無顯著變動，沒有新的瀏覽器錯誤。
 - 下一個最小候選：block 91 的 `#industry-bonds-fx-commodities #bonds .row>b` 及其手機覆寫，與 design-system.css 中 `#industry-bonds-fx-commodities #bonds .row b` 同樣指定 16px/1.35；只考慮從 block 91 的 selector group 移除債券這一項，保留匯率、能源、貴金屬選擇器，並用 Run 179 驗證各分頁 computed style。
+
+
+## Run 179 驗收：block 91 債券名稱字級規則交由設計系統負責
+
+- Run 179：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40284829306；artifact 12633323212 的 `results.json` 與 `summary.md` 已檢查。
+- 從 legacy block 91 的桌機及手機 selector group 移除兩條 `#industry-bonds-fx-commodities #bonds .row>b`，由 design-system.css 的 `#industry-bonds-fx-commodities #bonds .row b` 接管。其他匯率、能源、貴金屬 selector 仍保留。
+- 驗收：頂層 errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；債券名稱仍為 16px/21.6px，與設計系統值一致；全球主要股市與產業商品名稱仍均為 16px。匯率、能源、貴金屬的字級與行高維持原樣。
+- 下一個最小候選：block 91 的 `#industry-bonds-fx-commodities #fx .row>b) 目前命中的名稱是 `.instrument-name`，design-system.css 已以 `#industry-bonds-fx-commodities .row .instrument-name` 指定相同 16px/1.35；可只移除 FX selector，保留能源與貴金屬的裸 `b` selector。
