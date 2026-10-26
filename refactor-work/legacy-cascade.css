@@ -1495,7 +1495,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row .r{
   font-size:16px!important;
   line-height:1.5!important;
   font-weight:500!important;
-  font-variant-numeric:tabular-nums!important;
   white-space:nowrap!important;
 }
 @media(max-width:600px){
