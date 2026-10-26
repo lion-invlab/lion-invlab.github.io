@@ -203,3 +203,5 @@ Run 166: capture computed main-heading styles and matching CSS cascade rules acr
 Run 167: verify corrected main-heading cascade diagnostics and confirm heading computed styles plus matching CSS rules across all viewports.
 
 Run 168: verify CSSOM heading-rule inventory includes matching legacy and design-system selectors while preserving all viewport smoke checks.
+
+Run 169: verify removal of redundant low-specificity sentiment title color rule; compare all main heading computed styles and viewport regression checks with Run 168.
