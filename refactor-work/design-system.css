@@ -412,11 +412,55 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   overflow-wrap: anywhere;
 }
 .tac-ds-disclosure--method {
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
+  overflow: visible;
 }
 .tac-ds-disclosure--method > summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   min-height: 24px;
+  padding: 2px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #747b84;
   font-size: 11px;
+  font-weight: 800;
+  line-height: 1.4;
+  box-shadow: none;
+}
+.tac-ds-disclosure--method > summary::before {
+  content: "▸";
+  flex: 0 0 auto;
+  width: auto;
+  min-height: 0;
+  margin: 0 1px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #747b84;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: none;
+  transform: none;
+}
+.tac-ds-disclosure--method[open] > summary::before { transform: rotate(90deg); }
+.tac-ds-disclosure--method > summary::after { content: none; display: none; }
+.tac-ds-disclosure--method > div {
+  padding: 8px 0;
+  border: 0;
+  background: transparent;
+  color: #626a73;
+  font-size: 11px;
+  line-height: 1.6;
 }
 
 
