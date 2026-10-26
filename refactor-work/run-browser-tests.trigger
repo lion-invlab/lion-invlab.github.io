@@ -87,3 +87,4 @@ news-scan-320px-padding-review-2026-10-26Tcontinued-branch
 news-scan-320px-padding-review-selector-fix-2026-10-26
 news-scan-320px-padding-review-selector-fix-rerun-2026-10-26
 news-scan-320px-article-card-selector-2026-10-26
+news-scan-320px-item-spacing-regression-2026-10-26
