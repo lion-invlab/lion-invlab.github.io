@@ -126,3 +126,9 @@
 - 回歸測試提交 `f84aad1019d10c656380c9bb654283a078bc335c`：新增硬性驗收條件，要求每個視窗恰有 4 個 `.tac-ds-disclosure--method`，且 0 個仍帶 `margin-top:8px` inline style 的該元件。
 - GitHub Actions [run 40262457451](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40262457451) 已觸發，目前為 queued；在下載並檢查 artifact 前，不將此組標記為驗收通過。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+### 建置排錯紀錄：第七組首次驗收未進入瀏覽器測試
+
+- 首次 run `40262457451` 的 Install Playwright 成功，但候選建置因 selector 正規表示式多了一層跳脫，回報 `expected 4 inline-style method disclosures, found 0`，未執行瀏覽器測試。此結果不是功能驗收失敗，而是建置器檢查條件沒有匹配到原始 HTML。
+- 修正提交 `b26a58d817c92d9cc5a9051c8fc335daf3fa70be`：改為對完整 disclosure 區塊做正規化，將元素、summary 與內容 div 的 inline style 移交給元件樣式；保留內容與連結。
+- 為避免外觀漂移，設計系統提交 `fd4db5d5ed404fe5bcf1fb5b85fac68da8cd8d90` 將 summary 字級、字重與箭頭大小調回舊規則的 12px／650／12px，並由元件接管 cursor。已重新觸發回歸測試，等待新的 run 結果。
