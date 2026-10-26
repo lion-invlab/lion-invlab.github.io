@@ -258,3 +258,5 @@ Run 193: remove only redundant block 48 .row span.r selector (all 26 hits are al
 Run 194: remove only redundant block 48 span[style*=font-weight] selector (all 3 hits are also .r); verify styles and viewport regressions. 2026-10-26
 
 Run 195: remove only redundant block 48 .row .down selector (all 6 hits are also .r); verify computed styles and all viewport regressions. 2026-10-26
+
+Run 196: retry Run 195 after Install Playwright stalled before candidate build/tests; validate the same isolated CSS change, do not treat Run 195 as a pass. 2026-10-26
