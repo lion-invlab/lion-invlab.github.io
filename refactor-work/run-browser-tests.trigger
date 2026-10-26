@@ -229,3 +229,5 @@ Run 179: verify removal of block 91 bonds-name typography selectors now covered 
 Run 180: verify removal of block 91 FX name selectors now covered by design-system.css .instrument-name rules; energy and precious-metal bare-bold selectors remain unchanged.
 
 Run 181: verify restored block 91 FX-name specificity override after Run 180 showed legacy block 48 wins at mobile; retain only FX override, with bonds selector still migrated to design-system.css.
+
+Run 182: verify energy instrument names are 16px on desktop, mobile, and narrow mobile, while energy values retain their existing compact 15px mobile typography and all panels/interactions remain stable.
