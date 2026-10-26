@@ -232,11 +232,8 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   gap: 4px !important;
   overflow: visible !important;
 }
-.tac-tabset .tac-tab-nav.tac-ds-tabs--industry .tac-ds-tabs__tab {
-  min-height: 44px !important;
-}
 @media (max-width: 700px) {
-  .tac-tabset .tac-tab-nav.tac-ds-tabs--industry {
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
     display: grid !important;
     grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
     grid-auto-flow: row;
@@ -1126,24 +1123,9 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
    industry tabs from wrapping into an uneven second row, and tighten only the
    S&P 500 earnings-health card's internal spacing at very narrow widths. */
 @media (max-width: 380px) {
-  #industry-bonds-fx-commodities .tac-tab-nav {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    align-items: stretch !important;
-    gap: 3px !important;
-    overflow-x: auto !important;
-    overflow-y: hidden !important;
-    white-space: nowrap !important;
-    scrollbar-width: thin;
-    padding: 2px !important;
-  }
   #industry-bonds-fx-commodities .tac-tab-nav label {
-    flex: 0 0 auto !important;
-    min-width: max-content !important;
-    min-height: 29px !important;
-    padding: 4px 7px !important;
     font-size: 11px !important;
-    line-height: 1.25 !important;
+    padding: 3px 7px !important;
     white-space: nowrap !important;
   }
   #sp500-earnings-health {
