@@ -1228,3 +1228,23 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     min-height: 249px !important;
   }
 }
+
+
+/* Calendar geometry parity: restore legacy empty-state rhythm and tab-row footprint without fixed panel heights. */
+#calendar .week-econ-tab-labels.tac-ds-tabs--equal-3,
+#earnings .week-earnings-tab-labels.tac-ds-tabs--equal-3 {
+  min-height: 56px !important;
+}
+#calendar .week-econ-panels .calendar-status-empty.tac-ds-empty,
+#earnings .week-earnings-panels .calendar-status-empty.tac-ds-empty {
+  margin-top: 0 !important;
+  padding: 12px 14px !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+@media (max-width: 700px) {
+  #calendar .week-econ-tab-labels.tac-ds-tabs--equal-3,
+  #earnings .week-earnings-tab-labels.tac-ds-tabs--equal-3 {
+    min-height: 58px !important;
+  }
+}
