@@ -1686,3 +1686,19 @@ main.wrap .tac-section-heading h2::before,
     column-gap: 10px !important;
   }
 }
+
+
+/* Canonical disclosure-label color: all source/method collapse controls share
+   the same readable neutral tone regardless of panel-specific legacy styles. */
+main.wrap details.source-details > summary,
+main.wrap details.calendar-source-collapse > summary,
+main.wrap details.audit-details > summary {
+  color: #747b84 !important;
+  -webkit-text-fill-color: #747b84 !important;
+}
+main.wrap details.source-details > summary *,
+main.wrap details.calendar-source-collapse > summary *,
+main.wrap details.audit-details > summary * {
+  color: #747b84 !important;
+  -webkit-text-fill-color: #747b84 !important;
+}
