@@ -188,3 +188,12 @@
 - 320px Fed 高度差 -5px、觀察版面 +4px；其他主要面板高度一致。390px overview -1px、S&P 區 -2px；桌機 overview +18px，尚未做像素級人工核准。
 - 本次只擴充隔離分支中的幾何診斷測試與記錄；正式首頁、正式母版、JSON 與排程未修改。
 - 下一步：把 S&P grid 內部子列（含實際文字節點、行數、clientHeight/scrollHeight）加入診斷，並以新聞卡片實際文字換行作第二個判斷點。先拿到可比對的子節點數據，再做最小 CSS 修正與三尺寸回歸。
+
+
+## 2026-10-26 — Run #222 S&P 500 子元素幾何深度診斷（artifact 已取回，診斷流程中止）
+- GitHub Actions Run #222： https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40298318877；結論 `cancelled`，不是測試失敗。commit `26fb8e78184f63ac31bf17d53f236cdd4a34fd33`，分支 `tac-design-system-work-2026-10-24`。
+- 實際 job steps 顯示：Checkout、Node setup、Playwright install、候選版本建置皆成功；「Run desktop and mobile smoke tests」步驟被取消；artifact 上傳成功。已下載 artifact `tac-refactor-browser-results.zip`（artifact ID `12639144652`，約 7.2 MB），內含 `browser-results/results.json`、`summary.md`、三個 viewport 截圖及候選 HTML。
+- `results.json` 已含 `sp500DeepGeometry`。320px 下父 grid 量測為 266px（唯讀基準）→ 235px（候選），差 -31px；四張 metric 卡各自高度：基準 121/121/106/106px，候選 121/121/106/106px，並非四張卡一起縮短。候選 grid 容器縮短的主要可見原因，是第二列卡片起始位置相較基準提前約 14px（基準 top 6093、候選 top 6079）且 grid 的列／gap／padding 窄版規則需再以 DOM parent-child 對照確認；現有資料不能直接把 -31px 歸因於外層加高或特定單一宣告。
+- 在 320px，首張核心判讀卡基準 219px、候選 219px；「如何解讀」卡均為 232px；提醒區均為 101px；來源 disclosure 內文均為 104px。故已排除上述子區塊單體高度是 -31px 的來源。390px 與桌面主面板整體差距分別只有約 -2px／-1px。
+- Run #222 的瀏覽器 smoke tests 未完成，因此不能把 artifact 當成本次回歸通過；沒有修改任何 CSS。正式首頁、母版、JSON、排程均未修改。
+- 下一步：在隔離分支檢查 `sp500DeepGeometry` 的 parent/child 關係和候選 HTML 中對應窄版 CSS，定位第二列 top 偏移與 grid track sizing 的確切來源。若診斷測試可在取消前完成，調整 workflow 的步驟／timeout 或拆分 diagnostic job；確認原因後才改 CSS，最後重跑 1440／390／320px 回歸。
