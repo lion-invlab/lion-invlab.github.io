@@ -449,16 +449,16 @@ body.release-ready .news-window-warning { display: none !important; }
 /* V23: economic calendar rows converted into individually expandable event cards */
 .econ-event-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:8px 0 12px}
 
-.econ-event>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:6px 12px;padding:13px 14px;align-items:start}
-.econ-event>summary::-webkit-details-marker{display:none}
 
 
 
 
 
-.econ-event .econ-toggle{grid-column:2;grid-row:1;align-self:center;color:#c62828;font-size:25px;font-weight:900;line-height:1}
-.econ-event .econ-toggle:before{content:"＋"}
-.econ-event[open] .econ-toggle:before{content:"−"}
+
+
+
+
+
 
 
 
@@ -598,9 +598,9 @@ body.release-ready .news-window-warning { display: none !important; }
 /* V4: use the same round red expand control as the earnings accordion */
 #calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-width:32px;flex:0 0 32px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:22px;font-weight:500;line-height:1;box-shadow:0 3px 8px rgba(198,40,40,.2);border:0}
 #calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
-#calendar details.econ-event>summary .econ-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:#c62828;color:#fff;box-shadow:0 3px 8px rgba(198,40,40,.2);font-size:0;position:relative}
-#calendar details.econ-event>summary .econ-toggle:before{content:"＋";font-size:22px;font-weight:500;line-height:1}
-#calendar details.econ-event[open]>summary .econ-toggle:before{content:"−";background:#202328;border-radius:50%;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+
+
+
 #calendar .week-econ-tab-labels,#earnings .week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:5px;border:1px solid #e5e5ea;border-radius:14px;background:#f5f5f7;box-shadow:inset 0 1px 1px rgba(0,0,0,.025);margin:10px 0 14px}
 #calendar .week-econ-tab-labels label,#earnings .week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:9px 5px;border:1px solid transparent;border-radius:10px;background:transparent;color:#6e6e73;font-size:13px;font-weight:650;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere;box-shadow:none;transition:background .18s ease,color .18s ease,box-shadow .18s ease}
 #week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"],#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#fff!important;color:#b42332!important;border-color:rgba(60,60,67,.08)!important;box-shadow:0 2px 6px rgba(0,0,0,.09)!important}
