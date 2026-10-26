@@ -1492,7 +1492,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .tab-panel-meta{
 /* 比照「全球主要股市」列表：商品名稱、報價與漲跌幅採相同視覺字級 */
 
 html body #industry-bonds-fx-commodities .tac-tab-panel .row b{
-  line-height:1.5!important;
   font-weight:700!important;
   letter-spacing:0!important;
 }
