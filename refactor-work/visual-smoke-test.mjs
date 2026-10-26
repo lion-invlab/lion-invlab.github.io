@@ -415,6 +415,9 @@ try {
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
+    if (report.fiveStarRedCount !== 16) {
+      results.errors.push({ viewport: viewport.name, error: `Expected 16 exact five-star glyphs red, got ${report.fiveStarRedCount}` });
+    }
     results.errors.push(...newErrors.map(error => ({ viewport: viewport.name, error })));
     await base.page.close();
     await cand.page.close();
