@@ -1139,7 +1139,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   font-size: 16px !important;
   line-height: 1.35 !important;
   font-weight: 700 !important;
-  letter-spacing: 0 !important;
+  letter-spacing: 0px !important;
 }
 /* Direction B — narrow-screen refinement only (320px class of devices).
    Keep the current segmented-tab and card visual language; prevent the five
