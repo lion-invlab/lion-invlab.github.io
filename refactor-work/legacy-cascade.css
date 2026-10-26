@@ -2789,7 +2789,7 @@ main.wrap [data-main-section-title]{
 }
 
 /* TAC market sentiment title and change conventions */
-#sentiment > .title{color:var(--red)!important}
+
 #sentiment .sbox .up{color:var(--red)!important}
 #sentiment .sbox .down{color:var(--green)!important}
 #sentiment .sbox .warn{color:#e0b84f!important}
