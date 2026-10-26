@@ -459,13 +459,13 @@ body.release-ready .news-window-warning { display: none !important; }
 .econ-event .econ-toggle{grid-column:2;grid-row:1;align-self:center;color:#c62828;font-size:25px;font-weight:900;line-height:1}
 .econ-event .econ-toggle:before{content:"＋"}
 .econ-event[open] .econ-toggle:before{content:"−"}
-.econ-event .econ-details{border-top:1px solid #e7e9eb;padding:10px 12px 12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.econ-event .econ-field{background:#f3f7f8;border-radius:12px;padding:12px 13px;min-width:0;overflow-wrap:anywhere;line-height:1.55}
-.econ-event .econ-field label{display:block;color:#737981;font-size:12px;font-weight:850;margin-bottom:5px}
-.econ-event .econ-field .econ-value{font-size:14px;color:#24272b;white-space:pre-wrap;overflow-wrap:anywhere}
-.econ-event .econ-field.wide{grid-column:1/-1}
-.econ-event .econ-field a{overflow-wrap:anywhere}
-@media(max-width:640px){.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
+
+
+
+
+
+
+@media(max-width:640px){}
 
 
 /* Original style block 3 */
