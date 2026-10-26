@@ -298,3 +298,6 @@ Run 213: inspect the full grouped CSS rule and computed typography cascade for g
 Run 214: trace every matched letter-spacing declaration on representative global-market and industry instrument names to explain computed-style output; keep shared typography and all viewport regression assertions. 2026-10-26
 
 Run 215: verify the single canonical instrument-name typography rule after removing its redundant mobile duplicate; assert 16px/21.6px/700 across global markets, bonds, FX, energy and metals at 1440/390/320 widths, with values retaining responsive sizing and no layout regressions. 2026-10-26
+
+
+Run 214: explicitly serialize canonical instrument-name letter spacing as 0px and inspect computed style plus CSSOM on 1440/390/320; verify all category names and numeric typography remain unchanged. 2026-10-26T16:55+0800
