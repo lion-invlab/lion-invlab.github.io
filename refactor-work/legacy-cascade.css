@@ -1813,7 +1813,7 @@ body .tac-main-panel > .title::before {
   align-self:center!important;
 }
 body #sentiment > .title::before { background:#e0b04b!important; }
-body #sentiment > .title { color:#fff!important; }
+
 @media(max-width:700px){
  body article.card > .title, body section.card > .title { gap:9px!important; }
  body article.card > .title::before, body section.card > .title::before { min-height:18px!important; }
