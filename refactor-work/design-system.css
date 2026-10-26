@@ -308,6 +308,7 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 .tac-ds-neutral { color: var(--tac-ds-color-neutral); }
 .tac-ds-source { color: var(--tac-ds-color-muted); font-size: 11px; line-height: 1.65; }
 .tac-ds-empty {
+  margin-top: 4px;
   padding: 14px;
   border: 1px dashed #d7dbe0;
   border-radius: var(--tac-ds-radius-card);
@@ -416,9 +417,6 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 .tac-ds-disclosure--method > summary {
   min-height: 24px;
   font-size: 11px;
-}
-.tac-ds-empty {
-  margin-top: 4px;
 }
 
 
