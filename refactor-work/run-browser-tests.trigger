@@ -95,3 +95,5 @@ news-scan-all-widths-legacy-gap-parity-2026-10-26
 fix-exact-five-star-economic-and-earnings-markers-2026-10-26
 
 architecture-audit-five-star-parser-fix-2026-10-26
+
+computed-five-star-color-assertion-2026-10-26
