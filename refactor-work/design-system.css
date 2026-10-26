@@ -411,43 +411,6 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   line-height: 1.55;
   overflow-wrap: anywhere;
 }
-/* Calendar source disclosure: isolated from legacy selector cascade. */
-.tac-ds-disclosure--calendar-source {
-  display: block;
-  margin-top: 6px;
-  color: var(--tac-ds-color-muted);
-  font-size: 11px;
-  line-height: 1.55;
-}
-.tac-ds-disclosure--calendar-source > summary {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  color: #747b84;
-  font-size: 12px;
-  font-weight: 650;
-  line-height: 1.4;
-  opacity: .9;
-  list-style: none;
-}
-.tac-ds-disclosure--calendar-source > summary::-webkit-details-marker { display: none; }
-.tac-ds-disclosure--calendar-source > summary::marker { content: ""; }
-.tac-ds-disclosure--calendar-source > summary::before {
-  content: "▸";
-  display: inline-block;
-  flex: 0 0 auto;
-  margin-right: 1px;
-  color: #747b84;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
-  transition: transform .15s ease;
-}
-.tac-ds-disclosure--calendar-source[open] > summary::before { transform: rotate(90deg); }
-.tac-ds-disclosure--calendar-source > summary::after { content: none; display: none; }
-.tac-ds-disclosure--calendar-source > .source { padding: 5px 0 0 15px; }
-
 .tac-ds-disclosure--method {
   margin-top: 8px;
   padding: 0;
