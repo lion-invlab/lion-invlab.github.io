@@ -231,3 +231,12 @@
 - 將 sector row min-height 桌機 62→73px、mobile 56→68px 後，產業面板高度：桌機 364px（baseline 380，-16）、390px 439px（baseline 448，-9）、320px 待依 summary 後段完整核對。桌機面板比前一輪 396px 減少 32px，表示這個修正確實改善高度偏差，但未完全回到 baseline；手機仍差 9px。桌機 tabs 仍 72px（baseline 96px），390／320 tabs 70px（baseline 89px），頁籤列仍有 19–24px 的基準差異。不要以整體面板高度判斷單一元件，下一輪應檢查候選／基準 tabs 的 padding、grid row-gap 和行高，尋找不影響三組主頁籤一致性的最小調整。
 - 其他主要面板差異：桌機 overview +52px、S&P 500 財報健康 +27px、Fed +17px、View +15px；手機 overview -1px、S&P 500 財報健康 +8px、calendar +4px。窄手機的差異仍需從 results.json 的 paired detailed geometry 逐項定位，不能只依整頁差值直接修改。
 - 稽核紀錄已更新。正式首頁、正式母版、JSON 資料與排程未修改。
+
+## 2026-10-26 幾何校準紀錄：產業頁籤高度試驗（Run 136，失敗並已回退）
+
+- 試驗提交：`f453ac83a2e6dc57cde2319736e49a33c0a2c1f1`；測試：[Run 136](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40268935934)，結論 `failure`。
+- 已下載並檢查 Artifact `12626853953` 的 `results.json`、`summary.md`。三種視窗均無新增瀏覽器錯誤、水平溢出、缺失面板、重複 ID 或未匹配導覽；五星紅字均為 16。
+- 失敗原因：桌機主頁籤計算樣式簽章不一致，因試驗將產業頁籤設為 14px／48px，而新聞與全球市場頁籤維持 13px／28px。違反三組主頁籤一致性門檻。
+- 試驗的產業頁籤列高度：桌機 98px、390px 94px、320px 94px；對比基準版 96px／89px／89px。產業面板總高度則為桌機 +10px、390px +15px、320px +15px，故試驗不接受。
+- 已回退該試驗專屬覆寫：`47ad8ade5f0c2727d2285f633d34008e65b3f396`。回歸驗證 Run 137 已觸發，待結果確認回退後的樣式一致性。
+- 後續不得再用不同字級或最小高度強行補足。應先逐標籤量測 baseline/candidate 的 bounding box 與實際 grid row 軌跡；目標是在保留三組主頁籤共同計算樣式簽章的前提下，定位原始差異究竟是 grid row 分配、label 基礎規則，或容器 padding/margin。不得只比較外層總高度。
