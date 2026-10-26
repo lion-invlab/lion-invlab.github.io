@@ -5,25 +5,32 @@ import { fileURLToPath } from "node:url";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const html = path.join(here, "candidate-build.html");
+const baseline = path.join(here, "source-baseline-2026-10-26.html");
 const output = path.join(here, "browser-results", "instrument-typography-audit.json");
 fs.mkdirSync(path.dirname(output), { recursive: true });
 
 const viewports = [
-  { name: "desktop", width: 1440, height: 1000, valueSize: "16px", valueLineHeight: "24px" },
-  { name: "mobile", width: 390, height: 844, valueSize: "15px", valueLineHeight: "22.5px" },
-  { name: "narrow-mobile", width: 320, height: 800, valueSize: "15px", valueLineHeight: "22.5px" }
+  { name: "desktop", width: 1440, height: 1000 },
+  { name: "mobile", width: 390, height: 844 },
+  { name: "narrow-mobile", width: 320, height: 800 }
 ];
 
 const browser = await chromium.launch({ headless: true });
 const results = [];
 try {
   for (const viewport of viewports) {
-    const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
+    const context = await browser.newContext({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
+    const candidatePage = await context.newPage();
+    const baselinePage = await context.newPage();
     const errors = [];
-    page.on("pageerror", error => errors.push(String(error)));
-    await page.goto("file://" + html, { waitUntil: "domcontentloaded" });
-    await page.waitForTimeout(500);
-    const report = await page.evaluate(() => {
+    candidatePage.on("pageerror", error => errors.push(String(error)));
+    await Promise.all([
+      candidatePage.goto("file://" + html, { waitUntil: "domcontentloaded" }),
+      baselinePage.goto("file://" + baseline, { waitUntil: "domcontentloaded" })
+    ]);
+    await Promise.all([candidatePage.waitForTimeout(350), baselinePage.waitForTimeout(350)]);
+
+    const inspect = async page => page.evaluate(() => {
       const nameSelector = "#global-markets .row > b, #industry-bonds-fx-commodities .tac-tab-panel .row > b";
       const names = [...document.querySelectorAll(nameSelector)];
       const valueSelector = "#global-markets .row .r, #industry-bonds-fx-commodities .tac-tab-panel .row .r";
@@ -32,7 +39,7 @@ try {
       const rules = [];
       const walk = list => {
         for (const rule of list) {
-          if (rule.selectorText && rule.selectorText === expectedRuleSelector) {
+          if (rule.selectorText === expectedRuleSelector) {
             rules.push({
               selector: rule.selectorText,
               fontSize: rule.style.getPropertyValue("font-size").trim(),
@@ -56,6 +63,7 @@ try {
           lineHeight: s.lineHeight,
           fontWeight: s.fontWeight,
           letterSpacing: s.letterSpacing,
+          fontVariantNumeric: s.fontVariantNumeric,
           matchedCanonicalRule: el.matches(expectedRuleSelector)
         };
       };
@@ -67,8 +75,7 @@ try {
         metalsAndOtherAssets: "#industry-bonds-fx-commodities #tac-assets-panel-4 .row > b"
       };
       const categories = Object.fromEntries(Object.entries(categorySelectors).map(([key, selector]) => [
-        key,
-        [...document.querySelectorAll(selector)].map(signature)
+        key, [...document.querySelectorAll(selector)].map(signature)
       ]));
       return {
         width: innerWidth,
@@ -81,6 +88,9 @@ try {
         canonicalRules: rules
       };
     });
+
+    const report = await inspect(candidatePage);
+    const baselineReport = await inspect(baselinePage);
     const failures = [];
     if (report.nameCount === 0) failures.push("No instrument names were found.");
     if (report.globalNameCount === 0 || report.industryNameCount === 0) failures.push("Global market or industry instrument names are missing.");
@@ -102,15 +112,35 @@ try {
         }
       }
     }
-    for (const [index, value] of report.values.entries()) {
-      if (value.fontSize !== viewport.valueSize || value.lineHeight !== viewport.valueLineHeight) {
-        failures.push(`Quote value #${index + 1} (${value.text}) changed sizing: expected ${viewport.valueSize}/${viewport.valueLineHeight}, got ${value.fontSize}/${value.lineHeight}`);
+
+    // Quote typography is compared against the source baseline per matched DOM order,
+    // rather than assuming global-market and industry values share one responsive size.
+    if (report.values.length !== baselineReport.values.length) {
+      failures.push(`Quote value count differs from baseline: candidate=${report.values.length}, baseline=${baselineReport.values.length}.`);
+    }
+    const properties = ["fontSize", "lineHeight", "fontWeight", "letterSpacing", "fontVariantNumeric"];
+    for (let i = 0; i < Math.min(report.values.length, baselineReport.values.length); i++) {
+      const current = report.values[i];
+      const original = baselineReport.values[i];
+      if (current.text !== original.text) {
+        failures.push(`Quote value order/text differs at #${i + 1}: candidate="${current.text}", baseline="${original.text}".`);
+        continue;
       }
+      for (const property of properties) {
+        if (current[property] !== original[property]) {
+          failures.push(`Quote value #${i + 1} (${current.text}) changed ${property}: baseline=${original[property]}, candidate=${current[property]}.`);
+        }
+      }
+      if (current.matchedCanonicalRule) failures.push(`Quote value #${i + 1} (${current.text}) unexpectedly matches the instrument-name rule.`);
     }
     if (errors.length) failures.push(...errors.map(error => "Browser error: " + error));
-    results.push({ viewport: viewport.name, width: viewport.width, nameCount: report.nameCount, valueCount: report.values.length, canonicalRuleCount: report.canonicalRules.length, failures, report });
-    console.log(`[${failures.length ? "FAIL" : "PASS"}] ${viewport.name}: ${report.nameCount} names, ${report.values.length} quote values, ${report.canonicalRules.length} canonical rule(s)`);
-    await page.close();
+    results.push({
+      viewport: viewport.name, width: viewport.width, nameCount: report.nameCount,
+      valueCount: report.values.length, baselineValueCount: baselineReport.values.length,
+      canonicalRuleCount: report.canonicalRules.length, failures, report, baselineValues: baselineReport.values
+    });
+    console.log(`[${failures.length ? "FAIL" : "PASS"}] ${viewport.name}: ${report.nameCount} names, ${report.values.length} quote values compared with baseline, ${report.canonicalRules.length} canonical rule(s)`);
+    await context.close();
   }
 } finally {
   await browser.close();
