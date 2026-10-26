@@ -424,7 +424,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 /* 導覽列：固定功能＋13個正文大版面 */
 .nav{align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 .nav a{flex:0 0 auto;white-space:nowrap}
- .region-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .region-source > summary::marker{color:#B8BEC5;} .region-source > summary::-webkit-details-marker{color:#B8BEC5;}  .sector-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .sector-source > summary::marker{color:#B8BEC5;} .sector-source > summary::-webkit-details-marker{color:#B8BEC5;} /* TAC_NEWS_ZEBRA_V31: alternating backgrounds for news items */
+/* Region/sector source disclosure typography moved to .tac-ds-disclosure--source variants. */ /* TAC_NEWS_ZEBRA_V31: alternating backgrounds for news items */
 
 
 
