@@ -621,3 +621,10 @@
 - block 91 的貴金屬 `#tac-assets-panel-4 .row>b` 桌機／手機規則已移除，改由 design-system.css 的 ID-scoped selector 負責。block 91 現在只保留 FX 名稱 selector；它不能直接刪除，因為 Run 180 已證明手機時 block 48 的 15px 規則會勝出。
 - Run 188 驗收：errors=[]；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；債券、FX、能源、貴金屬名稱全部為 16px/21.6px，商品名稱尺寸契約在三種 viewport 都只有 16px。手機報價仍保留原本 15px 緊湊數值排版。
 - 下一步：block 91 只剩 FX selector，且已證明受 block 48 高 specificity 手機規則影響。不要單獨刪除；若要移交，需先把 block 48 的 FX 名稱手機規則改成明確的設計系統變體，再逐步移除 FX legacy selector。接下來先盤點 block 48 的 `.row .name/.label` 以及數值 `.r/.up/.down` 命中範圍，建立哪些 selector 實際被 DOM 使用的清單，再決定下一個最小可安全遷移單位。
+
+
+## Run 189 結果與修復：block 48 selector 語法
+
+- Run 189：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40287322663；artifact 12634457375 已檢查 `results.json` 與 `summary.md`。errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；三種 viewport 的商品名稱診斷均為 16px，互動測試通過。
+- 但人工檢查 legacy-cascade.css 發現先前移除 `.row .name` 與 `.row .label` 後，桌機 selector group 的 `.row b,` 留下懸空逗號。瀏覽器 smoke test 未直接檢查 CSS selector 語法，因此 Run 189 只能作為版面/互動結果，不能單獨完成本次驗收。
+- 已修正該 group 為 `.row b{...}`，其餘規則與移除範圍不變。Run 190 將重新建置並驗收，確認 selector 語法修復後商品名稱、數值與所有 viewport 行為仍符合契約。
