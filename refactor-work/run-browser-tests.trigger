@@ -147,3 +147,5 @@ Run 138: capture exact nav label geometry to diagnose industry panel height mism
 Run 139: verify industry tab row-height correction against baseline geometry and shared style parity.
 
 Run 140: verify S&P 500 earnings-health shell, title, and method-summary geometry at desktop and standard mobile widths.
+
+Run 141: capture detailed child geometry for Fed, View, Calendar and Earnings panels before next parity fixes.
