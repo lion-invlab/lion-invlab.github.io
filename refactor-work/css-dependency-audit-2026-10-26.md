@@ -562,3 +562,12 @@
 - 從 legacy block 91 的桌機及手機 selector group 移除兩條 `#industry-bonds-fx-commodities #bonds .row>b`，由 design-system.css 的 `#industry-bonds-fx-commodities #bonds .row b` 接管。其他匯率、能源、貴金屬 selector 仍保留。
 - 驗收：頂層 errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；債券名稱仍為 16px/21.6px，與設計系統值一致；全球主要股市與產業商品名稱仍均為 16px。匯率、能源、貴金屬的字級與行高維持原樣。
 - 下一個最小候選：block 91 的 `#industry-bonds-fx-commodities #fx .row>b) 目前命中的名稱是 `.instrument-name`，design-system.css 已以 `#industry-bonds-fx-commodities .row .instrument-name` 指定相同 16px/1.35；可只移除 FX selector，保留能源與貴金屬的裸 `b` selector。
+
+
+## Run 180–181 驗收與 FX selector 回退結論
+
+- Run 180：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40285081581；artifact 12633473023 已檢查。此輪嘗試移除 block 91 的 FX 名稱 selector 後，CI 失敗；不是頁面錯誤，而是測試的商品名稱字級契約被破壞：FX 在手機／窄手機從 16px 降為 15px，因 legacy block 48 的高 specificity 手機規則仍勝過 design-system 的 `.instrument-name` 規則。此變更不可接受。
+- 已恢復 block 91 的 `#industry-bonds-fx-commodities #fx .row>b` 桌機與手機 selector；保留前一輪成功移交的 bonds selector，並保留 energy、precious metals selector。
+- Run 181：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40285303903；artifact 12632879644 已解壓檢查。errors=[]；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；四個商品區域字級符合契約：bonds 16px/21.6px、FX 16px/21.6px、energy 名稱桌機 16px/24px、手機 15px/22.5px（這是既有窄螢幕規則）、precious-metal 名稱 16px/21.6px；industryInstrumentFontSizes 三種 viewport 均只有 16px。
+- **結論：** block 91 的 FX selector 目前仍有責任，不能單獨刪除。若未來要將 FX 完全移交 design-system，必須先處理 block 48 手機字級規則與 specificity，並同時驗證能源與貴金屬範圍；在此之前保留此 legacy selector。
+- 下一步：停止針對 block 91 做更多 selector 刪除；先盤點 block 48 的手機 `font-size:15px!important` 覆蓋究竟是刻意例外還是舊版通用規則，逐項記錄它對債券、匯率、能源、貴金屬名稱／數值的實際命中，再決定是否拆分為明確元件變體。不得以改變測試預期的方式掩蓋樣式退化。
