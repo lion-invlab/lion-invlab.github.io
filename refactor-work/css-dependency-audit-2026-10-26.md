@@ -365,3 +365,12 @@
 - 兩個容器的摘要列計算樣式：桌機 padding 13px 14px、gap 12px；手機 padding 12px 11px；#earnings 的手機 gap 8px，#last-week-earnings 保持 12px。摘要列目前 display:flex、align-items:center、justify-content:space-between、min-width:0、list-style:none、cursor:pointer。
 - 候選 DOM 中 .earnings-accordion-toggle 元素數為 0；因此 legacy 中所有只針對此 toggle class 的圓形按鈕尺寸、背景、偽元素加減號規則皆未匹配任何 DOM，屬死規則。不要在這次 CSS-only 遷移中新增按鈕 DOM；只移除死規則，保持目前實際呈現與 summary 開／關行為。
 - 下一步將摘要列本身的 flex／padding／marker 樣式移入 tac-ds-earnings-card，並移除死 toggle selector；保留 last-week earnings 的 summary visibility 規則與卡片內容／結果 grid 覆寫。
+
+
+## 2026-10-26 財報手風琴摘要列移交（Run 157 通過）
+
+- 設計系統提交：0f5f153765059b381d5e5b3546512c4f65ad6343；legacy 清理提交：a316001481737787fb2edc7825c8429f1651f58c；後續 mobile gap 清理：61b65d0e3f4c6268d15ef639161d78bb388400a5；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40273905318。
+- 將摘要列 list-style、cursor、flex 排版、padding、min-width 與響應式 gap 移入 tac-ds-earnings-card；移除舊摘要列樣式與所有僅針對 .earnings-accordion-toggle 的死規則。DOM 檢查確認該 toggle class 在候選 HTML 中為 0 個，沒有新增任何按鈕或改動 DOM。
+- Artifact 12629636532 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；財報卡 22 張、經濟事件卡 12 張、五星紅字 16；財報手風琴開／關、來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何與 Run 156 一致。
+- 計算樣式一致：桌機摘要 padding 13px 14px、gap 12px；手機摘要 padding 12px 11px；#earnings 手機 gap 8px、#last-week-earnings 手機 gap 12px。摘要高度診斷命中的是隱藏分頁／折疊內的卡片，因此高度值為 0；padding、display、gap 等計算樣式仍有效，但後續若需比較實際高度，需先打開父層收折與對應 tab。
+- 下一步移交公司日期／名稱／產業副標／星號文字樣式；保留 .earnings-accordion-details、earnings-detail-field 與結果 grid 的 legacy 覆寫，直到完成相依性盤點。
