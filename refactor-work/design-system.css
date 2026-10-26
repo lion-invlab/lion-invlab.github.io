@@ -1158,12 +1158,15 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
 }
 
 
-/* Direction B follow-up — remove excess narrow-screen gaps between news cards.
-   Keep readable typography and complete text; do not alter order or content. */
+/* News-card geometry parity: the shared card style adds a 6px bottom margin
+   absent from the legacy news list. Remove only that extra gap at every width. */
+#news-scan .newsitem {
+  margin-bottom: 0 !important;
+}
+/* Direction B — tighten only narrow-screen vertical padding; preserve type and text. */
 @media (max-width: 380px) {
   #news-scan .newsitem {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
-    margin-bottom: 0 !important;
   }
 }
