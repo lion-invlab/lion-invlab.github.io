@@ -305,3 +305,5 @@ Run 217: add strict all-name typography assertions across every global-market an
 Run 218: fix strict typography audit to compare each quote value's computed typography against the source baseline at matching viewports; preserve all instrument-name assertions and do not impose one font size across different value categories. 2026-10-26T17:20+0800
 calendar-status-tabs-audit-2026-10-26
 shared-main-tab-font-12px-narrow-regression-2026-10-26
+
+geometry-diagnostic-2026-10-26T0915Z
