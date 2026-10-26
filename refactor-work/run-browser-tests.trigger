@@ -294,3 +294,5 @@ Run 211: remove the redundant legacy energy-name letter-spacing override so the 
 Run 212: consolidate global-market and industry instrument names into one canonical CSS rule for font size, line height, weight, and letter spacing; verify desktop/mobile/narrow-mobile computed styles, numeric-value sizing, geometry, and interactions. 2026-10-26
 
 Run 213: inspect the full grouped CSS rule and computed typography cascade for global-market and all industry instrument names after the canonical-rule consolidation; verify actual computed letter spacing and preserve all viewport regressions. 2026-10-26
+
+Run 214: trace every matched letter-spacing declaration on representative global-market and industry instrument names to explain computed-style output; keep shared typography and all viewport regression assertions. 2026-10-26
