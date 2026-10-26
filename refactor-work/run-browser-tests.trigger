@@ -301,3 +301,5 @@ Run 215: verify the single canonical instrument-name typography rule after remov
 Run 214: explicitly serialize canonical instrument-name letter spacing as 0px and inspect computed style plus CSSOM on 1440/390/320; verify all category names and numeric typography remain unchanged. 2026-10-26T16:55+0800
 
 Run 217: add strict all-name typography assertions across every global-market and industry instrument name; verify exactly one canonical rule and preserve all numeric quote sizes at 1440/390/320. 2026-10-26T17:10+0800
+
+Run 218: fix strict typography audit to compare each quote value's computed typography against the source baseline at matching viewports; preserve all instrument-name assertions and do not impose one font size across different value categories. 2026-10-26T17:20+0800
