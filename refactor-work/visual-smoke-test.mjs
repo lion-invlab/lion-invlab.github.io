@@ -119,6 +119,20 @@ async function inspect(page) {
       doubleBarHeadings: [...document.querySelectorAll(".tac-tabset .tac-section-heading h2")].filter(el => getComputedStyle(el).borderLeftWidth !== "0px" && getComputedStyle(el, "::before").display !== "none").length,
       globalMarketNameFontSizes: [...new Set([...document.querySelectorAll("#global-markets .row b, #global-markets .instrument-name")].slice(0,20).map(el => getComputedStyle(el).fontSize))],
       industryInstrumentFontSizes: [...new Set([...document.querySelectorAll("#industry-bonds-fx-commodities #bonds .row b, #industry-bonds-fx-commodities .row .instrument-name")].map(el => getComputedStyle(el).fontSize))],
+      tabNavGeometry: ["#news-scan", "#global-markets", "#industry-bonds-fx-commodities"].map(id => {
+        const root = document.querySelector(id);
+        const nav = root?.querySelector(".tac-tab-nav");
+        if (!nav) return { id, missing: true };
+        const nr = nav.getBoundingClientRect(), ns = getComputedStyle(nav);
+        return {
+          id,
+          nav: { top: Math.round(nr.top + window.scrollY), height: Math.round(nr.height), width: Math.round(nr.width), display: ns.display, gridTemplateColumns: ns.gridTemplateColumns, gridAutoFlow: ns.gridAutoFlow, gap: ns.gap, padding: ns.padding, overflowX: ns.overflowX },
+          labels: [...nav.querySelectorAll("label")].map(label => {
+            const r = label.getBoundingClientRect(), s = getComputedStyle(label);
+            return { text: label.textContent.trim(), top: Math.round(r.top + window.scrollY), left: Math.round(r.left), width: Math.round(r.width), height: Math.round(r.height), display: s.display, flex: s.flex, gridColumn: s.gridColumn, minHeight: s.minHeight, padding: s.padding, fontSize: s.fontSize, whiteSpace: s.whiteSpace };
+          })
+        };
+      }),
       mainTabStyleSignatures: ["#news-scan", "#global-markets", "#industry-bonds-fx-commodities"].map(id => {
         const el = document.querySelector(id + " .tac-tab-nav label");
         if (!el) return {id, missing:true};
