@@ -648,3 +648,9 @@
 - Run 192：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40287962596；artifact 12634537877 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、分頁、來源 disclosure、事件／財報收合、商品分頁與商品收合互動均通過。
 - 本輪只從 block 48 桌機與手機 selector groups 移除 `.row .up`。DOM inventory 顯示 7 個 `.up` 全部同時符合 `.r`，`.up:not(.r)`=0；移除後商品名稱仍為 16px，其他商品值與互動契約維持。
 - Run 192 DOM inventory 也確認 `.row .r` 命中 26 次，`span.r` 同樣命中 26 次，`.r:not(span)`=0；因此 `html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r` 是 `.row .r` 的完全重複 selector。下一輪只移除這個 `span.r` selector，保留 `.row .r` 與內嵌字重 span 規則。
+
+## Run 193 驗收：移除重複的 block 48 span.r selector
+
+- Run 193：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40288194007；artifact 12635400543 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440/390/320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、分頁、來源 disclosure、經濟事件與財報收合、商品分頁與商品收合互動均通過。
+- 本輪只從 block 48 桌機與手機 selector groups 移除 `span.r`。DOM inventory 顯示 `.row .r`=26、`span.r`=26、`.r:not(span)`=0，兩 selector 命中完全相同；商品名稱三種 viewport 均維持 16px。
+- DOM inventory 顯示 `span[style*="font-weight"]` 命中 3 次，且 `span[style*="font-weight"]:not(.r)`=0，這三個 inline-font-weight span 也全部被 `.row .r` 覆蓋。下一輪只移除該 inline-style selector，保留 `.row .r` 與 `.row .down`。
