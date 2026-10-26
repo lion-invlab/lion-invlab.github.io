@@ -1160,3 +1160,14 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     padding-bottom: 6px !important;
   }
 }
+
+
+/* Geometry parity: industry tabs retain enough row height without diverging from shared label styling. */
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+  grid-template-rows: 36px 36px !important;
+}
+@media (max-width: 700px) {
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+    grid-template-rows: 32px 33px !important;
+  }
+}
