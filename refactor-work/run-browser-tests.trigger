@@ -254,3 +254,5 @@ Run 190: verify removing block 47 .tab-panel .title small selector with zero DOM
 Run 192: remove only redundant block 48 .row .up selector (all 7 hits are also .r); verify 1440/390/320 computed styles and interactions. 2026-10-26
 
 Run 193: remove only redundant block 48 .row span.r selector (all 26 hits are already .row .r); verify computed styles and all viewport interactions. 2026-10-26
+
+Run 194: remove only redundant block 48 span[style*=font-weight] selector (all 3 hits are also .r); verify styles and viewport regressions. 2026-10-26
