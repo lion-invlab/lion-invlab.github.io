@@ -512,3 +512,11 @@
 - Run 172：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40282957469；artifact 12633027611 已解壓檢查 `results.json` 與 `summary.md`。三種 viewport 均無水平溢出、缺少面板、重複 ID、未匹配導覽連結或新增瀏覽器錯誤；市場情緒標題在桌機、手機、窄手機 computed color 都維持 `rgb(255,255,255)`；22 張財報卡、12 張經濟事件卡與相關開關互動正常。
 - Run 172 移除 block 93 中 `#sentiment > .title { color:#fff!important; }`。後續 block 94 的 `main.wrap #sentiment > .title, main.wrap #sentiment .title:first-child { color:#fff!important; }` 仍接管該標題，驗收確認結果未變。
 - 注意：剩餘 `body main.wrap #sentiment > .title { color:#fff!important; }` 的 specificity 高於 block 94 第一個 selector，但低於第二個 `main.wrap #sentiment .title:first-child`（前提是標題維持 section 第一子元素）；在目前 HTML 中它確實命中同一標題。可用一條獨立回歸驗證移除後 computed color 仍白色。若結果有差異立即回復，不動背景、偽元素或其他 sentiment 視覺規則。
+
+
+## Run 173 驗收：移除 sentiment 標題重複白色規則
+
+- Run 173：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40283172062；artifact 12632498799 已檢查 `results.json` 與 `summary.md`。
+- 移除 `body main.wrap #sentiment > .title { color:#fff!important; }`。後續 block 94 的 `main.wrap #sentiment .title:first-child { color:#fff!important; }` specificity 更高，且命中同一個第一子元素標題。
+- 驗收：`errors=[]`；desktop 1440、mobile 390、narrow-mobile 320 全部 `horizontalOverflow=false`、`missingPanels=[]`、`duplicateIds=[]`；三個 viewport sentiment 標題 computed color 都是 `rgb(255,255,255)`。桌機／手機版面主要幾何與 Run 172 相同，財報與經濟行事曆互動維持正常。
+- 下一個最小候選：移除較早的 `#sentiment > .title{color:var(--red)!important}` 中僅有衝突的 color 宣告，保留同一段的 up/down/warn 顏色慣例；後續 block 94 的白色例外才是標題最終規則。須再做一次全 viewport 回歸。
