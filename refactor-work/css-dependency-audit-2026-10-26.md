@@ -292,3 +292,11 @@
 - Run 147（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40271499577）改回基準空狀態字級 13px、line-height normal，保留基準 padding 12px 14px、margin-top 0；並保留基準 label row footprint（桌機 56px、手機 58px）。已檢查 Artifact 12628857195，空狀態高度與基準在所有 viewport 完全一致，行事曆面板高度也完全一致：經濟桌機／手機／窄手機 305／399／417px；財報 305／412／427px。
 - Run 147 三種 viewport 均無新增瀏覽器錯誤、水平溢出、缺少面板、重複 ID 或未匹配導覽；三組主要頁籤的樣式簽章一致。行事曆幾何項目驗收完成。
 - 後續剩餘差異：桌機新聞掃描 -7px、全球市場 -4px；手機新聞掃描 -3px；窄手機新聞掃描 -25px、S&P 500 財報健康 -34px、Fed -5px、View +4px。窄手機的新聞卡片內距與 S&P 卡片間距有既有緊縮規則，應先標註為有意的窄版差異，再針對桌機／標準手機的微小差異逐項判斷是否值得修正。
+
+
+## 2026-10-26 新聞掃描／全球市場幾何校準（Run 148 通過）
+
+- Run 148：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40271691503；Artifact 12628882653 已下載檢查。
+- 新聞掃描與全球市場面板：桌機新聞 807→807px、全球市場 477→477px；390px 新聞 1360→1360px、全球市場 578→578px，均與基準一致。主頁籤 label 的字級、min-height、padding、圓角、white-space 簽章仍一致，無新增瀏覽器錯誤、水平溢出、缺少面板、重複 ID 或未匹配導覽。
+- 修正方式只提高兩個 nav 容器的 grid/flex footprint，不修改共用 label 規則：新聞掃描桌機 min-height 39px、390px min-height 35px；全球市場桌機 min-height 40px。窄手機新聞掃描仍比基準短 25px，這是既有 320px 卡片內距緊縮規則造成，暫保留。
+- 桌機總內容高度相較基準約 +18px，主要由最上方主標題與 source disclosure 遷移樣式等累積，不再是新聞／全球市場面板高度造成。下一步應決定這些頂部共用元件差異是否屬預期設計更新；320px 的 -62px 則主要來自已知的新聞卡片緊縮（-25）、S&P 500 面板緊縮（-34）、Fed（-5）與 View（+4），不以整頁高度直接加補償。
