@@ -1410,3 +1410,42 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   margin: 8px 0 12px;
   min-width: 0;
 }
+
+/* Earnings summary content ownership: dates, company identity, subtitle and star typography. */
+.tac-ds-earnings-card .earnings-summary-main {
+  min-width: 0;
+  flex: 1;
+}
+.tac-ds-earnings-card .earnings-summary-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  color: var(--muted, #70757a);
+  font-size: 12px;
+  font-weight: 750;
+  margin-bottom: 5px;
+}
+.tac-ds-earnings-card .earnings-company-name {
+  font-size: 16px;
+  font-weight: 900;
+  color: #202124 !important;
+  overflow-wrap: anywhere;
+}
+.tac-ds-earnings-card.star-verified-five .earnings-company-name {
+  color: #c62828 !important;
+}
+.tac-ds-earnings-card .earnings-company-sub {
+  font-size: 12px;
+  color: #777;
+  margin-top: 3px;
+  overflow-wrap: anywhere;
+}
+.tac-ds-earnings-card .earnings-stars {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: #b17a12;
+  margin-top: 5px;
+}
+@media (max-width: 640px) {
+  .tac-ds-earnings-card .earnings-company-name { font-size: 15px; }
+}
