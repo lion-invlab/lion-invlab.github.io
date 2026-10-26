@@ -2617,15 +2617,13 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 /* Original style block 91 */
 
 /* 商品名稱字級統一對齊「費城半導體指數」；僅影響產業債匯商品活頁內的商品名稱 */
-#industry-bonds-fx-commodities #fx .row>b,
 #industry-bonds-fx-commodities .energy-card .row>b,
 #industry-bonds-fx-commodities #tac-assets-panel-4 .row>b{
   font-size:16px!important;
   line-height:1.35!important;
 }
 @media(max-width:700px){
-    #industry-bonds-fx-commodities #fx .row>b,
-  #industry-bonds-fx-commodities .energy-card .row>b,
+      #industry-bonds-fx-commodities .energy-card .row>b,
   #industry-bonds-fx-commodities #tac-assets-panel-4 .row>b{
     font-size:16px!important;
     line-height:1.35!important;
