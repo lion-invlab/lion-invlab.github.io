@@ -1688,22 +1688,42 @@ main.wrap .tac-section-heading h2::before,
 }
 
 
-/* Canonical source disclosure label on light surfaces.
-   Preserve the dedicated light-on-dark contract for dark audit disclosures. */
-main.wrap details.source-details > summary,
-main.wrap details.calendar-source-collapse > summary {
+/* Canonical source labels on light surfaces only.
+   Dark audit disclosures keep their explicit light-text contract. */
+main.wrap #global-markets details.source-details > summary,
+main.wrap #industry-bonds-fx-commodities details.source-details > summary,
+main.wrap #calendar details.source-details > summary,
+main.wrap #earnings details.source-details > summary,
+main.wrap #last-week-calendar details.calendar-source-collapse > summary,
+main.wrap #last-week-earnings details.calendar-source-collapse > summary {
   color: #9ca3af !important;
   -webkit-text-fill-color: #9ca3af !important;
 }
-main.wrap details.source-details > summary *,
-main.wrap details.calendar-source-collapse > summary * {
+main.wrap #global-markets details.source-details > summary *,
+main.wrap #industry-bonds-fx-commodities details.source-details > summary *,
+main.wrap #calendar details.source-details > summary *,
+main.wrap #earnings details.source-details > summary *,
+main.wrap #last-week-calendar details.calendar-source-collapse > summary *,
+main.wrap #last-week-earnings details.calendar-source-collapse > summary * {
   color: #9ca3af !important;
   -webkit-text-fill-color: #9ca3af !important;
+}
+main.wrap details.audit-details > summary {
+  color: #aebbc8 !important;
+  -webkit-text-fill-color: #aebbc8 !important;
+}
+main.wrap details.audit-details > summary * {
+  color: #aebbc8 !important;
+  -webkit-text-fill-color: #aebbc8 !important;
+}
+main.wrap details.audit-details > summary::before {
+  color: #e2b84d !important;
+  -webkit-text-fill-color: #e2b84d !important;
 }
 
-/* Tabset headings use the shared left marker only; suppress legacy duplicate bar. */
-main.wrap .tac-tabset .tac-section-heading h2::before,
-main.wrap .tac-tabset .tac-section-heading h2:before {
+/* Tabset headings use one shared marker; override higher-specificity legacy pseudo bars. */
+html body main.wrap .tac-tabset .tac-section-heading h2::before,
+html body main.wrap .tac-tabset .tac-section-heading h2:before {
   content: none !important;
   display: none !important;
 }
