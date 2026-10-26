@@ -117,3 +117,12 @@
 - 因候選 DOM 沒有 `.calendar-source-collapse` 對應元素，這次通過代表刪除未使用的元件 CSS、清理註解後整體回歸正常，不代表日曆來源元件遷移已完成。
 - 既有視覺差異仍需單獨核對：產業債匯商品面板桌機 332px（baseline 380px，-48px）、手機 439px（baseline 448px，-9px）；另有其他面板幾何差異，功能 smoke test 不等於逐像素視覺核可。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+## 2026-10-26 遷移紀錄：四個方法／資料口徑 disclosure 統一接管（第七組，驗收待執行）
+
+- 候選基線 DOM 有 4 個 `details[style*="margin-top:8px"]`：其中 2 個原本已使用 `compact-disclosure`，另外 2 個是未分類的純 inline-style disclosure；摘要分別為「資料來源與統計口徑」、「資料時間與快照口徑」、「價位計算方式與資料來源」、「核心觀察更新與失敗處理」。
+- 候選建置器提交 `1dc581ae1846adc11fb3a3b3f5247fb3d0526ef8`：把四個元素統一標記為 `tac-ds-disclosure tac-ds-disclosure--method`，移除這四個元素上的 inline style，並要求匹配數必須恰好為 4，否則建置失敗。
+- 舊 CSS 清理提交 `9968a4eb72a8272c68e07d37e5bc04831cb6bf03`：移除只服務於這四個 inline-style disclosure 的舊摘要列／箭頭規則；新元件已定義外距、摘要字級／顏色、箭頭與內容樣式。
+- 回歸測試提交 `f84aad1019d10c656380c9bb654283a078bc335c`：新增硬性驗收條件，要求每個視窗恰有 4 個 `.tac-ds-disclosure--method`，且 0 個仍帶 `margin-top:8px` inline style 的該元件。
+- GitHub Actions [run 40262457451](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40262457451) 已觸發，目前為 queued；在下載並檢查 artifact 前，不將此組標記為驗收通過。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
