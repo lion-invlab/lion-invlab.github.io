@@ -129,3 +129,5 @@ Retry after stale Playwright install; verify region/sector and sentiment dark di
 Retry after normalizing computed CSS padding serialization in source disclosure assertion 2026-10-26T12:20:00+08:00
 
 Layout-drift diagnosis: expand detailed DOM geometry capture for overview, news, industry and S&P earnings panels at 320/390/1440. 2026-10-26T11:25+0800
+
+Compare baseline and candidate internal DOM geometry at all three viewports before layout changes. 2026-10-26T11:30+0800
