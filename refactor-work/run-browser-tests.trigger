@@ -225,3 +225,5 @@ Run 177: capture computed typography for representative bond, FX, energy, and pr
 Run 172: verify removal of the five-selector block 95 heading color escalation; block 94 must continue styling all five target headings identically across desktop, mobile, and narrow mobile.
 
 Run 179: verify removal of block 91 bonds-name typography selectors now covered by design-system.css; compare computed style for bonds, FX, energy, and precious-metal rows on desktop/mobile/narrow mobile.
+
+Run 180: verify removal of block 91 FX name selectors now covered by design-system.css .instrument-name rules; energy and precious-metal bare-bold selectors remain unchanged.
