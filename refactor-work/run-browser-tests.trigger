@@ -116,3 +116,4 @@ sector-row-legacy-rules-removed 8904b7d91be62648211b19377ec4de196c068253
 
 Architecture step 5: remove superseded generic sector-row rules; validate canonical sector component at 320/390/1440. 2026-10-26T09:00+0800
 Sentiment source disclosure legacy styling handoff 2026-10-26T09:00:00+08:00
+Source-details legacy marker override removal 2026-10-26T09:10:00+08:00
