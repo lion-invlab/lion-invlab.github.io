@@ -5,7 +5,7 @@ Scope: verify 11 sector rows use the unified grid/card style and responsive radi
 Retry sector row radius assertion after correcting expected desktop/mobile values.
 
 Rerun sector disclosure toggle test with state-independent assertion.
-rerun-sector-disclosure-after-scroll-stabilization-2026-10-25T0017+0800
+rerun-sector-disclosure-after-scroll-stabilization-2026-10-25
 rerun-sector-disclosure-close-state-2026-10-25
 actual-earnings-card-pilot-2026-10-25
 regex-guard-fix-rerun-2026-10-25
@@ -156,7 +156,7 @@ Run 143: verify Fed and View geometry restoration at desktop and standard mobile
 
 Run 144: measure paired calendar/earnings tab-row and content-region geometry at all three viewport sizes.
 
-Run 145: compare calendar event-group and empty-state heights between baseline and candidate.
+Run 145: compare baseline and candidate calendar event-group and empty-state heights.
 
 Run 146: verify calendar empty-state and tab-row geometry restoration at desktop, mobile and narrow mobile.
 
@@ -168,7 +168,7 @@ Run 149: verify economic-event shell migration after removing duplicate legacy o
 
 Run 150: verify economic-event summary metadata migration and five-star red styling across all viewports.
 
-Run 151: verify economic-event detail-field grid and responsive styles after legacy selector removal.
+Run 151: verify economic event-list wrapper migration and five-star red styling across all viewports.
 
 Run 152: verify event summary ownership and removal of unused econ-toggle CSS selectors.
 
@@ -242,18 +242,17 @@ Run 185: inspect block 48 desktop row-name typography overlap against design-sys
 
 Run 187: verify precious-metal name typography stays 16px/1.35 after removing block 91 legacy selectors; keep FX selector and validate all four product groups across desktop/mobile/narrow mobile.
 
-
 Run 188: rerun after fixing dangling commas in retained legacy FX typography selectors; verify CSS parses and FX/bonds/energy/metals computed styles plus all viewport smoke checks. 2026-10-26
 
 Run 189: verify removing block 48 .row .name/.label selectors unused by the baseline DOM; preserve bold names, compact numeric values, and all desktop/mobile/narrow-mobile checks.
 
-Run 190: verify repaired block 48 .row b selector after removing unused .name/.label selectors; inspect artifact and all viewport styles. 2026-10-26
+Run 190: verify repaired block 48 .row b selector after removing unused .name/.label selectors; all viewport styles and artifact inspected. 2026-10-26
 
 Run 190: verify removing block 47 .tab-panel .title small selector with zero DOM matches while preserving .tab-panel-meta typography and all viewport regressions.
 
 Run 192: remove only redundant block 48 .row .up selector (all 7 hits are also .r); verify 1440/390/320 computed styles and interactions. 2026-10-26
 
-Run 193: remove only redundant block 48 .row span.r selector (all 26 hits are already .row .r); verify computed styles and all viewport interactions. 2026-10-26
+Run 193: remove only redundant block 48 span.r selector (all 26 hits are already .row .r); verify computed styles and all viewport interactions. 2026-10-26
 
 Run 194: remove only redundant block 48 span[style*=font-weight] selector (all 3 hits are also .r); verify styles and viewport regressions. 2026-10-26
 
@@ -299,5 +298,6 @@ Run 214: trace every matched letter-spacing declaration on representative global
 
 Run 215: verify the single canonical instrument-name typography rule after removing its redundant mobile duplicate; assert 16px/21.6px/700 across global markets, bonds, FX, energy and metals at 1440/390/320 widths, with values retaining responsive sizing and no layout regressions. 2026-10-26
 
-
 Run 214: explicitly serialize canonical instrument-name letter spacing as 0px and inspect computed style plus CSSOM on 1440/390/320; verify all category names and numeric typography remain unchanged. 2026-10-26T16:55+0800
+
+Run 217: add strict all-name typography assertions across every global-market and industry instrument name; verify exactly one canonical rule and preserve all numeric quote sizes at 1440/390/320. 2026-10-26T17:10+0800
