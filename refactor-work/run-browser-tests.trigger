@@ -325,3 +325,6 @@ Run 227: distinguish local component geometry drift using inter-sibling gap delt
 
 
 Run 228: restore S&P 500 title and method-disclosure baseline geometry at 320px after Run 227 identified padding/summary-height deltas; rerun typography, interactions, and 1440/390/320 regression checks. 2026-10-26Tcontinued
+
+
+Run 229: fine-tune 320px S&P 500 heading line-height and method-summary min-height after Run 228 narrowed residual panel delta to 1px; verify all viewport smoke, typography, interaction and geometry checks. 2026-10-26Tcontinued
