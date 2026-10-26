@@ -1627,3 +1627,26 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 #sp500-earnings-health > .tac-section-heading h2 {
   gap: 10px !important;
 }
+
+
+/* Canonical main-heading contract (pilot): use the same marker geometry and
+   text offset for legacy .title headings and tabset h2 headings.
+   Shared tokens make the gap a single point of control instead of panel fixes. */
+:root {
+  --tac-heading-marker-width: 5px;
+  --tac-heading-marker-gap: 12px;
+  --tac-heading-marker-color: var(--tac-ds-color-brand);
+}
+main.wrap .card > .title,
+main.wrap .tac-section-heading h2,
+.tac-ds-panel > .title,
+.tac-ds-panel > .tac-section-heading h2 {
+  box-sizing: border-box !important;
+  border-left: var(--tac-heading-marker-width) solid var(--tac-heading-marker-color) !important;
+  padding-left: var(--tac-heading-marker-gap) !important;
+}
+main.wrap .tac-section-heading h2::before,
+.tac-ds-panel > .tac-section-heading h2::before {
+  content: none !important;
+  display: none !important;
+}
