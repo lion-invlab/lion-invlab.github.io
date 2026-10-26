@@ -165,3 +165,5 @@ Run 147: verify calendar empty-state typography using baseline font size and nor
 Run 148: verify small news-scan/global-market panel-height deltas after scoped nav sizing.
 
 Run 149: verify economic-event shell migration after removing duplicate legacy outer-shell selectors.
+
+Run 150: verify economic-event summary metadata migration and five-star red styling across all viewports.
