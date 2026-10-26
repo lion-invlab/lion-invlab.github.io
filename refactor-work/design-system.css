@@ -1389,3 +1389,12 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   gap: 10px;
   margin: 8px 0 12px;
 }
+
+/* Earnings accordion-list wrapper ownership. */
+#earnings .earnings-accordion-list,
+#last-week-earnings .earnings-accordion-list {
+  display: grid;
+  gap: 9px;
+  margin: 8px 0 12px;
+  min-width: 0;
+}
