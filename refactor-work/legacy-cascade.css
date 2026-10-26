@@ -264,7 +264,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 
 /* V25：本週財報改為可個別收折卡片 */
 .earnings-accordion-list{display:grid;gap:9px;margin:8px 0 12px;min-width:0}
-.earnings-accordion{border:1px solid var(--line,#dedede);border-radius:12px;background:#fff;overflow:hidden;min-width:0}
+
 .earnings-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;min-width:0}
 .earnings-accordion>summary::-webkit-details-marker{display:none}
 .earnings-summary-main{min-width:0;flex:1}
@@ -575,20 +575,20 @@ body.release-ready .news-window-warning { display: none !important; }
 #calendar .calendar-status-heading.today,#earnings .calendar-status-heading.today{background:#fff4e5;color:#945600;border-color:rgba(149,86,0,.18)}
 #calendar .calendar-status-heading.upcoming,#earnings .calendar-status-heading.upcoming{background:#eef4ff;color:#2459a9;border-color:rgba(36,89,169,.16)}
 /* Shared premium accordion interaction for all calendar expand/collapse panels */
-#calendar details.calendar-collapse,#earnings details.calendar-collapse,#earnings details.earnings-accordion{border:1px solid rgba(60,60,67,.14);border-radius:16px;background:rgba(255,255,255,.92);box-shadow:0 2px 9px rgba(20,24,35,.045);overflow:hidden;transition:box-shadow .2s ease,border-color .2s ease}
+#calendar details.calendar-collapse,#earnings details.calendar-collapse{border:1px solid rgba(60,60,67,.14);border-radius:16px;background:rgba(255,255,255,.92);box-shadow:0 2px 9px rgba(20,24,35,.045);overflow:hidden;transition:box-shadow .2s ease,border-color .2s ease}
 #calendar details.calendar-collapse,#earnings details.calendar-collapse{padding:0;margin:10px 0 14px}
 #calendar details.calendar-collapse>summary,#earnings details.calendar-collapse>summary{min-height:58px;padding:12px 14px;background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%);gap:9px}
 #calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;flex:0 0 29px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:20px;font-weight:500;box-shadow:0 3px 8px rgba(198,40,40,.17)}
-#calendar details.calendar-collapse[open],#earnings details.calendar-collapse[open],#earnings details.earnings-accordion[open]{border-color:rgba(198,40,40,.22);box-shadow:0 5px 17px rgba(20,24,35,.075)}
+#calendar details.calendar-collapse[open],#earnings details.calendar-collapse[open]{border-color:rgba(198,40,40,.22);box-shadow:0 5px 17px rgba(20,24,35,.075)}
 #calendar details.calendar-collapse[open]>summary,#earnings details.calendar-collapse[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%)}
 #calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
 
 
 
 #calendar details.calendar-collapse .event-group,#earnings details.calendar-collapse .event-group{padding:0 10px 10px}
-#earnings details.earnings-accordion{margin:8px 0}
-#earnings details.earnings-accordion>summary{background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%)}
-#earnings details.earnings-accordion[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%)}
+
+
+
 @media(max-width:700px){#calendar details.calendar-collapse>summary,#earnings details.calendar-collapse>summary{padding:12px 10px;gap:7px}#calendar .calendar-status-heading,#earnings .calendar-status-heading{font-size:12px}}
 @media(prefers-reduced-motion:reduce){#calendar details,#earnings details{transition:none!important}}
 
