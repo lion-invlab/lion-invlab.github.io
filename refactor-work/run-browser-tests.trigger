@@ -252,3 +252,5 @@ Run 190: verify repaired block 48 .row b selector after removing unused .name/.l
 Run 190: verify removing block 47 .tab-panel .title small selector with zero DOM matches while preserving .tab-panel-meta typography and all viewport regressions.
 
 Run 192: remove only redundant block 48 .row .up selector (all 7 hits are also .r); verify 1440/390/320 computed styles and interactions. 2026-10-26
+
+Run 193: remove only redundant block 48 .row span.r selector (all 26 hits are already .row .r); verify computed styles and all viewport interactions. 2026-10-26
