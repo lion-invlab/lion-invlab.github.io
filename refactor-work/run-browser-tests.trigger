@@ -322,3 +322,6 @@ Run 226: compare panel-relative child offsets rather than absolute document coor
 
 
 Run 227: distinguish local component geometry drift using inter-sibling gap deltas in addition to panel-relative offsets; keep CSS unchanged and rerun all viewport regressions. 2026-10-26Tcontinued
+
+
+Run 228: restore S&P 500 title and method-disclosure baseline geometry at 320px after Run 227 identified padding/summary-height deltas; rerun typography, interactions, and 1440/390/320 regression checks. 2026-10-26Tcontinued
