@@ -344,3 +344,6 @@ Run 234: refine 320px news geometry after Run 233 measured tab row 38px vs 48px 
 
 
 Run 235: verify corrected 320px news tab selector and restore news-card padding after Run 234 showed the 46px tab rule did not match actual DOM labels and card padding overshot baseline. Rerun 1440/390/320 geometry, typography, navigation, interaction, and overflow suite. 2026-10-26T19:45+0800
+
+
+Run 236: capture nested child geometry inside #news-scan tab panel/news cards and #view .focus-tabs at 320px, compare baseline and candidate to isolate the remaining -11px news and +7px Today Focus deltas. Diagnostic only: no CSS changes; retain full 1440/390/320 typography, interaction, navigation and overflow checks. 2026-10-26T19:55+0800
