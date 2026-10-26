@@ -436,15 +436,7 @@ history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important
 .last-week-calendar-collapse{margin-top:10px}.last-week-calendar-collapse .calendar-status-group{margin-top:10px}
 .last-week-earnings-collapse{margin-top:10px}.last-week-earnings-collapse .calendar-status-group{margin-top:10px}
 
-/* Compact disclosures: align with the small grey triangle source rows */
-main.wrap details.compact-disclosure{margin-top:8px!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;padding:0!important;box-shadow:none!important}
-main.wrap details.compact-disclosure>summary{display:flex!important;align-items:center!important;gap:5px!important;padding:2px 0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#747b84!important;font-size:11px!important;font-weight:800!important;list-style:none!important;box-shadow:none!important}
-main.wrap details.compact-disclosure>summary::-webkit-details-marker{display:none!important}
-main.wrap details.compact-disclosure>summary::marker{content:""!important}
-main.wrap details.compact-disclosure>summary::before{content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;width:auto!important;height:auto!important;min-height:0!important;margin:0 1px 0 0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#747b84!important;-webkit-text-fill-color:#747b84!important;font-size:11px!important;font-weight:700!important;line-height:1!important;box-shadow:none!important;transform:none!important}
-main.wrap details.compact-disclosure[open]>summary::before{transform:rotate(90deg)!important}
-main.wrap details.compact-disclosure>summary::after{content:none!important;display:none!important}
-main.wrap details.compact-disclosure>div{padding:8px 0!important;border:0!important;background:transparent!important;color:#626a73!important;font-size:11px!important;line-height:1.6!important}
+/* Compact disclosure visuals are owned by .tac-ds-disclosure--method. */
 
 
 /* 發布版規則：只有全部驗收完成、明確加上 body.release-ready 後，才隱藏內部審核提示；審核版仍保留警示。 */
