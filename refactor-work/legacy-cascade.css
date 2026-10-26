@@ -1510,7 +1510,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-w
   font-variant-numeric:tabular-nums!important;
   white-space:nowrap!important;
 }
-html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
 html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
   font-size:16px!important;
   line-height:1.5!important;
@@ -1521,7 +1520,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
    html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
  html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
  html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"],
- html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
  html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
    font-size:15px!important;
  }
