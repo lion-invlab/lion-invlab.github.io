@@ -319,3 +319,6 @@ Run 225: add baseline-vs-candidate child geometry diagnostics for overview, news
 
 
 Run 226: compare panel-relative child offsets rather than absolute document coordinates, so upstream vertical shifts do not masquerade as local component drift. Keep CSS unchanged; rerun typography, visual smoke, interaction, and 320/390/1440 geometry checks. 2026-10-26Tcontinued
+
+
+Run 227: distinguish local component geometry drift using inter-sibling gap deltas in addition to panel-relative offsets; keep CSS unchanged and rerun all viewport regressions. 2026-10-26Tcontinued
