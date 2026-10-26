@@ -1525,3 +1525,20 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     gap: 8px;
   }
 }
+
+/* Prior-week wide detail-field variant ownership. */
+#last-week-earnings .tac-ds-earnings-card .earnings-detail-field.wide {
+  border: 1px solid #e5e7eb;
+  border-radius: 11px;
+  padding: 11px 12px;
+  background: #fbfcfe;
+}
+#last-week-earnings .tac-ds-earnings-card .earnings-detail-field.wide label {
+  font-size: 12px;
+  font-weight: 900;
+  color: #596170;
+}
+#last-week-earnings .tac-ds-earnings-card .earnings-detail-field.wide .earnings-detail-value {
+  font-size: 13px;
+  line-height: 1.65;
+}
