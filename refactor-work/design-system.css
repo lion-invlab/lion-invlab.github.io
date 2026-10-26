@@ -1200,3 +1200,31 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
     display: none !important;
   }
 }
+
+
+/* Fed and View geometry parity: restore baseline outer spacing while retaining compact shared tab styling. */
+@media (min-width: 381px) {
+  #fed,
+  #view {
+    padding: 16px !important;
+  }
+  #fed > .fed-live-title {
+    padding: 0 !important;
+    margin-bottom: 10px !important;
+  }
+  #fed .fed-live-tabs {
+    min-height: 346px !important;
+  }
+  #view > .today-focus-title {
+    padding: 0 !important;
+    margin-bottom: 11px !important;
+  }
+  #view .focus-tabs {
+    min-height: 167px !important;
+  }
+}
+@media (min-width: 381px) and (max-width: 700px) {
+  #view .focus-tabs {
+    min-height: 249px !important;
+  }
+}
