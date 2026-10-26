@@ -163,3 +163,16 @@
 - 桌機全頁截圖高度 baseline 5147px、candidate 5165px，尺寸不同所以未計算全頁 pixel diff；不得把此結果描述成像素級完全一致。
 - 本次僅變更隔離重構分支的測試程式、觸發檔與工作紀錄；正式首頁、正式母版、JSON 與排程未修改。
 - 下一步：統一 320px 三組主頁籤字體尺寸並加入嚴格斷言；之後重新跑三尺寸回歸，再繼續 Gate 4 尚未完成的內層元件遷移與 legacy 規則清理。
+
+
+## 2026-10-26 — Run #220 窄螢幕頁籤字級統一回歸通過
+
+- GitHub Actions Run #220: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40297490428 — `success`；commit `38c2686b41d119cd18e735a4c199dfebdb179398`。
+- 1440／390／320px 三種 viewport 的完整瀏覽器回歸通過；320px 版主頁籤字級斷言已納入測試。
+- 320px 下新聞、全球市場、產業債匯商品三組主頁籤均為 12px、white-space nowrap；產業頁籤使用 6px 水平 padding，其餘兩組 7px，均無換行或水平溢出。
+- 390px 下三組主頁籤均為 12px；1440px 下均為 13px，保留原本響應式字級規則。
+- 主要互動、六個行事曆狀態頁籤、15 個來源／方法 disclosure、兩個上週 disclosure、新聞／經濟事件／財報／產業 ETF／上週實際財報卡等檢查均通過；新增瀏覽器錯誤 0，缺失面板／重複 ID／未匹配導覽／水平溢出均為 0。
+- 幾何差異仍未視為完成驗收：320px overview 高度差 -62px、新聞掃描 -25px、S&P 500 財報健康 -34px、Fed -5px、觀察版面 +4px；390px overview -1px、S&P 500 財報健康 -2px；桌機 overview +18px。這些值需後續逐區塊對照 baseline/candidate，不能只因自動化通過就判定視覺已完全一致。
+- 商品名稱共用字體仍通過：27 個名稱在三種寬度均為 16px／21.6px／700；每種寬度僅一條 canonical rule；54 個報價值逐項對照唯讀基準，未改動報價字體。
+- 本次所有變更仍限於 `tac-design-system-work-2026-10-24` 隔離分支；正式首頁、正式母版、JSON 與排程未修改。
+- 下一步：優先定位 320px overview -62px、新聞 -25px 與 S&P 500 財報健康 -34px 的實際來源，區分有意的共享元件間距變更與非預期的內容／換行差異；一次只調整可證明原因的 CSS，並重跑三尺寸回歸。
