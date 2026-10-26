@@ -274,3 +274,5 @@ Run 201: remove only generic block 48 .row line-height:1.5 declaration; retain a
 Run 202: remove the remaining block 48 align-items:center!important declaration; base .row already defines centered alignment and instrument-specific rules do not override it. Verify row geometry and all viewport interactions. 2026-10-26
 
 Run 203: remove only block 48 generic row b line-height:1.5!important; keep font-weight and letter-spacing, as specific bond/FX/energy/metal name rules already provide 21.6px line-height. Verify all typography and viewport geometry. 2026-10-26
+
+Run 204: remove only block 48 generic row b font-weight:700!important; retain letter-spacing:0!important because Run 197 showed the letter-spacing reset is necessary. Verify all four instrument name weights and typography across viewports. 2026-10-26
