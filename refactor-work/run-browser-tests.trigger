@@ -120,3 +120,5 @@ Source-details legacy marker override removal 2026-10-26T09:10:00+08:00
 Method disclosure component ownership migration 2026-10-26T09:20:00+08:00
 
 Calendar source disclosure component ownership migration 2026-10-26T09:35:00+08:00
+
+Dead calendar-source selector cleanup; verify no matching candidate DOM element and rerun regression 2026-10-26T09:45:00+08:00
