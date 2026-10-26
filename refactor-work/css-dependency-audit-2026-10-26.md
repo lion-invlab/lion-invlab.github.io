@@ -192,3 +192,11 @@
 - 已在設計系統 CSS 移除產業 tab 專屬 44px 最小高度，提升 mobile grid selector specificity，並移除 320px 舊 flex 覆寫，保留窄螢幕字體／padding 設定。修正提交 `62d350c567c854f9d8bc7cd849a5e71f253fa6f1`。此修正目標是讓三種寬度都維持兩列 grid，並使桌機主頁籤尺寸斷言一致；尚未以新 artifact 證實。
 - 下一步觸發完整瀏覽器驗收，檢查三個 viewport 的 tabs display／高度、桌機三組主頁籤樣式一致性、紅色五星數與所有既有互動。若仍失敗，依新 artifact 繼續修正，不將任何未驗收的 CSS 當作完成。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業頁籤回歸驗收（Run 134 通過；剩餘幾何差異保留）
+
+- Run 134 [40266693614](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40266693614) completed / success；artifact `12626339205` 已下載並檢查 `results.json` 與 `summary.md`。三種 viewport 均 `errors=[]`、新增瀏覽器錯誤為 0；16 個五星紅色 glyph 全部符合，桌機新聞／全球市場／產業三組主頁籤樣式一致，產業頁籤三種寬度皆為 grid，tab 與 disclosure 互動正常。
+- 修正已解決 320px 被舊 flex 規則覆寫的問題：候選窄手機導覽列現在為 grid、70px，而非上一輪 flex、35px。桌機導覽列 72px（baseline 96px），390px 70px（baseline 89px），320px 70px（baseline 89px）。因此目前已恢復 grid 排列及通過硬性回歸，但高度仍比基準短 19–24px，尚不能標記為幾何完全一致。
+- 產業整體面板高度目前桌機 396px（baseline 380px，+16）、手機 471px（baseline 448px，+23）、窄手機 458px（baseline 502px，-44）。差異同時受頁籤列與資料列高度影響；不以加大 tab 高度破壞三組主頁籤一致性，也不盲目增加間距。下一步應單獨對照 baseline／candidate 的產業 tab padding、row-gap 與 sector-row 內部文字換行，先確認最小可逆調整，再做下一輪驗收。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
