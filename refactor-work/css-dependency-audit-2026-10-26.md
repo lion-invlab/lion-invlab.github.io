@@ -176,3 +176,11 @@
 - 新聞卡在候選版大多維持原高度或增加約 2–3px；窄手機多數卡片約 -9px，但個別長文字卡因換行增加高度。S&P 500 財報健康區的主要內層區塊桌機高度相同；窄手機有一個 grid 區塊由 266px 變 235px（-31px），其餘多數內層高度相同。這些項目應分開檢查內容換行與容器寬度，不能只用整頁高度推斷。
 - 本輪只增加並驗證量測工具，未修改任何 CSS；目前尚未批准或實施幾何回復。下一步先讀取候選版與 frozen baseline 對應的 tabs／sector-row 原始 computed-style 及 CSS 規則，判定哪些變動是預期的元件標準化、哪些是真正非預期漂移，再逐元件做最小修正及回歸。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業頁籤幾何修正回合（Run 132 失敗，已修正並重跑）
+
+- Run 132 [40266019186](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40266019186) completed / failure。artifact `12626188393` 已檢查：瀏覽器無新增 JS error，其他互動多數通過；硬性驗收失敗項為 desktop 的 16 個紅色五星 glyph 計數回傳 0（手機與窄手機均為 16），此項與產業頁籤 CSS 改動沒有已知直接關聯，須以重跑確認是否為測試波動或穩定問題。
+- 同一 artifact 的幾何數據顯示前一輪 CSS 改動並未完全恢復基準：桌面頁籤列 84px（baseline 96px），390px 為 70px（baseline 89px），320px 仍錯誤落入 `display:flex`、35px。檢查 CSS 後發現更新時 media rule 的 selector 區塊被不完整替換，造成窄螢幕規則不完整；已修復整段 CSS 區塊，改為明確的 grid selector，並設定頁籤最小高度 44px。
+- 修正提交 `15cb57b2f669d3d80e4890aedb72276f3a558982`；回歸觸發提交 `fd0bb5b14f3a324ca5ab802774ccda5371ff8a20`。新 run `40266309905` 已排入隊列，尚未驗收。不得把 Run 132 標記為通過。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
