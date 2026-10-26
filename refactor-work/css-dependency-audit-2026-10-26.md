@@ -545,3 +545,12 @@
 - 將 legacy block 47 中商品列的 align/font-size/line-height/font-weight/letter-spacing/數字對齊與手機覆寫移除；保留只由 block 47 負責的 `.tab-panel-meta` 與 `.title small` 字級規則。後續 block 48 使用相同範圍的 row selectors，且同樣含有手機媒體條件，原先較早的列字級宣告均被後續規則覆蓋。
 - 驗收：`errors=[]`；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺少面板、重複 ID或新增瀏覽器錯誤；三種 viewport 商品名稱仍維持 16px，與全球主要股市商品名稱字級一致；財報 22 張、經濟事件 12 張與相關互動正常。
 - 下一步盤點 block 48 與 block 91 的關係：block 48 控制所有 tab-panel row 的 16px/1.5 排版，block 91 對債券、匯率、能源、貴金屬的特定 `b` 標籤強制 16px/1.35。兩者 line-height 不同且命中範圍不同，不能直接刪 block 48；先用 computed-style 診斷把四個分頁各種 row 的 line-height、font-size 與 selector 命中記錄出來。
+
+
+## Run 178 驗收：移除 block 95 重複主標題顏色升級規則
+
+- Run 178：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40284368436；artifact 12634030221 的 `results.json` 與 `summary.md` 已解壓檢查。
+- 移除 block 95 對 overview、上週經濟行事曆、上週財報、calendar、earnings 五個標題的高 specificity 酒紅色重複宣告。block 94 的一般標題規則仍命中全部五個目標，computed color 沒有改變。
+- 驗收：頂層 errors=[]；桌機 1440、手機 390、窄手機 320 均 `horizontalOverflow=false`、`missingPanels=[]`、`duplicateIds=[]`、`newErrors=[]`；12 個主標題診斷可正常輸出，五個目標標題三種 viewport 均為酒紅 `rgb(180,35,50)`，市場情緒標題均為白色。財報 22 張、經濟事件 12 張、實際財報卡 14 張；財報手風琴開／關正常。
+- Pixel diff 存在，但與先前設計系統抽取分支的既有差異一致；本次只刪除 color escalation，主面板幾何無顯著變動，沒有新的瀏覽器錯誤。
+- 下一個最小候選：block 91 的 `#industry-bonds-fx-commodities #bonds .row>b` 及其手機覆寫，與 design-system.css 中 `#industry-bonds-fx-commodities #bonds .row b` 同樣指定 16px/1.35；只考慮從 block 91 的 selector group 移除債券這一項，保留匯率、能源、貴金屬選擇器，並用 Run 179 驗證各分頁 computed style。
