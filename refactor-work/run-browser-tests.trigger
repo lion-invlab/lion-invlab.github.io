@@ -191,3 +191,5 @@ Run 160: verify removal of redundant generic earnings-results and actual-card st
 Run 161: verify prior-week actual-card styles moved to design system and no result-card visual regressions.
 
 Run 162: verify prior-week earnings result-grid ownership after removing legacy !important chains.
+
+Run 163: verify prior-week wide detail-field variant migration.
