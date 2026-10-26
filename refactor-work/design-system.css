@@ -1131,40 +1131,25 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   color: #c62828 !important;
 }
 
-/* Normalize instrument-name letter spacing across bonds, FX, energy, and metals. */
-html body #industry-bonds-fx-commodities .tac-tab-panel .row b {
+/* Canonical instrument-name typography.
+   Global markets and every industry instrument category share one declaration.
+   Quote/percentage spans (.r) remain independently responsive. */
+#global-markets .row > b,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+  font-weight: 700 !important;
   letter-spacing: 0 !important;
 }
-
-/* Match bond / FX / commodity instrument names to the global-markets instrument size. */
-#industry-bonds-fx-commodities #bonds .row b,
-#industry-bonds-fx-commodities .row .instrument-name,
-#industry-bonds-fx-commodities .row b.instrument-name {
-  font-size: 16px !important;
-  line-height: 1.35 !important;
-}
 @media (max-width: 700px) {
-  #industry-bonds-fx-commodities #bonds .row b,
-  #industry-bonds-fx-commodities .row .instrument-name,
-  #industry-bonds-fx-commodities .row b.instrument-name {
+  #global-markets .row > b,
+  html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     font-size: 16px !important;
+    line-height: 1.35 !important;
+    font-weight: 700 !important;
+    letter-spacing: 0 !important;
   }
 }
-
-/* Keep energy instrument names aligned with global-market names on narrow screens.
-   This intentionally outranks the older generic 15px row-label rule while leaving values at their compact size. */
-html body #industry-bonds-fx-commodities .tac-tab-panel .energy-card .row > b {
-  font-size: 16px !important;
-  line-height: 1.35 !important;
-}
-
-/* Precious-metal instrument names use the same 16px/1.35 treatment.
-   The ID-scoped panel selector outranks the legacy generic mobile row label rule. */
-#industry-bonds-fx-commodities #tac-assets-panel-4 .row > b {
-  font-size: 16px !important;
-  line-height: 1.35 !important;
-}
-
 
 /* Direction B — narrow-screen refinement only (320px class of devices).
    Keep the current segmented-tab and card visual language; prevent the five
