@@ -1652,27 +1652,28 @@ main.wrap .tac-section-heading h2::before,
 }
 
 
-/* Shared prior-week accordion summary/control geometry.
-   Economic and earnings rows must reserve the same trailing control column and
-   use identical box sizing/padding so expand text and chevron align. */
-#last-week-calendar details > summary,
-#last-week-earnings details > summary {
+/* Shared prior-week event-row summary/control geometry.
+   Scope to the actual event accordions only; never style the outer panel disclosure. */
+#last-week-calendar details.tac-ds-event > summary,
+#last-week-earnings details.tac-ds-event > summary,
+#last-week-earnings details.tac-ds-earnings-card > summary {
   box-sizing: border-box !important;
   width: 100% !important;
   min-width: 0 !important;
-  display: grid !important;
-  grid-template-columns: minmax(0, 1fr) 24px !important;
-  align-items: center !important;
-  column-gap: 12px !important;
-  padding: 12px 14px !important;
   text-align: left !important;
 }
-#last-week-calendar details > summary > :first-child,
-#last-week-earnings details > summary > :first-child {
-  min-width: 0 !important;
+#last-week-calendar details.tac-ds-event > summary {
+  grid-template-columns: minmax(0, 1fr) 24px !important;
+  column-gap: 12px !important;
 }
-#last-week-calendar details > summary::after,
-#last-week-earnings details > summary::after {
+#last-week-earnings details.tac-ds-event > summary,
+#last-week-earnings details.tac-ds-earnings-card > summary {
+  grid-template-columns: minmax(0, 1fr) 24px !important;
+  column-gap: 12px !important;
+}
+#last-week-calendar details.tac-ds-event > summary::after,
+#last-week-earnings details.tac-ds-event > summary::after,
+#last-week-earnings details.tac-ds-earnings-card > summary::after {
   box-sizing: border-box !important;
   width: 24px !important;
   min-width: 24px !important;
@@ -1680,9 +1681,9 @@ main.wrap .tac-section-heading h2::before,
   text-align: center !important;
 }
 @media (max-width: 700px) {
-  #last-week-calendar details > summary,
-  #last-week-earnings details > summary {
-    padding: 10px 11px !important;
+  #last-week-calendar details.tac-ds-event > summary,
+  #last-week-earnings details.tac-ds-event > summary,
+  #last-week-earnings details.tac-ds-earnings-card > summary {
     column-gap: 10px !important;
   }
 }
