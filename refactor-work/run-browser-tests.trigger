@@ -126,3 +126,4 @@ Method disclosure inline-style migration: normalize 4 elements, remove legacy se
 Fix disclosure block normalization and preserve summary typography; rerun browser regression 2026-10-26T11:30:00+08:00
 Region/sector source disclosure typography migration; assert four summary signatures 2026-10-26T11:45:00+08:00
 Retry after stale Playwright install; verify region/sector and sentiment dark disclosure CSS ownership 2026-10-26T12:05:00+08:00
+Retry after normalizing computed CSS padding serialization in source disclosure assertion 2026-10-26T12:20:00+08:00
