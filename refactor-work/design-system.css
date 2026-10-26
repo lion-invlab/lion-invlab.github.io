@@ -580,8 +580,6 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector {
     border-radius: 9px;
   }
-  #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label b { font-size: 13px; }
-  #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .sector-label small { font-size: 10px; }
   #industry-bonds-fx-commodities .sector-collapse .tac-ds-data-row--sector .r { font-size: 13px; }
 }
 
