@@ -695,3 +695,11 @@
 - workflow success；errors=[]；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導覽錨點、7 組分頁、來源 disclosure、經濟事件／財報收合與商品分頁／收合互動通過。
 - 本輪移除 block 48 的通用 .row b 規則（font-size、line-height、font-weight、letter-spacing）。設計系統與原有特定名稱規則仍使債券、FX、能源、貴金屬名稱三種 viewport 均為 16px／21.6px／700；FX 名稱保持 normal 字距，能源名稱仍保留 -0.4px 字距與 nowrap；商品數值桌機 16px／24px、手機 15px／22.5px，tabular-nums 與 nowrap 不變。所有 4 組 row typography 診斷一致，商品名稱契約通過。
 - 下一步不直接刪除 block 48 通用 .row 規則：它還控制 align-items、font-size、line-height，可能影響未被名稱／數值專屬 selector 覆蓋的後代。先盤點 13 個商品列的 direct children 及其 computed styles，確認 .row 規則對哪些元素仍有實際作用，再挑選最小安全遷移單位。
+
+
+## Run 199 驗收：商品名稱字級宣告移交後的回歸與 direct-child inventory
+
+- Run 198 在測試步驟與 artifact 上傳完成後，因 Run 199 新觸發而被取消；Run 198 artifact 12635466184 的 `results.json` 已檢查，但不把該 workflow 標為 success。Run 199 完整成功：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40289625295；artifact 12636345240 已檢查。
+- Run 199 errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導航、7 組分頁、來源 disclosure、事件／財報收合、商品分頁與收合互動通過。債券、FX、能源、貴金屬名稱皆為 16px／21.6px／700，字距與 Run 196 的基線一致；報價桌機 16px、手機 15px。
+- Run 199 candidate-build.html 的 DOM inventory：產業商品區共 13 列，每列只有 3 個 direct children：1 個 `b` 名稱與 2 個 `.r` 報價／漲跌元素；沒有其他直接子元素依賴 row 的繼承字級。13 個名稱由具體 bonds／FX／energy／metals selector 覆蓋；26 個數值由 `.row .r` 覆蓋。
+- 下一個最小候選：只移除 block 48 通用 `.row` 的 `font-size:16px!important`，保留 `align-items:center` 與 `line-height:1.5`。直接子元素都有各自的字級規則；Run 200 將檢查所有 computed styles、列高、幾何及互動，若任何繼承樣式變動即恢復。
