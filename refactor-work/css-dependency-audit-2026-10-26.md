@@ -424,3 +424,11 @@
 - 將 #last-week-earnings 的 detail 容器方向、結果 grid 兩欄、gap、透明背景／零 padding、寬度／min-width、卡片 sizing 與手機 gap 收斂為設計系統 scoped rule；從 legacy 移除 8 條 FIX v2/v3／approved-preview 的重複結果 grid 覆寫。
 - Artifact 12629703653 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；結果卡 14 張、財報手風琴 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；圓角桌機 12px、手機／窄手機 10px；面板幾何與 Run 161 一致。
 - 剩餘 #last-week-earnings 專用 legacy 規則主要是 detail-field.wide 外觀與一條 summary visibility 修正；下一步移交 wide 欄位樣式，summary visibility 先保留直到確認它沒有遮蔽其他狀態。
+
+
+## 2026-10-26 上週財報 wide detail-field 移交（Run 163 通過）
+
+- 設計系統提交：51112026165ef685ad71985fbe92c2353022dc91；legacy 清理提交：3610b4ab17ecd1c4a2d54548bddcb7e5c3742b40；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40275372651。
+- 將 #last-week-earnings 專用 wide detail-field 的 border、radius、padding、background、label 字級／字重／色彩與 value 字級／行高移入設計系統，從 legacy 移除 3 條精確覆寫。
+- Artifact 12629303192 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；結果卡 14 張、財報手風琴 22 張、經濟事件卡 12 張、五星紅字 16；手風琴開／關與來源 disclosure 開／關通過；面板幾何與 Run 162 一致。
+- 財報元件剩餘 #last-week-earnings legacy 例外只剩 summary 的 display／visibility 保險規則及其他非元件級的來源／內容樣式；下一步先核對這條保險規則是否有其他 display:none／visibility:hidden 對手，再移除或記錄保留原因。
