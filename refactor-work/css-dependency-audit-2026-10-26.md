@@ -703,3 +703,10 @@
 - Run 199 errors=[]；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；導航、7 組分頁、來源 disclosure、事件／財報收合、商品分頁與收合互動通過。債券、FX、能源、貴金屬名稱皆為 16px／21.6px／700，字距與 Run 196 的基線一致；報價桌機 16px、手機 15px。
 - Run 199 candidate-build.html 的 DOM inventory：產業商品區共 13 列，每列只有 3 個 direct children：1 個 `b` 名稱與 2 個 `.r` 報價／漲跌元素；沒有其他直接子元素依賴 row 的繼承字級。13 個名稱由具體 bonds／FX／energy／metals selector 覆蓋；26 個數值由 `.row .r` 覆蓋。
 - 下一個最小候選：只移除 block 48 通用 `.row` 的 `font-size:16px!important`，保留 `align-items:center` 與 `line-height:1.5`。直接子元素都有各自的字級規則；Run 200 將檢查所有 computed styles、列高、幾何及互動，若任何繼承樣式變動即恢復。
+
+
+## Run 200 驗收：移除通用 .row 字級宣告
+
+- Run 200：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290055427；artifact 12635786678 已下載並檢查 `results.json`、`summary.md`。workflow success，`errors=[]`；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，主要導航錨點及互動測試通過。
+- 本輪只移除 block 48 通用 `.row` 的 `font-size:16px!important`。13 個名稱仍由專屬規則呈現 16px／21.6px／700；26 個數值桌機 16px／24px、手機 15px／22.5px；四組商品列 computed typography 一致，三種 viewport 的產業商品面板高度與前輪相同。
+- 下一候選：移除通用 `.row` 的 `line-height:1.5!important`，保留 `align-items:center!important`。DOM inventory 中 13 個名稱由專屬 `b` 規則提供 21.6px 行高，26 個數值由 `.row .r` 提供 24px／22.5px 行高；下一輪需再核對每一種 viewport 的直接子元素行高、列高、面板幾何與互動，若有變化即恢復。
