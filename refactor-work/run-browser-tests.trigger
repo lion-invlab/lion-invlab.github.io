@@ -177,3 +177,5 @@ Run 153: verify economic event-list wrapper migration and card layout across all
 Run 154: verify earnings accordion shell migration across all 22 cards and open/close states.
 
 Run 155: verify earnings accordion-list wrapper migration and all accordion interactions.
+
+Run 156: capture final computed styles for earnings accordion shell, summary and toggle at desktop/mobile widths.
