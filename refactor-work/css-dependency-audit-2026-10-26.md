@@ -710,3 +710,10 @@
 - Run 200：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290055427；artifact 12635786678 已下載並檢查 `results.json`、`summary.md`。workflow success，`errors=[]`；桌機 1440、手機 390、窄手機 320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，主要導航錨點及互動測試通過。
 - 本輪只移除 block 48 通用 `.row` 的 `font-size:16px!important`。13 個名稱仍由專屬規則呈現 16px／21.6px／700；26 個數值桌機 16px／24px、手機 15px／22.5px；四組商品列 computed typography 一致，三種 viewport 的產業商品面板高度與前輪相同。
 - 下一候選：移除通用 `.row` 的 `line-height:1.5!important`，保留 `align-items:center!important`。DOM inventory 中 13 個名稱由專屬 `b` 規則提供 21.6px 行高，26 個數值由 `.row .r` 提供 24px／22.5px 行高；下一輪需再核對每一種 viewport 的直接子元素行高、列高、面板幾何與互動，若有變化即恢復。
+
+
+## Run 201 驗收：移除通用商品列 line-height
+
+- Run 201：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40290286474；artifact 12636475788 已檢查 `results.json` 與 `summary.md`。workflow success；errors=[]；1440、390、320 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤，主要導覽與互動測試通過。
+- 本輪只移除 block 48 通用 `.row` 的 `line-height:1.5!important`。row 容器的 computed line-height 變為 `normal`，但 13 個名稱仍為 21.6px，26 個數值仍為桌機 24px／手機 22.5px；產業商品面板高度與 Run 200 相同（桌機 380px、手機 448px、窄手機 502px），無幾何回歸。
+- 下一個候選：移除 block 48 剩餘的 `align-items:center!important`。舊 CSS 的基礎 `.row` 已定義 `align-items:center`，13 個商品列的專屬規則只改欄寬／間距，未覆寫對齊；Run 202 將驗證移除高 specificity 宣告後，實際對齊、列高、面板幾何及互動是否不變。
