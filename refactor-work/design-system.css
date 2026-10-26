@@ -1158,11 +1158,12 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
 }
 
 
-/* Direction B follow-up — reduce excess vertical spacing between narrow news items
-   without reducing type size, clipping text, or changing card order/content. */
+/* Direction B follow-up — remove excess narrow-screen gaps between news cards.
+   Keep readable typography and complete text; do not alter order or content. */
 @media (max-width: 380px) {
   #news-scan .newsitem {
     padding-top: 6px !important;
     padding-bottom: 6px !important;
+    margin-bottom: 0 !important;
   }
 }
