@@ -1239,8 +1239,8 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
 #earnings .week-earnings-panels .calendar-status-empty.tac-ds-empty {
   margin-top: 0 !important;
   padding: 12px 14px !important;
-  font-size: 12px !important;
-  line-height: 1.6 !important;
+  font-size: 13px !important;
+  line-height: normal !important;
 }
 @media (max-width: 700px) {
   #calendar .week-econ-tab-labels.tac-ds-tabs--equal-3,
