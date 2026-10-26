@@ -97,3 +97,5 @@ fix-exact-five-star-economic-and-earnings-markers-2026-10-26
 architecture-audit-five-star-parser-fix-2026-10-26
 
 computed-five-star-color-assertion-2026-10-26
+
+Strict assertions enabled: fail on all recorded errors; require 16 red five-star glyphs and exactly 8 five-star earnings cards. Trigger 2026-10-26T01:40Z
