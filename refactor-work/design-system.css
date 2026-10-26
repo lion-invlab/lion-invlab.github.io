@@ -1613,3 +1613,12 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     padding: 16px !important;
   }
 }
+
+
+/* Heading-bar spacing refinement: keep the red accent bar visually separated
+   from heading text in the three lower report panels, without changing type size. */
+#calendar > .title,
+#earnings > .title,
+#sp500-earnings-health > .title {
+  padding-left: 10px !important;
+}
