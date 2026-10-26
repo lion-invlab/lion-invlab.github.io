@@ -555,6 +555,89 @@ body.release-ready .news-window-warning { display: none !important; }
   font-weight:500!important;
 }
 #fed.fed-compact-preview .fc-source a{font-weight:650!important}
+
+/* TAC 全站資料來源／口徑收折統一：比照全球主要股市，左緣對齊、灰色小字、三角形 */
+main.wrap details.source-details,
+main.wrap details.calendar-source-collapse,
+main.wrap details.earnings-source-collapse,
+main.wrap details.calendar-口徑-collapse,
+main.wrap details[style*="margin-top:8px"]{
+  margin-left:0!important;
+}
+main.wrap details.source-details>summary,
+main.wrap details.calendar-source-collapse>summary,
+main.wrap details.earnings-source-collapse>summary,
+main.wrap details.calendar-口徑-collapse>summary,
+main.wrap details[style*="margin-top:8px"]>summary{
+  display:flex!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:5px!important;
+  padding:2px 0!important;
+  margin:0!important;
+  text-align:left!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+  font-weight:650!important;
+  color:#747b84!important;
+  -webkit-text-fill-color:#747b84!important;
+  cursor:pointer!important;
+  list-style:none!important;
+}
+main.wrap details.source-details>summary::-webkit-details-marker,
+main.wrap details.calendar-source-collapse>summary::-webkit-details-marker,
+main.wrap details.earnings-source-collapse>summary::-webkit-details-marker,
+main.wrap details.calendar-口徑-collapse>summary::-webkit-details-marker,
+main.wrap details[style*="margin-top:8px"]>summary::-webkit-details-marker{display:none!important}
+main.wrap details.source-details>summary::marker,
+main.wrap details.calendar-source-collapse>summary::marker,
+main.wrap details.earnings-source-collapse>summary::marker,
+main.wrap details.calendar-口徑-collapse>summary::marker,
+main.wrap details[style*="margin-top:8px"]>summary::marker{content:""!important}
+main.wrap details.source-details>summary::before,
+main.wrap details.calendar-source-collapse>summary::before,
+main.wrap details.earnings-source-collapse>summary::before,
+main.wrap details.calendar-口徑-collapse>summary::before,
+main.wrap details[style*="margin-top:8px"]>summary::before{
+  content:"▸"!important;
+  display:inline-block!important;
+  flex:0 0 10px!important;
+  width:10px!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  line-height:1!important;
+  color:#747b84!important;
+  -webkit-text-fill-color:#747b84!important;
+  transform:rotate(0deg)!important;
+  transition:transform .15s ease!important;
+}
+main.wrap details.source-details[open]>summary::before,
+main.wrap details.calendar-source-collapse[open]>summary::before,
+main.wrap details.earnings-source-collapse[open]>summary::before,
+main.wrap details.calendar-口徑-collapse[open]>summary::before,
+main.wrap details[style*="margin-top:8px"][open]>summary::before{transform:rotate(90deg)!important}
+main.wrap details.source-details>summary:after,
+main.wrap details.calendar-source-collapse>summary:after,
+main.wrap details.earnings-source-collapse>summary:after,
+main.wrap details.calendar-口徑-collapse>summary:after,
+main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;display:none!important}
+main.wrap details.source-details .source,
+main.wrap details.calendar-source-collapse p,
+main.wrap details.earnings-source-collapse p,
+main.wrap details.calendar-口徑-collapse p{
+  font-size:11px!important;
+  line-height:1.6!important;
+  color:#747b84!important;
+  text-align:left!important;
+}
+/* 明確保留例外：市場情緒 VIX／MOVE／CNN Fear & Greed 與 FedWatch 不套用本次統一 */
+#sentiment details.source-details>summary{display:inline-flex!important;width:auto!important;gap:5px!important;padding:2px 0!important}
+#sentiment details.source-details>summary:before{content:"＋"!important;flex:0 0 auto!important;width:auto!important;transform:none!important}
+#sentiment details.source-details[open]>summary:before{content:"－"!important;transform:none!important}
+#fed details.fedwatch-time>summary{display:block!important;width:auto!important;padding:2px 0!important}
+#fed details.fedwatch-time>summary:before{content:none!important;display:none!important}
 </style>
 <meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
 /* V23: economic calendar rows converted into individually expandable event cards */
