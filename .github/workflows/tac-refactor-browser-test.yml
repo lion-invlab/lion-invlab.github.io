@@ -41,6 +41,7 @@ jobs:
         run: |
           node refactor-work/visual-smoke-test.mjs
           node refactor-work/instrument-typography-audit.mjs
+          node refactor-work/panel-child-geometry-diagnostic.mjs
 
       - name: Upload screenshots and test report
         if: always()
