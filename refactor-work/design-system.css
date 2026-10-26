@@ -599,6 +599,14 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 }
 #earnings details.tac-ds-earnings-card > summary,
 #last-week-earnings details.tac-ds-earnings-card > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 14px;
+  min-width: 0;
   border-radius: 12px;
   background: #f7f8fa;
   transition: background-color .16s ease;
@@ -617,7 +625,11 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   #earnings details.tac-ds-earnings-card,
   #last-week-earnings details.tac-ds-earnings-card { border-radius: 10px; }
   #earnings details.tac-ds-earnings-card > summary,
-  #last-week-earnings details.tac-ds-earnings-card > summary { border-radius: 10px; }
+  #last-week-earnings details.tac-ds-earnings-card > summary {
+    border-radius: 10px;
+    padding: 12px 11px;
+  }
+  #earnings details.tac-ds-earnings-card > summary { gap: 8px; }
 }
 
 
