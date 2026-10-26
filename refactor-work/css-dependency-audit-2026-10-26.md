@@ -332,3 +332,12 @@
 - 將事件 summary 的 list marker suppression、grid 列配置、cursor、gap 與 padding 移入 .tac-ds-event；檢查候選 DOM 後確認沒有任何 .econ-toggle 元素，故同步移除 6 組只作用於不存在 toggle 元素的舊 CSS selector。未改變 summary 的 DOM 結構，也未新增 toggle 元素。
 - Artifact 12628564839 已檢查：桌面／手機／窄手機 errors=[]、無水平溢出、缺少面板、重複 ID；事件卡 12 張、財報卡 22 張、五星紅字 16；事件卡開／關、來源 disclosure 開／關通過；圓角仍為桌機 12px、手機／窄手機 10px；版面幾何與 Run 151 一致。
 - 下一步可把 .econ-event-list 容器的 grid／gap／margin 移入設計系統，移除 legacy 的單一通用 wrapper rule；其後再評估事件卡內部剩餘相依與財報手風琴。
+
+
+## 2026-10-26 經濟事件列表容器移交（Run 153 通過）
+
+- 設計系統提交：57b1d929a08fa7fa8806849fb3b9014bb247e64d；legacy 清理提交：0a6d535d0a322b17ae350f8182ff6f0fed742830；驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40272897835。
+- 將 econ-event-list 的 grid、gap 與 margin 移入設計系統，從 legacy 移除原本單一通用 wrapper 規則。
+- Artifact 12628914680 已檢查：三種 viewport errors=[]、無水平溢出、缺少面板、重複 ID；事件卡 12 張、財報卡 22 張、五星紅字 16；事件開／關與來源 disclosure 開／關通過；外框圓角桌機 12px、手機／窄手機 10px，面板幾何與 Run 152 一致。
+- 盤點確認 legacy-cascade.css 中已沒有 econ-event、econ-meta、econ-name、econ-details、econ-field、econ-toggle 或 econ-event-list selector 命中；經濟事件卡的外框、summary、metadata、內部欄位與列表容器已由 design-system.css 接管。這代表經濟事件元件的舊 selector 相依已清零；不等於整份 legacy CSS 可以移除，其他元件仍有大量相依。
+- 下一個候選是 earnings-accordion（舊 CSS 仍有大量 selector 命中、設計系統目前主要接管外框）；先量出其內部結構／樣式責任與候選 DOM 覆蓋率，再逐步移交。
