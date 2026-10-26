@@ -2121,7 +2121,7 @@ main section[id] { scroll-margin-top: 0; }
 <div class="title" style="color:#fff!important">市場情緒</div>
 <div class="sent">
 <div class="sbox"><div class="label"><span class="label-en">VIX</span> <span class="label-zh">｜恐慌指數</span></div><strong>18.39</strong><span class="down">-5.45%</span><details class="source-details"><summary>資料來源</summary><div class="source">依使用者提供的 Google 搜尋截圖：INDEXCBOE: VIX 為 18.39，當日下跌 1.06（5.45%）；截圖標示 2026/10/26 下午 3:15 CDT。此值以使用者截圖為今日指定依據。</div></details></div>
-<div class="sbox"><div class="label"><span class="label-en">MOVE</span><span class="label-zh">｜債市波動率</span></div><strong>102.19</strong><span class="flat">-1.08%</span><details class="source-details"><summary>資料來源</summary><div class="source">依使用者提供的 Google Finance 截圖：MOVE 102.19，變動 -1.12（-1.08%）；截圖標示 2026/10/26 4:17 PM EDT，當日高點 104.42、低點 102.18、前收 103.31。此為截圖所示指數資料，非美國財政部官方數據。</div></details></div>
+<div class="sbox"><div class="label"><span class="label-en">MOVE</span><span class="label-zh">｜債市波動率</span></div><strong>102.19</strong><span class="down">-1.08%</span><details class="source-details"><summary>資料來源</summary><div class="source">依使用者提供的 Google Finance 截圖：MOVE 102.19，變動 -1.12（-1.08%）；截圖標示 2026/10/26 4:17 PM EDT，當日高點 104.42、低點 102.18、前收 103.31。此為截圖所示指數資料，非美國財政部官方數據。</div></details></div>
 <section class="sbox cnn-fg-preview" aria-label="CNN Fear and Greed preview">
   <div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span> <span class="label-zh">｜恐懼與貪婪指數</span></div>
   <div class="fg6-date">CNN 官方頁面截圖｜2026/10/26｜27/100</div>
@@ -3374,6 +3374,16 @@ main.wrap [data-main-section-title]{
 #sentiment .sbox .up{color:var(--red)!important}
 #sentiment .sbox .down{color:var(--green)!important}
 #sentiment .sbox .warn{color:#e0b84f!important}
+
+/* 市場情緒漲跌百分比統一字級；漲紅跌綠 */
+#sentiment .sbox>span.up,
+#sentiment .sbox>span.down,
+#sentiment .sbox>span.flat,
+#sentiment .sbox>span.warn{
+  font-size:14px!important;
+  line-height:1.35!important;
+  font-weight:800!important;
+}
 </style>
 <script id="tac-toolbar-hand-target-v15-js">
 (function(){
