@@ -738,3 +738,9 @@
 - Run 204：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291119029；artifact 12636446632 已下載並檢查 `results.json`。workflow success；`errors=[]`；1440、390、320 三種 viewport 均無水平溢出、缺失面板、重複 ID或新增瀏覽器錯誤；7 組分頁、來源 disclosure、經濟事件、財報收合及商品分頁／收合通過。
 - 本輪只移除 block 48 通用名稱規則的 `font-weight:700!important`。四類名稱仍由語意元素 `b` 呈現 700 字重，字距維持 normal，名稱字級／行高仍是 16px／21.6px；報價桌機 16px／24px、手機 15px／22.5px，版面幾何不變。
 - 下一步：把最後剩餘的 `letter-spacing:0!important` 從 legacy block 48 移入 design-system.css，保留完全相同 selector 與重要性。Run 197 已證明這個字距重設不能直接刪除；Run 205 會驗證遷移後四類名稱的 computed letter-spacing、字級／行高、三種 viewport 幾何與互動。若能源名稱再度出現負字距，立即回復。
+
+
+## Run 205 狀態：Playwright 安裝停滯，尚無驗收結果
+
+- Run 205：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40291363732 在 `Install Playwright` 超過兩分鐘仍未完成，候選建置與瀏覽器測試未開始，尚無 artifact。此 run 不算通過，也不能判斷 letter-spacing 遷移結果。
+- Run 206 將在不改動 CSS 的情況下重跑同一隔離分支版本；若 Run 205 被新觸發取消，只記錄為基礎設施重試。
