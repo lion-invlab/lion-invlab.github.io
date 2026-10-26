@@ -184,3 +184,11 @@
 - 同一 artifact 的幾何數據顯示前一輪 CSS 改動並未完全恢復基準：桌面頁籤列 84px（baseline 96px），390px 為 70px（baseline 89px），320px 仍錯誤落入 `display:flex`、35px。檢查 CSS 後發現更新時 media rule 的 selector 區塊被不完整替換，造成窄螢幕規則不完整；已修復整段 CSS 區塊，改為明確的 grid selector，並設定頁籤最小高度 44px。
 - 修正提交 `15cb57b2f669d3d80e4890aedb72276f3a558982`；回歸觸發提交 `fd0bb5b14f3a324ca5ab802774ccda5371ff8a20`。新 run `40266309905` 已排入隊列，尚未驗收。不得把 Run 132 標記為通過。
 - 正式首頁、正式母版、JSON 資料與排程未修改。
+
+
+## 2026-10-26 產業頁籤 CSS 再修正（Run 133 失敗，修正後待驗收）
+
+- Run 133 [40266309905](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40266309905) completed / failure。artifact `12626700849` 已檢查；三個 viewport 的紅色五星均為 16，瀏覽器新增錯誤為 0，主要互動正常。失敗原因是產業頁籤的規則與其他主頁籤規格不一致（桌機產業頁籤 min-height 44px，而新聞／全球市場為 28px），且 320px 的舊窄螢幕規則仍將產業頁籤導覽列覆寫成 flex，實際高度 35px，未恢復 frozen baseline 的兩列 grid。
+- 已在設計系統 CSS 移除產業 tab 專屬 44px 最小高度，提升 mobile grid selector specificity，並移除 320px 舊 flex 覆寫，保留窄螢幕字體／padding 設定。修正提交 `62d350c567c854f9d8bc7cd849a5e71f253fa6f1`。此修正目標是讓三種寬度都維持兩列 grid，並使桌機主頁籤尺寸斷言一致；尚未以新 artifact 證實。
+- 下一步觸發完整瀏覽器驗收，檢查三個 viewport 的 tabs display／高度、桌機三組主頁籤樣式一致性、紅色五星數與所有既有互動。若仍失敗，依新 artifact 繼續修正，不將任何未驗收的 CSS 當作完成。
+- 正式首頁、正式母版、JSON 資料與排程未修改。
