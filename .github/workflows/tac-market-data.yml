@@ -1,5 +1,5 @@
 name: TAC Market Data Collection (Review Branch)
-# Manual refresh requested for 2026-10-26 review; schedule and workflow behavior unchanged.
+# Manual refresh requested for 2026-10-27 05:10 Asia/Taipei review; schedule and workflow behavior unchanged.
 # Manual rerun trigger 2026-10-26T19:xx+08:00: refresh SOX/VIX/MOVE/CNN/FedWatch snapshots for review.
 
 on:
