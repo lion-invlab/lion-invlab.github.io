@@ -1131,6 +1131,11 @@ main.wrap details.audit-details[open] > summary::before { content: "▾" !import
   color: #c62828 !important;
 }
 
+/* Normalize instrument-name letter spacing across bonds, FX, energy, and metals. */
+html body #industry-bonds-fx-commodities .tac-tab-panel .row b {
+  letter-spacing: 0 !important;
+}
+
 /* Match bond / FX / commodity instrument names to the global-markets instrument size. */
 #industry-bonds-fx-commodities #bonds .row b,
 #industry-bonds-fx-commodities .row .instrument-name,
