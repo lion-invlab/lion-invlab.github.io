@@ -1544,6 +1544,32 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 
 
+/* S&P 500 narrow-mobile geometry parity: preserve baseline title and compact method summary. */
+@media (max-width: 380px) {
+  #sp500-earnings-health > .title {
+    padding: 0 !important;
+    gap: 12px !important;
+    margin-bottom: 11px !important;
+  }
+  #sp500-earnings-health details.tac-ds-disclosure--method > summary {
+    display: list-item !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    line-height: normal !important;
+    box-shadow: none !important;
+  }
+  #sp500-earnings-health details.tac-ds-disclosure--method > summary::before {
+    content: none !important;
+    display: none !important;
+  }
+}
+
 /* S&P 500 320px geometry parity: keep the report's original content width.
    The 10px outer shell override made metric notes wider and removed a line
    from two notes, reducing the internal grid by 31px. Restore baseline shell
