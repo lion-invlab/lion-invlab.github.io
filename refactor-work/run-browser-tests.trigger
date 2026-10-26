@@ -127,3 +127,5 @@ Fix disclosure block normalization and preserve summary typography; rerun browse
 Region/sector source disclosure typography migration; assert four summary signatures 2026-10-26T11:45:00+08:00
 Retry after stale Playwright install; verify region/sector and sentiment dark disclosure CSS ownership 2026-10-26T12:05:00+08:00
 Retry after normalizing computed CSS padding serialization in source disclosure assertion 2026-10-26T12:20:00+08:00
+
+Layout-drift diagnosis: expand detailed DOM geometry capture for overview, news, industry and S&P earnings panels at 320/390/1440. 2026-10-26T11:25+0800
