@@ -419,3 +419,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Global-market panel now exactly matches baseline at all three widths: 477/477px desktop, 578/578px at 390px, 722/722px at 320px. Root cause was confirmed as the region source disclosure's extra 2px margin plus 1px border; targeted correction removed both without altering the shared arrow/text treatment.
 - News panel residual: +1px desktop and 390px, -1px at 320px. Industry panel residual: exact desktop, +1px at 390px, -1px at 320px. These are isolated 1px rounding/card-edge differences; do not add fragile nth-child or outer-panel compensation rules. Overview cumulative geometry is +3px desktop/390px and -2px at 320px; summary card remains independently baseline-matched.
 - CSS commit: 9ab643d0067629d6f9d524f7ea1cf06c14a47b6f. This closes the global-market +4px geometry issue. Next step is a focused audit of remaining legacy overrides and component migration candidates, not further arbitrary 1px compensation.
+
+
+### Run #279 — CSS cascade cleanup follow-up
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491813328 — **success**. Global-market geometry exactly matches baseline at 1440/390/320px; news/industry residuals remain within ±1px, and all typography audits pass.
+- Refactor follow-up: consolidated the verified main-tab geometry and computed label signatures into one canonical block. Removed the superseded compact news-tab rules and duplicate narrow-mobile news overrides only after replacement behavior had passed browser regression. Preserved the separate Fed/Today Focus narrow-mobile rules, the validated 40px global-market hit target, source disclosure styling, and news-card geometry corrections.
+- CSS cleanup commit: 70749de6de0a29d7bcc13dba290b923c78452414. Full regression pending; this is a cascade cleanup, not yet accepted until tests finish.
