@@ -461,3 +461,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Regression accepted: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40510250622 — **success**. This established a passing baseline before further cleanup.
 - Computed styles show the canonical main-tab block supersedes three older industry row-height declarations (36/36 desktop, 32/33 mobile, 38/39 narrow phone), a narrow-phone industry label padding/font block, and a duplicate global-market `min-height: 40px` declaration. Removed only these demonstrably overridden declarations; canonical row heights, 320px nowrap, and validated hit targets remain unchanged.
 - Cleanup commit: f3b5be37128553c90a5f291197ed748e4630e539. Full regression pending; no claim of acceptance until Run #285 completes.
+
+
+### Run #285 — runner setup cancellation; not an acceptance result
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40510684448. The candidate build completed, but the job was cancelled during Playwright/Ubuntu dependency installation after long, stalled package downloads; desktop/mobile smoke tests were cancelled and did not run. This is an environment/setup interruption, not evidence that the CSS change passed or failed.
+- The cleanup from commit f3b5be37128553c90a5f291197ed748e4630e539 remains **pending regression acceptance**. No additional CSS changes made.
+- Started Run #286 as a fresh retry with the same candidate and no CSS changes. Do not proceed with further CSS deletion until a complete browser regression finishes.
