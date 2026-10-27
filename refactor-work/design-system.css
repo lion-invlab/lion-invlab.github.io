@@ -1181,12 +1181,12 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 #news-scan .newsitem {
   margin-bottom: 0 !important;
 }
-/* Narrow-mobile news-card vertical rhythm: retain the compact card spacing
-   while child-level card geometry is investigated; no fixed panel height. */
+/* Narrow-mobile news-card geometry parity: match the legacy 11px vertical
+   rhythm while offsetting the shared card's 1px side borders to preserve the
+   baseline text width and wrapping. No fixed panel height. */
 @media (max-width: 380px) {
   #news-scan .newsitem {
-    padding-top: 6px !important;
-    padding-bottom: 6px !important;
+    padding: 11px 8px !important;
   }
   #news-scan .tac-tab-panel {
     padding-bottom: 11px !important;
