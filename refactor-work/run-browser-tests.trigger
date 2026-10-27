@@ -406,3 +406,5 @@ Run 274: diagnostic news-card geometry details after nav parity.
 Run 275: full regression after news metadata line-height parity and expanded global panel diagnostics.
 
 Run 276: full regression after 1px news-card padding trim and global-panel child diagnostics.
+
+Run 277: inspect direct child boxes in global-market active tab panel.
