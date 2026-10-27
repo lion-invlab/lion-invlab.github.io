@@ -1181,14 +1181,15 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 #news-scan .newsitem {
   margin-bottom: 0 !important;
 }
-/* Narrow-mobile news cards: restore the measured baseline card padding
-   (11px 9px); do not compensate for card geometry by forcing panel height. */
+/* Narrow-mobile news-card vertical rhythm: retain the compact card spacing
+   while child-level card geometry is investigated; no fixed panel height. */
 @media (max-width: 380px) {
   #news-scan .newsitem {
-    padding: 11px 9px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
   }
   #news-scan .tac-tab-panel {
-    padding-bottom: 10px !important;
+    padding-bottom: 11px !important;
   }
 }
 
