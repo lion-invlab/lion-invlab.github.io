@@ -385,3 +385,4 @@ overview-bluf-real-selector-geometry-2026-10-27
 summary-card-geometry-aa18461
 heading-vertical-geometry-90a429a
 mobile-tab-gap-fix-20261027-acc5b110
+mobile-tab-nav-margin-fix-20261027-d8dd182
