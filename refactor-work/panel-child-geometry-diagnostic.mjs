@@ -160,6 +160,13 @@ for (const viewport of results) {
     const baseHeight = baselinePanel?.panelRect?.height;
     const candidateHeight = candidatePanel?.panelRect?.height;
     console.log(`[${viewport.width}px] #${panel.id}: panel ${baseHeight}px -> ${candidateHeight}px (Δ ${candidateHeight - baseHeight}px)`);
+    if (["news-scan", "global-markets", "industry-bonds-fx-commodities"].includes(panel.id)) {
+      for (const selector of [".tac-section-heading", ".tac-section-heading h2", ".tac-tab-nav", ".tac-tab-panel"]) {
+        const pick = item => (item?.deepGeometry || []).filter(el => selector === ".tac-tab-panel" ? el.className.includes("tac-tab-panel") : selector === ".tac-tab-nav" ? el.className.includes("tac-tab-nav") : selector === ".tac-section-heading h2" ? el.tag === "H2" && el.className.includes("tac-section-title") : el.className.includes("tac-section-heading")).map(el => ({text: el.text.slice(0,35), top:el.rect.relativeTop, height:el.rect.height, padding:el.style.padding, margin:el.style.margin, lineHeight:el.style.lineHeight}));
+        const before = pick(baselinePanel), after = pick(candidatePanel);
+        if (before.length || after.length) console.log(`  DETAIL ${selector}: baseline=${JSON.stringify(before)} candidate=${JSON.stringify(after)}`);
+      }
+    }
     const baseDeep = baselinePanel?.deepGeometry || [];
     const candidateDeep = candidatePanel?.deepGeometry || [];
     const deepKey = item => [item.tag, item.id, item.className, item.text].join("|");
