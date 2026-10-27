@@ -1,0 +1,1950 @@
+<!-- TAC 長期制式母版｜週一版
+實際版型來源：2026/10/23 測試分支內已調整的「index_母版_修正測試_週一.html」。
+2026/10/26 早報僅是這條修正流程的起始基礎，不是本母版的直接來源。
+本檔保留經修正測試版驗收的版面、欄位、互動與樣式；日期相關示範資料僅供參考，產製每日審核版前必須按製作規則全量更新。
+-->
+<!-- TAC 製作規則層（內部規範，不顯示給讀者）
+1. 週別口徑：週一早報回顧上週整體市場與原先判斷，再展望本週；週二至週五只分析上一個實際交易日，不做上週回顧。休市時依最近一個實際交易日判定。
+2. 圖釘評論原則：不反覆抄寫漲跌幅，應解釋漲跌原因、後勢情境及投資應對／建議。
+3. 資料補齊同步：任何行情或數據修正後，逐一同步相關摘要、觀察、核心觀察、圖釘評論及總結；評論須以最新已核實資料為依據。
+4. 新聞規則：全球焦點新聞與市場熱門頭條使用同一台灣時間窗口；依原始發布時間與事件獨立性篩選。不得以頁面更新時間冒充原始發布時間；無法核實者剔除或明確標示待驗收。
+5. 審核狀態：每次修改內容或完成驗收，必須同步更新可見審核狀態；已完成項目移出待辦，未完成項目不得標示完成。交付前重新讀取檔案，核對正文、評論、總結與狀態。
+6. 發布分層：本檔審核版保留必要的內部驗收提示；正式發布版須在所有相關項目驗收完成後，才移除內部提示。不得只隱藏警示而未完成驗收。
+7. 這段規範只記錄在本日審核 HTML 原始碼中；仍須同步至正式週一／週二至週五母版及交接規則檔，才算完成長期制度化。
+-->
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>TAC 投資早報｜2026/10/28（三）獨立審核預覽</title>
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#17191d;--muted:#737981;--line:#e1e4e8;--red:#c62828;--green:#16834c;--black:#202328;--amber:#a56b00}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.top{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line)}.topin{max-width:1540px;margin:auto;padding:14px 22px 8px;display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo i{font-style:normal;color:var(--red)}.status{font-size:12px;color:var(--muted)}
+.nav{max-width:1540px;margin:auto;padding:0 22px 11px;display:flex;gap:5px;overflow:auto;white-space:nowrap}.nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:7px 10px;border-radius:7px}.nav a:hover,.nav a.active{background:var(--black);color:#fff}.nav a.vol{background:#000;color:#ffd400}
+.wrap{max-width:1540px;margin:auto;padding:18px 22px 42px}.grid{display:grid;gap:14px}.kpi{grid-template-columns:repeat(8,1fr)}.two{grid-template-columns:1.25fr .75fr}.three{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;box-shadow:0 1px 2px #00000008}.label{font-size:13px;color:var(--muted);font-weight:850;letter-spacing:.3px;line-height:1.35}.kpi .label small{display:block;font-size:10px;line-height:1.2;font-weight:700;color:var(--muted);margin-top:2px}.value{font-size:22px;font-weight:950;margin-top:5px;font-variant-numeric:tabular-nums}.chg{font-size:12px;font-weight:900;margin-top:3px}.up{color:var(--red)}.down{color:var(--green)}.flat{color:var(--muted)}.warn{color:var(--amber)}
+.title{font-size:23px;line-height:1.3;font-weight:950;margin-bottom:11px;display:flex;justify-content:space-between;align-items:center}.title small{font-size:10px;color:var(--muted);font-weight:750;white-space:nowrap}.bluf{border-left:4px solid var(--red)}.bluf h1{font-size:22px;line-height:1.38;margin:0 0 8px}.bluf p{margin:0;color:#4e535a;line-height:1.65}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{font-size:10px;border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-weight:850}
+.sent{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.sent>.sbox:last-child{grid-column:1/-1}.sbox{border:1px solid var(--line);border-radius:8px;padding:11px}.sbox strong{display:block;font-size:22px;margin:3px 0}.source{font-size:10px;color:var(--muted);line-height:1.55}
+.calendar-source-collapse{margin-top:6px;font-size:11px;color:var(--muted)}.calendar-source-collapse>summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:5px;opacity:.82}.calendar-source-collapse>summary::-webkit-details-marker{display:none}.calendar-source-collapse>summary:before{content:"▸";font-size:11px;transition:transform .15s}.calendar-source-collapse[open]>summary:before{transform:rotate(90deg)}.calendar-source-collapse .source{padding:5px 0 0 15px}.row{display:grid;grid-template-columns:1.5fr .9fr .65fr;gap:8px;padding:8px 0;border-bottom:1px solid #eee;align-items:center}.row b{font-size:16px;line-height:1.35;text-align:left}.row b small{display:block;font-size:12px;line-height:1.25;font-weight:700;color:#555}.row:last-child{border-bottom:0}.r{text-align:right;font-variant-numeric:tabular-nums}.b{font-weight:850}
+table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);font-size:10px;text-align:right;padding:7px 6px;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;font-variant-numeric:tabular-nums}tr:last-child td{border-bottom:0}
+.event{display:grid;grid-template-columns:58px 1fr 68px;gap:8px;padding:9px 0;border-bottom:1px solid #eee}.event:last-child{border:0}.event .d{font-weight:950;color:var(--red)}.event b{display:block}.event span{font-size:10px;color:var(--muted);line-height:1.5}.impact{text-align:right;font-weight:900}.high{color:var(--red)}
+.callout{padding:12px;border-radius:8px;background:#fafafa;border:1px solid var(--line);line-height:1.65;font-size:12px}.key{font-size:12px;line-height:1.7}.key b{font-weight:950}.pill{display:inline-block;border-radius:99px;padding:3px 7px;font-size:10px;font-weight:900;border:1px solid var(--line);margin-left:5px}
+.newsitem{padding:8px 0;border-bottom:1px solid #eee}.newsitem:last-child{border-bottom:0}.newsitem h3{font-size:16px;line-height:1.4;margin:0 0 5px;font-weight:850}.newsitem p{font-size:11px;color:#555b63;line-height:1.55;margin:0}.newsmeta{font-size:9px;color:var(--muted);margin-top:4px}
+.footer{max-width:1540px;margin:auto;padding:0 22px 40px;color:var(--muted);font-size:10px;line-height:1.6}
+@media(max-width:1200px){.kpi{grid-template-columns:repeat(4,1fr)}.three,.two{grid-template-columns:1fr}.sent{grid-template-columns:repeat(3,minmax(0,1fr))}.sent>.sbox:last-child{grid-column:1/-1}}@media(max-width:700px){.title{font-size:19px;gap:8px;min-width:0}.title small{font-size:9px;white-space:nowrap;flex-shrink:0}.earnings-health>.title{font-size:clamp(14px,4.1vw,19px);white-space:nowrap;letter-spacing:-.45px;gap:5px}.earnings-health>.title small{display:none}.calendar-card>.title{font-size:17px;white-space:nowrap;letter-spacing:-.4px}.calendar-card>.title small{font-size:8px;letter-spacing:0}.topin{padding:12px 14px 8px}.status{display:none}.nav{padding:0 14px 10px}.wrap{padding:12px 14px 30px}.kpi{grid-template-columns:repeat(2,1fr)}.sent{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.sent .sbox{padding:8px 7px;min-width:0}.sent .label{font-size:11px;letter-spacing:0;overflow-wrap:anywhere}.sent .sbox strong{font-size:19px}.sent .sbox .up,.sent .sbox .down,.sent .sbox .warn{font-size:12px}.value{font-size:20px}.bluf h1{font-size:19px}.row{grid-template-columns:1.2fr .9fr .65fr}.footer{padding:0 14px 30px}}
+.report-date{font-size:.62em;font-weight:700;margin-left:5px;white-space:nowrap;color:#17191d}
+.market-reason{margin-top:12px;padding:10px 12px;border-left:4px solid var(--red);background:#fafafa;border-radius:6px;font-size:11px;line-height:1.65;color:#444}
+.market-reason b{color:var(--red)}
+#bonds .row b{white-space:nowrap}
+#bonds .bond-head{display:grid;grid-template-columns:1.55fr .8fr .8fr .55fr;gap:8px;padding:0 0 5px;font-size:10px;color:var(--muted);font-weight:850;text-align:right}
+#bonds .bond-head span:first-child{text-align:left}
+#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr}
+#bonds .prev-rate{color:#737981}
+@media(max-width:700px){#bonds .bond-head{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row{grid-template-columns:1.55fr .8fr .8fr .55fr;gap:5px}#bonds .row b{font-size:14px;white-space:nowrap}#bonds .bond-head{font-size:9px}}
+@media(max-width:700px){.report-date{font-size:.58em}.market-reason{font-size:11px}}
+.headline-desc{line-height:1.6;margin:7px 0 6px;display:block;overflow:visible;white-space:normal;text-overflow:clip;-webkit-line-clamp:unset;-webkit-box-orient:initial}
+@media(max-width:700px){.headline-desc{line-height:1.6;display:block;overflow:visible;-webkit-line-clamp:unset}}
+
+.sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.sector-row{display:grid;grid-template-columns:32px 1fr 70px;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#f7f7f7}
+.sector-row .rank{font-weight:800;color:#777;text-align:center}
+.sector-name b{font-size:14px}
+.sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
+.sector-pct{text-align:right;font-weight:800}
+.sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
+@media(max-width:700px){.sector-row{grid-template-columns:28px 1fr 64px}}
+
+/* Q4 精選基金 Dashboard */
+.fund-report-card{background:#4a171c;border:1px solid #6f242b;border-radius:14px;margin-bottom:14px;padding:18px 22px 20px;box-shadow:0 3px 8px rgba(0,0,0,.10)}
+.fund-report-head{margin-bottom:12px}
+.fund-report-title{font-size:23px;line-height:1.3;font-weight:950;color:#fff;letter-spacing:.2px;white-space:nowrap}.red-highlight{color:#ffd35a}
+.fund-report-sub{margin-top:12px;font-size:18px;font-weight:950;color:#fff;display:flex;justify-content:space-between;align-items:center}
+.fund-report-list{display:grid;gap:10px}
+.fund-date-row{display:grid;grid-template-columns:28px 72px minmax(0,1fr) 96px;align-items:center;gap:8px;min-height:66px;padding:9px 14px;border:1px solid #e1e3e6;border-radius:12px;background:#fff;min-width:0}.fund-names{overflow-wrap:anywhere;min-width:0}.fund-status{min-width:0}
+.fund-dot{width:20px;height:20px;border-radius:50%;justify-self:center;box-shadow:0 0 0 6px rgba(0,0,0,.035)}
+.fund-date{font-size:24px;font-weight:950;color:#202328}
+.fund-names{font-size:15px;line-height:1.35;font-weight:850;color:#25292e}
+.fund-status{text-align:right;font-size:18px;font-weight:950;white-space:nowrap}
+.tomorrow{color:#c92f2f}
+.soon{color:#b88600}
+.later{color:#198754}
+.dashboard-link{display:flex;width:100%;height:56px;box-sizing:border-box;align-items:center;justify-content:center;margin-top:14px;padding:0 14px;border-radius:10px;text-align:center;font-size:17px;line-height:1.2;font-weight:950;text-decoration:none}.vol-dashboard-link{color:#ffd400!important;background:#202328}.fund-dashboard-link{color:#fff!important;background:#c62828;border:1px solid #ffd35a}
+.fund-dot.red{background:#c92f2f}
+.fund-dot.yellow{background:#e2ae00}
+.fund-dot.green{background:#198754}
+.mobile-only{display:none}
+.top-warning{font-size:9px;font-weight:600;color:#8a8f96;margin-left:10px;white-space:nowrap;letter-spacing:.1px}
+
+/* 歷史早報固定元件 */
+history-panel{margin-bottom:14px}
+history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+history-field{min-width:0;width:100%}
+history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+history-field input{display:block;width:100%;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:0 10px;font-size:14px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+history-btn.primary{background:var(--red);color:#fff}
+history-btn.secondary{background:#eef0f2;color:#202328}
+history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+history-status.ok{color:#16834c}
+history-nav{background:#f1f2f4;color:#202328!important;font-weight:950!important}
+.q4-nav{background:#8b1e1e;color:#fff!important;font-weight:900}
+@media(max-width:700px){.q4-nav{font-size:13px}.fund-date-row{grid-template-columns:18px 58px minmax(0,1fr) auto;gap:6px;padding:9px 8px}.fund-date{font-size:18px}.fund-names{font-size:12px;line-height:1.35}.fund-status{font-size:13px;white-space:nowrap}.fund-report-card{padding:14px 12px}.fund-report-title{font-size:19px}}
+
+/* 歷史早報：固定採用已定稿版面 */
+.history-panel{margin-bottom:14px}
+.history-box{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end;min-width:0}
+.history-field{min-width:0;width:100%;overflow:hidden}
+.history-field label{display:block;font-size:10px;color:var(--muted);font-weight:850;margin-bottom:5px}
+.history-field input{display:block;width:100%;max-width:100%;min-width:0;box-sizing:border-box;height:40px;border:1px solid #e6e8eb;border-radius:7px;padding:2px 10px 0;font-size:14px;line-height:36px;font-weight:800;background:#fff;color:var(--ink);outline:none;text-align:center}
+.history-btn{height:40px;border:0;border-radius:7px;padding:0 14px;font-size:12px;font-weight:900;cursor:pointer;background:var(--black);color:#fff}
+.history-btn.secondary{background:#eef0f2;color:#202328}
+.history-btn.primary{background:var(--red);color:#fff}
+.history-btn.latest{background:#202328;color:#fff}
+.history-note{margin-top:9px;font-size:11px;color:var(--muted);line-height:1.5}
+.history-status{margin-top:8px;font-size:11px;font-weight:800;min-height:16px}
+.history-status.ok{color:#16834c}
+.history-status.err{color:#c62828}
+@media(max-width:700px){
+.history-box{grid-template-columns:1fr 1fr}
+.history-field{grid-column:1/-1}
+.history-btn{width:100%}
+}
+
+/* 行事曆狀態分類與手機版防重疊（V22） */
+.calendar-status-group{margin:12px 0 16px}
+.calendar-status-heading{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 9px;padding:9px 12px;border-radius:8px;background:#f5f6f7;font-size:14px;font-weight:800}
+.calendar-status-heading.published{border-left:4px solid #16803c}
+.calendar-status-heading.today{border-left:4px solid #b42318}
+.calendar-status-heading.upcoming{border-left:4px solid #2563eb}
+.calendar-status-empty{padding:12px 14px;color:#70757a;background:#fafafa;border:1px dashed #d7d7d7;border-radius:8px;font-size:13px}
+.event-table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.event-table{width:100%;border-collapse:collapse}
+.event-table td,.event-table th{vertical-align:top;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:640px){.calendar-card .event-table{min-width:720px}.calendar-card .title small{display:block;margin-top:5px}.calendar-card .event-group h4{line-height:1.45}.calendar-card .earnings-note,.calendar-card .source{overflow-wrap:anywhere}}
+
+.earnings-calendar tr.five-star-earnings .earnings-company b,.earnings-calendar tr.five-star-earnings td:nth-child(3)>b{color:#c62828!important}
+/* 本週財報行事曆：固定必備版面 */
+.earnings-block{margin-top:14px}
+.earnings-group-title{font-size:13px;margin:14px 0 6px;font-weight:950}
+.earnings-badge{display:inline-block;border-radius:99px;padding:4px 9px;font-size:10px;font-weight:950;border:1px solid var(--line)}
+.earnings-badge.published{color:#16834c;border-color:#b9dfca;background:#effaf3}
+.earnings-badge.today{color:#b21824;border-color:#f0b8bd;background:#fff2f3}
+.earnings-badge.upcoming{color:#245b8e;border-color:#c6d9e9;background:#eef6fb}
+.earnings-row{display:grid;grid-template-columns:72px 1.35fr 1fr 1fr 1fr 1fr 78px;gap:8px;padding:9px 6px;border-bottom:1px solid #eee;align-items:center}
+.earnings-row:last-child{border-bottom:0}
+.earnings-head{font-size:10px;color:var(--muted);font-weight:850}
+.earnings-cell{font-size:11px;line-height:1.45}
+.earnings-company b{font-size:13px;font-weight:950}
+.earnings-company small{display:block;font-size:9px;color:var(--muted);margin-top:2px}
+.earnings-metric{font-variant-numeric:tabular-nums}
+.earnings-metric b{font-weight:950}
+.earnings-reaction{font-size:10px;font-weight:950;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25;white-space:nowrap}.earnings-reaction.up{color:#16834c;border-color:#bfe3cf;background:#eef9f2}.earnings-reaction.down{color:#c62828;border-color:#efc1c1;background:#fff0f0}.earnings-reaction.wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-result{font-size:10px;font-weight:950;white-space:nowrap;display:inline-block;padding:4px 7px;border:1px solid #dfe3e6;border-radius:8px;background:#f7f8f9;line-height:1.25}
+.earnings-double{color:#16834c;border-color:#bfe3cf;background:#eef9f2}
+.earnings-mixed{color:#a56b00;border-color:#ead79c;background:#fff8df}
+.earnings-wait{color:#737981;border-color:#d9dde1;background:#f3f5f6}
+.earnings-weak{color:#c62828;border-color:#efc1c1;background:#fff0f0}
+.earnings-note{margin-top:10px;padding:10px 12px;background:#fafafa;border:1px solid var(--line);border-radius:7px;font-size:11px;line-height:1.6;color:#4e535a}
+@media(max-width:900px){.earnings-row{grid-template-columns:58px 1.25fr 1fr 1fr 1fr 1fr 70px}}
+@media(max-width:700px){
+  .earnings-row{grid-template-columns:58px 1.05fr 1.35fr;gap:6px 10px;padding:11px 4px;align-items:start}
+  .earnings-head{display:none}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(1){grid-column:1;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(2){grid-column:2;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3){grid-column:3;grid-row:1}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4){grid-column:3;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5){grid-column:1 / span 2;grid-row:2}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6){grid-column:1 / span 2;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7){grid-column:3;grid-row:3}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(3)::before{content:"EPS ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(4)::before{content:"營收 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(5)::before{content:"判讀 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(6)::before{content:"股價反應 ";color:var(--muted);font-weight:800}
+  .earnings-row:not(.earnings-head)>.earnings-cell:nth-child(7)::before{content:"重要性 ";color:var(--muted);font-weight:800}
+  .earnings-company b{font-size:12px}
+  .earnings-company small{font-size:9px}
+  .earnings-result{font-size:9px;white-space:normal}
+}
+
+
+.instrument-name{display:block;line-height:1.28}
+.instrument-en{display:block;font-size:.76em;font-weight:500;line-height:1.25;color:#6b7280;margin-top:2px;letter-spacing:.01em}
+
+/* V3: sector card list and calendar tables */
+.sector-row{display:grid;grid-template-columns:34px minmax(0,1fr) 92px;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:#f6f6f6;min-height:62px}
+.sector-row .rank{font-size:19px;font-weight:850;color:#777;text-align:center}
+.sector-label{min-width:0;display:flex;flex-direction:column;gap:3px}
+.sector-label b{font-size:17px;font-weight:900;color:#202124}
+.sector-label small{font-size:13px;font-weight:500;color:#909399;line-height:1.25}
+.sector-row .r{font-size:20px;font-weight:900;text-align:right;white-space:nowrap}
+.event-group{margin-top:12px}
+.event-group h4{margin:8px 0;font-size:14px}
+.event-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.event-table{width:100%;border-collapse:collapse;font-size:12px;line-height:1.45;min-width:820px}
+.event-table th{background:#f6f7f8;color:#626970;font-weight:850;text-align:left;padding:9px 7px;white-space:nowrap;border-bottom:1px solid #ddd}
+.event-table td{padding:9px 7px;border-bottom:1px solid #e8e8e8;vertical-align:top}
+.event-table td small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.event-table td b{font-weight:900}
+.event-table.earnings-calendar td:nth-child(3) b{color:#1769aa;font-weight:900}
+.event-table:not(.earnings-calendar) td:nth-child(4){color:#1769aa;font-weight:850}
+.event-table:not(.earnings-calendar) td:nth-child(4) b{color:#1769aa;font-weight:900}
+.event-table.earnings-calendar{min-width:960px}
+@media(max-width:700px){
+.sector-row{grid-template-columns:30px minmax(0,1fr) 78px;padding:11px 10px;gap:8px;min-height:58px}.sector-label b{font-size:16px}.sector-label small{font-size:12px}.sector-row .r{font-size:18px}
+/* Mobile calendar tables become stacked cards instead of overflowing horizontally */
+.event-table-wrap{overflow:hidden;width:100%;max-width:100%;min-width:0}
+.calendar-card,.event-group{min-width:0;max-width:100%}
+.event-table{box-sizing:border-box}
+.event-table td>*{max-width:100%;overflow-wrap:anywhere}
+.event-table,.event-table.earnings-calendar{width:100%;min-width:0;table-layout:fixed;font-size:12px}
+.event-table thead{display:none}
+.event-table tbody,.event-table tr,.event-table td{display:block;width:100%;min-width:0;max-width:100%}
+.event-table tbody tr{padding:9px 10px;margin:0 0 9px;border:1px solid var(--line);border-radius:9px;background:#fff;overflow-wrap:anywhere;word-break:normal}
+.event-table td{box-sizing:border-box;display:grid;grid-template-columns:minmax(70px,30%) minmax(0,1fr);gap:8px;padding:5px 0;border-bottom:1px solid #f0f1f2;text-align:left;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.event-table td:last-child{border-bottom:0}
+.event-table td:before{font-size:10px;font-weight:850;color:var(--muted);line-height:1.5}
+.event-table:not(.earnings-calendar) td:nth-child(1):before{content:"日期"}
+.event-table:not(.earnings-calendar) td:nth-child(2):before{content:"台灣時間"}
+.event-table:not(.earnings-calendar) td:nth-child(3):before{content:"國家"}
+.event-table:not(.earnings-calendar) td:nth-child(4):before{content:"事件"}
+.event-table:not(.earnings-calendar) td:nth-child(5):before{content:"前值"}
+.event-table:not(.earnings-calendar) td:nth-child(6):before{content:"預估"}
+.event-table:not(.earnings-calendar) td:nth-child(7):before{content:"實際"}
+.event-table:not(.earnings-calendar) td:nth-child(8):before{content:"重要性"}
+/* 上週已公布財報與本週預告財報共用 earnings-calendar class；分開指定，避免標籤覆蓋。 */
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(1):before{content:"日期／發布時段"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(2):before{content:"公司／產業"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(3):before{content:"EPS 實際／預期"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(4):before{content:"營收實際／預期"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(5):before{content:"財報判讀／EPS與營收預估"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(6):before{content:"股價反應／觀察重點"}
+.event-table.earnings-calendar:not(.upcoming-earnings) td:nth-child(7):before{content:"重要性"}
+.event-table.upcoming-earnings td:nth-child(1):before{content:"美國日期"}
+.event-table.upcoming-earnings td:nth-child(2):before{content:"台灣日期／時間"}
+.event-table.upcoming-earnings td:nth-child(3):before{content:"公司／產業"}
+.event-table.upcoming-earnings td:nth-child(4):before{content:"公布時段"}
+.event-table.upcoming-earnings td:nth-child(5):before{content:"EPS／營收預估"}
+.event-table.upcoming-earnings td:nth-child(6):before{content:"觀察重點"}
+.event-table.upcoming-earnings td:nth-child(7):before{content:"重要性"}
+.event-table td small{font-size:10px}
+}
+
+
+.audit-details{margin-top:10px;border:1px solid var(--line);border-radius:8px;background:#fff;overflow:hidden}
+.audit-details summary{list-style:none;cursor:pointer;padding:10px 12px;font-size:11px;font-weight:850;color:#666;display:flex;align-items:center;gap:7px}
+.audit-details summary::-webkit-details-marker{display:none}
+.audit-details summary:before{content:"＋";color:var(--red);font-size:16px;font-weight:950}
+.audit-details[open] summary:before{content:"－"}
+.audit-details .audit-content{padding:0 12px 12px;font-size:11px;line-height:1.65;color:#737981}
+
+
+/* V10：市場情緒指標字體加大、資料來源改為收折 */
+#sentiment .sbox .label{font-size:15px;line-height:1.35}
+#sentiment .sbox strong{font-size:27px;margin:5px 0}
+#sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:15px;line-height:1.45}
+#sentiment .source-details{margin-top:5px;font-size:11px;color:var(--muted)}
+#sentiment .source-details summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:750;padding:2px 0}
+#sentiment .source-details summary::-webkit-details-marker{display:none}
+#sentiment .source-details summary:before{content:"＋";font-weight:900;color:var(--red)}
+#sentiment .source-details[open] summary:before{content:"－"}
+#sentiment .source-details .source{font-size:11px;line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
+@media(max-width:700px){#sentiment .sbox .label{font-size:13px;letter-spacing:0;overflow-wrap:normal}#sentiment .sbox strong{font-size:22px}#sentiment .sbox .up,#sentiment .sbox .down,#sentiment .sbox .warn{font-size:13px}#sentiment .source-details summary{font-size:10px}#sentiment .source-details .source{font-size:10px}}
+
+/* V11: keep energy instrument names on one line on mobile */
+.energy-card .row{grid-template-columns:minmax(0,1.55fr) minmax(78px,.85fr) minmax(64px,.7fr);gap:6px}
+.energy-card .row b{white-space:nowrap;letter-spacing:-.35px}
+@media(max-width:700px){.energy-card .row{grid-template-columns:minmax(0,1.55fr) minmax(76px,.85fr) minmax(62px,.7fr);gap:5px}.energy-card .row b{font-size:14px;white-space:nowrap;letter-spacing:-.55px}.energy-card .row .r{font-size:15px;white-space:nowrap}}
+
+
+/* V12：FedWatch 資料時間收折；Fed/FOMC 欄位採一致三欄對齊 */
+.fedwatch-time{margin-top:8px}
+#fed .card:nth-child(2) .row{display:grid;grid-template-columns:minmax(105px,1fr) minmax(150px,1.2fr) minmax(90px,.7fr);align-items:center;gap:10px}
+#fed .card:nth-child(2) .row>b{white-space:nowrap}
+#fed .card:nth-child(2) .row>.r{text-align:center;white-space:nowrap;min-width:0}
+#fed .card:nth-child(2) .row>.r:last-child{text-align:right}
+@media(max-width:700px){#fed .card:nth-child(2) .row{grid-template-columns:minmax(92px,1fr) minmax(125px,1.15fr) minmax(68px,.65fr);gap:6px;font-size:12px}#fed .card:nth-child(2) .row>b{font-size:12px}#fed .card:nth-child(2) .row>.r{font-size:12px}}
+
+
+/* 上週已公布經濟數據採收折，預設關閉以節省首頁版面 */
+.calendar-collapse{margin:8px 0 12px;border:1px solid var(--line,#dfe3e6);border-radius:14px;padding:10px 12px;background:var(--soft,#fafafa)}
+.calendar-collapse>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;list-style:none;flex-wrap:wrap}
+.calendar-collapse>summary::-webkit-details-marker{display:none}
+.calendar-collapse>summary::after{content:'＋';font-weight:900;color:var(--muted);margin-left:auto}
+.calendar-collapse[open]>summary::after{content:'−'}
+.calendar-collapse .event-group{margin-top:12px}
+.collapse-hint{font-size:12px;color:var(--muted);font-weight:700}
+
+
+.view-collapse{margin:0}.view-collapse>summary{cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px}.view-collapse>summary::-webkit-details-marker{display:none}.view-collapse>summary:after{content:'＋';font-size:18px;color:#777;flex-shrink:0}.view-collapse[open]>summary:after{content:'−'}.view-collapse .key,.view-collapse .callout{margin-top:12px}.collapse-hint{font-size:11px;color:#7b8186;font-weight:500;white-space:nowrap}.view-collapse-card{align-self:start}
+
+.sector-collapse{margin-top:10px}
+.sector-collapse>summary{cursor:pointer;font-weight:800;color:#333;padding:12px 14px;background:#f5f5f5;border-radius:10px;list-style-position:inside}
+.sector-collapse>.audit-content{padding:10px 0 0}
+
+/* V25：本週財報改為可個別收折卡片 */
+.earnings-accordion-list{display:grid;gap:9px;margin:8px 0 12px;min-width:0}
+.earnings-accordion{border:1px solid var(--line,#dedede);border-radius:12px;background:#fff;overflow:hidden;min-width:0}
+.earnings-accordion>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 14px;min-width:0}
+.earnings-accordion>summary::-webkit-details-marker{display:none}
+.earnings-summary-main{min-width:0;flex:1}
+.earnings-summary-dates{display:flex;flex-wrap:wrap;gap:8px 14px;color:var(--muted,#70757a);font-size:12px;font-weight:750;margin-bottom:5px}
+.earnings-company-name{font-size:16px;font-weight:900;color:#1769aa;overflow-wrap:anywhere}
+.earnings-company-name.five-star-company{color:#c62828!important}
+.earnings-company-sub{font-size:12px;color:#777;margin-top:3px;overflow-wrap:anywhere}
+.earnings-stars{font-size:13px;letter-spacing:1px;color:#b17a12;margin-top:5px}
+.earnings-accordion-toggle:before{content:'+';font-size:25px;line-height:1;color:#c62828;font-weight:800}
+.earnings-accordion[open] .earnings-accordion-toggle:before{content:'−'}
+.earnings-accordion-details{border-top:1px solid #e7e7e7;padding:10px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.earnings-detail-field{background:#f4f8f9;border-radius:9px;padding:11px 12px;min-width:0}
+.earnings-detail-field.wide{grid-column:1/-1}
+.earnings-detail-field label{display:block;font-size:11px;color:#737b80;font-weight:850;margin-bottom:5px}
+.earnings-detail-value{font-size:14px;line-height:1.55;overflow-wrap:anywhere;word-break:normal}
+@media(max-width:640px){.earnings-accordion>summary{padding:12px 11px}.earnings-company-name{font-size:15px}.earnings-accordion-details{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:7px}.earnings-detail-field{padding:9px}.earnings-detail-value{font-size:13px}}
+
+/* TAC three major content panels with native CSS-only tabs */
+.tac-tabset{background:#fff;border:1px solid #dce2e5;border-radius:18px;overflow:hidden;margin:14px 0 18px;box-shadow:0 2px 8px rgba(24,39,50,.04)}
+.tac-section-heading{padding:16px 18px 10px;border-bottom:0}
+.tac-section-heading h2{margin:0;color:#a92332;font-size:clamp(21px,3vw,28px);font-weight:900;line-height:1.25}
+.tac-tab-radio{position:absolute!important;width:1px!important;height:1px!important;opacity:0!important;overflow:hidden!important;pointer-events:none!important}
+.tac-tab-nav{display:flex;gap:0;padding:0 18px;background:#fff;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;border-bottom:1px solid #d9dfe3}
+.tac-tab-nav label{flex:1 0 auto;min-width:0;min-height:48px;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 12px;background:#f1f5f6;border:1px solid #d8dfe3;color:#4d5660;font-weight:850;line-height:1.25;cursor:pointer;white-space:normal}
+.tac-tab-nav label+label{border-left:0}
+.tac-tab-nav label:first-child{border-radius:10px 0 0 0}
+.tac-tab-nav label:last-child{border-radius:0 10px 0 0}
+.tac-tab-panel{display:none;padding:12px 14px 16px}
+.tac-tab-panel>.card{width:100%;max-width:none;margin:0;box-shadow:none;border:0;padding:0;background:transparent}
+.tac-tab-panel>.card>.title{margin-top:0}
+#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{background:#fff!important;color:#b42332!important;border-color:rgba(180,35,50,.12)!important;box-shadow:0 1px 3px rgba(0,0,0,.10),0 0 0 1px rgba(255,255,255,.8) inset!important;font-weight:650!important}
+#tac-news-0:checked~#tac-news-panel-0,#tac-news-1:checked~#tac-news-panel-1,#tac-region-0:checked~#tac-region-panel-0,#tac-region-1:checked~#tac-region-panel-1,#tac-region-2:checked~#tac-region-panel-2,#tac-assets-0:checked~#tac-assets-panel-0,#tac-assets-1:checked~#tac-assets-panel-1,#tac-assets-2:checked~#tac-assets-panel-2,#tac-assets-3:checked~#tac-assets-panel-3,#tac-assets-4:checked~#tac-assets-panel-4{display:block}
+.tac-tab-panel .market-reason{margin-top:12px}
+.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) auto auto}
+/* Mobile-friendly two-row tabs for industry, bonds, FX and commodities: no horizontal scrolling */
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-flow:row;overflow:visible;padding:0 12px;gap:0}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label{min-width:0;flex:none;white-space:normal;overflow-wrap:anywhere;font-size:14px;padding:9px 5px;line-height:1.25}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(1){grid-column:span 3}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(2){grid-column:span 3}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(3){grid-column:span 2}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(4){grid-column:span 2}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(5){grid-column:span 2}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label+label{border-left:1px solid #d8dfe3}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label:nth-child(n+3){border-top:0}
+@media(max-width:600px){.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{grid-template-columns:repeat(6,minmax(0,1fr));padding:0 10px}.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label{font-size:13px;padding:10px 3px;min-height:44px;flex:none}}
+
+@media(max-width:600px){.tac-section-heading{padding:14px 12px 9px}.tac-tab-nav{padding:0 10px}.tac-tab-nav label{font-size:14px;padding:9px 8px;min-height:46px;flex:1 0 30%}.tac-tabset[aria-label=產業債匯商品] .tac-tab-nav label{flex-basis:34%;font-size:12px}.tac-tab-panel{padding:10px}.tac-tab-panel>.card{padding:0!important}.tac-tab-panel .row b{min-width:0;overflow-wrap:anywhere}}
+
+/* 公債殖利率：數值欄靠右，期限名稱靠左 */
+#bonds .row{display:grid !important;grid-template-columns:minmax(0,1fr) minmax(88px,.72fr) minmax(78px,.62fr) !important;gap:8px !important;width:100%;align-items:center}
+#bonds .row b{text-align:left !important;min-width:0}
+#bonds .row .r{text-align:right !important;justify-self:stretch;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:700px){#bonds .row{grid-template-columns:minmax(0,1fr) minmax(82px,.72fr) minmax(76px,.62fr) !important;gap:6px !important}#bonds .row b{font-size:14px !important}#bonds .row .r{font-size:15px}}
+
+/* 本週經濟行事曆：原生 radio 活頁標籤，預設今日公布；三分類內容均收納在同一活頁容器 */
+.week-econ-tabs{margin-top:12px}
+.week-econ-tabs>input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.week-econ-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.week-econ-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:8px 5px;border:1px solid #d9dfe2;border-radius:9px;background:#eef3f4;color:#505963;font-weight:700;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.week-econ-panels>.calendar-status-group{display:none}
+#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #e5b85c}
+#week-econ-today:checked~.week-econ-panels>.calendar-status-group:nth-child(1),#week-econ-upcoming:checked~.week-econ-panels>.calendar-status-group:nth-child(2),#week-econ-published:checked~.week-econ-panels>.calendar-status-group:nth-child(3){display:block}
+.week-econ-tabs .calendar-status-heading{display:none}
+@media(max-width:520px){.week-econ-tab-labels{gap:5px}.week-econ-tab-labels label{font-size:14px;min-height:42px;padding:7px 3px}}
+
+
+/* 本週經濟行事曆主標題：與其他主版面標題一致，使用 TAC 酒紅色 */
+.calendar-card > .title:has(+ .week-econ-tabs) {
+  color: #a92332 !important;
+  font-size: clamp(21px, 3vw, 28px) !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+}
+@media (max-width: 700px) {
+  .calendar-card > .title:has(+ .week-econ-tabs) {
+    font-size: clamp(21px, 5.4vw, 28px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .calendar-card > .title:has(+ .week-econ-tabs) small {
+    color: #777f86 !important;
+    font-size: 9px !important;
+  }
+}
+
+
+/* 本週財報行事曆：比照經濟行事曆的原生 radio 活頁標籤，預設今日公布 */
+.week-earnings-tabs{margin-top:12px}
+.week-earnings-tabs>input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 12px}
+.week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:8px 5px;border:1px solid #d9dfe2;border-radius:9px;background:#eef3f4;color:#505963;font-weight:700;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere}
+.week-earnings-panels>.calendar-status-group{display:none}
+#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #e5b85c}
+#week-earnings-today:checked~.week-earnings-panels>.calendar-status-group:nth-child(1),#week-earnings-upcoming:checked~.week-earnings-panels>.calendar-status-group:nth-child(2),#week-earnings-published:checked~.week-earnings-panels>.calendar-status-group:nth-child(3){display:block}
+.week-earnings-tabs .calendar-status-heading{display:none}
+@media(max-width:520px){.week-earnings-tab-labels{gap:5px}.week-earnings-tab-labels label{font-size:14px;min-height:42px;padding:7px 3px}}
+
+
+/* V-next：經濟／財報行事曆改為與「全球主要股市」相同的連續式分段活頁，不使用獨立按鈕 */
+.week-econ-tab-labels,.week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin:0 0 12px;border:1px solid #d5dcdf;border-radius:12px;overflow:hidden;background:#eef3f4}
+.week-econ-tab-labels label,.week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-width:0;min-height:48px;margin:0;padding:10px 5px;border:0;border-right:1px solid #d5dcdf;border-radius:0;background:#eef3f4;color:#505963;font-size:15px;font-weight:800;line-height:1.25;white-space:normal;overflow-wrap:anywhere;cursor:pointer}
+.week-econ-tab-labels label:last-child,.week-earnings-tab-labels label:last-child{border-right:0}
+#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"],#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#b42332;color:#fff;border-color:#b42332;box-shadow:inset 0 3px 0 #e5b85c}
+@media(max-width:520px){.week-econ-tab-labels,.week-earnings-tab-labels{border-radius:10px}.week-econ-tab-labels label,.week-earnings-tab-labels label{min-height:46px;padding:9px 3px;font-size:14px}}
+
+
+/* 本週財報行事曆標題：字色與字級比照本週經濟行事曆 */
+.calendar-card > .title:has(+ .week-earnings-tabs) {
+  color: #a92332 !important;
+  font-size: clamp(21px, 3vw, 28px) !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+}
+@media (max-width: 700px) {
+  .calendar-card > .title:has(+ .week-earnings-tabs) {
+    font-size: clamp(21px, 5.4vw, 28px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .calendar-card > .title:has(+ .week-earnings-tabs) small {
+    color: #777f86 !important;
+    font-size: 9px !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+
+/* S&P 500｜本季盈餘健康度：主標題比照本週經濟行事曆，採 TAC 酒紅色與相同字級 */
+.earnings-health > .title {
+  color: #a92332 !important;
+  font-size: clamp(21px, 3vw, 28px) !important;
+  font-weight: 900 !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0 !important;
+}
+@media (max-width: 700px) {
+  .earnings-health > .title {
+    font-size: clamp(21px, 5.4vw, 28px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap;
+  }
+  .earnings-health > .title small {
+    color: #777f86 !important;
+    font-size: 9px !important;
+    letter-spacing: 0 !important;
+  }
+}
+
+
+/* 活頁內容去除重複標題：外層活頁標籤保留，內層只保留必要日期／口徑 */
+.tab-panel-meta{font-size:11px;color:var(--muted);text-align:right;line-height:1.45;margin:0 0 8px;overflow-wrap:anywhere}
+
+
+/* 今日觀察重點：三個內容合併為單一卡片，以活頁標籤切換 */
+.today-focus{margin-top:14px}.today-focus-title{color:var(--red)!important}.focus-tabs{margin-top:10px}.focus-tabs>input{position:absolute;opacity:0;pointer-events:none}.focus-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #d6dddf;border-radius:12px;overflow:hidden;background:#edf2f3}.focus-tab-labels label{display:flex;align-items:center;justify-content:center;min-height:46px;padding:10px 6px;text-align:center;font-size:14px;font-weight:850;color:#59616a;cursor:pointer;border-right:1px solid #d6dddf;white-space:nowrap}.focus-tab-labels label:last-child{border-right:0}#focus-tab-market:checked~.focus-tab-labels label[for="focus-tab-market"],#focus-tab-levels:checked~.focus-tab-labels label[for="focus-tab-levels"],#focus-tab-core:checked~.focus-tab-labels label[for="focus-tab-core"]{background:#ad2333;color:#fff;box-shadow:inset 0 3px 0 #e4c36c}.focus-panels{padding-top:14px}.focus-panel{display:none;min-width:0}#focus-tab-market:checked~.focus-panels .focus-market,#focus-tab-levels:checked~.focus-panels .focus-levels,#focus-tab-core:checked~.focus-panels .focus-core{display:block}.focus-panel .key,.focus-panel .callout{margin:0;line-height:1.8}@media(max-width:700px){.focus-tab-labels label{font-size:clamp(11px,3.2vw,14px);padding:9px 2px;white-space:nowrap}.today-focus .title{font-size:clamp(21px,5.4vw,28px)!important}}
+
+/* 導覽列：固定功能＋13個正文大版面 */
+.nav{align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.nav a{flex:0 0 auto;white-space:nowrap}
+ .region-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .region-source > summary::marker{color:#B8BEC5;} .region-source > summary::-webkit-details-marker{color:#B8BEC5;}  .sector-source > summary{font-size:11px!important;color:#9CA3AF!important;font-weight:400!important;line-height:1.4;padding:2px 0;cursor:pointer;} .sector-source > summary::marker{color:#B8BEC5;} .sector-source > summary::-webkit-details-marker{color:#B8BEC5;} /* TAC_NEWS_ZEBRA_V31: alternating backgrounds for news items */
+.newsitem{border-radius:8px;transition:background-color .18s ease;padding:12px 10px}
+.newsitem:nth-child(even){background:#f4f6f9}
+.newsitem:nth-child(odd){background:#fff}
+@media(max-width:700px){.newsitem{padding:11px 9px}}
+/* /TAC_NEWS_ZEBRA_V31 */
+
+
+/* 上週經濟行事曆預設收折 */
+.last-week-calendar-collapse{margin-top:10px;border:1px solid #e1e4e8;border-radius:10px;background:#fafafa;padding:10px 12px}.last-week-calendar-collapse>summary{cursor:pointer;font-weight:850;color:#6b7077;font-size:13px;list-style:none}.last-week-calendar-collapse>summary::-webkit-details-marker{display:none}.last-week-calendar-collapse>summary:before{content:"▸";display:inline-block;margin-right:7px;transition:transform .15s}.last-week-calendar-collapse[open]>summary:before{transform:rotate(90deg)}.last-week-calendar-collapse .calendar-status-group{margin-top:10px}
+.last-week-earnings-collapse{margin-top:10px;border:1px solid #e1e4e8;border-radius:10px;background:#fafafa;padding:10px 12px}.last-week-earnings-collapse>summary{cursor:pointer;font-weight:850;color:#6b7077;font-size:13px;list-style:none}.last-week-earnings-collapse>summary::-webkit-details-marker{display:none}.last-week-earnings-collapse>summary:before{content:"▸";display:inline-block;margin-right:7px;transition:transform .15s}.last-week-earnings-collapse[open]>summary:before{transform:rotate(90deg)}.last-week-earnings-collapse .calendar-status-group{margin-top:10px}
+
+/* Compact disclosures: align with the small grey triangle source rows */
+main.wrap details.compact-disclosure{margin-top:8px!important;border:0!important;border-radius:0!important;background:transparent!important;overflow:visible!important;padding:0!important;box-shadow:none!important}
+main.wrap details.compact-disclosure>summary{display:flex!important;align-items:center!important;gap:5px!important;padding:2px 0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#747b84!important;font-size:11px!important;font-weight:800!important;list-style:none!important;box-shadow:none!important}
+main.wrap details.compact-disclosure>summary::-webkit-details-marker{display:none!important}
+main.wrap details.compact-disclosure>summary::marker{content:""!important}
+main.wrap details.compact-disclosure>summary::before{content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;width:auto!important;height:auto!important;min-height:0!important;margin:0 1px 0 0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#747b84!important;-webkit-text-fill-color:#747b84!important;font-size:11px!important;font-weight:700!important;line-height:1!important;box-shadow:none!important;transform:none!important}
+main.wrap details.compact-disclosure[open]>summary::before{transform:rotate(90deg)!important}
+main.wrap details.compact-disclosure>summary::after{content:none!important;display:none!important}
+main.wrap details.compact-disclosure>div{padding:8px 0!important;border:0!important;background:transparent!important;color:#626a73!important;font-size:11px!important;line-height:1.6!important}
+
+
+/* 發布版規則：只有全部驗收完成、明確加上 body.release-ready 後，才隱藏內部審核提示；審核版仍保留警示。 */
+body.release-ready .data-sync-warning,
+body.release-ready .news-window-warning { display: none !important; }
+</style>
+<meta content="V22" name="report-version"/><meta content="2026-10-26" name="report-date"/><style>
+/* V23: economic calendar rows converted into individually expandable event cards */
+.econ-event-list{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin:8px 0 12px}
+.econ-event{border:1px solid #dfe3e6;border-radius:14px;background:#fff;overflow:hidden;min-width:0}
+.econ-event>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 24px;gap:6px 12px;padding:13px 14px;align-items:start}
+.econ-event>summary::-webkit-details-marker{display:none}
+.econ-event .econ-meta{display:grid;grid-template-columns:auto auto minmax(0,1fr);gap:8px 14px;align-items:center;font-size:13px;font-weight:850;color:#24272b;min-width:0}
+.econ-event .econ-country{color:#737981;font-weight:800}
+.econ-event .econ-name{grid-column:1/-1;font-size:15px;line-height:1.45;font-weight:900;overflow-wrap:anywhere;word-break:normal}
+.econ-event.five-star .econ-name{color:#c62828}
+.econ-event .econ-stars{grid-column:1/-1;color:#a56b00;font-size:14px;letter-spacing:0.5px}
+.econ-event .econ-toggle{grid-column:2;grid-row:1;align-self:center;color:#c62828;font-size:25px;font-weight:900;line-height:1}
+.econ-event .econ-toggle:before{content:"＋"}
+.econ-event[open] .econ-toggle:before{content:"−"}
+.econ-event .econ-details{border-top:1px solid #e7e9eb;padding:10px 12px 12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.econ-event .econ-field{background:#f3f7f8;border-radius:12px;padding:12px 13px;min-width:0;overflow-wrap:anywhere;line-height:1.55}
+.econ-event .econ-field label{display:block;color:#737981;font-size:12px;font-weight:850;margin-bottom:5px}
+.econ-event .econ-field .econ-value{font-size:14px;color:#24272b;white-space:pre-wrap;overflow-wrap:anywhere}
+.econ-event .econ-field.wide{grid-column:1/-1}
+.econ-event .econ-field a{overflow-wrap:anywhere}
+@media(max-width:640px){.econ-event>summary{padding:12px 13px}.econ-event .econ-meta{grid-template-columns:auto auto minmax(0,1fr);gap:6px 10px;font-size:12px}.econ-event .econ-name{font-size:15px}.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
+</style>
+<!-- 2026/10/20 審核版：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
+<style>
+/* Fed限時動態：合併 FedWatch 與 Fed/FOMC 為同一主版面，使用區域切換活頁 */
+.fed-live-title{color:#a92332!important;font-size:clamp(21px,3vw,28px)!important;font-weight:900!important;line-height:1.25!important}
+.fed-live-tabs{margin-top:10px}
+.fed-live-tabs>input{position:absolute;opacity:0;pointer-events:none}
+.fed-live-tab-labels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:hidden;border:1px solid #d7dfe1;border-radius:12px;background:#edf2f3}
+.fed-live-tab-labels label{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 8px;text-align:center;font-size:15px;font-weight:850;color:#59636c;cursor:pointer;border-right:1px solid #d7dfe1}
+.fed-live-tab-labels label:last-child{border-right:0}
+#fed-live-tab-watch:checked~.fed-live-tab-labels label[for="fed-live-tab-watch"],
+#fed-live-tab-fomc:checked~.fed-live-tab-labels label[for="fed-live-tab-fomc"]{background:#a92332;color:#fff;box-shadow:inset 0 3px 0 #e5b85c}
+.fed-live-panels{padding-top:12px}
+.fed-live-panel{display:none;min-width:0}
+#fed-live-tab-watch:checked~.fed-live-panels .fed-live-watch{display:block}
+#fed-live-tab-fomc:checked~.fed-live-panels .fed-live-fomc{display:block}
+.fed-live-panel .callout{margin:0}
+.fed-fomc-rows{padding:4px 2px}
+@media(max-width:700px){.fed-live-title{font-size:clamp(21px,5.4vw,28px)!important;white-space:nowrap;letter-spacing:0!important}.fed-live-tab-labels label{min-height:46px;padding:9px 4px;font-size:14px}.fed-live-panel .row{gap:8px;flex-wrap:wrap}.fed-live-panel .row .r{margin-left:auto}}
+</style>
+<style>
+/* Fed限時動態欄位對齊修正 V2：欄位固定、不折行，手機版可水平容納 */
+.fed-live-fomc .fed-fomc-rows .row{display:grid!important;grid-template-columns:minmax(104px,1fr) minmax(150px,1.15fr) minmax(92px,.8fr)!important;align-items:center!important;column-gap:10px!important;row-gap:0!important;flex-wrap:nowrap!important;padding:10px 0!important;}
+.fed-live-fomc .fed-fomc-rows .row>b{white-space:nowrap!important;word-break:keep-all!important;}
+.fed-live-fomc .fed-fomc-rows .row>.r{min-width:0!important;margin:0!important;text-align:right!important;white-space:nowrap!important;word-break:keep-all!important;overflow-wrap:normal!important;}
+.fed-live-fomc .fed-fomc-rows .row>.r.high,.fed-live-fomc .fed-fomc-rows .row>.r.warn,.fed-live-fomc .fed-fomc-rows .row>.r.flat{justify-self:end!important;}
+.fed-live-fomc .fed-fomc-rows .source{clear:both!important;line-height:1.5!important;}
+@media(max-width:640px){
+.fed-live-fomc .fed-fomc-rows .row{grid-template-columns:minmax(82px,1fr) minmax(0,1.15fr) minmax(0,.95fr)!important;column-gap:5px!important;font-size:12px!important;}
+.fed-live-fomc .fed-fomc-rows .row>b{font-size:12px!important;white-space:nowrap!important;}
+.fed-live-fomc .fed-fomc-rows .row>.r{font-size:12px!important;min-width:0!important;white-space:nowrap!important;letter-spacing:-.35px!important;}
+.fed-live-fomc .fed-fomc-rows .row>.r.high{font-size:15px!important;letter-spacing:-1px!important;}
+.fed-live-fomc .fed-fomc-rows .row>.r:first-of-type{text-align:center!important;}
+.fed-live-fomc .fed-fomc-rows .row>.r.high{justify-self:end!important;}
+.fed-live-fomc .fed-fomc-rows .source{font-size:11px!important;}
+.fed-live-watch .callout>div[style*=font-size]{overflow-wrap:normal!important;word-break:keep-all!important}
+}
+</style>
+<style>
+/* 修正：總結、市场情緒標題與「重點新聞掃瞄」主版面標題完全一致 */
+#overview>.title,#sentiment>.title{
+  color:#a92332!important;
+  font-size:clamp(21px,3vw,28px)!important;
+  font-weight:900!important;
+  line-height:1.25!important;
+  margin:0 0 18px!important;
+}
+#overview>.title small,#sentiment>.title small{color:var(--muted)!important;font-size:10px!important}
+</style>
+<style id="tac-apple-tab-preview">
+/* Apple-inspired tab preview only — visual layer; content and tab behavior unchanged */
+:root{--tac-apple-bg:#f5f5f7;--tac-apple-line:#e5e5ea;--tac-apple-text:#33343a;--tac-apple-muted:#6e6e73}
+.tac-tabset .tac-tab-nav{background:var(--tac-apple-bg)!important;padding:5px!important;gap:4px!important;border:1px solid var(--tac-apple-line)!important;border-radius:14px!important;overflow-x:auto!important;box-shadow:inset 0 1px 1px rgba(0,0,0,.025)!important}
+.tac-tabset .tac-tab-nav label{background:transparent!important;color:var(--tac-apple-muted)!important;border:1px solid transparent!important;border-radius:10px!important;box-shadow:none!important;min-height:40px!important;padding:9px 13px!important;font-weight:550!important;line-height:1.25!important;transition:background .18s ease,color .18s ease,box-shadow .18s ease!important;white-space:nowrap}
+.tac-tabset .tac-tab-nav label:hover{background:rgba(255,255,255,.7)!important;color:var(--tac-apple-text)!important}
+.tac-tabset .tac-tab-nav label+label{border-left:0!important}
+.tac-tabset .tac-tab-nav label:first-child,.tac-tabset .tac-tab-nav label:last-child{border-radius:10px!important}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{gap:4px!important;padding:5px!important}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav label{border:1px solid transparent!important;border-radius:10px!important}
+@media(max-width:600px){
+ .tac-tabset .tac-tab-nav{padding:4px!important;gap:3px!important;border-radius:12px!important}
+ .tac-tabset .tac-tab-nav label{min-height:38px!important;padding:8px 7px!important;font-size:13px!important;white-space:normal!important}
+ .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav{gap:3px!important;padding:4px!important}
+}
+</style>
+<style id="tac-apple-tab-pop-animation">
+/* Subtle original selected-tab scale; avoid neighboring-tab overlap */
+.tac-tabset .tac-tab-nav label{transform:scale(1);transform-origin:center center;transition:transform .2s ease,background .18s ease,color .18s ease,box-shadow .2s ease!important;position:relative;z-index:0}
+.tac-tabset .tac-tab-nav label:active{transform:scale(.98)!important}
+#tac-news-0:checked~.tac-tab-nav label[for=tac-news-0],#tac-news-1:checked~.tac-tab-nav label[for=tac-news-1],#tac-region-0:checked~.tac-tab-nav label[for=tac-region-0],#tac-region-1:checked~.tac-tab-nav label[for=tac-region-1],#tac-region-2:checked~.tac-tab-nav label[for=tac-region-2],#tac-assets-0:checked~.tac-tab-nav label[for=tac-assets-0],#tac-assets-1:checked~.tac-tab-nav label[for=tac-assets-1],#tac-assets-2:checked~.tac-tab-nav label[for=tac-assets-2],#tac-assets-3:checked~.tac-tab-nav label[for=tac-assets-3],#tac-assets-4:checked~.tac-tab-nav label[for=tac-assets-4]{transform:scale(1.045)!important;z-index:1;box-shadow:0 2px 7px rgba(20,25,35,.12)!important}
+@media(prefers-reduced-motion:reduce){.tac-tabset .tac-tab-nav label{transition:none!important}}
+</style>
+<style id="tac-apple-accordion-polish">
+/* Apple-inspired premium accordion for sector performance */
+#industry-bonds-fx-commodities .sector-collapse{margin-top:12px;border:1px solid rgba(60,60,67,.14);border-radius:18px;background:rgba(255,255,255,.86);box-shadow:0 3px 12px rgba(20,24,35,.055);overflow:hidden;transition:box-shadow .25s ease,border-color .25s ease}
+#industry-bonds-fx-commodities .sector-collapse>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;min-height:66px;padding:15px 16px;background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%);color:#25262a;font-size:15px;line-height:1.4;font-weight:850;letter-spacing:.1px;border:0;border-radius:0;transition:background .2s ease}
+#industry-bonds-fx-commodities .sector-collapse>summary::-webkit-details-marker{display:none}
+#industry-bonds-fx-commodities .sector-collapse>summary:before{content:"＋";display:inline-flex;align-items:center;justify-content:center;flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:#c62828;color:#fff;font-size:21px;line-height:1;font-weight:500;box-shadow:0 3px 8px rgba(198,40,40,.2);transition:transform .28s cubic-bezier(.2,.8,.2,1),background .2s ease}
+#industry-bonds-fx-commodities .sector-collapse[open]{border-color:rgba(198,40,40,.25);box-shadow:0 7px 22px rgba(20,24,35,.09)}
+#industry-bonds-fx-commodities .sector-collapse[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%);color:#a91f27}
+#industry-bonds-fx-commodities .sector-collapse[open]>summary:before{content:"−";transform:rotate(180deg);background:#202328}
+#industry-bonds-fx-commodities .sector-collapse>summary:active{background:#f0f0f4}
+#industry-bonds-fx-commodities .sector-collapse>.audit-content{padding:12px 12px 14px;border-top:1px solid rgba(60,60,67,.09);animation:tacAccordionIn .24s ease-out}
+#industry-bonds-fx-commodities .sector-collapse .sector-row{border:1px solid rgba(60,60,67,.06);background:#f8f8fa;border-radius:13px;margin-bottom:7px}
+#industry-bonds-fx-commodities .sector-collapse .sector-row:last-child{margin-bottom:0}
+@keyframes tacAccordionIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){#industry-bonds-fx-commodities .sector-collapse>summary{min-height:68px;padding:14px 13px;font-size:14px;gap:10px}#industry-bonds-fx-commodities .sector-collapse>summary:before{flex-basis:32px;width:32px;height:32px;font-size:22px}#industry-bonds-fx-commodities .sector-collapse>.audit-content{padding:10px 9px 12px}}
+@media(prefers-reduced-motion:reduce){#industry-bonds-fx-commodities .sector-collapse,#industry-bonds-fx-commodities .sector-collapse>summary,#industry-bonds-fx-commodities .sector-collapse>summary:before{transition:none!important}#industry-bonds-fx-commodities .sector-collapse>.audit-content{animation:none!important}}
+</style>
+<style id="tac-apple-calendar-accordions">
+/* Apple-style segmented headings for calendar status groups */
+#calendar .calendar-status-heading,#earnings .calendar-status-heading{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 13px;margin:8px 0 5px;background:#f1f1f5;border:1px solid rgba(60,60,67,.12);font-size:13px;font-weight:850;color:#555}
+#calendar .calendar-status-heading.published,#earnings .calendar-status-heading.published{background:#edf8f1;color:#18794e;border-color:rgba(24,121,78,.18)}
+#calendar .calendar-status-heading.today,#earnings .calendar-status-heading.today{background:#fff4e5;color:#945600;border-color:rgba(149,86,0,.18)}
+#calendar .calendar-status-heading.upcoming,#earnings .calendar-status-heading.upcoming{background:#eef4ff;color:#2459a9;border-color:rgba(36,89,169,.16)}
+/* Shared premium accordion interaction for all calendar expand/collapse panels */
+#calendar details.calendar-collapse,#earnings details.calendar-collapse,#calendar details.econ-event,#earnings details.earnings-accordion,#earnings details.econ-event{border:1px solid rgba(60,60,67,.14);border-radius:16px;background:rgba(255,255,255,.92);box-shadow:0 2px 9px rgba(20,24,35,.045);overflow:hidden;transition:box-shadow .2s ease,border-color .2s ease}
+#calendar details.calendar-collapse,#earnings details.calendar-collapse{padding:0;margin:10px 0 14px}
+#calendar details.calendar-collapse>summary,#earnings details.calendar-collapse>summary{min-height:58px;padding:12px 14px;background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%);gap:9px}
+#calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:29px;height:29px;flex:0 0 29px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:20px;font-weight:500;box-shadow:0 3px 8px rgba(198,40,40,.17)}
+#calendar details.calendar-collapse[open],#earnings details.calendar-collapse[open],#calendar details.econ-event[open],#earnings details.earnings-accordion[open],#earnings details.econ-event[open]{border-color:rgba(198,40,40,.22);box-shadow:0 5px 17px rgba(20,24,35,.075)}
+#calendar details.calendar-collapse[open]>summary,#earnings details.calendar-collapse[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%)}
+#calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
+#calendar details.econ-event,#earnings details.econ-event{margin:7px 0;background:#fff}
+#calendar details.econ-event>summary,#earnings details.econ-event>summary{padding:12px 13px;background:#fafafd}
+#calendar details.econ-event[open]>summary,#earnings details.econ-event[open]>summary{background:#fff7f7}
+#calendar details.calendar-collapse .event-group,#earnings details.calendar-collapse .event-group{padding:0 10px 10px}
+#earnings details.earnings-accordion{margin:8px 0}
+#earnings details.earnings-accordion>summary{background:linear-gradient(180deg,#fff 0%,#f7f7fa 100%)}
+#earnings details.earnings-accordion[open]>summary{background:linear-gradient(180deg,#fff7f7 0%,#fff 100%)}
+@media(max-width:700px){#calendar details.calendar-collapse>summary,#earnings details.calendar-collapse>summary{padding:12px 10px;gap:7px}#calendar .calendar-status-heading,#earnings .calendar-status-heading{font-size:12px}}
+@media(prefers-reduced-motion:reduce){#calendar details,#earnings details{transition:none!important}}
+</style>
+<style id="tac-calendar-v4-fix">
+/* V4: use the same round red expand control as the earnings accordion */
+#calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-width:32px;flex:0 0 32px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:22px;font-weight:500;line-height:1;box-shadow:0 3px 8px rgba(198,40,40,.2);border:0}
+#calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
+#calendar details.econ-event>summary .econ-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;background:#c62828;color:#fff;box-shadow:0 3px 8px rgba(198,40,40,.2);font-size:0;position:relative}
+#calendar details.econ-event>summary .econ-toggle:before{content:"＋";font-size:22px;font-weight:500;line-height:1}
+#calendar details.econ-event[open]>summary .econ-toggle:before{content:"−";background:#202328;border-radius:50%;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+#calendar .week-econ-tab-labels,#earnings .week-earnings-tab-labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px;padding:5px;border:1px solid #e5e5ea;border-radius:14px;background:#f5f5f7;box-shadow:inset 0 1px 1px rgba(0,0,0,.025);margin:10px 0 14px}
+#calendar .week-econ-tab-labels label,#earnings .week-earnings-tab-labels label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:9px 5px;border:1px solid transparent;border-radius:10px;background:transparent;color:#6e6e73;font-size:13px;font-weight:650;line-height:1.25;cursor:pointer;white-space:normal;overflow-wrap:anywhere;box-shadow:none;transition:background .18s ease,color .18s ease,box-shadow .18s ease}
+#week-econ-today:checked~.week-econ-tab-labels label[for="week-econ-today"],#week-econ-upcoming:checked~.week-econ-tab-labels label[for="week-econ-upcoming"],#week-econ-published:checked~.week-econ-tab-labels label[for="week-econ-published"],#week-earnings-today:checked~.week-earnings-tab-labels label[for="week-earnings-today"],#week-earnings-upcoming:checked~.week-earnings-tab-labels label[for="week-earnings-upcoming"],#week-earnings-published:checked~.week-earnings-tab-labels label[for="week-earnings-published"]{background:#fff!important;color:#b42332!important;border-color:rgba(60,60,67,.08)!important;box-shadow:0 2px 6px rgba(0,0,0,.09)!important}
+@media(max-width:700px){#calendar .week-econ-tab-labels label,#earnings .week-earnings-tab-labels label{min-height:46px;padding:8px 3px;font-size:12px}}
+</style>
+<style id="tac-apple-v5-earnings-fed-focus">
+/* Fix individual earnings expand icons: match the round red plus/minus control */
+#earnings details.earnings-accordion>summary{display:flex;align-items:center;gap:12px}
+#earnings details.earnings-accordion>summary .earnings-accordion-toggle{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;width:34px;height:34px;min-width:34px;border-radius:50%;background:#c62828;color:#fff;box-shadow:0 3px 8px rgba(198,40,40,.2);margin-left:auto;position:relative;font-size:0;line-height:1}
+#earnings details.earnings-accordion>summary .earnings-accordion-toggle:before{content:"＋";font-size:23px;font-weight:500;line-height:1}
+#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle{background:#202328}
+#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle:before{content:"−"}
+/* Shared Apple-style segmented control for Fed/FOMC and Today's Focus */
+.fed-live-tab-labels,.focus-tab-labels{display:grid!important;gap:5px!important;padding:5px!important;border:1px solid #e5e5ea!important;border-radius:14px!important;background:#f5f5f7!important;overflow:visible!important;box-shadow:inset 0 1px 1px rgba(0,0,0,.025)!important}
+.fed-live-tab-labels{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.focus-tab-labels{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.fed-live-tab-labels label,.focus-tab-labels label{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;min-height:44px!important;padding:9px 5px!important;border:1px solid transparent!important;border-right:0!important;border-radius:10px!important;background:transparent!important;color:#6e6e73!important;font-size:13px!important;font-weight:650!important;line-height:1.25!important;white-space:normal!important;overflow-wrap:anywhere!important;text-align:center!important;box-shadow:none!important;transition:background .18s ease,color .18s ease,box-shadow .18s ease!important}
+#fed-live-tab-watch:checked~.fed-live-tab-labels label[for="fed-live-tab-watch"],#fed-live-tab-fomc:checked~.fed-live-tab-labels label[for="fed-live-tab-fomc"],#focus-tab-market:checked~.focus-tab-labels label[for="focus-tab-market"],#focus-tab-levels:checked~.focus-tab-labels label[for="focus-tab-levels"],#focus-tab-core:checked~.focus-tab-labels label[for="focus-tab-core"]{background:#fff!important;color:#b42332!important;border-color:rgba(60,60,67,.08)!important;box-shadow:0 2px 6px rgba(0,0,0,.09)!important}
+@media(max-width:700px){#earnings details.earnings-accordion>summary{gap:8px}#earnings details.earnings-accordion>summary .earnings-accordion-toggle{flex-basis:32px;width:32px;height:32px;min-width:32px}.fed-live-tab-labels label,.focus-tab-labels label{font-size:12px!important;padding:8px 3px!important;min-height:44px!important}}
+@media(prefers-reduced-motion:reduce){.fed-live-tab-labels label,.focus-tab-labels label{transition:none!important}}
+</style>
+<style id="tac-calendar-status-pill-v6">
+/* One unified capsule: remove colored nested badge/frame in calendar status header */
+#calendar .calendar-status-heading,#earnings .calendar-status-heading{display:inline-flex!important;align-items:center!important;gap:7px!important;padding:10px 15px!important;margin:8px 0 6px!important;border:1px solid #dfe1e6!important;border-radius:999px!important;background:#f5f5f7!important;color:#5e6066!important;box-shadow:none!important}
+#calendar .calendar-status-heading.published,#earnings .calendar-status-heading.published,#calendar .calendar-status-heading.today,#earnings .calendar-status-heading.today,#calendar .calendar-status-heading.upcoming,#earnings .calendar-status-heading.upcoming{border-color:#dfe1e6!important;background:#f5f5f7!important;color:#5e6066!important}
+#calendar .calendar-status-heading .status-pill,#earnings .calendar-status-heading .status-pill,#calendar .calendar-status-heading span,#earnings .calendar-status-heading span{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:inherit!important;padding:0!important}
+</style>
+<style id="tac-focus-content-cards-v8">
+/* Match the grey bordered card style across all Today's Focus tabs */
+.today-focus .focus-panel .key,
+.today-focus .focus-panel .callout{
+  display:block!important;
+  padding:14px 15px!important;
+  margin:0!important;
+  border:1px solid #dfe2e6!important;
+  border-radius:14px!important;
+  background:#f7f7f9!important;
+  color:var(--ink,#17191d)!important;
+  line-height:1.85!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 1px 2px rgba(20,24,35,.025)!important;
+}
+.today-focus .focus-panels{padding-top:14px!important}
+.today-focus .focus-panel{min-width:0}
+@media(max-width:700px){.today-focus .focus-panel .key,.today-focus .focus-panel .callout{padding:13px 12px!important;border-radius:13px!important;line-height:1.8!important}}
+</style>
+<style id="tac-earnings-expand-button-fix">
+/* Fix: restore visible plus/minus glyph inside the red circular earnings expand button */
+#earnings details.earnings-accordion>summary .earnings-accordion-toggle{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 38px!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;padding:0!important;border:0!important;border-radius:50%!important;background:#c62828!important;color:#fff!important;font-size:0!important;line-height:1!important;box-sizing:border-box!important;position:relative!important;opacity:1!important;visibility:visible!important}
+#earnings details.earnings-accordion>summary .earnings-accordion-toggle::before{content:"＋"!important;display:block!important;position:static!important;width:auto!important;height:auto!important;margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:#fff!important;font-family:Arial,sans-serif!important;font-size:25px!important;font-weight:500!important;line-height:1!important;opacity:1!important;visibility:visible!important;transform:none!important}
+#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle{background:#202328!important}
+#earnings details.earnings-accordion[open]>summary .earnings-accordion-toggle::before{content:"−"!important;color:#fff!important}
+@media(max-width:700px){#earnings details.earnings-accordion>summary .earnings-accordion-toggle{flex-basis:38px!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}}
+</style>
+<style id="tac-dashboard-home-integration-preview-v8">
+/* V8 minimalist embedded dashboard modules */
+.card:has(.vol-dashboard-link),.fund-report-card{background:#fff!important;color:#202328!important;border:1px solid #e6e7e9!important;border-radius:10px!important;box-shadow:none!important;padding:16px 18px 17px!important;margin-bottom:12px!important}
+.card:has(.vol-dashboard-link) .title{font-size:18px!important;font-weight:850!important;letter-spacing:-.35px!important;color:#202328!important;margin-bottom:9px!important}
+.card:has(.vol-dashboard-link) .title span{display:flex;align-items:center;gap:8px}
+.card:has(.vol-dashboard-link) .title span:before{content:"";display:inline-block;width:3px;height:19px;background:#b8202f;border-radius:2px}
+.card:has(.vol-dashboard-link)>div[style]{font-size:12px!important;line-height:1.85!important;color:#646970!important}
+.card:has(.vol-dashboard-link)>div[style] b{color:#282b30!important;font-weight:750!important}
+.fund-report-card{padding:16px 18px 17px!important}
+.fund-report-head{margin-bottom:10px!important}
+.fund-report-title{font-size:18px!important;line-height:1.4!important;font-weight:850!important;color:#202328!important;letter-spacing:-.3px!important;white-space:normal!important}
+.red-highlight{color:#b8202f!important}
+.fund-report-sub{margin-top:6px!important;font-size:11px!important;font-weight:750!important;color:#7b7f85!important;justify-content:flex-start!important;letter-spacing:.3px!important}
+.fund-report-list{grid-template-columns:1fr!important;gap:6px!important}
+.fund-date-row{grid-template-columns:22px 60px minmax(0,1fr) 68px!important;gap:8px!important;min-height:48px!important;padding:7px 10px!important;border:1px solid #ececef!important;border-radius:7px!important;background:#fafafa!important}
+.fund-dot{width:8px!important;height:8px!important;box-shadow:none!important}
+.fund-date{font-size:17px!important;font-weight:850!important;color:#24272b!important}
+.fund-names{font-size:12px!important;line-height:1.4!important;font-weight:700!important;color:#41454a!important}
+.fund-status{text-align:right!important;font-size:11px!important;font-weight:750!important}
+.dashboard-link{height:39px!important;margin-top:10px!important;padding:0 12px!important;border-radius:6px!important;font-size:12px!important;font-weight:750!important;letter-spacing:.1px!important}
+.vol-dashboard-link{color:#34373b!important;background:#f5f5f6!important;border:1px solid #dfe1e4!important}
+.fund-dashboard-link{color:#fff!important;background:#b8202f!important;border:1px solid #b8202f!important}
+@media(min-width:900px){main.wrap>section.card:has(.vol-dashboard-link),main.wrap>section.fund-report-card{padding:17px 20px!important}}
+@media(max-width:700px){.fund-date-row{grid-template-columns:18px 52px minmax(0,1fr) 58px!important;gap:6px!important;padding:7px 8px!important}.fund-date{font-size:15px!important}.fund-names{font-size:11px!important}.fund-status{font-size:10px!important}}
+</style>
+<style id="tac-dashboard-home-integration-preview-v9">
+/* V9: unify the three homepage section titles to the fund title size; history panel joins the same visual system */
+.card:has(.vol-dashboard-link) .title,
+.fund-report-title,
+.history-panel>.title{font-size:18px!important;line-height:1.4!important;font-weight:850!important;letter-spacing:-.3px!important;color:#202328!important}
+.history-panel{background:#fff!important;border:1px solid #e6e7e9!important;border-radius:10px!important;box-shadow:none!important;padding:16px 18px 17px!important;margin-bottom:12px!important}
+.history-panel>.title{display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:10px!important}
+.history-panel>.title>span{display:flex;align-items:center;gap:8px}
+.history-panel>.title>span:before{content:"";display:inline-block;width:3px;height:19px;background:#b8202f;border-radius:2px}
+.history-panel>.title small{display:block!important;margin-left:auto!important;font-size:10px!important;line-height:1.4!important;font-weight:600!important;letter-spacing:0!important;color:#858990!important}
+.history-box{display:grid!important;grid-template-columns:minmax(0,1fr) auto auto!important;gap:7px!important;align-items:end!important}
+.history-field{grid-column:1/-1!important}
+.history-field label{font-size:11px!important;font-weight:750!important;color:#646970!important;margin-bottom:5px!important}
+.history-field input{height:39px!important;border:1px solid #e2e4e7!important;border-radius:6px!important;background:#fafafa!important;font-size:13px!important}
+.history-btn{height:38px!important;border-radius:6px!important;padding:0 10px!important;font-size:11px!important;font-weight:750!important;white-space:nowrap!important}
+.history-btn.secondary{background:#f5f5f6!important;border:1px solid #e2e4e7!important;color:#36393e!important}
+.history-btn.primary{background:#b8202f!important;border:1px solid #b8202f!important;color:#fff!important}
+.history-btn.latest{background:#fff!important;border:1px solid #dfe1e4!important;color:#34373b!important}
+.history-note,.history-status{font-size:10px!important;line-height:1.5!important}
+@media(max-width:700px){.history-panel{padding:15px 14px!important}.history-panel>.title{align-items:flex-start!important;flex-wrap:wrap!important}.history-panel>.title small{width:100%!important;margin-left:11px!important}.history-box{grid-template-columns:repeat(2,minmax(0,1fr))!important}.history-field{grid-column:1/-1!important}.history-btn{width:100%!important;padding:0 5px!important;font-size:10px!important}.card:has(.vol-dashboard-link) .title,.fund-report-title,.history-panel>.title{font-size:18px!important}}
+</style>
+<style id="tac-dashboard-home-integration-preview-v10">
+/* V10 fix: identical heading sizes and prevent history date control overflow on mobile */
+.card:has(.vol-dashboard-link) .title,
+.fund-report-title,
+.history-panel>.title{font-size:18px!important;line-height:1.4!important;font-weight:850!important;letter-spacing:-.3px!important;color:#202328!important}
+.card:has(.vol-dashboard-link) .title{display:flex!important;align-items:center!important;gap:8px!important}
+.fund-report-title{white-space:normal!important}
+.history-panel>.title{display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important}
+.history-panel>.title small{font-size:10px!important}
+.history-panel,.history-panel *{box-sizing:border-box!important;min-width:0}
+.history-panel{width:100%!important;max-width:100%!important;overflow:hidden!important}
+.history-box{width:100%!important;max-width:100%!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+.history-field{grid-column:1/-1!important;width:100%!important;max-width:100%!important}
+.history-field input{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;appearance:auto!important;-webkit-appearance:none!important;padding:0 10px!important;text-align:center!important}
+.history-btn{min-width:0!important;max-width:100%!important;white-space:normal!important;overflow-wrap:anywhere!important}
+@media(max-width:700px){
+.card:has(.vol-dashboard-link) .title,.fund-report-title,.history-panel>.title{font-size:18px!important;line-height:1.4!important}
+.history-panel{padding:15px 14px!important}
+.history-panel>.title small{width:100%!important;margin-left:11px!important}
+.history-box{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}
+.history-field input{height:42px!important;font-size:13px!important}
+.history-btn{width:100%!important;height:auto!important;min-height:40px!important;padding:9px 5px!important;font-size:11px!important;line-height:1.3!important}
+}
+</style>
+<style id="tac-dashboard-home-integration-preview-v11">
+/* Force the exact same heading size after all existing styles */
+main.wrap section.card:has(a.vol-dashboard-link) .title,
+main.wrap section.card.fund-report-card .fund-report-head .fund-report-title,
+main.wrap section.card.history-panel > .title,
+main.wrap section.card.history-panel > .title > span{font-size:18px!important;line-height:1.4!important;font-weight:850!important;letter-spacing:-.3px!important}
+main.wrap section.card:has(a.vol-dashboard-link) .title{color:#202328!important}
+main.wrap section.card.fund-report-card .fund-report-head .fund-report-title{white-space:normal!important;color:#202328!important}
+main.wrap section.card.history-panel > .title{display:flex!important;align-items:center!important;gap:8px!important}
+main.wrap section.card.history-panel > .title > span{display:flex!important;align-items:center!important}
+@media(max-width:700px){
+main.wrap section.card:has(a.vol-dashboard-link) .title,
+main.wrap section.card.fund-report-card .fund-report-head .fund-report-title,
+main.wrap section.card.history-panel > .title,
+main.wrap section.card.history-panel > .title > span{font-size:18px!important;line-height:1.4!important}
+}
+</style>
+<style id="tac-dashboard-home-integration-preview-v12">
+/* Match the red title rail across all three modules */
+main.wrap section.card:has(a.vol-dashboard-link) .title span:before,
+main.wrap section.card.fund-report-card .fund-report-head:before,
+main.wrap section.card.history-panel > .title > span:before{
+ content:"";display:inline-block;flex:0 0 3px;width:3px;height:22px;background:#b8202f;border-radius:2px;margin-right:8px
+}
+main.wrap section.card.fund-report-card .fund-report-head{position:relative}
+main.wrap section.card.fund-report-card .fund-report-head:before{position:absolute;left:-9px;top:3px}
+main.wrap section.card.fund-report-card .fund-report-title{display:flex!important;align-items:center!important;gap:0!important}
+main.wrap section.card.fund-report-card .fund-report-title:before{content:none!important}
+@media(max-width:700px){
+main.wrap section.card:has(a.vol-dashboard-link) .title span:before,
+main.wrap section.card.fund-report-card .fund-report-head:before,
+main.wrap section.card.history-panel > .title > span:before{height:22px!important}
+main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!important}
+}
+</style>
+<style id="tac-sidebar-tools-v5-date-overflow-fix">
+/* V5: prevent iOS Safari date input's intrinsic control width from overflowing its history panel */
+.tac-history-mini{min-width:0!important;overflow:hidden!important}
+.tac-history-mini label{max-width:100%!important;box-sizing:border-box!important}
+.tac-history-mini input[type="date"]{
+ display:block!important;width:calc(100% - 12px)!important;max-width:calc(100% - 12px)!important;
+ min-width:0!important;box-sizing:border-box!important;margin-right:12px!important;
+ padding-left:6px!important;padding-right:6px!important;font-size:14px!important;
+}
+@media(max-width:380px){
+ .tac-history-mini input[type="date"]{width:calc(100% - 16px)!important;max-width:calc(100% - 16px)!important;margin-right:16px!important;font-size:13px!important}
+}
+</style>
+<style id="tac-sidebar-tools-v6-note-style">
+.tac-tools-hint{
+ display:none;box-sizing:border-box;width:100%;margin:0;padding:8px 18px 10px;
+ color:#8b2530;background:#f8f1f2;border-bottom:1px solid #eadbdd;
+ font-size:13px;line-height:1.5;font-weight:750;text-align:left;
+}
+.tac-tools-hint strong{font-weight:900}
+@media(max-width:1099px){.tac-tools-hint{display:block}}
+</style><style id="tac-tools-hint-up-arrow">
+@media(max-width:1099px){
+ .tac-tools-hint{
+   display:block!important;position:relative!important;box-sizing:border-box!important;
+   width:fit-content!important;max-width:calc(100% - 24px)!important;
+   margin:10px auto 6px!important;padding:8px 13px!important;
+   border:1px solid rgba(180,35,50,.22)!important;border-radius:999px!important;
+   background:rgba(255,255,255,.92)!important;box-shadow:0 3px 12px rgba(35,45,55,.06)!important;
+   text-align:center!important;overflow:visible!important;left:auto!important;right:auto!important;
+ }
+ .tac-tools-hint:before{content:none!important;display:none!important}
+}
+/* PREVIEW: center the toolbar hint capsule and use a clearer warm-yellow fill */
+@media(max-width:1099px){
+ .tac-tools-hint{
+   display:block!important;
+   width:max-content!important;
+   max-width:calc(100% - 32px)!important;
+   margin:10px auto 6px!important;
+   padding:8px 14px!important;
+   background:#ffeb00!important;
+   border:1px solid #ffeb00!important;
+   color:#c62828!important;
+   box-shadow:0 3px 12px rgba(190,150,0,.22)!important;
+   text-align:center!important;
+   left:auto!important;
+   right:auto!important;
+   transform:none!important;
+ }
+ .tac-tools-hint strong{color:#c62828!important}
+}
+/* PREVIEW V1: force bright yellow capsule fill and red text above earlier styles */
+@media(max-width:1099px){
+  body #tac-tools-hint.tac-tools-hint{
+    display:block!important;
+    position:relative!important;
+    box-sizing:border-box!important;
+    width:max-content!important;
+    max-width:calc(100% - 32px)!important;
+    margin:10px auto 6px!important;
+    padding:8px 14px!important;
+    background-color:#ffeb00!important;
+    background-image:none!important;
+    border:1px solid #ffeb00!important;
+    border-radius:999px!important;
+    color:#c62828!important;
+    -webkit-text-fill-color:#c62828!important;
+    text-align:center!important;
+    box-shadow:0 3px 12px rgba(190,150,0,.22)!important;
+    left:auto!important;
+    right:auto!important;
+    transform:none!important;
+  }
+  body #tac-tools-hint.tac-tools-hint strong{color:#c62828!important;-webkit-text-fill-color:#c62828!important}
+}
+</style><style id="tac-fund-popup-v7-css">
+#tac-fund-notice{position:fixed;inset:0;z-index:100500;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(18,23,30,.66);backdrop-filter:blur(3px)}
+#tac-fund-notice[hidden]{display:none!important}
+#tac-fund-notice .tfn-dialog{width:min(760px,100%);max-height:88dvh;overflow:auto;background:#f3f5f6;border-radius:18px;box-shadow:0 18px 70px rgba(0,0,0,.35);border:1px solid #d9dee2}
+#tac-fund-notice .tfn-head{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid #e0e3e7;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#tac-fund-notice .tfn-head h2{margin:0;font-size:19px;color:#b42332;font-weight:950}
+#tac-fund-notice .tfn-x{border:1px solid #ddd;background:#fff;border-radius:10px;padding:6px 12px;font-size:20px;color:#555}
+#tac-fund-notice .tfn-body{padding:14px}
+#tac-fund-notice .tfn-card{background:#fff;border:1px solid #dfe2e5;border-top:5px solid #b92332;border-radius:14px;padding:15px 14px;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+#tac-fund-notice .tfn-title{font-size:18px;font-weight:950;line-height:1.4;margin-bottom:16px}
+#tac-fund-notice .tfn-subtitle{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;font-weight:900;margin-bottom:10px}
+#tac-fund-notice .tfn-subtitle small{font-size:11px;color:#747b83;font-weight:700}
+#tac-fund-notice .tfn-list{display:grid;gap:9px}
+#tac-fund-notice .tfn-item{display:grid;grid-template-columns:12px 64px minmax(0,1fr) auto;gap:8px;align-items:start;background:#fafafa;border:1px solid #dedfe2;border-radius:11px;padding:11px 9px}
+#tac-fund-notice .tfn-light{width:11px;height:11px;border-radius:50%;margin-top:5px;background:#b92332;box-shadow:0 0 0 4px #f6e1e3}
+#tac-fund-notice .tfn-light.gold{background:#d9a400;box-shadow:0 0 0 4px #f8efcc}
+#tac-fund-notice .tfn-light.green{background:#16865a;box-shadow:0 0 0 4px #d9f0e6}
+#tac-fund-notice .tfn-date{font-size:16px;font-weight:950;white-space:nowrap}
+#tac-fund-notice .tfn-name{font-size:13px;font-weight:800;line-height:1.45;overflow-wrap:anywhere}
+#tac-fund-notice .tfn-days{font-size:12px;font-weight:900;white-space:nowrap;color:#b42332}
+#tac-fund-notice .tfn-days.gold{color:#a67800}.tfn-days.green{color:#16865a}
+#tac-fund-notice .tfn-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;background:#fff;border-top:1px solid #e0e3e7;position:sticky;bottom:0}
+#tac-fund-notice .tfn-ack{display:flex;align-items:center;gap:9px;font-size:15px;font-weight:900;color:#202328}
+#tac-fund-notice .tfn-ack input{width:21px;height:21px;accent-color:#b92332}
+#tac-fund-notice .tfn-hint{font-size:11px;color:#777;text-align:right}
+@media(max-width:480px){
+ #tac-fund-notice{padding:10px}
+ #tac-fund-notice .tfn-dialog{max-height:86dvh;border-radius:15px}
+ #tac-fund-notice .tfn-head{padding:11px 13px}
+ #tac-fund-notice .tfn-head h2{font-size:17px}
+ #tac-fund-notice .tfn-body{padding:10px}
+ #tac-fund-notice .tfn-card{padding:12px 10px}
+ #tac-fund-notice .tfn-title{font-size:16px;margin-bottom:13px}
+ #tac-fund-notice .tfn-item{grid-template-columns:10px 52px minmax(0,1fr);gap:7px;padding:9px 7px}
+ #tac-fund-notice .tfn-name{font-size:12px}
+ #tac-fund-notice .tfn-days{grid-column:3;text-align:right;font-size:12px}
+ #tac-fund-notice .tfn-foot{align-items:flex-start;flex-direction:column}
+ #tac-fund-notice .tfn-hint{text-align:left}
+}
+</style><style id="tac-tools-hint-v8-pill">
+/* V8: render the mobile toolbar guidance as a compact pill */
+@media(max-width:1099px){
+ .tac-tools-hint{
+  display:block!important;
+  width:fit-content!important;
+  max-width:calc(100% - 32px)!important;
+  box-sizing:border-box!important;
+  margin:10px 16px 12px!important;
+  padding:9px 15px!important;
+  border:1px solid #e6c7cb!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#a92332!important;
+  box-shadow:0 2px 6px rgba(80,25,32,.06)!important;
+  font-size:12px!important;
+  line-height:1.5!important;
+  font-weight:800!important;
+  text-align:left!important;
+ }
+ .tac-tools-hint strong{color:#a92332!important}
+}
+</style><style id="tac-layout-hint-v9">
+/* V9 mobile: move internal-use warning inline to the right of the date; keep toolbar hint to one compact line */
+@media(max-width:1099px){
+ .tac-tools-hint{
+  display:block!important;
+  width:fit-content!important;
+  max-width:calc(100% - 32px)!important;
+  margin:8px 16px 10px auto!important;
+  padding:6px 12px!important;
+  border:1px solid #e6c7cb!important;
+  border-radius:999px!important;
+  background:#fff!important;
+  color:#a92332!important;
+  box-shadow:0 1px 4px rgba(80,25,32,.05)!important;
+  font-size:10px!important;
+  line-height:1.2!important;
+  font-weight:750!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+ }
+ .tac-tools-hint strong{color:#a92332!important}
+ /* Internal training warning shares the title row rather than occupying a full line */
+ header .warning,header .disclaimer,.header-warning,.internal-warning{ }
+}
+</style>
+<script id="tac-layout-hint-v9-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const header=document.querySelector('header');
+ if(!header)return;
+ const title=header.querySelector('h1');
+ if(!title)return;
+ const candidates=[...header.querySelectorAll('*')].filter(el=>{
+   if(el.children.length>0)return false;
+   const t=(el.textContent||'').trim();
+   return t.includes('資料僅供內部教育訓練使用');
+ });
+ if(!candidates.length)return;
+ let warning=candidates[0];
+ while(warning.parentElement&&warning.parentElement!==header&&warning.parentElement.children.length===1)warning=warning.parentElement;
+ const titleParent=title.parentElement;
+ if(!titleParent)return;
+ let row=titleParent;
+ if(!row.contains(warning)){
+   row.style.display='flex';
+   row.style.flexWrap='wrap';
+   row.style.alignItems='center';
+   row.style.columnGap='10px';
+   row.style.rowGap='4px';
+   row.style.minWidth='0';
+   title.style.margin='0';
+   warning.style.margin='0 0 0 auto';
+   warning.style.flex='0 1 auto';
+   warning.style.maxWidth='48%';
+   warning.style.fontSize='10px';
+   warning.style.lineHeight='1.25';
+   warning.style.whiteSpace='normal';
+   warning.style.textAlign='right';
+   warning.style.boxSizing='border-box';
+   row.appendChild(warning);
+ }
+});
+</script><style id="tac-layout-v10">
+@media(max-width:1099px){
+ /* Move pill into the article flow, immediately before the first main content section */
+ .tac-tools-hint{
+  display:block!important;float:none!important;position:static!important;
+  width:fit-content!important;max-width:calc(100% - 32px)!important;
+  margin:12px 16px 14px!important;padding:6px 12px!important;
+  border:1px solid #e6c7cb!important;border-radius:999px!important;
+  background:#fff!important;color:#a92332!important;
+  font-size:10px!important;line-height:1.25!important;font-weight:750!important;
+  text-align:center!important;white-space:nowrap!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;
+ }
+}
+</style>
+<script id="tac-layout-v10-script">
+document.addEventListener('DOMContentLoaded',function(){
+ const hint=document.querySelector('.tac-tools-hint');
+ const main=document.querySelector('main')||document.querySelector('#main')||document.querySelector('.main-content')||document.querySelector('section');
+ if(hint&&main&&hint.parentElement!==main){
+  main.insertBefore(hint,main.firstChild);
+  hint.style.margin='12px 16px 14px';
+ }
+ const title=document.querySelector('header h1')||document.querySelector('h1');
+ if(!title)return;
+ const header=title.closest('header')||title.parentElement;
+ const leaves=[...header.querySelectorAll('*')].filter(el=>el.children.length===0&&(el.textContent||'').trim().includes('資料僅供內部教育訓練使用'));
+ if(!leaves.length)return;
+ let warning=leaves[0];
+ while(warning.parentElement&&warning.parentElement!==header&&warning.parentElement.children.length===1)warning=warning.parentElement;
+ const dateNodes=[...header.querySelectorAll('*')].filter(el=>el.children.length===0&&/20\d{2}\/\d{1,2}\/\d{1,2}/.test(el.textContent||''));
+ if(!dateNodes.length)return;
+ let dateNode=dateNodes[0];
+ while(dateNode.parentElement&&dateNode.parentElement!==header&&dateNode.parentElement.children.length===1)dateNode=dateNode.parentElement;
+ const row=dateNode.parentElement;
+ if(!row||row===header&&!row.contains(title))return;
+ row.style.display='flex';row.style.flexWrap='wrap';row.style.alignItems='center';row.style.columnGap='8px';row.style.rowGap='4px';row.style.minWidth='0';
+ warning.style.display='inline-block';warning.style.margin='0';warning.style.fontSize='10px';warning.style.lineHeight='1.2';warning.style.whiteSpace='nowrap';warning.style.flex='0 1 auto';warning.style.maxWidth='48%';warning.style.textAlign='left';warning.style.boxSizing='border-box';
+ row.appendChild(warning);
+});
+</script><style id="tac-layout-v11-actual-selectors">
+@media(max-width:1099px){
+ .tac-tools-hint{
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  width:fit-content!important;max-width:calc(100% - 32px)!important;
+  margin:12px 16px 14px!important;padding:5px 11px!important;
+  border:1px solid #e6c7cb!important;border-radius:999px!important;
+  background:#fff!important;color:#a92332!important;
+  font-size:10px!important;line-height:1.15!important;font-weight:750!important;
+  text-align:center!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+ }
+ .topin .logo{
+  display:flex!important;flex-wrap:wrap!important;align-items:baseline!important;
+  column-gap:7px!important;row-gap:2px!important;min-width:0!important;
+ }
+ .topin .logo .report-date{display:inline!important;white-space:nowrap!important;font-size:clamp(12px,3.5vw,17px)!important}
+ .topin .logo .top-warning{
+  display:inline!important;position:static!important;float:none!important;
+  margin:0 0 0 2px!important;padding:0!important;
+  width:auto!important;max-width:none!important;flex:0 1 auto!important;
+  font-size:9px!important;line-height:1.2!important;white-space:nowrap!important;
+  color:#858b92!important;vertical-align:baseline!important;
+ }
+}
+</style>
+<style id="tac-sentiment-label-visibility-v12">
+/* V12: make market sentiment indicator names more prominent */
+#sentiment .sbox .label{
+ font-size:17px!important;
+ line-height:1.35!important;
+ font-weight:950!important;
+ letter-spacing:.1px!important;
+ color:#d7dee8!important;
+}
+@media(max-width:700px){
+ #sentiment .sbox .label{
+  font-size:16px!important;
+  line-height:1.35!important;
+  font-weight:950!important;
+ }
+}
+</style>
+
+<style id="tac-sentiment-no-red-label-v17">
+/* V17: CNN Fear & Greed is a normal indicator card; remove the red label-like top stripe */
+#sentiment .sent>.sbox:nth-child(3){
+ border-top:1px solid #394452!important;
+}
+</style>
+<style>
+/* V30 試作：全球主要股市報價欄左移，改善右側擁擠與中間留白 */
+.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(112px,.72fr) minmax(76px,.48fr);column-gap:10px;padding-right:clamp(12px,2.2vw,24px)}
+.tac-tabset .tac-tab-panel .row .r{white-space:nowrap}
+@media(max-width:700px){.tac-tabset .tac-tab-panel .row{grid-template-columns:minmax(0,1fr) minmax(104px,.78fr) minmax(72px,.5fr);column-gap:7px;padding-right:12px}}
+</style>
+<meta name="tac-mother-version" content="Tue-Fri V33 baseline">
+
+
+<style id="tac-full-preview-cnn-fg-band-v9">
+/* V9: force a single-column card layout and continuous blended spectrum */
+#sentiment .sent>section.sbox.cnn-fg-preview{
+ display:block!important;grid-column:1/-1!important;grid-template-columns:none!important;
+ position:relative!important;float:none!important;width:100%!important;max-width:100%!important;
+ min-width:0!important;box-sizing:border-box!important;padding:18px 18px 16px!important;
+ overflow:hidden!important;background:#242d37!important;border:1px solid #394452!important;border-radius:14px!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap,
+#sentiment .sent>section.sbox.cnn-fg-preview>details.source-details{
+ position:relative!important;float:none!important;left:auto!important;right:auto!important;top:auto!important;
+ grid-column:1/-1!important;width:100%!important;max-width:100%!important;min-width:0!important;
+ box-sizing:border-box!important;transform:none!important;
+}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{display:block!important;margin:0!important;padding:0!important;font-size:19px!important;line-height:1.35!important;font-weight:900!important;color:#d7dee8!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-date{display:block!important;margin:3px 0 0!important;padding:0!important;font-size:10px!important;line-height:1.4!important;color:#8d99a8!important;white-space:nowrap!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-score-row{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:flex-start!important;gap:5px!important;margin:12px 0 0!important;padding:0!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{display:block!important;position:static!important;float:none!important;margin:0!important;padding:0!important;font-size:40px!important;line-height:1.1!important;font-weight:950!important;color:#fff!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{display:flex!important;position:static!important;flex-direction:row!important;align-items:center!important;flex-wrap:wrap!important;gap:8px!important;margin:0!important;padding:0!important;font-size:14px!important;line-height:1.5!important;font-weight:850!important;color:#f3c65e!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status i{display:block!important;width:1px!important;height:14px!important;background:#8d99a8!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status b{display:inline!important;position:static!important;margin:0!important;padding:0!important;font:inherit!important;color:inherit!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-scale-wrap{display:block!important;margin:22px 0 0!important;padding:0!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{display:block!important;position:static!important;width:100%!important;height:13px!important;margin:0!important;padding:0!important;border-radius:999px!important;overflow:hidden!important;background:linear-gradient(90deg,#d84a45 0%,#e66b43 22%,#ed9849 35%,#e8c84b 50%,#b2c45a 66%,#72b86b 80%,#3c9b72 100%)!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band span{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker{display:block!important;position:absolute!important;left:23%!important;top:-5px!important;transform:translateX(-50%)!important;width:22px!important;height:22px!important;background:#fff!important;border:3px solid #f4f8fc!important;border-radius:50%!important;box-shadow:0 0 0 2px rgba(255,255,255,.48),0 3px 9px rgba(0,0,0,.55)!important;z-index:2!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-marker span{display:none!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{display:grid!important;position:static!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:3px!important;width:100%!important;margin:10px 0 0!important;padding:0!important;color:#aeb8c6!important;font-size:10px!important;font-weight:700!important;line-height:1.4!important}
+#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels span{display:block!important;position:static!important;float:none!important;min-width:0!important;width:auto!important;margin:0!important;padding:0!important;text-align:center!important;white-space:normal!important;word-break:keep-all!important;overflow-wrap:normal!important}
+#sentiment .sent>section.sbox.cnn-fg-preview>details.source-details{display:block!important;margin:13px 0 0!important}
+@media(max-width:700px){#sentiment .sent>section.sbox.cnn-fg-preview{padding:17px 16px 14px!important}#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:18px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-score{font-size:37px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:13px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-band{height:12px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:9px!important}}
+@media(max-width:370px){#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title{font-size:16px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-status{font-size:12px!important}#sentiment .sent>section.sbox.cnn-fg-preview .fg6-labels{font-size:8px!important}}
+</style>
+
+
+<style id="tac-preview-explicit-label-en-normalization-v19">
+/* V19: Give all three English titles a dedicated span, independent of subtitle and legacy card rules */
+#sentiment .sent .sbox .label .label-en,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+  display:inline!important;
+  font-family:inherit!important;
+  font-size:18px!important;
+  font-weight:750!important;
+  line-height:1.35!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  vertical-align:baseline!important;
+}
+#sentiment .sent .sbox .label .label-zh,
+#sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+  font-size:14px!important;
+  font-weight:650!important;
+  line-height:1.35!important;
+}
+@media(max-width:390px){
+  #sentiment .sent .sbox .label .label-en,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-en{
+    font-size:18px!important;
+  }
+  #sentiment .sent .sbox .label .label-zh,
+  #sentiment .sent>section.sbox.cnn-fg-preview>.fg6-title .label-zh{
+    font-size:14px!important;
+  }
+}
+</style>
+
+
+<style id="tac-preview-market-sentiment-fit-v21">
+/* V21: hard cap bilingual titles to each card's content width on mobile */
+html body #sentiment .sent > .sbox,
+html body #sentiment .sent > section.sbox.cnn-fg-preview { min-width:0!important; }
+html body #sentiment .sent > .sbox .label,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+  display:flex!important; width:100%!important; max-width:100%!important;
+  min-width:0!important; box-sizing:border-box!important; overflow:hidden!important;
+  align-items:baseline!important; flex-wrap:nowrap!important; gap:4px!important;
+  white-space:nowrap!important; font-size:18px!important; line-height:1.3!important;
+}
+html body #sentiment .sent > .sbox .label .label-en,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {
+  display:inline-block!important; flex:0 0 auto!important; min-width:0!important;
+  white-space:nowrap!important; font-size:18px!important; line-height:1.3!important;
+}
+html body #sentiment .sent > .sbox .label .label-zh,
+html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {
+  display:inline-block!important; flex:1 1 0%!important; width:0!important;
+  min-width:0!important; max-width:100%!important; overflow:hidden!important;
+  white-space:nowrap!important; font-size:9px!important; line-height:1.3!important;
+  font-weight:650!important; letter-spacing:-.2px!important;
+}
+@media(max-width:700px) {
+ html body #sentiment .sent > .sbox .label,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title {
+   width:100%!important; max-width:100%!important; overflow:hidden!important;
+   gap:3px!important; font-size:18px!important;
+ }
+ html body #sentiment .sent > .sbox .label .label-en,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-en {font-size:18px!important}
+ html body #sentiment .sent > .sbox .label .label-zh,
+ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh {font-size:9px!important}
+}
+</style>
+<style>
+/* Independent preview: cleaner, more compact Fed live panel */
+.fed-compact-preview .fed-live-title{color:#a92332!important;font-size:clamp(21px,3vw,28px)!important;font-weight:900!important;line-height:1.25!important;margin-bottom:10px}
+.fed-compact-preview .fed-live-tab-labels{border-radius:10px;background:#f3f5f7;border-color:#e1e5e9}
+.fed-compact-preview .fed-live-tab-labels label{min-height:40px;font-size:13px;padding:8px;color:#626c76}
+.fed-compact-preview .fed-live-panels{margin-top:10px}
+.fed-compact-preview .fed-live-watch{padding:0}
+.fed-compact-preview .fc-current-rate{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 2px 2px;margin:10px 0 0}.fed-compact-preview .fc-current-rate>span:first-child{font-size:12px;color:#68737e;font-weight:800}.fed-compact-preview .fc-current-rate strong{font-size:21px;line-height:1.2;color:#283440;font-weight:950;letter-spacing:-.02em}.fed-compact-preview .fc-current-rate .fc-pill{margin-left:auto}
+
+
+.fed-compact-preview .fc-current{font-size:11px;color:#68737e;margin-top:4px}
+.fed-compact-preview .fc-current b{color:#283440}
+.fed-compact-preview .fc-pill{white-space:nowrap;font-size:10px;font-weight:800;padding:5px 7px;border-radius:6px;color:#a92332;background:#fff0f1}
+.fed-compact-preview .fc-probs{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px}
+.fed-compact-preview .fc-prob{min-width:0;border-radius:11px;padding:12px;border:1px solid transparent}
+.fed-compact-preview .fc-hold{background:#eef6fb;border-color:#dbeaf4}.fed-compact-preview .fc-hike{background:#fff5e9;border-color:#f4e3cd}
+.fed-compact-preview .fc-prob>span{display:block;font-size:11px;font-weight:850}
+.fed-compact-preview .fc-hold>span{color:#416d88}.fed-compact-preview .fc-hike>span{color:#8b602f}
+.fed-compact-preview .fc-prob strong{display:block;font-size:28px;line-height:1.15;letter-spacing:-.03em;margin-top:4px;font-weight:950}
+.fed-compact-preview .fc-hold strong{color:#176b9b}.fed-compact-preview .fc-hike strong{color:#b66a20}
+.fed-compact-preview .fc-prob strong small{font-size:14px}
+.fed-compact-preview .fc-range{font-size:10px;margin-top:3px;color:#68737e}
+.fed-compact-preview .fc-bar{height:4px;border-radius:99px;background:rgba(80,100,120,.14);margin-top:9px;overflow:hidden}
+.fed-compact-preview .fc-bar i{height:100%;display:block;border-radius:99px;background:#2b83b9}.fed-compact-preview .fc-hike .fc-bar i{background:#d28a3e}
+.fed-compact-preview .fedwatch-time{font-size:10px;margin-top:9px;color:#707b85}.fed-compact-preview .fedwatch-time summary{cursor:pointer;font-weight:800}
+.fed-compact-preview .fc-source{font-size:10px;color:#77818b;margin-top:7px}.fed-compact-preview .fc-source a{color:#a92332;text-decoration:none;font-weight:750}
+.fed-compact-preview .fc-fomc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.fed-compact-preview .fc-fomc>div{padding:11px;border:1px solid #e6e9ed;border-radius:9px;background:#fafbfc;min-width:0}
+.fed-compact-preview .fc-fomc span{display:block;font-size:10px;color:#7a8490;margin-bottom:5px}
+.fed-compact-preview .fc-fomc b{display:block;font-size:12px;color:#303a45;line-height:1.45}
+.fed-compact-preview .fc-fomc p{grid-column:1/-1;font-size:10px;color:#7a8490;margin:0}
+@media(max-width:560px){.fed-compact-preview .fc-current-rate strong{font-size:20px}.fed-compact-preview .fed-live-title{font-size:clamp(21px,5.4vw,28px)!important}.fed-compact-preview .fc-probs{gap:6px}.fed-compact-preview .fc-prob{padding:10px}.fed-compact-preview .fc-prob strong{font-size:25px}.fed-compact-preview .fc-fomc{grid-template-columns:1fr}.fed-compact-preview .fc-fomc p{grid-column:auto}}
+</style>
+<style>
+/* Refined probability presentation: remove duplicate individual progress bars */
+.fed-compact-preview .fc-probs-refined{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.fed-compact-preview .fc-probs-refined .fc-prob{padding:14px 15px 13px;border-radius:12px;box-shadow:0 1px 0 rgba(20,35,50,.025)}
+.fed-compact-preview .fc-prob-label{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:850}
+.fed-compact-preview .fc-prob-label .fc-dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#2b83b9}
+.fed-compact-preview .fc-hike .fc-prob-label .fc-dot{background:#d28a3e}
+.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:clamp(27px,4vw,34px);margin:7px 0 3px;letter-spacing:-.035em}
+.fed-compact-preview .fc-probs-refined .fc-prob strong small{font-size:15px}
+.fed-compact-preview .fc-probs-refined .fc-range{font-size:11px}
+.fed-compact-preview .fc-split-wrap{margin-top:15px;padding:13px 14px 12px;border:1px solid #e7eaee;border-radius:11px;background:linear-gradient(180deg,#fff 0%,#fafbfc 100%)}
+.fed-compact-preview .fc-split-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px;font-weight:850;color:#46515c;margin-bottom:10px}
+.fed-compact-preview .fc-split-head span:last-child{font-size:10px;color:#8a949d;font-weight:700}
+.fed-compact-preview .fc-split-bar{display:flex;width:100%;height:12px;overflow:hidden;border-radius:99px;background:#e7ebef;gap:3px}
+.fed-compact-preview .fc-split-hold{display:block;height:100%;background:linear-gradient(90deg,#237cae,#3895c4);border-radius:99px 3px 3px 99px}
+.fed-compact-preview .fc-split-hike{display:block;height:100%;background:linear-gradient(90deg,#d18b40,#e1a45d);border-radius:3px 99px 99px 3px}
+.fed-compact-preview .fc-split-legend{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 14px;margin-top:10px;font-size:10px;color:#68737e}
+.fed-compact-preview .fc-split-legend span{display:inline-flex;align-items:center;gap:5px}
+.fed-compact-preview .fc-split-legend i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.fed-compact-preview .fc-legend-hold{background:#2b83b9}.fed-compact-preview .fc-legend-hike{background:#d28a3e}
+.fed-compact-preview .fc-split-legend b{font-size:10px;color:#313b45}
+@media(max-width:560px){.fed-compact-preview .fc-probs-refined{gap:7px}.fed-compact-preview .fc-probs-refined .fc-prob{padding:11px 10px}.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:27px}.fed-compact-preview .fc-split-wrap{padding:11px}.fed-compact-preview .fc-split-legend{gap:7px}}
+</style>
+<style>
+/* Institutional financial-services style: navy, slate, restrained blue and amber */
+.fed-compact-preview .fed-live-title{color:#a92332!important}
+.fed-compact-preview .fed-live-tab-labels{background:#edf1f5;border:1px solid #d7dee7;border-radius:8px;box-shadow:none}
+.fed-compact-preview .fed-live-tab-labels label{color:#596879;font-weight:750}
+.fed-compact-preview .fed-live-tab-labels label:hover{color:#193b5a}
+.fed-compact-preview .fc-current-rate{background:#f4f7fa;border:1px solid #dce4ec;border-left:4px solid #254f73;border-radius:8px;padding:13px 14px;margin-top:12px}
+.fed-compact-preview .fc-current-rate>span:first-child{color:#526477;font-size:12px;font-weight:800}
+.fed-compact-preview .fc-current-rate strong{color:#183b5a;font-size:25px;font-weight:900;letter-spacing:-.025em}
+.fed-compact-preview .fc-current-rate .fc-pill{background:#e5edf5;color:#254f73;border-radius:5px;font-size:10px;font-weight:800}
+.fed-compact-preview .fc-probs-refined{gap:10px;margin-top:10px}
+.fed-compact-preview .fc-probs-refined .fc-prob{border-radius:8px;box-shadow:none;padding:14px 15px;background:#fff;border:1px solid #d9e1e9;border-top:3px solid #2d6d9b}
+.fed-compact-preview .fc-probs-refined .fc-hike{border-top-color:#b77b35;background:#fff;border-color:#e4e0d8;border-top-color:#b77b35}
+.fed-compact-preview .fc-prob-label{color:#526477;font-size:12px;letter-spacing:.01em}
+.fed-compact-preview .fc-prob-label .fc-dot{background:#2d6d9b;width:6px;height:6px}
+.fed-compact-preview .fc-hike .fc-prob-label .fc-dot{background:#b77b35}
+.fed-compact-preview .fc-probs-refined .fc-hold strong{color:#1e5e88}
+.fed-compact-preview .fc-probs-refined .fc-hike strong{color:#9a6427}
+.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:32px;font-weight:900}
+.fed-compact-preview .fc-probs-refined .fc-range{color:#647487;font-size:11px}
+.fed-compact-preview .fc-split-wrap{border:1px solid #d9e1e9;border-radius:8px;background:#f8fafc;box-shadow:none}
+.fed-compact-preview .fc-split-head{color:#33485d;text-transform:none}
+.fed-compact-preview .fc-split-head span:last-child{color:#758394}
+.fed-compact-preview .fc-split-bar{height:9px;gap:2px;background:#e1e7ed;border-radius:3px}
+.fed-compact-preview .fc-split-hold{background:#2d6d9b;border-radius:2px}
+.fed-compact-preview .fc-split-hike{background:#b77b35;border-radius:2px}
+.fed-compact-preview .fc-split-legend{color:#657487}
+.fed-compact-preview .fc-split-legend b{color:#243b52}
+.fed-compact-preview .fedwatch-time{border-top:1px solid #e1e6ec;padding-top:10px}
+.fed-compact-preview .fc-source{color:#657487}
+.fed-compact-preview .fc-source a{color:#254f73}
+@media(max-width:560px){.fed-compact-preview .fc-current-rate{padding:11px}.fed-compact-preview .fc-current-rate strong{font-size:22px}.fed-compact-preview .fc-probs-refined .fc-prob{padding:11px 10px}.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:27px}}
+</style>
+<style>
+.fed-compact-preview .fc-fomc .fc-fomc-rate{background:#f2f6fa;border-left:3px solid #254f73;border-radius:7px;padding:12px 14px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate span{display:block;font-size:12px;color:#526477;font-weight:800;margin-bottom:5px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate b{display:block;font-size:24px;line-height:1.25;color:#183b5a;font-weight:900;letter-spacing:-.02em}
+.fed-compact-preview .fc-fomc .fc-fomc-rate small{display:block;margin-top:5px;font-size:10px;color:#7a8794}
+</style>
+<style>
+/* FOMC tab: polished institutional policy panel */
+.fed-compact-preview .fed-live-panel.fed-live-fomc{padding:16px 16px 18px}
+.fed-compact-preview .fc-fomc{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+.fed-compact-preview .fc-fomc>div{margin:0;min-width:0;border:1px solid #dfe5ec;border-radius:10px;background:#fff;padding:13px 14px}
+.fed-compact-preview .fc-fomc>div:first-child{background:#f8fafc}
+.fed-compact-preview .fc-fomc>div>span{display:block;color:#778493;font-size:11px;font-weight:800;letter-spacing:.035em;margin-bottom:7px}
+.fed-compact-preview .fc-fomc>div>b{display:block;color:#334557;font-size:16px;font-weight:850;line-height:1.35}
+.fed-compact-preview .fc-fomc .fc-fomc-rate{grid-column:1/-1;position:relative;overflow:hidden;background:linear-gradient(112deg,#183b5a 0%,#244f72 100%);border:0;border-radius:12px;padding:19px 18px 15px;box-shadow:0 5px 14px rgba(24,59,90,.12)}
+.fed-compact-preview .fc-fomc .fc-fomc-rate:after{content:"";position:absolute;right:-25px;top:-44px;width:150px;height:150px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.025),0 0 0 38px rgba(255,255,255,.025);pointer-events:none}
+.fed-compact-preview .fc-fomc .fc-fomc-rate span{position:relative;z-index:1;color:#c6d5e2;font-size:12px;letter-spacing:.04em;margin-bottom:8px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate b{position:relative;z-index:1;color:#fff;font-size:clamp(29px,6vw,38px);font-weight:850;letter-spacing:-.035em;line-height:1.15}
+.fed-compact-preview .fc-fomc .fc-fomc-rate small{position:relative;z-index:1;display:inline-flex;margin-top:11px;padding:4px 8px;border-radius:4px;background:rgba(255,255,255,.12);color:#e1eaf1;font-size:10px;font-weight:750}
+.fed-compact-preview .fc-fomc>div:nth-child(3){grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;background:#f8fafc}
+.fed-compact-preview .fc-fomc>div:nth-child(3)>span{margin:0;white-space:nowrap}
+.fed-compact-preview .fc-fomc>div:nth-child(3)>b{font-size:13px;text-align:right}
+.fed-compact-preview .fc-fomc>p{grid-column:1/-1;margin:2px 0 0;padding:10px 2px 0;border-top:1px solid #e7ebf0;color:#87919c;font-size:11px;line-height:1.5}
+@media(max-width:560px){.fed-compact-preview .fed-live-panel.fed-live-fomc{padding:13px}.fed-compact-preview .fc-fomc{gap:8px}.fed-compact-preview .fc-fomc>div{padding:11px 12px}.fed-compact-preview .fc-fomc>div>b{font-size:14px}.fed-compact-preview .fc-fomc .fc-fomc-rate{padding:17px 15px}.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:31px}.fed-compact-preview .fc-fomc>div:nth-child(3){align-items:flex-start;flex-direction:column;gap:5px}.fed-compact-preview .fc-fomc>div:nth-child(3)>b{text-align:left}}
+</style>
+<style>
+/* Move the observation strip upward: compact gap after the rate hero */
+.fed-compact-preview .fc-fomc{row-gap:7px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate{margin-bottom:0}
+.fed-compact-preview .fc-fomc .fc-fomc-observation{margin-top:-1px;padding:9px 13px;border-radius:8px;background:#f5f8fb;border:1px solid #dfe6ed;min-height:0}
+.fed-compact-preview .fc-fomc .fc-fomc-observation>span{margin-bottom:3px;font-size:10px}
+.fed-compact-preview .fc-fomc .fc-fomc-observation>b{font-size:12px;line-height:1.25}
+.fed-compact-preview .fc-fomc>p{margin-top:0;padding-top:8px}
+@media(max-width:560px){.fed-compact-preview .fc-fomc{row-gap:6px}.fed-compact-preview .fc-fomc .fc-fomc-observation{padding:8px 12px}}
+</style>
+<style>
+/* FOMC: meeting date and policy rate displayed side by side */
+.fed-compact-preview .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;align-items:stretch}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;min-height:98px;background:#f4f7fa;border:1px solid #dfe5ec;border-radius:10px;padding:13px}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>span{font-size:11px;line-height:1.4;margin-bottom:7px}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>b{font-size:clamp(13px,3.4vw,17px);line-height:1.4;overflow-wrap:anywhere}
+.fed-compact-preview .fc-fomc .fc-fomc-rate{grid-column:2;grid-row:1;min-height:98px;display:flex;flex-direction:column;justify-content:center;padding:14px 13px;border-radius:10px}
+.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:clamp(21px,5.2vw,31px);overflow-wrap:anywhere}
+.fed-compact-preview .fc-fomc .fc-fomc-rate small{align-self:flex-start;margin-top:7px}
+.fed-compact-preview .fc-fomc .fc-fomc-observation{grid-column:1/-1}
+.fed-compact-preview .fc-fomc>div:nth-child(3){grid-column:1/-1}
+@media(max-width:560px){.fed-compact-preview .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px}.fed-compact-preview .fc-fomc .fc-fomc-meeting,.fed-compact-preview .fc-fomc .fc-fomc-rate{min-height:94px;padding:11px 10px}.fed-compact-preview .fc-fomc .fc-fomc-meeting>b{font-size:13px}.fed-compact-preview .fc-fomc .fc-fomc-rate b{font-size:clamp(19px,5vw,25px)}.fed-compact-preview .fc-fomc .fc-fomc-rate small{font-size:9px;padding:3px 5px}}
+</style>
+<style>
+/* FOMC layout: meeting date + core observation on top, target rate below */
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto!important;gap:8px!important;align-items:stretch!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting{grid-column:1!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation{grid-column:2!important;grid-row:1!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate{grid-column:1/-1!important;grid-row:2!important;width:auto!important;min-width:0!important;box-sizing:border-box!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1/-1!important}
+@media(max-width:560px){.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-rate b{font-size:clamp(22px,6vw,30px)!important}.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting>b{font-size:clamp(12px,3.1vw,14px)!important}}
+</style>
+<style>
+/* FINAL FOMC composition: top row = meeting + observation; bottom row = rate */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto!important;column-gap:8px!important;row-gap:8px!important;align-items:stretch!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting{grid-column:1!important;grid-row:1!important;min-width:0!important;width:auto!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:2!important;grid-row:1!important;min-width:0!important;width:auto!important;display:flex!important;flex-direction:column!important;justify-content:center!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:2!important;min-width:0!important;width:auto!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:3!important}
+@media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{padding:11px 10px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{padding:17px 15px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate b{font-size:clamp(24px,6vw,32px)!important}}
+</style>
+<style>
+/* Alignment fix: equal top padding and matching label/value baselines */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  box-sizing:border-box!important;
+  min-height:112px!important;
+  height:112px!important;
+  padding:14px 12px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  gap:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>span{
+  display:block!important;
+  margin:0 0 9px!important;
+  min-height:16px!important;
+  line-height:16px!important;
+  font-size:12px!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{
+  display:block!important;
+  margin:0!important;
+  line-height:1.35!important;
+  text-align:left!important;
+  overflow-wrap:anywhere!important;
+}
+@media(max-width:560px){
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  min-height:112px!important;height:112px!important;padding:14px 10px!important;
+ }
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b{font-size:clamp(12px,3.5vw,16px)!important}
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{font-size:clamp(12px,3.5vw,16px)!important}
+}
+</style>
+<style>
+/* FOMC: add Taiwan-local press conference time; observation spans above rate */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;grid-template-rows:auto auto auto!important;row-gap:8px!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting{grid-column:1!important;grid-row:1!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{grid-column:2!important;grid-row:1!important;box-sizing:border-box!important;min-width:0!important;min-height:112px!important;height:112px!important;padding:14px 12px!important;display:flex!important;flex-direction:column!important;justify-content:flex-start!important;align-items:flex-start!important;gap:0!important;background:#f4f7fa!important;border:1px solid #dfe5ec!important;border-radius:10px!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>span{display:block!important;margin:0 0 9px!important;line-height:16px!important;min-height:16px!important;font-size:12px!important;color:#64748b!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>b{display:block!important;margin:0!important;line-height:1.35!important;text-align:left!important;overflow-wrap:anywhere!important;font-size:clamp(12px,3.5vw,16px)!important;color:#334155!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{grid-column:1 / -1!important;grid-row:2!important;min-height:0!important;height:auto!important;padding:10px 12px!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{grid-column:1 / -1!important;grid-row:3!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{grid-column:1 / -1!important;grid-row:4!important}
+@media(max-width:560px){html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;column-gap:7px!important;row-gap:7px!important}html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{min-height:112px!important;height:112px!important;padding:14px 9px!important}}
+</style>
+
+<style id="fomc-compact-cards-v7">
+/* V7: compact the two FOMC metadata cards; preserve the existing palette and rate card */
+.fed-compact-preview .fc-fomc .fc-fomc-meeting,
+.fed-compact-preview .fc-fomc .fc-fomc-press{
+  min-height:0 !important;
+  height:auto !important;
+  justify-content:flex-start !important;
+  padding:10px 12px !important;
+  align-self:start !important;
+}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>span,
+.fed-compact-preview .fc-fomc .fc-fomc-press>span{
+  margin-bottom:4px !important;
+  line-height:1.3 !important;
+}
+.fed-compact-preview .fc-fomc .fc-fomc-meeting>b,
+.fed-compact-preview .fc-fomc .fc-fomc-press>b{
+  line-height:1.3 !important;
+}
+</style>
+
+
+<style id="fomc-compact-cards-v8">
+/* V8 修正：縮短兩張資訊卡，恢復目標利率深藍底與白字；只作用於獨立預覽的 FOMC 區塊 */
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{
+  box-sizing:border-box!important;
+  min-height:0!important;
+  height:78px!important;
+  padding:10px 12px!important;
+  align-self:stretch!important;
+  justify-content:center!important;
+  background:#f4f7fa!important;
+  border:1px solid #dfe5ec!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>span{
+  margin:0 0 5px!important;
+  line-height:1.25!important;
+  min-height:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press>b{
+  line-height:1.3!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{
+  min-height:0!important;
+  height:auto!important;
+  padding:8px 12px!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  background:#f5f8fb!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>span{
+  flex:0 0 auto!important;
+  margin:0!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{
+  text-align:right!important;
+  line-height:1.3!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate{
+  grid-column:1 / -1!important;
+  grid-row:3!important;
+  box-sizing:border-box!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:15px 17px!important;
+  background:linear-gradient(125deg,#173f5c 0%,#245575 100%)!important;
+  border:1px solid #214f6e!important;
+  border-radius:12px!important;
+  box-shadow:0 8px 20px rgba(28,69,96,.16)!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>span,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>b,
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>small{
+  color:#fff!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>span{opacity:.82!important}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>b{
+  font-size:clamp(24px,6vw,34px)!important;
+  line-height:1.2!important;
+}
+html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-rate>small{
+  display:inline-block!important;
+  align-self:flex-start!important;
+  margin-top:7px!important;
+  padding:3px 7px!important;
+  border-radius:5px!important;
+  background:rgba(255,255,255,.14)!important;
+  color:#e5edf3!important;
+}
+@media(max-width:560px){
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-meeting,
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-press{
+   height:78px!important;
+   padding:9px 10px!important;
+ }
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation{gap:7px!important}
+ html body .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>.fc-fomc-observation>b{font-size:12px!important}
+}
+</style>
+
+
+<style id="assets-product-quote-typography-v1">
+/* 產業債匯商品：統一各分頁商品名稱、報價與漲跌幅字級 */
+html body #industry-bonds-fx-commodities .tac-tab-panel .row{
+  align-items:center!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .label{
+  font-size:14px!important;
+  line-height:1.35!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"]{
+  font-size:15px!important;
+  line-height:1.35!important;
+  font-weight:750!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+  font-size:13px!important;
+  font-weight:650!important;
+  white-space:nowrap!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .tab-panel-meta,
+html body #industry-bonds-fx-commodities .tac-tab-panel .title small{
+  font-size:12px!important;
+  line-height:1.45!important;
+}
+@media(max-width:600px){
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .label{
+   font-size:13px!important;
+ }
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"]{
+   font-size:14px!important;
+ }
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+   font-size:12px!important;
+ }
+}
+</style>
+
+
+<style id="assets-product-quote-typography-v2">
+/* 比照「全球主要股市」列表：商品名稱、報價與漲跌幅採相同視覺字級 */
+html body #industry-bonds-fx-commodities .tac-tab-panel .row{
+  align-items:center!important;
+  font-size:16px!important;
+  line-height:1.5!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .label{
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:700!important;
+  letter-spacing:0!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"]{
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:500!important;
+  font-variant-numeric:tabular-nums!important;
+  white-space:nowrap!important;
+}
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+  font-size:16px!important;
+  line-height:1.5!important;
+  font-weight:500!important;
+  white-space:nowrap!important;
+}
+@media(max-width:600px){
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row b,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .name,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .label,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span.r,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row span[style*="font-weight"],
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .up,
+ html body #industry-bonds-fx-commodities .tac-tab-panel .row .down{
+   font-size:15px!important;
+ }
+}
+</style>
+
+
+<style id="fed-probability-card-background-fix-v3">
+/* V3：明確覆蓋後續樣式，讓兩張 FedWatch 機率小卡確實顯示對應底色 */
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold{
+  background:#eaf4fb!important;
+  background-color:#eaf4fb!important;
+  border:1px solid #cfe5f4!important;
+  border-top:4px solid #2b83b9!important;
+}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike{
+  background:#fff3e5!important;
+  background-color:#fff3e5!important;
+  border:1px solid #f0dcc1!important;
+  border-top:4px solid #c18435!important;
+}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold .fc-prob-label,
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold .fc-range{color:#416d88!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike .fc-prob-label,
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike .fc-range{color:#8b602f!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hold strong{color:#176b9b!important}
+.fed-live-watch .fc-probs.fc-probs-refined > .fc-prob.fc-hike strong{color:#b66a20!important}
+</style>
+
+
+<style id="tac-mobile-horizontal-overflow-fix-v27">
+/* V27：修正手機整頁可左右拖出螢幕；只限制橫向溢出，不改桌機版面 */
+html{width:100%;max-width:100%;overflow-x:clip!important}
+body{width:100%;max-width:100%;overflow-x:clip!important}
+@supports not (overflow:clip){html,body{overflow-x:hidden!important}}
+.top,.topin,.nav,.wrap,.footer,#sentiment{max-width:100%;min-width:0}
+.wrap{width:100%}
+#sentiment{width:100%;min-width:0;overflow:hidden}
+#sentiment .sent,
+#sentiment .sbox,
+#sentiment .title,
+#sentiment .sbox>*{min-width:0;max-width:100%}
+#sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))}
+#sentiment .sent>.sbox:last-child{grid-column:1/-1}
+#sentiment .sbox{overflow-wrap:anywhere}
+#sentiment .fg6-scale-wrap,
+#sentiment .fg6-scale,
+#sentiment .fg6-bar{max-width:100%;min-width:0}
+@media(max-width:700px){
+  .topin,.nav,.wrap{padding-left:14px;padding-right:14px}
+  #sentiment{padding-left:16px!important;padding-right:16px!important}
+  #sentiment .sent{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #sentiment .sbox{min-width:0}
+  #sentiment .sbox strong{overflow-wrap:anywhere}
+}
+</style>
+
+
+<style id="tac-preview-overview-sentiment-gap-fix">
+/* PREVIEW V1: use one consistent 16px vertical gap between the main panels */
+@media(max-width:1099px){
+  main.wrap>.tac-section-gap{display:none!important;height:0!important;min-height:0!important;margin:0!important;padding:0!important}
+  main.wrap>section.grid + .tac-section-gap + section.grid,
+  main.wrap>section.grid + section.grid{margin-top:16px!important}
+  main.wrap>section.grid + .tac-section-gap + section.grid#sentiment{margin-top:16px!important}
+  main.wrap>section.grid + section.grid{row-gap:16px!important}
+}
+</style>
+
+
+<style id="tac-preview-source-summary-unify-v1">
+/* PREVIEW V1: unify all source / methodology disclosure labels; use triangle marker consistently */
+main.wrap details.source-details>summary,
+main.wrap details.calendar-source-collapse>summary,
+main.wrap details[style*="margin-top:8px"]>summary{
+  display:inline-flex!important;align-items:center!important;gap:5px!important;
+  font-size:12px!important;font-weight:650!important;line-height:1.4!important;
+  color:#747b84!important;-webkit-text-fill-color:#747b84!important;
+  cursor:pointer!important;list-style:none!important;
+}
+main.wrap details.source-details>summary::-webkit-details-marker,
+main.wrap details.calendar-source-collapse>summary::-webkit-details-marker,
+main.wrap details[style*="margin-top:8px"]>summary::-webkit-details-marker{display:none!important}
+main.wrap details.source-details>summary::marker,
+main.wrap details.calendar-source-collapse>summary::marker,
+main.wrap details[style*="margin-top:8px"]>summary::marker{content:""!important}
+main.wrap details.source-details>summary::before,
+main.wrap details.calendar-source-collapse>summary::before,
+main.wrap details[style*="margin-top:8px"]>summary::before{
+  content:"▸"!important;display:inline-block!important;flex:0 0 auto!important;
+  font-size:12px!important;font-weight:700!important;line-height:1!important;
+  color:#747b84!important;-webkit-text-fill-color:#747b84!important;
+  transform:rotate(0deg);transition:transform .15s ease!important;
+}
+main.wrap details.source-details[open]>summary::before,
+main.wrap details.calendar-source-collapse[open]>summary::before,
+main.wrap details[style*="margin-top:8px"][open]>summary::before{transform:rotate(90deg)!important}
+main.wrap details.source-details>summary:after,
+main.wrap details.calendar-source-collapse>summary:after,
+main.wrap details[style*="margin-top:8px"]>summary:after{content:none!important;display:none!important}
+@media(max-width:700px){
+  main.wrap details.source-details>summary,
+  main.wrap details.calendar-source-collapse>summary,
+  main.wrap details[style*="margin-top:8px"]>summary{font-size:12px!important;font-weight:650!important;color:#747b84!important}
+}
+</style>
+
+
+<style id="tac-preview-hide-summary-chips">
+/* Future-proof: summary/BLUF never displays index-return capsules */
+#overview article.card.bluf .chips{display:none!important}
+</style>
+
+
+<style id="tac-preview-summary-subheadings-navy">
+/* Summary subheadings: bold + deep navy for stronger hierarchy */
+#overview article.card.bluf p b,
+#overview article.card.bluf p strong,
+#overview article.card.bluf [style] b,
+#overview article.card.bluf [style] strong{
+  color:#17365D!important;
+  font-weight:900!important;
+}
+#overview article.card.bluf .bluf-subtitle,
+#overview article.card.bluf .summary-subtitle{
+  color:#17365D!important;
+  font-weight:900!important;
+}
+</style>
+
+<meta name="tac-correction-test" content="修正報告與行情日期錯置；關鍵價位待來源核實；正式母版未修改"><style>
+/* HOTFIX 2026-10-24: ensure native details actually collapse in Safari/mobile */
+#last-week-earnings details.last-week-earnings-collapse:not([open]) > :not(summary){display:none!important}
+#last-week-earnings details.last-week-earnings-collapse > summary{display:block!important;visibility:visible!important;cursor:pointer!important;padding:10px 12px!important;border-radius:8px!important;background:#f5f5f6!important;color:#333!important;font-weight:850!important;list-style:none!important}
+#last-week-earnings details.last-week-earnings-collapse > summary::-webkit-details-marker{display:none!important}
+#last-week-earnings details.earnings-accordion:not([open]) > .earnings-accordion-details{display:none!important}
+#last-week-earnings details.earnings-accordion > summary{display:flex!important;visibility:visible!important}
+</style>
+<style>
+/* 已公布財報：EPS 與營收拆成獨立並列卡片 */
+.earnings-results-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px;background:#fff}
+.earnings-actual-card{min-width:0;border:1px solid #dfe5e7;border-radius:10px;padding:10px;background:#f4f8f9;overflow-wrap:anywhere}
+.earnings-actual-card-title{font-size:13px;font-weight:900;color:#424b50;margin-bottom:8px}
+.earnings-actual-line{display:flex;flex-direction:column;gap:2px;margin:6px 0}
+.earnings-actual-line span{font-size:11px;color:#727a7f;font-weight:750}
+.earnings-actual-line strong{font-size:14px;line-height:1.35;color:#202428;overflow-wrap:anywhere}
+.earnings-actual-status{display:inline-block;font-size:12px;font-weight:900;margin-top:7px;padding:4px 7px;border-radius:6px}
+.earnings-actual-status.beat{color:#16733c;background:#e3f4e9}
+.earnings-actual-status.miss{color:#946200;background:#fff0ce}
+.earnings-actual-status.pending{color:#687078;background:#e9edef}
+.earnings-actual-note{font-size:11px;line-height:1.45;color:#687078;margin-top:7px}
+@media(max-width:640px){.earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px}.earnings-actual-card{padding:8px}.earnings-actual-line strong{font-size:12px}.earnings-actual-card-title{font-size:12px}}
+</style>
+<style>
+/* HOTFIX: make EPS/revenue pair span the full company-card width */
+.earnings-accordion-details>.earnings-results-grid{grid-column:1/-1;width:100%;min-width:0;box-sizing:border-box}
+.earnings-results-grid>.earnings-actual-card{width:100%;min-width:0;box-sizing:border-box}
+.earnings-actual-line strong{overflow-wrap:break-word;word-break:normal}
+@media(max-width:640px){.earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px;gap:8px}.earnings-actual-card{padding:10px}.earnings-actual-line strong{font-size:13px;overflow-wrap:anywhere}}
+</style>
+<style>
+/* FIX v2: remove parent two-column grid constraint for past reported earnings */
+#last-week-earnings .earnings-accordion-details{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
+#last-week-earnings .earnings-accordion-details>.earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-column:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;flex:0 0 auto!important;align-self:stretch!important;box-sizing:border-box!important}
+#last-week-earnings .earnings-results-grid>.earnings-actual-card{width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important}
+</style>
+<style>
+/* FIX v3: force the EPS/revenue grid to span both columns of the existing details grid */
+#last-week-earnings .earnings-accordion-details > .earnings-results-grid{grid-column:1 / -1!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;width:100%!important;max-width:100%!important;justify-self:stretch!important;box-sizing:border-box!important}
+#last-week-earnings .earnings-results-grid > .earnings-actual-card{width:100%!important;max-width:none!important;min-width:0!important;box-sizing:border-box!important}
+#last-week-earnings .earnings-actual-line strong{font-size:13px!important;overflow-wrap:normal!important;word-break:normal!important}
+#last-week-earnings .earnings-actual-note{overflow-wrap:anywhere!important}
+</style>
+
+<style id="earnings-card-preview-v1-applied">
+/* 已公布財報小卡：套用核准預覽版視覺，不改動財報數值 */
+#last-week-earnings .earnings-accordion-details{background:#fff;padding:12px!important;gap:10px}
+#last-week-earnings .earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;padding:0!important;background:transparent!important}
+#last-week-earnings .earnings-actual-card{border:1px solid #e1e5e9!important;border-radius:14px!important;padding:12px!important;background:#fff!important;box-shadow:0 3px 12px rgba(20,30,40,.045)}
+#last-week-earnings .earnings-actual-card.beat{border-top:3px solid #16834c!important}
+#last-week-earnings .earnings-actual-card.miss{border-top:3px solid #a56b13!important}
+#last-week-earnings .earnings-actual-card-title{font-size:14px!important;font-weight:950!important;color:#20242b!important;margin-bottom:10px!important}
+#last-week-earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:flex-start!important;gap:8px!important;padding:5px 0!important;margin:0!important;border-bottom:1px solid #f0f1f3}
+#last-week-earnings .earnings-actual-line:last-of-type{border-bottom:0}
+#last-week-earnings .earnings-actual-line span{font-size:12px!important;color:#6b7280!important;flex:0 0 auto}
+#last-week-earnings .earnings-actual-line strong{font-size:14px!important;font-weight:900!important;text-align:right;overflow-wrap:anywhere}
+#last-week-earnings .earnings-actual-status{font-size:12px!important;font-weight:900!important;margin-top:10px!important;padding:5px 9px!important;border-radius:999px!important}
+#last-week-earnings .earnings-actual-status.beat{color:#16834c!important;background:#eaf7ef!important}
+#last-week-earnings .earnings-actual-status.miss{color:#a56b13!important;background:#fff4df!important}
+#last-week-earnings .earnings-actual-status.pending{color:#596170!important;background:#f0f2f5!important}
+#last-week-earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
+#last-week-earnings .earnings-detail-field.wide{border:1px solid #e5e7eb;border-radius:11px;padding:11px 12px;background:#fbfcfe}
+#last-week-earnings .earnings-detail-field.wide label{font-size:12px;font-weight:900;color:#596170}
+#last-week-earnings .earnings-detail-field.wide .earnings-detail-value{font-size:13px;line-height:1.65}
+@media(max-width:640px){
+#last-week-earnings .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+#last-week-earnings .earnings-actual-card{padding:9px!important;border-radius:12px!important}
+#last-week-earnings .earnings-actual-card-title{font-size:12px!important}
+#last-week-earnings .earnings-actual-line{flex-direction:column!important;gap:2px!important}
+#last-week-earnings .earnings-actual-line strong{font-size:12px!important;text-align:left!important}
+#last-week-earnings .earnings-actual-line span{font-size:10px!important}
+#last-week-earnings .earnings-actual-status{font-size:10px!important;padding:4px 6px!important}
+}
+</style>
+
+
+<style id="tac-major-section-heading-marker-v1">
+main.wrap > .card > .title,
+main.wrap section.card > .title {
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+}
+main.wrap > .card > .title::before,
+main.wrap section.card > .title::before {
+  content:""!important;
+  display:inline-block!important;
+  flex:0 0 5px!important;
+  width:5px!important;
+  height:1.05em!important;
+  min-height:20px!important;
+  border-radius:2px!important;
+  background:#c62828!important;
+  align-self:center!important;
+}
+main.wrap #sentiment > .title::before {
+  background:#e0b04b!important;
+}
+main.wrap #sentiment > .title {
+  color:#fff!important;
+}
+@media(max-width:700px){
+  main.wrap > .card > .title,
+  main.wrap section.card > .title { gap:9px!important; }
+  main.wrap > .card > .title::before,
+  main.wrap section.card > .title::before { height:1.05em!important; min-height:18px!important; }
+}
+</style>
+
+
+
+<style id="tac-major-section-heading-marker-v2">
+body article.card > .title,
+body section.card > .title,
+body .tac-main-panel > .title {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:10px!important;
+}
+body article.card > .title::before,
+body section.card > .title::before,
+body .tac-main-panel > .title::before {
+  content:""!important;
+  display:inline-block!important;
+  flex:0 0 5px!important;
+  width:5px!important;
+  height:1.05em!important;
+  min-height:20px!important;
+  border-radius:2px!important;
+  background:#c62828!important;
+  align-self:center!important;
+}
+body #sentiment > .title::before { background:#e0b04b!important; }
+body #sentiment > .title { color:#fff!important; }
+@media(max-width:700px){
+ body article.card > .title, body section.card > .title { gap:9px!important; }
+ body article.card > .title::before, body section.card > .title::before { min-height:18px!important; }
+}
+</style>
+
+
+
+<style id="tac-major-section-heading-marker-v3">
+body main.wrap article.card > .title,
+body main.wrap section.card > .title {
+  display:flex!important; align-items:center!important; justify-content:flex-start!important; gap:10px!important;
+}
+body main.wrap article.card > .title::before,
+body main.wrap section.card > .title::before {
+  content:""!important; display:inline-block!important; flex:0 0 5px!important;
+  width:5px!important; height:1.05em!important; min-height:20px!important;
+  border-radius:2px!important; background:#c62828!important;
+}
+body main.wrap #sentiment > .title::before { background:#e0b04b!important; }
+body main.wrap #sentiment > .title { color:#fff!important; }
+@media(max-width:700px) {
+ body main.wrap article.card > .title, body main.wrap section.card > .title { gap:12px!important; }
+ body main.wrap article.card > .title::before, body main.wrap section.card > .title::before { min-height:18px!important; }
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style id="tac-tabset-heading-marker-consolidated">
+/* Single source of truth: CSS pseudo-element supplies exactly one red marker */
+#news-scan > .tac-section-heading > h2,
+#global-markets > .tac-section-heading > h2,
+#industry-bonds-fx-commodities > .tac-section-heading > h2 {
+  display:block!important; position:relative!important; box-sizing:border-box!important;
+  width:max-content!important; max-width:100%!important;
+  padding-left:14px!important; margin:0!important;
+}
+#news-scan > .tac-section-heading > h2::before,
+#global-markets > .tac-section-heading > h2::before,
+#industry-bonds-fx-commodities > .tac-section-heading > h2::before {
+  content:""!important; display:block!important; position:absolute!important;
+  left:0!important; top:50%!important; transform:translateY(-50%)!important;
+  width:5px!important; height:1.05em!important; min-height:18px!important;
+  margin:0!important; padding:0!important; border:0!important;
+  border-radius:3px!important; background:#c62828!important;
+}
+</style>
+
+
+<style id="tac-anchor-offset-fix">
+/* 錨點定位只使用單一偏移，避免 scroll-padding 與 scroll-margin 疊加 */
+html { scroll-padding-top: 0; }
+main section[id] { scroll-margin-top: 0; }
+@media (max-width: 700px) {
+  main section[id] { scroll-margin-top: 48px; }
+}
+</style>
+</head><body>
+<div style="margin:12px auto;max-width:1496px;padding:12px 14px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">
+獨立審核預覽｜2026/10/28（三）。本頁獨立存放，不修改正式首頁與正式母版。已更新本日焦點、重要日程與可核實的市場資訊；10/27美股主要指數正式收盤及部分商品結算仍待可靠來源交叉核對，未核實數值不以推測填入。
+</div>
+<header class="top"><div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/28（三）</span><span class="top-warning">⚠️ 內部審核預覽</span></div><div class="status">2026/10/28（三）｜週三版；以前一美股交易日正式收盤為行情基準</div></div>
+<nav class="nav">
+<a class="active" href="#overview">總結</a><a href="#sentiment">市場情緒</a><a href="#news-scan">重點新聞掃瞄</a><a href="#global-markets">全球主要股市</a><a href="#industry-bonds-fx-commodities">產業債匯商品</a><a href="#calendar">本週經濟行事曆</a><a href="#earnings">本週財報行事曆</a><a href="#focus">今日核心觀察</a>
+</nav></header>
+<main>
+<section id="overview" class="card"><div class="title">今日總結｜聯準會決策前夕，AI 財報與通膨風險交會</div>
+<div class="key">10/28 美股交易日的焦點是聯準會利率決策，以及微軟、Alphabet 盤後財報。市場將同時衡量油價回落是否能緩解通膨壓力，以及大型科技公司的 AI 資本支出能否轉化為營收、獲利與現金流。由於10/27主要指數收盤數字尚未完成可靠交叉核對，本預覽不把盤中報價誤當收盤價。</div>
+<div class="grid"><div class="metric"><div class="label">道瓊工業指數</div><div class="value">待核實</div><div class="sub">10/27 美國正式收盤</div></div><div class="metric"><div class="label">S&amp;P 500</div><div class="value">待核實</div><div class="sub">10/27 美國正式收盤</div></div><div class="metric"><div class="label">Nasdaq Composite</div><div class="value">待核實</div><div class="sub">10/27 美國正式收盤</div></div><div class="metric"><div class="label">Russell 2000</div><div class="value">待核實</div><div class="sub">10/27 美國正式收盤</div></div></div></section>
+<section id="sentiment" class="card"><div class="title">市場情緒｜事件前降低方向性過度押注</div><div class="key">觀察順序：聯準會聲明與記者會措辭、10年期美債殖利率、原油價格，以及大型科技財報對 AI 支出的說明。未確認的收盤指標不列成當日結論。</div></section>
+<section id="news-scan" class="card"><div class="title">重點新聞掃瞄</div>
+<article class="newsitem"><h3>1｜聯準會決策成為短線主要催化劑</h3><p>聯準會本次會議於美國10/27–10/28舉行，利率決策預定美東時間10/28 14:00公布，記者會14:30開始；換算台灣時間為10/29 02:00與02:30。市場除了關注利率是否維持不變，也會解讀對通膨、能源價格與後續政策路徑的描述。</p><a href="https://www.federalreserve.gov/newsevents/2026-october.htm" target="_blank" rel="noopener">來源：美國聯準會官方行事曆 ↗</a></article>
+<article class="newsitem"><h3>2｜大型科技財報聚焦 AI 投資回報</h3><p>微軟與 Alphabet 預計於美國10/28收盤後公布財報。市場將留意雲端業務成長、AI 服務需求、資本支出指引及自由現金流；即使營收超預期，若支出增幅更快，也可能引發估值重新評價。</p><a href="https://www.microsoft.com/en-us/Investor/" target="_blank" rel="noopener">微軟投資人關係 ↗</a>　<a href="https://abc.xyz/investor/" target="_blank" rel="noopener">Alphabet 投資人關係 ↗</a></article>
+<article class="newsitem"><h3>3｜油價回落但能源供應風險仍在</h3><p>Reuters 報導指出，油價在聯準會決策前連續回落，但布蘭特原油仍處於近數月高檔區間。若能源價格再度推升通膨預期，可能限制貨幣政策轉向空間，並對長天期殖利率與高估值科技股形成壓力。</p><a href="https://www.reuters.com/business/us-stock-futures-muted-oil-holds-near-april-highs-ahead-fed-decision-2026-10-27/" target="_blank" rel="noopener">來源：Reuters，2026/10/27 ↗</a></article>
+<article class="newsitem"><h3>4｜AI 交易仍須驗證資本支出與獲利的連結</h3><p>市場關注大型雲端業者的 AI 基礎設施支出能否持續帶來可衡量的需求與現金流。評估財報時不宜只看單季營收或 EPS，應同步比較資本支出、毛利率、雲端成長及管理層對未來需求的指引。</p><a href="https://www.reuters.com/business/nasdaq-futures-drop-over-1-ai-worries-resurface-oil-climbs-2026-10-22/" target="_blank" rel="noopener">背景報導：Reuters ↗</a></article></section>
+<section id="global-markets" class="card"><div class="title">全球主要股市</div><p>基準交易日：2026/10/27（美國當地正式收盤）。目前未取得足以交叉核對的可靠收盤值，故不沿用10/26數字，也不把盤中資料填入收盤欄。</p><div class="table-wrap"><table><thead><tr><th>指數</th><th>收盤</th><th>漲跌</th><th>狀態</th></tr></thead><tbody><tr><td>道瓊工業指數</td><td>待核實</td><td>待核實</td><td>未確認正式收盤</td></tr><tr><td>S&amp;P 500</td><td>待核實</td><td>待核實</td><td>未確認正式收盤</td></tr><tr><td>Nasdaq Composite</td><td>待核實</td><td>待核實</td><td>未確認正式收盤</td></tr><tr><td>費城半導體指數（SOX）</td><td>待核實</td><td>待核實</td><td>未確認正式收盤</td></tr><tr><td>Russell 2000</td><td>待核實</td><td>待核實</td><td>未確認正式收盤</td></tr></tbody></table></div></section>
+<section id="industry-bonds-fx-commodities" class="card"><div class="title">產業債匯商品</div><div class="key"><b>原油：</b>10/27市場報導顯示油價走勢偏弱，但不同報價平台的現貨、近月期貨與結算口徑並不相同；正式結算價待核實。<br/><b>黃金：</b>正式期貨結算價待核實。<br/><b>美國10年期公債殖利率：</b>正式收盤值待核實。<br/><b>美元與主要匯率：</b>待同一報價基準與時間戳交叉確認。</div></section>
+<section id="calendar" class="card"><div class="title">本週經濟行事曆 <small>2026/10/26–10/30｜台灣時間 UTC+8</small></div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading">已公布｜10/27</h4><p>美國耐久財訂單（9月初值）月增1.8%；扣除運輸月增0.5%。美國新屋銷售年率為676,000戶，月減0.6%。</p></div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading">今日公布｜10/28</h4><p>美國公司債市場壓力指數（CMDI）預定美東時間10:00公布；換算台灣時間10/28 22:00。發布時程仍以官方頁面為準。</p></div>
+<div class="calendar-status-group"><h4 class="calendar-status-heading">即將公布</h4><p><b>10/29 02:00：</b>聯準會利率決策；02:30記者會。<br/><b>10/29 20:30：</b>美國第三季 GDP 初值、個人所得與 PCE 物價指數。<br/><b>10/30 20:30：</b>美國就業成本指數（ECI）。</p></div>
+<a href="https://www.federalreserve.gov/newsevents/2026-october.htm" target="_blank" rel="noopener">聯準會官方行事曆 ↗</a>　<a href="https://www.newyorkfed.org/research/calendars" target="_blank" rel="noopener">紐約聯準銀行行事曆 ↗</a></section>
+<section id="earnings" class="card"><div class="title">本週財報行事曆 <small>重要公司精選｜台灣時間 UTC+8</small></div><div class="table-wrap"><table><thead><tr><th>台灣時間</th><th>公司</th><th>公布時段</th><th>觀察重點</th></tr></thead><tbody><tr><td>10/28（美股盤前）</td><td>GE Vernova、Amphenol</td><td>盤前；時間待公司確認</td><td>能源設備訂單、資料中心與互連需求</td></tr><tr><td>10/29 清晨</td><td>Microsoft（MSFT）</td><td>美國10/28盤後</td><td>Azure 成長、AI 支出、現金流</td></tr><tr><td>10/29 清晨</td><td>Alphabet（GOOGL）</td><td>美國10/28盤後</td><td>Google Cloud、搜尋與 AI 投資回報</td></tr><tr><td>10/30 清晨</td><td>Amazon（AMZN）</td><td>美國10/29盤後</td><td>AWS 成長、零售利潤率、資本支出</td></tr></tbody></table></div><a href="https://www.microsoft.com/en-us/Investor/" target="_blank" rel="noopener">Microsoft IR ↗</a>　<a href="https://abc.xyz/investor/" target="_blank" rel="noopener">Alphabet IR ↗</a></section>
+<section id="focus" class="card"><div class="title">今日核心觀察</div><div class="key"><b>情境一｜偏多：</b>聯準會措辭未較市場預期更鷹派，且科技公司財測證明 AI 支出正帶動雲端與現金流，科技股有機會延續反彈。<br/><br/><b>情境二｜偏空：</b>通膨與能源風險令政策訊號偏鷹，或大型科技公司資本支出上升但回報未同步改善，估值較高的科技股可能承壓。<br/><br/><b>執行原則：</b>財報與聯準會事件密集，避免以未確認的指數收盤或單一盤中價格推導支撐壓力位；待正式行情確認後，再更新關鍵價位與市場評論。</div></section>
+</main><footer class="footer">TAC 投資早報｜2026/10/28（三）獨立審核預覽｜本頁獨立於正式首頁與正式母版。行情未核實項目明確標示，資訊整理與教育用途，不構成投資建議。</footer>
+</body></html>
