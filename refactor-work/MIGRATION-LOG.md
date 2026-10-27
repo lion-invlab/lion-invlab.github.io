@@ -240,3 +240,16 @@
 - Important recordkeeping gap: the migration log had not been updated after Run #223 despite subsequent commits and runs. This entry restores a traceable pointer to the latest verified run.
 - Next: inspect Run #248 candidate/baseline/diff screenshots and the detailed geometry artifact; resolve the narrow news panel and tab-navigation height differences one component at a time; rerun all 1440/390/320px checks. Continue the inner-component migration and legacy CSS audit only after the relevant visual and interaction gates pass. Do not bulk-delete legacy CSS.
 - Safety boundary unchanged: no production homepage, official mother template, JSON or scheduled automation is modified by this work.
+
+
+## Run #249 — 2026-10-27 窄手機頁籤幾何回歸
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40431016478
+- Result: **success**; browser smoke tests completed at 1440px, 390px, and 320px.
+- CSS fix commit: `ed225650e1db34eaf17211cc35eb3374d4bcae9a` (narrow-mobile tab touch target geometry).
+- Trigger commit: `131316dbeb39eb42db930d59ffc0090d6eae3225`.
+- Artifact: `tac-refactor-browser-results`, ID `12702845076`.
+- Regression checks: no horizontal overflow, missing panel IDs, duplicate IDs, unmatched nav links, or new browser errors. Tab controls, source disclosures, prior-week economics/earnings disclosures, and unified 16px instrument-name typography passed.
+- At 320px, candidate panel geometry changed from Run #248 baseline comparison as follows: global markets 722px → 738px (+16px); industry/bonds/FX/commodities 502px → 514px (+12px). The increase is consistent with restoring narrow-screen tab touch target height and two-row layout.
+- Remaining known geometry difference: `#news-scan` is 1493px vs baseline 1503px (-10px) at 320px. Do not treat the full layout as parity-complete; inspect the news panel and heading geometry separately before further migration.
+- The CSS fix is currently an end-appended, scoped exception in `design-system.css`. After validation, consolidate it into the existing narrow-mobile tab rules rather than allowing one-off overrides to accumulate. Keep all work on the isolated branch; production homepage and official template remain untouched.
