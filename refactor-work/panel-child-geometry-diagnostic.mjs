@@ -184,6 +184,25 @@ for (const viewport of results) {
       }
     }
     if (deepChanged) console.log(`  nested geometry changed elements: ${deepChanged}`);
+    if (panel.id === "news-scan") {
+      const beforeCards = baselinePanel?.newsCards || [];
+      const afterCards = candidatePanel?.newsCards || [];
+      for (let i = 0; i < Math.min(beforeCards.length, afterCards.length); i++) {
+        const before = beforeCards[i], after = afterCards[i];
+        const dh = after.rect.height - before.rect.height;
+        const dt = after.rect.relativeTop - before.rect.relativeTop;
+        if (Math.abs(dh) >= 1 || Math.abs(dt) >= 1 || before.style.padding !== after.style.padding || before.style.margin !== after.style.margin) {
+          console.log(`  NEWS CARD[${i}] ${before.className || before.tag}: top ${before.rect.relativeTop}->${after.rect.relativeTop} (Δ${dt}), h ${before.rect.height}->${after.rect.height} (Δ${dh}), padding ${before.style.padding}->${after.style.padding}, margin ${before.style.margin}->${after.style.margin}`);
+          for (let j = 0; j < Math.min(before.descendants.length, after.descendants.length); j++) {
+            const x = before.descendants[j], y = after.descendants[j];
+            const childDh = y.rect.height - x.rect.height, childDt = y.rect.relativeTop - x.rect.relativeTop;
+            if (Math.abs(childDh) >= 1 || Math.abs(childDt) >= 1 || x.style.lineHeight !== y.style.lineHeight || x.style.margin !== y.style.margin) {
+              console.log(`    NEWS CHILD ${x.tag}.${x.className}: top ${x.rect.relativeTop}->${y.rect.relativeTop} (Δ${childDt}), h ${x.rect.height}->${y.rect.height} (Δ${childDh}), line-height ${x.style.lineHeight}->${y.style.lineHeight}, margin ${x.style.margin}->${y.style.margin}`);
+            }
+          }
+        }
+      }
+    }
     const baseChildren = baselinePanel?.children || [];
     const candidateChildren = candidatePanel?.children || [];
     if (baseChildren.length !== candidateChildren.length) {
