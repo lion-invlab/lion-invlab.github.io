@@ -525,3 +525,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
 - Moving the three heading marker custom properties into the canonical top-level `:root` block preserved their names and values; no geometry or computed typography changes were introduced. Existing diagnostic deltas remain: 390px industry panel +5px and 320px S&P earnings-health panel -1px, neither attributed to this token-only structural cleanup.
 - Cleanup from CSS commit a3e074ad79814dff0cb1128bb7d96ba8a4420187 is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #294 — superseded narrow-mobile S&P title spacing pending
+- In the earlier <=380px `#sp500-earnings-health > .title` rule, removed only `gap: 5px !important` and `margin-bottom: 10px !important`: the later rule for the exact selector sets gap to 12px and margin-bottom to 11px. Kept `line-height: 1.3px`? Correction: retained the existing `line-height: 1.3 !important` declaration exactly as authored (CSS unitless line-height). No other title or panel rules changed.
+- CSS commit: 76dc63122056b009a37bc43279af2f91116b063a. Full browser regression pending; do not mark accepted until Run #294 completes. Production homepage, official master template, JSON and schedules remain untouched.
