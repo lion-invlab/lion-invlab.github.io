@@ -338,3 +338,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - This run was diagnostic-only; no CSS behavior changed. Next step is to inspect the detailed nested geometry report and apply only evidence-backed spacing corrections, then run the full regression again.
 - All work remains on `tac-design-system-work-2026-10-24`; production homepage, official mother template, JSON and schedules are untouched.
 
+## Run #268 — 2026-10-27 深層幾何完整輸出驗證
+
+- Workflow： https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40471452892
+- 結果：瀏覽器回歸成功；1440、390、320 三種寬度的字體稽核均通過（每種視窗 27 個名稱、54 個報價值）。
+- 深層診斷確認：1440/390 下新聞掃描內層面板相對位置上移 11px、面板高度增加 8px；全球市場內層面板上移 6px、高度增加 4px；產業債匯商品內層面板上移 2px、高度不變。這些變化不能單純以外層 padding 解釋，因此本輪不做補償式 padding 修改。
+- 320px：全球市場內層面板高度仍比基準多 4px；產業債匯商品內層面板位置下移 2px、內層高度不變。整體面板差異維持：overview +5px、news-scan -1px、global-markets +4px、industry +2px。
+- 本輪僅確認診斷輸出與回歸結果，尚未修改 CSS。正式首頁、正式母版、JSON 與排程未動。
