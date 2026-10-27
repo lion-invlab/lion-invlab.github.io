@@ -281,3 +281,13 @@
 ## Run #252 follow-up — 2026-10-27 差異定位補充
 
 The artifact's narrow-mobile child-geometry diagnostic confirms the remaining discrepancy is isolated to two direct children inside `#news-scan`: heading 49px baseline vs 51px candidate (+2px), and active tab panel 1391px baseline vs 1379px candidate (-12px); tab nav is 48px in both. The panel's total is therefore 1503px vs 1493px (-10px). Desktop news panel is 807px in both and 390px is 1360px in both. This narrows the remaining fix to narrow-mobile heading and active panel internals, not the shared tab bar or global card padding. Next step: inspect actual nested news-card measurements/line counts from the built DOM before changing per-card spacing; existing smoke artifact currently reports only direct panel children, so do not infer which specific cards account for the 12px.
+
+
+## Run #256 — 2026-10-27 窄手機新聞卡片 10px 內距驗收
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40450641309
+- Result: **success**; browser smoke tests, typography audit, and panel-child geometry diagnostics completed at 1440px, 390px, and 320px.
+- CSS change: commit `8baf51212c94873c47ffdbfb3d4fbc6520aa7922`; narrow-mobile `#news-scan .newsitem` vertical padding adjusted from 11px to 10px, with horizontal padding 8px retained to account for shared-card border width and preserve text wrapping.
+- At 320px, `#news-scan` is 1504px candidate vs 1503px baseline (+1px); active content panel is 1391px in both; first news card is 289px in both. The heading remains 51px candidate vs 49px baseline, while the outer panel total differs by only 1px because internal geometry offsets.
+- At 390px, `#news-scan` is 1360px in both; at 1440px, 807px in both. No horizontal overflow or browser-smoke regression was reported.
+- Conclusion: retain the 10px narrow-mobile card padding; do not add fixed heights or further blanket padding changes. Residual 2px heading-height difference at 320px can be reviewed separately only if visual comparison shows a meaningful mismatch. Production homepage and official mother template remain untouched.
