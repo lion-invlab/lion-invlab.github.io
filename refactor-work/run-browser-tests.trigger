@@ -378,3 +378,4 @@ Run nested news-card geometry diagnostics 5e2ec8ae9436957843912cb33e4e97efcee714
 
 news-card-geometry-test-2026-10-27-1158
 news-card-geometry-test-2026-10-27-1202
+news-card-10px-vertical-padding-validation-2026-10-27
