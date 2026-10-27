@@ -328,3 +328,13 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - At 320px: news 1502px vs 1503px baseline (-1px); global markets 736px vs 722px (+14px); industry/bonds/FX/commodities 512px vs 502px (+10px). Diagnostics identify two narrow-mobile factors: tab nav height +2px in global/industry and an 8px gap before the active tab panel (baseline 0px). Keep validated touch-target minimums; investigate the source of the 8px gap and remove only the unintended gap instead of reducing button hit areas or setting fixed panel heights.
 - Summary card remains exact baseline height at all three widths. Production homepage and official mother template remain untouched.
 
+## Run #267 — 2026-10-27 頁籤深層幾何診斷擴充
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40470903788
+- Result: **success**; desktop/mobile/narrow-mobile typography audit all passed (27 names and 54 quote values per viewport).
+- Added nested geometry measurements to `refactor-work/panel-child-geometry-diagnostic.mjs`, including active tab panels, row labels/values, heading and navigation elements; logs now compare relative position, height, padding, margin and line-height.
+- Verified 1440px/390px tabset deltas remain: news, global markets and industry panels each -2px. Their active panel top offsets shift upward (news -11px and global -6px) while content heights grow (+8px news, +4px global), indicating that these deltas are not explained by a simple outer padding change. Do not compensate with fixed heights.
+- At 320px, global markets remains +4px and industry section +2px. The tab panel top positions and padding are stable; the remaining difference is inside the narrow-screen panel/nav geometry and needs a targeted next pass. Preserve the validated 40px global tab touch target and two-row industry tab target.
+- This run was diagnostic-only; no CSS behavior changed. Next step is to inspect the detailed nested geometry report and apply only evidence-backed spacing corrections, then run the full regression again.
+- All work remains on `tac-design-system-work-2026-10-24`; production homepage, official mother template, JSON and schedules are untouched.
+
