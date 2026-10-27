@@ -537,9 +537,9 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 }
 @media (max-width: 700px) {
   .tac-ds-panel--tabbed .tac-ds-tabs { margin-bottom: 8px; }
-  /* Geometry parity: global and industry tab strips should not add an extra 8px before the active panel. */
-  #global-markets.tac-ds-panel--tabbed .tac-ds-tabs,
-  #industry-bonds-fx-commodities.tac-ds-panel--tabbed .tac-ds-tabs { margin-bottom: 0; }
+  /* Geometry parity: these legacy tab navs are .tac-tab-nav, not .tac-ds-tabs. */
+  #global-markets.tac-ds-panel--tabbed .tac-tab-nav,
+  #industry-bonds-fx-commodities.tac-ds-panel--tabbed .tac-tab-nav { margin-bottom: 0 !important; }
   .tac-ds-panel--tabbed .tac-ds-card--news {
     margin-bottom: 4px;
     padding: 11px 9px;
