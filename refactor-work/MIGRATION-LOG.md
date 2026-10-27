@@ -386,3 +386,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40489513571 — **success**; tab signature assertions and font audits passed.
 - Card-level diagnostics identified the news-panel height drift: candidate .newsmeta uses line-height 13.5px while baseline computes normal (13px actual box), adding roughly 1px per visible metadata row and accumulating to +8px at desktop/390px. At 320px, the active news panel is already baseline-matched (1391px), so the correction is scoped to widths >=381px only.
 - CSS fix commit: 1c6db661b833e554a5844658d0bf69bdcabc84eb. Extended nested diagnostics to report computed style differences even when element height/top are unchanged, to help isolate the remaining global-markets +4px delta. Full regression pending.
+
+
+### Run #275 — news metadata line-height parity recheck
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40489968290 — **success**; browser regression and typography audit passed.
+- Setting news metadata to baseline line-height normal reduced the news active-panel delta from +8px to +6px at desktop/390px, confirming the diagnosis. Remaining card deltas are +1px per visible card with title and paragraph heights unchanged; trimming only 1px of bottom padding per visible card at 381px+ should remove that residual without changing 320px geometry.
+- Global markets remains +4px while its visible rows and panel padding appear unchanged. Expanded the diagnostic to include direct active-panel children and border/box-sizing metrics before any global-market CSS edit.
+- CSS commit: 2eb68bce3a19f0bba0a73644bd98e7a7b2834444. Diagnostic commit: aef285fb60a79a5d7e19fca01b1d660d9a35591a. Full regression pending.
