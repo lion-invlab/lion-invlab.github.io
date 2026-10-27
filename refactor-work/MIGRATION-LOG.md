@@ -301,3 +301,12 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Corrective change committed as `aa18461afd3c5a63b2f9afdc806b81f5ba8be03b`: set the actual `.tac-ds-panel--bluf` card padding to 16px at all widths and restore title vertical padding to 0 and bottom margin to 11px while preserving the shared left marker. Follow-up browser regression: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40454306652 (pending at log update).
 - Scope remains the isolated refactor branch; production homepage, official mother template, JSON, and scheduled automations are untouched.
 
+## Run #260 — 2026-10-27 總結卡片修正後回歸驗收
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40454306652
+- Result: **success**; browser smoke tests and geometry/typography audits completed at 1440px, 390px, and 320px.
+- Summary-card geometry is now an exact height match to baseline at all three widths: 1440px 364px vs 364px; 390px 607px vs 607px; 320px 692px vs 692px. Padding is 16px at each width; title height and bottom margin match baseline. The shared left marker remains, causing only a 1px content-width difference.
+- Overall `#overview`: 1440px 4993px vs 4994px (+1px); 390px 6639px in both; 320px 7393px vs 7422px (+29px). The 320px overall delta is not from the summary card: narrow-mobile global markets remains +16px and industry/bonds/FX/commodities +12px, with the accumulated downstream offset about +30px. These are existing tab/nav geometry differences and remain a separate follow-up.
+- Other tracked panel geometry is baseline-matched at 1440px and 390px except expected 1px rounding differences. At 320px, news remains +1px, global markets +16px, and industry/bonds/FX/commodities +12px. No horizontal overflow or smoke-test failure reported.
+- Conclusion: **summary-card fix accepted**; do not further adjust its padding or heading spacing. Continue separately with narrow-mobile tab heading/nav geometry; do not use fixed-height compensation. Production homepage and official mother template remain untouched.
+
