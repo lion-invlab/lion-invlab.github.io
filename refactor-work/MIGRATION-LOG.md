@@ -276,3 +276,8 @@
 - At 320px, `#news-scan` returned to 1493px candidate vs 1503px baseline (-10px); global markets 738px vs 722px (+16px); industry/bonds/FX/commodities 514px vs 502px (+12px). No horizontal overflow; existing panels/IDs/navigation links and interactions passed.
 - At 390px, tracked panel geometry matches baseline except overview +1px. At 1440px, news/global/industry panel heights match baseline; overview is +20px, requiring separate later investigation and not part of this news-card experiment.
 - News panel diagnosis: at 320px, heading is 51px candidate vs 49px baseline; nav is 48px both; content panel is 1379px vs 1391px (-12px). Attempting to set card padding to 11px 9px made the news panel 1542px (+39px), so it was reverted. Do not retry broad padding changes or force panel height. Next inspect per-card computed heights, text line counts/line-height, and margins against baseline, then make a narrowly scoped adjustment.
+
+
+## Run #252 follow-up — 2026-10-27 差異定位補充
+
+The artifact's narrow-mobile child-geometry diagnostic confirms the remaining discrepancy is isolated to two direct children inside `#news-scan`: heading 49px baseline vs 51px candidate (+2px), and active tab panel 1391px baseline vs 1379px candidate (-12px); tab nav is 48px in both. The panel's total is therefore 1503px vs 1493px (-10px). Desktop news panel is 807px in both and 390px is 1360px in both. This narrows the remaining fix to narrow-mobile heading and active panel internals, not the shared tab bar or global card padding. Next step: inspect actual nested news-card measurements/line counts from the built DOM before changing per-card spacing; existing smoke artifact currently reports only direct panel children, so do not infer which specific cards account for the 12px.
