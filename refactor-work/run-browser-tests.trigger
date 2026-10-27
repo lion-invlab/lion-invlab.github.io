@@ -418,3 +418,5 @@ Run 280: full regression after consolidating verified main-tab CSS rules.
 Run 281: expose hidden smoke-test assertion metrics after cascade cleanup.
 
 Run 282: expose remaining interaction/contract assertion booleans.
+
+Run 283: retry hidden assertion diagnostics after Run 282 Playwright setup stalled.
