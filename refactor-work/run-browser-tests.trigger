@@ -408,3 +408,5 @@ Run 275: full regression after news metadata line-height parity and expanded glo
 Run 276: full regression after 1px news-card padding trim and global-panel child diagnostics.
 
 Run 277: inspect direct child boxes in global-market active tab panel.
+
+Run 278: identify which global-market article child adds 4px.
