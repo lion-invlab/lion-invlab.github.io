@@ -58,6 +58,14 @@
 .tac-ds-panel--bluf {
   border-left: 5px solid var(--tac-ds-color-brand);
   background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
+  /* Match the established summary-card inset at desktop and mobile widths. */
+  padding: 16px !important;
+}
+.tac-ds-panel--bluf > .title {
+  /* Keep the shared left marker, but preserve the summary card's original vertical rhythm. */
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 11px !important;
 }
 .tac-ds-panel--sentiment { min-width: 0; }
 .tac-ds-panel--tabbed { padding: 0 !important; }
