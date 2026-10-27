@@ -1141,9 +1141,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
    industry tabs from wrapping into an uneven second row, and tighten only the
    S&P 500 earnings-health card's internal spacing at very narrow widths. */
 @media (max-width: 380px) {
-  #sp500-earnings-health {
-    padding: 10px !important;
-  }
   #sp500-earnings-health > .title {
     gap: 5px !important;
     margin-bottom: 10px !important;
