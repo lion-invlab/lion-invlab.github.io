@@ -431,3 +431,4 @@ Run 287: retry full regression on Ubuntu 24.04 after runs 285/286 hit the 15-min
 Run #288 — verify duplicate narrow-phone industry-row declaration removal — cb01530f92aa84b4ba226dd4d617e594dc54e229
 run-289-narrow-phone-tab-cleanup-2026-10-28
 run-290-event-name-font-size-2026-10-28
+run-291-mobile-tab-duplicate-2026-10-28
