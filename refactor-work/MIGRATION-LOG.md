@@ -442,3 +442,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 ### Run #282 — Playwright setup stalled; retry requested
 - Run #282 was still in `Install Playwright` several minutes after the job began and had not reached candidate build or browser tests. No test result is claimed from this run.
 - Retrying on a fresh Actions run to avoid treating a stalled dependency-install step as a browser regression result. Diagnostic test code remains unchanged; the next completed run should expose the remaining failed assertion values.
+
+
+### Run #283 — exact failing assertion identified
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40493799412 — **failure**, browser build succeeded and all interactions/typography checks passed.
+- The sole remaining smoke-test contract violation is at 320px: `#news-scan` tab labels compute `white-space: normal`, but the acceptance rule requires `nowrap` at widths <=380px. Global-market and industry tabs already satisfy the contract. This came from consolidating the shared mobile rule without retaining the narrower news-label override.
+- Restored the explicit narrow-phone news-label `white-space: nowrap !important` rule only inside the <=380px media query. No height or padding compensation added. CSS fix commit: d51c16ba3e9ec2f5cd65d6f8b32782af756ff639. Full regression pending.
