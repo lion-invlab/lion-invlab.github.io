@@ -253,3 +253,15 @@
 - At 320px, candidate panel geometry changed from Run #248 baseline comparison as follows: global markets 722px → 738px (+16px); industry/bonds/FX/commodities 502px → 514px (+12px). The increase is consistent with restoring narrow-screen tab touch target height and two-row layout.
 - Remaining known geometry difference: `#news-scan` is 1493px vs baseline 1503px (-10px) at 320px. Do not treat the full layout as parity-complete; inspect the news panel and heading geometry separately before further migration.
 - The CSS fix is currently an end-appended, scoped exception in `design-system.css`. After validation, consolidate it into the existing narrow-mobile tab rules rather than allowing one-off overrides to accumulate. Keep all work on the isolated branch; production homepage and official template remain untouched.
+
+
+## Run #250 — 2026-10-27 CSS 規則整併回歸
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40432544155
+- Result: **success** after consolidating the narrow-mobile global-market and industry tab rules into their existing component sections and removing the end-appended override.
+- Consolidation commit: `69d8cf9e4a4cf36b9db3a960702efb1d0f87d44a`; run trigger commit: `fc2b7fe8725b5d8fb61f394db8ea65274472149c`.
+- Artifact: `tac-refactor-browser-results`, ID `12703260099`.
+- 1440px: no horizontal overflow; panel geometry is at baseline for news/global/industry; no new browser errors.
+- 390px: no horizontal overflow; all tracked panel heights match baseline except overview +1px; no new browser errors.
+- 320px: no horizontal overflow; global markets panel 722px → 738px (+16px), industry/bonds/FX/commodities 502px → 514px (+12px), confirming the narrow-mobile touch-target correction remains after consolidation. No new browser errors.
+- Known residual: `#news-scan` at 320px remains 1503px baseline vs 1493px candidate (-10px). Do not add a fixed-height compensation; inspect child-level geometry to locate the exact source. Overall pixel differences (390px ~11.29%, 320px ~13.82%) still need visual review as part of the ongoing migration.
