@@ -1397,7 +1397,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     gap: 6px 10px;
     font-size: 12px;
   }
-  .tac-ds-event .econ-name { font-size: 15px; }
 }
 
 /* Event detail-field ownership: field grid, labels and values are part of the design-system event card. */
