@@ -1147,11 +1147,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
    industry tabs from wrapping into an uneven second row, and tighten only the
    S&P 500 earnings-health card's internal spacing at very narrow widths. */
 @media (max-width: 380px) {
-  #industry-bonds-fx-commodities .tac-tab-nav label {
-    font-size: 12px !important;
-    padding: 3px 6px !important;
-    white-space: nowrap !important;
-  }
   #sp500-earnings-health {
     padding: 10px !important;
   }
@@ -1199,22 +1194,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   #global-markets .tac-tab-nav {
     padding-top: 3px !important;
     padding-bottom: 3px !important;
-  }
-}
-
-/* Geometry parity: industry tabs retain enough row height without diverging from shared label styling. */
-.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-  grid-template-rows: 36px 36px !important;
-}
-@media (max-width: 700px) {
-  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 32px 33px !important;
-  }
-}
-/* Preserve the validated two-row touch-target footprint on narrow phones. */
-@media (max-width: 380px) {
-  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 38px 39px !important;
   }
 }
 
@@ -1310,7 +1289,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   font-size: 13px !important;
 }
 #global-markets .tac-tab-nav { margin-bottom: 0 !important; }
-#global-markets .tac-tab-nav label { min-height: 40px !important; }
 .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
   grid-template-rows: 40px 40px !important;
   margin-bottom: 0 !important;
