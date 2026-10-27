@@ -480,3 +480,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Browser contract checks: no horizontal overflow, duplicate IDs, new browser errors or tab errors. Navigation-anchor visibility and interaction contracts passed; the previously reported hidden acceptance metrics also match the expected values. Main tab signatures and the validated disclosure/button behavior remain intact.
 - Geometry diagnostic confirms global-market and industry panels match baseline at 320px (722px and 502px respectively); at 390px, prior-week/calendar/earnings panels shown in the report also match exactly. Overview and news remain within the previously accepted 1–3px rounding deltas; no compensating CSS was added.
 - Dead-rule cleanup is now regression-accepted on the isolated branch. Ubuntu runner mitigation affects only the test workflow. Production homepage, official master template, JSON and schedules remain untouched.
+
+### Run #288 — narrow-phone industry-row duplicate cleanup pending
+- After Run #287 accepted the previous cleanup, the next selector audit found one more provably redundant declaration: the `max-width: 380px` rule repeated `grid-template-rows: 37.5px 37.5px !important` already set by the enclosing `max-width: 700px` rule for the same selector. No intervening narrower rule changed that property.
+- Removed only the duplicate declaration; the inherited 320px computed value remains 37.5px / 37.5px. CSS commit: `56ea0e210ffa8875bc11699b2f9f0f70eee54f1d`.
+- This is **pending regression acceptance**. No other CSS selectors were changed; production homepage, official master template, JSON and schedules remain untouched.
