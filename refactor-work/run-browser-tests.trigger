@@ -380,3 +380,4 @@ news-card-geometry-test-2026-10-27-1158
 news-card-geometry-test-2026-10-27-1202
 news-card-10px-vertical-padding-validation-2026-10-27
 overview-nested-geometry-diagnostic-2026-10-27
+overview-summary-geometry-fix-validation-2026-10-27
