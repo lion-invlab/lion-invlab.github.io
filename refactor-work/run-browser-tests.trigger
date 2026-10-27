@@ -416,3 +416,5 @@ Run 279: full regression after restoring global-market source disclosure geometr
 Run 280: full regression after consolidating verified main-tab CSS rules.
 
 Run 281: expose hidden smoke-test assertion metrics after cascade cleanup.
+
+Run 282: expose remaining interaction/contract assertion booleans.
