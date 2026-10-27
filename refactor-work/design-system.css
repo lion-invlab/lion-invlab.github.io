@@ -1661,6 +1661,8 @@ main.wrap .tac-section-heading h2,
 .tac-ds-panel > .tac-section-heading h2 {
   box-sizing: border-box !important;
   border-left: var(--tac-heading-marker-width) solid var(--tac-heading-marker-color) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   padding-left: var(--tac-heading-marker-gap) !important;
 }
 main.wrap .tac-section-heading h2::before,
