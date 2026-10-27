@@ -172,7 +172,7 @@ for (const viewport of results) {
       const dh = after.rect.height - before.rect.height;
       const dt = after.rect.relativeTop - before.rect.relativeTop;
       if (Math.abs(dh) >= 1 || Math.abs(dt) >= 2) {
-        if (deepChanged < 14) console.log(`  nested ${before.tag}.${before.className} "${before.text.slice(0,42)}": top ${before.rect.relativeTop}->${after.rect.relativeTop} (Δ${dt}), h ${before.rect.height}->${after.rect.height} (Δ${dh}); padding ${before.style.padding}->${after.style.padding}; margin ${before.style.margin}->${after.style.margin}; line-height ${before.style.lineHeight}->${after.style.lineHeight}`);
+        if (deepChanged < 60) console.log(`  nested ${before.tag}.${before.className} "${before.text.slice(0,42)}": top ${before.rect.relativeTop}->${after.rect.relativeTop} (Δ${dt}), h ${before.rect.height}->${after.rect.height} (Δ${dh}); padding ${before.style.padding}->${after.style.padding}; margin ${before.style.margin}->${after.style.margin}; line-height ${before.style.lineHeight}->${after.style.lineHeight}`);
         deepChanged++;
       }
     }
