@@ -532,3 +532,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
 - At 320px, S&P earnings-health panel measured 942px versus 943px baseline (−1px); global-markets remained 722px and industry panel 502px, both matching baseline. At 390px, industry panel retains the known +5px diagnostic, not attributed to this title-spacing cleanup. Desktop S&P panel is +1px; no compensation CSS added.
 - Cleanup from CSS commit 76dc63122056b009a37bc43279af2f91116b063a is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #295 — superseded audit disclosure marker color pending
+- Removed only the earlier `color: #747b84 !important` declaration from `main.wrap details.audit-details > summary::before`; the later identical selector already sets both `color: #e2b84d !important` and `-webkit-text-fill-color: #e2b84d !important`. Marker content, display, size and weight are unchanged.
+- CSS commit: ff774c7a309f518578df308081164783ac15d759. Browser regression pending; do not mark accepted until Run #295 completes.
+- Production homepage, official master template, JSON and schedules remain untouched.
