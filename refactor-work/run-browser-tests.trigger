@@ -400,3 +400,5 @@ Run 271: rerun full browser regression after 320px news tab nowrap fix.
 Run 272: full regression after baseline tab-nav geometry parity pass.
 
 Run 273: full regression after canonical main-tab label signature fix.
+
+Run 274: diagnostic news-card geometry details after nav parity.
