@@ -2114,6 +2114,16 @@ main section[id] { scroll-margin-top: 0; }
 #earnings .calendar-status-group:nth-child(3) .earnings-detail-field.wide .earnings-detail-value{font-size:13px!important;line-height:1.65!important;overflow-wrap:anywhere}
 @media(max-width:640px){#earnings .calendar-status-group:nth-child(3) .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#earnings .calendar-status-group:nth-child(3) .earnings-actual-card{padding:9px!important;border-radius:12px!important}#earnings .calendar-status-group:nth-child(3) .earnings-actual-card-title{font-size:12px!important}#earnings .calendar-status-group:nth-child(3) .earnings-actual-line strong{font-size:13px!important}}
 </style>
+
+<style id="five-star-importance-red-fix">
+/* 五星重要性：公司／事件名稱使用 TAC 紅色；四星及以下維持原色 */
+#earnings .earnings-accordion.star-verified-five .earnings-company-name,
+#earnings .earnings-accordion .earnings-company-name.five-star-company,
+#calendar .econ-event.star-verified-five .econ-name,
+#last-week-earnings .earnings-accordion.star-verified-five .earnings-company-name {
+  color:#c62828!important;
+}
+</style>
 </head>
 <body class="release-ready">
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">2026/10/28（三）早報審核版｜已更新可核對的 10/27 主要市場收盤與美債殖利率；產業 ETF、匯率、能源、貴金屬及部分情緒指標仍待核實，不沿用舊值或以盤中價冒充收盤。</div>
