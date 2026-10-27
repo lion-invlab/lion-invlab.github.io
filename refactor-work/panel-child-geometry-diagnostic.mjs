@@ -92,7 +92,19 @@ try {
           }));
           return { index, tag: element.tagName, id: element.id || "", className: typeof element.className === "string" ? element.className : "", text: (element.innerText || "").trim().replace(/\\s+/g, " ").slice(0, 160), rect: r, style: style(element), descendants };
         }) : [];
-      return { id, panelRect: rect(panel), panelStyle: style(panel), children, newsCards };
+      const overviewNested = id === "overview" ? [...panel.querySelectorAll(":scope > .grid.two > *, :scope > .grid.two > * *")]
+        .filter(element => {
+          const r = element.getBoundingClientRect();
+          return r.width > 0 && r.height > 0 && !element.closest("#sentiment, #news-scan, #global-markets, #industry-bonds-fx-commodities, #last-week-calendar, #last-week-earnings, #calendar, #earnings, #sp500-earnings-health, #fed, #view");
+        }).slice(0, 100).map(element => ({
+          tag: element.tagName,
+          id: element.id || "",
+          className: typeof element.className === "string" ? element.className : "",
+          text: (element.innerText || element.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 110),
+          rect: rect(element),
+          style: style(element)
+        })) : [];
+      return { id, panelRect: rect(panel), panelStyle: style(panel), children, newsCards, overviewNested };
     }), targets);
 
     const [b, c] = await Promise.all(pages.map(inspect));
