@@ -412,3 +412,5 @@ Run 277: inspect direct child boxes in global-market active tab panel.
 Run 278: identify which global-market article child adds 4px.
 
 Run 279: full regression after restoring global-market source disclosure geometry.
+
+Run 280: full regression after consolidating verified main-tab CSS rules.
