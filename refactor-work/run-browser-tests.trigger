@@ -365,3 +365,5 @@ Run 245: fix Run 244 regression findings from artifact. Preserve dark audit disc
 Run 246: scope light source-label color overrides to light panels, restore dark audit summary and marker contrast, and use higher-specificity tabset pseudo-bar suppression; re-run full viewport regression and typography/interaction checks. 2026-10-26T23:06+0800
 Run 247: scope the legacy pseudo-bar override directly to the three main tab panels with stronger selector specificity; re-run full browser regression, disclosure colors, heading bars, and viewport geometry. 2026-10-26T23:12+0800
 Run 248: remove duplicate border marker from tabset h2 while retaining the existing red pseudo marker; rerun full viewport regression. 2026-10-26T23:xx+0800
+
+Run 249: restore 320px global-market tab touch-target height and industry two-row tab geometry from Run 248 measurements; verify 1440/390/320 browser, typography, interaction, and overflow regressions. 2026-10-27
