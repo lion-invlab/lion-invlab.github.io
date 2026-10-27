@@ -228,3 +228,15 @@
 - 幾何剩餘事項：320px 新聞掃描仍比基準少 25px（符合已記錄的窄版頁籤／新聞卡 padding 緊湊化，仍待人工可讀性審核）；320px overview 長頁容器差異仍約 -62px，但首張 BLUF 卡只差 3px，不能誤讀為卡本身短 62px。標準手機 S&P panel 約 -2px，桌面約 -1px；整體全頁 desktop 高度 5147px vs 5165px，尚未宣稱像素級完全一致。
 - 本次 CSS 改動只在隔離分支的 `refactor-work/design-system.css`：在 `max-width:380px` 下還原 `#sp500-earnings-health` 的 padding 至 16px；不改動任何資料、文字、報價或互動邏輯。正式首頁、正式母版、JSON、排程均未修改。
 - 下一步：人工檢視本次 Run #223 的 candidate/baseline/diff 截圖，特別確認 320px 新聞卡內距的可讀性；再繼續下一個已量測的幾何差異與 Design System 元件／legacy CSS 遷移。不把單一回歸成功視為整體 CSS 重構完成。
+
+
+## 2026-10-27 — Latest verified status: Run #248 heading-marker regression passed; geometry follow-up remains open
+
+- Latest completed workflow verified from GitHub Actions: [Run #248](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40351391304), conclusion `success`, commit `0357066235eeb5d9dd8aa96a9586d18d6ddd8629`.
+- The preceding Run #247 failed at the browser smoke-test step. The subsequent isolated fix commit `c2f06198b082bca4a421f1d555a5d443b988c275` removes the duplicate border marker inside tabset headings while retaining the existing pseudo-element marker. Run #248 then passed.
+- Run #248 artifact: [browser results, screenshots and candidate](https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40351391304/artifacts/12665041881), artifact ID `12665041881`, approximately 7.27 MB, retention until 2026-11-02 15:50 UTC.
+- Geometry diagnostics in the successful run still show unresolved 320px differences: `#news-scan` candidate height 1493px versus baseline 1503px (−10px); its heading is +2px and first news tab panel is −12px. The three main tabset heading heights are 51px versus 49px baseline; global-market tab navigation is 34px versus 48px baseline (−14px), and industry tab navigation is 79px versus 89px baseline (−10px). These are not failures of the existing smoke assertions, but they are not pixel/geometry parity and need deliberate visual review before acceptance.
+- Other 320px panels in this report are close to baseline: S&P 500 panel 942px versus 943px (−1px), and Today Focus 368px versus 368px. The panel child geometry report records cumulative vertical offsets of approximately −12/−13px after the changed heading/tabset regions; do not misattribute these downstream offsets to each later panel's own height.
+- Important recordkeeping gap: the migration log had not been updated after Run #223 despite subsequent commits and runs. This entry restores a traceable pointer to the latest verified run.
+- Next: inspect Run #248 candidate/baseline/diff screenshots and the detailed geometry artifact; resolve the narrow news panel and tab-navigation height differences one component at a time; rerun all 1440/390/320px checks. Continue the inner-component migration and legacy CSS audit only after the relevant visual and interaction gates pass. Do not bulk-delete legacy CSS.
+- Safety boundary unchanged: no production homepage, official mother template, JSON or scheduled automation is modified by this work.
