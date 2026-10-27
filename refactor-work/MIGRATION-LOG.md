@@ -527,6 +527,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Cleanup from CSS commit a3e074ad79814dff0cb1128bb7d96ba8a4420187 is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
 
 
-### Run #294 — superseded narrow-mobile S&P title spacing pending
-- In the earlier <=380px `#sp500-earnings-health > .title` rule, removed only `gap: 5px !important` and `margin-bottom: 10px !important`: the later rule for the exact selector sets gap to 12px and margin-bottom to 11px. Retained `line-height: 1.3 !important` unchanged. No other title or panel rules changed.
-- CSS commit: 76dc63122056b009a37bc43279af2f91116b063a. Full browser regression pending; do not mark accepted until Run #294 completes. Production homepage, official master template, JSON and schedules remain untouched.
+### Run #294 — superseded narrow-mobile S&P title spacing accepted (2026-10-28)
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40603610697 — **success**. Candidate build, desktop/mobile/narrow-mobile smoke tests, typography audit, panel geometry diagnostics and artifact upload completed.
+- Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
+- At 320px, S&P earnings-health panel measured 942px versus 943px baseline (−1px); global-markets remained 722px and industry panel 502px, both matching baseline. At 390px, industry panel retains the known +5px diagnostic, not attributed to this title-spacing cleanup. Desktop S&P panel is +1px; no compensation CSS added.
+- Cleanup from CSS commit 76dc63122056b009a37bc43279af2f91116b063a is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
