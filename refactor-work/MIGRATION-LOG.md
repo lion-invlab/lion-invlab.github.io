@@ -265,3 +265,14 @@
 - 390px: no horizontal overflow; all tracked panel heights match baseline except overview +1px; no new browser errors.
 - 320px: no horizontal overflow; global markets panel 722px → 738px (+16px), industry/bonds/FX/commodities 502px → 514px (+12px), confirming the narrow-mobile touch-target correction remains after consolidation. No new browser errors.
 - Known residual: `#news-scan` at 320px remains 1503px baseline vs 1493px candidate (-10px). Do not add a fixed-height compensation; inspect child-level geometry to locate the exact source. Overall pixel differences (390px ~11.29%, 320px ~13.82%) still need visual review as part of the ongoing migration.
+
+
+## Run #252 — 2026-10-27 新聞卡片內距實驗回退後驗收
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40439674930
+- Result: **success** after reverting the oversized 11px vertical news-card padding experiment.
+- Revert commit: `7135822fc338dcdbfb0e0c63e8ea8d7874c65836`; trigger commit: `fc4bc6cecc5af023318dee3a97598619252a90e6`.
+- Artifact: `tac-refactor-browser-results`, ID `12706038036`.
+- At 320px, `#news-scan` returned to 1493px candidate vs 1503px baseline (-10px); global markets 738px vs 722px (+16px); industry/bonds/FX/commodities 514px vs 502px (+12px). No horizontal overflow; existing panels/IDs/navigation links and interactions passed.
+- At 390px, tracked panel geometry matches baseline except overview +1px. At 1440px, news/global/industry panel heights match baseline; overview is +20px, requiring separate later investigation and not part of this news-card experiment.
+- News panel diagnosis: at 320px, heading is 51px candidate vs 49px baseline; nav is 48px both; content panel is 1379px vs 1391px (-12px). Attempting to set card padding to 11px 9px made the news panel 1542px (+39px), so it was reverted. Do not retry broad padding changes or force panel height. Next inspect per-card computed heights, text line counts/line-height, and margins against baseline, then make a narrowly scoped adjustment.
