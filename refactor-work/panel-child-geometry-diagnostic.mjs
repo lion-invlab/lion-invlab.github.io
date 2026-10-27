@@ -120,7 +120,16 @@ try {
           className: typeof element.className === "string" ? element.className : "",
           text: (element.innerText || "").trim().replace(/\s+/g, " ").slice(0, 100),
           rect: rect(element),
-          style: { ...style(element), border: getComputedStyle(element).border, borderBottom: getComputedStyle(element).borderBottom, boxSizing: getComputedStyle(element).boxSizing }
+          style: { ...style(element), border: getComputedStyle(element).border, borderBottom: getComputedStyle(element).borderBottom, boxSizing: getComputedStyle(element).boxSizing },
+          children: [...element.children].map((child, childIndex) => ({
+            index: childIndex,
+            tag: child.tagName,
+            id: child.id || "",
+            className: typeof child.className === "string" ? child.className : "",
+            text: (child.innerText || "").trim().replace(/\\s+/g, " ").slice(0, 80),
+            rect: rect(child),
+            style: { ...style(child), border: getComputedStyle(child).border, borderBottom: getComputedStyle(child).borderBottom, boxSizing: getComputedStyle(child).boxSizing }
+          }))
         })) : [];
       })() : [];
       const overviewNested = id === "overview" ? [...panel.querySelectorAll(":scope > .grid.two > *, :scope > .grid.two > * *")]
@@ -212,6 +221,11 @@ for (const viewport of results) {
           continue;
         }
         console.log(`  GLOBAL ACTIVE CHILD[${i}] ${x.tag}#${x.id}.${x.className}: top ${x.rect.relativeTop}->${y.rect.relativeTop}, h ${x.rect.height}->${y.rect.height}, padding ${x.style.padding}->${y.style.padding}, margin ${x.style.margin}->${y.style.margin}, border ${x.style.border}->${y.style.border}, box-sizing ${x.style.boxSizing}->${y.style.boxSizing}`);
+        for (let k = 0; k < Math.max(x.children.length, y.children.length); k++) {
+          const a = x.children[k], b = y.children[k];
+          if (!a || !b) { console.log(`    GLOBAL ARTICLE CHILD[${k}] missing`); continue; }
+          console.log(`    GLOBAL ARTICLE CHILD[${k}] ${a.tag}.${a.className}: top ${a.rect.relativeTop}->${b.rect.relativeTop}, h ${a.rect.height}->${b.rect.height}, padding ${a.style.padding}->${b.style.padding}, margin ${a.style.margin}->${b.style.margin}, line-height ${a.style.lineHeight}->${b.style.lineHeight}, border ${a.style.border}->${b.style.border}`);
+        }
       }
     }
     if (panel.id === "news-scan") {
