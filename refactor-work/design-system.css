@@ -1449,6 +1449,13 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   #news-scan .newsitem { padding-bottom: 10px !important; }
 }
 
+/* Global-market source disclosure parity: the baseline has no outer border
+   and no top margin on the region source row; preserve its shared arrow/text styling. */
+#global-markets details.source-details.region-source {
+  margin-top: 0 !important;
+  border: 0 !important;
+}
+
 /* Event summary metadata ownership: keep labels, names and stars inside the design-system component. */
 .tac-ds-event .econ-meta {
   display: grid;
