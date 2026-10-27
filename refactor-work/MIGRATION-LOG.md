@@ -485,3 +485,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - After Run #287 accepted the previous cleanup, the next selector audit found one more provably redundant declaration: the `max-width: 380px` rule repeated `grid-template-rows: 37.5px 37.5px !important` already set by the enclosing `max-width: 700px` rule for the same selector. No intervening narrower rule changed that property.
 - Removed only the duplicate declaration; the inherited 320px computed value remains 37.5px / 37.5px. CSS commit: `56ea0e210ffa8875bc11699b2f9f0f70eee54f1d`.
 - This is **pending regression acceptance**. No other CSS selectors were changed; production homepage, official master template, JSON and schedules remain untouched.
+
+### Run #288 — narrow-phone industry-row duplicate cleanup accepted (2026-10-27)
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40574004443 — **success**. Candidate build, Playwright browser smoke tests, typography audit, geometry diagnostics, and artifact upload all completed successfully on Ubuntu 24.04.
+- All desktop/mobile/narrow-mobile typography audits passed: 27 instrument names and 54 quote values matched baseline in each viewport.
+- Browser checks: no horizontal overflow, duplicate IDs, new browser errors, or tab errors. Navigation anchors and interaction contracts passed. The industry/global-market panels retained baseline geometry, including the 320px industry panel height of 502px; the removed narrow-phone declaration was redundant.
+- The cleanup from CSS commit `56ea0e210ffa8875bc11699b2f9f0f70eee54f1d` is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
