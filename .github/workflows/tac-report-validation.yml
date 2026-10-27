@@ -1,0 +1,34 @@
+name: TAC Daily Report Structural Gate
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "2026-*.html"
+      - "demo-2026-10-26.html"
+      - "scripts/validate_tac_report.py"
+      - ".github/workflows/tac-report-validation.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "2026-*.html"
+      - "demo-2026-10-26.html"
+      - "scripts/validate_tac_report.py"
+      - ".github/workflows/tac-report-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structural-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate dated report structure
+        run: python scripts/validate_tac_report.py
