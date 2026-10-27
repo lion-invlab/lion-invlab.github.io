@@ -1201,6 +1201,18 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 
 
+/* Narrow-mobile tab geometry: remove the unintended 8px gap before the active panel. */
+@media (max-width: 380px) {
+  #global-markets .tac-tab-panel,
+  #industry-bonds-fx-commodities .tac-tab-panel {
+    margin-top: 0 !important;
+  }
+  #global-markets .tac-tab-nav {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+  }
+}
+
 /* Geometry parity: industry tabs retain enough row height without diverging from shared label styling. */
 .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
   grid-template-rows: 36px 36px !important;
