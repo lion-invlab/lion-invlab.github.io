@@ -448,3 +448,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40493799412 — **failure**, browser build succeeded and all interactions/typography checks passed.
 - The sole remaining smoke-test contract violation is at 320px: `#news-scan` tab labels compute `white-space: normal`, but the acceptance rule requires `nowrap` at widths <=380px. Global-market and industry tabs already satisfy the contract. This came from consolidating the shared mobile rule without retaining the narrower news-label override.
 - Restored the explicit narrow-phone news-label `white-space: nowrap !important` rule only inside the <=380px media query. No height or padding compensation added. CSS fix commit: d51c16ba3e9ec2f5cd65d6f8b32782af756ff639. Full regression pending.
+
+
+### Run #284 — main-tab cascade cleanup accepted
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40510250622 — **success**. Playwright install, candidate build, desktop/mobile smoke tests, typography audit and panel-child geometry diagnostic all completed successfully.
+- Restoring `#news-scan .tac-tab-nav label { white-space: nowrap !important; }` under `max-width: 380px` cleared the only remaining acceptance failure. At 320px all three main-tab signatures now satisfy the required 12px/nowrap contract; at 390px their shared signatures match, and desktop signatures match.
+- Geometry remains stable: global-market and industry panels exactly match baseline at all tested widths; news is within ±1px; overview remains +3px desktop, +2px at 390px, and -1px at 320px. No new browser errors, missing panels, duplicate IDs, or tab interaction failures. CSS fix commit: d51c16ba3e9ec2f5cd65d6f8b32782af756ff639.
+- CSS cascade cleanup is accepted for this phase. Next: audit remaining duplicate/legacy selectors for safe, test-backed consolidation; preserve the current passing commit as the regression baseline.
