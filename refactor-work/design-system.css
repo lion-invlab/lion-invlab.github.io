@@ -1348,6 +1348,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   }
 }
 @media (max-width: 380px) {
+  #news-scan .tac-tab-nav label { white-space: nowrap !important; }
   #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
     min-height: 38px !important;
     padding: 6px 7px !important;
