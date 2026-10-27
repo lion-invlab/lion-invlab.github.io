@@ -989,29 +989,6 @@ html {
 }
 
 
-/* Final news-scan geometry pass: retain the tab affordance, reduce its footprint,
-   and avoid adding vertical gaps between legacy news cards. */
-#news-scan .tac-ds-tabs {
-  padding: 1px !important;
-  margin-bottom: 2px !important;
-}
-#news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
-  min-height: 26px !important;
-  padding: 2px 7px !important;
-  line-height: 1.2 !important;
-}
-#news-scan .tac-ds-panel--tabbed .tac-ds-card--news {
-  margin-bottom: 0 !important;
-}
-@media (max-width: 700px) {
-  #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
-    min-height: 26px !important;
-    padding: 2px 6px !important;
-    font-size: 11px !important;
-  }
-}
-
-
 /* TAC unified review fixes — 2026-10-25
    One heading marker, consistent tab appearance, accurate fear/greed scale,
    consistent source disclosure arrows, star-five color, and instrument typography. */
@@ -1320,23 +1297,8 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 
 
-/* News/global tab container parity: close small panel-height deltas while keeping shared label signatures. */
-@media (min-width: 701px) {
-  #news-scan .tac-tab-nav {
-    min-height: 39px !important;
-  }
-  #global-markets .tac-tab-nav {
-    min-height: 40px !important;
-  }
-}
-@media (min-width: 381px) and (max-width: 700px) {
-  #news-scan .tac-tab-nav {
-    min-height: 35px !important;
-  }
-}
-
-/* Geometry parity follow-up — use the frozen baseline tab-nav footprints.
-   Override the older compact news-tab rule rather than compensating the panels. */
+/* Canonical main-tab geometry and label styles.
+   All three tabsets share label signatures; viewport rules preserve measured nav footprints. */
 #news-scan .tac-ds-tabs {
   padding: 5px !important;
   margin-bottom: 0 !important;
@@ -1347,20 +1309,22 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   line-height: 1.25 !important;
   font-size: 13px !important;
 }
-#global-markets .tac-tab-nav {
-  margin-bottom: 0 !important;
-}
-#global-markets .tac-tab-nav label {
-  min-height: 40px !important;
-}
+#global-markets .tac-tab-nav { margin-bottom: 0 !important; }
+#global-markets .tac-tab-nav label { min-height: 40px !important; }
 .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
   grid-template-rows: 40px 40px !important;
   margin-bottom: 0 !important;
 }
+#news-scan .tac-tab-nav label,
+#global-markets .tac-tab-nav label,
+#industry-bonds-fx-commodities .tac-tab-nav label {
+  min-height: 40px !important;
+  padding: 9px 13px !important;
+  font-size: 13px !important;
+  white-space: nowrap !important;
+}
 @media (max-width: 700px) {
-  #news-scan .tac-ds-tabs {
-    padding: 4px !important;
-  }
+  #news-scan .tac-ds-tabs { padding: 4px !important; }
   #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
     min-height: 38px !important;
     padding: 8px 7px !important;
@@ -1371,8 +1335,16 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     min-height: 38px !important;
     padding: 8px 7px !important;
   }
+  #news-scan .tac-tab-nav label,
+  #global-markets .tac-tab-nav label,
+  #industry-bonds-fx-commodities .tac-tab-nav label {
+    min-height: 38px !important;
+    padding: 8px 7px !important;
+    font-size: 12px !important;
+    white-space: normal !important;
+  }
   .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 37px 37px !important;
+    grid-template-rows: 37.5px 37.5px !important;
   }
 }
 @media (max-width: 380px) {
@@ -1386,49 +1358,9 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     padding: 8px 7px !important;
     white-space: nowrap !important;
   }
+  #industry-bonds-fx-commodities .tac-tab-nav label { white-space: nowrap !important; }
   .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 37px 37px !important;
-  }
-}
-
-/* Canonical main-tab label signatures: equalize computed typography and hit-area rules
-   across news, global markets and industry; grid rows continue to own the two-row layout. */
-#news-scan .tac-tab-nav label,
-#global-markets .tac-tab-nav label,
-#industry-bonds-fx-commodities .tac-tab-nav label {
-  min-height: 40px !important;
-  padding: 9px 13px !important;
-  font-size: 13px !important;
-  white-space: nowrap !important;
-}
-@media (max-width: 700px) {
-  #news-scan .tac-tab-nav label,
-  #global-markets .tac-tab-nav label,
-  #industry-bonds-fx-commodities .tac-tab-nav label {
-    min-height: 38px !important;
-    padding: 8px 7px !important;
-    font-size: 12px !important;
-    white-space: normal !important;
-  }
-  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 38px 38px !important;
-  }
-}
-@media (max-width: 380px) {
-  #news-scan .tac-tab-nav label {
-    padding: 6px 7px !important;
-    white-space: nowrap !important;
-  }
-  #global-markets .tac-tab-nav label {
-    min-height: 40px !important;
-    padding: 8px 7px !important;
-    white-space: nowrap !important;
-  }
-  #industry-bonds-fx-commodities .tac-tab-nav label {
-    white-space: nowrap !important;
-  }
-  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 37px 37px !important;
+    grid-template-rows: 37.5px 37.5px !important;
   }
 }
 
@@ -1716,17 +1648,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
    Restore the baseline news tab row footprint, and restore the original 16px
    shell padding/title spacing for Fed and Today Focus only at <=380px. */
 @media (max-width: 380px) {
-  #news-scan .tac-ds-tabs {
-    padding: 4px !important;
-    margin-bottom: 0 !important;
-  }
-  #news-scan .tac-tab-nav label {
-    min-height: 38px !important;
-    padding: 6px 7px !important;
-    line-height: 1.35 !important;
-    font-size: 12px !important;
-    white-space: nowrap !important;
-  }
   #fed,
   #view {
     padding: 16px !important;
