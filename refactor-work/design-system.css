@@ -1432,6 +1432,14 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   }
 }
 
+/* News metadata line-height parity: legacy news cards use normal line-height.
+   Apply above 380px only; narrow-phone panel geometry is already baseline-matched. */
+@media (min-width: 381px) {
+  #news-scan .newsitem .newsmeta {
+    line-height: normal !important;
+  }
+}
+
 /* Event summary metadata ownership: keep labels, names and stars inside the design-system component. */
 .tac-ds-event .econ-meta {
   display: grid;
