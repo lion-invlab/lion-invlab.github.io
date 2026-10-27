@@ -160,6 +160,23 @@ for (const viewport of results) {
     const baseHeight = baselinePanel?.panelRect?.height;
     const candidateHeight = candidatePanel?.panelRect?.height;
     console.log(`[${viewport.width}px] #${panel.id}: panel ${baseHeight}px -> ${candidateHeight}px (Δ ${candidateHeight - baseHeight}px)`);
+    const baseDeep = baselinePanel?.deepGeometry || [];
+    const candidateDeep = candidatePanel?.deepGeometry || [];
+    const deepKey = item => [item.tag, item.id, item.className, item.text].join("|");
+    const baseByKey = new Map(baseDeep.map(item => [deepKey(item), item]));
+    const candidateByKey = new Map(candidateDeep.map(item => [deepKey(item), item]));
+    let deepChanged = 0;
+    for (const [key, before] of baseByKey) {
+      const after = candidateByKey.get(key);
+      if (!after) continue;
+      const dh = after.rect.height - before.rect.height;
+      const dt = after.rect.relativeTop - before.rect.relativeTop;
+      if (Math.abs(dh) >= 1 || Math.abs(dt) >= 2) {
+        if (deepChanged < 14) console.log(`  nested ${before.tag}.${before.className} "${before.text.slice(0,42)}": top ${before.rect.relativeTop}->${after.rect.relativeTop} (Δ${dt}), h ${before.rect.height}->${after.rect.height} (Δ${dh}); padding ${before.style.padding}->${after.style.padding}; margin ${before.style.margin}->${after.style.margin}; line-height ${before.style.lineHeight}->${after.style.lineHeight}`);
+        deepChanged++;
+      }
+    }
+    if (deepChanged) console.log(`  nested geometry changed elements: ${deepChanged}`);
     const baseChildren = baselinePanel?.children || [];
     const candidateChildren = candidatePanel?.children || [];
     if (baseChildren.length !== candidateChildren.length) {
