@@ -44,6 +44,9 @@
   --tac-ds-font-body: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
   --tac-ds-line-height-body: 1.65;
   --tac-ds-focus-ring: 0 0 0 3px rgba(180, 35, 50, .18);
+  --tac-heading-marker-width: 5px;
+  --tac-heading-marker-gap: 12px;
+  --tac-heading-marker-color: var(--tac-ds-color-brand);
 }
 
 /* 2. Shared panel shells */
@@ -1681,12 +1684,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 
 /* Canonical main-heading contract (pilot): use the same marker geometry and
    text offset for legacy .title headings and tabset h2 headings.
-   Shared tokens make the gap a single point of control instead of panel fixes. */
-:root {
-  --tac-heading-marker-width: 5px;
-  --tac-heading-marker-gap: 12px;
-  --tac-heading-marker-color: var(--tac-ds-color-brand);
-}
+   Shared tokens are declared in the canonical theme-token block above. */
 main.wrap .card > .title,
 main.wrap .tac-section-heading h2,
 .tac-ds-panel > .title,
