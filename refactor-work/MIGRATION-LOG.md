@@ -437,3 +437,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40493169275 — **failure**. The newly exposed hidden metrics all pass: method disclosures 4/0 inline styles, all four region source typography records match, three dark disclosure signatures match, Fear & Greed score/marker 21/21, five-star red count 16, source triangles 11, double-bar headings 0, and sector tab colors are correct.
 - The failing condition is therefore among remaining unreported interaction/contract booleans, especially earnings upcoming tab and disclosure/button contracts. Expanded the summary to print those exact values; no CSS rollback or unrelated fix until the specific predicate is identified.
 - Test diagnostic commit: 710b9ac59f0407aee229aeebee9803f7eba60705. Next regression pending.
+
+
+### Run #282 — Playwright setup stalled; retry requested
+- Run #282 was still in `Install Playwright` several minutes after the job began and had not reached candidate build or browser tests. No test result is claimed from this run.
+- Retrying on a fresh Actions run to avoid treating a stalled dependency-install step as a browser regression result. Diagnostic test code remains unchanged; the next completed run should expose the remaining failed assertion values.
