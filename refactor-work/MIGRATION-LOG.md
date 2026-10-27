@@ -310,3 +310,12 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Other tracked panel geometry is baseline-matched at 1440px and 390px except expected 1px rounding differences. At 320px, news remains +1px, global markets +16px, and industry/bonds/FX/commodities +12px. No horizontal overflow or smoke-test failure reported.
 - Conclusion: **summary-card fix accepted**; do not further adjust its padding or heading spacing. Continue separately with narrow-mobile tab heading/nav geometry; do not use fixed-height compensation. Production homepage and official mother template remain untouched.
 
+## Run #261 — 2026-10-27 共用標題垂直幾何回歸
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40457469848
+- Result: **success**; typography audit passed for desktop/mobile/narrow-mobile (27 names and 54 quote values per viewport).
+- Canonical section-heading top/bottom padding is now 0px, matching baseline heading height. This removes the prior +2px heading difference, but also reduces the three tabset panel heights by 2px at 1440px and 390px; this needs a small spacing rebalance before final acceptance.
+- At 1440px: overview 4993px baseline vs 4988px candidate (-5px); news/global/industry panels each -2px. At 390px: overview -6px; news -2px, global -2px, industry -2px. No browser smoke-test failures.
+- At 320px: news 1502px vs 1503px baseline (-1px); global markets 736px vs 722px (+14px); industry/bonds/FX/commodities 512px vs 502px (+10px). Diagnostics identify two narrow-mobile factors: tab nav height +2px in global/industry and an 8px gap before the active tab panel (baseline 0px). Keep validated touch-target minimums; investigate the source of the 8px gap and remove only the unintended gap instead of reducing button hit areas or setting fixed panel heights.
+- Summary card remains exact baseline height at all three widths. Production homepage and official mother template remain untouched.
+
