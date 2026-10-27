@@ -58,6 +58,13 @@
 .tac-ds-panel--bluf {
   border-left: 5px solid var(--tac-ds-color-brand);
   background: linear-gradient(115deg, #fff 0%, #fff 78%, #fffafa 100%);
+  /* Preserve legacy summary-card geometry while retaining the shared shell. */
+  padding: 16px 16px 16px 15px;
+}
+.tac-ds-panel--bluf > .title {
+  margin-bottom: 11px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .tac-ds-panel--sentiment { min-width: 0; }
 .tac-ds-panel--tabbed { padding: 0 !important; }
