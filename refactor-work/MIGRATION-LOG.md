@@ -406,3 +406,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491242287 — **success**. The direct-child comparison isolates the remaining global-market delta to the active article: baseline article height 324px vs candidate 328px at desktop, while article padding, margin, border and box-sizing match. The active tab panel itself is +4px at 1440/390/320.
 - This indicates a child inside the article—not the outer tab panel or navigation—is responsible. Expanded the diagnostic to report the article's direct children (metadata, rows, market summary, source disclosure) before adjusting styles.
 - CSS unchanged this run; diagnostic commit: 868eddf05275ae7585867bb7f48fbe48d751db85. Next full regression pending.
+
+
+### Run #278 — global-market +4px root cause confirmed
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491533864 — **success**.
+- Direct article-child diagnostics pinpointed the entire +4px global-market active-panel delta to the region source disclosure: baseline has `margin-top: 0` and no outer border; candidate had `margin-top: 2px` plus a 1px border (resulting disclosure box 23px vs 21px). The rows and market-reason block match baseline.
+- Targeted fix: remove only the outer margin/border from `#global-markets details.source-details.region-source`, retaining the shared disclosure marker and typography. CSS commit: 9ab643d0067629d6f9d524f7ea1cf06c14a47b6f. Full regression pending.
