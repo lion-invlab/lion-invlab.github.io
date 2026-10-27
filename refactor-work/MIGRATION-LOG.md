@@ -354,3 +354,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - 已在隔離分支更新 `refactor-work/design-system.css`，共用導覽列還原至基準的圓角、padding、按鈕高度與字體語氣，保留窄手機全球市場 40px 可觸控目標。未修改總結卡片、HTML 母版、JSON 或排程。
 - CSS commit：`26d094f244ac9bf3f4a350f7edad5cd5f693084f`
 - 待驗收：本輪尚未取得修改後的瀏覽器回歸結果。下一步應觸發完整測試，再依結果核對 1440／390／320px、27 個商品名稱及 54 個報價字體稽核、總結卡片高度和頁籤幾何。
+
+
+### Run #271 — narrow-mobile tab regression fix (2026-10-27)
+- Run #270 exposed one confirmed failed assertion: at 320px, the news-scan main-tab labels computed `white-space: normal`, while the other two main tabsets were `nowrap`. The shared base rule had been overridden by a later narrow-mobile rule.
+- Batched fix: set the news-scan narrow-mobile tab labels to `white-space: nowrap`, preserving the measured 38px minimum height, 6px/7px padding, 12px font, and existing scrollable tab strip. No outer-panel height compensation or legacy CSS deletion.
+- CSS commit: 2c4d06b3897c840f732dd4fd921b67b7721bd3ea. Full browser regression rerun pending; do not treat as accepted until Actions finishes.
