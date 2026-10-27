@@ -455,3 +455,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Restoring `#news-scan .tac-tab-nav label { white-space: nowrap !important; }` under `max-width: 380px` cleared the only remaining acceptance failure. At 320px all three main-tab signatures now satisfy the required 12px/nowrap contract; at 390px their shared signatures match, and desktop signatures match.
 - Geometry remains stable: global-market and industry panels exactly match baseline at all tested widths; news is within ±1px; overview remains +3px desktop, +2px at 390px, and -1px at 320px. No new browser errors, missing panels, duplicate IDs, or tab interaction failures. CSS fix commit: d51c16ba3e9ec2f5cd65d6f8b32782af756ff639.
 - CSS cascade cleanup is accepted for this phase. Next: audit remaining duplicate/legacy selectors for safe, test-backed consolidation; preserve the current passing commit as the regression baseline.
+
+
+### Run #284 — follow-up dead-rule audit
+- Regression accepted: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40510250622 — **success**. This established a passing baseline before further cleanup.
+- Computed styles show the canonical main-tab block supersedes three older industry row-height declarations (36/36 desktop, 32/33 mobile, 38/39 narrow phone), a narrow-phone industry label padding/font block, and a duplicate global-market `min-height: 40px` declaration. Removed only these demonstrably overridden declarations; canonical row heights, 320px nowrap, and validated hit targets remain unchanged.
+- Cleanup commit: f3b5be37128553c90a5f291197ed748e4630e539. Full regression pending; no claim of acceptance until Run #285 completes.
