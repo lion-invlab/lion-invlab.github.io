@@ -607,6 +607,7 @@ try {
 - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
 - Instrument font sizes: global market=${JSON.stringify(v.globalMarketNameFontSizes)}, industry=${JSON.stringify(v.industryInstrumentFontSizes)}, comparable=${v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.length > 0 && v.industryInstrumentFontSizes.every(size => v.globalMarketNameFontSizes.includes(size))}
+- Hidden acceptance metrics: method disclosures=${v.methodDisclosureCount}/${v.methodDisclosureInlineStyles}; region source typography=${JSON.stringify(v.regionSectorSourceTypography)}; dark disclosure signatures=${JSON.stringify(v.darkDisclosureStyleSignatures)}; temporary preview footer=${v.temporaryPreviewFooterText}; fear/greed=${v.fearGreedScore}/${v.fearGreedMarkerPosition}; five-star red=${v.fiveStarRedCount}; source triangles=${v.sourceTrianglesPresent}; double-bar headings=${v.doubleBarHeadings}; sector tab color/text=${v.sectorTabColor}/${v.sectorTabTextColor}
 - Main tab style signatures: ${JSON.stringify(v.mainTabStyleSignatures)}
 - Toolbar placement/scroll: nav=${v.toolbarButtonInNav}, placement=${v.toolbarButtonPlacement}, position=${v.toolbarButtonPosition}, scroll=${JSON.stringify(v.toolbarScrollCheck)}
 - Selected tab color unified: ${v.consistentSelectedTabColor}; selected text white: ${v.consistentSelectedTabTextColor}
