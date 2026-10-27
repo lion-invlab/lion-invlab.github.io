@@ -431,3 +431,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40492381368 — **failure**. Main tab signatures, global-market exact geometry, news/industry geometry (within 1px), browser interactions and typography audits still appear correct from the published summary.
 - Failure source is not identified yet because the test summary omits several asserted fields (method/source typography, dark disclosure signatures, Fear & Greed marker, five-star count, source triangles and duplicate heading bars). The CSS brace structure is balanced; no broad rollback will be made based on guesswork.
 - Added a diagnostic-only summary line exposing those hidden assertion values. Test-script commit: 3fadf334442c72aeb06db5d63b7e59b74712e5bf. Next run will identify the exact failed condition before deciding whether the cascade cleanup needs a targeted correction or rollback.
+
+
+### Run #281 — hidden assertion metrics still pass; failure narrowed
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40493169275 — **failure**. The newly exposed hidden metrics all pass: method disclosures 4/0 inline styles, all four region source typography records match, three dark disclosure signatures match, Fear & Greed score/marker 21/21, five-star red count 16, source triangles 11, double-bar headings 0, and sector tab colors are correct.
+- The failing condition is therefore among remaining unreported interaction/contract booleans, especially earnings upcoming tab and disclosure/button contracts. Expanded the summary to print those exact values; no CSS rollback or unrelated fix until the specific predicate is identified.
+- Test diagnostic commit: 710b9ac59f0407aee229aeebee9803f7eba60705. Next regression pending.
