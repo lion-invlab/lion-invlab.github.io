@@ -392,3 +392,5 @@ fix-320-tab-gap-nav-margin-20261027
 geometry-deep-diagnostic-20261027-2
 nested-geometry-full-detail-20261027-3
 heading-nav-detail-20261027-4
+
+Run 270 regression: shared tab geometry correction
