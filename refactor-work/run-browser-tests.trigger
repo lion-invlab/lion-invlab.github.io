@@ -371,3 +371,5 @@ Run 249: restore 320px global-market tab touch-target height and industry two-ro
 Run after consolidation commit 69d8cf9e4a4cf36b9db3a960702efb1d0f87d44a
 
 Run after narrow-mobile news card padding correction 858fd3ebbcbee2b9e2b7262c589ca9512228007e
+
+Run after reverting oversized news-card padding experiment 7135822fc338dcdbfb0e0c63e8ea8d7874c65836
