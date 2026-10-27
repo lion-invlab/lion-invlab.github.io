@@ -1,3 +1,12 @@
+## Run #266 — 2026-10-27 窄版活頁籤間距批次修正
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40469033755
+- Result: **success**; desktop/mobile/narrow-mobile typography audit passed (27 names and 54 quote values at each viewport).
+- 修正已確認有效：320px 全球主要股市活動面板的上方間距由 +8px 回到 0px；產業債匯商品面板也由 +8px 回到 0px。此差異源自導覽列底部留白，不是面板的 margin-top。
+- 320px 幾何差異大幅收斂：總覽由 +21px 降至 +5px；全球主要股市由 +12px 降至 +4px；產業債匯商品由 +10px 降至 +2px。新聞掃瞄為 -1px。
+- 320px 剩餘差異：全球主要股市活動面板內部高度 +4px；產業債匯商品導覽列高度 +2px。保留目前觸控區尺寸，後續集中處理這兩項及桌面/一般手機標題面板約 -2px 的差異，不使用固定高度補償。
+- 本次 CSS 僅變更隔離分支 `tac-design-system-work-2026-10-24`；正式首頁、正式母版、JSON 與排程未動。
+
 # TAC HTML Refactor — Migration Log
 
 ## 2026-10-24 — Baseline and CSS extraction
