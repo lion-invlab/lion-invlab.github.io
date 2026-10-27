@@ -432,3 +432,4 @@ Run #288 — verify duplicate narrow-phone industry-row declaration removal — 
 run-289-narrow-phone-tab-cleanup-2026-10-28
 run-290-event-name-font-size-2026-10-28
 run-291-mobile-tab-duplicate-2026-10-28
+run-292-superseded-sp500-padding-2026-10-28
