@@ -76,6 +76,19 @@ try {
             style: style(element)
           };
         });
+      const deepGeometry = ["global-markets", "industry-bonds-fx-commodities", "news-scan"].includes(id)
+        ? [...panel.querySelectorAll(".tac-tab-nav, .tac-tab-panel, .tac-tab-panel .row, .tac-tab-panel .row > b, .tac-tab-panel .row > span, .tac-tab-panel .row > .r, .tac-section-heading, .tac-section-heading h2")]
+          .filter(element => {
+            const r = element.getBoundingClientRect();
+            return r.width > 0 && r.height > 0 && !element.closest(".tac-tab-panel .tac-tab-panel");
+          }).slice(0, 180).map(element => ({
+            tag: element.tagName,
+            id: element.id || "",
+            className: typeof element.className === "string" ? element.className : "",
+            text: (element.innerText || element.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 90),
+            rect: rect(element),
+            style: style(element)
+          })) : [];
       const newsCards = id === "news-scan" ? [...panel.querySelectorAll(".newsitem, .tac-ds-card--news, .news-card, article")]
         .filter(element => getComputedStyle(element).display !== "none")
         .map((element, index) => {
@@ -119,7 +132,7 @@ try {
         } : null;
         return { card: details(card), title: details(title), headline: details(headline), body: details(body) };
       })() : null;
-      return { id, panelRect: rect(panel), panelStyle: style(panel), children, newsCards, overviewNested, summaryCard };
+      return { id, panelRect: rect(panel), panelStyle: style(panel), children, deepGeometry, newsCards, overviewNested, summaryCard };
     }), targets);
 
     const [b, c] = await Promise.all(pages.map(inspect));
