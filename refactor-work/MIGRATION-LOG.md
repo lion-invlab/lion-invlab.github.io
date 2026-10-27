@@ -400,3 +400,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - At 1440px/390px, news active-panel height is now +1px vs baseline; at 320px it remains exact (1391px). The remaining 1px at desktop/mobile comes from the final visible card rounding and is not large enough to justify further blanket spacing changes.
 - Global-market active panel remains +4px at all widths. Existing row geometry and panel padding show no computed difference, so no CSS compensation was applied. Added a direct-child comparison for the active global-market panel to determine whether the difference is in the article card box or a lower-level content element.
 - News-card padding correction commit: 2eb68bce3a19f0bba0a73644bd98e7a7b2834444. Diagnostic commit: f16ee4a15426e25f570dceec1b066341b587ab68. Next full run pending.
+
+
+### Run #277 — global-market active article diagnosis
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491242287 — **success**. The direct-child comparison isolates the remaining global-market delta to the active article: baseline article height 324px vs candidate 328px at desktop, while article padding, margin, border and box-sizing match. The active tab panel itself is +4px at 1440/390/320.
+- This indicates a child inside the article—not the outer tab panel or navigation—is responsible. Expanded the diagnostic to report the article's direct children (metadata, rows, market summary, source disclosure) before adjusting styles.
+- CSS unchanged this run; diagnostic commit: 868eddf05275ae7585867bb7f48fbe48d751db85. Next full regression pending.
