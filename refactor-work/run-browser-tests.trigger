@@ -394,3 +394,5 @@ nested-geometry-full-detail-20261027-3
 heading-nav-detail-20261027-4
 
 Run 270 regression: shared tab geometry correction
+
+Run 271: rerun full browser regression after 320px news tab nowrap fix.
