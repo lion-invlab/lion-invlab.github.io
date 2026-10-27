@@ -1070,11 +1070,6 @@ html {
 /* Preserve the individually validated 40px narrow-phone global-market hit targets. */
 @media (max-width: 380px) {
   #global-markets .tac-tab-nav { padding: 4px !important; }
-  #global-markets .tac-tab-nav label {
-    min-height: 40px !important;
-    padding: 8px 7px !important;
-    white-space: nowrap !important;
-  }
 }
 
 /* CNN Fear & Greed: position the marker from the displayed score, and align
@@ -1325,7 +1320,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 @media (max-width: 380px) {
   #news-scan .tac-tab-nav label { white-space: nowrap !important; }
   #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
-    min-height: 38px !important;
     padding: 6px 7px !important;
     white-space: nowrap !important;
   }
