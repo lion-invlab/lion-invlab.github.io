@@ -491,3 +491,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - All desktop/mobile/narrow-mobile typography audits passed: 27 instrument names and 54 quote values matched baseline in each viewport.
 - Browser checks: no horizontal overflow, duplicate IDs, new browser errors, or tab errors. Navigation anchors and interaction contracts passed. The industry/global-market panels retained baseline geometry, including the 320px industry panel height of 502px; the removed narrow-phone declaration was redundant.
 - The cleanup from CSS commit `56ea0e210ffa8875bc11699b2f9f0f70eee54f1d` is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #289 — superseded narrow-phone tab declarations pending
+- Follow-up cascade audit found two redundant narrow-phone declarations: the earlier <=380px global-market label block is superseded by the shared <=700px label rule and then fully restored by the later <=380px canonical block; the narrow-phone news-tab min-height repeats the same 38px value already supplied by the <=700px rule, with no intervening change to that property.
+- Removed only the superseded global-market label block (retaining the separate navigation-container padding rule) and the duplicate narrow-phone news-tab min-height. No geometry compensation or production files changed. CSS commit: a7fa6631197cb12ffd84e6736510db611f8363cd.
+- Full browser regression is pending; do not treat this cleanup as accepted until the workflow completes.
