@@ -467,3 +467,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40510684448. The candidate build completed, but the job was cancelled during Playwright/Ubuntu dependency installation after long, stalled package downloads; desktop/mobile smoke tests were cancelled and did not run. This is an environment/setup interruption, not evidence that the CSS change passed or failed.
 - The cleanup from commit f3b5be37128553c90a5f291197ed748e4630e539 remains **pending regression acceptance**. No additional CSS changes made.
 - Started Run #286 as a fresh retry with the same candidate and no CSS changes. Do not proceed with further CSS deletion until a complete browser regression finishes.
+
+
+### Runs #286–#287 — runner setup bottleneck and mitigation
+- Run #286: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40513078716 — cancelled during Playwright installation; candidate build and browser tests were skipped. Run #285 had the same outcome. Logs show Ubuntu package downloads taking several minutes and the workflow's 15-minute job timeout expiring.
+- Mitigation: changed only the isolated browser-test workflow runner from `ubuntu-latest` (the current Ubuntu 26.04 image) to `ubuntu-24.04` to avoid the newly observed package-mirror bottleneck. CSS files and production files were not changed by this mitigation.
+- Run #287 was triggered against the same pending CSS candidate. The dead-rule cleanup remains **not accepted** until candidate build, desktop/mobile smoke tests, typography audit, and panel geometry diagnostics complete.
