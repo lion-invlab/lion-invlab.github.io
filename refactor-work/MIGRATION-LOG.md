@@ -511,3 +511,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
 - At 320px, global-markets remained 722px and industry panel remained 502px, matching baseline exactly. At 390px, industry panel retained the known +5px diagnostic outside the removed declaration's <=700px? Note: this cleanup removes a shared <=700px duplicate, so the geometry delta is recorded as existing baseline variance and is not claimed to be caused by this one declaration. No compensation CSS added.
 - Cleanup from CSS commit 3b58e39e903bd1f1900eb397f53cfe0d0b93c01e is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #292 — superseded narrow-mobile S&P shell padding pending
+- Removed only the earlier `padding: 10px !important` declaration from the existing <=380px S&P 500 earnings-health refinement. A later, explicitly documented narrow-mobile geometry-parity rule sets the same shell to 16px, restoring baseline content width; the earlier padding had no effective output. All other declarations in the earlier refinement remain unchanged.
+- CSS commit: c1ff4cf79d09dbd905b63ac5bd762e5a1d3cdfad. Full browser regression pending; do not mark accepted until Run #292 completes. Production homepage, official master template, JSON and schedules remain untouched.
