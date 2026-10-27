@@ -345,3 +345,12 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - 深層診斷確認：1440/390 下新聞掃描內層面板相對位置上移 11px、面板高度增加 8px；全球市場內層面板上移 6px、高度增加 4px；產業債匯商品內層面板上移 2px、高度不變。這些變化不能單純以外層 padding 解釋，因此本輪不做補償式 padding 修改。
 - 320px：全球市場內層面板高度仍比基準多 4px；產業債匯商品內層面板位置下移 2px、內層高度不變。整體面板差異維持：overview +5px、news-scan -1px、global-markets +4px、industry +2px。
 - 本輪僅確認診斷輸出與回歸結果，尚未修改 CSS。正式首頁、正式母版、JSON 與排程未動。
+
+
+## Run #270 — 2026-10-27 共用頁籤導覽列幾何回歸修正
+
+- Run #269（https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40480446639）已成功完成；詳細幾何資料與截圖已下載檢視。
+- 根因確認：共用頁籤 CSS 的導覽列與標籤尺寸和凍結基準不同。舊版候選導覽列 padding 為 3px，按鈕最小高度 34px；基準為桌面 padding 5px／按鈕 40px，手機 padding 4px／按鈕 38px，窄手機全球市場按鈕 40px。導覽列高度差使 1440／390px 內容面板上移；不能用外層 padding 補償。
+- 已在隔離分支更新 `refactor-work/design-system.css`，共用導覽列還原至基準的圓角、padding、按鈕高度與字體語氣，保留窄手機全球市場 40px 可觸控目標。未修改總結卡片、HTML 母版、JSON 或排程。
+- CSS commit：`26d094f244ac9bf3f4a350f7edad5cd5f693084f`
+- 待驗收：本輪尚未取得修改後的瀏覽器回歸結果。下一步應觸發完整測試，再依結果核對 1440／390／320px、27 個商品名稱及 54 個報價字體稽核、總結卡片高度和頁籤幾何。
