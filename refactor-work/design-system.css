@@ -1115,7 +1115,6 @@ main.wrap details.calendar-source-collapse[open] > summary::before {
 main.wrap details.audit-details > summary::before {
   content: "▸" !important;
   display: inline-block !important;
-  color: #747b84 !important;
   font-size: 12px !important;
   font-weight: 700 !important;
 }
