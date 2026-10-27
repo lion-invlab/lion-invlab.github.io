@@ -1321,9 +1321,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     font-size: 12px !important;
     white-space: normal !important;
   }
-  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 37.5px 37.5px !important;
-  }
 }
 @media (max-width: 380px) {
   #news-scan .tac-tab-nav label { white-space: nowrap !important; }
