@@ -412,3 +412,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491533864 — **success**.
 - Direct article-child diagnostics pinpointed the entire +4px global-market active-panel delta to the region source disclosure: baseline has `margin-top: 0` and no outer border; candidate had `margin-top: 2px` plus a 1px border (resulting disclosure box 23px vs 21px). The rows and market-reason block match baseline.
 - Targeted fix: remove only the outer margin/border from `#global-markets details.source-details.region-source`, retaining the shared disclosure marker and typography. CSS commit: 9ab643d0067629d6f9d524f7ea1cf06c14a47b6f. Full regression pending.
+
+
+### Run #279 — global-market source disclosure geometry acceptance
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491813328 — **success**. Browser smoke tests and typography audits passed at 1440px, 390px, and 320px.
+- Global-market panel now exactly matches baseline at all three widths: 477/477px desktop, 578/578px at 390px, 722/722px at 320px. Root cause was confirmed as the region source disclosure's extra 2px margin plus 1px border; targeted correction removed both without altering the shared arrow/text treatment.
+- News panel residual: +1px desktop and 390px, -1px at 320px. Industry panel residual: exact desktop, +1px at 390px, -1px at 320px. These are isolated 1px rounding/card-edge differences; do not add fragile nth-child or outer-panel compensation rules. Overview cumulative geometry is +3px desktop/390px and -2px at 320px; summary card remains independently baseline-matched.
+- CSS commit: 9ab643d0067629d6f9d524f7ea1cf06c14a47b6f. This closes the global-market +4px geometry issue. Next step is a focused audit of remaining legacy overrides and component migration candidates, not further arbitrary 1px compensation.
