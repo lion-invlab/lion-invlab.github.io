@@ -104,7 +104,22 @@ try {
           rect: rect(element),
           style: style(element)
         })) : [];
-      return { id, panelRect: rect(panel), panelStyle: style(panel), children, newsCards, overviewNested };
+      const summaryCard = id === "overview" ? (() => {
+        const card = panel.querySelector("article.card.bluf");
+        if (!card) return { missing: true };
+        const title = card.querySelector(":scope > .title");
+        const headline = card.querySelector(":scope > h1");
+        const body = card.querySelector(":scope > p");
+        const details = element => element ? {
+          tag: element.tagName,
+          className: typeof element.className === "string" ? element.className : "",
+          text: (element.innerText || element.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 180),
+          rect: rect(element),
+          style: { ...style(element), fontWeight: getComputedStyle(element).fontWeight, letterSpacing: getComputedStyle(element).letterSpacing, border: getComputedStyle(element).border, boxShadow: getComputedStyle(element).boxShadow }
+        } : null;
+        return { card: details(card), title: details(title), headline: details(headline), body: details(body) };
+      })() : null;
+      return { id, panelRect: rect(panel), panelStyle: style(panel), children, newsCards, overviewNested, summaryCard };
     }), targets);
 
     const [b, c] = await Promise.all(pages.map(inspect));
