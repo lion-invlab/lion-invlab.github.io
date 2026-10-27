@@ -528,5 +528,5 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 
 
 ### Run #294 — superseded narrow-mobile S&P title spacing pending
-- In the earlier <=380px `#sp500-earnings-health > .title` rule, removed only `gap: 5px !important` and `margin-bottom: 10px !important`: the later rule for the exact selector sets gap to 12px and margin-bottom to 11px. Kept `line-height: 1.3px`? Correction: retained the existing `line-height: 1.3 !important` declaration exactly as authored (CSS unitless line-height). No other title or panel rules changed.
+- In the earlier <=380px `#sp500-earnings-health > .title` rule, removed only `gap: 5px !important` and `margin-bottom: 10px !important`: the later rule for the exact selector sets gap to 12px and margin-bottom to 11px. Retained `line-height: 1.3 !important` unchanged. No other title or panel rules changed.
 - CSS commit: 76dc63122056b009a37bc43279af2f91116b063a. Full browser regression pending; do not mark accepted until Run #294 completes. Production homepage, official master template, JSON and schedules remain untouched.
