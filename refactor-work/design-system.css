@@ -1201,11 +1201,12 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 
 
-/* Narrow-mobile tab geometry: remove the unintended 8px gap before the active panel. */
+/* Narrow-mobile tab geometry: the 8px delta is the navigation strip's
+   bottom margin, not the active panel's top margin. Keep hit areas intact. */
 @media (max-width: 380px) {
-  #global-markets .tac-tab-panel,
-  #industry-bonds-fx-commodities .tac-tab-panel {
-    margin-top: 0 !important;
+  #global-markets .tac-tab-nav,
+  #industry-bonds-fx-commodities .tac-tab-nav {
+    margin-bottom: 0 !important;
   }
   #global-markets .tac-tab-nav {
     padding-top: 3px !important;
