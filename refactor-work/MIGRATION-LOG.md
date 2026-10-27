@@ -425,3 +425,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40491813328 — **success**. Global-market geometry exactly matches baseline at 1440/390/320px; news/industry residuals remain within ±1px, and all typography audits pass.
 - Refactor follow-up: consolidated the verified main-tab geometry and computed label signatures into one canonical block. Removed the superseded compact news-tab rules and duplicate narrow-mobile news overrides only after replacement behavior had passed browser regression. Preserved the separate Fed/Today Focus narrow-mobile rules, the validated 40px global-market hit target, source disclosure styling, and news-card geometry corrections.
 - CSS cleanup commit: 70749de6de0a29d7bcc13dba290b923c78452414. Full regression pending; this is a cascade cleanup, not yet accepted until tests finish.
+
+
+### Run #280 — tab cascade cleanup regression failed
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40492381368 — **failure**. Main tab signatures, global-market exact geometry, news/industry geometry (within 1px), browser interactions and typography audits still appear correct from the published summary.
+- Failure source is not identified yet because the test summary omits several asserted fields (method/source typography, dark disclosure signatures, Fear & Greed marker, five-star count, source triangles and duplicate heading bars). The CSS brace structure is balanced; no broad rollback will be made based on guesswork.
+- Added a diagnostic-only summary line exposing those hidden assertion values. Test-script commit: 3fadf334442c72aeb06db5d63b7e59b74712e5bf. Next run will identify the exact failed condition before deciding whether the cascade cleanup needs a targeted correction or rollback.
