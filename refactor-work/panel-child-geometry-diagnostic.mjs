@@ -108,6 +108,21 @@ try {
           }));
           return { index, tag: element.tagName, id: element.id || "", className: typeof element.className === "string" ? element.className : "", text: (element.innerText || "").trim().replace(/\\s+/g, " ").slice(0, 160), rect: r, style: style(element), descendants };
         }) : [];
+      const tabPanelChildren = ["global-markets", "industry-bonds-fx-commodities"].includes(id) ? (() => {
+        const active = [...panel.querySelectorAll(".tac-tab-panel")].find(element => {
+          const r = element.getBoundingClientRect();
+          return r.width > 0 && r.height > 0;
+        });
+        return active ? [...active.children].map((element, index) => ({
+          index,
+          tag: element.tagName,
+          id: element.id || "",
+          className: typeof element.className === "string" ? element.className : "",
+          text: (element.innerText || "").trim().replace(/\s+/g, " ").slice(0, 100),
+          rect: rect(element),
+          style: { ...style(element), border: getComputedStyle(element).border, borderBottom: getComputedStyle(element).borderBottom, boxSizing: getComputedStyle(element).boxSizing }
+        })) : [];
+      })() : [];
       const overviewNested = id === "overview" ? [...panel.querySelectorAll(":scope > .grid.two > *, :scope > .grid.two > * *")]
         .filter(element => {
           const r = element.getBoundingClientRect();
@@ -135,7 +150,7 @@ try {
         } : null;
         return { card: details(card), title: details(title), headline: details(headline), body: details(body) };
       })() : null;
-      return { id, panelRect: rect(panel), panelStyle: style(panel), children, deepGeometry, newsCards, overviewNested, summaryCard };
+      return { id, panelRect: rect(panel), panelStyle: style(panel), children, deepGeometry, newsCards, tabPanelChildren, overviewNested, summaryCard };
     }), targets);
 
     const [b, c] = await Promise.all(pages.map(inspect));
@@ -187,6 +202,18 @@ for (const viewport of results) {
       }
     }
     if (deepChanged) console.log(`  nested geometry changed elements: ${deepChanged}`);
+    if (panel.id === "global-markets") {
+      const before = baselinePanel?.tabPanelChildren || [];
+      const after = candidatePanel?.tabPanelChildren || [];
+      for (let i = 0; i < Math.max(before.length, after.length); i++) {
+        const x = before[i], y = after[i];
+        if (!x || !y) {
+          console.log(`  GLOBAL ACTIVE CHILD[${i}] missing in ${x ? "candidate" : "baseline"}`);
+          continue;
+        }
+        console.log(`  GLOBAL ACTIVE CHILD[${i}] ${x.tag}#${x.id}.${x.className}: top ${x.rect.relativeTop}->${y.rect.relativeTop}, h ${x.rect.height}->${y.rect.height}, padding ${x.style.padding}->${y.style.padding}, margin ${x.style.margin}->${y.style.margin}, border ${x.style.border}->${y.style.border}, box-sizing ${x.style.boxSizing}->${y.style.boxSizing}`);
+      }
+    }
     if (panel.id === "news-scan") {
       const beforeCards = baselinePanel?.newsCards || [];
       const afterCards = candidatePanel?.newsCards || [];
