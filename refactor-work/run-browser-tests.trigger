@@ -420,3 +420,5 @@ Run 281: expose hidden smoke-test assertion metrics after cascade cleanup.
 Run 282: expose remaining interaction/contract assertion booleans.
 
 Run 283: retry hidden assertion diagnostics after Run 282 Playwright setup stalled.
+
+Run 284: full regression after restoring 320px news-tab nowrap contract.
