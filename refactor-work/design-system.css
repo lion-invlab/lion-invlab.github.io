@@ -1145,8 +1145,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
    S&P 500 earnings-health card's internal spacing at very narrow widths. */
 @media (max-width: 380px) {
   #sp500-earnings-health > .title {
-    gap: 5px !important;
-    margin-bottom: 10px !important;
     line-height: 1.3 !important;
   }
   #sp500-earnings-health .tac-ds-card,
