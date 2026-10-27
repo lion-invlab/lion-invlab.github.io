@@ -1729,3 +1729,20 @@ html body main.wrap .tac-tabset .tac-section-heading h2.tac-section-title {
   border-left: 0 !important;
   padding-left: 0 !important;
 }
+
+
+/* Narrow-mobile tab geometry parity follow-up (Run #248 diagnostics).
+   Keep the shared 12px tab typography, but restore the original touch-target
+   height and two-row industry navigation footprint at 320px. */
+@media (max-width: 380px) {
+  #global-markets .tac-tab-nav {
+    padding: 4px !important;
+  }
+  #global-markets .tac-tab-nav label {
+    min-height: 40px !important;
+    padding: 8px 7px !important;
+  }
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+    grid-template-rows: 38px 39px !important;
+  }
+}
