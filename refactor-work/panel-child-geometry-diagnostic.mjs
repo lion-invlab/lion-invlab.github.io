@@ -76,7 +76,23 @@ try {
             style: style(element)
           };
         });
-      return { id, panelRect: rect(panel), panelStyle: style(panel), children };
+      const newsCards = id === "news-scan" ? [...panel.querySelectorAll(".newsitem, .tac-ds-card--news, .news-card, article")]
+        .filter(element => getComputedStyle(element).display !== "none")
+        .map((element, index) => {
+          const r = rect(element);
+          const descendants = [...element.querySelectorAll("*")].filter(child => {
+            const cr = child.getBoundingClientRect();
+            return cr.width > 0 && cr.height > 0 && (child.children.length === 0 || /title|headline|summary|source|meta|time|news/i.test(String(child.className || "") + " " + child.tagName));
+          }).slice(0, 30).map(child => ({
+            tag: child.tagName,
+            className: typeof child.className === "string" ? child.className : "",
+            text: (child.innerText || child.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 100),
+            rect: rect(child),
+            style: style(child)
+          }));
+          return { index, tag: element.tagName, id: element.id || "", className: typeof element.className === "string" ? element.className : "", text: (element.innerText || "").trim().replace(/\\s+/g, " ").slice(0, 160), rect: r, style: style(element), descendants };
+        }) : [];
+      return { id, panelRect: rect(panel), panelStyle: style(panel), children, newsCards };
     }), targets);
 
     const [b, c] = await Promise.all(pages.map(inspect));
