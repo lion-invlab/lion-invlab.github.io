@@ -380,3 +380,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Nav geometry is baseline-aligned: news/global nav 52px desktop and 48px mobile; industry nav 96px desktop, 90px at 390px (baseline 89px), and 88px at 320px (baseline 89px).
 - Remaining inner-content deltas: news active panel +8px at desktop and 390px, global active panel +4px at all widths. This is independent of nav position/padding; no outer panel compensation will be applied. Added targeted logging of per-card and descendant geometry to the diagnostic script to identify the exact content source before the next CSS change.
 - CSS commit for shared tab signatures: 5d6b95ed56794c4a2c4ea1d86f3cda8334ab4fdf. Diagnostic-only commit: 87d4e4f5c9ba09afbe4acd3c03c93734155c0ddf. Next full regression will provide card-level evidence; production homepage and official master remain untouched.
+
+
+### Run #274 — card-level geometry diagnosis
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40489513571 — **success**; tab signature assertions and font audits passed.
+- Card-level diagnostics identified the news-panel height drift: candidate .newsmeta uses line-height 13.5px while baseline computes normal (13px actual box), adding roughly 1px per visible metadata row and accumulating to +8px at desktop/390px. At 320px, the active news panel is already baseline-matched (1391px), so the correction is scoped to widths >=381px only.
+- CSS fix commit: 1c6db661b833e554a5844658d0bf69bdcabc84eb. Extended nested diagnostics to report computed style differences even when element height/top are unchanged, to help isolate the remaining global-markets +4px delta. Full regression pending.
