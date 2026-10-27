@@ -493,7 +493,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - The cleanup from CSS commit `56ea0e210ffa8875bc11699b2f9f0f70eee54f1d` is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
 
 
-### Run #289 — superseded narrow-phone tab declarations pending
-- Follow-up cascade audit found two redundant narrow-phone declarations: the earlier <=380px global-market label block is superseded by the shared <=700px label rule and then fully restored by the later <=380px canonical block; the narrow-phone news-tab min-height repeats the same 38px value already supplied by the <=700px rule, with no intervening change to that property.
-- Removed only the superseded global-market label block (retaining the separate navigation-container padding rule) and the duplicate narrow-phone news-tab min-height. No geometry compensation or production files changed. CSS commit: a7fa6631197cb12ffd84e6736510db611f8363cd.
-- Full browser regression is pending; do not treat this cleanup as accepted until the workflow completes.
+### Run #289 — superseded narrow-phone tab cleanup accepted (2026-10-27)
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40574457088 — **success**. Playwright install, candidate build, desktop/mobile/narrow-mobile smoke checks, typography audit, panel-child geometry diagnostics and artifact upload all completed.
+- Typography audits passed at desktop, mobile and narrow-mobile: 27 instrument names and 54 quote values compared with baseline in each viewport. All tested widths had no horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation anchors and tab/disclosure interactions passed.
+- At 320px, global-markets remained 722px and industry panel remained 502px, both matching baseline exactly. At 390px, the industry panel diagnostic showed a +5px delta, but this viewport is outside the removed <=380px block; this is not attributed to this cleanup. Other reported geometry deltas remain within the existing migration baseline and no compensation CSS was added.
+- The cleanup from CSS commit a7fa6631197cb12ffd84e6736510db611f8363cd is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
