@@ -360,3 +360,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Run #270 exposed one confirmed failed assertion: at 320px, the news-scan main-tab labels computed `white-space: normal`, while the other two main tabsets were `nowrap`. The shared base rule had been overridden by a later narrow-mobile rule.
 - Batched fix: set the news-scan narrow-mobile tab labels to `white-space: nowrap`, preserving the measured 38px minimum height, 6px/7px padding, 12px font, and existing scrollable tab strip. No outer-panel height compensation or legacy CSS deletion.
 - CSS commit: 2c4d06b3897c840f732dd4fd921b67b7721bd3ea. Full browser regression rerun pending; do not treat as accepted until Actions finishes.
+
+
+### Run #272 — main tab navigation geometry parity pass (2026-10-27)
+- Run #271 completed successfully: browser smoke test and typography audit passed at 1440px, 390px and 320px. All three tabsets now meet the narrow-phone nowrap assertion; product-name typography remained 16px across global markets and industry instruments.
+- Deep geometry still showed legacy compact overrides shrinking the news navigation (desktop 39px vs 52px baseline; 390px 35px vs 48px), with global markets and industry navigation also short by 10–12px at 390px and 8–12px at desktop. The active panels then shifted upward or expanded, so outer-panel padding is not the root cause.
+- Batched CSS correction: restore baseline nav padding and label hit-target dimensions for news/global tabs; restore industry two-row navigation footprints by viewport; remove obsolete nav bottom margins instead of compensating panel padding. Keep the narrow-phone global-market 40px hit target and nowrap labels. No fixed panel heights or legacy CSS deletion.
+- CSS commit: a5759b6ef985febf6e13b9c84bf8dfafd126f587. Full browser regression pending; geometry acceptance depends on measured results, not merely a green workflow.
