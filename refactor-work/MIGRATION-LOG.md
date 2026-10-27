@@ -498,3 +498,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Typography audits passed at desktop, mobile and narrow-mobile: 27 instrument names and 54 quote values compared with baseline in each viewport. All tested widths had no horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation anchors and tab/disclosure interactions passed.
 - At 320px, global-markets remained 722px and industry panel remained 502px, both matching baseline exactly. At 390px, the industry panel diagnostic showed a +5px delta, but this viewport is outside the removed <=380px block; this is not attributed to this cleanup. Other reported geometry deltas remain within the existing migration baseline and no compensation CSS was added.
 - The cleanup from CSS commit a7fa6631197cb12ffd84e6736510db611f8363cd is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #290 — event-name font-size duplicate pending
+- The base `.tac-ds-event .econ-name` rule already sets `font-size: 15px`; the later `max-width: 640px` block repeated the identical value with the same selector specificity and no intervening rule changed it. Removed only this redundant declaration; no other event typography properties changed.
+- CSS commit: 9c27a3d0de9a05d96b498bfbe2c0ac2bc85fe420. Full browser regression pending; do not mark accepted until Run #290 completes. Production homepage, official master template, JSON and schedules remain untouched.
