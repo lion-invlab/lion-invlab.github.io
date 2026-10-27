@@ -504,3 +504,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40575767093 — **success**. Candidate build, browser smoke tests, typography audit, panel geometry diagnostic and artifact upload all completed.
 - Desktop/mobile/narrow-mobile typography audits passed (27 instrument names and 54 quote values per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; global-market and industry panel geometry matched baseline at 320px and desktop. The removed mobile event-name font-size declaration was identical to the base 15px declaration.
 - Cleanup from CSS commit 9c27a3d0de9a05d96b498bfbe2c0ac2bc85fe420 is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #291 — superseded shared mobile-tab declaration pending
+- The earlier <=700px declaration for `.tac-tabset .tac-ds-tabs .tac-ds-tabs__tab` sets min-height/padding/font-size, but the later <=700px block for the exact same selector replaces all three values with the canonical 28px / 3px 7px / 12px !important values. Removed only the earlier declaration; later responsive values and other generic tab styles remain unchanged.
+- CSS commit: 3b58e39e903bd1f1900eb397f53cfe0d0b93c01e. Full browser regression pending; do not mark accepted until Run #291 completes. Production homepage, official master template, JSON and schedules remain untouched.
