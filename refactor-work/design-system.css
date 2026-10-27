@@ -1335,6 +1335,62 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   }
 }
 
+/* Geometry parity follow-up — use the frozen baseline tab-nav footprints.
+   Override the older compact news-tab rule rather than compensating the panels. */
+#news-scan .tac-ds-tabs {
+  padding: 5px !important;
+  margin-bottom: 0 !important;
+}
+#news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+  min-height: 40px !important;
+  padding: 9px 13px !important;
+  line-height: 1.25 !important;
+  font-size: 13px !important;
+}
+#global-markets .tac-tab-nav {
+  margin-bottom: 0 !important;
+}
+#global-markets .tac-tab-nav label {
+  min-height: 40px !important;
+}
+.tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+  grid-template-rows: 40px 40px !important;
+  margin-bottom: 0 !important;
+}
+@media (max-width: 700px) {
+  #news-scan .tac-ds-tabs {
+    padding: 4px !important;
+  }
+  #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+    min-height: 38px !important;
+    padding: 8px 7px !important;
+    line-height: 1.35 !important;
+    font-size: 12px !important;
+  }
+  #global-markets .tac-tab-nav label {
+    min-height: 38px !important;
+    padding: 8px 7px !important;
+  }
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+    grid-template-rows: 37px 37px !important;
+  }
+}
+@media (max-width: 380px) {
+  #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
+    min-height: 38px !important;
+    padding: 6px 7px !important;
+    white-space: nowrap !important;
+  }
+  #global-markets .tac-tab-nav label {
+    min-height: 40px !important;
+    padding: 8px 7px !important;
+    white-space: nowrap !important;
+  }
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+    grid-template-rows: 37px 37px !important;
+  }
+}
+
 /* Event summary metadata ownership: keep labels, names and stars inside the design-system component. */
 .tac-ds-event .econ-meta {
   display: grid;
