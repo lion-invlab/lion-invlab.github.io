@@ -393,3 +393,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Setting news metadata to baseline line-height normal reduced the news active-panel delta from +8px to +6px at desktop/390px, confirming the diagnosis. Remaining card deltas are +1px per visible card with title and paragraph heights unchanged; trimming only 1px of bottom padding per visible card at 381px+ should remove that residual without changing 320px geometry.
 - Global markets remains +4px while its visible rows and panel padding appear unchanged. Expanded the diagnostic to include direct active-panel children and border/box-sizing metrics before any global-market CSS edit.
 - CSS commit: 2eb68bce3a19f0bba0a73644bd98e7a7b2834444. Diagnostic commit: aef285fb60a79a5d7e19fca01b1d660d9a35591a. Full regression pending.
+
+
+### Run #276 — news-card geometry residual correction
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40490772138 — **success**. Browser regression and all three typography audits passed.
+- At 1440px/390px, news active-panel height is now +1px vs baseline; at 320px it remains exact (1391px). The remaining 1px at desktop/mobile comes from the final visible card rounding and is not large enough to justify further blanket spacing changes.
+- Global-market active panel remains +4px at all widths. Existing row geometry and panel padding show no computed difference, so no CSS compensation was applied. Added a direct-child comparison for the active global-market panel to determine whether the difference is in the article card box or a lower-level content element.
+- News-card padding correction commit: 2eb68bce3a19f0bba0a73644bd98e7a7b2834444. Diagnostic commit: f16ee4a15426e25f570dceec1b066341b587ab68. Next full run pending.
