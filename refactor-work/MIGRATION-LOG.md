@@ -291,3 +291,13 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - At 320px, `#news-scan` is 1504px candidate vs 1503px baseline (+1px); active content panel is 1391px in both; first news card is 289px in both. The heading remains 51px candidate vs 49px baseline, while the outer panel total differs by only 1px because internal geometry offsets.
 - At 390px, `#news-scan` is 1360px in both; at 1440px, 807px in both. No horizontal overflow or browser-smoke regression was reported.
 - Conclusion: retain the 10px narrow-mobile card padding; do not add fixed heights or further blanket padding changes. Residual 2px heading-height difference at 320px can be reviewed separately only if visual comparison shows a meaningful mismatch. Production homepage and official mother template remain untouched.
+
+## Run #259 — 2026-10-27 總結卡片幾何診斷
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40454073387
+- Result: **success**; exact nested geometry was captured for `article.card.bluf` and its title, headline, and summary paragraph at 1440px, 390px, and 320px.
+- At 1440px, the summary card is 383px vs 364px baseline (+19px). Root causes: card padding 22px vs 16px (+12px total), title vertical padding (+2px), and title bottom margin 16px vs 11px (+5px). Downstream sections consequently shift about +19–20px.
+- At 390px, card height is 608px vs 607px (+1px); at 320px, 689px vs 692px (-3px). The title's added vertical padding and margin are shared contributors.
+- Corrective change committed as `aa18461afd3c5a63b2f9afdc806b81f5ba8be03b`: set the actual `.tac-ds-panel--bluf` card padding to 16px at all widths and restore title vertical padding to 0 and bottom margin to 11px while preserving the shared left marker. Follow-up browser regression: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40454306652 (pending at log update).
+- Scope remains the isolated refactor branch; production homepage, official mother template, JSON, and scheduled automations are untouched.
+
