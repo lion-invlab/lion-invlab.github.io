@@ -414,3 +414,5 @@ Run 278: identify which global-market article child adds 4px.
 Run 279: full regression after restoring global-market source disclosure geometry.
 
 Run 280: full regression after consolidating verified main-tab CSS rules.
+
+Run 281: expose hidden smoke-test assertion metrics after cascade cleanup.
