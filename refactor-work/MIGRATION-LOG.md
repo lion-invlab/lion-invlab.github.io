@@ -518,3 +518,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
 - At 320px, the S&P 500 earnings-health panel remained 942px versus 943px baseline (1px difference); global-markets remained 722px and industry panel remained 502px, both matching baseline. The 390px industry-panel +5px diagnostic remains an existing baseline variance and is not attributed to this S&P shell cleanup.
 - Cleanup from CSS commit c1ff4cf79d09dbd905b63ac5bd762e5a1d3cdfad is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #293 — consolidate duplicate theme-token root block pending
+- Moved the three `--tac-heading-marker-*` custom properties from a second `:root` block into the canonical theme-token `:root` block at the top of `design-system.css`. Variable names, values, declaration order relative to their consumers, selectors and all component rules are unchanged; this is a structure-only cleanup.
+- CSS commit: a3e074ad79814dff0cb1128bb7d96ba8a4420187. Full browser regression pending; do not mark accepted until Run #293 completes. Production homepage, official master template, JSON and schedules remain untouched.
