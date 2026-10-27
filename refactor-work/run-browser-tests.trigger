@@ -383,3 +383,4 @@ overview-nested-geometry-diagnostic-2026-10-27
 overview-summary-geometry-fix-validation-2026-10-27
 overview-bluf-real-selector-geometry-2026-10-27
 summary-card-geometry-aa18461
+heading-vertical-geometry-90a429a
