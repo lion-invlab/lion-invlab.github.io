@@ -426,3 +426,5 @@ Run 284: full regression after restoring 320px news-tab nowrap contract.
 Run 285: full regression after removing verified superseded industry-tab rules.
 
 Run 286: retry full regression after Run 285 was cancelled during slow Ubuntu dependency downloads before smoke tests; no CSS changes. Validate the dead-rule cleanup candidate.
+
+Run 287: retry full regression on Ubuntu 24.04 after runs 285/286 hit the 15-minute timeout during Ubuntu 26.04 Playwright dependency installation; no CSS changes.
