@@ -369,3 +369,5 @@ Run 248: remove duplicate border marker from tabset h2 while retaining the exist
 Run 249: restore 320px global-market tab touch-target height and industry two-row tab geometry from Run 248 measurements; verify 1440/390/320 browser, typography, interaction, and overflow regressions. 2026-10-27
 
 Run after consolidation commit 69d8cf9e4a4cf36b9db3a960702efb1d0f87d44a
+
+Run after narrow-mobile news card padding correction 858fd3ebbcbee2b9e2b7262c589ca9512228007e
