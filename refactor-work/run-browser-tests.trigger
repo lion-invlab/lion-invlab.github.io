@@ -430,3 +430,4 @@ Run 286: retry full regression after Run 285 was cancelled during slow Ubuntu de
 Run 287: retry full regression on Ubuntu 24.04 after runs 285/286 hit the 15-minute timeout during Ubuntu 26.04 Playwright dependency installation; no CSS changes.
 Run #288 — verify duplicate narrow-phone industry-row declaration removal — cb01530f92aa84b4ba226dd4d617e594dc54e229
 run-289-narrow-phone-tab-cleanup-2026-10-28
+run-290-event-name-font-size-2026-10-28
