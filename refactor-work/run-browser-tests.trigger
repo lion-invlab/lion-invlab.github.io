@@ -402,3 +402,5 @@ Run 272: full regression after baseline tab-nav geometry parity pass.
 Run 273: full regression after canonical main-tab label signature fix.
 
 Run 274: diagnostic news-card geometry details after nav parity.
+
+Run 275: full regression after news metadata line-height parity and expanded global panel diagnostics.
