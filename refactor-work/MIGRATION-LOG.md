@@ -933,3 +933,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - All existing geometry, source-color, disclosure, instrument typography, tab and interaction checks pass; `results.json` reports `errors: []`, no new browser errors, horizontal overflow, missing/duplicate panel IDs or unmatched navigation links. Desktop coach contract remains intentionally absent (the test expects it only on mobile); both mobile widths pass the coach contract.
 - Artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40769883393/artifacts/12852870749 (7-day retention).
 - This closes consistency for the three shared tabbed headings, not every special heading variant. BLUF, dark sentiment, calendar, S&P health, Fed and focus headings remain intentional variants and must be audited separately rather than flattened to one style. No CSS, official homepage, approved dual mother templates, JSON data or schedules changed.
+
+
+### Special heading variants — baseline/candidate inventory (2026-10-29)
+- The three shared tabbed headings now have a passing consistency gate. Added a diagnostic-only baseline/candidate inventory for the nine intentional special heading families: BLUF, sentiment, prior-week calendar/earnings, current calendar/earnings, S&P 500 earnings health, Fed and today's focus. It records typography, marker, spacing and rendered dimensions without forcing these intentionally different variants to share one style.
+- Test commit: `c74a0eb7b0855a038738b00509415d27f06b2bab`. Run #348 will capture the signatures at 1440px, 390px and 320px; use the measured differences to identify only unintended inconsistencies before changing any special heading CSS.
