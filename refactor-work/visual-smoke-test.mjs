@@ -779,6 +779,24 @@ try {
       candidate: candidateAssetSourceRows
     });
 
+    const baselinePanelGeometry = baseReport.panelGeometry || [];
+    const candidatePanelGeometry = report.panelGeometry || [];
+    const panelGeometryPass =
+      baselinePanelGeometry.length === 12 &&
+      candidatePanelGeometry.length === baselinePanelGeometry.length &&
+      baselinePanelGeometry.every((b, i) => {
+        const c = candidatePanelGeometry[i];
+        return c && c.id === b.id && c.width === b.width &&
+          Math.abs(c.top - b.top) <= 1 &&
+          Math.abs(c.height - b.height) <= 2;
+      });
+    if (!panelGeometryPass) results.errors.push({
+      viewport: viewport.name,
+      error: "One or more main panels exceed the approved geometry tolerance (top ±1px, height ±2px, exact width)",
+      baseline: baselinePanelGeometry,
+      candidate: candidatePanelGeometry
+    });
+
     const baselineSourceDisclosureGeometry = baseReport.sourceDisclosureGeometry || [];
     const candidateSourceDisclosureGeometry = report.sourceDisclosureGeometry || [];
     const sourceDisclosureGeometryPass =
@@ -852,6 +870,7 @@ try {
       baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
       baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry, sp500TitleSourceGeometryPass,
       baselineAssetSourceRows, candidateAssetSourceRows, assetSourceDisclosureGeometryPass,
+      baselinePanelGeometry, candidatePanelGeometry, panelGeometryPass,
       baselineSourceDisclosureGeometry, candidateSourceDisclosureGeometry, sourceDisclosureGeometryPass,
       baselineSectorCollapse, candidateSectorCollapse, sectorCollapseMarkerPass,
       baselinePriorWeekDisclosureGeometry, candidatePriorWeekDisclosureGeometry, priorWeekDisclosureGeometryPass,
@@ -882,7 +901,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
-- Panel geometry (baseline → candidate): ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px)`; }).join(" | ")}
+- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
 - Prior-week disclosure geometry parity: pass=${v.priorWeekDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselinePriorWeekDisclosureGeometry)}; candidate=${JSON.stringify(v.candidatePriorWeekDisclosureGeometry)}
 - Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}, bubble in viewport=${v.coachBubbleInViewport}, wraps=${v.coachBubbleWraps}, text inside bubble=${v.coachTextInsideBubble}, width=${v.coachBubbleWidth}, legacy hint removed=${v.coachLegacyHintRemoved}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
