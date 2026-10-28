@@ -3,4 +3,4 @@ Run #302 table style cleanup 2026-10-28T07:52:03.752Z
 Run #303 duplicate heading declaration 2026-10-28T07:55:41.077Z
 Run #304 duplicate calendar rule 2026-10-28T09:02:38.920Z
 Run #305 duplicate toolbar hint rule 2026-10-28T09:05:19.261Z
-Run #306 regression trigger — 2026-10-28T12:57:40.783Z — CSS commit 9e77f8d6dcf64d55ee1802ecbafa11663a0ab7d4
+Run #306 regression trigger — 2026-10-28T12:59:48.333Z — CSS commit 9e77f8d6dcf64d55ee1802ecbafa11663a0ab7d4
