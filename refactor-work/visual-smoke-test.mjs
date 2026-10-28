@@ -702,12 +702,15 @@ try {
       const measure = el => {
         if (!el) return null;
         const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+        const before = getComputedStyle(el, "::before");
         return {
           height: Math.round(r.height),
           fontSize: s.fontSize,
           lineHeight: s.lineHeight,
           minHeight: s.minHeight,
-          padding: s.padding
+          padding: s.padding,
+          beforeContent: before.content,
+          beforeDisplay: before.display
         };
       };
       return { found: !!root && !!title && !!summary, title: measure(title), summary: measure(summary) };
@@ -720,7 +723,10 @@ try {
       baselineSp500TitleSourceGeometry.found &&
       candidateSp500TitleSourceGeometry.found &&
       baselineSp500TitleSourceGeometry.title.height === candidateSp500TitleSourceGeometry.title.height &&
-      baselineSp500TitleSourceGeometry.summary.height === candidateSp500TitleSourceGeometry.summary.height;
+      baselineSp500TitleSourceGeometry.summary.height === candidateSp500TitleSourceGeometry.summary.height &&
+      baselineSp500TitleSourceGeometry.summary.beforeContent === candidateSp500TitleSourceGeometry.summary.beforeContent &&
+      baselineSp500TitleSourceGeometry.summary.beforeDisplay === candidateSp500TitleSourceGeometry.summary.beforeDisplay &&
+      String(candidateSp500TitleSourceGeometry.summary.beforeContent || "").includes("▸");
     if (!sp500TitleSourceGeometryPass) results.errors.push({
       viewport: viewport.name,
       error: "S&P 500 title/source summary height differs from frozen baseline",
