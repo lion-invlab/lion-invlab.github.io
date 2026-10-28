@@ -10,3 +10,4 @@ Focused mobile industry tab gap regression after matching 3px baseline.
 Follow-up mobile industry tab label height parity check.
 Regression follow-up: verify shared industry tab style signatures at 390px and baseline row geometry at 320px after c8a5c52.
 Mobile row geometry check: verify industry nav row heights at 390px and 320px after cdaad8b.
+Final cascade guard: assert mobile industry label min-heights 40/38 at 390px and 320px after 3437dee.
