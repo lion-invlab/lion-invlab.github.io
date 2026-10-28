@@ -3913,3 +3913,45 @@ document.addEventListener('DOMContentLoaded',function(){
  }
 }
 </style>
+
+
+<style id="tac-toolbar-bubble-avoid-summary-title-v5">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(390px,calc(100vw - 205px))!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  border-radius:12px!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:-8px!important;top:10px!important;bottom:auto!important;
+  width:12px!important;height:12px!important;
+  background:#fff!important;
+  border-left:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  border-top:0!important;border-right:0!important;
+  transform:rotate(45deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-avoid-summary-title-v5-js">
+(function(){
+ function placeCompactRight(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-170, r.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.3','important');
+ }
+ function run(){requestAnimationFrame(placeCompactRight);setTimeout(placeCompactRight,100);setTimeout(placeCompactRight,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
