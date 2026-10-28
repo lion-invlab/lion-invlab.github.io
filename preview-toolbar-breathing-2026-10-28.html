@@ -4256,3 +4256,38 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',run,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-bubble-modal-safe-v13">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  display:none!important;
+ }
+ body:not(.tac-modal-open) .tac-toolbar-bubble-preview{
+  display:block!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-modal-safe-v13-js">
+(function(){
+ function modalState(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!bubble)return;
+  var modal=document.querySelector('[role="dialog"],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog');
+  var hasVisibleOverlay=Array.from(document.querySelectorAll('body *')).some(function(el){
+   if(el===bubble||el.contains(bubble))return false;
+   var s=getComputedStyle(el),r=el.getBoundingClientRect();
+   return (s.position==='fixed'||s.position==='absolute')&&r.width>innerWidth*.8&&r.height>innerHeight*.35&&Number(s.zIndex||0)>10&&s.display!=='none'&&s.visibility!=='hidden'&&s.opacity!=='0'&&/rgba?\(.*[, ]0\.[1-9]/.test(s.backgroundColor);
+  });
+  if(modal||hasVisibleOverlay){
+   bubble.style.setProperty('display','none','important');
+  }else{
+   bubble.style.removeProperty('display');
+  }
+ }
+ function run(){modalState();setTimeout(modalState,150);setTimeout(modalState,500)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ var observer=new MutationObserver(run);
+ observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','aria-hidden','open']});
+})();
+</script>
