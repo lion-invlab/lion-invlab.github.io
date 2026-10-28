@@ -55,11 +55,11 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 
 
 
-history-btn.primary{background:var(--red);color:#fff}
-history-btn.secondary{background:#eef0f2;color:#202328}
 
 
-history-status.ok{color:#16834c}
+
+
+
 
 @media(max-width:700px){.fund-date-row{grid-template-columns:18px 58px minmax(0,1fr) auto;gap:6px;padding:9px 8px}.fund-date{font-size:18px}.fund-names{font-size:12px;line-height:1.35}.fund-status{font-size:13px;white-space:nowrap}}
 
