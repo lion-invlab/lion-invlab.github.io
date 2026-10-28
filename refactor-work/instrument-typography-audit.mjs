@@ -91,6 +91,92 @@ try {
 
     const report = await inspect(candidatePage);
     const baselineReport = await inspect(baselinePage);
+    const measureTabRows = async (page, group, tabIndex) => {
+      const rootSelector = group === "global"
+        ? "#global-markets"
+        : "#industry-bonds-fx-commodities";
+      try {
+        await page.locator(`${rootSelector} .tac-tab-nav label`).nth(tabIndex).click({ timeout: 5000 });
+        await page.waitForTimeout(50);
+        if (group === "assets" && tabIndex === 0) {
+          const disclosure = page.locator("#industry-bonds-fx-commodities #tac-assets-panel-0 details.sector-collapse");
+          const isOpen = await disclosure.evaluate(el => el.open);
+          if (!isOpen) await disclosure.locator("summary").click({ timeout: 5000 });
+          await page.waitForTimeout(50);
+        }
+        return await page.evaluate(({ group, tabIndex }) => {
+          const panelId = group === "global" ? `tac-region-panel-${tabIndex}` : `tac-assets-panel-${tabIndex}`;
+          const panel = document.getElementById(panelId);
+          if (!panel || getComputedStyle(panel).display === "none") {
+            return { group, tabIndex, panelId, error: "Active tab panel is missing or hidden", rows: [] };
+          }
+          const selector = group === "global"
+            ? ".row"
+            : tabIndex === 0 ? ".sector-row"
+            : tabIndex === 1 ? "#bonds .row"
+            : tabIndex === 2 ? "#fx .row"
+            : tabIndex === 3 ? ".energy-card .row"
+            : ".row";
+          const rows = [...panel.querySelectorAll(selector)].filter(row => row.getBoundingClientRect().height > 0);
+          const round = n => Math.round(n * 100) / 100;
+          const panelRect = panel.getBoundingClientRect();
+          return {
+            group, tabIndex, panelId, rowCount: rows.length,
+            rows: rows.map(row => {
+              const rr = row.getBoundingClientRect();
+              const name = group === "assets" && tabIndex === 0
+                ? row.querySelector(".sector-label")
+                : row.querySelector(":scope > b");
+              const nr = name?.getBoundingClientRect();
+              const rank = row.querySelector(".rank");
+              const kr = rank?.getBoundingClientRect();
+              const values = [...row.querySelectorAll(".r")].map(value => {
+                const vr = value.getBoundingClientRect();
+                return {
+                  text: (value.textContent || "").trim().replace(/\\s+/g, " "),
+                  left: round(vr.left - rr.left), right: round(vr.right - rr.left),
+                  top: round(vr.top - rr.top), width: round(vr.width), height: round(vr.height)
+                };
+              });
+              return {
+                name: (name?.textContent || "").trim().replace(/\\s+/g, " "),
+                row: {
+                  left: round(rr.left - panelRect.left), top: round(rr.top - panelRect.top),
+                  width: round(rr.width), height: round(rr.height)
+                },
+                nameBox: nr ? {
+                  left: round(nr.left - rr.left), top: round(nr.top - rr.top),
+                  width: round(nr.width), height: round(nr.height)
+                } : null,
+                rankBox: kr ? {
+                  left: round(kr.left - rr.left), top: round(kr.top - rr.top),
+                  width: round(kr.width), height: round(kr.height)
+                } : null,
+                values
+              };
+            })
+          };
+        }, { group, tabIndex });
+      } catch (error) {
+        return { group, tabIndex, error: String(error), rows: [] };
+      }
+    };
+
+    const rowGeometryAudit = [];
+    for (let i = 0; i < 3; i++) {
+      const [candidateRows, baselineRows] = await Promise.all([
+        measureTabRows(candidatePage, "global", i),
+        measureTabRows(baselinePage, "global", i)
+      ]);
+      rowGeometryAudit.push({ group: "global", tabIndex: i, candidate: candidateRows, baseline: baselineRows });
+    }
+    for (let i = 0; i < 5; i++) {
+      const [candidateRows, baselineRows] = await Promise.all([
+        measureTabRows(candidatePage, "assets", i),
+        measureTabRows(baselinePage, "assets", i)
+      ]);
+      rowGeometryAudit.push({ group: "assets", tabIndex: i, candidate: candidateRows, baseline: baselineRows });
+    }
     const failures = [];
     if (report.nameCount === 0) failures.push("No instrument names were found.");
     if (report.globalNameCount === 0 || report.industryNameCount === 0) failures.push("Global market or industry instrument names are missing.");
@@ -137,7 +223,8 @@ try {
     results.push({
       viewport: viewport.name, width: viewport.width, nameCount: report.nameCount,
       valueCount: report.values.length, baselineValueCount: baselineReport.values.length,
-      canonicalRuleCount: report.canonicalRules.length, failures, report, baselineValues: baselineReport.values
+      canonicalRuleCount: report.canonicalRules.length, failures, report, baselineValues: baselineReport.values,
+      rowGeometryAudit
     });
     console.log(`[${failures.length ? "FAIL" : "PASS"}] ${viewport.name}: ${report.nameCount} names, ${report.values.length} quote values compared with baseline, ${report.canonicalRules.length} canonical rule(s)`);
     await context.close();
