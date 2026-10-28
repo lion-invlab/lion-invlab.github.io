@@ -3578,3 +3578,23 @@ document.addEventListener('DOMContentLoaded',function(){
  btn.addEventListener('click',function(){clearTimeout(timer);bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');window.removeEventListener('resize',place)},{once:true});
 });
 </script>
+
+
+<style id="tac-remove-old-hint-and-finger-preview-v1">
+/* Preview-only cleanup: remove the legacy reminder capsule and pointing hand. */
+#tac-tools-hint,
+.tac-tools-hint,
+.tac-tools-arrow-live,
+.tac-toolbar-hand-target{display:none!important;visibility:hidden!important;opacity:0!important}
+</style>
+<script id="tac-remove-old-hint-and-finger-preview-v1-js">
+(function(){
+ function cleanup(){
+  document.querySelectorAll('#tac-tools-hint,.tac-tools-hint,.tac-tools-arrow-live,.tac-toolbar-hand-target').forEach(function(el){el.remove()});
+ }
+ document.addEventListener('DOMContentLoaded',cleanup);
+ cleanup();
+ window.setTimeout(cleanup,100);
+ window.setTimeout(cleanup,500);
+})();
+</script>
