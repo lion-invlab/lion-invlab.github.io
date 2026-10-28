@@ -3030,8 +3030,8 @@ main.wrap [data-main-section-title]{
 <script id="tac-toolbar-breathing-bubble-v1">
 (function(){
   function setup(){
-    var target=document.querySelector('.tac-tools-hint');
-    if(!target) target=Array.from(document.querySelectorAll('a,button,[role="button"]')).find(function(el){return /工具欄/.test((el.innerText||el.textContent||'').replace(/\s+/g,''));});
+    var target=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]')).find(function(el){var r=el.getBoundingClientRect(),cs=getComputedStyle(el);return /工具欄/.test((el.innerText||el.textContent||'').replace(/\s+/g,''))&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight;});
+    if(!target) target=document.querySelector('.tac-tools-hint');
     if(!target) return;
     if(document.getElementById('tac-toolbar-bubble-style')) return;
     var style=document.createElement('style');style.id='tac-toolbar-bubble-style';
