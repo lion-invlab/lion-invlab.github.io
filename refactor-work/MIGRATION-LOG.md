@@ -541,7 +541,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Cleanup from CSS commit ff774c7a309f518578df308081164783ac15d759 is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
 
 
-### Run #296 — duplicate mobile global-markets tab declarations pending
-- Removed the standalone `#global-markets .tac-tab-nav label` block inside `@media (max-width: 700px)` that set `min-height: 38px !important` and `padding: 8px 7px !important`. The later shared selector list in the same media block already applies the exact same declarations to global-markets labels, so the removed block was redundant. No other tab styles changed.
-- CSS commit: 58fdbc5181e4ac7bbc062b538cfad6fc9d6151ce. Browser regression pending; do not mark accepted until Run #296 completes.
-- Production homepage, official master template, JSON and schedules remain untouched.
+### Run #296 — duplicate mobile global-markets tab declarations accepted (2026-10-28)
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40609489046 — **success**. Candidate build, desktop/mobile/narrow-mobile smoke tests, typography audit, panel geometry diagnostics and artifact upload completed.
+- Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
+- Removing the redundant mobile global-markets label block preserved the shared selector behavior. Global-markets panel geometry matched baseline at all checked viewports; existing diagnostics remain (390px industry panel +5px, 320px S&P earnings-health panel −1px), not attributed to this duplicate-declaration cleanup. No compensation CSS added.
+- Cleanup from CSS commit 58fdbc5181e4ac7bbc062b538cfad6fc9d6151ce is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
