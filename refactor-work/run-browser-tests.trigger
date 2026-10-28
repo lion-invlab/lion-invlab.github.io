@@ -14,3 +14,5 @@ Final cascade guard: assert mobile industry label min-heights 40/38 at 390px and
 mobile-industry-tabs-followup-20261028-2
 
 mobile-industry-grid-rows-followup-20261028-3
+
+mobile-industry-box-sizing-followup-20261028-4
