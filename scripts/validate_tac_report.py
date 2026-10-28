@@ -1,28 +1,33 @@
 #!/usr/bin/env python3
-"""Fail-fast structural regression checks for TAC daily HTML reports.
+"""Fail-fast structural regression checks for current TAC daily review reports.
 
-This deliberately checks structural invariants, not whether market data is correct
-or whether a human-visible layout is aesthetically acceptable. Browser tests are
-a separate gate.
+This checks HTML structure and the correct weekday-specific approved master.
+It does not validate market-data accuracy or visual layout; those require separate
+source and browser checks.
 """
 from __future__ import annotations
 
+from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
 import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MASTER = ROOT / "demo-2026-10-26.html"
+MONDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週一_2026-10-26.html"
+WEEKDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週二至週五_2026-10-28.html"
 DATE_RE = re.compile(r"^2026-\d{2}-\d{2}\.html$")
 
-# Stable template anchors and controls that must survive every daily copy.
-REQUIRED_IDS = {
+# This is a legacy 10/23 test report from before the currently approved dual-master
+# workflow. Keep the file intact, but do not apply today's master gate to it.
+LEGACY_EXCLUDED = {"2026-10-23.html"}
+
+COMMON_REQUIRED_IDS = {
+    "overview",
+    "sentiment",
     "news-scan",
     "global-markets",
     "industry-bonds-fx-commodities",
-    "last-week-calendar",
-    "last-week-earnings",
     "calendar",
     "earnings",
     "sp500-earnings-health",
@@ -35,6 +40,7 @@ REQUIRED_IDS = {
     "week-earnings-today",
     "focus-tab-core",
 }
+MONDAY_ONLY_IDS = {"last-week-calendar", "last-week-earnings"}
 
 class AuditParser(HTMLParser):
     def __init__(self):
@@ -45,6 +51,7 @@ class AuditParser(HTMLParser):
         self.details = 0
         self.styles = 0
         self.scripts = 0
+        self.local_anchors = []
 
     def handle_starttag(self, tag, attrs):
         attrs = dict(attrs)
@@ -59,28 +66,57 @@ class AuditParser(HTMLParser):
             self.styles += 1
         if tag == "script":
             self.scripts += 1
+        if tag == "a":
+            href = attrs.get("href", "")
+            if href.startswith("#") and len(href) > 1:
+                self.local_anchors.append(href[1:])
 
-def inspect(path: Path, master_ids: set[str]) -> list[str]:
-    errors = []
+def selected_master(report_date: date) -> tuple[Path, set[str]]:
+    if report_date.weekday() == 0:
+        return MONDAY_MASTER, COMMON_REQUIRED_IDS | MONDAY_ONLY_IDS
+    if 1 <= report_date.weekday() <= 4:
+        return WEEKDAY_MASTER, COMMON_REQUIRED_IDS
+    raise ValueError(f"daily report date falls on a weekend: {report_date.isoformat()}")
+
+def parse_ids(path: Path) -> tuple[str, AuditParser]:
     source = path.read_text(encoding="utf-8")
     parser = AuditParser()
-    try:
-        parser.feed(source)
-        parser.close()
-    except Exception as exc:
-        return [f"HTML parser error: {exc}"]
+    parser.feed(source)
+    parser.close()
+    return source, parser
 
+def inspect(path: Path) -> list[str]:
+    errors = []
+    try:
+        report_date = date.fromisoformat(path.stem)
+        master_path, required_ids = selected_master(report_date)
+    except ValueError as exc:
+        return [str(exc)]
+
+    if not master_path.exists():
+        return [f"approved master not found: {master_path.relative_to(ROOT)}"]
+
+    try:
+        master_source, master_parser = parse_ids(master_path)
+        source, parser = parse_ids(path)
+    except Exception as exc:
+        return [f"HTML parser/read error: {exc}"]
+
+    ids = set(parser.ids)
     duplicate_ids = sorted({x for x in parser.ids if parser.ids.count(x) > 1})
     if duplicate_ids:
         errors.append("duplicate IDs: " + ", ".join(duplicate_ids[:20]))
 
-    missing = sorted(REQUIRED_IDS - set(parser.ids))
+    missing = sorted(required_ids - ids)
     if missing:
         errors.append("missing required template anchors/controls: " + ", ".join(missing))
 
-    missing_from_master = sorted((REQUIRED_IDS & master_ids) - set(parser.ids))
+    missing_from_master = sorted((required_ids & set(master_parser.ids)) - ids)
     if missing_from_master:
-        errors.append("master regression: " + ", ".join(missing_from_master))
+        errors.append("approved-master regression: " + ", ".join(missing_from_master))
+
+    for anchor in sorted(set(parser.local_anchors) - ids):
+        errors.append("unmatched local navigation anchor: #" + anchor)
 
     for tag in ("html", "head", "body"):
         if parser.tags.get(tag, 0) != 1:
@@ -97,35 +133,35 @@ def inspect(path: Path, master_ids: set[str]) -> list[str]:
     title_match = re.search(r"<title[^>]*>(.*?)</title>", source, re.I | re.S)
     if not title_match or "TAC 投資早報" not in title_match.group(1):
         errors.append("missing TAC report title")
-    if path.stem not in source:
+    if path.stem not in source and report_date.strftime("%Y/%m/%d") not in source:
         errors.append(f"report date {path.stem} not found in file content")
 
     return errors
 
 def main() -> int:
-    if not MASTER.exists():
-        print(f"FAIL: template not found: {MASTER}")
+    missing_masters = [p for p in (MONDAY_MASTER, WEEKDAY_MASTER) if not p.exists()]
+    if missing_masters:
+        print("FAIL: approved master(s) not found: " + ", ".join(str(p.relative_to(ROOT)) for p in missing_masters))
         return 2
-    master_source = MASTER.read_text(encoding="utf-8")
-    master_parser = AuditParser()
-    master_parser.feed(master_source)
-    master_ids = set(master_parser.ids)
 
-    reports = sorted(p for p in ROOT.iterdir() if p.is_file() and DATE_RE.match(p.name))
+    reports = sorted(
+        p for p in ROOT.iterdir()
+        if p.is_file() and DATE_RE.match(p.name) and p.name not in LEGACY_EXCLUDED
+    )
     if not reports:
-        print("FAIL: no dated report files found")
+        print("FAIL: no active dated report files found")
         return 2
 
     failed = False
     for report in reports:
-        errors = inspect(report, master_ids)
+        errors = inspect(report)
         if errors:
             failed = True
             print(f"FAIL {report.name}")
             for error in errors:
                 print(f"  - {error}")
         else:
-            print(f"PASS {report.name}: required structure checks passed")
+            print(f"PASS {report.name}: correct weekday master anchors, structure and local links")
 
     if failed:
         print("\nSTRUCTURAL GATE FAILED. Do not label the report ready for review.")
