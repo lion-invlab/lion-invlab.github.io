@@ -36,3 +36,5 @@ Sentiment source disclosure summary box-model audit — 2026-10-28T14:25Z
 Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 — CSS commit bdef33d043efcbd3ddd97f33c901fec8ca03ffc1
 # Run 328 — sentiment summary inner box-height parity
 2026-10-29T16:45:08.448Z
+# Run 329 — sentiment source details border-box parity
+2026-10-29T16:48:00.000Z
