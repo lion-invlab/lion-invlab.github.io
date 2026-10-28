@@ -3398,9 +3398,6 @@ main.wrap #sentiment .title:first-child {
  function setup(){
   var btn=document.querySelector('.tac-side-open');
   if(!btn || window.matchMedia('(max-width:1099px)').matches===false)return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-   /* Keep the speech bubble visible, but honor reduced-motion preferences. */
-  }
   document.querySelectorAll('.tac-toolbar-bubble-preview').forEach(function(el){el.remove()});
   btn.classList.remove('tac-toolbar-bubble-target');
   var bubble=document.createElement('div');
@@ -3409,23 +3406,32 @@ main.wrap #sentiment .title:first-child {
   bubble.textContent='「美股波動率」、「精選基金」、「歷史早報」請由上方「工具欄」開啟進入';
   document.body.appendChild(bubble);
   btn.classList.add('tac-toolbar-bubble-target');
+  var dismissed=false;
+  function cleanup(){
+   if(dismissed)return;
+   dismissed=true;
+   bubble.remove();
+   btn.classList.remove('tac-toolbar-bubble-target');
+   window.removeEventListener('resize',place);
+   window.removeEventListener('scroll',dismissOnScroll,true);
+   btn.removeEventListener('click',dismiss);
+  }
   function place(){
+   if(!bubble.isConnected)return;
    var r=btn.getBoundingClientRect();
    var w=Math.min(310,window.innerWidth-28);
    var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
    bubble.style.left=left+'px';
    bubble.style.top=Math.max(12,r.top-bubble.offsetHeight-18)+'px';
   }
+  function dismissOnScroll(){cleanup()}
+  function dismiss(){cleanup()}
   requestAnimationFrame(place);
   window.addEventListener('resize',place,{passive:true});
-  var timer=window.setTimeout(function(){
-   bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
-   window.removeEventListener('resize',place);
-  },6500);
-  btn.addEventListener('click',function(){
-   clearTimeout(timer);bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
-   window.removeEventListener('resize',place);
-  },{once:true});
+  /* Hide immediately when the reader begins scrolling, including touch-driven page scroll. */
+  window.addEventListener('scroll',dismissOnScroll,{passive:true,capture:true});
+  btn.addEventListener('click',dismiss,{once:true});
+  window.setTimeout(cleanup,6500);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
  else setup();
