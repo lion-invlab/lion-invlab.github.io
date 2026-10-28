@@ -1831,3 +1831,16 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
 #industry-bonds-fx-commodities details.sector-collapse > summary::before {
   content: "＋" !important;
 }
+
+/* Exactly one title marker per special heading variant.
+   Nested calendar-card titles use the canonical red border marker; suppress the
+   legacy ::before bar. The sentiment title keeps its intentional gold ::before
+   marker and must not inherit the generic red border marker. */
+html body main.wrap article.card.calendar-card > .title::before {
+  content: none !important;
+  display: none !important;
+}
+html body main.wrap #sentiment > .title {
+  border-left: 0 !important;
+  padding-left: 15px !important;
+}
