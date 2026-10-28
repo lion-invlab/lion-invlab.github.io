@@ -825,3 +825,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 ### Next audit — calendar-source and audit-detail disclosures
 - The `details.source-details` inventory is now geometry-clean under the strict sentiment, news, S&P and asset gates. To finish the disclosure-family review, `visual-smoke-test.mjs` adds a diagnostic-only inventory for `details.calendar-source-collapse` and `details.audit-details`, including outer/summary heights, margins, padding, borders and marker content at all three viewport widths.
 - Diagnostic commit `a18b8716e03de803e2f1be715d091a83063c83ab`; Run #337 will collect the baseline/candidate inventory before any further CSS changes. No new parity assertions are added yet because these disclosure families have different intended variants.
+
+
+### Run #337 — audit-details marker mismatch found
+- Run #337 (`40735456586`) completed with **success**; artifact `12835839319` was inspected. All existing geometry gates pass at 1440px, 390px and 320px, and the diagnostic found one remaining non-source disclosure: the industry `details.audit-details.sector-collapse` control. The frozen baseline uses the plus glyph `＋`, while the candidate had inherited the generic audit-details triangle `▸`.
+- Because this control expands the 11-industry sector list (not a source/method disclosure), its marker should preserve the baseline plus glyph. A scoped CSS restoration and strict marker assertion are being added for Run #338; no other audit-details variants were found in this baseline.
