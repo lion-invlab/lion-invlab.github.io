@@ -750,3 +750,14 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Child deltas: the two top `.sbox` cards retain the same heights (147px desktop; 136px at both mobile widths). The CNN Fear & Greed card is +2px in candidate (216 vs 214px desktop; 206 vs 204px at 390px; 216 vs 214px at 320px). Source disclosure rows changed from 21px to 23px, shifting following content by about 2px. The final lower sentiment card remains 106px desktop and 240px/308px mobile.
 - Overall visual diff is still not pixel-perfect: desktop full-page height 5150px vs 5147px baseline (+3px); pixel-diff ratios 7.64% at 390px and 10.50% at 320px. No horizontal overflow/error failures reported in this run. This is a focused geometry finding, not production sign-off.
 - Next: inspect computed styles of the sentiment source disclosure summaries to identify whether the 2px row/card increase is an intentional canonical component change or an unintended line-height/padding delta. Do not alter CSS until that cause is established. Formal homepage and approved dual mother templates remain untouched.
+
+## Run #326 — 2026-10-28 市場情緒 disclosure box-model audit
+
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40721324761
+- Result: **completed / success**; artifact `12830372751` downloaded and inspected locally (`summary.md`, `panel-child-geometry-diagnostic.json`, screenshots and typography audit).
+- 1440px: sentiment panel 583px → 584px (+1px); sentiment grid 487px → 488px (+1px). Main panel child title uses baseline left padding 15px versus candidate 12px; title top differs by 1px. No horizontal overflow, missing panels, duplicate IDs, unmatched nav targets or new browser errors.
+- 390px: sentiment panel height 685px in both versions; no overall panel-height delta.
+- 320px: sentiment panel 763px in both versions; the grid height is 676px baseline vs 678px candidate (+2px), while the CNN card/source row must be compared at the individual computed-style level before attributing the difference to padding or line-height.
+- Other acceptance metrics remain green: global market and industry item labels both 16px, five-star red count 16, all 11 representative tab cases pass, source disclosure and calendar/earnings disclosure interactions pass, no new browser errors.
+- Interpretation: workflow success confirms test execution only. It does not close the visual audit. Do not add fixed-height compensation. Next inspect the exact computed styles and matched CSS rules for the CNN sentiment card and its source disclosure at 320px, then make only a cause-based adjustment if a non-intentional delta is proven.
+- Scope protection unchanged: only isolated branch `tac-design-system-work-2026-10-24`; official homepage, approved dual mother templates, JSON data and schedules untouched.
