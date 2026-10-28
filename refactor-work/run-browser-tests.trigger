@@ -52,3 +52,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T17:25:00.000Z
 # Run 336 — scoped asset padding and S&P marker assertion corrections
 2026-10-29T17:30:00.000Z
+# Run 337 — calendar and audit disclosure geometry inventory
+2026-10-29T17:35:00.000Z
