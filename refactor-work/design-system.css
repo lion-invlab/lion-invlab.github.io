@@ -1352,7 +1352,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   margin-top: 0 !important;
   border: 0 !important;
 }
-#industry-bonds-fx-commodities details.source-details > summary {
+#industry-bonds-fx-commodities details.source-details:not(.sector-source) > summary {
   padding: 0 !important;
 }
 
