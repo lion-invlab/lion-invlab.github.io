@@ -1281,7 +1281,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 #global-markets .tac-tab-nav { margin-bottom: 0 !important; }
 .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-  grid-template-rows: 40px 38px !important;
+  grid-template-rows: 40px 40px !important;
   margin-bottom: 0 !important;
 }
 #news-scan .tac-tab-nav label,
@@ -1293,6 +1293,9 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   white-space: nowrap !important;
 }
 @media (max-width: 700px) {
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+    grid-template-rows: 40px 38px !important;
+  }
   #news-scan .tac-ds-tabs { padding: 4px !important; }
   #news-scan .tac-tabset .tac-ds-tabs .tac-ds-tabs__tab {
     min-height: 38px !important;
@@ -1321,9 +1324,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     white-space: nowrap !important;
   }
   #industry-bonds-fx-commodities .tac-tab-nav label { white-space: nowrap !important; }
-  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-    grid-template-rows: 37.5px 37.5px !important;
-  }
 }
 
 /* News metadata line-height parity: legacy news cards use normal line-height.
