@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "purpose": "Protect the two approved TAC report master templates from accidental changes. Updating a pinned SHA requires an explicit, reviewed change to this lock file.",
+  "repository": "lion-invlab/lion-invlab.github.io",
+  "branch": "main",
+  "protected_templates": [
+    {
+      "name": "Monday",
+      "path": "母版專區/TAC_母版_週一_2026-10-26.html",
+      "git_blob_sha": "e2148a0dd3d50c9e5efc746ce0e8bb414402b46f",
+      "required_title": "TAC 投資早報｜2026/10/26（一）審核版",
+      "required_nav_ids": [
+        "overview",
+        "sentiment",
+        "news-scan",
+        "global-markets",
+        "industry-bonds-fx-commodities",
+        "last-week-calendar",
+        "last-week-earnings",
+        "calendar",
+        "earnings",
+        "sp500-earnings-health",
+        "fed",
+        "view"
+      ],
+      "forbidden_nav_ids": []
+    },
+    {
+      "name": "Tuesday-Friday",
+      "path": "母版專區/TAC_母版_週二至週五_2026-10-28.html",
+      "git_blob_sha": "6d32295c6eff1739aa8e9b40fcc9a46b152a57f5",
+      "required_title": "TAC 投資早報｜2026/10/28（三）審核版",
+      "required_nav_ids": [
+        "overview",
+        "sentiment",
+        "news-scan",
+        "global-markets",
+        "industry-bonds-fx-commodities",
+        "calendar",
+        "earnings",
+        "sp500-earnings-health",
+        "fed",
+        "view"
+      ],
+      "forbidden_nav_ids": [
+        "last-week-calendar",
+        "last-week-earnings"
+      ]
+    }
+  ],
+  "notes": [
+    "The current weekday master has a known first HTML comment incorrectly labelled as Monday; it is reported as a warning and is not silently edited.",
+    "Known duplicate IDs in the pinned masters are reported as warnings. The SHA pin ensures they cannot change unnoticed.",
+    "The formal homepage index.html is not a master and is not modified by this guard."
+  ]
+}
