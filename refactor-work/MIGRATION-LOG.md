@@ -534,7 +534,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Cleanup from CSS commit 76dc63122056b009a37bc43279af2f91116b063a is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
 
 
-### Run #295 — superseded audit disclosure marker color pending
-- Removed only the earlier `color: #747b84 !important` declaration from `main.wrap details.audit-details > summary::before`; the later identical selector already sets both `color: #e2b84d !important` and `-webkit-text-fill-color: #e2b84d !important`. Marker content, display, size and weight are unchanged.
-- CSS commit: ff774c7a309f518578df308081164783ac15d759. Browser regression pending; do not mark accepted until Run #295 completes.
-- Production homepage, official master template, JSON and schedules remain untouched.
+### Run #295 — superseded audit disclosure marker color accepted (2026-10-28)
+- Workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40603945617 — **success**. Candidate build, desktop/mobile/narrow-mobile smoke tests, typography audit, panel geometry diagnostics and artifact upload completed.
+- Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
+- The marker color remains gold as intended: the earlier gray `color` declaration was superseded by the later exact-selector rule. Existing geometry diagnostics remain unchanged from prior runs; no compensation CSS was added.
+- Cleanup from CSS commit ff774c7a309f518578df308081164783ac15d759 is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
