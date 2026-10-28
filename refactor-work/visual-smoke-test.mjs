@@ -793,6 +793,32 @@ try {
       baseline: baselineSectorCollapse,
       candidate: candidateSectorCollapse
     });
+    const baselinePriorWeekDisclosureGeometry = (baseReport.otherDisclosureGeometry || []).filter(x =>
+      x.panel === "last-week-calendar" || x.panel === "last-week-earnings"
+    );
+    const candidatePriorWeekDisclosureGeometry = (report.otherDisclosureGeometry || []).filter(x =>
+      x.panel === "last-week-calendar" || x.panel === "last-week-earnings"
+    );
+    const priorWeekDisclosureGeometryPass =
+      baselinePriorWeekDisclosureGeometry.length === 2 &&
+      candidatePriorWeekDisclosureGeometry.length === 2 &&
+      baselinePriorWeekDisclosureGeometry.every((b, i) => {
+        const c = candidatePriorWeekDisclosureGeometry[i];
+        return c && c.panel === b.panel && c.kind === b.kind &&
+          c.visible === b.visible && c.height === b.height &&
+          c.summaryHeight === b.summaryHeight && c.marginTop === b.marginTop &&
+          c.padding === b.padding && c.borderTopWidth === b.borderTopWidth &&
+          c.borderBottomWidth === b.borderBottomWidth &&
+          c.summaryFontSize === b.summaryFontSize &&
+          c.summaryLineHeight === b.summaryLineHeight &&
+          c.summaryPadding === b.summaryPadding && c.beforeContent === b.beforeContent;
+      });
+    if (!priorWeekDisclosureGeometryPass) results.errors.push({
+      viewport: viewport.name,
+      error: "Prior-week calendar/earnings disclosure geometry differs from frozen baseline",
+      baseline: baselinePriorWeekDisclosureGeometry,
+      candidate: candidatePriorWeekDisclosureGeometry
+    });
     results.viewports.push({
       ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
@@ -801,6 +827,7 @@ try {
       baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry, sp500TitleSourceGeometryPass,
       baselineAssetSourceRows, candidateAssetSourceRows, assetSourceDisclosureGeometryPass,
       baselineSectorCollapse, candidateSectorCollapse, sectorCollapseMarkerPass,
+      baselinePriorWeekDisclosureGeometry, candidatePriorWeekDisclosureGeometry, priorWeekDisclosureGeometryPass,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -829,7 +856,7 @@ try {
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
 - Panel geometry (baseline → candidate): ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px)`; }).join(" | ")}
-- Prior-week disclosure summary geometry: ${JSON.stringify(v.detailedGeometry.filter(g=>["last-week-calendar","last-week-earnings"].includes(g.id)).map(g=>({id:g.id,nodes:g.nodes.filter(n=>/last-week-(calendar|earnings)-collapse/.test(n.cls)).map(n=>({cls:n.cls,height:n.height,padding:n.padding,display:n.display}))})))}
+- Prior-week disclosure geometry parity: pass=${v.priorWeekDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselinePriorWeekDisclosureGeometry)}; candidate=${JSON.stringify(v.candidatePriorWeekDisclosureGeometry)}
 - Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}, bubble in viewport=${v.coachBubbleInViewport}, wraps=${v.coachBubbleWraps}, text inside bubble=${v.coachTextInsideBubble}, width=${v.coachBubbleWidth}, legacy hint removed=${v.coachLegacyHintRemoved}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
 - Sentiment special background: class=${v.sentimentThemeClassPresent}, layered background=${v.sentimentBackgroundImage?.includes("gradient")}, orbit before=${v.sentimentBeforeContent}/${v.sentimentBeforeBoxShadow}, orbit after=${v.sentimentAfterContent}/${v.sentimentAfterBoxShadow}, canvas=${v.sentimentBackgroundColor}\n- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}, actual earnings result cards=${v.sharedActualEarningsCardCount}, radii=${v.sharedActualEarningsCardRadii?.join(",")}, backgrounds=${v.sharedActualEarningsCardBackgrounds?.join(",")}, beat/miss=${v.actualEarningsBeatCount}/${v.actualEarningsMissCount}
