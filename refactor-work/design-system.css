@@ -1747,8 +1747,8 @@ main.wrap #calendar details.source-details > summary,
 main.wrap #earnings details.source-details > summary,
 main.wrap #last-week-calendar details.calendar-source-collapse > summary,
 main.wrap #last-week-earnings details.calendar-source-collapse > summary {
-  color: #9ca3af !important;
-  -webkit-text-fill-color: #9ca3af !important;
+  color: var(--tac-ds-color-muted) !important;
+  -webkit-text-fill-color: var(--tac-ds-color-muted) !important;
 }
 main.wrap #global-markets details.source-details > summary *,
 main.wrap #industry-bonds-fx-commodities details.source-details > summary *,
@@ -1756,8 +1756,8 @@ main.wrap #calendar details.source-details > summary *,
 main.wrap #earnings details.source-details > summary *,
 main.wrap #last-week-calendar details.calendar-source-collapse > summary *,
 main.wrap #last-week-earnings details.calendar-source-collapse > summary * {
-  color: #9ca3af !important;
-  -webkit-text-fill-color: #9ca3af !important;
+  color: var(--tac-ds-color-muted) !important;
+  -webkit-text-fill-color: var(--tac-ds-color-muted) !important;
 }
 main.wrap details.audit-details > summary {
   color: #aebbc8 !important;
