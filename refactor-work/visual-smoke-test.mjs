@@ -221,7 +221,7 @@ async function inspect(page) {
           nav: { top: Math.round(nr.top + window.scrollY), height: Math.round(nr.height), width: Math.round(nr.width), display: ns.display, gridTemplateColumns: ns.gridTemplateColumns, gridAutoFlow: ns.gridAutoFlow, gap: ns.gap, padding: ns.padding, overflowX: ns.overflowX },
           labels: [...nav.querySelectorAll("label")].map(label => {
             const r = label.getBoundingClientRect(), s = getComputedStyle(label);
-            return { text: label.textContent.trim(), top: Math.round(r.top + window.scrollY), left: Math.round(r.left), width: Math.round(r.width), height: Math.round(r.height), display: s.display, flex: s.flex, gridColumn: s.gridColumn, minHeight: s.minHeight, padding: s.padding, fontSize: s.fontSize, whiteSpace: s.whiteSpace };
+            return { text: label.textContent.trim(), top: Math.round(r.top + window.scrollY), left: Math.round(r.left), width: Math.round(r.width), height: Math.round(r.height), display: s.display, flex: s.flex, gridColumn: s.gridColumn, minHeight: s.minHeight, padding: s.padding, fontSize: s.fontSize, lineHeight: s.lineHeight, boxSizing: s.boxSizing, borderTopWidth: s.borderTopWidth, borderBottomWidth: s.borderBottomWidth, transform: s.transform, clientHeight: label.clientHeight, scrollHeight: label.scrollHeight, offsetHeight: label.offsetHeight, whiteSpace: s.whiteSpace };
           })
         };
       }),
