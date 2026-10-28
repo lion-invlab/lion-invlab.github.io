@@ -979,3 +979,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - All current gates pass together: main-panel geometry, shared tabbed-heading signature, special heading typography/marker, source color and geometry, prior-week disclosures, sentiment/CNN card, S&P marker, assets, 27 instrument names/54 quote styles, five-star red count, representative tabs and all listed disclosure interactions. `results.json` reports `errors: []`; new browser errors 0; no horizontal overflow, missing/duplicate IDs or unmatched navigation targets.
 - Artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40771573401/artifacts/12853400465 (7-day retention).
 - Updated `REFACTOR-PLAN.md` Gate 4 status to distinguish passed geometry/representative interactions from still-pending exhaustive dynamic-field testing and full visual sign-off. Formal homepage, approved dual mother templates, JSON data and schedules remain untouched.
+
+
+### Instrument row-alignment audit — diagnostic pass (2026-10-29)
+- The existing instrument audit already checks 27 names at 16px/21.6px/700 and compares 54 quote typography signatures to baseline, but it did not measure row geometry. Added a diagnostic that activates all three global-market tabs and all five asset tabs, opens the 11-sector disclosure, then records each visible row's bounds, name box, rank box and value boxes for baseline/candidate at 1440px, 390px and 320px.
+- This first pass is diagnostic-only: it does not fail the workflow on row deltas until the measured tolerances are reviewed. It is intended to catch horizontal alignment or row-height changes hidden by the existing name/quote typography checks. Test commit: `974a54e9b7c356c085e94205de310ebb4dd54f8a`.
+- Run #352 will collect the row measurements. No CSS or report data changed.
