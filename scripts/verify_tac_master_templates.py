@@ -94,20 +94,25 @@ def main() -> int:
         ids = extract_ids(html)
         duplicates = sorted({value for value in ids if ids.count(value) > 1})
         if duplicates:
-            warning = f"{path}: pre-existing duplicate HTML IDs: {duplicates}"
-            warnings.append(warning)
-            print(f"  WARN: {warning}")
+            errors.append(f"{path}: duplicate HTML IDs: {duplicates}")
+            print(f"  FAIL: duplicate HTML IDs: {duplicates}")
         else:
             print("  PASS: no duplicate HTML IDs")
 
-        first_comment = html[: html.find("-->") + 3] if "-->" in html else ""
-        if item["name"] == "Tuesday-Friday" and "週一版" in first_comment:
-            warning = (
-                f"{path}: first HTML comment says '週一版' although this is the "
-                "Tuesday-Friday master. Not auto-corrected because masters are protected."
-            )
-            warnings.append(warning)
-            print(f"  WARN: {warning}")
+        missing_targets = sorted(set(nav_ids) - set(ids))
+        if missing_targets:
+            errors.append(f"{path}: navigation targets missing from document: {missing_targets}")
+            print(f"  FAIL: navigation targets missing from document: {missing_targets}")
+        else:
+            print("  PASS: every navigation anchor has a matching target ID")
+
+        required_markers = item.get("required_markers", [])
+        missing_markers = [marker for marker in required_markers if marker not in html]
+        if missing_markers:
+            errors.append(f"{path}: required structural markers missing: {missing_markers}")
+            print(f"  FAIL: required structural markers missing: {missing_markers}")
+        else:
+            print(f"  PASS: required structural markers ({len(required_markers)})")
 
     print("\nSummary")
     print(f"  Errors: {len(errors)}")

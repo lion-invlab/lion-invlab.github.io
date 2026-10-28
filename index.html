@@ -1,7 +1,6 @@
-<!-- TAC 長期制式母版｜週一版
-實際版型來源：2026/10/23 測試分支內已調整的「index_母版_修正測試_週一.html」。
-2026/10/26 早報僅是這條修正流程的起始基礎，不是本母版的直接來源。
-本檔保留經修正測試版驗收的版面、欄位、互動與樣式；日期相關示範資料僅供參考，產製每日審核版前必須按製作規則全量更新。
+<!-- TAC 正式首頁｜每日報告發布頁
+本頁為正式首頁發布內容，不等同於週一母版或週二至週五母版。
+每日發布前須依 TAC_WORK_RULES.md 核對報告日期、資料、新聞、行事曆與分析；未經核准不得以審核版覆蓋正式首頁。
 -->
 <!-- TAC 製作規則層（內部規範，不顯示給讀者）
 1. 週別口徑：週一早報回顧上週整體市場與原先判斷，再展望本週；週二至週五只分析上一個實際交易日，不做上週回顧。休市時依最近一個實際交易日判定。
@@ -10,7 +9,7 @@
 4. 新聞規則：全球焦點新聞與市場熱門頭條使用同一台灣時間窗口；依原始發布時間與事件獨立性篩選。不得以頁面更新時間冒充原始發布時間；無法核實者剔除或明確標示待驗收。
 5. 審核狀態：每次修改內容或完成驗收，必須同步更新可見審核狀態；已完成項目移出待辦，未完成項目不得標示完成。交付前重新讀取檔案，核對正文、評論、總結與狀態。
 6. 發布分層：本檔審核版保留必要的內部驗收提示；正式發布版須在所有相關項目驗收完成後，才移除內部提示。不得只隱藏警示而未完成驗收。
-7. 這段規範只記錄在本日審核 HTML 原始碼中；仍須同步至正式週一／週二至週五母版及交接規則檔，才算完成長期制度化。
+7. 本規範已整合至根目錄 TAC_WORK_RULES.md；該檔為唯一正式工作規則主檔，母版僅保留必要的內部提示。
 -->
 <!DOCTYPE html>
 
@@ -671,7 +670,7 @@ main.wrap details.calendar-口徑-collapse p{
 .econ-event .econ-field a{overflow-wrap:anywhere}
 @media(max-width:640px){.econ-event>summary{padding:12px 13px}.econ-event .econ-meta{grid-template-columns:auto auto minmax(0,1fr);gap:6px 10px;font-size:12px}.econ-event .econ-name{font-size:15px}.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
 </style>
-<!-- 2026/10/20 審核版：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
+<!-- 導航規則：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
 <style>
 /* Fed限時動態：合併 FedWatch 與 Fed/FOMC 為同一主版面，使用區域切換活頁 */
 .fed-live-title{color:#a92332!important;font-size:clamp(21px,3vw,28px)!important;font-weight:900!important;line-height:1.25!important}
