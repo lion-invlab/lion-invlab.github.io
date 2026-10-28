@@ -1801,8 +1801,12 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
   }
 }
 
-/* Sentiment dark source disclosure: override the generic source variant's !important
-   horizontal padding/line-height while preserving the legacy 21px summary box itself. */
+/* Sentiment dark source disclosure: restore the legacy borderless source row.
+   The generic disclosure shell adds a 1px border on both edges, which inflated
+   the enclosing details box to 23px even after summary itself returned to 21px. */
+.tac-ds-disclosure--dark {
+  border: 0 !important;
+}
 .tac-ds-disclosure--dark > summary,
 .tac-ds-disclosure--dark[open] > summary {
   box-sizing: border-box !important;
