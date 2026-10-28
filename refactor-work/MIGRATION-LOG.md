@@ -802,7 +802,7 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 
 ### Next audit — cross-panel source disclosure geometry inventory
 - The sentiment and S&P compact source-row geometry gates are passing, and visible news cards remain within the documented ±1px tolerance. Next, `visual-smoke-test.mjs` now records the height, summary height, top margin, padding, border widths, and summary typography for every `details.source-details` across all panels in the initial baseline/candidate state. This is diagnostic-only; it does not impose parity where a component variant intentionally differs.
-- Test update commit `98e556457f7e853b07cf46cc7f94f9cb72d6de18`. Run #334 will collect this inventory at 1440px, 390px and 320px, after which only demonstrated unintended deltas will be corrected. No production files or data changed.
+- Test update commit `98e556457f7e853b07cf46cc7f94f9cb72d6de18`. Run #334 completed with **success**; artifact `12835434396` was inspected at 1440px, 390px and 320px. The inventory found 11 source disclosures per viewport. The sentiment and S&P focused gates pass. The remaining concrete geometry mismatch is the asset-panel source row (candidate 23px vs baseline 21px) and nested asset source summaries inheriting 2px horizontal padding and 2px top margin; these are addressed in the pending #335 fix below. No production files or data changed.
 
 
 ### S&P 500 source disclosure marker follow-up (pending Run #335)
