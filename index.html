@@ -3490,5 +3490,20 @@ main.wrap #sentiment .title:first-child {
 </style>
 
 
+<script id="tac-toolbar-bubble-dismiss-on-scroll">
+(function(){
+  function dismissBubble(){
+    document.querySelectorAll('.tac-toolbar-bubble-preview').forEach(function(el){el.remove()});
+    document.querySelectorAll('.tac-toolbar-bubble-target').forEach(function(el){el.classList.remove('tac-toolbar-bubble-target')});
+    window.removeEventListener('scroll',dismissBubble,true);
+    window.removeEventListener('wheel',dismissBubble,true);
+    window.removeEventListener('touchmove',dismissBubble,true);
+  }
+  window.addEventListener('scroll',dismissBubble,{capture:true,passive:true});
+  window.addEventListener('wheel',dismissBubble,{capture:true,passive:true});
+  window.addEventListener('touchmove',dismissBubble,{capture:true,passive:true});
+})();
+</script>
+
 </body>
 </html>
