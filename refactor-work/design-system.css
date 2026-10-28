@@ -1300,10 +1300,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     line-height: 1.35 !important;
     font-size: 12px !important;
   }
-  #global-markets .tac-tab-nav label {
-    min-height: 38px !important;
-    padding: 8px 7px !important;
-  }
   #news-scan .tac-tab-nav label,
   #global-markets .tac-tab-nav label,
   #industry-bonds-fx-commodities .tac-tab-nav label {
