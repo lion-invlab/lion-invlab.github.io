@@ -6,3 +6,4 @@ Run #305 duplicate toolbar hint rule 2026-10-28T09:05:19.261Z
 Run #306 regression trigger — 2026-10-28T12:59:48.333Z — CSS commit 9e77f8d6dcf64d55ee1802ecbafa11663a0ab7d4
 Run #318 regression trigger — 2026-10-28T13:04:06.653Z — CSS commit 6efd715b1fb2c7844c40d16116b856f1a4b7436f
 Run #319 focused FedWatch computed-style assertion — 2026-10-28T13:11:09.380Z — test commit 009af5357976cc5b505e64d8f8e1d6aae6ecc045
+Focused mobile industry tab gap regression after matching 3px baseline.
