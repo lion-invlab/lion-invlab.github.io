@@ -3766,3 +3766,42 @@ document.addEventListener('DOMContentLoaded',function(){
  .tac-toolbar-bubble-preview:before{content:none!important;display:none!important}
 }
 </style>
+
+
+<style id="tac-toolbar-bubble-below-nav-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(280px,calc(100vw - 44px))!important;
+  padding:6px 10px!important;
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  border-radius:12px!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  top:-7px!important;bottom:auto!important;left:22px!important;
+  width:12px!important;height:12px!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  transform:rotate(225deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-below-nav-v1-js">
+(function(){
+ function placeBelowNav(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Keep the bubble below the navigation row, clear of the heading and summary card. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left+Math.min(150,r.width)));
+  bubble.style.left=left+'px';
+  bubble.style.top=(r.bottom+8)+'px';
+  bubble.style.width=w+'px';
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(placeBelowNav,50)},{once:true});
+ else setTimeout(placeBelowNav,50);
+ window.addEventListener('resize',placeBelowNav,{passive:true});
+})();
+</script>
