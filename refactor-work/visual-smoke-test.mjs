@@ -597,7 +597,8 @@ try {
           summaryHeight: summary ? Math.round(summary.getBoundingClientRect().height) : null,
           borderTopWidth: s.borderTopWidth,
           borderBottomWidth: s.borderBottomWidth,
-          padding: s.padding
+          padding: s.padding,
+          marginTop: s.marginTop
         };
       });
       const cnn = root.querySelector(".cnn-fg-preview");
@@ -616,7 +617,7 @@ try {
         const c = candidateSentimentDisclosureGeometry.disclosures[i];
         return c && c.height === b.height && c.summaryHeight === b.summaryHeight &&
           c.borderTopWidth === b.borderTopWidth && c.borderBottomWidth === b.borderBottomWidth &&
-          c.padding === b.padding;
+          c.padding === b.padding && c.marginTop === b.marginTop;
       }) &&
       candidateSentimentDisclosureGeometry.cnnCardHeight === baselineSentimentDisclosureGeometry.cnnCardHeight;
     if (!sentimentDisclosureGeometryPass) results.errors.push({
