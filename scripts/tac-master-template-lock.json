@@ -28,7 +28,7 @@
     {
       "name": "Tuesday-Friday",
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28.html",
-      "git_blob_sha": "6d32295c6eff1739aa8e9b40fcc9a46b152a57f5",
+      "git_blob_sha": "f8128296ad078f9e279da80ec174b0a4990b171c",
       "required_title": "TAC 投資早報｜2026/10/28（三）審核版",
       "required_nav_ids": [
         "overview",
@@ -49,7 +49,6 @@
     }
   ],
   "notes": [
-    "The current weekday master has a known first HTML comment incorrectly labelled as Monday; it is reported as a warning and is not silently edited.",
     "Known duplicate IDs in the pinned masters are reported as warnings. The SHA pin ensures they cannot change unnoticed.",
     "The formal homepage index.html is not a master and is not modified by this guard."
   ]
