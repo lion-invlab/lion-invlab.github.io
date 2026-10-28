@@ -4258,84 +4258,11 @@ document.addEventListener('DOMContentLoaded',function(){
 </script>
 
 
-<style id="tac-toolbar-bubble-modal-safe-v13">
-@media(max-width:1099px){
- .tac-toolbar-bubble-preview{
-  display:none!important;
- }
- body:not(.tac-modal-open) .tac-toolbar-bubble-preview{
-  display:block!important;
- }
-}
-</style>
-<script id="tac-toolbar-bubble-modal-safe-v13-js">
-(function(){
- function modalState(){
-  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
-  if(!bubble)return;
-  var modal=document.querySelector('[role="dialog"],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog');
-  var hasVisibleOverlay=Array.from(document.querySelectorAll('body *')).some(function(el){
-   if(el===bubble||el.contains(bubble))return false;
-   var s=getComputedStyle(el),r=el.getBoundingClientRect();
-   return (s.position==='fixed'||s.position==='absolute')&&r.width>innerWidth*.8&&r.height>innerHeight*.35&&Number(s.zIndex||0)>10&&s.display!=='none'&&s.visibility!=='hidden'&&s.opacity!=='0'&&/rgba?\(.*[, ]0\.[1-9]/.test(s.backgroundColor);
-  });
-  if(modal||hasVisibleOverlay){
-   bubble.style.setProperty('display','none','important');
-  }else{
-   bubble.style.removeProperty('display');
-  }
- }
- function run(){modalState();setTimeout(modalState,150);setTimeout(modalState,500)}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
- var observer=new MutationObserver(run);
- observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','aria-hidden','open']});
-})();
-</script>
 
 
-<script id="tac-toolbar-reminder-resume-after-modal-v14">
-(function(){
- var timer=null;
- function getBubble(){return document.querySelector('.tac-toolbar-bubble-preview')}
- function getToolbar(){return document.querySelector('.tac-side-open')}
- function visible(el){
-  if(!el)return false;
-  var s=getComputedStyle(el),r=el.getBoundingClientRect();
-  return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity||1)>0&&r.width>0&&r.height>0;
- }
- function modalOpen(){
-  var bubble=getBubble();
-  var nodes=Array.from(document.querySelectorAll('[role="dialog"],dialog[open],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog'));
-  if(nodes.some(function(el){return el!==bubble&&visible(el)}))return true;
-  return Array.from(document.querySelectorAll('body *')).some(function(el){
-   if(el===bubble||el.contains(bubble))return false;
-   var s=getComputedStyle(el),r=el.getBoundingClientRect(),z=parseInt(s.zIndex,10)||0;
-   return (s.position==='fixed'||s.position==='absolute')&&r.width>innerWidth*.8&&r.height>innerHeight*.35&&z>10&&visible(el)&&s.backgroundColor!=='rgba(0, 0, 0, 0)'&&s.backgroundColor!=='transparent';
-  });
- }
- function reminder(on){
-  var b=getBubble(),t=getToolbar();
-  if(b)b.style.setProperty('display',on?'block':'none','important');
-  if(t){
-   if(on)t.classList.add('tac-toolbar-bubble-target');
-   else t.classList.remove('tac-toolbar-bubble-target');
-  }
- }
- function check(){
-  if(modalOpen()){
-   reminder(false);
-   if(timer){clearTimeout(timer);timer=null}
-  }else{
-   reminder(true);
-  }
- }
- function run(){check();setTimeout(check,120);setTimeout(check,450)}
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
- var observer=new MutationObserver(run);
- observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style','aria-hidden','open']});
- document.addEventListener('click',function(){setTimeout(check,50);setTimeout(check,250);setTimeout(check,700)},true);
-})();
-</script>
+
+
+
 
 
 <style id="tac-toolbar-modal-reminder-safe-v15">
