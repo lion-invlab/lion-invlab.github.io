@@ -24,3 +24,5 @@ mobile-industry-prevent-row-stretch-20261028-6
 mobile-tab-label-box-diagnostic-2026-10-28T14:00Z
 
 sentiment-card-geometry-audit-2026-10-28T14:20Z
+
+Sentiment baseline/candidate geometry parity audit — 2026-10-28T14:10Z
