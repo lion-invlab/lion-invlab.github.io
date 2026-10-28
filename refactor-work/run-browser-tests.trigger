@@ -68,3 +68,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T18:05:00.000Z
 # Run 344 — audit source disclosure typography and marker colors
 2026-10-29T18:10:00.000Z
+# Run 345 — verify unified light source disclosure text color
+2026-10-29T18:15:00.000Z
