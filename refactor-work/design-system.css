@@ -1212,10 +1212,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     line-height: normal !important;
     box-shadow: none !important;
   }
-  #sp500-earnings-health details.tac-ds-disclosure--method > summary::before {
-    content: none !important;
-    display: none !important;
-  }
 }
 
 
@@ -1644,10 +1640,6 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     font-weight: 800 !important;
     line-height: normal !important;
     box-shadow: none !important;
-  }
-  #sp500-earnings-health details.tac-ds-disclosure--method > summary::before {
-    content: none !important;
-    display: none !important;
   }
 }
 
