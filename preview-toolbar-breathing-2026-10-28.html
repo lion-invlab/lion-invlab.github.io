@@ -3631,3 +3631,30 @@ document.addEventListener('DOMContentLoaded',function(){
  }
 }
 </style>
+
+
+<style id="tac-toolbar-bubble-compact-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(248px,calc(100vw - 36px))!important;
+  padding:8px 10px!important;
+  border:2px solid #c62828!important;
+  border-radius:14px!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  box-shadow:0 4px 14px rgba(30,35,45,.18)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:20px!important;bottom:-8px!important;width:12px!important;height:12px!important;
+  border-right-width:2px!important;border-bottom-width:2px!important;
+ }
+ .tac-toolbar-bubble-preview{
+  animation:tac-toolbar-bubble-compact-pop .28s ease-out forwards!important;
+ }
+ @keyframes tac-toolbar-bubble-compact-pop{
+  from{opacity:0;transform:translateY(4px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+ }
+}
+</style>
