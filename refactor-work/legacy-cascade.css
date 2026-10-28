@@ -1220,7 +1220,7 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 .fed-compact-preview .fedwatch-time{border-top:1px solid #e1e6ec;padding-top:10px}
 .fed-compact-preview .fc-source{color:#657487}
 .fed-compact-preview .fc-source a{color:#254f73}
-@media(max-width:560px){.fed-compact-preview .fc-current-rate{padding:11px}.fed-compact-preview .fc-current-rate strong{font-size:22px}.fed-compact-preview .fc-probs-refined .fc-prob{padding:11px 10px}.fed-compact-preview .fc-probs-refined .fc-prob strong{font-size:27px}}
+@media(max-width:560px){.fed-compact-preview .fc-current-rate{padding:11px}.fed-compact-preview .fc-current-rate strong{font-size:22px}}
 
 
 /* Original style block 37 */
