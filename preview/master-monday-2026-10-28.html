@@ -4295,5 +4295,46 @@ main.wrap #sentiment .title:first-child {
 </script>
 
 
+<script id="tac-toolbar-bubble-dismiss-on-scroll">
+(function(){
+  var dismissed=false, touchY=null, scrollTop=window.scrollY||window.pageYOffset||0;
+  function dismissBubble(){
+    if(dismissed)return;
+    var bubbles=document.querySelectorAll('.tac-toolbar-bubble-preview');
+    var targets=document.querySelectorAll('.tac-toolbar-bubble-target');
+    if(!bubbles.length&&!targets.length)return;
+    dismissed=true;
+    bubbles.forEach(function(el){el.remove()});
+    targets.forEach(function(el){el.classList.remove('tac-toolbar-bubble-target')});
+    ['scroll','wheel','touchstart','touchmove','touchend','pointermove','keydown'].forEach(function(type){
+      window.removeEventListener(type,onActivity,true);
+      document.removeEventListener(type,onActivity,true);
+    });
+  }
+  function onActivity(event){
+    if(event.type==='touchstart'){
+      touchY=event.touches&&event.touches.length?event.touches[0].clientY:null;
+      scrollTop=window.scrollY||window.pageYOffset||0;
+      return;
+    }
+    if(event.type==='touchmove'){
+      if(touchY!==null&&event.touches&&event.touches.length&&Math.abs(event.touches[0].clientY-touchY)>4) dismissBubble();
+      return;
+    }
+    if(event.type==='touchend'){
+      var now=window.scrollY||window.pageYOffset||0;
+      if(now!==scrollTop) dismissBubble();
+      touchY=null;
+      return;
+    }
+    if(event.type==='keydown' && !['ArrowDown','ArrowUp','PageDown','PageUp',' ','Home','End'].includes(event.key))return;
+    dismissBubble();
+  }
+  ['scroll','wheel','touchstart','touchmove','touchend','pointermove','keydown'].forEach(function(type){
+    window.addEventListener(type,onActivity,{capture:true,passive:true});
+    document.addEventListener(type,onActivity,{capture:true,passive:true});
+  });
+})();
+</script>
 </body>
 </html>
