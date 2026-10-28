@@ -629,3 +629,14 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Evidence: the same two selector/property declarations already exist in the earlier `@media(max-width:560px)` block (around lines 1188 and 1223 in the pre-edit file). Between them, the base declarations set larger values, but the earlier media-query declarations already override those values at widths <=560px; no intervening matching mobile declaration changes these two properties. The later media block still retains its unique current-rate declarations.
 - CSS commit: `9e77f8d6dcf64d55ee1802ecbafa11663a0ab7d4` (136 characters removed). Browser regression trigger appended in `run-browser-tests.trigger` by commit `649833c9d6fbc36e7600b8904c082e18b75b459c`.
 - **Not yet accepted:** a fresh desktop/mobile/narrow-mobile regression result has not been verified in this audit. Do not treat cleanup #306 as accepted until the workflow result and artifact are inspected. No geometry compensation added; production homepage, official mother templates, JSON data and schedules remain untouched.
+
+### CSS audit #308 — same-file exact-rule duplicates and regression gate (2026-10-28)
+- Parsed the current `legacy-cascade.css` into 1,142 selector rules and compared normalized selector + enclosing media context + declarations. Five exact duplicate rule signatures were identified:
+  1. `.history-panel{padding:15px 14px!important}` in `@media(max-width:700px)` (around lines 700 and 719).
+  2. `.history-panel>.title small{width:100%!important;margin-left:11px!important}` in `@media(max-width:700px)` (around lines 700 and 720).
+  3. The compact FOMC grid's two-column template and 7px row/column gaps in `@media(max-width:560px)` (around lines 1301 and 1356); the later block also carries unique child-layout declarations.
+  4. The 18px English sentiment-title size in `@media(max-width:390px)` (around lines 2221 and 2243).
+  5. The 14px Chinese sentiment subtitle size in `@media(max-width:390px)` (around lines 1088 and 2248).
+- These are **audit candidates, not approved deletions**. Before removing any declaration, re-check all intervening rules in source order and preserve unique declarations in combined media blocks. No CSS was changed in this audit.
+- Run #306 remains unverified: the available GitHub connector returns no commit status checks for CSS commit `9e77f8d6dcf64d55ee1802ecbafa11663a0ab7d4` or its trigger/log commits, and the workflow-run wrapper only exposes pull-request-triggered runs. Do not infer that the browser regression started or passed from the marker-file commit alone.
+- Production homepage, official mother templates, JSON data and schedules remain untouched. Existing geometry deltas remain unchanged; no fixed-height or whitespace compensation CSS was introduced.
