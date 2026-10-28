@@ -2125,6 +2125,43 @@ main section[id] { scroll-margin-top: 0; }
   color:#c62828!important;
 }
 </style>
+<style id="tac-weekday-calendar-heading-overflow-fix">
+/* Prevent weekday economic/earnings calendar title metadata from overflowing the card on mobile */
+@media(max-width:700px){
+  .calendar-card>.title{
+    display:flex!important;
+    flex-wrap:wrap!important;
+    align-items:baseline!important;
+    column-gap:8px!important;
+    row-gap:4px!important;
+    min-width:0!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    box-sizing:border-box!important;
+  }
+  .calendar-card>.title small{
+    display:block!important;
+    flex:0 0 100%!important;
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:0!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    font-size:11px!important;
+    line-height:1.45!important;
+    letter-spacing:0!important;
+    box-sizing:border-box!important;
+  }
+  .calendar-card>.title:has(+ .week-econ-tabs){
+    white-space:normal!important;
+  }
+}
+</style>
+
 </head>
 <body class="release-ready">
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">2026/10/28（三）早報審核版｜已更新可核對的 10/27 主要市場收盤與美債殖利率；產業 ETF、匯率、能源、貴金屬及部分情緒指標仍待核實，不沿用舊值或以盤中價冒充收盤。</div>
