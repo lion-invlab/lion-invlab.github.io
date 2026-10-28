@@ -7,7 +7,7 @@
     {
       "name": "Monday",
       "path": "母版專區/TAC_母版_週一_2026-10-26.html",
-      "git_blob_sha": "a8e3fe4c4ffbee3751b5c82db8cdc1b454e0aac2",
+      "git_blob_sha": "6887f24a3150ce9ef85f824781cc7ffc1412cd60",
       "required_title": "TAC 投資早報｜2026/10/26（一）審核版",
       "required_nav_ids": [
         "overview",
@@ -42,7 +42,7 @@
     {
       "name": "Tuesday-Friday",
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28.html",
-      "git_blob_sha": "38e21d77392a9e1947ac00ec616b11f08db99d2c",
+      "git_blob_sha": "db1b4456ee576b218aab14d619264066c574f1e3",
       "required_title": "TAC 投資早報｜2026/10/28（三）審核版",
       "required_nav_ids": [
         "overview",
@@ -77,7 +77,7 @@
     }
   ],
   "notes": [
-    "Known duplicate IDs in the pinned masters are reported as warnings. The SHA pin ensures they cannot change unnoticed.",
+    "Duplicate IDs and unmatched navigation targets fail the master integrity check. Approved changes require reviewed updates to these SHA pins.",
     "The formal homepage index.html is not a master and is not modified by this guard."
   ]
 }
