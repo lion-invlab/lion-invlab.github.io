@@ -4178,3 +4178,43 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',run,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-bubble-fit-text-v11">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:max-content!important;
+  max-width:calc(100vw - 150px)!important;
+  min-width:0!important;
+  padding:7px 10px!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  white-space:normal!important;
+  text-wrap:pretty;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-fit-text-v11-js">
+(function(){
+ function fitBubble(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var text='「美股波動率」、「精選基金」、\n「歷史早報」請由上方「工具欄」開啟進入';
+  bubble.textContent=text;
+  bubble.style.setProperty('width','max-content','important');
+  bubble.style.setProperty('max-width','calc(100vw - 150px)','important');
+  bubble.style.setProperty('padding','7px 10px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.35','important');
+  var r=btn.getBoundingClientRect();
+  var width=Math.min(bubble.scrollWidth,window.innerWidth-150);
+  var left=Math.min(window.innerWidth-width-14,r.right+10);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){requestAnimationFrame(fitBubble);setTimeout(fitBubble,120);setTimeout(fitBubble,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
