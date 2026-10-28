@@ -856,3 +856,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40767406973/artifacts/12851291057 (7-day retention).
 - This closes the previously uncovered prior-week disclosure geometry check. The current disclosure-family gates now cover sentiment source rows, all source rows in global/industry/asset sections, the S&P source row and marker, the 11-industry expansion plus marker, and the two prior-week expansion controls. This remains browser regression evidence, not a claim of pixel-perfect parity or production sign-off; mobile pixel-diff ratios remain approximately 7.64% at 390px and 10.50% at 320px.
 - No CSS, report content, official homepage, approved dual mother templates, JSON data or schedules changed in this run.
+
+
+### Source-disclosure audit expansion — add one gate for all 11 source rows (2026-10-29)
+- Run #341 confirmed the prior-week disclosure gate passes. A programmatic comparison of Run #341's artifact also confirmed all 11 `details.source-details` rows match the frozen baseline on visibility, outer/summary heights, margin, padding, border widths and summary padding at 1440px, 390px and 320px.
+- Extended the diagnostic to record each source row's `::before` marker content/display and added a consolidated `sourceDisclosureGeometryPass` assertion for all 11 rows. It intentionally does not compare font size/line-height, because the shared design-system source label typography is a deliberate normalization; geometry and marker behavior must remain baseline-compatible. Test commit: `2f1c1ed5aa01db0905d522aa3a4c5ede98257f55`.
+- Run #342 will validate this broader gate at all three widths. No CSS or production content changes.
