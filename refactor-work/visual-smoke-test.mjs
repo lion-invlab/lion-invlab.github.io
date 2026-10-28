@@ -626,10 +626,52 @@ try {
       baseline: baselineSentimentDisclosureGeometry,
       candidate: candidateSentimentDisclosureGeometry
     });
+
+    // News-card geometry gate: allow the documented 1px responsive rounding,
+    // but catch wrapping/spacing regressions that materially change card height.
+    const readVisibleNewsCardGeometry = page => page.evaluate(() => {
+      const root = document.querySelector("#news-scan");
+      if (!root) return { found: false, cards: [] };
+      const cards = [...root.querySelectorAll(".newsitem")].map(el => {
+        const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+        return {
+          height: Math.round(r.height),
+          width: Math.round(r.width),
+          padding: s.padding,
+          marginBottom: s.marginBottom
+        };
+      }).filter(card => card.height > 0 && card.width > 0);
+      return { found: true, cards };
+    });
+    const [baselineNewsCardGeometry, candidateNewsCardGeometry] = await Promise.all([
+      readVisibleNewsCardGeometry(base.page),
+      readVisibleNewsCardGeometry(cand.page)
+    ]);
+    const newsCardHeightDeltas = baselineNewsCardGeometry.cards.map((b, i) =>
+      candidateNewsCardGeometry.cards[i] ? candidateNewsCardGeometry.cards[i].height - b.height : null
+    );
+    const newsCardGeometryPass =
+      baselineNewsCardGeometry.found &&
+      candidateNewsCardGeometry.found &&
+      baselineNewsCardGeometry.cards.length > 0 &&
+      candidateNewsCardGeometry.cards.length === baselineNewsCardGeometry.cards.length &&
+      baselineNewsCardGeometry.cards.every((b, i) =>
+        candidateNewsCardGeometry.cards[i] &&
+        candidateNewsCardGeometry.cards[i].width === b.width &&
+        Math.abs(candidateNewsCardGeometry.cards[i].height - b.height) <= 1
+      );
+    if (!newsCardGeometryPass) results.errors.push({
+      viewport: viewport.name,
+      error: "Visible news-card geometry exceeds 1px baseline tolerance",
+      baseline: baselineNewsCardGeometry,
+      candidate: candidateNewsCardGeometry,
+      heightDeltas: newsCardHeightDeltas
+    });
     results.viewports.push({
       ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
       baselineSentimentDisclosureGeometry, candidateSentimentDisclosureGeometry, sentimentDisclosureGeometryPass,
+      baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -663,7 +705,7 @@ try {
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
 - Sentiment special background: class=${v.sentimentThemeClassPresent}, layered background=${v.sentimentBackgroundImage?.includes("gradient")}, orbit before=${v.sentimentBeforeContent}/${v.sentimentBeforeBoxShadow}, orbit after=${v.sentimentAfterContent}/${v.sentimentAfterBoxShadow}, canvas=${v.sentimentBackgroundColor}\n- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}, actual earnings result cards=${v.sharedActualEarningsCardCount}, radii=${v.sharedActualEarningsCardRadii?.join(",")}, backgrounds=${v.sharedActualEarningsCardBackgrounds?.join(",")}, beat/miss=${v.actualEarningsBeatCount}/${v.actualEarningsMissCount}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
-- Sentiment disclosure geometry parity: pass=${v.sentimentDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineSentimentDisclosureGeometry)}; candidate=${JSON.stringify(v.candidateSentimentDisclosureGeometry)}\n - New browser errors: ${v.newErrors.length}
+- Sentiment disclosure geometry parity: pass=${v.sentimentDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineSentimentDisclosureGeometry)}; candidate=${JSON.stringify(v.candidateSentimentDisclosureGeometry)}\n- Visible news-card geometry parity: pass=${v.newsCardGeometryPass}; height deltas=${JSON.stringify(v.newsCardHeightDeltas)}; baseline=${JSON.stringify(v.baselineNewsCardGeometry)}; candidate=${JSON.stringify(v.candidateNewsCardGeometry)}\n - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
 - Instrument font sizes: global market=${JSON.stringify(v.globalMarketNameFontSizes)}, industry=${JSON.stringify(v.industryInstrumentFontSizes)}, comparable=${v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.length > 0 && v.industryInstrumentFontSizes.every(size => v.globalMarketNameFontSizes.includes(size))}
 - Hidden acceptance metrics: method disclosures=${v.methodDisclosureCount}/${v.methodDisclosureInlineStyles}; region source typography=${JSON.stringify(v.regionSectorSourceTypography)}; dark disclosure signatures=${JSON.stringify(v.darkDisclosureStyleSignatures)}; temporary preview footer=${v.temporaryPreviewFooterText}; fear/greed=${v.fearGreedScore}/${v.fearGreedMarkerPosition}; five-star red=${v.fiveStarRedCount}; source triangles=${v.sourceTrianglesPresent}; double-bar headings=${v.doubleBarHeadings}; sector tab color/text=${v.sectorTabColor}/${v.sectorTabTextColor}; earnings upcoming tab=${v.earningsUpcomingTabWorks}; event open/close=${v.eventCardWorks}/${v.eventCardCloses}; earnings accordion=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}; sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}; source disclosure=${v.sourceDisclosureWorks}/${v.sourceDisclosureCloses}; prior-week collapses=${v.collapseWorks}/${v.earningsCollapseWorks}; selected colors=${v.consistentSelectedTabColor}/${v.consistentSelectedTabTextColor}; coach contract=${v.coachPresentBeforeCleanup}/${v.coachTextContract}/${v.coachPointerEventsNone}/${v.coachTargetPulse}/${v.coachBubbleInViewport}/${v.coachBubbleWraps}/${v.coachTextInsideBubble}/${v.coachLegacyHintRemoved}; tab errors=${v.tabResults.filter(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError).length}; browser errors=${v.newErrors.length}
@@ -686,6 +728,7 @@ try {
     v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.methodDisclosureCount !== 4 || v.methodDisclosureInlineStyles !== 0 || v.regionSectorSourceTypography.length !== 4 || v.regionSectorSourceTypography.some(s => s.fontSize !== "11px" || s.fontWeight !== "400" || s.color !== "rgb(156, 163, 175)" || s.padding !== "2px 0px") || v.darkDisclosureCount < 2 || v.darkDisclosureStyleSignatures.length !== 3 || v.darkDisclosureStyleSignatures.some(s => s.summaryColor !== "rgb(174, 187, 200)" || s.markerColor !== "rgb(226, 184, 77)" || (s.sourceColor !== null && s.sourceColor !== "rgb(194, 204, 214)")) || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     !v.sentimentDisclosureGeometryPass ||
+    !v.newsCardGeometryPass ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || (v.width < 1100 && v.toolbarButtonPosition !== "relative") || (v.width < 1100 && (!v.toolbarScrollCheck?.buttonWithinNav || !v.toolbarScrollCheck?.buttonInsideNavViewport)) ||
