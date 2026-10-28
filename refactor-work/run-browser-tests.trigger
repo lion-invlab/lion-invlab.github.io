@@ -32,3 +32,5 @@ Baseline sentiment root inclusion correction — 2026-10-28T14:12Z
 Candidate sentiment root inclusion correction — 2026-10-28T14:15Z
 
 Sentiment source disclosure summary box-model audit — 2026-10-28T14:25Z
+
+Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 — CSS commit bdef33d043efcbd3ddd97f33c901fec8ca03ffc1
