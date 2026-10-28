@@ -3388,5 +3388,83 @@ main.wrap #sentiment .title:first-child {
 </style>
 
 
+<style id="tac-toolbar-breathing-bubble">
+@media (max-width:1099px){
+ .tac-side-open.tac-toolbar-breathing{
+  animation:tac-toolbar-breathe-final 1.5s ease-in-out 3!important;
+  transform-origin:center center;
+  border:1.5px solid #c62828!important;
+ }
+ @keyframes tac-toolbar-breathe-final{
+  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(198,40,40,0)}
+  50%{transform:scale(1.08);box-shadow:0 0 0 5px rgba(198,40,40,.2),0 0 18px rgba(198,40,40,.55)}
+ }
+ .tac-toolbar-reminder-bubble{
+  position:fixed!important;z-index:2147483647!important;display:block!important;
+  box-sizing:border-box!important;width:min(205px,calc(100vw - 150px))!important;
+  min-width:150px!important;padding:8px 10px!important;
+  border:1.5px solid #c62828!important;border-radius:14px!important;
+  background:#fff!important;color:#222!important;
+  font-size:10.5px!important;font-weight:800!important;line-height:1.35!important;
+  text-align:center!important;white-space:normal!important;
+  box-shadow:0 3px 12px rgba(30,35,45,.14)!important;
+  opacity:0;transform:translateY(4px) scale(.97);
+  animation:tac-toolbar-reminder-pop .28s ease-out forwards!important;
+  pointer-events:none!important;
+ }
+ .tac-toolbar-reminder-bubble:before{
+  content:""!important;position:absolute!important;left:-7px!important;top:12px!important;
+  width:12px!important;height:12px!important;background:#fff!important;
+  border-left:1.5px solid #c62828!important;border-bottom:1.5px solid #c62828!important;
+  transform:rotate(45deg)!important;
+ }
+ @keyframes tac-toolbar-reminder-pop{to{opacity:1;transform:translateY(0) scale(1)}}
+ .tac-side-open.tac-toolbar-reminder-target{
+  animation:tac-toolbar-breathe-final 1.5s ease-in-out 3!important;
+  border:1.5px solid #c62828!important;
+ }
+}
+@media (min-width:1100px){.tac-toolbar-reminder-bubble{display:none!important}}
+@media (prefers-reduced-motion:reduce){
+ .tac-side-open.tac-toolbar-breathing,.tac-side-open.tac-toolbar-reminder-target{animation:none!important}
+ .tac-toolbar-reminder-bubble{animation:none!important;opacity:1!important;transform:none!important}
+}
+#tac-tools-hint,.tac-tools-hint,.tac-tools-arrow-live,.tac-toolbar-hand-target{display:none!important;visibility:hidden!important;opacity:0!important}
+</style>
+<script id="tac-toolbar-breathing-bubble-js">
+(function(){
+ function setup(){
+  var btn=document.querySelector('.tac-side-open');
+  if(!btn||window.matchMedia('(max-width:1099px)').matches===false)return;
+  document.querySelectorAll('.tac-toolbar-reminder-bubble').forEach(function(el){el.remove()});
+  var bubble=document.createElement('div');
+  bubble.className='tac-toolbar-reminder-bubble';
+  bubble.setAttribute('role','note');
+  bubble.textContent='「美股波動率」、「精選基金」、「歷史早報」請由上方「工具欄」開啟進入';
+  document.body.appendChild(bubble);
+  btn.classList.add('tac-toolbar-breathing','tac-toolbar-reminder-target');
+  function place(){
+   if(!btn.isConnected||!bubble.isConnected)return;
+   var r=btn.getBoundingClientRect();
+   var left=Math.min(window.innerWidth-150,r.right+10);
+   var width=Math.max(145,Math.min(205,window.innerWidth-left-14));
+   bubble.style.setProperty('left',left+'px','important');
+   bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+   bubble.style.setProperty('width',width+'px','important');
+  }
+  function dismiss(){
+   bubble.remove();
+   btn.classList.remove('tac-toolbar-breathing','tac-toolbar-reminder-target');
+   window.removeEventListener('resize',place);
+  }
+  requestAnimationFrame(place);
+  window.addEventListener('resize',place,{passive:true});
+  var timer=window.setTimeout(dismiss,6500);
+  btn.addEventListener('click',function(){window.clearTimeout(timer);dismiss()},{once:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
+ else setup();
+})();
+</script>
 </body>
 </html>
