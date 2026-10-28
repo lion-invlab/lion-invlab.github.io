@@ -761,3 +761,11 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Other acceptance metrics remain green: global market and industry item labels both 16px, five-star red count 16, all 11 representative tab cases pass, source disclosure and calendar/earnings disclosure interactions pass, no new browser errors.
 - Interpretation: workflow success confirms test execution only. It does not close the visual audit. Do not add fixed-height compensation. Next inspect the exact computed styles and matched CSS rules for the CNN sentiment card and its source disclosure at 320px, then make only a cause-based adjustment if a non-intentional delta is proven.
 - Scope protection unchanged: only isolated branch `tac-design-system-work-2026-10-24`; official homepage, approved dual mother templates, JSON data and schedules untouched.
+
+## Run #327 — Sentiment dark disclosure summary geometry fix (2026-10-29 Taiwan time)
+
+- CSS commit: `bdef33d043efcbd3ddd97f33c901fec8ca03ffc1`; verification workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40728519887
+- Root cause found by cascade inspection: the shared `.tac-ds-disclosure--source > summary` rule declares `min-height: 21px !important`, `padding: 2px 10px !important`, and `line-height: 1.35 !important`. The sentiment-specific `.tac-ds-disclosure--dark > summary` declarations had no `!important`, so their intended geometry was overridden in the cascade.
+- Applied a narrowly scoped dark-sentiment override for summary `min-height: 0 !important`, `padding: 2px 0 !important`, and `line-height: normal !important`. This keeps light-surface source disclosure rows under the shared source component contract and changes only dark sentiment disclosures.
+- At the time of this log update, workflow #327 has built the candidate successfully and is still running the desktop/mobile browser suite; final geometry results are not yet available. Do not treat the CSS fix as accepted until the artifact confirms summary row and CNN card dimensions at 1440px, 390px, and 320px, and no regressions appear.
+- Formal homepage, approved dual mother templates, JSON data, and schedules remain untouched.
