@@ -44,3 +44,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T17:03:00.000Z
 # Run 332 — responsive news-card geometry tolerance
 2026-10-29T17:10:00.000Z
+# Run 333 — normalized news-tab and S&P narrow geometry assertions
+2026-10-29T17:15:00.000Z
