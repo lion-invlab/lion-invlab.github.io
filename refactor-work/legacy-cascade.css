@@ -703,9 +703,7 @@ body.release-ready .news-window-warning { display: none !important; }
 /* Original style block 17 */
 
 /* V10 fix: identical heading sizes and prevent history date control overflow on mobile */
-.card:has(.vol-dashboard-link) .title,
-.fund-report-title,
-.history-panel>.title{font-size:18px!important;line-height:1.4!important;font-weight:850!important;letter-spacing:-.3px!important;color:#202328!important}
+
 .card:has(.vol-dashboard-link) .title{display:flex!important;align-items:center!important;gap:8px!important}
 .fund-report-title{white-space:normal!important}
 .history-panel>.title{display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important}
