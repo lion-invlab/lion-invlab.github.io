@@ -48,3 +48,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T17:15:00.000Z
 # Run 334 — cross-panel source disclosure geometry inventory
 2026-10-29T17:20:00.000Z
+# Run 335 — S&P marker and asset source disclosure geometry parity
+2026-10-29T17:25:00.000Z
