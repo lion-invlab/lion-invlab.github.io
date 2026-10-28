@@ -4127,3 +4127,54 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',run,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-pointer-correct-target-v10">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:calc(-1 * var(--tac-pointer-length,120px))!important;
+  top:18px!important;
+  bottom:auto!important;
+  width:var(--tac-pointer-length,120px)!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(var(--tac-pointer-angle,33deg))!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-pointer-correct-target-v10-js">
+(function(){
+ function align(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,b.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  var top=b.bottom+8;
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',top+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Line anchor is at the bubble's upper-left side; target is the toolbar button center. */
+  var anchorX=left;
+  var anchorY=top+18;
+  var targetX=b.left+b.width/2;
+  var targetY=b.top+b.height/2;
+  var dx=targetX-anchorX, dy=targetY-anchorY;
+  var length=Math.sqrt(dx*dx+dy*dy);
+  var angle=Math.atan2(dy,dx)*180/Math.PI-180;
+  bubble.style.setProperty('--tac-pointer-length',Math.max(35,Math.min(170,length))+'px');
+  bubble.style.setProperty('--tac-pointer-angle',angle+'deg');
+ }
+ function run(){requestAnimationFrame(align);setTimeout(align,120);setTimeout(align,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
