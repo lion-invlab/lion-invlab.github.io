@@ -3995,3 +3995,32 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',run,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-bubble-outline-seam-fix-v7">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  border:1.5px solid #c62828!important;
+  border-radius:14px!important;
+  overflow:visible!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-7px!important;
+  top:13px!important;
+  bottom:auto!important;
+  width:12px!important;
+  height:12px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:0!important;
+  border-left:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  border-radius:0 0 0 2px!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+  box-shadow:none!important;
+ }
+}
+</style>
