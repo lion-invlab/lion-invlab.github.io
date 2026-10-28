@@ -3493,3 +3493,29 @@ main.wrap #sentiment .title:first-child {
 
 </body>
 </html>
+
+<style id="tac-toolbar-breathing-preview-v1">
+/* Demo-only: a subtle 4.5-second breathing cue for the mobile toolbar button. */
+@media (max-width:1099px){
+ .tac-side-open.tac-toolbar-breathing{
+  animation:tac-toolbar-breathe 1.5s ease-in-out 3;
+  transform-origin:center center;
+ }
+ @keyframes tac-toolbar-breathe{
+  0%,100%{transform:scale(1);border-color:#e5c5c9;box-shadow:0 0 0 0 rgba(198,40,40,0)}
+  50%{transform:scale(1.035);border-color:#c62828;box-shadow:0 0 0 4px rgba(198,40,40,.13),0 0 13px rgba(198,40,40,.22)}
+ }
+}
+@media (prefers-reduced-motion:reduce){
+ .tac-side-open.tac-toolbar-breathing{animation:none!important}
+}
+</style>
+<script id="tac-toolbar-breathing-preview-v1-js">
+document.addEventListener('DOMContentLoaded',function(){
+ var btn=document.querySelector('.tac-side-open');
+ if(!btn || window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ btn.classList.add('tac-toolbar-breathing');
+ window.setTimeout(function(){if(btn.isConnected)btn.classList.remove('tac-toolbar-breathing')},4700);
+ btn.addEventListener('click',function(){btn.classList.remove('tac-toolbar-breathing')},{once:true});
+});
+</script>
