@@ -7,7 +7,7 @@
     {
       "name": "Monday",
       "path": "母版專區/TAC_母版_週一_2026-10-26.html",
-      "git_blob_sha": "e2148a0dd3d50c9e5efc746ce0e8bb414402b46f",
+      "git_blob_sha": "a8e3fe4c4ffbee3751b5c82db8cdc1b454e0aac2",
       "required_title": "TAC 投資早報｜2026/10/26（一）審核版",
       "required_nav_ids": [
         "overview",
@@ -23,12 +23,26 @@
         "fed",
         "view"
       ],
-      "forbidden_nav_ids": []
+      "forbidden_nav_ids": [],
+      "required_markers": [
+        "id=\"overview\"",
+        "id=\"sentiment\"",
+        "id=\"news-scan\"",
+        "id=\"global-markets\"",
+        "id=\"industry-bonds-fx-commodities\"",
+        "id=\"calendar\"",
+        "id=\"earnings\"",
+        "id=\"sp500-earnings-health\"",
+        "id=\"fed\"",
+        "id=\"view\"",
+        "今日關鍵價位",
+        "核心觀察更新與失敗處理"
+      ]
     },
     {
       "name": "Tuesday-Friday",
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28.html",
-      "git_blob_sha": "f8128296ad078f9e279da80ec174b0a4990b171c",
+      "git_blob_sha": "38e21d77392a9e1947ac00ec616b11f08db99d2c",
       "required_title": "TAC 投資早報｜2026/10/28（三）審核版",
       "required_nav_ids": [
         "overview",
@@ -45,6 +59,20 @@
       "forbidden_nav_ids": [
         "last-week-calendar",
         "last-week-earnings"
+      ],
+      "required_markers": [
+        "id=\"overview\"",
+        "id=\"sentiment\"",
+        "id=\"news-scan\"",
+        "id=\"global-markets\"",
+        "id=\"industry-bonds-fx-commodities\"",
+        "id=\"calendar\"",
+        "id=\"earnings\"",
+        "id=\"sp500-earnings-health\"",
+        "id=\"fed\"",
+        "id=\"view\"",
+        "今日關鍵價位",
+        "核心觀察更新與失敗處理"
       ]
     }
   ],
