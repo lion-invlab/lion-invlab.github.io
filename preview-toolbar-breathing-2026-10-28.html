@@ -4077,3 +4077,53 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',run,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-pointer-geometry-fix-v9">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-9px!important;
+  top:8px!important;
+  bottom:auto!important;
+  width:58px!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(60deg)!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-pointer-geometry-fix-v9-js">
+(function(){
+ function align(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,r.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Connector starts at bubble's left edge and travels diagonally up-left toward the toolbar button's right edge. */
+  var verticalGap=(r.bottom+8)-(r.top+r.height/2);
+  var horizontalGap=left-(r.right-4);
+  var len=Math.sqrt(horizontalGap*horizontalGap+verticalGap*verticalGap);
+  var angle=Math.atan2(-verticalGap,horizontalGap)*180/Math.PI;
+  bubble.style.setProperty('--tac-pointer-length',Math.max(32,Math.min(70,len))+'px');
+  bubble.style.setProperty('--tac-pointer-angle',angle+'deg');
+ }
+ var style=document.createElement('style');
+ style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{width:var(--tac-pointer-length,58px)!important;transform:rotate(var(--tac-pointer-angle,60deg))!important}}';
+ document.head.appendChild(style);
+ function run(){requestAnimationFrame(align);setTimeout(align,120);setTimeout(align,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
