@@ -569,8 +569,23 @@ try {
       });
     });
     const newErrors = cand.pageErrors.filter(error => !base.pageErrors.includes(error));
+    // Focused FedWatch mobile cascade assertion: these overrides must win over later base rules.
+    const fedWatchStyleCheck = await cand.page.evaluate(() => {
+      const card = document.querySelector("#fed .fc-probs-refined .fc-prob");
+      const value = document.querySelector("#fed .fc-probs-refined .fc-prob strong");
+      if (!card || !value) return { found: false, padding: null, numberFontSize: null };
+      return { found: true, padding: getComputedStyle(card).padding, numberFontSize: getComputedStyle(value).fontSize };
+    });
+    const expectedFedWatchStyle = viewport.width <= 560
+      ? { padding: "11px 10px", numberFontSize: "27px" }
+      : { padding: "14px 15px", numberFontSize: "32px" };
+    const fedWatchStylePass = fedWatchStyleCheck.found &&
+      fedWatchStyleCheck.padding === expectedFedWatchStyle.padding &&
+      fedWatchStyleCheck.numberFontSize === expectedFedWatchStyle.numberFontSize;
+    if (!fedWatchStylePass) results.errors.push({ viewport: viewport.name, error: "FedWatch computed mobile/base style mismatch", actual: fedWatchStyleCheck, expected: expectedFedWatchStyle });
     results.viewports.push({
       ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
+      fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
