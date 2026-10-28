@@ -1794,6 +1794,6 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
      wrapping text determines the first item's natural 40px height. */
   html body main.wrap #industry-bonds-fx-commodities .tac-tab-nav.tac-ds-tabs--industry {
     overflow-x: auto !important;
-    grid-template-rows: none !important;
+    grid-template-rows: 40px 38px !important;
   }
 }
