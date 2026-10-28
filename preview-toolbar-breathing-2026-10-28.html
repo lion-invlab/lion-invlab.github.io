@@ -4024,3 +4024,56 @@ document.addEventListener('DOMContentLoaded',function(){
  }
 }
 </style>
+
+
+<style id="tac-toolbar-bubble-two-lines-short-v8">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:230px!important;
+  max-width:calc(100vw - 150px)!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  text-align:center!important;
+  white-space:normal!important;
+  border-radius:12px!important;
+ }
+ /* Replace the awkward detached tail with a slim pointer line aimed back at the toolbar. */
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-58px!important;
+  top:7px!important;
+  bottom:auto!important;
+  width:58px!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(-14deg)!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-two-lines-short-v8-js">
+(function(){
+ function refine(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  var btn=document.querySelector('.tac-side-open');
+  if(!bubble||!btn||window.matchMedia('(max-width:1099px)').matches===false)return;
+  bubble.innerHTML='「美股波動率」、「精選基金」、<br>「歷史早報」請由上方「工具欄」開啟進入';
+  bubble.style.setProperty('width','230px','important');
+  bubble.style.setProperty('max-width','calc(100vw - 150px)','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.35','important');
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,r.right+10);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){setTimeout(refine,80);setTimeout(refine,250)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
