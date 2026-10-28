@@ -41,7 +41,7 @@ for (const item of cases) {
         try { return !document.getElementById(decodeURIComponent(href.slice(1))); }
         catch { return true; }
       }).map(a => ({ text: a.textContent.trim(), href: a.getAttribute("href") }));
-      const bubble = document.querySelector("#tac-toolbar-coach-bubble");
+      const bubble = document.querySelector(".tac-toolbar-bubble-preview");
       const bubbleStyle = bubble ? getComputedStyle(bubble) : null;
       return {
         title: document.title,
@@ -57,7 +57,7 @@ for (const item of cases) {
         detailsCount: document.querySelectorAll("details").length,
         radioCount: document.querySelectorAll('input[type="radio"]').length,
         toolbarBubble: bubble ? { visible: !!bubble.getClientRects().length && bubbleStyle.display !== "none", pointerEvents: bubbleStyle.pointerEvents, text: bubble.textContent.trim() } : null,
-        toolbarTargetCount: document.querySelectorAll(".tac-toolbar-coach-target").length
+        toolbarTargetCount: document.querySelectorAll(".tac-toolbar-bubble-target").length
       };
     });
 
