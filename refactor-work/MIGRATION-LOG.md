@@ -945,3 +945,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Corrected the marker contract: nested calendar-card titles now suppress the legacy pseudo marker and retain the canonical 5px red border; sentiment removes the generic red border, restores its 15px text inset and preserves the intentional gold pseudo marker. CSS commit: `6db298c69693ea4c7b50ca5ad13172e7f2d0eb2d`.
 - Added `specialHeadingMarkerContractPass` for all nine special heading variants: exactly one red border marker for all except sentiment, which must have no border and retain its gold pseudo marker. Test commit: `9b2fa0c2c3ad49d1cf3b3e75c62640a77053bb3c`. Run #349 will verify this alongside the prior gates.
 - No production homepage, approved dual mother templates, JSON data or schedules changed.
+
+
+### Run #349 — single-marker CSS correction applied; assertion instrumentation incomplete (2026-10-29)
+- Workflow #349 (`40770701340`) completed with **failure**. The artifact shows the CSS behavior itself is in the intended state: calendar-card pseudo markers are hidden while the 5px border marker remains; sentiment has `border-left: 0px`, 15px left padding, and its legacy gold pseudo marker remains displayed. Main-panel geometry and all prior gates still pass.
+- The new gate reported `specialHeadingMarkerContractPass=false` because the diagnostic object did not actually capture `::before` background color for the special-heading list (the earlier edit updated the shared tabbed-heading object instead). As a result, the gold marker's expected `rgb(224, 176, 75)` could not be verified. Corrected the diagnostic to capture `beforeBackgroundColor` on the special-heading records in test commit `53608ac4f4c18069b5a9ee5ddbb6fcb9e7e950e3`.
+- Run #350 will verify the complete single-marker contract. No further CSS changes are made until the measurement is correct.
