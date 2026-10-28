@@ -113,6 +113,33 @@ async function inspect(page) {
           beforeWidth: before.width, beforeHeight: before.height
         };
       }),
+      specialHeadingGeometry: [
+        ["bluf", "main.wrap > section.grid.two > article.bluf > .title"],
+        ["sentiment", "#sentiment > .title"],
+        ["last-week-calendar", "#last-week-calendar > article.calendar-card > .title"],
+        ["last-week-earnings", "#last-week-earnings > article.calendar-card > .title"],
+        ["calendar", "#calendar > article.calendar-card > .title"],
+        ["earnings", "#earnings > article.calendar-card > .title"],
+        ["sp500-earnings-health", "#sp500-earnings-health > .title"],
+        ["fed", "#fed > .title"],
+        ["view", "#view > .title"]
+      ].map(([id, selector]) => {
+        const el = document.querySelector(selector);
+        if (!el) return { id, missing: true };
+        const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+        const before = getComputedStyle(el, "::before");
+        return {
+          id, text: (el.textContent || "").trim().replace(/\\s+/g, " ").slice(0, 50),
+          height: Math.round(r.height), width: Math.round(r.width),
+          fontSize: s.fontSize, fontWeight: s.fontWeight, lineHeight: s.lineHeight,
+          color: s.color, backgroundColor: s.backgroundColor, padding: s.padding,
+          margin: s.margin, display: s.display, alignItems: s.alignItems, gap: s.gap,
+          borderLeftWidth: s.borderLeftWidth, borderLeftColor: s.borderLeftColor,
+          letterSpacing: s.letterSpacing, textAlign: s.textAlign,
+          beforeContent: before.content, beforeColor: before.color, beforeDisplay: before.display,
+          beforeWidth: before.width, beforeHeight: before.height
+        };
+      }),
       sp500DeepGeometry: (() => {
         const root = document.getElementById("sp500-earnings-health");
         if (!root) return { missing: true };
@@ -968,7 +995,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
-- Shared tabbed-panel heading consistency: pass=${v.tabbedPanelHeadingConsistencyPass}; candidate signatures=${JSON.stringify(v.candidateTabbedPanelHeadingGeometry)}\n- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
+- Shared tabbed-panel heading consistency: pass=${v.tabbedPanelHeadingConsistencyPass}; candidate signatures=${JSON.stringify(v.candidateTabbedPanelHeadingGeometry)}\n- Special heading variants (baseline → candidate): ${JSON.stringify(v.specialHeadingGeometry.map(h => { const b=(v.baseline.specialHeadingGeometry||[]).find(x=>x.id===h.id); return {id:h.id,missing:h.missing||b?.missing,fontSize:[b?.fontSize,h.fontSize],fontWeight:[b?.fontWeight,h.fontWeight],lineHeight:[b?.lineHeight,h.lineHeight],color:[b?.color,h.color],padding:[b?.padding,h.padding],margin:[b?.margin,h.margin],borderLeftWidth:[b?.borderLeftWidth,h.borderLeftWidth],height:[b?.height,h.height],width:[b?.width,h.width],beforeColor:[b?.beforeColor,h.beforeColor],beforeHeight:[b?.beforeHeight,h.beforeHeight]}; }))}\n- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
 - Prior-week disclosure geometry parity: pass=${v.priorWeekDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselinePriorWeekDisclosureGeometry)}; candidate=${JSON.stringify(v.candidatePriorWeekDisclosureGeometry)}
 - Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}, bubble in viewport=${v.coachBubbleInViewport}, wraps=${v.coachBubbleWraps}, text inside bubble=${v.coachTextInsideBubble}, width=${v.coachBubbleWidth}, legacy hint removed=${v.coachLegacyHintRemoved}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
