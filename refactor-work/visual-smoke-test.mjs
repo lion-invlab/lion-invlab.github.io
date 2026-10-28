@@ -294,7 +294,7 @@ async function inspect(page) {
           summaryPadding: ss?.padding || null
         };
       }),
-      otherDisclosureGeometry: [...document.querySelectorAll("main.wrap details.calendar-source-collapse, main.wrap details.audit-details, main.wrap details#last-week-calendar-collapse, main.wrap details#last-week-earnings-collapse")].map(el => {
+      otherDisclosureGeometry: [...document.querySelectorAll("main.wrap details.calendar-source-collapse, main.wrap details.audit-details, main.wrap #last-week-calendar details.last-week-calendar-collapse, main.wrap #last-week-earnings details.last-week-earnings-collapse")].map(el => {
         const r = el.getBoundingClientRect(), s = getComputedStyle(el);
         const summary = el.querySelector(":scope > summary");
         const sr = summary?.getBoundingClientRect();
