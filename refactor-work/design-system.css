@@ -1281,7 +1281,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
 }
 #global-markets .tac-tab-nav { margin-bottom: 0 !important; }
 .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
-  grid-template-rows: 40px 40px !important;
+  grid-template-rows: 40px 38px !important;
   margin-bottom: 0 !important;
 }
 #news-scan .tac-tab-nav label,
