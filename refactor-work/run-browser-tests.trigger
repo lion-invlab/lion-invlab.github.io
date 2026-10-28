@@ -38,3 +38,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T16:45:08.448Z
 # Run 329 — sentiment source details border-box parity
 2026-10-29T16:48:00.000Z
+# Run 330 — strict sentiment disclosure geometry assertion
+2026-10-29T17:00:00.000Z
