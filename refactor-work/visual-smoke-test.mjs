@@ -106,7 +106,7 @@ async function inspect(page) {
           };
         }).slice(0, 160);
       })(),
-      detailedGeometry: ["overview","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health","last-week-calendar","last-week-earnings","calendar","earnings","fed","view"].map(id => {
+      detailedGeometry: ["overview","sentiment","news-scan","global-markets","industry-bonds-fx-commodities","sp500-earnings-health","last-week-calendar","last-week-earnings","calendar","earnings","fed","view"].map(id => {
         const root = document.getElementById(id);
         if (!root) return { id, missing: true };
         return { id, nodes: [...root.querySelectorAll(":scope > *, .tac-ds-card--news, .newsitem, .news-card, .region-card, .asset-card, .econ-event, .earnings-accordion, details, .calendar-card, .tac-ds-event, .tac-ds-earnings-card, .tac-section-heading, .title, article.card.bluf, #overview h1, #overview p, #overview .chips, #overview .chip, #overview .bluf-subtitle, #overview .summary-subtitle, .news-list, .news-grid, .grid, .tac-ds-tabs, .row, .sector-row, .instrument-name, .sp500-health-row, .earnings-health-row, .week-econ-tabs, .week-econ-tab-labels, .week-econ-panels, .week-earnings-tabs, .week-earnings-tab-labels, .week-earnings-panels, .calendar-status-group, .calendar-status-heading, .calendar-status-empty, .econ-event-list, .earnings-accordion-list, .focus-tabs, .focus-tab-labels, .fed-live-tabs, .fed-live-tab-labels, #sentiment .sbox, #sentiment .fg6-score-row, #sentiment .fg6-scale-wrap")].slice(0,100).map((el,i) => {
