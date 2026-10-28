@@ -56,7 +56,7 @@ for (const item of cases) {
           .filter(id => !document.getElementById(id)),
         detailsCount: document.querySelectorAll("details").length,
         radioCount: document.querySelectorAll('input[type="radio"]').length,
-        toolbarBubble: bubble ? { visible: !!bubble.getClientRects().length && bubbleStyle.display !== "none", pointerEvents: bubbleStyle.pointerEvents, text: bubble.textContent.trim() } : null,
+        toolbarBubble: bubble ? { visible: !!bubble.getClientRects().length && bubbleStyle.display !== "none" && bubbleStyle.visibility !== "hidden" && Number(bubbleStyle.opacity) > 0, hasClientRects: !!bubble.getClientRects().length, display: bubbleStyle.display, visibility: bubbleStyle.visibility, opacity: bubbleStyle.opacity, position: bubbleStyle.position, rect: (() => { const r = bubble.getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height }; })(), mediaMobile: matchMedia("(max-width:1099px)").matches, buttonExists: !!document.querySelector(".tac-side-open"), buttonRect: (() => { const b = document.querySelector(".tac-side-open"); if (!b) return null; const r = b.getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height }; })(), text: bubble.textContent.trim() } : null,
         toolbarTargetCount: document.querySelectorAll(".tac-toolbar-bubble-target").length
       };
     });
