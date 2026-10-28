@@ -8,3 +8,4 @@ Run #318 regression trigger — 2026-10-28T13:04:06.653Z — CSS commit 6efd715b
 Run #319 focused FedWatch computed-style assertion — 2026-10-28T13:11:09.380Z — test commit 009af5357976cc5b505e64d8f8e1d6aae6ecc045
 Focused mobile industry tab gap regression after matching 3px baseline.
 Follow-up mobile industry tab label height parity check.
+Regression follow-up: verify shared industry tab style signatures at 390px and baseline row geometry at 320px after c8a5c52.
