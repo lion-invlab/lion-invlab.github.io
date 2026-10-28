@@ -88,6 +88,31 @@ async function inspect(page) {
         const r = el.getBoundingClientRect();
         return { id, top: Math.round(r.top + window.scrollY), height: Math.round(r.height), bottom: Math.round(r.bottom + window.scrollY), width: Math.round(r.width), padding: getComputedStyle(el).padding, margin: getComputedStyle(el).margin, gap: getComputedStyle(el).gap };
       }),
+      tabbedPanelHeadingGeometry: [
+        ["news-scan", "重點新聞掃瞄"],
+        ["global-markets", "全球主要股市"],
+        ["industry-bonds-fx-commodities", "產業債匯商品"]
+      ].map(([id]) => {
+        const panel = document.getElementById(id);
+        const container = panel?.querySelector(":scope > .tac-section-heading");
+        const el = container?.querySelector("h2");
+        if (!el) return { id, missing: true };
+        const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+        const cr = container.getBoundingClientRect(), cs = getComputedStyle(container);
+        const before = getComputedStyle(el, "::before");
+        return {
+          id, text: (el.textContent || "").trim(),
+          height: Math.round(r.height), width: Math.round(r.width),
+          containerHeight: Math.round(cr.height), containerWidth: Math.round(cr.width),
+          fontSize: s.fontSize, fontWeight: s.fontWeight, lineHeight: s.lineHeight,
+          color: s.color, backgroundColor: s.backgroundColor, padding: s.padding,
+          margin: s.margin, display: s.display, alignItems: s.alignItems, gap: s.gap,
+          borderLeftWidth: s.borderLeftWidth, borderLeftColor: s.borderLeftColor,
+          letterSpacing: s.letterSpacing, textAlign: s.textAlign,
+          beforeContent: before.content, beforeColor: before.color, beforeDisplay: before.display,
+          beforeWidth: before.width, beforeHeight: before.height
+        };
+      }),
       sp500DeepGeometry: (() => {
         const root = document.getElementById("sp500-earnings-health");
         if (!root) return { missing: true };
@@ -783,6 +808,27 @@ try {
       candidate: candidateAssetSourceRows
     });
 
+    const baselineTabbedPanelHeadingGeometry = baseReport.tabbedPanelHeadingGeometry || [];
+    const candidateTabbedPanelHeadingGeometry = report.tabbedPanelHeadingGeometry || [];
+    const headingFields = [
+      "height", "width", "containerHeight", "containerWidth", "fontSize", "fontWeight",
+      "lineHeight", "color", "backgroundColor", "padding", "margin", "display",
+      "alignItems", "gap", "borderLeftWidth", "borderLeftColor", "letterSpacing",
+      "textAlign", "beforeContent", "beforeColor", "beforeDisplay", "beforeWidth", "beforeHeight"
+    ];
+    const tabbedPanelHeadingConsistencyPass =
+      candidateTabbedPanelHeadingGeometry.length === 3 &&
+      candidateTabbedPanelHeadingGeometry.every(x => !x.missing) &&
+      headingFields.every(field => candidateTabbedPanelHeadingGeometry.every(
+        x => x[field] === candidateTabbedPanelHeadingGeometry[0][field]
+      ));
+    if (!tabbedPanelHeadingConsistencyPass) results.errors.push({
+      viewport: viewport.name,
+      error: "Shared tabbed-panel headings do not share one computed typography/geometry signature",
+      baseline: baselineTabbedPanelHeadingGeometry,
+      candidate: candidateTabbedPanelHeadingGeometry
+    });
+
     const baselinePanelGeometry = baseReport.panelGeometry || [];
     const candidatePanelGeometry = report.panelGeometry || [];
     const panelGeometryPass =
@@ -889,6 +935,7 @@ try {
       baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
       baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry, sp500TitleSourceGeometryPass,
       baselineAssetSourceRows, candidateAssetSourceRows, assetSourceDisclosureGeometryPass,
+      baselineTabbedPanelHeadingGeometry, candidateTabbedPanelHeadingGeometry, tabbedPanelHeadingConsistencyPass,
       baselinePanelGeometry, candidatePanelGeometry, panelGeometryPass,
       candidateSourceDisclosureColors, sourceDisclosureColorPass,
       baselineSourceDisclosureGeometry, candidateSourceDisclosureGeometry, sourceDisclosureGeometryPass,
@@ -921,7 +968,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
-- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
+- Shared tabbed-panel heading consistency: pass=${v.tabbedPanelHeadingConsistencyPass}; candidate signatures=${JSON.stringify(v.candidateTabbedPanelHeadingGeometry)}\n- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
 - Prior-week disclosure geometry parity: pass=${v.priorWeekDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselinePriorWeekDisclosureGeometry)}; candidate=${JSON.stringify(v.candidatePriorWeekDisclosureGeometry)}
 - Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}, bubble in viewport=${v.coachBubbleInViewport}, wraps=${v.coachBubbleWraps}, text inside bubble=${v.coachTextInsideBubble}, width=${v.coachBubbleWidth}, legacy hint removed=${v.coachLegacyHintRemoved}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
