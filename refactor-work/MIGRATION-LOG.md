@@ -539,3 +539,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Typography audits passed at desktop, mobile and narrow-mobile (27 instrument names and 54 quote values compared with baseline per viewport). No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation and tab/disclosure interactions passed.
 - The marker color remains gold as intended: the earlier gray `color` declaration was superseded by the later exact-selector rule. Existing geometry diagnostics remain unchanged from prior runs; no compensation CSS was added.
 - Cleanup from CSS commit ff774c7a309f518578df308081164783ac15d759 is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #296 — duplicate mobile global-markets tab declarations pending
+- Removed the standalone `#global-markets .tac-tab-nav label` block inside `@media (max-width: 700px)` that set `min-height: 38px !important` and `padding: 8px 7px !important`. The later shared selector list in the same media block already applies the exact same declarations to global-markets labels, so the removed block was redundant. No other tab styles changed.
+- CSS commit: 58fdbc5181e4ac7bbc062b538cfad6fc9d6151ce. Browser regression pending; do not mark accepted until Run #296 completes.
+- Production homepage, official master template, JSON and schedules remain untouched.
