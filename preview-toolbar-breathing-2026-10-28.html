@@ -4336,3 +4336,31 @@ document.addEventListener('DOMContentLoaded',function(){
  document.addEventListener('click',function(){setTimeout(check,50);setTimeout(check,250);setTimeout(check,700)},true);
 })();
 </script>
+
+
+<style id="tac-toolbar-modal-reminder-safe-v15">
+@media(max-width:1099px){.tac-toolbar-bubble-preview{display:block}}
+</style>
+<script id="tac-toolbar-modal-reminder-safe-v15-js">
+(function(){
+ function isOpen(el){
+  if(!el)return false;
+  var s=getComputedStyle(el),r=el.getBoundingClientRect();
+  return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity||1)>0&&r.width>0&&r.height>0;
+ }
+ function sync(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  var toolbar=document.querySelector('.tac-side-open');
+  if(!bubble||!toolbar)return;
+  var modalSelectors='[role="dialog"],dialog[open],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog';
+  var open=Array.from(document.querySelectorAll(modalSelectors)).some(isOpen);
+  bubble.style.setProperty('display',open?'none':'block','important');
+  toolbar.classList.toggle('tac-toolbar-bubble-target',!open);
+ }
+ function schedule(){requestAnimationFrame(sync);setTimeout(sync,180)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule,{once:true});else schedule();
+ document.addEventListener('click',function(){setTimeout(sync,80);setTimeout(sync,350)},true);
+ var observer=new MutationObserver(schedule);
+ observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','aria-hidden','open']});
+})();
+</script>
