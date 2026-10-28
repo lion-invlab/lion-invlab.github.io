@@ -291,10 +291,13 @@ async function inspect(page) {
           borderTopWidth: s.borderTopWidth,
           borderBottomWidth: s.borderBottomWidth,
           summaryFontSize: ss?.fontSize || null,
+          summaryFontWeight: ss?.fontWeight || null,
+          summaryColor: ss?.color || null,
           summaryLineHeight: ss?.lineHeight || null,
           summaryPadding: ss?.padding || null,
           summaryBeforeContent: before?.content || null,
-          summaryBeforeDisplay: before?.display || null
+          summaryBeforeDisplay: before?.display || null,
+          summaryBeforeColor: before?.color || null
         };
       }),
       otherDisclosureGeometry: [...document.querySelectorAll("main.wrap details.calendar-source-collapse, main.wrap details.audit-details, main.wrap #last-week-calendar details.last-week-calendar-collapse, main.wrap #last-week-earnings details.last-week-earnings-collapse")].map(el => {
