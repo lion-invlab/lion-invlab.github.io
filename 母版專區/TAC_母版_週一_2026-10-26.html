@@ -1,7 +1,7 @@
 <!-- TAC 長期制式母版｜週一版
-實際版型來源：2026/10/23 測試分支內已調整的「index_母版_修正測試_週一.html」。
-2026/10/26 早報僅是這條修正流程的起始基礎，不是本母版的直接來源。
-本檔保留經修正測試版驗收的版面、欄位、互動與樣式；日期相關示範資料僅供參考，產製每日審核版前必須按製作規則全量更新。
+版型來源：歷史早報 history/index_2026-10-26.html。
+本母版專供週一使用；保留已驗收的版面、欄位、互動與樣式。
+日期、行情、新聞、行事曆及分析示範內容僅供參考；每日審核版必須依正式工作規則全量更新。
 -->
 <!-- TAC 製作規則層（內部規範，不顯示給讀者）
 1. 週別口徑：週一早報回顧上週整體市場與原先判斷，再展望本週；週二至週五只分析上一個實際交易日，不做上週回顧。休市時依最近一個實際交易日判定。
@@ -10,7 +10,7 @@
 4. 新聞規則：全球焦點新聞與市場熱門頭條使用同一台灣時間窗口；依原始發布時間與事件獨立性篩選。不得以頁面更新時間冒充原始發布時間；無法核實者剔除或明確標示待驗收。
 5. 審核狀態：每次修改內容或完成驗收，必須同步更新可見審核狀態；已完成項目移出待辦，未完成項目不得標示完成。交付前重新讀取檔案，核對正文、評論、總結與狀態。
 6. 發布分層：本檔審核版保留必要的內部驗收提示；正式發布版須在所有相關項目驗收完成後，才移除內部提示。不得只隱藏警示而未完成驗收。
-7. 這段規範只記錄在本日審核 HTML 原始碼中；仍須同步至正式週一／週二至週五母版及交接規則檔，才算完成長期制度化。
+7. 本規範已整合至根目錄 TAC_WORK_RULES.md；該檔為唯一正式工作規則主檔，母版僅保留必要的內部提示。
 -->
 <!DOCTYPE html>
 
@@ -500,7 +500,7 @@ body.release-ready .news-window-warning { display: none !important; }
 .econ-event .econ-field a{overflow-wrap:anywhere}
 @media(max-width:640px){.econ-event>summary{padding:12px 13px}.econ-event .econ-meta{grid-template-columns:auto auto minmax(0,1fr);gap:6px 10px;font-size:12px}.econ-event .econ-name{font-size:15px}.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
 </style>
-<!-- 2026/10/20 審核版：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
+<!-- 導航規則：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
 <style>
 /* Fed限時動態：合併 FedWatch 與 Fed/FOMC 為同一主版面，使用區域切換活頁 */
 .fed-live-title{color:#a92332!important;font-size:clamp(21px,3vw,28px)!important;font-weight:900!important;line-height:1.25!important}
@@ -3457,75 +3457,7 @@ main.wrap #sentiment .title:first-child {
  else setup();
 })();
 </script>
-<style id="tac-toolbar-bubble-preview-v1">
-@media(max-width:1099px){
- .tac-toolbar-bubble-preview{
-  position:fixed!important;z-index:2147483646!important;display:block!important;
-  box-sizing:border-box!important;width:min(310px,calc(100vw - 28px))!important;
-  padding:12px 15px!important;border:2px solid #c62828!important;border-radius:18px!important;
-  background:#fff!important;color:#b8202f!important;
-  font-size:14px!important;font-weight:850!important;line-height:1.55!important;
-  text-align:center!important;white-space:normal!important;
-  box-shadow:0 5px 0 rgba(198,40,40,.12),0 8px 24px rgba(30,35,45,.22)!important;
-  opacity:0;transform:translateY(7px) scale(.92);transform-origin:top left;
-  animation:tac-toolbar-bubble-pop .38s cubic-bezier(.2,.8,.2,1) forwards,
-            tac-toolbar-bubble-glow 1s ease-in-out 3;
-  pointer-events:none!important;
- }
- .tac-toolbar-bubble-preview:after{
-  content:"";position:absolute;left:24px;bottom:-11px;width:17px;height:17px;
-  background:#fff;border-right:2px solid #c62828;border-bottom:2px solid #c62828;
-  transform:rotate(45deg);
- }
- .tac-side-open.tac-toolbar-bubble-target{
-  animation:tac-toolbar-button-pulse .9s ease-in-out 3!important;
-  border:2px solid #c62828!important;
-  box-shadow:0 0 0 5px rgba(198,40,40,.17),0 0 18px rgba(198,40,40,.55)!important;
- }
- @keyframes tac-toolbar-bubble-pop{to{opacity:1;transform:translateY(0) scale(1)}}
- @keyframes tac-toolbar-bubble-glow{0%,100%{box-shadow:0 5px 0 rgba(198,40,40,.12),0 8px 24px rgba(30,35,45,.22)}50%{box-shadow:0 0 0 5px rgba(198,40,40,.16),0 8px 28px rgba(198,40,40,.32)}}
- @keyframes tac-toolbar-button-pulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.1);filter:brightness(1.12)}}
-}
-@media(min-width:1100px){.tac-toolbar-bubble-preview{display:none!important}}
-</style>
-<script id="tac-toolbar-bubble-preview-v1-js">
-(function(){
- function setup(){
-  var btn=document.querySelector('.tac-side-open');
-  if(!btn || window.matchMedia('(max-width:1099px)').matches===false)return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-   /* Keep the speech bubble visible, but honor reduced-motion preferences. */
-  }
-  document.querySelectorAll('.tac-toolbar-bubble-preview').forEach(function(el){el.remove()});
-  btn.classList.remove('tac-toolbar-bubble-target');
-  var bubble=document.createElement('div');
-  bubble.className='tac-toolbar-bubble-preview';
-  bubble.setAttribute('role','note');
-  bubble.textContent='「美股波動率」、「精選基金」、「歷史早報」請由上方「工具欄」開啟進入';
-  document.body.appendChild(bubble);
-  btn.classList.add('tac-toolbar-bubble-target');
-  function place(){
-   var r=btn.getBoundingClientRect();
-   var w=Math.min(310,window.innerWidth-28);
-   var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
-   bubble.style.left=left+'px';
-   bubble.style.top=Math.max(12,r.top-bubble.offsetHeight-18)+'px';
-  }
-  requestAnimationFrame(place);
-  window.addEventListener('resize',place,{passive:true});
-  var timer=window.setTimeout(function(){
-   bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
-   window.removeEventListener('resize',place);
-  },6500);
-  btn.addEventListener('click',function(){
-   clearTimeout(timer);bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
-   window.removeEventListener('resize',place);
-  },{once:true});
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
- else setup();
-})();
-</script>
+
 
 
 <style id="tac-remove-old-hint-and-finger-preview-v1">
