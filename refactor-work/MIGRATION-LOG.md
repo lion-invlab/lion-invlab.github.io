@@ -572,3 +572,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - All three typography audits passed: desktop, mobile and narrow-mobile each compared 27 instrument names and 54 quote values against baseline. No horizontal overflow, duplicate IDs, new browser errors or tab errors; navigation anchors, tabs, source/prior-week disclosures, event and earnings interactions passed. Global-market and industry instrument names remained consistent at 16px.
 - Geometry diagnostics: desktop overview +3px and several panels +1px; 390px overview +7px and industry panel +5px; 320px overview −1px, news −1px and S&P earnings-health −1px. These remain recorded diagnostics and are not attributed to this selector-only cleanup. No compensating CSS was added.
 - Legacy CSS commit 61a20ad16d686cb2d2bdd8b6ff88918d8c2e9dd6 removed 216 characters and is regression-accepted. Production homepage, official master template, JSON and schedules remain untouched.
+
+
+### Run #300 — remove obsolete history custom-element selectors pending regression
+- Candidate-markup audit found no `<history-panel>`, `<history-box>`, `<history-field>`, `<history-btn>`, `<history-note>`, `<history-status>` or `<history-nav>` custom elements. The current sidebar history tool uses separate `tac-history-mini` classes; the live `.history-status` class and script references were deliberately preserved.
+- Removed only nine old custom-element selector rules (868 characters); no class selectors, JavaScript, data, IDs or interactions changed. CSS commit: 97c918f622e66940516cd13844ac886be2e7f124. Pending Run #300 browser regression; production homepage, official master template, JSON and schedules remain untouched.
