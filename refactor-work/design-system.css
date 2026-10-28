@@ -1802,10 +1802,11 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
 }
 
 /* Sentiment dark source disclosure: override the generic source variant's !important
-   compact-row geometry so the dark card preserves the legacy 21px summary row. */
+   horizontal padding/line-height while preserving the legacy 21px summary box itself. */
 .tac-ds-disclosure--dark > summary,
 .tac-ds-disclosure--dark[open] > summary {
-  min-height: 0 !important;
+  box-sizing: border-box !important;
+  min-height: 21px !important;
   padding: 2px 0 !important;
   line-height: normal !important;
 }
