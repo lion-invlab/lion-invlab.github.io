@@ -1789,11 +1789,14 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
     min-height: 38px !important;
     padding: 8px 7px !important;
     line-height: 1.25 !important;
+    align-self: start !important;
   }
-  /* Match the frozen mobile nav's scroll contract without forcing row heights;
-     wrapping text determines the first item's natural 40px height. */
+  /* Keep both grid tracks at the baseline 38px. The first label's wrapped text
+     naturally occupies 40px and may extend beyond its track; the second label
+     must not stretch to the first label's height. */
   html body main.wrap #industry-bonds-fx-commodities .tac-tab-nav.tac-ds-tabs--industry {
     overflow-x: auto !important;
-    grid-template-rows: 40px 38px !important;
+    grid-template-rows: 38px 38px !important;
+    align-items: start !important;
   }
 }
