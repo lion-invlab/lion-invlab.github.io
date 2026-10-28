@@ -136,7 +136,7 @@ async function inspect(page) {
           margin: s.margin, display: s.display, alignItems: s.alignItems, gap: s.gap,
           borderLeftWidth: s.borderLeftWidth, borderLeftColor: s.borderLeftColor,
           letterSpacing: s.letterSpacing, textAlign: s.textAlign,
-          beforeContent: before.content, beforeColor: before.color, beforeDisplay: before.display,
+          beforeContent: before.content, beforeColor: before.color, beforeBackgroundColor: before.backgroundColor, beforeDisplay: before.display,
           beforeWidth: before.width, beforeHeight: before.height
         };
       }),
