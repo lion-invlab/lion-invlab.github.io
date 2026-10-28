@@ -33,10 +33,6 @@ table{width:100%;border-collapse:collapse;font-size:12px}th{color:var(--muted);f
 .sector-list{display:flex;flex-direction:column;gap:7px;margin-top:10px}
 
 
-.sector-name b{font-size:14px}
-.sector-name small{display:block;font-size:10px;color:#8a8f98;margin-top:2px}
-.sector-pct{text-align:right;font-weight:800}
-.sector-pct.up{color:#c00000}.sector-pct.down{color:#159447}
 
 
 /* Q4 精選基金 Dashboard */
