@@ -12,3 +12,5 @@ Regression follow-up: verify shared industry tab style signatures at 390px and b
 Mobile row geometry check: verify industry nav row heights at 390px and 320px after cdaad8b.
 Final cascade guard: assert mobile industry label min-heights 40/38 at 390px and 320px after 3437dee.
 mobile-industry-tabs-followup-20261028-2
+
+mobile-industry-grid-rows-followup-20261028-3
