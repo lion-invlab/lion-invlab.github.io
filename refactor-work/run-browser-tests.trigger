@@ -58,3 +58,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T17:40:00.000Z
 # Run 339 — audit prior-week expansion-control geometry
 2026-10-29T17:45:00.000Z
+# Run 340 — corrected prior-week disclosure inventory
+2026-10-29T17:50:00.000Z
