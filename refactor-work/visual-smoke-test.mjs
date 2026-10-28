@@ -632,6 +632,10 @@ try {
     const readVisibleNewsCardGeometry = page => page.evaluate(() => {
       const root = document.querySelector("#news-scan");
       if (!root) return { found: false, cards: [] };
+      // Tab interaction checks above deliberately visit the second news tab.
+      // Normalize both pages to the same first tab before comparing visible cards.
+      const baselineComparableTab = document.querySelector("#tac-news-0");
+      if (baselineComparableTab) baselineComparableTab.checked = true;
       const cards = [...root.querySelectorAll(".newsitem")].map(el => {
         const r = el.getBoundingClientRect(), s = getComputedStyle(el);
         return {
