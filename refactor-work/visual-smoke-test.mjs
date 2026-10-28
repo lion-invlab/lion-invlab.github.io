@@ -667,11 +667,47 @@ try {
       candidate: candidateNewsCardGeometry,
       heightDeltas: newsCardHeightDeltas
     });
+
+    // The S&P 500 earnings-health title and its method/source summary are compact
+    // legacy geometry exceptions; keep their heights aligned at narrow widths too.
+    const readSp500TitleSourceGeometry = page => page.evaluate(() => {
+      const root = document.querySelector("#sp500-earnings-health");
+      const title = root?.querySelector(":scope > .title");
+      const summary = root?.querySelector("details > summary");
+      const measure = el => {
+        if (!el) return null;
+        const r = el.getBoundingClientRect(), s = getComputedStyle(el);
+        return {
+          height: Math.round(r.height),
+          fontSize: s.fontSize,
+          lineHeight: s.lineHeight,
+          minHeight: s.minHeight,
+          padding: s.padding
+        };
+      };
+      return { found: !!root && !!title && !!summary, title: measure(title), summary: measure(summary) };
+    });
+    const [baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry] = await Promise.all([
+      readSp500TitleSourceGeometry(base.page),
+      readSp500TitleSourceGeometry(cand.page)
+    ]);
+    const sp500TitleSourceGeometryPass =
+      baselineSp500TitleSourceGeometry.found &&
+      candidateSp500TitleSourceGeometry.found &&
+      baselineSp500TitleSourceGeometry.title.height === candidateSp500TitleSourceGeometry.title.height &&
+      baselineSp500TitleSourceGeometry.summary.height === candidateSp500TitleSourceGeometry.summary.height;
+    if (!sp500TitleSourceGeometryPass) results.errors.push({
+      viewport: viewport.name,
+      error: "S&P 500 title/source summary height differs from frozen baseline",
+      baseline: baselineSp500TitleSourceGeometry,
+      candidate: candidateSp500TitleSourceGeometry
+    });
     results.viewports.push({
       ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
       baselineSentimentDisclosureGeometry, candidateSentimentDisclosureGeometry, sentimentDisclosureGeometryPass,
       baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
+      baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry, sp500TitleSourceGeometryPass,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -705,7 +741,7 @@ try {
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
 - Sentiment special background: class=${v.sentimentThemeClassPresent}, layered background=${v.sentimentBackgroundImage?.includes("gradient")}, orbit before=${v.sentimentBeforeContent}/${v.sentimentBeforeBoxShadow}, orbit after=${v.sentimentAfterContent}/${v.sentimentAfterBoxShadow}, canvas=${v.sentimentBackgroundColor}\n- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}, actual earnings result cards=${v.sharedActualEarningsCardCount}, radii=${v.sharedActualEarningsCardRadii?.join(",")}, backgrounds=${v.sharedActualEarningsCardBackgrounds?.join(",")}, beat/miss=${v.actualEarningsBeatCount}/${v.actualEarningsMissCount}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
-- Sentiment disclosure geometry parity: pass=${v.sentimentDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineSentimentDisclosureGeometry)}; candidate=${JSON.stringify(v.candidateSentimentDisclosureGeometry)}\n- Visible news-card geometry parity: pass=${v.newsCardGeometryPass}; height deltas=${JSON.stringify(v.newsCardHeightDeltas)}; baseline=${JSON.stringify(v.baselineNewsCardGeometry)}; candidate=${JSON.stringify(v.candidateNewsCardGeometry)}\n - New browser errors: ${v.newErrors.length}
+- Sentiment disclosure geometry parity: pass=${v.sentimentDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineSentimentDisclosureGeometry)}; candidate=${JSON.stringify(v.candidateSentimentDisclosureGeometry)}\n- Visible news-card geometry parity: pass=${v.newsCardGeometryPass}; height deltas=${JSON.stringify(v.newsCardHeightDeltas)}; baseline=${JSON.stringify(v.baselineNewsCardGeometry)}; candidate=${JSON.stringify(v.candidateNewsCardGeometry)}\n- S&P 500 title/source row geometry parity: pass=${v.sp500TitleSourceGeometryPass}; baseline=${JSON.stringify(v.baselineSp500TitleSourceGeometry)}; candidate=${JSON.stringify(v.candidateSp500TitleSourceGeometry)}\n - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
 - Instrument font sizes: global market=${JSON.stringify(v.globalMarketNameFontSizes)}, industry=${JSON.stringify(v.industryInstrumentFontSizes)}, comparable=${v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.length > 0 && v.industryInstrumentFontSizes.every(size => v.globalMarketNameFontSizes.includes(size))}
 - Hidden acceptance metrics: method disclosures=${v.methodDisclosureCount}/${v.methodDisclosureInlineStyles}; region source typography=${JSON.stringify(v.regionSectorSourceTypography)}; dark disclosure signatures=${JSON.stringify(v.darkDisclosureStyleSignatures)}; temporary preview footer=${v.temporaryPreviewFooterText}; fear/greed=${v.fearGreedScore}/${v.fearGreedMarkerPosition}; five-star red=${v.fiveStarRedCount}; source triangles=${v.sourceTrianglesPresent}; double-bar headings=${v.doubleBarHeadings}; sector tab color/text=${v.sectorTabColor}/${v.sectorTabTextColor}; earnings upcoming tab=${v.earningsUpcomingTabWorks}; event open/close=${v.eventCardWorks}/${v.eventCardCloses}; earnings accordion=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}; sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}; source disclosure=${v.sourceDisclosureWorks}/${v.sourceDisclosureCloses}; prior-week collapses=${v.collapseWorks}/${v.earningsCollapseWorks}; selected colors=${v.consistentSelectedTabColor}/${v.consistentSelectedTabTextColor}; coach contract=${v.coachPresentBeforeCleanup}/${v.coachTextContract}/${v.coachPointerEventsNone}/${v.coachTargetPulse}/${v.coachBubbleInViewport}/${v.coachBubbleWraps}/${v.coachTextInsideBubble}/${v.coachLegacyHintRemoved}; tab errors=${v.tabResults.filter(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError).length}; browser errors=${v.newErrors.length}
@@ -729,6 +765,7 @@ try {
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     !v.sentimentDisclosureGeometryPass ||
     !v.newsCardGeometryPass ||
+    !v.sp500TitleSourceGeometryPass ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || (v.width < 1100 && v.toolbarButtonPosition !== "relative") || (v.width < 1100 && (!v.toolbarScrollCheck?.buttonWithinNav || !v.toolbarScrollCheck?.buttonInsideNavViewport)) ||
