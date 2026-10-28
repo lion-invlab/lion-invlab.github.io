@@ -62,3 +62,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T17:50:00.000Z
 # Run 341 — enforce prior-week disclosure geometry parity
 2026-10-29T17:55:00.000Z
+# Run 342 — enforce all source disclosure geometry parity
+2026-10-29T18:00:00.000Z
