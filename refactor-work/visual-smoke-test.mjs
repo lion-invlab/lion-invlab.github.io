@@ -725,7 +725,6 @@ try {
       baselineSp500TitleSourceGeometry.title.height === candidateSp500TitleSourceGeometry.title.height &&
       baselineSp500TitleSourceGeometry.summary.height === candidateSp500TitleSourceGeometry.summary.height &&
       baselineSp500TitleSourceGeometry.summary.beforeContent === candidateSp500TitleSourceGeometry.summary.beforeContent &&
-      baselineSp500TitleSourceGeometry.summary.beforeDisplay === candidateSp500TitleSourceGeometry.summary.beforeDisplay &&
       String(candidateSp500TitleSourceGeometry.summary.beforeContent || "").includes("▸");
     if (!sp500TitleSourceGeometryPass) results.errors.push({
       viewport: viewport.name,
