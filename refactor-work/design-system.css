@@ -1806,6 +1806,9 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
    the enclosing details box to 23px even after summary itself returned to 21px. */
 .tac-ds-disclosure--dark {
   border: 0 !important;
+  /* The legacy sentiment source row uses a 5px top gap; the generic source
+     variant's 2px margin shifts the row and every following card upward. */
+  margin-top: 5px !important;
 }
 .tac-ds-disclosure--dark > summary,
 .tac-ds-disclosure--dark[open] > summary {
