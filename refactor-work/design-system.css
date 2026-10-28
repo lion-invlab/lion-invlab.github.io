@@ -1789,4 +1789,9 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
     padding: 8px 7px !important;
     line-height: 1.25 !important;
   }
+  /* Two-row grid matches the frozen baseline: first row 40px, second row 38px.
+     The labels retain identical computed min-height signatures across main tabs. */
+  html body main.wrap #industry-bonds-fx-commodities .tac-tab-nav.tac-ds-tabs--industry {
+    grid-template-rows: 40px 38px !important;
+  }
 }
