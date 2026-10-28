@@ -1771,3 +1771,11 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
   border-left: 0 !important;
   padding-left: 0 !important;
 }
+
+/* Match the frozen mobile baseline: industry tab grid uses a 3px gap at <=700px.
+   Keep the explicit selector specificity so the shared 4px desktop rule cannot override it. */
+@media (max-width: 700px) {
+  .tac-tabset[aria-label="產業債匯商品"] .tac-tab-nav.tac-ds-tabs--industry {
+    gap: 3px !important;
+  }
+}
