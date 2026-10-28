@@ -3805,3 +3805,45 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',placeBelowNav,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-bubble-tail-target-fix-v2">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  left:62px!important;
+  top:-7px!important;
+  bottom:auto!important;
+  width:12px!important;height:12px!important;
+  background:#fff!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  transform:rotate(225deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-target-fix-v2-js">
+(function(){
+ function alignBubbleTailToToolbar(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Place bubble in the clear band below the nav, but align its tail with the toolbar button. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,b.left-8));
+  bubble.style.left=left+'px';
+  bubble.style.top=(b.bottom+8)+'px';
+  bubble.style.width=w+'px';
+  var tailX=(b.left+b.width/2)-left-7;
+  tailX=Math.max(12,Math.min(w-28,tailX));
+  bubble.style.setProperty('--tac-bubble-tail-x',tailX+'px');
+  bubble.style.setProperty('--tac-bubble-tail-left',tailX+'px');
+ }
+ var style=document.createElement('style');
+ style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{left:var(--tac-bubble-tail-left,62px)!important}}';
+ document.head.appendChild(style);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(alignBubbleTailToToolbar)},{once:true});
+ else requestAnimationFrame(alignBubbleTailToToolbar);
+ window.addEventListener('resize',alignBubbleTailToToolbar,{passive:true});
+})();
+</script>
