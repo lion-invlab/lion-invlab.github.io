@@ -959,3 +959,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - All other gates remain green: 12 main panels within geometry tolerance; all source disclosure color/geometry gates; 11 instrument labels and 54 quote signatures; tabs, calendar/earnings disclosures, sector expansion and navigation interactions. `results.json` reports `errors: []`; new browser errors 0.
 - Artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40771196663/artifacts/12852098462 (7-day retention).
 - This closes the single-marker check across the three shared tabbed headings plus nine special heading variants. Full visual sign-off is still pending; no homepage, approved dual mother templates, JSON data or schedules changed.
+
+
+### Special heading typography parity gate (2026-10-29)
+- Run #348's baseline/candidate inventory found all nine special heading variants retain baseline font size, weight, line-height and text color at 1440px, 390px and 320px; only the marker implementation and intentional left inset differ.
+- Added `specialHeadingTypographyPass` to lock that observed contract for BLUF, sentiment, both prior-week calendar cards, both current calendar cards, S&P health, Fed and focus. The test intentionally permits the canonical border/pseudo-marker migration and spacing normalization, while preventing unintended typography/color drift. Test commit: `9e75f4c411f37f6a7c839aba7f6f45e0e30abbb6`.
+- Run #351 will verify typography parity plus the now-passing single-marker contract and all other gates. No CSS change.
