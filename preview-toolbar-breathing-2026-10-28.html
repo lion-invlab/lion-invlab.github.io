@@ -3955,3 +3955,43 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',run,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-bubble-tail-diagonal-to-button-v6">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  /* Diagonal pointer exits the bubble's upper-left corner toward the toolbar button. */
+  left:-15px!important;
+  top:-1px!important;
+  bottom:auto!important;
+  width:23px!important;height:23px!important;
+  background:#fff!important;
+  border:0!important;
+  border-left:1.5px solid #c62828!important;
+  border-top:1.5px solid #c62828!important;
+  border-radius:0!important;
+  transform:rotate(-45deg)!important;
+  clip-path:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-diagonal-to-button-v6-js">
+(function(){
+ function alignDiagonalPointer(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-170,b.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(b.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Keep pointer on the upper-left edge so it leads diagonally back to the toolbar. */
+  bubble.style.setProperty('--tac-bubble-tail-left','-15px');
+ }
+ function run(){requestAnimationFrame(alignDiagonalPointer);setTimeout(alignDiagonalPointer,120)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
