@@ -60,14 +60,14 @@ def main():
     }
 
     if not errors and len(histories) == len(TICKERS):
-        common = None
-        for _, df in histories.values():
-            dates = set(df.index)
-            common = dates if common is None else common.intersection(dates)
-        if not common:
-            errors.append("No common trading session across all five indexes.")
+        latest_dates = {name: max(df.index) for name, (_, df) in histories.items() if len(df.index)}
+        if len(latest_dates) != len(TICKERS):
+            errors.append("At least one index has no dated rows.")
+        elif len(set(latest_dates.values())) != 1:
+            details = ", ".join(f"{name}={day.isoformat()}" for name, day in latest_dates.items())
+            errors.append("Latest trading dates do not match across all five indexes: " + details)
         else:
-            session = max(common)
+            session = next(iter(latest_dates.values()))
             result["session_date"] = session.isoformat()
             for name, (symbol, df) in histories.items():
                 row = df.loc[session]
@@ -101,6 +101,8 @@ def main():
             print(f"FAIL | {name} | {item.get('error', 'missing data')}")
     if result["status"] != "complete":
         print("Validation failed closed: do not use partial or stale values in the report.")
+        for error in errors:
+            print(f"ERROR | {error}")
         sys.exit(1)
 
 
