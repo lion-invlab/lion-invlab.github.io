@@ -18,3 +18,5 @@ mobile-industry-grid-rows-followup-20261028-3
 mobile-industry-box-sizing-followup-20261028-4
 
 mobile-industry-row-stretch-20261028-5
+
+mobile-industry-prevent-row-stretch-20261028-6
