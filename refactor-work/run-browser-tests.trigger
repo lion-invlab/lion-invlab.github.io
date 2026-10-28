@@ -82,3 +82,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T18:40:00.000Z
 # Run 351 — verify special heading typography parity
 2026-10-29T18:45:00.000Z
+# Run 352 — collect instrument row alignment metrics
+2026-10-29T18:50:00.000Z
