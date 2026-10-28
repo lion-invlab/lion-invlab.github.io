@@ -1,0 +1,55 @@
+name: TAC Daily Key Levels
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/tac-key-levels-daily.yml"
+      - "scripts/validate_tac_key_levels_daily.py"
+  workflow_dispatch:
+  schedule:
+    # 16:20 New York time, weekdays. Converts automatically:
+    # 04:20 Taiwan during US daylight time; 05:20 Taiwan during US standard time.
+    - cron: "20 16 * * 1-5"
+      timezone: "America/New_York"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-key-levels-daily
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: tac-test-2026-10-23
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install validator dependencies
+        run: python -m pip install --upgrade pip yfinance pandas
+      - name: Fetch latest common session and calculate key levels
+        id: validate
+        continue-on-error: true
+        run: python scripts/validate_tac_key_levels_daily.py
+      - name: Upload dated key-level validation artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-key-levels-daily-${{ github.run_id }}
+          path: artifacts/tac_key_levels_daily.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Fail workflow if key-level validation is incomplete
+        if: steps.validate.outcome != 'success'
+        run: |
+          echo "Key-level validation incomplete. Do not publish partial or stale values."
+          exit 1
