@@ -775,6 +775,24 @@ try {
       baseline: baselineAssetSourceRows,
       candidate: candidateAssetSourceRows
     });
+
+    const baselineSectorCollapse = (baseReport.otherDisclosureGeometry || []).filter(x =>
+      x.panel === "industry-bonds-fx-commodities" && String(x.kind).includes("sector-collapse")
+    );
+    const candidateSectorCollapse = (report.otherDisclosureGeometry || []).filter(x =>
+      x.panel === "industry-bonds-fx-commodities" && String(x.kind).includes("sector-collapse")
+    );
+    const sectorCollapseMarkerPass =
+      baselineSectorCollapse.length === 1 &&
+      candidateSectorCollapse.length === 1 &&
+      baselineSectorCollapse[0].beforeContent === candidateSectorCollapse[0].beforeContent &&
+      String(candidateSectorCollapse[0].beforeContent || "").includes("＋");
+    if (!sectorCollapseMarkerPass) results.errors.push({
+      viewport: viewport.name,
+      error: "Sector-list expansion marker differs from frozen baseline",
+      baseline: baselineSectorCollapse,
+      candidate: candidateSectorCollapse
+    });
     results.viewports.push({
       ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
       fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
@@ -782,6 +800,7 @@ try {
       baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
       baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry, sp500TitleSourceGeometryPass,
       baselineAssetSourceRows, candidateAssetSourceRows, assetSourceDisclosureGeometryPass,
+      baselineSectorCollapse, candidateSectorCollapse, sectorCollapseMarkerPass,
       baselinePageErrors: base.pageErrors, pageErrors: cand.pageErrors, newErrors,
       screenshots: ["baseline-" + viewport.name + ".png", "candidate-" + viewport.name + ".png", "diff-" + viewport.name + ".png"]
     });
@@ -815,7 +834,7 @@ try {
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
 - Sentiment special background: class=${v.sentimentThemeClassPresent}, layered background=${v.sentimentBackgroundImage?.includes("gradient")}, orbit before=${v.sentimentBeforeContent}/${v.sentimentBeforeBoxShadow}, orbit after=${v.sentimentAfterContent}/${v.sentimentAfterBoxShadow}, canvas=${v.sentimentBackgroundColor}\n- Shared components: tabs=${v.sharedTabLabelCount}, disclosures=${v.sharedDisclosureCount}, dark disclosures=${v.darkDisclosureCount}, empty states=${v.sharedEmptyStateCount}, news cards=${v.sharedNewsCardCount}, news backgrounds=${v.sharedNewsCardBackgrounds?.join(",")}, news radii=${v.sharedNewsCardRadii?.join(",")}, event cards=${v.sharedEventCardCount}, event radii=${v.sharedEventCardRadii?.join(",")}, event open/close=${v.eventCardWorks}/${v.eventCardCloses}, earnings cards=${v.sharedEarningsCardCount}, earnings radii=${v.sharedEarningsCardRadii?.join(",")}, earnings open/close=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}, sector rows=${v.sharedSectorRowCount}, sector radii=${v.sharedSectorRowRadii?.join(",")}, sector backgrounds=${v.sharedSectorRowBackgrounds?.join(",")}, sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}, actual earnings result cards=${v.sharedActualEarningsCardCount}, radii=${v.sharedActualEarningsCardRadii?.join(",")}, backgrounds=${v.sharedActualEarningsCardBackgrounds?.join(",")}, beat/miss=${v.actualEarningsBeatCount}/${v.actualEarningsMissCount}
 - Prior-week disclosures open: economics=${v.collapseWorks}, earnings=${v.earningsCollapseWorks} (before=${v.collapseBefore}, after=${v.collapseAfter}, error=${v.collapseClickError || "none"})
-- Sentiment disclosure geometry parity: pass=${v.sentimentDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineSentimentDisclosureGeometry)}; candidate=${JSON.stringify(v.candidateSentimentDisclosureGeometry)}\n- All source-disclosure geometry audit: baseline=${JSON.stringify(v.baseline.sourceDisclosureGeometry)}; candidate=${JSON.stringify(v.sourceDisclosureGeometry)}\n- Calendar/audit disclosure geometry audit: baseline=${JSON.stringify(v.baseline.otherDisclosureGeometry)}; candidate=${JSON.stringify(v.otherDisclosureGeometry)}\n- Visible news-card geometry parity: pass=${v.newsCardGeometryPass}; height deltas=${JSON.stringify(v.newsCardHeightDeltas)}; baseline=${JSON.stringify(v.baselineNewsCardGeometry)}; candidate=${JSON.stringify(v.candidateNewsCardGeometry)}\n- S&P 500 title/source row geometry parity: pass=${v.sp500TitleSourceGeometryPass}; baseline=${JSON.stringify(v.baselineSp500TitleSourceGeometry)}; candidate=${JSON.stringify(v.candidateSp500TitleSourceGeometry)}\n- Asset source-disclosure geometry parity: pass=${v.assetSourceDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineAssetSourceRows)}; candidate=${JSON.stringify(v.candidateAssetSourceRows)}\n - New browser errors: ${v.newErrors.length}
+- Sentiment disclosure geometry parity: pass=${v.sentimentDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineSentimentDisclosureGeometry)}; candidate=${JSON.stringify(v.candidateSentimentDisclosureGeometry)}\n- All source-disclosure geometry audit: baseline=${JSON.stringify(v.baseline.sourceDisclosureGeometry)}; candidate=${JSON.stringify(v.sourceDisclosureGeometry)}\n- Calendar/audit disclosure geometry audit: baseline=${JSON.stringify(v.baseline.otherDisclosureGeometry)}; candidate=${JSON.stringify(v.otherDisclosureGeometry)}\n- Visible news-card geometry parity: pass=${v.newsCardGeometryPass}; height deltas=${JSON.stringify(v.newsCardHeightDeltas)}; baseline=${JSON.stringify(v.baselineNewsCardGeometry)}; candidate=${JSON.stringify(v.candidateNewsCardGeometry)}\n- S&P 500 title/source row geometry parity: pass=${v.sp500TitleSourceGeometryPass}; baseline=${JSON.stringify(v.baselineSp500TitleSourceGeometry)}; candidate=${JSON.stringify(v.candidateSp500TitleSourceGeometry)}\n- Asset source-disclosure geometry parity: pass=${v.assetSourceDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselineAssetSourceRows)}; candidate=${JSON.stringify(v.candidateAssetSourceRows)}\n- Sector-list expansion marker parity: pass=${v.sectorCollapseMarkerPass}; baseline=${JSON.stringify(v.baselineSectorCollapse)}; candidate=${JSON.stringify(v.candidateSectorCollapse)}\n - New browser errors: ${v.newErrors.length}
 - Pixel diff: ${results.visualDiffs.find(d => d.viewport === v.name)?.diffPixels} pixels (${results.visualDiffs.find(d => d.viewport === v.name)?.diffRatio})
 - Instrument font sizes: global market=${JSON.stringify(v.globalMarketNameFontSizes)}, industry=${JSON.stringify(v.industryInstrumentFontSizes)}, comparable=${v.globalMarketNameFontSizes.length > 0 && v.industryInstrumentFontSizes.length > 0 && v.industryInstrumentFontSizes.every(size => v.globalMarketNameFontSizes.includes(size))}
 - Hidden acceptance metrics: method disclosures=${v.methodDisclosureCount}/${v.methodDisclosureInlineStyles}; region source typography=${JSON.stringify(v.regionSectorSourceTypography)}; dark disclosure signatures=${JSON.stringify(v.darkDisclosureStyleSignatures)}; temporary preview footer=${v.temporaryPreviewFooterText}; fear/greed=${v.fearGreedScore}/${v.fearGreedMarkerPosition}; five-star red=${v.fiveStarRedCount}; source triangles=${v.sourceTrianglesPresent}; double-bar headings=${v.doubleBarHeadings}; sector tab color/text=${v.sectorTabColor}/${v.sectorTabTextColor}; earnings upcoming tab=${v.earningsUpcomingTabWorks}; event open/close=${v.eventCardWorks}/${v.eventCardCloses}; earnings accordion=${v.earningsAccordionWorks}/${v.earningsAccordionCloses}; sector tab/collapse=${v.sectorTabWorks}/${v.sectorCollapseWorks}/${v.sectorCollapseCloses}; source disclosure=${v.sourceDisclosureWorks}/${v.sourceDisclosureCloses}; prior-week collapses=${v.collapseWorks}/${v.earningsCollapseWorks}; selected colors=${v.consistentSelectedTabColor}/${v.consistentSelectedTabTextColor}; coach contract=${v.coachPresentBeforeCleanup}/${v.coachTextContract}/${v.coachPointerEventsNone}/${v.coachTargetPulse}/${v.coachBubbleInViewport}/${v.coachBubbleWraps}/${v.coachTextInsideBubble}/${v.coachLegacyHintRemoved}; tab errors=${v.tabResults.filter(t => t.missingLabelOrInput || t.checked === false || t.panelVisible === false || t.interactionError).length}; browser errors=${v.newErrors.length}
@@ -841,6 +860,7 @@ try {
     !v.newsCardGeometryPass ||
     !v.sp500TitleSourceGeometryPass ||
     !v.assetSourceDisclosureGeometryPass ||
+    !v.sectorCollapseMarkerPass ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || (v.width < 1100 && v.toolbarButtonPosition !== "relative") || (v.width < 1100 && (!v.toolbarScrollCheck?.buttonWithinNav || !v.toolbarScrollCheck?.buttonInsideNavViewport)) ||
