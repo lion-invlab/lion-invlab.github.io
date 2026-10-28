@@ -937,7 +937,7 @@ main.wrap section.card.fund-report-card .fund-report-head:before{left:-9px!impor
   overflow:hidden!important;
   text-overflow:ellipsis!important;
  }
- .tac-tools-hint strong{color:#a92332!important}
+ 
  /* Internal training warning shares the title row rather than occupying a full line */
  header .warning,header .disclaimer,.header-warning,.internal-warning{ }
 }
