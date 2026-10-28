@@ -9,9 +9,9 @@ on:
       - "scripts/validate_tac_key_levels_daily.py"
   workflow_dispatch:
   schedule:
-    # 16:15 New York time, weekdays. Converts automatically:
+    # 16:15 New York time, Sunday-Thursday. Converts to the next Taiwan weekday:
     # 04:15 Taiwan during US daylight time; 05:15 Taiwan during US standard time.
-    - cron: "15 16 * * 1-5"
+    - cron: "15 16 * * 0-4"
       timezone: "America/New_York"
 
 permissions:
