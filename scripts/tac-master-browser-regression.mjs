@@ -57,7 +57,8 @@ for (const item of cases) {
         detailsCount: document.querySelectorAll("details").length,
         radioCount: document.querySelectorAll('input[type="radio"]').length,
         toolbarBubble: bubble ? { visible: !!bubble.getClientRects().length && bubbleStyle.display !== "none" && bubbleStyle.visibility !== "hidden" && Number(bubbleStyle.opacity) > 0, hasClientRects: !!bubble.getClientRects().length, display: bubbleStyle.display, visibility: bubbleStyle.visibility, opacity: bubbleStyle.opacity, position: bubbleStyle.position, rect: (() => { const r = bubble.getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height }; })(), mediaMobile: matchMedia("(max-width:1099px)").matches, buttonExists: !!document.querySelector(".tac-side-open"), buttonRect: (() => { const b = document.querySelector(".tac-side-open"); if (!b) return null; const r = b.getBoundingClientRect(); return { x:r.x, y:r.y, width:r.width, height:r.height }; })(), text: bubble.textContent.trim() } : null,
-        toolbarTargetCount: document.querySelectorAll(".tac-toolbar-bubble-target").length
+        toolbarTargetCount: document.querySelectorAll(".tac-toolbar-bubble-target").length,
+        visibleModalCandidates: [...document.querySelectorAll('[role="dialog"],dialog[open],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog')].map(el => { const cs=getComputedStyle(el), r=el.getBoundingClientRect(); return {tag:el.tagName,id:el.id,className:typeof el.className==="string"?el.className:"",role:el.getAttribute("role"),display:cs.display,visibility:cs.visibility,opacity:cs.opacity,width:r.width,height:r.height,text:(el.textContent||"").trim().slice(0,80)}; }).filter(el => el.display!=="none" && el.visibility!=="hidden" && Number(el.opacity||1)>0 && el.width>0 && el.height>0)
       };
     });
 
