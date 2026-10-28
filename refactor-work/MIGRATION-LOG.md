@@ -708,3 +708,11 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Panel height differences versus frozen baseline were small: desktop overview +3px, mobile overview +7px and industry/bonds/FX/commodities +5px, narrow-mobile overview -1px. Pixel-diff ratio was 7.64% at 390px and 10.50% at 320px; these are recorded differences, not zero-pixel parity. Desktop full-page dimensions differed by 3px vertically.
 - Artifact `tac-refactor-browser-results` ID `12817544420` (7.3 MB): https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40693103038/artifacts/12817544420
 - This validates the current refactor candidate's smoke checks, not pixel-perfect parity and not a separate isolated A/B assertion specifically for the two FedWatch declarations. Do not merge to production or treat visual sign-off as complete solely from this run.
+
+### Focused FedWatch style assertion #319 — passed (2026-10-28)
+- Workflow run `40694139670` completed with `success`; artifact `12818073167` was downloaded and `browser-results/results.json` inspected.
+- FedWatch computed-style assertions passed at all tested widths: desktop 1440px computed card padding `14px 15px`, probability number `32px`; mobile 390px and narrow mobile 320px computed padding `11px 10px`, probability number `27px`.
+- Overall smoke test returned `errors: []`; new browser errors 0; horizontal overflow false; missing/duplicate panel IDs none; unmatched nav links 0; all specified tab and disclosure interactions passed.
+- Existing baseline/candidate pixel diffs remain non-zero (390px ≈7.64%; 320px ≈10.50%) and some panel heights differ by a few pixels. This successful run validates the FedWatch computed styles and listed smoke assertions; it does not certify pixel-perfect visual parity or production readiness.
+- Test commit: `009af5357976cc5b505e64d8f8e1d6aae6ecc045`; run trigger commit: `5b53966e647206731eda3afaada9a450a46f2380`; workflow: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40694139670
+- Artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40694139670/artifacts/12818073167
