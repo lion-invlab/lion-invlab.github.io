@@ -7,7 +7,7 @@
     {
       "name": "Monday",
       "path": "母版專區/TAC_母版_週一_2026-10-26.html",
-      "git_blob_sha": "6887f24a3150ce9ef85f824781cc7ffc1412cd60",
+      "git_blob_sha": "083ade6ca369030ef825998b1bc8178f98f1ce8f",
       "required_title": "TAC 投資早報｜2026/10/26（一）審核版",
       "required_nav_ids": [
         "overview",
@@ -42,7 +42,7 @@
     {
       "name": "Tuesday-Friday",
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28.html",
-      "git_blob_sha": "db1b4456ee576b218aab14d619264066c574f1e3",
+      "git_blob_sha": "bffe4769380fb791ebe0959dcc5c7f2a0fbf3e04",
       "required_title": "TAC 投資早報｜2026/10/28（三）審核版",
       "required_nav_ids": [
         "overview",
