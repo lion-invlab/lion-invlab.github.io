@@ -920,3 +920,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - All geometry gates remain green: 12 main panels within exact-width/top ±1px/height ±2px tolerance; all 11 source rows match baseline geometry/marker contract; prior-week disclosures match; sentiment row and CNN card, S&P marker, asset sources and sector collapse gates pass. `results.json` has `errors: []`; no new browser errors, horizontal overflow, missing/duplicate panel IDs or unmatched nav targets; tab and disclosure interactions pass.
 - Artifact: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40769426973/artifacts/12851657198 (7-day retention).
 - This resolves the source-button text color inconsistency on light surfaces while preserving the contrast-safe dark sentiment variant. No homepage, approved dual mother templates, JSON data or schedules changed. Full visual sign-off is still pending; mobile viewport pixel differences remain about 7.64% at 390px and 10.50% at 320px.
+
+
+### Shared tabbed-panel heading consistency audit (2026-10-29)
+- After source-disclosure color normalization passed, added a computed-style audit for the three shared tabbed panels: news scan, global markets, and industry/bonds/FX/commodities. It captures title typography, color, marker, spacing and rendered geometry and requires one shared candidate signature at each of 1440px, 390px and 320px.
+- This targets the product rule that section headings should be visually standardized without flattening the intentional special variants (BLUF, dark sentiment, calendar cards, S&P health, Fed, focus). Test commit: `d942cd30d5e4f249c7ca53d633b97062676610e7`.
+- Run #347 will validate the heading contract together with all existing geometry, source color, tab and disclosure gates. No CSS changes yet.
