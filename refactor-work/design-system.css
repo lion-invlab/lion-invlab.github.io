@@ -1779,3 +1779,16 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
     gap: 3px !important;
   }
 }
+
+/* Match the baseline label heights for the industry tab grid at phone widths.
+   At 381–700px the later shared 40px rule was winning, making both rows 40px tall. */
+@media (min-width: 381px) and (max-width: 700px) {
+  #industry-bonds-fx-commodities .tac-tab-nav label {
+    min-height: 38px !important;
+    padding: 8px 7px !important;
+    line-height: 1.25 !important;
+  }
+  #industry-bonds-fx-commodities .tac-tab-nav label:first-child {
+    min-height: 40px !important;
+  }
+}
