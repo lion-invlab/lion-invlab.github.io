@@ -1788,6 +1788,11 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
     padding: 8px 7px !important;
     line-height: 1.25 !important;
   }
+}
+
+/* At very narrow widths, the first industry tab needs one taller row to match
+   the frozen 320px baseline; keep this exception out of the 390px shared-tab signature. */
+@media (max-width: 380px) {
   #industry-bonds-fx-commodities .tac-tab-nav label:first-child {
     min-height: 40px !important;
   }
