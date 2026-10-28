@@ -30,3 +30,5 @@ Sentiment baseline/candidate geometry parity audit — 2026-10-28T14:10Z
 Baseline sentiment root inclusion correction — 2026-10-28T14:12Z
 
 Candidate sentiment root inclusion correction — 2026-10-28T14:15Z
+
+Sentiment source disclosure summary box-model audit — 2026-10-28T14:25Z
