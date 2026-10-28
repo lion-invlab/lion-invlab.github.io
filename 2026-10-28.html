@@ -1,7 +1,8 @@
-<!-- TAC 長期制式母版｜週一版
-實際版型來源：2026/10/23 測試分支內已調整的「index_母版_修正測試_週一.html」。
-2026/10/26 早報僅是這條修正流程的起始基礎，不是本母版的直接來源。
-本檔保留經修正測試版驗收的版面、欄位、互動與樣式；日期相關示範資料僅供參考，產製每日審核版前必須按製作規則全量更新。
+<!-- TAC 長期制式母版｜週二至週五版
+版型基礎：2026/10/28（三）正式首頁 index.html 的完整內容。
+另套用最後驗收預覽 preview-toolbar-breathing-2026-10-28.html 的工具欄呼吸燈／泡泡框提醒規則。
+本母版專供週二至週五使用；不得顯示「上週經濟行事曆」及「上週財報行事曆」導航。
+日期、行情、新聞、行事曆及分析示範內容僅供參考；每日審核版必須依工作規則全量更新。
 -->
 <!-- TAC 製作規則層（內部規範，不顯示給讀者）
 1. 週別口徑：週一早報回顧上週整體市場與原先判斷，再展望本週；週二至週五只分析上一個實際交易日，不做上週回顧。休市時依最近一個實際交易日判定。
@@ -10,7 +11,7 @@
 4. 新聞規則：全球焦點新聞與市場熱門頭條使用同一台灣時間窗口；依原始發布時間與事件獨立性篩選。不得以頁面更新時間冒充原始發布時間；無法核實者剔除或明確標示待驗收。
 5. 審核狀態：每次修改內容或完成驗收，必須同步更新可見審核狀態；已完成項目移出待辦，未完成項目不得標示完成。交付前重新讀取檔案，核對正文、評論、總結與狀態。
 6. 發布分層：本檔審核版保留必要的內部驗收提示；正式發布版須在所有相關項目驗收完成後，才移除內部提示。不得只隱藏警示而未完成驗收。
-7. 這段規範只記錄在本日審核 HTML 原始碼中；仍須同步至正式週一／週二至週五母版及交接規則檔，才算完成長期制度化。
+7. 本規範已整合至根目錄 TAC_WORK_RULES.md；該檔為唯一正式工作規則主檔，母版僅保留必要的內部提示。
 -->
 <!DOCTYPE html>
 
@@ -671,7 +672,7 @@ main.wrap details.calendar-口徑-collapse p{
 .econ-event .econ-field a{overflow-wrap:anywhere}
 @media(max-width:640px){.econ-event>summary{padding:12px 13px}.econ-event .econ-meta{grid-template-columns:auto auto minmax(0,1fr);gap:6px 10px;font-size:12px}.econ-event .econ-name{font-size:15px}.econ-event .econ-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:9px}.econ-event .econ-field{padding:10px;font-size:13px}.econ-event .econ-field .econ-value{font-size:13px}}
 </style>
-<!-- 2026/10/20 審核版：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
+<!-- 導航規則：週二至週五僅呈現本週經濟與財報行事曆，不呈現上週行事曆。 -->
 <style>
 /* Fed限時動態：合併 FedWatch 與 Fed/FOMC 為同一主版面，使用區域切換活頁 */
 .fed-live-title{color:#a92332!important;font-size:clamp(21px,3vw,28px)!important;font-weight:900!important;line-height:1.25!important}
@@ -2126,7 +2127,7 @@ main section[id] { scroll-margin-top: 0; }
 </style>
 </head>
 <body class="release-ready">
-<div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">2026/10/28（三）早報審核版｜已更新可核對的 10/27 主要市場收盤與美債殖利率；產業 ETF、匯率、能源、貴金屬及部分情緒指標仍待核實，不沿用舊值或以盤中價冒充收盤。</div>
+<div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">2026/10/28（三）早報審核版｜基準交易日為 10/27；主要美股指數、耐久財與消費者信心已交叉核對。跨資產報價時點與口徑不完全同步，請依各項來源註記判讀。</div>
 
 <header class="top">
 <div class="topin"><div class="logo"><i>TAC</i> 投資早報 <span class="report-date">｜2026/10/28（三）</span><span class="top-warning">⚠️ 資料僅供內部教育訓練使用</span></div><div class="status">2026/10/27（二）｜週二至週五版；美股採前一個當地正式交易日，其他市場依各自交易日核對。</div></div>
@@ -2173,13 +2174,12 @@ main section[id] { scroll-margin-top: 0; }
 </section>
 <div style="height:14px"></div>
 <section aria-label="重點新聞掃瞄" class="tac-tabset" id="news-scan"><div class="tac-section-heading"><h2>重點新聞掃瞄</h2></div><input checked="checked" class="tac-tab-radio" id="tac-news-0" name="tac-news" type="radio"/><input class="tac-tab-radio" id="tac-news-1" name="tac-news" type="radio"/><div class="tac-tab-nav"><label for="tac-news-0">全球焦點新聞</label><label for="tac-news-1">市場熱門頭條</label></div><div class="tac-tab-panel" id="tac-news-panel-0"><article class="card" id="global-focus">
-<div class="tab-panel-meta">全球焦點｜篩選窗口：2026/10/27 12:00 至 2026/10/28 04:30（台灣時間 UTC+8）。以下 5 則依發布／數據時間、事件重要性與市場影響排序；未重新核對的數值明確標示待核實。</div>
-<div class="newsitem"><h3>1. 🇺🇸 美國耐久財與核心資本財數據公布，官方實際值待核實</h3><p>二級來源報導美國 9 月耐久財與核心資本財訂單已公布，但本次未取得官方原始表格與一致市場共識快照；實際值、前值及預估差異均待核實，暫不據此判斷企業設備投資是否加速。</p><div class="newsmeta"><a href="https://thecompanychronicle.com/story/durable-goods-september-2026-orders-1-8-percent-aircraft-core-equipment-0-5-october-27-2026" target="_blank" rel="noopener">The Company Chronicle｜10/27 08:30 ET（台灣 20:30）↗</a> · <a href="https://www.census.gov/economic-indicators/" target="_blank" rel="noopener">美國 Census 經濟指標官方入口 ↗</a></div></div>
-<div class="newsitem"><h3>2. 🇺🇸 美國消費者信心與新屋銷售公布，官方實際值待核實</h3><p>二級來源報導 10 月消費者信心及 9 月新屋銷售已公布；本次未取得官方原始表格與一致共識快照，數值、修訂前值及市場預估均待核實。應分開觀察消費者情緒與實際住宅需求，不把未核實數字作為市場方向依據。</p><div class="newsmeta"><a href="https://ss7trader.com/market-analysis/us-economic-news-27-october-2026-confidence-home-sales-richmond/" target="_blank" rel="noopener">SS7 Trader｜資料發布 10/27 10:00 ET（台灣 22:00）；文章 15:03 UTC 發布 ↗</a> · <a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank" rel="noopener">Conference Board 官方入口 ↗</a> · <a href="https://www.census.gov/construction/nrs/" target="_blank" rel="noopener">Census 新屋銷售官方入口 ↗</a></div></div>
-<div class="newsitem"><h3>3. 🥤 Coca-Cola 公布第三季財報並上調全年展望</h3><p>公司官方財報已發布並上調全年指引；本次未重新擷取官方稿與一致共識快照，實際 EPS、營收及超預期幅度待核實。後續需檢視價格／組合、銷量與全年展望能否持續，而非只看單季 headline。</p><div class="newsmeta"><a href="https://investors.coca-colacompany.com/filings-reports/all-sec-filings/content/0001628280-26-067403/a2026q3earningsreleaseex-9.htm" target="_blank" rel="noopener">Coca-Cola 官方財報｜10/27 06:55 ET（台灣 18:55）↗</a></div></div>
-<div class="newsitem"><h3>4. 📦 UPS 公布第三季財報並調高全年財測</h3><p>UPS 官方財報已發布並提高全年營收與調整後獲利展望；本次未重新核對實際 EPS、營收與一致共識快照，差異幅度待核實。後續應觀察包裹量、單件收益、成本及旺季指引。</p><div class="newsmeta"><a href="https://investors.ups.com/news-events/press-releases/detail/2172/ups-releases-3q-2026-earnings" target="_blank" rel="noopener">UPS 官方財報｜10/27 06:00 ET（台灣 18:00）↗</a></div></div>
-<div class="newsitem"><h3>5. 🏦 HSBC 第三季營收與市場預期出現落差，指引成為焦點</h3><p>Reuters 報導 HSBC 第三季營收低於市場預期，且管理層未上修展望；本次未重新核對公司原始財報表格，實際營收、稅前獲利及共識差額待核實。這提醒市場判讀需同時看營收品質、業務組合與未來指引。</p><div class="newsmeta"><a href="https://www.marketscreener.com/news/europe-shares-fall-as-hsbc-weighs-france-protests-keep-investors-wary-ce785cddd888f423/" target="_blank" rel="noopener">Reuters｜10/27 01:38 EDT（台灣 13:38）↗</a> · <a href="https://www.hsbc.com/investors" target="_blank" rel="noopener">HSBC 投資人關係官方入口 ↗</a></div></div>
-</article></div><div class="tac-tab-panel" id="tac-news-panel-1"><article class="card" id="headlines">
+<div class="tab-panel-meta">全球焦點｜新聞篩選窗口：2026/10/27 12:00 至 2026/10/28 04:30（台灣時間 UTC+8）。優先使用官方發布與 Reuters／AP；政策行程以央行官方日曆核對。以下區分已公布數據與即將到來的政策事件。</div>
+<div class="newsitem"><h3>1. 🇺🇸 美國耐久財訂單月增 1.8%，核心資本財訂單低於預期</h3><p>美國 9 月耐久財新訂單增加 1.8% 至 3,454 億美元，運輸設備是主要推力；排除運輸後增加 0.5%。核心非國防資本財（排除飛機）訂單月增 0.5%，低於 Reuters 調查的 0.7% 預期，但相關出貨增加 1.2%。整體訂單反映製造需求仍有韌性，核心訂單低於預期則提醒企業設備投資動能並非全面加速。</p><div class="newsmeta"><a href="https://www.census.gov/manufacturing/m3/adv/current/index.html" target="_blank" rel="noopener">美國 Census 官方數據｜10/27 08:30 ET（台灣 20:30）↗</a> · <a href="https://www.investing.com/news/economic-indicators/us-core-capital-goods-rise-in-september-shipments-accelerate-4975596" target="_blank" rel="noopener">Reuters｜核心資本財與出貨分析，10/27 08:45 ET（台灣 20:45）↗</a></div></div>
+<div class="newsitem"><h3>2. 🇺🇸 美國消費者信心回升至 91.7，生活成本憂慮仍在</h3><p>Conference Board 10 月消費者信心指數升至 91.7，較修正後的 9 月 84.2 上升 7.5 點，也高於 Reuters 調查的 81 點預期；現況指數升至 120.4，預期指數回升至 72.6。信心反彈與汽油價格回落相符，但預期指數仍偏低，家庭對能源、食品與生活成本的壓力尚未消失，不宜把單月回升直接解讀為消費風險解除。</p><div class="newsmeta"><a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank" rel="noopener">Conference Board 官方發布｜10/27 10:00 ET（台灣 22:00）↗</a> · <a href="https://www.investing.com/news/economic-indicators/us-consumer-confidence-improves-in-october-4976114" target="_blank" rel="noopener">Reuters｜消費者信心報導，10/27 10:23 ET（台灣 22:23）↗</a></div></div>
+<div class="newsitem"><h3>3. 🌍 油價回落、全球股市走高，市場等待 Fed 與大型科技財報</h3><p>Reuters 指出，市場在中東談判希望升溫、油價回落之際上漲，投資人同時等待美國大型科技財報與央行決策。油價回落有助暫緩短線通膨壓力，但價格仍受地緣供應風險牽動；若供應情勢逆轉，能源價格仍可能重新推高通膨預期。</p><div class="newsmeta"><a href="https://live.euronext.com/en/financial-news/stocks-rise-oil-slips-tech-earnings-fed-ahead" target="_blank" rel="noopener">Reuters 全球市場報導｜10/27 ↗</a></div></div>
+<div class="newsitem"><h3>4. 🇺🇸 FOMC 進入政策決議日，市場焦點轉向利率聲明與記者會</h3><p>聯準會兩日會議於美東 10/28 結束；政策聲明預定美東 14:00 發布，換算台灣時間為 10/29 02:00，主席記者會於 02:30 開始。報告截點尚未有本次決議，市場對利率維持不變的定價屬期貨隱含機率，不是官方結果；需留意聲明措辭與後續利率路徑訊號。</p><div class="newsmeta"><a href="https://www.federalreserve.gov/newsevents/2026-october.htm?view=calendar" target="_blank" rel="noopener">Federal Reserve 官方 2026 年 10 月日曆 ↗</a> · <a href="https://apnews.com/article/eae2932c0c253be1039e1545909656a8" target="_blank" rel="noopener">AP｜10/27 美股收盤與 Fed 前市場觀望，10/27 16:18 EDT（台灣 10/28 04:18）↗</a></div></div>
+<div class="newsitem"><h3>5. 🇨🇦 加拿大央行將公布利率決議與貨幣政策報告</h3><p>加拿大央行官方行程列明，10/28 美東時間 09:45 公布隔夜利率決議並發布季度《貨幣政策報告》，台灣時間為 21:45。決議前不預填實際結果；公布後應比較利率決策、通膨與成長預測，再評估加幣及加拿大利率市場反應。</p><div class="newsmeta"><a href="https://www.bankofcanada.ca/2026/10/fad-announcement-release-mpr-2026-10-28/" target="_blank" rel="noopener">Bank of Canada 官方公告與發布時間 ↗</a></div></div></article></div><div class="tac-tab-panel" id="tac-news-panel-1"><article class="card" id="headlines">
 <div class="tab-panel-meta">市場熱門頭條｜依鉅亨網已刊登報導遴選，以下為原文重點摘要，不以行情描述補足則數。</div>
 <div class="newsitem"><h3>01｜CoreWeave 債務保險成本飆升，市場憂慮 AI 融資風險</h3><p>鉅亨網引述標普全球市場情報指出，CoreWeave 五年期 CDS 利差 10/26 一度達 1,148 個基點，10/22 曾升至 1,167 個基點。以 40% 回收率假設估算，市場定價隱含的五年違約機率約 62%。報導提醒，CDS 反映風險定價，並不等於違約已成定局；關鍵在公司能否持續取得融資並讓現金流追上債務規模。</p><div class="newsmeta"><a href="https://m.cnyes.com/news/id/6638049" target="_blank" rel="noopener">鉅亨網｜10/27 ↗</a></div></div>
 <div class="newsitem"><h3>02｜Anthropic IPO 申報揭露創辦人財富與員工選擇權規模</h3><p>鉅亨網報導，Anthropic 七名共同創辦人各持約 1.4% 股權，按最近一輪 9,650 億美元估值計算，個人身價均超過 130 億美元。申報文件顯示，創辦人承諾將所持股權的 80% 用於慈善，員工及其他選擇權持有人的潛在帳面獲利約 980 億美元；公司上半年營收成長，但淨損也擴大。</p><div class="newsmeta"><a href="https://m.cnyes.com/news/id/6638027" target="_blank" rel="noopener">鉅亨網｜10/27 ↗</a></div></div>
@@ -2230,7 +2230,7 @@ main section[id] { scroll-margin-top: 0; }
 <div class="sector-list"><div class="sector-row"><span class="rank">1</span><div class="sector-label"><b>資訊科技</b><small>Information Technology | XLK</small></div><span class="r up">+1.70%</span></div><div class="sector-row"><span class="rank">2</span><div class="sector-label"><b>非必需消費</b><small>Consumer Discretionary | XLY</small></div><span class="r up">+1.04%</span></div><div class="sector-row"><span class="rank">3</span><div class="sector-label"><b>原材料</b><small>Materials | XLB</small></div><span class="r up">+0.78%</span></div><div class="sector-row"><span class="rank">4</span><div class="sector-label"><b>公用事業</b><small>Utilities | XLU</small></div><span class="r up">+0.71%</span></div><div class="sector-row"><span class="rank">5</span><div class="sector-label"><b>工業</b><small>Industrials | XLI</small></div><span class="r up">+0.57%</span></div><div class="sector-row"><span class="rank">6</span><div class="sector-label"><b>醫療保健</b><small>Health Care | XLV</small></div><span class="r down">-0.06%</span></div><div class="sector-row"><span class="rank">7</span><div class="sector-label"><b>金融</b><small>Financials | XLF</small></div><span class="r down">-0.25%</span></div><div class="sector-row"><span class="rank">8</span><div class="sector-label"><b>通訊服務</b><small>Communication Services | XLC</small></div><span class="r down">-0.26%</span></div><div class="sector-row"><span class="rank">9</span><div class="sector-label"><b>房地產</b><small>Real Estate | XLRE</small></div><span class="r down">-0.84%</span></div><div class="sector-row"><span class="rank">10</span><div class="sector-label"><b>必需消費</b><small>Consumer Staples | XLP</small></div><span class="r down">-0.92%</span></div><div class="sector-row"><span class="rank">11</span><div class="sector-label"><b>能源</b><small>Energy | XLE</small></div><span class="r down">-2.05%</span></div></div></div><div class="audit-content"><details class="source-details sector-source"><summary>資料來源</summary><div class="source">採 The Daily Tape 2026/10/27 美股收盤摘要的同一來源漲跌幅，11 檔均列示並依漲跌幅排序；此處呈現單日 ETF 報酬率，不代表產業內所有個股表現。來源：<a href="https://stocks.pkladog.com/reports/2026-10-27/" target="_blank" rel="noopener">The Daily Tape｜2026/10/27 美股收盤與產業表現</a> · <a href="https://stockanalysis.com/etf/xlk/history/" target="_blank" rel="noopener">StockAnalysis｜XLK 歷史行情</a> · <a href="https://stockanalysis.com/etf/xle/history/" target="_blank" rel="noopener">StockAnalysis｜XLE 歷史行情</a>.</div></details></div></details><div class="market-reason"><b>📌 產業觀察</b><br/>10/27 產業 ETF 呈現明顯分化：資訊科技 +1.70% 居首，非必需消費 +1.04%、原材料 +0.78%、公用事業 +0.71%、工業 +0.57% 收高；能源 -2.05% 最弱，必需消費 -0.92%、房地產 -0.84%、通訊服務 -0.26%、金融 -0.25% 下跌。這與 AI／大型科技股帶動指數、油價回落的市場背景相符，但 ETF 是產業代理指標，不代表每一檔成分股同步變動。後續應觀察科技領漲能否擴散至更多產業，而非只追逐當日第一名。</div>
 </article></div><div class="tac-tab-panel" id="tac-assets-panel-1"><article class="card" id="bonds"><div class="tab-panel-meta">2026/10/27 美國財政部 Daily Treasury Par Yield Curve Rates｜官方 Par 殖利率口徑</div><div class="row"><b>2年期美債殖利率</b><span class="r" style="font-weight:900">4.70%</span><span class="r up">+2 bp</span></div><div class="row"><b>10年期美債殖利率</b><span class="r" style="font-weight:900">4.99%</span><span class="r down">-1 bp</span></div><div class="row"><b>30年期美債殖利率</b><span class="r" style="font-weight:900">5.30%</span><span class="r down">-1 bp</span></div>
 <div class="market-reason"><b>📌 債券觀察</b><br/>10/27 殖利率呈現短端微升、10 年與 30 年期小幅回落，曲線並非全面上移。短端仍反映近期政策利率預期，長端則同時受通膨、財政供給與期限溢酬影響；應觀察 FOMC 聲明及後續通膨資料，避免只以單日變動推論趨勢。</div>
-<details class="source-details"><summary>資料來源</summary><div class="source">主要來源：<a href="https://www.wsj.com/finance/stocks/u-s-stocks-rise-as-spacex-spurs-ai-relief-rally-9d3763e7">WSJ 2026/10/23美股與美債收盤報導</a>（引述當日市場數據）；<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>供官方Par殖利率交叉參考（不同統計口徑不混用）。</div></details>
+<details class="source-details"><summary>資料來源</summary><div class="source">主要數據來源：<a href="https://home.treasury.gov/resource-center/data-chart-center/interest-rates">U.S. Treasury Daily Treasury Par Yield Curve Rates</a>，採 2026/10/27 官方 Par 殖利率口徑；前一交易日變動依同一官方序列比較。不得以其他日期的新聞報導替代當日原始殖利率資料。</div></details>
 </article></div><div class="tac-tab-panel" id="tac-assets-panel-2"><article class="card" id="fx"><div class="tab-panel-meta">2026/10/27 外匯歷史參考值｜各來源收盤時點與定盤口徑不同</div><div class="row"><b class="instrument-name">美元指數<span class="instrument-en">DXY</span></b><span class="r">102.19</span><span class="r up">+0.22%</span></div><div class="row"><b class="instrument-name">美元／新台幣<span class="instrument-en">USD/TWD</span></b><span class="r">32.416</span><span class="r down">-0.53%</span></div><div class="row"><b class="instrument-name">歐元／美元<span class="instrument-en">EUR/USD</span></b><span class="r">1.119</span><span class="r down">-0.30%</span></div><div class="row"><b class="instrument-name">英鎊／美元<span class="instrument-en">GBP/USD</span></b><span class="r">1.336</span><span class="r down">-0.24%</span></div><div class="row"><b class="instrument-name">澳幣／美元<span class="instrument-en">AUD/USD</span></b><span class="r">0.7028</span><span class="r up">+0.16%</span></div><div class="row"><b class="instrument-name">美元／日圓<span class="instrument-en">USD/JPY</span></b><span class="r">157.30</span><span class="r up">+0.55%</span></div>
 <div class="market-reason"><b>📌 匯率觀察</b><br/>10/27 匯率變動呈現分化：本報所列 DXY 上升 0.22%、USD/JPY 上升 0.55%，EUR/USD 與 GBP/USD 分別下跌 0.30% 及 0.24%，而 USD/TWD 參考價下跌 0.53%。不同貨幣對反映的利差、區域資金流與報價時點不同，不能僅憑美元指數概括所有貨幣方向。後續留意 FOMC 對利率預期的影響；USD/TWD 為平台參考價，並非銀行牌告，且各來源收盤時點並不完全一致。</div>
 <details class="source-details"><summary>資料來源</summary><div class="source">報價以各來源所列 2026/10/27 歷史值為參考，並非全部來自同一交易時點；AUD/USD 採 Investing.com 2026/10/27 歷史報價 0.7028，當日 +0.16%。USD/TWD 為外匯平台參考匯價，不等同銀行牌告。來源：<a href="https://www.investing.com/indices/usdollar-historical-data" target="_blank" rel="noopener">Investing.com DXY</a>；<a href="https://www.investing.com/currencies/eur-usd-historical-data" target="_blank" rel="noopener">Investing.com EUR/USD 歷史收盤</a>；<a href="https://www.poundsterlinglive.com/history/USD-TWD-2026" target="_blank" rel="noopener">PoundSterlingLive USD/TWD</a>；<a href="https://www.poundsterlinglive.com/history/GBP-USD-2026" target="_blank" rel="noopener">GBP/USD</a>；<a href="https://www.poundsterlinglive.com/history/USD-JPY-2026" target="_blank" rel="noopener">USD/JPY</a>；<a href="https://www.investing.com/currencies/aud-usd-historical-data" target="_blank" rel="noopener">Investing.com AUD/USD 歷史行情</a>。</div></details>
@@ -2252,7 +2252,7 @@ main section[id] { scroll-margin-top: 0; }
 <div class="week-econ-tab-labels"><label for="week-econ-today">今日公布</label><label for="week-econ-upcoming">即將公布</label><label for="week-econ-published">已公布</label></div>
 <div class="week-econ-panels"><div class="calendar-status-group"><h4 class="calendar-status-heading today"><span class="earnings-badge today">今日及今晚（10/28｜台灣時間）｜重要性★★★★☆以上</span></h4><div class="econ-event-list"><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/28（三）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">9 月商品貿易收支（初值）</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">-1,321 億美元（前值；TD Economics）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">-1,290 億美元（TD Economics 共識）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">官方原始表格尚未完成核對；不將二手報導值當成官方實際值</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">初值用於觀察商品貿易與庫存變化；發布後再與實際值及共識比較。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-10-23/upcoming.htm" target="_blank" rel="noopener">TD Economics 行事曆（共識待核實）</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/28（三）</span><span class="econ-time">21:45</span><span class="econ-country">加拿大</span><div class="econ-name">加拿大央行利率決議</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布（預定 21:45 台灣時間）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">關注政策利率與聲明對加幣、加拿大債券及北美利率預期的影響。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bankofcanada.ca/" target="_blank" rel="noopener">加拿大央行官方網站</a>；決議發布後核對官方聲明。</div></div></div></details></div></div>
 <div class="calendar-status-group"><h4 class="calendar-status-heading upcoming"><span class="earnings-badge upcoming">即將公布｜10/29～10/30（台灣時間）｜重要性★★★★☆以上</span></h4><div class="econ-event-list"><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">02:00</span><span class="econ-country">美國</span><div class="econ-name">FOMC 利率決議（美東 10/28 14:00）</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">3.75%–4.00%</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">會議前利率機率尚未完成可追溯快照核對；不預填決策結果</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">重點看政策聲明、風險平衡與後續利率路徑，不預填決策結果。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Federal Reserve 官方日曆</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">02:30</span><span class="econ-country">美國</span><div class="econ-name">FOMC 主席記者會</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">—</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">—</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未開始</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">關注主席對通膨、就業、金融條件及後續政策選項的表述。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Federal Reserve 官方日曆</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">第 3 季 GDP 年化季增率（初值）</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">2.2%（第 2 季年化季增率）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">3.0%（第 3 季初值市場預估）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">衡量美國成長動能；須同步看消費、投資與價格分項。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bea.gov/news/schedule/" target="_blank" rel="noopener">BEA 官方發布日程</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">截至 10/24 當週初領失業救濟金</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">194 千人（前週）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">195 千人</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">追蹤勞動市場邊際變化；單週波動較大，宜搭配四週均值與續領人數。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.dol.gov/newsroom/releases/eta" target="_blank" rel="noopener">美國勞工部 ETA 官方發布頁</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/29（四）</span><span class="econ-time">21:15</span><span class="econ-country">歐元區</span><div class="econ-name">ECB 主要再融資利率決議</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">關注政策利率、通膨風險與歐元區成長評估。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.ecb.europa.eu/press/calendars/mgcgc/html/index.en.html" target="_blank" rel="noopener">ECB 官方會議日曆</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/30（五）</span><span class="econ-time">18:00</span><span class="econ-country">歐元區</span><div class="econ-name">第 3 季 GDP 年增率（初值）與 9 月失業率</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">觀察成長與勞動市場是否支持 ECB 後續政策判斷。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://ec.europa.eu/eurostat/web/main/news/euro-indicators" target="_blank" rel="noopener">Eurostat 官方 Euro Indicators</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/30（五）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">9 月個人所得、個人支出與 PCE 價格指標</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">PCE 價格指標是聯準會重要通膨參考；需同時檢視消費、收入與價格分項。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bea.gov/news/schedule/" target="_blank" rel="noopener">BEA 官方發布日程</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/30（五）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">第 3 季就業成本指數（ECI）</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">尚未公布</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">勞動成本是服務通膨的重要觀察指標；需與薪資、就業數據交叉判讀。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.bls.gov/schedule/news_release/eci.htm" target="_blank" rel="noopener">BLS 官方 ECI 日程</a></div></div></div></details></div></div>
-<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">已公布｜10/26～10/27（依各市場當地日期）</span></h4><div class="econ-event-list"><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:00</span><span class="econ-country">美國</span><div class="econ-name">9 月建築許可（修訂值）</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">1,403 千件（前次值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">官方原始表格尚未完成核對；不將二手報導值當成官方實際值</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">總量近乎持平；住宅供給面仍有壓力。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://censuseasy.com/blog/housing-starts-permits-september-2026" target="_blank" rel="noopener">Census 建照數據整理</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">9 月耐久財訂單月增率</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">+0.1%（8 月修訂值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">共識數值尚未取得可追溯來源；不以二手未核實數字代填</div></div><div class="econ-field"><label>實際</label><div class="econ-value">官方原始表格尚未完成核對；不將二手報導值當成官方實際值</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">總量增幅受飛機訂單帶動；不含運輸項目增 0.5%，避免把 headline 當成全面加速。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://thecompanychronicle.com/story/durable-goods-september-2026-orders-1-8-percent-aircraft-core-equipment-0-5-october-27-2026" target="_blank" rel="noopener">耐久財與核心資本財數據整理</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">9 月核心資本財訂單（非國防、除飛機）</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">+1.6%</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">共識數值尚未取得可追溯來源；不以二手未核實數字代填</div></div><div class="econ-field"><label>實際</label><div class="econ-value">官方原始表格尚未完成核對；不將二手報導值當成官方實際值</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">核心設備訂單增速放慢，表示企業投資仍增長但不如前月強勁。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://thecompanychronicle.com/story/durable-goods-september-2026-orders-1-8-percent-aircraft-core-equipment-0-5-october-27-2026" target="_blank" rel="noopener">耐久財與核心資本財數據整理</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">22:00</span><span class="econ-country">美國</span><div class="econ-name">10 月 Conference Board 消費者信心</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">84.2（9 月修訂值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">80.5–81.2（不同來源共識有差異）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">91.7</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">信心高於共識，但仍需以實際消費數據確認情緒改善是否轉為支出成長。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://ss7trader.com/market-analysis/us-economic-news-27-october-2026-confidence-home-sales-richmond/" target="_blank" rel="noopener">10/27 美國經濟數據整理</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">22:00</span><span class="econ-country">美國</span><div class="econ-name">9 月新屋銷售</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">680 千戶（修訂值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">651 千戶（該來源共識）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">676 千戶（年化）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">高於該來源共識但略低於修訂前值；住宅需求並非單向加速。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://ss7trader.com/market-analysis/us-economic-news-27-october-2026-confidence-home-sales-richmond/" target="_blank" rel="noopener">10/27 美國經濟數據整理</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/26（一）</span><span class="econ-time">時間待核實</span><span class="econ-country">德國</span><div class="econ-name">10 月 Ifo 企業景氣指數</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">90.2（官方 10/26 公告；精確發布時分待核實）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">用於觀察德國企業景氣是否改善；精確發布時分未核實，不計入本次新聞時間窗。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.ifo.de/en/survey/ifo-business-climate" target="_blank" rel="noopener">ifo Institute 官方頁面</a></div></div></div></details></div></div></div></div></article></section><section class="grid two earnings-block" id="earnings"><article class="card calendar-card" style="grid-column:1 / -1">
+<div class="calendar-status-group"><h4 class="calendar-status-heading published"><span class="earnings-badge published">已公布｜10/26～10/27（依各市場當地日期）</span></h4><div class="econ-event-list"><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:00</span><span class="econ-country">美國</span><div class="econ-name">9 月建築許可（修訂值）</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">1,403 千件（前次值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">官方原始表格尚未完成核對；不將二手報導值當成官方實際值</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">總量近乎持平；住宅供給面仍有壓力。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://censuseasy.com/blog/housing-starts-permits-september-2026" target="_blank" rel="noopener">Census 建照數據整理</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">9 月耐久財訂單月增率</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">+0.1%（8 月修訂值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">+2.0%（Investing.com 經濟日曆）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">+1.8%（Census 官方發布；訂單總額 3,454 億美元）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">實際低於 2.0% 預估，但總量仍成長；運輸設備是主要推力，排除運輸後訂單增加 0.5%。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.census.gov/manufacturing/m3/adv/current/index.html" target="_blank" rel="noopener">美國 Census 官方耐久財報告</a> · <a href="https://www.investing.com/economic-calendar/durable-goods-orders-86" target="_blank" rel="noopener">Investing.com 預估參考</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">20:30</span><span class="econ-country">美國</span><div class="econ-name">9 月核心資本財訂單（非國防、除飛機）</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">+1.6%</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">+0.7%（Reuters 調查）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">+0.5%（Census／Reuters）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">核心設備訂單低於預期，但出貨增加 1.2%；企業設備支出仍有韌性，須留意後續修訂。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.investing.com/news/economic-indicators/us-core-capital-goods-rise-in-september-shipments-accelerate-4975596" target="_blank" rel="noopener">Reuters 核心資本財報導</a> · <a href="https://www.census.gov/manufacturing/m3/adv/current/index.html" target="_blank" rel="noopener">Census 官方原始報告</a></div></div></div></details><details class="econ-event five-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">22:00</span><span class="econ-country">美國</span><div class="econ-name">10 月 Conference Board 消費者信心</div><div class="econ-stars">★★★★★</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">84.2（9 月修訂值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">81.0（Reuters 調查）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">91.7（較前值增加 7.5 點）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">高於市場預期；現況指數 120.4、預期指數 72.6。信心回升但預期指數仍低，仍需實際消費數據確認。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.conference-board.org/topics/consumer-confidence" target="_blank" rel="noopener">Conference Board 官方資料</a> · <a href="https://www.investing.com/news/economic-indicators/us-consumer-confidence-improves-in-october-4976114" target="_blank" rel="noopener">Reuters 調查共識與解讀</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/27（二）</span><span class="econ-time">22:00</span><span class="econ-country">美國</span><div class="econ-name">9 月新屋銷售</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">680 千戶（修訂值）</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">651 千戶（該來源共識）</div></div><div class="econ-field"><label>實際</label><div class="econ-value">676 千戶（年化）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">高於該來源共識但略低於修訂前值；住宅需求並非單向加速。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.census.gov/construction/nrs/" target="_blank" rel="noopener">Census 官方新屋銷售資料</a></div></div></div></details><details class="econ-event four-star"><summary><div class="econ-meta"><span class="econ-date">10/26（一）</span><span class="econ-time">時間待核實</span><span class="econ-country">德國</span><div class="econ-name">10 月 Ifo 企業景氣指數</div><div class="econ-stars">★★★★☆</div></div><span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details"><div class="econ-field"><label>前值</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>市場預估</label><div class="econ-value">待核實</div></div><div class="econ-field"><label>實際</label><div class="econ-value">90.2（官方 10/26 公告；精確發布時分待核實）</div></div><div class="econ-field"><label>市場影響</label><div class="econ-value">用於觀察德國企業景氣是否改善；精確發布時分未核實，不計入本次新聞時間窗。</div></div><div class="econ-field wide"><label>資料來源</label><div class="econ-value"><a href="https://www.ifo.de/en/survey/ifo-business-climate" target="_blank" rel="noopener">ifo Institute 官方頁面</a></div></div></div></details></div></div></div></div></article></section><section class="grid two earnings-block" id="earnings"><article class="card calendar-card" style="grid-column:1 / -1">
 <div class="title">本週財報行事曆 <small>10/26～10/30｜最後驗收：2026/10/28 04:30（台灣時間）</small></div>
 <div class="week-earnings-tabs"><input checked id="week-earnings-today" name="week-earnings-tab" type="radio"/><input id="week-earnings-upcoming" name="week-earnings-tab" type="radio"/><input id="week-earnings-published" name="week-earnings-tab" type="radio"/><div class="week-earnings-tab-labels"><label for="week-earnings-today">今日公布</label><label for="week-earnings-upcoming">即將公布</label><label for="week-earnings-published">已公布</label></div>
 <div class="week-earnings-panels"><div class="calendar-status-group"><h4 class="calendar-status-heading today">今日公布｜美國財報日期 10/28（三）</h4><div class="earnings-accordion-list"><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）</span><span class="earnings-tw-date">美東盤後；台灣時間 10/29 05:30（美東 10/28 17:30）</span></div><div class="earnings-company-name">Microsoft</div><div class="earnings-company-sub">MSFT｜軟體／雲端與 AI</div><div class="earnings-stars">★★★★★</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">TipRanks 10/28 財報日曆列為當日財報；官方發布時分待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場 EPS 共識 4.71 美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場營收共識約 906.2 億美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">關注 Azure 成長、AI 服務變現、資本支出與雲端毛利率。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-28" target="_blank" rel="noopener">TipRanks 10/28 財報日曆</a>；<a href="https://www.spreadex.com/financials/news-analysis/financial-trading-blog/26-10-2026/" target="_blank" rel="noopener">Spreadex 共識預覽</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）</span><span class="earnings-tw-date">美東盤後；台灣時間 10/29 04:30（美東 10/28 16:30）</span></div><div class="earnings-company-name">Alphabet</div><div class="earnings-company-sub">GOOGL／GOOG｜搜尋、廣告與雲端</div><div class="earnings-stars">★★★★★</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">TipRanks 10/28 財報日曆列示 A/C 股；官方發布時分待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場 EPS 共識約 3.03 美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場營收共識約 1,279.1 億美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">關注搜尋廣告、Google Cloud、AI 服務變現與資本支出回報。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-28" target="_blank" rel="noopener">TipRanks 10/28 財報日曆</a>；<a href="https://www.spreadex.com/financials/news-analysis/financial-trading-blog/26-10-2026/" target="_blank" rel="noopener">Spreadex 共識預覽</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）</span><span class="earnings-tw-date">美東盤後；台灣時間 10/29 凌晨，精確時刻待核實</span></div><div class="earnings-company-name">ServiceNow</div><div class="earnings-company-sub">NOW｜企業軟體／工作流程自動化</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">既有財報日曆列示美國 10/28 盤後；官方精確時刻待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">觀察訂閱成長、AI 工作流程變現、續約與全年指引。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-28" target="_blank" rel="noopener">TipRanks 10/28 財報日曆</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/28（三）</span><span class="earnings-tw-date">美東盤後；台灣時間 10/29 凌晨，精確時刻待核實</span></div><div class="earnings-company-name">KLA Corporation</div><div class="earnings-company-sub">KLAC｜半導體製程／檢測設備</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">既有財報日曆列示美國 10/28 盤後；官方精確時刻待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">觀察晶圓廠資本支出、先進封裝、檢測需求與訂單能見度。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-28" target="_blank" rel="noopener">TipRanks 10/28 財報日曆</a></div></div></div></details></div></div><div class="calendar-status-group"><h4 class="calendar-status-heading upcoming">即將公布｜美國財報日期 10/29～10/30（盤前／盤後）</h4><div class="earnings-accordion-list"><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）</span><span class="earnings-tw-date">美東盤前；台灣時間 10/29 20:30（美東 08:30）</span></div><div class="earnings-company-name">Caterpillar</div><div class="earnings-company-sub">CAT｜工業設備／工程機械</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">美東 10/29 08:30；台灣時間 10/29 20:30。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場 EPS 共識約 7.04 美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場營收共識約 207.6 億美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">關注訂單、設備需求、關稅與全年指引。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a>；<a href="https://www.marketbeat.com/earnings/reports/2026-10-29-caterpillar-inc-stock/" target="_blank" rel="noopener">MarketBeat EPS／營收共識</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）</span><span class="earnings-tw-date">美東盤前；精確時段待核實</span></div><div class="earnings-company-name">SanDisk</div><div class="earnings-company-sub">SNDK｜NAND／儲存</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">既有財報日曆列示美國 10/29；官方精確時刻待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">觀察 NAND 價格、資料中心需求、庫存與供給紀律。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）</span><span class="earnings-tw-date">美東盤後；台灣時間 10/30 05:00（美東 10/29 17:00）</span></div><div class="earnings-company-name">Amazon</div><div class="earnings-company-sub">AMZN｜電商／雲端</div><div class="earnings-stars">★★★★★</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">TipRanks 10/29 財報日曆列示當日；官方精確時刻待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場 EPS 共識約 2.01 美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場營收共識約 2,022 億美元；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">重點看 AWS 成長、零售營業利益、AI 資本支出及全年指引。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/29（四）</span><span class="earnings-tw-date">美東盤前／盤後時段待核實</span></div><div class="earnings-company-name">Eli Lilly</div><div class="earnings-company-sub">LLY｜製藥／減重與糖尿病治療</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">TipRanks 10/29 財報日曆列示當日；官方精確時刻待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">觀察 GLP-1 產品銷售、供應能力、定價及全年指引。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/30（五）</span><span class="earnings-tw-date">美東盤前／盤後時段待核實</span></div><div class="earnings-company-name">ExxonMobil</div><div class="earnings-company-sub">XOM｜能源／石油天然氣</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">既有財報日曆列示美國 10/30；官方精確時分待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">關注產量、煉油利差、資本紀律與油價假設。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/30（五）</span><span class="earnings-tw-date">美東盤前；精確時分待核實</span></div><div class="earnings-company-name">Chevron</div><div class="earnings-company-sub">CVX｜能源／石油天然氣</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">既有財報日曆列示美國 10/30；官方精確時分待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">觀察產量、資本支出、回購與股東回報政策。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/30（五）</span><span class="earnings-tw-date">美東盤前；精確時分待核實</span></div><div class="earnings-company-name">AbbVie</div><div class="earnings-company-sub">ABBV｜製藥／生物製藥</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">既有財報日曆列示美國 10/30；官方精確時分待核實。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識尚未取得可交叉核對來源；實際值待公布。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">關注新產品成長、免疫學產品競爭、研發管線與全年指引。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.tipranks.com/calendars/earnings/2026-10-29" target="_blank" rel="noopener">TipRanks 本週財報日曆</a></div></div></div></details></div></div><div class="calendar-status-group"><h4 class="calendar-status-heading published">已公布｜美國財報日期 10/26～10/27</h4><div class="earnings-accordion-list"><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）</span><span class="earnings-tw-date">美東盤前；電話會議台灣時間 20:30</span></div><div class="earnings-company-name">Coca-Cola</div><div class="earnings-company-sub">KO｜飲料／民生消費</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>0.91 美元（可比 EPS）</strong></div><div class="earnings-actual-line"><span>預期</span><strong>0.88 美元（共識）</strong></div><span class="earnings-actual-status beat">高於預期</span><div class="earnings-actual-note">實際可比 EPS 高於共識；GAAP EPS 為 0.93 美元。</div></div><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>133.8 億美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>129.3 億美元</strong></div><span class="earnings-actual-status beat">高於預期</span><div class="earnings-actual-note">實際營收高於所列市場共識。</div></div></div><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">公司官方公告於 10/27 06:55 ET 發布第三季結果；已公布。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">共識可比 EPS 0.88 美元；實際可比 EPS 0.91 美元（GAAP EPS 0.93 美元）。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">共識 129.3 億美元；實際 133.8 億美元，超過該共識。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">有機營收成長與全年指引上修提供支持；正常交易時段股價反應待核實。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://investors.coca-colacompany.com/filings-reports/all-sec-filings/content/0001628280-26-067403/a2026q3earningsreleaseex-9.htm" target="_blank" rel="noopener">Coca-Cola 官方財報</a> · <a href="https://www.rapidtradeview.trade/earnings/reports/ko-2026-q3" target="_blank" rel="noopener">共識參考</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）</span><span class="earnings-tw-date">美東盤前；電話會議台灣時間 20:30</span></div><div class="earnings-company-name">United Parcel Service</div><div class="earnings-company-sub">UPS｜物流／運輸</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS</div><div class="earnings-actual-line"><span>實際</span><strong>1.69 美元（調整後）</strong></div><div class="earnings-actual-line"><span>預期</span><strong>1.63 美元（共識）</strong></div><span class="earnings-actual-status beat">高於預期</span><div class="earnings-actual-note">GAAP 稀釋 EPS 為 1.37 美元，勿與調整後 EPS 混用。</div></div><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>229 億美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>222.7 億美元</strong></div><span class="earnings-actual-status beat">高於預期</span><div class="earnings-actual-note">實際營收高於所列市場共識。</div></div></div><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">公司官方公告約 10/27 06:00 ET 發布第三季結果；已公布。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">共識調整後 EPS 1.63 美元；實際調整後 EPS 1.69 美元（GAAP 稀釋 EPS 1.37 美元）。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">共識 222.7 億美元；實際 229 億美元，超過該共識。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">營收增長並上調全年展望是正面訊號；正常交易時段收盤反應待核實。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://investors.ups.com/news-events/press-releases/detail/2172/ups-releases-3q-2026-earnings" target="_blank" rel="noopener">UPS 官方財報</a> · <a href="https://www.benzinga.com/quote/UPS/earnings-forecasts" target="_blank" rel="noopener">共識參考</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/26（一）</span><span class="earnings-tw-date">美東盤前；已公布</span></div><div class="earnings-company-name">Verizon</div><div class="earnings-company-sub">VZ｜電信</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-results-grid"><div class="earnings-actual-card miss"><div class="earnings-actual-card-title">EPS（GAAP）</div><div class="earnings-actual-line"><span>實際</span><strong>1.25 美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>1.27 美元（共識）</strong></div><span class="earnings-actual-status miss">低於預期</span><div class="earnings-actual-note">官方 GAAP EPS 1.25 美元；調整後 EPS 為 1.31 美元，高於 1.27 美元共識。</div></div><div class="earnings-actual-card miss"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>343.1 億美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>347.7 億美元</strong></div><span class="earnings-actual-status miss">低於預期</span><div class="earnings-actual-note">營收低於市場共識約 4.6 億美元。</div></div></div><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">Verizon 官方於 10/26 公布第三季結果；美東盤前發布。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">GAAP EPS 1.25 美元；調整後 EPS 1.31 美元。MarketBeat 所列 EPS 共識 1.27 美元；調整後與 GAAP 口徑不可混用。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場共識 347.7 億美元；實際營收 343.1 億美元。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">調整後 EPS 高於共識，但營收未達預期；服務營收年增 2.9%，公司上調全年部分指引。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://www.verizon.com/about/news/verizon-delivers-another-record-breaking-quarter" target="_blank" rel="noopener">Verizon 官方財報</a> · <a href="https://www.marketbeat.com/earnings/reports/2026-10-26-verizon-communications-inc-stock/" target="_blank" rel="noopener">MarketBeat 共識與實際</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）盤後</span><span class="earnings-tw-date">台灣時間 10/28（三）凌晨；電話會議預定 05:00</span></div><div class="earnings-company-name">Visa</div><div class="earnings-company-sub">V｜支付網路</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS（非 GAAP）</div><div class="earnings-actual-line"><span>實際</span><strong>3.48 美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>3.44 美元</strong></div><span class="earnings-actual-status beat">高於預期</span><div class="earnings-actual-note">GAAP EPS 為 3.19 美元；此卡以非 GAAP 共識口徑比較。</div></div><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>121.4 億美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>120.9 億美元</strong></div><span class="earnings-actual-status beat">高於預期</span><div class="earnings-actual-note">實際營收略高於市場共識。</div></div></div><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">Visa 於美東 10/27 盤後公布 2026 財年第四季及全年結果；電話會議預定 17:00 ET。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">市場共識 EPS 3.44 美元；實際非 GAAP EPS 3.48 美元（GAAP EPS 3.19 美元）。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場營收共識 120.9 億美元；實際營收 121.4 億美元。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">EPS 與營收均略高於共識；全年營收 459 億美元、年增 15%，關注跨境支付量與交易量延續性。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://investor.visa.com/news-events/press-releases/default.aspx" target="_blank" rel="noopener">Visa 官方新聞稿</a> · <a href="https://www.marketbeat.com/earnings/reports/2026-10-27-visa-inc-stock/" target="_blank" rel="noopener">MarketBeat 共識與實際</a></div></div></div></details><details class="earnings-accordion"><summary class="earnings-accordion-summary"><div class="earnings-summary-main"><div class="earnings-summary-dates"><span class="earnings-us-date">10/27（二）盤後</span><span class="earnings-tw-date">台灣時間 10/28（三）04:05（美東 10/27 16:05）</span></div><div class="earnings-company-name">Robinhood Markets</div><div class="earnings-company-sub">HOOD｜零售券商／交易平台</div><div class="earnings-stars">★★★★☆</div></div><span aria-hidden="true" class="earnings-accordion-toggle"></span></summary><div class="earnings-accordion-details"><div class="earnings-results-grid"><div class="earnings-actual-card beat"><div class="earnings-actual-card-title">EPS（GAAP）</div><div class="earnings-actual-line"><span>實際</span><strong>0.51 美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>0.56 美元（共識）</strong></div><span class="earnings-actual-status miss">低於預期</span><div class="earnings-actual-note">公司另公布調整後 EPS 0.60 美元；該非 GAAP 指標不可與 GAAP 共識直接混用。</div></div><div class="earnings-actual-card miss"><div class="earnings-actual-card-title">營收</div><div class="earnings-actual-line"><span>實際</span><strong>14.2 億美元</strong></div><div class="earnings-actual-line"><span>預期</span><strong>14.4 億美元</strong></div><span class="earnings-actual-status miss">低於預期</span><div class="earnings-actual-note">創單季營收紀錄，但仍略低於該來源所列共識。</div></div></div><div class="earnings-detail-field wide"><label>公布時段</label><div class="earnings-detail-value">Robinhood 官方於 10/27 16:05 ET 發布第三季結果（盤後）；已公布。</div></div><div class="earnings-detail-field wide"><label>EPS 預估／實際</label><div class="earnings-detail-value">MarketBeat 所列 EPS 共識 0.56 美元；實際 GAAP EPS 0.51 美元，另公布調整後 EPS 0.60 美元。</div></div><div class="earnings-detail-field wide"><label>營收預估／實際</label><div class="earnings-detail-value">市場營收共識 14.4 億美元；實際營收約 14.2 億美元。</div></div><div class="earnings-detail-field wide"><label>財報判讀與股價反應</label><div class="earnings-detail-value">交易型收入年增 19%，但加密貨幣收入年減 55%；淨利息收入年減 9%。調整後 EPS 0.60 美元，GAAP EPS 0.51 美元。</div></div><div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value"><a href="https://investors.robinhood.com/news-releases/news-release-details/robinhood-reports-third-quarter-2026-results" target="_blank" rel="noopener">Robinhood 官方財報</a> · <a href="https://www.marketbeat.com/stocks/NASDAQ/HOOD/earnings/" target="_blank" rel="noopener">MarketBeat 共識參考</a></div></div></div></details></div></div></div></div></article></section><section class="card earnings-health" id="sp500-earnings-health" style="margin-top:14px">
@@ -2294,13 +2294,13 @@ main section[id] { scroll-margin-top: 0; }
 <input checked id="focus-tab-market" name="focus-tab" type="radio"/><input id="focus-tab-levels" name="focus-tab" type="radio"/><input id="focus-tab-core" name="focus-tab" type="radio"/>
 <div class="focus-tab-labels"><label for="focus-tab-market">市場觀點</label><label for="focus-tab-levels">今日關鍵價位</label><label for="focus-tab-core">今日核心觀察</label></div>
 <div class="focus-panels">
-<div class="focus-panel focus-market"><div class="key"><b>① 全球股市：</b>美股科技與半導體領漲，Nasdaq Composite +1.30%、SOX +3.60%；亞洲日韓上漲、港中下跌，台股小幅收高；歐洲三大指數分歧。<br/><b>② 產業輪動：</b>本報列示 11 大產業 ETF；資訊科技 +1.70% 領先、能源 -2.05% 最弱，產業輪動仍分化，不能只憑 SOX 強勢推論全面擴散。<br/><b>③ 跨資產風險：</b>美債 2Y／10Y／30Y 分別為 4.70%（+2bp）、4.99%（-1bp）、5.30%（-1bp）；本報跨資產快照中 WTI -1.67%、Brent -1.74%、黃金期貨 +0.90%、白銀期貨 +0.35%，六項匯率已列參考值，但各來源時點不同。<br/><b>④ 情緒與利率預期：</b>VIX 17.52（−4.73%）、MOVE 97.87（−4.22%）、Fear &amp; Greed 33/100（恐懼）；CME FedWatch 截圖時間 10/28 06:43（台灣時間），維持利率 93.4%、升息一碼 6.6%。波動指標回落不等於市場已全面轉為樂觀。<br/><b>⑤ 今日催化劑：</b>台灣時間 20:30 美國商品貿易初值、21:45 加拿大央行決議；Microsoft、Alphabet 等美東 10/28 盤後財報對應台灣時間 10/29 凌晨。<br/><b>⑥ FOMC 風險：</b>政策聲明與記者會預定於台灣時間 10/29 02:00、02:30 登場；CME FedWatch 截圖顯示維持利率 93.4%、升息一碼 6.6%；這是期貨隱含機率，不是聯準會決策結果。</div></div>
+<div class="focus-panel focus-market"><div class="key"><b>① 全球股市：</b>美股科技與半導體領漲，Nasdaq Composite +1.18%、SOX +3.60%；亞洲日韓上漲、港中下跌，台股小幅收高；歐洲三大指數分歧。<br/><b>② 產業輪動：</b>本報列示 11 大產業 ETF；資訊科技 +1.70% 領先、能源 -2.05% 最弱，產業輪動仍分化，不能只憑 SOX 強勢推論全面擴散。<br/><b>③ 跨資產風險：</b>美債 2Y／10Y／30Y 分別為 4.70%（+2bp）、4.99%（-1bp）、5.30%（-1bp）；本報跨資產快照中 WTI -1.67%、Brent -1.74%、黃金期貨 +0.90%、白銀期貨 +0.35%，六項匯率已列參考值，但各來源時點不同。<br/><b>④ 情緒與利率預期：</b>VIX 17.52（−4.73%）、MOVE 97.87（−4.22%）、Fear &amp; Greed 33/100（恐懼）；CME FedWatch 截圖時間 10/28 06:43（台灣時間），維持利率 93.4%、升息一碼 6.6%。波動指標回落不等於市場已全面轉為樂觀。<br/><b>⑤ 今日催化劑：</b>台灣時間 20:30 美國商品貿易初值、21:45 加拿大央行決議；Microsoft、Alphabet 等美東 10/28 盤後財報對應台灣時間 10/29 凌晨。<br/><b>⑥ FOMC 風險：</b>政策聲明與記者會預定於台灣時間 10/29 02:00、02:30 登場；CME FedWatch 截圖顯示維持利率 93.4%、升息一碼 6.6%；這是期貨隱含機率，不是聯準會決策結果。</div></div>
 <div class="focus-panel focus-levels"><div class="key"><b>道瓊工業指數｜</b>支撐 52,050–52,260；壓力 52,620–52,930。先看前波回檔低位能否守住，向上需突破近期高點區才有延續性。<br/><b>S&amp;P 500｜</b>支撐 7,610–7,640；壓力 7,770–7,815。7,610 附近是近期回檔低位區，7,800 上方則接近近期高檔供給區。<br/><b>Nasdaq Composite｜</b>支撐 25,850–26,000；壓力 26,700–26,800，進一步看 27,200–27,400。短線反彈仍須收復前波密集成交與高點區，避免用 Nasdaq 100 代替綜合指數。<br/><b>Russell 2000｜</b>支撐 2,715–2,755；壓力 2,805–2,865。小型股若守住近期低位並突破 2,865，才較能確認反彈擴散。<br/><b>費城半導體指數（SOX）｜</b>支撐 10,665–10,825；壓力 11,525–11,565。10/27 強彈後已接近前一波高點區，若無法突破，留意回測 11,180–10,825 支撐帶。<br/><details class="source-details"><summary>關鍵價位計算方式與資料來源</summary><div class="source">依截至 2026/10/27 的近期日線 OHLC，將近 20 個交易日的波段高低點、近期反覆測試區及缺口／回檔區整合為支撐與壓力「區間」，不是精確預測點。盤中突破需待收盤確認，區間失守時應重新評估。來源：<a href="https://tallacoptions.com/Indices/DJIA" target="_blank" rel="noopener">Dow Jones 歷史 OHLC</a>、<a href="https://www.tallacoptions.com/Indices/SPX" target="_blank" rel="noopener">S&amp;P 500 歷史 OHLC</a>、<a href="https://ycharts.com/indices/%5EIXIC/level" target="_blank" rel="noopener">Nasdaq Composite 歷史 OHLC</a>、<a href="https://www.tallacoptions.com/Indices/RUT" target="_blank" rel="noopener">Russell 2000 歷史 OHLC</a>、<a href="https://www.barchart.com/stocks/quotes/$SOX/technical-analysis" target="_blank" rel="noopener">SOX 技術資料</a>。</div></details></div></div>
 <div class="focus-panel focus-core"><div class="callout"><b>第一｜資料紀律：</b>美股主要指數收高但市場廣度不足；跨資產報價須保留來源與時間差，避免將不同時點的參考價當作完全同步收盤。<br/><b>第二｜經濟事件：</b>加拿大央行決議與美國商品貿易初值是今日可觀察的政策與數據催化劑；實際公布後再與共識比較。<br/><b>第三｜財報品質：</b>Coca-Cola 與 UPS 的官方財報連結已列於行事曆；股價反應尚待以 10/27 正常交易時段收盤核對。Visa、Robinhood 與大型科技財報仍須依官方公告更新實際值與時點。<br/><b>第四｜政策風險：</b>FOMC 聲明與記者會預定於台灣時間 10/29 凌晨登場；10/28 06:43 快照顯示維持利率 93.4%、升息一碼 6.6%，須留意政策聲明、記者會措辭是否改變市場對後續利率路徑的定價。<br/><b>第五｜操作原則：</b>避免追逐 AI／半導體單日反彈；觀察大型科技財報、Fed 指引與市場廣度是否共同確認行情延續，再決定是否提高風險曝險。</div></div>
 </div></div></section>
 <div style="height:14px"></div>
 </main>
-<footer class="footer">TAC 投資早報｜2026/10/28（三）審核版｜最後驗收 2026/10/28 04:33 台灣時間｜目標行情日期為各市場 2026/10/27 當地交易日；未取得一致歷史收盤列者均標示待核實。本檔為審核版。資訊整理與教育用途，不構成投資建議。</footer>
+<footer class="footer">TAC 投資早報｜2026/10/28（三）審核版｜本輪內容整理 2026/10/28 11:00 台灣時間｜目標行情日期為各市場 2026/10/27 當地交易日；未取得一致歷史收盤列者均標示待核實。本檔為審核版。資訊整理與教育用途，不構成投資建議。</footer>
 <script>
 function historyPath(dateStr){
   return 'https://lion-invlab.github.io/history/index_' + dateStr + '.html';
@@ -3245,181 +3245,8 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > * {
 </style>
 
 
-<style id="tac-toolbar-hand-target-v15">
-@media(max-width:1099px){
- .tac-tools-arrow-live.tac-toolbar-hand-target{
-  position:fixed!important;left:var(--tac-hand-x,24px)!important;top:var(--tac-hand-y,200px)!important;
-  right:auto!important;bottom:auto!important;margin:0!important;
-  z-index:2147483647!important;pointer-events:none!important;
- }
-}
-@media(min-width:1100px){.tac-tools-arrow-live.tac-toolbar-hand-target{display:none!important}}
-
-/* FIX: equal vertical spacing between main panels in the preview */
-main.wrap{
-  display:flex!important;
-  flex-direction:column!important;
-  gap:16px!important;
-}
-main.wrap>div[style*="height:14px"]{
-  display:none!important;
-  height:0!important;
-  min-height:0!important;
-  margin:0!important;
-  padding:0!important;
-}
-main.wrap>section,
-main.wrap>section.grid,
-main.wrap>section.tac-tabset,
-main.wrap>section.card,
-main.wrap>div[id],
-main.wrap>.tac-main-panel{
-  margin-top:0!important;
-  margin-bottom:0!important;
-}
-main.wrap>section.grid>article.card{
-  margin-top:0!important;
-  margin-bottom:0!important;
-}
-/* PREVIEW V1: isolated main panels and consistent spacing; preserve original capsule/hand UI */
-
-/* FIX: force news scan to remain a standalone flex item; following panels start outside its frame */
-main.wrap>#news-scan{display:block!important;position:relative!important;flex:0 0 auto!important;align-self:stretch!important;width:auto!important;height:auto!important;min-height:0!important;overflow:hidden!important;}
-main.wrap>#global-markets{display:block!important;position:relative!important;flex:0 0 auto!important;align-self:stretch!important;width:auto!important;}
-main.wrap{display:flex!important;flex-direction:column!important;gap:16px!important}
-main.wrap>.grid.two:first-of-type{display:contents!important}
-main.wrap>.tac-section-gap{height:0!important;min-height:0!important;margin:0!important;padding:0!important}
-main.wrap>section,
-main.wrap>section.grid,
-main.wrap>section.tac-tabset,
-main.wrap>section.card,
-main.wrap>div[id],
-main.wrap>.tac-main-panel{margin:0!important}
-main.wrap>.tac-main-panel{display:block!important}
-main.wrap>.tac-main-panel>.card{margin:0!important}
-#calendar,#earnings{display:block!important;background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
-#calendar>.calendar-card,#earnings>.calendar-card{width:100%!important;max-width:none!important;margin:0!important;grid-column:auto!important}
-#sp500-earnings-health,#fed,#view{margin:0!important}
-.tac-section-heading{margin-bottom:12px}
-.nav{gap:6px!important;scrollbar-width:none}
-.nav::-webkit-scrollbar{display:none}
 
 
-/* FIX: calendar heading metadata must wrap inside the card on mobile */
-@media(max-width:700px){
-  .calendar-card>.title{
-    display:flex!important;
-    flex-wrap:wrap!important;
-    align-items:baseline!important;
-    white-space:normal!important;
-    overflow-wrap:anywhere!important;
-    word-break:normal!important;
-    gap:4px 8px!important;
-    line-height:1.3!important;
-  }
-  .calendar-card>.title small{
-    display:block!important;
-    flex:1 1 100%!important;
-    min-width:0!important;
-    max-width:100%!important;
-    white-space:normal!important;
-    overflow-wrap:anywhere!important;
-    word-break:break-word!important;
-    font-size:11px!important;
-    line-height:1.4!important;
-    letter-spacing:0!important;
-  }
-}
-/* FIX: match the BLUF heading size to the other main section headings */
-main.wrap .card.bluf>.title{
-  font-size:var(--tac-main-heading-size,clamp(21px,2.4vw,26px))!important;
-  line-height:1.25!important;
-  font-weight:900!important;
-}
-@media(max-width:700px){
-  main.wrap .card.bluf>.title{
-    font-size:clamp(21px,2.4vw,26px)!important;
-  }
-}
-/* FIX: unify all ten main-panel heading sizes in the preview only */
-:root{--tac-main-heading-size:clamp(21px,2.4vw,26px)}
-main.wrap .card>.title,
-main.wrap .tac-section-heading h2,
-main.wrap .section-title,
-main.wrap h2.section-heading,
-main.wrap .panel-title,
-main.wrap .card-title,
-main.wrap [data-main-section-title]{
-  font-size:var(--tac-main-heading-size)!important;
-  line-height:1.25!important;
-  font-weight:900!important;
-}
-
-/* TAC market sentiment title and change conventions */
-#sentiment > .title{color:var(--red)!important}
-#sentiment .sbox .up{color:var(--red)!important}
-#sentiment .sbox .down{color:var(--green)!important}
-#sentiment .sbox .warn{color:#e0b84f!important}
-
-/* 市場情緒漲跌百分比統一字級；漲紅跌綠 */
-#sentiment .sbox>span.up,
-#sentiment .sbox>span.down,
-#sentiment .sbox>span.flat,
-#sentiment .sbox>span.warn{
-  font-size:14px!important;
-  line-height:1.35!important;
-  font-weight:800!important;
-}
-</style>
-<script id="tac-toolbar-hand-target-v15-js">
-(function(){
- function setup(){
-  var hint=document.querySelector('.tac-tools-hint');if(!hint)return;
-  document.querySelectorAll('.tac-tools-arrow-live').forEach(function(el){el.remove()});
-  var hand=document.createElement('span');hand.className='tac-tools-arrow-live tac-toolbar-hand-target';hand.setAttribute('aria-hidden','true');hand.innerHTML='<span style="position:relative;display:inline-block;font-size:34px;line-height:1;color:#c62828;-webkit-text-stroke:1.5px #c62828;text-shadow:0 0 1px #c62828">👆<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:29px;color:#fff;-webkit-text-stroke:0;filter:grayscale(1) brightness(0) invert(1);text-shadow:none">👆</span></span>';document.body.appendChild(hand);
-  var anim=null,expired=false;
-  function stopAndRemove(){
-   expired=true;
-   if(anim){try{anim.cancel()}catch(e){}anim=null}
-   hand.style.setProperty('display','none','important');
-   hand.remove();
-   window.removeEventListener('resize',move);
-   window.removeEventListener('scroll',move);
-   window.removeEventListener('pageshow',move);
-  }
-  /* Hard deadline: remove the element, so scroll/resize/pageshow cannot bring it back. */
-  var expiryTimer=window.setTimeout(stopAndRemove,5000);
-  function findToolbar(){
-   var nodes=Array.from(document.querySelectorAll('nav.nav a,nav.nav button,header a,header button,.nav a,.nav button,a,button,[role="button"]'));
-   var matches=nodes.filter(function(el){var t=(el.innerText||el.textContent||'').replace(/\\s+/g,'').trim(),r=el.getBoundingClientRect(),cs=getComputedStyle(el);return t.indexOf('工具欄')!==-1&&r.width>0&&r.height>0&&cs.display!=='none'&&cs.visibility!=='hidden'&&r.top>=0&&r.top<window.innerHeight});
-   matches.sort(function(a,b){return a.getBoundingClientRect().top-b.getBoundingClientRect().top});return matches[0]||null;
-  }
-  function move(){
-   if(expired||!hand.isConnected)return;
-   if(window.matchMedia('(min-width:1100px)').matches || window.scrollY>35){hand.style.setProperty('display','none','important');if(anim){anim.cancel();anim=null}return}
-   var target=findToolbar();if(!target)return;
-   hand.style.setProperty('display','flex','important');
-   var tr=target.getBoundingClientRect(),hr=hint.getBoundingClientRect();
-   var x=Math.max(4,Math.min(window.innerWidth-44,tr.left+Math.max(8,Math.min(58,tr.width*.45))-20));
-   var ty=Math.max(4,Math.min(window.innerHeight-44,tr.bottom+2));
-   /* Align the bottom edge of the hand icon with the capsule's measured bottom edge.
-      At the start scale (0.78), the 40px element is 31.2px tall and center-origin adds a 4.4px top inset. */
-   var dx=0,dy=hr.bottom-ty-35.6;
-   hand.style.setProperty('--tac-hand-x',x+'px');hand.style.setProperty('--tac-hand-y',ty+'px');
-   if(anim){anim.cancel();anim=null}
-   if(hand.animate)anim=hand.animate([
-    {transform:'translate('+dx+'px,'+dy+'px) scale(.78)',opacity:.75},
-    {transform:'translate('+(dx*.62)+'px,'+(dy*.62)+'px) scale(1.05)',opacity:1,offset:.38},
-    {transform:'translate(0px,0px) scale(1.55)',opacity:1,offset:.48},
-    {transform:'translate(0px,5px) scale(1.12)',opacity:1,offset:.58},
-    {transform:'translate('+dx+'px,'+dy+'px) scale(.78)',opacity:.75,offset:1}
-   ],{duration:3800,iterations:Infinity,easing:'ease-in-out'});
-  }
-  move();window.addEventListener('resize',move,{passive:true});window.addEventListener('scroll',move,{passive:true});window.addEventListener('orientationchange',function(){if(!expired)setTimeout(move,250)},{passive:true});window.addEventListener('pageshow',move);setTimeout(move,400);setTimeout(move,1200);
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
-})();
-</script>
 
 <style id="tac-title-and-star-rule-fix-2026-10-24">
 /* 規則修正：所有主要版面標題使用酒紅；市場情緒特殊底色，標題白色 */
@@ -3491,5 +3318,776 @@ main.wrap #sentiment .title:first-child {
 </style>
 
 
+
+<style id="tac-toolbar-bubble-preview-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  position:fixed!important;z-index:2147483646!important;display:block!important;
+  box-sizing:border-box!important;width:min(310px,calc(100vw - 28px))!important;
+  padding:12px 15px!important;border:2px solid #c62828!important;border-radius:18px!important;
+  background:#fff!important;color:#b8202f!important;
+  font-size:14px!important;font-weight:850!important;line-height:1.55!important;
+  text-align:center!important;white-space:normal!important;
+  box-shadow:0 5px 0 rgba(198,40,40,.12),0 8px 24px rgba(30,35,45,.22)!important;
+  opacity:0;transform:translateY(7px) scale(.92);transform-origin:top left;
+  animation:tac-toolbar-bubble-pop .38s cubic-bezier(.2,.8,.2,1) forwards,
+            tac-toolbar-bubble-glow 1s ease-in-out 3;
+  pointer-events:none!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:"";position:absolute;left:24px;bottom:-11px;width:17px;height:17px;
+  background:#fff;border-right:2px solid #c62828;border-bottom:2px solid #c62828;
+  transform:rotate(45deg);
+ }
+ .tac-side-open.tac-toolbar-bubble-target{
+  animation:tac-toolbar-button-pulse .9s ease-in-out 3!important;
+  border:2px solid #c62828!important;
+  box-shadow:0 0 0 5px rgba(198,40,40,.17),0 0 18px rgba(198,40,40,.55)!important;
+ }
+ @keyframes tac-toolbar-bubble-pop{to{opacity:1;transform:translateY(0) scale(1)}}
+ @keyframes tac-toolbar-bubble-glow{0%,100%{box-shadow:0 5px 0 rgba(198,40,40,.12),0 8px 24px rgba(30,35,45,.22)}50%{box-shadow:0 0 0 5px rgba(198,40,40,.16),0 8px 28px rgba(198,40,40,.32)}}
+ @keyframes tac-toolbar-button-pulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.1);filter:brightness(1.12)}}
+}
+@media(min-width:1100px){.tac-toolbar-bubble-preview{display:none!important}}
+</style>
+<script id="tac-toolbar-bubble-preview-v1-js">
+(function(){
+ function setup(){
+  var btn=document.querySelector('.tac-side-open');
+  if(!btn || window.matchMedia('(max-width:1099px)').matches===false)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+   /* Keep the speech bubble visible, but honor reduced-motion preferences. */
+  }
+  document.querySelectorAll('.tac-toolbar-bubble-preview').forEach(function(el){el.remove()});
+  btn.classList.remove('tac-toolbar-bubble-target');
+  var bubble=document.createElement('div');
+  bubble.className='tac-toolbar-bubble-preview';
+  bubble.setAttribute('role','note');
+  bubble.textContent='「美股波動率」、「精選基金」、「歷史早報」請由上方「工具欄」開啟進入';
+  document.body.appendChild(bubble);
+  btn.classList.add('tac-toolbar-bubble-target');
+  function place(){
+   var r=btn.getBoundingClientRect();
+   var w=Math.min(310,window.innerWidth-28);
+   var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
+   bubble.style.left=left+'px';
+   bubble.style.top=Math.max(12,r.top-bubble.offsetHeight-18)+'px';
+  }
+  requestAnimationFrame(place);
+  window.addEventListener('resize',place,{passive:true});
+  var timer=window.setTimeout(function(){
+   bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
+   window.removeEventListener('resize',place);
+  },6500);
+  btn.addEventListener('click',function(){
+   clearTimeout(timer);bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
+   window.removeEventListener('resize',place);
+  },{once:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
+ else setup();
+})();
+</script>
+
+
+<style id="tac-remove-old-hint-and-finger-preview-v1">
+/* Preview-only cleanup: remove the legacy reminder capsule and pointing hand. */
+#tac-tools-hint,
+.tac-tools-hint,
+.tac-tools-arrow-live,
+.tac-toolbar-hand-target{display:none!important;visibility:hidden!important;opacity:0!important}
+</style>
+<script id="tac-remove-old-hint-and-finger-preview-v1-js">
+(function(){
+ function cleanup(){
+  document.querySelectorAll('#tac-tools-hint,.tac-tools-hint,.tac-tools-arrow-live,.tac-toolbar-hand-target').forEach(function(el){el.remove()});
+ }
+ document.addEventListener('DOMContentLoaded',cleanup);
+ cleanup();
+ window.setTimeout(cleanup,100);
+ window.setTimeout(cleanup,500);
+})();
+</script>
+
+
+<style id="tac-toolbar-breathing-bubble-emphasis-v2">
+@media(max-width:1099px){
+ .tac-side-open.tac-toolbar-bubble-target{
+  animation:tac-toolbar-breathe-strong-v2 .9s ease-in-out 5!important;
+  border:2px solid #c62828!important;
+  box-shadow:0 0 0 5px rgba(198,40,40,.2),0 0 20px rgba(198,40,40,.65)!important;
+ }
+ @keyframes tac-toolbar-breathe-strong-v2{
+  0%,100%{transform:scale(1);filter:brightness(1);box-shadow:0 0 0 2px rgba(198,40,40,.12),0 0 8px rgba(198,40,40,.2)}
+  50%{transform:scale(1.12);filter:brightness(1.1);box-shadow:0 0 0 7px rgba(198,40,40,.22),0 0 24px rgba(198,40,40,.72)}
+ }
+ .tac-toolbar-bubble-preview{
+  z-index:2147483647!important;
+  font-size:15px!important;
+  border-width:3px!important;
+  box-shadow:0 0 0 4px rgba(198,40,40,.12),0 10px 28px rgba(30,35,45,.28)!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-compact-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(248px,calc(100vw - 36px))!important;
+  padding:8px 10px!important;
+  border:2px solid #c62828!important;
+  border-radius:14px!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  box-shadow:0 4px 14px rgba(30,35,45,.18)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:20px!important;bottom:-8px!important;width:12px!important;height:12px!important;
+  border-right-width:2px!important;border-bottom-width:2px!important;
+ }
+ .tac-toolbar-bubble-preview{
+  animation:tac-toolbar-bubble-compact-pop .28s ease-out forwards!important;
+ }
+ @keyframes tac-toolbar-bubble-compact-pop{
+  from{opacity:0;transform:translateY(4px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-comic-outline-bubble-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(238px,calc(100vw - 36px))!important;
+  padding:11px 13px!important;
+  border:2px solid #222!important;
+  border-radius:30px!important;
+  background:#fff!important;
+  color:#222!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.45!important;
+  text-align:center!important;
+  box-shadow:0 3px 0 rgba(0,0,0,.08)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;position:absolute!important;
+  left:18px!important;bottom:-17px!important;
+  width:34px!important;height:23px!important;
+  background:#222!important;border:0!important;
+  clip-path:polygon(0 0,100% 0,86% 100%)!important;
+  transform:none!important;
+ }
+ .tac-toolbar-bubble-preview:before{
+  content:""!important;display:block!important;position:absolute!important;
+  left:21px!important;bottom:-12px!important;
+  width:27px!important;height:18px!important;
+  background:#fff!important;
+  clip-path:polygon(0 0,100% 0,84% 100%)!important;
+  z-index:1!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-comic-outline-bubble-compact-v2">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(190px,calc(100vw - 44px))!important;
+  padding:8px 10px!important;
+  border-width:1.5px!important;
+  border-radius:23px!important;
+  font-size:11px!important;
+  line-height:1.35!important;
+  box-shadow:0 2px 0 rgba(0,0,0,.06)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:16px!important;bottom:-13px!important;width:26px!important;height:18px!important;
+ }
+ .tac-toolbar-bubble-preview:before{
+  left:18px!important;bottom:-9px!important;width:21px!important;height:14px!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-soft-pointer-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(220px,calc(100vw - 40px))!important;
+  padding:9px 12px!important;
+  border:1.5px solid #c62828!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  color:#b8202f!important;
+  font-size:12px!important;
+  line-height:1.4!important;
+  box-shadow:0 4px 14px rgba(30,35,45,.16)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;position:absolute!important;
+  left:20px!important;bottom:-10px!important;
+  width:16px!important;height:16px!important;
+  background:#fff!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+ }
+ .tac-toolbar-bubble-preview:before{content:none!important;display:none!important}
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-position-size-v3">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(280px,calc(100vw - 44px))!important;
+  padding:8px 10px!important;
+  border:1.5px solid #c62828!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  color:#b8202f!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  line-height:1.35!important;
+  box-shadow:0 3px 12px rgba(30,35,45,.14)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:20px!important;bottom:-9px!important;width:14px!important;height:14px!important;
+  background:#fff!important;border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;transform:rotate(45deg)!important;
+ }
+ .tac-toolbar-bubble-preview:before{content:none!important;display:none!important}
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-below-nav-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(280px,calc(100vw - 44px))!important;
+  padding:6px 10px!important;
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  border-radius:12px!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  top:-7px!important;bottom:auto!important;left:22px!important;
+  width:12px!important;height:12px!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  transform:rotate(225deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-below-nav-v1-js">
+(function(){
+ function placeBelowNav(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Keep the bubble below the navigation row, clear of the heading and summary card. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left+Math.min(150,r.width)));
+  bubble.style.left=left+'px';
+  bubble.style.top=(r.bottom+8)+'px';
+  bubble.style.width=w+'px';
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(placeBelowNav,50)},{once:true});
+ else setTimeout(placeBelowNav,50);
+ window.addEventListener('resize',placeBelowNav,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-target-fix-v2">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  left:62px!important;
+  top:-7px!important;
+  bottom:auto!important;
+  width:12px!important;height:12px!important;
+  background:#fff!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  transform:rotate(225deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-target-fix-v2-js">
+(function(){
+ function alignBubbleTailToToolbar(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Place bubble in the clear band below the nav, but align its tail with the toolbar button. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,b.left-8));
+  bubble.style.left=left+'px';
+  bubble.style.top=(b.bottom+8)+'px';
+  bubble.style.width=w+'px';
+  var tailX=(b.left+b.width/2)-left-7;
+  tailX=Math.max(12,Math.min(w-28,tailX));
+  bubble.style.setProperty('--tac-bubble-tail-x',tailX+'px');
+  bubble.style.setProperty('--tac-bubble-tail-left',tailX+'px');
+ }
+ var style=document.createElement('style');
+ style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{left:var(--tac-bubble-tail-left,62px)!important}}';
+ document.head.appendChild(style);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(alignBubbleTailToToolbar)},{once:true});
+ else requestAnimationFrame(alignBubbleTailToToolbar);
+ window.addEventListener('resize',alignBubbleTailToToolbar,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-direct-v3">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  top:-12px!important;bottom:auto!important;
+  left:var(--tac-bubble-tail-left,64px)!important;
+  width:14px!important;height:14px!important;
+  background:#fff!important;
+  border-left:1.5px solid #c62828!important;
+  border-top:1.5px solid #c62828!important;
+  border-right:0!important;border-bottom:0!important;
+  transform:rotate(45deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-direct-v3-js">
+(function(){
+ function fix(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Bubble sits in the gap under the nav; its top tail is aligned to the toolbar button center. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',w+'px','important');
+  var tail=(r.left+r.width/2)-left-7;
+  tail=Math.max(10,Math.min(w-24,tail));
+  bubble.style.setProperty('--tac-bubble-tail-left',tail+'px');
+ }
+ function run(){requestAnimationFrame(fix);setTimeout(fix,100);setTimeout(fix,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-outline-clean-v4">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  border-radius:14px!important;
+  border:1.5px solid #c62828!important;
+  overflow:visible!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  top:-7px!important;bottom:auto!important;
+  left:var(--tac-bubble-tail-left,64px)!important;
+  width:12px!important;height:12px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:0!important;
+  border-top:1.5px solid #c62828!important;
+  border-left:1.5px solid #c62828!important;
+  border-right:0!important;border-bottom:0!important;
+  border-radius:1px 0 0 0!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-avoid-summary-title-v5">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(390px,calc(100vw - 205px))!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  border-radius:12px!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:-8px!important;top:10px!important;bottom:auto!important;
+  width:12px!important;height:12px!important;
+  background:#fff!important;
+  border-left:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  border-top:0!important;border-right:0!important;
+  transform:rotate(45deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-avoid-summary-title-v5-js">
+(function(){
+ function placeCompactRight(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-170, r.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.3','important');
+ }
+ function run(){requestAnimationFrame(placeCompactRight);setTimeout(placeCompactRight,100);setTimeout(placeCompactRight,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-diagonal-to-button-v6">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  /* Diagonal pointer exits the bubble's upper-left corner toward the toolbar button. */
+  left:-15px!important;
+  top:-1px!important;
+  bottom:auto!important;
+  width:23px!important;height:23px!important;
+  background:#fff!important;
+  border:0!important;
+  border-left:1.5px solid #c62828!important;
+  border-top:1.5px solid #c62828!important;
+  border-radius:0!important;
+  transform:rotate(-45deg)!important;
+  clip-path:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-diagonal-to-button-v6-js">
+(function(){
+ function alignDiagonalPointer(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-170,b.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(b.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Keep pointer on the upper-left edge so it leads diagonally back to the toolbar. */
+  bubble.style.setProperty('--tac-bubble-tail-left','-15px');
+ }
+ function run(){requestAnimationFrame(alignDiagonalPointer);setTimeout(alignDiagonalPointer,120)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-outline-seam-fix-v7">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  border:1.5px solid #c62828!important;
+  border-radius:14px!important;
+  overflow:visible!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-7px!important;
+  top:13px!important;
+  bottom:auto!important;
+  width:12px!important;
+  height:12px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:0!important;
+  border-left:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  border-radius:0 0 0 2px!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-two-lines-short-v8">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:230px!important;
+  max-width:calc(100vw - 150px)!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  text-align:center!important;
+  white-space:normal!important;
+  border-radius:12px!important;
+ }
+ /* Replace the awkward detached tail with a slim pointer line aimed back at the toolbar. */
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-58px!important;
+  top:7px!important;
+  bottom:auto!important;
+  width:58px!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(-14deg)!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-two-lines-short-v8-js">
+(function(){
+ function refine(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  var btn=document.querySelector('.tac-side-open');
+  if(!bubble||!btn||window.matchMedia('(max-width:1099px)').matches===false)return;
+  bubble.innerHTML='「美股波動率」、「精選基金」、<br>「歷史早報」請由上方「工具欄」開啟進入';
+  bubble.style.setProperty('width','230px','important');
+  bubble.style.setProperty('max-width','calc(100vw - 150px)','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.35','important');
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,r.right+10);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){setTimeout(refine,80);setTimeout(refine,250)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-pointer-geometry-fix-v9">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-9px!important;
+  top:8px!important;
+  bottom:auto!important;
+  width:58px!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(60deg)!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-pointer-geometry-fix-v9-js">
+(function(){
+ function align(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,r.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Connector starts at bubble's left edge and travels diagonally up-left toward the toolbar button's right edge. */
+  var verticalGap=(r.bottom+8)-(r.top+r.height/2);
+  var horizontalGap=left-(r.right-4);
+  var len=Math.sqrt(horizontalGap*horizontalGap+verticalGap*verticalGap);
+  var angle=Math.atan2(-verticalGap,horizontalGap)*180/Math.PI;
+  bubble.style.setProperty('--tac-pointer-length',Math.max(32,Math.min(70,len))+'px');
+  bubble.style.setProperty('--tac-pointer-angle',angle+'deg');
+ }
+ var style=document.createElement('style');
+ style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{width:var(--tac-pointer-length,58px)!important;transform:rotate(var(--tac-pointer-angle,60deg))!important}}';
+ document.head.appendChild(style);
+ function run(){requestAnimationFrame(align);setTimeout(align,120);setTimeout(align,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-pointer-correct-target-v10">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:calc(-1 * var(--tac-pointer-length,120px))!important;
+  top:18px!important;
+  bottom:auto!important;
+  width:var(--tac-pointer-length,120px)!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(var(--tac-pointer-angle,33deg))!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-pointer-correct-target-v10-js">
+(function(){
+ function align(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,b.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  var top=b.bottom+8;
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',top+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Line anchor is at the bubble's upper-left side; target is the toolbar button center. */
+  var anchorX=left;
+  var anchorY=top+18;
+  var targetX=b.left+b.width/2;
+  var targetY=b.top+b.height/2;
+  var dx=targetX-anchorX, dy=targetY-anchorY;
+  var length=Math.sqrt(dx*dx+dy*dy);
+  var angle=Math.atan2(dy,dx)*180/Math.PI-180;
+  bubble.style.setProperty('--tac-pointer-length',Math.max(35,Math.min(170,length))+'px');
+  bubble.style.setProperty('--tac-pointer-angle',angle+'deg');
+ }
+ function run(){requestAnimationFrame(align);setTimeout(align,120);setTimeout(align,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-fit-text-v11">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:max-content!important;
+  max-width:calc(100vw - 150px)!important;
+  min-width:0!important;
+  padding:7px 10px!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  white-space:normal!important;
+  text-wrap:pretty;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-fit-text-v11-js">
+(function(){
+ function fitBubble(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var text='「美股波動率」、「精選基金」、\n「歷史早報」請由上方「工具欄」開啟進入';
+  bubble.textContent=text;
+  bubble.style.setProperty('width','max-content','important');
+  bubble.style.setProperty('max-width','calc(100vw - 150px)','important');
+  bubble.style.setProperty('padding','7px 10px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.35','important');
+  var r=btn.getBoundingClientRect();
+  var width=Math.min(bubble.scrollWidth,window.innerWidth-150);
+  var left=Math.min(window.innerWidth-width-14,r.right+10);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){requestAnimationFrame(fitBubble);setTimeout(fitBubble,120);setTimeout(fitBubble,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tight-width-v12">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:190px!important;
+  max-width:calc(100vw - 150px)!important;
+  min-width:0!important;
+  padding:6px 8px!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  box-sizing:border-box!important;
+  white-space:normal!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tight-width-v12-js">
+(function(){
+ function sizeBubble(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var width=Math.min(190,window.innerWidth-150);
+  var left=Math.min(window.innerWidth-width-14,r.right+10);
+  bubble.style.setProperty('width',width+'px','important');
+  bubble.style.setProperty('max-width',width+'px','important');
+  bubble.style.setProperty('padding','6px 8px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.3','important');
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){requestAnimationFrame(sizeBubble);setTimeout(sizeBubble,100);setTimeout(sizeBubble,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<style id="tac-toolbar-modal-reminder-safe-v15">
+@media(max-width:1099px){.tac-toolbar-bubble-preview{display:block}}
+</style>
+<script id="tac-toolbar-modal-reminder-safe-v15-js">
+(function(){
+ function isOpen(el){
+  if(!el)return false;
+  var s=getComputedStyle(el),r=el.getBoundingClientRect();
+  return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity||1)>0&&r.width>0&&r.height>0;
+ }
+ function sync(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  var toolbar=document.querySelector('.tac-side-open');
+  if(!bubble||!toolbar)return;
+  var modalSelectors='[role="dialog"],dialog[open],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog';
+  var open=Array.from(document.querySelectorAll(modalSelectors)).some(isOpen);
+  bubble.style.setProperty('display',open?'none':'block','important');
+  toolbar.classList.toggle('tac-toolbar-bubble-target',!open);
+ }
+ function schedule(){requestAnimationFrame(sync);setTimeout(sync,180)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule,{once:true});else schedule();
+ document.addEventListener('click',function(){setTimeout(sync,80);setTimeout(sync,350)},true);
+ var observer=new MutationObserver(schedule);
+ observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','aria-hidden','open']});
+})();
+</script>
 </body>
 </html>
