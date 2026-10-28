@@ -3505,83 +3505,776 @@ main.wrap #sentiment .title:first-child {
 </style>
 
 
-<style id="tac-toolbar-breathing-bubble">
-@media (max-width:1099px){
- .tac-side-open.tac-toolbar-breathing{
-  animation:tac-toolbar-breathe-final 1.5s ease-in-out 3!important;
-  transform-origin:center center;
-  border:1.5px solid #c62828!important;
- }
- @keyframes tac-toolbar-breathe-final{
-  0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(198,40,40,0)}
-  50%{transform:scale(1.08);box-shadow:0 0 0 5px rgba(198,40,40,.2),0 0 18px rgba(198,40,40,.55)}
- }
- .tac-toolbar-reminder-bubble{
-  position:fixed!important;z-index:2147483647!important;display:block!important;
-  box-sizing:border-box!important;width:min(205px,calc(100vw - 150px))!important;
-  min-width:150px!important;padding:8px 10px!important;
-  border:1.5px solid #c62828!important;border-radius:14px!important;
-  background:#fff!important;color:#222!important;
-  font-size:10.5px!important;font-weight:800!important;line-height:1.35!important;
+<style id="tac-toolbar-bubble-preview-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  position:fixed!important;z-index:2147483646!important;display:block!important;
+  box-sizing:border-box!important;width:min(310px,calc(100vw - 28px))!important;
+  padding:12px 15px!important;border:2px solid #c62828!important;border-radius:18px!important;
+  background:#fff!important;color:#b8202f!important;
+  font-size:14px!important;font-weight:850!important;line-height:1.55!important;
   text-align:center!important;white-space:normal!important;
-  box-shadow:0 3px 12px rgba(30,35,45,.14)!important;
-  opacity:0;transform:translateY(4px) scale(.97);
-  animation:tac-toolbar-reminder-pop .28s ease-out forwards!important;
+  box-shadow:0 5px 0 rgba(198,40,40,.12),0 8px 24px rgba(30,35,45,.22)!important;
+  opacity:0;transform:translateY(7px) scale(.92);transform-origin:top left;
+  animation:tac-toolbar-bubble-pop .38s cubic-bezier(.2,.8,.2,1) forwards,
+            tac-toolbar-bubble-glow 1s ease-in-out 3;
   pointer-events:none!important;
  }
- .tac-toolbar-reminder-bubble:before{
-  content:""!important;position:absolute!important;left:-7px!important;top:12px!important;
-  width:12px!important;height:12px!important;background:#fff!important;
-  border-left:1.5px solid #c62828!important;border-bottom:1.5px solid #c62828!important;
-  transform:rotate(45deg)!important;
+ .tac-toolbar-bubble-preview:after{
+  content:"";position:absolute;left:24px;bottom:-11px;width:17px;height:17px;
+  background:#fff;border-right:2px solid #c62828;border-bottom:2px solid #c62828;
+  transform:rotate(45deg);
  }
- @keyframes tac-toolbar-reminder-pop{to{opacity:1;transform:translateY(0) scale(1)}}
- .tac-side-open.tac-toolbar-reminder-target{
-  animation:tac-toolbar-breathe-final 1.5s ease-in-out 3!important;
-  border:1.5px solid #c62828!important;
+ .tac-side-open.tac-toolbar-bubble-target{
+  animation:tac-toolbar-button-pulse .9s ease-in-out 3!important;
+  border:2px solid #c62828!important;
+  box-shadow:0 0 0 5px rgba(198,40,40,.17),0 0 18px rgba(198,40,40,.55)!important;
  }
+ @keyframes tac-toolbar-bubble-pop{to{opacity:1;transform:translateY(0) scale(1)}}
+ @keyframes tac-toolbar-bubble-glow{0%,100%{box-shadow:0 5px 0 rgba(198,40,40,.12),0 8px 24px rgba(30,35,45,.22)}50%{box-shadow:0 0 0 5px rgba(198,40,40,.16),0 8px 28px rgba(198,40,40,.32)}}
+ @keyframes tac-toolbar-button-pulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.1);filter:brightness(1.12)}}
 }
-@media (min-width:1100px){.tac-toolbar-reminder-bubble{display:none!important}}
-@media (prefers-reduced-motion:reduce){
- .tac-side-open.tac-toolbar-breathing,.tac-side-open.tac-toolbar-reminder-target{animation:none!important}
- .tac-toolbar-reminder-bubble{animation:none!important;opacity:1!important;transform:none!important}
-}
-#tac-tools-hint,.tac-tools-hint,.tac-tools-arrow-live,.tac-toolbar-hand-target{display:none!important;visibility:hidden!important;opacity:0!important}
+@media(min-width:1100px){.tac-toolbar-bubble-preview{display:none!important}}
 </style>
-<script id="tac-toolbar-breathing-bubble-js">
+<script id="tac-toolbar-bubble-preview-v1-js">
 (function(){
  function setup(){
   var btn=document.querySelector('.tac-side-open');
-  if(!btn||window.matchMedia('(max-width:1099px)').matches===false)return;
-  document.querySelectorAll('.tac-toolbar-reminder-bubble').forEach(function(el){el.remove()});
+  if(!btn || window.matchMedia('(max-width:1099px)').matches===false)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+   /* Keep the speech bubble visible, but honor reduced-motion preferences. */
+  }
+  document.querySelectorAll('.tac-toolbar-bubble-preview').forEach(function(el){el.remove()});
+  btn.classList.remove('tac-toolbar-bubble-target');
   var bubble=document.createElement('div');
-  bubble.className='tac-toolbar-reminder-bubble';
+  bubble.className='tac-toolbar-bubble-preview';
   bubble.setAttribute('role','note');
   bubble.textContent='「美股波動率」、「精選基金」、「歷史早報」請由上方「工具欄」開啟進入';
   document.body.appendChild(bubble);
-  btn.classList.add('tac-toolbar-breathing','tac-toolbar-reminder-target');
+  btn.classList.add('tac-toolbar-bubble-target');
   function place(){
-   if(!btn.isConnected||!bubble.isConnected)return;
    var r=btn.getBoundingClientRect();
-   var left=Math.min(window.innerWidth-150,r.right+10);
-   var width=Math.max(145,Math.min(205,window.innerWidth-left-14));
-   bubble.style.setProperty('left',left+'px','important');
-   bubble.style.setProperty('top',(r.bottom+8)+'px','important');
-   bubble.style.setProperty('width',width+'px','important');
-  }
-  function dismiss(){
-   bubble.remove();
-   btn.classList.remove('tac-toolbar-breathing','tac-toolbar-reminder-target');
-   window.removeEventListener('resize',place);
+   var w=Math.min(310,window.innerWidth-28);
+   var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
+   bubble.style.left=left+'px';
+   bubble.style.top=Math.max(12,r.top-bubble.offsetHeight-18)+'px';
   }
   requestAnimationFrame(place);
   window.addEventListener('resize',place,{passive:true});
-  var timer=window.setTimeout(dismiss,6500);
-  btn.addEventListener('click',function(){window.clearTimeout(timer);dismiss()},{once:true});
+  var timer=window.setTimeout(function(){
+   bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
+   window.removeEventListener('resize',place);
+  },6500);
+  btn.addEventListener('click',function(){
+   clearTimeout(timer);bubble.remove();btn.classList.remove('tac-toolbar-bubble-target');
+   window.removeEventListener('resize',place);
+  },{once:true});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
  else setup();
 })();
 </script>
+
+
+<style id="tac-remove-old-hint-and-finger-preview-v1">
+/* Preview-only cleanup: remove the legacy reminder capsule and pointing hand. */
+#tac-tools-hint,
+.tac-tools-hint,
+.tac-tools-arrow-live,
+.tac-toolbar-hand-target{display:none!important;visibility:hidden!important;opacity:0!important}
+</style>
+<script id="tac-remove-old-hint-and-finger-preview-v1-js">
+(function(){
+ function cleanup(){
+  document.querySelectorAll('#tac-tools-hint,.tac-tools-hint,.tac-tools-arrow-live,.tac-toolbar-hand-target').forEach(function(el){el.remove()});
+ }
+ document.addEventListener('DOMContentLoaded',cleanup);
+ cleanup();
+ window.setTimeout(cleanup,100);
+ window.setTimeout(cleanup,500);
+})();
+</script>
+
+
+<style id="tac-toolbar-breathing-bubble-emphasis-v2">
+@media(max-width:1099px){
+ .tac-side-open.tac-toolbar-bubble-target{
+  animation:tac-toolbar-breathe-strong-v2 .9s ease-in-out 5!important;
+  border:2px solid #c62828!important;
+  box-shadow:0 0 0 5px rgba(198,40,40,.2),0 0 20px rgba(198,40,40,.65)!important;
+ }
+ @keyframes tac-toolbar-breathe-strong-v2{
+  0%,100%{transform:scale(1);filter:brightness(1);box-shadow:0 0 0 2px rgba(198,40,40,.12),0 0 8px rgba(198,40,40,.2)}
+  50%{transform:scale(1.12);filter:brightness(1.1);box-shadow:0 0 0 7px rgba(198,40,40,.22),0 0 24px rgba(198,40,40,.72)}
+ }
+ .tac-toolbar-bubble-preview{
+  z-index:2147483647!important;
+  font-size:15px!important;
+  border-width:3px!important;
+  box-shadow:0 0 0 4px rgba(198,40,40,.12),0 10px 28px rgba(30,35,45,.28)!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-compact-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(248px,calc(100vw - 36px))!important;
+  padding:8px 10px!important;
+  border:2px solid #c62828!important;
+  border-radius:14px!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.4!important;
+  box-shadow:0 4px 14px rgba(30,35,45,.18)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:20px!important;bottom:-8px!important;width:12px!important;height:12px!important;
+  border-right-width:2px!important;border-bottom-width:2px!important;
+ }
+ .tac-toolbar-bubble-preview{
+  animation:tac-toolbar-bubble-compact-pop .28s ease-out forwards!important;
+ }
+ @keyframes tac-toolbar-bubble-compact-pop{
+  from{opacity:0;transform:translateY(4px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-comic-outline-bubble-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(238px,calc(100vw - 36px))!important;
+  padding:11px 13px!important;
+  border:2px solid #222!important;
+  border-radius:30px!important;
+  background:#fff!important;
+  color:#222!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  line-height:1.45!important;
+  text-align:center!important;
+  box-shadow:0 3px 0 rgba(0,0,0,.08)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;position:absolute!important;
+  left:18px!important;bottom:-17px!important;
+  width:34px!important;height:23px!important;
+  background:#222!important;border:0!important;
+  clip-path:polygon(0 0,100% 0,86% 100%)!important;
+  transform:none!important;
+ }
+ .tac-toolbar-bubble-preview:before{
+  content:""!important;display:block!important;position:absolute!important;
+  left:21px!important;bottom:-12px!important;
+  width:27px!important;height:18px!important;
+  background:#fff!important;
+  clip-path:polygon(0 0,100% 0,84% 100%)!important;
+  z-index:1!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-comic-outline-bubble-compact-v2">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(190px,calc(100vw - 44px))!important;
+  padding:8px 10px!important;
+  border-width:1.5px!important;
+  border-radius:23px!important;
+  font-size:11px!important;
+  line-height:1.35!important;
+  box-shadow:0 2px 0 rgba(0,0,0,.06)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:16px!important;bottom:-13px!important;width:26px!important;height:18px!important;
+ }
+ .tac-toolbar-bubble-preview:before{
+  left:18px!important;bottom:-9px!important;width:21px!important;height:14px!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-soft-pointer-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(220px,calc(100vw - 40px))!important;
+  padding:9px 12px!important;
+  border:1.5px solid #c62828!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  color:#b8202f!important;
+  font-size:12px!important;
+  line-height:1.4!important;
+  box-shadow:0 4px 14px rgba(30,35,45,.16)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;position:absolute!important;
+  left:20px!important;bottom:-10px!important;
+  width:16px!important;height:16px!important;
+  background:#fff!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+ }
+ .tac-toolbar-bubble-preview:before{content:none!important;display:none!important}
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-position-size-v3">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(280px,calc(100vw - 44px))!important;
+  padding:8px 10px!important;
+  border:1.5px solid #c62828!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  color:#b8202f!important;
+  font-size:11px!important;
+  font-weight:750!important;
+  line-height:1.35!important;
+  box-shadow:0 3px 12px rgba(30,35,45,.14)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:20px!important;bottom:-9px!important;width:14px!important;height:14px!important;
+  background:#fff!important;border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;transform:rotate(45deg)!important;
+ }
+ .tac-toolbar-bubble-preview:before{content:none!important;display:none!important}
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-below-nav-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(280px,calc(100vw - 44px))!important;
+  padding:6px 10px!important;
+  font-size:10.5px!important;
+  line-height:1.3!important;
+  border-radius:12px!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  top:-7px!important;bottom:auto!important;left:22px!important;
+  width:12px!important;height:12px!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  transform:rotate(225deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-below-nav-v1-js">
+(function(){
+ function placeBelowNav(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Keep the bubble below the navigation row, clear of the heading and summary card. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left+Math.min(150,r.width)));
+  bubble.style.left=left+'px';
+  bubble.style.top=(r.bottom+8)+'px';
+  bubble.style.width=w+'px';
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(placeBelowNav,50)},{once:true});
+ else setTimeout(placeBelowNav,50);
+ window.addEventListener('resize',placeBelowNav,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-target-fix-v2">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  left:62px!important;
+  top:-7px!important;
+  bottom:auto!important;
+  width:12px!important;height:12px!important;
+  background:#fff!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  transform:rotate(225deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-target-fix-v2-js">
+(function(){
+ function alignBubbleTailToToolbar(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Place bubble in the clear band below the nav, but align its tail with the toolbar button. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,b.left-8));
+  bubble.style.left=left+'px';
+  bubble.style.top=(b.bottom+8)+'px';
+  bubble.style.width=w+'px';
+  var tailX=(b.left+b.width/2)-left-7;
+  tailX=Math.max(12,Math.min(w-28,tailX));
+  bubble.style.setProperty('--tac-bubble-tail-x',tailX+'px');
+  bubble.style.setProperty('--tac-bubble-tail-left',tailX+'px');
+ }
+ var style=document.createElement('style');
+ style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{left:var(--tac-bubble-tail-left,62px)!important}}';
+ document.head.appendChild(style);
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(alignBubbleTailToToolbar)},{once:true});
+ else requestAnimationFrame(alignBubbleTailToToolbar);
+ window.addEventListener('resize',alignBubbleTailToToolbar,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-direct-v3">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  top:-12px!important;bottom:auto!important;
+  left:var(--tac-bubble-tail-left,64px)!important;
+  width:14px!important;height:14px!important;
+  background:#fff!important;
+  border-left:1.5px solid #c62828!important;
+  border-top:1.5px solid #c62828!important;
+  border-right:0!important;border-bottom:0!important;
+  transform:rotate(45deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-direct-v3-js">
+(function(){
+ function fix(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Bubble sits in the gap under the nav; its top tail is aligned to the toolbar button center. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',w+'px','important');
+  var tail=(r.left+r.width/2)-left-7;
+  tail=Math.max(10,Math.min(w-24,tail));
+  bubble.style.setProperty('--tac-bubble-tail-left',tail+'px');
+ }
+ function run(){requestAnimationFrame(fix);setTimeout(fix,100);setTimeout(fix,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-outline-clean-v4">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  border-radius:14px!important;
+  border:1.5px solid #c62828!important;
+  overflow:visible!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  top:-7px!important;bottom:auto!important;
+  left:var(--tac-bubble-tail-left,64px)!important;
+  width:12px!important;height:12px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:0!important;
+  border-top:1.5px solid #c62828!important;
+  border-left:1.5px solid #c62828!important;
+  border-right:0!important;border-bottom:0!important;
+  border-radius:1px 0 0 0!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-avoid-summary-title-v5">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(390px,calc(100vw - 205px))!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  border-radius:12px!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  left:-8px!important;top:10px!important;bottom:auto!important;
+  width:12px!important;height:12px!important;
+  background:#fff!important;
+  border-left:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  border-top:0!important;border-right:0!important;
+  transform:rotate(45deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-avoid-summary-title-v5-js">
+(function(){
+ function placeCompactRight(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-170, r.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.3','important');
+ }
+ function run(){requestAnimationFrame(placeCompactRight);setTimeout(placeCompactRight,100);setTimeout(placeCompactRight,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tail-diagonal-to-button-v6">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  /* Diagonal pointer exits the bubble's upper-left corner toward the toolbar button. */
+  left:-15px!important;
+  top:-1px!important;
+  bottom:auto!important;
+  width:23px!important;height:23px!important;
+  background:#fff!important;
+  border:0!important;
+  border-left:1.5px solid #c62828!important;
+  border-top:1.5px solid #c62828!important;
+  border-radius:0!important;
+  transform:rotate(-45deg)!important;
+  clip-path:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-diagonal-to-button-v6-js">
+(function(){
+ function alignDiagonalPointer(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-170,b.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(b.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Keep pointer on the upper-left edge so it leads diagonally back to the toolbar. */
+  bubble.style.setProperty('--tac-bubble-tail-left','-15px');
+ }
+ function run(){requestAnimationFrame(alignDiagonalPointer);setTimeout(alignDiagonalPointer,120)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-outline-seam-fix-v7">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  border:1.5px solid #c62828!important;
+  border-radius:14px!important;
+  overflow:visible!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-7px!important;
+  top:13px!important;
+  bottom:auto!important;
+  width:12px!important;
+  height:12px!important;
+  box-sizing:border-box!important;
+  background:#fff!important;
+  border:0!important;
+  border-left:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  border-radius:0 0 0 2px!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+
+
+<style id="tac-toolbar-bubble-two-lines-short-v8">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:230px!important;
+  max-width:calc(100vw - 150px)!important;
+  padding:7px 9px!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  text-align:center!important;
+  white-space:normal!important;
+  border-radius:12px!important;
+ }
+ /* Replace the awkward detached tail with a slim pointer line aimed back at the toolbar. */
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-58px!important;
+  top:7px!important;
+  bottom:auto!important;
+  width:58px!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(-14deg)!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-two-lines-short-v8-js">
+(function(){
+ function refine(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  var btn=document.querySelector('.tac-side-open');
+  if(!bubble||!btn||window.matchMedia('(max-width:1099px)').matches===false)return;
+  bubble.innerHTML='「美股波動率」、「精選基金」、<br>「歷史早報」請由上方「工具欄」開啟進入';
+  bubble.style.setProperty('width','230px','important');
+  bubble.style.setProperty('max-width','calc(100vw - 150px)','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.35','important');
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,r.right+10);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){setTimeout(refine,80);setTimeout(refine,250)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-pointer-geometry-fix-v9">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:-9px!important;
+  top:8px!important;
+  bottom:auto!important;
+  width:58px!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(60deg)!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-pointer-geometry-fix-v9-js">
+(function(){
+ function align(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,r.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Connector starts at bubble's left edge and travels diagonally up-left toward the toolbar button's right edge. */
+  var verticalGap=(r.bottom+8)-(r.top+r.height/2);
+  var horizontalGap=left-(r.right-4);
+  var len=Math.sqrt(horizontalGap*horizontalGap+verticalGap*verticalGap);
+  var angle=Math.atan2(-verticalGap,horizontalGap)*180/Math.PI;
+  bubble.style.setProperty('--tac-pointer-length',Math.max(32,Math.min(70,len))+'px');
+  bubble.style.setProperty('--tac-pointer-angle',angle+'deg');
+ }
+ var style=document.createElement('style');
+ style.textContent='@media(max-width:1099px){.tac-toolbar-bubble-preview:after{width:var(--tac-pointer-length,58px)!important;transform:rotate(var(--tac-pointer-angle,60deg))!important}}';
+ document.head.appendChild(style);
+ function run(){requestAnimationFrame(align);setTimeout(align,120);setTimeout(align,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-pointer-correct-target-v10">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;
+  position:absolute!important;
+  left:calc(-1 * var(--tac-pointer-length,120px))!important;
+  top:18px!important;
+  bottom:auto!important;
+  width:var(--tac-pointer-length,120px)!important;
+  height:2px!important;
+  background:#c62828!important;
+  border:0!important;
+  border-radius:2px!important;
+  transform:rotate(var(--tac-pointer-angle,33deg))!important;
+  transform-origin:right center!important;
+  clip-path:none!important;
+  box-shadow:none!important;
+ }
+}
+</style>
+<script id="tac-toolbar-pointer-correct-target-v10-js">
+(function(){
+ function align(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var b=btn.getBoundingClientRect();
+  var left=Math.min(window.innerWidth-244,b.right+10);
+  var width=Math.max(145,window.innerWidth-left-14);
+  var top=b.bottom+8;
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',top+'px','important');
+  bubble.style.setProperty('width',width+'px','important');
+  /* Line anchor is at the bubble's upper-left side; target is the toolbar button center. */
+  var anchorX=left;
+  var anchorY=top+18;
+  var targetX=b.left+b.width/2;
+  var targetY=b.top+b.height/2;
+  var dx=targetX-anchorX, dy=targetY-anchorY;
+  var length=Math.sqrt(dx*dx+dy*dy);
+  var angle=Math.atan2(dy,dx)*180/Math.PI-180;
+  bubble.style.setProperty('--tac-pointer-length',Math.max(35,Math.min(170,length))+'px');
+  bubble.style.setProperty('--tac-pointer-angle',angle+'deg');
+ }
+ function run(){requestAnimationFrame(align);setTimeout(align,120);setTimeout(align,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-fit-text-v11">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:max-content!important;
+  max-width:calc(100vw - 150px)!important;
+  min-width:0!important;
+  padding:7px 10px!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  white-space:normal!important;
+  text-wrap:pretty;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-fit-text-v11-js">
+(function(){
+ function fitBubble(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var text='「美股波動率」、「精選基金」、\n「歷史早報」請由上方「工具欄」開啟進入';
+  bubble.textContent=text;
+  bubble.style.setProperty('width','max-content','important');
+  bubble.style.setProperty('max-width','calc(100vw - 150px)','important');
+  bubble.style.setProperty('padding','7px 10px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.35','important');
+  var r=btn.getBoundingClientRect();
+  var width=Math.min(bubble.scrollWidth,window.innerWidth-150);
+  var left=Math.min(window.innerWidth-width-14,r.right+10);
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){requestAnimationFrame(fitBubble);setTimeout(fitBubble,120);setTimeout(fitBubble,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+<style id="tac-toolbar-bubble-tight-width-v12">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:190px!important;
+  max-width:calc(100vw - 150px)!important;
+  min-width:0!important;
+  padding:6px 8px!important;
+  font-size:10px!important;
+  line-height:1.3!important;
+  box-sizing:border-box!important;
+  white-space:normal!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tight-width-v12-js">
+(function(){
+ function sizeBubble(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var width=Math.min(190,window.innerWidth-150);
+  var left=Math.min(window.innerWidth-width-14,r.right+10);
+  bubble.style.setProperty('width',width+'px','important');
+  bubble.style.setProperty('max-width',width+'px','important');
+  bubble.style.setProperty('padding','6px 8px','important');
+  bubble.style.setProperty('font-size','10px','important');
+  bubble.style.setProperty('line-height','1.3','important');
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+ }
+ function run(){requestAnimationFrame(sizeBubble);setTimeout(sizeBubble,100);setTimeout(sizeBubble,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<style id="tac-toolbar-modal-reminder-safe-v15">
+@media(max-width:1099px){.tac-toolbar-bubble-preview{display:block}}
+</style>
+<script id="tac-toolbar-modal-reminder-safe-v15-js">
+(function(){
+ function isOpen(el){
+  if(!el)return false;
+  var s=getComputedStyle(el),r=el.getBoundingClientRect();
+  return s.display!=='none'&&s.visibility!=='hidden'&&Number(s.opacity||1)>0&&r.width>0&&r.height>0;
+ }
+ function sync(){
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  var toolbar=document.querySelector('.tac-side-open');
+  if(!bubble||!toolbar)return;
+  var modalSelectors='[role="dialog"],dialog[open],.modal.show,.modal.open,.tac-modal,.tac-overlay.is-open,.tac-dialog';
+  var open=Array.from(document.querySelectorAll(modalSelectors)).some(isOpen);
+  bubble.style.setProperty('display',open?'none':'block','important');
+  toolbar.classList.toggle('tac-toolbar-bubble-target',!open);
+ }
+ function schedule(){requestAnimationFrame(sync);setTimeout(sync,180)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule,{once:true});else schedule();
+ document.addEventListener('click',function(){setTimeout(sync,80);setTimeout(sync,350)},true);
+ var observer=new MutationObserver(schedule);
+ observer.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:['class','aria-hidden','open']});
+})();
+</script>
+
 </body>
 </html>
