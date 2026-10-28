@@ -803,3 +803,8 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 ### Next audit — cross-panel source disclosure geometry inventory
 - The sentiment and S&P compact source-row geometry gates are passing, and visible news cards remain within the documented ±1px tolerance. Next, `visual-smoke-test.mjs` now records the height, summary height, top margin, padding, border widths, and summary typography for every `details.source-details` across all panels in the initial baseline/candidate state. This is diagnostic-only; it does not impose parity where a component variant intentionally differs.
 - Test update commit `98e556457f7e853b07cf46cc7f94f9cb72d6de18`. Run #334 will collect this inventory at 1440px, 390px and 320px, after which only demonstrated unintended deltas will be corrected. No production files or data changed.
+
+
+### S&P 500 source disclosure marker follow-up (pending Run #335)
+- Visual review of the 320px candidate screenshot showed the compact S&P 500 method/source row still lacked the `▸` triangle present in the frozen baseline. The scoped compact-summary CSS had been suppressing `summary::before`, despite the shared source-disclosure rule explicitly providing a triangle.
+- Removed only the two S&P-specific `content:none`/`display:none` pseudo-element overrides in `design-system.css` commit `5e33eb102a32c78d334263281e938c892ae1dcae`, allowing the shared triangle to appear. Extended the S&P geometry assertion in `visual-smoke-test.mjs` commit `f8a46babe1083bd50aef6a5dacfddb587ee3a213` to verify marker content/display matches the baseline and includes `▸`. Run #334 had already checked out its source, so these changes will be validated by Run #335 after the current diagnostic run completes.
