@@ -31,6 +31,14 @@ for (const item of cases) {
     page.on("console", m => { if (m.type() === "error") errors.push("console: " + m.text()); });
     await page.goto("file://" + file, { waitUntil: "domcontentloaded" });
     await page.waitForTimeout(800);
+    // The approved template intentionally opens the Q4 fund-date notice on load.
+    // Dismiss it before checking the independent mobile toolbar reminder.
+    const fundNotice = page.locator("#tac-fund-notice");
+    if (await fundNotice.count() && await fundNotice.isVisible()) {
+      const closeButton = page.locator("#tfn-close");
+      if (await closeButton.count()) await closeButton.click();
+      await page.waitForTimeout(250);
+    }
 
     const initial = await page.evaluate(() => {
       const allIds = [...document.querySelectorAll("[id]")].map(el => el.id);
