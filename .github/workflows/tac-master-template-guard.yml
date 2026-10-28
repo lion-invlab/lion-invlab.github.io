@@ -1,0 +1,45 @@
+name: TAC Master Template Guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "母版專區/TAC_母版_週一_2026-10-26.html"
+      - "母版專區/TAC_母版_週二至週五_2026-10-28.html"
+      - "scripts/tac-master-template-lock.json"
+      - "scripts/verify_tac_master_templates.py"
+      - ".github/workflows/tac-master-template-guard.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "母版專區/TAC_母版_週一_2026-10-26.html"
+      - "母版專區/TAC_母版_週二至週五_2026-10-28.html"
+      - "scripts/tac-master-template-lock.json"
+      - "scripts/verify_tac_master_templates.py"
+      - ".github/workflows/tac-master-template-guard.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-master-template-guard-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-approved-masters:
+    name: Verify approved master integrity
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout candidate revision
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify pinned master files and structure
+        run: python scripts/verify_tac_master_templates.py
