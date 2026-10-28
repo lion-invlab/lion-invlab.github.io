@@ -3026,5 +3026,27 @@ main.wrap [data-main-section-title]{
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
 })();
 </script>
+<!-- TAC toolbar breathing light + comic speech bubble reminder (approved option C) -->
+<script id="tac-toolbar-breathing-bubble-v1">
+(function(){
+  function setup(){
+    var target=document.querySelector('.tac-tools-hint');
+    if(!target) target=Array.from(document.querySelectorAll('a,button,[role="button"]')).find(function(el){return /工具欄/.test((el.innerText||el.textContent||'').replace(/\s+/g,''));});
+    if(!target) return;
+    if(document.getElementById('tac-toolbar-bubble-style')) return;
+    var style=document.createElement('style');style.id='tac-toolbar-bubble-style';
+    style.textContent='@keyframes tacToolbarBreath{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(198,40,40,.10)}50%{transform:scale(1.045);box-shadow:0 0 0 7px rgba(198,40,40,.16)}}.tac-toolbar-breathing-live{position:relative!important;z-index:100001!important;animation:tacToolbarBreath .95s ease-in-out infinite!important;outline:2px solid rgba(198,40,40,.58)!important;outline-offset:2px!important}#tac-toolbar-comic-bubble{position:fixed;z-index:100002;display:block;max-width:min(260px,calc(100vw - 24px));padding:10px 14px;background:#fff;border:2px solid #c62828;border-radius:16px;color:#202328;font:800 14px/1.35 -apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC",sans-serif;box-shadow:0 5px 18px rgba(20,25,35,.2);text-align:center;pointer-events:none;opacity:0;transform:translateY(-4px) scale(.96);transition:opacity .18s ease,transform .18s ease}#tac-toolbar-comic-bubble::before{content:"";position:absolute;top:-9px;left:var(--bubble-tail-left,50%);width:14px;height:14px;background:#fff;border-top:2px solid #c62828;border-left:2px solid #c62828;transform:translateX(-50%) rotate(45deg)}#tac-toolbar-comic-bubble.is-visible{opacity:1;transform:translateY(0) scale(1)}@media(prefers-reduced-motion:reduce){.tac-toolbar-breathing-live{animation:none!important}#tac-toolbar-comic-bubble{transition:none}}';
+    document.head.appendChild(style);
+    var bubble=document.createElement('div');bubble.id='tac-toolbar-comic-bubble';bubble.setAttribute('role','status');bubble.setAttribute('aria-live','polite');bubble.textContent='👆 點這裡，開啟工具欄！';document.body.appendChild(bubble);
+    target.classList.add('tac-toolbar-breathing-live');
+    var done=false;
+    function position(){if(done||!target.isConnected)return;var r=target.getBoundingClientRect();if(r.width===0||r.height===0)return;var bw=bubble.getBoundingClientRect().width||220;var left=Math.max(12,Math.min(window.innerWidth-bw-12,r.left+r.width/2-bw/2));var top=r.bottom+12;if(top+bubble.offsetHeight>window.innerHeight-8)top=Math.max(8,r.top-bubble.offsetHeight-12);bubble.style.left=left+'px';bubble.style.top=top+'px';bubble.style.setProperty('--bubble-tail-left',Math.max(18,Math.min(bw-18,r.left+r.width/2-left))+'px');bubble.classList.add('is-visible');}
+    function stop(){if(done)return;done=true;target.classList.remove('tac-toolbar-breathing-live');bubble.classList.remove('is-visible');setTimeout(function(){bubble.remove();style.remove();},220);window.removeEventListener('resize',position);window.removeEventListener('scroll',position);}
+    position();window.addEventListener('resize',position,{passive:true});window.addEventListener('scroll',position,{passive:true});setTimeout(position,250);setTimeout(stop,5000);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>
+
 </body>
 </html>
