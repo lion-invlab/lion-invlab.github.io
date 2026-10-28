@@ -70,3 +70,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T18:10:00.000Z
 # Run 345 — verify unified light source disclosure text color
 2026-10-29T18:15:00.000Z
+# Run 346 — verify canonical source color token cascade
+2026-10-29T18:20:00.000Z
