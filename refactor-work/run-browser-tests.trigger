@@ -76,3 +76,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T18:25:00.000Z
 # Run 348 — inventory special heading variants
 2026-10-29T18:30:00.000Z
+# Run 349 — verify single-marker special heading contract
+2026-10-29T18:35:00.000Z
