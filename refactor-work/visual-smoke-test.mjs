@@ -858,6 +858,21 @@ try {
 
     const baselineSpecialHeadingGeometry = baseReport.specialHeadingGeometry || [];
     const candidateSpecialHeadingGeometry = report.specialHeadingGeometry || [];
+    const specialHeadingTypographyPass =
+      baselineSpecialHeadingGeometry.length === 9 &&
+      candidateSpecialHeadingGeometry.length === baselineSpecialHeadingGeometry.length &&
+      baselineSpecialHeadingGeometry.every((b, i) => {
+        const h = candidateSpecialHeadingGeometry[i];
+        return h && !h.missing && h.id === b.id &&
+          h.fontSize === b.fontSize && h.fontWeight === b.fontWeight &&
+          h.lineHeight === b.lineHeight && h.color === b.color;
+      });
+    if (!specialHeadingTypographyPass) results.errors.push({
+      viewport: viewport.name,
+      error: "Special heading typography/color differs from the frozen baseline",
+      baseline: baselineSpecialHeadingGeometry,
+      candidate: candidateSpecialHeadingGeometry
+    });
     const specialHeadingMarkerContractPass =
       candidateSpecialHeadingGeometry.length === 9 &&
       candidateSpecialHeadingGeometry.every(h => {
@@ -984,7 +999,7 @@ try {
       baselineSp500TitleSourceGeometry, candidateSp500TitleSourceGeometry, sp500TitleSourceGeometryPass,
       baselineAssetSourceRows, candidateAssetSourceRows, assetSourceDisclosureGeometryPass,
       baselineTabbedPanelHeadingGeometry, candidateTabbedPanelHeadingGeometry, tabbedPanelHeadingConsistencyPass,
-      baselineSpecialHeadingGeometry, candidateSpecialHeadingGeometry, specialHeadingMarkerContractPass,
+      baselineSpecialHeadingGeometry, candidateSpecialHeadingGeometry, specialHeadingTypographyPass, specialHeadingMarkerContractPass,
       baselinePanelGeometry, candidatePanelGeometry, panelGeometryPass,
       candidateSourceDisclosureColors, sourceDisclosureColorPass,
       baselineSourceDisclosureGeometry, candidateSourceDisclosureGeometry, sourceDisclosureGeometryPass,
@@ -1017,7 +1032,7 @@ try {
 - Duplicate IDs: ${v.duplicateIds.join(", ") || "none"}
 - Unmatched nav links: ${v.unmatchedNav.length}
 - Navigation anchor geometry: pass=${v.navAnchorsPass}; measurements=${v.navAnchorResults.map(a => `${a.href} top=${a.headingTop} visibleBottom=${a.visibleHeaderBottom} clearance=${a.clearance} visible=${a.headingVisible} target=${a.targetFound} heading=${a.headingFound}`).join(" | ")}
-- Shared tabbed-panel heading consistency: pass=${v.tabbedPanelHeadingConsistencyPass}; candidate signatures=${JSON.stringify(v.candidateTabbedPanelHeadingGeometry)}\n- Special heading marker contract: pass=${v.specialHeadingMarkerContractPass}; variants (baseline → candidate): ${JSON.stringify(v.specialHeadingGeometry.map(h => { const b=(v.baseline.specialHeadingGeometry||[]).find(x=>x.id===h.id); return {id:h.id,missing:h.missing||b?.missing,fontSize:[b?.fontSize,h.fontSize],fontWeight:[b?.fontWeight,h.fontWeight],lineHeight:[b?.lineHeight,h.lineHeight],color:[b?.color,h.color],padding:[b?.padding,h.padding],margin:[b?.margin,h.margin],borderLeftWidth:[b?.borderLeftWidth,h.borderLeftWidth],height:[b?.height,h.height],width:[b?.width,h.width],beforeColor:[b?.beforeColor,h.beforeColor],beforeBackgroundColor:[b?.beforeBackgroundColor,h.beforeBackgroundColor],beforeDisplay:[b?.beforeDisplay,h.beforeDisplay],beforeHeight:[b?.beforeHeight,h.beforeHeight]}; }))}\n- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
+- Shared tabbed-panel heading consistency: pass=${v.tabbedPanelHeadingConsistencyPass}; candidate signatures=${JSON.stringify(v.candidateTabbedPanelHeadingGeometry)}\n- Special heading typography parity: pass=${v.specialHeadingTypographyPass}; marker contract: pass=${v.specialHeadingMarkerContractPass}; variants (baseline → candidate): ${JSON.stringify(v.specialHeadingGeometry.map(h => { const b=(v.baseline.specialHeadingGeometry||[]).find(x=>x.id===h.id); return {id:h.id,missing:h.missing||b?.missing,fontSize:[b?.fontSize,h.fontSize],fontWeight:[b?.fontWeight,h.fontWeight],lineHeight:[b?.lineHeight,h.lineHeight],color:[b?.color,h.color],padding:[b?.padding,h.padding],margin:[b?.margin,h.margin],borderLeftWidth:[b?.borderLeftWidth,h.borderLeftWidth],height:[b?.height,h.height],width:[b?.width,h.width],beforeColor:[b?.beforeColor,h.beforeColor],beforeBackgroundColor:[b?.beforeBackgroundColor,h.beforeBackgroundColor],beforeDisplay:[b?.beforeDisplay,h.beforeDisplay],beforeHeight:[b?.beforeHeight,h.beforeHeight]}; }))}\n- Main-panel geometry tolerance: pass=${v.panelGeometryPass}; baseline → candidate heights: ${v.panelGeometry.map(p => { const b=v.baseline.panelGeometry.find(x=>x.id===p.id); return `${p.id}: ${b?.height ?? "missing"}px → ${p.height}px (Δ${b ? p.height-b.height : "n/a"}px; top Δ${b ? p.top-b.top : "n/a"}px; width Δ${b ? p.width-b.width : "n/a"}px)`; }).join(" | ")}
 - Prior-week disclosure geometry parity: pass=${v.priorWeekDisclosureGeometryPass}; baseline=${JSON.stringify(v.baselinePriorWeekDisclosureGeometry)}; candidate=${JSON.stringify(v.candidatePriorWeekDisclosureGeometry)}
 - Toolbar onboarding bubble: present before screenshot cleanup=${v.coachPresentBeforeCleanup}, mobile expected=${v.coachMobileExpected}, toolbar text=${v.coachTextContract}, pointer-events disabled=${v.coachPointerEventsNone}, target pulse=${v.coachTargetPulse}, initial display=${v.coachInitialVisibility}, bubble in viewport=${v.coachBubbleInViewport}, wraps=${v.coachBubbleWraps}, text inside bubble=${v.coachTextInsideBubble}, width=${v.coachBubbleWidth}, legacy hint removed=${v.coachLegacyHintRemoved}\n- Style/script tags: ${v.styleTagCount}/${v.scriptCount}
 - Source disclosure: opens=${v.sourceDisclosureWorks}, closes=${v.sourceDisclosureCloses}, marker=${v.sourceDisclosureMarker}
