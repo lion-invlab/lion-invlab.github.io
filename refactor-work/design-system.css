@@ -396,11 +396,16 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
 .tac-ds-disclosure--source.region-source > summary,
 .tac-ds-disclosure--source.sector-source > summary {
   padding: 2px 0 !important;
-  color: #9CA3AF !important;
+  color: var(--tac-ds-color-muted) !important;
   font-size: 11px;
   font-weight: 400 !important;
   line-height: 1.4;
   cursor: pointer;
+}
+/* All light-surface source controls share the design-system muted text token.
+   Dark sentiment disclosures retain their contrast-safe light-text variant. */
+.tac-ds-disclosure--source:not(.tac-ds-disclosure--dark) > summary {
+  color: var(--tac-ds-color-muted) !important;
 }
 
 .tac-ds-disclosure--dark {
