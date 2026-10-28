@@ -3714,3 +3714,31 @@ document.addEventListener('DOMContentLoaded',function(){
  }
 }
 </style>
+
+
+<style id="tac-toolbar-bubble-soft-pointer-v1">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview{
+  width:min(220px,calc(100vw - 40px))!important;
+  padding:9px 12px!important;
+  border:1.5px solid #c62828!important;
+  border-radius:15px!important;
+  background:#fff!important;
+  color:#b8202f!important;
+  font-size:12px!important;
+  line-height:1.4!important;
+  box-shadow:0 4px 14px rgba(30,35,45,.16)!important;
+ }
+ .tac-toolbar-bubble-preview:after{
+  content:""!important;position:absolute!important;
+  left:20px!important;bottom:-10px!important;
+  width:16px!important;height:16px!important;
+  background:#fff!important;
+  border-right:1.5px solid #c62828!important;
+  border-bottom:1.5px solid #c62828!important;
+  clip-path:none!important;
+  transform:rotate(45deg)!important;
+ }
+ .tac-toolbar-bubble-preview:before{content:none!important;display:none!important}
+}
+</style>
