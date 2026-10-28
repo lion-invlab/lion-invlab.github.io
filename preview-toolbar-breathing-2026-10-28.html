@@ -3847,3 +3847,41 @@ document.addEventListener('DOMContentLoaded',function(){
  window.addEventListener('resize',alignBubbleTailToToolbar,{passive:true});
 })();
 </script>
+
+
+<style id="tac-toolbar-bubble-tail-direct-v3">
+@media(max-width:1099px){
+ .tac-toolbar-bubble-preview:after{
+  top:-12px!important;bottom:auto!important;
+  left:var(--tac-bubble-tail-left,64px)!important;
+  width:14px!important;height:14px!important;
+  background:#fff!important;
+  border-left:1.5px solid #c62828!important;
+  border-top:1.5px solid #c62828!important;
+  border-right:0!important;border-bottom:0!important;
+  transform:rotate(45deg)!important;
+ }
+}
+</style>
+<script id="tac-toolbar-bubble-tail-direct-v3-js">
+(function(){
+ function fix(){
+  var btn=document.querySelector('.tac-side-open');
+  var bubble=document.querySelector('.tac-toolbar-bubble-preview');
+  if(!btn||!bubble||window.matchMedia('(max-width:1099px)').matches===false)return;
+  var r=btn.getBoundingClientRect();
+  var w=Math.min(280,window.innerWidth-44);
+  /* Bubble sits in the gap under the nav; its top tail is aligned to the toolbar button center. */
+  var left=Math.max(14,Math.min(window.innerWidth-w-14,r.left));
+  bubble.style.setProperty('left',left+'px','important');
+  bubble.style.setProperty('top',(r.bottom+8)+'px','important');
+  bubble.style.setProperty('width',w+'px','important');
+  var tail=(r.left+r.width/2)-left-7;
+  tail=Math.max(10,Math.min(w-24,tail));
+  bubble.style.setProperty('--tac-bubble-tail-left',tail+'px');
+ }
+ function run(){requestAnimationFrame(fix);setTimeout(fix,100);setTimeout(fix,350)}
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
+ window.addEventListener('resize',run,{passive:true});
+})();
+</script>
