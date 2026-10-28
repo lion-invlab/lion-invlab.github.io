@@ -1820,3 +1820,9 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
   padding: 2px 0 !important;
   line-height: normal !important;
 }
+
+/* Sector-list expansion is a separate control from source disclosures; preserve
+   the baseline plus glyph instead of the shared audit-detail triangle. */
+#industry-bonds-fx-commodities details.sector-collapse > summary::before {
+  content: "＋" !important;
+}
