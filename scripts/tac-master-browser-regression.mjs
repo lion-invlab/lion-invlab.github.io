@@ -65,6 +65,8 @@ for (const item of cases) {
     if (initial.unmatchedNav.length) failures.push(`${item.name}/${vp.name}: unmatched nav anchors ${JSON.stringify(initial.unmatchedNav)}`);
     if (initial.missingCorePanels.length) failures.push(`${item.name}/${vp.name}: missing core panels ${initial.missingCorePanels.join(", ")}`);
     if (initial.documentWidth > vp.width + 1) failures.push(`${item.name}/${vp.name}: horizontal overflow documentWidth=${initial.documentWidth}, viewport=${vp.width}`);
+    if (vp.width < 1100 && (!initial.toolbarBubble || !initial.toolbarBubble.visible)) failures.push(`${item.name}/${vp.name}: mobile toolbar reminder bubble is missing or hidden`);
+    if (vp.width >= 1100 && initial.toolbarBubble) failures.push(`${item.name}/${vp.name}: mobile toolbar reminder unexpectedly appears on desktop`);
 
     const detailsTest = await page.evaluate(() => {
       const el = document.querySelector("details");
