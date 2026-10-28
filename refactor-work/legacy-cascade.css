@@ -584,7 +584,7 @@ body.release-ready .news-window-warning { display: none !important; }
 
 /* V4: use the same round red expand control as the earnings accordion */
 #calendar details.calendar-collapse>summary:after,#earnings details.calendar-collapse>summary:after{content:"＋";display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;min-width:32px;flex:0 0 32px;border-radius:50%;margin-left:auto;background:#c62828;color:#fff;font-size:22px;font-weight:500;line-height:1;box-shadow:0 3px 8px rgba(198,40,40,.2);border:0}
-#calendar details.calendar-collapse[open]>summary:after,#earnings details.calendar-collapse[open]>summary:after{content:"−";background:#202328}
+
 
 
 
