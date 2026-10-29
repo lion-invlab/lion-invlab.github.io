@@ -629,6 +629,8 @@ try {
     let sectorOpenMarkerBackground = null;
     let sectorClosedMarkerColor = null;
     let sectorClosedMarkerBackground = null;
+    let sectorOpenMarkerDiagnostics = null;
+    let sectorClosedMarkerDiagnostics = null;
     if (await sectorTabLabel.count()) {
       await sectorTabLabel.click({ timeout: 3000, force: true }).catch(() => {});
       await cand.page.waitForTimeout(260);
@@ -652,6 +654,7 @@ try {
             const marker = getComputedStyle(summary, "::before");
             return { summaryColor: getComputedStyle(summary).color, markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor, markerDisplay: marker.display, markerFontSize: marker.fontSize, markerTextFill: marker.webkitTextFillColor };
           });
+          sectorOpenMarkerDiagnostics = openStyle;
           sectorOpenSummaryColor = openStyle.summaryColor;
           sectorOpenMarkerColor = openStyle.markerColor;
           sectorOpenMarkerBackground = openStyle.markerBackground;
@@ -678,6 +681,7 @@ try {
             const marker = getComputedStyle(summary, "::before");
             return { markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor, markerDisplay: marker.display, markerFontSize: marker.fontSize, markerTextFill: marker.webkitTextFillColor };
           });
+          sectorClosedMarkerDiagnostics = closedStyle;
           sectorClosedMarkerColor = closedStyle.markerColor;
           sectorClosedMarkerBackground = closedStyle.markerBackground;
           sectorClosedMarkerPass = closedStyle.markerContent.includes("＋") &&
@@ -1035,7 +1039,7 @@ try {
       candidate: candidatePriorWeekDisclosureGeometry
     });
     results.viewports.push({
-      ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses, sectorOpenMarkerPass, sectorClosedMarkerPass, sectorOpenSummaryColor, sectorOpenMarkerColor, sectorOpenMarkerBackground, sectorClosedMarkerColor, sectorClosedMarkerBackground,
+      ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses, sectorOpenMarkerPass, sectorClosedMarkerPass, sectorOpenSummaryColor, sectorOpenMarkerColor, sectorOpenMarkerBackground, sectorClosedMarkerColor, sectorClosedMarkerBackground, sectorOpenMarkerDiagnostics, sectorClosedMarkerDiagnostics,
       fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
       baselineSentimentDisclosureGeometry, candidateSentimentDisclosureGeometry, sentimentDisclosureGeometryPass,
       baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
