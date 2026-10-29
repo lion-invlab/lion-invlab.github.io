@@ -4,16 +4,16 @@ on:
   push:
     branches: [main]
     paths:
-      - "母版專區/TAC_母版_週一_2026-10-26.html"
-      - "母版專區/TAC_母版_週二至週五_2026-10-28.html"
+      - "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
+      - "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
       - "scripts/tac-master-template-lock.json"
       - "scripts/verify_tac_master_templates.py"
       - ".github/workflows/tac-master-template-guard.yml"
   pull_request:
     branches: [main]
     paths:
-      - "母版專區/TAC_母版_週一_2026-10-26.html"
-      - "母版專區/TAC_母版_週二至週五_2026-10-28.html"
+      - "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
+      - "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
       - "scripts/tac-master-template-lock.json"
       - "scripts/verify_tac_master_templates.py"
       - ".github/workflows/tac-master-template-guard.yml"
