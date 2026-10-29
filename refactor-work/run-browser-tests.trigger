@@ -94,3 +94,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #356 — calibrate minimum row-height assertion to measured baseline — 2026-10-29T16:20:00+08:00
 
 # Run #357 — regression after logging successful instrument row geometry audit — 2026-10-29T16:30:00+08:00
+
+# Run #358 — capture expanded S&P 500 sector rows for visual review — 2026-10-29T16:40:00+08:00
