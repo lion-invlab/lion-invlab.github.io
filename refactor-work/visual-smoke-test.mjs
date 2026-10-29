@@ -883,11 +883,15 @@ try {
             h.beforeDisplay === "block" &&
             h.beforeBackgroundColor === "rgb(224, 176, 75)";
         }
+        if (h.id === "fed" || h.id === "view") {
+          const expectedPadding = viewport.width <= 700 ? "0px 0px 0px 12px" : "0px 0px 0px 10px";
+          return h.borderLeftWidth === "5px" && h.beforeDisplay === "none" && h.padding === expectedPadding;
+        }
         return h.borderLeftWidth === "5px" && h.beforeDisplay === "none";
       });
     if (!specialHeadingMarkerContractPass) results.errors.push({
       viewport: viewport.name,
-      error: "Special headings must use exactly one marker: gold pseudo for sentiment, canonical border for other variants",
+      error: "Special headings must use one marker; Fed/Today Focus must preserve canonical marker-to-text spacing",
       baseline: baselineSpecialHeadingGeometry,
       candidate: candidateSpecialHeadingGeometry
     });
