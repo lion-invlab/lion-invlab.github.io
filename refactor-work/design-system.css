@@ -1839,10 +1839,21 @@ html body main.wrap #industry-bonds-fx-commodities details.sector-collapse > sum
 }
 html body main.wrap #industry-bonds-fx-commodities details.sector-collapse > summary::before {
   content: "＋" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 21px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
   background: #c62828 !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   transform: none !important;
+}
+@media (max-width: 700px) {
+  html body main.wrap #industry-bonds-fx-commodities details.sector-collapse > summary::before {
+    font-size: 22px !important;
+  }
 }
 html body main.wrap #industry-bonds-fx-commodities details.sector-collapse[open] > summary {
   color: #a91f27 !important;
@@ -1850,10 +1861,21 @@ html body main.wrap #industry-bonds-fx-commodities details.sector-collapse[open]
 }
 html body main.wrap #industry-bonds-fx-commodities details.sector-collapse[open] > summary::before {
   content: "−" !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 21px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
   background: #202328 !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   transform: none !important;
+}
+@media (max-width: 700px) {
+  html body main.wrap #industry-bonds-fx-commodities details.sector-collapse[open] > summary::before {
+    font-size: 22px !important;
+  }
 }
 
 /* Exactly one title marker per special heading variant.
