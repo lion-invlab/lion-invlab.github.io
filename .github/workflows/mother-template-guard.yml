@@ -74,13 +74,13 @@ jobs:
           path = Path("母版專區/mother-template-manifest.json")
           data = json.loads(path.read_text(encoding="utf-8"))
           data["templates"]["weekdays"]["blob_sha"] = "0000000000000000000000000000000000000000"
-          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
           PY
           set +e
           output="$(python scripts/validate_mother_template.py --date "2026-10-27" 2>&1)"
           status=$?
           set -e
-          printf '%s\\n' "$output"
+          printf '%s\n' "$output"
           if [ "$status" -eq 0 ]; then
             echo "ERROR: tampered manifest SHA unexpectedly passed validation"
             exit 1
