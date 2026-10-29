@@ -1067,3 +1067,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Run #369 was triggered at https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40852031099. At the time of this entry it remains in progress at the browser regression step; no pass/fail conclusion has been assigned.
 - The trigger note for Run #369 contains a placeholder in the CSS SHA field; the actual CSS commit is 64743a5ac062ee6251d00733dfa1875320fa09fa. Correct the trigger log after Run #369 finishes if needed, avoiding an unnecessary concurrent trigger while the test is running.
 - No formal homepage, approved mother templates, market JSON or schedules were changed. Gate 4 remains open pending Run #369 results and continued mobile/desktop visual classification.
+
+### Run #369 result — stronger glyph assertion correctly blocks candidate
+
+- Run #369 failed at the browser regression step: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40852031099; artifact 12887382332 was downloaded and inspected. This is an assertion failure, not a browser runtime error: results.errors=[], new browser errors=0, and tab/navigation/accordion interactions pass, but the newly added sector marker pass booleans are false at 1440px, 390px and 320px.
+- The failure demonstrates the prior state/content/color-only assertion was insufficient. The latest assertion now also requires marker display=inline-flex, font size=21px desktop / 22px mobile, and white text fill. The run artifact did not expose all of these computed values, so no speculative further CSS change should be made until the next diagnostic run reports the raw open/closed computed-style objects.
+- Run #370 was triggered with expanded marker diagnostics: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40852303221. It is currently in progress; its result has not yet been verified.
+- No production files, formal mother templates, market data or schedules were changed. Gate 4 remains open.
