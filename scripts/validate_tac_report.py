@@ -101,7 +101,7 @@ def inspect(path: Path) -> list[str]:
         cwd=ROOT, text=True, capture_output=True,
     )
     if guard.returncode != 0:
-        detail = (guard.stdout + "\\n" + guard.stderr).strip()
+        detail = (guard.stdout + "\n" + guard.stderr).strip()
         return [f"approved master guard failed for {report_date.isoformat()}: {detail}"]
 
     if not master_path.exists():
