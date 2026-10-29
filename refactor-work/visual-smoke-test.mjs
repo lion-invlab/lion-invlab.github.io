@@ -622,6 +622,13 @@ try {
     let sectorTabTextColor = null;
     let sectorCollapseWorks = null;
     let sectorCollapseCloses = null;
+    let sectorOpenMarkerPass = false;
+    let sectorClosedMarkerPass = false;
+    let sectorOpenSummaryColor = null;
+    let sectorOpenMarkerColor = null;
+    let sectorOpenMarkerBackground = null;
+    let sectorClosedMarkerColor = null;
+    let sectorClosedMarkerBackground = null;
     if (await sectorTabLabel.count()) {
       await sectorTabLabel.click({ timeout: 3000, force: true }).catch(() => {});
       await cand.page.waitForTimeout(260);
@@ -639,6 +646,20 @@ try {
         await cand.page.waitForTimeout(350);
         const sectorAfterToggle = await sectorDisclosure.evaluate(el => el.open);
         sectorCollapseWorks = sectorAfterToggle !== sectorBefore;
+        if (sectorAfterToggle) {
+          const openStyle = await sectorDisclosure.evaluate(el => {
+            const summary = el.querySelector(":scope > summary");
+            const marker = getComputedStyle(summary, "::before");
+            return { summaryColor: getComputedStyle(summary).color, markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor };
+          });
+          sectorOpenSummaryColor = openStyle.summaryColor;
+          sectorOpenMarkerColor = openStyle.markerColor;
+          sectorOpenMarkerBackground = openStyle.markerBackground;
+          sectorOpenMarkerPass = openStyle.markerContent.includes("−") &&
+            openStyle.summaryColor === "rgb(169, 31, 39)" &&
+            openStyle.markerColor === "rgb(255, 255, 255)" &&
+            openStyle.markerBackground === "rgb(32, 35, 40)";
+        }
         if (!sectorCollapseWorks) {
           // Retry once after tab/panel transition has fully settled; preserve a real pointer interaction.
           await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | retry: " + String(e.message || e).slice(0, 180); });
@@ -648,6 +669,18 @@ try {
         await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | close: " + String(e.message || e).slice(0, 180); });
         await cand.page.waitForTimeout(350);
         sectorCollapseCloses = (await sectorDisclosure.evaluate(el => el.open)) === sectorBefore;
+        if (sectorCollapseCloses && !sectorBefore) {
+          const closedStyle = await sectorDisclosure.evaluate(el => {
+            const summary = el.querySelector(":scope > summary");
+            const marker = getComputedStyle(summary, "::before");
+            return { markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor };
+          });
+          sectorClosedMarkerColor = closedStyle.markerColor;
+          sectorClosedMarkerBackground = closedStyle.markerBackground;
+          sectorClosedMarkerPass = closedStyle.markerContent.includes("＋") &&
+            closedStyle.markerColor === "rgb(255, 255, 255)" &&
+            closedStyle.markerBackground === "rgb(198, 40, 40)";
+        }
         if (!sectorCollapseCloses) {
           await sectorSummary.scrollIntoViewIfNeeded().catch(() => {});
           await sectorSummary.click({ timeout: 5000 }).catch(e => { sectorClickError += " | close retry: " + String(e.message || e).slice(0, 180); });
@@ -996,7 +1029,7 @@ try {
       candidate: candidatePriorWeekDisclosureGeometry
     });
     results.viewports.push({
-      ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses,
+      ...viewport, baselineDetailedGeometry, baseline: baseReport, ...report, navAnchorResults, navAnchorsPass, toolbarScrollCheck, tabResults, consistentSelectedTabColor, consistentSelectedTabTextColor, sourceDisclosureWorks, sourceDisclosureCloses, sourceDisclosureMarker, collapseWorks, earningsCollapseWorks, collapseBefore, collapseAfter, collapseClickError, eventCardWorks, eventCardCloses, earningsUpcomingTabWorks, earningsAccordionWorks, earningsAccordionCloses, sectorTabWorks, sectorTabColor, sectorTabTextColor, sectorCollapseWorks, sectorCollapseCloses, sectorOpenMarkerPass, sectorClosedMarkerPass, sectorOpenSummaryColor, sectorOpenMarkerColor, sectorOpenMarkerBackground, sectorClosedMarkerColor, sectorClosedMarkerBackground,
       fedWatchStyleCheck, expectedFedWatchStyle, fedWatchStylePass,
       baselineSentimentDisclosureGeometry, candidateSentimentDisclosureGeometry, sentimentDisclosureGeometryPass,
       baselineNewsCardGeometry, candidateNewsCardGeometry, newsCardHeightDeltas, newsCardGeometryPass,
@@ -1068,7 +1101,7 @@ try {
     !v.newsCardGeometryPass ||
     !v.sp500TitleSourceGeometryPass ||
     !v.assetSourceDisclosureGeometryPass ||
-    !v.sectorCollapseMarkerPass ||
+    !v.sectorCollapseMarkerPass || !v.sectorOpenMarkerPass || !v.sectorClosedMarkerPass ||
     v.sourceDisclosureWorks !== true || v.sourceDisclosureCloses !== true || !String(v.sourceDisclosureMarker || "").includes("▸") ||
     (v.horizontalOverflow && !v.baseline.horizontalOverflow) ||
     !v.toolbarButtonInNav || v.toolbarButtonPlacement !== "navigation" || (v.width < 1100 && v.toolbarButtonPosition !== "relative") || (v.width < 1100 && (!v.toolbarScrollCheck?.buttonWithinNav || !v.toolbarScrollCheck?.buttonInsideNavViewport)) ||
