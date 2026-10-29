@@ -1109,3 +1109,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 
 - The trigger file `refactor-work/run-browser-tests.trigger` is a push trigger for `.github/workflows/tac-refactor-browser-test.yml`; that workflow uses `concurrency.cancel-in-progress: true`. Two record-only commits landed close together and caused Runs #372 and #373 to be cancelled before the browser-test step completed (Run #372 reached build-candidate, then test step cancelled; Run #373 had no jobs). These are not test failures and must not be used as regression evidence.
 - Avoid appending record-only notes to the trigger file. For documentation-only updates, use a non-triggering GitHub commit path (e.g. a direct Git data commit for `MIGRATION-LOG.md` only) so a new push to the trigger branch is not emitted. Only modify the trigger when intentionally launching a browser regression, and avoid concurrent trigger commits.
+
+
+### 2026-10-29 — Workflow cancellation follow-up after documentation pushes
+
+- Confirmed Runs #372 (40869368960), #373 (40869505806), #374 (40869550605), #375 (40869600507), and #376 (40869682502) were cancelled before the browser-test step completed because successive pushes to the path-filtered trigger file share `concurrency.cancel-in-progress: true`. These runs are not regression evidence and should not be classified as CSS failures.
+- Run #377 (40869875313) was the latest run at this checkpoint and remained in progress during Playwright installation; it was started by a push that cleaned record-only notes out of the trigger file. Do not let documentation-only updates modify the trigger file again. Verify whether #377 completes or is cancelled before relying on its result.
+- The trigger file has been restored to only the intentional Run #371 trigger history; the Gate 4 narrative and record-only workflow safety note are in this migration log. Future log-only edits should use the Git data API and update the branch ref, changing only the migration log path without touching the trigger blob.
