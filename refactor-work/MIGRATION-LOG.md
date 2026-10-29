@@ -1133,3 +1133,28 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Re-opened full-page baseline/candidate screenshots at 390px and 320px, and expanded-sector screenshots. At 320px, selected tab remains readable, the plus/minus control is clear, all eleven sector cards fit inside the panel, and the source disclosure is visible; no clipping or horizontal overflow. The candidate's filled red selected tabs and unified white card surfaces are visually coherent and consistent across the reviewed mobile sections. Red title markers remain single (no double-bar headings); global market and instrument labels stay 16px. These design-system differences are intentional candidate treatments, but pixel diff alone does not prove approval against a separately locked design spec.
 - Pixel-diff metrics repeat the known results: desktop candidate height 5149px vs baseline 5147px (+2px; different image dimensions prevent full-page pixel ratio); 390px ratio 7.45048%; 320px ratio 10.50273%. Main panel geometry deltas remain 0–1px at 320px and within the previously recorded small range at 390px. No CSS/test files changed in Run #377 compared with #371.
 - Decision: the prior uncertainty about test completion is closed; #377 is a second complete passing run on the same CSS/test SHAs as #371. Gate 4 remains OPEN only for final classification/approval of the intentional design-system changes against the locked visual baseline; no evidence supports making speculative CSS changes. No production files, templates, market JSON, schedules, or deployment targets were changed.
+
+
+## Gate 4 — visual acceptance decision for current CSS candidate (2026-10-29)
+
+**Decision: PASS for the current CSS candidate and the scope represented by the existing regression harness. This does not mean the entire CSS refactor or legacy-cascade removal is complete.** Evidence: Run #371 and Run #377 both completed successfully with the same `design-system.css`, `legacy-cascade.css`, and `visual-smoke-test.mjs` blob SHAs; Run #377 artifact `12895476913` was downloaded and manually inspected at 1440px, 390px and 320px.
+
+### Classified visual differences
+
+- **Accepted design-system changes:** active tabs use a consistent TAC burgundy/red fill with white text; tab containers use a light-gray rounded track; tabbed-panel headings use a single red leading marker; shared news and data cards use unified white rounded surfaces; source disclosures use the standardized 11px semibold label treatment. These are consistent across the reviewed sections/viewports and match the previously documented Design System pilot contract for a burgundy/white selected state. No double title markers were observed.
+- **Accepted geometry deltas:** desktop full-page height 5149px vs baseline 5147px (+2px). At 390px the full-page height is unchanged (6825px); at 320px the full-page height is unchanged (7578px). The recorded major-panel geometry deltas at mobile widths are 0–1px in the 320px diagnostics and within the previously recorded small range at 390px. These are treated as rounding/box-model effects because the panels remain aligned and no content clipping or horizontal overflow was observed.
+- **Explained pixel diffs:** 390px 7.45048%; 320px 10.50273%. These are attributable to the above deliberate color, card-surface, tab-state, heading-marker and disclosure typography changes rather than a page-flow shift; dimensions and panel geometry remain stable. Pixel diff ratio is retained as a diagnostic, not a defect score.
+- **Sector control:** plus/minus glyphs are visibly legible at 1440px, 390px and 320px; the expanded list shows all 11 rows and right-aligned red/green values; the 320px label wraps naturally with no clipping. Open and closed marker assertions both pass.
+
+### Gate 4 checklist
+
+- [x] 1440px desktop overall layout manually reviewed; major sections and navigation remain aligned.
+- [x] 390px and 320px mobile full-page screenshots manually reviewed; no horizontal overflow, clipping or material component misalignment observed.
+- [x] Sector plus/minus glyphs and expanded list manually reviewed at all three viewports.
+- [x] Navigation anchors, panel geometry, heading typography/markers, source disclosures, tabs, weekly calendar disclosures and browser error checks pass in `results.json`.
+- [x] Pixel/height differences classified as intentional design-system changes or small geometry deltas as listed above.
+- [x] Formal homepage, mother templates, market JSON, schedules and production deployment remain untouched.
+
+### Boundary after Gate 4
+
+Gate 4 visual acceptance is closed for the current CSS candidate. The overall CSS refactor remains **IN PROGRESS**: the candidate still combines `design-system.css` and `legacy-cascade.css`, and the dependency audit explicitly identifies inner-component and legacy-selector responsibilities that have not yet been migrated/removed. Continue with the next isolated component migration only after identifying its legacy dependencies, then run the same 1440/390/320 regression and visual review. Do not deploy the candidate to production.
