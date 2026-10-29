@@ -1,5 +1,5 @@
 # TAC 投資早報｜正式工作規則（必讀）
-版本：2.6（2026-10-29 固定匯率來源網址與備援口徑補全）
+版本：2.7（2026-10-29 能源與貴金屬期貨口徑定版）
 建立日期：2026-10-28
 適用範圍：TAC 投資早報日常製作、獨立審核預覽、資料更新、版面修正及驗收
 規則優先級：以使用者最新明確指示為最高；本文件集中記錄穩定規則。若新指示變更規則，先更新本文件並註明變更，再執行。
@@ -359,11 +359,15 @@
 - 六項匯率的市場交易時段及日界線不一定相同，不可假設它們在同一時刻收盤。逐項記錄來源所示日期／時間並按需要換算台灣時間；不得把不同時點的報價包裝成同一時間快照。
 - 備援啟用時，記錄原因、來源網址、數據日期／時間、原始報價方向、最終採用值與差異。來源口徑無法匹配或差異無法解釋時標示「待核實」。
 
-### 18.3 WTI、Brent、黃金與白銀的候選定版規則
-- **WTI 原油：** 若早報欄位表示期貨，優先查 CME／NYMEX WTI 期貨每日結算資料：`https://www.cmegroup.com/market-data/daily-settlements.html`，明確記錄合約月份、交易日及結算口徑。只有 CME 資料缺失或無法核實時，才以 Investing.com 歷史報價備援，並核對同一合約／可比較口徑。EIA 現貨價僅供供需分析及交叉參考，不得替代期貨結算價。
-- **Brent 原油：** 優先查 ICE Brent 期貨產品／結算資料：`https://www.ice.com/products/219`；備援為 Investing.com 歷史報價。必須核對合約月份、結算日期與期貨／現貨口徑；不一致時不可直接拼接。
-- **黃金、白銀：** LBMA 基準價作為基準價候選來源（`https://www.lbma.org.uk/`），但須先確認所需歷史數據依法可讀、日期最新可核實且授權條件允許使用。只有無法取得符合條件的最新基準價時，才以 Investing.com 歷史報價備援，並標明採用現貨或期貨、資料日期與更新時間。LBMA 定盤價不得與即時現貨／期貨報價混為同一序列。
-- 本節能源與貴金屬的來源選擇須以早報實際欄位定義為前提：正式定版前仍應核對既有 HTML 行情欄位所呈現的是期貨結算、現貨報價或其他序列。未確認欄位定義前，不得宣稱口徑已完全定版；每日資料如無法匹配，標示「待核實」。
+### 18.3 能源與貴金屬：期貨欄位定版、優先來源與備援網址
+- **正式欄位口徑：** TAC 早報「重要金融市場與大宗商品」區塊的 WTI、Brent、黃金 GC、白銀 SI，統一呈現期貨歷史收盤／交易所結算口徑，不混用 XAU/USD、XAG/USD 現貨或 LBMA 定盤價。若未來要改成現貨或 LBMA 基準價，必須先明確修改欄位名稱及本規則，不得悄悄換序列。
+- **WTI 原油期貨：** 優先來源為 CME／NYMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`。備援 Investing.com WTI 期貨歷史資料：`https://www.investing.com/commodities/crude-oil-historical-data`。不得以 EIA 現貨價替代期貨結算價。
+- **Brent 原油期貨：** 優先來源為 ICE Brent 期貨官方產品／結算資訊：`https://www.ice.com/products/219`；結算規則及交易日須依 ICE 官方資料核對。備援 Investing.com Brent 期貨歷史資料：`https://www.investing.com/commodities/brent-oil-historical-data`。
+- **黃金 GC 期貨：** 優先來源為 CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`。備援 Investing.com Gold Futures 歷史資料：`https://www.investing.com/commodities/gold-historical-data`。不得用 XAU/USD 現貨或 LBMA AM/PM 定盤價代替 GC 期貨收盤／結算欄位。
+- **白銀 SI 期貨：** 優先來源為 CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`。備援 Investing.com Silver Futures 歷史資料：`https://www.investing.com/commodities/silver-historical-data`。不得用 XAG/USD 現貨或 LBMA 基準價代替 SI 期貨收盤／結算欄位。
+- **合約月份及換月控制：** 每日必須保存標的代碼、合約月份、交易日期、價格欄位名稱（settlement／close）、原始來源網址及抓取時間。優先來源可讀且數據日期正確時直接採用；優先來源缺失、未更新或無法核實時，才使用上述備援。Investing.com 歷史資料可能按其自身換月規則提供連續期貨序列，與交易所當月合約換月日期不同；因此備援值不得假裝是特定 CME／ICE 合約的官方結算價。若未能確認連續序列所對應合約月份，標註「連續期貨歷史報價／合約月份待核實」，不可將換月價差誤判為單日市場漲跌。
+- **漲跌幅計算：** 優先採同一來源、同一合約序列、同一交易日口徑所提供的日變動；若自行計算，必須使用連續序列相鄰交易日同口徑數值。換月日若兩日對應不同合約且未做可比性調整，不自行計算漲跌幅，標示「待核實」。
+- **來源分歧：** CME 與 ICE 官方結算資料、Investing.com 歷史資料的結算時間、合約月份及換月機制可能不同。不得只因數值接近便視為相同；逐項核對交易日期、合約、價格定義和報價單位。無法匹配時保留優先來源的可核實數據並註明差異；若連標的或日期都無法確認，標示「待核實」。
 
 ### 18.4 變更與驗收紀錄
 - 本節於 2026-10-29 根據來源規則釐清工作新增。正式維護時，根目錄 `TAC_WORK_RULES.md` 為主檔，`母版專區/TAC_WORK_RULES.md` 為同步副本；每次更新須逐一寫入，重新讀取兩份內容，核對版本、內容一致性、commit SHA 及各檔 blob SHA。
