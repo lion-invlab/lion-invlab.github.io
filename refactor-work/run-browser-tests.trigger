@@ -92,3 +92,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #355 — assert row identity, bounds and quote-column alignment without rejecting type-scale changes — 2026-10-29T16:10:00+08:00
 
 # Run #356 — calibrate minimum row-height assertion to measured baseline — 2026-10-29T16:20:00+08:00
+
+# Run #357 — regression after logging successful instrument row geometry audit — 2026-10-29T16:30:00+08:00
