@@ -1074,3 +1074,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - The failure demonstrates the prior state/content/color-only assertion was insufficient. The latest assertion now also requires marker display=inline-flex, font size=21px desktop / 22px mobile, and white text fill. The run artifact did not expose all of these computed values, so no speculative further CSS change should be made until the next diagnostic run reports the raw open/closed computed-style objects.
 - Run #370 was triggered with expanded marker diagnostics: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40852303221. It is currently in progress; its result has not yet been verified.
 - No production files, formal mother templates, market data or schedules were changed. Gate 4 remains open.
+
+### Run #370 diagnosis — assertion mismatch, not a CSS color/display regression
+
+- Run #370 failed because the test expected computed pseudo-element display to equal `inline-flex`, but Chromium reports the computed display value as `flex` for the pseudo-element even though the CSS declaration is `display: inline-flex`. The diagnostics show the intended marker content, white text fill, open/closed background colors and 21px desktop / 22px mobile font sizes are all present at 1440px, 390px and 320px.
+- Updated the assertion to expect the actual computed value `flex` while retaining checks for marker content, font size, color, background and white text fill. Test commit: 2335786aa05dbff42c37d972f66e7c17c234c040.
+- Run #371 was triggered to verify the corrected assertion. This is a test expectation correction based on captured browser computed styles; it does not change CSS or production files.
