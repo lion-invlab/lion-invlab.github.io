@@ -1050,3 +1050,11 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - 320px: overview -1px, sentiment -1px, news-scan -1px; remaining key panels are height-identical, with downstream top shifts of at most -1px.
 - Current geometry evidence suggests the page-height delta is cumulative subpixel rounding / small local differences rather than a major panel displacement. This is a diagnostic conclusion, not a substitute for the outstanding section-by-section visual review of changed styling, typography, borders, colors and card surfaces.
 - Decision: do not make speculative CSS changes based solely on the pixel-diff ratio. Gate 4 remains open until each materially changed section has been reviewed and classified as intentional or corrected.
+
+### Gate 4 — initial full-page visual classification (desktop 1440px)
+
+- Reviewed the Run #367 baseline and candidate full-page screenshots side by side. The overall section order, card sequence, content hierarchy and page structure remain intact; the measured 2px page-height increase is consistent with the small panel deltas documented above.
+- Visually apparent intentional design-system changes include TAC red filled selected tabs (versus baseline white/outlined selected tabs), consistent red title markers, shared card/tab surfaces, and the unified dark market-sentiment panel. These are candidate design-system treatments, not evidence of structural breakage; their acceptance still depends on the approved design intent and legibility at mobile widths.
+- No obvious desktop clipping, missing section, or gross alignment shift was visible in the full-page screenshot. The sector list remains collapsed in the default screenshot; separate expanded-sector screenshots are available in the artifact for its dedicated review.
+- Not yet signed off: mobile 390px and 320px section-by-section review; detailed checks of tab label contrast/legibility, compact mobile wrapping, source disclosure appearance, card padding and intentional border/surface changes. The pixel-diff ratios remain diagnostic only.
+- No CSS changes were made from this visual pass. Continue with mobile screenshots and expanded-sector screenshots, classify each difference as intentional or actionable, and only then decide whether any targeted CSS correction is warranted.
