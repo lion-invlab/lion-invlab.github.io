@@ -18,16 +18,43 @@ RULES_PATH = Path("TAC_WORK_RULES.md")
 MIRROR_RULES_PATH = Path("母版專區/TAC_WORK_RULES.md")
 README_PATH = Path("母版專區/README.md")
 
+# These values are deliberately duplicated outside the manifest. If both the
+# manifest and validator could be changed silently, the manifest would not be
+# an effective guard. Updating these values requires an explicitly approved
+# mother-template change.
+APPROVED = {
+    "monday": {
+        "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+        "blob_sha": "0d1cc634708011ef7fac91b47084912daf69c106",
+        "required_ids": {"sentiment", "bonds", "fx", "calendar", "earnings",
+                         "last-week-calendar", "last-week-earnings"},
+        "required_nav_targets": {"last-week-calendar", "last-week-earnings"},
+        "forbidden_ids": set(),
+    },
+    "weekdays": {
+        "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+        "blob_sha": "5c008bcb1e17e1f90d3a3fd0b80b2cff9b4244a7",
+        "required_ids": {"sentiment", "bonds", "fx", "calendar", "earnings"},
+        "required_nav_targets": set(),
+        "forbidden_ids": {"last-week-calendar", "last-week-earnings"},
+    },
+}
+
 
 class IdParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.ids: set[str] = set()
+        self.nav_targets: set[str] = set()
 
     def handle_starttag(self, tag, attrs):
-        for key, value in attrs:
-            if key.lower() == "id" and value:
-                self.ids.add(value)
+        attr_map = dict(attrs)
+        element_id = attr_map.get("id")
+        if element_id:
+            self.ids.add(element_id)
+        href = attr_map.get("href", "")
+        if tag.lower() == "a" and href.startswith("#"):
+            self.nav_targets.add(href[1:])
 
 
 def git_blob_sha(path: str) -> str:
@@ -73,8 +100,13 @@ def main() -> int:
     template = manifest.get("templates", {}).get(kind)
     if not template:
         fail(f"manifest 缺少情境設定：{kind}")
+    policy = APPROVED[kind]
     path = template.get("path", "")
     approved_sha = template.get("blob_sha", "")
+    if path != policy["path"]:
+        fail(f"manifest 的 {kind} 路徑不符合硬編碼核准路徑：{path}")
+    if approved_sha != policy["blob_sha"]:
+        fail(f"manifest 的 {kind} SHA 不符合硬編碼核准 SHA：{approved_sha}")
     if not path or not approved_sha:
         fail(f"manifest 的 {kind} 路徑或 SHA 不完整。")
 
@@ -88,20 +120,21 @@ def main() -> int:
     html = source_path.read_text(encoding="utf-8")
     ids = IdParser()
     ids.feed(html)
-    required_common = ["calendar", "earnings"]
-    missing_common = [value for value in required_common if value not in ids.ids]
-    if missing_common:
-        fail(f"母版缺少必要行事曆結構 ID：{', '.join(missing_common)}")
+    missing = sorted(policy["required_ids"] - ids.ids)
+    if missing:
+        fail(f"{kind} 母版缺少必要結構 ID：{', '.join(missing)}")
 
-    last_week_ids = {"last-week-calendar", "last-week-earnings"}
-    if kind == "monday":
-        missing = sorted(last_week_ids - ids.ids)
-        if missing:
-            fail("週一母版缺少上週行事曆區塊：" + ", ".join(missing))
-    else:
-        present = sorted(last_week_ids & ids.ids)
-        if present:
-            fail("週二至週五母版含有禁止的上週行事曆區塊：" + ", ".join(present))
+    forbidden = sorted(policy["forbidden_ids"] & ids.ids)
+    if forbidden:
+        fail(f"{kind} 母版含有禁止的結構 ID：{', '.join(forbidden)}")
+
+    missing_nav = sorted(policy["required_nav_targets"] - ids.nav_targets)
+    if missing_nav:
+        fail(f"{kind} 母版缺少對應導航錨點：{', '.join(missing_nav)}")
+
+    for target in policy["forbidden_ids"]:
+        if target in ids.nav_targets:
+            fail(f"{kind} 母版導航仍指向禁止的區塊：{target}")
 
     print("PASS: TAC 母版來源驗證通過")
     print(f"report_date={report_date.isoformat()}")
