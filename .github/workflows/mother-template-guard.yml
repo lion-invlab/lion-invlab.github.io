@@ -43,12 +43,20 @@ jobs:
       - name: Negative test - weekend must be rejected
         shell: bash
         run: |
-          if python scripts/validate_mother_template.py --date "2026-10-24"; then
+          set +e
+          output="$(python scripts/validate_mother_template.py --date "2026-10-24" 2>&1)"
+          status=$?
+          set -e
+          printf '%s\\n' "$output"
+          if [ "$status" -eq 0 ]; then
             echo "ERROR: weekend date unexpectedly passed validation"
             exit 1
-          else
-            echo "PASS: weekend date correctly rejected"
           fi
+          if ! printf '%s' "$output" | grep -q "是週末；依規則不得自動製作早報"; then
+            echo "ERROR: validator failed for an unexpected reason"
+            exit 1
+          fi
+          echo "PASS: weekend date correctly rejected for the expected reason"
       - name: Validate requested/current report date
         env:
           REPORT_DATE: ${{ inputs.report_date }}
@@ -57,5 +65,11 @@ jobs:
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             python scripts/validate_mother_template.py --date "$REPORT_DATE"
           else
-            python scripts/validate_mother_template.py --date "$(TZ=Asia/Taipei date +%F)"
+            report_date="$(TZ=Asia/Taipei date +%F)"
+            weekday="$(TZ=Asia/Taipei date +%u)"
+            if [ "$weekday" -ge 6 ]; then
+              echo "SKIP: today is a Taiwan-time weekend; no automatic report date validation is run."
+            else
+              python scripts/validate_mother_template.py --date "$report_date"
+            fi
           fi
