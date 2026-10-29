@@ -1,5 +1,5 @@
 # TAC 投資早報｜正式工作規則（必讀）
-版本：2.2（2026-10-29 美國公債、能源及貴金屬來源規則）
+版本：2.3（2026-10-29 固定匯率清單及報價口徑規則）
 建立日期：2026-10-28
 適用範圍：TAC 投資早報日常製作、獨立審核預覽、資料更新、版面修正及驗收
 規則優先級：以使用者最新明確指示為最高；本文件集中記錄穩定規則。若新指示變更規則，先更新本文件並註明變更，再執行。
@@ -181,6 +181,7 @@
 
 ### 13.2 各指標來源優先序與特別限制
 - **VIX（S&P 500 波動率指數）：** 優先採用使用者指定的 Investing.com 香港站歷史／報價頁：`https://hk.investing.com/indices/volatility-s-p-500`。以最近一個已完成美股交易日的正式收盤值及日漲跌幅為主，核對指數名稱、交易日期、延遲／更新標記與報告基準日；不可將盤中值或較舊日期誤當最新收盤。Cboe 官方 VIX 歷史資料 `https://www.cboe.com/tradable_products/vix/vix_historical_data` 作官方交叉核對，Yahoo Finance `^VIX` 作備援。若指定香港站缺值、資料過期或日期口徑無法確認，才採用可核實的備援值，並在審核版記錄來源差異與採用理由；無法確認同一交易日正式收盤值時標示待核實，不得猜值或沿用舊值。
+- **固定匯率清單（DXY、USD/TWD、EUR/USD、GBP/USD、AUD/USD、USD/JPY）：** 優先使用 Investing.com 香港站各指數／貨幣對的歷史資料頁，取最近一個已完成交易日的收盤欄位與日漲跌幅，並確認標的、資料日期、延遲／更新標記及報價方向。DXY 必須使用美元指數現貨／CFD 指數頁，不可誤用美元指數期貨（DX）頁。USD/TWD 的 Investing.com 歷史報價是早報市場追蹤序列；若需描述台灣銀行間市場官方收盤，須另以中央銀行／官方市場資料交叉核對，不得將兩種口徑混為一談。只有優先頁面缺值、未更新或無法核實時，才啟用可信備援來源；備援數據須對應同一交易日與報價方向，記錄來源與時間。不同市場收盤時點可能不同，必須明確標示，不得假設六項匯率同時收盤。
 - **美國公債殖利率（2 年、10 年、30 年）：** 優先美國財政部 Daily Treasury Par Yield Curve Rates（https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics），採同一資料日期的 2Y、10Y、30Y CMT/par yield。只有官方資料缺失、未更新或日期無法核實時，才用 FRED 對應序列 DGS2、DGS10、DGS30 備援。比較資料日期與口徑，不得混用不同日期或個別債券即時殖利率；差異無法解釋時標示待核實。
 - **WTI 原油：** 若早報欄位定義為期貨，優先 CME/NYMEX WTI 期貨每日結算價（https://www.cmegroup.com/market-data/daily-settlements.html），備援採用可核實合約與交易日期的 Investing.com 歷史資料。不可用 EIA 現貨價替代期貨結算價；EIA 現貨數據僅供交叉參考。
 - **Brent 原油：** 優先 ICE Brent 期貨資料與結算口徑（https://www.ice.com/products/219），備援採用可核實合約月份、日期與報價口徑的 Investing.com 歷史資料。不得把不同合約月份或現貨價當成同一報價。
