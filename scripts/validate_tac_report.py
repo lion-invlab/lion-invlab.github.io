@@ -14,8 +14,8 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-MONDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週一_2026-10-26.html"
-WEEKDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週二至週五_2026-10-28.html"
+MONDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週一_2026-10-28_最終定版.html"
+WEEKDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週二至週五_2026-10-28_最終定版.html"
 DATE_RE = re.compile(r"^2026-\d{2}-\d{2}\.html$")
 
 # This is a legacy 10/23 test report from before the currently approved dual-master
