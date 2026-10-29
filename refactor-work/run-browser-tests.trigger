@@ -88,3 +88,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T19:00:00.000Z
 
 # Run #354 — fix sector row disclosure selector and enforce row geometry parity — 2026-10-29T16:00:00+08:00
+
+# Run #355 — assert row identity, bounds and quote-column alignment without rejecting type-scale changes — 2026-10-29T16:10:00+08:00
