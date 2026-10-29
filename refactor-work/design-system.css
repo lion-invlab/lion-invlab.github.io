@@ -1830,10 +1830,30 @@ html body main.wrap .tac-tabset .tac-section-heading h2 {
   line-height: normal !important;
 }
 
-/* Sector-list expansion is a separate control from source disclosures; preserve
-   the baseline plus glyph instead of the shared audit-detail triangle. */
-#industry-bonds-fx-commodities details.sector-collapse > summary::before {
+/* Sector-list disclosure must retain the baseline stateful affordance.
+   The generic audit-details skin is muted/blue and its open-state chevron overrides
+   the legacy accordion state; scope these fixes to the sector control only. */
+html body main.wrap #industry-bonds-fx-commodities details.sector-collapse > summary {
+  color: #a91f27 !important;
+  -webkit-text-fill-color: #a91f27 !important;
+}
+html body main.wrap #industry-bonds-fx-commodities details.sector-collapse > summary::before {
   content: "＋" !important;
+  background: #c62828 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transform: none !important;
+}
+html body main.wrap #industry-bonds-fx-commodities details.sector-collapse[open] > summary {
+  color: #a91f27 !important;
+  -webkit-text-fill-color: #a91f27 !important;
+}
+html body main.wrap #industry-bonds-fx-commodities details.sector-collapse[open] > summary::before {
+  content: "−" !important;
+  background: #202328 !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  transform: none !important;
 }
 
 /* Exactly one title marker per special heading variant.
