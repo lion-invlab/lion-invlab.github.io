@@ -77,6 +77,8 @@ try {
       const categories = Object.fromEntries(Object.entries(categorySelectors).map(([key, selector]) => [
         key, [...document.querySelectorAll(selector)].map(signature)
       ]));
+      const sectorLabels = [...document.querySelectorAll("#industry-bonds-fx-commodities .sector-row .sector-label b")].map(signature);
+      const sectorValues = [...document.querySelectorAll("#industry-bonds-fx-commodities .sector-row .r")].map(signature);
       return {
         width: innerWidth,
         nameCount: names.length,
@@ -85,6 +87,8 @@ try {
         names: names.map(signature),
         values: values.map(signature),
         categories,
+        sectorLabels,
+        sectorValues,
         canonicalRules: rules
       };
     });
@@ -247,6 +251,15 @@ try {
           failures.push(`Category ${category} mismatch: ${JSON.stringify(item)}`);
         }
       }
+    }
+    if (report.sectorLabels.length !== 11) failures.push(`Expected 11 sector ETF labels, found ${report.sectorLabels.length}.`);
+    for (const [index, item] of report.sectorLabels.entries()) {
+      if (item.fontSize !== "16px" || item.lineHeight !== "21.6px" || item.fontWeight !== "700") failures.push(`Sector ETF label #${index + 1} typography mismatch: ${JSON.stringify(item)}`);
+    }
+    const expectedSectorValueSize = viewport.width <= 700 ? "15px" : "16px";
+    if (report.sectorValues.length !== 11) failures.push(`Expected 11 sector ETF percentage values, found ${report.sectorValues.length}.`);
+    for (const [index, item] of report.sectorValues.entries()) {
+      if (item.fontSize !== expectedSectorValueSize || item.fontWeight !== "850") failures.push(`Sector ETF percentage #${index + 1} typography mismatch: ${JSON.stringify(item)}`);
     }
 
     // Quote typography is compared against the source baseline per matched DOM order,
