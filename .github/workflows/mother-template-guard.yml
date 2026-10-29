@@ -1,6 +1,13 @@
 name: TAC Mother Template Guard
 
 on:
+  push:
+    branches: ["main"]
+    paths:
+      - "母版專區/**"
+      - "TAC_WORK_RULES.md"
+      - "scripts/validate_mother_template.py"
+      - ".github/workflows/mother-template-guard.yml"
   workflow_dispatch:
     inputs:
       report_date:
