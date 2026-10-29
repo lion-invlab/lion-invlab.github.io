@@ -677,9 +677,9 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
   gap: 2px;
 }
 #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label b {
-  font-size: 14px;
-  font-weight: 800;
-  line-height: 1.4;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.35;
   overflow-wrap: anywhere;
 }
 #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label small {
@@ -709,8 +709,8 @@ html body main.wrap .tac-ds-panel > .tac-section-heading h2::before {
     padding: 10px 10px;
     border-radius: 10px;
   }
-  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label b { font-size: 13px; }
-  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .r { font-size: 14px; }
+  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .sector-label b { font-size: 16px; font-weight: 700; line-height: 1.35; }
+  #industry-bonds-fx-commodities .sector-collapse .sector-row.tac-ds-data-row--sector .r { font-size: 15px; }
 }
 
 /* --- TAC Design System v1.8: prior-week actual earnings result cards --- */
