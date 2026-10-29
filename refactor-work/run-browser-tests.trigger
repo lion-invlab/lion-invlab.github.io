@@ -86,3 +86,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 2026-10-29T18:50:00.000Z
 # Run 353 — rerun instrument row geometry with notice-overlay-safe activation
 2026-10-29T19:00:00.000Z
+
+# Run #354 — fix sector row disclosure selector and enforce row geometry parity — 2026-10-29T16:00:00+08:00
