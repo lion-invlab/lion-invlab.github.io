@@ -11,6 +11,7 @@ from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -92,6 +93,16 @@ def inspect(path: Path) -> list[str]:
         master_path, required_ids = selected_master(report_date)
     except ValueError as exc:
         return [str(exc)]
+
+    # Integrate the authoritative fail-closed master guard into each dated report
+    # check, so structural validation cannot silently use a stale/renamed master.
+    guard = subprocess.run(
+        [sys.executable, str(ROOT / "scripts" / "validate_mother_template.py"), "--date", report_date.isoformat()],
+        cwd=ROOT, text=True, capture_output=True,
+    )
+    if guard.returncode != 0:
+        detail = (guard.stdout + "\\n" + guard.stderr).strip()
+        return [f"approved master guard failed for {report_date.isoformat()}: {detail}"]
 
     if not master_path.exists():
         return [f"approved master not found: {master_path.relative_to(ROOT)}"]
