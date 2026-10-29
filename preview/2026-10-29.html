@@ -2125,6 +2125,59 @@ main section[id] { scroll-margin-top: 0; }
   color:#c62828!important;
 }
 </style>
+
+<style id="fomc-mobile-layout-polish-20261029">
+/* FOMC 時程卡：只調整 10/29 審核版此區，統一卡片比例與文字層級 */
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:8px!important;
+  align-items:stretch!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>div{
+  min-width:0!important; box-sizing:border-box!important;
+  border:1px solid #dce4ed!important; border-radius:13px!important;
+  background:#f5f7fa!important; padding:12px 13px!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting,
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-press{
+  grid-column:auto!important; grid-row:auto!important; min-height:94px!important;
+  display:flex!important; flex-direction:column!important; justify-content:center!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation{
+  grid-column:1/-1!important; grid-row:auto!important; min-height:0!important;
+  display:flex!important; flex-direction:row!important; justify-content:space-between!important;
+  align-items:center!important; gap:12px!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc span{
+  font-size:12px!important; line-height:1.4!important; font-weight:750!important;
+  color:#718096!important; margin:0 0 7px!important; overflow-wrap:anywhere!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc b{
+  font-size:clamp(15px,3.8vw,19px)!important; line-height:1.35!important;
+  color:#334155!important; overflow-wrap:anywhere!important; word-break:normal!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation span{margin:0!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation b{white-space:nowrap!important;font-size:clamp(14px,3.6vw,18px)!important}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{
+  grid-column:1/-1!important; margin:2px 0 0!important; padding:12px 0 0!important;
+  border-top:1px solid #e3e8ef!important; font-size:13px!important;
+  line-height:1.75!important; color:#596273!important; overflow-wrap:anywhere!important;
+}
+.fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p a{color:#a92332!important;text-decoration:underline!important;text-underline-offset:2px}
+@media(max-width:560px){
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:7px!important}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting,
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-press{min-height:96px!important;padding:11px 10px!important}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc span{font-size:11px!important}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-meeting b{font-size:clamp(13px,3.4vw,16px)!important;letter-spacing:-.2px}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-press b{font-size:clamp(14px,3.5vw,17px)!important}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation{padding:10px 12px!important}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc .fc-fomc-observation b{font-size:14px!important}
+  .fed-compact-preview .fed-live-panel.fed-live-fomc .fc-fomc>p{font-size:12px!important;line-height:1.7!important;padding-top:10px!important}
+}
+</style>
+
 </head>
 <body class="release-ready">
 <div class="data-sync-warning" role="status" style="margin:12px auto;padding:12px 14px;max-width:1496px;border:1px solid #b45309;border-left:5px solid #b45309;border-radius:10px;background:#fffbeb;color:#78350f;font-size:13px;line-height:1.6;font-weight:750">2026/10/29（四）早報審核版｜美股、亞洲／歐洲指數、SOX、VIX、MOVE、CNN Fear & Greed、11大產業ETF、美債殖利率與六項匯率已更新至10/28可核對數據。ServiceNow／KLA 財報實際值、共識與盤後反應已補入可追溯來源；仍待覆核部分經濟行事曆共識／官方實際值、商品官方原始結算表、KOSPI 韓國交易所原始列及 CME 當期 FedWatch 官方快照。</div>
