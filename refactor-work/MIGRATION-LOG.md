@@ -1018,3 +1018,10 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Manual screenshot review: the 390px and 320px summary panels retain the same content hierarchy and readable wrapping; the expanded 11-sector list has visible labels, values remain right-aligned, and long names wrap without escaping their row. The sector card surface/tab treatment differs from baseline as part of the intended design-system style; no row clipping was observed.
 - Remaining visual review: viewport screenshots differ by approximately 7.45% at 390px and 10.50% at 320px. Desktop full-page screenshots differ by 2px in total height; panel-level deltas are generally 0–1px, with overview +2px. These diffs are not yet signed off globally because every section's pixel changes have not been exhaustively classified. Keep Gate 4 visual sign-off pending.
 - No changes were made to the formal homepage, approved Monday/Tue–Fri mother templates, JSON market data, or schedules.
+
+## 2026-10-29 — Run #365 heading marker-to-text spacing correction
+
+- Visual comparison of the narrow-mobile Fed panel showed that the title marker and text were too close even though heading typography and single-marker tests passed.
+- Corrected `#fed > .fed-live-title` and `#view > .today-focus-title` text insets: 10px desktop, 12px mobile/320px. Added an explicit marker-contract assertion for these two titles so spacing is tested, not just marker presence.
+- Run #365 passed at 1440px, 390px and 320px: special heading typography, marker contract including the new Fed/View spacing requirement, panel geometry, row audits and browser smoke checks all pass; new browser errors = 0.
+- Full visual sign-off remains pending as defined in Gate 4; this change only resolves the identified title-spacing defect and does not authorize production deployment.
