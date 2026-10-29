@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "TAC Custom Watchlist Historical Volatility",
-    "updated_at": "2026-10-28T21:41:11.052247+00:00",
+    "updated_at": "2026-10-29T21:42:32.172208+00:00",
     "calculation": "std(log(Pt/Pt-1)) * sqrt(252)",
     "windows": [
       90,
@@ -17,10 +17,10 @@
   "summary": {
     "constituents": 4,
     "valid": 3,
-    "average_vol_90d": 0.7606559245045941,
-    "median_vol_90d": 0.6850709091593975,
-    "max_vol_90d": 1.2048646446336349,
-    "min_vol_90d": 0.3920322197207498
+    "average_vol_90d": 0.7475452731812147,
+    "median_vol_90d": 0.6849904364731604,
+    "max_vol_90d": 1.1819943425467687,
+    "min_vol_90d": 0.3756510405237149
   },
   "data_quality": {
     "constituent_count": 4,
@@ -35,14 +35,14 @@
       "company": "Taiwan Semiconductor Manufacturing",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": 439.510009765625,
-      "vol_90d": 0.3920322197207498,
-      "vol_60d": 0.2905869602519436,
-      "vol_30d": 0.32071621916983145,
-      "vol_20d": 0.3589636812327106,
-      "return_90d": -0.057692198223600166,
+      "price": 431.80999755859375,
+      "vol_90d": 0.3756510405237149,
+      "vol_60d": 0.29257109825279237,
+      "vol_30d": 0.31419156554343386,
+      "vol_20d": 0.36171337689995653,
+      "return_90d": -0.007840691871867311,
       "max_drawdown_90d": -0.2154658010802104,
-      "vol_ratio_20d_90d": 0.9156484165725093,
+      "vol_ratio_20d_90d": 0.962897311280365,
       "valid": true,
       "price_days": 251
     },
@@ -69,16 +69,16 @@
       "company": "ConvexityShares 1x SPIKES Futures ETF",
       "sector": "Other",
       "source_group": "TAC Watchlist",
-      "price": 145.22999572753906,
-      "vol_90d": 0.6850709091593975,
-      "vol_60d": 0.6988004344060761,
-      "vol_30d": 0.5687456875019506,
-      "vol_20d": 0.6609478882751744,
-      "return_90d": -0.060608085420790214,
+      "price": 143.88999938964844,
+      "vol_90d": 0.6849904364731604,
+      "vol_60d": 0.6269206414387406,
+      "vol_30d": 0.5633336441965282,
+      "vol_20d": 0.658623985643524,
+      "return_90d": -0.07827814472439909,
       "max_drawdown_90d": -0.36632332754125685,
-      "vol_ratio_20d_90d": 0.9647875562052068,
+      "vol_ratio_20d_90d": 0.9615082935093364,
       "valid": true,
-      "price_days": 96
+      "price_days": 97
     },
     {
       "ticker": "AAOI",
@@ -86,14 +86,14 @@
       "company": "Applied Optoelectronics",
       "sector": "Information Technology",
       "source_group": "TAC Watchlist",
-      "price": 82.22000122070312,
-      "vol_90d": 1.2048646446336349,
-      "vol_60d": 1.0190459183765874,
-      "vol_30d": 1.0370738062229667,
-      "vol_20d": 1.2043058966826399,
-      "return_90d": -0.5198271139857324,
-      "max_drawdown_90d": -0.6057349540342669,
-      "vol_ratio_20d_90d": 0.9995362566629509,
+      "price": 79.19000244140625,
+      "vol_90d": 1.1819943425467687,
+      "vol_60d": 1.0203672415793437,
+      "vol_30d": 1.0395223801978368,
+      "vol_20d": 1.1620937135840388,
+      "return_90d": -0.462900155113081,
+      "max_drawdown_90d": -0.5641422790221646,
+      "vol_ratio_20d_90d": 0.9831635158931038,
       "valid": true,
       "price_days": 251
     }
