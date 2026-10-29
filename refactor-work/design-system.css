@@ -1227,14 +1227,14 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
     padding: 16px !important;
   }
   #fed > .fed-live-title {
-    padding: 0 !important;
+    padding: 0 0 0 10px !important;
     margin-bottom: 10px !important;
   }
   #fed .fed-live-tabs {
     min-height: 346px !important;
   }
   #view > .today-focus-title {
-    padding: 0 !important;
+    padding: 0 0 0 10px !important;
     margin-bottom: 11px !important;
   }
   #view .focus-tabs {
@@ -1242,6 +1242,10 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   }
 }
 @media (min-width: 381px) and (max-width: 700px) {
+  #fed > .fed-live-title,
+  #view > .today-focus-title {
+    padding-left: 12px !important;
+  }
   #view .focus-tabs {
     min-height: 249px !important;
   }
@@ -1626,7 +1630,7 @@ html body #industry-bonds-fx-commodities .tac-tab-panel .row > b {
   }
   #fed > .fed-live-title,
   #view > .today-focus-title {
-    padding: 0 !important;
+    padding: 0 0 0 12px !important;
   }
   #fed > .fed-live-title { margin-bottom: 10px !important; }
   #view > .today-focus-title { margin-bottom: 11px !important; }
