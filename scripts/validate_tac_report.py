@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 MONDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週一_2026-10-28_最終定版.html"
 WEEKDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週二至週五_2026-10-28_最終定版.html"
 DATE_RE = re.compile(r"^2026-\d{2}-\d{2}\.html$")
+REVIEW_DATE_RE = re.compile(r"^(2026-\d{2}-\d{2})-review\.html$")
 
 # This is a legacy 10/23 test report from before the currently approved dual-master
 # workflow. Keep the file intact, but do not apply today's master gate to it.
@@ -86,10 +87,20 @@ def parse_ids(path: Path) -> tuple[str, AuditParser]:
     parser.close()
     return source, parser
 
+def report_date_for_path(path: Path) -> date:
+    """Accept dated root reports and dated review previews."""
+    if path.parent == ROOT and DATE_RE.match(path.name):
+        return date.fromisoformat(path.stem)
+    match = REVIEW_DATE_RE.match(path.name) if path.parent == ROOT / "review" else None
+    if match:
+        return date.fromisoformat(match.group(1))
+    raise ValueError(f"unsupported report path: {path.relative_to(ROOT)}")
+
+
 def inspect(path: Path) -> list[str]:
     errors = []
     try:
-        report_date = date.fromisoformat(path.stem)
+        report_date = report_date_for_path(path)
         master_path, required_ids = selected_master(report_date)
     except ValueError as exc:
         return [str(exc)]
@@ -144,7 +155,7 @@ def inspect(path: Path) -> list[str]:
     title_match = re.search(r"<title[^>]*>(.*?)</title>", source, re.I | re.S)
     if not title_match or "TAC 投資早報" not in title_match.group(1):
         errors.append("missing TAC report title")
-    if path.stem not in source and report_date.strftime("%Y/%m/%d") not in source:
+    if report_date.isoformat() not in source and report_date.strftime("%Y/%m/%d") not in source:
         errors.append(f"report date {path.stem} not found in file content")
 
     return errors
@@ -155,10 +166,17 @@ def main() -> int:
         print("FAIL: approved master(s) not found: " + ", ".join(str(p.relative_to(ROOT)) for p in missing_masters))
         return 2
 
-    reports = sorted(
+    reports = [
         p for p in ROOT.iterdir()
         if p.is_file() and DATE_RE.match(p.name) and p.name not in LEGACY_EXCLUDED
-    )
+    ]
+    review_dir = ROOT / "review"
+    if review_dir.is_dir():
+        reports.extend(
+            p for p in review_dir.iterdir()
+            if p.is_file() and REVIEW_DATE_RE.match(p.name)
+        )
+    reports = sorted(reports)
     if not reports:
         print("FAIL: no active dated report files found")
         return 2
