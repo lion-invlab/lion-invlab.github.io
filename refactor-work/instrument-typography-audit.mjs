@@ -109,6 +109,10 @@ try {
           const isOpen = await disclosure.evaluate(el => el.open);
           if (!isOpen) await disclosure.locator(":scope > summary").evaluate(el => el.click());
           await page.waitForTimeout(50);
+          const side = page === candidatePage ? "candidate" : "baseline";
+          await page.locator("#industry-bonds-fx-commodities").screenshot({
+            path: path.join(here, "browser-results", side + "-sector-expanded-" + viewport.name + ".png")
+          });
         }
         return await page.evaluate(({ group, tabIndex }) => {
           const panelId = group === "global" ? `tac-region-panel-${tabIndex}` : `tac-assets-panel-${tabIndex}`;
