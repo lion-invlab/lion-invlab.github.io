@@ -985,3 +985,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - The existing instrument audit already checks 27 names at 16px/21.6px/700 and compares 54 quote typography signatures to baseline, but it did not measure row geometry. Added a diagnostic that activates all three global-market tabs and all five asset tabs, opens the 11-sector disclosure, then records each visible row's bounds, name box, rank box and value boxes for baseline/candidate at 1440px, 390px and 320px.
 - This first pass is diagnostic-only: it does not fail the workflow on row deltas until the measured tolerances are reviewed. It is intended to catch horizontal alignment or row-height changes hidden by the existing name/quote typography checks. Test commit: `974a54e9b7c356c085e94205de310ebb4dd54f8a`.
 - Run #352 will collect the row measurements. No CSS or report data changed.
+
+
+### Run #352 — geometry diagnostic blocked by expected notice overlay (2026-10-29)
+- Workflow #352 (`40772077031`) completed successfully, but the newly added row-geometry measurements were **not collected**: all 24 tab attempts (8 tab groups × 3 viewports, baseline and candidate) were intercepted by the Q4 fund notice dialog. The instrument audit's existing typography checks still passed, but its `failures: []` does not mean the row geometry sub-audit passed.
+- Updated the diagnostic to activate tab radio inputs via their native DOM click, bypassing only the pointer-interception limitation of the overlay; the sector collapse uses the same native DOM click path. This is diagnostic setup, not a production interaction change. Test commit: `9d9bed20bdb51778f801126db61d99c2f3cf3575`.
+- Run #353 will rerun the row capture. No CSS or production files changed.
