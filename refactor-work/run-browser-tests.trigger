@@ -112,3 +112,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #365 — verify Fed and Today Focus title marker-to-text spacing — 2026-10-29T17:50:00+08:00
 
 # Run #366 — verify heading-spacing fix after migration-log update — 2026-10-29T18:00:00+08:00
+
+# Run #367 — regression after final Gate 4 heading-spacing documentation — 2026-10-29T18:10:00+08:00
