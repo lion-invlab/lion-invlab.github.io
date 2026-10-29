@@ -96,3 +96,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #357 — regression after logging successful instrument row geometry audit — 2026-10-29T16:30:00+08:00
 
 # Run #358 — capture expanded S&P 500 sector rows for visual review — 2026-10-29T16:40:00+08:00
+
+# Run #359 — dismiss test fund notice before sector-expanded screenshots — 2026-10-29T16:50:00+08:00
