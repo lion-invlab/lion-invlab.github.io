@@ -124,3 +124,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #371 — correct pseudo-element computed display assertion (flex, not inline-flex) — 2026-10-29T19:05:00+08:00 — test 2335786aa05dbff42c37d972f66e7c17c234c040
 
 # Run #371 — corrected marker computed-style assertion passed; reviewed expanded sector screenshots at 1440/390/320; Gate 4 still open — 2026-10-29T19:55:00+08:00 — CSS commit 64743a5ac062ee6251d00733dfa1875320fa09fa; test commit 2335786aa05dbff42c37d972f66e7c17c234c040; run commit cf7dc6ba8875aecba218de0582c32796a5cc4a0e
+
+# Gate 4 visual comparison update — mobile full-page pairs reviewed; major panel geometry deltas classified; no CSS edits; Gate 4 stays open — 2026-10-29T20:05:00+08:00 — source evidence Run #371 cf7dc6ba8875aecba218de0582c32796a5cc4a0e
