@@ -104,3 +104,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #361 — standardize and audit all 11 sector ETF label/value typography — 2026-10-29T17:10:00+08:00
 
 # Run #362 — full regression after sector ETF typography correction and migration log update — 2026-10-29T17:20:00+08:00
+
+# Run #363 — regression after recording visual review and remaining Gate 4 status — 2026-10-29T17:30:00+08:00
