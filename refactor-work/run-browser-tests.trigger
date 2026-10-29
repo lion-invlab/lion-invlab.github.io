@@ -100,3 +100,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #359 — dismiss test fund notice before sector-expanded screenshots — 2026-10-29T16:50:00+08:00
 
 # Run #360 — remove fixed navigation chrome from sector visual diagnostic screenshots — 2026-10-29T17:00:00+08:00
+
+# Run #361 — standardize and audit all 11 sector ETF label/value typography — 2026-10-29T17:10:00+08:00
