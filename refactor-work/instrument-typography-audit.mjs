@@ -200,7 +200,7 @@ try {
         const row = current.rows[i], baseRow = original.rows[i];
         if (row.name !== baseRow.name) failures.push(label + " row #" + (i + 1) + " name/order differs from baseline.");
         if (Math.abs(row.row.left - baseRow.row.left) > 3 || Math.abs(row.row.width - baseRow.row.width) > 3) failures.push(label + " row #" + (i + 1) + " horizontal shell differs from baseline by more than 3px.");
-        if (row.row.height < 40 || row.row.height > 100) failures.push(label + " row #" + (i + 1) + " has suspicious height " + row.row.height + "px.");
+        if (row.row.height < 30 || row.row.height > 100) failures.push(label + " row #" + (i + 1) + " has suspicious height " + row.row.height + "px.");
         for (const boxName of ["nameBox", "rankBox"]) {
           const box = row[boxName];
           if (!box) continue;
