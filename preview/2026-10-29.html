@@ -4179,5 +4179,39 @@ main.wrap #sentiment .title:first-child {
   body article.card.calendar-card{min-width:0!important;max-width:100%!important;}
 }
 </style>
+<script id="tac-toolbar-bubble-dismiss-on-scroll">
+(function(){
+  var startY=null, dismissed=false;
+  function dismissBubble(){
+    if(dismissed)return;
+    var bubbles=document.querySelectorAll('.tac-toolbar-bubble-preview');
+    if(!bubbles.length)return;
+    dismissed=true;
+    bubbles.forEach(function(el){el.remove()});
+    /* Keep the toolbar target's breathing-light highlight until its original 6.5s timer ends. */
+    ['touchstart','touchmove','touchend','scroll','wheel'].forEach(function(type){
+      document.removeEventListener(type,onEvent,true);
+      window.removeEventListener(type,onEvent,true);
+    });
+  }
+  function onEvent(e){
+    if(e.type==='touchstart'){
+      startY=(e.touches&&e.touches.length)?e.touches[0].clientY:null;
+      return;
+    }
+    if(e.type==='touchmove'){
+      if(startY!==null&&e.touches&&e.touches.length&&Math.abs(e.touches[0].clientY-startY)>=3) dismissBubble();
+      return;
+    }
+    if(e.type==='touchend'){startY=null;return;}
+    dismissBubble();
+  }
+  ['touchstart','touchmove','touchend','scroll','wheel'].forEach(function(type){
+    document.addEventListener(type,onEvent,true);
+    window.addEventListener(type,onEvent,true);
+  });
+})();
+</script>
+
 </body>
 </html>
