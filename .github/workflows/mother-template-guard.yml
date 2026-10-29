@@ -47,7 +47,7 @@ jobs:
           output="$(python scripts/validate_mother_template.py --date "2026-10-24" 2>&1)"
           status=$?
           set -e
-          printf '%s\\n' "$output"
+          printf '%s\n' "$output"
           if [ "$status" -eq 0 ]; then
             echo "ERROR: weekend date unexpectedly passed validation"
             exit 1
