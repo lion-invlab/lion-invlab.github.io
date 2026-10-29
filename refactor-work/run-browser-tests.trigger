@@ -117,4 +117,6 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 
 # Run #368 — fix expanded sector marker/contrast and assert both accordion states — 2026-10-29T18:30:00+08:00 — CSS aed6dd7ccc2f2cc30cb4237cf3f9af69ced42146; test 2f66ad544bdf472e3501e611eb3ff24adb68a004
 
-# Run #369 — enforce visible sector plus/minus glyph rendering and font size — 2026-10-29T18:45:00+08:00 — CSS 4c1c?; test ef8d9cbbd0831f1271d8b710478eb714a1f12b90
+# Run #369 — enforce visible sector plus/minus glyph rendering and font size — 2026-10-29T18:45:00+08:00 — CSS 64743a5ac062ee6251d00733dfa1875320fa09fa; test ef8d9cbbd0831f1271d8b710478eb714a1f12b90
+
+# Run #370 — expose sector marker computed-style diagnostics after Run 369 assertion failure — 2026-10-29T18:55:00+08:00 — test cc7a5bbe92272e8e53836253bbb4885cdaa6a9a2
