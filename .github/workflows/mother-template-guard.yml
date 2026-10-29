@@ -1,0 +1,41 @@
+name: TAC Mother Template Guard
+
+on:
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: "台灣報告日期 (YYYY-MM-DD)"
+        required: true
+        type: string
+  pull_request:
+    paths:
+      - "母版專區/**"
+      - "TAC_WORK_RULES.md"
+      - "scripts/validate_mother_template.py"
+      - ".github/workflows/mother-template-guard.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-approved-mother-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate exact approved master for report date
+        env:
+          REPORT_DATE: ${{ inputs.report_date }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            python scripts/validate_mother_template.py --date "$REPORT_DATE"
+          else
+            python scripts/validate_mother_template.py --date "$(TZ=Asia/Taipei date +%F)"
+          fi
