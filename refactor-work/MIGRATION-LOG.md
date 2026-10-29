@@ -1025,3 +1025,9 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Corrected `#fed > .fed-live-title` and `#view > .today-focus-title` text insets: 10px desktop, 12px mobile/320px. Added an explicit marker-contract assertion for these two titles so spacing is tested, not just marker presence.
 - Run #365 passed at 1440px, 390px and 320px: special heading typography, marker contract including the new Fed/View spacing requirement, panel geometry, row audits and browser smoke checks all pass; new browser errors = 0.
 - Full visual sign-off remains pending as defined in Gate 4; this change only resolves the identified title-spacing defect and does not authorize production deployment.
+
+## 2026-10-29 — Run #366 heading spacing regression
+
+- Run #366 passed after the run #365 title-spacing fix was recorded. All three viewports retain the corrected Fed/Today Focus padding (10px desktop, 12px mobile) and pass the special-heading marker contract, typography parity, panel geometry, row audit and browser smoke checks.
+- Manual crop of the Fed panel confirms the title text now has a clear, consistent gap after the red marker; no extra marker was introduced. The new assertion catches future regressions in both title spacing and marker count.
+- Final visual sign-off remains open; current production-safe boundary is unchanged: only the isolated refactor branch is modified.
