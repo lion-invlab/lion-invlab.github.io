@@ -663,7 +663,7 @@ try {
             openStyle.markerColor === "rgb(255, 255, 255)" &&
             openStyle.markerTextFill === "rgb(255, 255, 255)" &&
             openStyle.markerBackground === "rgb(32, 35, 40)" &&
-            openStyle.markerDisplay === "inline-flex" &&
+            openStyle.markerDisplay === "flex" &&
             openStyle.markerFontSize === (viewport.width <= 700 ? "22px" : "21px");
         }
         if (!sectorCollapseWorks) {
@@ -688,7 +688,7 @@ try {
             closedStyle.markerColor === "rgb(255, 255, 255)" &&
             closedStyle.markerTextFill === "rgb(255, 255, 255)" &&
             closedStyle.markerBackground === "rgb(198, 40, 40)" &&
-            closedStyle.markerDisplay === "inline-flex" &&
+            closedStyle.markerDisplay === "flex" &&
             closedStyle.markerFontSize === (viewport.width <= 700 ? "22px" : "21px");
         }
         if (!sectorCollapseCloses) {
