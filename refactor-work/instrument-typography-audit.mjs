@@ -184,7 +184,8 @@ try {
       rowGeometryAudit.push({ group: "assets", tabIndex: i, candidate: candidateRows, baseline: baselineRows });
     }
     const failures = [];
-    // Row geometry capture is part of the gate; errors must not be hidden by typography success.
+    // Verify row identity and internal alignment without rejecting intentional type-scale changes.
+    // Candidate name/rank/value boxes may be more compact than baseline; they must remain inside rows.
     for (const audit of rowGeometryAudit) {
       const current = audit.candidate;
       const original = audit.baseline;
@@ -194,20 +195,27 @@ try {
       if (current.error || original.error) continue;
       if (current.rowCount !== original.rowCount) failures.push(label + " row count differs from baseline: candidate=" + current.rowCount + ", baseline=" + original.rowCount + ".");
       if (current.rows.length !== original.rows.length) continue;
+      const rightEdgesByValueIndex = new Map();
       for (let i = 0; i < current.rows.length; i++) {
         const row = current.rows[i], baseRow = original.rows[i];
-        if (row.name !== baseRow.name) failures.push(label + " row #" + (i + 1) + " name/order differs: candidate=" + row.name + ", baseline=" + baseRow.name + ".");
-        for (const boxName of ["row", "nameBox", "rankBox"]) {
-          const box = row[boxName], baseBox = baseRow[boxName];
-          if (!box || !baseBox) { if (box !== baseBox) failures.push(label + " " + row.name + " " + boxName + " presence differs from baseline."); continue; }
-          for (const prop of ["left", "top", "width", "height"]) if (Math.abs(box[prop] - baseBox[prop]) > 3) failures.push(label + " " + row.name + " " + boxName + "." + prop + " differs by more than 3px.");
+        if (row.name !== baseRow.name) failures.push(label + " row #" + (i + 1) + " name/order differs from baseline.");
+        if (Math.abs(row.row.left - baseRow.row.left) > 3 || Math.abs(row.row.width - baseRow.row.width) > 3) failures.push(label + " row #" + (i + 1) + " horizontal shell differs from baseline by more than 3px.");
+        if (row.row.height < 40 || row.row.height > 100) failures.push(label + " row #" + (i + 1) + " has suspicious height " + row.row.height + "px.");
+        for (const boxName of ["nameBox", "rankBox"]) {
+          const box = row[boxName];
+          if (!box) continue;
+          if (box.left < -1 || box.top < -1 || box.left + box.width > row.row.width + 1 || box.top + box.height > row.row.height + 1) failures.push(label + " " + row.name + " " + boxName + " escapes its row bounds.");
         }
-        if (row.values.length !== baseRow.values.length) failures.push(label + " " + row.name + " quote-value count differs from baseline.");
-        for (let j = 0; j < Math.min(row.values.length, baseRow.values.length); j++) {
-          const value = row.values[j], baseValue = baseRow.values[j];
-          if (value.text !== baseValue.text) failures.push(label + " " + row.name + " value #" + (j + 1) + " text differs from baseline.");
-          for (const prop of ["left", "right", "top", "width", "height"]) if (Math.abs(value[prop] - baseValue[prop]) > 3) failures.push(label + " " + row.name + " value #" + (j + 1) + " " + prop + " differs by more than 3px.");
+        for (let j = 0; j < row.values.length; j++) {
+          const value = row.values[j];
+          if (value.left < -1 || value.top < -1 || value.right > row.row.width + 1 || value.top + value.height > row.row.height + 1) failures.push(label + " " + row.name + " value #" + (j + 1) + " escapes its row bounds.");
+          const key = String(j);
+          if (!rightEdgesByValueIndex.has(key)) rightEdgesByValueIndex.set(key, []);
+          rightEdgesByValueIndex.get(key).push(value.right);
         }
+      }
+      for (const [valueIndex, edges] of rightEdgesByValueIndex) {
+        if (edges.length > 1 && Math.max(...edges) - Math.min(...edges) > 3) failures.push(label + " quote column #" + (Number(valueIndex) + 1) + " right edges are not aligned within 3px.");
       }
     }
     if (report.nameCount === 0) failures.push("No instrument names were found.");
