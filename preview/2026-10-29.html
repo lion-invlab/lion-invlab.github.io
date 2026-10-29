@@ -1447,6 +1447,11 @@ html body #sentiment .sent > section.sbox.cnn-fg-preview > .fg6-title .label-zh 
 .fed-compact-preview .fc-fomc .fc-fomc-rate small{display:block;margin-top:5px;font-size:10px;color:#7a8794}
 </style>
 <style>
+/* FOMC mobile polish: short policy label and collapsible schedule note */
+@media(max-width:560px){.fed-compact-preview .fc-fomc .fc-fomc-press>span{white-space:nowrap!important;letter-spacing:0!important;font-size:11px!important}.fed-compact-preview .fc-fomc .fc-fomc-rate{grid-column:1/-1!important}}
+.fed-compact-preview .fomc-schedule-notes{grid-column:1/-1;margin-top:2px}
+.fed-compact-preview .fomc-schedule-notes summary{cursor:pointer;font-size:11px;font-weight:800;color:#778493;padding:8px 2px}
+.fed-compact-preview .fomc-schedule-notes .audit-content{font-size:11px;line-height:1.55;color:#778493}
 /* FOMC tab: polished institutional policy panel */
 .fed-compact-preview .fed-live-panel.fed-live-fomc{padding:16px 16px 18px}
 .fed-compact-preview .fc-fomc{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
@@ -2343,9 +2348,9 @@ main section[id] { scroll-margin-top: 0; }
 </div>
 <div class="fed-live-panel fed-live-fomc"><div class="fc-fomc">
 <div class="fc-fomc-meeting"><span>下一次 FOMC 會議</span><b>2026/12/08–12/09</b></div>
-<div class="fc-fomc-press"><span>政策聲明（台灣時間，預定）</span><b>12/10（四）03:00</b></div>
-<div class="fc-fomc-observation"><span>記者會（台灣時間，預定）</span><b>12/10（四）03:30</b></div>
-<p>三張小卡統一顯示下一次 FOMC 時程：會議日期、政策聲明、記者會。日期依 <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Federal Reserve 官方日曆</a>；台灣時間依美東冬令時間換算，實際發布時間以官方當次公告為準。</p></div></div>
+<div class="fc-fomc-press"><span>政策聲明</span><b>12/10（四）03:00</b></div>
+<div class="fc-fomc-observation"><span>記者會（台灣時間，預定）</span><b>12/10（四）03:30</b></div><div class="fc-fomc-rate"><span>目前目標利率</span><b>3.75%–4.00%</b><small>10/28 美東決議：維持不變｜10 比 2</small></div>
+<details class="audit-details fomc-schedule-notes"><summary>會議時程與時間口徑</summary><div class="audit-content">下一次會議、政策聲明及記者會時間依 <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" rel="noopener">Federal Reserve 官方日曆</a>換算台灣時間；實際發布時間以官方當次公告為準。</div></details></div></div>
 </div></div></section><div style="height:14px"></div><section class="card today-focus" id="view">
 <div class="title today-focus-title">今日觀察重點</div>
 <div class="focus-tabs">
