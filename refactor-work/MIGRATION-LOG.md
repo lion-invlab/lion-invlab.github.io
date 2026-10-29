@@ -1031,3 +1031,13 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - Run #366 passed after the run #365 title-spacing fix was recorded. All three viewports retain the corrected Fed/Today Focus padding (10px desktop, 12px mobile) and pass the special-heading marker contract, typography parity, panel geometry, row audit and browser smoke checks.
 - Manual crop of the Fed panel confirms the title text now has a clear, consistent gap after the red marker; no extra marker was introduced. The new assertion catches future regressions in both title spacing and marker count.
 - Final visual sign-off remains open; current production-safe boundary is unchanged: only the isolated refactor branch is modified.
+
+
+## 2026-10-29 — Run #367 verified; Gate 4 remains open
+
+- Run #367 completed successfully: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/40848956118; head commit 39187b193e4e61a6e6cae0cb63056bd27c318844. Browser job, Playwright installation, candidate build, desktop/mobile smoke tests, and artifact upload all completed successfully.
+- Artifact tac-refactor-browser-results (ID 12886052654) was downloaded and inspected. results.json reports errors=[]. At 1440px, 390px and 320px: horizontal overflow=false, pageErrors=[], newErrors=[], navigation anchors pass, panel geometry pass, special heading typography/marker contracts pass, and source disclosure open/close pass. Major tabs, calendar/earnings controls, sector tab/collapse and prior-week collapses also pass.
+- Screenshot dimensions: desktop baseline 1440×5147 vs candidate 1440×5149 (2px taller); 390px baseline/candidate both 390×844 with 7.45048% pixel difference; 320px baseline/candidate both 320×800 with 10.50273% pixel difference. The desktop full-page pixel diff was not calculated because dimensions differ. These differences are not automatically defects, but they are not yet classified section-by-section.
+- The artifact contains baseline/candidate full-page screenshots, sector-expanded screenshots, pixel-diff images, panel-child-geometry-diagnostic.json, instrument-typography-audit.json, results.json, and summary.md. Run #367 is a successful regression run, not final visual sign-off.
+- No CSS or production files were changed in this verification step. The formal homepage, approved Monday/Tue–Fri mother templates, JSON market data, and schedules remain outside the refactor scope.
+- Next: complete Gate 4 by classifying the 390px/320px pixel differences by section and reviewing the desktop 2px height delta. Only make targeted fixes when a concrete mismatch is identified; rerun the browser workflow after any CSS change. Do not deploy or declare the refactor finalized yet.
