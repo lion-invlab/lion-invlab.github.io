@@ -650,7 +650,7 @@ try {
           const openStyle = await sectorDisclosure.evaluate(el => {
             const summary = el.querySelector(":scope > summary");
             const marker = getComputedStyle(summary, "::before");
-            return { summaryColor: getComputedStyle(summary).color, markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor };
+            return { summaryColor: getComputedStyle(summary).color, markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor, markerDisplay: marker.display, markerFontSize: marker.fontSize, markerTextFill: marker.webkitTextFillColor };
           });
           sectorOpenSummaryColor = openStyle.summaryColor;
           sectorOpenMarkerColor = openStyle.markerColor;
@@ -658,7 +658,10 @@ try {
           sectorOpenMarkerPass = openStyle.markerContent.includes("−") &&
             openStyle.summaryColor === "rgb(169, 31, 39)" &&
             openStyle.markerColor === "rgb(255, 255, 255)" &&
-            openStyle.markerBackground === "rgb(32, 35, 40)";
+            openStyle.markerTextFill === "rgb(255, 255, 255)" &&
+            openStyle.markerBackground === "rgb(32, 35, 40)" &&
+            openStyle.markerDisplay === "inline-flex" &&
+            openStyle.markerFontSize === (viewport.width <= 700 ? "22px" : "21px");
         }
         if (!sectorCollapseWorks) {
           // Retry once after tab/panel transition has fully settled; preserve a real pointer interaction.
@@ -673,13 +676,16 @@ try {
           const closedStyle = await sectorDisclosure.evaluate(el => {
             const summary = el.querySelector(":scope > summary");
             const marker = getComputedStyle(summary, "::before");
-            return { markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor };
+            return { markerContent: marker.content, markerColor: marker.color, markerBackground: marker.backgroundColor, markerDisplay: marker.display, markerFontSize: marker.fontSize, markerTextFill: marker.webkitTextFillColor };
           });
           sectorClosedMarkerColor = closedStyle.markerColor;
           sectorClosedMarkerBackground = closedStyle.markerBackground;
           sectorClosedMarkerPass = closedStyle.markerContent.includes("＋") &&
             closedStyle.markerColor === "rgb(255, 255, 255)" &&
-            closedStyle.markerBackground === "rgb(198, 40, 40)";
+            closedStyle.markerTextFill === "rgb(255, 255, 255)" &&
+            closedStyle.markerBackground === "rgb(198, 40, 40)" &&
+            closedStyle.markerDisplay === "inline-flex" &&
+            closedStyle.markerFontSize === (viewport.width <= 700 ? "22px" : "21px");
         }
         if (!sectorCollapseCloses) {
           await sectorSummary.scrollIntoViewIfNeeded().catch(() => {});
