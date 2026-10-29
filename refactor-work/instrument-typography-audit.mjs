@@ -184,6 +184,32 @@ try {
       rowGeometryAudit.push({ group: "assets", tabIndex: i, candidate: candidateRows, baseline: baselineRows });
     }
     const failures = [];
+    // Row geometry capture is part of the gate; errors must not be hidden by typography success.
+    for (const audit of rowGeometryAudit) {
+      const current = audit.candidate;
+      const original = audit.baseline;
+      const label = audit.group + " tab " + audit.tabIndex;
+      if (current.error) failures.push(label + " candidate row geometry failed: " + current.error);
+      if (original.error) failures.push(label + " baseline row geometry failed: " + original.error);
+      if (current.error || original.error) continue;
+      if (current.rowCount !== original.rowCount) failures.push(label + " row count differs from baseline: candidate=" + current.rowCount + ", baseline=" + original.rowCount + ".");
+      if (current.rows.length !== original.rows.length) continue;
+      for (let i = 0; i < current.rows.length; i++) {
+        const row = current.rows[i], baseRow = original.rows[i];
+        if (row.name !== baseRow.name) failures.push(label + " row #" + (i + 1) + " name/order differs: candidate=" + row.name + ", baseline=" + baseRow.name + ".");
+        for (const boxName of ["row", "nameBox", "rankBox"]) {
+          const box = row[boxName], baseBox = baseRow[boxName];
+          if (!box || !baseBox) { if (box !== baseBox) failures.push(label + " " + row.name + " " + boxName + " presence differs from baseline."); continue; }
+          for (const prop of ["left", "top", "width", "height"]) if (Math.abs(box[prop] - baseBox[prop]) > 3) failures.push(label + " " + row.name + " " + boxName + "." + prop + " differs by more than 3px.");
+        }
+        if (row.values.length !== baseRow.values.length) failures.push(label + " " + row.name + " quote-value count differs from baseline.");
+        for (let j = 0; j < Math.min(row.values.length, baseRow.values.length); j++) {
+          const value = row.values[j], baseValue = baseRow.values[j];
+          if (value.text !== baseValue.text) failures.push(label + " " + row.name + " value #" + (j + 1) + " text differs from baseline.");
+          for (const prop of ["left", "right", "top", "width", "height"]) if (Math.abs(value[prop] - baseValue[prop]) > 3) failures.push(label + " " + row.name + " value #" + (j + 1) + " " + prop + " differs by more than 3px.");
+        }
+      }
+    }
     if (report.nameCount === 0) failures.push("No instrument names were found.");
     if (report.globalNameCount === 0 || report.industryNameCount === 0) failures.push("Global market or industry instrument names are missing.");
     if (report.canonicalRules.length !== 1) failures.push(`Expected exactly one canonical CSS rule, found ${report.canonicalRules.length}.`);
