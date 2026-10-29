@@ -1041,3 +1041,12 @@ The artifact's narrow-mobile child-geometry diagnostic confirms the remaining di
 - The artifact contains baseline/candidate full-page screenshots, sector-expanded screenshots, pixel-diff images, panel-child-geometry-diagnostic.json, instrument-typography-audit.json, results.json, and summary.md. Run #367 is a successful regression run, not final visual sign-off.
 - No CSS or production files were changed in this verification step. The formal homepage, approved Monday/Tue–Fri mother templates, JSON market data, and schedules remain outside the refactor scope.
 - Next: complete Gate 4 by classifying the 390px/320px pixel differences by section and reviewing the desktop 2px height delta. Only make targeted fixes when a concrete mismatch is identified; rerun the browser workflow after any CSS change. Do not deploy or declare the refactor finalized yet.
+
+### Run #367 follow-up: panel geometry classification
+
+- Inspected panel-child-geometry-diagnostic.json for all 12 principal panels at 1440px, 390px and 320px. All panel IDs and child counts match between baseline and candidate; no child-level height/width/top delta exceeded the diagnostic review threshold of 2px/3px.
+- Desktop: overview +2px; news-scan +1px; S&P 500 earnings-health +1px; Fed +1px; Today Focus +1px. Industry panel height unchanged; its top position shifts +1px because of upstream cumulative rounding. Overall page is 2px taller.
+- 390px: overview +1px, sentiment -1px, news-scan +1px; remaining key panels are height-identical, with downstream top shifts of at most +1px.
+- 320px: overview -1px, sentiment -1px, news-scan -1px; remaining key panels are height-identical, with downstream top shifts of at most -1px.
+- Current geometry evidence suggests the page-height delta is cumulative subpixel rounding / small local differences rather than a major panel displacement. This is a diagnostic conclusion, not a substitute for the outstanding section-by-section visual review of changed styling, typography, borders, colors and card surfaces.
+- Decision: do not make speculative CSS changes based solely on the pixel-diff ratio. Gate 4 remains open until each materially changed section has been reviewed and classified as intentional or corrected.
