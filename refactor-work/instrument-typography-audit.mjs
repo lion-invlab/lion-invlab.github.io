@@ -96,12 +96,18 @@ try {
         ? "#global-markets"
         : "#industry-bonds-fx-commodities";
       try {
-        await page.locator(`${rootSelector} .tac-tab-nav label`).nth(tabIndex).click({ timeout: 5000 });
+        // Use native DOM activation so the Q4 fund notice overlay cannot intercept this geometry-only diagnostic.
+        await page.evaluate(({ group, tabIndex }) => {
+          const id = group === "global" ? `tac-region-${tabIndex}` : `tac-assets-${tabIndex}`;
+          const input = document.getElementById(id);
+          if (!input) throw new Error(`Missing tab input: ${id}`);
+          input.click();
+        }, { group, tabIndex });
         await page.waitForTimeout(50);
         if (group === "assets" && tabIndex === 0) {
           const disclosure = page.locator("#industry-bonds-fx-commodities #tac-assets-panel-0 details.sector-collapse");
           const isOpen = await disclosure.evaluate(el => el.open);
-          if (!isOpen) await disclosure.locator("summary").click({ timeout: 5000 });
+          if (!isOpen) await disclosure.locator("summary").evaluate(el => el.click());
           await page.waitForTimeout(50);
         }
         return await page.evaluate(({ group, tabIndex }) => {
