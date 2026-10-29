@@ -114,3 +114,5 @@ Sentiment dark disclosure box-model fix verification — 2026-10-29T00:45+08:00 
 # Run #366 — verify heading-spacing fix after migration-log update — 2026-10-29T18:00:00+08:00
 
 # Run #367 — regression after final Gate 4 heading-spacing documentation — 2026-10-29T18:10:00+08:00
+
+# Run #368 — fix expanded sector marker/contrast and assert both accordion states — 2026-10-29T18:30:00+08:00 — CSS aed6dd7ccc2f2cc30cb4237cf3f9af69ced42146; test 2f66ad544bdf472e3501e611eb3ff24adb68a004
