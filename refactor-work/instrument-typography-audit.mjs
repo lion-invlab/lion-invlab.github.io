@@ -107,7 +107,7 @@ try {
         if (group === "assets" && tabIndex === 0) {
           const disclosure = page.locator("#industry-bonds-fx-commodities #tac-assets-panel-0 details.sector-collapse");
           const isOpen = await disclosure.evaluate(el => el.open);
-          if (!isOpen) await disclosure.locator("summary").evaluate(el => el.click());
+          if (!isOpen) await disclosure.locator(":scope > summary").evaluate(el => el.click());
           await page.waitForTimeout(50);
         }
         return await page.evaluate(({ group, tabIndex }) => {
