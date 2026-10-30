@@ -2169,12 +2169,12 @@ a.tac-market-link:focus-visible,a.global-index-link:focus-visible,a.tac-sector-l
 .sector-label a{color:inherit}
 </style><style id="tac-sparkline-demo-css">
 /* TAC sparkline layout prototype: demo only; generated paths are illustrative, not market history */
-.tac-sparkline-demo-note{margin:4px 0 10px;padding:7px 10px;border-radius:7px;background:#f5f7f9;color:#737981;font-size:11px;line-height:1.45}
+.tac-sparkline-demo-note{margin:3px 0 8px;padding:0;color:#8a9098;font-size:10px;line-height:1.35;background:transparent;border:0;border-radius:0}
 #global-markets .row,#industry-bonds-fx-commodities .tac-tab-panel .row{grid-template-columns:minmax(0,1.35fr) minmax(64px,.78fr) auto auto!important;gap:8px!important}
 .tac-sparkline-cell{display:flex;align-items:center;justify-content:center;min-width:0;width:100%;height:30px}
 .tac-sparkline-cell svg{display:block;width:100%;height:28px;overflow:visible}
 .tac-sparkline-cell path{fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
-.tac-sparkline-cell .baseline{stroke:#d8dde2;stroke-width:1;stroke-dasharray:2 3}
+.tac-sparkline-cell .baseline{display:none}
 .tac-sparkline-cell .trend-up{stroke:#c62828}
 .tac-sparkline-cell .trend-down{stroke:#16834c}
 .tac-sparkline-cell .trend-flat{stroke:#7b8490}
@@ -4122,14 +4122,14 @@ main.wrap #sentiment .title:first-child {
     cell.className="tac-sparkline-cell";
     cell.setAttribute("role","img");
     cell.setAttribute("aria-label","走勢圖視覺示意，非實際歷史價格序列");
-    cell.innerHTML='<svg viewBox="0 0 92 30" preserveAspectRatio="none" aria-hidden="true"><path class="baseline" d="M1 27H91"></path><polyline class="'+cls+'" points="'+makePoints(hashText(name),direction)+'"></polyline></svg>';
+    cell.innerHTML='<svg viewBox="0 0 92 30" preserveAspectRatio="none" aria-hidden="true"><polyline class="'+cls+'" points="'+makePoints(hashText(name),direction)+'"></polyline></svg>';
     const price=row.querySelector(".r");
     if(price)row.insertBefore(cell,price);else row.appendChild(cell);
   }
   function init(){
     document.querySelectorAll("#global-markets .row,#industry-bonds-fx-commodities .tac-tab-panel .row").forEach(addSpark);
     document.querySelectorAll("#global-markets .tab-panel-meta,#industry-bonds-fx-commodities .tab-panel-meta").forEach(el=>{
-      if(!el.dataset.sparkNote){el.dataset.sparkNote="1";const note=document.createElement("div");note.className="tac-sparkline-demo-note";note.textContent="中間欄位為走勢圖版型示意（依漲跌方向生成），並非真實盤中／歷史價格序列；正式版需接入可核實的歷史報價資料。";el.insertAdjacentElement("afterend",note);}
+      if(!el.dataset.sparkNote){el.dataset.sparkNote="1";const note=document.createElement("div");note.className="tac-sparkline-demo-note";note.textContent="走勢示意｜尚未接入真實歷史報價";el.insertAdjacentElement("afterend",note);}
     });
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
