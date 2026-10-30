@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC 投資研究工具中心</title>
+<style>
+:root{--red:#c62828;--ink:#202328;--muted:#707780;--line:#e5e7eb;--bg:#f3f4f6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC",sans-serif}
+header{background:#202328;color:#fff;padding:26px max(20px,calc((100% - 1180px)/2)) 24px;border-bottom:3px solid var(--red)}
+.eyebrow{font-size:11px;color:#cbd0d7;letter-spacing:1.5px;font-weight:800}.head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}h1{font-size:28px;margin:7px 0 5px;font-weight:950}.sub{font-size:12px;color:#cbd0d7}
+main{max-width:1180px;margin:26px auto;padding:0 18px 44px}.section{font-size:13px;font-weight:900;color:#666;margin:0 0 12px;letter-spacing:.5px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+a.card,.card{display:block;background:#fff;border:1px solid var(--line);border-radius:13px;padding:20px;text-decoration:none;color:inherit;box-shadow:0 2px 7px #1111;min-height:145px}
+a.card{transition:transform .15s,border-color .15s}a.card:hover{transform:translateY(-2px);border-color:#c7cbd1}
+.icon{width:38px;height:38px;border-radius:10px;background:#fbe9e9;color:var(--red);display:grid;place-items:center;font-size:20px;margin-bottom:13px}
+h2{font-size:18px;margin:0 0 7px;font-weight:950}.desc{font-size:12px;color:var(--muted);line-height:1.65}.meta{font-size:10px;color:#9298a0;margin-top:12px;font-weight:800}
+.card.disabled{background:#fafafa;border-style:dashed;box-shadow:none}.disabled .icon{background:#eceff2;color:#7b838c}
+.notice{margin-top:20px;padding:13px 15px;border:1px solid #e4e6e9;background:#fff;border-radius:10px;font-size:11px;line-height:1.7;color:#626970}
+footer{max-width:1180px;margin:auto;padding:0 18px 30px;color:#9399a1;font-size:10px}
+@media(max-width:650px){h1{font-size:23px}.grid{grid-template-columns:1fr}main{margin-top:18px}}
+</style></head>
+<body>
+<header><div class="eyebrow">TAC · INVESTMENT RESEARCH</div><div class="head"><div><h1>TAC 投資研究工具中心</h1><div class="sub">獨立研究工具｜與每日投資早報分離維護</div></div><div class="sub">INTERNAL RESEARCH</div></div></header>
+<main>
+<p class="section">研究工具</p>
+<div class="grid">
+<a class="card" href="./marketview/"><div class="icon">⌁</div><h2>MarketView｜市場圖表</h2><div class="desc">使用 TradingView 官方嵌入式圖表進行市場觀察；可切換商品與時間週期。</div><div class="meta">TRADINGVIEW WIDGET · OPEN</div></a>
+<div class="card disabled"><div class="icon">◫</div><h2>美股波動率 Dashboard</h2><div class="desc">個股波動率、歷史區間與觀察指標。待既有 Dashboard 檔案定位及整合驗收。</div><div class="meta">INTEGRATION PENDING</div></div>
+<div class="card disabled"><div class="icon">▤</div><h2>Q4 精選基金</h2><div class="desc">15 檔精選基金、MoneyDJ 資訊與配息追蹤。待既有 Dashboard 檔案定位及整合驗收。</div><div class="meta">INTEGRATION PENDING</div></div>
+<div class="card disabled"><div class="icon">⌗</div><h2>FCN 報價與部位管理</h2><div class="desc">結構型商品報價、成交資料與分層權限管理。獨立專案，待整合入口。</div><div class="meta">SEPARATE WORKSTREAM</div></div>
+</div>
+<div class="notice"><b>使用與資料界線：</b>本工具中心目前採網址可存取、不公開宣傳的方式；這不構成登入控管或保密。TradingView 圖表僅供互動式視覺研究，不擷取、不儲存、不回填行情至 TAC 正式早報。報價是否即時及商品可用性依 TradingView 實際顯示與交易所資料授權而定。</div>
+</main><footer>TAC Investment Research · Independent tools workspace</footer>
+</body></html>
