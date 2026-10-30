@@ -1,5 +1,5 @@
 # TAC 投資早報｜正式工作規則（必讀）
-版本：3.2（2026-10-29 行事曆完整卡片免重複更新）
+版本：3.3（2026-10-30 標準行情超連結規範）
 建立日期：2026-10-28
 適用範圍：TAC 投資早報日常製作、獨立審核預覽、資料更新、版面修正及驗收
 規則優先級：以使用者最新明確指示為最高；本文件集中記錄穩定規則。若新指示變更規則，先更新本文件並註明變更，再執行。
@@ -437,6 +437,82 @@
 ### 19.5 唯一正式規則檔
 - 本專案唯一正式工作規則檔為 repo 根目錄的 `TAC_WORK_RULES.md`。不得另建、改用或宣稱存在其他命名的 Work Rules 主檔。
 - 每次規則變更應直接更新本檔，寫入變更日期與內容，再重新讀取本檔核對；不得僅在對話中確認就宣稱規則檔已更新。
+
+
+## 21. 標準行情超連結規範（2026-10-30 定版）
+### 21.1 適用範圍與基本原則
+- 本規範適用於週一及週二至週五兩份核准母版，以及由母版複製產生的每日審核版／正式發布版。
+- 行情卡片中只將「指數、商品、貨幣對、殖利率、ETF 的名稱或代碼」設為連結；數值、漲跌幅、排名及評論文字不因本規範自動變成連結。
+- 超連結只能導向與畫面標的相符的官方或指定行情頁；不得把不同商品、現貨／期貨或不同報價方向混為一談。
+- 一般行情連結使用新分頁（`target="_blank"`、`rel="noopener"`），讓讀者可切回早報；CNN Fear & Greed 是唯一固定例外，使用同一分頁開啟，以保留 Safari 返回早報的瀏覽紀錄。
+- 連結須支援 iPhone Safari 觸控及鍵盤焦點；不得以覆蓋層、透明元素或不完整的點擊區阻擋操作。視覺上沿用母版既有字體、顏色與版面，不新增醒目按鈕或改造行情卡片。
+- 每日更新行情數字、日期、排序或替換卡片時，必須保留連結；不得因資料更新而遺失或錯置 href。
+
+### 21.2 全球主要股市指數連結
+- 道瓊工業指數：`https://www.investing.com/indices/us-30`
+- 標普 500 指數：`https://www.investing.com/indices/us-spx-500`
+- 那斯達克綜合指數：`https://www.investing.com/indices/nasdaq-composite`
+- 羅素 2000 指數：`https://www.investing.com/indices/smallcap-2000`
+- 費城半導體指數：`https://hk.investing.com/indices/phlx-semiconductor`
+- 香港恆生指數：`https://www.investing.com/indices/hang-sen-40`
+- 上海綜合指數：`https://www.investing.com/indices/shanghai-composite`
+- 深證成指：`https://www.investing.com/indices/szse-component`
+- 日經 225：`https://www.investing.com/indices/japan-ni225`
+- 韓國 KOSPI：`https://www.investing.com/indices/kospi`
+- 台灣加權指數：`https://www.investing.com/indices/taiwan-weighted`
+- 英國 FTSE 100：`https://www.investing.com/indices/uk-100`
+- 德國 DAX：`https://www.investing.com/indices/germany-30`
+- 法國 CAC 40：`https://www.investing.com/indices/france-40`
+- STOXX Europe 600：`https://www.investing.com/indices/stoxx-600`
+- 全球市場頁籤內重複出現的同一指數名稱，必須使用相同目的網址；只連結名稱，不連結點位及漲跌幅。
+
+### 21.3 市場情緒與利率
+- VIX：`https://hk.investing.com/indices/volatility-s-p-500`
+- MOVE：`https://hk.investing.com/indices/ice-bofaml-move`
+- CNN Fear & Greed：`https://edition.cnn.com/markets/fear-and-greed`；此連結必須同一分頁開啟，不得設定 `target="_blank"`，以便讀者透過 Safari 返回功能回到早報。
+- 美國 2 年期公債殖利率：`https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield`
+- 美國 10 年期公債殖利率：`https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield`
+- 美國 30 年期公債殖利率：`https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield`
+
+### 21.4 外匯、能源及貴金屬
+- DXY：`https://www.investing.com/indices/usdollar`
+- USD/TWD：`https://hk.investing.com/currencies/usd-twd`
+- EUR/USD：`https://hk.investing.com/currencies/eur-usd`
+- GBP/USD：`https://hk.investing.com/currencies/gbp-usd`
+- AUD/USD：`https://hk.investing.com/currencies/aud-usd`
+- USD/JPY：`https://hk.investing.com/currencies/usd-jpy`
+- WTI 原油期貨：`https://hk.investing.com/commodities/crude-oil`
+- Brent 原油期貨：`https://hk.investing.com/commodities/brent-oil`
+- 黃金期貨 GC：`https://hk.investing.com/commodities/gold`
+- 白銀期貨 SI：`https://hk.investing.com/commodities/silver`
+- 上述連結只規範讀者點擊後的行情目的頁，不改變第 18 節對數據來源優先序、期貨／現貨口徑及結算價的規定。
+
+### 21.5 S&P 500 十一大產業 ETF
+- 11 個產業中文名稱及對應 ETF 代碼均可點擊，且同一產業名稱與代碼須導向同一 ETF 頁。
+- 固定代碼及 Investing.com 香港站連結：
+  - 能源 XLE：`https://hk.investing.com/etfs/spdr-energy-select-sector-fund`
+  - 金融 XLF：`https://hk.investing.com/etfs/financial-select-sector-spdr-fund`
+  - 資訊科技 XLK：`https://hk.investing.com/etfs/spdr-select-sector---technology`
+  - 工業 XLI：`https://hk.investing.com/etfs/industrial-sector-spdr-trust`
+  - 非必需消費 XLY：`https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector`
+  - 必需消費 XLP：`https://hk.investing.com/etfs/spdr---consumer-staples`
+  - 公用事業 XLU：`https://hk.investing.com/etfs/spdr-select-sector---utilities`
+  - 醫療保健 XLV：`https://hk.investing.com/etfs/spdr---health-care`
+  - 原材料 XLB：`https://hk.investing.com/etfs/spdr-materials-select-sector-etf`
+  - 房地產 XLRE：`https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413`
+  - 通訊服務 XLC：`https://hk.investing.com/etfs/communication-services-select-spdr`
+- ETF 名稱及代碼的連結不得影響 11 大產業原有漲跌幅排序、數字、版面及活頁切換功能。
+
+### 21.6 發布前連結驗收
+- [ ] 週一與週二至週五兩份母版均含上述連結，且 href 與標的逐一對應。
+- [ ] CNN Fear & Greed 同頁開啟；其餘行情連結另開分頁。
+- [ ] 全球主要股市 15 個指數名稱均可點擊，重複頁籤中的同一指數連結一致。
+- [ ] 11 大產業中文名稱及 ETF 代碼均可點擊，總計 22 個連結文字。
+- [ ] VIX、MOVE、美國 2／10／30 年殖利率、DXY 及 5 組外匯、WTI、Brent、黃金、白銀均可點擊。
+- [ ] 連結不包住數值、漲跌幅或評論；不改變原有行情數字及內容。
+- [ ] 既有全球市場活頁、產業活頁、其他 tabs、收折區及手機版版面均正常。
+- [ ] GitHub 寫入後重新 fetch 回讀兩份母版與本規則檔；檢查 href、target、標的數量及 SHA。靜態原始碼驗收不得冒稱已完成 iPhone 實機驗收；裝置互動須另行實測。
+- 本規範只定義行情連結，不授權修改正式首頁 `index.html`；正式首頁更新仍須依第 8 節流程取得使用者明確核准。
 
 ## 20. 已公布財報行事曆專用小卡版型（2026-10-29）
 
