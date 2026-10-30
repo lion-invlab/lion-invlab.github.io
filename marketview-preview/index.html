@@ -28,7 +28,7 @@ button.active{background:var(--gold);border-color:var(--gold);color:#15191f;font
 <main>
 <section class="panel">
 <div class="lbl">嵌入模式</div><div class="buttons" id="modes"><button data-mode="iframe" class="active">iframe Widget（預設）</button><button data-mode="component">Web Component</button></div>
-<div class="lbl">商品</div><div class="buttons" id="symbols"><button data-symbol="SP:SPX" class="active">S&amp;P 500</button><button data-symbol="NASDAQ:NDX">NASDAQ 100</button><button data-symbol="DJ:DJI">道瓊</button><button data-symbol="NASDAQ:SOX">費半</button></div>
+<div class="lbl">商品</div><div class="buttons" id="symbols"><button data-symbol="FOREXCOM:SPXUSD" class="active">S&amp;P 500</button><button data-symbol="NASDAQ:NDX">NASDAQ 100</button><button data-symbol="DJ:DJI">道瓊</button><button data-symbol="NASDAQ:SOX">費半</button></div>
 <div class="lbl">週期</div><div class="buttons" id="intervals"><button data-interval="1">1m</button><button data-interval="5" class="active">5m</button><button data-interval="15">15m</button><button data-interval="30">30m</button><button data-interval="60">1h</button><button data-interval="1D">日線</button></div>
 <div id="status" class="status">目前：iframe Widget｜S&amp;P 500｜5m</div>
 </section>
@@ -37,7 +37,7 @@ button.active{background:var(--gold);border-color:var(--gold);color:#15191f;font
 </main>
 <script>
 const chart=document.getElementById('chart'),status=document.getElementById('status');
-let mode='iframe',symbol='SP:SPX',interval='5';
+let mode='iframe',symbol='FOREXCOM:SPXUSD',interval='5';
 const intervalLabel=v=>({'1':'1m','5':'5m','15':'15m','30':'30m','60':'1h','1D':'日線'}[v]||v);
 function setActive(group,button){group.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===button))}
 function render(){
