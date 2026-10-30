@@ -2172,8 +2172,9 @@ a.tac-market-link:focus-visible,a.global-index-link:focus-visible,a.tac-sector-l
 .tac-sparkline-demo-note{margin:3px 0 8px;padding:0;color:#8a9098;font-size:10px;line-height:1.35;background:transparent;border:0;border-radius:0}
 #global-markets .row,#industry-bonds-fx-commodities .tac-tab-panel .row{grid-template-columns:minmax(0,1.35fr) minmax(64px,.78fr) auto auto!important;gap:8px!important}
 .tac-sparkline-cell{display:flex;align-items:center;justify-content:center;min-width:0;width:100%;height:30px}
-.tac-sparkline-cell svg{display:block;width:100%;height:28px;overflow:visible}
-.tac-sparkline-cell path{fill:none;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.tac-sparkline-cell svg{display:block;width:100%;height:28px;overflow:visible;background:transparent!important}
+.tac-sparkline-cell svg polyline{fill:none!important;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;stroke-linejoin:round}
+.tac-sparkline-cell path{fill:none!important;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .tac-sparkline-cell .baseline{display:none}
 .tac-sparkline-cell .trend-up{stroke:#c62828}
 .tac-sparkline-cell .trend-down{stroke:#16834c}
