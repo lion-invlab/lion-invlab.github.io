@@ -561,28 +561,14 @@ try {
       await cand.page.waitForTimeout(80);
       sourceDisclosureCloses = !(await sourceDisclosure.evaluate(el => el.open));
     }
-    const auditDisclosure = cand.page.locator("main.wrap details.audit-details").first();
-    let auditDisclosureWorks = null;
-    let auditDisclosureCloses = null;
-    let auditClosedMarker = null;
-    let auditOpenMarker = null;
+    // The only .audit-details instance is the 11-sector accordion.
+    // Its open/close and +/- marker behavior is covered by the dedicated
+    // sector-collapse interaction assertions below; avoid duplicating that test.
     const auditDisclosureCount = await cand.page.locator("main.wrap details.audit-details").count();
-    if (await auditDisclosure.count()) {
-      const auditSummary = auditDisclosure.locator(":scope > summary");
-      auditClosedMarker = await auditSummary.evaluate(el => getComputedStyle(el, "::before").content);
-      const before = await auditDisclosure.evaluate(el => el.open);
-      if (!before) {
-        await auditSummary.click({ timeout: 3000, force: true }).catch(() => {});
-        await cand.page.waitForTimeout(80);
-      }
-      auditDisclosureWorks = await auditDisclosure.evaluate(el => el.open);
-      auditOpenMarker = await auditSummary.evaluate(el => getComputedStyle(el, "::before").content);
-      if (await auditDisclosure.evaluate(el => el.open)) {
-        await auditSummary.click({ timeout: 3000, force: true }).catch(() => {});
-        await cand.page.waitForTimeout(80);
-      }
-      auditDisclosureCloses = !(await auditDisclosure.evaluate(el => el.open));
-    }
+    const auditDisclosureWorks = null;
+    const auditDisclosureCloses = null;
+    const auditClosedMarker = null;
+    const auditOpenMarker = null;
     const collapse = cand.page.locator("#last-week-calendar .last-week-calendar-collapse").first();
     const earningsCollapse = cand.page.locator("#last-week-earnings .last-week-earnings-collapse").first();
     let earningsCollapseWorks = null;
@@ -1129,7 +1115,7 @@ try {
     (v.coachMobileExpected && (!v.coachBubbleInViewport || !v.coachBubbleWraps || !v.coachTextInsideBubble || !v.coachLegacyHintRemoved || v.coachBubbleWidth > Math.min(240, v.width - 28) + 1)) ||
     (!v.coachMobileExpected && v.coachInitialVisibility !== "missing") ||
     v.sentimentThemeClassPresent !== true || !String(v.sentimentBackgroundImage || "").includes("gradient") || v.sentimentBeforeContent === "none" || v.sentimentBeforeContent === "normal" || !String(v.sentimentBeforeBoxShadow || "").includes("rgba") || v.sentimentAfterContent === "none" || v.sentimentAfterContent === "normal" || !String(v.sentimentAfterBoxShadow || "").includes("rgba") ||
-    v.auditDisclosureCount !== 7 || v.auditDisclosureWorks !== true || v.auditDisclosureCloses !== true || !String(v.auditClosedMarker || "").includes("＋") || !String(v.auditOpenMarker || "").includes("－") || v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.methodDisclosureCount !== 4 || v.methodDisclosureInlineStyles !== 0 || v.regionSectorSourceTypography.length !== 4 || v.regionSectorSourceTypography.some(s => s.fontSize !== "11px" || s.fontWeight !== "400" || s.color !== "rgb(115, 121, 129)" || s.padding !== "2px 0px") || v.darkDisclosureCount < 2 || v.darkDisclosureStyleSignatures.length !== 3 || v.darkDisclosureStyleSignatures.some(s => s.summaryColor !== "rgb(174, 187, 200)" || s.markerColor !== "rgb(226, 184, 77)" || (s.sourceColor !== null && s.sourceColor !== "rgb(194, 204, 214)")) || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
+    v.auditDisclosureCount !== 1 || v.sharedTabLabelCount !== 21 || v.sharedDisclosureCount < 13 || v.methodDisclosureCount !== 4 || v.methodDisclosureInlineStyles !== 0 || v.regionSectorSourceTypography.length !== 4 || v.regionSectorSourceTypography.some(s => s.fontSize !== "11px" || s.fontWeight !== "400" || s.color !== "rgb(115, 121, 129)" || s.padding !== "2px 0px") || v.darkDisclosureCount < 2 || v.darkDisclosureStyleSignatures.length !== 3 || v.darkDisclosureStyleSignatures.some(s => s.summaryColor !== "rgb(174, 187, 200)" || s.markerColor !== "rgb(226, 184, 77)" || (s.sourceColor !== null && s.sourceColor !== "rgb(194, 204, 214)")) || v.sharedEmptyStateCount !== 4 || v.sharedNewsCardCount !== 15 ||
     JSON.stringify(v.sharedNewsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || JSON.stringify(v.sharedNewsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.sharedEventCardCount !== 12 || JSON.stringify(v.sharedEventCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.eventCardWorks !== true || v.eventCardCloses !== true || v.sharedEarningsCardCount !== 22 || JSON.stringify(v.sharedEarningsCardRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || v.earningsUpcomingTabWorks !== true || v.earningsAccordionWorks !== true || v.earningsAccordionCloses !== true || v.sharedSectorRowCount !== 11 || JSON.stringify(v.sharedSectorRowRadii) !== JSON.stringify([v.width <= 700 ? "10px" : "12px"]) || JSON.stringify(v.sharedSectorRowBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.sharedActualEarningsCardCount !== 14 || JSON.stringify(v.sharedActualEarningsCardRadii) !== JSON.stringify([v.width <= 640 ? "12px" : "14px"]) || JSON.stringify(v.sharedActualEarningsCardBackgrounds) !== JSON.stringify(["rgb(255, 255, 255)"]) || v.actualEarningsBeatCount < 1 || v.actualEarningsMissCount < 1 || v.sectorTabWorks !== true || v.sectorTabColor !== "rgb(180, 35, 50)" || v.sectorTabTextColor !== "rgb(255, 255, 255)" || v.sectorCollapseWorks !== true || v.sectorCollapseCloses !== true ||
     !v.sentimentDisclosureGeometryPass ||
     !v.newsCardGeometryPass ||
