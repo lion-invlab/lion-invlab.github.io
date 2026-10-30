@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC MarketView｜TradingView</title>
+<style>
+:root{--bg:#f3f4f6;--ink:#202328;--muted:#737981;--line:#e2e5e9;--red:#c62828}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC",sans-serif}
+header{background:#202328;color:#fff;padding:15px max(16px,calc((100% - 1500px)/2));display:flex;align-items:center;gap:15px;flex-wrap:wrap;border-bottom:3px solid var(--red)}
+a.back{color:#fff;text-decoration:none;font-size:12px;font-weight:800;background:#3a3e44;padding:8px 11px;border-radius:7px}
+h1{font-size:20px;margin:0;font-weight:950}.hint{font-size:11px;color:#c4c9d0;margin-left:auto}
+main{max-width:1540px;margin:20px auto;padding:0 16px 34px}
+.toolbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.toolbar button{border:1px solid #d9dde2;background:#fff;color:#333;border-radius:7px;padding:8px 12px;font-size:12px;font-weight:850;cursor:pointer}
+.toolbar button.active{background:#202328;color:#fff;border-color:#202328}
+.chart{height:680px;min-height:520px;background:#131722;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px #0002}
+.disclaimer{font-size:10px;color:#777;line-height:1.65;margin-top:10px}
+@media(max-width:650px){header{padding:13px 14px}.hint{width:100%;margin-left:0}main{padding:0 9px 25px}.chart{height:590px;min-height:500px}.toolbar button{padding:8px 10px}}
+</style></head>
+<body>
+<header><a class="back" href="../">← 工具中心</a><h1>TAC MarketView</h1><div class="hint">TradingView 官方嵌入式圖表</div></header>
+<main>
+<div class="toolbar" aria-label="市場快捷切換">
+<button class="active" data-symbol="SP:SPX">S&amp;P 500</button>
+<button data-symbol="NASDAQ:NDX">NASDAQ 100</button>
+<button data-symbol="DJ:DJI">道瓊</button>
+<button data-symbol="NASDAQ:SOX">費半 SOX</button>
+</div>
+<div class="chart" id="tv-chart" aria-label="TradingView 市場圖表"></div>
+<div class="disclaimer">圖表由 TradingView 官方 Widget 提供。報價延遲、可用商品、交易所資料及顯示時段依 TradingView 與相關交易所授權而定。此頁僅供內部研究與視覺觀察；不擷取 Widget 內報價、不將其回填至 TAC 正式早報，也不代表取得即時行情再分發權。</div>
+</main>
+<script>
+const chart=document.getElementById('tv-chart');
+function loadChart(symbol){
+ chart.innerHTML='';
+ const s=document.createElement('script');
+ s.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+ s.async=true;
+ s.innerHTML=JSON.stringify({
+   autosize:true,symbol,interval:'D',timezone:'Asia/Taipei',theme:'dark',
+   style:'1',locale:'zh_TW',withdateranges:true,hide_side_toolbar:false,
+   allow_symbol_change:true,save_image:false,calendar:false,
+   support_host:'https://www.tradingview.com'
+ });
+ chart.appendChild(s);
+ document.querySelectorAll('[data-symbol]').forEach(b=>b.classList.toggle('active',b.dataset.symbol===symbol));
+}
+document.querySelectorAll('[data-symbol]').forEach(b=>b.addEventListener('click',()=>loadChart(b.dataset.symbol)));
+loadChart('SP:SPX');
+</script></body></html>
