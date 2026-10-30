@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>TAC MarketView｜Preview</title>
+<script type="module" src="https://widgets.tradingview-widget.com/w/en/tv-advanced-chart.js"></script>
+<style>
+:root{color-scheme:dark;--bg:#10141d;--panel:#171e2a;--line:#2a3444;--muted:#9aa7b8;--gold:#d5ad58;--fg:#f4f6fa}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:18px 15px 13px;border-bottom:1px solid var(--line)}.eyebrow{font-size:11px;letter-spacing:.15em;color:var(--gold);font-weight:700}
+h1{font-size:22px;margin:7px 0 4px}.sub{font-size:12px;color:var(--muted)}
+main{max-width:1100px;margin:auto;padding:12px}.panel{padding:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:12px}
+.lbl{font-size:11px;color:var(--muted);margin:2px 0 7px}.buttons{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:11px}
+button{background:#202a38;border:1px solid #394557;color:#dce3ed;border-radius:8px;padding:8px 11px;min-height:36px;font-size:13px}
+button.active{background:var(--gold);border-color:var(--gold);color:#15191f;font-weight:700}
+#chart{height:68vh;min-height:470px;background:#fff;border-radius:12px;overflow:hidden}
+#chart tv-advanced-chart{display:block;width:100%;height:100%}
+#chart .tradingview-widget-container{width:100%;height:100%}
+#chart .tradingview-widget-container__widget{width:100%;height:calc(100% - 30px)}
+.status{font-size:12px;color:#d7c08c;min-height:18px;margin-top:5px}
+.note{font-size:11px;line-height:1.6;color:var(--muted);margin:10px 2px}
+@media(max-width:600px){main{padding:9px 8px}#chart{height:66vh;min-height:440px}button{padding:8px 9px}}
+</style></head>
+<body>
+<header><div class="eyebrow">TAC · INVESTMENT RESEARCH</div><h1>MarketView</h1><div class="sub">TradingView Widget｜iframe / Web Component 測試</div></header>
+<main>
+<section class="panel">
+<div class="lbl">嵌入模式</div><div class="buttons" id="modes"><button data-mode="iframe" class="active">iframe Widget（預設）</button><button data-mode="component">Web Component</button></div>
+<div class="lbl">商品</div><div class="buttons" id="symbols"><button data-symbol="SP:SPX" class="active">S&amp;P 500</button><button data-symbol="NASDAQ:NDX">NASDAQ 100</button><button data-symbol="DJ:DJI">道瓊</button><button data-symbol="NASDAQ:SOX">費半</button></div>
+<div class="lbl">週期</div><div class="buttons" id="intervals"><button data-interval="1">1m</button><button data-interval="5" class="active">5m</button><button data-interval="15">15m</button><button data-interval="30">30m</button><button data-interval="60">1h</button><button data-interval="1D">日線</button></div>
+<div id="status" class="status">目前：iframe Widget｜S&amp;P 500｜5m</div>
+</section>
+<section id="chart" aria-label="TradingView chart"></section>
+<p class="note">內部研究原型，頁面目前放在獨立公開 GitHub 測試分支，網址可能被他人存取。行情即時性、歷史深度及週期可用性依 TradingView 與交易所資料權限而定。本頁不擷取、不儲存、不回填行情至 TAC 正式早報；不修改正式首頁、母版或工作規則。</p>
+</main>
+<script>
+const chart=document.getElementById('chart'),status=document.getElementById('status');
+let mode='iframe',symbol='SP:SPX',interval='5';
+const intervalLabel=v=>({'1':'1m','5':'5m','15':'15m','30':'30m','60':'1h','1D':'日線'}[v]||v);
+function setActive(group,button){group.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===button))}
+function render(){
+ chart.replaceChildren();
+ if(mode==='component'){
+  const el=document.createElement('tv-advanced-chart');
+  el.setAttribute('symbol',symbol);el.setAttribute('interval',interval);el.setAttribute('timezone','Asia/Taipei');el.setAttribute('theme','dark');el.setAttribute('locale','zh_TW');
+  el.style.cssText='display:block;width:100%;height:100%';chart.appendChild(el);
+ }else{
+  const wrap=document.createElement('div');wrap.className='tradingview-widget-container';wrap.style.cssText='height:100%;width:100%';
+  const inner=document.createElement('div');inner.className='tradingview-widget-container__widget';inner.style.cssText='height:calc(100% - 30px);width:100%';
+  const credit=document.createElement('div');credit.className='tradingview-widget-copyright';credit.style.cssText='height:30px;text-align:center;font:12px Arial,sans-serif;color:#6b7280';
+  const a=document.createElement('a');a.href='https://www.tradingview.com/';a.target='_blank';a.rel='noopener';a.textContent='Chart by TradingView';credit.appendChild(a);
+  const script=document.createElement('script');script.type='text/javascript';script.async=true;script.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  script.textContent=JSON.stringify({autosize:true,symbol,interval,timezone:'Asia/Taipei',theme:'dark',style:'1',locale:'zh_TW',allow_symbol_change:true,calendar:false,hide_side_toolbar:false,hide_top_toolbar:false,hide_legend:false,hide_volume:false,save_image:false,support_host:'https://www.tradingview.com'});
+  wrap.append(inner,credit,script);chart.appendChild(wrap);
+ }
+ status.textContent='目前：'+(mode==='iframe'?'iframe Widget':'Web Component')+'｜'+document.querySelector('#symbols .active').textContent.trim()+'｜'+intervalLabel(interval);
+}
+document.getElementById('modes').addEventListener('click',e=>{const b=e.target.closest('[data-mode]');if(!b)return;mode=b.dataset.mode;setActive(e.currentTarget,b);render()});
+document.getElementById('symbols').addEventListener('click',e=>{const b=e.target.closest('[data-symbol]');if(!b)return;symbol=b.dataset.symbol;setActive(e.currentTarget,b);render()});
+document.getElementById('intervals').addEventListener('click',e=>{const b=e.target.closest('[data-interval]');if(!b)return;interval=b.dataset.interval;setActive(e.currentTarget,b);render()});
+render();
+</script></body></html>
