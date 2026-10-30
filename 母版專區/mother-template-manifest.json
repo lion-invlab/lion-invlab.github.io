@@ -9,19 +9,38 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "0d1cc634708011ef7fac91b47084912daf69c106",
-      "required_calendar_sections": ["上週經濟行事曆", "上週財報行事曆"],
+      "blob_sha": "176eb7c686f9e0de9216eb57e144eeebaaf75f9b",
+      "required_calendar_sections": [
+        "上週經濟行事曆",
+        "上週財報行事曆"
+      ],
       "forbidden_calendar_sections": [],
       "notes": "週一專用；保留上週經濟與財報行事曆及對應導航"
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "5c008bcb1e17e1f90d3a3fd0b80b2cff9b4244a7",
+      "blob_sha": "0e821377b02ccc6b20cc4c5143341266ee915bfe",
       "required_calendar_sections": [],
-      "forbidden_calendar_sections": ["上週經濟行事曆", "上週財報行事曆"],
+      "forbidden_calendar_sections": [
+        "上週經濟行事曆",
+        "上週財報行事曆"
+      ],
       "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航"
     }
   },
-  "protected_paths": ["index.html", "refactor-work/design-system.css", "refactor-work/source-baseline-2026-10-26.html"],
-  "change_log": [{"date":"2026-10-29","change":"首次建立唯一母版登記；以使用者確認的兩份最終定版檔案及其實際 Git blob SHA 鎖定來源"}]
+  "protected_paths": [
+    "index.html",
+    "refactor-work/design-system.css",
+    "refactor-work/source-baseline-2026-10-26.html"
+  ],
+  "change_log": [
+    {
+      "date": "2026-10-29",
+      "change": "首次建立唯一母版登記；以使用者確認的兩份最終定版檔案及其實際 Git blob SHA 鎖定來源"
+    },
+    {
+      "date": "2026-10-30",
+      "change": "依使用者核准，雙母版同步標準行情超連結與 CNN 同頁返回規則；版面及既有互動保留，僅更新連結與必要樣式。"
+    }
+  ]
 }
