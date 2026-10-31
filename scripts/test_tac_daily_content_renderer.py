@@ -86,6 +86,15 @@ def run_case(kind,report_date,weekday):
         snapshot_path.write_text(json.dumps(snapshot,ensure_ascii=False),encoding="utf-8")
         payload.write_text(json.dumps(data,ensure_ascii=False),encoding="utf-8")
         result=render_full(snapshot_path,payload,output)
+        assert result["status"]=="review_with_pending_items"
+        strict_output=base/"strict.html"
+        try:
+            render_full(snapshot_path,payload,strict_output,require_complete=True)
+        except ValueError as exc:
+            assert "complete-report gate failed" in str(exc)
+        else:
+            raise AssertionError("strict complete-report gate must reject pending editorial data")
+        assert not strict_output.exists()
         html=output.read_text(encoding="utf-8")
         soup=BeautifulSoup(html,"html.parser")
         assert result["editorial"]["focus_news"]==5 and result["editorial"]["market_headlines"]==10
