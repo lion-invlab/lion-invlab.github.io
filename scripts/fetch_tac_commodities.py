@@ -151,7 +151,7 @@ def build_fragment(target,report,records,observed):
             "trading_date":target.isoformat(),"fetched_at":observed,
             "source_priority":"TAC_WORK_RULES.md §13.2: CME/NYMEX WTI and COMEX GC/SI; ICE Brent; Investing.com HK historical pages only as documented fallback with contract month.",
             "energy":{"wti":records["wti"],"brent":records["brent"]},
-            "precious_metals":{"gold":records["gold"],"silver":records["silver"]}}
+            "precious_metals":{"gold_gc":records["gold"],"silver_si":records["silver"]}}
 
 def self_test():
     html="""<html><h1>WTI原油期貨 - 2026年12月 (OIL)</h1><table><tr><th>日期</th><th>收市</th><th>升跌（%）</th></tr><tr><td>2026年10月30日</td><td>102.95</td><td>+0.93%</td></tr></table></html>"""
