@@ -152,6 +152,24 @@ class CalendarDatasetTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "release_session"):
             validate_calendar_dataset(dataset(earnings_rows=[earnings(release_session="overnight")]))
 
+    def test_invalid_iana_timezone_rejected(self):
+        with self.assertRaisesRegex(ValueError, "IANA timezone"):
+            validate_calendar_dataset(dataset(economic=[
+                econ(event_timezone="Mars/Olympus_Mons")
+            ]))
+
+    def test_non_string_status_group_rejected(self):
+        with self.assertRaisesRegex(ValueError, "status_group"):
+            validate_calendar_dataset(dataset(economic=[
+                econ(status_group=["upcoming"])
+            ]))
+
+    def test_non_string_release_session_rejected(self):
+        with self.assertRaisesRegex(ValueError, "release_session"):
+            validate_calendar_dataset(dataset(earnings_rows=[
+                earnings(release_session=["pre_market"])
+            ]))
+
     def test_invalid_template_rejected(self):
         raw = dataset()
         raw["template"] = "both"
