@@ -121,7 +121,12 @@ class FieldWriteGuardTests(unittest.TestCase):
         cases = (
             ("weekly_economic_events", "econ-field", "econ-value", "monday", "觀察重點"),
             ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday", "觀察重點"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday", "EPS 共識"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday", "正式公布時間"),
             ("weekly_economic_events", "econ-field", "econ-value", "weekdays", "市場影響"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays", "公布時段"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays", "EPS 預估／實際"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays", "營收預估／實際"),
             ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays", "財報判讀與股價反應"),
         )
         for name, field_class, value_class, template, label_text in cases:
