@@ -16,14 +16,19 @@ def _prototype_details(template, section_selector, list_selector, card_selector,
     for status, target in targets.items():
         if not target["cards"]:
             continue
-        fields = _field_map(target["cards"][0], field_class,
-                            "econ-value" if field_class == "econ-field" else "earnings-detail-value")
-        source_labels = {
-            label: len(list(value)) for label, value in fields.items()
-            if list(value) and all(child.tag.lower() == "a" for child in list(value))
-        }
-        details = [label for label, value in fields.items() if label not in source_labels]
-        result[status] = {"details": details, "sources": source_labels}
+        candidates = []
+        for card in target["cards"]:
+            fields = _field_map(card, field_class,
+                                "econ-value" if field_class == "econ-field" else "earnings-detail-value")
+            source_labels = {
+                label: len(list(value)) for label, value in fields.items()
+                if list(value) and all(child.tag.lower() == "a" for child in list(value))
+            }
+            details = [label for label, value in fields.items() if label not in source_labels]
+            candidates.append({"details": details, "sources": source_labels})
+            if source_labels:
+                break
+        result[status] = candidates[-1]
     return result
 
 
