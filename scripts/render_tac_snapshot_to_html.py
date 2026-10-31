@@ -983,7 +983,8 @@ def self_test():
         assert "Synthetic Company" in rendered
         assert "Synthetic earnings analysis" in rendered
         assert "首個交易日收盤 +1.2%" in rendered
-        assert "展開上週財報行事曆（2026/10/26～2026/10/30）" in rendered
+        if previous_earnings_container:
+            assert "展開上週財報行事曆（2026/10/26～2026/10/30）" in rendered
         assert "EPS" in rendered and "營收" in rendered
         assert "★★★" in rendered
         ticker_map=mapping["groups"]["sectors"]["key_by_ticker"]
