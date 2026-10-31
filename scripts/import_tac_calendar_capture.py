@@ -53,6 +53,10 @@ def normalize(payload: dict) -> dict:
     report_date = date.fromisoformat(payload["report_date"]).isoformat()
     trading_date = date.fromisoformat(payload["trading_date"]).isoformat()
     observed_at = aware_datetime(payload["observed_at"], "observed_at")
+    if date.fromisoformat(report_date).weekday() != 0 and (
+        payload.get("previous_economic_events") or payload.get("previous_earnings_events")
+    ):
+        raise ValueError("previous-week calendar events are only valid in Monday reports")
     base_source = payload["source"]
     if not isinstance(base_source, dict):
         raise ValueError("source must be an object")
@@ -60,10 +64,44 @@ def normalize(payload: dict) -> dict:
         "report_date": report_date,
         "trading_date": trading_date,
         "economic_calendar": [],
-        "earnings_calendar": []
+        "earnings_calendar": [],
+        "previous_economic_calendar": [],
+        "previous_earnings_calendar": []
     }
 
-    for row in payload.get("economic_events", []):
+    # Coverage is explicit: an empty event array is not proof that a provider
+    # calendar was fully checked. Only caller-supplied, provenance-backed status
+    # can distinguish a confirmed empty result from an incomplete capture.
+    supplied_coverage = payload.get("coverage", {})
+    if not isinstance(supplied_coverage, dict):
+        raise ValueError("coverage must be an object when supplied")
+    allowed_coverage = {"economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"}
+    unknown_coverage = set(supplied_coverage) - allowed_coverage
+    if unknown_coverage:
+        raise ValueError("unsupported calendar coverage groups: " + ", ".join(sorted(unknown_coverage)))
+    if supplied_coverage:
+        fragment["coverage"] = {}
+        for group, record in supplied_coverage.items():
+            if not isinstance(record, dict):
+                raise ValueError(f"coverage.{group} must be an object")
+            status = record.get("status")
+            refs = record.get("source_refs")
+            if status not in {"complete", "incomplete"}:
+                raise ValueError(f"coverage.{group}.status must be complete or incomplete")
+            if not isinstance(refs, list) or any(not isinstance(x, str) or not x.strip() for x in refs):
+                raise ValueError(f"coverage.{group}.source_refs must be an array of non-empty strings")
+            checked_at = record.get("checked_at")
+            if checked_at is not None:
+                checked_at = aware_datetime(checked_at, f"coverage.{group}.checked_at")
+            if status == "complete" and (not refs or not checked_at):
+                raise ValueError(f"coverage.{group}: complete requires source_refs and checked_at")
+            fragment["coverage"][group] = {
+                "status": status, "source_refs": refs, "checked_at": checked_at
+            }
+
+    for input_group, output_group in (("economic_events", "economic_calendar"),
+                                     ("previous_economic_events", "previous_economic_calendar")):
+      for row in payload.get(input_group, []):
         stars = row.get("importance_stars")
         if stars != 3:
             continue
@@ -80,9 +118,11 @@ def normalize(payload: dict) -> dict:
             "impact_judgment": row.get("impact_judgment"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
-        fragment["economic_calendar"].append(event)
+        fragment[output_group].append(event)
 
-    for row in payload.get("earnings_events", []):
+    for input_group, output_group in (("earnings_events", "earnings_calendar"),
+                                     ("previous_earnings_events", "previous_earnings_calendar")):
+      for row in payload.get(input_group, []):
         if row.get("include_in_report") is not True:
             continue
         basis = row.get("importance_basis")
@@ -118,9 +158,9 @@ def normalize(payload: dict) -> dict:
             "stock_price_reaction": row.get("stock_price_reaction"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
-        fragment["earnings_calendar"].append(event)
+        fragment[output_group].append(event)
 
-    for group in ("economic_calendar", "earnings_calendar"):
+    for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
         fragment[group].sort(key=lambda item: item["event_date"])
     return fragment
 
@@ -142,6 +182,19 @@ def self_test() -> None:
             "importance_basis_source":"Synthetic test basis; supporting source is the company index membership record",
             "importance_rating_source":None,"eps_estimate":1.2,"eps_actual":None,
             "revenue_estimate":100.0,"revenue_actual":None,"status":"upcoming"
+        }],
+        "previous_economic_events": [{
+            "id":"prev-e1","event_date":"2026-10-30T20:30:00+08:00","region":"US",
+            "event_name":"Prior CPI","importance_stars":3,"previous":"2.0%","forecast":"2.1%",
+            "actual":"2.2%","status":"released"
+        }],
+        "previous_earnings_events": [{
+            "id":"prev-a1","include_in_report":True,"event_date":"2026-10-30T21:30:00+08:00",
+            "company":"Prior Synthetic Mega Cap","ticker":"PSYN","session":"after_market",
+            "importance_stars":None,"importance_basis":"major_event_assessment",
+            "importance_basis_source":"Synthetic prior-week test assessment",
+            "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
+            "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released"
         }]
     }
     fragment = normalize(payload)
@@ -154,6 +207,31 @@ def self_test() -> None:
     )
     assert len(assembled["economic_calendar"]) == 1
     assert len(assembled["earnings_calendar"]) == 1
+    assert assembled["previous_economic_calendar"][0]["id"] == "prev-e1"
+    assert assembled["previous_earnings_calendar"][0]["id"] == "prev-a1"
+
+    empty_capture = dict(payload)
+    empty_capture["economic_events"] = []
+    empty_capture["earnings_events"] = []
+    empty_capture["coverage"] = {
+        "economic_calendar": {
+            "status": "complete", "source_refs": ["synthetic-calendar-index"],
+            "checked_at": "2026-10-31T21:00:00+08:00"
+        },
+        "earnings_calendar": {
+            "status": "incomplete", "source_refs": [], "checked_at": None
+        }
+    }
+    empty_fragment = normalize(empty_capture)
+    empty_assembled = assemble(
+        "2026-11-02", "2026-10-30", "2026-10-31T21:00:00+08:00",
+        [empty_fragment], validator, schema
+    )
+    assert empty_assembled["economic_calendar"] == []
+    assert empty_assembled["coverage"]["economic_calendar"]["status"] == "complete"
+    assert empty_assembled["coverage"]["earnings_calendar"]["status"] == "incomplete"
+    print("PASS: verified empty calendar remains distinct from an incomplete capture")
+
     print("PASS: only source-native 3-star economic events are imported")
     print("PASS: unrated earnings require a traceable major-event assessment and retain null stars")
     print("PASS: source URLs and observation timestamps are preserved through assembly")
