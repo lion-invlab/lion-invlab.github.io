@@ -97,6 +97,23 @@ jobs:
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
 
+      - name: Live read-only fetch of 17 indices for the latest completed US session
+        run: |
+          python scripts/fetch_tac_global_indices.py --trading-date "2026-10-30" --report-date "2026-11-02" --output "/tmp/tac-global-indices-2026-10-30.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("/tmp/tac-global-indices-2026-10-30.json").read_text())
+          records = data["global_indices"]
+          verified = [k for k, v in records.items() if v["status"] == "verified"]
+          pending = [k for k, v in records.items() if v["status"] != "verified"]
+          print(f"Live source result: {len(verified)}/17 verified; {len(pending)}/17 pending")
+          print("Verified:", ", ".join(verified) or "none")
+          print("Pending:", ", ".join(pending) or "none")
+          if not verified:
+              raise SystemExit("No index was retrieved from the live source")
+          PY
+
       - name: Confirm global-index collector rejects incomplete run arguments
         run: |
           if python scripts/fetch_tac_global_indices.py --report-date "2026-11-02" --output "/tmp/should-not-fetch.json" 2> /tmp/tac-source-args.err; then
