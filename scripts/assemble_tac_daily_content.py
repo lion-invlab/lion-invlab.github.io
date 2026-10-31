@@ -39,7 +39,12 @@ def empty_content(report_date: str, trading_date: str, generated_at: str, wr_ver
         "previous_economic_calendar": [],
         "previous_earnings_calendar": [],
         "coverage": {
-            group: {"status": "incomplete", "source_refs": [], "checked_at": None}
+            group: {
+                "status": ("not_applicable" if expected_template == "weekday" and group in
+                           {"previous_economic_calendar", "previous_earnings_calendar"} else "incomplete"),
+                "source_refs": [],
+                "checked_at": None
+            }
             for group in COVERAGE_GROUPS
         },
         "analysis": {
