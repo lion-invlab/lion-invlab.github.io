@@ -13,8 +13,10 @@ import math
 import re
 import sys
 import time
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import quote
+from zoneinfo import ZoneInfo
 
 import requests
 from bs4 import BeautifulSoup
@@ -40,6 +42,27 @@ INDEXES = {
     "dax": ("germany-30", "GDAXI", "DAX"),
     "cac_40": ("france-40", "FCHI", "CAC"),
     "stoxx_europe_600": ("stoxx-600", "STOXX", "STOXX"),
+}
+
+YAHOO_FALLBACK = {
+    "dow": "^DJI",
+    "sp500": "^GSPC",
+    "nasdaq_composite": "^IXIC",
+    "russell_2000": "^RUT",
+    "sox": "^SOX",
+    "hang_seng": "^HSI",
+    "shanghai_composite": "000001.SS",
+    "shenzhen_component": "399001.SZ",
+    "nikkei_225": "^N225",
+    "kospi": "^KS11",
+    "twse": "^TWII",
+    "singapore_sti": "^STI",
+    "asx_200": "^AXJO",
+    "ftse_100": "^FTSE",
+    "dax": "^GDAXI",
+    "cac_40": "^FCHI",
+    # Do not substitute Euro Stoxx 50 for the required STOXX Europe 600.
+    "stoxx_europe_600": None,
 }
 
 def parse_number(raw: str) -> float:
@@ -121,6 +144,80 @@ def make_pending(observed_at: str, trading_date: date, reason: str) -> dict:
         "notes": f"未取得指定交易日資料，未沿用舊值。原因：{reason}",
     }
 
+def parse_yahoo_chart_payload(payload: dict, ticker: str, trading_date: date) -> dict:
+    chart = payload.get("chart", {})
+    if chart.get("error"):
+        raise ValueError(f"Yahoo chart error: {chart['error']}")
+    results = chart.get("result") or []
+    if not results:
+        raise ValueError("Yahoo chart returned no result")
+    result = results[0]
+    meta = result.get("meta", {})
+    actual_symbol = meta.get("symbol", "")
+    if actual_symbol.upper() != ticker.upper():
+        raise ValueError(f"Yahoo instrument mismatch: expected {ticker}, got {actual_symbol!r}")
+    timezone_name = meta.get("exchangeTimezoneName")
+    if not timezone_name:
+        raise ValueError("Yahoo chart missing exchange timezone")
+    tz = ZoneInfo(timezone_name)
+    timestamps = result.get("timestamp") or []
+    quote_rows = (result.get("indicators", {}).get("quote") or [{}])[0]
+    closes = quote_rows.get("close") or []
+    if len(timestamps) != len(closes):
+        raise ValueError("Yahoo chart timestamp/close length mismatch")
+    dated = []
+    for stamp, close in zip(timestamps, closes):
+        if close is None:
+            continue
+        close_value = float(close)
+        if not math.isfinite(close_value) or close_value <= 0:
+            continue
+        local_date = datetime.fromtimestamp(stamp, tz).date()
+        dated.append((local_date, close_value))
+    target = next((value for day, value in dated if day == trading_date), None)
+    previous = next((value for day, value in reversed(dated) if day < trading_date), None)
+    if target is None:
+        raise ValueError(f"Yahoo exact trading-date close {trading_date.isoformat()} not found")
+    if previous is None:
+        raise ValueError("Yahoo previous trading-day close unavailable")
+    return {
+        "close": target,
+        "change_pct": (target / previous - 1.0) * 100.0,
+        "previous_close": previous,
+        "timezone": timezone_name,
+    }
+
+
+def fetch_yahoo_fallback(session: requests.Session, key: str, ticker: str,
+                         trading_date: date, observed_at: str,
+                         primary_error: str) -> dict:
+    start = int(datetime.combine(trading_date - timedelta(days=7), datetime.min.time(),
+                                 tzinfo=timezone.utc).timestamp())
+    end = int(datetime.combine(trading_date + timedelta(days=2), datetime.min.time(),
+                               tzinfo=timezone.utc).timestamp())
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(ticker, safe='')}"
+    response = session.get(url, params={"period1": start, "period2": end, "interval": "1d"},
+                           timeout=(10, 30))
+    response.raise_for_status()
+    parsed = parse_yahoo_chart_payload(response.json(), ticker, trading_date)
+    return {
+        "value": parsed["close"], "unit": "index_point",
+        "change": parsed["change_pct"], "change_unit": "percent",
+        "status": "verified",
+        "source": {
+            "name": "Yahoo Finance",
+            "url": f"https://finance.yahoo.com/quote/{quote(ticker, safe='')}/history/",
+            "observed_at": observed_at,
+            "data_date": trading_date.isoformat(),
+            "quote_type": "yahoo_chart_daily_close_pct_change",
+            "instrument": f"{key} ({ticker})",
+            "exchange_timezone": parsed["timezone"],
+        },
+        "fallback_used": True, "fallback_reason": primary_error,
+        "notes": "Investing.com 香港站未成功取得指定交易日資料，改用 Yahoo Finance 日線收市價；僅接受完全相符的交易日期。",
+    }
+
+
 def fetch_one(session: requests.Session, key: str, config: tuple,
               trading_date: date, observed_at: str) -> tuple[str, dict]:
     slug, ticker, label_hint = config
@@ -145,8 +242,19 @@ def fetch_one(session: requests.Session, key: str, config: tuple,
             "fallback_used": False, "fallback_reason": None,
             "notes": "採用歷史資料表指定交易日的收市價及日升跌幅；僅接受完全相符的資料日期。",
         }
-    except Exception as exc:
-        return key, make_pending(observed_at, trading_date, str(exc))
+    except Exception as primary_exc:
+        primary_error = str(primary_exc)
+        fallback_ticker = YAHOO_FALLBACK.get(key)
+        if fallback_ticker:
+            try:
+                return key, fetch_yahoo_fallback(
+                    session, key, fallback_ticker, trading_date, observed_at, primary_error
+                )
+            except Exception as fallback_exc:
+                reason = f"Investing.com: {primary_error}; Yahoo Finance: {fallback_exc}"
+        else:
+            reason = f"Investing.com: {primary_error}; no verified Yahoo ticker mapping for this index"
+        return key, make_pending(observed_at, trading_date, reason)
 
 def build_fragment(trading_date: date, report_date: date, records: dict,
                    observed_at: str) -> dict:
