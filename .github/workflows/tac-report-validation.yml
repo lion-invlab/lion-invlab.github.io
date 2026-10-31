@@ -60,7 +60,7 @@ jobs:
               "",
               "Do not treat this report as ready for review and do not deploy it.",
               "Inspect the failed job logs, correct the underlying report or validator issue, then rerun the gate."
-            ].join("\\n");
+            ].join("\n");
             const existing = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
