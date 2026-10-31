@@ -86,6 +86,29 @@ class FieldWriteGuardTests(unittest.TestCase):
             for x in select_wrappers(root, selector)
         ))
 
+    def test_monday_earnings_analysis_and_stock_reaction_are_distinct_leaves(self):
+        root = parse_html(self._source("monday"))
+        for name in ("last_week_earnings_analysis_text_leaf", "last_week_earnings_stock_reaction_text_leaf"):
+            selector = self._item(name)["selector"]
+            with self.subTest(field=name):
+                matches = select_wrappers(root, selector)
+                self.assertEqual(len(matches), 7)
+                self.assertTrue(all(len(list(x.etree_element)) == 0 for x in matches))
+                self.assertEqual(
+                    update_registered_leaf_text(root, selector, "TEST FIELD", self.registry),
+                    7,
+                )
+                self.assertTrue(all(x.etree_element.text == "TEST FIELD" for x in matches))
+
+    def test_monday_earnings_source_link_container_is_protected(self):
+        root = parse_html(self._source("monday"))
+        selector = self._item("last_week_earnings_source_link_container")["selector"]
+        matches = select_wrappers(root, selector)
+        self.assertEqual(len(matches), 7)
+        self.assertTrue(any(list(x.etree_element) for x in matches))
+        with self.assertRaises(PermissionError):
+            update_registered_leaf_text(root, selector, "overwrite links", self.registry)
+
     def test_protected_observation_container_is_rejected(self):
         root = parse_html(self._source("monday"))
         selector = self._item("energy_card_observation")["selector"]
