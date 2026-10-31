@@ -10,7 +10,9 @@ from pathlib import Path
 
 from validate_tac_daily_content import load_validator, validate_report_rules
 
-ARRAY_GROUPS = ("focus_news", "market_headlines", "economic_calendar", "earnings_calendar")
+ARRAY_GROUPS = ("focus_news", "market_headlines", "economic_calendar", "earnings_calendar",
+                "previous_economic_calendar", "previous_earnings_calendar")
+COVERAGE_GROUPS = ARRAY_GROUPS
 
 
 def empty_content(report_date: str, trading_date: str, generated_at: str, wr_version: str = "3.5") -> dict:
@@ -19,7 +21,7 @@ def empty_content(report_date: str, trading_date: str, generated_at: str, wr_ver
     if report_day.weekday() > 4:
         raise ValueError("weekend report dates are not eligible for automatic production")
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "meta": {
             "report_date": report_day.isoformat(),
             "trading_date": date.fromisoformat(trading_date).isoformat(),
@@ -34,9 +36,23 @@ def empty_content(report_date: str, trading_date: str, generated_at: str, wr_ver
         "market_headlines": [],
         "economic_calendar": [],
         "earnings_calendar": [],
+        "previous_economic_calendar": [],
+        "previous_earnings_calendar": [],
+        "coverage": {
+            group: {
+                "status": ("not_applicable" if expected_template == "weekday" and group in
+                           {"previous_economic_calendar", "previous_earnings_calendar"} else "incomplete"),
+                "source_refs": [],
+                "checked_at": None
+            }
+            for group in COVERAGE_GROUPS
+        },
         "analysis": {
-            "summary": {"text": None, "source_refs": [], "status": "pending_verification"},
-            "market_observation_highlights": [],
+            "summary": {"headline": None, "text": None, "source_refs": [], "status": "pending_verification"},
+            "market_observation_highlights": {
+                key: {"text": None, "source_refs": [], "status": "pending_verification"}
+                for key in ("market_view", "key_levels", "core_observations")
+            },
             "market_sentiment": {
                 "label": None, "score": None, "text": None,
                 "source_refs": [], "status": "pending_verification"
@@ -50,6 +66,7 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
     result = empty_content(report_date, trading_date, generated_at)
     seen = {group: set() for group in ARRAY_GROUPS}
     scalar_seen = set()
+    coverage_seen = set()
 
     for index, fragment in enumerate(fragments):
         if not isinstance(fragment, dict):
@@ -89,6 +106,19 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
                 seen[group].add(record_id)
                 result[group].append(record)
 
+        if "coverage" in fragment:
+            found = True
+            coverage = fragment["coverage"]
+            if not isinstance(coverage, dict):
+                raise ValueError("coverage fragment must be an object")
+            for key, value in coverage.items():
+                if key not in result["coverage"]:
+                    raise ValueError(f"unknown coverage group: {key}")
+                if key in coverage_seen:
+                    raise ValueError(f"duplicate coverage declaration: {key}")
+                coverage_seen.add(key)
+                result["coverage"][key] = value
+
         for group in ("analysis",):
             if group not in fragment:
                 continue
@@ -103,8 +133,8 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
                     raise ValueError(f"duplicate analysis field across fragments: {key}")
                 scalar_seen.add(key)
                 if key == "market_observation_highlights":
-                    if not isinstance(value, list):
-                        raise ValueError("market_observation_highlights must be an array")
+                    if not isinstance(value, dict):
+                        raise ValueError("market_observation_highlights must be an object with market_view, key_levels and core_observations")
                     result["analysis"][key] = value
                 elif key == "summary":
                     result["analysis"][key] = value
@@ -150,9 +180,19 @@ def self_test():
     assert assembled["meta"]["template_type"] == "monday"
     assert len(assembled["focus_news"]) == 1
     assert assembled["market_headlines"] == []
+    assert assembled["previous_economic_calendar"] == []
     assert assembled["analysis"]["summary"]["status"] == "pending_verification"
+    assert set(assembled["analysis"]["market_observation_highlights"]) == {"market_view", "key_levels", "core_observations"}
+    assert assembled["coverage"]["economic_calendar"]["status"] == "incomplete"
+    assert assembled["analysis"]["summary"]["headline"] is None
     print("PASS: source fragment assembled with Monday template metadata")
     print("PASS: missing news and analysis remain empty/pending; no placeholder content invented")
+
+    weekday_shell = assemble("2026-11-03", "2026-11-02", generated, [], validator, schema)
+    assert weekday_shell["meta"]["template_type"] == "weekday"
+    assert weekday_shell["coverage"]["previous_economic_calendar"]["status"] == "not_applicable"
+    assert weekday_shell["coverage"]["previous_earnings_calendar"]["status"] == "not_applicable"
+    print("PASS: weekday shell marks Monday-only previous-week sections not applicable")
 
     try:
         assemble("2026-11-02","2026-10-30",generated,[sample,sample],validator,schema)
