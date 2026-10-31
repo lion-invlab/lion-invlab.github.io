@@ -8,6 +8,7 @@ on:
       - ".github/workflows/tac-live-source-probe-branch.yml"
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_sector_etfs.py"
+      - "scripts/fetch_tac_treasury_yields.py"
 
 permissions:
   contents: read
@@ -45,6 +46,12 @@ jobs:
             --trading-date "2026-10-30" \
             --report-date "2026-11-02" \
             --output "artifacts/tac-sector-etfs-2026-10-30.json"
+      - name: Retrieve official U.S. Treasury 2Y/10Y/30Y yields
+        run: |
+          python scripts/fetch_tac_treasury_yields.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "artifacts/tac-treasury-yields-2026-10-30.json"
       - name: Upload source fragments
         if: always()
         uses: actions/upload-artifact@v4
