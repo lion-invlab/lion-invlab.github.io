@@ -1,0 +1,50 @@
+import unittest
+
+from tac_calendar_group_inventory import MOTHERS, SECTIONS, inventory_calendar_groups
+
+
+class CalendarGroupInventoryTests(unittest.TestCase):
+    def test_both_locked_mothers_are_available(self):
+        for path in MOTHERS.values():
+            self.assertTrue(path.is_file(), str(path))
+
+    def test_monday_has_prior_week_sections(self):
+        html = MOTHERS["monday"].read_text(encoding="utf-8")
+        result = inventory_calendar_groups(html, "monday")
+        self.assertTrue(result["sections"]["prior_week_economic"]["present"])
+        self.assertTrue(result["sections"]["prior_week_earnings"]["present"])
+
+    def test_weekdays_do_not_invent_prior_week_sections(self):
+        html = MOTHERS["weekdays"].read_text(encoding="utf-8")
+        result = inventory_calendar_groups(html, "weekdays")
+        self.assertFalse(result["sections"]["prior_week_economic"]["present"])
+        self.assertFalse(result["sections"]["prior_week_earnings"]["present"])
+
+    def test_inventory_reports_every_applicable_section(self):
+        monday = inventory_calendar_groups(
+            MOTHERS["monday"].read_text(encoding="utf-8"), "monday"
+        )
+        weekdays = inventory_calendar_groups(
+            MOTHERS["weekdays"].read_text(encoding="utf-8"), "weekdays"
+        )
+        self.assertEqual(set(monday["sections"]), set(SECTIONS))
+        self.assertEqual(set(weekdays["sections"]), set(SECTIONS))
+
+    def test_each_existing_status_group_is_explicitly_inventoried(self):
+        for template, path in MOTHERS.items():
+            report = inventory_calendar_groups(path.read_text(encoding="utf-8"), template)
+            for section in report["sections"].values():
+                if section["present"]:
+                    self.assertTrue(section["groups"])
+                    for group in section["groups"]:
+                        self.assertIn(group["status"], {"today", "upcoming", "published", None})
+                        self.assertIn("has_same_group_card_prototype", group)
+                        self.assertIn("can_clone_without_cross_group_prototype", group)
+
+    def test_invalid_template_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "template"):
+            inventory_calendar_groups("<html></html>", "both")
+
+
+if __name__ == "__main__":
+    unittest.main()
