@@ -237,7 +237,7 @@
       "value_decimals": {
         "vix": 2,
         "move": 2,
-        "cnn_fear_greed": 0
+        "cnn_fear_greed": 1
       }
     },
     "fedwatch": {
