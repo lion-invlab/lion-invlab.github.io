@@ -212,6 +212,13 @@ jobs:
             --snapshot "/tmp/tac-daily-snapshot-2026-11-02.json" \
             --output "/tmp/tac-partial-market-binding-2026-11-02.html"
 
+      - name: Confirm partial render is clearly marked as non-review output
+        if: success()
+        run: |
+          test -s "/tmp/tac-partial-market-binding-2026-11-02.html"
+          echo "PARTIAL MARKET-DATA BINDING SMOKE OUTPUT — NOT REVIEW-READY"
+          echo "Narrative, news, calendars, visible date labels and FedWatch are not yet refreshed."
+
       - name: Upload live market-data probe JSON for audit
         if: always()
         uses: actions/upload-artifact@v4
