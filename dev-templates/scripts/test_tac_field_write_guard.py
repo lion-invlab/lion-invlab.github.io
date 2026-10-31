@@ -171,11 +171,6 @@ class FieldWriteGuardTests(unittest.TestCase):
         nested_root = parse_html(self._source("monday"))
         nested_cards = select_wrappers(nested_root, item["selector"])
         first_card = nested_cards[0].etree_element
-        target = next(
-            node for node in first_card.iter()
-            if "earnings-detail-value" in set(node.attrib.get("class", "").split())
-            and node.getparent is None
-        ) if False else None
         observation_value = None
         for field in first_card.iter():
             if "earnings-detail-field" not in set(field.attrib.get("class", "").split()):
