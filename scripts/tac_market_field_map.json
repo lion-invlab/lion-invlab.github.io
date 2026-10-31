@@ -116,7 +116,8 @@
         "恐懼與貪婪指數"
       ],
       "allow_no_change_rows": [
-        3
+        3,
+        4
       ]
     },
     "fedwatch": {
