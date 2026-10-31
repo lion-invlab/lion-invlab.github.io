@@ -73,7 +73,7 @@
 | 區塊 | 容器／候選定位 | 資料節點候選 | 筆數規則 | 狀態 |
 |---|---|---|---|---|
 | 上週經濟行事曆 | `#last-week-calendar` → `.last-week-calendar-collapse` → `.calendar-status-group` → `.econ-event-list` | 每張 `.econ-event` 的 `.econ-date`、`.econ-time`、`.econ-country`、`.econ-name`、`.econ-stars`；展開欄位 `.econ-details .econ-field .econ-value` | 動態；依 WR 重要性五星事件 | 摘要欄位 selector 已納入 registry，Run #74 cardinality 通過；經濟欄位 leaf 正反向測試待完成 |
-| 上週財報行事曆 | `#last-week-earnings` → `.last-week-earnings-collapse` → `.calendar-status-group` → `.earnings-accordion-list` | 每張 `.earnings-accordion` 的日期、公司、產業、星級；結果卡 EPS／營收實際與預期、優劣狀態、分析、來源 | 動態；依 WR 篩選重要財報 | 摘要欄位 selector 已納入 registry，Run #74 cardinality 通過；EPS／營收結果欄位與正反向測試待完成 |
+| 上週財報行事曆 | `#last-week-earnings` → `.last-week-earnings-collapse` → `.calendar-status-group` → `.earnings-accordion-list` | 每張 `.earnings-accordion` 的日期、公司、產業、星級；EPS／營收卡標題與實際／預期 label 固定；28 個實際／預期值 leaf、14 個優劣狀態 leaf、14 個補充註記 leaf；21 個分析值容器保護 | 動態；依 WR 篩選重要財報 | 摘要與 EPS／營收結果 leaf selector 已納入 registry，Run #93 cardinality 與正反向測試通過；股價表現、來源及分析文字仍需拆分安全葉節點 |
 
 上週經濟／財報外層收合、status group、列表 wrapper、卡片骨架與欄位 label 固定。不得把目前樣本 3 張／7 張寫死。這兩個區塊只存在於週一模板，平日模板沒有它們是正常模板差異，不是缺漏。
 
@@ -96,7 +96,7 @@
 ## 8. Gate A 尚需完成的工作
 
 - [ ] 為商品 WTI／Brent、Gold／Silver 與 FOMC 葉節點建立正向／負向寫入安全測試；觀察、來源與說明容器維持 protected。
-- [ ] 補完週一上週財報 EPS／營收實際與預期、優劣狀態、分析、股價表現及來源欄位定位；為週一上週經濟／財報建立逐卡正反向測試。
+- [ ] 補完週一上週財報股價表現與來源欄位定位，並將分析文字拆成安全葉節點；為週一上週經濟／財報完成逐欄位正反向測試。
 - [ ] 將總結、情緒、今日觀察的複合欄位拆成可安全更新的葉節點；對含有來源收合、計算方式、標籤的容器明確設為 protected。
 - [ ] 對所有「專項定位」欄位建立正向／反向測試：允許資料葉節點變更，拒絕父容器、label、class、style、aria、details/summary、CSS／JS 變更。
 - [ ] 產出週一與平日兩份欄位層級驗證報告；兩版不得合併成單一假設。
@@ -121,4 +121,11 @@
 - 財報事件資料欄位：`event_date`（美股公司公告的美國當地日期）、`release_session`（`pre_market`／`during_market`／`after_market`／`unspecified`）、`event_time`（可選美東當地時間）。台灣時間顯示欄位另行保留，不作為排序日期。排序依美國公布日期、時段、已知時間；未知時段／時間不臆測，排在同日可確認時段之後。
 - Run #88（41176456247）通過 43 項單元／整合測試與 5 項瀏覽器測試，並通過 SHA、DOM 指紋與 61 個 selector 稽核。排序測試包含跨日／跨年、同日時間、盤前／盤後順序、未知時間穩定排序、輸入資料不變及錯誤日期／時間拒絕。
 - **重要界線：** 排序函式目前只對正規化測試資料執行，尚未接入每日資料整理流程、repeat-group 更新器或正式母版 DOM；也尚未以實際行事曆資料完成端到端日期排序驗收。不得宣稱每日行事曆已自動排序完成。
+
+## 12. 2026-10-31 Run #93｜週一上週財報結果欄位
+
+- Registry 擴充至 **68 個候選 selector**，新增 7 個週一上週財報結果欄位 selector：EPS／營收卡片標題、實際／預期標籤、實際／預期數值、優劣狀態、補充註記、分析 label、分析值容器。
+- 可更新 leaf：實際／預期數值 28 個、優劣狀態 14 個、補充註記 14 個；固定標籤 14+28+21 個不得更新；分析值容器 21 個因可能包含連結／複合內容，暫列 protected。
+- Run #93（41176580490）通過 44 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、HTML5 DOM 指紋及 68 個 selector cardinality 稽核。
+- 本次仍未定位財報卡「股價當日表現」的安全葉節點與來源連結欄位；分析值容器尚未拆解，不能整段覆寫。Gate A 未完成。
 
