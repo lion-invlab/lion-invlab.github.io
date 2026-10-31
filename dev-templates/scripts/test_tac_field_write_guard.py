@@ -68,6 +68,33 @@ class FieldWriteGuardTests(unittest.TestCase):
         self.assertEqual(target[0].etree_element.text, "TEST VALUE")
         self.assertNotEqual(before, "TEST VALUE")
 
+    def test_monday_prior_week_economic_event_fields_are_independent_leaves(self):
+        cases = (
+            ("last_week_econ_times", "TEST TIME", 3),
+            ("last_week_econ_countries", "TEST COUNTRY", 3),
+            ("last_week_econ_names", "TEST EVENT NAME", 3),
+            ("last_week_econ_prior_values", "TEST PRIOR", 3),
+            ("last_week_econ_forecast_values", "TEST FORECAST", 3),
+            ("last_week_econ_actual_values", "TEST ACTUAL", 3),
+        )
+        for name, value, expected in cases:
+            with self.subTest(field=name):
+                root = parse_html(self._source("monday"))
+                selector = self._item(name)["selector"]
+                matches = select_wrappers(root, selector)
+                self.assertEqual(len(matches), expected)
+                self.assertTrue(all(len(list(x.etree_element)) == 0 for x in matches))
+                self.assertEqual(update_registered_leaf_text(root, selector, value, self.registry), expected)
+                self.assertTrue(all(x.etree_element.text == value for x in matches))
+
+    def test_monday_prior_week_economic_field_labels_are_fixed(self):
+        root = parse_html(self._source("monday"))
+        selector = self._item("last_week_econ_detail_labels")["selector"]
+        labels = select_wrappers(root, selector)
+        self.assertEqual(len(labels), 12)
+        with self.assertRaises(PermissionError):
+            update_registered_leaf_text(root, selector, "replace fixed label", self.registry)
+
     def test_monday_prior_week_date_leaf_can_be_updated(self):
         root = parse_html(self._source("monday"))
         selector = self._item("last_week_econ_dates")["selector"]
