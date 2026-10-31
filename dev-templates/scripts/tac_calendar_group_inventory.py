@@ -26,6 +26,19 @@ SECTIONS = {
 STATUS_CLASSES = {"today", "upcoming", "published"}
 
 
+def _semantic_status(heading_text):
+    text = " ".join(heading_text.split())
+    if text.startswith("上週已公布"):
+        return "prior_week_published"
+    if text.startswith(("今日公布", "今日及今晚")):
+        return "today"
+    if text.startswith("即將公布"):
+        return "upcoming"
+    if text.startswith("已公布"):
+        return "published"
+    return None
+
+
 def _parse(source):
     return html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False)
 
@@ -69,22 +82,29 @@ def inventory_calendar_groups(source, template):
             headings = _direct(root, group, ".calendar-status-heading")
             lists = _direct(root, group, list_selector)
             empties = _direct(root, group, ".calendar-status-empty")
-            status = None
+            status_class = None
+            heading_text = ""
+            status_key = None
             if len(headings) == 1:
                 classes = set(headings[0].attrib.get("class", "").split())
                 matches = classes & STATUS_CLASSES
                 if len(matches) == 1:
-                    status = next(iter(matches))
+                    status_class = next(iter(matches))
+                heading_text = " ".join("".join(headings[0].itertext()).split())
+                status_key = _semantic_status(heading_text)
             cards = _direct(root, lists[0], card_selector) if len(lists) == 1 else []
             variant_valid = (
                 len(headings) == 1
-                and status is not None
+                and status_class is not None
+                and status_key is not None
                 and ((len(lists) == 1 and len(empties) == 0 and len(cards) > 0)
                      or (len(lists) == 0 and len(empties) == 1))
             )
             group_rows.append({
                 "index": index,
-                "status": status,
+                "status_class": status_class,
+                "status_key": status_key,
+                "heading_text": heading_text,
                 "heading_count": len(headings),
                 "list_count": len(lists),
                 "empty_state_count": len(empties),
