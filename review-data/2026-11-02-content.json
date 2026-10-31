@@ -395,6 +395,16 @@
       "status": "incomplete",
       "source_refs": [],
       "checked_at": "2026-11-01T04:59:16+08:00"
+    },
+    "economic_calendar": {
+      "status": "incomplete",
+      "source_refs": [],
+      "checked_at": "2026-11-01T04:59:16+08:00"
+    },
+    "previous_economic_calendar": {
+      "status": "incomplete",
+      "source_refs": [],
+      "checked_at": "2026-11-01T04:59:16+08:00"
     }
   },
   "report_date": "2026-11-02",
