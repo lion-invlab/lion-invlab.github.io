@@ -61,6 +61,7 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
     result = empty_content(report_date, trading_date, generated_at)
     seen = {group: set() for group in ARRAY_GROUPS}
     scalar_seen = set()
+    coverage_seen = set()
 
     for index, fragment in enumerate(fragments):
         if not isinstance(fragment, dict):
@@ -108,8 +109,9 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
             for key, value in coverage.items():
                 if key not in result["coverage"]:
                     raise ValueError(f"unknown coverage group: {key}")
-                if result["coverage"][key]["status"] != "incomplete" or result["coverage"][key]["source_refs"] or result["coverage"][key]["checked_at"]:
+                if key in coverage_seen:
                     raise ValueError(f"duplicate coverage declaration: {key}")
+                coverage_seen.add(key)
                 result["coverage"][key] = value
 
         for group in ("analysis",):
@@ -177,6 +179,7 @@ def self_test():
     assert assembled["analysis"]["summary"]["status"] == "pending_verification"
     assert set(assembled["analysis"]["market_observation_highlights"]) == {"market_view", "key_levels", "core_observations"}
     assert assembled["coverage"]["economic_calendar"]["status"] == "incomplete"
+    assert assembled["analysis"]["summary"]["headline"] is None
     print("PASS: source fragment assembled with Monday template metadata")
     print("PASS: missing news and analysis remain empty/pending; no placeholder content invented")
 
