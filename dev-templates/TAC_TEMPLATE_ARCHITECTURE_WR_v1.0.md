@@ -533,3 +533,27 @@
 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182239153
 
 本補記不改變 v1.0-DRAFT 身分，不構成正式採用或每日生產授權。
+
+
+## 2026-10-31 Run #41182431871｜行事曆寫入前資料準備閉環（維持 DRAFT）
+
+新增 `scripts/tac_calendar_prepare.py`，整合既有標準資料集、排序、status-group 原型盤點／dry-run planner 與 per-card field mapper，作為 DOM 寫入前唯一準備入口。
+
+### 強制流程
+
+1. 驗證 schema、欄位型別、來源紀錄、IANA 時區、事件日期及財報台灣日期換算。
+2. 經濟與財報各自依正確日期／時間／公告時段排序，並按 today、upcoming、published 或 prior_week_published 分組。
+3. 對照精確的 Monday／Weekdays 正式母版 inventory，逐一檢查每個 status group 的原型可用性。
+4. 若任何群組 blocked，整批停止，回傳 `ready=false`、`stage=blocked_before_dom_write`、`payloads=null`。不得只寫入未阻擋的群組，不得忽略阻擋項目。
+5. 所有群組通過後，才回傳 `ready=true`、`stage=validated_payload_ready` 及完整 per-card payload。這只是資料準備完成，不代表 HTML 已修改。
+
+### 驗收
+
+- 新增 5 項 preparation 整合測試，覆蓋週一合法資料、週一缺少原型整批阻擋、平日三狀態完整準備、平日缺少 empty-state 整批阻擋及輸入不變性。
+- Run #41182431871：**120 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 指紋、94 selector cardinality、calendar inventory 與稽核報告上傳通過。
+- 此入口不執行 DOM clone／insert／remove／replace，不修改 HTML；尚未完成欄位寫入器整合及瀏覽器端到端資料更新。
+- Gate A 尚未完成；Gate B–D 未完成；Gate E 未取得使用者明確核准。
+
+驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182431871
+
+本補記不改變 v1.0-DRAFT 身分，不授權正式每日生產或任何 main／正式首頁／雙母版寫入。
