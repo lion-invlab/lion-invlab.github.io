@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "f3cf4b07507d825d72feda12f7685b56fca59304",
+      "blob_sha": "5f0eb1886bbfbf1ac97f2bedc2dee3c0d7409b5b",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "65d52c0642deb78d37618b0130b3548f1ecbc8b8",
+      "blob_sha": "77c3702f9b5bf9652efc0299dcfea5cf68aa8cd4",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -45,6 +45,10 @@
     {
       "date": "2026-10-31",
       "change": "依使用者明確核准，僅於 tac-template-architecture 測試分支將週一與週二至週五雙母版的經濟、財報（含週一上週區塊）紅色圓形加減控制鈕統一為 32×32px；同步更新測試分支母版 SHA 鎖。正式 main、首頁與 WR 未修改。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者核准，修正雙母版紅色圓形加減號控制：所有控制的 flex-basis/寬/高統一為 32px；同步調整瀏覽器測試，使週一與週二至週五均定位當週經濟事件的 .econ-toggle。僅測試分支，正式首頁與 WR 不變。"
     }
   ]
 }
