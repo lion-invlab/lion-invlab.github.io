@@ -61,7 +61,7 @@ def parse_pubdate(value: str) -> datetime:
 def clean_text(value: str) -> str:
     value=re.sub(r"<[^>]+>"," ",value)
     value=html.unescape(value)
-    return re.sub(r"\\s+"," ",value).strip()
+    return re.sub(r"\s+"," ",value).strip()
 
 
 def classify(title: str, summary: str) -> str:
@@ -194,7 +194,7 @@ def main():
     start=datetime.fromisoformat(args.window_start.replace("Z","+00:00"))
     end=datetime.fromisoformat(args.window_end.replace("Z","+00:00"))
     result=collect(start,end)
-    Path(args.output).write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    Path(args.output).write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"News RSS probe: {result['collector']['items_in_window']} candidates; "
           f"{len(result['focus_news'])}/5 macro focus; {len(result['market_headlines'])}/10 headlines")
     for error in result["collector"]["errors"]:
