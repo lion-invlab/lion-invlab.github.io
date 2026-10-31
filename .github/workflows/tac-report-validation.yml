@@ -46,6 +46,7 @@ on:
       - "scripts/assemble_tac_daily_content.py"
       - "scripts/import_tac_calendar_capture.py"
       - "scripts/render_tac_daily_content.py"
+      - "scripts/render_tac_full_report.py"
       - "scripts/test_tac_daily_content_renderer.py"
       - "scripts/fetch_tac_news_rss.py"
       - "2026-*.html"
