@@ -47,6 +47,19 @@ def direct(root, parent, selector):
     ]
 
 
+def within(root, ancestor, selector):
+    wrapped = cssselect2.ElementWrapper.from_html_root(root)
+    matches = []
+    for item in wrapped.query_all(selector):
+        parent = item.parent
+        while parent is not None:
+            if parent.etree_element is ancestor:
+                matches.append(item.etree_element)
+                break
+            parent = parent.parent
+    return matches
+
+
 def synthetic_page():
     return """<!doctype html><html><head><style>.calendar-status-empty{padding:10px}</style></head><body>
     <section id="calendar"><div class="calendar-status-group"><h4 class="calendar-status-heading upcoming">Today</h4><div class="calendar-status-empty">No events</div></div>
@@ -85,9 +98,15 @@ class SyntheticStatusGroupTests(unittest.TestCase):
         result = validate_status_group_variants(baseline, candidate, [self.SPEC])
         self.assertFalse(result["pass"])
 
-    def test_status_heading_change_is_rejected(self):
+    def test_status_heading_text_can_update_without_structure_change(self):
         baseline = synthetic_page()
-        candidate = baseline.replace(">Upcoming</h4>", ">Changed heading</h4>")
+        candidate = baseline.replace(">Upcoming</h4>", ">Upcoming｜10/31</h4>")
+        result = validate_status_group_variants(baseline, candidate, [self.SPEC])
+        self.assertTrue(result["pass"], result)
+
+    def test_status_heading_class_change_is_rejected(self):
+        baseline = synthetic_page()
+        candidate = baseline.replace("calendar-status-heading upcoming", "calendar-status-heading altered")
         result = validate_status_group_variants(baseline, candidate, [self.SPEC])
         self.assertFalse(result["pass"])
 
@@ -114,7 +133,7 @@ class RealMotherStatusGroupTests(unittest.TestCase):
     def _switch_list_to_empty(self, source, root, section_selector, list_selector, card_selector):
         candidate = deepcopy(root)
         section = query(candidate, section_selector)[0]
-        groups = query(section, ".calendar-status-group")
+        groups = within(candidate, section, ".calendar-status-group")
         empty_prototypes = [
             node for group in groups for node in direct(candidate, group, ".calendar-status-empty")
         ]
@@ -169,7 +188,7 @@ class RealMotherStatusGroupTests(unittest.TestCase):
             with self.subTest(section=section):
                 candidate = deepcopy(root)
                 section_node = query(candidate, section)[0]
-                groups = query(section_node, ".calendar-status-group")
+                groups = within(candidate, section_node, ".calendar-status-group")
                 target = next(group for group in groups if direct(candidate, group, list_selector))
                 list_node = direct(candidate, target, list_selector)[0]
                 target.remove(list_node)
