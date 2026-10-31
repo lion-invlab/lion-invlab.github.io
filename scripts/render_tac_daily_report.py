@@ -319,7 +319,7 @@ def render(snapshot_path: Path, output_path: Path) -> dict:
         ),
         "pending_records": sum(
             1 for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators")
-            for item in snapshot[group].values() if item["status"] == "pending_verification"
+            for item in snapshot[group].values() if item["status"] in {"pending_verification", "missing"}
         ),
     }
 
