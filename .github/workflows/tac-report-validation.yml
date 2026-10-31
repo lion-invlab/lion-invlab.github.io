@@ -107,24 +107,28 @@ jobs:
           echo "path=$report" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node.js for browser regression
-        if: steps.preview.outputs.path != ''
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install Playwright Chromium
-        if: steps.preview.outputs.path != ''
         run: |
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
       - name: Run desktop and mobile layout regression
-        if: steps.preview.outputs.path != ''
         run: |
-          node scripts/tac_browser_layout_regression.mjs --report "${{ steps.preview.outputs.path }}" --output artifacts/tac-layout
+          if [ -n "${{ steps.preview.outputs.path }}" ]; then
+            report="${{ steps.preview.outputs.path }}"
+          else
+            # Validator-only changes still exercise the approved weekday master
+            # at desktop, tablet and 320px mobile widths.
+            report="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+          fi
+          node scripts/tac_browser_layout_regression.mjs --report "$report" --output artifacts/tac-layout
 
       - name: Upload layout regression screenshots
-        if: always() && steps.preview.outputs.path != ''
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tac-layout-regression-${{ github.run_id }}
