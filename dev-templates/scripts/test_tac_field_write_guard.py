@@ -144,6 +144,41 @@ class FieldWriteGuardTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             update_registered_source_links(root, selector, links[:-1], self.registry)
 
+    def test_sentiment_change_cnn_status_and_core_text_leaves_are_writable(self):
+        root = parse_html(self._source("monday"))
+        names = (
+            "vix_sentiment_change",
+            "move_sentiment_change",
+            "cnn_fear_greed_status_english",
+            "cnn_fear_greed_status_chinese",
+            "sentiment_core_interpretation_text",
+        )
+        for name in names:
+            selector = self._item(name)["selector"]
+            with self.subTest(field=name):
+                matches = select_wrappers(root, selector)
+                self.assertEqual(len(matches), 1)
+                self.assertTrue(all(len(list(x.etree_element)) == 0 for x in matches))
+                self.assertEqual(
+                    update_registered_leaf_text(root, selector, "TEST LEAF", self.registry),
+                    1,
+                )
+                self.assertEqual(matches[0].etree_element.text, "TEST LEAF")
+
+    def test_composite_sentiment_and_focus_containers_are_protected(self):
+        root = parse_html(self._source("monday"))
+        names = (
+            "today_market_focus",
+            "cnn_fear_greed_status",
+            "cnn_fear_greed_marker",
+            "sentiment_core_interpretation",
+        )
+        for name in names:
+            selector = self._item(name)["selector"]
+            with self.subTest(field=name):
+                with self.assertRaises(PermissionError):
+                    update_registered_leaf_text(root, selector, "overwrite", self.registry)
+
     def test_protected_observation_container_is_rejected(self):
         root = parse_html(self._source("monday"))
         selector = self._item("energy_card_observation")["selector"]
