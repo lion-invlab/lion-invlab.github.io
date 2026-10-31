@@ -4,6 +4,10 @@ import unittest
 
 from playwright.sync_api import sync_playwright
 
+from tac_calendar_group_inventory import inventory_mother
+from tac_calendar_repeat_renderer import render_weekly_calendar_updates
+from test_tac_calendar_repeat_renderer import _records
+
 
 ROOT = Path(__file__).resolve().parents[2]
 TEMPLATES = {
@@ -181,6 +185,93 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                         self.assertLessEqual(metrics["scrollWidth"], metrics["width"] + 1, f"{name}: list content overflows: {metrics}")
                 page.close()
 
+
+    def test_rendered_weekly_cards_toggle_and_keep_32px_controls(self):
+        for name in TEMPLATES:
+            with self.subTest(template=name):
+                page = self._open_rendered(name)
+                self._activate_upcoming_tabs(page)
+                econ = page.locator("#calendar .econ-event-list details.econ-event:visible")
+                earnings = page.locator("#earnings .earnings-accordion-list details.earnings-accordion:visible")
+                self.assertEqual(econ.count(), 1, f"{name}: expected one rendered upcoming economic card")
+                self.assertEqual(earnings.count(), 1, f"{name}: expected one rendered upcoming earnings card")
+
+                econ.first.locator(":scope > summary").click()
+                self.assertTrue(econ.first.evaluate("(el) => el.open"))
+                econ.first.locator(":scope > summary").click()
+                self.assertFalse(econ.first.evaluate("(el) => el.open"))
+
+                earnings.first.locator(":scope > summary").click()
+                self.assertTrue(earnings.first.evaluate("(el) => el.open"))
+                earnings.first.locator(":scope > summary").click()
+                self.assertFalse(earnings.first.evaluate("(el) => el.open"))
+
+                # The locked Monday economic cards have a known missing plus
+                # control; all other rendered groups retain their native 32px controls.
+                if name == "weekdays":
+                    self._assert_toggle_group(
+                        page, name,
+                        "#calendar .econ-event-list details.econ-event:visible",
+                        ".econ-toggle",
+                    )
+                self._assert_toggle_group(
+                    page, name,
+                    "#earnings .earnings-accordion-list details.earnings-accordion:visible",
+                    ".earnings-accordion-toggle",
+                )
+                page.close()
+
+    def test_rendered_weekly_card_values_and_source_links_are_updated(self):
+        for name in TEMPLATES:
+            with self.subTest(template=name):
+                page = self._open_rendered(name)
+                self._activate_upcoming_tabs(page)
+                self.assertEqual(
+                    page.locator("#calendar .econ-event-list details.econ-event:visible .econ-name").first.inner_text(),
+                    "CPI upcoming",
+                )
+                self.assertEqual(
+                    page.locator("#earnings .earnings-accordion-list details.earnings-accordion:visible .earnings-company-name").first.inner_text(),
+                    "Example upcoming",
+                )
+                econ_source = page.locator("#calendar .econ-event-list details.econ-event:visible .econ-value a").first
+                earnings_source = page.locator("#earnings .earnings-accordion-list details.earnings-accordion:visible .earnings-detail-value a").first
+                self.assertTrue(econ_source.get_attribute("href").startswith("https://example.com/econ/"))
+                self.assertTrue(earnings_source.get_attribute("href").startswith("https://example.com/earn/"))
+                page.close()
+
+    def test_rendered_weekly_calendar_lists_fit_320px_viewport(self):
+        for name in TEMPLATES:
+            with self.subTest(template=name):
+                page = self._open_rendered(name)
+                page.set_viewport_size({"width": 320, "height": 800})
+                page.wait_for_timeout(150)
+                self._activate_upcoming_tabs(page)
+                for selector in ("#calendar .econ-event-list", "#earnings .earnings-accordion-list"):
+                    metrics = page.locator(selector).evaluate_all(
+                        "(els) => els.filter(el => el.getClientRects().length).map(el => ({left: el.getBoundingClientRect().left, right: el.getBoundingClientRect().right, width: el.getBoundingClientRect().width, scrollWidth: el.scrollWidth}))"
+                    )
+                    for item in metrics:
+                        self.assertLessEqual(item["right"], 321, f"{name}: rendered list overflows right edge: {item}")
+                        self.assertGreaterEqual(item["left"], -1, f"{name}: rendered list overflows left edge: {item}")
+                        self.assertLessEqual(item["scrollWidth"], item["width"] + 1, f"{name}: rendered list content overflows: {item}")
+                page.close()
+
+    def _open_rendered(self, template):
+        source = TEMPLATES[template].read_text(encoding="utf-8")
+        inventory = inventory_mother(template)
+        rendered = render_weekly_calendar_updates(source, _records(template), inventory)
+        page = self.browser.new_page(viewport={"width": 1280, "height": 900})
+        page.set_default_timeout(6000)
+        page.route("https://**/*", lambda route: route.abort())
+        page.route("http://**/*", lambda route: route.abort())
+        page.set_content(rendered["html"], wait_until="domcontentloaded")
+        page.wait_for_timeout(200)
+        dialog = page.locator("#tac-fund-notice")
+        if dialog.is_visible():
+            page.locator("#tfn-close").click(force=True)
+            page.wait_for_timeout(100)
+        return page
 
 if __name__ == "__main__":
     unittest.main()
