@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "176eb7c686f9e0de9216eb57e144eeebaaf75f9b",
+      "blob_sha": "776f778b895c6da781348bcf8fefc1d4719ed4ce",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "0e821377b02ccc6b20cc4c5143341266ee915bfe",
+      "blob_sha": "ab3286750a64aa0fc9fc01af51f819024526a4ba",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -41,6 +41,10 @@
     {
       "date": "2026-10-30",
       "change": "依使用者核准，雙母版同步標準行情超連結與 CNN 同頁返回規則；版面及既有互動保留，僅更新連結與必要樣式。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者明確核准，將週一與週二至週五正式雙母版的經濟及財報小卡紅色圓形加減控制統一為 32×32px（含 flex-basis、width、height 與 min-height）；同步更新母版 SHA 鎖。未修改首頁、WR 或其他版面內容。"
     }
   ]
 }
