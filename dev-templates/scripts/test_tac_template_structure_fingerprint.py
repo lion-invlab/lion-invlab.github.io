@@ -22,6 +22,16 @@ class FingerprintTests(unittest.TestCase):
         result = inspect_html('<div id="dup"></div><p id="dup"></p>')
         self.assertEqual(result["duplicate_ids"], ["dup"])
 
+    def test_duplicate_id_count_change_fails(self):
+        a = inspect_html('<div id="dup"></div><p id="dup"></p>')
+        b = inspect_html('<div id="dup"></div><p id="dup"></p><span id="dup"></span>')
+        self.assertFalse(compare(a, b)["checks"]["duplicate_id_counts_equal"])
+
+    def test_event_handler_change_fails(self):
+        a = inspect_html('<button id="go" onclick="runA()"></button>')
+        b = inspect_html('<button id="go" onclick="runB()"></button>')
+        self.assertFalse(compare(a, b)["checks"]["fixed_dom_structure_equal"])
+
     def test_unclosed_tags_follow_browser_recovery(self):
         result = inspect_html('<main><section></main>')
         self.assertGreater(result["node_count"], 0)
