@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,8 +58,21 @@ def validate_report_rules(data: dict) -> list[str]:
             if group_name == "focus_news" and item["category"] not in {"macro", "policy", "geopolitics"}:
                 errors.append(f"{label}: focus_news only accepts macro/policy/geopolitics categories")
 
-    for group_name in ("economic_calendar", "earnings_calendar"):
+    report_day = date.fromisoformat(data["meta"]["report_date"])
+    previous_start = report_day - timedelta(days=7)
+    previous_end = previous_start + timedelta(days=4)
+    for group_name in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
         events = data[group_name]
+        if group_name.startswith("previous_"):
+            if expected_type == "weekday" and events:
+                errors.append(f"{group_name}: weekday reports must not contain previous-week events")
+            if expected_type == "monday":
+                for event in events:
+                    event_day = parse_dt(event["event_date"]).date()
+                    if not previous_start <= event_day <= previous_end:
+                        errors.append(f"{group_name}[{event['id']}]: event date outside previous Monday-Friday window")
+                    if event["status"] != "released":
+                        errors.append(f"{group_name}[{event['id']}]: previous-week events must be released")
         dates = [parse_dt(item["event_date"]) for item in events]
         if dates != sorted(dates):
             errors.append(f"{group_name} must be sorted by event_date ascending")
@@ -69,7 +82,7 @@ def validate_report_rules(data: dict) -> list[str]:
             if item["id"] in ids:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
-            if group_name == "economic_calendar":
+            if group_name in {"economic_calendar", "previous_economic_calendar"}:
                 if item["importance_stars"] != 3:
                     errors.append(f"{label}: only 3-star economic events are permitted")
             else:
@@ -89,21 +102,36 @@ def validate_report_rules(data: dict) -> list[str]:
                         errors.append(
                             f"{label}: assessed earnings must not display an invented star rating"
                         )
-            if item["status"] == "released" and item.get("actual") is None and group_name == "economic_calendar":
+            if item["status"] == "released" and item.get("actual") is None and group_name in {"economic_calendar", "previous_economic_calendar"}:
                 errors.append(f"{label}: released economic event requires actual value")
-            if item["status"] == "released" and group_name == "earnings_calendar":
+            if item["status"] == "released" and group_name in {"earnings_calendar", "previous_earnings_calendar"}:
                 if item.get("eps_actual") is None and item.get("revenue_actual") is None:
                     errors.append(f"{label}: released earnings event requires EPS or revenue actual")
 
-    for item in data["analysis"]["market_observation_highlights"]:
-        if not item["source_refs"]:
-            errors.append("every market observation highlight requires at least one source reference")
+    for group in ("previous_economic_calendar", "previous_earnings_calendar"):
+        if expected_type == "monday" and data["coverage"][group]["status"] == "not_applicable":
+            errors.append(f"coverage.{group}: Monday reports must verify the previous-week section or mark it incomplete")
+        if expected_type == "weekday" and data["coverage"][group]["status"] != "not_applicable":
+            errors.append(f"coverage.{group}: weekday reports must mark previous-week sections not_applicable")
+
+    for group, coverage in data["coverage"].items():
+        if coverage["status"] == "complete":
+            if not coverage["checked_at"] or not coverage["source_refs"]:
+                errors.append(f"coverage.{group}: complete requires checked_at and at least one source reference")
+        elif coverage["status"] == "not_applicable" and group not in {"previous_economic_calendar", "previous_earnings_calendar"}:
+            errors.append(f"coverage.{group}: not_applicable is only valid for previous-week groups")
+    summary = data["analysis"]["summary"]
+    if summary["status"] == "verified" and (not summary["headline"] or not summary["text"] or not summary["source_refs"]):
+        errors.append("verified summary requires headline, text and source references")
+    for tab, item in data["analysis"]["market_observation_highlights"].items():
+        if item["status"] == "verified" and (not item["text"] or not item["source_refs"]):
+            errors.append(f"verified market observation {tab} requires text and source references")
     return errors
 
 
 def self_test(validator, schema):
     sample = {
-        "schema_version": 1,
+        "schema_version": 2,
         "meta": {
             "report_date": "2026-11-02",
             "trading_date": "2026-10-30",
@@ -118,9 +146,19 @@ def self_test(validator, schema):
         "market_headlines": [],
         "economic_calendar": [],
         "earnings_calendar": [],
+        "previous_economic_calendar": [],
+        "previous_earnings_calendar": [],
+        "coverage": {
+            group: {"status": "incomplete", "source_refs": [], "checked_at": None}
+            for group in ("focus_news", "market_headlines", "economic_calendar", "earnings_calendar",
+                          "previous_economic_calendar", "previous_earnings_calendar")
+        },
         "analysis": {
-            "summary": {"text": None, "source_refs": [], "status": "pending_verification"},
-            "market_observation_highlights": [],
+            "summary": {"headline": None, "text": None, "source_refs": [], "status": "pending_verification"},
+            "market_observation_highlights": {
+                key: {"text": None, "source_refs": [], "status": "pending_verification"}
+                for key in ("market_view", "key_levels", "core_observations")
+            },
             "market_sentiment": {"label": None, "score": None, "text": None, "source_refs": [], "status": "pending_verification"}
         }
     }
@@ -130,6 +168,23 @@ def self_test(validator, schema):
     if validate_report_rules(sample):
         raise AssertionError("valid pending-content sample failed report rules")
     print("PASS: complete pending-content shell accepted")
+
+    # A confirmed empty calendar is valid only when its coverage was actually checked.
+    complete_empty = json.loads(json.dumps(sample))
+    complete_empty["coverage"]["economic_calendar"] = {
+        "status": "complete", "source_refs": ["calendar-source"], "checked_at": "2026-10-31T20:00:00+08:00"
+    }
+    if validate_report_rules(complete_empty):
+        raise AssertionError("verified empty calendar coverage should pass")
+    print("PASS: confirmed empty calendar distinguished from incomplete collection")
+
+    incomplete_empty = json.loads(json.dumps(sample))
+    incomplete_empty["coverage"]["economic_calendar"] = {
+        "status": "complete", "source_refs": [], "checked_at": None
+    }
+    if not any("coverage.economic_calendar: complete requires" in e for e in validate_report_rules(incomplete_empty)):
+        raise AssertionError("empty complete coverage without provenance unexpectedly passed")
+    print("PASS: empty calendar cannot be marked complete without provenance")
 
     bad = json.loads(json.dumps(sample))
     bad["meta"]["template_type"] = "weekday"
