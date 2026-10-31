@@ -87,6 +87,13 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
             hits = sum(re.search(r"\b" + re.escape(ticker) + r"\b", row) is not None for row in texts)
             if hits != 1:
                 errors.append(f"{name}: ticker {ticker} expected exactly once, found {hits}")
+    if "link_targets" in spec:
+        for label, url in spec["link_targets"].items():
+            label_html = html.escape(label, quote=False)
+            pattern = r'<a\b[^>]*href=["\']' + re.escape(url) + r'["\'][^>]*>\s*' + re.escape(label_html) + r'\s*</a>'
+            if not re.search(pattern, container, re.I):
+                errors.append(f"{name}: label '{label}' missing expected link {url}")
+
     for index, row in enumerate(rows, 1):
         visible = text_only(row)
         has_change = re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I)
