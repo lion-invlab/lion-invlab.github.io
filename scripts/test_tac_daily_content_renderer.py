@@ -120,7 +120,7 @@ def run_case(kind,report_date,weekday):
         assert "TD Economics" not in soup.select_one("#calendar").get_text()
         assert "StockTitan" not in soup.select_one("#earnings").get_text()
         earnings_coverage_note=soup.select_one("#earnings .title small").get_text(" ",strip=True)
-        assert "未評級／待核實" in earnings_coverage_note
+        assert "未評級／待核實" in earnings_coverage_note, f"earnings coverage note missing marker; actual={earnings_coverage_note!r}"
         assert "3 星經濟事件" not in earnings_coverage_note
         assert "2026/10/23" not in soup.select_one("#sentiment").get_text()
         assert "2026/10/24" not in soup.select_one("#sentiment").get_text()
