@@ -65,7 +65,7 @@ class MotherTemplateBrowserTests(unittest.TestCase):
             with self.subTest(template=name):
                 page = self._open(path)
                 self._activate_upcoming_tabs(page)
-                econ_toggle = ".econ-event-toggle" if name == "monday" else ".econ-toggle"
+                econ_toggle = ".econ-toggle"
                 cases = (
                     ("#calendar .econ-event-list details.econ-event:visible", econ_toggle),
                     ("#earnings .earnings-accordion-list details.earnings-accordion:visible", ".earnings-accordion-toggle"),
