@@ -489,3 +489,15 @@
 - Gate A 尚未完成；Gate B–D 尚未完成；Gate E 仍待使用者明確核准。
 - 本補記不改變本文件 v1.0-DRAFT 身分，不授權正式每日生產或任何 main／正式首頁／雙母版寫入。
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181717574
+
+
+## 2026-10-31 Run #41181918499｜行事曆資料契約型別與時區驗證補記（維持 DRAFT）
+
+- `event_timezone` 必須是有效 IANA timezone，使用 Python `zoneinfo` 驗證；僅有非空文字但不是有效時區名稱者拒絕。
+- `status_group`、`release_session`、`template` 必須是合法字串 enum；非字串型別不得進入集合判斷或後續排序。
+- 新增 3 項負向測試：無效 IANA timezone、非字串 status_group、非字串 release_session。
+- Run #41181918499：**103 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 指紋、94 selector cardinality、calendar group inventory 與稽核報告上傳通過。
+- 本次只強化資料入口的型別與時區驗證，不代表完成來源 mapping、真實資料匯入或 DOM 更新。每日生產仍未接通；Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181918499
+
+本補記不改變 v1.0-DRAFT 身分，不構成正式採用或生產寫入授權。
