@@ -217,3 +217,12 @@
 - 本次僅完成既有母版卡片的欄位定位與 leaf 更新驗證；尚未建立週經濟卡片的資料來源 Mapping、動態新增／移除後的欄位寫入流程，亦未接入日期排序。Gate A 尚未完成。
 - Run #142：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178651534
 
+## 2026-10-31 Run #147｜本週財報摘要欄位 Mapping
+
+- Registry 擴充至 **94 個候選 selector**，新增本週財報卡 5 個摘要欄位：美國公告日期／時段、台灣時間、公司名稱、公司代號／產業副標題、重要性星級。
+- 週一與週二至週五母版各 16 張本週財報卡；五個 selector 在兩版均命中預期數量，且全部為純文字 leaf。
+- 新增雙母版正向寫入測試，逐欄位驗證命中數、leaf 結構與更新結果；固定 summary、toggle、details、欄位 label、來源與複合內容仍受保護。
+- Run #147（41178787398）完整成功：**59 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 個候選 selector cardinality 及測試報告上傳成功。
+- 本次只完成財報卡摘要欄位 Mapping；卡片內各種不同欄位（EPS、營收、觀察重點、公布時段、來源）仍需按 label／結構分別處理，來源 anchor 與含子節點容器不得交由一般 leaf writer 覆寫。Repeat Group 實際資料更新尚未接通，Gate A 尚未完成。
+- Run #147：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178787398
+
