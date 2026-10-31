@@ -1,0 +1,69 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Fail-closed authorization registry for TAC market-data ingestion and publication.",
+  "default_policy": "deny",
+  "last_reviewed": "2026-10-31",
+  "sources": [
+    {
+      "source_id": "investing_hk",
+      "display_name": "Investing.com Hong Kong",
+      "status": "not_authorized",
+      "evidence_reference": null,
+      "permissions": {
+        "automated_access": false,
+        "numeric_quote_extraction": false,
+        "storage": false,
+        "internal_display": false,
+        "public_display": false,
+        "redistribution": false
+      },
+      "notes": "Outbound instrument links may remain as navigation. Public visibility of pages does not grant extraction, storage, display, or redistribution rights."
+    },
+    {
+      "source_id": "tradingview_widget",
+      "display_name": "TradingView official widget",
+      "status": "limited_scope_unverified",
+      "evidence_reference": null,
+      "permissions": {
+        "automated_access": false,
+        "numeric_quote_extraction": false,
+        "storage": false,
+        "internal_display": false,
+        "public_display": false,
+        "redistribution": false,
+        "official_widget_embedding": true
+      },
+      "notes": "Widget embedding may be used only within applicable widget terms. This permission does not authorize numeric quote extraction, storage, or republication."
+    },
+    {
+      "source_id": "yahoo_finance",
+      "display_name": "Yahoo Finance",
+      "status": "not_authorized",
+      "evidence_reference": null,
+      "permissions": {
+        "automated_access": false,
+        "numeric_quote_extraction": false,
+        "storage": false,
+        "internal_display": false,
+        "public_display": false,
+        "redistribution": false
+      },
+      "notes": "No TAC-specific data license or redistribution permission has been confirmed."
+    },
+    {
+      "source_id": "licensed_vendor_placeholder",
+      "display_name": "Future licensed market-data provider",
+      "status": "not_configured",
+      "evidence_reference": null,
+      "permissions": {
+        "automated_access": false,
+        "numeric_quote_extraction": false,
+        "storage": false,
+        "internal_display": false,
+        "public_display": false,
+        "redistribution": false
+      },
+      "notes": "Replace with a provider-specific record only after reviewing written terms and documenting the permitted instruments, data types, methods, storage, audience, redistribution, attribution, and validity period."
+    }
+  ]
+}
