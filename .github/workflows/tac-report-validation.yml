@@ -80,6 +80,7 @@ on:
 # The 2026-11-02 review JSON is schema-validated before any HTML preview is produced.
 # Structural selector checks run against the approved Monday and weekday mother templates.
 # Auxiliary market collectors are included in the clean-main validation branch.
+# Shared parser helpers are pinned to the same tested revision as the auxiliary collector.
 # Investing.com calendar captures are read-only probes; incomplete coverage never passes the report gate.
 
 permissions:
