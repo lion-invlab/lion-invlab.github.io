@@ -40,9 +40,21 @@ def _query(root, selector):
 
 def _direct(root, parent, selector):
     return [
-        item.etree_element for item in _query(parent, selector)
+        item.etree_element for item in _query(root, selector)
         if item.parent is not None and item.parent.etree_element is parent
     ]
+
+
+def _within(root, ancestor, selector):
+    matches = []
+    for item in _query(root, selector):
+        parent = item.parent
+        while parent is not None:
+            if parent.etree_element is ancestor:
+                matches.append(item.etree_element)
+                break
+            parent = parent.parent
+    return matches
 
 
 def _card_prototypes(root, groups, spec):
@@ -80,8 +92,8 @@ def validate_status_group_variants(baseline_html: str, candidate_html: str,
 
         section_results = []
         for section_index, (base_section, candidate_section) in enumerate(zip(base_sections, candidate_sections)):
-            base_groups = [item.etree_element for item in _query(base_section, spec.group_selector)]
-            candidate_groups = [item.etree_element for item in _query(candidate_section, spec.group_selector)]
+            base_groups = _within(base_root, base_section, spec.group_selector)
+            candidate_groups = _within(candidate_root, candidate_section, spec.group_selector)
             if len(base_groups) != len(candidate_groups):
                 section_results.append({
                     "section_index": section_index,
