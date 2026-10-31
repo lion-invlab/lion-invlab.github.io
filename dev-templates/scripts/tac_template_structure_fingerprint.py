@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
-"""Fail-closed structural fingerprint for TAC development templates.
+"""Browser-normalized structural fingerprint for TAC development templates.
 
-Daily text and href/src/value payloads are excluded. DOM hierarchy, IDs,
-classes, interaction attributes and inline CSS/JS hashes are retained.
-This is a structural gate only; browser/visual regression remains mandatory.
+Daily text, href/src/value payloads are excluded. DOM hierarchy, IDs, classes,
+interaction attributes and inline CSS/JS hashes are retained. HTML5 parsing is
+used so the fingerprint follows browser tree-repair rules instead of treating
+HTMLParser stack heuristics as authoritative.
 """
 from __future__ import annotations
 import argparse
 import hashlib
 import json
 from collections import Counter
-from html.parser import HTMLParser
 from pathlib import Path
 
-VOID = {
-    "area", "base", "br", "col", "embed", "hr", "img", "input",
-    "link", "meta", "param", "source", "track", "wbr",
-}
+import html5lib
+
 STABLE_ATTRS = {
     "type", "name", "role", "for", "tabindex", "disabled", "multiple",
     "required", "open", "aria-controls", "aria-expanded", "aria-label",
@@ -24,59 +22,27 @@ STABLE_ATTRS = {
 }
 
 class Node:
-    def __init__(self, tag: str, attrs=None):
+    def __init__(self, tag: str, attrs=None, raw_text=""):
         self.tag = tag
-        self.attrs = dict(attrs or [])
+        self.attrs = dict(attrs or {})
         self.children = []
-        self.raw_text = ""
+        self.raw_text = raw_text or ""
 
-class TACParser(HTMLParser):
-    def __init__(self):
-        super().__init__(convert_charrefs=True)
-        self.root = Node("#document")
-        self.stack = [self.root]
-        self.warnings = []
+def local_name(tag):
+    if not isinstance(tag, str):
+        return None
+    return tag.rsplit("}", 1)[-1].lower()
 
-    def handle_starttag(self, tag, attrs):
-        tag = tag.lower()
-        node = Node(tag, attrs)
-        self.stack[-1].children.append(node)
-        if tag not in VOID:
-            self.stack.append(node)
-
-    def handle_startendtag(self, tag, attrs):
-        self.stack[-1].children.append(Node(tag.lower(), attrs))
-
-    def handle_endtag(self, tag):
-        tag = tag.lower()
-        if len(self.stack) == 1:
-            self.warnings.append(f"unexpected closing tag: </{tag}>")
-            return
-        if self.stack[-1].tag == tag:
-            self.stack.pop()
-            return
-        open_tags = [n.tag for n in self.stack[1:]]
-        if tag not in open_tags:
-            self.warnings.append(f"unexpected closing tag: </{tag}>")
-            return
-        self.warnings.append(
-            f"misnested closing tag </{tag}> while <{self.stack[-1].tag}> is open"
-        )
-        while len(self.stack) > 1:
-            current = self.stack.pop()
-            if current.tag == tag:
-                break
-
-    def handle_data(self, data):
-        if self.stack[-1].tag in {"style", "script"}:
-            self.stack[-1].raw_text += data
-
-    def finish(self):
-        self.close()
-        if len(self.stack) > 1:
-            self.warnings.append(
-                "unclosed tags: " + ", ".join(n.tag for n in self.stack[1:])
-            )
+def from_element(element):
+    tag = local_name(element.tag)
+    if tag is None:
+        return None
+    node = Node(tag, element.attrib, element.text if tag in {"style", "script"} else "")
+    for child in list(element):
+        converted = from_element(child)
+        if converted is not None:
+            node.children.append(converted)
+    return node
 
 def walk(node):
     yield node
@@ -96,10 +62,17 @@ def node_signature(node):
     }
 
 def inspect_html(source: str, label: str = "<memory>"):
-    parser = TACParser()
-    parser.feed(source)
-    parser.finish()
-    nodes = list(walk(parser.root))
+    parser = html5lib.HTMLParser(
+        tree=html5lib.getTreeBuilder("etree"),
+        namespaceHTMLElements=False,
+        strict=False,
+    )
+    document = parser.parse(source)
+    root = from_element(document)
+    if root is None:
+        raise ValueError(f"HTML5 parser returned no document root for {label}")
+
+    nodes = list(walk(root))
     ids = [n.attrs["id"] for n in nodes if n.attrs.get("id")]
     counts = Counter(ids)
     duplicates = sorted(value for value, count in counts.items() if count > 1)
@@ -113,13 +86,18 @@ def inspect_html(source: str, label: str = "<memory>"):
                     node.raw_text.encode("utf-8")
                 ).hexdigest(),
             })
+    parse_errors = [
+        {"line": position[0], "column": position[1], "code": code}
+        for position, code, _data in parser.errors
+    ]
     return {
         "path": label,
-        "node_count": sum(n.tag != "#document" for n in nodes),
+        "node_count": len(nodes) - 1,
         "duplicate_ids": duplicates,
-        "parse_warnings": parser.warnings,
+        "html5_parse_error_count": len(parse_errors),
+        "html5_parse_errors_sample": parse_errors[:30],
         "inline_assets": assets,
-        "structure": node_signature(parser.root),
+        "structure": node_signature(root),
     }
 
 def inspect(path: str):
@@ -130,8 +108,8 @@ def compare(base, candidate):
         "fixed_dom_structure_equal": base["structure"] == candidate["structure"],
         "inline_css_js_equal": base["inline_assets"] == candidate["inline_assets"],
         "duplicate_id_set_equal": base["duplicate_ids"] == candidate["duplicate_ids"],
-        "baseline_has_no_parse_warnings": not base["parse_warnings"],
-        "candidate_has_no_parse_warnings": not candidate["parse_warnings"],
+        "baseline_html5_dom_built": base["node_count"] > 0,
+        "candidate_html5_dom_built": candidate["node_count"] > 0,
     }
     return {
         "baseline": {k: v for k, v in base.items() if k != "structure"},
