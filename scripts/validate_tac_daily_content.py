@@ -69,8 +69,8 @@ def validate_report_rules(data: dict) -> list[str]:
             if item["id"] in ids:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
-            if item["importance_stars"] != 5:
-                errors.append(f"{label}: only five-star events are permitted")
+            if item["importance_stars"] != 3:
+                errors.append(f"{label}: only 3-star events are permitted")
             if item["status"] == "released" and item.get("actual") is None and group_name == "economic_calendar":
                 errors.append(f"{label}: released economic event requires actual value")
             if item["status"] == "released" and group_name == "earnings_calendar":
@@ -121,7 +121,7 @@ def self_test(validator, schema):
 
     bad = json.loads(json.dumps(sample))
     bad["economic_calendar"] = [
-        {"id":"later","event_date":"2026-10-30T22:00:00+08:00","region":"US","event_name":"Later","importance_stars":5,"previous":None,"forecast":None,"actual":None,"status":"upcoming","impact_judgment":None,"source":{"name":"Test","url":"https://example.com/a","published_at":None,"observed_at":"2026-10-31T12:00:00+08:00"}},
+        {"id":"later","event_date":"2026-10-30T22:00:00+08:00","region":"US","event_name":"Later","importance_stars":3,"previous":None,"forecast":None,"actual":None,"status":"upcoming","impact_judgment":None,"source":{"name":"Test","url":"https://example.com/a","published_at":None,"observed_at":"2026-10-31T12:00:00+08:00"}},
         {"id":"earlier","event_date":"2026-10-30T20:00:00+08:00","region":"US","event_name":"Earlier","importance_stars":5,"previous":None,"forecast":None,"actual":None,"status":"upcoming","impact_judgment":None,"source":{"name":"Test","url":"https://example.com/b","published_at":None,"observed_at":"2026-10-31T12:00:00+08:00"}}
     ]
     if not any("sorted by event_date" in e for e in validate_report_rules(bad)):
