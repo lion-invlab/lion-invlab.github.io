@@ -224,6 +224,21 @@
       "audit_content_selector": ".audit-content",
       "aria_label_attribute": "aria-label",
       "fomc_meeting_selector": ".fc-fomc-meeting b"
+    },
+    "summary": {
+      "container": "#overview",
+      "title_selector": ".bluf h1",
+      "paragraph_selector": ".bluf p",
+      "label_selector": "b"
+    },
+    "news": {
+      "global_focus_container": "#global-focus",
+      "market_headlines_container": "#headlines",
+      "item_selector": ".newsitem",
+      "title_selector": "h3",
+      "summary_selector": "p",
+      "source_links_selector": ".newsmeta a",
+      "meta_selector": ".tab-panel-meta"
     }
   },
   "protected_paths": [
