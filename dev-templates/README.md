@@ -62,3 +62,14 @@
 - 最新 CI Run **41172663405** 已完成成功：31 項結構／repeat-group／status-group 單元與整合測試、3 項 Chromium 瀏覽器測試、雙母版 SHA 鎖定、HTML5 結構解析、31 個候選 selector 命中數稽核及報告上傳全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41172663405
 - 已新增對兩份唯讀正式母版的真實 DOM 複製測試，模擬每個列表新增同骨架卡片及移除部分卡片，均通過。Playwright 瀏覽器互動、320px 手機列表幾何及週一本週區塊 empty-state 雙向切換也已通過 CI；紅圓加號視覺／點擊、日期排序資料層與 11/02 預覽非破壞性測試仍待完成。開發母版尚未產生，故不得啟用每日自動增刪或部署。
 - 以上全部僅在 `tac-template-architecture` 測試分支。正式 WR、兩份正式母版、manifest、首頁及 11/02 預覽均保持不變。
+
+
+## 2026-10-31 Gate A 雙母版插槽盤點更新（本節優先）
+
+- 新增整合文件：[`slot-map-v1.3.md`](slot-map-v1.3.md)。此版統整 `slot-map-v1.2.md`、`summary-sentiment-map-v1.md`、`weekly-commodities-fomc-map-v1.md`、selector registry 與 Repeat Group 規則，作為目前雙母版欄位盤點入口。
+- v1.3 已確認週一／平日正式母版檔案及 SHA，並明確標記所有欄位仍屬候選定位，未授權每日寫入。
+- v1.3 補齊了先前進度文字尚未整合的專項定位：能源 WTI／Brent、貴金屬 Gold／Silver、FOMC 會議欄位，以及週一上週經濟／財報欄位。這些仍需加入 selector registry 並完成逐欄位正反向測試，不能誤報為已通過 CI。
+- 總結正文、核心情緒解讀、今日觀察三個 panel 均採「容器保護」；不得以整段 textContent／innerHTML 覆寫。KPI 不存在獨立版面，不建立 KPI 插槽。
+- 舊進度段落中「KPI、週一上週區塊、商品、FOMC 尚未定位」是 v1.3 前的盤點狀態；自本節起以 v1.3 的細項狀態為準。定位完成不等於寫入驗收完成。
+- 最新 WR 文件：`TAC_TEMPLATE_ARCHITECTURE_WR_v1.0.md`，狀態仍為 DRAFT。WR 測試 Run 41174832080 成功，但僅驗證工作流程，不代表 Gate A 完成。
+- 本次盤點文件 commit：`8935c428f6c6754d17debd17b1f5c6252e3a1fd9`。仍不得建立或啟用每日自動寫入，直到 Gate A 欄位級驗證、Gate B 開發母版、瀏覽器驗收與使用者核准完成。
