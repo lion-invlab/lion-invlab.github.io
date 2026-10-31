@@ -132,8 +132,14 @@ def fetch_cnn_fear_greed(session: requests.Session, trading_date: date) -> dict:
         response = session.get(
             url,
             headers={
-                "Referer": "https://www.cnn.com/markets/fear-and-greed",
+                "User-Agent": (
+                    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+                ),
                 "Accept": "application/json,text/plain,*/*",
+                "Accept-Language": "en-US,en;q=0.9",
+                "Origin": "https://www.cnn.com",
+                "Referer": "https://www.cnn.com/markets/fear-and-greed",
             },
             timeout=(10, 30),
         )
