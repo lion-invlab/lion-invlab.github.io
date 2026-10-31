@@ -6887,7 +6887,9 @@
       "required": [
         "global_focus",
         "market_headlines",
-        "notes"
+        "notes",
+        "global_focus_meta",
+        "market_headlines_meta"
       ],
       "properties": {
         "global_focus": {
@@ -6956,6 +6958,48 @@
               },
               "notes": {
                 "type": "string"
+              },
+              "related_sources": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
               }
             }
           }
@@ -7026,12 +7070,62 @@
               },
               "notes": {
                 "type": "string"
+              },
+              "related_sources": {
+                "type": "array",
+                "maxItems": 3,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
               }
             }
           }
         },
         "notes": {
           "type": "string"
+        },
+        "global_focus_meta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "market_headlines_meta": {
+          "type": "string",
+          "minLength": 1
         }
       }
     },
@@ -7294,7 +7388,8 @@
         "market_observation",
         "core_observation",
         "key_levels",
-        "notes"
+        "notes",
+        "summary_title"
       ],
       "properties": {
         "status": {
@@ -7307,8 +7402,20 @@
           "type": "array",
           "maxItems": 5,
           "items": {
-            "type": "string",
-            "minLength": 1
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "text"
+            ],
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
           }
         },
         "market_sentiment": {
@@ -7324,6 +7431,9 @@
           "type": "string"
         },
         "notes": {
+          "type": "string"
+        },
+        "summary_title": {
           "type": "string"
         }
       },
@@ -7342,7 +7452,22 @@
           "then": {
             "properties": {
               "summary": {
-                "minItems": 4
+                "minItems": 4,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "label",
+                    "text"
+                  ],
+                  "properties": {
+                    "label": {
+                      "minLength": 1
+                    },
+                    "text": {
+                      "minLength": 1
+                    }
+                  }
+                }
               },
               "market_sentiment": {
                 "minLength": 1
