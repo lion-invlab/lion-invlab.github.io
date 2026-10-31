@@ -215,7 +215,14 @@
         "probability_array": "probabilities",
         "meeting": "target_meeting",
         "updated_at": "updated_at"
-      }
+      },
+      "split_bar_selector": ".fc-split-bar",
+      "split_hold_selector": ".fc-split-hold",
+      "split_hike_selector": ".fc-split-hike",
+      "split_legend_value_selector": ".fc-split-legend b",
+      "split_timestamp_selector": ".fc-split-head span",
+      "audit_content_selector": ".audit-content",
+      "aria_label_attribute": "aria-label"
     }
   },
   "protected_paths": [
