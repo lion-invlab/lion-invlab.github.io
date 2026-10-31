@@ -65,20 +65,30 @@ class MotherTemplateBrowserTests(unittest.TestCase):
             with self.subTest(template=name):
                 page = self._open(path)
                 self._activate_upcoming_tabs(page)
-                econ_toggle = ".econ-toggle"
+
+                if name == "monday":
+                    prior_week = page.locator("#last-week-calendar details.last-week-calendar-collapse")
+                    prior_week.locator(":scope > summary").click()
+                    econ_card_selector = "#last-week-calendar .econ-event-list details.econ-event:visible"
+                    econ_toggle_selector = ".econ-event-toggle"
+                else:
+                    econ_card_selector = "#calendar .econ-event-list details.econ-event:visible"
+                    econ_toggle_selector = ".econ-toggle"
+
                 cases = (
-                    ("#calendar .econ-event-list details.econ-event:visible", econ_toggle),
+                    (econ_card_selector, econ_toggle_selector),
                     ("#earnings .earnings-accordion-list details.earnings-accordion:visible", ".earnings-accordion-toggle"),
                 )
                 for card_selector, toggle_selector in cases:
                     card = page.locator(card_selector).first
                     self.assertTrue(card.count(), f"{name}: missing visible card {card_selector}")
-                    toggle = card.locator(":scope > summary [aria-hidden='true']")
+                    toggle = card.locator(f":scope > summary {toggle_selector}")
                     before = toggle.evaluate(
-                        "(el) => { const s=getComputedStyle(el); return {width:parseFloat(s.width),height:parseFloat(s.height),radius:s.borderRadius,background:s.backgroundColor,content:getComputedStyle(el,'::before').content}; }"
+                        "(el) => { const s=getComputedStyle(el); return {width:parseFloat(s.width),height:parseFloat(s.height),flexBasis:s.flexBasis,radius:s.borderRadius,background:s.backgroundColor,content:getComputedStyle(el,'::before').content}; }"
                     )
                     self.assertEqual(before["width"], 32, f"{name}: plus width must be 32px {before}")
                     self.assertEqual(before["height"], 32, f"{name}: plus height must be 32px {before}")
+                    self.assertEqual(before["flexBasis"], "32px", f"{name}: plus flex-basis must be 32px {before}")
                     self.assertEqual(before["width"], before["height"], f"{name}: plus is not square {before}")
                     self.assertEqual(before["radius"], "50%", f"{name}: plus is not circular {before}")
                     self.assertIn("198, 40, 40", before["background"], f"{name}: plus is not TAC red {before}")
@@ -90,7 +100,7 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                     if toggle_selector == ".econ-toggle":
                         self.assertEqual(after["pseudoBackground"], "rgb(32, 35, 40)", f"{name}: open economic toggle state is wrong {after}")
                     else:
-                        self.assertEqual(after["background"], "rgb(32, 35, 40)", f"{name}: open earnings toggle state is wrong {after}")
+                        self.assertEqual(after["background"], "rgb(32, 35, 40)", f"{name}: open toggle state is wrong {after}")
                 page.close()
 
     def test_calendar_tabs_switch_in_real_browser(self):
