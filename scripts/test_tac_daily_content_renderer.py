@@ -33,6 +33,11 @@ def sample(report_date,template):
         } for i in range(1,count+1)]
     data["focus_news"]=news("focus",5,"macro")
     data["market_headlines"]=news("headline",10,"market")
+    for group in ("focus_news","market_headlines"):
+        data["coverage"][group]={
+          "status":"complete","source_refs":[f"synthetic-{group}-batch"],
+          "checked_at":"2026-10-31T21:00:00+08:00"
+        }
     def src(tag):
         return {"name":"Synthetic calendar source","url":f"https://example.com/{tag}",
           "published_at":"2026-10-31T12:00:00+08:00","observed_at":"2026-10-31T21:00:00+08:00"}
