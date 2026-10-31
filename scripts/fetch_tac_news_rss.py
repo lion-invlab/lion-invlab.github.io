@@ -157,12 +157,12 @@ def self_test():
     </channel></rss>"""
     parsed=parse_feed(xml,feed,"2026-10-31T10:00:00+00:00")
     assert len(parsed)==2
-    assert parsed[0]["category"]=="macro"
+    assert parsed[0]["category"]=="policy"
     assert parsed[1]["category"]=="company"
     assert parsed[0]["source"]["url"]=="https://example.com/a"
     assert parsed[0]["status"]=="pending_verification"
     print("PASS: RSS item parsing, canonical article URL and publication time")
-    print("PASS: macro and company categories distinguished")
+    print("PASS: policy/macro and company categories distinguished")
     def fake_fetch(_feed):
         return parsed
     result=collect(datetime(2026,10,31,7,tzinfo=timezone.utc),
