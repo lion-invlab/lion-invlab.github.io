@@ -302,7 +302,7 @@ jobs:
       - name: Confirm editorial draft is not approval-ready
         if: success()
         run: |
-          grep -q '資料擷取尚未完成' "/tmp/tac-full-report-2026-11-02-review.html"
+          grep -q '來源擷取尚未完成' "/tmp/tac-full-report-2026-11-02-review.html"
           echo "NOT APPROVAL-READY — four calendar coverage groups are pending; do not publish."
       - name: Render partial data-binding smoke output (NOT review-ready)
         if: success()
