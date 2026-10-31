@@ -1,13 +1,11 @@
 name: Deploy GitHub Pages
 
 on:
-  # Production deployment is released only after the dated-report structural
-  # gate has completed successfully on main.
+  # Deploy only after TAC structural validation has completed successfully.
   workflow_run:
     workflows: ["TAC Daily Report Structural Gate"]
     types: [completed]
     branches: [main]
-  # Retain an explicit operator-controlled deployment path.
   workflow_dispatch:
 
 permissions:
@@ -21,26 +19,45 @@ concurrency:
 
 jobs:
   deploy:
-    # A failed or cancelled report gate must never publish the candidate.
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: \${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout validated main revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: \${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Require a changed canonical dated preview
+        id: release
+        if: github.event_name == 'workflow_run'
+        shell: bash
+        run: |
+          sha="\${{ github.event.workflow_run.head_sha }}"
+          changed="$(git diff --name-only "$sha^1" "$sha")"
+          preview="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
+          if [ -n "$preview" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            echo "Validated dated preview changed: $preview"
+          else
+            echo "should_deploy=false" >> "$GITHUB_OUTPUT"
+            echo "SKIP: validation succeeded but this commit did not change a canonical dated preview."
+          fi
 
       - name: Configure Pages
+        if: github.event_name == 'workflow_dispatch' || steps.release.outputs.should_deploy == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload site
+        if: github.event_name == 'workflow_dispatch' || steps.release.outputs.should_deploy == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
 
       - name: Deploy
+        if: github.event_name == 'workflow_dispatch' || steps.release.outputs.should_deploy == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
