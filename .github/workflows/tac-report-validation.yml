@@ -14,6 +14,8 @@ on:
       - "scripts/assemble_tac_daily_snapshot.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
+      - "scripts/validate_tac_html_binding.py"
+      - "scripts/tac_html_binding_map.json"
       - "母版專區/mother-template-manifest.json"
       - "母版專區/母版結構驗收清單.md"
       - "scripts/fetch_tac_treasury_yields.py"
@@ -75,6 +77,9 @@ jobs:
         run: |
           python scripts/validate_tac_market_mapping.py --html "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
           python scripts/validate_tac_market_mapping.py --html "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+
+      - name: Validate snapshot-to-HTML binding slots in both approved mothers
+        run: python scripts/validate_tac_html_binding.py
 
       - name: Test Treasury collector parser
         run: python scripts/fetch_tac_treasury_yields.py --self-test
