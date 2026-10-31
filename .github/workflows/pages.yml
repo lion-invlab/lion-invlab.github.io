@@ -1,8 +1,13 @@
 name: Deploy GitHub Pages
 
 on:
-  push:
-    branches: ["main"]
+  # Production deployment is released only after the dated-report structural
+  # gate has completed successfully on main.
+  workflow_run:
+    workflows: ["TAC Daily Report Structural Gate"]
+    types: [completed]
+    branches: [main]
+  # Retain an explicit operator-controlled deployment path.
   workflow_dispatch:
 
 permissions:
@@ -16,13 +21,17 @@ concurrency:
 
 jobs:
   deploy:
+    # A failed or cancelled report gate must never publish the candidate.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout validated main revision
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
