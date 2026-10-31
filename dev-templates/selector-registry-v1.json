@@ -88,6 +88,11 @@
       "detail_value_class": "earnings-detail-value",
       "writable_detail_labels": [
         "觀察重點",
+        "EPS 共識",
+        "正式公布時間",
+        "公布時段",
+        "EPS 預估／實際",
+        "營收預估／實際",
         "財報判讀與股價反應"
       ],
       "writable_source_labels": [
