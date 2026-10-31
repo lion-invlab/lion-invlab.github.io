@@ -12,6 +12,7 @@ on:
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/assemble_tac_daily_snapshot.py"
+      - "scripts/render_tac_daily_report.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
@@ -74,6 +75,9 @@ jobs:
 
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
+
+      - name: Check TAC snapshot HTML renderer CLI
+        run: python scripts/render_tac_daily_report.py --help
 
       - name: Validate market-field contract against both approved masters
         run: |
