@@ -357,6 +357,7 @@ jobs:
             /tmp/tac-economic-calendar-previous-fragment-2026-10-26.json
             /tmp/tac-economic-calendar-current-fragment-2026-11-02.json
             /tmp/tac-daily-snapshot-2026-11-02.json
+            /tmp/tac-full-report-2026-11-02-review.html
             /tmp/tac-partial-market-binding-2026-11-02.html
           if-no-files-found: warn
           retention-days: 14
@@ -394,10 +395,12 @@ jobs:
         env:
           REPORT_PATH: ${{ steps.preview.outputs.path }}
         run: |
-          if [ -f "/tmp/tac-partial-market-binding-2026-11-02.html" ]; then
+          if [ -f "/tmp/tac-full-report-2026-11-02-review.html" ]; then
+            REPORT_PATH="/tmp/tac-full-report-2026-11-02-review.html"
+          elif [ -f "/tmp/tac-partial-market-binding-2026-11-02.html" ]; then
             REPORT_PATH="/tmp/tac-partial-market-binding-2026-11-02.html"
           elif [ -z "$REPORT_PATH" ]; then
-            REPORT_PATH="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+            REPORT_PATH="母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
           fi
           node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
 
