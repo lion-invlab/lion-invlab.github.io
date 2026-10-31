@@ -24,7 +24,7 @@ README_PATH = Path("母版專區/README.md")
 APPROVED = {
     "monday": {
         "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-        "blob_sha": "0375acb7f95a514372cb777d3ed197fd9b4426f7",
+        "blob_sha": "0ea4775c5d15899a1e0b0a97c78744d90b8fff22",
         "required_ids": {"sentiment", "bonds", "fx", "calendar", "earnings",
                          "last-week-calendar", "last-week-earnings"},
         "required_nav_targets": {"last-week-calendar", "last-week-earnings"},
@@ -32,7 +32,7 @@ APPROVED = {
     },
     "weekdays": {
         "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-        "blob_sha": "76627b8f93643bf7f1d8ec736b93a114305c7923",
+        "blob_sha": "e5976190efd4c7fcc92cd623bfa94926997cc672",
         "required_ids": {"sentiment", "bonds", "fx", "calendar", "earnings"},
         "required_nav_targets": set(),
         "forbidden_ids": {"last-week-calendar", "last-week-earnings"},

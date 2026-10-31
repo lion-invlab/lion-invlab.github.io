@@ -29,7 +29,21 @@
       "link_targets": {
         "新加坡海峽時報指數 STI": "https://hk.investing.com/indices/singapore-straits-time",
         "澳洲 S&P/ASX 200": "https://hk.investing.com/indices/aus-200-historical-data",
-        "STOXX Europe 600": "https://www.investing.com/indices/stoxx-600"
+        "STOXX Europe 600": "https://hk.investing.com/indices/stoxx-600",
+        "道瓊工業指數": "https://hk.investing.com/indices/us-30",
+        "標普500指數": "https://hk.investing.com/indices/us-spx-500",
+        "那斯達克綜合指數": "https://hk.investing.com/indices/nasdaq-composite",
+        "羅素2000指數": "https://hk.investing.com/indices/smallcap-2000",
+        "費城半導體指數": "https://hk.investing.com/indices/phlx-semiconductor",
+        "香港恆生指數": "https://hk.investing.com/indices/hang-sen-40",
+        "上海綜合指數": "https://hk.investing.com/indices/shanghai-composite",
+        "深證成指": "https://hk.investing.com/indices/szse-component",
+        "日經 225": "https://hk.investing.com/indices/japan-ni225",
+        "韓國 KOSPI": "https://hk.investing.com/indices/kospi",
+        "台灣加權指數": "https://hk.investing.com/indices/taiwan-weighted",
+        "英國 FTSE 100": "https://hk.investing.com/indices/uk-100",
+        "德國 DAX": "https://hk.investing.com/indices/germany-30",
+        "法國 CAC 40": "https://hk.investing.com/indices/france-40"
       }
     },
     "bonds": {
