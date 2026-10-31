@@ -138,7 +138,8 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
         visible = text_only(row)
         has_change = re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I)
         has_explicit_status = any(marker in visible for marker in ("休市", "待核實", "暫缺"))
-        if not has_change and not has_explicit_status:
+        allowed_without_change = index in spec.get("allow_no_change_rows", [])
+        if not has_change and not has_explicit_status and not allowed_without_change:
             errors.append(f"{name}: row {index} has neither a numeric change nor an explicit status: {visible[:100]}")
     return errors
 
