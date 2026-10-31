@@ -178,3 +178,12 @@
 - 此更新器已完成獨立測試，但尚未接入每日資料更新器或 Repeat Group updater；Gate A 尚未完成。
 - Run #125：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177770274
 - Run #126：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177778541
+
+## Run #132｜上週經濟行事曆欄位與文字片段更新器修正驗收
+
+- Run #132（41178152876）完整成功：**56 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋及 84 個候選 selector cardinality 稽核通過。
+- 上週經濟行事曆新增獨立欄位測試：時間、國家、事件名稱、前值、預估、實際各 3 個葉節點；日期欄位既有測試保留；固定欄位標籤 12 個節點禁止一般文字更新器改寫。
+- 修正 text-segments updater 的 Registry 查找：同一 CSS selector 可能同時有 protected-container 與專用 text-segments 登記，更新器現只接受唯一一筆 text_segments 類型登記，避免錯誤選到保護項目。一般 leaf writer 仍不得寫入 text-segments 欄位。
+- Run #127–#131 曾因上述登記查找歧義而失敗；原因已定位並修正，Run #132 完整重跑成功，舊失敗紀錄不視為驗收通過。
+- 目前仍屬欄位定位與獨立更新器測試，尚未接入每日資料更新器、資料來源 mapping 或 Repeat Group updater；Gate A 尚未完成。
+- https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178152876
