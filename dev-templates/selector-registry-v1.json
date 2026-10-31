@@ -73,6 +73,9 @@
       "writable_detail_labels": [
         "觀察重點",
         "市場影響"
+      ],
+      "writable_source_labels": [
+        "資料來源"
       ]
     },
     {
@@ -86,6 +89,10 @@
       "writable_detail_labels": [
         "觀察重點",
         "財報判讀與股價反應"
+      ],
+      "writable_source_labels": [
+        "來源",
+        "資料來源"
       ]
     },
     {
