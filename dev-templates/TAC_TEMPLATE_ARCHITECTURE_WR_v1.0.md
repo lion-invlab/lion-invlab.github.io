@@ -579,7 +579,7 @@
 
 - 週一母版本週經濟／財報只有「即將公布」群組具同群組卡片原型；今日公布／已公布若需要新增事件，必須先補齊並驗收該狀態專屬原型，否則阻擋。
 - 平日母版三種狀態群組各有原型；但任一群組資料歸零時，因沒有已核准 empty-state 轉換規格，仍阻擋自動清空。
-- 週一上週經濟／財報維持唯讀。尤其上週財報包含 EPS／營收實際與預期比較卡、判讀及股價反應複合區，須另建專用資料契約、欄位 Mapping 及保護測試；本版遇到 prior-week 事件會整批拒絕，不得只更新本週區塊後忽略上週區塊。
+- 週一上週經濟卡已支援獨立 Repeat Group 渲染：只可使用上週經濟區塊自己的卡片 prototype，保留其實際 label／來源 anchor 結構；無歷史經濟 payload 時保留原卡。週一上週財報仍唯讀，EPS／營收結果格、分析與股價反應複合區尚待專用資料契約及 mapping；遇到 prior-week earnings payload 必須在任何 DOM 寫入前拒絕整批。
 - 尚未接入即時資料抓取、真實每日資料集、正式預覽產出或正式發布；renderer 回傳的 HTML 僅供測試分支使用。
 
 ### 4. 驗收紀錄
@@ -591,3 +591,16 @@
 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41183368182
 
 本補記不改變 v1.0-DRAFT 身分，不構成正式採用或每日生產授權。
+
+### 2026-10-31 補充｜Calendar Dataset Contract 與週一上週經濟卡
+
+1. 資料層採 tac-calendar-dataset-v1 契約。事件需提供唯一 ID、ISO 日期、IANA 時區、明確 status_group、1–5 星重要性及至少一筆來源 provenance（source_name、field_label、label、絕對 HTTP(S) URL、含時區 accessed_at）；不可推測或補造缺漏值。
+2. 經濟事件先正規化為 Asia/Taipei 顯示時間；財報事件保留美國公告日期／時區，台灣顯示日期必須與時區換算結果一致。週一上週經濟／財報資料與本週資料分開存放及排序；平日模板不得帶入上週事件。
+3. tac_calendar_field_mapper.py 僅負責把已驗證資料映射成 summary、detail 與來源 anchor payload；不操作 DOM。tac_calendar_group_inventory.py 只讀取正式母版，盤點各狀態群組是否有原型。
+4. tac_calendar_repeat_renderer.py 先驗證來源 HTML inventory 與傳入 inventory 完全一致，再依 Registry、卡片 label、來源 anchor 數量與 URL 完成所有 preflight；所有 clone 在文件外準備完成後才一次替換 repeat list，最後執行 Repeat Group DOM 結構驗證。
+5. 週一上週經濟卡可由 #last-week-calendar 自身原型新增／替換；欄位 label 依既有卡片實際結構支援「前值」「預估」「市場預估」「實際」，來源欄位仍只允許更新既有 anchor leaf。歷史經濟 payload 缺省時，必須保留原卡，不可將缺省解讀為刪除。
+6. 週一上週財報仍禁止動態重建；EPS／營收實際與預期卡、beat/miss 狀態、判讀及股價反應需另建專用 mapping。prior-week earnings payload 必須 fail closed。
+7. Run 41184361559 通過 134 項單元／整合測試、5 項 Chromium 瀏覽器測試，雙母版 SHA、DOM 指紋、status-group inventory、94 selector cardinality 與稽核報告上傳成功。
+8. 此驗收只涵蓋測試分支及合成 fixture，未接真實資料來源／每日資料集／正式預覽／部署。Gate A 尚未完成，Gate B–D 尚未完成，Gate E 仍須使用者明確核准。
+
+驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41184361559
