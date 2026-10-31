@@ -87,24 +87,47 @@ class CalendarRepeatPlanTests(unittest.TestCase):
         published = plan["sections"]["weekly_economic"]["groups"][2]
         self.assertEqual(published["reason"], "same_group_card_prototype_missing")
 
-    def test_monday_prior_week_existing_prototypes_allow_card_plan(self):
+    def test_monday_prior_week_economic_prototype_allows_card_plan(self):
         data = dataset(
             "monday",
             [econ("weekly-e", "upcoming")],
             [earnings("weekly-r", "upcoming")],
             [econ("prior-e", "prior_week_published")],
-            [earnings("prior-r", "prior_week_published")],
+            [],
         )
         plan = plan_calendar_repeat_updates(data, self.monday_inventory)
         self.assertTrue(plan["pass"], plan)
+        self.assertEqual(
+            plan["sections"]["prior_week_economic"]["groups"][0]["action"],
+            "render_list",
+        )
 
-    def test_monday_prior_week_empty_is_blocked_without_empty_state_prototype(self):
-        data = dataset("monday", [], [], [], [])
+    def test_monday_prior_week_earnings_payload_is_blocked_without_result_grid_mapping(self):
+        data = dataset(
+            "monday",
+            [econ("weekly-e", "upcoming")],
+            [earnings("weekly-r", "upcoming")],
+            [],
+            [earnings("prior-r", "prior_week_published")],
+        )
         plan = plan_calendar_repeat_updates(data, self.monday_inventory)
         self.assertFalse(plan["pass"])
         self.assertEqual(
-            plan["sections"]["prior_week_economic"]["groups"][0]["reason"],
-            "same_section_empty_state_prototype_missing",
+            plan["sections"]["prior_week_earnings"]["reason"],
+            "dedicated_result_grid_mapping_missing",
+        )
+
+    def test_monday_empty_prior_week_payloads_preserve_existing_cards(self):
+        data = dataset("monday", [], [], [], [])
+        plan = plan_calendar_repeat_updates(data, self.monday_inventory)
+        self.assertTrue(plan["pass"], plan)
+        self.assertEqual(
+            plan["sections"]["prior_week_economic"]["action"],
+            "preserve_existing_prior_week_cards",
+        )
+        self.assertEqual(
+            plan["sections"]["prior_week_earnings"]["action"],
+            "preserve_existing_prior_week_cards",
         )
 
     def test_monday_blocks_empty_transition_without_status_specific_message_mapping(self):
