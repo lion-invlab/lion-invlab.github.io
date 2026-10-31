@@ -9,6 +9,7 @@ on:
       - "preview/2026-*.html"
       - "demo-2026-10-26.html"
       - "scripts/validate_tac_report.py"
+      - "scripts/validate_tac_layout_contract.py"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
     branches: ["main"]
@@ -37,6 +38,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Test DOM layout contract
+        run: python scripts/validate_tac_layout_contract.py --self-test
+
       - name: Validate dated report structure
         run: python scripts/validate_tac_report.py
 
