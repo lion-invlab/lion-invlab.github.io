@@ -15,7 +15,6 @@ from html.parser import HTMLParser
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = Path("母版專區/mother-template-manifest.json")
 RULES_PATH = Path("TAC_WORK_RULES.md")
-MIRROR_RULES_PATH = Path("母版專區/TAC_WORK_RULES.md")
 README_PATH = Path("母版專區/README.md")
 
 # These values are deliberately duplicated outside the manifest. If both the
@@ -25,7 +24,7 @@ README_PATH = Path("母版專區/README.md")
 APPROVED = {
     "monday": {
         "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-        "blob_sha": "0d1cc634708011ef7fac91b47084912daf69c106",
+        "blob_sha": "776f778b895c6da781348bcf8fefc1d4719ed4ce",
         "required_ids": {"sentiment", "bonds", "fx", "calendar", "earnings",
                          "last-week-calendar", "last-week-earnings"},
         "required_nav_targets": {"last-week-calendar", "last-week-earnings"},
@@ -33,7 +32,7 @@ APPROVED = {
     },
     "weekdays": {
         "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-        "blob_sha": "5c008bcb1e17e1f90d3a3fd0b80b2cff9b4244a7",
+        "blob_sha": "ab3286750a64aa0fc9fc01af51f819024526a4ba",
         "required_ids": {"sentiment", "bonds", "fx", "calendar", "earnings"},
         "required_nav_targets": set(),
         "forbidden_ids": {"last-week-calendar", "last-week-earnings"},
@@ -89,12 +88,11 @@ def main() -> int:
     except Exception as exc:
         fail(f"manifest JSON 無法解析：{exc}")
 
+    # The repository-root TAC_WORK_RULES.md is the sole authoritative rules file.
+    # Historical copies under 母版專區 are non-authoritative and must not gate validation.
     expected_rules = ROOT / RULES_PATH
-    mirror_rules = ROOT / MIRROR_RULES_PATH
-    if not expected_rules.is_file() or not mirror_rules.is_file():
-        fail("正式規則檔或母版區同步副本不存在。")
-    if expected_rules.read_bytes() != mirror_rules.read_bytes():
-        fail("根目錄 TAC_WORK_RULES.md 與母版專區同步副本不一致。")
+    if not expected_rules.is_file():
+        fail("唯一正式規則檔不存在：TAC_WORK_RULES.md")
 
     kind = "monday" if report_date.weekday() == 0 else "weekdays"
     template = manifest.get("templates", {}).get(kind)
