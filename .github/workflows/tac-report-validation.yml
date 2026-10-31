@@ -44,6 +44,7 @@ on:
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_sector_etfs.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
