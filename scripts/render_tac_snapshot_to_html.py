@@ -105,9 +105,15 @@ def fmt(v,u):
     if u=="DXY": return format(n,",.2f")
     raise ValueError("unsupported display unit: "+str(u)+"; refusing to guess formatting")
 def make_edit(node,value):
+    if any(isinstance(child,Node) for child in node.children):
+        raise ValueError("mapped slot contains nested markup: <"+node.tag+"> class="+str(sorted(node.classes)))
     nodes=slot_text_nodes(node)
-    if len(nodes)!=1: raise ValueError("mapped slot must contain exactly one text node: <"+node.tag+"> class="+str(sorted(node.classes))+" count="+str(len(nodes))+" text="+repr(node.text[:100]))
-    old,start,end=nodes[0]
+    if not nodes:
+        raise ValueError("mapped slot contains no text: <"+node.tag+"> class="+str(sorted(node.classes)))
+    for previous,current in zip(nodes,nodes[1:]):
+        if previous[2] != current[1]:
+            raise ValueError("mapped slot contains non-text gaps: <"+node.tag+"> class="+str(sorted(node.classes)))
+    start,end=nodes[0][1],nodes[-1][2]
     return start,end,html.escape(value,quote=False)
 def make_status_class_edit(node,status_class):
     if node.class_span is None:
