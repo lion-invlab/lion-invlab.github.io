@@ -78,6 +78,7 @@ jobs:
           python scripts/validate_tac_market_mapping.py --html "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
           python scripts/validate_tac_market_mapping.py --html "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
 
+      # Re-run on binding validator revisions as well as mapping changes.
       - name: Validate snapshot-to-HTML binding slots in both approved mothers
         run: python scripts/validate_tac_html_binding.py
 
