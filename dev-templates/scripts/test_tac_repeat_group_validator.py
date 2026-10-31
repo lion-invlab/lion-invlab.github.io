@@ -37,10 +37,10 @@ class RepeatGroupValidatorTests(unittest.TestCase):
         candidate = page(card("CPI"))
         self.assertTrue(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
 
-    def test_zero_cards_allowed_when_wrapper_remains(self):
+    def test_zero_cards_rejected_until_empty_state_transition_is_approved(self):
         baseline = page(card("CPI"))
         candidate = page("")
-        self.assertTrue(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
+        self.assertFalse(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
 
     def test_altered_card_class_fails(self):
         baseline = page(card("CPI"))
