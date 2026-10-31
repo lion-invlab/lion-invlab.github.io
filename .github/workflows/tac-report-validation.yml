@@ -113,6 +113,9 @@ jobs:
       - name: Test Investing.com economic calendar source capture
         run: python scripts/fetch_tac_investing_economic_calendar.py --self-test
 
+      - name: Validate 2026-11-02 editorial draft data and explicit calendar gates
+        run: python scripts/validate_tac_daily_content.py --file "review-data/2026-11-02-content.json"
+
       - name: Validate editorial content binding selectors against both approved mothers
         run: python scripts/validate_tac_content_binding.py
 
