@@ -468,6 +468,40 @@ def self_test():
     assert fed_html[:a]+v+fed_html[b:]==fed_html.replace('aria-label="old"','aria-label="new &amp; updated"')
     print("PASS: FedWatch aria-label text escaped and updated without changing markup")
 
+    mapping=json.loads(MAP.read_text(encoding="utf-8"))
+    fixture={"meta":{"report_date":"2026-11-02","trading_date":"2026-10-30"}}
+    source_meta={"name":"Test source","url":"https://example.com/data","observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30","quote_type":"official close","instrument":"test instrument"}
+    for group in ("global_indices","bonds","fx","energy","precious_metals"):
+        spec=mapping["groups"][group]
+        fixture[group]={}
+        for index,key in enumerate(spec["key_by_label"]):
+            if group=="global_indices": unit="index_point"
+            elif group=="bonds": unit="%"
+            elif group=="fx": unit=key.upper().replace("_","/") if key!="dxy" else "DXY"
+            elif group=="energy": unit="USD/barrel"
+            else: unit="USD/oz"
+            fixture[group][key]={"value":100.0+index,"unit":unit,"change":1.25,"change_unit":"percent" if group!="bonds" else "percentage_point","status":"verified","source":source_meta,"fallback_used":False,"fallback_reason":None,"notes":None}
+    fixture["risk_indicators"]={}
+    for key in mapping["groups"]["risk_indicators"]["records"]:
+        unit="score" if key=="cnn_fear_greed" else "index_point"
+        fixture["risk_indicators"][key]={"value":42.0 if key=="cnn_fear_greed" else 18.2,"unit":unit,"change":-1.25,"change_unit":"percent","status":"verified","source":source_meta,"fallback_used":False,"fallback_reason":None,"notes":None}
+    fixture["sectors"]={}
+    for index,key in enumerate(mapping["groups"]["sectors"]["key_by_ticker"]):
+        fixture["sectors"][key]={"status":"verified","change":(index-5)*0.1,"change_unit":"percent"}
+    fixture["fedwatch"]={"status":"verified","target_meeting":"2026-11-03","updated_at":"2026-10-31T08:00:00+08:00","source":{"name":"CME FedWatch","url":"https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"},"probabilities":[{"rate_range":"維持 3.75%–4.00%","probability":92.5},{"rate_range":"升至 4.00%–4.25%","probability":7.5}],"notes":None}
+    for template_name,relative in mapping["templates"].items():
+        source_html=(ROOT/relative).read_text(encoding="utf-8")
+        rendered,count=render(source_html,fixture,mapping)
+        assert count>0
+        assert rendered.count("<script") == source_html.count("<script")
+        assert rendered.count("<style") == source_html.count("<style")
+        assert "92.5%" in rendered and "7.5%" in rendered
+        assert "2026-11-03" in rendered
+        sector_order=[rendered.index(">"+ticker+"<") for ticker in mapping["groups"]["sectors"]["key_by_ticker"].values()]
+        assert sector_order==sorted(sector_order,key=lambda pos:pos)
+        print("PASS: full mapped render against approved "+template_name+" mother ("+str(count)+" edits)")
+    print("PASS: full dual-mother renderer integration fixture")
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--self-test",action="store_true")
