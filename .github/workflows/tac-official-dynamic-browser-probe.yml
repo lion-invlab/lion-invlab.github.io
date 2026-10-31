@@ -1,4 +1,4 @@
-name: TAC Official CNN and CME Dynamic Browser Probe
+name: TAC Official CNN Dynamic Browser Probe
 
 on:
   push:
