@@ -26,6 +26,10 @@ on:
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_auxiliary_markets.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
+      - "schemas/tac-daily-content.schema.json"
+      - "scripts/validate_tac_daily_content.py"
+      - "schemas/tac-daily-content.schema.json"
+      - "scripts/validate_tac_daily_content.py"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
@@ -76,6 +80,9 @@ jobs:
 
       - name: Test TAC market snapshot schema
         run: python scripts/validate_tac_daily_snapshot.py --self-test
+
+      - name: Test TAC editorial content schema and report rules
+        run: python scripts/validate_tac_daily_content.py --self-test
 
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
