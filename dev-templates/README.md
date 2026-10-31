@@ -33,14 +33,14 @@
 - [ ] 使用瀏覽器驗證 DOM、tab、details/summary、紅圓加號、手機版版面
 - [ ] 使用 11/02 預覽進行非破壞性測試（須待前述結構驗收通過後）
 
-目前狀態：尚未產生開發母版；slot map 仍為候選 allowlist。CI 已確認週一母版 HTML5 正規化後為 1,976 個節點、4 個 parser 診斷；週二至週五母版為 1,902 個節點、3 個 parser 診斷。這些 parser 診斷是 HTML5 parser 對原始標記的修復提示，不代表瀏覽器 DOM 無法建立；目前只做同檔基準解析，尚未比較開發母版與正式母版的差異。正式母版既有重複 ID 已在 dom-count-audit-v1.md 記錄：週一兩個 ID 各重複 2 次，平日版一個 ID 重複 2 次；目前只記錄並鎖定數量，不擅自修正。仍未完成開發母版、受控 repeat-group、差異比對與瀏覽器互動／手機版驗收；不得啟用每日自動寫入，不得視為可採用或可部署。
+目前狀態：尚未產生開發母版；slot map 仍為候選 allowlist。CI 已確認週一母版 HTML5 正規化後為 1,976 個節點、4 個 parser 診斷；週二至週五母版為 1,902 個節點、3 個 parser 診斷。這些 parser 診斷是 HTML5 parser 對原始標記的修復提示，不代表瀏覽器 DOM 無法建立。已完成同一正式母版內的 repeat-group 新增／移除模擬，仍未建立開發母版，也未執行真實瀏覽器互動及手機版驗收。正式母版既有重複 ID 已在 dom-count-audit-v1.md 記錄並鎖定；本次驗證另確認新增卡片不得引入新的重複 ID。不得啟用每日自動寫入，不得視為可採用或可部署。
 
 ## Selector 命中數驗證補充
 - 已建立 `selector-registry-v1.json` 與 `scripts/audit_tac_template_selectors.py`，在 CI 以 HTML5 DOM + CSS selector 引擎驗證週一／平日候選節點命中數。
 - 首輪 15 個候選定位均通過（Run 41170538336）。
 - 擴充總結／情緒／今日觀察定位後，Run 41170577276 如實失敗：平日 CNN 日期節點不存在；關鍵價位只有一個 `.key` 容器而非預設 3 個。已更正為平日 CNN 日期預期 0、關鍵價位容器預期 1，並將含有收合來源內容的關鍵價位／核心觀察容器標記為 `protected_container_only`，不得整段覆寫。
 - 正式雙母版的 `<main id="overview">` 均由總結區開始，沒有獨立 KPI 區塊；KPI 插槽不建立、不新增版面。
-- 更正後的 CI 尚待執行驗收；在成功前不得將 27 個候選定位視為全數通過。
+- 目前已擴充至 31 個候選 selector；Run 41171589227 已通過雙母版所有 31 個定位稽核。
 
 ## Repeat-group 架構草案
 - 早期 `repeat-group-policy-v1.md` 已由 `repeat-group-policy-v1.1.md` 取代。新版明確規定經濟／財報小卡筆數為內容動態群組；母版 12／16／3／7 張僅是樣本數，不是目標、上限、下限或驗收門檻。
@@ -56,7 +56,7 @@
 - 固定的是各模板的外層容器、status group、標題、欄位、卡片骨架、details/summary、紅圓加號、來源收合、CSS／JS 與互動；動態的是每個列表內的事件卡張數。
 - 新版測試草案：`repeat-group-policy-v1.1.md`。舊版 `repeat-group-policy-v1.md` 已標記為被取代，避免誤讀。
 - 新增 `scripts/tac_repeat_group_validator.py` 與 `scripts/test_tac_repeat_group_validator.py`。驗證器允許登記的動態子項增減，逐張核對卡片完整骨架，並保護列表外框及文件其他固定結構。
-- Repeat Group 測試涵蓋：合法新增、合法移除、零張卡片但保留外框、卡片 class 非法變更、wrapper 變更、固定同層控制變更、wrapper 數量變更、非動態群組筆數變更。
+- Repeat Group 測試涵蓋：合法新增、合法移除、零張列表拒絕（等待 empty-state 變體規格）、卡片 class／style 非法變更、固定連結變更、卡片來源 href 更新、重複 ID、wrapper 變更、固定同層控制變更、wrapper 數量變更及非動態群組筆數變更。
 - 最新 CI Run **41171295933** 已完成成功：16 項單元測試、雙母版 SHA 鎖定、HTML5 結構解析、31 個候選 selector 命中數稽核及報告上傳全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41171295933
-- 本次仍只完成合成 HTML 測試與母版基準檢查；尚未對正式母版執行真實事件卡的新增／刪除候選文件測試，也尚未做瀏覽器互動及手機版驗收。故尚不能啟用開發母版產生、每日自動增刪或部署。
+- 已新增對兩份唯讀正式母版的真實 DOM 複製測試，模擬每個列表新增同骨架卡片及移除部分卡片，均通過。尚未做瀏覽器互動、手機版及 empty-state 變體驗收，故尚不能啟用開發母版產生、每日自動增刪或部署。
 - 以上全部僅在 `tac-template-architecture` 測試分支。正式 WR、兩份正式母版、manifest、首頁及 11/02 預覽均保持不變。
