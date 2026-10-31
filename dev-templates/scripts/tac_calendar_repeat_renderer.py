@@ -305,6 +305,11 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
                 section_report[status] = {"count": 0, "action": "not_applicable"}
                 continue
             if count == 0:
+                if section_name == "prior_week_economic":
+                    section_report[status] = {
+                        "count": 0, "action": "preserve_existing_prior_week_cards",
+                    }
+                    continue
                 if target["empty"] is not None and target["list"] is None:
                     section_report[status] = {"count": 0, "action": "keep_empty_state"}
                     continue
