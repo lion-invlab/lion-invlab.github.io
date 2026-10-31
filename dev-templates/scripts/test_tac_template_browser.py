@@ -29,10 +29,15 @@ class MotherTemplateBrowserTests(unittest.TestCase):
         page.goto(path.resolve().as_uri(), wait_until="domcontentloaded")
         return page
 
+    def _activate_upcoming_tabs(self, page):
+        page.locator('label[for="week-econ-upcoming"]').click()
+        page.locator('label[for="week-earnings-upcoming"]').click()
+
     def test_economic_and_earnings_cards_toggle_in_real_browser(self):
         for name, path in TEMPLATES.items():
             with self.subTest(template=name):
                 page = self._open(path)
+                self._activate_upcoming_tabs(page)
                 for selector in (
                     "#calendar .econ-event-list details.econ-event",
                     "#earnings .earnings-accordion-list details.earnings-accordion",
@@ -64,12 +69,13 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                 page = self._open(path)
                 page.set_viewport_size({"width": 320, "height": 800})
                 page.wait_for_timeout(150)
+                self._activate_upcoming_tabs(page)
                 for selector in ("#calendar .econ-event-list", "#earnings .earnings-accordion-list"):
                     lists = page.locator(selector)
-                    for index in range(lists.count()):
-                        metrics = lists.nth(index).evaluate(
-                            "(el) => ({left: el.getBoundingClientRect().left, right: el.getBoundingClientRect().right, width: el.getBoundingClientRect().width, scrollWidth: el.scrollWidth})"
-                        )
+                    visible_metrics = lists.evaluate_all(
+                        "(els) => els.filter(el => el.getClientRects().length).map(el => ({left: el.getBoundingClientRect().left, right: el.getBoundingClientRect().right, width: el.getBoundingClientRect().width, scrollWidth: el.scrollWidth}))"
+                    )
+                    for metrics in visible_metrics:
                         self.assertLessEqual(metrics["right"], 321, f"{name}: list overflows right edge: {metrics}")
                         self.assertGreaterEqual(metrics["left"], -1, f"{name}: list overflows left edge: {metrics}")
                         self.assertLessEqual(metrics["scrollWidth"], metrics["width"] + 1, f"{name}: list content overflows: {metrics}")
