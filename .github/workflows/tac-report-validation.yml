@@ -6,6 +6,7 @@ on:
     paths:
       - "2026-*.html"
       - "review/2026-*-review.html"
+      - "preview/2026-*.html"
       - "demo-2026-10-26.html"
       - "scripts/validate_tac_report.py"
       - ".github/workflows/tac-report-validation.yml"
@@ -28,6 +29,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
