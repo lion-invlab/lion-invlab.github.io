@@ -207,6 +207,7 @@ def earnings_card(proto,item,soup):
       (result_cards[0],"EPS",item.get("eps_actual"),item.get("eps_estimate")),
       (result_cards[1],"營收",item.get("revenue_actual"),item.get("revenue_estimate"))):
         put(slot(result_card,".earnings-actual-card-title","earnings result title"),title)
+        result_card["class"]=[x for x in result_card.get("class",[]) if x not in {"beat","miss","pending"}]+["pending"]
         lines=result_card.select(".earnings-actual-line")
         if len(lines)!=2: raise ValueError("earnings result card must have actual and estimate lines")
         put(slot(lines[0],"strong","earnings actual"),actual if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
