@@ -32,6 +32,7 @@ on:
       - "scripts/assemble_tac_daily_content.py"
       - "scripts/import_tac_calendar_capture.py"
       - "scripts/render_tac_daily_content.py"
+      - "scripts/render_tac_full_report.py"
       - "scripts/test_tac_daily_content_renderer.py"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
