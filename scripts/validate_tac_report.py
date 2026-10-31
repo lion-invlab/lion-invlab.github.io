@@ -200,6 +200,23 @@ def inspect(path: Path) -> list[str]:
                     + ", ".join(changed[:20])
                 )
 
+        # Enforce the complete DOM layout contract: content may change, but
+        # the approved master component hierarchy and presentation hooks may not.
+        layout_gate = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "validate_tac_layout_contract.py"),
+                "--master",
+                str(master_path),
+                "--report",
+                str(path),
+            ],
+            cwd=ROOT, text=True, capture_output=True,
+        )
+        if layout_gate.returncode != 0:
+            detail = (layout_gate.stdout + "\\n" + layout_gate.stderr).strip()
+            errors.append("daily preview DOM layout contract failed: " + detail)
+
         # Reuse the fixed market-field contract for the canonical daily preview,
         # not just for the two protected master templates.
         market_gate = subprocess.run(
