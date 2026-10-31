@@ -107,3 +107,17 @@
 
 - 目前最新雙母版插槽盤點入口為 [`slot-map-v1.4.md`](slot-map-v1.4.md)，承接 v1.3 並記錄 Run #74 的 61 個候選 selector cardinality 結果。
 - v1.3 保留作為前一版盤點紀錄；不得再將其中「商品／FOMC／週一上週卡尚未納入 registry」的舊狀態當作目前進度。
+
+## 2026-10-31 Run #84｜葉節點寫入防護正反向測試通過
+
+- 新增測試防護模組：`scripts/tac_field_write_guard.py`；僅供測試驗證，不是每日生產更新器。
+- 新增 `scripts/test_tac_field_write_guard.py`，並納入 CI。Run **#84（41176330236）成功**：
+  - 38 項結構／Repeat Group／Status Group／欄位寫入防護單元與整合測試通過。
+  - 5 項 Chromium 瀏覽器測試通過。
+  - 雙母版 SHA 鎖定、HTML5 結構指紋及 61 個候選 selector cardinality 稽核通過。
+  - 欄位防護測試涵蓋：已登記葉節點正向更新、週一經濟日期葉節點更新、商品觀察容器拒絕、固定欄位 label 拒絕、toggle／未知 selector 拒絕，以及即使 selector 被登記但目標含子元素仍拒絕更新。
+- Registry 已將能源／貴金屬商品名稱精確收斂至連結葉節點；週一上週經濟的混合內容值容器改列 protected，避免寫入時覆蓋來源連結。
+- Run 連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176330236
+- 最新盤點文件：[`slot-map-v1.4.md`](slot-map-v1.4.md)。Gate A 仍未完成：週一上週財報 EPS／營收實際與預期、優劣狀態、分析、股價表現及來源欄位尚未完整定位；總結／情緒／今日觀察的複合文字也尚未拆成安全葉節點。
+- 本次所有程式、registry、WR 草案與盤點文件都只在 `tac-template-architecture` 測試分支；正式首頁、雙母版、manifest、根目錄 WR v3.4 均未修改。未取得正式採用核准，不啟用每日寫入或部署。
+
