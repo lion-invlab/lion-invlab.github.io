@@ -188,6 +188,12 @@ def self_test():
     print("PASS: source fragment assembled with Monday template metadata")
     print("PASS: missing news and analysis remain empty/pending; no placeholder content invented")
 
+    weekday_shell = assemble("2026-11-03", "2026-11-02", generated, [], validator, schema)
+    assert weekday_shell["meta"]["template_type"] == "weekday"
+    assert weekday_shell["coverage"]["previous_economic_calendar"]["status"] == "not_applicable"
+    assert weekday_shell["coverage"]["previous_earnings_calendar"]["status"] == "not_applicable"
+    print("PASS: weekday shell marks Monday-only previous-week sections not applicable")
+
     try:
         assemble("2026-11-02","2026-10-30",generated,[sample,sample],validator,schema)
     except ValueError as exc:
