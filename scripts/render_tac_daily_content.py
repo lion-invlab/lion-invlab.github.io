@@ -160,8 +160,8 @@ def new_anchor(soup,node,src):
     node.clear(); a=soup.new_tag("a"); a["target"]="_blank"; a["rel"]=["noopener"]; node.append(a); source_link(a,src)
 def econ_card(proto,item,soup):
     card=copy.deepcopy(proto)
-    if len(card.select(".econ-toggle,.econ-event-toggle"))!=1:
-        raise ValueError("economic event prototype must preserve exactly one existing expand control")
+    if len(card.select("summary"))!=1:
+        raise ValueError("economic event prototype must preserve exactly one native details summary control")
     meta=slot(card,".econ-meta","econ meta")
     for sel,val in ((".econ-date",date_label(item["event_date"])),
       (".econ-time",dt(item["event_date"]).strftime("%H:%M")),
@@ -347,8 +347,12 @@ def render(content_path,input_html,output_html):
         for k in ("previous_economic_calendar","previous_earnings_calendar"):
             for e in data[k]:
                 if not start<=dt(e["event_date"]).date()<=end: raise ValueError(k+" event outside previous Monday-Friday window")
-        previous_week(soup,"economic",data["previous_economic_calendar"],data["coverage"]["previous_economic_calendar"],rd,econ_proto)
-        previous_week(soup,"earnings",data["previous_earnings_calendar"],data["coverage"]["previous_earnings_calendar"],rd,earn_proto)
+        prev_econ_nodes=soup.select("#last-week-calendar .econ-event")
+        prev_earn_nodes=soup.select("#last-week-earnings .earnings-accordion")
+        if not prev_econ_nodes or not prev_earn_nodes:
+            raise ValueError("Monday mother must contain previous-week event-card prototypes")
+        previous_week(soup,"economic",data["previous_economic_calendar"],data["coverage"]["previous_economic_calendar"],rd,copy.deepcopy(prev_econ_nodes[0]))
+        previous_week(soup,"earnings",data["previous_earnings_calendar"],data["coverage"]["previous_earnings_calendar"],rd,copy.deepcopy(prev_earn_nodes[0]))
     verify_template_controls(before,soup)
     if output_html.resolve() in PROTECTED or output_html.resolve()==input_html.resolve(): raise ValueError("refusing to overwrite protected/input file")
     output_html.parent.mkdir(parents=True,exist_ok=True); output_html.write_text(str(soup),encoding="utf-8")
