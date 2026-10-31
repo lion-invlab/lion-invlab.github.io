@@ -89,9 +89,9 @@ def validate_report_rules(data: dict) -> list[str]:
                         errors.append(
                             f"{label}: assessed earnings must not display an invented star rating"
                         )
-            if item["status"] == "released" and item.get("actual") is None and group_name == "economic_calendar":
+            if item["status"] == "released" and item.get("actual") is None and group_name in {"economic_calendar", "previous_economic_calendar"}:
                 errors.append(f"{label}: released economic event requires actual value")
-            if item["status"] == "released" and group_name == "earnings_calendar":
+            if item["status"] == "released" and group_name in {"earnings_calendar", "previous_earnings_calendar"}:
                 if item.get("eps_actual") is None and item.get("revenue_actual") is None:
                     errors.append(f"{label}: released earnings event requires EPS or revenue actual")
 
@@ -149,6 +149,23 @@ def self_test(validator, schema):
     if validate_report_rules(sample):
         raise AssertionError("valid pending-content sample failed report rules")
     print("PASS: complete pending-content shell accepted")
+
+    # A confirmed empty calendar is valid only when its coverage was actually checked.
+    complete_empty = json.loads(json.dumps(sample))
+    complete_empty["coverage"]["economic_calendar"] = {
+        "status": "complete", "source_refs": ["calendar-source"], "checked_at": "2026-10-31T20:00:00+08:00"
+    }
+    if validate_report_rules(complete_empty):
+        raise AssertionError("verified empty calendar coverage should pass")
+    print("PASS: confirmed empty calendar distinguished from incomplete collection")
+
+    incomplete_empty = json.loads(json.dumps(sample))
+    incomplete_empty["coverage"]["economic_calendar"] = {
+        "status": "complete", "source_refs": [], "checked_at": None
+    }
+    if not any("coverage.economic_calendar: complete requires" in e for e in validate_report_rules(incomplete_empty)):
+        raise AssertionError("empty complete coverage without provenance unexpectedly passed")
+    print("PASS: empty calendar cannot be marked complete without provenance")
 
     bad = json.loads(json.dumps(sample))
     bad["meta"]["template_type"] = "weekday"
