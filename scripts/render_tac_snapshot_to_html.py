@@ -106,7 +106,7 @@ def fmt(v,u):
     raise ValueError("unsupported display unit: "+str(u)+"; refusing to guess formatting")
 def make_edit(node,value):
     nodes=slot_text_nodes(node)
-    if len(nodes)!=1: raise ValueError("mapped slot must contain exactly one text node")
+    if len(nodes)!=1: raise ValueError("mapped slot must contain exactly one text node: <"+node.tag+"> class="+str(sorted(node.classes))+" count="+str(len(nodes))+" text="+repr(node.text[:100]))
     old,start,end=nodes[0]
     return start,end,html.escape(value,quote=False)
 def make_status_class_edit(node,status_class):
