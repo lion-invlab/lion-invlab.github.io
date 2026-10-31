@@ -33,6 +33,7 @@ class CalendarGroupInventoryTests(unittest.TestCase):
     def test_each_existing_status_group_is_explicitly_inventoried(self):
         for template, path in MOTHERS.items():
             report = inventory_calendar_groups(path.read_text(encoding="utf-8"), template)
+            self.assertTrue(report["pass"], f"{template}: {report}")
             for section in report["sections"].values():
                 if section["present"]:
                     self.assertTrue(section["groups"])
