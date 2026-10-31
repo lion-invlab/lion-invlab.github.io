@@ -247,6 +247,8 @@ def render(content_path,input_html,output_html):
             if data["coverage"][k]["status"]!="not_applicable": raise ValueError(k+" must be not_applicable for weekday reports")
     for k,n in (("focus_news",5),("market_headlines",10)):
         if len(data[k])!=n: raise ValueError(f"{k}: exactly {n} records required; got {len(data[k])}")
+        if data["coverage"][k]["status"]!="complete":
+            raise ValueError(k+" source coverage must be complete before rendering")
     if not input_html.is_file(): raise ValueError("market-rendered input HTML missing")
     soup=BeautifulSoup(input_html.read_text(encoding="utf-8"),"html.parser")
     before=copy.deepcopy(soup)
