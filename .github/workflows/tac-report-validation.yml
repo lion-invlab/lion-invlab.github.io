@@ -110,8 +110,16 @@ jobs:
           print(f"Live source result: {len(verified)}/17 verified; {len(pending)}/17 pending")
           print("Verified:", ", ".join(verified) or "none")
           print("Pending:", ", ".join(pending) or "none")
-          if not verified:
-              raise SystemExit("No index was retrieved from the live source")
+          if len(records) != 17:
+              raise SystemExit(f"Expected 17 index records, found {len(records)}")
+          if pending:
+              raise SystemExit(
+                  f"Incomplete live index coverage: {len(verified)}/17 verified; "
+                  f"{len(pending)}/17 pending. Partial data is retained for review, "
+                  "but the complete-market-data gate must fail."
+              )
+          if len(verified) != 17:
+              raise SystemExit(f"Expected 17 verified indices, found {len(verified)}")
           PY
 
       - name: Confirm global-index collector rejects incomplete run arguments
