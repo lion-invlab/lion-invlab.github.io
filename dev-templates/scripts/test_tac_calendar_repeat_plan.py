@@ -8,6 +8,7 @@ from tac_calendar_repeat_plan import plan_calendar_repeat_updates
 def source():
     return [{
         "source_name": "Official",
+        "field_label": "資料來源",
         "label": "Official",
         "url": "https://example.com/source",
         "accessed_at": "2026-10-31T12:00:00+08:00",
