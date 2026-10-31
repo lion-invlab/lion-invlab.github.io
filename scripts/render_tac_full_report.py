@@ -12,6 +12,13 @@ PROTECTED={ROOT/"index.html",ROOT/"TAC_WORK_RULES.md",
 
 def render_full(snapshot_path:Path,content_path:Path,output_path:Path,require_complete:bool=False)->dict:
     if output_path.resolve() in PROTECTED: raise ValueError("full report output cannot target a protected file")
+    if not snapshot_path.is_file() or not content_path.is_file():
+        raise ValueError("both snapshot JSON and editorial content JSON must exist")
+    snapshot_data=json.loads(snapshot_path.read_text(encoding="utf-8"))
+    content_data=json.loads(content_path.read_text(encoding="utf-8"))
+    for field in ("report_date","trading_date"):
+        if snapshot_data["meta"][field]!=content_data["meta"][field]:
+            raise ValueError("snapshot/editorial "+field+" mismatch: "+str(snapshot_data["meta"][field])+" != "+str(content_data["meta"][field]))
     from render_tac_daily_report import render as render_market
     from render_tac_daily_content import render as render_editorial
     with tempfile.TemporaryDirectory(prefix="tac-full-render-") as tmp:
