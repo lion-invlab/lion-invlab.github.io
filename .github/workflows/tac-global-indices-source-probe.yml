@@ -64,6 +64,20 @@ jobs:
             --trading-date "${{ inputs.trading_date }}" \
             --report-date "${{ inputs.report_date }}" \
             --output "artifacts/tac-risk-indicators-${{ inputs.trading_date }}.json"
+      - name: Retrieve Treasury 2Y/10Y/30Y with documented FRED fallback
+        run: |
+          if python scripts/fetch_tac_treasury_yields.py \
+            --trading-date "${{ inputs.trading_date }}" \
+            --report-date "${{ inputs.report_date }}" \
+            --output "artifacts/tac-treasury-${{ inputs.trading_date }}.json"; then
+            echo "Primary U.S. Treasury daily par-yield feed verified."
+          else
+            echo "Primary Treasury feed unavailable; use documented FRED DGS fallback."
+            python scripts/fetch_tac_treasury_fred_fallback.py \
+              --trading-date "${{ inputs.trading_date }}" \
+              --report-date "${{ inputs.report_date }}" \
+              --output "artifacts/tac-treasury-fred-fallback-${{ inputs.trading_date }}.json"
+          fi
       - name: Summarize retrieved coverage
         run: |
           python - <<'PY'
