@@ -84,7 +84,7 @@ class CalendarDatasetTests(unittest.TestCase):
                 econ("prior-late", "2026-10-30", "10:00", status_group="prior_week_published"),
                 econ("prior-early", "2026-10-29", "09:00", status_group="prior_week_published"),
             ],
-            prior_earnings=[earnings("prior-report", "2026-10-29", status_group="prior_week_published")],
+            prior_earnings=[earnings("prior-report", "2026-10-29", status_group="prior_week_published", taiwan_display_date="2026-10-29")],
         ))
         self.assertEqual(
             [x["event_id"] for x in result["prior_week_economic_events"]],
@@ -216,7 +216,7 @@ class CalendarDatasetTests(unittest.TestCase):
         self.assertEqual(len(result["earnings_events"]), 1)
 
     def test_taiwan_display_date_is_not_us_publication_date(self):
-        row = earnings(event_date="2026-11-02", taiwan_display_date="2026-11-03")
+        row = earnings(event_date="2026-11-02", event_time="16:00", taiwan_display_date="2026-11-03")
         result = validate_calendar_dataset(dataset(earnings_rows=[row]))
         self.assertEqual(result["earnings_events"][0]["event_date"], "2026-11-02")
         self.assertEqual(result["earnings_events"][0]["taiwan_display_date"], "2026-11-03")
