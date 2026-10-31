@@ -18,7 +18,7 @@ from zoneinfo import ZoneInfo
 import requests
 from bs4 import BeautifulSoup
 
-API_URL = "https://www.investing.com/economic-calendar/Service/getCalendarFilteredData"
+API_URLS = ("https://hk.investing.com/economic-calendar/Service/getCalendarFilteredData", "https://www.investing.com/economic-calendar/Service/getCalendarFilteredData")
 SOURCE_URL = "https://hk.investing.com/economic-calendar/"
 SOURCE_NAME = "Investing.com 香港站"
 TAIPEI = ZoneInfo("Asia/Taipei")
@@ -129,30 +129,39 @@ def fetch_events(start: date, end: date, session: requests.Session | None = None
     client = session or requests.Session()
     observed_at = datetime.now(timezone.utc).isoformat()
     payload = {
-        "dateFrom": start.isoformat(),
-        "dateTo": end.isoformat(),
-        "timeZone": GMT_TIMEZONE_ID,
-        "timeFilter": "time_only",
-        "currentTab": "custom",
-        "submitFilters": 1,
-        "limit_from": 0
+        "dateFrom": start.isoformat(), "dateTo": end.isoformat(),
+        "timeZone": GMT_TIMEZONE_ID, "timeFilter": "time_only",
+        "currentTab": "custom", "submitFilters": 1, "limit_from": 0
     }
-    headers = {
-        "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/126.0 Safari/537.36",
-        "X-Requested-With": "XMLHttpRequest",
-        "Accept": "application/json, text/plain, */*",
-        "Origin": "https://www.investing.com",
-        "Referer": "https://www.investing.com/economic-calendar/"
-    }
+    user_agent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/140.0.0.0 Safari/537.36"
     all_events: dict[str, dict] = {}
     for page in range(20):
-        response = client.post(API_URL, data=payload, headers=headers, timeout=30)
-        response.raise_for_status()
-        body = response.json()
-        html = body.get("data") if isinstance(body, dict) else None
-        if not isinstance(html, str):
-            raise ValueError("Investing.com calendar response did not contain HTML data")
-        page_events = parse_calendar_html(html, observed_at)
+        body = None
+        last_error = None
+        for api_url in API_URLS:
+            host = api_url.split("/economic-calendar/", 1)[0]
+            headers = {
+                "User-Agent": user_agent, "X-Requested-With": "XMLHttpRequest",
+                "Accept": "application/json, text/plain, */*",
+                "Accept-Language": "zh-TW,zh;q=0.9,en;q=0.8",
+                "Origin": host, "Referer": host + "/economic-calendar/"
+            }
+            try:
+                # Establish a normal same-site session before calling the calendar service.
+                client.get(host + "/economic-calendar/", headers={"User-Agent": user_agent}, timeout=20)
+                response = client.post(api_url, data=payload, headers=headers, timeout=30)
+                response.raise_for_status()
+                candidate = response.json()
+                html = candidate.get("data") if isinstance(candidate, dict) else None
+                if not isinstance(html, str):
+                    raise ValueError("Investing.com calendar response did not contain HTML data")
+                body = candidate
+                break
+            except (requests.RequestException, ValueError) as exc:
+                last_error = exc
+        if body is None:
+            raise RuntimeError("Investing.com economic calendar unavailable on HK and global hosts: " + str(last_error))
+        page_events = parse_calendar_html(body["data"], observed_at)
         before = len(all_events)
         for item in page_events:
             all_events[item["id"]] = item
@@ -162,7 +171,6 @@ def fetch_events(start: date, end: date, session: requests.Session | None = None
     else:
         raise ValueError("Investing.com calendar pagination exceeded safety limit")
     return sorted(all_events.values(), key=lambda item: item["event_date"]), observed_at
-
 
 def build_payload(args) -> dict:
     start = date.fromisoformat(args.start_date)
