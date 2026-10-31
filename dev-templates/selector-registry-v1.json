@@ -123,7 +123,7 @@
       "selector": "section.grid.two article.card.bluf > p",
       "monday": 1,
       "weekdays": 1,
-      "kind": "content"
+      "kind": "protected_container_only"
     },
     {
       "name": "vix_sentiment_value",
