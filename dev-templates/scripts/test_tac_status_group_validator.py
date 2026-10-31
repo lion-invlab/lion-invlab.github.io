@@ -179,13 +179,16 @@ class RealMotherStatusGroupTests(unittest.TestCase):
                 self.assertIsNotNone(result, f"{section}: expected baseline list and empty prototypes")
                 self.assertTrue(result["pass"], result)
 
-    def test_weekday_mother_does_not_gain_unapproved_empty_markup(self):
-        source, root = self._load("weekdays")
-        for section, list_selector, card_selector in (
-            ("#calendar", ".econ-event-list", ".econ-event"),
-            ("#earnings", ".earnings-accordion-list", ".earnings-accordion"),
-        ):
-            with self.subTest(section=section):
+    def test_sections_without_same_template_empty_prototype_reject_new_empty_markup(self):
+        cases = (
+            ("weekdays", "#calendar", ".econ-event-list", ".econ-event"),
+            ("weekdays", "#earnings", ".earnings-accordion-list", ".earnings-accordion"),
+            ("monday", "#last-week-calendar", ".econ-event-list", ".econ-event"),
+            ("monday", "#last-week-earnings", ".earnings-accordion-list", ".earnings-accordion"),
+        )
+        for template_name, section, list_selector, card_selector in cases:
+            with self.subTest(template=template_name, section=section):
+                source, root = self._load(template_name)
                 candidate = deepcopy(root)
                 section_node = query(candidate, section)[0]
                 groups = within(candidate, section_node, ".calendar-status-group")
@@ -199,6 +202,7 @@ class RealMotherStatusGroupTests(unittest.TestCase):
                     StatusGroupSpec("target", section, list_selector=list_selector, card_selector=card_selector)
                 ])
                 self.assertFalse(result["pass"], result)
+
 
 
 if __name__ == "__main__":
