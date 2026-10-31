@@ -8,9 +8,9 @@ ROOT=Path(__file__).resolve().parents[1]
 MAP=ROOT/"scripts/tac_html_binding_map.json"
 
 class Node:
-    def __init__(self,tag,attrs,start,tag_end=None,class_span=None):
+    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None):
         self.tag,self.attrs,self.start=tag,dict(attrs),start
-        self.tag_end,self.class_span=tag_end,class_span
+        self.tag_end,self.class_span,self.style_span=tag_end,class_span,style_span
         self.end=None; self.children=[]
     @property
     def classes(self): return set((self.attrs.get("class") or "").split())
@@ -101,6 +101,27 @@ def change_status(record):
         return "warn"
     change=float(record["change"])
     return "up" if change>0 else "down" if change<0 else "flat"
+def make_style_property_edit(node,property_name,value):
+    if node.style_span is None or not node.attrs.get("style"):
+        raise ValueError("mapped style attribute missing")
+    start,end=node.style_span
+    style=node.attrs["style"]
+    match=re.search(r"(?i)(\\b"+re.escape(property_name)+r"\\s*:\\s*)([^;]+)",style)
+    if not match: raise ValueError("mapped style property missing: "+property_name)
+    return start+match.start(2),start+match.end(2),value
+def fear_greed_category(score):
+    value=float(score)
+    if not 0<=value<=100: raise ValueError("CNN Fear & Greed score must be between 0 and 100")
+    if value<=24: return "Extreme Fear","極度恐懼"
+    if value<=44: return "Fear","恐懼"
+    if value<=55: return "Neutral","中性"
+    if value<=75: return "Greed","貪婪"
+    return "Extreme Greed","極度貪婪"
+def source_summary(record):
+    if record.get("status")!="verified" or not record.get("source"):
+        return "待核實：尚無符合本次交易日期的來源資料。"
+    src=record["source"]
+    return "來源："+src["name"]+"｜資料日期："+src["data_date"]+"｜觀測時間："+src["observed_at"]
 def sort_sector_rows(source,snapshot,mapping):
     spec=mapping["groups"]["sectors"]
     tree=Parser(source)
@@ -151,6 +172,54 @@ def render(source,snapshot,mapping):
             edits += [make_edit(vals[0],fmt(record["value"],record["unit"]) if ok else "待核實"),
                       make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實"),
                       make_status_class_edit(vals[1],change_status(record))]
+    risk_spec=mapping["groups"]["risk_indicators"]
+    risk_container=by_id(tree.root,risk_spec["container"].lstrip("#"))
+    if len(risk_container)!=1: raise ValueError("risk indicators container missing or duplicated")
+    for key,record_spec in risk_spec["records"].items():
+        record=snapshot["risk_indicators"][key]
+        row_class=record_spec["row"].lstrip(".")
+        rows=by_class(risk_container[0],row_class)
+        label_hits=[]
+        for row in rows:
+            labels=[n for n in row.descendants() if "label-en" in n.classes]
+            if any(normalize(n.text)==record_spec["key_text"] for n in labels):
+                label_hits.append(row)
+        if len(label_hits)!=1: raise ValueError("risk row "+key+" expected once")
+        row=label_hits[0]
+        value_nodes=selector_nodes(row,record_spec["value_selector"])
+        source_nodes=selector_nodes(row,record_spec["source_selector"])
+        if len(value_nodes)!=1 or len(source_nodes)!=1: raise ValueError("risk row "+key+" value/source slot missing or duplicated")
+        verified=record["status"]=="verified" and record.get("value") is not None
+        if key in ("vix","move"):
+            change_nodes=[n for n in row.descendants() if n.classes.intersection({"warn","up","down","flat"})]
+            if len(change_nodes)!=1: raise ValueError("risk row "+key+" change slot missing or duplicated")
+            edits.append(make_edit(value_nodes[0],fmt(record["value"],record["unit"]) if verified else "待核實"))
+            edits.append(make_edit(change_nodes[0],fmt(record["change"],record.get("change_unit")) if verified and record.get("change") is not None else "待核實"))
+            edits.append(make_status_class_edit(change_nodes[0],change_status(record)))
+        else:
+            if verified:
+                score=float(record["value"])
+                category_en,category_zh=fear_greed_category(score)
+                category_nodes=selector_nodes(row,record_spec["category_selector"])
+                category_zh_nodes=selector_nodes(row,record_spec["category_zh_selector"])
+                marker_nodes=selector_nodes(row,record_spec["marker_selector"])
+                if len(category_nodes)!=1 or len(category_zh_nodes)!=1 or len(marker_nodes)!=1:
+                    raise ValueError("CNN Fear & Greed category/marker slots missing or duplicated")
+                edits.append(make_edit(value_nodes[0],format(score,".0f")))
+                edits.append(make_edit(category_nodes[0],category_en))
+                edits.append(make_edit(category_zh_nodes[0],category_zh))
+                edits.append(make_style_property_edit(marker_nodes[0],record_spec["marker_style_property"],format(score,".2f")+"%"))
+            else:
+                edits.append(make_edit(value_nodes[0],"待核實"))
+                category_nodes=selector_nodes(row,record_spec["category_selector"])
+                category_zh_nodes=selector_nodes(row,record_spec["category_zh_selector"])
+                marker_nodes=selector_nodes(row,record_spec["marker_selector"])
+                if len(category_nodes)!=1 or len(category_zh_nodes)!=1 or len(marker_nodes)!=1:
+                    raise ValueError("CNN Fear & Greed category/marker slots missing or duplicated")
+                edits.append(make_edit(category_nodes[0],"待核實"))
+                edits.append(make_edit(category_zh_nodes[0],"待核實"))
+                edits.append(make_style_property_edit(marker_nodes[0],record_spec["marker_style_property"],"0%"))
+        edits.append(make_edit(source_nodes[0],source_summary(record)))
     sector_spec=mapping["groups"]["sectors"]
     sector_container=by_id(tree.root,sector_spec["container"].lstrip("#"))
     if len(sector_container)!=1: raise ValueError("sectors container missing or duplicated")
@@ -260,6 +329,18 @@ def self_test():
     else:
         raise AssertionError("unknown display unit must fail closed")
     print("PASS: known Treasury units formatted and unknown units rejected")
+    assert fear_greed_category(10)==("Extreme Fear","極度恐懼")
+    assert fear_greed_category(33)==("Fear","恐懼")
+    assert fear_greed_category(50)==("Neutral","中性")
+    assert fear_greed_category(66)==("Greed","貪婪")
+    assert fear_greed_category(90)==("Extreme Greed","極度貪婪")
+    try:
+        fear_greed_category(101)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("out-of-range CNN score must fail closed")
+    print("PASS: CNN Fear & Greed category thresholds and range validation")
 
 def main():
     ap=argparse.ArgumentParser()
