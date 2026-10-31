@@ -1,0 +1,72 @@
+name: TAC Template Architecture Tests
+
+on:
+  push:
+    branches:
+      - tac-template-architecture
+    paths:
+      - "dev-templates/**"
+      - ".github/workflows/tac-template-architecture-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  structure-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout test branch
+        uses: actions/checkout@v4
+        with:
+          ref: tac-template-architecture
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify official mother-template SHA locks
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, subprocess, sys
+          manifest = json.loads(pathlib.Path("母版專區/mother-template-manifest.json").read_text(encoding="utf-8"))
+          failures = []
+          for key in ("monday", "weekdays"):
+              item = manifest["templates"][key]
+              path = item["path"]
+              actual = subprocess.check_output(["git", "hash-object", path], text=True).strip()
+              expected = item["blob_sha"]
+              print(f"{key}: {path} expected={expected} actual={actual}")
+              if actual != expected:
+                  failures.append(f"{key} SHA mismatch")
+          if failures:
+              print("\n".join(failures), file=sys.stderr)
+              raise SystemExit(1)
+          PY
+
+      - name: Run fingerprint unit tests
+        working-directory: dev-templates/scripts
+        run: python -m unittest -v test_tac_template_structure_fingerprint.py
+
+      - name: Parse and fingerprint both locked mother templates
+        shell: bash
+        run: |
+          mkdir -p architecture-test-results
+          python dev-templates/scripts/tac_template_structure_fingerprint.py \
+            --baseline "母版專區/TAC_母版_週一_2026-10-28_最終定版.html" \
+            --candidate "母版專區/TAC_母版_週一_2026-10-28_最終定版.html" \
+            --report architecture-test-results/monday-baseline.json
+          python dev-templates/scripts/tac_template_structure_fingerprint.py \
+            --baseline "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html" \
+            --candidate "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html" \
+            --report architecture-test-results/weekdays-baseline.json
+
+      - name: Upload baseline audit reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-template-architecture-baseline-audits
+          path: architecture-test-results/
+          if-no-files-found: warn
