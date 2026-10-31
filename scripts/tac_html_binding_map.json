@@ -233,7 +233,9 @@
       "market_observation_selector": ".focus-market",
       "key_levels_selector": ".focus-levels",
       "core_observation_selector": ".focus-core",
-      "market_sentiment_label": "📌 核心解讀"
+      "market_sentiment_label": "📌 核心解讀",
+      "focus_container": "#view",
+      "sentiment_container": "#sentiment"
     },
     "news": {
       "global_focus_container": "#global-focus",
