@@ -24,6 +24,7 @@ on:
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_auxiliary_markets.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -46,6 +47,7 @@ on:
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_auxiliary_markets.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -98,6 +100,9 @@ jobs:
 
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
+
+      - name: Test Investing.com HK auxiliary market collector
+        run: python scripts/fetch_tac_auxiliary_markets.py --self-test
 
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
@@ -175,6 +180,13 @@ jobs:
           grep -q -- "--trading-date" /tmp/tac-source-args.err
           echo "PASS: collector rejects incomplete run arguments"
 
+      - name: Fetch 11 sector ETFs, DXY, FX, commodities, VIX and MOVE
+        run: |
+          python scripts/fetch_tac_auxiliary_markets.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "/tmp/tac-auxiliary-markets-2026-10-30.json"
+
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
           python scripts/fetch_tac_treasury_yields.py \
@@ -190,6 +202,7 @@ jobs:
             --trading-date "2026-10-30" \
             --fragment "/tmp/tac-global-indices-2026-10-30.json" \
             --fragment "/tmp/tac-treasury-yields-2026-10-30.json" \
+            --fragment "/tmp/tac-auxiliary-markets-2026-10-30.json" \
             --output "/tmp/tac-daily-snapshot-2026-11-02.json"
 
       - name: Render partial data-binding smoke output (NOT review-ready)
@@ -207,6 +220,7 @@ jobs:
           path: |
             /tmp/tac-global-indices-2026-10-30.json
             /tmp/tac-treasury-yields-2026-10-30.json
+            /tmp/tac-auxiliary-markets-2026-10-30.json
             /tmp/tac-daily-snapshot-2026-11-02.json
             /tmp/tac-partial-market-binding-2026-11-02.html
           if-no-files-found: warn
