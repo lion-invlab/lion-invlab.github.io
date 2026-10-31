@@ -26,7 +26,10 @@ class MotherTemplateBrowserTests(unittest.TestCase):
     def _open(self, path):
         self.assertTrue(path.exists(), f"Missing locked mother template: {path}")
         page = self.browser.new_page(viewport={"width": 1280, "height": 900})
-        page.goto(path.resolve().as_uri(), wait_until="domcontentloaded")
+        page.set_default_timeout(6000)
+        page.route("https://**/*", lambda route: route.abort())
+        page.route("http://**/*", lambda route: route.abort())
+        page.goto(path.resolve().as_uri(), wait_until="domcontentloaded", timeout=15000)
         return page
 
     def _activate_upcoming_tabs(self, page):
