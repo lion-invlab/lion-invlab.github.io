@@ -11,6 +11,7 @@ on:
     branches: ["main"]
     paths:
       - "scripts/tac_official_dynamic_browser_probe.mjs"
+      - "scripts/tac_cme_language_page_probe.mjs"
       - ".github/workflows/tac-official-dynamic-browser-probe.yml"
   workflow_dispatch:
 
@@ -41,6 +42,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tac-official-dynamic-browser-probe-${{ github.run_id }}
-          path: artifacts/tac-official-dynamic-probe/
+          path: |
+            artifacts/tac-official-dynamic-probe/
+            artifacts/cme-language-page-probe/
           if-no-files-found: warn
           retention-days: 14
