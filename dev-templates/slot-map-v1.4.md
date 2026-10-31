@@ -64,7 +64,7 @@
 |---|---|---|---|---|
 | WTI／Brent | 雙模板 | `#tac-assets-panel-3 .energy-card` | `.energy-card > .row` 兩列；`.tab-panel-meta`、`.market-reason`、`.source-details` | 欄位 selector 已納入 registry，Run #74 雙模板 cardinality 通過；正反向寫入安全測試待完成 |
 | Gold／Silver | 雙模板 | `#tac-assets-panel-4 article.card` | `article.card > .row` 兩列；日期／合約口徑、觀察、來源 | 欄位 selector 已納入 registry，Run #74 雙模板 cardinality 通過；正反向寫入安全測試待完成 |
-| FOMC 會議 | 雙模板 | `#fed .fed-live-fomc .fc-fomc` | `.fc-fomc-meeting b`、`.fc-fomc-press b`、`.fc-fomc-rate b`／`small`、`.fc-fomc-observation b`、說明段落 | 專項定位（候選）；補入 selector registry 並驗證雙模板 |
+| FOMC 會議 | 雙模板 | `#fed .fed-live-fomc .fc-fomc` | `.fc-fomc-meeting b`、`.fc-fomc-press b`、`.fc-fomc-rate b`／`small`、`.fc-fomc-observation b`、說明段落 | 欄位 selector 已納入 registry，Run #74 雙模板 cardinality 通過；正反向寫入安全測試待完成 |
 
 商品的能源與貴金屬是不同 tab panel，不可合併或跨面板寫入。日期／合約口徑與來源文字雖屬資料內容，仍須按各自行情資料來源逐筆對應。
 
@@ -72,8 +72,8 @@
 
 | 區塊 | 容器／候選定位 | 資料節點候選 | 筆數規則 | 狀態 |
 |---|---|---|---|---|
-| 上週經濟行事曆 | `#last-week-calendar` → `.last-week-calendar-collapse` → `.calendar-status-group` → `.econ-event-list` | 每張 `.econ-event` 的 `.econ-date`、`.econ-time`、`.econ-country`、`.econ-name`、`.econ-stars`；展開欄位 `.econ-details .econ-field .econ-value` | 動態；依 WR 重要性五星事件 | 摘要欄位 selector 已納入 registry，Run #74 cardinality 通過；完整財報結果欄位與正反向測試待完成 |
-| 上週財報行事曆 | `#last-week-earnings` → `.last-week-earnings-collapse` → `.calendar-status-group` → `.earnings-accordion-list` | 每張 `.earnings-accordion` 的日期、公司、產業、星級；結果卡 EPS／營收實際與預期、優劣狀態、分析、來源 | 動態；依 WR 篩選重要財報 | 專項定位（候選）；需補 registry 與逐欄位測試 |
+| 上週經濟行事曆 | `#last-week-calendar` → `.last-week-calendar-collapse` → `.calendar-status-group` → `.econ-event-list` | 每張 `.econ-event` 的 `.econ-date`、`.econ-time`、`.econ-country`、`.econ-name`、`.econ-stars`；展開欄位 `.econ-details .econ-field .econ-value` | 動態；依 WR 重要性五星事件 | 摘要欄位 selector 已納入 registry，Run #74 cardinality 通過；經濟欄位 leaf 正反向測試待完成 |
+| 上週財報行事曆 | `#last-week-earnings` → `.last-week-earnings-collapse` → `.calendar-status-group` → `.earnings-accordion-list` | 每張 `.earnings-accordion` 的日期、公司、產業、星級；結果卡 EPS／營收實際與預期、優劣狀態、分析、來源 | 動態；依 WR 篩選重要財報 | 摘要欄位 selector 已納入 registry，Run #74 cardinality 通過；EPS／營收結果欄位與正反向測試待完成 |
 
 上週經濟／財報外層收合、status group、列表 wrapper、卡片骨架與欄位 label 固定。不得把目前樣本 3 張／7 張寫死。這兩個區塊只存在於週一模板，平日模板沒有它們是正常模板差異，不是缺漏。
 
@@ -95,8 +95,8 @@
 
 ## 8. Gate A 尚需完成的工作
 
-- [ ] 將商品 WTI／Brent、Gold／Silver 與 FOMC selector 納入 registry，逐模板跑命中數、父子關係及 cardinality。
-- [ ] 將週一上週經濟／財報欄位納入 registry，確認每個欄位在每張卡中的唯一性及卡片骨架。
+- [ ] 為商品 WTI／Brent、Gold／Silver 與 FOMC 葉節點建立正向／負向寫入安全測試；觀察、來源與說明容器維持 protected。
+- [ ] 補完週一上週財報 EPS／營收實際與預期、優劣狀態、分析、股價表現及來源欄位定位；為週一上週經濟／財報建立逐卡正反向測試。
 - [ ] 將總結、情緒、今日觀察的複合欄位拆成可安全更新的葉節點；對含有來源收合、計算方式、標籤的容器明確設為 protected。
 - [ ] 對所有「專項定位」欄位建立正向／反向測試：允許資料葉節點變更，拒絕父容器、label、class、style、aria、details/summary、CSS／JS 變更。
 - [ ] 產出週一與平日兩份欄位層級驗證報告；兩版不得合併成單一假設。
