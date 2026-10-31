@@ -179,21 +179,62 @@
       "selector": "#view .focus-panel.focus-market .key",
       "monday": 1,
       "weekdays": 1,
-      "kind": "protected_container_only"
+      "kind": "text_segments",
+      "segments": [
+        {
+          "child_index": 1,
+          "expected_tag": "br",
+          "target": "tail"
+        }
+      ]
     },
     {
       "name": "today_key_levels",
       "selector": "#view .focus-panel.focus-levels .key",
       "monday": 1,
       "weekdays": 1,
-      "kind": "protected_container_only"
+      "kind": "text_segments",
+      "segments": [
+        {
+          "child_index": 0,
+          "expected_tag": "b",
+          "target": "tail"
+        },
+        {
+          "child_index": 2,
+          "expected_tag": "b",
+          "target": "tail"
+        },
+        {
+          "child_index": 4,
+          "expected_tag": "b",
+          "target": "tail"
+        },
+        {
+          "child_index": 6,
+          "expected_tag": "b",
+          "target": "tail"
+        },
+        {
+          "child_index": 8,
+          "expected_tag": "b",
+          "target": "tail"
+        }
+      ]
     },
     {
       "name": "today_core_callout",
       "selector": "#view .focus-panel.focus-core .callout",
       "monday": 1,
       "weekdays": 1,
-      "kind": "protected_container_only"
+      "kind": "text_segments",
+      "segments": [
+        {
+          "child_index": 0,
+          "expected_tag": "b",
+          "target": "tail"
+        }
+      ]
     },
     {
       "name": "weekly_economic_event_lists",
@@ -572,68 +613,6 @@
       "monday": 4,
       "weekdays": 0,
       "kind": "source_link_leaf"
-    },
-    {
-      "name": "today_market_view_text_segment",
-      "selector": "#view .focus-panel.focus-market .key",
-      "monday": 1,
-      "weekdays": 1,
-      "kind": "text_segments",
-      "segments": [
-        {
-          "child_index": 1,
-          "expected_tag": "br",
-          "target": "tail"
-        }
-      ]
-    },
-    {
-      "name": "today_key_levels_text_segments",
-      "selector": "#view .focus-panel.focus-levels .key",
-      "monday": 1,
-      "weekdays": 1,
-      "kind": "text_segments",
-      "segments": [
-        {
-          "child_index": 0,
-          "expected_tag": "b",
-          "target": "tail"
-        },
-        {
-          "child_index": 2,
-          "expected_tag": "b",
-          "target": "tail"
-        },
-        {
-          "child_index": 4,
-          "expected_tag": "b",
-          "target": "tail"
-        },
-        {
-          "child_index": 6,
-          "expected_tag": "b",
-          "target": "tail"
-        },
-        {
-          "child_index": 8,
-          "expected_tag": "b",
-          "target": "tail"
-        }
-      ]
-    },
-    {
-      "name": "today_core_callout_text_segment",
-      "selector": "#view .focus-panel.focus-core .callout",
-      "monday": 1,
-      "weekdays": 1,
-      "kind": "text_segments",
-      "segments": [
-        {
-          "child_index": 0,
-          "expected_tag": "b",
-          "target": "tail"
-        }
-      ]
     }
   ],
   "notes": [
