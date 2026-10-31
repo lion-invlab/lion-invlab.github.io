@@ -37,10 +37,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Test DOM layout contract
         run: python scripts/validate_tac_layout_contract.py --self-test
 
@@ -51,59 +53,13 @@ jobs:
         id: preview
         shell: bash
         run: |
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git fetch origin "${GITHUB_BASE_REF}"
-            changed="$(git diff --name-only "origin/${GITHUB_BASE_REF}...HEAD")"
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            git fetch origin "$GITHUB_BASE_REF"
+            changed="$(git diff --name-only "origin/$GITHUB_BASE_REF...HEAD")"
           else
             changed="$(git diff-tree --no-commit-id --name-only -r HEAD)"
           fi
-          report="$(printf '%s\\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\\.html
-      # Keep a durable, deduplicated alert when the structural gate fails.
-      # Pages deployment listens for this workflow's success only.
-      - name: Open or update failure alert
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const sha = context.sha;
-            const title = `TAC report validation failed: ${sha.slice(0, 7)}`;
-            const body = [
-              "## TAC Daily Report Structural Gate failed",
-              "",
-              `- Workflow run: ${runUrl}`,
-              `- Commit: ${sha}`,
-              `- Branch: ${context.ref}`,
-              `- Event: ${context.eventName}`,
-              "",
-              "Do not treat this report as ready for review and do not deploy it.",
-              "Inspect the failed job logs, correct the underlying report or validator issue, then rerun the gate."
-            ].join("\n");
-            const existing = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: "open",
-              per_page: 100
-            });
-            const match = existing.data.find(issue => issue.title === title && !issue.pull_request);
-            if (match) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: match.number,
-                body
-              });
-              core.info(`Updated existing failure issue #${match.number}`);
-            } else {
-              const created = await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title,
-                body
-              });
-              core.info(`Created failure issue #${created.data.number}`);
-            }
- | head -n 1 || true)"
+          report="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
           echo "path=$report" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node.js for browser regression
@@ -117,45 +73,41 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Run desktop and mobile layout regression
+        env:
+          REPORT_PATH: \${{ steps.preview.outputs.path }}
         run: |
-          if [ -n "${{ steps.preview.outputs.path }}" ]; then
-            report="${{ steps.preview.outputs.path }}"
-          else
-            # Validator-only changes still exercise the approved weekday master
-            # at desktop, tablet and 320px mobile widths.
-            report="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+          if [ -z "$REPORT_PATH" ]; then
+            REPORT_PATH="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
           fi
-          node scripts/tac_browser_layout_regression.mjs --report "$report" --output artifacts/tac-layout
+          node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
 
       - name: Upload layout regression screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-layout-regression-${{ github.run_id }}
+          name: tac-layout-regression-\${{ github.run_id }}
           path: artifacts/tac-layout/
           if-no-files-found: warn
 
-      # Keep a durable, deduplicated alert when the structural gate fails.
-      # Pages deployment listens for this workflow's success only.
       - name: Open or update failure alert
         if: failure()
         uses: actions/github-script@v7
         with:
           script: |
-            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const runUrl = \`https://github.com/\${context.repo.owner}/\${context.repo.repo}/actions/runs/\${context.runId}\`;
             const sha = context.sha;
-            const title = `TAC report validation failed: ${sha.slice(0, 7)}`;
+            const title = \`TAC report validation failed: \${sha.slice(0, 7)}\`;
             const body = [
               "## TAC Daily Report Structural Gate failed",
               "",
-              `- Workflow run: ${runUrl}`,
-              `- Commit: ${sha}`,
-              `- Branch: ${context.ref}`,
-              `- Event: ${context.eventName}`,
+              \`- Workflow run: \${runUrl}\`,
+              \`- Commit: \${sha}\`,
+              \`- Branch: \${context.ref}\`,
+              \`- Event: \${context.eventName}\`,
               "",
               "Do not treat this report as ready for review and do not deploy it.",
               "Inspect the failed job logs, correct the underlying report or validator issue, then rerun the gate."
-            ].join("\n");
+            ].join("\\n");
             const existing = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -170,7 +122,7 @@ jobs:
                 issue_number: match.number,
                 body
               });
-              core.info(`Updated existing failure issue #${match.number}`);
+              core.info(\`Updated existing failure issue #\${match.number}\`);
             } else {
               const created = await github.rest.issues.create({
                 owner: context.repo.owner,
@@ -178,5 +130,5 @@ jobs:
                 title,
                 body
               });
-              core.info(`Created failure issue #${created.data.number}`);
+              core.info(\`Created failure issue #\${created.data.number}\`);
             }
