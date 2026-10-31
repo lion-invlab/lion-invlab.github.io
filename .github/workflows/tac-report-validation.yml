@@ -23,6 +23,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   structural-gate:
@@ -38,3 +39,49 @@ jobs:
           python-version: "3.12"
       - name: Validate dated report structure
         run: python scripts/validate_tac_report.py
+
+      # Keep a durable, deduplicated alert when the structural gate fails.
+      # Pages deployment listens for this workflow's success only.
+      - name: Open or update failure alert
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const runUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const sha = context.sha;
+            const title = `TAC report validation failed: ${sha.slice(0, 7)}`;
+            const body = [
+              "## TAC Daily Report Structural Gate failed",
+              "",
+              `- Workflow run: ${runUrl}`,
+              `- Commit: ${sha}`,
+              `- Branch: ${context.ref}`,
+              `- Event: ${context.eventName}`,
+              "",
+              "Do not treat this report as ready for review and do not deploy it.",
+              "Inspect the failed job logs, correct the underlying report or validator issue, then rerun the gate."
+            ].join("\\n");
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100
+            });
+            const match = existing.data.find(issue => issue.title === title && !issue.pull_request);
+            if (match) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: match.number,
+                body
+              });
+              core.info(`Updated existing failure issue #${match.number}`);
+            } else {
+              const created = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body
+              });
+              core.info(`Created failure issue #${created.data.number}`);
+            }
