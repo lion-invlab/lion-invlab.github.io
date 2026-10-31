@@ -84,7 +84,8 @@ def plan_calendar_repeat_updates(dataset, template_inventory):
             elif baseline_empty:
                 ok, action, reason = True, "keep_empty_state", None
             elif baseline_list and section_empty_prototype:
-                ok, action, reason = True, "switch_to_existing_empty_state", None
+                ok, action = False, "blocked"
+                reason = "empty_state_text_mapping_missing"
             else:
                 ok, action = False, "blocked"
                 reason = "same_section_empty_state_prototype_missing"
