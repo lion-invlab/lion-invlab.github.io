@@ -322,3 +322,18 @@
 - Run #41182431871 完整成功：**120 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar inventory 及稽核報告上傳均通過。
 - 目前已完成「資料契約 → 排序 → 狀態群組安全規劃 → per-card Mapping → 寫入前整批準備閘門」。尚未實作 DOM Repeat Group 新增／刪除／替換、欄位實際寫入或瀏覽器端到端資料更新。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182431871
+
+
+## 2026-10-31 Run #41183368182｜本週行事曆 Repeat Group 卡片渲染器初版
+
+- 新增 `scripts/tac_calendar_repeat_renderer.py`：把已驗證的經濟／財報 per-card payload 寫入測試用 HTML；只在同一模板、同一 status group 內挑選既有卡片原型，複製後更新摘要 leaf、detail leaf 及既有來源 anchor。
+- 寫入前逐卡比對摘要欄位、detail label 集合、來源欄位 label 與 anchor 數量；來源只允許絕對 HTTP(S) URL，且不得包含帳密或控制字元。欄位與來源 label 必須符合 Selector Registry allowlist。
+- 所有新卡片先在私有解析文件中完成複製及驗證，所有群組都備妥後才替換列表子節點；任一欄位、來源或原型不符即整批拒絕，不回傳部分 HTML。
+- 更新後以 `validate_repeat_groups` 對照原始正式母版，確認固定 DOM、repeat card skeleton、唯一 ID、CSS／JS 資產及列表 wrapper 結構不變。卡片數量可依資料增減，但不得跨狀態群組借用原型。
+- 本版只支援本週經濟與財報群組。週一母版目前只有「即將公布」群組具卡片原型；若週一今日公布／已公布需要新增卡片，會阻擋。平日三個狀態群組均可依各自原型更新，但若某群組資料變成零筆而沒有核准的 empty-state 轉換，仍阻擋。
+- 週一上週行事曆目前保留原內容，不由本版更新；上週財報含 EPS／營收結果卡及複合分析區，尚須專用欄位 Mapping。只要資料集帶入上週事件，本版就拒絕整批渲染，避免只更新部分日曆。
+- 新增 9 項 renderer 測試，涵蓋雙模板／狀態群組渲染、同群組原型複製、卡片增減、週一無原型阻擋、無 empty-state 不清空、上週資料阻擋、未授權 label、來源 anchor 數量與不安全 URL。
+- Run #41183368182 完整成功：**130 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、status-group inventory、94 selector cardinality 及稽核報告上傳均成功。
+- 中間 Run #41183212925／#41183264296 因測試 fixture 未涵蓋來源欄位與保留其他狀態群組而失敗；已修正 fixture 後由 Run #41183368182 完整驗收，不把中間失敗列為通過。
+- 重要界線：這是測試用 HTML renderer，尚未連接真實資料蒐集，也未完成週一今日／已公布原型、上週經濟／財報專用更新、瀏覽器對渲染後頁面的互動驗收或每日生產流程。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41183368182
