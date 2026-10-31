@@ -89,7 +89,9 @@ class CalendarRepeatPlanTests(unittest.TestCase):
 
     def test_monday_prior_week_existing_prototypes_allow_card_plan(self):
         data = dataset(
-            "monday", [], [],
+            "monday",
+            [econ("weekly-e", "upcoming")],
+            [earnings("weekly-r", "upcoming")],
             [econ("prior-e", "prior_week_published")],
             [earnings("prior-r", "prior_week_published")],
         )
