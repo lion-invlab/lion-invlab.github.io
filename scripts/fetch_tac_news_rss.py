@@ -102,7 +102,7 @@ def parse_feed(xml_text: str, feed: dict, observed_at: str) -> list[dict]:
             "source":{"name":feed["name"],"url":link,"published_at":parsed.isoformat(),
                       "observed_at":observed_at,"publisher":feed["name"],
                       "notes":"RSS candidate; summary is feed-provided and not an independently verified full-article analysis."},
-            "status":"verified","impact":None,"_feed_role":feed["role"]
+            "status":"pending_verification","impact":None,"_feed_role":feed["role"]
         })
     return output
 
@@ -142,7 +142,7 @@ def collect(start: datetime, end: datetime, feeds=FEEDS, fetcher=fetch_feed):
     return {"focus_news":focus,"market_headlines":headlines,
             "meta":{"news_window_start":start.isoformat(),"news_window_end":end.isoformat()},
             "collector":{"feeds_attempted":len(feeds),"items_in_window":len(candidates),
-                         "errors":errors,"status":"verified" if candidates else "pending_verification"}}
+                         "errors":errors,"status":"pending_verification"}}
 
 
 def self_test():
@@ -160,6 +160,7 @@ def self_test():
     assert parsed[0]["category"]=="macro"
     assert parsed[1]["category"]=="company"
     assert parsed[0]["source"]["url"]=="https://example.com/a"
+    assert parsed[0]["status"]=="pending_verification"
     print("PASS: RSS item parsing, canonical article URL and publication time")
     print("PASS: macro and company categories distinguished")
     def fake_fetch(_feed):
