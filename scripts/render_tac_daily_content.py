@@ -146,7 +146,7 @@ def update_calendar_sources(soup, data):
             note="來源覆蓋已完成；僅顯示 Investing.com 原生 3 星經濟事件。"
         elif complete:
             note="來源覆蓋已完成；未取得來源原生星等的財報事件標示為未評級／待核實。"
-        elif coverage_key=="earnings":
+        elif coverage_key=="earnings_calendar":
             note="來源擷取尚未完成；未取得來源原生星等的財報事件標示為未評級／待核實；目前沒有資料不代表沒有重要事件，請勿視為完整日程。"
         else:
             note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件，請勿視為完整日程。"
