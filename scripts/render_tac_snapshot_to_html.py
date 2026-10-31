@@ -119,11 +119,13 @@ def self_test():
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--self-test",action="store_true")
-    ap.add_argument("--html",required=True); ap.add_argument("--snapshot",required=True)
-    ap.add_argument("--output",required=True); ap.add_argument("--template",choices=("monday","weekday"),required=True)
+    ap.add_argument("--html"); ap.add_argument("--snapshot")
+    ap.add_argument("--output"); ap.add_argument("--template",choices=("monday","weekday"))
     a=ap.parse_args()
     if a.self_test:
         self_test(); return
+    if not all((a.html,a.snapshot,a.output,a.template)):
+        ap.error("--html, --snapshot, --output and --template are required unless --self-test is used")
     from validate_tac_daily_snapshot import load_validator
     validator,_=load_validator()
     snap=json.loads(Path(a.snapshot).read_text(encoding="utf-8"))
