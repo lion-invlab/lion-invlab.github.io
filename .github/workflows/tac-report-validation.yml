@@ -68,6 +68,15 @@ jobs:
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
 
+      - name: Confirm live Investing.com retrieval is blocked without permission
+        run: |
+          if python scripts/fetch_tac_global_indices.py --trading-date "2026-10-30" --report-date "2026-11-02" --output "/tmp/should-not-fetch.json" 2> /tmp/tac-source-guard.err; then
+            echo "FAIL: live retrieval unexpectedly ran without permission"
+            exit 1
+          fi
+          grep -q "live retrieval is disabled pending written source-data permission" /tmp/tac-source-guard.err
+          echo "PASS: live retrieval blocked without explicit permission"
+
       # Live Investing.com data retrieval is disabled pending written source authorization.
 
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
