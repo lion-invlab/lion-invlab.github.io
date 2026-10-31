@@ -135,3 +135,12 @@
 - Run **#93（41176580490）成功**：44 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、HTML5 DOM 指紋及 68 個 selector cardinality 稽核全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176580490
 - 仍待定位：週一上週財報的股價當日表現與來源連結安全葉節點，以及分析文字的細部拆分；Gate A 尚未完成。
 
+## 2026-10-31 Run #99–#100｜來源連結安全更新測試
+
+- Selector Registry 擴充至 **72 項**。週一上週財報的來源容器仍列為 protected；另獨立定位 13 個來源 anchor leaf（平日母版 0 個，符合模板差異）。
+- 新增 `update_registered_source_links()`：僅能逐一更新已登記 anchor 的 `href` 與 label；URL 僅允許絕對 HTTP(S)，拒絕 javascript:、無 host、帳密 URL、控制字元；更新數量必須與 anchor 命中數完全一致。既有 `target`、`rel` 屬性保留。
+- Run **#99（41176987923）** 與 **#100（41176996598）** 均成功。兩次各通過 46 項單元／整合測試、5 項 Chromium 瀏覽器測試及 72 項 selector cardinality；雙母版 SHA 與 DOM 指紋檢查通過。
+- 這是測試分支的安全更新函式，尚未接入每日資料流程或 Repeat Group updater，不代表正式早報已啟用自動來源更新。
+- Run #99：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176987923
+- Run #100：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176996598
+
