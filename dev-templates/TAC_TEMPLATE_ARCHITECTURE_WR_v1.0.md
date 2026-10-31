@@ -371,3 +371,14 @@
 - Run #127–#131 曾因上述登記查找歧義而失敗；原因已定位並修正，Run #132 完整重跑成功，舊失敗紀錄不視為驗收通過。
 - 目前仍屬欄位定位與獨立更新器測試，尚未接入每日資料更新器、資料來源 mapping 或 Repeat Group updater；Gate A 尚未完成。
 - https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178152876
+
+## 2026-10-31 Run #137｜Registry 唯一性修正驗收
+
+- Registry 由 84 個候選 selector 收斂為 **81 個**；市場觀點、今日關鍵價位、核心觀察三組 text-segments 登記已合併至原有 selector，不再建立重複 CSS selector。
+- 新增 test_registry_has_no_duplicate_css_selectors，明確要求 Registry 內所有 selector 唯一；文字片段測試改用合併後的正式登記名稱。
+- 文字片段更新器只接受唯一一筆 text_segments 登記，並驗證命中數、索引、標籤、筆數與字串型別；一般 leaf writer 仍不得改寫此類欄位。
+- Run #137（41178495179）完整成功：**57 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、81 個候選 selector cardinality 稽核及測試報告上傳均成功。
+- Run #136（中間提交）因 Registry 已先合併而測試尚未同步更新，故失敗；其後 Run #137 已以一致版本完整通過。此中間失敗不列為最終驗收。
+- 此次完成 Registry 唯一性治理，不代表資料匯入器、Repeat Group 更新器或每日產製流程已接通；Gate A 仍未完成，Gate B–E 尚未啟動／核准。
+- Run #137：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178495179
+
