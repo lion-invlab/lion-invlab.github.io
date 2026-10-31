@@ -1,0 +1,6881 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lion-invlab.github.io/schemas/tac-daily-market-snapshot.schema.json",
+  "title": "TAC Daily Market Snapshot",
+  "description": "Normalized market-data contract for TAC daily report ingestion. This schema does not define or change source priority; source selection remains governed by TAC_WORK_RULES.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "meta",
+    "global_indices",
+    "sectors",
+    "bonds",
+    "fx",
+    "energy",
+    "precious_metals",
+    "risk_indicators",
+    "fedwatch"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report_date",
+        "trading_date",
+        "generated_at",
+        "timezone",
+        "wr_version"
+      ],
+      "properties": {
+        "report_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "trading_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timezone": {
+          "const": "Asia/Taipei"
+        },
+        "wr_version": {
+          "const": "3.5"
+        }
+      }
+    },
+    "global_indices": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dow",
+        "sp500",
+        "nasdaq_composite",
+        "russell_2000",
+        "sox",
+        "hang_seng",
+        "shanghai_composite",
+        "shenzhen_component",
+        "nikkei_225",
+        "kospi",
+        "twse",
+        "singapore_sti",
+        "asx_200",
+        "ftse_100",
+        "dax",
+        "cac_40",
+        "stoxx_europe_600"
+      ],
+      "properties": {
+        "dow": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "sp500": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "nasdaq_composite": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "russell_2000": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "sox": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "hang_seng": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "shanghai_composite": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "shenzhen_component": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "nikkei_225": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "kospi": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "twse": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "singapore_sti": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "asx_200": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "ftse_100": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "dax": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "cac_40": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "stoxx_europe_600": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "sectors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "xlk",
+        "xly",
+        "xlb",
+        "xlu",
+        "xli",
+        "xlv",
+        "xlf",
+        "xlc",
+        "xlre",
+        "xlp",
+        "xle"
+      ],
+      "properties": {
+        "xlk": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xly": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlb": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlu": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xli": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlv": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlf": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlc": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlre": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xlp": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "xle": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "bonds": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "us_2y",
+        "us_10y",
+        "us_30y"
+      ],
+      "properties": {
+        "us_2y": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "us_10y": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "us_30y": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "fx": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dxy",
+        "usd_twd",
+        "eur_usd",
+        "gbp_usd",
+        "aud_usd",
+        "usd_jpy"
+      ],
+      "properties": {
+        "dxy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "usd_twd": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "eur_usd": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "gbp_usd": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "aud_usd": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "usd_jpy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "energy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "wti",
+        "brent"
+      ],
+      "properties": {
+        "wti": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "brent": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "precious_metals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gold_gc",
+        "silver_si"
+      ],
+      "properties": {
+        "gold_gc": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "silver_si": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "risk_indicators": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vix",
+        "move",
+        "cnn_fear_greed"
+      ],
+      "properties": {
+        "vix": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "move": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "cnn_fear_greed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "unit",
+            "change",
+            "change_unit",
+            "status",
+            "source",
+            "fallback_used",
+            "fallback_reason",
+            "notes"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": "string",
+              "minLength": 1
+            },
+            "change": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "change_unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "verified",
+                "pending_verification",
+                "missing",
+                "market_closed"
+              ]
+            },
+            "source": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name",
+                    "url",
+                    "observed_at",
+                    "data_date",
+                    "quote_type",
+                    "instrument"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "observed_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "data_date": {
+                      "type": "string",
+                      "format": "date"
+                    },
+                    "quote_type": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "instrument": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              ]
+            },
+            "fallback_used": {
+              "type": "boolean"
+            },
+            "fallback_reason": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "notes": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "status": {
+                    "const": "verified"
+                  }
+                },
+                "required": [
+                  "status"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "source": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "fallback_used": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "fallback_used"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "fallback_reason": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "fedwatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_meeting",
+        "updated_at",
+        "source",
+        "probabilities",
+        "status",
+        "notes"
+      ],
+      "properties": {
+        "target_meeting": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "url"
+          ],
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "probabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "rate_range",
+              "probability"
+            ],
+            "properties": {
+              "rate_range": {
+                "type": "string"
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "pending_verification",
+            "missing"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
