@@ -43,6 +43,7 @@ on:
       - "scripts/tac_content_binding_map.json"
       - "scripts/validate_tac_content_binding.py"
       - "scripts/assemble_tac_daily_content.py"
+      - "scripts/import_tac_calendar_capture.py"
       - "scripts/fetch_tac_news_rss.py"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -100,6 +101,9 @@ jobs:
 
       - name: Test TAC editorial fragment assembler
         run: python scripts/assemble_tac_daily_content.py --self-test
+
+      - name: Test source-provenance calendar capture adapter
+        run: python scripts/import_tac_calendar_capture.py --self-test
 
       - name: Validate editorial content binding selectors against both approved mothers
         run: python scripts/validate_tac_content_binding.py
