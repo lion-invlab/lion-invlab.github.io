@@ -264,8 +264,10 @@ def apply_risk_detail_notes(soup, snapshot):
     status_en = status_node.select_one("span") if status_node else None
     status_zh = status_node.select_one("b") if status_node else None
     detail = card.select_one("details.source-details .source")
-    if not all((date_node, status_en, status_zh, detail)):
-        raise ValueError("risk_indicators.cnn_fear_greed: required date, rating or source slots missing")
+    if not all((status_en, status_zh, detail)):
+        raise ValueError("risk_indicators.cnn_fear_greed: required rating or source slots missing")
+    # The locked Tue-Fri mother intentionally has no .fg6-date node.
+    # Preserve its DOM contract; update the date only where the approved mother provides a slot.
     source = record.get("source") or {}
     if record.get("status") == "verified":
         score = float(record["value"])
@@ -287,7 +289,8 @@ def apply_risk_detail_notes(soup, snapshot):
         en, zh = "待核實", "待核實"
         date_text = "CNN Fear & Greed｜資料日期待核實"
         source_note = "待核實：CNN 官方指定日期資料尚未完成核對，不沿用母版舊日期或舊數值。"
-    replace_text(date_node, date_text, "risk_indicators.cnn_fear_greed.date")
+    if date_node is not None:
+        replace_text(date_node, date_text, "risk_indicators.cnn_fear_greed.date")
     replace_text(status_en, en, "risk_indicators.cnn_fear_greed.rating_en")
     replace_text(status_zh, zh, "risk_indicators.cnn_fear_greed.rating_zh")
     replace_text(detail, source_note, "risk_indicators.cnn_fear_greed.source_note")
