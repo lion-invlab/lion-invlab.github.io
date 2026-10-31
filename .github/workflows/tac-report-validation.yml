@@ -109,6 +109,8 @@ jobs:
       # Live source collection is exercised by the dedicated manual source-probe
       # workflow; structural validation remains deterministic and network-independent.
 
+      - name: Test TAC risk-indicator collector parser
+        run: python scripts/fetch_tac_risk_indicators.py --self-test
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
           python scripts/fetch_tac_treasury_yields.py \
