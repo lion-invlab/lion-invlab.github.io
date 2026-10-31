@@ -8,7 +8,7 @@
   "rules": {
     "mutate_only_text_nodes": false,
     "preserve_element_tree": true,
-    "preserve_attributes": true,
+    "preserve_attributes": false,
     "preserve_css_and_scripts": true,
     "pending_value_text": "待核實",
     "status_class_map": {
@@ -29,7 +29,8 @@
     "preserve_attributes_except": [
       "whitelisted status class tokens on mapped value slots",
       "content on meta[name=report-date]"
-    ]
+    ],
+    "preserve_all_non_whitelisted_attributes": true
   },
   "groups": {
     "global_indices": {
