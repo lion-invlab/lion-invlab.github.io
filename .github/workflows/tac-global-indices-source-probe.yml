@@ -48,6 +48,14 @@ jobs:
             --trading-date "${{ inputs.trading_date }}" \
             --report-date "${{ inputs.report_date }}" \
             --output "artifacts/tac-sector-etfs-${{ inputs.trading_date }}.json"
+      - name: Validate six FX source parsers
+        run: python scripts/fetch_tac_fx.py --self-test
+      - name: Retrieve exact-date FX indicators
+        run: |
+          python scripts/fetch_tac_fx.py \
+            --trading-date "${{ inputs.trading_date }}" \
+            --report-date "${{ inputs.report_date }}" \
+            --output "artifacts/tac-fx-${{ inputs.trading_date }}.json"
       - name: Summarize retrieved coverage
         run: |
           python - <<'PY'
