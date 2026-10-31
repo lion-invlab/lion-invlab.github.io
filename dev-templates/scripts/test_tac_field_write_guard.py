@@ -6,6 +6,7 @@ from tac_field_write_guard import (
     parse_html,
     select_wrappers,
     update_registered_leaf_text,
+    update_registered_source_links,
 )
 
 
@@ -108,6 +109,40 @@ class FieldWriteGuardTests(unittest.TestCase):
         self.assertTrue(any(list(x.etree_element) for x in matches))
         with self.assertRaises(PermissionError):
             update_registered_leaf_text(root, selector, "overwrite links", self.registry)
+
+    def test_source_links_update_href_and_label_without_replacing_anchor_structure(self):
+        root = parse_html(self._source("monday"))
+        selector = self._item("last_week_earnings_source_link_leaves")["selector"]
+        anchors = select_wrappers(root, selector)
+        self.assertEqual(len(anchors), 13)
+        first = anchors[0].etree_element
+        first.attrib["target"] = "_blank"
+        first.attrib["rel"] = "noopener"
+        count = update_registered_source_links(
+            root,
+            selector,
+            [{"href": "https://example.com/updated", "label": "Updated source"}]
+            + [{"href": f"https://example.com/{i}", "label": f"Source {i}"} for i in range(1, 13)],
+            self.registry,
+        )
+        self.assertEqual(count, 13)
+        self.assertEqual(first.attrib["href"], "https://example.com/updated")
+        self.assertEqual(first.text, "Updated source")
+        self.assertEqual(first.attrib["target"], "_blank")
+        self.assertEqual(first.attrib["rel"], "noopener")
+
+    def test_source_link_updater_rejects_unsafe_urls_and_wrong_selectors(self):
+        root = parse_html(self._source("monday"))
+        selector = self._item("last_week_earnings_source_link_leaves")["selector"]
+        links = [{"href": "javascript:alert(1)", "label": "bad"}] + [
+            {"href": f"https://example.com/{i}", "label": f"Source {i}"} for i in range(1, 13)
+        ]
+        with self.assertRaises(ValueError):
+            update_registered_source_links(root, selector, links, self.registry)
+        with self.assertRaises(PermissionError):
+            update_registered_source_links(root, self._item("last_week_earnings_source_link_container")["selector"], [], self.registry)
+        with self.assertRaises(ValueError):
+            update_registered_source_links(root, selector, links[:-1], self.registry)
 
     def test_protected_observation_container_is_rejected(self):
         root = parse_html(self._source("monday"))
