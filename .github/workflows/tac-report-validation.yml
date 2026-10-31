@@ -180,6 +180,23 @@ jobs:
             --report-date "2026-11-02" \
             --output "/tmp/tac-treasury-yields-2026-10-30.json"
 
+      - name: Assemble verified market fragments into a dated TAC snapshot
+        if: success()
+        run: |
+          python scripts/assemble_tac_daily_snapshot.py \
+            --report-date "2026-11-02" \
+            --trading-date "2026-10-30" \
+            --fragment "/tmp/tac-global-indices-2026-10-30.json" \
+            --fragment "/tmp/tac-treasury-yields-2026-10-30.json" \
+            --output "/tmp/tac-daily-snapshot-2026-11-02.json"
+
+      - name: Render dated TAC review HTML from the approved Monday mother
+        if: success()
+        run: |
+          python scripts/render_tac_daily_report.py \
+            --snapshot "/tmp/tac-daily-snapshot-2026-11-02.json" \
+            --output "/tmp/tac-daily-review-2026-11-02.html"
+
       - name: Upload live market-data probe JSON for audit
         if: always()
         uses: actions/upload-artifact@v4
@@ -188,6 +205,8 @@ jobs:
           path: |
             /tmp/tac-global-indices-2026-10-30.json
             /tmp/tac-treasury-yields-2026-10-30.json
+            /tmp/tac-daily-snapshot-2026-11-02.json
+            /tmp/tac-daily-review-2026-11-02.html
           if-no-files-found: warn
           retention-days: 14
 
