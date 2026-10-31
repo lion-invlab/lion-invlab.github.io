@@ -64,6 +64,14 @@ jobs:
             --trading-date "${{ inputs.trading_date }}" \
             --report-date "${{ inputs.report_date }}" \
             --output "artifacts/tac-risk-indicators-${{ inputs.trading_date }}.json"
+      - name: Validate WTI Brent GC SI commodity parser
+        run: python scripts/fetch_tac_commodities.py --self-test
+      - name: Retrieve WTI Brent GC SI exchange settlements with documented fallback
+        run: |
+          python scripts/fetch_tac_commodities.py \
+            --trading-date "${{ inputs.trading_date }}" \
+            --report-date "${{ inputs.report_date }}" \
+            --output "artifacts/tac-commodities-${{ inputs.trading_date }}.json"
       - name: Retrieve Treasury 2Y/10Y/30Y with documented FRED fallback
         run: |
           if python scripts/fetch_tac_treasury_yields.py \
