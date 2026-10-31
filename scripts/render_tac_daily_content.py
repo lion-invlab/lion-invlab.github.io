@@ -139,10 +139,30 @@ def update_calendar_sources(soup, data):
       ("earnings","earnings_calendar","本週財報行事曆")):
         section=slot(soup,"#"+section_id,label)
         article=slot(section,"article.calendar-card",label+" article")
-        node=slot(article,".title small",label+" title metadata")
-        status=data["coverage"][coverage_key]["status"]
-        note=("來源覆蓋已完成" if status=="complete" else "來源擷取尚未完成，事件清單僅為已取得資料，不代表完整日程")
-        put(node,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間，事件依實際日期分流。")
+        title_meta=slot(article,".title small",label+" title metadata")
+        coverage=data["coverage"][coverage_key]
+        complete=coverage["status"]=="complete"
+        note=("來源覆蓋已完成；僅顯示來源原生 3 星經濟事件及已核實資料。" if complete
+              else "來源擷取尚未完成；目前沒有資料不代表沒有重要事件，請勿視為完整日程。")
+        put(title_meta,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間。")
+        source_node=slot(article,".source",label+" source note")
+        if complete:
+            source_note="來源覆蓋已完成；事件日期、發布時間及實際值依來源逐項核對。"
+        else:
+            source_note="來源擷取尚未完成；已清除母版舊期來源說明與事件，不沿用過期日程。"
+        # Keep the existing source link element, but repoint it to the live calendar landing page.
+        existing_anchor=source_node.find("a",recursive=False)
+        if existing_anchor is not None:
+            for child in list(source_node.children):
+                if isinstance(child,NavigableString):
+                    child.replace_with(NavigableString(source_note+" "))
+            src_refs=coverage.get("source_refs") or ["https://hk.investing.com/economic-calendar/"]
+            src_url=src_refs[0] if src_refs else "https://hk.investing.com/economic-calendar/"
+            source_link(existing_anchor,{"name":"Investing.com 香港站行事曆","url":src_url,
+                "observed_at":coverage.get("checked_at") or data["meta"]["generated_at"]})
+        else:
+            put(source_node,source_note)
+
 def sentiment(soup, analysis):
     boxes=soup.select("#sentiment .sent > .sbox")
     if not boxes: raise ValueError("market sentiment interpretation box missing")
