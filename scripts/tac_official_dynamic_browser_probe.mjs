@@ -132,6 +132,9 @@ try {
     result.cme.tool_error = String(e);
     try { await framePage.screenshot({ path: outDir + '/cme-fedwatch-error.png', fullPage: true }); } catch {}
   }
+} catch (e) {
+  result.cme.status = result.cme.status || 'probe_failed';
+  result.cme.unhandled_error = String(e);
 }
 
 await fs.writeFile(outDir + '/probe-result.json', JSON.stringify(result, null, 2));
