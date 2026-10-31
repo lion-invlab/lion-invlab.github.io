@@ -184,6 +184,29 @@ def self_test() -> None:
     )
     assert len(assembled["economic_calendar"]) == 1
     assert len(assembled["earnings_calendar"]) == 1
+
+    empty_capture = dict(payload)
+    empty_capture["economic_events"] = []
+    empty_capture["earnings_events"] = []
+    empty_capture["coverage"] = {
+        "economic_calendar": {
+            "status": "complete", "source_refs": ["synthetic-calendar-index"],
+            "checked_at": "2026-10-31T21:00:00+08:00"
+        },
+        "earnings_calendar": {
+            "status": "incomplete", "source_refs": [], "checked_at": None
+        }
+    }
+    empty_fragment = normalize(empty_capture)
+    empty_assembled = assemble(
+        "2026-11-02", "2026-10-30", "2026-10-31T21:00:00+08:00",
+        [empty_fragment], validator, schema
+    )
+    assert empty_assembled["economic_calendar"] == []
+    assert empty_assembled["coverage"]["economic_calendar"]["status"] == "complete"
+    assert empty_assembled["coverage"]["earnings_calendar"]["status"] == "incomplete"
+    print("PASS: verified empty calendar remains distinct from an incomplete capture")
+
     print("PASS: only source-native 3-star economic events are imported")
     print("PASS: unrated earnings require a traceable major-event assessment and retain null stars")
     print("PASS: source URLs and observation timestamps are preserved through assembly")
