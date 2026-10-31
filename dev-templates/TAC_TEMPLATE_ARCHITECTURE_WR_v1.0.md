@@ -328,3 +328,10 @@
 - 來源連結更新器已驗證逐 anchor 更新 href／label、保留 target／rel，並拒絕 javascript:、錯誤 selector 及數量不符。
 - 尚未接入每日資料匯入或 Repeat Group updater；不得當作正式生產寫入授權。
 
+## 2026-10-31 Run #112｜市場情緒與總結欄位補記
+
+- Run #112（41177327390）通過 51 項單元／整合測試、5 項瀏覽器測試及 77 項 selector cardinality。
+- VIX／MOVE 漲跌幅、CNN 中英文狀態、核心解讀文字及總結標題已完成 leaf mapping 測試。
+- 總結正文、今日觀察複合容器、CNN 狀態父容器及 marker style 維持 protected；不可用 textContent／innerHTML 整段覆寫。
+- 本文件仍為 DRAFT，Gate A 未完成，不授權正式生產寫入。
+
