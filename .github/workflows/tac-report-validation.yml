@@ -43,7 +43,7 @@ jobs:
         run: python scripts/validate_tac_layout_contract.py --self-test
 
       - name: Validate dated report structure
-        run: python scripts/validate_tac_report.py
+        run: python scripts/validate_tac_report.py --changed-only
 
       # Keep a durable, deduplicated alert when the structural gate fails.
       # Pages deployment listens for this workflow's success only.
