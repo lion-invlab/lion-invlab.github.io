@@ -149,9 +149,12 @@ def update_calendar_sources(soup, data):
         # source-provenance note inside each calendar card. Update only the
         # final .source node; do not overwrite the explanatory guidance.
         source_nodes=article.select(".source")
-        if not source_nodes:
-            raise ValueError(f"{label} source note: expected at least one .source node")
-        source_node=source_nodes[-1]
+        # The Monday mother has a separate global provenance note; the locked
+        # Tue-Fri mother intentionally relies on per-event source fields and
+        # has no global .source node. Never add or invent a DOM slot.
+        source_node=source_nodes[-1] if source_nodes else None
+        if source_node is None:
+            continue
         if complete:
             source_note="來源覆蓋已完成；事件日期、發布時間及實際值依來源逐項核對。"
         else:
