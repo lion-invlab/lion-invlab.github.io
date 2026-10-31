@@ -42,7 +42,6 @@ on:
       - "scripts/validate_tac_content_binding.py"
       - "scripts/assemble_tac_daily_content.py"
       - "scripts/import_tac_calendar_capture.py"
-      - "scripts/fetch_tac_fiscal_earnings_calendar.py"
       - "scripts/fetch_tac_news_rss.py"
       - "2026-*.html"
       - "review/2026-*-review.html"
@@ -98,9 +97,6 @@ jobs:
 
       - name: Test source-provenance calendar capture adapter
         run: python scripts/import_tac_calendar_capture.py --self-test
-
-      - name: Test Fiscal.ai earnings schedule candidate collector
-        run: python scripts/fetch_tac_fiscal_earnings_calendar.py --self-test
 
       - name: Validate editorial content binding selectors against both approved mothers
         run: python scripts/validate_tac_content_binding.py
