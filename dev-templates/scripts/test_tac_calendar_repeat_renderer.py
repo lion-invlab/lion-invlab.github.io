@@ -156,7 +156,7 @@ class CalendarRepeatRendererTests(unittest.TestCase):
     def test_detail_schema_mismatch_is_rejected(self):
         data = _records("weekdays")
         data["economic_events"][1]["details"]["未授權欄位"] = "value"
-        with self.assertRaisesRegex(PermissionError, "no same-group prototype"):
+        with self.assertRaisesRegex(PermissionError, "non-allowlisted labels|no same-group prototype"):
             render_weekly_calendar_updates(self.weekdays_html, data, self.weekdays_inventory)
 
     def test_source_anchor_count_mismatch_is_rejected(self):
