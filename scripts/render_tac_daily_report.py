@@ -324,8 +324,11 @@ def self_test():
             sector_keys = list(snapshot["sectors"])
             for rank, key in enumerate(sector_keys):
                 snapshot["sectors"][key] = verified(
-                    100.0 + rank, "USD_per_share", float(rank), "percent", key.upper()
+                    100.0 + rank, "USD_per_share", float(rank + 2), "percent", key.upper()
                 )
+            snapshot["sectors"]["xlk"] = verified(
+                100.0, "USD_per_share", 1.5, "percent", "XLK"
+            )
             snapshot["bonds"]["us_10y"] = verified(4.25, "percent", -2, "basis_point", "US 10Y Treasury")
             snapshot["fx"]["usd_twd"] = verified(32.123, "exchange_rate", -0.5, "percent", "USD/TWD")
             snapshot["energy"]["wti"] = verified(70.22, "USD_per_barrel", -1.2, "percent", "WTI")
