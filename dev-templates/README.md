@@ -287,3 +287,13 @@
 - Run #41181717574 完整成功：**100 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar group inventory 報告及測試報告上傳成功。
 - 本階段仍未建立真正的卡片複製／新增／刪除與欄位填入器，也未接入實際資料匯入；planner 僅為寫入前安全閘門。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181717574
+
+
+## 2026-10-31 Run #41181918499｜行事曆資料契約型別與時區強化
+
+- 行事曆事件的 `event_timezone` 不再只檢查非空字串，改以 Python `zoneinfo` 驗證有效 IANA 時區；錯誤時區名稱直接拒絕。
+- `status_group`、`release_session`、`template` 均增加字串型別檢查，避免 list／dict 等錯誤型別造成未預期例外或被誤認為合法值。
+- 新增 3 項負向測試：無效 IANA 時區、非字串狀態群組、非字串財報公告時段。
+- Run #41181918499 完整成功：**103 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar group inventory 及稽核報告上傳均通過。
+- 目前資料契約仍屬測試用標準化入口；未連接資料抓取、正式來源 mapping、Repeat Group DOM 寫入或每日生產。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181918499
