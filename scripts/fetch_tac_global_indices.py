@@ -294,8 +294,36 @@ def self_test() -> None:
     else:
         raise AssertionError("missing requested trading date must fail closed")
     assert len(INDEXES) == 17 and len({v[0] for v in INDEXES.values()}) == 17
+    assert set(YAHOO_FALLBACK) == set(INDEXES)
+    assert YAHOO_FALLBACK["stoxx_europe_600"] is None
     assert parse_date("2026年10月30日") == date(2026, 10, 30)
     assert parse_number("−1.09%") == -1.09
+
+    ny = ZoneInfo("America/New_York")
+    yahoo_fixture = {
+        "chart": {
+            "result": [{
+                "meta": {"symbol": "^DJI", "exchangeTimezoneName": "America/New_York"},
+                "timestamp": [
+                    int(datetime(2026, 10, 29, 0, 0, tzinfo=ny).timestamp()),
+                    int(datetime(2026, 10, 30, 0, 0, tzinfo=ny).timestamp()),
+                ],
+                "indicators": {"quote": [{"close": [100.0, 110.0]}]},
+            }],
+            "error": None,
+        }
+    }
+    yahoo_parsed = parse_yahoo_chart_payload(yahoo_fixture, "^DJI", date(2026, 10, 30))
+    assert yahoo_parsed["close"] == 110.0
+    assert abs(yahoo_parsed["change_pct"] - 10.0) < 1e-9
+    try:
+        parse_yahoo_chart_payload(yahoo_fixture, "^GSPC", date(2026, 10, 30))
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Yahoo symbol mismatch must fail closed")
+    print("PASS: Yahoo exact-date close and previous-close percentage fallback parsing")
+    print("PASS: Yahoo instrument identity mismatch rejected")
     print("PASS: 17 fixed index mappings and unique source slugs")
     print("PASS: Investing.com HK historical table close/change parsing")
     print("PASS: instrument identity mismatch rejected")
