@@ -83,6 +83,30 @@ def _records(template):
     }
 
 
+def _prior_week_economic_record():
+    schema = _prototype_details(
+        "monday", "#last-week-calendar", ".econ-event-list", ".econ-event", "econ-field"
+    )["prior_week_published"]
+    sources = []
+    for label, count in schema["sources"].items():
+        for index in range(count):
+            sources.append({
+                "source_name": "Fixture prior-week source",
+                "field_label": label,
+                "label": f"Prior fixture {index + 1}",
+                "url": f"https://example.com/prior-econ/{index + 1}",
+                "accessed_at": "2026-10-31T12:00:00+08:00",
+            })
+    return {
+        "event_id": "prior-econ-1", "event_date": "2026-10-27",
+        "event_time": "20:30", "event_timezone": "Asia/Taipei",
+        "status_group": "prior_week_published", "country": "美國",
+        "event_name": "Prior-week CPI", "importance": 5,
+        "details": {label: f"{label} prior-week" for label in schema["details"]},
+        "source_records": sources,
+    }
+
+
 class CalendarRepeatRendererTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -133,6 +157,23 @@ class CalendarRepeatRendererTests(unittest.TestCase):
         root = parse_html(result["html"])
         self.assertEqual(len(select_wrappers(root, "#calendar .econ-event")), 4)
         self.assertEqual(len(select_wrappers(root, "#earnings .earnings-accordion")), 4)
+
+    def test_monday_prior_week_economic_cards_render_from_same_group_prototype(self):
+        data = _records("monday")
+        data["prior_week_economic_events"] = [_prior_week_economic_record()]
+        result = render_weekly_calendar_updates(
+            self.monday_html, data, self.monday_inventory
+        )
+        root = parse_html(result["html"])
+        cards = select_wrappers(root, "#last-week-calendar .econ-event")
+        self.assertEqual(len(cards), 1)
+        self.assertEqual(
+            select_wrappers(root, "#last-week-calendar .econ-name")[0].etree_element.text,
+            "Prior-week CPI",
+        )
+        source = select_wrappers(root, "#last-week-calendar .econ-value a")[0].etree_element
+        self.assertTrue(source.attrib["href"].startswith("https://example.com/prior-econ/"))
+        self.assertEqual(len(select_wrappers(root, "#last-week-earnings .earnings-accordion")), 7)
 
     def test_monday_today_card_is_blocked_without_same_group_prototype(self):
         data = _records("monday")
