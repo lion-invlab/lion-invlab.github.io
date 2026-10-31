@@ -103,6 +103,8 @@ jobs:
 
       - name: Test Investing.com HK 11 sector ETF collector
         run: python scripts/fetch_tac_sector_etfs.py --self-test
+      - name: Test TAC FX collector parser
+        run: python scripts/fetch_tac_fx.py --self-test
 
       # Live source collection is exercised by the dedicated manual source-probe
       # workflow; structural validation remains deterministic and network-independent.
