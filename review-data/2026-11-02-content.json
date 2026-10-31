@@ -1,0 +1,406 @@
+{
+  "schema_version": 2,
+  "meta": {
+    "report_date": "2026-11-02",
+    "trading_date": "2026-10-30",
+    "generated_at": "2026-11-01T21:00:00+08:00",
+    "timezone": "Asia/Taipei",
+    "wr_version": "3.5",
+    "template_type": "monday",
+    "news_window_start": "2026-10-30T12:00:00+08:00",
+    "news_window_end": "2026-11-02T05:00:00+08:00"
+  },
+  "focus_news": [
+    {
+      "id": "focus-ai-credit",
+      "category": "macro",
+      "headline": "AI巨額融資推升科技債風險溢價，信用市場開始替資本支出定價",
+      "summary": "美銀策略師指出，科技企業債今年以來下跌約9%，大型雲端業者今年發行AI相關債券約1,820億美元，長天期科技債殖利率升至6%至8%。市場不再只看AI投資規模，也開始檢視自由現金流、債務承擔與違約保障成本。這代表AI估值修正正由股票市場延伸至信用市場。",
+      "published_at": "2026-10-31T15:00:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642849",
+        "published_at": "2026-10-31T15:00:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "AI資本支出若持續快於現金流成長，可能推高科技企業融資成本並壓縮估值。"
+    },
+    {
+      "id": "focus-korea-won",
+      "category": "macro",
+      "headline": "AI晶片出口推升韓元單季升值13%，南韓央行警告匯率與內需失衡",
+      "summary": "南韓央行委員指出，韓元第三季兌美元升值約13%，創1998年第四季以來最大單季漲幅，主要受AI基礎建設需求帶動半導體出口與外資流入支撐。強勢韓元有助降低進口成本與通膨，卻可能削弱出口競爭力；中小企業仍承受高利率與內需疲弱壓力。央行在物價、出口與成長間面臨政策取捨。",
+      "published_at": "2026-10-31T17:54:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642874",
+        "published_at": "2026-10-31T17:54:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "AI出口紅利集中於大型半導體企業，匯率升值與高利率可能擴大南韓企業景氣分化。"
+    },
+    {
+      "id": "focus-france-rating",
+      "category": "macro",
+      "headline": "惠譽下調法國信評展望至負向，財政赤字與政治分裂加重主權風險",
+      "summary": "惠譽將法國信用評等展望由穩定下調至負向，但維持長期發行人違約評等A+。機構指出，經濟成長疲弱、借貸成本上升、赤字擴大與政治分裂，削弱政府整頓財政及穩定債務的能力。法國10年期公債殖利率曾突破5.14%，反映市場對預算與政治僵局的風險溢價提高。",
+      "published_at": "2026-10-31T12:40:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642761",
+        "published_at": "2026-10-31T12:40:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "法債風險溢價若持續擴大，可能增加歐元區核心與周邊國家債市分化。"
+    },
+    {
+      "id": "focus-robot-tariff",
+      "category": "policy",
+      "headline": "美國暫緩機器人關稅、啟動180天談判，工業設備供應鏈仍面臨政策不確定性",
+      "summary": "川普政府依232條款認定進口機器人、工業機械及零組件涉及國安，但暫不立即加稅，改要求與貿易夥伴進行180天談判，並於2027年4月26日前回報進度。若協商破局，仍保留關稅、費用或配額選項。美國工廠高度仰賴海外設備，若成本上升，反可能拖慢自動化投資與製造業回流。",
+      "published_at": "2026-10-31T06:20:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642948",
+        "published_at": "2026-10-31T06:20:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "台灣工具機、自動化設備及零組件業者須留意後續稅則清單與在地化要求。"
+    },
+    {
+      "id": "focus-softbank-malaysia",
+      "category": "macro",
+      "headline": "軟銀傳評估在馬來西亞投入500億美元布局AI，投資金額與時程尚未確認",
+      "summary": "馬來西亞總理安華與軟銀創辦人孫正義討論規模約500億美元的AI、先進科技與資料中心投資意向，若落實可能成為東南亞大型科技投資案之一。軟銀截至10月29日尚未正式確認投資總額、項目與執行時程；既有合作框架已涉及Grab與砂拉越石油公司PETROS。電力、土地、成本與專業人才仍是落地關鍵。",
+      "published_at": "2026-10-31T19:10:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642935",
+        "published_at": "2026-10-31T19:10:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "若投資落實，將強化東南亞資料中心與AI基礎設施競爭，但目前仍屬投資意向而非已承諾資本支出。"
+    }
+  ],
+  "market_headlines": [
+    {
+      "id": "headline-us-close",
+      "category": "market",
+      "headline": "美股科技與半導體賣壓擴大，Intel財測失望重挫近29%",
+      "summary": "科技巨頭財報未能化解市場對AI資本支出與回報速度的疑慮，半導體賣壓加劇。Intel第四季財測低於市場期待，股價重挫近29%；Amazon自由現金流轉負，也使投資人重新檢視AI建置成本。能源與防禦類股相對抗跌，顯示資金開始降低高估值科技曝險。",
+      "published_at": "2026-10-31T05:14:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642189",
+        "published_at": "2026-10-31T05:14:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "科技股評價重心由AI成長敘事轉向資本支出回收、現金流與財測可信度。"
+    },
+    {
+      "id": "headline-oil-risk",
+      "category": "geopolitics",
+      "headline": "美伊衝突風險升高推升油價，市場重新計入中東供應與航運風險",
+      "summary": "美伊緊張升溫及中東航運安全疑慮推升原油價格，油價收在近半年高點附近，布蘭特原油月漲幅擴大。市場焦點轉向供應中斷風險、荷姆茲海峽航運與美伊談判進展。若地緣政治溢價持續，能源成本可能再度加重全球通膨壓力。",
+      "published_at": "2026-10-31T06:26:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642677",
+        "published_at": "2026-10-31T06:26:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "油價上行可能限制通膨回落速度，增加央行維持緊縮立場的壓力。"
+    },
+    {
+      "id": "headline-ai-equity-issuance",
+      "category": "market",
+      "headline": "AI融資潮遇考驗，Meta、Google與Intel增發後股價跌破發行價",
+      "summary": "AI基礎建設資金需求推動大型科技公司透過股權融資籌資，但相關增發後股價跌破發行價，顯示投資人對稀釋與資本配置更加敏感。市場不再無條件支持AI支出，開始要求企業說明新增資本如何轉化為營收與自由現金流。融資能力與投資回報正成為AI交易的新分水嶺。",
+      "published_at": "2026-10-31T10:20:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642851",
+        "published_at": "2026-10-31T10:20:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "股權融資成本上升可能提高AI基建投資門檻，並加劇大型科技股表現分化。"
+    },
+    {
+      "id": "headline-alphabet-october",
+      "category": "company",
+      "headline": "Alphabet經歷上市以來最差單月表現，估值回落至十年低位",
+      "summary": "Alphabet股價在AI支出與現金流疑慮下承壓，10月市值蒸發約7,580億美元，創上市以來最差單月表現，本益比降至十年低位。市場正在比較雲端業者的AI資本支出、自由現金流與回報時程，估值調整不再只由營收成長決定。",
+      "published_at": "2026-10-31T17:47:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642985",
+        "published_at": "2026-10-31T17:47:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "大型科技股估值可能持續分化，市場更重視現金流品質與資本支出紀律。"
+    },
+    {
+      "id": "headline-memory-cycle",
+      "category": "company",
+      "headline": "記憶體漲價推升美光獲利，也擠壓PC與手機需求，景氣循環風險升高",
+      "summary": "AI相關需求支撐記憶體價格與美光獲利，但Intel指出記憶體短缺及價格飆升已衝擊PC市場，部分手機與終端裝置業者被迫降規或轉嫁成本。若AI支出降溫，傳統PC與手機需求未必足以承接供應缺口，記憶體景氣可能出現反轉風險。",
+      "published_at": "2026-10-31T14:20:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642910",
+        "published_at": "2026-10-31T14:20:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "記憶體價格上漲雖利多上游，但可能壓抑終端需求並放大產業週期波動。"
+    },
+    {
+      "id": "headline-fx-dollar",
+      "category": "macro",
+      "headline": "美元10月走強但月底回落，日銀鷹派訊號與歐元區成長放緩牽動匯市",
+      "summary": "美元指數10月累計上漲，月底則因美股賣壓帶動資金轉向美債與日圓而小幅回落。日銀維持利率不變，但有兩名委員主張升息，市場提高12月再升息的押注；歐元區第三季GDP成長僅0.4%，拉加德稱曾討論升息。主要央行政策分歧仍是匯率波動來源。",
+      "published_at": "2026-10-31T06:16:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6641920",
+        "published_at": "2026-10-31T06:16:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "日圓與歐元走勢受央行政策分歧牽動，美元短線避險需求與利差因素交錯。"
+    },
+    {
+      "id": "headline-golden-dome",
+      "category": "company",
+      "headline": "Google傳洽美國國防部參與金穹計畫，資安與資料基礎設施合作成焦點",
+      "summary": "Google據報正與美國國防部洽談，可能為規模1,850億美元的金穹飛彈防禦計畫提供資料儲存、網路連接與資安基礎設施。五角大廈正籌組產業聯盟保護核心軍事指揮資料管道，若合作落實，將擴大Google在國防與政府雲端市場的角色。",
+      "published_at": "2026-10-31T16:30:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642737",
+        "published_at": "2026-10-31T16:30:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "政府與國防雲端需求可能成為大型科技業者新的長期合約來源，但仍處洽談階段。"
+    },
+    {
+      "id": "headline-spacex-earnings",
+      "category": "company",
+      "headline": "SpaceX財報優於預期仍跌破IPO價，科技巨頭財報未達市場高標準",
+      "summary": "SpaceX第三季財報優於預期，曾因AI需求強勁帶動股價上漲，但週五股價回落並跌破IPO價格。同期Meta、Alphabet、Amazon與Intel財報或財測未能滿足市場期待，投資人開始區分AI需求成長與企業實際獲利、現金流表現。",
+      "published_at": "2026-10-31T07:06:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642745",
+        "published_at": "2026-10-31T07:06:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "AI題材仍具需求支撐，但股價對財報與指引的容忍度下降。"
+    },
+    {
+      "id": "headline-global-fund-flows",
+      "category": "market",
+      "headline": "全球股票基金連六週吸金，亞洲流入居前，美股基金轉為淨流出",
+      "summary": "截至10月28日當週，全球股票基金淨流入約101.9億美元，連續第六週吸金，但低於前週的250.6億美元。亞洲股票基金吸引約99億美元流入，美國股票基金則淨流出約66.5億美元；科技基金流入增加，反映資金仍追逐AI與晶片主題，但區域配置出現轉移。",
+      "published_at": "2026-10-30T20:30:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6642260",
+        "published_at": "2026-10-30T20:30:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "區域資金輪動加快，美股資金流出與亞洲吸金形成對照。"
+    },
+    {
+      "id": "headline-cloud-capex-discipline",
+      "category": "company",
+      "headline": "雲端大廠股價分化，市場開始獎勵AI支出克制與現金流改善",
+      "summary": "Oracle因提出資本支出見頂與自由現金流轉正時程而獲市場肯定，Google則因營收與獲利不如預期、自由現金流連兩季為負而承壓；Microsoft資本支出低於預期，股價反應相對正面。市場評價AI投資的標準，正由支出規模轉向投資回報與融資需求。",
+      "published_at": "2026-10-31T17:00:00+08:00",
+      "source": {
+        "name": "鉅亨網",
+        "url": "https://m.cnyes.com/news/id/6640688",
+        "published_at": "2026-10-31T17:00:00+08:00",
+        "observed_at": "2026-11-01T04:59:16+08:00",
+        "publisher": "鉅亨網",
+        "notes": "已開啟原始報導核對標題、日期及內文"
+      },
+      "status": "verified",
+      "impact": "雲端與AI供應鏈估值將更依賴資本支出效率、自由現金流與客戶合約可見度。"
+    }
+  ],
+  "economic_calendar": [],
+  "earnings_calendar": [],
+  "previous_economic_calendar": [],
+  "previous_earnings_calendar": [],
+  "analysis": {
+    "summary": {
+      "headline": "AI資本支出回報遭重新檢視，科技與半導體領跌、資金轉向能源及防禦板塊",
+      "text": "10/30美股風險趨避升高，NASDAQ下跌2.86%、S&P 500下跌1.82%、費半下跌7.20%；Intel財測不佳重挫28.58%，Amazon自由現金流轉負，市場開始要求AI巨額投資提出更清楚的現金流回報。產業表現分化，科技ETF XLK下跌4.89%，能源XLE上漲1.91%、民生必需品XLP上漲1.41%。VIX升至19.42（+12.91%）、MOVE升至100.20（+7.12%），CNN恐懼貪婪指數26.24；美債殖利率回落，但油價受中東供應風險支撐、貴金屬走弱。11/2需觀察AI融資風險是否由股市延伸至信用市場，以及ISM製造業景氣訊號。",
+      "source_refs": [
+        "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+        "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+        "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+        "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+        "https://edition.cnn.com/markets/fear-and-greed",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
+        "https://m.cnyes.com/news/id/6642849",
+        "https://m.cnyes.com/news/id/6642874",
+        "https://m.cnyes.com/news/id/6642761",
+        "https://m.cnyes.com/news/id/6642851",
+        "https://m.cnyes.com/news/id/6642677"
+      ],
+      "status": "verified"
+    },
+    "market_observation_highlights": {
+      "market_view": {
+        "status": "verified",
+        "source_refs": [
+          "https://hk.investing.com/indices/us-spx-500-historical-data",
+          "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+          "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+          "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data"
+        ],
+        "text": "10/30美股呈現明顯風險趨避：道瓊下跌1.09%、標普500下跌1.82%、NASDAQ下跌2.86%，費半重挫7.20%。11大產業ETF中，科技XLK下跌4.89%，能源XLE上漲1.91%、必需消費XLP上漲1.41%，顯示資金由高波動成長股轉向能源與防禦型板塊。亞洲市場亦普遍承壓，韓國KOSPI下跌3.48%、台灣加權下跌2.49%。"
+      },
+      "key_levels": {
+        "status": "verified",
+        "source_refs": [
+          "https://hk.investing.com/indices/us-spx-500-historical-data",
+          "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+          "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+          "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+          "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+          "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+        ],
+        "text": "主要觀察價位（10/30收盤）：標普500 7,580.07（-1.82%）；NASDAQ 25,437.00（-2.86%）；費半 10,688.80（-7.20%）；VIX 19.42（+12.91%）；MOVE 100.20（+7.12%）。美國公債殖利率：2年期4.56%（-5bp）、10年期4.94%（-4bp）、30年期5.31%（-1bp）。WTI 104.12美元（+2.08%）、Brent 113.43美元（+2.37%）；黃金3,898.90美元（-3.29%）、白銀49.276美元（-5.93%）。"
+      },
+      "core_observations": {
+        "status": "verified",
+        "source_refs": [
+          "https://hk.investing.com/indices/us-spx-500-historical-data",
+          "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+          "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+          "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+          "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+          "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://m.cnyes.com/news/id/6642849",
+          "https://m.cnyes.com/news/id/6642874",
+          "https://m.cnyes.com/news/id/6642761",
+          "https://m.cnyes.com/news/id/6642851",
+          "https://m.cnyes.com/news/id/6642677"
+        ],
+        "text": "第一，費半單日下跌7.20%，科技ETF下跌4.89%，顯示AI與半導體估值正在接受更嚴格檢視，後續須觀察賣壓是否擴散至信用市場。第二，VIX與MOVE同步上升，CNN Fear & Greed降至26.24，風險偏好轉弱但尚未進入極端恐慌區。第三，油價逆勢上漲而金銀下跌，市場同時反映中東供應風險與去槓桿壓力；需留意油價對通膨預期及債券殖利率的二次影響。"
+      }
+    },
+    "market_sentiment": {
+      "label": "恐懼",
+      "score": 26.24,
+      "status": "verified",
+      "source_refs": [
+        "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+        "https://edition.cnn.com/markets/fear-and-greed"
+      ],
+      "text": "CNN Fear & Greed指數26.24，處於恐懼區；VIX上升12.91%至19.42，MOVE上升7.12%至100.20，股票與債券波動同步升高。市場正在降低高估值科技曝險，短線需留意AI融資風險是否由股票市場延伸至信用市場。"
+    }
+  },
+  "coverage": {
+    "focus_news": {
+      "status": "complete",
+      "source_refs": [
+        "https://m.cnyes.com/news/id/6642849",
+        "https://m.cnyes.com/news/id/6642874",
+        "https://m.cnyes.com/news/id/6642761",
+        "https://m.cnyes.com/news/id/6642948",
+        "https://m.cnyes.com/news/id/6642935"
+      ],
+      "checked_at": "2026-11-01T04:59:16+08:00"
+    },
+    "market_headlines": {
+      "status": "complete",
+      "source_refs": [
+        "https://m.cnyes.com/news/id/6642189",
+        "https://m.cnyes.com/news/id/6642677",
+        "https://m.cnyes.com/news/id/6642851",
+        "https://m.cnyes.com/news/id/6642985",
+        "https://m.cnyes.com/news/id/6642910",
+        "https://m.cnyes.com/news/id/6641920",
+        "https://m.cnyes.com/news/id/6642737",
+        "https://m.cnyes.com/news/id/6642745",
+        "https://m.cnyes.com/news/id/6642260",
+        "https://m.cnyes.com/news/id/6640688"
+      ],
+      "checked_at": "2026-11-01T04:59:16+08:00"
+    },
+    "earnings_calendar": {
+      "status": "incomplete",
+      "source_refs": [],
+      "checked_at": "2026-11-01T04:59:16+08:00"
+    },
+    "previous_earnings_calendar": {
+      "status": "incomplete",
+      "source_refs": [],
+      "checked_at": "2026-11-01T04:59:16+08:00"
+    }
+  },
+  "report_date": "2026-11-02",
+  "trading_date": "2026-10-30",
+  "news_window": {
+    "start": "2026-10-30T12:00:00+08:00",
+    "end": "2026-11-02T05:00:00+08:00"
+  }
+}
