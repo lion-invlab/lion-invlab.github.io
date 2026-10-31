@@ -42,8 +42,8 @@ def sample_snapshot(schema):
                 "fallback_reason": None, "notes": "Awaiting source retrieval",
             }
     snapshot["news"] = {"global_focus": [], "market_headlines": [], "global_focus_meta": "待核實", "market_headlines_meta": "待核實", "notes": "Awaiting source-linked news retrieval"}
-    snapshot["economic_calendar"] = {"events": [], "notes": "Awaiting Investing.com 3-star event retrieval"}
-    snapshot["earnings_calendar"] = {"events": [], "notes": "Awaiting 3-star earnings retrieval"}
+    snapshot["economic_calendar"] = {"previous_week_events": [], "current_week_events": [], "previous_week_range": "", "current_week_range": "", "notes": "Awaiting Investing.com 3-star event retrieval"}
+    snapshot["earnings_calendar"] = {"previous_week_events": [], "current_week_events": [], "previous_week_range": "", "current_week_range": "", "notes": "Awaiting 3-star earnings retrieval"}
     snapshot["narrative"] = {"status": "pending_verification", "summary_title": "", "summary": [], "market_sentiment": "",
                              "market_observation": "", "core_observation": "", "key_levels": "",
                              "notes": "Awaiting verified market data and event synthesis"}
@@ -85,19 +85,19 @@ def self_test(validator, schema):
     content_valid=copy.deepcopy(valid)
     source={"name":"Reuters","url":"https://www.reuters.com/world/","observed_at":"2026-10-31T12:00:00+00:00","data_date":"2026-10-30","quote_type":"original_article","instrument":"macro news"}
     content_valid["news"]["global_focus"]=[{"title":"Verified macro story","summary":"Original report summary.","published_at":"2026-10-30T18:00:00+00:00","source":source,"notes":""}]
-    content_valid["economic_calendar"]["events"]=[{"event_id":"us-cpi-2026-10","name":"US CPI","country":"US","event_time":"2026-10-30T20:30:00+00:00","importance":3,"status":"published","previous":"3.0%","forecast":"3.1%","actual":"3.2%","impact":"Inflation surprise","source":source,"notes":""}]
-    content_valid["earnings_calendar"]["events"]=[{"event_id":"abc-q3-2026","company":"Example Corp","ticker":"ABC","report_time":"2026-10-30T20:00:00+00:00","session":"pre_market","importance":3,"status":"published","eps_actual":"1.20","eps_estimate":"1.10","revenue_actual":"10B","revenue_estimate":"9.8B","stock_reaction":"+2%","analysis":"Beat expectations","source":source,"notes":""}]
+    content_valid["economic_calendar"]["current_week_events"]=[{"event_id":"us-cpi-2026-10","name":"US CPI","country":"US","event_time":"2026-10-30T20:30:00+00:00","importance":3,"status":"published","previous":"3.0%","forecast":"3.1%","actual":"3.2%","impact":"Inflation surprise","source":source,"notes":""}]
+    content_valid["earnings_calendar"]["current_week_events"]=[{"event_id":"abc-q3-2026","company":"Example Corp","ticker":"ABC","report_time":"2026-10-30T20:00:00+00:00","session":"pre_market","importance":3,"status":"published","eps_actual":"1.20","eps_estimate":"1.10","revenue_actual":"10B","revenue_estimate":"9.8B","stock_reaction":"+2%","analysis":"Beat expectations","source":source,"notes":""}]
     content_valid["narrative"]={"status":"verified","summary_title":"市場觀察摘要","summary":[{"label":"市場主軸｜","text":"A"},{"label":"跨市場｜","text":"B"},{"label":"風險訊號｜","text":"C"},{"label":"操作結論｜","text":"D"}],"market_sentiment":"Risk-off","market_observation":"Breadth weakened","core_observation":"Rates remain key","key_levels":"待核實","notes":"Synthetic schema test"}
     errors=list(validator.iter_errors(content_valid))
     if errors: raise AssertionError("valid content contract rejected: "+"; ".join(e.message for e in errors[:5]))
     print("PASS: source-linked news, 3-star calendars and verified narrative accepted")
 
     bad_star=copy.deepcopy(content_valid)
-    bad_star["economic_calendar"]["events"][0]["importance"]=2
+    bad_star["economic_calendar"]["current_week_events"][0]["importance"]=2
     errors=list(validator.iter_errors(bad_star))
     if not errors: raise AssertionError("economic event below 3-star threshold unexpectedly accepted")
     bad_star=copy.deepcopy(content_valid)
-    bad_star["earnings_calendar"]["events"][0]["importance"]=5
+    bad_star["earnings_calendar"]["current_week_events"][0]["importance"]=5
     errors=list(validator.iter_errors(bad_star))
     if not errors: raise AssertionError("legacy five-star earnings unexpectedly accepted")
     print("PASS: non-3-star calendar events and legacy five-star ratings rejected")
