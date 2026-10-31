@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "Snapshot-to-DOM binding contract. Only mapped text nodes and the mapped sector change-node status class may be updated; all other attributes, structure, CSS and scripts remain protected.",
+  "description": "Snapshot-to-DOM binding contract. Only mapped text nodes and mapped market change-node status classes may be updated; all other attributes, structure, CSS and scripts remain protected.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
@@ -19,8 +19,8 @@
     },
     "fail_if_selector_count_differs": true,
     "fail_if_label_or_ticker_missing_or_duplicated": true,
-    "mutate_only_mapped_text_nodes_and_sector_status_class": true,
-    "preserve_attributes_except_mapped_status_class": true
+    "preserve_attributes_except_mapped_status_class": true,
+    "mutate_only_mapped_text_nodes_and_market_status_class": true
   },
   "groups": {
     "global_indices": {
