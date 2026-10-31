@@ -73,12 +73,12 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                 for card_selector, toggle_selector in cases:
                     card = page.locator(card_selector).first
                     self.assertTrue(card.count(), f"{name}: missing visible card {card_selector}")
-                    toggle = card.locator(toggle_selector)
+                    toggle = card.locator(":scope > summary [aria-hidden='true']")
                     before = toggle.evaluate(
                         "(el) => { const s=getComputedStyle(el); return {width:parseFloat(s.width),height:parseFloat(s.height),radius:s.borderRadius,background:s.backgroundColor,content:getComputedStyle(el,'::before').content}; }"
                     )
-                    self.assertGreater(before["width"], 0, f"{name}: plus has no width {before}")
-                    self.assertGreater(before["height"], 0, f"{name}: plus has no height {before}")
+                    self.assertEqual(before["width"], 32, f"{name}: plus width must be 32px {before}")
+                    self.assertEqual(before["height"], 32, f"{name}: plus height must be 32px {before}")
                     self.assertEqual(before["width"], before["height"], f"{name}: plus is not square {before}")
                     self.assertEqual(before["radius"], "50%", f"{name}: plus is not circular {before}")
                     self.assertIn("198, 40, 40", before["background"], f"{name}: plus is not TAC red {before}")
