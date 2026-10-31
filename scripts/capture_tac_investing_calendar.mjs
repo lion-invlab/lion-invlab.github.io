@@ -18,7 +18,7 @@ if (!start || !end || !output) {
   console.error("Usage: node capture_tac_investing_calendar.mjs --start-date YYYY-MM-DD --end-date YYYY-MM-DD --output FILE");
   process.exit(2);
 }
-if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(start) || !/^\\d{4}-\\d{2}-\\d{2}$/.test(end) || start > end) {
+if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end) || start > end) {
   throw new Error("Invalid date range");
 }
 
@@ -55,7 +55,7 @@ try {
           text: el.textContent?.trim() || ""
         }));
         const dayDates = days.map(d => {
-          const stamp = Number((d.id.match(/\\d+/) || [])[0]);
+          const stamp = Number((d.id.match(/\d+/) || [])[0]);
           return Number.isFinite(stamp) ? new Date(stamp * 1000).toLocaleDateString("en-CA", { timeZone: "Asia/Taipei" }) : null;
         }).filter(Boolean);
         return { html: document.documentElement.outerHTML, rowCount: rows.length, days, dayDates, title: document.title, url: location.href };
@@ -74,7 +74,7 @@ try {
   if (!captured) throw new Error("All public Investing.com calendar hosts failed: " + attempts.join(" | "));
   const actualUrl = new URL(captured.url);
   const sourceUrl = `${actualUrl.origin}/economic-calendar/`;
-  fs.writeFileSync(output, `<!-- tac-source-url: ${sourceUrl} -->\\n${captured.html}`, "utf8");
+  fs.writeFileSync(output, `<!-- tac-source-url: ${sourceUrl} -->\n${captured.html}`, "utf8");
   console.log(JSON.stringify({
     source_url: sourceUrl,
     source_host: captured.host,
