@@ -110,8 +110,49 @@ jobs:
           print(f"Live source result: {len(verified)}/17 verified; {len(pending)}/17 pending")
           print("Verified:", ", ".join(verified) or "none")
           print("Pending:", ", ".join(pending) or "none")
+          print("Per-index provenance:")
+          provenance_errors = []
+          for key, record in records.items():
+              source = record.get("source") or {}
+              print(
+                  f"{key}: status={record.get('status')} "
+                  f"value={record.get('value')} change={record.get('change')} "
+                  f"source={source.get('name')} url={source.get('url')} "
+                  f"data_date={source.get('data_date')} "
+                  f"quote_type={source.get('quote_type')} "
+                  f"instrument={source.get('instrument')} "
+                  f"observed_at={source.get('observed_at')} "
+                  f"fallback_used={record.get('fallback_used')} "
+                  f"fallback_reason={record.get('fallback_reason')}"
+              )
+              if record.get("status") == "verified":
+                  required = ("name", "url", "data_date", "quote_type", "instrument", "observed_at")
+                  missing = [field for field in required if not source.get(field)]
+                  if missing:
+                      provenance_errors.append(f"{key}: missing source fields {missing}")
+                  if source.get("data_date") != data["trading_date"]:
+                      provenance_errors.append(
+                          f"{key}: source date {source.get('data_date')} != "
+                          f"fragment trading date {data['trading_date']}"
+                      )
+                  if record.get("fallback_used") and not record.get("fallback_reason"):
+                      provenance_errors.append(f"{key}: fallback used without a recorded reason")
+                  if not record.get("fallback_used") and source.get("name") != "Investing.com 香港站":
+                      provenance_errors.append(
+                          f"{key}: non-primary source marked as primary ({source.get('name')})"
+                      )
+                  if record.get("fallback_used") and source.get("name") != "Yahoo Finance":
+                      provenance_errors.append(
+                          f"{key}: unexpected fallback source ({source.get('name')})"
+                      )
           if len(records) != 17:
               raise SystemExit(f"Expected 17 index records, found {len(records)}")
+          if data.get("report_date") != "2026-11-02":
+              provenance_errors.append(f"report_date mismatch: {data.get('report_date')}")
+          if data.get("trading_date") != "2026-10-30":
+              provenance_errors.append(f"trading_date mismatch: {data.get('trading_date')}")
+          if provenance_errors:
+              raise SystemExit("Source provenance validation failed: " + "; ".join(provenance_errors))
           if pending:
               raise SystemExit(
                   f"Incomplete live index coverage: {len(verified)}/17 verified; "
@@ -137,6 +178,17 @@ jobs:
             --trading-date "2026-10-30" \
             --report-date "2026-11-02" \
             --output "/tmp/tac-treasury-yields-2026-10-30.json"
+
+      - name: Upload live market-data probe JSON for audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-market-data-probe-${{ github.run_id }}
+          path: |
+            /tmp/tac-global-indices-2026-10-30.json
+            /tmp/tac-treasury-yields-2026-10-30.json
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Test DOM layout contract
         run: python scripts/validate_tac_layout_contract.py --self-test
