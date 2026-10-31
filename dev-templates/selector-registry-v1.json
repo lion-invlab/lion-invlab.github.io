@@ -540,7 +540,7 @@
     },
     {
       "name": "sentiment_core_interpretation_text",
-      "selector": "#sentiment .sent > .sbox:last-child > div",
+      "selector": "#sentiment .sent > .sbox:last-child > div[style*=\"font-size:14px\"]",
       "monday": 1,
       "weekdays": 1,
       "kind": "content"
