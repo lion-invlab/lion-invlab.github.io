@@ -116,6 +116,10 @@ def run_case(kind,report_date,weekday):
         assert "總結｜待核實" in soup.select_one("article.bluf").get_text()
         assert "待核實：市場情緒判讀" in soup.select_one("#sentiment").get_text()
         assert "待核實" in soup.select_one("#view").get_text()
+        assert soup.select_one("#view .focus-panel.focus-market .key > b").get_text(strip=True)=="市場觀點"
+        assert soup.select_one("#view .focus-panel.focus-core .callout > b").get_text(strip=True)=="今日核心觀察："
+        assert soup.select_one("#view .focus-panel.focus-levels .compact-disclosure") is not None
+        assert "報告日期 2026-11-02" in soup.select_one("#calendar > article > .source").get_text() if kind=="monday" else "報告日期 2026-11-03" in soup.select_one("#calendar > article > .source").get_text()
         assert "Synthetic source" in soup.select_one("#global-focus").get_text()
         if kind=="monday":
             assert len(soup.select("#last-week-calendar .econ-event"))==1
