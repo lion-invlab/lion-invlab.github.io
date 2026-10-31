@@ -38,9 +38,11 @@ def _optional_time(value, field):
     if not isinstance(value, str):
         raise ValueError(f"{field} must be HH:MM, HH:MM:SS, or null")
     try:
-        time.fromisoformat(value)
+        parsed = time.fromisoformat(value)
     except ValueError as exc:
         raise ValueError(f"{field} must be HH:MM or HH:MM:SS") from exc
+    if parsed.tzinfo is not None:
+        raise ValueError(f"{field} must be a local wall-clock time without an offset")
 
 
 def _validate_sources(sources, field):
@@ -51,6 +53,7 @@ def _validate_sources(sources, field):
         if not isinstance(source, dict):
             raise ValueError(f"{prefix} must be an object")
         _required_text(source.get("source_name"), f"{prefix}.source_name")
+        _required_text(source.get("field_label"), f"{prefix}.field_label")
         _required_text(source.get("label"), f"{prefix}.label")
         url = _required_text(source.get("url"), f"{prefix}.url")
         parsed = urlsplit(url)
@@ -101,6 +104,8 @@ def _validate_group(events, group, kind, allowed_statuses):
     for index, event in enumerate(events):
         _validate_common(event, index, group, allowed_statuses)
         if kind == "economic":
+            if event["event_timezone"] != "Asia/Taipei":
+                raise ValueError(f"{group}[{index}].event_timezone must be Asia/Taipei after display-time normalization")
             _required_text(event.get("country"), f"{group}[{index}].country")
             _required_text(event.get("event_name"), f"{group}[{index}].event_name")
         else:
@@ -112,6 +117,17 @@ def _validate_group(events, group, kind, allowed_statuses):
             session = event.get("release_session", "unspecified")
             if not isinstance(session, str) or session not in SESSIONS:
                 raise ValueError(f"{group}[{index}].release_session is invalid")
+            if event.get("event_time") not in (None, ""):
+                local_date = date.fromisoformat(event["event_date"])
+                local_time = time.fromisoformat(event["event_time"])
+                announced_at = datetime.combine(
+                    local_date, local_time, tzinfo=ZoneInfo(event["event_timezone"])
+                )
+                converted_date = announced_at.astimezone(ZoneInfo("Asia/Taipei")).date().isoformat()
+                if converted_date != event["taiwan_display_date"]:
+                    raise ValueError(
+                        f"{group}[{index}].taiwan_display_date does not match the event-time conversion"
+                    )
     ids = [event["event_id"] for event in events]
     if len(ids) != len(set(ids)):
         raise ValueError(f"{group} contains duplicate event_id values")
