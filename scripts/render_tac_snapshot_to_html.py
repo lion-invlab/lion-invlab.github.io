@@ -421,10 +421,13 @@ def render(source,snapshot,mapping):
         edits.append(make_status_class_edit(values[0],change_status(record)))
         # Rank is rewritten after sorting in the second pass below.
     edits.sort(key=lambda e:e[1],reverse=True)
-    out=source; last=len(source)+1
+    out=source; last=len(source)+1; previous=None
     for start,end,value in edits:
-        if end>last: raise ValueError("overlapping mapped edit ranges: start="+str(start)+" end="+str(end)+" previous_start="+str(last)+" replacement="+repr(value[:80]))
-        out=out[:start]+value+out[end:]; last=start
+        if end>last:
+            current_context=source[max(0,start-50):min(len(source),end+50)]
+            previous_context=source[max(0,last-50):min(len(source),last+50)] if last<len(source) else ""
+            raise ValueError("overlapping mapped edit ranges: start="+str(start)+" end="+str(end)+" previous_start="+str(last)+" replacement="+repr(value[:80])+" context="+repr(current_context[:180])+" previous="+repr(previous))
+        out=out[:start]+value+out[end:]; last=start; previous=(start,end,value[:80])
     out,sector_count=sort_sector_rows(out,snapshot,mapping)
     # Re-parse the reordered rows and rewrite rank labels without touching any other markup.
     reordered=Parser(out)
