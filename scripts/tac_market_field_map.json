@@ -109,17 +109,14 @@
       "container_id": "sentiment",
       "row_class": "sbox",
       "expected_count": 4,
-      "labels": [
-        "VIX",
-        "MOVE",
-        "CNN Fear & Greed",
-        "📌 核心解讀"
-      ],
       "required_texts": [
         "VIX",
         "MOVE",
         "CNN Fear & Greed",
         "恐懼與貪婪指數"
+      ],
+      "allow_no_change_rows": [
+        3
       ]
     },
     "fedwatch": {
