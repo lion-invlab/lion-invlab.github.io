@@ -310,3 +310,15 @@
 - Run #41182239153 完整成功：**115 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar group inventory 及稽核報告上傳均成功。
 - 現在已具備「資料契約驗證 → 排序 → 狀態群組規劃 → per-card payload mapping」測試層；尚未執行 Repeat Group DOM 複製／增刪／寫入，也未接入實際資料來源蒐集。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182239153
+
+
+## 2026-10-31 Run #41182431871｜行事曆資料準備流程閉環（尚未寫入 DOM）
+
+- 新增 `scripts/tac_calendar_prepare.py`，把既有資料契約驗證、日期／時區排序、模板 status-group 原型 dry-run 與 per-card payload mapper 串成單一準備流程。
+- 執行順序：驗證資料集 → 依狀態分組排序 → 對照指定週一／平日正式母版 inventory → 檢查各群組是否具備合法卡片／empty-state 原型 → 產生摘要／detail／來源 anchor payload。
+- 只要任一狀態群組為 blocked，流程會回傳 `ready=false`、`stage=blocked_before_dom_write`，並將全部 `payloads` 設為 null；不允許只寫入部分群組或忽略阻擋項目。
+- 全部通過時才回傳 `ready=true` 與 `validated_payload_ready`；此狀態只代表資料 payload 可供後續 DOM updater 使用，並不代表已修改 HTML。
+- 新增 5 項 preparation 整合測試：週一合法群組、週一缺少卡片原型時整批阻擋、平日三狀態群組完整準備、平日缺少 empty-state 時整批阻擋、輸入資料不變。
+- Run #41182431871 完整成功：**120 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar inventory 及稽核報告上傳均通過。
+- 目前已完成「資料契約 → 排序 → 狀態群組安全規劃 → per-card Mapping → 寫入前整批準備閘門」。尚未實作 DOM Repeat Group 新增／刪除／替換、欄位實際寫入或瀏覽器端到端資料更新。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182431871
