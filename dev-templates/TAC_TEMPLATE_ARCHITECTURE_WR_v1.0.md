@@ -346,3 +346,10 @@
 - Run #116（失敗原因已修正）：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177458151
 - Run #117：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177564911
 
+## Run #118｜上週經濟來源 anchor 實際更新測試完成
+
+- Run #118（41177611606）通過 **52 項單元／整合測試、5 項 Chromium 瀏覽器測試**，雙母版 SHA、DOM 指紋及 81 selector cardinality 稽核通過。
+- 新增測試以週一正式母版確認上週經濟來源欄位的 4 個 anchor leaf，逐一更新 href／label，並確認目標 anchor 數量一致。
+- Run #118 是 4 個經濟來源 anchor 定位與更新器的測試閉環；仍未接入每日資料匯入器或 Repeat Group updater。
+- https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177611606
+
