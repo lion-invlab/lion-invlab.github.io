@@ -12,7 +12,8 @@ import math
 import re
 import sys
 import time
-from datetime import date, datetime, timezone
+from datetime import date, datetime, time as dtime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import requests
@@ -97,6 +98,36 @@ def parse_history_page(html: str, ticker: str, trading_date: date) -> dict:
             return {"close": close, "change_pct": change_pct, "heading": heading_text}
     raise ValueError(f"exact trading-date row {trading_date.isoformat()} not found")
 
+
+def parse_yahoo_chart(payload: dict, ticker: str, target: date) -> dict:
+    chart=payload.get("chart",{})
+    if chart.get("error"): raise ValueError("Yahoo chart error: "+str(chart["error"]))
+    results=chart.get("result") or []
+    if len(results)!=1: raise ValueError("Yahoo chart result missing or ambiguous")
+    result=results[0]; meta=result.get("meta") or {}
+    if meta.get("symbol","").upper()!=ticker.upper(): raise ValueError("Yahoo ticker identity mismatch")
+    tz=ZoneInfo(meta.get("exchangeTimezoneName") or "UTC")
+    timestamps=result.get("timestamp") or []
+    quote=((result.get("indicators") or {}).get("quote") or [{}])[0]
+    closes=quote.get("close") or []
+    points=[]
+    for ts,close in zip(timestamps,closes):
+        if close is None: continue
+        points.append((datetime.fromtimestamp(ts,tz).date(),float(close)))
+    exact=[(i,value) for i,(day,value) in enumerate(points) if day==target]
+    if len(exact)!=1: raise ValueError("Yahoo exact-date daily close missing or duplicated")
+    index,close=exact[0]
+    previous=[value for day,value in points[:index] if value>0]
+    if not previous: raise ValueError("Yahoo previous close unavailable for daily change")
+    if close<=0: raise ValueError("Yahoo close must be positive")
+    return {"close":close,"change_pct":round((close/previous[-1]-1)*100,2)}
+def fetch_yahoo_chart(session,ticker,target):
+    start=datetime.combine(target-timedelta(days=7),dtime.min,tzinfo=timezone.utc)
+    end=datetime.combine(target+timedelta(days=2),dtime.min,tzinfo=timezone.utc)
+    url=f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}?period1={int(start.timestamp())}&period2={int(end.timestamp())}&interval=1d"
+    response=session.get(url,timeout=(10,30)); response.raise_for_status()
+    return parse_yahoo_chart(response.json(),ticker,target),url
+
 def pending_record(reason: str) -> dict:
     return {
         "value": None, "unit": "USD/share", "change": None,
@@ -109,6 +140,7 @@ def fetch_one(session: requests.Session, key: str, config: tuple,
               trading_date: date, observed_at: str) -> tuple[str, dict]:
     slug, ticker, label = config
     url = f"{SOURCE_ROOT}{slug}-historical-data"
+    primary_error=None
     try:
         response = session.get(url, timeout=(10, 30))
         response.raise_for_status()
@@ -130,7 +162,20 @@ def fetch_one(session: requests.Session, key: str, config: tuple,
             "notes": "採用歷史資料表指定交易日收市價及日升跌幅；早報顯示日漲跌幅。",
         }
     except Exception as exc:
-        return key, pending_record(str(exc))
+        primary_error=str(exc)
+    try:
+        parsed,yahoo_url=fetch_yahoo_chart(session,ticker,trading_date)
+        return key, {
+            "value":parsed["close"],"unit":"USD/share","change":parsed["change_pct"],"change_unit":"percent",
+            "status":"verified",
+            "source":{"name":"Yahoo Finance","url":f"https://finance.yahoo.com/quote/{ticker}/history/",
+                      "observed_at":observed_at,"data_date":trading_date.isoformat(),
+                      "quote_type":"yahoo_chart_daily_close_pct_change","instrument":f"{label} ({ticker})"},
+            "fallback_used":True,"fallback_reason":"Investing.com Hong Kong primary source unavailable or failed exact-date validation: "+primary_error,
+            "notes":"備援採用 Yahoo Finance 同一 ETF 標的、完全相符交易日收盤列；日漲跌幅以當日與前一有效交易日收盤計算。"
+        }
+    except Exception as fallback_exc:
+        return key,pending_record("Investing.com: "+primary_error+"；Yahoo Finance: "+str(fallback_exc))
 
 def build_fragment(trading_date: date, report_date: date,
                    records: dict, observed_at: str) -> dict:
@@ -142,7 +187,7 @@ def build_fragment(trading_date: date, report_date: date,
         "report_date": report_date.isoformat(),
         "trading_date": trading_date.isoformat(),
         "fetched_at": observed_at,
-        "source_priority": "Investing.com Hong Kong ETF historical data pages",
+        "source_priority": "Investing.com Hong Kong primary; Yahoo Finance exact-date same-ETF ticker fallback per TAC_WORK_RULES.md",
         "sectors": records,
     }
 
@@ -164,6 +209,10 @@ def self_test() -> None:
         pass
     else:
         raise AssertionError("missing exact trading date must fail closed")
+    payload={"chart":{"result":[{"meta":{"symbol":"XLK","exchangeTimezoneName":"America/New_York"},"timestamp":[1793312400,1793398800],"indicators":{"quote":[{"close":[188.73,179.51]}]}}],"error":None}}
+    target=datetime.fromtimestamp(1793398800,ZoneInfo("America/New_York")).date()
+    yahoo=parse_yahoo_chart(payload,"XLK",target)
+    assert yahoo["close"]==179.51 and yahoo["change_pct"]<0
     assert len(SECTORS) == 11 and len({v[0] for v in SECTORS.values()}) == 11
     assert parse_date("2026年10月30日") == date(2026, 10, 30)
     assert parse_number("−4.89%") == -4.89
