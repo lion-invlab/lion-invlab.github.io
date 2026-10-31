@@ -238,3 +238,12 @@
 - 本更新器只更新現有來源 anchor，不建立／刪除 anchor、不接管來源選擇與事實核實，也未接入每日資料匯入或 Repeat Group 新增／移除流程。Gate A 尚未完成。
 - Run #163：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179318013
 
+## 2026-10-31 Run #168｜本週財報全部純文字 Detail Labels 驗證
+
+- 在 94 個候選 selector 基礎上，擴充 weekly earnings repeat-card 的 detail label allowlist，沒有增加泛用 selector。
+- 週一母版可更新的純文字 detail labels：觀察重點、EPS 共識、正式公布時間；平日母版：公布時段、EPS 預估／實際、營收預估／實際、財報判讀與股價反應。
+- 每個 label 仍須在各卡片中唯一命中；只更新直接相鄰的 earnings-detail-value leaf。來源 label 不在文字 allowlist，含 anchor／子節點的來源容器仍交由 source-anchor 專用更新器。
+- Run #168（41179488654）完整成功：**63 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 個候選 selector cardinality 與測試報告上傳成功。
+- 本次補齊的是既有母版中的純文字 detail 欄位定位與安全更新驗證；不代表新資料已匯入或 Repeat Group 已動態新增／刪除。Gate A 尚未完成。
+- Run #168：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179488654
+
