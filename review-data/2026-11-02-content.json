@@ -270,9 +270,361 @@
     }
   ],
   "economic_calendar": [],
-  "earnings_calendar": [],
+  "earnings_calendar": [
+    {
+      "id": "current-aapl-20261102",
+      "event_date": "2026-11-03T06:00:00+08:00",
+      "company": "蘋果 Apple",
+      "ticker": "AAPL",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 1.98,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "Apple Investor Relations / StockTitan earnings calendar",
+        "url": "https://investor.apple.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Apple Investor Relations",
+        "notes": "預定 11/2 17:00 ET（台灣 11/3 06:00）；日期由 Apple IR 更新資訊及 StockTitan 財報行事曆交叉核對。EPS 市場共識約 1.98 美元（Nasdaq）；營收預估未取得一致可核實數值。"
+      }
+    },
+    {
+      "id": "current-pltr-20261102",
+      "event_date": "2026-11-03T06:00:00+08:00",
+      "company": "Palantir",
+      "ticker": "PLTR",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 0.33,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "Palantir Investor Relations / StockTitan earnings calendar",
+        "url": "https://investors.palantir.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Palantir Investor Relations",
+        "notes": "預定 11/2 17:00 ET（台灣 11/3 06:00）；公司 IR 公告確認。EPS 市場共識約 0.33 美元（Nasdaq/StockTitan）；營收預估未取得一致可核實數值。"
+      }
+    },
+    {
+      "id": "current-amgn-20261103",
+      "event_date": "2026-11-04T05:30:00+08:00",
+      "company": "安進 Amgen",
+      "ticker": "AMGN",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 5.74,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "Amgen Investor Relations / StockTitan earnings calendar",
+        "url": "https://investors.amgen.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Amgen Investor Relations",
+        "notes": "預定 11/3 16:30 ET（台灣 11/4 05:30）；公司 IR 公告確認。EPS 市場共識約 5.74 美元（Nasdaq/StockTitan）。"
+      }
+    },
+    {
+      "id": "current-anet-20261103",
+      "event_date": "2026-11-04T05:30:00+08:00",
+      "company": "Arista Networks",
+      "ticker": "ANET",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 0.99,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "Arista Investor Relations / StockTitan earnings calendar",
+        "url": "https://investors.arista.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Arista Networks Investor Relations",
+        "notes": "預定 11/3 16:30 ET（台灣 11/4 05:30）；日期與電話會議時段由 StockTitan 財報行事曆交叉核對。EPS 市場共識約 0.99 美元（Nasdaq/StockTitan）。"
+      }
+    },
+    {
+      "id": "current-amd-20261103",
+      "event_date": "2026-11-04T06:00:00+08:00",
+      "company": "超微 AMD",
+      "ticker": "AMD",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 1.68,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "AMD Investor Relations / StockTitan earnings calendar",
+        "url": "https://ir.amd.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "AMD Investor Relations",
+        "notes": "預定 11/3 17:00 ET（台灣 11/4 06:00）；公司 IR 公告確認。EPS 市場共識約 1.68 美元（Nasdaq/StockTitan）。"
+      }
+    },
+    {
+      "id": "current-uber-20261104",
+      "event_date": "2026-11-04T21:00:00+08:00",
+      "company": "Uber",
+      "ticker": "UBER",
+      "session": "before_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 0.94,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "Uber Investor Relations / StockTitan earnings calendar",
+        "url": "https://investor.uber.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Uber Investor Relations",
+        "notes": "預定 11/4 08:00 ET（台灣 11/4 21:00）；公司 IR 公告確認。EPS 市場共識約 0.94 美元（Nasdaq/StockTitan）。"
+      }
+    },
+    {
+      "id": "current-qcom-20261104",
+      "event_date": "2026-11-05T05:45:00+08:00",
+      "company": "高通 Qualcomm",
+      "ticker": "QCOM",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 1.46,
+      "eps_actual": null,
+      "revenue_estimate": null,
+      "revenue_actual": null,
+      "status": "upcoming",
+      "stock_price_reaction": null,
+      "source": {
+        "name": "Qualcomm Investor Relations / StockTitan earnings calendar",
+        "url": "https://investor.qualcomm.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Qualcomm Investor Relations",
+        "notes": "預定 11/4 16:45 ET（台灣 11/5 05:45）；公司 IR 公告確認。EPS 市場共識約 1.46 美元（Nasdaq/StockTitan）。"
+      }
+    }
+  ],
   "previous_economic_calendar": [],
-  "previous_earnings_calendar": [],
+  "previous_earnings_calendar": [
+    {
+      "id": "prev-googl-20261028",
+      "event_date": "2026-10-29T04:30:00+08:00",
+      "company": "Alphabet（Google）",
+      "ticker": "GOOGL",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 2.94,
+      "eps_actual": 2.12,
+      "revenue_estimate": 127.91,
+      "revenue_actual": 127.58,
+      "status": "released",
+      "stock_price_reaction": "10/29 首個交易日收盤約 -12.6%。",
+      "source": {
+        "name": "Alphabet Investor Relations / Nasdaq consensus",
+        "url": "https://abc.xyz/investor/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Alphabet Investor Relations",
+        "notes": "GAAP EPS 實際 2.12 美元，Nasdaq 共識 2.94 美元；營收實際 127.58B 美元、共識 127.91B 美元（SentiSense）。10/29 股價反應約 -12.6%（Reuters/AP 市場報導）。"
+      }
+    },
+    {
+      "id": "prev-msft-20261028",
+      "event_date": "2026-10-29T05:30:00+08:00",
+      "company": "微軟 Microsoft",
+      "ticker": "MSFT",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 4.71,
+      "eps_actual": 4.89,
+      "revenue_estimate": 90.63,
+      "revenue_actual": 92.28,
+      "status": "released",
+      "stock_price_reaction": "10/29 首個交易日收盤約 -0.16%；盤後初段曾上漲。",
+      "source": {
+        "name": "Microsoft Investor Relations / Nasdaq consensus",
+        "url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Microsoft Investor Relations",
+        "notes": "非 GAAP EPS 實際 4.89 美元，Nasdaq 共識 4.71 美元；營收實際 92.28B 美元、共識 90.63B 美元（SentiSense）。10/29 首個交易日收盤約 -0.16%（Finviz）。"
+      }
+    },
+    {
+      "id": "prev-lly-20261029",
+      "event_date": "2026-10-29T22:00:00+08:00",
+      "company": "禮來 Eli Lilly",
+      "ticker": "LLY",
+      "session": "before_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 5.6,
+      "eps_actual": 7.48,
+      "revenue_estimate": 22.42,
+      "revenue_actual": 24.4,
+      "status": "released",
+      "stock_price_reaction": "10/29 首個交易日上漲約 +6.47%。",
+      "source": {
+        "name": "Eli Lilly Investor Relations / Investing.com consensus",
+        "url": "https://investor.lilly.com/node/55191",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Eli Lilly Investor Relations",
+        "notes": "非 GAAP EPS 實際 7.48 美元、共識 5.60 美元；營收實際 24.40B 美元、共識 22.42B 美元（Investing.com）。10/29 股價上漲約 6.47%。"
+      }
+    },
+    {
+      "id": "prev-amzn-20261029",
+      "event_date": "2026-10-30T05:00:00+08:00",
+      "company": "亞馬遜 Amazon",
+      "ticker": "AMZN",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 1.96,
+      "eps_actual": 1.89,
+      "revenue_estimate": 202.16,
+      "revenue_actual": 201.94,
+      "status": "released",
+      "stock_price_reaction": "10/30 首個交易日收盤約 -1.41%。",
+      "source": {
+        "name": "Amazon Investor Relations / consensus data",
+        "url": "https://ir.aboutamazon.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Amazon Investor Relations",
+        "notes": "EPS 實際 1.89 美元、共識 1.96 美元；營收實際 201.94B 美元、共識 202.16B 美元（SentiSense）。10/30 首個交易日收盤約 -1.41%（Finviz）。"
+      }
+    },
+    {
+      "id": "prev-intc-20261029",
+      "event_date": "2026-10-30T05:00:00+08:00",
+      "company": "英特爾 Intel",
+      "ticker": "INTC",
+      "session": "after_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 0.4,
+      "eps_actual": 0.52,
+      "revenue_estimate": 16.56,
+      "revenue_actual": 16.51,
+      "status": "released",
+      "stock_price_reaction": "10/30 首個交易日收盤約 -28.58%；市場聚焦後續展望。",
+      "source": {
+        "name": "Intel Investor Relations / Investing.com consensus",
+        "url": "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Intel Investor Relations",
+        "notes": "非 GAAP EPS 實際 0.52 美元、共識約 0.40 美元；營收實際 16.51B 美元、共識 16.56B 美元（Investing.com/Nasdaq）。10/30 股價收盤約 -28.58%（Finviz）；雖 EPS 優於預期，營收略低於預期且展望偏弱。"
+      }
+    },
+    {
+      "id": "prev-xom-20261030",
+      "event_date": "2026-10-30T21:30:00+08:00",
+      "company": "埃克森美孚 ExxonMobil",
+      "ticker": "XOM",
+      "session": "before_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 4.12,
+      "eps_actual": 4.23,
+      "revenue_estimate": 105.43,
+      "revenue_actual": 113.16,
+      "status": "released",
+      "stock_price_reaction": "10/30 首個交易日收盤約 +2.16%。",
+      "source": {
+        "name": "ExxonMobil Investor Relations / AP / MarketBeat",
+        "url": "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "ExxonMobil Investor Relations",
+        "notes": "調整後 EPS 實際 4.23 美元、共識約 4.12 美元；公司公告總營收 113.16B 美元，MarketBeat 共識約 105.43B 美元。Investing.com 頁面曾顯示不同營收口徑，故採公司公告總營收並保留口徑註記。10/30 股價約 +2.16%（Finviz）。"
+      }
+    },
+    {
+      "id": "prev-cvx-20261030",
+      "event_date": "2026-10-30T23:00:00+08:00",
+      "company": "雪佛龍 Chevron",
+      "ticker": "CVX",
+      "session": "before_market",
+      "importance_stars": null,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "依公司 IR 公告、Nasdaq/StockTitan 財報行事曆及大型市值／主要指數代表性納入觀察；未取得可驗證的來源原生 1–3 星評級，因此 importance_stars 保持 null，標示未評級／待核實，不自行補星。",
+      "importance_rating_source": null,
+      "eps_estimate": 4.89,
+      "eps_actual": 5.28,
+      "revenue_estimate": 60.55,
+      "revenue_actual": 67.8,
+      "status": "released",
+      "stock_price_reaction": "10/30 首個交易日收盤約 +1.75%。",
+      "source": {
+        "name": "Chevron Investor Relations / Reuters / Investing.com",
+        "url": "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:00:00+08:00",
+        "publisher": "Chevron Investor Relations",
+        "notes": "調整後 EPS 實際 5.28 美元、LSEG 共識 4.89 美元；營收實際 67.80B 美元、共識約 60.55B 美元（Investing.com）。10/30 股價約 +1.75%（Finviz）。"
+      }
+    }
+  ],
   "analysis": {
     "summary": {
       "headline": "AI資本支出回報遭重新檢視，科技與半導體領跌、資金轉向能源及防禦板塊",
@@ -387,24 +739,44 @@
       "checked_at": "2026-11-01T04:59:16+08:00"
     },
     "earnings_calendar": {
-      "status": "incomplete",
-      "source_refs": [],
-      "checked_at": "2026-11-01T04:59:16+08:00"
+      "status": "complete",
+      "source_refs": [
+        "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+        "https://investor.apple.com/",
+        "https://investors.palantir.com/",
+        "https://ir.amd.com/",
+        "https://investors.amgen.com/",
+        "https://investors.arista.com/",
+        "https://investor.uber.com/",
+        "https://investor.qualcomm.com/"
+      ]
     },
     "previous_earnings_calendar": {
-      "status": "incomplete",
-      "source_refs": [],
-      "checked_at": "2026-11-01T04:59:16+08:00"
+      "status": "complete",
+      "source_refs": [
+        "https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026",
+        "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
+        "https://abc.xyz/investor/",
+        "https://ir.aboutamazon.com/",
+        "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
+        "https://investor.lilly.com/node/55191",
+        "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
+        "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results"
+      ]
     },
     "economic_calendar": {
       "status": "incomplete",
-      "source_refs": [],
-      "checked_at": "2026-11-01T04:59:16+08:00"
+      "source_refs": [
+        "https://hk.investing.com/economic-calendar/",
+        "https://www.investing.com/economic-calendar/"
+      ]
     },
     "previous_economic_calendar": {
       "status": "incomplete",
-      "source_refs": [],
-      "checked_at": "2026-11-01T04:59:16+08:00"
+      "source_refs": [
+        "https://hk.investing.com/economic-calendar/",
+        "https://www.investing.com/economic-calendar/"
+      ]
     }
   }
 }
