@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "description": "Read-only selector contract for the approved TAC Monday and weekday mother templates. Validates all 17 fixed global-market fields; it does not authorize ad hoc HTML changes.",
+  "sections": {
+    "global_markets": {
+      "container_id": "global-markets",
+      "row_class": "row",
+      "expected_count": 17,
+      "labels": [
+        "道瓊工業指數",
+        "標普500指數",
+        "那斯達克綜合指數",
+        "羅素2000指數",
+        "費城半導體指數",
+        "香港恆生指數",
+        "上海綜合指數",
+        "深證成指",
+        "日經 225",
+        "韓國 KOSPI",
+        "台灣加權指數",
+        "新加坡海峽時報指數 STI",
+        "澳洲 S&P/ASX 200",
+        "英國 FTSE 100",
+        "德國 DAX",
+        "法國 CAC 40",
+        "STOXX Europe 600"
+      ],
+      "date_meta_count": 3,
+      "link_targets": {
+        "新加坡海峽時報指數 STI": "https://hk.investing.com/indices/singapore-straits-time",
+        "澳洲 S&P/ASX 200": "https://hk.investing.com/indices/aus-200-historical-data",
+        "STOXX Europe 600": "https://www.investing.com/indices/stoxx-600"
+      }
+    },
+    "bonds": {
+      "container_id": "bonds",
+      "row_class": "row",
+      "expected_count": 3,
+      "labels": [
+        "2年期美債殖利率",
+        "10年期美債殖利率",
+        "30年期美債殖利率"
+      ]
+    },
+    "fx": {
+      "container_id": "fx",
+      "row_class": "row",
+      "expected_count": 6,
+      "labels": [
+        "美元指數",
+        "美元／新台幣",
+        "歐元／美元",
+        "英鎊／美元",
+        "澳幣／美元",
+        "美元／日圓"
+      ]
+    },
+    "energy": {
+      "container_id": "tac-assets-panel-3",
+      "row_class": "row",
+      "expected_count": 2,
+      "labels": [
+        "WTI原油期貨",
+        "Brent原油期貨"
+      ]
+    },
+    "precious_metals": {
+      "container_id": "tac-assets-panel-4",
+      "row_class": "row",
+      "expected_count": 2,
+      "labels": [
+        "黃金期貨 GC",
+        "白銀期貨 SI"
+      ]
+    },
+    "sectors": {
+      "container_id": "tac-assets-panel-0",
+      "row_class": "sector-row",
+      "expected_count": 11,
+      "tickers": [
+        "XLK",
+        "XLY",
+        "XLB",
+        "XLU",
+        "XLI",
+        "XLV",
+        "XLF",
+        "XLC",
+        "XLRE",
+        "XLP",
+        "XLE"
+      ]
+    }
+  },
+  "protected_paths": [
+    "index.html",
+    "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+    "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+    "母版專區/mother-template-manifest.json",
+    "TAC_WORK_RULES.md"
+  ]
+}

@@ -541,8 +541,11 @@
 - 德國 DAX：`https://www.investing.com/indices/germany-30`
 - 法國 CAC 40：`https://www.investing.com/indices/france-40`
 - STOXX Europe 600：`https://www.investing.com/indices/stoxx-600`
-- 全球市場頁籤內母版實際列出的指數名稱均須連結；若未來新增 STOXX Europe 600，使用本節指定網址。重複出現的同一指數名稱必須使用相同目的網址；只連結名稱，不連結點位及漲跌幅。
-- 新加坡海峽時報指數（STI）：`https://hk.investing.com/indices/singapore-straits-time`。每日審核版若呈現 STI，必須使用此標的頁，不得沿用錯誤或不對應的 Investing.com URL。
+- **固定欄位：** 全球市場頁籤固定納入新加坡海峽時報指數（STI）、澳洲 S&P/ASX 200、STOXX Europe 600；週一及週二至週五雙母版均須保留這三列，不得視當日資料是否取得而刪除。資料未能核實時保留欄位並標示「待核實」，不得填入猜測值。
+- 新加坡海峽時報指數（STI）：`https://hk.investing.com/indices/singapore-straits-time`。
+- 澳洲 S&P/ASX 200：`https://hk.investing.com/indices/aus-200-historical-data`。
+- STOXX Europe 600：`https://www.investing.com/indices/stoxx-600`。
+- 全球市場頁籤內母版實際列出的指數名稱均須連結；重複出現的同一指數名稱必須使用相同目的網址；只連結名稱，不連結點位及漲跌幅。
 
 ### 21.3 市場情緒與利率
 - VIX：`https://hk.investing.com/indices/volatility-s-p-500`
