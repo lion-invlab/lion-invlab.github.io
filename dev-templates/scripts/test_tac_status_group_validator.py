@@ -2,6 +2,7 @@
 from copy import deepcopy
 from pathlib import Path
 import unittest
+import xml.etree.ElementTree as ET
 
 import cssselect2
 import html5lib
@@ -62,8 +63,6 @@ class SyntheticStatusGroupTests(unittest.TestCase):
         groups = query(root, "#calendar .calendar-status-group")
         list_node = direct(root, groups[1], ".econ-event-list")[0]
         empty_node = direct(root, groups[0], ".calendar-status-empty")[0]
-        list_node.getparent().replace(list_node, deepcopy(empty_node)) if hasattr(list_node, "getparent") else None
-        # ElementTree nodes have no getparent; replace through the known group.
         groups[1].remove(list_node)
         groups[1].append(deepcopy(empty_node))
         result = validate_status_group_variants(baseline, serialize(root), [self.SPEC])
@@ -168,8 +167,19 @@ class RealMotherStatusGroupTests(unittest.TestCase):
             ("#earnings", ".earnings-accordion-list", ".earnings-accordion"),
         ):
             with self.subTest(section=section):
-                result = self._switch_list_to_empty(source, root, section, list_selector, card_selector)
-                self.assertIsNone(result, "Weekday mother should not have an empty-state HTML prototype")
+                candidate = deepcopy(root)
+                section_node = query(candidate, section)[0]
+                groups = direct(candidate, section_node, ".calendar-status-group")
+                target = next(group for group in groups if direct(candidate, group, list_selector))
+                list_node = direct(candidate, target, list_selector)[0]
+                target.remove(list_node)
+                empty = ET.Element("div", {"class": "calendar-status-empty"})
+                empty.text = "No verified events"
+                target.append(empty)
+                result = validate_status_group_variants(source, serialize(candidate), [
+                    StatusGroupSpec("target", section, list_selector=list_selector, card_selector=card_selector)
+                ])
+                self.assertFalse(result["pass"], result)
 
 
 if __name__ == "__main__":
