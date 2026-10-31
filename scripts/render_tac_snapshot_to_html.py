@@ -420,7 +420,7 @@ def render(source,snapshot,mapping):
         previous_summary=selector_nodes(previous_econ_container,econ_spec["previous_summary_selector"])
         previous_heading=selector_nodes(previous_econ_container,econ_spec["previous_heading_selector"])
         if len(previous_title)!=1 or len(previous_summary)!=1 or len(previous_heading)!=1:
-            raise ValueError("previous-week economic date/heading slots missing")
+            raise ValueError("previous-week economic date/heading slots missing: title="+str(len(previous_title))+" summary="+str(len(previous_summary))+" heading="+str(len(previous_heading)))
         edits.append(make_edit(previous_title[0],econ["previous_week_range"]+"｜台灣時間 UTC+8"))
         edits.append(make_edit(previous_summary[0],"展開上週經濟行事曆（"+econ["previous_week_range"]+"）"))
         edits.append(make_edit(previous_heading[0],"上週已公布｜重要性★★★｜依事件日期排序"))
