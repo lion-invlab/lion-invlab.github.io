@@ -168,7 +168,7 @@ def self_test():
     assert parsed[1]["category"]=="company"
     assert parsed[0]["source"]["url"]=="https://example.com/a"
     assert parsed[0]["status"]=="pending_verification"
-    assert clean_text("alpha\\n beta\\t gamma")=="alpha beta gamma"
+    assert clean_text("alpha\n beta\t gamma")=="alpha beta gamma"
     print("PASS: RSS item parsing, canonical article URL and publication time")
     print("PASS: policy/macro and company categories distinguished")
     def fake_fetch(_feed):
@@ -190,7 +190,7 @@ def self_test():
         write_json_output(output_path,result)
         round_trip=json.loads(output_path.read_text(encoding="utf-8"))
         assert round_trip==result
-        assert output_path.read_bytes().endswith(b"\\n")
+        assert output_path.read_bytes().endswith(b"\n")
     print("PASS: serialized RSS output round-trips as one valid JSON document with a real newline")
 
 
