@@ -161,3 +161,14 @@
 - Run 連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177327390
 - Gate A 尚未完成，尚未啟用每日資料更新或正式寫入。
 
+## 2026-10-31 Run #112、#117｜總結／市場情緒欄位與 81 Selector 驗收
+
+- Registry 已擴充至 **81 個候選 selector**。Run #117（41177564911）通過 51 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、DOM 結構指紋及 selector cardinality 稽核。
+- 市場情緒新增獨立欄位：VIX 漲跌幅、MOVE 漲跌幅、CNN 恐懼貪婪英文狀態、中文狀態及核心解讀文字。原有 CNN 狀態複合容器、marker 容器、核心解讀容器與今日市場焦點容器均改為 protected，禁止整段覆寫。
+- 總結標題可獨立更新；總結內文含混合格式／子節點，維持 protected，不允許以單一文字更新器整段覆蓋。
+- Run #116 曾因週一上週經濟來源 anchor 預期命中數錯設為 7 而失敗。回查正式鎖定週一母版後，確認實際為 4 個 anchor（其中一個來源欄有兩個連結），已將 registry 預期值修正為 4；Run #117 通過。
+- 經濟來源 anchor 的 4 個節點已定位；獨立正向更新測試仍在 Run #118 執行中，尚未宣告完成。
+- Run #112：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177327390
+- Run #116（失敗原因已修正）：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177458151
+- Run #117：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177564911
+
