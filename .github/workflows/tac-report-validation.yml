@@ -68,8 +68,7 @@ jobs:
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
 
-      - name: Fetch global indices for source availability probe (read-only)
-        run: python scripts/fetch_tac_global_indices.py --trading-date "2026-10-30" --report-date "2026-11-02" --output "/tmp/tac-global-indices-2026-10-30.json"
+      # Live Investing.com data retrieval is disabled pending written source authorization.
 
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
