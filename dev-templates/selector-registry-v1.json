@@ -239,7 +239,7 @@
     },
     {
       "name": "energy_card_instrument_names",
-      "selector": "#tac-assets-panel-3 .energy-card > .row > b",
+      "selector": "#tac-assets-panel-3 .energy-card > .row > b > a",
       "monday": 2,
       "weekdays": 2,
       "kind": "content"
@@ -281,7 +281,7 @@
     },
     {
       "name": "precious_metals_instrument_names",
-      "selector": "#tac-assets-panel-4 article.card > .row > b",
+      "selector": "#tac-assets-panel-4 article.card > .row > b > a",
       "monday": 2,
       "weekdays": 2,
       "kind": "content"
@@ -396,7 +396,7 @@
       "selector": "#last-week-calendar .econ-event .econ-details .econ-field > .econ-value",
       "monday": 12,
       "weekdays": 0,
-      "kind": "content"
+      "kind": "protected_container_only"
     },
     {
       "name": "last_week_earnings_us_dates",
