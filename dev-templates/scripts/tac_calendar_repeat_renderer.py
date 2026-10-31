@@ -57,7 +57,7 @@ SECTION_CONFIG = {
         "registry_name": "last_week_economic_events",
         "registry_kind": "monday_only",
         "template_only": "monday",
-        "fixed_detail_labels": {"前值", "預估", "實際"},
+        "fixed_detail_labels": {"前值", "市場預估", "實際"},
         "fixed_source_labels": {"來源"},
         "statuses": ("prior_week_published",),
         "summary": {
@@ -264,10 +264,6 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
         raise PermissionError("source HTML does not contain a valid calendar repeat-group inventory")
     if template_inventory != actual_inventory:
         raise ValueError("template inventory does not match the supplied source HTML")
-    if validated["prior_week_economic_events"]:
-        raise PermissionError(
-            "prior-week cards require a dedicated historical-event mapping; no partial render allowed"
-        )
     if validated["prior_week_earnings_events"]:
         raise PermissionError("prior-week earnings cards require their dedicated result-grid mapping; no partial render allowed")
 
