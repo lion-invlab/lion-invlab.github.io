@@ -150,3 +150,15 @@
 - Run #112（41177327390）通過 **51 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、HTML5 DOM 指紋及 77 項 selector cardinality**。包含市場情緒 leaf 正向更新、複合容器拒絕更新、總結標題可寫／正文不可整段覆寫。
 - 今日觀察重點三個 panel 仍維持 protected：市場觀點、關鍵價位、核心觀察都含多層標籤、details 或複合內容；在不調整母版結構的前提下，不能安全以單一 selector 覆寫。
 - Gate A 尚未完成：仍須處理 11 大產業／市場行情各欄位、商品及 FOMC 的完整葉節點測試、週一上週經濟欄位正反向測試、兩版總結／觀察完整 mapping 報告。
+
+## 2026-10-31 Run #112、#117｜總結／市場情緒欄位與 81 Selector 驗收
+
+- Registry 已擴充至 **81 個候選 selector**。Run #117（41177564911）通過 51 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、DOM 結構指紋及 selector cardinality 稽核。
+- 市場情緒新增獨立欄位：VIX 漲跌幅、MOVE 漲跌幅、CNN 恐懼貪婪英文狀態、中文狀態及核心解讀文字。原有 CNN 狀態複合容器、marker 容器、核心解讀容器與今日市場焦點容器均改為 protected，禁止整段覆寫。
+- 總結標題可獨立更新；總結內文含混合格式／子節點，維持 protected，不允許以單一文字更新器整段覆蓋。
+- Run #116 曾因週一上週經濟來源 anchor 預期命中數錯設為 7 而失敗。回查正式鎖定週一母版後，確認實際為 4 個 anchor（其中一個來源欄有兩個連結），已將 registry 預期值修正為 4；Run #117 通過。
+- 經濟來源 anchor 的 4 個節點已定位；獨立正向更新測試仍在 Run #118 執行中，尚未宣告完成。
+- Run #112：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177327390
+- Run #116（失敗原因已修正）：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177458151
+- Run #117：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177564911
+
