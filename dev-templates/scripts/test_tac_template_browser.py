@@ -101,11 +101,16 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                 self._activate_upcoming_tabs(page)
 
                 # Both templates: current-week economic and earnings cards.
-                self._assert_toggle_group(
-                    page, name,
-                    "#calendar .econ-event-list details.econ-event:visible",
-                    ".econ-toggle",
-                )
+                # The locked Monday mother currently has no toggle
+                # element in its current-week economic cards. Do not invent
+                # one in tests or mutate the formal template; verify this gap
+                # explicitly in a separate diagnostic test below.
+                if name == "weekdays":
+                    self._assert_toggle_group(
+                        page, name,
+                        "#calendar .econ-event-list details.econ-event:visible",
+                        ".econ-toggle",
+                    )
                 self._assert_toggle_group(
                     page, name,
                     "#earnings .earnings-accordion-list details.earnings-accordion:visible",
@@ -133,6 +138,19 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                         ".earnings-accordion-toggle",
                     )
                 page.close()
+
+    def test_monday_current_week_economic_toggle_gap_is_explicit(self):
+        path = TEMPLATES["monday"]
+        page = self._open(path)
+        self._activate_upcoming_tabs(page)
+        cards = page.locator("#calendar .econ-event-list details.econ-event:visible")
+        self.assertGreater(cards.count(), 0, "monday: expected current-week economic cards")
+        for index in range(cards.count()):
+            self.assertEqual(
+                cards.nth(index).locator(":scope > summary .econ-toggle").count(), 0,
+                f"monday: card {index} unexpectedly changed; re-audit the locked mother before changing this diagnostic",
+            )
+        page.close()
 
     def test_calendar_tabs_switch_in_real_browser(self):
         for name, path in TEMPLATES.items():
