@@ -66,7 +66,7 @@
 
 ## 2026-10-31 Gate A 雙母版插槽盤點更新（本節優先）
 
-- 新增整合文件：[`slot-map-v1.3.md`](slot-map-v1.3.md)。此版統整 `slot-map-v1.2.md`、`summary-sentiment-map-v1.md`、`weekly-commodities-fomc-map-v1.md`、selector registry 與 Repeat Group 規則，作為目前雙母版欄位盤點入口。
+- 新增整合文件：[`slot-map-v1.4.md`](slot-map-v1.4.md)。此版統整 `slot-map-v1.2.md`、`summary-sentiment-map-v1.md`、`weekly-commodities-fomc-map-v1.md`、selector registry 與 Repeat Group 規則，作為目前雙母版欄位盤點入口。
 - v1.3 已確認週一／平日正式母版檔案及 SHA，並明確標記所有欄位仍屬候選定位，未授權每日寫入。
 - v1.3 補齊了先前進度文字尚未整合的專項定位：能源 WTI／Brent、貴金屬 Gold／Silver、FOMC 會議欄位，以及週一上週經濟／財報欄位。這些仍需加入 selector registry 並完成逐欄位正反向測試，不能誤報為已通過 CI。
 - 總結正文、核心情緒解讀、今日觀察三個 panel 均採「容器保護」；不得以整段 textContent／innerHTML 覆寫。KPI 不存在獨立版面，不建立 KPI 插槽。
@@ -101,3 +101,9 @@
 - 週一上週財報目前只完成摘要欄位定位；EPS／營收實際值、預期值、優劣狀態、分析、股價表現及來源欄位仍需逐欄位盤點，不能因公司卡片摘要 selector 通過就視為財報卡完整定位。
 - 本次仍只修改測試分支中的 registry；正式首頁、雙母版、manifest 與正式 WR v3.4 均未修改。
 
+
+
+## Gate A 盤點文件入口更新
+
+- 目前最新雙母版插槽盤點入口為 [`slot-map-v1.4.md`](slot-map-v1.4.md)，承接 v1.3 並記錄 Run #74 的 61 個候選 selector cardinality 結果。
+- v1.3 保留作為前一版盤點紀錄；不得再將其中「商品／FOMC／週一上週卡尚未納入 registry」的舊狀態當作目前進度。
