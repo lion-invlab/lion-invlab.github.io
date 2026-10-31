@@ -304,13 +304,9 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
                     raise PermissionError(f"{section_name} has no {status} group in this template")
                 section_report[status] = {"count": 0, "action": "not_applicable"}
                 continue
-            if section_name == "prior_week_economic":
-                # Historical Monday cards are immutable in this renderer until
-                # their dedicated event/result mapping is implemented.
-                if count:
-                    raise PermissionError(
-                        "prior-week cards require a dedicated historical-event mapping; no partial render allowed"
-                    )
+            if section_name == "prior_week_economic" and count == 0:
+                # Keep existing historical cards when no replacement payload
+                # is supplied; never interpret omission as a request to clear.
                 section_report[status] = {
                     "count": 0, "action": "preserve_existing_prior_week_cards",
                 }
