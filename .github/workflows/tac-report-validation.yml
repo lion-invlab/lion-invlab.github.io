@@ -50,6 +50,13 @@ on:
   pull_request:
     branches: ["main"]
     paths:
+      - "schemas/tac-daily-content.schema.json"
+      - "scripts/validate_tac_daily_content.py"
+      - "scripts/tac_content_binding_map.json"
+      - "scripts/validate_tac_content_binding.py"
+      - "scripts/assemble_tac_daily_content.py"
+      - "scripts/import_tac_calendar_capture.py"
+      - "scripts/fetch_tac_news_rss.py"
       - "2026-*.html"
       - "review/2026-*-review.html"
       - "preview/2026-*.html"
