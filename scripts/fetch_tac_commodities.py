@@ -171,6 +171,10 @@ def self_test():
     else:raise AssertionError("missing contract month must fail closed")
     print("PASS: exact-date commodity history and instrument identity validation")
     print("PASS: contract month extracted for WTI, Brent, GC and SI")
+    sample_record={"value":1.0,"unit":"USD/oz","change":0.1,"change_unit":"percent","status":"verified","source":{"name":"test","url":"https://example.com","observed_at":"2026-10-31T00:00:00+00:00","data_date":"2026-10-30","quote_type":"test","instrument":"test"},"fallback_used":False,"fallback_reason":None,"notes":"test"}
+    fragment=build_fragment(date(2026,10,30),date(2026,11,2),{"wti":sample_record,"brent":sample_record,"gold":sample_record,"silver":sample_record},"2026-10-31T00:00:00+00:00")
+    assert set(fragment["precious_metals"])=={"gold_gc","silver_si"}
+    print("PASS: commodity fragment keys match snapshot schema for GC and SI")
     print("PASS: missing date or contract month rejected; no stale row reuse")
 
 def main():
