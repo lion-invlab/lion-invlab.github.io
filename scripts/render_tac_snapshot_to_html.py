@@ -647,4 +647,8 @@ def main():
     print("Dates: report="+snap["meta"]["report_date"]+" trading="+snap["meta"]["trading_date"])
 if __name__=="__main__":
     try: main()
-    except Exception as e: print("FAIL: "+str(e),file=sys.stderr); raise SystemExit(1)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        print("FAIL: "+repr(e),file=sys.stderr)
+        raise SystemExit(1)
