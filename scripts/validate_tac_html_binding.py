@@ -163,8 +163,10 @@ def check_template(path: Path, contract: dict) -> list[str]:
             if len(current_groups) != 3:
                 errors.append(f"economic_calendar: expected three current-week status groups, found {len(current_groups)}")
             for index, status_group in enumerate(current_groups, 1):
-                if len(by_class(status_group, spec["event_list_selector"].lstrip("."))) != 1:
-                    errors.append(f"economic_calendar: current status group {index} event list missing")
+                event_lists = by_class(status_group, spec["event_list_selector"].lstrip("."))
+                empty_states = by_class(status_group, spec["empty_state_selector"].lstrip("."))
+                if (len(event_lists), len(empty_states)) not in ((1, 0), (0, 1)):
+                    errors.append(f"economic_calendar: current status group {index} must have exactly one event list or empty state")
                 for card_index, card in enumerate(by_class(status_group, spec["event_card_selector"].lstrip(".")), 1):
                     for selector_key in ("date_selector", "time_selector", "country_selector", "name_selector", "stars_selector"):
                         if len(selector_nodes(card, spec[selector_key])) != 1:
@@ -182,8 +184,10 @@ def check_template(path: Path, contract: dict) -> list[str]:
             if len(current_groups) != 3:
                 errors.append(f"earnings_calendar: expected three current-week status groups, found {len(current_groups)}")
             for index, status_group in enumerate(current_groups, 1):
-                if len(by_class(status_group, spec["event_list_selector"].lstrip("."))) != 1:
-                    errors.append(f"earnings_calendar: current status group {index} event list missing")
+                event_lists = by_class(status_group, spec["event_list_selector"].lstrip("."))
+                empty_states = by_class(status_group, spec["empty_state_selector"].lstrip("."))
+                if (len(event_lists), len(empty_states)) not in ((1, 0), (0, 1)):
+                    errors.append(f"earnings_calendar: current status group {index} must have exactly one event list or empty state")
                 for card_index, card in enumerate(by_class(status_group, spec["event_card_selector"].lstrip(".")), 1):
                     for selector_key in ("us_date_selector", "tw_date_selector", "company_selector", "company_sub_selector", "stars_selector"):
                         if len(selector_nodes(card, spec[selector_key])) != 1:
