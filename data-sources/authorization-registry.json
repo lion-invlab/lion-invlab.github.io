@@ -7,7 +7,7 @@
     {
       "source_id": "investing_hk",
       "display_name": "Investing.com Hong Kong",
-      "status": "not_authorized",
+      "status": "not_authorized_for_automated_use",
       "evidence_reference": null,
       "permissions": {
         "automated_access": false,
@@ -17,7 +17,9 @@
         "public_display": false,
         "redistribution": false
       },
-      "notes": "Outbound instrument links may remain as navigation. Public visibility of pages does not grant extraction, storage, display, or redistribution rights."
+      "notes": "Remains TAC's first-priority source. This rank is not changed by authorization status. Until written permission is documented, automated extraction, storage, internal/public display and redistribution remain blocked. Outbound instrument links may remain as navigation.",
+      "priority": 1,
+      "role": "designated_primary_source"
     },
     {
       "source_id": "tradingview_widget",
@@ -33,7 +35,9 @@
         "redistribution": false,
         "official_widget_embedding": true
       },
-      "notes": "Widget embedding may be used only within applicable widget terms. This permission does not authorize numeric quote extraction, storage, or republication."
+      "notes": "Not promoted to primary. Official widget embedding may be used only within applicable widget terms; this does not authorize numeric quote extraction, storage, or republication.",
+      "priority": null,
+      "role": "backup_candidate_not_primary"
     },
     {
       "source_id": "yahoo_finance",
@@ -48,7 +52,9 @@
         "public_display": false,
         "redistribution": false
       },
-      "notes": "No TAC-specific data license or redistribution permission has been confirmed."
+      "notes": "No TAC-specific data license or redistribution permission has been confirmed.",
+      "priority": null,
+      "role": "backup_candidate_not_primary"
     },
     {
       "source_id": "licensed_vendor_placeholder",
@@ -65,5 +71,6 @@
       },
       "notes": "Replace with a provider-specific record only after reviewing written terms and documenting the permitted instruments, data types, methods, storage, audience, redistribution, attribution, and validity period."
     }
-  ]
+  ],
+  "source_priority_policy": "Investing.com Hong Kong remains priority 1 for every instrument for which it is the designated source. Authorization status controls whether an operation may be performed; it does not change source ranking. A blocked priority source is not silently demoted. Use a backup only when its own permissions are explicitly authorized and WR fallback conditions are met; otherwise mark pending verification."
 }
