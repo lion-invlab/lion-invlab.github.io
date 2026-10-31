@@ -557,3 +557,37 @@
 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182431871
 
 本補記不改變 v1.0-DRAFT 身分，不授權正式每日生產或任何 main／正式首頁／雙母版寫入。
+
+
+## 2026-10-31 Run #41183368182｜本週行事曆 Repeat Group renderer 補記（維持 DRAFT）
+
+### 1. 可寫入範圍
+
+1. 新增 `scripts/tac_calendar_repeat_renderer.py`，目前只支援本週經濟與本週財報 status groups；週一上週經濟／財報資料不在本版寫入範圍。
+2. 只可在同一正式模板、同一 status group 的既有卡片中選擇 prototype；不得跨 today／upcoming／published 群組借用卡片，不得自行重建卡片 DOM。
+3. 摘要只更新已登記的 summary leaf；detail 欄位必須符合 Selector Registry 的 field/value class 及 writable label allowlist。經濟前值／市場預估／實際欄位另受固定欄位名稱限制。
+4. 來源欄位只可更新既有 anchor leaf 的 href 與顯示文字；來源 field label 必須在 Registry allowlist，anchor 數量必須與原型相同。只接受絕對 HTTP(S) URL，拒絕帳密及控制字元；不新增／刪除 anchor。
+
+### 2. 原子化渲染與結構驗證
+
+1. 先驗證完整資料集及模板，再逐卡比對摘要欄位、detail labels、來源欄位及 anchor 數量。
+2. 所有卡片 clone 與欄位更新先在私有解析文件完成；所有群組全部通過後，才替換對應 list wrapper 的 card children。任何一張卡不符合原型或欄位契約，整批停止，不回傳部分 HTML。
+3. 寫入後以 `validate_repeat_groups` 對照原始母版，確認固定 DOM、wrapper、card skeleton、唯一 ID 與 inline CSS／JS 資產不變；只允許已登記 Repeat Group 的卡片筆數改變。
+4. 無卡片原型、空列表但沒有核准 empty-state，或需跨狀態群組借用原型時，一律阻擋。不可為了讓更新成功而臨時建立 empty-state 或複製其他狀態卡片。
+
+### 3. 模板限制及尚未支援範圍
+
+- 週一母版本週經濟／財報只有「即將公布」群組具同群組卡片原型；今日公布／已公布若需要新增事件，必須先補齊並驗收該狀態專屬原型，否則阻擋。
+- 平日母版三種狀態群組各有原型；但任一群組資料歸零時，因沒有已核准 empty-state 轉換規格，仍阻擋自動清空。
+- 週一上週經濟／財報維持唯讀。尤其上週財報包含 EPS／營收實際與預期比較卡、判讀及股價反應複合區，須另建專用資料契約、欄位 Mapping 及保護測試；本版遇到 prior-week 事件會整批拒絕，不得只更新本週區塊後忽略上週區塊。
+- 尚未接入即時資料抓取、真實每日資料集、正式預覽產出或正式發布；renderer 回傳的 HTML 僅供測試分支使用。
+
+### 4. 驗收紀錄
+
+- 新增 9 項 renderer 測試。Run #41183368182 完整成功：**130 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 指紋、status-group inventory、94 selector cardinality 與稽核報告上傳通過。
+- 中間 Run #41183212925／#41183264296 曾因 fixture 未提供來源 anchor／保留全部狀態群組而失敗；修正後以 Run #41183368182 完整驗收。
+- 本補記不改變 v1.0-DRAFT 身分，不授權正式母版、main、首頁或每日生產寫入。Gate A 尚未完成，Gate B–D 未完成，Gate E 仍待使用者明確核准。
+
+驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41183368182
+
+本補記不改變 v1.0-DRAFT 身分，不構成正式採用或每日生產授權。
