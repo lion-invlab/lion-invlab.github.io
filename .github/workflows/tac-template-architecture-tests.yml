@@ -71,6 +71,11 @@ jobs:
             --candidate "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html" \
             --report architecture-test-results/weekdays-baseline.json
 
+      - name: Inventory template-native calendar repeat-group prototypes
+        run: |
+          python dev-templates/scripts/tac_calendar_group_inventory.py \\
+            --output architecture-test-results/calendar-group-inventory.json
+
       - name: Audit candidate selector cardinality
         run: |
           python dev-templates/scripts/audit_tac_template_selectors.py \
