@@ -393,6 +393,7 @@ jobs:
           elif [ -z "$REPORT_PATH" ]; then
             REPORT_PATH="母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
           fi
+          echo "Browser regression target: $REPORT_PATH"
           node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
 
       - name: Upload layout regression screenshots
