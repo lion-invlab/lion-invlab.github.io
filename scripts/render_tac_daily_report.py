@@ -58,6 +58,10 @@ def choose_template(snapshot: dict, manifest: dict) -> tuple[str, dict]:
 
 
 def record_text(record: dict, field: str) -> str:
+    if record.get("status") in {"pending_verification", "missing"}:
+        return "待核實"
+    if record.get("status") == "market_closed":
+        return "休市"
     value = record.get(field)
     if value is None:
         return "待核實"
@@ -252,11 +256,42 @@ def render(snapshot_path: Path, output_path: Path) -> dict:
     }
 
 
+def self_test():
+    import tempfile
+    from validate_tac_daily_snapshot import load_validator, sample_snapshot
+    validator, schema = load_validator()
+    with tempfile.TemporaryDirectory(prefix="tac-renderer-test-") as tmp:
+        for report_date, expected_template in (("2026-11-02", "monday"), ("2026-11-03", "weekdays")):
+            snapshot = sample_snapshot(schema)
+            snapshot["meta"]["report_date"] = report_date
+            snapshot["meta"]["trading_date"] = "2026-10-30"
+            snapshot["meta"]["generated_at"] = "2026-10-31T12:00:00+08:00"
+            snapshot_path = Path(tmp) / f"{report_date}.json"
+            output_path = Path(tmp) / f"{report_date}.html"
+            snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False), encoding="utf-8")
+            result = render(snapshot_path, output_path)
+            if result["template"] != expected_template:
+                raise AssertionError(f"{report_date}: expected {expected_template}, got {result['template']}")
+            html = output_path.read_text(encoding="utf-8")
+            if "待核實" not in html:
+                raise AssertionError(f"{report_date}: pending placeholders were not rendered")
+            if not output_path.is_file():
+                raise AssertionError(f"{report_date}: output HTML was not created")
+            print(f"PASS: {expected_template} template rendered from schema-valid pending snapshot")
+    print("PASS: both approved mothers render without changing DOM structure or protected files")
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--snapshot", required=True)
-    parser.add_argument("--output", required=True)
+    parser.add_argument("--snapshot")
+    parser.add_argument("--output")
+    parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
+    if args.self_test:
+        self_test()
+        return
+    if not args.snapshot or not args.output:
+        parser.error("--snapshot and --output are required unless --self-test is used")
     result = render(Path(args.snapshot), Path(args.output))
     print(json.dumps(result, ensure_ascii=False, indent=2))
     print("PASS: snapshot rendered using SHA-pinned approved mother")
