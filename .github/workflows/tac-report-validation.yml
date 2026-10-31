@@ -21,6 +21,7 @@ on:
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_sector_etfs.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -92,6 +93,8 @@ jobs:
 
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
+\n      - name: Test Investing.com HK 11 sector ETF collector
+        run: python scripts/fetch_tac_sector_etfs.py --self-test
 
       # Live source collection is exercised by the dedicated manual source-probe
       # workflow; structural validation remains deterministic and network-independent.
