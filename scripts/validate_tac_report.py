@@ -88,8 +88,8 @@ def parse_ids(path: Path) -> tuple[str, AuditParser]:
     return source, parser
 
 def report_date_for_path(path: Path) -> date:
-    """Accept dated root reports and dated review previews."""
-    if path.parent == ROOT and DATE_RE.match(path.name):
+    """Accept dated root reports, review files, and canonical Pages previews."""
+    if path.parent in {ROOT, ROOT / "preview"} and DATE_RE.match(path.name):
         return date.fromisoformat(path.stem)
     match = REVIEW_DATE_RE.match(path.name) if path.parent == ROOT / "review" else None
     if match:
@@ -176,7 +176,28 @@ def main() -> int:
             p for p in review_dir.iterdir()
             if p.is_file() and REVIEW_DATE_RE.match(p.name)
         )
-    reports = sorted(reports)
+    # Validate only the most recently changed canonical Pages preview. The
+    # preview directory also contains historical experiments and dated archives;
+    # rechecking every old preview would incorrectly block today's report.
+    preview_dir = ROOT / "preview"
+    if preview_dir.is_dir():
+        previews = [
+            p for p in preview_dir.iterdir()
+            if p.is_file() and DATE_RE.match(p.name)
+        ]
+        if previews:
+            def last_changed(path: Path) -> int:
+                result = subprocess.run(
+                    ["git", "log", "-1", "--format=%ct", "--", str(path.relative_to(ROOT))],
+                    cwd=ROOT, text=True, capture_output=True,
+                )
+                try:
+                    return int(result.stdout.strip())
+                except ValueError:
+                    return 0
+            reports.append(max(previews, key=last_changed))
+
+    reports = sorted(set(reports))
     if not reports:
         print("FAIL: no active dated report files found")
         return 2
