@@ -128,6 +128,26 @@ jobs:
       - name: Test TAC news RSS collector
         run: python scripts/fetch_tac_news_rss.py --self-test
 
+      - name: Optional live read-only RSS news probe (candidates only; not editorially approved)
+        continue-on-error: true
+        run: |
+          python scripts/fetch_tac_news_rss.py \
+            --window-start "2026-10-30T04:00:00+00:00" \
+            --window-end "2026-11-01T21:00:00+00:00" \
+            --output "/tmp/tac-news-rss-candidates-2026-11-02.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("/tmp/tac-news-rss-candidates-2026-11-02.json").read_text())
+          print("RSS candidate probe (not approved for publication):")
+          print("Focus candidates:", len(data["focus_news"]), "/ 5")
+          print("Headline candidates:", len(data["market_headlines"]), "/ 10")
+          print("Collector status:", data["collector"]["status"])
+          print("Source errors:", len(data["collector"]["errors"]))
+          for error in data["collector"]["errors"]:
+              print("PENDING:", error)
+          PY
+
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
         run: |
@@ -252,6 +272,7 @@ jobs:
             /tmp/tac-global-indices-2026-10-30.json
             /tmp/tac-treasury-yields-2026-10-30.json
             /tmp/tac-auxiliary-markets-2026-10-30.json
+            /tmp/tac-news-rss-candidates-2026-11-02.json
             /tmp/tac-daily-snapshot-2026-11-02.json
             /tmp/tac-partial-market-binding-2026-11-02.html
           if-no-files-found: warn
