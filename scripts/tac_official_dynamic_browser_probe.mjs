@@ -78,8 +78,10 @@ try {
     const cmeHtml = await cmeResponse.text();
     result.cme.http_status = cmeResponse.status();
     result.cme.html_excerpt = cmeHtml.slice(0, 5000);
-    const match = cmeHtml.match(/https?:\\/\\/cmegroup-tools\\.quikstrike\\.net[^"'<\\s]+/i);
-    result.cme.official_html_iframe_url = match ? match[0].replaceAll('&amp;', '&') : null;
+    const marker = 'https://cmegroup-tools.quikstrike.net';
+    const markerIndex = cmeHtml.indexOf(marker);
+    const match = markerIndex >= 0 ? cmeHtml.slice(markerIndex).split(/[ "'<>]/, 1)[0] : null;
+    result.cme.official_html_iframe_url = match ? match.replaceAll('&amp;', '&') : null;
     await fs.writeFile(outDir + '/cme-official-response.html', cmeHtml);
   } catch (e) {
     result.cme.http_error = String(e);
