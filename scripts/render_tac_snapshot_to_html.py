@@ -137,6 +137,16 @@ def make_aria_label_edit(node,value):
         raise ValueError("mapped aria-label attribute missing")
     start,end=node.aria_label_span
     return start,end,html.escape(value,quote=True)
+def find_fedwatch_audit_node(root):
+    matches=[]
+    for node in root.descendants():
+        if node.tag!="details": continue
+        summaries=[child for child in node.children if isinstance(child,Node) and child.tag=="summary"]
+        if not any("資料時間與快照口徑" in normalize(summary.text) for summary in summaries): continue
+        content=[child for child in node.children if isinstance(child,Node) and child.tag=="div"]
+        if len(content)==1: matches.append(content[0])
+    if len(matches)!=1: raise ValueError("FedWatch audit content missing or duplicated")
+    return matches[0]
 def validate_fedwatch_payload(fed):
     if fed.get("status")!="verified":
         return None
@@ -292,7 +302,8 @@ def render(source,snapshot,mapping):
     legend_nodes=selector_nodes(fed_root,fed_spec["split_legend_value_selector"])
     timestamp_nodes=selector_nodes(fed_root,fed_spec["split_timestamp_selector"])
     audit_nodes=by_class(fed_root,fed_spec["audit_content_selector"].lstrip("."))
-    if any(len(x)!=1 for x in (bar_nodes,hold_nodes,hike_nodes,audit_nodes)) or len(legend_nodes)!=2 or len(timestamp_nodes)!=2:
+    if not audit_nodes: audit_nodes=[find_fedwatch_audit_node(fed_root)]
+    if any(len(x)!=1 for x in (bar_nodes,hold_nodes,hike_nodes,audit_nodes)) or len(legend_nodes)!=2 or len(timestamp_nodes) not in (1,2):
         raise ValueError("FedWatch split display slots missing or duplicated")
     if probabilities is not None:
         hold=float(probabilities[0]["probability"]); hike=float(probabilities[1]["probability"])
@@ -301,12 +312,12 @@ def render(source,snapshot,mapping):
         edits.append(make_edit(legend_nodes[0],format(hold,".1f")+"%"))
         edits.append(make_edit(legend_nodes[1],format(hike,".1f")+"%"))
         updated=fed["updated_at"]; meeting=fed["target_meeting"]
-        edits.append(make_edit(timestamp_nodes[1],"官方快照｜"+updated))
+        if len(timestamp_nodes)==2: edits.append(make_edit(timestamp_nodes[1],"官方快照｜"+updated))
         edits.append(make_edit(audit_nodes[0],"FOMC 目標會議："+meeting+"。CME FedWatch 快照時間："+updated+"。此為該時間點市場定價機率，並非聯準會承諾或決策結果。"))
         edits.append(make_aria_label_edit(bar_nodes[0],"維持不變 "+format(hold,".1f")+"%，升息一碼 "+format(hike,".1f")+"%；CME FedWatch 快照時間 "+updated))
     else:
         for node in legend_nodes: edits.append(make_edit(node,"待核實"))
-        edits.append(make_edit(timestamp_nodes[1],"資料待核實"))
+        if len(timestamp_nodes)==2: edits.append(make_edit(timestamp_nodes[1],"資料待核實"))
         edits.append(make_style_property_edit(hold_nodes[0],"width","0%"))
         edits.append(make_style_property_edit(hike_nodes[0],"width","0%"))
         edits.append(make_edit(audit_nodes[0],"FOMC 目標會議：待核實。CME FedWatch 資料時間：待核實。"))
