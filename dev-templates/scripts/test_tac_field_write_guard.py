@@ -76,6 +76,16 @@ class FieldWriteGuardTests(unittest.TestCase):
             ["TEST DATE", "TEST DATE", "TEST DATE"],
         )
 
+    def test_monday_earnings_actual_values_are_leaf_nodes(self):
+        root = parse_html(self._source("monday"))
+        selector = self._item("last_week_earnings_actual_values")["selector"]
+        updated = update_registered_leaf_text(root, selector, "TEST VALUE", self.registry)
+        self.assertEqual(updated, 28)
+        self.assertTrue(all(
+            x.etree_element.text == "TEST VALUE"
+            for x in select_wrappers(root, selector)
+        ))
+
     def test_protected_observation_container_is_rejected(self):
         root = parse_html(self._source("monday"))
         selector = self._item("energy_card_observation")["selector"]
@@ -84,9 +94,16 @@ class FieldWriteGuardTests(unittest.TestCase):
 
     def test_fixed_calendar_labels_are_rejected(self):
         root = parse_html(self._source("monday"))
-        selector = self._item("last_week_econ_detail_labels")["selector"]
-        with self.assertRaises(PermissionError):
-            update_registered_leaf_text(root, selector, "overwrite", self.registry)
+        selectors = (
+            self._item("last_week_econ_detail_labels")["selector"],
+            self._item("last_week_earnings_result_labels")["selector"],
+            self._item("last_week_earnings_analysis_labels")["selector"],
+            self._item("last_week_earnings_analysis_values")["selector"],
+        )
+        for selector in selectors:
+            with self.subTest(selector=selector):
+                with self.assertRaises(PermissionError):
+                    update_registered_leaf_text(root, selector, "overwrite", self.registry)
 
     def test_toggle_and_unknown_selectors_are_rejected(self):
         root = parse_html(self._source("monday"))
