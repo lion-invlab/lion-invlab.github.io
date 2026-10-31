@@ -22,13 +22,13 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
-      url: \${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout validated main revision
         uses: actions/checkout@v4
         with:
-          ref: \${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 0
 
       - name: Require a changed canonical dated preview
@@ -36,7 +36,7 @@ jobs:
         if: github.event_name == 'workflow_run'
         shell: bash
         run: |
-          sha="\${{ github.event.workflow_run.head_sha }}"
+          sha="${{ github.event.workflow_run.head_sha }}"
           changed="$(git diff --name-only "$sha^1" "$sha")"
           preview="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
           if [ -n "$preview" ]; then
