@@ -32,7 +32,7 @@ jobs:
         run: |
           npm install --no-save playwright
           npx playwright install --with-deps chromium
-      - name: Test CNN official page and historical JSON endpoint, then CME FedWatch iframe
+      - name: Test CNN official page and historical JSON endpoint (CME probe intentionally excluded)
         run: node scripts/tac_official_dynamic_browser_probe.mjs
       - name: Upload raw responses, rendered text, and screenshots
         if: always()
