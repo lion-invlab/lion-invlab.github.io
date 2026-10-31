@@ -57,7 +57,7 @@ SECTION_CONFIG = {
         "registry_name": "last_week_economic_events",
         "registry_kind": "monday_only",
         "template_only": "monday",
-        "fixed_detail_labels": {"前值", "市場預估", "實際"},
+        "fixed_detail_labels": {"前值", "預估", "市場預估", "實際"},
         "fixed_source_labels": {"來源"},
         "statuses": ("prior_week_published",),
         "summary": {
