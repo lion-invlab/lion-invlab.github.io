@@ -12,6 +12,7 @@ on:
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/fetch_tac_treasury_yields.py"
+      - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -26,6 +27,7 @@ on:
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/fetch_tac_treasury_yields.py"
+      - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -57,6 +59,9 @@ jobs:
 
       - name: Test Treasury collector parser
         run: python scripts/fetch_tac_treasury_yields.py --self-test
+
+      - name: Test documented FRED Treasury fallback collector
+        run: python scripts/fetch_tac_treasury_fred_fallback.py --self-test
 
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
