@@ -145,7 +145,13 @@ def update_calendar_sources(soup, data):
         note=("來源覆蓋已完成；僅顯示來源原生 3 星經濟事件及已核實資料。" if complete
               else "來源擷取尚未完成；目前沒有資料不代表沒有重要事件，請勿視為完整日程。")
         put(title_meta,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間。")
-        source_node=slot(article,".source",label+" source note")
+        # The locked mothers keep a static guidance note and a separate
+        # source-provenance note inside each calendar card. Update only the
+        # final .source node; do not overwrite the explanatory guidance.
+        source_nodes=article.select(".source")
+        if not source_nodes:
+            raise ValueError(f"{label} source note: expected at least one .source node")
+        source_node=source_nodes[-1]
         if complete:
             source_note="來源覆蓋已完成；事件日期、發布時間及實際值依來源逐項核對。"
         else:
