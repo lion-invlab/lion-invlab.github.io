@@ -143,7 +143,7 @@
       "name": "cnn_fear_greed_date",
       "selector": "#sentiment .cnn-fg-preview .fg6-date",
       "monday": 1,
-      "weekdays": 1,
+      "weekdays": 0,
       "kind": "content"
     },
     {
@@ -172,7 +172,7 @@
       "selector": "#sentiment .sent > .sbox:last-child",
       "monday": 1,
       "weekdays": 1,
-      "kind": "content"
+      "kind": "protected_container_only"
     },
     {
       "name": "today_market_focus",
@@ -184,16 +184,23 @@
     {
       "name": "today_key_levels",
       "selector": "#view .focus-panel.focus-levels .key",
-      "monday": 3,
-      "weekdays": 3,
-      "kind": "content"
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "protected_container_only"
     },
     {
       "name": "today_core_callout",
       "selector": "#view .focus-panel.focus-core .callout",
       "monday": 1,
       "weekdays": 1,
-      "kind": "content"
+      "kind": "protected_container_only"
     }
+  ],
+  "notes": [
+    "Counts validate selector cardinality only; they do not grant write permission.",
+    "Protected container selectors containing details/source disclosures must not be replaced as a whole.",
+    "The weekday mother has a CNN Fear & Greed card but no .fg6-date element; expected weekday count is 0.",
+    "Each template has one .focus-levels .key wrapper containing multiple index rows; preserve nested details/source disclosure. It is not three independent .key slots.",
+    "The formal mother templates begin with the summary and sentiment sections; no independent KPI grid/card block exists in either locked mother. Do not invent KPI slots or add a KPI section."
   ]
 }
