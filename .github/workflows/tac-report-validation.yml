@@ -38,6 +38,12 @@ on:
       - "scripts/validate_tac_content_binding.py"
       - "schemas/tac-daily-content.schema.json"
       - "scripts/validate_tac_daily_content.py"
+      - "schemas/tac-daily-content.schema.json"
+      - "scripts/validate_tac_daily_content.py"
+      - "scripts/tac_content_binding_map.json"
+      - "scripts/validate_tac_content_binding.py"
+      - "scripts/assemble_tac_daily_content.py"
+      - "scripts/fetch_tac_news_rss.py"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
