@@ -7,6 +7,7 @@ from tac_field_write_guard import (
     select_wrappers,
     update_registered_leaf_text,
     update_registered_source_links,
+    update_registered_text_segments,
 )
 
 
@@ -197,6 +198,47 @@ class FieldWriteGuardTests(unittest.TestCase):
             with self.subTest(field=name):
                 with self.assertRaises(PermissionError):
                     update_registered_leaf_text(root, selector, "overwrite", self.registry)
+
+    def test_today_observation_text_segments_update_without_replacing_markup(self):
+        root = parse_html(self._source("monday"))
+        cases = (
+            ("today_market_view_text_segment", ["Updated market view"]),
+            ("today_key_levels_text_segments", [
+                "Updated Dow levels", "Updated S&P levels", "Updated Nasdaq levels",
+                "Updated SOX levels", "Updated Russell levels",
+            ]),
+            ("today_core_callout_text_segment", ["Updated core observation"]),
+        )
+        for name, values in cases:
+            with self.subTest(field=name):
+                selector = self._item(name)["selector"]
+                matches = select_wrappers(root, selector)
+                self.assertEqual(len(matches), 1)
+                parent = matches[0].etree_element
+                original_tags = [child.tag.lower() for child in list(parent)]
+                count = update_registered_text_segments(root, selector, values, self.registry)
+                self.assertEqual(count, len(values))
+                self.assertEqual([child.tag.lower() for child in list(parent)], original_tags)
+                segments = self._item(name)["segments"]
+                self.assertEqual(
+                    [list(parent)[x["child_index"]].tail for x in segments],
+                    values,
+                )
+
+    def test_text_segment_updater_rejects_bad_count_structure_and_leaf_writer(self):
+        root = parse_html(self._source("monday"))
+        item = self._item("today_key_levels_text_segments")
+        with self.assertRaises(ValueError):
+            update_registered_text_segments(root, item["selector"], ["only one"], self.registry)
+        with self.assertRaises(PermissionError):
+            update_registered_leaf_text(root, item["selector"], "overwrite", self.registry)
+        broken = parse_html(self._source("monday"))
+        parent = select_wrappers(broken, item["selector"])[0].etree_element
+        parent[0].tag = "span"
+        with self.assertRaises(PermissionError):
+            update_registered_text_segments(
+                broken, item["selector"], ["a", "b", "c", "d", "e"], self.registry
+            )
 
     def test_summary_headline_is_writable_but_composite_body_is_protected(self):
         root = parse_html(self._source("monday"))
