@@ -63,6 +63,36 @@ def normalize(payload: dict) -> dict:
         "earnings_calendar": []
     }
 
+    # Coverage is explicit: an empty event array is not proof that a provider
+    # calendar was fully checked. Only caller-supplied, provenance-backed status
+    # can distinguish a confirmed empty result from an incomplete capture.
+    supplied_coverage = payload.get("coverage", {})
+    if not isinstance(supplied_coverage, dict):
+        raise ValueError("coverage must be an object when supplied")
+    allowed_coverage = {"economic_calendar", "earnings_calendar"}
+    unknown_coverage = set(supplied_coverage) - allowed_coverage
+    if unknown_coverage:
+        raise ValueError("unsupported calendar coverage groups: " + ", ".join(sorted(unknown_coverage)))
+    if supplied_coverage:
+        fragment["coverage"] = {}
+        for group, record in supplied_coverage.items():
+            if not isinstance(record, dict):
+                raise ValueError(f"coverage.{group} must be an object")
+            status = record.get("status")
+            refs = record.get("source_refs")
+            if status not in {"complete", "incomplete"}:
+                raise ValueError(f"coverage.{group}.status must be complete or incomplete")
+            if not isinstance(refs, list) or any(not isinstance(x, str) or not x.strip() for x in refs):
+                raise ValueError(f"coverage.{group}.source_refs must be an array of non-empty strings")
+            checked_at = record.get("checked_at")
+            if checked_at is not None:
+                checked_at = aware_datetime(checked_at, f"coverage.{group}.checked_at")
+            if status == "complete" and (not refs or not checked_at):
+                raise ValueError(f"coverage.{group}: complete requires source_refs and checked_at")
+            fragment["coverage"][group] = {
+                "status": status, "source_refs": refs, "checked_at": checked_at
+            }
+
     for row in payload.get("economic_events", []):
         stars = row.get("importance_stars")
         if stars != 3:
