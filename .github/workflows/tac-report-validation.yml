@@ -76,6 +76,7 @@ on:
   workflow_dispatch:
 
 # PR validation is intentionally limited to source-native, no-secret collectors.
+# Calendar coverage must be explicitly verified; empty or incomplete capture never passes the report gate.
 # Investing.com calendar captures are read-only probes; incomplete coverage never passes the report gate.
 
 permissions:
