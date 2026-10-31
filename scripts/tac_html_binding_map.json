@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "description": "Read-only DOM binding contract for snapshot-driven rendering. Selectors are constrained to the approved mother templates; this map does not authorize structural or style changes.",
+  "description": "Snapshot binding contract for rendering. Existing DOM and layout are immutable; only mapped text slots, whitelisted status-class tokens, and report-date metadata may change.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
   },
   "rules": {
-    "mutate_only_text_nodes": true,
+    "mutate_only_text_nodes": false,
     "preserve_element_tree": true,
     "preserve_attributes": true,
     "preserve_css_and_scripts": true,
@@ -24,6 +24,11 @@
       "down",
       "flat",
       "warn"
+    ],
+    "mutate_only_existing_text_slots": true,
+    "preserve_attributes_except": [
+      "whitelisted status class tokens on mapped value slots",
+      "content on meta[name=report-date]"
     ]
   },
   "groups": {
