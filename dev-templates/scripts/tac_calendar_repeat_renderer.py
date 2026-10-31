@@ -248,11 +248,11 @@ def _group_targets(root, section_selector, list_selector, card_selector):
 
 
 def render_weekly_calendar_updates(source_html, dataset, template_inventory):
-    """Return a rendered HTML string after preflight, clone/write and DOM validation.
+    """Return rendered test HTML after preflight, clone/write and DOM validation.
 
-    Supports weekly economic and earnings status groups. Monday prior-week
-    groups are kept untouched; supplying prior-week records is rejected until
-    their specialized result-card mapping is implemented.
+    Supports weekly economic/earnings groups and Monday prior-week economic
+    cards. Monday prior-week earnings remain blocked until their result-grid
+    schema has a dedicated mapping.
     """
     validated = validate_calendar_dataset(dataset)
     template = validated["template"]
@@ -273,6 +273,9 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
     report = {"template": template, "sections": {}, "mutation_performed": False}
 
     for section_name, config in SECTION_CONFIG.items():
+        if config.get("template_only") and template != config["template_only"]:
+            report["sections"][section_name] = {"status": "not_applicable"}
+            continue
         registrations = [
             item for item in registry["selectors"]
             if item.get("name") == config["registry_name"]
@@ -282,7 +285,9 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
         if len(registrations) != 1:
             raise PermissionError(f"{section_name}: exactly one matching repeat selector registration is required")
         registration = registrations[0]
-        if registration.get("detail_field_class") != config["field_class"] or registration.get("detail_value_class") != config["value_class"]:
+        registered_field_class = registration.get("detail_field_class", config["field_class"])
+        registered_value_class = registration.get("detail_value_class", config["value_class"])
+        if registered_field_class != config["field_class"] or registered_value_class != config["value_class"]:
             raise PermissionError(f"{section_name}: registered detail field classes do not match renderer")
         allowed_details = set(registration.get("writable_detail_labels", [])) | set(config["fixed_detail_labels"])
         allowed_sources = set(registration.get("writable_source_labels", [])) | set(config.get("fixed_source_labels", set()))
