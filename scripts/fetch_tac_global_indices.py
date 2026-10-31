@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Fetch the 17 fixed TAC global indices from their Investing.com HK history pages.
 
-Only the exact requested trading-date row is accepted. Missing rows are emitted
-as pending_verification; this collector never carries forward an older close.
+Live retrieval is disabled unless the operator explicitly confirms written
+permission for automated access, storage, and display/redistribution of source data.
+Only exact requested trading-date rows are accepted; stale closes are never reused.
 """
 from __future__ import annotations
 
@@ -12,7 +13,6 @@ import math
 import re
 import sys
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -190,10 +190,15 @@ def main() -> int:
     parser.add_argument("--report-date")
     parser.add_argument("--output")
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--confirm-licensed-use", action="store_true",
+                        help="Confirm written permission for automated source data use.")
     args = parser.parse_args()
     if args.self_test:
         self_test()
         return 0
+    if not args.confirm_licensed_use:
+        parser.error("live retrieval is disabled pending written source-data permission; "
+                     "obtain permission before using --confirm-licensed-use")
     if not args.trading_date or not args.report_date or not args.output:
         parser.error("--trading-date, --report-date and --output are required")
     trading_date = date.fromisoformat(args.trading_date)
