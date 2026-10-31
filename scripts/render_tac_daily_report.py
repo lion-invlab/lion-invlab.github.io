@@ -264,7 +264,7 @@ def apply_report_metadata(soup, snapshot: dict, spec: dict) -> None:
             raise ValueError(f"report date label selector matched no nodes: {selector}")
         for index, node in enumerate(nodes):
             current = node.get_text()
-            updated, count = re.subn(r"\\d{4}/\\d{2}/\\d{2}", display_trading_date, current, count=1)
+            updated, count = re.subn(r"\d{4}/\d{2}/\d{2}", display_trading_date, current, count=1)
             if count != 1:
                 raise ValueError(f"report date label has no YYYY/MM/DD date: {selector}[{index}]")
             replace_text(node, updated, f"report.trading_date.{selector}[{index}]")
