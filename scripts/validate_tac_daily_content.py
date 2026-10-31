@@ -95,6 +95,12 @@ def validate_report_rules(data: dict) -> list[str]:
                 if item.get("eps_actual") is None and item.get("revenue_actual") is None:
                     errors.append(f"{label}: released earnings event requires EPS or revenue actual")
 
+    for group in ("previous_economic_calendar", "previous_earnings_calendar"):
+        if expected_type == "monday" and data["coverage"][group]["status"] == "not_applicable":
+            errors.append(f"coverage.{group}: Monday reports must verify the previous-week section or mark it incomplete")
+        if expected_type == "weekday" and data["coverage"][group]["status"] != "not_applicable":
+            errors.append(f"coverage.{group}: weekday reports must mark previous-week sections not_applicable")
+
     for group, coverage in data["coverage"].items():
         if coverage["status"] == "complete":
             if not coverage["checked_at"] or not coverage["source_refs"]:
