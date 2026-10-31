@@ -94,6 +94,15 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
             if not re.search(pattern, container, re.I):
                 errors.append(f"{name}: label '{label}' missing expected link {url}")
 
+    if name == "global_markets":
+        linked_names = container.count('class="global-index-link"')
+        if linked_names != expected:
+            errors.append(f"global_markets: expected {expected} linked index names, found {linked_names}")
+        if "https://www.investing.com/indices/" in container:
+            errors.append("global_markets: found a non-Hong-Kong Investing.com index URL")
+        if "https://hk.investing.com/indices/" not in container:
+            errors.append("global_markets: no Hong Kong Investing.com index URLs found")
+
     for index, row in enumerate(rows, 1):
         visible = text_only(row)
         has_change = re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I)
