@@ -12,6 +12,7 @@ on:
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/assemble_tac_daily_snapshot.py"
+      - "scripts/render_tac_snapshot_to_html.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
@@ -22,6 +23,9 @@ on:
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_sector_etfs.py"
+      - "scripts/fetch_tac_fx.py"
+      - "scripts/fetch_tac_risk_indicators.py"
+      - "scripts/fetch_tac_commodities.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -35,6 +39,8 @@ on:
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
+      - "scripts/assemble_tac_daily_snapshot.py"
+      - "scripts/render_tac_snapshot_to_html.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
@@ -45,6 +51,9 @@ on:
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_sector_etfs.py"
+      - "scripts/fetch_tac_fx.py"
+      - "scripts/fetch_tac_risk_indicators.py"
+      - "scripts/fetch_tac_commodities.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -77,6 +86,9 @@ jobs:
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
 
+      - name: Test TAC snapshot-to-HTML renderer
+        run: python scripts/render_tac_snapshot_to_html.py --self-test
+
       - name: Validate market-field contract against both approved masters
         run: |
           python scripts/validate_tac_market_mapping.py --html "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
@@ -97,10 +109,16 @@ jobs:
 
       - name: Test Investing.com HK 11 sector ETF collector
         run: python scripts/fetch_tac_sector_etfs.py --self-test
+      - name: Test TAC FX collector parser
+        run: python scripts/fetch_tac_fx.py --self-test
 
       # Live source collection is exercised by the dedicated manual source-probe
       # workflow; structural validation remains deterministic and network-independent.
 
+      - name: Test TAC risk-indicator collector parser
+        run: python scripts/fetch_tac_risk_indicators.py --self-test
+      - name: Test TAC WTI Brent GC SI commodity collector
+        run: python scripts/fetch_tac_commodities.py --self-test
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
           python scripts/fetch_tac_treasury_yields.py \

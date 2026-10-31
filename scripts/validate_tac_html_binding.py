@@ -74,9 +74,19 @@ def by_class(root: Node, class_name: str) -> list[Node]:
 
 
 def selector_nodes(root: Node, selector: str) -> list[Node]:
-    if selector.startswith("."):
-        return by_class(root, selector[1:])
-    return [node for node in root.descendants() if node.tag == selector]
+    parts = selector.split()
+    if len(parts) == 1:
+        if parts[0].startswith("."):
+            return by_class(root, parts[0][1:])
+        return [node for node in root.descendants() if node.tag == parts[0]]
+    if len(parts) == 2 and parts[0].startswith("."):
+        result = []
+        for parent in by_class(root, parts[0][1:]):
+            target = parts[1]
+            result.extend(node for node in parent.descendants()
+                          if (node.tag == target if not target.startswith(".") else target[1:] in node.classes))
+        return result
+    return []
 
 
 def normalize(value: str) -> str:
@@ -119,7 +129,73 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 value_nodes = [node for node in matches[0].descendants() if "r" in node.classes]
                 if len(value_nodes) != 1:
                     errors.append(f"{group}.{key}: expected one percentage slot, found {len(value_nodes)}")
+                rank_selector = spec.get("rank_selector")
+                if rank_selector and not selector_nodes(matches[0], rank_selector):
+                    errors.append(f"{group}.{key}: rank slot {rank_selector} missing")
 
+        if group == "summary":
+            for selector_key in ("title_selector", "paragraph_selector"):
+                selector = spec[selector_key]
+                if len(selector_nodes(container, selector)) != 1:
+                    errors.append(f"summary: expected one {selector} slot")
+            paragraphs = selector_nodes(container, spec["paragraph_selector"])
+            if len(paragraphs) == 1 and len(selector_nodes(paragraphs[0], spec["label_selector"])) not in (3, 5):
+                errors.append("summary: expected approved three-slot Monday or five-slot weekday layout")
+        if group == "news":
+            for container_id, expected_count in (("global-focus", 5), ("headlines", 10)):
+                news_containers = by_id(root, container_id)
+                if len(news_containers) != 1:
+                    errors.append(f"news: expected one #{container_id} container")
+                    continue
+                items = by_class(news_containers[0], spec["item_selector"].lstrip("."))
+                if len(items) != expected_count:
+                    errors.append(f"news: #{container_id} expected {expected_count} cards, found {len(items)}")
+                for index, item in enumerate(items, 1):
+                    if len(selector_nodes(item, spec["title_selector"])) != 1:
+                        errors.append(f"news: #{container_id} item {index} title slot missing")
+                    if len(selector_nodes(item, spec["summary_selector"])) != 1:
+                        errors.append(f"news: #{container_id} item {index} summary slot missing")
+                    links = selector_nodes(item, spec["source_links_selector"])
+                    if not links or any(not link.attrs.get("href") for link in links):
+                        errors.append(f"news: #{container_id} item {index} source link missing")
+        if group == "economic_calendar":
+            current_groups = by_class(container, spec["status_group_selector"].lstrip("."))
+            if len(current_groups) != 3:
+                errors.append(f"economic_calendar: expected three current-week status groups, found {len(current_groups)}")
+            for index, status_group in enumerate(current_groups, 1):
+                if len(by_class(status_group, spec["event_list_selector"].lstrip("."))) != 1:
+                    errors.append(f"economic_calendar: current status group {index} event list missing")
+                for card_index, card in enumerate(by_class(status_group, spec["event_card_selector"].lstrip(".")), 1):
+                    for selector_key in ("date_selector", "time_selector", "country_selector", "name_selector", "stars_selector"):
+                        if len(selector_nodes(card, spec[selector_key])) != 1:
+                            errors.append(f"economic_calendar: current group {index} card {card_index} {selector_key} missing")
+                    if len(by_class(card, "econ-field")) < 4:
+                        errors.append(f"economic_calendar: current group {index} card {card_index} fields missing")
+            previous_id = spec.get("previous_week_container", "").lstrip("#")
+            if previous_id and by_id(root, previous_id):
+                previous_cards = by_class(by_id(root, previous_id)[0], spec["event_card_selector"].lstrip("."))
+                for card_index, card in enumerate(previous_cards, 1):
+                    if any(len(selector_nodes(card, spec[key])) != 1 for key in ("date_selector", "time_selector", "country_selector", "name_selector", "stars_selector")):
+                        errors.append(f"economic_calendar: previous-week card {card_index} slots missing")
+        if group == "earnings_calendar":
+            current_groups = by_class(container, spec["status_group_selector"].lstrip("."))
+            if len(current_groups) != 3:
+                errors.append(f"earnings_calendar: expected three current-week status groups, found {len(current_groups)}")
+            for index, status_group in enumerate(current_groups, 1):
+                if len(by_class(status_group, spec["event_list_selector"].lstrip("."))) != 1:
+                    errors.append(f"earnings_calendar: current status group {index} event list missing")
+                for card_index, card in enumerate(by_class(status_group, spec["event_card_selector"].lstrip(".")), 1):
+                    for selector_key in ("us_date_selector", "tw_date_selector", "company_selector", "company_sub_selector", "stars_selector"):
+                        if len(selector_nodes(card, spec[selector_key])) != 1:
+                            errors.append(f"earnings_calendar: current group {index} card {card_index} {selector_key} missing")
+                    if not by_class(card, "earnings-detail-field") and not by_class(card, "earnings-actual-card"):
+                        errors.append(f"earnings_calendar: current group {index} card {card_index} result/detail fields missing")
+            previous_id = spec.get("previous_week_container", "").lstrip("#")
+            if previous_id and by_id(root, previous_id):
+                previous_cards = by_class(by_id(root, previous_id)[0], spec["event_card_selector"].lstrip("."))
+                for card_index, card in enumerate(previous_cards, 1):
+                    if not by_class(card, "earnings-actual-card"):
+                        errors.append(f"earnings_calendar: previous-week card {card_index} actual results grid missing")
         if "records" in spec:
             for key, record in spec["records"].items():
                 row_class = record["row"].lstrip(".")
@@ -129,8 +205,15 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     continue
                 if not selector_nodes(rows[0], record["value_selector"]):
                     errors.append(f"{group}.{key}: value selector {record['value_selector']} missing")
+                for selector_key in ("source_selector", "category_selector", "category_zh_selector", "marker_selector"):
+                    selector = record.get(selector_key)
+                    if selector and not selector_nodes(rows[0], selector):
+                        errors.append(f"{group}.{key}: {selector_key} {selector} missing")
 
         if "outcomes" in spec:
+            meeting_selector = spec.get("fomc_meeting_selector")
+            if meeting_selector and len(selector_nodes(container, meeting_selector)) != 1:
+                errors.append(f"{group}: FOMC meeting date slot {meeting_selector} missing or duplicated")
             row_class = spec["row"].lstrip(".")
             rows = by_class(container, row_class)
             if len(rows) != len(spec["outcomes"]):
@@ -144,6 +227,27 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     errors.append(f"{group}.{key}: .fc-range slot missing")
                 if not any(node.tag == "strong" for node in matches[0].descendants()):
                     errors.append(f"{group}.{key}: probability <strong> slot missing")
+            for selector_key in ("split_bar_selector", "split_hold_selector", "split_hike_selector",
+                                 "split_legend_value_selector", "split_timestamp_selector"):
+                selector = spec.get(selector_key)
+                if selector:
+                    found = selector_nodes(container, selector)
+                    expected_count = 2 if selector_key == "split_legend_value_selector" else (1, 2) if selector_key == "split_timestamp_selector" else 1
+                    valid_count = len(found) in expected_count if isinstance(expected_count, tuple) else len(found) == expected_count
+                    if not valid_count:
+                        errors.append(f"{group}: {selector_key} expected {expected_count} slot(s), found {len(found)}")
+            if not selector_nodes(container, spec.get("audit_content_selector", "")):
+                audit_details = [node for node in container.descendants() if node.tag == "details"
+                                 and any(child.tag == "summary" and "資料時間與快照口徑" in normalize(child.text)
+                                         for child in node.children if isinstance(child, Node))]
+                if len(audit_details) != 1 or len([child for child in audit_details[0].children
+                                                   if isinstance(child, Node) and child.tag == "div"]) != 1:
+                    errors.append(f"{group}: FedWatch audit content slot missing or duplicated")
+            bar_selector = spec.get("split_bar_selector")
+            if bar_selector:
+                bars = selector_nodes(container, bar_selector)
+                if len(bars) == 1 and not bars[0].attrs.get(spec.get("aria_label_attribute", "aria-label")):
+                    errors.append(f"{group}: split bar accessible aria-label missing")
 
     return errors
 
