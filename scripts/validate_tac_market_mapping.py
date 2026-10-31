@@ -73,6 +73,11 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
     except ValueError as exc:
         return [f"{name}: {exc}"]
     rows = extract_rows(container, spec["row_class"])
+    if "required_texts" in spec:
+        visible_container = text_only(container)
+        for required_text in spec["required_texts"]:
+            if required_text not in visible_container:
+                errors.append(f"{name}: required text not found: {required_text}")
     expected = spec["expected_count"]
     if len(rows) != expected:
         errors.append(f"{name}: expected {expected} {spec['row_class']} rows, found {len(rows)}")
