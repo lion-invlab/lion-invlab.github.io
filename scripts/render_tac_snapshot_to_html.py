@@ -289,6 +289,9 @@ def render(source,snapshot,mapping):
     fed_rows=by_class(fed_root,fed_spec["row"].lstrip("."))
     if len(fed_rows)!=len(fed_spec["outcomes"]): raise ValueError("FedWatch outcome rows missing or duplicated")
     probabilities=validate_fedwatch_payload(fed)
+    meeting_nodes=selector_nodes(fed_root,fed_spec["fomc_meeting_selector"])
+    if len(meeting_nodes)!=1: raise ValueError("FOMC meeting date slot missing or duplicated")
+    edits.append(make_edit(meeting_nodes[0],fed["target_meeting"] if probabilities is not None else "待核實"))
     for index,(outcome_key,outcome_spec) in enumerate(fed_spec["outcomes"].items()):
         matches=[row for row in fed_rows if outcome_spec["label"] in row.text]
         if len(matches)!=1: raise ValueError("FedWatch outcome "+outcome_key+" expected once")
