@@ -418,7 +418,7 @@ def render(source,snapshot,mapping):
         previous_records=sorted(econ["previous_week_events"],key=lambda item:item["event_time"])
         if len(previous_records)>len(previous_cards): raise ValueError("previous-week economic event count exceeds approved mother capacity")
         previous_title=selector_nodes(previous_econ_container,econ_spec["previous_title_selector"])
-        previous_collapse=by_class(previous_econ_container,econ_spec["previous_summary_selector"].lstrip("."))
+        previous_collapse=by_class(previous_econ_container,econ_spec["previous_summary_selector"].split()[0].lstrip("."))
         if len(previous_collapse)!=1: raise ValueError("previous-week economic collapse wrapper missing or duplicated")
         previous_summary=direct_children_by_tag(previous_collapse[0],"summary")
         previous_heading=selector_nodes(previous_econ_container,econ_spec["previous_heading_selector"])
