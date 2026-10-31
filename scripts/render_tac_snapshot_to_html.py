@@ -497,8 +497,10 @@ def self_test():
         assert rendered.count("<style") == source_html.count("<style")
         assert "92.5%" in rendered and "7.5%" in rendered
         assert "2026-11-03" in rendered
-        sector_order=[rendered.index(">"+ticker+"<") for ticker in mapping["groups"]["sectors"]["key_by_ticker"].values()]
-        assert sector_order==sorted(sector_order,key=lambda pos:pos)
+        ticker_map=mapping["groups"]["sectors"]["key_by_ticker"]
+        expected_keys=sorted(fixture["sectors"],key=lambda key:fixture["sectors"][key]["change"],reverse=True)
+        sector_order=[rendered.index(">"+ticker_map[key]+"<") for key in expected_keys]
+        assert sector_order==sorted(sector_order)
         print("PASS: full mapped render against approved "+template_name+" mother ("+str(count)+" edits)")
     print("PASS: full dual-mother renderer integration fixture")
 
