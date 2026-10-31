@@ -263,6 +263,7 @@ def render(content_path,input_html,output_html):
         if data["coverage"][k]["status"]!="complete":
             raise ValueError(k+" source coverage must be complete before rendering")
     if not input_html.is_file(): raise ValueError("market-rendered input HTML missing")
+    if input_html.resolve() in PROTECTED: raise ValueError("input must be a generated market-rendered copy, never an approved mother or homepage")
     soup=BeautifulSoup(input_html.read_text(encoding="utf-8"),"html.parser")
     before=copy.deepcopy(soup)
     meta=slot(soup,'meta[name="report-date"]',"report date")
