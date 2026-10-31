@@ -64,6 +64,7 @@ class Parser(HTMLParser):
         p=self.pos(); raw="&#"+name+";"; self.stack[-1].children.append((html.unescape(raw),p,p+len(raw)))
 
 def descendants(n): return list(n.descendants())
+def normalize(value): return re.sub(r"\\s+"," ",value).strip()
 def by_id(root,k): return [n for n in root.descendants() if n.attrs.get("id")==k]
 def by_class(root,k): return [n for n in root.descendants() if k in n.classes]
 def selector_nodes(root,selector):
