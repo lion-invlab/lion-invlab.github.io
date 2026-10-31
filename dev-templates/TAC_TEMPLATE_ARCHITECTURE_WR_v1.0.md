@@ -431,3 +431,29 @@
 - 本次補齊的是既有母版中的純文字 detail 欄位定位與安全更新驗證；不代表新資料已匯入或 Repeat Group 已動態新增／刪除。Gate A 尚未完成。
 - Run #168：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179488654
 
+
+
+## 2026-10-31 Run #41180947602｜行事曆資料契約層補充（不改變 DRAFT 狀態）
+
+本次新增 `scripts/tac_calendar_dataset.py` 與對應測試，作為經濟／財報資料進入後續更新流程前的標準化驗證入口。其定位僅為資料契約及排序層，不是資料爬取器、HTML 更新器或每日生產程式。
+
+### 資料契約要求
+
+1. 資料集必須明確包含 schema_version、report_date、template、economic_events、earnings_events；template 僅接受 monday 或 weekdays。
+2. 每筆事件必須具備唯一 event_id、ISO YYYY-MM-DD event_date、event_timezone、1–5 星 importance、可選 event_time，以及至少一筆 source_records。
+3. 每筆 source_records 必須包含 source_name、label、絕對 HTTP(S) URL、含時區 offset 的 accessed_at。來源缺漏、不安全網址或查證時間沒有時區時，整筆資料驗證失敗，不得補猜。
+4. 經濟事件另須提供 country、event_name；其 event_date／event_time 按事件當地時區解讀。
+5. 財報事件另須提供 taiwan_display_date、company_name、subtitle、release_session。event_date 是美國公告日期，排序依據不得被台灣顯示日期取代；release_session 僅接受 pre_market、during_market、after_market、unspecified。
+6. details 若存在，只接受 label 對應字串的 mapping。未知或錯誤型別應停止，不可自動轉型或填入推測值。
+7. 排序沿用 `tac_calendar_sort.py`：經濟依日期／當地時間；財報依美國公告日期／公告時段／可用時間。未知時間排在同日已知時間後，排序穩定且不得改寫輸入資料。
+8. 本契約不代表資料內容已符合正式 WR v3.4 的事實核實要求；來源優先序、重要性篩選、實際值與市場影響判斷仍須另行依 v3.4 完成。
+
+### 測試與限制
+
+- 新增 15 項資料契約測試，覆蓋正常排序、未知時間、重複 ID、錯誤日期／重要性／公告時段、來源缺漏、不安全 URL、查證時間時區及美國公告日期與台灣顯示日期分離。
+- 初次提交後檢查 CI 日誌，發現 workflow 使用明確測試檔清單，未自動納入新測試；已修正 `.github/workflows/tac-template-architecture-tests.yml`，確保資料集測試正式納入後續每次 CI。
+- Run #41180947602：**78 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selectors cardinality 及稽核報告上傳通過。
+- 尚未完成真實資料匯入、欄位 Mapping、Repeat Group 新增／移除及資料寫入閉環；不可宣稱每日生產已接通。Gate A 仍未完成；Gate B–D 未完成；Gate E 尚待使用者核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41180947602
+
+本補充只記錄工程契約及測試狀態，不改變本文件 v1.0-DRAFT 身分，不構成正式採用或每日生產授權。
