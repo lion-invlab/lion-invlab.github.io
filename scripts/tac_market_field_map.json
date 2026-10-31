@@ -1,11 +1,11 @@
 {
   "schema_version": 1,
-  "description": "Read-only selector contract for the approved TAC weekday mother template. This file validates existing fields; it does not authorize template edits or add missing rows.",
+  "description": "Read-only selector contract for the approved TAC Monday and weekday mother templates. Validates all 17 fixed global-market fields; it does not authorize ad hoc HTML changes.",
   "sections": {
     "global_markets": {
       "container_id": "global-markets",
       "row_class": "row",
-      "expected_count": 14,
+      "expected_count": 17,
       "labels": [
         "道瓊工業指數",
         "標普500指數",
@@ -18,9 +18,12 @@
         "日經 225",
         "韓國 KOSPI",
         "台灣加權指數",
+        "新加坡海峽時報指數 STI",
+        "澳洲 S&P/ASX 200",
         "英國 FTSE 100",
         "德國 DAX",
-        "法國 CAC 40"
+        "法國 CAC 40",
+        "STOXX Europe 600"
       ],
       "date_meta_count": 3
     },
@@ -90,17 +93,5 @@
     "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
     "母版專區/mother-template-manifest.json",
     "TAC_WORK_RULES.md"
-  ],
-  "template_reconciliation_findings": {
-    "wr_explicitly_required_but_absent_from_locked_mother": [
-      "新加坡海峽時報指數 STI（WR 21.2、交付檢查第 606 行）"
-    ],
-    "previously_requested_but_not_listed_in_current_wr_index_table": [
-      "澳洲 S&P/ASX 200"
-    ],
-    "wr_describes_as_future_addition_not_current_mandatory_row": [
-      "STOXX Europe 600（WR 21.2）"
-    ],
-    "handling": "Findings only. Do not edit either approved mother template or manifest without explicit user approval."
-  }
+  ]
 }
