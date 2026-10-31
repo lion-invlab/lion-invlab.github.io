@@ -62,6 +62,19 @@ class Parser(HTMLParser):
 def descendants(n): return list(n.descendants())
 def by_id(root,k): return [n for n in root.descendants() if n.attrs.get("id")==k]
 def by_class(root,k): return [n for n in root.descendants() if k in n.classes]
+def selector_nodes(root,selector):
+    parts=selector.split()
+    if len(parts)==1:
+        if parts[0].startswith("."): return by_class(root,parts[0][1:])
+        return [n for n in root.descendants() if n.tag==parts[0]]
+    if len(parts)==2 and parts[0].startswith("."):
+        parents=by_class(root,parts[0][1:])
+        target=parts[1]
+        result=[]
+        for parent in parents:
+            result.extend([n for n in parent.descendants() if (n.tag==target if not target.startswith(".") else target[1:] in n.classes)])
+        return result
+    raise ValueError("unsupported binding selector: "+selector)
 def slot_text_nodes(n):
     result=[]
     def walk(x):
