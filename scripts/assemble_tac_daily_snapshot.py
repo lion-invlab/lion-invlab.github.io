@@ -138,8 +138,8 @@ def self_test() -> None:
     source={"name":"Reuters","url":"https://www.reuters.com/world/","observed_at":timestamp,"data_date":"2026-10-30","quote_type":"original_article","instrument":"macro news"}
     content_fragment={
         "news":{"global_focus":[{"title":"Verified story","summary":"Original article summary","published_at":timestamp,"source":source,"related_sources":[],"notes":""}],"market_headlines":[],"global_focus_meta":"Window test","market_headlines_meta":"Window test","notes":"Synthetic content test"},
-        "economic_calendar":{"events":[{"event_id":"us-cpi","name":"US CPI","country":"US","event_time":timestamp,"importance":3,"status":"published","previous":"3.0%","forecast":"3.1%","actual":"3.2%","impact":"Inflation surprise","source":source,"notes":""}],"notes":"3-star only"},
-        "earnings_calendar":{"events":[],"notes":"No synthetic earnings"},
+        "economic_calendar":{"previous_week_events":[],"current_week_events":[{"event_id":"us-cpi","name":"US CPI","country":"US","event_time":timestamp,"importance":3,"status":"published","previous":"3.0%","forecast":"3.1%","actual":"3.2%","impact":"Inflation surprise","source":source,"notes":""}],"previous_week_range":"2026-10-26～2026-10-30","current_week_range":"2026-11-02～2026-11-06","notes":"3-star only"},
+        "earnings_calendar":{"previous_week_events":[],"current_week_events":[],"previous_week_range":"2026-10-26～2026-10-30","current_week_range":"2026-11-02～2026-11-06","notes":"No synthetic earnings"},
         "narrative":{"status":"verified","summary_title":"Market Summary","summary":[{"label":"主軸｜","text":"A"},{"label":"跨市場｜","text":"B"},{"label":"風險｜","text":"C"},{"label":"操作｜","text":"D"}],"market_sentiment":"Risk-off","market_observation":"Breadth weakened","core_observation":"Rates remain key","key_levels":"待核實","notes":"Synthetic content test"}
     }
     merged=assemble("2026-11-02","2026-10-30",timestamp,[fragment,content_fragment],validator,schema)
