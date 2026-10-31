@@ -322,3 +322,9 @@
 - Run #99 與 #100 均通過 46 項單元／整合測試、5 項瀏覽器測試及 72 項 selector cardinality。
 - 此函式尚未整合每日資料匯入或 Repeat Group 更新流程；Gate A 仍未完成，文件仍為 DRAFT。
 
+## 2026-10-31 Run #101｜來源連結測試閉環
+
+- Run #101（41177005842）通過 48 項單元／整合測試、5 項瀏覽器測試、雙母版 SHA、DOM 指紋及 72 項 selector cardinality。
+- 來源連結更新器已驗證逐 anchor 更新 href／label、保留 target／rel，並拒絕 javascript:、錯誤 selector 及數量不符。
+- 尚未接入每日資料匯入或 Repeat Group updater；不得當作正式生產寫入授權。
+
