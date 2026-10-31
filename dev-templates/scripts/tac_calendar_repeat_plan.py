@@ -26,6 +26,25 @@ def plan_calendar_repeat_updates(dataset, template_inventory):
     all_pass = True
     for section_name, (data_key,) in SECTION_CONFIG.items():
         records = validated[data_key]
+        # Historical earnings use a nested EPS/revenue result-grid schema.
+        # Inventory alone is not write authorization: keep this group blocked
+        # until its dedicated result-grid mapper and guards are implemented.
+        if data_key == "prior_week_earnings_events" and records:
+            section_reports[section_name] = {
+                "pass": False, "action": "blocked",
+                "reason": "dedicated_result_grid_mapping_missing",
+                "event_count": len(records),
+            }
+            all_pass = False
+            continue
+        # An omitted prior-week payload means preserve the existing historical
+        # cards; it is never interpreted as an instruction to clear the group.
+        if data_key.startswith("prior_week_") and not records:
+            section_reports[section_name] = {
+                "pass": True, "action": "preserve_existing_prior_week_cards",
+                "event_count": 0,
+            }
+            continue
         section = template_inventory.get("sections", {}).get(section_name)
         if not section or not section.get("present"):
             if records:
