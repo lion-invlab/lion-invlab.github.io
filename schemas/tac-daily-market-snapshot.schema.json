@@ -7325,38 +7325,38 @@
         },
         "notes": {
           "type": "string"
-        },
-        "allOf": [
-          {
-            "if": {
-              "properties": {
-                "status": {
-                  "const": "verified"
-                }
-              },
-              "required": [
-                "status"
-              ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "verified"
+              }
             },
-            "then": {
-              "properties": {
-                "summary": {
-                  "minItems": 4
-                },
-                "market_sentiment": {
-                  "minLength": 1
-                },
-                "market_observation": {
-                  "minLength": 1
-                },
-                "core_observation": {
-                  "minLength": 1
-                }
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "summary": {
+                "minItems": 4
+              },
+              "market_sentiment": {
+                "minLength": 1
+              },
+              "market_observation": {
+                "minLength": 1
+              },
+              "core_observation": {
+                "minLength": 1
               }
             }
           }
-        ]
-      }
+        }
+      ]
     }
   }
 }
