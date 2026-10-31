@@ -382,3 +382,12 @@
 - 此次完成 Registry 唯一性治理，不代表資料匯入器、Repeat Group 更新器或每日產製流程已接通；Gate A 仍未完成，Gate B–E 尚未啟動／核准。
 - Run #137：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178495179
 
+## 2026-10-31 Run #142｜本週經濟行事曆 8 個欄位 Mapping
+
+- Registry 擴充至 **89 個候選 selector**，新增本週經濟卡 8 個欄位：日期、時間、國家、事件名稱、重要性星級、前值、市場預估、實際數值。
+- 週一母版 12 張卡、週二至週五母版 16 張卡均以實際 DOM 核對；8 個 selector 在兩版均命中預期數量，所有目標均為純文字 leaf。
+- 新增雙母版正向寫入測試：逐欄位驗證 selector 命中數、leaf 結構及更新結果。現有觀察重點、來源欄位、固定 label、details／summary 及卡片骨架仍受既有保護規則約束。
+- Run #142（41178651534）完整成功：**58 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、89 個候選 selector cardinality 及測試報告上傳成功。
+- 本次僅完成既有母版卡片的欄位定位與 leaf 更新驗證；尚未建立週經濟卡片的資料來源 Mapping、動態新增／移除後的欄位寫入流程，亦未接入日期排序。Gate A 尚未完成。
+- Run #142：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178651534
+
