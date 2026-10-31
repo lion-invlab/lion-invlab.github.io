@@ -158,14 +158,14 @@
       "selector": "#sentiment .cnn-fg-preview .fg6-status",
       "monday": 1,
       "weekdays": 1,
-      "kind": "content"
+      "kind": "protected_container_only"
     },
     {
       "name": "cnn_fear_greed_marker",
       "selector": "#sentiment .cnn-fg-preview .fg6-marker",
       "monday": 1,
       "weekdays": 1,
-      "kind": "content"
+      "kind": "protected_container_only"
     },
     {
       "name": "sentiment_core_interpretation",
@@ -179,7 +179,7 @@
       "selector": "#view .focus-panel.focus-market .key",
       "monday": 1,
       "weekdays": 1,
-      "kind": "content"
+      "kind": "protected_container_only"
     },
     {
       "name": "today_key_levels",
@@ -509,6 +509,41 @@
       "monday": 13,
       "weekdays": 0,
       "kind": "source_link_leaf"
+    },
+    {
+      "name": "vix_sentiment_change",
+      "selector": "#sentiment .sent > .sbox:nth-child(1) > .warn",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "move_sentiment_change",
+      "selector": "#sentiment .sent > .sbox:nth-child(2) > .down",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "cnn_fear_greed_status_english",
+      "selector": "#sentiment .cnn-fg-preview .fg6-status > span",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "cnn_fear_greed_status_chinese",
+      "selector": "#sentiment .cnn-fg-preview .fg6-status > b",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "sentiment_core_interpretation_text",
+      "selector": "#sentiment .sent > .sbox:last-child > div",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
     }
   ],
   "notes": [
