@@ -26,3 +26,10 @@
 ## 尚待完成
 - KPI 區塊在這份母版中尚未定位出穩定的專屬容器 ID；須由頁首 DOM 階層及標籤語意再定位，禁止使用全頁通用 .value/.chg 等 selector。
 - 以上 selector 尚未經瀏覽器 DOM 唯一性及手機版視覺驗收；仍屬候選 allowlist。
+
+## 雙母版實際差異補充（selector CI 核對）
+- CNN Fear & Greed：週一母版有 `.fg6-date` 1 個；週二至週五母版此節點不存在（0 個），日期不得視為兩版共用必填插槽。
+- 今日關鍵價位：兩版各只有一個 `.focus-panel.focus-levels .key` 容器，內含多個指數段落與來源收合區；不是三個獨立 `.key` 節點。整個容器不得直接整段替換，否則可能刪除固定的 details／summary 與來源資訊。
+- 今日核心觀察：週一 callout 內含 compact-disclosure，平日版則為一般內容；整個 callout 只可視為定位容器，不授權整段覆寫。
+- KPI：兩份正式母版的 `<main id="overview">` 均由總結區開始，未發現獨立 KPI grid／KPI 卡片區。不得自行新增 KPI 插槽或改動母版版面。
+- 以上為 DOM 結構定位及命中數驗證，不代表已授權每日寫入；需逐欄位定義更新方式及保護邊界。
