@@ -93,6 +93,63 @@ def parse_investing_history(html: str, expected: str, trading_date: date) -> dic
             return {"close": close, "change_pct": change, "heading": heading_text}
     raise ValueError(f"exact trading-date row {trading_date.isoformat()} not found")
 
+def parse_cnn_history_payload(payload: dict, trading_date: date) -> dict:
+    history = payload.get("fear_and_greed_historical") or {}
+    points = history.get("data") or []
+    for point in points:
+        try:
+            stamp_ms = float(point["x"])
+            point_date = datetime.fromtimestamp(stamp_ms / 1000, timezone.utc).date()
+            score = float(point["y"])
+            rating = str(point.get("rating") or "").strip()
+        except (KeyError, TypeError, ValueError, OverflowError):
+            continue
+        if point_date == trading_date:
+            if not 0 <= score <= 100:
+                raise ValueError(f"CNN Fear & Greed score outside 0-100: {score}")
+            if not rating:
+                raise ValueError("CNN Fear & Greed exact-date row has no rating")
+            return {
+                "value": score, "unit": "score_0_100",
+                "change": None, "change_unit": None,
+                "status": "verified",
+                "source": {
+                    "name": "CNN Business",
+                    "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2021-02-01",
+                    "observed_at": datetime.now(timezone.utc).isoformat(),
+                    "data_date": trading_date.isoformat(),
+                    "quote_type": "cnn_fear_and_greed_historical_daily",
+                    "instrument": "CNN Fear & Greed Index",
+                },
+                "fallback_used": False, "fallback_reason": None,
+                "notes": f"CNN 官方頁面所用歷史序列；評級：{rating}；僅接受指定日期資料。",
+            }
+    raise ValueError(f"CNN Fear & Greed has no exact historical point for {trading_date.isoformat()}")
+
+def fetch_cnn_fear_greed(session: requests.Session, trading_date: date) -> dict:
+    url = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2021-02-01"
+    try:
+        response = session.get(
+            url,
+            headers={
+                "Referer": "https://www.cnn.com/markets/fear-and-greed",
+                "Accept": "application/json,text/plain,*/*",
+            },
+            timeout=(10, 30),
+        )
+        response.raise_for_status()
+        record = parse_cnn_history_payload(response.json(), trading_date)
+        record["source"]["observed_at"] = datetime.now(timezone.utc).isoformat()
+        print(
+            f"risk_indicators.cnn_fear_greed: verified "
+            f"value={record['value']} rating={record['notes'].split('評級：', 1)[-1].split('；', 1)[0]}"
+        )
+        return record
+    except Exception as exc:
+        print(f"risk_indicators.cnn_fear_greed: pending_verification reason={exc}")
+        return pending_record("score_0_100", f"CNN Business official endpoint: {exc}")
+
+
 def pending_record(unit: str, reason: str) -> dict:
     return {
         "value": None, "unit": unit, "change": None, "change_unit": "percent",
@@ -142,7 +199,7 @@ def fetch_one(session: requests.Session, item: tuple, trading_date: date,
         return group, key, pending_record(unit, f"Investing.com: {primary_error}; Yahoo: {exc}")
 
 def build_fragment(trading_date: date, report_date: date, records: dict,
-                   observed_at: str) -> dict:
+                   observed_at: str, cnn_record: dict | None = None) -> dict:
     expected = {(g, k) for g, k, *_ in INSTRUMENTS}
     if set(records) != expected:
         raise ValueError("auxiliary market field set mismatch")
@@ -150,7 +207,7 @@ def build_fragment(trading_date: date, report_date: date, records: dict,
     for (group, key), record in records.items():
         grouped[group][key] = record
     # CNN Fear & Greed is intentionally not inferred from a substitute indicator.
-    grouped["risk_indicators"]["cnn_fear_greed"] = pending_record(
+    grouped["risk_indicators"]["cnn_fear_greed"] = cnn_record or pending_record(
         "score_0_100", "CNN Business official Fear & Greed source collector not yet connected"
     )
     return {
@@ -182,9 +239,24 @@ def self_test() -> None:
         raise AssertionError("stale date must be rejected")
     assert len(INSTRUMENTS) == 23
     assert len({(x[0], x[1]) for x in INSTRUMENTS}) == 23
+    stamp = int(datetime(2026, 10, 30, 23, 59, 55, tzinfo=timezone.utc).timestamp() * 1000)
+    cnn = parse_cnn_history_payload(
+        {"fear_and_greed_historical": {"data": [{"x": stamp, "y": 24.75, "rating": "extreme fear"}]}},
+        date(2026, 10, 30),
+    )
+    assert cnn["value"] == 24.75 and cnn["status"] == "verified"
+    try:
+        parse_cnn_history_payload(
+            {"fear_and_greed_historical": {"data": [{"x": stamp, "y": 24.75, "rating": "extreme fear"}]}},
+            date(2026, 10, 29),
+        )
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("CNN Fear & Greed stale date must be rejected")
     print("PASS: auxiliary historical parser, exact-date and identity guards")
     print("PASS: 23 ETF/FX/commodity/risk instrument mappings")
-    print("PASS: CNN Fear & Greed remains explicitly pending, not substituted")
+    print("PASS: CNN Fear & Greed exact-date history parsing and stale-date rejection")
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -217,7 +289,8 @@ def main() -> int:
         group, key, record = fetch_one(session, item, trading_date, observed_at)
         records[(group, key)] = record
         print(f"{group}.{key}: {record['status']} value={record['value']} change={record['change']}")
-    fragment = build_fragment(trading_date, report_date, records, observed_at)
+    cnn_record = fetch_cnn_fear_greed(session, trading_date)
+    fragment = build_fragment(trading_date, report_date, records, observed_at, cnn_record)
     out = Path(args.output)
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(fragment, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
