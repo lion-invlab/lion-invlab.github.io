@@ -139,8 +139,8 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 if len(selector_nodes(container, selector)) != 1:
                     errors.append(f"summary: expected one {selector} slot")
             paragraphs = selector_nodes(container, spec["paragraph_selector"])
-            if len(paragraphs) == 1 and len(selector_nodes(paragraphs[0], spec["label_selector"])) != 5:
-                errors.append("summary: expected five existing bold label slots")
+            if len(paragraphs) == 1 and len(selector_nodes(paragraphs[0], spec["label_selector"])) not in (3, 5):
+                errors.append("summary: expected approved three-slot Monday or five-slot weekday layout")
         if group == "news":
             for container_id, expected_count in (("global-focus", 5), ("headlines", 10)):
                 news_containers = by_id(root, container_id)
