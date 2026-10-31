@@ -729,12 +729,17 @@ def self_test():
                                    "global_focus_meta":"Global Focus synthetic window",
                                    "market_headlines_meta":"Market Headlines synthetic window",
                                    "notes":"Synthetic news test"}
-        def make_econ_record(index,status,event_day):
+        def make_econ_record(index,status,event_day,card):
+            source_field=next(field for field in by_class(card,"econ-field") if selector_nodes(field,"label") and normalize(selector_nodes(field,"label")[0].text) in ("來源","資料來源"))
+            link_count=len(selector_nodes(source_field,"a"))
+            def make_source(name,url):
+                return {"name":name,"url":url,"observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30","quote_type":"official_calendar","instrument":"synthetic event"}
             return {"event_id":"synthetic-econ-"+str(index),"name":"Synthetic economic event "+str(index),"country":"美國",
                     "event_time":event_day+"T20:30:00+08:00","importance":3,"status":status,
                     "previous":"前值 1.0%","forecast":"預估 1.2%","actual":"實際 1.3%","impact":"Synthetic market impact",
-                    "source":{"name":"Synthetic economic source","url":f"https://example.com/econ/{index}","observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30","quote_type":"official_calendar","instrument":"synthetic event"},
-                    "related_sources":[],"notes":"Synthetic renderer fixture"}
+                    "source":make_source("Synthetic economic source",f"https://example.com/econ/{index}"),
+                    "related_sources":[make_source("Synthetic reference "+str(j),f"https://example.com/econ/{index}/ref{j}") for j in range(1,link_count)],
+                    "notes":"Synthetic renderer fixture"}
         econ_container=by_id(source_tree.root,"calendar")[0]
         econ_groups=by_class(econ_container,"calendar-status-group")
         current_events=[]
@@ -743,13 +748,13 @@ def self_test():
             cards=by_class(lists[0],"econ-event") if lists else []
             if cards:
                 day={"today":"2026-11-02","upcoming":"2026-11-03","published":"2026-11-02"}[status]
-                current_events.append(make_econ_record(group_index+1,status,day))
+                current_events.append(make_econ_record(group_index+1,status,day,cards[0]))
         previous_events=[]
         previous_containers=by_id(source_tree.root,"last-week-calendar")
         if previous_containers:
             capacity=len(by_class(previous_containers[0],"econ-event"))
             for idx in range(min(2,capacity)):
-                previous_events.append(make_econ_record(10+idx,"published","2026-10-"+str(26+idx)))
+                previous_events.append(make_econ_record(10+idx,"published","2026-10-"+str(26+idx),by_class(previous_containers[0],"econ-event")[idx]))
         template_snapshot["economic_calendar"]={"previous_week_events":previous_events,"current_week_events":current_events,
                                                  "previous_week_range":"2026/10/26～2026/10/30",
                                                  "current_week_range":"2026/11/02～2026/11/06","notes":"Synthetic 3-star calendar"}
