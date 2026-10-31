@@ -58,7 +58,7 @@ def validate_report_rules(data: dict) -> list[str]:
             if group_name == "focus_news" and item["category"] not in {"macro", "policy", "geopolitics"}:
                 errors.append(f"{label}: focus_news only accepts macro/policy/geopolitics categories")
 
-    for group_name in ("economic_calendar", "earnings_calendar"):
+    for group_name in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
         events = data[group_name]
         dates = [parse_dt(item["event_date"]) for item in events]
         if dates != sorted(dates):
@@ -69,7 +69,7 @@ def validate_report_rules(data: dict) -> list[str]:
             if item["id"] in ids:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
-            if group_name == "economic_calendar":
+            if group_name in {"economic_calendar", "previous_economic_calendar"}:
                 if item["importance_stars"] != 3:
                     errors.append(f"{label}: only 3-star economic events are permitted")
             else:
@@ -95,15 +95,24 @@ def validate_report_rules(data: dict) -> list[str]:
                 if item.get("eps_actual") is None and item.get("revenue_actual") is None:
                     errors.append(f"{label}: released earnings event requires EPS or revenue actual")
 
-    for item in data["analysis"]["market_observation_highlights"]:
-        if not item["source_refs"]:
-            errors.append("every market observation highlight requires at least one source reference")
+    for group, coverage in data["coverage"].items():
+        if coverage["status"] == "complete":
+            if not coverage["checked_at"] or not coverage["source_refs"]:
+                errors.append(f"coverage.{group}: complete requires checked_at and at least one source reference")
+        elif coverage["status"] == "not_applicable" and group not in {"previous_economic_calendar", "previous_earnings_calendar"}:
+            errors.append(f"coverage.{group}: not_applicable is only valid for previous-week groups")
+    summary = data["analysis"]["summary"]
+    if summary["status"] == "verified" and (not summary["headline"] or not summary["text"] or not summary["source_refs"]):
+        errors.append("verified summary requires headline, text and source references")
+    for tab, item in data["analysis"]["market_observation_highlights"].items():
+        if item["status"] == "verified" and (not item["text"] or not item["source_refs"]):
+            errors.append(f"verified market observation {tab} requires text and source references")
     return errors
 
 
 def self_test(validator, schema):
     sample = {
-        "schema_version": 1,
+        "schema_version": 2,
         "meta": {
             "report_date": "2026-11-02",
             "trading_date": "2026-10-30",
@@ -118,9 +127,19 @@ def self_test(validator, schema):
         "market_headlines": [],
         "economic_calendar": [],
         "earnings_calendar": [],
+        "previous_economic_calendar": [],
+        "previous_earnings_calendar": [],
+        "coverage": {
+            group: {"status": "incomplete", "source_refs": [], "checked_at": None}
+            for group in ("focus_news", "market_headlines", "economic_calendar", "earnings_calendar",
+                          "previous_economic_calendar", "previous_earnings_calendar")
+        },
         "analysis": {
-            "summary": {"text": None, "source_refs": [], "status": "pending_verification"},
-            "market_observation_highlights": [],
+            "summary": {"headline": None, "text": None, "source_refs": [], "status": "pending_verification"},
+            "market_observation_highlights": {
+                key: {"text": None, "source_refs": [], "status": "pending_verification"}
+                for key in ("market_view", "key_levels", "core_observations")
+            },
             "market_sentiment": {"label": None, "score": None, "text": None, "source_refs": [], "status": "pending_verification"}
         }
     }
