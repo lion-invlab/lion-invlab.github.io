@@ -297,3 +297,16 @@
 - Run #41181918499 完整成功：**103 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar group inventory 及稽核報告上傳均通過。
 - 目前資料契約仍屬測試用標準化入口；未連接資料抓取、正式來源 mapping、Repeat Group DOM 寫入或每日生產。
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181918499
+
+
+## 2026-10-31 Run #41182239153｜行事曆欄位 Mapping 與台灣時間換算
+
+- 新增 `scripts/tac_calendar_field_mapper.py`，把已通過資料契約的事件轉成明確的 per-card payload：摘要欄位、detail label/value、來源欄位 anchor 清單及獨立 provenance；不查資料、不修改 DOM。
+- 來源紀錄新增必填 `field_label`，用來對應母版中的固定來源欄位 label（例如「資料來源」或「來源」）；`label` 是 anchor 顯示文字，`url` 是來源 href，`accessed_at` 保留查證時間。來源資料不能只靠網址猜測要寫入哪個欄位。
+- 經濟事件的 event_date／event_time 定義為已換算後的台灣顯示日期／時間，event_timezone 必須是 `Asia/Taipei`；未知時間只映射成「待核實」，不推測。
+- 財報事件保留美國公告日期／當地時間／IANA 時區，使用 ZoneInfo 換算台灣時間；若有精確公告時間，換算後日期必須與明確提供的 taiwan_display_date 一致，否則拒絕。沒有精確時間時只顯示已核實的台灣日期，不自行補時刻。
+- mapper 統一產生中文星期、月／日、五星字元及盤前／盤中／盤後標示；detail 欄位與來源欄位保持獨立，不會把來源 anchor 當成一般文字。
+- 新增 8 項 mapper 測試，覆蓋日期／星級格式、經濟摘要、未知時間、財報跨日換算、來源欄位 mapping、資料集分群及輸入不變性。
+- Run #41182239153 完整成功：**115 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar group inventory 及稽核報告上傳均成功。
+- 現在已具備「資料契約驗證 → 排序 → 狀態群組規劃 → per-card payload mapping」測試層；尚未執行 Repeat Group DOM 複製／增刪／寫入，也未接入實際資料來源蒐集。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182239153
