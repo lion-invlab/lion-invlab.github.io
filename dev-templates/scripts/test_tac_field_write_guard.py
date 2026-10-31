@@ -144,6 +144,25 @@ class FieldWriteGuardTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             update_registered_source_links(root, selector, links[:-1], self.registry)
 
+    def test_monday_economic_source_links_are_four_registered_anchor_leaves(self):
+        root = parse_html(self._source("monday"))
+        selector = self._item("last_week_econ_source_link_leaves")["selector"]
+        anchors = select_wrappers(root, selector)
+        self.assertEqual(len(anchors), 4)
+        self.assertTrue(all(x.etree_element.tag.lower() == "a" for x in anchors))
+        self.assertTrue(all(len(list(x.etree_element)) == 0 for x in anchors))
+        count = update_registered_source_links(
+            root,
+            selector,
+            [{"href": f"https://example.com/econ-{i}", "label": f"Economic source {i}"} for i in range(4)],
+            self.registry,
+        )
+        self.assertEqual(count, 4)
+        self.assertEqual(
+            [x.etree_element.attrib["href"] for x in anchors],
+            [f"https://example.com/econ-{i}" for i in range(4)],
+        )
+
     def test_sentiment_change_cnn_status_and_core_text_leaves_are_writable(self):
         root = parse_html(self._source("monday"))
         names = (
