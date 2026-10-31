@@ -1,0 +1,115 @@
+{
+  "version": "1.0",
+  "description": "Candidate selector cardinality audit only. Does not authorize writes.",
+  "templates": {
+    "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+    "weekdays": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+  },
+  "selectors": [
+    {
+      "name": "global_focus_news_items",
+      "selector": "#global-focus .newsitem",
+      "monday": 5,
+      "weekdays": 5,
+      "kind": "repeat"
+    },
+    {
+      "name": "market_headlines",
+      "selector": "#headlines .newsitem",
+      "monday": 10,
+      "weekdays": 10,
+      "kind": "repeat"
+    },
+    {
+      "name": "us_market_rows",
+      "selector": "#tac-global-panel-0 article.card .row",
+      "monday": 5,
+      "weekdays": 5,
+      "kind": "repeat"
+    },
+    {
+      "name": "asia_market_rows",
+      "selector": "#tac-global-panel-1 article.card .row",
+      "monday": 6,
+      "weekdays": 6,
+      "kind": "repeat"
+    },
+    {
+      "name": "europe_market_rows",
+      "selector": "#tac-global-panel-2 article.card .row",
+      "monday": 3,
+      "weekdays": 3,
+      "kind": "repeat"
+    },
+    {
+      "name": "industry_etf_rows",
+      "selector": "#tac-assets-panel-0 #us .sector-list > .sector-row",
+      "monday": 11,
+      "weekdays": 11,
+      "kind": "repeat"
+    },
+    {
+      "name": "treasury_rows",
+      "selector": "#bonds > .row",
+      "monday": 3,
+      "weekdays": 3,
+      "kind": "repeat"
+    },
+    {
+      "name": "fx_rows",
+      "selector": "#fx > .row",
+      "monday": 6,
+      "weekdays": 6,
+      "kind": "repeat"
+    },
+    {
+      "name": "weekly_economic_events",
+      "selector": "#calendar .econ-event",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "repeat"
+    },
+    {
+      "name": "weekly_earnings_cards",
+      "selector": "#earnings .earnings-accordion",
+      "monday": 16,
+      "weekdays": 16,
+      "kind": "repeat"
+    },
+    {
+      "name": "fedwatch_probability_cards",
+      "selector": "#fed .fc-prob",
+      "monday": 2,
+      "weekdays": 2,
+      "kind": "repeat"
+    },
+    {
+      "name": "last_week_economic_events",
+      "selector": "#last-week-calendar .econ-event",
+      "monday": 3,
+      "weekdays": 0,
+      "kind": "monday_only"
+    },
+    {
+      "name": "last_week_earnings_cards",
+      "selector": "#last-week-earnings .earnings-accordion",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "monday_only"
+    },
+    {
+      "name": "sentiment_boxes",
+      "selector": "#sentiment .sent > .sbox",
+      "monday": 4,
+      "weekdays": 4,
+      "kind": "fixed"
+    },
+    {
+      "name": "today_focus_panels",
+      "selector": "#view .focus-panel",
+      "monday": 3,
+      "weekdays": 3,
+      "kind": "fixed"
+    }
+  ]
+}
