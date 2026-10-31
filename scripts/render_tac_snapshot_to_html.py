@@ -960,7 +960,8 @@ def self_test():
             template_snapshot["narrative"][field_key]="\n".join("Synthetic "+field_key+" segment "+str(i+1) for i in range(segment_count))
         core_panel=by_class(view_node,"focus-core")[0]
         core_callout=by_class(core_panel,"callout")[0]
-        template_snapshot["narrative"]["core_observation"]="Synthetic core observation"
+        core_segment_count=len(direct_text_segments(core_callout))
+        template_snapshot["narrative"]["core_observation"]="\n".join("Synthetic core observation segment "+str(i+1) for i in range(core_segment_count))
         template_snapshot["narrative"]["market_sentiment"]="Synthetic market sentiment interpretation"
 
         def make_news_records(container_id,prefix):
@@ -1052,7 +1053,7 @@ def self_test():
         assert "2026-11-03" in rendered
         assert "Synthetic market_observation segment" in rendered
         assert "Synthetic key_levels segment" in rendered
-        assert "Synthetic core observation" in rendered
+        assert "Synthetic core observation segment" in rendered
         assert "Synthetic market sentiment interpretation" in rendered
         assert "Synthetic summary test" in rendered
         assert "focus headline 1" in rendered and "headline headline 10" in rendered
