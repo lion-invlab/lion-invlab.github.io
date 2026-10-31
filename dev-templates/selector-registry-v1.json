@@ -206,7 +206,7 @@
       "name": "weekly_earnings_card_lists",
       "selector": "#earnings .earnings-accordion-list",
       "monday": 1,
-      "weekdays": 2,
+      "weekdays": 3,
       "kind": "repeat_group_container"
     },
     {
@@ -229,6 +229,7 @@
     "Protected container selectors containing details/source disclosures must not be replaced as a whole.",
     "The weekday mother has a CNN Fear & Greed card but no .fg6-date element; expected weekday count is 0.",
     "Each template has one .focus-levels .key wrapper containing multiple index rows; preserve nested details/source disclosure. It is not three independent .key slots.",
-    "The formal mother templates begin with the summary and sentiment sections; no independent KPI grid/card block exists in either locked mother. Do not invent KPI slots or add a KPI section."
+    "The formal mother templates begin with the summary and sentiment sections; no independent KPI grid/card block exists in either locked mother. Do not invent KPI slots or add a KPI section.",
+    "The weekday mother has 3 separate .earnings-accordion-list containers within #earnings; preserve all three status-group list wrappers rather than assuming two."
   ]
 }
