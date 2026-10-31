@@ -222,7 +222,8 @@
       "split_legend_value_selector": ".fc-split-legend b",
       "split_timestamp_selector": ".fc-split-head span",
       "audit_content_selector": ".audit-content",
-      "aria_label_attribute": "aria-label"
+      "aria_label_attribute": "aria-label",
+      "fomc_meeting_selector": ".fc-fomc-meeting b"
     }
   },
   "protected_paths": [
