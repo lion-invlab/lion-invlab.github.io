@@ -83,6 +83,7 @@ on:
 # Shared parser helpers are pinned to the same tested revision as the auxiliary collector.
 # Economic calendar parser is offline-only; no private API or protected endpoint is called.
 # Risk-indicator source notes and CNN rating are refreshed from the same verified snapshot as the values.
+# Regression assertions scope stale-date checks to the corresponding market block.
 # Investing.com calendar captures are read-only probes; incomplete coverage never passes the report gate.
 
 permissions:
