@@ -353,3 +353,12 @@
 - Run #118 是 4 個經濟來源 anchor 定位與更新器的測試閉環；仍未接入每日資料匯入器或 Repeat Group updater。
 - https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177611606
 
+## Run #125–#126｜今日觀察重點文字片段更新器驗收（84 Selectors）
+
+- Registry 現有 **84 個候選 selectors**，新增三組固定結構文字片段欄位：市場觀點、今日關鍵價位（五個獨立值段）、今日核心觀察。
+- 專用更新器僅寫入明確登記的子節點 tail 文字，不替換父容器、不變更子節點標籤與結構；只接受精確命中一個父節點、固定子節點索引及標籤、正確資料筆數。
+- Negative tests 覆蓋資料筆數錯誤、錯誤子節點標籤、使用一般 leaf writer 寫入 text-segments selector 等情境。
+- Run #125（41177770274）與 Run #126（41177778541）均完整成功：52 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、DOM 結構指紋與 selector cardinality 稽核全通過。
+- 此更新器已完成獨立測試，但尚未接入每日資料更新器或 Repeat Group updater；Gate A 尚未完成。
+- Run #125：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177770274
+- Run #126：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177778541
