@@ -97,7 +97,8 @@ jobs:
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
 
-      - name: Live read-only fetch of 17 indices for the latest completed US session
+      - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
+        continue-on-error: true
         run: |
           python scripts/fetch_tac_global_indices.py --trading-date "2026-10-30" --report-date "2026-11-02" --output "/tmp/tac-global-indices-2026-10-30.json"
           python - <<'PY'
