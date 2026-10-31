@@ -73,6 +73,12 @@ def by_class(root: Node, class_name: str) -> list[Node]:
     return [node for node in root.descendants() if class_name in node.classes]
 
 
+def selector_nodes(root: Node, selector: str) -> list[Node]:
+    if selector.startswith("."):
+        return by_class(root, selector[1:])
+    return [node for node in root.descendants() if node.tag == selector]
+
+
 def normalize(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
@@ -121,7 +127,7 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 if len(rows) != 1:
                     errors.append(f"{group}.{key}: expected one row containing '{record['key_text']}', found {len(rows)}")
                     continue
-                if not by_class(rows[0], record["value_selector"].lstrip(".")):
+                if not selector_nodes(rows[0], record["value_selector"]):
                     errors.append(f"{group}.{key}: value selector {record['value_selector']} missing")
 
         if "outcomes" in spec:
