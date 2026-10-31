@@ -11,7 +11,8 @@ import copy
 import json
 import re
 import sys
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 from bs4 import BeautifulSoup, NavigableString
@@ -218,6 +219,80 @@ def apply_group(group, soup, snapshot, spec, allowed):
             replace_text(range_target, candidates[0]["rate_range"], f"fedwatch.{key}.rate_range")
 
 
+def apply_risk_detail_notes(soup, snapshot):
+    container = soup.select_one("#sentiment")
+    if container is None:
+        raise ValueError("risk_indicators: sentiment container missing")
+    taipei = ZoneInfo("Asia/Taipei")
+
+    def observed_text(record):
+        raw = record.get("source", {}).get("observed_at")
+        if not raw:
+            return "擷取時間待核實"
+        parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        if parsed.tzinfo is None:
+            raise ValueError("risk indicator observed_at must include timezone")
+        return parsed.astimezone(taipei).strftime("%Y/%m/%d %H:%M")
+
+    for key, label in (("vix", "VIX"), ("move", "MOVE")):
+        record = snapshot["risk_indicators"][key]
+        row = unique_row(container, ".sbox",
+                         lambda n: any(normalized(x.get_text()) == label for x in n.select(".label-en")),
+                         "risk_indicators." + key)
+        detail = row.select_one("details.source-details .source")
+        if detail is None:
+            raise ValueError("risk_indicators." + key + ": source disclosure missing")
+        source = record.get("source") or {}
+        if record.get("status") == "verified":
+            value = float(record["value"])
+            change = float(record["change"]) if record.get("change") is not None else None
+            change_text = "{:+.2f}%".format(change) if change is not None else "待核實"
+            note = "來源：{}｜資料日期：{}｜{}｜收盤 {:.2f}，日變動 {}｜擷取 {}（台灣時間）｜口徑：{}。".format(
+                source.get("name", "待核實"), source.get("data_date", "待核實"),
+                source.get("instrument", label), value, change_text, observed_text(record),
+                source.get("quote_type", "待核實"))
+        else:
+            note = "待核實：本次指定交易日的來源報價尚未完成核對，不沿用母版舊日期或舊數值。"
+        replace_text(detail, note, "risk_indicators." + key + ".source_note")
+
+    record = snapshot["risk_indicators"]["cnn_fear_greed"]
+    card = container.select_one(".cnn-fg-preview")
+    if card is None:
+        raise ValueError("risk_indicators.cnn_fear_greed: CNN card missing")
+    date_node = card.select_one(".fg6-date")
+    status_node = card.select_one(".fg6-status")
+    status_en = status_node.select_one("span") if status_node else None
+    status_zh = status_node.select_one("b") if status_node else None
+    detail = card.select_one("details.source-details .source")
+    if not all((date_node, status_en, status_zh, detail)):
+        raise ValueError("risk_indicators.cnn_fear_greed: required date, rating or source slots missing")
+    source = record.get("source") or {}
+    if record.get("status") == "verified":
+        score = float(record["value"])
+        notes = record.get("notes") or ""
+        match = re.search(r"評級：([a-z_ ]+)", notes, re.IGNORECASE)
+        rating = match.group(1).strip().lower() if match else (
+            "extreme fear" if score <= 24 else "fear" if score <= 44 else
+            "neutral" if score <= 55 else "greed" if score <= 74 else "extreme greed")
+        labels = {"extreme fear": ("Extreme Fear", "極度恐懼"), "fear": ("Fear", "恐懼"),
+                  "neutral": ("Neutral", "中性"), "greed": ("Greed", "貪婪"),
+                  "extreme greed": ("Extreme Greed", "極度貪婪")}
+        en, zh = labels.get(rating, ("待核實", "待核實"))
+        date_text = "CNN Fear & Greed｜{} 讀值｜擷取 {} 台灣時間".format(
+            source.get("data_date", "待核實"), observed_text(record))
+        source_note = "CNN Business 官方資料｜資料日期：{}｜原始分數：{:.2f}/100｜評級：{}｜擷取 {} 台灣時間｜來源：{}。".format(
+            source.get("data_date", "待核實"), score, rating, observed_text(record),
+            source.get("url", "待核實"))
+    else:
+        en, zh = "待核實", "待核實"
+        date_text = "CNN Fear & Greed｜資料日期待核實"
+        source_note = "待核實：CNN 官方指定日期資料尚未完成核對，不沿用母版舊日期或舊數值。"
+    replace_text(date_node, date_text, "risk_indicators.cnn_fear_greed.date")
+    replace_text(status_en, en, "risk_indicators.cnn_fear_greed.rating_en")
+    replace_text(status_zh, zh, "risk_indicators.cnn_fear_greed.rating_zh")
+    replace_text(detail, source_note, "risk_indicators.cnn_fear_greed.source_note")
+
+
 def tree_signature(soup):
     """Compare DOM shape and all non-state attributes; text content is intentionally ignored."""
     def walk(node):
@@ -289,6 +364,7 @@ def render(snapshot_path: Path, output_path: Path) -> dict:
 
     for group, spec in binding["groups"].items():
         apply_group(group, after, snapshot, spec, set(binding["rules"].get("mutable_status_classes", [])))
+    apply_risk_detail_notes(after, snapshot)
 
     apply_report_metadata(after, snapshot, binding.get("metadata", {}))
 
@@ -381,6 +457,10 @@ def self_test():
                 raise AssertionError(f"{report_date}: visible document title was not refreshed")
             if "2026/10/30 美國市場正式收盤" not in html:
                 raise AssertionError(f"{report_date}: global market trading-date labels were not refreshed")
+            if "2026/10/23" in html or "2026/10/24" in html:
+                raise AssertionError(f"{report_date}: stale risk-indicator source dates remain")
+            if "Neutral" not in html or "中性" not in html:
+                raise AssertionError(f"{report_date}: CNN Fear & Greed rating was not refreshed from the snapshot")
             rendered_soup = BeautifulSoup(html, "html.parser")
             rendered_rows = rendered_soup.select("#tac-assets-panel-0 .sector-row")
             rendered_tickers = [
