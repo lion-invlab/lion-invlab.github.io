@@ -10,7 +10,6 @@ on:
       - "demo-2026-10-26.html"
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
-      - "scripts/validate_tac_layout_contract.py"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
     branches: ["main"]
