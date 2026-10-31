@@ -358,6 +358,14 @@ def self_test():
     else:
         raise AssertionError("out-of-range CNN score must fail closed")
     print("PASS: CNN Fear & Greed category thresholds and range validation")
+    sentiment=Parser('<div class="fg6-status"><span>Fear</span><i></i><b>恐懼</b></div><i class="fg6-marker" style="left:33%"></i>')
+    assert len(selector_nodes(sentiment.root,".fg6-status span"))==1
+    marker=by_class(sentiment.root,"fg6-marker")[0]
+    a,b,v=make_style_property_edit(marker,"left","66.00%")
+    sample_style='<i class="fg6-marker" style="left:33%"></i>'
+    changed_style=sample_style[:a]+v+sample_style[b:]
+    assert 'style="left:66.00%"' in changed_style
+    print("PASS: CNN marker position updates only its mapped inline style property")
 
 def main():
     ap=argparse.ArgumentParser()
