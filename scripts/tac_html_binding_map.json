@@ -288,7 +288,20 @@
       "actual_title_selector": ".earnings-actual-card-title",
       "actual_status_selector": ".earnings-actual-status",
       "actual_note_selector": ".earnings-actual-note",
-      "empty_state_selector": ".calendar-status-empty"
+      "empty_state_selector": ".calendar-status-empty",
+      "remove_star_classes": [
+        "five-star-earnings",
+        "four-star-earnings"
+      ],
+      "remove_company_star_classes": [
+        "five-star-company",
+        "four-star-company"
+      ],
+      "actual_result_status_classes": [
+        "beat",
+        "miss",
+        "pending"
+      ]
     }
   },
   "protected_paths": [
