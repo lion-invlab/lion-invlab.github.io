@@ -141,6 +141,39 @@ def check_template(path: Path, contract: dict) -> list[str]:
             paragraphs = selector_nodes(container, spec["paragraph_selector"])
             if len(paragraphs) == 1 and len(selector_nodes(paragraphs[0], spec["label_selector"])) not in (3, 5):
                 errors.append("summary: expected approved three-slot Monday or five-slot weekday layout")
+            focus_id = spec.get("focus_container", "").lstrip("#")
+            focus_containers = by_id(root, focus_id) if focus_id else []
+            if len(focus_containers) != 1:
+                errors.append(f"summary: expected one #{focus_id} narrative container")
+            else:
+                focus = focus_containers[0]
+                for selector_key in ("market_observation_selector", "key_levels_selector", "core_observation_selector"):
+                    selector = spec.get(selector_key)
+                    matches = by_class(focus, selector.lstrip(".")) if selector else []
+                    if len(matches) != 1:
+                        errors.append(f"summary: expected one narrative panel {selector}")
+                    elif selector_key == "core_observation_selector" and len(by_class(matches[0], "callout")) != 1:
+                        errors.append("summary: core observation callout slot missing or duplicated")
+                    elif selector_key in ("market_observation_selector", "key_levels_selector") and len(by_class(matches[0], "key")) != 1:
+                        errors.append(f"summary: {selector} text slot missing or duplicated")
+                sentiment_id = spec.get("sentiment_container", "").lstrip("#")
+                sentiment_containers = by_id(root, sentiment_id) if sentiment_id else []
+                if len(sentiment_containers) != 1:
+                    errors.append(f"summary: expected one #{sentiment_id} sentiment container")
+                else:
+                    matching_rows = []
+                    for row in by_class(sentiment_containers[0], "sbox"):
+                        labels = by_class(row, "label")
+                        if any(normalize(label.text) == spec.get("market_sentiment_label") for label in labels):
+                            matching_rows.append(row)
+                    if len(matching_rows) != 1:
+                        errors.append("summary: market sentiment interpretation row missing or duplicated")
+                    else:
+                        text_slots = [child for child in matching_rows[0].children
+                                      if isinstance(child, Node) and child.tag == "div" and "label" not in child.classes]
+                        if len(text_slots) != 1:
+                            errors.append("summary: market sentiment interpretation text slot missing or duplicated")
+
         if group == "news":
             for container_id, expected_count in (("global-focus", 5), ("headlines", 10)):
                 news_containers = by_id(root, container_id)
