@@ -13,6 +13,8 @@ on:
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/assemble_tac_daily_snapshot.py"
       - "scripts/render_tac_daily_report.py"
+      - "scripts/assemble_tac_daily_snapshot.py"
+      - "scripts/render_tac_daily_report.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
@@ -243,7 +245,9 @@ jobs:
         env:
           REPORT_PATH: ${{ steps.preview.outputs.path }}
         run: |
-          if [ -z "$REPORT_PATH" ]; then
+          if [ -f "/tmp/tac-daily-review-2026-11-02.html" ]; then
+            REPORT_PATH="/tmp/tac-daily-review-2026-11-02.html"
+          elif [ -z "$REPORT_PATH" ]; then
             REPORT_PATH="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
           fi
           node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
