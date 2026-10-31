@@ -3,7 +3,7 @@
   "meta": {
     "report_date": "2026-11-02",
     "trading_date": "2026-10-30",
-    "generated_at": "2026-11-01T04:59:16+08:00",
+    "generated_at": "2026-11-01T21:00:00+08:00",
     "timezone": "Asia/Taipei",
     "wr_version": "3.5",
     "template_type": "monday",
@@ -281,62 +281,81 @@
         "https://hk.investing.com/indices/us-spx-500-historical-data",
         "https://hk.investing.com/indices/nasdaq-composite-historical-data",
         "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+        "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+        "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
         "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
         "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-        "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2021-02-01",
-        "https://m.cnyes.com/news/id/6642189",
+        "https://edition.cnn.com/markets/fear-and-greed",
+        "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
         "https://m.cnyes.com/news/id/6642849",
+        "https://m.cnyes.com/news/id/6642874",
+        "https://m.cnyes.com/news/id/6642761",
+        "https://m.cnyes.com/news/id/6642851",
         "https://m.cnyes.com/news/id/6642677"
       ],
       "status": "verified"
     },
     "market_observation_highlights": {
       "market_view": {
-        "text": "風險趨避主導盤面，科技與半導體領跌，能源及防禦型產業相對抗跌。市場焦點由AI投資規模轉向資本支出能否轉化為自由現金流；科技債供給增加、信用利差走擴，顯示融資風險已不只反映在股票估值。公債殖利率回落提供部分緩衝，但油價上行與通膨風險可能限制市場對快速寬鬆的期待。",
+        "status": "verified",
         "source_refs": [
           "https://hk.investing.com/indices/us-spx-500-historical-data",
           "https://hk.investing.com/indices/nasdaq-composite-historical-data",
           "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
-          "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
-          "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-          "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2021-02-01",
-          "https://m.cnyes.com/news/id/6642849",
-          "https://m.cnyes.com/news/id/6642761"
+          "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data"
         ],
-        "status": "verified"
+        "text": "10/30美股呈現明顯風險趨避：道瓊下跌1.09%、標普500下跌1.82%、NASDAQ下跌2.86%，費半重挫7.20%。11大產業ETF中，科技XLK下跌4.89%，能源XLE上漲1.91%、必需消費XLP上漲1.41%，顯示資金由高波動成長股轉向能源與防禦型板塊。亞洲市場亦普遍承壓，韓國KOSPI下跌3.48%、台灣加權下跌2.49%。"
       },
       "key_levels": {
-        "text": "11/2前收觀察基準（10/30）：S&P 500 7,580.07；NASDAQ Composite 25,437.00；費城半導體指數SOX 10,688.80；道瓊工業指數51,770.31。風險指標：VIX 19.42、MOVE 100.20。以上為已核對收市參考值，不等同技術支撐／壓力位；本輪尚未取得一致口徑的日內高低價與技術區間，支撐／壓力位置仍待補核。",
+        "status": "verified",
         "source_refs": [
           "https://hk.investing.com/indices/us-spx-500-historical-data",
           "https://hk.investing.com/indices/nasdaq-composite-historical-data",
           "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+          "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
           "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
-          "https://hk.investing.com/indices/ice-bofaml-move-historical-data"
+          "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+          "https://edition.cnn.com/markets/fear-and-greed",
+          "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
         ],
-        "status": "verified"
+        "text": "主要觀察價位（10/30收盤）：標普500 7,580.07（-1.82%）；NASDAQ 25,437.00（-2.86%）；費半 10,688.80（-7.20%）；VIX 19.42（+12.91%）；MOVE 100.20（+7.12%）。美國公債殖利率：2年期4.56%（-5bp）、10年期4.94%（-4bp）、30年期5.31%（-1bp）。WTI 104.12美元（+2.08%）、Brent 113.43美元（+2.37%）；黃金3,898.90美元（-3.29%）、白銀49.276美元（-5.93%）。"
       },
       "core_observations": {
-        "text": "一、AI資本支出進入現金流與融資成本檢驗期：科技債今年跌約9%，大型雲端業者AI相關債券發行增加，市場開始要求投資回報與資金來源更透明。\n二、半導體供需分化加劇：Intel財測不佳、記憶體短缺推高上游價格，卻壓縮PC與手機終端需求；AI需求強不代表整條供應鏈同步受惠。\n三、資金轉向能源與防禦板塊：油價受中東供應風險支撐，若能源成本持續上升，可能抵銷債券殖利率回落對風險資產的緩衝。",
+        "status": "verified",
         "source_refs": [
-          "https://m.cnyes.com/news/id/6642189",
-          "https://m.cnyes.com/news/id/6642910",
+          "https://hk.investing.com/indices/us-spx-500-historical-data",
+          "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+          "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+          "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+          "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+          "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+          "https://edition.cnn.com/markets/fear-and-greed",
           "https://m.cnyes.com/news/id/6642849",
+          "https://m.cnyes.com/news/id/6642874",
+          "https://m.cnyes.com/news/id/6642761",
+          "https://m.cnyes.com/news/id/6642851",
           "https://m.cnyes.com/news/id/6642677"
         ],
-        "status": "verified"
+        "text": "第一，費半單日下跌7.20%，科技ETF下跌4.89%，顯示AI與半導體估值正在接受更嚴格檢視，後續須觀察賣壓是否擴散至信用市場。第二，VIX與MOVE同步上升，CNN Fear & Greed降至26.24，風險偏好轉弱但尚未進入極端恐慌區。第三，油價逆勢上漲而金銀下跌，市場同時反映中東供應風險與去槓桿壓力；需留意油價對通膨預期及債券殖利率的二次影響。"
       }
     },
     "market_sentiment": {
       "label": "恐懼",
       "score": 26.24,
-      "text": "CNN Fear & Greed指數26.24，落在恐懼區；VIX與MOVE同步上升，顯示股票與債券波動風險皆升高。市場正降低高估值科技曝險，但能源與地緣政治風險使通膨預期仍具黏性，短線宜留意風險資產賣壓是否擴散至信用市場。",
+      "status": "verified",
       "source_refs": [
         "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
         "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-        "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2021-02-01"
+        "https://edition.cnn.com/markets/fear-and-greed"
       ],
-      "status": "verified"
+      "text": "CNN Fear & Greed指數26.24，處於恐懼區；VIX上升12.91%至19.42，MOVE上升7.12%至100.20，股票與債券波動同步升高。市場正在降低高估值科技曝險，短線需留意AI融資風險是否由股票市場延伸至信用市場。"
     }
   },
   "coverage": {
