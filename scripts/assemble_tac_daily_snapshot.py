@@ -144,7 +144,7 @@ def self_test() -> None:
     }
     merged=assemble("2026-11-02","2026-10-30",timestamp,[fragment,content_fragment],validator,schema)
     assert len(merged["news"]["global_focus"])==1
-    assert merged["economic_calendar"]["events"][0]["importance"]==3
+    assert merged["economic_calendar"]["current_week_events"][0]["importance"]==3
     assert merged["narrative"]["status"]=="verified"
     print("PASS: content fragments merge with market data and enforce 3-star events")
 
