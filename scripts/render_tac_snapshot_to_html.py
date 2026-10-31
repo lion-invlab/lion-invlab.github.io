@@ -100,6 +100,8 @@ def fmt(v,u):
     if u in ("index_point","index","points"): return format(n,",.2f")
     if u in ("USD/share","USD/barrel","USD/oz"): return "$"+format(n,",.2f")
     if u in ("yield_percent","%"): return format(n,".2f")+"%"
+    if u in ("USD/TWD","EUR/USD","GBP/USD","AUD/USD","USD/JPY"): return format(n,",.4f" if u!="USD/JPY" else ",.3f")
+    if u=="DXY": return format(n,",.2f")
     raise ValueError("unsupported display unit: "+str(u)+"; refusing to guess formatting")
 def make_edit(node,value):
     nodes=slot_text_nodes(node)
@@ -418,6 +420,9 @@ def self_test():
     else:
         raise AssertionError("unknown display unit must fail closed")
     print("PASS: known Treasury units formatted and unknown units rejected")
+    assert fmt(32.1,"USD/TWD")=="32.1000"
+    assert fmt(153.45,"USD/JPY")=="153.450"
+    assert fmt(101.25,"DXY")=="101.25"
     assert fear_greed_category(10)==("Extreme Fear","極度恐懼")
     assert fear_greed_category(33)==("Fear","恐懼")
     assert fear_greed_category(50)==("Neutral","中性")
