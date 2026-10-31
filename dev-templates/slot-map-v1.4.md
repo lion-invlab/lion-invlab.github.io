@@ -73,7 +73,7 @@
 | 區塊 | 容器／候選定位 | 資料節點候選 | 筆數規則 | 狀態 |
 |---|---|---|---|---|
 | 上週經濟行事曆 | `#last-week-calendar` → `.last-week-calendar-collapse` → `.calendar-status-group` → `.econ-event-list` | 每張 `.econ-event` 的 `.econ-date`、`.econ-time`、`.econ-country`、`.econ-name`、`.econ-stars`；展開欄位 `.econ-details .econ-field .econ-value` | 動態；依 WR 重要性五星事件 | 摘要欄位 selector 已納入 registry，Run #74 cardinality 通過；經濟欄位 leaf 正反向測試待完成 |
-| 上週財報行事曆 | `#last-week-earnings` → `.last-week-earnings-collapse` → `.calendar-status-group` → `.earnings-accordion-list` | 每張 `.earnings-accordion` 的日期、公司、產業、星級；EPS／營收卡標題與實際／預期 label 固定；28 個實際／預期值 leaf、14 個優劣狀態 leaf、14 個補充註記 leaf；21 個分析值容器保護 | 動態；依 WR 篩選重要財報 | 摘要與 EPS／營收結果 leaf selector 已納入 registry，Run #93 cardinality 與正反向測試通過；股價表現、來源及分析文字仍需拆分安全葉節點 |
+| 上週財報行事曆 | `#last-week-earnings` → `.last-week-earnings-collapse` → `.calendar-status-group` → `.earnings-accordion-list` | 每張 `.earnings-accordion` 的日期、公司、產業、星級；EPS／營收卡標題與實際／預期 label 固定；28 個實際／預期值 leaf、14 個優劣狀態 leaf、14 個補充註記 leaf；21 個分析值容器保護 | 動態；依 WR 篩選重要財報 | EPS／營收結果、財報判讀及股價表現 leaf selector 已納入 registry；來源容器保護，另以 13 個 anchor leaf selector 定位；Run #100 selector cardinality 通過，Run #101 寫入測試待結果 |
 
 上週經濟／財報外層收合、status group、列表 wrapper、卡片骨架與欄位 label 固定。不得把目前樣本 3 張／7 張寫死。這兩個區塊只存在於週一模板，平日模板沒有它們是正常模板差異，不是缺漏。
 
@@ -129,3 +129,13 @@
 - Run #93（41176580490）通過 44 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、HTML5 DOM 指紋及 68 個 selector cardinality 稽核。
 - 本次仍未定位財報卡「股價當日表現」的安全葉節點與來源連結欄位；分析值容器尚未拆解，不能整段覆寫。Gate A 未完成。
 
+
+
+## 13. 2026-10-31 Run #100｜來源連結獨立葉節點與安全更新器
+
+- Registry 擴充至 **72 個候選 selector**。週一上週財報來源欄位仍保留 7 個 protected container；另新增來源 anchor 葉節點 selector，雙母版實測命中：週一 13 個、週二至週五 0 個。
+- 新增 `update_registered_source_links()`，只接受明確登記的 `source_link_leaf` selector，逐一更新 anchor 的 `href` 與文字 label；要求更新筆數與 DOM anchor 數一致、目標必須是無子節點的 anchor、URL 必須為絕對 HTTP(S) URL，拒絕 javascript:、缺少 host、帳密 URL 及控制字元。
+- 更新時保留既有 `target`、`rel` 等 anchor 屬性；不替換來源容器、不建立或刪除 anchor、不變更 DOM 層級。
+- Run #99（41176987923）通過 46 項單元／整合測試、5 項瀏覽器測試、雙母版 SHA、DOM 指紋及 72 項 selector cardinality。
+- Run #100（41176996598）通過 46 項單元／整合測試、5 項瀏覽器測試及 72 項 selector cardinality；安全來源連結更新器已在測試分支完成正向／負向驗證。
+- 本功能仍是測試用參考 guard，尚未接入每日資料匯入器或 Repeat Group 寫入流程。不能宣稱正式早報已可自動更新來源連結。
