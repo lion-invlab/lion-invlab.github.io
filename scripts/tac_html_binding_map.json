@@ -43,8 +43,10 @@
         "cac_40": "法國 CAC 40",
         "stoxx_europe_600": "STOXX Europe 600"
       },
-      "value_selector": "span.r:nth-of-type(1)",
-      "change_selector": "span.r:nth-of-type(2)"
+      "value_selector": "span.r",
+      "change_selector": "span.r",
+      "value_index": 0,
+      "change_index": 1
     },
     "sectors": {
       "container": "#tac-assets-panel-0",
@@ -72,8 +74,10 @@
         "us_10y": "10年期美債殖利率",
         "us_30y": "30年期美債殖利率"
       },
-      "value_selector": "span.r:nth-of-type(1)",
-      "change_selector": "span.r:nth-of-type(2)"
+      "value_selector": "span.r",
+      "change_selector": "span.r",
+      "value_index": 0,
+      "change_index": 1
     },
     "fx": {
       "container": "#fx",
@@ -86,8 +90,10 @@
         "aud_usd": "澳幣／美元",
         "usd_jpy": "美元／日圓"
       },
-      "value_selector": "span.r:nth-of-type(1)",
-      "change_selector": "span.r:nth-of-type(2)"
+      "value_selector": "span.r",
+      "change_selector": "span.r",
+      "value_index": 0,
+      "change_index": 1
     },
     "energy": {
       "container": "#tac-assets-panel-3",
@@ -96,8 +102,10 @@
         "wti": "WTI原油期貨",
         "brent": "Brent原油期貨"
       },
-      "value_selector": "span.r:nth-of-type(1)",
-      "change_selector": "span.r:nth-of-type(2)"
+      "value_selector": "span.r",
+      "change_selector": "span.r",
+      "value_index": 0,
+      "change_index": 1
     },
     "precious_metals": {
       "container": "#tac-assets-panel-4",
@@ -106,8 +114,10 @@
         "gold_gc": "黃金期貨 GC",
         "silver_si": "白銀期貨 SI"
       },
-      "value_selector": "span.r:nth-of-type(1)",
-      "change_selector": "span.r:nth-of-type(2)"
+      "value_selector": "span.r",
+      "change_selector": "span.r",
+      "value_index": 0,
+      "change_index": 1
     },
     "risk_indicators": {
       "container": "#sentiment",
