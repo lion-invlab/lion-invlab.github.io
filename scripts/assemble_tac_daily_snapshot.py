@@ -135,6 +135,27 @@ def self_test() -> None:
     print("PASS: absent fields remain pending_verification")
     print("PASS: complete assembled snapshot conforms to JSON Schema")
 
+    source={"name":"Reuters","url":"https://www.reuters.com/world/","observed_at":timestamp,"data_date":"2026-10-30","quote_type":"original_article","instrument":"macro news"}
+    content_fragment={
+        "news":{"global_focus":[{"title":"Verified story","summary":"Original article summary","published_at":timestamp,"source":source,"notes":""}],"market_headlines":[],"notes":"Synthetic content test"},
+        "economic_calendar":{"events":[{"event_id":"us-cpi","name":"US CPI","country":"US","event_time":timestamp,"importance":3,"status":"published","previous":"3.0%","forecast":"3.1%","actual":"3.2%","impact":"Inflation surprise","source":source,"notes":""}],"notes":"3-star only"},
+        "earnings_calendar":{"events":[],"notes":"No synthetic earnings"},
+        "narrative":{"status":"verified","summary":["A","B","C","D"],"market_sentiment":"Risk-off","market_observation":"Breadth weakened","core_observation":"Rates remain key","key_levels":"待核實","notes":"Synthetic content test"}
+    }
+    merged=assemble("2026-11-02","2026-10-30",timestamp,[fragment,content_fragment],validator,schema)
+    assert len(merged["news"]["global_focus"])==1
+    assert merged["economic_calendar"]["events"][0]["importance"]==3
+    assert merged["narrative"]["status"]=="verified"
+    print("PASS: content fragments merge with market data and enforce 3-star events")
+
+    try:
+        assemble("2026-11-02","2026-10-30",timestamp,[fragment,content_fragment,content_fragment],validator,schema)
+    except ValueError as exc:
+        assert "duplicate news fields" in str(exc)
+    else:
+        raise AssertionError("duplicate content group overwrite must be rejected")
+    print("PASS: duplicate news/calendar content fragments rejected")
+
     try:
         assemble("2026-11-02", "2026-10-30", timestamp,
                  [dict(fragment, trading_date="2026-10-29")], validator, schema)
