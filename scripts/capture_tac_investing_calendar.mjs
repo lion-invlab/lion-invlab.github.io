@@ -43,7 +43,7 @@ try {
       text: el.textContent?.trim() || ""
     }));
     const dayDates = days.map(d => {
-      const stamp = Number((d.id.match(/\\d+/) || [])[0]);
+      const stamp = Number((d.id.match(/\d+/) || [])[0]);
       return Number.isFinite(stamp) ? new Date(stamp * 1000).toLocaleDateString("en-CA", { timeZone: "Asia/Taipei" }) : null;
     }).filter(Boolean);
     return { html: document.documentElement.outerHTML, rowCount: rows.length, days, dayDates, title: document.title, url: location.href };
