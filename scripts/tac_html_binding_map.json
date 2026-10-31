@@ -19,7 +19,12 @@
     },
     "fail_if_selector_count_differs": true,
     "fail_if_label_or_ticker_missing_or_duplicated": true,
-    "mutable_status_classes": ["up", "down", "flat", "warn"]
+    "mutable_status_classes": [
+      "up",
+      "down",
+      "flat",
+      "warn"
+    ]
   },
   "groups": {
     "global_indices": {
@@ -51,6 +56,25 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "dow": 2,
+        "sp500": 2,
+        "nasdaq_composite": 2,
+        "russell_2000": 2,
+        "sox": 2,
+        "hang_seng": 2,
+        "shanghai_composite": 2,
+        "shenzhen_component": 2,
+        "nikkei_225": 2,
+        "kospi": 2,
+        "twse": 2,
+        "singapore_sti": 2,
+        "asx_200": 2,
+        "ftse_100": 2,
+        "dax": 2,
+        "cac_40": 2,
+        "stoxx_europe_600": 2
       }
     },
     "sectors": {
@@ -91,6 +115,11 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "us_2y": 2,
+        "us_10y": 2,
+        "us_30y": 2
       }
     },
     "fx": {
@@ -111,6 +140,14 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "dxy": 2,
+        "usd_twd": 3,
+        "eur_usd": 3,
+        "gbp_usd": 3,
+        "aud_usd": 3,
+        "usd_jpy": 2
       }
     },
     "energy": {
@@ -127,6 +164,10 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "wti": 2,
+        "brent": 2
       }
     },
     "precious_metals": {
@@ -143,6 +184,10 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "gold_gc": 2,
+        "silver_si": 3
       }
     },
     "risk_indicators": {
@@ -180,6 +225,11 @@
           "display_value": "value",
           "display_change": null
         }
+      },
+      "value_decimals": {
+        "vix": 2,
+        "move": 2,
+        "cnn_fear_greed": 0
       }
     },
     "fedwatch": {
