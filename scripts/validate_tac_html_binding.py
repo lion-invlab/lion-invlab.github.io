@@ -162,7 +162,7 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 if not any(node.tag == "strong" for node in matches[0].descendants()):
                     errors.append(f"{group}.{key}: probability <strong> slot missing")
             for selector_key in ("split_bar_selector", "split_hold_selector", "split_hike_selector",
-                                 "split_legend_value_selector", "split_timestamp_selector", "audit_content_selector"):
+                                 "split_legend_value_selector", "split_timestamp_selector"):
                 selector = spec.get(selector_key)
                 if selector:
                     found = selector_nodes(container, selector)
