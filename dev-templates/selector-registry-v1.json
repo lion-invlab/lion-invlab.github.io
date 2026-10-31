@@ -669,6 +669,41 @@
       "monday": 12,
       "weekdays": 16,
       "kind": "content"
+    },
+    {
+      "name": "weekly_earnings_us_dates",
+      "selector": "#earnings .earnings-accordion .earnings-us-date",
+      "monday": 16,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_earnings_tw_dates",
+      "selector": "#earnings .earnings-accordion .earnings-tw-date",
+      "monday": 16,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_earnings_company_names",
+      "selector": "#earnings .earnings-accordion .earnings-company-name",
+      "monday": 16,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_earnings_company_subtitles",
+      "selector": "#earnings .earnings-accordion .earnings-company-sub",
+      "monday": 16,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_earnings_stars",
+      "selector": "#earnings .earnings-accordion .earnings-stars",
+      "monday": 16,
+      "weekdays": 16,
+      "kind": "content"
     }
   ],
   "notes": [
