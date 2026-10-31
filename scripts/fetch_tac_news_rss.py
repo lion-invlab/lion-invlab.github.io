@@ -207,5 +207,5 @@ if __name__=="__main__":
     try:
         raise SystemExit(main())
     except Exception as exc:
-        print("FAIL: "+str(exc),file=sys.stderr)
+        print("FAIL: "+repr(exc),file=sys.stderr)
         raise SystemExit(1)
