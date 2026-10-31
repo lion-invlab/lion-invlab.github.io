@@ -240,6 +240,18 @@ def render(content_path,input_html,output_html):
     editorial=binding.get("editorial_content",{})
     if editorial.get("schema_version")!=2 or editorial.get("renderer")!="scripts/render_tac_daily_content.py":
         raise ValueError("runtime HTML binding map is not connected to editorial schema v2")
+    expected_map={
+      "summary":"main.wrap > section.grid.two article.bluf",
+      "focus_news":"#global-focus","market_headlines":"#headlines",
+      "economic_calendar":"#calendar","earnings_calendar":"#earnings",
+      "previous_economic_calendar":"#last-week-calendar",
+      "previous_earnings_calendar":"#last-week-earnings","observations":"#view"
+    }
+    for key,selector in expected_map.items():
+        if editorial.get(key,{}).get("container")!=selector:
+            raise ValueError("runtime binding map selector mismatch: "+key)
+    if editorial["focus_news"].get("count")!=5 or editorial["market_headlines"].get("count")!=10:
+        raise ValueError("runtime binding map news counts do not match TAC contract")
     rd=date.fromisoformat(data["meta"]["report_date"]); typ="monday" if rd.weekday()==0 else "weekday"
     if rd.weekday()>4 or data["meta"]["template_type"]!=typ: raise ValueError("report date/template mismatch")
     if typ=="weekday":
