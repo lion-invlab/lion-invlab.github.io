@@ -1,0 +1,31 @@
+name: TAC Market Field Contract
+on:
+  push:
+    branches: [tac-market-mapping-foundation-20261031]
+    paths:
+      - 'scripts/tac_market_field_map.json'
+      - 'scripts/validate_tac_market_mapping.py'
+      - '母版專區/**'
+      - 'preview/**'
+      - '.github/workflows/tac-market-mapping-contract.yml'
+  pull_request:
+    paths:
+      - 'scripts/tac_market_field_map.json'
+      - 'scripts/validate_tac_market_mapping.py'
+      - '母版專區/**'
+      - 'preview/**'
+      - '.github/workflows/tac-market-mapping-contract.yml'
+jobs:
+  market-field-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate approved weekday mother template
+        run: python scripts/validate_tac_market_mapping.py --html '母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html'
+      - name: Validate approved Monday mother template
+        run: python scripts/validate_tac_market_mapping.py --html '母版專區/TAC_母版_週一_2026-10-28_最終定版.html'
+      - name: Validate current Monday preview structure
+        run: python scripts/validate_tac_market_mapping.py --html 'preview/2026-11-02.html'
