@@ -40,7 +40,9 @@ def _attrs(element, ignore_href=False):
 
 
 def _parse(source):
-    return html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False)
+    parsed = html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False)
+    normalized = html5lib.serialize(parsed, tree="etree", omit_optional_tags=False, quote_attr_values="always", alphabetical_attributes=True)
+    return html5lib.parse(normalized, treebuilder="etree", namespaceHTMLElements=False)
 
 
 def _query(root, selector):
