@@ -287,7 +287,8 @@
       "actual_line_selector": ".earnings-actual-line",
       "actual_title_selector": ".earnings-actual-card-title",
       "actual_status_selector": ".earnings-actual-status",
-      "actual_note_selector": ".earnings-actual-note"
+      "actual_note_selector": ".earnings-actual-note",
+      "empty_state_selector": ".calendar-status-empty"
     }
   },
   "protected_paths": [
