@@ -141,8 +141,13 @@ def econ_card(proto,item,soup):
         put(slot(meta,sel,"econ "+sel),val)
     card["class"]=[c for c in card.get("class",[]) if c not in {"five-star","four-star","two-star","one-star"}]
     if "three-star" not in card["class"]: card["class"].append("three-star")
-    fields=slot(card,".econ-details","econ details").select(".econ-field")
-    if len(fields)<5: raise ValueError("econ card prototype has fewer than five detail fields")
+    details=slot(card,".econ-details","econ details")
+    fields=details.select(".econ-field")
+    if len(fields)<4: raise ValueError("econ card prototype must have at least four detail fields")
+    if len(fields)<5:
+        impact_field=copy.deepcopy(fields[-1])
+        details.insert(len(fields)-1,impact_field)
+        fields=details.select(".econ-field")
     vals=[("前值",item.get("previous") if item.get("previous") is not None else "待核實"),
       ("市場預估",item.get("forecast") if item.get("forecast") is not None else "待核實"),
       ("實際",item.get("actual") if item.get("actual") is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實")),
@@ -169,17 +174,30 @@ def earnings_card(proto,item,soup):
     if item.get("importance_stars")==3 and item["importance_basis"]=="source_rating":
         put(stars,"★★★"); card["class"].append("three-star-earnings")
     else: put(stars,"未評星")
-    fields=slot(card,".earnings-accordion-details","earnings details").select(".earnings-detail-field")
-    if len(fields)<4: raise ValueError("earnings card prototype has fewer than four detail fields")
-    eps=f"預估：{item.get('eps_estimate') if item.get('eps_estimate') is not None else '待核實'}；實際：{item.get('eps_actual') if item.get('eps_actual') is not None else ('尚未公布' if item['status']=='upcoming' else '待核實')}"
-    rev=f"預估：{item.get('revenue_estimate') if item.get('revenue_estimate') is not None else '待核實'}；實際：{item.get('revenue_actual') if item.get('revenue_actual') is not None else ('尚未公布' if item['status']=='upcoming' else '待核實')}"
-    vals=[("公布時段",session+"；實際發布時間以公司公告為準。"),("EPS 預估／實際",eps),
-      ("營收預估／實際",rev),("財報判讀與股價反應",item.get("stock_price_reaction") or "待核實")]
-    for f,(lab,val) in zip(fields[:4],vals):
+    # Keep the mother template financial-results cards and update their existing fields.
+    results=slot(card,".earnings-results-grid","earnings actual/estimate grid")
+    result_cards=results.select(".earnings-actual-card")
+    if len(result_cards)!=2: raise ValueError("earnings prototype must contain EPS and revenue result cards")
+    for result_card,title,actual,estimate in (
+      (result_cards[0],"EPS",item.get("eps_actual"),item.get("eps_estimate")),
+      (result_cards[1],"營收",item.get("revenue_actual"),item.get("revenue_estimate"))):
+        put(slot(result_card,".earnings-actual-card-title","earnings result title"),title)
+        lines=result_card.select(".earnings-actual-line")
+        if len(lines)!=2: raise ValueError("earnings result card must have actual and estimate lines")
+        put(slot(lines[0],"strong","earnings actual"),actual if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
+        put(slot(lines[1],"strong","earnings estimate"),estimate if estimate is not None else "待核實")
+        status=result_card.select_one(".earnings-actual-status")
+        if status: put(status,"已公布｜待比較" if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
+        note=result_card.select_one(".earnings-actual-note")
+        if note: put(note,"以公司正式公告及市場共識核對")
+    details=slot(card,".earnings-accordion-details","earnings details")
+    fields=details.select(".earnings-detail-field")
+    if len(fields)<3: raise ValueError("earnings prototype must contain interpretation, price reaction and source fields")
+    vals=[("財報判讀",item.get("stock_price_reaction") or "待核實"),
+      ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
+    for f,(lab,val) in zip(fields[:2],vals):
         put(slot(f,"label","earnings field label"),lab); put(slot(f,".earnings-detail-value","earnings field value"),val)
-    if len(fields)>=5: source_field=fields[4]
-    else:
-        source_field=copy.deepcopy(fields[0]); slot(card,".earnings-accordion-details","earnings details").append(source_field)
+    source_field=fields[-1]
     put(slot(source_field,"label","earnings source label"),"資料來源")
     new_anchor(soup,slot(source_field,".earnings-detail-value","earnings source value"),item["source"])
     return card
