@@ -149,6 +149,24 @@ jobs:
           fi
           node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
 
+      - name: Test browser-rendered Investing.com HK capture parser
+        run: node scripts/capture_tac_investing_indices_browser.mjs --self-test
+
+      - name: Capture Investing.com HK indices through rendered browser pages
+        run: |
+          node scripts/capture_tac_investing_indices_browser.mjs \\
+            --trading-date "2026-10-30" \\
+            --report-date "2026-11-02" \\
+            --output "/tmp/tac-investing-browser-2026-10-30.json"
+
+      - name: Upload browser capture JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-investing-browser-capture-${{ github.run_id }}
+          path: /tmp/tac-investing-browser-2026-10-30.json
+          if-no-files-found: warn
+
       - name: Upload layout regression screenshots
         if: always()
         uses: actions/upload-artifact@v4
