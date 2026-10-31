@@ -133,6 +133,31 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 if rank_selector and not selector_nodes(matches[0], rank_selector):
                     errors.append(f"{group}.{key}: rank slot {rank_selector} missing")
 
+        if group == "summary":
+            for selector_key in ("title_selector", "paragraph_selector"):
+                selector = spec[selector_key]
+                if len(selector_nodes(container, selector)) != 1:
+                    errors.append(f"summary: expected one {selector} slot")
+            paragraphs = selector_nodes(container, spec["paragraph_selector"])
+            if len(paragraphs) == 1 and len(selector_nodes(paragraphs[0], spec["label_selector"])) != 5:
+                errors.append("summary: expected five existing bold label slots")
+        if group == "news":
+            for container_id, expected_count in (("global-focus", 5), ("headlines", 10)):
+                news_containers = by_id(root, container_id)
+                if len(news_containers) != 1:
+                    errors.append(f"news: expected one #{container_id} container")
+                    continue
+                items = by_class(news_containers[0], spec["item_selector"].lstrip("."))
+                if len(items) != expected_count:
+                    errors.append(f"news: #{container_id} expected {expected_count} cards, found {len(items)}")
+                for index, item in enumerate(items, 1):
+                    if len(selector_nodes(item, spec["title_selector"])) != 1:
+                        errors.append(f"news: #{container_id} item {index} title slot missing")
+                    if len(selector_nodes(item, spec["summary_selector"])) != 1:
+                        errors.append(f"news: #{container_id} item {index} summary slot missing")
+                    links = selector_nodes(item, spec["source_links_selector"])
+                    if not links or any(not link.attrs.get("href") for link in links):
+                        errors.append(f"news: #{container_id} item {index} source link missing")
         if "records" in spec:
             for key, record in spec["records"].items():
                 row_class = record["row"].lstrip(".")
