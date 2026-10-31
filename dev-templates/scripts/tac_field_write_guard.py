@@ -74,6 +74,46 @@ def update_registered_source_links(root, selector, links, registry=None):
     return len(prepared)
 
 
+def update_registered_text_segments(root, selector, values, registry=None):
+    """Update only explicitly indexed child-tail text segments; never replace markup."""
+    registry = registry or load_registry()
+    item = next((x for x in registry["selectors"] if x["selector"] == selector), None)
+    if item is None:
+        raise PermissionError(f"selector is not registered: {selector}")
+    if item["kind"] != "text_segments":
+        raise PermissionError(f"selector kind is not text-segments: {item['kind']}")
+    segments = item.get("segments", [])
+    if len(values) != len(segments):
+        raise ValueError(f"text-segment update count mismatch: {len(values)} != {len(segments)}")
+    matches = select_wrappers(root, selector)
+    if len(matches) != 1:
+        raise ValueError(f"text-segment parent must match exactly once: {len(matches)}")
+
+    parent = matches[0].etree_element
+    children = list(parent)
+    prepared = []
+    used_indexes = set()
+    for segment, value in zip(segments, values):
+        index = segment.get("child_index")
+        if not isinstance(index, int) or index < 0 or index >= len(children):
+            raise PermissionError("registered text-segment child index is outside the parent")
+        if index in used_indexes:
+            raise PermissionError("duplicate text-segment child index")
+        used_indexes.add(index)
+        child = children[index]
+        if child.tag.lower() != segment.get("expected_tag", "").lower():
+            raise PermissionError("text-segment child tag does not match the registered structure")
+        if segment.get("target") != "tail":
+            raise PermissionError("only registered child-tail text segments are supported")
+        if not isinstance(value, str):
+            raise ValueError("text-segment values must be strings")
+        prepared.append((child, value))
+
+    for child, value in prepared:
+        child.tail = value
+    return len(prepared)
+
+
 def update_registered_leaf_text(root, selector, value, registry=None):
     """Update text only when selector is explicitly registered as content and targets leaves."""
     registry = registry or load_registry()
