@@ -76,8 +76,8 @@ jobs:
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
 
-      - name: Check TAC snapshot HTML renderer CLI
-        run: python scripts/render_tac_daily_report.py --help
+      - name: Test TAC snapshot HTML renderer against both approved mothers
+        run: python scripts/render_tac_daily_report.py --self-test
 
       - name: Validate market-field contract against both approved masters
         run: |
