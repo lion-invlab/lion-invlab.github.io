@@ -28,7 +28,7 @@ SECTION_CONFIG = {
         "field_class": "econ-field",
         "value_class": "econ-value",
         "registry_name": "weekly_economic_events",
-        "fixed_detail_labels": {"前值", "市場預估", "實際"},
+        "fixed_detail_labels": {"前值", "預估", "市場預估", "實際"},
         "summary": {
             "date": "econ-date", "time": "econ-time", "country": "econ-country",
             "name": "econ-name", "stars": "econ-stars",
