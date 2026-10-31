@@ -36,6 +36,7 @@ on:
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
+      - "scripts/render_tac_snapshot_to_html.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
