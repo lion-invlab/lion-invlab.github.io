@@ -29,6 +29,7 @@ on:
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
+      - "scripts/fetch_tac_global_indices.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -63,6 +64,7 @@ jobs:
 
       - name: Test documented FRED Treasury fallback collector
         run: python scripts/fetch_tac_treasury_fred_fallback.py --self-test
+      - "scripts/fetch_tac_global_indices.py"
 
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
