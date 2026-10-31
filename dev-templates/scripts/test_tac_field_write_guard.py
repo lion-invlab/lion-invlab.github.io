@@ -226,15 +226,19 @@ class FieldWriteGuardTests(unittest.TestCase):
                 with self.assertRaises(PermissionError):
                     update_registered_leaf_text(root, selector, "overwrite", self.registry)
 
+    def test_registry_has_no_duplicate_css_selectors(self):
+        selectors = [item["selector"] for item in self.registry["selectors"]]
+        self.assertEqual(len(selectors), len(set(selectors)))
+
     def test_today_observation_text_segments_update_without_replacing_markup(self):
         root = parse_html(self._source("monday"))
         cases = (
-            ("today_market_view_text_segment", ["Updated market view"]),
-            ("today_key_levels_text_segments", [
+            ("today_market_focus", ["Updated market view"]),
+            ("today_key_levels", [
                 "Updated Dow levels", "Updated S&P levels", "Updated Nasdaq levels",
                 "Updated SOX levels", "Updated Russell levels",
             ]),
-            ("today_core_callout_text_segment", ["Updated core observation"]),
+            ("today_core_callout", ["Updated core observation"]),
         )
         for name, values in cases:
             with self.subTest(field=name):
@@ -254,7 +258,7 @@ class FieldWriteGuardTests(unittest.TestCase):
 
     def test_text_segment_updater_rejects_bad_count_structure_and_leaf_writer(self):
         root = parse_html(self._source("monday"))
-        item = self._item("today_key_levels_text_segments")
+        item = self._item("today_key_levels")
         with self.assertRaises(ValueError):
             update_registered_text_segments(root, item["selector"], ["only one"], self.registry)
         with self.assertRaises(PermissionError):
