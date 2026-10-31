@@ -114,6 +114,7 @@ def observations(soup, analysis):
         heading=copy.deepcopy(node.find("b",recursive=False))
         node.clear()
         if key in {"market_view","core_observations"} and heading is not None:
+            put(heading,"市場觀點" if key=="market_view" else "今日核心觀察：")
             node.append(heading); node.append(soup.new_tag("br"))
             node.append(NavigableString(body))
         elif key=="key_levels":
