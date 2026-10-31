@@ -31,6 +31,8 @@ on:
       - "scripts/validate_tac_content_binding.py"
       - "scripts/assemble_tac_daily_content.py"
       - "scripts/import_tac_calendar_capture.py"
+      - "scripts/render_tac_daily_content.py"
+      - "scripts/test_tac_daily_content_renderer.py"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
@@ -108,6 +110,9 @@ jobs:
 
       - name: Test TAC snapshot HTML renderer against both approved mothers
         run: python scripts/render_tac_daily_report.py --self-test
+
+      - name: Test TAC editorial HTML renderer against both approved mothers
+        run: python scripts/test_tac_daily_content_renderer.py
 
       - name: Validate market-field contract against both approved masters
         run: |
