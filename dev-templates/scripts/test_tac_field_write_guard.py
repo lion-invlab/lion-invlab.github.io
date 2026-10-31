@@ -1,4 +1,5 @@
 import unittest
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from tac_field_write_guard import (
@@ -8,6 +9,7 @@ from tac_field_write_guard import (
     update_registered_leaf_text,
     update_registered_source_links,
     update_registered_text_segments,
+    update_registered_labeled_leaf_fields,
 )
 
 
@@ -113,6 +115,86 @@ class FieldWriteGuardTests(unittest.TestCase):
                         x.etree_element.text == "TEST WEEKLY EARNINGS VALUE"
                         for x in matches
                     ))
+
+    def test_labelled_observation_leaf_updates_only_registered_repeat_card_fields(self):
+        cases = (
+            ("weekly_economic_events", "econ-field", "econ-value", "monday"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday"),
+            ("weekly_economic_events", "econ-field", "econ-value", "weekdays"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays"),
+        )
+        for name, field_class, value_class, template in cases:
+            with self.subTest(group=name, template=template):
+                root = parse_html(self._source(template))
+                item = self._item(name)
+                cards = select_wrappers(root, item["selector"])
+                card_values = []
+                expected_updates = 0
+                for wrapper in cards:
+                    card = wrapper.etree_element
+                    has_observation = any(
+                        field_class in set(field.attrib.get("class", "").split())
+                        and any(
+                            child.tag.lower() == "label" and (child.text or "").strip() == "觀察重點"
+                            for child in list(field)
+                        )
+                        for field in card.iter()
+                    )
+                    card_values.append(
+                        {"觀察重點": "UPDATED OBSERVATION"} if has_observation else {}
+                    )
+                    expected_updates += int(has_observation)
+                updated = update_registered_labeled_leaf_fields(
+                    root, item["selector"], card_values, self.registry
+                )
+                self.assertEqual(updated, expected_updates)
+                self.assertGreater(updated, 0)
+                for wrapper, mapping in zip(cards, card_values):
+                    if not mapping:
+                        continue
+                    self.assertTrue(any(
+                        value_class in set(node.attrib.get("class", "").split())
+                        and node.text == "UPDATED OBSERVATION"
+                        for node in wrapper.etree_element.iter()
+                    ))
+
+    def test_labelled_detail_updater_rejects_source_label_nested_value_and_count_mismatch(self):
+        root = parse_html(self._source("monday"))
+        item = self._item("weekly_earnings_cards")
+        cards = select_wrappers(root, item["selector"])
+        invalid = [{"來源": "must not overwrite links"}] + [{} for _ in cards[1:]]
+        with self.assertRaises(PermissionError):
+            update_registered_labeled_leaf_fields(root, item["selector"], invalid, self.registry)
+        with self.assertRaises(ValueError):
+            update_registered_labeled_leaf_fields(root, item["selector"], [], self.registry)
+
+        nested_root = parse_html(self._source("monday"))
+        nested_cards = select_wrappers(nested_root, item["selector"])
+        first_card = nested_cards[0].etree_element
+        target = next(
+            node for node in first_card.iter()
+            if "earnings-detail-value" in set(node.attrib.get("class", "").split())
+            and node.getparent is None
+        ) if False else None
+        observation_value = None
+        for field in first_card.iter():
+            if "earnings-detail-field" not in set(field.attrib.get("class", "").split()):
+                continue
+            if any(child.tag.lower() == "label" and (child.text or "").strip() == "觀察重點" for child in list(field)):
+                observation_value = next(
+                    child for child in list(field)
+                    if "earnings-detail-value" in set(child.attrib.get("class", "").split())
+                )
+                break
+        self.assertIsNotNone(observation_value)
+        ET.SubElement(observation_value, "a").text = "nested"
+        before = observation_value.text
+        values = [{"觀察重點": "SHOULD NOT PARTIALLY WRITE"}] + [{} for _ in nested_cards[1:]]
+        with self.assertRaises(PermissionError):
+            update_registered_labeled_leaf_fields(
+                nested_root, item["selector"], values, self.registry
+            )
+        self.assertEqual(observation_value.text, before)
 
     def test_positive_write_updates_only_registered_leaf(self):
         root = parse_html(self._source("monday"))
