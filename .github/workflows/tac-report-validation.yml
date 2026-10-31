@@ -64,7 +64,6 @@ jobs:
 
       - name: Test documented FRED Treasury fallback collector
         run: python scripts/fetch_tac_treasury_fred_fallback.py --self-test
-      - "scripts/fetch_tac_global_indices.py"
 
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
