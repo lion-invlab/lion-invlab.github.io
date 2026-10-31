@@ -565,14 +565,38 @@ def self_test():
     for index,key in enumerate(mapping["groups"]["sectors"]["key_by_ticker"]):
         fixture["sectors"][key]={"status":"verified","change":(index-5)*0.1,"change_unit":"percent"}
     fixture["fedwatch"]={"status":"verified","target_meeting":"2026-11-03","updated_at":"2026-10-31T08:00:00+08:00","source":{"name":"CME FedWatch","url":"https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"},"probabilities":[{"rate_range":"維持 3.75%–4.00%","probability":92.5},{"rate_range":"升至 4.00%–4.25%","probability":7.5}],"notes":None}
+    fixture["narrative"]={"status":"verified","summary_title":"Synthetic summary test","summary":[{"label":"市場主軸｜","text":"測試市場主軸。"},{"label":"跨市場｜","text":"測試跨市場觀察。"},{"label":"風險訊號｜","text":"測試風險訊號。"},{"label":"操作結論｜","text":"測試操作結論。"}],"market_sentiment":"測試情緒","market_observation":"測試市場觀察","core_observation":"測試核心觀察","key_levels":"待核實","notes":"Synthetic renderer fixture"}
     for template_name,relative in mapping["templates"].items():
         source_html=(ROOT/relative).read_text(encoding="utf-8")
-        rendered,count=render(source_html,fixture,mapping)
+        template_snapshot=json.loads(json.dumps(fixture))
+        source_tree=Parser(source_html)
+        def make_news_records(container_id,prefix):
+            container=by_id(source_tree.root,container_id)[0]
+            records=[]
+            for item_index,item in enumerate(by_class(container,"newsitem"),1):
+                anchors=selector_nodes(item,mapping["groups"]["news"]["source_links_selector"])
+                def source_record(name,url):
+                    return {"name":name,"url":url,"observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30","quote_type":"original_article","instrument":"synthetic news"}
+                records.append({"title":prefix+" headline "+str(item_index),"summary":"Synthetic original-report summary "+str(item_index),
+                               "published_at":"2026-10-30T20:00:00+08:00",
+                               "source":source_record("Synthetic primary",f"https://example.com/{prefix}/{item_index}"),
+                               "related_sources":[source_record("Synthetic reference "+str(j),f"https://example.com/{prefix}/{item_index}/ref{j}") for j in range(1,len(anchors))],
+                               "notes":"Synthetic test only"})
+            return records
+        template_snapshot["news"]={"global_focus":make_news_records("global-focus","focus"),
+                                   "market_headlines":make_news_records("headlines","headline"),
+                                   "global_focus_meta":"Global Focus synthetic window",
+                                   "market_headlines_meta":"Market Headlines synthetic window",
+                                   "notes":"Synthetic news test"}
+        rendered,count=render(source_html,template_snapshot,mapping)
         assert count>0
         assert rendered.count("<script") == source_html.count("<script")
         assert rendered.count("<style") == source_html.count("<style")
         assert "92.5%" in rendered and "7.5%" in rendered
         assert "2026-11-03" in rendered
+        assert "Synthetic summary test" in rendered
+        assert "focus headline 1" in rendered and "headline headline 10" in rendered
+        assert "https://example.com/focus/1" in rendered
         ticker_map=mapping["groups"]["sectors"]["key_by_ticker"]
         expected_keys=sorted(fixture["sectors"],key=lambda key:fixture["sectors"][key]["change"],reverse=True)
         sector_order=[rendered.index(">"+ticker_map[key]+"<") for key in expected_keys]
