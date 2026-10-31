@@ -56,7 +56,8 @@ def node_signature(node):
         "id": attrs.get("id", ""),
         "classes": sorted((attrs.get("class") or "").split()),
         "stable_attrs": sorted(
-            (key, attrs[key]) for key in STABLE_ATTRS if key in attrs
+            (key, attrs[key]) for key in attrs
+            if key in STABLE_ATTRS or key.startswith(("aria-", "data-", "on"))
         ),
         "children": [node_signature(child) for child in node.children],
     }
@@ -76,6 +77,7 @@ def inspect_html(source: str, label: str = "<memory>"):
     ids = [n.attrs["id"] for n in nodes if n.attrs.get("id")]
     counts = Counter(ids)
     duplicates = sorted(value for value, count in counts.items() if count > 1)
+    duplicate_id_counts = {value: counts[value] for value in duplicates}
     assets = []
     for node in nodes:
         if node.tag in {"style", "script"}:
@@ -94,6 +96,7 @@ def inspect_html(source: str, label: str = "<memory>"):
         "path": label,
         "node_count": len(nodes) - 1,
         "duplicate_ids": duplicates,
+        "duplicate_id_counts": duplicate_id_counts,
         "html5_parse_error_count": len(parse_errors),
         "html5_parse_errors_sample": parse_errors[:30],
         "inline_assets": assets,
@@ -108,6 +111,7 @@ def compare(base, candidate):
         "fixed_dom_structure_equal": base["structure"] == candidate["structure"],
         "inline_css_js_equal": base["inline_assets"] == candidate["inline_assets"],
         "duplicate_id_set_equal": base["duplicate_ids"] == candidate["duplicate_ids"],
+        "duplicate_id_counts_equal": base["duplicate_id_counts"] == candidate["duplicate_id_counts"],
         "baseline_html5_dom_built": base["node_count"] > 0,
         "candidate_html5_dom_built": candidate["node_count"] > 0,
     }
