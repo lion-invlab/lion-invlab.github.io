@@ -60,6 +60,37 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                     self.assertEqual(card.evaluate("(el) => el.open"), before)
                 page.close()
 
+    def test_red_plus_controls_render_and_change_to_minus(self):
+        for name, path in TEMPLATES.items():
+            with self.subTest(template=name):
+                page = self._open(path)
+                self._activate_upcoming_tabs(page)
+                cases = (
+                    ("#calendar .econ-event-list details.econ-event:visible", ".econ-toggle", 32),
+                    ("#earnings .earnings-accordion-list details.earnings-accordion:visible", ".earnings-accordion-toggle", 34),
+                )
+                for card_selector, toggle_selector, expected_size in cases:
+                    card = page.locator(card_selector).first
+                    self.assertTrue(card.count(), f"{name}: missing visible card {card_selector}")
+                    toggle = card.locator(toggle_selector)
+                    before = toggle.evaluate(
+                        "(el) => { const s=getComputedStyle(el); return {width:parseFloat(s.width),height:parseFloat(s.height),radius:s.borderRadius,background:s.backgroundColor,content:getComputedStyle(el,'::before').content}; }"
+                    )
+                    self.assertEqual(before["width"], expected_size, f"{name}: unexpected plus width {before}")
+                    self.assertEqual(before["height"], expected_size, f"{name}: unexpected plus height {before}")
+                    self.assertEqual(before["radius"], "50%", f"{name}: plus is not circular {before}")
+                    self.assertEqual(before["background"], "rgb(198, 40, 40)", f"{name}: plus is not TAC red {before}")
+                    card.locator(":scope > summary").click()
+                    after = toggle.evaluate(
+                        "(el) => { const s=getComputedStyle(el); const p=getComputedStyle(el,'::before'); return {background:s.backgroundColor,pseudoBackground:p.backgroundColor,content:p.content}; }"
+                    )
+                    self.assertIn("−", after["content"], f"{name}: plus did not become minus {after}")
+                    if toggle_selector == ".econ-toggle":
+                        self.assertEqual(after["pseudoBackground"], "rgb(32, 35, 40)", f"{name}: open economic toggle state is wrong {after}")
+                    else:
+                        self.assertEqual(after["background"], "rgb(32, 35, 40)", f"{name}: open earnings toggle state is wrong {after}")
+                page.close()
+
     def test_calendar_tabs_switch_in_real_browser(self):
         for name, path in TEMPLATES.items():
             with self.subTest(template=name):
