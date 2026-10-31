@@ -8,6 +8,7 @@ from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup, NavigableString, Tag
 
 ROOT = Path(__file__).resolve().parents[1]
+BINDING_PATH = ROOT / "scripts" / "tac_html_binding_map.json"
 TZ = ZoneInfo("Asia/Taipei")
 WD = ("一", "二", "三", "四", "五", "六", "日")
 PROTECTED = {ROOT/"index.html", ROOT/"TAC_WORK_RULES.md",
@@ -51,6 +52,45 @@ def news(soup, selector, records, count, name):
         links=card.select(".newsmeta a")
         if len(links)!=1: raise ValueError(f"{name}[{i}]: expected one source link")
         source_link(links[0],item["source"])
+
+def update_news_meta(soup, data):
+    start=data["meta"].get("news_window_start"); end=data["meta"].get("news_window_end")
+    if not start or not end: raise ValueError("news window start/end required for publication")
+    window=dt(start).strftime("%Y/%m/%d %H:%M")+"–"+dt(end).strftime("%Y/%m/%d %H:%M")+"（台灣時間）"
+    for sel,label in (("#global-focus","全球焦點"),("#headlines","市場熱門頭條")):
+        box=slot(soup,sel,label)
+        metas=box.select(".tab-panel-meta")
+        if len(metas)!=1: raise ValueError(label+" metadata slot missing or duplicated")
+        put(metas[0],label+"｜報告日期 "+data["meta"]["report_date"].replace("-","/")+"｜時間窗："+window)
+        for warning in box.select(".news-window-warning"):
+            put(warning,"新聞時間窗｜"+window+"。本區內容依原始報導發布時間篩選；來源與時間戳逐則列示。")
+
+def update_section_dates(soup, report_day):
+    monday=report_day-timedelta(days=report_day.weekday()); friday=monday+timedelta(days=4)
+    span=f"{monday.month:02d}/{monday.day:02d}～{friday.month:02d}/{friday.day:02d}"
+    for sel in ("#calendar .title small","#earnings .title small"):
+        put(slot(soup,sel,"current week date range"),span+"｜台灣時間 UTC+8")
+    if report_day.weekday()==0:
+        prev_start=monday-timedelta(days=7); prev_end=prev_start+timedelta(days=4)
+        prev=f"{prev_start.month:02d}/{prev_start.day:02d}～{prev_end.month:02d}/{prev_end.day:02d}"
+        for sel in ("#last-week-calendar .title small","#last-week-earnings .title small"):
+            put(slot(soup,sel,"previous week date range"),prev+"｜台灣時間 UTC+8")
+    title=slot(soup,"#view .today-focus-title","observation title")
+    put(title,"今日觀察重點｜"+report_day.strftime("%Y/%m/%d")+"（"+WD[report_day.weekday()]+"）")
+
+def verify_template_controls(before, after):
+    def radio_ids(s):
+        return [(x.get("id"),x.get("name"),x.get("type")) for x in s.select('input[type="radio"]')]
+    def label_refs(s):
+        return [(x.get("for"),x.get_text(" ",strip=True)) for x in s.select("label[for]")]
+    if radio_ids(before)!=radio_ids(after): raise ValueError("radio tab controls changed during editorial render")
+    if label_refs(before)!=label_refs(after): raise ValueError("tab/plus-control labels changed during editorial render")
+    if [str(x) for x in before.select("style,script")] != [str(x) for x in after.select("style,script")]:
+        raise ValueError("template CSS or JavaScript changed during editorial render")
+    for selector in ("#news-scan","#view","#calendar","#earnings"):
+        if len(before.select(selector))!=len(after.select(selector)):
+            raise ValueError("approved outer section count changed: "+selector)
+
 def summary(soup, analysis):
     cards=soup.select("main.wrap > section.grid.two article.bluf")
     if len(cards)!=1: raise ValueError("approved summary/BLUF card not uniquely found")
@@ -196,6 +236,10 @@ def render(content_path,input_html,output_html):
     from validate_tac_daily_content import load_validator,validate_report_rules
     validator,_=load_validator(); errs=list(validator.iter_errors(data))+[ValueError(x) for x in validate_report_rules(data)]
     if errs: raise ValueError("content validation failed: "+"; ".join(getattr(e,"message",str(e)) for e in errs[:10]))
+    binding=read_json(BINDING_PATH)
+    editorial=binding.get("editorial_content",{})
+    if editorial.get("schema_version")!=2 or editorial.get("renderer")!="scripts/render_tac_daily_content.py":
+        raise ValueError("runtime HTML binding map is not connected to editorial schema v2")
     rd=date.fromisoformat(data["meta"]["report_date"]); typ="monday" if rd.weekday()==0 else "weekday"
     if rd.weekday()>4 or data["meta"]["template_type"]!=typ: raise ValueError("report date/template mismatch")
     if typ=="weekday":
@@ -205,9 +249,12 @@ def render(content_path,input_html,output_html):
         if len(data[k])!=n: raise ValueError(f"{k}: exactly {n} records required; got {len(data[k])}")
     if not input_html.is_file(): raise ValueError("market-rendered input HTML missing")
     soup=BeautifulSoup(input_html.read_text(encoding="utf-8"),"html.parser")
+    before=copy.deepcopy(soup)
     meta=slot(soup,'meta[name="report-date"]',"report date")
     if meta.get("content")!=data["meta"]["report_date"]: raise ValueError("HTML/content report date mismatch")
     if not soup.title or data["meta"]["report_date"].replace("-","/") not in soup.title.get_text(): raise ValueError("HTML title/report date mismatch")
+    update_news_meta(soup,data)
+    update_section_dates(soup,rd)
     summary(soup,data["analysis"])
     news(soup,"#global-focus",data["focus_news"],5,"focus_news")
     news(soup,"#headlines",data["market_headlines"],10,"market_headlines")
@@ -218,6 +265,12 @@ def render(content_path,input_html,output_html):
     econ_proto=copy.deepcopy(econ_nodes[0]); earn_proto=copy.deepcopy(earn_nodes[0])
     calendar_panel(slot(soup,"#calendar","economic calendar"),data["economic_calendar"],"economic",rd,data["coverage"]["economic_calendar"],soup,econ_proto)
     calendar_panel(slot(soup,"#earnings","earnings calendar"),data["earnings_calendar"],"earnings",rd,data["coverage"]["earnings_calendar"],soup,earn_proto)
+    current_start=rd-timedelta(days=rd.weekday()); current_end=current_start+timedelta(days=4)
+    for group_name in ("economic_calendar","earnings_calendar"):
+        for item in data[group_name]:
+            event_day=dt(item["event_date"]).date()
+            if not current_start<=event_day<=current_end:
+                raise ValueError(group_name+" event outside current Monday-Friday report week: "+item["id"])
     if typ=="monday":
         start=rd-timedelta(days=7); end=start+timedelta(days=4)
         for k in ("previous_economic_calendar","previous_earnings_calendar"):
@@ -225,6 +278,7 @@ def render(content_path,input_html,output_html):
                 if not start<=dt(e["event_date"]).date()<=end: raise ValueError(k+" event outside previous Monday-Friday window")
         previous_week(soup,"economic",data["previous_economic_calendar"],data["coverage"]["previous_economic_calendar"],rd,econ_proto)
         previous_week(soup,"earnings",data["previous_earnings_calendar"],data["coverage"]["previous_earnings_calendar"],rd,earn_proto)
+    verify_template_controls(before,soup)
     if output_html.resolve() in PROTECTED or output_html.resolve()==input_html.resolve(): raise ValueError("refusing to overwrite protected/input file")
     output_html.parent.mkdir(parents=True,exist_ok=True); output_html.write_text(str(soup),encoding="utf-8")
     return {"output":str(output_html),"report_date":data["meta"]["report_date"],"template_type":typ,
