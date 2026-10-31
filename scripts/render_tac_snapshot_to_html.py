@@ -45,7 +45,9 @@ class Parser(HTMLParser):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
             if self.stack[i].tag==tag:
-                self.stack[i].end=p+len("</"+tag+">"); del self.stack[i:]; break
+                close_end=self.s.find(">",p)
+                if close_end<0: raise ValueError("unterminated closing tag")
+                self.stack[i].end=close_end+1; del self.stack[i:]; break
     def handle_data(self,data):
         p=self.pos(); self.stack[-1].children.append((data,p,p+len(data)))
     def handle_entityref(self,name):
@@ -98,6 +100,37 @@ def change_status(record):
         return "warn"
     change=float(record["change"])
     return "up" if change>0 else "down" if change<0 else "flat"
+def sort_sector_rows(source,snapshot,mapping):
+    spec=mapping["groups"]["sectors"]
+    tree=Parser(source)
+    containers=by_id(tree.root,spec["container"].lstrip("#"))
+    if len(containers)!=1: raise ValueError("sectors container missing or duplicated")
+    rows=by_class(containers[0],spec["row"].lstrip("."))
+    tickers=spec["key_by_ticker"]
+    if len(rows)!=len(tickers): raise ValueError("sector row count mismatch")
+    by_ticker={}
+    for ticker_key,ticker in tickers.items():
+        matches=[r for r in rows if re.search(r"(?<![A-Z0-9])"+re.escape(ticker)+r"(?![A-Z0-9])",r.text)]
+        if len(matches)!=1: raise ValueError("sector ticker "+ticker+" expected once")
+        by_ticker[ticker_key]=matches[0]
+    ordered=sorted(tickers, key=lambda k: (
+        0 if snapshot["sectors"][k]["status"]=="verified" and snapshot["sectors"][k]["change"] is not None else 1,
+        -(float(snapshot["sectors"][k]["change"] or 0))
+    ))
+    source_rows=sorted(rows,key=lambda r:r.start)
+    if any(r.end is None or r.end<=r.start for r in source_rows):
+        raise ValueError("sector row boundary unavailable")
+    chunks={}
+    for i,row in enumerate(source_rows):
+        stop=source_rows[i+1].start if i+1<len(source_rows) else row.end
+        gap=source[row.end:stop] if i+1<len(source_rows) else ""
+        if gap.strip(): raise ValueError("non-whitespace content between sector rows; refusing reorder")
+        ticker_key=next(k for k,v in by_ticker.items() if v is row)
+        chunks[ticker_key]=source[row.start:stop]
+    start=source_rows[0].start; end=source_rows[-1].end
+    replacement="".join(chunks[k] for k in ordered)
+    return source[:start]+replacement+source[end:],len(rows)
+
 def render(source,snapshot,mapping):
     tree=Parser(source); edits=[]
     for group in ("global_indices","bonds","fx","energy","precious_metals"):
@@ -113,12 +146,42 @@ def render(source,snapshot,mapping):
             edits += [make_edit(vals[0],fmt(record["value"],record["unit"]) if ok else "待核實"),
                       make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實"),
                       make_status_class_edit(vals[1],change_status(record))]
+    sector_spec=mapping["groups"]["sectors"]
+    sector_container=by_id(tree.root,sector_spec["container"].lstrip("#"))
+    if len(sector_container)!=1: raise ValueError("sectors container missing or duplicated")
+    sector_rows=by_class(sector_container[0],sector_spec["row"].lstrip("."))
+    if len(sector_rows)!=len(sector_spec["key_by_ticker"]): raise ValueError("sector row count mismatch")
+    for key,ticker in sector_spec["key_by_ticker"].items():
+        matches=[r for r in sector_rows if re.search(r"(?<![A-Z0-9])"+re.escape(ticker)+r"(?![A-Z0-9])",r.text)]
+        if len(matches)!=1: raise ValueError("sector ticker "+ticker+" expected once")
+        row=matches[0]
+        values=[n for n in row.descendants() if n.tag=="span" and "r" in n.classes]
+        ranks=by_class(row,"rank")
+        if len(values)!=1 or len(ranks)!=1: raise ValueError("sector "+ticker+" requires one value and one rank slot")
+        record=snapshot["sectors"][key]
+        verified=record["status"]=="verified"
+        edits.append(make_edit(values[0],fmt(record["change"],record.get("change_unit")) if verified and record.get("change") is not None else "待核實"))
+        edits.append(make_status_class_edit(values[0],change_status(record)))
+        # Rank is rewritten after sorting in the second pass below.
     edits.sort(key=lambda e:e[1],reverse=True)
     out=source; last=len(source)+1
     for start,end,value in edits:
         if end>last: raise ValueError("overlapping mapped text nodes")
         out=out[:start]+value+out[end:]; last=start
-    return out,len(edits)
+    out,sector_count=sort_sector_rows(out,snapshot,mapping)
+    # Re-parse the reordered rows and rewrite rank labels without touching any other markup.
+    reordered=Parser(out)
+    sec=by_id(reordered.root,sector_spec["container"].lstrip("#"))[0]
+    sorted_rows=by_class(sec,sector_spec["row"].lstrip("."))
+    rank_edits=[]
+    for rank,row in enumerate(sorted_rows,1):
+        rank_nodes=by_class(row,"rank")
+        if len(rank_nodes)!=1: raise ValueError("sector rank slot missing or duplicated")
+        rank_edits.append(make_edit(rank_nodes[0],str(rank)))
+    rank_edits.sort(key=lambda e:e[1],reverse=True)
+    for start,end,value in rank_edits:
+        out=out[:start]+value+out[end:]
+    return out,len(edits)+sector_count+len(rank_edits)
 def validate_expected_dates(snapshot, report_date, trading_date):
     if not report_date or not trading_date:
         raise ValueError("both expected report and trading dates are required")
