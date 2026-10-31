@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "description": "Read-only DOM binding contract for snapshot-driven rendering. Selectors are constrained to the approved mother templates; this map does not authorize structural or style changes.",
+  "description": "Snapshot-to-DOM binding contract. Only mapped text nodes and the mapped sector change-node status class may be updated; all other attributes, structure, CSS and scripts remain protected.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
   },
   "rules": {
-    "mutate_only_text_nodes": true,
+    "mutate_only_text_nodes": false,
     "preserve_element_tree": true,
     "preserve_attributes": true,
     "preserve_css_and_scripts": true,
@@ -18,7 +18,9 @@
       "warning": "warn"
     },
     "fail_if_selector_count_differs": true,
-    "fail_if_label_or_ticker_missing_or_duplicated": true
+    "fail_if_label_or_ticker_missing_or_duplicated": true,
+    "mutate_only_mapped_text_nodes_and_sector_status_class": true,
+    "preserve_attributes_except_mapped_status_class": true
   },
   "groups": {
     "global_indices": {
@@ -73,7 +75,8 @@
         "display_value": "change",
         "display_change": null,
         "display_unit": "change_unit"
-      }
+      },
+      "rank_selector": ".rank"
     },
     "bonds": {
       "container": "#bonds",
