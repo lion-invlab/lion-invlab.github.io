@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "description": "Read-only DOM binding contract for snapshot-driven rendering. Selectors are constrained to the approved mother templates; this map does not authorize structural or style changes.",
+  "templates": {
+    "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+    "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+  },
+  "rules": {
+    "mutate_only_text_nodes": true,
+    "preserve_element_tree": true,
+    "preserve_attributes": true,
+    "preserve_css_and_scripts": true,
+    "pending_value_text": "待核實",
+    "status_class_map": {
+      "positive": "up",
+      "negative": "down",
+      "neutral": "flat",
+      "warning": "warn"
+    },
+    "fail_if_selector_count_differs": true,
+    "fail_if_label_or_ticker_missing_or_duplicated": true
+  },
+  "groups": {
+    "global_indices": {
+      "container": "#global-markets",
+      "row": ".row",
+      "key_by_label": {
+        "dow": "道瓊工業指數",
+        "sp500": "標普500指數",
+        "nasdaq_composite": "那斯達克綜合指數",
+        "russell_2000": "羅素2000指數",
+        "sox": "費城半導體指數",
+        "hang_seng": "香港恆生指數",
+        "shanghai_composite": "上海綜合指數",
+        "shenzhen_component": "深證成指",
+        "nikkei_225": "日經 225",
+        "kospi": "韓國 KOSPI",
+        "twse": "台灣加權指數",
+        "singapore_sti": "新加坡海峽時報指數 STI",
+        "asx_200": "澳洲 S&P/ASX 200",
+        "ftse_100": "英國 FTSE 100",
+        "dax": "德國 DAX",
+        "cac_40": "法國 CAC 40",
+        "stoxx_europe_600": "STOXX Europe 600"
+      },
+      "value_selector": "span.r:nth-of-type(1)",
+      "change_selector": "span.r:nth-of-type(2)"
+    },
+    "sectors": {
+      "container": "#tac-assets-panel-0",
+      "row": ".sector-row",
+      "key_by_ticker": {
+        "xlk": "XLK",
+        "xly": "XLY",
+        "xlb": "XLB",
+        "xlu": "XLU",
+        "xli": "XLI",
+        "xlv": "XLV",
+        "xlf": "XLF",
+        "xlc": "XLC",
+        "xlre": "XLRE",
+        "xlp": "XLP",
+        "xle": "XLE"
+      },
+      "value_selector": "span.r"
+    },
+    "bonds": {
+      "container": "#bonds",
+      "row": ".row",
+      "key_by_label": {
+        "us_2y": "2年期美債殖利率",
+        "us_10y": "10年期美債殖利率",
+        "us_30y": "30年期美債殖利率"
+      },
+      "value_selector": "span.r:nth-of-type(1)",
+      "change_selector": "span.r:nth-of-type(2)"
+    },
+    "fx": {
+      "container": "#fx",
+      "row": ".row",
+      "key_by_label": {
+        "dxy": "美元指數",
+        "usd_twd": "美元／新台幣",
+        "eur_usd": "歐元／美元",
+        "gbp_usd": "英鎊／美元",
+        "aud_usd": "澳幣／美元",
+        "usd_jpy": "美元／日圓"
+      },
+      "value_selector": "span.r:nth-of-type(1)",
+      "change_selector": "span.r:nth-of-type(2)"
+    },
+    "energy": {
+      "container": "#tac-assets-panel-3",
+      "row": ".row",
+      "key_by_label": {
+        "wti": "WTI原油期貨",
+        "brent": "Brent原油期貨"
+      },
+      "value_selector": "span.r:nth-of-type(1)",
+      "change_selector": "span.r:nth-of-type(2)"
+    },
+    "precious_metals": {
+      "container": "#tac-assets-panel-4",
+      "row": ".row",
+      "key_by_label": {
+        "gold_gc": "黃金期貨 GC",
+        "silver_si": "白銀期貨 SI"
+      },
+      "value_selector": "span.r:nth-of-type(1)",
+      "change_selector": "span.r:nth-of-type(2)"
+    },
+    "risk_indicators": {
+      "container": "#sentiment",
+      "records": {
+        "vix": {
+          "row": ".sbox",
+          "key_text": "VIX",
+          "value_selector": "strong",
+          "change_selector": ".warn,.up,.down,.flat"
+        },
+        "move": {
+          "row": ".sbox",
+          "key_text": "MOVE",
+          "value_selector": "strong",
+          "change_selector": ".warn,.up,.down,.flat"
+        },
+        "cnn_fear_greed": {
+          "row": ".cnn-fg-preview",
+          "key_text": "CNN Fear & Greed",
+          "value_selector": ".fg6-score-main",
+          "change_selector": null
+        }
+      }
+    },
+    "fedwatch": {
+      "container": "#fed",
+      "row": ".fc-prob",
+      "outcomes": {
+        "hold": {
+          "label": "維持不變",
+          "probability_selector": "strong",
+          "rate_range_selector": ".fc-range"
+        },
+        "hike_one": {
+          "label": "升息一碼",
+          "probability_selector": "strong",
+          "rate_range_selector": ".fc-range"
+        }
+      },
+      "metadata_text": [
+        "CME FedWatch",
+        "FOMC 會議",
+        "資料時間與快照口徑"
+      ]
+    }
+  },
+  "protected_paths": [
+    "index.html",
+    "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+    "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+    "母版專區/mother-template-manifest.json",
+    "TAC_WORK_RULES.md"
+  ]
+}
