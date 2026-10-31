@@ -49,7 +49,9 @@ def choose_template(snapshot: dict, manifest: dict) -> tuple[str, dict]:
     if path.as_posix().startswith("../"):
         raise ValueError("template path escapes repository root")
     import hashlib
-    digest = hashlib.sha1(path.read_bytes()).hexdigest()
+    template_bytes = path.read_bytes()
+    git_blob_header = f"blob {len(template_bytes)}\\0".encode("ascii")
+    digest = hashlib.sha1(git_blob_header + template_bytes).hexdigest()
     if digest != item["blob_sha"]:
         raise ValueError(
             f"mother SHA mismatch for {key}: expected {item['blob_sha']}, got {digest}; stop without fallback"
