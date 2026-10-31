@@ -46,3 +46,14 @@
 - 新增 `repeat-group-policy-v1.md`，將固定筆數、模板基準筆數與內容可變筆數分開定義，並列出新增／移除重複卡片前必須滿足的結構指紋、欄位與互動保護條件。
 - 目前僅為設計草案；repeat-group 差異比對器尚未實作，開發母版尚未產生，也未授權任何每日自動增刪或寫入。
 - 修正後 selector CI（Run 41170745808）已通過：母版 SHA 鎖定、8 項結構指紋測試、雙母版 HTML5 解析與候選 selector 命中數檢查均成功。此 run 驗證的是修正後 registry；新增 repeat-group 草案本身尚未進入該 run。
+
+## 2026-10-31 動態行事曆數量修正與 Repeat Group 驗證進度（以本節為準）
+
+- 使用者已明確確認：**經濟行事曆與財報行事曆的小卡數量不固定，依每週／每日實際事件動態調整。** 母版目前的 12／16／3／7 張僅為樣本命中數，不是目標數、上下限或驗收門檻。
+- 固定的是各模板的外層容器、status group、標題、欄位、卡片骨架、details/summary、紅圓加號、來源收合、CSS／JS 與互動；動態的是每個列表內的事件卡張數。
+- 新版測試草案：`repeat-group-policy-v1.1.md`。舊版 `repeat-group-policy-v1.md` 已標記為被取代，避免誤讀。
+- 新增 `scripts/tac_repeat_group_validator.py` 與 `scripts/test_tac_repeat_group_validator.py`。驗證器允許登記的動態子項增減，逐張核對卡片完整骨架，並保護列表外框及文件其他固定結構。
+- Repeat Group 測試涵蓋：合法新增、合法移除、零張卡片但保留外框、卡片 class 非法變更、wrapper 變更、固定同層控制變更、wrapper 數量變更、非動態群組筆數變更。
+- 最新 CI Run **41171295933** 已完成成功：16 項單元測試、雙母版 SHA 鎖定、HTML5 結構解析、31 個候選 selector 命中數稽核及報告上傳全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41171295933
+- 本次仍只完成合成 HTML 測試與母版基準檢查；尚未對正式母版執行真實事件卡的新增／刪除候選文件測試，也尚未做瀏覽器互動及手機版驗收。故尚不能啟用開發母版產生、每日自動增刪或部署。
+- 以上全部僅在 `tac-template-architecture` 測試分支。正式 WR、兩份正式母版、manifest、首頁及 11/02 預覽均保持不變。
