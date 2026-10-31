@@ -88,8 +88,10 @@ def parse_official_table(page,config,target):
     """Try an exact-date public exchange settlement table; never infer missing contract data."""
     soup=BeautifulSoup(page,"html.parser")
     page_text=soup.get_text(" ",strip=True)
-    target_text=target.isoformat()
-    if target_text not in page_text and target.strftime("%m/%d/%Y") not in page_text:
+    if not any(token.lower() in page_text.lower() for token in config["identity"]):
+        raise ValueError("official exchange page product identity mismatch")
+    date_tokens=(target.isoformat(),target.strftime("%m/%d/%Y"),target.strftime("%b %d, %Y"),target.strftime("%B %d, %Y"))
+    if not any(token in page_text for token in date_tokens):
         raise ValueError("official exchange page does not expose requested settlement date")
     matches=[]
     for table in soup.find_all("table"):
