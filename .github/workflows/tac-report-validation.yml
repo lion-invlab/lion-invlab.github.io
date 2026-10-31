@@ -149,7 +149,7 @@ jobs:
             --output "/tmp/tac-fiscal-earnings-candidates-2026-11-02.json"
 
       - name: Upload Fiscal.ai earnings schedule candidates (if available)
-        if: ${{ secrets.FISCAL_API_KEY != '' && hashFiles('/tmp/tac-fiscal-earnings-candidates-2026-11-02.json') != '' }}
+        if: ${{ secrets.FISCAL_API_KEY != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: tac-fiscal-earnings-candidates-2026-11-02
