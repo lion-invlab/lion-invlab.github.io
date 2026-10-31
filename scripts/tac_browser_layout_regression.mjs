@@ -120,8 +120,14 @@ try {
     }
     const tabs = reportPage.locator("input.tac-tab-radio");
     if (await tabs.count() >= 2) {
-      await tabs.nth(1).check({ force: true });
-      if (!(await tabs.nth(1).isChecked())) failures.push(viewport.name + ": TAC tab radio control did not activate");
+      const secondTabId = await tabs.nth(1).getAttribute("id");
+      const tabLabel = reportPage.locator('label[for="' + secondTabId + '"]');
+      if (!(await tabLabel.count())) {
+        failures.push(viewport.name + ": second TAC tab has no associated label");
+      } else {
+        await tabLabel.click();
+        if (!(await tabs.nth(1).isChecked())) failures.push(viewport.name + ": TAC tab label did not activate its radio control");
+      }
     }
     await masterPage.close();
     await reportPage.close();
