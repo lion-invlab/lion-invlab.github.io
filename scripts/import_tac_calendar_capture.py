@@ -60,7 +60,9 @@ def normalize(payload: dict) -> dict:
         "report_date": report_date,
         "trading_date": trading_date,
         "economic_calendar": [],
-        "earnings_calendar": []
+        "earnings_calendar": [],
+        "previous_economic_calendar": [],
+        "previous_earnings_calendar": []
     }
 
     # Coverage is explicit: an empty event array is not proof that a provider
@@ -69,7 +71,7 @@ def normalize(payload: dict) -> dict:
     supplied_coverage = payload.get("coverage", {})
     if not isinstance(supplied_coverage, dict):
         raise ValueError("coverage must be an object when supplied")
-    allowed_coverage = {"economic_calendar", "earnings_calendar"}
+    allowed_coverage = {"economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"}
     unknown_coverage = set(supplied_coverage) - allowed_coverage
     if unknown_coverage:
         raise ValueError("unsupported calendar coverage groups: " + ", ".join(sorted(unknown_coverage)))
@@ -93,7 +95,9 @@ def normalize(payload: dict) -> dict:
                 "status": status, "source_refs": refs, "checked_at": checked_at
             }
 
-    for row in payload.get("economic_events", []):
+    for input_group, output_group in (("economic_events", "economic_calendar"),
+                                     ("previous_economic_events", "previous_economic_calendar")):
+      for row in payload.get(input_group, []):
         stars = row.get("importance_stars")
         if stars != 3:
             continue
@@ -110,9 +114,11 @@ def normalize(payload: dict) -> dict:
             "impact_judgment": row.get("impact_judgment"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
-        fragment["economic_calendar"].append(event)
+        fragment[output_group].append(event)
 
-    for row in payload.get("earnings_events", []):
+    for input_group, output_group in (("earnings_events", "earnings_calendar"),
+                                     ("previous_earnings_events", "previous_earnings_calendar")):
+      for row in payload.get(input_group, []):
         if row.get("include_in_report") is not True:
             continue
         basis = row.get("importance_basis")
@@ -148,9 +154,9 @@ def normalize(payload: dict) -> dict:
             "stock_price_reaction": row.get("stock_price_reaction"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
-        fragment["earnings_calendar"].append(event)
+        fragment[output_group].append(event)
 
-    for group in ("economic_calendar", "earnings_calendar"):
+    for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
         fragment[group].sort(key=lambda item: item["event_date"])
     return fragment
 
