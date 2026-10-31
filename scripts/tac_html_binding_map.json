@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "Snapshot binding contract for rendering. Existing DOM and layout remain immutable; mapped text slots and whitelisted state classes may change, and existing sector row nodes may be re-ranked without changing their links or attributes.",
+  "description": "Snapshot binding contract. Existing DOM and layout remain unchanged; only mapped text nodes, whitelisted status classes, report-date metadata, title/date labels, and the order of intact existing sector rows may change.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
@@ -273,5 +273,16 @@
     "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
     "母版專區/mother-template-manifest.json",
     "TAC_WORK_RULES.md"
-  ]
+  ],
+  "metadata": {
+    "title_selector": "title",
+    "trading_date_prefix_selectors": [
+      "#global-markets .tab-panel-meta",
+      "#tac-assets-panel-0 .tab-panel-meta",
+      "#bonds .tab-panel-meta",
+      "#fx .tab-panel-meta",
+      "#tac-assets-panel-3 .tab-panel-meta",
+      "#tac-assets-panel-4 .tab-panel-meta"
+    ]
+  }
 }
