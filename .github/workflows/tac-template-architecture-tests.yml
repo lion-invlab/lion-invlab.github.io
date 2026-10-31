@@ -55,7 +55,7 @@ jobs:
       - name: Run architecture, repeat-group and browser tests
         working-directory: dev-templates/scripts
         run: |
-          python -m unittest -v test_tac_template_structure_fingerprint.py test_tac_repeat_group_validator.py test_tac_repeat_group_actual_mothers.py test_tac_status_group_validator.py
+          python -m unittest -v test_tac_template_structure_fingerprint.py test_tac_repeat_group_validator.py test_tac_repeat_group_actual_mothers.py test_tac_status_group_validator.py test_tac_field_write_guard.py
           python -m unittest -v test_tac_template_browser.py
 
       - name: Parse and fingerprint both locked mother templates
