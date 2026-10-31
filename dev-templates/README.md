@@ -269,3 +269,21 @@
 - 最終 Run #41180947602 完整成功：**78 項單元／整合測試、5 項 Chromium 瀏覽器測試**；正式雙母版 SHA、DOM 結構指紋、94 個候選 selector cardinality 及稽核報告上傳均通過。
 - 重要界線：本次只完成資料契約與排序入口，尚未接入真實資料蒐集、來源 Mapping、Repeat Group 卡片新增／移除、DOM 寫入或每日產製。Gate A 仍未完成，Gate B–D 未完成，Gate E 未核准。
 - 最終驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41180947602
+
+
+## 2026-10-31 Run #41181717574｜狀態群組原型盤點與 Repeat Group dry-run planner
+
+- 新增 `scripts/tac_calendar_group_inventory.py`，對兩份正式鎖定母版只讀盤點本週／上週經濟及財報 status group，記錄可見 heading、語意狀態、既有列表／empty-state、卡片張數及同群組原型是否存在。CI 另輸出 `calendar-group-inventory.json` 稽核報告。
+- 狀態分類不能只依 CSS class：週一母版「今日公布」標題的 CSS class 可能仍是 `upcoming`。盤點器改以 heading 可見文字辨識 today／upcoming／published／prior_week_published，CSS class 僅作結構資訊保留。
+- 正式母版樣本盤點結果（張數僅為當前樣本，不是動態筆數限制）：
+  - 週一本週經濟：今日公布 0 張、即將公布 12 張、已公布 0 張；只有即將公布群組有同群組卡片原型。
+  - 週一本週財報：今日公布 0 張、即將公布 16 張、已公布 0 張；只有即將公布群組有同群組卡片原型。
+  - 週一上週經濟／財報：各有 3／7 張，兩組均有同群組原型。
+  - 週二至週五本週經濟：今日／即將／已公布為 2／8／6 張；財報為 4／7／5 張，六個狀態群組均有同群組原型。
+- 週一本週經濟／財報的今日與已公布群組雖有同區塊 empty-state 原型，但沒有卡片原型；目前 repeat-group policy 不允許跨狀態群組借用卡片。因此若當週資料要求在這些群組新增卡片，planner 必須阻擋。週一上週群組有卡片原型但沒有同區塊 empty-state；若事件集為零，也必須阻擋自動清空。平日各群組沒有同區塊 empty-state；若某狀態群組事件為零，同樣不得自行拼裝空狀態。
+- 新增 `scripts/tac_calendar_repeat_plan.py`：以標準資料集與母版 inventory 產生 dry-run 計畫；逐群組判斷 render_list、keep_empty_state、switch_to_existing_empty_state、not_applicable 或 blocked。它不修改 HTML，遇到原型缺失、狀態群組缺漏或模板不符即明確阻擋。
+- 行事曆資料契約補充 `status_group`，並將週一專屬的 `prior_week_economic_events`／`prior_week_earnings_events` 與本週資料分開；平日資料集不得含上週事件。週一上週事件使用 `prior_week_published` 狀態。
+- 新增 8 項 repeat-plan 測試，覆蓋週一今日／已公布新增阻擋、上週原型可用、無 empty-state 不可清空、平日三群組更新及模板不匹配。
+- Run #41181717574 完整成功：**100 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 selector cardinality、calendar group inventory 報告及測試報告上傳成功。
+- 本階段仍未建立真正的卡片複製／新增／刪除與欄位填入器，也未接入實際資料匯入；planner 僅為寫入前安全閘門。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181717574
