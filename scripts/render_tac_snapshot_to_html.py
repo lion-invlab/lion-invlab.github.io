@@ -254,6 +254,14 @@ def sort_sector_rows(source,snapshot,mapping):
     replacement=separator.join(chunks[k] for k in ordered)
     return source[:start]+replacement+source[end:],len(rows)
 
+def make_replace_mapped_classes_edit(node,remove,add):
+    if node.class_span is None: raise ValueError("mapped class slot missing")
+    classes=(node.attrs.get("class") or "").split()
+    kept=[value for value in classes if value not in set(remove)]
+    if add and add not in kept: kept.append(add)
+    if kept==classes: return None
+    return node.class_span[0],node.class_span[1]," ".join(kept)
+
 def make_remove_classes_edit(node,remove):
     if node.class_span is None: return None
     classes=(node.attrs.get("class") or "").split()
@@ -359,6 +367,13 @@ def update_earnings_card(card,record,spec,edits):
         elif selector_key=="company_sub_selector": value=record["ticker"]+"｜重要財報"
         else: value="★★★"
         edits.append(make_edit(nodes[0],value))
+        if selector_key=="stars_selector":
+            class_edit=make_remove_classes_edit(card,set(spec.get("remove_star_classes",[])))
+            if class_edit: edits.append(class_edit)
+            company_nodes=selector_nodes(card,spec["company_selector"])
+            if len(company_nodes)==1:
+                company_edit=make_remove_classes_edit(company_nodes[0],set(spec.get("remove_company_star_classes",[])))
+                if company_edit: edits.append(company_edit)
     fields=by_class(card,spec["detail_field_selector"].lstrip("."))
     seen=set()
     for field in fields:
@@ -405,6 +420,9 @@ def update_earnings_card(card,record,spec,edits):
                 edits.append(make_edit(strong[0],value))
             status="待核實" if record["status"]!="published" else safe_numeric_comparison(actual,estimate)
             edits.append(make_edit(status_nodes[0],status))
+            status_class="pending" if status in ("待核實","差異待核實") else "beat" if status=="高於預期" else "miss" if status=="低於預期" else "pending"
+            class_edit=make_replace_mapped_classes_edit(actual_card,set(spec.get("actual_result_status_classes",[])),status_class)
+            if class_edit: edits.append(class_edit)
             edits.append(make_edit(note_nodes[0],record["notes"] or "實際與預估口徑以來源為準；未能量化比較時不判定優劣。"))
 def update_earnings_group(group,status,records,spec,heading_text,edits):
     headings=by_class(group,spec["heading_selector"].lstrip("."))
