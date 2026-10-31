@@ -10,7 +10,8 @@ from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
 from assemble_tac_daily_content import empty_content
-from render_tac_daily_content import render
+from render_tac_full_report import render_full
+from validate_tac_daily_snapshot import load_validator, sample_snapshot
 
 MOTHERS={
  "monday":ROOT/"母版專區"/"TAC_母版_週一_2026-10-28_最終定版.html",
@@ -73,23 +74,21 @@ def sample(report_date,template):
           "stock_price_reaction":"測試用股價反應","source":src("earn-previous")
         }]
     return data
-def prepare_html(mother,dest,report_date,weekday):
-    soup=BeautifulSoup(mother.read_text(encoding="utf-8"),"html.parser")
-    meta=soup.select_one('meta[name="report-date"]')
-    if meta is None: raise AssertionError("mother report-date meta missing")
-    meta["content"]=report_date
-    soup.title.string=f"TAC 投資早報｜{report_date.replace('-','/')}（{weekday}）審核版"
-    dest.write_text(str(soup),encoding="utf-8")
 def run_case(kind,report_date,weekday):
     data=sample(report_date,kind)
     with tempfile.TemporaryDirectory(prefix="tac-editorial-render-test-") as tmp:
-        base=Path(tmp); source=base/"market.html"; output=base/"editorial.html"; payload=base/"content.json"
-        prepare_html(MOTHERS[kind],source,report_date,weekday)
+        base=Path(tmp); snapshot_path=base/"snapshot.json"; output=base/"editorial.html"; payload=base/"content.json"
+        validator,schema=load_validator()
+        snapshot=sample_snapshot(schema)
+        snapshot["meta"]["report_date"]=report_date
+        snapshot["meta"]["trading_date"]="2026-10-30"
+        snapshot["meta"]["generated_at"]="2026-10-31T21:00:00+08:00"
+        snapshot_path.write_text(json.dumps(snapshot,ensure_ascii=False),encoding="utf-8")
         payload.write_text(json.dumps(data,ensure_ascii=False),encoding="utf-8")
-        result=render(payload,source,output)
+        result=render_full(snapshot_path,payload,output)
         html=output.read_text(encoding="utf-8")
         soup=BeautifulSoup(html,"html.parser")
-        assert result["focus_news"]==5 and result["market_headlines"]==10
+        assert result["editorial"]["focus_news"]==5 and result["editorial"]["market_headlines"]==10
         assert len(soup.select("#global-focus .newsitem"))==5
         assert len(soup.select("#headlines .newsitem"))==10
         assert "Synthetic focus headline 1" in soup.select_one("#global-focus").get_text()
