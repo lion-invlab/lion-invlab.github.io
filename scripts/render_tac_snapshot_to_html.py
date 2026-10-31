@@ -541,10 +541,8 @@ def render(source,snapshot,mapping):
     for status,index in (("today",0),("upcoming",1),("published",2)):
         records=[]
         for item in current_earnings:
-            bucket=item["status"]
-            if bucket=="pending_verification":
-                bucket=event_bucket({"status":"pending_verification","event_time":item["report_time"]},snapshot["meta"]["report_date"])
-            if bucket=="today" and status=="today" or bucket=="upcoming" and status=="upcoming" or bucket=="published" and status=="published":
+            bucket="published" if item["status"]=="published" else ("today" if event_taipei_datetime(item["report_time"]).date().isoformat()==snapshot["meta"]["report_date"] else "upcoming")
+            if bucket==status:
                 records.append(item)
         heading=("今日公布｜"+snapshot["meta"]["report_date"]+"（台灣時間）" if status=="today" else
                  "即將公布｜"+earnings["current_week_range"] if status=="upcoming" else
@@ -907,6 +905,40 @@ def self_test():
         template_snapshot["economic_calendar"]={"previous_week_events":previous_events,"current_week_events":current_events,
                                                  "previous_week_range":"2026/10/26～2026/10/30",
                                                  "current_week_range":"2026/11/02～2026/11/06","notes":"Synthetic 3-star calendar"}
+
+        earnings_spec=mapping["groups"]["earnings_calendar"]
+        def make_earnings_record(index,report_time,status,card):
+            source_field=next(field for field in by_class(card,"earnings-detail-field")
+                              if selector_nodes(field,"label") and normalize(selector_nodes(field,"label")[0].text) in ("來源","資料來源"))
+            link_count=len(selector_nodes(source_field,"a"))
+            def make_source(name,url):
+                return {"name":name,"url":url,"observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30",
+                        "quote_type":"company_earnings_and_consensus","instrument":"synthetic earnings event"}
+            return {"event_id":"synthetic-earnings-"+str(index),"company":"Synthetic Company "+str(index),"ticker":"SYN"+str(index),
+                    "report_time":report_time,"session":"after_market","importance":3,"status":status,
+                    "eps_actual":"1.20","eps_estimate":"1.10","revenue_actual":"10B","revenue_estimate":"9.8B",
+                    "stock_reaction":"首個交易日收盤 +1.2%","analysis":"Synthetic earnings analysis; actual and consensus fields are separate.",
+                    "source":make_source("Synthetic earnings source",f"https://example.com/earnings/{index}"),
+                    "related_sources":[make_source("Synthetic earnings reference "+str(j),f"https://example.com/earnings/{index}/ref{j}") for j in range(1,link_count)],
+                    "notes":"Synthetic fixture only; not live market data."}
+        previous_earnings=[]
+        previous_earnings_container=by_id(source_tree.root,"last-week-earnings")
+        if previous_earnings_container:
+            previous_earnings_cards=by_class(previous_earnings_container[0],"earnings-accordion")
+            for idx,card in enumerate(previous_earnings_cards[:2]):
+                previous_earnings.append(make_earnings_record(idx+1,"2026-10-27T20:00:00-04:00","published",card))
+        current_earnings=[]
+        current_earnings_container=by_id(source_tree.root,"earnings")[0]
+        current_earnings_groups=by_class(current_earnings_container,"calendar-status-group")
+        upcoming_lists=by_class(current_earnings_groups[1],"earnings-accordion-list")
+        if upcoming_lists:
+            upcoming_cards=by_class(upcoming_lists[0],"earnings-accordion")
+            if upcoming_cards:
+                current_earnings.append(make_earnings_record(20,"2026-11-03T16:00:00-05:00","upcoming",upcoming_cards[0]))
+        template_snapshot["earnings_calendar"]={"previous_week_events":previous_earnings,"current_week_events":current_earnings,
+                                                "previous_week_range":"2026/10/26～2026/10/30",
+                                                "current_week_range":"2026/11/02～2026/11/06","notes":"Synthetic 3-star earnings fixture"}
+
         rendered,count=render(source_html,template_snapshot,mapping)
         assert count>0
         assert rendered.count("<script") == source_html.count("<script")
@@ -917,6 +949,11 @@ def self_test():
         assert "focus headline 1" in rendered and "headline headline 10" in rendered
         assert "https://example.com/focus/1" in rendered
         assert "Synthetic economic event" in rendered
+        assert "Synthetic Company" in rendered
+        assert "Synthetic earnings analysis" in rendered
+        assert "首個交易日收盤 +1.2%" in rendered
+        assert "展開上週財報行事曆（2026/10/26～2026/10/30）" in rendered
+        assert "EPS" in rendered and "營收" in rendered
         assert "★★★" in rendered
         ticker_map=mapping["groups"]["sectors"]["key_by_ticker"]
         expected_keys=sorted(fixture["sectors"],key=lambda key:fixture["sectors"][key]["change"],reverse=True)
