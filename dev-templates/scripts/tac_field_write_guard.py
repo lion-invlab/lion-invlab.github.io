@@ -113,6 +113,84 @@ def update_registered_text_segments(root, selector, values, registry=None):
     return len(prepared)
 
 
+
+def update_registered_labeled_leaf_fields(root, card_selector, card_values, registry=None):
+    """Update explicitly allowlisted detail labels inside registered repeat cards.
+
+    The field label is immutable. Only its adjacent value element may change,
+    and only when that value is a plain-text leaf. All cards are validated
+    before any text is written.
+    """
+    registry = registry or load_registry()
+    candidates = [
+        item for item in registry["selectors"]
+        if item["selector"] == card_selector
+        and item.get("kind") in {"repeat", "monday_only"}
+    ]
+    if len(candidates) != 1:
+        raise PermissionError(
+            f"card selector must have exactly one repeat registration: {len(candidates)}"
+        )
+    item = candidates[0]
+    allowed = set(item.get("writable_detail_labels", []))
+    field_class = item.get("detail_field_class")
+    value_class = item.get("detail_value_class")
+    if not allowed or not field_class or not value_class:
+        raise PermissionError("repeat card has no explicit detail-field write allowlist")
+
+    cards = select_wrappers(root, card_selector)
+    if len(cards) != len(card_values):
+        raise ValueError(
+            f"card update count mismatch: {len(card_values)} != {len(cards)}"
+        )
+
+    prepared = []
+    for card_index, (wrapper, values) in enumerate(zip(cards, card_values)):
+        if not isinstance(values, dict):
+            raise ValueError(f"card {card_index} update must be a label/value mapping")
+        if not set(values).issubset(allowed):
+            raise PermissionError(
+                f"card {card_index} contains non-allowlisted labels: {sorted(set(values) - allowed)}"
+            )
+        card = wrapper.etree_element
+        for label_text, value in values.items():
+            if not isinstance(value, str):
+                raise ValueError("labeled detail values must be strings")
+            matching_fields = []
+            for field in card.iter():
+                classes = set(field.attrib.get("class", "").split())
+                if field.tag.lower() not in {"div", "section"} or field_class not in classes:
+                    continue
+                labels = [
+                    child for child in list(field)
+                    if child.tag.lower() == "label" and (child.text or "").strip() == label_text
+                ]
+                if labels:
+                    matching_fields.append((field, labels))
+            if len(matching_fields) != 1:
+                raise PermissionError(
+                    f"card {card_index} label {label_text!r} must match exactly one detail field"
+                )
+            field, labels = matching_fields[0]
+            values_nodes = [
+                child for child in list(field)
+                if value_class in set(child.attrib.get("class", "").split())
+            ]
+            if len(values_nodes) != 1:
+                raise PermissionError(
+                    f"card {card_index} label {label_text!r} has no unique adjacent value node"
+                )
+            target = values_nodes[0]
+            if len(list(target)):
+                raise PermissionError(
+                    f"card {card_index} label {label_text!r} value is not a plain-text leaf"
+                )
+            prepared.append((target, value))
+
+    for target, value in prepared:
+        target.text = value
+    return len(prepared)
+
 def update_registered_leaf_text(root, selector, value, registry=None):
     """Update text only when selector is explicitly registered as content and targets leaves."""
     registry = registry or load_registry()
