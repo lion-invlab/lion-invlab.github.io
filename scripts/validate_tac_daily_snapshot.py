@@ -36,11 +36,17 @@ def sample_snapshot(schema):
         snapshot[group] = {}
         for key in props[group]["required"]:
             snapshot[group][key] = {
-                "value": None, "unit": "index point", "change": None,
+                "value": None, "unit": "index_point", "change": None,
                 "change_unit": None, "status": "pending_verification",
                 "source": None, "fallback_used": False,
                 "fallback_reason": None, "notes": "Awaiting source retrieval",
             }
+    snapshot["news"] = {"global_focus": [], "market_headlines": [], "notes": "Awaiting source-linked news retrieval"}
+    snapshot["economic_calendar"] = {"events": [], "notes": "Awaiting Investing.com 3-star event retrieval"}
+    snapshot["earnings_calendar"] = {"events": [], "notes": "Awaiting 3-star earnings retrieval"}
+    snapshot["narrative"] = {"status": "pending_verification", "summary": [], "market_sentiment": "",
+                             "market_observation": "", "core_observation": "", "key_levels": "",
+                             "notes": "Awaiting verified market data and event synthesis"}
     snapshot["fedwatch"] = {
         "target_meeting": None, "updated_at": None, "source": None,
         "probabilities": [], "status": "pending_verification",
