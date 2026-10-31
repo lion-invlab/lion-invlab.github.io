@@ -256,7 +256,16 @@
       "field_selector": ".econ-field",
       "field_label_selector": "label",
       "field_value_selector": ".econ-value",
-      "source_link_selector": ".econ-value a"
+      "source_link_selector": ".econ-value a",
+      "empty_state_selector": ".calendar-status-empty",
+      "current_title_selector": ".title small",
+      "previous_title_selector": ".title small",
+      "previous_summary_selector": ".last-week-calendar-collapse summary",
+      "previous_heading_selector": ".calendar-status-heading",
+      "remove_star_classes": [
+        "four-star",
+        "five-star"
+      ]
     },
     "earnings_calendar": {
       "container": "#earnings",
