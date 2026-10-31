@@ -1,0 +1,43 @@
+name: TAC Investing.com Browser Capture Probe
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "scripts/capture_tac_investing_indices_browser.mjs"
+      - ".github/workflows/tac-investing-browser-capture.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Run parser self-test
+        run: node scripts/capture_tac_investing_indices_browser.mjs --self-test
+      - name: Capture exact 2026-10-30 historical close rows through rendered pages
+        run: |
+          node scripts/capture_tac_investing_indices_browser.mjs \
+            --trading-date 2026-10-30 \
+            --report-date 2026-11-02 \
+            --output /tmp/tac-investing-browser-2026-10-30.json
+      - name: Upload normalized capture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-investing-browser-capture
+          path: /tmp/tac-investing-browser-2026-10-30.json
+          if-no-files-found: warn
