@@ -85,13 +85,8 @@ def sentiment(soup, analysis):
 def event_bucket(item, report_day):
     d=dt(item["event_date"]).date()
     if item["status"]=="released": return "published"
-    if d<report_day: raise ValueError(f"past event not marked released: {item['id']}")
+    if d<report_day: return "published"
     return "today" if d==report_day else "upcoming"
-def fill_source_value(node, src):
-    node.clear()
-    a=node soup_new_tag("a")
-    a["target"]="_blank"; a["rel"]=["noopener"]; node.append(a)
-    source_link(a,src)
 def new_anchor(soup,node,src):
     node.clear(); a=soup.new_tag("a"); a["target"]="_blank"; a["rel"]=["noopener"]; node.append(a); source_link(a,src)
 def econ_card(proto,item,soup):
@@ -168,7 +163,7 @@ def calendar_panel(section, records, kind, report_day, coverage, soup):
             put(empty,"已完成來源檢查，目前沒有符合篩選規則的事件。" if coverage["status"]=="complete"
                 else "待核實：來源擷取尚未完成；目前沒有資料不代表沒有事件。")
             group.append(empty)
-def previous_week(soup,kind,records,coverage,report_day):
+def previous_week(soup,kind,records,coverage,report_day,prototype):
     sid="last-week-calendar" if kind=="economic" else "last-week-earnings"
     sec=slot(soup,"#"+sid,sid)
     collapse=slot(sec,"details."+("last-week-calendar-collapse" if kind=="economic" else "last-week-earnings-collapse"),sid+" collapse")
@@ -176,17 +171,14 @@ def previous_week(soup,kind,records,coverage,report_day):
     if group is None: raise ValueError(sid+" status group missing")
     heading=group.select_one(".calendar-status-heading")
     if heading is None: raise ValueError(sid+" heading missing")
-    cls="econ-event" if kind=="economic" else "earnings-accordion"
     list_cls="econ-event-list" if kind=="economic" else "earnings-accordion-list"
-    source_section="#calendar" if kind=="economic" else "#earnings"
-    proto_nodes=soup.select(source_section+" ."+cls)
-    if not proto_nodes: raise ValueError(sid+" card prototype missing")
+    if prototype is None: raise ValueError(sid+" card prototype missing")
     group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜依日期排序"); group.append(heading)
     if records:
         listing=soup.new_tag("div",attrs={"class":list_cls})
         for item in records:
             if item["status"]!="released": raise ValueError(sid+" contains unreleased event "+item["id"])
-            listing.append(econ_card(proto_nodes[0],item,soup) if kind=="economic" else earnings_card(proto_nodes[0],item,soup))
+            listing.append(econ_card(prototype,item,soup) if kind=="economic" else earnings_card(prototype,item,soup))
         group.append(listing)
     else:
         empty=soup.new_tag("div",attrs={"class":"calendar-status-empty"})
@@ -218,15 +210,19 @@ def render(content_path,input_html,output_html):
     news(soup,"#global-focus",data["focus_news"],5,"focus_news")
     news(soup,"#headlines",data["market_headlines"],10,"market_headlines")
     observations(soup,data["analysis"]); sentiment(soup,data["analysis"])
-    calendar_panel(slot(soup,"#calendar","economic calendar"),data["economic_calendar"],"economic",rd,data["coverage"]["economic_calendar"],soup)
-    calendar_panel(slot(soup,"#earnings","earnings calendar"),data["earnings_calendar"],"earnings",rd,data["coverage"]["earnings_calendar"],soup)
+    econ_nodes=soup.select("#calendar .econ-event")
+    earn_nodes=soup.select("#earnings .earnings-accordion")
+    if not econ_nodes or not earn_nodes: raise ValueError("approved calendar event-card prototypes missing")
+    econ_proto=copy.deepcopy(econ_nodes[0]); earn_proto=copy.deepcopy(earn_nodes[0])
+    calendar_panel(slot(soup,"#calendar","economic calendar"),data["economic_calendar"],"economic",rd,data["coverage"]["economic_calendar"],soup,econ_proto)
+    calendar_panel(slot(soup,"#earnings","earnings calendar"),data["earnings_calendar"],"earnings",rd,data["coverage"]["earnings_calendar"],soup,earn_proto)
     if typ=="monday":
         start=rd-timedelta(days=7); end=start+timedelta(days=4)
         for k in ("previous_economic_calendar","previous_earnings_calendar"):
             for e in data[k]:
                 if not start<=dt(e["event_date"]).date()<=end: raise ValueError(k+" event outside previous Monday-Friday window")
-        previous_week(soup,"economic",data["previous_economic_calendar"],data["coverage"]["previous_economic_calendar"],rd)
-        previous_week(soup,"earnings",data["previous_earnings_calendar"],data["coverage"]["previous_earnings_calendar"],rd)
+        previous_week(soup,"economic",data["previous_economic_calendar"],data["coverage"]["previous_economic_calendar"],rd,econ_proto)
+        previous_week(soup,"earnings",data["previous_earnings_calendar"],data["coverage"]["previous_earnings_calendar"],rd,earn_proto)
     if output_html.resolve() in PROTECTED or output_html.resolve()==input_html.resolve(): raise ValueError("refusing to overwrite protected/input file")
     output_html.parent.mkdir(parents=True,exist_ok=True); output_html.write_text(str(soup),encoding="utf-8")
     return {"output":str(output_html),"report_date":data["meta"]["report_date"],"template_type":typ,
