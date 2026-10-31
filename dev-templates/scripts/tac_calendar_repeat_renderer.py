@@ -48,6 +48,22 @@ SECTION_CONFIG = {
             "stars": "earnings-stars",
         },
     },
+    "prior_week_economic": {
+        "section": "#last-week-calendar",
+        "list": ".econ-event-list",
+        "card": ".econ-event",
+        "field_class": "econ-field",
+        "value_class": "econ-value",
+        "registry_name": "last_week_economic_events",
+        "registry_kind": "monday_only",
+        "fixed_detail_labels": {"前值", "預估", "實際"},
+        "fixed_source_labels": {"來源"},
+        "statuses": ("prior_week_published",),
+        "summary": {
+            "date": "econ-date", "time": "econ-time", "country": "econ-country",
+            "name": "econ-name", "stars": "econ-stars",
+        },
+    },
 }
 STATUSES = ("today", "upcoming", "published")
 
@@ -213,6 +229,8 @@ def _group_targets(root, section_selector, list_selector, card_selector):
             status = "upcoming"
         elif heading.startswith("已公布"):
             status = "published"
+        elif heading.startswith("上週已公布"):
+            status = "prior_week_published"
         else:
             continue
         if status in result:
@@ -245,8 +263,8 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
         raise PermissionError("source HTML does not contain a valid calendar repeat-group inventory")
     if template_inventory != actual_inventory:
         raise ValueError("template inventory does not match the supplied source HTML")
-    if validated["prior_week_economic_events"] or validated["prior_week_earnings_events"]:
-        raise PermissionError("prior-week cards require their dedicated result-card mapping; no partial render allowed")
+    if validated["prior_week_earnings_events"]:
+        raise PermissionError("prior-week earnings cards require their dedicated result-grid mapping; no partial render allowed")
 
     mapped = map_calendar_dataset(validated)
     registry = load_registry()
@@ -259,7 +277,7 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
             item for item in registry["selectors"]
             if item.get("name") == config["registry_name"]
             and item.get("selector") == config["section"] + " " + config["card"]
-            and item.get("kind") == "repeat"
+            and item.get("kind") == config.get("registry_kind", "repeat")
         ]
         if len(registrations) != 1:
             raise PermissionError(f"{section_name}: exactly one matching repeat selector registration is required")
@@ -267,11 +285,11 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
         if registration.get("detail_field_class") != config["field_class"] or registration.get("detail_value_class") != config["value_class"]:
             raise PermissionError(f"{section_name}: registered detail field classes do not match renderer")
         allowed_details = set(registration.get("writable_detail_labels", [])) | set(config["fixed_detail_labels"])
-        allowed_sources = set(registration.get("writable_source_labels", []))
+        allowed_sources = set(registration.get("writable_source_labels", [])) | set(config.get("fixed_source_labels", set()))
         targets = _group_targets(root, config["section"], config["list"], config["card"])
         payload_section = mapped[section_name]
         section_report = {}
-        for status in STATUSES:
+        for status in config.get("statuses", STATUSES):
             target = targets.get(status)
             payloads = payload_section[status]
             count = len(payloads)
@@ -335,6 +353,7 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
     specs = [
         GroupSpec("weekly_economic", "#calendar .econ-event-list", ".econ-event"),
         GroupSpec("weekly_earnings", "#earnings .earnings-accordion-list", ".earnings-accordion"),
+        GroupSpec("prior_week_economic", "#last-week-calendar .econ-event-list", ".econ-event"),
     ]
     structural = validate_repeat_groups(source_html, rendered, specs)
     if not structural["pass"]:
