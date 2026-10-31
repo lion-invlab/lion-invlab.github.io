@@ -439,6 +439,7 @@ def self_test():
             snapshot["energy"]["wti"] = verified(70.22, "USD_per_barrel", -1.2, "percent", "WTI")
             snapshot["precious_metals"]["silver_si"] = verified(54.321, "USD_per_ounce", 0.3, "percent", "Silver futures")
             snapshot["risk_indicators"]["vix"] = verified(18.22, "index_point", -2.5, "percent", "VIX")
+            snapshot["risk_indicators"]["move"] = verified(98.76, "index_point", -1.2, "percent", "MOVE")
             snapshot["risk_indicators"]["cnn_fear_greed"] = verified(45, "score", None, None, "CNN Fear & Greed")
             snapshot_path = Path(tmp) / f"{report_date}.json"
             output_path = Path(tmp) / f"{report_date}.html"
