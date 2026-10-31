@@ -305,7 +305,7 @@ def update_economic_card(card,record,spec,edits):
             edits.append(make_edit(values[0],record[key]))
     if not {"previous","forecast","actual","source"}.issubset(field_seen):
         raise ValueError("economic event "+record["event_id"]+" missing required previous/forecast/actual/source fields")
-    class_edit=make_remove_classes_edit(card,{"four-star","five-star"})
+    class_edit=make_remove_classes_edit(card,set(spec.get("remove_star_classes",[])))
     if class_edit: edits.append(class_edit)
 def update_economic_group(group,status,records,spec,heading_text,edits):
     heading_nodes=by_class(group,spec["heading_selector"].lstrip("."))
@@ -313,7 +313,7 @@ def update_economic_group(group,status,records,spec,heading_text,edits):
     badge_nodes=by_class(heading_nodes[0],"earnings-badge")
     edits.append(make_edit(badge_nodes[0] if badge_nodes else heading_nodes[0],heading_text))
     lists=by_class(group,spec["event_list_selector"].lstrip("."))
-    empty_nodes=by_class(group,"calendar-status-empty")
+    empty_nodes=by_class(group,spec["empty_state_selector"].lstrip("."))
     if len(lists)>1 or len(empty_nodes)>1: raise ValueError("economic status list/empty state duplicated")
     if lists:
         cards=by_class(lists[0],spec["event_card_selector"].lstrip("."))
@@ -406,7 +406,7 @@ def render(source,snapshot,mapping):
                  ("即將公布｜"+econ["current_week_range"]) if status=="upcoming" else
                  ("已公布｜"+econ["current_week_range"]))
         update_economic_group(econ_groups[index],status,group_records,econ_spec,heading+"｜重要性★★★",edits)
-    econ_title=selector_nodes(econ_container[0],".title small")
+    econ_title=selector_nodes(econ_container[0],econ_spec["current_title_selector"])
     if len(econ_title)!=1: raise ValueError("current-week economic title date slot missing")
     edits.append(make_edit(econ_title[0],econ["current_week_range"]+"｜更新："+snapshot["meta"]["generated_at"]))
     previous_econ_container=by_id(tree.root,econ_spec["previous_week_container"].lstrip("#"))
@@ -416,9 +416,9 @@ def render(source,snapshot,mapping):
         previous_cards=by_class(previous_econ_container,econ_spec["event_card_selector"].lstrip("."))
         previous_records=sorted(econ["previous_week_events"],key=lambda item:item["event_time"])
         if len(previous_records)>len(previous_cards): raise ValueError("previous-week economic event count exceeds approved mother capacity")
-        previous_title=selector_nodes(previous_econ_container,".title small")
-        previous_summary=selector_nodes(previous_econ_container,".last-week-calendar-collapse summary")
-        previous_heading=by_class(previous_econ_container,"calendar-status-heading")
+        previous_title=selector_nodes(previous_econ_container,econ_spec["previous_title_selector"])
+        previous_summary=selector_nodes(previous_econ_container,econ_spec["previous_summary_selector"])
+        previous_heading=selector_nodes(previous_econ_container,econ_spec["previous_heading_selector"])
         if len(previous_title)!=1 or len(previous_summary)!=1 or len(previous_heading)!=1:
             raise ValueError("previous-week economic date/heading slots missing")
         edits.append(make_edit(previous_title[0],econ["previous_week_range"]+"｜台灣時間 UTC+8"))
