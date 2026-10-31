@@ -37,7 +37,7 @@ class Parser(HTMLParser):
         if sm: style_span=(p+sm.start(2),p+sm.end(2))
         am=re.search(r"aria-label\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if am: aria_label_span=(p+am.start(2),p+am.end(2))
-        hm=re.search(r"href\\s*=\\s*(['\\"])(.*?)\\1",raw,re.I)
+        hm=re.search(r"href\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if hm: href_span=(p+hm.start(2),p+hm.end(2))
         n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
@@ -50,7 +50,7 @@ class Parser(HTMLParser):
         if sm: style_span=(p+sm.start(2),p+sm.end(2))
         am=re.search(r"aria-label\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if am: aria_label_span=(p+am.start(2),p+am.end(2))
-        hm=re.search(r"href\\s*=\\s*(['\\"])(.*?)\\1",raw,re.I)
+        hm=re.search(r"href\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if hm: href_span=(p+hm.start(2),p+hm.end(2))
         n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
