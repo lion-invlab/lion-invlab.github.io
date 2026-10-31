@@ -179,6 +179,19 @@ class FieldWriteGuardTests(unittest.TestCase):
                 with self.assertRaises(PermissionError):
                     update_registered_leaf_text(root, selector, "overwrite", self.registry)
 
+    def test_summary_headline_is_writable_but_composite_body_is_protected(self):
+        root = parse_html(self._source("monday"))
+        headline = self._item("summary_title")["selector"]
+        matches = select_wrappers(root, headline)
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(len(list(matches[0].etree_element)), 0)
+        self.assertEqual(update_registered_leaf_text(root, headline, "TEST HEADLINE", self.registry), 1)
+        self.assertEqual(matches[0].etree_element.text, "TEST HEADLINE")
+
+        body = self._item("summary_body")["selector"]
+        with self.assertRaises(PermissionError):
+            update_registered_leaf_text(root, body, "overwrite all summary text", self.registry)
+
     def test_protected_observation_container_is_rejected(self):
         root = parse_html(self._source("monday"))
         selector = self._item("energy_card_observation")["selector"]
