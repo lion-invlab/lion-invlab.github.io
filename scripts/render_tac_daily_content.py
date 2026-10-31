@@ -384,7 +384,6 @@ def render(content_path,input_html,output_html):
     if not soup.title or data["meta"]["report_date"].replace("-","/") not in soup.title.get_text(): raise ValueError("HTML title/report date mismatch")
     update_news_meta(soup,data)
     update_section_dates(soup,rd)
-    update_calendar_sources(soup,data)
     summary(soup,data["analysis"])
     news(soup,"#global-focus",data["focus_news"],5,"focus_news")
     news(soup,"#headlines",data["market_headlines"],10,"market_headlines")
@@ -412,6 +411,9 @@ def render(content_path,input_html,output_html):
             raise ValueError("Monday mother must contain previous-week event-card prototypes")
         previous_week(soup,"economic",data["previous_economic_calendar"],data["coverage"]["previous_economic_calendar"],rd,copy.deepcopy(prev_econ_nodes[0]))
         previous_week(soup,"earnings",data["previous_earnings_calendar"],data["coverage"]["previous_earnings_calendar"],rd,copy.deepcopy(prev_earn_nodes[0]))
+    # Apply coverage notes after all calendar panel rendering so the final
+    # visible metadata cannot be overwritten by subsequent calendar assembly.
+    update_calendar_sources(soup,data)
     verify_template_controls(before,soup)
     if output_html.resolve() in PROTECTED or output_html.resolve()==input_html.resolve(): raise ValueError("refusing to overwrite protected/input file")
     output_html.parent.mkdir(parents=True,exist_ok=True); output_html.write_text(str(soup),encoding="utf-8")
