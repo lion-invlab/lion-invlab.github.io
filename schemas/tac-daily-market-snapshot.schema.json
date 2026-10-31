@@ -15,7 +15,11 @@
     "energy",
     "precious_metals",
     "risk_indicators",
-    "fedwatch"
+    "fedwatch",
+    "news",
+    "economic_calendar",
+    "earnings_calendar",
+    "narrative"
   ],
   "properties": {
     "schema_version": {
@@ -6875,6 +6879,483 @@
             "null"
           ]
         }
+      }
+    },
+    "news": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "global_focus",
+        "market_headlines",
+        "notes"
+      ],
+      "properties": {
+        "global_focus": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "summary",
+              "published_at",
+              "source",
+              "notes"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "url",
+                  "observed_at",
+                  "data_date",
+                  "quote_type",
+                  "instrument"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "observed_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "data_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote_type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "instrument": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "market_headlines": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "summary",
+              "published_at",
+              "source",
+              "notes"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "url",
+                  "observed_at",
+                  "data_date",
+                  "quote_type",
+                  "instrument"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "observed_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "data_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote_type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "instrument": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "economic_calendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events",
+        "notes"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "maxItems": 30,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "event_id",
+              "name",
+              "country",
+              "event_time",
+              "importance",
+              "status",
+              "previous",
+              "forecast",
+              "actual",
+              "impact",
+              "source",
+              "notes"
+            ],
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "country": {
+                "type": "string",
+                "minLength": 1
+              },
+              "event_time": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "importance": {
+                "const": 3
+              },
+              "status": {
+                "enum": [
+                  "upcoming",
+                  "today",
+                  "published",
+                  "pending_verification"
+                ]
+              },
+              "previous": {
+                "type": "string"
+              },
+              "forecast": {
+                "type": "string"
+              },
+              "actual": {
+                "type": "string"
+              },
+              "impact": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "url",
+                  "observed_at",
+                  "data_date",
+                  "quote_type",
+                  "instrument"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "observed_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "data_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote_type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "instrument": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "earnings_calendar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "events",
+        "notes"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "event_id",
+              "company",
+              "ticker",
+              "report_time",
+              "session",
+              "importance",
+              "status",
+              "eps_actual",
+              "eps_estimate",
+              "revenue_actual",
+              "revenue_estimate",
+              "stock_reaction",
+              "analysis",
+              "source",
+              "notes"
+            ],
+            "properties": {
+              "event_id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "company": {
+                "type": "string",
+                "minLength": 1
+              },
+              "ticker": {
+                "type": "string",
+                "minLength": 1
+              },
+              "report_time": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "session": {
+                "enum": [
+                  "pre_market",
+                  "after_market",
+                  "unknown"
+                ]
+              },
+              "importance": {
+                "const": 3
+              },
+              "status": {
+                "enum": [
+                  "upcoming",
+                  "published",
+                  "pending_verification"
+                ]
+              },
+              "eps_actual": {
+                "type": "string"
+              },
+              "eps_estimate": {
+                "type": "string"
+              },
+              "revenue_actual": {
+                "type": "string"
+              },
+              "revenue_estimate": {
+                "type": "string"
+              },
+              "stock_reaction": {
+                "type": "string"
+              },
+              "analysis": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "name",
+                  "url",
+                  "observed_at",
+                  "data_date",
+                  "quote_type",
+                  "instrument"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "url": {
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "observed_at": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "data_date": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "quote_type": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "instrument": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              },
+              "notes": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "narrative": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "summary",
+        "market_sentiment",
+        "market_observation",
+        "core_observation",
+        "key_levels",
+        "notes"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "verified",
+            "pending_verification"
+          ]
+        },
+        "summary": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "market_sentiment": {
+          "type": "string"
+        },
+        "market_observation": {
+          "type": "string"
+        },
+        "core_observation": {
+          "type": "string"
+        },
+        "key_levels": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "verified"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "summary": {
+                  "minItems": 4
+                },
+                "market_sentiment": {
+                  "minLength": 1
+                },
+                "market_observation": {
+                  "minLength": 1
+                },
+                "core_observation": {
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        ]
       }
     }
   }
