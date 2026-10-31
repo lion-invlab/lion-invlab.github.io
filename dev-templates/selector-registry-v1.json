@@ -502,6 +502,13 @@
       "monday": 7,
       "weekdays": 0,
       "kind": "protected_container_only"
+    },
+    {
+      "name": "last_week_earnings_source_link_leaves",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-accordion-details > .earnings-detail-field:nth-of-type(4) > .earnings-detail-value > a",
+      "monday": 13,
+      "weekdays": 0,
+      "kind": "source_link_leaf"
     }
   ],
   "notes": [
