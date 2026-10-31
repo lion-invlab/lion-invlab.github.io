@@ -42,12 +42,12 @@ def _attrs(element):
 
 
 def _parse(source):
-    return html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False)
+    return html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False).getroot()
 
 
 def _query(root, selector):
     wrapped = cssselect2.ElementWrapper.from_html_root(root)
-    return [item.etree_element for item in wrapped.query_all(selector)]
+    return list(wrapped.query_all(selector))
 
 
 def _signature(element, excluded=frozenset()):
@@ -64,8 +64,8 @@ def _signature(element, excluded=frozenset()):
 
 
 def _direct_children(wrapper, selector):
-    matches = _query(wrapper, selector)
-    return [node for node in matches if node.getparent() is wrapper]
+    matches = _query(wrapper.getroottree().getroot(), selector)
+    return [item.etree_element for item in matches if item.parent is not None and item.parent.etree_element is wrapper]
 
 
 def _assets(root):
@@ -91,8 +91,8 @@ def validate_repeat_groups(baseline_html: str, candidate_html: str,
     group_results = {}
 
     for spec in specs:
-        base_wrappers = _query(base_root, spec.wrapper_selector)
-        candidate_wrappers = _query(candidate_root, spec.wrapper_selector)
+        base_wrappers = [item.etree_element for item in _query(base_root, spec.wrapper_selector)]
+        candidate_wrappers = [item.etree_element for item in _query(candidate_root, spec.wrapper_selector)]
         wrapper_count_ok = len(base_wrappers) == len(candidate_wrappers)
         per_wrapper = []
         if wrapper_count_ok:
