@@ -73,3 +73,17 @@
 - 舊進度段落中「KPI、週一上週區塊、商品、FOMC 尚未定位」是 v1.3 前的盤點狀態；自本節起以 v1.3 的細項狀態為準。定位完成不等於寫入驗收完成。
 - 最新 WR 文件：`TAC_TEMPLATE_ARCHITECTURE_WR_v1.0.md`，狀態仍為 DRAFT。WR 測試 Run 41174832080 成功，但僅驗證工作流程，不代表 Gate A 完成。
 - 本次盤點文件 commit：`8935c428f6c6754d17debd17b1f5c6252e3a1fd9`。仍不得建立或啟用每日自動寫入，直到 Gate A 欄位級驗證、Gate B 開發母版、瀏覽器驗收與使用者核准完成。
+
+## 2026-10-31 Run #73｜紅圓加號逐卡測試與週一母版缺口揭露（最新）
+
+- 測試程式修正 commit：`3f380f3df64539bfac0128db905d2da144d37168`；僅修改 `dev-templates/scripts/test_tac_template_browser.py`。
+- GitHub Actions Run **#73（41176059854）成功**：31 項結構／Repeat Group／Status Group 單元與整合測試通過；5 項 Chromium 瀏覽器測試通過；雙母版 SHA 鎖定、HTML5 結構指紋解析、現有 31 個候選 Selector cardinality 稽核及報告上傳全部成功。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176059854
+- 本次逐卡測試依實際 DOM 區分三種控制：
+  - 週二至週五「本週經濟」：`.econ-toggle`，16 個事件卡。
+  - 週一「上週經濟」：`.econ-event-toggle`，3 個事件卡。
+  - 週一／平日財報卡：`.earnings-accordion-toggle`，依母版實際卡片逐張測試。
+- **已確認的正式母版缺口（未修母版）：週一「本週經濟」卡片目前 12 張皆沒有加號控制節點。** 其 `details.econ-event > summary` 內沒有 `.econ-toggle`；CSS 雖有相關樣式，HTML 並未提供控制節點。測試已新增明確診斷項，確認這個缺口仍存在；不得把它誤報為 32px 控制已驗收。
+- 週一「上週經濟」的 `.econ-event-toggle` 與週一／平日財報卡的 `.earnings-accordion-toggle` 已逐張驗證 32×32px、圓形、TAC 紅色、展開減號／深色狀態及收合；週二至週五本週經濟卡亦逐張完成相同控制檢查。
+- 本次沒有修改正式雙母版、正式首頁、manifest 或根目錄 WR v3.4。若要補上週一「本週經濟」的控制節點，必須另行取得正式母版修改授權；在此之前，該項仍是 Gate D 的未結缺口。
+- Run #73 成功只代表目前測試套件及既有 selector registry 通過；**不代表 Gate A 已完成、所有欄位已獲寫入授權、實際部署視覺驗收完成或可正式採用**。
+
