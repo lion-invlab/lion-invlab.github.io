@@ -356,7 +356,8 @@
           "maxLength": 200
         },
         "importance_stars": {
-          "const": 5
+          "type": "integer",
+          "enum": [1, 2, 3]
         },
         "previous": {
           "type": [
@@ -443,7 +444,8 @@
           ]
         },
         "importance_stars": {
-          "const": 5
+          "type": "integer",
+          "enum": [1, 2, 3]
         },
         "eps_estimate": {
           "type": [
