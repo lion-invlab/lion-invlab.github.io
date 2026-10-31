@@ -42,9 +42,17 @@ try {
       id: el.id,
       text: el.textContent?.trim() || ""
     }));
-    return { html: document.documentElement.outerHTML, rowCount: rows.length, days, title: document.title, url: location.href };
+    const dayDates = days.map(d => {
+      const stamp = Number((d.id.match(/\\d+/) || [])[0]);
+      return Number.isFinite(stamp) ? new Date(stamp * 1000).toLocaleDateString("en-CA", { timeZone: "Asia/Taipei" }) : null;
+    }).filter(Boolean);
+    return { html: document.documentElement.outerHTML, rowCount: rows.length, days, dayDates, title: document.title, url: location.href };
   });
   if (!result.rowCount) throw new Error("Calendar page loaded but contains no event rows");
+  const inRange = result.dayDates.filter(d => d >= start && d <= end);
+  if (!inRange.length || result.dayDates.some(d => d < start || d > end)) {
+    throw new Error(`Date filter was not applied; requested ${start}.. ${end}, page days: ${result.dayDates.join(",")}`);
+  }
   fs.writeFileSync(output, result.html, "utf8");
   console.log(JSON.stringify({
     source_url: result.url,
@@ -52,7 +60,7 @@ try {
     requested_start: start,
     requested_end: end,
     event_rows: result.rowCount,
-    day_headers: result.days.length,
+    day_headers: result.days.length,\n    visible_taipei_dates: result.dayDates,
     output,
     note: "Saved normal public webpage HTML; parser will independently verify date coverage and native 3-star markers."
   }, null, 2));
