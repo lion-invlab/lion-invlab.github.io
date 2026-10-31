@@ -19,6 +19,7 @@ import requests
 from bs4 import BeautifulSoup
 
 API_URLS = ("https://hk.investing.com/economic-calendar/Service/getCalendarFilteredData", "https://www.investing.com/economic-calendar/Service/getCalendarFilteredData")
+JSON_API_URL = "https://it.investing.com/economic-calendar/getCalendarFilteredData"
 SOURCE_URL = "https://hk.investing.com/economic-calendar/"
 SOURCE_NAME = "Investing.com 香港站"
 TAIPEI = ZoneInfo("Asia/Taipei")
@@ -121,6 +122,97 @@ def parse_calendar_html(html: str, observed_at: str) -> list[dict]:
     return result
 
 
+def parse_json_calendar_rows(rows: list[dict], observed_at: str) -> list[dict]:
+    """Parse the current Investing.com JSON calendar response only when its native impact field is explicit."""
+    import hashlib
+
+    result = []
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("Investing.com JSON calendar row must be an object")
+        star_raw = next((row.get(key) for key in
+                         ("importance", "importance_stars", "importance_id", "impact", "importance_level")
+                         if row.get(key) is not None), None)
+        if isinstance(star_raw, dict):
+            star_raw = next((star_raw.get(k) for k in ("value", "level", "id", "name") if star_raw.get(k) is not None), None)
+        star_text = str(star_raw).strip().lower() if star_raw is not None else ""
+        if star_text in {"3", "bull3", "high", "high impact"}:
+            stars = 3
+        elif star_text in {"1", "2", "bull1", "bull2", "low", "medium", "low impact", "medium impact"}:
+            continue
+        else:
+            raise ValueError("Investing.com JSON row lacks a recognized native importance value; keys=" + ",".join(row.keys()))
+
+        raw_date = row.get("event_date_utc") or row.get("event_date")
+        if raw_date is None:
+            raise ValueError("Investing.com JSON row lacks event_date_utc/event_date")
+        if isinstance(raw_date, (int, float)):
+            stamp = float(raw_date)
+            if stamp > 10_000_000_000:
+                stamp /= 1000
+            event_dt = datetime.fromtimestamp(stamp, tz=timezone.utc)
+        else:
+            parsed = datetime.fromisoformat(str(raw_date).replace("Z", "+00:00"))
+            event_dt = parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None else parsed
+        taipei_dt = event_dt.astimezone(TAIPEI)
+
+        event_name = clean(row.get("event") or row.get("event_name") or row.get("name"))
+        if not event_name:
+            raise ValueError("Investing.com JSON row lacks event name")
+        currency = clean(row.get("currency") or row.get("country_code")) or "Global"
+        region = clean(row.get("country") or row.get("region")) or currency
+        event_id = clean(str(row.get("id") or row.get("event_id") or "")) or hashlib.sha1(
+            f"{taipei_dt.isoformat()}|{currency}|{event_name}".encode("utf-8")
+        ).hexdigest()[:16]
+        actual = clean(str(row.get("actual"))) if row.get("actual") is not None else None
+        forecast = clean(str(row.get("forecast"))) if row.get("forecast") is not None else None
+        previous = clean(str(row.get("previous"))) if row.get("previous") is not None else None
+        captured = datetime.fromisoformat(observed_at.replace("Z", "+00:00"))
+        status = "released" if actual is not None else ("upcoming" if taipei_dt > captured else "pending_verification")
+        result.append({
+            "id": event_id, "event_date": taipei_dt.isoformat(), "region": region,
+            "event_name": event_name, "importance_stars": stars,
+            "previous": previous, "forecast": forecast, "actual": actual,
+            "status": status, "impact_judgment": None,
+            "source": {
+                "name": SOURCE_NAME, "url": SOURCE_URL, "published_at": None,
+                "observed_at": observed_at, "publisher": SOURCE_NAME,
+                "notes": "Investing.com 原生 JSON 日曆資料；保留來源明示 3 星評級，事件時間依 event_date_utc 換算 Asia/Taipei。"
+            }
+        })
+    result.sort(key=lambda item: item["event_date"])
+    return result
+
+
+def fetch_json_calendar_events(start: date, end: date, client: requests.Session,
+                               observed_at: str, user_agent: str) -> list[dict]:
+    start_utc = datetime.combine(start, time.min, tzinfo=timezone.utc)
+    end_utc = datetime.combine(end, time.max, tzinfo=timezone.utc)
+    payload = {
+        "dateFrom": int(start_utc.timestamp()),
+        "dateTo": int(end_utc.timestamp()),
+        "timeZone": 8,
+        "eventsType": "custom",
+        "customEvents": "1762"
+    }
+    headers = {
+        "User-Agent": user_agent,
+        "Accept": "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+        "Origin": "https://it.investing.com",
+        "Referer": "https://it.investing.com/economic-calendar/"
+    }
+    response = client.post(JSON_API_URL, json=payload, headers=headers, timeout=30)
+    response.raise_for_status()
+    body = response.json()
+    rows = body.get("data") if isinstance(body, dict) else None
+    if not isinstance(rows, list):
+        raise ValueError("Investing.com JSON calendar response data is not an array")
+    if not rows:
+        raise ValueError("Investing.com JSON calendar returned no rows for requested date range")
+    return parse_json_calendar_rows(rows, observed_at)
+
+
 def fetch_events(start: date, end: date, session: requests.Session | None = None) -> tuple[list[dict], str]:
     if end < start:
         raise ValueError("end date must be on or after start date")
@@ -160,7 +252,14 @@ def fetch_events(start: date, end: date, session: requests.Session | None = None
             except (requests.RequestException, ValueError) as exc:
                 last_error = exc
         if body is None:
-            raise RuntimeError("Investing.com economic calendar unavailable on HK and global hosts: " + str(last_error))
+            try:
+                json_events = fetch_json_calendar_events(start, end, client, observed_at, user_agent)
+                return json_events, observed_at
+            except (requests.RequestException, ValueError) as json_error:
+                raise RuntimeError(
+                    "Investing.com calendar unavailable on HK/global HTML endpoints and JSON fallback: "
+                    + str(last_error) + "; JSON fallback: " + str(json_error)
+                )
         page_events = parse_calendar_html(body["data"], observed_at)
         before = len(all_events)
         for item in page_events:
@@ -229,6 +328,17 @@ def self_test() -> None:
     assert by_id["125"]["event_date"].endswith("T00:00:00+08:00")
     assert by_id["125"]["status"] == "pending_verification"
     print("PASS: source-native 3-star filtering, GMT-to-Taipei conversion and actual-value parsing")
+    json_events = parse_json_calendar_rows([
+        {"id": "json-3", "event_date_utc": int(datetime(2026, 11, 2, 13, 30, tzinfo=timezone.utc).timestamp()),
+         "currency": "USD", "country": "United States", "event": "ISM Manufacturing PMI",
+         "importance": 3, "actual": None, "forecast": "51.0", "previous": "50.8"},
+        {"id": "json-2", "event_date_utc": int(datetime(2026, 11, 2, 14, 0, tzinfo=timezone.utc).timestamp()),
+         "currency": "USD", "country": "United States", "event": "Medium event",
+         "importance": 2, "actual": None, "forecast": None, "previous": None}
+    ], observed)
+    assert len(json_events) == 1 and json_events[0]["importance_stars"] == 3
+    assert json_events[0]["event_date"].endswith("+08:00")
+    print("PASS: JSON fallback preserves native 3-star ratings and converts UTC to Taipei")
 
 
 def main() -> int:
