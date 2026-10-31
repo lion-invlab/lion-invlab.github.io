@@ -8,7 +8,7 @@ const result = {
   cnn: { status: 'pending' },
   cme: { status: 'pending' }
 };
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, args: ['--disable-http2'] });
 const context = await browser.newContext({
   viewport: { width: 1440, height: 1100 },
   locale: 'en-US',
@@ -66,43 +66,70 @@ try {
 
 try {
   const cmeUrl = 'https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool';
-  await page.goto(cmeUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
-  await page.waitForTimeout(12000);
-  result.cme.page_title = await page.title();
-  result.cme.page_url = page.url();
-  const frames = await page.locator('iframe').evaluateAll(nodes => nodes.map(n => ({
-    src: n.src || n.getAttribute('src'),
-    title: n.title || null,
-    id: n.id || null
-  })));
-  result.cme.iframes = frames;
-  const qFrame = frames.find(f => (f.src || '').includes('quikstrike')) || frames[0];
-  if (qFrame?.src) {
-    const framePage = await context.newPage();
-    try {
-      await framePage.goto(qFrame.src, { waitUntil: 'domcontentloaded', timeout: 45000 });
-      await framePage.waitForTimeout(15000);
-      result.cme.tool_url = framePage.url();
-      result.cme.tool_title = await framePage.title();
-      result.cme.tool_text = (await framePage.locator('body').innerText({ timeout: 15000 })).slice(0, 12000);
-      await framePage.screenshot({ path: outDir + '/cme-fedwatch-tool.png', fullPage: true });
-      const text = result.cme.tool_text || '';
-      result.cme.status = text.length > 300 ? 'tool_rendered_text' : 'tool_loaded_little_or_no_text';
-      result.cme.meeting_date_candidates = [...new Set(text.match(/(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\s+\\d{1,2},?\\s+20\\d{2}/gi) || [])].slice(0, 20);
-      result.cme.probability_mentions = (text.match(/\\b\\d{1,3}\\.\\d+%/g) || []).slice(0, 100);
-    } catch (e) {
-      result.cme.status = 'iframe_navigation_or_render_failed';
-      result.cme.tool_error = String(e);
-      try { await framePage.screenshot({ path: outDir + '/cme-fedwatch-error.png', fullPage: true }); } catch {}
-    }
-  } else {
-    result.cme.status = 'no_iframe_found';
+  const quikstrikeUrl = 'https://cmegroup-tools.quikstrike.net/User/QuikStrikeTools.aspx?viewitemid=IntegratedFedWatchTool&userId=lwolf&jobRole=&company=&companyType=&userId=&jobRole=&company=&companyType=';
+  const headers = {
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Referer': 'https://www.cmegroup.com/'
+  };
+  try {
+    const cmeResponse = await context.request.get(cmeUrl, { headers, timeout: 45000 });
+    const cmeHtml = await cmeResponse.text();
+    result.cme.http_status = cmeResponse.status();
+    result.cme.html_excerpt = cmeHtml.slice(0, 5000);
+    const match = cmeHtml.match(/https?:\\/\\/cmegroup-tools\\.quikstrike\\.net[^"'<\\s]+/i);
+    result.cme.official_html_iframe_url = match ? match[0].replaceAll('&amp;', '&') : null;
+    await fs.writeFile(outDir + '/cme-official-response.html', cmeHtml);
+  } catch (e) {
+    result.cme.http_error = String(e);
   }
-  await page.screenshot({ path: outDir + '/cme-official-page.png', fullPage: true });
-} catch (e) {
-  result.cme.status = 'official_page_navigation_failed';
-  result.cme.error = String(e);
-  try { await page.screenshot({ path: outDir + '/cme-official-error.png', fullPage: true }); } catch {}
+  let toolUrl = result.cme.official_html_iframe_url || quikstrikeUrl;
+  try {
+    await page.goto(cmeUrl, { waitUntil: 'commit', timeout: 45000 });
+    await page.waitForTimeout(10000);
+    result.cme.page_title = await page.title();
+    result.cme.page_url = page.url();
+    const frames = await page.locator('iframe').evaluateAll(nodes => nodes.map(n => ({
+      src: n.src || n.getAttribute('src'),
+      title: n.title || null,
+      id: n.id || null
+    })));
+    result.cme.iframes = frames;
+    const qFrame = frames.find(f => (f.src || '').includes('quikstrike'));
+    if (qFrame?.src) toolUrl = qFrame.src;
+    await page.screenshot({ path: outDir + '/cme-official-page.png', fullPage: true });
+  } catch (e) {
+    result.cme.official_browser_error = String(e);
+  }
+  result.cme.tool_attempt_url = toolUrl;
+  try {
+    const toolResponse = await context.request.get(toolUrl, { headers: { ...headers, 'Referer': cmeUrl }, timeout: 45000 });
+    const toolHtml = await toolResponse.text();
+    result.cme.tool_http_status = toolResponse.status();
+    result.cme.tool_content_type = toolResponse.headers()['content-type'] || null;
+    result.cme.tool_html_excerpt = toolHtml.slice(0, 5000);
+    await fs.writeFile(outDir + '/cme-quikstrike-response.html', toolHtml);
+  } catch (e) {
+    result.cme.tool_http_error = String(e);
+  }
+  const framePage = await context.newPage();
+  try {
+    await framePage.goto(toolUrl, { waitUntil: 'commit', timeout: 45000 });
+    await framePage.waitForTimeout(18000);
+    result.cme.tool_url = framePage.url();
+    result.cme.tool_title = await framePage.title();
+    result.cme.tool_text = (await framePage.locator('body').innerText({ timeout: 15000 })).slice(0, 12000);
+    await framePage.screenshot({ path: outDir + '/cme-fedwatch-tool.png', fullPage: true });
+    const text = result.cme.tool_text || '';
+    result.cme.status = text.length > 300 ? 'tool_rendered_text' : 'tool_loaded_little_or_no_text';
+    result.cme.meeting_date_candidates = [...new Set(text.match(/(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\\s+\\d{1,2},?\\s+20\\d{2}/gi) || [])].slice(0, 20);
+    result.cme.probability_mentions = (text.match(/\\b\\d{1,3}\\.\\d+%/g) || []).slice(0, 100);
+  } catch (e) {
+    result.cme.status = 'tool_browser_navigation_failed';
+    result.cme.tool_error = String(e);
+    try { await framePage.screenshot({ path: outDir + '/cme-fedwatch-error.png', fullPage: true }); } catch {}
+  }
 }
 
 await fs.writeFile(outDir + '/probe-result.json', JSON.stringify(result, null, 2));
