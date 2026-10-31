@@ -69,13 +69,71 @@ def validate_report_rules(data: dict) -> list[str]:
             if item["id"] in ids:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
-            if item["importance_stars"] != 3:
-                errors.append(f"{label}: only 3-star events are permitted")
+            if group_name == "economic_calendar":
+                if item["importance_stars"] != 3:
+                    errors.append(f"{label}: only 3-star economic events are permitted")
+            else:
+                basis = item["importance_basis"]
+                stars = item["importance_stars"]
+                rating_source = item["importance_rating_source"]
+                basis_source = item["importance_basis_source"].strip()
+                if not basis_source:
+                    errors.append(f"{label}: earnings importance basis requires a traceable source")
+                if basis == "source_rating":
+                    if stars != 3 or not rating_source:
+                        errors.append(
+                            f"{label}: source-rated earnings must carry an explicit 3-star rating and rating source"
+                        )
+                elif basis == "major_event_assessment":
+                    if stars is not None or rating_source is not None:
+                        errors.append(
+                            f"{label}: assessed earnings must not display an invented star rating"
+                        )
             if item["status"] == "released" and item.get("actual") is None and group_name == "economic_calendar":
                 errors.append(f"{label}: released economic event requires actual value")
             if item["status"] == "released" and group_name == "earnings_calendar":
                 if item.get("eps_actual") is None and item.get("revenue_actual") is None:
                     errors.append(f"{label}: released earnings event requires EPS or revenue actual")
+
+    # Earnings without provider stars may be selected only with an explicit, traceable
+    # major-event assessment; they must not be assigned an invented star.
+    earnings = {
+        "id": "earnings-assessed",
+        "event_date": "2026-11-02T21:00:00+08:00",
+        "company": "Synthetic Example Corp",
+        "ticker": "SYN",
+        "session": "after_market",
+        "importance_stars": None,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "Synthetic test: mega-cap index constituent; source evidence recorded separately",
+        "importance_rating_source": None,
+        "eps_estimate": None,
+        "eps_actual": None,
+        "revenue_estimate": None,
+        "revenue_actual": None,
+        "status": "upcoming",
+        "stock_price_reaction": None,
+        "source": {
+            "name": "Synthetic IR calendar",
+            "url": "https://example.com/earnings",
+            "published_at": None,
+            "observed_at": "2026-10-31T12:00:00+08:00"
+        }
+    }
+    rated = json.loads(json.dumps(sample))
+    rated["earnings_calendar"] = [earnings]
+    schema_errors = list(validator.iter_errors(rated))
+    rule_errors = validate_report_rules(rated)
+    if schema_errors or rule_errors:
+        raise AssertionError("unrated but sourced major-event assessment should pass: " +
+                             "; ".join(e.message for e in schema_errors) + "; ".join(rule_errors))
+    print("PASS: earnings may be selected without stars when major-event basis is traceable")
+
+    bad = json.loads(json.dumps(rated))
+    bad["earnings_calendar"][0]["importance_stars"] = 3
+    if not any("invented star rating" in e for e in validate_report_rules(bad)):
+        raise AssertionError("major-event assessment with an unsupported star unexpectedly passed")
+    print("PASS: earnings assessment cannot invent a star rating")
 
     for item in data["analysis"]["market_observation_highlights"]:
         if not item["source_refs"]:
