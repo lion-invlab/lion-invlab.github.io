@@ -5,7 +5,8 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+import math
 from io import StringIO
 from pathlib import Path
 
@@ -34,7 +35,10 @@ def parse_csv(text: str) -> dict[str, dict[str, float | None]]:
             if raw in {"", "."}:
                 values[key] = None
             else:
-                values[key] = float(raw)
+                value = float(raw)
+                if not math.isfinite(value):
+                    raise ValueError(f"non-finite FRED value for {series} on {day}: {raw}")
+                values[key] = value
         rows[day] = values
     if not rows:
         raise ValueError("FRED CSV contained no dated observations")
@@ -95,8 +99,10 @@ def fetch_csv(trading_date: date) -> str:
                   status_forcelist=(429, 500, 502, 503, 504),
                   allowed_methods=frozenset(["GET"]))
     session.mount("https://", HTTPAdapter(max_retries=retry))
+    # Include a lookback window so the first trading day of a month can still
+    # calculate its daily change against the prior available FRED observation.
     params = {"id": ",".join(v[0] for v in SERIES.values()),
-              "cosd": trading_date.replace(day=1).isoformat(),
+              "cosd": (trading_date - timedelta(days=14)).isoformat(),
               "coed": trading_date.isoformat()}
     response = session.get(FRED_CSV, params=params, timeout=(10, 30),
                            headers={"User-Agent": "TAC-Investment-Report/1.0"})
@@ -107,6 +113,8 @@ def fetch_csv(trading_date: date) -> str:
 
 def self_test() -> None:
     sample = """observation_date,DGS2,DGS10,DGS30
+2026-09-30,4.08,4.48,4.88
+2026-10-01,4.10,4.50,4.90
 2026-10-29,4.10,4.50,4.90
 2026-10-30,4.12,4.55,4.95
 """
@@ -116,6 +124,9 @@ def self_test() -> None:
     assert out["bonds"]["us_2y"]["value"] == 4.12
     assert out["bonds"]["us_10y"]["change"] == 0.05
     assert out["bonds"]["us_30y"]["fallback_used"] is True
+    month_start = build_fragment(rows, date(2026, 10, 1), date(2026, 11, 2),
+                                 "2026-10-31T12:00:00+00:00")
+    assert month_start["bonds"]["us_2y"]["change"] == 0.02
     try:
         build_fragment(rows, date(2026, 10, 31), date(2026, 11, 2),
                        "2026-10-31T12:00:00+00:00")
@@ -125,6 +136,7 @@ def self_test() -> None:
         raise AssertionError("missing requested date must fail closed")
     print("PASS: FRED CSV parsing and 2Y/10Y/30Y extraction")
     print("PASS: daily changes and explicit fallback provenance")
+    print("PASS: first trading day of month uses prior-month observation")
     print("PASS: missing requested trading date rejected")
 
 def main() -> int:
