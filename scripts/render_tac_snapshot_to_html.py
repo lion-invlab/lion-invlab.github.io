@@ -31,14 +31,14 @@ class Parser(HTMLParser):
         line,col=self.getpos(); return self.lines[line-1]+col
     def handle_starttag(self,tag,attrs):
         p=self.pos(); raw=self.get_starttag_text(); class_span=None
-        m=re.search(r'\bclass\s*=\s*(["\'])(.*?)\1',raw,re.I)
+        m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         n=Node(tag,attrs,p,p+len(raw),class_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
         else: n.end=p+len(raw)
     def handle_startendtag(self,tag,attrs):
         p=self.pos(); raw=self.get_starttag_text(); class_span=None
-        m=re.search(r'\bclass\s*=\s*(["\'])(.*?)\1',raw,re.I)
+        m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         n=Node(tag,attrs,p,p+len(raw),class_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
