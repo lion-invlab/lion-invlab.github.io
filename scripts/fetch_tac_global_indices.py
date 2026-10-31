@@ -74,8 +74,16 @@ def parse_history_page(html: str, ticker: str, trading_date: date) -> dict:
     soup = BeautifulSoup(html, "html.parser")
     heading = soup.find("h1")
     heading_text = heading.get_text(" ", strip=True) if heading else ""
-    if ticker.lower() not in heading_text.lower():
-        raise ValueError(f"instrument identity mismatch: expected {ticker}, heading={heading_text!r}")
+    # Investing.com may label the Dow page with its CFD page symbol (US30)
+    # while TAC uses the underlying index ticker (DJI). Accept only this
+    # explicitly mapped alias; keep strict identity checks for every other index.
+    accepted_symbols = {"DJI": ("DJI", "US30")}.get(ticker.upper(), (ticker,))
+    heading_upper = heading_text.upper()
+    if not any(symbol in heading_upper for symbol in accepted_symbols):
+        raise ValueError(
+            f"instrument identity mismatch: expected one of {accepted_symbols}, "
+            f"heading={heading_text!r}"
+        )
 
     for table in soup.find_all("table"):
         rows = table.find_all("tr")
@@ -163,6 +171,8 @@ def self_test() -> None:
     parsed = parse_history_page(sample, "DJI", date(2026, 10, 30))
     assert parsed["close"] == 51770.31
     assert parsed["change_pct"] == -1.09
+    dow_cfd_heading = sample.replace(" (DJI)", " (US30)")
+    assert parse_history_page(dow_cfd_heading, "DJI", date(2026, 10, 30))["close"] == 51770.31
     try:
         parse_history_page(sample, "IXIC", date(2026, 10, 30))
     except ValueError:
