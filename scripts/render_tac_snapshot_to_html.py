@@ -8,9 +8,9 @@ ROOT=Path(__file__).resolve().parents[1]
 MAP=ROOT/"scripts/tac_html_binding_map.json"
 
 class Node:
-    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None):
+    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None,aria_label_span=None):
         self.tag,self.attrs,self.start=tag,dict(attrs),start
-        self.tag_end,self.class_span,self.style_span=tag_end,class_span,style_span
+        self.tag_end,self.class_span,self.style_span,self.aria_label_span=tag_end,class_span,style_span,aria_label_span
         self.end=None; self.children=[]
     @property
     def classes(self): return set((self.attrs.get("class") or "").split())
@@ -30,21 +30,25 @@ class Parser(HTMLParser):
     def pos(self):
         line,col=self.getpos(); return self.lines[line-1]+col
     def handle_starttag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if sm: style_span=(p+sm.start(2),p+sm.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span,style_span); self.stack[-1].children.append(n)
+        am=re.search(r"aria-label\s*=\s*(['\"])(.*?)\1",raw,re.I)
+        if am: aria_label_span=(p+am.start(2),p+am.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
         else: n.end=p+len(raw)
     def handle_startendtag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if sm: style_span=(p+sm.start(2),p+sm.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span,style_span); n.end=p+len(raw); self.stack[-1].children.append(n)
+        am=re.search(r"aria-label\s*=\s*(['\"])(.*?)\1",raw,re.I)
+        if am: aria_label_span=(p+am.start(2),p+am.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
@@ -126,6 +130,27 @@ def make_style_property_edit(node,property_name,value):
     match=re.search(r"(?i)(\b"+re.escape(property_name)+r"\s*:\s*)([^;]+)",style)
     if not match: raise ValueError("mapped style property missing: "+property_name)
     return start+match.start(2),start+match.end(2),value
+def make_aria_label_edit(node,value):
+    if node.aria_label_span is None:
+        raise ValueError("mapped aria-label attribute missing")
+    start,end=node.aria_label_span
+    return start,end,html.escape(value,quote=True)
+def validate_fedwatch_payload(fed):
+    if fed.get("status")!="verified":
+        return None
+    probabilities=fed.get("probabilities") or []
+    if len(probabilities)!=2:
+        raise ValueError("verified FedWatch requires exactly two mapped outcomes")
+    if not fed.get("target_meeting") or not fed.get("updated_at") or not fed.get("source"):
+        raise ValueError("verified FedWatch requires meeting, timestamp and source")
+    for item in probabilities:
+        if not 0<=float(item["probability"])<=100:
+            raise ValueError("FedWatch probability outside 0-100")
+        if not item.get("rate_range"):
+            raise ValueError("FedWatch rate range missing")
+    if abs(sum(float(x["probability"]) for x in probabilities)-100)>0.2:
+        raise ValueError("FedWatch probabilities must sum to 100")
+    return probabilities
 def fear_greed_category(score):
     value=float(score)
     if not 0<=value<=100: raise ValueError("CNN Fear & Greed score must be between 0 and 100")
@@ -237,6 +262,53 @@ def render(source,snapshot,mapping):
                 edits.append(make_edit(category_zh_nodes[0],"待核實"))
                 edits.append(make_style_property_edit(marker_nodes[0],record_spec["marker_style_property"],"0%"))
         edits.append(make_edit(source_nodes[0],source_summary(record)))
+    fed_spec=mapping["groups"]["fedwatch"]
+    fed=snapshot["fedwatch"]
+    fed_nodes=by_id(tree.root,fed_spec["container"].lstrip("#"))
+    if len(fed_nodes)!=1: raise ValueError("FedWatch container missing or duplicated")
+    fed_root=fed_nodes[0]
+    fed_rows=by_class(fed_root,fed_spec["row"].lstrip("."))
+    if len(fed_rows)!=len(fed_spec["outcomes"]): raise ValueError("FedWatch outcome rows missing or duplicated")
+    probabilities=validate_fedwatch_payload(fed)
+    for index,(outcome_key,outcome_spec) in enumerate(fed_spec["outcomes"].items()):
+        matches=[row for row in fed_rows if outcome_spec["label"] in row.text]
+        if len(matches)!=1: raise ValueError("FedWatch outcome "+outcome_key+" expected once")
+        row=matches[0]
+        prob_nodes=selector_nodes(row,outcome_spec["probability_selector"])
+        range_nodes=selector_nodes(row,outcome_spec["rate_range_selector"])
+        if len(prob_nodes)!=1 or len(range_nodes)!=1: raise ValueError("FedWatch outcome slots missing: "+outcome_key)
+        if probabilities is not None:
+            prob=float(probabilities[index]["probability"])
+            edits.append(make_edit(prob_nodes[0],format(prob,".1f")+"%"))
+            edits.append(make_edit(range_nodes[0],probabilities[index]["rate_range"]))
+        else:
+            edits.append(make_edit(prob_nodes[0],"待核實"))
+            edits.append(make_edit(range_nodes[0],"待核實"))
+    bar_nodes=by_class(fed_root,fed_spec["split_bar_selector"].lstrip("."))
+    hold_nodes=by_class(fed_root,fed_spec["split_hold_selector"].lstrip("."))
+    hike_nodes=by_class(fed_root,fed_spec["split_hike_selector"].lstrip("."))
+    legend_nodes=by_class(fed_root,fed_spec["split_legend_value_selector"].split()[-1])
+    timestamp_nodes=by_class(fed_root,fed_spec["split_timestamp_selector"].split()[-1])
+    audit_nodes=by_class(fed_root,fed_spec["audit_content_selector"].lstrip("."))
+    if any(len(x)!=1 for x in (bar_nodes,hold_nodes,hike_nodes,audit_nodes)) or len(legend_nodes)!=2 or len(timestamp_nodes)!=2:
+        raise ValueError("FedWatch split display slots missing or duplicated")
+    if probabilities is not None:
+        hold=float(probabilities[0]["probability"]); hike=float(probabilities[1]["probability"])
+        edits.append(make_style_property_edit(hold_nodes[0],"width",format(hold,".1f")+"%"))
+        edits.append(make_style_property_edit(hike_nodes[0],"width",format(hike,".1f")+"%"))
+        edits.append(make_edit(legend_nodes[0],format(hold,".1f")+"%"))
+        edits.append(make_edit(legend_nodes[1],format(hike,".1f")+"%"))
+        updated=fed["updated_at"]; meeting=fed["target_meeting"]
+        edits.append(make_edit(timestamp_nodes[1],"官方快照｜"+updated))
+        edits.append(make_edit(audit_nodes[0],"FOMC 目標會議："+meeting+"。CME FedWatch 快照時間："+updated+"。此為該時間點市場定價機率，並非聯準會承諾或決策結果。"))
+        edits.append(make_aria_label_edit(bar_nodes[0],"維持不變 "+format(hold,".1f")+"%，升息一碼 "+format(hike,".1f")+"%；CME FedWatch 快照時間 "+updated))
+    else:
+        for node in legend_nodes: edits.append(make_edit(node,"待核實"))
+        edits.append(make_edit(timestamp_nodes[1],"資料待核實"))
+        edits.append(make_style_property_edit(hold_nodes[0],"width","0%"))
+        edits.append(make_style_property_edit(hike_nodes[0],"width","0%"))
+        edits.append(make_edit(audit_nodes[0],"FOMC 目標會議：待核實。CME FedWatch 資料時間：待核實。"))
+        edits.append(make_aria_label_edit(bar_nodes[0],"CME FedWatch 待核實"))
     sector_spec=mapping["groups"]["sectors"]
     sector_container=by_id(tree.root,sector_spec["container"].lstrip("#"))
     if len(sector_container)!=1: raise ValueError("sectors container missing or duplicated")
@@ -367,6 +439,18 @@ def self_test():
     changed_style=marker_sample[:a]+v+marker_sample[b:]
     assert 'style="left:66.00%"' in changed_style
     print("PASS: CNN marker position updates only its mapped inline style property")
+    fed_test={"status":"verified","target_meeting":"2026-11-03","updated_at":"2026-10-31T08:00:00+08:00","source":{"name":"CME FedWatch","url":"https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"},"probabilities":[{"rate_range":"維持 3.75%–4.00%","probability":92.5},{"rate_range":"升至 4.00%–4.25%","probability":7.5}]}
+    assert len(validate_fedwatch_payload(fed_test))==2
+    for bad in (dict(fed_test,probabilities=[fed_test["probabilities"][0]]),dict(fed_test,probabilities=[{"rate_range":"維持","probability":95.0},{"rate_range":"升息","probability":10.0}])):
+        try: validate_fedwatch_payload(bad)
+        except ValueError: pass
+        else: raise AssertionError("invalid FedWatch probabilities must fail closed")
+    print("PASS: FedWatch outcome count, probability range and 100% total validation")
+    fed_html='<div id="fed"><div class="fc-prob"><strong>1%</strong><div class="fc-range">old</div></div><div class="fc-prob"><strong>2%</strong><div class="fc-range">old</div></div><div class="fc-split-bar" aria-label="old"><span class="fc-split-hold" style="width:1%"></span><span class="fc-split-hike" style="width:2%"></span></div><div class="fc-split-legend"><span><b>1%</b></span><span><b>2%</b></span></div><div class="fc-split-head"><span>Official</span><span>old</span></div><div class="audit-content">old</div></div>'
+    fed_tree=Parser(fed_html); bar=by_class(fed_tree.root,"fc-split-bar")[0]
+    a,b,v=make_aria_label_edit(bar,"new & updated")
+    assert fed_html[:a]+v+fed_html[b:]==fed_html.replace('aria-label="old"','aria-label="new &amp; updated"')
+    print("PASS: FedWatch aria-label text escaped and updated without changing markup")
 
 def main():
     ap=argparse.ArgumentParser()
