@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "5f0eb1886bbfbf1ac97f2bedc2dee3c0d7409b5b",
+      "blob_sha": "776f778b895c6da781348bcf8fefc1d4719ed4ce",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "77c3702f9b5bf9652efc0299dcfea5cf68aa8cd4",
+      "blob_sha": "ab3286750a64aa0fc9fc01af51f819024526a4ba",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -49,6 +49,10 @@
     {
       "date": "2026-10-31",
       "change": "依使用者核准，修正雙母版紅色圓形加減號控制：所有控制的 flex-basis/寬/高統一為 32px；同步調整瀏覽器測試，使週一與週二至週五均定位當週經濟事件的 .econ-toggle。僅測試分支，正式首頁與 WR 不變。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "延伸 32×32px 規格至雙母版財報小卡圓形加減控制，將 flex-basis 同步修正為 32px；調整瀏覽器測試，週一驗證上週行事曆實際控制、週二至週五驗證當週經濟控制，並分別檢查經濟與財報控制的尺寸、圓形、紅色及展開後減號狀態。僅測試分支，正式首頁與 WR 不變。"
     }
   ]
 }
