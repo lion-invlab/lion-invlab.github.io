@@ -120,15 +120,19 @@ def sort_sector_rows(source,snapshot,mapping):
     source_rows=sorted(rows,key=lambda r:r.start)
     if any(r.end is None or r.end<=r.start for r in source_rows):
         raise ValueError("sector row boundary unavailable")
-    chunks={}
+    chunks={}; separators=[]
     for i,row in enumerate(source_rows):
-        stop=source_rows[i+1].start if i+1<len(source_rows) else row.end
-        gap=source[row.end:stop] if i+1<len(source_rows) else ""
-        if gap.strip(): raise ValueError("non-whitespace content between sector rows; refusing reorder")
         ticker_key=next(k for k,v in by_ticker.items() if v is row)
-        chunks[ticker_key]=source[row.start:stop]
+        chunks[ticker_key]=source[row.start:row.end]
+        if i+1<len(source_rows):
+            gap=source[row.end:source_rows[i+1].start]
+            if gap.strip(): raise ValueError("non-whitespace content between sector rows; refusing reorder")
+            separators.append(gap)
+    if separators and any(gap!=separators[0] for gap in separators):
+        raise ValueError("inconsistent whitespace between sector rows; refusing reorder")
+    separator=separators[0] if separators else ""
     start=source_rows[0].start; end=source_rows[-1].end
-    replacement="".join(chunks[k] for k in ordered)
+    replacement=separator.join(chunks[k] for k in ordered)
     return source[:start]+replacement+source[end:],len(rows)
 
 def render(source,snapshot,mapping):
@@ -141,7 +145,7 @@ def render(source,snapshot,mapping):
             record=snapshot[group][key]
             row=row_for(cs[0],spec["row"].lstrip("."),label)
             vals=[n for n in row.descendants() if "r" in n.classes]
-            if len(vals)<2: raise ValueError(group+"."+key+" value/change slots missing")
+            if len(vals)!=2: raise ValueError(group+"."+key+" expected exactly two value/change slots, found "+str(len(vals)))
             ok=record["status"]=="verified"
             edits += [make_edit(vals[0],fmt(record["value"],record["unit"]) if ok else "待核實"),
                       make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實"),
