@@ -121,3 +121,10 @@
 - 最新盤點文件：[`slot-map-v1.4.md`](slot-map-v1.4.md)。Gate A 仍未完成：週一上週財報 EPS／營收實際與預期、優劣狀態、分析、股價表現及來源欄位尚未完整定位；總結／情緒／今日觀察的複合文字也尚未拆成安全葉節點。
 - 本次所有程式、registry、WR 草案與盤點文件都只在 `tac-template-architecture` 測試分支；正式首頁、雙母版、manifest、根目錄 WR v3.4 均未修改。未取得正式採用核准，不啟用每日寫入或部署。
 
+## 2026-10-31 Run #88｜日期排序規則測試通過
+
+- 新增 `scripts/tac_calendar_sort.py` 與 `scripts/test_tac_calendar_sort.py`，建立經濟事件與財報事件的正規化排序資料層。
+- 經濟事件依 ISO 日期及報告時區時間排序；未知時間排在同日已知時間之後。財報事件依美國公告日期、盤前／盤中／盤後時段及可確認時間排序；台灣顯示日期不取代美國公告日期。
+- Run **#88（41176456247）成功**：43 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA 鎖定、HTML5 DOM 指紋、61 個 selector cardinality 稽核與報告上傳全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176456247
+- 此排序層尚未接入每日資料整理／更新器，亦未用實際行事曆資料完成端到端排序驗收；目前只代表排序規則與邊界測試通過。
+
