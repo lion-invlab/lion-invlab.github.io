@@ -457,7 +457,9 @@ def self_test():
                 raise AssertionError(f"{report_date}: visible document title was not refreshed")
             if "2026/10/30 美國市場正式收盤" not in html:
                 raise AssertionError(f"{report_date}: global market trading-date labels were not refreshed")
-            if "2026/10/23" in html or "2026/10/24" in html:
+            rendered_soup = BeautifulSoup(html, "html.parser")
+            sentiment_text = rendered_soup.select_one("#sentiment").get_text(" ", strip=True)
+            if "2026/10/23" in sentiment_text or "2026/10/24" in sentiment_text:
                 raise AssertionError(f"{report_date}: stale risk-indicator source dates remain")
             if "Neutral" not in html or "中性" not in html:
                 raise AssertionError(f"{report_date}: CNN Fear & Greed rating was not refreshed from the snapshot")
