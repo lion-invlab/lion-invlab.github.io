@@ -123,7 +123,7 @@ def check_template(path: Path, contract: dict) -> list[str]:
         if "records" in spec:
             for key, record in spec["records"].items():
                 row_class = record["row"].lstrip(".")
-                rows = [node for node in by_class(container, row_class) if record["key_text"] in normalize(node.text)]
+                rows = [node for node in by_class(container, row_class) if any(normalize(label.text) == record["key_text"] for label in by_class(node, "label-en"))]
                 if len(rows) != 1:
                     errors.append(f"{group}.{key}: expected one row containing '{record['key_text']}', found {len(rows)}")
                     continue
