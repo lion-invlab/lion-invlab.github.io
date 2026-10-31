@@ -526,25 +526,25 @@
 - 每日更新行情數字、日期、排序或替換卡片時，必須保留連結；不得因資料更新而遺失或錯置 href。
 
 ### 21.2 全球主要股市指數連結
-- 道瓊工業指數：`https://www.investing.com/indices/us-30`
-- 標普 500 指數：`https://www.investing.com/indices/us-spx-500`
-- 那斯達克綜合指數：`https://www.investing.com/indices/nasdaq-composite`
-- 羅素 2000 指數：`https://www.investing.com/indices/smallcap-2000`
+- 道瓊工業指數：`https://hk.investing.com/indices/us-30`
+- 標普 500 指數：`https://hk.investing.com/indices/us-spx-500`
+- 那斯達克綜合指數：`https://hk.investing.com/indices/nasdaq-composite`
+- 羅素 2000 指數：`https://hk.investing.com/indices/smallcap-2000`
 - 費城半導體指數：`https://hk.investing.com/indices/phlx-semiconductor`
-- 香港恆生指數：`https://www.investing.com/indices/hang-sen-40`
-- 上海綜合指數：`https://www.investing.com/indices/shanghai-composite`
-- 深證成指：`https://www.investing.com/indices/szse-component`
-- 日經 225：`https://www.investing.com/indices/japan-ni225`
-- 韓國 KOSPI：`https://www.investing.com/indices/kospi`
-- 台灣加權指數：`https://www.investing.com/indices/taiwan-weighted`
-- 英國 FTSE 100：`https://www.investing.com/indices/uk-100`
-- 德國 DAX：`https://www.investing.com/indices/germany-30`
-- 法國 CAC 40：`https://www.investing.com/indices/france-40`
-- STOXX Europe 600：`https://www.investing.com/indices/stoxx-600`
+- 香港恆生指數：`https://hk.investing.com/indices/hang-sen-40`
+- 上海綜合指數：`https://hk.investing.com/indices/shanghai-composite`
+- 深證成指：`https://hk.investing.com/indices/szse-component`
+- 日經 225：`https://hk.investing.com/indices/japan-ni225`
+- 韓國 KOSPI：`https://hk.investing.com/indices/kospi`
+- 台灣加權指數：`https://hk.investing.com/indices/taiwan-weighted`
+- 英國 FTSE 100：`https://hk.investing.com/indices/uk-100`
+- 德國 DAX：`https://hk.investing.com/indices/germany-30`
+- 法國 CAC 40：`https://hk.investing.com/indices/france-40`
+- STOXX Europe 600：`https://hk.investing.com/indices/stoxx-600`
 - **固定欄位：** 全球市場頁籤固定納入新加坡海峽時報指數（STI）、澳洲 S&P/ASX 200、STOXX Europe 600；週一及週二至週五雙母版均須保留這三列，不得視當日資料是否取得而刪除。資料未能核實時保留欄位並標示「待核實」，不得填入猜測值。
 - 新加坡海峽時報指數（STI）：`https://hk.investing.com/indices/singapore-straits-time`。
 - 澳洲 S&P/ASX 200：`https://hk.investing.com/indices/aus-200-historical-data`。
-- STOXX Europe 600：`https://www.investing.com/indices/stoxx-600`。
+- STOXX Europe 600：`https://hk.investing.com/indices/stoxx-600`。
 - 全球市場頁籤內母版實際列出的指數名稱均須連結；重複出現的同一指數名稱必須使用相同目的網址；只連結名稱，不連結點位及漲跌幅。
 
 ### 21.3 市場情緒與利率
