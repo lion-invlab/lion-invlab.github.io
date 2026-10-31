@@ -114,8 +114,11 @@ def run_case(kind,report_date,weekday):
         assert "Synthetic Co" in soup.select_one("#earnings").get_text()
         assert "加拿大央行利率決議" not in soup.select_one("#calendar").get_text()
         assert "Microsoft" not in soup.select_one("#earnings").get_text()
-        assert "TD Economics" not in soup.select_one("#calendar .source").get_text()
-        assert "StockTitan" not in soup.select_one("#earnings .source").get_text()
+        # Monday has a global source disclosure; Tue-Fri keeps provenance
+        # inside each event card. Check the rendered sections, not a slot that
+        # does not exist in the locked weekday mother.
+        assert "TD Economics" not in soup.select_one("#calendar").get_text()
+        assert "StockTitan" not in soup.select_one("#earnings").get_text()
         assert "2026/10/23" not in soup.select_one("#sentiment").get_text()
         assert "2026/10/24" not in soup.select_one("#sentiment").get_text()
         assert "總結｜待核實" in soup.select_one("article.bluf").get_text()
