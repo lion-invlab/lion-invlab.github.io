@@ -257,3 +257,15 @@
 - 本次補齊的是既有母版中的純文字 detail 欄位定位與安全更新驗證；不代表新資料已匯入或 Repeat Group 已動態新增／刪除。Gate A 尚未完成。
 - Run #168：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179488654
 
+
+
+## 2026-10-31 Run #41180947602｜行事曆標準資料契約層與 CI 驗收
+
+- 新增 `scripts/tac_calendar_dataset.py`：建立經濟／財報行事曆共用的資料集入口契約，先驗證再排序；不抓取資料、不推測缺值、不修改 HTML，也不代表已授權每日寫入。
+- 經濟事件必須具備唯一 event_id、ISO 事件日期、事件時區、國家、事件名稱、1–5 星重要性及至少一筆來源紀錄；財報事件另保留美國公告日期、台灣顯示日期、公司名稱、副標題及公告時段。美國公告日期是排序依據，台灣顯示日期僅供顯示，不可混用。
+- 每筆來源紀錄必須具備來源名稱、顯示標籤、絕對 HTTP(S) URL、含時區 offset 的查證時間；不安全網址、無時區查證時間、重複事件 ID、錯誤日期／時間及欄位型別錯誤均拒絕。
+- 經濟事件依事件當地日期／時間排序；財報依美國公告日期、盤前／盤中／盤後時段及可用時間排序。未知時間排在同日已知時間後；原始輸入不被改寫。
+- 新增 `scripts/test_tac_calendar_dataset.py`，15 項測試全數通過。第一次 CI 提交雖通過既有測試，但日誌檢查發現新測試未列入明確測試清單；已修正 workflow，將資料集測試正式加入每次 CI。
+- 最終 Run #41180947602 完整成功：**78 項單元／整合測試、5 項 Chromium 瀏覽器測試**；正式雙母版 SHA、DOM 結構指紋、94 個候選 selector cardinality 及稽核報告上傳均通過。
+- 重要界線：本次只完成資料契約與排序入口，尚未接入真實資料蒐集、來源 Mapping、Repeat Group 卡片新增／移除、DOM 寫入或每日產製。Gate A 仍未完成，Gate B–D 未完成，Gate E 未核准。
+- 最終驗收：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41180947602
