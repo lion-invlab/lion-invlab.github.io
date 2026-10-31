@@ -613,6 +613,62 @@
       "monday": 4,
       "weekdays": 0,
       "kind": "source_link_leaf"
+    },
+    {
+      "name": "weekly_econ_dates",
+      "selector": "#calendar .econ-event > summary .econ-date",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_times",
+      "selector": "#calendar .econ-event > summary .econ-time",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_countries",
+      "selector": "#calendar .econ-event > summary .econ-country",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_names",
+      "selector": "#calendar .econ-event > summary .econ-name",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_stars",
+      "selector": "#calendar .econ-event > summary .econ-stars",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_prior_values",
+      "selector": "#calendar .econ-event .econ-details > .econ-field:nth-of-type(1) > .econ-value",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_forecast_values",
+      "selector": "#calendar .econ-event .econ-details > .econ-field:nth-of-type(2) > .econ-value",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
+    },
+    {
+      "name": "weekly_econ_actual_values",
+      "selector": "#calendar .econ-event .econ-details > .econ-field:nth-of-type(3) > .econ-value",
+      "monday": 12,
+      "weekdays": 16,
+      "kind": "content"
     }
   ],
   "notes": [
