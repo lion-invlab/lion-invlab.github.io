@@ -95,6 +95,14 @@ def render(source,snapshot,mapping):
         if end>last: raise ValueError("overlapping mapped text nodes")
         out=out[:start]+value+out[end:]; last=start
     return out,len(edits)
+def validate_expected_dates(snapshot, report_date, trading_date):
+    if not report_date or not trading_date:
+        raise ValueError("both expected report and trading dates are required")
+    if snapshot["meta"]["report_date"] != report_date:
+        raise ValueError("report_date mismatch: expected "+report_date+", got "+str(snapshot["meta"]["report_date"]))
+    if snapshot["meta"]["trading_date"] != trading_date:
+        raise ValueError("trading_date mismatch: expected "+trading_date+", got "+str(snapshot["meta"]["trading_date"]))
+
 def self_test():
     sample='<section id="x"><span class="r up">1,234.50</span><b>Keep</b></section>'
     tree=Parser(sample)
@@ -116,6 +124,23 @@ def self_test():
     print("PASS: unrelated sibling content preserved")
     print("PASS: empty slot rejected")
 
+    test_snapshot = {"meta": {"report_date": "2026-11-02", "trading_date": "2026-10-30"}}
+    validate_expected_dates(test_snapshot, "2026-11-02", "2026-10-30")
+    for expected_report, expected_trade in (("2026-11-03", "2026-10-30"), ("2026-11-02", "2026-10-29")):
+        try:
+            validate_expected_dates(test_snapshot, expected_report, expected_trade)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("mismatched report/trading date must fail closed")
+    try:
+        validate_expected_dates(test_snapshot, None, "2026-10-30")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("missing expected date must fail closed")
+    print("PASS: report/trading date mismatch and missing expected dates rejected")
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--self-test",action="store_true")
@@ -132,9 +157,7 @@ def main():
     snap=json.loads(Path(a.snapshot).read_text(encoding="utf-8"))
     errors=list(validator.iter_errors(snap))
     if errors: raise ValueError("snapshot schema invalid: "+"; ".join(e.message for e in errors[:5]))
-    for arg,field in ((a.expected_report_date,"report_date"),(a.expected_trading_date,"trading_date")):
-        if arg and snap["meta"][field] != arg:
-            raise ValueError(field+" mismatch: expected "+arg+", got "+str(snap["meta"][field]))
+    validate_expected_dates(snap, a.expected_report_date, a.expected_trading_date)
     mapping=json.loads(MAP.read_text(encoding="utf-8"))
     expected=mapping["templates"][a.template]
     if Path(a.html).as_posix()!=expected: raise ValueError("input is not the approved "+a.template+" mother")
