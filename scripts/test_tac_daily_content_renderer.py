@@ -111,6 +111,10 @@ def run_case(kind,report_date,weekday):
         assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評星"
         assert "Synthetic CPI release" in soup.select_one("#calendar").get_text()
         assert "Synthetic Co" in soup.select_one("#earnings").get_text()
+        assert "加拿大央行利率決議" not in soup.select_one("#calendar").get_text()
+        assert "Microsoft" not in soup.select_one("#earnings").get_text()
+        assert "總結｜待核實" in soup.select_one("article.bluf").get_text()
+        assert "待核實：市場情緒判讀" in soup.select_one("#sentiment").get_text()
         assert "待核實" in soup.select_one("#view").get_text()
         assert "Synthetic source" in soup.select_one("#global-focus").get_text()
         if kind=="monday":
