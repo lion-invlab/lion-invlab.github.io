@@ -137,11 +137,11 @@ jobs:
         run: python scripts/fetch_tac_news_rss.py --self-test
 
       - name: Optional Fiscal.ai earnings schedule probe (requires FISCAL_API_KEY; candidates only)
-        if: ${{ secrets.FISCAL_API_KEY != '' }}
         continue-on-error: true
         env:
           FISCAL_API_KEY: ${{ secrets.FISCAL_API_KEY }}
         run: |
+          if [ -z "$FISCAL_API_KEY" ]; then echo "FISCAL_API_KEY not configured; skipping live Fiscal.ai probe."; exit 0; fi
           python scripts/fetch_tac_fiscal_earnings_calendar.py \
             --start-date "2026-11-02" \
             --end-date "2026-11-06" \
@@ -149,7 +149,7 @@ jobs:
             --output "/tmp/tac-fiscal-earnings-candidates-2026-11-02.json"
 
       - name: Upload Fiscal.ai earnings schedule candidates (if available)
-        if: ${{ secrets.FISCAL_API_KEY != '' }}
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tac-fiscal-earnings-candidates-2026-11-02
