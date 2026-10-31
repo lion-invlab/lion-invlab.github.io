@@ -49,9 +49,9 @@ INSTRUMENTS = [
     ("fx", "aud_usd", "currencies", "aud-usd", "AUD/USD", "AUDUSD=X", "exchange_rate", "AUD/USD"),
     ("fx", "usd_jpy", "currencies", "usd-jpy", "USD/JPY", "JPY=X", "exchange_rate", "USD/JPY"),
     ("energy", "wti", "commodities", "crude-oil", "WTI", "CL=F", "USD/barrel", "WTI 原油期貨"),
-    ("energy", "brent", "commodities", "brent-oil", "BRENT", "BZ=F", "USD/barrel", "Brent 原油期貨"),
-    ("precious_metals", "gold_gc", "commodities", "gold", "GOLD", "GC=F", "USD/ounce", "黃金期貨 GC"),
-    ("precious_metals", "silver_si", "commodities", "silver", "SILVER", "SI=F", "USD/ounce", "白銀期貨 SI"),
+    ("energy", "brent", "commodities", "brent-oil", "布倫特", "BZ=F", "USD/barrel", "Brent 原油期貨"),
+    ("precious_metals", "gold_gc", "commodities", "gold", "黃金期貨", "GC=F", "USD/ounce", "黃金期貨 GC"),
+    ("precious_metals", "silver_si", "commodities", "silver", "白銀期貨", "SI=F", "USD/ounce", "白銀期貨 SI"),
     ("risk_indicators", "vix", "indices", "volatility-s-p-500", "VIX", "^VIX", "index_point", "VIX"),
     ("risk_indicators", "move", "indices", "ice-bofaml-move", "MOVE", "^MOVE", "index_point", "MOVE"),
 ]
