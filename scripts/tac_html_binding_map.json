@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
-  "description": "Read-only DOM binding contract for snapshot-driven rendering. Selectors are constrained to the approved mother templates; this map does not authorize structural or style changes.",
+  "description": "Snapshot binding contract. Existing DOM and layout remain unchanged; only mapped text nodes, whitelisted status classes, report-date metadata, title/date labels, and the order of intact existing sector rows may change.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
   },
   "rules": {
-    "mutate_only_text_nodes": true,
+    "mutate_only_text_nodes": false,
     "preserve_element_tree": true,
-    "preserve_attributes": true,
+    "preserve_attributes": false,
     "preserve_css_and_scripts": true,
     "pending_value_text": "待核實",
     "status_class_map": {
@@ -18,7 +18,20 @@
       "warning": "warn"
     },
     "fail_if_selector_count_differs": true,
-    "fail_if_label_or_ticker_missing_or_duplicated": true
+    "fail_if_label_or_ticker_missing_or_duplicated": true,
+    "mutable_status_classes": [
+      "up",
+      "down",
+      "flat",
+      "warn"
+    ],
+    "mutate_only_existing_text_slots": true,
+    "preserve_attributes_except": [
+      "whitelisted status class tokens on mapped value slots",
+      "content on meta[name=report-date]"
+    ],
+    "preserve_all_non_whitelisted_attributes": true,
+    "allow_existing_sector_row_reorder": true
   },
   "groups": {
     "global_indices": {
@@ -50,6 +63,25 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "dow": 2,
+        "sp500": 2,
+        "nasdaq_composite": 2,
+        "russell_2000": 2,
+        "sox": 2,
+        "hang_seng": 2,
+        "shanghai_composite": 2,
+        "shenzhen_component": 2,
+        "nikkei_225": 2,
+        "kospi": 2,
+        "twse": 2,
+        "singapore_sti": 2,
+        "asx_200": 2,
+        "ftse_100": 2,
+        "dax": 2,
+        "cac_40": 2,
+        "stoxx_europe_600": 2
       }
     },
     "sectors": {
@@ -73,7 +105,8 @@
         "display_value": "change",
         "display_change": null,
         "display_unit": "change_unit"
-      }
+      },
+      "sort_by_change_desc": true
     },
     "bonds": {
       "container": "#bonds",
@@ -90,6 +123,11 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "us_2y": 2,
+        "us_10y": 2,
+        "us_30y": 2
       }
     },
     "fx": {
@@ -110,6 +148,14 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "dxy": 2,
+        "usd_twd": 3,
+        "eur_usd": 3,
+        "gbp_usd": 3,
+        "aud_usd": 3,
+        "usd_jpy": 2
       }
     },
     "energy": {
@@ -126,6 +172,10 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "wti": 2,
+        "brent": 2
       }
     },
     "precious_metals": {
@@ -142,6 +192,10 @@
       "snapshot_fields": {
         "display_value": "value",
         "display_change": "change"
+      },
+      "value_decimals": {
+        "gold_gc": 2,
+        "silver_si": 3
       }
     },
     "risk_indicators": {
@@ -179,6 +233,11 @@
           "display_value": "value",
           "display_change": null
         }
+      },
+      "value_decimals": {
+        "vix": 2,
+        "move": 2,
+        "cnn_fear_greed": 0
       }
     },
     "fedwatch": {
@@ -214,5 +273,16 @@
     "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
     "母版專區/mother-template-manifest.json",
     "TAC_WORK_RULES.md"
-  ]
+  ],
+  "metadata": {
+    "title_selector": "title",
+    "trading_date_prefix_selectors": [
+      "#global-markets .tab-panel-meta",
+      "#tac-assets-panel-0 .tab-panel-meta",
+      "#bonds .tab-panel-meta",
+      "#fx .tab-panel-meta",
+      "#tac-assets-panel-3 .tab-panel-meta",
+      "#tac-assets-panel-4 .tab-panel-meta"
+    ]
+  }
 }

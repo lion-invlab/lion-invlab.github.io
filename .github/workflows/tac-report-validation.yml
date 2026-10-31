@@ -12,6 +12,7 @@ on:
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/assemble_tac_daily_snapshot.py"
+      - "scripts/render_tac_daily_report.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
@@ -21,12 +22,27 @@ on:
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_auxiliary_markets.py"
+      - "scripts/fetch_tac_news_rss.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
+      - "schemas/tac-daily-content.schema.json"
+      - "scripts/validate_tac_daily_content.py"
+      - "scripts/tac_content_binding_map.json"
+      - "scripts/validate_tac_content_binding.py"
+      - "scripts/assemble_tac_daily_content.py"
+      - "scripts/import_tac_calendar_capture.py"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
     branches: ["main"]
     paths:
+      - "schemas/tac-daily-content.schema.json"
+      - "scripts/validate_tac_daily_content.py"
+      - "scripts/tac_content_binding_map.json"
+      - "scripts/validate_tac_content_binding.py"
+      - "scripts/assemble_tac_daily_content.py"
+      - "scripts/import_tac_calendar_capture.py"
+      - "scripts/fetch_tac_news_rss.py"
       - "2026-*.html"
       - "review/2026-*-review.html"
       - "preview/2026-*.html"
@@ -43,10 +59,13 @@ on:
       - "scripts/fetch_tac_treasury_yields.py"
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_auxiliary_markets.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   workflow_dispatch:
+
+# PR validation is intentionally limited to source-native, no-secret collectors.
 
 permissions:
   contents: read
@@ -72,8 +91,23 @@ jobs:
       - name: Test TAC market snapshot schema
         run: python scripts/validate_tac_daily_snapshot.py --self-test
 
+      - name: Test TAC editorial content schema and report rules
+        run: python scripts/validate_tac_daily_content.py --self-test
+
+      - name: Test TAC editorial fragment assembler
+        run: python scripts/assemble_tac_daily_content.py --self-test
+
+      - name: Test source-provenance calendar capture adapter
+        run: python scripts/import_tac_calendar_capture.py --self-test
+
+      - name: Validate editorial content binding selectors against both approved mothers
+        run: python scripts/validate_tac_content_binding.py
+
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
+
+      - name: Test TAC snapshot HTML renderer against both approved mothers
+        run: python scripts/render_tac_daily_report.py --self-test
 
       - name: Validate market-field contract against both approved masters
         run: |
@@ -93,16 +127,114 @@ jobs:
       - name: Test Investing.com HK global indices collector
         run: python scripts/fetch_tac_global_indices.py --self-test
 
-      - name: Confirm live Investing.com retrieval is blocked without permission
+      - name: Test Investing.com HK auxiliary market collector
+        run: python scripts/fetch_tac_auxiliary_markets.py --self-test
+
+      - name: Test TAC news RSS collector
+        run: python scripts/fetch_tac_news_rss.py --self-test
+
+      - name: Optional live read-only RSS news probe (candidates only; not editorially approved)
+        continue-on-error: true
         run: |
-          if python scripts/fetch_tac_global_indices.py --trading-date "2026-10-30" --report-date "2026-11-02" --output "/tmp/should-not-fetch.json" 2> /tmp/tac-source-guard.err; then
-            echo "FAIL: live retrieval unexpectedly ran without permission"
+          python scripts/fetch_tac_news_rss.py \
+            --window-start "2026-10-30T04:00:00+00:00" \
+            --window-end "2026-11-01T21:00:00+00:00" \
+            --output "/tmp/tac-news-rss-candidates-2026-11-02.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("/tmp/tac-news-rss-candidates-2026-11-02.json").read_text())
+          print("RSS candidate probe (not approved for publication):")
+          print("Focus candidates:", len(data["focus_news"]), "/ 5")
+          print("Headline candidates:", len(data["market_headlines"]), "/ 10")
+          print("Collector status:", data["collector"]["status"])
+          print("Source errors:", len(data["collector"]["errors"]))
+          for error in data["collector"]["errors"]:
+              print("PENDING:", error)
+          PY
+
+      - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
+        continue-on-error: true
+        run: |
+          python scripts/fetch_tac_global_indices.py --trading-date "2026-10-30" --report-date "2026-11-02" --output "/tmp/tac-global-indices-2026-10-30.json"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("/tmp/tac-global-indices-2026-10-30.json").read_text())
+          records = data["global_indices"]
+          verified = [k for k, v in records.items() if v["status"] == "verified"]
+          pending = [k for k, v in records.items() if v["status"] != "verified"]
+          print(f"Live source result: {len(verified)}/17 verified; {len(pending)}/17 pending")
+          print("Verified:", ", ".join(verified) or "none")
+          print("Pending:", ", ".join(pending) or "none")
+          print("Per-index provenance:")
+          provenance_errors = []
+          for key, record in records.items():
+              source = record.get("source") or {}
+              print(
+                  f"{key}: status={record.get('status')} "
+                  f"value={record.get('value')} change={record.get('change')} "
+                  f"source={source.get('name')} url={source.get('url')} "
+                  f"data_date={source.get('data_date')} "
+                  f"quote_type={source.get('quote_type')} "
+                  f"instrument={source.get('instrument')} "
+                  f"observed_at={source.get('observed_at')} "
+                  f"fallback_used={record.get('fallback_used')} "
+                  f"fallback_reason={record.get('fallback_reason')}"
+              )
+              if record.get("status") == "verified":
+                  required = ("name", "url", "data_date", "quote_type", "instrument", "observed_at")
+                  missing = [field for field in required if not source.get(field)]
+                  if missing:
+                      provenance_errors.append(f"{key}: missing source fields {missing}")
+                  if source.get("data_date") != data["trading_date"]:
+                      provenance_errors.append(
+                          f"{key}: source date {source.get('data_date')} != "
+                          f"fragment trading date {data['trading_date']}"
+                      )
+                  if record.get("fallback_used") and not record.get("fallback_reason"):
+                      provenance_errors.append(f"{key}: fallback used without a recorded reason")
+                  if not record.get("fallback_used") and source.get("name") != "Investing.com 香港站":
+                      provenance_errors.append(
+                          f"{key}: non-primary source marked as primary ({source.get('name')})"
+                      )
+                  if record.get("fallback_used") and source.get("name") != "Yahoo Finance":
+                      provenance_errors.append(
+                          f"{key}: unexpected fallback source ({source.get('name')})"
+                      )
+          if len(records) != 17:
+              raise SystemExit(f"Expected 17 index records, found {len(records)}")
+          if data.get("report_date") != "2026-11-02":
+              provenance_errors.append(f"report_date mismatch: {data.get('report_date')}")
+          if data.get("trading_date") != "2026-10-30":
+              provenance_errors.append(f"trading_date mismatch: {data.get('trading_date')}")
+          if provenance_errors:
+              raise SystemExit("Source provenance validation failed: " + "; ".join(provenance_errors))
+          if pending:
+              raise SystemExit(
+                  f"Incomplete live index coverage: {len(verified)}/17 verified; "
+                  f"{len(pending)}/17 pending. Partial data is retained for review, "
+                  "but the complete-market-data gate must fail."
+              )
+          if len(verified) != 17:
+              raise SystemExit(f"Expected 17 verified indices, found {len(verified)}")
+          PY
+
+      - name: Confirm global-index collector rejects incomplete run arguments
+        run: |
+          if python scripts/fetch_tac_global_indices.py --report-date "2026-11-02" --output "/tmp/should-not-fetch.json" 2> /tmp/tac-source-args.err; then
+            echo "FAIL: collector accepted missing trading date"
             exit 1
           fi
-          grep -q "live retrieval is disabled pending written source-data permission" /tmp/tac-source-guard.err
-          echo "PASS: live retrieval blocked without explicit permission"
+          grep -q -- "--trading-date" /tmp/tac-source-args.err
+          echo "PASS: collector rejects incomplete run arguments"
 
-      # Live Investing.com data retrieval is disabled pending written source authorization.
+      - name: Fetch 11 sector ETFs, DXY, FX, commodities, VIX and MOVE
+        run: |
+          python scripts/fetch_tac_auxiliary_markets.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "/tmp/tac-auxiliary-markets-2026-10-30.json"
 
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
@@ -110,6 +242,46 @@ jobs:
             --trading-date "2026-10-30" \
             --report-date "2026-11-02" \
             --output "/tmp/tac-treasury-yields-2026-10-30.json"
+
+      - name: Assemble verified market fragments into a dated TAC snapshot
+        if: success()
+        run: |
+          python scripts/assemble_tac_daily_snapshot.py \
+            --report-date "2026-11-02" \
+            --trading-date "2026-10-30" \
+            --fragment "/tmp/tac-global-indices-2026-10-30.json" \
+            --fragment "/tmp/tac-treasury-yields-2026-10-30.json" \
+            --fragment "/tmp/tac-auxiliary-markets-2026-10-30.json" \
+            --output "/tmp/tac-daily-snapshot-2026-11-02.json"
+
+      - name: Render partial data-binding smoke output (NOT review-ready)
+        if: success()
+        run: |
+          python scripts/render_tac_daily_report.py \
+            --snapshot "/tmp/tac-daily-snapshot-2026-11-02.json" \
+            --output "/tmp/tac-partial-market-binding-2026-11-02.html"
+
+      - name: Confirm partial render is clearly marked as non-review output
+        if: success()
+        run: |
+          test -s "/tmp/tac-partial-market-binding-2026-11-02.html"
+          echo "PARTIAL MARKET-DATA BINDING SMOKE OUTPUT — NOT REVIEW-READY"
+          echo "Narrative, news, calendars, visible date labels and FedWatch are not yet refreshed."
+
+      - name: Upload live market-data probe JSON for audit
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-market-data-and-render-smoke-${{ github.run_id }}
+          path: |
+            /tmp/tac-global-indices-2026-10-30.json
+            /tmp/tac-treasury-yields-2026-10-30.json
+            /tmp/tac-auxiliary-markets-2026-10-30.json
+            /tmp/tac-news-rss-candidates-2026-11-02.json
+            /tmp/tac-daily-snapshot-2026-11-02.json
+            /tmp/tac-partial-market-binding-2026-11-02.html
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Test DOM layout contract
         run: python scripts/validate_tac_layout_contract.py --self-test
@@ -144,7 +316,9 @@ jobs:
         env:
           REPORT_PATH: ${{ steps.preview.outputs.path }}
         run: |
-          if [ -z "$REPORT_PATH" ]; then
+          if [ -f "/tmp/tac-partial-market-binding-2026-11-02.html" ]; then
+            REPORT_PATH="/tmp/tac-partial-market-binding-2026-11-02.html"
+          elif [ -z "$REPORT_PATH" ]; then
             REPORT_PATH="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
           fi
           node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout

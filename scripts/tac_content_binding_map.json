@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "purpose": "Selector contract only. It does not authorize changing protected mother-template files or inserting new DOM structures. Renderer must preserve wrappers, tabs, disclosures, links and card geometry.",
+  "templates": {
+    "monday": {
+      "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+      "sections": {
+        "summary": {
+          "container": "main.wrap > section.grid.two article.bluf",
+          "headline": "h1",
+          "body": "p",
+          "mode": "replace_text_only"
+        },
+        "market_sentiment": {
+          "container": "#sentiment",
+          "mode": "market_snapshot_slots_only"
+        },
+        "focus_news": {
+          "container": "#global-focus",
+          "items": ".newsitem",
+          "headline": "h3",
+          "summary": "p",
+          "source_links": ".newsmeta a",
+          "expected_count": 5,
+          "mode": "replace_existing_items_only"
+        },
+        "market_headlines": {
+          "container": "#headlines",
+          "items": ".newsitem",
+          "headline": "h3",
+          "summary": "p",
+          "source_links": ".newsmeta a",
+          "expected_count": 10,
+          "mode": "replace_existing_items_only"
+        },
+        "last_week_economic_calendar": {
+          "container": "#last-week-calendar",
+          "collapse": "details.last-week-calendar-collapse",
+          "items": "details.econ-event",
+          "expected_importance_stars": 3,
+          "mode": "preserve_event_card_structure"
+        },
+        "last_week_earnings_calendar": {
+          "container": "#last-week-earnings",
+          "collapse": "details.last-week-earnings-collapse",
+          "items": "details.earnings-accordion",
+          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
+          "mode": "preserve_event_card_structure"
+        },
+        "economic_calendar": {
+          "container": "#calendar",
+          "items": ".econ-event",
+          "tabs": ".week-econ-tabs",
+          "expected_importance_stars": 3,
+          "mode": "preserve_tab_and_event_card_structure"
+        },
+        "earnings_calendar": {
+          "container": "#earnings",
+          "items": ".earnings-accordion",
+          "tabs": ".week-earnings-tabs",
+          "mode": "preserve_tab_and_event_card_structure",
+          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment"
+        },
+        "market_observation_highlights": {
+          "container": "#view",
+          "mode": "replace_existing_text_nodes_only"
+        }
+      }
+    },
+    "weekday": {
+      "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+      "sections": {
+        "summary": {
+          "container": "main.wrap > section.grid.two article.bluf",
+          "headline": "h1",
+          "body": "p",
+          "mode": "replace_text_only"
+        },
+        "market_sentiment": {
+          "container": "#sentiment",
+          "mode": "market_snapshot_slots_only"
+        },
+        "focus_news": {
+          "container": "#global-focus",
+          "items": ".newsitem",
+          "headline": "h3",
+          "summary": "p",
+          "source_links": ".newsmeta a",
+          "expected_count": 5,
+          "mode": "replace_existing_items_only"
+        },
+        "market_headlines": {
+          "container": "#headlines",
+          "items": ".newsitem",
+          "headline": "h3",
+          "summary": "p",
+          "source_links": ".newsmeta a",
+          "expected_count": 10,
+          "mode": "replace_existing_items_only"
+        },
+        "economic_calendar": {
+          "container": "#calendar",
+          "items": ".econ-event",
+          "tabs": ".week-econ-tabs",
+          "expected_importance_stars": 3,
+          "mode": "preserve_tab_and_event_card_structure"
+        },
+        "earnings_calendar": {
+          "container": "#earnings",
+          "items": ".earnings-accordion",
+          "tabs": ".week-earnings-tabs",
+          "mode": "preserve_tab_and_event_card_structure",
+          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment"
+        },
+        "market_observation_highlights": {
+          "container": "#view",
+          "mode": "replace_existing_text_nodes_only"
+        }
+      }
+    }
+  },
+  "invariants": [
+    "Do not change either approved mother template, mother-template-manifest.json, TAC_WORK_RULES.md or index.html.",
+    "Do not remove or recreate red-circle plus controls, details/summary disclosure nodes, radio tabs, or event-card wrappers.",
+    "News counts are exactly 5 focus stories and 10 market headlines; a mismatch is a hard failure, not permission to fabricate or silently truncate.",
+    "Economic calendar: preserve the provider-native 1–3 star scale and include only 3-star events in the curated feed. Earnings may display a 3-star rating only when a source explicitly provides it; otherwise importance_stars must be null and the major-event assessment basis/source must be recorded. Never infer or convert a rating.",
+    "Every inserted news item and calendar event must retain source URL and source observation timestamp in its source detail area.",
+    "Missing or unverified source data must remain pending; no narrative inference from missing fields.",
+    "Market sentiment and summary must cite verified snapshot field IDs and verified content IDs."
+  ]
+}

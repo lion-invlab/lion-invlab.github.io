@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Fetch the 17 fixed TAC global indices from their Investing.com HK history pages.
 
-Live retrieval is disabled unless the operator explicitly confirms written
-permission for automated access, storage, and display/redistribution of source data.
+Attempts ordinary public-page retrieval without a separate operator permission flag.
 Only exact requested trading-date rows are accepted; stale closes are never reused.
+Source access failures are reported as pending and are not bypassed.
 """
 from __future__ import annotations
 
@@ -13,8 +13,10 @@ import math
 import re
 import sys
 import time
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
+from urllib.parse import quote
+from zoneinfo import ZoneInfo
 
 import requests
 from bs4 import BeautifulSoup
@@ -40,6 +42,27 @@ INDEXES = {
     "dax": ("germany-30", "GDAXI", "DAX"),
     "cac_40": ("france-40", "FCHI", "CAC"),
     "stoxx_europe_600": ("stoxx-600", "STOXX", "STOXX"),
+}
+
+YAHOO_FALLBACK = {
+    "dow": "^DJI",
+    "sp500": "^GSPC",
+    "nasdaq_composite": "^IXIC",
+    "russell_2000": "^RUT",
+    "sox": "^SOX",
+    "hang_seng": "^HSI",
+    "shanghai_composite": "000001.SS",
+    "shenzhen_component": "399001.SZ",
+    "nikkei_225": "^N225",
+    "kospi": "^KS11",
+    "twse": "^TWII",
+    "singapore_sti": "^STI",
+    "asx_200": "^AXJO",
+    "ftse_100": "^FTSE",
+    "dax": "^GDAXI",
+    "cac_40": "^FCHI",
+    # Do not substitute Euro Stoxx 50 for the required STOXX Europe 600.
+    "stoxx_europe_600": None,
 }
 
 def parse_number(raw: str) -> float:
@@ -74,8 +97,16 @@ def parse_history_page(html: str, ticker: str, trading_date: date) -> dict:
     soup = BeautifulSoup(html, "html.parser")
     heading = soup.find("h1")
     heading_text = heading.get_text(" ", strip=True) if heading else ""
-    if ticker.lower() not in heading_text.lower():
-        raise ValueError(f"instrument identity mismatch: expected {ticker}, heading={heading_text!r}")
+    # Investing.com may label the Dow page with its CFD page symbol (US30)
+    # while TAC uses the underlying index ticker (DJI). Accept only this
+    # explicitly mapped alias; keep strict identity checks for every other index.
+    accepted_symbols = {"DJI": ("DJI", "US30")}.get(ticker.upper(), (ticker,))
+    heading_upper = heading_text.upper()
+    if not any(symbol in heading_upper for symbol in accepted_symbols):
+        raise ValueError(
+            f"instrument identity mismatch: expected one of {accepted_symbols}, "
+            f"heading={heading_text!r}"
+        )
 
     for table in soup.find_all("table"):
         rows = table.find_all("tr")
@@ -113,6 +144,80 @@ def make_pending(observed_at: str, trading_date: date, reason: str) -> dict:
         "notes": f"未取得指定交易日資料，未沿用舊值。原因：{reason}",
     }
 
+def parse_yahoo_chart_payload(payload: dict, ticker: str, trading_date: date) -> dict:
+    chart = payload.get("chart", {})
+    if chart.get("error"):
+        raise ValueError(f"Yahoo chart error: {chart['error']}")
+    results = chart.get("result") or []
+    if not results:
+        raise ValueError("Yahoo chart returned no result")
+    result = results[0]
+    meta = result.get("meta", {})
+    actual_symbol = meta.get("symbol", "")
+    if actual_symbol.upper() != ticker.upper():
+        raise ValueError(f"Yahoo instrument mismatch: expected {ticker}, got {actual_symbol!r}")
+    timezone_name = meta.get("exchangeTimezoneName")
+    if not timezone_name:
+        raise ValueError("Yahoo chart missing exchange timezone")
+    tz = ZoneInfo(timezone_name)
+    timestamps = result.get("timestamp") or []
+    quote_rows = (result.get("indicators", {}).get("quote") or [{}])[0]
+    closes = quote_rows.get("close") or []
+    if len(timestamps) != len(closes):
+        raise ValueError("Yahoo chart timestamp/close length mismatch")
+    dated = []
+    for stamp, close in zip(timestamps, closes):
+        if close is None:
+            continue
+        close_value = float(close)
+        if not math.isfinite(close_value) or close_value <= 0:
+            continue
+        local_date = datetime.fromtimestamp(stamp, tz).date()
+        dated.append((local_date, close_value))
+    target = next((value for day, value in dated if day == trading_date), None)
+    previous = next((value for day, value in reversed(dated) if day < trading_date), None)
+    if target is None:
+        raise ValueError(f"Yahoo exact trading-date close {trading_date.isoformat()} not found")
+    if previous is None:
+        raise ValueError("Yahoo previous trading-day close unavailable")
+    return {
+        "close": target,
+        "change_pct": (target / previous - 1.0) * 100.0,
+        "previous_close": previous,
+        "timezone": timezone_name,
+    }
+
+
+def fetch_yahoo_fallback(session: requests.Session, key: str, ticker: str,
+                         trading_date: date, observed_at: str,
+                         primary_error: str) -> dict:
+    start = int(datetime.combine(trading_date - timedelta(days=7), datetime.min.time(),
+                                 tzinfo=timezone.utc).timestamp())
+    end = int(datetime.combine(trading_date + timedelta(days=2), datetime.min.time(),
+                               tzinfo=timezone.utc).timestamp())
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(ticker, safe='')}"
+    response = session.get(url, params={"period1": start, "period2": end, "interval": "1d"},
+                           timeout=(10, 30))
+    response.raise_for_status()
+    parsed = parse_yahoo_chart_payload(response.json(), ticker, trading_date)
+    return {
+        "value": parsed["close"], "unit": "index_point",
+        "change": parsed["change_pct"], "change_unit": "percent",
+        "status": "verified",
+        "source": {
+            "name": "Yahoo Finance",
+            "url": f"https://finance.yahoo.com/quote/{quote(ticker, safe='')}/history/",
+            "observed_at": observed_at,
+            "data_date": trading_date.isoformat(),
+            "quote_type": "yahoo_chart_daily_close_pct_change",
+            "instrument": f"{key} ({ticker})",
+            "exchange_timezone": parsed["timezone"],
+        },
+        "fallback_used": True, "fallback_reason": primary_error,
+        "notes": "Investing.com 香港站未成功取得指定交易日資料，改用 Yahoo Finance 日線收市價；僅接受完全相符的交易日期。",
+    }
+
+
 def fetch_one(session: requests.Session, key: str, config: tuple,
               trading_date: date, observed_at: str) -> tuple[str, dict]:
     slug, ticker, label_hint = config
@@ -137,8 +242,19 @@ def fetch_one(session: requests.Session, key: str, config: tuple,
             "fallback_used": False, "fallback_reason": None,
             "notes": "採用歷史資料表指定交易日的收市價及日升跌幅；僅接受完全相符的資料日期。",
         }
-    except Exception as exc:
-        return key, make_pending(observed_at, trading_date, str(exc))
+    except Exception as primary_exc:
+        primary_error = str(primary_exc)
+        fallback_ticker = YAHOO_FALLBACK.get(key)
+        if fallback_ticker:
+            try:
+                return key, fetch_yahoo_fallback(
+                    session, key, fallback_ticker, trading_date, observed_at, primary_error
+                )
+            except Exception as fallback_exc:
+                reason = f"Investing.com: {primary_error}; Yahoo Finance: {fallback_exc}"
+        else:
+            reason = f"Investing.com: {primary_error}; no verified Yahoo ticker mapping for this index"
+        return key, make_pending(observed_at, trading_date, reason)
 
 def build_fragment(trading_date: date, report_date: date, records: dict,
                    observed_at: str) -> dict:
@@ -163,6 +279,8 @@ def self_test() -> None:
     parsed = parse_history_page(sample, "DJI", date(2026, 10, 30))
     assert parsed["close"] == 51770.31
     assert parsed["change_pct"] == -1.09
+    dow_cfd_heading = sample.replace(" (DJI)", " (US30)")
+    assert parse_history_page(dow_cfd_heading, "DJI", date(2026, 10, 30))["close"] == 51770.31
     try:
         parse_history_page(sample, "IXIC", date(2026, 10, 30))
     except ValueError:
@@ -176,8 +294,36 @@ def self_test() -> None:
     else:
         raise AssertionError("missing requested trading date must fail closed")
     assert len(INDEXES) == 17 and len({v[0] for v in INDEXES.values()}) == 17
+    assert set(YAHOO_FALLBACK) == set(INDEXES)
+    assert YAHOO_FALLBACK["stoxx_europe_600"] is None
     assert parse_date("2026年10月30日") == date(2026, 10, 30)
     assert parse_number("−1.09%") == -1.09
+
+    ny = ZoneInfo("America/New_York")
+    yahoo_fixture = {
+        "chart": {
+            "result": [{
+                "meta": {"symbol": "^DJI", "exchangeTimezoneName": "America/New_York"},
+                "timestamp": [
+                    int(datetime(2026, 10, 29, 0, 0, tzinfo=ny).timestamp()),
+                    int(datetime(2026, 10, 30, 0, 0, tzinfo=ny).timestamp()),
+                ],
+                "indicators": {"quote": [{"close": [100.0, 110.0]}]},
+            }],
+            "error": None,
+        }
+    }
+    yahoo_parsed = parse_yahoo_chart_payload(yahoo_fixture, "^DJI", date(2026, 10, 30))
+    assert yahoo_parsed["close"] == 110.0
+    assert abs(yahoo_parsed["change_pct"] - 10.0) < 1e-9
+    try:
+        parse_yahoo_chart_payload(yahoo_fixture, "^GSPC", date(2026, 10, 30))
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("Yahoo symbol mismatch must fail closed")
+    print("PASS: Yahoo exact-date close and previous-close percentage fallback parsing")
+    print("PASS: Yahoo instrument identity mismatch rejected")
     print("PASS: 17 fixed index mappings and unique source slugs")
     print("PASS: Investing.com HK historical table close/change parsing")
     print("PASS: instrument identity mismatch rejected")
@@ -190,15 +336,10 @@ def main() -> int:
     parser.add_argument("--report-date")
     parser.add_argument("--output")
     parser.add_argument("--self-test", action="store_true")
-    parser.add_argument("--confirm-licensed-use", action="store_true",
-                        help="Confirm written permission for automated source data use.")
     args = parser.parse_args()
     if args.self_test:
         self_test()
         return 0
-    if not args.confirm_licensed_use:
-        parser.error("live retrieval is disabled pending written source-data permission; "
-                     "obtain permission before using --confirm-licensed-use")
     if not args.trading_date or not args.report_date or not args.output:
         parser.error("--trading-date, --report-date and --output are required")
     trading_date = date.fromisoformat(args.trading_date)
