@@ -109,7 +109,7 @@ def run_case(kind,report_date,weekday):
         assert len(soup.select("#earnings .earnings-accordion-toggle"))==1
         assert len(soup.select("#earnings .earnings-detail-field"))>=5
         assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★"
-        assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評星"
+        assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評級／待核實"
         assert "Synthetic CPI release" in soup.select_one("#calendar").get_text()
         assert "Synthetic Co" in soup.select_one("#earnings").get_text()
         assert "加拿大央行利率決議" not in soup.select_one("#calendar").get_text()
