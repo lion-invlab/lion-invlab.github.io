@@ -194,6 +194,34 @@
       "monday": 1,
       "weekdays": 1,
       "kind": "protected_container_only"
+    },
+    {
+      "name": "weekly_economic_event_lists",
+      "selector": "#calendar .econ-event-list",
+      "monday": 1,
+      "weekdays": 3,
+      "kind": "repeat_group_container"
+    },
+    {
+      "name": "weekly_earnings_card_lists",
+      "selector": "#earnings .earnings-accordion-list",
+      "monday": 1,
+      "weekdays": 2,
+      "kind": "repeat_group_container"
+    },
+    {
+      "name": "last_week_economic_event_lists",
+      "selector": "#last-week-calendar .econ-event-list",
+      "monday": 1,
+      "weekdays": 0,
+      "kind": "monday_only_container"
+    },
+    {
+      "name": "last_week_earnings_card_lists",
+      "selector": "#last-week-earnings .earnings-accordion-list",
+      "monday": 1,
+      "weekdays": 0,
+      "kind": "monday_only_container"
     }
   ],
   "notes": [
