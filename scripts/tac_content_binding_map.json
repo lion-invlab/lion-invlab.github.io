@@ -44,21 +44,21 @@
           "container": "#last-week-earnings",
           "collapse": "details.last-week-earnings-collapse",
           "items": "details.earnings-accordion",
-          "expected_importance_stars": 5,
+          "expected_importance_stars": 3,
           "mode": "preserve_event_card_structure"
         },
         "economic_calendar": {
           "container": "#calendar",
           "items": ".econ-event",
           "tabs": ".week-econ-tabs",
-          "expected_importance_stars": 5,
+          "expected_importance_stars": 3,
           "mode": "preserve_tab_and_event_card_structure"
         },
         "earnings_calendar": {
           "container": "#earnings",
           "items": ".earnings-accordion",
           "tabs": ".week-earnings-tabs",
-          "expected_importance_stars": 5,
+          "expected_importance_stars": 3,
           "mode": "preserve_tab_and_event_card_structure"
         },
         "market_observation_highlights": {
@@ -102,14 +102,14 @@
           "container": "#calendar",
           "items": ".econ-event",
           "tabs": ".week-econ-tabs",
-          "expected_importance_stars": 5,
+          "expected_importance_stars": 3,
           "mode": "preserve_tab_and_event_card_structure"
         },
         "earnings_calendar": {
           "container": "#earnings",
           "items": ".earnings-accordion",
           "tabs": ".week-earnings-tabs",
-          "expected_importance_stars": 5,
+          "expected_importance_stars": 3,
           "mode": "preserve_tab_and_event_card_structure"
         },
         "market_observation_highlights": {
