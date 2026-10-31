@@ -7,7 +7,7 @@
     {
       "name": "Monday",
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "git_blob_sha": "0d1cc634708011ef7fac91b47084912daf69c106",
+      "git_blob_sha": "776f778b895c6da781348bcf8fefc1d4719ed4ce",
       "required_title": "TAC 投資早報｜2026/10/26（一）審核版",
       "required_nav_ids": [
         "overview",
@@ -42,7 +42,7 @@
     {
       "name": "Tuesday-Friday",
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "git_blob_sha": "5c008bcb1e17e1f90d3a3fd0b80b2cff9b4244a7",
+      "git_blob_sha": "ab3286750a64aa0fc9fc01af51f819024526a4ba",
       "required_title": "TAC 投資早報｜2026/10/28（三）審核版",
       "required_nav_ids": [
         "overview",
@@ -78,6 +78,7 @@
   ],
   "notes": [
     "Duplicate IDs and unmatched navigation targets fail the master integrity check. Approved changes require reviewed updates to these SHA pins.",
-    "The formal homepage index.html is not a master and is not modified by this guard."
+    "The formal homepage index.html is not a master and is not modified by this guard.",
+    "2026-10-31: Approved 32px accordion control update; SHA pins synchronized after explicit user approval."
   ]
 }
