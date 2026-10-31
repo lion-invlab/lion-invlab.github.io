@@ -37,7 +37,7 @@
           "container": "#last-week-calendar",
           "collapse": "details.last-week-calendar-collapse",
           "items": "details.econ-event",
-          "expected_importance_stars": 5,
+          "expected_importance_stars": 3,
           "mode": "preserve_event_card_structure"
         },
         "last_week_earnings_calendar": {
@@ -123,7 +123,7 @@
     "Do not change either approved mother template, mother-template-manifest.json, TAC_WORK_RULES.md or index.html.",
     "Do not remove or recreate red-circle plus controls, details/summary disclosure nodes, radio tabs, or event-card wrappers.",
     "News counts are exactly 5 focus stories and 10 market headlines; a mismatch is a hard failure, not permission to fabricate or silently truncate.",
-    "Only five-star economic and earnings events may be passed to the renderer.",
+    "Economic calendar: preserve the provider-native 1–3 star scale and include only 3-star events in the curated feed. Earnings events may only carry 1–3 stars when the source explicitly provides that rating; never infer or convert a rating.",
     "Every inserted news item and calendar event must retain source URL and source observation timestamp in its source detail area.",
     "Missing or unverified source data must remain pending; no narrative inference from missing fields.",
     "Market sentiment and summary must cite verified snapshot field IDs and verified content IDs."
