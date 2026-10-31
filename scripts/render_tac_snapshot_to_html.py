@@ -77,6 +77,7 @@ def descendants(n): return list(n.descendants())
 def normalize(value): return re.sub(r"\s+"," ",value).strip()
 def by_id(root,k): return [n for n in root.descendants() if n.attrs.get("id")==k]
 def by_class(root,k): return [n for n in root.descendants() if k in n.classes]
+def direct_children_by_tag(root,tag): return [n for n in root.children if isinstance(n,Node) and n.tag==tag]
 def selector_nodes(root,selector):
     parts=selector.split()
     if len(parts)==1:
@@ -417,10 +418,12 @@ def render(source,snapshot,mapping):
         previous_records=sorted(econ["previous_week_events"],key=lambda item:item["event_time"])
         if len(previous_records)>len(previous_cards): raise ValueError("previous-week economic event count exceeds approved mother capacity")
         previous_title=selector_nodes(previous_econ_container,econ_spec["previous_title_selector"])
-        previous_summary=selector_nodes(previous_econ_container,econ_spec["previous_summary_selector"])
+        previous_collapse=by_class(previous_econ_container,econ_spec["previous_summary_selector"].lstrip("."))
+        if len(previous_collapse)!=1: raise ValueError("previous-week economic collapse wrapper missing or duplicated")
+        previous_summary=direct_children_by_tag(previous_collapse[0],"summary")
         previous_heading=selector_nodes(previous_econ_container,econ_spec["previous_heading_selector"])
         if len(previous_title)!=1 or len(previous_summary)!=1 or len(previous_heading)!=1:
-            raise ValueError("previous-week economic date/heading slots missing: title="+str(len(previous_title))+" summary="+str(len(previous_summary))+" heading="+str(len(previous_heading)))
+            raise ValueError("previous-week economic date/heading slots missing")
         edits.append(make_edit(previous_title[0],econ["previous_week_range"]+"｜台灣時間 UTC+8"))
         edits.append(make_edit(previous_summary[0],"展開上週經濟行事曆（"+econ["previous_week_range"]+"）"))
         edits.append(make_edit(previous_heading[0],"上週已公布｜重要性★★★｜依事件日期排序"))
