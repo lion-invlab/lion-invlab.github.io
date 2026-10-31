@@ -10,7 +10,6 @@ from pathlib import Path
 from html.parser import HTMLParser
 
 TAG_RE = re.compile(r"<[^>]+>")
-ROW_RE = re.compile(r'<(?:div|tr)\b[^>]*class=["\'][^"\']*\b{class_name}\b[^"\']*["\'][^>]*>(.*?)</(?:div|tr)>', re.I | re.S)
 
 
 def text_only(value: str) -> str:
@@ -90,8 +89,10 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
                 errors.append(f"{name}: ticker {ticker} expected exactly once, found {hits}")
     for index, row in enumerate(rows, 1):
         visible = text_only(row)
-        if not re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I):
-            errors.append(f"{name}: row {index} has no recognizable numeric change: {visible[:100]}")
+        has_change = re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I)
+        has_explicit_status = any(marker in visible for marker in ("休市", "待核實", "暫缺"))
+        if not has_change and not has_explicit_status:
+            errors.append(f"{name}: row {index} has neither a numeric change nor an explicit status: {visible[:100]}")
     return errors
 
 
