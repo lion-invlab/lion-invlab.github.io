@@ -63,8 +63,8 @@ def _signature(element, excluded=frozenset()):
     }
 
 
-def _direct_children(wrapper, selector):
-    matches = _query(wrapper.getroottree().getroot(), selector)
+def _direct_children(root, wrapper, selector):
+    matches = _query(root, selector)
     return [item.etree_element for item in matches if item.parent is not None and item.parent.etree_element is wrapper]
 
 
@@ -99,8 +99,8 @@ def validate_repeat_groups(baseline_html: str, candidate_html: str,
             for index, (base_wrapper, candidate_wrapper) in enumerate(
                 zip(base_wrappers, candidate_wrappers)
             ):
-                base_children = _direct_children(base_wrapper, spec.child_selector)
-                candidate_children = _direct_children(candidate_wrapper, spec.child_selector)
+                base_children = _direct_children(base_root, base_wrapper, spec.child_selector)
+                candidate_children = _direct_children(candidate_root, candidate_wrapper, spec.child_selector)
                 base_dynamic.update(base_children)
                 candidate_dynamic.update(candidate_children)
 
