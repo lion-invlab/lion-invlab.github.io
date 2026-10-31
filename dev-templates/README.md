@@ -226,3 +226,14 @@
 - 本次只完成財報卡摘要欄位 Mapping；卡片內各種不同欄位（EPS、營收、觀察重點、公布時段、來源）仍需按 label／結構分別處理，來源 anchor 與含子節點容器不得交由一般 leaf writer 覆寫。Repeat Group 實際資料更新尚未接通，Gate A 尚未完成。
 - Run #147：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41178787398
 
+## 2026-10-31 Run #156｜Repeat Card Label-aware Detail Leaf Guard
+
+- 為本週經濟與財報 Repeat Group 新增明確的 detail-field allowlist 與 label-aware 更新器；Registry 仍為 **94 個候選 selector**，不增加泛用或模糊 selector。
+- 更新器只接受已登記 repeat／monday_only 卡片 selector，逐張卡依固定 label 找到同一欄位的直接 value 子節點；必須唯一命中、value class 正確且沒有子節點。先驗證所有卡片及欄位，再一次寫入，避免中途失敗造成部分更新。
+- 可寫 label 明確限定：週一經濟／財報為「觀察重點」；平日經濟為「市場影響」；平日財報為「財報判讀與股價反應」。這些是兩版既有母版的真實 label 差異，不跨模板套用。
+- 來源欄位（例如「資料來源」「來源」）不在 allowlist；含 anchor 或其他子節點的 value 一律拒絕。測試涵蓋未知 label、更新筆數不符、巢狀 value 拒絕，以及失敗前不會部分寫入。
+- Run #156（41179095028）完整成功：**61 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 個候選 selector cardinality 與測試報告上傳均成功。
+- Run #153–#155 為開發中間版本：初版測試誤假設兩種母版使用相同 label，實際核對後發現平日版分別使用「市場影響」及「財報判讀與股價反應」；已按兩版實際 DOM 調整 allowlist 與測試，Run #156 才是完整驗收版本。
+- 本更新器仍是測試用安全 guard，尚未接入資料匯入器或 Repeat Group 新增／移除流程；不能視為每日自動更新已啟用。Gate A 尚未完成。
+- Run #156：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179095028
+
