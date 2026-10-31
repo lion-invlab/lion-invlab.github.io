@@ -113,14 +113,26 @@ class CalendarRepeatRendererTests(unittest.TestCase):
 
     def test_multiple_events_clone_same_group_prototype_and_shrink_existing_list(self):
         data = _records("weekdays")
-        data["economic_events"] = [dict(data["economic_events"][1], event_id=f"econ-up-{i}") for i in range(2)]
-        data["earnings_events"] = [dict(data["earnings_events"][1], event_id=f"earn-up-{i}") for i in range(2)]
+        econ_rows = data["economic_events"]
+        earnings_rows = data["earnings_events"]
+        data["economic_events"] = [
+            econ_rows[0],
+            dict(econ_rows[1], event_id="econ-up-1"),
+            dict(econ_rows[1], event_id="econ-up-2"),
+            econ_rows[2],
+        ]
+        data["earnings_events"] = [
+            earnings_rows[0],
+            dict(earnings_rows[1], event_id="earn-up-1"),
+            dict(earnings_rows[1], event_id="earn-up-2"),
+            earnings_rows[2],
+        ]
         result = render_weekly_calendar_updates(
             self.weekdays_html, data, self.weekdays_inventory
         )
         root = parse_html(result["html"])
-        self.assertEqual(len(select_wrappers(root, "#calendar .econ-event")), 2)
-        self.assertEqual(len(select_wrappers(root, "#earnings .earnings-accordion")), 2)
+        self.assertEqual(len(select_wrappers(root, "#calendar .econ-event")), 4)
+        self.assertEqual(len(select_wrappers(root, "#earnings .earnings-accordion")), 4)
 
     def test_monday_today_card_is_blocked_without_same_group_prototype(self):
         data = _records("monday")
@@ -149,7 +161,10 @@ class CalendarRepeatRendererTests(unittest.TestCase):
 
     def test_source_anchor_count_mismatch_is_rejected(self):
         data = _records("weekdays")
-        data["economic_events"][1]["source_records"] = data["economic_events"][1]["source_records"][:1]
+        original = data["economic_events"][1]["source_records"][0]
+        data["economic_events"][1]["source_records"] = [
+            dict(original, label=f"Extra source {index}") for index in range(99)
+        ]
         with self.assertRaisesRegex(PermissionError, "no same-group prototype"):
             render_weekly_calendar_updates(self.weekdays_html, data, self.weekdays_inventory)
 
