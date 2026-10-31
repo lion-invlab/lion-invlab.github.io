@@ -193,7 +193,8 @@ def earnings_card(proto,item,soup):
     details=slot(card,".earnings-accordion-details","earnings details")
     fields=details.select(".earnings-detail-field")
     if len(fields)<3: raise ValueError("earnings prototype must contain interpretation, price reaction and source fields")
-    vals=[("財報判讀",item.get("stock_price_reaction") or "待核實"),
+    eps_text="EPS 與營收實際值／預估值如上；是否優於預期須以同口徑市場共識核對。"
+    vals=[("財報判讀",eps_text),
       ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
     for f,(lab,val) in zip(fields[:2],vals):
         put(slot(f,"label","earnings field label"),lab); put(slot(f,".earnings-detail-value","earnings field value"),val)
