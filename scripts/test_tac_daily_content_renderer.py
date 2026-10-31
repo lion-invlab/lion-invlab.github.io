@@ -96,6 +96,8 @@ def run_case(kind,report_date,weekday):
         assert "Reuters" not in soup.select_one("#global-focus").get_text()
         assert len(soup.select("#calendar .econ-event"))==1
         assert len(soup.select("#earnings .earnings-accordion"))==1
+        assert len(soup.select("#calendar .econ-toggle,#calendar .econ-event-toggle"))==1
+        assert len(soup.select("#earnings .earnings-accordion-toggle"))==1
         assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★"
         assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評星"
         assert "Synthetic CPI release" in soup.select_one("#calendar").get_text()
