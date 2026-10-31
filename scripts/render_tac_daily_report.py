@@ -272,6 +272,29 @@ def self_test():
             snapshot["meta"]["report_date"] = report_date
             snapshot["meta"]["trading_date"] = "2026-10-30"
             snapshot["meta"]["generated_at"] = "2026-10-31T12:00:00+08:00"
+            def verified(value, unit, change, change_unit, instrument):
+                return {
+                    "value": value, "unit": unit, "change": change,
+                    "change_unit": change_unit, "status": "verified",
+                    "source": {
+                        "name": "Synthetic renderer self-test",
+                        "url": "https://example.com/synthetic",
+                        "observed_at": "2026-10-31T12:00:00+08:00",
+                        "data_date": "2026-10-30",
+                        "quote_type": "daily_close",
+                        "instrument": instrument,
+                    },
+                    "fallback_used": False, "fallback_reason": None,
+                    "notes": "Synthetic test data; never used in production",
+                }
+            snapshot["global_indices"]["sp500"] = verified(7000.25, "index_point", 1.25, "percent", "S&P 500")
+            snapshot["sectors"]["xlk"] = verified(100.0, "USD_per_share", 1.5, "percent", "XLK")
+            snapshot["bonds"]["us_10y"] = verified(4.25, "percent", -2, "basis_point", "US 10Y Treasury")
+            snapshot["fx"]["usd_twd"] = verified(32.123, "exchange_rate", -0.5, "percent", "USD/TWD")
+            snapshot["energy"]["wti"] = verified(70.22, "USD_per_barrel", -1.2, "percent", "WTI")
+            snapshot["precious_metals"]["silver_si"] = verified(54.321, "USD_per_ounce", 0.3, "percent", "Silver futures")
+            snapshot["risk_indicators"]["vix"] = verified(18.22, "index_point", -2.5, "percent", "VIX")
+            snapshot["risk_indicators"]["cnn_fear_greed"] = verified(45, "score", None, None, "CNN Fear & Greed")
             snapshot_path = Path(tmp) / f"{report_date}.json"
             output_path = Path(tmp) / f"{report_date}.html"
             snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False), encoding="utf-8")
@@ -279,8 +302,9 @@ def self_test():
             if result["template"] != expected_template:
                 raise AssertionError(f"{report_date}: expected {expected_template}, got {result['template']}")
             html = output_path.read_text(encoding="utf-8")
-            if "待核實" not in html:
-                raise AssertionError(f"{report_date}: pending placeholders were not rendered")
+            for expected in ("7,000.25", "+1.50%", "4.25%", "32.123", "70.22", "54.321", "18.22", "45", "待核實"):
+                if expected not in html:
+                    raise AssertionError(f"{report_date}: expected rendered value {expected!r} not found")
             if not output_path.is_file():
                 raise AssertionError(f"{report_date}: output HTML was not created")
             print(f"PASS: {expected_template} template rendered from schema-valid pending snapshot")
