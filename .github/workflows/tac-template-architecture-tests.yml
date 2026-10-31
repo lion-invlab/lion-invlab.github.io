@@ -73,8 +73,7 @@ jobs:
 
       - name: Inventory template-native calendar repeat-group prototypes
         run: |
-          python dev-templates/scripts/tac_calendar_group_inventory.py \\
-            --output architecture-test-results/calendar-group-inventory.json
+          python dev-templates/scripts/tac_calendar_group_inventory.py --output architecture-test-results/calendar-group-inventory.json
 
       - name: Audit candidate selector cardinality
         run: |
