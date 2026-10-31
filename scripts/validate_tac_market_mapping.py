@@ -73,6 +73,11 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
     except ValueError as exc:
         return [f"{name}: {exc}"]
     rows = extract_rows(container, spec["row_class"])
+    if "required_texts" in spec:
+        visible_container = text_only(container)
+        for required_text in spec["required_texts"]:
+            if required_text not in visible_container:
+                errors.append(f"{name}: required text not found: {required_text}")
     expected = spec["expected_count"]
     if len(rows) != expected:
         errors.append(f"{name}: expected {expected} {spec['row_class']} rows, found {len(rows)}")
@@ -133,7 +138,8 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
         visible = text_only(row)
         has_change = re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I)
         has_explicit_status = any(marker in visible for marker in ("休市", "待核實", "暫缺"))
-        if not has_change and not has_explicit_status:
+        allowed_without_change = index in spec.get("allow_no_change_rows", [])
+        if not has_change and not has_explicit_status and not allowed_without_change:
             errors.append(f"{name}: row {index} has neither a numeric change nor an explicit status: {visible[:100]}")
     return errors
 

@@ -104,6 +104,35 @@
         "XLP",
         "XLE"
       ]
+    },
+    "sentiment": {
+      "container_id": "sentiment",
+      "row_class": "sbox",
+      "expected_count": 4,
+      "required_texts": [
+        "VIX",
+        "MOVE",
+        "CNN Fear & Greed",
+        "恐懼與貪婪指數"
+      ],
+      "allow_no_change_rows": [
+        3,
+        4
+      ]
+    },
+    "fedwatch": {
+      "container_id": "fed",
+      "row_class": "fc-prob",
+      "expected_count": 2,
+      "labels": [
+        "維持不變",
+        "升息一碼"
+      ],
+      "required_texts": [
+        "CME FedWatch",
+        "FOMC 會議",
+        "資料時間與快照口徑"
+      ]
     }
   },
   "protected_paths": [
