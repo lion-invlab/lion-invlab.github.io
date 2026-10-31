@@ -372,6 +372,8 @@ jobs:
             /tmp/tac-treasury-yields-2026-10-30.json
             /tmp/tac-auxiliary-markets-2026-10-30.json
             /tmp/tac-news-rss-candidates-2026-11-02.json
+            /tmp/tac-economic-calendar-previous.html
+            /tmp/tac-economic-calendar-current.html
             /tmp/tac-economic-calendar-previous-2026-10-26.json
             /tmp/tac-economic-calendar-current-2026-11-02.json
             /tmp/tac-economic-calendar-previous-fragment-2026-10-26.json
