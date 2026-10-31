@@ -105,13 +105,38 @@ def observations(soup, analysis):
     for key,sel in selectors.items():
         node=slot(soup,sel,"observation "+key)
         item=analysis["market_observation_highlights"][key]
-        text=item.get("text") if item["status"]=="verified" else None
-        keep=[copy.deepcopy(x) for x in node.find_all("details",recursive=False)] if key=="key_levels" else []
+        body=item.get("text") if item["status"]=="verified" else None
+        body=body or "待核實：本分頁內容尚未完成來源核對。"
+        details=[copy.deepcopy(x) for x in node.find_all("details",recursive=False)]
+        heading=copy.deepcopy(node.find("b",recursive=False))
         node.clear()
-        for i,line in enumerate((text or "待核實：本分頁內容尚未完成來源核對。").splitlines()):
-            if i: node.append(soup.new_tag("br"))
-            node.append(NavigableString(line))
-        for x in keep: node.append(x)
+        if key in {"market_view","core_observations"} and heading is not None:
+            node.append(heading); node.append(soup.new_tag("br"))
+            node.append(NavigableString(body))
+        elif key=="key_levels":
+            for i,line in enumerate(body.splitlines()):
+                if i: node.append(soup.new_tag("br"))
+                if "：" in line:
+                    label,rest=line.split("：",1)
+                    b=soup.new_tag("b"); put(b,label+"："); node.append(b)
+                    node.append(NavigableString(rest))
+                elif ":" in line:
+                    label,rest=line.split(":",1)
+                    b=soup.new_tag("b"); put(b,label+":"); node.append(b)
+                    node.append(NavigableString(rest))
+                else: node.append(NavigableString(line))
+        else:
+            node.append(NavigableString(body))
+        for detail in details: node.append(detail)
+
+def update_calendar_sources(soup, data):
+    for selector,coverage_key,label in (
+      ("#calendar > article > .source","economic_calendar","本週經濟行事曆"),
+      ("#earnings > article > .source","earnings_calendar","本週財報行事曆")):
+        node=slot(soup,selector,label+" source note")
+        status=data["coverage"][coverage_key]["status"]
+        note=("來源覆蓋已完成" if status=="complete" else "來源擷取尚未完成，事件清單僅為已取得資料，不代表完整日程")
+        put(node,f"{label}｜報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間，事件依實際日期分流。")
 def sentiment(soup, analysis):
     boxes=soup.select("#sentiment .sent > .sbox")
     if not boxes: raise ValueError("market sentiment interpretation box missing")
@@ -296,6 +321,7 @@ def render(content_path,input_html,output_html):
     if not soup.title or data["meta"]["report_date"].replace("-","/") not in soup.title.get_text(): raise ValueError("HTML title/report date mismatch")
     update_news_meta(soup,data)
     update_section_dates(soup,rd)
+    update_calendar_sources(soup,data)
     summary(soup,data["analysis"])
     news(soup,"#global-focus",data["focus_news"],5,"focus_news")
     news(soup,"#headlines",data["market_headlines"],10,"market_headlines")
