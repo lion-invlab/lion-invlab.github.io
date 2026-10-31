@@ -301,9 +301,9 @@ def render(source,snapshot,mapping):
             if len(anchors)!=len(sources): raise ValueError(group_key+" item "+str(item_index)+" source-link count mismatch")
             edits.append(make_edit(title_nodes[0],record["title"]))
             edits.append(make_edit(summary_nodes[0],record["summary"]))
-            for anchor,source in zip(anchors,sources):
-                edits.append(make_href_edit(anchor,source["url"]))
-                edits.append(make_edit(anchor,source["name"]))
+            for anchor,source_info in zip(anchors,sources):
+                edits.append(make_href_edit(anchor,source_info["url"]))
+                edits.append(make_edit(anchor,source_info["name"]))
     risk_spec=mapping["groups"]["risk_indicators"]
     risk_container=by_id(tree.root,risk_spec["container"].lstrip("#"))
     if len(risk_container)!=1: raise ValueError("risk indicators container missing or duplicated")
