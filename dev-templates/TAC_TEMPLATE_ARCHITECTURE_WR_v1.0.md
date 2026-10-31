@@ -411,3 +411,14 @@
 - 本更新器仍是測試用安全 guard，尚未接入資料匯入器或 Repeat Group 新增／移除流程；不能視為每日自動更新已啟用。Gate A 尚未完成。
 - Run #156：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179095028
 
+## 2026-10-31 Run #163｜Repeat Card Source Anchor Guard
+
+- 在既有 94 個候選 selector 下，新增 Repeat Group 卡片的 label-aware source anchor 更新器；不增加或放寬一般文字 leaf allowlist。
+- 只接受週經濟／週財報卡片 selector 及明確來源 label（經濟「資料來源」；財報「來源／資料來源」）。逐卡找到唯一來源欄位及直接 value 容器，只允許既有直接 anchor leaf 的 href 與文字 label 更新。
+- 更新前先驗證全部卡片：來源 label、value 容器、anchor 數量、anchor 層級、anchor leaf 結構及 URL。只接受絕對 HTTP(S) URL，拒絕 javascript:、無 host、帳密及控制字元；來源 anchor 數量不符或需要新增／刪除 anchor 時拒絕更新。
+- 寫入僅改 anchor href／文字，保留 target、rel、class、tail 及來源容器；所有目標先完成驗證再寫入，避免部分更新。來源欄位仍不得由一般 label-aware text updater 覆寫。
+- 測試涵蓋週一／平日、經濟／財報來源欄位、不同 anchor 數量、屬性保留、錯誤 label、anchor 數量不符、javascript URL 拒絕及失敗不部分寫入。
+- Run #163（41179318013）完整成功：**63 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、94 個候選 selector cardinality 與測試報告上傳成功。
+- 本更新器只更新現有來源 anchor，不建立／刪除 anchor、不接管來源選擇與事實核實，也未接入每日資料匯入或 Repeat Group 新增／移除流程。Gate A 尚未完成。
+- Run #163：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41179318013
+
