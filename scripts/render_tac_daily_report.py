@@ -57,7 +57,7 @@ def choose_template(snapshot: dict, manifest: dict) -> tuple[str, dict]:
     return key, item
 
 
-def record_text(record: dict, field: str) -> str:
+def record_text(record: dict, field: str, decimals: int = 2) -> str:
     if record.get("status") in {"pending_verification", "missing"}:
         return "待核實"
     if record.get("status") == "market_closed":
@@ -69,9 +69,13 @@ def record_text(record: dict, field: str) -> str:
     if field == "change" and unit == "percent":
         return f"{value:+.2f}%"
     if field == "change" and unit == "basis_point":
-        return f"{value:+.1f} bp"
+        rendered = f"{value:+.0f}" if float(value).is_integer() else f"{value:+.1f}"
+        return f"{rendered} bp"
     if isinstance(value, (int, float)):
-        return f"{value:,.2f}"
+        rendered = f"{value:,.{decimals}f}"
+        if field == "value" and unit == "percent":
+            return rendered + "%"
+        return rendered
     return str(value)
 
 
@@ -132,7 +136,7 @@ def apply_group(group, soup, snapshot, spec, allowed):
             if len(slots) < 2:
                 raise ValueError(f"{group}.{key}: expected value and change slots, found {len(slots)}")
             record = snapshot[group][key]
-            replace_text(slots[spec.get("value_index", 0)], record_text(record, "value"), f"{group}.{key}.value")
+            replace_text(slots[spec.get("value_index", 0)], record_text(record, "value", spec.get("value_decimals", {}).get(key, 2)), f"{group}.{key}.value")
             change_slot = slots[spec.get("change_index", 1)]
             replace_text(change_slot, record_text(record, "change"), f"{group}.{key}.change")
             set_state_class(change_slot, state_class(record), allowed)
@@ -155,7 +159,7 @@ def apply_group(group, soup, snapshot, spec, allowed):
             row = unique_row(container, item["row"], lambda n: any(normalized(x.get_text()) == item["key_text"] for x in n.select(".label-en")), f"{group}.{key}")
             value_target = row.select_one(item["value_selector"])
             record = snapshot[group][key]
-            replace_text(value_target, record_text(record, "value"), f"{group}.{key}.value")
+            replace_text(value_target, record_text(record, "value", spec.get("value_decimals", {}).get(key, 2)), f"{group}.{key}.value")
             if item.get("change_selector"):
                 candidates = row.select(item["change_selector"])
                 if len(candidates) != 1:
