@@ -128,7 +128,9 @@ def make_following_text_edit(parent,preceding_node,value):
     except ValueError: raise ValueError("summary label is not a direct child of its paragraph")
     pieces=[]
     for child in parent.children[index+1:]:
-        if isinstance(child,Node): break
+        if isinstance(child,Node):
+            if child.tag=="br": continue
+            break
         if child[0].strip(): pieces.append(child)
     if not pieces: raise ValueError("summary label has no following text slot")
     for previous,current in zip(pieces,pieces[1:]):
@@ -259,12 +261,15 @@ def render(source,snapshot,mapping):
     summary_paragraphs=selector_nodes(summary_containers[0],summary_spec["paragraph_selector"])
     if len(summary_title)!=1 or len(summary_paragraphs)!=1: raise ValueError("summary title/paragraph slots missing")
     points=snapshot["narrative"]["summary"]
-    if snapshot["narrative"]["status"]=="verified" and not 4<=len(points)<=5:
-        raise ValueError("verified summary requires four or five points")
+    if snapshot["narrative"]["status"]=="verified" and len(points) not in (3,4,5):
+        raise ValueError("verified summary requires three to five points")
     if len(points)>5: raise ValueError("summary exceeds five mapped slots")
     edits.append(make_edit(summary_title[0],snapshot["narrative"]["summary_title"] or "總結待核實"))
     labels=selector_nodes(summary_paragraphs[0],summary_spec["label_selector"])
-    if len(labels)!=5: raise ValueError("summary requires exactly five existing label slots")
+    if len(labels) not in (3,5): raise ValueError("summary mother must expose the approved three- or five-label layout")
+    if len(points)>len(labels): raise ValueError("summary points exceed this mother's label capacity")
+    if snapshot["narrative"]["status"]=="verified" and len(labels)==3 and len(points)!=3:
+        raise ValueError("Monday summary requires exactly three points")
     for index,label_node in enumerate(labels):
         if index<len(points):
             point=points[index]
@@ -570,6 +575,13 @@ def self_test():
         source_html=(ROOT/relative).read_text(encoding="utf-8")
         template_snapshot=json.loads(json.dumps(fixture))
         source_tree=Parser(source_html)
+        summary_container=by_id(source_tree.root,"overview")[0]
+        summary_labels=selector_nodes(summary_container,mapping["groups"]["summary"]["paragraph_selector"])
+        summary_label_nodes=selector_nodes(summary_labels[0],mapping["groups"]["summary"]["label_selector"])
+        if len(summary_label_nodes)==3:
+            template_snapshot["narrative"]["summary"]=[{"label":"上週回顧｜","text":"測試上週市場回顧。"},{"label":"本週展望｜","text":"測試本週市場展望。"},{"label":"投資應對｜","text":"測試投資應對。"}]
+        else:
+            template_snapshot["narrative"]["summary"]=[{"label":"市場主軸｜","text":"測試市場主軸。"},{"label":"跨市場｜","text":"測試跨市場觀察。"},{"label":"風險訊號｜","text":"測試風險訊號。"},{"label":"操作結論｜","text":"測試操作結論。"}]
         def make_news_records(container_id,prefix):
             container=by_id(source_tree.root,container_id)[0]
             records=[]
