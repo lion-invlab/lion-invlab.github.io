@@ -74,7 +74,7 @@ jobs:
 
       - name: Run desktop and mobile layout regression
         env:
-          REPORT_PATH: \${{ steps.preview.outputs.path }}
+          REPORT_PATH: ${{ steps.preview.outputs.path }}
         run: |
           if [ -z "$REPORT_PATH" ]; then
             REPORT_PATH="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
@@ -85,7 +85,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-layout-regression-\${{ github.run_id }}
+          name: tac-layout-regression-${{ github.run_id }}
           path: artifacts/tac-layout/
           if-no-files-found: warn
 
@@ -94,20 +94,20 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const runUrl = \`https://github.com/\${context.repo.owner}/\${context.repo.repo}/actions/runs/\${context.runId}\`;
+            const runUrl = `https://github.com/\${context.repo.owner}/\${context.repo.repo}/actions/runs/\${context.runId}`;
             const sha = context.sha;
-            const title = \`TAC report validation failed: \${sha.slice(0, 7)}\`;
+            const title = `TAC report validation failed: \${sha.slice(0, 7)}`;
             const body = [
               "## TAC Daily Report Structural Gate failed",
               "",
-              \`- Workflow run: \${runUrl}\`,
-              \`- Commit: \${sha}\`,
-              \`- Branch: \${context.ref}\`,
-              \`- Event: \${context.eventName}\`,
+              `- Workflow run: \${runUrl}`,
+              `- Commit: \${sha}`,
+              `- Branch: \${context.ref}`,
+              `- Event: \${context.eventName}`,
               "",
               "Do not treat this report as ready for review and do not deploy it.",
               "Inspect the failed job logs, correct the underlying report or validator issue, then rerun the gate."
-            ].join("\\n");
+            ].join("\n");
             const existing = await github.rest.issues.listForRepo({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -122,7 +122,7 @@ jobs:
                 issue_number: match.number,
                 body
               });
-              core.info(\`Updated existing failure issue #\${match.number}\`);
+              core.info(`Updated existing failure issue #\${match.number}`);
             } else {
               const created = await github.rest.issues.create({
                 owner: context.repo.owner,
@@ -130,5 +130,5 @@ jobs:
                 title,
                 body
               });
-              core.info(\`Created failure issue #\${created.data.number}\`);
+              core.info(`Created failure issue #\${created.data.number}`);
             }
