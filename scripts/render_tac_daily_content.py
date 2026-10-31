@@ -131,7 +131,10 @@ def event_bucket(item, report_day):
 def new_anchor(soup,node,src):
     node.clear(); a=soup.new_tag("a"); a["target"]="_blank"; a["rel"]=["noopener"]; node.append(a); source_link(a,src)
 def econ_card(proto,item,soup):
-    card=copy.deepcopy(proto); meta=slot(card,".econ-meta","econ meta")
+    card=copy.deepcopy(proto)
+    if len(card.select(".econ-toggle,.econ-event-toggle"))!=1:
+        raise ValueError("economic event prototype must preserve exactly one existing expand control")
+    meta=slot(card,".econ-meta","econ meta")
     for sel,val in ((".econ-date",date_label(item["event_date"])),
       (".econ-time",dt(item["event_date"]).strftime("%H:%M")),
       (".econ-country",item["region"]),(".econ-name",item["event_name"]),(".econ-stars","★★★")):
@@ -150,7 +153,10 @@ def econ_card(proto,item,soup):
     new_anchor(soup,slot(f,".econ-value","econ source value"),item["source"])
     return card
 def earnings_card(proto,item,soup):
-    card=copy.deepcopy(proto); main=slot(card,".earnings-summary-main","earnings main")
+    card=copy.deepcopy(proto)
+    if len(card.select(".earnings-accordion-toggle"))!=1:
+        raise ValueError("earnings card prototype must preserve exactly one existing expand control")
+    main=slot(card,".earnings-summary-main","earnings main")
     session={"before_market":"美股盤前","after_market":"美股盤後","during_market":"盤中","unknown":"公布時段待核實"}[item["session"]]
     for sel,val in ((".earnings-us-date",date_label(item["event_date"])),
       (".earnings-tw-date",session+"｜台灣時間"),(".earnings-company-name",item["company"]),
