@@ -8,6 +8,7 @@ import html
 import json
 import re
 import sys
+import tempfile
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -145,6 +146,12 @@ def collect(start: datetime, end: datetime, feeds=FEEDS, fetcher=fetch_feed):
                          "errors":errors,"status":"pending_verification"}}
 
 
+
+def write_json_output(path: Path, data: dict) -> None:
+    """Write exactly one standards-compliant JSON document with a real trailing newline."""
+    path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+
+
 def self_test():
     feed={"name":"Investing.com","url":"https://example.com/feed.xml","role":"both"}
     xml="""<?xml version="1.0"?><rss><channel>
@@ -161,6 +168,7 @@ def self_test():
     assert parsed[1]["category"]=="company"
     assert parsed[0]["source"]["url"]=="https://example.com/a"
     assert parsed[0]["status"]=="pending_verification"
+    assert clean_text("alpha\\n beta\\t gamma")=="alpha beta gamma"
     print("PASS: RSS item parsing, canonical article URL and publication time")
     print("PASS: policy/macro and company categories distinguished")
     def fake_fetch(_feed):
@@ -177,6 +185,13 @@ def self_test():
     assert result["collector"]["status"]=="pending_verification"
     assert not result["focus_news"] and not result["market_headlines"]
     print("PASS: empty window remains pending; no synthetic stories")
+    with tempfile.TemporaryDirectory() as temp_dir:
+        output_path=Path(temp_dir)/"rss-candidates.json"
+        write_json_output(output_path,result)
+        round_trip=json.loads(output_path.read_text(encoding="utf-8"))
+        assert round_trip==result
+        assert output_path.read_bytes().endswith(b"\\n")
+    print("PASS: serialized RSS output round-trips as one valid JSON document with a real newline")
 
 
 def main():
@@ -194,7 +209,7 @@ def main():
     start=datetime.fromisoformat(args.window_start.replace("Z","+00:00"))
     end=datetime.fromisoformat(args.window_end.replace("Z","+00:00"))
     result=collect(start,end)
-    Path(args.output).write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    write_json_output(Path(args.output),result)
     print(f"News RSS probe: {result['collector']['items_in_window']} candidates; "
           f"{len(result['focus_news'])}/5 macro focus; {len(result['market_headlines'])}/10 headlines")
     for error in result["collector"]["errors"]:
