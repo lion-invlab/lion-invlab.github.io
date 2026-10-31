@@ -1,0 +1,43 @@
+name: TAC Official CNN and CME Dynamic Browser Probe
+
+on:
+  push:
+    branches: ["tac-snapshot-html-renderer-20261031"]
+    paths:
+      - "scripts/tac_official_dynamic_browser_probe.mjs"
+      - ".github/workflows/tac-official-dynamic-browser-probe.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "scripts/tac_official_dynamic_browser_probe.mjs"
+      - ".github/workflows/tac-official-dynamic-browser-probe.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  official-dynamic-browser-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Test CNN official page and historical JSON endpoint, then CME FedWatch iframe
+        run: node scripts/tac_official_dynamic_browser_probe.mjs
+      - name: Upload raw responses, rendered text, and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-official-dynamic-browser-probe-${{ github.run_id }}
+          path: artifacts/tac-official-dynamic-probe/
+          if-no-files-found: warn
+          retention-days: 14
