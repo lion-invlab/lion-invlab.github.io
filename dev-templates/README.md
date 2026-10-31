@@ -144,3 +144,11 @@
 - Run #99：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176987923
 - Run #100：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176996598
 
+## 2026-10-31 Run #101｜來源連結正反向測試完成
+
+- Run **#101（41177005842）成功**：48 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、DOM 指紋、72 項 selector cardinality 全部通過。
+- 新增測試驗證來源連結更新器可逐一更新 13 個 anchor 的 href／label，同時保留 target／rel；拒絕 javascript: URL、錯誤 selector 與更新筆數不符。
+- Run #101 是來源連結功能的完整測試閉環；Run #99/#100 為 selector 與函式本體的前置驗證。
+- 來源連結更新器仍未接入正式資料匯入與 repeat-group updater。
+- 連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177005842
+
