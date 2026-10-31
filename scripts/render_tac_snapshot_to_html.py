@@ -8,9 +8,9 @@ ROOT=Path(__file__).resolve().parents[1]
 MAP=ROOT/"scripts/tac_html_binding_map.json"
 
 class Node:
-    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None,aria_label_span=None):
+    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None,aria_label_span=None,href_span=None):
         self.tag,self.attrs,self.start=tag,dict(attrs),start
-        self.tag_end,self.class_span,self.style_span,self.aria_label_span=tag_end,class_span,style_span,aria_label_span
+        self.tag_end,self.class_span,self.style_span,self.aria_label_span,self.href_span=tag_end,class_span,style_span,aria_label_span,href_span
         self.end=None; self.children=[]
     @property
     def classes(self): return set((self.attrs.get("class") or "").split())
@@ -30,25 +30,29 @@ class Parser(HTMLParser):
     def pos(self):
         line,col=self.getpos(); return self.lines[line-1]+col
     def handle_starttag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None; href_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if sm: style_span=(p+sm.start(2),p+sm.end(2))
         am=re.search(r"aria-label\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if am: aria_label_span=(p+am.start(2),p+am.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span); self.stack[-1].children.append(n)
+        hm=re.search(r"href\\s*=\\s*(['\\"])(.*?)\\1",raw,re.I)
+        if hm: href_span=(p+hm.start(2),p+hm.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
         else: n.end=p+len(raw)
     def handle_startendtag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None; href_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if sm: style_span=(p+sm.start(2),p+sm.end(2))
         am=re.search(r"aria-label\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if am: aria_label_span=(p+am.start(2),p+am.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span); n.end=p+len(raw); self.stack[-1].children.append(n)
+        hm=re.search(r"href\\s*=\\s*(['\\"])(.*?)\\1",raw,re.I)
+        if hm: href_span=(p+hm.start(2),p+hm.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
@@ -115,6 +119,21 @@ def make_edit(node,value):
             raise ValueError("mapped slot contains non-text gaps: <"+node.tag+"> class="+str(sorted(node.classes)))
     start,end=nodes[0][1],nodes[-1][2]
     return start,end,html.escape(value,quote=False)
+def make_href_edit(node,url):
+    if node.href_span is None: raise ValueError("mapped source link has no href attribute")
+    start,end=node.href_span
+    return start,end,html.escape(url,quote=True)
+def make_following_text_edit(parent,preceding_node,value):
+    try: index=parent.children.index(preceding_node)
+    except ValueError: raise ValueError("summary label is not a direct child of its paragraph")
+    pieces=[]
+    for child in parent.children[index+1:]:
+        if isinstance(child,Node): break
+        if child[0].strip(): pieces.append(child)
+    if not pieces: raise ValueError("summary label has no following text slot")
+    for previous,current in zip(pieces,pieces[1:]):
+        if previous[2]!=current[1]: raise ValueError("summary text slot contains non-text gap")
+    return pieces[0][1],pieces[-1][2],html.escape(value,quote=False)
 def make_status_class_edit(node,status_class):
     if node.class_span is None:
         raise ValueError("status styling requires an explicit class attribute")
@@ -233,6 +252,53 @@ def render(source,snapshot,mapping):
             edits += [make_edit(vals[0],fmt(record["value"],record["unit"]) if ok else "待核實"),
                       make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實"),
                       make_status_class_edit(vals[1],change_status(record))]
+    summary_spec=mapping["groups"]["summary"]
+    summary_containers=by_id(tree.root,summary_spec["container"].lstrip("#"))
+    if len(summary_containers)!=1: raise ValueError("summary container missing or duplicated")
+    summary_title=selector_nodes(summary_containers[0],summary_spec["title_selector"])
+    summary_paragraphs=selector_nodes(summary_containers[0],summary_spec["paragraph_selector"])
+    if len(summary_title)!=1 or len(summary_paragraphs)!=1: raise ValueError("summary title/paragraph slots missing")
+    points=snapshot["narrative"]["summary"]
+    if snapshot["narrative"]["status"]=="verified" and not 4<=len(points)<=5:
+        raise ValueError("verified summary requires four or five points")
+    if len(points)>5: raise ValueError("summary exceeds five mapped slots")
+    edits.append(make_edit(summary_title[0],snapshot["narrative"]["summary_title"] or "總結待核實"))
+    labels=selector_nodes(summary_paragraphs[0],summary_spec["label_selector"])
+    if len(labels)!=5: raise ValueError("summary requires exactly five existing label slots")
+    for index,label_node in enumerate(labels):
+        if index<len(points):
+            point=points[index]
+            edits.append(make_edit(label_node,point["label"]))
+            edits.append(make_following_text_edit(summary_paragraphs[0],label_node,point["text"]))
+        else:
+            edits.append(make_edit(label_node,""))
+            edits.append(make_following_text_edit(summary_paragraphs[0],label_node,""))
+    news_spec=mapping["groups"]["news"]
+    for group_key,container_selector,meta_key in (
+        ("global_focus",news_spec["global_focus_container"],"global_focus_meta"),
+        ("market_headlines",news_spec["market_headlines_container"],"market_headlines_meta")
+    ):
+        containers=by_id(tree.root,container_selector.lstrip("#"))
+        if len(containers)!=1: raise ValueError("news container missing or duplicated: "+group_key)
+        container=containers[0]
+        items=by_class(container,news_spec["item_selector"].lstrip("."))
+        records=snapshot["news"][group_key]
+        if len(items)!=len(records): raise ValueError(group_key+" requires exactly "+str(len(items))+" source-linked items; received "+str(len(records)))
+        meta_nodes=selector_nodes(container,news_spec["meta_selector"])
+        if len(meta_nodes)!=1: raise ValueError(group_key+" selection-window meta slot missing")
+        edits.append(make_edit(meta_nodes[0],snapshot["news"][meta_key]))
+        for item_index,(item,record) in enumerate(zip(items,records),1):
+            title_nodes=selector_nodes(item,news_spec["title_selector"])
+            summary_nodes=selector_nodes(item,news_spec["summary_selector"])
+            anchors=selector_nodes(item,news_spec["source_links_selector"])
+            sources=[record["source"]]+record.get("related_sources",[])
+            if len(title_nodes)!=1 or len(summary_nodes)!=1: raise ValueError(group_key+" item "+str(item_index)+" title/summary slots missing")
+            if len(anchors)!=len(sources): raise ValueError(group_key+" item "+str(item_index)+" source-link count mismatch")
+            edits.append(make_edit(title_nodes[0],record["title"]))
+            edits.append(make_edit(summary_nodes[0],record["summary"]))
+            for anchor,source in zip(anchors,sources):
+                edits.append(make_href_edit(anchor,source["url"]))
+                edits.append(make_edit(anchor,source["name"]))
     risk_spec=mapping["groups"]["risk_indicators"]
     risk_container=by_id(tree.root,risk_spec["container"].lstrip("#"))
     if len(risk_container)!=1: raise ValueError("risk indicators container missing or duplicated")
