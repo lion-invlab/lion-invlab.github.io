@@ -56,6 +56,14 @@ jobs:
             --trading-date "${{ inputs.trading_date }}" \
             --report-date "${{ inputs.report_date }}" \
             --output "artifacts/tac-fx-${{ inputs.trading_date }}.json"
+      - name: Validate risk indicator parser
+        run: python scripts/fetch_tac_risk_indicators.py --self-test
+      - name: Retrieve risk indicators
+        run: |
+          python scripts/fetch_tac_risk_indicators.py \
+            --trading-date "${{ inputs.trading_date }}" \
+            --report-date "${{ inputs.report_date }}" \
+            --output "artifacts/tac-risk-indicators-${{ inputs.trading_date }}.json"
       - name: Summarize retrieved coverage
         run: |
           python - <<'PY'
