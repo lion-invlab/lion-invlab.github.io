@@ -142,8 +142,12 @@ def update_calendar_sources(soup, data):
         title_meta=slot(article,".title small",label+" title metadata")
         coverage=data["coverage"][coverage_key]
         complete=coverage["status"]=="complete"
-        note=("來源覆蓋已完成；僅顯示來源原生 3 星經濟事件及已核實資料。" if complete
-              else "來源擷取尚未完成；目前沒有資料不代表沒有重要事件，請勿視為完整日程。")
+        if complete and coverage_key=="economic_calendar":
+            note="來源覆蓋已完成；僅顯示 Investing.com 原生 3 星經濟事件。"
+        elif complete:
+            note="來源覆蓋已完成；未取得來源原生星等的財報事件標示為未評級／待核實。"
+        else:
+            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件，請勿視為完整日程。"
         put(title_meta,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間。")
         # The locked mothers keep a static guidance note and a separate
         # source-provenance note inside each calendar card. Update only the
