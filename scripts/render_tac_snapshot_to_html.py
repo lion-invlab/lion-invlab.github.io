@@ -364,7 +364,10 @@ def update_earnings_card(card,record,spec,edits):
         if selector_key=="us_date_selector": value=earnings_us_date_label(record["report_time"],record["session"])
         elif selector_key=="tw_date_selector": value=earnings_tw_date_label(record["report_time"],record["session"])
         elif selector_key=="company_selector": value=record["company"]
-        elif selector_key=="company_sub_selector": value=record["ticker"]+"｜重要財報"
+        elif selector_key=="company_sub_selector":
+            existing=normalize(nodes[0].text)
+            suffix=existing.split("｜",1)[1] if "｜" in existing else "重要財報"
+            value=record["ticker"]+"｜"+suffix
         else: value="★★★"
         edits.append(make_edit(nodes[0],value))
         if selector_key=="stars_selector":
@@ -381,11 +384,12 @@ def update_earnings_card(card,record,spec,edits):
         values=selector_nodes(field,spec["detail_value_selector"])
         if len(labels)!=1 or len(values)!=1: raise ValueError("earnings detail label/value slot missing")
         label=normalize(labels[0].text)
-        key=("analysis" if label in ("財報判讀","觀察重點","分析") else
+        key=("analysis" if label in ("財報判讀","觀察重點","分析","財報判讀與股價反應") else
              "stock_reaction" if label in ("股價當日表現","股價反應") else
-             "report_time" if label in ("正式公布時間","公布時間") else
+             "report_time" if label in ("正式公布時間","公布時間","公布時段") else
              "source" if label in ("來源","資料來源") else
-             "eps_estimate" if label in ("EPS 共識","EPS 預估") else None)
+             "eps_estimate" if label in ("EPS 共識","EPS 預估","EPS 預估／實際") else
+             "revenue_estimate" if label in ("營收預估／實際","營收共識") else None)
         if key is None: continue
         seen.add(key)
         if key=="source":
@@ -395,12 +399,19 @@ def update_earnings_card(card,record,spec,edits):
             for anchor,source_info in zip(anchors,sources):
                 edits.append(make_href_edit(anchor,source_info["url"]))
                 edits.append(make_edit(anchor,source_info["name"]))
-        elif key=="analysis": edits.append(make_edit(values[0],record["analysis"] or "待核實"))
+        elif key=="analysis":
+            combined=(record["analysis"] or "待核實")
+            if label=="財報判讀與股價反應": combined+="｜股價反應："+(record["stock_reaction"] or "待核實")
+            edits.append(make_edit(values[0],combined))
         elif key=="stock_reaction": edits.append(make_edit(values[0],record["stock_reaction"] or "待核實"))
         elif key=="report_time": edits.append(make_edit(values[0],earnings_tw_date_label(record["report_time"],record["session"])))
         elif key=="eps_estimate":
             actual=record["eps_actual"] or "待公布"
             estimate=record["eps_estimate"] or "待核實"
+            edits.append(make_edit(values[0],"實際 "+actual+"｜市場預估 "+estimate))
+        elif key=="revenue_estimate":
+            actual=record["revenue_actual"] or "待公布"
+            estimate=record["revenue_estimate"] or "待核實"
             edits.append(make_edit(values[0],"實際 "+actual+"｜市場預估 "+estimate))
     actual_cards=by_class(card,spec["actual_card_selector"].lstrip("."))
     if actual_cards:
