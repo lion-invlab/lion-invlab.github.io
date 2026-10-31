@@ -18,7 +18,7 @@ from zoneinfo import ZoneInfo
 from bs4 import BeautifulSoup
 
 SOURCE_URL = "https://hk.investing.com/economic-calendar/"
-SOURCE_NAME = "Investing.com 香港站"
+SOURCE_NAME = "Investing.com"
 TAIPEI = ZoneInfo("Asia/Taipei")
 
 
@@ -49,7 +49,7 @@ def day_from_header(row, source_tz: ZoneInfo) -> date | None:
     return datetime.fromtimestamp(stamp, tz=timezone.utc).astimezone(source_tz).date()
 
 
-def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo) -> list[dict]:
+def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo, source_url: str = SOURCE_URL) -> list[dict]:
     soup = BeautifulSoup(html, "html.parser")
     current_day: date | None = None
     result: list[dict] = []
@@ -102,11 +102,11 @@ def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo) -> lis
             "impact_judgment": None,
             "source": {
                 "name": SOURCE_NAME,
-                "url": SOURCE_URL,
+                "url": source_url,
                 "published_at": None,
                 "observed_at": observed_at,
                 "publisher": SOURCE_NAME,
-                "notes": "由 Investing.com 香港站正常網頁介面擷取的 HTML；僅保留來源原生 3 星事件。"
+                "notes": "由 Investing.com 官方公開網頁介面擷取的 HTML；僅保留來源原生 3 星事件，來源網址記錄實際成功的區域站點。"
             }
         })
     result.sort(key=lambda item: item["event_date"])
@@ -117,7 +117,9 @@ def build_payload(args) -> dict:
     source_tz = ZoneInfo(args.source_timezone)
     observed_at = datetime.now(timezone.utc).astimezone(TAIPEI).isoformat()
     html = Path(args.input_html).read_text(encoding="utf-8")
-    events = parse_calendar_html(html, observed_at, source_tz)
+    source_match = re.search(r"<!--\\s*tac-source-url:\\s*(https?://[^\\s]+)\\s*-->", html)
+    source_url = source_match.group(1).strip() if source_match else SOURCE_URL
+    events = parse_calendar_html(html, observed_at, source_tz, source_url)
     if args.group == "previous":
         event_key, coverage_key = "previous_economic_events", "previous_economic_calendar"
     else:
@@ -127,12 +129,12 @@ def build_payload(args) -> dict:
         "report_date": args.report_date,
         "trading_date": args.trading_date,
         "observed_at": observed_at,
-        "source": {"name": SOURCE_NAME, "url": SOURCE_URL, "publisher": SOURCE_NAME},
+        "source": {"name": SOURCE_NAME, "url": source_url, "publisher": SOURCE_NAME},
         event_key: events,
         "coverage": {
             coverage_key: {
                 "status": status,
-                "source_refs": [SOURCE_URL],
+                "source_refs": [source_url],
                 "checked_at": observed_at
             }
         }
