@@ -305,7 +305,7 @@ def update_economic_card(card,record,spec,edits):
             edits.append(make_edit(values[0],record[key]))
     if not {"previous","forecast","actual","source"}.issubset(field_seen):
         raise ValueError("economic event "+record["event_id"]+" missing required previous/forecast/actual/source fields")
-    class_edit=make_remove_classes_edit(card,{"four-star","five-star","three-star"})
+    class_edit=make_remove_classes_edit(card,{"four-star","five-star"})
     if class_edit: edits.append(class_edit)
 def update_economic_group(group,status,records,spec,heading_text,edits):
     heading_nodes=by_class(group,spec["heading_selector"].lstrip("."))
@@ -393,6 +393,43 @@ def render(source,snapshot,mapping):
             for anchor,source_info in zip(anchors,sources):
                 edits.append(make_href_edit(anchor,source_info["url"]))
                 edits.append(make_edit(anchor,source_info["name"]))
+    econ_spec=mapping["groups"]["economic_calendar"]
+    econ=snapshot["economic_calendar"]
+    econ_container=by_id(tree.root,econ_spec["container"].lstrip("#"))
+    if len(econ_container)!=1: raise ValueError("current-week economic calendar container missing or duplicated")
+    econ_groups=by_class(econ_container[0],econ_spec["status_group_selector"].lstrip("."))
+    if len(econ_groups)!=3: raise ValueError("economic calendar requires three status groups")
+    current_econ=sorted(econ["current_week_events"],key=lambda item:item["event_time"])
+    for status,index in (("today",0),("upcoming",1),("published",2)):
+        group_records=[item for item in current_econ if event_bucket(item,snapshot["meta"]["report_date"])==status]
+        heading=(("今日公布｜"+snapshot["meta"]["report_date"]+"（台灣時間）") if status=="today" else
+                 ("即將公布｜"+econ["current_week_range"]) if status=="upcoming" else
+                 ("已公布｜"+econ["current_week_range"]))
+        update_economic_group(econ_groups[index],status,group_records,econ_spec,heading+"｜重要性★★★",edits)
+    econ_title=selector_nodes(econ_container[0],".title small")
+    if len(econ_title)!=1: raise ValueError("current-week economic title date slot missing")
+    edits.append(make_edit(econ_title[0],econ["current_week_range"]+"｜更新："+snapshot["meta"]["generated_at"]))
+    previous_econ_container=by_id(tree.root,econ_spec["previous_week_container"].lstrip("#"))
+    if previous_econ_container:
+        if len(previous_econ_container)!=1: raise ValueError("previous-week economic container duplicated")
+        previous_econ_container=previous_econ_container[0]
+        previous_cards=by_class(previous_econ_container,econ_spec["event_card_selector"].lstrip("."))
+        previous_records=sorted(econ["previous_week_events"],key=lambda item:item["event_time"])
+        if len(previous_records)>len(previous_cards): raise ValueError("previous-week economic event count exceeds approved mother capacity")
+        previous_title=selector_nodes(previous_econ_container,".title small")
+        previous_summary=selector_nodes(previous_econ_container,".last-week-calendar-collapse summary")
+        previous_heading=by_class(previous_econ_container,"calendar-status-heading")
+        if len(previous_title)!=1 or len(previous_summary)!=1 or len(previous_heading)!=1:
+            raise ValueError("previous-week economic date/heading slots missing")
+        edits.append(make_edit(previous_title[0],econ["previous_week_range"]+"｜台灣時間 UTC+8"))
+        edits.append(make_edit(previous_summary[0],"展開上週經濟行事曆（"+econ["previous_week_range"]+"）"))
+        edits.append(make_edit(previous_heading[0],"上週已公布｜重要性★★★｜依事件日期排序"))
+        for index,card in enumerate(previous_cards):
+            hidden=make_hidden_edit(card,index>=len(previous_records))
+            if hidden: edits.append(hidden)
+            if index<len(previous_records): update_economic_card(card,previous_records[index],econ_spec,edits)
+    elif econ["previous_week_events"]:
+        raise ValueError("previous-week economic events supplied to weekday mother without previous-week section")
     risk_spec=mapping["groups"]["risk_indicators"]
     risk_container=by_id(tree.root,risk_spec["container"].lstrip("#"))
     if len(risk_container)!=1: raise ValueError("risk indicators container missing or duplicated")
