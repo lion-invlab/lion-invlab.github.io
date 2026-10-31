@@ -148,6 +148,9 @@ def check_template(path: Path, contract: dict) -> list[str]:
                         errors.append(f"{group}.{key}: {selector_key} {selector} missing")
 
         if "outcomes" in spec:
+            meeting_selector = spec.get("fomc_meeting_selector")
+            if meeting_selector and len(selector_nodes(container, meeting_selector)) != 1:
+                errors.append(f"{group}: FOMC meeting date slot {meeting_selector} missing or duplicated")
             row_class = spec["row"].lstrip(".")
             rows = by_class(container, row_class)
             if len(rows) != len(spec["outcomes"]):
