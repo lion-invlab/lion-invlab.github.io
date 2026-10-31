@@ -22,6 +22,7 @@ FIELD_PREFIXES = (
     "fomc_",
     "last_week_econ_",
     "last_week_earnings_",
+    "weekly_econ_",
 )
 
 
@@ -56,6 +57,35 @@ class FieldWriteGuardTests(unittest.TestCase):
                             len(list(match.etree_element)), 0,
                             f"{template}: {item['name']} is not a leaf node",
                         )
+
+    def test_weekly_economic_calendar_fields_are_writable_leaves_in_both_mothers(self):
+        field_names = (
+            "weekly_econ_dates",
+            "weekly_econ_times",
+            "weekly_econ_countries",
+            "weekly_econ_names",
+            "weekly_econ_stars",
+            "weekly_econ_prior_values",
+            "weekly_econ_forecast_values",
+            "weekly_econ_actual_values",
+        )
+        for template in ("monday", "weekdays"):
+            expected_key = "monday" if template == "monday" else "weekdays"
+            for name in field_names:
+                with self.subTest(template=template, field=name):
+                    root = parse_html(self._source(template))
+                    item = self._item(name)
+                    matches = select_wrappers(root, item["selector"])
+                    self.assertEqual(len(matches), item[expected_key])
+                    self.assertTrue(all(len(list(x.etree_element)) == 0 for x in matches))
+                    count = update_registered_leaf_text(
+                        root, item["selector"], "TEST WEEKLY ECON VALUE", self.registry
+                    )
+                    self.assertEqual(count, item[expected_key])
+                    self.assertTrue(all(
+                        x.etree_element.text == "TEST WEEKLY ECON VALUE"
+                        for x in matches
+                    ))
 
     def test_positive_write_updates_only_registered_leaf(self):
         root = parse_html(self._source("monday"))
