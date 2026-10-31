@@ -60,5 +60,5 @@
 - 新增 `scripts/test_tac_template_browser.py`，使用 Playwright／Chromium 驗證 tabs、卡片開合與 320px 行動版列表幾何。
 - Repeat Group 測試涵蓋：合法新增、合法移除、零卡片列表拒絕、卡片 class／style 非法變更、固定連結變更、卡片來源 href 更新、重複 ID、wrapper 變更、固定同層控制變更、wrapper 數量變更及非動態群組筆數變更。Status-group 測試另涵蓋雙向空狀態切換、無原型拒絕、標題 class 保護及固定 DOM 保護。
 - 最新 CI Run **41172663405** 已完成成功：31 項結構／repeat-group／status-group 單元與整合測試、3 項 Chromium 瀏覽器測試、雙母版 SHA 鎖定、HTML5 結構解析、31 個候選 selector 命中數稽核及報告上傳全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41172663405
-- 已新增對兩份唯讀正式母版的真實 DOM 複製測試，模擬每個列表新增同骨架卡片及移除部分卡片，均通過。尚未做瀏覽器互動、手機版及 empty-state 變體驗收，故尚不能啟用開發母版產生、每日自動增刪或部署。
+- 已新增對兩份唯讀正式母版的真實 DOM 複製測試，模擬每個列表新增同骨架卡片及移除部分卡片，均通過。Playwright 瀏覽器互動、320px 手機列表幾何及週一本週區塊 empty-state 雙向切換也已通過 CI；紅圓加號視覺／點擊、日期排序資料層與 11/02 預覽非破壞性測試仍待完成。開發母版尚未產生，故不得啟用每日自動增刪或部署。
 - 以上全部僅在 `tac-template-architecture` 測試分支。正式 WR、兩份正式母版、manifest、首頁及 11/02 預覽均保持不變。
