@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Fetch the 17 fixed TAC global indices from their Investing.com HK history pages.
 
-Live retrieval is disabled unless the operator explicitly confirms written
-permission for automated access, storage, and display/redistribution of source data.
+Attempts ordinary public-page retrieval without a separate operator permission flag.
 Only exact requested trading-date rows are accepted; stale closes are never reused.
+Source access failures are reported as pending and are not bypassed.
 """
 from __future__ import annotations
 
