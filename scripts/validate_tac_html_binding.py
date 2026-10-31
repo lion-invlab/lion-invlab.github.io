@@ -74,9 +74,19 @@ def by_class(root: Node, class_name: str) -> list[Node]:
 
 
 def selector_nodes(root: Node, selector: str) -> list[Node]:
-    if selector.startswith("."):
-        return by_class(root, selector[1:])
-    return [node for node in root.descendants() if node.tag == selector]
+    parts = selector.split()
+    if len(parts) == 1:
+        if parts[0].startswith("."):
+            return by_class(root, parts[0][1:])
+        return [node for node in root.descendants() if node.tag == parts[0]]
+    if len(parts) == 2 and parts[0].startswith("."):
+        result = []
+        for parent in by_class(root, parts[0][1:]):
+            target = parts[1]
+            result.extend(node for node in parent.descendants()
+                          if (node.tag == target if not target.startswith(".") else target[1:] in node.classes))
+        return result
+    return []
 
 
 def normalize(value: str) -> str:
@@ -132,6 +142,10 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     continue
                 if not selector_nodes(rows[0], record["value_selector"]):
                     errors.append(f"{group}.{key}: value selector {record['value_selector']} missing")
+                for selector_key in ("source_selector", "category_selector", "category_zh_selector", "marker_selector"):
+                    selector = record.get(selector_key)
+                    if selector and not selector_nodes(rows[0], selector):
+                        errors.append(f"{group}.{key}: {selector_key} {selector} missing")
 
         if "outcomes" in spec:
             row_class = spec["row"].lstrip(".")
