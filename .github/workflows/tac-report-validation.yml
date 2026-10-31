@@ -36,6 +36,8 @@ on:
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/validate_tac_market_mapping.py"
       - "scripts/tac_market_field_map.json"
+      - "scripts/validate_tac_html_binding.py"
+      - "scripts/tac_html_binding_map.json"
       - "母版專區/mother-template-manifest.json"
       - "母版專區/母版結構驗收清單.md"
       - "scripts/fetch_tac_treasury_yields.py"
