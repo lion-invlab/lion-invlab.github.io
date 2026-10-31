@@ -25,6 +25,7 @@ on:
       - "scripts/fetch_tac_sector_etfs.py"
       - "scripts/fetch_tac_fx.py"
       - "scripts/fetch_tac_risk_indicators.py"
+      - "scripts/fetch_tac_commodities.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -52,6 +53,7 @@ on:
       - "scripts/fetch_tac_sector_etfs.py"
       - "scripts/fetch_tac_fx.py"
       - "scripts/fetch_tac_risk_indicators.py"
+      - "scripts/fetch_tac_commodities.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -115,6 +117,8 @@ jobs:
 
       - name: Test TAC risk-indicator collector parser
         run: python scripts/fetch_tac_risk_indicators.py --self-test
+      - name: Test TAC WTI Brent GC SI commodity collector
+        run: python scripts/fetch_tac_commodities.py --self-test
       - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
         run: |
           python scripts/fetch_tac_treasury_yields.py \
