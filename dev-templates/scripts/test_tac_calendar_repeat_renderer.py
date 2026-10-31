@@ -146,11 +146,12 @@ class CalendarRepeatRendererTests(unittest.TestCase):
         with self.assertRaisesRegex(PermissionError, "empty-state transition"):
             render_weekly_calendar_updates(self.weekdays_html, data, self.weekdays_inventory)
 
-    def test_prior_week_payload_is_not_partially_rendered(self):
+    def test_prior_week_earnings_payload_is_blocked_without_result_grid_mapping(self):
         data = _records("monday")
-        prior = dict(data["economic_events"][0], event_id="prior", status_group="prior_week_published")
-        data["prior_week_economic_events"] = [prior]
-        with self.assertRaisesRegex(PermissionError, "prior-week cards require"):
+        prior = dict(data["earnings_events"][0], event_id="prior-earnings",
+                     status_group="prior_week_published")
+        data["prior_week_earnings_events"] = [prior]
+        with self.assertRaisesRegex(PermissionError, "prior-week earnings cards require"):
             render_weekly_calendar_updates(self.monday_html, data, self.monday_inventory)
 
     def test_detail_schema_mismatch_is_rejected(self):
