@@ -1,11 +1,11 @@
 """Canonical, provenance-preserving calendar dataset contract for TAC.
 
-This is a validation/ordering layer only. It does not fetch data, infer missing
-facts, mutate HTML, or authorize production writes.
+Validation and deterministic ordering only: no fetching, fact inference, HTML
+mutation, or production-write authorization.
 """
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date, datetime, time
 from urllib.parse import urlsplit
 
 from tac_calendar_sort import sort_economic_events, sort_earnings_events
@@ -13,6 +13,8 @@ from tac_calendar_sort import sort_economic_events, sort_earnings_events
 SCHEMA_VERSION = "tac-calendar-dataset-v1"
 TEMPLATES = {"monday", "weekdays"}
 SESSIONS = {"pre_market", "during_market", "after_market", "unspecified"}
+WEEKLY_STATUS_ORDER = ("today", "upcoming", "published")
+PRIOR_WEEK_STATUS = "prior_week_published"
 
 
 def _required_text(value, field):
@@ -34,7 +36,6 @@ def _optional_time(value, field):
         return
     if not isinstance(value, str):
         raise ValueError(f"{field} must be HH:MM, HH:MM:SS, or null")
-    from datetime import time
     try:
         time.fromisoformat(value)
     except ValueError as exc:
@@ -65,13 +66,16 @@ def _validate_sources(sources, field):
             raise ValueError(f"{prefix}.accessed_at must include a timezone offset")
 
 
-def _validate_common(event, index, group):
+def _validate_common(event, index, group, allowed_statuses):
     prefix = f"{group}[{index}]"
     if not isinstance(event, dict):
         raise ValueError(f"{prefix} must be an object")
     _required_text(event.get("event_id"), f"{prefix}.event_id")
     _iso_date(event.get("event_date"), f"{prefix}.event_date")
     _required_text(event.get("event_timezone"), f"{prefix}.event_timezone")
+    status = event.get("status_group")
+    if status not in allowed_statuses:
+        raise ValueError(f"{prefix}.status_group must be one of {sorted(allowed_statuses)}")
     importance = event.get("importance")
     if isinstance(importance, bool) or not isinstance(importance, int) or not 1 <= importance <= 5:
         raise ValueError(f"{prefix}.importance must be an integer from 1 to 5")
@@ -86,6 +90,35 @@ def _validate_common(event, index, group):
     _validate_sources(event.get("source_records"), f"{prefix}.source_records")
 
 
+def _validate_group(events, group, kind, allowed_statuses):
+    if not isinstance(events, list):
+        raise ValueError(f"{group} must be an array")
+    for index, event in enumerate(events):
+        _validate_common(event, index, group, allowed_statuses)
+        if kind == "economic":
+            _required_text(event.get("country"), f"{group}[{index}].country")
+            _required_text(event.get("event_name"), f"{group}[{index}].event_name")
+        else:
+            _iso_date(event.get("taiwan_display_date"), f"{group}[{index}].taiwan_display_date")
+            _required_text(event.get("company_name"), f"{group}[{index}].company_name")
+            subtitle = event.get("subtitle", "")
+            if not isinstance(subtitle, str):
+                raise ValueError(f"{group}[{index}].subtitle must be a string")
+            if event.get("release_session", "unspecified") not in SESSIONS:
+                raise ValueError(f"{group}[{index}].release_session is invalid")
+    ids = [event["event_id"] for event in events]
+    if len(ids) != len(set(ids)):
+        raise ValueError(f"{group} contains duplicate event_id values")
+
+
+def _sort_status_groups(events, sorter):
+    result = []
+    for status in WEEKLY_STATUS_ORDER:
+        subset = [event for event in events if event["status_group"] == status]
+        result.extend(sorter(subset))
+    return result
+
+
 def validate_calendar_dataset(dataset):
     """Validate and return a sorted shallow-copy dataset; never fill missing data."""
     if not isinstance(dataset, dict):
@@ -93,35 +126,26 @@ def validate_calendar_dataset(dataset):
     if dataset.get("schema_version") != SCHEMA_VERSION:
         raise ValueError(f"schema_version must be {SCHEMA_VERSION}")
     _iso_date(dataset.get("report_date"), "report_date")
-    if dataset.get("template") not in TEMPLATES:
+    template = dataset.get("template")
+    if template not in TEMPLATES:
         raise ValueError("template must be monday or weekdays")
 
     economic = dataset.get("economic_events")
     earnings = dataset.get("earnings_events")
-    if not isinstance(economic, list) or not isinstance(earnings, list):
-        raise ValueError("economic_events and earnings_events must be arrays")
+    prior_economic = dataset.get("prior_week_economic_events", [])
+    prior_earnings = dataset.get("prior_week_earnings_events", [])
 
-    for index, event in enumerate(economic):
-        _validate_common(event, index, "economic_events")
-        _required_text(event.get("country"), f"economic_events[{index}].country")
-        _required_text(event.get("event_name"), f"economic_events[{index}].event_name")
+    _validate_group(economic, "economic_events", "economic", set(WEEKLY_STATUS_ORDER))
+    _validate_group(earnings, "earnings_events", "earnings", set(WEEKLY_STATUS_ORDER))
+    _validate_group(prior_economic, "prior_week_economic_events", "economic", {PRIOR_WEEK_STATUS})
+    _validate_group(prior_earnings, "prior_week_earnings_events", "earnings", {PRIOR_WEEK_STATUS})
 
-    for index, event in enumerate(earnings):
-        _validate_common(event, index, "earnings_events")
-        _iso_date(event.get("taiwan_display_date"), f"earnings_events[{index}].taiwan_display_date")
-        _required_text(event.get("company_name"), f"earnings_events[{index}].company_name")
-        subtitle = event.get("subtitle", "")
-        if not isinstance(subtitle, str):
-            raise ValueError(f"earnings_events[{index}].subtitle must be a string")
-        if event.get("release_session", "unspecified") not in SESSIONS:
-            raise ValueError(f"earnings_events[{index}].release_session is invalid")
-
-    for group_name, events in (("economic_events", economic), ("earnings_events", earnings)):
-        ids = [event["event_id"] for event in events]
-        if len(ids) != len(set(ids)):
-            raise ValueError(f"{group_name} contains duplicate event_id values")
+    if template == "weekdays" and (prior_economic or prior_earnings):
+        raise ValueError("weekdays template cannot contain prior-week calendar events")
 
     result = dict(dataset)
-    result["economic_events"] = sort_economic_events(economic)
-    result["earnings_events"] = sort_earnings_events(earnings)
+    result["economic_events"] = _sort_status_groups(economic, sort_economic_events)
+    result["earnings_events"] = _sort_status_groups(earnings, sort_earnings_events)
+    result["prior_week_economic_events"] = sort_economic_events(prior_economic)
+    result["prior_week_earnings_events"] = sort_earnings_events(prior_earnings)
     return result
