@@ -136,15 +136,17 @@ def earnings_card(proto,item,soup):
     put(slot(source_field,"label","earnings source label"),"資料來源")
     new_anchor(soup,slot(source_field,".earnings-detail-value","earnings source value"),item["source"])
     return card
-def calendar_panel(section, records, kind, report_day, coverage, soup):
+def calendar_panel(section, records, kind, report_day, coverage, soup, proto=None):
     panel=slot(section,".week-econ-panels" if kind=="economic" else ".week-earnings-panels",kind+" panels")
     groups=panel.find_all("div",class_="calendar-status-group",recursive=False)
     if len(groups)!=3: raise ValueError(f"{kind}: expected 3 existing tab groups, found {len(groups)}")
     cls="econ-event" if kind=="economic" else "earnings-accordion"
     list_cls="econ-event-list" if kind=="economic" else "earnings-accordion-list"
-    prototypes=panel.select("."+cls)
-    if not prototypes: raise ValueError(kind+" event card prototype missing")
-    proto=prototypes[0]; buckets={"today":[],"upcoming":[],"published":[]}
+    if proto is None:
+        prototypes=panel.select("."+cls)
+        if not prototypes: raise ValueError(kind+" event card prototype missing")
+        proto=prototypes[0]
+    buckets={"today":[],"upcoming":[],"published":[]}
     for item in records: buckets[event_bucket(item,report_day)].append(item)
     for items in buckets.values(): items.sort(key=lambda x:dt(x["event_date"]))
     for bucket,group in zip(("today","upcoming","published"),groups):
