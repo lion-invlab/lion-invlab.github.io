@@ -65,6 +65,8 @@ on:
       - ".github/workflows/tac-report-validation.yml"
   workflow_dispatch:
 
+# PR validation is intentionally limited to source-native, no-secret collectors.
+
 permissions:
   contents: read
   issues: write
