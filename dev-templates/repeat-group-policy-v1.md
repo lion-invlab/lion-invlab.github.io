@@ -80,3 +80,11 @@
 - [ ] 測試 details/summary、紅圓加號、tabs、aria 與手機版互動未受影響。
 - [ ] 瀏覽器 DOM 測試通過。
 - [ ] 使用者明確核准後，才可考慮建立測試用開發母版。
+
+## 目前母版中的實際重複群組定位（候選）
+- 本週經濟事件列表外框：`#calendar .econ-event-list`；子項：`#calendar .econ-event-list > .econ-event`。
+- 本週財報列表外框：`#earnings .earnings-accordion-list`；子項：`#earnings .earnings-accordion-list > .earnings-accordion`。
+- 週一上週經濟列表外框：`#last-week-calendar .econ-event-list`；子項：`#last-week-calendar .econ-event-list > .econ-event`。
+- 週一上週財報列表外框：`#last-week-earnings .earnings-accordion-list`；子項：`#last-week-earnings .earnings-accordion-list > .earnings-accordion`。
+- 同一面板可能有多個 status group／列表；必須逐一保留每個外框及其標題、分類、狀態，不可把多個列表合併成單一列表。
+- 以上 selector 已加入 `selector-registry-v1.json` 做命中數驗證；尚待 CI 實測通過，且仍不授權新增／刪除卡片。
