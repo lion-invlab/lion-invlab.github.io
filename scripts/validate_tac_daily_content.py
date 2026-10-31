@@ -95,46 +95,6 @@ def validate_report_rules(data: dict) -> list[str]:
                 if item.get("eps_actual") is None and item.get("revenue_actual") is None:
                     errors.append(f"{label}: released earnings event requires EPS or revenue actual")
 
-    # Earnings without provider stars may be selected only with an explicit, traceable
-    # major-event assessment; they must not be assigned an invented star.
-    earnings = {
-        "id": "earnings-assessed",
-        "event_date": "2026-11-02T21:00:00+08:00",
-        "company": "Synthetic Example Corp",
-        "ticker": "SYN",
-        "session": "after_market",
-        "importance_stars": None,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "Synthetic test: mega-cap index constituent; source evidence recorded separately",
-        "importance_rating_source": None,
-        "eps_estimate": None,
-        "eps_actual": None,
-        "revenue_estimate": None,
-        "revenue_actual": None,
-        "status": "upcoming",
-        "stock_price_reaction": None,
-        "source": {
-            "name": "Synthetic IR calendar",
-            "url": "https://example.com/earnings",
-            "published_at": None,
-            "observed_at": "2026-10-31T12:00:00+08:00"
-        }
-    }
-    rated = json.loads(json.dumps(sample))
-    rated["earnings_calendar"] = [earnings]
-    schema_errors = list(validator.iter_errors(rated))
-    rule_errors = validate_report_rules(rated)
-    if schema_errors or rule_errors:
-        raise AssertionError("unrated but sourced major-event assessment should pass: " +
-                             "; ".join(e.message for e in schema_errors) + "; ".join(rule_errors))
-    print("PASS: earnings may be selected without stars when major-event basis is traceable")
-
-    bad = json.loads(json.dumps(rated))
-    bad["earnings_calendar"][0]["importance_stars"] = 3
-    if not any("invented star rating" in e for e in validate_report_rules(bad)):
-        raise AssertionError("major-event assessment with an unsupported star unexpectedly passed")
-    print("PASS: earnings assessment cannot invent a star rating")
-
     for item in data["analysis"]["market_observation_highlights"]:
         if not item["source_refs"]:
             errors.append("every market observation highlight requires at least one source reference")
@@ -196,6 +156,47 @@ def self_test(validator, schema):
     if not any("focus_news only accepts" in e for e in validate_report_rules(bad)):
         raise AssertionError("non-macro focus news unexpectedly passed")
     print("PASS: non-macro focus news rejected")
+
+    # Earnings without provider stars may be selected only with an explicit, traceable
+    # major-event assessment; they must not be assigned an invented star.
+    earnings = {
+        "id": "earnings-assessed",
+        "event_date": "2026-11-02T21:00:00+08:00",
+        "company": "Synthetic Example Corp",
+        "ticker": "SYN",
+        "session": "after_market",
+        "importance_stars": None,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "Synthetic test: mega-cap index constituent; source evidence recorded separately",
+        "importance_rating_source": None,
+        "eps_estimate": None,
+        "eps_actual": None,
+        "revenue_estimate": None,
+        "revenue_actual": None,
+        "status": "upcoming",
+        "stock_price_reaction": None,
+        "source": {
+            "name": "Synthetic IR calendar",
+            "url": "https://example.com/earnings",
+            "published_at": None,
+            "observed_at": "2026-10-31T12:00:00+08:00"
+        }
+    }
+    rated = json.loads(json.dumps(sample))
+    rated["earnings_calendar"] = [earnings]
+    schema_errors = list(validator.iter_errors(rated))
+    rule_errors = validate_report_rules(rated)
+    if schema_errors or rule_errors:
+        raise AssertionError("unrated but sourced major-event assessment should pass: " +
+                             "; ".join(e.message for e in schema_errors) + "; ".join(rule_errors))
+    print("PASS: earnings may be selected without stars when major-event basis is traceable")
+
+    bad = json.loads(json.dumps(rated))
+    bad["earnings_calendar"][0]["importance_stars"] = 3
+    if not any("invented star rating" in e for e in validate_report_rules(bad)):
+        raise AssertionError("major-event assessment with an unsupported star unexpectedly passed")
+    print("PASS: earnings assessment cannot invent a star rating")
+
 
 
 def main() -> int:
