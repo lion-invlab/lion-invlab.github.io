@@ -457,3 +457,35 @@
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41180947602
 
 本補充只記錄工程契約及測試狀態，不改變本文件 v1.0-DRAFT 身分，不構成正式採用或每日生產授權。
+
+
+## 2026-10-31 Run #41181717574｜狀態群組與 Repeat Group dry-run 規則補記（維持 DRAFT）
+
+### 1. 語意狀態與母版原型盤點
+
+1. 新增 `scripts/tac_calendar_group_inventory.py`，只讀盤點週一／平日正式母版的本週經濟、本週財報、週一上週經濟及週一上週財報 status groups。CI 輸出 `calendar-group-inventory.json`，包含 heading、語意狀態、list／empty-state 數量、卡片樣本數與同群組原型狀態。
+2. **狀態分類以 heading 可見文字為準，不能只看 CSS class。** 正式週一母版的「今日公布」heading class 可能是 `upcoming`；因此 inventory 另外辨識 today、upcoming、published、prior_week_published。CSS class 僅保留作呈現結構資訊。
+3. 正式母版樣本盤點：週一本週經濟 0／12／0、財報 0／16／0（今日／即將／已公布）；只有即將公布群組有卡片原型。週一上週經濟／財報樣本 3／7 張，兩組有卡片原型。平日本週經濟 2／8／6、財報 4／7／5 張，三種狀態群組均有同群組原型。以上張數只描述目前正式母版樣本，不構成每日筆數限制。
+4. 週一本週經濟／財報今日及已公布群組只有原生 empty-state，沒有同群組卡片原型；不得跨群組複製即將公布卡片。週一上週群組有卡片原型但沒有同區塊 empty-state；平日三個狀態群組均沒有同區塊 empty-state。這些情況必須依以下 planner 規則阻擋，不得自行拼裝節點。
+
+### 2. Repeat Group dry-run planner
+
+1. 新增 `scripts/tac_calendar_repeat_plan.py`。輸入必須先通過 `validate_calendar_dataset`，且 inventory 的 template 必須與資料集一致。
+2. 對每個語意狀態群組分別產生 dry-run 動作：
+   - 有事件且同群組卡片原型存在：`render_list`。
+   - 無事件且本群組已有 empty-state：`keep_empty_state`。
+   - 無事件、原本為列表且同一行事曆區塊已有原生 empty-state：`switch_to_existing_empty_state`。
+   - 平日缺少 empty-state 原型、週一上週區塊缺少 empty-state 原型、需新增事件但同群組缺卡片原型：`blocked`。
+   - 模板不存在且事件集為空：`not_applicable`；若有事件則阻擋。
+3. planner 不修改 HTML、不複製卡片、不刪除節點、不寫入欄位。任何 blocked 結果均不得進入後續 DOM 寫入。
+4. 行事曆資料契約新增 `status_group`，限定 weekly `today/upcoming/published` 及週一 prior-week `prior_week_published`。本週經濟／財報與週一上週經濟／財報分開存放；平日模板不得帶入上週事件。
+5. 新增 8 項 planner 測試；Run #41181717574 完整成功：**100 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過，雙母版 SHA、DOM 指紋、94 selector cardinality、inventory 報告及測試報告上傳均成功。
+
+### 3. 尚未完成及授權邊界
+
+- 尚未實作 repeat card clone／insert／remove／replace DOM 操作。
+- 尚未把標準資料集、排序、detail leaf updater、source anchor updater 串成端到端更新流程。
+- 尚未以真實核實資料集完成雙母版各狀態群組更新與瀏覽器驗收。
+- Gate A 尚未完成；Gate B–D 尚未完成；Gate E 仍待使用者明確核准。
+- 本補記不改變本文件 v1.0-DRAFT 身分，不授權正式每日生產或任何 main／正式首頁／雙母版寫入。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181717574
