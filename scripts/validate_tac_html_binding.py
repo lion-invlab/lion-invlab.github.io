@@ -119,6 +119,9 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 value_nodes = [node for node in matches[0].descendants() if "r" in node.classes]
                 if len(value_nodes) != 1:
                     errors.append(f"{group}.{key}: expected one percentage slot, found {len(value_nodes)}")
+                rank_selector = spec.get("rank_selector")
+                if rank_selector and not selector_nodes(matches[0], rank_selector):
+                    errors.append(f"{group}.{key}: rank slot {rank_selector} missing")
 
         if "records" in spec:
             for key, record in spec["records"].items():
