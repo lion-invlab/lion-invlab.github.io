@@ -41,6 +41,40 @@ class MotherTemplateBrowserTests(unittest.TestCase):
         page.locator('label[for="week-econ-upcoming"]').click()
         page.locator('label[for="week-earnings-upcoming"]').click()
 
+    def _assert_toggle_group(self, page, template, card_selector, toggle_selector):
+        cards = page.locator(card_selector)
+        self.assertGreater(cards.count(), 0, f"{template}: missing cards for {card_selector}")
+
+        for index in range(cards.count()):
+            card = cards.nth(index)
+            toggle = card.locator(f":scope > summary {toggle_selector}")
+            self.assertEqual(
+                toggle.count(), 1,
+                f"{template}: card {index} must have exactly one {toggle_selector}",
+            )
+            before = toggle.evaluate(
+                "(el) => { const s=getComputedStyle(el); return {width:parseFloat(s.width),height:parseFloat(s.height),flexBasis:s.flexBasis,radius:s.borderRadius,background:s.backgroundColor,content:getComputedStyle(el,'::before').content}; }"
+            )
+            self.assertEqual(before["width"], 32, f"{template}: card {index} plus width must be 32px {before}")
+            self.assertEqual(before["height"], 32, f"{template}: card {index} plus height must be 32px {before}")
+            self.assertEqual(before["flexBasis"], "32px", f"{template}: card {index} flex-basis must be 32px {before}")
+            self.assertEqual(before["width"], before["height"], f"{template}: card {index} plus is not square {before}")
+            self.assertEqual(before["radius"], "50%", f"{template}: card {index} plus is not circular {before}")
+            self.assertIn("198, 40, 40", before["background"], f"{template}: card {index} plus is not TAC red {before}")
+
+            card.locator(":scope > summary").click()
+            after = toggle.evaluate(
+                "(el) => { const s=getComputedStyle(el); const p=getComputedStyle(el,'::before'); return {background:s.backgroundColor,pseudoBackground:p.backgroundColor,content:p.content}; }"
+            )
+            self.assertIn("−", after["content"], f"{template}: card {index} plus did not become minus {after}")
+            if toggle_selector == ".econ-toggle":
+                self.assertEqual(after["pseudoBackground"], "rgb(32, 35, 40)", f"{template}: open economic toggle state is wrong {after}")
+            else:
+                self.assertEqual(after["background"], "rgb(32, 35, 40)", f"{template}: open toggle state is wrong {after}")
+
+            card.locator(":scope > summary").click()
+            self.assertFalse(card.evaluate("(el) => el.open"), f"{template}: card {index} did not close")
+
     def test_economic_and_earnings_cards_toggle_in_real_browser(self):
         for name, path in TEMPLATES.items():
             with self.subTest(template=name):
@@ -66,41 +100,38 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                 page = self._open(path)
                 self._activate_upcoming_tabs(page)
 
-                if name == "monday":
-                    prior_week = page.locator("#last-week-calendar details.last-week-calendar-collapse")
-                    prior_week.locator(":scope > summary").click()
-                    econ_card_selector = "#last-week-calendar .econ-event-list details.econ-event:visible"
-                    econ_toggle_selector = ".econ-event-toggle"
-                else:
-                    econ_card_selector = "#calendar .econ-event-list details.econ-event:visible"
-                    econ_toggle_selector = ".econ-toggle"
-
-                cases = (
-                    (econ_card_selector, econ_toggle_selector),
-                    ("#earnings .earnings-accordion-list details.earnings-accordion:visible", ".earnings-accordion-toggle"),
+                # Both templates: current-week economic and earnings cards.
+                self._assert_toggle_group(
+                    page, name,
+                    "#calendar .econ-event-list details.econ-event:visible",
+                    ".econ-toggle",
                 )
-                for card_selector, toggle_selector in cases:
-                    card = page.locator(card_selector).first
-                    self.assertTrue(card.count(), f"{name}: missing visible card {card_selector}")
-                    toggle = card.locator(f":scope > summary {toggle_selector}")
-                    before = toggle.evaluate(
-                        "(el) => { const s=getComputedStyle(el); return {width:parseFloat(s.width),height:parseFloat(s.height),flexBasis:s.flexBasis,radius:s.borderRadius,background:s.backgroundColor,content:getComputedStyle(el,'::before').content}; }"
+                self._assert_toggle_group(
+                    page, name,
+                    "#earnings .earnings-accordion-list details.earnings-accordion:visible",
+                    ".earnings-accordion-toggle",
+                )
+
+                # Monday has two additional prior-week groups. Expand their
+                # outer disclosures before checking every card control.
+                if name == "monday":
+                    prior_econ = page.locator("#last-week-calendar details.last-week-calendar-collapse")
+                    self.assertEqual(prior_econ.count(), 1, "monday: missing prior-week economic disclosure")
+                    prior_econ.locator(":scope > summary").click()
+                    self._assert_toggle_group(
+                        page, name,
+                        "#last-week-calendar .econ-event-list details.econ-event",
+                        ".econ-event-toggle",
                     )
-                    self.assertEqual(before["width"], 32, f"{name}: plus width must be 32px {before}")
-                    self.assertEqual(before["height"], 32, f"{name}: plus height must be 32px {before}")
-                    self.assertEqual(before["flexBasis"], "32px", f"{name}: plus flex-basis must be 32px {before}")
-                    self.assertEqual(before["width"], before["height"], f"{name}: plus is not square {before}")
-                    self.assertEqual(before["radius"], "50%", f"{name}: plus is not circular {before}")
-                    self.assertIn("198, 40, 40", before["background"], f"{name}: plus is not TAC red {before}")
-                    card.locator(":scope > summary").click()
-                    after = toggle.evaluate(
-                        "(el) => { const s=getComputedStyle(el); const p=getComputedStyle(el,'::before'); return {background:s.backgroundColor,pseudoBackground:p.backgroundColor,content:p.content}; }"
+
+                    prior_earnings = page.locator("#last-week-earnings details.last-week-earnings-collapse")
+                    self.assertEqual(prior_earnings.count(), 1, "monday: missing prior-week earnings disclosure")
+                    prior_earnings.locator(":scope > summary").click()
+                    self._assert_toggle_group(
+                        page, name,
+                        "#last-week-earnings .earnings-accordion-list details.earnings-accordion",
+                        ".earnings-accordion-toggle",
                     )
-                    self.assertIn("−", after["content"], f"{name}: plus did not become minus {after}")
-                    if toggle_selector == ".econ-toggle":
-                        self.assertEqual(after["pseudoBackground"], "rgb(32, 35, 40)", f"{name}: open economic toggle state is wrong {after}")
-                    else:
-                        self.assertEqual(after["background"], "rgb(32, 35, 40)", f"{name}: open toggle state is wrong {after}")
                 page.close()
 
     def test_calendar_tabs_switch_in_real_browser(self):
