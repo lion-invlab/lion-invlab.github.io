@@ -238,7 +238,8 @@
       "title_selector": "h3",
       "summary_selector": "p",
       "source_links_selector": ".newsmeta a",
-      "meta_selector": ".tab-panel-meta"
+      "meta_selector": ".tab-panel-meta",
+      "container": "#global-focus"
     }
   },
   "protected_paths": [
