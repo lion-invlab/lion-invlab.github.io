@@ -60,7 +60,8 @@ try {
     requested_start: start,
     requested_end: end,
     event_rows: result.rowCount,
-    day_headers: result.days.length,\n    visible_taipei_dates: result.dayDates,
+    day_headers: result.days.length,
+    visible_taipei_dates: result.dayDates,
     output,
     note: "Saved normal public webpage HTML; parser will independently verify date coverage and native 3-star markers."
   }, null, 2));
