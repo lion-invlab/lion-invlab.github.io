@@ -44,7 +44,7 @@
           "container": "#last-week-earnings",
           "collapse": "details.last-week-earnings-collapse",
           "items": "details.earnings-accordion",
-          "expected_importance_stars": 3,
+          "importance_rule": "only_source_native_3_star_events",
           "mode": "preserve_event_card_structure"
         },
         "economic_calendar": {
@@ -123,7 +123,7 @@
     "Do not change either approved mother template, mother-template-manifest.json, TAC_WORK_RULES.md or index.html.",
     "Do not remove or recreate red-circle plus controls, details/summary disclosure nodes, radio tabs, or event-card wrappers.",
     "News counts are exactly 5 focus stories and 10 market headlines; a mismatch is a hard failure, not permission to fabricate or silently truncate.",
-    "Economic calendar: preserve the provider-native 1–3 star scale and include only 3-star events in the curated feed. Earnings events may only carry 1–3 stars when the source explicitly provides that rating; never infer or convert a rating.",
+    "Economic calendar: preserve the provider-native 1–3 star scale and include only 3-star events in the curated feed. Earnings may display a 3-star rating only when a source explicitly provides it; otherwise importance_stars must be null and the major-event assessment basis/source must be recorded. Never infer or convert a rating.",
     "Every inserted news item and calendar event must retain source URL and source observation timestamp in its source detail area.",
     "Missing or unverified source data must remain pending; no narrative inference from missing fields.",
     "Market sentiment and summary must cite verified snapshot field IDs and verified content IDs."
