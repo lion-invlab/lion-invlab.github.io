@@ -432,6 +432,55 @@
       "monday": 7,
       "weekdays": 0,
       "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_result_labels",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-results-grid .earnings-actual-card-title",
+      "monday": 14,
+      "weekdays": 0,
+      "kind": "fixed_field_labels"
+    },
+    {
+      "name": "last_week_earnings_actual_expectation_labels",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-results-grid .earnings-actual-line > span",
+      "monday": 28,
+      "weekdays": 0,
+      "kind": "fixed_field_labels"
+    },
+    {
+      "name": "last_week_earnings_actual_values",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-results-grid .earnings-actual-line > strong",
+      "monday": 28,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_actual_status",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-results-grid .earnings-actual-status",
+      "monday": 14,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_actual_notes",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-results-grid .earnings-actual-note",
+      "monday": 14,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_analysis_labels",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-detail-field > label",
+      "monday": 21,
+      "weekdays": 0,
+      "kind": "fixed_field_labels"
+    },
+    {
+      "name": "last_week_earnings_analysis_values",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-detail-field > .earnings-detail-value",
+      "monday": 21,
+      "weekdays": 0,
+      "kind": "protected_container_only"
     }
   ],
   "notes": [
