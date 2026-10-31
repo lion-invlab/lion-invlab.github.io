@@ -34,7 +34,7 @@ on:
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   pull_request:
-    branches: ["main"]
+    branches: ["main", "tac-snapshot-html-renderer-20261031"]
     paths:
       - "schemas/tac-daily-content.schema.json"
       - "scripts/validate_tac_daily_content.py"
