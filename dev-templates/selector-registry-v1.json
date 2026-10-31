@@ -71,7 +71,8 @@
       "detail_field_class": "econ-field",
       "detail_value_class": "econ-value",
       "writable_detail_labels": [
-        "觀察重點"
+        "觀察重點",
+        "市場影響"
       ]
     },
     {
@@ -83,7 +84,8 @@
       "detail_field_class": "earnings-detail-field",
       "detail_value_class": "earnings-detail-value",
       "writable_detail_labels": [
-        "觀察重點"
+        "觀察重點",
+        "財報判讀與股價反應"
       ]
     },
     {
