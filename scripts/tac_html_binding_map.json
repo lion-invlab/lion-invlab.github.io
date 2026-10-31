@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "description": "Snapshot binding contract for rendering. Existing DOM and layout are immutable; only mapped text slots, whitelisted status-class tokens, and report-date metadata may change.",
+  "description": "Snapshot binding contract for rendering. Existing DOM and layout remain immutable; mapped text slots and whitelisted state classes may change, and existing sector row nodes may be re-ranked without changing their links or attributes.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
@@ -30,7 +30,8 @@
       "whitelisted status class tokens on mapped value slots",
       "content on meta[name=report-date]"
     ],
-    "preserve_all_non_whitelisted_attributes": true
+    "preserve_all_non_whitelisted_attributes": true,
+    "allow_existing_sector_row_reorder": true
   },
   "groups": {
     "global_indices": {
@@ -104,7 +105,8 @@
         "display_value": "change",
         "display_change": null,
         "display_unit": "change_unit"
-      }
+      },
+      "sort_by_change_desc": true
     },
     "bonds": {
       "container": "#bonds",
