@@ -53,6 +53,10 @@ def normalize(payload: dict) -> dict:
     report_date = date.fromisoformat(payload["report_date"]).isoformat()
     trading_date = date.fromisoformat(payload["trading_date"]).isoformat()
     observed_at = aware_datetime(payload["observed_at"], "observed_at")
+    if date.fromisoformat(report_date).weekday() != 0 and (
+        payload.get("previous_economic_events") or payload.get("previous_earnings_events")
+    ):
+        raise ValueError("previous-week calendar events are only valid in Monday reports")
     base_source = payload["source"]
     if not isinstance(base_source, dict):
         raise ValueError("source must be an object")
