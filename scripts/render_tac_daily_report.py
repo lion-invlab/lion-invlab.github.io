@@ -113,9 +113,7 @@ def unique_row(container, selector: str, predicate, label: str):
     return matches[0]
 
 
-def apply_group(soup, snapshot, spec, allowed):
-    group = next((key for key, value in read_json(BINDING_MAP)["groups"].items()
-                  if value is spec), None)
+def apply_group(group, soup, snapshot, spec, allowed):
     container = soup.select_one(spec["container"])
     if container is None:
         raise ValueError(f"{group}: container {spec['container']} missing")
@@ -170,6 +168,10 @@ def apply_group(soup, snapshot, spec, allowed):
             row = unique_row(container, spec["row"], lambda n: outcome["label"] in normalized(n.get_text(" ", strip=True)), f"{group}.{key}")
             range_target = row.select_one(outcome["rate_range_selector"])
             current_range = normalized(range_target.get_text(" ", strip=True))
+            if snapshot["fedwatch"]["status"] != "verified":
+                replace_text(row.select_one(outcome["probability_selector"]), "待核實", f"fedwatch.{key}.probability")
+                replace_text(range_target, "待核實", f"fedwatch.{key}.rate_range")
+                continue
             candidates = [p for p in probabilities if normalized(p["rate_range"]) in current_range or current_range in normalized(p["rate_range"])]
             if len(candidates) != 1:
                 raise ValueError(f"fedwatch.{key}: cannot uniquely match rate range '{current_range}' to snapshot")
@@ -190,6 +192,8 @@ def tree_signature(soup):
             if key == "class":
                 stable = tuple(x for x in value if x not in STATUS_CLASSES)
                 attrs.append((key, stable))
+            elif key == "content" and node.name == "meta" and node.get("name") == "report-date":
+                attrs.append((key, "<REPORT_DATE>"))
             else:
                 attrs.append((key, str(value)))
         return (node.name, tuple(attrs), tuple(walk(child) for child in node.children))
@@ -214,7 +218,7 @@ def render(snapshot_path: Path, output_path: Path) -> dict:
     before_signature = tree_signature(before)
 
     for group, spec in binding["groups"].items():
-        apply_group(after, snapshot, spec, set(binding["rules"].get("mutable_status_classes", [])))
+        apply_group(group, after, snapshot, spec, set(binding["rules"].get("mutable_status_classes", [])))
 
     # Update only the existing report-date metadata value; do not alter its attributes.
     report_meta = after.select('meta[name="report-date"]')
