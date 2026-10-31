@@ -114,6 +114,91 @@ def update_registered_text_segments(root, selector, values, registry=None):
 
 
 
+
+def update_registered_labeled_source_links(root, card_selector, card_sources, registry=None):
+    """Update only existing anchor href/text nodes in explicitly labeled source fields."""
+    registry = registry or load_registry()
+    candidates = [
+        item for item in registry["selectors"]
+        if item["selector"] == card_selector
+        and item.get("kind") in {"repeat", "monday_only"}
+    ]
+    if len(candidates) != 1:
+        raise PermissionError(
+            f"source card selector must have exactly one repeat registration: {len(candidates)}"
+        )
+    item = candidates[0]
+    allowed = set(item.get("writable_source_labels", []))
+    field_class = item.get("detail_field_class")
+    value_class = item.get("detail_value_class")
+    if not allowed or not field_class or not value_class:
+        raise PermissionError("repeat card has no explicit source-field allowlist")
+
+    cards = select_wrappers(root, card_selector)
+    if len(cards) != len(card_sources):
+        raise ValueError(
+            f"source card update count mismatch: {len(card_sources)} != {len(cards)}"
+        )
+
+    prepared = []
+    for card_index, (wrapper, sources) in enumerate(zip(cards, card_sources)):
+        if not isinstance(sources, dict):
+            raise ValueError(f"card {card_index} sources must be a label/link mapping")
+        if not set(sources).issubset(allowed):
+            raise PermissionError(
+                f"card {card_index} contains non-allowlisted source labels: {sorted(set(sources) - allowed)}"
+            )
+        card = wrapper.etree_element
+        for label_text, links in sources.items():
+            if not isinstance(links, list) or not links:
+                raise ValueError("each source label requires a non-empty list of links")
+            matching_fields = []
+            for field in card.iter():
+                classes = set(field.attrib.get("class", "").split())
+                if field.tag.lower() not in {"div", "section"} or field_class not in classes:
+                    continue
+                labels = [
+                    child for child in list(field)
+                    if child.tag.lower() == "label" and (child.text or "").strip() == label_text
+                ]
+                if labels:
+                    matching_fields.append(field)
+            if len(matching_fields) != 1:
+                raise PermissionError(
+                    f"card {card_index} source label {label_text!r} must match exactly one detail field"
+                )
+            field = matching_fields[0]
+            value_nodes = [
+                child for child in list(field)
+                if value_class in set(child.attrib.get("class", "").split())
+            ]
+            if len(value_nodes) != 1:
+                raise PermissionError("source field must have exactly one adjacent value container")
+            value_node = value_nodes[0]
+            direct_anchors = [child for child in list(value_node) if child.tag.lower() == "a"]
+            all_anchors = [node for node in value_node.iter() if node.tag.lower() == "a"]
+            if len(direct_anchors) != len(all_anchors) or len(direct_anchors) != len(links):
+                raise ValueError("source link count or anchor nesting does not match the existing structure")
+
+            for node, link in zip(direct_anchors, links):
+                if list(node):
+                    raise PermissionError("source anchor must be a leaf node")
+                href = link.get("href")
+                label = link.get("label")
+                if not isinstance(href, str) or not isinstance(label, str) or not label.strip():
+                    raise ValueError("each source link requires a non-empty href and label")
+                parsed = urlsplit(href)
+                if parsed.scheme not in ("http", "https") or not parsed.netloc:
+                    raise ValueError("source links must use absolute http(s) URLs")
+                if parsed.username or parsed.password or any(ord(ch) < 32 for ch in href):
+                    raise ValueError("unsafe source URL")
+                prepared.append((node, href, label))
+
+    for node, href, label in prepared:
+        node.attrib["href"] = href
+        node.text = label
+    return len(prepared)
+
 def update_registered_labeled_leaf_fields(root, card_selector, card_values, registry=None):
     """Update explicitly allowlisted detail labels inside registered repeat cards.
 
