@@ -160,6 +160,12 @@ def self_test():
     else: raise AssertionError("missing exact indicator date must fail closed")
     cnn=extract_cnn_snapshot({"fear_and_greed":{"score":34.5,"rating":"fear","timestamp":"2026-10-30T20:00:00Z"}})
     assert cnn["score"]==34.5 and cnn["rating"]=="fear"
+    try:
+        extract_cnn_snapshot({"fear_and_greed_historical":{"score":50,"timestamp":"2026-10-30T20:00:00Z"}})
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("historical datapoint must not substitute for current CNN snapshot")
     try: extract_cnn_snapshot({"fear_and_greed":{"score":110,"timestamp":"2026-10-30T20:00:00Z"}})
     except ValueError: pass
     else: raise AssertionError("out-of-range CNN score must fail closed")
