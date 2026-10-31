@@ -555,6 +555,7 @@
 - 美國 2 年期公債殖利率：`https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield`
 - 美國 10 年期公債殖利率：`https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield`
 - 美國 30 年期公債殖利率：`https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield`
+- **CME FedWatch 動態快照（2026-10-31 使用者明確指定）：** 每次製作早報時，直接進入 CME 官方 FedWatch 網頁，以實際讀取當下頁面顯示的最新機率分布為準；此資料屬動態市場預期，不套用一般指數／期貨的正式收盤價口徑，也不得沿用前次早報數值冒充當下資料。必須記錄本次實際讀取的台灣日期與時間、FOMC 會議日期、各目標利率區間及機率；確認機率分布合計與卡片／長條圖一致。若頁面無法取得動態機率、無法確認讀取時點或會議資料，標示「待核實」，不得以舊快照或推算值替代。CME 官方 API 需要另行授權，不作為本規則的必要前提。
 
 ### 21.4 外匯、能源及貴金屬
 - DXY：`https://www.investing.com/indices/usdollar`
