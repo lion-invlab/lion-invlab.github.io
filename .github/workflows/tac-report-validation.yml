@@ -11,6 +11,7 @@ on:
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
+      - "scripts/fetch_tac_treasury_yields.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -24,6 +25,7 @@ on:
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
+      - "scripts/fetch_tac_treasury_yields.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
@@ -48,10 +50,20 @@ jobs:
           python-version: "3.12"
 
       - name: Install snapshot schema validator
-        run: python -m pip install jsonschema
+        run: python -m pip install jsonschema requests
 
       - name: Test TAC market snapshot schema
         run: python scripts/validate_tac_daily_snapshot.py --self-test
+
+      - name: Test Treasury collector parser
+        run: python scripts/fetch_tac_treasury_yields.py --self-test
+
+      - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
+        run: |
+          python scripts/fetch_tac_treasury_yields.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "/tmp/tac-treasury-yields-2026-10-30.json"
 
       - name: Test DOM layout contract
         run: python scripts/validate_tac_layout_contract.py --self-test
