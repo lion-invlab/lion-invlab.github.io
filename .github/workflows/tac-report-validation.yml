@@ -84,6 +84,7 @@ on:
 # Economic calendar parser is offline-only; no private API or protected endpoint is called.
 # Risk-indicator source notes and CNN rating are refreshed from the same verified snapshot as the values.
 # Regression assertions scope stale-date checks to the corresponding market block.
+# The weekday mother omits the CNN date line by design; its source disclosure carries the date.
 # Investing.com calendar captures are read-only probes; incomplete coverage never passes the report gate.
 
 permissions:
