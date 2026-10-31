@@ -82,6 +82,7 @@ on:
 # Auxiliary market collectors are included in the clean-main validation branch.
 # Shared parser helpers are pinned to the same tested revision as the auxiliary collector.
 # Economic calendar parser is offline-only; no private API or protected endpoint is called.
+# Risk-indicator source notes and CNN rating are refreshed from the same verified snapshot as the values.
 # Investing.com calendar captures are read-only probes; incomplete coverage never passes the report gate.
 
 permissions:
