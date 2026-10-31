@@ -168,6 +168,21 @@ class CalendarRepeatRendererTests(unittest.TestCase):
         with self.assertRaisesRegex(PermissionError, "no same-group prototype"):
             render_weekly_calendar_updates(self.weekdays_html, data, self.weekdays_inventory)
 
+    def test_stale_inventory_is_rejected_against_source_html(self):
+        data = _records("weekdays")
+        stale = dict(self.weekdays_inventory)
+        stale["sections"] = dict(stale["sections"])
+        stale["sections"]["weekly_economic"] = dict(stale["sections"]["weekly_economic"])
+        stale["sections"]["weekly_economic"]["groups"] = list(
+            stale["sections"]["weekly_economic"]["groups"]
+        )
+        stale["sections"]["weekly_economic"]["groups"][0] = dict(
+            stale["sections"]["weekly_economic"]["groups"][0]
+        )
+        stale["sections"]["weekly_economic"]["groups"][0]["card_count"] += 1
+        with self.assertRaisesRegex(ValueError, "does not match"):
+            render_weekly_calendar_updates(self.weekdays_html, data, stale)
+
     def test_unsafe_source_url_is_rejected_before_returning_html(self):
         data = _records("weekdays")
         data["economic_events"][1]["source_records"][0]["url"] = "javascript:alert(1)"
