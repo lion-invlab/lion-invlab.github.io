@@ -222,6 +222,216 @@
       "monday": 1,
       "weekdays": 0,
       "kind": "monday_only_container"
+    },
+    {
+      "name": "energy_card_meta",
+      "selector": "#tac-assets-panel-3 .energy-card > .tab-panel-meta",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "energy_card_rows",
+      "selector": "#tac-assets-panel-3 .energy-card > .row",
+      "monday": 2,
+      "weekdays": 2,
+      "kind": "fixed_child_group"
+    },
+    {
+      "name": "energy_card_instrument_names",
+      "selector": "#tac-assets-panel-3 .energy-card > .row > b",
+      "monday": 2,
+      "weekdays": 2,
+      "kind": "content"
+    },
+    {
+      "name": "energy_card_quote_values",
+      "selector": "#tac-assets-panel-3 .energy-card > .row > .r",
+      "monday": 4,
+      "weekdays": 4,
+      "kind": "content"
+    },
+    {
+      "name": "energy_card_observation",
+      "selector": "#tac-assets-panel-3 .energy-card > .market-reason",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "protected_container_only"
+    },
+    {
+      "name": "energy_card_sources",
+      "selector": "#tac-assets-panel-3 .energy-card > details.source-details",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "protected_container_only"
+    },
+    {
+      "name": "precious_metals_card_meta",
+      "selector": "#tac-assets-panel-4 article.card > .tab-panel-meta",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "precious_metals_card_rows",
+      "selector": "#tac-assets-panel-4 article.card > .row",
+      "monday": 2,
+      "weekdays": 2,
+      "kind": "fixed_child_group"
+    },
+    {
+      "name": "precious_metals_instrument_names",
+      "selector": "#tac-assets-panel-4 article.card > .row > b",
+      "monday": 2,
+      "weekdays": 2,
+      "kind": "content"
+    },
+    {
+      "name": "precious_metals_quote_values",
+      "selector": "#tac-assets-panel-4 article.card > .row > .r",
+      "monday": 4,
+      "weekdays": 4,
+      "kind": "content"
+    },
+    {
+      "name": "precious_metals_observation",
+      "selector": "#tac-assets-panel-4 article.card > .market-reason",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "protected_container_only"
+    },
+    {
+      "name": "precious_metals_sources",
+      "selector": "#tac-assets-panel-4 article.card > details.source-details",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "protected_container_only"
+    },
+    {
+      "name": "fomc_meeting_value",
+      "selector": "#fed .fed-live-fomc .fc-fomc-meeting > b",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "fomc_press_value",
+      "selector": "#fed .fed-live-fomc .fc-fomc-press > b",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "fomc_rate_value",
+      "selector": "#fed .fed-live-fomc .fc-fomc-rate > b",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "fomc_rate_snapshot_date",
+      "selector": "#fed .fed-live-fomc .fc-fomc-rate > small",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "fomc_observation_value",
+      "selector": "#fed .fed-live-fomc .fc-fomc-observation > b",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "fomc_note",
+      "selector": "#fed .fed-live-fomc .fc-fomc > p",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "protected_container_only"
+    },
+    {
+      "name": "last_week_econ_dates",
+      "selector": "#last-week-calendar .econ-event > summary .econ-date",
+      "monday": 3,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_econ_times",
+      "selector": "#last-week-calendar .econ-event > summary .econ-time",
+      "monday": 3,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_econ_countries",
+      "selector": "#last-week-calendar .econ-event > summary .econ-country",
+      "monday": 3,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_econ_names",
+      "selector": "#last-week-calendar .econ-event > summary .econ-name",
+      "monday": 3,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_econ_stars",
+      "selector": "#last-week-calendar .econ-event > summary .econ-stars",
+      "monday": 3,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_econ_detail_labels",
+      "selector": "#last-week-calendar .econ-event .econ-details .econ-field > label",
+      "monday": 12,
+      "weekdays": 0,
+      "kind": "fixed_field_labels"
+    },
+    {
+      "name": "last_week_econ_detail_values",
+      "selector": "#last-week-calendar .econ-event .econ-details .econ-field > .econ-value",
+      "monday": 12,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_us_dates",
+      "selector": "#last-week-earnings .earnings-accordion > summary .earnings-us-date",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_tw_dates",
+      "selector": "#last-week-earnings .earnings-accordion > summary .earnings-tw-date",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_company_names",
+      "selector": "#last-week-earnings .earnings-accordion > summary .earnings-company-name",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_company_subtitles",
+      "selector": "#last-week-earnings .earnings-accordion > summary .earnings-company-sub",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_stars",
+      "selector": "#last-week-earnings .earnings-accordion > summary .earnings-stars",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
     }
   ],
   "notes": [
