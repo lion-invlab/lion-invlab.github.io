@@ -128,3 +128,10 @@
 - Run **#88（41176456247）成功**：43 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA 鎖定、HTML5 DOM 指紋、61 個 selector cardinality 稽核與報告上傳全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176456247
 - 此排序層尚未接入每日資料整理／更新器，亦未用實際行事曆資料完成端到端排序驗收；目前只代表排序規則與邊界測試通過。
 
+## 2026-10-31 Run #93｜週一上週財報結果欄位定位
+
+- Selector Registry 擴充至 **68 項**，新增 7 個週一上週財報結果 selector。
+- 已定位可安全更新的 leaf：EPS／營收實際與預期值 28 個、優劣狀態 14 個、補充註記 14 個。卡片標題與欄位 label 固定不得寫入；21 個分析值容器含複合文字／連結風險，先列 protected。
+- Run **#93（41176580490）成功**：44 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、HTML5 DOM 指紋及 68 個 selector cardinality 稽核全部通過。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41176580490
+- 仍待定位：週一上週財報的股價當日表現與來源連結安全葉節點，以及分析文字的細部拆分；Gate A 尚未完成。
+
