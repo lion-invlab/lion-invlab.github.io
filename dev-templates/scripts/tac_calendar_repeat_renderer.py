@@ -17,6 +17,7 @@ import html5lib
 from tac_calendar_dataset import validate_calendar_dataset
 from tac_field_write_guard import load_registry
 from tac_calendar_field_mapper import map_calendar_dataset
+from tac_calendar_group_inventory import inventory_calendar_groups
 from tac_repeat_group_validator import GroupSpec, validate_repeat_groups
 
 SECTION_CONFIG = {
@@ -239,6 +240,11 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
     template = validated["template"]
     if not isinstance(template_inventory, dict) or template_inventory.get("template") != template:
         raise ValueError("template inventory must match dataset template")
+    actual_inventory = inventory_calendar_groups(source_html, template)
+    if not actual_inventory["pass"]:
+        raise PermissionError("source HTML does not contain a valid calendar repeat-group inventory")
+    if template_inventory != actual_inventory:
+        raise ValueError("template inventory does not match the supplied source HTML")
     if validated["prior_week_economic_events"] or validated["prior_week_earnings_events"]:
         raise PermissionError("prior-week cards require their dedicated result-card mapping; no partial render allowed")
 
