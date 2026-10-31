@@ -88,20 +88,46 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
             if hits != 1:
                 errors.append(f"{name}: ticker {ticker} expected exactly once, found {hits}")
     if "link_targets" in spec:
-        for label, url in spec["link_targets"].items():
-            label_html = html.escape(label, quote=False)
-            pattern = r'<a\b[^>]*href=["\']' + re.escape(url) + r'["\'][^>]*>\s*' + re.escape(label_html) + r'\s*</a>'
-            if not re.search(pattern, container, re.I):
-                errors.append(f"{name}: label '{label}' missing expected link {url}")
+        if name == "global_markets":
+            actual_links = {}
+            for match in re.finditer(r'<a\b([^>]*)>(.*?)</a>', container, re.I | re.S):
+                attrs, inner = match.groups()
+                classes = re.search(r'\bclass=["\']([^"\']*)["\']', attrs, re.I)
+                if not classes or "global-index-link" not in classes.group(1).split():
+                    continue
+                href = re.search(r'\bhref=["\']([^"\']+)["\']', attrs, re.I)
+                if href:
+                    label_key = re.sub(r"\s+", "", text_only(inner))
+                    actual_links[label_key] = html.unescape(href.group(1))
+            for label, url in spec["link_targets"].items():
+                label_key = re.sub(r"\s+", "", label)
+                if actual_links.get(label_key) != url:
+                    errors.append(
+                        f"{name}: index name '{label}' expected link {url}, "
+                        f"found {actual_links.get(label_key, 'missing')}"
+                    )
+        else:
+            for label, url in spec["link_targets"].items():
+                label_html = html.escape(label, quote=False)
+                pattern = r'<a\b[^>]*href=["\']' + re.escape(url) + r'["\'][^>]*>\s*' + re.escape(label_html) + r'\s*</a>'
+                if not re.search(pattern, container, re.I):
+                    errors.append(f"{name}: label '{label}' missing expected link {url}")
 
     if name == "global_markets":
-        linked_names = container.count('class="global-index-link"')
-        if linked_names != expected:
-            errors.append(f"global_markets: expected {expected} linked index names, found {linked_names}")
-        if "https://www.investing.com/indices/" in container:
-            errors.append("global_markets: found a non-Hong-Kong Investing.com index URL")
-        if "https://hk.investing.com/indices/" not in container:
-            errors.append("global_markets: no Hong Kong Investing.com index URLs found")
+        linked_hrefs = []
+        for match in re.finditer(r'<a\b([^>]*)>(.*?)</a>', container, re.I | re.S):
+            attrs, _ = match.groups()
+            classes = re.search(r'\bclass=["\']([^"\']*)["\']', attrs, re.I)
+            if not classes or "global-index-link" not in classes.group(1).split():
+                continue
+            href = re.search(r'\bhref=["\']([^"\']+)["\']', attrs, re.I)
+            if href:
+                linked_hrefs.append(html.unescape(href.group(1)))
+        if len(linked_hrefs) != expected:
+            errors.append(f"global_markets: expected {expected} linked index names, found {len(linked_hrefs)}")
+        for url in linked_hrefs:
+            if not url.startswith("https://hk.investing.com/indices/"):
+                errors.append(f"global_markets: index link is not on Investing.com Hong Kong: {url}")
 
     for index, row in enumerate(rows, 1):
         visible = text_only(row)

@@ -176,6 +176,45 @@ def inspect(path: Path) -> list[str]:
     if report_date.isoformat() not in source and report_date.strftime("%Y/%m/%d") not in source:
         errors.append(f"report date {path.stem} not found in file content")
 
+    # Canonical Pages previews must retain the approved master's presentation
+    # and behavior code exactly. Dynamic report content may change; CSS/JS may not.
+    if path.parent == ROOT / "preview":
+        for tag in ("style", "script"):
+            block_pattern = rf"<{tag}\b[^>]*>.*?</{tag}>"
+            master_blocks = re.findall(block_pattern, master_source, re.I | re.S)
+            report_blocks = re.findall(block_pattern, source, re.I | re.S)
+            if len(report_blocks) != len(master_blocks):
+                errors.append(
+                    f"{tag} block count differs from approved master: "
+                    f"{len(report_blocks)} vs {len(master_blocks)}"
+                )
+            elif report_blocks != master_blocks:
+                changed = [
+                    str(index + 1)
+                    for index, (master_block, report_block)
+                    in enumerate(zip(master_blocks, report_blocks))
+                    if master_block != report_block
+                ]
+                errors.append(
+                    f"{tag} blocks differ from approved master at positions: "
+                    + ", ".join(changed[:20])
+                )
+
+        # Reuse the fixed market-field contract for the canonical daily preview,
+        # not just for the two protected master templates.
+        market_gate = subprocess.run(
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "validate_tac_market_mapping.py"),
+                "--html",
+                str(path),
+            ],
+            cwd=ROOT, text=True, capture_output=True,
+        )
+        if market_gate.returncode != 0:
+            detail = (market_gate.stdout + "\n" + market_gate.stderr).strip()
+            errors.append("daily preview market-field contract failed: " + detail)
+
     return errors
 
 def main() -> int:
