@@ -409,6 +409,9 @@
         "ticker",
         "session",
         "importance_stars",
+        "importance_basis",
+        "importance_basis_source",
+        "importance_rating_source",
         "eps_estimate",
         "eps_actual",
         "revenue_estimate",
@@ -444,8 +447,20 @@
           ]
         },
         "importance_stars": {
-          "type": "integer",
-          "enum": [1, 2, 3]
+          "type": ["integer", "null"],
+          "enum": [1, 2, 3, null]
+        },
+        "importance_basis": {
+          "enum": ["source_rating", "major_event_assessment"]
+        },
+        "importance_basis_source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "importance_rating_source": {
+          "type": ["string", "null"],
+          "maxLength": 300
         },
         "eps_estimate": {
           "type": [
