@@ -72,9 +72,11 @@ def extract_cnn_snapshot(payload: dict) -> dict:
             for child in value: walk(child)
     walk(payload)
     if not candidates: raise ValueError("CNN official response contains no timestamped score")
-    # Prefer the top-level current fear_and_greed object when present.
+    # Do not silently substitute a historical datapoint when the current object is absent.
     preferred=payload.get("fear_and_greed") or payload.get("fearAndGreed")
-    item=preferred if isinstance(preferred,dict) and "score" in preferred else candidates[0]
+    if not isinstance(preferred,dict) or "score" not in preferred:
+        raise ValueError("CNN current fear_and_greed object missing; historical series is not a substitute")
+    item=preferred
     score=float(item["score"])
     if not math.isfinite(score) or not 0<=score<=100: raise ValueError("CNN score outside 0-100")
     timestamp=item.get("timestamp",item.get("updated_at",item.get("date")))
