@@ -122,7 +122,7 @@ def self_test(validator, schema):
     bad = json.loads(json.dumps(sample))
     bad["economic_calendar"] = [
         {"id":"later","event_date":"2026-10-30T22:00:00+08:00","region":"US","event_name":"Later","importance_stars":3,"previous":None,"forecast":None,"actual":None,"status":"upcoming","impact_judgment":None,"source":{"name":"Test","url":"https://example.com/a","published_at":None,"observed_at":"2026-10-31T12:00:00+08:00"}},
-        {"id":"earlier","event_date":"2026-10-30T20:00:00+08:00","region":"US","event_name":"Earlier","importance_stars":5,"previous":None,"forecast":None,"actual":None,"status":"upcoming","impact_judgment":None,"source":{"name":"Test","url":"https://example.com/b","published_at":None,"observed_at":"2026-10-31T12:00:00+08:00"}}
+        {"id":"earlier","event_date":"2026-10-30T20:00:00+08:00","region":"US","event_name":"Earlier","importance_stars":3,"previous":None,"forecast":None,"actual":None,"status":"upcoming","impact_judgment":None,"source":{"name":"Test","url":"https://example.com/b","published_at":None,"observed_at":"2026-10-31T12:00:00+08:00"}}
     ]
     if not any("sorted by event_date" in e for e in validate_report_rules(bad)):
         raise AssertionError("unsorted economic events unexpectedly passed")
