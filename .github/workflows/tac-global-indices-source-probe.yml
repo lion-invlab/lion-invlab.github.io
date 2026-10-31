@@ -1,6 +1,17 @@
 name: TAC Global Indices Source Probe
 
 on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/tac-global-indices-source-probe.yml"
+      - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_sector_etfs.py"
+      - "scripts/fetch_tac_fx.py"
+      - "scripts/fetch_tac_risk_indicators.py"
+      - "scripts/fetch_tac_commodities.py"
+      - "scripts/fetch_tac_treasury_yields.py"
+      - "scripts/fetch_tac_treasury_fred_fallback.py"
   workflow_dispatch:
     inputs:
       report_date:
@@ -25,6 +36,9 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      REPORT_DATE: ${{ inputs.report_date || '2026-11-02' }}
+      TRADING_DATE: ${{ inputs.trading_date || '2026-10-30' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -39,58 +53,58 @@ jobs:
       - name: Retrieve exact-date Investing.com HK global indices
         run: |
           python scripts/fetch_tac_global_indices.py \
-            --trading-date "${{ inputs.trading_date }}" \
-            --report-date "${{ inputs.report_date }}" \
-            --output "artifacts/tac-global-indices-${{ inputs.trading_date }}.json"
+            --trading-date "${{ env.TRADING_DATE }}" \
+            --report-date "${{ env.REPORT_DATE }}" \
+            --output "artifacts/tac-global-indices-${{ env.TRADING_DATE }}.json"
       - name: Retrieve exact-date Investing.com HK 11 sector ETFs
         run: |
           python scripts/fetch_tac_sector_etfs.py \
-            --trading-date "${{ inputs.trading_date }}" \
-            --report-date "${{ inputs.report_date }}" \
-            --output "artifacts/tac-sector-etfs-${{ inputs.trading_date }}.json"
+            --trading-date "${{ env.TRADING_DATE }}" \
+            --report-date "${{ env.REPORT_DATE }}" \
+            --output "artifacts/tac-sector-etfs-${{ env.TRADING_DATE }}.json"
       - name: Validate six FX source parsers
         run: python scripts/fetch_tac_fx.py --self-test
       - name: Retrieve exact-date FX indicators
         run: |
           python scripts/fetch_tac_fx.py \
-            --trading-date "${{ inputs.trading_date }}" \
-            --report-date "${{ inputs.report_date }}" \
-            --output "artifacts/tac-fx-${{ inputs.trading_date }}.json"
+            --trading-date "${{ env.TRADING_DATE }}" \
+            --report-date "${{ env.REPORT_DATE }}" \
+            --output "artifacts/tac-fx-${{ env.TRADING_DATE }}.json"
       - name: Validate risk indicator parser
         run: python scripts/fetch_tac_risk_indicators.py --self-test
       - name: Retrieve risk indicators
         run: |
           python scripts/fetch_tac_risk_indicators.py \
-            --trading-date "${{ inputs.trading_date }}" \
-            --report-date "${{ inputs.report_date }}" \
-            --output "artifacts/tac-risk-indicators-${{ inputs.trading_date }}.json"
+            --trading-date "${{ env.TRADING_DATE }}" \
+            --report-date "${{ env.REPORT_DATE }}" \
+            --output "artifacts/tac-risk-indicators-${{ env.TRADING_DATE }}.json"
       - name: Validate WTI Brent GC SI commodity parser
         run: python scripts/fetch_tac_commodities.py --self-test
       - name: Retrieve WTI Brent GC SI exchange settlements with documented fallback
         run: |
           python scripts/fetch_tac_commodities.py \
-            --trading-date "${{ inputs.trading_date }}" \
-            --report-date "${{ inputs.report_date }}" \
-            --output "artifacts/tac-commodities-${{ inputs.trading_date }}.json"
+            --trading-date "${{ env.TRADING_DATE }}" \
+            --report-date "${{ env.REPORT_DATE }}" \
+            --output "artifacts/tac-commodities-${{ env.TRADING_DATE }}.json"
       - name: Retrieve Treasury 2Y/10Y/30Y with documented FRED fallback
         run: |
           if python scripts/fetch_tac_treasury_yields.py \
-            --trading-date "${{ inputs.trading_date }}" \
-            --report-date "${{ inputs.report_date }}" \
-            --output "artifacts/tac-treasury-${{ inputs.trading_date }}.json"; then
+            --trading-date "${{ env.TRADING_DATE }}" \
+            --report-date "${{ env.REPORT_DATE }}" \
+            --output "artifacts/tac-treasury-${{ env.TRADING_DATE }}.json"; then
             echo "Primary U.S. Treasury daily par-yield feed verified."
           else
             echo "Primary Treasury feed unavailable; use documented FRED DGS fallback."
             python scripts/fetch_tac_treasury_fred_fallback.py \
-              --trading-date "${{ inputs.trading_date }}" \
-              --report-date "${{ inputs.report_date }}" \
-              --output "artifacts/tac-treasury-fred-fallback-${{ inputs.trading_date }}.json"
+              --trading-date "${{ env.TRADING_DATE }}" \
+              --report-date "${{ env.REPORT_DATE }}" \
+              --output "artifacts/tac-treasury-fred-fallback-${{ env.TRADING_DATE }}.json"
           fi
       - name: Summarize retrieved coverage
         run: |
           python - <<'PY'
           import json, pathlib
-          p = pathlib.Path("artifacts/tac-global-indices-${{ inputs.trading_date }}.json")
+          p = pathlib.Path("artifacts/tac-global-indices-${{ env.TRADING_DATE }}.json")
           data = json.loads(p.read_text(encoding="utf-8"))
           records = data["global_indices"]
           verified = [k for k, v in records.items() if v["status"] == "verified"]
@@ -105,6 +119,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-global-indices-${{ inputs.trading_date }}
+          name: tac-global-indices-${{ env.TRADING_DATE }}
           path: artifacts/
           if-no-files-found: warn
