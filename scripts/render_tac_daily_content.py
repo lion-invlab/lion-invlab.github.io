@@ -50,9 +50,12 @@ def news(soup, selector, records, count, name):
         prefix=f"{i}. " if name=="focus_news" else f"{i:02d}｜"
         put(slot(card,"h3",name+" headline"),prefix+item["headline"])
         put(slot(card,"p",name+" summary"),item["summary"])
-        links=card.select(".newsmeta a")
-        if len(links)!=1: raise ValueError(f"{name}[{i}]: expected one source link")
-        source_link(links[0],item["source"])
+        meta=slot(card,".newsmeta",name+" source metadata")
+        links=meta.select("a")
+        if not links: raise ValueError(f"{name}[{i}]: source link template missing")
+        anchor=copy.deepcopy(links[0])
+        source_link(anchor,item["source"])
+        meta.clear(); meta.append(anchor)
 
 def update_news_meta(soup, data):
     start=data["meta"].get("news_window_start"); end=data["meta"].get("news_window_end")
