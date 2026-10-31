@@ -105,7 +105,7 @@ def run_case(kind,report_date,weekday):
         assert "Reuters" not in soup.select_one("#global-focus").get_text()
         assert len(soup.select("#calendar .econ-event"))==1
         assert len(soup.select("#earnings .earnings-accordion"))==1
-        assert len(soup.select("#calendar .econ-toggle,#calendar .econ-event-toggle"))==1
+        assert len(soup.select("#calendar .econ-event > summary"))==1
         assert len(soup.select("#earnings .earnings-accordion-toggle"))==1
         assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★"
         assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評星"
@@ -123,6 +123,7 @@ def run_case(kind,report_date,weekday):
         assert "Synthetic source" in soup.select_one("#global-focus").get_text()
         if kind=="monday":
             assert len(soup.select("#last-week-calendar .econ-event"))==1
+            assert len(soup.select("#last-week-calendar .econ-event-toggle"))==1
             assert len(soup.select("#last-week-earnings .earnings-accordion"))==1
             assert "Synthetic prior CPI release" in soup.select_one("#last-week-calendar").get_text()
             assert "Prior Synthetic Co" in soup.select_one("#last-week-earnings").get_text()
