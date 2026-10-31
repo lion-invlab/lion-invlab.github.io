@@ -30,17 +30,21 @@ class Parser(HTMLParser):
     def pos(self):
         line,col=self.getpos(); return self.lines[line-1]+col
     def handle_starttag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span); self.stack[-1].children.append(n)
+        sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
+        if sm: style_span=(p+sm.start(2),p+sm.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
         else: n.end=p+len(raw)
     def handle_startendtag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span); n.end=p+len(raw); self.stack[-1].children.append(n)
+        sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
+        if sm: style_span=(p+sm.start(2),p+sm.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
@@ -106,7 +110,7 @@ def make_style_property_edit(node,property_name,value):
         raise ValueError("mapped style attribute missing")
     start,end=node.style_span
     style=node.attrs["style"]
-    match=re.search(r"(?i)(\\b"+re.escape(property_name)+r"\\s*:\\s*)([^;]+)",style)
+    match=re.search(r"(?i)(\b"+re.escape(property_name)+r"\s*:\s*)([^;]+)",style)
     if not match: raise ValueError("mapped style property missing: "+property_name)
     return start+match.start(2),start+match.end(2),value
 def fear_greed_category(score):
