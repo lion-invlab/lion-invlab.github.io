@@ -121,7 +121,7 @@ def run_case(kind,report_date,weekday):
         assert soup.select_one("#view .focus-panel.focus-core .callout > b").get_text(strip=True)=="今日核心觀察："
         assert soup.select_one("#view .focus-panel.focus-levels .compact-disclosure") is not None
         if kind=="monday":
-            assert "報告日期 2026-11-02" in soup.select_one("#calendar > article > .source").get_text()
+            assert "報告日期 2026-11-02" in soup.select_one("#calendar > article .title small").get_text()
         else:
             assert "來源擷取尚未完成" in soup.select_one("#calendar .title small").get_text()
         assert "Synthetic source" in soup.select_one("#global-focus").get_text()
