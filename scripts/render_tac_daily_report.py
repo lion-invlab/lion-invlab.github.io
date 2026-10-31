@@ -147,8 +147,36 @@ def apply_group(group, soup, snapshot, spec, allowed):
         rows = container.select(spec["row"])
         if len(rows) != len(spec["key_by_ticker"]):
             raise ValueError(f"{group}: expected {len(spec['key_by_ticker'])} sector rows, found {len(rows)}")
+        row_by_ticker = {}
+        for row in rows:
+            label = row.select_one(".sector-label small")
+            links = label.select("a") if label else []
+            ticker = normalized(links[-1].get_text(" ", strip=True)) if links else ""
+            if not ticker or ticker in row_by_ticker:
+                raise ValueError(f"{group}: missing or duplicated sector ticker in row: {ticker!r}")
+            row_by_ticker[ticker] = row
+        if set(row_by_ticker) != set(spec["key_by_ticker"].values()):
+            raise ValueError(
+                f"{group}: sector ticker set mismatch; expected={sorted(spec['key_by_ticker'].values())}, "
+                f"found={sorted(row_by_ticker)}"
+            )
+        if spec.get("sort_by_change_desc"):
+            ordered_keys = sorted(
+                spec["key_by_ticker"],
+                key=lambda key: (
+                    snapshot[group][key].get("status") == "verified",
+                    snapshot[group][key].get("change") if snapshot[group][key].get("change") is not None else float("-inf"),
+                ),
+                reverse=True,
+            )
+            parent = rows[0].parent
+            if any(row.parent is not parent for row in rows):
+                raise ValueError(f"{group}: sector rows do not share one parent container")
+            # Move the existing row nodes as intact units. Their labels, links and hrefs stay paired.
+            for key in ordered_keys:
+                parent.append(row_by_ticker[spec["key_by_ticker"][key]])
         for key, ticker in spec["key_by_ticker"].items():
-            row = unique_row(container, spec["row"], lambda n: re.search(r"(?<![A-Z0-9])" + re.escape(ticker) + r"(?![A-Z0-9])", normalized(n.get_text(" ", strip=True))) is not None, f"{group}.{key}")
+            row = row_by_ticker[ticker]
             slots = row.select(spec["value_selector"])
             if len(slots) != 1:
                 raise ValueError(f"{group}.{key}: expected one sector return slot, found {len(slots)}")
@@ -206,7 +234,12 @@ def tree_signature(soup):
                 attrs.append((key, "<REPORT_DATE>"))
             else:
                 attrs.append((key, str(value)))
-        return (node.name, tuple(attrs), tuple(walk(child) for child in node.children))
+        children = [walk(child) for child in node.children]
+        # Sector rows may be re-ranked by daily return, but the exact same row nodes,
+        # labels, links and attributes must remain present. Compare this one list order-independently.
+        if "sector-list" in node.get("class", []):
+            children = sorted(children, key=repr)
+        return (node.name, tuple(attrs), tuple(children))
     return tuple(walk(child) for child in soup.contents)
 
 
@@ -288,7 +321,11 @@ def self_test():
                     "notes": "Synthetic test data; never used in production",
                 }
             snapshot["global_indices"]["sp500"] = verified(7000.25, "index_point", 1.25, "percent", "S&P 500")
-            snapshot["sectors"]["xlk"] = verified(100.0, "USD_per_share", 1.5, "percent", "XLK")
+            sector_keys = list(snapshot["sectors"])
+            for rank, key in enumerate(sector_keys):
+                snapshot["sectors"][key] = verified(
+                    100.0 + rank, "USD_per_share", float(rank), "percent", key.upper()
+                )
             snapshot["bonds"]["us_10y"] = verified(4.25, "percent", -2, "basis_point", "US 10Y Treasury")
             snapshot["fx"]["usd_twd"] = verified(32.123, "exchange_rate", -0.5, "percent", "USD/TWD")
             snapshot["energy"]["wti"] = verified(70.22, "USD_per_barrel", -1.2, "percent", "WTI")
@@ -307,7 +344,25 @@ def self_test():
                     raise AssertionError(f"{report_date}: expected rendered value {expected!r} not found")
             if not output_path.is_file():
                 raise AssertionError(f"{report_date}: output HTML was not created")
+            rendered_soup = BeautifulSoup(html, "html.parser")
+            rendered_rows = rendered_soup.select("#tac-assets-panel-0 .sector-row")
+            rendered_tickers = [
+                normalized((row.select(".sector-label small a")[-1]).get_text(" ", strip=True))
+                for row in rendered_rows
+            ]
+            sector_map = read_json(BINDING_MAP)["groups"]["sectors"]["key_by_ticker"]
+            expected_tickers = [
+                sector_map[key] for key in sorted(
+                    sector_keys, key=lambda key: snapshot["sectors"][key]["change"], reverse=True
+                )
+            ]
+            if rendered_tickers != expected_tickers:
+                raise AssertionError(
+                    f"{report_date}: sector rows not ranked by daily return; "
+                    f"expected={expected_tickers}, got={rendered_tickers}"
+                )
             print(f"PASS: {expected_template} template rendered from synthetic verified/pending snapshot")
+            print("PASS: 11 sector ETF rows re-ranked by daily return without breaking their links")
     print("PASS: both approved mothers render without changing DOM structure or protected files")
 
 
