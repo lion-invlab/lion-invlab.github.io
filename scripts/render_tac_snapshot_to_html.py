@@ -38,7 +38,7 @@ class Parser(HTMLParser):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
             if self.stack[i].tag==tag:
-                self.stack[i].end=p+len(self.get_starttag_text() or ("</"+tag+">")); del self.stack[i:]; break
+                self.stack[i].end=p+len("</"+tag+">"); del self.stack[i:]; break
     def handle_data(self,data):
         p=self.pos(); self.stack[-1].children.append((data,p,p+len(data)))
     def handle_entityref(self,name):
@@ -121,6 +121,7 @@ def main():
     ap.add_argument("--self-test",action="store_true")
     ap.add_argument("--html"); ap.add_argument("--snapshot")
     ap.add_argument("--output"); ap.add_argument("--template",choices=("monday","weekday"))
+    ap.add_argument("--expected-report-date"); ap.add_argument("--expected-trading-date")
     a=ap.parse_args()
     if a.self_test:
         self_test(); return
@@ -131,6 +132,9 @@ def main():
     snap=json.loads(Path(a.snapshot).read_text(encoding="utf-8"))
     errors=list(validator.iter_errors(snap))
     if errors: raise ValueError("snapshot schema invalid: "+"; ".join(e.message for e in errors[:5]))
+    for arg,field in ((a.expected_report_date,"report_date"),(a.expected_trading_date,"trading_date")):
+        if arg and snap["meta"][field] != arg:
+            raise ValueError(field+" mismatch: expected "+arg+", got "+str(snap["meta"][field]))
     mapping=json.loads(MAP.read_text(encoding="utf-8"))
     expected=mapping["templates"][a.template]
     if Path(a.html).as_posix()!=expected: raise ValueError("input is not the approved "+a.template+" mother")
