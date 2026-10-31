@@ -29,14 +29,12 @@ def _tag(element):
     return tag.rsplit("}", 1)[-1].lower() if isinstance(tag, str) else "#text"
 
 
-def _attrs(element):
+def _attrs(element, ignore_href=False):
     attrs = element.attrib
     return {
-        "id": attrs.get("id", ""),
-        "classes": sorted((attrs.get("class") or "").split()),
-        "stable": sorted(
+        "attributes": sorted(
             (key, value) for key, value in attrs.items()
-            if key in STABLE_ATTRS or key.startswith(("aria-", "data-", "on"))
+            if not (ignore_href and key == "href")
         ),
     }
 
@@ -50,15 +48,15 @@ def _query(root, selector):
     return list(wrapped.query_all(selector))
 
 
-def _signature(element, excluded=frozenset()):
+def _signature(element, excluded=frozenset(), ignore_href=False):
     children = []
     for child in list(element):
         if child in excluded:
             continue
-        children.append(_signature(child, excluded))
+        children.append(_signature(child, excluded, ignore_href))
     return {
         "tag": _tag(element),
-        **_attrs(element),
+        **_attrs(element, ignore_href=ignore_href),
         "children": children,
     }
 
@@ -66,6 +64,15 @@ def _signature(element, excluded=frozenset()):
 def _direct_children(root, wrapper, selector):
     matches = _query(root, selector)
     return [item.etree_element for item in matches if item.parent is not None and item.parent.etree_element is wrapper]
+
+
+def _duplicate_id_counts(root):
+    counts = {}
+    for node in root.iter():
+        node_id = node.attrib.get("id") if hasattr(node, "attrib") else None
+        if node_id:
+            counts[node_id] = counts.get(node_id, 0) + 1
+    return {node_id: count for node_id, count in counts.items() if count > 1}
 
 
 def _assets(root):
@@ -108,9 +115,9 @@ def validate_repeat_groups(baseline_html: str, candidate_html: str,
                     candidate_wrapper, set(candidate_children)
                 )
                 if base_children:
-                    prototypes = {_freeze(_signature(child)) for child in base_children}
+                    prototypes = {_freeze(_signature(child, ignore_href=True)) for child in base_children}
                     skeleton_ok = all(
-                        _freeze(_signature(child)) in prototypes
+                        _freeze(_signature(child, ignore_href=True)) in prototypes
                         for child in candidate_children
                     )
                 else:
@@ -137,8 +144,10 @@ def validate_repeat_groups(baseline_html: str, candidate_html: str,
         candidate_root, candidate_dynamic
     )
     assets_equal = _assets(base_root) == _assets(candidate_root)
+    duplicate_ids_equal = _duplicate_id_counts(base_root) == _duplicate_id_counts(candidate_root)
     checks = {
         "fixed_dom_outside_repeat_children_equal": fixed_dom_equal,
+        "repeat_card_ids_remain_unique": duplicate_ids_equal,
         "inline_css_js_equal": assets_equal,
         "all_repeat_groups_valid": all(item["pass"] for item in group_results.values()),
     }
