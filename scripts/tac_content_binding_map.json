@@ -9,7 +9,11 @@
           "container": "main.wrap > section.grid.two article.bluf",
           "headline": "h1",
           "body": "p",
-          "mode": "replace_text_only"
+          "mode": "replace_text_only",
+          "schema_fields": {
+            "headline": "analysis.summary.headline",
+            "body": "analysis.summary.text"
+          }
         },
         "market_sentiment": {
           "container": "#sentiment",
@@ -38,32 +42,51 @@
           "collapse": "details.last-week-calendar-collapse",
           "items": "details.econ-event",
           "expected_importance_stars": 3,
-          "mode": "preserve_event_card_structure"
+          "mode": "preserve_event_card_structure",
+          "schema_fields": "previous_economic_calendar"
         },
         "last_week_earnings_calendar": {
           "container": "#last-week-earnings",
           "collapse": "details.last-week-earnings-collapse",
           "items": "details.earnings-accordion",
           "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
-          "mode": "preserve_event_card_structure"
+          "mode": "preserve_event_card_structure",
+          "schema_fields": "previous_earnings_calendar"
         },
         "economic_calendar": {
           "container": "#calendar",
           "items": ".econ-event",
           "tabs": ".week-econ-tabs",
           "expected_importance_stars": 3,
-          "mode": "preserve_tab_and_event_card_structure"
+          "mode": "preserve_tab_and_event_card_structure",
+          "schema_fields": "economic_calendar"
         },
         "earnings_calendar": {
           "container": "#earnings",
           "items": ".earnings-accordion",
           "tabs": ".week-earnings-tabs",
           "mode": "preserve_tab_and_event_card_structure",
-          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment"
+          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
+          "schema_fields": "earnings_calendar"
         },
         "market_observation_highlights": {
           "container": "#view",
-          "mode": "replace_existing_text_nodes_only"
+          "mode": "update_existing_panel_content_without_replacing_tab_or_disclosure_wrappers",
+          "panels": {
+            "market_view": {
+              "selector": ".focus-panel.focus-market .key",
+              "schema_field": "analysis.market_observation_highlights.market_view"
+            },
+            "key_levels": {
+              "selector": ".focus-panel.focus-levels .key",
+              "schema_field": "analysis.market_observation_highlights.key_levels"
+            },
+            "core_observations": {
+              "selector": ".focus-panel.focus-core .callout",
+              "schema_field": "analysis.market_observation_highlights.core_observations"
+            }
+          },
+          "preserve_nested_disclosures": true
         }
       }
     },
@@ -74,7 +97,11 @@
           "container": "main.wrap > section.grid.two article.bluf",
           "headline": "h1",
           "body": "p",
-          "mode": "replace_text_only"
+          "mode": "replace_text_only",
+          "schema_fields": {
+            "headline": "analysis.summary.headline",
+            "body": "analysis.summary.text"
+          }
         },
         "market_sentiment": {
           "container": "#sentiment",
@@ -103,18 +130,35 @@
           "items": ".econ-event",
           "tabs": ".week-econ-tabs",
           "expected_importance_stars": 3,
-          "mode": "preserve_tab_and_event_card_structure"
+          "mode": "preserve_tab_and_event_card_structure",
+          "schema_fields": "economic_calendar"
         },
         "earnings_calendar": {
           "container": "#earnings",
           "items": ".earnings-accordion",
           "tabs": ".week-earnings-tabs",
           "mode": "preserve_tab_and_event_card_structure",
-          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment"
+          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
+          "schema_fields": "earnings_calendar"
         },
         "market_observation_highlights": {
           "container": "#view",
-          "mode": "replace_existing_text_nodes_only"
+          "mode": "update_existing_panel_content_without_replacing_tab_or_disclosure_wrappers",
+          "panels": {
+            "market_view": {
+              "selector": ".focus-panel.focus-market .key",
+              "schema_field": "analysis.market_observation_highlights.market_view"
+            },
+            "key_levels": {
+              "selector": ".focus-panel.focus-levels .key",
+              "schema_field": "analysis.market_observation_highlights.key_levels"
+            },
+            "core_observations": {
+              "selector": ".focus-panel.focus-core .callout",
+              "schema_field": "analysis.market_observation_highlights.core_observations"
+            }
+          },
+          "preserve_nested_disclosures": true
         }
       }
     }
@@ -126,6 +170,11 @@
     "Economic calendar: preserve the provider-native 1–3 star scale and include only 3-star events in the curated feed. Earnings may display a 3-star rating only when a source explicitly provides it; otherwise importance_stars must be null and the major-event assessment basis/source must be recorded. Never infer or convert a rating.",
     "Every inserted news item and calendar event must retain source URL and source observation timestamp in its source detail area.",
     "Missing or unverified source data must remain pending; no narrative inference from missing fields.",
-    "Market sentiment and summary must cite verified snapshot field IDs and verified content IDs."
-  ]
+    "Market sentiment and summary must cite verified snapshot field IDs and verified content IDs.",
+    "Content schema v2 requires explicit coverage states; empty arrays are not evidence of a completed source check.",
+    "Monday previous-week economic and earnings sections are sourced from previous_economic_calendar and previous_earnings_calendar; weekday versions mark these groups not_applicable.",
+    "Summary headline and body are distinct fields; market observation uses separate market_view, key_levels and core_observations tab fields.",
+    "All 3-star filtering and source-native earnings-rating rules are enforced by the content validator before rendering."
+  ],
+  "content_schema_version": 2
 }
