@@ -161,6 +161,19 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     errors.append(f"{group}.{key}: .fc-range slot missing")
                 if not any(node.tag == "strong" for node in matches[0].descendants()):
                     errors.append(f"{group}.{key}: probability <strong> slot missing")
+            for selector_key in ("split_bar_selector", "split_hold_selector", "split_hike_selector",
+                                 "split_legend_value_selector", "split_timestamp_selector", "audit_content_selector"):
+                selector = spec.get(selector_key)
+                if selector:
+                    found = selector_nodes(container, selector)
+                    expected_count = 2 if selector_key in ("split_legend_value_selector", "split_timestamp_selector") else 1
+                    if len(found) != expected_count:
+                        errors.append(f"{group}: {selector_key} expected {expected_count} slot(s), found {len(found)}")
+            bar_selector = spec.get("split_bar_selector")
+            if bar_selector:
+                bars = selector_nodes(container, bar_selector)
+                if len(bars) == 1 and not bars[0].attrs.get(spec.get("aria_label_attribute", "aria-label")):
+                    errors.append(f"{group}: split bar accessible aria-label missing")
 
     return errors
 
