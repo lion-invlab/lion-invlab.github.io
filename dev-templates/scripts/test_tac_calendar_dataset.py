@@ -6,6 +6,7 @@ from tac_calendar_dataset import SCHEMA_VERSION, validate_calendar_dataset
 def source():
     return [{
         "source_name": "Official source",
+        "field_label": "資料來源",
         "label": "Official",
         "url": "https://example.com/event",
         "accessed_at": "2026-10-31T10:00:00+08:00",
@@ -51,7 +52,7 @@ class CalendarDatasetTests(unittest.TestCase):
                 econ("early", "2026-11-03", "08:00"),
             ],
             earnings_rows=[
-                earnings("after", "2026-11-03", "16:00", release_session="after_market"),
+                earnings("after", "2026-11-03", "16:00", release_session="after_market", taiwan_display_date="2026-11-04"),
                 earnings("before", "2026-11-03", "08:00", release_session="pre_market"),
             ],
         )
@@ -119,6 +120,33 @@ class CalendarDatasetTests(unittest.TestCase):
     def test_boolean_importance_rejected(self):
         with self.assertRaisesRegex(ValueError, "importance"):
             validate_calendar_dataset(dataset(economic=[econ(importance=True)]))
+
+    def test_missing_source_field_label_rejected(self):
+        row = econ()
+        row["source_records"] = [dict(source()[0])]
+        del row["source_records"][0]["field_label"]
+        with self.assertRaisesRegex(ValueError, "field_label"):
+            validate_calendar_dataset(dataset(economic=[row]))
+
+    def test_economic_event_timezone_must_be_taiwan_display_timezone(self):
+        with self.assertRaisesRegex(ValueError, "must be Asia/Taipei"):
+            validate_calendar_dataset(dataset(economic=[
+                econ(event_timezone="America/New_York")
+            ]))
+
+    def test_earnings_taiwan_display_date_must_match_timezone_conversion(self):
+        with self.assertRaisesRegex(ValueError, "does not match"):
+            validate_calendar_dataset(dataset(earnings_rows=[
+                earnings(event_date="2026-11-03", event_time="16:00",
+                         taiwan_display_date="2026-11-03")
+            ]))
+
+    def test_earnings_taiwan_display_date_matches_overnight_conversion(self):
+        result = validate_calendar_dataset(dataset(earnings_rows=[
+            earnings(event_date="2026-11-03", event_time="16:00",
+                     taiwan_display_date="2026-11-04")
+        ]))
+        self.assertEqual(result["earnings_events"][0]["taiwan_display_date"], "2026-11-04")
 
     def test_missing_source_rejected(self):
         row = econ()
