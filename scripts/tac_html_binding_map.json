@@ -229,7 +229,11 @@
       "container": "#overview",
       "title_selector": ".bluf h1",
       "paragraph_selector": ".bluf p",
-      "label_selector": "b"
+      "label_selector": "b",
+      "market_observation_selector": ".focus-market",
+      "key_levels_selector": ".focus-levels",
+      "core_observation_selector": ".focus-core",
+      "market_sentiment_label": "📌 核心解讀"
     },
     "news": {
       "global_focus_container": "#global-focus",
