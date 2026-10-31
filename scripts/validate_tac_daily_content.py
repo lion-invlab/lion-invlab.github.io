@@ -58,8 +58,21 @@ def validate_report_rules(data: dict) -> list[str]:
             if group_name == "focus_news" and item["category"] not in {"macro", "policy", "geopolitics"}:
                 errors.append(f"{label}: focus_news only accepts macro/policy/geopolitics categories")
 
+    report_day = date.fromisoformat(data["meta"]["report_date"])
+    previous_start = report_day - timedelta(days=7)
+    previous_end = previous_start + timedelta(days=4)
     for group_name in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
         events = data[group_name]
+        if group_name.startswith("previous_"):
+            if expected_type == "weekday" and events:
+                errors.append(f"{group_name}: weekday reports must not contain previous-week events")
+            if expected_type == "monday":
+                for event in events:
+                    event_day = parse_dt(event["event_date"]).date()
+                    if not previous_start <= event_day <= previous_end:
+                        errors.append(f"{group_name}[{event['id']}]: event date outside previous Monday-Friday window")
+                    if event["status"] != "released":
+                        errors.append(f"{group_name}[{event['id']}]: previous-week events must be released")
         dates = [parse_dt(item["event_date"]) for item in events]
         if dates != sorted(dates):
             errors.append(f"{group_name} must be sorted by event_date ascending")
