@@ -679,7 +679,7 @@ def self_test():
     print("PASS: FedWatch aria-label text escaped and updated without changing markup")
 
     mapping=json.loads(MAP.read_text(encoding="utf-8"))
-    fixture={"meta":{"report_date":"2026-11-02","trading_date":"2026-10-30"}}
+    fixture={"meta":{"report_date":"2026-11-02","trading_date":"2026-10-30","generated_at":"2026-10-31T02:30:00+08:00"}}
     source_meta={"name":"Test source","url":"https://example.com/data","observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30","quote_type":"official close","instrument":"test instrument"}
     for group in ("global_indices","bonds","fx","energy","precious_metals"):
         spec=mapping["groups"][group]
