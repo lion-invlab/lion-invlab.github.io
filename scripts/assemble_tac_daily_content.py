@@ -75,6 +75,27 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
             actual = fragment.get(field)
             if actual is not None and actual != expected:
                 raise ValueError(f"fragment[{index}] {field} mismatch: {actual} != {expected}")
+
+        # Canonical editorial fragments keep report metadata inside the schema's
+        # meta object. Preserve its news-window bounds during assembly.
+        fragment_meta = fragment.get("meta")
+        if fragment_meta is not None:
+            if not isinstance(fragment_meta, dict):
+                raise ValueError(f"fragment[{index}].meta must be an object")
+            for field, expected in (("report_date", report_date), ("trading_date", trading_date),
+                                    ("timezone", "Asia/Taipei"), ("wr_version", "3.5"),
+                                    ("template_type", result["meta"]["template_type"])):
+                actual = fragment_meta.get(field)
+                if actual is not None and actual != expected:
+                    raise ValueError(f"fragment[{index}].meta.{field} mismatch: {actual} != {expected}")
+            for field in ("news_window_start", "news_window_end"):
+                value = fragment_meta.get(field)
+                if value:
+                    existing = result["meta"][field]
+                    if existing and existing != value:
+                        raise ValueError(f"conflicting news window {field}: {existing} vs {value}")
+                    result["meta"][field] = value
+
         if fragment.get("template_type") not in (None, result["meta"]["template_type"]):
             raise ValueError(f"fragment[{index}] template_type mismatch")
         if fragment.get("news_window"):
@@ -179,6 +200,23 @@ def self_test():
     assembled = assemble("2026-11-02","2026-10-30",generated,[sample],validator,schema)
     assert assembled["meta"]["template_type"] == "monday"
     assert len(assembled["focus_news"]) == 1
+
+    # The production content file stores the news window under meta.
+    nested_meta_sample = dict(sample)
+    nested_meta_sample.pop("news_window", None)
+    nested_meta_sample["meta"] = {
+        "report_date": "2026-11-02",
+        "trading_date": "2026-10-30",
+        "timezone": "Asia/Taipei",
+        "wr_version": "3.5",
+        "template_type": "monday",
+        "news_window_start": "2026-10-30T12:00:00+08:00",
+        "news_window_end": "2026-11-02T05:00:00+08:00"
+    }
+    nested_assembled = assemble("2026-11-02","2026-10-30",generated,[nested_meta_sample],validator,schema)
+    assert nested_assembled["meta"]["news_window_start"] == "2026-10-30T12:00:00+08:00"
+    assert nested_assembled["meta"]["news_window_end"] == "2026-11-02T05:00:00+08:00"
+    print("PASS: canonical nested meta news window preserved through assembly")
     assert assembled["market_headlines"] == []
     assert assembled["previous_economic_calendar"] == []
     assert assembled["analysis"]["summary"]["status"] == "pending_verification"
