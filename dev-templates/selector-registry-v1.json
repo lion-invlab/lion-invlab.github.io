@@ -481,6 +481,27 @@
       "monday": 21,
       "weekdays": 0,
       "kind": "protected_container_only"
+    },
+    {
+      "name": "last_week_earnings_analysis_text_leaf",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-accordion-details > .earnings-detail-field:nth-of-type(2) > .earnings-detail-value",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_stock_reaction_text_leaf",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-accordion-details > .earnings-detail-field:nth-of-type(3) > .earnings-detail-value",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "content"
+    },
+    {
+      "name": "last_week_earnings_source_link_container",
+      "selector": "#last-week-earnings .earnings-accordion .earnings-accordion-details > .earnings-detail-field:nth-of-type(4) > .earnings-detail-value",
+      "monday": 7,
+      "weekdays": 0,
+      "kind": "protected_container_only"
     }
   ],
   "notes": [
