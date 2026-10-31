@@ -512,7 +512,7 @@
     },
     {
       "name": "vix_sentiment_change",
-      "selector": "#sentiment .sent > .sbox:nth-child(1) > .warn",
+      "selector": "#sentiment .sent > .sbox:nth-child(1) > strong + span",
       "monday": 1,
       "weekdays": 1,
       "kind": "content"
