@@ -77,11 +77,10 @@ def update_registered_source_links(root, selector, links, registry=None):
 def update_registered_text_segments(root, selector, values, registry=None):
     """Update only explicitly indexed child-tail text segments; never replace markup."""
     registry = registry or load_registry()
-    item = next((x for x in registry["selectors"] if x["selector"] == selector), None)
-    if item is None:
-        raise PermissionError(f"selector is not registered: {selector}")
-    if item["kind"] != "text_segments":
-        raise PermissionError(f"selector kind is not text-segments: {item['kind']}")
+    candidates = [x for x in registry["selectors"] if x["selector"] == selector and x.get("kind") == "text_segments"]
+    if len(candidates) != 1:
+        raise PermissionError(f"selector must have exactly one text-segments registration: {len(candidates)}")
+    item = candidates[0]
     segments = item.get("segments", [])
     if len(values) != len(segments):
         raise ValueError(f"text-segment update count mismatch: {len(values)} != {len(segments)}")
