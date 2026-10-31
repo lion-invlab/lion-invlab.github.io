@@ -29,7 +29,7 @@
 - [x] 結構指紋改採 HTML5 browser-normalized DOM，避免以簡易堆疊解析器誤判瀏覽器可修復的標籤
 - [x] 單元測試已由 GitHub Actions 執行；首輪 6 項通過，後續增加重複 ID 次數與事件處理器測試
 - [x] 雙母版結構基準解析及正式 SHA 鎖定檢查已通過 CI（Run 41170389474）
-- [ ] 定義受控 repeat-group 規則，處理合法的每日卡片數量變化
+- [x] 定義動態 repeat-group 規則；經濟／財報卡片筆數依實際事件增減，不以母版樣本張數作限制
 - [ ] 使用瀏覽器驗證 DOM、tab、details/summary、紅圓加號、手機版版面
 - [ ] 使用 11/02 預覽進行非破壞性測試（須待前述結構驗收通過後）
 
@@ -43,8 +43,11 @@
 - 更正後的 CI 尚待執行驗收；在成功前不得將 27 個候選定位視為全數通過。
 
 ## Repeat-group 架構草案
-- 新增 `repeat-group-policy-v1.md`，將固定筆數、模板基準筆數與內容可變筆數分開定義，並列出新增／移除重複卡片前必須滿足的結構指紋、欄位與互動保護條件。
-- 目前僅為設計草案；repeat-group 差異比對器尚未實作，開發母版尚未產生，也未授權任何每日自動增刪或寫入。
+- 早期 `repeat-group-policy-v1.md` 已由 `repeat-group-policy-v1.1.md` 取代。新版明確規定經濟／財報小卡筆數為內容動態群組；母版 12／16／3／7 張僅是樣本數，不是目標、上限、下限或驗收門檻。
+- 已建立 `scripts/tac_repeat_group_validator.py`、合成測試及真實雙母版整合測試。驗證器保護所有非 repeat DOM 屬性（卡片內僅允許 href 更新）、卡片完整骨架、CSS／JS、外層 wrapper 及重複 ID 數量；新增／移除只改變登記列表內的卡片數量。
+- 零卡片／empty-state 變體轉換尚未實作；目前不允許將列表清空。若分類無事件，必須沿用母版既有 empty-state 樣式，並在 status-group 變體驗證完成前停止自動改寫。
+- 最新 CI Run **41171589227** 成功：22 項單元／整合測試通過，涵蓋兩份真實母版的合法新增與移除模擬、卡片 class／style／固定連結變更拒絕、卡片 href 允許更新、重複 ID 保護、空列表拒絕、SHA 鎖定、HTML5 結構解析與 31 個 selector 稽核。連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41171589227
+- 此階段只驗證 HTML5 DOM 結構，尚未進行真實瀏覽器互動、手機版排版及空狀態切換驗收；開發母版尚未產生，也未授權每日自動增刪或寫入。
 - 修正後 selector CI（Run 41170745808）已通過：母版 SHA 鎖定、8 項結構指紋測試、雙母版 HTML5 解析與候選 selector 命中數檢查均成功。此 run 驗證的是修正後 registry；新增 repeat-group 草案本身尚未進入該 run。
 
 ## 2026-10-31 動態行事曆數量修正與 Repeat Group 驗證進度（以本節為準）
