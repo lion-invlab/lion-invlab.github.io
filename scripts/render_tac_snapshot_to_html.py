@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+"""Fail-closed renderer for mapped TAC market text slots; never rebuilds HTML."""
+from __future__ import annotations
+import argparse, html, json, re, sys
+from html.parser import HTMLParser
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1]
+MAP=ROOT/"scripts/tac_html_binding_map.json"
+
+class Node:
+    def __init__(self,tag,attrs,start):
+        self.tag,self.attrs,self.start=tag,dict(attrs),start
+        self.end=None; self.children=[]
+    @property
+    def classes(self): return set((self.attrs.get("class") or "").split())
+    @property
+    def text(self): return "".join(x.text if isinstance(x,Node) else x[0] for x in self.children)
+    def descendants(self):
+        for x in self.children:
+            if isinstance(x,Node):
+                yield x; yield from x.descendants()
+
+class Parser(HTMLParser):
+    VOID={"area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"}
+    def __init__(self,s):
+        super().__init__(convert_charrefs=False); self.s=s; self.lines=[0]
+        self.lines += [m.end() for m in re.finditer("\n",s)]
+        self.root=Node("document",{},0); self.stack=[self.root]; self.feed(s); self.close()
+    def pos(self):
+        line,col=self.getpos(); return self.lines[line-1]+col
+    def handle_starttag(self,tag,attrs):
+        p=self.pos(); n=Node(tag,attrs,p); self.stack[-1].children.append(n)
+        if tag not in self.VOID: self.stack.append(n)
+        else: n.end=p+len(self.get_starttag_text())
+    def handle_startendtag(self,tag,attrs):
+        p=self.pos(); n=Node(tag,attrs,p); n.end=p+len(self.get_starttag_text()); self.stack[-1].children.append(n)
+    def handle_endtag(self,tag):
+        p=self.pos()
+        for i in range(len(self.stack)-1,0,-1):
+            if self.stack[i].tag==tag:
+                self.stack[i].end=p+len(self.get_starttag_text() or ("</"+tag+">")); del self.stack[i:]; break
+    def handle_data(self,data):
+        p=self.pos(); self.stack[-1].children.append((data,p,p+len(data)))
+    def handle_entityref(self,name):
+        p=self.pos(); raw="&"+name+";"; self.stack[-1].children.append((html.unescape(raw),p,p+len(raw)))
+    def handle_charref(self,name):
+        p=self.pos(); raw="&#"+name+";"; self.stack[-1].children.append((html.unescape(raw),p,p+len(raw)))
+
+def descendants(n): return list(n.descendants())
+def by_id(root,k): return [n for n in root.descendants() if n.attrs.get("id")==k]
+def by_class(root,k): return [n for n in root.descendants() if k in n.classes]
+def slot_text_nodes(n):
+    result=[]
+    def walk(x):
+        for c in x.children:
+            if isinstance(c,Node): walk(c)
+            elif c[0].strip(): result.append(c)
+    walk(n); return result
+def row_for(container,rowclass,token):
+    rows=by_class(container,rowclass)
+    hits=[r for r in rows if token in r.text]
+    if len(hits)!=1: raise ValueError("row "+token+" expected once, found "+str(len(hits)))
+    return hits[0]
+def fmt(v,u):
+    if v is None: return "待核實"
+    n=float(v)
+    if u=="percent": return format(n,"+.2f")+"%"
+    if u=="basis_points": return format(n,"+.0f")+" bp"
+    if u in ("index_point","index","points"): return format(n,",.2f")
+    if u in ("USD/share","USD/barrel","USD/oz"): return "$"+format(n,",.2f")
+    if u=="yield_percent": return format(n,".2f")+"%"
+    return format(n,",.4f").rstrip("0").rstrip(".")
+def make_edit(node,value):
+    nodes=slot_text_nodes(node)
+    if len(nodes)!=1: raise ValueError("mapped slot must contain exactly one text node")
+    old,start,end=nodes[0]
+    return start,end,html.escape(value,quote=False)
+def render(source,snapshot,mapping):
+    tree=Parser(source); edits=[]
+    for group in ("global_indices","bonds","fx","energy","precious_metals"):
+        spec=mapping["groups"][group]
+        cs=by_id(tree.root,spec["container"].lstrip("#"))
+        if len(cs)!=1: raise ValueError(group+" container missing or duplicated")
+        for key,label in spec["key_by_label"].items():
+            record=snapshot[group][key]
+            row=row_for(cs[0],spec["row"].lstrip("."),label)
+            vals=[n for n in row.descendants() if "r" in n.classes]
+            if len(vals)<2: raise ValueError(group+"."+key+" value/change slots missing")
+            ok=record["status"]=="verified"
+            edits += [make_edit(vals[0],fmt(record["value"],record["unit"]) if ok else "待核實"),
+                      make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實")]
+    edits.sort(key=lambda e:e[1],reverse=True)
+    out=source; last=len(source)+1
+    for start,end,value in edits:
+        if end>last: raise ValueError("overlapping mapped text nodes")
+        out=out[:start]+value+out[end:]; last=start
+    return out,len(edits)
+def main():
+    ap=argparse.ArgumentParser()
+    ap.add_argument("--html",required=True); ap.add_argument("--snapshot",required=True)
+    ap.add_argument("--output",required=True); ap.add_argument("--template",choices=("monday","weekday"),required=True)
+    a=ap.parse_args()
+    from validate_tac_daily_snapshot import load_validator
+    validator,_=load_validator()
+    snap=json.loads(Path(a.snapshot).read_text(encoding="utf-8"))
+    errors=list(validator.iter_errors(snap))
+    if errors: raise ValueError("snapshot schema invalid: "+"; ".join(e.message for e in errors[:5]))
+    mapping=json.loads(MAP.read_text(encoding="utf-8"))
+    expected=mapping["templates"][a.template]
+    if Path(a.html).as_posix()!=expected: raise ValueError("input is not the approved "+a.template+" mother")
+    source=Path(a.html).read_text(encoding="utf-8")
+    output,count=render(source,snap,mapping)
+    target=Path(a.output); target.parent.mkdir(parents=True,exist_ok=True); target.write_text(output,encoding="utf-8")
+    print("PASS: "+str(count)+" mapped value/change text slots rendered")
+    print("PASS: source HTML tags, attributes, CSS and scripts retained verbatim")
+    print("Dates: report="+snap["meta"]["report_date"]+" trading="+snap["meta"]["trading_date"])
+if __name__=="__main__":
+    try: main()
+    except Exception as e: print("FAIL: "+str(e),file=sys.stderr); raise SystemExit(1)
