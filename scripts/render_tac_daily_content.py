@@ -188,7 +188,7 @@ def econ_card(proto,item,soup):
 def earnings_card(proto,item,soup):
     card=copy.deepcopy(proto)
     if len(card.select(".earnings-accordion-toggle"))!=1:
-        raise ValueError("earnings card prototype must preserve exactly one existing expand control")
+        raise ValueError("earnings prototype must preserve exactly one existing expand control")
     main=slot(card,".earnings-summary-main","earnings main")
     session={"before_market":"美股盤前","after_market":"美股盤後","during_market":"盤中","unknown":"公布時段待核實"}[item["session"]]
     for sel,val in ((".earnings-us-date",date_label(item["event_date"])),
@@ -202,32 +202,53 @@ def earnings_card(proto,item,soup):
     if item.get("importance_stars")==3 and item["importance_basis"]=="source_rating":
         put(stars,"★★★"); card["class"].append("three-star-earnings")
     else: put(stars,"未評星")
-    # Keep the mother template financial-results cards and update their existing fields.
-    results=slot(card,".earnings-results-grid","earnings actual/estimate grid")
-    result_cards=results.select(".earnings-actual-card")
-    if len(result_cards)!=2: raise ValueError("earnings prototype must contain EPS and revenue result cards")
-    for result_card,title,actual,estimate in (
-      (result_cards[0],"EPS",item.get("eps_actual"),item.get("eps_estimate")),
-      (result_cards[1],"營收",item.get("revenue_actual"),item.get("revenue_estimate"))):
-        put(slot(result_card,".earnings-actual-card-title","earnings result title"),title)
-        result_card["class"]=[x for x in result_card.get("class",[]) if x not in {"beat","miss","pending"}]+["pending"]
-        lines=result_card.select(".earnings-actual-line")
-        if len(lines)!=2: raise ValueError("earnings result card must have actual and estimate lines")
-        put(slot(lines[0],"strong","earnings actual"),actual if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
-        put(slot(lines[1],"strong","earnings estimate"),estimate if estimate is not None else "待核實")
-        status=result_card.select_one(".earnings-actual-status")
-        if status: put(status,"已公布｜待比較" if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
-        note=result_card.select_one(".earnings-actual-note")
-        if note: put(note,"以公司正式公告及市場共識核對")
     details=slot(card,".earnings-accordion-details","earnings details")
-    fields=details.select(".earnings-detail-field")
-    if len(fields)<3: raise ValueError("earnings prototype must contain interpretation, price reaction and source fields")
-    eps_text="EPS 與營收實際值／預估值如上；是否優於預期須以同口徑市場共識核對。"
-    vals=[("財報判讀",eps_text),
-      ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
-    for f,(lab,val) in zip(fields[:2],vals):
-        put(slot(f,"label","earnings field label"),lab); put(slot(f,".earnings-detail-value","earnings field value"),val)
-    source_field=fields[-1]
+    results=details.select_one(".earnings-results-grid")
+    eps_actual=item.get("eps_actual")
+    eps_estimate=item.get("eps_estimate")
+    rev_actual=item.get("revenue_actual")
+    rev_estimate=item.get("revenue_estimate")
+    actual_label=lambda value: value if value is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實")
+    if results is not None:
+        result_cards=results.select(".earnings-actual-card")
+        if len(result_cards)!=2: raise ValueError("earnings result grid must contain EPS and revenue cards")
+        for result_card,title,actual,estimate in (
+          (result_cards[0],"EPS",eps_actual,eps_estimate),
+          (result_cards[1],"營收",rev_actual,rev_estimate)):
+            put(slot(result_card,".earnings-actual-card-title","earnings result title"),title)
+            result_card["class"]=[x for x in result_card.get("class",[]) if x not in {"beat","miss","pending"}]+["pending"]
+            lines=result_card.select(".earnings-actual-line")
+            if len(lines)!=2: raise ValueError("earnings result card must have actual and estimate lines")
+            put(slot(lines[0],"strong","earnings actual"),actual_label(actual))
+            put(slot(lines[1],"strong","earnings estimate"),estimate if estimate is not None else "待核實")
+            status=result_card.select_one(".earnings-actual-status")
+            if status: put(status,"已公布｜待比較" if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
+            note=result_card.select_one(".earnings-actual-note")
+            if note: put(note,"以公司正式公告及市場共識核對")
+        fields=details.select(".earnings-detail-field")
+        if len(fields)<3: raise ValueError("results-grid card must retain interpretation, price reaction and source fields")
+        vals=[("財報判讀","EPS 與營收實際值／預估值如上；是否優於預期須以同口徑市場共識核對。"),
+          ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
+        for f,(lab,val) in zip(fields[:2],vals):
+            put(slot(f,"label","earnings field label"),lab)
+            put(slot(f,".earnings-detail-value","earnings field value"),val)
+        source_field=fields[-1]
+    else:
+        fields=details.select(".earnings-detail-field")
+        if not fields: raise ValueError("earnings prototype must contain at least one detail-field template")
+        while len(fields)<5:
+            clone=copy.deepcopy(fields[-1])
+            details.append(clone)
+            fields=details.select(".earnings-detail-field")
+        eps=f"預估：{eps_estimate if eps_estimate is not None else '待核實'}；實際：{actual_label(eps_actual)}"
+        rev=f"預估：{rev_estimate if rev_estimate is not None else '待核實'}；實際：{actual_label(rev_actual)}"
+        vals=[("EPS 預估／實際",eps),("營收預估／實際",rev),
+          ("財報判讀","以公司公告及同口徑市場共識核對；資料不足時不判定優於或低於預期。"),
+          ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
+        for f,(lab,val) in zip(fields[:4],vals):
+            put(slot(f,"label","earnings field label"),lab)
+            put(slot(f,".earnings-detail-value","earnings field value"),val)
+        source_field=fields[4]
     put(slot(source_field,"label","earnings source label"),"資料來源")
     new_anchor(soup,slot(source_field,".earnings-detail-value","earnings source value"),item["source"])
     return card
