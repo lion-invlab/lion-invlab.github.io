@@ -409,7 +409,8 @@ def update_earnings_card(card,record,spec,edits):
 def update_earnings_group(group,status,records,spec,heading_text,edits):
     headings=by_class(group,spec["heading_selector"].lstrip("."))
     if len(headings)!=1: raise ValueError("earnings status heading missing")
-    edits.append(make_edit(headings[0],heading_text))
+    badges=by_class(headings[0],"earnings-badge")
+    edits.append(make_edit(badges[0] if badges else headings[0],heading_text))
     lists=by_class(group,spec["event_list_selector"].lstrip("."))
     empty=by_class(group,spec["empty_state_selector"].lstrip("."))
     if len(lists)>1 or len(empty)>1: raise ValueError("earnings status list/empty state duplicated")
@@ -569,7 +570,8 @@ def render(source,snapshot,mapping):
         if len(summaries)!=1: raise ValueError("previous-week earnings collapse summary missing")
         edits.append(make_edit(previous_title[0],earnings["previous_week_range"]+"｜台灣時間 UTC+8"))
         edits.append(make_edit(summaries[0],"展開上週財報行事曆（"+earnings["previous_week_range"]+"）"))
-        edits.append(make_edit(previous_heading[0],"上週已公布｜重要性★★★｜依公布日期排序"))
+        previous_badges=by_class(previous_heading[0],"earnings-badge")
+        edits.append(make_edit(previous_badges[0] if previous_badges else previous_heading[0],"上週已公布｜重要性★★★｜依公布日期排序"))
         for index,card in enumerate(previous_cards):
             hidden=make_hidden_edit(card,index>=len(previous_records))
             if hidden: edits.append(hidden)
