@@ -233,7 +233,7 @@ def earnings_card(proto,item,soup):
     if company and "five-star-company" in company.get("class",[]): company["class"].remove("five-star-company")
     if item.get("importance_stars")==3 and item["importance_basis"]=="source_rating":
         put(stars,"★★★"); card["class"].append("three-star-earnings")
-    else: put(stars,"未評星")
+    else: put(stars,"未評級／待核實")
     details=slot(card,".earnings-accordion-details","earnings details")
     results=details.select_one(".earnings-results-grid")
     eps_actual=item.get("eps_actual")
