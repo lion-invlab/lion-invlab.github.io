@@ -423,7 +423,7 @@ def render(source,snapshot,mapping):
     edits.sort(key=lambda e:e[1],reverse=True)
     out=source; last=len(source)+1
     for start,end,value in edits:
-        if end>last: raise ValueError("overlapping mapped text nodes")
+        if end>last: raise ValueError("overlapping mapped edit ranges: start="+str(start)+" end="+str(end)+" previous_start="+str(last)+" replacement="+repr(value[:80]))
         out=out[:start]+value+out[end:]; last=start
     out,sector_count=sort_sector_rows(out,snapshot,mapping)
     # Re-parse the reordered rows and rewrite rank labels without touching any other markup.
