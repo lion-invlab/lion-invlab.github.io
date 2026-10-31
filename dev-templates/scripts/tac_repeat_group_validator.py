@@ -22,6 +22,7 @@ class GroupSpec:
     wrapper_selector: str
     child_selector: str
     allow_count_change: bool = True
+    min_child_count: int = 1
 
 
 def _tag(element):
@@ -124,7 +125,7 @@ def validate_repeat_groups(baseline_html: str, candidate_html: str,
                     )
                 else:
                     skeleton_ok = not candidate_children
-                count_ok = spec.allow_count_change or len(base_children) == len(candidate_children)
+                count_ok = (spec.allow_count_change or len(base_children) == len(candidate_children)) and len(candidate_children) >= spec.min_child_count
                 per_wrapper.append({
                     "index": index,
                     "baseline_child_count": len(base_children),
