@@ -179,6 +179,14 @@ jobs:
               print("PENDING:", error)
           PY
 
+      - name: Optional live read-only Investing.com 3-star economic calendar probe
+        continue-on-error: true
+        run: |
+          python scripts/fetch_tac_investing_economic_calendar.py --start-date "2026-10-26" --end-date "2026-10-30" --report-date "2026-11-02" --trading-date "2026-10-30" --group previous --output "/tmp/tac-economic-calendar-previous-2026-10-26.json" || echo "PENDING: previous-week calendar capture unavailable"
+          python scripts/fetch_tac_investing_economic_calendar.py --start-date "2026-11-02" --end-date "2026-11-06" --report-date "2026-11-02" --trading-date "2026-10-30" --group current --output "/tmp/tac-economic-calendar-current-2026-11-02.json" || echo "PENDING: current-week calendar capture unavailable"
+          if [ -f "/tmp/tac-economic-calendar-previous-2026-10-26.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-previous-2026-10-26.json" --output "/tmp/tac-economic-calendar-previous-fragment-2026-10-26.json"; fi
+          if [ -f "/tmp/tac-economic-calendar-current-2026-11-02.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-current-2026-11-02.json" --output "/tmp/tac-economic-calendar-current-fragment-2026-11-02.json"; fi
+
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
         run: |
@@ -344,8 +352,11 @@ jobs:
             /tmp/tac-treasury-yields-2026-10-30.json
             /tmp/tac-auxiliary-markets-2026-10-30.json
             /tmp/tac-news-rss-candidates-2026-11-02.json
+            /tmp/tac-economic-calendar-previous-2026-10-26.json
+            /tmp/tac-economic-calendar-current-2026-11-02.json
+            /tmp/tac-economic-calendar-previous-fragment-2026-10-26.json
+            /tmp/tac-economic-calendar-current-fragment-2026-11-02.json
             /tmp/tac-daily-content-2026-11-02.json
-            /tmp/tac-full-report-2026-11-02-review.html
             /tmp/tac-full-render-result.json
             /tmp/tac-daily-snapshot-2026-11-02.json
             /tmp/tac-full-report-2026-11-02-review.html
