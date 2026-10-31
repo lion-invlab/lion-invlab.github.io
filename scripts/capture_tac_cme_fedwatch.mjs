@@ -18,7 +18,7 @@ const pageUrl = "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-to
 const capturedAt = new Date().toISOString();
 const responses = [];
 const consoleErrors = [];
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, args: ["--disable-http2"] });
 try {
   const page = await browser.newPage({
     locale: "en-US",
@@ -43,20 +43,39 @@ try {
   let bodyText = "";
   let status = "pending_verification";
   try {
-    const response = await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 90000 });
-    pageStatus = response?.status() ?? null;
-    if (!response || !response.ok()) throw new Error(`CME page HTTP ${pageStatus ?? "no response"}`);
-    await page.waitForTimeout(18000);
-    const frames = page.frames();
-    const candidates = frames.filter(frame => /cmegroup-tools\.quikstrike\.net/i.test(frame.url()));
-    const frame = candidates.find(candidate => /IntegratedFedWatchTool/i.test(candidate.url())) || candidates[0] || null;
-    if (!frame) throw new Error("CME FedWatch QuikStrike iframe was not found");
-    frameUrl = frame.url();
-    await frame.waitForSelector("body", { timeout: 30000 });
-    await page.waitForTimeout(5000);
-    frameTitle = await frame.title();
-    bodyText = await frame.locator("body").innerText({ timeout: 20000 });
-    frameHtml = await frame.content();
+    let response = null;
+    try {
+      response = await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 90000 });
+      pageStatus = response?.status() ?? null;
+      if (!response || !response.ok()) throw new Error(`CME page HTTP ${pageStatus ?? "no response"}`);
+      await page.waitForTimeout(18000);
+      const frames = page.frames();
+      const candidates = frames.filter(frame => /cmegroup-tools\.quikstrike\.net/i.test(frame.url()));
+      const frame = candidates.find(candidate => /IntegratedFedWatchTool/i.test(candidate.url())) || candidates[0] || null;
+      if (!frame) throw new Error("CME FedWatch QuikStrike iframe was not found");
+      frameUrl = frame.url();
+      await frame.waitForSelector("body", { timeout: 30000 });
+      await page.waitForTimeout(5000);
+      frameTitle = await frame.title();
+      bodyText = await frame.locator("body").innerText({ timeout: 20000 });
+      frameHtml = await frame.content();
+    } catch (parentError) {
+      pageError = parentError.message;
+      const directFrameUrl = "https://cmegroup-tools.quikstrike.net/User/QuikStrikeTools.aspx?company=&company=&companyType=&companyType=&jobRole=&jobRole=&userId=&userId=lwolf&viewitemid=IntegratedFedWatchTool";
+      const directPage = await browser.newPage({ locale: "en-US", timezoneId: "Asia/Taipei" });
+      await directPage.setExtraHTTPHeaders({
+        "Referer": pageUrl,
+        "Origin": "https://www.cmegroup.com"
+      });
+      const directResponse = await directPage.goto(directFrameUrl, { waitUntil: "domcontentloaded", timeout: 90000 });
+      pageStatus = directResponse?.status() ?? pageStatus;
+      frameUrl = directPage.url();
+      await directPage.waitForSelector("body", { timeout: 30000 });
+      await directPage.waitForTimeout(5000);
+      frameTitle = await directPage.title();
+      bodyText = await directPage.locator("body").innerText({ timeout: 20000 });
+      frameHtml = await directPage.content();
+    }
     if (/Access to QuikStrike has been denied|problem loading this content|ErrorPage/i.test(bodyText + " " + frameUrl)) {
       throw new Error("QuikStrike iframe returned an access/referrer error");
     }
