@@ -501,3 +501,35 @@
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41181918499
 
 本補記不改變 v1.0-DRAFT 身分，不構成正式採用或生產寫入授權。
+
+
+## 2026-10-31 Run #41182239153｜行事曆 per-card 欄位 Mapping 補記（維持 DRAFT）
+
+### 1. 來源欄位契約
+
+1. 每筆 `source_records` 必須包含 `source_name`、`field_label`、`label`、`url`、`accessed_at`。
+2. `field_label` 是母版固定欄位 label（例如「資料來源」或「來源」）；`label` 是 anchor 顯示文字；`url` 是 href；`accessed_at` 是含時區 offset 的查證時間。
+3. 不得由網址或來源名稱推測要寫入哪個欄位；若欄位 label 未明確提供，資料契約拒絕。
+
+### 2. 時區及顯示口徑
+
+1. 經濟事件的 `event_date`／`event_time` 定義為已換算的台灣顯示日期／時間，`event_timezone` 必須是 `Asia/Taipei`。未知時間顯示「待核實」，不得猜值。
+2. 財報事件保留美國公告日期、公告當地時間及 IANA timezone；如有精確時間，使用 ZoneInfo 換算至 Asia/Taipei，並要求換算日期與資料提供的 `taiwan_display_date` 完全一致。日期不一致即拒絕。
+3. 財報沒有精確公告時間時，只顯示已核實的台灣日期，不得自行補出時間。
+4. 財報美國公告日期仍是排序依據；台灣顯示日期只作顯示及跨日一致性檢查，不得取代美國公告日期排序。
+
+### 3. Per-card payload mapper
+
+- 新增 `scripts/tac_calendar_field_mapper.py`，將已驗證／排序資料映射為摘要欄位、detail label/value、來源欄位 anchor payload 與 provenance。
+- 經濟摘要輸出日期、時間、國家、事件名稱及星級；財報摘要輸出美國公告日期／時段、台灣日期／時間、公司名稱、副標題及星級。
+- detail fields 與 source anchors 分開輸出；來源 anchor payload 以 `field_label` 分組，並保留來源查證資訊供稽核。
+- mapper 僅產生資料 payload，不解析／選取／修改 DOM，不執行卡片新增、刪除或寫入。
+- 新增 8 項 mapper 測試；Run #41182239153：**115 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過，雙母版 SHA、DOM 指紋、94 selector cardinality、calendar inventory 及稽核報告上傳通過。
+
+### 4. 目前流程邊界
+
+目前已完成資料契約、排序、狀態群組 dry-run、per-card payload mapping 的測試層；仍未接入真實資料來源蒐集，亦未完成 Repeat Group DOM clone／insert／remove／replace 與欄位安全寫入閉環。Gate A 尚未完成，Gate B–D 未完成，Gate E 仍待使用者明確核准。
+
+驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41182239153
+
+本補記不改變 v1.0-DRAFT 身分，不構成正式採用或每日生產授權。
