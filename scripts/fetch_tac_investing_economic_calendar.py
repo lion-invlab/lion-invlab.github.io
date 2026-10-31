@@ -85,10 +85,11 @@ def parse_calendar_html(html: str, observed_at: str) -> list[dict]:
             continue
         event_time = parse_event_time(time_cell.get_text(" ", strip=True))
         if event_time is None:
-            source_dt = datetime.combine(current_day, time.min, tzinfo=timezone.utc)
+            # All-day events retain the calendar date and are anchored at Taiwan midnight.
+            taipei_dt = datetime.combine(current_day, time.min, tzinfo=TAIPEI)
         else:
             source_dt = datetime.combine(current_day, event_time, tzinfo=timezone.utc)
-        taipei_dt = source_dt.astimezone(TAIPEI)
+            taipei_dt = source_dt.astimezone(TAIPEI)
         currency = clean(currency_cell.get_text(" ", strip=True))
         region = clean(currency_cell.find("span").get("title") if currency_cell.find("span") else None) or currency or "Global"
         actual = clean((row.select_one(f"#eventActual_{event_id}") or row).get_text(" ", strip=True) if row.select_one(f"#eventActual_{event_id}") else None)
@@ -211,12 +212,14 @@ def self_test() -> None:
     """
     events = parse_calendar_html(fixture, observed)
     assert len(events) == 2
-    assert events[0]["importance_stars"] == 3
-    assert events[0]["event_name"] == "Nonfarm Payrolls"
-    assert events[0]["actual"] == "200K"
-    assert events[0]["event_date"].endswith("+08:00")
-    assert events[1]["event_name"] == "Three star all-day event"
-    assert events[1]["status"] == "pending_verification"
+    by_id = {event["id"]: event for event in events}
+    assert by_id["123"]["importance_stars"] == 3
+    assert by_id["123"]["event_name"] == "Nonfarm Payrolls"
+    assert by_id["123"]["actual"] == "200K"
+    assert by_id["123"]["event_date"].endswith("+08:00")
+    assert by_id["125"]["event_name"] == "Three star all-day event"
+    assert by_id["125"]["event_date"].endswith("T00:00:00+08:00")
+    assert by_id["125"]["status"] == "pending_verification"
     print("PASS: source-native 3-star filtering, GMT-to-Taipei conversion and actual-value parsing")
 
 
