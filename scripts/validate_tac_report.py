@@ -180,7 +180,7 @@ def inspect(path: Path) -> list[str]:
     # and behavior code exactly. Dynamic report content may change; CSS/JS may not.
     if path.parent == ROOT / "preview":
         for tag in ("style", "script"):
-            block_pattern = rf"<{tag}\\b[^>]*>.*?</{tag}>"
+            block_pattern = rf"<{tag}\b[^>]*>.*?</{tag}>"
             master_blocks = re.findall(block_pattern, master_source, re.I | re.S)
             report_blocks = re.findall(block_pattern, source, re.I | re.S)
             if len(report_blocks) != len(master_blocks):
@@ -212,7 +212,7 @@ def inspect(path: Path) -> list[str]:
             cwd=ROOT, text=True, capture_output=True,
         )
         if market_gate.returncode != 0:
-            detail = (market_gate.stdout + "\\n" + market_gate.stderr).strip()
+            detail = (market_gate.stdout + "\n" + market_gate.stderr).strip()
             errors.append("daily preview market-field contract failed: " + detail)
 
     return errors
