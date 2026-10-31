@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import argparse
 
 ROOT = Path(__file__).resolve().parents[1]
 MONDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週一_2026-10-28_最終定版.html"
@@ -234,42 +235,64 @@ def inspect(path: Path) -> list[str]:
 
     return errors
 
+def changed_report_paths() -> list[Path]:
+    """Return only dated reports changed by this push or pull request."""
+    event = __import__("os").environ.get("GITHUB_EVENT_NAME", "")
+    if event == "pull_request":
+        base = __import__("os").environ.get("GITHUB_BASE_REF", "main")
+        subprocess.run(["git", "fetch", "origin", base], cwd=ROOT, check=True)
+        command = ["git", "diff", "--name-only", f"origin/{base}...HEAD"]
+    else:
+        command = ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"]
+    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True, check=True)
+    paths = []
+    for name in result.stdout.splitlines():
+        path = ROOT / name
+        if path.is_file():
+            try:
+                report_date_for_path(path)
+                paths.append(path)
+            except ValueError:
+                pass
+    return sorted(set(paths))
+
 def main() -> int:
+    cli = argparse.ArgumentParser()
+    cli.add_argument("--changed-only", action="store_true",
+                     help="validate only dated reports changed by this push or pull request")
+    args = cli.parse_args()
     missing_masters = [p for p in (MONDAY_MASTER, WEEKDAY_MASTER) if not p.exists()]
     if missing_masters:
         print("FAIL: approved master(s) not found: " + ", ".join(str(p.relative_to(ROOT)) for p in missing_masters))
         return 2
 
-    reports = [
-        p for p in ROOT.iterdir()
-        if p.is_file() and DATE_RE.match(p.name) and p.name not in LEGACY_EXCLUDED
-    ]
-    review_dir = ROOT / "review"
-    if review_dir.is_dir():
-        reports.extend(
-            p for p in review_dir.iterdir()
-            if p.is_file() and REVIEW_DATE_RE.match(p.name)
-        )
-    # Validate only the most recently changed canonical Pages preview. The
-    # preview directory also contains historical experiments and dated archives;
-    # rechecking every old preview would incorrectly block today's report.
-    preview_dir = ROOT / "preview"
-    if preview_dir.is_dir():
-        previews = [
-            p for p in preview_dir.iterdir()
-            if p.is_file() and DATE_RE.match(p.name)
+    if args.changed_only:
+        reports = changed_report_paths()
+        if not reports:
+            print("SKIP: no dated report changed in this commit/PR; historical previews are not revalidated.")
+            return 0
+    else:
+        reports = [
+            p for p in ROOT.iterdir()
+            if p.is_file() and DATE_RE.match(p.name) and p.name not in LEGACY_EXCLUDED
         ]
-        if previews:
-            def last_changed(path: Path) -> int:
-                result = subprocess.run(
+        review_dir = ROOT / "review"
+        if review_dir.is_dir():
+            reports.extend(
+                p for p in review_dir.iterdir()
+                if p.is_file() and REVIEW_DATE_RE.match(p.name)
+            )
+        preview_dir = ROOT / "preview"
+        if preview_dir.is_dir():
+            previews = [
+                p for p in preview_dir.iterdir()
+                if p.is_file() and DATE_RE.match(p.name)
+            ]
+            if previews:
+                reports.append(max(previews, key=lambda path: subprocess.run(
                     ["git", "log", "-1", "--format=%ct", "--", str(path.relative_to(ROOT))],
                     cwd=ROOT, text=True, capture_output=True,
-                )
-                try:
-                    return int(result.stdout.strip())
-                except ValueError:
-                    return 0
-            reports.append(max(previews, key=last_changed))
+                ).stdout.strip() or "0"))
 
     reports = sorted(set(reports))
     if not reports:
