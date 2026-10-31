@@ -20,7 +20,7 @@ PRODUCTS={
         "identity":("WTI","Crude Oil"),"unit":"USD/barrel","instrument":"NYMEX WTI Crude Oil futures (CL)"},
  "brent":{"exchange":"ICE Futures Europe","official":"https://www.ice.com/products/219",
           "fallback":"https://hk.investing.com/commodities/brent-oil-historical-data",
-          "identity":("Brent","London Brent"),"unit":"USD/barrel","instrument":"ICE Brent Crude futures"},
+          "identity":("Brent","London Brent","布倫特","布蘭特"),"unit":"USD/barrel","instrument":"ICE Brent Crude futures"},
  "gold":{"exchange":"CME/COMEX","official":"https://www.cmegroup.com/markets/metals/precious/gold.settlements.html",
          "fallback":"https://hk.investing.com/commodities/gold-historical-data",
          "identity":("Gold","黃金"),"unit":"USD/oz","instrument":"COMEX Gold futures (GC)"},
