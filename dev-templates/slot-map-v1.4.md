@@ -139,3 +139,14 @@
 - Run #99（41176987923）通過 46 項單元／整合測試、5 項瀏覽器測試、雙母版 SHA、DOM 指紋及 72 項 selector cardinality。
 - Run #100（41176996598）通過 46 項單元／整合測試、5 項瀏覽器測試及 72 項 selector cardinality；安全來源連結更新器已在測試分支完成正向／負向驗證。
 - 本功能仍是測試用參考 guard，尚未接入每日資料匯入器或 Repeat Group 寫入流程。不能宣稱正式早報已可自動更新來源連結。
+
+
+## 14. 2026-10-31 Run #112｜市場情緒與總結欄位安全定位
+
+- Registry 擴充至 **77 個候選 selector**，新增 5 個市場情緒 leaf：VIX 漲跌幅、MOVE 漲跌幅、CNN 英文狀態、CNN 中文狀態、核心解讀文字。
+- VIX 漲跌幅 selector 採 `strong + span` 結構定位，不依賴方向色 class；因週一 VIX 變動 class 為 `.warn`，平日樣板可能為 `.down`，更新文字不得改動方向 class。
+- CNN 狀態父容器 `.fg6-status`、恐懼貪婪 marker（含 style 定位）、今日市場觀點複合容器、總結複合段落均列為 protected。只允許更新 CNN 英文／中文狀態 leaf；marker 的 style left 不允許寫入。
+- 總結標題 `summary_title` 是純文字 leaf，可獨立更新；總結正文含粗體標籤、換行及多段文字，整個 `summary_body` 列為 protected，避免覆蓋固定格式。
+- Run #112（41177327390）通過 **51 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、HTML5 DOM 指紋及 77 項 selector cardinality**。包含市場情緒 leaf 正向更新、複合容器拒絕更新、總結標題可寫／正文不可整段覆寫。
+- 今日觀察重點三個 panel 仍維持 protected：市場觀點、關鍵價位、核心觀察都含多層標籤、details 或複合內容；在不調整母版結構的前提下，不能安全以單一 selector 覆寫。
+- Gate A 尚未完成：仍須處理 11 大產業／市場行情各欄位、商品及 FOMC 的完整葉節點測試、週一上週經濟欄位正反向測試、兩版總結／觀察完整 mapping 報告。
