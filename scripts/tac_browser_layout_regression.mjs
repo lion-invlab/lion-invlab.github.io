@@ -99,6 +99,17 @@ try {
       }
     }
 
+    // Dismiss the approved template's optional fund notice overlay before
+    // exercising underlying page controls; do not alter the template behavior.
+    const fundNotice = reportPage.locator("#tac-fund-notice");
+    if (await fundNotice.count() && await fundNotice.isVisible()) {
+      const closeControl = reportPage.locator("#tfn-close");
+      if (await closeControl.count()) await closeControl.click({ force: true });
+      if (await fundNotice.isVisible()) {
+        failures.push(viewport.name + ": fund notice overlay did not close using its existing control");
+      }
+    }
+
     const disclosure = reportPage.locator("details summary").first();
     if (await disclosure.count()) {
       const details = reportPage.locator("details").first();
