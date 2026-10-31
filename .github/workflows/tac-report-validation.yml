@@ -334,10 +334,11 @@ jobs:
           assert result['market']['pending_records'] == 0, result['market']
           assert result['editorial']['focus_news'] == 5, result['editorial']
           assert result['editorial']['market_headlines'] == 10, result['editorial']
-          expected = {'earnings_calendar','previous_earnings_calendar'}
+          expected = {'economic_calendar','previous_economic_calendar'}
           assert expected.issubset(set(result['pending_items'])), result['pending_items']
-          allowed = {'economic_calendar','earnings_calendar','previous_economic_calendar','previous_earnings_calendar'}
-          assert all(item in allowed or item.startswith(('economic_calendar.','previous_economic_calendar.')) for item in result['pending_items']), result['pending_items']
+          allowed = {'economic_calendar','previous_economic_calendar'}
+          allowed_prefixes = ('economic_calendar.','previous_economic_calendar.','earnings_calendar.','previous_earnings_calendar.')
+          assert all(item in allowed or item.startswith(allowed_prefixes) for item in result['pending_items']), result['pending_items']
           assert pathlib.Path('/tmp/tac-full-report-2026-11-02-review.html').stat().st_size > 0
           print('PASS: 5 focus news + 10 headlines + all 44 market records; calendar coverage remains explicitly pending')
           PY
