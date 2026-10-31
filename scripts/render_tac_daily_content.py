@@ -135,15 +135,10 @@ def update_calendar_sources(soup, data):
       ("earnings","earnings_calendar","本週財報行事曆")):
         section=slot(soup,"#"+section_id,label)
         article=slot(section,"article.calendar-card",label+" article")
-        node=article.find("div",class_="source",recursive=False)
+        node=slot(article,".title small",label+" title metadata")
         status=data["coverage"][coverage_key]["status"]
         note=("來源覆蓋已完成" if status=="complete" else "來源擷取尚未完成，事件清單僅為已取得資料，不代表完整日程")
-        message=f"{label}｜報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間，事件依實際日期分流。"
-        if node is not None:
-            put(node,message)
-        else:
-            small=slot(article,".title small",label+" title status")
-            put(small,small.get_text(" ",strip=True)+"｜"+note)
+        put(node,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間，事件依實際日期分流。")
 def sentiment(soup, analysis):
     boxes=soup.select("#sentiment .sent > .sbox")
     if not boxes: raise ValueError("market sentiment interpretation box missing")
