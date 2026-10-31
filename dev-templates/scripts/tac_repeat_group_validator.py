@@ -42,7 +42,7 @@ def _attrs(element):
 
 
 def _parse(source):
-    return html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False).getroot()
+    return html5lib.parse(source, treebuilder="etree", namespaceHTMLElements=False)
 
 
 def _query(root, selector):
