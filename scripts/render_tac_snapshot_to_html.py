@@ -928,9 +928,9 @@ def self_test():
 
         earnings_spec=mapping["groups"]["earnings_calendar"]
         def make_earnings_record(index,report_time,status,card):
-            source_field=next(field for field in by_class(card,"earnings-detail-field")
-                              if selector_nodes(field,"label") and normalize(selector_nodes(field,"label")[0].text) in ("來源","資料來源"))
-            link_count=len(selector_nodes(source_field,"a"))
+            source_fields=[field for field in by_class(card,"earnings-detail-field")
+                           if selector_nodes(field,"label") and normalize(selector_nodes(field,"label")[0].text) in ("來源","資料來源")]
+            link_count=len(selector_nodes(source_fields[0],"a")) if source_fields else 0
             def make_source(name,url):
                 return {"name":name,"url":url,"observed_at":"2026-10-31T08:00:00+08:00","data_date":"2026-10-30",
                         "quote_type":"company_earnings_and_consensus","instrument":"synthetic earnings event"}
