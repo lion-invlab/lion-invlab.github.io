@@ -67,14 +67,24 @@
       "selector": "#calendar .econ-event",
       "monday": 12,
       "weekdays": 16,
-      "kind": "repeat"
+      "kind": "repeat",
+      "detail_field_class": "econ-field",
+      "detail_value_class": "econ-value",
+      "writable_detail_labels": [
+        "觀察重點"
+      ]
     },
     {
       "name": "weekly_earnings_cards",
       "selector": "#earnings .earnings-accordion",
       "monday": 16,
       "weekdays": 16,
-      "kind": "repeat"
+      "kind": "repeat",
+      "detail_field_class": "earnings-detail-field",
+      "detail_value_class": "earnings-detail-value",
+      "writable_detail_labels": [
+        "觀察重點"
+      ]
     },
     {
       "name": "fedwatch_probability_cards",
