@@ -56,6 +56,7 @@ SECTION_CONFIG = {
         "value_class": "econ-value",
         "registry_name": "last_week_economic_events",
         "registry_kind": "monday_only",
+        "template_only": "monday",
         "fixed_detail_labels": {"前值", "預估", "實際"},
         "fixed_source_labels": {"來源"},
         "statuses": ("prior_week_published",),
