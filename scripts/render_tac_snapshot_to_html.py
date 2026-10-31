@@ -95,11 +95,35 @@ def render(source,snapshot,mapping):
         if end>last: raise ValueError("overlapping mapped text nodes")
         out=out[:start]+value+out[end:]; last=start
     return out,len(edits)
+def self_test():
+    sample='<section id="x"><span class="r up">1,234.50</span><b>Keep</b></section>'
+    tree=Parser(sample)
+    containers=by_id(tree.root,"x")
+    assert len(containers)==1
+    spans=[n for n in containers[0].descendants() if "r" in n.classes]
+    assert len(spans)==1
+    start,end,value=make_edit(spans[0],"+1.25%")
+    rendered=sample[:start]+value+sample[end:]
+    assert rendered=='<section id="x"><span class="r up">+1.25%</span><b>Keep</b></section>'
+    assert '<span class="r up">' in rendered and '<b>Keep</b>' in rendered
+    try:
+        make_edit(Node("span",{"class":"r"},0),"bad")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("empty mapped slot must fail closed")
+    print("PASS: exact text-node replacement preserves tags and attributes")
+    print("PASS: unrelated sibling content preserved")
+    print("PASS: empty slot rejected")
+
 def main():
     ap=argparse.ArgumentParser()
+    ap.add_argument("--self-test",action="store_true")
     ap.add_argument("--html",required=True); ap.add_argument("--snapshot",required=True)
     ap.add_argument("--output",required=True); ap.add_argument("--template",choices=("monday","weekday"),required=True)
     a=ap.parse_args()
+    if a.self_test:
+        self_test(); return
     from validate_tac_daily_snapshot import load_validator
     validator,_=load_validator()
     snap=json.loads(Path(a.snapshot).read_text(encoding="utf-8"))
