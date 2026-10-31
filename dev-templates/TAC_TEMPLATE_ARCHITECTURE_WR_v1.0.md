@@ -287,7 +287,7 @@
 以下文件是工程規格或測試附件，不是另一份正式 WR；均須服從本文件與根目錄 WR v3.4：
 
 - `dev-templates/README.md`
-- `dev-templates/slot-map-v1.2.md`
+- `dev-templates/slot-map-v1.3.md`（目前雙母版插槽盤點入口；v1.2 與專項 map 保留作歷史／佐證）
 - `dev-templates/selector-registry-v1.json`
 - `dev-templates/repeat-group-policy-v1.1.md`
 - `dev-templates/dom-count-audit-v1.md`
