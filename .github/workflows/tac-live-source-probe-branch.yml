@@ -9,6 +9,9 @@ on:
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_sector_etfs.py"
       - "scripts/fetch_tac_treasury_yields.py"
+      - "scripts/fetch_tac_fx.py"
+      - "scripts/fetch_tac_risk_indicators.py"
+      - "scripts/fetch_tac_commodities.py"
 
 permissions:
   contents: read
@@ -34,6 +37,9 @@ jobs:
         run: |
           python scripts/fetch_tac_global_indices.py --self-test
           python scripts/fetch_tac_sector_etfs.py --self-test
+          python scripts/fetch_tac_fx.py --self-test
+          python scripts/fetch_tac_risk_indicators.py --self-test
+          python scripts/fetch_tac_commodities.py --self-test
       - name: Retrieve exact-date Investing.com HK global indices
         run: |
           python scripts/fetch_tac_global_indices.py \
@@ -52,6 +58,24 @@ jobs:
             --trading-date "2026-10-30" \
             --report-date "2026-11-02" \
             --output "artifacts/tac-treasury-yields-2026-10-30.json"
+      - name: Retrieve exact-date FX DXY and five currency pairs
+        run: |
+          python scripts/fetch_tac_fx.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "artifacts/tac-fx-2026-10-30.json"
+      - name: Retrieve VIX MOVE and CNN Fear and Greed
+        run: |
+          python scripts/fetch_tac_risk_indicators.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "artifacts/tac-risk-indicators-2026-10-30.json"
+      - name: Retrieve WTI Brent GC and SI futures data
+        run: |
+          python scripts/fetch_tac_commodities.py \
+            --trading-date "2026-10-30" \
+            --report-date "2026-11-02" \
+            --output "artifacts/tac-commodities-2026-10-30.json"
       - name: Upload source fragments
         if: always()
         uses: actions/upload-artifact@v4
