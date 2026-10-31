@@ -47,7 +47,8 @@ def news(soup, selector, records, count, name):
         raise ValueError(f"{name}: need {count} template/content cards, got {len(cards)}/{len(records)}")
     for i,(card,item) in enumerate(zip(cards,records),1):
         if item["status"]!="verified": raise ValueError(f"{name}[{i}] not verified")
-        put(slot(card,"h3",name+" headline"),(f"{i}. " if name=="focus_news" else f"{i:02d}｜")+item["headline"])
+        prefix=f"{i}. " if name=="focus_news" else f"{i:02d}｜"
+        put(slot(card,"h3",name+" headline"),prefix+item["headline"])
         put(slot(card,"p",name+" summary"),item["summary"])
         links=card.select(".newsmeta a")
         if len(links)!=1: raise ValueError(f"{name}[{i}]: expected one source link")
