@@ -329,6 +329,102 @@ def update_economic_group(group,status,records,spec,heading_text,edits):
         edits.append(make_edit(empty_nodes[0],"目前沒有符合 Investing.com 3 星重要性條件的經濟事件。"))
     elif records:
         raise ValueError("economic "+status+" group has no mapped event-list capacity")
+
+def earnings_us_date_label(value,session):
+    parsed=datetime.fromisoformat(value.replace("Z","+00:00"))
+    if parsed.tzinfo is None: raise ValueError("earnings report_time must include timezone offset")
+    dt=parsed.astimezone(ZoneInfo("America/New_York"))
+    weekday="一二三四五六日"[dt.weekday()]
+    suffix="盤前" if session=="pre_market" else "盤後" if session=="after_market" else "時段待核實"
+    return dt.strftime("%m/%d")+"（"+weekday+"）"+suffix
+def earnings_tw_date_label(value,session):
+    dt=event_taipei_datetime(value)
+    weekday="一二三四五六日"[dt.weekday()]
+    suffix="美股盤前" if session=="pre_market" else "美股盤後" if session=="after_market" else "公布時段待核實"
+    return "台灣時間 "+dt.strftime("%m/%d")+"（"+weekday+"）"+dt.strftime("%H:%M")+"｜"+suffix
+def safe_numeric_comparison(actual,estimate):
+    def number(value):
+        match=re.fullmatch(r"\s*[-+]?\d+(?:\.\d+)?\s*",str(value or ""))
+        return float(match.group(0)) if match else None
+    a,e=number(actual),number(estimate)
+    if a is None or e is None: return "差異待核實"
+    return "高於預期" if a>e else "低於預期" if a<e else "符合預期"
+def update_earnings_card(card,record,spec,edits):
+    for selector_key in ("us_date_selector","tw_date_selector","company_selector","company_sub_selector","stars_selector"):
+        nodes=selector_nodes(card,spec[selector_key])
+        if len(nodes)!=1: raise ValueError("earnings event "+record["event_id"]+" missing "+selector_key)
+        if selector_key=="us_date_selector": value=earnings_us_date_label(record["report_time"],record["session"])
+        elif selector_key=="tw_date_selector": value=earnings_tw_date_label(record["report_time"],record["session"])
+        elif selector_key=="company_selector": value=record["company"]
+        elif selector_key=="company_sub_selector": value=record["ticker"]+"｜重要財報"
+        else: value="★★★"
+        edits.append(make_edit(nodes[0],value))
+    fields=by_class(card,spec["detail_field_selector"].lstrip("."))
+    seen=set()
+    for field in fields:
+        labels=selector_nodes(field,spec["detail_label_selector"])
+        values=selector_nodes(field,spec["detail_value_selector"])
+        if len(labels)!=1 or len(values)!=1: raise ValueError("earnings detail label/value slot missing")
+        label=normalize(labels[0].text)
+        key=("analysis" if label in ("財報判讀","觀察重點","分析") else
+             "stock_reaction" if label in ("股價當日表現","股價反應") else
+             "report_time" if label in ("正式公布時間","公布時間") else
+             "source" if label in ("來源","資料來源") else
+             "eps_estimate" if label in ("EPS 共識","EPS 預估") else None)
+        if key is None: continue
+        seen.add(key)
+        if key=="source":
+            anchors=selector_nodes(values[0],"a")
+            sources=[record["source"]]+record.get("related_sources",[])
+            if len(anchors)!=len(sources): raise ValueError("earnings event "+record["event_id"]+" source-link count mismatch")
+            for anchor,source_info in zip(anchors,sources):
+                edits.append(make_href_edit(anchor,source_info["url"]))
+                edits.append(make_edit(anchor,source_info["name"]))
+        elif key=="analysis": edits.append(make_edit(values[0],record["analysis"] or "待核實"))
+        elif key=="stock_reaction": edits.append(make_edit(values[0],record["stock_reaction"] or "待核實"))
+        elif key=="report_time": edits.append(make_edit(values[0],earnings_tw_date_label(record["report_time"],record["session"])))
+        elif key=="eps_estimate":
+            actual=record["eps_actual"] or "待公布"
+            estimate=record["eps_estimate"] or "待核實"
+            edits.append(make_edit(values[0],"實際 "+actual+"｜市場預估 "+estimate))
+    actual_cards=by_class(card,spec["actual_card_selector"].lstrip("."))
+    if actual_cards:
+        if len(actual_cards)!=2: raise ValueError("earnings result grid must expose exactly EPS and revenue cards")
+        for actual_card in actual_cards:
+            title_nodes=by_class(actual_card,spec["actual_title_selector"].lstrip("."))
+            lines=by_class(actual_card,spec["actual_line_selector"].lstrip("."))
+            status_nodes=by_class(actual_card,spec["actual_status_selector"].lstrip("."))
+            note_nodes=by_class(actual_card,spec["actual_note_selector"].lstrip("."))
+            if len(title_nodes)!=1 or len(lines)!=2 or len(status_nodes)!=1 or len(note_nodes)!=1:
+                raise ValueError("earnings actual-result card slots missing or duplicated")
+            title=normalize(title_nodes[0].text)
+            actual,estimate=(record["eps_actual"],record["eps_estimate"]) if "EPS" in title.upper() else (record["revenue_actual"],record["revenue_estimate"])
+            for line,label,value in zip(lines,("實際","預期"),(actual or "待核實",estimate or "待核實")):
+                spans=selector_nodes(line,"span"); strong=selector_nodes(line,"strong")
+                if len(spans)!=1 or len(strong)!=1: raise ValueError("earnings actual-result line slots missing")
+                edits.append(make_edit(strong[0],value))
+            status="待核實" if record["status"]!="published" else safe_numeric_comparison(actual,estimate)
+            edits.append(make_edit(status_nodes[0],status))
+            edits.append(make_edit(note_nodes[0],record["notes"] or "實際與預估口徑以來源為準；未能量化比較時不判定優劣。"))
+def update_earnings_group(group,status,records,spec,heading_text,edits):
+    headings=by_class(group,spec["heading_selector"].lstrip("."))
+    if len(headings)!=1: raise ValueError("earnings status heading missing")
+    edits.append(make_edit(headings[0],heading_text))
+    lists=by_class(group,spec["event_list_selector"].lstrip("."))
+    empty=by_class(group,spec["empty_state_selector"].lstrip("."))
+    if len(lists)>1 or len(empty)>1: raise ValueError("earnings status list/empty state duplicated")
+    if lists:
+        cards=by_class(lists[0],spec["event_card_selector"].lstrip("."))
+        if len(records)>len(cards): raise ValueError("earnings "+status+" event count exceeds approved mother capacity")
+        for index,card in enumerate(cards):
+            hidden=make_hidden_edit(card,index>=len(records))
+            if hidden: edits.append(hidden)
+            if index<len(records): update_earnings_card(card,records[index],spec,edits)
+    elif empty:
+        if records: raise ValueError("earnings "+status+" events supplied but mother has only an empty-state slot")
+        edits.append(make_edit(empty[0],"目前沒有符合 Investing.com 3 星重要性條件且完成核實的財報事件。"))
+    elif records: raise ValueError("earnings "+status+" group has no mapped event-list capacity")
+
 def render(source,snapshot,mapping):
     tree=Parser(source); edits=[]
     for group in ("global_indices","bonds","fx","energy","precious_metals"):
@@ -433,6 +529,56 @@ def render(source,snapshot,mapping):
             if index<len(previous_records): update_economic_card(card,previous_records[index],econ_spec,edits)
     elif econ["previous_week_events"]:
         raise ValueError("previous-week economic events supplied to weekday mother without previous-week section")
+
+    earnings_spec=mapping["groups"]["earnings_calendar"]
+    earnings=snapshot["earnings_calendar"]
+    current_earnings_container=by_id(tree.root,earnings_spec["container"].lstrip("#"))
+    if len(current_earnings_container)!=1: raise ValueError("current-week earnings calendar container missing or duplicated")
+    current_earnings_container=current_earnings_container[0]
+    earnings_groups=by_class(current_earnings_container,earnings_spec["status_group_selector"].lstrip("."))
+    if len(earnings_groups)!=3: raise ValueError("earnings calendar requires three status groups")
+    current_earnings=sorted(earnings["current_week_events"],key=lambda item:item["report_time"])
+    for status,index in (("today",0),("upcoming",1),("published",2)):
+        records=[]
+        for item in current_earnings:
+            bucket=item["status"]
+            if bucket=="pending_verification":
+                bucket=event_bucket({"status":"pending_verification","event_time":item["report_time"]},snapshot["meta"]["report_date"])
+            if bucket=="today" and status=="today" or bucket=="upcoming" and status=="upcoming" or bucket=="published" and status=="published":
+                records.append(item)
+        heading=("今日公布｜"+snapshot["meta"]["report_date"]+"（台灣時間）" if status=="today" else
+                 "即將公布｜"+earnings["current_week_range"] if status=="upcoming" else
+                 "已公布｜"+earnings["current_week_range"])
+        update_earnings_group(earnings_groups[index],status,records,earnings_spec,heading+"｜重要性★★★",edits)
+    current_earnings_title=selector_nodes(current_earnings_container,earnings_spec["current_title_selector"])
+    if len(current_earnings_title)!=1: raise ValueError("current-week earnings title date slot missing")
+    edits.append(make_edit(current_earnings_title[0],earnings["current_week_range"]+"｜台灣時間 UTC+8"))
+    previous_earnings_container=by_id(tree.root,earnings_spec["previous_week_container"].lstrip("#"))
+    if previous_earnings_container:
+        if len(previous_earnings_container)!=1: raise ValueError("previous-week earnings container duplicated")
+        previous_earnings_container=previous_earnings_container[0]
+        previous_lists=by_class(previous_earnings_container,earnings_spec["event_list_selector"].lstrip("."))
+        if len(previous_lists)!=1: raise ValueError("previous-week earnings accordion list missing or duplicated")
+        previous_cards=by_class(previous_lists[0],earnings_spec["event_card_selector"].lstrip("."))
+        previous_records=sorted(earnings["previous_week_events"],key=lambda item:item["report_time"])
+        if len(previous_records)>len(previous_cards): raise ValueError("previous-week earnings count exceeds approved mother capacity")
+        previous_title=selector_nodes(previous_earnings_container,earnings_spec["current_title_selector"])
+        previous_collapse=by_class(previous_earnings_container,"last-week-earnings-collapse")
+        previous_heading=by_class(previous_earnings_container,earnings_spec["heading_selector"].lstrip("."))
+        if len(previous_title)!=1 or len(previous_collapse)!=1 or len(previous_heading)!=1:
+            raise ValueError("previous-week earnings date/collapse/heading slots missing")
+        summaries=direct_children_by_tag(previous_collapse[0],"summary")
+        if len(summaries)!=1: raise ValueError("previous-week earnings collapse summary missing")
+        edits.append(make_edit(previous_title[0],earnings["previous_week_range"]+"｜台灣時間 UTC+8"))
+        edits.append(make_edit(summaries[0],"展開上週財報行事曆（"+earnings["previous_week_range"]+"）"))
+        edits.append(make_edit(previous_heading[0],"上週已公布｜重要性★★★｜依公布日期排序"))
+        for index,card in enumerate(previous_cards):
+            hidden=make_hidden_edit(card,index>=len(previous_records))
+            if hidden: edits.append(hidden)
+            if index<len(previous_records): update_earnings_card(card,previous_records[index],earnings_spec,edits)
+    elif earnings["previous_week_events"]:
+        raise ValueError("previous-week earnings supplied to weekday mother without previous-week section")
+
     risk_spec=mapping["groups"]["risk_indicators"]
     risk_container=by_id(tree.root,risk_spec["container"].lstrip("#"))
     if len(risk_container)!=1: raise ValueError("risk indicators container missing or duplicated")
