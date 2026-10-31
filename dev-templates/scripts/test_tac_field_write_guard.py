@@ -23,6 +23,7 @@ FIELD_PREFIXES = (
     "last_week_econ_",
     "last_week_earnings_",
     "weekly_econ_",
+    "weekly_earnings_",
 )
 
 
@@ -84,6 +85,32 @@ class FieldWriteGuardTests(unittest.TestCase):
                     self.assertEqual(count, item[expected_key])
                     self.assertTrue(all(
                         x.etree_element.text == "TEST WEEKLY ECON VALUE"
+                        for x in matches
+                    ))
+
+    def test_weekly_earnings_summary_fields_are_writable_leaves_in_both_mothers(self):
+        field_names = (
+            "weekly_earnings_us_dates",
+            "weekly_earnings_tw_dates",
+            "weekly_earnings_company_names",
+            "weekly_earnings_company_subtitles",
+            "weekly_earnings_stars",
+        )
+        for template in ("monday", "weekdays"):
+            expected_key = "monday" if template == "monday" else "weekdays"
+            for name in field_names:
+                with self.subTest(template=template, field=name):
+                    root = parse_html(self._source(template))
+                    item = self._item(name)
+                    matches = select_wrappers(root, item["selector"])
+                    self.assertEqual(len(matches), item[expected_key])
+                    self.assertTrue(all(len(list(x.etree_element)) == 0 for x in matches))
+                    count = update_registered_leaf_text(
+                        root, item["selector"], "TEST WEEKLY EARNINGS VALUE", self.registry
+                    )
+                    self.assertEqual(count, item[expected_key])
+                    self.assertTrue(all(
+                        x.etree_element.text == "TEST WEEKLY EARNINGS VALUE"
                         for x in matches
                     ))
 
