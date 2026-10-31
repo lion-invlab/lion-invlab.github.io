@@ -152,3 +152,12 @@
 - 來源連結更新器仍未接入正式資料匯入與 repeat-group updater。
 - 連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177005842
 
+## 2026-10-31 Run #112｜市場情緒與總結欄位測試通過
+
+- Selector Registry 擴充至 **77 項**。新增 VIX／MOVE 漲跌幅、CNN 英文／中文狀態及市場情緒核心解讀 5 個可更新 leaf。
+- VIX 漲跌幅 selector 改以 strong 後方相鄰 span 定位，避免依賴 `.warn`／`.down` 顏色 class；週一與平日母版皆命中 1 個節點。
+- 總結標題 leaf 可更新；總結正文因含粗體標籤、換行及複合文字，改列 protected。今日市場觀點、CNN 狀態父容器及 marker style 亦維持 protected。
+- Run **#112（41177327390）成功**：51 項單元／整合測試、5 項 Chromium 瀏覽器測試、雙母版 SHA、DOM 指紋與 77 項 selector cardinality 全部通過。
+- Run 連結：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41177327390
+- Gate A 尚未完成，尚未啟用每日資料更新或正式寫入。
+
