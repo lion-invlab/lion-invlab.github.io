@@ -155,6 +155,33 @@ def main() -> int:
     contract = json.loads(MAP_PATH.read_text(encoding="utf-8"))
     templates = contract["templates"]
     failures = []
+
+    # Explicit semantic mapping prevents a renderer from confusing a sector's
+    # displayed daily return with the ETF's underlying close value.
+    expected_fields = {
+        "global_indices": {"display_value": "value", "display_change": "change"},
+        "bonds": {"display_value": "value", "display_change": "change"},
+        "fx": {"display_value": "value", "display_change": "change"},
+        "energy": {"display_value": "value", "display_change": "change"},
+        "precious_metals": {"display_value": "value", "display_change": "change"},
+        "sectors": {"display_value": "change", "display_change": None, "display_unit": "change_unit"},
+    }
+    for group, expected in expected_fields.items():
+        actual = contract["groups"].get(group, {}).get("snapshot_fields")
+        if actual != expected:
+            failures.append(f"{group}: snapshot_fields must be {expected}, got {actual}")
+    expected_risk = {
+        "vix": {"display_value": "value", "display_change": "change"},
+        "move": {"display_value": "value", "display_change": "change"},
+        "cnn_fear_greed": {"display_value": "value", "display_change": None},
+    }
+    actual_risk = contract["groups"].get("risk_indicators", {}).get("snapshot_fields")
+    if actual_risk != expected_risk:
+        failures.append(f"risk_indicators: snapshot_fields must be {expected_risk}, got {actual_risk}")
+    expected_fedwatch = {"probability_array": "probabilities", "meeting": "target_meeting", "updated_at": "updated_at"}
+    actual_fedwatch = contract["groups"].get("fedwatch", {}).get("snapshot_fields")
+    if actual_fedwatch != expected_fedwatch:
+        failures.append(f"fedwatch: snapshot_fields must be {expected_fedwatch}, got {actual_fedwatch}")
     for label, relative in templates.items():
         path = ROOT / relative
         if not path.exists():
