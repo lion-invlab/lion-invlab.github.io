@@ -66,6 +66,13 @@ jobs:
             --candidate "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html" \
             --report architecture-test-results/weekdays-baseline.json
 
+      - name: Audit candidate selector cardinality
+        run: |
+          python dev-templates/scripts/audit_tac_template_selectors.py \
+            --registry dev-templates/selector-registry-v1.json \
+            --monday "母版專區/TAC_母版_週一_2026-10-28_最終定版.html" \
+            --weekdays "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html" \
+            --report architecture-test-results/selector-cardinality.json
       - name: Upload baseline audit reports
         if: always()
         uses: actions/upload-artifact@v4
