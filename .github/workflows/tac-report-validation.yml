@@ -79,6 +79,7 @@ on:
 # Calendar coverage must be explicitly verified; empty or incomplete capture never passes the report gate.
 # The 2026-11-02 review JSON is schema-validated before any HTML preview is produced.
 # Structural selector checks run against the approved Monday and weekday mother templates.
+# Auxiliary market collectors are included in the clean-main validation branch.
 # Investing.com calendar captures are read-only probes; incomplete coverage never passes the report gate.
 
 permissions:
