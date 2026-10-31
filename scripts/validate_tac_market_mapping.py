@@ -7,6 +7,7 @@ import json
 import re
 import sys
 from pathlib import Path
+from html.parser import HTMLParser
 
 TAG_RE = re.compile(r"<[^>]+>")
 ROW_RE = re.compile(r'<(?:div|tr)\b[^>]*class=["\'][^"\']*\b{class_name}\b[^"\']*["\'][^>]*>(.*?)</(?:div|tr)>', re.I | re.S)
@@ -34,12 +35,36 @@ def extract_container(source: str, container_id: str) -> str:
 
 
 def extract_rows(container: str, class_name: str) -> list[str]:
-    pattern = re.compile(
-        r'<([a-zA-Z][\w:-]*)\b[^>]*class=["\'][^"\']*\b' + re.escape(class_name) +
-        r'\b[^"\']*["\'][^>]*>(.*?)</\1>',
-        re.I | re.S,
-    )
-    return [m.group(2) for m in pattern.finditer(container)]
+    class Collector(HTMLParser):
+        def __init__(self):
+            super().__init__(convert_charrefs=True)
+            self.active = []
+            self.completed = []
+
+        def handle_starttag(self, tag, attrs):
+            classes = dict(attrs).get("class", "").split()
+            for item in self.active:
+                if tag == item["tag"]:
+                    item["depth"] += 1
+            if class_name in classes:
+                self.active.append({"tag": tag, "depth": 1, "parts": []})
+
+        def handle_data(self, data):
+            for item in self.active:
+                item["parts"].append(data)
+
+        def handle_endtag(self, tag):
+            for item in list(self.active):
+                if tag == item["tag"]:
+                    item["depth"] -= 1
+                    if item["depth"] == 0:
+                        self.completed.append(" ".join(item["parts"]))
+                        self.active.remove(item)
+
+    parser = Collector()
+    parser.feed(container)
+    parser.close()
+    return parser.completed
 
 
 def check_section(name: str, spec: dict, source: str) -> list[str]:
