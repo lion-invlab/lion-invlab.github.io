@@ -307,7 +307,7 @@ def self_test():
                     raise AssertionError(f"{report_date}: expected rendered value {expected!r} not found")
             if not output_path.is_file():
                 raise AssertionError(f"{report_date}: output HTML was not created")
-            print(f"PASS: {expected_template} template rendered from schema-valid pending snapshot")
+            print(f"PASS: {expected_template} template rendered from synthetic verified/pending snapshot")
     print("PASS: both approved mothers render without changing DOM structure or protected files")
 
 
