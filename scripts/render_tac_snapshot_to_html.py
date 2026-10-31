@@ -2,6 +2,8 @@
 """Fail-closed renderer for mapped TAC market text slots; never rebuilds HTML."""
 from __future__ import annotations
 import argparse, html, json, re, sys
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from html.parser import HTMLParser
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -72,7 +74,7 @@ class Parser(HTMLParser):
         p=self.pos(); raw="&#"+name+";"; self.stack[-1].children.append((html.unescape(raw),p,p+len(raw)))
 
 def descendants(n): return list(n.descendants())
-def normalize(value): return re.sub(r"\\s+"," ",value).strip()
+def normalize(value): return re.sub(r"\s+"," ",value).strip()
 def by_id(root,k): return [n for n in root.descendants() if n.attrs.get("id")==k]
 def by_class(root,k): return [n for n in root.descendants() if k in n.classes]
 def selector_nodes(root,selector):
@@ -251,6 +253,81 @@ def sort_sector_rows(source,snapshot,mapping):
     replacement=separator.join(chunks[k] for k in ordered)
     return source[:start]+replacement+source[end:],len(rows)
 
+def make_remove_classes_edit(node,remove):
+    if node.class_span is None: return None
+    classes=(node.attrs.get("class") or "").split()
+    kept=[value for value in classes if value not in set(remove)]
+    if kept==classes: return None
+    return node.class_span[0],node.class_span[1]," ".join(kept)
+def event_taipei_datetime(value):
+    parsed=datetime.fromisoformat(value.replace("Z","+00:00"))
+    if parsed.tzinfo is None: raise ValueError("calendar event timestamp must include timezone offset")
+    return parsed.astimezone(ZoneInfo("Asia/Taipei"))
+def event_date_label(value):
+    dt=event_taipei_datetime(value)
+    weekday="一二三四五六日"[dt.weekday()]
+    return dt.strftime("%m/%d")+"（"+weekday+"）"
+def event_bucket(record,report_date):
+    status=record["status"]
+    if status in ("today","upcoming","published"): return status
+    event_day=event_taipei_datetime(record["event_time"]).date()
+    report_day=datetime.fromisoformat(report_date).date()
+    return "today" if event_day==report_day else "upcoming" if event_day>report_day else "published"
+def update_economic_card(card,record,spec,edits):
+    for selector_key in ("date_selector","time_selector","country_selector","name_selector","stars_selector"):
+        nodes=selector_nodes(card,spec[selector_key])
+        if len(nodes)!=1: raise ValueError("economic event "+record["event_id"]+" missing "+selector_key)
+        if selector_key=="date_selector": value=event_date_label(record["event_time"])
+        elif selector_key=="time_selector": value=event_taipei_datetime(record["event_time"]).strftime("%H:%M")
+        elif selector_key=="country_selector": value=record["country"]
+        elif selector_key=="name_selector": value=record["name"]
+        else: value="★★★"
+        edits.append(make_edit(nodes[0],value))
+    field_seen=set()
+    for field in by_class(card,spec["field_selector"].lstrip(".")):
+        labels=selector_nodes(field,spec["field_label_selector"])
+        values=selector_nodes(field,spec["field_value_selector"])
+        if len(labels)!=1 or len(values)!=1: raise ValueError("economic event field label/value missing")
+        label=normalize(labels[0].text)
+        key=("previous" if label=="前值" else "forecast" if label in ("預估","市場預估") else
+             "actual" if label=="實際" else "impact" if label in ("市場影響","影響") else
+             "source" if label in ("來源","資料來源") else None)
+        if key is None: continue
+        field_seen.add(key)
+        if key=="source":
+            anchors=selector_nodes(values[0],"a")
+            sources=[record["source"]]+record.get("related_sources",[])
+            if len(anchors)!=len(sources): raise ValueError("economic event "+record["event_id"]+" source-link count mismatch")
+            for anchor,source_info in zip(anchors,sources):
+                edits.append(make_href_edit(anchor,source_info["url"]))
+                edits.append(make_edit(anchor,source_info["name"]))
+        else:
+            edits.append(make_edit(values[0],record[key]))
+    if not {"previous","forecast","actual","source"}.issubset(field_seen):
+        raise ValueError("economic event "+record["event_id"]+" missing required previous/forecast/actual/source fields")
+    class_edit=make_remove_classes_edit(card,{"four-star","five-star","three-star"})
+    if class_edit: edits.append(class_edit)
+def update_economic_group(group,status,records,spec,heading_text,edits):
+    heading_nodes=by_class(group,spec["heading_selector"].lstrip("."))
+    if len(heading_nodes)!=1: raise ValueError("economic status heading missing")
+    badge_nodes=by_class(heading_nodes[0],"earnings-badge")
+    edits.append(make_edit(badge_nodes[0] if badge_nodes else heading_nodes[0],heading_text))
+    lists=by_class(group,spec["event_list_selector"].lstrip("."))
+    empty_nodes=by_class(group,"calendar-status-empty")
+    if len(lists)>1 or len(empty_nodes)>1: raise ValueError("economic status list/empty state duplicated")
+    if lists:
+        cards=by_class(lists[0],spec["event_card_selector"].lstrip("."))
+        if len(records)>len(cards): raise ValueError("economic "+status+" event count "+str(len(records))+" exceeds approved mother capacity "+str(len(cards)))
+        for index,card in enumerate(cards):
+            hidden=make_hidden_edit(card,index>=len(records))
+            if hidden: edits.append(hidden)
+            if index<len(records):
+                update_economic_card(card,records[index],spec,edits)
+    elif empty_nodes:
+        if records: raise ValueError("economic "+status+" has "+str(len(records))+" events but approved mother has only an empty-state slot")
+        edits.append(make_edit(empty_nodes[0],"目前沒有符合 Investing.com 3 星重要性條件的經濟事件。"))
+    elif records:
+        raise ValueError("economic "+status+" group has no mapped event-list capacity")
 def render(source,snapshot,mapping):
     tree=Parser(source); edits=[]
     for group in ("global_indices","bonds","fx","energy","precious_metals"):
