@@ -1050,7 +1050,7 @@ def self_test():
         assert rendered.count("<style") == source_html.count("<style")
         assert "92.5%" in rendered and "7.5%" in rendered
         assert "2026-11-03" in rendered
-        assert "Synthetic market observation segment" in rendered
+        assert "Synthetic market_observation segment" in rendered
         assert "Synthetic key_levels segment" in rendered
         assert "Synthetic core observation" in rendered
         assert "Synthetic market sentiment interpretation" in rendered
