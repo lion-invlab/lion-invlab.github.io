@@ -82,6 +82,26 @@ def self_test(validator, schema):
         raise AssertionError("missing required market field unexpectedly passed")
     print("PASS: missing required market field rejected")
 
+    content_valid=copy.deepcopy(valid)
+    source={"name":"Reuters","url":"https://www.reuters.com/world/","observed_at":"2026-10-31T12:00:00+00:00","data_date":"2026-10-30","quote_type":"original_article","instrument":"macro news"}
+    content_valid["news"]["global_focus"]=[{"title":"Verified macro story","summary":"Original report summary.","published_at":"2026-10-30T18:00:00+00:00","source":source,"notes":""}]
+    content_valid["economic_calendar"]["events"]=[{"event_id":"us-cpi-2026-10","name":"US CPI","country":"US","event_time":"2026-10-30T20:30:00+00:00","importance":3,"status":"published","previous":"3.0%","forecast":"3.1%","actual":"3.2%","impact":"Inflation surprise","source":source,"notes":""}]
+    content_valid["earnings_calendar"]["events"]=[{"event_id":"abc-q3-2026","company":"Example Corp","ticker":"ABC","report_time":"2026-10-30T20:00:00+00:00","session":"pre_market","importance":3,"status":"published","eps_actual":"1.20","eps_estimate":"1.10","revenue_actual":"10B","revenue_estimate":"9.8B","stock_reaction":"+2%","analysis":"Beat expectations","source":source,"notes":""}]
+    content_valid["narrative"]={"status":"verified","summary":["A","B","C","D"],"market_sentiment":"Risk-off","market_observation":"Breadth weakened","core_observation":"Rates remain key","key_levels":"待核實","notes":"Synthetic schema test"}
+    errors=list(validator.iter_errors(content_valid))
+    if errors: raise AssertionError("valid content contract rejected: "+"; ".join(e.message for e in errors[:5]))
+    print("PASS: source-linked news, 3-star calendars and verified narrative accepted")
+
+    bad_star=copy.deepcopy(content_valid)
+    bad_star["economic_calendar"]["events"][0]["importance"]=2
+    errors=list(validator.iter_errors(bad_star))
+    if not errors: raise AssertionError("economic event below 3-star threshold unexpectedly accepted")
+    bad_star=copy.deepcopy(content_valid)
+    bad_star["earnings_calendar"]["events"][0]["importance"]=5
+    errors=list(validator.iter_errors(bad_star))
+    if not errors: raise AssertionError("legacy five-star earnings unexpectedly accepted")
+    print("PASS: non-3-star calendar events and legacy five-star ratings rejected")
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", help="Snapshot JSON file to validate")
