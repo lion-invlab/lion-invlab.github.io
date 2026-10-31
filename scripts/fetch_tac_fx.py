@@ -16,8 +16,8 @@ from urllib3.util.retry import Retry
 
 FX = {
     "dxy": {
-        "url": "https://www.investing.com/indices/usdollar-historical-data",
-        "identity": ("US Dollar Index", "US Dollar Currency Index"),
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
+        "identity": ("DXY", "US Dollar Index", "US Dollar Currency Index", "美元指數"),
         "unit": "index_point", "instrument": "DXY spot/CFD index",
         "fallback": None,
     },
