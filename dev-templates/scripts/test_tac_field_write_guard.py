@@ -271,7 +271,23 @@ class FieldWriteGuardTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             update_registered_labeled_source_links(root, item["selector"], [], self.registry)
 
-        bad_url = [{"資料來源": [{"href": "javascript:alert(1)", "label": "bad"}]}] + [{} for _ in cards[1:]]
+        first_source_value = None
+        for field in cards[0].etree_element.iter():
+            if "earnings-detail-field" not in set(field.attrib.get("class", "").split()):
+                continue
+            if any(child.tag.lower() == "label" and (child.text or "").strip() == "資料來源" for child in list(field)):
+                first_source_value = next(
+                    child for child in list(field)
+                    if "earnings-detail-value" in set(child.attrib.get("class", "").split())
+                )
+                break
+        self.assertIsNotNone(first_source_value)
+        source_count = len([child for child in list(first_source_value) if child.tag.lower() == "a"])
+        bad_links = [{"href": "javascript:alert(1)", "label": "bad"}] + [
+            {"href": f"https://example.com/{i}", "label": f"safe {i}"}
+            for i in range(1, source_count)
+        ]
+        bad_url = [{"資料來源": bad_links}] + [{} for _ in cards[1:]]
         with self.assertRaises(ValueError):
             update_registered_labeled_source_links(root, item["selector"], bad_url, self.registry)
         self.assertEqual(source_anchor.attrib.get("href"), before_href)
