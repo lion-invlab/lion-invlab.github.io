@@ -110,6 +110,90 @@
       "monday": 3,
       "weekdays": 3,
       "kind": "fixed"
+    },
+    {
+      "name": "summary_title",
+      "selector": "section.grid.two article.card.bluf > h1",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "summary_body",
+      "selector": "section.grid.two article.card.bluf > p",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "vix_sentiment_value",
+      "selector": "#sentiment .sent > .sbox:nth-child(1) strong",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "move_sentiment_value",
+      "selector": "#sentiment .sent > .sbox:nth-child(2) strong",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "cnn_fear_greed_date",
+      "selector": "#sentiment .cnn-fg-preview .fg6-date",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "cnn_fear_greed_score",
+      "selector": "#sentiment .cnn-fg-preview .fg6-score-main",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "cnn_fear_greed_status",
+      "selector": "#sentiment .cnn-fg-preview .fg6-status",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "cnn_fear_greed_marker",
+      "selector": "#sentiment .cnn-fg-preview .fg6-marker",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "sentiment_core_interpretation",
+      "selector": "#sentiment .sent > .sbox:last-child",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "today_market_focus",
+      "selector": "#view .focus-panel.focus-market .key",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
+    },
+    {
+      "name": "today_key_levels",
+      "selector": "#view .focus-panel.focus-levels .key",
+      "monday": 3,
+      "weekdays": 3,
+      "kind": "content"
+    },
+    {
+      "name": "today_core_callout",
+      "selector": "#view .focus-panel.focus-core .callout",
+      "monday": 1,
+      "weekdays": 1,
+      "kind": "content"
     }
   ]
 }
