@@ -10,7 +10,7 @@ def page(cards, extra="", wrapper_class="event-list"):
     return (
         '<!doctype html><html><head><style>.card{}</style>'
         '<script>window.keep=true;</script></head><body>'
-        '<main id="report"><section id="calendar"><h2>經濟行事曆</h2>'
+        '<main id="report"><a id="fixed-link" href="https://old.example">固定連結</a><section id="calendar"><h2>經濟行事曆</h2>'
         f'<div class="{wrapper_class}"><h3>即將公布</h3>{cards}{extra}</div>'
         '</section><button id="plus" aria-label="新增">＋</button></main>'
         '</body></html>'
@@ -22,7 +22,7 @@ def card(name="CPI", extra_class=""):
     return (
         f'<article class="{classes}">'
         '<details><summary>日期與事件</summary>'
-        f'<p>{name}</p><div class="source">來源</div></details></article>'
+        f'<p>{name}</p><div class="source"><a href="https://old.example">來源</a></div></details></article>'
     )
 
 
@@ -71,6 +71,38 @@ class RepeatGroupValidatorTests(unittest.TestCase):
         candidate = page(card("CPI") + card("PCE"))
         fixed = GroupSpec("economic", "#calendar .event-list", ".event-card", False)
         self.assertFalse(validate_repeat_groups(baseline, candidate, [fixed])["pass"])
+
+    def test_card_source_href_can_change(self):
+        baseline = page(card("CPI"))
+        candidate = baseline.replace('https://old.example', 'https://new.example', 1)
+        # Replace the card's source link, not the fixed page link.
+        candidate = baseline.replace(
+            '<div class="source"><a href="https://old.example">來源</a>',
+            '<div class="source"><a href="https://new.example">來源</a>'
+        )
+        self.assertTrue(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
+
+    def test_fixed_non_card_href_change_fails(self):
+        baseline = page(card("CPI"))
+        candidate = baseline.replace(
+            '<a id="fixed-link" href="https://old.example">',
+            '<a id="fixed-link" href="https://new.example">'
+        )
+        self.assertFalse(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
+
+    def test_card_inline_style_change_fails(self):
+        baseline = page(card("CPI"))
+        candidate = baseline.replace(
+            '<article class="event-card">',
+            '<article class="event-card" style="display:none">'
+        )
+        self.assertFalse(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
+
+    def test_cloned_card_cannot_duplicate_id(self):
+        original = card("CPI").replace('<article class="event-card">', '<article id="event-card" class="event-card">')
+        baseline = page(original)
+        candidate = page(original + original)
+        self.assertFalse(validate_repeat_groups(baseline, candidate, [SPEC])["pass"])
 
 
 if __name__ == "__main__":
