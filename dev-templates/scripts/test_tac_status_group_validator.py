@@ -114,7 +114,7 @@ class RealMotherStatusGroupTests(unittest.TestCase):
     def _switch_list_to_empty(self, source, root, section_selector, list_selector, card_selector):
         candidate = deepcopy(root)
         section = query(candidate, section_selector)[0]
-        groups = direct(candidate, section, ".calendar-status-group")
+        groups = query(section, ".calendar-status-group")
         empty_prototypes = [
             node for group in groups for node in direct(candidate, group, ".calendar-status-empty")
         ]
@@ -169,7 +169,7 @@ class RealMotherStatusGroupTests(unittest.TestCase):
             with self.subTest(section=section):
                 candidate = deepcopy(root)
                 section_node = query(candidate, section)[0]
-                groups = direct(candidate, section_node, ".calendar-status-group")
+                groups = query(section_node, ".calendar-status-group")
                 target = next(group for group in groups if direct(candidate, group, list_selector))
                 list_node = direct(candidate, target, list_selector)[0]
                 target.remove(list_node)
