@@ -25,6 +25,8 @@ on:
       - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_auxiliary_markets.py"
+      - "scripts/fetch_tac_news_rss.py"
+      - "scripts/fetch_tac_news_rss.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "schemas/tac-daily-content.schema.json"
       - "scripts/validate_tac_daily_content.py"
@@ -122,6 +124,9 @@ jobs:
 
       - name: Test Investing.com HK auxiliary market collector
         run: python scripts/fetch_tac_auxiliary_markets.py --self-test
+
+      - name: Test TAC news RSS collector
+        run: python scripts/fetch_tac_news_rss.py --self-test
 
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
