@@ -22,7 +22,13 @@ DATA_GROUPS = (
     "energy",
     "precious_metals",
     "risk_indicators",
+    "news",
+    "economic_calendar",
+    "earnings_calendar",
+    "narrative",
 )
+
+MARKET_RECORD_GROUPS = ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators")
 
 
 def assemble(report_date: str, trading_date: str, generated_at: str,
@@ -177,7 +183,7 @@ def main() -> int:
                       encoding="utf-8")
     verified = 0
     pending = 0
-    for group in DATA_GROUPS:
+    for group in MARKET_RECORD_GROUPS:
         for item in snapshot[group].values():
             if item["status"] == "verified":
                 verified += 1
