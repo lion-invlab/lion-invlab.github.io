@@ -28,6 +28,10 @@ on:
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "schemas/tac-daily-content.schema.json"
       - "scripts/validate_tac_daily_content.py"
+      - "scripts/tac_content_binding_map.json"
+      - "scripts/validate_tac_content_binding.py"
+      - "scripts/tac_content_binding_map.json"
+      - "scripts/validate_tac_content_binding.py"
       - "schemas/tac-daily-content.schema.json"
       - "scripts/validate_tac_daily_content.py"
       - "scripts/tac_browser_layout_regression.mjs"
@@ -83,6 +87,9 @@ jobs:
 
       - name: Test TAC editorial content schema and report rules
         run: python scripts/validate_tac_daily_content.py --self-test
+
+      - name: Validate editorial content binding selectors against both approved mothers
+        run: python scripts/validate_tac_content_binding.py
 
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
