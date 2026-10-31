@@ -749,7 +749,8 @@
         "https://investors.arista.com/",
         "https://investor.uber.com/",
         "https://investor.qualcomm.com/"
-      ]
+      ],
+      "checked_at": "2026-11-01T21:00:00+08:00"
     },
     "previous_earnings_calendar": {
       "status": "complete",
@@ -762,21 +763,24 @@
         "https://investor.lilly.com/node/55191",
         "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
         "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results"
-      ]
+      ],
+      "checked_at": "2026-11-01T21:00:00+08:00"
     },
     "economic_calendar": {
       "status": "incomplete",
       "source_refs": [
         "https://hk.investing.com/economic-calendar/",
         "https://www.investing.com/economic-calendar/"
-      ]
+      ],
+      "checked_at": "2026-11-01T21:00:00+08:00"
     },
     "previous_economic_calendar": {
       "status": "incomplete",
       "source_refs": [
         "https://hk.investing.com/economic-calendar/",
         "https://www.investing.com/economic-calendar/"
-      ]
+      ],
+      "checked_at": "2026-11-01T21:00:00+08:00"
     }
   }
 }
