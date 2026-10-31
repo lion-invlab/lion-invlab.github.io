@@ -2,7 +2,7 @@ name: TAC Daily Report Structural Gate
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "tac-snapshot-html-renderer-20261031"]
     paths:
       - "2026-*.html"
       - "review/2026-*-review.html"
