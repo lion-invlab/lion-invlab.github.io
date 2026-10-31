@@ -455,6 +455,36 @@ def update_earnings_group(group,status,records,spec,heading_text,edits):
         edits.append(make_edit(empty[0],"目前沒有符合 Investing.com 3 星重要性條件且完成核實的財報事件。"))
     elif records: raise ValueError("earnings "+status+" group has no mapped event-list capacity")
 
+
+def direct_text_segments(node):
+    segments=[]; current=[]
+    def flush():
+        nonlocal current
+        if current:
+            segments.append(current); current=[]
+    for child in node.children:
+        if isinstance(child,Node):
+            flush()
+        elif child[0].strip():
+            if current and current[-1][2]==child[1]: current.append(child)
+            else:
+                flush(); current=[child]
+    flush()
+    return segments
+def update_direct_text_segments(node,value,status,label,edits):
+    segments=direct_text_segments(node)
+    if not segments: raise ValueError(label+" has no direct text slots")
+    if status!="verified":
+        values=["待核實"]*len(segments)
+    else:
+        values=[line.strip() for line in str(value or "").splitlines() if line.strip()]
+        if len(values)!=len(segments):
+            raise ValueError(label+" requires "+str(len(segments))+" newline-delimited text segments; received "+str(len(values)))
+    for segment,text_value in zip(segments,values):
+        if any(a[2]!=b[1] for a,b in zip(segment,segment[1:])):
+            raise ValueError(label+" text segment contains non-contiguous source positions")
+        edits.append((segment[0][1],segment[-1][2],html.escape(text_value,quote=False)))
+
 def render(source,snapshot,mapping):
     tree=Parser(source); edits=[]
     for group in ("global_indices","bonds","fx","energy","precious_metals"):
@@ -494,6 +524,39 @@ def render(source,snapshot,mapping):
         else:
             edits.append(make_edit(label_node,""))
             edits.append(make_following_text_edit(summary_paragraphs[0],label_node,""))
+
+    narrative_spec=mapping["groups"]["summary"]
+    narrative=snapshot["narrative"]
+    focus_views=by_id(tree.root,"view")
+    if len(focus_views)!=1: raise ValueError("today-focus narrative container missing or duplicated")
+    focus_views=focus_views[0]
+    for selector_key,field_key in (("market_observation_selector","market_observation"),("key_levels_selector","key_levels")):
+        focus_nodes=by_class(focus_views,narrative_spec[selector_key].lstrip("."))
+        if len(focus_nodes)!=1: raise ValueError("narrative "+field_key+" panel missing or duplicated")
+        key_nodes=by_class(focus_nodes[0],"key")
+        if field_key=="market_observation":
+            if len(key_nodes)!=1: raise ValueError("market observation text container missing")
+            update_direct_text_segments(key_nodes[0],narrative[field_key],narrative["status"],field_key,edits)
+        else:
+            if len(key_nodes)!=1: raise ValueError("key-levels text container missing")
+            update_direct_text_segments(key_nodes[0],narrative[field_key],narrative["status"],field_key,edits)
+    core_panels=by_class(focus_views,narrative_spec["core_observation_selector"].lstrip("."))
+    if len(core_panels)!=1: raise ValueError("core observation panel missing or duplicated")
+    callouts=by_class(core_panels[0],"callout")
+    if len(callouts)!=1: raise ValueError("core observation callout missing or duplicated")
+    update_direct_text_segments(callouts[0],narrative["core_observation"],narrative["status"],"core_observation",edits)
+    sentiment_roots=by_id(tree.root,"sentiment")
+    if len(sentiment_roots)!=1: raise ValueError("market sentiment container missing or duplicated")
+    core_rows=[]
+    for row in by_class(sentiment_roots[0],"sbox"):
+        labels=by_class(row,"label")
+        if any(normalize(label.text)==narrative_spec["market_sentiment_label"] for label in labels):
+            core_rows.append(row)
+    if len(core_rows)!=1: raise ValueError("market sentiment core interpretation row missing or duplicated")
+    core_text_nodes=[node for node in direct_children_by_tag(core_rows[0],"div") if "label" not in node.classes]
+    if len(core_text_nodes)!=1: raise ValueError("market sentiment core interpretation text slot missing or duplicated")
+    edits.append(make_edit(core_text_nodes[0],narrative["market_sentiment"] if narrative["status"]=="verified" and narrative["market_sentiment"] else "待核實"))
+
     news_spec=mapping["groups"]["news"]
     for group_key,container_selector,meta_key in (
         ("global_focus",news_spec["global_focus_container"],"global_focus_meta"),
@@ -889,6 +952,17 @@ def self_test():
             template_snapshot["narrative"]["summary"]=[{"label":"上週回顧｜","text":"測試上週市場回顧。"},{"label":"本週展望｜","text":"測試本週市場展望。"},{"label":"投資應對｜","text":"測試投資應對。"}]
         else:
             template_snapshot["narrative"]["summary"]=[{"label":"市場主軸｜","text":"測試市場主軸。"},{"label":"跨市場｜","text":"測試跨市場觀察。"},{"label":"風險訊號｜","text":"測試風險訊號。"},{"label":"操作結論｜","text":"測試操作結論。"}]
+        view_node=by_id(source_tree.root,"view")[0]
+        for panel_class,field_key in (("focus-market","market_observation"),("focus-levels","key_levels")):
+            panel=by_class(view_node,panel_class)[0]
+            key_node=by_class(panel,"key")[0]
+            segment_count=len(direct_text_segments(key_node))
+            template_snapshot["narrative"][field_key]="\n".join("Synthetic "+field_key+" segment "+str(i+1) for i in range(segment_count))
+        core_panel=by_class(view_node,"focus-core")[0]
+        core_callout=by_class(core_panel,"callout")[0]
+        template_snapshot["narrative"]["core_observation"]="Synthetic core observation"
+        template_snapshot["narrative"]["market_sentiment"]="Synthetic market sentiment interpretation"
+
         def make_news_records(container_id,prefix):
             container=by_id(source_tree.root,container_id)[0]
             records=[]
@@ -976,6 +1050,10 @@ def self_test():
         assert rendered.count("<style") == source_html.count("<style")
         assert "92.5%" in rendered and "7.5%" in rendered
         assert "2026-11-03" in rendered
+        assert "Synthetic market observation segment" in rendered
+        assert "Synthetic key_levels segment" in rendered
+        assert "Synthetic core observation" in rendered
+        assert "Synthetic market sentiment interpretation" in rendered
         assert "Synthetic summary test" in rendered
         assert "focus headline 1" in rendered and "headline headline 10" in rendered
         assert "https://example.com/focus/1" in rendered
