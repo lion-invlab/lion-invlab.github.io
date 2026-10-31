@@ -30,6 +30,11 @@ class MotherTemplateBrowserTests(unittest.TestCase):
         page.route("https://**/*", lambda route: route.abort())
         page.route("http://**/*", lambda route: route.abort())
         page.goto(path.resolve().as_uri(), wait_until="domcontentloaded", timeout=15000)
+        page.wait_for_timeout(300)
+        dialog = page.locator("#tac-fund-notice")
+        if dialog.is_visible():
+            page.locator("#tfn-close").click(force=True)
+            page.wait_for_timeout(100)
         return page
 
     def _activate_upcoming_tabs(self, page):
