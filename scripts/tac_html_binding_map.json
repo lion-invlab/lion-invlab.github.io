@@ -154,19 +154,26 @@
           "row": ".sbox",
           "key_text": "VIX",
           "value_selector": "strong",
-          "change_selector": ".warn,.up,.down,.flat"
+          "change_selector": ".warn,.up,.down,.flat",
+          "source_selector": ".source"
         },
         "move": {
           "row": ".sbox",
           "key_text": "MOVE",
           "value_selector": "strong",
-          "change_selector": ".warn,.up,.down,.flat"
+          "change_selector": ".warn,.up,.down,.flat",
+          "source_selector": ".source"
         },
         "cnn_fear_greed": {
           "row": ".cnn-fg-preview",
           "key_text": "CNN Fear & Greed",
           "value_selector": ".fg6-score-main",
-          "change_selector": null
+          "change_selector": null,
+          "source_selector": ".source",
+          "category_selector": ".fg6-status span",
+          "category_zh_selector": ".fg6-status b",
+          "marker_selector": ".fg6-marker",
+          "marker_style_property": "left"
         }
       },
       "snapshot_fields": {
