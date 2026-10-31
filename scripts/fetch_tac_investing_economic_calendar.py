@@ -117,7 +117,7 @@ def build_payload(args) -> dict:
     source_tz = ZoneInfo(args.source_timezone)
     observed_at = datetime.now(timezone.utc).astimezone(TAIPEI).isoformat()
     html = Path(args.input_html).read_text(encoding="utf-8")
-    source_match = re.search(r"<!--\\s*tac-source-url:\\s*(https?://[^\\s]+)\\s*-->", html)
+    source_match = re.search(r"<!--\s*tac-source-url:\s*(https?://[^\s]+)\s*-->", html)
     source_url = source_match.group(1).strip() if source_match else SOURCE_URL
     events = parse_calendar_html(html, observed_at, source_tz, source_url)
     if args.group == "previous":
