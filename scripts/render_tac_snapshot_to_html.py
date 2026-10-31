@@ -75,10 +75,11 @@ def fmt(v,u):
     n=float(v)
     if u=="percent": return format(n,"+.2f")+"%"
     if u=="basis_points": return format(n,"+.0f")+" bp"
+    if u=="percentage_point": return format(n*100,"+.0f")+" bp"
     if u in ("index_point","index","points"): return format(n,",.2f")
     if u in ("USD/share","USD/barrel","USD/oz"): return "$"+format(n,",.2f")
-    if u=="yield_percent": return format(n,".2f")+"%"
-    return format(n,",.4f").rstrip("0").rstrip(".")
+    if u in ("yield_percent","%"): return format(n,".2f")+"%"
+    raise ValueError("unsupported display unit: "+str(u)+"; refusing to guess formatting")
 def make_edit(node,value):
     nodes=slot_text_nodes(node)
     if len(nodes)!=1: raise ValueError("mapped slot must contain exactly one text node")
@@ -250,6 +251,15 @@ def self_test():
     sorted_html,count=sort_sector_rows(sector_html,sector_snapshot,sector_map)
     assert count==2 and sorted_html.index("XLY")<sorted_html.index("XLK")
     print("PASS: sector rows reordered by verified daily change without rebuilding row markup")
+    assert fmt(4.7,"%")=="4.70%"
+    assert fmt(0.01,"percentage_point")=="+1 bp"
+    try:
+        fmt(1.2345,"unknown_fx_unit")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("unknown display unit must fail closed")
+    print("PASS: known Treasury units formatted and unknown units rejected")
 
 def main():
     ap=argparse.ArgumentParser()
