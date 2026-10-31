@@ -10,6 +10,7 @@ from tac_field_write_guard import (
     update_registered_source_links,
     update_registered_text_segments,
     update_registered_labeled_leaf_fields,
+    update_registered_labeled_source_links,
 )
 
 
@@ -190,6 +191,91 @@ class FieldWriteGuardTests(unittest.TestCase):
                 nested_root, item["selector"], values, self.registry
             )
         self.assertEqual(observation_value.text, before)
+
+    def test_labeled_source_anchor_updates_preserve_card_and_anchor_structure(self):
+        cases = (
+            ("weekly_economic_events", "econ-field", "econ-value", "monday", "資料來源"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday", "來源"),
+            ("weekly_economic_events", "econ-field", "econ-value", "weekdays", "資料來源"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays", "資料來源"),
+        )
+        for name, field_class, value_class, template, label_text in cases:
+            with self.subTest(group=name, template=template):
+                root = parse_html(self._source(template))
+                item = self._item(name)
+                cards = select_wrappers(root, item["selector"])
+                card_sources = []
+                expected_links = 0
+                first_anchor = None
+                for wrapper in cards:
+                    card = wrapper.etree_element
+                    source_field = None
+                    for field in card.iter():
+                        if field_class not in set(field.attrib.get("class", "").split()):
+                            continue
+                        if any(
+                            child.tag.lower() == "label" and (child.text or "").strip() == label_text
+                            for child in list(field)
+                        ):
+                            source_field = field
+                            break
+                    if source_field is None:
+                        card_sources.append({})
+                        continue
+                    value_node = next(
+                        child for child in list(source_field)
+                        if value_class in set(child.attrib.get("class", "").split())
+                    )
+                    anchors = [child for child in list(value_node) if child.tag.lower() == "a"]
+                    if not anchors:
+                        card_sources.append({})
+                        continue
+                    links = [
+                        {"href": f"https://example.com/{name}-{template}-{expected_links+i}",
+                         "label": f"Updated source {expected_links+i}"}
+                        for i in range(len(anchors))
+                    ]
+                    if first_anchor is None:
+                        first_anchor = anchors[0]
+                        first_anchor.attrib["target"] = "_blank"
+                        first_anchor.attrib["rel"] = "noopener"
+                    expected_links += len(anchors)
+                    card_sources.append({label_text: links})
+                updated = update_registered_labeled_source_links(
+                    root, item["selector"], card_sources, self.registry
+                )
+                self.assertEqual(updated, expected_links)
+                self.assertGreater(updated, 0)
+                self.assertEqual(first_anchor.attrib["target"], "_blank")
+                self.assertEqual(first_anchor.attrib["rel"], "noopener")
+                self.assertTrue(first_anchor.attrib["href"].startswith("https://example.com/"))
+                self.assertTrue(first_anchor.text.startswith("Updated source"))
+
+    def test_labeled_source_updater_rejects_unsafe_url_wrong_label_and_count_without_partial_write(self):
+        root = parse_html(self._source("weekdays"))
+        item = self._item("weekly_earnings_cards")
+        cards = select_wrappers(root, item["selector"])
+        source_anchor = None
+        for card in cards:
+            for node in card.etree_element.iter():
+                if node.tag.lower() == "a":
+                    source_anchor = node
+                    break
+            if source_anchor is not None:
+                break
+        self.assertIsNotNone(source_anchor)
+        before_href, before_text = source_anchor.attrib.get("href"), source_anchor.text
+        wrong_label = [{"觀察重點": [{"href": "https://example.com", "label": "bad"}]}] + [{} for _ in cards[1:]]
+        with self.assertRaises(PermissionError):
+            update_registered_labeled_source_links(root, item["selector"], wrong_label, self.registry)
+        with self.assertRaises(ValueError):
+            update_registered_labeled_source_links(root, item["selector"], [], self.registry)
+
+        bad_url = [{"資料來源": [{"href": "javascript:alert(1)", "label": "bad"}]}] + [{} for _ in cards[1:]]
+        with self.assertRaises(ValueError):
+            update_registered_labeled_source_links(root, item["selector"], bad_url, self.registry)
+        self.assertEqual(source_anchor.attrib.get("href"), before_href)
+        self.assertEqual(source_anchor.text, before_text)
 
     def test_positive_write_updates_only_registered_leaf(self):
         root = parse_html(self._source("monday"))
