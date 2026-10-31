@@ -178,6 +178,19 @@ def self_test() -> None:
             "importance_basis_source":"Synthetic test basis; supporting source is the company index membership record",
             "importance_rating_source":None,"eps_estimate":1.2,"eps_actual":None,
             "revenue_estimate":100.0,"revenue_actual":None,"status":"upcoming"
+        }],
+        "previous_economic_events": [{
+            "id":"prev-e1","event_date":"2026-10-30T20:30:00+08:00","region":"US",
+            "event_name":"Prior CPI","importance_stars":3,"previous":"2.0%","forecast":"2.1%",
+            "actual":"2.2%","status":"released"
+        }],
+        "previous_earnings_events": [{
+            "id":"prev-a1","include_in_report":True,"event_date":"2026-10-30T21:30:00+08:00",
+            "company":"Prior Synthetic Mega Cap","ticker":"PSYN","session":"after_market",
+            "importance_stars":None,"importance_basis":"major_event_assessment",
+            "importance_basis_source":"Synthetic prior-week test assessment",
+            "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
+            "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released"
         }]
     }
     fragment = normalize(payload)
@@ -190,6 +203,8 @@ def self_test() -> None:
     )
     assert len(assembled["economic_calendar"]) == 1
     assert len(assembled["earnings_calendar"]) == 1
+    assert assembled["previous_economic_calendar"][0]["id"] == "prev-e1"
+    assert assembled["previous_earnings_calendar"][0]["id"] == "prev-a1"
 
     empty_capture = dict(payload)
     empty_capture["economic_events"] = []
