@@ -156,7 +156,7 @@ def render(source,snapshot,mapping):
         if len(matches)!=1: raise ValueError("sector ticker "+ticker+" expected once")
         row=matches[0]
         values=[n for n in row.descendants() if n.tag=="span" and "r" in n.classes]
-        ranks=by_class(row,"rank")
+        ranks=by_class(row,sector_spec["rank_selector"].lstrip("."))
         if len(values)!=1 or len(ranks)!=1: raise ValueError("sector "+ticker+" requires one value and one rank slot")
         record=snapshot["sectors"][key]
         verified=record["status"]=="verified"
@@ -175,7 +175,7 @@ def render(source,snapshot,mapping):
     sorted_rows=by_class(sec,sector_spec["row"].lstrip("."))
     rank_edits=[]
     for rank,row in enumerate(sorted_rows,1):
-        rank_nodes=by_class(row,"rank")
+        rank_nodes=by_class(row,sector_spec["rank_selector"].lstrip("."))
         if len(rank_nodes)!=1: raise ValueError("sector rank slot missing or duplicated")
         rank_edits.append(make_edit(rank_nodes[0],str(rank)))
     rank_edits.sort(key=lambda e:e[1],reverse=True)
@@ -239,6 +239,13 @@ def self_test():
     assert change_status({"status":"verified","change":0.0})=="flat"
     assert change_status({"status":"pending_verification","change":1.0})=="warn"
     print("PASS: direction changes update only the mapped value node status class")
+
+    sector_html='<div id="sectors"><div class="sector-row"><span class="rank">1</span><span class="r up">+1%</span><b>XLK</b></div><div class="sector-row"><span class="rank">2</span><span class="r down">-1%</span><b>XLY</b></div></div>'
+    sector_map={"groups":{"sectors":{"container":"#sectors","row":".sector-row","key_by_ticker":{"xlk":"XLK","xly":"XLY"}}}}
+    sector_snapshot={"sectors":{"xlk":{"status":"verified","change":-1.0},"xly":{"status":"verified","change":2.0}}}
+    sorted_html,count=sort_sector_rows(sector_html,sector_snapshot,sector_map)
+    assert count==2 and sorted_html.index("XLY")<sorted_html.index("XLK")
+    print("PASS: sector rows reordered by verified daily change without rebuilding row markup")
 
 def main():
     ap=argparse.ArgumentParser()
