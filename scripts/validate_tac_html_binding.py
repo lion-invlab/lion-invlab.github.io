@@ -166,9 +166,17 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 selector = spec.get(selector_key)
                 if selector:
                     found = selector_nodes(container, selector)
-                    expected_count = 2 if selector_key in ("split_legend_value_selector", "split_timestamp_selector") else 1
-                    if len(found) != expected_count:
+                    expected_count = 2 if selector_key == "split_legend_value_selector" else (1, 2) if selector_key == "split_timestamp_selector" else 1
+                    valid_count = len(found) in expected_count if isinstance(expected_count, tuple) else len(found) == expected_count
+                    if not valid_count:
                         errors.append(f"{group}: {selector_key} expected {expected_count} slot(s), found {len(found)}")
+            if not selector_nodes(container, spec.get("audit_content_selector", "")):
+                audit_details = [node for node in container.descendants() if node.tag == "details"
+                                 and any(child.tag == "summary" and "資料時間與快照口徑" in normalize(child.text)
+                                         for child in node.children if isinstance(child, Node))]
+                if len(audit_details) != 1 or len([child for child in audit_details[0].children
+                                                   if isinstance(child, Node) and child.tag == "div"]) != 1:
+                    errors.append(f"{group}: FedWatch audit content slot missing or duplicated")
             bar_selector = spec.get("split_bar_selector")
             if bar_selector:
                 bars = selector_nodes(container, bar_selector)
