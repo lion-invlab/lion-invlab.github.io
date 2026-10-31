@@ -105,6 +105,20 @@ class CalendarRepeatPlanTests(unittest.TestCase):
             "same_section_empty_state_prototype_missing",
         )
 
+    def test_monday_blocks_empty_transition_without_status_specific_message_mapping(self):
+        data = dataset(
+            "monday",
+            [econ("upcoming-e", "upcoming")],
+            [earnings("upcoming-r", "upcoming")],
+            [econ("prior-e", "prior_week_published")],
+            [earnings("prior-r", "prior_week_published")],
+        )
+        data["economic_events"] = []
+        plan = plan_calendar_repeat_updates(data, self.monday_inventory)
+        self.assertFalse(plan["pass"])
+        upcoming = plan["sections"]["weekly_economic"]["groups"][1]
+        self.assertEqual(upcoming["reason"], "empty_state_text_mapping_missing")
+
     def test_weekdays_all_three_status_groups_can_be_populated(self):
         data = dataset(
             "weekdays",
