@@ -9,19 +9,19 @@ import sys
 from pathlib import Path
 
 TAG_RE = re.compile(r"<[^>]+>")
-ROW_RE = re.compile(r'<(?:div|tr)\\b[^>]*class=["\'][^"\']*\\b{class_name}\\b[^"\']*["\'][^>]*>(.*?)</(?:div|tr)>', re.I | re.S)
+ROW_RE = re.compile(r'<(?:div|tr)\b[^>]*class=["\'][^"\']*\b{class_name}\b[^"\']*["\'][^>]*>(.*?)</(?:div|tr)>', re.I | re.S)
 
 
 def text_only(value: str) -> str:
-    return re.sub(r"\\s+", " ", html.unescape(TAG_RE.sub(" ", value))).strip()
+    return re.sub(r"\s+", " ", html.unescape(TAG_RE.sub(" ", value))).strip()
 
 
 def extract_container(source: str, container_id: str) -> str:
-    marker = re.search(r'<([a-zA-Z][\\w:-]*)\\b(?=[^>]*\\bid=["\']' + re.escape(container_id) + r'["\'])[^>]*>', source, re.I)
+    marker = re.search(r'<([a-zA-Z][\w:-]*)\b(?=[^>]*\bid=["\']' + re.escape(container_id) + r'["\'])[^>]*>', source, re.I)
     if not marker:
         raise ValueError(f"container id not found: {container_id}")
     tag = marker.group(1).lower()
-    token = re.compile(r"</?" + re.escape(tag) + r"\\b[^>]*>", re.I)
+    token = re.compile(r"</?" + re.escape(tag) + r"\b[^>]*>", re.I)
     depth = 0
     for match in token.finditer(source, marker.start()):
         if match.group(0).startswith("</"):
@@ -35,8 +35,8 @@ def extract_container(source: str, container_id: str) -> str:
 
 def extract_rows(container: str, class_name: str) -> list[str]:
     pattern = re.compile(
-        r'<([a-zA-Z][\\w:-]*)\\b[^>]*class=["\'][^"\']*\\b' + re.escape(class_name) +
-        r'\\b[^"\']*["\'][^>]*>(.*?)</\\1>',
+        r'<([a-zA-Z][\w:-]*)\b[^>]*class=["\'][^"\']*\b' + re.escape(class_name) +
+        r'\b[^"\']*["\'][^>]*>(.*?)</\1>',
         re.I | re.S,
     )
     return [m.group(2) for m in pattern.finditer(container)]
@@ -60,12 +60,12 @@ def check_section(name: str, spec: dict, source: str) -> list[str]:
                 errors.append(f"{name}: label '{label}' expected exactly once, found {hits}")
     if "tickers" in spec:
         for ticker in spec["tickers"]:
-            hits = sum(re.search(r"\\b" + re.escape(ticker) + r"\\b", row) is not None for row in texts)
+            hits = sum(re.search(r"\b" + re.escape(ticker) + r"\b", row) is not None for row in texts)
             if hits != 1:
                 errors.append(f"{name}: ticker {ticker} expected exactly once, found {hits}")
     for index, row in enumerate(rows, 1):
         visible = text_only(row)
-        if not re.search(r"[+-]?\\d[\\d,.]*(?:%|bp)", visible, re.I):
+        if not re.search(r"[+-]?\d[\d,.]*(?:%|bp)", visible, re.I):
             errors.append(f"{name}: row {index} has no recognizable numeric change: {visible[:100]}")
     return errors
 
@@ -88,7 +88,7 @@ def main() -> int:
         else:
             print(f"PASS {name}: {spec['expected_count']} rows")
     if errors:
-        print("\\n".join(errors), file=sys.stderr)
+        print("\n".join(errors), file=sys.stderr)
         print("MARKET FIELD CONTRACT FAILED")
         return 1
     print("MARKET FIELD CONTRACT PASSED (structure only; not quote/date/source verification)")
