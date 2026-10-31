@@ -243,6 +243,33 @@ def tree_signature(soup):
     return tuple(walk(child) for child in soup.contents)
 
 
+def apply_report_metadata(soup, snapshot: dict, spec: dict) -> None:
+    report_day = date.fromisoformat(snapshot["meta"]["report_date"])
+    weekday = ("一", "二", "三", "四", "五", "六", "日")[report_day.weekday()]
+    title_selector = spec.get("title_selector", "title")
+    title_nodes = soup.select(title_selector)
+    if len(title_nodes) != 1:
+        raise ValueError(f"report title: expected one {title_selector}, found {len(title_nodes)}")
+    replace_text(
+        title_nodes[0],
+        f"TAC 投資早報｜{report_day:%Y/%m/%d}（{weekday}）審核版",
+        "report.title",
+    )
+
+    trading_day = date.fromisoformat(snapshot["meta"]["trading_date"])
+    display_trading_date = trading_day.strftime("%Y/%m/%d")
+    for selector in spec.get("trading_date_prefix_selectors", []):
+        nodes = soup.select(selector)
+        if not nodes:
+            raise ValueError(f"report date label selector matched no nodes: {selector}")
+        for index, node in enumerate(nodes):
+            current = node.get_text()
+            updated, count = re.subn(r"\\d{4}/\\d{2}/\\d{2}", display_trading_date, current, count=1)
+            if count != 1:
+                raise ValueError(f"report date label has no YYYY/MM/DD date: {selector}[{index}]")
+            replace_text(node, updated, f"report.trading_date.{selector}[{index}]")
+
+
 def render(snapshot_path: Path, output_path: Path) -> dict:
     snapshot = read_json(snapshot_path)
     from validate_tac_daily_snapshot import load_validator
@@ -262,6 +289,8 @@ def render(snapshot_path: Path, output_path: Path) -> dict:
 
     for group, spec in binding["groups"].items():
         apply_group(group, after, snapshot, spec, set(binding["rules"].get("mutable_status_classes", [])))
+
+    apply_report_metadata(after, snapshot, binding.get("metadata", {}))
 
     # Update only the existing report-date metadata value; do not alter its attributes.
     report_meta = after.select('meta[name="report-date"]')
@@ -347,6 +376,11 @@ def self_test():
                     raise AssertionError(f"{report_date}: expected rendered value {expected!r} not found")
             if not output_path.is_file():
                 raise AssertionError(f"{report_date}: output HTML was not created")
+            expected_title = "TAC 投資早報｜" + report_date.replace("-", "/") + ("（一）審核版" if expected_template == "monday" else "（二）審核版")
+            if expected_title not in html:
+                raise AssertionError(f"{report_date}: visible document title was not refreshed")
+            if "2026/10/30 美國市場正式收盤" not in html:
+                raise AssertionError(f"{report_date}: global market trading-date labels were not refreshed")
             rendered_soup = BeautifulSoup(html, "html.parser")
             rendered_rows = rendered_soup.select("#tac-assets-panel-0 .sector-row")
             rendered_tickers = [
