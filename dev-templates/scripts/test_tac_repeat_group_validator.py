@@ -18,11 +18,12 @@ def page(cards, extra="", wrapper_class="event-list"):
 
 
 def card(name="CPI", extra_class=""):
+    classes = "event-card" + (f" {extra_class}" if extra_class else "")
     return (
-        f'<article class="event-card {extra_class}".strip()>'
+        f'<article class="{classes}">'
         '<details><summary>日期與事件</summary>'
         f'<p>{name}</p><div class="source">來源</div></details></article>'
-    ).replace('class="event-card ".strip()"', 'class="event-card"')
+    )
 
 
 class RepeatGroupValidatorTests(unittest.TestCase):
