@@ -331,9 +331,20 @@
 - 所有新卡片先在私有解析文件中完成複製及驗證，所有群組都備妥後才替換列表子節點；任一欄位、來源或原型不符即整批拒絕，不回傳部分 HTML。
 - 更新後以 `validate_repeat_groups` 對照原始正式母版，確認固定 DOM、repeat card skeleton、唯一 ID、CSS／JS 資產及列表 wrapper 結構不變。卡片數量可依資料增減，但不得跨狀態群組借用原型。
 - 本版只支援本週經濟與財報群組。週一母版目前只有「即將公布」群組具卡片原型；若週一今日公布／已公布需要新增卡片，會阻擋。平日三個狀態群組均可依各自原型更新，但若某群組資料變成零筆而沒有核准的 empty-state 轉換，仍阻擋。
-- 週一上週行事曆目前保留原內容，不由本版更新；上週財報含 EPS／營收結果卡及複合分析區，尚須專用欄位 Mapping。只要資料集帶入上週事件，本版就拒絕整批渲染，避免只更新部分日曆。
+- 週一上週經濟卡已由本輪 renderer 支援：只使用 #last-week-calendar 自身既有卡片作為 prototype，依卡片實際欄位 label 與既有來源 anchor 數量進行複製／更新；未提供歷史經濟 payload 時保留原卡，不視為清空指令。週一上週財報仍維持唯讀，因 EPS／營收結果格與分析區尚未完成專用 mapping；帶入上週財報 payload 時整批拒絕，不做部分更新。
 - 新增 9 項 renderer 測試，涵蓋雙模板／狀態群組渲染、同群組原型複製、卡片增減、週一無原型阻擋、無 empty-state 不清空、上週資料阻擋、未授權 label、來源 anchor 數量與不安全 URL。
 - Run #41183368182 完整成功：**130 項單元／整合測試、5 項 Chromium 瀏覽器測試**通過；雙母版 SHA、DOM 結構指紋、status-group inventory、94 selector cardinality 及稽核報告上傳均成功。
 - 中間 Run #41183212925／#41183264296 因測試 fixture 未涵蓋來源欄位與保留其他狀態群組而失敗；已修正 fixture 後由 Run #41183368182 完整驗收，不把中間失敗列為通過。
 - 重要界線：這是測試用 HTML renderer，尚未連接真實資料蒐集，也未完成週一今日／已公布原型、上週經濟／財報專用更新、瀏覽器對渲染後頁面的互動驗收或每日生產流程。Gate A 尚未完成，Gate B–D 未完成，Gate E 未核准。
 - 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41183368182
+
+## 2026-10-31｜Calendar Dataset Contract + Monday Prior-week Economic Renderer
+
+- 新增／整合 tac_calendar_dataset.py、tac_calendar_field_mapper.py、tac_calendar_group_inventory.py、tac_calendar_repeat_renderer.py，形成測試分支的資料驗證 → 欄位 Mapping → 母版原型盤點 → Repeat Group 卡片渲染流程。
+- Dataset contract 驗證事件 ID、日期、IANA 時區、狀態群組、重要性、財報美國公告日期與台灣顯示日期換算、來源欄位 label、HTTP(S) 來源網址及含時區的查證時間；本週狀態依今日／即將公布／已公布分組排序，上週事件獨立排序。缺資料不補猜。
+- Renderer 以實際母版的 status group 和同群組卡片作 prototype，先完成整批驗證再替換卡片；驗證來源 anchor 數量及安全 URL，不新增／刪除來源 anchor。卡片數可在既有群組內增減，但不跨群組借用原型。
+- 本輪新增週一「上週已公布經濟事件」渲染支援；以既有上週經濟卡為 prototype，支援既有欄位 label「前值／預估／市場預估／實際」差異。若沒有歷史經濟資料，保留原有上週經濟卡。
+- 週一上週財報仍不支援動態渲染：EPS／營收結果格、分析及股價反應區需專用 mapping；任何 prior-week earnings payload 都會在渲染前拒絕。週一本週經濟／財報若需新增「今日公布／已公布」卡片但沒有同群組原型，仍阻擋；平日群組若資料歸零且無核准 empty-state，仍阻擋。
+- Run 41184361559 完整成功：134 項單元／整合測試、5 項 Chromium 瀏覽器測試通過；雙母版 SHA、DOM 指紋、status-group inventory、94 selector cardinality 及稽核報告上傳均通過。
+- 本輪僅完成測試分支 renderer 與合成 fixture 的端到端驗證；尚未接入真實資料來源抓取、正式每日資料集、審核預覽或每日發布流程。Gate A 尚未完成，Gate B–D 尚未完成，Gate E 未核准。
+- 驗收紀錄：https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/41184361559
