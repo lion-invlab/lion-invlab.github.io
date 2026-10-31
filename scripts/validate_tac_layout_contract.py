@@ -70,6 +70,19 @@ def signature(path: Path):
     parser.close()
     return parser.root.signature()
 
+def first_difference(left, right, path='root'):
+    if left[0] != right[0]:
+        return f"{path}: tag {left[0]!r} != {right[0]!r}"
+    if left[1] != right[1]:
+        return f"{path}/{left[0]}: protected attributes differ: {left[1]!r} != {right[1]!r}"
+    if len(left[2]) != len(right[2]):
+        return f"{path}/{left[0]}: child component count differs ({len(left[2])} != {len(right[2])})"
+    for index, pair in enumerate(zip(left[2], right[2])):
+        result = first_difference(pair[0], pair[1], f"{path}/{left[0]}[{index}]")
+        if result:
+            return result
+    return None
+
 def self_test():
     import tempfile
     with tempfile.TemporaryDirectory() as directory:
@@ -101,8 +114,11 @@ def main():
     if not master.is_file() or not report.is_file():
         print("FAIL: master or report file is missing", file=sys.stderr)
         return 2
-    if signature(master) != signature(report):
+    master_sig = signature(master)
+    report_sig = signature(report)
+    if master_sig != report_sig:
         print("FAIL: report DOM layout contract differs from approved master", file=sys.stderr)
+        print(first_difference(master_sig, report_sig) or "DOM signatures differ", file=sys.stderr)
         print("Protected: element hierarchy, IDs, layout classes, inline styles and interaction controls.")
         print("Allowed: text/value changes and repeated identical sibling components.")
         return 1
