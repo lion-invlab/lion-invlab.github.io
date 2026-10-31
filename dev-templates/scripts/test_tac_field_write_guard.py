@@ -116,15 +116,15 @@ class FieldWriteGuardTests(unittest.TestCase):
                         for x in matches
                     ))
 
-    def test_labelled_observation_leaf_updates_only_registered_repeat_card_fields(self):
+    def test_labelled_detail_leaf_updates_use_template_specific_allowlisted_labels(self):
         cases = (
-            ("weekly_economic_events", "econ-field", "econ-value", "monday"),
-            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday"),
-            ("weekly_economic_events", "econ-field", "econ-value", "weekdays"),
-            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays"),
+            ("weekly_economic_events", "econ-field", "econ-value", "monday", "觀察重點"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "monday", "觀察重點"),
+            ("weekly_economic_events", "econ-field", "econ-value", "weekdays", "市場影響"),
+            ("weekly_earnings_cards", "earnings-detail-field", "earnings-detail-value", "weekdays", "財報判讀與股價反應"),
         )
-        for name, field_class, value_class, template in cases:
-            with self.subTest(group=name, template=template):
+        for name, field_class, value_class, template, label_text in cases:
+            with self.subTest(group=name, template=template, label=label_text):
                 root = parse_html(self._source(template))
                 item = self._item(name)
                 cards = select_wrappers(root, item["selector"])
@@ -132,18 +132,18 @@ class FieldWriteGuardTests(unittest.TestCase):
                 expected_updates = 0
                 for wrapper in cards:
                     card = wrapper.etree_element
-                    has_observation = any(
+                    has_label = any(
                         field_class in set(field.attrib.get("class", "").split())
                         and any(
-                            child.tag.lower() == "label" and (child.text or "").strip() == "觀察重點"
+                            child.tag.lower() == "label" and (child.text or "").strip() == label_text
                             for child in list(field)
                         )
                         for field in card.iter()
                     )
                     card_values.append(
-                        {"觀察重點": "UPDATED OBSERVATION"} if has_observation else {}
+                        {label_text: "UPDATED DETAIL VALUE"} if has_label else {}
                     )
-                    expected_updates += int(has_observation)
+                    expected_updates += int(has_label)
                 updated = update_registered_labeled_leaf_fields(
                     root, item["selector"], card_values, self.registry
                 )
@@ -154,7 +154,7 @@ class FieldWriteGuardTests(unittest.TestCase):
                         continue
                     self.assertTrue(any(
                         value_class in set(node.attrib.get("class", "").split())
-                        and node.text == "UPDATED OBSERVATION"
+                        and node.text == "UPDATED DETAIL VALUE"
                         for node in wrapper.etree_element.iter()
                     ))
 
