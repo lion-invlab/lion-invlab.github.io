@@ -8,8 +8,9 @@ ROOT=Path(__file__).resolve().parents[1]
 MAP=ROOT/"scripts/tac_html_binding_map.json"
 
 class Node:
-    def __init__(self,tag,attrs,start):
+    def __init__(self,tag,attrs,start,tag_end=None,class_span=None):
         self.tag,self.attrs,self.start=tag,dict(attrs),start
+        self.tag_end,self.class_span=tag_end,class_span
         self.end=None; self.children=[]
     @property
     def classes(self): return set((self.attrs.get("class") or "").split())
@@ -29,11 +30,17 @@ class Parser(HTMLParser):
     def pos(self):
         line,col=self.getpos(); return self.lines[line-1]+col
     def handle_starttag(self,tag,attrs):
-        p=self.pos(); n=Node(tag,attrs,p); self.stack[-1].children.append(n)
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None
+        m=re.search(r'\\bclass\\s*=\\s*(["\\'])(.*?)\\1',raw,re.I)
+        if m: class_span=(p+m.start(2),p+m.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
-        else: n.end=p+len(self.get_starttag_text())
+        else: n.end=p+len(raw)
     def handle_startendtag(self,tag,attrs):
-        p=self.pos(); n=Node(tag,attrs,p); n.end=p+len(self.get_starttag_text()); self.stack[-1].children.append(n)
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None
+        m=re.search(r'\\bclass\\s*=\\s*(["\\'])(.*?)\\1',raw,re.I)
+        if m: class_span=(p+m.start(2),p+m.end(2))
+        n=Node(tag,attrs,p,p+len(raw),class_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
@@ -75,6 +82,22 @@ def make_edit(node,value):
     if len(nodes)!=1: raise ValueError("mapped slot must contain exactly one text node")
     old,start,end=nodes[0]
     return start,end,html.escape(value,quote=False)
+def make_status_class_edit(node,status_class):
+    if node.class_span is None:
+        raise ValueError("status styling requires an explicit class attribute")
+    start,end=node.class_span
+    classes=(node.attrs.get("class") or "").split()
+    allowed={"up","down","flat","warn"}
+    classes=[x for x in classes if x not in allowed]
+    if status_class not in allowed:
+        raise ValueError("unsupported status class")
+    classes.append(status_class)
+    return start,end," ".join(classes)
+def change_status(record):
+    if record.get("status")!="verified" or record.get("change") is None:
+        return "warn"
+    change=float(record["change"])
+    return "up" if change>0 else "down" if change<0 else "flat"
 def render(source,snapshot,mapping):
     tree=Parser(source); edits=[]
     for group in ("global_indices","bonds","fx","energy","precious_metals"):
@@ -88,7 +111,8 @@ def render(source,snapshot,mapping):
             if len(vals)<2: raise ValueError(group+"."+key+" value/change slots missing")
             ok=record["status"]=="verified"
             edits += [make_edit(vals[0],fmt(record["value"],record["unit"]) if ok else "待核實"),
-                      make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實")]
+                      make_edit(vals[1],fmt(record["change"],record.get("change_unit")) if ok else "待核實"),
+                      make_status_class_edit(vals[1],change_status(record))]
     edits.sort(key=lambda e:e[1],reverse=True)
     out=source; last=len(source)+1
     for start,end,value in edits:
@@ -140,6 +164,18 @@ def self_test():
     else:
         raise AssertionError("missing expected date must fail closed")
     print("PASS: report/trading date mismatch and missing expected dates rejected")
+
+    styled=Parser('<span class="r up">+1.0%</span>')
+    styled_node=next(styled.root.descendants())
+    a,b,v=make_status_class_edit(styled_node,"down")
+    styled_html='<span class="r up">+1.0%</span>'
+    styled_html=styled_html[:a]+v+styled_html[b:]
+    assert 'class="r down"' in styled_html
+    assert change_status({"status":"verified","change":1.0})=="up"
+    assert change_status({"status":"verified","change":-1.0})=="down"
+    assert change_status({"status":"verified","change":0.0})=="flat"
+    assert change_status({"status":"pending_verification","change":1.0})=="warn"
+    print("PASS: direction changes update only the mapped value node status class")
 
 def main():
     ap=argparse.ArgumentParser()
