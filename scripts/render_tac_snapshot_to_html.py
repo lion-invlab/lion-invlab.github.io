@@ -8,9 +8,9 @@ ROOT=Path(__file__).resolve().parents[1]
 MAP=ROOT/"scripts/tac_html_binding_map.json"
 
 class Node:
-    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None,aria_label_span=None,href_span=None):
+    def __init__(self,tag,attrs,start,tag_end=None,class_span=None,style_span=None,aria_label_span=None,href_span=None,hidden_attr_span=None):
         self.tag,self.attrs,self.start=tag,dict(attrs),start
-        self.tag_end,self.class_span,self.style_span,self.aria_label_span,self.href_span=tag_end,class_span,style_span,aria_label_span,href_span
+        self.tag_end,self.class_span,self.style_span,self.aria_label_span,self.href_span,self.hidden_attr_span=tag_end,class_span,style_span,aria_label_span,href_span,hidden_attr_span
         self.end=None; self.children=[]
     @property
     def classes(self): return set((self.attrs.get("class") or "").split())
@@ -30,7 +30,7 @@ class Parser(HTMLParser):
     def pos(self):
         line,col=self.getpos(); return self.lines[line-1]+col
     def handle_starttag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None; href_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None; href_span=None; hidden_attr_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
@@ -39,11 +39,13 @@ class Parser(HTMLParser):
         if am: aria_label_span=(p+am.start(2),p+am.end(2))
         hm=re.search(r"href\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if hm: href_span=(p+hm.start(2),p+hm.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span); self.stack[-1].children.append(n)
+        hm2=re.search(r"\\s+hidden(?=\\s|/?>)",raw,re.I)
+        if hm2: hidden_attr_span=(p+hm2.start(),p+hm2.end())
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span,hidden_attr_span); self.stack[-1].children.append(n)
         if tag not in self.VOID: self.stack.append(n)
         else: n.end=p+len(raw)
     def handle_startendtag(self,tag,attrs):
-        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None; href_span=None
+        p=self.pos(); raw=self.get_starttag_text(); class_span=None; style_span=None; aria_label_span=None; href_span=None; hidden_attr_span=None
         m=re.search(r"class\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if m: class_span=(p+m.start(2),p+m.end(2))
         sm=re.search(r"style\s*=\s*(['\"])(.*?)\1",raw,re.I)
@@ -52,7 +54,9 @@ class Parser(HTMLParser):
         if am: aria_label_span=(p+am.start(2),p+am.end(2))
         hm=re.search(r"href\s*=\s*(['\"])(.*?)\1",raw,re.I)
         if hm: href_span=(p+hm.start(2),p+hm.end(2))
-        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span); n.end=p+len(raw); self.stack[-1].children.append(n)
+        hm2=re.search(r"\\s+hidden(?=\\s|/?>)",raw,re.I)
+        if hm2: hidden_attr_span=(p+hm2.start(),p+hm2.end())
+        n=Node(tag,attrs,p,p+len(raw),class_span,style_span,aria_label_span,href_span,hidden_attr_span); n.end=p+len(raw); self.stack[-1].children.append(n)
     def handle_endtag(self,tag):
         p=self.pos()
         for i in range(len(self.stack)-1,0,-1):
@@ -119,6 +123,14 @@ def make_edit(node,value):
             raise ValueError("mapped slot contains non-text gaps: <"+node.tag+"> class="+str(sorted(node.classes)))
     start,end=nodes[0][1],nodes[-1][2]
     return start,end,html.escape(value,quote=False)
+def make_hidden_edit(node,hidden):
+    if node.hidden_attr_span is not None:
+        if hidden: return None
+        return node.hidden_attr_span[0],node.hidden_attr_span[1],""
+    if not hidden: return None
+    if node.tag_end is None or node.tag_end<=node.start:
+        raise ValueError("calendar card start-tag boundary unavailable")
+    return node.tag_end-1,node.tag_end-1," hidden"
 def make_href_edit(node,url):
     if node.href_span is None: raise ValueError("mapped source link has no href attribute")
     start,end=node.href_span
