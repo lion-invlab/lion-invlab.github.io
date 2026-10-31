@@ -130,14 +130,9 @@ def main():
 if __name__ == '__main__':
     main()
 
-## 使用方式
-```bash
-python scripts/tac_template_structure_fingerprint.py \
-  --baseline path/to/approved-mother.html \
-  --candidate path/to/development-template.html \
-  --report structure-audit.json
-```
-
-第一版採保守策略：任何 DOM 層級、ID、class、互動屬性或 inline CSS/JS 差異都會失敗；每日資料重複卡片張數若需變動，必須先定義受控 repeat-group 規則，不能直接放寬整體結構比對。
-
-注意：此腳本目前只提供結構層驗收，不取代瀏覽器視覺、手機響應式、tab、details/summary 與紅圓加號互動測試。
+# 使用方式：
+# python scripts/tac_template_structure_fingerprint.py --baseline approved.html --candidate development.html --report structure-audit.json
+#
+# 第一版採保守策略：任何 DOM 層級、ID、class、互動屬性或 inline CSS/JS 差異都會失敗。
+# 每日資料重複卡片張數若需變動，必須先定義受控 repeat-group 規則，不能直接放寬整體結構比對。
+# 此腳本只提供結構層驗收，不取代瀏覽器視覺、手機響應式、tab、details/summary 與紅圓加號互動測試。
