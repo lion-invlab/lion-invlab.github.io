@@ -48,7 +48,7 @@ try {
     if (!response || !response.ok()) throw new Error(`CME page HTTP ${pageStatus ?? "no response"}`);
     await page.waitForTimeout(18000);
     const frames = page.frames();
-    const candidates = frames.filter(frame => /cmegroup-tools\\.quikstrike\\.net/i.test(frame.url()));
+    const candidates = frames.filter(frame => /cmegroup-tools\.quikstrike\.net/i.test(frame.url()));
     const frame = candidates.find(candidate => /IntegratedFedWatchTool/i.test(candidate.url())) || candidates[0] || null;
     if (!frame) throw new Error("CME FedWatch QuikStrike iframe was not found");
     frameUrl = frame.url();
