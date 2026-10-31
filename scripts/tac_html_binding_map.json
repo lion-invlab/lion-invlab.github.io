@@ -301,7 +301,9 @@
         "beat",
         "miss",
         "pending"
-      ]
+      ],
+      "current_title_selector": ".title small",
+      "previous_title_selector": ".title small"
     }
   },
   "protected_paths": [
