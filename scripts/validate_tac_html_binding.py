@@ -158,6 +158,44 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     links = selector_nodes(item, spec["source_links_selector"])
                     if not links or any(not link.attrs.get("href") for link in links):
                         errors.append(f"news: #{container_id} item {index} source link missing")
+        if group == "economic_calendar":
+            current_groups = by_class(container, spec["status_group_selector"].lstrip("."))
+            if len(current_groups) != 3:
+                errors.append(f"economic_calendar: expected three current-week status groups, found {len(current_groups)}")
+            for index, status_group in enumerate(current_groups, 1):
+                if len(by_class(status_group, spec["event_list_selector"].lstrip("."))) != 1:
+                    errors.append(f"economic_calendar: current status group {index} event list missing")
+                for card_index, card in enumerate(by_class(status_group, spec["event_card_selector"].lstrip(".")), 1):
+                    for selector_key in ("date_selector", "time_selector", "country_selector", "name_selector", "stars_selector"):
+                        if len(selector_nodes(card, spec[selector_key])) != 1:
+                            errors.append(f"economic_calendar: current group {index} card {card_index} {selector_key} missing")
+                    if len(by_class(card, "econ-field")) < 4:
+                        errors.append(f"economic_calendar: current group {index} card {card_index} fields missing")
+            previous_id = spec.get("previous_week_container", "").lstrip("#")
+            if previous_id and by_id(root, previous_id):
+                previous_cards = by_class(by_id(root, previous_id)[0], spec["event_card_selector"].lstrip("."))
+                for card_index, card in enumerate(previous_cards, 1):
+                    if any(len(selector_nodes(card, spec[key])) != 1 for key in ("date_selector", "time_selector", "country_selector", "name_selector", "stars_selector")):
+                        errors.append(f"economic_calendar: previous-week card {card_index} slots missing")
+        if group == "earnings_calendar":
+            current_groups = by_class(container, spec["status_group_selector"].lstrip("."))
+            if len(current_groups) != 3:
+                errors.append(f"earnings_calendar: expected three current-week status groups, found {len(current_groups)}")
+            for index, status_group in enumerate(current_groups, 1):
+                if len(by_class(status_group, spec["event_list_selector"].lstrip("."))) != 1:
+                    errors.append(f"earnings_calendar: current status group {index} event list missing")
+                for card_index, card in enumerate(by_class(status_group, spec["event_card_selector"].lstrip(".")), 1):
+                    for selector_key in ("us_date_selector", "tw_date_selector", "company_selector", "company_sub_selector", "stars_selector"):
+                        if len(selector_nodes(card, spec[selector_key])) != 1:
+                            errors.append(f"earnings_calendar: current group {index} card {card_index} {selector_key} missing")
+                    if not by_class(card, "earnings-detail-field") and not by_class(card, "earnings-actual-card"):
+                        errors.append(f"earnings_calendar: current group {index} card {card_index} result/detail fields missing")
+            previous_id = spec.get("previous_week_container", "").lstrip("#")
+            if previous_id and by_id(root, previous_id):
+                previous_cards = by_class(by_id(root, previous_id)[0], spec["event_card_selector"].lstrip("."))
+                for card_index, card in enumerate(previous_cards, 1):
+                    if not by_class(card, "earnings-actual-card"):
+                        errors.append(f"earnings_calendar: previous-week card {card_index} actual results grid missing")
         if "records" in spec:
             for key, record in spec["records"].items():
                 row_class = record["row"].lstrip(".")
