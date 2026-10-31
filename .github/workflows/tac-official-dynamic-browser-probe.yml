@@ -5,6 +5,7 @@ on:
     branches: ["tac-snapshot-html-renderer-20261031"]
     paths:
       - "scripts/tac_official_dynamic_browser_probe.mjs"
+      - "scripts/tac_cme_language_page_probe.mjs"
       - ".github/workflows/tac-official-dynamic-browser-probe.yml"
   pull_request:
     branches: ["main"]
@@ -33,6 +34,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Test CNN official page and historical JSON endpoint, then CME FedWatch iframe
         run: node scripts/tac_official_dynamic_browser_probe.mjs
+      - name: Compare CME Traditional Chinese and English pages, iframe content, and screenshots
+        run: node scripts/tac_cme_language_page_probe.mjs
       - name: Upload raw responses, rendered text, and screenshots
         if: always()
         uses: actions/upload-artifact@v4
