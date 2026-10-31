@@ -15,6 +15,7 @@ import cssselect2
 import html5lib
 
 from tac_calendar_dataset import validate_calendar_dataset
+from tac_field_write_guard import load_registry
 from tac_calendar_field_mapper import map_calendar_dataset
 from tac_repeat_group_validator import GroupSpec, validate_repeat_groups
 
@@ -25,6 +26,8 @@ SECTION_CONFIG = {
         "card": ".econ-event",
         "field_class": "econ-field",
         "value_class": "econ-value",
+        "registry_name": "weekly_economic_events",
+        "fixed_detail_labels": {"前值", "市場預估", "實際"},
         "summary": {
             "date": "econ-date", "time": "econ-time", "country": "econ-country",
             "name": "econ-name", "stars": "econ-stars",
@@ -36,6 +39,8 @@ SECTION_CONFIG = {
         "card": ".earnings-accordion",
         "field_class": "earnings-detail-field",
         "value_class": "earnings-detail-value",
+        "registry_name": "weekly_earnings_cards",
+        "fixed_detail_labels": set(),
         "summary": {
             "us_date": "earnings-us-date", "taiwan_date": "earnings-tw-date",
             "company_name": "earnings-company-name", "subtitle": "earnings-company-sub",
@@ -238,11 +243,25 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
         raise PermissionError("prior-week cards require their dedicated result-card mapping; no partial render allowed")
 
     mapped = map_calendar_dataset(validated)
+    registry = load_registry()
     root = _parse(source_html)
     pending_replacements = []
     report = {"template": template, "sections": {}, "mutation_performed": False}
 
     for section_name, config in SECTION_CONFIG.items():
+        registrations = [
+            item for item in registry["selectors"]
+            if item.get("name") == config["registry_name"]
+            and item.get("selector") == config["section"] + " " + config["card"]
+            and item.get("kind") == "repeat"
+        ]
+        if len(registrations) != 1:
+            raise PermissionError(f"{section_name}: exactly one matching repeat selector registration is required")
+        registration = registrations[0]
+        if registration.get("detail_field_class") != config["field_class"] or registration.get("detail_value_class") != config["value_class"]:
+            raise PermissionError(f"{section_name}: registered detail field classes do not match renderer")
+        allowed_details = set(registration.get("writable_detail_labels", [])) | set(config["fixed_detail_labels"])
+        allowed_sources = set(registration.get("writable_source_labels", []))
         targets = _group_targets(root, config["section"], config["list"], config["card"])
         payload_section = mapped[section_name]
         section_report = {}
@@ -274,6 +293,13 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
 
             clones = []
             for payload in payloads:
+                unknown_details = set(payload["details"]) - allowed_details
+                unknown_sources = set(payload["sources"]) - allowed_sources
+                if unknown_details or unknown_sources:
+                    raise PermissionError(
+                        f"{section_name}/{status}: non-allowlisted labels "
+                        f"details={sorted(unknown_details)} sources={sorted(unknown_sources)}"
+                    )
                 prototypes = [
                     card for card in original_cards
                     if _prototype_matches(card, config, payload)
