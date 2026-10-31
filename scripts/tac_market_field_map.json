@@ -29,7 +29,7 @@
       "link_targets": {
         "新加坡海峽時報指數 STI": "https://hk.investing.com/indices/singapore-straits-time",
         "澳洲 S&P/ASX 200": "https://hk.investing.com/indices/aus-200-historical-data",
-        "STOXX Europe 600": "https://www.investing.com/indices/stoxx-600"
+        "STOXX Europe 600": "https://hk.investing.com/indices/stoxx-600"
       }
     },
     "bonds": {
