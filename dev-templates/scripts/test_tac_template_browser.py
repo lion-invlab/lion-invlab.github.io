@@ -47,8 +47,8 @@ class MotherTemplateBrowserTests(unittest.TestCase):
                 page = self._open(path)
                 self._activate_upcoming_tabs(page)
                 for selector in (
-                    "#calendar .econ-event-list details.econ-event",
-                    "#earnings .earnings-accordion-list details.earnings-accordion",
+                    "#calendar .econ-event-list details.econ-event:visible",
+                    "#earnings .earnings-accordion-list details.earnings-accordion:visible",
                 ):
                     cards = page.locator(selector)
                     self.assertGreater(cards.count(), 0, f"{name}: no cards for {selector}")
