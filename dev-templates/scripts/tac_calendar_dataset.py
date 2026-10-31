@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from datetime import date, datetime, time
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from tac_calendar_sort import sort_economic_events, sort_earnings_events
 
@@ -72,9 +73,13 @@ def _validate_common(event, index, group, allowed_statuses):
         raise ValueError(f"{prefix} must be an object")
     _required_text(event.get("event_id"), f"{prefix}.event_id")
     _iso_date(event.get("event_date"), f"{prefix}.event_date")
-    _required_text(event.get("event_timezone"), f"{prefix}.event_timezone")
+    timezone_name = _required_text(event.get("event_timezone"), f"{prefix}.event_timezone")
+    try:
+        ZoneInfo(timezone_name)
+    except ZoneInfoNotFoundError as exc:
+        raise ValueError(f"{prefix}.event_timezone must be a valid IANA timezone") from exc
     status = event.get("status_group")
-    if status not in allowed_statuses:
+    if not isinstance(status, str) or status not in allowed_statuses:
         raise ValueError(f"{prefix}.status_group must be one of {sorted(allowed_statuses)}")
     importance = event.get("importance")
     if isinstance(importance, bool) or not isinstance(importance, int) or not 1 <= importance <= 5:
@@ -104,7 +109,8 @@ def _validate_group(events, group, kind, allowed_statuses):
             subtitle = event.get("subtitle", "")
             if not isinstance(subtitle, str):
                 raise ValueError(f"{group}[{index}].subtitle must be a string")
-            if event.get("release_session", "unspecified") not in SESSIONS:
+            session = event.get("release_session", "unspecified")
+            if not isinstance(session, str) or session not in SESSIONS:
                 raise ValueError(f"{group}[{index}].release_session is invalid")
     ids = [event["event_id"] for event in events]
     if len(ids) != len(set(ids)):
@@ -127,7 +133,7 @@ def validate_calendar_dataset(dataset):
         raise ValueError(f"schema_version must be {SCHEMA_VERSION}")
     _iso_date(dataset.get("report_date"), "report_date")
     template = dataset.get("template")
-    if template not in TEMPLATES:
+    if not isinstance(template, str) or template not in TEMPLATES:
         raise ValueError("template must be monday or weekdays")
 
     economic = dataset.get("economic_events")
