@@ -90,16 +90,19 @@ def run_case(kind,report_date,weekday):
         assert "Synthetic focus headline 1" in soup.select_one("#global-focus").get_text()
         assert "Synthetic headline headline 10" in soup.select_one("#headlines").get_text()
         assert "Reuters" not in soup.select_one("#global-focus").get_text()
-        assert len(soup.select("#calendar .calendar-status-empty"))==3
-        assert len(soup.select("#earnings .calendar-status-empty"))==3
-        assert not soup.select("#calendar .econ-event")
-        assert not soup.select("#earnings .earnings-accordion")
+        assert len(soup.select("#calendar .econ-event"))==1
+        assert len(soup.select("#earnings .earnings-accordion"))==1
+        assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★"
+        assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評星"
+        assert "Synthetic CPI release" in soup.select_one("#calendar").get_text()
+        assert "Synthetic Co" in soup.select_one("#earnings").get_text()
         assert "待核實" in soup.select_one("#view").get_text()
         assert "Synthetic source" in soup.select_one("#global-focus").get_text()
         if kind=="monday":
-            assert not soup.select("#last-week-calendar .econ-event")
-            assert not soup.select("#last-week-earnings .earnings-accordion")
-            assert "待核實" in soup.select_one("#last-week-calendar").get_text()
+            assert len(soup.select("#last-week-calendar .econ-event"))==1
+            assert len(soup.select("#last-week-earnings .earnings-accordion"))==1
+            assert "Synthetic prior CPI release" in soup.select_one("#last-week-calendar").get_text()
+            assert "Prior Synthetic Co" in soup.select_one("#last-week-earnings").get_text()
         else:
             assert not soup.select("#last-week-calendar")
         return result
