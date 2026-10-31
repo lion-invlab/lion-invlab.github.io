@@ -264,6 +264,10 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
         raise PermissionError("source HTML does not contain a valid calendar repeat-group inventory")
     if template_inventory != actual_inventory:
         raise ValueError("template inventory does not match the supplied source HTML")
+    if validated["prior_week_economic_events"]:
+        raise PermissionError(
+            "prior-week cards require a dedicated historical-event mapping; no partial render allowed"
+        )
     if validated["prior_week_earnings_events"]:
         raise PermissionError("prior-week earnings cards require their dedicated result-grid mapping; no partial render allowed")
 
@@ -304,12 +308,18 @@ def render_weekly_calendar_updates(source_html, dataset, template_inventory):
                     raise PermissionError(f"{section_name} has no {status} group in this template")
                 section_report[status] = {"count": 0, "action": "not_applicable"}
                 continue
+            if section_name == "prior_week_economic":
+                # Historical Monday cards are immutable in this renderer until
+                # their dedicated event/result mapping is implemented.
+                if count:
+                    raise PermissionError(
+                        "prior-week cards require a dedicated historical-event mapping; no partial render allowed"
+                    )
+                section_report[status] = {
+                    "count": 0, "action": "preserve_existing_prior_week_cards",
+                }
+                continue
             if count == 0:
-                if section_name == "prior_week_economic":
-                    section_report[status] = {
-                        "count": 0, "action": "preserve_existing_prior_week_cards",
-                    }
-                    continue
                 if target["empty"] is not None and target["list"] is None:
                     section_report[status] = {"count": 0, "action": "keep_empty_state"}
                     continue
