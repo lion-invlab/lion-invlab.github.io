@@ -5,6 +5,8 @@ real card prototype available for a future guarded repeat-group updater.
 """
 from __future__ import annotations
 
+import argparse
+import json
 from pathlib import Path
 
 import cssselect2
@@ -106,3 +108,20 @@ def inventory_calendar_groups(source, template):
 def inventory_mother(template):
     path = MOTHERS[template]
     return inventory_calendar_groups(path.read_text(encoding="utf-8"), template)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Inventory template-native calendar repeat-group prototypes")
+    parser.add_argument("--output", help="Optional JSON report path")
+    args = parser.parse_args()
+    report = {template: inventory_mother(template) for template in ("monday", "weekdays")}
+    payload = json.dumps(report, ensure_ascii=False, indent=2) + "\\n"
+    if args.output:
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(payload, encoding="utf-8")
+    print(payload, end="")
+
+
+if __name__ == "__main__":
+    main()
