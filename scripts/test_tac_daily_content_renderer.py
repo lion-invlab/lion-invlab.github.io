@@ -33,6 +33,40 @@ def sample(report_date,template):
         } for i in range(1,count+1)]
     data["focus_news"]=news("focus",5,"macro")
     data["market_headlines"]=news("headline",10,"market")
+    def src(tag):
+        return {"name":"Synthetic calendar source","url":f"https://example.com/{tag}",
+          "published_at":"2026-10-31T12:00:00+08:00","observed_at":"2026-10-31T21:00:00+08:00"}
+    event_day="2026-11-03" if report_date=="2026-11-02" else "2026-11-04"
+    data["economic_calendar"]=[{
+      "id":"econ-current","event_date":event_day+"T20:30:00+08:00",
+      "region":"美國","event_name":"Synthetic CPI release","importance_stars":3,
+      "previous":"2.0%","forecast":"2.1%","actual":None,"status":"upcoming",
+      "impact_judgment":"測試用市場影響判讀","source":src("econ-current")
+    }]
+    data["earnings_calendar"]=[{
+      "id":"earn-current","event_date":event_day+"T21:00:00+08:00",
+      "company":"Synthetic Co","ticker":"SYN","session":"after_market",
+      "importance_stars":None,"importance_basis":"major_event_assessment",
+      "importance_basis_source":"Synthetic test-only major event assessment",
+      "importance_rating_source":None,"eps_estimate":1.2,"eps_actual":None,
+      "revenue_estimate":100.0,"revenue_actual":None,"status":"upcoming",
+      "stock_price_reaction":None,"source":src("earn-current")
+    }]
+    if template=="monday":
+        data["previous_economic_calendar"]=[{
+          "id":"econ-previous","event_date":"2026-10-30T20:30:00+08:00","region":"美國",
+          "event_name":"Synthetic prior CPI release","importance_stars":3,
+          "previous":"2.0%","forecast":"2.1%","actual":"2.2%","status":"released",
+          "impact_judgment":"測試用實際值判讀","source":src("econ-previous")
+        }]
+        data["previous_earnings_calendar"]=[{
+          "id":"earn-previous","event_date":"2026-10-30T21:00:00+08:00","company":"Prior Synthetic Co",
+          "ticker":"PSYN","session":"after_market","importance_stars":None,
+          "importance_basis":"major_event_assessment","importance_basis_source":"Synthetic test-only assessment",
+          "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
+          "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
+          "stock_price_reaction":"測試用股價反應","source":src("earn-previous")
+        }]
     return data
 def prepare_html(mother,dest,report_date,weekday):
     soup=BeautifulSoup(mother.read_text(encoding="utf-8"),"html.parser")
