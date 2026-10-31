@@ -7452,7 +7452,7 @@
           "then": {
             "properties": {
               "summary": {
-                "minItems": 4,
+                "minItems": 3,
                 "items": {
                   "type": "object",
                   "required": [
