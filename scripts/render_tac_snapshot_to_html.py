@@ -287,8 +287,8 @@ def render(source,snapshot,mapping):
     bar_nodes=by_class(fed_root,fed_spec["split_bar_selector"].lstrip("."))
     hold_nodes=by_class(fed_root,fed_spec["split_hold_selector"].lstrip("."))
     hike_nodes=by_class(fed_root,fed_spec["split_hike_selector"].lstrip("."))
-    legend_nodes=by_class(fed_root,fed_spec["split_legend_value_selector"].split()[-1])
-    timestamp_nodes=by_class(fed_root,fed_spec["split_timestamp_selector"].split()[-1])
+    legend_nodes=selector_nodes(fed_root,fed_spec["split_legend_value_selector"])
+    timestamp_nodes=selector_nodes(fed_root,fed_spec["split_timestamp_selector"])
     audit_nodes=by_class(fed_root,fed_spec["audit_content_selector"].lstrip("."))
     if any(len(x)!=1 for x in (bar_nodes,hold_nodes,hike_nodes,audit_nodes)) or len(legend_nodes)!=2 or len(timestamp_nodes)!=2:
         raise ValueError("FedWatch split display slots missing or duplicated")
