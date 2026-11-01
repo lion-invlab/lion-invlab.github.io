@@ -44,7 +44,7 @@ def render_full(snapshot_path:Path,content_path:Path,output_path:Path,require_co
                 required=("eps_estimate","eps_actual","revenue_estimate","revenue_actual",
                   "stock_price_reaction","stock_price_reaction_window","industry","reporting_period",
                   "eps_basis","eps_currency","revenue_currency","revenue_unit",
-                  "eps_comparison_status","revenue_comparison_status","financial_judgment",
+                  "eps_comparison_status","revenue_comparison_status","financial_judgment","eps_note","revenue_note",
                   "consensus_source","price_reaction_source")
                 missing=[key for key in required if item.get(key) is None or item.get(key)==""]
                 if missing:
