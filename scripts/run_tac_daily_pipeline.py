@@ -68,6 +68,52 @@ def select_approved_template(report_day: date, manifest: dict, binding: dict) ->
         raise ValueError(f"Manifest SHA mismatch for {scenario}: expected {item['blob_sha']}, got {actual_sha}")
     return scenario, path
 
+def load_capture_bundle(capture_dir: Path, report_date: str, trading_date: str) -> tuple[list[Path], Path]:
+    capture_dir = capture_dir.resolve()
+    try:
+        capture_dir.relative_to(ROOT)
+    except ValueError:
+        raise ValueError("capture bundle directory must remain inside the repository workspace")
+    manifest_path = capture_dir / "capture_manifest.json"
+    if not manifest_path.is_file():
+        raise ValueError("capture bundle manifest is missing")
+    manifest = load_object(manifest_path, "capture bundle manifest")
+    if manifest.get("report_date") != report_date or manifest.get("trading_date") != trading_date:
+        raise ValueError("capture bundle report/trading dates do not match this report")
+    names = manifest.get("market_fragments")
+    if not isinstance(names, list) or len(names) != 4:
+        raise ValueError("capture bundle must provide exactly four market fragments")
+    fragments = []
+    required_groups = {"global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators"}
+    covered = set()
+    for name in names:
+        path = (ROOT / name).resolve()
+        try:
+            path.relative_to(capture_dir)
+        except ValueError:
+            raise ValueError("capture bundle fragment path escapes its bundle directory")
+        if not path.is_file():
+            raise ValueError(f"capture bundle fragment missing: {name}")
+        fragment = load_object(path, f"capture fragment {name}")
+        if fragment.get("report_date") != report_date or fragment.get("trading_date") != trading_date:
+            raise ValueError(f"capture fragment date mismatch: {name}")
+        covered.update(key for key in required_groups if key in fragment)
+        fragments.append(path)
+    if covered != required_groups:
+        raise ValueError(f"capture bundle market group coverage incomplete: {sorted(required_groups - covered)}")
+    fedwatch_name = manifest.get("fedwatch_capture")
+    if not isinstance(fedwatch_name, str):
+        raise ValueError("capture bundle has no Fed Rate Monitor capture path")
+    fedwatch_path = (ROOT / fedwatch_name).resolve()
+    try:
+        fedwatch_path.relative_to(capture_dir)
+    except ValueError:
+        raise ValueError("FedWatch capture path escapes capture bundle directory")
+    if not fedwatch_path.is_file():
+        raise ValueError("Fed Rate Monitor capture file is missing")
+    return fragments, fedwatch_path
+
+
 def validate_content_fragments(fragments: list[dict]) -> dict:
     merged = {}
     for index, fragment in enumerate(fragments):
@@ -197,6 +243,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--report-date")
     ap.add_argument("--trading-date")
+    ap.add_argument("--capture-dir", help="Use the four market fragments and Fed Rate Monitor capture from capture_tac_market_bundle.py")
     ap.add_argument("--market-fragment", action="append", default=[])
     ap.add_argument("--content-fragment", action="append", default=[])
     ap.add_argument("--fedwatch-capture")
@@ -211,12 +258,18 @@ def main() -> int:
         ap.error("--report-date and --trading-date are required")
     output = Path(args.output) if args.output else ROOT / "review" / f"{args.report_date}-review.html"
     try:
+        if args.capture_dir:
+            if args.market_fragment or args.fedwatch_capture:
+                raise ValueError("--capture-dir cannot be combined with --market-fragment or --fedwatch-capture")
+            market_paths, fedwatch_path = load_capture_bundle(Path(args.capture_dir), args.report_date, args.trading_date)
+        else:
+            market_paths = [Path(x) for x in args.market_fragment]
+            fedwatch_path = Path(args.fedwatch_capture) if args.fedwatch_capture else None
         build_preview(
             args.report_date, args.trading_date,
-            [Path(x) for x in args.market_fragment],
+            market_paths,
             [Path(x) for x in args.content_fragment],
-            output, args.generated_at,
-            Path(args.fedwatch_capture) if args.fedwatch_capture else None
+            output, args.generated_at, fedwatch_path
         )
         return 0
     except Exception as exc:
