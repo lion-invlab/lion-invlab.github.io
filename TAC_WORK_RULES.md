@@ -197,9 +197,9 @@
 - **VIX（S&P 500 波動率指數）：** 優先採用使用者指定的 Investing.com 香港站歷史／報價頁：`https://hk.investing.com/indices/volatility-s-p-500`。以最近一個已完成美股交易日的正式收盤值及日漲跌幅為主，核對指數名稱、交易日期、延遲／更新標記與報告基準日；不可將盤中值或較舊日期誤當最新收盤。Cboe 官方 VIX 歷史資料 `https://www.cboe.com/tradable_products/vix/vix_historical_data` 作官方交叉核對，Yahoo Finance `^VIX` 作備援。若指定香港站缺值、資料過期或日期口徑無法確認，才採用可核實的備援值，並在審核版記錄來源差異與採用理由；無法確認同一交易日正式收盤值時標示待核實，不得猜值或沿用舊值。
 - **固定匯率清單（DXY、USD/TWD、EUR/USD、GBP/USD、AUD/USD、USD/JPY）：** 優先使用 Investing.com 香港站各指數／貨幣對的歷史資料頁，取最近一個已完成交易日的收盤欄位與日漲跌幅，並確認標的、資料日期、延遲／更新標記及報價方向。DXY 必須使用美元指數現貨／CFD 指數頁，不可誤用美元指數期貨（DX）頁。USD/TWD 的 Investing.com 歷史報價是早報市場追蹤序列；若需描述台灣銀行間市場官方收盤，須另以中央銀行／官方市場資料交叉核對，不得將兩種口徑混為一談。只有優先頁面缺值、未更新或無法核實時，才啟用可信備援來源；備援數據須對應同一交易日與報價方向，記錄來源與時間。不同市場收盤時點可能不同，必須明確標示，不得假設六項匯率同時收盤。
 - **美國公債殖利率（2 年、10 年、30 年）：** 優先美國財政部 Daily Treasury Par Yield Curve Rates（https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics），採同一資料日期的 2Y、10Y、30Y CMT/par yield。只有官方資料缺失、未更新或日期無法核實時，才用 FRED 對應序列 DGS2、DGS10、DGS30 備援。比較資料日期與口徑，不得混用不同日期或個別債券即時殖利率；差異無法解釋時標示待核實。
-- **WTI 原油：** 若早報欄位定義為期貨，優先 CME/NYMEX WTI 期貨每日結算價（https://www.cmegroup.com/market-data/daily-settlements.html），備援採用可核實合約與交易日期的 Investing.com 歷史資料。不可用 EIA 現貨價替代期貨結算價；EIA 現貨數據僅供交叉參考。
-- **Brent 原油：** 優先 ICE Brent 期貨資料與結算口徑（https://www.ice.com/products/219），備援採用可核實合約月份、日期與報價口徑的 Investing.com 歷史資料。不得把不同合約月份或現貨價當成同一報價。
-- **黃金 GC、白銀 SI：** 早報正式欄位統一採期貨歷史收盤／交易所結算口徑，優先來源為 CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`；僅在優先來源缺失、未更新或日期／合約／價格欄位無法核實時，才使用第 18.3 節指定的 Investing.com 期貨歷史資料作備援。不得以 LBMA／ICE IBA 定盤基準價、XAU/USD 或 XAG/USD 現貨價替代 GC／SI 期貨欄位。LBMA／ICE IBA 僅可作為不同口徑的參考資料，不得混入同一報價序列。
+- **WTI 原油：** 早報主要行情來源固定採 Investing.com 香港站 WTI 期貨報價／歷史資料頁；依頁面可核實的最近交易日收盤資料更新。CME／NYMEX 官方每日結算資料僅作備援或交叉驗證，不得因官方來源身分而自動取代 Investing.com 主來源。EIA 現貨資料僅作不同口徑參考，不得替代 WTI 期貨欄位。
+- **Brent 原油：** 早報主要行情來源固定採 Investing.com 香港站 Brent 期貨報價／歷史資料頁；依頁面可核實的最近交易日收盤資料更新。ICE 官方 Brent 期貨資料與結算資訊僅作備援或交叉驗證，不得因官方來源身分而自動取代 Investing.com 主來源。不得把不同合約月份或現貨價當成同一報價。
+- **黃金 GC、白銀 SI：** 早報正式欄位統一採期貨歷史收盤／交易所結算口徑，主要行情來源固定採 Investing.com 香港站 Gold Futures、Silver Futures 報價／歷史資料頁。CME／COMEX 官方每日結算資料僅作備援或交叉驗證，不得因官方來源身分而自動取代 Investing.com 主來源。不得以 LBMA／ICE IBA 定盤基準價、XAU/USD 或 XAG/USD 現貨價替代 GC／SI 期貨欄位；LBMA／ICE IBA 僅可作不同口徑參考，不得混入同一報價序列。
 - **MOVE：** **優先來源固定為使用者指定的 Investing.com 香港站歷史資料頁** `https://hk.investing.com/indices/ice-bofaml-move-historical-data`，以該頁對應最近一個已完成交易日的收盤值及升跌幅為主。使用時必須核對表格日期、延遲標記與報告基準日；不可把頁面最新可見但屬前一交易日的報價誤當成當日收盤。若該指定頁缺值、延遲異常或無法確認資料日期，才使用 ICE BofA／其他能確認標的身分的可靠來源交叉核對，並在審核版註明差異與採用理由。不得僅因 Yahoo Finance `^MOVE` 回傳數字便採用；必須確認它確實代表 ICE BofA MOVE Index，而非其他債券指數／ETF／期限工具。標的或日期口徑無法確認時，該值一律標示待核實，不得猜測或以舊值補填。
 - **CNN Fear & Greed：** 優先使用 CNN Business 官方指數頁 `https://www.cnn.com/markets/fear-and-greed` 所呈現的數據；若頁面無法直接讀取，優先嘗試該頁使用的 CNN 官方資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`。此端點屬 CNN 頁面使用的官方資料來源，但不是有公開文件保證穩定的正式 API；擷取時須記錄來源、實際更新時間、分數、評級及資料日期，並確認不是快取舊值。只有官方頁面與端點都無法取得最新且可核實的數據時，才啟用 FGScore、Fear & Greed Tracker 等第三方備援；第三方需保留來源網址與時間戳，並盡可能與 CNN 官方資料交叉核對。不同更新時點的數值不得直接視為衝突或混用；若官方來源與備援來源的時間／數值差異無法解釋，標示待核實，不得逕自採用較舊數值。
 - **SOX（費城半導體指數）：** 優先採用使用者指定的 Investing.com 香港站歷史資料頁：`https://hk.investing.com/indices/phlx-semiconductor-historical-data`。以最近一個已完成交易日的收盤點位及日漲跌幅為主，逐項核對歷史表格日期、指數名稱、延遲／更新標記與報告基準日；不可將盤中值或前一交易日數值誤當最新收盤。Yahoo Finance `^SOX` 與其他可追溯來源僅作備援／交叉核對。若指定頁面缺值、過期或日期無法確認，才啟用備援並在審核版註明差異與採用理由；指數身分、日期或正式收盤口徑無法確認時標示待核實，不得猜值或沿用舊值。
@@ -384,15 +384,15 @@
 - 六項匯率的市場交易時段及日界線不一定相同，不可假設它們在同一時刻收盤。逐項記錄來源所示日期／時間並按需要換算台灣時間；不得把不同時點的報價包裝成同一時間快照。
 - 備援啟用時，記錄原因、來源網址、數據日期／時間、原始報價方向、最終採用值與差異。來源口徑無法匹配或差異無法解釋時標示「待核實」。
 
-### 18.3 能源與貴金屬：期貨欄位定版、優先來源與備援網址
+### 18.3 能源與貴金屬：期貨欄位定版、Investing.com 主要來源與官方備援／驗證
 - **正式欄位口徑：** TAC 早報「重要金融市場與大宗商品」區塊的 WTI、Brent、黃金 GC、白銀 SI，統一呈現期貨歷史收盤／交易所結算口徑，不混用 XAU/USD、XAG/USD 現貨或 LBMA 定盤價。若未來要改成現貨或 LBMA 基準價，必須先明確修改欄位名稱及本規則，不得悄悄換序列。
-- **WTI 原油期貨：** 優先來源為 CME／NYMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`。備援 Investing.com WTI 期貨歷史資料：`https://www.investing.com/commodities/crude-oil-historical-data`。不得以 EIA 現貨價替代期貨結算價。
-- **Brent 原油期貨：** 優先來源為 ICE Brent 期貨官方產品／結算資訊：`https://www.ice.com/products/219`；結算規則及交易日須依 ICE 官方資料核對。備援 Investing.com Brent 期貨歷史資料：`https://www.investing.com/commodities/brent-oil-historical-data`。
-- **黃金 GC 期貨：** 優先來源為 CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`。備援 Investing.com Gold Futures 歷史資料：`https://www.investing.com/commodities/gold-historical-data`。不得用 XAU/USD 現貨或 LBMA AM/PM 定盤價代替 GC 期貨收盤／結算欄位。
-- **白銀 SI 期貨：** 優先來源為 CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html`。備援 Investing.com Silver Futures 歷史資料：`https://www.investing.com/commodities/silver-historical-data`。不得用 XAG/USD 現貨或 LBMA 基準價代替 SI 期貨收盤／結算欄位。
-- **合約月份及換月控制：** 每日必須保存標的代碼、合約月份、交易日期、價格欄位名稱（settlement／close）、原始來源網址及抓取時間。優先來源可讀且數據日期正確時直接採用；優先來源缺失、未更新或無法核實時，才使用上述備援。Investing.com 歷史資料可能按其自身換月規則提供連續期貨序列，與交易所當月合約換月日期不同；因此備援值不得假裝是特定 CME／ICE 合約的官方結算價。若未能確認連續序列所對應合約月份，標註「連續期貨歷史報價／合約月份待核實」，不可將換月價差誤判為單日市場漲跌。
+- **WTI 原油期貨：** 主要來源為 Investing.com 香港站 WTI 期貨頁：`https://hk.investing.com/commodities/crude-oil`，歷史資料核對頁：`https://hk.investing.com/commodities/crude-oil-historical-data`。CME／NYMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html` 僅作備援或交叉驗證。不得以 EIA 現貨價替代期貨報價。
+- **Brent 原油期貨：** 主要來源為 Investing.com 香港站 Brent 期貨頁：`https://hk.investing.com/commodities/brent-oil`，歷史資料核對頁：`https://hk.investing.com/commodities/brent-oil-historical-data`。ICE 官方產品／結算資訊：`https://www.ice.com/products/219` 僅作備援或交叉驗證。
+- **黃金 GC 期貨：** 主要來源為 Investing.com 香港站 Gold Futures 頁：`https://hk.investing.com/commodities/gold`，歷史資料核對頁：`https://hk.investing.com/commodities/gold-historical-data`。CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html` 僅作備援或交叉驗證。不得用 XAU/USD 現貨或 LBMA AM/PM 定盤價代替 GC 期貨欄位。
+- **白銀 SI 期貨：** 主要來源為 Investing.com 香港站 Silver Futures 頁：`https://hk.investing.com/commodities/silver`，歷史資料核對頁：`https://hk.investing.com/commodities/silver-historical-data`。CME／COMEX Daily Settlements：`https://www.cmegroup.com/market-data/daily-settlements.html` 僅作備援或交叉驗證。不得用 XAG/USD 現貨或 LBMA 基準價代替 SI 期貨欄位。
+- **合約月份及換月控制：** 每日必須保存標的代碼、頁面可取得的合約月份／連續序列身分、交易日期、價格欄位名稱（close／settlement）、原始來源網址及抓取時間。主要來源 Investing.com 可讀且日期、標的與欄位口徑正確時，直接採用；官方來源僅用於備援或交叉驗證。Investing.com 歷史資料可能按其自身換月規則提供連續期貨序列，與交易所當月合約換月日期不同；不得將 Investing.com 連續序列冒稱為特定 CME／ICE 合約官方結算價。若未能確認連續序列對應合約月份，標註「連續期貨歷史報價／合約月份待核實」，不可將換月價差誤判為單日市場漲跌。
 - **漲跌幅計算：** 優先採同一來源、同一合約序列、同一交易日口徑所提供的日變動；若自行計算，必須使用連續序列相鄰交易日同口徑數值。換月日若兩日對應不同合約且未做可比性調整，不自行計算漲跌幅，標示「待核實」。
-- **來源分歧：** CME 與 ICE 官方結算資料、Investing.com 歷史資料的結算時間、合約月份及換月機制可能不同。不得只因數值接近便視為相同；逐項核對交易日期、合約、價格定義和報價單位。無法匹配時保留優先來源的可核實數據並註明差異；若連標的或日期都無法確認，標示「待核實」。
+- **來源分歧：** Investing.com 與 CME／ICE 官方資料的更新時間、合約月份、價格欄位及換月機制可能不同。先以 Investing.com 主來源為早報報價依據，再用官方資料交叉驗證；若官方資料與 Investing.com 不同，先核對交易日期、合約、價格定義及報價單位，不得僅因官方來源身分便自動覆蓋主來源。差異無法解釋或主來源本身標的／日期無法確認時，標示「待核實」。
 
 ### 18.4 變更與驗收紀錄
 - 本節於 2026-10-29 根據來源規則釐清工作新增。正式維護時只更新根目錄 `TAC_WORK_RULES.md`；完成後回讀本檔，核對版本、內容、commit SHA 及本檔 blob SHA。
