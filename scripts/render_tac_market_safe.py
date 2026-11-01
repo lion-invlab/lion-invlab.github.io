@@ -792,7 +792,11 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"economic_calendar.{panel_key}: lists must be an array")
             groups = select(containers[0], ".calendar-status-group")
             if len(groups) != len(panel_data["lists"]):
-                raise ValueError(f"economic_calendar.{panel_key}: status-group count mismatch")
+                existing_groups = [group for group in groups if select(group, panel_spec["list_selector"])]
+                if len(existing_groups) == len(panel_data["lists"]):
+                    groups = existing_groups
+                else:
+                    raise ValueError(f"economic_calendar.{panel_key}: status-group count mismatch")
             event_nodes, items = [], []
             for group_index, list_data in enumerate(panel_data["lists"]):
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
@@ -948,7 +952,11 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"earnings_calendar.{panel_key}: lists must be an array")
             groups = select(containers[0], ".calendar-status-group")
             if len(groups) != len(panel_data["lists"]):
-                raise ValueError(f"earnings_calendar.{panel_key}: status-group count mismatch")
+                existing_groups = [group for group in groups if select(group, panel_spec["list_selector"])]
+                if len(existing_groups) == len(panel_data["lists"]):
+                    groups = existing_groups
+                else:
+                    raise ValueError(f"earnings_calendar.{panel_key}: status-group count mismatch")
             item_nodes, items = [], []
             for group_index, list_data in enumerate(panel_data["lists"]):
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
@@ -1118,7 +1126,14 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
             container = containers[0]
             groups = select(container, ".calendar-status-group")
             if len(groups) != len(lists_data):
-                raise ValueError(f"{group_name}.{panel_key}: status-group count mismatch; template={len(groups)}, snapshot={len(lists_data)}")
+                # Backward compatibility for older renderer fixtures that contain
+                # only the already-materialized list arrays. New adapters always
+                # emit one entry per status group, including empty-state groups.
+                existing_groups = [group for group in groups if select(group, panel_spec["list_selector"])]
+                if len(existing_groups) == len(lists_data):
+                    groups = existing_groups
+                else:
+                    raise ValueError(f"{group_name}.{panel_key}: status-group count mismatch; template={len(groups)}, snapshot={len(lists_data)}")
             item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
             for list_index, (group, list_data) in enumerate(zip(groups, lists_data)):
                 parser = SourceTreeParser(html)
