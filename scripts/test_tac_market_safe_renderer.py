@@ -136,7 +136,7 @@ class SafeMarketRendererTests(unittest.TestCase):
             "hold":{"probability":93.4,"rate_range":"維持 3.75%–4.00%"},
             "hike_one":{"probability":6.6,"rate_range":"升至 4.00%–4.25%"}},
             "target_meeting":"2026/12/08–12/09","updated_at":"2026/11/02 05:00 台灣時間",
-            "target_rate_range":"3.75%–4.00%","audit_text":"CME FedWatch 快照：2026/11/02 05:00 台灣時間；維持 93.4%，升息一碼 6.6%。"}}
+            "target_rate_range":"3.75%–4.00%","audit_text":"CME FedWatch 快照：2026/11/02 05:00 台灣時間；維持 93.4%，升息一碼 6.6%。","aria_label":"維持利率 93.4%，升息一碼 6.6%；CME FedWatch 快照時間 2026/11/02 05:00 台灣時間"}}
         result = render_market_html(html,{"groups":{},"fedwatch":snapshot["fedwatch"]},contract)
         self.assertIn("<strong>93.4%</strong>",result)
         self.assertIn("維持 3.75%–4.00%",result)
@@ -151,7 +151,7 @@ class SafeMarketRendererTests(unittest.TestCase):
         contract = {"groups":{"fedwatch":{"container":"#fed","outcomes":{"hold":{},"hike_one":{}}}}}
         html = '<section id="fed"></section>'
         snapshot = {"fedwatch":{"probabilities":{"hold":{"probability":80,"rate_range":"a"},"hike_one":{"probability":10,"rate_range":"b"}},
-                    "target_meeting":"x","updated_at":"x","target_rate_range":"x","audit_text":"x"}}
+                    "target_meeting":"x","updated_at":"x","target_rate_range":"x","audit_text":"x","aria_label":"x"}}
         with self.assertRaisesRegex(ValueError,"sum to"):
             render_market_html(html,{"groups":{},"fedwatch":snapshot["fedwatch"]},contract)
 
