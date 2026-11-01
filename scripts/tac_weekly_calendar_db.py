@@ -178,6 +178,9 @@ def cmd_upsert(args):
 
 def cmd_snapshot(args):
     data=load(args.file); report_day=date.fromisoformat(args.report_date)
+    output_path=Path(args.output)
+    if output_path.exists() and not getattr(args,"replace",False):
+        raise FileExistsError(f"refusing to overwrite existing daily snapshot: {output_path}; use --replace only for an unapproved draft")
     errors=validate_week(data)
     if errors: raise ValueError("current week invalid: "+"; ".join(errors))
     start=date.fromisoformat(data["week_start"]); end=date.fromisoformat(data["week_end"])
@@ -208,8 +211,8 @@ def cmd_snapshot(args):
             rows.sort(key=lambda x:parse_dt(x["event_date"]).date(),reverse=True)
             result[key]=rows
             result["coverage"][key]=prev["coverage"][kind]
-    Path(args.output).parent.mkdir(parents=True,exist_ok=True)
-    Path(args.output).write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    output_path.parent.mkdir(parents=True,exist_ok=True)
+    output_path.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":args.output,"economic":len(result["economic_calendar"]),"earnings":len(result["earnings_calendar"]),"coverage":{k:v["status"] for k,v in result["coverage"].items()}},ensure_ascii=False,indent=2))
     return 0
 
@@ -244,7 +247,7 @@ def main():
     i=sub.add_parser("init"); i.add_argument("--week-of",required=True); i.add_argument("--output",required=True); i.add_argument("--wr-version",default="3.7"); i.add_argument("--at"); i.set_defaults(fn=cmd_init)
     q=sub.add_parser("quality-report"); q.add_argument("--file",required=True); q.add_argument("--output"); q.set_defaults(fn=cmd_quality_report)
     u=sub.add_parser("upsert"); u.add_argument("--file",required=True); u.add_argument("--kind",required=True); u.add_argument("--event",required=True); u.add_argument("--at"); u.set_defaults(fn=cmd_upsert)
-    s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot)
+    s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot); s.add_argument("--replace",action="store_true",help="replace an unapproved draft snapshot")
     m=sub.add_parser("apply-snapshot"); m.add_argument("--content",required=True); m.add_argument("--snapshot",required=True); m.add_argument("--output",required=True); m.set_defaults(fn=cmd_apply_snapshot)
     a=p.parse_args()
     try: return a.fn(a)
