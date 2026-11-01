@@ -192,9 +192,9 @@ def replace_sibling_sequence(source: str, parser: SourceTreeParser,
     parent = nodes[0].parent
     if parent is None or any(node.parent is not parent for node in nodes):
         raise ValueError(f"{label}: cards are not siblings; refusing dynamic resize")
-    positions = [parent.children.index(node) for node in nodes]
-    if positions != list(range(positions[0], positions[0] + len(positions))):
-        raise ValueError(f"{label}: card sequence is not contiguous")
+    positions = [next(i for i, child in enumerate(parent.children) if child is node) for node in nodes]
+    if positions != sorted(positions):
+        raise ValueError(f"{label}: card sequence order is invalid")
     for child in parent.children[positions[0]:positions[-1] + 1]:
         if isinstance(child, Node) and child not in nodes:
             raise ValueError(f"{label}: non-card element inside dynamic sequence")
