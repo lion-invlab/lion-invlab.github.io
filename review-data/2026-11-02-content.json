@@ -1776,7 +1776,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "GAAP diluted EPS；公司公告實際值 US$2.12，Investing.com 香港站共識 US$3.02，低於預期。",
@@ -1829,7 +1829,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "採 GAAP diluted EPS US$4.92；公司另列 non-GAAP EPS US$4.89。比較值採 Investing.com 香港站共識 US$4.72。",
@@ -1882,7 +1882,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "GAAP reported diluted EPS US$7.22；公司另公布 non-GAAP EPS US$7.48。比較值採 Investing.com 香港站共識 US$9.85。",
@@ -1935,7 +1935,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "GAAP diluted EPS US$1.89；Investing.com 香港站共識 US$1.96，低於預期。",
@@ -1988,7 +1988,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "GAAP diluted EPS US$0.60；公司另公布 non-GAAP EPS US$0.52。比較值採 Investing.com 香港站共識 US$0.401。",
@@ -2041,7 +2041,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "公司公告 reported EPS US$3.72、adjusted EPS US$4.23；Investing.com 共識 US$3.99 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
@@ -2094,7 +2094,7 @@
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:17:52+08:00",
+        "observed_at": "2026-11-01T12:39:11+08:00",
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "公司公告 reported diluted EPS US$5.06、adjusted EPS US$5.28；Investing.com 共識 US$4.88 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
@@ -2240,10 +2240,11 @@
         "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
         "https://investor.lilly.com/node/55191",
         "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
-        "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results"
+        "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results",
+        "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
       ],
-      "checked_at": "2026-11-01T12:17:52+08:00",
-      "notes": "已補核七家主要企業的 EPS／營收實際值、共識、口徑及財報判讀；首個常規交易日股價反應缺乏可核實價格來源，暫列待核實；仍需檢查整週是否有其他 TAC 四／五星財報，完成前不標示完整。"
+      "checked_at": "2026-11-01T12:39:11+08:00",
+      "notes": "七家主要企業的 EPS／營收實際值、共識與首個常規交易日股價反應已補入來源；但仍需逐家完成 GAAP／non-GAAP 共識口徑一致性複核，並掃描整週是否遺漏其他 TAC 四／五星財報。完成前不標示完整。"
     },
     "economic_calendar": {
       "status": "incomplete",
