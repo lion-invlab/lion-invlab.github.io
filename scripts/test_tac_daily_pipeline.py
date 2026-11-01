@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from render_tac_market_safe import SourceTreeParser, select, spans_inside, coalesce_spans
-from run_tac_daily_pipeline import build_preview, scenario_for, validate_content_fragments
+from run_tac_daily_pipeline import build_preview, scenario_for, validate_content_fragments, load_capture_bundle
 
 class TacDailyPipelineTests(unittest.TestCase):
     @classmethod
@@ -132,6 +132,36 @@ class TacDailyPipelineTests(unittest.TestCase):
             for path in self.protected if path.exists()
         }
         self.assertEqual(protected_before, protected_after)
+
+
+    def test_capture_bundle_manifest_resolves_four_date_matched_market_fragments(self):
+        artifacts = ROOT / "artifacts"
+        artifacts.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=artifacts) as temp:
+            bundle = Path(temp)
+            fragments = {
+                "global-indices.json": {"report_date": "2026-11-02", "trading_date": "2026-10-30", "global_indices": {}},
+                "sectors.json": {"report_date": "2026-11-02", "trading_date": "2026-10-30", "sectors": {}},
+                "treasury.json": {"report_date": "2026-11-02", "trading_date": "2026-10-30", "bonds": {}},
+                "secondary.json": {"report_date": "2026-11-02", "trading_date": "2026-10-30", "fx": {}, "energy": {}, "precious_metals": {}, "risk_indicators": {}},
+            }
+            names = []
+            for name, value in fragments.items():
+                (bundle / name).write_text(json.dumps(value), encoding="utf-8")
+                names.append(str((bundle / name).relative_to(ROOT)))
+            fedwatch = bundle / "fedwatch.json"
+            fedwatch.write_text(json.dumps({"status": "pending_verification"}), encoding="utf-8")
+            manifest = {
+                "report_date": "2026-11-02", "trading_date": "2026-10-30",
+                "market_fragments": names,
+                "fedwatch_capture": str(fedwatch.relative_to(ROOT)),
+            }
+            (bundle / "capture_manifest.json").write_text(json.dumps(manifest), encoding="utf-8")
+            market_paths, fedwatch_path = load_capture_bundle(bundle, "2026-11-02", "2026-10-30")
+            self.assertEqual(len(market_paths), 4)
+            self.assertEqual(fedwatch_path, fedwatch.resolve())
+            with self.assertRaisesRegex(ValueError, "dates do not match"):
+                load_capture_bundle(bundle, "2026-11-03", "2026-11-02")
 
     def test_weekend_report_date_is_rejected(self):
         for value in ("2026-11-07", "2026-11-08"):
