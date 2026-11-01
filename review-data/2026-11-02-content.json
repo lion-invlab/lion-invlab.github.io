@@ -2110,6 +2110,37 @@
   ],
   "previous_economic_calendar": [
     {
+      "id": "prev-au-cpi-20261028",
+      "event_date": "2026-10-28T08:30:00+08:00",
+      "region": "澳洲",
+      "event_name": "澳洲 CPI／核心截尾均值通膨（9月及Q3）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：澳洲通膨是 RBA 評估利率路徑的核心依據；當時市場正重新定價11月升息可能，對澳幣與澳洲債券具直接影響。",
+      "previous": "CPI年增4.0%；trimmed mean年增3.5%",
+      "forecast": "CPI年增4.2%；trimmed mean年增3.6%",
+      "actual": "CPI年增4.3%；trimmed mean年增3.6%；Q3 trimmed mean年增3.7%",
+      "status": "released",
+      "time_known": true,
+      "impact_judgment": "整體 CPI 高於共識，trimmed mean 年增率升至3.6%；市場對 RBA 11月升息預期明顯升高，通膨壓力仍具黏著性。",
+      "source": {
+        "name": "Australian Bureau of Statistics｜CPI September 2026",
+        "url": "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/latest-release",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Australian Bureau of Statistics",
+        "notes": "官方確認 10/28 11:30 AEDT 發布；換算台灣時間08:30。CPI年增4.3%、trimmed mean年增3.6%。"
+      },
+      "consensus_source": {
+        "name": "Westpac IQ｜September CPI 2026",
+        "url": "https://www.westpaciq.com.au/economics/2026/10/cpi-september-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Westpac Economics",
+        "notes": "列示市場共識 CPI年增4.2%、trimmed mean年增3.6%。"
+      }
+    },
+    {
       "id": "prev-rbnz-20261028",
       "event_date": "2026-10-28T09:00:00+08:00",
       "region": "紐西蘭",
@@ -2241,6 +2272,37 @@
       },
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+    },
+    {
+      "id": "prev-tokyo-cpi-20261030",
+      "event_date": "2026-10-30T12:00:00+08:00",
+      "region": "日本",
+      "event_name": "東京核心 CPI（10月）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：東京 CPI 是日本全國通膨的領先指標，數據將影響日本央行升息預期、日圓及日本公債殖利率。",
+      "previous": "核心 CPI年增2.7%；核心核心 CPI年增2.9%",
+      "forecast": "核心 CPI年增2.7%",
+      "actual": "核心 CPI年增2.6%；核心核心 CPI年增2.6%",
+      "status": "released",
+      "time_known": false,
+      "impact_judgment": "核心 CPI 由2.7%放緩至2.6%，但仍高於日本央行2%目標；核心核心 CPI亦降至2.6%，通膨降溫有限，仍支持逐步正常化政策。",
+      "source": {
+        "name": "Statistics Bureau of Japan｜Tokyo CPI October 2026",
+        "url": "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-t.htm",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Statistics Bureau of Japan",
+        "notes": "官方統計局確認10/30公布東京都區部2026年10月中旬速報；官方頁面未列具體時刻。"
+      },
+      "consensus_source": {
+        "name": "Reuters｜Tokyo core inflation exceeds BOJ target in October",
+        "url": "https://www.reuters.com/world/asia-pacific/tokyo-core-inflation-exceeds-boj-target-october-2026-10-29/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Reuters",
+        "notes": "列示核心 CPI 實際2.6%、市場預估2.7%、前值2.7%。"
+      }
     },
     {
       "id": "prev-eurozone-gdp-20261030",
@@ -2842,10 +2904,14 @@
         "https://bea.gov/news/2026/personal-income-and-outlays-september-2026",
         "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
         "https://www.bls.gov/news.release/archives/eci_10302026.htm",
-        "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent"
+        "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+        "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/latest-release",
+        "https://www.westpaciq.com.au/economics/2026/10/cpi-september-2026",
+        "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-t.htm",
+        "https://www.reuters.com/world/asia-pacific/tokyo-core-inflation-exceeds-boj-target-october-2026-10-29/"
       ],
       "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "第二輪回查補入 RBNZ 利率決策；澳洲 CPI、英國預算、東京 CPI 與 BOJ 決策仍待寫入及核對。"
+      "notes": "第二輪回查補入 RBNZ 利率決策、澳洲 CPI 與東京核心 CPI；英國預算及 BOJ 決策仍待補入，並需完成全週 4／5 星漏項掃描。"
     }
   }
 }
