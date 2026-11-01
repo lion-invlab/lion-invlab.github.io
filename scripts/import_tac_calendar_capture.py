@@ -219,7 +219,15 @@ def self_test() -> None:
             "importance_stars":5,"importance_basis":"major_event_assessment",
             "importance_basis_source":"Synthetic prior-week test assessment",
             "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
-            "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released"
+            "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
+            "industry":"Synthetic industry","reporting_period":"2026 Q3","time_known":True,"time_type":"release_time",
+            "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
+            "eps_comparison_status":"beat","revenue_comparison_status":"beat",
+            "financial_judgment":"Synthetic published earnings judgment.",
+            "stock_price_reaction_window":"2026-10-30 first regular session close",
+            "eps_note":"Synthetic EPS note.","revenue_note":"Synthetic revenue note.",
+            "consensus_source":{"name":"Synthetic consensus source","url":"https://example.com/consensus"},
+            "price_reaction_source":{"name":"Synthetic price reaction source","url":"https://example.com/reaction"}
         }]
     }
     fragment = normalize(payload)
