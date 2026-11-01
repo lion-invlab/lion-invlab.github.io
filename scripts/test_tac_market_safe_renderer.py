@@ -51,7 +51,7 @@ class SafeMarketRendererTests(unittest.TestCase):
         contract = minimal_contract()
         contract["groups"] = {"global_indices":contract["groups"]["global_indices"]}
         snapshot = {"groups":{"global_indices":{"dow":{"value":"99","change":"-1.0%"}}}}
-        with self.assertRaisesRegex(ValueError,"direction class would be stale"):
+        with self.assertRaisesRegex(ValueError,"status class transition is not authorized"):
             render_market_html(html,snapshot,contract)
 
     def test_status_class_transitions_preserve_other_tokens(self):
