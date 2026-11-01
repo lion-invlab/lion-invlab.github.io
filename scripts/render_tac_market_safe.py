@@ -1406,7 +1406,8 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                 used.add(identity)
                 edits.append((span.start, span.end, escape(value, quote=False)))
 
-    render_report_meta(html, parser, snapshot, binding, edits, used)
+    if snapshot.get("meta") is not None:
+        render_report_meta(html, parser, snapshot, binding, edits, used)
     render_risk_indicators(html, parser, snapshot, binding, edits, used)
     render_fedwatch(html, parser, snapshot, binding, edits, used)
     render_editorial(html, parser, snapshot, binding, edits, used)
