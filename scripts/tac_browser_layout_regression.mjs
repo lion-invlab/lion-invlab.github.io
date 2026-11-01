@@ -2,6 +2,8 @@ import { chromium } from "playwright";
 import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
+import pixelmatch from "pixelmatch";
+import { PNG } from "pngjs";
 
 const args = process.argv.slice(2);
 const getArg = (name) => args[args.indexOf(name) + 1];
@@ -33,6 +35,22 @@ const selectors = [
   "#industry-bonds-fx-commodities", "#calendar", "#earnings",
   "#sp500-earnings-health", "#fed", "#view", ".footer"
 ];
+const visualCompareSelectors = [".top", ".nav", ".footer", ".tac-section-heading"];
+const compareMaskedPng = (leftPath, rightPath, label) => {
+  const left = PNG.sync.read(fs.readFileSync(leftPath));
+  const right = PNG.sync.read(fs.readFileSync(rightPath));
+  if (left.width !== right.width || left.height !== right.height) {
+    failures.push(label + ": masked screenshot dimensions differ");
+    return;
+  }
+  const diff = new PNG({ width: left.width, height: left.height });
+  const changed = pixelmatch(left.data, right.data, diff.data, left.width, left.height, {
+    threshold: 0.12,
+    includeAA: false
+  });
+  const ratio = changed / (left.width * left.height);
+  if (ratio > 0.01) failures.push(label + ": masked screenshot pixel difference " + (ratio * 100).toFixed(2) + "% exceeds 1.00%");
+};
 const browser = await chromium.launch({ headless: true });
 let failures = [];
 const openLocal = async (page, file) => {
@@ -70,10 +88,32 @@ try {
   for (const viewport of viewports) {
     const masterPage = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
     const reportPage = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height }, deviceScaleFactor: 1 });
+    masterPage.on("pageerror", error => failures.push(viewport.name + ": master JavaScript error: " + error.message));
+    reportPage.on("pageerror", error => failures.push(viewport.name + ": report JavaScript error: " + error.message));
     await openLocal(masterPage, masterPath);
     await openLocal(reportPage, reportPath);
     await masterPage.screenshot({ path: path.join(outputDir, viewport.name + "-master.png"), fullPage: true });
     await reportPage.screenshot({ path: path.join(outputDir, viewport.name + "-report.png"), fullPage: true });
+
+    // Compare stable visual chrome after masking all live text and numeric values.
+    // Full-page content is not pixel-compared because event/news counts change daily.
+    const maskStyle = "* { color: transparent !important; text-shadow: none !important; } .up,.down,.flat,.warn { color: transparent !important; background-color: transparent !important; border-color: transparent !important; }";
+    await masterPage.addStyleTag({ content: maskStyle });
+    await reportPage.addStyleTag({ content: maskStyle });
+    for (const selector of visualCompareSelectors) {
+      const masterElement = masterPage.locator(selector).first();
+      const reportElement = reportPage.locator(selector).first();
+      if (!(await masterElement.count()) || !(await reportElement.count())) {
+        failures.push(viewport.name + ": visual comparison target missing: " + selector);
+        continue;
+      }
+      const safe = selector.replace(/[^a-z0-9]+/gi, "-");
+      const masterCrop = path.join(outputDir, viewport.name + "-" + safe + "-master.png");
+      const reportCrop = path.join(outputDir, viewport.name + "-" + safe + "-report.png");
+      await masterElement.screenshot({ path: masterCrop });
+      await reportElement.screenshot({ path: reportCrop });
+      compareMaskedPng(masterCrop, reportCrop, viewport.name + " " + selector);
+    }
 
     const master = await snapshot(masterPage);
     const report = await snapshot(reportPage);
@@ -109,6 +149,40 @@ try {
         failures.push(viewport.name + ": fund notice overlay did not close using its existing control");
       }
     }
+
+    // Verify the approved red circular +/- controls exist and actually toggle their cards.
+    const economicPlus = reportPage.locator("details.econ-event > summary .econ-event-toggle").first();
+    if (await economicPlus.count()) {
+      const card = reportPage.locator("details.econ-event").first();
+      const before = await card.evaluate(el => el.open);
+      await economicPlus.click();
+      const after = await card.evaluate(el => el.open);
+      if (before === after) failures.push(viewport.name + ": economic red plus control did not toggle");
+    } else {
+      failures.push(viewport.name + ": economic red plus control missing");
+    }
+    const earningsPlus = reportPage.locator("details.earnings-accordion > summary .earnings-accordion-toggle").first();
+    if (await earningsPlus.count()) {
+      const card = reportPage.locator("details.earnings-accordion").first();
+      const before = await card.evaluate(el => el.open);
+      await earningsPlus.click();
+      const after = await card.evaluate(el => el.open);
+      if (before === after) failures.push(viewport.name + ": earnings red plus control did not toggle");
+    } else {
+      failures.push(viewport.name + ": earnings red plus control missing");
+    }
+
+    // Every in-page navigation link must resolve to an existing target.
+    const navErrors = await reportPage.locator(".nav a[href^='#']").evaluateAll(links =>
+      links.map(link => link.getAttribute("href")).filter(href => !href || !document.getElementById(href.slice(1)))
+    );
+    if (navErrors.length) failures.push(viewport.name + ": broken in-page navigation targets: " + navErrors.join(", "));
+
+    // Every Investing.com link must use HTTPS and a real instrument destination.
+    const investingErrors = await reportPage.locator("a[href*='investing.com']").evaluateAll(links =>
+      links.filter(link => !link.href.startsWith("https://") || !/investing\.com\//i.test(link.href)).map(link => link.href)
+    );
+    if (investingErrors.length) failures.push(viewport.name + ": invalid Investing.com links: " + investingErrors.join(", "));
 
     const disclosure = reportPage.locator("details summary").first();
     if (await disclosure.count()) {
