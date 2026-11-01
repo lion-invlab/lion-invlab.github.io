@@ -576,6 +576,7 @@
         "industry": {"type":["string","null"],"maxLength":120},
         "reporting_period": {"type":["string","null"],"maxLength":80},
         "time_known": {"type":"boolean"},
+        "time_type": {"enum":["release_time","call_time","session_only","unknown",null]},
         "eps_basis": {"type":["string","null"],"maxLength":80},
         "eps_currency": {"type":["string","null"],"maxLength":8},
         "revenue_currency": {"type":["string","null"],"maxLength":8},
