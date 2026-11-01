@@ -1,5 +1,6 @@
 name: TAC Daily Report Structural Gate
 # PR #224 revalidation: keep WR v3.6 published-earnings field preservation and source gates in the full CI run.
+# PR #224 revalidation pulse 2: rerun against the latest adapter and earnings source corrections.
 
 on:
   push:
