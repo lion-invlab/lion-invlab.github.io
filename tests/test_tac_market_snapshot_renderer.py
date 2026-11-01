@@ -73,7 +73,7 @@ class MarketSnapshotRendererTests(unittest.TestCase):
             renderer.render(monday, snapshot_path, ROOT / "scripts" / "tac_html_binding_map.json", output_path, "monday")
             rendered = output_path.read_text(encoding="utf-8")
         self.assertIn("100.00", rendered)
-        self.assertIn("100.00%", rendered)
+        self.assertIn("+3.00%", rendered)
         sector_start = rendered.index('<div class="sector-list">')
         self.assertLess(rendered.index("XLE", sector_start), rendered.index("XLK", sector_start))
         self.assertIn('class="r down"', rendered)
