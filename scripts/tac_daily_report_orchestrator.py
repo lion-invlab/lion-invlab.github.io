@@ -166,7 +166,7 @@ def main() -> int:
     if report_date.weekday() not in MODE_BY_WEEKDAY:
         raise ValueError("週末不自動製作早報")
     wr_version = read_wr_version()
-    if wr_version != "3.8":
+    if wr_version != "3.10":
         raise ValueError(f"目前正式 WR 為 {wr_version}，本原型要求先同步確認 WR 版本")
 
     mode, template, template_sha = verify_master(report_date)
