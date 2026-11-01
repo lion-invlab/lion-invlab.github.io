@@ -97,8 +97,8 @@ def validate_report_rules(data: dict) -> list[str]:
                 if item["importance_stars"] not in allowed_stars:
                     rule = "provider-native three-star only" if group_name == "previous_economic_calendar" else "Investing.com native 3-star"
                     errors.append(f"{label}: only {rule} economic events are permitted")
-                if item.get("importance_basis") != "major_event_assessment" or not item.get("importance_basis_source", "").strip():
-                    errors.append(f"{label}: TAC rating requires an independent, traceable assessment")
+                if item.get("importance_basis") != "provider_native" or not item.get("importance_basis_source", "").strip():
+                    errors.append(f"{label}: economic 3-star rating requires provider-native source evidence")
             else:
                 basis = item["importance_basis"]
                 stars = item["importance_stars"]
