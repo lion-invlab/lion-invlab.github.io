@@ -402,6 +402,60 @@ class SafeMarketRendererTests(unittest.TestCase):
                 self.assertEqual(render_market_html(source,{"groups":{},"news":news_data},news_binding),source,
                                  f"{label}: news no-op must preserve every byte")
 
+    def test_real_dual_masters_economic_calendar_noop_preserves_every_byte(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        spec = binding["groups"]["economic_calendar"]
+        selectors = spec["selectors"]
+        for label, relative in binding["templates"].items():
+            with self.subTest(template=label):
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                panels = {}
+                for panel_key, panel_spec in spec["panels"].items():
+                    containers = select(parser.root,panel_spec["container"])
+                    if not containers:
+                        continue
+                    self.assertEqual(len(containers),1)
+                    items = []
+                    for event in select(containers[0],panel_spec["event_selector"]):
+                        def one_text(selector):
+                            nodes = select(event,selector)
+                            self.assertEqual(len(nodes),1)
+                            spans = coalesce_spans([x for x in spans_inside(nodes[0],parser.spans) if x.text.strip()])
+                            self.assertEqual(len(spans),1)
+                            return unescape(spans[0].text)
+                        name = one_text(selectors["name"])
+                        item = {"expected_name":name,"date":one_text(selectors["date"]),
+                                "time":one_text(selectors["time"]),"country":one_text(selectors["country"]),
+                                "name":name,"stars_text":one_text(selectors["stars"]),"fields":[]}
+                        detail = select(event,selectors["details"])
+                        self.assertEqual(len(detail),1)
+                        for field in select(detail[0],selectors["field"]):
+                            labels = select(field,selectors["field_label"])
+                            values = select(field,selectors["field_value"])
+                            self.assertEqual(len(labels),1)
+                            self.assertEqual(len(values),1)
+                            label_text = unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))).strip()
+                            anchors = select(values[0],selectors["source_link"])
+                            if anchors:
+                                links=[]
+                                for anchor in anchors:
+                                    spans=coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
+                                    self.assertEqual(len(spans),1)
+                                    links.append({"url":anchor.attrs["href"],"text":unescape(spans[0].text)})
+                                item["fields"].append({"label":label_text,"links":links})
+                            else:
+                                spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
+                                self.assertEqual(len(spans),1,f"{label}.{panel_key}.{name}.{label_text}")
+                                item["fields"].append({"label":label_text,"text":unescape(spans[0].text)})
+                        items.append(item)
+                    panels[panel_key]={"items":items}
+                calendar_binding={"groups":{"economic_calendar":spec}}
+                self.assertEqual(render_market_html(source,{"groups":{},"economic_calendar":{"panels":panels}},calendar_binding),source,
+                                 f"{label}: economic calendar no-op must preserve every byte")
+
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
