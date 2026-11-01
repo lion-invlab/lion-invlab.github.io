@@ -17,6 +17,8 @@ on:
       - "scripts/test_compose_tac_daily_snapshot.py"
       - "scripts/import_tac_calendar_capture.py"
       - "scripts/test_tac_calendar_snapshot.py"
+      - "scripts/build_tac_visual_fixtures.py"
+      - "scripts/test_tac_browser_visual.py"
       - "data/calendar/weeks/*.json"
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
@@ -57,3 +59,29 @@ jobs:
         run: python scripts/verify_tac_master_templates.py
       - name: Verify snapshot-to-HTML binding contracts
         run: python scripts/validate_tac_html_binding.py
+
+  browser-visual-regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout isolated experiment branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install browser test dependencies
+        run: |
+          python -m pip install jsonschema playwright
+          python -m playwright install --with-deps chromium
+      - name: Render Monday and weekday HTML fixtures
+        run: python scripts/build_tac_visual_fixtures.py
+      - name: Verify desktop, tablet and 320px mobile layouts
+        run: python scripts/test_tac_browser_visual.py
+      - name: Upload screenshots and browser report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-browser-visual-regression
+          path: artifacts/tac-visual-regression/
+          if-no-files-found: warn
+          retention-days: 14
