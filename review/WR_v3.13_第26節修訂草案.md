@@ -1,7 +1,7 @@
 # TAC_WORK_RULES.md｜第 26 節修訂草案（v3.13 提案）
 
 - 基準：main 分支正式 WR v3.12（本文件僅為隔離分支審閱草案）
-- 範圍：只補充第 26 節第五步的 Renderer 動態清單權限
+- 範圍：補充第 26 節第五步的 Renderer 動態清單、報告日期欄位、顯示轉換與每日審核版 Orchestrator 契約
 - 狀態：待使用者核准；不得視為正式 WR 或發布授權
 - 不修改：正式 WR、Manifest、雙母版、正式首頁
 
@@ -20,6 +20,30 @@
 7. 動態修改完成後，必須驗證：狀態群組數量與順序不變、狀態標題與 tabs 不變、無事件群組保留原提示、有事件群組已移除原提示並只新增一個清單、卡片數量與 Snapshot 相符、所有卡片欄位正確，以及動態群組以外 HTML 原始碼 byte-for-byte 不變。
 8. 上述權限僅適用於 Binding Map 明確指定的空狀態選擇器與清單原型；不得推廣為允許 Renderer 任意新增／刪除 DOM 節點。不得修改母版檔、Manifest、CSS、JavaScript、導航、標題、tabs、互動或正式首頁。
 
+
+### 5.2 報告日期與行情顯示欄位
+
+1. 每份審核版必須由 Snapshot 的 `meta.report_date` 更新 HTML `<title>`、`.report-date` 及 `meta[name="report-date"]`；不得沿用母版示範日期。
+2. 頁首 `.status` 日期依母版契約更新：週一版使用報告日期；週二至週五版使用 Snapshot 的交易日期。日期與星期名稱須一致，缺欄位或格式不符即 fail closed。
+3. 正規化行情 Snapshot 的數值欄位，必須經明確的 Renderer 顯示轉換器處理後才可寫入 HTML。顯示小數位依資產類型固定；漲跌值必須依來源提供的 `change_unit` 格式化，不得猜測單位。
+4. `pending_verification`／`missing` 顯示「待核實」；`market_closed` 顯示「休市」。不得把 null、舊值或推估值轉成看似已核實的報價。
+5. 不支援或缺少的單位、非數值的 verified 報價、日期不符、報價口徑不明，均須停止該份審核版，不得自行補值。
+
+### 5.3 FedWatch 顯示安全契約
+
+1. 正規化 FedWatch 的 rate-range 機率陣列，不得僅依陣列順序推定「維持不變」或「升息一碼」。
+2. 若 FedWatch 狀態為 `pending_verification`／`missing`，畫面須明確顯示「待核實」，機率條寬度為 0，不得顯示假設機率。
+3. 若狀態為 verified，必須提供明確 outcome mapping 的 Renderer payload；每個結果的機率須介於 0–100，總和須為 100（允許既有數值精度誤差），並保留來源與更新時間供稽核。缺少 mapping 或驗證失敗即 fail closed。
+
+### 5.4 每日審核版 Orchestrator 契約
+
+1. Orchestrator 只接受已通過 Snapshot Schema 驗證且含來源、觀測時間、交易日期及報價口徑的行情片段；依報告日期選取核准週一或週二至週五母版。
+2. Orchestrator 依 ISO week 讀取本週行事曆資料庫；週一另讀取上一週資料庫。行事曆仍由 Adapter 依母版欄位契約分流及渲染。
+3. 新聞與編輯分析必須由本次輸入片段提供，不得複製母版舊新聞或舊分析。全球焦點新聞固定 5 則，市場熱門頭條固定 10 則；資料不足即停止交付，不以舊內容湊數。
+4. Orchestrator 只產出 `review/YYYY-MM-DD-review.html` 審核版；若同名檔案已存在不得覆寫。不得更新正式首頁、正式 WR、Manifest 或雙母版。
+5. 產出後須完成日期／欄位／來源／行事曆檢查，並以 Chromium 比對核准母版，完成桌機、平板及 320px 手機的版面、水平溢出與互動驗收。任一失敗即停止交付。
+6. 只有使用者核准審核版後，才可進入正式首頁更新流程；CI 通過或 Orchestrator 成功，不構成發布授權。
+
 ## 建議同步更新 Binding Map 的說明
 
 `rules.dynamic_region_policy` 應明確列出「mapped calendar empty-state placeholders」為受控動態區域；經濟及財報各 panel 應明確映射 `empty_state_selector: ".calendar-status-empty"`。這是程式契約，不代表正式母版內容已變更。
@@ -27,6 +51,7 @@
 ## 驗收邊界
 
 - 本草案不改寫第 26 節六步驟順序，也不放寬第五步的母版結構、功能及視覺驗收。
-- 程式單元測試／CI 通過，不等於桌面、平板、320px 手機的瀏覽器視覺回歸已完成。
-- Orchestrator、即時資料整合及每日完整審核版自動產出，仍須分別完成整合測試後才能宣稱完成。
+- 程式單元測試／CI 通過，不等於即時資料來源、新聞、FedWatch 及每日排程已全部完成。
+- 目前已具備 review-only Orchestrator 與雙母版瀏覽器視覺回歸；但 Investing.com 全部行情欄位的自動擷取、新聞／分析片段的自動取得、FedWatch verified outcome mapping、每日排程及正式發布授權流程仍須分別完成驗收。
+- 視覺回歸需同時比對核准母版與實際當日審核版；不得以單純 HTML 能開啟代替視覺驗收。
 - 正式採納本修訂，必須由使用者確認後另行修改 main 分支正式 WR；本草案本身不具規範效力。
