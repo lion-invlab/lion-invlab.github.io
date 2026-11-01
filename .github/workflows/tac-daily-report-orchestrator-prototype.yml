@@ -6,6 +6,8 @@ on:
       - 'scripts/tac_daily_report_orchestrator.py'
       - 'scripts/validate_tac_investing_com_observations.py'
       - 'scripts/convert_tac_web_observations.py'
+      - 'scripts/render_tac_market_snapshot.py'
+      - 'tests/test_tac_market_snapshot_renderer.py'
       - 'tests/test_tac_web_observation_conversion.py'
       - 'schemas/tac-investing-com-web-observations.schema.json'
       - 'docs/TAC_MARKET_WEB_OBSERVATION_CONTRACT.md'
@@ -44,6 +46,8 @@ jobs:
         run: python scripts/validate_tac_investing_com_observations.py --self-test
       - name: Test direct webpage observations to snapshot conversion
         run: python -m unittest discover -s tests -p 'test_tac_web_observation_conversion.py' -v
+      - name: Test market snapshot renderer against approved master
+        run: python -m unittest discover -s tests -p 'test_tac_market_snapshot_renderer.py' -v
       - name: Run calendar-only orchestrator integration trial
         run: >-
           python scripts/tac_daily_report_orchestrator.py
