@@ -28,3 +28,11 @@ This directory is the proposed weekly source of truth for economic and earnings 
 - Once an event is marked `released`, an upsert cannot silently revert it to `upcoming`; corrections retain the released state and are recorded as revisions.
 - If `time_known=false`, any stored clock component is a non-display placeholder only. Renderers must show the date with time pending verification, never display the placeholder as an event time.
 - The JSON Schema star range is TAC-specific (4–5), consistent with the Python validator and WR v3.7.
+
+
+## Earnings universe eligibility
+- U.S.-domiciled issuers are included.
+- A non-U.S. issuer is included only when its equity/ADR is listed on NYSE, Nasdaq, or NYSE American. The weekly record must carry the U.S. exchange, U.S. ticker, issuer country, and a traceable listing-evidence URL.
+- OTC/OTCQX ADRs and securities trading only on non-U.S. exchanges are excluded. An ADR program by itself is not sufficient.
+- Both current-week and previous-week earnings snapshots apply the same eligibility filter. Economic-calendar events are unaffected.
+- Listing eligibility must be rechecked when an issuer changes venue, delists, or terminates its ADR program.
