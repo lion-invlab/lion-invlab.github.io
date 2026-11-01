@@ -93,10 +93,29 @@ def normalize(payload: dict) -> dict:
             checked_at = record.get("checked_at")
             if checked_at is not None:
                 checked_at = aware_datetime(checked_at, f"coverage.{group}.checked_at")
-            if status == "complete" and (not refs or not checked_at):
-                raise ValueError(f"coverage.{group}: complete requires source_refs and checked_at")
+            checked_dates = record.get("checked_dates", [])
+            if not isinstance(checked_dates, list):
+                raise ValueError(f"coverage.{group}.checked_dates must be an array")
+            checked_dates = [date.fromisoformat(str(item)).isoformat() for item in checked_dates]
+            if len(checked_dates) != len(set(checked_dates)):
+                raise ValueError(f"coverage.{group}.checked_dates contains duplicates")
+            if status == "complete":
+                if not refs or not checked_at:
+                    raise ValueError(f"coverage.{group}: complete requires source_refs and checked_at")
+                if group in {"economic_calendar", "earnings_calendar"}:
+                    week_start = date.fromisoformat(report_date)
+                else:
+                    week_start = date.fromisoformat(report_date) - __import__("datetime").timedelta(days=7)
+                expected_dates = [(week_start + __import__("datetime").timedelta(days=i)).isoformat() for i in range(5)]
+                missing_dates = sorted(set(expected_dates) - set(checked_dates))
+                if missing_dates:
+                    raise ValueError(
+                        f"coverage.{group}: cannot be complete; missing checked weekdays: "
+                        + ", ".join(missing_dates)
+                    )
             fragment["coverage"][group] = {
-                "status": status, "source_refs": refs, "checked_at": checked_at
+                "status": status, "source_refs": refs, "checked_at": checked_at,
+                "checked_dates": checked_dates
             }
 
     for input_group, output_group in (("economic_events", "economic_calendar"),
@@ -216,7 +235,8 @@ def self_test() -> None:
     empty_capture["coverage"] = {
         "economic_calendar": {
             "status": "complete", "source_refs": ["synthetic-calendar-index"],
-            "checked_at": "2026-10-31T21:00:00+08:00"
+            "checked_at": "2026-10-31T21:00:00+08:00",
+            "checked_dates": ["2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-06"]
         },
         "earnings_calendar": {
             "status": "incomplete", "source_refs": [], "checked_at": None
