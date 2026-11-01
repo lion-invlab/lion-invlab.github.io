@@ -3,7 +3,7 @@
   "meta": {
     "report_date": "2026-11-02",
     "trading_date": "2026-10-30",
-    "generated_at": "2026-11-01T21:06:00+08:00",
+    "generated_at": "2026-11-01T12:17:52+08:00",
     "timezone": "Asia/Taipei",
     "wr_version": "3.6",
     "template_type": "monday",
@@ -21,7 +21,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642849",
         "published_at": "2026-10-31T15:00:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -38,7 +38,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642874",
         "published_at": "2026-10-31T17:54:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -55,7 +55,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642761",
         "published_at": "2026-10-31T12:40:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -67,12 +67,12 @@
       "category": "policy",
       "headline": "美國暫緩機器人關稅、啟動180天談判，工業設備供應鏈仍面臨政策不確定性",
       "summary": "川普政府依232條款認定進口機器人、工業機械及零組件涉及國安，但暫不立即加稅，改要求與貿易夥伴進行180天談判，並於2027年4月26日前回報進度。若協商破局，仍保留關稅、費用或配額選項。美國工廠高度仰賴海外設備，若成本上升，反可能拖慢自動化投資與製造業回流。",
-      "published_at": "2026-10-31T06:20:00+08:00",
+      "published_at": "2026-10-31T14:20:00+08:00",
       "source": {
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642948",
         "published_at": "2026-10-31T06:20:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -89,7 +89,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642935",
         "published_at": "2026-10-31T19:10:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -108,7 +108,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642189",
         "published_at": "2026-10-31T05:14:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -125,7 +125,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642677",
         "published_at": "2026-10-31T06:26:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -142,7 +142,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642851",
         "published_at": "2026-10-31T10:20:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -159,7 +159,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642985",
         "published_at": "2026-10-31T17:47:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -176,7 +176,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642910",
         "published_at": "2026-10-31T14:20:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -193,7 +193,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6641920",
         "published_at": "2026-10-31T06:16:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -210,7 +210,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642737",
         "published_at": "2026-10-31T16:30:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -227,7 +227,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642745",
         "published_at": "2026-10-31T07:06:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -244,7 +244,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6642260",
         "published_at": "2026-10-30T20:30:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -261,7 +261,7 @@
         "name": "鉅亨網",
         "url": "https://m.cnyes.com/news/id/6640688",
         "published_at": "2026-10-31T17:00:00+08:00",
-        "observed_at": "2026-11-01T04:59:16+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "鉅亨網",
         "notes": "已開啟原始報導核對標題、日期及內文"
       },
@@ -287,7 +287,7 @@
         "name": "Bank of Japan",
         "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Bank of Japan",
         "notes": "日本時間 14:00，換算台灣時間 13:00。央行政策展望文件，需觀察對日圓利率路徑與通膨評估的訊號。"
       }
@@ -309,7 +309,7 @@
         "name": "Institute for Supply Management",
         "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Institute for Supply Management",
         "notes": "美東時間 10:00，換算台灣時間 23:00；ISM 官方規定製造業 PMI 於每月第一個營業日 10:00 發布。"
       }
@@ -331,7 +331,7 @@
         "name": "Reserve Bank of Australia",
         "url": "https://www.rba.gov.au/coming-up/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Reserve Bank of Australia",
         "notes": "官方公布時間 14:30 AEDT，換算台灣時間 11:30；同時發布 Statement on Monetary Policy。"
       }
@@ -353,7 +353,7 @@
         "name": "U.S. Bureau of Labor Statistics",
         "url": "https://www.bls.gov/schedule/2026/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "U.S. Bureau of Labor Statistics",
         "notes": "美東時間 10:00，換算台灣時間 23:00；BLS 官方排程確認 9月 JOLTS 於 11/3 發布。"
       }
@@ -375,7 +375,7 @@
         "name": "Sveriges Riksbank",
         "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/?month=11",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Sveriges Riksbank",
         "notes": "官方決策公告 09:30 CET，換算台灣時間 16:30；同日 11:00 CET 舉行記者會。"
       }
@@ -397,7 +397,7 @@
         "name": "ADP",
         "url": "https://www.adpemploymentreport.com/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "ADP",
         "notes": "紐約聯準銀行經濟日曆列示 08:15 ET，換算台灣時間 21:15；屬官方就業報告前的民間就業參考指標。"
       }
@@ -419,7 +419,7 @@
         "name": "Institute for Supply Management",
         "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Institute for Supply Management",
         "notes": "美東時間 10:00，換算台灣時間 23:00；ISM 官方規定服務業 PMI 於每月第三個營業日 10:00 發布。"
       }
@@ -441,7 +441,7 @@
         "name": "Banco Central do Brasil",
         "url": "https://www.bcb.gov.br/en/monetarypolicy/committee?os=0",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Banco Central do Brasil",
         "notes": "Copom 於 11/3–11/4 開會，決策聲明於巴西時間 18:30 後發布；以台灣時間 11/5 05:30 作最早預計時間，實際分鐘待官方公告。"
       }
@@ -463,7 +463,7 @@
         "name": "Norges Bank",
         "url": "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Norges Bank",
         "notes": "官方公告時間 10:00 CET，換算台灣時間 17:00。"
       }
@@ -485,7 +485,7 @@
         "name": "Bank of England",
         "url": "https://www.bankofengland.co.uk/events/upcoming-events",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Bank of England",
         "notes": "官方發布時間 12:00 GMT，換算台灣時間 20:00；同時發布 Monetary Policy Summary、Minutes 及 Monetary Policy Report。"
       }
@@ -507,7 +507,7 @@
         "name": "U.S. Bureau of Labor Statistics",
         "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
         "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "U.S. Bureau of Labor Statistics",
         "notes": "美東時間 08:30，換算台灣時間 21:30；BLS 官方排程確認 10月就業報告於 11/6 發布。"
       }
@@ -534,7 +534,7 @@
         "name": "Palantir Investor Relations / StockTitan earnings calendar",
         "url": "https://investors.palantir.com/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Palantir Investor Relations",
         "notes": "預定 11/2 17:00 ET（台灣 11/3 06:00）；公司 IR 公告確認。EPS 市場共識約 0.33 美元（Nasdaq/StockTitan）；營收預估未取得一致可核實數值。"
       }
@@ -559,7 +559,7 @@
         "name": "Arista Investor Relations / StockTitan earnings calendar",
         "url": "https://investors.arista.com/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Arista Networks Investor Relations",
         "notes": "預定 11/3 16:30 ET（台灣 11/4 05:30）；日期與電話會議時段由 StockTitan 財報行事曆交叉核對。EPS 市場共識約 0.99 美元（Nasdaq/StockTitan）。"
       }
@@ -584,7 +584,7 @@
         "name": "AMD Investor Relations / StockTitan earnings calendar",
         "url": "https://ir.amd.com/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "AMD Investor Relations",
         "notes": "預定 11/3 17:00 ET（台灣 11/4 06:00）；公司 IR 公告確認。EPS 市場共識約 1.68 美元（Nasdaq/StockTitan）。"
       }
@@ -609,7 +609,7 @@
         "name": "Uber Investor Relations / StockTitan earnings calendar",
         "url": "https://investor.uber.com/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Uber Investor Relations",
         "notes": "預定 11/4 08:00 ET（台灣 11/4 21:00）；公司 IR 公告確認。EPS 市場共識約 0.94 美元（Nasdaq/StockTitan）。"
       }
@@ -634,7 +634,7 @@
         "name": "Qualcomm Investor Relations / StockTitan earnings calendar",
         "url": "https://investor.qualcomm.com/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Qualcomm Investor Relations",
         "notes": "預定 11/4 16:45 ET（台灣 11/5 05:45）；公司 IR 公告確認。EPS 市場共識約 1.46 美元（Nasdaq/StockTitan）。"
       }
@@ -656,7 +656,7 @@
         "name": "Bank of Canada",
         "url": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
         "published_at": "2026-10-28T09:45:00-04:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Bank of Canada",
         "notes": "官方公告時間09:45 ET（台灣21:45）；決策將隔日生效。"
       },
@@ -678,7 +678,7 @@
         "name": "Federal Reserve",
         "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
         "published_at": "2026-10-28T14:00:00-04:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Federal Reserve",
         "notes": "官方聲明於美東14:00發布；台灣時間為10/29 02:00。"
       },
@@ -700,7 +700,7 @@
         "name": "European Central Bank",
         "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
         "published_at": "2026-10-29T14:15:00+02:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "ECB",
         "notes": "決策於10/29公布；記者會14:45 CET。"
       },
@@ -722,7 +722,7 @@
         "name": "U.S. Bureau of Economic Analysis / CME Econoday",
         "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
         "published_at": "2026-10-29T08:30:00-04:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "BEA",
         "notes": "BEA公布實際GDP年化季增3.4%；CME Econoday調查共識3.1%，前值2.2%。"
       },
@@ -744,7 +744,7 @@
         "name": "U.S. Bureau of Economic Analysis / Reuters",
         "url": "https://bea.gov/news/2026/personal-income-and-outlays-september-2026",
         "published_at": "2026-10-29T08:30:00-04:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "BEA",
         "notes": "實際值取自BEA；共識與市場反應參照Reuters當日報導。"
       },
@@ -766,7 +766,7 @@
         "name": "Eurostat / CME Econoday",
         "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
         "published_at": "2026-10-30T11:00:00+02:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Eurostat",
         "notes": "Eurostat公布實際季增0.4%、年增1.3%；CME Econoday提供市場共識季增0.2%、年增1.0%。"
       },
@@ -788,7 +788,7 @@
         "name": "U.S. Bureau of Labor Statistics",
         "url": "https://www.bls.gov/news.release/archives/eci_10302026.htm",
         "published_at": "2026-10-30T08:30:00-04:00",
-        "observed_at": "2026-11-01T21:06:00+08:00",
+        "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "BLS",
         "notes": "BLS公布第三季民間與公部門整體薪酬成本季增0.8%；市場共識0.8%，前值0.9%。"
       },
@@ -807,35 +807,50 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：公司為全球大型權值／核心產業代表，財報及財測具跨市場定價影響，可能改變主要指數或產業預期。",
       "importance_rating_source": null,
-      "eps_estimate": 2.94,
+      "eps_estimate": 3.02,
       "eps_actual": 2.12,
-      "revenue_estimate": 127.91,
-      "revenue_actual": 127.58,
+      "revenue_estimate": 127.69,
+      "revenue_actual": 127.6,
       "status": "released",
-      "stock_price_reaction": "10/29 首個交易日收盤約 -12.6%。",
+      "stock_price_reaction": "首個常規交易日收盤下跌 12.64%",
       "source": {
-        "name": "Alphabet Investor Relations / Nasdaq consensus",
-        "url": "https://abc.xyz/investor/",
+        "name": "公司正式財報／投資人關係",
+        "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "Alphabet Investor Relations",
-        "notes": "GAAP EPS 實際 2.12 美元，Nasdaq 共識 2.94 美元；營收實際 127.58B 美元、共識 127.91B 美元（SentiSense）。10/29 股價反應約 -12.6%（Reuters/AP 市場報導）。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "GAAP EPS 低於市場共識，營收亦略低於共識；Google Cloud 與 AI 需求仍強，但資本支出與投資回收疑慮壓抑市場反應。"
       },
-      "industry": "網際網路／數位廣告與雲端",
+      "industry": "網路平台／雲端／AI",
       "reporting_period": "2026 Q3",
-      "time_known": false,
+      "time_known": true,
       "eps_basis": "GAAP diluted EPS",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "miss",
+      "revenue_comparison_status": "miss",
+      "financial_judgment": "GAAP EPS 低於市場共識，營收亦略低於共識；Google Cloud 與 AI 需求仍強，但資本支出與投資回收疑慮壓抑市場反應。",
+      "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/equities/google-inc-earnings",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 3.02；營收共識 US$127.69B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "GOOGL：首個常規交易日收盤 -12.64%；以 2026-10-29 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     },
     {
       "id": "prev-msft-20261028",
@@ -847,35 +862,50 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：公司為全球大型權值／核心產業代表，財報及財測具跨市場定價影響，可能改變主要指數或產業預期。",
       "importance_rating_source": null,
-      "eps_estimate": 4.71,
-      "eps_actual": 4.89,
-      "revenue_estimate": 90.63,
-      "revenue_actual": 92.28,
+      "eps_estimate": 4.72,
+      "eps_actual": 4.92,
+      "revenue_estimate": 90.61,
+      "revenue_actual": 92.279,
       "status": "released",
-      "stock_price_reaction": "10/29 首個交易日收盤約 -0.16%；盤後初段曾上漲。",
+      "stock_price_reaction": "首個常規交易日收盤下跌 0.16%",
       "source": {
-        "name": "Microsoft Investor Relations / Nasdaq consensus",
-        "url": "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
+        "name": "公司正式財報／投資人關係",
+        "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "Microsoft Investor Relations",
-        "notes": "非 GAAP EPS 實際 4.89 美元，Nasdaq 共識 4.71 美元；營收實際 92.28B 美元、共識 90.63B 美元（SentiSense）。10/29 首個交易日收盤約 -0.16%（Finviz）。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "GAAP EPS 與營收均高於市場共識；Azure 雲端增長維持強勢，但市場仍評估 AI 資本支出與現金流回收。"
       },
-      "industry": "軟體與雲端服務",
+      "industry": "軟體／雲端／AI",
       "reporting_period": "FY2027 Q1",
-      "time_known": false,
-      "eps_basis": "Non-GAAP diluted EPS（排除 OpenAI 投資損益影響）",
+      "time_known": true,
+      "eps_basis": "GAAP diluted EPS",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "beat",
+      "revenue_comparison_status": "beat",
+      "financial_judgment": "GAAP EPS 與營收均高於市場共識；Azure 雲端增長維持強勢，但市場仍評估 AI 資本支出與現金流回收。",
+      "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/equities/microsoft-corp-earnings",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 4.72；營收共識 US$90.61B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "MSFT：首個常規交易日收盤 -0.16%；以 2026-10-29 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     },
     {
       "id": "prev-lly-20261029",
@@ -887,35 +917,50 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：公司在重要產業或大型市場具代表性，財報可能影響相關產業估值與風險偏好，但系統性影響低於五星事件。",
       "importance_rating_source": null,
-      "eps_estimate": 5.6,
-      "eps_actual": 7.48,
-      "revenue_estimate": 22.42,
-      "revenue_actual": 24.4,
+      "eps_estimate": 9.85,
+      "eps_actual": 7.22,
+      "revenue_estimate": 22.16,
+      "revenue_actual": 24.397,
       "status": "released",
-      "stock_price_reaction": "10/29 首個交易日上漲約 +6.47%。",
+      "stock_price_reaction": "首個常規交易日收盤上漲 6.63%",
       "source": {
-        "name": "Eli Lilly Investor Relations / Investing.com consensus",
-        "url": "https://investor.lilly.com/node/55191",
+        "name": "公司正式財報／投資人關係",
+        "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "Eli Lilly Investor Relations",
-        "notes": "非 GAAP EPS 實際 7.48 美元、共識 5.60 美元；營收實際 24.40B 美元、共識 22.42B 美元（Investing.com）。10/29 股價上漲約 6.47%。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "GAAP EPS 低於共識，但營收高於共識；公司另公布非 GAAP EPS 7.48，並上修全年營收展望，反映減重藥需求仍具支撐。"
       },
-      "industry": "製藥",
+      "industry": "製藥／生技",
       "reporting_period": "2026 Q3",
-      "time_known": false,
-      "eps_basis": "Non-GAAP diluted EPS",
+      "time_known": true,
+      "eps_basis": "GAAP reported diluted EPS（公司另公布非 GAAP EPS 7.48）",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "miss",
+      "revenue_comparison_status": "beat",
+      "financial_judgment": "GAAP EPS 低於共識，但營收高於共識；公司另公布非 GAAP EPS 7.48，並上修全年營收展望，反映減重藥需求仍具支撐。",
+      "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/equities/eli-lilly-and-co-earnings",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 9.85；營收共識 US$22.16B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "LLY：首個常規交易日收盤 +6.63%；以 2026-10-29 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     },
     {
       "id": "prev-amzn-20261029",
@@ -929,33 +974,48 @@
       "importance_rating_source": null,
       "eps_estimate": 1.96,
       "eps_actual": 1.89,
-      "revenue_estimate": 202.16,
-      "revenue_actual": 201.94,
+      "revenue_estimate": 202.1,
+      "revenue_actual": 201.9,
       "status": "released",
-      "stock_price_reaction": "10/30 首個交易日收盤約 -1.41%。",
+      "stock_price_reaction": "首個常規交易日收盤下跌 1.41%",
       "source": {
-        "name": "Amazon Investor Relations / consensus data",
-        "url": "https://ir.aboutamazon.com/",
+        "name": "公司正式財報／投資人關係",
+        "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "Amazon Investor Relations",
-        "notes": "EPS 實際 1.89 美元、共識 1.96 美元；營收實際 201.94B 美元、共識 202.16B 美元（SentiSense）。10/30 首個交易日收盤約 -1.41%（Finviz）。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "GAAP EPS 與營收均略低於市場共識；AWS 成長仍強，但市場關注零售利潤率、AI 基礎設施支出及自由現金流。"
       },
-      "industry": "電子商務與雲端運算",
+      "industry": "電商／雲端／AI",
       "reporting_period": "2026 Q3",
-      "time_known": false,
+      "time_known": true,
       "eps_basis": "GAAP diluted EPS",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "miss",
+      "revenue_comparison_status": "miss",
+      "financial_judgment": "GAAP EPS 與營收均略低於市場共識；AWS 成長仍強，但市場關注零售利潤率、AI 基礎設施支出及自由現金流。",
+      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/equities/amazon-com-inc-earnings",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 1.96；營收共識 US$202.1B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "AMZN：首個常規交易日收盤 -1.41%；以 2026-10-30 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     },
     {
       "id": "prev-intc-20261029",
@@ -968,34 +1028,49 @@
       "importance_basis_source": "TAC獨立評估：公司為全球大型權值／核心產業代表，財報及財測具跨市場定價影響，可能改變主要指數或產業預期。",
       "importance_rating_source": null,
       "eps_estimate": 0.4,
-      "eps_actual": 0.52,
-      "revenue_estimate": 16.56,
-      "revenue_actual": 16.51,
+      "eps_actual": 0.6,
+      "revenue_estimate": 16.48,
+      "revenue_actual": 16.5,
       "status": "released",
-      "stock_price_reaction": "10/30 首個交易日收盤約 -28.58%；市場聚焦後續展望。",
+      "stock_price_reaction": "首個常規交易日收盤下跌 28.58%",
       "source": {
-        "name": "Intel Investor Relations / Investing.com consensus",
+        "name": "公司正式財報／投資人關係",
         "url": "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "Intel Investor Relations",
-        "notes": "非 GAAP EPS 實際 0.52 美元、共識約 0.40 美元；營收實際 16.51B 美元、共識 16.56B 美元（Investing.com/Nasdaq）。10/30 股價收盤約 -28.58%（Finviz）；雖 EPS 優於預期，營收略低於預期且展望偏弱。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "GAAP EPS 與營收略高於共識，但市場對第四季展望、供應能力與 PC 需求的疑慮升高，股價出現大幅修正。"
       },
-      "industry": "半導體",
+      "industry": "半導體／晶圓代工／CPU",
       "reporting_period": "2026 Q3",
-      "time_known": false,
-      "eps_basis": "Non-GAAP diluted EPS",
+      "time_known": true,
+      "eps_basis": "GAAP diluted EPS（公司另公布非 GAAP EPS 0.52）",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "beat",
+      "revenue_comparison_status": "beat",
+      "financial_judgment": "GAAP EPS 與營收略高於共識，但市場對第四季展望、供應能力與 PC 需求的疑慮升高，股價出現大幅修正。",
+      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/equities/intel-corp-earnings",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 0.4；營收共識 US$16.48B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "INTC：首個常規交易日收盤 -28.58%；以 2026-10-30 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     },
     {
       "id": "prev-xom-20261030",
@@ -1007,35 +1082,50 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：公司在重要產業或大型市場具代表性，財報可能影響相關產業估值與風險偏好，但系統性影響低於五星事件。",
       "importance_rating_source": null,
-      "eps_estimate": 4.12,
+      "eps_estimate": 3.99,
       "eps_actual": 4.23,
-      "revenue_estimate": 105.43,
-      "revenue_actual": 113.16,
+      "revenue_estimate": 115.45,
+      "revenue_actual": 103.36,
       "status": "released",
-      "stock_price_reaction": "10/30 首個交易日收盤約 +2.16%。",
+      "stock_price_reaction": "首個常規交易日收盤上漲 2.16%",
       "source": {
-        "name": "ExxonMobil Investor Relations / AP / MarketBeat",
-        "url": "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
+        "name": "公司正式財報／投資人關係",
+        "url": "https://investor.exxonmobil.com/company-information/press-releases/detail/1213/exxonmobil-announces-third-quarter-2026-results",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "ExxonMobil Investor Relations",
-        "notes": "調整後 EPS 實際 4.23 美元、共識約 4.12 美元；公司公告總營收 113.16B 美元，MarketBeat 共識約 105.43B 美元。Investing.com 頁面曾顯示不同營收口徑，故採公司公告總營收並保留口徑註記。10/30 股價約 +2.16%（Finviz）。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "來源列示 EPS 高於共識，但營收低於共識；EPS 口徑需以公司正式財報註記再核實，不能只以單一 EPS 數字判斷營運表現。"
       },
-      "industry": "能源",
+      "industry": "整合能源／石油天然氣",
       "reporting_period": "2026 Q3",
-      "time_known": false,
-      "eps_basis": "Adjusted diluted EPS（Non-GAAP）",
+      "time_known": true,
+      "eps_basis": "Investing.com 報導 EPS（GAAP／調整後口徑未明確揭露）",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "beat",
+      "revenue_comparison_status": "miss",
+      "financial_judgment": "來源列示 EPS 高於共識，但營收低於共識；EPS 口徑需以公司正式財報註記再核實，不能只以單一 EPS 數字判斷營運表現。",
+      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/news/earnings/article-1730152",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 3.99；營收共識 US$115.45B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "XOM：首個常規交易日收盤 +2.16%；以 2026-10-30 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     },
     {
       "id": "prev-cvx-20261030",
@@ -1047,35 +1137,50 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：公司在重要產業或大型市場具代表性，財報可能影響相關產業估值與風險偏好，但系統性影響低於五星事件。",
       "importance_rating_source": null,
-      "eps_estimate": 4.89,
+      "eps_estimate": 4.88,
       "eps_actual": 5.28,
       "revenue_estimate": 60.55,
       "revenue_actual": 67.8,
       "status": "released",
-      "stock_price_reaction": "10/30 首個交易日收盤約 +1.75%。",
+      "stock_price_reaction": "首個常規交易日收盤上漲 1.75%",
       "source": {
-        "name": "Chevron Investor Relations / Reuters / Investing.com",
+        "name": "公司正式財報／投資人關係",
         "url": "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results",
         "published_at": null,
-        "observed_at": "2026-11-01T21:00:00+08:00",
-        "publisher": "Chevron Investor Relations",
-        "notes": "調整後 EPS 實際 5.28 美元、LSEG 共識 4.89 美元；營收實際 67.80B 美元、共識約 60.55B 美元（Investing.com）。10/30 股價約 +1.75%（Finviz）。"
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Company Investor Relations / SEC",
+        "notes": "來源列示 EPS 與營收均高於市場共識；仍須結合產量、煉油吞吐及資本支出判斷獲利品質。"
       },
-      "industry": "能源",
+      "industry": "整合能源／石油天然氣",
       "reporting_period": "2026 Q3",
-      "time_known": false,
-      "eps_basis": "Adjusted diluted EPS（Non-GAAP）",
+      "time_known": true,
+      "eps_basis": "Investing.com 報導 EPS（GAAP／調整後口徑未明確揭露）",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": null,
-      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
-      "consensus_source": null,
-      "price_reaction_source": null,
+      "eps_comparison_status": "beat",
+      "revenue_comparison_status": "beat",
+      "financial_judgment": "來源列示 EPS 與營收均高於市場共識；仍須結合產量、煉油吞吐及資本支出判斷獲利品質。",
+      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "consensus_source": {
+        "name": "Investing.com 香港站－財報共識",
+        "url": "https://hk.investing.com/news/earnings/article-1730152",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Investing.com HK",
+        "notes": "EPS 共識 4.88；營收共識 US$60.55B；依來源頁面核對。"
+      },
+      "price_reaction_source": {
+        "name": "Portfolio Terminal－首個常規交易日股價反應",
+        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "publisher": "Portfolio Terminal",
+        "notes": "CVX：首個常規交易日收盤 +1.75%；以 2026-10-30 收盤價計。"
+      },
       "eps_note": null,
-      "revenue_note": null
+      "revenue_note": null,
+      "time_type": "release_time"
     }
   ],
   "analysis": {
@@ -1173,7 +1278,7 @@
         "https://m.cnyes.com/news/id/6642948",
         "https://m.cnyes.com/news/id/6642935"
       ],
-      "checked_at": "2026-11-01T04:59:16+08:00"
+      "checked_at": "2026-11-01T12:17:52+08:00"
     },
     "market_headlines": {
       "status": "complete",
@@ -1189,7 +1294,7 @@
         "https://m.cnyes.com/news/id/6642260",
         "https://m.cnyes.com/news/id/6640688"
       ],
-      "checked_at": "2026-11-01T04:59:16+08:00"
+      "checked_at": "2026-11-01T12:17:52+08:00"
     },
     "earnings_calendar": {
       "status": "complete",
@@ -1203,10 +1308,10 @@
         "https://investor.uber.com/",
         "https://investor.qualcomm.com/"
       ],
-      "checked_at": "2026-11-01T21:00:00+08:00"
+      "checked_at": "2026-11-01T12:17:52+08:00"
     },
     "previous_earnings_calendar": {
-      "status": "complete",
+      "status": "incomplete",
       "source_refs": [
         "https://www.stocktitan.net/articles/earnings-calendar-week-of-october-26-2026",
         "https://www.microsoft.com/en-us/Investor/earnings/FY-2027-Q1/press-release-webcast",
@@ -1217,7 +1322,8 @@
         "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
         "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results"
       ],
-      "checked_at": "2026-11-01T21:00:00+08:00"
+      "checked_at": "2026-11-01T12:17:52+08:00",
+      "notes": "已補核七家主要企業的 EPS／營收實際值、共識、口徑、財報判讀及首個常規交易日股價反應；仍需檢查整週是否有其他 TAC 四／五星財報，完成前不標示完整。"
     },
     "economic_calendar": {
       "status": "incomplete",
@@ -1233,7 +1339,7 @@
         "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
         "https://www.bls.gov/schedule/news_release/empsit.htm"
       ],
-      "checked_at": "2026-11-01T21:06:00+08:00"
+      "checked_at": "2026-11-01T12:17:52+08:00"
     },
     "previous_economic_calendar": {
       "status": "incomplete",
@@ -1246,7 +1352,7 @@
         "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
         "https://www.bls.gov/news.release/archives/eci_10302026.htm"
       ],
-      "checked_at": "2026-11-01T21:06:00+08:00"
+      "checked_at": "2026-11-01T12:17:52+08:00"
     }
   }
 }
