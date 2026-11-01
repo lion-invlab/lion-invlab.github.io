@@ -200,6 +200,28 @@ def check_template(path: Path, contract: dict) -> list[str]:
                 if len(direct_texts) < min_segments:
                     errors.append(f"editorial.{field}: expected at least {min_segments} direct text segments, found {len(direct_texts)}")
 
+
+        if group == "news":
+            for panel_key, panel_spec in spec["panels"].items():
+                panel_nodes = selector_nodes(root, panel_spec["container"])
+                if len(panel_nodes) != 1:
+                    errors.append(f"news.{panel_key}: panel container missing or duplicated")
+                    continue
+                panel = panel_nodes[0]
+                for selector_key in ("meta_selector", "item_selector"):
+                    if not selector_nodes(panel, panel_spec[selector_key]):
+                        errors.append(f"news.{panel_key}: {selector_key} missing")
+                items = selector_nodes(panel, panel_spec["item_selector"])
+                if not items:
+                    errors.append(f"news.{panel_key}: no news cards")
+                for index, item in enumerate(items):
+                    for selector_key in ("title_selector", "summary_selector", "sources_container_selector"):
+                        if len(selector_nodes(item, panel_spec[selector_key])) != 1:
+                            errors.append(f"news.{panel_key}[{index}]: {selector_key} missing or duplicated")
+                    source_containers = selector_nodes(item, panel_spec["sources_container_selector"])
+                    if source_containers and not selector_nodes(source_containers[0], panel_spec["source_selector"]):
+                        errors.append(f"news.{panel_key}[{index}]: no source links")
+
     return errors
 
 
