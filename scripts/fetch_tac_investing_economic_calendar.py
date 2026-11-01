@@ -3,7 +3,7 @@
 
 Investing.com does not provide a public calendar API. This utility deliberately
 does not call or bypass its protected service endpoint. It parses an HTML file
-captured through the normal website interface, keeps source-native 3-star rows,
+captured through the normal website interface, retains all rows and records provider stars only as provenance,
 and defaults coverage to incomplete until a human confirms the full date range.
 """
 from __future__ import annotations
@@ -80,8 +80,7 @@ def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo, source
         if not all((time_cell, currency_cell, importance_cell, event_cell)):
             raise ValueError(f"event {event_id}: required source columns are missing")
         star_match = re.search(r"bull(\d)", importance_cell.get("data-img_key") or "")
-        if not star_match or int(star_match.group(1)) != 3:
-            continue
+        source_importance_stars = int(star_match.group(1)) if star_match else None
         event_time = parse_event_time(time_cell.get_text(" ", strip=True))
         local_source_time = event_time or time.min
         source_dt = datetime.combine(current_day, local_source_time, tzinfo=source_tz)
@@ -104,7 +103,10 @@ def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo, source
             "event_date": taipei_dt.isoformat(),
             "region": region,
             "event_name": clean(event_cell.get_text(" ", strip=True)) or "Unnamed event",
-            "importance_stars": 3,
+            "importance_stars": None,
+            "importance_basis": "pending_tac_assessment",
+            "importance_basis_source": None,
+            "source_importance_stars": source_importance_stars,
             "previous": previous,
             "forecast": forecast,
             "actual": actual,
@@ -116,7 +118,7 @@ def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo, source
                 "published_at": None,
                 "observed_at": observed_at,
                 "publisher": SOURCE_NAME,
-                "notes": "由 Investing.com 官方公開網頁介面擷取的 HTML；僅保留來源原生 3 星事件，來源網址記錄實際成功的區域站點。"
+                "notes": "由 Investing.com 官方公開網頁介面擷取的 HTML；來源原生星等僅作參考留存，不等同 TAC 評級，須另行獨立評定，來源網址記錄實際成功的區域站點。"
             }
         })
     result.sort(key=lambda item: item["event_date"])
@@ -181,15 +183,17 @@ def self_test() -> None:
     </table>
     """
     events = parse_calendar_html(fixture, observed, ZoneInfo("UTC"))
-    assert len(events) == 2
+    assert len(events) == 3
     by_id = {event["id"]: event for event in events}
-    assert by_id["123"]["importance_stars"] == 3
+    assert by_id["123"]["importance_stars"] is None
+    assert by_id["123"]["source_importance_stars"] == 3
+    assert by_id["124"]["source_importance_stars"] == 2
     assert by_id["123"]["event_name"] == "Nonfarm Payrolls"
     assert by_id["123"]["actual"] == "200K"
     assert by_id["123"]["event_date"].endswith("+08:00")
     assert by_id["125"]["event_name"] == "Three star all-day event"
     assert by_id["125"]["status"] == "pending_verification"
-    print("PASS: source-native 3-star filtering, source-timezone conversion and actual-value parsing")
+    print("PASS: all source rows retained; provider stars separated from TAC assessment")
     print("PASS: offline HTML parser does not call Investing.com protected endpoints")
 
 
