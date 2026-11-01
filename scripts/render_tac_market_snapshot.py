@@ -51,12 +51,12 @@ class SourceParser(HTMLParser):
         self.feed(source)
         self.close()
 
-    def offset(self):
+    def source_offset(self):
         line, col = self.getpos()
         return self.line_offsets[line - 1] + col
 
     def handle_starttag(self, tag, attrs):
-        start = self.offset()
+        start = self.source_offset()
         raw = self.get_starttag_text()
         parent = self.stack[-1] if self.stack else None
         node = Node(tag, attrs, start, start + len(raw), parent, tag.lower() in self.VOID)
