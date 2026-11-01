@@ -1,0 +1,32 @@
+name: TAC Weekly Calendar DB Prototype
+on:
+  pull_request:
+    paths:
+      - 'data/calendar/**'
+      - 'scripts/tac_weekly_calendar_db.py'
+      - 'tests/test_tac_weekly_calendar_db.py'
+      - '.github/workflows/tac-weekly-calendar-db-prototype.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p 'test_tac_weekly_calendar_db.py' -v
+      - name: Validate W44 archive candidate
+        run: python scripts/tac_weekly_calendar_db.py validate --file data/calendar/weeks/2026-W44.json
+      - name: Validate W45 current week
+        run: python scripts/tac_weekly_calendar_db.py validate --file data/calendar/weeks/2026-W45.json
+      - name: Build W45 Monday calendar snapshot
+        run: >-
+          python scripts/tac_weekly_calendar_db.py snapshot
+          --file data/calendar/weeks/2026-W45.json
+          --previous-week-file data/calendar/weeks/2026-W44.json
+          --report-date 2026-11-02
+          --output /tmp/tac-weekly-calendar-snapshot.json
