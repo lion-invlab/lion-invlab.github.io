@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.tac_weekly_calendar_db import validate_week, quality_report, cmd_init, cmd_snapshot, cmd_upsert, cmd_apply_snapshot
+from scripts.tac_weekly_calendar_db import validate_week, quality_report, cmd_init, cmd_snapshot, cmd_upsert, cmd_apply_snapshot, cmd_approve_snapshot
 
 def load_for_test(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -153,6 +153,53 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(data["coverage"]["economic"]["status"],"incomplete")
             with self.assertRaisesRegex(FileExistsError,"refusing to overwrite"):
                 cmd_init(args)
+
+    def test_approved_snapshot_cannot_be_replaced(self):
+        current=self.week(events={"economic":[self.event("e1","2026-11-02T10:00:00+08:00",4)],"earnings":[]})
+        with tempfile.TemporaryDirectory() as td:
+            db=Path(td)/"week.json"; out=Path(td)/"snapshot.json"
+            db.write_text(json.dumps(current),encoding="utf-8")
+            args=type("Args",(),{"file":str(db),"report_date":"2026-11-02","output":str(out),
+                                 "previous_week_file":None,"replace":False})()
+            self.assertEqual(cmd_snapshot(args),0)
+            approve=type("Args",(),{"file":str(out),"at":"2026-11-02T08:00:00+08:00"})()
+            self.assertEqual(cmd_approve_snapshot(approve),0)
+            before=out.read_text(encoding="utf-8")
+            args.replace=True
+            with self.assertRaisesRegex(PermissionError,"approved daily snapshot is immutable"):
+                cmd_snapshot(args)
+            self.assertEqual(out.read_text(encoding="utf-8"),before)
+
+    def test_two_week_lifecycle_keeps_approved_snapshot_isolated(self):
+        w45=self.week(events={"economic":[self.event("monday","2026-11-02T10:00:00+08:00",4)],"earnings":[]})
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td); db45=root/"2026-W45.json"; mon=root/"2026-11-02.json"; tue=root/"2026-11-03.json"
+            db45.write_text(json.dumps(w45),encoding="utf-8")
+            monday_args=type("Args",(),{"file":str(db45),"report_date":"2026-11-02","output":str(mon),
+                                        "previous_week_file":None,"replace":False})()
+            self.assertEqual(cmd_snapshot(monday_args),0)
+            approve=type("Args",(),{"file":str(mon),"at":"2026-11-02T08:00:00+08:00"})()
+            self.assertEqual(cmd_approve_snapshot(approve),0)
+            monday_before=mon.read_text(encoding="utf-8")
+            incoming=self.event("tuesday","2026-11-03T10:00:00+08:00",5)
+            event_path=root/"event.json"; event_path.write_text(json.dumps(incoming),encoding="utf-8")
+            upsert=type("Args",(),{"file":str(db45),"kind":"economic","event":str(event_path),
+                                   "at":"2026-11-03T08:00:00+08:00"})()
+            self.assertEqual(cmd_upsert(upsert),0)
+            tuesday_args=type("Args",(),{"file":str(db45),"report_date":"2026-11-03","output":str(tue),
+                                         "previous_week_file":None,"replace":False})()
+            self.assertEqual(cmd_snapshot(tuesday_args),0)
+            self.assertEqual(mon.read_text(encoding="utf-8"),monday_before)
+            w46_path=root/"2026-W46.json"
+            init=type("Args",(),{"week_of":"2026-11-09","output":str(w46_path),"wr_version":"3.7",
+                                 "at":"2026-11-08T09:00:00+08:00"})()
+            self.assertEqual(cmd_init(init),0)
+            w46=load_for_test(w46_path)
+            self.assertEqual(w46["week_id"],"2026-W46")
+            self.assertEqual(w46["events"],{"economic":[],"earnings":[]})
+            self.assertEqual(len(load_for_test(db45)["events"]["economic"]),2)
+            self.assertEqual(load_for_test(mon)["meta"]["approval_status"],"approved")
+            self.assertEqual(load_for_test(tue)["meta"]["approval_status"],"draft")
 
     def test_quality_report_counts_missing_consensus_and_unknown_times(self):
         economic=self.event("e1","2026-11-02T12:00:00+08:00")
