@@ -2416,8 +2416,8 @@
       "revenue_currency": "USD",
       "revenue_unit": "B",
       "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "miss",
-      "financial_judgment": "公司公告列示 GAAP EPS US$3.72、調整後 EPS US$4.23；Investing.com 共識 US$3.99 未標明口徑，因此 EPS 比較暫列待核實。Investing.com 報導營收 US$103.36B 低於 US$115.45B 共識，營收定義仍待與公司財報交叉核對。",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": "公司公告 GAAP EPS US$3.72、調整後 EPS US$4.23；共識 US$3.99 的會計口徑未明，EPS 暫列待核實。營收實際與共識定義亦未完成同口徑核對，暫不判定。",
       "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
@@ -2434,7 +2434,7 @@
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "公司公告 reported EPS US$3.72、adjusted EPS US$4.23；Investing.com 共識 US$3.99 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
-      "revenue_note": "Investing.com 報導營收 US$103.36B、共識 US$115.45B；營收定義仍需與公司財報口徑交叉核對。",
+      "revenue_note": "Investing.com 列示營收 US$103.36B、共識 US$115.45B；公司正式業績公告未提供可直接對應的同口徑總營收比較，營收定義未核實，不判定高低於預期。",
       "time_type": "release_time"
     },
     {
@@ -2469,8 +2469,8 @@
       "revenue_currency": "USD",
       "revenue_unit": "B",
       "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "beat",
-      "financial_judgment": "公司公告列示 GAAP diluted EPS US$5.06、調整後 EPS US$5.28；Investing.com 共識 US$4.88 未標明口徑，因此 EPS 比較暫列待核實。營收 US$67.8B 高於 US$60.55B 共識。",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": "公司公告 GAAP diluted EPS US$5.06、調整後 EPS US$5.28；Investing.com 共識 US$4.88 未標明 GAAP／調整後口徑，EPS 暫列待核實。營收實際值與共識的定義未完成同口徑核對，暫不判定。",
       "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
@@ -2487,7 +2487,7 @@
         "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
       },
       "eps_note": "公司公告 reported diluted EPS US$5.06、adjusted EPS US$5.28；Investing.com 共識 US$4.88 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
-      "revenue_note": "Investing.com 報導營收 US$67.8B、共識 US$60.55B，高於預期。",
+      "revenue_note": "公司公告 Total Revenues and Other Income US$67.798B；Investing.com 共識 US$60.55B 的收入定義尚未確認與公司總額相同，暫不判定高低於預期。",
       "time_type": "release_time"
     }
   ],
