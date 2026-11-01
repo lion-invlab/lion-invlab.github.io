@@ -531,6 +531,9 @@
         },
         "source": {
           "$ref": "#/$defs/source"
+        },
+        "consensus_source": {
+          "$ref": "#/$defs/source"
         }
       }
     },
