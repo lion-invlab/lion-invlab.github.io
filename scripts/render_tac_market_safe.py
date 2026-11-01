@@ -610,14 +610,18 @@ def render_news(html: str, parser: SourceTreeParser,
 
     def add_text(node: Node, text: str, label: str):
         spans = coalesce_spans([x for x in spans_inside(node, parser.spans) if x.text.strip()])
-        if len(spans) != 1:
-            raise ValueError(f"{label}: expected one logical text slot, found {len(spans)}")
-        span = spans[0]
-        ident = (span.start, span.end)
-        if ident in used:
-            raise ValueError(f"{label}: overlapping text slot")
-        used.add(ident)
-        edits.append((span.start, span.end, escape(text, quote=False)))
+        if not spans:
+            raise ValueError(f"{label}: text slot is empty")
+        # Some approved prototype values contain nested inline markup and therefore
+        # multiple text spans. Preserve every element/attribute; place the new text
+        # in the first span and clear only the remaining text spans.
+        for index, span in enumerate(spans):
+            ident = (span.start, span.end)
+            if ident in used:
+                raise ValueError(f"{label}: overlapping text slot")
+            used.add(ident)
+            replacement = escape(text, quote=False) if index == 0 else ""
+            edits.append((span.start, span.end, replacement))
 
     def add_href(node: Node, url: str, label: str):
         if not isinstance(url, str) or not url.startswith("https://") or any(ch in url for ch in ('"', "'", "<", ">")):
@@ -741,14 +745,18 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
 
     def add_text(node: Node, text: str, label: str):
         spans = coalesce_spans([x for x in spans_inside(node, parser.spans) if x.text.strip()])
-        if len(spans) != 1:
-            raise ValueError(f"{label}: expected one logical text slot, found {len(spans)}")
-        span = spans[0]
-        ident = (span.start, span.end)
-        if ident in used:
-            raise ValueError(f"{label}: overlapping text slot")
-        used.add(ident)
-        edits.append((span.start, span.end, escape(text, quote=False)))
+        if not spans:
+            raise ValueError(f"{label}: text slot is empty")
+        # Some approved prototype values contain nested inline markup and therefore
+        # multiple text spans. Preserve every element/attribute; place the new text
+        # in the first span and clear only the remaining text spans.
+        for index, span in enumerate(spans):
+            ident = (span.start, span.end)
+            if ident in used:
+                raise ValueError(f"{label}: overlapping text slot")
+            used.add(ident)
+            replacement = escape(text, quote=False) if index == 0 else ""
+            edits.append((span.start, span.end, replacement))
 
     def add_link(anchor: Node, source: dict[str, str], label: str):
         if not isinstance(source, dict) or set(source) != {"url", "text"}:
