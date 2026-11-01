@@ -19,7 +19,7 @@
     "fail_if_selector_count_differs": true,
     "fail_if_label_or_ticker_missing_or_duplicated": true,
     "allow_mapped_status_class_token_transition": true,
-    "dynamic_region_policy": "Only mapped news item lists, economic/earnings status lists, event cards, nested detail-field rows, and source-link contents may change. Preserve all surrounding containers, status headings, tabs, controls, IDs, classes not explicitly mapped, CSS, scripts, and interactions.",
+    "dynamic_region_policy": "Only mapped news item lists, economic/earnings status lists, event cards, nested detail-field rows, source-link contents, and explicitly mapped calendar empty-state placeholders may change. An empty-state placeholder may be replaced only when its own status group has non-empty events and only with a list container plus card markup cloned from a real approved prototype in the same calendar panel. Preserve all surrounding containers, status headings, tabs, controls, IDs, classes not explicitly mapped, CSS, scripts, and interactions.",
     "dynamic_status_class_tokens": {
       "economic_calendar": [
         "four-star",
@@ -310,12 +310,14 @@
         "last_week": {
           "container": "#last-week-calendar",
           "event_selector": ".econ-event",
-          "list_selector": ".econ-event-list"
+          "list_selector": ".econ-event-list",
+          "empty_state_selector": ".calendar-status-empty"
         },
         "current_week": {
           "container": "#calendar",
           "event_selector": ".econ-event",
-          "list_selector": ".econ-event-list"
+          "list_selector": ".econ-event-list",
+          "empty_state_selector": ".calendar-status-empty"
         }
       },
       "selectors": {
@@ -340,12 +342,14 @@
         "last_week": {
           "container": "#last-week-earnings",
           "item_selector": ".earnings-accordion",
-          "list_selector": ".earnings-accordion-list"
+          "list_selector": ".earnings-accordion-list",
+          "empty_state_selector": ".calendar-status-empty"
         },
         "current_week": {
           "container": "#earnings",
           "item_selector": ".earnings-accordion",
-          "list_selector": ".earnings-accordion-list"
+          "list_selector": ".earnings-accordion-list",
+          "empty_state_selector": ".calendar-status-empty"
         }
       },
       "selectors": {
