@@ -109,7 +109,7 @@ def cmd_snapshot(args):
     if errors: raise ValueError("current week invalid: "+"; ".join(errors))
     start=date.fromisoformat(data["week_start"]); end=date.fromisoformat(data["week_end"])
     if not start <= report_day <= end: raise ValueError("report date outside week")
-    result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version")},"economic_calendar":[],"earnings_calendar":[],"coverage":{}}
+    result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version"),"previous_week_id":None},"economic_calendar":[],"earnings_calendar":[],"coverage":{}}
     for kind in ("economic","earnings"):
         key="economic_calendar" if kind=="economic" else "earnings_calendar"
         rows=[x for x in data["events"][kind] if int(x.get("importance_stars",0)) in (4,5)]
@@ -125,6 +125,7 @@ def cmd_snapshot(args):
         expected_previous_monday=start-timedelta(days=7)
         if date.fromisoformat(prev["week_start"]) != expected_previous_monday:
             raise ValueError("previous-week file is not the immediately preceding ISO week")
+        result["meta"]["previous_week_id"]=prev.get("week_id")
         for kind in ("economic","earnings"):
             key="previous_economic_calendar" if kind=="economic" else "previous_earnings_calendar"
             rows=[x for x in prev["events"][kind] if int(x.get("importance_stars",0))==5 and x.get("status")=="released"]
@@ -136,11 +137,44 @@ def cmd_snapshot(args):
     print(json.dumps({"output":args.output,"economic":len(result["economic_calendar"]),"earnings":len(result["earnings_calendar"]),"coverage":{k:v["status"] for k,v in result["coverage"].items()}},ensure_ascii=False,indent=2))
     return 0
 
+
+def cmd_apply_snapshot(args):
+    content=load(args.content); snap=load(args.snapshot)
+    report_date=content.get("meta",{}).get("report_date")
+    if report_date != snap.get("meta",{}).get("report_date"):
+        raise ValueError("daily content and calendar snapshot report_date mismatch")
+    array_keys=("economic_calendar","earnings_calendar","previous_economic_calendar","previous_earnings_calendar")
+    coverage_keys=array_keys
+    for key in array_keys:
+        if not isinstance(snap.get(key),list): raise ValueError("snapshot missing calendar array "+key)
+        content[key]=snap[key]
+    content.setdefault("coverage",{})
+    for key in coverage_keys:
+        if not isinstance(snap.get("coverage",{}).get(key),dict):
+            raise ValueError("snapshot missing coverage "+key)
+        content["coverage"][key]=snap["coverage"][key]
+    content.setdefault("meta",{})["weekly_calendar_database"]={
+        "week_id":snap["meta"].get("week_id"),
+        "previous_week_id":snap["meta"].get("previous_week_id"),
+        "database_updated_at":snap["meta"].get("database_updated_at"),
+        "wr_version":snap["meta"].get("wr_version"),
+        "timezone":"Asia/Taipei"
+    }
+    output=Path(args.output)
+    output.parent.mkdir(parents=True,exist_ok=True)
+    output.write_text(json.dumps(content,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print(json.dumps({"output":str(output),"report_date":report_date,
+      "calendar_counts":{key:len(content[key]) for key in array_keys},
+      "coverage":{key:content["coverage"][key]["status"] for key in coverage_keys},
+      "non_calendar_content_preserved":True},ensure_ascii=False,indent=2))
+    return 0
+
 def main():
     p=argparse.ArgumentParser(); sub=p.add_subparsers(dest="cmd",required=True)
     v=sub.add_parser("validate"); v.add_argument("--file",required=True); v.set_defaults(fn=cmd_validate)
     u=sub.add_parser("upsert"); u.add_argument("--file",required=True); u.add_argument("--kind",required=True); u.add_argument("--event",required=True); u.add_argument("--at"); u.set_defaults(fn=cmd_upsert)
     s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot)
+    m=sub.add_parser("apply-snapshot"); m.add_argument("--content",required=True); m.add_argument("--snapshot",required=True); m.add_argument("--output",required=True); m.set_defaults(fn=cmd_apply_snapshot)
     a=p.parse_args()
     try: return a.fn(a)
     except Exception as exc: print("ERROR:",exc,file=sys.stderr); return 2
