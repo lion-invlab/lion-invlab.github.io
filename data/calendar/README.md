@@ -36,3 +36,18 @@ This directory is the proposed weekly source of truth for economic and earnings 
 - OTC/OTCQX ADRs and securities trading only on non-U.S. exchanges are excluded. An ADR program by itself is not sufficient.
 - Both current-week and previous-week earnings snapshots apply the same eligibility filter. Economic-calendar events are unaffected.
 - Listing eligibility must be rechecked when an issuer changes venue, delists, or terminates its ADR program.
+
+
+## HTML review rendering (prototype only)
+
+The database snapshot is rendered into the approved Monday or Tuesday–Friday master with:
+
+```bash
+python scripts/tac_calendar_html_renderer.py \
+  --template "母版專區/TAC_母版_週一_2026-10-28_最終定版.html" \
+  --snapshot /tmp/tac-weekly-calendar-snapshot.json \
+  --output /tmp/tac-review.html \
+  --mode monday
+```
+
+Use the weekday master path and `--mode weekday` for Tuesday–Friday reports. The renderer replaces only the `calendar` and `earnings` sections; Monday additionally replaces `last-week-calendar` and `last-week-earnings`. It never writes to the source mother template. The CI integration tests verify both masters, the Monday-only archive rule, the existing S&P 500 earnings-health section, and preservation of all content outside the four target sections. Generated HTML and the quality report are uploaded as a short-lived CI artifact for review. This remains a prototype and does not publish to the production homepage.
