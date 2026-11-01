@@ -151,7 +151,8 @@ def resolve_row(group: str, key: str, spec: dict, container: Node,
     candidates = [n for n in select(container, spec["row"]) if n is not container]
     if "key_by_label" in spec:
         label = spec["key_by_label"][key]
-        hits = [n for n in candidates if label in normalize("".join(
+        needle = label_key(label)
+        hits = [n for n in candidates if needle in label_key("".join(
             s.text for s in spans_inside(n, all_spans)
         ))]
     else:
@@ -203,6 +204,8 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
         group_data = snapshot["groups"].get(group_name)
         if not isinstance(group_data, dict):
             raise ValueError(f"snapshot group missing: {group_name}")
+        if not group_data:
+            continue
         container_selector = spec["container"]
         containers = select(parser.root, container_selector)
         if len(containers) != 1:
