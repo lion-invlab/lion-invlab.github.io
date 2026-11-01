@@ -787,15 +787,30 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             or set(panel_data) == {"lists"} and isinstance(panel_data["lists"], list)
         ):
             raise ValueError(f"economic_calendar.{panel_key}: invalid panel snapshot")
-        event_nodes = select(containers[0], panel_spec["event_selector"])
         if "lists" in panel_data:
             if not isinstance(panel_data["lists"], list):
                 raise ValueError(f"economic_calendar.{panel_key}: lists must be an array")
-            list_nodes = select(containers[0], panel_spec["list_selector"])
-            if len(list_nodes) != len(panel_data["lists"]):
-                raise ValueError(f"economic_calendar.{panel_key}: status-list count mismatch")
-            items = [item for list_data in panel_data["lists"] for item in list_data["items"]]
+            groups = select(containers[0], ".calendar-status-group")
+            if len(groups) != len(panel_data["lists"]):
+                raise ValueError(f"economic_calendar.{panel_key}: status-group count mismatch")
+            event_nodes, items = [], []
+            for group_index, list_data in enumerate(panel_data["lists"]):
+                if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
+                    raise ValueError(f"economic_calendar.{panel_key}.lists[{group_index}]: invalid items list")
+                group_lists = select(groups[group_index], panel_spec["list_selector"])
+                if len(group_lists) > 1:
+                    raise ValueError(f"economic_calendar.{panel_key}.lists[{group_index}]: duplicate list container")
+                if not group_lists:
+                    if list_data["items"]:
+                        raise ValueError(f"economic_calendar.{panel_key}.lists[{group_index}]: populated list container missing after resize")
+                    continue
+                group_events = select(group_lists[0], panel_spec["event_selector"])
+                if len(group_events) != len(list_data["items"]):
+                    raise ValueError(f"economic_calendar.{panel_key}.lists[{group_index}]: event count mismatch")
+                event_nodes.extend(group_events)
+                items.extend(list_data["items"])
         else:
+            event_nodes = select(containers[0], panel_spec["event_selector"])
             items = panel_data.get("items", [])
         if len(event_nodes) != len(items):
             raise ValueError(f"economic_calendar.{panel_key}: event count mismatch; template={len(event_nodes)}, snapshot={len(items)}")
@@ -928,15 +943,30 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             or set(panel_data) == {"lists"} and isinstance(panel_data["lists"],list)
         ):
             raise ValueError(f"earnings_calendar.{panel_key}: invalid or missing panel snapshot")
-        item_nodes = select(containers[0],panel_spec["item_selector"])
         if "lists" in panel_data:
             if not isinstance(panel_data["lists"], list):
                 raise ValueError(f"earnings_calendar.{panel_key}: lists must be an array")
-            list_nodes = select(containers[0], panel_spec["list_selector"])
-            if len(list_nodes) != len(panel_data["lists"]):
-                raise ValueError(f"earnings_calendar.{panel_key}: status-list count mismatch")
-            items = [item for list_data in panel_data["lists"] for item in list_data["items"]]
+            groups = select(containers[0], ".calendar-status-group")
+            if len(groups) != len(panel_data["lists"]):
+                raise ValueError(f"earnings_calendar.{panel_key}: status-group count mismatch")
+            item_nodes, items = [], []
+            for group_index, list_data in enumerate(panel_data["lists"]):
+                if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
+                    raise ValueError(f"earnings_calendar.{panel_key}.lists[{group_index}]: invalid items list")
+                group_lists = select(groups[group_index], panel_spec["list_selector"])
+                if len(group_lists) > 1:
+                    raise ValueError(f"earnings_calendar.{panel_key}.lists[{group_index}]: duplicate list container")
+                if not group_lists:
+                    if list_data["items"]:
+                        raise ValueError(f"earnings_calendar.{panel_key}.lists[{group_index}]: populated list container missing after resize")
+                    continue
+                group_items = select(group_lists[0], panel_spec["item_selector"])
+                if len(group_items) != len(list_data["items"]):
+                    raise ValueError(f"earnings_calendar.{panel_key}.lists[{group_index}]: accordion count mismatch")
+                item_nodes.extend(group_items)
+                items.extend(list_data["items"])
         else:
+            item_nodes = select(containers[0],panel_spec["item_selector"])
             items = panel_data.get("items", [])
         if len(item_nodes) != len(items):
             raise ValueError(f"earnings_calendar.{panel_key}: accordion count mismatch; template={len(item_nodes)}, snapshot={len(items)}")
