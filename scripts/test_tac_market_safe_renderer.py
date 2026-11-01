@@ -630,7 +630,8 @@ class SafeMarketRendererTests(unittest.TestCase):
         self.assertEqual(result.count('class="newsitem"'), 3)
         self.assertIn('<div class="meta">KEEP META</div>', result)
         self.assertIn('<div class="footer">KEEP FOOTER</div>', result)
-        self.assertEqual(result.count('<h3>Old</h3>'), 3)
+        self.assertEqual(result.count('<h3>Old</h3>'), 2)
+        self.assertIn('<h3>Old 2</h3>', result)
 
     def test_replace_sibling_sequence_refuses_noncontiguous_cards(self):
         html = '<section><article class="newsitem">A</article><aside>not a card</aside><article class="newsitem">B</article></section>'
