@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-/** Live, read-only Investing.com fallback capture. Never labels fallback data as CME. */
+/** Live, read-only primary capture from the WR-designated Investing.com Fed Rate Monitor. */
 import fs from "node:fs";
 
 const arg = name => { const i = process.argv.indexOf(name); return i >= 0 ? process.argv[i + 1] : null; };
-const output = arg("--output") || "/tmp/tac-fedwatch-fallback.json";
-const textOutput = arg("--text-output") || "/tmp/tac-fedwatch-fallback.txt";
+const output = arg("--output") || "/tmp/tac-fedwatch-primary.json";
+const textOutput = arg("--text-output") || "/tmp/tac-fedwatch-primary.txt";
 const url = "https://www.investing.com/central-banks/fed-rate-monitor";
 const observedAt = new Date().toISOString();
 
