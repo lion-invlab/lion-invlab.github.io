@@ -49,6 +49,16 @@ def day_from_header(row, source_tz: ZoneInfo) -> date | None:
     return datetime.fromtimestamp(stamp, tz=timezone.utc).astimezone(source_tz).date()
 
 
+def collect_calendar_dates(html: str, source_tz: ZoneInfo) -> list[str]:
+    soup = BeautifulSoup(html, "html.parser")
+    dates = []
+    for row in soup.select("tr"):
+        day = day_from_header(row, source_tz)
+        if day is not None:
+            dates.append(day.isoformat())
+    return sorted(set(dates))
+
+
 def parse_calendar_html(html: str, observed_at: str, source_tz: ZoneInfo, source_url: str = SOURCE_URL) -> list[dict]:
     soup = BeautifulSoup(html, "html.parser")
     current_day: date | None = None
@@ -120,11 +130,18 @@ def build_payload(args) -> dict:
     source_match = re.search(r"<!--\s*tac-source-url:\s*(https?://[^\s]+)\s*-->", html)
     source_url = source_match.group(1).strip() if source_match else SOURCE_URL
     events = parse_calendar_html(html, observed_at, source_tz, source_url)
+    checked_dates = collect_calendar_dates(html, source_tz)
+    report_day = date.fromisoformat(args.report_date)
+    current_week_start = report_day.fromordinal(report_day.toordinal() - report_day.weekday())
+    week_start = current_week_start if args.group == "current" else date.fromordinal(current_week_start.toordinal() - 7)
+    expected_dates = [(date.fromordinal(week_start.toordinal() + i)).isoformat() for i in range(5)]
+    verified_weekdays = sorted(set(checked_dates) & set(expected_dates))
+    full_week_present = set(expected_dates).issubset(set(checked_dates))
     if args.group == "previous":
         event_key, coverage_key = "previous_economic_events", "previous_economic_calendar"
     else:
         event_key, coverage_key = "economic_events", "economic_calendar"
-    status = "complete" if args.coverage_verified else "incomplete"
+    status = "complete" if args.coverage_verified and full_week_present else "incomplete"
     return {
         "report_date": args.report_date,
         "trading_date": args.trading_date,
@@ -135,7 +152,8 @@ def build_payload(args) -> dict:
             coverage_key: {
                 "status": status,
                 "source_refs": [source_url],
-                "checked_at": observed_at
+                "checked_at": observed_at,
+                "checked_dates": verified_weekdays
             }
         }
     }
