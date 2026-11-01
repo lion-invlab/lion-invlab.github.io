@@ -28,7 +28,7 @@ MODE_BY_WEEKDAY = {0: "monday", 1: "weekday", 2: "weekday", 3: "weekday", 4: "we
 
 def git_blob_sha(path: Path) -> str:
     data = path.read_bytes()
-    header = f"blob {len(data)}\\0".encode("ascii")
+    header = f"blob {len(data)}\0".encode("ascii")
     return hashlib.sha1(header + data).hexdigest()
 
 
@@ -188,14 +188,14 @@ def main() -> int:
         result["publish_allowed"] = False
         output_dir.mkdir(parents=True, exist_ok=True)
         report = output_dir / f"{report_date.isoformat()}-orchestrator-status.json"
-        report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+        report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return 2
 
     result["calendar"] = calendar_trial(report_date, output_dir)
     result["status"] = "calendar_trial_passed_full_report_not_ready"
     report = output_dir / f"{report_date.isoformat()}-orchestrator-status.json"
-    report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0
 
