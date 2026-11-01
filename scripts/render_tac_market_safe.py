@@ -431,6 +431,77 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
         raise ValueError("fedwatch audit text target ambiguous")
     add_text(audit_divs[0], data["audit_text"], "fedwatch.audit_text")
 
+
+def render_editorial(html: str, parser: SourceTreeParser,
+                     snapshot: dict[str, Any], binding: dict[str, Any],
+                     edits: list[tuple[int, int, str]],
+                     used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("editorial")
+    data = snapshot.get("editorial")
+    if spec is None or data is None:
+        return
+    required = {"headline", "body_segments", "market_text", "levels_segments", "core_text"}
+    if not isinstance(data, dict) or set(data) != required:
+        raise ValueError("editorial snapshot must contain headline, body_segments, market_text, levels_segments, core_text")
+
+    def add_text(span: TextSpan, text: str, label: str):
+        if not isinstance(text, str) or not text:
+            raise ValueError(f"{label}: text must be non-empty")
+        ident = (span.start, span.end)
+        if ident in used:
+            raise ValueError(f"{label}: overlapping mapped text slot")
+        used.add(ident)
+        edits.append((span.start, span.end, escape(text, quote=False)))
+
+    summary = spec["summary"]
+    summary_nodes = select(parser.root, summary["container"])
+    if len(summary_nodes) != 1:
+        raise ValueError("editorial summary container missing or duplicated")
+    headlines = select(summary_nodes[0], summary["headline_selector"])
+    body_nodes = select(summary_nodes[0], summary["body_selector"])
+    if len(headlines) != 1 or len(body_nodes) != 1:
+        raise ValueError("editorial summary headline/body slot ambiguous")
+    headline_spans = [x for x in spans_inside(headlines[0], parser.spans) if x.text.strip()]
+    if len(headline_spans) != 1:
+        raise ValueError("editorial summary headline must be one text node")
+    add_text(headline_spans[0], data["headline"], "editorial.headline")
+    body_spans = [x for x in spans_inside(body_nodes[0], parser.spans) if x.parent is body_nodes[0] and x.text.strip()]
+    if not isinstance(data["body_segments"], list) or len(body_spans) != len(data["body_segments"]):
+        raise ValueError(f"editorial summary segment count mismatch: template={len(body_spans)}, snapshot={len(data.get('body_segments', []))}")
+    for i, (span, text) in enumerate(zip(body_spans, data["body_segments"])):
+        add_text(span, text, f"editorial.body_segments[{i}]")
+
+    observation = spec["observation"]
+    panels = {
+        "market_text": observation["market_panel"],
+        "levels_segments": observation["levels_panel"],
+        "core_text": observation["core_panel"]
+    }
+    selectors = {
+        "market_text": observation["market_text_selector"],
+        "levels_segments": observation["levels_text_selector"],
+        "core_text": observation["core_text_selector"]
+    }
+    for field_name, panel_selector in panels.items():
+        panel_nodes = select(parser.root, panel_selector)
+        if len(panel_nodes) != 1:
+            raise ValueError(f"editorial.{field_name}: panel missing or duplicated")
+        content_nodes = select(panel_nodes[0], selectors[field_name])
+        if len(content_nodes) != 1:
+            raise ValueError(f"editorial.{field_name}: content slot missing or duplicated")
+        direct_spans = [x for x in spans_inside(content_nodes[0], parser.spans)
+                        if x.parent is content_nodes[0] and x.text.strip()]
+        value = data[field_name]
+        if isinstance(value, list):
+            if len(direct_spans) != len(value):
+                raise ValueError(f"editorial.{field_name}: segment count mismatch; template={len(direct_spans)}, snapshot={len(value)}")
+            for i, (span, text) in enumerate(zip(direct_spans, value)):
+                add_text(span, text, f"editorial.{field_name}[{i}]")
+        else:
+            if len(direct_spans) != 1:
+                raise ValueError(f"editorial.{field_name}: expected one direct text node, found {len(direct_spans)}")
+            add_text(direct_spans[0], value, f"editorial.{field_name}")
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
         raise ValueError("snapshot must contain a groups object")
@@ -513,6 +584,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
 
     render_risk_indicators(html, parser, snapshot, binding, edits, used)
     render_fedwatch(html, parser, snapshot, binding, edits, used)
+    render_editorial(html, parser, snapshot, binding, edits, used)
 
     result = html
     for start, end, replacement in sorted(edits, reverse=True):
