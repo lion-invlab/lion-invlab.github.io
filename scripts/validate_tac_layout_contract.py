@@ -44,8 +44,8 @@ class Node:
                     # The gauge marker's horizontal position is data-driven;
                     # normalize only that property while protecting all others.
                     normalized = re.sub(
-                        r"(?i)(^|;)(\\s*left\\s*:\\s*)[^;]+",
-                        r"\\1\\2<DATA>",
+                        r"(?i)(^|;)(\s*left\s*:\s*)[^;]+",
+                        r"\1\2<DATA>",
                         normalized,
                     )
                 result.append((key, normalized))
