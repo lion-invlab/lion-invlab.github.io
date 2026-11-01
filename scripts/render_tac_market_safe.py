@@ -978,6 +978,25 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                 if len(cards) != len(list_data["items"]):
                     html = replace_sibling_sequence(html, parser, cards, len(list_data["items"]),
                                                     f"{group_name}.{panel_key}.lists[{list_index}]")
+                # Resize nested detail-field rows from the same approved prototype.
+                for item_index, item_data in enumerate(list_data["items"]):
+                    parser = SourceTreeParser(html)
+                    parser.feed(html)
+                    parser.close()
+                    containers = select(parser.root, panel_spec["container"])
+                    list_nodes = select(containers[0], panel_spec["list_selector"])
+                    cards_now = select(list_nodes[list_index], item_selector)
+                    if item_index >= len(cards_now) or not isinstance(item_data, dict) or not isinstance(item_data.get("fields"), list):
+                        raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}]: fields array required")
+                    detail_selector = spec["selectors"]["details"]
+                    detail_nodes = select(cards_now[item_index], detail_selector)
+                    if len(detail_nodes) != 1:
+                        raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}]: details container missing or duplicated")
+                    field_selector = spec["selectors"]["field"] if group_name == "economic_calendar" else spec["selectors"]["detail_field"]
+                    fields_now = select(detail_nodes[0], field_selector)
+                    if len(fields_now) != len(item_data["fields"]):
+                        html = replace_sibling_sequence(html, parser, fields_now, len(item_data["fields"]),
+                                                        f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}].fields")
     return html
 
 
