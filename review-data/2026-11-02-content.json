@@ -640,7 +640,162 @@
       }
     }
   ],
-  "previous_economic_calendar": [],
+  "previous_economic_calendar": [
+    {
+      "id": "prev-boc-rate-20261028",
+      "event_date": "2026-10-28T21:45:00+08:00",
+      "region": "加拿大",
+      "event_name": "加拿大央行利率決策及貨幣政策報告",
+      "importance_stars": 4,
+      "previous": "2.25%",
+      "forecast": "維持2.25%",
+      "actual": "升息25個基點至2.50%",
+      "status": "released",
+      "impact_judgment": "央行因能源價格與通膨持續性上升而恢復升息，顯示全球通膨風險可能使部分央行重新轉鷹。",
+      "source": {
+        "name": "Bank of Canada",
+        "url": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+        "published_at": "2026-10-28T09:45:00-04:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Bank of Canada",
+        "notes": "官方公告時間09:45 ET（台灣21:45）；決策將隔日生效。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要經濟體關鍵政策／宏觀指標，對區域金融條件與市場預期具明顯影響。"
+    },
+    {
+      "id": "prev-fomc-rate-20261028",
+      "event_date": "2026-10-29T02:00:00+08:00",
+      "region": "美國",
+      "event_name": "聯準會 FOMC 利率決策",
+      "importance_stars": 5,
+      "previous": "3.75%–4.00%",
+      "forecast": "維持3.75%–4.00%",
+      "actual": "維持3.75%–4.00%；投票10比2，兩名委員主張升息25個基點",
+      "status": "released",
+      "impact_judgment": "表面維持利率不變，但兩名委員異議支持升息，搭配通膨仍高，政策風險偏向重新緊縮，需留意市場對12月利率路徑重新定價。",
+      "source": {
+        "name": "Federal Reserve",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "published_at": "2026-10-28T14:00:00-04:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Federal Reserve",
+        "notes": "官方聲明於美東14:00發布；台灣時間為10/29 02:00。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+    },
+    {
+      "id": "prev-ecb-rate-20261029",
+      "event_date": "2026-10-29T20:15:00+08:00",
+      "region": "歐元區",
+      "event_name": "歐洲央行 ECB 利率決策",
+      "importance_stars": 5,
+      "previous": "存款利率2.50%；主要再融資利率2.65%；邊際貸款利率2.90%",
+      "forecast": "維持利率不變",
+      "actual": "三項主要利率維持不變",
+      "status": "released",
+      "impact_judgment": "ECB維持利率，但明確指出能源價格帶來通膨上行與成長下行的雙向風險，政策仍採逐次會議、依數據決策。",
+      "source": {
+        "name": "European Central Bank",
+        "url": "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+        "published_at": "2026-10-29T14:15:00+02:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "ECB",
+        "notes": "決策於10/29公布；記者會14:45 CET。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+    },
+    {
+      "id": "prev-us-gdp-20261029",
+      "event_date": "2026-10-29T20:30:00+08:00",
+      "region": "美國",
+      "event_name": "美國第三季 GDP 初值（年化季增率）",
+      "importance_stars": 5,
+      "previous": "2.2%",
+      "forecast": "3.1%",
+      "actual": "3.4%",
+      "status": "released",
+      "impact_judgment": "經濟成長高於市場預期，投資與消費支撐需求韌性，可能降低聯準會短期降息空間；但須與通膨數據一併判讀。",
+      "source": {
+        "name": "U.S. Bureau of Economic Analysis / CME Econoday",
+        "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+        "published_at": "2026-10-29T08:30:00-04:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "BEA",
+        "notes": "BEA公布實際GDP年化季增3.4%；CME Econoday調查共識3.1%，前值2.2%。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+    },
+    {
+      "id": "prev-us-pce-20261029",
+      "event_date": "2026-10-29T20:30:00+08:00",
+      "region": "美國",
+      "event_name": "美國個人所得與支出／PCE 物價指數（9月）",
+      "importance_stars": 5,
+      "previous": "PCE月增0.3%；核心PCE月增0.3%；核心年增3.0%",
+      "forecast": "PCE月增0.5%；核心PCE月增0.3%；核心年增3.1%",
+      "actual": "PCE月增0.5%、年增3.6%；核心PCE月增0.3%、年增3.1%",
+      "status": "released",
+      "impact_judgment": "整體與核心月增率均未顯示通膨快速降溫，核心年增率仍高於聯準會2%目標，增加利率維持高檔或再升息的壓力。",
+      "source": {
+        "name": "U.S. Bureau of Economic Analysis / Reuters",
+        "url": "https://bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "published_at": "2026-10-29T08:30:00-04:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "BEA",
+        "notes": "實際值取自BEA；共識與市場反應參照Reuters當日報導。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+    },
+    {
+      "id": "prev-eurozone-gdp-20261030",
+      "event_date": "2026-10-30T18:00:00+08:00",
+      "region": "歐元區",
+      "event_name": "歐元區第三季 GDP 初值",
+      "importance_stars": 4,
+      "previous": "季增0.6%；年增1.2%",
+      "forecast": "季增0.2%；年增1.0%",
+      "actual": "季增0.4%；年增1.3%",
+      "status": "released",
+      "impact_judgment": "經濟成長高於預期，顯示區域經濟仍具韌性；但季度成長較前季放緩，且法國陷入負成長，區域內部差異擴大。",
+      "source": {
+        "name": "Eurostat / CME Econoday",
+        "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
+        "published_at": "2026-10-30T11:00:00+02:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Eurostat",
+        "notes": "Eurostat公布實際季增0.4%、年增1.3%；CME Econoday提供市場共識季增0.2%、年增1.0%。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要經濟體關鍵政策／宏觀指標，對區域金融條件與市場預期具明顯影響。"
+    },
+    {
+      "id": "prev-us-eci-20261030",
+      "event_date": "2026-10-30T20:30:00+08:00",
+      "region": "美國",
+      "event_name": "美國第三季就業成本指數 ECI",
+      "importance_stars": 4,
+      "previous": "0.9%",
+      "forecast": "0.8%",
+      "actual": "0.8%；薪資季增0.7%、福利成本季增0.9%",
+      "status": "released",
+      "impact_judgment": "就業成本增幅較前季放緩，但薪資與福利成本仍維持成長，對服務通膨與聯準會政策判斷仍具參考價值。",
+      "source": {
+        "name": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/news.release/archives/eci_10302026.htm",
+        "published_at": "2026-10-30T08:30:00-04:00",
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "BLS",
+        "notes": "BLS公布第三季民間與公部門整體薪酬成本季增0.8%；市場共識0.8%，前值0.9%。"
+      },
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要經濟體關鍵政策／宏觀指標，對區域金融條件與市場預期具明顯影響。"
+    }
+  ],
   "previous_earnings_calendar": [
     {
       "id": "prev-googl-20261028",
@@ -978,10 +1133,15 @@
     "previous_economic_calendar": {
       "status": "incomplete",
       "source_refs": [
-        "https://hk.investing.com/economic-calendar/",
-        "https://www.investing.com/economic-calendar/"
+        "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+        "https://www.ecb.europa.eu/press/pr/date/2026/html/ecb.mp261029~9a493adf17.en.html",
+        "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+        "https://bea.gov/news/2026/personal-income-and-outlays-september-2026",
+        "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
+        "https://www.bls.gov/news.release/archives/eci_10302026.htm"
       ],
-      "checked_at": "2026-11-01T21:00:00+08:00"
+      "checked_at": "2026-11-01T21:06:00+08:00"
     }
   }
 }
