@@ -2560,13 +2560,15 @@
         "name": "Reuters／LSEG consensus and adjusted EPS",
         "url": "https://www.reuters.com/business/alphabets-google-cloud-unit-beats-quarterly-revenue-estimates-steady-ai-demand-2026-10-28/",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "Reuters 引述 LSEG 共識；同時列明 adjusted EPS 與 GAAP 實際值口徑差異。"
+        "notes": "Reuters 引述 LSEG 共識；同時列明 adjusted EPS 與 GAAP 實際值口徑差異。",
+        "published_at": null
       },
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "Reuters 報導 adjusted EPS US$2.67，低於 LSEG 共識 US$3.02；公司公告 GAAP diluted EPS 為 US$2.12，兩種口徑已明確區分。",
       "revenue_note": "公司公告營收 US$127.577B；Reuters/LSEG 共識 US$128.2B，低於預期。",
@@ -2611,13 +2613,15 @@
         "name": "Investing.com｜Microsoft, Amazon and Intel earnings preview",
         "url": "https://www.investing.com/news/stock-market-news/earnings-week-preview-microsoft-amazon-intel-and-more-report-oct-2629-93CH-4973444",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "公布前 2026-10-26 的分析師 EPS／營收共識。"
+        "notes": "公布前 2026-10-26 的分析師 EPS／營收共識。",
+        "published_at": null
       },
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "公司公告 non-GAAP diluted EPS US$4.89；GAAP EPS 為 US$4.92。Investing.com／分析師共識 US$4.72，採 non-GAAP 可比口徑。",
       "revenue_note": "公司公告營收 US$92.279B；Investing.com 香港站共識 US$90.61B，高於預期。",
@@ -2662,13 +2666,15 @@
         "name": "Investing.com／Reuters｜Eli Lilly Q3 earnings",
         "url": "https://www.investing.com/news/earnings/eli-lilly-earnings-beat-by-188-revenue-topped-estimates-4982651",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "報導列出 non-GAAP EPS US$7.48 對共識 US$5.60，以及營收 US$24.4B 對共識 US$22.42B。"
+        "notes": "報導列出 non-GAAP EPS US$7.48 對共識 US$5.60，以及營收 US$24.4B 對共識 US$22.42B。",
+        "published_at": null
       },
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "公司公告 non-GAAP diluted EPS US$7.48（GAAP reported EPS US$7.22）；Investing.com／Reuters 共識 US$5.60，高於預期。",
       "revenue_note": "公司公告營收 US$24.397B；Investing.com／Reuters 共識 US$22.42B，高於預期。",
@@ -2713,13 +2719,15 @@
         "name": "Investing.com｜Intel Q3 2026 earnings report",
         "url": "https://www.investing.com/equities/intel-corp-earnings",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "列示 EPS US$0.52／預估 US$0.40，營收 US$16.5B／預估 US$16.48B。"
+        "notes": "列示 EPS US$0.52／預估 US$0.40，營收 US$16.5B／預估 US$16.48B。",
+        "published_at": null
       },
       "price_reaction_source": {
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "公司公告 GAAP diluted EPS US$0.60、non-GAAP EPS US$0.52；Investing.com 列示 non-GAAP EPS US$0.52 對共識 US$0.40。",
       "revenue_note": "公司公告營收 US$16.5B；Investing.com 香港站共識 US$16.48B，略高於預期。",
@@ -2772,7 +2780,8 @@
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "GAAP diluted EPS US$1.89；Investing.com 香港站共識 US$1.96，低於預期。",
       "revenue_note": "公司公告 net sales US$201.9B；Investing.com 香港站共識 US$202.1B，略低於預期。",
@@ -2825,7 +2834,8 @@
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "公司公告 reported diluted EPS US$5.06、adjusted EPS US$5.28；Investing.com 共識 US$4.88 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
       "revenue_note": "公司公告 Total Revenues and Other Income US$67.798B；Investing.com 共識 US$60.55B 的收入定義尚未確認與公司總額相同，暫不判定高低於預期。",
@@ -2878,7 +2888,8 @@
         "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
         "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
         "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
+        "published_at": null
       },
       "eps_note": "公司公告 reported EPS US$3.72、adjusted EPS US$4.23；Investing.com 共識 US$3.99 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
       "revenue_note": "Investing.com 列示營收 US$103.36B、共識 US$115.45B；公司正式業績公告未提供可直接對應的同口徑總營收比較，營收定義未核實，不判定高低於預期。",
