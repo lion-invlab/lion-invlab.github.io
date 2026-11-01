@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from fetch_tac_secondary_market import (
-    INSTRUMENTS, build_fragment, parse_cnn_fear_greed,
+    INSTRUMENTS, CONTRACT_CODE_PATTERNS, build_fragment, parse_cnn_fear_greed,
     parse_history_page, pending_record, fetch_history_record, self_test,
 )
 
@@ -24,6 +24,9 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
             for url, _instrument, _unit, aliases in group.values():
                 self.assertTrue(url.startswith("https://hk.investing.com/"))
                 self.assertTrue(aliases)
+        dxy_url = INSTRUMENTS["fx"]["dxy"][0]
+        self.assertEqual(dxy_url, "https://hk.investing.com/indices/usdollar-historical-data")
+        self.assertNotIn("/currencies/", dxy_url)
 
     def test_investing_hk_is_primary_for_energy_and_precious_metals(self):
         expected = {
@@ -52,23 +55,26 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
         self.assertIn("cnn business official", priority)
 
     def test_exact_date_and_identity_checks(self):
-        html = """<html><h1>WTI Crude Oil Futures Historical Data</h1>
-        <table><tr><th>Date</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change %</th></tr>
-        <tr><td>Oct 30, 2026</td><td>60.20</td><td>61.00</td><td>61.50</td><td>59.90</td><td>-1.20%</td></tr></table></html>"""
-        parsed = parse_history_page(html, ("WTI Crude Oil",), date(2026, 10, 30))
-        self.assertEqual(parsed["close"], 60.20)
-        self.assertEqual(parsed["change_pct"], -1.20)
+        html = """<html><h1>WTI原油期貨 - 2026年12月 (OIL)</h1>
+        <table><tr><th>日期</th><th>收市</th><th>開市</th><th>高</th><th>低</th><th>升跌（%）</th></tr>
+        <tr><td>2026年10月30日</td><td>104.12</td><td>102.80</td><td>104.99</td><td>102.43</td><td>+2.08%</td></tr></table></html>"""
+        parsed = parse_history_page(html, ("WTI原油期貨",), date(2026, 10, 30),
+                                    contract_code_pattern=CONTRACT_CODE_PATTERNS["wti"])
+        self.assertEqual(parsed["close"], 104.12)
+        self.assertEqual(parsed["change_pct"], 2.08)
+        self.assertEqual(parsed["contract_code"], "OIL")
         with self.assertRaisesRegex(ValueError, "identity mismatch"):
             parse_history_page(html, ("Brent Crude Oil",), date(2026, 10, 30))
         with self.assertRaisesRegex(ValueError, "exact trading-date row"):
-            parse_history_page(html, ("WTI Crude Oil",), date(2026, 10, 31))
+            parse_history_page(html, ("WTI原油期貨",), date(2026, 10, 31),
+                               contract_code_pattern=CONTRACT_CODE_PATTERNS["wti"])
 
     def test_investing_primary_capture_records_primary_provenance(self):
         group, key = "energy", "wti"
         url, instrument, unit, aliases = INSTRUMENTS[group][key]
-        html = """<html><h1>WTI Crude Oil Futures Historical Data</h1>
-        <table><tr><th>Date</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change %</th></tr>
-        <tr><td>Oct 30, 2026</td><td>60.20</td><td>61.00</td><td>61.50</td><td>59.90</td><td>-1.20%</td></tr></table></html>"""
+        html = """<html><h1>WTI原油期貨 - 2026年12月 (OIL)</h1>
+        <table><tr><th>日期</th><th>收市</th><th>開市</th><th>高</th><th>低</th><th>升跌（%）</th></tr>
+        <tr><td>2026年10月30日</td><td>104.12</td><td>102.80</td><td>104.99</td><td>102.43</td><td>+2.08%</td></tr></table></html>"""
         # The collector intentionally rejects suspiciously short HTTP responses.
         html = html.replace("</html>", "<!--" + ("fixture-padding-" * 400) + "--></html>")
         response = Mock(text=html)
@@ -83,6 +89,8 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
         self.assertEqual(record["status"], "verified")
         self.assertEqual(record["source"]["name"], "Investing.com 香港站")
         self.assertEqual(record["source"]["url"], url)
+        self.assertIn("WTI原油期貨", record["source"]["instrument"])
+        self.assertIn("(OIL)", record["source"]["instrument"])
         self.assertFalse(record["fallback_used"])
 
     def test_investing_primary_failure_stays_pending_without_stale_substitution(self):
@@ -118,6 +126,45 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
                 {"fear_and_greed": {"score": 101, "timestamp": "2026-10-30T11:00:00Z"}},
                 "2026-10-30T12:00:00+00:00", now
             )
+
+    def test_localized_futures_headings_require_the_correct_contract_root(self):
+        fixtures = [
+            ("wti", "WTI原油期貨 - 2026年12月 (OIL)", "WTI原油期貨", "OIL"),
+            ("brent", "倫敦布倫特原油期貨 - 2027年1月 (LCOF7)", "倫敦布倫特原油期貨", "LCOF7"),
+            ("gold_gc", "黃金期貨 - 2026年12月 (GCZ6)", "黃金期貨", "GCZ6"),
+            ("silver_si", "白銀期貨 - 2026年12月 (SIZ6)", "白銀期貨", "SIZ6"),
+        ]
+        for key, heading, alias, expected_code in fixtures:
+            html = f"""<html><h1>{heading}</h1>
+            <table><tr><th>日期</th><th>收市</th><th>開市</th><th>高</th><th>低</th><th>升跌（%）</th></tr>
+            <tr><td>2026年10月30日</td><td>100.25</td><td>101.00</td><td>102.00</td><td>99.00</td><td>-1.25%</td></tr></table></html>"""
+            parsed = parse_history_page(html, (alias,), date(2026, 10, 30),
+                                        contract_code_pattern=CONTRACT_CODE_PATTERNS[key])
+            self.assertEqual(parsed["contract_code"], expected_code)
+            self.assertEqual(parsed["close"], 100.25)
+        wrong_contract = """<html><h1>黃金期貨 - 2026年12月 (SIZ6)</h1>
+        <table><tr><th>日期</th><th>收市</th><th>開市</th><th>高</th><th>低</th><th>升跌（%）</th></tr>
+        <tr><td>2026年10月30日</td><td>100.25</td><td>101.00</td><td>102.00</td><td>99.00</td><td>-1.25%</td></tr></table></html>"""
+        with self.assertRaisesRegex(ValueError, "contract identity mismatch"):
+            parse_history_page(wrong_contract, ("黃金期貨",), date(2026, 10, 30),
+                               contract_code_pattern=CONTRACT_CODE_PATTERNS["gold_gc"])
+
+    def test_dxy_uses_spot_index_identity_and_rejects_dx_futures(self):
+        spot = """<html><h1>美元指數 (DXY)</h1>
+        <table><tr><th>日期</th><th>收市</th><th>開市</th><th>高</th><th>低</th><th>升跌（%）</th></tr>
+        <tr><td>2026年10月30日</td><td>101.88</td><td>101.88</td><td>102.09</td><td>101.54</td><td>-0.15%</td></tr></table></html>"""
+        parsed = parse_history_page(spot, INSTRUMENTS["fx"]["dxy"][3],
+                                    date(2026, 10, 30),
+                                    contract_code_pattern=CONTRACT_CODE_PATTERNS["dxy"],
+                                    reject_futures=True)
+        self.assertEqual(parsed["close"], 101.88)
+        self.assertEqual(parsed["contract_code"], "DXY")
+        futures = spot.replace("美元指數 (DXY)", "美元指數期貨 - 2026年12月 (DXZ6)")
+        with self.assertRaisesRegex(ValueError, "futures page is not the requested spot/CFD index"):
+            parse_history_page(futures, INSTRUMENTS["fx"]["dxy"][3],
+                               date(2026, 10, 30),
+                               contract_code_pattern=CONTRACT_CODE_PATTERNS["dxy"],
+                               reject_futures=True)
 
     def test_fragment_requires_exact_group_fields(self):
         groups = {}

@@ -6,6 +6,8 @@ on:
       - tac-renderer-safe-refactor-20261102
     paths:
       - .github/workflows/tac-live-capture-probe.yml
+      - scripts/fetch_tac_secondary_market.py
+      - scripts/test_tac_secondary_market.py
 
 permissions:
   contents: read
@@ -41,6 +43,9 @@ jobs:
           python -m pip install requests beautifulsoup4
           npm install --no-save playwright
           npx playwright install --with-deps chromium
+
+      - name: Validate localized identity and contract-code parser
+        run: python -m unittest -v scripts/test_tac_secondary_market.py
 
       - name: Capture live market data for the 2026-11-02 Monday report
         run: |

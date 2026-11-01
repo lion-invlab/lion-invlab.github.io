@@ -23,7 +23,7 @@ from urllib3.util.retry import Retry
 
 INSTRUMENTS = {
     "fx": {
-        "dxy": ("https://hk.investing.com/currencies/us-dollar-index-historical-data", "US Dollar Index", "index_point", ("US Dollar Index", "DXY")),
+        "dxy": ("https://hk.investing.com/indices/usdollar-historical-data", "US Dollar Index (DXY spot/CFD)", "index_point", ("US Dollar Index", "DXY", "美元指數")),
         "usd_twd": ("https://hk.investing.com/currencies/usd-twd-historical-data", "USD/TWD", "currency_pair", ("USD/TWD", "USD TWD")),
         "eur_usd": ("https://hk.investing.com/currencies/eur-usd-historical-data", "EUR/USD", "currency_pair", ("EUR/USD", "EUR USD")),
         "gbp_usd": ("https://hk.investing.com/currencies/gbp-usd-historical-data", "GBP/USD", "currency_pair", ("GBP/USD", "GBP USD")),
@@ -31,17 +31,24 @@ INSTRUMENTS = {
         "usd_jpy": ("https://hk.investing.com/currencies/usd-jpy-historical-data", "USD/JPY", "currency_pair", ("USD/JPY", "USD JPY")),
     },
     "energy": {
-        "wti": ("https://hk.investing.com/commodities/crude-oil-historical-data", "WTI Crude Oil", "USD/barrel", ("WTI Crude Oil", "Crude Oil WTI")),
-        "brent": ("https://hk.investing.com/commodities/brent-oil-historical-data", "Brent Crude Oil", "USD/barrel", ("Brent Crude Oil", "Brent Oil")),
+        "wti": ("https://hk.investing.com/commodities/crude-oil-historical-data", "WTI Crude Oil Futures", "USD/barrel", ("WTI Crude Oil", "Crude Oil WTI", "WTI原油期貨")),
+        "brent": ("https://hk.investing.com/commodities/brent-oil-historical-data", "Brent Crude Oil Futures", "USD/barrel", ("Brent Crude Oil", "Brent Oil", "倫敦布倫特原油期貨")),
     },
     "precious_metals": {
-        "gold_gc": ("https://hk.investing.com/commodities/gold-historical-data", "Gold Futures", "USD/troy_ounce", ("Gold Futures", "Gold")),
-        "silver_si": ("https://hk.investing.com/commodities/silver-historical-data", "Silver Futures", "USD/troy_ounce", ("Silver Futures", "Silver")),
+        "gold_gc": ("https://hk.investing.com/commodities/gold-historical-data", "Gold Futures GC", "USD/troy_ounce", ("Gold Futures", "Gold", "黃金期貨")),
+        "silver_si": ("https://hk.investing.com/commodities/silver-historical-data", "Silver Futures SI", "USD/troy_ounce", ("Silver Futures", "Silver", "白銀期貨")),
     },
     "risk_indicators": {
         "vix": ("https://hk.investing.com/indices/volatility-s-p-500-historical-data", "CBOE Volatility Index", "index_point", ("CBOE Volatility Index", "S&P 500 VIX", "VIX")),
         "move": ("https://hk.investing.com/indices/ice-bofaml-move-historical-data", "ICE BofA MOVE Index", "index_point", ("ICE BofA MOVE Index", "MOVE Index", "MOVE")),
     },
+}
+CONTRACT_CODE_PATTERNS = {
+    "dxy": r"\(DXY\)",
+    "wti": r"\(OIL\)",
+    "brent": r"\(LCO[A-Z]\d\)",
+    "gold_gc": r"\(GC[A-Z]\d\)",
+    "silver_si": r"\(SI[A-Z]\d\)",
 }
 CNN_PAGE = "https://edition.cnn.com/markets/fear-and-greed"
 CNN_DATA = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
@@ -74,12 +81,19 @@ def parse_date(raw: str) -> date:
 def normalized_header(value: str) -> str:
     return re.sub(r"[\s（）()%％]", "", value).lower()
 
-def parse_history_page(html: str, aliases: tuple[str, ...], trading_date: date) -> dict[str, Any]:
+def parse_history_page(html: str, aliases: tuple[str, ...], trading_date: date,
+                       contract_code_pattern: str | None = None,
+                       reject_futures: bool = False) -> dict[str, Any]:
     soup = BeautifulSoup(html, "html.parser")
     heading = soup.find("h1")
     heading_text = heading.get_text(" ", strip=True) if heading else ""
     if not any(alias.casefold() in heading_text.casefold() for alias in aliases):
         raise ValueError(f"instrument identity mismatch: expected one of {aliases}, heading={heading_text!r}")
+    if reject_futures and "期貨" in heading_text:
+        raise ValueError(f"instrument type mismatch: futures page is not the requested spot/CFD index, heading={heading_text!r}")
+    contract_match = re.search(contract_code_pattern, heading_text, flags=re.IGNORECASE) if contract_code_pattern else None
+    if contract_code_pattern and not contract_match:
+        raise ValueError(f"futures contract identity mismatch: expected pattern {contract_code_pattern!r}, heading={heading_text!r}")
     for table in soup.find_all("table"):
         rows = table.find_all("tr")
         if not rows:
@@ -106,7 +120,8 @@ def parse_history_page(html: str, aliases: tuple[str, ...], trading_date: date) 
             change = parse_number(cells[change_i].get_text(" ", strip=True))
             if close <= 0:
                 raise ValueError("historical close must be positive")
-            return {"close": close, "change_pct": change, "heading": heading_text}
+            return {"close": close, "change_pct": change, "heading": heading_text,
+                    "contract_code": contract_match.group(0).strip("()") if contract_match else None}
     raise ValueError(f"exact trading-date row {trading_date.isoformat()} not found")
 
 def pending_record(unit: str, reason: str) -> dict:
@@ -125,7 +140,11 @@ def fetch_history_record(session: requests.Session, key: str, url: str,
         response.raise_for_status()
         if len(response.text) < 5000:
             raise ValueError("response unexpectedly short")
-        parsed = parse_history_page(response.text, aliases, trading_date)
+        parsed = parse_history_page(
+            response.text, aliases, trading_date,
+            contract_code_pattern=CONTRACT_CODE_PATTERNS.get(key),
+            reject_futures=(key == "dxy"),
+        )
         return {
             "value": parsed["close"], "unit": unit,
             "change": parsed["change_pct"], "change_unit": "percent",
@@ -134,10 +153,11 @@ def fetch_history_record(session: requests.Session, key: str, url: str,
                 "name": "Investing.com 香港站", "url": url,
                 "observed_at": observed_at, "data_date": trading_date.isoformat(),
                 "quote_type": "investing_com_hk_historical_close_pct_change",
-                "instrument": instrument,
+                "instrument": f"{instrument}; page={parsed['heading']}",
             },
             "fallback_used": False, "fallback_reason": None,
-            "notes": "採用 WR 指定 Investing.com 香港站歷史資料表的收市值及日升跌幅；僅接受完全相符的資料日期與品項。",
+            "notes": ("採用 WR 指定 Investing.com 香港站歷史資料表的收市值及日升跌幅；"
+                      "僅接受完全相符的資料日期、品項及（適用時）期貨合約代碼。"),
         }
     except Exception as exc:
         return pending_record(unit, str(exc))
