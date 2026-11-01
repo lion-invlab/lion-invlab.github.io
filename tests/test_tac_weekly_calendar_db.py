@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.tac_weekly_calendar_db import validate_week, cmd_snapshot, cmd_upsert, cmd_apply_snapshot
+from scripts.tac_weekly_calendar_db import validate_week, quality_report, cmd_snapshot, cmd_upsert, cmd_apply_snapshot
 
 def load_for_test(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -137,6 +137,16 @@ class WeeklyCalendarDbTests(unittest.TestCase):
         event["time_known"]="false"
         errors=validate_week(self.week(events={"economic":[event],"earnings":[]}))
         self.assertTrue(any("time_known must be boolean" in e for e in errors))
+
+    def test_quality_report_counts_missing_consensus_and_unknown_times(self):
+        economic=self.event("e1","2026-11-02T12:00:00+08:00")
+        economic["time_known"]=False
+        earnings=self.event("r1","2026-11-03T12:00:00+08:00")
+        earnings.update({"company":"Example Co","time_known":False})
+        report=quality_report(self.week(events={"economic":[economic],"earnings":[earnings]}))
+        self.assertEqual(report["streams"]["economic"]["unknown_time_or_session"],1)
+        self.assertEqual(report["streams"]["earnings"]["missing_fields"]["revenue_estimate"],1)
+        self.assertEqual(report["streams"]["earnings"]["missing_fields"]["consensus_source"],1)
 
     def test_tac_star_and_archive_policy(self):
         low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
