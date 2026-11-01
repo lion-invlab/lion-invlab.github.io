@@ -267,7 +267,18 @@ def self_test(validator, schema):
     }]
     if not any("TAC five-star only" in e for e in validate_report_rules(bad)):
         raise AssertionError("four-star prior-week economic event unexpectedly passed")
-    print("PASS: prior-week calendar rejects four-star events")
+    print("PASS: prior-week calendar rejects four-star economic events")
+
+    bad = json.loads(json.dumps(sample))
+    prior_earnings = dict(earnings)
+    prior_earnings.update({
+        "id":"prior-four-star-earnings","event_date":"2026-10-30T21:00:00+08:00",
+        "importance_stars":4,"status":"released","eps_actual":1.0
+    })
+    bad["previous_earnings_calendar"] = [prior_earnings]
+    if not any("TAC five-star only" in e for e in validate_report_rules(bad)):
+        raise AssertionError("four-star prior-week earnings event unexpectedly passed")
+    print("PASS: prior-week calendar rejects four-star earnings events")
 
 
 
