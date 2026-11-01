@@ -442,11 +442,9 @@ def previous_week(soup,kind,records,coverage,report_day,prototype):
     # WR v3.7: prior-week panels are a strict five-star-only archive.
     # Filter in the renderer as a second guard; do not rely on JSON assembly.
     eligible=[item for item in records if int(item.get("importance_stars",0))==5]
-    eligible.sort(key=lambda item: (
-        -dt(item["event_date"]).date().toordinal(),
-        0 if item.get("time_known",True) is not False else 1,
-        -dt(item["event_date"]).timestamp() if item.get("time_known",True) is not False else 0
-    ))
+    # Prior-week archive order is date-only; do not infer same-day sequence
+    # from clock times, especially when an event's exact time is unverified.
+    eligible.sort(key=lambda item: dt(item["event_date"]).date(), reverse=True)
     group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜僅五星・依日期由新到舊"); group.append(heading)
     if eligible:
         listing=soup.new_tag("div",attrs={"class":list_cls})
