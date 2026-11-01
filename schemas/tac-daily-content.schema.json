@@ -49,7 +49,7 @@
           "const": "Asia/Taipei"
         },
         "wr_version": {
-          "const": "3.5"
+          "const": "3.6"
         },
         "template_type": {
           "enum": [
@@ -453,6 +453,8 @@
         "region",
         "event_name",
         "importance_stars",
+        "importance_basis",
+        "importance_basis_source",
         "previous",
         "forecast",
         "actual",
@@ -480,10 +482,17 @@
         "importance_stars": {
           "type": "integer",
           "enum": [
-            1,
-            2,
-            3
+            4,
+            5
           ]
+        },
+        "importance_basis": {
+          "const": "major_event_assessment"
+        },
+        "importance_basis_source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
         },
         "previous": {
           "type": [
@@ -573,22 +582,11 @@
           ]
         },
         "importance_stars": {
-          "type": [
-            "integer",
-            "null"
-          ],
-          "enum": [
-            1,
-            2,
-            3,
-            null
-          ]
+          "type": "integer",
+          "enum": [4, 5]
         },
         "importance_basis": {
-          "enum": [
-            "source_rating",
-            "major_event_assessment"
-          ]
+          "const": "major_event_assessment"
         },
         "importance_basis_source": {
           "type": "string",
@@ -596,11 +594,7 @@
           "maxLength": 500
         },
         "importance_rating_source": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "maxLength": 300
+          "type": "null"
         },
         "eps_estimate": {
           "type": [
