@@ -773,9 +773,9 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
                 value_nodes = select(field_node, selectors["field_value"])
                 if len(field_label_nodes) != 1 or len(value_nodes) != 1:
                     raise ValueError(f"{label}.fields[{field_index}]: label/value slot ambiguous")
-                field_label = normalize(unescape("".join(x.text for x in spans_inside(field_label_nodes[0],parser.spans))))
-                if not isinstance(field_data,dict) or field_data.get("label") != field_label:
-                    raise ValueError(f"{label}.fields[{field_index}]: field label mismatch")
+                if not isinstance(field_data,dict) or not isinstance(field_data.get("label"), str):
+                    raise ValueError(f"{label}.fields[{field_index}]: field label must be text")
+                add_text(field_label_nodes[0], field_data["label"], f"{label}.fields[{field_index}].label")
                 anchors = select(value_nodes[0],selectors["source_link"])
                 if anchors:
                     if set(field_data) != {"label","links"} or len(anchors) != len(field_data["links"]):
@@ -906,9 +906,9 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 values=select(field_node,selectors["detail_value"])
                 if len(labels)!=1 or len(values)!=1:
                     raise ValueError(f"{label}.fields[{field_index}]: label/value ambiguous")
-                current_label=normalize(unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))))
-                if not isinstance(field_data,dict) or field_data.get("label")!=current_label:
-                    raise ValueError(f"{label}.fields[{field_index}]: label mismatch")
+                if not isinstance(field_data,dict) or not isinstance(field_data.get("label"),str):
+                    raise ValueError(f"{label}.fields[{field_index}]: label must be text")
+                add_text(labels[0],field_data["label"],f"{label}.fields[{field_index}].label")
                 anchors=select(values[0],"a")
                 if anchors:
                     if set(field_data)!={"label","links"} or len(anchors)!=len(field_data["links"]):
