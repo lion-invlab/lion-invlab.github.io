@@ -258,7 +258,7 @@
         "observation_levels": "levels_segments",
         "observation_core": "core_text"
       },
-      "container": ".bluf"
+      "container": "#view"
     }
   },
   "protected_paths": [
