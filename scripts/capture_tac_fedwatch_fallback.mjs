@@ -8,6 +8,38 @@ const output = arg("--output") || "/tmp/tac-fedwatch-fallback.json";
 const textOutput = arg("--text-output") || "/tmp/tac-fedwatch-fallback.txt";
 const url = "https://www.investing.com/central-banks/fed-rate-monitor";
 const observedAt = new Date().toISOString();
+
+function parseInvestingTimestamp(value) {
+  // Investing.com emits US timezone abbreviations (EDT/EST), which V8 Date.parse
+  // does not consistently recognize. Convert them to explicit UTC offsets.
+  const normalized = String(value)
+    .replace(/\\bEDT\\b/g, "GMT-0400")
+    .replace(/\\bEST\\b/g, "GMT-0500")
+    .replace(/\\bCDT\\b/g, "GMT-0500")
+    .replace(/\\bCST\\b/g, "GMT-0600")
+    .replace(/\\bMDT\\b/g, "GMT-0600")
+    .replace(/\\bMST\\b/g, "GMT-0700")
+    .replace(/\\bPDT\\b/g, "GMT-0700")
+    .replace(/\\bPST\\b/g, "GMT-0800");
+  return Date.parse(normalized);
+}
+
+if (process.argv.includes("--self-test")) {
+  const cases = [
+    ["Oct 31, 2026 12:35AM EDT", "2026-10-31T04:35:00.000Z"],
+    ["Oct 30, 2026 10:45 PM EDT", "2026-10-31T02:45:00.000Z"],
+    ["Nov 2, 2026 9:15AM EST", "2026-11-02T14:15:00.000Z"]
+  ];
+  for (const [input, expected] of cases) {
+    const actual = parseInvestingTimestamp(input);
+    if (!Number.isFinite(actual) || new Date(actual).toISOString() !== expected) {
+      throw new Error(`Timestamp parse failed: ${input} => ${Number.isFinite(actual) ? new Date(actual).toISOString() : "NaN"}; expected ${expected}`);
+    }
+  }
+  console.log("PASS: Investing.com EDT/EST timestamps normalize to correct UTC instants");
+  process.exit(0);
+}
+
 let browser;
 try {
   browser = await chromium.launch({ headless: true, args: ["--disable-http2"] });
@@ -29,7 +61,7 @@ try {
     if (rows.length) meetings.push({ meeting_date: dates[i].date, probabilities: rows });
   }
   const sourceUpdatedAt = [...new Set(updatedMatches)];
-  const parsedUpdate = sourceUpdatedAt.length ? Date.parse(sourceUpdatedAt[0]) : NaN;
+  const parsedUpdate = sourceUpdatedAt.length ? parseInvestingTimestamp(sourceUpdatedAt[0]) : NaN;
   const ageHours = Number.isFinite(parsedUpdate) ? (Date.now() - parsedUpdate) / 3600000 : null;
   const freshnessLimitHours = 72; // permits the latest Friday close to remain valid over a weekend
   const fresh = ageHours !== null && ageHours >= -1 && ageHours <= freshnessLimitHours;
