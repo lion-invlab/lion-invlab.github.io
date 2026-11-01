@@ -16,7 +16,7 @@
 - `value` 是該資產的主報價；`change` 與 `change_unit` 必須遵守該商品頁顯示口徑。
 - 11 檔產業 ETF 的 `value_type` 使用 `percent_change`，只呈現漲跌幅，不將 ETF 價格混入早報欄位。
 - 美債殖利率使用 `yield_percent`，並在 `quote_basis` 明確標示日度殖利率曲線；不得與個別債券即時殖利率混用。
-- VIX、MOVE、CNN Fear & Greed 與 CME FedWatch 各自保留正確指標口徑；FedWatch 必須在 notes 記錄會議及機率快照時間，不能把不同會議機率混成同一筆。
+- VIX、MOVE、CNN Fear & Greed 與 CME FedWatch 另以獨立物件保存目標會議、快照時間、來源與各利率區間機率分布；不得把不同會議機率混成同一筆。
 - `verified` 必須有數值、資料日期與來源；否則應標為 `pending_verification` 或 `missing`。
 - `fallback_used=true` 時必須填寫 `fallback_reason`。
 - 完整性由驗證器另行檢查：缺少任一預期資產、重複 asset_id、日期不一致或未核實值，均不得宣告行情資料完整。
