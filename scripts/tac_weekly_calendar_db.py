@@ -127,7 +127,7 @@ def quality_report(data):
                             "forecast":sum(x.get("forecast_applicable") is False for x in rows)}
         else:
             not_applicable={}
-            missing={"eps_estimate:sum(not isinstance(x.get("eps_estimate"),(int,float)) for x in rows),
+            missing={"eps_estimate":sum(not isinstance(x.get("eps_estimate"),(int,float)) for x in rows),
                      "revenue_estimate":sum(not isinstance(x.get("revenue_estimate"),(int,float)) for x in rows),
                      "consensus_source":sum(not (isinstance(x.get("consensus_source"),dict) and x["consensus_source"].get("url")) for x in rows),
                      "eps_actual_for_released":sum(x.get("status")=="released" and not isinstance(x.get("eps_actual"),(int,float)) for x in rows),
