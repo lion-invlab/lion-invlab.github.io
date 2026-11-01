@@ -10,7 +10,7 @@ OFFSETS = {"EDT":-4,"EST":-5,"CDT":-5,"CST":-6,"MDT":-6,"MST":-7,"PDT":-7,"PST":
 MONTHS = {m:i for i,m in enumerate(("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),1)}
 
 def source_time(s):
-    m=re.fullmatch(r"([A-Za-z]{3}) (\\d{1,2}), (\\d{4}) (\\d{1,2}):(\\d{2})\\s*(AM|PM)\\s*(EDT|EST|CDT|CST|MDT|MST|PDT|PST)",s.strip(),re.I)
+    m=re.fullmatch(r"([A-Za-z]{3}) (\d{1,2}), (\d{4}) (\d{1,2}):(\d{2})\s*(AM|PM)\s*(EDT|EST|CDT|CST|MDT|MST|PDT|PST)",s.strip(),re.I)
     if not m: raise ValueError("來源更新時間格式無法解析")
     mon,day,year,hour,minute,ampm,zone=m.groups()
     h=int(hour)%12+(12 if ampm.upper()=="PM" else 0)
@@ -18,7 +18,7 @@ def source_time(s):
     return (local-timedelta(hours=OFFSETS[zone.upper()])).replace(tzinfo=timezone.utc)
 
 def rate_band(s):
-    m=re.fullmatch(r"\\s*(\\d+(?:\\.\\d{1,3})?)\\s*-\\s*(\\d+(?:\\.\\d{1,3})?)\\s*",str(s))
+    m=re.fullmatch(r"\s*(\d+(?:\.\d{1,3})?)\s*-\s*(\d+(?:\.\d{1,3})?)\s*",str(s))
     if not m: raise ValueError("利率區間格式無法解析")
     return f"{float(m.group(1)):.2f}-{float(m.group(2)):.2f}"
 
@@ -82,7 +82,7 @@ def main():
     if a.self_test: self_test(); return
     if not all((a.selected,a.report_date,a.output)): p.error("selected, report-date and output required")
     d=json.loads(Path(a.selected).read_text(encoding="utf-8")); out=convert(d,a.report_date)
-    Path(a.output).write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    Path(a.output).write_text(json.dumps(out,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"status":out["fedwatch"]["status"],"meeting":out["fedwatch"]["target_meeting"],"source":out["fedwatch"]["source"],"notes":out["fedwatch"]["notes"]},ensure_ascii=False))
 if __name__=="__main__":
     try: main()
