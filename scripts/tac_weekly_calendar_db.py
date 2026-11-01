@@ -235,7 +235,7 @@ def cmd_approve_snapshot(args):
     if status != "draft": raise ValueError("only an explicit draft snapshot can be approved")
     meta["approval_status"]="approved"
     meta["approved_at"]=args.at or datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
-    path.write_text(json.dumps(snap,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    path.write_text(json.dumps(snap,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"file":str(path),"approval_status":"approved","approved_at":meta["approved_at"]},ensure_ascii=False))
     return 0
 
