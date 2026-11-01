@@ -142,7 +142,8 @@ def fetch_history_record(session: requests.Session, key: str, url: str,
     except Exception as exc:
         return pending_record(unit, str(exc))
 
-def parse_cnn_fear_greed(payload: dict, observed_at: str) -> dict:
+def parse_cnn_fear_greed(payload: dict, observed_at: str,
+                         now: datetime | None = None) -> dict:
     if not isinstance(payload, dict) or not isinstance(payload.get("fear_and_greed"), dict):
         raise ValueError("CNN response missing fear_and_greed object")
     item = payload["fear_and_greed"]
@@ -159,8 +160,11 @@ def parse_cnn_fear_greed(payload: dict, observed_at: str) -> dict:
             raise ValueError("CNN source timestamp must include timezone")
     else:
         raise ValueError("CNN Fear & Greed source timestamp missing")
-    if source_time > datetime.now(timezone.utc).replace(microsecond=0) or (datetime.now(timezone.utc) - source_time).total_seconds() > 48 * 3600:
-        raise ValueError("CNN Fear & Greed snapshot is stale or future-dated")
+    current_time = now or datetime.now(timezone.utc)
+    if current_time.tzinfo is None:
+        raise ValueError("CNN validation clock must include timezone")
+    if source_time > current_time or (current_time - source_time).total_seconds() > 72 * 3600:
+        raise ValueError("CNN Fear & Greed snapshot is stale or future-dated (72-hour limit)")
     return {
         "value": float(score), "unit": "index_score",
         "change": None, "change_unit": None,
@@ -213,14 +217,15 @@ def self_test() -> None:
     else:
         raise AssertionError("missing exact date must fail closed")
     observed = "2026-10-30T12:00:00+00:00"
-    cnn = parse_cnn_fear_greed({"fear_and_greed": {"score": 52.5, "timestamp": "2026-10-30T11:00:00Z"}}, observed)
+    fixed_now = datetime.fromisoformat("2026-10-30T12:00:00+00:00")
+    cnn = parse_cnn_fear_greed({"fear_and_greed": {"score": 52.5, "timestamp": "2026-10-30T11:00:00Z"}}, observed, fixed_now)
     assert cnn["value"] == 52.5 and cnn["source"]["data_date"] == "2026-10-30"
     for invalid in (
         {"fear_and_greed": {"score": 101, "timestamp": "2026-10-30T11:00:00Z"}},
         {"fear_and_greed": {"score": 50, "timestamp": "2026-10-20T11:00:00Z"}},
     ):
         try:
-            parse_cnn_fear_greed(invalid, observed)
+            parse_cnn_fear_greed(invalid, observed, fixed_now)
         except ValueError:
             pass
         else:
