@@ -177,12 +177,7 @@ def inner_bounds(node: Node) -> tuple[int, int]:
 def replace_sibling_sequence(source: str, parser: SourceTreeParser,
                             nodes: list[Node], desired_count: int,
                             label: str) -> str:
-    """Resize one contiguous sibling card run using its approved first-card prototype.
-
-    Only whitespace may separate cards. All markup outside the first/last card
-    source interval is retained byte-for-byte. A non-empty target cannot be
-    synthesized when the approved template contains no prototype card.
-    """
+    """Resize a contiguous approved card run without rewriting existing cards."""
     if not isinstance(desired_count, int) or desired_count < 0:
         raise ValueError(f"{label}: desired card count must be a non-negative integer")
     if not nodes:
@@ -200,17 +195,25 @@ def replace_sibling_sequence(source: str, parser: SourceTreeParser,
             raise ValueError(f"{label}: non-card element inside dynamic sequence")
         if isinstance(child, TextSpan) and child.text.strip():
             raise ValueError(f"{label}: non-whitespace text inside dynamic sequence")
-    first_start, _ = inner_bounds(nodes[0])
-    _, last_end = inner_bounds(nodes[-1])
-    start = nodes[0].source_start
-    end = nodes[-1].end_tag_end
-    if start is None or end is None or start > first_start or end < last_end:
-        raise ValueError(f"{label}: card source range unavailable")
-    prototype = source[start:nodes[0].end_tag_end]
+    for node in nodes:
+        if node.source_start is None or node.end_tag_end is None or node.source_start > node.end_tag_end:
+            raise ValueError(f"{label}: card source range unavailable")
+    current_count = len(nodes)
+    if desired_count == current_count:
+        return source
+    if desired_count < current_count:
+        # Keep the first desired_count cards byte-for-byte; remove only the tail.
+        remove_start = nodes[desired_count].source_start if desired_count else nodes[0].source_start
+        remove_end = nodes[-1].end_tag_end
+        return source[:remove_start] + source[remove_end:]
+    # Growth appends clones of the approved first-card prototype after all existing cards.
+    prototype = source[nodes[0].source_start:nodes[0].end_tag_end]
     if not prototype:
         raise ValueError(f"{label}: empty approved card prototype")
-    replacement = "\n".join(prototype for _ in range(desired_count))
-    return source[:start] + replacement + source[end:]
+    extra = desired_count - current_count
+    insertion = "\\n" + "\\n".join(prototype for _ in range(extra))
+    insert_at = nodes[-1].end_tag_end
+    return source[:insert_at] + insertion + source[insert_at:]
 
 
 def spans_inside(node: Node, spans: list[TextSpan]) -> list[TextSpan]:
