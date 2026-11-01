@@ -89,6 +89,33 @@ class SafeMarketRendererTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "exactly one existing status class token"):
                     render_market_html(html,snapshot,contract)
 
+    def test_risk_indicators_update_with_risk_specific_status_mapping(self):
+        html = ('<article id="sentiment">'
+                '<div class="sbox"><div>VIX</div><strong>19.45</strong><span class="warn">+2.21%</span></div>'
+                '<div class="sbox"><div>MOVE</div><strong>103.31</strong><span class="down">-3.30%</span></div>'
+                '<section class="sbox cnn-fg-preview"><div>CNN Fear &amp; Greed</div><span class="fg6-score-main">21.0</span></section>'
+                '</article>')
+        contract = {"rules":{"allow_mapped_status_class_token_transition":True,
+                             "pending_value_text":"待核實",
+                             "status_class_map":{"positive":"up","negative":"down","neutral":"flat","warning":"warn"}},
+                    "groups":{"risk_indicators":{"container":"#sentiment","records":{
+                        "vix":{"row":".sbox","key_text":"VIX","value_selector":"strong","change_selector":".warn,.up,.down,.flat",
+                               "status_class_map":{"positive":"warn","negative":"down","neutral":"flat","warning":"warn"}},
+                        "move":{"row":".sbox","key_text":"MOVE","value_selector":"strong","change_selector":".warn,.up,.down,.flat",
+                                "status_class_map":{"positive":"warn","negative":"down","neutral":"flat","warning":"warn"}},
+                        "cnn_fear_greed":{"row":".cnn-fg-preview","key_text":"CNN Fear & Greed","value_selector":".fg6-score-main","change_selector":None}
+                    }}}}
+        snapshot = {"groups":{}, "risk_indicators":{
+            "vix":{"value":"20.10","change":"-1.50%"},
+            "move":{"value":"101.00","change":"+1.20%"},
+            "cnn_fear_greed":{"value":"28.0"}
+        }}
+        result = render_market_html(html,snapshot,contract)
+        self.assertIn('<strong>20.10</strong><span class="down">-1.50%</span>',result)
+        self.assertIn('<strong>101.00</strong><span class="warn">+1.20%</span>',result)
+        self.assertIn('<span class="fg6-score-main">28.0</span>',result)
+        self.assertIn('class="cnn-fg-preview"',result)
+
     def test_missing_group_key_fails_closed(self):
         html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
