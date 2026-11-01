@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans)
+from render_tac_market_safe import (Node, SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans, inner_bounds)
 
 
 def minimal_contract():
@@ -541,6 +541,23 @@ class SafeMarketRendererTests(unittest.TestCase):
                 earnings_binding={"groups":{"earnings_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding),source,
                                  f"{template_label}: earnings no-op must preserve every byte")
+
+    def test_dynamic_region_bounds_exclude_container_tags(self):
+        html = '<main id="calendar"><section class="approved-list"><details class="econ-event"><summary>Event A</summary></details></section><aside>Locked sibling</aside></main>'
+        parser = SourceTreeParser(html)
+        parser.feed(html)
+        parser.close()
+        containers = select(parser.root, ".approved-list")
+        self.assertEqual(len(containers), 1)
+        start, end = inner_bounds(containers[0])
+        self.assertEqual(html[start:end], '<details class="econ-event"><summary>Event A</summary></details>')
+        self.assertTrue(html[:start].endswith('<section class="approved-list">'))
+        self.assertTrue(html[end:].startswith('</section><aside>Locked sibling</aside>'))
+
+    def test_dynamic_region_bounds_fail_closed_when_missing(self):
+        node = Node("section", {})
+        with self.assertRaises(ValueError):
+            inner_bounds(node)
 
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
