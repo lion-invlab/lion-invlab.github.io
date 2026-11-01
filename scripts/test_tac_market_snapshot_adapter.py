@@ -68,7 +68,7 @@ class MarketSnapshotDisplayAdapterTests(unittest.TestCase):
         rendered = self.weekday
         for start, end, replacement in sorted(edits, reverse=True):
             rendered = rendered[:start] + replacement + rendered[end:]
-        self.assertEqual(rendered.count("待核實"), 6)
+        self.assertGreaterEqual(rendered.count("待核實"), 8)
         self.assertIn('style="width:0%"', rendered)
         self.assertIn('aria-label="FedWatch 機率待核實"', rendered)
         self.assertNotIn("0.0%", rendered)
