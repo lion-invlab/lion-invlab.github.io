@@ -1149,7 +1149,9 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                                  for group in groups]
             item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
             for list_index, ((group, list_node), list_data) in enumerate(zip(group_entries, lists_data)):
-                if not legacy_mode:
+                if legacy_mode:
+                    group = status_group_for(list_node)
+                else:
                     parser = SourceTreeParser(html)
                     parser.feed(html)
                     parser.close()
@@ -1161,11 +1163,11 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                     list_node = group_lists[0] if group_lists else None
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
                     raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: invalid list payload")
-                group_lists = select(group, panel_spec["list_selector"])
+                group_lists = [list_node] if legacy_mode else select(group, panel_spec["list_selector"])
                 if len(group_lists) > 1:
                     raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: duplicate list containers")
                 if not group_lists:
-                    if list_data["items"]:
+                    if list_data["items"] and not legacy_mode:
                         html = create_empty_status_list(html, parser, container, group,
                                                         panel_spec["list_selector"], item_selector,
                                                         len(list_data["items"]),
@@ -1188,8 +1190,12 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                 parser.feed(html)
                 parser.close()
                 containers = select(parser.root, panel_spec["container"])
-                groups = select(containers[0], ".calendar-status-group")
-                group_lists = select(groups[list_index], panel_spec["list_selector"])
+                if legacy_mode:
+                    group_lists = select(containers[0], panel_spec["list_selector"])
+                    group_lists = [group_lists[list_index]]
+                else:
+                    groups = select(containers[0], ".calendar-status-group")
+                    group_lists = select(groups[list_index], panel_spec["list_selector"])
                 cards = select(group_lists[0], item_selector)
                 if len(cards) != len(list_data["items"]):
                     html = replace_sibling_sequence(html, parser, cards, len(list_data["items"]),
@@ -1200,8 +1206,12 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                     parser.feed(html)
                     parser.close()
                     containers = select(parser.root, panel_spec["container"])
-                    groups = select(containers[0], ".calendar-status-group")
-                    group_lists = select(groups[list_index], panel_spec["list_selector"])
+                    if legacy_mode:
+                        group_lists = select(containers[0], panel_spec["list_selector"])
+                        group_lists = [group_lists[list_index]]
+                    else:
+                        groups = select(containers[0], ".calendar-status-group")
+                        group_lists = select(groups[list_index], panel_spec["list_selector"])
                     cards_now = select(group_lists[0], item_selector)
                     if item_index >= len(cards_now) or not isinstance(item_data, dict) or not isinstance(item_data.get("fields"), list):
                         raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}]: fields array required")
