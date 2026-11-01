@@ -472,6 +472,14 @@ class SafeMarketRendererTests(unittest.TestCase):
                 calendar_binding={"groups":{"economic_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"economic_calendar":{"panels":panels}},calendar_binding),source,
                                  f"{label}: economic calendar no-op must preserve every byte")
+                for panel in panels.values():
+                    if panel["lists"] and panel["lists"][0]["items"]:
+                        added = dict(panel["lists"][0]["items"][0])
+                        added.update({"expected_name":None,"date":"11/02（一）","time":"09:00","country":"測試","name":"全新測試事件"})
+                        panel["lists"][0]["items"].append(added)
+                        rendered = render_market_html(source,{"groups":{},"economic_calendar":{"panels":panels}},calendar_binding)
+                        self.assertIn('<div class="econ-name">全新測試事件</div>', rendered)
+                        break
 
     def test_real_dual_masters_earnings_calendar_noop_preserves_every_byte(self):
         binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
@@ -547,6 +555,15 @@ class SafeMarketRendererTests(unittest.TestCase):
                 earnings_binding={"groups":{"earnings_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding),source,
                                  f"{template_label}: earnings no-op must preserve every byte")
+                for panel in panels.values():
+                    if panel["lists"] and panel["lists"][0]["items"]:
+                        added = dict(panel["lists"][0]["items"][0])
+                        added.update({"expected_company":None,"us_date":"11/02（一）盤後","tw_date":"台灣時間 11/03（二）凌晨",
+                                      "company":"TAC TestCo","company_sub":"TEST｜測試公司"})
+                        panel["lists"][0]["items"].append(added)
+                        rendered = render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding)
+                        self.assertIn('TAC TestCo', rendered)
+                        break
 
     def test_real_dual_masters_calendar_lists_resize_inside_status_groups(self):
         binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
