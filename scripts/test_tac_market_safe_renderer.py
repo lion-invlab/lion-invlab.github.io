@@ -559,7 +559,7 @@ class SafeMarketRendererTests(unittest.TestCase):
         parser = SourceTreeParser(html)
         parser.feed(html)
         parser.close()
-        with self.assertRaisesRegex(ValueError, "not contiguous"):
+        with self.assertRaisesRegex(ValueError, "non-card element inside dynamic sequence"):
             replace_sibling_sequence(html, parser, select(parser.root, ".newsitem"), 1, "news.test")
 
     def test_dynamic_region_bounds_exclude_container_tags(self):
