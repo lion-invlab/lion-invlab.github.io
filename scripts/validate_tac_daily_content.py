@@ -83,8 +83,10 @@ def validate_report_rules(data: dict) -> list[str]:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
             if group_name in {"economic_calendar", "previous_economic_calendar"}:
-                if item["importance_stars"] != 3:
-                    errors.append(f"{label}: only 3-star economic events are permitted")
+                if item["importance_stars"] not in {4, 5}:
+                    errors.append(f"{label}: only TAC 4/5-star economic events are permitted")
+                if item.get("importance_basis") != "major_event_assessment" or not item.get("importance_basis_source", "").strip():
+                    errors.append(f"{label}: TAC rating requires an independent, traceable assessment")
             else:
                 basis = item["importance_basis"]
                 stars = item["importance_stars"]
@@ -92,15 +94,10 @@ def validate_report_rules(data: dict) -> list[str]:
                 basis_source = item["importance_basis_source"].strip()
                 if not basis_source:
                     errors.append(f"{label}: earnings importance basis requires a traceable source")
-                if basis == "source_rating":
-                    if stars != 3 or not rating_source:
+                if basis == "major_event_assessment":
+                    if stars not in {4, 5} or rating_source is not None:
                         errors.append(
-                            f"{label}: source-rated earnings must carry an explicit 3-star rating and rating source"
-                        )
-                elif basis == "major_event_assessment":
-                    if stars is not None or rating_source is not None:
-                        errors.append(
-                            f"{label}: assessed earnings must not display an invented star rating"
+                            f"{label}: earnings require an independent TAC 4/5-star rating; provider ratings cannot be displayed"
                         )
             if item["status"] == "released" and item.get("actual") is None and group_name in {"economic_calendar", "previous_economic_calendar"}:
                 errors.append(f"{label}: released economic event requires actual value")
@@ -137,7 +134,7 @@ def self_test(validator, schema):
             "trading_date": "2026-10-30",
             "generated_at": "2026-10-31T21:00:00+08:00",
             "timezone": "Asia/Taipei",
-            "wr_version": "3.5",
+            "wr_version": "3.6",
             "template_type": "monday",
             "news_window_start": "2026-10-30T12:00:00+08:00",
             "news_window_end": "2026-11-02T05:00:00+08:00"
@@ -220,7 +217,7 @@ def self_test(validator, schema):
         "company": "Synthetic Example Corp",
         "ticker": "SYN",
         "session": "after_market",
-        "importance_stars": None,
+        "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "Synthetic test: mega-cap index constituent; source evidence recorded separately",
         "importance_rating_source": None,
@@ -244,13 +241,13 @@ def self_test(validator, schema):
     if schema_errors or rule_errors:
         raise AssertionError("unrated but sourced major-event assessment should pass: " +
                              "; ".join(e.message for e in schema_errors) + "; ".join(rule_errors))
-    print("PASS: earnings may be selected without stars when major-event basis is traceable")
+    print("PASS: earnings require a traceable TAC 4/5-star major-event assessment")
 
     bad = json.loads(json.dumps(rated))
     bad["earnings_calendar"][0]["importance_stars"] = 3
-    if not any("invented star rating" in e for e in validate_report_rules(bad)):
-        raise AssertionError("major-event assessment with an unsupported star unexpectedly passed")
-    print("PASS: earnings assessment cannot invent a star rating")
+    if not any("TAC 4/5-star" in e for e in validate_report_rules(bad)):
+        raise AssertionError("earnings with a non-TAC star unexpectedly passed")
+    print("PASS: earnings provider/native star cannot replace TAC assessment")
 
 
 
