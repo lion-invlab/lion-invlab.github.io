@@ -23,6 +23,9 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end) || st
 }
 
 const hosts = [
+  // Official alternate route observed to render calendar rows in the public page.
+  // Probe it first because the legacy /economic-calendar/index route returned 403 in Actions.
+  { name: "Global alternate calendar route", base: "https://www.investing.com/-economic-calendar/" },
   { name: "Hong Kong", base: "https://hk.investing.com/economic-calendar/index" },
   // Mobile regional calendar is a public HTML fallback candidate; it is
   // accepted only if the same date-range and event-row checks pass.
@@ -77,7 +80,9 @@ try {
   }
   if (!captured) throw new Error("All public Investing.com calendar hosts failed: " + attempts.join(" | "));
   const actualUrl = new URL(captured.url);
-  const sourceUrl = `${actualUrl.origin}/economic-calendar/`;
+  actualUrl.search = "";
+  actualUrl.hash = "";
+  const sourceUrl = actualUrl.toString();
   fs.writeFileSync(output, `<!-- tac-source-url: ${sourceUrl} -->\n${captured.html}`, "utf8");
   console.log(JSON.stringify({
     source_url: sourceUrl,
