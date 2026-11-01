@@ -275,7 +275,17 @@
         },
         "eps_note": "採公司Core EPS口徑；Reuters報導分析師共識為US$2.59。",
         "revenue_note": "採公司Total Revenue US$16.209B；Reuters分析師共識US$15.94B，均為十億美元口徑。",
-        "time_type": "release_time"
+        "time_type": "release_time",
+        "issuer_country": "United Kingdom",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "AZN",
+        "listing_evidence": {
+          "name": "Issuer / exchange listing disclosure",
+          "url": "https://www.sec.gov/Archives/edgar/data/901832/000165495426000464/a4875p.htm",
+          "publisher": "Company / SEC",
+          "notes": "AstraZeneca已於2026-02-02將普通股直接於NYSE掛牌，代碼AZN。"
+        }
       },
       {
         "id": "prev-amzn-20261029",
@@ -329,7 +339,17 @@
         },
         "eps_note": "GAAP diluted EPS US$1.89；Investing.com 香港站共識 US$1.96，低於預期。",
         "revenue_note": "公司公告 net sales US$201.9B；Investing.com 香港站共識 US$202.1B，略低於預期。",
-        "time_type": "session_only"
+        "time_type": "session_only",
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "AMZN",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
       },
       {
         "id": "prev-intc-20261029",
@@ -382,7 +402,17 @@
         },
         "eps_note": "公司公告 GAAP diluted EPS US$0.60、non-GAAP EPS US$0.52；Investing.com 列示 non-GAAP EPS US$0.52 對共識 US$0.40。",
         "revenue_note": "公司公告營收 US$16.5B；Investing.com 香港站共識 US$16.48B，略高於預期。",
-        "time_type": "release_time"
+        "time_type": "release_time",
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "INTC",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
       },
       {
         "id": "prev-mastercard-20261029",
@@ -436,7 +466,17 @@
         },
         "eps_note": "公司調整後 diluted EPS US$5.31；共識 US$5.14，同為調整後口徑。",
         "revenue_note": "公司淨營收 US$9.81B；共識 US$9.63B，高於預期。",
-        "time_type": "release_time"
+        "time_type": "release_time",
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "MA",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
       },
       {
         "id": "prev-shell-20261029",
@@ -488,7 +528,17 @@
         },
         "eps_note": "Shell每股普通股 adjusted EPS US$1.93；ADR代表兩股普通股，換算每ADR US$3.86。MarketBeat共識 US$3.54，採 ADR 口徑。",
         "revenue_note": "採Zacks列示 Total revenue and other income：實際US$95.32B、共識US$95.17B，定義一致；不再使用先前未能與合併報表核對的US$92.85B／US$93.25B數值。",
-        "time_type": "release_time"
+        "time_type": "release_time",
+        "issuer_country": "United Kingdom",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "SHEL",
+        "listing_evidence": {
+          "name": "Issuer / exchange listing disclosure",
+          "url": "https://www.shell.com/investors/shareholder-information.html",
+          "publisher": "Company / SEC",
+          "notes": "Shell plc於NYSE掛牌交易，代碼SHEL。"
+        }
       },
       {
         "id": "prev-samsung-20261029",
@@ -540,7 +590,18 @@
         },
         "eps_note": "Investing.com財報前摘要列示普通股EPS預估約KRW13,607；Investing.com財報電話會議摘要列示普通股EPS實際KRW11,462。由於尚未取得公司財報附註確認兩者是否採相同加權平均股數／每股口徑，暫保留 pending_verification。",
         "revenue_note": "採公司合併銷售額KRW195.25T；Investing.com財報前摘要列示完整季度市場共識KRW204.8T。",
-        "time_type": "call_time"
+        "time_type": "call_time",
+        "issuer_country": "South Korea",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / exchange listing disclosure",
+          "url": "https://www.samsung.com/global/ir/stock-information/",
+          "publisher": "Company / SEC",
+          "notes": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。"
+        },
+        "us_listing_market": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。"
       },
       {
         "id": "prev-msft-20261028",
@@ -593,7 +654,17 @@
         },
         "eps_note": "公司公告 non-GAAP diluted EPS US$4.89；GAAP EPS 為 US$4.92。Investing.com／分析師共識 US$4.72，採 non-GAAP 可比口徑。",
         "revenue_note": "公司公告營收 US$92.279B；Investing.com 香港站共識 US$90.61B，高於預期。",
-        "time_type": "session_only"
+        "time_type": "session_only",
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "MSFT",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
       },
       {
         "id": "prev-googl-20261028",
@@ -646,7 +717,17 @@
         },
         "eps_note": "Reuters 報導 adjusted EPS US$2.67，低於 LSEG 共識 US$3.02；公司公告 GAAP diluted EPS 為 US$2.12，兩種口徑已明確區分。",
         "revenue_note": "公司公告營收 US$127.577B；Reuters/LSEG 共識 US$128.2B，低於預期。",
-        "time_type": "session_only"
+        "time_type": "session_only",
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "GOOGL",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
       },
       {
         "id": "prev-visa-20261027",
@@ -700,7 +781,17 @@
         },
         "eps_note": "公司公告 non-GAAP EPS US$3.48；市場共識 US$3.44，兩者同為調整後 EPS 口徑。",
         "revenue_note": "公司淨營收 US$12.14B；市場共識 US$12.09B，高於預期。",
-        "time_type": "call_time"
+        "time_type": "call_time",
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "V",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
       }
     ]
   },
@@ -792,7 +883,7 @@
         "https://www.reuters.com/legal/litigation/astrazeneca-kicks-off-savings-drive-invest-pipeline-after-sales-beat-2026-10-30/"
       ],
       "checked_at": "2026-11-01T14:06:09+09:00",
-      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家企業均有首個常規交易日價格反應；AstraZeneca EPS／營收、Shell EPS per ADR／Total revenue and other income 已完成共識口徑核對。Samsung營收已補入市場共識，EPS因每股計算基礎仍未能完全確認而保留 pending_verification。"
+      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家企業均有首個常規交易日價格反應；AstraZeneca EPS／營收、Shell EPS per ADR／Total revenue and other income 已完成共識口徑核對。Samsung營收已補入市場共識，EPS因每股計算基礎仍未能完全確認而保留 pending_verification。 新增美國交易所掛牌資格篩選：AstraZeneca與Shell保留；Samsung Electronics因未有美國交易所掛牌證據排除。"
     }
   },
   "audit": [
@@ -801,6 +892,16 @@
       "action": "seeded_from_previous_week_snapshot",
       "source": "review-data/2026-11-02-content.json",
       "note": "Prior-week five-star archive candidates; coverage intentionally remains incomplete."
+    },
+    {
+      "at": "2026-11-01T15:24:00+09:00",
+      "action": "earnings_universe_filter_applied",
+      "note": "依使用者新規則核實上週財報公司美國交易所掛牌資格；AstraZeneca及Shell符合，Samsung不符合。",
+      "changed_event_ids": [
+        "prev-astrazeneca-20261030",
+        "prev-shell-20261029",
+        "prev-samsung-20261029"
+      ]
     }
   ]
 }
