@@ -75,6 +75,17 @@ jobs:
           print('Monday and weekday HTML render smoke tests passed.')
           PY
 
+      - name: Upload rendered review previews
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-2026-11-02-calendar-render-previews
+          path: |
+            /tmp/tac-2026-11-02-monday-review.html
+            /tmp/tac-2026-11-02-weekday-review.html
+            /tmp/tac-weekly-calendar-quality-report.json
+          if-no-files-found: error
+          retention-days: 5
+
       - name: Test next-week database initialization
         run: >-
           python scripts/tac_weekly_calendar_db.py init
