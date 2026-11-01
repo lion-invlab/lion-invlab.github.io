@@ -56,9 +56,9 @@ function parseMeetingsFromText(bodyText) {
 }
 function parseCurrentTargetRange(bodyText) {
   const patterns = [
-    /Current\\s+(?:Federal\\s+Funds|Fed\\s+Funds)\\s+(?:Target\\s+)?(?:Rate\\s+)?(?:Range)?\\s*[:：]?\\s*(\\d+\\.\\d{2,3})\\s*[-–]\\s*(\\d+\\.\\d{2,3})\\s*%?/i,
-    /Current\\s+Target\\s+Range\\s*[:：]?\\s*(\\d+\\.\\d{2,3})\\s*[-–]\\s*(\\d+\\.\\d{2,3})\\s*%?/i,
-    /Current\\s+Rate\\s+Range\\s*[:：]?\\s*(\\d+\\.\\d{2,3})\\s*[-–]\\s*(\\d+\\.\\d{2,3})\\s*%?/i
+    /Current\s+(?:Federal\s+Funds|Fed\s+Funds)\s+(?:Target\s+)?(?:Rate\s+)?(?:Range)?\s*[:：]?\s*(\d+\.\d{2,3})\s*[-–]\s*(\d+\.\d{2,3})\s*%?/i,
+    /Current\s+Target\s+Range\s*[:：]?\s*(\d+\.\d{2,3})\s*[-–]\s*(\d+\.\d{2,3})\s*%?/i,
+    /Current\s+Rate\s+Range\s*[:：]?\s*(\d+\.\d{2,3})\s*[-–]\s*(\d+\.\d{2,3})\s*%?/i
   ];
   for (const pattern of patterns) {
     const match = bodyText.match(pattern);
