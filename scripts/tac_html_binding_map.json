@@ -235,6 +235,29 @@
         "audit_text": "audit_text",
         "aria_label": "aria_label"
       }
+    },
+    "editorial": {
+      "summary": {
+        "container": ".bluf",
+        "headline_selector": "h1",
+        "body_selector": "p"
+      },
+      "observation": {
+        "container": "#view",
+        "market_panel": ".focus-market",
+        "levels_panel": ".focus-levels",
+        "core_panel": ".focus-core",
+        "market_text_selector": ".key",
+        "levels_text_selector": ".key",
+        "core_text_selector": ".callout"
+      },
+      "snapshot_fields": {
+        "summary_headline": "headline",
+        "summary_body_segments": "body_segments",
+        "observation_market": "market_text",
+        "observation_levels": "levels_segments",
+        "observation_core": "core_text"
+      }
     }
   },
   "protected_paths": [
