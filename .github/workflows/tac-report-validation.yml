@@ -217,6 +217,9 @@ jobs:
           if [ -s "/tmp/tac-economic-calendar-previous-2026-10-26.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-previous-2026-10-26.json" --output "/tmp/tac-economic-calendar-previous-fragment-2026-10-26.json"; fi
           if [ -s "/tmp/tac-economic-calendar-current-2026-11-02.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-current-2026-11-02.json" --output "/tmp/tac-economic-calendar-current-fragment-2026-11-02.json"; fi
 
+      - name: Test Investing.com FedWatch EDT/EST timestamp parser
+        run: node scripts/capture_tac_fedwatch_fallback.mjs --self-test
+
       - name: Test FedWatch source selection contract
         run: node scripts/test_tac_fedwatch_source_selection.mjs
 
