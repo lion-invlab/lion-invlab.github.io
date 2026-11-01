@@ -48,7 +48,8 @@ class SafeMarketRendererTests(unittest.TestCase):
         contract = minimal_contract()
         snapshot = {"groups":{
             "global_indices":{"dow":{"value":"101","change":"+1.5%"}},
-            "sectors":{"xlk":{"change":"+0.8%"}}
+            "sectors":{"xlk":{"change":"+0.8%"}},
+            "bonds":{}, "fx":{}, "energy":{}, "precious_metals":{}
         }}
         result = render_market_html(html,snapshot,contract)
         self.assertIn('<span class="r">101</span>',result)
