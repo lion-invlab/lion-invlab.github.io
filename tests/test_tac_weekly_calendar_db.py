@@ -96,7 +96,7 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(merged["focus_news"],content["focus_news"])
             self.assertEqual(merged["analysis"],content["analysis"])
             self.assertEqual(merged["economic_calendar"],snap["economic_calendar"])
-            self.assertEqual(merged["meta"]["weekly_calendar_database"]["previous_week_id"],"2026-W44")
+            self.assertEqual(merged["meta"],content["meta"])
             self.assertEqual(merged["coverage"]["previous_economic_calendar"]["status"],"incomplete")
 
     def test_tac_star_and_archive_policy(self):
