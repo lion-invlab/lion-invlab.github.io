@@ -233,7 +233,8 @@ def render_risk_indicators(html: str, parser: SourceTreeParser,
             if len(key_nodes) != 1:
                 return False
             key_text = "".join(span.text for span in spans_inside(key_nodes[0], parser.spans))
-            return needle == label_key(key_text)
+            normalized_key = label_key(key_text)
+            return needle == normalized_key if key_selector else needle in normalized_key
         hits = [row for row in rows if has_key(row)]
         if len(hits) != 1:
             raise ValueError(f"risk_indicators.{key}: expected one row, found {len(hits)}")
