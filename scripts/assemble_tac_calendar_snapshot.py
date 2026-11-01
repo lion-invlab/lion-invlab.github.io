@@ -200,13 +200,14 @@ def _is_descendant(node, ancestor) -> bool:
 
 
 def event_list_payload(rows: list[dict[str, Any]], status: str,
-                       kind: str) -> list[dict[str, Any]]:
+                       kind: str, previous_week: bool = False) -> list[dict[str, Any]]:
     if kind == "economic":
-        return [economic_item(row, status) for row in rows]
+        return [economic_item(row, status, previous_week) for row in rows]
     return [earnings_item(row, status) for row in rows]
 
 
-def economic_item(row: dict[str, Any], status: str) -> dict[str, Any]:
+def economic_item(row: dict[str, Any], status: str,
+                  previous_week: bool = False) -> dict[str, Any]:
     dt = parse_aware(row["event_date"], f"economic.{row['id']}.event_date").astimezone(TAIPEI)
     time_known = row.get("time_known", True)
     time_text = dt.strftime("%H:%M") if time_known else "待核實"
@@ -216,9 +217,10 @@ def economic_item(row: dict[str, Any], status: str) -> dict[str, Any]:
         {"label": "前值", "text": display_value(row.get("previous"))},
         {"label": "市場預估", "text": display_value(row.get("forecast"))},
         {"label": "實際", "text": display_value(row.get("actual"), actual_missing)},
-        {"label": "市場影響", "text": display_value(row.get("impact_judgment"))},
-        {"label": "資料來源", "links": source_links(refs)},
     ]
+    if not previous_week:
+        fields.append({"label": "市場影響", "text": display_value(row.get("impact_judgment"))})
+    fields.append({"label": "資料來源", "links": source_links(refs)})
     return {
         "expected_name": None,
         "date": fmt_day(dt.date()),
@@ -367,7 +369,7 @@ def build_calendar_snapshot(current_week: dict[str, Any],
                 events = { "published": prior_rows }
                 lists = []
                 for status in statuses:
-                    items = event_list_payload(events.get(status, []), status, kind)
+                    items = event_list_payload(events.get(status, []), status, kind, previous_week=True)
                     if not items and status == "published":
                         lists.append({"items": []})
                     else:
