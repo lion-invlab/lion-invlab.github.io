@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /** Live, read-only Investing.com fallback capture. Never labels fallback data as CME. */
 import fs from "node:fs";
-import { chromium } from "playwright";
 
 const arg = name => { const i = process.argv.indexOf(name); return i >= 0 ? process.argv[i + 1] : null; };
 const output = arg("--output") || "/tmp/tac-fedwatch-fallback.json";
@@ -108,6 +107,7 @@ if (process.argv.includes("--self-test")) {
 
 let browser;
 try {
+  const { chromium } = await import("playwright");
   browser = await chromium.launch({ headless: true, args: ["--disable-http2"] });
   const page = await browser.newPage({ locale: "en-US", timezoneId: "Asia/Taipei",
     userAgent: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" });
