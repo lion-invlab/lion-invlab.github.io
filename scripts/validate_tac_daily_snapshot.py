@@ -29,7 +29,7 @@ def sample_snapshot(schema):
             "trading_date": "2026-10-30",
             "generated_at": "2026-10-31T11:00:00+08:00",
             "timezone": "Asia/Taipei",
-            "wr_version": "3.6",
+            "wr_version": "3.8",
         },
     }
     for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators"):
