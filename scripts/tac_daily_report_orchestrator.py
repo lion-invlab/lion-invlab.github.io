@@ -31,6 +31,7 @@ MARKET_RENDERER = ROOT / "scripts" / "render_tac_market_snapshot.py"
 CONTENT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_content.py"
 FULL_PAGE_RENDERER = ROOT / "scripts" / "render_tac_full_report.py"
 LAYOUT_VALIDATOR = ROOT / "scripts" / "validate_tac_layout_contract.py"
+MARKET_LINK_VALIDATOR = ROOT / "scripts" / "validate_tac_market_mapping.py"
 BROWSER_QA = ROOT / "scripts" / "tac_browser_layout_regression.mjs"
 MODE_BY_WEEKDAY = {0: "monday", 1: "weekday", 2: "weekday", 3: "weekday", 4: "weekday"}
 
@@ -334,6 +335,10 @@ def main() -> int:
                 sys.executable, str(LAYOUT_VALIDATOR),
                 "--master", str(template),
                 "--report", str(staged_preview),
+            ])
+            run([
+                sys.executable, str(MARKET_LINK_VALIDATOR),
+                "--html", str(staged_preview),
             ])
 
             # Gate 3 and Gate 4: real Chromium viewports, screenshots,
