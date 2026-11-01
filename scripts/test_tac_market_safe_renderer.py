@@ -466,7 +466,7 @@ class SafeMarketRendererTests(unittest.TestCase):
                                     spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
                                     self.assertEqual(len(spans),1,f"{label}.{panel_key}.{name}.{label_text}")
                                     item["fields"].append({"label":label_text,"text":unescape(spans[0].text)})
-                        items.append(item)
+                            items.append(item)
                         list_payloads.append({"items":items})
                     panels[panel_key]={"lists":list_payloads}
                 calendar_binding={"groups":{"economic_calendar":spec}}
@@ -541,7 +541,7 @@ class SafeMarketRendererTests(unittest.TestCase):
                                 item["results"].append({"title":title,"actual":line_values[0],"expected":line_values[1],
                                                         "status_text":status,"card_class":next(iter(card_classes)),
                                                         "status_class":next(iter(status_classes)),"note":note})
-                        items.append(item)
+                            items.append(item)
                         list_payloads.append({"items":items})
                     panels[panel_key]={"lists":list_payloads}
                 earnings_binding={"groups":{"earnings_calendar":spec}}
