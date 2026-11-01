@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Validate TAC editorial content against its schema and report-specific rules."""
+# WR v3.6: upcoming earnings are schedule-only; published results require their dedicated comparison and source fields.
 from __future__ import annotations
 
 import argparse
