@@ -180,7 +180,7 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     errors.append("editorial: summary headline slot missing or duplicated")
                 if len(body_nodes) != 1:
                     errors.append("editorial: summary body slot missing or duplicated")
-                elif sum(isinstance(child, str) and child.strip() for child in body_nodes[0].children) < 1:
+                elif sum(1 for child in body_nodes[0].children if isinstance(child, str) and child.strip()) < 1:
                     errors.append("editorial: summary body has no direct text segments")
             observation = spec["observation"]
             for field, panel_key, content_key, min_segments in (
