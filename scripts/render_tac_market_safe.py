@@ -29,6 +29,7 @@ class Node:
     attrs: dict[str, str | None]
     parent: "Node | None" = None
     children: list["Node | TextSpan"] = field(default_factory=list)
+    class_value_span: tuple[int, int] | None = None
 
     @property
     def classes(self) -> set[str]:
@@ -59,7 +60,12 @@ class SourceTreeParser(HTMLParser):
         return self.offsets[line - 1] + col
 
     def handle_starttag(self, tag, attrs):
+        start = self.source_offset()
+        raw_tag = self.get_starttag_text() or ""
         node = Node(tag.lower(), dict(attrs), self.stack[-1])
+        class_match = re.search(r"""\\bclass\\s*=\\s*(["'])(.*?)\\1""", raw_tag, re.I | re.S)
+        if class_match:
+            node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
         self.stack[-1].children.append(node)
         if tag.lower() not in VOID:
             self.stack.append(node)
@@ -244,13 +250,26 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                     row, spec["change_selector"], change_index, parser.spans,
                     f"{group_name}.{key}.change"
                 )
-                old_direction = next((c for c in ("up", "down", "flat", "warn") if c in change_node.classes), None)
-                new_direction = direction(change_text)
-                if new_direction and old_direction and new_direction != old_direction:
-                    raise ValueError(
-                        f"{group_name}.{key}: direction class would be stale "
-                        f"({old_direction} -> {new_direction}); attribute mutation is not authorized"
-                    )
+                old_tokens = [c for c in ("up", "down", "flat", "warn") if c in change_node.classes]
+                new_direction = direction(change_text, binding.get("rules", {}))
+                if new_direction is not None:
+                    if len(old_tokens) != 1:
+                        raise ValueError(
+                            f"{group_name}.{key}: expected exactly one existing status class token, found {old_tokens}"
+                        )
+                    old_direction = old_tokens[0]
+                    if new_direction != old_direction:
+                        if not binding.get("rules", {}).get("allow_mapped_status_class_token_transition", False):
+                            raise ValueError(f"{group_name}.{key}: status class transition is not authorized")
+                        if change_node.class_value_span is None:
+                            raise ValueError(f"{group_name}.{key}: class attribute source span is missing")
+                        class_start, class_end = change_node.class_value_span
+                        raw_class = html[class_start:class_end]
+                        token_matches = list(re.finditer(r"(?<!\\S)" + re.escape(old_direction) + r"(?!\\S)", raw_class))
+                        if len(token_matches) != 1:
+                            raise ValueError(f"{group_name}.{key}: status class token is not unique in source")
+                        token = token_matches[0]
+                        edits.append((class_start + token.start(), class_start + token.end(), new_direction))
                 targets.append((change_span, change_text, change_node, "change"))
 
             for span, value, _node, slot_name in targets:
