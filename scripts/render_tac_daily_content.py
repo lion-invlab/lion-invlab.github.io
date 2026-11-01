@@ -302,7 +302,7 @@ def earnings_card(proto,item,soup):
             note=result_card.select_one(".earnings-actual-note")
             if note: put(note,basis_note)
         fields=details.select(".earnings-detail-field")
-        target_count=5 if released else 3
+        target_count=5
         if not fields: raise ValueError("earnings prototype must contain detail-field templates")
         while len(fields)<target_count:
             clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
@@ -320,7 +320,9 @@ def earnings_card(proto,item,soup):
         else:
             values=[
               ("公布時段",us_label+"；"+tw_label),
-              ("預估資訊",eps_detail+" "+rev_detail),
+              ("EPS 預估／實際",eps_detail),
+              ("營收預估／實際",rev_detail),
+              ("財報判讀與股價反應","財報尚未公布；公布後更新實際值、比較結果及股價反應。"),
               ("資料來源",None)]
         for f,(lab,val) in zip(fields[:target_count],values):
             put(slot(f,"label","earnings detail label"),lab)
@@ -468,7 +470,7 @@ def render(content_path,input_html,output_html):
     econ_nodes=soup.select("#calendar .econ-event")
     earn_nodes=soup.select("#earnings .earnings-accordion")
     if not econ_nodes or not earn_nodes: raise ValueError("approved calendar event-card prototypes missing")
-    econ_proto=copy.deepcopy(econ_nodes[0]); earn_proto=copy.deepcopy(earn_nodes[0])
+    econ_proto=copy.deepcopy(econ_nodes[0]); earn_source=next((n for n in earn_nodes if n.select_one(".earnings-results-grid")),earn_nodes[0]); earn_proto=copy.deepcopy(earn_source)
     calendar_panel(slot(soup,"#calendar","economic calendar"),data["economic_calendar"],"economic",rd,data["coverage"]["economic_calendar"],soup,econ_proto)
     calendar_panel(slot(soup,"#earnings","earnings calendar"),data["earnings_calendar"],"earnings",rd,data["coverage"]["earnings_calendar"],soup,earn_proto)
     current_start=rd-timedelta(days=rd.weekday()); current_end=current_start+timedelta(days=4)
