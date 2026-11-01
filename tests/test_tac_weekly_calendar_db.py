@@ -40,7 +40,7 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.event("e5","2026-11-04T10:00:00+08:00",5)],
             "earnings":[self.event("r5","2026-11-04T10:00:00+08:00",5)]})
         previous=self.week("2026-W44","2026-10-26","2026-10-30",{
-            "economic":[self.event("p5","2026-10-30T10:00:00+08:00",5,"released")],
+            "economic":[{**self.event("p5","2026-10-30T10:00:00+08:00",5,"released"),"actual":"2.5%"}],
             "earnings":[]})
         previous["status"]="archive_candidate"
         with tempfile.TemporaryDirectory() as td:
