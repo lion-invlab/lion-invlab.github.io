@@ -120,18 +120,21 @@ def quality_report(data):
         rows=data.get("events",{}).get(kind,[])
         unknown_time=sum(1 for x in rows if x.get("time_known") is False or x.get("session")=="unknown")
         if kind=="economic":
-            missing={"previous":sum(x.get("previous") in (None,"") for x in rows),
-                     "forecast":sum(x.get("forecast") in (None,"") for x in rows),
+            missing={"previous":sum(x.get("previous_applicable",True) and x.get("previous") in (None,"") for x in rows),
+                     "forecast":sum(x.get("forecast_applicable",True) and x.get("forecast") in (None,"") for x in rows),
                      "actual_for_released":sum(x.get("status")=="released" and x.get("actual") in (None,"") for x in rows)}
+            not_applicable={"previous":sum(x.get("previous_applicable") is False for x in rows),
+                            "forecast":sum(x.get("forecast_applicable") is False for x in rows)}
         else:
-            missing={"eps_estimate":sum(not isinstance(x.get("eps_estimate"),(int,float)) for x in rows),
+            not_applicable={}
+            missing={"eps_estimate:sum(not isinstance(x.get("eps_estimate"),(int,float)) for x in rows),
                      "revenue_estimate":sum(not isinstance(x.get("revenue_estimate"),(int,float)) for x in rows),
                      "consensus_source":sum(not (isinstance(x.get("consensus_source"),dict) and x["consensus_source"].get("url")) for x in rows),
                      "eps_actual_for_released":sum(x.get("status")=="released" and not isinstance(x.get("eps_actual"),(int,float)) for x in rows),
                      "revenue_actual_for_released":sum(x.get("status")=="released" and not isinstance(x.get("revenue_actual"),(int,float)) for x in rows)}
         report["streams"][kind]={"event_count":len(rows),"released":sum(x.get("status")=="released" for x in rows),
             "upcoming":sum(x.get("status")=="upcoming" for x in rows),"unknown_time_or_session":unknown_time,
-            "missing_fields":missing,"coverage":data.get("coverage",{}).get(kind,{"status":"incomplete"})}
+            "missing_fields":missing,"not_applicable_fields":not_applicable,"coverage":data.get("coverage",{}).get(kind,{"status":"incomplete"})}
     return report
 
 def cmd_quality_report(args):
