@@ -176,7 +176,7 @@ def run_case(kind,report_date,weekday):
             assert earnings_names[0]=="Prior Synthetic Co" and earnings_names[1]=="Older Synthetic Prior Co", earnings_names
             assert "Synthetic prior CPI release" in soup.select_one("#last-week-calendar").get_text()
             assert "Prior Synthetic Co" in soup.select_one("#last-week-earnings").get_text()
-            assert len(soup.select("#last-week-earnings .earnings-results-grid"))==1
+            assert len(soup.select("#last-week-earnings .earnings-results-grid"))==2
             assert soup.select_one("#last-week-earnings .earnings-stars").get_text(strip=True)=="★★★★★"
             previous_card=soup.select_one("#last-week-earnings .earnings-accordion")
             labels=[x.get_text(" ",strip=True) for x in previous_card.select(".earnings-detail-field label")]
