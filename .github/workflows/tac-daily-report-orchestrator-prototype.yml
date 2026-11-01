@@ -1,0 +1,61 @@
+name: TAC Daily Report Orchestrator Prototype
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/tac_daily_report_orchestrator.py'
+      - 'scripts/tac_weekly_calendar_db.py'
+      - 'scripts/tac_calendar_html_renderer.py'
+      - 'tests/test_tac_daily_report_orchestrator.py'
+      - 'tests/test_tac_weekly_calendar_db.py'
+      - 'tests/test_tac_calendar_html_renderer.py'
+      - 'data/calendar/**'
+      - '母版專區/**'
+      - 'TAC_WORK_RULES.md'
+      - '.github/workflows/tac-daily-report-orchestrator-prototype.yml'
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: 'Taipei report date (YYYY-MM-DD)'
+        required: true
+        default: '2026-11-02'
+
+permissions:
+  contents: read
+
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install prototype dependencies
+        run: python -m pip install --disable-pip-version-check jsonschema
+      - name: Run all TAC tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Run calendar-only orchestrator integration trial
+        run: >-
+          python scripts/tac_daily_report_orchestrator.py
+          --report-date ${{ github.event.inputs.report_date || '2026-11-02' }}
+          --mode calendar-only
+          --output-dir /tmp/tac-daily-report-trial
+      - name: Verify full mode fails closed while required engines are absent
+        shell: bash
+        run: |
+          set +e
+          python scripts/tac_daily_report_orchestrator.py \
+            --report-date ${{ github.event.inputs.report_date || '2026-11-02' }} \
+            --mode full \
+            --output-dir /tmp/tac-daily-report-trial
+          status=$?
+          set -e
+          test "$status" -eq 2
+      - name: Upload orchestrator trial artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-daily-report-orchestrator-trial
+          path: /tmp/tac-daily-report-trial/*
+          if-no-files-found: error
+          retention-days: 5
