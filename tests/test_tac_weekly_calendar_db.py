@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.tac_weekly_calendar_db import validate_week, cmd_snapshot, cmd_upsert
+from scripts.tac_weekly_calendar_db import validate_week, cmd_snapshot, cmd_upsert, cmd_apply_snapshot
 
 def load_for_test(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -73,6 +73,31 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(len(second["events"]["economic"]),1)
             self.assertEqual(len(second["audit"]),1)
             self.assertEqual(second["audit"][0]["action"],"event_updated")
+
+
+    def test_apply_snapshot_preserves_non_calendar_content(self):
+        content={"meta":{"report_date":"2026-11-02","wr_version":"3.7"},
+                 "focus_news":[{"id":"keep-me"}],"analysis":{"summary":"preserve"},
+                 "economic_calendar":[],"earnings_calendar":[],
+                 "previous_economic_calendar":[],"previous_earnings_calendar":[],
+                 "coverage":{}}
+        arrays=("economic_calendar","earnings_calendar","previous_economic_calendar","previous_earnings_calendar")
+        snap={"meta":{"report_date":"2026-11-02","week_id":"2026-W45","previous_week_id":"2026-W44",
+                      "database_updated_at":"2026-11-01T00:00:00+08:00","wr_version":"3.7"},
+              "coverage":{key:{"status":"incomplete"} for key in arrays}}
+        for key in arrays: snap[key]=[{"id":key+"-event"}]
+        with tempfile.TemporaryDirectory() as td:
+            cp=Path(td)/"content.json"; sp=Path(td)/"snapshot.json"; out=Path(td)/"merged.json"
+            cp.write_text(json.dumps(content),encoding="utf-8")
+            sp.write_text(json.dumps(snap),encoding="utf-8")
+            args=type("Args",(),{"content":str(cp),"snapshot":str(sp),"output":str(out)})()
+            self.assertEqual(cmd_apply_snapshot(args),0)
+            merged=load_for_test(out)
+            self.assertEqual(merged["focus_news"],content["focus_news"])
+            self.assertEqual(merged["analysis"],content["analysis"])
+            self.assertEqual(merged["economic_calendar"],snap["economic_calendar"])
+            self.assertEqual(merged["meta"]["weekly_calendar_database"]["previous_week_id"],"2026-W44")
+            self.assertEqual(merged["coverage"]["previous_economic_calendar"]["status"],"incomplete")
 
     def test_tac_star_and_archive_policy(self):
         low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
