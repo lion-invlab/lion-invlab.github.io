@@ -8,6 +8,8 @@ on:
       - 'tests/test_tac_weekly_calendar_db.py'
       - 'tests/test_tac_calendar_html_renderer.py'
       - 'tests/test_tac_web_observation_conversion.py'
+      - 'tests/test_tac_market_snapshot_renderer.py'
+      - 'scripts/render_tac_market_snapshot.py'
       - 'scripts/convert_tac_web_observations.py'
       - 'schemas/tac-investing-com-web-observations.schema.json'
       - 'schemas/tac-daily-market-snapshot.schema.json'
