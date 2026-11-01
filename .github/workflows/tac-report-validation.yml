@@ -34,8 +34,10 @@ on:
       - "scripts/fetch_tac_investing_economic_calendar.py"
       - "scripts/capture_tac_investing_calendar.mjs"
       - "scripts/capture_tac_cme_fedwatch.mjs"
+      - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/capture_tac_investing_calendar.mjs"
       - "scripts/capture_tac_cme_fedwatch.mjs"
+      - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/render_tac_daily_content.py"
       - "scripts/render_tac_full_report.py"
       - "review-data/2026-11-02-content.json"
@@ -54,6 +56,7 @@ on:
       - "scripts/fetch_tac_investing_economic_calendar.py"
       - "scripts/capture_tac_investing_calendar.mjs"
       - "scripts/capture_tac_cme_fedwatch.mjs"
+      - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/render_tac_daily_content.py"
       - "scripts/render_tac_full_report.py"
       - "review-data/2026-11-02-content.json"
@@ -219,6 +222,14 @@ jobs:
             --output "/tmp/tac-cme-fedwatch-iframe.html" \
             --text-output "/tmp/tac-cme-fedwatch-iframe.txt" \
             --json-output "/tmp/tac-cme-fedwatch-capture.json" || echo "PENDING: CME FedWatch iframe capture unavailable"
+
+      - name: Live Investing.com Fed Rate Monitor fallback when CME capture is unavailable
+        if: always()
+        continue-on-error: true
+        run: |
+          node scripts/capture_tac_fedwatch_fallback.mjs \
+            --output "/tmp/tac-fedwatch-fallback.json" \
+            --text-output "/tmp/tac-fedwatch-fallback.txt"
 
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
