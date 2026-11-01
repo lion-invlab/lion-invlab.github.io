@@ -814,11 +814,10 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"{label}: stars_text must be text")
             add_text(star_nodes[0], item["stars_text"], f"{label}.stars_text")
             star_count = item["stars_text"].count("★")
-            if star_count not in {4, 5}:
-                raise ValueError(f"{label}: only TAC four/five-star events are renderable")
-            update_optional_class(event_node, {"four-star", "five-star"},
-                                  "five-star" if star_count == 5 else "four-star",
-                                  html, edits, used, f"{label}.star_class")
+            if item["expected_name"] in (None, ""):
+                desired_star_class = "five-star" if star_count == 5 else "four-star" if star_count == 4 else None
+                update_optional_class(event_node, {"four-star", "five-star"}, desired_star_class,
+                                      html, edits, used, f"{label}.star_class")
             detail_nodes = select(event_node, selectors["details"])
             if len(detail_nodes) != 1:
                 raise ValueError(f"{label}: details container missing or duplicated")
@@ -954,14 +953,13 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"{label}: stars_text must be text")
             add_text(star_nodes[0],item["stars_text"],f"{label}.stars_text")
             star_count=item["stars_text"].count("★")
-            if star_count not in {4,5}:
-                raise ValueError(f"{label}: only TAC four/five-star earnings are renderable")
-            update_optional_class(item_node, {"five-star-earnings"},
-                                  "five-star-earnings" if star_count==5 else None,
-                                  html, edits, used, f"{label}.star_class")
-            update_optional_class(company_nodes[0], {"five-star-company"},
-                                  "five-star-company" if star_count==5 else None,
-                                  html, edits, used, f"{label}.company_star_class")
+            if item["expected_company"] in (None, ""):
+                update_optional_class(item_node, {"five-star-earnings"},
+                                      "five-star-earnings" if star_count==5 else None,
+                                      html, edits, used, f"{label}.star_class")
+                update_optional_class(company_nodes[0], {"five-star-company"},
+                                      "five-star-company" if star_count==5 else None,
+                                      html, edits, used, f"{label}.company_star_class")
             details=select(item_node,selectors["details"])
             if len(details)!=1:
                 raise ValueError(f"{label}: details container missing or duplicated")
