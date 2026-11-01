@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Contract-driven, fail-closed text renderer for approved TAC market slots.
+"""Contract-driven, fail-closed renderer for approved TAC content slots and dynamic lists.
 
-Only existing text nodes inside selectors defined by tac_html_binding_map.json
-are editable. The renderer never creates, removes, moves, or reserializes HTML
-elements or attributes. Direction-class mismatches are rejected rather than
-silently leaving a stale red/green presentation.
+Static market/editorial slots are text-only. News and calendar cards may be
+added or removed only inside explicitly mapped list containers, using approved
+mother-template prototypes. All markup, attributes, CSS, scripts, and controls
+outside those dynamic regions remain byte-for-byte protected.
 """
 from __future__ import annotations
 
@@ -1190,7 +1190,7 @@ def main() -> int:
     except Exception as exc:
         print(f"RENDER BLOCKED: {exc}", file=sys.stderr)
         return 2
-    print(f"PASS: wrote {output.relative_to(ROOT)}; only mapped text nodes changed")
+    print(f"PASS: wrote {output.relative_to(ROOT)}; mapped slots and approved dynamic lists updated; protected outer structure retained")
     return 0
 
 
