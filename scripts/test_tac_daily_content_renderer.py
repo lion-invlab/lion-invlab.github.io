@@ -76,7 +76,8 @@ def sample(report_date,template):
           "stock_price_reaction":"首個常規交易日收盤上漲 2.0%","stock_price_reaction_window":"2026-10-30 首個常規交易日收盤",
           "industry":"Synthetic industry","reporting_period":"2026 Q3","eps_basis":"Non-GAAP","eps_currency":"USD",
           "revenue_currency":"USD","revenue_unit":"B","eps_comparison_status":"beat","revenue_comparison_status":"miss",
-          "financial_judgment":"Synthetic financial judgment for renderer test.",
+          "financial_judgment":"Synthetic financial judgment for renderer test.","time_known":True,"time_type":"release_time",
+          "eps_note":"Synthetic EPS note for renderer test.","revenue_note":"Synthetic revenue note for renderer test.",
           "consensus_source":src("consensus-previous"),"price_reaction_source":src("reaction-previous"),
           "source":src("ir-previous")
         }]
@@ -163,6 +164,8 @@ def run_case(kind,report_date,weekday):
             assert "Synthetic consensus-previous source" in previous_card.get_text()
             assert "Synthetic reaction-previous source" in previous_card.get_text()
             assert "首個常規交易日收盤上漲 2.0%" in previous_card.get_text()
+            assert "Synthetic EPS note for renderer test." in previous_card.get_text()
+            assert "Synthetic revenue note for renderer test." in previous_card.get_text()
         else:
             assert not soup.select("#last-week-calendar")
         return result
