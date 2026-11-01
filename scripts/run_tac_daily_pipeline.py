@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from adapt_tac_market_snapshot_for_renderer import adapt_market_snapshot
+from adapt_tac_fedwatch_capture import adapt_capture as adapt_fedwatch_capture
 from assemble_tac_calendar_snapshot import build_calendar_snapshot
 from assemble_tac_daily_snapshot import assemble
 from compose_tac_daily_snapshot import compose, load_object
@@ -96,7 +97,7 @@ def validate_content_fragments(fragments: list[dict]) -> dict:
 def build_preview(report_date: str, trading_date: str, market_fragments: list[Path],
                   content_fragments: list[Path], output: Path,
                   generated_at: str | None = None,
-                  fedwatch_renderer_path: Path | None = None) -> Path:
+                  fedwatch_capture_path: Path | None = None) -> Path:
     report_day = date.fromisoformat(report_date)
     trading_day = date.fromisoformat(trading_date)
     scenario = scenario_for(report_day)
@@ -129,9 +130,16 @@ def build_preview(report_date: str, trading_date: str, market_fragments: list[Pa
                                  generated_at, market_data, validator, schema)
 
     renderer_fedwatch = None
-    if fedwatch_renderer_path is not None:
-        raw = load_object(fedwatch_renderer_path, "renderer FedWatch fragment")
-        renderer_fedwatch = raw.get("fedwatch", raw)
+    if fedwatch_capture_path is not None:
+        capture = load_object(fedwatch_capture_path, "Investing.com Fed Rate Monitor capture")
+        normalized_fedwatch, renderer_fedwatch, mapping_error = adapt_fedwatch_capture(
+            capture, report_day.isoformat()
+        )
+        if normalized_fedwatch is not None:
+            normalized_market["fedwatch"] = normalized_fedwatch
+            print("PASS: Investing.com Fed Rate Monitor outcomes mapped to hold and one 25bp hike")
+        else:
+            print(f"FedWatch remains 待核實: {mapping_error}")
     renderer_market = adapt_market_snapshot(normalized_market, renderer_fedwatch)
 
     template = template_path.read_text(encoding="utf-8")
@@ -190,7 +198,7 @@ def main() -> int:
     ap.add_argument("--trading-date")
     ap.add_argument("--market-fragment", action="append", default=[])
     ap.add_argument("--content-fragment", action="append", default=[])
-    ap.add_argument("--fedwatch-renderer")
+    ap.add_argument("--fedwatch-capture")
     ap.add_argument("--output")
     ap.add_argument("--generated-at")
     ap.add_argument("--self-test", action="store_true")
@@ -207,7 +215,7 @@ def main() -> int:
             [Path(x) for x in args.market_fragment],
             [Path(x) for x in args.content_fragment],
             output, args.generated_at,
-            Path(args.fedwatch_renderer) if args.fedwatch_renderer else None
+            Path(args.fedwatch_capture) if args.fedwatch_capture else None
         )
         return 0
     except Exception as exc:
