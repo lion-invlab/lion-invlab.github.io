@@ -197,10 +197,10 @@ def update_row(source, nodes, selector, label, row_data, decimals=2, has_change=
     expected = 2 if has_change else 1
     if len(value_nodes) < expected:
         raise ValueError(f"{label}: expected at least {expected} span.r slots, found {len(value_nodes)}")
-    source = replace_inner(source, value_nodes[0], format_number(row_data["value"], decimals, row_data.get("unit")))
     if has_change:
         source = replace_inner(source, value_nodes[1],
             format_change(row_data["change"], row_data["change_unit"], 2), status_class(row_data))
+    source = replace_inner(source, value_nodes[0], format_number(row_data["value"], decimals, row_data.get("unit")))
     return source
 
 
@@ -232,9 +232,14 @@ def update_sectors(source, binding, snapshot):
         if len(matches) != 1:
             raise ValueError(f"sector ticker {ticker} must resolve exactly once; got {len(matches)}")
         ticker_to_node[key] = matches[0]
-    for key, node in ticker_to_node.items():
+    for key, node in sorted(ticker_to_node.items(), key=lambda item: item[1].start, reverse=True):
         row = snapshot["sectors"][key]
-        value_nodes = [n for n in select(rows, "span.r") if is_descendant(n, node)]
+        current_nodes = SourceParser(source).nodes
+        current_rows = [n for n in select(current_nodes, group["container"] + " " + group["row"])
+            if re.search(r"\\b" + re.escape(next(t for t, k in group["key_by_ticker"].items() if k == key)) + r"\\b", n.text(source))]
+        if len(current_rows) != 1:
+            raise ValueError(f"sector {key} row changed unexpectedly during update")
+        value_nodes = [n for n in select(current_nodes, "span.r") if is_descendant(n, current_rows[0])]
         if len(value_nodes) != 1:
             raise ValueError(f"sector {key} must have exactly one value slot")
         source = replace_inner(source, value_nodes[0], format_change(row["change"], "%", 2), status_class(row))
@@ -307,7 +312,7 @@ def render(template_path, snapshot_path, binding_path, output_path, mode):
     for group_name in ("bonds", "fx", "energy", "precious_metals"):
         group = binding["groups"][group_name]
         for key, label in group["key_by_label"].items():
-            source = update_row(source, SourceParser(source).nodes, group["row"], label,
+            source = update_row(source, SourceParser(source).nodes, group["container"] + " " + group["row"], label,
                 snapshot[group_name][key], group.get("value_decimals", {}).get(key, 2), True)
     source = update_sectors(source, binding, snapshot)
     source = update_risk(source, binding, snapshot)
