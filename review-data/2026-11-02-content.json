@@ -3161,10 +3161,12 @@
         "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256",
         "https://www.rbnz.govt.nz/news-and-events/how-we-release-information",
         "https://www.newsquawk.com/daily/5825-week-in-focus-26-30th-october-2026-highlights-include-fomc-boc-rbnz-ecb-boj-policy-decisions-us-pce",
-        "https://www.reuters.com/world/uk/view-britains-new-finance-minister-unveils-first-budget-2026-10-28/"
+        "https://www.reuters.com/world/uk/view-britains-new-finance-minister-unveils-first-budget-2026-10-28/",
+        "https://www.bls.gov/news.release/eci.nr0.htm",
+        "https://www.bls.gov/schedule/news_release/eci.htm"
       ],
       "checked_at": "2026-11-01T14:06:09+09:00",
-      "notes": "依 WR v3.7，上週區塊只保留五星。已交叉掃描10/26–10/30主要全球事件週表，確認並納入FOMC、BoC、RBNZ、ECB、BoJ、澳洲CPI、US GDP及PCE等8項五星事件。英國秋季預算雖屬重要財政事件，但Reuters報導顯示英鎊與公債市場反應有限，暫不列TAC五星；東京CPI、歐元區GDP、ECI等亦不在本輪五星名單。仍需完成Investing.com整週原始行事曆覆蓋核對，coverage 維持 incomplete。"
+      "notes": "依 WR v3.7，上週區塊只保留TAC五星。已核實納入8項五星：BoC、RBNZ、澳洲CPI、FOMC、ECB、US GDP、US PCE、BoJ。另完成候選掃描：歐元區Q3 GDP（0.4% q/q，高於0.2%共識）、東京CPI（headline 2.8%，但核心指標較上月放緩）、美國Q3 ECI（0.8%，符合0.8%共識）；目前未達TAC五星門檻，因此不列入上週五星區。尚待完整核對Investing.com香港站全週擷取結果及各國主要官方行事曆，coverage 維持 incomplete。"
     }
   }
 }
