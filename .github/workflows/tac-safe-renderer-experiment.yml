@@ -49,8 +49,9 @@ jobs:
         run: python -m unittest -v scripts/test_tac_market_safe_renderer.py
       - name: Run normalized market display adapter and FedWatch pending-state tests
         run: python -m unittest -v scripts/test_tac_market_snapshot_adapter.py
-      - name: Test fail-closed daily report orchestrator
+      - name: Install schema validator and test fail-closed daily report orchestrator
         run: |
+          python -m pip install jsonschema
           python scripts/run_tac_daily_pipeline.py --self-test
           python -m unittest -v scripts/test_tac_daily_pipeline.py
       - name: Run calendar adapter and mother-template integration tests
@@ -59,8 +60,6 @@ jobs:
         run: python -m unittest -v scripts/test_compose_tac_daily_snapshot.py
       - name: Run calendar capture importer self-test
         run: python scripts/import_tac_calendar_capture.py --self-test
-      - name: Install snapshot schema validator
-        run: python -m pip install jsonschema
       - name: Validate daily snapshot schema and self-tests
         run: |
           python scripts/validate_tac_daily_snapshot.py --self-test
