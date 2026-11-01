@@ -165,6 +165,15 @@ def select(root: Node, selector: str) -> list[Node]:
     return [n for n in descendants(root) if any(matches(n, p) for p in parts)]
 
 
+def status_group_for(node: Node) -> Node | None:
+    current = node.parent
+    while current is not None:
+        if "calendar-status-group" in current.classes:
+            return current
+        current = current.parent
+    return None
+
+
 def inner_bounds(node: Node) -> tuple[int, int]:
     """Return the source interval inside one parsed element, never including its tags."""
     if node.start_tag_end is None or node.end_tag_start is None or node.end_tag_end is None:
@@ -792,9 +801,10 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"economic_calendar.{panel_key}: lists must be an array")
             groups = select(containers[0], ".calendar-status-group")
             if len(groups) != len(panel_data["lists"]):
-                existing_groups = [group for group in groups if select(group, panel_spec["list_selector"])]
-                if len(existing_groups) == len(panel_data["lists"]):
-                    groups = existing_groups
+                existing_lists = select(containers[0], panel_spec["list_selector"])
+                mapped_groups = [status_group_for(node) for node in existing_lists]
+                if len(mapped_groups) == len(panel_data["lists"]) and all(mapped_groups):
+                    groups = mapped_groups
                 else:
                     raise ValueError(f"economic_calendar.{panel_key}: status-group count mismatch")
             event_nodes, items = [], []
@@ -952,9 +962,10 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"earnings_calendar.{panel_key}: lists must be an array")
             groups = select(containers[0], ".calendar-status-group")
             if len(groups) != len(panel_data["lists"]):
-                existing_groups = [group for group in groups if select(group, panel_spec["list_selector"])]
-                if len(existing_groups) == len(panel_data["lists"]):
-                    groups = existing_groups
+                existing_lists = select(containers[0], panel_spec["list_selector"])
+                mapped_groups = [status_group_for(node) for node in existing_lists]
+                if len(mapped_groups) == len(panel_data["lists"]) and all(mapped_groups):
+                    groups = mapped_groups
                 else:
                     raise ValueError(f"earnings_calendar.{panel_key}: status-group count mismatch")
             item_nodes, items = [], []
@@ -1129,9 +1140,10 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                 # Backward compatibility for older renderer fixtures that contain
                 # only the already-materialized list arrays. New adapters always
                 # emit one entry per status group, including empty-state groups.
-                existing_groups = [group for group in groups if select(group, panel_spec["list_selector"])]
-                if len(existing_groups) == len(lists_data):
-                    groups = existing_groups
+                existing_lists = select(container, panel_spec["list_selector"])
+                mapped_groups = [status_group_for(node) for node in existing_lists]
+                if len(mapped_groups) == len(lists_data) and all(mapped_groups):
+                    groups = mapped_groups
                 else:
                     raise ValueError(f"{group_name}.{panel_key}: status-group count mismatch; template={len(groups)}, snapshot={len(lists_data)}")
             item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
