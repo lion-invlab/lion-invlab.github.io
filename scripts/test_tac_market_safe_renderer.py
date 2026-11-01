@@ -66,7 +66,8 @@ class SafeMarketRendererTests(unittest.TestCase):
 
     def test_status_class_transitions_both_directions_and_flat_warn(self):
         def run(old, new):
-            html = f'<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r {old}">+1.0%</span></div></main>'
+            initial = {"up":"+1.0%", "down":"-1.0%", "flat":"0.0%", "warn":"待核實"}[old]
+            html = f'<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r {old}">{initial}</span></div></main>'
             contract = minimal_contract()
             contract["rules"] = {"allow_mapped_status_class_token_transition": True, "status_class_map": {"positive":"up","negative":"down","neutral":"flat","warning":"warn"}, "pending_value_text":"待核實"}
             contract["groups"] = {"global_indices":contract["groups"]["global_indices"]}
