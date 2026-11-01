@@ -140,7 +140,8 @@ def bucket_current_week(rows: list[dict[str, Any]], report_day: date,
 
 def list_contracts(template_html: str, container_selector: str,
                    list_selector: str, card_selector: str,
-                   field_selector: str, label_selector: str) -> list[dict[str, Any]] | None:
+                   field_selector: str, label_selector: str,
+                   empty_state_selector: str = ".calendar-status-empty") -> list[dict[str, Any]] | None:
     """Read every status group, including approved empty-state groups.
 
     Empty groups inherit field labels only from a real card prototype in another
@@ -187,7 +188,7 @@ def list_contracts(template_html: str, container_selector: str,
         else:
             raise ValueError(f"{list_selector}: unrecognized status heading {heading_text[:80]!r}")
         lists = select(group, list_selector)
-        empty = select(group, ".calendar-status-empty")
+        empty = select(group, empty_state_selector)
         if len(lists) > 1 or (lists and empty) or (not lists and len(empty) != 1):
             raise ValueError(f"{list_selector}.{status}: expected one list or one approved empty-state placeholder")
         cards = select(lists[0], card_selector) if lists else []
