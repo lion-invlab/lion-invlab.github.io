@@ -1,14 +1,13 @@
 {
   "schema_version": 1,
-  "description": "Read-only DOM binding contract for snapshot-driven rendering. Selectors are constrained to the approved mother templates; this map does not authorize structural or style changes.",
+  "description": "Read-only DOM binding contract for snapshot-driven rendering. Dynamic card-count and card-detail changes are authorized only inside explicitly mapped list containers and approved card prototypes; all outer structure remains immutable.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
     "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
   },
   "rules": {
-    "mutate_only_text_nodes": true,
-    "preserve_element_tree": true,
-    "preserve_attributes": true,
+    "preserve_element_tree_outside_dynamic_regions": true,
+    "preserve_attributes_outside_dynamic_regions": true,
     "preserve_css_and_scripts": true,
     "pending_value_text": "待核實",
     "status_class_map": {
@@ -19,7 +18,8 @@
     },
     "fail_if_selector_count_differs": true,
     "fail_if_label_or_ticker_missing_or_duplicated": true,
-    "allow_mapped_status_class_token_transition": true
+    "allow_mapped_status_class_token_transition": true,
+    "dynamic_region_policy": "Only mapped news item lists, economic/earnings status lists, event cards, nested detail-field rows, and source-link contents may change. Preserve all surrounding containers, status headings, tabs, controls, IDs, classes not explicitly mapped, CSS, scripts, and interactions."
   },
   "groups": {
     "global_indices": {
