@@ -156,6 +156,43 @@ class SafeMarketRendererTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"sum to"):
             render_market_html(html,{"groups":{},"fedwatch":snapshot["fedwatch"]},contract)
 
+    def test_summary_and_observation_text_slots_render_without_structure_changes(self):
+        binding = {"groups":{"editorial":{
+            "summary":{"container":".bluf","headline_selector":"h1","body_selector":"p"},
+            "observation":{"container":"#view","market_panel":".focus-market","levels_panel":".focus-levels","core_panel":".focus-core",
+                          "market_text_selector":".key","levels_text_selector":".key","core_text_selector":".callout"}}}}
+        observation = ('<section id="view">'
+                       '<div class="focus-panel focus-market"><div class="key"><b>市場觀點</b><br/>市場舊文</div></div>'
+                       '<div class="focus-panel focus-levels"><div class="key"><b>道瓊：</b>舊支撐<br/><b>S&amp;P：</b>舊壓力<br/><b>SOX：</b>舊區間</div></div>'
+                       '<div class="focus-panel focus-core"><div class="callout"><b>今日核心觀察：</b>核心舊文</div></div>'
+                       '</section>')
+        for segment_count in (3,5):
+            with self.subTest(segment_count=segment_count):
+                labels = "".join(f"<b>段落{i+1}</b><br/>" for i in range(segment_count))
+                old_text = "".join(f"舊內容{i+1}" for i in range(segment_count))
+                html = f'<article class="bluf"><h1>舊標題</h1><p>{labels}{old_text}</p></article>' + observation
+                # Construct paragraph as distinct text nodes following each bold label.
+                pieces = "".join(f"<b>段落{i+1}</b><br/>舊內容{i+1}" for i in range(segment_count))
+                html = f'<article class="bluf"><h1>舊標題</h1><p>{pieces}</p></article>' + observation
+                snapshot = {"groups":{},"editorial":{
+                    "headline":"新標題",
+                    "body_segments":[f"新內容{i+1}" for i in range(segment_count)],
+                    "market_text":"新的市場觀點",
+                    "levels_segments":["新道瓊支撐","新 S&P 壓力","新 SOX 區間"],
+                    "core_text":"新的核心觀察"
+                }}
+                result = render_market_html(html,snapshot,binding)
+                self.assertIn("<h1>新標題</h1>",result)
+                for i in range(segment_count):
+                    self.assertIn(f"新內容{i+1}",result)
+                self.assertIn("新的市場觀點",result)
+                self.assertIn("新道瓊支撐",result)
+                self.assertIn("新 S&amp;P 壓力",result)
+                self.assertIn("新 SOX 區間",result)
+                self.assertIn("新的核心觀察",result)
+                self.assertIn("<b>段落1</b><br/>",result)
+                self.assertIn('class="focus-panel focus-levels"',result)
+
     def test_missing_group_key_fails_closed(self):
         html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
