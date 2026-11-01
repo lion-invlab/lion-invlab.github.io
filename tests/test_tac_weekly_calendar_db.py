@@ -54,6 +54,8 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual([x["id"] for x in snap["economic_calendar"]],["e4","e5"])
             self.assertEqual([x["id"] for x in snap["previous_economic_calendar"]],["p5"])
             self.assertEqual(snap["previous_earnings_calendar"],[])
+            with self.assertRaisesRegex(FileExistsError,"refusing to overwrite existing daily snapshot"):
+                cmd_snapshot(args)
 
     def test_upsert_is_idempotent_and_audited_only_on_change(self):
         w=self.week(events={"economic":[self.event("same","2026-11-02T10:00:00+08:00")],"earnings":[]})
