@@ -40,14 +40,19 @@ class Node:
                 result.append(("class", " ".join(sorted(tokens))))
             elif key in KEEP_ATTRS:
                 normalized = value or ""
-                if key == "style" and tag == "div" and "fg6-marker" in class_tokens:
-                    # The gauge marker's horizontal position is data-driven;
-                    # normalize only that property while protecting all others.
-                    normalized = re.sub(
-                        r"(?i)(^|;)(\s*left\s*:\s*)[^;]+",
-                        r"\1\2<DATA>",
-                        normalized,
-                    )
+                if key == "style" and tag == "div":
+                    # Only explicitly allowlisted chart properties are data slots.
+                    dynamic_properties = set()
+                    if "fg6-marker" in class_tokens:
+                        dynamic_properties.add("left")
+                    if {"fc-split-hold", "fc-split-hike"} & class_tokens:
+                        dynamic_properties.add("width")
+                    for prop in dynamic_properties:
+                        normalized = re.sub(
+                            rf"(?i)(^|;)(\s*{re.escape(prop)}\s*:\s*)[^;]+",
+                            r"\1\2<DATA>",
+                            normalized,
+                        )
                 result.append((key, normalized))
         return result
     def signature(self):
@@ -115,11 +120,21 @@ def self_test():
         assert signature(a) == signature(b), "data-driven Fear & Greed marker position should pass"
         b.write_text('<html><body><div class="fg6-marker" style="left:26%;top:1px"></div></body></html>', encoding="utf-8")
         assert signature(a) != signature(b), "non-data marker style mutation must still fail"
+        a.write_text('<html><body><div class="fc-split-hold" style="width:90%"></div></body></html>', encoding="utf-8")
+        b.write_text('<html><body><div class="fc-split-hold" style="width:30.2%"></div></body></html>', encoding="utf-8")
+        assert signature(a) == signature(b), "FedWatch probability bar width should be data-driven"
+        b.write_text('<html><body><div class="fc-split-hold" style="width:30.2%;background:red"></div></body></html>', encoding="utf-8")
+        assert signature(a) != signature(b), "non-data FedWatch bar style mutation must still fail"
+        a.write_text('<html><body><div class="fc-split-hike" style="width:10%"></div></body></html>', encoding="utf-8")
+        b.write_text('<html><body><div class="fc-split-hike" style="width:69.8%"></div></body></html>', encoding="utf-8")
+        assert signature(a) == signature(b), "FedWatch hike bar width should be data-driven"
     print("PASS: text-only update and repeated cards accepted")
     print("PASS: DOM element mutation rejected")
     print("PASS: inline layout-style mutation rejected")
     print("PASS: dynamic Fear & Greed marker position accepted")
     print("PASS: other Fear & Greed marker styles remain protected")
+    print("PASS: dynamic FedWatch probability bar widths accepted")
+    print("PASS: other FedWatch bar styles remain protected")
 
 def main():
     parser = argparse.ArgumentParser()
