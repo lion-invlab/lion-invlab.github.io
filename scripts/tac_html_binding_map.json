@@ -287,7 +287,8 @@
         "meta_text": "meta_text",
         "window_text": "window_text",
         "items": "items"
-      }
+      },
+      "container": "#news-scan"
     }
   },
   "protected_paths": [
