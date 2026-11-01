@@ -254,11 +254,13 @@ def earnings_card(proto,item,soup):
         raise ValueError("earnings prototype must preserve exactly one existing expand control")
     main=slot(card,".earnings-summary-main","earnings main")
     tw=dt(item["event_date"]); us=dt_us(item["event_date"]); time_known=item.get("time_known",True)
-    session_labels={"before_market":"盤前","after_market":"盤後","during_market":"盤中","unknown":"公布時段待核實"}
+    session_labels={"before_market":"盤前公布","after_market":"盤後公布","during_market":"盤中公布","unknown":"公布時段待核實"}
     session=session_labels[item["session"]]
     us_day=us.date() if time_known else (tw.date()-timedelta(days=1) if item["session"]=="after_market" else tw.date())
-    us_header=f"美股 {us_day.month}/{us_day.day}（{WD[us_day.weekday()]}）{session} {us:%H:%M} ET" if time_known else f"美股 {us_day.month}/{us_day.day}（{WD[us_day.weekday()]}）{session}｜時間未公告"
-    tw_header=f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）{tw:%H:%M} UTC+8" if time_known else f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）｜公布時間未公告"
+    time_type=item.get("time_type","release_time")
+    time_label="電話會議" if time_type=="call_time" else ("公布時間" if time_type=="release_time" else "時段")
+    us_header=f"美股 {us_day.month}/{us_day.day}（{WD[us_day.weekday()]}）{session}｜{time_label} {us:%H:%M} ET" if time_known else f"美股 {us_day.month}/{us_day.day}（{WD[us_day.weekday()]}）{session}｜{time_label}未公告"
+    tw_header=f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）{tw:%H:%M} UTC+8（{time_label}）" if time_known else f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）｜{time_label}未公告"
     for sel,val in ((".earnings-us-date",us_header),
       (".earnings-tw-date",tw_header),
       (".earnings-company-name",item["company"]),
@@ -309,8 +311,8 @@ def earnings_card(proto,item,soup):
         if not fields: raise ValueError("earnings prototype must contain detail-field templates")
         while len(fields)<target_count:
             clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
-        tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8）" if time_known else f"台灣日期 {tw:%Y/%m/%d}（公布時間未公告）"
-        us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}）" if time_known else f"美股日期 {us_day:%Y/%m/%d}（{session}，時間未公告）"
+        tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8，{time_label}）" if time_known else f"台灣日期 {tw:%Y/%m/%d}（{time_label}未公告）"
+        us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}，{time_label}）" if time_known else f"美股日期 {us_day:%Y/%m/%d}（{session}，{time_label}未公告）"
         eps_detail=f"市場預估：{eps_text(item.get('eps_estimate'),item)}；實際：{eps_text(item.get('eps_actual'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"
         rev_detail=f"市場預估：{revenue_text(item.get('revenue_estimate'),item)}；實際：{revenue_text(item.get('revenue_actual'),item)}；幣別／單位：{item.get('revenue_currency') or '待核實'}／{item.get('revenue_unit') or '待核實'}。"
         if released:
@@ -365,11 +367,14 @@ def earnings_card(proto,item,soup):
         source_field=fields[2]
         value_node=slot(source_field,".earnings-detail-value","earnings source value")
         value_node.clear()
-        src=item.get("source")
-        if src:
-            a=soup.new_tag("a"); source_link(a,src); value_node.append(a)
-        else:
-            value_node.append(NavigableString("財報日程來源待核實"))
+        source_items=[("公司 IR／日期公告",item.get("source")),("EPS 共識",item.get("consensus_source"))]
+        emitted=0
+        for label,src in source_items:
+            if src:
+                if emitted: value_node.append(NavigableString("；"))
+                a=soup.new_tag("a"); source_link(a,src); value_node.append(a); emitted+=1
+            elif emitted==0:
+                value_node.append(NavigableString(label+"來源待核實")); emitted+=1
     return card
 
 def calendar_panel(section, records, kind, report_day, coverage, soup, proto=None):
