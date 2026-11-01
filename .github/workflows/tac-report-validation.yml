@@ -206,14 +206,32 @@ jobs:
       - name: Optional live read-only Investing.com 3-star economic calendar capture
         continue-on-error: true
         run: |
-          node scripts/capture_tac_investing_calendar.mjs --start-date "2026-10-26" --end-date "2026-10-30" --output "/tmp/tac-economic-calendar-previous.html" || echo "PENDING: previous-week browser capture unavailable"
-          if [ -s "/tmp/tac-economic-calendar-previous.html" ]; then
-            python scripts/fetch_tac_investing_economic_calendar.py --input-html "/tmp/tac-economic-calendar-previous.html" --report-date "2026-11-02" --trading-date "2026-10-30" --group previous --output "/tmp/tac-economic-calendar-previous-2026-10-26.json"
+          set +e
+          node scripts/capture_tac_investing_calendar.mjs --start-date "2026-10-26" --end-date "2026-10-30" --output "/tmp/tac-economic-calendar-previous.html" > /tmp/tac-economic-calendar-previous-capture.log 2>&1
+          previous_capture_status=$?
+          printf "exit_code=%s\nrequested_range=2026-10-26..2026-10-30\n" "$previous_capture_status" > /tmp/tac-economic-calendar-previous-capture-status.txt
+          cat /tmp/tac-economic-calendar-previous-capture.log
+          if [ "$previous_capture_status" -eq 0 ] && [ -s "/tmp/tac-economic-calendar-previous.html" ]; then
+            python scripts/fetch_tac_investing_economic_calendar.py --input-html "/tmp/tac-economic-calendar-previous.html" --report-date "2026-11-02" --trading-date "2026-10-30" --group previous --output "/tmp/tac-economic-calendar-previous-2026-10-26.json" > /tmp/tac-economic-calendar-previous-parse.log 2>&1
+            previous_parse_status=$?
+            printf "exit_code=%s\n" "$previous_parse_status" >> /tmp/tac-economic-calendar-previous-capture-status.txt
+            cat /tmp/tac-economic-calendar-previous-parse.log
+          else
+            echo "PENDING: previous-week browser capture unavailable; see capture log"
           fi
-          node scripts/capture_tac_investing_calendar.mjs --start-date "2026-11-02" --end-date "2026-11-06" --output "/tmp/tac-economic-calendar-current.html" || echo "PENDING: current-week browser capture unavailable"
-          if [ -s "/tmp/tac-economic-calendar-current.html" ]; then
-            python scripts/fetch_tac_investing_economic_calendar.py --input-html "/tmp/tac-economic-calendar-current.html" --report-date "2026-11-02" --trading-date "2026-10-30" --group current --output "/tmp/tac-economic-calendar-current-2026-11-02.json"
+          node scripts/capture_tac_investing_calendar.mjs --start-date "2026-11-02" --end-date "2026-11-06" --output "/tmp/tac-economic-calendar-current.html" > /tmp/tac-economic-calendar-current-capture.log 2>&1
+          current_capture_status=$?
+          printf "exit_code=%s\nrequested_range=2026-11-02..2026-11-06\n" "$current_capture_status" > /tmp/tac-economic-calendar-current-capture-status.txt
+          cat /tmp/tac-economic-calendar-current-capture.log
+          if [ "$current_capture_status" -eq 0 ] && [ -s "/tmp/tac-economic-calendar-current.html" ]; then
+            python scripts/fetch_tac_investing_economic_calendar.py --input-html "/tmp/tac-economic-calendar-current.html" --report-date "2026-11-02" --trading-date "2026-10-30" --group current --output "/tmp/tac-economic-calendar-current-2026-11-02.json" > /tmp/tac-economic-calendar-current-parse.log 2>&1
+            current_parse_status=$?
+            printf "exit_code=%s\n" "$current_parse_status" >> /tmp/tac-economic-calendar-current-capture-status.txt
+            cat /tmp/tac-economic-calendar-current-parse.log
+          else
+            echo "PENDING: current-week browser capture unavailable; see capture log"
           fi
+          set -e
           if [ -s "/tmp/tac-economic-calendar-previous-2026-10-26.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-previous-2026-10-26.json" --output "/tmp/tac-economic-calendar-previous-fragment-2026-10-26.json"; fi
           if [ -s "/tmp/tac-economic-calendar-current-2026-11-02.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-current-2026-11-02.json" --output "/tmp/tac-economic-calendar-current-fragment-2026-11-02.json"; fi
 
@@ -429,6 +447,12 @@ jobs:
             /tmp/tac-news-rss-candidates-2026-11-02.json
             /tmp/tac-economic-calendar-previous.html
             /tmp/tac-economic-calendar-current.html
+            /tmp/tac-economic-calendar-previous-capture.log
+            /tmp/tac-economic-calendar-previous-capture-status.txt
+            /tmp/tac-economic-calendar-previous-parse.log
+            /tmp/tac-economic-calendar-current-capture.log
+            /tmp/tac-economic-calendar-current-capture-status.txt
+            /tmp/tac-economic-calendar-current-parse.log
             /tmp/tac-cme-fedwatch-iframe.html
             /tmp/tac-cme-fedwatch-iframe.txt
             /tmp/tac-cme-fedwatch-capture.json
