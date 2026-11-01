@@ -633,7 +633,7 @@
       {
         "id": "current-phg-20261103",
         "company": "Philips",
-        "ticker": "PHIA",
+        "ticker": "PHG",
         "event_date": "2026-11-03T17:00:00+08:00",
         "session": "before_market",
         "importance_stars": 4,
@@ -8237,6 +8237,136 @@
         "us_listing_market": "Siemens Healthineers普通股於Frankfurt及Xetra掛牌；美國ADR為OTC，不符合條件。"
       },
       "note": "依使用者規則，非美國公司未在美國證券交易所掛牌，不納入財報事件集合；OTC/OTCQX不視為交易所掛牌。"
+    },
+    {
+      "at": "2026-11-01T15:29:00+09:00",
+      "action": "event_updated",
+      "event_id": "current-phg-20261103",
+      "changed_fields": [
+        "ticker"
+      ],
+      "before": {
+        "id": "current-phg-20261103",
+        "company": "Philips",
+        "ticker": "PHIA",
+        "event_date": "2026-11-03T17:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球大型醫療科技與影像設備企業，財報可反映醫院資本支出、醫療影像與診斷設備需求，對全球醫療科技產業具指標性。",
+        "industry": "醫療科技／醫療影像與診斷設備",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "EUR",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Philips Investor Relations｜Q3 2026 Results",
+          "url": "https://www.philips.com/a-w/about/investor-relations",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Philips Investor Relations",
+          "notes": "官方確認11/03 07:00 CET公布Q3結果、10:00 CET舉行電話會議；換算台灣時間17:00。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜Philips Q3 2026 estimates",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-koninklijke-philips-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 consensus EPS $0.37；預期營收 $5.02B。會計 basis 未披露。"
+        },
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 0.37,
+        "eps_actual": null,
+        "revenue_estimate": 5.02,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜Philips Q3 2026 estimates",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-koninklijke-philips-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 revenue consensus USD 5.02B。"
+        },
+        "issuer_country": "Netherlands",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "PHG",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.philips.com/a-w/about/investor-relations/stock.html",
+          "publisher": "Company / depositary official source",
+          "notes": "Philips官方列示Euronext Amsterdam及NYSE，NYSE代碼PHG。"
+        }
+      },
+      "after": {
+        "id": "current-phg-20261103",
+        "company": "Philips",
+        "ticker": "PHG",
+        "event_date": "2026-11-03T17:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球大型醫療科技與影像設備企業，財報可反映醫院資本支出、醫療影像與診斷設備需求，對全球醫療科技產業具指標性。",
+        "industry": "醫療科技／醫療影像與診斷設備",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "EUR",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Philips Investor Relations｜Q3 2026 Results",
+          "url": "https://www.philips.com/a-w/about/investor-relations",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Philips Investor Relations",
+          "notes": "官方確認11/03 07:00 CET公布Q3結果、10:00 CET舉行電話會議；換算台灣時間17:00。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜Philips Q3 2026 estimates",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-koninklijke-philips-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 consensus EPS $0.37；預期營收 $5.02B。會計 basis 未披露。"
+        },
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 0.37,
+        "eps_actual": null,
+        "revenue_estimate": 5.02,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜Philips Q3 2026 estimates",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-koninklijke-philips-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 revenue consensus USD 5.02B。"
+        },
+        "issuer_country": "Netherlands",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "PHG",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.philips.com/a-w/about/investor-relations/stock.html",
+          "publisher": "Company / depositary official source",
+          "notes": "Philips官方列示Euronext Amsterdam及NYSE，NYSE代碼PHG。"
+        }
+      },
+      "source": "https://www.philips.com/a-w/about/investor-relations/stock.html",
+      "note": "統一使用其美國NYSE掛牌代碼PHG；PHIA為Euronext Amsterdam代碼。"
     }
   ]
 }
