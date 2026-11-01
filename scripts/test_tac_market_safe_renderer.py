@@ -353,6 +353,55 @@ class SafeMarketRendererTests(unittest.TestCase):
                 self.assertEqual(render_market_html(source,{"groups":{},"editorial":editorial},editorial_binding),source,
                                  f"{label}: editorial no-op must preserve every byte")
 
+    def test_real_dual_masters_news_noop_preserves_every_byte(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        spec = binding["groups"]["news"]
+        for label, relative in binding["templates"].items():
+            with self.subTest(template=label):
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                news_data = {}
+                for panel_key, panel_spec in spec["panels"].items():
+                    containers = select(parser.root,panel_spec["container"])
+                    self.assertEqual(len(containers),1,f"{label}.{panel_key} container")
+                    container = containers[0]
+                    meta = select(container,panel_spec["meta_selector"])
+                    self.assertEqual(len(meta),1)
+                    meta_spans = coalesce_spans([x for x in spans_inside(meta[0],parser.spans) if x.text.strip()])
+                    self.assertEqual(len(meta_spans),1)
+                    panel = {"meta_text":unescape(meta_spans[0].text),"items":[]}
+                    warnings = select(container,panel_spec["warning_selector"])
+                    if warnings:
+                        warning_spans = coalesce_spans([x for x in spans_inside(warnings[0],parser.spans) if x.text.strip()])
+                        self.assertEqual(len(warnings),1)
+                        self.assertEqual(len(warning_spans),1)
+                        panel["window_text"] = unescape(warning_spans[0].text)
+                    item_nodes = select(container,panel_spec["item_selector"])
+                    for item_node in item_nodes:
+                        titles = select(item_node,panel_spec["title_selector"])
+                        summaries = select(item_node,panel_spec["summary_selector"])
+                        source_containers = select(item_node,panel_spec["sources_container_selector"])
+                        self.assertEqual(len(titles),1)
+                        self.assertEqual(len(summaries),1)
+                        self.assertEqual(len(source_containers),1)
+                        title_spans = coalesce_spans([x for x in spans_inside(titles[0],parser.spans) if x.text.strip()])
+                        summary_spans = coalesce_spans([x for x in spans_inside(summaries[0],parser.spans) if x.text.strip()])
+                        self.assertEqual(len(title_spans),1)
+                        self.assertEqual(len(summary_spans),1)
+                        item = {"title":unescape(title_spans[0].text),"summary":unescape(summary_spans[0].text),"sources":[]}
+                        anchors = select(source_containers[0],panel_spec["source_selector"])
+                        for anchor in anchors:
+                            anchor_spans = coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
+                            self.assertEqual(len(anchor_spans),1)
+                            item["sources"].append({"url":anchor.attrs["href"],"text":unescape(anchor_spans[0].text)})
+                        panel["items"].append(item)
+                    news_data[panel_key] = panel
+                news_binding = {"groups":{"news":spec}}
+                self.assertEqual(render_market_html(source,{"groups":{},"news":news_data},news_binding),source,
+                                 f"{label}: news no-op must preserve every byte")
+
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
