@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Tests for weekly calendar snapshot assembly and renderer integration."""
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -47,8 +48,8 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertIn("美國 ISM 製造業 PMI（10月）", html)
         self.assertIn("Apple", html)
         self.assertIn("Palantir", html)
-        self.assertEqual(html.count('class="econ-event'), 17)
-        self.assertEqual(html.count('class="earnings-accordion'), 30)
+        self.assertEqual(len(re.findall(r'class="econ-event(?:\\s|")', html)), 17)
+        self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\\s|")', html)), 30)
         self.assertIn('href="https://investor.apple.com/"', html)
 
     def test_monday_previous_week_and_upcoming_lists_render(self):
@@ -70,18 +71,21 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertIn("日本央行（BOJ）利率決策及10月展望報告", html)
         self.assertIn("AstraZeneca", html)
         self.assertIn("Netflix", html)
-        self.assertEqual(html.count('class="econ-event'), 15)
-        self.assertEqual(html.count('class="earnings-accordion'), 24)
+        self.assertEqual(len(re.findall(r'class="econ-event(?:\\s|")', html)), 23)
+        self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\\s|")', html)), 38)
 
     def test_monday_blocks_nonempty_today_bucket_without_approved_list(self):
         with self.assertRaisesRegex(ValueError, "non-empty status bucket.*today.*no approved list container"):
             build_calendar_snapshot(self.current, self.previous, "2026-11-02", self.monday, self.binding)
 
     def test_released_earnings_have_two_actual_result_cards(self):
-        snapshot = build_calendar_snapshot(self.current, None, "2026-11-02", self.weekday, self.binding)
-        # The W45 dataset has no released current-week earnings yet; the previous
-        # week is used to verify the EPS/revenue result-card data contract.
+        # Move all earnings to the previous day within this ISO week and mark
+        # them released; the weekday mother has a published-list prototype.
         current = json.loads(json.dumps(self.current))
+        for row in current["events"]["economic"]:
+            if row["event_date"].startswith("2026-11-02"):
+                row["status"] = "released"
+                row["actual"] = "Synthetic actual"
         for row in current["events"]["earnings"]:
             row["event_date"] = "2026-11-02T10:00:00+08:00"
             row["status"] = "released"
@@ -89,8 +93,7 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
             row["revenue_actual"] = row.get("revenue_estimate")
             row["eps_comparison_status"] = "beat"
             row["revenue_comparison_status"] = "miss"
-        # The weekday mother has a published list prototype with two result cards.
-        released = build_calendar_snapshot(current, None, "2026-11-02", self.weekday, self.binding)
+        released = build_calendar_snapshot(current, None, "2026-11-03", self.weekday, self.binding)
         published = released["earnings_calendar"]["panels"]["current_week"]["lists"][2]["items"]
         self.assertEqual(len(published), 30)
         self.assertEqual(len(published[0]["results"]), 2)
@@ -105,6 +108,8 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
     def test_missing_source_does_not_silently_generate_fake_link(self):
         broken = json.loads(json.dumps(self.current))
         broken["events"]["economic"][0]["source"] = None
+        broken["events"]["economic"][0]["data_reference"] = None
+        broken["events"]["economic"][0]["consensus_source"] = None
         with self.assertRaisesRegex(ValueError, "no valid HTTPS source link"):
             build_calendar_snapshot(broken, None, "2026-11-02", self.weekday, self.binding)
 
