@@ -310,8 +310,8 @@ def self_test() -> None:
     prior = assembled["previous_earnings_calendar"][0]
     assert prior["industry"] == "Synthetic software"
     assert prior["time_type"] == "release_time"
-    assert prior["consensus_source"]["name"] == "Synthetic consensus"
-    assert prior["price_reaction_source"]["name"] == "Synthetic price reaction"
+    assert prior["consensus_source"]["name"] == "Synthetic consensus source"
+    assert prior["price_reaction_source"]["name"] == "Synthetic price reaction source"
 
     empty_capture = dict(payload)
     empty_capture["economic_events"] = []
