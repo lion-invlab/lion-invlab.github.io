@@ -439,10 +439,18 @@ def previous_week(soup,kind,records,coverage,report_day,prototype):
     if heading is None: raise ValueError(sid+" heading missing")
     list_cls="econ-event-list" if kind=="economic" else "earnings-accordion-list"
     if prototype is None: raise ValueError(sid+" card prototype missing")
-    group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜依日期排序"); group.append(heading)
-    if records:
+    # WR v3.7: prior-week panels are a strict five-star-only archive.
+    # Filter in the renderer as a second guard; do not rely on JSON assembly.
+    eligible=[item for item in records if int(item.get("importance_stars",0))==5]
+    eligible.sort(key=lambda item: (
+        -dt(item["event_date"]).date().toordinal(),
+        0 if item.get("time_known",True) is not False else 1,
+        -dt(item["event_date"]).timestamp() if item.get("time_known",True) is not False else 0
+    ))
+    group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜僅五星・依日期由新到舊"); group.append(heading)
+    if eligible:
         listing=soup.new_tag("div",attrs={"class":list_cls})
-        for item in records:
+        for item in eligible:
             if item["status"]!="released": raise ValueError(sid+" contains unreleased event "+item["id"])
             listing.append(econ_card(prototype,item,soup) if kind=="economic" else earnings_card(prototype,item,soup))
         group.append(listing)
