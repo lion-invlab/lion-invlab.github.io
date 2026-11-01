@@ -98,7 +98,7 @@ def convert(data: dict, input_validator, output_validator, expected_report_date:
             "trading_date": meta["trading_date"],
             "generated_at": meta["generated_at"],
             "timezone": "Asia/Taipei",
-            "wr_version": "3.8",
+            "wr_version": "3.10",
         },
     }
 
@@ -197,7 +197,7 @@ def self_test(input_validator, output_validator):
     package = {
         "schema_version": 1,
         "meta": {"report_date":"2026-11-02","trading_date":"2026-10-30",
-            "generated_at":generated,"timezone":"Asia/Taipei","wr_version":"3.8",
+            "generated_at":generated,"timezone":"Asia/Taipei","wr_version":"3.10",
             "capture_operator":"ChatGPT direct webpage review"},
         "expected_asset_ids": EXPECTED,
         "observations": observations,
