@@ -10,6 +10,7 @@ from bs4 import BeautifulSoup, NavigableString, Tag
 ROOT = Path(__file__).resolve().parents[1]
 BINDING_PATH = ROOT / "scripts" / "tac_html_binding_map.json"
 TZ = ZoneInfo("Asia/Taipei")
+US_TZ = ZoneInfo("America/New_York")
 WD = ("一", "二", "三", "四", "五", "六", "日")
 PROTECTED = {ROOT/"index.html", ROOT/"TAC_WORK_RULES.md",
  ROOT/"母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
@@ -225,23 +226,48 @@ def econ_card(proto,item,soup):
     f=fields[4]; put(slot(f,"label","econ source label"),"資料來源")
     new_anchor(soup,slot(f,".econ-value","econ source value"),item["source"])
     return card
+def dt_us(v):
+    x=__import__("datetime").datetime.fromisoformat(v.replace("Z","+00:00"))
+    if x.tzinfo is None: raise ValueError(f"timezone missing: {v}")
+    return x.astimezone(US_TZ)
+def number_text(value):
+    if value is None: return None
+    return f"{value:,.2f}" if isinstance(value,(int,float)) else str(value)
+def eps_text(value,item):
+    if value is None: return "尚未公布" if item["status"]=="upcoming" else "待核實"
+    currency=item.get("eps_currency")
+    prefix={"USD":"US$","TWD":"NT$","EUR":"€","GBP":"£"}.get(currency,(currency+" ") if currency else "")
+    if not currency: prefix="幣別待核實 "
+    return prefix+number_text(value)
+def revenue_text(value,item):
+    if value is None: return "尚未公布" if item["status"]=="upcoming" else "待核實"
+    currency=item.get("revenue_currency")
+    prefix={"USD":"US$","TWD":"NT$","EUR":"€","GBP":"£"}.get(currency,(currency+" ") if currency else "")
+    if not currency: prefix="幣別待核實 "
+    unit=item.get("revenue_unit")
+    suffix={"B":"B","M":"M","億":"億","million":" million","billion":" billion"}.get(unit,(" "+unit) if unit else "")
+    if not unit: suffix="（單位待核實）"
+    return prefix+number_text(value)+suffix
 def earnings_card(proto,item,soup):
     card=copy.deepcopy(proto)
     if len(card.select(".earnings-accordion-toggle"))!=1:
         raise ValueError("earnings prototype must preserve exactly one existing expand control")
     main=slot(card,".earnings-summary-main","earnings main")
-    session={"before_market":"美股盤前","after_market":"美股盤後","during_market":"盤中","unknown":"公布時段待核實"}[item["session"]]
-    for sel,val in ((".earnings-us-date",date_label(item["event_date"])),
-      (".earnings-tw-date",session+"｜台灣時間"),(".earnings-company-name",item["company"]),
-      (".earnings-company-sub",(item.get("ticker") or "代號待核實")+"｜財報")):
+    tw=dt(item["event_date"]); us=dt_us(item["event_date"])
+    session_labels={"before_market":"盤前","after_market":"盤後","during_market":"盤中","unknown":"公布時段待核實"}
+    session=session_labels[item["session"]]
+    for sel,val in ((".earnings-us-date",f"美股 {us.month}/{us.day}（{WD[us.weekday()]}）{session} {us:%H:%M} ET"),
+      (".earnings-tw-date",f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）{tw:%H:%M} UTC+8"),
+      (".earnings-company-name",item["company"]),
+      (".earnings-company-sub",(item.get("ticker") or "代號待核實")+"｜"+(item.get("industry") or "產業待核實")+(("｜"+item["reporting_period"]) if item.get("reporting_period") else ""))):
         put(slot(main,sel,"earnings "+sel),val)
     stars=slot(main,".earnings-stars","earnings stars")
-    card["class"]=[c for c in card.get("class",[]) if c not in {"five-star-earnings","four-star-earnings","three-star-earnings"}]
-    company=main.select_one(".earnings-company-name")
-    if company and "five-star-company" in company.get("class",[]): company["class"].remove("five-star-company")
     rating=item["importance_stars"]
     if rating not in {4,5}: raise ValueError("earnings event must have TAC 4- or 5-star rating")
     put(stars,"★"*rating+"☆"*(5-rating))
+    card["class"]=[x for x in card.get("class",[]) if x not in {"five-star-earnings","four-star-earnings","three-star-earnings"}]
+    company=main.select_one(".earnings-company-name")
+    if company and "five-star-company" in company.get("class",[]): company["class"].remove("five-star-company")
     if rating==5:
         card["class"].append("five-star-earnings")
         if company and "five-star-company" not in company.get("class",[]): company["class"].append("five-star-company")
@@ -249,54 +275,76 @@ def earnings_card(proto,item,soup):
         card["class"].append("four-star-earnings")
     details=slot(card,".earnings-accordion-details","earnings details")
     results=details.select_one(".earnings-results-grid")
-    eps_actual=item.get("eps_actual")
-    eps_estimate=item.get("eps_estimate")
-    rev_actual=item.get("revenue_actual")
-    rev_estimate=item.get("revenue_estimate")
-    actual_label=lambda value: value if value is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實")
+    released=item["status"]=="released"
     if results is not None:
         result_cards=results.select(".earnings-actual-card")
         if len(result_cards)!=2: raise ValueError("earnings result grid must contain EPS and revenue cards")
-        for result_card,title,actual,estimate in (
-          (result_cards[0],"EPS",eps_actual,eps_estimate),
-          (result_cards[1],"營收",rev_actual,rev_estimate)):
+        for result_card,title,actual,estimate,status_key,formatter,basis_note in (
+          (result_cards[0],"EPS",item.get("eps_actual"),item.get("eps_estimate"),"eps_comparison_status",eps_text,
+           "口徑："+(item.get("eps_basis") or "待核實")),
+          (result_cards[1],"營收",item.get("revenue_actual"),item.get("revenue_estimate"),"revenue_comparison_status",revenue_text,
+           "單位："+((item.get("revenue_currency") or "幣別待核實")+"/"+(item.get("revenue_unit") or "單位待核實")))):
             put(slot(result_card,".earnings-actual-card-title","earnings result title"),title)
-            result_card["class"]=[x for x in result_card.get("class",[]) if x not in {"beat","miss","pending"}]+["pending"]
             lines=result_card.select(".earnings-actual-line")
             if len(lines)!=2: raise ValueError("earnings result card must have actual and estimate lines")
-            put(slot(lines[0],"strong","earnings actual"),actual_label(actual))
-            put(slot(lines[1],"strong","earnings estimate"),estimate if estimate is not None else "待核實")
+            put(slot(lines[0],"strong","earnings actual"),formatter(actual,item))
+            put(slot(lines[1],"strong","earnings estimate"),formatter(estimate,item) if estimate is not None else "市場預估未取得")
             status=result_card.select_one(".earnings-actual-status")
-            if status: put(status,"已公布｜待比較" if actual is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實"))
+            if actual is None:
+                status_label="尚未公布" if item["status"]=="upcoming" else "待核實／無可比共識"
+                status_class="pending"
+            else:
+                mapping={"beat":("高於預期","beat"),"met":("符合預期","beat"),"miss":("低於預期","miss"),
+                  "pending_verification":("待核實","pending"),"not_comparable":("無可比共識","pending")}
+                status_label,status_class=mapping.get(item.get(status_key),("待核實／無可比共識","pending"))
+            result_card["class"]=[x for x in result_card.get("class",[]) if x not in {"beat","miss","pending"}]+[status_class]
+            if status: put(status,status_label); status["class"]=["earnings-actual-status",status_class]
             note=result_card.select_one(".earnings-actual-note")
-            if note: put(note,"以公司正式公告及市場共識核對")
+            if note: put(note,basis_note)
         fields=details.select(".earnings-detail-field")
-        if len(fields)<3: raise ValueError("results-grid card must retain interpretation, price reaction and source fields")
-        vals=[("財報判讀","EPS 與營收實際值／預估值如上；是否優於預期須以同口徑市場共識核對。"),
-          ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
-        for f,(lab,val) in zip(fields[:2],vals):
-            put(slot(f,"label","earnings field label"),lab)
-            put(slot(f,".earnings-detail-value","earnings field value"),val)
-        source_field=fields[-1]
+        target_count=5 if released else 3
+        if not fields: raise ValueError("earnings prototype must contain detail-field templates")
+        while len(fields)<target_count:
+            clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
+        tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8）"
+        us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}）"
+        eps_detail=f"市場預估：{eps_text(item.get('eps_estimate'),item)}；實際：{eps_text(item.get('eps_actual'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"
+        rev_detail=f"市場預估：{revenue_text(item.get('revenue_estimate'),item)}；實際：{revenue_text(item.get('revenue_actual'),item)}；幣別／單位：{item.get('revenue_currency') or '待核實'}／{item.get('revenue_unit') or '待核實'}。"
+        if released:
+            values=[
+              ("公布時段",us_label+"；"+tw_label),
+              ("EPS 預估／實際",eps_detail),
+              ("營收預估／實際",rev_detail),
+              ("財報判讀與股價反應",(item.get("financial_judgment") or "財報判讀待核實")+"；股價反應："+(item.get("stock_price_reaction") or "待核實")+"（"+(item.get("stock_price_reaction_window") or "觀察時段待核實")+"）。"),
+              ("資料來源",None)]
+        else:
+            values=[
+              ("公布時段",us_label+"；"+tw_label),
+              ("預估資訊",eps_detail+" "+rev_detail),
+              ("資料來源",None)]
+        for f,(lab,val) in zip(fields[:target_count],values):
+            put(slot(f,"label","earnings detail label"),lab)
+            value_node=slot(f,".earnings-detail-value","earnings detail value")
+            if val is not None: put(value_node,val)
+        source_field=fields[target_count-1]
+        value_node=slot(source_field,".earnings-detail-value","earnings source value")
+        value_node.clear()
+        source_items=[
+          ("公司 IR／正式公告",item.get("source")),
+          ("市場共識",item.get("consensus_source")),
+          ("股價反應",item.get("price_reaction_source"))]
+        emitted=0
+        for label,src in source_items:
+            if src:
+                if emitted: value_node.append(NavigableString("；"))
+                a=soup.new_tag("a"); source_link(a,src); value_node.append(a); emitted+=1
+            elif label!="公司 IR／正式公告":
+                if emitted: value_node.append(NavigableString("；"))
+                value_node.append(NavigableString(label+"來源待核實")); emitted+=1
     else:
-        fields=details.select(".earnings-detail-field")
-        if not fields: raise ValueError("earnings prototype must contain at least one detail-field template")
-        while len(fields)<5:
-            clone=copy.deepcopy(fields[-1])
-            details.append(clone)
-            fields=details.select(".earnings-detail-field")
-        eps=f"預估：{eps_estimate if eps_estimate is not None else '待核實'}；實際：{actual_label(eps_actual)}"
-        rev=f"預估：{rev_estimate if rev_estimate is not None else '待核實'}；實際：{actual_label(rev_actual)}"
-        vals=[("EPS 預估／實際",eps),("營收預估／實際",rev),
-          ("財報判讀","以公司公告及同口徑市場共識核對；資料不足時不判定優於或低於預期。"),
-          ("股價當日表現",item.get("stock_price_reaction") or "待核實")]
-        for f,(lab,val) in zip(fields[:4],vals):
-            put(slot(f,"label","earnings field label"),lab)
-            put(slot(f,".earnings-detail-value","earnings field value"),val)
-        source_field=fields[4]
-    put(slot(source_field,"label","earnings source label"),"資料來源")
-    new_anchor(soup,slot(source_field,".earnings-detail-value","earnings source value"),item["source"])
+        raise ValueError("earnings prototype must contain EPS and revenue result cards")
     return card
+
 def calendar_panel(section, records, kind, report_day, coverage, soup, proto=None):
     panel=slot(section,".week-econ-panels" if kind=="economic" else ".week-earnings-panels",kind+" panels")
     groups=panel.find_all("div",class_="calendar-status-group",recursive=False)
