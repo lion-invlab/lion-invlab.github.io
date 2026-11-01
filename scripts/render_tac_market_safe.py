@@ -1025,8 +1025,46 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 update_status_class(card,result["card_class"],f"{result_label}.card")
                 update_status_class(status_nodes[0],result["status_class"],f"{result_label}.status")
 
+def create_empty_status_list(source: str, parser: SourceTreeParser,
+                               container: Node, group: Node, list_selector: str,
+                               card_selector: str, desired_count: int,
+                               label: str) -> str:
+    """Replace one approved empty-state node with a list cloned from a sibling prototype."""
+    if desired_count <= 0:
+        return source
+    existing = select(group, list_selector)
+    placeholders = select(group, ".calendar-status-empty")
+    if existing or len(placeholders) != 1:
+        raise ValueError(f"{label}: expected one empty-state placeholder and no list")
+    prototype_lists = [node for node in select(container, list_selector) if node.parent is not group]
+    if len(prototype_lists) < 1:
+        raise ValueError(f"{label}: no sibling approved list-container prototype")
+    prototype_list = prototype_lists[0]
+    prototype_cards = select(prototype_list, card_selector)
+    if not prototype_cards:
+        raise ValueError(f"{label}: approved list prototype has no card")
+    card = prototype_cards[0]
+    if card.parent is not prototype_list:
+        raise ValueError(f"{label}: card prototype is not a direct child of its list")
+    if any(value is None for value in (prototype_list.source_start, prototype_list.start_tag_end,
+                                       prototype_list.end_tag_start, prototype_list.end_tag_end,
+                                       card.source_start, card.end_tag_end,
+                                       placeholders[0].source_start, placeholders[0].end_tag_end)):
+        raise ValueError(f"{label}: source boundaries unavailable; refusing to create list")
+    open_tag = source[prototype_list.source_start:prototype_list.start_tag_end]
+    close_tag = source[prototype_list.end_tag_start:prototype_list.end_tag_end]
+    card_markup = source[card.source_start:card.end_tag_end]
+    if not open_tag.startswith("<div") or not close_tag.startswith("</div") or not card_markup:
+        raise ValueError(f"{label}: prototype source markup is not a safe div/card sequence")
+    rendered_cards = "\\n".join(card_markup for _ in range(desired_count))
+    replacement = open_tag + "\\n" + rendered_cards + "\\n" + close_tag
+    placeholder = placeholders[0]
+    start, end = placeholder.source_start, placeholder.end_tag_end
+    return source[:start] + replacement + source[end:]
+
+
 def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str, Any]) -> str:
-    """Resize only approved event-card runs inside each named status list."""
+    """Resize mapped card runs; create a missing list only by replacing its approved empty state."""
     for group_name in ("economic_calendar", "earnings_calendar"):
         spec = binding.get("groups", {}).get(group_name)
         data = snapshot.get(group_name)
@@ -1047,36 +1085,59 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
             containers = select(parser.root, panel_spec["container"])
             if len(containers) != 1:
                 raise ValueError(f"{group_name}.{panel_key}: panel container missing or duplicated")
-            list_nodes = select(containers[0], panel_spec["list_selector"])
-            if len(list_nodes) != len(lists_data):
-                raise ValueError(f"{group_name}.{panel_key}: list count mismatch; template={len(list_nodes)}, snapshot={len(lists_data)}")
+            container = containers[0]
+            groups = select(container, ".calendar-status-group")
+            if len(groups) != len(lists_data):
+                raise ValueError(f"{group_name}.{panel_key}: status-group count mismatch; template={len(groups)}, snapshot={len(lists_data)}")
             item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
-            for list_index, list_data in enumerate(lists_data):
+            for list_index, (group, list_data) in enumerate(zip(groups, lists_data)):
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
                     raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: invalid list payload")
+                group_lists = select(group, panel_spec["list_selector"])
+                if len(group_lists) > 1:
+                    raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: duplicate list containers")
+                if not group_lists:
+                    if list_data["items"]:
+                        html = create_empty_status_list(html, parser, container, group,
+                                                        panel_spec["list_selector"], item_selector,
+                                                        len(list_data["items"]),
+                                                        f"{group_name}.{panel_key}.lists[{list_index}]")
+                        parser = SourceTreeParser(html)
+                        parser.feed(html)
+                        parser.close()
+                        containers = select(parser.root, panel_spec["container"])
+                        container = containers[0]
+                        groups = select(container, ".calendar-status-group")
+                        group = groups[list_index]
+                        group_lists = select(group, panel_spec["list_selector"])
+                    else:
+                        # Keep the original empty-state message byte-for-byte.
+                        continue
+                if len(group_lists) != 1:
+                    raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: list creation failed")
+                list_node = group_lists[0]
                 parser = SourceTreeParser(html)
                 parser.feed(html)
                 parser.close()
                 containers = select(parser.root, panel_spec["container"])
-                list_nodes = select(containers[0], panel_spec["list_selector"])
-                cards = select(list_nodes[list_index], item_selector)
+                groups = select(containers[0], ".calendar-status-group")
+                group_lists = select(groups[list_index], panel_spec["list_selector"])
+                cards = select(group_lists[0], item_selector)
                 if len(cards) != len(list_data["items"]):
                     html = replace_sibling_sequence(html, parser, cards, len(list_data["items"]),
                                                     f"{group_name}.{panel_key}.lists[{list_index}]")
-                # Resize nested detail-field rows from the same approved prototype.
-                parser = None
+                # Resize nested detail rows only inside the card prototypes.
                 for item_index, item_data in enumerate(list_data["items"]):
-                    if parser is None:
-                        parser = SourceTreeParser(html)
-                        parser.feed(html)
-                        parser.close()
+                    parser = SourceTreeParser(html)
+                    parser.feed(html)
+                    parser.close()
                     containers = select(parser.root, panel_spec["container"])
-                    list_nodes = select(containers[0], panel_spec["list_selector"])
-                    cards_now = select(list_nodes[list_index], item_selector)
+                    groups = select(containers[0], ".calendar-status-group")
+                    group_lists = select(groups[list_index], panel_spec["list_selector"])
+                    cards_now = select(group_lists[0], item_selector)
                     if item_index >= len(cards_now) or not isinstance(item_data, dict) or not isinstance(item_data.get("fields"), list):
                         raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}]: fields array required")
-                    detail_selector = spec["selectors"]["details"]
-                    detail_nodes = select(cards_now[item_index], detail_selector)
+                    detail_nodes = select(cards_now[item_index], spec["selectors"]["details"])
                     if len(detail_nodes) != 1:
                         raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}]: details container missing or duplicated")
                     field_selector = spec["selectors"]["field"] if group_name == "economic_calendar" else spec["selectors"]["detail_field"]
@@ -1084,9 +1145,7 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                     if len(fields_now) != len(item_data["fields"]):
                         html = replace_sibling_sequence(html, parser, fields_now, len(item_data["fields"]),
                                                         f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}].fields")
-                        parser = None
     return html
-
 
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict):
