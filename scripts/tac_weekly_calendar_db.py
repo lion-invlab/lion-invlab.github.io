@@ -153,13 +153,6 @@ def cmd_apply_snapshot(args):
         if not isinstance(snap.get("coverage",{}).get(key),dict):
             raise ValueError("snapshot missing coverage "+key)
         content["coverage"][key]=snap["coverage"][key]
-    content.setdefault("meta",{})["weekly_calendar_database"]={
-        "week_id":snap["meta"].get("week_id"),
-        "previous_week_id":snap["meta"].get("previous_week_id"),
-        "database_updated_at":snap["meta"].get("database_updated_at"),
-        "wr_version":snap["meta"].get("wr_version"),
-        "timezone":"Asia/Taipei"
-    }
     output=Path(args.output)
     output.parent.mkdir(parents=True,exist_ok=True)
     output.write_text(json.dumps(content,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
