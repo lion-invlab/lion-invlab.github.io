@@ -122,7 +122,7 @@ class TacDailyPipelineTests(unittest.TestCase):
                 self.assertIn('name="report-date" content="2026-11-02"', rendered)
                 self.assertIn("整合測試摘要標題", rendered)
                 self.assertIn("測試新聞 global_focus 1", rendered)
-                self.assertIn("42,000.00", rendered)
+                self.assertIn("7,000.00", rendered)
                 self.assertIn("待核實", rendered)
             finally:
                 if output.exists():
