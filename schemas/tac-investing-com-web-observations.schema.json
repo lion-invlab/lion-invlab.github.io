@@ -43,7 +43,7 @@
           "const": "Asia/Taipei"
         },
         "wr_version": {
-          "const": "3.8"
+          "const": "3.10"
         },
         "capture_operator": {
           "const": "ChatGPT direct webpage review"
