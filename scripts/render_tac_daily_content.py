@@ -315,8 +315,8 @@ def earnings_card(proto,item,soup):
             clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
         tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8，{time_label}）" if time_known else f"台灣日期 {tw:%Y/%m/%d}（{time_label}未公告）"
         us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}，{time_label}）" if time_known else f"美股日期 {us_day:%Y/%m/%d}（{session}，{time_label}未公告）"
-        eps_detail=f"市場預估：{eps_text(item.get('eps_estimate'),item)}；實際：{eps_text(item.get('eps_actual'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"
-        rev_detail=f"市場預估：{revenue_text(item.get('revenue_estimate'),item)}；實際：{revenue_text(item.get('revenue_actual'),item)}；幣別／單位：{item.get('revenue_currency') or '待核實'}／{item.get('revenue_unit') or '待核實'}。"
+        eps_detail=f"市場預估：{eps_text(item.get('eps_estimate'),item)}；實際：{eps_text(item.get('eps_actual'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"+(("備註："+item["eps_note"]) if item.get("eps_note") else "")
+        rev_detail=f"市場預估：{revenue_text(item.get('revenue_estimate'),item)}；實際：{revenue_text(item.get('revenue_actual'),item)}；幣別／單位：{item.get('revenue_currency') or '待核實'}／{item.get('revenue_unit') or '待核實'}。"+(("備註："+item["revenue_note"]) if item.get("revenue_note") else "")
         if released:
             values=[
               ("公布時段",us_label+"；"+tw_label),
