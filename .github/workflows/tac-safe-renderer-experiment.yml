@@ -22,6 +22,8 @@ on:
       - "scripts/run_tac_daily_pipeline.py"
       - "scripts/test_tac_daily_pipeline.py"
       - "scripts/fetch_tac_secondary_market.py"
+      - "scripts/capture_tac_market_bundle.py"
+      - "scripts/test_tac_market_bundle.py"
       - "scripts/test_tac_secondary_market.py"
       - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/adapt_tac_fedwatch_capture.py"
@@ -72,6 +74,8 @@ jobs:
           python scripts/fetch_tac_treasury_fred_fallback.py --self-test
           python scripts/fetch_tac_secondary_market.py --self-test
           python -m unittest -v scripts/test_tac_secondary_market.py
+          python scripts/capture_tac_market_bundle.py --self-test
+          python -m unittest -v scripts/test_tac_market_bundle.py
       - name: Test Investing.com Fed Rate Monitor primary capture and mapping
         run: |
           node scripts/capture_tac_fedwatch_fallback.mjs --self-test
