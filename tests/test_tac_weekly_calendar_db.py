@@ -167,6 +167,9 @@ class WeeklyCalendarDbTests(unittest.TestCase):
     def test_tac_star_and_archive_policy(self):
         low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
         self.assertTrue(any("TAC 4 or 5" in e for e in validate_week(low)))
+        low_earnings=self.week(events={"economic":[],
+            "earnings":[self.event("low-earnings","2026-11-02T10:00:00+08:00",3)]})
+        self.assertTrue(any("TAC 4 or 5" in e for e in validate_week(low_earnings)))
         archived=self.week("2026-W44","2026-10-26","2026-10-30",{
             "economic":[self.event("four","2026-10-30T10:00:00+08:00",4,"released")],"earnings":[]})
         archived["status"]="archive_candidate"
