@@ -99,6 +99,27 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(merged["meta"],content["meta"])
             self.assertEqual(merged["coverage"]["previous_economic_calendar"]["status"],"incomplete")
 
+    def test_snapshot_without_previous_week_still_exports_empty_previous_arrays(self):
+        current=self.week()
+        with tempfile.TemporaryDirectory() as td:
+            current_path=Path(td)/"current.json"; out=Path(td)/"snapshot.json"
+            current_path.write_text(json.dumps(current),encoding="utf-8")
+            args=type("Args",(),{"file":str(current_path),"report_date":"2026-11-02",
+                                 "output":str(out),"previous_week_file":None})()
+            self.assertEqual(cmd_snapshot(args),0)
+            snap=json.loads(out.read_text(encoding="utf-8"))
+            self.assertEqual(snap["previous_economic_calendar"],[])
+            self.assertEqual(snap["previous_earnings_calendar"],[])
+            self.assertEqual(snap["coverage"]["previous_economic_calendar"]["status"],"not_applicable")
+
+    def test_released_events_require_actual_financial_fields(self):
+        economic=self.event("e1","2026-11-02T10:00:00+08:00",5,"released")
+        errors=validate_week(self.week(events={"economic":[economic],"earnings":[]}))
+        self.assertTrue(any("requires actual" in e for e in errors))
+        earnings=self.event("r1","2026-11-02T10:00:00+08:00",5,"released")
+        errors=validate_week(self.week(events={"economic":[],"earnings":[earnings]}))
+        self.assertTrue(any("requires numeric eps_actual" in e for e in errors))
+
     def test_tac_star_and_archive_policy(self):
         low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
         self.assertTrue(any("TAC 4 or 5" in e for e in validate_week(low)))
