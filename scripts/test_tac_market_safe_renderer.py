@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, slot_text_span)
+from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span)
 
 
 def minimal_contract():
@@ -83,8 +83,7 @@ class SafeMarketRendererTests(unittest.TestCase):
                 for group_name, spec in binding["groups"].items():
                     if group_name not in {"global_indices","sectors","bonds","fx","energy","precious_metals"}:
                         continue
-                    container = [n for n in parser.root.children if False]
-                    containers = [n for n in __import__("render_tac_market_safe").select(parser.root, spec["container"])]
+                    containers = select(parser.root, spec["container"])
                     self.assertEqual(len(containers), 1, f"{label}.{group_name} container")
                     group = {}
                     keys = spec.get("key_by_label", spec.get("key_by_ticker", {}))
