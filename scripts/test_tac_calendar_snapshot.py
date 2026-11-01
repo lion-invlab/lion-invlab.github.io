@@ -71,7 +71,8 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertEqual(len(econ_prior[0]["items"]), 8)
         self.assertEqual(len(earn_prior), 1)
         self.assertEqual(len(earn_prior[0]["items"]), 8)
-        self.assertEqual(len(snapshot["economic_calendar"]["panels"]["current_week"]["lists"]), 1)
+        self.assertEqual(len(snapshot["economic_calendar"]["panels"]["current_week"]["lists"]), 3)
+        self.assertEqual([len(x["items"]) for x in snapshot["economic_calendar"]["panels"]["current_week"]["lists"]], [0, 11, 0])
         html = self.render_calendar_groups(self.monday, snapshot)
         self.assertIn("日本央行（BOJ）利率決策及10月展望報告", html)
         self.assertIn("AstraZeneca", html)
@@ -79,9 +80,18 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertEqual(len(re.findall(r'class="econ-event(?:\s|")', html)), 23)
         self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\s|")', html)), 38)
 
-    def test_monday_blocks_nonempty_today_bucket_without_approved_list(self):
-        with self.assertRaisesRegex(ValueError, "non-empty status bucket.*today.*no approved list container"):
-            build_calendar_snapshot(self.current, self.previous, "2026-11-02", self.monday, self.binding)
+    def test_monday_creates_today_and_published_lists_from_approved_empty_states(self):
+        snapshot = build_calendar_snapshot(self.current, self.previous, "2026-11-02", self.monday, self.binding)
+        econ_lists = snapshot["economic_calendar"]["panels"]["current_week"]["lists"]
+        earnings_lists = snapshot["earnings_calendar"]["panels"]["current_week"]["lists"]
+        self.assertEqual(len(econ_lists), 3)
+        self.assertGreater(len(econ_lists[0]["items"]), 0)
+        self.assertEqual(len(earnings_lists), 3)
+        html = self.render_calendar_groups(self.monday, snapshot)
+        self.assertIn('class="econ-event-list"', html)
+        self.assertIn('class="earnings-accordion-list"', html)
+        self.assertNotIn("目前沒有已核實、排定於 10/26", html)
+        self.assertNotIn("目前沒有已核實、排定於 11/02", html)
 
     def test_released_earnings_have_two_actual_result_cards(self):
         # Move all earnings to the previous day within this ISO week and mark
