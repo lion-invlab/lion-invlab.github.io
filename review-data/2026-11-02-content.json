@@ -5,7 +5,7 @@
     "trading_date": "2026-10-30",
     "generated_at": "2026-11-01T12:17:52+08:00",
     "timezone": "Asia/Taipei",
-    "wr_version": "3.6",
+    "wr_version": "3.7",
     "template_type": "monday",
     "news_window_start": "2026-10-30T12:00:00+08:00",
     "news_window_end": "2026-11-02T05:00:00+08:00"
