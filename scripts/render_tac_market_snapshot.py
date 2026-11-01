@@ -224,39 +224,54 @@ def update_group(source, binding, group_name, snapshot, labels, decimals):
 
 def update_sectors(source, binding, snapshot):
     group = binding["groups"]["sectors"]
-    rows = SourceParser(source).nodes
-    row_nodes = select(rows, group["container"] + " " + group["row"])
+    initial_nodes = SourceParser(source).nodes
+    row_nodes = select(initial_nodes, group["container"] + " " + group["row"])
     ticker_to_node = {}
     for key, ticker in group["key_by_ticker"].items():
         matches = [node for node in row_nodes if re.search(r"\b" + re.escape(ticker) + r"\b", node.text(source))]
         if len(matches) != 1:
             raise ValueError(f"sector ticker {ticker} must resolve exactly once; got {len(matches)}")
         ticker_to_node[key] = matches[0]
-    for key, node in sorted(ticker_to_node.items(), key=lambda item: item[1].start, reverse=True):
-        row = snapshot["sectors"][key]
+
+    updated_fragments = {}
+    for key, original_node in sorted(ticker_to_node.items(), key=lambda item: item[1].start, reverse=True):
+        ticker = group["key_by_ticker"][key]
         current_nodes = SourceParser(source).nodes
-        current_rows = [n for n in select(current_nodes, group["container"] + " " + group["row"])
-            if re.search(r"\b" + re.escape(group["key_by_ticker"][key]) + r"\b", n.text(source))]
+        current_rows = [node for node in select(current_nodes, group["container"] + " " + group["row"])
+            if re.search(r"\b" + re.escape(ticker) + r"\b", node.text(source))]
         if len(current_rows) != 1:
             raise ValueError(f"sector {key} row changed unexpectedly during update")
-        value_nodes = [n for n in select(current_nodes, "span.r") if is_descendant(n, current_rows[0])]
+        current_row = current_rows[0]
+        value_nodes = [node for node in select(current_nodes, "span.r") if is_descendant(node, current_row)]
         if len(value_nodes) != 1:
             raise ValueError(f"sector {key} must have exactly one value slot")
-        source = replace_inner(source, value_nodes[0], format_change(row["change"], "%", 2), status_class(row))
-    # Reparse after replacements and reorder only intact .sector-row fragments.
+        row_data = snapshot["sectors"][key]
+        source = replace_inner(source, value_nodes[0], format_change(row_data["change"], "%", 2), status_class(row_data))
+
+        # Capture this row after update. Processing from bottom to top means later
+        # edits cannot invalidate the source offsets of rows still to be updated.
+        captured_nodes = SourceParser(source).nodes
+        captured_rows = [node for node in select(captured_nodes, group["container"] + " " + group["row"])
+            if re.search(r"\b" + re.escape(ticker) + r"\b", node.text(source))]
+        if len(captured_rows) != 1:
+            raise ValueError(f"sector {key} could not be captured after update")
+        captured = captured_rows[0]
+        updated_fragments[key] = source[captured.start:captured.end]
+
+    # Sort only the existing intact row fragments; preserve the sector-list container.
     parsed = SourceParser(source)
     sector_lists = select(parsed.nodes, ".sector-list")
     if len(sector_lists) != 1:
         raise ValueError("expected exactly one .sector-list container")
     container = sector_lists[0]
-    current_rows = [n for n in select(parsed.nodes, ".sector-row") if is_descendant(n, container)]
-    order = sorted(current_rows, key=lambda n: snapshot["sectors"][ticker_from_text(n.text(source), group["key_by_ticker"])]["change"] if snapshot["sectors"][ticker_from_text(n.text(source), group["key_by_ticker"])]["change"] is not None else float("-inf"), reverse=True)
-    if current_rows:
-        start, end = current_rows[0].start, current_rows[-1].end
-        # Existing row nodes are contiguous in the approved mother; preserve their exact markup.
-        fragments = {n.start: source[n.start:n.end] for n in current_rows}
-        ordered = "".join(fragments[n.start] for n in order)
-        source = source[:start] + ordered + source[end:]
+    ordered_keys = sorted(
+        group["key_by_ticker"].keys(),
+        key=lambda key: snapshot["sectors"][key]["change"]
+            if snapshot["sectors"][key]["change"] is not None else float("-inf"),
+        reverse=True,
+    )
+    ordered_html = "".join(updated_fragments[key] for key in ordered_keys)
+    source = source[:container.open_end] + ordered_html + source[container.close_start:]
     return source
 
 
