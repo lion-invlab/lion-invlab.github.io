@@ -227,7 +227,7 @@ def update_sectors(source, binding, snapshot):
     rows = SourceParser(source).nodes
     row_nodes = select(rows, group["container"] + " " + group["row"])
     ticker_to_node = {}
-    for ticker, key in group["key_by_ticker"].items():
+    for key, ticker in group["key_by_ticker"].items():
         matches = [node for node in row_nodes if re.search(r"\b" + re.escape(ticker) + r"\b", node.text(source))]
         if len(matches) != 1:
             raise ValueError(f"sector ticker {ticker} must resolve exactly once; got {len(matches)}")
@@ -236,7 +236,7 @@ def update_sectors(source, binding, snapshot):
         row = snapshot["sectors"][key]
         current_nodes = SourceParser(source).nodes
         current_rows = [n for n in select(current_nodes, group["container"] + " " + group["row"])
-            if re.search(r"\b" + re.escape(next(t for t, k in group["key_by_ticker"].items() if k == key)) + r"\\b", n.text(source))]
+            if re.search(r"\b" + re.escape(group["key_by_ticker"][key]) + r"\\b", n.text(source))]
         if len(current_rows) != 1:
             raise ValueError(f"sector {key} row changed unexpectedly during update")
         value_nodes = [n for n in select(current_nodes, "span.r") if is_descendant(n, current_rows[0])]
@@ -261,7 +261,7 @@ def update_sectors(source, binding, snapshot):
 
 
 def ticker_from_text(text, mapping):
-    for ticker, key in mapping.items():
+    for key, ticker in mapping.items():
         if re.search(r"\b" + re.escape(ticker) + r"\b", text):
             return key
     raise ValueError("sector row ticker could not be identified")
