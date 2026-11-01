@@ -45,14 +45,15 @@ def sample(report_date,template):
     event_day="2026-11-03" if report_date=="2026-11-02" else "2026-11-04"
     data["economic_calendar"]=[{
       "id":"econ-current","event_date":event_day+"T20:30:00+08:00",
-      "region":"美國","event_name":"Synthetic CPI release","importance_stars":3,
+      "region":"美國","event_name":"Synthetic CPI release","importance_stars":4,
+      "importance_basis":"major_event_assessment","importance_basis_source":"Synthetic test-only TAC impact assessment",
       "previous":"2.0%","forecast":"2.1%","actual":None,"status":"upcoming",
       "impact_judgment":"測試用市場影響判讀","source":src("econ-current")
     }]
     data["earnings_calendar"]=[{
       "id":"earn-current","event_date":event_day+"T21:00:00+08:00",
       "company":"Synthetic Co","ticker":"SYN","session":"after_market",
-      "importance_stars":None,"importance_basis":"major_event_assessment",
+      "importance_stars":4,"importance_basis":"major_event_assessment",
       "importance_basis_source":"Synthetic test-only major event assessment",
       "importance_rating_source":None,"eps_estimate":1.2,"eps_actual":None,
       "revenue_estimate":100.0,"revenue_actual":None,"status":"upcoming",
@@ -61,13 +62,14 @@ def sample(report_date,template):
     if template=="monday":
         data["previous_economic_calendar"]=[{
           "id":"econ-previous","event_date":"2026-10-30T20:30:00+08:00","region":"美國",
-          "event_name":"Synthetic prior CPI release","importance_stars":3,
+          "event_name":"Synthetic prior CPI release","importance_stars":5,
+          "importance_basis":"major_event_assessment","importance_basis_source":"Synthetic test-only TAC impact assessment",
           "previous":"2.0%","forecast":"2.1%","actual":"2.2%","status":"released",
           "impact_judgment":"測試用實際值判讀","source":src("econ-previous")
         }]
         data["previous_earnings_calendar"]=[{
           "id":"earn-previous","event_date":"2026-10-30T21:00:00+08:00","company":"Prior Synthetic Co",
-          "ticker":"PSYN","session":"after_market","importance_stars":None,
+          "ticker":"PSYN","session":"after_market","importance_stars":5,
           "importance_basis":"major_event_assessment","importance_basis_source":"Synthetic test-only assessment",
           "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
           "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
@@ -108,8 +110,8 @@ def run_case(kind,report_date,weekday):
         assert len(soup.select("#calendar .econ-event > summary"))==1
         assert len(soup.select("#earnings .earnings-accordion-toggle"))==1
         assert len(soup.select("#earnings .earnings-detail-field"))>=5
-        assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★"
-        assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="未評級／待核實"
+        assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★★☆"
+        assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="★★★★☆"
         assert "Synthetic CPI release" in soup.select_one("#calendar").get_text()
         assert "Synthetic Co" in soup.select_one("#earnings").get_text()
         assert "加拿大央行利率決議" not in soup.select_one("#calendar").get_text()
@@ -120,7 +122,7 @@ def run_case(kind,report_date,weekday):
         assert "TD Economics" not in soup.select_one("#calendar").get_text()
         assert "StockTitan" not in soup.select_one("#earnings").get_text()
         earnings_coverage_note=soup.select_one("#earnings .title small").get_text(" ",strip=True)
-        assert "未評級／待核實" in earnings_coverage_note, f"earnings coverage note missing marker; actual={earnings_coverage_note!r}"
+        assert "TAC 自主評定四星及五星" in earnings_coverage_note, f"earnings coverage note missing TAC rating rule; actual={earnings_coverage_note!r}"
         assert "3 星經濟事件" not in earnings_coverage_note
         assert "2026/10/23" not in soup.select_one("#sentiment").get_text()
         assert "2026/10/24" not in soup.select_one("#sentiment").get_text()
@@ -141,10 +143,12 @@ def run_case(kind,report_date,weekday):
         if kind=="monday":
             assert len(soup.select("#last-week-calendar .econ-event"))==1
             assert len(soup.select("#last-week-calendar .econ-event-toggle"))==1
+            assert soup.select_one("#last-week-calendar .econ-stars").get_text(strip=True)=="★★★★★"
             assert len(soup.select("#last-week-earnings .earnings-accordion"))==1
             assert "Synthetic prior CPI release" in soup.select_one("#last-week-calendar").get_text()
             assert "Prior Synthetic Co" in soup.select_one("#last-week-earnings").get_text()
             assert len(soup.select("#last-week-earnings .earnings-results-grid"))==1
+            assert soup.select_one("#last-week-earnings .earnings-stars").get_text(strip=True)=="★★★★★"
         else:
             assert not soup.select("#last-week-calendar")
         return result
