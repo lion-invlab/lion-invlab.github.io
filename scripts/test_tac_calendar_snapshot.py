@@ -133,6 +133,45 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertEqual(published[0]["results"][0]["status_class"], "beat")
         self.assertEqual(published[0]["results"][1]["status_class"], "miss")
 
+    def test_same_day_released_events_are_bucketed_as_published(self):
+        current = json.loads(json.dumps(self.current))
+        econ = next(row for row in current["events"]["economic"]
+                    if row["event_date"].startswith("2026-11-02"))
+        econ["status"] = "released"
+        econ["actual"] = "Synthetic actual"
+        earnings = current["events"]["earnings"][0]
+        earnings["status"] = "released"
+        earnings["eps_actual"] = earnings.get("eps_estimate")
+        earnings["revenue_actual"] = earnings.get("revenue_estimate")
+
+        snapshot = build_calendar_snapshot(current, self.previous, "2026-11-02",
+                                           self.monday, self.binding)
+        econ_lists = snapshot["economic_calendar"]["panels"]["current_week"]["lists"]
+        earnings_lists = snapshot["earnings_calendar"]["panels"]["current_week"]["lists"]
+        self.assertTrue(any(item["name"] == econ["event_name"] for item in econ_lists[2]["items"]))
+        self.assertFalse(any(item["name"] == econ["event_name"] for item in econ_lists[0]["items"]))
+        self.assertTrue(any(item["company"] == earnings["company"] for item in earnings_lists[2]["items"]))
+        self.assertFalse(any(item["company"] == earnings["company"] for item in earnings_lists[0]["items"]))
+
+    def test_previous_week_panels_exclude_four_star_events(self):
+        previous = json.loads(json.dumps(self.previous))
+        for kind in ("economic", "earnings"):
+            four_star = json.loads(json.dumps(previous["events"][kind][0]))
+            four_star["id"] = f"four-star-{kind}-should-not-render"
+            four_star["importance_stars"] = 4
+            previous["events"][kind].append(four_star)
+
+        snapshot = build_calendar_snapshot(self.current, previous, "2026-11-02",
+                                           self.monday, self.binding)
+        econ_prior = snapshot["economic_calendar"]["panels"]["last_week"]["lists"]
+        earnings_prior = snapshot["earnings_calendar"]["panels"]["last_week"]["lists"]
+        self.assertEqual(sum(len(group["items"]) for group in econ_prior), 8)
+        self.assertEqual(sum(len(group["items"]) for group in earnings_prior), 8)
+        self.assertFalse(any(item.get("name") == "four-star-economic-should-not-render"
+                             for group in econ_prior for item in group["items"]))
+        self.assertFalse(any(item.get("company") == "four-star-earnings-should-not-render"
+                             for group in earnings_prior for item in group["items"]))
+
     def test_currency_format_preserves_units(self):
         self.assertEqual(currency_amount(2.79, "USD"), "US$2.79")
         self.assertEqual(currency_amount(16.209, "USD", "USD billions"), "US$16.209B")
