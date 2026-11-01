@@ -6,7 +6,7 @@ read-only inputs and are never modified in place.
 """
 from __future__ import annotations
 import argparse
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from html import escape
 import json
 from pathlib import Path
@@ -42,7 +42,7 @@ def date_label(dt):
 def week_bounds(snapshot):
     year, week = map(int, snapshot["meta"]["week_id"].split("-W"))
     monday = date.fromisocalendar(year, week, 1)
-    return monday, monday + __import__("datetime").timedelta(days=4)
+    return monday, monday + timedelta(days=4)
 
 
 def range_label(snapshot):
@@ -176,25 +176,24 @@ def archive_section(events, kind, start, end):
 
 
 def find_section_bounds(html, section_id):
-    match = re.search(r'<section\b[^>]*\bid=["\\']' + re.escape(section_id) + r'["\\'][^>]*>', html, re.I)
+    pattern = r"<section\\b[^>]*\\bid=[\\\"']" + re.escape(section_id) + r"[\\\"'][^>]*>"
+    match = re.search(pattern, html, re.I)
     if not match:
         raise ValueError("approved master missing section anchor: " + section_id)
     depth, pos = 1, match.end()
-    token = re.compile(r'<section\b|</section\s*>', re.I)
+    token = re.compile(r"<section\\b|</section\\s*>", re.I)
     for m in token.finditer(html, pos):
         if m.group(0).lower().startswith("<section"):
             depth += 1
         else:
             depth -= 1
             if depth == 0:
-                return match.start(), m.end(), match.group(0)
+                return match.start(), match.end(), m.start(), m.end()
     raise ValueError("unbalanced section: " + section_id)
 
 
 def replace_section(html, section_id, inner):
-    start, end, _ = find_section_bounds(html, section_id)
-    opening_end = html.index(">", start) + 1
-    closing_start = html.rfind("</section", opening_end, end)
+    start, opening_end, closing_start, end = find_section_bounds(html, section_id)
     return html[:opening_end] + inner + html[closing_start:]
 
 
@@ -226,7 +225,7 @@ def render(template_path, snapshot_path, output_path, mode):
             if key not in snap:
                 raise ValueError("Monday snapshot missing " + key)
             current_start, _ = week_bounds(snap)
-            previous_start = current_start - __import__("datetime").timedelta(days=7)
+            previous_start = current_start - timedelta(days=7)
             previous_end = previous_start + __import__("datetime").timedelta(days=4)
             inner = archive_section(snap[key], kind, f"{previous_start.month}/{previous_start.day}", f"{previous_end.month}/{previous_end.day}")
             template = replace_section(template, section_id, inner)
