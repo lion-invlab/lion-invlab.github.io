@@ -2467,11 +2467,11 @@
         "notes": "EPS 共識 1.96；營收共識 US$202.1B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
-        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
-        "published_at": null
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/amzn/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "GAAP diluted EPS US$1.89；Investing.com 香港站共識 US$1.96，低於預期。",
       "revenue_note": "公司公告 net sales US$201.9B；Investing.com 香港站共識 US$202.1B，略低於預期。",
@@ -2520,11 +2520,11 @@
         "published_at": null
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
-        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
-        "published_at": null
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/intc/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "公司公告 GAAP diluted EPS US$0.60、non-GAAP EPS US$0.52；Investing.com 列示 non-GAAP EPS US$0.52 對共識 US$0.40。",
       "revenue_note": "公司公告營收 US$16.5B；Investing.com 香港站共識 US$16.48B，略高於預期。",
@@ -2616,8 +2616,8 @@
       "revenue_currency": "USD",
       "revenue_unit": "B",
       "eps_comparison_status": "beat",
-      "revenue_comparison_status": "miss",
-      "financial_judgment": "Adjusted EPS高於共識、營收低於共識；調整後獲利 US$10.8B、營運現金流 US$21.0B，並宣布未來三個月 US$5B庫藏股。",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": "Adjusted EPS 高於共識；MarketBeat 列示營收低於共識，但營收定義與公司合併報表的可比口徑仍待交叉確認，暫不作正式 beat/miss 判定。公司調整後獲利 US$10.8B、營運現金流 US$21.0B，並宣布未來三個月 US$5B 庫藏股。",
       "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；NYSE ADR",
       "consensus_source": {
         "name": "MarketBeat｜Shell Q3 2026 Earnings Results",
@@ -2635,7 +2635,7 @@
         "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "Shell每股普通股 adjusted EPS US$1.93；ADR代表兩股普通股，換算每ADR US$3.86。MarketBeat共識 US$3.54，採 ADR 口徑。",
-      "revenue_note": "MarketBeat列示公司營收 US$92.85B、共識 US$93.25B，低於預期；營收定義仍需與公司合併報表再交叉核對。",
+      "revenue_note": "MarketBeat列示公司營收 US$92.85B、共識 US$93.25B；但該營收定義尚未與Shell公司合併報表的收入／其他收入項目完成口徑核對，故比較狀態維持 pending_verification。",
       "time_type": "release_time"
     },
     {
@@ -2735,11 +2735,11 @@
         "published_at": null
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
-        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
-        "published_at": null
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/msft/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "公司公告 non-GAAP diluted EPS US$4.89；GAAP EPS 為 US$4.92。Investing.com／分析師共識 US$4.72，採 non-GAAP 可比口徑。",
       "revenue_note": "公司公告營收 US$92.279B；Investing.com 香港站共識 US$90.61B，高於預期。",
@@ -2788,11 +2788,11 @@
         "published_at": null
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
-        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。",
-        "published_at": null
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/googl/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "Reuters 報導 adjusted EPS US$2.67，低於 LSEG 共識 US$3.02；公司公告 GAAP diluted EPS 為 US$2.12，兩種口徑已明確區分。",
       "revenue_note": "公司公告營收 US$127.577B；Reuters/LSEG 共識 US$128.2B，低於預期。",
@@ -3034,10 +3034,14 @@
         "https://stockanalysis.com/stocks/ma/history/",
         "https://stockanalysis.com/stocks/shel/history/",
         "https://www.investing.com/equities/samsung-electronics-co-ltd-historical-data",
-        "https://stockanalysis.com/stocks/azn/history/"
+        "https://stockanalysis.com/stocks/azn/history/",
+        "https://stockanalysis.com/stocks/msft/history/",
+        "https://stockanalysis.com/stocks/amzn/history/",
+        "https://stockanalysis.com/stocks/intc/history/",
+        "https://stockanalysis.com/stocks/googl/history/"
       ],
       "checked_at": "2026-11-01T12:56:34+08:00",
-      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。已補核 Visa、Mastercard、Shell、Samsung Electronics、AstraZeneca 首個常規交易日收盤反應（以前一交易日收盤至當日收盤計算）；仍有部分 EPS／營收共識口徑與其他公司價格反應待核實，coverage 維持 incomplete。"
+      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家五星企業均已補上首個常規交易日收盤反應，並以歷史日線來源核對；AstraZeneca EPS 共識口徑、Samsung EPS／分析師共識及 Shell 營收可比口徑仍待核實，coverage 維持 incomplete。"
     },
     "economic_calendar": {
       "status": "incomplete",
