@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import unittest
+from unittest.mock import Mock
 from datetime import date
 from pathlib import Path
 
@@ -9,7 +10,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from fetch_tac_secondary_market import (
     INSTRUMENTS, build_fragment, parse_cnn_fear_greed,
-    parse_history_page, pending_record, self_test,
+    parse_history_page, pending_record, fetch_history_record, self_test,
 )
 
 class SecondaryMarketCaptureTests(unittest.TestCase):
@@ -61,6 +62,40 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
             parse_history_page(html, ("Brent Crude Oil",), date(2026, 10, 30))
         with self.assertRaisesRegex(ValueError, "exact trading-date row"):
             parse_history_page(html, ("WTI Crude Oil",), date(2026, 10, 31))
+
+    def test_investing_primary_capture_records_primary_provenance(self):
+        group, key = "energy", "wti"
+        url, instrument, unit, aliases = INSTRUMENTS[group][key]
+        html = """<html><h1>WTI Crude Oil Futures Historical Data</h1>
+        <table><tr><th>Date</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change %</th></tr>
+        <tr><td>Oct 30, 2026</td><td>60.20</td><td>61.00</td><td>61.50</td><td>59.90</td><td>-1.20%</td></tr></table></html>"""
+        response = Mock(text=html)
+        response.raise_for_status.return_value = None
+        session = Mock()
+        session.get.return_value = response
+        record = fetch_history_record(
+            session, key, url, instrument, unit, aliases,
+            date(2026, 10, 30), "2026-11-02T05:00:00+08:00"
+        )
+        session.get.assert_called_once_with(url, timeout=(10, 30))
+        self.assertEqual(record["status"], "verified")
+        self.assertEqual(record["source"]["name"], "Investing.com 香港站")
+        self.assertEqual(record["source"]["url"], url)
+        self.assertFalse(record["fallback_used"])
+
+    def test_investing_primary_failure_stays_pending_without_stale_substitution(self):
+        url, instrument, unit, aliases = INSTRUMENTS["energy"]["wti"]
+        session = Mock()
+        session.get.side_effect = RuntimeError("Investing.com unavailable")
+        record = fetch_history_record(
+            session, "wti", url, instrument, unit, aliases,
+            date(2026, 10, 30), "2026-11-02T05:00:00+08:00"
+        )
+        self.assertEqual(record["status"], "pending_verification")
+        self.assertIsNone(record["value"])
+        self.assertIsNone(record["source"])
+        self.assertFalse(record["fallback_used"])
+        self.assertIn("Investing.com unavailable", record["fallback_reason"])
 
     def test_cnn_timestamp_and_score_are_verified(self):
         now = __import__("datetime").datetime.fromisoformat("2026-10-30T12:00:00+00:00")
