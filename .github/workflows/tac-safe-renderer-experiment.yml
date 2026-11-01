@@ -8,6 +8,7 @@ on:
       - "scripts/test_tac_safe_text_patch.py"
       - "scripts/render_tac_market_safe.py"
       - "scripts/test_tac_market_safe_renderer.py"
+      - "scripts/tac_html_binding_map.json"
       - "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
       - "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
       - ".github/workflows/tac-safe-renderer-experiment.yml"
