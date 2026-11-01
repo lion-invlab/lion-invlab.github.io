@@ -38,7 +38,7 @@
 
 ### 5.4 每日審核版 Orchestrator 契約
 
-1. Orchestrator 只接受已通過 Snapshot Schema 驗證且含來源、觀測時間、交易日期及報價口徑的行情片段；依報告日期選取核准週一或週二至週五母版。
+1. Orchestrator 只接受已通過 Snapshot Schema 驗證且含來源、觀測時間、交易日期及報價口徑的行情片段；依報告日期選取核准週一或週二至週五母版。行情片段由 `capture_tac_market_bundle.py` 統一收集：Investing.com 香港站指數／ETF／FX／商品／VIX／MOVE、U.S. Treasury 官方殖利率、CNN Fear & Greed 及 Investing.com Fed Rate Monitor；Treasury FRED 僅逐欄補足官方來源缺漏，不得覆蓋已核實官方值。
 2. Orchestrator 依 ISO week 讀取本週行事曆資料庫；週一另讀取上一週資料庫。行事曆仍由 Adapter 依母版欄位契約分流及渲染。
 3. 新聞與編輯分析必須由本次輸入片段提供，不得複製母版舊新聞或舊分析。全球焦點新聞固定 5 則，市場熱門頭條固定 10 則；資料不足即停止交付，不以舊內容湊數。
 4. Orchestrator 只產出 `review/YYYY-MM-DD-review.html` 審核版；若同名檔案已存在不得覆寫。不得更新正式首頁、正式 WR、Manifest 或雙母版。
