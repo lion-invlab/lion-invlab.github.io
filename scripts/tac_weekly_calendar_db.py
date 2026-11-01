@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """TAC weekly calendar database prototype (stdlib only)."""
 import argparse, json, re, sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta\nfrom zoneinfo import ZoneInfo
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -24,12 +24,28 @@ def validate_week(data):
     errors=[]
     if data.get("schema_version") != 1: errors.append("schema_version must be 1")
     if data.get("timezone") != "Asia/Taipei": errors.append("timezone must be Asia/Taipei")
-    if not re.fullmatch(r"\d{4}-W\d{2}", str(data.get("week_id",""))): errors.append("invalid ISO week_id")
+    week_id=str(data.get("week_id",""))
+    match=re.fullmatch(r"(\\d{4})-W(\\d{2})",week_id)
+    if not match:
+        errors.append("invalid ISO week_id")
+        expected_start=None
+    else:
+        try:
+            expected_start=date.fromisocalendar(int(match.group(1)),int(match.group(2)),1)
+        except ValueError:
+            errors.append("invalid ISO week number")
+            expected_start=None
     try:
         start=date.fromisoformat(data["week_start"]); end=date.fromisoformat(data["week_end"])
         if end < start: errors.append("week_end precedes week_start")
-    except Exception: errors.append("week_start/week_end must be ISO dates")
+        if expected_start and start != expected_start: errors.append("week_start does not match ISO week_id")
+        if expected_start and end != expected_start + timedelta(days=4):
+            errors.append("week_end must be Friday of the declared ISO week")
+    except Exception: 
+        errors.append("week_start/week_end must be ISO dates")
+        start=end=None
     events=data.get("events",{})
+    archive=data.get("status") in {"archive_candidate","archived"}
     for kind in ("economic","earnings"):
         records=events.get(kind,[])
         ids=set()
@@ -41,11 +57,16 @@ def validate_week(data):
             else: ids.add(eid)
             try:
                 dt=parse_dt(item["event_date"])
-                if "start" in locals() and not (start <= dt.date() <= end):
+                if start and end and not (start <= dt.date() <= end):
                     errors.append(prefix+": event outside declared week")
             except Exception as exc: errors.append(prefix+": "+str(exc))
             stars=item.get("importance_stars")
-            if not isinstance(stars,int) or not 1 <= stars <= 5: errors.append(prefix+": importance_stars must be integer 1..5")
+            if not isinstance(stars,int) or stars not in (4,5):
+                errors.append(prefix+": importance_stars must be TAC 4 or 5")
+            elif archive and stars != 5:
+                errors.append(prefix+": archived prior-week records must be TAC 5-star only")
+            if archive and item.get("status") != "released":
+                errors.append(prefix+": archived prior-week records must be released")
             if item.get("status") not in VALID_STATUS: errors.append(prefix+": invalid status")
             source=item.get("source")
             if not isinstance(source,dict) or not source.get("url"): errors.append(prefix+": source.url required")
@@ -69,7 +90,7 @@ def cmd_upsert(args):
     action="updated" if old else "inserted"
     if old: rows[rows.index(old)]=incoming
     else: rows.append(incoming)
-    now=args.at or datetime.now().astimezone().isoformat(timespec="seconds")
+    now=args.at or datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
     data["updated_at"]=now
     data.setdefault("audit",[]).append({"at":now,"action":"event_"+action,"event_id":incoming["id"],"note":"Idempotent upsert"})
     errors=validate_week(data)
@@ -80,6 +101,8 @@ def cmd_upsert(args):
 
 def cmd_snapshot(args):
     data=load(args.file); report_day=date.fromisoformat(args.report_date)
+    errors=validate_week(data)
+    if errors: raise ValueError("current week invalid: "+"; ".join(errors))
     start=date.fromisoformat(data["week_start"]); end=date.fromisoformat(data["week_end"])
     if not start <= report_day <= end: raise ValueError("report date outside week")
     result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version")},"economic_calendar":[],"earnings_calendar":[],"coverage":{}}
@@ -91,6 +114,13 @@ def cmd_snapshot(args):
         result["coverage"][key]=data["coverage"][kind]
     if args.previous_week_file:
         prev=load(args.previous_week_file)
+        prev_errors=validate_week(prev)
+        if prev_errors: raise ValueError("previous week invalid: "+"; ".join(prev_errors))
+        if prev.get("status") not in {"archive_candidate","archived"}:
+            raise ValueError("previous week must be archive_candidate or archived")
+        expected_previous_monday=start-timedelta(days=7)
+        if date.fromisoformat(prev["week_start"]) != expected_previous_monday:
+            raise ValueError("previous-week file is not the immediately preceding ISO week")
         for kind in ("economic","earnings"):
             key="previous_economic_calendar" if kind=="economic" else "previous_earnings_calendar"
             rows=[x for x in prev["events"][kind] if int(x.get("importance_stars",0))==5 and x.get("status")=="released"]
