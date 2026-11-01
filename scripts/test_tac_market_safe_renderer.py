@@ -456,6 +456,73 @@ class SafeMarketRendererTests(unittest.TestCase):
                 self.assertEqual(render_market_html(source,{"groups":{},"economic_calendar":{"panels":panels}},calendar_binding),source,
                                  f"{label}: economic calendar no-op must preserve every byte")
 
+    def test_real_dual_masters_earnings_calendar_noop_preserves_every_byte(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        spec = binding["groups"]["earnings_calendar"]
+        sel = spec["selectors"]
+        for template_label, relative in binding["templates"].items():
+            with self.subTest(template=template_label):
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                panels={}
+                for panel_key,panel_spec in spec["panels"].items():
+                    containers=select(parser.root,panel_spec["container"])
+                    if not containers:
+                        continue
+                    self.assertEqual(len(containers),1)
+                    items=[]
+                    for accordion in select(containers[0],panel_spec["item_selector"]):
+                        def one(selector,root=accordion):
+                            nodes=select(root,selector)
+                            self.assertEqual(len(nodes),1,f"{template_label}.{panel_key}.{selector}")
+                            spans=coalesce_spans([x for x in spans_inside(nodes[0],parser.spans) if x.text.strip()])
+                            self.assertEqual(len(spans),1,f"{template_label}.{panel_key}.{selector} text")
+                            return unescape(spans[0].text)
+                        company=one(sel["company"])
+                        item={"expected_company":company,"us_date":one(sel["us_date"]),"tw_date":one(sel["tw_date"]),
+                              "company":company,"company_sub":one(sel["company_sub"]),"stars_text":one(sel["stars"]),
+                              "fields":[],"results":[]}
+                        details=select(accordion,sel["details"])
+                        self.assertEqual(len(details),1)
+                        for field in select(details[0],sel["detail_field"]):
+                            labels=select(field,sel["detail_label"]); values=select(field,sel["detail_value"])
+                            self.assertEqual(len(labels),1); self.assertEqual(len(values),1)
+                            field_label=unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))).strip()
+                            anchors=select(values[0],"a")
+                            if anchors:
+                                links=[]
+                                for anchor in anchors:
+                                    spans=coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
+                                    self.assertEqual(len(spans),1)
+                                    links.append({"url":anchor.attrs["href"],"text":unescape(spans[0].text)})
+                                item["fields"].append({"label":field_label,"links":links})
+                            else:
+                                spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
+                                self.assertEqual(len(spans),1,f"{template_label}.{company}.{field_label}")
+                                item["fields"].append({"label":field_label,"text":unescape(spans[0].text)})
+                        for card in select(details[0],sel["result_card"]):
+                            title=one(sel["result_title"],card)
+                            lines=select(card,sel["result_line"])
+                            self.assertEqual(len(lines),2)
+                            line_values=[]
+                            for line in lines:
+                                spans=select(line,"strong")
+                                self.assertEqual(len(spans),1)
+                                line_values.append(unescape("".join(x.text for x in spans_inside(spans[0],parser.spans))).strip())
+                            status=one(sel["result_status"],card)
+                            note=one(sel["result_note"],card)
+                            classes=card.classes.intersection({"beat","miss","pending"})
+                            self.assertEqual(len(classes),1)
+                            item["results"].append({"title":title,"actual":line_values[0],"expected":line_values[1],
+                                                    "status_text":status,"status_class":next(iter(classes)),"note":note})
+                        items.append(item)
+                    panels[panel_key]={"items":items}
+                earnings_binding={"groups":{"earnings_calendar":spec}}
+                self.assertEqual(render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding),source,
+                                 f"{template_label}: earnings no-op must preserve every byte")
+
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
