@@ -269,7 +269,250 @@
       "impact": "雲端與AI供應鏈估值將更依賴資本支出效率、自由現金流與客戶合約可見度。"
     }
   ],
-  "economic_calendar": [],
+  "economic_calendar": [
+    {
+      "id": "current-boj-outlook-20261102",
+      "event_date": "2026-11-02T13:00:00+08:00",
+      "region": "日本",
+      "event_name": "日本央行｜經濟活動與物價展望報告（全文）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Bank of Japan",
+        "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Bank of Japan",
+        "notes": "日本時間 14:00，換算台灣時間 13:00。央行政策展望文件，需觀察對日圓利率路徑與通膨評估的訊號。"
+      }
+    },
+    {
+      "id": "current-us-ism-mfg-20261102",
+      "event_date": "2026-11-02T23:00:00+08:00",
+      "region": "美國",
+      "event_name": "美國 ISM 製造業 PMI（10月）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Institute for Supply Management",
+        "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Institute for Supply Management",
+        "notes": "美東時間 10:00，換算台灣時間 23:00；ISM 官方規定製造業 PMI 於每月第一個營業日 10:00 發布。"
+      }
+    },
+    {
+      "id": "current-rba-rate-20261103",
+      "event_date": "2026-11-03T11:30:00+08:00",
+      "region": "澳洲",
+      "event_name": "澳洲央行利率決策及貨幣政策聲明",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Reserve Bank of Australia",
+        "url": "https://www.rba.gov.au/coming-up/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Reserve Bank of Australia",
+        "notes": "官方公布時間 14:30 AEDT，換算台灣時間 11:30；同時發布 Statement on Monetary Policy。"
+      }
+    },
+    {
+      "id": "current-us-jolts-20261103",
+      "event_date": "2026-11-03T23:00:00+08:00",
+      "region": "美國",
+      "event_name": "美國 JOLTS 職缺數（9月）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/schedule/2026/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "notes": "美東時間 10:00，換算台灣時間 23:00；BLS 官方排程確認 9月 JOLTS 於 11/3 發布。"
+      }
+    },
+    {
+      "id": "current-riksbank-rate-20261104",
+      "event_date": "2026-11-04T16:30:00+08:00",
+      "region": "瑞典",
+      "event_name": "瑞典央行利率決策及貨幣政策更新",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Sveriges Riksbank",
+        "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/?month=11",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Sveriges Riksbank",
+        "notes": "官方決策公告 09:30 CET，換算台灣時間 16:30；同日 11:00 CET 舉行記者會。"
+      }
+    },
+    {
+      "id": "current-adp-20261104",
+      "event_date": "2026-11-04T21:15:00+08:00",
+      "region": "美國",
+      "event_name": "美國 ADP 民間就業報告（10月）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "ADP",
+        "url": "https://www.adpemploymentreport.com/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "ADP",
+        "notes": "紐約聯準銀行經濟日曆列示 08:15 ET，換算台灣時間 21:15；屬官方就業報告前的民間就業參考指標。"
+      }
+    },
+    {
+      "id": "current-us-ism-services-20261104",
+      "event_date": "2026-11-04T23:00:00+08:00",
+      "region": "美國",
+      "event_name": "美國 ISM 服務業 PMI（10月）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Institute for Supply Management",
+        "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Institute for Supply Management",
+        "notes": "美東時間 10:00，換算台灣時間 23:00；ISM 官方規定服務業 PMI 於每月第三個營業日 10:00 發布。"
+      }
+    },
+    {
+      "id": "current-bcb-rate-20261104",
+      "event_date": "2026-11-05T05:30:00+08:00",
+      "region": "巴西",
+      "event_name": "巴西央行 Copom 利率決策",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Banco Central do Brasil",
+        "url": "https://www.bcb.gov.br/en/monetarypolicy/committee?os=0",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Banco Central do Brasil",
+        "notes": "Copom 於 11/3–11/4 開會，決策聲明於巴西時間 18:30 後發布；以台灣時間 11/5 05:30 作最早預計時間，實際分鐘待官方公告。"
+      }
+    },
+    {
+      "id": "current-boe-rate-20261105",
+      "event_date": "2026-11-05T20:00:00+08:00",
+      "region": "英國",
+      "event_name": "英格蘭銀行利率決策、MPC 會議紀錄及貨幣政策報告",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Bank of England",
+        "url": "https://www.bankofengland.co.uk/events/upcoming-events",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Bank of England",
+        "notes": "官方發布時間 12:00 GMT，換算台灣時間 20:00；同時發布 Monetary Policy Summary、Minutes 及 Monetary Policy Report。"
+      }
+    },
+    {
+      "id": "current-norges-rate-20261105",
+      "event_date": "2026-11-05T17:00:00+08:00",
+      "region": "挪威",
+      "event_name": "挪威央行利率決策",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Norges Bank",
+        "url": "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Norges Bank",
+        "notes": "官方公告時間 10:00 CET，換算台灣時間 17:00。"
+      }
+    },
+    {
+      "id": "current-us-nfp-20261106",
+      "event_date": "2026-11-06T21:30:00+08:00",
+      "region": "美國",
+      "event_name": "美國非農就業報告及失業率（10月）",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "U.S. Bureau of Labor Statistics",
+        "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "U.S. Bureau of Labor Statistics",
+        "notes": "美東時間 08:30，換算台灣時間 21:30；BLS 官方排程確認 10月就業報告於 11/6 發布。"
+      }
+    }
+  ],
   "earnings_calendar": [
     {
       "id": "current-pltr-20261102",
@@ -719,10 +962,18 @@
     "economic_calendar": {
       "status": "incomplete",
       "source_refs": [
-        "https://hk.investing.com/economic-calendar/",
-        "https://www.investing.com/economic-calendar/"
+        "https://www.boj.or.jp/en/about/calendar/index.htm",
+        "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
+        "https://www.rba.gov.au/coming-up/",
+        "https://www.bls.gov/schedule/2026/",
+        "https://www.riksbank.se/en-gb/press-and-published/calendar/?month=11",
+        "https://www.adpemploymentreport.com/",
+        "https://www.bcb.gov.br/en/monetarypolicy/committee?os=0",
+        "https://www.bankofengland.co.uk/events/upcoming-events",
+        "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
+        "https://www.bls.gov/schedule/news_release/empsit.htm"
       ],
-      "checked_at": "2026-11-01T21:00:00+08:00"
+      "checked_at": "2026-11-01T21:06:00+08:00"
     },
     "previous_economic_calendar": {
       "status": "incomplete",
