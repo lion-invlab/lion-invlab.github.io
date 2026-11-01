@@ -275,7 +275,8 @@ class SafeMarketRendererTests(unittest.TestCase):
                     "audit_text":audit_text,
                     "aria_label":aria_label
                 }}
-                self.assertEqual(render_market_html(source,snapshot,binding),source,
+                fed_binding = {"rules":binding["rules"],"groups":{"fedwatch":spec}}
+                self.assertEqual(render_market_html(source,snapshot,fed_binding),source,
                                  f"{label}: FedWatch no-op must preserve every byte")
 
     def test_attributes_and_markup_are_preserved(self):
