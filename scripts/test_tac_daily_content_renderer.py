@@ -87,9 +87,11 @@ def sample(report_date,template):
         low_econ=dict(data["previous_economic_calendar"][0])
         low_econ.update({"id":"econ-previous-four-star","importance_stars":4,"event_name":"Must not render four-star prior event"})
         data["previous_economic_calendar"].append(low_econ)
+        data["previous_economic_calendar"].sort(key=lambda x:x["event_date"],reverse=True)
         low_earn=dict(data["previous_earnings_calendar"][0])
         low_earn.update({"id":"earn-previous-four-star","importance_stars":4,"company":"Must Not Render Four-Star Co"})
         data["previous_earnings_calendar"].append(low_earn)
+        data["previous_earnings_calendar"].sort(key=lambda x:x["event_date"],reverse=True)
     return data
 def run_case(kind,report_date,weekday):
     data=sample(report_date,kind)
