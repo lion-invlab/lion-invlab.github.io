@@ -147,7 +147,7 @@ def normalize(text: str) -> str:
 
 
 def label_key(text: str) -> str:
-    return re.sub(r"[^0-9A-Za-z\\u3400-\\u9fff]", "", unescape(text)).casefold()
+    return "".join(ch.casefold() for ch in unescape(text) if ch.isalnum())
 
 
 def resolve_row(group: str, key: str, spec: dict, container: Node,
