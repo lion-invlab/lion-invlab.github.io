@@ -124,6 +124,14 @@ class TacDailyPipelineTests(unittest.TestCase):
                 self.assertIn("測試新聞 global_focus 1", rendered)
                 self.assertIn("7,000.00", rendered)
                 self.assertIn("待核實", rendered)
+                # Real W44/W45 databases must flow through the Monday pipeline:
+                # prior-week five-star events and current-week four/five-star events.
+                self.assertIn("日本央行（BOJ）利率決策及10月展望報告", rendered)
+                self.assertIn("Visa", rendered)
+                self.assertIn("美國 ISM 製造業 PMI（10月）", rendered)
+                self.assertIn("英格蘭銀行利率決策、MPC 會議紀錄及貨幣政策報告", rendered)
+                self.assertIn("Apple", rendered)
+                self.assertIn("Palantir", rendered)
             finally:
                 if output.exists():
                     output.unlink()
