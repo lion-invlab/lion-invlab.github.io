@@ -152,13 +152,25 @@
           "row": ".sbox",
           "key_text": "VIX",
           "value_selector": "strong",
-          "change_selector": ".warn,.up,.down,.flat"
+          "change_selector": ".warn,.up,.down,.flat",
+          "status_class_map": {
+            "positive": "warn",
+            "negative": "down",
+            "neutral": "flat",
+            "warning": "warn"
+          }
         },
         "move": {
           "row": ".sbox",
           "key_text": "MOVE",
           "value_selector": "strong",
-          "change_selector": ".warn,.up,.down,.flat"
+          "change_selector": ".warn,.up,.down,.flat",
+          "status_class_map": {
+            "positive": "warn",
+            "negative": "down",
+            "neutral": "flat",
+            "warning": "warn"
+          }
         },
         "cnn_fear_greed": {
           "row": ".cnn-fg-preview",
