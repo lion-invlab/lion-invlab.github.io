@@ -204,8 +204,6 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
         group_data = snapshot["groups"].get(group_name)
         if not isinstance(group_data, dict):
             raise ValueError(f"snapshot group missing: {group_name}")
-        if not group_data:
-            continue
         container_selector = spec["container"]
         containers = select(parser.root, container_selector)
         if len(containers) != 1:
