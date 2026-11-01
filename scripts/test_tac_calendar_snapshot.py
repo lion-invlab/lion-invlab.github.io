@@ -74,6 +74,7 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertEqual(len(snapshot["economic_calendar"]["panels"]["current_week"]["lists"]), 3)
         self.assertEqual([len(x["items"]) for x in snapshot["economic_calendar"]["panels"]["current_week"]["lists"]], [0, 15, 0])
         html = self.render_calendar_groups(self.monday, snapshot)
+        self.assertIn("目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要經濟事件", html)
         self.assertIn("日本央行（BOJ）利率決策及10月展望報告", html)
         self.assertIn("AstraZeneca", html)
         self.assertIn("Visa", html)
@@ -87,11 +88,28 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertEqual(len(econ_lists), 3)
         self.assertGreater(len(econ_lists[0]["items"]), 0)
         self.assertEqual(len(earnings_lists), 3)
+        before = SourceTreeParser(self.monday)
+        before.feed(self.monday)
+        before.close()
+        econ_before = select(before.root, "#calendar")[0]
+        earnings_before = select(before.root, "#earnings")[0]
+        before_econ_lists = len(select(econ_before, ".econ-event-list"))
+        before_earnings_lists = len(select(earnings_before, ".earnings-accordion-list"))
         html = self.render_calendar_groups(self.monday, snapshot)
-        self.assertIn('class="econ-event-list"', html)
-        self.assertIn('class="earnings-accordion-list"', html)
-        self.assertNotIn("目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要經濟事件", html)
+        after = SourceTreeParser(html)
+        after.feed(html)
+        after.close()
+        econ_after = select(after.root, "#calendar")[0]
+        earnings_after = select(after.root, "#earnings")[0]
+        self.assertEqual(len(select(econ_after, ".calendar-status-group")), 3)
+        self.assertEqual(len(select(econ_after, ".econ-event-list")), before_econ_lists + 1)
+        today_group = select(econ_after, ".calendar-status-group")[0]
+        today_list = select(today_group, ".econ-event-list")
+        self.assertEqual(len(today_list), 1)
+        self.assertEqual(len(select(today_list[0], ".econ-event")), len(econ_lists[0]["items"]))
+        self.assertEqual(len(select(earnings_after, ".earnings-accordion-list")), before_earnings_lists)
         self.assertIn("目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要公司財報", html)
+        self.assertNotIn("目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要經濟事件", html)
 
     def test_released_earnings_have_two_actual_result_cards(self):
         # Move all earnings to the previous day within this ISO week and mark
