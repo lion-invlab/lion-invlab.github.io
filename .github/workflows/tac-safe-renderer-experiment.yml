@@ -13,6 +13,8 @@ on:
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/assemble_tac_daily_snapshot.py"
       - "scripts/assemble_tac_calendar_snapshot.py"
+      - "scripts/compose_tac_daily_snapshot.py"
+      - "scripts/test_compose_tac_daily_snapshot.py"
       - "scripts/import_tac_calendar_capture.py"
       - "scripts/test_tac_calendar_snapshot.py"
       - "data/calendar/weeks/*.json"
@@ -41,6 +43,8 @@ jobs:
         run: python -m unittest -v scripts/test_tac_market_safe_renderer.py
       - name: Run calendar adapter and mother-template integration tests
         run: python -m unittest -v scripts/test_tac_calendar_snapshot.py
+      - name: Run market/calendar snapshot composition tests
+        run: python -m unittest -v scripts/test_compose_tac_daily_snapshot.py
       - name: Run calendar capture importer self-test
         run: python scripts/import_tac_calendar_capture.py --self-test
       - name: Install snapshot schema validator
