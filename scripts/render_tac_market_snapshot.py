@@ -144,7 +144,7 @@ def replace_inner(source, node, value, status=None):
         if status in allowed:
             classes.append(status)
         class_attr = 'class="' + " ".join(classes) + '"'
-        class_pattern = r"\bclass\s*=\s*(['"]).*?\1"
+        class_pattern = r'class\s*=\s*"[^"]*"'
         if re.search(class_pattern, raw_open, re.I|re.S):
             raw_open = re.sub(class_pattern, class_attr, raw_open, count=1, flags=re.I|re.S)
         elif classes:
