@@ -67,7 +67,7 @@ class SourceTreeParser(HTMLParser):
         class_match = re.search(r"""\bclass\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
         if class_match:
             node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
-        for attr_name in ("style", "aria-label"):
+        for attr_name in ("style", "aria-label", "href"):
             attr_match = re.search(r"""\b""" + re.escape(attr_name) + r"""\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
             if attr_match:
                 node.attr_value_spans[attr_name] = (start + attr_match.start(2), start + attr_match.end(2))
@@ -522,6 +522,85 @@ def render_editorial(html: str, parser: SourceTreeParser,
                 raise ValueError(f"editorial.{field_name}: expected one direct text node, found {len(direct_spans)}")
             add_text(direct_spans[0], value, f"editorial.{field_name}")
 
+
+def render_news(html: str, parser: SourceTreeParser,
+                snapshot: dict[str, Any], binding: dict[str, Any],
+                edits: list[tuple[int, int, str]],
+                used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("news")
+    data = snapshot.get("news")
+    if spec is None or data is None:
+        return
+    if not isinstance(data, dict) or set(data) != set(spec["panels"]):
+        raise ValueError("news snapshot must contain exactly the mapped news panels")
+
+    def add_text(node: Node, text: str, label: str):
+        spans = coalesce_spans([x for x in spans_inside(node, parser.spans) if x.text.strip()])
+        if len(spans) != 1:
+            raise ValueError(f"{label}: expected one logical text slot, found {len(spans)}")
+        span = spans[0]
+        ident = (span.start, span.end)
+        if ident in used:
+            raise ValueError(f"{label}: overlapping text slot")
+        used.add(ident)
+        edits.append((span.start, span.end, escape(text, quote=False)))
+
+    def add_href(node: Node, url: str, label: str):
+        if not isinstance(url, str) or not url.startswith("https://") or any(ch in url for ch in ('"', "'", "<", ">")):
+            raise ValueError(f"{label}: source URL must be a valid https URL")
+        span = node.attr_value_spans.get("href")
+        if span is None:
+            raise ValueError(f"{label}: existing href attribute missing")
+        if span in used:
+            raise ValueError(f"{label}: overlapping href slot")
+        used.add(span)
+        edits.append((span[0], span[1], escape(url, quote=True)))
+
+    for panel_key, panel_spec in spec["panels"].items():
+        panel_data = data[panel_key]
+        if not isinstance(panel_data, dict) or not {"meta_text", "items"} <= set(panel_data) or set(panel_data) - {"meta_text", "items", "window_text"}:
+            raise ValueError(f"news.{panel_key}: invalid snapshot fields")
+        containers = select(parser.root, panel_spec["container"])
+        if len(containers) != 1:
+            raise ValueError(f"news.{panel_key}: container missing or duplicated")
+        container = containers[0]
+        meta_nodes = select(container, panel_spec["meta_selector"])
+        if len(meta_nodes) != 1:
+            raise ValueError(f"news.{panel_key}: tab metadata missing or duplicated")
+        add_text(meta_nodes[0], panel_data["meta_text"], f"news.{panel_key}.meta")
+        warning_nodes = select(container, panel_spec["warning_selector"])
+        if len(warning_nodes) == 1:
+            if "window_text" not in panel_data:
+                raise ValueError(f"news.{panel_key}: required time-window warning text missing")
+            add_text(warning_nodes[0], panel_data["window_text"], f"news.{panel_key}.window")
+        elif len(warning_nodes) > 1 or "window_text" in panel_data:
+            raise ValueError(f"news.{panel_key}: unexpected or duplicated time-window warning slot")
+
+        item_nodes = select(container, panel_spec["item_selector"])
+        items = panel_data["items"]
+        if not isinstance(items, list) or len(item_nodes) != len(items):
+            raise ValueError(f"news.{panel_key}: card count mismatch; template={len(item_nodes)}, snapshot={len(items) if isinstance(items, list) else 'invalid'}")
+        for index, (item_node, item) in enumerate(zip(item_nodes, items)):
+            label = f"news.{panel_key}.items[{index}]"
+            if not isinstance(item, dict) or set(item) != {"title", "summary", "sources"}:
+                raise ValueError(f"{label}: expected title, summary, sources")
+            titles = select(item_node, panel_spec["title_selector"])
+            summaries = select(item_node, panel_spec["summary_selector"])
+            source_containers = select(item_node, panel_spec["sources_container_selector"])
+            if len(titles) != 1 or len(summaries) != 1 or len(source_containers) != 1:
+                raise ValueError(f"{label}: title, summary or source container ambiguous")
+            add_text(titles[0], item["title"], f"{label}.title")
+            add_text(summaries[0], item["summary"], f"{label}.summary")
+            anchors = select(source_containers[0], panel_spec["source_selector"])
+            sources = item["sources"]
+            if not isinstance(sources, list) or len(anchors) != len(sources):
+                raise ValueError(f"{label}: source link count mismatch")
+            for source_index, (anchor, source) in enumerate(zip(anchors, sources)):
+                if not isinstance(source, dict) or set(source) != {"url", "text"}:
+                    raise ValueError(f"{label}.sources[{source_index}]: expected url and text")
+                add_href(anchor, source["url"], f"{label}.sources[{source_index}].url")
+                add_text(anchor, source["text"], f"{label}.sources[{source_index}].text")
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
         raise ValueError("snapshot must contain a groups object")
@@ -605,6 +684,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
     render_risk_indicators(html, parser, snapshot, binding, edits, used)
     render_fedwatch(html, parser, snapshot, binding, edits, used)
     render_editorial(html, parser, snapshot, binding, edits, used)
+    render_news(html, parser, snapshot, binding, edits, used)
 
     result = html
     for start, end, replacement in sorted(edits, reverse=True):
