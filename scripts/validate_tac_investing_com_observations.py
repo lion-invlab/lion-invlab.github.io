@@ -68,7 +68,7 @@ def sample(schema: dict) -> dict:
             "trading_date": "2026-10-30",
             "generated_at": "2026-11-01T09:00:00+08:00",
             "timezone": "Asia/Taipei",
-            "wr_version": "3.8",
+            "wr_version": "3.10",
             "capture_operator": "ChatGPT direct webpage review",
         },
         "expected_asset_ids": expected,
