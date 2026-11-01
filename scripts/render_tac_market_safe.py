@@ -93,11 +93,11 @@ class SourceTreeParser(HTMLParser):
         node.start_tag_end = start + len(raw_tag)
         node.end_tag_start = node.start_tag_end
         node.end_tag_end = node.start_tag_end
-        class_match = re.search(r"""\\bclass\\s*=\\s*([\"'])(.*?)\\1""", raw_tag, re.I | re.S)
+        class_match = re.search(r"""\bclass\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
         if class_match:
             node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
         for attr_name in ("style", "aria-label", "href", "content"):
-            attr_match = re.search(r"""\\b""" + re.escape(attr_name) + r"""\\s*=\\s*([\"'])(.*?)\\1""", raw_tag, re.I | re.S)
+            attr_match = re.search(r"""\b""" + re.escape(attr_name) + r"""\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
             if attr_match:
                 node.attr_value_spans[attr_name] = (start + attr_match.start(2), start + attr_match.end(2))
         self.stack[-1].children.append(node)
