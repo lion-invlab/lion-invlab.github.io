@@ -232,7 +232,8 @@
         "meeting": "target_meeting",
         "updated_at": "updated_at",
         "target_rate_range": "target_rate_range",
-        "audit_text": "audit_text"
+        "audit_text": "audit_text",
+        "aria_label": "aria_label"
       }
     }
   },
