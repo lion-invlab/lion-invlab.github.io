@@ -5,6 +5,7 @@ All market values are explicitly synthetic and used only to exercise the rendere
 Calendar cards come from the checked-in weekly JSON and the approved adapter.
 """
 from __future__ import annotations
+import copy
 import json
 from pathlib import Path
 import sys
@@ -67,8 +68,25 @@ def build():
             "aria_label": "合成測試：維持不變 80%，升息一碼 20%",
         }
         report_date = "2026-11-02" if kind == "monday" else "2026-11-03"
+        calendar_source = current
+        if kind == "weekday":
+            # The weekday fixture represents a Tuesday report. Mark Monday's
+            # already-published events as synthetic released records so the
+            # adapter's real chronology guard is exercised without weakening it.
+            calendar_source = copy.deepcopy(current)
+            for row in calendar_source["events"]["economic"]:
+                if row["event_date"].startswith("2026-11-02"):
+                    row["status"] = "released"
+                    row["actual"] = "合成視覺測試實績"
+            for row in calendar_source["events"]["earnings"]:
+                if row["event_date"].startswith("2026-11-02"):
+                    row["status"] = "released"
+                    row["eps_actual"] = row.get("eps_estimate")
+                    row["revenue_actual"] = row.get("revenue_estimate")
+                    row["eps_comparison_status"] = "beat"
+                    row["revenue_comparison_status"] = "miss"
         calendar = build_calendar_snapshot(
-            current, previous if kind == "monday" else None,
+            calendar_source, previous if kind == "monday" else None,
             report_date, template, binding
         )
         snapshot.update(calendar)
