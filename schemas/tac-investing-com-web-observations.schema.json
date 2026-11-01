@@ -95,8 +95,7 @@
         "silver_si",
         "vix",
         "move",
-        "cnn_fear_greed",
-        "fedwatch"
+        "cnn_fear_greed"
       ]
     },
     "observations": {
@@ -106,6 +105,126 @@
       "items": {
         "$ref": "#/$defs/observation"
       }
+    },
+    "fedwatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_meeting",
+        "updated_at",
+        "source",
+        "probabilities",
+        "retrieval_method",
+        "verification_status",
+        "notes"
+      ],
+      "properties": {
+        "target_meeting": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "url"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "probabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "rate_range",
+              "probability"
+            ],
+            "properties": {
+              "rate_range": {
+                "type": "string",
+                "minLength": 1
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "retrieval_method": {
+          "const": "chatgpt_direct_webpage_read"
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "pending_verification",
+            "missing"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification_status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "verification_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_meeting": {
+                "type": "string",
+                "minLength": 1
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "source": {
+                "type": "object"
+              },
+              "probabilities": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
     }
   },
   "$defs": {
