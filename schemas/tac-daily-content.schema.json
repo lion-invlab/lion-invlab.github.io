@@ -573,20 +573,114 @@
             "null"
           ]
         },
-        "industry": {"type":["string","null"],"maxLength":120},
-        "reporting_period": {"type":["string","null"],"maxLength":80},
-        "time_known": {"type":"boolean"},
-        "time_type": {"enum":["release_time","call_time","session_only","unknown",null]},
-        "eps_basis": {"type":["string","null"],"maxLength":80},
-        "eps_currency": {"type":["string","null"],"maxLength":8},
-        "revenue_currency": {"type":["string","null"],"maxLength":8},
-        "revenue_unit": {"type":["string","null"],"maxLength":32},
-        "eps_comparison_status": {"enum":["beat","met","miss","pending_verification","not_comparable",null]},
-        "revenue_comparison_status": {"enum":["beat","met","miss","pending_verification","not_comparable",null]},
-        "financial_judgment": {"type":["string","null"],"maxLength":1200},
-        "stock_price_reaction_window": {"type":["string","null"],"maxLength":200},
-        "consensus_source": {"oneOf":[{"$ref":"#/$defs/source"},{"type":"null"}]},
-        "price_reaction_source": {"oneOf":[{"$ref":"#/$defs/source"},{"type":"null"}]},
+        "industry": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "reporting_period": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 80
+        },
+        "time_known": {
+          "type": "boolean"
+        },
+        "time_type": {
+          "enum": [
+            "release_time",
+            "call_time",
+            "session_only",
+            "unknown",
+            null
+          ]
+        },
+        "eps_basis": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 80
+        },
+        "eps_currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 8
+        },
+        "revenue_currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 8
+        },
+        "revenue_unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 32
+        },
+        "eps_comparison_status": {
+          "enum": [
+            "beat",
+            "met",
+            "miss",
+            "pending_verification",
+            "not_comparable",
+            null
+          ]
+        },
+        "revenue_comparison_status": {
+          "enum": [
+            "beat",
+            "met",
+            "miss",
+            "pending_verification",
+            "not_comparable",
+            null
+          ]
+        },
+        "financial_judgment": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 1200
+        },
+        "stock_price_reaction_window": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "consensus_source": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/source"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "price_reaction_source": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/source"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "session": {
           "enum": [
             "before_market",
@@ -597,7 +691,10 @@
         },
         "importance_stars": {
           "type": "integer",
-          "enum": [4, 5]
+          "enum": [
+            4,
+            5
+          ]
         },
         "importance_basis": {
           "const": "major_event_assessment"
@@ -650,8 +747,55 @@
         },
         "source": {
           "$ref": "#/$defs/source"
+        },
+        "eps_note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
+        },
+        "revenue_note": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 500
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "released"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "required": [
+              "industry",
+              "reporting_period",
+              "time_known",
+              "eps_basis",
+              "eps_currency",
+              "revenue_currency",
+              "revenue_unit",
+              "eps_comparison_status",
+              "revenue_comparison_status",
+              "financial_judgment",
+              "stock_price_reaction_window",
+              "consensus_source",
+              "price_reaction_source",
+              "eps_note",
+              "revenue_note"
+            ]
+          }
+        }
+      ]
     },
     "coverageStatus": {
       "type": "object",
