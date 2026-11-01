@@ -372,6 +372,18 @@
         "panels": "panels"
       },
       "container": "#earnings"
+    },
+    "report_meta": {
+      "title_selector": "title",
+      "report_date_selector": ".report-date",
+      "status_selector": ".status",
+      "report_date_meta_name": "report-date",
+      "monday_status_date_field": "report_date",
+      "weekday_status_date_field": "trading_date",
+      "snapshot_fields": {
+        "report_date": "report_date",
+        "trading_date": "trading_date"
+      }
     }
   },
   "protected_paths": [
