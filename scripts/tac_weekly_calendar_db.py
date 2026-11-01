@@ -97,8 +97,8 @@ def quality_report(data):
         rows=data.get("events",{}).get(kind,[])
         unknown_time=sum(1 for x in rows if x.get("time_known") is False or x.get("session")=="unknown")
         if kind=="economic":
-            missing={"previous":sum("previous" not in x for x in rows),
-                     "forecast":sum("forecast" not in x for x in rows),
+            missing={"previous":sum(x.get("previous") in (None,"") for x in rows),
+                     "forecast":sum(x.get("forecast") in (None,"") for x in rows),
                      "actual_for_released":sum(x.get("status")=="released" and x.get("actual") in (None,"") for x in rows)}
         else:
             missing={"eps_estimate":sum(not isinstance(x.get("eps_estimate"),(int,float)) for x in rows),
