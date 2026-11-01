@@ -720,7 +720,10 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             raise ValueError(f"economic_calendar.{panel_key}: container missing or duplicated")
         if panel_data is None:
             raise ValueError(f"economic_calendar.{panel_key}: snapshot panel missing")
-        if not isinstance(panel_data, dict) or set(panel_data) != {"items"} or not isinstance(panel_data["items"], list):
+        if not isinstance(panel_data, dict) or not (
+            set(panel_data) == {"items"} and isinstance(panel_data["items"], list)
+            or set(panel_data) == {"lists"} and isinstance(panel_data["lists"], list)
+        ):
             raise ValueError(f"economic_calendar.{panel_key}: invalid panel snapshot")
         event_nodes = select(containers[0], panel_spec["event_selector"])
         if "lists" in panel_data:
@@ -850,7 +853,10 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             continue
         if len(containers) != 1:
             raise ValueError(f"earnings_calendar.{panel_key}: container missing or duplicated")
-        if panel_data is None or not isinstance(panel_data,dict) or set(panel_data) != {"items"} or not isinstance(panel_data["items"],list):
+        if panel_data is None or not isinstance(panel_data,dict) or not (
+            set(panel_data) == {"items"} and isinstance(panel_data["items"],list)
+            or set(panel_data) == {"lists"} and isinstance(panel_data["lists"],list)
+        ):
             raise ValueError(f"earnings_calendar.{panel_key}: invalid or missing panel snapshot")
         item_nodes = select(containers[0],panel_spec["item_selector"])
         if "lists" in panel_data:
