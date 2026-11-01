@@ -373,7 +373,7 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
             raise ValueError(f"fedwatch.{key}: width token ambiguous")
         w = widths[0]
         ident = (style_span[0] + w.start(), style_span[0] + w.end())
-        current_width = re.search(r"(?i)width\s*:\s*([0-9]+(?:\.[0-9]+)?)%", w.group(0))
+        current_width = re.search(r"([0-9]+(?:\.[0-9]+)?)%", raw_style)
         if current_width is None:
             raise ValueError(f"fedwatch.{key}: existing width value is not a percentage")
         if abs(float(current_width.group(1)) - p) > 0.001:
