@@ -2344,6 +2344,29 @@
       },
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+    },
+    {
+      "id": "prev-boc-rate-20261028",
+      "event_date": "2026-10-28T21:45:00+08:00",
+      "region": "加拿大",
+      "event_name": "加拿大央行（BoC）利率決策",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "G7主要央行政策轉向；首次自2023年7月以來升息，政策利率調升25基點，可能影響加幣、加拿大債券殖利率及北美利率定價。Reuters 34位經濟學家調查中19位預期升息，市場仍存在政策路徑分歧。",
+      "previous": "2.25%",
+      "forecast": "2.50%（Reuters調查34位經濟學家中19位預期升息25基點）",
+      "actual": "2.50%（升息25基點；Bank Rate 2.75%、存款利率2.45%）",
+      "status": "released",
+      "impact_judgment": "加拿大央行首度自2023年7月以來升息，反映能源價格推升通膨風險及經濟活動較預期具韌性；決策方向偏鷹，需留意加拿大短端利率與加幣重新定價。",
+      "time_known": true,
+      "time_type": "release_time",
+      "source": {
+        "name": "Bank of Canada",
+        "url": "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+        "published_at": "2026-10-28T09:45:00-04:00",
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "官方利率決策公告；Reuters調查作為預期值佐證。"
+      }
     }
   ],
   "previous_earnings_calendar": [
@@ -3021,10 +3044,11 @@
         "https://www.reuters.com/world/asia-pacific/tokyo-core-inflation-exceeds-boj-target-october-2026-10-29/",
         "https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/",
         "https://www.cmegroup.com/education/events/econoday/663431",
-        "https://www.gov.uk/government/speeches/budget-2026-speech"
+        "https://www.gov.uk/government/speeches/budget-2026-speech",
+        "https://www.investing.com/news/economy-news/bank-of-canada-to-raise-rates-to-250-on-october-28-and-once-again-by-endmarch-reuters-poll-4970116"
       ],
-      "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "依 WR v3.7 最新規則，上週經濟行事曆僅保留 TAC 五星事件；四星及以下不顯示。"
+      "checked_at": "2026-11-01T12:56:34+08:00",
+      "notes": "依 WR v3.7，上週區塊僅保留五星。補入加拿大央行 10/28 利率決策（首次自2023年7月以來升息）；Reuters 調查顯示 34 位經濟學家中 19 位預期升息，實際結果與多數預期一致。其餘五星事件仍需完成全球漏項掃描及資料交叉核對，coverage 維持 incomplete。"
     }
   }
 }
