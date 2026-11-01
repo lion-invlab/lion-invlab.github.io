@@ -1,0 +1,464 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lion-invlab.github.io/schemas/tac-investing-com-web-observations.schema.json",
+  "title": "TAC ChatGPT Direct Web Observation Input",
+  "description": "Evidence-bearing input captured by ChatGPT through direct reading of source webpages. Automated scrapers are not the primary quote path.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "meta",
+    "expected_asset_ids",
+    "observations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "report_date",
+        "trading_date",
+        "generated_at",
+        "timezone",
+        "wr_version",
+        "capture_operator"
+      ],
+      "properties": {
+        "report_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "trading_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timezone": {
+          "const": "Asia/Taipei"
+        },
+        "wr_version": {
+          "const": "3.8"
+        },
+        "capture_operator": {
+          "const": "ChatGPT direct webpage review"
+        }
+      }
+    },
+    "expected_asset_ids": {
+      "const": [
+        "dow",
+        "sp500",
+        "nasdaq_composite",
+        "russell_2000",
+        "sox",
+        "hang_seng",
+        "shanghai_composite",
+        "shenzhen_component",
+        "nikkei_225",
+        "kospi",
+        "twse",
+        "singapore_sti",
+        "asx_200",
+        "ftse_100",
+        "dax",
+        "cac_40",
+        "stoxx_europe_600",
+        "xlk",
+        "xly",
+        "xlb",
+        "xlu",
+        "xli",
+        "xlv",
+        "xlf",
+        "xlc",
+        "xlre",
+        "xlp",
+        "xle",
+        "us_2y",
+        "us_10y",
+        "us_30y",
+        "dxy",
+        "usd_twd",
+        "eur_usd",
+        "gbp_usd",
+        "aud_usd",
+        "usd_jpy",
+        "wti",
+        "brent",
+        "gold_gc",
+        "silver_si",
+        "vix",
+        "move",
+        "cnn_fear_greed"
+      ]
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/observation"
+      }
+    },
+    "fedwatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_meeting",
+        "updated_at",
+        "source",
+        "probabilities",
+        "retrieval_method",
+        "verification_status",
+        "notes"
+      ],
+      "properties": {
+        "target_meeting": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "source": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "url"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "probabilities": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "rate_range",
+              "probability"
+            ],
+            "properties": {
+              "rate_range": {
+                "type": "string",
+                "minLength": 1
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 100
+              }
+            }
+          }
+        },
+        "retrieval_method": {
+          "const": "chatgpt_direct_webpage_read"
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "pending_verification",
+            "missing"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification_status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "verification_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_meeting": {
+                "type": "string",
+                "minLength": 1
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "source": {
+                "type": "object"
+              },
+              "probabilities": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "asset_id",
+        "instrument",
+        "value_type",
+        "value",
+        "change",
+        "change_unit",
+        "unit",
+        "currency",
+        "quote_basis",
+        "data_date",
+        "observed_at",
+        "source",
+        "retrieval_method",
+        "verification_status",
+        "fallback_used",
+        "fallback_reason",
+        "notes"
+      ],
+      "properties": {
+        "asset_id": {
+          "enum": [
+            "dow",
+            "sp500",
+            "nasdaq_composite",
+            "russell_2000",
+            "sox",
+            "hang_seng",
+            "shanghai_composite",
+            "shenzhen_component",
+            "nikkei_225",
+            "kospi",
+            "twse",
+            "singapore_sti",
+            "asx_200",
+            "ftse_100",
+            "dax",
+            "cac_40",
+            "stoxx_europe_600",
+            "xlk",
+            "xly",
+            "xlb",
+            "xlu",
+            "xli",
+            "xlv",
+            "xlf",
+            "xlc",
+            "xlre",
+            "xlp",
+            "xle",
+            "us_2y",
+            "us_10y",
+            "us_30y",
+            "dxy",
+            "usd_twd",
+            "eur_usd",
+            "gbp_usd",
+            "aud_usd",
+            "usd_jpy",
+            "wti",
+            "brent",
+            "gold_gc",
+            "silver_si",
+            "vix",
+            "move",
+            "cnn_fear_greed",
+            "fedwatch"
+          ]
+        },
+        "instrument": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value_type": {
+          "enum": [
+            "index_level",
+            "price",
+            "yield_percent",
+            "index_score",
+            "probability_percent",
+            "percent_change"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "change": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "change_unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quote_basis": {
+          "enum": [
+            "historical_close",
+            "last_price",
+            "settlement",
+            "daily_yield_curve",
+            "index_score",
+            "fed_funds_probability"
+          ]
+        },
+        "data_date": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "observed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "source": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "name",
+            "url"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "retrieval_method": {
+          "const": "chatgpt_direct_webpage_read"
+        },
+        "verification_status": {
+          "enum": [
+            "verified",
+            "pending_verification",
+            "missing",
+            "market_closed"
+          ]
+        },
+        "fallback_used": {
+          "type": "boolean"
+        },
+        "fallback_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification_status": {
+                "const": "verified"
+              }
+            },
+            "required": [
+              "verification_status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "data_date": {
+                "type": "string",
+                "format": "date"
+              },
+              "source": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "fallback_used": {
+                "const": true
+              }
+            },
+            "required": [
+              "fallback_used"
+            ]
+          },
+          "then": {
+            "properties": {
+              "fallback_reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
