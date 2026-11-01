@@ -294,11 +294,13 @@
       "panels": {
         "last_week": {
           "container": "#last-week-calendar",
-          "event_selector": ".econ-event"
+          "event_selector": ".econ-event",
+          "list_selector": ".econ-event-list"
         },
         "current_week": {
           "container": "#calendar",
-          "event_selector": ".econ-event"
+          "event_selector": ".econ-event",
+          "list_selector": ".econ-event-list"
         }
       },
       "selectors": {
@@ -322,11 +324,13 @@
       "panels": {
         "last_week": {
           "container": "#last-week-earnings",
-          "item_selector": ".earnings-accordion"
+          "item_selector": ".earnings-accordion",
+          "list_selector": ".earnings-accordion-list"
         },
         "current_week": {
           "container": "#earnings",
-          "item_selector": ".earnings-accordion"
+          "item_selector": ".earnings-accordion",
+          "list_selector": ".earnings-accordion-list"
         }
       },
       "selectors": {
