@@ -219,7 +219,7 @@
       },
       "split_bar_selector": ".fc-split-bar",
       "legend_selector": ".fc-split-legend",
-      "audit_container_selector": ".fc-probs-refined",
+      "audit_container_selector": ".fed-live-watch",
       "audit_selector": "details",
       "fomc": {
         "meeting_row": ".fc-fomc-meeting",
