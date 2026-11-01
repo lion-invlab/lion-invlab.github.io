@@ -35,9 +35,9 @@ on:
       - "scripts/capture_tac_investing_calendar.mjs"
       - "scripts/capture_tac_cme_fedwatch.mjs"
       - "scripts/capture_tac_fedwatch_fallback.mjs"
+      - "scripts/select_tac_fedwatch_source.mjs"
+      - "scripts/test_tac_fedwatch_source_selection.mjs"
       - "scripts/capture_tac_investing_calendar.mjs"
-      - "scripts/capture_tac_cme_fedwatch.mjs"
-      - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/render_tac_daily_content.py"
       - "scripts/render_tac_full_report.py"
       - "review-data/2026-11-02-content.json"
@@ -57,6 +57,8 @@ on:
       - "scripts/capture_tac_investing_calendar.mjs"
       - "scripts/capture_tac_cme_fedwatch.mjs"
       - "scripts/capture_tac_fedwatch_fallback.mjs"
+      - "scripts/select_tac_fedwatch_source.mjs"
+      - "scripts/test_tac_fedwatch_source_selection.mjs"
       - "scripts/render_tac_daily_content.py"
       - "scripts/render_tac_full_report.py"
       - "review-data/2026-11-02-content.json"
@@ -215,6 +217,9 @@ jobs:
           if [ -s "/tmp/tac-economic-calendar-previous-2026-10-26.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-previous-2026-10-26.json" --output "/tmp/tac-economic-calendar-previous-fragment-2026-10-26.json"; fi
           if [ -s "/tmp/tac-economic-calendar-current-2026-11-02.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-current-2026-11-02.json" --output "/tmp/tac-economic-calendar-current-fragment-2026-11-02.json"; fi
 
+      - name: Test FedWatch source selection contract
+        run: node scripts/test_tac_fedwatch_source_selection.mjs
+
       - name: Optional public CME FedWatch iframe capture for audit
         continue-on-error: true
         run: |
@@ -230,6 +235,15 @@ jobs:
           node scripts/capture_tac_fedwatch_fallback.mjs \
             --output "/tmp/tac-fedwatch-fallback.json" \
             --text-output "/tmp/tac-fedwatch-fallback.txt"
+
+      - name: Select one validated FedWatch source (CME primary, Investing.com live fallback)
+        if: always()
+        continue-on-error: true
+        run: |
+          node scripts/select_tac_fedwatch_source.mjs \\
+            --cme "/tmp/tac-cme-fedwatch-capture.json" \\
+            --fallback "/tmp/tac-fedwatch-fallback.json" \\
+            --output "/tmp/tac-fedwatch-selected.json" || echo "PENDING: no FedWatch source passed validation"
 
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
