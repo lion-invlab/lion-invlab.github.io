@@ -476,6 +476,7 @@ class SafeMarketRendererTests(unittest.TestCase):
                     if panel["lists"] and panel["lists"][0]["items"]:
                         added = dict(panel["lists"][0]["items"][0])
                         added.update({"expected_name":None,"date":"11/02（一）","time":"09:00","country":"測試","name":"全新測試事件"})
+                        added["stars_text"] = "★★★★☆" if added["stars_text"].count("★") == 5 else "★★★★★"
                         for field in added["fields"]:
                             if "links" in field:
                                 field["links"] = field["links"][:1] if len(field["links"]) > 1 else field["links"] + [{"url":"https://example.com/new-source","text":"新增來源"}]
@@ -564,6 +565,7 @@ class SafeMarketRendererTests(unittest.TestCase):
                         added = dict(panel["lists"][0]["items"][0])
                         added.update({"expected_company":None,"us_date":"11/02（一）盤後","tw_date":"台灣時間 11/03（二）凌晨",
                                       "company":"TAC TestCo","company_sub":"TEST｜測試公司"})
+                        added["stars_text"] = "★★★★☆" if added["stars_text"].count("★") == 5 else "★★★★★"
                         for field in added["fields"]:
                             if "links" in field:
                                 field["links"] = field["links"][:1] if len(field["links"]) > 1 else field["links"] + [{"url":"https://example.com/new-source","text":"新增來源"}]
