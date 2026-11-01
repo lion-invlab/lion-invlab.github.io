@@ -534,6 +534,10 @@
         },
         "consensus_source": {
           "$ref": "#/$defs/source"
+        },
+        "time_known": {
+          "type": "boolean",
+          "description": "False when the event date is confirmed but the exact publication time is not verified."
         }
       }
     },
