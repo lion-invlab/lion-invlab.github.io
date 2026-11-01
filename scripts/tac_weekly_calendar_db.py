@@ -91,6 +91,29 @@ def validate_week(data):
             errors.append(f"coverage.{kind}.status invalid")
     return errors
 
+def cmd_init(args):
+    requested=date.fromisoformat(args.week_of)
+    iso=requested.isocalendar()
+    monday=date.fromisocalendar(iso.year,iso.week,1)
+    friday=monday+timedelta(days=4)
+    output=Path(args.output)
+    if output.exists(): raise FileExistsError(f"refusing to overwrite existing weekly database: {output}")
+    now=args.at or datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
+    data={"schema_version":1,"timezone":"Asia/Taipei","week_id":f"{iso.year}-W{iso.week:02d}",
+        "week_start":monday.isoformat(),"week_end":friday.isoformat(),"created_at":now,"updated_at":now,
+        "source_report_date":monday.isoformat(),"wr_version":args.wr_version,"status":"active",
+        "events":{"economic":[],"earnings":[]},
+        "coverage":{"economic":{"status":"incomplete","notes":"Initial source sweep not yet completed."},
+                    "earnings":{"status":"incomplete","notes":"Initial source sweep not yet completed."}},
+        "audit":[{"at":now,"action":"week_initialized","note":"New ISO week database created; source coverage starts incomplete."}]}
+    errors=validate_week(data)
+    if errors: raise ValueError("; ".join(errors))
+    output.parent.mkdir(parents=True,exist_ok=True)
+    output.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    print(json.dumps({"output":str(output),"week_id":data["week_id"],"week_start":data["week_start"],
+        "week_end":data["week_end"],"status":"initialized","coverage":"incomplete"},ensure_ascii=False,indent=2))
+    return 0
+
 def quality_report(data):
     report={"week_id":data.get("week_id"),"streams":{}}
     for kind in ("economic","earnings"):
@@ -218,6 +241,7 @@ def cmd_apply_snapshot(args):
 def main():
     p=argparse.ArgumentParser(); sub=p.add_subparsers(dest="cmd",required=True)
     v=sub.add_parser("validate"); v.add_argument("--file",required=True); v.set_defaults(fn=cmd_validate)
+    i=sub.add_parser("init"); i.add_argument("--week-of",required=True); i.add_argument("--output",required=True); i.add_argument("--wr-version",default="3.7"); i.add_argument("--at"); i.set_defaults(fn=cmd_init)
     q=sub.add_parser("quality-report"); q.add_argument("--file",required=True); q.add_argument("--output"); q.set_defaults(fn=cmd_quality_report)
     u=sub.add_parser("upsert"); u.add_argument("--file",required=True); u.add_argument("--kind",required=True); u.add_argument("--event",required=True); u.add_argument("--at"); u.set_defaults(fn=cmd_upsert)
     s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot)
