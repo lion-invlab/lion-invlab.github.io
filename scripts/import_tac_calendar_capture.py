@@ -307,7 +307,7 @@ def self_test() -> None:
     assert all(x["importance_stars"] == 5 for x in assembled["previous_earnings_calendar"])
     prior = assembled["previous_earnings_calendar"][0]
     assert prior["industry"] == "Synthetic software"
-    assert prior["time_type"] == "session_only"
+    assert prior["time_type"] == "release_time"
     assert prior["consensus_source"]["name"] == "Synthetic consensus"
     assert prior["price_reaction_source"]["name"] == "Synthetic price reaction"
 
