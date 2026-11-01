@@ -168,14 +168,18 @@ def check_template(path: Path, contract: dict) -> list[str]:
 
         if group == "editorial":
             summary = spec["summary"]
-            summary_nodes = selector_nodes(container, summary["headline_selector"])
-            body_nodes = selector_nodes(container, summary["body_selector"])
-            if len(summary_nodes) != 1:
-                errors.append("editorial: summary headline slot missing or duplicated")
-            if len(body_nodes) != 1:
-                errors.append("editorial: summary body slot missing or duplicated")
-            elif sum(isinstance(child, str) and child.strip() for child in body_nodes[0].children) < 1:
-                errors.append("editorial: summary body has no direct text segments")
+            summary_containers = selector_nodes(root, summary["container"])
+            if len(summary_containers) != 1:
+                errors.append("editorial: summary container missing or duplicated")
+            else:
+                summary_nodes = selector_nodes(summary_containers[0], summary["headline_selector"])
+                body_nodes = selector_nodes(summary_containers[0], summary["body_selector"])
+                if len(summary_nodes) != 1:
+                    errors.append("editorial: summary headline slot missing or duplicated")
+                if len(body_nodes) != 1:
+                    errors.append("editorial: summary body slot missing or duplicated")
+                elif sum(isinstance(child, str) and child.strip() for child in body_nodes[0].children) < 1:
+                    errors.append("editorial: summary body has no direct text segments")
             observation = spec["observation"]
             for field, panel_key, content_key, min_segments in (
                 ("market", "market_panel", "market_text_selector", 1),
