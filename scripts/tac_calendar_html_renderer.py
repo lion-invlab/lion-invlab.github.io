@@ -60,7 +60,7 @@ def source_html(source):
     return f'<a href="{esc(url)}" target="_blank" rel="noopener">{name}</a>'
 
 
-def econ_card(event):
+def econ_card(event, toggle_class="econ-toggle"):
     dt = parse_event_dt(event)
     time = dt.strftime("%H:%M") if event.get("time_known", True) else "時間待核實"
     stars = int(event.get("importance_stars", 0))
@@ -78,7 +78,7 @@ def econ_card(event):
         f'<span class="econ-country">{esc(event.get("region"))}</span>'
         f'<div class="econ-name">{esc(event.get("event_name"))}</div>'
         f'<div class="econ-stars">{star_text}</div></div>'
-        '<span aria-hidden="true" class="econ-toggle"></span></summary><div class="econ-details">'
+        f'<span aria-hidden="true" class="{esc(toggle_class)}"></span></summary><div class="econ-details">'
         f'<div class="econ-field"><label>前值</label><div class="econ-value">{esc(previous)}</div></div>'
         f'<div class="econ-field"><label>市場預估</label><div class="econ-value">{esc(forecast)}</div></div>'
         f'<div class="econ-field"><label>實際</label><div class="econ-value">{esc(actual_text)}</div></div>'
@@ -173,7 +173,7 @@ def archive_section(events, kind, start, end):
     item_class = "econ-event-list" if kind == "economic" else "earnings-accordion-list"
     renderer = econ_card if kind == "economic" else earnings_card
     rows = sorted(events, key=lambda e: parse_event_dt(e))
-    cards = "".join(renderer(e) for e in rows) or '<div class="calendar-status-empty">上週沒有符合規則的已公布五星事件。</div>'
+    cards = "".join(econ_card(e, toggle_class="econ-event-toggle") if kind == "economic" else earnings_card(e) for e in rows) or '<div class="calendar-status-empty">上週沒有符合規則的已公布五星事件。</div>'
     body = f'<div class="calendar-status-group"><h4 class="calendar-status-heading published">上週已公布｜五星事件，依日期排序</h4><div class="{item_class}">{cards}</div></div>'
     return (f'<article class="card calendar-card" style="grid-column:1 / -1"><div class="title" style="color:#b42332!important">'
             f'{title} <small>{start}～{end}｜台灣時間 UTC+8</small></div>'
