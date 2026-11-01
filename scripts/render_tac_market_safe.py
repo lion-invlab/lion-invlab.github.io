@@ -23,7 +23,7 @@ VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link",
         "meta", "param", "source", "track", "wbr"}
 
 
-@dataclass
+@dataclass(eq=False)
 class Node:
     tag: str
     attrs: dict[str, str | None]
