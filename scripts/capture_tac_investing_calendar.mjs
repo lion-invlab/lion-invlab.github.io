@@ -24,6 +24,10 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end) || st
 
 const hosts = [
   { name: "Hong Kong", base: "https://hk.investing.com/economic-calendar/index" },
+  // Mobile regional calendar is a public HTML fallback candidate; it is
+  // accepted only if the same date-range and event-row checks pass.
+  { name: "Australia mobile", base: "https://m.au.investing.com/economic-calendar" },
+  { name: "Australia", base: "https://au.investing.com/economic-calendar" },
   { name: "Global", base: "https://www.investing.com/economic-calendar/index" },
   { name: "United Kingdom", base: "https://uk.investing.com/economic-calendar/index" },
   { name: "Italy", base: "https://it.investing.com/economic-calendar/index" }
