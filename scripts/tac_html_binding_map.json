@@ -19,7 +19,22 @@
     "fail_if_selector_count_differs": true,
     "fail_if_label_or_ticker_missing_or_duplicated": true,
     "allow_mapped_status_class_token_transition": true,
-    "dynamic_region_policy": "Only mapped news item lists, economic/earnings status lists, event cards, nested detail-field rows, and source-link contents may change. Preserve all surrounding containers, status headings, tabs, controls, IDs, classes not explicitly mapped, CSS, scripts, and interactions."
+    "dynamic_region_policy": "Only mapped news item lists, economic/earnings status lists, event cards, nested detail-field rows, and source-link contents may change. Preserve all surrounding containers, status headings, tabs, controls, IDs, classes not explicitly mapped, CSS, scripts, and interactions.",
+    "dynamic_status_class_tokens": {
+      "economic_calendar": [
+        "four-star",
+        "five-star"
+      ],
+      "earnings_calendar": [
+        "five-star-earnings",
+        "five-star-company"
+      ],
+      "earnings_results": [
+        "beat",
+        "miss",
+        "pending"
+      ]
+    }
   },
   "groups": {
     "global_indices": {
