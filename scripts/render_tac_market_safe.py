@@ -800,18 +800,18 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             if not isinstance(panel_data["lists"], list):
                 raise ValueError(f"economic_calendar.{panel_key}: lists must be an array")
             groups = select(containers[0], ".calendar-status-group")
+            legacy_mode = False
             if len(groups) != len(panel_data["lists"]):
                 existing_lists = select(containers[0], panel_spec["list_selector"])
-                mapped_groups = [status_group_for(node) for node in existing_lists]
-                if len(mapped_groups) == len(panel_data["lists"]) and all(mapped_groups):
-                    groups = mapped_groups
+                if len(existing_lists) == len(panel_data["lists"]):
+                    legacy_mode = True
                 else:
                     raise ValueError(f"economic_calendar.{panel_key}: status-group count mismatch")
             event_nodes, items = [], []
             for group_index, list_data in enumerate(panel_data["lists"]):
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
                     raise ValueError(f"economic_calendar.{panel_key}.lists[{group_index}]: invalid items list")
-                group_lists = select(groups[group_index], panel_spec["list_selector"])
+                group_lists = [existing_lists[group_index]] if legacy_mode else select(groups[group_index], panel_spec["list_selector"])
                 if len(group_lists) > 1:
                     raise ValueError(f"economic_calendar.{panel_key}.lists[{group_index}]: duplicate list container")
                 if not group_lists:
@@ -961,18 +961,18 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             if not isinstance(panel_data["lists"], list):
                 raise ValueError(f"earnings_calendar.{panel_key}: lists must be an array")
             groups = select(containers[0], ".calendar-status-group")
+            legacy_mode = False
             if len(groups) != len(panel_data["lists"]):
                 existing_lists = select(containers[0], panel_spec["list_selector"])
-                mapped_groups = [status_group_for(node) for node in existing_lists]
-                if len(mapped_groups) == len(panel_data["lists"]) and all(mapped_groups):
-                    groups = mapped_groups
+                if len(existing_lists) == len(panel_data["lists"]):
+                    legacy_mode = True
                 else:
                     raise ValueError(f"earnings_calendar.{panel_key}: status-group count mismatch")
             item_nodes, items = [], []
             for group_index, list_data in enumerate(panel_data["lists"]):
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
                     raise ValueError(f"earnings_calendar.{panel_key}.lists[{group_index}]: invalid items list")
-                group_lists = select(groups[group_index], panel_spec["list_selector"])
+                group_lists = [existing_lists[group_index]] if legacy_mode else select(groups[group_index], panel_spec["list_selector"])
                 if len(group_lists) > 1:
                     raise ValueError(f"earnings_calendar.{panel_key}.lists[{group_index}]: duplicate list container")
                 if not group_lists:
