@@ -2623,17 +2623,16 @@
       "importance_rating_source": null,
       "eps_estimate": 3.54,
       "eps_actual": 3.86,
-      "revenue_estimate": 93.25,
-      "revenue_actual": 92.85,
+      "revenue_estimate": 95.17,
+      "revenue_actual": 95.32,
       "status": "released",
       "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 +2.36%",
       "source": {
-        "name": "Shell｜Q3 2026 Results Announcement",
-        "url": "https://www.shell.com/news-and-insights/newsroom/news-and-media-releases/2026/third-quarter-2026-results-announcement.html",
-        "published_at": null,
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "publisher": "Shell Investor Relations",
-        "notes": "官方10/29 07:00 GMT發布Q3結果；換算台灣時間15:00。公司公布普通股 adjusted EPS US$1.93、adjusted earnings US$10.8B。"
+        "name": "Shell／Q3 2026 Results",
+        "url": "https://www.shell.com/investors/results-and-reporting/quarterly-results/_jcr_content/root/main/section/simple/promo_1962010312_cop/links/item0.stream/1793238861562/c51182ec68b70b120e29f5a1ede9bd4911d54432/q3-2026-quarterly-press-release.pdf",
+        "published_at": "2026-10-29T00:00:00Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "Shell官方Q3 2026公告；Adjusted Earnings US$10.814B、CFFO US$21.043B。Zacks提供同口徑Total revenue and other income實際值及共識。"
       },
       "industry": "全球能源／整合型石油天然氣與LNG",
       "reporting_period": "2026 Q3",
@@ -2641,18 +2640,17 @@
       "eps_basis": "Adjusted EPS per ADR (two ordinary shares)",
       "eps_currency": "USD",
       "revenue_currency": "USD",
-      "revenue_unit": "B",
+      "revenue_unit": "USD billions",
       "eps_comparison_status": "beat",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": "Adjusted EPS 高於共識；MarketBeat 列示營收低於共識，但營收定義與公司合併報表的可比口徑仍待交叉確認，暫不作正式 beat/miss 判定。公司調整後獲利 US$10.8B、營運現金流 US$21.0B，並宣布未來三個月 US$5B 庫藏股。",
+      "revenue_comparison_status": "beat",
+      "financial_judgment": "Adjusted EPS per ADR US$3.86，高於共識US$3.54；Total revenue and other income US$95.32B，高於共識US$95.17B。公司Adjusted Earnings達US$10.8B、營運現金流US$21.0B，並宣布未來三個月US$5B庫藏股。",
       "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；NYSE ADR",
       "consensus_source": {
-        "name": "MarketBeat｜Shell Q3 2026 Earnings Results",
-        "url": "https://www.marketbeat.com/earnings/reports/2026-10-29-rdsb-stock/",
-        "published_at": null,
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "publisher": "MarketBeat",
-        "notes": "以NYSE SHEL ADR口徑列示 adjusted EPS US$3.86、共識US$3.54；營收US$92.85B、共識US$93.25B。"
+        "name": "Zacks Equity Research",
+        "url": "https://www.zacks.com/stock/news/3019815/shel-q3-earnings-beat-on-record-refining-margins-lng-strength",
+        "published_at": "2026-10-30T00:00:00Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "列示Adjusted EPS per ADS共識US$3.54及Total revenue and other income共識US$95.17B。"
       },
       "price_reaction_source": {
         "name": "StockAnalysis",
@@ -2662,7 +2660,7 @@
         "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "Shell每股普通股 adjusted EPS US$1.93；ADR代表兩股普通股，換算每ADR US$3.86。MarketBeat共識 US$3.54，採 ADR 口徑。",
-      "revenue_note": "MarketBeat列示公司營收 US$92.85B、共識 US$93.25B；但該營收定義尚未與Shell公司合併報表的收入／其他收入項目完成口徑核對，故比較狀態維持 pending_verification。",
+      "revenue_note": "採Zacks列示的 Total revenue and other income：實際US$95.32B、共識US$95.17B，定義一致；不再使用先前未能與合併報表核對的US$92.85B／US$93.25B數值。",
       "time_type": "release_time"
     },
     {
@@ -2675,38 +2673,36 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC五星：半導體／記憶體與全球電子產業為全球大型權值或關鍵產業指標企業，財報對相關產業景氣、供應鏈與跨資產定價具重要影響。",
       "importance_rating_source": null,
-      "eps_estimate": null,
-      "eps_actual": null,
-      "revenue_estimate": null,
-      "revenue_actual": 195.3,
+      "eps_estimate": 13607,
+      "eps_actual": 11462,
+      "revenue_estimate": 204.8,
+      "revenue_actual": 195.25,
       "status": "released",
       "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 -4.13%",
       "source": {
-        "name": "Samsung Electronics｜Q3 2026 Results",
+        "name": "Samsung Electronics／Yonhap",
         "url": "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/",
-        "published_at": null,
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "publisher": "Samsung Electronics",
-        "notes": "官方於10/29發布Q3結果；電話會議時間依官方投資人關係資訊10:00 KST，換算台灣時間09:00。"
+        "published_at": "2026-10-29T00:00:00Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "公司官方公布營收KRW195.3T、營業利益KRW107.4T；Yonhap依監管申報列示淨利KRW75.13T。"
       },
       "industry": "半導體／記憶體與全球電子產業",
       "reporting_period": "2026 Q3",
       "time_known": true,
-      "eps_basis": null,
+      "eps_basis": "Basic EPS - common shares",
       "eps_currency": "KRW",
       "revenue_currency": "KRW",
-      "revenue_unit": "T",
+      "revenue_unit": "KRW trillions",
       "eps_comparison_status": "pending_verification",
-      "revenue_comparison_status": "pending_verification",
-      "financial_judgment": "Q3營收創單季新高 KRW195.3T，營業利益 KRW107.4T；記憶體部門營收及獲利創高，AI半導體需求強勁。",
+      "revenue_comparison_status": "miss",
+      "financial_judgment": "Q3營收KRW195.25T，低於市場共識KRW204.8T；普通股EPS KRW11,462，低於約KRW13,607的市場預估。營業利益雖達KRW107.44T創高，但半導體部門獲利略低於LSEG預期，淨利亦低於Yonhap Infomax共識，市場反應偏負面。",
       "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；韓國 005930 普通股",
       "consensus_source": {
-        "name": "Samsung Electronics｜3Q 2026 Pre-Earnings Guidance",
-        "url": "https://www.samsung.com/global/ir/reports-disclosures/public-disclosure-view.84775/",
-        "published_at": null,
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "publisher": "Samsung Electronics",
-        "notes": "官方10/08預告營收約KRW195T、營業利益約KRW107.4T；這是公司指引，不是市場共識。"
+        "name": "Investing.com／Yonhap Infomax",
+        "url": "https://www.investing.com/news/stock-market-news/samsung-q3-earnings-preview-record-profit-expected-but-margin-outlook-in-focus-93CH-4935549",
+        "published_at": "2026-10-06T22:37:00Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "財報前列示完整季度EPS預估約KRW13,607、營收共識KRW204.8T；Yonhap Infomax淨利共識KRW87.01T。"
       },
       "price_reaction_source": {
         "name": "Investing.com",
@@ -2715,8 +2711,8 @@
         "observed_at": "2026-11-01T12:56:34+08:00",
         "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
-      "eps_note": "公司官方公告提供營收與營業利益，但本輪尚未取得可比 EPS 共識及一致口徑每股實際值；暫不判定。",
-      "revenue_note": "公司10/08官方預告營收約 KRW195T，實際營收 KRW195.3T；該預告不是分析師共識，不作 beat/miss 判定。",
+      "eps_note": "採普通股基本每股盈餘KRW11,462；市場預估約KRW13,607，來自Investing.com財報前共識摘要，需留意估值口徑可能受股數及每股計算基礎影響。 因未能在已取得的一手財報材料中確認普通股EPS與市場EPS估計完全同口徑，暫保留 pending_verification。",
+      "revenue_note": "公司實際銷售額KRW195.25T；Investing.com財報前列示完整季度市場共識KRW204.8T。",
       "time_type": "call_time"
     },
     {
@@ -3065,10 +3061,14 @@
         "https://stockanalysis.com/stocks/msft/history/",
         "https://stockanalysis.com/stocks/amzn/history/",
         "https://stockanalysis.com/stocks/intc/history/",
-        "https://stockanalysis.com/stocks/googl/history/"
+        "https://stockanalysis.com/stocks/googl/history/",
+        "https://www.investing.com/news/stock-market-news/samsung-q3-earnings-preview-record-profit-expected-but-margin-outlook-in-focus-93CH-4935549",
+        "https://en.yna.co.kr/view/AEN20261029002600320?section=k-biz%2Findex",
+        "https://www.zacks.com/stock/news/3019815/shel-q3-earnings-beat-on-record-refining-margins-lng-strength",
+        "https://www.shell.com/investors/results-and-reporting/quarterly-results/_jcr_content/root/main/section/simple/promo_1962010312_cop/links/item0.stream/1793238861562/c51182ec68b70b120e29f5a1ede9bd4911d54432/q3-2026-quarterly-press-release.pdf"
       ],
       "checked_at": "2026-11-01T13:56:34+09:00",
-      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家五星企業均已補上首個常規交易日收盤反應；AstraZeneca EPS／營收已以官方公告及Reuters共識核實。Samsung EPS／分析師共識及Shell營收可比口徑仍待核實，coverage 維持 incomplete。"
+      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家企業均有首個常規交易日價格反應；AstraZeneca EPS／營收、Shell EPS per ADR／Total revenue and other income 已完成共識口徑核對。Samsung營收已補入市場共識，EPS因每股計算基礎仍未能完全確認而保留 pending_verification。"
     },
     "economic_calendar": {
       "status": "incomplete",
