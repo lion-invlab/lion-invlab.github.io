@@ -13,14 +13,14 @@ function parseInvestingTimestamp(value) {
   // Investing.com emits US timezone abbreviations (EDT/EST), which V8 Date.parse
   // does not consistently recognize. Convert them to explicit UTC offsets.
   const normalized = String(value)
-    .replace(/\\bEDT\\b/g, "GMT-0400")
-    .replace(/\\bEST\\b/g, "GMT-0500")
-    .replace(/\\bCDT\\b/g, "GMT-0500")
-    .replace(/\\bCST\\b/g, "GMT-0600")
-    .replace(/\\bMDT\\b/g, "GMT-0600")
-    .replace(/\\bMST\\b/g, "GMT-0700")
-    .replace(/\\bPDT\\b/g, "GMT-0700")
-    .replace(/\\bPST\\b/g, "GMT-0800");
+    .replace(/\bEDT\b/g, "GMT-0400")
+    .replace(/\bEST\b/g, "GMT-0500")
+    .replace(/\bCDT\b/g, "GMT-0500")
+    .replace(/\bCST\b/g, "GMT-0600")
+    .replace(/\bMDT\b/g, "GMT-0600")
+    .replace(/\bMST\b/g, "GMT-0700")
+    .replace(/\bPDT\b/g, "GMT-0700")
+    .replace(/\bPST\b/g, "GMT-0800");
   return Date.parse(normalized);
 }
 
