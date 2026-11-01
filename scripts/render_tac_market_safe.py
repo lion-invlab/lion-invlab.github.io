@@ -34,6 +34,7 @@ class Node:
     start_tag_end: int | None = None
     end_tag_start: int | None = None
     end_tag_end: int | None = None
+    source_start: int | None = None
 
     @property
     def classes(self) -> set[str]:
@@ -68,6 +69,7 @@ class SourceTreeParser(HTMLParser):
         raw_tag = self.get_starttag_text() or ""
         node = Node(tag.lower(), dict(attrs), self.stack[-1])
         node.start_tag_end = start + len(raw_tag)
+        node.source_start = start
         if tag.lower() in VOID:
             node.end_tag_start = node.start_tag_end
             node.end_tag_end = node.start_tag_end
@@ -86,6 +88,7 @@ class SourceTreeParser(HTMLParser):
         start = self.source_offset()
         raw_tag = self.get_starttag_text() or ""
         node = Node(tag.lower(), dict(attrs), self.stack[-1])
+        node.source_start = start
         node.start_tag_end = start + len(raw_tag)
         node.end_tag_start = node.start_tag_end
         node.end_tag_end = node.start_tag_end
@@ -169,6 +172,45 @@ def inner_bounds(node: Node) -> tuple[int, int]:
     if node.start_tag_end > node.end_tag_start:
         raise ValueError(f"{node.tag}: invalid source boundaries; refusing dynamic-region edit")
     return node.start_tag_end, node.end_tag_start
+
+
+def replace_sibling_sequence(source: str, parser: SourceTreeParser,
+                            nodes: list[Node], desired_count: int,
+                            label: str) -> str:
+    """Resize one contiguous sibling card run using its approved first-card prototype.
+
+    Only whitespace may separate cards. All markup outside the first/last card
+    source interval is retained byte-for-byte. A non-empty target cannot be
+    synthesized when the approved template contains no prototype card.
+    """
+    if not isinstance(desired_count, int) or desired_count < 0:
+        raise ValueError(f"{label}: desired card count must be a non-negative integer")
+    if not nodes:
+        if desired_count == 0:
+            return source
+        raise ValueError(f"{label}: no approved card prototype exists")
+    parent = nodes[0].parent
+    if parent is None or any(node.parent is not parent for node in nodes):
+        raise ValueError(f"{label}: cards are not siblings; refusing dynamic resize")
+    positions = [parent.children.index(node) for node in nodes]
+    if positions != list(range(positions[0], positions[0] + len(positions))):
+        raise ValueError(f"{label}: card sequence is not contiguous")
+    for child in parent.children[positions[0]:positions[-1] + 1]:
+        if isinstance(child, Node) and child not in nodes:
+            raise ValueError(f"{label}: non-card element inside dynamic sequence")
+        if isinstance(child, TextSpan) and child.text.strip():
+            raise ValueError(f"{label}: non-whitespace text inside dynamic sequence")
+    first_start, _ = inner_bounds(nodes[0])
+    _, last_end = inner_bounds(nodes[-1])
+    start = nodes[0].source_start
+    end = nodes[-1].end_tag_end
+    if start is None or end is None or start > first_start or end < last_end:
+        raise ValueError(f"{label}: card source range unavailable")
+    prototype = source[start:nodes[0].end_tag_end]
+    if not prototype:
+        raise ValueError(f"{label}: empty approved card prototype")
+    replacement = "\\n".join(prototype for _ in range(desired_count))
+    return source[:start] + replacement + source[end:]
 
 
 def spans_inside(node: Node, spans: list[TextSpan]) -> list[TextSpan]:
@@ -890,6 +932,28 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
     market_groups = snapshot.get("groups", snapshot)
     if not isinstance(market_groups, dict):
         raise ValueError("snapshot market groups must be an object")
+    # Resize only explicitly mapped news-card sibling runs, preserving panel
+    # metadata and warning elements outside each card sequence.
+    news_spec = binding.get("groups", {}).get("news")
+    news_data = snapshot.get("news")
+    if news_spec is not None and isinstance(news_data, dict):
+        pre_parser = SourceTreeParser(html)
+        pre_parser.feed(html)
+        pre_parser.close()
+        for panel_key, panel_spec in news_spec.get("panels", {}).items():
+            panel_data = news_data.get(panel_key)
+            if not isinstance(panel_data, dict) or not isinstance(panel_data.get("items"), list):
+                continue
+            containers = select(pre_parser.root, panel_spec["container"])
+            if len(containers) != 1:
+                raise ValueError(f"news.{panel_key}: container missing or duplicated during dynamic resize")
+            cards = select(containers[0], panel_spec["item_selector"])
+            if len(cards) != len(panel_data["items"]):
+                html = replace_sibling_sequence(html, pre_parser, cards, len(panel_data["items"]), f"news.{panel_key}")
+                pre_parser = SourceTreeParser(html)
+                pre_parser.feed(html)
+                pre_parser.close()
+
     parser = SourceTreeParser(html)
     parser.feed(html)
     parser.close()
