@@ -467,7 +467,7 @@
         "importance_rating_source": null,
         "eps_estimate": 1.98,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 113.4,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -498,7 +498,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.98；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-2",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-pltr-20261102",
@@ -513,7 +519,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.33,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 2.18,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -544,7 +550,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.33；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-2",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-phg-20261103",
@@ -598,7 +610,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.33,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 3.77,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -629,7 +641,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.33；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-pfe-20261102",
@@ -644,7 +662,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.72,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 15.85,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -675,7 +693,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.72；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-amgn-20261102",
@@ -690,7 +714,7 @@
         "importance_rating_source": null,
         "eps_estimate": 5.74,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 10.07,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -721,7 +745,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$5.74；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-anet-20261102",
@@ -736,7 +766,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.99,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 3.33,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -767,7 +797,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.99；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-bkng-20261102",
@@ -782,7 +818,7 @@
         "importance_rating_source": null,
         "eps_estimate": 4.48,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 9.55,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -813,7 +849,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$4.48；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-amd-20261102",
@@ -828,7 +870,7 @@
         "importance_rating_source": null,
         "eps_estimate": 1.68,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 13.09,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -859,7 +901,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.68；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-smci-20261103",
@@ -888,7 +936,7 @@
         "eps_basis": null,
         "eps_estimate": null,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 16.29,
         "revenue_actual": null,
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -898,7 +946,13 @@
         "price_reaction_source": null,
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-bmw-20261104",
@@ -991,7 +1045,7 @@
         "time_known": true,
         "time_type": "call_time",
         "eps_currency": "DKK",
-        "revenue_currency": "DKK",
+        "revenue_currency": "USD",
         "revenue_unit": "B",
         "source": {
           "name": "Novo Nordisk｜Financial Calendar",
@@ -1005,7 +1059,7 @@
         "eps_basis": null,
         "eps_estimate": null,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 11.11,
         "revenue_actual": null,
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -1015,7 +1069,13 @@
         "price_reaction_source": null,
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-uber-20261102",
@@ -1030,7 +1090,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.94,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 14.67,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1061,7 +1121,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.94；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-cvs-20261102",
@@ -1076,7 +1142,7 @@
         "importance_rating_source": null,
         "eps_estimate": 1.62,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 104.72,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1107,7 +1173,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.62；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-ddog-20261102",
@@ -1122,7 +1194,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.18,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 1.15,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1153,7 +1225,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.18；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-mcd-20261104",
@@ -1199,7 +1277,13 @@
         "price_reaction_source": null,
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-su-20261102",
@@ -1260,7 +1344,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.22,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 1.38,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1291,7 +1375,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.22；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-mck-20261102",
@@ -1306,7 +1396,7 @@
         "importance_rating_source": null,
         "eps_estimate": 10.69,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 109.9,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1337,7 +1427,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$10.69；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-dash-20261102",
@@ -1398,7 +1494,7 @@
         "importance_rating_source": null,
         "eps_estimate": 1.46,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 10.14,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1429,7 +1525,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.46；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-app-20261102",
@@ -1444,7 +1546,7 @@
         "importance_rating_source": null,
         "eps_estimate": 3.94,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 2.08,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1475,7 +1577,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$3.94；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-meli-20261102",
@@ -1490,7 +1598,7 @@
         "importance_rating_source": null,
         "eps_estimate": 9.41,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 10.69,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1521,7 +1629,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$9.41；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-toyota-20261105",
@@ -1809,7 +1923,7 @@
         "importance_rating_source": null,
         "eps_estimate": 2.97,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 18.57,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1840,7 +1954,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.97；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-net-20261102",
@@ -1855,7 +1975,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.02,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 0.7368,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1886,7 +2006,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.02；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-abnb-20261102",
@@ -1901,7 +2027,7 @@
         "importance_rating_source": null,
         "eps_estimate": 2.89,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 4.75,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1932,7 +2058,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.89；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-team-20261102",
@@ -1947,7 +2079,7 @@
         "importance_rating_source": null,
         "eps_estimate": 0.24,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 1.71,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1978,7 +2110,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.24；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       },
       {
         "id": "current-lite-20261102",
@@ -1993,7 +2131,7 @@
         "importance_rating_source": null,
         "eps_estimate": 3.82,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 1.25,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -2024,7 +2162,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$3.82；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
       }
     ]
   },
@@ -2075,10 +2219,14 @@
         "https://www.investing.com/equities/mcdonalds-earnings",
         "https://www.philips.com/a-w/about/investor-relations",
         "https://newsroom.aholddelhaize.com/ahold-delhaize-will-publish-its-third-quarter-2026-results-on-november-4-2026/",
-        "https://corporate.arcelormittal.com/investors/financial-calendar"
+        "https://corporate.arcelormittal.com/investors/financial-calendar",
+        "https://www.tipranks.com/calendars/earnings/2026-11-2",
+        "https://www.tipranks.com/calendars/earnings/2026-11-3",
+        "https://www.tipranks.com/calendars/earnings/2026-11-4",
+        "https://www.tipranks.com/calendars/earnings/2026-11-5"
       ],
       "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。"
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。"
     }
   },
   "audit": [
@@ -2494,6 +2642,2642 @@
       },
       "source": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-10-30/upcoming.htm",
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-aapl-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-aapl-20261102",
+        "company": "Apple",
+        "ticker": "AAPL",
+        "event_date": "2026-11-03T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：全球最大權重企業之一，財報牽動大型科技、消費電子供應鏈及全球股指權重。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.98,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.apple.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "消費電子／平台生態系",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.98；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-aapl-20261102",
+        "company": "Apple",
+        "ticker": "AAPL",
+        "event_date": "2026-11-03T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：全球最大權重企業之一，財報牽動大型科技、消費電子供應鏈及全球股指權重。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.98,
+        "eps_actual": null,
+        "revenue_estimate": 113.4,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.apple.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "消費電子／平台生態系",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.98；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-2",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-2",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-pltr-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-pltr-20261102",
+        "company": "Palantir",
+        "ticker": "PLTR",
+        "event_date": "2026-11-03T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：大型AI軟體及政府／企業資料平台指標股，財報可反映企業AI商業化需求。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.33,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investors.palantir.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "企業軟體／AI資料分析",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.33；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-pltr-20261102",
+        "company": "Palantir",
+        "ticker": "PLTR",
+        "event_date": "2026-11-03T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：大型AI軟體及政府／企業資料平台指標股，財報可反映企業AI商業化需求。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.33,
+        "eps_actual": null,
+        "revenue_estimate": 2.18,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investors.palantir.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "企業軟體／AI資料分析",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.33；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-2",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-2",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-shop-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-shop-20261102",
+        "company": "Shopify",
+        "ticker": "SHOP",
+        "event_date": "2026-11-03T21:30:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.33,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "電商平台／金融科技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.33；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-shop-20261102",
+        "company": "Shopify",
+        "ticker": "SHOP",
+        "event_date": "2026-11-03T21:30:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.33,
+        "eps_actual": null,
+        "revenue_estimate": 3.77,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "電商平台／金融科技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.33；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-pfe-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-pfe-20261102",
+        "company": "Pfizer",
+        "ticker": "PFE",
+        "event_date": "2026-11-03T23:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.72,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "製藥／生技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.72；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-pfe-20261102",
+        "company": "Pfizer",
+        "ticker": "PFE",
+        "event_date": "2026-11-03T23:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.72,
+        "eps_actual": null,
+        "revenue_estimate": 15.85,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "製藥／生技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.72；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-amd-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-amd-20261102",
+        "company": "AMD",
+        "ticker": "AMD",
+        "event_date": "2026-11-04T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：AI加速器與資料中心半導體核心供應商，財報對AI資本支出與半導體板塊定價具高影響。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.68,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://ir.amd.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "半導體／AI加速器",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.68；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-amd-20261102",
+        "company": "AMD",
+        "ticker": "AMD",
+        "event_date": "2026-11-04T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：AI加速器與資料中心半導體核心供應商，財報對AI資本支出與半導體板塊定價具高影響。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.68,
+        "eps_actual": null,
+        "revenue_estimate": 13.09,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://ir.amd.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "半導體／AI加速器",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.68；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-smci-20261103",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-smci-20261103",
+        "company": "Super Micro Computer",
+        "ticker": "SMCI",
+        "event_date": "2026-11-04T06:00:00+08:00",
+        "session": "after_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：AI伺服器與資料中心供應鏈重要指標企業；其出貨、毛利及需求展望可影響AI基礎設施相關產業定價。",
+        "industry": "AI伺服器／資料中心基礎設施",
+        "reporting_period": "FY2027 Q1",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Supermicro Investor Relations｜Events & Preliminary Business Update",
+          "url": "https://ir.supermicro.com/events-and-presentations/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方活動頁確認 2026-11-03 17:00 ET 財報電話會議；公司 10/20 已發布初步營運更新，正式結果仍待公布。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "after": {
+        "id": "current-smci-20261103",
+        "company": "Super Micro Computer",
+        "ticker": "SMCI",
+        "event_date": "2026-11-04T06:00:00+08:00",
+        "session": "after_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：AI伺服器與資料中心供應鏈重要指標企業；其出貨、毛利及需求展望可影響AI基礎設施相關產業定價。",
+        "industry": "AI伺服器／資料中心基礎設施",
+        "reporting_period": "FY2027 Q1",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Supermicro Investor Relations｜Events & Preliminary Business Update",
+          "url": "https://ir.supermicro.com/events-and-presentations/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方活動頁確認 2026-11-03 17:00 ET 財報電話會議；公司 10/20 已發布初步營運更新，正式結果仍待公布。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": 16.29,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-anet-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-anet-20261102",
+        "company": "Arista Networks",
+        "ticker": "ANET",
+        "event_date": "2026-11-04T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.99,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investors.arista.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "網路設備／AI資料中心",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.99；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-anet-20261102",
+        "company": "Arista Networks",
+        "ticker": "ANET",
+        "event_date": "2026-11-04T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.99,
+        "eps_actual": null,
+        "revenue_estimate": 3.33,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investors.arista.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "網路設備／AI資料中心",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.99；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-amgn-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-amgn-20261102",
+        "company": "Amgen",
+        "ticker": "AMGN",
+        "event_date": "2026-11-04T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 5.74,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investors.amgen.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "製藥／生技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$5.74；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-amgn-20261102",
+        "company": "Amgen",
+        "ticker": "AMGN",
+        "event_date": "2026-11-04T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 5.74,
+        "eps_actual": null,
+        "revenue_estimate": 10.07,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investors.amgen.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "製藥／生技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$5.74；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-bkng-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-bkng-20261102",
+        "company": "Booking Holdings",
+        "ticker": "BKNG",
+        "event_date": "2026-11-04T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 4.48,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "線上旅遊／平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$4.48；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-bkng-20261102",
+        "company": "Booking Holdings",
+        "ticker": "BKNG",
+        "event_date": "2026-11-04T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 4.48,
+        "eps_actual": null,
+        "revenue_estimate": 9.55,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "線上旅遊／平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$4.48；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-3",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-uber-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-uber-20261102",
+        "company": "Uber",
+        "ticker": "UBER",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.94,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.uber.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "叫車／外送平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.94；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-uber-20261102",
+        "company": "Uber",
+        "ticker": "UBER",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.94,
+        "eps_actual": null,
+        "revenue_estimate": 14.67,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.uber.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "叫車／外送平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.94；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-qcom-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-qcom-20261102",
+        "company": "Qualcomm",
+        "ticker": "QCOM",
+        "event_date": "2026-11-05T05:45:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.46,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.qualcomm.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "半導體／通訊晶片",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.46；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-qcom-20261102",
+        "company": "Qualcomm",
+        "ticker": "QCOM",
+        "event_date": "2026-11-05T05:45:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.46,
+        "eps_actual": null,
+        "revenue_estimate": 10.14,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.qualcomm.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "半導體／通訊晶片",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.46；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-mcd-20261104",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-mcd-20261104",
+        "company": "McDonald's",
+        "ticker": "MCD",
+        "event_date": "2026-11-04T21:30:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球大型餐飲與消費品牌，財報可反映跨區域消費需求、食品成本、加盟體系及消費者支出趨勢。",
+        "industry": "餐飲／全球連鎖消費品牌",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Investing.com｜McDonald's Earnings Calendar",
+          "url": "https://www.investing.com/equities/mcdonalds-earnings",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Investing.com; MarketBeat cross-check",
+          "notes": "Investing.com 確認 11/04 Q3 財報日期；MarketBeat 列示盤前公布及 08:30 ET 電話會議，換算台灣時間 21:30。公司 IR 原始公告仍待補核。"
+        },
+        "consensus_source": {
+          "name": "Investing.com｜McDonald's Earnings Calendar",
+          "url": "https://www.investing.com/equities/mcdonalds-earnings",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Investing.com",
+          "notes": "公布前共識 EPS US$3.38、營收 US$7.29B；實際值待公布。"
+        },
+        "eps_basis": "Consensus basis to be confirmed",
+        "eps_estimate": 3.38,
+        "eps_actual": null,
+        "revenue_estimate": 7.29,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "after": {
+        "id": "current-mcd-20261104",
+        "company": "McDonald's",
+        "ticker": "MCD",
+        "event_date": "2026-11-04T21:30:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球大型餐飲與消費品牌，財報可反映跨區域消費需求、食品成本、加盟體系及消費者支出趨勢。",
+        "industry": "餐飲／全球連鎖消費品牌",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Investing.com｜McDonald's Earnings Calendar",
+          "url": "https://www.investing.com/equities/mcdonalds-earnings",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Investing.com; MarketBeat cross-check",
+          "notes": "Investing.com 確認 11/04 Q3 財報日期；MarketBeat 列示盤前公布及 08:30 ET 電話會議，換算台灣時間 21:30。公司 IR 原始公告仍待補核。"
+        },
+        "consensus_source": {
+          "name": "Investing.com｜McDonald's Earnings Calendar",
+          "url": "https://www.investing.com/equities/mcdonalds-earnings",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Investing.com",
+          "notes": "公布前共識 EPS US$3.38、營收 US$7.29B；實際值待公布。"
+        },
+        "eps_basis": "Consensus basis to be confirmed",
+        "eps_estimate": 3.38,
+        "eps_actual": null,
+        "revenue_estimate": 7.29,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-nvo-20261104",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-nvo-20261104",
+        "company": "Novo Nordisk",
+        "ticker": "NVO",
+        "event_date": "2026-11-04T20:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球大型製藥企業及 GLP-1／肥胖症治療市場核心指標，財報與產品需求、供應及指引對全球醫療與生技產業具明顯影響。",
+        "industry": "製藥／GLP-1與糖尿病及肥胖症治療",
+        "reporting_period": "2026 前九個月／Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "DKK",
+        "revenue_currency": "DKK",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Novo Nordisk｜Financial Calendar",
+          "url": "https://www.novonordisk.com/investors/financial-calendar.html",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方確認 11/04 07:30 CET 發布 2026 前九個月業績，13:00 CET 舉行財報電話會議；換算台灣時間 20:00。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "after": {
+        "id": "current-nvo-20261104",
+        "company": "Novo Nordisk",
+        "ticker": "NVO",
+        "event_date": "2026-11-04T20:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球大型製藥企業及 GLP-1／肥胖症治療市場核心指標，財報與產品需求、供應及指引對全球醫療與生技產業具明顯影響。",
+        "industry": "製藥／GLP-1與糖尿病及肥胖症治療",
+        "reporting_period": "2026 前九個月／Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "DKK",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Novo Nordisk｜Financial Calendar",
+          "url": "https://www.novonordisk.com/investors/financial-calendar.html",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方確認 11/04 07:30 CET 發布 2026 前九個月業績，13:00 CET 舉行財報電話會議；換算台灣時間 20:00。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": 11.11,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-cvs-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-cvs-20261102",
+        "company": "CVS Health",
+        "ticker": "CVS",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.62,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "醫療保險／藥局服務",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.62；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-cvs-20261102",
+        "company": "CVS Health",
+        "ticker": "CVS",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.62,
+        "eps_actual": null,
+        "revenue_estimate": 104.72,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "醫療保險／藥局服務",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.62；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-arm-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-arm-20261102",
+        "company": "Arm Holdings",
+        "ticker": "ARM",
+        "event_date": "2026-11-05T00:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球重要CPU架構IP供應商，對AI伺服器、手機及半導體生態系具代表性。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.22,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "半導體 IP／AI 運算",
+        "reporting_period": "2026 Q3",
+        "time_known": false,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.22；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-arm-20261102",
+        "company": "Arm Holdings",
+        "ticker": "ARM",
+        "event_date": "2026-11-05T00:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球重要CPU架構IP供應商，對AI伺服器、手機及半導體生態系具代表性。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.22,
+        "eps_actual": null,
+        "revenue_estimate": 1.38,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "半導體 IP／AI 運算",
+        "reporting_period": "2026 Q3",
+        "time_known": false,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.22；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-mck-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-mck-20261102",
+        "company": "McKesson",
+        "ticker": "MCK",
+        "event_date": "2026-11-05T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 10.69,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "醫療通路／藥品配送",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$10.69；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-mck-20261102",
+        "company": "McKesson",
+        "ticker": "MCK",
+        "event_date": "2026-11-05T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 10.69,
+        "eps_actual": null,
+        "revenue_estimate": 109.9,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "醫療通路／藥品配送",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$10.69；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-app-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-app-20261102",
+        "company": "AppLovin",
+        "ticker": "APP",
+        "event_date": "2026-11-05T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 3.94,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "數位廣告／AI 軟體",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$3.94；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-app-20261102",
+        "company": "AppLovin",
+        "ticker": "APP",
+        "event_date": "2026-11-05T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 3.94,
+        "eps_actual": null,
+        "revenue_estimate": 2.08,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "數位廣告／AI 軟體",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$3.94；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-ddog-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-ddog-20261102",
+        "company": "Datadog",
+        "ticker": "DDOG",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.18,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "雲端監控／軟體",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.18；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-ddog-20261102",
+        "company": "Datadog",
+        "ticker": "DDOG",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.18,
+        "eps_actual": null,
+        "revenue_estimate": 1.15,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "雲端監控／軟體",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.18；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-meli-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-meli-20261102",
+        "company": "MercadoLibre",
+        "ticker": "MELI",
+        "event_date": "2026-11-05T06:00:00+08:00",
+        "session": "unknown",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 9.41,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "拉丁美洲電商／金融科技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$9.41；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-meli-20261102",
+        "company": "MercadoLibre",
+        "ticker": "MELI",
+        "event_date": "2026-11-05T06:00:00+08:00",
+        "session": "unknown",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 9.41,
+        "eps_actual": null,
+        "revenue_estimate": 10.69,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "拉丁美洲電商／金融科技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$9.41；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-abnb-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-abnb-20261102",
+        "company": "Airbnb",
+        "ticker": "ABNB",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 2.89,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "旅遊住宿平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.89；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-abnb-20261102",
+        "company": "Airbnb",
+        "ticker": "ABNB",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 2.89,
+        "eps_actual": null,
+        "revenue_estimate": 4.75,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "旅遊住宿平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.89；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-net-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-net-20261102",
+        "company": "Cloudflare",
+        "ticker": "NET",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.02,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "雲端網路／資安",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.02；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-net-20261102",
+        "company": "Cloudflare",
+        "ticker": "NET",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.02,
+        "eps_actual": null,
+        "revenue_estimate": 0.7368,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "雲端網路／資安",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.02；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-cop-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-cop-20261102",
+        "company": "ConocoPhillips",
+        "ticker": "COP",
+        "event_date": "2026-11-06T01:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 2.97,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "能源／上游勘探生產",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.97；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-cop-20261102",
+        "company": "ConocoPhillips",
+        "ticker": "COP",
+        "event_date": "2026-11-06T01:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 2.97,
+        "eps_actual": null,
+        "revenue_estimate": 18.57,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "能源／上游勘探生產",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.97；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-lite-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-lite-20261102",
+        "company": "Lumentum",
+        "ticker": "LITE",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 3.82,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "光通訊／AI資料中心",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$3.82；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-lite-20261102",
+        "company": "Lumentum",
+        "ticker": "LITE",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 3.82,
+        "eps_actual": null,
+        "revenue_estimate": 1.25,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "光通訊／AI資料中心",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$3.82；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T12:39:11+08:00",
+      "action": "event_updated",
+      "event_id": "current-team-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-team-20261102",
+        "company": "Atlassian",
+        "ticker": "TEAM",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.24,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "企業軟體／協作",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.24；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-team-20261102",
+        "company": "Atlassian",
+        "ticker": "TEAM",
+        "event_date": "2026-11-06T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.24,
+        "eps_actual": null,
+        "revenue_estimate": 1.71,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "企業軟體／協作",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.24；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     }
   ]
 }
