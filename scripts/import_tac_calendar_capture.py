@@ -175,6 +175,14 @@ def normalize(payload: dict) -> dict:
             "stock_price_reaction": row.get("stock_price_reaction"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
+        for key in ("industry","reporting_period","time_known","time_type","eps_basis","eps_currency",
+                    "revenue_currency","revenue_unit","eps_comparison_status","revenue_comparison_status",
+                    "financial_judgment","stock_price_reaction_window","eps_note","revenue_note"):
+            if key in row:
+                event[key]=row[key]
+        for key in ("consensus_source","price_reaction_source"):
+            if row.get(key) is not None:
+                event[key]=source_record(base_source,row[key],observed_at)
         fragment[output_group].append(event)
 
     for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
