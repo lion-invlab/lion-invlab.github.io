@@ -116,6 +116,45 @@ class SafeMarketRendererTests(unittest.TestCase):
         self.assertIn('<span class="fg6-score-main">28.0</span>',result)
         self.assertIn('cnn-fg-preview',result)
 
+    def test_fedwatch_updates_probability_ranges_bars_legend_and_fomc(self):
+        html = ('<section id="fed"><div class="fc-probs-refined">'
+                '<div class="fc-prob fc-hold"><div class="fc-prob-label"><span>維持不變</span></div><strong>90.0%</strong><div class="fc-range">維持 3.75%–4.00%</div></div>'
+                '<div class="fc-prob fc-hike"><div class="fc-prob-label"><span>升息一碼</span></div><strong>10.0%</strong><div class="fc-range">升至 4.00%–4.25%</div></div>'
+                '<div class="fc-split-bar" role="img" aria-label="舊標籤"><span class="fc-split-hold" style="width:90%"></span><span class="fc-split-hike" style="width:10%"></span></div>'
+                '<div class="fc-split-legend"><span>維持不變 <b>90.0%</b></span><span>升息一碼 <b>10.0%</b></span></div>'
+                '<details><summary>資料時間與快照口徑</summary><div>舊稽核文字</div></details></div>'
+                '<div class="fc-fomc"><div class="fc-fomc-meeting"><span>FOMC 會議</span><b>舊會議</b></div>'
+                '<div class="fc-fomc-rate"><span>目前目標利率</span><b>舊利率</b></div></div></section>')
+        contract = {"groups":{"fedwatch":{
+            "container":"#fed","outcomes":{
+                "hold":{"label":"維持不變","row":".fc-hold","probability_selector":"strong","rate_range_selector":".fc-range","bar_selector":".fc-split-hold","legend_index":0},
+                "hike_one":{"label":"升息一碼","row":".fc-hike","probability_selector":"strong","rate_range_selector":".fc-range","bar_selector":".fc-split-hike","legend_index":1}},
+            "split_bar_selector":".fc-split-bar","legend_selector":".fc-split-legend",
+            "audit_container_selector":".fc-probs-refined","audit_selector":"details",
+            "fomc":{"meeting_row":".fc-fomc-meeting","meeting_value_selector":"b","rate_row":".fc-fomc-rate","rate_value_selector":"b"}}}}
+        snapshot = {"fedwatch":{"probabilities":{
+            "hold":{"probability":93.4,"rate_range":"維持 3.75%–4.00%"},
+            "hike_one":{"probability":6.6,"rate_range":"升至 4.00%–4.25%"}},
+            "target_meeting":"2026/12/08–12/09","updated_at":"2026/11/02 05:00 台灣時間",
+            "target_rate_range":"3.75%–4.00%","audit_text":"CME FedWatch 快照：2026/11/02 05:00 台灣時間；維持 93.4%，升息一碼 6.6%。"}}
+        result = render_market_html(html,{"groups":{},"fedwatch":snapshot["fedwatch"]},contract)
+        self.assertIn("<strong>93.4%</strong>",result)
+        self.assertIn("維持 3.75%–4.00%",result)
+        self.assertIn('style="width:93.4%"',result)
+        self.assertIn('style="width:6.6%"',result)
+        self.assertIn("<b>93.4%</b>",result)
+        self.assertIn("2026/12/08–12/09",result)
+        self.assertIn("3.75%–4.00%",result)
+        self.assertIn("2026/11/02 05:00 台灣時間",result)
+
+    def test_fedwatch_probability_sum_must_equal_100(self):
+        contract = {"groups":{"fedwatch":{"container":"#fed","outcomes":{"hold":{},"hike_one":{}}}}}
+        html = '<section id="fed"></section>'
+        snapshot = {"fedwatch":{"probabilities":{"hold":{"probability":80,"rate_range":"a"},"hike_one":{"probability":10,"rate_range":"b"}},
+                    "target_meeting":"x","updated_at":"x","target_rate_range":"x","audit_text":"x"}}
+        with self.assertRaisesRegex(ValueError,"sum to"):
+            render_market_html(html,{"groups":{},"fedwatch":snapshot["fedwatch"]},contract)
+
     def test_missing_group_key_fails_closed(self):
         html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
