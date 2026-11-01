@@ -18,7 +18,8 @@
       "warning": "warn"
     },
     "fail_if_selector_count_differs": true,
-    "fail_if_label_or_ticker_missing_or_duplicated": true
+    "fail_if_label_or_ticker_missing_or_duplicated": true,
+    "allow_mapped_status_class_token_transition": true
   },
   "groups": {
     "global_indices": {
