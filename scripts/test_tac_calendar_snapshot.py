@@ -48,8 +48,8 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertIn("美國 ISM 製造業 PMI（10月）", html)
         self.assertIn("Apple", html)
         self.assertIn("Palantir", html)
-        self.assertEqual(len(re.findall(r'class="econ-event(?:\\s|")', html)), 17)
-        self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\\s|")', html)), 30)
+        self.assertEqual(len(re.findall(r'class="econ-event(?:\s|")', html)), 17)
+        self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\s|")', html)), 30)
         self.assertIn('href="https://investor.apple.com/"', html)
 
     def test_monday_previous_week_and_upcoming_lists_render(self):
@@ -71,8 +71,8 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertIn("日本央行（BOJ）利率決策及10月展望報告", html)
         self.assertIn("AstraZeneca", html)
         self.assertIn("Netflix", html)
-        self.assertEqual(len(re.findall(r'class="econ-event(?:\\s|")', html)), 23)
-        self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\\s|")', html)), 38)
+        self.assertEqual(len(re.findall(r'class="econ-event(?:\s|")', html)), 23)
+        self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\s|")', html)), 38)
 
     def test_monday_blocks_nonempty_today_bucket_without_approved_list(self):
         with self.assertRaisesRegex(ValueError, "non-empty status bucket.*today.*no approved list container"):
