@@ -2395,6 +2395,35 @@
         "observed_at": "2026-11-01T13:56:34+09:00",
         "notes": "Reuters調查顯示27位經濟學家中22位預期升息25基點。"
       }
+    },
+    {
+      "id": "prev-au-cpi-202609",
+      "event_date": "2026-10-28T08:30:00+08:00",
+      "region": "澳洲",
+      "event_name": "澳洲9月消費者物價指數（CPI）",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "澳洲通膨意外升溫，直接改變主要央行政策預期；年增CPI高於市場預期，trimmed mean亦回升，市場對11月RBA升息機率由公布前約62%升至約80–85%，對澳幣及澳洲短端利率具即時影響。",
+      "previous": "CPI年增4.0%；Trimmed mean年增3.5%（8月修正後）",
+      "forecast": "CPI年增4.2%",
+      "actual": "CPI年增4.3%；Trimmed mean年增3.6%；第三季CPI季增1.3%，季度Trimmed mean季增1.0%",
+      "status": "released",
+      "impact_judgment": "通膨高於預期且核心指標同步升溫，市場提高RBA於11月升息25基點的機率，澳幣獲得支撐；能源與住房成本推升通膨，增加政策收緊壓力。",
+      "time_known": true,
+      "source": {
+        "name": "Australian Bureau of Statistics",
+        "url": "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
+        "published_at": "2026-10-28T11:30:00+11:00",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "ABS官方公布：年增CPI 4.3%、trimmed mean 3.6%、第三季CPI季增1.3%、季度trimmed mean季增1.0%。"
+      },
+      "consensus_source": {
+        "name": "FXStreet／市場共識",
+        "url": "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256",
+        "published_at": "2026-10-30T02:56:28Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "報導列示CPI市場共識4.2%，並指出公布後11月RBA升息機率顯著上升。"
+      }
     }
   ],
   "previous_earnings_calendar": [
@@ -3113,10 +3142,12 @@
         "https://www.investing.com/news/economy-news/bank-of-canada-to-raise-rates-to-250-on-october-28-and-once-again-by-endmarch-reuters-poll-4970116",
         "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-unexpectedly-holds-rates-signals-likely-hikes",
         "https://www.reuters.com/legal/litigation/astrazeneca-kicks-off-savings-drive-invest-pipeline-after-sales-beat-2026-10-30/",
-        "https://www.astrazeneca.com/media-centre/press-releases/2026/9m-and-q3-2026-results.html"
+        "https://www.astrazeneca.com/media-centre/press-releases/2026/9m-and-q3-2026-results.html",
+        "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
+        "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256"
       ],
       "checked_at": "2026-11-01T13:56:34+09:00",
-      "notes": "依 WR v3.7，上週區塊僅保留五星。已補入加拿大央行（10/28）及紐西蘭央行（10/28）兩項五星政策決策；RBNZ實際維持2.75%，與Reuters調查中27位有22位預期升息的市場共識相反。仍需完成其他主要經濟體五星事件掃描，coverage 維持 incomplete。"
+      "notes": "依 WR v3.7，上週行事曆只保留五星。已納入FOMC、BoC、RBNZ、ECB、BoJ、澳洲CPI、US GDP及PCE等已核實重大政策／宏觀數據；仍持續掃描其他主要經濟體是否有符合TAC五星門檻的事件，coverage 維持 incomplete。"
     }
   }
 }
