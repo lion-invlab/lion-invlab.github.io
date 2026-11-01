@@ -201,6 +201,21 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(load_for_test(mon)["meta"]["approval_status"],"approved")
             self.assertEqual(load_for_test(tue)["meta"]["approval_status"],"draft")
 
+    def test_approved_mother_templates_keep_calendar_anchors(self):
+        root=Path(__file__).resolve().parents[1]
+        monday=(root/"index_母版_週一_首頁基準.html").read_text(encoding="utf-8")
+        weekdays=(root/"index_母版_週二至週五_首頁基準.html").read_text(encoding="utf-8")
+        common=("calendar","earnings","week-econ-today","week-econ-upcoming",
+                "week-econ-published","week-earnings-today","week-earnings-upcoming",
+                "week-earnings-published")
+        for anchor in common:
+            self.assertIn(f'id="{anchor}"',monday)
+            self.assertIn(f'id="{anchor}"',weekdays)
+        self.assertIn('id="last-week-calendar"',monday)
+        self.assertIn('id="last-week-earnings"',monday)
+        self.assertNotIn('id="last-week-calendar"',weekdays)
+        self.assertNotIn('id="last-week-earnings"',weekdays)
+
     def test_quality_report_excludes_non_applicable_economic_fields(self):
         data=self.week(events={"economic":[
             {**self.event("election","2026-11-03T12:00:00+08:00",5),
