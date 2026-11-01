@@ -223,10 +223,10 @@ jobs:
       - name: Optional public CME FedWatch iframe capture for audit
         continue-on-error: true
         run: |
-          node scripts/capture_tac_cme_fedwatch.mjs \
+          timeout --signal=TERM --kill-after=5s 45s node scripts/capture_tac_cme_fedwatch.mjs \
             --output "/tmp/tac-cme-fedwatch-iframe.html" \
             --text-output "/tmp/tac-cme-fedwatch-iframe.txt" \
-            --json-output "/tmp/tac-cme-fedwatch-capture.json" || echo "PENDING: CME FedWatch iframe capture unavailable"
+            --json-output "/tmp/tac-cme-fedwatch-capture.json" || echo "PENDING: CME FedWatch iframe capture unavailable or exceeded 45-second total limit; proceed to live fallback"
 
       - name: Live Investing.com Fed Rate Monitor fallback when CME capture is unavailable
         if: always()
