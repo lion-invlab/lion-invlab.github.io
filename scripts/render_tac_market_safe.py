@@ -201,6 +201,96 @@ def direction(value: str, rules: dict[str, Any]) -> str | None:
         return status_map.get("neutral", "flat")
     return None
 
+
+def render_risk_indicators(html: str, parser: SourceTreeParser,
+                           snapshot: dict[str, Any], binding: dict[str, Any],
+                           edits: list[tuple[int, int, str]],
+                           used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("risk_indicators")
+    data = snapshot.get("risk_indicators")
+    if spec is None or data is None:
+        return
+    if not isinstance(data, dict):
+        raise ValueError("risk_indicators snapshot must be an object")
+    containers = select(parser.root, spec["container"])
+    if len(containers) != 1:
+        raise ValueError(f"risk_indicators: expected one container, found {len(containers)}")
+    container = containers[0]
+    records = spec.get("records", {})
+    if set(data) != set(records):
+        missing, extra = sorted(set(records) - set(data)), sorted(set(data) - set(records))
+        raise ValueError(f"risk_indicators: key mismatch; missing={missing}, extra={extra}")
+
+    for key, record_spec in records.items():
+        record = data[key]
+        if not isinstance(record, dict):
+            raise ValueError(f"risk_indicators.{key}: record must be an object")
+        needle = label_key(record_spec["key_text"])
+        rows = select(container, record_spec["row"])
+        hits = [row for row in rows if needle in label_key(
+            "".join(span.text for span in spans_inside(row, parser.spans))
+        )]
+        if len(hits) != 1:
+            raise ValueError(f"risk_indicators.{key}: expected one row, found {len(hits)}")
+        row = hits[0]
+        value_nodes = select(row, record_spec["value_selector"])
+        if len(value_nodes) != 1:
+            raise ValueError(f"risk_indicators.{key}: expected one value node, found {len(value_nodes)}")
+        value_spans = [span for span in spans_inside(value_nodes[0], parser.spans) if span.text.strip()]
+        if len(value_spans) != 1:
+            raise ValueError(f"risk_indicators.{key}: expected one value text node, found {len(value_spans)}")
+        value_text = record.get("value")
+        if not isinstance(value_text, str) or not value_text:
+            raise ValueError(f"risk_indicators.{key}: value must be a non-empty string")
+        value_span = value_spans[0]
+        identity = (value_span.start, value_span.end)
+        if identity in used:
+            raise ValueError(f"risk_indicators.{key}: overlapping value target")
+        used.add(identity)
+        edits.append((value_span.start, value_span.end, escape(value_text, quote=False)))
+
+        change_selector = record_spec.get("change_selector")
+        if not change_selector:
+            continue
+        change_nodes = select(row, change_selector)
+        if len(change_nodes) != 1:
+            raise ValueError(f"risk_indicators.{key}: expected one change node, found {len(change_nodes)}")
+        change_spans = [span for span in spans_inside(change_nodes[0], parser.spans) if span.text.strip()]
+        if len(change_spans) != 1:
+            raise ValueError(f"risk_indicators.{key}: expected one change text node, found {len(change_spans)}")
+        change_text = record.get("change")
+        if not isinstance(change_text, str) or not change_text:
+            raise ValueError(f"risk_indicators.{key}: change must be a non-empty string")
+        change_span = change_spans[0]
+        identity = (change_span.start, change_span.end)
+        if identity in used:
+            raise ValueError(f"risk_indicators.{key}: overlapping change target")
+        used.add(identity)
+        edits.append((change_span.start, change_span.end, escape(change_text, quote=False)))
+
+        status_map = record_spec.get("status_class_map", binding.get("rules", {}).get("status_class_map", {}))
+        local_rules = dict(binding.get("rules", {}))
+        local_rules["status_class_map"] = status_map
+        new_status = direction(change_text, local_rules)
+        if new_status is not None and change_span.text != change_text:
+            old_tokens = [token for token in ("up", "down", "flat", "warn") if token in change_nodes[0].classes]
+            if len(old_tokens) != 1:
+                raise ValueError(f"risk_indicators.{key}: expected exactly one existing status class token, found {old_tokens}")
+            old_status = old_tokens[0]
+            if new_status != old_status:
+                if not binding.get("rules", {}).get("allow_mapped_status_class_token_transition", False):
+                    raise ValueError(f"risk_indicators.{key}: status class transition is not authorized")
+                class_span = change_nodes[0].class_value_span
+                if class_span is None:
+                    raise ValueError(f"risk_indicators.{key}: class attribute source span is missing")
+                class_start, class_end = class_span
+                raw_class = html[class_start:class_end]
+                token_matches = list(re.finditer(r"(?<!\S)" + re.escape(old_status) + r"(?!\S)", raw_class))
+                if len(token_matches) != 1:
+                    raise ValueError(f"risk_indicators.{key}: status class token is not unique")
+                token = token_matches[0]
+                edits.append((class_start + token.start(), class_start + token.end(), new_status))
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
         raise ValueError("snapshot must contain a groups object")
@@ -280,6 +370,8 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                     raise ValueError(f"overlapping text target at {group_name}.{key}.{slot_name}")
                 used.add(identity)
                 edits.append((span.start, span.end, escape(value, quote=False)))
+
+    render_risk_indicators(html, parser, snapshot, binding, edits, used)
 
     result = html
     for start, end, replacement in sorted(edits, reverse=True):
