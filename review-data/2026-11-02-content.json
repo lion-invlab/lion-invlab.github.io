@@ -820,7 +820,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "Alphabet Investor Relations",
         "notes": "GAAP EPS 實際 2.12 美元，Nasdaq 共識 2.94 美元；營收實際 127.58B 美元、共識 127.91B 美元（SentiSense）。10/29 股價反應約 -12.6%（Reuters/AP 市場報導）。"
-      }
+      },
+      "industry": "網際網路／數位廣告與雲端",
+      "reporting_period": "2026 Q3",
+      "time_known": false,
+      "eps_basis": "GAAP diluted EPS",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     },
     {
       "id": "prev-msft-20261028",
@@ -845,7 +860,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "Microsoft Investor Relations",
         "notes": "非 GAAP EPS 實際 4.89 美元，Nasdaq 共識 4.71 美元；營收實際 92.28B 美元、共識 90.63B 美元（SentiSense）。10/29 首個交易日收盤約 -0.16%（Finviz）。"
-      }
+      },
+      "industry": "軟體與雲端服務",
+      "reporting_period": "FY2027 Q1",
+      "time_known": false,
+      "eps_basis": "Non-GAAP diluted EPS（排除 OpenAI 投資損益影響）",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     },
     {
       "id": "prev-lly-20261029",
@@ -870,7 +900,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "Eli Lilly Investor Relations",
         "notes": "非 GAAP EPS 實際 7.48 美元、共識 5.60 美元；營收實際 24.40B 美元、共識 22.42B 美元（Investing.com）。10/29 股價上漲約 6.47%。"
-      }
+      },
+      "industry": "製藥",
+      "reporting_period": "2026 Q3",
+      "time_known": false,
+      "eps_basis": "Non-GAAP diluted EPS",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     },
     {
       "id": "prev-amzn-20261029",
@@ -895,7 +940,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "Amazon Investor Relations",
         "notes": "EPS 實際 1.89 美元、共識 1.96 美元；營收實際 201.94B 美元、共識 202.16B 美元（SentiSense）。10/30 首個交易日收盤約 -1.41%（Finviz）。"
-      }
+      },
+      "industry": "電子商務與雲端運算",
+      "reporting_period": "2026 Q3",
+      "time_known": false,
+      "eps_basis": "GAAP diluted EPS",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     },
     {
       "id": "prev-intc-20261029",
@@ -920,7 +980,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "Intel Investor Relations",
         "notes": "非 GAAP EPS 實際 0.52 美元、共識約 0.40 美元；營收實際 16.51B 美元、共識 16.56B 美元（Investing.com/Nasdaq）。10/30 股價收盤約 -28.58%（Finviz）；雖 EPS 優於預期，營收略低於預期且展望偏弱。"
-      }
+      },
+      "industry": "半導體",
+      "reporting_period": "2026 Q3",
+      "time_known": false,
+      "eps_basis": "Non-GAAP diluted EPS",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     },
     {
       "id": "prev-xom-20261030",
@@ -945,7 +1020,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "ExxonMobil Investor Relations",
         "notes": "調整後 EPS 實際 4.23 美元、共識約 4.12 美元；公司公告總營收 113.16B 美元，MarketBeat 共識約 105.43B 美元。Investing.com 頁面曾顯示不同營收口徑，故採公司公告總營收並保留口徑註記。10/30 股價約 +2.16%（Finviz）。"
-      }
+      },
+      "industry": "能源",
+      "reporting_period": "2026 Q3",
+      "time_known": false,
+      "eps_basis": "Adjusted diluted EPS（Non-GAAP）",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     },
     {
       "id": "prev-cvx-20261030",
@@ -970,7 +1060,22 @@
         "observed_at": "2026-11-01T21:00:00+08:00",
         "publisher": "Chevron Investor Relations",
         "notes": "調整後 EPS 實際 5.28 美元、LSEG 共識 4.89 美元；營收實際 67.80B 美元、共識約 60.55B 美元（Investing.com）。10/30 股價約 +1.75%（Finviz）。"
-      }
+      },
+      "industry": "能源",
+      "reporting_period": "2026 Q3",
+      "time_known": false,
+      "eps_basis": "Adjusted diluted EPS（Non-GAAP）",
+      "eps_currency": "USD",
+      "revenue_currency": "USD",
+      "revenue_unit": "B",
+      "eps_comparison_status": "pending_verification",
+      "revenue_comparison_status": "pending_verification",
+      "financial_judgment": null,
+      "stock_price_reaction_window": "財報公布後首個常規交易日收盤",
+      "consensus_source": null,
+      "price_reaction_source": null,
+      "eps_note": null,
+      "revenue_note": null
     }
   ],
   "analysis": {
