@@ -75,7 +75,7 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         html = self.render_calendar_groups(self.monday, snapshot)
         self.assertIn("日本央行（BOJ）利率決策及10月展望報告", html)
         self.assertIn("AstraZeneca", html)
-        self.assertIn("Netflix", html)
+        self.assertIn("Visa", html)
         self.assertEqual(len(re.findall(r'class="econ-event(?:\s|")', html)), 23)
         self.assertEqual(len(re.findall(r'class="earnings-accordion(?:\s|")', html)), 38)
 
