@@ -2386,7 +2386,7 @@
         "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
         "published_at": "2026-10-28T14:00:00+13:00",
         "observed_at": "2026-11-01T13:56:34+09:00",
-        "notes": "央行官方決策公告；Reuters民調與市場反應另以Reuters報導佐證。"
+        "notes": "央行官方公告；RBNZ官方發布政策與OCR決策時間為當地14:00，2026-10-28紐西蘭採NZDT（UTC+13），換算台灣時間09:00（UTC+8）。Reuters民調與市場反應另以Reuters報導佐證。"
       },
       "consensus_source": {
         "name": "Reuters／The Business Times",
@@ -3144,7 +3144,8 @@
         "https://www.reuters.com/legal/litigation/astrazeneca-kicks-off-savings-drive-invest-pipeline-after-sales-beat-2026-10-30/",
         "https://www.astrazeneca.com/media-centre/press-releases/2026/9m-and-q3-2026-results.html",
         "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
-        "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256"
+        "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256",
+        "https://www.rbnz.govt.nz/news-and-events/how-we-release-information"
       ],
       "checked_at": "2026-11-01T13:56:34+09:00",
       "notes": "依 WR v3.7，上週行事曆只保留五星。已納入FOMC、BoC、RBNZ、ECB、BoJ、澳洲CPI、US GDP及PCE等已核實重大政策／宏觀數據；仍持續掃描其他主要經濟體是否有符合TAC五星門檻的事件，coverage 維持 incomplete。"
