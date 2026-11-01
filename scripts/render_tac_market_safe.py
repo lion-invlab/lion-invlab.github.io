@@ -146,6 +146,10 @@ def normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
 
+def label_key(text: str) -> str:
+    return re.sub(r"[^0-9A-Za-z\\u3400-\\u9fff]", "", unescape(text)).casefold()
+
+
 def resolve_row(group: str, key: str, spec: dict, container: Node,
                 all_spans: list[TextSpan]) -> Node:
     candidates = [n for n in select(container, spec["row"]) if n is not container]
