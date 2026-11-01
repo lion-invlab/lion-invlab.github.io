@@ -342,7 +342,29 @@ def earnings_card(proto,item,soup):
                 if emitted: value_node.append(NavigableString("；"))
                 value_node.append(NavigableString(label+"來源待核實")); emitted+=1
     else:
-        raise ValueError("earnings prototype must contain EPS and revenue result cards")
+        if released:
+            raise ValueError("published earnings card prototype must contain EPS and revenue result cards")
+        fields=details.select(".earnings-detail-field")
+        if not fields: raise ValueError("upcoming earnings prototype must contain detail-field templates")
+        while len(fields)<3:
+            clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
+        tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8）"
+        us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}）"
+        eps_detail=f"EPS 預估：{eps_text(item.get('eps_estimate'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"
+        rev_detail=f"營收預估：{revenue_text(item.get('revenue_estimate'),item)}；幣別／單位：{item.get('revenue_currency') or '待核實'}／{item.get('revenue_unit') or '待核實'}。"
+        values=[("公布時段",us_label+"；"+tw_label),("預估資訊",eps_detail+" "+rev_detail),("資料來源",None)]
+        for field,(label,value) in zip(fields[:3],values):
+            put(slot(field,"label","earnings detail label"),label)
+            value_node=slot(field,".earnings-detail-value","earnings detail value")
+            if value is not None: put(value_node,value)
+        source_field=fields[2]
+        value_node=slot(source_field,".earnings-detail-value","earnings source value")
+        value_node.clear()
+        src=item.get("source")
+        if src:
+            a=soup.new_tag("a"); source_link(a,src); value_node.append(a)
+        else:
+            value_node.append(NavigableString("財報日程來源待核實"))
     return card
 
 def calendar_panel(section, records, kind, report_day, coverage, soup, proto=None):
