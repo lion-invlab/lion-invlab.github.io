@@ -15,7 +15,7 @@ ARRAY_GROUPS = ("focus_news", "market_headlines", "economic_calendar", "earnings
 COVERAGE_GROUPS = ARRAY_GROUPS
 
 
-def empty_content(report_date: str, trading_date: str, generated_at: str, wr_version: str = "3.7") -> dict:
+def empty_content(report_date: str, trading_date: str, generated_at: str, wr_version: str = "3.8") -> dict:
     report_day = date.fromisoformat(report_date)
     expected_template = "monday" if report_day.weekday() == 0 else "weekday"
     if report_day.weekday() > 4:
@@ -83,7 +83,7 @@ def assemble(report_date: str, trading_date: str, generated_at: str,
             if not isinstance(fragment_meta, dict):
                 raise ValueError(f"fragment[{index}].meta must be an object")
             for field, expected in (("report_date", report_date), ("trading_date", trading_date),
-                                    ("timezone", "Asia/Taipei"), ("wr_version", "3.7"),
+                                    ("timezone", "Asia/Taipei"), ("wr_version", "3.8"),
                                     ("template_type", result["meta"]["template_type"])):
                 actual = fragment_meta.get(field)
                 if actual is not None and actual != expected:
@@ -208,7 +208,7 @@ def self_test():
         "report_date": "2026-11-02",
         "trading_date": "2026-10-30",
         "timezone": "Asia/Taipei",
-        "wr_version": "3.7",
+        "wr_version": "3.8",
         "template_type": "monday",
         "news_window_start": "2026-10-30T12:00:00+08:00",
         "news_window_end": "2026-11-02T05:00:00+08:00"
