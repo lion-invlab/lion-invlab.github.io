@@ -39,9 +39,14 @@ def date_label(dt):
     return f"{dt.month}/{dt.day}（{DOW[dt.weekday()]}）"
 
 
+def week_bounds(snapshot):
+    year, week = map(int, snapshot["meta"]["week_id"].split("-W"))
+    monday = date.fromisocalendar(year, week, 1)
+    return monday, monday + __import__("datetime").timedelta(days=4)
+
+
 def range_label(snapshot):
-    start = date.fromisoformat(snapshot["meta"]["week_start"])
-    end = date.fromisoformat(snapshot["meta"]["week_end"])
+    start, end = week_bounds(snapshot)
     return f"{start.month}/{start.day}～{end.month}/{end.day}"
 
 
@@ -220,8 +225,9 @@ def render(template_path, snapshot_path, output_path, mode):
         ):
             if key not in snap:
                 raise ValueError("Monday snapshot missing " + key)
-            previous_start = date.fromisoformat(meta.get("previous_week_start", meta["week_start"]))
-            previous_end = date.fromisoformat(meta.get("previous_week_end", meta["week_end"]))
+            current_start, _ = week_bounds(snap)
+            previous_start = current_start - __import__("datetime").timedelta(days=7)
+            previous_end = previous_start + __import__("datetime").timedelta(days=4)
             inner = archive_section(snap[key], kind, f"{previous_start.month}/{previous_start.day}", f"{previous_end.month}/{previous_end.day}")
             template = replace_section(template, section_id, inner)
     else:
