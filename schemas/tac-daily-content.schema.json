@@ -49,7 +49,7 @@
           "const": "Asia/Taipei"
         },
         "wr_version": {
-          "const": "3.6"
+          "const": "3.8"
         },
         "template_type": {
           "enum": [
