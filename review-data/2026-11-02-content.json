@@ -2640,10 +2640,14 @@
         "https://investor.lilly.com/node/55191",
         "https://investor.exxonmobil.com/news-events/ir-calendar/detail/20261030-3q-2026-earnings-call",
         "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results",
-        "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+        "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "https://www.reuters.com/business/alphabets-google-cloud-unit-beats-quarterly-revenue-estimates-steady-ai-demand-2026-10-28/",
+        "https://www.investing.com/news/stock-market-news/earnings-week-preview-microsoft-amazon-intel-and-more-report-oct-2629-93CH-4973444",
+        "https://www.investing.com/news/earnings/eli-lilly-earnings-beat-by-188-revenue-topped-estimates-4982651",
+        "https://www.investing.com/equities/intel-corp-earnings"
       ],
       "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "已補入七家主要企業首個常規交易日股價反應，並修正 Alphabet、Microsoft、Eli Lilly、Intel 的 EPS／營收共識與 GAAP／non-GAAP 可比口徑。ExxonMobil、Chevron 的 EPS 共識口徑及部分營收定義仍待核實，另需完成整週四／五星財報漏項掃描；完成前不標示完整。"
+      "notes": "七家主要企業的首個常規交易日股價反應已補入來源；Alphabet、Microsoft、Eli Lilly、Intel 的 EPS／營收比較已修正為明確可比口徑。ExxonMobil 與 Chevron 的 EPS 共識口徑及營收定義仍待核實；另需檢查整週是否有其他 TAC 四／五星財報，完成前不標示完整。"
     },
     "economic_calendar": {
       "status": "incomplete",
