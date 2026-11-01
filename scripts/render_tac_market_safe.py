@@ -676,6 +676,31 @@ def render_news(html: str, parser: SourceTreeParser,
                 add_text(anchor, source["text"], f"{label}.sources[{source_index}].text")
 
 
+def add_link_list(node: Node, links: list[dict[str, str]], html: str,
+                  edits: list[tuple[int, int, str]], used: set[tuple[int, int]],
+                  label: str) -> None:
+    """Replace only the inner content of one approved source-value slot with its links."""
+    if not isinstance(links, list) or not links:
+        raise ValueError(f"{label}: source links must be a non-empty list")
+    start, end = inner_bounds(node)
+    ident = (start, end)
+    if ident in used:
+        raise ValueError(f"{label}: overlapping source-link content slot")
+    rendered = []
+    for index, source in enumerate(links):
+        if not isinstance(source, dict) or set(source) != {"url", "text"}:
+            raise ValueError(f"{label}[{index}]: source must contain url and text")
+        url = source["url"]
+        text = source["text"]
+        if not isinstance(url, str) or not url.startswith("https://") or any(ch in url for ch in ('"', "'", "<", ">")):
+            raise ValueError(f"{label}[{index}]: invalid https URL")
+        if not isinstance(text, str) or not text.strip():
+            raise ValueError(f"{label}[{index}]: source text is required")
+        rendered.append(f'<a href="{escape(url, quote=True)}" target="_blank" rel="noopener">{escape(text, quote=False)}</a>')
+    used.add(ident)
+    edits.append((start, end, "；".join(rendered)))
+
+
 def render_economic_calendar(html: str, parser: SourceTreeParser,
                              snapshot: dict[str, Any], binding: dict[str, Any],
                              edits: list[tuple[int, int, str]],
@@ -777,15 +802,16 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
                     raise ValueError(f"{label}.fields[{field_index}]: field label must be text")
                 add_text(field_label_nodes[0], field_data["label"], f"{label}.fields[{field_index}].label")
                 anchors = select(value_nodes[0],selectors["source_link"])
-                if anchors:
-                    if set(field_data) != {"label","links"} or len(anchors) != len(field_data["links"]):
-                        raise ValueError(f"{label}.fields[{field_index}]: source link count mismatch")
-                    for link_index,(anchor,source) in enumerate(zip(anchors,field_data["links"])):
-                        add_link(anchor,source,f"{label}.fields[{field_index}].links[{link_index}]")
-                else:
-                    if set(field_data) != {"label","text"}:
-                        raise ValueError(f"{label}.fields[{field_index}]: expected text field")
+                if set(field_data) == {"label","links"}:
+                    if anchors and len(anchors) == len(field_data["links"]):
+                        for link_index,(anchor,source) in enumerate(zip(anchors,field_data["links"])):
+                            add_link(anchor,source,f"{label}.fields[{field_index}].links[{link_index}]")
+                    else:
+                        add_link_list(value_nodes[0],field_data["links"],html,edits,used,f"{label}.fields[{field_index}].links")
+                elif set(field_data) == {"label","text"}:
                     add_text(value_nodes[0],field_data["text"],f"{label}.fields[{field_index}].text")
+                else:
+                    raise ValueError(f"{label}.fields[{field_index}]: expected text or links field")
 
 
 def render_earnings_calendar(html: str, parser: SourceTreeParser,
@@ -910,15 +936,16 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                     raise ValueError(f"{label}.fields[{field_index}]: label must be text")
                 add_text(labels[0],field_data["label"],f"{label}.fields[{field_index}].label")
                 anchors=select(values[0],"a")
-                if anchors:
-                    if set(field_data)!={"label","links"} or len(anchors)!=len(field_data["links"]):
-                        raise ValueError(f"{label}.fields[{field_index}]: source link count mismatch")
-                    for link_index,(anchor,source) in enumerate(zip(anchors,field_data["links"])):
-                        add_href(anchor,source,f"{label}.fields[{field_index}].links[{link_index}]")
-                else:
-                    if set(field_data)!={"label","text"}:
-                        raise ValueError(f"{label}.fields[{field_index}]: expected text field")
+                if set(field_data)=={"label","links"}:
+                    if anchors and len(anchors)==len(field_data["links"]):
+                        for link_index,(anchor,source) in enumerate(zip(anchors,field_data["links"])):
+                            add_href(anchor,source,f"{label}.fields[{field_index}].links[{link_index}]")
+                    else:
+                        add_link_list(values[0],field_data["links"],html,edits,used,f"{label}.fields[{field_index}].links")
+                elif set(field_data)=={"label","text"}:
                     add_text(values[0],field_data["text"],f"{label}.fields[{field_index}].text")
+                else:
+                    raise ValueError(f"{label}.fields[{field_index}]: expected text or links field")
 
             result_cards=select(details[0],selectors["result_card"])
             results=item["results"]
