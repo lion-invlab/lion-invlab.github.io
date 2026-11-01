@@ -575,6 +575,7 @@
         },
         "industry": {"type":["string","null"],"maxLength":120},
         "reporting_period": {"type":["string","null"],"maxLength":80},
+        "time_known": {"type":"boolean"},
         "eps_basis": {"type":["string","null"],"maxLength":80},
         "eps_currency": {"type":["string","null"],"maxLength":8},
         "revenue_currency": {"type":["string","null"],"maxLength":8},
