@@ -347,7 +347,8 @@
       },
       "snapshot_fields": {
         "panels": "panels"
-      }
+      },
+      "container": "#earnings"
     }
   },
   "protected_paths": [
