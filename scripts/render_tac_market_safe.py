@@ -30,6 +30,7 @@ class Node:
     parent: "Node | None" = None
     children: list["Node | TextSpan"] = field(default_factory=list)
     class_value_span: tuple[int, int] | None = None
+    attr_value_spans: dict[str, tuple[int, int]] = field(default_factory=dict)
 
     @property
     def classes(self) -> set[str]:
@@ -66,6 +67,10 @@ class SourceTreeParser(HTMLParser):
         class_match = re.search(r"""\bclass\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
         if class_match:
             node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
+        for attr_name in ("style", "aria-label"):
+            attr_match = re.search(r"""\b""" + re.escape(attr_name) + r"""\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
+            if attr_match:
+                node.attr_value_spans[attr_name] = (start + attr_match.start(2), start + attr_match.end(2))
         self.stack[-1].children.append(node)
         if tag.lower() not in VOID:
             self.stack.append(node)
@@ -297,6 +302,129 @@ def render_risk_indicators(html: str, parser: SourceTreeParser,
                 token = token_matches[0]
                 edits.append((class_start + token.start(), class_start + token.end(), new_status))
 
+
+def render_fedwatch(html: str, parser: SourceTreeParser,
+                    snapshot: dict[str, Any], binding: dict[str, Any],
+                    edits: list[tuple[int, int, str]],
+                    used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("fedwatch")
+    data = snapshot.get("fedwatch")
+    if spec is None or data is None:
+        return
+    required = {"probabilities", "target_meeting", "updated_at", "target_rate_range", "audit_text"}
+    if not isinstance(data, dict) or set(data) != required:
+        raise ValueError("fedwatch snapshot must contain probabilities, target_meeting, updated_at, target_rate_range, audit_text")
+    probabilities = data["probabilities"]
+    if not isinstance(probabilities, dict) or set(probabilities) != set(spec["outcomes"]):
+        raise ValueError("fedwatch probabilities must contain exactly the mapped outcomes")
+    parsed = {}
+    for key, outcome in spec["outcomes"].items():
+        item = probabilities[key]
+        if not isinstance(item, dict) or set(item) != {"probability", "rate_range"}:
+            raise ValueError(f"fedwatch.{key}: expected probability and rate_range")
+        p = item["probability"]
+        if not isinstance(p, (int, float)) or not 0 <= p <= 100:
+            raise ValueError(f"fedwatch.{key}: probability out of range")
+        if not isinstance(item["rate_range"], str) or not item["rate_range"]:
+            raise ValueError(f"fedwatch.{key}: rate range missing")
+        parsed[key] = (float(p), f"{p:.1f}%", item["rate_range"])
+    total = sum(x[0] for x in parsed.values())
+    if abs(total - 100.0) > 0.11:
+        raise ValueError(f"fedwatch probabilities sum to {total:.2f}, not 100")
+    containers = select(parser.root, spec["container"])
+    if len(containers) != 1:
+        raise ValueError("fedwatch container missing or duplicated")
+    container = containers[0]
+
+    def add_text(node: Node, text: str, label: str):
+        spans = [x for x in spans_inside(node, parser.spans) if x.text.strip()]
+        if len(spans) != 1:
+            raise ValueError(f"{label}: expected one text node, found {len(spans)}")
+        span = spans[0]
+        ident = (span.start, span.end)
+        if ident in used:
+            raise ValueError(f"{label}: overlapping text slot")
+        used.add(ident)
+        edits.append((span.start, span.end, escape(text, quote=False)))
+
+    for key, outcome in spec["outcomes"].items():
+        rows = select(container, outcome["row"])
+        if len(rows) != 1:
+            raise ValueError(f"fedwatch.{key}: outcome row missing or duplicated")
+        row = rows[0]
+        labels = [n for n in descendants(row) if n.tag == "span" and label_key(node_text(n, parser.spans)) == label_key(outcome["label"])]
+        if len(labels) != 1:
+            raise ValueError(f"fedwatch.{key}: label mismatch")
+        p_nodes, range_nodes = select(row, outcome["probability_selector"]), select(row, outcome["rate_range_selector"])
+        if len(p_nodes) != 1 or len(range_nodes) != 1:
+            raise ValueError(f"fedwatch.{key}: probability/range slot ambiguous")
+        p, p_text, rate_text = parsed[key]
+        add_text(p_nodes[0], p_text, f"fedwatch.{key}.probability")
+        add_text(range_nodes[0], rate_text, f"fedwatch.{key}.rate_range")
+        bar_nodes = select(container, outcome["bar_selector"])
+        if len(bar_nodes) != 1:
+            raise ValueError(f"fedwatch.{key}: bar missing or duplicated")
+        style_span = bar_nodes[0].attr_value_spans.get("style")
+        if style_span is None:
+            raise ValueError(f"fedwatch.{key}: style attribute missing")
+        raw_style = html[style_span[0]:style_span[1]]
+        widths = list(re.finditer(r"(?i)(?<![\w-])width\s*:\s*[^;]+", raw_style))
+        if len(widths) != 1:
+            raise ValueError(f"fedwatch.{key}: width token ambiguous")
+        w = widths[0]
+        ident = (style_span[0] + w.start(), style_span[0] + w.end())
+        if ident in used:
+            raise ValueError(f"fedwatch.{key}: overlapping width slot")
+        used.add(ident)
+        edits.append((ident[0], ident[1], f"width:{p:.1f}%"))
+
+    legend = select(container, spec["legend_selector"])
+    if len(legend) != 1:
+        raise ValueError("fedwatch legend missing or duplicated")
+    legend_rows = [n for n in descendants(legend[0]) if n.tag == "span"]
+    if len(legend_rows) != len(spec["outcomes"]):
+        raise ValueError("fedwatch legend outcome count mismatch")
+    for key, outcome in spec["outcomes"].items():
+        idx = int(outcome["legend_index"])
+        bold = select(legend_rows[idx], "b")
+        if len(bold) != 1:
+            raise ValueError(f"fedwatch.{key}: legend value missing")
+        add_text(bold[0], parsed[key][1], f"fedwatch.{key}.legend")
+
+    split = select(container, spec["split_bar_selector"])
+    if len(split) != 1 or "aria-label" not in split[0].attr_value_spans:
+        raise ValueError("fedwatch split bar aria-label missing or duplicated")
+    a, b = split[0].attr_value_spans["aria-label"]
+    aria = f"維持利率 {parsed['hold'][1]}，升息一碼 {parsed['hike_one'][1]}；CME FedWatch 快照時間 {data['updated_at']}"
+    if (a, b) in used:
+        raise ValueError("fedwatch aria-label overlap")
+    used.add((a, b))
+    edits.append((a, b, escape(aria, quote=True)))
+
+    fomc = spec["fomc"]
+    for row_key, selector, value in (
+        ("meeting", fomc["meeting_row"], data["target_meeting"]),
+        ("rate", fomc["rate_row"], data["target_rate_range"])
+    ):
+        rows = select(container, selector)
+        if len(rows) != 1:
+            raise ValueError(f"fedwatch FOMC {row_key} row missing or duplicated")
+        vals = select(rows[0], "b")
+        if len(vals) != 1:
+            raise ValueError(f"fedwatch FOMC {row_key} value ambiguous")
+        add_text(vals[0], value, f"fedwatch.{row_key}")
+
+    audit_containers = select(container, spec["audit_container_selector"])
+    if len(audit_containers) != 1:
+        raise ValueError("fedwatch audit container missing or duplicated")
+    details = select(audit_containers[0], spec["audit_selector"])
+    if len(details) != 1:
+        raise ValueError("fedwatch audit disclosure missing or duplicated")
+    audit_divs = [n for n in descendants(details[0]) if n.tag == "div" and spans_inside(n, parser.spans)]
+    if len(audit_divs) != 1:
+        raise ValueError("fedwatch audit text target ambiguous")
+    add_text(audit_divs[0], data["audit_text"], "fedwatch.audit_text")
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
         raise ValueError("snapshot must contain a groups object")
@@ -378,6 +506,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                 edits.append((span.start, span.end, escape(value, quote=False)))
 
     render_risk_indicators(html, parser, snapshot, binding, edits, used)
+    render_fedwatch(html, parser, snapshot, binding, edits, used)
 
     result = html
     for start, end, replacement in sorted(edits, reverse=True):
