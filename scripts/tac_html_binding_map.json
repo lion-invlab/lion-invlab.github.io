@@ -259,6 +259,35 @@
         "observation_core": "core_text"
       },
       "container": "#view"
+    },
+    "news": {
+      "panels": {
+        "global_focus": {
+          "container": "#global-focus",
+          "item_selector": ".newsitem",
+          "title_selector": "h3",
+          "summary_selector": "p",
+          "sources_container_selector": ".newsmeta",
+          "source_selector": "a",
+          "meta_selector": ".tab-panel-meta",
+          "warning_selector": ".news-window-warning"
+        },
+        "market_headlines": {
+          "container": "#headlines",
+          "item_selector": ".newsitem",
+          "title_selector": "h3",
+          "summary_selector": "p",
+          "sources_container_selector": ".newsmeta",
+          "source_selector": "a",
+          "meta_selector": ".tab-panel-meta",
+          "warning_selector": ".news-window-warning"
+        }
+      },
+      "snapshot_fields": {
+        "meta_text": "meta_text",
+        "window_text": "window_text",
+        "items": "items"
+      }
     }
   },
   "protected_paths": [
