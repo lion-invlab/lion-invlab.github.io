@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside)
+from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key)
 
 
 def minimal_contract():
@@ -91,9 +91,9 @@ class SafeMarketRendererTests(unittest.TestCase):
 
     def test_risk_indicators_update_with_risk_specific_status_mapping(self):
         html = ('<article id="sentiment">'
-                '<div class="sbox"><div>VIX</div><strong>19.45</strong><span class="warn">+2.21%</span></div>'
-                '<div class="sbox"><div>MOVE</div><strong>103.31</strong><span class="down">-3.30%</span></div>'
-                '<section class="sbox cnn-fg-preview"><div>CNN Fear &amp; Greed</div><span class="fg6-score-main">21.0</span></section>'
+                '<div class="sbox"><div class="label"><span class="label-en">VIX</span></div><strong>19.45</strong><span class="warn">+2.21%</span></div>'
+                '<div class="sbox"><div class="label"><span class="label-en">MOVE</span></div><strong>103.31</strong><span class="down">-3.30%</span></div>'
+                '<section class="sbox cnn-fg-preview"><div class="fg6-title"><span class="label-en">CNN Fear &amp; Greed</span></div><span class="fg6-score-main">21.0</span></section>'
                 '</article>')
         contract = {"rules":{"allow_mapped_status_class_token_transition":True,
                              "pending_value_text":"待核實",
@@ -156,10 +156,13 @@ class SafeMarketRendererTests(unittest.TestCase):
                 for risk_key, risk_record in risk_spec["records"].items():
                     needle = "".join(ch.casefold() for ch in risk_record["key_text"] if ch.isalnum())
                     risk_rows = select(risk_container[0], risk_record["row"])
-                    hits = [row for row in risk_rows if needle in "".join(
-                        ch.casefold() for span in spans_inside(row, parser.spans)
-                        for ch in span.text if ch.isalnum()
-                    )]
+                    hits = []
+                    for row in risk_rows:
+                        key_nodes = select(row, risk_record.get("key_selector", risk_record["row"]))
+                        if len(key_nodes) == 1 and needle == label_key("".join(
+                            span.text for span in spans_inside(key_nodes[0], parser.spans)
+                        )):
+                            hits.append(row)
                     self.assertEqual(len(hits), 1, f"{label}.risk_indicators.{risk_key} row")
                     value_nodes = select(hits[0], risk_record["value_selector"])
                     self.assertEqual(len(value_nodes), 1, f"{label}.risk_indicators.{risk_key} value")
