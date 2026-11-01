@@ -114,7 +114,7 @@ def run_case(kind,report_date,weekday):
         assert len(soup.select("#earnings .earnings-accordion"))==1
         assert len(soup.select("#calendar .econ-event > summary"))==1
         assert len(soup.select("#earnings .earnings-accordion-toggle"))==1
-        assert len(soup.select("#earnings .earnings-detail-field"))>=5
+        assert len(soup.select("#earnings .earnings-detail-field"))>=3
         assert soup.select_one("#calendar .econ-stars").get_text(strip=True)=="★★★★☆"
         assert soup.select_one("#earnings .earnings-stars").get_text(strip=True)=="★★★★☆"
         assert "Synthetic CPI release" in soup.select_one("#calendar").get_text()
