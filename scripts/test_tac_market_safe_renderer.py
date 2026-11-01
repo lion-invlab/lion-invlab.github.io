@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (Node, SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans, inner_bounds, replace_sibling_sequence)
+from render_tac_market_safe import (Node, SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans, inner_bounds, replace_sibling_sequence, resize_calendar_lists)
 
 
 def minimal_contract():
@@ -541,6 +541,48 @@ class SafeMarketRendererTests(unittest.TestCase):
                 earnings_binding={"groups":{"earnings_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding),source,
                                  f"{template_label}: earnings no-op must preserve every byte")
+
+    def test_real_dual_masters_calendar_lists_resize_inside_status_groups(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        for group_name in ("economic_calendar", "earnings_calendar"):
+            spec = binding["groups"][group_name]
+            for template_label, relative in binding["templates"].items():
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                panels = {}
+                expected_counts = {}
+                for panel_key, panel_spec in spec["panels"].items():
+                    containers = select(parser.root, panel_spec["container"])
+                    if not containers:
+                        continue
+                    self.assertEqual(len(containers), 1)
+                    lists = select(containers[0], panel_spec["list_selector"])
+                    self.assertGreater(len(lists), 0, f"{template_label}.{group_name}.{panel_key}")
+                    item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
+                    list_payloads = []
+                    counts = []
+                    for index, list_node in enumerate(lists):
+                        count = len(select(list_node, item_selector))
+                        counts.append(count + (1 if index == 0 else 0))
+                        list_payloads.append({"items":[{} for _ in range(counts[-1])]})
+                    panels[panel_key] = {"lists":list_payloads}
+                    expected_counts[panel_key] = counts
+                rendered = resize_calendar_lists(source, {"groups":{group_name:spec}},
+                                                 {group_name:{"panels":panels}})
+                after = SourceTreeParser(rendered)
+                after.feed(rendered)
+                after.close()
+                for panel_key, panel_spec in spec["panels"].items():
+                    containers = select(after.root, panel_spec["container"])
+                    if not containers:
+                        continue
+                    lists = select(containers[0], panel_spec["list_selector"])
+                    item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
+                    self.assertEqual([len(select(node,item_selector)) for node in lists], expected_counts[panel_key],
+                                     f"{template_label}.{group_name}.{panel_key}")
+                self.assertIn('id="week-econ-tab"', rendered) if group_name == "economic_calendar" and template_label == "weekday" else None
 
     def test_replace_sibling_sequence_resizes_only_card_run(self):
         html = '<section id="news"><div class="meta">KEEP META</div>\n<article class="newsitem"><h3>Old</h3></article>\n<article class="newsitem"><h3>Old 2</h3></article>\n<div class="footer">KEEP FOOTER</div></section>'
