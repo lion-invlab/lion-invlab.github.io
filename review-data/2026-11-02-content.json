@@ -2660,7 +2660,7 @@
         "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
       "eps_note": "Shell每股普通股 adjusted EPS US$1.93；ADR代表兩股普通股，換算每ADR US$3.86。MarketBeat共識 US$3.54，採 ADR 口徑。",
-      "revenue_note": "採Zacks列示的 Total revenue and other income：實際US$95.32B、共識US$95.17B，定義一致；不再使用先前未能與合併報表核對的US$92.85B／US$93.25B數值。",
+      "revenue_note": "採Zacks列示 Total revenue and other income：實際US$95.32B、共識US$95.17B，定義一致；不再使用先前未能與合併報表核對的US$92.85B／US$93.25B數值。",
       "time_type": "release_time"
     },
     {
@@ -2684,7 +2684,7 @@
         "url": "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/",
         "published_at": "2026-10-29T00:00:00Z",
         "observed_at": "2026-11-01T13:56:34+09:00",
-        "notes": "公司官方公布營收KRW195.3T、營業利益KRW107.4T；Yonhap依監管申報列示淨利KRW75.13T。"
+        "notes": "官方公布營收KRW195.3T、營業利益KRW107.4T；Yonhap依監管申報列示淨利KRW75.13T。"
       },
       "industry": "半導體／記憶體與全球電子產業",
       "reporting_period": "2026 Q3",
@@ -2695,14 +2695,14 @@
       "revenue_unit": "KRW trillions",
       "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "miss",
-      "financial_judgment": "Q3營收KRW195.25T，低於市場共識KRW204.8T；普通股EPS KRW11,462，低於約KRW13,607的市場預估。營業利益雖達KRW107.44T創高，但半導體部門獲利略低於LSEG預期，淨利亦低於Yonhap Infomax共識，市場反應偏負面。",
+      "financial_judgment": "Q3營收KRW195.25T，低於Investing.com財報前列示市場共識KRW204.8T；營業利益KRW107.44T雖創高，但略低於LSEG半導體部門獲利預期，淨利KRW75.13T亦低於Yonhap Infomax共識KRW87.01T，市場反應偏負面。EPS實際與共識計算基礎仍待核實。",
       "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；韓國 005930 普通股",
       "consensus_source": {
         "name": "Investing.com／Yonhap Infomax",
         "url": "https://www.investing.com/news/stock-market-news/samsung-q3-earnings-preview-record-profit-expected-but-margin-outlook-in-focus-93CH-4935549",
         "published_at": "2026-10-06T22:37:00Z",
         "observed_at": "2026-11-01T13:56:34+09:00",
-        "notes": "財報前列示完整季度EPS預估約KRW13,607、營收共識KRW204.8T；Yonhap Infomax淨利共識KRW87.01T。"
+        "notes": "財報前摘要列示完整季度EPS預估約KRW13,607、營收共識KRW204.8T；Yonhap Infomax淨利共識KRW87.01T。"
       },
       "price_reaction_source": {
         "name": "Investing.com",
@@ -2711,8 +2711,8 @@
         "observed_at": "2026-11-01T12:56:34+08:00",
         "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
-      "eps_note": "採普通股基本每股盈餘KRW11,462；市場預估約KRW13,607，來自Investing.com財報前共識摘要，需留意估值口徑可能受股數及每股計算基礎影響。 因未能在已取得的一手財報材料中確認普通股EPS與市場EPS估計完全同口徑，暫保留 pending_verification。",
-      "revenue_note": "公司實際銷售額KRW195.25T；Investing.com財報前列示完整季度市場共識KRW204.8T。",
+      "eps_note": "Investing.com財報前摘要列示普通股EPS預估約KRW13,607；Investing.com財報電話會議摘要列示普通股EPS實際KRW11,462。由於尚未取得公司財報附註確認兩者是否採相同加權平均股數／每股口徑，暫保留 pending_verification。",
+      "revenue_note": "採公司合併銷售額KRW195.25T；Investing.com財報前摘要列示完整季度市場共識KRW204.8T。",
       "time_type": "call_time"
     },
     {
