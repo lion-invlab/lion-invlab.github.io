@@ -80,6 +80,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", help="Snapshot JSON file to validate")
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--require-complete", action="store_true",
+        help="Require every market field to be verified or market_closed and FedWatch verified")
     args = parser.parse_args()
     validator, schema = load_validator()
     if args.self_test:
@@ -90,6 +92,15 @@ def main():
     path = Path(args.file)
     data = json.loads(path.read_text(encoding="utf-8"))
     errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
+    if args.require_complete:
+        for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators"):
+            for key, row in data.get(group, {}).items():
+                if row.get("status") not in {"verified", "market_closed"}:
+                    print(f"FAIL {group}.{key}: status is {row.get('status')!r}, complete mode requires verified/market_closed", file=sys.stderr)
+                    return 1
+        if data.get("fedwatch", {}).get("status") != "verified":
+            print("FAIL fedwatch: complete mode requires verified status", file=sys.stderr)
+            return 1
     if errors:
         for error in errors:
             location = ".".join(str(x) for x in error.path) or "$"
