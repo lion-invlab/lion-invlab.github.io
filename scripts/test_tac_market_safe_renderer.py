@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Tests for the contract-driven TAC market renderer."""
 import json
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -217,6 +218,65 @@ class SafeMarketRendererTests(unittest.TestCase):
                     risk_snapshot[risk_key] = record
                 rendered = render_market_html(source, {"groups":snapshot_groups, "risk_indicators":risk_snapshot}, binding)
                 self.assertEqual(rendered, source, f"{label}: no-op snapshot must preserve every byte")
+
+    def test_real_dual_masters_fedwatch_noop_preserves_every_byte(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        spec = binding["groups"]["fedwatch"]
+        for label, relative in binding["templates"].items():
+            with self.subTest(template=label):
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                containers = select(parser.root, spec["container"])
+                self.assertEqual(len(containers), 1)
+                container = containers[0]
+                probabilities = {}
+                for key, outcome in spec["outcomes"].items():
+                    rows = select(container, outcome["row"])
+                    self.assertEqual(len(rows), 1, f"{label}.{key} row")
+                    strong = select(rows[0], outcome["probability_selector"])
+                    ranges = select(rows[0], outcome["rate_range_selector"])
+                    self.assertEqual(len(strong), 1)
+                    self.assertEqual(len(ranges), 1)
+                    p_text = "".join(x.text for x in spans_inside(strong[0], parser.spans)).strip()
+                    p_match = re.fullmatch(r"([0-9]+(?:\.[0-9]+)?)%", p_text)
+                    self.assertIsNotNone(p_match, p_text)
+                    range_text = "".join(x.text for x in spans_inside(ranges[0], parser.spans)).strip()
+                    probabilities[key] = {"probability":float(p_match.group(1)), "rate_range":range_text}
+                split = select(container, spec["split_bar_selector"])
+                self.assertEqual(len(split), 1)
+                aria_label = split[0].attrs.get("aria-label")
+                self.assertTrue(aria_label)
+                meeting_row = select(container, spec["fomc"]["meeting_row"])
+                rate_row = select(container, spec["fomc"]["rate_row"])
+                self.assertEqual(len(meeting_row), 1)
+                self.assertEqual(len(rate_row), 1)
+                meeting = select(meeting_row[0], "b")
+                rate = select(rate_row[0], "b")
+                self.assertEqual(len(meeting), 1)
+                self.assertEqual(len(rate), 1)
+                meeting_text = "".join(x.text for x in spans_inside(meeting[0], parser.spans)).strip()
+                rate_text = "".join(x.text for x in spans_inside(rate[0], parser.spans)).strip()
+                details = select(select(container, spec["audit_container_selector"])[0], spec["audit_selector"])
+                self.assertEqual(len(details), 1)
+                audit_divs = [n for n in descendants(details[0]) if n.tag == "div" and spans_inside(n, parser.spans)]
+                self.assertEqual(len(audit_divs), 1)
+                audit_text = "".join(x.text for x in spans_inside(audit_divs[0], parser.spans)).strip()
+                time_match = re.search(r"20\d{2}/\d{2}/\d{2}\s+\d{2}:\d{2}\s*（?台灣時間", audit_text)
+                if not time_match:
+                    time_match = re.search(r"20\d{2}/\d{2}/\d{2}\s+\d{2}:\d{2}\s*台灣時間", aria_label)
+                self.assertIsNotNone(time_match, f"{label}: cannot recover snapshot time")
+                snapshot = {"groups":{}, "fedwatch":{
+                    "probabilities":probabilities,
+                    "target_meeting":meeting_text,
+                    "updated_at":time_match.group(0),
+                    "target_rate_range":rate_text,
+                    "audit_text":audit_text,
+                    "aria_label":aria_label
+                }}
+                self.assertEqual(render_market_html(source,snapshot,binding),source,
+                                 f"{label}: FedWatch no-op must preserve every byte")
 
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
