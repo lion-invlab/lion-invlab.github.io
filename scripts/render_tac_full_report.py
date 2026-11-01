@@ -59,7 +59,7 @@ def render_full(snapshot_path:Path,content_path:Path,output_path:Path,require_co
                 for field in published_fields:
                     if item.get(field) is None or item.get(field) == "":
                         pending.append(group+"."+item["id"]+"."+field)
-                if item.get("time_known") is not True:
+                if item.get("time_known") is not True or item.get("time_type") != "release_time":
                     pending.append(group+"."+item["id"]+".release_time")
                 if item.get("eps_comparison_status") not in {"beat", "met", "miss"}:
                     pending.append(group+"."+item["id"]+".eps_comparison")
