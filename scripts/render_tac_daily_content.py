@@ -224,7 +224,11 @@ def econ_card(proto,item,soup):
     for f,(lab,val) in zip(fields[:4],vals):
         put(slot(f,"label","econ field label"),lab); put(slot(f,".econ-value","econ field value"),val)
     f=fields[4]; put(slot(f,"label","econ source label"),"資料來源")
-    new_anchor(soup,slot(f,".econ-value","econ source value"),item["source"])
+    source_node=slot(f,".econ-value","econ source value")
+    new_anchor(soup,source_node,item["source"])
+    if item.get("consensus_source"):
+        source_node.append(NavigableString("；"))
+        a=soup.new_tag("a"); a["target"]="_blank"; a["rel"]=["noopener"]; source_node.append(a); source_link(a,item["consensus_source"])
     return card
 def dt_us(v):
     x=__import__("datetime").datetime.fromisoformat(v.replace("Z","+00:00"))
