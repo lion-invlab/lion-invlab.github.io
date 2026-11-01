@@ -120,6 +120,24 @@ class WeeklyCalendarDbTests(unittest.TestCase):
         errors=validate_week(self.week(events={"economic":[],"earnings":[earnings]}))
         self.assertTrue(any("requires numeric eps_actual" in e for e in errors))
 
+    def test_released_event_cannot_regress_to_upcoming(self):
+        released={**self.event("e1","2026-11-02T10:00:00+08:00",5,"released"),"actual":"3.2%"}
+        w=self.week(events={"economic":[released],"earnings":[]})
+        with tempfile.TemporaryDirectory() as td:
+            db=Path(td)/"week.json"; event=Path(td)/"event.json"
+            db.write_text(json.dumps(w),encoding="utf-8")
+            event.write_text(json.dumps(self.event("e1","2026-11-02T10:00:00+08:00",5,"upcoming")),encoding="utf-8")
+            args=type("Args",(),{"file":str(db),"kind":"economic","event":str(event),"at":"2026-11-03T09:00:00+08:00"})()
+            with self.assertRaisesRegex(ValueError,"cannot regress to upcoming"):
+                cmd_upsert(args)
+            self.assertEqual(load_for_test(db)["events"]["economic"][0]["status"],"released")
+
+    def test_unknown_time_must_be_explicit_boolean(self):
+        event=self.event("e1","2026-11-02T10:00:00+08:00")
+        event["time_known"]="false"
+        errors=validate_week(self.week(events={"economic":[event],"earnings":[]}))
+        self.assertTrue(any("time_known must be boolean" in e for e in errors))
+
     def test_tac_star_and_archive_policy(self):
         low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
         self.assertTrue(any("TAC 4 or 5" in e for e in validate_week(low)))
