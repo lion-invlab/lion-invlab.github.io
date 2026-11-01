@@ -30,3 +30,9 @@ jobs:
           --previous-week-file data/calendar/weeks/2026-W44.json
           --report-date 2026-11-02
           --output /tmp/tac-weekly-calendar-snapshot.json
+
+      - name: Build W45 data quality report
+        run: >-
+          python scripts/tac_weekly_calendar_db.py quality-report
+          --file data/calendar/weeks/2026-W45.json
+          --output /tmp/tac-weekly-calendar-quality-report.json
