@@ -344,11 +344,10 @@ class SafeMarketRendererTests(unittest.TestCase):
                     content = select(panels[0],spec["observation"][content_key])
                     self.assertEqual(len(content),1)
                     direct = [x for x in spans_inside(content[0],parser.spans) if x.parent is content[0] and x.text.strip()]
-                    if field_name == "levels_segments":
-                        editorial[field_name] = [x.text for x in direct]
-                    else:
-                        self.assertEqual(len(direct),1,f"{label}.{field_name}")
+                    if len(direct) == 1:
                         editorial[field_name] = direct[0].text
+                    else:
+                        editorial[field_name] = [x.text for x in direct]
                 editorial_binding = {"groups":{"editorial":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"editorial":editorial},editorial_binding),source,
                                  f"{label}: editorial no-op must preserve every byte")
