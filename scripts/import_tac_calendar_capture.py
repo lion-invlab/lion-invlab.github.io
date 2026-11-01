@@ -242,6 +242,20 @@ def self_test() -> None:
         }
     }
     empty_fragment = normalize(empty_capture)
+    incomplete_dates_capture = dict(empty_capture)
+    incomplete_dates_capture["coverage"] = {
+        "economic_calendar": {
+            "status": "complete", "source_refs": ["synthetic-calendar-index"],
+            "checked_at": "2026-10-31T21:00:00+08:00",
+            "checked_dates": ["2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05"]
+        }
+    }
+    try:
+        normalize(incomplete_dates_capture)
+    except ValueError as exc:
+        assert "missing checked weekdays" in str(exc)
+    else:
+        raise AssertionError("coverage with a missing weekday must not be marked complete")
     empty_assembled = assemble(
         "2026-11-02", "2026-10-30", "2026-10-31T21:00:00+08:00",
         [empty_fragment], validator, schema
@@ -250,6 +264,7 @@ def self_test() -> None:
     assert empty_assembled["coverage"]["economic_calendar"]["status"] == "complete"
     assert empty_assembled["coverage"]["earnings_calendar"]["status"] == "incomplete"
     print("PASS: verified empty calendar remains distinct from an incomplete capture")
+    print("PASS: complete coverage requires all five weekdays in the applicable week")
 
     print("PASS: only source-native 3-star economic events are imported")
     print("PASS: unrated earnings require a traceable major-event assessment and retain null stars")
