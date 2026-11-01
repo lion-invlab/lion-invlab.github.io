@@ -77,10 +77,12 @@ def assert_valid(validator, data, label):
         raise ValueError(label + " invalid: " + "; ".join(details[:12]))
 
 
-def convert(data: dict, input_validator, output_validator) -> dict:
+def convert(data: dict, input_validator, output_validator, expected_report_date: str | None = None, require_complete: bool = False) -> dict:
     assert_valid(input_validator, data, "direct webpage observation package")
     meta = data["meta"]
     report_date = date.fromisoformat(meta["report_date"])
+    if expected_report_date and meta["report_date"] != expected_report_date:
+        raise ValueError(f"report_date mismatch: expected {expected_report_date}, got {meta['report_date']}")
     observed = {row["asset_id"]: row for row in data["observations"]}
     if len(observed) != len(data["observations"]):
         raise ValueError("duplicate asset_id observations")
@@ -153,6 +155,12 @@ def convert(data: dict, input_validator, output_validator) -> dict:
             }
 
     fw = data["fedwatch"]
+    if require_complete:
+        incomplete = [asset for asset, row in observed.items() if row["verification_status"] not in {"verified", "market_closed"}]
+        if incomplete:
+            raise ValueError("market observations not fully verified: " + ", ".join(sorted(incomplete)))
+        if fw["verification_status"] != "verified":
+            raise ValueError("CME FedWatch observation is not verified")
     snapshot["fedwatch"] = {
         "target_meeting": fw["target_meeting"],
         "updated_at": fw["updated_at"],
@@ -242,6 +250,8 @@ def main():
     parser.add_argument("--input")
     parser.add_argument("--output")
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--expected-report-date")
+    parser.add_argument("--require-complete", action="store_true")
     args = parser.parse_args()
     input_validator, output_validator = validators()
     if args.self_test:
@@ -249,7 +259,8 @@ def main():
         return 0
     if not args.input or not args.output:
         parser.error("--input and --output are required unless --self-test is used")
-    result = convert(load_json(Path(args.input)), input_validator, output_validator)
+    result = convert(load_json(Path(args.input)), input_validator, output_validator,
+        expected_report_date=args.expected_report_date, require_complete=args.require_complete)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
