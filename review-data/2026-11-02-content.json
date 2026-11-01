@@ -916,7 +916,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-bmw-20261104",
@@ -952,7 +955,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-nvo-20261104",
@@ -988,7 +994,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-uber-20261102",
@@ -1169,7 +1178,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-su-20261102",
@@ -1527,7 +1539,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-dte-20261105",
@@ -1563,7 +1578,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-rhm-20261105",
@@ -1599,7 +1617,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-cbk-20261105",
@@ -1635,7 +1656,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-shl-20261105",
@@ -1671,7 +1695,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-sony-20261105",
@@ -1707,7 +1734,10 @@
       "financial_judgment": null,
       "stock_price_reaction": null,
       "stock_price_reaction_window": null,
-      "price_reaction_source": null
+      "price_reaction_source": null,
+      "importance_basis": "major_event_assessment",
+      "importance_rating_source": null,
+      "status": "upcoming"
     },
     {
       "id": "current-cop-20261102",
