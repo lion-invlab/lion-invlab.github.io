@@ -4,7 +4,10 @@ import unittest
 from pathlib import Path
 from scripts.tac_weekly_calendar_db import validate_week, cmd_snapshot, cmd_upsert
 
-def load_for_test(path):\n    return json.loads(Path(path).read_text(encoding="utf-8"))\n\nclass WeeklyCalendarDbTests(unittest.TestCase):
+def load_for_test(path):
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+class WeeklyCalendarDbTests(unittest.TestCase):
     def event(self, eid, when, stars=4, status="upcoming"):
         return {"id":eid,"event_date":when,"region":"US","event_name":eid,
                 "importance_stars":stars,"status":status,
