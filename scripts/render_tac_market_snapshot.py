@@ -175,19 +175,19 @@ def status_class(row):
     return "up" if change > 0 else "down"
 
 
-def find_row(nodes, selector, label):
+def find_row(nodes, selector, label, source):
     rows = select(nodes, selector)
-    matches = [row for row in rows if label in row.text(SOURCE_TEXT)]
+    matches = [row for row in rows if label in row.text(source)]
     if len(matches) != 1:
         raise ValueError(f"expected exactly one row for {label!r}, found {len(matches)}")
     return matches[0]
 
 
-SOURCE_TEXT = ""
+
 
 
 def update_row(source, nodes, selector, label, row_data, decimals=2, has_change=True):
-    row = find_row(nodes, selector, label)
+    row = find_row(nodes, selector, label, source)
     value_nodes = select(nodes, "span.r")
     value_nodes = [node for node in value_nodes if is_descendant(node, row)]
     expected = 2 if has_change else 1
