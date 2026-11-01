@@ -198,7 +198,7 @@ def main() -> int:
     actual_risk = contract["groups"].get("risk_indicators", {}).get("snapshot_fields")
     if actual_risk != expected_risk:
         failures.append(f"risk_indicators: snapshot_fields must be {expected_risk}, got {actual_risk}")
-    expected_fedwatch = {"probabilities": "probabilities", "meeting": "target_meeting", "updated_at": "updated_at", "target_rate_range": "target_rate_range", "audit_text": "audit_text"}
+    expected_fedwatch = {"probabilities": "probabilities", "meeting": "target_meeting", "updated_at": "updated_at", "target_rate_range": "target_rate_range", "audit_text": "audit_text", "aria_label": "aria_label"}
     actual_fedwatch = contract["groups"].get("fedwatch", {}).get("snapshot_fields")
     if actual_fedwatch != expected_fedwatch:
         failures.append(f"fedwatch: snapshot_fields must be {expected_fedwatch}, got {actual_fedwatch}")
