@@ -2264,10 +2264,10 @@
       "event_name": "美國第三季 GDP 初值（年化季增率）",
       "importance_stars": 5,
       "previous": "2.2%",
-      "forecast": "3.1%",
+      "forecast": "3.2%",
       "actual": "3.4%",
       "status": "released",
-      "impact_judgment": "經濟成長高於市場預期，投資與消費支撐需求韌性，可能降低聯準會短期降息空間；但須與通膨數據一併判讀。",
+      "impact_judgment": "實際GDP年化季增3.4%，高於Investing.com市場共識3.2%，顯示第三季經濟仍具韌性；成長主要由AI相關投資與消費支出支撐，但進口大增及出口下滑抵銷部分增幅。",
       "source": {
         "name": "U.S. Bureau of Economic Analysis / CME Econoday",
         "url": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
@@ -2277,7 +2277,13 @@
         "notes": "BEA公布實際GDP年化季增3.4%；CME Econoday調查共識3.1%，前值2.2%。"
       },
       "importance_basis": "major_event_assessment",
-      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。",
+      "consensus_source": {
+        "name": "Investing.com 香港站",
+        "url": "https://www.investing.com/economic-calendar/pil-375",
+        "observed_at": "2026-11-01T14:14:08+09:00",
+        "notes": "2026-10-29 Q3 GDP年化季增率：實際3.4%、市場預估3.2%、前值2.2%。"
+      }
     },
     {
       "id": "prev-us-pce-20261029",
@@ -2299,7 +2305,13 @@
         "notes": "實際值取自BEA；共識與市場反應參照Reuters當日報導。"
       },
       "importance_basis": "major_event_assessment",
-      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。",
+      "consensus_source": {
+        "name": "Investing.com 香港站",
+        "url": "https://www.investing.com/economic-calendar/pce-price-index-904",
+        "observed_at": "2026-11-01T14:14:08+09:00",
+        "notes": "2026-10-29 9月PCE月增實際0.5%、預估0.5%、前值0.3%；另以核心PCE月增0.3%與年增3.1%作為補充口徑。"
+      }
     },
     {
       "id": "prev-ecb-rate-20261029",
@@ -3163,10 +3175,12 @@
         "https://www.newsquawk.com/daily/5825-week-in-focus-26-30th-october-2026-highlights-include-fomc-boc-rbnz-ecb-boj-policy-decisions-us-pce",
         "https://www.reuters.com/world/uk/view-britains-new-finance-minister-unveils-first-budget-2026-10-28/",
         "https://www.bls.gov/news.release/eci.nr0.htm",
-        "https://www.bls.gov/schedule/news_release/eci.htm"
+        "https://www.bls.gov/schedule/news_release/eci.htm",
+        "https://www.investing.com/economic-calendar/pil-375",
+        "https://www.investing.com/economic-calendar/pce-price-index-904"
       ],
-      "checked_at": "2026-11-01T14:06:09+09:00",
-      "notes": "依 WR v3.7，上週區塊只保留TAC五星。已核實納入8項五星：BoC、RBNZ、澳洲CPI、FOMC、ECB、US GDP、US PCE、BoJ。另完成候選掃描：歐元區Q3 GDP（0.4% q/q，高於0.2%共識）、東京CPI（headline 2.8%，但核心指標較上月放緩）、美國Q3 ECI（0.8%，符合0.8%共識）；目前未達TAC五星門檻，因此不列入上週五星區。尚待完整核對Investing.com香港站全週擷取結果及各國主要官方行事曆，coverage 維持 incomplete。"
+      "checked_at": "2026-11-01T14:14:08+09:00",
+      "notes": "依 WR v3.7，上週區塊只保留TAC五星。已核實納入8項五星（GDP市場預估已更正為Investing.com香港站3.2%，並補上GDP及PCE共識來源）：BoC、RBNZ、澳洲CPI、FOMC、ECB、US GDP、US PCE、BoJ。另完成候選掃描：歐元區Q3 GDP（0.4% q/q，高於0.2%共識）、東京CPI（headline 2.8%，但核心指標較上月放緩）、美國Q3 ECI（0.8%，符合0.8%共識）；目前未達TAC五星門檻，因此不列入上週五星區。尚待完整核對Investing.com香港站全週擷取結果及各國主要官方行事曆，coverage 維持 incomplete。"
     }
   }
 }
