@@ -149,7 +149,31 @@ class SafeMarketRendererTests(unittest.TestCase):
                             record[change_field] = change_span.text
                         group[key] = record
                     snapshot_groups[group_name] = group
-                rendered = render_market_html(source, {"groups":snapshot_groups}, binding)
+                risk_spec = binding["groups"]["risk_indicators"]
+                risk_container = select(parser.root, risk_spec["container"])
+                self.assertEqual(len(risk_container), 1, f"{label}.risk_indicators container")
+                risk_snapshot = {}
+                for risk_key, risk_record in risk_spec["records"].items():
+                    needle = "".join(ch.casefold() for ch in risk_record["key_text"] if ch.isalnum())
+                    risk_rows = select(risk_container[0], risk_record["row"])
+                    hits = [row for row in risk_rows if needle in "".join(
+                        ch.casefold() for span in spans_inside(row, parser.spans)
+                        for ch in span.text if ch.isalnum()
+                    )]
+                    self.assertEqual(len(hits), 1, f"{label}.risk_indicators.{risk_key} row")
+                    value_nodes = select(hits[0], risk_record["value_selector"])
+                    self.assertEqual(len(value_nodes), 1, f"{label}.risk_indicators.{risk_key} value")
+                    value_spans = [span for span in spans_inside(value_nodes[0], parser.spans) if span.text.strip()]
+                    self.assertEqual(len(value_spans), 1, f"{label}.risk_indicators.{risk_key} value text")
+                    record = {"value": value_spans[0].text}
+                    if risk_record.get("change_selector"):
+                        change_nodes = select(hits[0], risk_record["change_selector"])
+                        self.assertEqual(len(change_nodes), 1, f"{label}.risk_indicators.{risk_key} change")
+                        change_spans = [span for span in spans_inside(change_nodes[0], parser.spans) if span.text.strip()]
+                        self.assertEqual(len(change_spans), 1, f"{label}.risk_indicators.{risk_key} change text")
+                        record["change"] = change_spans[0].text
+                    risk_snapshot[risk_key] = record
+                rendered = render_market_html(source, {"groups":snapshot_groups, "risk_indicators":risk_snapshot}, binding)
                 self.assertEqual(rendered, source, f"{label}: no-op snapshot must preserve every byte")
 
     def test_attributes_and_markup_are_preserved(self):
