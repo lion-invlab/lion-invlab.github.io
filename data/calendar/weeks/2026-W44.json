@@ -541,69 +541,6 @@
         }
       },
       {
-        "id": "prev-samsung-20261029",
-        "event_date": "2026-10-29T09:00:00+08:00",
-        "company": "Samsung Electronics",
-        "ticker": "005930",
-        "session": "before_market",
-        "importance_stars": 5,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC五星：半導體／記憶體與全球電子產業為全球大型權值或關鍵產業指標企業，財報對相關產業景氣、供應鏈與跨資產定價具重要影響。",
-        "importance_rating_source": null,
-        "eps_estimate": 13607,
-        "eps_actual": 11462,
-        "revenue_estimate": 204.8,
-        "revenue_actual": 195.25,
-        "status": "released",
-        "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 -4.13%",
-        "source": {
-          "name": "Samsung Electronics／Yonhap",
-          "url": "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/",
-          "published_at": "2026-10-29T00:00:00Z",
-          "observed_at": "2026-11-01T13:56:34+09:00",
-          "notes": "官方公布營收KRW195.3T、營業利益KRW107.4T；Yonhap依監管申報列示淨利KRW75.13T。"
-        },
-        "industry": "半導體／記憶體與全球電子產業",
-        "reporting_period": "2026 Q3",
-        "time_known": true,
-        "eps_basis": "Basic EPS - common shares",
-        "eps_currency": "KRW",
-        "revenue_currency": "KRW",
-        "revenue_unit": "KRW trillions",
-        "eps_comparison_status": "pending_verification",
-        "revenue_comparison_status": "miss",
-        "financial_judgment": "Q3營收KRW195.25T，低於Investing.com財報前列示市場共識KRW204.8T；營業利益KRW107.44T雖創高，但略低於LSEG半導體部門獲利預期，淨利KRW75.13T亦低於Yonhap Infomax共識KRW87.01T，市場反應偏負面。EPS實際與共識計算基礎仍待核實。",
-        "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；韓國 005930 普通股",
-        "consensus_source": {
-          "name": "Investing.com／Yonhap Infomax",
-          "url": "https://www.investing.com/news/stock-market-news/samsung-q3-earnings-preview-record-profit-expected-but-margin-outlook-in-focus-93CH-4935549",
-          "published_at": "2026-10-06T22:37:00Z",
-          "observed_at": "2026-11-01T13:56:34+09:00",
-          "notes": "財報前摘要列示完整季度EPS預估約KRW13,607、營收共識KRW204.8T；Yonhap Infomax淨利共識KRW87.01T。"
-        },
-        "price_reaction_source": {
-          "name": "Investing.com",
-          "url": "https://www.investing.com/equities/samsung-electronics-co-ltd-historical-data",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:56:34+08:00",
-          "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
-        },
-        "eps_note": "Investing.com財報前摘要列示普通股EPS預估約KRW13,607；Investing.com財報電話會議摘要列示普通股EPS實際KRW11,462。由於尚未取得公司財報附註確認兩者是否採相同加權平均股數／每股口徑，暫保留 pending_verification。",
-        "revenue_note": "採公司合併銷售額KRW195.25T；Investing.com財報前摘要列示完整季度市場共識KRW204.8T。",
-        "time_type": "call_time",
-        "issuer_country": "South Korea",
-        "us_exchange_listed": false,
-        "us_listing_exchange": null,
-        "us_listing_ticker": null,
-        "listing_evidence": {
-          "name": "Issuer / exchange listing disclosure",
-          "url": "https://www.samsung.com/global/ir/stock-information/",
-          "publisher": "Company / SEC",
-          "notes": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。"
-        },
-        "us_listing_market": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。"
-      },
-      {
         "id": "prev-msft-20261028",
         "event_date": "2026-10-29T05:30:00+08:00",
         "company": "微軟 Microsoft",
@@ -883,7 +820,7 @@
         "https://www.reuters.com/legal/litigation/astrazeneca-kicks-off-savings-drive-invest-pipeline-after-sales-beat-2026-10-30/"
       ],
       "checked_at": "2026-11-01T14:06:09+09:00",
-      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家企業均有首個常規交易日價格反應；AstraZeneca EPS／營收、Shell EPS per ADR／Total revenue and other income 已完成共識口徑核對。Samsung營收已補入市場共識，EPS因每股計算基礎仍未能完全確認而保留 pending_verification。 新增美國交易所掛牌資格篩選：AstraZeneca與Shell保留；Samsung Electronics因未有美國交易所掛牌證據排除。"
+      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家企業均有首個常規交易日價格反應；AstraZeneca EPS／營收、Shell EPS per ADR／Total revenue and other income 已完成共識口徑核對。Samsung營收已補入市場共識，EPS因每股計算基礎仍未能完全確認而保留 pending_verification。 新增美國交易所掛牌資格篩選：AstraZeneca與Shell保留；Samsung Electronics因未有美國交易所掛牌證據排除。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。"
     }
   },
   "audit": [
@@ -902,6 +839,77 @@
         "prev-shell-20261029",
         "prev-samsung-20261029"
       ]
+    },
+    {
+      "at": "2026-11-01T15:27:00+09:00",
+      "action": "earnings_event_excluded",
+      "event_id": "prev-samsung-20261029",
+      "reason": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。",
+      "source": "https://www.samsung.com/global/ir/stock-information/",
+      "excluded_event_snapshot": {
+        "id": "prev-samsung-20261029",
+        "event_date": "2026-10-29T09:00:00+08:00",
+        "company": "Samsung Electronics",
+        "ticker": "005930",
+        "session": "before_market",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：半導體／記憶體與全球電子產業為全球大型權值或關鍵產業指標企業，財報對相關產業景氣、供應鏈與跨資產定價具重要影響。",
+        "importance_rating_source": null,
+        "eps_estimate": 13607,
+        "eps_actual": 11462,
+        "revenue_estimate": 204.8,
+        "revenue_actual": 195.25,
+        "status": "released",
+        "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 -4.13%",
+        "source": {
+          "name": "Samsung Electronics／Yonhap",
+          "url": "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/",
+          "published_at": "2026-10-29T00:00:00Z",
+          "observed_at": "2026-11-01T13:56:34+09:00",
+          "notes": "官方公布營收KRW195.3T、營業利益KRW107.4T；Yonhap依監管申報列示淨利KRW75.13T。"
+        },
+        "industry": "半導體／記憶體與全球電子產業",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "eps_basis": "Basic EPS - common shares",
+        "eps_currency": "KRW",
+        "revenue_currency": "KRW",
+        "revenue_unit": "KRW trillions",
+        "eps_comparison_status": "pending_verification",
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "Q3營收KRW195.25T，低於Investing.com財報前列示市場共識KRW204.8T；營業利益KRW107.44T雖創高，但略低於LSEG半導體部門獲利預期，淨利KRW75.13T亦低於Yonhap Infomax共識KRW87.01T，市場反應偏負面。EPS實際與共識計算基礎仍待核實。",
+        "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；韓國 005930 普通股",
+        "consensus_source": {
+          "name": "Investing.com／Yonhap Infomax",
+          "url": "https://www.investing.com/news/stock-market-news/samsung-q3-earnings-preview-record-profit-expected-but-margin-outlook-in-focus-93CH-4935549",
+          "published_at": "2026-10-06T22:37:00Z",
+          "observed_at": "2026-11-01T13:56:34+09:00",
+          "notes": "財報前摘要列示完整季度EPS預估約KRW13,607、營收共識KRW204.8T；Yonhap Infomax淨利共識KRW87.01T。"
+        },
+        "price_reaction_source": {
+          "name": "Investing.com",
+          "url": "https://www.investing.com/equities/samsung-electronics-co-ltd-historical-data",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:56:34+08:00",
+          "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
+        },
+        "eps_note": "Investing.com財報前摘要列示普通股EPS預估約KRW13,607；Investing.com財報電話會議摘要列示普通股EPS實際KRW11,462。由於尚未取得公司財報附註確認兩者是否採相同加權平均股數／每股口徑，暫保留 pending_verification。",
+        "revenue_note": "採公司合併銷售額KRW195.25T；Investing.com財報前摘要列示完整季度市場共識KRW204.8T。",
+        "time_type": "call_time",
+        "issuer_country": "South Korea",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / exchange listing disclosure",
+          "url": "https://www.samsung.com/global/ir/stock-information/",
+          "publisher": "Company / SEC",
+          "notes": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。"
+        },
+        "us_listing_market": "Samsung Electronics普通股於韓國交易所交易，未核實美國交易所掛牌；排除。"
+      },
+      "note": "依使用者規則，非美國公司未在美國證券交易所掛牌，不納入財報事件集合；OTC/OTCQX不視為交易所掛牌。"
     }
   ]
 }
