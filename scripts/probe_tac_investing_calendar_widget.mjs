@@ -5,7 +5,8 @@
  */
 import fs from "node:fs";
 import { chromium } from "playwright";
-const output = process.argv[process.argv.indexOf("--output") + 1];
+const outputArg = process.argv.indexOf("--output");
+const output = outputArg >= 0 ? process.argv[outputArg + 1] : null;
 if (!output) throw new Error("Usage: node probe_tac_investing_calendar_widget.mjs --output FILE");
 const browser = await chromium.launch({ headless: true });
 const report = { source_url: "https://www.investing.com/webmaster-tools/economiccalendar", observed_at: new Date().toISOString(), status: "pending_verification" };
