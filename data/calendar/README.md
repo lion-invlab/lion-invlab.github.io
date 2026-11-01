@@ -22,3 +22,9 @@ This directory is the proposed weekly source of truth for economic and earnings 
 - `weeks/2026-W44.json`: prior-week archive candidate.
 - `schema/tac-weekly-calendar.schema.json`: structural contract.
 - `../../scripts/tac_weekly_calendar_db.py`: stdlib CLI for validate, idempotent upsert, daily snapshot export, and safe snapshot merge.
+
+
+## Data integrity rules (prototype hardening)
+- Once an event is marked `released`, an upsert cannot silently revert it to `upcoming`; corrections retain the released state and are recorded as revisions.
+- If `time_known=false`, any stored clock component is a non-display placeholder only. Renderers must show the date with time pending verification, never display the placeholder as an event time.
+- The JSON Schema star range is TAC-specific (4–5), consistent with the Python validator and WR v3.7.
