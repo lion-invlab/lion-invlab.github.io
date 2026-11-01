@@ -3,12 +3,13 @@
 import json
 import re
 import sys
+from html import unescape
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants)
+from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans)
 
 
 def minimal_contract():
@@ -332,9 +333,9 @@ class SafeMarketRendererTests(unittest.TestCase):
                 self.assertEqual(len(headlines),1)
                 self.assertEqual(len(body_nodes),1)
                 headline_spans = [x for x in spans_inside(headlines[0],parser.spans) if x.text.strip()]
-                body_spans = [x for x in spans_inside(body_nodes[0],parser.spans) if x.parent is body_nodes[0] and x.text.strip()]
+                body_spans = coalesce_spans([x for x in spans_inside(body_nodes[0],parser.spans) if x.parent is body_nodes[0] and x.text.strip()])
                 self.assertEqual(len(headline_spans),1)
-                editorial = {"headline":headline_spans[0].text,"body_segments":[x.text for x in body_spans]}
+                editorial = {"headline":headline_spans[0].text,"body_segments":[unescape(x.text) for x in body_spans]}
                 for field_name,panel_key,content_key in (
                     ("market_text","market_panel","market_text_selector"),
                     ("levels_segments","levels_panel","levels_text_selector"),
@@ -343,11 +344,11 @@ class SafeMarketRendererTests(unittest.TestCase):
                     self.assertEqual(len(panels),1)
                     content = select(panels[0],spec["observation"][content_key])
                     self.assertEqual(len(content),1)
-                    direct = [x for x in spans_inside(content[0],parser.spans) if x.parent is content[0] and x.text.strip()]
+                    direct = coalesce_spans([x for x in spans_inside(content[0],parser.spans) if x.parent is content[0] and x.text.strip()])
                     if len(direct) == 1:
-                        editorial[field_name] = direct[0].text
+                        editorial[field_name] = unescape(direct[0].text)
                     else:
-                        editorial[field_name] = [x.text for x in direct]
+                        editorial[field_name] = [unescape(x.text) for x in direct]
                 editorial_binding = {"groups":{"editorial":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"editorial":editorial},editorial_binding),source,
                                  f"{label}: editorial no-op must preserve every byte")
