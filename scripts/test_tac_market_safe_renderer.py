@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (Node, SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans, inner_bounds)
+from render_tac_market_safe import (Node, SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside, label_key, descendants, coalesce_spans, inner_bounds, replace_sibling_sequence)
 
 
 def minimal_contract():
@@ -541,6 +541,26 @@ class SafeMarketRendererTests(unittest.TestCase):
                 earnings_binding={"groups":{"earnings_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding),source,
                                  f"{template_label}: earnings no-op must preserve every byte")
+
+    def test_replace_sibling_sequence_resizes_only_card_run(self):
+        html = '<section id="news"><div class="meta">KEEP META</div>\\n<article class="newsitem"><h3>Old</h3></article>\\n<article class="newsitem"><h3>Old 2</h3></article>\\n<div class="footer">KEEP FOOTER</div></section>'
+        parser = SourceTreeParser(html)
+        parser.feed(html)
+        parser.close()
+        cards = select(parser.root, ".newsitem")
+        result = replace_sibling_sequence(html, parser, cards, 3, "news.test")
+        self.assertEqual(result.count('class="newsitem"'), 3)
+        self.assertIn('<div class="meta">KEEP META</div>', result)
+        self.assertIn('<div class="footer">KEEP FOOTER</div>', result)
+        self.assertEqual(result.count('<h3>Old</h3>'), 3)
+
+    def test_replace_sibling_sequence_refuses_noncontiguous_cards(self):
+        html = '<section><article class="newsitem">A</article><aside>not a card</aside><article class="newsitem">B</article></section>'
+        parser = SourceTreeParser(html)
+        parser.feed(html)
+        parser.close()
+        with self.assertRaisesRegex(ValueError, "not contiguous"):
+            replace_sibling_sequence(html, parser, select(parser.root, ".newsitem"), 1, "news.test")
 
     def test_dynamic_region_bounds_exclude_container_tags(self):
         html = '<main id="calendar"><section class="approved-list"><details class="econ-event"><summary>Event A</summary></details></section><aside>Locked sibling</aside></main>'
