@@ -841,12 +841,12 @@
         "notes": "EPS 共識 3.02；營收共識 US$127.69B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "GOOGL：首個常規交易日收盤 -12.64%；以 2026-10-29 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "GOOGL：首個常規交易日收盤 -12.64%；2026-10-29。"
       },
       "eps_note": null,
       "revenue_note": null,
@@ -896,12 +896,12 @@
         "notes": "EPS 共識 4.72；營收共識 US$90.61B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "MSFT：首個常規交易日收盤 -0.16%；以 2026-10-29 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "MSFT：首個常規交易日收盤 -0.16%；2026-10-29。"
       },
       "eps_note": null,
       "revenue_note": null,
@@ -951,12 +951,12 @@
         "notes": "EPS 共識 9.85；營收共識 US$22.16B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "LLY：首個常規交易日收盤 +6.63%；以 2026-10-29 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "LLY：首個常規交易日收盤 +6.63%；2026-10-29。"
       },
       "eps_note": null,
       "revenue_note": null,
@@ -1006,12 +1006,12 @@
         "notes": "EPS 共識 1.96；營收共識 US$202.1B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "AMZN：首個常規交易日收盤 -1.41%；以 2026-10-30 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "AMZN：首個常規交易日收盤 -1.41%；2026-10-30。"
       },
       "eps_note": null,
       "revenue_note": null,
@@ -1027,7 +1027,7 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC獨立評估：公司為全球大型權值／核心產業代表，財報及財測具跨市場定價影響，可能改變主要指數或產業預期。",
       "importance_rating_source": null,
-      "eps_estimate": 0.4,
+      "eps_estimate": 0.401,
       "eps_actual": 0.6,
       "revenue_estimate": 16.48,
       "revenue_actual": 16.5,
@@ -1061,12 +1061,12 @@
         "notes": "EPS 共識 0.4；營收共識 US$16.48B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "INTC：首個常規交易日收盤 -28.58%；以 2026-10-30 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "INTC：首個常規交易日收盤 -28.58%；2026-10-30。"
       },
       "eps_note": null,
       "revenue_note": null,
@@ -1116,12 +1116,12 @@
         "notes": "EPS 共識 3.99；營收共識 US$115.45B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "XOM：首個常規交易日收盤 +2.16%；以 2026-10-30 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "XOM：首個常規交易日收盤 +2.16%；2026-10-30。"
       },
       "eps_note": null,
       "revenue_note": null,
@@ -1171,12 +1171,12 @@
         "notes": "EPS 共識 4.88；營收共識 US$60.55B；依來源頁面核對。"
       },
       "price_reaction_source": {
-        "name": "Portfolio Terminal－首個常規交易日股價反應",
-        "url": "https://www.portfolio-terminal.com/earnings-week-review-october-30-2026",
-        "published_at": null,
+        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
+        "url": "https://capmkts.com/narratives/energy-supply-shock",
+        "published_at": "2026-10-30T16:48:00-04:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "Portfolio Terminal",
-        "notes": "CVX：首個常規交易日收盤 +1.75%；以 2026-10-30 收盤價計。"
+        "publisher": "CapMarkets",
+        "notes": "CVX：首個常規交易日收盤 +1.75%；2026-10-30."
       },
       "eps_note": null,
       "revenue_note": null,
