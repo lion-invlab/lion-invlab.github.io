@@ -19,6 +19,8 @@ on:
       - "scripts/test_tac_calendar_snapshot.py"
       - "scripts/adapt_tac_market_snapshot_for_renderer.py"
       - "scripts/test_tac_market_snapshot_adapter.py"
+      - "scripts/run_tac_daily_pipeline.py"
+      - "scripts/test_tac_daily_pipeline.py"
       - "scripts/build_tac_visual_fixtures.py"
       - "scripts/test_tac_browser_visual.py"
       - "data/calendar/weeks/*.json"
@@ -47,6 +49,10 @@ jobs:
         run: python -m unittest -v scripts/test_tac_market_safe_renderer.py
       - name: Run normalized market display adapter and FedWatch pending-state tests
         run: python -m unittest -v scripts/test_tac_market_snapshot_adapter.py
+      - name: Test fail-closed daily report orchestrator
+        run: |
+          python scripts/run_tac_daily_pipeline.py --self-test
+          python -m unittest -v scripts/test_tac_daily_pipeline.py
       - name: Run calendar adapter and mother-template integration tests
         run: python -m unittest -v scripts/test_tac_calendar_snapshot.py
       - name: Run market/calendar snapshot composition tests
