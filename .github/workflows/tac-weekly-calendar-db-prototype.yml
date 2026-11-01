@@ -4,7 +4,9 @@ on:
     paths:
       - 'data/calendar/**'
       - 'scripts/tac_weekly_calendar_db.py'
+      - 'scripts/tac_calendar_html_renderer.py'
       - 'tests/test_tac_weekly_calendar_db.py'
+      - 'tests/test_tac_calendar_html_renderer.py'
       - '.github/workflows/tac-weekly-calendar-db-prototype.yml'
   workflow_dispatch:
 permissions:
@@ -18,7 +20,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Unit tests
-        run: python -m unittest discover -s tests -p 'test_tac_weekly_calendar_db.py' -v
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Validate W44 archive candidate
         run: python scripts/tac_weekly_calendar_db.py validate --file data/calendar/weeks/2026-W44.json
       - name: Validate W45 current week
@@ -36,6 +38,42 @@ jobs:
           python scripts/tac_weekly_calendar_db.py quality-report
           --file data/calendar/weeks/2026-W45.json
           --output /tmp/tac-weekly-calendar-quality-report.json
+
+      - name: Render Monday master from W45 snapshot
+        run: >-
+          python scripts/tac_calendar_html_renderer.py
+          --template "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
+          --snapshot /tmp/tac-weekly-calendar-snapshot.json
+          --output /tmp/tac-2026-11-02-monday-review.html
+          --mode monday
+
+      - name: Render weekday master from W45 snapshot
+        run: >-
+          python scripts/tac_calendar_html_renderer.py
+          --template "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+          --snapshot /tmp/tac-weekly-calendar-snapshot.json
+          --output /tmp/tac-2026-11-02-weekday-review.html
+          --mode weekday
+
+      - name: Verify rendered review HTML
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          monday = Path('/tmp/tac-2026-11-02-monday-review.html').read_text(encoding='utf-8')
+          weekday = Path('/tmp/tac-2026-11-02-weekday-review.html').read_text(encoding='utf-8')
+          required = ('id="calendar"', 'id="earnings"', 'week-econ-tabs', 'week-earnings-tabs', 'id="sp500-earnings-health"')
+          for marker in required:
+              assert marker in monday, f"Monday output missing {marker}"
+              assert marker in weekday, f"Weekday output missing {marker}"
+          assert 'id="last-week-calendar"' in monday
+          assert 'id="last-week-earnings"' in monday
+          assert 'id="last-week-calendar"' not in weekday
+          assert 'id="last-week-earnings"' not in weekday
+          for html in (monday, weekday):
+              assert 'TAC' in html
+              assert '<html' in html.lower() and '</html>' in html.lower()
+          print('Monday and weekday HTML render smoke tests passed.')
+          PY
 
       - name: Test next-week database initialization
         run: >-
