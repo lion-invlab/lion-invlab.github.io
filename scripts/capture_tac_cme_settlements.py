@@ -27,7 +27,7 @@ CME_INSTRUMENTS = {
 
 def parse_cme_daily_bulletin_text(text: str, trading_date: date, product_code: str) -> dict[str, Any]:
     header = re.search(
-        r"BULLETIN\\s*#\\s*\\d+@\\s*([A-Za-z]{3},\\s*[A-Za-z]{3}\\s+\\d{1,2},\\s+\\d{4})",
+        r"BULLETIN\s*#\s*\d+@\s*([A-Za-z]{3},\s*[A-Za-z]{3}\s+\d{1,2},\s+\d{4})",
         text,
     )
     if not header:
@@ -46,7 +46,7 @@ def parse_cme_daily_bulletin_text(text: str, trading_date: date, product_code: s
 
     lines = [line.strip() for line in text.splitlines() if line.strip()]
     start = next(
-        (i for i, line in enumerate(lines) if re.match(rf"^{re.escape(product_code)}\\s+FUT\\s", line)),
+        (i for i, line in enumerate(lines) if re.match(rf"^{re.escape(product_code)}\s+FUT\s", line)),
         None,
     )
     if start is None:
@@ -57,7 +57,7 @@ def parse_cme_daily_bulletin_text(text: str, trading_date: date, product_code: s
         if line.startswith(f"TOTAL {product_code} FUT"):
             break
         tokens = line.split()
-        if len(tokens) < 10 or not re.fullmatch(r"[A-Z]{3}\\d{2}", tokens[0]):
+        if len(tokens) < 10 or not re.fullmatch(r"[A-Z]{3}\d{2}", tokens[0]):
             continue
         try:
             settlement = float(tokens[4])
@@ -109,7 +109,7 @@ def extract_cme_pdf_text(pdf_bytes: bytes) -> str:
     except ImportError as exc:
         raise ValueError("pypdf is required to parse official CME settlement bulletins") from exc
     reader = PdfReader(BytesIO(pdf_bytes))
-    return "\\n".join(page.extract_text() or "" for page in reader.pages)
+    return "\n".join(page.extract_text() or "" for page in reader.pages)
 
 
 def parse_cme_daily_bulletin_pdf(pdf_bytes: bytes, trading_date: date, product_code: str) -> dict[str, Any]:
