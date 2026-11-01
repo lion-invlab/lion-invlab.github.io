@@ -102,6 +102,11 @@ def selector_tokens(selector):
 
 
 def select(nodes, selector):
+    if "," in selector:
+        found = []
+        for part in selector.split(","):
+            found.extend(select(nodes, part.strip()))
+        return list(dict.fromkeys(found))
     parts = re.split(r"\s+(?![^\[]*\])", selector.strip())
     if ">" in selector:
         parts = [p.strip() for p in selector.split(">")]
@@ -128,25 +133,23 @@ def select(nodes, selector):
     return result
 
 
-def replace_inner(source, node, value):
+def replace_inner(source, node, value, status=None):
     if node.end is None:
         raise ValueError("unclosed target node")
-    return source[:node.open_end] + escape(str(value), quote=False) + source[node.close_start:]
-
-
-def replace_class(source, node, status):
-    classes = (node.attrs.get("class") or "").split()
-    allowed = {"up", "down", "flat", "warn"}
-    classes = [item for item in classes if item not in allowed]
-    if status in allowed:
-        classes.append(status)
     raw_open = source[node.start:node.open_end]
-    new_open = re.sub(r'\bclass\s*=\s*(["\']).*?\1',
-        'class="' + " ".join(classes) + '"', raw_open, count=1, flags=re.I|re.S)
-    if new_open == raw_open and classes:
-        new_open = raw_open[:-2] + ' class="' + " ".join(classes) + '">'
-    return source[:node.start] + new_open + source[node.open_end:]
-
+    if status is not None:
+        classes = (node.attrs.get("class") or "").split()
+        allowed = {"up", "down", "flat", "warn"}
+        classes = [item for item in classes if item not in allowed]
+        if status in allowed:
+            classes.append(status)
+        class_attr = 'class="' + " ".join(classes) + '"'
+        class_pattern = r"\bclass\s*=\s*(['"]).*?\1"
+        if re.search(class_pattern, raw_open, re.I|re.S):
+            raw_open = re.sub(class_pattern, class_attr, raw_open, count=1, flags=re.I|re.S)
+        elif classes:
+            raw_open = raw_open[:-1] + " " + class_attr + ">"
+    return source[:node.start] + raw_open + escape(str(value), quote=False) + source[node.close_start:]
 
 def format_number(value, decimals=2):
     if value is None:
@@ -193,17 +196,10 @@ def update_row(source, nodes, selector, label, row_data, decimals=2, has_change=
     expected = 2 if has_change else 1
     if len(value_nodes) < expected:
         raise ValueError(f"{label}: expected at least {expected} span.r slots, found {len(value_nodes)}")
-    updates = [(value_nodes[0], format_number(row_data["value"], decimals))]
+    source = replace_inner(source, value_nodes[0], format_number(row_data["value"], decimals))
     if has_change:
-        updates.append((value_nodes[1], format_change(row_data["change"], row_data["change_unit"], 2)))
-        updates.append((value_nodes[1], status_class(row_data), True))
-    for item in updates:
-        if len(item) == 2:
-            node, value = item
-            source = replace_inner(source, node, value)
-        else:
-            node, status, _ = item
-            source = replace_class(source, node, status)
+        source = replace_inner(source, value_nodes[1],
+            format_change(row_data["change"], row_data["change_unit"], 2), status_class(row_data))
     return source
 
 
@@ -240,8 +236,7 @@ def update_sectors(source, binding, snapshot):
         value_nodes = [n for n in select(rows, "span.r") if is_descendant(n, node)]
         if len(value_nodes) != 1:
             raise ValueError(f"sector {key} must have exactly one value slot")
-        source = replace_inner(source, value_nodes[0], format_change(row["change"], "%", 2))
-        source = replace_class(source, value_nodes[0], status_class(row))
+        source = replace_inner(source, value_nodes[0], format_change(row["change"], "%", 2), status_class(row))
     # Reparse after replacements and reorder only intact .sector-row fragments.
     parsed = SourceParser(source)
     sector_lists = select(parsed.nodes, ".sector-list")
@@ -288,8 +283,7 @@ def update_risk(source, binding, snapshot):
             change_nodes = [n for n in select(nodes, config["change_selector"]) if n is row_node or is_descendant(n, row_node)]
             if len(change_nodes) != 1:
                 raise ValueError(f"risk indicator {key} change slot mismatch")
-            source = replace_inner(source, change_nodes[0], format_change(row["change"], row["change_unit"], 2))
-            source = replace_class(source, change_nodes[0], status_class(row))
+            source = replace_inner(source, change_nodes[0], format_change(row["change"], row["change_unit"], 2), status_class(row))
     return source
 
 
