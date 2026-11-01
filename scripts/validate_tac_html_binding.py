@@ -131,19 +131,39 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     errors.append(f"{group}.{key}: value selector {record['value_selector']} missing")
 
         if "outcomes" in spec:
-            row_class = spec["row"].lstrip(".")
-            rows = by_class(container, row_class)
-            if len(rows) != len(spec["outcomes"]):
-                errors.append(f"{group}: expected {len(spec['outcomes'])} probability rows, found {len(rows)}")
-            for key, outcome in spec["outcomes"].items():
-                matches = [row for row in rows if outcome["label"] in normalize(row.text)]
-                if len(matches) != 1:
-                    errors.append(f"{group}.{key}: expected one '{outcome['label']}' row, found {len(matches)}")
-                    continue
-                if not by_class(matches[0], "fc-range"):
-                    errors.append(f"{group}.{key}: .fc-range slot missing")
-                if not any(node.tag == "strong" for node in matches[0].descendants()):
-                    errors.append(f"{group}.{key}: probability <strong> slot missing")
+            if "row" in spec:
+                row_class = spec["row"].lstrip(".")
+                rows = by_class(container, row_class)
+                if len(rows) != len(spec["outcomes"]):
+                    errors.append(f"{group}: expected {len(spec['outcomes'])} probability rows, found {len(rows)}")
+                for key, outcome in spec["outcomes"].items():
+                    matches = [row for row in rows if outcome["label"] in normalize(row.text)]
+                    if len(matches) != 1:
+                        errors.append(f"{group}.{key}: expected one '{outcome['label']}' row, found {len(matches)}")
+                        continue
+                    if not by_class(matches[0], "fc-range"):
+                        errors.append(f"{group}.{key}: .fc-range slot missing")
+                    if not any(node.tag == "strong" for node in matches[0].descendants()):
+                        errors.append(f"{group}.{key}: probability <strong> slot missing")
+            else:
+                for key, outcome in spec["outcomes"].items():
+                    rows = selector_nodes(container, outcome["row"])
+                    if len(rows) != 1:
+                        errors.append(f"{group}.{key}: expected one outcome row, found {len(rows)}")
+                        continue
+                    row = rows[0]
+                    if not selector_nodes(row, outcome["probability_selector"]):
+                        errors.append(f"{group}.{key}: probability selector missing")
+                    if not selector_nodes(row, outcome["rate_range_selector"]):
+                        errors.append(f"{group}.{key}: rate range selector missing")
+                    if not selector_nodes(container, outcome["bar_selector"]):
+                        errors.append(f"{group}.{key}: distribution bar selector missing")
+                for selector_key in ("split_bar_selector", "legend_selector", "audit_container_selector"):
+                    if not selector_nodes(container, spec[selector_key]):
+                        errors.append(f"{group}: {selector_key} missing")
+                for key in ("meeting_row", "rate_row"):
+                    if not selector_nodes(container, spec["fomc"][key]):
+                        errors.append(f"{group}: FOMC {key} missing")
 
     return errors
 
@@ -178,7 +198,7 @@ def main() -> int:
     actual_risk = contract["groups"].get("risk_indicators", {}).get("snapshot_fields")
     if actual_risk != expected_risk:
         failures.append(f"risk_indicators: snapshot_fields must be {expected_risk}, got {actual_risk}")
-    expected_fedwatch = {"probability_array": "probabilities", "meeting": "target_meeting", "updated_at": "updated_at"}
+    expected_fedwatch = {"probabilities": "probabilities", "meeting": "target_meeting", "updated_at": "updated_at", "target_rate_range": "target_rate_range", "audit_text": "audit_text"}
     actual_fedwatch = contract["groups"].get("fedwatch", {}).get("snapshot_fields")
     if actual_fedwatch != expected_fedwatch:
         failures.append(f"fedwatch: snapshot_fields must be {expected_fedwatch}, got {actual_fedwatch}")
