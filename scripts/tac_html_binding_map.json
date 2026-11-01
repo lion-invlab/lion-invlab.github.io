@@ -317,6 +317,37 @@
         "panels": "panels"
       },
       "container": "#calendar"
+    },
+    "earnings_calendar": {
+      "panels": {
+        "last_week": {
+          "container": "#last-week-earnings",
+          "item_selector": ".earnings-accordion"
+        },
+        "current_week": {
+          "container": "#earnings",
+          "item_selector": ".earnings-accordion"
+        }
+      },
+      "selectors": {
+        "us_date": ".earnings-us-date",
+        "tw_date": ".earnings-tw-date",
+        "company": ".earnings-company-name",
+        "company_sub": ".earnings-company-sub",
+        "stars": ".earnings-stars",
+        "details": ".earnings-accordion-details",
+        "detail_field": ".earnings-detail-field",
+        "detail_label": "label",
+        "detail_value": ".earnings-detail-value",
+        "result_card": ".earnings-actual-card",
+        "result_title": ".earnings-actual-card-title",
+        "result_line": ".earnings-actual-line",
+        "result_status": ".earnings-actual-status",
+        "result_note": ".earnings-actual-note"
+      },
+      "snapshot_fields": {
+        "panels": "panels"
+      }
     }
   },
   "protected_paths": [
