@@ -25,6 +25,7 @@ on:
       - "scripts/capture_tac_market_bundle.py"
       - "scripts/test_tac_market_bundle.py"
       - "scripts/test_tac_secondary_market.py"
+      - "TAC_WORK_RULES.md"
       - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/adapt_tac_fedwatch_capture.py"
       - "scripts/test_tac_fedwatch_capture_adapter.py"
