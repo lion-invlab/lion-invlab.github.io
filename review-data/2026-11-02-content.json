@@ -1781,8 +1781,8 @@
         "publisher": "CapMarkets",
         "notes": "GOOGL：首個常規交易日收盤 -12.64%；2026-10-29。"
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "GAAP diluted EPS US$2.12 vs consensus US$3.02，低於預期。",
+      "revenue_note": "營收 US$127.60B vs consensus US$127.69B，略低於預期。",
       "time_type": "release_time"
     },
     {
@@ -1836,8 +1836,8 @@
         "publisher": "CapMarkets",
         "notes": "MSFT：首個常規交易日收盤 -0.16%；2026-10-29。"
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "GAAP diluted EPS US$4.92 vs consensus US$4.72，高於預期；另公布 non-GAAP EPS US$4.89。",
+      "revenue_note": "營收 US$92.279B vs consensus US$90.61B，高於預期。",
       "time_type": "release_time"
     },
     {
@@ -1891,8 +1891,8 @@
         "publisher": "CapMarkets",
         "notes": "LLY：首個常規交易日收盤 +6.63%；2026-10-29。"
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "GAAP diluted EPS US$7.22 vs consensus US$9.85，低於預期；公司另公布 non-GAAP EPS US$7.48。",
+      "revenue_note": "營收 US$24.397B vs consensus US$22.16B，高於預期。",
       "time_type": "release_time"
     },
     {
@@ -1946,8 +1946,8 @@
         "publisher": "CapMarkets",
         "notes": "AMZN：首個常規交易日收盤 -1.41%；2026-10-30。"
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "GAAP diluted EPS US$1.89 vs consensus US$1.96，低於預期。",
+      "revenue_note": "營收 US$201.90B vs consensus US$202.10B，略低於預期。",
       "time_type": "release_time"
     },
     {
@@ -2001,8 +2001,8 @@
         "publisher": "CapMarkets",
         "notes": "INTC：首個常規交易日收盤 -28.58%；2026-10-30。"
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "GAAP diluted EPS US$0.60 vs consensus US$0.401，高於預期；公司另公布 non-GAAP EPS US$0.52。",
+      "revenue_note": "營收 US$16.50B vs consensus US$16.48B，略高於預期。",
       "time_type": "release_time"
     },
     {
@@ -2056,8 +2056,8 @@
         "publisher": "CapMarkets",
         "notes": "XOM：首個常規交易日收盤 +2.16%；2026-10-30。"
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "來源列示 EPS US$4.23 vs consensus US$3.99；來源未明確揭露 GAAP／調整後口徑，判讀須保留此限制。",
+      "revenue_note": "營收 US$103.36B vs consensus US$115.45B，低於預期。",
       "time_type": "release_time"
     },
     {
@@ -2111,8 +2111,8 @@
         "publisher": "CapMarkets",
         "notes": "CVX：首個常規交易日收盤 +1.75%；2026-10-30."
       },
-      "eps_note": null,
-      "revenue_note": null,
+      "eps_note": "來源列示 EPS US$5.28 vs consensus US$4.88；來源未明確揭露 GAAP／調整後口徑，判讀須保留此限制。",
+      "revenue_note": "營收 US$67.80B vs consensus US$60.55B，高於預期。",
       "time_type": "release_time"
     }
   ],
