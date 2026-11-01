@@ -48,6 +48,20 @@ class SafeMarketRendererTests(unittest.TestCase):
         self.assertIn('<span class="r up">+0.8%</span>',result)
         self.assertEqual(html.count('<span class="r up">'),result.count('<span class="r up">'))
 
+    def test_schema_top_level_market_groups_are_accepted(self):
+        html = ('<main id="global-markets"><div class="row"><b>道瓊工業指數</b>'
+                '<span class="r">100</span><span class="r up">+1.0%</span></div></main>'
+                '<div id="sectors"><div class="sector-row"><b>XLK</b><span class="r up">+0.5%</span></div></div>')
+        contract = minimal_contract()
+        snapshot = {
+            "global_indices": {"dow": {"value": "101", "change": "+1.5%"}},
+            "sectors": {"xlk": {"change": "+0.8%"}},
+        }
+        result = render_market_html(html, snapshot, contract)
+        self.assertIn('<span class="r">101</span>', result)
+        self.assertIn('<span class="r up">+1.5%</span>', result)
+        self.assertIn('<span class="r up">+0.8%</span>', result)
+
     def test_direction_change_is_blocked_not_miscolored(self):
         html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
