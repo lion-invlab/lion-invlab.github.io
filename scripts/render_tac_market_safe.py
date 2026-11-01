@@ -153,6 +153,26 @@ def spans_inside(node: Node, spans: list[TextSpan]) -> list[TextSpan]:
     return result
 
 
+
+def coalesce_spans(spans: list[TextSpan]) -> list[TextSpan]:
+    """Join adjacent source text/entity spans into one logical text slot."""
+    ordered = sorted(spans, key=lambda item: item.start)
+    if not ordered:
+        return []
+    result: list[TextSpan] = []
+    start, end = ordered[0].start, ordered[0].end
+    text_parts = [ordered[0].text]
+    parent = ordered[0].parent
+    for span in ordered[1:]:
+        if span.parent is parent and span.start == end:
+            end = span.end
+            text_parts.append(span.text)
+        else:
+            result.append(TextSpan(start, end, "".join(text_parts), parent))
+            start, end, text_parts, parent = span.start, span.end, [span.text], span.parent
+    result.append(TextSpan(start, end, "".join(text_parts), parent))
+    return result
+
 def normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
@@ -465,7 +485,7 @@ def render_editorial(html: str, parser: SourceTreeParser,
     if len(headline_spans) != 1:
         raise ValueError("editorial summary headline must be one text node")
     add_text(headline_spans[0], data["headline"], "editorial.headline")
-    body_spans = [x for x in spans_inside(body_nodes[0], parser.spans) if x.parent is body_nodes[0] and x.text.strip()]
+    body_spans = coalesce_spans([x for x in spans_inside(body_nodes[0], parser.spans) if x.parent is body_nodes[0] and x.text.strip()])
     if not isinstance(data["body_segments"], list) or len(body_spans) != len(data["body_segments"]):
         raise ValueError(f"editorial summary segment count mismatch: template={len(body_spans)}, snapshot={len(data.get('body_segments', []))}")
     for i, (span, text) in enumerate(zip(body_spans, data["body_segments"])):
@@ -489,8 +509,8 @@ def render_editorial(html: str, parser: SourceTreeParser,
         content_nodes = select(panel_nodes[0], selectors[field_name])
         if len(content_nodes) != 1:
             raise ValueError(f"editorial.{field_name}: content slot missing or duplicated")
-        direct_spans = [x for x in spans_inside(content_nodes[0], parser.spans)
-                        if x.parent is content_nodes[0] and x.text.strip()]
+        direct_spans = coalesce_spans([x for x in spans_inside(content_nodes[0], parser.spans)
+                        if x.parent is content_nodes[0] and x.text.strip()])
         value = data[field_name]
         if isinstance(value, list):
             if len(direct_spans) != len(value):
