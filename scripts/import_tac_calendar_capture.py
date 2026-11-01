@@ -155,6 +155,8 @@ def normalize(payload: dict) -> dict:
             continue
         basis = row.get("importance_basis")
         stars = row.get("importance_stars")
+        if output_group == "previous_earnings_calendar" and stars != 5:
+            continue
         rating_source = row.get("importance_rating_source")
         basis_source = row.get("importance_basis_source")
         if not isinstance(basis_source, str) or not basis_source.strip():
