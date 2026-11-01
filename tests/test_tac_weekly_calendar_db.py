@@ -201,6 +201,27 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(load_for_test(mon)["meta"]["approval_status"],"approved")
             self.assertEqual(load_for_test(tue)["meta"]["approval_status"],"draft")
 
+    def test_snapshot_adds_only_released_five_star_previous_week_events(self):
+        current=self.week(events={"economic":[
+            self.event("current-four","2026-11-02T10:00:00+08:00",4),
+            self.event("current-five","2026-11-03T10:00:00+08:00",5)
+        ],"earnings":[]})
+        root=Path(__file__).resolve().parents[1]
+        previous_path=root/"data/calendar/weeks/2026-W44.json"
+        previous=load_for_test(previous_path)
+        self.assertIn(previous["status"],("archive_candidate","archived"))
+        with tempfile.TemporaryDirectory() as td:
+            db=Path(td)/"W45.json"; out=Path(td)/"2026-11-02.json"
+            db.write_text(json.dumps(current),encoding="utf-8")
+            args=type("Args",(),{"file":str(db),"report_date":"2026-11-02","output":str(out),
+                                 "previous_week_file":str(previous_path),"replace":False})()
+            self.assertEqual(cmd_snapshot(args),0)
+            snapshot=load_for_test(out)
+            self.assertEqual({x["importance_stars"] for x in snapshot["economic_calendar"]},{4,5})
+            for key in ("previous_economic_calendar","previous_earnings_calendar"):
+                self.assertTrue(all(x["importance_stars"]==5 and x["status"]=="released"
+                                    for x in snapshot[key]))
+
     def test_approved_mother_templates_keep_calendar_anchors(self):
         root=Path(__file__).resolve().parents[1]
         monday=(root/"index_母版_週一_首頁基準.html").read_text(encoding="utf-8")
