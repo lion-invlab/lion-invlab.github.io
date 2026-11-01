@@ -69,6 +69,17 @@ def validate_week(data):
             if archive and item.get("status") != "released":
                 errors.append(prefix+": archived prior-week records must be released")
             if item.get("status") not in VALID_STATUS: errors.append(prefix+": invalid status")
+            if item.get("status") == "released":
+                if kind == "economic":
+                    if item.get("actual") in (None, ""): errors.append(prefix+": released economic event requires actual")
+                else:
+                    for field in ("eps_estimate","eps_actual","revenue_estimate","revenue_actual"):
+                        if not isinstance(item.get(field),(int,float)): errors.append(prefix+": released earnings event requires numeric "+field)
+                    for field in ("eps_basis","eps_comparison_status","revenue_comparison_status","financial_judgment","stock_price_reaction"):
+                        if not item.get(field): errors.append(prefix+": released earnings event requires "+field)
+                    for field in ("consensus_source","price_reaction_source"):
+                        if not isinstance(item.get(field),dict) or not item[field].get("url"):
+                            errors.append(prefix+": released earnings event requires "+field+".url")
             source=item.get("source")
             if not isinstance(source,dict) or not source.get("url"): errors.append(prefix+": source.url required")
     for kind in ("economic","earnings"):
@@ -92,11 +103,16 @@ def cmd_upsert(args):
         print(json.dumps({"action":"unchanged","event_id":incoming["id"],"week_id":data["week_id"]},ensure_ascii=False))
         return 0
     action="updated" if old else "inserted"
+    before=dict(old) if old else None
     if old: rows[rows.index(old)]=incoming
     else: rows.append(incoming)
     now=args.at or datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
     data["updated_at"]=now
-    data.setdefault("audit",[]).append({"at":now,"action":"event_"+action,"event_id":incoming["id"],"note":"Idempotent upsert"})
+    changed_fields=sorted(set((before or {}).keys()) | set(incoming.keys())) if old else sorted(incoming.keys())
+    if old: changed_fields=[key for key in changed_fields if before.get(key) != incoming.get(key)]
+    data.setdefault("audit",[]).append({"at":now,"action":"event_"+action,"event_id":incoming["id"],
+        "changed_fields":changed_fields,"before":before,"after":dict(incoming),
+        "note":"Idempotent upsert; full revision retained"})
     errors=validate_week(data)
     if errors: raise ValueError("; ".join(errors))
     path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
@@ -109,7 +125,10 @@ def cmd_snapshot(args):
     if errors: raise ValueError("current week invalid: "+"; ".join(errors))
     start=date.fromisoformat(data["week_start"]); end=date.fromisoformat(data["week_end"])
     if not start <= report_day <= end: raise ValueError("report date outside week")
-    result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version"),"previous_week_id":None},"economic_calendar":[],"earnings_calendar":[],"coverage":{}}
+    result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version"),"previous_week_id":None},
+        "economic_calendar":[],"earnings_calendar":[],"previous_economic_calendar":[],"previous_earnings_calendar":[],"coverage":{
+            "previous_economic_calendar":{"status":"not_applicable","notes":"No previous-week archive supplied for this report."},
+            "previous_earnings_calendar":{"status":"not_applicable","notes":"No previous-week archive supplied for this report."}}}
     for kind in ("economic","earnings"):
         key="economic_calendar" if kind=="economic" else "earnings_calendar"
         rows=[x for x in data["events"][kind] if int(x.get("importance_stars",0)) in (4,5)]
