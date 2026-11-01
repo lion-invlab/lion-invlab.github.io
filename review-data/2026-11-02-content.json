@@ -337,6 +337,52 @@
       }
     },
     {
+      "id": "current-eurozone-flash-cpi-20261103",
+      "event_date": "2026-11-03T12:00:00+08:00",
+      "region": "歐元區",
+      "event_name": "歐元區 10 月 HICP 通膨初值",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC五星：歐元區關鍵通膨指標，將直接影響 ECB 利率路徑定價、歐元匯率及歐洲公債殖利率；對主要市場具有跨資產影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "time_known": false,
+      "impact_judgment": "觀察整體與核心通膨是否延續黏著，影響 ECB 降息預期及歐元區利率曲線。",
+      "source": {
+        "name": "Eurostat｜Release Calendar for Euro Indicators",
+        "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1793574000000&type=dayGridWeek",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Eurostat",
+        "notes": "最新官方週曆列示 10 月歐元區通膨初值於 11/03 發布；先前 10/16 頁面曾列 11/04，已採用更新後官方週曆。官方週曆未列具體時間，故不顯示時刻。"
+      }
+    },
+    {
+      "id": "current-us-midterms-20261103",
+      "event_date": "2026-11-03T12:00:00+08:00",
+      "region": "美國",
+      "event_name": "美國期中選舉（國會眾議院與參議院改選）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：選舉結果將影響國會控制權、財政預算、稅制及監管政策方向，可能改變中期政策預期與市場風險溢價。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "time_known": false,
+      "impact_judgment": "市場關注國會席次變化、分裂政府可能性及其對財政、監管與產業政策的影響；選舉結果將分州陸續開出。",
+      "source": {
+        "name": "Federal Election Commission｜Election and Voting Information",
+        "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "U.S. Federal Election Commission",
+        "notes": "官方確認 2026-11-03 為聯邦一般選舉日；投票與開票時間依各州規定不同，故不設單一發布時刻。"
+      }
+    },
+    {
       "id": "current-us-jolts-20261103",
       "event_date": "2026-11-03T23:00:00+08:00",
       "region": "美國",
@@ -447,6 +493,52 @@
       }
     },
     {
+      "id": "current-boj-minutes-20261105",
+      "event_date": "2026-11-05T07:50:00+08:00",
+      "region": "日本",
+      "event_name": "日本央行｜9 月貨幣政策會議紀錄",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：日本央行會議紀錄揭示政策委員對通膨、薪資及利率正常化的判斷，可能影響日圓、日債殖利率及全球套利交易。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "time_known": true,
+      "impact_judgment": "觀察委員對薪資與通膨持續性、後續升息條件及政策分歧的描述。",
+      "source": {
+        "name": "Bank of Japan｜Release Schedule",
+        "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Bank of Japan",
+        "notes": "官方最新排程確認 11/05 08:50 JST 發布 9/17–9/18 貨幣政策會議紀錄；換算台灣時間 07:50。"
+      }
+    },
+    {
+      "id": "current-canada-budget-20261105",
+      "event_date": "2026-11-05T12:00:00+08:00",
+      "region": "加拿大",
+      "event_name": "加拿大聯邦政府｜2026 年度財政預算案",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：年度財政預算涉及政府支出、稅制、公共投資與債務供給，對加拿大公債、加幣及區域產業政策具明顯影響。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "time_known": false,
+      "impact_judgment": "觀察財政赤字、基建與產業投資、稅收及債務發行規劃；官方尚未公布精確發布時間。",
+      "source": {
+        "name": "Department of Finance Canada｜Budget 2026 Media Advisory",
+        "url": "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Government of Canada",
+        "notes": "財政部官方公告確認 11/05 提交 Budget 2026；媒體簡報時間另行通知，故不顯示時刻。"
+      }
+    },
+    {
       "id": "current-norges-rate-20261105",
       "event_date": "2026-11-05T17:00:00+08:00",
       "region": "挪威",
@@ -488,6 +580,29 @@
         "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "Bank of England",
         "notes": "官方發布時間 12:00 GMT，換算台灣時間 20:00；同時發布 Monetary Policy Summary、Minutes 及 Monetary Policy Report。"
+      }
+    },
+    {
+      "id": "current-canada-jobs-20261106",
+      "event_date": "2026-11-06T12:00:00+08:00",
+      "region": "加拿大",
+      "event_name": "加拿大就業報告（10月）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：加拿大勞動市場數據是加拿大央行評估薪資、需求與利率路徑的重要依據，亦影響加幣及加拿大公債。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "time_known": false,
+      "impact_judgment": "觀察就業變化、失業率及薪資趨勢；與同日美國非農就業報告形成北美勞動市場對照。",
+      "source": {
+        "name": "Statistics Canada｜2026–2027 Release Dates / Labour Force Survey",
+        "url": "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf?st=JwXqPj0_",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Statistics Canada",
+        "notes": "官方年度發布日程確認 10 月 Labour Force Survey 於 11/06 發布；此頁未列該次具體時間，故不顯示時刻。"
       }
     },
     {
@@ -2661,9 +2776,14 @@
         "https://www.bcb.gov.br/en/monetarypolicy/committee?os=0",
         "https://www.bankofengland.co.uk/events/upcoming-events",
         "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
-        "https://www.bls.gov/schedule/news_release/empsit.htm"
+        "https://www.bls.gov/schedule/news_release/empsit.htm",
+        "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1793574000000&type=dayGridWeek",
+        "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+        "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
+        "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf?st=JwXqPj0_"
       ],
-      "checked_at": "2026-11-01T12:17:52+08:00"
+      "checked_at": "2026-11-01T12:39:11+08:00",
+      "notes": "第二輪宏觀日程掃描新增歐元區 HICP 通膨初值、美國期中選舉、日本央行 9 月會議紀錄、加拿大聯邦預算及加拿大 10 月就業報告。歐元區 HICP 採用較新的 Eurostat 官方週曆，將日期由舊資料所列 11/04 校正為 11/03；無官方時刻者以 time_known=false 顯示時間待核實。仍需完成其他主要經濟體與官方日程的最後漏項掃描，故維持 incomplete。"
     },
     "previous_economic_calendar": {
       "status": "incomplete",
