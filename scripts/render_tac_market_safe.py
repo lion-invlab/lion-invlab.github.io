@@ -818,7 +818,7 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 raise ValueError(f"{label}: EPS/revenue result card count mismatch")
             for result_index,(card,result) in enumerate(zip(result_cards,results)):
                 result_label=f"{label}.results[{result_index}]"
-                if not isinstance(result,dict) or set(result)!={"title","actual","expected","status_text","status_class","note"}:
+                if not isinstance(result,dict) or set(result)!={"title","actual","expected","status_text","card_class","status_class","note"}:
                     raise ValueError(f"{result_label}: invalid result fields")
                 title_nodes=select(card,selectors["result_title"])
                 lines=select(card,selectors["result_line"])
@@ -838,7 +838,7 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                     add_text(strong[0],result[field_name],f"{result_label}.{field_name}")
                 add_text(status_nodes[0],result["status_text"],f"{result_label}.status_text")
                 add_text(note_nodes[0],result["note"],f"{result_label}.note")
-                update_status_class(card,result["status_class"],f"{result_label}.card")
+                update_status_class(card,result["card_class"],f"{result_label}.card")
                 update_status_class(status_nodes[0],result["status_class"],f"{result_label}.status")
 
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
