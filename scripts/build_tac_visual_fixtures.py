@@ -55,6 +55,17 @@ def build():
             "move": {"value": "96.80", "change": "-0.72%"},
             "cnn_fear_greed": {"value": "54.0"},
         }
+        snapshot["fedwatch"] = {
+            "probabilities": {
+                "hold": {"probability": 80.0, "rate_range": "3.50%–3.75%"},
+                "hike_one": {"probability": 20.0, "rate_range": "3.75%–4.00%"},
+            },
+            "target_meeting": "2026-12-09",
+            "updated_at": "2026-11-02 05:00（合成視覺測試）",
+            "target_rate_range": "3.50%–3.75%",
+            "audit_text": "此處為合成視覺回歸資料，非 CME 即時機率。",
+            "aria_label": "合成測試：維持不變 80%，升息一碼 20%",
+        }
         calendar = build_calendar_snapshot(
             current, previous if kind == "monday" else None,
             "2026-11-02", template, binding
