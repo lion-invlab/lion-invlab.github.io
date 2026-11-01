@@ -1076,13 +1076,13 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
 
 def create_empty_status_list(source: str, parser: SourceTreeParser,
                                container: Node, group: Node, list_selector: str,
-                               card_selector: str, desired_count: int,
-                               label: str) -> str:
+                               card_selector: str, empty_state_selector: str,
+                               desired_count: int, label: str) -> str:
     """Replace one approved empty-state node with a list cloned from a sibling prototype."""
     if desired_count <= 0:
         return source
     existing = select(group, list_selector)
-    placeholders = select(group, ".calendar-status-empty")
+    placeholders = select(group, empty_state_selector)
     if existing or len(placeholders) != 1:
         raise ValueError(f"{label}: expected one empty-state placeholder and no list")
     prototype_lists = [node for node in select(container, list_selector) if node.parent is not group]
@@ -1170,6 +1170,7 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                     if list_data["items"] and not legacy_mode:
                         html = create_empty_status_list(html, parser, container, group,
                                                         panel_spec["list_selector"], item_selector,
+                                                        panel_spec.get("empty_state_selector", ".calendar-status-empty"),
                                                         len(list_data["items"]),
                                                         f"{group_name}.{panel_key}.lists[{list_index}]")
                         parser = SourceTreeParser(html)
