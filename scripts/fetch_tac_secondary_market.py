@@ -87,7 +87,7 @@ def parse_history_page(html: str, aliases: tuple[str, ...], trading_date: date) 
         headers = [normalized_header(cell.get_text(" ", strip=True))
                    for cell in rows[0].find_all(["th", "td"])]
         date_i = next((i for i, h in enumerate(headers) if "日期" in h or h == "date"), None)
-        close_i = next((i for i, h in enumerate(headers) if "收市" in h or "收盤" in h or h == "close"), None)
+        close_i = next((i for i, h in enumerate(headers) if "收市" in h or "收盤" in h or h in {"close", "price"}), None)
         change_i = next((i for i, h in enumerate(headers)
                          if any(token in h for token in ("升跌", "漲跌", "change", "變動"))), None)
         if date_i is None or close_i is None or change_i is None:
