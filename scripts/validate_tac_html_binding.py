@@ -92,6 +92,16 @@ def check_template(path: Path, contract: dict) -> list[str]:
     errors: list[str] = []
 
     for group, spec in contract["groups"].items():
+        if group == "report_meta":
+            for key in ("title_selector", "report_date_selector", "status_selector"):
+                hits = selector_nodes(root, spec[key])
+                if len(hits) != 1:
+                    errors.append(f"report_meta: {key} expected one match, found {len(hits)}")
+            meta_name = spec["report_date_meta_name"]
+            meta_hits = [node for node in root.descendants() if node.tag == "meta" and node.attrs.get("name") == meta_name]
+            if len(meta_hits) != 1 or not meta_hits[0].attrs.get("content"):
+                errors.append("report_meta: report-date meta tag/content missing or duplicated")
+            continue
         container_id = spec["container"].lstrip("#")
         containers = by_id(root, container_id)
         if len(containers) != 1:
