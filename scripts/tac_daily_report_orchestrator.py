@@ -25,6 +25,7 @@ MANIFEST_PATH = ROOT / "母版專區" / "mother-template-manifest.json"
 DB_SCRIPT = ROOT / "scripts" / "tac_weekly_calendar_db.py"
 CALENDAR_RENDERER = ROOT / "scripts" / "tac_calendar_html_renderer.py"
 WEB_OBSERVATION_CONVERTER = ROOT / "scripts" / "convert_tac_web_observations.py"
+WEB_OBSERVATION_VALIDATOR = ROOT / "scripts" / "validate_tac_investing_com_observations.py"
 MARKET_SNAPSHOT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_snapshot.py"
 MARKET_RENDERER = ROOT / "scripts" / "render_tac_market_snapshot.py"
 CONTENT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_content.py"
@@ -251,6 +252,10 @@ def main() -> int:
             observation_path = Path(args.web_observations)
             if not observation_path.is_file():
                 raise ValueError("直接網頁觀察資料不存在：" + str(observation_path))
+            run([
+                sys.executable, str(WEB_OBSERVATION_VALIDATOR),
+                "--file", str(observation_path),
+            ])
             market_path = output_dir / (report_date.isoformat() + "-market-snapshot.json")
             run([
                 sys.executable, str(WEB_OBSERVATION_CONVERTER),
@@ -319,6 +324,7 @@ def main() -> int:
                 "--content", str(content_path),
                 "--output", str(staged_preview),
             ])
+            render_result = json.loads(render_run.stdout)
             if not staged_preview.is_file():
                 raise ValueError("Full Report Renderer did not create its HTML output")
 
@@ -367,13 +373,20 @@ def main() -> int:
                 "visual_regression": "PASS",
                 "interaction": "PASS",
             }
+            pending_report = render_result.get("pending_items", [])
+            result["renderer"] = {
+                "status": render_result.get("status"),
+                "pending_items": pending_report,
+            }
             result["pending_items"] = {
                 "market_records": pending_market,
                 "calendar_events": pending_calendar,
+                "editorial_and_render_checks": len(pending_report),
             }
+            any_pending = pending_market or pending_calendar or pending_report
             result["status"] = (
                 "ready_for_human_review_with_pending_items"
-                if pending_market or pending_calendar
+                if any_pending
                 else "ready_for_human_review"
             )
             result["publish_allowed"] = False
