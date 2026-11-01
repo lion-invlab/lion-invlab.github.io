@@ -93,6 +93,14 @@ class TacCalendarHtmlRendererTests(unittest.TestCase):
         self.assertIn('id="sp500-earnings-health"', result)
         self.assertEqual(WEEKDAY.read_text(encoding="utf-8"), original)
 
+    def test_after_market_earnings_shows_correct_us_and_taiwan_dates(self):
+        from scripts.tac_calendar_html_renderer import earnings_card
+        row = earnings("after-market", "2026-11-03T06:00:00+08:00", company="美股盤後測試")
+        html = earnings_card(row)
+        self.assertIn("美股 11/02", html)
+        self.assertIn("台灣時間 11/3（二）", html)
+        self.assertIn("盤後", html)
+
     def test_renderer_escapes_untrusted_text(self):
         row = econ("unsafe", "2026-11-02T10:00:00+08:00", name='<script>alert("x")</script>')
         from scripts.tac_calendar_html_renderer import econ_card
