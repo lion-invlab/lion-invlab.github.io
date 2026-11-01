@@ -166,6 +166,16 @@ def run_case(kind,report_date,weekday):
             assert "首個常規交易日收盤上漲 2.0%" in previous_card.get_text()
             assert "Synthetic EPS note for renderer test." in previous_card.get_text()
             assert "Synthetic revenue note for renderer test." in previous_card.get_text()
+            incomplete_data=json.loads(json.dumps(data))
+            incomplete_data["previous_earnings_calendar"][0]["consensus_source"]=None
+            incomplete_data["previous_earnings_calendar"][0]["financial_judgment"]=None
+            incomplete_payload=base/"incomplete-published-content.json"
+            incomplete_payload.write_text(json.dumps(incomplete_data,ensure_ascii=False),encoding="utf-8")
+            incomplete_output=base/"incomplete-published.html"
+            incomplete_result=render_full(snapshot_path,incomplete_payload,incomplete_output)
+            pending=incomplete_result["pending_items"]
+            assert any(x.endswith(".consensus_source") for x in pending), pending
+            assert any(x.endswith(".financial_judgment") for x in pending), pending
         else:
             assert not soup.select("#last-week-calendar")
         return result
