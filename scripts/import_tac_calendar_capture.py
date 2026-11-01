@@ -175,14 +175,19 @@ def normalize(payload: dict) -> dict:
             "stock_price_reaction": row.get("stock_price_reaction"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
-        for key in ("industry","reporting_period","time_known","time_type","eps_basis","eps_currency",
-                    "revenue_currency","revenue_unit","eps_comparison_status","revenue_comparison_status",
-                    "financial_judgment","stock_price_reaction_window","eps_note","revenue_note"):
-            if key in row:
-                event[key]=row[key]
-        for key in ("consensus_source","price_reaction_source"):
-            if row.get(key) is not None:
-                event[key]=source_record(base_source,row[key],observed_at)
+        # Preserve the richer WR §20 fields for already-published earnings.
+        detail_fields = (
+            "industry", "reporting_period", "time_known", "time_type", "eps_basis",
+            "eps_currency", "revenue_currency", "revenue_unit", "eps_comparison_status",
+            "revenue_comparison_status", "financial_judgment", "stock_price_reaction_window",
+            "eps_note", "revenue_note"
+        )
+        for field in detail_fields:
+            if field in row:
+                event[field] = row[field]
+        for field in ("consensus_source", "price_reaction_source"):
+            if field in row:
+                event[field] = source_record(base_source, row[field], observed_at) if row[field] else None
         fragment[output_group].append(event)
 
     for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
@@ -220,6 +225,14 @@ def self_test() -> None:
             "importance_basis_source":"Synthetic prior-week test assessment",
             "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
             "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
+            "industry":"Synthetic software","reporting_period":"2026 Q3","time_known":False,"time_type":"session_only",
+            "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
+            "eps_comparison_status":"beat","revenue_comparison_status":"beat",
+            "financial_judgment":"Synthetic released-earnings judgment.",
+            "stock_price_reaction_window":"2026-10-30 first regular-session close",
+            "consensus_source":{"name":"Synthetic consensus","url":"https://example.com/consensus","notes":"Synthetic test source"},
+            "price_reaction_source":{"name":"Synthetic price reaction","url":"https://example.com/price","notes":"Synthetic test source"},
+            "eps_note":"Synthetic EPS note","revenue_note":"Synthetic revenue note",
             "industry":"Synthetic industry","reporting_period":"2026 Q3","time_known":True,"time_type":"release_time",
             "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
             "eps_comparison_status":"beat","revenue_comparison_status":"beat",
@@ -242,6 +255,11 @@ def self_test() -> None:
     assert len(assembled["earnings_calendar"]) == 1
     assert assembled["previous_economic_calendar"][0]["id"] == "prev-e1"
     assert assembled["previous_earnings_calendar"][0]["id"] == "prev-a1"
+    prior = assembled["previous_earnings_calendar"][0]
+    assert prior["industry"] == "Synthetic software"
+    assert prior["time_type"] == "session_only"
+    assert prior["consensus_source"]["name"] == "Synthetic consensus"
+    assert prior["price_reaction_source"]["name"] == "Synthetic price reaction"
 
     empty_capture = dict(payload)
     empty_capture["economic_events"] = []
