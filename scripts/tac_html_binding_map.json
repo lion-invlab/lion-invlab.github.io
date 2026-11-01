@@ -199,28 +199,40 @@
     },
     "fedwatch": {
       "container": "#fed",
-      "row": ".fc-prob",
       "outcomes": {
         "hold": {
+          "row": ".fc-hold",
           "label": "維持不變",
           "probability_selector": "strong",
-          "rate_range_selector": ".fc-range"
+          "rate_range_selector": ".fc-range",
+          "bar_selector": ".fc-split-hold",
+          "legend_index": 0
         },
         "hike_one": {
+          "row": ".fc-hike",
           "label": "升息一碼",
           "probability_selector": "strong",
-          "rate_range_selector": ".fc-range"
+          "rate_range_selector": ".fc-range",
+          "bar_selector": ".fc-split-hike",
+          "legend_index": 1
         }
       },
-      "metadata_text": [
-        "CME FedWatch",
-        "FOMC 會議",
-        "資料時間與快照口徑"
-      ],
+      "split_bar_selector": ".fc-split-bar",
+      "legend_selector": ".fc-split-legend",
+      "audit_container_selector": ".fc-probs-refined",
+      "audit_selector": "details",
+      "fomc": {
+        "meeting_row": ".fc-fomc-meeting",
+        "meeting_value_selector": "b",
+        "rate_row": ".fc-fomc-rate",
+        "rate_value_selector": "b"
+      },
       "snapshot_fields": {
-        "probability_array": "probabilities",
+        "probabilities": "probabilities",
         "meeting": "target_meeting",
-        "updated_at": "updated_at"
+        "updated_at": "updated_at",
+        "target_rate_range": "target_rate_range",
+        "audit_text": "audit_text"
       }
     }
   },
