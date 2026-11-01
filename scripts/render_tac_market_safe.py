@@ -696,6 +696,151 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
                         raise ValueError(f"{label}.fields[{field_index}]: expected text field")
                     add_text(value_nodes[0],field_data["text"],f"{label}.fields[{field_index}].text")
 
+
+def render_earnings_calendar(html: str, parser: SourceTreeParser,
+                             snapshot: dict[str, Any], binding: dict[str, Any],
+                             edits: list[tuple[int, int, str]],
+                             used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("earnings_calendar")
+    data = snapshot.get("earnings_calendar")
+    if spec is None or data is None:
+        return
+    if not isinstance(data, dict) or set(data) != {"panels"} or not isinstance(data["panels"], dict):
+        raise ValueError("earnings_calendar snapshot must contain a panels object")
+    selectors = spec["selectors"]
+
+    def add_text(node: Node, text: str, label: str):
+        spans = coalesce_spans([x for x in spans_inside(node, parser.spans) if x.text.strip()])
+        if len(spans) != 1:
+            raise ValueError(f"{label}: expected one logical text slot, found {len(spans)}")
+        span = spans[0]
+        ident = (span.start, span.end)
+        if ident in used:
+            raise ValueError(f"{label}: overlapping text slot")
+        used.add(ident)
+        edits.append((span.start, span.end, escape(text, quote=False)))
+
+    def add_href(anchor: Node, source: dict[str, str], label: str):
+        if not isinstance(source,dict) or set(source) != {"url","text"}:
+            raise ValueError(f"{label}: source must contain url and text")
+        url = source["url"]
+        if not isinstance(url,str) or not url.startswith("https://") or any(ch in url for ch in ('"', "'", "<", ">")):
+            raise ValueError(f"{label}: invalid https URL")
+        href = anchor.attr_value_spans.get("href")
+        if href is None or href in used:
+            raise ValueError(f"{label}: href missing or overlapping")
+        used.add(href)
+        edits.append((href[0],href[1],escape(url,quote=True)))
+        add_text(anchor,source["text"],f"{label}.text")
+
+    def update_status_class(node: Node, new_status: str, label: str):
+        allowed = {"beat","miss","pending"}
+        if new_status not in allowed:
+            raise ValueError(f"{label}: invalid earnings status class")
+        old = [token for token in allowed if token in node.classes]
+        if len(old) != 1:
+            raise ValueError(f"{label}: expected exactly one existing earnings status class")
+        if old[0] == new_status:
+            return
+        span = node.class_value_span
+        if span is None:
+            raise ValueError(f"{label}: class source span missing")
+        raw_class = html[span[0]:span[1]]
+        matches = list(re.finditer(r"(?<!\S)"+re.escape(old[0])+r"(?!\S)",raw_class))
+        if len(matches) != 1:
+            raise ValueError(f"{label}: earnings status class token ambiguous")
+        m = matches[0]
+        ident = (span[0]+m.start(),span[0]+m.end())
+        if ident in used:
+            raise ValueError(f"{label}: overlapping status class slot")
+        used.add(ident)
+        edits.append((ident[0],ident[1],new_status))
+
+    for panel_key,panel_spec in spec["panels"].items():
+        containers = select(parser.root,panel_spec["container"])
+        panel_data = data["panels"].get(panel_key)
+        if not containers:
+            if panel_data is not None:
+                raise ValueError(f"earnings_calendar.{panel_key}: panel not present in this template")
+            continue
+        if len(containers) != 1:
+            raise ValueError(f"earnings_calendar.{panel_key}: container missing or duplicated")
+        if panel_data is None or not isinstance(panel_data,dict) or set(panel_data) != {"items"} or not isinstance(panel_data["items"],list):
+            raise ValueError(f"earnings_calendar.{panel_key}: invalid or missing panel snapshot")
+        item_nodes = select(containers[0],panel_spec["item_selector"])
+        items = panel_data["items"]
+        if len(item_nodes) != len(items):
+            raise ValueError(f"earnings_calendar.{panel_key}: accordion count mismatch; template={len(item_nodes)}, snapshot={len(items)}")
+        for index,(item_node,item) in enumerate(zip(item_nodes,items)):
+            label=f"earnings_calendar.{panel_key}.items[{index}]"
+            required={"expected_company","us_date","tw_date","company","company_sub","stars_text","fields","results"}
+            if not isinstance(item,dict) or set(item) != required:
+                raise ValueError(f"{label}: invalid item fields")
+            company_nodes=select(item_node,selectors["company"])
+            if len(company_nodes)!=1:
+                raise ValueError(f"{label}: company slot missing or duplicated")
+            current_company=normalize(unescape("".join(x.text for x in spans_inside(company_nodes[0],parser.spans))))
+            if current_company != normalize(item["expected_company"]):
+                raise ValueError(f"{label}: company identity mismatch")
+            for field_name in ("us_date","tw_date","company","company_sub","stars_text"):
+                nodes=select(item_node,selectors[{"us_date":"us_date","tw_date":"tw_date","company":"company","company_sub":"company_sub","stars_text":"stars"}.get(field_name,field_name)])
+                if len(nodes)!=1:
+                    raise ValueError(f"{label}.{field_name}: slot missing or duplicated")
+                add_text(nodes[0],item[field_name],f"{label}.{field_name}")
+            details=select(item_node,selectors["details"])
+            if len(details)!=1:
+                raise ValueError(f"{label}: details container missing or duplicated")
+            detail_fields=select(details[0],selectors["detail_field"])
+            if len(detail_fields)!=len(item["fields"]):
+                raise ValueError(f"{label}: detail field count mismatch")
+            for field_index,(field_node,field_data) in enumerate(zip(detail_fields,item["fields"])):
+                labels=select(field_node,selectors["detail_label"])
+                values=select(field_node,selectors["detail_value"])
+                if len(labels)!=1 or len(values)!=1:
+                    raise ValueError(f"{label}.fields[{field_index}]: label/value ambiguous")
+                current_label=normalize(unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))))
+                if not isinstance(field_data,dict) or field_data.get("label")!=current_label:
+                    raise ValueError(f"{label}.fields[{field_index}]: label mismatch")
+                anchors=select(values[0],"a")
+                if anchors:
+                    if set(field_data)!={"label","links"} or len(anchors)!=len(field_data["links"]):
+                        raise ValueError(f"{label}.fields[{field_index}]: source link count mismatch")
+                    for link_index,(anchor,source) in enumerate(zip(anchors,field_data["links"])):
+                        add_href(anchor,source,f"{label}.fields[{field_index}].links[{link_index}]")
+                else:
+                    if set(field_data)!={"label","text"}:
+                        raise ValueError(f"{label}.fields[{field_index}]: expected text field")
+                    add_text(values[0],field_data["text"],f"{label}.fields[{field_index}].text")
+
+            result_cards=select(details[0],selectors["result_card"])
+            results=item["results"]
+            if not isinstance(results,list) or len(result_cards)!=len(results):
+                raise ValueError(f"{label}: EPS/revenue result card count mismatch")
+            for result_index,(card,result) in enumerate(zip(result_cards,results)):
+                result_label=f"{label}.results[{result_index}]"
+                if not isinstance(result,dict) or set(result)!={"title","actual","expected","status_text","status_class","note"}:
+                    raise ValueError(f"{result_label}: invalid result fields")
+                title_nodes=select(card,selectors["result_title"])
+                lines=select(card,selectors["result_line"])
+                status_nodes=select(card,selectors["result_status"])
+                note_nodes=select(card,selectors["result_note"])
+                if len(title_nodes)!=1 or len(lines)!=2 or len(status_nodes)!=1 or len(note_nodes)!=1:
+                    raise ValueError(f"{result_label}: result card slots ambiguous")
+                add_text(title_nodes[0],result["title"],f"{result_label}.title")
+                for line_index,expected_label,field_name in ((0,"實際","actual"),(1,"預期","expected")):
+                    line_labels=[n for n in descendants(lines[line_index]) if n.tag=="span"]
+                    strong=select(lines[line_index],"strong")
+                    if len(line_labels)!=1 or len(strong)!=1:
+                        raise ValueError(f"{result_label}.{field_name}: actual/expected slot ambiguous")
+                    label_text=normalize(unescape("".join(x.text for x in spans_inside(line_labels[0],parser.spans))))
+                    if label_text!=expected_label:
+                        raise ValueError(f"{result_label}.{field_name}: label mismatch")
+                    add_text(strong[0],result[field_name],f"{result_label}.{field_name}")
+                add_text(status_nodes[0],result["status_text"],f"{result_label}.status_text")
+                add_text(note_nodes[0],result["note"],f"{result_label}.note")
+                update_status_class(card,result["status_class"],f"{result_label}.card")
+                update_status_class(status_nodes[0],result["status_class"],f"{result_label}.status")
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
         raise ValueError("snapshot must contain a groups object")
@@ -781,6 +926,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
     render_editorial(html, parser, snapshot, binding, edits, used)
     render_news(html, parser, snapshot, binding, edits, used)
     render_economic_calendar(html, parser, snapshot, binding, edits, used)
+    render_earnings_calendar(html, parser, snapshot, binding, edits, used)
 
     result = html
     for start, end, replacement in sorted(edits, reverse=True):
