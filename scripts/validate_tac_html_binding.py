@@ -222,6 +222,23 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     if source_containers and not selector_nodes(source_containers[0], panel_spec["source_selector"]):
                         errors.append(f"news.{panel_key}[{index}]: no source links")
 
+
+        if group == "economic_calendar":
+            for panel_key, panel_spec in spec["panels"].items():
+                panel_nodes = selector_nodes(root, panel_spec["container"])
+                if len(panel_nodes) == 0 and panel_key == "last_week":
+                    continue
+                if len(panel_nodes) != 1:
+                    errors.append(f"economic_calendar.{panel_key}: panel missing or duplicated")
+                    continue
+                events = selector_nodes(panel_nodes[0], panel_spec["event_selector"])
+                if not events:
+                    errors.append(f"economic_calendar.{panel_key}: no event slots")
+                for index, event in enumerate(events):
+                    for selector in (".econ-date", ".econ-time", ".econ-country", ".econ-name", ".econ-stars", ".econ-details"):
+                        if len(selector_nodes(event, selector)) != 1:
+                            errors.append(f"economic_calendar.{panel_key}[{index}]: {selector} missing or duplicated")
+
     return errors
 
 
