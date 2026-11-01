@@ -122,9 +122,9 @@ def calendar_trial(report_date: date, output_dir: Path) -> dict:
                 raise ValueError("平日母版不應出現上週區塊：" + marker)
 
     return {
-        "calendar_snapshot": str(snapshot.relative_to(ROOT)),
-        "calendar_quality_report": str(quality.relative_to(ROOT)),
-        "calendar_only_preview": str(preview.relative_to(ROOT)),
+        "calendar_snapshot": str(snapshot),
+        "calendar_quality_report": str(quality),
+        "calendar_only_preview": str(preview),
         "template_mode": mode,
         "template_path": str(template.relative_to(ROOT)),
         "template_blob_sha": git_blob_sha(template),
