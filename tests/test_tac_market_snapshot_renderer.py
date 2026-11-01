@@ -74,8 +74,8 @@ class MarketSnapshotRendererTests(unittest.TestCase):
             rendered = output_path.read_text(encoding="utf-8")
         self.assertIn("100.00", rendered)
         self.assertIn("100.00%", rendered)
-        sector_block = rendered.split('<div class="sector-list">', 1)[1].split("</div>", 1)[0]
-        self.assertLess(sector_block.index("XLE"), sector_block.index("XLK"))
+        sector_start = rendered.index('<div class="sector-list">')
+        self.assertLess(rendered.index("XLE", sector_start), rendered.index("XLK", sector_start))
         self.assertIn('class="r down"', rendered)
 
 
