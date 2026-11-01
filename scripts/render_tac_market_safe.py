@@ -1121,6 +1121,13 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                 raise ValueError(f"{group_name}.{panel_key}: status-group count mismatch; template={len(groups)}, snapshot={len(lists_data)}")
             item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
             for list_index, (group, list_data) in enumerate(zip(groups, lists_data)):
+                parser = SourceTreeParser(html)
+                parser.feed(html)
+                parser.close()
+                containers = select(parser.root, panel_spec["container"])
+                container = containers[0]
+                groups = select(container, ".calendar-status-group")
+                group = groups[list_index]
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
                     raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: invalid list payload")
                 group_lists = select(group, panel_spec["list_selector"])
