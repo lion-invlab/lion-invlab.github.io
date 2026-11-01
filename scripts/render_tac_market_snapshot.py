@@ -252,7 +252,7 @@ def update_sectors(source, binding, snapshot):
         # edits cannot invalidate the source offsets of rows still to be updated.
         captured_nodes = SourceParser(source).nodes
         captured_rows = [node for node in select(captured_nodes, group["container"] + " " + group["row"])
-            if re.search(r"\b" + re.escape(ticker) + r"\b", node.text(source))]
+            if node.start == current_row.start]
         if len(captured_rows) != 1:
             raise ValueError(f"sector {key} could not be captured after update")
         captured = captured_rows[0]
