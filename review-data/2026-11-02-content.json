@@ -2385,7 +2385,7 @@
       "revenue_estimate": 16.01,
       "revenue_actual": 16.209,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/30）收盤 +7.02%",
       "source": {
         "name": "AstraZeneca｜9M and Q3 2026 Results",
         "url": "https://www.astrazeneca.com/media-centre/press-releases/2026/9m-and-q3-2026-results.html",
@@ -2404,7 +2404,7 @@
       "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "beat",
       "financial_judgment": "Q3營收年增7%、Core EPS年增17%，全年營收與Core EPS指引維持；EPS共識口徑仍待確認，暫不判定驚喜幅度。",
-      "stock_price_reaction_window": null,
+      "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；NYSE ADR",
       "consensus_source": {
         "name": "MarketBeat｜AstraZeneca Q3 2026 Estimates",
         "url": "https://www.marketbeat.com/earnings/reports/2026-10-30-astrazeneca-plc-stock-1/",
@@ -2413,7 +2413,13 @@
         "publisher": "MarketBeat",
         "notes": "列示共識 EPS US$2.60、營收US$16.01B；EPS是否與公司Core EPS同口徑尚待核實。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/azn/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
+      },
       "eps_note": "公司Q3 Core EPS US$2.79、Reported EPS US$2.02；MarketBeat共識US$2.60，但該共識是否採Core口徑尚未確認，暫不判定 beat/miss。",
       "revenue_note": "公司Q3 Total Revenue US$16.209B；MarketBeat共識US$16.01B，高於預期。",
       "time_type": "release_time"
@@ -2540,7 +2546,7 @@
       "revenue_estimate": 9.63,
       "revenue_actual": 9.81,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 +4.16%",
       "source": {
         "name": "Mastercard｜Q3 2026 Financial Results",
         "url": "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
@@ -2559,7 +2565,7 @@
       "eps_comparison_status": "beat",
       "revenue_comparison_status": "beat",
       "financial_judgment": "調整後 EPS 與營收均高於共識；淨營收年增14%，支付量與跨境交易維持成長。",
-      "stock_price_reaction_window": null,
+      "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算",
       "consensus_source": {
         "name": "Earnings Whispers｜Mastercard Q3 2026",
         "url": "https://www.earningswhispers.com/epsdetails/MA",
@@ -2568,7 +2574,13 @@
         "publisher": "Earnings Whispers",
         "notes": "共識 adjusted EPS US$5.14、營收 US$9.63B；公司 actual EPS US$5.31、營收 US$9.81B。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/ma/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
+      },
       "eps_note": "公司調整後 diluted EPS US$5.31；共識 US$5.14，同為調整後口徑。",
       "revenue_note": "公司淨營收 US$9.81B；共識 US$9.63B，高於預期。",
       "time_type": "release_time"
@@ -2588,7 +2600,7 @@
       "revenue_estimate": 93.25,
       "revenue_actual": 92.85,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 +2.36%",
       "source": {
         "name": "Shell｜Q3 2026 Results Announcement",
         "url": "https://www.shell.com/news-and-insights/newsroom/news-and-media-releases/2026/third-quarter-2026-results-announcement.html",
@@ -2607,7 +2619,7 @@
       "eps_comparison_status": "beat",
       "revenue_comparison_status": "miss",
       "financial_judgment": "Adjusted EPS高於共識、營收低於共識；調整後獲利 US$10.8B、營運現金流 US$21.0B，並宣布未來三個月 US$5B庫藏股。",
-      "stock_price_reaction_window": null,
+      "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；NYSE ADR",
       "consensus_source": {
         "name": "MarketBeat｜Shell Q3 2026 Earnings Results",
         "url": "https://www.marketbeat.com/earnings/reports/2026-10-29-rdsb-stock/",
@@ -2616,7 +2628,13 @@
         "publisher": "MarketBeat",
         "notes": "以NYSE SHEL ADR口徑列示 adjusted EPS US$3.86、共識US$3.54；營收US$92.85B、共識US$93.25B。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/shel/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
+      },
       "eps_note": "Shell每股普通股 adjusted EPS US$1.93；ADR代表兩股普通股，換算每ADR US$3.86。MarketBeat共識 US$3.54，採 ADR 口徑。",
       "revenue_note": "MarketBeat列示公司營收 US$92.85B、共識 US$93.25B，低於預期；營收定義仍需與公司合併報表再交叉核對。",
       "time_type": "release_time"
@@ -2636,7 +2654,7 @@
       "revenue_estimate": null,
       "revenue_actual": 195.3,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 -4.13%",
       "source": {
         "name": "Samsung Electronics｜Q3 2026 Results",
         "url": "https://news.samsungsemiconductor.com/global/samsung-electronics-announces-third-quarter-2026-results/",
@@ -2655,7 +2673,7 @@
       "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "pending_verification",
       "financial_judgment": "Q3營收創單季新高 KRW195.3T，營業利益 KRW107.4T；記憶體部門營收及獲利創高，AI半導體需求強勁。",
-      "stock_price_reaction_window": null,
+      "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；韓國 005930 普通股",
       "consensus_source": {
         "name": "Samsung Electronics｜3Q 2026 Pre-Earnings Guidance",
         "url": "https://www.samsung.com/global/ir/reports-disclosures/public-disclosure-view.84775/",
@@ -2664,7 +2682,13 @@
         "publisher": "Samsung Electronics",
         "notes": "官方10/08預告營收約KRW195T、營業利益約KRW107.4T；這是公司指引，不是市場共識。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Investing.com",
+        "url": "https://www.investing.com/equities/samsung-electronics-co-ltd-historical-data",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
+      },
       "eps_note": "公司官方公告提供營收與營業利益，但本輪尚未取得可比 EPS 共識及一致口徑每股實際值；暫不判定。",
       "revenue_note": "公司10/08官方預告營收約 KRW195T，實際營收 KRW195.3T；該預告不是分析師共識，不作 beat/miss 判定。",
       "time_type": "call_time"
@@ -2790,7 +2814,7 @@
       "revenue_estimate": 12.09,
       "revenue_actual": 12.14,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/28）收盤 -0.31%",
       "source": {
         "name": "Visa｜Fiscal Q4 and Full-Year 2026 Results",
         "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
@@ -2809,7 +2833,7 @@
       "eps_comparison_status": "beat",
       "revenue_comparison_status": "beat",
       "financial_judgment": "Non-GAAP EPS 與營收均高於共識；支付量年增9%、跨境支付量年增14%，但客戶激勵費用增加，市場同時評估 FY2027 指引。",
-      "stock_price_reaction_window": null,
+      "stock_price_reaction_window": "2026-10-28 首個常規交易日收盤；以前一交易日收盤至當日收盤計算",
       "consensus_source": {
         "name": "MarketBeat｜Visa Q4 2026 Earnings Results",
         "url": "https://www.marketbeat.com/earnings/reports/2026-10-27-visa-inc-stock/",
@@ -2818,7 +2842,13 @@
         "publisher": "MarketBeat",
         "notes": "公布前共識 EPS US$3.44、營收 US$12.09B；與公司 non-GAAP EPS及淨營收比較。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "StockAnalysis",
+        "url": "https://stockanalysis.com/stocks/v/history/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:56:34+08:00",
+        "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
+      },
       "eps_note": "公司公告 non-GAAP EPS US$3.48；市場共識 US$3.44，兩者同為調整後 EPS 口徑。",
       "revenue_note": "公司淨營收 US$12.14B；市場共識 US$12.09B，高於預期。",
       "time_type": "call_time"
@@ -3000,10 +3030,15 @@
         "https://www.sec.gov/Archives/edgar/data/1633917/000163391726000086/pypl3q-26earningsrelease.htm",
         "https://www.zacks.com/stock/news/3015584/paypal-pypl-q3-earnings-top-estimates",
         "https://www.airbus.com/en/newsroom/press-releases/2026-10-airbus-reports-nine-month-9m-2026-results",
-        "https://mediaassets.airbus.com/pm_38_943_943044-xvry1c4uph.pdf?fileName=airbus-q3-2026-consensus.pdf"
+        "https://mediaassets.airbus.com/pm_38_943_943044-xvry1c4uph.pdf?fileName=airbus-q3-2026-consensus.pdf",
+        "https://stockanalysis.com/stocks/v/history/",
+        "https://stockanalysis.com/stocks/ma/history/",
+        "https://stockanalysis.com/stocks/shel/history/",
+        "https://www.investing.com/equities/samsung-electronics-co-ltd-historical-data",
+        "https://stockanalysis.com/stocks/azn/history/"
       ],
-      "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "依 WR v3.7 最新規則，上週財報行事曆僅保留 TAC 五星事件；四星及以下不顯示。"
+      "checked_at": "2026-11-01T12:56:34+08:00",
+      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。已補核 Visa、Mastercard、Shell、Samsung Electronics、AstraZeneca 首個常規交易日收盤反應（以前一交易日收盤至當日收盤計算）；仍有部分 EPS／營收共識口徑與其他公司價格反應待核實，coverage 維持 incomplete。"
     },
     "economic_calendar": {
       "status": "incomplete",
