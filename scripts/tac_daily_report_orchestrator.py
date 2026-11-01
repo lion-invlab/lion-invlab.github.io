@@ -140,14 +140,19 @@ def calendar_trial(report_date: date, output_dir: Path) -> dict:
 def full_mode_blockers(args: argparse.Namespace) -> list[str]:
     blockers = []
     for label, value in (
-        ("已驗證行情快照", args.market_snapshot),
-        ("已核實新聞資料", args.news_json),
-        ("已核實新聞與分析內容", args.content_json),
+        ("已驗證市場快照", args.market_snapshot),
+        ("已核實新聞與 AI 分析內容包", args.content_json),
     ):
         if not value:
             blockers.append(f"尚未接入：{label}")
         elif not Path(value).is_file():
             blockers.append(f"指定檔案不存在：{label} ({value})")
+    if args.content_json and Path(args.content_json).is_file():
+        content = json.loads(Path(args.content_json).read_text(encoding="utf-8"))
+        if len(content.get("focus_news", [])) != 5:
+            blockers.append("全球焦點新聞必須恰好 5 則")
+        if len(content.get("market_headlines", [])) != 10:
+            blockers.append("市場熱門頭條必須恰好 10 則")
     return blockers
 
 
@@ -158,8 +163,6 @@ def main() -> int:
     parser.add_argument("--mode", choices=("calendar-only", "full"), default="calendar-only")
     parser.add_argument("--market-snapshot")
     parser.add_argument("--web-observations", help="ChatGPT direct webpage-read observation JSON")
-    parser.add_argument("--news-json")
-    parser.add_argument("--analysis-json")
     parser.add_argument("--content-json", help="Validated editorial content v2 JSON")
     args = parser.parse_args()
 
