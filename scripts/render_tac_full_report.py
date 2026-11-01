@@ -37,11 +37,18 @@ def render_full(snapshot_path:Path,content_path:Path,output_path:Path,require_co
                 if item["status"]=="upcoming" and (item.get("previous") is None or item.get("forecast") is None):
                     pending.append(group+"."+item["id"]+".previous_or_forecast")
             elif item["status"]=="upcoming":
-                if item.get("eps_estimate") is None or item.get("revenue_estimate") is None:
-                    pending.append(group+"."+item["id"]+".estimates")
+                # Upcoming calendar cards are schedule records. EPS/revenue forecasts are
+                # optional and must not block review; WR §20.2–20.3 applies after release.
+                pass
             elif item["status"]=="released":
-                if any(item.get(k) is None for k in ("eps_estimate","eps_actual","revenue_estimate","revenue_actual")) or not item.get("stock_price_reaction"):
-                    pending.append(group+"."+item["id"]+".earnings_results")
+                required=("eps_estimate","eps_actual","revenue_estimate","revenue_actual",
+                  "stock_price_reaction","stock_price_reaction_window","industry","reporting_period",
+                  "eps_basis","eps_currency","revenue_currency","revenue_unit",
+                  "eps_comparison_status","revenue_comparison_status","financial_judgment",
+                  "consensus_source","price_reaction_source")
+                missing=[key for key in required if item.get(key) is None or item.get(key)==""]
+                if missing:
+                    pending.append(group+"."+item["id"]+".earnings_results_missing_"+",".join(missing))
                 # WR §20: published cards have a separate, richer contract than upcoming cards.
                 published_fields = (
                     "industry", "reporting_period", "eps_basis", "eps_currency",
