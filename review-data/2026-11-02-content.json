@@ -1745,7 +1745,7 @@
       "revenue_estimate": 127.69,
       "revenue_actual": 127.6,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 -12.64%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
@@ -1764,7 +1764,7 @@
       "eps_comparison_status": "miss",
       "revenue_comparison_status": "miss",
       "financial_judgment": "GAAP EPS 低於市場共識，營收亦略低於共識；Google Cloud 與 AI 需求仍強，資本支出規模及投資回收效率仍是市場觀察重點。",
-      "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/equities/google-inc-earnings",
@@ -1773,7 +1773,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 3.02；營收共識 US$127.69B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "GAAP diluted EPS；公司公告實際值 US$2.12，Investing.com 香港站共識 US$3.02，低於預期。",
       "revenue_note": "公司公告營收 US$127.6B；Investing.com 香港站共識 US$127.69B，略低於預期。",
       "time_type": "session_only"
@@ -1793,7 +1798,7 @@
       "revenue_estimate": 90.61,
       "revenue_actual": 92.279,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 -0.16%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
@@ -1812,7 +1817,7 @@
       "eps_comparison_status": "beat",
       "revenue_comparison_status": "beat",
       "financial_judgment": "GAAP EPS 與營收均高於市場共識；Azure 雲端增長維持強勢，但市場仍評估 AI 資本支出與現金流回收。",
-      "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/equities/microsoft-corp-earnings",
@@ -1821,7 +1826,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 4.72；營收共識 US$90.61B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "採 GAAP diluted EPS US$4.92；公司另列 non-GAAP EPS US$4.89。比較值採 Investing.com 香港站共識 US$4.72。",
       "revenue_note": "公司公告營收 US$92.279B；Investing.com 香港站共識 US$90.61B，高於預期。",
       "time_type": "session_only"
@@ -1841,7 +1851,7 @@
       "revenue_estimate": 22.16,
       "revenue_actual": 24.397,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/29）收盤 +6.63%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
@@ -1860,7 +1870,7 @@
       "eps_comparison_status": "miss",
       "revenue_comparison_status": "beat",
       "financial_judgment": "GAAP EPS 低於共識，但營收高於共識；公司另公布非 GAAP EPS 7.48，並上修全年營收展望，反映減重藥需求仍具支撐。",
-      "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-29 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/equities/eli-lilly-and-co-earnings",
@@ -1869,7 +1879,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 9.85；營收共識 US$22.16B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "GAAP reported diluted EPS US$7.22；公司另公布 non-GAAP EPS US$7.48。比較值採 Investing.com 香港站共識 US$9.85。",
       "revenue_note": "公司公告營收 US$24.397B；Investing.com 香港站共識 US$22.16B，高於預期。",
       "time_type": "session_only"
@@ -1889,7 +1904,7 @@
       "revenue_estimate": 202.1,
       "revenue_actual": 201.9,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/30）收盤 -1.41%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
@@ -1908,7 +1923,7 @@
       "eps_comparison_status": "miss",
       "revenue_comparison_status": "miss",
       "financial_judgment": "GAAP EPS 與營收均略低於市場共識；AWS 成長仍強，但市場關注零售利潤率、AI 基礎設施支出及自由現金流。",
-      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/equities/amazon-com-inc-earnings",
@@ -1917,7 +1932,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 1.96；營收共識 US$202.1B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "GAAP diluted EPS US$1.89；Investing.com 香港站共識 US$1.96，低於預期。",
       "revenue_note": "公司公告 net sales US$201.9B；Investing.com 香港站共識 US$202.1B，略低於預期。",
       "time_type": "session_only"
@@ -1937,7 +1957,7 @@
       "revenue_estimate": 16.48,
       "revenue_actual": 16.5,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/30）收盤 -28.58%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
@@ -1956,7 +1976,7 @@
       "eps_comparison_status": "beat",
       "revenue_comparison_status": "beat",
       "financial_judgment": "GAAP EPS 與營收略高於市場共識；市場仍關注第四季展望、供應能力與 PC 需求，股價反應數值待可靠價格來源核實。",
-      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/equities/intel-corp-earnings",
@@ -1965,7 +1985,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 0.4；營收共識 US$16.48B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "GAAP diluted EPS US$0.60；公司另公布 non-GAAP EPS US$0.52。比較值採 Investing.com 香港站共識 US$0.401。",
       "revenue_note": "公司公告營收 US$16.5B；Investing.com 香港站共識 US$16.48B，略高於預期。",
       "time_type": "release_time"
@@ -1985,7 +2010,7 @@
       "revenue_estimate": 115.45,
       "revenue_actual": 103.36,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/30）收盤 +2.16%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://investor.exxonmobil.com/company-information/press-releases/detail/1213/exxonmobil-announces-third-quarter-2026-results",
@@ -2004,7 +2029,7 @@
       "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "miss",
       "financial_judgment": "公司公告列示 GAAP EPS US$3.72、調整後 EPS US$4.23；Investing.com 共識 US$3.99 未標明口徑，因此 EPS 比較暫列待核實。Investing.com 報導營收 US$103.36B 低於 US$115.45B 共識，營收定義仍待與公司財報交叉核對。",
-      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/news/earnings/article-1730152",
@@ -2013,7 +2038,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 3.99；營收共識 US$115.45B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "公司公告 reported EPS US$3.72、adjusted EPS US$4.23；Investing.com 共識 US$3.99 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
       "revenue_note": "Investing.com 報導營收 US$103.36B、共識 US$115.45B；營收定義仍需與公司財報口徑交叉核對。",
       "time_type": "release_time"
@@ -2033,7 +2063,7 @@
       "revenue_estimate": 60.55,
       "revenue_actual": 67.8,
       "status": "released",
-      "stock_price_reaction": null,
+      "stock_price_reaction": "財報公布後首個常規交易日（10/30）收盤 +1.75%",
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results",
@@ -2052,7 +2082,7 @@
       "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "beat",
       "financial_judgment": "公司公告列示 GAAP diluted EPS US$5.06、調整後 EPS US$5.28；Investing.com 共識 US$4.88 未標明口徑，因此 EPS 比較暫列待核實。營收 US$67.8B 高於 US$60.55B 共識。",
-      "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
+      "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以財報申報前一交易日收盤至該日收盤計算",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
         "url": "https://hk.investing.com/news/earnings/article-1730152",
@@ -2061,7 +2091,12 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 4.88；營收共識 US$60.55B；依來源頁面核對。"
       },
-      "price_reaction_source": null,
+      "price_reaction_source": {
+        "name": "Portfolio Terminal｜180 家 S&P 500 財報反應統一計算（Yahoo Finance 收盤價）",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026",
+        "observed_at": "2026-11-01T12:17:52+08:00",
+        "notes": "來源說明以 SEC 8-K 財報申報前一收盤價至財報公布後首個交易日收盤價計算；本卡採其逐公司公布數值。"
+      },
       "eps_note": "公司公告 reported diluted EPS US$5.06、adjusted EPS US$5.28；Investing.com 共識 US$4.88 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
       "revenue_note": "Investing.com 報導營收 US$67.8B、共識 US$60.55B，高於預期。",
       "time_type": "release_time"
