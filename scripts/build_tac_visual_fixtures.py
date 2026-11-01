@@ -40,7 +40,7 @@ def build():
         snapshot = sample_snapshot(schema)
         snapshot["meta"].update({
             "report_date": "2026-11-02",
-            "trading_date": "2026-10-30",
+            "trading_date": "2026-10-30" if kind == "monday" else "2026-11-02",
             "generated_at": "2026-11-02T05:00:00+08:00",
         })
         # Synthetic display-only figures: no synthetic figure is represented as
