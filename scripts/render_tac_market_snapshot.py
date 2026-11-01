@@ -236,7 +236,7 @@ def update_sectors(source, binding, snapshot):
         row = snapshot["sectors"][key]
         current_nodes = SourceParser(source).nodes
         current_rows = [n for n in select(current_nodes, group["container"] + " " + group["row"])
-            if re.search(r"\\b" + re.escape(next(t for t, k in group["key_by_ticker"].items() if k == key)) + r"\\b", n.text(source))]
+            if re.search(r"\b" + re.escape(next(t for t, k in group["key_by_ticker"].items() if k == key)) + r"\\b", n.text(source))]
         if len(current_rows) != 1:
             raise ValueError(f"sector {key} row changed unexpectedly during update")
         value_nodes = [n for n in select(current_nodes, "span.r") if is_descendant(n, current_rows[0])]
