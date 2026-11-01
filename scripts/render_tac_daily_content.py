@@ -210,6 +210,8 @@ def calendar_sort_key(item, bucket):
     if known:
         return (0,event_time.timestamp(),-stars)
     return (1,event_time.date().toordinal(),-stars)
+def event_time_label(item):
+    return "時間待核實" if item.get("time_known",True) is False else dt(item["event_date"]).strftime("%H:%M")
 def new_anchor(soup,node,src):
     node.clear(); a=soup.new_tag("a"); a["target"]="_blank"; a["rel"]=["noopener"]; node.append(a); source_link(a,src)
 def econ_card(proto,item,soup):
@@ -218,7 +220,7 @@ def econ_card(proto,item,soup):
         raise ValueError("economic event prototype must preserve exactly one native details summary control")
     meta=slot(card,".econ-meta","econ meta")
     for sel,val in ((".econ-date",date_label(item["event_date"])),
-      (".econ-time",dt(item["event_date"]).strftime("%H:%M")),
+      (".econ-time",event_time_label(item)),
       (".econ-country",item["region"]),(".econ-name",item["event_name"]),(".econ-stars","★"*item["importance_stars"]+"☆"*(5-item["importance_stars"]))):
         put(slot(meta,sel,"econ "+sel),val)
     card["class"]=[c for c in card.get("class",[]) if c not in {"five-star","four-star","three-star","two-star","one-star"}]
