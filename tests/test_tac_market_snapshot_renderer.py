@@ -34,6 +34,50 @@ class MarketSnapshotRendererTests(unittest.TestCase):
         self.assertEqual(renderer.status_class({"status":"verified","change":-1.0}), "down")
         self.assertEqual(renderer.status_class({"status":"pending_verification","change":1.0}), "warn")
 
+    def test_verified_quotes_render_values_and_sector_ranking(self):
+        _, schema = snapshot_validator.load_validator()
+        snapshot = snapshot_validator.sample_snapshot(schema)
+        for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators"):
+            for index, (key, row) in enumerate(snapshot[group].items()):
+                row.update({
+                    "value": 100.0 + index,
+                    "change": (index + 1) / 10 if index % 2 == 0 else -(index + 1) / 10,
+                    "change_unit": "%",
+                    "status": "verified",
+                    "source": {
+                        "name": "Investing.com Hong Kong",
+                        "url": "https://hk.investing.com/",
+                        "observed_at": "2026-11-01T09:00:00+08:00",
+                        "data_date": "2026-10-30",
+                        "quote_type": "historical_close",
+                        "instrument": key.upper(),
+                    },
+                })
+        sector_changes = {
+            "xlk": 2.0, "xly": 1.0, "xlb": 0.0, "xlu": -1.0, "xli": 0.5,
+            "xlv": -0.5, "xlf": 1.5, "xlc": 0.25, "xlre": -1.5, "xlp": 0.75, "xle": 3.0,
+        }
+        for key, change in sector_changes.items():
+            snapshot["sectors"][key].update({"value":change,"change":change,"unit":"%","change_unit":"%"})
+        snapshot["fedwatch"] = {
+            "target_meeting":"2026-12-16","updated_at":"2026-11-01T08:55:00+08:00",
+            "source":{"name":"CME FedWatch","url":"https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool"},
+            "probabilities":[{"rate_range":"維持不變","probability":80.0},{"rate_range":"降息一碼","probability":20.0}],
+            "status":"verified","notes":"Test fixture only."
+        }
+        monday = ROOT / "母版專區" / "TAC_母版_週一_2026-10-28_最終定版.html"
+        with tempfile.TemporaryDirectory() as tmp:
+            snapshot_path = Path(tmp) / "snapshot.json"
+            output_path = Path(tmp) / "review.html"
+            snapshot_path.write_text(json.dumps(snapshot, ensure_ascii=False), encoding="utf-8")
+            renderer.render(monday, snapshot_path, ROOT / "scripts" / "tac_html_binding_map.json", output_path, "monday")
+            rendered = output_path.read_text(encoding="utf-8")
+        self.assertIn("100.00", rendered)
+        self.assertIn("100.00%", rendered)
+        sector_block = rendered.split('<div class="sector-list">', 1)[1].split("</div>", 1)[0]
+        self.assertLess(sector_block.index("XLE"), sector_block.index("XLK"))
+        self.assertIn('class="r down"', rendered)
+
 
 if __name__ == "__main__":
     unittest.main()
