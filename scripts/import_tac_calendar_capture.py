@@ -2,7 +2,7 @@
 """Normalize source-captured economic and earnings calendar rows into TAC editorial fragments.
 
 This adapter does not fetch or scrape providers. It accepts a human- or provider-captured
-JSON payload with explicit source provenance, applies TAC's 3-star economic filter, and
+JSON payload with explicit source provenance, imports independently assessed TAC 4/5-star economic events, and
 refuses to invent earnings importance ratings.
 """
 from __future__ import annotations
@@ -121,14 +121,19 @@ def normalize(payload: dict) -> dict:
                                      ("previous_economic_events", "previous_economic_calendar")):
       for row in payload.get(input_group, []):
         stars = row.get("importance_stars")
-        if stars != 3:
+        if stars not in {4, 5}:
             continue
+        basis_source = row.get("importance_basis_source")
+        if row.get("importance_basis") != "major_event_assessment" or not isinstance(basis_source, str) or not basis_source.strip():
+            raise ValueError(f"economic event {row.get('id')}: TAC 4/5-star rating requires a traceable independent assessment")
         event = {
             "id": str(row["id"]),
             "event_date": aware_datetime(row["event_date"], "economic event_date"),
             "region": str(row["region"]),
             "event_name": str(row["event_name"]),
-            "importance_stars": 3,
+            "importance_stars": stars,
+            "importance_basis": "major_event_assessment",
+            "importance_basis_source": basis_source.strip(),
             "previous": row.get("previous"),
             "forecast": row.get("forecast"),
             "actual": row.get("actual"),
@@ -149,14 +154,8 @@ def normalize(payload: dict) -> dict:
         basis_source = row.get("importance_basis_source")
         if not isinstance(basis_source, str) or not basis_source.strip():
             raise ValueError(f"earnings {row.get('id')}: importance_basis_source is required")
-        if basis == "source_rating":
-            if stars != 3 or not isinstance(rating_source, str) or not rating_source.strip():
-                raise ValueError(f"earnings {row.get('id')}: only explicit source 3-star ratings may be displayed")
-        elif basis == "major_event_assessment":
-            if stars is not None or rating_source is not None:
-                raise ValueError(f"earnings {row.get('id')}: assessed importance must not carry a star")
-        else:
-            raise ValueError(f"earnings {row.get('id')}: invalid importance_basis")
+        if basis != "major_event_assessment" or stars not in {4, 5} or rating_source is not None:
+            raise ValueError(f"earnings {row.get('id')}: report inclusion requires an independent TAC 4/5-star assessment; provider ratings cannot be displayed")
 
         event = {
             "id": str(row["id"]),
@@ -196,7 +195,7 @@ def self_test() -> None:
         "earnings_events": [{
             "id":"a1","include_in_report":True,"event_date":"2026-11-02T21:30:00+08:00",
             "company":"Synthetic Mega Cap","ticker":"SYN","session":"after_market",
-            "importance_stars":None,"importance_basis":"major_event_assessment",
+            "importance_stars":5,"importance_basis":"major_event_assessment",
             "importance_basis_source":"Synthetic test basis; supporting source is the company index membership record",
             "importance_rating_source":None,"eps_estimate":1.2,"eps_actual":None,
             "revenue_estimate":100.0,"revenue_actual":None,"status":"upcoming"
@@ -217,7 +216,7 @@ def self_test() -> None:
     }
     fragment = normalize(payload)
     assert [x["id"] for x in fragment["economic_calendar"]] == ["e3"]
-    assert fragment["earnings_calendar"][0]["importance_stars"] is None
+    assert fragment["earnings_calendar"][0]["importance_stars"] == 5
     validator, schema = load_validator()
     assembled = assemble(
         "2026-11-02", "2026-10-30", "2026-10-31T21:00:00+08:00",
@@ -266,8 +265,8 @@ def self_test() -> None:
     print("PASS: verified empty calendar remains distinct from an incomplete capture")
     print("PASS: complete coverage requires all five weekdays in the applicable week")
 
-    print("PASS: only source-native 3-star economic events are imported")
-    print("PASS: unrated earnings require a traceable major-event assessment and retain null stars")
+    print("PASS: only independently assessed TAC 4/5-star economic events are imported")
+    print("PASS: earnings require traceable independent TAC 4/5-star assessments")
     print("PASS: source URLs and observation timestamps are preserved through assembly")
 
 
@@ -286,7 +285,7 @@ def main() -> int:
     fragment = normalize(payload)
     Path(args.output).write_text(json.dumps(fragment, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(
-        f"Calendar capture imported: {len(fragment['economic_calendar'])} economic 3-star events; "
+        f"Calendar capture imported: {len(fragment['economic_calendar'])} TAC 4/5-star economic events; "
         f"{len(fragment['earnings_calendar'])} selected earnings events."
     )
     return 0
