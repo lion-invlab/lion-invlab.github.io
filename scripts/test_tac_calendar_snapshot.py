@@ -140,6 +140,7 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         econ["status"] = "released"
         econ["actual"] = "Synthetic actual"
         earnings = current["events"]["earnings"][0]
+        earnings["event_date"] = "2026-11-02T10:00:00+08:00"
         earnings["status"] = "released"
         earnings["eps_actual"] = earnings.get("eps_estimate")
         earnings["revenue_actual"] = earnings.get("revenue_estimate")
@@ -158,6 +159,10 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         for kind in ("economic", "earnings"):
             four_star = json.loads(json.dumps(previous["events"][kind][0]))
             four_star["id"] = f"four-star-{kind}-should-not-render"
+            if kind == "economic":
+                four_star["event_name"] = "four-star-economic-should-not-render"
+            else:
+                four_star["company"] = "four-star-earnings-should-not-render"
             four_star["importance_stars"] = 4
             previous["events"][kind].append(four_star)
 
