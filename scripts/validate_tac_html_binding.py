@@ -239,6 +239,23 @@ def check_template(path: Path, contract: dict) -> list[str]:
                         if len(selector_nodes(event, selector)) != 1:
                             errors.append(f"economic_calendar.{panel_key}[{index}]: {selector} missing or duplicated")
 
+
+        if group == "earnings_calendar":
+            for panel_key, panel_spec in spec["panels"].items():
+                panel_nodes = selector_nodes(root, panel_spec["container"])
+                if len(panel_nodes) == 0 and panel_key == "last_week":
+                    continue
+                if len(panel_nodes) != 1:
+                    errors.append(f"earnings_calendar.{panel_key}: panel missing or duplicated")
+                    continue
+                items = selector_nodes(panel_nodes[0], panel_spec["item_selector"])
+                if not items:
+                    errors.append(f"earnings_calendar.{panel_key}: no accordion slots")
+                for index, item in enumerate(items):
+                    for selector in (".earnings-us-date", ".earnings-tw-date", ".earnings-company-name", ".earnings-company-sub", ".earnings-stars", ".earnings-accordion-details"):
+                        if len(selector_nodes(item, selector)) != 1:
+                            errors.append(f"earnings_calendar.{panel_key}[{index}]: {selector} missing or duplicated")
+
     return errors
 
 
