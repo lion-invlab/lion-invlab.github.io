@@ -2,7 +2,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.tac_weekly_calendar_db import validate_week, quality_report, cmd_snapshot, cmd_upsert, cmd_apply_snapshot
+from scripts.tac_weekly_calendar_db import validate_week, quality_report, cmd_init, cmd_snapshot, cmd_upsert, cmd_apply_snapshot
 
 def load_for_test(path):
     return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -137,6 +137,20 @@ class WeeklyCalendarDbTests(unittest.TestCase):
         event["time_known"]="false"
         errors=validate_week(self.week(events={"economic":[event],"earnings":[]}))
         self.assertTrue(any("time_known must be boolean" in e for e in errors))
+
+    def test_week_init_creates_iso_week_and_refuses_overwrite(self):
+        with tempfile.TemporaryDirectory() as td:
+            out=Path(td)/"2026-W46.json"
+            args=type("Args",(),{"week_of":"2026-11-09","output":str(out),"wr_version":"3.7",
+                                 "at":"2026-11-08T09:00:00+08:00"})()
+            self.assertEqual(cmd_init(args),0)
+            data=load_for_test(out)
+            self.assertEqual(data["week_id"],"2026-W46")
+            self.assertEqual(data["week_start"],"2026-11-09")
+            self.assertEqual(data["week_end"],"2026-11-13")
+            self.assertEqual(data["coverage"]["economic"]["status"],"incomplete")
+            with self.assertRaisesRegex(FileExistsError,"refusing to overwrite"):
+                cmd_init(args)
 
     def test_quality_report_counts_missing_consensus_and_unknown_times(self):
         economic=self.event("e1","2026-11-02T12:00:00+08:00")
