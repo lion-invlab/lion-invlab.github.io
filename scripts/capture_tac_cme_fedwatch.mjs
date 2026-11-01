@@ -45,17 +45,17 @@ try {
   try {
     let response = null;
     try {
-      response = await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 90000 });
+      response = await page.goto(pageUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
       pageStatus = response?.status() ?? null;
       if (!response || !response.ok()) throw new Error(`CME page HTTP ${pageStatus ?? "no response"}`);
-      await page.waitForTimeout(18000);
+      await page.waitForTimeout(3000);
       const frames = page.frames();
       const candidates = frames.filter(frame => /cmegroup-tools\.quikstrike\.net/i.test(frame.url()));
       const frame = candidates.find(candidate => /IntegratedFedWatchTool/i.test(candidate.url())) || candidates[0] || null;
       if (!frame) throw new Error("CME FedWatch QuikStrike iframe was not found");
       frameUrl = frame.url();
-      await frame.waitForSelector("body", { timeout: 30000 });
-      await page.waitForTimeout(5000);
+      await frame.waitForSelector("body", { timeout: 15000 });
+      await page.waitForTimeout(2000);
       frameTitle = await frame.title();
       bodyText = await frame.locator("body").innerText({ timeout: 20000 });
       frameHtml = await frame.content();
@@ -67,11 +67,11 @@ try {
         "Referer": pageUrl,
         "Origin": "https://www.cmegroup.com"
       });
-      const directResponse = await directPage.goto(directFrameUrl, { waitUntil: "domcontentloaded", timeout: 90000 });
+      const directResponse = await directPage.goto(directFrameUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
       pageStatus = directResponse?.status() ?? pageStatus;
       frameUrl = directPage.url();
-      await directPage.waitForSelector("body", { timeout: 30000 });
-      await directPage.waitForTimeout(5000);
+      await directPage.waitForSelector("body", { timeout: 15000 });
+      await directPage.waitForTimeout(2000);
       frameTitle = await directPage.title();
       bodyText = await directPage.locator("body").innerText({ timeout: 20000 });
       frameHtml = await directPage.content();
