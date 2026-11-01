@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Tests for the experimental byte-preserving TAC text patcher."""
 import unittest
+from pathlib import Path
 
-from tac_safe_text_patch import replace_unique_text_nodes
+from tac_safe_text_patch import _SpanParser, replace_unique_text_nodes
 
 
 class SafeTextPatchTests(unittest.TestCase):
@@ -46,6 +47,27 @@ class SafeTextPatchTests(unittest.TestCase):
             replace_unique_text_nodes(source, {"第一": "甲", "第二": "乙"}),
             "<p>甲</p><p>乙</p>",
         )
+
+    def test_real_mother_templates_are_byte_local(self):
+        root = Path(__file__).resolve().parents[1]
+        paths = [
+            root / "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+            root / "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+        ]
+        for path in paths:
+            with self.subTest(template=path.name):
+                source = path.read_text(encoding="utf-8")
+                parser = _SpanParser(source)
+                parser.feed(source)
+                parser.close()
+                anchor = next(
+                    span.text for span in parser.spans
+                    if span.text.strip()
+                    and sum(other.text == span.text for other in parser.spans) == 1
+                )
+                actual = replace_unique_text_nodes(source, {anchor: anchor + "（試作）"})
+                self.assertEqual(actual.replace(anchor + "（試作）", anchor, 1), source)
+                self.assertEqual(actual.count("（試作）"), 1)
 
 
 if __name__ == "__main__":
