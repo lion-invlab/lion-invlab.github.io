@@ -32,6 +32,8 @@ def coverage_report(data: dict, expected: list[str]) -> dict:
         row["asset_id"] for row in rows
         if row.get("verification_status") not in {"verified", "market_closed"}
     )
+    if data.get("fedwatch", {}).get("verification_status") != "verified":
+        pending.append("fedwatch")
     return {
         "expected_count": len(expected),
         "received_count": len(rows),
@@ -92,6 +94,12 @@ def sample(schema: dict) -> dict:
             }
             for asset_id in expected
         ],
+        "fedwatch": {
+            "target_meeting": None, "updated_at": None, "source": None,
+            "probabilities": [], "retrieval_method": "chatgpt_direct_webpage_read",
+            "verification_status": "pending_verification",
+            "notes": "Self-test pending record; not a live probability snapshot."
+        },
     }
 
 
