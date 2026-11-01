@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import render_market_html
+from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, slot_text_span)
 
 
 def minimal_contract():
@@ -70,6 +70,36 @@ class SafeMarketRendererTests(unittest.TestCase):
         contract["groups"] = {"global_indices":contract["groups"]["global_indices"]}
         with self.assertRaisesRegex(ValueError,"key mismatch"):
             render_market_html(html,{"groups":{"global_indices":{}}},contract)
+
+    def test_real_dual_masters_resolve_every_mapped_market_slot(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        for label, relative in binding["templates"].items():
+            with self.subTest(template=label):
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                snapshot_groups = {}
+                for group_name, spec in binding["groups"].items():
+                    if group_name not in {"global_indices","sectors","bonds","fx","energy","precious_metals"}:
+                        continue
+                    container = [n for n in parser.root.children if False]
+                    containers = [n for n in __import__("render_tac_market_safe").select(parser.root, spec["container"])]
+                    self.assertEqual(len(containers), 1, f"{label}.{group_name} container")
+                    group = {}
+                    keys = spec.get("key_by_label", spec.get("key_by_ticker", {}))
+                    for key in keys:
+                        row = resolve_row(group_name, key, spec, containers[0], parser.spans)
+                        value_span, _ = slot_text_span(row, spec["value_selector"], int(spec.get("value_index",0)), parser.spans, f"{group_name}.{key}.value")
+                        record = {spec["snapshot_fields"]["display_value"]: value_span.text}
+                        change_field = spec["snapshot_fields"].get("display_change")
+                        if change_field:
+                            change_span, _ = slot_text_span(row, spec["change_selector"], int(spec.get("change_index",1)), parser.spans, f"{group_name}.{key}.change")
+                            record[change_field] = change_span.text
+                        group[key] = record
+                    snapshot_groups[group_name] = group
+                rendered = render_market_html(source, {"groups":snapshot_groups}, binding)
+                self.assertEqual(rendered, source, f"{label}: no-op snapshot must preserve every byte")
 
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
