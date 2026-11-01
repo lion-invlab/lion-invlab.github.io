@@ -68,6 +68,19 @@ def validate_week(data):
                 errors.append(prefix+": archived prior-week records must be TAC 5-star only")
             if archive and item.get("status") != "released":
                 errors.append(prefix+": archived prior-week records must be released")
+            if kind == "earnings":
+                country=item.get("issuer_country")
+                eligible=item.get("us_exchange_listed")
+                if not country: errors.append(prefix+": missing issuer_country")
+                if not isinstance(eligible,bool): errors.append(prefix+": us_exchange_listed must be boolean")
+                elif country and country != "United States":
+                    listing=item.get("listing_evidence")
+                    if not isinstance(listing,dict) or not listing.get("url"):
+                        errors.append(prefix+": non-US issuer requires listing_evidence.url")
+                    if eligible and item.get("us_listing_exchange") not in {"NYSE","NASDAQ","NYSE American"}:
+                        errors.append(prefix+": eligible non-US issuer must name a qualifying U.S. exchange")
+                    if not eligible and not item.get("us_listing_market"):
+                        errors.append(prefix+": excluded non-US issuer requires us_listing_market/reason")
             if item.get("status") not in VALID_STATUS: errors.append(prefix+": invalid status")
             if "time_known" in item and not isinstance(item.get("time_known"), bool):
                 errors.append(prefix+": time_known must be boolean")
@@ -201,7 +214,7 @@ def cmd_snapshot(args):
             "previous_earnings_calendar":{"status":"not_applicable","notes":"No previous-week archive supplied for this report."}}}
     for kind in ("economic","earnings"):
         key="economic_calendar" if kind=="economic" else "earnings_calendar"
-        rows=[x for x in data["events"][kind] if int(x.get("importance_stars",0)) in (4,5)]
+        rows=[x for x in data["events"][kind] if int(x.get("importance_stars",0)) in (4,5) and (kind != "earnings" or x.get("us_exchange_listed") is True)]
         rows.sort(key=lambda x:parse_dt(x["event_date"]))
         result[key]=rows
         result["coverage"][key]=data["coverage"][kind]
@@ -217,7 +230,7 @@ def cmd_snapshot(args):
         result["meta"]["previous_week_id"]=prev.get("week_id")
         for kind in ("economic","earnings"):
             key="previous_economic_calendar" if kind=="economic" else "previous_earnings_calendar"
-            rows=[x for x in prev["events"][kind] if int(x.get("importance_stars",0))==5 and x.get("status")=="released"]
+            rows=[x for x in prev["events"][kind] if int(x.get("importance_stars",0))==5 and x.get("status")=="released" and (kind != "earnings" or x.get("us_exchange_listed") is True)]
             rows.sort(key=lambda x:parse_dt(x["event_date"]).date(),reverse=True)
             result[key]=rows
             result["coverage"][key]=prev["coverage"][kind]
