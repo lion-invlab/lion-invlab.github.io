@@ -3,7 +3,7 @@
   "description": "Snapshot binding contract. Existing DOM and layout remain unchanged; only mapped text nodes, whitelisted status classes, report-date metadata, title/date labels, and the order of intact existing sector rows may change.",
   "templates": {
     "monday": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-    "weekday": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+    "weekdays": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
   },
   "rules": {
     "mutate_only_text_nodes": false,
@@ -317,7 +317,10 @@
       "groups": ".calendar-status-group",
       "event": ".econ-event",
       "event_list": ".econ-event-list",
-      "expected_stars": 3
+      "expected_stars": [
+        4,
+        5
+      ]
     },
     "earnings_calendar": {
       "container": "#earnings",
@@ -326,7 +329,8 @@
       "groups": ".calendar-status-group",
       "event": ".earnings-accordion",
       "event_list": ".earnings-accordion-list",
-      "rating": "source_native_3_star_or_unrated_assessment"
+      "rating": "source_native_3_star_or_unrated_assessment",
+      "importance_rule": "TAC_independent_4_or_5_star"
     },
     "previous_economic_calendar": {
       "container": "#last-week-calendar",
@@ -349,11 +353,13 @@
       "body": "direct child interpretation text"
     },
     "rules": [
-      "News counts must be exactly 5 and 10.",
-      "Economic events are restricted to native 3-star events.",
-      "Do not infer earnings star ratings.",
+      "Official calendar rating follows root TAC_WORK_RULES.md v3.10: TAC independent five-star scale.",
+      "Current week economic and earnings feeds include only TAC four- and five-star events.",
+      "Previous week economic and earnings archives include only TAC five-star events.",
+      "External provider star scales are evidence inputs only; never mechanically copy or convert them to TAC ratings.",
+      "Do not infer or assign earnings importance ratings without a traceable TAC major-event assessment.",
       "Incomplete empty calendars must show pending, not no-events.",
-      "Clone only existing event-card prototypes; preserve tab inputs, labels, outer containers and disclosure controls."
+      "Do not add DOM nodes or reconstruct event-card wrappers; fill only existing mapped template slots."
     ]
   }
 }
