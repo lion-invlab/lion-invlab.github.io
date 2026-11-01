@@ -1,0 +1,32 @@
+name: TAC Safe Renderer Experiment
+on:
+  push:
+    branches:
+      - tac-renderer-safe-refactor-20261102
+    paths:
+      - "scripts/tac_safe_text_patch.py"
+      - "scripts/test_tac_safe_text_patch.py"
+      - "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
+      - "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+      - ".github/workflows/tac-safe-renderer-experiment.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  safe-text-patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout isolated experiment branch
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run fail-closed text patch unit and mother-template tests
+        run: python -m unittest -v scripts/test_tac_safe_text_patch.py
+      - name: Verify approved mother-template SHA locks
+        run: python scripts/verify_tac_master_templates.py
+      - name: Verify snapshot-to-HTML binding contracts
+        run: python scripts/validate_tac_html_binding.py
