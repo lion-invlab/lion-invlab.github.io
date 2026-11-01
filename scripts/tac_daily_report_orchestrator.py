@@ -23,6 +23,8 @@ WR_PATH = ROOT / "TAC_WORK_RULES.md"
 MANIFEST_PATH = ROOT / "母版專區" / "mother-template-manifest.json"
 DB_SCRIPT = ROOT / "scripts" / "tac_weekly_calendar_db.py"
 CALENDAR_RENDERER = ROOT / "scripts" / "tac_calendar_html_renderer.py"
+WEB_OBSERVATION_CONVERTER = ROOT / "scripts" / "convert_tac_web_observations.py"
+MARKET_SNAPSHOT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_snapshot.py"
 MODE_BY_WEEKDAY = {0: "monday", 1: "weekday", 2: "weekday", 3: "weekday", 4: "weekday"}
 
 
@@ -153,6 +155,7 @@ def main() -> int:
     parser.add_argument("--output-dir", default="artifacts/tac-daily-report-trial")
     parser.add_argument("--mode", choices=("calendar-only", "full"), default="calendar-only")
     parser.add_argument("--market-snapshot")
+    parser.add_argument("--web-observations", help="ChatGPT direct webpage-read observation JSON")
     parser.add_argument("--news-json")
     parser.add_argument("--analysis-json")
     parser.add_argument("--full-page-renderer")
@@ -179,7 +182,35 @@ def main() -> int:
         "protected_paths": ["index.html", "TAC_WORK_RULES.md", str(template.relative_to(ROOT)), "母版專區/mother-template-manifest.json"],
     }
 
+
     if args.mode == "full":
+        if args.market_snapshot and args.web_observations:
+            raise ValueError("請只提供 --market-snapshot 或 --web-observations，不可同時提供")
+        if args.web_observations:
+            observation_path = Path(args.web_observations)
+            if not observation_path.is_file():
+                raise ValueError("直接網頁觀察資料不存在：" + str(observation_path))
+            market_path = output_dir / (report_date.isoformat() + "-market-snapshot.json")
+            run([
+                sys.executable, str(WEB_OBSERVATION_CONVERTER),
+                "--input", str(observation_path),
+                "--output", str(market_path),
+                "--expected-report-date", report_date.isoformat(),
+                "--require-complete",
+            ])
+            run([
+                sys.executable, str(MARKET_SNAPSHOT_VALIDATOR),
+                "--file", str(market_path),
+            ])
+            args.market_snapshot = str(market_path)
+        elif args.market_snapshot:
+            market_path = Path(args.market_snapshot)
+            if not market_path.is_file():
+                raise ValueError("行情快照不存在：" + str(market_path))
+            run([
+                sys.executable, str(MARKET_SNAPSHOT_VALIDATOR),
+                "--file", str(market_path),
+            ])
         blockers = full_mode_blockers(args)
         result["status"] = "blocked"
         result["blockers"] = blockers or [
