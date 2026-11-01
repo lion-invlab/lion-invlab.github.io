@@ -1763,7 +1763,7 @@
       "revenue_unit": "B",
       "eps_comparison_status": "miss",
       "revenue_comparison_status": "miss",
-      "financial_judgment": "GAAP EPS 低於市場共識，營收亦略低於共識；Google Cloud 與 AI 需求仍強，但資本支出與投資回收疑慮壓抑市場反應。",
+      "financial_judgment": "GAAP EPS 低於市場共識，營收亦略低於共識；Google Cloud 與 AI 需求仍強，資本支出規模及投資回收效率仍是市場觀察重點。",
       "stock_price_reaction_window": "2026-10-29 美股常規交易時段收盤",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
@@ -2208,7 +2208,7 @@
         "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results"
       ],
       "checked_at": "2026-11-01T12:17:52+08:00",
-      "notes": "已補核七家主要企業的 EPS／營收實際值、共識、口徑、財報判讀及首個常規交易日股價反應；仍需檢查整週是否有其他 TAC 四／五星財報，完成前不標示完整。"
+      "notes": "已補核七家主要企業的 EPS／營收實際值、共識、口徑及財報判讀；首個常規交易日股價反應缺乏可核實價格來源，暫列待核實；仍需檢查整週是否有其他 TAC 四／五星財報，完成前不標示完整。"
     },
     "economic_calendar": {
       "status": "incomplete",
