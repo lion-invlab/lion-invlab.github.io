@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "purpose": "Selector contract only. It does not authorize changing protected mother-template files or inserting new DOM structures. Renderer must preserve wrappers, tabs, disclosures, links and card geometry.",
+  "purpose": "Selector contract only. It does not authorize changing protected mother-template files or inserting new DOM structures. Renderer must preserve wrappers, tabs, disclosures, links and card geometry. Official controlling calendar importance policy: root TAC_WORK_RULES.md v3.10; TAC self-rated 4/5 stars in current-week tabs and 5 stars only in previous-week archives.",
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
@@ -41,7 +41,7 @@
           "container": "#last-week-calendar",
           "collapse": "details.last-week-calendar-collapse",
           "items": "details.econ-event",
-          "expected_importance_stars": 3,
+          "expected_importance_stars": 5,
           "mode": "preserve_event_card_structure",
           "schema_fields": "previous_economic_calendar"
         },
@@ -49,7 +49,7 @@
           "container": "#last-week-earnings",
           "collapse": "details.last-week-earnings-collapse",
           "items": "details.earnings-accordion",
-          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
+          "importance_rule": "TAC_4_or_5_star_upcoming_and_5_star_previous",
           "mode": "preserve_event_card_structure",
           "schema_fields": "previous_earnings_calendar"
         },
@@ -57,7 +57,10 @@
           "container": "#calendar",
           "items": ".econ-event",
           "tabs": ".week-econ-tabs",
-          "expected_importance_stars": 3,
+          "expected_importance_stars": [
+            4,
+            5
+          ],
           "mode": "preserve_tab_and_event_card_structure",
           "schema_fields": "economic_calendar"
         },
@@ -66,7 +69,7 @@
           "items": ".earnings-accordion",
           "tabs": ".week-earnings-tabs",
           "mode": "preserve_tab_and_event_card_structure",
-          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
+          "importance_rule": "TAC_4_or_5_star_upcoming_and_5_star_previous",
           "schema_fields": "earnings_calendar"
         },
         "market_observation_highlights": {
@@ -129,7 +132,10 @@
           "container": "#calendar",
           "items": ".econ-event",
           "tabs": ".week-econ-tabs",
-          "expected_importance_stars": 3,
+          "expected_importance_stars": [
+            4,
+            5
+          ],
           "mode": "preserve_tab_and_event_card_structure",
           "schema_fields": "economic_calendar"
         },
@@ -138,7 +144,7 @@
           "items": ".earnings-accordion",
           "tabs": ".week-earnings-tabs",
           "mode": "preserve_tab_and_event_card_structure",
-          "importance_rule": "source_native_3_star_if_explicit_else_unrated_traceable_major_event_assessment",
+          "importance_rule": "TAC_4_or_5_star_upcoming_and_5_star_previous",
           "schema_fields": "earnings_calendar"
         },
         "market_observation_highlights": {
@@ -167,14 +173,14 @@
     "Do not change either approved mother template, mother-template-manifest.json, TAC_WORK_RULES.md or index.html.",
     "Do not remove or recreate red-circle plus controls, details/summary disclosure nodes, radio tabs, or event-card wrappers.",
     "News counts are exactly 5 focus stories and 10 market headlines; a mismatch is a hard failure, not permission to fabricate or silently truncate.",
-    "Economic calendar: preserve the provider-native 1–3 star scale and include only 3-star events in the curated feed. Earnings may display a 3-star rating only when a source explicitly provides it; otherwise importance_stars must be null and the major-event assessment basis/source must be recorded. Never infer or convert a rating.",
+    "Economic calendar: preserve the TAC independent five-star scale; current week economic and earnings events are four/five-star; previous week events are five-star only. Earnings may display a 3-star rating only when a source explicitly provides it; otherwise importance_stars must be null and the major-event assessment basis/source must be recorded. Never infer or convert a rating.",
     "Every inserted news item and calendar event must retain source URL and source observation timestamp in its source detail area.",
     "Missing or unverified source data must remain pending; no narrative inference from missing fields.",
     "Market sentiment and summary must cite verified snapshot field IDs and verified content IDs.",
     "Content schema v2 requires explicit coverage states; empty arrays are not evidence of a completed source check.",
     "Monday previous-week economic and earnings sections are sourced from previous_economic_calendar and previous_earnings_calendar; weekday versions mark these groups not_applicable.",
     "Summary headline and body are distinct fields; market observation uses separate market_view, key_levels and core_observations tab fields.",
-    "All 3-star filtering and source-native earnings-rating rules are enforced by the content validator before rendering."
+    "All 3-star filtering and TAC independent earnings importance-rating rules are enforced by the content validator before rendering."
   ],
   "content_schema_version": 2
 }
