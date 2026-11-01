@@ -69,6 +69,8 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
         html = """<html><h1>WTI Crude Oil Futures Historical Data</h1>
         <table><tr><th>Date</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change %</th></tr>
         <tr><td>Oct 30, 2026</td><td>60.20</td><td>61.00</td><td>61.50</td><td>59.90</td><td>-1.20%</td></tr></table></html>"""
+        # The collector intentionally rejects suspiciously short HTTP responses.
+        html = html.replace("</html>", "<!--" + ("fixture-padding-" * 400) + "--></html>")
         response = Mock(text=html)
         response.raise_for_status.return_value = None
         session = Mock()
