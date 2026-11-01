@@ -26,6 +26,8 @@ CALENDAR_RENDERER = ROOT / "scripts" / "tac_calendar_html_renderer.py"
 WEB_OBSERVATION_CONVERTER = ROOT / "scripts" / "convert_tac_web_observations.py"
 MARKET_SNAPSHOT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_snapshot.py"
 MARKET_RENDERER = ROOT / "scripts" / "render_tac_market_snapshot.py"
+CONTENT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_content.py"
+FULL_PAGE_RENDERER = ROOT / "scripts" / "render_tac_full_report.py"
 MODE_BY_WEEKDAY = {0: "monday", 1: "weekday", 2: "weekday", 3: "weekday", 4: "weekday"}
 
 
@@ -140,8 +142,7 @@ def full_mode_blockers(args: argparse.Namespace) -> list[str]:
     for label, value in (
         ("已驗證行情快照", args.market_snapshot),
         ("已核實新聞資料", args.news_json),
-        ("AI 分析結果", args.analysis_json),
-        ("完整早報 HTML 組裝器", args.full_page_renderer),
+        ("已核實新聞與分析內容", args.content_json),
     ):
         if not value:
             blockers.append(f"尚未接入：{label}")
@@ -159,7 +160,7 @@ def main() -> int:
     parser.add_argument("--web-observations", help="ChatGPT direct webpage-read observation JSON")
     parser.add_argument("--news-json")
     parser.add_argument("--analysis-json")
-    parser.add_argument("--full-page-renderer")
+    parser.add_argument("--content-json", help="Validated editorial content v2 JSON")
     args = parser.parse_args()
 
     report_date = date.fromisoformat(args.report_date)
@@ -227,12 +228,34 @@ def main() -> int:
             market_preview = str(market_preview_path)
         blockers = full_mode_blockers(args)
         result["market_only_preview"] = market_preview
-        result["status"] = "blocked"
-        result["blockers"] = blockers or [
-            "完整行情／新聞／分析／全頁渲染整合尚未完成端到端驗收；不得僅憑輸入檔存在宣稱完整報告通過。"
-        ]
-        result["publish_allowed"] = False
         output_dir.mkdir(parents=True, exist_ok=True)
+        if not blockers and args.market_snapshot and args.content_json:
+            content_path = Path(args.content_json)
+            content_data = json.loads(content_path.read_text(encoding="utf-8"))
+            if content_data.get("meta", {}).get("report_date") != report_date.isoformat():
+                raise ValueError("content report_date mismatch")
+            if content_data.get("meta", {}).get("trading_date") != json.loads(Path(args.market_snapshot).read_text(encoding="utf-8"))["meta"]["trading_date"]:
+                raise ValueError("content and market snapshot trading_date mismatch")
+            run([
+                sys.executable, str(CONTENT_VALIDATOR),
+                "--file", str(content_path),
+            ])
+            full_preview = output_dir / f"{report_date.isoformat()}-review.html"
+            run([
+                sys.executable, str(FULL_PAGE_RENDERER),
+                "--snapshot", str(args.market_snapshot),
+                "--content", str(content_path),
+                "--output", str(full_preview),
+            ])
+            result["full_page_preview"] = str(full_preview)
+            result["status"] = "rendered_but_dom_gate_pending"
+            result["blockers"] = [
+                "全頁 Renderer 尚未通過核准母版 DOM 結構相容驗收；本次輸出僅供程式整合檢視，不可視為正式審核版。"
+            ]
+        else:
+            result["status"] = "blocked"
+            result["blockers"] = blockers
+        result["publish_allowed"] = False
         report = output_dir / f"{report_date.isoformat()}-orchestrator-status.json"
         report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(result, ensure_ascii=False, indent=2))
