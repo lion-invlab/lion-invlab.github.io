@@ -791,7 +791,8 @@
               "consensus_source",
               "price_reaction_source",
               "eps_note",
-              "revenue_note"
+              "revenue_note",
+              "time_type"
             ]
           }
         }
