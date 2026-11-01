@@ -77,9 +77,9 @@ class SourceParser(HTMLParser):
         for index in range(len(self.stack) - 1, -1, -1):
             if self.stack[index].tag == tag.lower():
                 node = self.stack[index]
-                node.close_start = self.offset()
-                end_tag = re.match(r"</\s*" + re.escape(tag) + r"\s*>", self.source[self.offset():], re.I)
-                node.end = self.offset() + (len(end_tag.group(0)) if end_tag else 0)
+                node.close_start = self.source_offset()
+                end_tag = re.match(r"</\s*" + re.escape(tag) + r"\s*>", self.source[self.source_offset():], re.I)
+                node.end = self.source_offset() + (len(end_tag.group(0)) if end_tag else 0)
                 del self.stack[index:]
                 break
 
