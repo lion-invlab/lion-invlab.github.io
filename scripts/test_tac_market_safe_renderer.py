@@ -54,6 +54,40 @@ class SafeMarketRendererTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"direction class would be stale"):
             render_market_html(html,snapshot,contract)
 
+    def test_status_class_transitions_preserve_other_tokens(self):
+        html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up trend-good">+1.0%</span></div></main>'
+        contract = minimal_contract()
+        contract["rules"] = {"allow_mapped_status_class_token_transition": True, "status_class_map": {"positive":"up","negative":"down","neutral":"flat","warning":"warn"}, "pending_value_text":"待核實"}
+        contract["groups"] = {"global_indices":contract["groups"]["global_indices"]}
+        snapshot = {"groups":{"global_indices":{"dow":{"value":"99","change":"-1.0%"}}}}
+        result = render_market_html(html,snapshot,contract)
+        self.assertIn('class="r down trend-good"', result)
+        self.assertIn('<span class="r down trend-good">-1.0%</span>', result)
+
+    def test_status_class_transitions_both_directions_and_flat_warn(self):
+        def run(old, new):
+            html = f'<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r {old}">+1.0%</span></div></main>'
+            contract = minimal_contract()
+            contract["rules"] = {"allow_mapped_status_class_token_transition": True, "status_class_map": {"positive":"up","negative":"down","neutral":"flat","warning":"warn"}, "pending_value_text":"待核實"}
+            contract["groups"] = {"global_indices":contract["groups"]["global_indices"]}
+            snapshot = {"groups":{"global_indices":{"dow":{"value":"100","change":new}}}}
+            return render_market_html(html,snapshot,contract)
+        self.assertIn('class="r down"', run("up", "-1.0%"))
+        self.assertIn('class="r up"', run("down", "+1.0%"))
+        self.assertIn('class="r flat"', run("up", "0.0%"))
+        self.assertIn('class="r warn"', run("flat", "待核實"))
+
+    def test_missing_or_ambiguous_status_class_fails_closed(self):
+        for classes in ("r", "r up down"):
+            with self.subTest(classes=classes):
+                html = f'<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="{classes}">+1.0%</span></div></main>'
+                contract = minimal_contract()
+                contract["rules"] = {"allow_mapped_status_class_token_transition": True}
+                contract["groups"] = {"global_indices":contract["groups"]["global_indices"]}
+                snapshot = {"groups":{"global_indices":{"dow":{"value":"99","change":"-1.0%"}}}}
+                with self.assertRaisesRegex(ValueError, "exactly one existing status class token"):
+                    render_market_html(html,snapshot,contract)
+
     def test_missing_group_key_fails_closed(self):
         html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
