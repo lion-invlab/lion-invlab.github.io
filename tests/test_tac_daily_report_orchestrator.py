@@ -39,8 +39,8 @@ class DailyReportOrchestratorTests(unittest.TestCase):
         self.assertTrue(any("新聞" in item for item in blockers))
         self.assertTrue(any("完整早報 HTML" in item for item in blockers))
 
-    def test_current_wr_version_is_38(self):
-        self.assertEqual(orchestrator.read_wr_version(), "3.8")
+    def test_current_wr_version_is_310(self):
+        self.assertEqual(orchestrator.read_wr_version(), "3.10")
 
     def test_approved_monday_master_sha_matches_manifest(self):
         mode, template, sha = orchestrator.verify_master(date(2026, 11, 2))
