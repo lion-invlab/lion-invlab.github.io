@@ -414,9 +414,11 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
     data = snapshot.get("fedwatch")
     if spec is None or data is None:
         return
+    pending = isinstance(data, dict) and data.get("status") == "pending_verification"
     required = {"probabilities", "target_meeting", "updated_at", "target_rate_range", "audit_text", "aria_label"}
-    if not isinstance(data, dict) or set(data) != required:
-        raise ValueError("fedwatch snapshot must contain probabilities, target_meeting, updated_at, target_rate_range, audit_text")
+    expected = required | {"status"} if pending else required
+    if not isinstance(data, dict) or set(data) != expected:
+        raise ValueError("fedwatch snapshot has an invalid renderer contract")
     probabilities = data["probabilities"]
     if not isinstance(probabilities, dict) or set(probabilities) != set(spec["outcomes"]):
         raise ValueError("fedwatch probabilities must contain exactly the mapped outcomes")
@@ -430,9 +432,14 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
             raise ValueError(f"fedwatch.{key}: probability out of range")
         if not isinstance(item["rate_range"], str) or not item["rate_range"]:
             raise ValueError(f"fedwatch.{key}: rate range missing")
-        parsed[key] = (float(p), f"{p:.1f}%", item["rate_range"])
+        if pending:
+            if p != 0 or item["rate_range"] != "待核實":
+                raise ValueError(f"fedwatch.{key}: pending state must not contain an implied probability or rate range")
+            parsed[key] = (0.0, "待核實", "待核實")
+        else:
+            parsed[key] = (float(p), f"{p:.1f}%", item["rate_range"])
     total = sum(x[0] for x in parsed.values())
-    if abs(total - 100.0) > 0.11:
+    if not pending and abs(total - 100.0) > 0.11:
         raise ValueError(f"fedwatch probabilities sum to {total:.2f}, not 100")
     containers = select(parser.root, spec["container"])
     if len(containers) != 1:
