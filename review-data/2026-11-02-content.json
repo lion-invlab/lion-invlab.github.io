@@ -3183,7 +3183,7 @@
         "https://www.ecb.europa.eu/press/govcdec/html/index.en.html"
       ],
       "checked_at": "2026-11-01T14:14:08+09:00",
-      "notes": "依 WR v3.7，上週區塊只保留TAC五星。已核實納入8項五星（GDP市場預估已更正為Investing.com香港站3.2%，並補上GDP及PCE共識來源）：BoC、RBNZ、澳洲CPI、FOMC、ECB、US GDP、US PCE、BoJ。另完成候選掃描：歐元區Q3 GDP（0.4% q/q，高於0.2%共識）、東京CPI（headline 2.8%，但核心指標較上月放緩）、美國Q3 ECI（0.8%，符合0.8%共識）；目前未達TAC五星門檻，因此不列入上週五星區。尚待完整核對Investing.com香港站全週擷取結果及各國主要官方行事曆，coverage 維持 incomplete。"
+      "notes": "依 WR v3.7，上週區塊只保留TAC五星。已核實納入8項五星：BoC、RBNZ、澳洲CPI、FOMC、ECB、US GDP、US PCE、BoJ。時間口徑已複核：BoC 09:45 ET→台灣21:45、RBNZ 14:00 NZDT→台灣09:00、澳洲CPI 11:30 AEDT→台灣08:30、ECB 14:15 CET→台灣21:15、FOMC 14:00 EDT→台灣次日02:00；BoJ官方頁未列精確發布時刻，維持時間待核實。候選掃描另包含歐元區Q3 GDP（0.4% q/q，高於0.2%共識）、東京CPI（headline 2.8%，核心指標較上月放緩）、美國Q3 ECI（0.8%，符合0.8%共識）及英國2026 Budget（市場反應溫和、借款規劃大致符合預期）；均未達TAC五星門檻，因此不列入上週五星區。仍待Investing.com香港站全週擷取結果與各國主要官方行事曆完整核對，coverage 維持 incomplete。"
     }
   }
 }
