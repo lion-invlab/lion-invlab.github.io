@@ -244,6 +244,24 @@ def self_test(input_validator, output_validator):
         raise AssertionError("incomplete observation package unexpectedly accepted")
     print("PASS: incomplete asset coverage rejected")
 
+    try:
+        convert(package, input_validator, output_validator, expected_report_date="2026-11-03")
+    except ValueError as exc:
+        if "report_date mismatch" not in str(exc):
+            raise
+    else:
+        raise AssertionError("wrong report date unexpectedly accepted")
+    print("PASS: report-date mismatch rejected")
+
+    try:
+        convert(package, input_validator, output_validator, expected_report_date="2026-11-02", require_complete=True)
+    except ValueError as exc:
+        if "not fully verified" not in str(exc):
+            raise
+    else:
+        raise AssertionError("pending market observations unexpectedly accepted for full mode")
+    print("PASS: full-mode conversion requires every market field and FedWatch verified")
+
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
