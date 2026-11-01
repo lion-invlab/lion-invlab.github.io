@@ -7,6 +7,10 @@ on:
       - 'scripts/tac_calendar_html_renderer.py'
       - 'tests/test_tac_weekly_calendar_db.py'
       - 'tests/test_tac_calendar_html_renderer.py'
+      - 'tests/test_tac_web_observation_conversion.py'
+      - 'scripts/convert_tac_web_observations.py'
+      - 'schemas/tac-investing-com-web-observations.schema.json'
+      - 'schemas/tac-daily-market-snapshot.schema.json'
       - '.github/workflows/tac-weekly-calendar-db-prototype.yml'
   workflow_dispatch:
 permissions:
@@ -19,6 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Install schema validation dependency
+        run: python -m pip install --disable-pip-version-check jsonschema
       - name: Unit tests
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Validate W44 archive candidate
