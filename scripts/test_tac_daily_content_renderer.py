@@ -12,7 +12,7 @@ sys.path.insert(0,str(ROOT/"scripts"))
 from assemble_tac_daily_content import empty_content
 from render_tac_full_report import render_full
 from validate_tac_daily_snapshot import load_validator, sample_snapshot
-from render_tac_daily_content import calendar_sort_key
+from render_tac_daily_content import calendar_sort_key, event_time_label
 
 MOTHERS={
  "monday":ROOT/"母版專區"/"TAC_母版_週一_2026-10-28_最終定版.html",
@@ -210,8 +210,15 @@ def test_calendar_sort_key():
       "newer-higher-impact","newer","older","unknown-time-newer-date","unknown-time-older-date"]
     print("PASS: TAC calendar sort order, importance tie-breaks and unknown-time tail")
 
+
+def test_event_time_label():
+    assert event_time_label({"event_date":"2026-11-03T12:00:00+08:00","time_known":False}) == "時間待核實"
+    assert event_time_label({"event_date":"2026-11-03T18:00:00+08:00"}) == "18:00"
+    print("PASS: economic events never display unverified placeholder clock times")
+
 def main():
     test_calendar_sort_key()
+    test_event_time_label()
     a=run_case("monday","2026-11-02","一")
     b=run_case("weekday","2026-11-03","二")
     print("PASS: Monday editorial renderer integration",a)
