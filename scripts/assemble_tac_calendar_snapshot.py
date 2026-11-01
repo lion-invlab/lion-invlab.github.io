@@ -184,18 +184,8 @@ def list_contracts(template_html: str, container_selector: str,
         contracts.append({"status": status, "field_labels": field_labels, "has_prototype": bool(cards)})
     return contracts
 
-def _is_descendant(node, ancestor) -> bool:
-    current = node
-    while current is not None:
-        if current is ancestor:
-            return True
-        current = current.parent
-    return False
-
-
 def event_list_payload(rows: list[dict[str, Any]], status: str,
-                       kind: str, field_labels: list[str],
-                       previous_week: bool = False) -> list[dict[str, Any]]:
+                       kind: str, field_labels: list[str]) -> list[dict[str, Any]]:
     if rows and not field_labels:
         raise ValueError(f"{kind}.{status}: non-empty list has no approved card/detail prototype")
     if kind == "economic":
@@ -377,7 +367,7 @@ def build_calendar_snapshot(current_week: dict[str, Any],
                 for contract in contracts:
                     status = contract["status"]
                     items = event_list_payload(prior_rows if status == "published" else [], status, kind,
-                                               contract["field_labels"], previous_week=True)
+                                               contract["field_labels"])
                     if items and not contract["has_prototype"]:
                         raise ValueError(f"{group_name}.last_week.{status}: no approved card prototype")
                     lists.append({"items": items})
