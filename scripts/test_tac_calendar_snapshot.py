@@ -38,11 +38,16 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         return html
 
     def test_weekday_snapshot_renders_all_status_lists(self):
-        snapshot = build_calendar_snapshot(self.current, None, "2026-11-02", self.weekday, self.binding)
+        current = json.loads(json.dumps(self.current))
+        for row in current["events"]["economic"]:
+            if row["event_date"].startswith("2026-11-02"):
+                row["status"] = "released"
+                row["actual"] = "Synthetic actual"
+        snapshot = build_calendar_snapshot(current, None, "2026-11-03", self.weekday, self.binding)
         econ = snapshot["economic_calendar"]["panels"]["current_week"]["lists"]
         earn = snapshot["earnings_calendar"]["panels"]["current_week"]["lists"]
-        self.assertEqual([len(x["items"]) for x in econ], [2, 15, 0])
-        self.assertEqual([len(x["items"]) for x in earn], [0, 30, 0])
+        self.assertEqual([len(x["items"]) for x in econ], [4, 11, 2])
+        self.assertEqual([len(x["items"]) for x in earn], [5, 25, 0])
         html = self.render_calendar_groups(self.weekday, snapshot)
         self.assertIn("日本央行｜經濟活動與物價展望報告（全文）", html)
         self.assertIn("美國 ISM 製造業 PMI（10月）", html)
@@ -107,11 +112,15 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
 
     def test_missing_source_does_not_silently_generate_fake_link(self):
         broken = json.loads(json.dumps(self.current))
+        for row in broken["events"]["economic"]:
+            if row["event_date"].startswith("2026-11-02"):
+                row["status"] = "released"
+                row["actual"] = "Synthetic actual"
         broken["events"]["economic"][0]["source"] = None
         broken["events"]["economic"][0]["data_reference"] = None
         broken["events"]["economic"][0]["consensus_source"] = None
         with self.assertRaisesRegex(ValueError, "no valid HTTPS source link"):
-            build_calendar_snapshot(broken, None, "2026-11-02", self.weekday, self.binding)
+            build_calendar_snapshot(broken, None, "2026-11-03", self.weekday, self.binding)
 
 
 if __name__ == "__main__":
