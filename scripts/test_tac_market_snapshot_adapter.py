@@ -33,7 +33,7 @@ class MarketSnapshotDisplayAdapterTests(unittest.TestCase):
         for start, end, replacement in sorted(edits, reverse=True):
             rendered = rendered[:start] + replacement + rendered[end:]
         self.assertIn("<title>TAC 投資早報｜2026/11/02（一）審核版</title>", rendered)
-        self.assertIn('name="report-date" content="2026-11-02"', rendered)
+        self.assertIn('content="2026-11-02" name="report-date"', rendered)
         self.assertIn('class="report-date">｜2026/11/02（一）</span>', rendered)
         self.assertIn('class="status">2026/11/02（一）｜週一版', rendered)
 
@@ -49,7 +49,7 @@ class MarketSnapshotDisplayAdapterTests(unittest.TestCase):
         for start, end, replacement in sorted(edits, reverse=True):
             rendered = rendered[:start] + replacement + rendered[end:]
         self.assertIn("<title>TAC 投資早報｜2026/11/03（二）審核版</title>", rendered)
-        self.assertIn('name="report-date" content="2026-11-03"', rendered)
+        self.assertIn('content="2026-11-03" name="report-date"', rendered)
         self.assertIn('class="report-date">｜2026/11/03（二）</span>', rendered)
         self.assertIn('class="status">2026/11/02（一）｜週二至週五版', rendered)
 
