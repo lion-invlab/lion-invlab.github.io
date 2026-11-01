@@ -209,7 +209,7 @@ def replace_sibling_sequence(source: str, parser: SourceTreeParser,
     prototype = source[start:nodes[0].end_tag_end]
     if not prototype:
         raise ValueError(f"{label}: empty approved card prototype")
-    replacement = "\\n".join(prototype for _ in range(desired_count))
+    replacement = "\n".join(prototype for _ in range(desired_count))
     return source[:start] + replacement + source[end:]
 
 
