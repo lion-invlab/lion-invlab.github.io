@@ -311,7 +311,7 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
     data = snapshot.get("fedwatch")
     if spec is None or data is None:
         return
-    required = {"probabilities", "target_meeting", "updated_at", "target_rate_range", "audit_text"}
+    required = {"probabilities", "target_meeting", "updated_at", "target_rate_range", "audit_text", "aria_label"}
     if not isinstance(data, dict) or set(data) != required:
         raise ValueError("fedwatch snapshot must contain probabilities, target_meeting, updated_at, target_rate_range, audit_text")
     probabilities = data["probabilities"]
@@ -373,10 +373,14 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
             raise ValueError(f"fedwatch.{key}: width token ambiguous")
         w = widths[0]
         ident = (style_span[0] + w.start(), style_span[0] + w.end())
-        if ident in used:
-            raise ValueError(f"fedwatch.{key}: overlapping width slot")
-        used.add(ident)
-        edits.append((ident[0], ident[1], f"width:{p:.1f}%"))
+        current_width = re.search(r"(?i)width\\s*:\\s*([0-9]+(?:\\.[0-9]+)?)%", w.group(0))
+        if current_width is None:
+            raise ValueError(f"fedwatch.{key}: existing width value is not a percentage")
+        if abs(float(current_width.group(1)) - p) > 0.001:
+            if ident in used:
+                raise ValueError(f"fedwatch.{key}: overlapping width slot")
+            used.add(ident)
+            edits.append((ident[0], ident[1], f"width:{p:g}%"))
 
     legend = select(container, spec["legend_selector"])
     if len(legend) != 1:
@@ -395,7 +399,9 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
     if len(split) != 1 or "aria-label" not in split[0].attr_value_spans:
         raise ValueError("fedwatch split bar aria-label missing or duplicated")
     a, b = split[0].attr_value_spans["aria-label"]
-    aria = f"維持利率 {parsed['hold'][1]}，升息一碼 {parsed['hike_one'][1]}；CME FedWatch 快照時間 {data['updated_at']}"
+    aria = data["aria_label"]
+    if not isinstance(aria, str) or not aria:
+        raise ValueError("fedwatch aria_label must be a non-empty string")
     if (a, b) in used:
         raise ValueError("fedwatch aria-label overlap")
     used.add((a, b))
