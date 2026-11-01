@@ -8,6 +8,7 @@ may be added/removed without changing their component schema.
 """
 from __future__ import annotations
 import argparse
+import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
@@ -22,18 +23,32 @@ KEEP_ATTRS = {"id","style","type","name","role","aria-controls","aria-labelledby
 class Node:
     def __init__(self, tag, attrs):
         self.tag = tag
-        self.attrs = tuple(sorted(self._attrs(attrs)))
+        self.attrs = tuple(sorted(self._attrs(tag, attrs)))
         self.children = []
     @staticmethod
-    def _attrs(attrs):
+    def _attrs(tag, attrs):
         result = []
+        class_tokens = set()
+        for key, value in attrs:
+            if key.lower() == "class":
+                class_tokens = set((value or "").split())
+                break
         for key, value in attrs:
             key = key.lower()
             if key == "class":
                 tokens = [x for x in (value or "").split() if x not in STATE_CLASSES]
                 result.append(("class", " ".join(sorted(tokens))))
             elif key in KEEP_ATTRS:
-                result.append((key, value or ""))
+                normalized = value or ""
+                if key == "style" and tag == "div" and "fg6-marker" in class_tokens:
+                    # The gauge marker's horizontal position is data-driven;
+                    # normalize only that property while protecting all others.
+                    normalized = re.sub(
+                        r"(?i)(^|;)(\\s*left\\s*:\\s*)[^;]+",
+                        r"\\1\\2<DATA>",
+                        normalized,
+                    )
+                result.append((key, normalized))
         return result
     def signature(self):
         child_sigs = []
@@ -95,9 +110,16 @@ def self_test():
         assert signature(a) != signature(b), "tag/layout mutation must fail"
         b.write_text('<html><body><main class="wrap" style="display:none"><article class="card"><b>new</b></article></main></body></html>', encoding="utf-8")
         assert signature(a) != signature(b), "inline layout style mutation must fail"
+        a.write_text('<html><body><div class="fg6-marker" style="left:20.98%"></div></body></html>', encoding="utf-8")
+        b.write_text('<html><body><div class="fg6-marker" style="left:26%"></div></body></html>', encoding="utf-8")
+        assert signature(a) == signature(b), "data-driven Fear & Greed marker position should pass"
+        b.write_text('<html><body><div class="fg6-marker" style="left:26%;top:1px"></div></body></html>', encoding="utf-8")
+        assert signature(a) != signature(b), "non-data marker style mutation must still fail"
     print("PASS: text-only update and repeated cards accepted")
     print("PASS: DOM element mutation rejected")
     print("PASS: inline layout-style mutation rejected")
+    print("PASS: dynamic Fear & Greed marker position accepted")
+    print("PASS: other Fear & Greed marker styles remain protected")
 
 def main():
     parser = argparse.ArgumentParser()
