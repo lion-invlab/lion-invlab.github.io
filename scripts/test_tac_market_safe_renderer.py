@@ -543,7 +543,7 @@ class SafeMarketRendererTests(unittest.TestCase):
                                  f"{template_label}: earnings no-op must preserve every byte")
 
     def test_replace_sibling_sequence_resizes_only_card_run(self):
-        html = '<section id="news"><div class="meta">KEEP META</div>\\n<article class="newsitem"><h3>Old</h3></article>\\n<article class="newsitem"><h3>Old 2</h3></article>\\n<div class="footer">KEEP FOOTER</div></section>'
+        html = '<section id="news"><div class="meta">KEEP META</div>\n<article class="newsitem"><h3>Old</h3></article>\n<article class="newsitem"><h3>Old 2</h3></article>\n<div class="footer">KEEP FOOTER</div></section>'
         parser = SourceTreeParser(html)
         parser.feed(html)
         parser.close()
