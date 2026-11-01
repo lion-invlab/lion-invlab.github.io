@@ -582,7 +582,10 @@ class SafeMarketRendererTests(unittest.TestCase):
                     item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
                     self.assertEqual([len(select(node,item_selector)) for node in lists], expected_counts[panel_key],
                                      f"{template_label}.{group_name}.{panel_key}")
-                self.assertIn('id="week-econ-tab"', rendered) if group_name == "economic_calendar" and template_label == "weekday" else None
+                if group_name == "economic_calendar" and template_label == "weekday":
+                    self.assertIn('id="week-econ-today"', rendered)
+                    self.assertIn('id="week-econ-upcoming"', rendered)
+                    self.assertIn('id="week-econ-published"', rendered)
 
     def test_replace_sibling_sequence_resizes_only_card_run(self):
         html = '<section id="news"><div class="meta">KEEP META</div>\n<article class="newsitem"><h3>Old</h3></article>\n<article class="newsitem"><h3>Old 2</h3></article>\n<div class="footer">KEEP FOOTER</div></section>'
