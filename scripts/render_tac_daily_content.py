@@ -225,8 +225,8 @@ def econ_card(proto,item,soup):
         put(slot(meta,sel,"econ "+sel),val)
     card["class"]=[c for c in card.get("class",[]) if c not in {"five-star","four-star","three-star","two-star","one-star"}]
     rating=item["importance_stars"]
-    if rating not in {4,5}: raise ValueError("economic event must have TAC 4- or 5-star rating")
-    card["class"].append("five-star" if rating==3 else "unrated")
+    if rating != 3: raise ValueError("economic event must use Investing.com native highest 3-star rating")
+    card["class"].append("three-star")
     details=slot(card,".econ-details","econ details")
     fields=details.select(".econ-field")
     if len(fields)<4: raise ValueError("econ card prototype must have at least four detail fields")
@@ -441,7 +441,7 @@ def previous_week(soup,kind,records,coverage,report_day,prototype):
     if prototype is None: raise ValueError(sid+" card prototype missing")
     # WR v3.10: prior-week panels retain only provider-native three-star economic events; earnings retain documented source-native rating or explicitly unrated major-event assessment.
     # Filter in the renderer as a second guard; do not rely on JSON assembly.
-    eligible=[item for item in records if int(item.get("importance_stars",0))==5]
+    eligible=[item for item in records if int(item.get("importance_stars",0))==3]
     # Prior-week archive order is date-only; do not infer same-day sequence
     # from clock times, especially when an event's exact time is unverified.
     eligible.sort(key=lambda item: dt(item["event_date"]).date(), reverse=True)
