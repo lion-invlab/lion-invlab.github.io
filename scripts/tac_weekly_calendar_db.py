@@ -109,7 +109,7 @@ def cmd_init(args):
     errors=validate_week(data)
     if errors: raise ValueError("; ".join(errors))
     output.parent.mkdir(parents=True,exist_ok=True)
-    output.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    output.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":str(output),"week_id":data["week_id"],"week_start":data["week_start"],
         "week_end":data["week_end"],"status":"initialized","coverage":"incomplete"},ensure_ascii=False,indent=2))
     return 0
@@ -138,7 +138,7 @@ def cmd_quality_report(args):
     data=load(args.file)
     report=quality_report(data)
     rendered=json.dumps(report,ensure_ascii=False,indent=2)
-    if args.output: Path(args.output).parent.mkdir(parents=True,exist_ok=True); Path(args.output).write_text(rendered+"\\n",encoding="utf-8")
+    if args.output: Path(args.output).parent.mkdir(parents=True,exist_ok=True); Path(args.output).write_text(rendered+"\n",encoding="utf-8")
     print(rendered)
     return 0
 
