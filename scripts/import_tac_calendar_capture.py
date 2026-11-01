@@ -208,7 +208,7 @@ def self_test() -> None:
         "previous_earnings_events": [{
             "id":"prev-a1","include_in_report":True,"event_date":"2026-10-30T21:30:00+08:00",
             "company":"Prior Synthetic Mega Cap","ticker":"PSYN","session":"after_market",
-            "importance_stars":None,"importance_basis":"major_event_assessment",
+            "importance_stars":5,"importance_basis":"major_event_assessment",
             "importance_basis_source":"Synthetic prior-week test assessment",
             "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
             "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released"
