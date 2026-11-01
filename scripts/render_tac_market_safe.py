@@ -13,6 +13,7 @@ import json
 import re
 import sys
 from dataclasses import dataclass, field
+from datetime import date
 from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
@@ -76,7 +77,7 @@ class SourceTreeParser(HTMLParser):
         class_match = re.search(r"""\bclass\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
         if class_match:
             node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
-        for attr_name in ("style", "aria-label", "href"):
+        for attr_name in ("style", "aria-label", "href", "content"):
             attr_match = re.search(r"""\b""" + re.escape(attr_name) + r"""\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
             if attr_match:
                 node.attr_value_spans[attr_name] = (start + attr_match.start(2), start + attr_match.end(2))
@@ -308,6 +309,69 @@ def direction(value: str, rules: dict[str, Any]) -> str | None:
     if re.match(r"^0+(?:\.0+)?%?$", stripped):
         return status_map.get("neutral", "flat")
     return None
+
+
+def render_report_meta(html: str, parser: SourceTreeParser,
+                      snapshot: dict[str, Any], binding: dict[str, Any],
+                      edits: list[tuple[int, int, str]],
+                      used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("report_meta")
+    meta = snapshot.get("meta")
+    if spec is None or not isinstance(meta, dict):
+        raise ValueError("report_meta binding or snapshot meta is missing")
+    report_date = date.fromisoformat(meta["report_date"])
+    trading_date = date.fromisoformat(meta["trading_date"])
+    weekday_names = "一二三四五六日"
+    def date_label(value: date) -> str:
+        return f"{value.year}/{value.month:02d}/{value.day:02d}（{weekday_names[value.weekday()]}）"
+
+    def add_span(span: TextSpan, value: str, label: str) -> None:
+        identity = (span.start, span.end)
+        if identity in used:
+            raise ValueError(f"{label}: overlapping report metadata slot")
+        used.add(identity)
+        edits.append((span.start, span.end, escape(value, quote=False)))
+
+    title_nodes = select(parser.root, spec["title_selector"])
+    date_nodes = select(parser.root, spec["report_date_selector"])
+    status_nodes = select(parser.root, spec["status_selector"])
+    if len(title_nodes) != 1 or len(date_nodes) != 1 or len(status_nodes) != 1:
+        raise ValueError("report_meta: title, report date or status slot missing/duplicated")
+    title_spans = [span for span in spans_inside(title_nodes[0], parser.spans) if span.text.strip()]
+    date_spans = [span for span in spans_inside(date_nodes[0], parser.spans) if span.text.strip()]
+    if len(title_spans) != 1 or len(date_spans) != 1:
+        raise ValueError("report_meta: title or date text slot is ambiguous")
+    add_span(title_spans[0], f"TAC 投資早報｜{date_label(report_date)}審核版", "report_meta.title")
+    add_span(date_spans[0], "｜" + date_label(report_date), "report_meta.report_date")
+
+    meta_name = spec["report_date_meta_name"]
+    meta_nodes = [node for node in descendants(parser.root)
+                  if node.tag == "meta" and node.attrs.get("name") == meta_name]
+    if len(meta_nodes) != 1:
+        raise ValueError("report_meta: report-date meta tag missing or duplicated")
+    content_span = meta_nodes[0].attr_value_spans.get("content")
+    if content_span is None or content_span in used:
+        raise ValueError("report_meta: report-date meta content slot missing or overlapping")
+    used.add(content_span)
+    edits.append((content_span[0], content_span[1], report_date.isoformat()))
+
+    status_field = (spec["monday_status_date_field"] if report_date.weekday() == 0
+                    else spec["weekday_status_date_field"])
+    status_value = meta.get(status_field)
+    if not isinstance(status_value, str):
+        raise ValueError(f"report_meta: {status_field} is missing")
+    status_day = date.fromisoformat(status_value)
+    status_spans = coalesce_spans([span for span in spans_inside(status_nodes[0], parser.spans)
+                                   if span.text.strip()])
+    if len(status_spans) != 1:
+        raise ValueError("report_meta: status text slot is ambiguous")
+    span = status_spans[0]
+    raw_text = html[span.start:span.end]
+    match = re.search(r"\\d{4}/\\d{1,2}/\\d{1,2}（[一二三四五六日]）", raw_text)
+    if match is None:
+        raise ValueError("report_meta: status date prefix is missing")
+    updated_status = raw_text[:match.start()] + date_label(status_day) + raw_text[match.end():]
+    add_span(span, updated_status, "report_meta.status")
 
 
 def render_risk_indicators(html: str, parser: SourceTreeParser,
@@ -1342,6 +1406,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                 used.add(identity)
                 edits.append((span.start, span.end, escape(value, quote=False)))
 
+    render_report_meta(html, parser, snapshot, binding, edits, used)
     render_risk_indicators(html, parser, snapshot, binding, edits, used)
     render_fedwatch(html, parser, snapshot, binding, edits, used)
     render_editorial(html, parser, snapshot, binding, edits, used)
