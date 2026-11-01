@@ -556,6 +556,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-2",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "AAPL",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investor.apple.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -608,6 +618,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-2",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "PLTR",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investors.palantir.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -658,6 +678,16 @@
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-koninklijke-philips-stock/",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus USD 5.02B。"
+        },
+        "issuer_country": "Netherlands",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "PHG",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.philips.com/a-w/about/investor-relations/stock.html",
+          "publisher": "Company / depositary official source",
+          "notes": "Philips官方列示Euronext Amsterdam及NYSE，NYSE代碼PHG。"
         }
       },
       {
@@ -710,6 +740,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "Canada",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "SHOP",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.shopify.com/investors/investor-faqs",
+          "publisher": "Company / depositary official source",
+          "notes": "Shopify官方確認Nasdaq與TSX雙重上市。"
         }
       },
       {
@@ -762,6 +802,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "PFE",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -814,6 +864,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "AMGN",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investors.amgen.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -866,6 +926,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "ANET",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investors.arista.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -918,6 +988,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "BKNG",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -970,6 +1050,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "AMD",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://ir.amd.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1020,6 +1110,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "SMCI",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://ir.supermicro.com/events-and-presentations/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1064,7 +1164,18 @@
         "price_reaction_source": null,
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "issuer_country": "Germany",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.bmwgroup.com/en/investor-relations/aktie.html",
+          "publisher": "Company / depositary official source",
+          "notes": "BMW普通股僅列Frankfurt及Munich；不符合美國交易所掛牌條件。"
+        },
+        "us_listing_market": "BMW普通股僅列Frankfurt及Munich；不符合美國交易所掛牌條件。"
       },
       {
         "id": "current-ahold-20261104",
@@ -1108,7 +1219,18 @@
         "stock_price_reaction_window": null,
         "price_reaction_source": null,
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "issuer_country": "Netherlands",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://aholddelhaize.com/investors/american-depository-receipts",
+          "publisher": "Company / depositary official source",
+          "notes": "ADRNY交易場所為OTCQX/OTC，非美國證券交易所。"
+        },
+        "us_listing_market": "ADRNY交易場所為OTCQX/OTC，非美國證券交易所。"
       },
       {
         "id": "current-nvo-20261104",
@@ -1158,6 +1280,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "Denmark",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "NVO",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.novonordisk.com/investors/stock-information.html",
+          "publisher": "Company / depositary official source",
+          "notes": "Novo Nordisk官方確認B股在哥本哈根掛牌，ADR在NYSE以NVO交易。"
         }
       },
       {
@@ -1210,6 +1342,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "UBER",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investor.uber.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1262,6 +1404,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "CVS",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1314,6 +1466,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "DDOG",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1366,6 +1528,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "MCD",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.investing.com/equities/mcdonalds-earnings",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1418,6 +1590,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        },
+        "issuer_country": "Canada",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "SU",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.suncor.com/en-ca/investors/investor-faqs",
+          "publisher": "Company / depositary official source",
+          "notes": "Suncor官方確認TSX及NYSE均以SU交易。"
         }
       },
       {
@@ -1470,6 +1652,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United Kingdom",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "ARM",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://investors.arm.com/investor-info/faqs",
+          "publisher": "Company / depositary official source",
+          "notes": "Arm官方確認ADS在Nasdaq Global Select Market交易。"
         }
       },
       {
@@ -1522,6 +1714,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "MCK",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1574,6 +1776,16 @@
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-04-doordash-inc-stock/",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus USD 4.56B；EPS 已由其他來源記錄。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "DASH",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1626,6 +1838,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "QCOM",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investor.qualcomm.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1678,6 +1900,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "APP",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -1730,6 +1962,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "MELI",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.sec.gov/Archives/edgar/data/1099590/000114036126036136/ef20081842_8k.htm",
+          "publisher": "U.S. SEC",
+          "notes": "SEC 8-K列示MELI普通股於Nasdaq Global Select Market註冊；公司為Delaware註冊。"
         }
       },
       {
@@ -1780,6 +2022,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        },
+        "issuer_country": "Japan",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "TM",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://global.toyota/en/faq/",
+          "publisher": "Company / depositary official source",
+          "notes": "Toyota官方確認NYSE代碼TM。"
         }
       },
       {
@@ -1830,7 +2082,18 @@
           "url": "https://www.telekom.com/en/investor-relations/publications/consensus",
           "publisher": "Deutsche Telekom IR",
           "notes": "Q3 Group revenue consensus EUR 30,379m。"
-        }
+        },
+        "issuer_country": "Germany",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.telekom.com/en/investor-relations/adr-program",
+          "publisher": "Company / depositary official source",
+          "notes": "Deutsche Telekom已於2010年終止NYSE上市，ADR目前在OTCQX以DTEGY交易。"
+        },
+        "us_listing_market": "Deutsche Telekom已於2010年終止NYSE上市，ADR目前在OTCQX以DTEGY交易。"
       },
       {
         "id": "current-rhm-20261105",
@@ -1880,7 +2143,18 @@
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-5-rheinmetall-ag-stock/",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus USD 3.62B。"
-        }
+        },
+        "issuer_country": "Germany",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://depositaryreceipts.citi.com/adr/guides/pgm_d.aspx?cusip=76206K107&pageId=15&subpageID=105&typeDisplay=C",
+          "publisher": "Company / depositary official source",
+          "notes": "Rheinmetall美國ADR為OTC交易RNMBY，非美國交易所上市。"
+        },
+        "us_listing_market": "Rheinmetall美國ADR為OTC交易RNMBY，非美國交易所上市。"
       },
       {
         "id": "current-cbk-20261105",
@@ -1930,7 +2204,18 @@
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-5-commerzbank-ag-stock/",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus USD 3.69B。"
-        }
+        },
+        "issuer_country": "Germany",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://investor-relations.commerzbank.com/our-share",
+          "publisher": "Company / depositary official source",
+          "notes": "Commerzbank北美ADR代碼CRZBY，交易場所OTC；普通股於Frankfurt/Xetra上市。"
+        },
+        "us_listing_market": "Commerzbank北美ADR代碼CRZBY，交易場所OTC；普通股於Frankfurt/Xetra上市。"
       },
       {
         "id": "current-mt-20261105",
@@ -1980,6 +2265,16 @@
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-5-arcelormittal-stock/",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus USD 16.88B。"
+        },
+        "issuer_country": "Luxembourg",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "MT",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://corporate.arcelormittal.com/investors/equity-investors/listing-and-listings-agents",
+          "publisher": "Company / depositary official source",
+          "notes": "ArcelorMittal官方確認於NYSE以MT掛牌。"
         }
       },
       {
@@ -2030,7 +2325,18 @@
           "url": "https://www.chartmill.com/stock/quote/SHL.DE/estimates",
           "publisher": "ChartMill",
           "notes": "SHL.DE 普通股 Q4 FY2026 revenue consensus EUR 6.853B。"
-        }
+        },
+        "issuer_country": "Germany",
+        "us_exchange_listed": false,
+        "us_listing_exchange": null,
+        "us_listing_ticker": null,
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.siemens-healthineers.com/investor-relations/share",
+          "publisher": "Company / depositary official source",
+          "notes": "Siemens Healthineers普通股於Frankfurt及Xetra掛牌；美國ADR為OTC，不符合條件。"
+        },
+        "us_listing_market": "Siemens Healthineers普通股於Frankfurt及Xetra掛牌；美國ADR為OTC，不符合條件。"
       },
       {
         "id": "current-sony-20261105",
@@ -2080,6 +2386,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        },
+        "issuer_country": "Japan",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "SONY",
+        "listing_evidence": {
+          "name": "Issuer / SEC listing disclosure",
+          "url": "https://www.sony.com/en/SonyInfo/IR/stock/information.html",
+          "publisher": "Company / depositary official source",
+          "notes": "Sony官方確認海外上市市場包括NYSE，ADR代碼SONY。"
         }
       },
       {
@@ -2132,6 +2448,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "COP",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -2184,6 +2510,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "NET",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -2236,6 +2572,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "ABNB",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -2288,6 +2634,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "TEAM",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
@@ -2340,6 +2696,16 @@
           "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
           "publisher": "TipRanks",
           "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "LITE",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       }
     ]
@@ -2413,7 +2779,7 @@
         "https://www.tipranks.com/stocks/de%3Aahod/earnings"
       ],
       "checked_at": "2026-11-01T14:20:39+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。"
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。"
     }
   },
   "audit": [
@@ -7801,6 +8167,28 @@
       },
       "source": "https://www.tipranks.com/stocks/de%3Aahod/earnings",
       "note": "補入 TipRanks Q3 EPS forecast；營收因多來源預期不一致仍待核實。"
+    },
+    {
+      "at": "2026-11-01T15:24:00+09:00",
+      "action": "earnings_universe_filter_applied",
+      "note": "依使用者新規則逐家公司核實註冊國及美國交易所掛牌；非美國公司只有NYSE/Nasdaq/NYSE American正式掛牌者保留，OTC/OTCQX不視為美國交易所掛牌。",
+      "changed_event_ids": [
+        "current-phg-20261103",
+        "current-shop-20261102",
+        "current-bmw-20261104",
+        "current-ahold-20261104",
+        "current-nvo-20261104",
+        "current-su-20261102",
+        "current-arm-20261102",
+        "current-meli-20261102",
+        "current-toyota-20261105",
+        "current-dte-20261105",
+        "current-rhm-20261105",
+        "current-cbk-20261105",
+        "current-mt-20261105",
+        "current-shl-20261105",
+        "current-sony-20261105"
+      ]
     }
   ]
 }
