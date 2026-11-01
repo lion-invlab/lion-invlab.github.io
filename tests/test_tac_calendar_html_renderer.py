@@ -74,7 +74,11 @@ class TacCalendarHtmlRendererTests(unittest.TestCase):
         self.assertIn('id="last-week-earnings"', result)
         # Monday archive economic cards require the approved 32x32 red circular
         # plus/minus control selector, distinct from the current-week selector.
-        self.assertIn('class="econ-event-toggle"', result)
+        archive_name = result.index("上週五星經濟事件")
+        archive_card_start = result.rfind('<details class="econ-event', 0, archive_name)
+        archive_card_end = result.index("</summary>", archive_card_start)
+        self.assertIn('class="econ-event-toggle"', result[archive_card_start:archive_card_end])
+        self.assertIn('#last-week-calendar details.econ-event>summary .econ-event-toggle', result)
         self.assertIn('class="last-week-calendar-collapse"', result)
         self.assertIn('class="last-week-earnings-collapse"', result)
         for phrase in ("當日經濟事件", "未來經濟事件", "已公布經濟事件",
