@@ -43,7 +43,7 @@ jobs:
       - name: Validate direct webpage observation contract
         run: python scripts/validate_tac_investing_com_observations.py --self-test
       - name: Test direct webpage observations to snapshot conversion
-        run: python -m unittest tests/test_tac_web_observation_conversion.py -v
+        run: python -m unittest discover -s tests -p 'test_tac_web_observation_conversion.py' -v
       - name: Run calendar-only orchestrator integration trial
         run: >-
           python scripts/tac_daily_report_orchestrator.py
