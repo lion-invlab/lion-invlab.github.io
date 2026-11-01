@@ -12,6 +12,7 @@ sys.path.insert(0,str(ROOT/"scripts"))
 from assemble_tac_daily_content import empty_content
 from render_tac_full_report import render_full
 from validate_tac_daily_snapshot import load_validator, sample_snapshot
+from render_tac_daily_content import calendar_sort_key
 
 MOTHERS={
  "monday":ROOT/"母版專區"/"TAC_母版_週一_2026-10-28_最終定版.html",
@@ -179,7 +180,38 @@ def run_case(kind,report_date,weekday):
         else:
             assert not soup.select("#last-week-calendar")
         return result
+
+def test_calendar_sort_key():
+    def event(event_date,stars=4,time_known=True,identifier="x"):
+        return {"id":identifier,"event_date":event_date,"importance_stars":stars,"time_known":time_known}
+    today=[
+      event("2026-11-02T09:00:00+08:00",4,identifier="later"),
+      event("2026-11-02T08:00:00+08:00",4,identifier="earlier"),
+      event("2026-11-02T08:00:00+08:00",5,identifier="higher-impact")
+    ]
+    assert [x["id"] for x in sorted(today,key=lambda x:calendar_sort_key(x,"today"))] == [
+      "higher-impact","earlier","later"]
+    upcoming=[
+      event("2026-11-04T09:00:00+08:00",5,identifier="farther"),
+      event("2026-11-03T09:00:00+08:00",4,identifier="nearer"),
+      event("2026-11-03T09:00:00+08:00",5,identifier="nearer-higher-impact"),
+      event("2026-11-02T12:00:00+08:00",5,False,"unknown-time")
+    ]
+    assert [x["id"] for x in sorted(upcoming,key=lambda x:calendar_sort_key(x,"upcoming"))] == [
+      "nearer-higher-impact","nearer","farther","unknown-time"]
+    published=[
+      event("2026-10-29T08:00:00+08:00",5,identifier="older"),
+      event("2026-10-30T08:00:00+08:00",4,identifier="newer"),
+      event("2026-10-30T08:00:00+08:00",5,identifier="newer-higher-impact"),
+      event("2026-10-31T12:00:00+08:00",4,False,"unknown-time-newer-date"),
+      event("2026-10-30T12:00:00+08:00",5,False,"unknown-time-older-date")
+    ]
+    assert [x["id"] for x in sorted(published,key=lambda x:calendar_sort_key(x,"published"))] == [
+      "newer-higher-impact","newer","older","unknown-time-newer-date","unknown-time-older-date"]
+    print("PASS: TAC calendar sort order, importance tie-breaks and unknown-time tail")
+
 def main():
+    test_calendar_sort_key()
     a=run_case("monday","2026-11-02","一")
     b=run_case("weekday","2026-11-03","二")
     print("PASS: Monday editorial renderer integration",a)
