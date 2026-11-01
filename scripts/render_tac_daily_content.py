@@ -305,7 +305,9 @@ def earnings_card(proto,item,soup):
             result_card["class"]=[x for x in result_card.get("class",[]) if x not in {"beat","miss","pending"}]+[status_class]
             if status: put(status,status_label); status["class"]=["earnings-actual-status",status_class]
             note=result_card.select_one(".earnings-actual-note")
-            if note: put(note,basis_note)
+            note_text = item.get("eps_note") if title == "EPS" else item.get("revenue_note")
+            if note:
+                put(note, note_text or (basis_note + "；補充說明待核實"))
         fields=details.select(".earnings-detail-field")
         target_count=5
         if not fields: raise ValueError("earnings prototype must contain detail-field templates")
