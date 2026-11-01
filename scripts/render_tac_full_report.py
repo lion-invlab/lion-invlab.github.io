@@ -42,6 +42,22 @@ def render_full(snapshot_path:Path,content_path:Path,output_path:Path,require_co
             elif item["status"]=="released":
                 if any(item.get(k) is None for k in ("eps_estimate","eps_actual","revenue_estimate","revenue_actual")) or not item.get("stock_price_reaction"):
                     pending.append(group+"."+item["id"]+".earnings_results")
+                # WR §20: published cards have a separate, richer contract than upcoming cards.
+                published_fields = (
+                    "industry", "reporting_period", "eps_basis", "eps_currency",
+                    "revenue_currency", "revenue_unit", "financial_judgment",
+                    "stock_price_reaction_window", "consensus_source",
+                    "price_reaction_source", "eps_note", "revenue_note"
+                )
+                for field in published_fields:
+                    if item.get(field) is None or item.get(field) == "":
+                        pending.append(group+"."+item["id"]+"."+field)
+                if item.get("time_known") is not True:
+                    pending.append(group+"."+item["id"]+".release_time")
+                if item.get("eps_comparison_status") not in {"beat", "met", "miss"}:
+                    pending.append(group+"."+item["id"]+".eps_comparison")
+                if item.get("revenue_comparison_status") not in {"beat", "met", "miss"}:
+                    pending.append(group+"."+item["id"]+".revenue_comparison")
     for key,item in content["analysis"].items():
         if isinstance(item,dict) and item.get("status") not in (None,"verified"):
             pending.append("analysis."+key)
