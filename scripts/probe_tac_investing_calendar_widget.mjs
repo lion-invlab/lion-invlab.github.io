@@ -49,8 +49,9 @@ try {
   report.note = "Read-only builder inspection only. No terms accepted, no embed generated, no private endpoints queried.";
 } catch (error) {
   report.error = String(error);
+} finally {
+  await browser.close();
 }
 fs.writeFileSync(output, JSON.stringify(report, null, 2));
 console.log(JSON.stringify(report, null, 2));
 if (report.status !== "builder_accessible") process.exitCode = 1;
-finally { await browser.close(); }
