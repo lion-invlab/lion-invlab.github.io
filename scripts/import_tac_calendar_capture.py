@@ -189,7 +189,7 @@ def self_test() -> None:
         "observed_at": "2026-10-31T21:00:00+08:00",
         "source": {"name": "Synthetic source", "url": "https://example.com/calendar"},
         "economic_events": [
-            {"id":"e3","event_date":"2026-11-02T22:00:00+08:00","region":"US","event_name":"High impact","importance_stars":3,"previous":1,"forecast":2,"actual":None,"status":"upcoming"},
+            {"id":"e3","event_date":"2026-11-02T22:00:00+08:00","region":"US","event_name":"High impact","importance_stars":5,"importance_basis":"major_event_assessment","importance_basis_source":"Synthetic official schedule and market relevance","previous":1,"forecast":2,"actual":None,"status":"upcoming"},
             {"id":"e1","event_date":"2026-11-02T20:00:00+08:00","region":"US","event_name":"Low impact","importance_stars":1,"previous":1,"forecast":2,"actual":None,"status":"upcoming"}
         ],
         "earnings_events": [{
@@ -202,7 +202,7 @@ def self_test() -> None:
         }],
         "previous_economic_events": [{
             "id":"prev-e1","event_date":"2026-10-30T20:30:00+08:00","region":"US",
-            "event_name":"Prior CPI","importance_stars":3,"previous":"2.0%","forecast":"2.1%",
+            "event_name":"Prior CPI","importance_stars":5,"importance_basis":"major_event_assessment","importance_basis_source":"Synthetic official release and market impact","previous":"2.0%","forecast":"2.1%",
             "actual":"2.2%","status":"released"
         }],
         "previous_earnings_events": [{
