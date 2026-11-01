@@ -352,7 +352,7 @@ def render_fedwatch(html: str, parser: SourceTreeParser,
         if len(rows) != 1:
             raise ValueError(f"fedwatch.{key}: outcome row missing or duplicated")
         row = rows[0]
-        labels = [n for n in descendants(row) if n.tag == "span" and label_key(node_text(n, parser.spans)) == label_key(outcome["label"])]
+        labels = [n for n in descendants(row) if n.tag == "span" and label_key("".join(x.text for x in spans_inside(n, parser.spans))) == label_key(outcome["label"])]
         if len(labels) != 1:
             raise ValueError(f"fedwatch.{key}: label mismatch")
         p_nodes, range_nodes = select(row, outcome["probability_selector"]), select(row, outcome["rate_range_selector"])
