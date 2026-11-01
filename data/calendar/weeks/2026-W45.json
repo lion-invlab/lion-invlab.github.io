@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-06",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-01T14:14:18+08:00",
+  "updated_at": "2026-11-01T14:15:05+08:00",
   "source_report_date": "2026-11-02",
   "wr_version": "3.7",
   "status": "prototype",
@@ -1350,7 +1350,7 @@
         "importance_rating_source": null,
         "eps_estimate": 2.35,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 12.08,
         "revenue_actual": null,
         "stock_price_reaction": null,
         "source": {
@@ -1381,7 +1381,13 @@
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.35；營收預估未在此表提供。"
         },
-        "price_reaction_source": null
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        }
       },
       {
         "id": "current-arm-20261102",
@@ -1702,7 +1708,7 @@
         "time_known": false,
         "time_type": "unknown",
         "eps_currency": "JPY",
-        "revenue_currency": "JPY",
+        "revenue_currency": "USD",
         "revenue_unit": "B",
         "source": {
           "name": "Toyota Motor｜Investor Relations Calendar",
@@ -1716,7 +1722,7 @@
         "eps_basis": null,
         "eps_estimate": null,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 84.74,
         "revenue_actual": null,
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -1726,7 +1732,13 @@
         "price_reaction_source": null,
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        }
       },
       {
         "id": "current-dte-20261105",
@@ -1936,7 +1948,7 @@
         "time_known": true,
         "time_type": "call_time",
         "eps_currency": "JPY",
-        "revenue_currency": "JPY",
+        "revenue_currency": "USD",
         "revenue_unit": "B",
         "source": {
           "name": "Sony Group｜FY2026 Q2 Earnings Announcement",
@@ -1950,7 +1962,7 @@
         "eps_basis": null,
         "eps_estimate": null,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 20.15,
         "revenue_actual": null,
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -1960,7 +1972,13 @@
         "price_reaction_source": null,
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
-        "status": "upcoming"
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        }
       },
       {
         "id": "current-cop-20261102",
@@ -2283,8 +2301,8 @@
         "https://www.tipranks.com/calendars/earnings/2026-11-4",
         "https://www.tipranks.com/calendars/earnings/2026-11-5"
       ],
-      "checked_at": "2026-11-01T14:11:44+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。"
+      "checked_at": "2026-11-01T14:15:05+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。"
     }
   },
   "audit": [
@@ -6008,6 +6026,311 @@
       },
       "source": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
       "note": "只填入可由官方上一期實際公布核實的 previous；forecast 保留待核實，避免跨來源混用。"
+    },
+    {
+      "at": "2026-11-01T14:15:05+08:00",
+      "action": "event_updated",
+      "event_id": "current-su-20261102",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-su-20261102",
+        "company": "Suncor Energy",
+        "ticker": "SU",
+        "event_date": "2026-11-04T22:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 2.35,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "能源／油砂與煉油",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.35；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "id": "current-su-20261102",
+        "company": "Suncor Energy",
+        "ticker": "SU",
+        "event_date": "2026-11-04T22:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 2.35,
+        "eps_actual": null,
+        "revenue_estimate": 12.08,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "能源／油砂與煉油",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$2.35；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+      "note": "補入 TipRanks 當日 Revenue / Forecast，保留獨立營收共識來源。"
+    },
+    {
+      "at": "2026-11-01T14:15:05+08:00",
+      "action": "event_updated",
+      "event_id": "current-toyota-20261105",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-toyota-20261105",
+        "company": "Toyota Motor",
+        "ticker": "TM",
+        "event_date": "2026-11-05T12:00:00+08:00",
+        "session": "unknown",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球最大汽車製造商之一，財報對全球汽車需求、日圓、混合動力與電動車競爭及汽車供應鏈具明顯指標性。",
+        "industry": "汽車／全球整車與供應鏈",
+        "reporting_period": "FY2027 Q2",
+        "time_known": false,
+        "time_type": "unknown",
+        "eps_currency": "JPY",
+        "revenue_currency": "JPY",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Toyota Motor｜Investor Relations Calendar",
+          "url": "https://global.toyota/en/ir/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方投資人日曆確認 2026-11-05 FY2027 第二季財報；官方頁面未列發布時間，時間與時段待核實。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "after": {
+        "id": "current-toyota-20261105",
+        "company": "Toyota Motor",
+        "ticker": "TM",
+        "event_date": "2026-11-05T12:00:00+08:00",
+        "session": "unknown",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球最大汽車製造商之一，財報對全球汽車需求、日圓、混合動力與電動車競爭及汽車供應鏈具明顯指標性。",
+        "industry": "汽車／全球整車與供應鏈",
+        "reporting_period": "FY2027 Q2",
+        "time_known": false,
+        "time_type": "unknown",
+        "eps_currency": "JPY",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Toyota Motor｜Investor Relations Calendar",
+          "url": "https://global.toyota/en/ir/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方投資人日曆確認 2026-11-05 FY2027 第二季財報；官方頁面未列發布時間，時間與時段待核實。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": 84.74,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 當日 Revenue / Forecast，保留獨立營收共識來源。"
+    },
+    {
+      "at": "2026-11-01T14:15:05+08:00",
+      "action": "event_updated",
+      "event_id": "current-sony-20261105",
+      "changed_fields": [
+        "revenue_consensus_source",
+        "revenue_currency",
+        "revenue_estimate",
+        "revenue_unit"
+      ],
+      "before": {
+        "id": "current-sony-20261105",
+        "company": "Sony Group",
+        "ticker": "SONY",
+        "event_date": "2026-11-05T15:30:00+08:00",
+        "session": "after_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球大型娛樂、遊戲、影像感測器及消費電子企業，財報對遊戲內容、影像感測器及消費電子供應鏈具指標性。",
+        "industry": "娛樂／遊戲／影像感測器／消費電子",
+        "reporting_period": "FY2026 Q2",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "JPY",
+        "revenue_currency": "JPY",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Sony Group｜FY2026 Q2 Earnings Announcement",
+          "url": "https://www.sony.com/en/SonyInfo/IR/library/presen/er/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方確認 11/05 15:30 JST 上傳業績資料、16:30 JST 舉行簡報與問答；換算台灣時間 15:30。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "after": {
+        "id": "current-sony-20261105",
+        "company": "Sony Group",
+        "ticker": "SONY",
+        "event_date": "2026-11-05T15:30:00+08:00",
+        "session": "after_market",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球大型娛樂、遊戲、影像感測器及消費電子企業，財報對遊戲內容、影像感測器及消費電子供應鏈具指標性。",
+        "industry": "娛樂／遊戲／影像感測器／消費電子",
+        "reporting_period": "FY2026 Q2",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "JPY",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Sony Group｜FY2026 Q2 Earnings Announcement",
+          "url": "https://www.sony.com/en/SonyInfo/IR/library/presen/er/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方確認 11/05 15:30 JST 上傳業績資料、16:30 JST 舉行簡報與問答；換算台灣時間 15:30。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": 20.15,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        }
+      },
+      "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+      "note": "補入 TipRanks 當日 Revenue / Forecast，保留獨立營收共識來源。"
     }
   ]
 }
