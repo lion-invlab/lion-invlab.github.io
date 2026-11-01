@@ -147,7 +147,11 @@ def build_preview(report_date: str, trading_date: str, market_fragments: list[Pa
     expected_title = f"TAC 投資早報｜{report_day.year}/{report_day.month:02d}/{report_day.day:02d}（{'一二三四五'[report_day.weekday()]}）審核版"
     if f"<title>{expected_title}</title>" not in rendered:
         raise ValueError("rendered report title does not match requested report date")
-    if f'name="report-date" content="{report_day.isoformat()}"' not in rendered:
+    report_date_meta_forms = (
+        f'content="{report_day.isoformat()}" name="report-date"',
+        f'name="report-date" content="{report_day.isoformat()}"',
+    )
+    if not any(form in rendered for form in report_date_meta_forms):
         raise ValueError("rendered report-date meta tag does not match requested date")
 
     output = output.resolve()
