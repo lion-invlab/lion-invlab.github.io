@@ -179,13 +179,20 @@ def cmd_upsert(args):
 def cmd_snapshot(args):
     data=load(args.file); report_day=date.fromisoformat(args.report_date)
     output_path=Path(args.output)
-    if output_path.exists() and not getattr(args,"replace",False):
-        raise FileExistsError(f"refusing to overwrite existing daily snapshot: {output_path}; use --replace only for an unapproved draft")
+    if output_path.exists():
+        existing=load(output_path)
+        approval=(existing.get("meta") or {}).get("approval_status")
+        if approval == "approved":
+            raise PermissionError(f"approved daily snapshot is immutable: {output_path}")
+        if not getattr(args,"replace",False):
+            raise FileExistsError(f"refusing to overwrite existing daily snapshot: {output_path}; use --replace only for an explicit draft")
+        if approval != "draft":
+            raise ValueError(f"refusing replacement: existing snapshot is not explicitly marked draft: {output_path}")
     errors=validate_week(data)
     if errors: raise ValueError("current week invalid: "+"; ".join(errors))
     start=date.fromisoformat(data["week_start"]); end=date.fromisoformat(data["week_end"])
     if not start <= report_day <= end: raise ValueError("report date outside week")
-    result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version"),"previous_week_id":None},
+    result={"meta":{"report_date":args.report_date,"week_id":data["week_id"],"timezone":"Asia/Taipei","database_updated_at":data.get("updated_at"),"wr_version":data.get("wr_version"),"previous_week_id":None,"approval_status":"draft"},
         "economic_calendar":[],"earnings_calendar":[],"previous_economic_calendar":[],"previous_earnings_calendar":[],"coverage":{
             "previous_economic_calendar":{"status":"not_applicable","notes":"No previous-week archive supplied for this report."},
             "previous_earnings_calendar":{"status":"not_applicable","notes":"No previous-week archive supplied for this report."}}}
@@ -214,6 +221,22 @@ def cmd_snapshot(args):
     output_path.parent.mkdir(parents=True,exist_ok=True)
     output_path.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":args.output,"economic":len(result["economic_calendar"]),"earnings":len(result["earnings_calendar"]),"coverage":{k:v["status"] for k,v in result["coverage"].items()}},ensure_ascii=False,indent=2))
+    return 0
+
+
+def cmd_approve_snapshot(args):
+    path=Path(args.file); snap=load(path)
+    meta=snap.get("meta")
+    if not isinstance(meta,dict): raise ValueError("snapshot meta is required")
+    status=meta.get("approval_status")
+    if status == "approved":
+        print(json.dumps({"file":str(path),"approval_status":"approved","already_approved":True},ensure_ascii=False))
+        return 0
+    if status != "draft": raise ValueError("only an explicit draft snapshot can be approved")
+    meta["approval_status"]="approved"
+    meta["approved_at"]=args.at or datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
+    path.write_text(json.dumps(snap,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    print(json.dumps({"file":str(path),"approval_status":"approved","approved_at":meta["approved_at"]},ensure_ascii=False))
     return 0
 
 
@@ -247,7 +270,8 @@ def main():
     i=sub.add_parser("init"); i.add_argument("--week-of",required=True); i.add_argument("--output",required=True); i.add_argument("--wr-version",default="3.7"); i.add_argument("--at"); i.set_defaults(fn=cmd_init)
     q=sub.add_parser("quality-report"); q.add_argument("--file",required=True); q.add_argument("--output"); q.set_defaults(fn=cmd_quality_report)
     u=sub.add_parser("upsert"); u.add_argument("--file",required=True); u.add_argument("--kind",required=True); u.add_argument("--event",required=True); u.add_argument("--at"); u.set_defaults(fn=cmd_upsert)
-    s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot); s.add_argument("--replace",action="store_true",help="replace an unapproved draft snapshot")
+    s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot); s.add_argument("--replace",action="store_true",help="replace an explicit draft snapshot only")
+    ap=sub.add_parser("approve-snapshot"); ap.add_argument("--file",required=True); ap.add_argument("--at"); ap.set_defaults(fn=cmd_approve_snapshot)
     m=sub.add_parser("apply-snapshot"); m.add_argument("--content",required=True); m.add_argument("--snapshot",required=True); m.add_argument("--output",required=True); m.set_defaults(fn=cmd_apply_snapshot)
     a=p.parse_args()
     try: return a.fn(a)
