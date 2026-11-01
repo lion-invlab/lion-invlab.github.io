@@ -33,13 +33,13 @@ class WeeklyCalendarDbTests(unittest.TestCase):
 
     def test_snapshot_filters_current_four_five_and_prior_five_released(self):
         current=self.week(events={"economic":[
-            self.event("e3","2026-11-02T10:00:00+08:00",3),
-            self.event("e4","2026-11-03T10:00:00+08:00",4)],
+            self.event("e4","2026-11-03T10:00:00+08:00",4),
+            self.event("e5","2026-11-04T10:00:00+08:00",5)],
             "earnings":[self.event("r5","2026-11-04T10:00:00+08:00",5)]})
         previous=self.week("2026-W44","2026-10-26","2026-10-30",{
-            "economic":[self.event("p4","2026-10-29T10:00:00+08:00",4,"released"),
-                        self.event("p5","2026-10-30T10:00:00+08:00",5,"released")],
-            "earnings":[self.event("pe5","2026-10-28T10:00:00+08:00",5,"upcoming")]})
+            "economic":[self.event("p5","2026-10-30T10:00:00+08:00",5,"released")],
+            "earnings":[]})
+        previous["status"]="archive_candidate"
         with tempfile.TemporaryDirectory() as td:
             current_path=Path(td)/"current.json"; prev_path=Path(td)/"prev.json"; out=Path(td)/"snapshot.json"
             current_path.write_text(json.dumps(current),encoding="utf-8")
@@ -48,8 +48,18 @@ class WeeklyCalendarDbTests(unittest.TestCase):
                                  "output":str(out),"previous_week_file":str(prev_path)})()
             self.assertEqual(cmd_snapshot(args),0)
             snap=json.loads(out.read_text(encoding="utf-8"))
-            self.assertEqual([x["id"] for x in snap["economic_calendar"]],["e4"])
+            self.assertEqual([x["id"] for x in snap["economic_calendar"]],["e4","e5"])
             self.assertEqual([x["id"] for x in snap["previous_economic_calendar"]],["p5"])
             self.assertEqual(snap["previous_earnings_calendar"],[])
+
+    def test_tac_star_and_archive_policy(self):
+        low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
+        self.assertTrue(any("TAC 4 or 5" in e for e in validate_week(low)))
+        archived=self.week("2026-W44","2026-10-26","2026-10-30",{
+            "economic":[self.event("four","2026-10-30T10:00:00+08:00",4,"released")],"earnings":[]})
+        archived["status"]="archive_candidate"
+        self.assertTrue(any("5-star only" in e for e in validate_week(archived)))
+        archived["events"]["economic"]=[self.event("unreleased","2026-10-30T10:00:00+08:00",5,"upcoming")]
+        self.assertTrue(any("must be released" in e for e in validate_week(archived)))
 
 if __name__=="__main__": unittest.main()
