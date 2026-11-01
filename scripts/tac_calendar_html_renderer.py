@@ -96,6 +96,8 @@ def earnings_card(event):
     if not event.get("time_known", True):
         session = "公布時段待核實"
     tw_date = date_label(dt)
+    us_day = dt.date() - timedelta(days=1) if event.get("session") == "after_market" and dt.hour < 12 else dt.date()
+    us_date = f"{us_day.month:02d}/{us_day.day:02d}"
     name = esc(event.get("company"))
     ticker = esc(event.get("ticker"))
     industry = esc(event.get("industry") or "產業分類待核實")
@@ -109,8 +111,11 @@ def earnings_card(event):
     def actual_card(label, actual, estimate, status, unit, basis=None):
         state = {"beat": "beat", "above": "beat", "miss": "miss", "below": "miss", "met": "met", "in_line": "met"}.get(status, "pending")
         state_text = {"beat": "高於預期", "miss": "低於預期", "met": "符合預期", "pending": "尚待核實"}[state]
-        a = "尚未公布" if actual in (None, "") else f"{actual}{unit}"
-        e = "待核實" if estimate in (None, "") else f"{estimate}{unit}"
+        currency = (event.get("eps_currency") if label == "EPS" else event.get("revenue_currency")) or "USD"
+        prefix = "US$" if currency == "USD" else currency + " "
+        suffix = "" if label == "EPS" else (event.get("revenue_unit") or "")
+        a = "尚未公布" if actual in (None, "") else f"{prefix}{actual}{suffix}"
+        e = "待核實" if estimate in (None, "") else f"{prefix}{estimate}{suffix}"
         note = f'<div class="earnings-actual-note">{esc(basis)}</div>' if basis else ""
         return (f'<div class="earnings-actual-card {state}"><div class="earnings-actual-card-title">{label}</div>'
                 f'<div class="earnings-actual-line"><span>實際</span><strong>{esc(a)}</strong></div>'
@@ -125,7 +130,7 @@ def earnings_card(event):
     return (
         f'<details class="earnings-accordion {"five-star-earnings" if stars == 5 else ""}">'
         '<summary class="earnings-accordion-summary"><div class="earnings-summary-main">'
-        f'<div class="earnings-summary-dates"><span class="earnings-us-date">{esc(dt.strftime("%m/%d"))}（美股）</span>'
+        f'<div class="earnings-summary-dates"><span class="earnings-us-date">美股 {esc(us_date)}</span>'
         f'<span class="earnings-tw-date">台灣時間 {esc(tw_date)}｜{session}</span></div>'
         f'<div class="earnings-company-name {"five-star-company" if stars == 5 else ""}">{name}</div>'
         f'<div class="earnings-company-sub">{ticker}｜{industry}</div><div class="earnings-stars">{star_text}</div>'
@@ -134,7 +139,7 @@ def earnings_card(event):
         f'{eps}{revenue}</div>'
         f'<div class="earnings-detail-field wide"><label>財報判讀</label><div class="earnings-detail-value">{esc(judgment)}</div></div>'
         f'<div class="earnings-detail-field wide"><label>股價當日表現</label><div class="earnings-detail-value">{esc(reaction)}</div></div>'
-        f'<div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value">{source_html(event.get("source"))}；共識：{source_html(event.get("consensus_source"))}</div></div>'
+        f'<div class="earnings-detail-field wide"><label>資料來源</label><div class="earnings-detail-value">{source_html(event.get("source"))}；共識：{source_html(event.get("consensus_source"))}；股價反應：{source_html(event.get("price_reaction_source"))}</div></div>'
         '</div></details>'
     )
 
