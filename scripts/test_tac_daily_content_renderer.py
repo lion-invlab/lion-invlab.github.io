@@ -40,7 +40,7 @@ def sample(report_date,template):
           "checked_at":"2026-10-31T21:00:00+08:00"
         }
     def src(tag):
-        return {"name":"Synthetic calendar source","url":f"https://example.com/{tag}",
+        return {"name":f"Synthetic {tag} source","url":f"https://example.com/{tag}",
           "published_at":"2026-10-31T12:00:00+08:00","observed_at":"2026-10-31T21:00:00+08:00"}
     event_day="2026-11-03" if report_date=="2026-11-02" else "2026-11-04"
     data["economic_calendar"]=[{
@@ -73,7 +73,12 @@ def sample(report_date,template):
           "importance_basis":"major_event_assessment","importance_basis_source":"Synthetic test-only assessment",
           "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
           "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
-          "stock_price_reaction":"測試用股價反應","source":src("earn-previous")
+          "stock_price_reaction":"首個常規交易日收盤上漲 2.0%","stock_price_reaction_window":"2026-10-30 首個常規交易日收盤",
+          "industry":"Synthetic industry","reporting_period":"2026 Q3","eps_basis":"Non-GAAP","eps_currency":"USD",
+          "revenue_currency":"USD","revenue_unit":"B","eps_comparison_status":"beat","revenue_comparison_status":"miss",
+          "financial_judgment":"Synthetic financial judgment for renderer test.",
+          "consensus_source":src("consensus-previous"),"price_reaction_source":src("reaction-previous"),
+          "source":src("ir-previous")
         }]
     return data
 def run_case(kind,report_date,weekday):
@@ -149,6 +154,15 @@ def run_case(kind,report_date,weekday):
             assert "Prior Synthetic Co" in soup.select_one("#last-week-earnings").get_text()
             assert len(soup.select("#last-week-earnings .earnings-results-grid"))==1
             assert soup.select_one("#last-week-earnings .earnings-stars").get_text(strip=True)=="★★★★★"
+            previous_card=soup.select_one("#last-week-earnings .earnings-accordion")
+            labels=[x.get_text(" ",strip=True) for x in previous_card.select(".earnings-detail-field label")]
+            assert labels==["公布時段","EPS 預估／實際","營收預估／實際","財報判讀與股價反應","資料來源"], labels
+            statuses=[x.get_text(" ",strip=True) for x in previous_card.select(".earnings-actual-status")]
+            assert statuses==["高於預期","低於預期"], statuses
+            assert "Synthetic industry" in previous_card.select_one(".earnings-company-sub").get_text()
+            assert "Synthetic consensus-previous source" in previous_card.get_text()
+            assert "Synthetic reaction-previous source" in previous_card.get_text()
+            assert "首個常規交易日收盤上漲 2.0%" in previous_card.get_text()
         else:
             assert not soup.select("#last-week-calendar")
         return result
