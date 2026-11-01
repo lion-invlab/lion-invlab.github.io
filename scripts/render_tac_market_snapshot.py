@@ -217,7 +217,7 @@ def update_group(source, binding, group_name, snapshot, labels, decimals):
     group = binding["groups"][group_name]
     for key, label in labels.items():
         row = snapshot[group_name][key]
-        source = update_row(source, SourceParser(source).nodes, group["row"], label, row,
+        source = update_row(source, SourceParser(source).nodes, group["container"] + " " + group["row"], label, row,
             decimals.get(key, 2), has_change=True)
     return source
 
@@ -225,7 +225,7 @@ def update_group(source, binding, group_name, snapshot, labels, decimals):
 def update_sectors(source, binding, snapshot):
     group = binding["groups"]["sectors"]
     rows = SourceParser(source).nodes
-    row_nodes = select(rows, group["row"])
+    row_nodes = select(rows, group["container"] + " " + group["row"])
     ticker_to_node = {}
     for ticker, key in group["key_by_ticker"].items():
         matches = [node for node in row_nodes if re.search(r"\b" + re.escape(ticker) + r"\b", node.text(source))]
@@ -266,7 +266,7 @@ def update_risk(source, binding, snapshot):
     group = binding["groups"]["risk_indicators"]
     for key, config in group["records"].items():
         nodes = SourceParser(source).nodes
-        rows = select(nodes, config["row"])
+        rows = select(nodes, group["container"] + " " + config["row"])
         matches = [node for node in rows if config["key_text"] in node.text(source)]
         if len(matches) != 1:
             raise ValueError(f"risk indicator {key} must resolve exactly once")
@@ -279,7 +279,7 @@ def update_risk(source, binding, snapshot):
         source = replace_inner(source, value_nodes[0], format_number(row["value"], group["value_decimals"][key]))
         if config["change_selector"]:
             nodes = SourceParser(source).nodes
-            current_rows = [n for n in select(nodes, config["row"]) if config["key_text"] in n.text(source)]
+            current_rows = [n for n in select(nodes, group["container"] + " " + config["row"]) if config["key_text"] in n.text(source)]
             row_node = current_rows[0]
             change_nodes = [n for n in select(nodes, config["change_selector"]) if n is row_node or is_descendant(n, row_node)]
             if len(change_nodes) != 1:
@@ -302,7 +302,7 @@ def render(template_path, snapshot_path, binding_path, output_path, mode):
     original = source
     global_group = binding["groups"]["global_indices"]
     for key, label in global_group["key_by_label"].items():
-        source = update_row(source, SourceParser(source).nodes, global_group["row"], label,
+        source = update_row(source, SourceParser(source).nodes, global_group["container"] + " " + global_group["row"], label,
             snapshot["global_indices"][key], global_group["value_decimals"].get(key, 2), True)
     for group_name in ("bonds", "fx", "energy", "precious_metals"):
         group = binding["groups"][group_name]
