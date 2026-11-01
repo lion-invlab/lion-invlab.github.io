@@ -129,6 +129,14 @@ def main() -> int:
     if not output_dir.is_absolute():
         output_dir = ROOT / output_dir
     output_dir = output_dir.resolve()
+    try:
+        output_dir.relative_to(ROOT)
+    except ValueError:
+        raise SystemExit("capture output directory must remain inside the repository workspace")
+    if trading_day >= report_day:
+        raise SystemExit("trading date must precede the report date")
+    if report_day.weekday() > 4:
+        raise SystemExit("TAC report date must be Monday through Friday")
     if output_dir.exists() and any(output_dir.iterdir()):
         raise SystemExit(f"refusing to overwrite non-empty capture directory: {output_dir}")
     output_dir.mkdir(parents=True, exist_ok=True)
