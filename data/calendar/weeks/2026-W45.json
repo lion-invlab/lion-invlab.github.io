@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-06",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-01T12:39:11+08:00",
+  "updated_at": "2026-11-01T14:11:44+08:00",
   "source_report_date": "2026-11-02",
   "wr_version": "3.7",
   "status": "prototype",
@@ -104,7 +104,7 @@
           "published_at": null,
           "observed_at": "2026-11-01T12:39:11+08:00",
           "publisher": "Eurostat",
-          "notes": "最新官方週曆列示 10 月歐元區通膨初值於 11/03 發布；先前 10/16 頁面曾列 11/04，已採用更新後官方週曆。官方週曆未列具體時間，故不顯示時刻。"
+          "notes": "最新官方週曆列示 10 月歐元區通膨初值於 11/03 發布；先前 10/16 頁面曾列 11/04，已採用更新後官方週曆。官方週曆未列具體時間，故不顯示時刻。 日期依 Eurostat 官方週曆 11/2–11/6 頁面列示 11/03；ECB 另列 11/04 的 seasonally adjusted HICP flash estimate，屬另一統計序列／發布安排，不混用日期。精確發布時刻仍待官方確認。"
         }
       },
       {
@@ -2193,7 +2193,7 @@
         "https://home.treasury.gov/news/press-releases/sb0590",
         "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-10-30/upcoming.htm"
       ],
-      "checked_at": "2026-11-01T12:39:11+08:00",
+      "checked_at": "2026-11-01T14:11:44+08:00",
       "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。"
     },
     "earnings": {
@@ -2225,7 +2225,7 @@
         "https://www.tipranks.com/calendars/earnings/2026-11-4",
         "https://www.tipranks.com/calendars/earnings/2026-11-5"
       ],
-      "checked_at": "2026-11-01T12:39:11+08:00",
+      "checked_at": "2026-11-01T14:11:44+08:00",
       "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。"
     }
   },
@@ -2237,7 +2237,7 @@
       "note": "Initial seed only; preserve incomplete coverage and per-event pending fields."
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-us-ism-mfg-20261102",
       "changed_fields": [
@@ -2301,7 +2301,7 @@
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-adp-20261104",
       "changed_fields": [
@@ -2365,7 +2365,7 @@
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-us-ism-services-20261104",
       "changed_fields": [
@@ -2429,7 +2429,7 @@
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-us-nfp-20261106",
       "changed_fields": [
@@ -2506,7 +2506,7 @@
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-canada-jobs-20261106",
       "changed_fields": [
@@ -2580,7 +2580,7 @@
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-boe-rate-20261105",
       "changed_fields": [
@@ -2644,7 +2644,7 @@
       "note": "補入 TD Economics 2026-10-30 週度經濟發布表的 previous／consensus forecast；單位及多指標拆項明確保留。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-aapl-20261102",
       "changed_fields": [
@@ -2755,7 +2755,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-pltr-20261102",
       "changed_fields": [
@@ -2866,7 +2866,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-shop-20261102",
       "changed_fields": [
@@ -2977,7 +2977,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-pfe-20261102",
       "changed_fields": [
@@ -3088,7 +3088,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-amd-20261102",
       "changed_fields": [
@@ -3199,7 +3199,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-smci-20261103",
       "changed_fields": [
@@ -3296,7 +3296,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-anet-20261102",
       "changed_fields": [
@@ -3407,7 +3407,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-amgn-20261102",
       "changed_fields": [
@@ -3518,7 +3518,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-bkng-20261102",
       "changed_fields": [
@@ -3629,7 +3629,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-uber-20261102",
       "changed_fields": [
@@ -3740,7 +3740,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-qcom-20261102",
       "changed_fields": [
@@ -3851,7 +3851,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-mcd-20261104",
       "changed_fields": [
@@ -3962,7 +3962,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-nvo-20261104",
       "changed_fields": [
@@ -4059,7 +4059,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-cvs-20261102",
       "changed_fields": [
@@ -4170,7 +4170,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-arm-20261102",
       "changed_fields": [
@@ -4281,7 +4281,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-mck-20261102",
       "changed_fields": [
@@ -4392,7 +4392,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-app-20261102",
       "changed_fields": [
@@ -4503,7 +4503,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-ddog-20261102",
       "changed_fields": [
@@ -4614,7 +4614,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-meli-20261102",
       "changed_fields": [
@@ -4725,7 +4725,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-abnb-20261102",
       "changed_fields": [
@@ -4836,7 +4836,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-net-20261102",
       "changed_fields": [
@@ -4947,7 +4947,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-cop-20261102",
       "changed_fields": [
@@ -5058,7 +5058,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-lite-20261102",
       "changed_fields": [
@@ -5169,7 +5169,7 @@
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
     },
     {
-      "at": "2026-11-01T12:39:11+08:00",
+      "at": "2026-11-01T14:11:44+08:00",
       "action": "event_updated",
       "event_id": "current-team-20261102",
       "changed_fields": [
