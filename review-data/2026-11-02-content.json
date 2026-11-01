@@ -447,28 +447,6 @@
       }
     },
     {
-      "id": "current-boe-rate-20261105",
-      "event_date": "2026-11-05T20:00:00+08:00",
-      "region": "英國",
-      "event_name": "英格蘭銀行利率決策、MPC 會議紀錄及貨幣政策報告",
-      "importance_stars": 5,
-      "importance_basis": "major_event_assessment",
-      "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
-      "previous": null,
-      "forecast": null,
-      "actual": null,
-      "status": "upcoming",
-      "impact_judgment": null,
-      "source": {
-        "name": "Bank of England",
-        "url": "https://www.bankofengland.co.uk/events/upcoming-events",
-        "published_at": null,
-        "observed_at": "2026-11-01T21:06:00+08:00",
-        "publisher": "Bank of England",
-        "notes": "官方發布時間 12:00 GMT，換算台灣時間 20:00；同時發布 Monetary Policy Summary、Minutes 及 Monetary Policy Report。"
-      }
-    },
-    {
       "id": "current-norges-rate-20261105",
       "event_date": "2026-11-05T17:00:00+08:00",
       "region": "挪威",
@@ -488,6 +466,28 @@
         "observed_at": "2026-11-01T21:06:00+08:00",
         "publisher": "Norges Bank",
         "notes": "官方公告時間 10:00 CET，換算台灣時間 17:00。"
+      }
+    },
+    {
+      "id": "current-boe-rate-20261105",
+      "event_date": "2026-11-05T20:00:00+08:00",
+      "region": "英國",
+      "event_name": "英格蘭銀行利率決策、MPC 會議紀錄及貨幣政策報告",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "impact_judgment": null,
+      "source": {
+        "name": "Bank of England",
+        "url": "https://www.bankofengland.co.uk/events/upcoming-events",
+        "published_at": null,
+        "observed_at": "2026-11-01T21:06:00+08:00",
+        "publisher": "Bank of England",
+        "notes": "官方發布時間 12:00 GMT，換算台灣時間 20:00；同時發布 Monetary Policy Summary、Minutes 及 Monetary Policy Report。"
       }
     },
     {
