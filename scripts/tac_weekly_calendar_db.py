@@ -88,6 +88,9 @@ def cmd_upsert(args):
     if isinstance(incoming,list): incoming=incoming[0]
     if not incoming.get("id"): raise ValueError("event.id is required")
     rows=data["events"][kind]; old=next((x for x in rows if x.get("id")==incoming["id"]),None)
+    if old and old == incoming:
+        print(json.dumps({"action":"unchanged","event_id":incoming["id"],"week_id":data["week_id"]},ensure_ascii=False))
+        return 0
     action="updated" if old else "inserted"
     if old: rows[rows.index(old)]=incoming
     else: rows.append(incoming)
