@@ -723,7 +723,15 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
         if not isinstance(panel_data, dict) or set(panel_data) != {"items"} or not isinstance(panel_data["items"], list):
             raise ValueError(f"economic_calendar.{panel_key}: invalid panel snapshot")
         event_nodes = select(containers[0], panel_spec["event_selector"])
-        items = panel_data["items"]
+        if "lists" in panel_data:
+            if not isinstance(panel_data["lists"], list):
+                raise ValueError(f"economic_calendar.{panel_key}: lists must be an array")
+            list_nodes = select(containers[0], panel_spec["list_selector"])
+            if len(list_nodes) != len(panel_data["lists"]):
+                raise ValueError(f"economic_calendar.{panel_key}: status-list count mismatch")
+            items = [item for list_data in panel_data["lists"] for item in list_data["items"]]
+        else:
+            items = panel_data.get("items", [])
         if len(event_nodes) != len(items):
             raise ValueError(f"economic_calendar.{panel_key}: event count mismatch; template={len(event_nodes)}, snapshot={len(items)}")
         for index, (event_node, item) in enumerate(zip(event_nodes, items)):
@@ -735,7 +743,7 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             if len(name_nodes) != 1:
                 raise ValueError(f"{label}: event name slot missing or duplicated")
             current_name = normalize(unescape("".join(x.text for x in spans_inside(name_nodes[0], parser.spans))))
-            if current_name != normalize(item["expected_name"]):
+            if item["expected_name"] not in (None, "") and current_name != normalize(item["expected_name"]):
                 raise ValueError(f"{label}: event identity mismatch; expected template '{current_name}', snapshot '{item['expected_name']}'")
             for field_name in ("date", "time", "country", "name"):
                 nodes = select(event_node, selectors[field_name])
@@ -845,7 +853,15 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
         if panel_data is None or not isinstance(panel_data,dict) or set(panel_data) != {"items"} or not isinstance(panel_data["items"],list):
             raise ValueError(f"earnings_calendar.{panel_key}: invalid or missing panel snapshot")
         item_nodes = select(containers[0],panel_spec["item_selector"])
-        items = panel_data["items"]
+        if "lists" in panel_data:
+            if not isinstance(panel_data["lists"], list):
+                raise ValueError(f"earnings_calendar.{panel_key}: lists must be an array")
+            list_nodes = select(containers[0], panel_spec["list_selector"])
+            if len(list_nodes) != len(panel_data["lists"]):
+                raise ValueError(f"earnings_calendar.{panel_key}: status-list count mismatch")
+            items = [item for list_data in panel_data["lists"] for item in list_data["items"]]
+        else:
+            items = panel_data.get("items", [])
         if len(item_nodes) != len(items):
             raise ValueError(f"earnings_calendar.{panel_key}: accordion count mismatch; template={len(item_nodes)}, snapshot={len(items)}")
         for index,(item_node,item) in enumerate(zip(item_nodes,items)):
@@ -857,7 +873,7 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             if len(company_nodes)!=1:
                 raise ValueError(f"{label}: company slot missing or duplicated")
             current_company=normalize(unescape("".join(x.text for x in spans_inside(company_nodes[0],parser.spans))))
-            if current_company != normalize(item["expected_company"]):
+            if item["expected_company"] not in (None, "") and current_company != normalize(item["expected_company"]):
                 raise ValueError(f"{label}: company identity mismatch")
             for field_name in ("us_date","tw_date","company","company_sub"):
                 nodes=select(item_node,selectors[field_name])
@@ -924,6 +940,47 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 update_status_class(card,result["card_class"],f"{result_label}.card")
                 update_status_class(status_nodes[0],result["status_class"],f"{result_label}.status")
 
+def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str, Any]) -> str:
+    """Resize only approved event-card runs inside each named status list."""
+    for group_name in ("economic_calendar", "earnings_calendar"):
+        spec = binding.get("groups", {}).get(group_name)
+        data = snapshot.get(group_name)
+        if spec is None or data is None:
+            continue
+        if not isinstance(data, dict) or not isinstance(data.get("panels"), dict):
+            raise ValueError(f"{group_name}: panels object required for dynamic lists")
+        for panel_key, panel_spec in spec.get("panels", {}).items():
+            panel_data = data["panels"].get(panel_key)
+            if panel_data is None:
+                continue
+            lists_data = panel_data.get("lists") if isinstance(panel_data, dict) else None
+            if not isinstance(lists_data, list):
+                continue
+            parser = SourceTreeParser(html)
+            parser.feed(html)
+            parser.close()
+            containers = select(parser.root, panel_spec["container"])
+            if len(containers) != 1:
+                raise ValueError(f"{group_name}.{panel_key}: panel container missing or duplicated")
+            list_nodes = select(containers[0], panel_spec["list_selector"])
+            if len(list_nodes) != len(lists_data):
+                raise ValueError(f"{group_name}.{panel_key}: list count mismatch; template={len(list_nodes)}, snapshot={len(lists_data)}")
+            item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
+            for list_index, list_data in enumerate(lists_data):
+                if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
+                    raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: invalid list payload")
+                parser = SourceTreeParser(html)
+                parser.feed(html)
+                parser.close()
+                containers = select(parser.root, panel_spec["container"])
+                list_nodes = select(containers[0], panel_spec["list_selector"])
+                cards = select(list_nodes[list_index], item_selector)
+                if len(cards) != len(list_data["items"]):
+                    html = replace_sibling_sequence(html, parser, cards, len(list_data["items"]),
+                                                    f"{group_name}.{panel_key}.lists[{list_index}]")
+    return html
+
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict):
         raise ValueError("snapshot must be an object")
@@ -932,6 +989,8 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
     market_groups = snapshot.get("groups", snapshot)
     if not isinstance(market_groups, dict):
         raise ValueError("snapshot market groups must be an object")
+    # Calendar event cards may change count only inside mapped status-list containers.
+    html = resize_calendar_lists(html, binding, snapshot)
     # Resize only explicitly mapped news-card sibling runs, preserving panel
     # metadata and warning elements outside each card sequence.
     news_spec = binding.get("groups", {}).get("news")
