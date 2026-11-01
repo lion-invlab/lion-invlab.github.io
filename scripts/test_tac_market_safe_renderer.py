@@ -513,10 +513,15 @@ class SafeMarketRendererTests(unittest.TestCase):
                                 line_values.append(unescape("".join(x.text for x in spans_inside(spans[0],parser.spans))).strip())
                             status=one(sel["result_status"],card)
                             note=one(sel["result_note"],card)
-                            classes=card.classes.intersection({"beat","miss","pending"})
-                            self.assertEqual(len(classes),1)
+                            card_classes=card.classes.intersection({"beat","miss","pending"})
+                            status_nodes=select(card,sel["result_status"])
+                            self.assertEqual(len(card_classes),1)
+                            self.assertEqual(len(status_nodes),1)
+                            status_classes=status_nodes[0].classes.intersection({"beat","miss","pending"})
+                            self.assertEqual(len(status_classes),1)
                             item["results"].append({"title":title,"actual":line_values[0],"expected":line_values[1],
-                                                    "status_text":status,"status_class":next(iter(classes)),"note":note})
+                                                    "status_text":status,"card_class":next(iter(card_classes)),
+                                                    "status_class":next(iter(status_classes)),"note":note})
                         items.append(item)
                     panels[panel_key]={"items":items}
                 earnings_binding={"groups":{"earnings_calendar":spec}}
