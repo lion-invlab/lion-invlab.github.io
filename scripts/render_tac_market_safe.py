@@ -254,7 +254,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                 )
                 old_tokens = [c for c in ("up", "down", "flat", "warn") if c in change_node.classes]
                 new_direction = direction(change_text, binding.get("rules", {}))
-                if new_direction is not None:
+                if new_direction is not None and change_span.text != change_text:
                     if len(old_tokens) != 1:
                         raise ValueError(
                             f"{group_name}.{key}: expected exactly one existing status class token, found {old_tokens}"
