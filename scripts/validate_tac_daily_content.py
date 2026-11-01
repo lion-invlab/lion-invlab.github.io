@@ -75,8 +75,10 @@ def validate_report_rules(data: dict) -> list[str]:
                     if event["status"] != "released":
                         errors.append(f"{group_name}[{event['id']}]: previous-week events must be released")
         dates = [parse_dt(item["event_date"]) for item in events]
-        if dates != sorted(dates):
-            errors.append(f"{group_name} must be sorted by event_date ascending")
+        expected_dates = sorted(dates, reverse=group_name.startswith("previous_"))
+        if dates != expected_dates:
+            direction = "descending" if group_name.startswith("previous_") else "ascending"
+            errors.append(f"{group_name} must be sorted by event_date {direction}")
         ids: set[str] = set()
         for index, item in enumerate(events):
             label = f"{group_name}[{index}]"
@@ -84,8 +86,10 @@ def validate_report_rules(data: dict) -> list[str]:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
             if group_name in {"economic_calendar", "previous_economic_calendar"}:
-                if item["importance_stars"] not in {4, 5}:
-                    errors.append(f"{label}: only TAC 4/5-star economic events are permitted")
+                allowed_stars = {5} if group_name == "previous_economic_calendar" else {4, 5}
+                if item["importance_stars"] not in allowed_stars:
+                    rule = "TAC five-star only" if group_name == "previous_economic_calendar" else "TAC 4/5-star"
+                    errors.append(f"{label}: only {rule} economic events are permitted")
                 if item.get("importance_basis") != "major_event_assessment" or not item.get("importance_basis_source", "").strip():
                     errors.append(f"{label}: TAC rating requires an independent, traceable assessment")
             else:
@@ -96,9 +100,11 @@ def validate_report_rules(data: dict) -> list[str]:
                 if not basis_source:
                     errors.append(f"{label}: earnings importance basis requires a traceable source")
                 if basis == "major_event_assessment":
-                    if stars not in {4, 5} or rating_source is not None:
+                    allowed_stars = {5} if group_name == "previous_earnings_calendar" else {4, 5}
+                    if stars not in allowed_stars or rating_source is not None:
+                        rule = "TAC five-star only" if group_name == "previous_earnings_calendar" else "independent TAC 4/5-star"
                         errors.append(
-                            f"{label}: earnings require an independent TAC 4/5-star rating; provider ratings cannot be displayed"
+                            f"{label}: earnings require an {rule} rating; provider ratings cannot be displayed"
                         )
             if item["status"] == "released" and item.get("actual") is None and group_name in {"economic_calendar", "previous_economic_calendar"}:
                 errors.append(f"{label}: released economic event requires actual value")
@@ -249,6 +255,19 @@ def self_test(validator, schema):
     if not any("TAC 4/5-star" in e for e in validate_report_rules(bad)):
         raise AssertionError("earnings with a non-TAC star unexpectedly passed")
     print("PASS: earnings provider/native star cannot replace TAC assessment")
+
+    bad = json.loads(json.dumps(sample))
+    bad["previous_economic_calendar"] = [{
+        "id":"prior-four-star","event_date":"2026-10-30T20:00:00+08:00",
+        "region":"US","event_name":"Prior four-star","importance_stars":4,
+        "importance_basis":"major_event_assessment","importance_basis_source":"Synthetic source",
+        "previous":None,"forecast":None,"actual":None,"status":"released","impact_judgment":None,
+        "source":{"name":"Test","url":"https://example.com/prior","published_at":None,
+                  "observed_at":"2026-10-31T12:00:00+08:00"}
+    }]
+    if not any("TAC five-star only" in e for e in validate_report_rules(bad)):
+        raise AssertionError("four-star prior-week economic event unexpectedly passed")
+    print("PASS: prior-week calendar rejects four-star events")
 
 
 
