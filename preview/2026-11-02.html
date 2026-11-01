@@ -2056,31 +2056,44 @@ a.tac-market-link:focus-visible,a.global-index-link:focus-visible,a.tac-sector-l
 <p class="muted">基準交易日：美股 2026/10/30（週五）正式收盤｜報告日期：台灣時間 2026/11/02（一）｜採用週一核准母版 SHA：0ea4775c5d15899a1e0b0a97c78744d90b8fff22</p>
 </div>
 <div class="trial-card">
-<h2>本輪自動化採集結果</h2>
+<h2>本輪自動化採集結果｜Investing.com 香港站</h2>
 <div class="metrics">
 <div class="metric"><span class="muted">母版鎖定</span><b>通過</b><span class="tag">SHA 一致</span></div>
-<div class="metric"><span class="muted">行情資料</span><b>4 / 44</b><span class="muted">僅美股四大指數取得 AP 備援核對；優先來源尚未逐項驗收</span></div>
-<div class="metric"><span class="muted">本週行事曆</span><b>47</b><span class="muted">經濟 17＋財報 30；coverage incomplete</span></div>
-<div class="metric"><span class="muted">上週五星事件</span><b>16</b><span class="muted">經濟 8＋財報 8；W44 coverage incomplete</span></div>
+<div class="metric"><span class="muted">行情已核對</span><b>7 / 44</b><span class="muted">美股四大指數＋SOX／VIX／MOVE；其餘 37 項尚未完成</span></div>
+<div class="metric"><span class="muted">本週行事曆</span><b>47</b><span class="muted">經濟 17＋財報 30；W45 尚待逐日更新</span></div>
+<div class="metric"><span class="muted">上週五星事件</span><b>16</b><span class="muted">經濟 8＋財報 8；W44 必須完成歷史驗收</span></div>
 </div>
-<h3>美股 10/30 收盤｜目前有 AP 備援來源支持</h3>
-<div class="scroll"><table><thead><tr><th>指數</th><th>收盤</th><th>漲跌幅</th></tr></thead><tbody>
-<tr><td>道瓊工業指數</td><td>51,770.31</td><td style="color:#16834c">-1.09%</td></tr>
-<tr><td>S&amp;P 500</td><td>7,580.07</td><td style="color:#16834c">-1.82%</td></tr>
-<tr><td>Nasdaq Composite</td><td>25,437.00</td><td style="color:#16834c">-2.86%</td></tr>
-<tr><td>Russell 2000</td><td>2,811.84</td><td style="color:#16834c">-1.66%</td></tr>
+<h3>美股 10/30 正式收盤｜Investing.com 香港站歷史資料</h3>
+<div class="scroll"><table><thead><tr><th>指數</th><th>收盤</th><th>漲跌幅</th><th>來源</th></tr></thead><tbody>
+<tr><td>道瓊工業指數</td><td>51,770.31</td><td style="color:#16834c">-1.09%</td><td><a href="https://hk.investing.com/indices/us-30-historical-data" target="_blank" rel="noopener">Investing.com</a></td></tr>
+<tr><td>S&amp;P 500</td><td>7,580.07</td><td style="color:#16834c">-1.82%</td><td><a href="https://hk.investing.com/indices/us-spx-500-historical-data" target="_blank" rel="noopener">Investing.com</a></td></tr>
+<tr><td>Nasdaq Composite</td><td>25,437.00</td><td style="color:#16834c">-2.86%</td><td><a href="https://hk.investing.com/indices/nasdaq-composite-historical-data" target="_blank" rel="noopener">Investing.com</a></td></tr>
+<tr><td>Russell 2000</td><td>2,811.84</td><td style="color:#16834c">-1.66%</td><td><a href="https://hk.investing.com/indices/usa-indices" target="_blank" rel="noopener">美國指數總覽</a></td></tr>
+<tr><td>費城半導體 SOX</td><td>10,688.8</td><td style="color:#16834c">-7.20%</td><td><a href="https://hk.investing.com/indices/phlx-semiconductor-historical-data" target="_blank" rel="noopener">Investing.com</a></td></tr>
+<tr><td>VIX</td><td>19.42</td><td style="color:#b32636">+12.91%</td><td><a href="https://hk.investing.com/indices/volatility-s-p-500-historical-data" target="_blank" rel="noopener">Investing.com</a></td></tr>
+<tr><td>MOVE</td><td>100.20</td><td style="color:#b32636">+7.12%</td><td><a href="https://hk.investing.com/indices/ice-bofaml-move-historical-data" target="_blank" rel="noopener">Investing.com</a></td></tr>
 </tbody></table></div>
-<p class="muted">AP 指出週五科技股賣壓擴大，市場擔憂 AI 估值與企業資本支出；Intel 因財測不佳重挫近 29%，Amazon 財報亦加深市場對 AI 支出的疑慮。此處是備援交叉參考，尚未完成 WR 指定 Investing.com 等優先來源的逐項查核。來源：<a href="https://apnews.com/article/a01d3551e794fed1a0c317c20bc3f0a2" target="_blank" rel="noopener">Associated Press｜10/30 美股收盤</a>。</p>
+<p class="muted">以上均以歷史表格的 2026/10/30 列為基準；Russell 2000 取 Investing.com 美國指數總覽中的「美國小型股2000 derived」，不是 IWM ETF 價格。S&amp;P 500 搜尋結果另有 7,579.86 與 7,580.07 兩個相近報價序列；本試作採香港站 SPX 歷史頁 7,580.07，仍需在 44 項正式採集時固定頁面與序列口徑。SOX 歷史頁另出現 10/31 重複列、0.00% 的異常資料列；本試作採 10/30 明確列示的 -7.20%，並將異常列列入防呆，不可把 10/31 當作正常交易日。</p>
 </div>
 <div class="trial-card">
-<h2>市場主軸試寫（暫定，待完整行情覆核）</h2>
-<p>週五美股賣壓集中於科技與半導體，Nasdaq 跌幅明顯大於道瓊，反映市場開始重新衡量 AI 投資的獲利轉化與資本支出回收，而不只是單純的風險偏好降溫。Intel 財測引發的劇烈修正，與 Amazon 對 AI 支出的討論，令市場對科技巨頭投資效率更敏感。</p>
-<p>但目前缺少完整 44 項跨市場行情、11 大產業 ETF、債匯商品、VIX／MOVE／CNN 情緒指標及 FedWatch 快照，尚不能確認這是科技股單一風險重估，還是更廣泛的跨資產去風險。因此本段只作暫定假說，不作正式總結或操作結論。</p>
-<p class="muted">來源：<a href="https://apnews.com/article/a01d3551e794fed1a0c317c20bc3f0a2" target="_blank" rel="noopener">AP</a>；<a href="https://www.reuters.com/business/take-five/global-markets-themes-2026-10-30/" target="_blank" rel="noopener">Reuters｜11/2 全球市場主題</a>。</p>
+<h2>FedWatch｜Investing.com Fed Rate Monitor（製作當下頁面快照）</h2>
+<p>目標會議：<b>2026/12/09 FOMC</b>。頁面顯示最新更新時間為 <b>2026/10/31 00:35 EDT（台灣時間 10/31 12:35）</b>，期貨價格 95.995。</p>
+<div class="scroll"><table><thead><tr><th>目標利率區間</th><th>目前機率</th><th>前一日</th><th>前一週</th></tr></thead><tbody>
+<tr><td>3.75%–4.00%</td><td>30.2%</td><td>31.0%</td><td>24.9%</td></tr>
+<tr><td>4.00%–4.25%</td><td>69.8%</td><td>69.0%</td><td>67.6%</td></tr>
+<tr><td><b>機率合計</b></td><td><b>100.0%</b></td><td>100.0%</td><td>92.5%（另有 4.25%–4.50% 7.5%）</td></tr>
+</tbody></table></div>
+<p class="muted">來源：<a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">Investing.com Fed Rate Monitor</a>。此為頁面當下可見快照，必須保留更新時間；不得標成即時秒級報價，也不得以 CME 數值取代頁面顯示。</p>
+</div>
+<div class="trial-card">
+<h2>市場主軸試寫（以目前已核對的 Investing.com 指標為限）</h2>
+<p>10/30 美股收盤呈現科技與半導體明顯弱勢：Nasdaq 跌幅大於道瓊，SOX 單日跌幅更深；同時 VIX 與 MOVE 同步上升，顯示股票波動與債券波動均升高。這些訊號支持「科技成長股承壓、跨資產不確定性上升」的暫定觀察。</p>
+<p>但目前只核對 7/44 項，尚缺其餘全球股市、11 大產業 ETF、債券殖利率、匯率、商品及 CNN Fear &amp; Greed。尚不能確認風險是否已擴散至所有市場，也不能把暫定觀察寫成完整市場總結或投資結論。</p>
+<p class="muted">行情來源：<a href="https://hk.investing.com/indices/usa-indices" target="_blank" rel="noopener">Investing.com 美國指數總覽</a>、<a href="https://hk.investing.com/indices/phlx-semiconductor-historical-data" target="_blank" rel="noopener">SOX</a>、<a href="https://hk.investing.com/indices/volatility-s-p-500-historical-data" target="_blank" rel="noopener">VIX</a>、<a href="https://hk.investing.com/indices/ice-bofaml-move-historical-data" target="_blank" rel="noopener">MOVE</a>。</p>
 </div>
 <div class="trial-card">
 <h2>上週行事曆｜W44（僅五星）</h2>
-<p class="muted">資料庫 coverage：economic incomplete / earnings incomplete。只展示五星事件；上週區塊依 WR 3.10 不輸出四星。</p>
+<p class="muted">W44 是已結束的上週資料，不應長期維持 incomplete。現有 8 筆經濟事件均已填入實際值，8 筆財報亦已有 EPS／營收及股價反應；但資料庫 audit 仍指出未完成 Investing.com 香港站全週掃描與來源交叉核對。本試作將此列為必須補完的歷史資料驗收工作，未驗收前不擅自標 complete。上週區塊依 WR 3.10 只顯示五星事件。</p>
 <h3>經濟事件（8）</h3><div class="scroll"><table><thead><tr><th>台灣時間</th><th>地區</th><th>事件</th><th>TAC 評級</th><th>狀態</th></tr></thead><tbody><tr><td>2026-10-30 12:00</td><td>日本</td><td>日本央行（BOJ）利率決策及10月展望報告</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-29 20:30</td><td>美國</td><td>美國第三季 GDP 初值（年化季增率）</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-29 20:30</td><td>美國</td><td>美國個人所得與支出／PCE 物價指數（9月）</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-29 21:15</td><td>歐元區</td><td>歐洲央行 ECB 利率決策</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-29 02:00</td><td>美國</td><td>聯準會 FOMC 利率決策</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-28 21:45</td><td>加拿大</td><td>加拿大央行（BoC）利率決策</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-28 09:00</td><td>紐西蘭</td><td>紐西蘭央行（RBNZ）利率決策</td><td>★★★★★</td><td>released</td></tr><tr><td>2026-10-28 08:30</td><td>澳洲</td><td>澳洲9月消費者物價指數（CPI）</td><td>★★★★★</td><td>released</td></tr></tbody></table></div>
 <h3>已公布財報（8）</h3><div class="scroll"><table><thead><tr><th>台灣時間</th><th>公司</th><th>TAC 評級</th><th>狀態</th><th>EPS 實際／預期</th><th>營收實際／預期</th></tr></thead><tbody><tr><td>2026-10-30 15:00</td><td>AstraZeneca (AZN)</td><td>★★★★★</td><td>released</td><td>2.79 / 2.59</td><td>16.209 / 15.94</td></tr><tr><td>2026-10-30 05:00</td><td>亞馬遜 Amazon (AMZN)</td><td>★★★★★</td><td>released</td><td>1.89 / 1.96</td><td>201.9 / 202.1</td></tr><tr><td>2026-10-30 04:01</td><td>英特爾 Intel (INTC)</td><td>★★★★★</td><td>released</td><td>0.52 / 0.4</td><td>16.5 / 16.48</td></tr><tr><td>2026-10-29 20:01</td><td>Mastercard (MA)</td><td>★★★★★</td><td>released</td><td>5.31 / 5.14</td><td>9.81 / 9.63</td></tr><tr><td>2026-10-29 15:00</td><td>Shell (SHEL)</td><td>★★★★★</td><td>released</td><td>3.86 / 3.54</td><td>95.32 / 95.17</td></tr><tr><td>2026-10-29 05:30</td><td>微軟 Microsoft (MSFT)</td><td>★★★★★</td><td>released</td><td>4.89 / 4.72</td><td>92.279 / 90.61</td></tr><tr><td>2026-10-29 04:30</td><td>Alphabet（Google） (GOOGL)</td><td>★★★★★</td><td>released</td><td>2.67 / 3.02</td><td>127.577 / 128.2</td></tr><tr><td>2026-10-28 05:00</td><td>Visa (V)</td><td>★★★★★</td><td>released</td><td>3.48 / 3.44</td><td>12.14 / 12.09</td></tr></tbody></table></div>
 <p class="muted">財報詳細卡仍需逐張套用母版專用 EPS／營收雙實績卡及全寬詳細資訊；此工作台表格只用來檢視資料庫欄位，不取代正式財報卡。</p>
