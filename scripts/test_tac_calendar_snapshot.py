@@ -11,7 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from assemble_tac_calendar_snapshot import build_calendar_snapshot, currency_amount
 from render_tac_market_safe import (
-    SourceTreeParser, resize_calendar_lists,
+    SourceTreeParser, select, resize_calendar_lists,
     render_economic_calendar, render_earnings_calendar,
 )
 
