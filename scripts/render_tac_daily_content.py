@@ -144,13 +144,13 @@ def update_calendar_sources(soup, data):
         coverage=data["coverage"][coverage_key]
         complete=coverage["status"]=="complete"
         if complete and coverage_key=="economic_calendar":
-            note="來源覆蓋已完成；僅顯示 TAC 自主評定四星及五星經濟事件。"
+            note="來源覆蓋已完成；僅顯示 Investing.com 原生最高三星經濟事件。"
         elif complete:
-            note="來源覆蓋已完成；僅顯示 TAC 自主評定四星及五星財報事件。"
+            note="來源覆蓋已完成；財報重要性依 WR 與來源證據呈現。"
         elif coverage_key=="earnings_calendar":
-            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件；僅收錄 TAC 自主評定四星及五星財報事件，請勿視為完整日程。"
+            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件；財報重要性依已核實來源與 WR 判斷，請勿視為完整日程。"
         else:
-            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件；僅收錄 TAC 自主評定四星及五星經濟事件，請勿視為完整日程。"
+            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件；僅收錄 Investing.com 原生最高三星經濟事件，請勿視為完整日程。"
         put(title_meta,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間。")
         # The locked mothers keep a static guidance note and a separate
         # source-provenance note inside each calendar card. Update only the
@@ -226,7 +226,7 @@ def econ_card(proto,item,soup):
     card["class"]=[c for c in card.get("class",[]) if c not in {"five-star","four-star","three-star","two-star","one-star"}]
     rating=item["importance_stars"]
     if rating not in {4,5}: raise ValueError("economic event must have TAC 4- or 5-star rating")
-    card["class"].append("five-star" if rating==5 else "four-star")
+    card["class"].append("five-star" if rating==3 else "unrated")
     details=slot(card,".econ-details","econ details")
     fields=details.select(".econ-field")
     if len(fields)<4: raise ValueError("econ card prototype must have at least four detail fields")
@@ -439,13 +439,13 @@ def previous_week(soup,kind,records,coverage,report_day,prototype):
     if heading is None: raise ValueError(sid+" heading missing")
     list_cls="econ-event-list" if kind=="economic" else "earnings-accordion-list"
     if prototype is None: raise ValueError(sid+" card prototype missing")
-    # WR v3.7: prior-week panels are a strict five-star-only archive.
+    # WR v3.10: prior-week panels retain only provider-native three-star economic events; earnings retain documented source-native rating or explicitly unrated major-event assessment.
     # Filter in the renderer as a second guard; do not rely on JSON assembly.
     eligible=[item for item in records if int(item.get("importance_stars",0))==5]
     # Prior-week archive order is date-only; do not infer same-day sequence
     # from clock times, especially when an event's exact time is unverified.
     eligible.sort(key=lambda item: dt(item["event_date"]).date(), reverse=True)
-    group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜僅五星・依日期由新到舊"); group.append(heading)
+    group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜僅最高三星經濟事件・依日期由新到舊"); group.append(heading)
     if eligible:
         listing=soup.new_tag("div",attrs={"class":list_cls})
         for item in eligible:
