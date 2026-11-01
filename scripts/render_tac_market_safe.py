@@ -676,6 +676,32 @@ def render_news(html: str, parser: SourceTreeParser,
                 add_text(anchor, source["text"], f"{label}.sources[{source_index}].text")
 
 
+def update_optional_class(node: Node, allowed_tokens: set[str], desired_token: str | None,
+                         html: str, edits: list[tuple[int, int, str]],
+                         used: set[tuple[int, int]], label: str) -> None:
+    """Change only explicitly mapped optional status tokens in one class attribute."""
+    span = node.class_value_span
+    if span is None:
+        raise ValueError(f"{label}: class attribute source span missing")
+    if span in used:
+        raise ValueError(f"{label}: overlapping class attribute edit")
+    raw = html[span[0]:span[1]]
+    tokens = raw.split()
+    existing = [token for token in tokens if token in allowed_tokens]
+    if len(existing) > 1:
+        raise ValueError(f"{label}: multiple mapped status classes present")
+    if desired_token is not None and desired_token not in allowed_tokens:
+        raise ValueError(f"{label}: unsupported mapped status class")
+    kept = [token for token in tokens if token not in allowed_tokens]
+    if desired_token is not None:
+        kept.append(desired_token)
+    replacement = " ".join(kept)
+    if replacement == raw:
+        return
+    used.add(span)
+    edits.append((span[0], span[1], replacement))
+
+
 def add_link_list(node: Node, links: list[dict[str, str]], html: str,
                   edits: list[tuple[int, int, str]], used: set[tuple[int, int]],
                   label: str) -> None:
@@ -787,6 +813,12 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             existing_stars = normalize(unescape("".join(x.text for x in spans_inside(star_nodes[0],parser.spans))))
             if existing_stars != normalize(item["stars_text"]):
                 raise ValueError(f"{label}: star-scale change requires approved mother-template CSS/class migration")
+            star_count = item["stars_text"].count("★")
+            if star_count not in {4, 5}:
+                raise ValueError(f"{label}: only TAC four/five-star events are renderable")
+            update_optional_class(event_node, {"four-star", "five-star"},
+                                  "five-star" if star_count == 5 else "four-star",
+                                  html, edits, used, f"{label}.star_class")
             detail_nodes = select(event_node, selectors["details"])
             if len(detail_nodes) != 1:
                 raise ValueError(f"{label}: details container missing or duplicated")
@@ -921,6 +953,15 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             existing_stars=normalize(unescape("".join(x.text for x in spans_inside(star_nodes[0],parser.spans))))
             if existing_stars!=normalize(item["stars_text"]):
                 raise ValueError(f"{label}: star-scale change requires approved mother-template CSS/class migration")
+            star_count=item["stars_text"].count("★")
+            if star_count not in {4,5}:
+                raise ValueError(f"{label}: only TAC four/five-star earnings are renderable")
+            update_optional_class(item_node, {"five-star-earnings"},
+                                  "five-star-earnings" if star_count==5 else None,
+                                  html, edits, used, f"{label}.star_class")
+            update_optional_class(company_nodes[0], {"five-star-company"},
+                                  "five-star-company" if star_count==5 else None,
+                                  html, edits, used, f"{label}.company_star_class")
             details=select(item_node,selectors["details"])
             if len(details)!=1:
                 raise ValueError(f"{label}: details container missing or duplicated")
