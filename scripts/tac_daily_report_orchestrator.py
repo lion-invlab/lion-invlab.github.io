@@ -12,6 +12,7 @@ import hashlib
 import json
 import re
 import subprocess
+import shutil
 import sys
 from datetime import date, timedelta
 from pathlib import Path
@@ -28,6 +29,8 @@ MARKET_SNAPSHOT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_snapshot.py"
 MARKET_RENDERER = ROOT / "scripts" / "render_tac_market_snapshot.py"
 CONTENT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_content.py"
 FULL_PAGE_RENDERER = ROOT / "scripts" / "render_tac_full_report.py"
+LAYOUT_VALIDATOR = ROOT / "scripts" / "validate_tac_layout_contract.py"
+BROWSER_QA = ROOT / "scripts" / "tac_browser_layout_regression.mjs"
 MODE_BY_WEEKDAY = {0: "monday", 1: "weekday", 2: "weekday", 3: "weekday", 4: "weekday"}
 
 
@@ -72,8 +75,8 @@ def verify_master(report_date: date) -> tuple[str, Path, str]:
     return mode, template, actual_sha
 
 
-def run(command: list[str]) -> None:
-    subprocess.run(command, cwd=ROOT, check=True)
+def run(command: list[str]) -> subprocess.CompletedProcess:
+    return subprocess.run(command, cwd=ROOT, check=True, text=True, capture_output=True)
 
 
 def calendar_trial(report_date: date, output_dir: Path) -> dict:
@@ -137,6 +140,49 @@ def calendar_trial(report_date: date, output_dir: Path) -> dict:
     }
 
 
+
+def calendar_snapshot_trial(report_date: date, output_dir: Path,
+                            current_file: str | None = None,
+                            previous_file: str | None = None) -> dict:
+    """Read the canonical weekly DB and create the report-date calendar snapshot."""
+    week_id = iso_week_id(report_date)
+    previous_week_id = previous_iso_week_id(report_date)
+    week_file = Path(current_file) if current_file else ROOT / "data" / "calendar" / "weeks" / f"{week_id}.json"
+    previous_path = Path(previous_file) if previous_file else ROOT / "data" / "calendar" / "weeks" / f"{previous_week_id}.json"
+    if not week_file.is_file():
+        raise ValueError(f"當週正式行事曆資料庫不存在：{week_file}")
+    if report_date.weekday() == 0 and not previous_path.is_file():
+        raise ValueError(f"週一必要的上週封存資料庫不存在：{previous_path}")
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    snapshot = output_dir / f"{report_date.isoformat()}-calendar-snapshot.json"
+    quality = output_dir / f"{report_date.isoformat()}-calendar-quality.json"
+    command = [
+        sys.executable, str(DB_SCRIPT), "snapshot",
+        "--file", str(week_file),
+        "--report-date", report_date.isoformat(),
+        "--output", str(snapshot),
+    ]
+    if report_date.weekday() == 0:
+        command.extend(["--previous-week-file", str(previous_path)])
+    run(command)
+    run([
+        sys.executable, str(DB_SCRIPT), "quality-report",
+        "--file", str(week_file),
+        "--output", str(quality),
+    ])
+    return {
+        "week_id": week_id,
+        "previous_week_id": previous_week_id if report_date.weekday() == 0 else None,
+        "database_path": str(week_file.relative_to(ROOT)),
+        "previous_database_path": str(previous_path.relative_to(ROOT)) if report_date.weekday() == 0 else None,
+        "calendar_snapshot": str(snapshot),
+        "calendar_quality_report": str(quality),
+        "snapshot_created": snapshot.is_file(),
+        "quality_report_created": quality.is_file(),
+    }
+
+
 def full_mode_blockers(args: argparse.Namespace) -> list[str]:
     blockers = []
     for label, value in (
@@ -164,6 +210,8 @@ def main() -> int:
     parser.add_argument("--market-snapshot")
     parser.add_argument("--web-observations", help="ChatGPT direct webpage-read observation JSON")
     parser.add_argument("--content-json", help="Validated editorial content v2 JSON")
+    parser.add_argument("--calendar-week-file", help="Override current ISO-week database file")
+    parser.add_argument("--previous-week-file", help="Override previous ISO-week database file (Monday only)")
     args = parser.parse_args()
 
     report_date = date.fromisoformat(args.report_date)
@@ -191,6 +239,14 @@ def main() -> int:
     if args.mode == "full":
         if args.market_snapshot and args.web_observations:
             raise ValueError("請只提供 --market-snapshot 或 --web-observations，不可同時提供")
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        # The canonical weekly DB is now part of the same full-report run.
+        calendar_result = calendar_snapshot_trial(
+            report_date, output_dir, args.calendar_week_file, args.previous_week_file
+        )
+        result["calendar"] = calendar_result
+
         if args.web_observations:
             observation_path = Path(args.web_observations)
             if not observation_path.is_file():
@@ -201,12 +257,10 @@ def main() -> int:
                 "--input", str(observation_path),
                 "--output", str(market_path),
                 "--expected-report-date", report_date.isoformat(),
-                "--require-complete",
             ])
             run([
                 sys.executable, str(MARKET_SNAPSHOT_VALIDATOR),
                 "--file", str(market_path),
-                "--require-complete",
             ])
             args.market_snapshot = str(market_path)
         elif args.market_snapshot:
@@ -216,8 +270,8 @@ def main() -> int:
             run([
                 sys.executable, str(MARKET_SNAPSHOT_VALIDATOR),
                 "--file", str(market_path),
-                "--require-complete",
             ])
+
         market_preview = None
         if args.market_snapshot:
             market_preview_path = output_dir / (report_date.isoformat() + "-market-only-review.html")
@@ -229,40 +283,115 @@ def main() -> int:
                 "--mode", mode,
             ])
             market_preview = str(market_preview_path)
-        blockers = full_mode_blockers(args)
         result["market_only_preview"] = market_preview
-        output_dir.mkdir(parents=True, exist_ok=True)
-        if not blockers and args.market_snapshot and args.content_json:
+
+        # Calendar DB events replace only the four calendar arrays in the
+        # editorial package. News and analysis remain sourced editorial input.
+        if args.content_json and Path(args.content_json).is_file():
             content_path = Path(args.content_json)
             content_data = json.loads(content_path.read_text(encoding="utf-8"))
             if content_data.get("meta", {}).get("report_date") != report_date.isoformat():
                 raise ValueError("content report_date mismatch")
-            if content_data.get("meta", {}).get("trading_date") != json.loads(Path(args.market_snapshot).read_text(encoding="utf-8"))["meta"]["trading_date"]:
-                raise ValueError("content and market snapshot trading_date mismatch")
+            if args.market_snapshot:
+                market_data = json.loads(Path(args.market_snapshot).read_text(encoding="utf-8"))
+                if content_data.get("meta", {}).get("trading_date") != market_data.get("meta", {}).get("trading_date"):
+                    raise ValueError("content and market snapshot trading_date mismatch")
+            merged_content = output_dir / f"{report_date.isoformat()}-content-with-calendar.json"
+            run([
+                sys.executable, str(DB_SCRIPT), "apply-snapshot",
+                "--content", str(content_path),
+                "--snapshot", calendar_result["calendar_snapshot"],
+                "--output", str(merged_content),
+            ])
+            args.content_json = str(merged_content)
+
+        blockers = full_mode_blockers(args)
+        if not blockers and args.market_snapshot and args.content_json:
+            content_path = Path(args.content_json)
             run([
                 sys.executable, str(CONTENT_VALIDATOR),
                 "--file", str(content_path),
             ])
-            full_preview = output_dir / f"{report_date.isoformat()}-review.html"
-            run([
+            staged_preview = output_dir / f"{report_date.isoformat()}-review-staged.html"
+            render_run = run([
                 sys.executable, str(FULL_PAGE_RENDERER),
                 "--snapshot", str(args.market_snapshot),
                 "--content", str(content_path),
-                "--output", str(full_preview),
+                "--output", str(staged_preview),
             ])
-            result["full_page_preview"] = str(full_preview)
-            result["status"] = "rendered_but_dom_gate_pending"
-            result["blockers"] = [
-                "全頁 Renderer 尚未通過核准母版 DOM 結構相容驗收；本次輸出僅供程式整合檢視，不可視為正式審核版。"
-            ]
+            if not staged_preview.is_file():
+                raise ValueError("Full Report Renderer did not create its HTML output")
+
+            # Gate 2: compare the rendered DOM/layout contract with the exact
+            # SHA-verified mother selected for this report date.
+            run([
+                sys.executable, str(LAYOUT_VALIDATOR),
+                "--master", str(template),
+                "--report", str(staged_preview),
+            ])
+
+            # Gate 3 and Gate 4: real Chromium viewports, screenshots,
+            # geometry, overflow, tabs and disclosure interaction checks.
+            if not BROWSER_QA.is_file():
+                raise ValueError("Browser QA script missing; visual/interaction gates cannot run")
+            run([
+                "node", str(BROWSER_QA),
+                "--report", str(staged_preview),
+                "--output", str(output_dir / "layout-regression"),
+            ])
+
+            # Gate 1 has passed schema/rule validation for market and editorial
+            # data. Pending values remain explicitly visible; they are not
+            # silently converted into verified observations.
+            market_data = json.loads(Path(args.market_snapshot).read_text(encoding="utf-8"))
+            pending_market = sum(
+                row.get("status") not in {"verified", "market_closed"}
+                for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators")
+                for row in market_data.get(group, {}).values()
+            )
+            calendar_data = json.loads(Path(calendar_result["calendar_snapshot"]).read_text(encoding="utf-8"))
+            pending_calendar = sum(
+                item.get("status") == "pending_verification"
+                for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar")
+                for item in calendar_data.get(group, [])
+            )
+            final_preview = ROOT / "preview" / f"{report_date.isoformat()}.html"
+            final_preview.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(staged_preview, final_preview)
+
+            result["full_page_preview"] = str(final_preview.relative_to(ROOT))
+            result["staged_preview"] = str(staged_preview)
+            result["gates"] = {
+                "data_quality": "PASS",
+                "html_structure": "PASS",
+                "visual_regression": "PASS",
+                "interaction": "PASS",
+            }
+            result["pending_items"] = {
+                "market_records": pending_market,
+                "calendar_events": pending_calendar,
+            }
+            result["status"] = (
+                "ready_for_human_review_with_pending_items"
+                if pending_market or pending_calendar
+                else "ready_for_human_review"
+            )
+            result["publish_allowed"] = False
+            result["blockers"] = []
+            result["preview_written_only_after_all_gates"] = True
+            report = output_dir / f"{report_date.isoformat()}-orchestrator-status.json"
+            report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 0
         else:
             result["status"] = "blocked"
             result["blockers"] = blockers
-        result["publish_allowed"] = False
-        report = output_dir / f"{report_date.isoformat()}-orchestrator-status.json"
-        report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-        return 2
+            result["publish_allowed"] = False
+            report = output_dir / f"{report_date.isoformat()}-orchestrator-status.json"
+            report.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 2
+
 
     result["calendar"] = calendar_trial(report_date, output_dir)
     result["status"] = "calendar_trial_passed_full_report_not_ready"
