@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-06",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-01T14:20:11+08:00",
+  "updated_at": "2026-11-01T14:20:39+08:00",
   "source_report_date": "2026-11-02",
   "wr_version": "3.7",
   "status": "prototype",
@@ -1090,9 +1090,14 @@
           "publisher": "Ahold Delhaize Investor Relations",
           "notes": "官方確認11/04 07:30 CET公布Q3結果、10:00 CET舉行電話會議；換算台灣時間17:00。"
         },
-        "consensus_source": null,
-        "eps_basis": null,
-        "eps_estimate": null,
+        "consensus_source": {
+          "name": "TipRanks｜Ahold Delhaize Q3 2026 earnings",
+          "url": "https://www.tipranks.com/stocks/de%3Aahod/earnings",
+          "publisher": "TipRanks",
+          "notes": "2026 Q3 EPS forecast EUR 0.67；會計 basis 未披露。營收預期不同資料供應商數值不一致，故不填 revenue_estimate。"
+        },
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 0.67,
         "eps_actual": null,
         "revenue_estimate": null,
         "revenue_actual": null,
@@ -2404,10 +2409,11 @@
         "https://www.marketbeat.com/earnings/reports/2026-11-5-commerzbank-ag-stock/",
         "https://www.marketbeat.com/earnings/reports/2026-11-5-arcelormittal-stock/",
         "https://www.chartmill.com/stock/quote/SHL.DE/estimates",
-        "https://www.marketbeat.com/earnings/reports/2026-11-04-doordash-inc-stock/"
+        "https://www.marketbeat.com/earnings/reports/2026-11-04-doordash-inc-stock/",
+        "https://www.tipranks.com/stocks/de%3Aahod/earnings"
       ],
-      "checked_at": "2026-11-01T14:20:11+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。"
+      "checked_at": "2026-11-01T14:20:39+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。"
     }
   },
   "audit": [
@@ -7700,6 +7706,101 @@
       },
       "source": "https://www.marketbeat.com/earnings/reports/2026-11-04-doordash-inc-stock/",
       "note": "依公司IR或指定市場資料來源補入 EPS／營收共識；不同幣別與會計 basis 分開標記。"
+    },
+    {
+      "at": "2026-11-01T14:20:39+08:00",
+      "action": "event_updated",
+      "event_id": "current-ahold-20261104",
+      "changed_fields": [
+        "consensus_source",
+        "eps_basis",
+        "eps_estimate"
+      ],
+      "before": {
+        "id": "current-ahold-20261104",
+        "company": "Ahold Delhaize",
+        "ticker": "AD",
+        "event_date": "2026-11-04T17:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國與歐洲大型食品零售集團，財報可反映跨區域食品消費、零售價格、家庭支出及消費必需品景氣。",
+        "industry": "食品零售／消費必需品",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "EUR",
+        "revenue_currency": "EUR",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Ahold Delhaize｜Q3 2026 Results Announcement",
+          "url": "https://newsroom.aholddelhaize.com/ahold-delhaize-will-publish-its-third-quarter-2026-results-on-november-4-2026/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Ahold Delhaize Investor Relations",
+          "notes": "官方確認11/04 07:30 CET公布Q3結果、10:00 CET舉行電話會議；換算台灣時間17:00。"
+        },
+        "consensus_source": null,
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "after": {
+        "id": "current-ahold-20261104",
+        "company": "Ahold Delhaize",
+        "ticker": "AD",
+        "event_date": "2026-11-04T17:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國與歐洲大型食品零售集團，財報可反映跨區域食品消費、零售價格、家庭支出及消費必需品景氣。",
+        "industry": "食品零售／消費必需品",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_currency": "EUR",
+        "revenue_currency": "EUR",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Ahold Delhaize｜Q3 2026 Results Announcement",
+          "url": "https://newsroom.aholddelhaize.com/ahold-delhaize-will-publish-its-third-quarter-2026-results-on-november-4-2026/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Ahold Delhaize Investor Relations",
+          "notes": "官方確認11/04 07:30 CET公布Q3結果、10:00 CET舉行電話會議；換算台灣時間17:00。"
+        },
+        "consensus_source": {
+          "name": "TipRanks｜Ahold Delhaize Q3 2026 earnings",
+          "url": "https://www.tipranks.com/stocks/de%3Aahod/earnings",
+          "publisher": "TipRanks",
+          "notes": "2026 Q3 EPS forecast EUR 0.67；會計 basis 未披露。營收預期不同資料供應商數值不一致，故不填 revenue_estimate。"
+        },
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 0.67,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_rating_source": null,
+        "status": "upcoming"
+      },
+      "source": "https://www.tipranks.com/stocks/de%3Aahod/earnings",
+      "note": "補入 TipRanks Q3 EPS forecast；營收因多來源預期不一致仍待核實。"
     }
   ]
 }
