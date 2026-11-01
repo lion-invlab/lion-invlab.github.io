@@ -2315,7 +2315,7 @@
     },
     {
       "id": "prev-ecb-rate-20261029",
-      "event_date": "2026-10-29T20:15:00+08:00",
+      "event_date": "2026-10-29T21:15:00+08:00",
       "region": "歐元區",
       "event_name": "歐洲央行 ECB 利率決策",
       "importance_stars": 5,
@@ -2330,10 +2330,11 @@
         "published_at": "2026-10-29T14:15:00+02:00",
         "observed_at": "2026-11-01T12:17:52+08:00",
         "publisher": "ECB",
-        "notes": "決策於10/29公布；記者會14:45 CET。"
+        "notes": "ECB官方公布政策決策的標準時間為14:15 CET；2026-10-29德國採CET（UTC+1），換算台灣時間21:15（UTC+8）。14:45 CET為記者會開始時間，不應誤當決策發布時間。"
       },
       "importance_basis": "major_event_assessment",
-      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。"
+      "importance_basis_source": "TAC獨立評估：主要央行政策決策或全球核心宏觀指標，對主要市場利率路徑及跨資產定價具最高層級影響。",
+      "time_known": true
     },
     {
       "id": "prev-fomc-rate-20261028",
@@ -2424,10 +2425,10 @@
       "time_known": true,
       "source": {
         "name": "Australian Bureau of Statistics",
-        "url": "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
+        "url": "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/latest-release",
         "published_at": "2026-10-28T11:30:00+11:00",
         "observed_at": "2026-11-01T13:56:34+09:00",
-        "notes": "ABS官方公布：年增CPI 4.3%、trimmed mean 3.6%、第三季CPI季增1.3%、季度trimmed mean季增1.0%。"
+        "notes": "ABS官方公布時間11:30 AEDT；2026-10-28澳洲採AEDT（UTC+11），換算台灣時間08:30（UTC+8）。9月CPI年增4.3%、trimmed mean年增3.6%；月增CPI 0.8%（未季調）及0.6%（季調）。"
       },
       "consensus_source": {
         "name": "FXStreet／市場共識",
@@ -3177,7 +3178,9 @@
         "https://www.bls.gov/news.release/eci.nr0.htm",
         "https://www.bls.gov/schedule/news_release/eci.htm",
         "https://www.investing.com/economic-calendar/pil-375",
-        "https://www.investing.com/economic-calendar/pce-price-index-904"
+        "https://www.investing.com/economic-calendar/pce-price-index-904",
+        "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+        "https://www.ecb.europa.eu/press/govcdec/html/index.en.html"
       ],
       "checked_at": "2026-11-01T14:14:08+09:00",
       "notes": "依 WR v3.7，上週區塊只保留TAC五星。已核實納入8項五星（GDP市場預估已更正為Investing.com香港站3.2%，並補上GDP及PCE共識來源）：BoC、RBNZ、澳洲CPI、FOMC、ECB、US GDP、US PCE、BoJ。另完成候選掃描：歐元區Q3 GDP（0.4% q/q，高於0.2%共識）、東京CPI（headline 2.8%，但核心指標較上月放緩）、美國Q3 ECI（0.8%，符合0.8%共識）；目前未達TAC五星門檻，因此不列入上週五星區。尚待完整核對Investing.com香港站全週擷取結果及各國主要官方行事曆，coverage 維持 incomplete。"
