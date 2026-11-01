@@ -248,6 +248,18 @@ jobs:
             --fallback "/tmp/tac-fedwatch-fallback.json" \
             --output "/tmp/tac-fedwatch-selected.json" || echo "PENDING: no FedWatch source passed validation"
 
+      - name: Test conservative FedWatch snapshot adapter
+        run: python scripts/build_tac_fedwatch_snapshot_fragment.py --self-test
+
+      - name: Convert selected FedWatch source into snapshot fragment
+        if: always()
+        continue-on-error: true
+        run: |
+          python scripts/build_tac_fedwatch_snapshot_fragment.py \
+            --selected "/tmp/tac-fedwatch-selected.json" \
+            --report-date "2026-11-02" \
+            --output "/tmp/tac-fedwatch-fragment-2026-11-02.json" || echo "PENDING: FedWatch source did not satisfy the locked two-outcome mother contract"
+
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
         continue-on-error: true
         run: |
@@ -347,6 +359,7 @@ jobs:
             --fragment "/tmp/tac-global-indices-2026-10-30.json" \
             --fragment "/tmp/tac-treasury-yields-2026-10-30.json" \
             --fragment "/tmp/tac-auxiliary-markets-2026-10-30.json" \
+            --fragment "/tmp/tac-fedwatch-fragment-2026-11-02.json" \
             --output "/tmp/tac-daily-snapshot-2026-11-02.json"
 
       - name: Assemble 2026-11-02 editorial content; unavailable calendar groups remain explicitly pending
@@ -419,6 +432,9 @@ jobs:
             /tmp/tac-cme-fedwatch-iframe.html
             /tmp/tac-cme-fedwatch-iframe.txt
             /tmp/tac-cme-fedwatch-capture.json
+            /tmp/tac-fedwatch-fallback.json
+            /tmp/tac-fedwatch-selected.json
+            /tmp/tac-fedwatch-fragment-2026-11-02.json
             /tmp/tac-economic-calendar-previous-2026-10-26.json
             /tmp/tac-economic-calendar-current-2026-11-02.json
             /tmp/tac-economic-calendar-previous-fragment-2026-10-26.json
