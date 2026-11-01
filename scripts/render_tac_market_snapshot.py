@@ -151,10 +151,11 @@ def replace_inner(source, node, value, status=None):
             raw_open = raw_open[:-1] + " " + class_attr + ">"
     return source[:node.start] + raw_open + escape(str(value), quote=False) + source[node.close_start:]
 
-def format_number(value, decimals=2):
+def format_number(value, decimals=2, unit=None):
     if value is None:
         return "待核實"
-    return f"{value:,.{decimals}f}"
+    suffix = "%" if unit == "%" else ""
+    return f"{value:,.{decimals}f}{suffix}"
 
 
 def format_change(value, unit, decimals=2):
@@ -196,7 +197,7 @@ def update_row(source, nodes, selector, label, row_data, decimals=2, has_change=
     expected = 2 if has_change else 1
     if len(value_nodes) < expected:
         raise ValueError(f"{label}: expected at least {expected} span.r slots, found {len(value_nodes)}")
-    source = replace_inner(source, value_nodes[0], format_number(row_data["value"], decimals))
+    source = replace_inner(source, value_nodes[0], format_number(row_data["value"], decimals, row_data.get("unit")))
     if has_change:
         source = replace_inner(source, value_nodes[1],
             format_change(row_data["change"], row_data["change_unit"], 2), status_class(row_data))
