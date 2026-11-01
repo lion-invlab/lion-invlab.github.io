@@ -76,6 +76,9 @@ def self_test():
     now=datetime(2026,11,1,1,tzinfo=timezone.utc)
     x=convert(d,"2026-11-02",now)["fedwatch"]
     assert x["status"]=="verified" and x["updated_at"]=="2026-10-31T04:35:00+00:00"
+    duplicate=json.loads(json.dumps(d)); duplicate["meetings"][0]["probabilities"].extend([
+        {"target_rate":"3.75-4.00","probability":90},{"target_rate":"4.00-4.25","probability":10}])
+    assert convert(duplicate,"2026-11-02",now)["fedwatch"]["status"]=="verified"
     extra=json.loads(json.dumps(d)); extra["meetings"][0]["probabilities"].append({"target_rate":"4.25-4.50","probability":0})
     assert convert(extra,"2026-11-02",now)["fedwatch"]["status"]=="pending_verification"
     stale=json.loads(json.dumps(d)); stale["source_updated_at"]=["Oct 27, 2026 12:35AM EDT"]
