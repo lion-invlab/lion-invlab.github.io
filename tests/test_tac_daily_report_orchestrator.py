@@ -5,8 +5,8 @@ import unittest
 from datetime import date
 from pathlib import Path
 from types import SimpleNamespace
-
 import sys
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 import tac_daily_report_orchestrator as orchestrator
 
@@ -16,11 +16,8 @@ class DailyReportOrchestratorTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "sample.txt"
             path.write_bytes(b"TAC")
-            self.assertEqual(
-                orchestrator.git_blob_sha(path),
-                "f3c9a9c3e9c2e8b5e7f2a9b8a6e2c8c6c9a0b1c2" if False else
-                orchestrator.hashlib.sha1(b"blob 3\\0TAC").hexdigest(),
-            )
+            expected = orchestrator.hashlib.sha1(b"blob 3" + bytes([0]) + b"TAC").hexdigest()
+            self.assertEqual(orchestrator.git_blob_sha(path), expected)
 
     def test_report_week_and_previous_week(self):
         self.assertEqual(orchestrator.iso_week_id(date(2026, 11, 2)), "2026-W45")
