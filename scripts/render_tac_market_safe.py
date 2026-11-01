@@ -54,7 +54,7 @@ class SourceTreeParser(HTMLParser):
         self.stack = [self.root]
         self.spans: list[TextSpan] = []
 
-    def offset(self) -> int:
+    def source_offset(self) -> int:
         line, col = self.getpos()
         return self.offsets[line - 1] + col
 
@@ -77,7 +77,7 @@ class SourceTreeParser(HTMLParser):
     def handle_data(self, data):
         if not data:
             return
-        start = self.offset()
+        start = self.source_offset()
         end = start + len(data)
         if self.source[start:end] != data:
             raise ValueError("source offset mismatch; refusing to render")
