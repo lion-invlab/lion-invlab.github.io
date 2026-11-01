@@ -7,6 +7,7 @@ on:
       - "2026-*.html"
       - "review/2026-*-review.html"
       - "preview/2026-*.html"
+      - "data/inbox/tac-daily/**"
       - "demo-2026-10-26.html"
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
@@ -49,13 +50,19 @@ on:
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   workflow_dispatch:
+    inputs:
+      report_date:
+        description: "Taipei report date YYYY-MM-DD (required for manual runs)"
+        required: true
+        type: string
 
 permissions:
-  contents: read
+  contents: write
   issues: write
 
 jobs:
   structural-gate:
+    if: ${{ !(github.event_name == 'push' && contains(github.event.head_commit.message, '[tac-pipeline-preview]')) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -73,6 +80,12 @@ jobs:
 
       - name: Test TAC market snapshot schema
         run: python scripts/validate_tac_daily_snapshot.py --self-test
+
+      - name: Test TAC editorial and direct-observation contracts
+        run: |
+          python scripts/validate_tac_daily_content.py --self-test
+          python scripts/validate_tac_investing_com_observations.py --self-test
+          python -m unittest discover -s tests -p "test_tac_*.py"
 
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
@@ -134,7 +147,7 @@ jobs:
 
       - name: Install Playwright Chromium
         run: |
-          npm install --no-save playwright
+          npm install --no-save playwright pixelmatch pngjs
           npx playwright install --with-deps chromium
 
       - name: Run desktop and mobile layout regression
@@ -197,3 +210,140 @@ jobs:
               });
               core.info(`Created failure issue #${created.data.number}`);
             }
+  daily-report-pipeline:
+    if: ${{ github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[tac-daily-input]')) }}
+    needs: structural-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install TAC pipeline dependencies
+        run: python -m pip install jsonschema requests beautifulsoup4
+
+      - name: Set up Node.js and Chromium
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright and screenshot comparison dependencies
+        run: |
+          npm install --no-save playwright pixelmatch pngjs
+          npx playwright install --with-deps chromium
+
+      - name: Resolve report date and input contract
+        id: input
+        shell: bash
+        env:
+          MANUAL_REPORT_DATE: ${{ inputs.report_date }}
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            report_date="$MANUAL_REPORT_DATE"
+          else
+            mapfile -t report_dates < <(
+              git diff-tree --no-commit-id --name-only -r HEAD |
+              sed -n 's#^data/inbox/tac-daily/\([0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}\)/.*#\1#p' |
+              sort -u
+            )
+            if [ "${#report_dates[@]}" -ne 1 ]; then
+              echo "::error::A single report-date input directory is required per commit."
+              exit 1
+            fi
+            report_date="${report_dates[0]}"
+          fi
+          if ! [[ "$report_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+            echo "::error::Invalid report_date: $report_date"
+            exit 1
+          fi
+          input_dir="data/inbox/tac-daily/$report_date"
+          if [ ! -f "$input_dir/content.json" ]; then
+            echo "::error::Missing $input_dir/content.json"
+            exit 1
+          fi
+          if [ -f "$input_dir/web-observations.json" ]; then
+            market_mode="web"
+          elif [ -f "$input_dir/market-snapshot.json" ]; then
+            market_mode="snapshot"
+          else
+            echo "::error::Provide web-observations.json or market-snapshot.json"
+            exit 1
+          fi
+          echo "report_date=$report_date" >> "$GITHUB_OUTPUT"
+          echo "input_dir=$input_dir" >> "$GITHUB_OUTPUT"
+          echo "market_mode=$market_mode" >> "$GITHUB_OUTPUT"
+
+      - name: Run the single TAC daily report orchestrator
+        env:
+          REPORT_DATE: ${{ steps.input.outputs.report_date }}
+          INPUT_DIR: ${{ steps.input.outputs.input_dir }}
+          MARKET_MODE: ${{ steps.input.outputs.market_mode }}
+        run: |
+          set -euo pipefail
+          args=(
+            --report-date "$REPORT_DATE"
+            --mode full
+            --content-json "$INPUT_DIR/content.json"
+            --output-dir "artifacts/tac-daily/$REPORT_DATE"
+          )
+          if [ "$MARKET_MODE" = "web" ]; then
+            args+=(--web-observations "$INPUT_DIR/web-observations.json")
+          else
+            args+=(--market-snapshot "$INPUT_DIR/market-snapshot.json")
+          fi
+          python scripts/tac_daily_report_orchestrator.py "${args[@]}"
+
+      - name: Enforce four-gate status and human-approval boundary
+        env:
+          REPORT_DATE: ${{ steps.input.outputs.report_date }}
+        run: |
+          python - <<'PY'
+          import json, os
+          path = f"artifacts/tac-daily/{os.environ['REPORT_DATE']}/{os.environ['REPORT_DATE']}-orchestrator-status.json"
+          with open(path, encoding="utf-8") as f:
+              result = json.load(f)
+          required = {"data_quality", "html_structure", "visual_regression", "interaction"}
+          gates = result.get("gates", {})
+          if set(gates) != required or any(value != "PASS" for value in gates.values()):
+              raise SystemExit(f"Four-gate contract failed: {gates}")
+          if result.get("publish_allowed") is not False:
+              raise SystemExit("Publish gate must remain closed before human approval")
+          if result.get("status") not in {"ready_for_human_review", "ready_for_human_review_with_pending_items"}:
+              raise SystemExit(f"Report is not ready for human review: {result.get('status')}")
+          print(json.dumps({"status": result["status"], "preview": result.get("full_page_preview"), "gates": gates, "pending_items": result.get("pending_items"), "publish_allowed": result["publish_allowed"]}, ensure_ascii=False, indent=2))
+          PY
+
+      - name: Upload full report and QA artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-daily-report-${{ steps.input.outputs.report_date }}
+          path: |
+            artifacts/tac-daily/
+            preview/${{ steps.input.outputs.report_date }}.html
+          if-no-files-found: warn
+
+      - name: Commit four-gate preview only (never publish homepage)
+        if: success() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        env:
+          REPORT_DATE: ${{ steps.input.outputs.report_date }}
+        run: |
+          set -euo pipefail
+          preview="preview/$REPORT_DATE.html"
+          test -s "$preview"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$preview"
+          if git diff --cached --quiet; then
+            echo "Preview content is unchanged; no commit required."
+          else
+            git commit -m "[tac-pipeline-preview] $REPORT_DATE four-gate review preview"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
