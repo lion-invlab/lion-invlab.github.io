@@ -1745,7 +1745,7 @@
       "revenue_estimate": 127.69,
       "revenue_actual": 127.6,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤下跌 12.64%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
@@ -1756,7 +1756,7 @@
       },
       "industry": "網路平台／雲端／AI",
       "reporting_period": "2026 Q3",
-      "time_known": true,
+      "time_known": false,
       "eps_basis": "GAAP diluted EPS",
       "eps_currency": "USD",
       "revenue_currency": "USD",
@@ -1773,17 +1773,10 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 3.02；營收共識 US$127.69B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "GOOGL：首個常規交易日收盤 -12.64%；2026-10-29。"
-      },
-      "eps_note": "GAAP diluted EPS US$2.12 vs consensus US$3.02，低於預期。",
-      "revenue_note": "營收 US$127.60B vs consensus US$127.69B，略低於預期。",
-      "time_type": "release_time"
+      "price_reaction_source": null,
+      "eps_note": "GAAP diluted EPS；公司公告實際值 US$2.12，Investing.com 香港站共識 US$3.02，低於預期。",
+      "revenue_note": "公司公告營收 US$127.6B；Investing.com 香港站共識 US$127.69B，略低於預期。",
+      "time_type": "session_only"
     },
     {
       "id": "prev-msft-20261028",
@@ -1800,7 +1793,7 @@
       "revenue_estimate": 90.61,
       "revenue_actual": 92.279,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤下跌 0.16%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast",
@@ -1811,7 +1804,7 @@
       },
       "industry": "軟體／雲端／AI",
       "reporting_period": "FY2027 Q1",
-      "time_known": true,
+      "time_known": false,
       "eps_basis": "GAAP diluted EPS",
       "eps_currency": "USD",
       "revenue_currency": "USD",
@@ -1828,17 +1821,10 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 4.72；營收共識 US$90.61B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "MSFT：首個常規交易日收盤 -0.16%；2026-10-29。"
-      },
-      "eps_note": "GAAP diluted EPS US$4.92 vs consensus US$4.72，高於預期；另公布 non-GAAP EPS US$4.89。",
-      "revenue_note": "營收 US$92.279B vs consensus US$90.61B，高於預期。",
-      "time_type": "release_time"
+      "price_reaction_source": null,
+      "eps_note": "採 GAAP diluted EPS US$4.92；公司另列 non-GAAP EPS US$4.89。比較值採 Investing.com 香港站共識 US$4.72。",
+      "revenue_note": "公司公告營收 US$92.279B；Investing.com 香港站共識 US$90.61B，高於預期。",
+      "time_type": "session_only"
     },
     {
       "id": "prev-lly-20261029",
@@ -1855,7 +1841,7 @@
       "revenue_estimate": 22.16,
       "revenue_actual": 24.397,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤上漲 6.63%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
@@ -1866,7 +1852,7 @@
       },
       "industry": "製藥／生技",
       "reporting_period": "2026 Q3",
-      "time_known": true,
+      "time_known": false,
       "eps_basis": "GAAP reported diluted EPS（公司另公布非 GAAP EPS 7.48）",
       "eps_currency": "USD",
       "revenue_currency": "USD",
@@ -1883,17 +1869,10 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 9.85；營收共識 US$22.16B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "LLY：首個常規交易日收盤 +6.63%；2026-10-29。"
-      },
-      "eps_note": "GAAP diluted EPS US$7.22 vs consensus US$9.85，低於預期；公司另公布 non-GAAP EPS US$7.48。",
-      "revenue_note": "營收 US$24.397B vs consensus US$22.16B，高於預期。",
-      "time_type": "release_time"
+      "price_reaction_source": null,
+      "eps_note": "GAAP reported diluted EPS US$7.22；公司另公布 non-GAAP EPS US$7.48。比較值採 Investing.com 香港站共識 US$9.85。",
+      "revenue_note": "公司公告營收 US$24.397B；Investing.com 香港站共識 US$22.16B，高於預期。",
+      "time_type": "session_only"
     },
     {
       "id": "prev-amzn-20261029",
@@ -1910,7 +1889,7 @@
       "revenue_estimate": 202.1,
       "revenue_actual": 201.9,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤下跌 1.41%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/",
@@ -1921,7 +1900,7 @@
       },
       "industry": "電商／雲端／AI",
       "reporting_period": "2026 Q3",
-      "time_known": true,
+      "time_known": false,
       "eps_basis": "GAAP diluted EPS",
       "eps_currency": "USD",
       "revenue_currency": "USD",
@@ -1938,21 +1917,14 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 1.96；營收共識 US$202.1B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "AMZN：首個常規交易日收盤 -1.41%；2026-10-30。"
-      },
-      "eps_note": "GAAP diluted EPS US$1.89 vs consensus US$1.96，低於預期。",
-      "revenue_note": "營收 US$201.90B vs consensus US$202.10B，略低於預期。",
-      "time_type": "release_time"
+      "price_reaction_source": null,
+      "eps_note": "GAAP diluted EPS US$1.89；Investing.com 香港站共識 US$1.96，低於預期。",
+      "revenue_note": "公司公告 net sales US$201.9B；Investing.com 香港站共識 US$202.1B，略低於預期。",
+      "time_type": "session_only"
     },
     {
       "id": "prev-intc-20261029",
-      "event_date": "2026-10-30T05:00:00+08:00",
+      "event_date": "2026-10-30T04:01:00+08:00",
       "company": "英特爾 Intel",
       "ticker": "INTC",
       "session": "after_market",
@@ -1965,7 +1937,7 @@
       "revenue_estimate": 16.48,
       "revenue_actual": 16.5,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤下跌 28.58%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.intc.com/news-events/press-releases/detail/1786/intel-reports-third-quarter-2026-financial-results",
@@ -1993,21 +1965,14 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 0.4；營收共識 US$16.48B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "INTC：首個常規交易日收盤 -28.58%；2026-10-30。"
-      },
-      "eps_note": "GAAP diluted EPS US$0.60 vs consensus US$0.401，高於預期；公司另公布 non-GAAP EPS US$0.52。",
-      "revenue_note": "營收 US$16.50B vs consensus US$16.48B，略高於預期。",
+      "price_reaction_source": null,
+      "eps_note": "GAAP diluted EPS US$0.60；公司另公布 non-GAAP EPS US$0.52。比較值採 Investing.com 香港站共識 US$0.401。",
+      "revenue_note": "公司公告營收 US$16.5B；Investing.com 香港站共識 US$16.48B，略高於預期。",
       "time_type": "release_time"
     },
     {
       "id": "prev-xom-20261030",
-      "event_date": "2026-10-30T21:30:00+08:00",
+      "event_date": "2026-10-30T18:30:00+08:00",
       "company": "埃克森美孚 ExxonMobil",
       "ticker": "XOM",
       "session": "before_market",
@@ -2020,7 +1985,7 @@
       "revenue_estimate": 115.45,
       "revenue_actual": 103.36,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤上漲 2.16%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://investor.exxonmobil.com/company-information/press-releases/detail/1213/exxonmobil-announces-third-quarter-2026-results",
@@ -2032,13 +1997,13 @@
       "industry": "整合能源／石油天然氣",
       "reporting_period": "2026 Q3",
       "time_known": true,
-      "eps_basis": "Investing.com 報導 EPS（GAAP／調整後口徑未明確揭露）",
+      "eps_basis": "Adjusted diluted EPS (non-GAAP); company also reported GAAP EPS US$3.72",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "beat",
+      "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "miss",
-      "financial_judgment": "來源列示 EPS 高於共識，但營收低於共識；EPS 口徑需以公司正式財報註記再核實，不能只以單一 EPS 數字判斷營運表現。",
+      "financial_judgment": "公司公告列示 GAAP EPS US$3.72、調整後 EPS US$4.23；Investing.com 共識 US$3.99 未標明口徑，因此 EPS 比較暫列待核實。Investing.com 報導營收 US$103.36B 低於 US$115.45B 共識，營收定義仍待與公司財報交叉核對。",
       "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
@@ -2048,21 +2013,14 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 3.99；營收共識 US$115.45B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "XOM：首個常規交易日收盤 +2.16%；2026-10-30。"
-      },
-      "eps_note": "來源列示 EPS US$4.23 vs consensus US$3.99；來源未明確揭露 GAAP／調整後口徑，判讀須保留此限制。",
-      "revenue_note": "營收 US$103.36B vs consensus US$115.45B，低於預期。",
+      "price_reaction_source": null,
+      "eps_note": "公司公告 reported EPS US$3.72、adjusted EPS US$4.23；Investing.com 共識 US$3.99 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
+      "revenue_note": "Investing.com 報導營收 US$103.36B、共識 US$115.45B；營收定義仍需與公司財報口徑交叉核對。",
       "time_type": "release_time"
     },
     {
       "id": "prev-cvx-20261030",
-      "event_date": "2026-10-30T23:00:00+08:00",
+      "event_date": "2026-10-30T18:15:00+08:00",
       "company": "雪佛龍 Chevron",
       "ticker": "CVX",
       "session": "before_market",
@@ -2075,7 +2033,7 @@
       "revenue_estimate": 60.55,
       "revenue_actual": 67.8,
       "status": "released",
-      "stock_price_reaction": "首個常規交易日收盤上漲 1.75%",
+      "stock_price_reaction": null,
       "source": {
         "name": "公司正式財報／投資人關係",
         "url": "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results",
@@ -2087,13 +2045,13 @@
       "industry": "整合能源／石油天然氣",
       "reporting_period": "2026 Q3",
       "time_known": true,
-      "eps_basis": "Investing.com 報導 EPS（GAAP／調整後口徑未明確揭露）",
+      "eps_basis": "Adjusted diluted EPS (non-GAAP); company also reported GAAP diluted EPS US$5.06",
       "eps_currency": "USD",
       "revenue_currency": "USD",
       "revenue_unit": "B",
-      "eps_comparison_status": "beat",
+      "eps_comparison_status": "pending_verification",
       "revenue_comparison_status": "beat",
-      "financial_judgment": "來源列示 EPS 與營收均高於市場共識；仍須結合產量、煉油吞吐及資本支出判斷獲利品質。",
+      "financial_judgment": "公司公告列示 GAAP diluted EPS US$5.06、調整後 EPS US$5.28；Investing.com 共識 US$4.88 未標明口徑，因此 EPS 比較暫列待核實。營收 US$67.8B 高於 US$60.55B 共識。",
       "stock_price_reaction_window": "2026-10-30 美股常規交易時段收盤",
       "consensus_source": {
         "name": "Investing.com 香港站－財報共識",
@@ -2103,16 +2061,9 @@
         "publisher": "Investing.com HK",
         "notes": "EPS 共識 4.88；營收共識 US$60.55B；依來源頁面核對。"
       },
-      "price_reaction_source": {
-        "name": "CapMarkets－2026-10-30 市場回顧與首個交易日反應",
-        "url": "https://capmkts.com/narratives/energy-supply-shock",
-        "published_at": "2026-10-30T16:48:00-04:00",
-        "observed_at": "2026-11-01T12:17:52+08:00",
-        "publisher": "CapMarkets",
-        "notes": "CVX：首個常規交易日收盤 +1.75%；2026-10-30."
-      },
-      "eps_note": "來源列示 EPS US$5.28 vs consensus US$4.88；來源未明確揭露 GAAP／調整後口徑，判讀須保留此限制。",
-      "revenue_note": "營收 US$67.80B vs consensus US$60.55B，高於預期。",
+      "price_reaction_source": null,
+      "eps_note": "公司公告 reported diluted EPS US$5.06、adjusted EPS US$5.28；Investing.com 共識 US$4.88 未標明 GAAP／調整後口徑，暫不判定 beat/miss。",
+      "revenue_note": "Investing.com 報導營收 US$67.8B、共識 US$60.55B，高於預期。",
       "time_type": "release_time"
     }
   ],
