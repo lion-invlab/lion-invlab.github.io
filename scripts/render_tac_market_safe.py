@@ -985,10 +985,12 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                     html = replace_sibling_sequence(html, parser, cards, len(list_data["items"]),
                                                     f"{group_name}.{panel_key}.lists[{list_index}]")
                 # Resize nested detail-field rows from the same approved prototype.
+                parser = None
                 for item_index, item_data in enumerate(list_data["items"]):
-                    parser = SourceTreeParser(html)
-                    parser.feed(html)
-                    parser.close()
+                    if parser is None:
+                        parser = SourceTreeParser(html)
+                        parser.feed(html)
+                        parser.close()
                     containers = select(parser.root, panel_spec["container"])
                     list_nodes = select(containers[0], panel_spec["list_selector"])
                     cards_now = select(list_nodes[list_index], item_selector)
@@ -1003,6 +1005,7 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                     if len(fields_now) != len(item_data["fields"]):
                         html = replace_sibling_sequence(html, parser, fields_now, len(item_data["fields"]),
                                                         f"{group_name}.{panel_key}.lists[{list_index}].items[{item_index}].fields")
+                        parser = None
     return html
 
 
