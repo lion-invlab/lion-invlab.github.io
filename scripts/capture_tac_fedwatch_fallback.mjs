@@ -10,18 +10,21 @@ const url = "https://www.investing.com/central-banks/fed-rate-monitor";
 const observedAt = new Date().toISOString();
 
 function parseInvestingTimestamp(value) {
-  // Investing.com emits US timezone abbreviations (EDT/EST), which V8 Date.parse
-  // does not consistently recognize. Convert them to explicit UTC offsets.
-  const normalized = String(value)
-    .replace(/\bEDT\b/g, "GMT-0400")
-    .replace(/\bEST\b/g, "GMT-0500")
-    .replace(/\bCDT\b/g, "GMT-0500")
-    .replace(/\bCST\b/g, "GMT-0600")
-    .replace(/\bMDT\b/g, "GMT-0600")
-    .replace(/\bMST\b/g, "GMT-0700")
-    .replace(/\bPDT\b/g, "GMT-0700")
-    .replace(/\bPST\b/g, "GMT-0800");
-  return Date.parse(normalized);
+  // Parse the source's US timezone abbreviation explicitly; Date.parse does
+  // not reliably accept strings such as "12:35AM EDT" in Node.
+  const match = String(value).trim().match(
+    /^([A-Za-z]{3})\\s+(\\d{1,2}),\\s+(\\d{4})\\s+(\\d{1,2}):(\\d{2})\\s*(AM|PM)\\s*(EDT|EST|CDT|CST|MDT|MST|PDT|PST)$/i
+  );
+  if (!match) return NaN;
+  const months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+  const [, mon, dayText, yearText, hourText, minuteText, meridiem, zone] = match;
+  const month = months[mon.toLowerCase()];
+  if (month === undefined) return NaN;
+  let hour = Number(hourText) % 12;
+  if (meridiem.toUpperCase() === "PM") hour += 12;
+  const offsets = {EDT:-4,EST:-5,CDT:-5,CST:-6,MDT:-6,MST:-7,PDT:-7,PST:-8};
+  const localAsUtc = Date.UTC(Number(yearText), month, Number(dayText), hour, Number(minuteText));
+  return localAsUtc - offsets[zone.toUpperCase()] * 60 * 60 * 1000;
 }
 
 if (process.argv.includes("--self-test")) {
