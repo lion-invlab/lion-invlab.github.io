@@ -211,7 +211,7 @@ def replace_sibling_sequence(source: str, parser: SourceTreeParser,
     if not prototype:
         raise ValueError(f"{label}: empty approved card prototype")
     extra = desired_count - current_count
-    insertion = "\\n" + "\\n".join(prototype for _ in range(extra))
+    insertion = "\n" + "\n".join(prototype for _ in range(extra))
     insert_at = nodes[-1].end_tag_end
     return source[:insert_at] + insertion + source[insert_at:]
 
