@@ -119,8 +119,7 @@ def pending_record(unit: str, reason: str) -> dict:
 
 def fetch_history_record(session: requests.Session, key: str, url: str,
                          instrument: str, unit: str, aliases: tuple[str, ...],
-                         trading_date: date, observed_at: str,
-                         fallback_reason: str | None = None) -> dict:
+                         trading_date: date, observed_at: str) -> dict:
     try:
         response = session.get(url, timeout=(10, 30))
         response.raise_for_status()
@@ -137,17 +136,11 @@ def fetch_history_record(session: requests.Session, key: str, url: str,
                 "quote_type": "investing_com_hk_historical_close_pct_change",
                 "instrument": instrument,
             },
-            "fallback_used": fallback_reason is not None,
-            "fallback_reason": fallback_reason,
-            "notes": (
-                "優先來源無法取得可核實的正式結算資料，依 WR 啟用 Investing.com 香港站備援；"
-                if fallback_reason else
-                "採用歷史資料表指定交易日收市值及日升跌幅；僅接受完全相符的資料日期與品項。"
-            ),
+            "fallback_used": False, "fallback_reason": None,
+            "notes": "採用 WR 指定 Investing.com 香港站歷史資料表的收市值及日升跌幅；僅接受完全相符的資料日期與品項。",
         }
     except Exception as exc:
-        reason = f"優先來源：{fallback_reason}；Investing.com 備援：{exc}" if fallback_reason else str(exc)
-        return pending_record(unit, reason)
+        return pending_record(unit, str(exc))
 
 def parse_cnn_fear_greed(payload: dict, observed_at: str,
                          now: datetime | None = None) -> dict:
