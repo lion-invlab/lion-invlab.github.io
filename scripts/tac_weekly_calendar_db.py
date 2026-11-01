@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """TAC weekly calendar database prototype (stdlib only)."""
 import argparse, json, re, sys
-from datetime import date, datetime, timedelta\nfrom zoneinfo import ZoneInfo
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,7 +26,7 @@ def validate_week(data):
     if data.get("schema_version") != 1: errors.append("schema_version must be 1")
     if data.get("timezone") != "Asia/Taipei": errors.append("timezone must be Asia/Taipei")
     week_id=str(data.get("week_id",""))
-    match=re.fullmatch(r"(\\d{4})-W(\\d{2})",week_id)
+    match=re.fullmatch(r"(\d{4})-W(\d{2})",week_id)
     if not match:
         errors.append("invalid ISO week_id")
         expected_start=None
