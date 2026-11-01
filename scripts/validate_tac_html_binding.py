@@ -74,6 +74,8 @@ def by_class(root: Node, class_name: str) -> list[Node]:
 
 
 def selector_nodes(root: Node, selector: str) -> list[Node]:
+    if selector.startswith("#"):
+        return by_id(root, selector[1:])
     if selector.startswith("."):
         return by_class(root, selector[1:])
     return [node for node in root.descendants() if node.tag == selector]
