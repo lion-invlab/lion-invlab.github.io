@@ -240,9 +240,9 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          node scripts/select_tac_fedwatch_source.mjs \\
-            --cme "/tmp/tac-cme-fedwatch-capture.json" \\
-            --fallback "/tmp/tac-fedwatch-fallback.json" \\
+          node scripts/select_tac_fedwatch_source.mjs \
+            --cme "/tmp/tac-cme-fedwatch-capture.json" \
+            --fallback "/tmp/tac-fedwatch-fallback.json" \
             --output "/tmp/tac-fedwatch-selected.json" || echo "PENDING: no FedWatch source passed validation"
 
       - name: Optional live read-only probe of 17 indices (non-blocking; retain partial data for audit)
