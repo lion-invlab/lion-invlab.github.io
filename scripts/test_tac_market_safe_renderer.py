@@ -25,18 +25,7 @@ def minimal_contract():
             "value_selector": "span.r",
             "snapshot_fields": {"display_value": "change", "display_change": None}
         },
-        "bonds": {"container":"#bonds","row":".row","key_by_label":{},
-                  "value_selector":"span.r","change_selector":"span.r","value_index":0,"change_index":1,
-                  "snapshot_fields":{"display_value":"value","display_change":"change"}},
-        "fx": {"container":"#fx","row":".row","key_by_label":{},
-               "value_selector":"span.r","change_selector":"span.r","value_index":0,"change_index":1,
-               "snapshot_fields":{"display_value":"value","display_change":"change"}},
-        "energy": {"container":"#energy","row":".row","key_by_label":{},
-                   "value_selector":"span.r","change_selector":"span.r","value_index":0,"change_index":1,
-                   "snapshot_fields":{"display_value":"value","display_change":"change"}},
-        "precious_metals": {"container":"#metals","row":".row","key_by_label":{},
-                            "value_selector":"span.r","change_selector":"span.r","value_index":0,"change_index":1,
-                            "snapshot_fields":{"display_value":"value","display_change":"change"}}
+
     }}
 
 
