@@ -141,6 +141,8 @@ def normalize(payload: dict) -> dict:
             "impact_judgment": row.get("impact_judgment"),
             "source": source_record(base_source, row.get("source"), observed_at)
         }
+        if row.get("consensus_source") is not None:
+            event["consensus_source"]=source_record(base_source,row.get("consensus_source"),observed_at)
         fragment[output_group].append(event)
 
     for input_group, output_group in (("earnings_events", "earnings_calendar"),
