@@ -289,6 +289,33 @@
         "items": "items"
       },
       "container": "#news-scan"
+    },
+    "economic_calendar": {
+      "panels": {
+        "last_week": {
+          "container": "#last-week-calendar",
+          "event_selector": ".econ-event"
+        },
+        "current_week": {
+          "container": "#calendar",
+          "event_selector": ".econ-event"
+        }
+      },
+      "selectors": {
+        "date": ".econ-date",
+        "time": ".econ-time",
+        "country": ".econ-country",
+        "name": ".econ-name",
+        "stars": ".econ-stars",
+        "details": ".econ-details",
+        "field": ".econ-field",
+        "field_label": "label",
+        "field_value": ".econ-value",
+        "source_link": "a"
+      },
+      "snapshot_fields": {
+        "panels": "panels"
+      }
     }
   },
   "protected_paths": [
