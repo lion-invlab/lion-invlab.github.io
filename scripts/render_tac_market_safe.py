@@ -601,6 +601,101 @@ def render_news(html: str, parser: SourceTreeParser,
                 add_href(anchor, source["url"], f"{label}.sources[{source_index}].url")
                 add_text(anchor, source["text"], f"{label}.sources[{source_index}].text")
 
+
+def render_economic_calendar(html: str, parser: SourceTreeParser,
+                             snapshot: dict[str, Any], binding: dict[str, Any],
+                             edits: list[tuple[int, int, str]],
+                             used: set[tuple[int, int]]) -> None:
+    spec = binding.get("groups", {}).get("economic_calendar")
+    data = snapshot.get("economic_calendar")
+    if spec is None or data is None:
+        return
+    if not isinstance(data, dict) or set(data) != {"panels"} or not isinstance(data["panels"], dict):
+        raise ValueError("economic_calendar snapshot must contain a panels object")
+    selectors = spec["selectors"]
+
+    def add_text(node: Node, text: str, label: str):
+        spans = coalesce_spans([x for x in spans_inside(node, parser.spans) if x.text.strip()])
+        if len(spans) != 1:
+            raise ValueError(f"{label}: expected one logical text slot, found {len(spans)}")
+        span = spans[0]
+        ident = (span.start, span.end)
+        if ident in used:
+            raise ValueError(f"{label}: overlapping text slot")
+        used.add(ident)
+        edits.append((span.start, span.end, escape(text, quote=False)))
+
+    def add_link(anchor: Node, source: dict[str, str], label: str):
+        if not isinstance(source, dict) or set(source) != {"url", "text"}:
+            raise ValueError(f"{label}: source must contain url and text")
+        url = source["url"]
+        if not isinstance(url, str) or not url.startswith("https://") or any(ch in url for ch in ('"', "'", "<", ">")):
+            raise ValueError(f"{label}: invalid https URL")
+        href_span = anchor.attr_value_spans.get("href")
+        if href_span is None or href_span in used:
+            raise ValueError(f"{label}: href slot missing or overlapping")
+        used.add(href_span)
+        edits.append((href_span[0], href_span[1], escape(url, quote=True)))
+        add_text(anchor, source["text"], f"{label}.text")
+
+    for panel_key, panel_spec in spec["panels"].items():
+        containers = select(parser.root, panel_spec["container"])
+        panel_data = data["panels"].get(panel_key)
+        if not containers:
+            if panel_data is not None:
+                raise ValueError(f"economic_calendar.{panel_key}: panel not present in this template")
+            continue
+        if len(containers) != 1:
+            raise ValueError(f"economic_calendar.{panel_key}: container missing or duplicated")
+        if panel_data is None:
+            raise ValueError(f"economic_calendar.{panel_key}: snapshot panel missing")
+        if not isinstance(panel_data, dict) or set(panel_data) != {"items"} or not isinstance(panel_data["items"], list):
+            raise ValueError(f"economic_calendar.{panel_key}: invalid panel snapshot")
+        event_nodes = select(containers[0], panel_spec["event_selector"])
+        items = panel_data["items"]
+        if len(event_nodes) != len(items):
+            raise ValueError(f"economic_calendar.{panel_key}: event count mismatch; template={len(event_nodes)}, snapshot={len(items)}")
+        for index, (event_node, item) in enumerate(zip(event_nodes, items)):
+            label = f"economic_calendar.{panel_key}.items[{index}]"
+            required = {"expected_name", "date", "time", "country", "name", "stars_text", "fields"}
+            if not isinstance(item, dict) or set(item) != required:
+                raise ValueError(f"{label}: invalid event fields")
+            name_nodes = select(event_node, selectors["name"])
+            if len(name_nodes) != 1:
+                raise ValueError(f"{label}: event name slot missing or duplicated")
+            current_name = normalize(unescape("".join(x.text for x in spans_inside(name_nodes[0], parser.spans))))
+            if current_name != normalize(item["expected_name"]):
+                raise ValueError(f"{label}: event identity mismatch; expected template '{current_name}', snapshot '{item['expected_name']}'")
+            for field_name in ("date", "time", "country", "name", "stars_text"):
+                nodes = select(event_node, selectors[{"stars_text":"stars"}.get(field_name,field_name)])
+                if len(nodes) != 1:
+                    raise ValueError(f"{label}.{field_name}: slot missing or duplicated")
+                add_text(nodes[0], item[field_name], f"{label}.{field_name}")
+            detail_nodes = select(event_node, selectors["details"])
+            if len(detail_nodes) != 1:
+                raise ValueError(f"{label}: details container missing or duplicated")
+            field_nodes = select(detail_nodes[0], selectors["field"])
+            if len(field_nodes) != len(item["fields"]):
+                raise ValueError(f"{label}: detail field count mismatch")
+            for field_index, (field_node, field_data) in enumerate(zip(field_nodes,item["fields"])):
+                field_label_nodes = select(field_node, selectors["field_label"])
+                value_nodes = select(field_node, selectors["field_value"])
+                if len(field_label_nodes) != 1 or len(value_nodes) != 1:
+                    raise ValueError(f"{label}.fields[{field_index}]: label/value slot ambiguous")
+                field_label = normalize(unescape("".join(x.text for x in spans_inside(field_label_nodes[0],parser.spans))))
+                if not isinstance(field_data,dict) or field_data.get("label") != field_label:
+                    raise ValueError(f"{label}.fields[{field_index}]: field label mismatch")
+                anchors = select(value_nodes[0],selectors["source_link"])
+                if anchors:
+                    if set(field_data) != {"label","links"} or len(anchors) != len(field_data["links"]):
+                        raise ValueError(f"{label}.fields[{field_index}]: source link count mismatch")
+                    for link_index,(anchor,source) in enumerate(zip(anchors,field_data["links"])):
+                        add_link(anchor,source,f"{label}.fields[{field_index}].links[{link_index}]")
+                else:
+                    if set(field_data) != {"label","text"}:
+                        raise ValueError(f"{label}.fields[{field_index}]: expected text field")
+                    add_text(value_nodes[0],field_data["text"],f"{label}.fields[{field_index}].text")
+
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
         raise ValueError("snapshot must contain a groups object")
@@ -685,6 +780,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
     render_fedwatch(html, parser, snapshot, binding, edits, used)
     render_editorial(html, parser, snapshot, binding, edits, used)
     render_news(html, parser, snapshot, binding, edits, used)
+    render_economic_calendar(html, parser, snapshot, binding, edits, used)
 
     result = html
     for start, end, replacement in sorted(edits, reverse=True):
