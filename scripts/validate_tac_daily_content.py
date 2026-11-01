@@ -74,11 +74,18 @@ def validate_report_rules(data: dict) -> list[str]:
                         errors.append(f"{group_name}[{event['id']}]: event date outside previous Monday-Friday window")
                     if event["status"] != "released":
                         errors.append(f"{group_name}[{event['id']}]: previous-week events must be released")
-        dates = [parse_dt(item["event_date"]) for item in events]
-        expected_dates = sorted(dates, reverse=group_name.startswith("previous_"))
+        if group_name.startswith("previous_"):
+            # Prior-week archive order is date-only: never infer same-day
+            # sequence from an unverified placeholder clock time.
+            dates = [parse_dt(item["event_date"]).date() for item in events]
+            expected_dates = sorted(dates, reverse=True)
+            direction = "descending by date"
+        else:
+            dates = [parse_dt(item["event_date"]) for item in events]
+            expected_dates = sorted(dates)
+            direction = "ascending by event time"
         if dates != expected_dates:
-            direction = "descending" if group_name.startswith("previous_") else "ascending"
-            errors.append(f"{group_name} must be sorted by event_date {direction}")
+            errors.append(f"{group_name} must be sorted {direction}")
         ids: set[str] = set()
         for index, item in enumerate(events):
             label = f"{group_name}[{index}]"
