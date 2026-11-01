@@ -198,10 +198,12 @@ def normalize(payload: dict) -> dict:
         fragment[output_group].append(event)
 
     for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
-        fragment[group].sort(
-            key=lambda item: item["event_date"],
-            reverse=group.startswith("previous_")
-        )
+        if group.startswith("previous_"):
+            # Prior-week archives sort by verified Taiwan calendar date only.
+            # Stable sorting preserves capture order within the same date.
+            fragment[group].sort(key=lambda item: item["event_date"][:10], reverse=True)
+        else:
+            fragment[group].sort(key=lambda item: item["event_date"])
     return fragment
 
 
