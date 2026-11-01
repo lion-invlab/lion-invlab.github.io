@@ -82,6 +82,14 @@ def sample(report_date,template):
           "consensus_source":src("consensus-previous"),"price_reaction_source":src("reaction-previous"),
           "source":src("ir-previous")
         }]
+        # Deliberately inject four-star records: the renderer, not only the
+        # JSON producer, must enforce WR v3.7's prior-week five-star gate.
+        low_econ=dict(data["previous_economic_calendar"][0])
+        low_econ.update({"id":"econ-previous-four-star","importance_stars":4,"event_name":"Must not render four-star prior event"})
+        data["previous_economic_calendar"].append(low_econ)
+        low_earn=dict(data["previous_earnings_calendar"][0])
+        low_earn.update({"id":"earn-previous-four-star","importance_stars":4,"company":"Must Not Render Four-Star Co"})
+        data["previous_earnings_calendar"].append(low_earn)
     return data
 def run_case(kind,report_date,weekday):
     data=sample(report_date,kind)
@@ -149,9 +157,11 @@ def run_case(kind,report_date,weekday):
         assert "Synthetic source" in soup.select_one("#global-focus").get_text()
         if kind=="monday":
             assert len(soup.select("#last-week-calendar .econ-event"))==1
+            assert "Must not render four-star prior event" not in soup.select_one("#last-week-calendar").get_text()
             assert len(soup.select("#last-week-calendar .econ-event-toggle"))==1
             assert soup.select_one("#last-week-calendar .econ-stars").get_text(strip=True)=="★★★★★"
             assert len(soup.select("#last-week-earnings .earnings-accordion"))==1
+            assert "Must Not Render Four-Star Co" not in soup.select_one("#last-week-earnings").get_text()
             assert "Synthetic prior CPI release" in soup.select_one("#last-week-calendar").get_text()
             assert "Prior Synthetic Co" in soup.select_one("#last-week-earnings").get_text()
             assert len(soup.select("#last-week-earnings .earnings-results-grid"))==1
