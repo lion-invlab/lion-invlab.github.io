@@ -63,7 +63,7 @@ class SourceTreeParser(HTMLParser):
         start = self.source_offset()
         raw_tag = self.get_starttag_text() or ""
         node = Node(tag.lower(), dict(attrs), self.stack[-1])
-        class_match = re.search(r"""\\bclass\\s*=\\s*(["'])(.*?)\\1""", raw_tag, re.I | re.S)
+        class_match = re.search(r"""\bclass\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
         if class_match:
             node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
         self.stack[-1].children.append(node)
@@ -188,16 +188,18 @@ def slot_text_span(row: Node, selector: str, index: int,
     return texts[0], target
 
 
-def direction(value: str) -> str | None:
+def direction(value: str, rules: dict[str, Any]) -> str | None:
     stripped = value.strip()
+    status_map = rules.get("status_class_map", {})
+    if stripped == rules.get("pending_value_text", "待核實"):
+        return status_map.get("warning", "warn")
     if stripped.startswith("+"):
-        return "up"
+        return status_map.get("positive", "up")
     if stripped.startswith(("-", "−")):
-        return "down"
+        return status_map.get("negative", "down")
     if re.match(r"^0+(?:\.0+)?%?$", stripped):
-        return "flat"
+        return status_map.get("neutral", "flat")
     return None
-
 
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
     if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
@@ -265,7 +267,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
                             raise ValueError(f"{group_name}.{key}: class attribute source span is missing")
                         class_start, class_end = change_node.class_value_span
                         raw_class = html[class_start:class_end]
-                        token_matches = list(re.finditer(r"(?<!\\S)" + re.escape(old_direction) + r"(?!\\S)", raw_class))
+                        token_matches = list(re.finditer(r"(?<!\S)" + re.escape(old_direction) + r"(?!\S)", raw_class))
                         if len(token_matches) != 1:
                             raise ValueError(f"{group_name}.{key}: status class token is not unique in source")
                         token = token_matches[0]
