@@ -27,6 +27,44 @@ function parseInvestingTimestamp(value) {
   return localAsUtc - offsets[zone.toUpperCase()] * 60 * 60 * 1000;
 }
 
+function parseMeetingsFromText(bodyText) {
+  const dateRe = /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+20\d{2}\b/g;
+  const dates = [...bodyText.matchAll(dateRe)].map(m => ({ date: m[0], index: m.index }));
+  const byDate = new Map();
+  const conflicts = [];
+  for (let i = 0; i < dates.length; i++) {
+    const chunk = bodyText.slice(dates[i].index, dates[i + 1]?.index ?? bodyText.length);
+    const rowRe = /(\d+\.\d{2,3}\s*-\s*\d+\.\d{2,3})\s+([0-9]+(?:\.[0-9]+)?|—)\s*%/g;
+    if (!byDate.has(dates[i].date)) byDate.set(dates[i].date, new Map());
+    const rows = byDate.get(dates[i].date);
+    for (const m of chunk.matchAll(rowRe)) {
+      const rate = m[1].replace(/\s+/g, "");
+      const probability = m[2] === "—" ? null : Number(m[2]);
+      if (rows.has(rate) && rows.get(rate) !== probability) {
+        conflicts.push({meeting_date:dates[i].date,target_rate:rate,values:[rows.get(rate),probability]});
+      } else if (!rows.has(rate)) {
+        rows.set(rate, probability);
+      }
+    }
+  }
+  const meetings = [...byDate.entries()]
+    .map(([meeting_date, rows]) => ({
+      meeting_date,
+      probabilities:[...rows.entries()].map(([target_rate,probability])=>({target_rate,probability}))
+    }))
+    .filter(m => m.probabilities.length > 0);
+  return {meetings, conflicts};
+}
+function validateMeetingDistribution(meetings, conflicts) {
+  if (conflicts.length || !meetings.length) return false;
+  return meetings.every(meeting => {
+    if (meeting.probabilities.length !== 2) return false;
+    if (meeting.probabilities.some(p => !Number.isFinite(p.probability) || p.probability < 0 || p.probability > 100)) return false;
+    const total = meeting.probabilities.reduce((sum,p)=>sum+p.probability,0);
+    return Math.abs(total-100) <= 0.2;
+  });
+}
+
 if (process.argv.includes("--self-test")) {
   const cases = [
     ["Oct 31, 2026 12:35AM EDT", "2026-10-31T04:35:00.000Z"],
@@ -39,7 +77,32 @@ if (process.argv.includes("--self-test")) {
       throw new Error(`Timestamp parse failed: ${input} => ${Number.isFinite(actual) ? new Date(actual).toISOString() : "NaN"}; expected ${expected}`);
     }
   }
-  console.log("PASS: Investing.com EDT/EST timestamps normalize to correct UTC instants");
+  const duplicateText = [
+    "Dec 09, 2026",
+    "3.75-4.00 30.2 %",
+    "4.00-4.25 69.8 %",
+    "Dec 09, 2026",
+    "3.75-4.00 30.2 %",
+    "4.00-4.25 69.8 %"
+  ].join("\n");
+  const normalized = parseMeetingsFromText(duplicateText);
+  if (normalized.meetings.length !== 1 || normalized.meetings[0].probabilities.length !== 2 ||
+      !validateMeetingDistribution(normalized.meetings, normalized.conflicts)) {
+    throw new Error("Duplicate FedWatch sections were not safely normalized");
+  }
+  const conflictText = [
+    "Dec 09, 2026",
+    "3.75-4.00 30.2 %",
+    "4.00-4.25 69.8 %",
+    "Dec 09, 2026",
+    "3.75-4.00 31.0 %",
+    "4.00-4.25 69.0 %"
+  ].join("\n");
+  const conflict = parseMeetingsFromText(conflictText);
+  if (!conflict.conflicts.length || validateMeetingDistribution(conflict.meetings, conflict.conflicts)) {
+    throw new Error("Conflicting duplicate FedWatch probabilities were not rejected");
+  }
+  console.log("PASS: Investing.com EDT/EST timestamps; duplicate FedWatch rows deduplicated; conflicting distributions rejected");
   process.exit(0);
 }
 
@@ -53,28 +116,20 @@ try {
   await page.waitForTimeout(5000);
   const bodyText = await page.locator("body").innerText({ timeout: 20000 });
   const updatedMatches = [...bodyText.matchAll(/Updated:\s*([^\n\r]+)/gi)].map(m => m[1].trim());
-  const dateRe = /\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2},\s+20\d{2}\b/g;
-  const dates = [...bodyText.matchAll(dateRe)].map(m => ({ date: m[0], index: m.index }));
-  const meetings = [];
-  for (let i = 0; i < dates.length; i++) {
-    const chunk = bodyText.slice(dates[i].index, dates[i + 1]?.index ?? bodyText.length);
-    const rows = [];
-    const rowRe = /(\d+\.\d{2,3}\s*-\s*\d+\.\d{2,3})\s+([0-9]+(?:\.[0-9]+)?|—)\s*%/g;
-    for (const m of chunk.matchAll(rowRe)) rows.push({ target_rate: m[1].replace(/\s+/g, ""), probability: m[2] === "—" ? null : Number(m[2]) });
-    if (rows.length) meetings.push({ meeting_date: dates[i].date, probabilities: rows });
-  }
+  const {meetings, conflicts} = parseMeetingsFromText(bodyText);
   const sourceUpdatedAt = [...new Set(updatedMatches)];
   const parsedUpdate = sourceUpdatedAt.length ? parseInvestingTimestamp(sourceUpdatedAt[0]) : NaN;
   const ageHours = Number.isFinite(parsedUpdate) ? (Date.now() - parsedUpdate) / 3600000 : null;
   const freshnessLimitHours = 72; // permits the latest Friday close to remain valid over a weekend
   const fresh = ageHours !== null && ageHours >= -1 && ageHours <= freshnessLimitHours;
-  const hasData = meetings.length > 0 && meetings.some(m => m.probabilities.length >= 2);
+  const hasData = validateMeetingDistribution(meetings, conflicts);
   const isMonitor = /Fed Rate Monitor/i.test(bodyText);
   const status = isMonitor && hasData && fresh ? "captured_for_review" : "pending_verification";
   const result = { provider: "Investing.com Fed Rate Monitor", source_url: url, role: "fallback_only_not_CME",
     status, observed_at: observedAt, source_updated_at: sourceUpdatedAt, source_age_hours: ageHours,
     freshness_limit_hours: freshnessLimitHours, meetings, page_status: response.status(),
-    validation: { is_monitor: isMonitor, has_meeting_probabilities: hasData, has_source_update_time: sourceUpdatedAt.length > 0, is_fresh: fresh },
+    validation: { is_monitor: isMonitor, has_meeting_probabilities: hasData, has_unique_meetings: meetings.length > 0, has_unique_rate_ranges: meetings.every(m=>m.probabilities.length===2), probabilities_sum_to_100: meetings.every(m=>Math.abs(m.probabilities.reduce((sum,p)=>sum+p.probability,0)-100)<=0.2), has_conflicts: conflicts.length>0, has_source_update_time: sourceUpdatedAt.length > 0, is_fresh: fresh },
+    deduplication_conflicts: conflicts,
     error: status === "captured_for_review" ? null : "Missing meeting probabilities or source Updated time, or source data is stale" };
   fs.writeFileSync(output, JSON.stringify(result, null, 2) + "\n", "utf8");
   fs.writeFileSync(textOutput, bodyText, "utf8");
