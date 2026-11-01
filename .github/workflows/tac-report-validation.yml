@@ -33,7 +33,6 @@ on:
       - "scripts/import_tac_calendar_capture.py"
       - "scripts/fetch_tac_investing_economic_calendar.py"
       - "scripts/capture_tac_investing_calendar.mjs"
-      - "scripts/probe_tac_investing_calendar_widget.mjs"
       - "scripts/capture_tac_cme_fedwatch.mjs"
       - "scripts/capture_tac_fedwatch_fallback.mjs"
       - "scripts/select_tac_fedwatch_source.mjs"
@@ -204,7 +203,7 @@ jobs:
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
-      - name: Optional live read-only Investing.com 3-star economic calendar capture
+      - name: Optional live read-only Investing.com public economic calendar capture (all source rows; native stars are metadata only)
         continue-on-error: true
         run: |
           set +e
@@ -235,11 +234,6 @@ jobs:
           set -e
           if [ -s "/tmp/tac-economic-calendar-previous-2026-10-26.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-previous-2026-10-26.json" --output "/tmp/tac-economic-calendar-previous-fragment-2026-10-26.json"; fi
           if [ -s "/tmp/tac-economic-calendar-current-2026-11-02.json" ]; then python scripts/import_tac_calendar_capture.py --input "/tmp/tac-economic-calendar-current-2026-11-02.json" --output "/tmp/tac-economic-calendar-current-fragment-2026-11-02.json"; fi
-
-      - name: Read-only probe of official Investing.com Economic Calendar Widget builder
-        continue-on-error: true
-        run: |
-          node scripts/probe_tac_investing_calendar_widget.mjs --output "/tmp/tac-economic-calendar-widget-probe.json" || echo "PENDING: official widget builder probe did not pass; inspect JSON artifact"
 
       - name: Test Investing.com FedWatch EDT/EST timestamp parser
         run: node scripts/capture_tac_fedwatch_fallback.mjs --self-test
@@ -451,7 +445,6 @@ jobs:
             /tmp/tac-treasury-yields-2026-10-30.json
             /tmp/tac-auxiliary-markets-2026-10-30.json
             /tmp/tac-news-rss-candidates-2026-11-02.json
-            /tmp/tac-economic-calendar-widget-probe.json
             /tmp/tac-economic-calendar-previous.html
             /tmp/tac-economic-calendar-current.html
             /tmp/tac-economic-calendar-previous-capture.log
@@ -533,9 +526,7 @@ jobs:
 
           summary = Path(__import__("os").environ["GITHUB_STEP_SUMMARY"])
           render_path = Path("/tmp/tac-full-render-result.json")
-          widget_path = Path("/tmp/tac-economic-calendar-widget-probe.json")
           render = json.loads(render_path.read_text()) if render_path.exists() else {}
-          widget = json.loads(widget_path.read_text()) if widget_path.exists() else {}
           editorial = render.get("editorial", {})
           market = render.get("market", {})
           pending = render.get("pending_items", [])
@@ -551,7 +542,6 @@ jobs:
               f"- **Market records verified:** {market.get('verified_records', 0)}; pending: {market.get('pending_records', 'unknown')}",
               f"- **Editorial candidates:** focus news {editorial.get('focus_news', 0)}/5; headlines {editorial.get('market_headlines', 0)}/10",
               f"- **Economic calendar:** {'PENDING — coverage incomplete' if calendar_pending else 'Check render result'}",
-              f"- **Official Investing.com widget builder:** {widget.get('status', 'not_probed')} (HTTP {widget.get('http_status', 'n/a')})",
               f"- **Pending items:** {', '.join(pending) if pending else 'none'}",
               "",
               "**This workflow's green structural checks do not mean the report is approval-ready.** Publish only after every calendar group and other pending item is verified and cleared.",
