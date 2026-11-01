@@ -141,7 +141,12 @@ def bucket_current_week(rows: list[dict[str, Any]], report_day: date,
 def list_contracts(template_html: str, container_selector: str,
                    list_selector: str, card_selector: str,
                    field_selector: str, label_selector: str) -> list[dict[str, Any]] | None:
-    """Read status and approved detail-field labels from each real template list prototype."""
+    """Read every status group, including approved empty-state groups.
+
+    Empty groups inherit field labels only from a real card prototype in another
+    status group inside the same mapped panel. The renderer must clone that exact
+    prototype before populating the group; no new card design is synthesized.
+    """
     parser = SourceTreeParser(template_html)
     parser.feed(template_html)
     parser.close()
@@ -150,13 +155,25 @@ def list_contracts(template_html: str, container_selector: str,
         return None
     if len(containers) != 1:
         raise ValueError(f"{container_selector}: template container missing or duplicated")
+    container = containers[0]
+    prototype_cards = [card for node in select(container, list_selector)
+                       for card in select(node, card_selector)]
+    prototype_labels: list[str] = []
+    if prototype_cards:
+        fields = select(prototype_cards[0], field_selector)
+        for field_node in fields:
+            labels = select(field_node, label_selector)
+            if len(labels) != 1:
+                raise ValueError(f"{list_selector}: prototype field label missing or duplicated")
+            label_text = "".join(span.text for span in spans_inside(labels[0], parser.spans)).strip()
+            if not label_text:
+                raise ValueError(f"{list_selector}: prototype field label is empty")
+            prototype_labels.append(label_text)
     contracts = []
-    for list_node in select(containers[0], list_selector):
-        group = list_node.parent
-        while group is not None and "calendar-status-group" not in group.classes:
-            group = group.parent
-        if group is None:
-            raise ValueError(f"{list_selector}: list is not inside a calendar-status-group")
+    groups = select(container, ".calendar-status-group")
+    if not groups:
+        raise ValueError(f"{container_selector}: no calendar-status-group elements")
+    for group in groups:
         headings = select(group, "h4.calendar-status-heading")
         if len(headings) != 1:
             raise ValueError(f"{list_selector}: status heading missing or duplicated")
@@ -169,19 +186,21 @@ def list_contracts(template_html: str, container_selector: str,
             status = "published"
         else:
             raise ValueError(f"{list_selector}: unrecognized status heading {heading_text[:80]!r}")
-        cards = select(list_node, card_selector)
-        field_labels: list[str] = []
-        if cards:
-            fields = select(cards[0], field_selector)
-            for field_node in fields:
-                labels = select(field_node, label_selector)
-                if len(labels) != 1:
-                    raise ValueError(f"{list_selector}: prototype field label missing or duplicated")
-                label_text = "".join(span.text for span in spans_inside(labels[0], parser.spans)).strip()
-                if not label_text:
-                    raise ValueError(f"{list_selector}: prototype field label is empty")
-                field_labels.append(label_text)
-        contracts.append({"status": status, "field_labels": field_labels, "has_prototype": bool(cards)})
+        lists = select(group, list_selector)
+        empty = select(group, ".calendar-status-empty")
+        if len(lists) > 1 or (lists and empty) or (not lists and len(empty) != 1):
+            raise ValueError(f"{list_selector}.{status}: expected one list or one approved empty-state placeholder")
+        cards = select(lists[0], card_selector) if lists else []
+        labels = prototype_labels
+        if not labels:
+            raise ValueError(f"{list_selector}.{status}: no approved card/detail prototype in this panel")
+        contracts.append({"status": status, "field_labels": labels,
+                          "has_prototype": bool(prototype_cards),
+                          "has_list": bool(lists), "has_empty_state": bool(empty),
+                          "has_cards": bool(cards)})
+    statuses = [item["status"] for item in contracts]
+    if len(statuses) != len(set(statuses)):
+        raise ValueError(f"{container_selector}: duplicate calendar status groups")
     return contracts
 
 def event_list_payload(rows: list[dict[str, Any]], status: str,
