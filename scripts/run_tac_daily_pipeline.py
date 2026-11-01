@@ -137,7 +137,8 @@ def build_preview(report_date: str, trading_date: str, market_fragments: list[Pa
         )
         if normalized_fedwatch is not None:
             normalized_market["fedwatch"] = normalized_fedwatch
-            print("PASS: Investing.com Fed Rate Monitor outcomes mapped to hold and one 25bp hike")
+            validator.validate(normalized_market)
+            print("PASS: Investing.com Fed Rate Monitor outcomes mapped to hold and one 25bp hike; normalized Snapshot revalidated")
         else:
             print(f"FedWatch remains 待核實: {mapping_error}")
     renderer_market = adapt_market_snapshot(normalized_market, renderer_fedwatch)
