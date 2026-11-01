@@ -253,11 +253,14 @@ def earnings_card(proto,item,soup):
     if len(card.select(".earnings-accordion-toggle"))!=1:
         raise ValueError("earnings prototype must preserve exactly one existing expand control")
     main=slot(card,".earnings-summary-main","earnings main")
-    tw=dt(item["event_date"]); us=dt_us(item["event_date"])
+    tw=dt(item["event_date"]); us=dt_us(item["event_date"]); time_known=item.get("time_known",True)
     session_labels={"before_market":"盤前","after_market":"盤後","during_market":"盤中","unknown":"公布時段待核實"}
     session=session_labels[item["session"]]
-    for sel,val in ((".earnings-us-date",f"美股 {us.month}/{us.day}（{WD[us.weekday()]}）{session} {us:%H:%M} ET"),
-      (".earnings-tw-date",f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）{tw:%H:%M} UTC+8"),
+    us_day=us.date() if time_known else (tw.date()-timedelta(days=1) if item["session"]=="after_market" else tw.date())
+    us_header=f"美股 {us_day.month}/{us_day.day}（{WD[us_day.weekday()]}）{session} {us:%H:%M} ET" if time_known else f"美股 {us_day.month}/{us_day.day}（{WD[us_day.weekday()]}）{session}｜時間未公告"
+    tw_header=f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）{tw:%H:%M} UTC+8" if time_known else f"台灣 {tw.month}/{tw.day}（{WD[tw.weekday()]}）｜公布時間未公告"
+    for sel,val in ((".earnings-us-date",us_header),
+      (".earnings-tw-date",tw_header),
       (".earnings-company-name",item["company"]),
       (".earnings-company-sub",(item.get("ticker") or "代號待核實")+"｜"+(item.get("industry") or "產業待核實")+(("｜"+item["reporting_period"]) if item.get("reporting_period") else ""))):
         put(slot(main,sel,"earnings "+sel),val)
@@ -306,8 +309,8 @@ def earnings_card(proto,item,soup):
         if not fields: raise ValueError("earnings prototype must contain detail-field templates")
         while len(fields)<target_count:
             clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
-        tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8）"
-        us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}）"
+        tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8）" if time_known else f"台灣日期 {tw:%Y/%m/%d}（公布時間未公告）"
+        us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}）" if time_known else f"美股日期 {us_day:%Y/%m/%d}（{session}，時間未公告）"
         eps_detail=f"市場預估：{eps_text(item.get('eps_estimate'),item)}；實際：{eps_text(item.get('eps_actual'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"
         rev_detail=f"市場預估：{revenue_text(item.get('revenue_estimate'),item)}；實際：{revenue_text(item.get('revenue_actual'),item)}；幣別／單位：{item.get('revenue_currency') or '待核實'}／{item.get('revenue_unit') or '待核實'}。"
         if released:
