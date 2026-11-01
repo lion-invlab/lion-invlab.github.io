@@ -24,6 +24,32 @@ class SecondaryMarketCaptureTests(unittest.TestCase):
                 self.assertTrue(url.startswith("https://hk.investing.com/"))
                 self.assertTrue(aliases)
 
+    def test_investing_hk_is_primary_for_energy_and_precious_metals(self):
+        expected = {
+            ("energy", "wti"): "https://hk.investing.com/commodities/crude-oil-historical-data",
+            ("energy", "brent"): "https://hk.investing.com/commodities/brent-oil-historical-data",
+            ("precious_metals", "gold_gc"): "https://hk.investing.com/commodities/gold-historical-data",
+            ("precious_metals", "silver_si"): "https://hk.investing.com/commodities/silver-historical-data",
+        }
+        for (group, key), expected_url in expected.items():
+            url, _instrument, _unit, _aliases = INSTRUMENTS[group][key]
+            self.assertEqual(url, expected_url)
+            self.assertTrue(url.startswith("https://hk.investing.com/"))
+            self.assertNotIn("cmegroup.com", url)
+            self.assertNotIn("ice.com", url)
+
+    def test_fragment_declares_investing_primary_and_official_crosscheck(self):
+        groups = {}
+        for group, records in INSTRUMENTS.items():
+            groups[group] = {key: pending_record(config[2], "test pending") for key, config in records.items()}
+        groups["risk_indicators"]["cnn_fear_greed"] = pending_record("index_score", "test pending")
+        fragment = build_fragment(date(2026, 10, 30), date(2026, 11, 2), groups, "2026-11-02T05:00:00+08:00")
+        priority = fragment["source_priority"].lower()
+        self.assertIn("investing.com", priority)
+        self.assertIn("primary", priority)
+        self.assertIn("backup or cross-check only", priority)
+        self.assertIn("cnn business official", priority)
+
     def test_exact_date_and_identity_checks(self):
         html = """<html><h1>WTI Crude Oil Futures Historical Data</h1>
         <table><tr><th>Date</th><th>Price</th><th>Open</th><th>High</th><th>Low</th><th>Change %</th></tr>
