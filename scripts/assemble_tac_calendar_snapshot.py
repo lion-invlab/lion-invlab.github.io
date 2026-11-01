@@ -96,14 +96,19 @@ def event_day(row: dict[str, Any], label: str) -> date:
 
 
 def select_events(rows: list[dict[str, Any]], start: date, end: date,
-                  label: str) -> list[dict[str, Any]]:
+                  label: str, allowed_stars: tuple[int, ...] = (4, 5)) -> list[dict[str, Any]]:
+    """Select events using the WR rating threshold for the target panel.
+
+    Current-week panels accept TAC 4/5-star events; Monday's previous-week
+    panels pass (5,) because WR permits only TAC 5-star events there.
+    """
     selected = []
     seen_ids: set[str] = set()
     for index, row in enumerate(rows):
         if not isinstance(row, dict):
             raise ValueError(f"{label}[{index}]: event must be an object")
         stars = row.get("importance_stars")
-        if stars not in (4, 5):
+        if stars not in allowed_stars:
             continue
         ident = row.get("id")
         if not isinstance(ident, str) or not ident.strip() or ident in seen_ids:
@@ -125,16 +130,21 @@ def bucket_current_week(rows: list[dict[str, Any]], report_day: date,
     for row in rows:
         day = event_day(row, f"{label}.{row['id']}")
         status = row["status"]
-        if day == report_day:
-            buckets["today"].append(row)
-        elif day > report_day:
-            if status == "released":
+        # Publication state takes precedence over the calendar date: an event
+        # released earlier on the report day belongs in 已公布, not 今日.
+        if status == "released":
+            if day > report_day:
                 raise ValueError(f"{label}.{row['id']}: future-dated event cannot be released")
-            buckets["upcoming"].append(row)
-        else:
-            if status != "released":
-                raise ValueError(f"{label}.{row['id']}: past event is not marked released")
             buckets["published"].append(row)
+        elif status == "upcoming":
+            if day < report_day:
+                raise ValueError(f"{label}.{row['id']}: past event is not marked released")
+            if day == report_day:
+                buckets["today"].append(row)
+            else:
+                buckets["upcoming"].append(row)
+        else:
+            raise ValueError(f"{label}.{row['id']}: unsupported status {status!r}")
     return buckets
 
 
@@ -373,7 +383,7 @@ def build_calendar_snapshot(current_week: dict[str, Any],
                 if not monday_report:
                     continue
                 prior_rows = select_events(previous_week["events"][kind], previous_start, previous_end,
-                                           f"previous_week.{kind}")
+                                           f"previous_week.{kind}", allowed_stars=(5,))
                 invalid = [row["id"] for row in prior_rows if row["status"] != "released"]
                 if invalid:
                     raise ValueError(f"previous_week.{kind}: prior-week events must be released: {invalid}")
