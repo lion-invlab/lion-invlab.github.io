@@ -66,9 +66,10 @@ def build():
             "audit_text": "此處為合成視覺回歸資料，非 CME 即時機率。",
             "aria_label": "合成測試：維持不變 80%，升息一碼 20%",
         }
+        report_date = "2026-11-02" if kind == "monday" else "2026-11-03"
         calendar = build_calendar_snapshot(
             current, previous if kind == "monday" else None,
-            "2026-11-02", template, binding
+            report_date, template, binding
         )
         snapshot.update(calendar)
         rendered = render_market_html(template, snapshot, binding)
