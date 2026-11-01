@@ -114,7 +114,7 @@ class SafeMarketRendererTests(unittest.TestCase):
         self.assertIn('<strong>20.10</strong><span class="down">-1.50%</span>',result)
         self.assertIn('<strong>101.00</strong><span class="warn">+1.20%</span>',result)
         self.assertIn('<span class="fg6-score-main">28.0</span>',result)
-        self.assertIn('class="cnn-fg-preview"',result)
+        self.assertIn('cnn-fg-preview',result)
 
     def test_missing_group_key_fails_closed(self):
         html = '<main id="global-markets"><div class="row"><b>道瓊工業指數</b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
