@@ -573,6 +573,18 @@
             "null"
           ]
         },
+        "industry": {"type":["string","null"],"maxLength":120},
+        "reporting_period": {"type":["string","null"],"maxLength":80},
+        "eps_basis": {"type":["string","null"],"maxLength":80},
+        "eps_currency": {"type":["string","null"],"maxLength":8},
+        "revenue_currency": {"type":["string","null"],"maxLength":8},
+        "revenue_unit": {"type":["string","null"],"maxLength":32},
+        "eps_comparison_status": {"enum":["beat","met","miss","pending_verification","not_comparable",null]},
+        "revenue_comparison_status": {"enum":["beat","met","miss","pending_verification","not_comparable",null]},
+        "financial_judgment": {"type":["string","null"],"maxLength":1200},
+        "stock_price_reaction_window": {"type":["string","null"],"maxLength":200},
+        "consensus_source": {"oneOf":[{"$ref":"#/$defs/source"},{"type":"null"}]},
+        "price_reaction_source": {"oneOf":[{"$ref":"#/$defs/source"},{"type":"null"}]},
         "session": {
           "enum": [
             "before_market",
