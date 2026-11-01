@@ -2366,6 +2366,35 @@
         "observed_at": "2026-11-01T12:56:34+08:00",
         "notes": "官方利率決策公告；Reuters調查作為預期值佐證。"
       }
+    },
+    {
+      "id": "prev-rbnz-rate-20261028",
+      "event_date": "2026-10-28T09:00:00+08:00",
+      "region": "紐西蘭",
+      "event_name": "紐西蘭央行（RBNZ）利率決策",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "主要央行政策意外：Reuters調查27位經濟學家中22位預期升息25基點，實際卻以4比3票數維持利率；紐元急跌逾1%，市場利率定價迅速反轉，具明確跨市場影響。",
+      "previous": "2.75%",
+      "forecast": "3.00%（Reuters調查27位經濟學家中22位預期升息25基點）",
+      "actual": "2.75%（維持不變；4比3表決，三名委員主張升息至3.00%）",
+      "status": "released",
+      "impact_judgment": "結果明顯低於市場升息預期，紐元一度下跌約1.74%，紐西蘭兩年期swap利率亦急挫。央行雖維持利率，但表示未來可能仍需收緊政策，政策分歧與後續升息時點成為焦點。",
+      "time_known": true,
+      "source": {
+        "name": "Reserve Bank of New Zealand",
+        "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+        "published_at": "2026-10-28T14:00:00+13:00",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "央行官方決策公告；Reuters民調與市場反應另以Reuters報導佐證。"
+      },
+      "consensus_source": {
+        "name": "Reuters／The Business Times",
+        "url": "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-unexpectedly-holds-rates-signals-likely-hikes",
+        "published_at": "2026-10-28T11:19:00+08:00",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "Reuters調查顯示27位經濟學家中22位預期升息25基點。"
+      }
     }
   ],
   "previous_earnings_calendar": [
@@ -2379,38 +2408,36 @@
       "importance_basis": "major_event_assessment",
       "importance_basis_source": "TAC五星：全球製藥／腫瘤、罕見疾病與生物製藥為全球大型權值或關鍵產業指標企業，財報對相關產業景氣、供應鏈與跨資產定價具重要影響。",
       "importance_rating_source": null,
-      "eps_estimate": 2.6,
+      "eps_estimate": 2.59,
       "eps_actual": 2.79,
-      "revenue_estimate": 16.01,
+      "revenue_estimate": 15.94,
       "revenue_actual": 16.209,
       "status": "released",
       "stock_price_reaction": "財報公布後首個常規交易日（10/30）收盤 +7.02%",
       "source": {
-        "name": "AstraZeneca｜9M and Q3 2026 Results",
+        "name": "AstraZeneca",
         "url": "https://www.astrazeneca.com/media-centre/press-releases/2026/9m-and-q3-2026-results.html",
-        "published_at": null,
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "publisher": "AstraZeneca Investor Relations",
-        "notes": "官方10/30 07:00 GMT發布Q3結果；換算台灣時間15:00。Q3 Total Revenue US$16.209B、Reported EPS US$2.02、Core EPS US$2.79。"
+        "published_at": "2026-10-30T00:00:00Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "公司官方公告：Q3 Core EPS US$2.79、Total Revenue US$16.209B。"
       },
       "industry": "全球製藥／腫瘤、罕見疾病與生物製藥",
       "reporting_period": "2026 Q3",
       "time_known": true,
-      "eps_basis": "Core EPS (company adjusted measure)",
+      "eps_basis": "Core EPS (USD per share)",
       "eps_currency": "USD",
       "revenue_currency": "USD",
-      "revenue_unit": "B",
-      "eps_comparison_status": "pending_verification",
+      "revenue_unit": "USD billions",
+      "eps_comparison_status": "beat",
       "revenue_comparison_status": "beat",
-      "financial_judgment": "Q3營收年增7%、Core EPS年增17%，全年營收與Core EPS指引維持；EPS共識口徑仍待確認，暫不判定驚喜幅度。",
+      "financial_judgment": "Q3 Core EPS US$2.79，高於Reuters彙整分析師預期US$2.59；總營收US$16.209B，高於預期US$15.94B。公司維持2026全年指引，腫瘤及罕見疾病藥物帶動成長。",
       "stock_price_reaction_window": "2026-10-30 首個常規交易日收盤；以前一交易日收盤至當日收盤計算；NYSE ADR",
       "consensus_source": {
-        "name": "MarketBeat｜AstraZeneca Q3 2026 Estimates",
-        "url": "https://www.marketbeat.com/earnings/reports/2026-10-30-astrazeneca-plc-stock-1/",
-        "published_at": null,
-        "observed_at": "2026-11-01T12:39:11+08:00",
-        "publisher": "MarketBeat",
-        "notes": "列示共識 EPS US$2.60、營收US$16.01B；EPS是否與公司Core EPS同口徑尚待核實。"
+        "name": "Reuters",
+        "url": "https://www.reuters.com/legal/litigation/astrazeneca-kicks-off-savings-drive-invest-pipeline-after-sales-beat-2026-10-30/",
+        "published_at": "2026-10-30T07:07:00Z",
+        "observed_at": "2026-11-01T13:56:34+09:00",
+        "notes": "Reuters列示Q3 Core EPS預期US$2.59及營收預期US$15.94B。"
       },
       "price_reaction_source": {
         "name": "StockAnalysis",
@@ -2419,8 +2446,8 @@
         "observed_at": "2026-11-01T12:56:34+08:00",
         "notes": "歷史日線收盤價；以首個常規交易日收盤相對前一交易日收盤的日變動百分比呈現。"
       },
-      "eps_note": "公司Q3 Core EPS US$2.79、Reported EPS US$2.02；MarketBeat共識US$2.60，但該共識是否採Core口徑尚未確認，暫不判定 beat/miss。",
-      "revenue_note": "公司Q3 Total Revenue US$16.209B；MarketBeat共識US$16.01B，高於預期。",
+      "eps_note": "採公司Core EPS口徑；Reuters報導分析師共識為US$2.59。",
+      "revenue_note": "採公司Total Revenue US$16.209B；Reuters分析師共識US$15.94B，均為十億美元口徑。",
       "time_type": "release_time"
     },
     {
@@ -3040,8 +3067,8 @@
         "https://stockanalysis.com/stocks/intc/history/",
         "https://stockanalysis.com/stocks/googl/history/"
       ],
-      "checked_at": "2026-11-01T12:56:34+08:00",
-      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家五星企業均已補上首個常規交易日收盤反應，並以歷史日線來源核對；AstraZeneca EPS 共識口徑、Samsung EPS／分析師共識及 Shell 營收可比口徑仍待核實，coverage 維持 incomplete。"
+      "checked_at": "2026-11-01T13:56:34+09:00",
+      "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家五星企業均已補上首個常規交易日收盤反應；AstraZeneca EPS／營收已以官方公告及Reuters共識核實。Samsung EPS／分析師共識及Shell營收可比口徑仍待核實，coverage 維持 incomplete。"
     },
     "economic_calendar": {
       "status": "incomplete",
@@ -3083,10 +3110,13 @@
         "https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/",
         "https://www.cmegroup.com/education/events/econoday/663431",
         "https://www.gov.uk/government/speeches/budget-2026-speech",
-        "https://www.investing.com/news/economy-news/bank-of-canada-to-raise-rates-to-250-on-october-28-and-once-again-by-endmarch-reuters-poll-4970116"
+        "https://www.investing.com/news/economy-news/bank-of-canada-to-raise-rates-to-250-on-october-28-and-once-again-by-endmarch-reuters-poll-4970116",
+        "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-unexpectedly-holds-rates-signals-likely-hikes",
+        "https://www.reuters.com/legal/litigation/astrazeneca-kicks-off-savings-drive-invest-pipeline-after-sales-beat-2026-10-30/",
+        "https://www.astrazeneca.com/media-centre/press-releases/2026/9m-and-q3-2026-results.html"
       ],
-      "checked_at": "2026-11-01T12:56:34+08:00",
-      "notes": "依 WR v3.7，上週區塊僅保留五星。補入加拿大央行 10/28 利率決策（首次自2023年7月以來升息）；Reuters 調查顯示 34 位經濟學家中 19 位預期升息，實際結果與多數預期一致。其餘五星事件仍需完成全球漏項掃描及資料交叉核對，coverage 維持 incomplete。"
+      "checked_at": "2026-11-01T13:56:34+09:00",
+      "notes": "依 WR v3.7，上週區塊僅保留五星。已補入加拿大央行（10/28）及紐西蘭央行（10/28）兩項五星政策決策；RBNZ實際維持2.75%，與Reuters調查中27位有22位預期升息的市場共識相反。仍需完成其他主要經濟體五星事件掃描，coverage 維持 incomplete。"
     }
   }
 }
