@@ -47,12 +47,17 @@ def convert(d, report_date, now=None):
                 if md>rd: choices.append((md,m))
             if not choices: raise ValueError("找不到報告日之後的會議")
             md,m=sorted(choices,key=lambda x:x[0])[0]; meeting=md.isoformat()
-            parsed=[]
+            parsed_by_band={}
             for p in m.get("probabilities",[]):
                 band=rate_band(p["target_rate"]); value=float(p["probability"])
                 if not 0<=value<=100: raise ValueError("機率超出 0–100")
-                parsed.append((band,value))
-            if len(parsed)!=2 or len({x[0] for x in parsed})!=2: raise ValueError("來源不是兩個唯一利率區間；母版固定只有兩格")
+                if band in parsed_by_band:
+                    if abs(parsed_by_band[band]-value)>.05:
+                        raise ValueError("同一利率區間出現互相衝突的重複機率")
+                    continue
+                parsed_by_band[band]=value
+            parsed=list(parsed_by_band.items())
+            if len(parsed)!=2: raise ValueError("去除完全相同的重複列後，來源仍不是兩個唯一利率區間；母版固定只有兩格")
             if {x[0] for x in parsed}!=EXPECTED: raise ValueError("來源利率區間與母版固定兩格不一致")
             if abs(sum(x[1] for x in parsed)-100)>.5: raise ValueError("機率合計不約等於 100%")
             probs=[{"rate_range":a.split("-")[0]+"%–"+a.split("-")[1]+"%","probability":b} for a,b in parsed]
