@@ -37,6 +37,7 @@ def change_text(value: Any, unit: Any, decimals: int = 2) -> str:
     suffixes = {
         "percent": "%", "percentage": "%", "pct": "%", "%": "%",
         "basis_points": " bp", "basis_point": " bp", "bps": " bp", "bp": " bp",
+        "percentage_point": " 個百分點", "percentage_points": " 個百分點",
         "index_points": " 點", "index_point": " 點", "points": " 點", "point": " 點",
     }
     if normalized not in suffixes:
