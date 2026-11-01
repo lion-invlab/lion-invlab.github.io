@@ -1136,25 +1136,29 @@ def resize_calendar_lists(html: str, binding: dict[str, Any], snapshot: dict[str
                 raise ValueError(f"{group_name}.{panel_key}: panel container missing or duplicated")
             container = containers[0]
             groups = select(container, ".calendar-status-group")
+            legacy_mode = False
             if len(groups) != len(lists_data):
-                # Backward compatibility for older renderer fixtures that contain
-                # only the already-materialized list arrays. New adapters always
-                # emit one entry per status group, including empty-state groups.
                 existing_lists = select(container, panel_spec["list_selector"])
-                mapped_groups = [status_group_for(node) for node in existing_lists]
-                if len(mapped_groups) == len(lists_data) and all(mapped_groups):
-                    groups = mapped_groups
+                if len(existing_lists) == len(lists_data):
+                    legacy_mode = True
+                    group_entries = [(None, node) for node in existing_lists]
                 else:
                     raise ValueError(f"{group_name}.{panel_key}: status-group count mismatch; template={len(groups)}, snapshot={len(lists_data)}")
+            else:
+                group_entries = [(group, (select(group, panel_spec["list_selector"]) or [None])[0])
+                                 for group in groups]
             item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
-            for list_index, (group, list_data) in enumerate(zip(groups, lists_data)):
-                parser = SourceTreeParser(html)
-                parser.feed(html)
-                parser.close()
-                containers = select(parser.root, panel_spec["container"])
-                container = containers[0]
-                groups = select(container, ".calendar-status-group")
-                group = groups[list_index]
+            for list_index, ((group, list_node), list_data) in enumerate(zip(group_entries, lists_data)):
+                if not legacy_mode:
+                    parser = SourceTreeParser(html)
+                    parser.feed(html)
+                    parser.close()
+                    containers = select(parser.root, panel_spec["container"])
+                    container = containers[0]
+                    groups = select(container, ".calendar-status-group")
+                    group = groups[list_index]
+                    group_lists = select(group, panel_spec["list_selector"])
+                    list_node = group_lists[0] if group_lists else None
                 if not isinstance(list_data, dict) or set(list_data) != {"items"} or not isinstance(list_data["items"], list):
                     raise ValueError(f"{group_name}.{panel_key}.lists[{list_index}]: invalid list payload")
                 group_lists = select(group, panel_spec["list_selector"])
