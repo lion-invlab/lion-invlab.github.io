@@ -1,0 +1,95 @@
+name: TAC Live Market Capture Probe
+
+on:
+  push:
+    branches:
+      - tac-renderer-safe-refactor-20261102
+    paths:
+      - .github/workflows/tac-live-capture-probe.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-live-capture-probe-2026-11-02
+  cancel-in-progress: false
+
+jobs:
+  live-market-capture:
+    name: Live Investing.com and official-source capture
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout isolated experiment branch
+        uses: actions/checkout@v4
+        with:
+          ref: tac-renderer-safe-refactor-20261102
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install capture dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install requests beautifulsoup4
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Capture live market data for the 2026-11-02 Monday report
+        run: |
+          python scripts/capture_tac_market_bundle.py \
+            --report-date 2026-11-02 \
+            --trading-date 2026-10-30 \
+            --output-dir artifacts/tac-live-capture/2026-11-02
+
+      - name: Summarize capture coverage
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("artifacts/tac-live-capture/2026-11-02")
+          summary = []
+          manifest_path = root / "capture_manifest.json"
+          if not manifest_path.exists():
+              summary.append("Capture manifest was not produced.")
+          else:
+              manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+              summary.append(f"Report date: {manifest.get('report_date')}")
+              summary.append(f"Trading date: {manifest.get('trading_date')}")
+              for name in ("global-indices.json", "sectors.json", "treasury.json", "secondary-market.json"):
+                  path = root / name
+                  if not path.exists():
+                      summary.append(f"{name}: MISSING")
+                      continue
+                  data = json.loads(path.read_text(encoding="utf-8"))
+                  groups = [k for k in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators") if isinstance(data.get(k), dict)]
+                  records = [record for group in groups for record in data[group].values() if isinstance(record, dict)]
+                  verified = sum(record.get("status") == "verified" for record in records)
+                  summary.append(f"{name}: {verified}/{len(records)} verified; {len(records)-verified} pending")
+              fed = root / "fedwatch-investing-com.json"
+              if fed.exists():
+                  data = json.loads(fed.read_text(encoding="utf-8"))
+                  summary.append(f"Fed Rate Monitor: {data.get('status')} (source update: {data.get('source_updated_at')})")
+          with open(Path(__import__("os").environ["GITHUB_STEP_SUMMARY"]), "a", encoding="utf-8") as f:
+              f.write("# TAC live capture probe\n\n")
+              f.write("\n".join(f"- {item}" for item in summary))
+              f.write("\n\nRaw capture JSON and page text are retained in the workflow artifact.\n")
+          print("\n".join(summary))
+          PY
+
+      - name: Upload live capture evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-live-market-capture-2026-11-02
+          path: artifacts/tac-live-capture/2026-11-02/
+          if-no-files-found: warn
+          retention-days: 7
