@@ -89,6 +89,14 @@ def cmd_snapshot(args):
         rows.sort(key=lambda x:parse_dt(x["event_date"]))
         result[key]=rows
         result["coverage"][key]=data["coverage"][kind]
+    if args.previous_week_file:
+        prev=load(args.previous_week_file)
+        for kind in ("economic","earnings"):
+            key="previous_economic_calendar" if kind=="economic" else "previous_earnings_calendar"
+            rows=[x for x in prev["events"][kind] if int(x.get("importance_stars",0))==5 and x.get("status")=="released"]
+            rows.sort(key=lambda x:parse_dt(x["event_date"]).date(),reverse=True)
+            result[key]=rows
+            result["coverage"][key]=prev["coverage"][kind]
     Path(args.output).parent.mkdir(parents=True,exist_ok=True)
     Path(args.output).write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({"output":args.output,"economic":len(result["economic_calendar"]),"earnings":len(result["earnings_calendar"]),"coverage":{k:v["status"] for k,v in result["coverage"].items()}},ensure_ascii=False,indent=2))
@@ -98,7 +106,7 @@ def main():
     p=argparse.ArgumentParser(); sub=p.add_subparsers(dest="cmd",required=True)
     v=sub.add_parser("validate"); v.add_argument("--file",required=True); v.set_defaults(fn=cmd_validate)
     u=sub.add_parser("upsert"); u.add_argument("--file",required=True); u.add_argument("--kind",required=True); u.add_argument("--event",required=True); u.add_argument("--at"); u.set_defaults(fn=cmd_upsert)
-    s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.set_defaults(fn=cmd_snapshot)
+    s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot)
     a=p.parse_args()
     try: return a.fn(a)
     except Exception as exc: print("ERROR:",exc,file=sys.stderr); return 2
