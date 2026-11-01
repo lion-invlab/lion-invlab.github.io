@@ -13,7 +13,7 @@ function parseInvestingTimestamp(value) {
   // Parse the source's US timezone abbreviation explicitly; Date.parse does
   // not reliably accept strings such as "12:35AM EDT" in Node.
   const match = String(value).trim().match(
-    /^([A-Za-z]{3})\\s+(\\d{1,2}),\\s+(\\d{4})\\s+(\\d{1,2}):(\\d{2})\\s*(AM|PM)\\s*(EDT|EST|CDT|CST|MDT|MST|PDT|PST)$/i
+    /^([A-Za-z]{3})\s+(\d{1,2}),\s+(\d{4})\s+(\d{1,2}):(\d{2})\s*(AM|PM)\s*(EDT|EST|CDT|CST|MDT|MST|PDT|PST)$/i
   );
   if (!match) return NaN;
   const months = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
