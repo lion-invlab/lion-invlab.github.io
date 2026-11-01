@@ -184,6 +184,17 @@ try {
     );
     if (investingErrors.length) failures.push(viewport.name + ": invalid Investing.com links: " + investingErrors.join(", "));
 
+    // Fixed market instrument links must remain byte-for-byte identical to the
+    // approved mother; news and calendar source links are intentionally dynamic.
+    const fixedLinkSelectors = ["#global-markets a", "#industry-bonds-fx-commodities a", "#sentiment a"];
+    for (const selector of fixedLinkSelectors) {
+      const masterHrefs = await masterPage.locator(selector).evaluateAll(links => links.map(link => link.getAttribute("href")));
+      const reportHrefs = await reportPage.locator(selector).evaluateAll(links => links.map(link => link.getAttribute("href")));
+      if (JSON.stringify(masterHrefs) !== JSON.stringify(reportHrefs)) {
+        failures.push(viewport.name + ": fixed instrument links changed in " + selector);
+      }
+    }
+
     const disclosure = reportPage.locator("details summary").first();
     if (await disclosure.count()) {
       const details = reportPage.locator("details").first();
