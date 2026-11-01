@@ -54,6 +54,23 @@ function parseMeetingsFromText(bodyText) {
     .filter(m => m.probabilities.length > 0);
   return {meetings, conflicts};
 }
+function parseCurrentTargetRange(bodyText) {
+  const patterns = [
+    /Current\\s+(?:Federal\\s+Funds|Fed\\s+Funds)\\s+(?:Target\\s+)?(?:Rate\\s+)?(?:Range)?\\s*[:：]?\\s*(\\d+\\.\\d{2,3})\\s*[-–]\\s*(\\d+\\.\\d{2,3})\\s*%?/i,
+    /Current\\s+Target\\s+Range\\s*[:：]?\\s*(\\d+\\.\\d{2,3})\\s*[-–]\\s*(\\d+\\.\\d{2,3})\\s*%?/i,
+    /Current\\s+Rate\\s+Range\\s*[:：]?\\s*(\\d+\\.\\d{2,3})\\s*[-–]\\s*(\\d+\\.\\d{2,3})\\s*%?/i
+  ];
+  for (const pattern of patterns) {
+    const match = bodyText.match(pattern);
+    if (!match) continue;
+    const lower = Number(match[1]);
+    const upper = Number(match[2]);
+    if (!Number.isFinite(lower) || !Number.isFinite(upper) || upper <= lower) return null;
+    return lower.toFixed(2) + "-" + upper.toFixed(2);
+  }
+  return null;
+}
+
 function validateMeetingDistribution(meetings, conflicts) {
   if (conflicts.length || !meetings.length) return false;
   return meetings.every(meeting => {
@@ -85,6 +102,8 @@ if (process.argv.includes("--self-test")) {
     "4.00-4.25 69.8 %"
   ].join("\n");
   const normalized = parseMeetingsFromText(duplicateText);
+  const currentRange = parseCurrentTargetRange("Current Fed Funds Rate Range: 3.75-4.00%");
+  if (currentRange !== "3.75-4.00") throw new Error("Current target rate range parsing failed");
   if (normalized.meetings.length !== 1 || normalized.meetings[0].probabilities.length !== 2 ||
       !validateMeetingDistribution(normalized.meetings, normalized.conflicts)) {
     throw new Error("Duplicate FedWatch sections were not safely normalized");
@@ -117,6 +136,7 @@ try {
   const bodyText = await page.locator("body").innerText({ timeout: 20000 });
   const updatedMatches = [...bodyText.matchAll(/Updated:\s*([^\n\r]+)/gi)].map(m => m[1].trim());
   const {meetings, conflicts} = parseMeetingsFromText(bodyText);
+  const currentTargetRange = parseCurrentTargetRange(bodyText);
   const sourceUpdatedAt = [...new Set(updatedMatches)];
   const parsedUpdate = sourceUpdatedAt.length ? parseInvestingTimestamp(sourceUpdatedAt[0]) : NaN;
   const ageHours = Number.isFinite(parsedUpdate) ? (Date.now() - parsedUpdate) / 3600000 : null;
@@ -124,20 +144,23 @@ try {
   const fresh = ageHours !== null && ageHours >= -1 && ageHours <= freshnessLimitHours;
   const hasData = validateMeetingDistribution(meetings, conflicts);
   const isMonitor = /Fed Rate Monitor/i.test(bodyText);
-  const status = isMonitor && hasData && fresh ? "captured_for_review" : "pending_verification";
-  const result = { provider: "Investing.com Fed Rate Monitor", source_url: url, role: "fallback_only_not_CME",
-    status, observed_at: observedAt, source_updated_at: sourceUpdatedAt, source_age_hours: ageHours,
-    freshness_limit_hours: freshnessLimitHours, meetings, page_status: response.status(),
-    validation: { is_monitor: isMonitor, has_meeting_probabilities: hasData, has_unique_meetings: meetings.length > 0, has_unique_rate_ranges: meetings.every(m=>m.probabilities.length===2), probabilities_sum_to_100: meetings.every(m=>Math.abs(m.probabilities.reduce((sum,p)=>sum+p.probability,0)-100)<=0.2), has_conflicts: conflicts.length>0, has_source_update_time: sourceUpdatedAt.length > 0, is_fresh: fresh },
+  const status = isMonitor && hasData && fresh && currentTargetRange ? "captured_for_review" : "pending_verification";
+  const result = { provider: "Investing.com Fed Rate Monitor", source_url: url, role: "primary",
+    status, observed_at: observedAt, source_updated_at: sourceUpdatedAt,
+    source_updated_at_iso: Number.isFinite(parsedUpdate) ? new Date(parsedUpdate).toISOString() : null,
+    source_age_hours: ageHours, freshness_limit_hours: freshnessLimitHours,
+    current_target_range: currentTargetRange, meetings, page_status: response.status(),
+    validation: { is_monitor: isMonitor, has_meeting_probabilities: hasData, has_unique_meetings: meetings.length > 0, has_unique_rate_ranges: meetings.every(m=>m.probabilities.length===2), probabilities_sum_to_100: meetings.every(m=>Math.abs(m.probabilities.reduce((sum,p)=>sum+p.probability,0)-100)<=0.2), has_current_target_range: Boolean(currentTargetRange), has_conflicts: conflicts.length>0, has_source_update_time: sourceUpdatedAt.length > 0, is_fresh: fresh },
     deduplication_conflicts: conflicts,
-    error: status === "captured_for_review" ? null : "Missing meeting probabilities or source Updated time, or source data is stale" };
+    error: status === "captured_for_review" ? null : "Missing meeting probabilities, current target range or source Updated time, or source data is stale" };
   fs.writeFileSync(output, JSON.stringify(result, null, 2) + "\n", "utf8");
   fs.writeFileSync(textOutput, bodyText, "utf8");
   console.log(JSON.stringify({ status, observed_at: observedAt, source_updated_at: sourceUpdatedAt, source_age_hours: ageHours, meeting_count: meetings.length, validation: result.validation }, null, 2));
   if (status !== "captured_for_review") process.exitCode = 2;
 } catch (error) {
-  const result = { provider: "Investing.com Fed Rate Monitor", source_url: url, role: "fallback_only_not_CME",
-    status: "pending_verification", observed_at: observedAt, source_updated_at: [], meetings: [], error: error.message };
+  const result = { provider: "Investing.com Fed Rate Monitor", source_url: url, role: "primary",
+    status: "pending_verification", observed_at: observedAt, source_updated_at: [],
+    current_target_range: null, meetings: [], error: error.message };
   fs.writeFileSync(output, JSON.stringify(result, null, 2) + "\n", "utf8");
   console.error(JSON.stringify(result, null, 2));
   process.exitCode = 2;
