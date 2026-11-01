@@ -374,7 +374,7 @@ def render_report_meta(html: str, parser: SourceTreeParser,
         raise ValueError("report_meta: status text slot is ambiguous")
     span = status_spans[0]
     raw_text = html[span.start:span.end]
-    match = re.search(r"\\d{4}/\\d{1,2}/\\d{1,2}（[一二三四五六日]）", raw_text)
+    match = re.search(r"\d{4}/\d{1,2}/\d{1,2}（[一二三四五六日]）", raw_text)
     if match is None:
         raise ValueError("report_meta: status date prefix is missing")
     updated_status = raw_text[:match.start()] + date_label(status_day) + raw_text[match.end():]
