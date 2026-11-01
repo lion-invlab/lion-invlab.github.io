@@ -2,9 +2,9 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from scripts.tac_weekly_calendar_db import validate_week, cmd_snapshot
+from scripts.tac_weekly_calendar_db import validate_week, cmd_snapshot, cmd_upsert
 
-class WeeklyCalendarDbTests(unittest.TestCase):
+def load_for_test(path):\n    return json.loads(Path(path).read_text(encoding="utf-8"))\n\nclass WeeklyCalendarDbTests(unittest.TestCase):
     def event(self, eid, when, stars=4, status="upcoming"):
         return {"id":eid,"event_date":when,"region":"US","event_name":eid,
                 "importance_stars":stars,"status":status,
@@ -51,6 +51,25 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual([x["id"] for x in snap["economic_calendar"]],["e4","e5"])
             self.assertEqual([x["id"] for x in snap["previous_economic_calendar"]],["p5"])
             self.assertEqual(snap["previous_earnings_calendar"],[])
+
+    def test_upsert_is_idempotent_and_audited_only_on_change(self):
+        w=self.week(events={"economic":[self.event("same","2026-11-02T10:00:00+08:00")],"earnings":[]})
+        with tempfile.TemporaryDirectory() as td:
+            db=Path(td)/"week.json"; event=Path(td)/"event.json"
+            db.write_text(json.dumps(w),encoding="utf-8")
+            event.write_text(json.dumps(self.event("same","2026-11-02T10:00:00+08:00")),encoding="utf-8")
+            args=type("Args",(),{"file":str(db),"kind":"economic","event":str(event),"at":"2026-11-01T09:00:00+08:00"})()
+            self.assertEqual(cmd_upsert(args),0)
+            first=load_for_test(db)
+            self.assertEqual(len(first["audit"]),0)
+            changed=self.event("same","2026-11-02T10:00:00+08:00")
+            changed["event_name"]="revised name"
+            event.write_text(json.dumps(changed),encoding="utf-8")
+            self.assertEqual(cmd_upsert(args),0)
+            second=load_for_test(db)
+            self.assertEqual(len(second["events"]["economic"]),1)
+            self.assertEqual(len(second["audit"]),1)
+            self.assertEqual(second["audit"][0]["action"],"event_updated")
 
     def test_tac_star_and_archive_policy(self):
         low=self.week(events={"economic":[self.event("low","2026-11-02T10:00:00+08:00",3)],"earnings":[]})
