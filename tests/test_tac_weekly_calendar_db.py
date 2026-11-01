@@ -10,7 +10,7 @@ def load_for_test(path):
 class WeeklyCalendarDbTests(unittest.TestCase):
     def event(self, eid, when, stars=4, status="upcoming"):
         return {"id":eid,"event_date":when,"region":"US","event_name":eid,
-                "importance_stars":stars,"status":status,
+                "importance_stars":stars,"status":status,"issuer_country":"United States","us_exchange_listed":True,
                 "source":{"name":"official","url":"https://example.com/source"}}
 
     def week(self, week_id="2026-W45", start="2026-11-02", end="2026-11-06", events=None):
@@ -221,6 +221,48 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             for key in ("previous_economic_calendar","previous_earnings_calendar"):
                 self.assertTrue(all(x["importance_stars"]==5 and x["status"]=="released"
                                     for x in snapshot[key]))
+
+    def test_non_us_earnings_require_us_exchange_listing_and_snapshot_excludes_otc(self):
+        current=self.week(events={"economic":[],"earnings":[
+            {**self.event("us-listed","2026-11-03T10:00:00+08:00",4),"company":"Foreign listed","issuer_country":"Canada",
+             "us_exchange_listed":True,"us_listing_exchange":"NASDAQ","listing_evidence":{"url":"https://example.com/listing"}},
+            {**self.event("otc-only","2026-11-04T10:00:00+08:00",5),"company":"Foreign OTC","issuer_country":"Germany",
+             "us_exchange_listed":False,"us_listing_market":"OTCQX","listing_evidence":{"url":"https://example.com/otc"}}
+        ]})
+        previous=self.week("2026-W44","2026-10-26","2026-10-30",{"economic":[],"earnings":[
+            {**self.event("prior-us-listed","2026-10-30T10:00:00+08:00",5,"released"),"company":"Foreign listed",
+             "issuer_country":"United Kingdom","us_exchange_listed":True,"us_listing_exchange":"NYSE",
+             "listing_evidence":{"url":"https://example.com/nyse"},"eps_estimate":1,"eps_actual":1,
+             "revenue_estimate":2,"revenue_actual":2,"eps_basis":"GAAP","eps_comparison_status":"met",
+             "revenue_comparison_status":"met","financial_judgment":"in line","stock_price_reaction":"flat",
+             "consensus_source":{"url":"https://example.com/consensus"},"price_reaction_source":{"url":"https://example.com/price"}},
+            {**self.event("prior-otc","2026-10-30T10:00:00+08:00",5,"released"),"company":"Foreign OTC",
+             "issuer_country":"Germany","us_exchange_listed":False,"us_listing_market":"OTC",
+             "listing_evidence":{"url":"https://example.com/otc"},"eps_estimate":1,"eps_actual":1,
+             "revenue_estimate":2,"revenue_actual":2,"eps_basis":"GAAP","eps_comparison_status":"met",
+             "revenue_comparison_status":"met","financial_judgment":"in line","stock_price_reaction":"flat",
+             "consensus_source":{"url":"https://example.com/consensus"},"price_reaction_source":{"url":"https://example.com/price"}}
+        ]})
+        previous["status"]="archive_candidate"
+        with tempfile.TemporaryDirectory() as td:
+            current_path=Path(td)/"current.json"; previous_path=Path(td)/"previous.json"; out=Path(td)/"snapshot.json"
+            current_path.write_text(json.dumps(current),encoding="utf-8")
+            previous_path.write_text(json.dumps(previous),encoding="utf-8")
+            args=type("Args",(),{"file":str(current_path),"report_date":"2026-11-02","output":str(out),
+                                 "previous_week_file":str(previous_path),"replace":False})()
+            self.assertEqual(cmd_snapshot(args),0)
+            snap=load_for_test(out)
+            self.assertEqual([x["id"] for x in snap["earnings_calendar"]],["us-listed"])
+            self.assertEqual([x["id"] for x in snap["previous_earnings_calendar"]],["prior-us-listed"])
+
+    def test_non_us_earnings_without_listing_evidence_fail_validation(self):
+        w=self.week(events={"economic":[],"earnings":[
+            {**self.event("foreign","2026-11-03T10:00:00+08:00"),"company":"Foreign",
+             "issuer_country":"Germany","us_exchange_listed":True,"us_listing_exchange":"OTC"}
+        ]})
+        errors=validate_week(w)
+        self.assertTrue(any("listing_evidence.url" in e for e in errors))
+        self.assertTrue(any("qualifying U.S. exchange" in e for e in errors))
 
     def test_approved_mother_templates_keep_calendar_anchors(self):
         root=Path(__file__).resolve().parents[1]
