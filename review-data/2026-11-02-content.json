@@ -2164,6 +2164,29 @@
       }
     },
     {
+      "id": "prev-uk-budget-20261028",
+      "event_date": "2026-10-28T12:00:00+08:00",
+      "region": "英國",
+      "event_name": "英國2026年度財政預算案",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：年度預算案涉及稅制、政府支出、借款與財政規則，可能改變英國公債供給、英鎊及英國企業的中期政策預期。",
+      "previous": null,
+      "forecast": null,
+      "actual": "已公布",
+      "status": "released",
+      "time_known": false,
+      "impact_judgment": "預算案以財政紀律與降低借款為主軸，同時提出能源、住房、國安及產業投資措施；應觀察財政乘數、債務供給及稅制調整對英國公債與英鎊的影響。",
+      "source": {
+        "name": "HM Treasury｜Budget 2026 Speech",
+        "url": "https://www.gov.uk/government/speeches/budget-2026-speech",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "HM Treasury",
+        "notes": "官方確認預算案於10/28發表；官方逐字稿未列統一發布時刻。"
+      }
+    },
+    {
       "id": "prev-boc-rate-20261028",
       "event_date": "2026-10-28T21:45:00+08:00",
       "region": "加拿大",
@@ -2302,6 +2325,37 @@
         "observed_at": "2026-11-01T12:39:11+08:00",
         "publisher": "Reuters",
         "notes": "列示核心 CPI 實際2.6%、市場預估2.7%、前值2.7%。"
+      }
+    },
+    {
+      "id": "prev-boj-rate-20261030",
+      "event_date": "2026-10-30T12:00:00+08:00",
+      "region": "日本",
+      "event_name": "日本央行（BOJ）利率決策及10月展望報告",
+      "importance_stars": 5,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC五星：全球主要央行之一的政策決策，直接影響日圓、日本公債及全球套利交易；同時更新通膨展望並出現委員異議，市場影響具跨資產性。",
+      "previous": "1.25%",
+      "forecast": "1.25%",
+      "actual": "1.25%（維持不變；8比1表決）",
+      "status": "released",
+      "time_known": false,
+      "impact_judgment": "BOJ以8比1維持政策利率1.25%，一名委員主張升至1.50%；央行上調部分通膨預測並重申必要時續升息，屬偏鷹派按兵不動。",
+      "source": {
+        "name": "Bank of Japan｜Statement on Monetary Policy, October 30 2026",
+        "url": "https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Bank of Japan",
+        "notes": "官方確認10/30發布政策聲明及10月展望報告；官方列表未列精確發布時刻。"
+      },
+      "consensus_source": {
+        "name": "CME Econoday｜Bank of Japan Announcement",
+        "url": "https://www.cmegroup.com/education/events/econoday/663431",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "CME Group / Econoday",
+        "notes": "公布前市場共識利率1.25%；實際1.25%，前值1.25%。"
       }
     },
     {
@@ -2908,10 +2962,13 @@
         "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/latest-release",
         "https://www.westpaciq.com.au/economics/2026/10/cpi-september-2026",
         "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-t.htm",
-        "https://www.reuters.com/world/asia-pacific/tokyo-core-inflation-exceeds-boj-target-october-2026-10-29/"
+        "https://www.reuters.com/world/asia-pacific/tokyo-core-inflation-exceeds-boj-target-october-2026-10-29/",
+        "https://www.boj.or.jp/en/mopo/mpmdeci/state_2026/",
+        "https://www.cmegroup.com/education/events/econoday/663431",
+        "https://www.gov.uk/government/speeches/budget-2026-speech"
       ],
       "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "第二輪回查補入 RBNZ 利率決策、澳洲 CPI 與東京核心 CPI；英國預算及 BOJ 決策仍待補入，並需完成全週 4／5 星漏項掃描。"
+      "notes": "第二輪回查已補入 RBNZ、澳洲 CPI、東京核心 CPI、BOJ 利率決策及英國年度預算。仍需最後檢查 10/26–10/30 其他主要經濟體是否有遺漏的 TAC 四／五星事件，故維持 incomplete。"
     }
   }
 }
