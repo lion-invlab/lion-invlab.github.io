@@ -17,6 +17,7 @@ class MarketSnapshotDisplayAdapterTests(unittest.TestCase):
     def setUpClass(cls):
         cls.schema = json.loads((ROOT / "schemas/tac-daily-market-snapshot.schema.json").read_text(encoding="utf-8"))
         cls.binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        cls.monday = (ROOT / "母版專區/TAC_母版_週一_2026-10-28_最終定版.html").read_text(encoding="utf-8")
         cls.weekday = (ROOT / "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html").read_text(encoding="utf-8")
 
 
