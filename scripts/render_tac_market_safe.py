@@ -854,8 +854,13 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
                 update_status_class(status_nodes[0],result["status_class"],f"{result_label}.status")
 
 def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, Any]) -> str:
-    if not isinstance(snapshot, dict) or not isinstance(snapshot.get("groups"), dict):
-        raise ValueError("snapshot must contain a groups object")
+    if not isinstance(snapshot, dict):
+        raise ValueError("snapshot must be an object")
+    # Schema and assembler define market groups at the snapshot root.
+    # Accept the former nested shape temporarily for isolated legacy fixtures.
+    market_groups = snapshot.get("groups", snapshot)
+    if not isinstance(market_groups, dict):
+        raise ValueError("snapshot market groups must be an object")
     parser = SourceTreeParser(html)
     parser.feed(html)
     parser.close()
@@ -865,7 +870,7 @@ def render_market_html(html: str, snapshot: dict[str, Any], binding: dict[str, A
     for group_name, spec in binding["groups"].items():
         if group_name not in {"global_indices", "sectors", "bonds", "fx", "energy", "precious_metals"}:
             continue
-        group_data = snapshot["groups"].get(group_name)
+        group_data = market_groups.get(group_name)
         if not isinstance(group_data, dict):
             raise ValueError(f"snapshot group missing: {group_name}")
         container_selector = spec["container"]
