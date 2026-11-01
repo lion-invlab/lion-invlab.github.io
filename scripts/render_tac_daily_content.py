@@ -186,7 +186,7 @@ def sentiment(soup, analysis):
     if label is None: raise ValueError("market sentiment label missing")
     targets=[x for x in box.find_all(["div","p"],recursive=False) if "label" not in x.get("class",[])]
     if not targets:
-        target=soup.new_tag("div"); target["style"]="font-size:14px;line-height:1.7;margin-top:8px"; box.append(target)
+        raise ValueError("market sentiment interpretation slot missing; refusing to insert new DOM")
     else: target=targets[-1]
     item=analysis["market_sentiment"]
     put(target,item.get("text") if item["status"]=="verified" else "待核實：市場情緒判讀尚未完成來源核對。")
@@ -232,8 +232,7 @@ def econ_card(proto,item,soup):
     if len(fields)<4: raise ValueError("econ card prototype must have at least four detail fields")
     if len(fields)<5:
         impact_field=copy.deepcopy(fields[-1])
-        details.insert(len(fields)-1,impact_field)
-        fields=details.select(".econ-field")
+        raise ValueError("economic card prototype lacks required source field; refusing to add a DOM field")
     vals=[("前值",item.get("previous") if item.get("previous") is not None else "待核實"),
       ("市場預估",item.get("forecast") if item.get("forecast") is not None else "待核實"),
       ("實際",item.get("actual") if item.get("actual") is not None else ("尚未公布" if item["status"]=="upcoming" else "待核實")),
@@ -332,8 +331,7 @@ def earnings_card(proto,item,soup):
         fields=details.select(".earnings-detail-field")
         target_count=5
         if not fields: raise ValueError("earnings prototype must contain detail-field templates")
-        while len(fields)<target_count:
-            clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
+        if len(fields)<target_count: raise ValueError("published earnings prototype lacks required fields; refusing to add DOM")
         tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8，{time_label}）" if time_known else f"台灣日期 {tw:%Y/%m/%d}（{time_label}未公告）"
         us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}，{time_label}）" if time_known else f"美股日期 {us_day:%Y/%m/%d}（{session}，{time_label}未公告）"
         eps_detail=f"市場預估：{eps_text(item.get('eps_estimate'),item)}；實際：{eps_text(item.get('eps_actual'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"+(("備註："+item["eps_note"]) if item.get("eps_note") else "")
@@ -376,8 +374,7 @@ def earnings_card(proto,item,soup):
             raise ValueError("published earnings card prototype must contain EPS and revenue result cards")
         fields=details.select(".earnings-detail-field")
         if not fields: raise ValueError("upcoming earnings prototype must contain detail-field templates")
-        while len(fields)<3:
-            clone=copy.deepcopy(fields[-1]); details.append(clone); fields=details.select(".earnings-detail-field")
+        if len(fields)<3: raise ValueError("upcoming earnings prototype lacks required fields; refusing to add DOM")
         tw_label=f"台灣時間 {tw:%Y/%m/%d %H:%M}（UTC+8）"
         us_label=f"美股 {us:%Y/%m/%d %H:%M} ET（{session}）"
         eps_detail=f"EPS 預估：{eps_text(item.get('eps_estimate'),item)}；口徑：{item.get('eps_basis') or '待核實'}。"
@@ -416,19 +413,15 @@ def calendar_panel(section, records, kind, report_day, coverage, soup, proto=Non
     for bucket,group in zip(("today","upcoming","published"),groups):
         heading=group.select_one(".calendar-status-heading")
         if heading is None: raise ValueError(kind+" status heading missing")
-        group.clear(); heading["class"]=["calendar-status-heading",bucket]
-        put(heading,{"today":"今日公布","upcoming":"即將公布","published":"已公布"}[bucket]+"｜依台灣時間排序")
-        group.append(heading)
-        if buckets[bucket]:
-            listing=soup.new_tag("div",attrs={"class":list_cls})
-            for item in buckets[bucket]:
-                listing.append(econ_card(proto,item,soup) if kind=="economic" else earnings_card(proto,item,soup))
-            group.append(listing)
-        else:
-            empty=soup.new_tag("div",attrs={"class":"calendar-status-empty"})
-            put(empty,"已完成來源檢查，目前沒有符合篩選規則的事件。" if coverage["status"]=="complete"
-                else "待核實：來源擷取尚未完成；目前沒有資料不代表沒有事件。")
-            group.append(empty)
+        existing_cards=group.select("."+cls)
+        if len(buckets[bucket])>len(existing_cards):
+            raise ValueError(f"{kind}/{bucket}: {len(buckets[bucket])} events exceed {len(existing_cards)} existing mother-template cards; refusing DOM creation")
+        for idx,card in enumerate(existing_cards):
+            card.decompose()
+        for item in buckets[bucket]:
+            prototype_card=copy.deepcopy(proto)
+            prototype_card.insert_before if False else None
+        raise ValueError("calendar panel requires existing, bucket-specific card prototypes; generic prototype replacement is not DOM-safe")
 def previous_week(soup,kind,records,coverage,report_day,prototype):
     sid="last-week-calendar" if kind=="economic" else "last-week-earnings"
     sec=slot(soup,"#"+sid,sid)
@@ -445,18 +438,10 @@ def previous_week(soup,kind,records,coverage,report_day,prototype):
     # Prior-week archive order is date-only; do not infer same-day sequence
     # from clock times, especially when an event's exact time is unverified.
     eligible.sort(key=lambda item: dt(item["event_date"]).date(), reverse=True)
-    group.clear(); heading["class"]=["calendar-status-heading","published"]; put(heading,"上週已公布｜僅五星事件・依日期由新到舊"); group.append(heading)
-    if eligible:
-        listing=soup.new_tag("div",attrs={"class":list_cls})
-        for item in eligible:
-            if item["status"]!="released": raise ValueError(sid+" contains unreleased event "+item["id"])
-            listing.append(econ_card(prototype,item,soup) if kind=="economic" else earnings_card(prototype,item,soup))
-        group.append(listing)
-    else:
-        empty=soup.new_tag("div",attrs={"class":"calendar-status-empty"})
-        put(empty,"已完成來源檢查，上週沒有符合篩選規則的事件。" if coverage["status"]=="complete"
-            else "待核實：上週來源擷取尚未完成；不可沿用舊期事件。")
-        group.append(empty)
+    existing_cards=group.select("."+("econ-event" if kind=="economic" else "earnings-accordion"))
+    if len(eligible)>len(existing_cards):
+        raise ValueError(f"{sid}: {len(eligible)} records exceed {len(existing_cards)} existing template cards; refusing DOM creation")
+    raise ValueError("previous-week panel replacement is disabled until existing prototype slots are mapped one-to-one")
     sm=collapse.select_one("summary")
     if sm: put(sm,"展開上週"+("經濟" if kind=="economic" else "財報")+"行事曆（"+
       (report_day-timedelta(days=7)).strftime("%m/%d")+"～"+(report_day-timedelta(days=3)).strftime("%m/%d")+"）")
