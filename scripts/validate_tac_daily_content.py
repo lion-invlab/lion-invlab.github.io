@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Validate TAC editorial content against its schema and report-specific rules."""
-# WR v3.7: upcoming earnings are schedule-only; published results require their dedicated comparison and source fields.
+# WR v3.8: upcoming earnings are schedule-only; published results require their dedicated comparison and source fields.
 from __future__ import annotations
 
 import argparse
@@ -148,7 +148,7 @@ def self_test(validator, schema):
             "trading_date": "2026-10-30",
             "generated_at": "2026-10-31T21:00:00+08:00",
             "timezone": "Asia/Taipei",
-            "wr_version": "3.7",
+            "wr_version": "3.8",
             "template_type": "monday",
             "news_window_start": "2026-10-30T12:00:00+08:00",
             "news_window_end": "2026-11-02T05:00:00+08:00"
