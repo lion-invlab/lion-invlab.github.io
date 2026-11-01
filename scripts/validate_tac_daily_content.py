@@ -93,12 +93,12 @@ def validate_report_rules(data: dict) -> list[str]:
                 errors.append(f"{label}: duplicate id {item['id']}")
             ids.add(item["id"])
             if group_name in {"economic_calendar", "previous_economic_calendar"}:
-                allowed_stars = {3}
+                allowed_stars = {5} if group_name == "previous_economic_calendar" else {4, 5}
                 if item["importance_stars"] not in allowed_stars:
-                    rule = "provider-native three-star only" if group_name == "previous_economic_calendar" else "Investing.com native 3-star"
+                    rule = "TAC five-star only" if group_name == "previous_economic_calendar" else "TAC four/five-star"
                     errors.append(f"{label}: only {rule} economic events are permitted")
-                if item.get("importance_basis") != "provider_native" or not item.get("importance_basis_source", "").strip():
-                    errors.append(f"{label}: economic 3-star rating requires provider-native source evidence")
+                if item.get("importance_basis") != "major_event_assessment" or not item.get("importance_basis_source", "").strip():
+                    errors.append(f"{label}: TAC rating requires an independent, traceable assessment")
             else:
                 basis = item["importance_basis"]
                 stars = item["importance_stars"]
