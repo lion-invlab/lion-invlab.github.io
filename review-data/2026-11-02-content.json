@@ -2110,6 +2110,29 @@
   ],
   "previous_economic_calendar": [
     {
+      "id": "prev-rbnz-20261028",
+      "event_date": "2026-10-28T09:00:00+08:00",
+      "region": "紐西蘭",
+      "event_name": "紐西蘭央行（RBNZ）官方現金利率決策",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：紐西蘭央行利率決策影響紐幣與紐西蘭債券，且本次表決分歧揭示通膨風險與後續政策路徑，具有區域市場指標性。",
+      "previous": "2.75%",
+      "forecast": "2.75%",
+      "actual": "2.75%（維持不變；4比3表決）",
+      "status": "released",
+      "time_known": true,
+      "impact_judgment": "央行以4比3維持利率，三名委員主張升息25個基點至3.00%；雖按兵不動，但分歧顯示通膨風險偏上行，政策訊號偏鷹。",
+      "source": {
+        "name": "Reserve Bank of New Zealand｜October OCR Decision",
+        "url": "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "Reserve Bank of New Zealand",
+        "notes": "官方公告顯示 10/28 14:00 NZDT 更新決策；換算台灣時間 09:00。官方決議維持2.75%，4比3表決。"
+      }
+    },
+    {
       "id": "prev-boc-rate-20261028",
       "event_date": "2026-10-28T21:45:00+08:00",
       "region": "加拿大",
@@ -2818,9 +2841,11 @@
         "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
         "https://bea.gov/news/2026/personal-income-and-outlays-september-2026",
         "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
-        "https://www.bls.gov/news.release/archives/eci_10302026.htm"
+        "https://www.bls.gov/news.release/archives/eci_10302026.htm",
+        "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent"
       ],
-      "checked_at": "2026-11-01T12:17:52+08:00"
+      "checked_at": "2026-11-01T12:39:11+08:00",
+      "notes": "第二輪回查補入 RBNZ 利率決策；澳洲 CPI、英國預算、東京 CPI 與 BOJ 決策仍待寫入及核對。"
     }
   }
 }
