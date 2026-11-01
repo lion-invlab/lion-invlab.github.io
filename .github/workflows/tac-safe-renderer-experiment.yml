@@ -77,6 +77,22 @@ jobs:
         run: python scripts/build_tac_visual_fixtures.py
       - name: Verify desktop, tablet and 320px mobile layouts
         run: python scripts/test_tac_browser_visual.py
+      - name: Set up Node.js for approved-master comparison
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install matching Node Playwright
+        run: |
+          PLAYWRIGHT_VERSION="$(python -c 'import importlib.metadata; print(importlib.metadata.version("playwright"))')"
+          npm install --no-save "playwright@$PLAYWRIGHT_VERSION"
+          npx playwright install chromium
+      - name: Compare both rendered templates with their approved masters
+        run: |
+          mkdir -p artifacts/tac-visual-regression/review
+          cp artifacts/tac-visual-regression/monday.html artifacts/tac-visual-regression/review/2026-11-02-review.html
+          cp artifacts/tac-visual-regression/weekday.html artifacts/tac-visual-regression/review/2026-11-03-review.html
+          node scripts/tac_browser_layout_regression.mjs --report artifacts/tac-visual-regression/review/2026-11-02-review.html --output artifacts/tac-visual-regression/master-comparison-monday
+          node scripts/tac_browser_layout_regression.mjs --report artifacts/tac-visual-regression/review/2026-11-03-review.html --output artifacts/tac-visual-regression/master-comparison-weekday
       - name: Upload screenshots and browser report
         if: always()
         uses: actions/upload-artifact@v4
