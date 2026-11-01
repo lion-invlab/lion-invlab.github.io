@@ -165,6 +165,35 @@ def check_template(path: Path, contract: dict) -> list[str]:
                     if not selector_nodes(container, spec["fomc"][key]):
                         errors.append(f"{group}: FOMC {key} missing")
 
+
+        if group == "editorial":
+            summary = spec["summary"]
+            summary_nodes = selector_nodes(container, summary["headline_selector"])
+            body_nodes = selector_nodes(container, summary["body_selector"])
+            if len(summary_nodes) != 1:
+                errors.append("editorial: summary headline slot missing or duplicated")
+            if len(body_nodes) != 1:
+                errors.append("editorial: summary body slot missing or duplicated")
+            elif sum(isinstance(child, str) and child.strip() for child in body_nodes[0].children) < 1:
+                errors.append("editorial: summary body has no direct text segments")
+            observation = spec["observation"]
+            for field, panel_key, content_key, min_segments in (
+                ("market", "market_panel", "market_text_selector", 1),
+                ("levels", "levels_panel", "levels_text_selector", 2),
+                ("core", "core_panel", "core_text_selector", 1),
+            ):
+                panels = selector_nodes(root, observation[panel_key])
+                if len(panels) != 1:
+                    errors.append(f"editorial.{field}: observation panel missing or duplicated")
+                    continue
+                content = selector_nodes(panels[0], observation[content_key])
+                if len(content) != 1:
+                    errors.append(f"editorial.{field}: text container missing or duplicated")
+                    continue
+                direct_texts = [child for child in content[0].children if isinstance(child, str) and child.strip()]
+                if len(direct_texts) < min_segments:
+                    errors.append(f"editorial.{field}: expected at least {min_segments} direct text segments, found {len(direct_texts)}")
+
     return errors
 
 
