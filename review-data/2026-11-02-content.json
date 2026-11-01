@@ -405,6 +405,29 @@
       }
     },
     {
+      "id": "current-us-qra-20261104",
+      "event_date": "2026-11-04T12:00:00+08:00",
+      "region": "美國",
+      "event_name": "美國財政部｜季度再融資公告（QRA）",
+      "importance_stars": 4,
+      "importance_basis": "major_event_assessment",
+      "importance_basis_source": "TAC四星：美國財政部季度再融資公告揭示中長期公債發行規模與融資策略，影響美債供給、期限溢酬及全球債券殖利率定價。",
+      "previous": null,
+      "forecast": null,
+      "actual": null,
+      "status": "upcoming",
+      "time_known": false,
+      "impact_judgment": "市場聚焦 10 年期與 30 年期公債發行規模、長天期供給及回購安排；官方已確認公告日期，具體發布時間待核實。",
+      "source": {
+        "name": "U.S. Treasury｜Quarterly Refunding",
+        "url": "https://home.treasury.gov/news/press-releases/sb0590",
+        "published_at": null,
+        "observed_at": "2026-11-01T12:39:11+08:00",
+        "publisher": "U.S. Department of the Treasury",
+        "notes": "財政部官方 8/05 QRA 聲明確認下一次季度再融資公告於 2026-11-04 發布；未在該公告列出具體時間。"
+      }
+    },
+    {
       "id": "current-riksbank-rate-20261104",
       "event_date": "2026-11-04T16:30:00+08:00",
       "region": "瑞典",
@@ -2780,10 +2803,11 @@
         "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1793574000000&type=dayGridWeek",
         "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
         "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
-        "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf?st=JwXqPj0_"
+        "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf?st=JwXqPj0_",
+        "https://home.treasury.gov/news/press-releases/sb0590"
       ],
       "checked_at": "2026-11-01T12:39:11+08:00",
-      "notes": "第二輪宏觀日程掃描新增歐元區 HICP 通膨初值、美國期中選舉、日本央行 9 月會議紀錄、加拿大聯邦預算及加拿大 10 月就業報告。歐元區 HICP 採用較新的 Eurostat 官方週曆，將日期由舊資料所列 11/04 校正為 11/03；無官方時刻者以 time_known=false 顯示時間待核實。仍需完成其他主要經濟體與官方日程的最後漏項掃描，故維持 incomplete。"
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。"
     },
     "previous_economic_calendar": {
       "status": "incomplete",
