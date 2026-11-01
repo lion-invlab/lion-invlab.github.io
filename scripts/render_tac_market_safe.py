@@ -227,9 +227,14 @@ def render_risk_indicators(html: str, parser: SourceTreeParser,
             raise ValueError(f"risk_indicators.{key}: record must be an object")
         needle = label_key(record_spec["key_text"])
         rows = select(container, record_spec["row"])
-        hits = [row for row in rows if needle in label_key(
-            "".join(span.text for span in spans_inside(row, parser.spans))
-        )]
+        def has_key(row: Node) -> bool:
+            key_selector = record_spec.get("key_selector")
+            key_nodes = select(row, key_selector) if key_selector else [row]
+            if len(key_nodes) != 1:
+                return False
+            key_text = "".join(span.text for span in spans_inside(key_nodes[0], parser.spans))
+            return needle == label_key(key_text)
+        hits = [row for row in rows if has_key(row)]
         if len(hits) != 1:
             raise ValueError(f"risk_indicators.{key}: expected one row, found {len(hits)}")
         row = hits[0]
