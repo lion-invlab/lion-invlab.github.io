@@ -36,3 +36,14 @@ jobs:
           python scripts/tac_weekly_calendar_db.py quality-report
           --file data/calendar/weeks/2026-W45.json
           --output /tmp/tac-weekly-calendar-quality-report.json
+
+      - name: Test next-week database initialization
+        run: >-
+          python scripts/tac_weekly_calendar_db.py init
+          --week-of 2026-11-09
+          --output /tmp/tac-weekly-calendar-W46.json
+          --wr-version 3.7
+      - name: Validate initialized next-week database
+        run: >-
+          python scripts/tac_weekly_calendar_db.py validate
+          --file /tmp/tac-weekly-calendar-W46.json
