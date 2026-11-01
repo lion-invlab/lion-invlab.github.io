@@ -42,7 +42,7 @@ jobs:
           python scripts/tac_weekly_calendar_db.py init
           --week-of 2026-11-09
           --output /tmp/tac-weekly-calendar-W46.json
-          --wr-version 3.7
+          --wr-version 3.8
       - name: Validate initialized next-week database
         run: >-
           python scripts/tac_weekly_calendar_db.py validate
