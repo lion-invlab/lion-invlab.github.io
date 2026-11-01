@@ -432,40 +432,43 @@ class SafeMarketRendererTests(unittest.TestCase):
                     if not containers:
                         continue
                     self.assertEqual(len(containers),1)
-                    items = []
-                    for event in select(containers[0],panel_spec["event_selector"]):
-                        def one_text(selector):
-                            nodes = select(event,selector)
-                            self.assertEqual(len(nodes),1)
-                            spans = coalesce_spans([x for x in spans_inside(nodes[0],parser.spans) if x.text.strip()])
-                            self.assertEqual(len(spans),1)
-                            return unescape(spans[0].text)
-                        name = one_text(selectors["name"])
-                        item = {"expected_name":name,"date":one_text(selectors["date"]),
-                                "time":one_text(selectors["time"]),"country":one_text(selectors["country"]),
-                                "name":name,"stars_text":one_text(selectors["stars"]),"fields":[]}
-                        detail = select(event,selectors["details"])
-                        self.assertEqual(len(detail),1)
-                        for field in select(detail[0],selectors["field"]):
-                            labels = select(field,selectors["field_label"])
-                            values = select(field,selectors["field_value"])
-                            self.assertEqual(len(labels),1)
-                            self.assertEqual(len(values),1)
-                            label_text = unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))).strip()
-                            anchors = select(values[0],selectors["source_link"])
-                            if anchors:
-                                links=[]
-                                for anchor in anchors:
-                                    spans=coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
-                                    self.assertEqual(len(spans),1)
-                                    links.append({"url":anchor.attrs["href"],"text":unescape(spans[0].text)})
-                                item["fields"].append({"label":label_text,"links":links})
-                            else:
-                                spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
-                                self.assertEqual(len(spans),1,f"{label}.{panel_key}.{name}.{label_text}")
-                                item["fields"].append({"label":label_text,"text":unescape(spans[0].text)})
+                    list_payloads = []
+                    for list_node in select(containers[0],panel_spec["list_selector"]):
+                        items = []
+                        for event in select(list_node,panel_spec["event_selector"]):
+                            def one_text(selector):
+                                nodes = select(event,selector)
+                                self.assertEqual(len(nodes),1)
+                                spans = coalesce_spans([x for x in spans_inside(nodes[0],parser.spans) if x.text.strip()])
+                                self.assertEqual(len(spans),1)
+                                return unescape(spans[0].text)
+                            name = one_text(selectors["name"])
+                            item = {"expected_name":name,"date":one_text(selectors["date"]),
+                                    "time":one_text(selectors["time"]),"country":one_text(selectors["country"]),
+                                    "name":name,"stars_text":one_text(selectors["stars"]),"fields":[]}
+                            detail = select(event,selectors["details"])
+                            self.assertEqual(len(detail),1)
+                            for field in select(detail[0],selectors["field"]):
+                                labels = select(field,selectors["field_label"])
+                                values = select(field,selectors["field_value"])
+                                self.assertEqual(len(labels),1)
+                                self.assertEqual(len(values),1)
+                                label_text = unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))).strip()
+                                anchors = select(values[0],selectors["source_link"])
+                                if anchors:
+                                    links=[]
+                                    for anchor in anchors:
+                                        spans=coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
+                                        self.assertEqual(len(spans),1)
+                                        links.append({"url":anchor.attrs["href"],"text":unescape(spans[0].text)})
+                                    item["fields"].append({"label":label_text,"links":links})
+                                else:
+                                    spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
+                                    self.assertEqual(len(spans),1,f"{label}.{panel_key}.{name}.{label_text}")
+                                    item["fields"].append({"label":label_text,"text":unescape(spans[0].text)})
                         items.append(item)
-                    panels[panel_key]={"items":items}
+                        list_payloads.append({"items":items})
+                    panels[panel_key]={"lists":list_payloads}
                 calendar_binding={"groups":{"economic_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"economic_calendar":{"panels":panels}},calendar_binding),source,
                                  f"{label}: economic calendar no-op must preserve every byte")
@@ -486,58 +489,61 @@ class SafeMarketRendererTests(unittest.TestCase):
                     if not containers:
                         continue
                     self.assertEqual(len(containers),1)
-                    items=[]
-                    for accordion in select(containers[0],panel_spec["item_selector"]):
-                        def one(selector,root=accordion):
-                            nodes=select(root,selector)
-                            self.assertEqual(len(nodes),1,f"{template_label}.{panel_key}.{selector}")
-                            spans=coalesce_spans([x for x in spans_inside(nodes[0],parser.spans) if x.text.strip()])
-                            self.assertEqual(len(spans),1,f"{template_label}.{panel_key}.{selector} text")
-                            return unescape(spans[0].text)
-                        company=one(sel["company"])
-                        item={"expected_company":company,"us_date":one(sel["us_date"]),"tw_date":one(sel["tw_date"]),
-                              "company":company,"company_sub":one(sel["company_sub"]),"stars_text":one(sel["stars"]),
-                              "fields":[],"results":[]}
-                        details=select(accordion,sel["details"])
-                        self.assertEqual(len(details),1)
-                        for field in select(details[0],sel["detail_field"]):
-                            labels=select(field,sel["detail_label"]); values=select(field,sel["detail_value"])
-                            self.assertEqual(len(labels),1); self.assertEqual(len(values),1)
-                            field_label=unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))).strip()
-                            anchors=select(values[0],"a")
-                            if anchors:
-                                links=[]
-                                for anchor in anchors:
-                                    spans=coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
+                    list_payloads=[]
+                    for list_node in select(containers[0],panel_spec["list_selector"]):
+                        items=[]
+                        for accordion in select(list_node,panel_spec["item_selector"]):
+                            def one(selector,root=accordion):
+                                nodes=select(root,selector)
+                                self.assertEqual(len(nodes),1,f"{template_label}.{panel_key}.{selector}")
+                                spans=coalesce_spans([x for x in spans_inside(nodes[0],parser.spans) if x.text.strip()])
+                                self.assertEqual(len(spans),1,f"{template_label}.{panel_key}.{selector} text")
+                                return unescape(spans[0].text)
+                            company=one(sel["company"])
+                            item={"expected_company":company,"us_date":one(sel["us_date"]),"tw_date":one(sel["tw_date"]),
+                                  "company":company,"company_sub":one(sel["company_sub"]),"stars_text":one(sel["stars"]),
+                                  "fields":[],"results":[]}
+                            details=select(accordion,sel["details"])
+                            self.assertEqual(len(details),1)
+                            for field in select(details[0],sel["detail_field"]):
+                                labels=select(field,sel["detail_label"]); values=select(field,sel["detail_value"])
+                                self.assertEqual(len(labels),1); self.assertEqual(len(values),1)
+                                field_label=unescape("".join(x.text for x in spans_inside(labels[0],parser.spans))).strip()
+                                anchors=select(values[0],"a")
+                                if anchors:
+                                    links=[]
+                                    for anchor in anchors:
+                                        spans=coalesce_spans([x for x in spans_inside(anchor,parser.spans) if x.text.strip()])
+                                        self.assertEqual(len(spans),1)
+                                        links.append({"url":anchor.attrs["href"],"text":unescape(spans[0].text)})
+                                    item["fields"].append({"label":field_label,"links":links})
+                                else:
+                                    spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
+                                    self.assertEqual(len(spans),1,f"{template_label}.{company}.{field_label}")
+                                    item["fields"].append({"label":field_label,"text":unescape(spans[0].text)})
+                            for card in select(details[0],sel["result_card"]):
+                                title=one(sel["result_title"],card)
+                                lines=select(card,sel["result_line"])
+                                self.assertEqual(len(lines),2)
+                                line_values=[]
+                                for line in lines:
+                                    spans=select(line,"strong")
                                     self.assertEqual(len(spans),1)
-                                    links.append({"url":anchor.attrs["href"],"text":unescape(spans[0].text)})
-                                item["fields"].append({"label":field_label,"links":links})
-                            else:
-                                spans=coalesce_spans([x for x in spans_inside(values[0],parser.spans) if x.text.strip()])
-                                self.assertEqual(len(spans),1,f"{template_label}.{company}.{field_label}")
-                                item["fields"].append({"label":field_label,"text":unescape(spans[0].text)})
-                        for card in select(details[0],sel["result_card"]):
-                            title=one(sel["result_title"],card)
-                            lines=select(card,sel["result_line"])
-                            self.assertEqual(len(lines),2)
-                            line_values=[]
-                            for line in lines:
-                                spans=select(line,"strong")
-                                self.assertEqual(len(spans),1)
-                                line_values.append(unescape("".join(x.text for x in spans_inside(spans[0],parser.spans))).strip())
-                            status=one(sel["result_status"],card)
-                            note=one(sel["result_note"],card)
-                            card_classes=card.classes.intersection({"beat","miss","pending"})
-                            status_nodes=select(card,sel["result_status"])
-                            self.assertEqual(len(card_classes),1)
-                            self.assertEqual(len(status_nodes),1)
-                            status_classes=status_nodes[0].classes.intersection({"beat","miss","pending"})
-                            self.assertEqual(len(status_classes),1)
-                            item["results"].append({"title":title,"actual":line_values[0],"expected":line_values[1],
-                                                    "status_text":status,"card_class":next(iter(card_classes)),
-                                                    "status_class":next(iter(status_classes)),"note":note})
+                                    line_values.append(unescape("".join(x.text for x in spans_inside(spans[0],parser.spans))).strip())
+                                status=one(sel["result_status"],card)
+                                note=one(sel["result_note"],card)
+                                card_classes=card.classes.intersection({"beat","miss","pending"})
+                                status_nodes=select(card,sel["result_status"])
+                                self.assertEqual(len(card_classes),1)
+                                self.assertEqual(len(status_nodes),1)
+                                status_classes=status_nodes[0].classes.intersection({"beat","miss","pending"})
+                                self.assertEqual(len(status_classes),1)
+                                item["results"].append({"title":title,"actual":line_values[0],"expected":line_values[1],
+                                                        "status_text":status,"card_class":next(iter(card_classes)),
+                                                        "status_class":next(iter(status_classes)),"note":note})
                         items.append(item)
-                    panels[panel_key]={"items":items}
+                        list_payloads.append({"items":items})
+                    panels[panel_key]={"lists":list_payloads}
                 earnings_binding={"groups":{"earnings_calendar":spec}}
                 self.assertEqual(render_market_html(source,{"groups":{},"earnings_calendar":{"panels":panels}},earnings_binding),source,
                                  f"{template_label}: earnings no-op must preserve every byte")
