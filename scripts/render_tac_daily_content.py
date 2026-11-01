@@ -195,6 +195,21 @@ def event_bucket(item, report_day):
     if item["status"]=="released": return "published"
     if d<report_day: return "published"
     return "today" if d==report_day else "upcoming"
+def calendar_sort_key(item, bucket):
+    event_time=dt(item["event_date"])
+    known=item.get("time_known",True) is not False
+    stars=int(item.get("importance_stars",0))
+    # Unknown-time events belong at the end of each tab. Use only their
+    # verified Taiwan calendar date, then TAC importance; never rank them
+    # using a fabricated clock time. Python's stable sort preserves source
+    # order when date/time and importance are identical.
+    if bucket=="published":
+        if known:
+            return (0,-event_time.timestamp(),-stars)
+        return (1,-event_time.date().toordinal(),-stars)
+    if known:
+        return (0,event_time.timestamp(),-stars)
+    return (1,event_time.date().toordinal(),-stars)
 def new_anchor(soup,node,src):
     node.clear(); a=soup.new_tag("a"); a["target"]="_blank"; a["rel"]=["noopener"]; node.append(a); source_link(a,src)
 def econ_card(proto,item,soup):
@@ -395,7 +410,7 @@ def calendar_panel(section, records, kind, report_day, coverage, soup, proto=Non
         proto=prototypes[0]
     buckets={"today":[],"upcoming":[],"published":[]}
     for item in records: buckets[event_bucket(item,report_day)].append(item)
-    for items in buckets.values(): items.sort(key=lambda x:dt(x["event_date"]))
+    for bucket,items in buckets.items(): items.sort(key=lambda x:calendar_sort_key(x,bucket))
     for bucket,group in zip(("today","upcoming","published"),groups):
         heading=group.select_one(".calendar-status-heading")
         if heading is None: raise ValueError(kind+" status heading missing")
