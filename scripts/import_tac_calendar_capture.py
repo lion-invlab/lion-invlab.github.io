@@ -121,7 +121,10 @@ def normalize(payload: dict) -> dict:
                                      ("previous_economic_events", "previous_economic_calendar")):
       for row in payload.get(input_group, []):
         stars = row.get("importance_stars")
-        if stars not in {4, 5}:
+        if output_group == "previous_economic_calendar":
+            if stars != 5:
+                continue
+        elif stars not in {4, 5}:
             continue
         basis_source = row.get("importance_basis_source")
         if row.get("importance_basis") != "major_event_assessment" or not isinstance(basis_source, str) or not basis_source.strip():
@@ -193,7 +196,10 @@ def normalize(payload: dict) -> dict:
         fragment[output_group].append(event)
 
     for group in ("economic_calendar", "earnings_calendar", "previous_economic_calendar", "previous_earnings_calendar"):
-        fragment[group].sort(key=lambda item: item["event_date"])
+        fragment[group].sort(
+            key=lambda item: item["event_date"],
+            reverse=group.startswith("previous_")
+        )
     return fragment
 
 
@@ -215,27 +221,32 @@ def self_test() -> None:
             "importance_rating_source":None,"eps_estimate":1.2,"eps_actual":None,
             "revenue_estimate":100.0,"revenue_actual":None,"status":"upcoming"
         }],
-        "previous_economic_events": [{
+        "previous_economic_events": [
+          {
             "id":"prev-e1","event_date":"2026-10-30T20:30:00+08:00","region":"US",
             "event_name":"Prior CPI","importance_stars":5,"importance_basis":"major_event_assessment","importance_basis_source":"Synthetic official release and market impact","previous":"2.0%","forecast":"2.1%",
             "actual":"2.2%","status":"released"
-        }],
-        "previous_earnings_events": [{
+          },
+          {
+            "id":"prev-e2","event_date":"2026-10-29T20:30:00+08:00","region":"US",
+            "event_name":"Older prior GDP","importance_stars":5,"importance_basis":"major_event_assessment","importance_basis_source":"Synthetic official release and market impact","previous":"2.0%","forecast":"2.1%",
+            "actual":"2.2%","status":"released"
+          },
+          {
+            "id":"prev-e4","event_date":"2026-10-28T20:30:00+08:00","region":"US",
+            "event_name":"Four-star prior event","importance_stars":4,"importance_basis":"major_event_assessment","importance_basis_source":"Synthetic source","previous":"2.0%","forecast":"2.1%",
+            "actual":"2.2%","status":"released"
+          }
+        ],
+        "previous_earnings_events": [
+          {
             "id":"prev-a1","include_in_report":True,"event_date":"2026-10-30T21:30:00+08:00",
             "company":"Prior Synthetic Mega Cap","ticker":"PSYN","session":"after_market",
             "importance_stars":5,"importance_basis":"major_event_assessment",
             "importance_basis_source":"Synthetic prior-week test assessment",
             "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
             "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
-            "industry":"Synthetic software","reporting_period":"2026 Q3","time_known":False,"time_type":"session_only",
-            "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
-            "eps_comparison_status":"beat","revenue_comparison_status":"beat",
-            "financial_judgment":"Synthetic released-earnings judgment.",
-            "stock_price_reaction_window":"2026-10-30 first regular-session close",
-            "consensus_source":{"name":"Synthetic consensus","url":"https://example.com/consensus","notes":"Synthetic test source"},
-            "price_reaction_source":{"name":"Synthetic price reaction","url":"https://example.com/price","notes":"Synthetic test source"},
-            "eps_note":"Synthetic EPS note","revenue_note":"Synthetic revenue note",
-            "industry":"Synthetic industry","reporting_period":"2026 Q3","time_known":True,"time_type":"release_time",
+            "industry":"Synthetic software","reporting_period":"2026 Q3","time_known":True,"time_type":"release_time",
             "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
             "eps_comparison_status":"beat","revenue_comparison_status":"beat",
             "financial_judgment":"Synthetic published earnings judgment.",
@@ -243,7 +254,40 @@ def self_test() -> None:
             "eps_note":"Synthetic EPS note.","revenue_note":"Synthetic revenue note.",
             "consensus_source":{"name":"Synthetic consensus source","url":"https://example.com/consensus"},
             "price_reaction_source":{"name":"Synthetic price reaction source","url":"https://example.com/reaction"}
-        }]
+          },
+          {
+            "id":"prev-a2","include_in_report":True,"event_date":"2026-10-29T21:30:00+08:00",
+            "company":"Older Synthetic Mega Cap","ticker":"OSYN","session":"after_market",
+            "importance_stars":5,"importance_basis":"major_event_assessment",
+            "importance_basis_source":"Synthetic prior-week test assessment",
+            "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
+            "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
+            "industry":"Synthetic software","reporting_period":"2026 Q3","time_known":True,"time_type":"release_time",
+            "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
+            "eps_comparison_status":"beat","revenue_comparison_status":"beat",
+            "financial_judgment":"Synthetic published earnings judgment.",
+            "stock_price_reaction_window":"2026-10-29 first regular session close",
+            "eps_note":"Synthetic EPS note.","revenue_note":"Synthetic revenue note.",
+            "consensus_source":{"name":"Synthetic consensus source","url":"https://example.com/consensus"},
+            "price_reaction_source":{"name":"Synthetic price reaction source","url":"https://example.com/reaction"}
+          },
+          {
+            "id":"prev-a4","include_in_report":True,"event_date":"2026-10-28T21:30:00+08:00",
+            "company":"Four Star Synthetic Mega Cap","ticker":"FSYN","session":"after_market",
+            "importance_stars":4,"importance_basis":"major_event_assessment",
+            "importance_basis_source":"Synthetic prior-week test assessment",
+            "importance_rating_source":None,"eps_estimate":1.0,"eps_actual":1.1,
+            "revenue_estimate":90.0,"revenue_actual":92.0,"status":"released",
+            "industry":"Synthetic software","reporting_period":"2026 Q3","time_known":True,"time_type":"release_time",
+            "eps_basis":"GAAP diluted EPS","eps_currency":"USD","revenue_currency":"USD","revenue_unit":"B",
+            "eps_comparison_status":"beat","revenue_comparison_status":"beat",
+            "financial_judgment":"Synthetic published earnings judgment.",
+            "stock_price_reaction_window":"2026-10-28 first regular session close",
+            "eps_note":"Synthetic EPS note.","revenue_note":"Synthetic revenue note.",
+            "consensus_source":{"name":"Synthetic consensus source","url":"https://example.com/consensus"},
+            "price_reaction_source":{"name":"Synthetic price reaction source","url":"https://example.com/reaction"}
+          }
+        ]
     }
     fragment = normalize(payload)
     assert [x["id"] for x in fragment["economic_calendar"]] == ["e3"]
@@ -255,8 +299,10 @@ def self_test() -> None:
     )
     assert len(assembled["economic_calendar"]) == 1
     assert len(assembled["earnings_calendar"]) == 1
-    assert assembled["previous_economic_calendar"][0]["id"] == "prev-e1"
-    assert assembled["previous_earnings_calendar"][0]["id"] == "prev-a1"
+    assert [x["id"] for x in assembled["previous_economic_calendar"]] == ["prev-e1","prev-e2"]
+    assert [x["id"] for x in assembled["previous_earnings_calendar"]] == ["prev-a1","prev-a2"]
+    assert all(x["importance_stars"] == 5 for x in assembled["previous_economic_calendar"])
+    assert all(x["importance_stars"] == 5 for x in assembled["previous_earnings_calendar"])
     prior = assembled["previous_earnings_calendar"][0]
     assert prior["industry"] == "Synthetic software"
     assert prior["time_type"] == "session_only"
