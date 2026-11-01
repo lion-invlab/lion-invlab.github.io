@@ -250,7 +250,7 @@ jobs:
             --json-output "/tmp/tac-cme-fedwatch-capture.json" || echo "PENDING: CME FedWatch iframe capture unavailable or exceeded 45-second total limit; proceed to live fallback"
 
       - name: Live Investing.com Fed Rate Monitor fallback when CME capture is unavailable
-        if: always()
+        if: success()
         continue-on-error: true
         run: |
           node scripts/capture_tac_fedwatch_fallback.mjs \
@@ -258,7 +258,7 @@ jobs:
             --text-output "/tmp/tac-fedwatch-fallback.txt"
 
       - name: Select one validated FedWatch source (CME primary, Investing.com live fallback)
-        if: always()
+        if: success()
         continue-on-error: true
         run: |
           node scripts/select_tac_fedwatch_source.mjs \
