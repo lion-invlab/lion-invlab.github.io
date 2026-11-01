@@ -563,10 +563,20 @@ class SafeMarketRendererTests(unittest.TestCase):
                     item_selector = panel_spec.get("event_selector", panel_spec.get("item_selector"))
                     list_payloads = []
                     counts = []
+                    selectors = spec["selectors"]
+                    detail_selector = selectors["details"]
+                    field_selector = selectors["field"] if group_name == "economic_calendar" else selectors["detail_field"]
                     for index, list_node in enumerate(lists):
-                        count = len(select(list_node, item_selector))
-                        counts.append(count + (1 if index == 0 else 0))
-                        list_payloads.append({"items":[{} for _ in range(counts[-1])]})
+                        cards = select(list_node, item_selector)
+                        count = len(cards)
+                        desired = count + (1 if index == 0 and count > 0 else 0)
+                        counts.append(desired)
+                        field_count = 0
+                        if cards:
+                            details = select(cards[0], detail_selector)
+                            self.assertEqual(len(details), 1)
+                            field_count = len(select(details[0], field_selector))
+                        list_payloads.append({"items":[{"fields":[{} for _ in range(field_count)]} for _ in range(desired)]})
                     panels[panel_key] = {"lists":list_payloads}
                     expected_counts[panel_key] = counts
                 rendered = resize_calendar_lists(source, {"groups":{group_name:spec}},
