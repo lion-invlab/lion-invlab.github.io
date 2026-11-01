@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-06",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-01T14:11:44+08:00",
+  "updated_at": "2026-11-01T14:13:18+08:00",
   "source_report_date": "2026-11-02",
   "wr_version": "3.7",
   "status": "prototype",
@@ -31,7 +31,9 @@
           "observed_at": "2026-11-01T12:17:52+08:00",
           "publisher": "Bank of Japan",
           "notes": "日本時間 14:00，換算台灣時間 13:00。央行政策展望文件，需觀察對日圓利率路徑與通膨評估的訊號。"
-        }
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
       },
       {
         "id": "current-us-ism-mfg-20261102",
@@ -70,8 +72,8 @@
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
-        "previous": null,
-        "forecast": null,
+        "previous": 4.6,
+        "forecast": 4.85,
         "actual": null,
         "status": "upcoming",
         "impact_judgment": null,
@@ -82,6 +84,13 @@
           "observed_at": "2026-11-01T12:17:52+08:00",
           "publisher": "Reserve Bank of Australia",
           "notes": "官方公布時間 14:30 AEDT，換算台灣時間 11:30；同時發布 Statement on Monetary Policy。"
+        },
+        "data_unit": "% cash rate",
+        "data_reference": {
+          "name": "ASX RBA Rate Tracker",
+          "url": "https://www.asx.com.au/markets/trade-our-derivatives-market/rba-rate-tracker",
+          "publisher": "Australian Securities Exchange",
+          "notes": "截至 2026-10-29，ASX 30-day interbank cash rate futures 隱含 80% 機率升息至 4.85%；現行現金利率 4.60%。四大銀行預測均為升息 25bp。"
         }
       },
       {
@@ -128,7 +137,9 @@
           "observed_at": "2026-11-01T12:39:11+08:00",
           "publisher": "U.S. Federal Election Commission",
           "notes": "官方確認 2026-11-03 為聯邦一般選舉日；投票與開票時間依各州規定不同，故不設單一發布時刻。"
-        }
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
       },
       {
         "id": "current-us-jolts-20261103",
@@ -138,8 +149,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": 7.079,
+        "forecast": 7.11,
         "actual": null,
         "status": "upcoming",
         "impact_judgment": null,
@@ -150,6 +161,13 @@
           "observed_at": "2026-11-01T12:17:52+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
           "notes": "美東時間 10:00，換算台灣時間 23:00；BLS 官方排程確認 9月 JOLTS 於 11/3 發布。"
+        },
+        "data_unit": "million job openings",
+        "data_reference": {
+          "name": "Investing.com UK｜U.S. JOLTS Job Openings",
+          "url": "https://uk.investing.com/economic-calendar/united-states-jolts-job-openings-1057",
+          "publisher": "Bureau of Labor Statistics / Investing.com",
+          "notes": "11/03/2026 September JOLTS 預期 7.110M、前值 7.079M。"
         }
       },
       {
@@ -173,7 +191,9 @@
           "observed_at": "2026-11-01T12:39:11+08:00",
           "publisher": "U.S. Department of the Treasury",
           "notes": "財政部官方 8/05 QRA 聲明確認下一次季度再融資公告於 2026-11-04 發布；未在該公告列出具體時間。"
-        }
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
       },
       {
         "id": "current-riksbank-rate-20261104",
@@ -183,8 +203,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": 1.75,
+        "forecast": 2,
         "actual": null,
         "status": "upcoming",
         "impact_judgment": null,
@@ -195,6 +215,13 @@
           "observed_at": "2026-11-01T12:17:52+08:00",
           "publisher": "Sveriges Riksbank",
           "notes": "官方決策公告 09:30 CET，換算台灣時間 16:30；同日 11:00 CET 舉行記者會。"
+        },
+        "data_unit": "% policy rate",
+        "data_reference": {
+          "name": "FinChiefs｜Riksbank November 2026 meeting preview",
+          "url": "https://finchiefs.com/central-banks/sveriges-riksbank/meetings/2026-11-04",
+          "publisher": "FinChiefs（研究機構觀點彙整）",
+          "notes": "兩家研究機構均預期升息 25bp 至 2.00%；樣本數僅 2，標記為有限共識，前值 1.75% 以 Riksbank 官方 2026-09-24 決議為準。"
         }
       },
       {
@@ -298,7 +325,9 @@
           "observed_at": "2026-11-01T12:39:11+08:00",
           "publisher": "Bank of Japan",
           "notes": "官方最新排程確認 11/05 08:50 JST 發布 9/17–9/18 貨幣政策會議紀錄；換算台灣時間 07:50。"
-        }
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
       },
       {
         "id": "current-canada-budget-20261105",
@@ -321,7 +350,9 @@
           "observed_at": "2026-11-01T12:39:11+08:00",
           "publisher": "Government of Canada",
           "notes": "財政部官方公告確認 11/05 提交 Budget 2026；媒體簡報時間另行通知，故不顯示時刻。"
-        }
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
       },
       {
         "id": "current-norges-rate-20261105",
@@ -331,8 +362,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": 4.5,
+        "forecast": 4.5,
         "actual": null,
         "status": "upcoming",
         "impact_judgment": null,
@@ -343,6 +374,13 @@
           "observed_at": "2026-11-01T12:17:52+08:00",
           "publisher": "Norges Bank",
           "notes": "官方公告時間 10:00 CET，換算台灣時間 17:00。"
+        },
+        "data_unit": "% policy rate",
+        "data_reference": {
+          "name": "Investing.com｜Norway Interest Rate Decision",
+          "url": "https://www.investing.com/economic-calendar/norwegian-interest-rate-decision-444",
+          "publisher": "Norges Bank / Investing.com",
+          "notes": "11/05/2026 預期維持 4.50%，前值 4.50%。"
         }
       },
       {
@@ -2191,10 +2229,14 @@
         "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
         "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf?st=JwXqPj0_",
         "https://home.treasury.gov/news/press-releases/sb0590",
-        "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-10-30/upcoming.htm"
+        "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-10-30/upcoming.htm",
+        "https://uk.investing.com/economic-calendar/united-states-jolts-job-openings-1057",
+        "https://www.asx.com.au/markets/trade-our-derivatives-market/rba-rate-tracker",
+        "https://finchiefs.com/central-banks/sveriges-riksbank/meetings/2026-11-04",
+        "https://www.investing.com/economic-calendar/norwegian-interest-rate-decision-444"
       ],
-      "checked_at": "2026-11-01T14:11:44+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。"
+      "checked_at": "2026-11-01T14:13:18+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。"
     },
     "earnings": {
       "status": "incomplete",
@@ -5278,6 +5320,550 @@
       },
       "source": "https://www.tipranks.com/calendars/earnings/2026-11-5",
       "note": "補入 TipRanks 指定財報日頁面的 Revenue / Forecast；營收共識來源與原 EPS consensus_source 分開記錄，避免混用分析師樣本或會計口徑。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-us-jolts-20261103",
+      "changed_fields": [
+        "data_reference",
+        "data_unit",
+        "forecast",
+        "previous"
+      ],
+      "before": {
+        "id": "current-us-jolts-20261103",
+        "event_date": "2026-11-03T23:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國 JOLTS 職缺數（9月）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "U.S. Bureau of Labor Statistics",
+          "url": "https://www.bls.gov/schedule/2026/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "U.S. Bureau of Labor Statistics",
+          "notes": "美東時間 10:00，換算台灣時間 23:00；BLS 官方排程確認 9月 JOLTS 於 11/3 發布。"
+        }
+      },
+      "after": {
+        "id": "current-us-jolts-20261103",
+        "event_date": "2026-11-03T23:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國 JOLTS 職缺數（9月）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": 7.079,
+        "forecast": 7.11,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "U.S. Bureau of Labor Statistics",
+          "url": "https://www.bls.gov/schedule/2026/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "U.S. Bureau of Labor Statistics",
+          "notes": "美東時間 10:00，換算台灣時間 23:00；BLS 官方排程確認 9月 JOLTS 於 11/3 發布。"
+        },
+        "data_unit": "million job openings",
+        "data_reference": {
+          "name": "Investing.com UK｜U.S. JOLTS Job Openings",
+          "url": "https://uk.investing.com/economic-calendar/united-states-jolts-job-openings-1057",
+          "publisher": "Bureau of Labor Statistics / Investing.com",
+          "notes": "11/03/2026 September JOLTS 預期 7.110M、前值 7.079M。"
+        }
+      },
+      "source": "https://uk.investing.com/economic-calendar/united-states-jolts-job-openings-1057",
+      "note": "補入已核實的市場共識及前值，保留數值單位與來源。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-rba-rate-20261103",
+      "changed_fields": [
+        "data_reference",
+        "data_unit",
+        "forecast",
+        "previous"
+      ],
+      "before": {
+        "id": "current-rba-rate-20261103",
+        "event_date": "2026-11-03T11:30:00+08:00",
+        "region": "澳洲",
+        "event_name": "澳洲央行利率決策及貨幣政策聲明",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Reserve Bank of Australia",
+          "url": "https://www.rba.gov.au/coming-up/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Reserve Bank of Australia",
+          "notes": "官方公布時間 14:30 AEDT，換算台灣時間 11:30；同時發布 Statement on Monetary Policy。"
+        }
+      },
+      "after": {
+        "id": "current-rba-rate-20261103",
+        "event_date": "2026-11-03T11:30:00+08:00",
+        "region": "澳洲",
+        "event_name": "澳洲央行利率決策及貨幣政策聲明",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：主要央行政策決策／全球核心就業指標，足以顯著改變主要市場利率路徑與跨資產定價。",
+        "previous": 4.6,
+        "forecast": 4.85,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Reserve Bank of Australia",
+          "url": "https://www.rba.gov.au/coming-up/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Reserve Bank of Australia",
+          "notes": "官方公布時間 14:30 AEDT，換算台灣時間 11:30；同時發布 Statement on Monetary Policy。"
+        },
+        "data_unit": "% cash rate",
+        "data_reference": {
+          "name": "ASX RBA Rate Tracker",
+          "url": "https://www.asx.com.au/markets/trade-our-derivatives-market/rba-rate-tracker",
+          "publisher": "Australian Securities Exchange",
+          "notes": "截至 2026-10-29，ASX 30-day interbank cash rate futures 隱含 80% 機率升息至 4.85%；現行現金利率 4.60%。四大銀行預測均為升息 25bp。"
+        }
+      },
+      "source": "https://www.asx.com.au/markets/trade-our-derivatives-market/rba-rate-tracker",
+      "note": "補入已核實的市場共識及前值，保留數值單位與來源。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-riksbank-rate-20261104",
+      "changed_fields": [
+        "data_reference",
+        "data_unit",
+        "forecast",
+        "previous"
+      ],
+      "before": {
+        "id": "current-riksbank-rate-20261104",
+        "event_date": "2026-11-04T16:30:00+08:00",
+        "region": "瑞典",
+        "event_name": "瑞典央行利率決策及貨幣政策更新",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Sveriges Riksbank",
+          "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/?month=11",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Sveriges Riksbank",
+          "notes": "官方決策公告 09:30 CET，換算台灣時間 16:30；同日 11:00 CET 舉行記者會。"
+        }
+      },
+      "after": {
+        "id": "current-riksbank-rate-20261104",
+        "event_date": "2026-11-04T16:30:00+08:00",
+        "region": "瑞典",
+        "event_name": "瑞典央行利率決策及貨幣政策更新",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": 1.75,
+        "forecast": 2,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Sveriges Riksbank",
+          "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/?month=11",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Sveriges Riksbank",
+          "notes": "官方決策公告 09:30 CET，換算台灣時間 16:30；同日 11:00 CET 舉行記者會。"
+        },
+        "data_unit": "% policy rate",
+        "data_reference": {
+          "name": "FinChiefs｜Riksbank November 2026 meeting preview",
+          "url": "https://finchiefs.com/central-banks/sveriges-riksbank/meetings/2026-11-04",
+          "publisher": "FinChiefs（研究機構觀點彙整）",
+          "notes": "兩家研究機構均預期升息 25bp 至 2.00%；樣本數僅 2，標記為有限共識，前值 1.75% 以 Riksbank 官方 2026-09-24 決議為準。"
+        }
+      },
+      "source": "https://finchiefs.com/central-banks/sveriges-riksbank/meetings/2026-11-04",
+      "note": "補入已核實的市場共識及前值，保留數值單位與來源。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-norges-rate-20261105",
+      "changed_fields": [
+        "data_reference",
+        "data_unit",
+        "forecast",
+        "previous"
+      ],
+      "before": {
+        "id": "current-norges-rate-20261105",
+        "event_date": "2026-11-05T17:00:00+08:00",
+        "region": "挪威",
+        "event_name": "挪威央行利率決策",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Norges Bank",
+          "url": "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Norges Bank",
+          "notes": "官方公告時間 10:00 CET，換算台灣時間 17:00。"
+        }
+      },
+      "after": {
+        "id": "current-norges-rate-20261105",
+        "event_date": "2026-11-05T17:00:00+08:00",
+        "region": "挪威",
+        "event_name": "挪威央行利率決策",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": 4.5,
+        "forecast": 4.5,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Norges Bank",
+          "url": "https://www.norges-bank.no/en/news-events/calendar/policy-rate-decisions/26-11-05/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Norges Bank",
+          "notes": "官方公告時間 10:00 CET，換算台灣時間 17:00。"
+        },
+        "data_unit": "% policy rate",
+        "data_reference": {
+          "name": "Investing.com｜Norway Interest Rate Decision",
+          "url": "https://www.investing.com/economic-calendar/norwegian-interest-rate-decision-444",
+          "publisher": "Norges Bank / Investing.com",
+          "notes": "11/05/2026 預期維持 4.50%，前值 4.50%。"
+        }
+      },
+      "source": "https://www.investing.com/economic-calendar/norwegian-interest-rate-decision-444",
+      "note": "補入已核實的市場共識及前值，保留數值單位與來源。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-boj-outlook-20261102",
+      "changed_fields": [
+        "forecast_applicable",
+        "previous_applicable"
+      ],
+      "before": {
+        "id": "current-boj-outlook-20261102",
+        "event_date": "2026-11-02T13:00:00+08:00",
+        "region": "日本",
+        "event_name": "日本央行｜經濟活動與物價展望報告（全文）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Bank of Japan",
+          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "日本時間 14:00，換算台灣時間 13:00。央行政策展望文件，需觀察對日圓利率路徑與通膨評估的訊號。"
+        }
+      },
+      "after": {
+        "id": "current-boj-outlook-20261102",
+        "event_date": "2026-11-02T13:00:00+08:00",
+        "region": "日本",
+        "event_name": "日本央行｜經濟活動與物價展望報告（全文）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Bank of Japan",
+          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "日本時間 14:00，換算台灣時間 13:00。央行政策展望文件，需觀察對日圓利率路徑與通膨評估的訊號。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
+      },
+      "note": "此政策文件／政治事件並非 previous/forecast 數值型經濟指標；標記為 not applicable，避免品質報告誤判為資料缺漏。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-us-midterms-20261103",
+      "changed_fields": [
+        "forecast_applicable",
+        "previous_applicable"
+      ],
+      "before": {
+        "id": "current-us-midterms-20261103",
+        "event_date": "2026-11-03T12:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國期中選舉（國會眾議院與參議院改選）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：選舉結果將影響國會控制權、財政預算、稅制及監管政策方向，可能改變中期政策預期與市場風險溢價。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "市場關注國會席次變化、分裂政府可能性及其對財政、監管與產業政策的影響；選舉結果將分州陸續開出。",
+        "source": {
+          "name": "Federal Election Commission｜Election and Voting Information",
+          "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "U.S. Federal Election Commission",
+          "notes": "官方確認 2026-11-03 為聯邦一般選舉日；投票與開票時間依各州規定不同，故不設單一發布時刻。"
+        }
+      },
+      "after": {
+        "id": "current-us-midterms-20261103",
+        "event_date": "2026-11-03T12:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國期中選舉（國會眾議院與參議院改選）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：選舉結果將影響國會控制權、財政預算、稅制及監管政策方向，可能改變中期政策預期與市場風險溢價。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "市場關注國會席次變化、分裂政府可能性及其對財政、監管與產業政策的影響；選舉結果將分州陸續開出。",
+        "source": {
+          "name": "Federal Election Commission｜Election and Voting Information",
+          "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "U.S. Federal Election Commission",
+          "notes": "官方確認 2026-11-03 為聯邦一般選舉日；投票與開票時間依各州規定不同，故不設單一發布時刻。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
+      },
+      "note": "此政策文件／政治事件並非 previous/forecast 數值型經濟指標；標記為 not applicable，避免品質報告誤判為資料缺漏。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-us-qra-20261104",
+      "changed_fields": [
+        "forecast_applicable",
+        "previous_applicable"
+      ],
+      "before": {
+        "id": "current-us-qra-20261104",
+        "event_date": "2026-11-04T12:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國財政部｜季度再融資公告（QRA）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國財政部季度再融資公告揭示中長期公債發行規模與融資策略，影響美債供給、期限溢酬及全球債券殖利率定價。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "市場聚焦 10 年期與 30 年期公債發行規模、長天期供給及回購安排；官方已確認公告日期，具體發布時間待核實。",
+        "source": {
+          "name": "U.S. Treasury｜Quarterly Refunding",
+          "url": "https://home.treasury.gov/news/press-releases/sb0590",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "U.S. Department of the Treasury",
+          "notes": "財政部官方 8/05 QRA 聲明確認下一次季度再融資公告於 2026-11-04 發布；未在該公告列出具體時間。"
+        }
+      },
+      "after": {
+        "id": "current-us-qra-20261104",
+        "event_date": "2026-11-04T12:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國財政部｜季度再融資公告（QRA）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國財政部季度再融資公告揭示中長期公債發行規模與融資策略，影響美債供給、期限溢酬及全球債券殖利率定價。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "市場聚焦 10 年期與 30 年期公債發行規模、長天期供給及回購安排；官方已確認公告日期，具體發布時間待核實。",
+        "source": {
+          "name": "U.S. Treasury｜Quarterly Refunding",
+          "url": "https://home.treasury.gov/news/press-releases/sb0590",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "U.S. Department of the Treasury",
+          "notes": "財政部官方 8/05 QRA 聲明確認下一次季度再融資公告於 2026-11-04 發布；未在該公告列出具體時間。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
+      },
+      "note": "此政策文件／政治事件並非 previous/forecast 數值型經濟指標；標記為 not applicable，避免品質報告誤判為資料缺漏。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-boj-minutes-20261105",
+      "changed_fields": [
+        "forecast_applicable",
+        "previous_applicable"
+      ],
+      "before": {
+        "id": "current-boj-minutes-20261105",
+        "event_date": "2026-11-05T07:50:00+08:00",
+        "region": "日本",
+        "event_name": "日本央行｜9 月貨幣政策會議紀錄",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：日本央行會議紀錄揭示政策委員對通膨、薪資及利率正常化的判斷，可能影響日圓、日債殖利率及全球套利交易。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": true,
+        "impact_judgment": "觀察委員對薪資與通膨持續性、後續升息條件及政策分歧的描述。",
+        "source": {
+          "name": "Bank of Japan｜Release Schedule",
+          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "官方最新排程確認 11/05 08:50 JST 發布 9/17–9/18 貨幣政策會議紀錄；換算台灣時間 07:50。"
+        }
+      },
+      "after": {
+        "id": "current-boj-minutes-20261105",
+        "event_date": "2026-11-05T07:50:00+08:00",
+        "region": "日本",
+        "event_name": "日本央行｜9 月貨幣政策會議紀錄",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：日本央行會議紀錄揭示政策委員對通膨、薪資及利率正常化的判斷，可能影響日圓、日債殖利率及全球套利交易。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": true,
+        "impact_judgment": "觀察委員對薪資與通膨持續性、後續升息條件及政策分歧的描述。",
+        "source": {
+          "name": "Bank of Japan｜Release Schedule",
+          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "官方最新排程確認 11/05 08:50 JST 發布 9/17–9/18 貨幣政策會議紀錄；換算台灣時間 07:50。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
+      },
+      "note": "此政策文件／政治事件並非 previous/forecast 數值型經濟指標；標記為 not applicable，避免品質報告誤判為資料缺漏。"
+    },
+    {
+      "at": "2026-11-01T14:13:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-canada-budget-20261105",
+      "changed_fields": [
+        "forecast_applicable",
+        "previous_applicable"
+      ],
+      "before": {
+        "id": "current-canada-budget-20261105",
+        "event_date": "2026-11-05T12:00:00+08:00",
+        "region": "加拿大",
+        "event_name": "加拿大聯邦政府｜2026 年度財政預算案",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：年度財政預算涉及政府支出、稅制、公共投資與債務供給，對加拿大公債、加幣及區域產業政策具明顯影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "觀察財政赤字、基建與產業投資、稅收及債務發行規劃；官方尚未公布精確發布時間。",
+        "source": {
+          "name": "Department of Finance Canada｜Budget 2026 Media Advisory",
+          "url": "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Government of Canada",
+          "notes": "財政部官方公告確認 11/05 提交 Budget 2026；媒體簡報時間另行通知，故不顯示時刻。"
+        }
+      },
+      "after": {
+        "id": "current-canada-budget-20261105",
+        "event_date": "2026-11-05T12:00:00+08:00",
+        "region": "加拿大",
+        "event_name": "加拿大聯邦政府｜2026 年度財政預算案",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：年度財政預算涉及政府支出、稅制、公共投資與債務供給，對加拿大公債、加幣及區域產業政策具明顯影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "觀察財政赤字、基建與產業投資、稅收及債務發行規劃；官方尚未公布精確發布時間。",
+        "source": {
+          "name": "Department of Finance Canada｜Budget 2026 Media Advisory",
+          "url": "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Government of Canada",
+          "notes": "財政部官方公告確認 11/05 提交 Budget 2026；媒體簡報時間另行通知，故不顯示時刻。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
+      },
+      "note": "此政策文件／政治事件並非 previous/forecast 數值型經濟指標；標記為 not applicable，避免品質報告誤判為資料缺漏。"
     }
   ]
 }
