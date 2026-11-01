@@ -2908,7 +2908,7 @@
   "analysis": {
     "summary": {
       "headline": "AI資本支出回報遭重新檢視，科技與半導體領跌、資金轉向能源及防禦板塊",
-      "text": "10/30美股風險趨避升高，NASDAQ下跌2.86%、S&P 500下跌1.82%、費半下跌7.20%；Intel財測不佳重挫28.58%，Amazon自由現金流轉負，市場開始要求AI巨額投資提出更清楚的現金流回報。產業表現分化，科技ETF XLK下跌4.89%，能源XLE上漲1.91%、民生必需品XLP上漲1.41%。VIX升至19.42（+12.91%）、MOVE升至100.20（+7.12%），CNN恐懼貪婪指數26.24；美債殖利率回落，但油價受中東供應風險支撐、貴金屬走弱。11/2需觀察AI融資風險是否由股市延伸至信用市場，以及ISM製造業景氣訊號。",
+      "text": "10/30美股風險趨避升高，NASDAQ下跌2.86%、S&P 500下跌1.82%、費半下跌7.20%；Intel財測不佳重挫28.58%，Amazon自由現金流轉負，市場開始要求AI巨額投資提出更清楚的現金流回報。產業表現分化，科技ETF XLK下跌4.89%，能源XLE上漲1.91%、民生必需品XLP上漲1.41%。VIX升至19.42（+12.91%）、MOVE升至100.20（+7.12%），CNN恐懼貪婪指數26.24；美債殖利率回落，但油價受中東供應風險支撐、貴金屬走弱。宏觀方面，BoC升息、RBNZ意外維持利率、澳洲通膨高於預期，主要央行政策分歧擴大，短端利率與匯率仍有重新定價壓力。11/2需觀察AI融資風險是否由股市延伸至信用市場，以及ISM製造業景氣訊號。",
       "source_refs": [
         "https://hk.investing.com/indices/us-spx-500-historical-data",
         "https://hk.investing.com/indices/nasdaq-composite-historical-data",
@@ -2924,7 +2924,12 @@
         "https://m.cnyes.com/news/id/6642874",
         "https://m.cnyes.com/news/id/6642761",
         "https://m.cnyes.com/news/id/6642851",
-        "https://m.cnyes.com/news/id/6642677"
+        "https://m.cnyes.com/news/id/6642677",
+        "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+        "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+        "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
+        "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-unexpectedly-holds-rates-signals-likely-hikes",
+        "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256"
       ],
       "status": "verified"
     },
@@ -2973,9 +2978,14 @@
           "https://m.cnyes.com/news/id/6642874",
           "https://m.cnyes.com/news/id/6642761",
           "https://m.cnyes.com/news/id/6642851",
-          "https://m.cnyes.com/news/id/6642677"
+          "https://m.cnyes.com/news/id/6642677",
+          "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+          "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+          "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
+          "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-unexpectedly-holds-rates-signals-likely-hikes",
+          "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256"
         ],
-        "text": "第一，費半單日下跌7.20%，科技ETF下跌4.89%，顯示AI與半導體估值正在接受更嚴格檢視，後續須觀察賣壓是否擴散至信用市場。第二，VIX與MOVE同步上升，CNN Fear & Greed降至26.24，風險偏好轉弱但尚未進入極端恐慌區。第三，油價逆勢上漲而金銀下跌，市場同時反映中東供應風險與去槓桿壓力；需留意油價對通膨預期及債券殖利率的二次影響。"
+        "text": "第一，費半單日下跌7.20%，科技ETF下跌4.89%，顯示AI與半導體估值正在接受更嚴格檢視，後續須觀察賣壓是否擴散至信用市場。第二，VIX與MOVE同步上升，CNN Fear & Greed降至26.24，風險偏好轉弱但尚未進入極端恐慌區。第三，油價逆勢上漲而金銀下跌，市場同時反映中東供應風險與去槓桿壓力；需留意油價對通膨預期及債券殖利率的二次影響。第四，BoC升息、RBNZ意外維持利率及澳洲通膨高於預期，顯示主要央行政策反應函數出現分歧，短端利率與外匯市場可能持續波動。"
       }
     },
     "market_sentiment": {
@@ -2985,9 +2995,14 @@
       "source_refs": [
         "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
         "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-        "https://edition.cnn.com/markets/fear-and-greed"
+        "https://edition.cnn.com/markets/fear-and-greed",
+        "https://www.bankofcanada.ca/2026/10/fad-press-release-2026-10-28/",
+        "https://www.rbnz.govt.nz/news-and-events/news/2026/10/ocr-held-at-2-75-percent",
+        "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/consumer-price-index-australia/sep-2026",
+        "https://www.businesstimes.com.sg/companies-markets/banking-finance/new-zealand-central-bank-unexpectedly-holds-rates-signals-likely-hikes",
+        "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256"
       ],
-      "text": "CNN Fear & Greed指數26.24，處於恐懼區；VIX上升12.91%至19.42，MOVE上升7.12%至100.20，股票與債券波動同步升高。市場正在降低高估值科技曝險，短線需留意AI融資風險是否由股票市場延伸至信用市場。"
+      "text": "CNN Fear & Greed指數26.24，處於恐懼區；VIX上升12.91%至19.42，MOVE上升7.12%至100.20，股票與債券波動同步升高。市場正在降低高估值科技曝險，短線需留意AI融資風險是否由股票市場延伸至信用市場。上週BoC升息、RBNZ意外按兵不動及澳洲通膨高於預期，亦使主要央行政策路徑分歧擴大。"
     }
   },
   "coverage": {
@@ -3096,7 +3111,7 @@
         "https://www.zacks.com/stock/news/3019815/shel-q3-earnings-beat-on-record-refining-margins-lng-strength",
         "https://www.shell.com/investors/results-and-reporting/quarterly-results/_jcr_content/root/main/section/simple/promo_1962010312_cop/links/item0.stream/1793238861562/c51182ec68b70b120e29f5a1ede9bd4911d54432/q3-2026-quarterly-press-release.pdf"
       ],
-      "checked_at": "2026-11-01T13:56:34+09:00",
+      "checked_at": "2026-11-01T14:04:39+09:00",
       "notes": "依 WR v3.7，上週財報行事曆僅保留五星。九家企業均有首個常規交易日價格反應；AstraZeneca EPS／營收、Shell EPS per ADR／Total revenue and other income 已完成共識口徑核對。Samsung營收已補入市場共識，EPS因每股計算基礎仍未能完全確認而保留 pending_verification。"
     },
     "economic_calendar": {
@@ -3147,7 +3162,7 @@
         "https://www.fxstreet.com/news/australian-dollar-edges-higher-as-hot-cpi-inflation-and-hawkish-rba-lift-rate-hike-bets-202610300256",
         "https://www.rbnz.govt.nz/news-and-events/how-we-release-information"
       ],
-      "checked_at": "2026-11-01T13:56:34+09:00",
+      "checked_at": "2026-11-01T14:04:39+09:00",
       "notes": "依 WR v3.7，上週行事曆只保留五星。已納入FOMC、BoC、RBNZ、ECB、BoJ、澳洲CPI、US GDP及PCE等已核實重大政策／宏觀數據；仍持續掃描其他主要經濟體是否有符合TAC五星門檻的事件，coverage 維持 incomplete。"
     }
   }
