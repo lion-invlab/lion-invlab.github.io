@@ -316,6 +316,43 @@ class SafeMarketRendererTests(unittest.TestCase):
                 self.assertEqual(render_market_html(source,snapshot,fed_binding),source,
                                  f"{label}: FedWatch no-op must preserve every byte")
 
+    def test_real_dual_masters_editorial_noop_preserves_every_byte(self):
+        binding = json.loads((ROOT / "scripts/tac_html_binding_map.json").read_text(encoding="utf-8"))
+        spec = binding["groups"]["editorial"]
+        for label, relative in binding["templates"].items():
+            with self.subTest(template=label):
+                source = (ROOT / relative).read_text(encoding="utf-8")
+                parser = SourceTreeParser(source)
+                parser.feed(source)
+                parser.close()
+                summary_nodes = select(parser.root, spec["summary"]["container"])
+                self.assertEqual(len(summary_nodes),1)
+                headlines = select(summary_nodes[0],spec["summary"]["headline_selector"])
+                body_nodes = select(summary_nodes[0],spec["summary"]["body_selector"])
+                self.assertEqual(len(headlines),1)
+                self.assertEqual(len(body_nodes),1)
+                headline_spans = [x for x in spans_inside(headlines[0],parser.spans) if x.text.strip()]
+                body_spans = [x for x in spans_inside(body_nodes[0],parser.spans) if x.parent is body_nodes[0] and x.text.strip()]
+                self.assertEqual(len(headline_spans),1)
+                editorial = {"headline":headline_spans[0].text,"body_segments":[x.text for x in body_spans]}
+                for field_name,panel_key,content_key in (
+                    ("market_text","market_panel","market_text_selector"),
+                    ("levels_segments","levels_panel","levels_text_selector"),
+                    ("core_text","core_panel","core_text_selector")):
+                    panels = select(parser.root,spec["observation"][panel_key])
+                    self.assertEqual(len(panels),1)
+                    content = select(panels[0],spec["observation"][content_key])
+                    self.assertEqual(len(content),1)
+                    direct = [x for x in spans_inside(content[0],parser.spans) if x.parent is content[0] and x.text.strip()]
+                    if field_name == "levels_segments":
+                        editorial[field_name] = [x.text for x in direct]
+                    else:
+                        self.assertEqual(len(direct),1,f"{label}.{field_name}")
+                        editorial[field_name] = direct[0].text
+                editorial_binding = {"groups":{"editorial":spec}}
+                self.assertEqual(render_market_html(source,{"groups":{},"editorial":editorial},editorial_binding),source,
+                                 f"{label}: editorial no-op must preserve every byte")
+
     def test_attributes_and_markup_are_preserved(self):
         html = '<main id="global-markets" class="locked"><div class="row" data-x="1"><b><a href="/dow">道瓊工業指數</a></b><span class="r">100</span><span class="r up">+1.0%</span></div></main>'
         contract = minimal_contract()
