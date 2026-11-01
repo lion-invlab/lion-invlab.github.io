@@ -138,25 +138,10 @@ def bucket_current_week(rows: list[dict[str, Any]], report_day: date,
     return buckets
 
 
-def heading_status(group_node) -> str:
-    headings = select(group_node, "h4.calendar-status-heading")
-    if len(headings) != 1:
-        raise ValueError("calendar status group must contain exactly one heading")
-    text = "".join(span.text for span in spans_inside(headings[0], _ACTIVE_SPANS))
-    if "今日" in text:
-        return "today"
-    if "即將公布" in text:
-        return "upcoming"
-    if "已公布" in text:
-        return "published"
-    raise ValueError(f"unrecognized calendar status heading: {text[:80]}")
-
-
-_ACTIVE_SPANS = []
-
-
-def list_statuses(template_html: str, container_selector: str,
-                  list_selector: str) -> list[str] | None:
+def list_contracts(template_html: str, container_selector: str,
+                   list_selector: str, card_selector: str,
+                   field_selector: str, label_selector: str) -> list[dict[str, Any]] | None:
+    """Read status and approved detail-field labels from each real template list prototype."""
     parser = SourceTreeParser(template_html)
     parser.feed(template_html)
     parser.close()
@@ -165,7 +150,7 @@ def list_statuses(template_html: str, container_selector: str,
         return None
     if len(containers) != 1:
         raise ValueError(f"{container_selector}: template container missing or duplicated")
-    result = []
+    contracts = []
     for list_node in select(containers[0], list_selector):
         group = list_node.parent
         while group is not None and "calendar-status-group" not in group.classes:
@@ -175,9 +160,7 @@ def list_statuses(template_html: str, container_selector: str,
         headings = select(group, "h4.calendar-status-heading")
         if len(headings) != 1:
             raise ValueError(f"{list_selector}: status heading missing or duplicated")
-        heading_text = "".join(span.text for span in parser.spans
-                               if any(span.parent is node or _is_descendant(span.parent, node)
-                                      for node in headings))
+        heading_text = "".join(span.text for span in spans_inside(headings[0], parser.spans)).strip()
         if "今日" in heading_text:
             status = "today"
         elif "即將公布" in heading_text:
@@ -186,9 +169,20 @@ def list_statuses(template_html: str, container_selector: str,
             status = "published"
         else:
             raise ValueError(f"{list_selector}: unrecognized status heading {heading_text[:80]!r}")
-        result.append(status)
-    return result
-
+        cards = select(list_node, card_selector)
+        field_labels: list[str] = []
+        if cards:
+            fields = select(cards[0], field_selector)
+            for field_node in fields:
+                labels = select(field_node, label_selector)
+                if len(labels) != 1:
+                    raise ValueError(f"{list_selector}: prototype field label missing or duplicated")
+                label_text = "".join(span.text for span in spans_inside(labels[0], parser.spans)).strip()
+                if not label_text:
+                    raise ValueError(f"{list_selector}: prototype field label is empty")
+                field_labels.append(label_text)
+        contracts.append({"status": status, "field_labels": field_labels, "has_prototype": bool(cards)})
+    return contracts
 
 def _is_descendant(node, ancestor) -> bool:
     current = node
@@ -200,27 +194,37 @@ def _is_descendant(node, ancestor) -> bool:
 
 
 def event_list_payload(rows: list[dict[str, Any]], status: str,
-                       kind: str, previous_week: bool = False) -> list[dict[str, Any]]:
+                       kind: str, field_labels: list[str],
+                       previous_week: bool = False) -> list[dict[str, Any]]:
+    if rows and not field_labels:
+        raise ValueError(f"{kind}.{status}: non-empty list has no approved card/detail prototype")
     if kind == "economic":
-        return [economic_item(row, status, previous_week) for row in rows]
+        return [economic_item(row, status, field_labels) for row in rows]
     return [earnings_item(row, status) for row in rows]
 
 
 def economic_item(row: dict[str, Any], status: str,
-                  previous_week: bool = False) -> dict[str, Any]:
+                  field_labels: list[str]) -> dict[str, Any]:
     dt = parse_aware(row["event_date"], f"economic.{row['id']}.event_date").astimezone(TAIPEI)
     time_known = row.get("time_known", True)
     time_text = dt.strftime("%H:%M") if time_known else "待核實"
     actual_missing = "尚未公布" if status != "published" else "待核實"
     refs = [row.get("source"), row.get("data_reference"), row.get("consensus_source")]
-    fields = [
-        {"label": "前值", "text": display_value(row.get("previous"))},
-        {"label": "市場預估", "text": display_value(row.get("forecast"))},
-        {"label": "實際", "text": display_value(row.get("actual"), actual_missing)},
-    ]
-    if not previous_week:
-        fields.append({"label": "市場影響", "text": display_value(row.get("impact_judgment"))})
-    fields.append({"label": "資料來源", "links": source_links(refs)})
+    value_by_label = {
+        "前值": {"label": "前值", "text": display_value(row.get("previous"))},
+        "預估": {"label": "預估", "text": display_value(row.get("forecast"))},
+        "市場預估": {"label": "市場預估", "text": display_value(row.get("forecast"))},
+        "實際": {"label": "實際", "text": display_value(row.get("actual"), actual_missing)},
+        "市場影響": {"label": "市場影響", "text": display_value(row.get("impact_judgment"))},
+        "觀察重點": {"label": "觀察重點", "text": display_value(row.get("impact_judgment"))},
+        "來源": {"label": "來源", "links": source_links(refs)},
+        "資料來源": {"label": "資料來源", "links": source_links(refs)},
+    }
+    fields = []
+    for label in field_labels:
+        if label not in value_by_label:
+            raise ValueError(f"economic.{row['id']}: unsupported mother-template detail label {label!r}")
+        fields.append(value_by_label[label])
     return {
         "expected_name": None,
         "date": fmt_day(dt.date()),
@@ -363,33 +367,39 @@ def build_calendar_snapshot(current_week: dict[str, Any],
                 invalid = [row["id"] for row in prior_rows if row["status"] != "released"]
                 if invalid:
                     raise ValueError(f"previous_week.{kind}: prior-week events must be released: {invalid}")
-                statuses = list_statuses(template_html, panel_spec["container"], panel_spec["list_selector"])
-                if statuses is None:
+                contracts = list_contracts(template_html, panel_spec["container"], panel_spec["list_selector"],
+                                           panel_spec.get("event_selector", panel_spec.get("item_selector")),
+                                           ".econ-field" if kind == "economic" else ".earnings-detail-field",
+                                           "label")
+                if contracts is None:
                     raise ValueError(f"Monday mother template missing {group_name}.last_week container")
-                events = { "published": prior_rows }
                 lists = []
-                for status in statuses:
-                    items = event_list_payload(events.get(status, []), status, kind, previous_week=True)
-                    if not items and status == "published":
-                        lists.append({"items": []})
-                    else:
-                        lists.append({"items": items})
-                if "published" not in statuses and prior_rows:
+                for contract in contracts:
+                    status = contract["status"]
+                    items = event_list_payload(prior_rows if status == "published" else [], status, kind,
+                                               contract["field_labels"], previous_week=True)
+                    if items and not contract["has_prototype"]:
+                        raise ValueError(f"{group_name}.last_week.{status}: no approved card prototype")
+                    lists.append({"items": items})
+                if "published" not in [x["status"] for x in contracts] and prior_rows:
                     raise ValueError(f"{group_name}.last_week has prior-week events but no published list container")
                 panels[panel_key] = {"lists": lists}
             elif panel_key == "current_week":
-                statuses = list_statuses(template_html, panel_spec["container"], panel_spec["list_selector"])
-                if statuses is None:
+                contracts = list_contracts(template_html, panel_spec["container"], panel_spec["list_selector"],
+                                           panel_spec.get("event_selector", panel_spec.get("item_selector")),
+                                           " .econ-field" if kind == "economic" else " .earnings-detail-field",
+                                           "label")
+                if contracts is None:
                     continue
                 lists = []
-                for status in statuses:
-                    items = event_list_payload(buckets[status], status, kind)
-                    if items:
-                        lists.append({"items": items})
-                    else:
-                        lists.append({"items": []})
+                for contract in contracts:
+                    status = contract["status"]
+                    items = event_list_payload(buckets[status], status, kind, contract["field_labels"])
+                    if items and not contract["has_prototype"]:
+                        raise ValueError(f"{group_name}.current_week.{status}: no approved card prototype")
+                    lists.append({"items": items})
                 missing = [status for status, rows_for_status in buckets.items()
-                           if rows_for_status and status not in statuses]
+                           if rows_for_status and status not in [x["status"] for x in contracts]]
                 if missing:
                     raise ValueError(
                         f"{group_name}.current_week: non-empty status bucket(s) {missing} "
