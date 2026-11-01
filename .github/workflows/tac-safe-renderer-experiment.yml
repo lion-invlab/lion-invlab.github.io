@@ -10,6 +10,9 @@ on:
       - "scripts/test_tac_market_safe_renderer.py"
       - "scripts/tac_html_binding_map.json"
       - "scripts/validate_tac_html_binding.py"
+      - "scripts/validate_tac_daily_snapshot.py"
+      - "scripts/assemble_tac_daily_snapshot.py"
+      - "schemas/tac-daily-market-snapshot.schema.json"
       - "母版專區/TAC_母版_週一_2026-10-28_最終定版.html"
       - "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
       - ".github/workflows/tac-safe-renderer-experiment.yml"
@@ -32,6 +35,12 @@ jobs:
         run: python -m unittest -v scripts/test_tac_safe_text_patch.py
       - name: Run contract-driven market renderer tests
         run: python -m unittest -v scripts/test_tac_market_safe_renderer.py
+      - name: Install snapshot schema validator
+        run: python -m pip install jsonschema
+      - name: Validate daily snapshot schema and self-tests
+        run: |
+          python scripts/validate_tac_daily_snapshot.py --self-test
+          python scripts/assemble_tac_daily_snapshot.py --self-test
       - name: Verify approved mother-template SHA locks
         run: python scripts/verify_tac_master_templates.py
       - name: Verify snapshot-to-HTML binding contracts
