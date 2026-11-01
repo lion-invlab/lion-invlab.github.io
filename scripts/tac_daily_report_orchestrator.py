@@ -25,6 +25,7 @@ DB_SCRIPT = ROOT / "scripts" / "tac_weekly_calendar_db.py"
 CALENDAR_RENDERER = ROOT / "scripts" / "tac_calendar_html_renderer.py"
 WEB_OBSERVATION_CONVERTER = ROOT / "scripts" / "convert_tac_web_observations.py"
 MARKET_SNAPSHOT_VALIDATOR = ROOT / "scripts" / "validate_tac_daily_snapshot.py"
+MARKET_RENDERER = ROOT / "scripts" / "render_tac_market_snapshot.py"
 MODE_BY_WEEKDAY = {0: "monday", 1: "weekday", 2: "weekday", 3: "weekday", 4: "weekday"}
 
 
@@ -201,6 +202,7 @@ def main() -> int:
             run([
                 sys.executable, str(MARKET_SNAPSHOT_VALIDATOR),
                 "--file", str(market_path),
+                "--require-complete",
             ])
             args.market_snapshot = str(market_path)
         elif args.market_snapshot:
@@ -210,8 +212,21 @@ def main() -> int:
             run([
                 sys.executable, str(MARKET_SNAPSHOT_VALIDATOR),
                 "--file", str(market_path),
+                "--require-complete",
             ])
+        market_preview = None
+        if args.market_snapshot:
+            market_preview_path = output_dir / (report_date.isoformat() + "-market-only-review.html")
+            run([
+                sys.executable, str(MARKET_RENDERER),
+                "--template", str(template),
+                "--snapshot", str(args.market_snapshot),
+                "--output", str(market_preview_path),
+                "--mode", mode,
+            ])
+            market_preview = str(market_preview_path)
         blockers = full_mode_blockers(args)
+        result["market_only_preview"] = market_preview
         result["status"] = "blocked"
         result["blockers"] = blockers or [
             "完整行情／新聞／分析／全頁渲染整合尚未完成端到端驗收；不得僅憑輸入檔存在宣稱完整報告通過。"
