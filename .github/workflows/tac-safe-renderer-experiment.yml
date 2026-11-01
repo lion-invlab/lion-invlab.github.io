@@ -21,6 +21,12 @@ on:
       - "scripts/test_tac_market_snapshot_adapter.py"
       - "scripts/run_tac_daily_pipeline.py"
       - "scripts/test_tac_daily_pipeline.py"
+      - "scripts/fetch_tac_secondary_market.py"
+      - "scripts/test_tac_secondary_market.py"
+      - "scripts/fetch_tac_global_indices.py"
+      - "scripts/fetch_tac_sector_etfs.py"
+      - "scripts/fetch_tac_treasury_yields.py"
+      - "scripts/fetch_tac_treasury_fred_fallback.py"
       - "scripts/build_tac_visual_fixtures.py"
       - "scripts/test_tac_browser_visual.py"
       - "data/calendar/weeks/*.json"
@@ -54,6 +60,15 @@ jobs:
           python -m pip install jsonschema
           python scripts/run_tac_daily_pipeline.py --self-test
           python -m unittest -v scripts/test_tac_daily_pipeline.py
+      - name: Install Investing.com capture dependencies and test market collectors
+        run: |
+          python -m pip install requests beautifulsoup4
+          python scripts/fetch_tac_global_indices.py --self-test
+          python scripts/fetch_tac_sector_etfs.py --self-test
+          python scripts/fetch_tac_treasury_yields.py --self-test
+          python scripts/fetch_tac_treasury_fred_fallback.py --self-test
+          python scripts/fetch_tac_secondary_market.py --self-test
+          python -m unittest -v scripts/test_tac_secondary_market.py
       - name: Run calendar adapter and mother-template integration tests
         run: python -m unittest -v scripts/test_tac_calendar_snapshot.py
       - name: Run market/calendar snapshot composition tests
