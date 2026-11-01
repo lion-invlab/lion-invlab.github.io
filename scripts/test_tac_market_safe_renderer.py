@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span)
+from render_tac_market_safe import (SourceTreeParser, render_market_html, resolve_row, select, slot_text_span, spans_inside)
 
 
 def minimal_contract():
