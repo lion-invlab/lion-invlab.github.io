@@ -201,6 +201,18 @@ class WeeklyCalendarDbTests(unittest.TestCase):
             self.assertEqual(load_for_test(mon)["meta"]["approval_status"],"approved")
             self.assertEqual(load_for_test(tue)["meta"]["approval_status"],"draft")
 
+    def test_quality_report_excludes_non_applicable_economic_fields(self):
+        data=self.week(events={"economic":[
+            {**self.event("election","2026-11-03T12:00:00+08:00",5),
+             "previous_applicable":False,"forecast_applicable":False},
+            self.event("jolts","2026-11-03T23:00:00+08:00",4)
+        ],"earnings":[]})
+        report=quality_report(data)["streams"]["economic"]
+        self.assertEqual(report["missing_fields"]["previous"],1)
+        self.assertEqual(report["missing_fields"]["forecast"],1)
+        self.assertEqual(report["not_applicable_fields"]["previous"],1)
+        self.assertEqual(report["not_applicable_fields"]["forecast"],1)
+
     def test_quality_report_counts_missing_consensus_and_unknown_times(self):
         economic=self.event("e1","2026-11-02T12:00:00+08:00")
         economic["time_known"]=False
