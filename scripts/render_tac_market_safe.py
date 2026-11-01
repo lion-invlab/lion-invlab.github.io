@@ -13,7 +13,7 @@ import json
 import re
 import sys
 from dataclasses import dataclass, field
-from html import escape
+from html import escape, unescape
 from html.parser import HTMLParser
 from pathlib import Path
 from typing import Any
@@ -73,6 +73,20 @@ class SourceTreeParser(HTMLParser):
             if self.stack[i].tag == tag:
                 del self.stack[i:]
                 break
+
+    def handle_entityref(self, name):
+        raw = "&" + name + ";"
+        start = self.source_offset()
+        span = TextSpan(start, start + len(raw), raw, self.stack[-1])
+        self.stack[-1].children.append(span)
+        self.spans.append(span)
+
+    def handle_charref(self, name):
+        raw = "&#" + name + ";"
+        start = self.source_offset()
+        span = TextSpan(start, start + len(raw), raw, self.stack[-1])
+        self.stack[-1].children.append(span)
+        self.spans.append(span)
 
     def handle_data(self, data):
         if not data:
