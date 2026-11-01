@@ -143,13 +143,13 @@ def update_calendar_sources(soup, data):
         coverage=data["coverage"][coverage_key]
         complete=coverage["status"]=="complete"
         if complete and coverage_key=="economic_calendar":
-            note="來源覆蓋已完成；僅顯示 Investing.com 原生 3 星經濟事件。"
+            note="來源覆蓋已完成；僅顯示 TAC 自主評定四星及五星經濟事件。"
         elif complete:
-            note="來源覆蓋已完成；未取得來源原生星等的財報事件標示為未評級／待核實。"
+            note="來源覆蓋已完成；僅顯示 TAC 自主評定四星及五星財報事件。"
         elif coverage_key=="earnings_calendar":
-            note="來源擷取尚未完成；未取得來源原生星等的財報事件標示為未評級／待核實；目前沒有資料不代表沒有重要事件，請勿視為完整日程。"
+            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件；僅收錄 TAC 自主評定四星及五星財報事件，請勿視為完整日程。"
         else:
-            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件，請勿視為完整日程。"
+            note="來源擷取尚未完成；目前沒有資料不代表沒有重要事件；僅收錄 TAC 自主評定四星及五星經濟事件，請勿視為完整日程。"
         put(title_meta,f"報告日期 {data['meta']['report_date']}｜{note}；所有時間採台灣時間。")
         # The locked mothers keep a static guidance note and a separate
         # source-provenance note inside each calendar card. Update only the
@@ -203,10 +203,12 @@ def econ_card(proto,item,soup):
     meta=slot(card,".econ-meta","econ meta")
     for sel,val in ((".econ-date",date_label(item["event_date"])),
       (".econ-time",dt(item["event_date"]).strftime("%H:%M")),
-      (".econ-country",item["region"]),(".econ-name",item["event_name"]),(".econ-stars","★★★")):
+      (".econ-country",item["region"]),(".econ-name",item["event_name"]),(".econ-stars","★"*item["importance_stars"]+"☆"*(5-item["importance_stars"]))):
         put(slot(meta,sel,"econ "+sel),val)
-    card["class"]=[c for c in card.get("class",[]) if c not in {"five-star","four-star","two-star","one-star"}]
-    if "three-star" not in card["class"]: card["class"].append("three-star")
+    card["class"]=[c for c in card.get("class",[]) if c not in {"five-star","four-star","three-star","two-star","one-star"}]
+    rating=item["importance_stars"]
+    if rating not in {4,5}: raise ValueError("economic event must have TAC 4- or 5-star rating")
+    card["class"].append("five-star" if rating==5 else "four-star")
     details=slot(card,".econ-details","econ details")
     fields=details.select(".econ-field")
     if len(fields)<4: raise ValueError("econ card prototype must have at least four detail fields")
@@ -237,9 +239,14 @@ def earnings_card(proto,item,soup):
     card["class"]=[c for c in card.get("class",[]) if c not in {"five-star-earnings","four-star-earnings","three-star-earnings"}]
     company=main.select_one(".earnings-company-name")
     if company and "five-star-company" in company.get("class",[]): company["class"].remove("five-star-company")
-    if item.get("importance_stars")==3 and item["importance_basis"]=="source_rating":
-        put(stars,"★★★"); card["class"].append("three-star-earnings")
-    else: put(stars,"未評級／待核實")
+    rating=item["importance_stars"]
+    if rating not in {4,5}: raise ValueError("earnings event must have TAC 4- or 5-star rating")
+    put(stars,"★"*rating+"☆"*(5-rating))
+    if rating==5:
+        card["class"].append("five-star-earnings")
+        if company and "five-star-company" not in company.get("class",[]): company["class"].append("five-star-company")
+    else:
+        card["class"].append("four-star-earnings")
     details=slot(card,".earnings-accordion-details","earnings details")
     results=details.select_one(".earnings-results-grid")
     eps_actual=item.get("eps_actual")
