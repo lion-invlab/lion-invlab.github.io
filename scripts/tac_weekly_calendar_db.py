@@ -69,6 +69,10 @@ def validate_week(data):
             if archive and item.get("status") != "released":
                 errors.append(prefix+": archived prior-week records must be released")
             if item.get("status") not in VALID_STATUS: errors.append(prefix+": invalid status")
+            if "time_known" in item and not isinstance(item.get("time_known"), bool):
+                errors.append(prefix+": time_known must be boolean")
+            if item.get("time_known") is False and item.get("session") not in (None, "unknown", "before_market", "after_market"):
+                errors.append(prefix+": time_known=false cannot imply a confirmed session")
             if item.get("status") == "released":
                 if kind == "economic":
                     if item.get("actual") in (None, ""): errors.append(prefix+": released economic event requires actual")
@@ -103,6 +107,8 @@ def cmd_upsert(args):
         print(json.dumps({"action":"unchanged","event_id":incoming["id"],"week_id":data["week_id"]},ensure_ascii=False))
         return 0
     action="updated" if old else "inserted"
+    if old and old.get("status") == "released" and incoming.get("status") == "upcoming":
+        raise ValueError("released event cannot regress to upcoming; retain released status and revise its facts")
     before=dict(old) if old else None
     if old: rows[rows.index(old)]=incoming
     else: rows.append(incoming)
