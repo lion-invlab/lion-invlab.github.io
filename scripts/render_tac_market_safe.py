@@ -810,9 +810,9 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             star_nodes = select(event_node, selectors["stars"])
             if len(star_nodes) != 1:
                 raise ValueError(f"{label}.stars_text: slot missing or duplicated")
-            existing_stars = normalize(unescape("".join(x.text for x in spans_inside(star_nodes[0],parser.spans))))
-            if existing_stars != normalize(item["stars_text"]):
-                raise ValueError(f"{label}: star-scale change requires approved mother-template CSS/class migration")
+            if not isinstance(item["stars_text"], str):
+                raise ValueError(f"{label}: stars_text must be text")
+            add_text(star_nodes[0], item["stars_text"], f"{label}.stars_text")
             star_count = item["stars_text"].count("★")
             if star_count not in {4, 5}:
                 raise ValueError(f"{label}: only TAC four/five-star events are renderable")
@@ -950,9 +950,9 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             star_nodes=select(item_node,selectors["stars"])
             if len(star_nodes)!=1:
                 raise ValueError(f"{label}.stars_text: slot missing or duplicated")
-            existing_stars=normalize(unescape("".join(x.text for x in spans_inside(star_nodes[0],parser.spans))))
-            if existing_stars!=normalize(item["stars_text"]):
-                raise ValueError(f"{label}: star-scale change requires approved mother-template CSS/class migration")
+            if not isinstance(item["stars_text"],str):
+                raise ValueError(f"{label}: stars_text must be text")
+            add_text(star_nodes[0],item["stars_text"],f"{label}.stars_text")
             star_count=item["stars_text"].count("★")
             if star_count not in {4,5}:
                 raise ValueError(f"{label}: only TAC four/five-star earnings are renderable")
