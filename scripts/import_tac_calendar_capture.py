@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -102,11 +102,10 @@ def normalize(payload: dict) -> dict:
             if status == "complete":
                 if not refs or not checked_at:
                     raise ValueError(f"coverage.{group}: complete requires source_refs and checked_at")
-                if group in {"economic_calendar", "earnings_calendar"}:
-                    week_start = date.fromisoformat(report_date)
-                else:
-                    week_start = date.fromisoformat(report_date) - __import__("datetime").timedelta(days=7)
-                expected_dates = [(week_start + __import__("datetime").timedelta(days=i)).isoformat() for i in range(5)]
+                report_day = date.fromisoformat(report_date)
+                current_week_start = report_day - timedelta(days=report_day.weekday())
+                week_start = current_week_start if group in {"economic_calendar", "earnings_calendar"} else current_week_start - timedelta(days=7)
+                expected_dates = [(week_start + timedelta(days=i)).isoformat() for i in range(5)]
                 missing_dates = sorted(set(expected_dates) - set(checked_dates))
                 if missing_dates:
                     raise ValueError(
