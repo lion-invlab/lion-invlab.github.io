@@ -72,7 +72,7 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         self.assertEqual(len(earn_prior), 1)
         self.assertEqual(len(earn_prior[0]["items"]), 8)
         self.assertEqual(len(snapshot["economic_calendar"]["panels"]["current_week"]["lists"]), 3)
-        self.assertEqual([len(x["items"]) for x in snapshot["economic_calendar"]["panels"]["current_week"]["lists"]], [0, 11, 0])
+        self.assertEqual([len(x["items"]) for x in snapshot["economic_calendar"]["panels"]["current_week"]["lists"]], [0, 15, 0])
         html = self.render_calendar_groups(self.monday, snapshot)
         self.assertIn("日本央行（BOJ）利率決策及10月展望報告", html)
         self.assertIn("AstraZeneca", html)
@@ -90,8 +90,8 @@ class CalendarSnapshotAdapterTests(unittest.TestCase):
         html = self.render_calendar_groups(self.monday, snapshot)
         self.assertIn('class="econ-event-list"', html)
         self.assertIn('class="earnings-accordion-list"', html)
-        self.assertNotIn("目前沒有已核實、排定於 10/26", html)
-        self.assertNotIn("目前沒有已核實、排定於 11/02", html)
+        self.assertNotIn("目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要經濟事件", html)
+        self.assertIn("目前沒有已核實、排定於 10/26（台灣時間）公布的本週重要公司財報", html)
 
     def test_released_earnings_have_two_actual_result_cards(self):
         # Move all earnings to the previous day within this ISO week and mark
