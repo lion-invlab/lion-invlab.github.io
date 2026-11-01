@@ -158,7 +158,8 @@
             "negative": "down",
             "neutral": "flat",
             "warning": "warn"
-          }
+          },
+          "key_selector": ".label-en"
         },
         "move": {
           "row": ".sbox",
@@ -170,13 +171,15 @@
             "negative": "down",
             "neutral": "flat",
             "warning": "warn"
-          }
+          },
+          "key_selector": ".label-en"
         },
         "cnn_fear_greed": {
           "row": ".cnn-fg-preview",
           "key_text": "CNN Fear & Greed",
           "value_selector": ".fg6-score-main",
-          "change_selector": null
+          "change_selector": null,
+          "key_selector": ".label-en"
         }
       },
       "snapshot_fields": {
