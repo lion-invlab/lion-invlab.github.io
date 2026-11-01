@@ -315,7 +315,8 @@
       },
       "snapshot_fields": {
         "panels": "panels"
-      }
+      },
+      "container": "#calendar"
     }
   },
   "protected_paths": [
