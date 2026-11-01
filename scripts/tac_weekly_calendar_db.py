@@ -91,6 +91,34 @@ def validate_week(data):
             errors.append(f"coverage.{kind}.status invalid")
     return errors
 
+def quality_report(data):
+    report={"week_id":data.get("week_id"),"streams":{}}
+    for kind in ("economic","earnings"):
+        rows=data.get("events",{}).get(kind,[])
+        unknown_time=sum(1 for x in rows if x.get("time_known") is False or x.get("session")=="unknown")
+        if kind=="economic":
+            missing={"previous":sum("previous" not in x for x in rows),
+                     "forecast":sum("forecast" not in x for x in rows),
+                     "actual_for_released":sum(x.get("status")=="released" and x.get("actual") in (None,"") for x in rows)}
+        else:
+            missing={"eps_estimate":sum(not isinstance(x.get("eps_estimate"),(int,float)) for x in rows),
+                     "revenue_estimate":sum(not isinstance(x.get("revenue_estimate"),(int,float)) for x in rows),
+                     "consensus_source":sum(not (isinstance(x.get("consensus_source"),dict) and x["consensus_source"].get("url")) for x in rows),
+                     "eps_actual_for_released":sum(x.get("status")=="released" and not isinstance(x.get("eps_actual"),(int,float)) for x in rows),
+                     "revenue_actual_for_released":sum(x.get("status")=="released" and not isinstance(x.get("revenue_actual"),(int,float)) for x in rows)}
+        report["streams"][kind]={"event_count":len(rows),"released":sum(x.get("status")=="released" for x in rows),
+            "upcoming":sum(x.get("status")=="upcoming" for x in rows),"unknown_time_or_session":unknown_time,
+            "missing_fields":missing,"coverage":data.get("coverage",{}).get(kind,{"status":"incomplete"})}
+    return report
+
+def cmd_quality_report(args):
+    data=load(args.file)
+    report=quality_report(data)
+    rendered=json.dumps(report,ensure_ascii=False,indent=2)
+    if args.output: Path(args.output).parent.mkdir(parents=True,exist_ok=True); Path(args.output).write_text(rendered+"\\n",encoding="utf-8")
+    print(rendered)
+    return 0
+
 def cmd_validate(args):
     data=load(args.file); errors=validate_week(data)
     print(json.dumps({"file":str(args.file),"week_id":data.get("week_id"),"economic":len(data.get("events",{}).get("economic",[])),"earnings":len(data.get("events",{}).get("earnings",[])),"errors":errors},ensure_ascii=False,indent=2))
@@ -190,6 +218,7 @@ def cmd_apply_snapshot(args):
 def main():
     p=argparse.ArgumentParser(); sub=p.add_subparsers(dest="cmd",required=True)
     v=sub.add_parser("validate"); v.add_argument("--file",required=True); v.set_defaults(fn=cmd_validate)
+    q=sub.add_parser("quality-report"); q.add_argument("--file",required=True); q.add_argument("--output"); q.set_defaults(fn=cmd_quality_report)
     u=sub.add_parser("upsert"); u.add_argument("--file",required=True); u.add_argument("--kind",required=True); u.add_argument("--event",required=True); u.add_argument("--at"); u.set_defaults(fn=cmd_upsert)
     s=sub.add_parser("snapshot"); s.add_argument("--file",required=True); s.add_argument("--report-date",required=True); s.add_argument("--output",required=True); s.add_argument("--previous-week-file"); s.set_defaults(fn=cmd_snapshot)
     m=sub.add_parser("apply-snapshot"); m.add_argument("--content",required=True); m.add_argument("--snapshot",required=True); m.add_argument("--output",required=True); m.set_defaults(fn=cmd_apply_snapshot)
