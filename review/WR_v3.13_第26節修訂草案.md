@@ -31,9 +31,10 @@
 
 ### 5.3 FedWatch 顯示安全契約
 
-1. 正規化 FedWatch 的 rate-range 機率陣列，不得僅依陣列順序推定「維持不變」或「升息一碼」。
-2. 若 FedWatch 狀態為 `pending_verification`／`missing`，畫面須明確顯示「待核實」，機率條寬度為 0，不得顯示假設機率。
-3. 若狀態為 verified，必須提供明確 outcome mapping 的 Renderer payload；每個結果的機率須介於 0–100，總和須為 100（允許既有數值精度誤差），並保留來源與更新時間供稽核。缺少 mapping 或驗證失敗即 fail closed。
+1. **Investing.com Fed Rate Monitor 是優先來源。** 每次製作均須讀取製作當下頁面，記錄觀測時間、來源更新時間、下一場 FOMC 會議日期、當前目標利率區間及各結果區間機率；CME 僅供交叉參考，不得取代指定的 Investing.com 即時讀值。
+2. 正規化 FedWatch 的 rate-range 機率陣列，不得僅依陣列順序推定「維持不變」或「升息一碼」。只有當下一場會議恰有兩個結果，且兩者分別為當前目標利率區間及其上調 25bp 的區間時，才可將當前區間映射為「維持不變」、上調 25bp 映射為「升息一碼」。若出現降息、更多結果、缺少當前目標區間或其他不符合條件的分布，必須標示待核實，不得硬套兩欄 UI。
+3. 若 FedWatch 狀態為 `pending_verification`／`missing`，畫面須明確顯示「待核實」，機率條寬度為 0，不得顯示假設機率。
+4. 若狀態為 verified，必須提供明確 outcome mapping 的 Renderer payload；每個結果的機率須介於 0–100，總和須為 100（允許既有數值精度誤差），並保留來源與更新時間供稽核。正規化資料更新後須重新通過 Snapshot Schema 驗證。缺少 mapping 或驗證失敗即 fail closed。
 
 ### 5.4 每日審核版 Orchestrator 契約
 
