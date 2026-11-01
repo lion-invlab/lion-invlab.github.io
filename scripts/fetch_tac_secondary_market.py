@@ -21,6 +21,10 @@ from bs4 import BeautifulSoup
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+from capture_tac_cme_settlements import (
+    CME_PRODUCT_CODES, CME_SECTION_URLS, parse_cme_daily_bulletin_pdf,
+)
+
 INSTRUMENTS = {
     "fx": {
         "dxy": ("https://hk.investing.com/currencies/us-dollar-index-historical-data", "US Dollar Index", "index_point", ("US Dollar Index", "DXY")),
@@ -45,6 +49,7 @@ INSTRUMENTS = {
 }
 CNN_PAGE = "https://edition.cnn.com/markets/fear-and-greed"
 CNN_DATA = "https://production.dataviz.cnn.io/index/fearandgreed/graphdata"
+ICE_BRENT_REPORT_CENTER = "https://status.ice.com/report/10"
 
 def parse_number(raw: str) -> float:
     value = (raw or "").strip().replace(",", "").replace("%", "")
@@ -113,13 +118,14 @@ def pending_record(unit: str, reason: str) -> dict:
     return {
         "value": None, "unit": unit, "change": None,
         "change_unit": "percent", "status": "pending_verification",
-        "source": None, "fallback_used": False, "fallback_reason": None,
+        "source": None, "fallback_used": False, "fallback_reason": reason,
         "notes": f"未取得指定交易日資料，未沿用舊值。原因：{reason}",
     }
 
 def fetch_history_record(session: requests.Session, key: str, url: str,
                          instrument: str, unit: str, aliases: tuple[str, ...],
-                         trading_date: date, observed_at: str) -> dict:
+                         trading_date: date, observed_at: str,
+                         fallback_reason: str | None = None) -> dict:
     try:
         response = session.get(url, timeout=(10, 30))
         response.raise_for_status()
@@ -136,11 +142,71 @@ def fetch_history_record(session: requests.Session, key: str, url: str,
                 "quote_type": "investing_com_hk_historical_close_pct_change",
                 "instrument": instrument,
             },
-            "fallback_used": False, "fallback_reason": None,
-            "notes": "採用歷史資料表指定交易日收市值及日升跌幅；僅接受完全相符的資料日期與品項。",
+            "fallback_used": fallback_reason is not None,
+            "fallback_reason": fallback_reason,
+            "notes": (
+                "優先來源無法取得可核實的正式結算資料，依 WR 啟用 Investing.com 香港站備援；"
+                if fallback_reason else
+                "採用歷史資料表指定交易日收市值及日升跌幅；僅接受完全相符的資料日期與品項。"
+            ),
         }
     except Exception as exc:
-        return pending_record(unit, str(exc))
+        reason = f"優先來源：{fallback_reason}；Investing.com 備援：{exc}" if fallback_reason else str(exc)
+        return pending_record(unit, reason)
+
+def fetch_cme_official_record(session: requests.Session, key: str,
+                              trading_date: date, observed_at: str) -> dict:
+    product_code = CME_PRODUCT_CODES[key]
+    url = CME_SECTION_URLS[key]
+    response = session.get(url, timeout=(10, 45))
+    response.raise_for_status()
+    parsed = parse_cme_daily_bulletin_pdf(response.content, trading_date, product_code)
+    return {
+        "value": parsed["settlement"], "unit": "USD/barrel" if key == "wti" else "USD/troy_ounce",
+        "change": round(parsed["change_pct"], 4), "change_unit": "percent",
+        "status": "verified",
+        "source": {
+            "name": "CME Group Daily Bulletin",
+            "url": url,
+            "observed_at": observed_at,
+            "data_date": parsed["data_date"],
+            "quote_type": "cme_official_daily_futures_settlement",
+            "instrument": parsed["instrument"],
+        },
+        "fallback_used": False, "fallback_reason": None,
+        "notes": f"採用 CME 最終日結公告最高成交量合約 {parsed['contract']} 結算價；日漲跌幅依結算價與點數變動計算。",
+    }
+
+def fetch_ice_brent_priority_check(session: requests.Session, trading_date: date) -> None:
+    response = session.get(ICE_BRENT_REPORT_CENTER, timeout=(10, 30))
+    response.raise_for_status()
+    page = BeautifulSoup(response.text, "html.parser").get_text(" ", strip=True)
+    date_forms = (trading_date.isoformat(), trading_date.strftime("%b %d, %Y"))
+    if any(value in page for value in date_forms) and re.search(r"Brent.{0,100}settlement", page, re.I):
+        raise ValueError("ICE report center returned a date-matched row but no supported public parser is configured")
+    raise ValueError(
+        "ICE official report center does not expose a public exact-date Brent settlement row; "
+        "end-of-day CSV report packages are subscription-based"
+    )
+
+def fetch_priority_with_investing_fallback(session: requests.Session, key: str,
+                                           trading_date: date, observed_at: str) -> dict:
+    config = INSTRUMENTS["energy"].get(key) or INSTRUMENTS["precious_metals"].get(key)
+    if config is None:
+        raise ValueError(f"no Investing.com fallback configuration for {key}")
+    url, instrument, unit, aliases = config
+    try:
+        if key in CME_PRODUCT_CODES:
+            return fetch_cme_official_record(session, key, trading_date, observed_at)
+        if key == "brent":
+            fetch_ice_brent_priority_check(session, trading_date)
+            raise ValueError("ICE official Brent parser did not return a verified settlement")
+        raise ValueError(f"no official priority adapter for {key}")
+    except Exception as primary_error:
+        return fetch_history_record(
+            session, key, url, instrument, unit, aliases, trading_date, observed_at,
+            fallback_reason=str(primary_error),
+        )
 
 def parse_cnn_fear_greed(payload: dict, observed_at: str,
                          now: datetime | None = None) -> dict:
@@ -194,7 +260,7 @@ def build_fragment(trading_date: date, report_date: date, groups: dict,
         "report_date": report_date.isoformat(),
         "trading_date": trading_date.isoformat(),
         "fetched_at": observed_at,
-        "source_priority": "Investing.com Hong Kong historical pages; CNN Business official current Fear & Greed snapshot",
+        "source_priority": "CME Daily Bulletin for WTI/GC/SI and ICE Brent official report center first; Investing.com Hong Kong historical pages as fallback; CNN Business official current Fear & Greed snapshot",
         **groups,
     }
 
@@ -262,9 +328,14 @@ def main() -> int:
     groups = {name: {} for name in INSTRUMENTS}
     for group, records in INSTRUMENTS.items():
         for key, (url, instrument, unit, aliases) in records.items():
-            groups[group][key] = fetch_history_record(
-                session, key, url, instrument, unit, aliases, trading_date, observed_at
-            )
+            if key in CME_PRODUCT_CODES or key == "brent":
+                groups[group][key] = fetch_priority_with_investing_fallback(
+                    session, key, trading_date, observed_at
+                )
+            else:
+                groups[group][key] = fetch_history_record(
+                    session, key, url, instrument, unit, aliases, trading_date, observed_at
+                )
             time.sleep(0.25)
     try:
         response = session.get(CNN_DATA, timeout=(10, 30), headers={"Referer": CNN_PAGE})
