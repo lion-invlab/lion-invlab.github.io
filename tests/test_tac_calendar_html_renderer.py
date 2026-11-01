@@ -51,8 +51,8 @@ class TacCalendarHtmlRendererTests(unittest.TestCase):
                 econ("past-e", "2026-10-30T20:30:00+08:00", "released", "已公布經濟事件")
             ],
             "earnings_calendar": [
-                earnings("today-r", "2026-11-02T06:00:00+08:00", name="當日財報公司"),
-                earnings("future-r", "2026-11-03T06:00:00+08:00", name="未來財報公司")
+                earnings("today-r", "2026-11-02T06:00:00+08:00", company="當日財報公司"),
+                earnings("future-r", "2026-11-03T06:00:00+08:00", company="未來財報公司")
             ],
             "previous_economic_calendar": [
                 econ("archive-e", "2026-10-29T20:30:00+08:00", "released", "上週五星經濟事件")
