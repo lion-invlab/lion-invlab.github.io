@@ -666,11 +666,17 @@ def render_economic_calendar(html: str, parser: SourceTreeParser,
             current_name = normalize(unescape("".join(x.text for x in spans_inside(name_nodes[0], parser.spans))))
             if current_name != normalize(item["expected_name"]):
                 raise ValueError(f"{label}: event identity mismatch; expected template '{current_name}', snapshot '{item['expected_name']}'")
-            for field_name in ("date", "time", "country", "name", "stars_text"):
-                nodes = select(event_node, selectors[{"stars_text":"stars"}.get(field_name,field_name)])
+            for field_name in ("date", "time", "country", "name"):
+                nodes = select(event_node, selectors[field_name])
                 if len(nodes) != 1:
                     raise ValueError(f"{label}.{field_name}: slot missing or duplicated")
                 add_text(nodes[0], item[field_name], f"{label}.{field_name}")
+            star_nodes = select(event_node, selectors["stars"])
+            if len(star_nodes) != 1:
+                raise ValueError(f"{label}.stars_text: slot missing or duplicated")
+            existing_stars = normalize(unescape("".join(x.text for x in spans_inside(star_nodes[0],parser.spans))))
+            if existing_stars != normalize(item["stars_text"]):
+                raise ValueError(f"{label}: star-scale change requires approved mother-template CSS/class migration")
             detail_nodes = select(event_node, selectors["details"])
             if len(detail_nodes) != 1:
                 raise ValueError(f"{label}: details container missing or duplicated")
@@ -782,11 +788,17 @@ def render_earnings_calendar(html: str, parser: SourceTreeParser,
             current_company=normalize(unescape("".join(x.text for x in spans_inside(company_nodes[0],parser.spans))))
             if current_company != normalize(item["expected_company"]):
                 raise ValueError(f"{label}: company identity mismatch")
-            for field_name in ("us_date","tw_date","company","company_sub","stars_text"):
-                nodes=select(item_node,selectors[{"us_date":"us_date","tw_date":"tw_date","company":"company","company_sub":"company_sub","stars_text":"stars"}.get(field_name,field_name)])
+            for field_name in ("us_date","tw_date","company","company_sub"):
+                nodes=select(item_node,selectors[field_name])
                 if len(nodes)!=1:
                     raise ValueError(f"{label}.{field_name}: slot missing or duplicated")
                 add_text(nodes[0],item[field_name],f"{label}.{field_name}")
+            star_nodes=select(item_node,selectors["stars"])
+            if len(star_nodes)!=1:
+                raise ValueError(f"{label}.stars_text: slot missing or duplicated")
+            existing_stars=normalize(unescape("".join(x.text for x in spans_inside(star_nodes[0],parser.spans))))
+            if existing_stars!=normalize(item["stars_text"]):
+                raise ValueError(f"{label}: star-scale change requires approved mother-template CSS/class migration")
             details=select(item_node,selectors["details"])
             if len(details)!=1:
                 raise ValueError(f"{label}: details container missing or duplicated")
