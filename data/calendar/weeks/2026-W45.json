@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-06",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-01T14:13:18+08:00",
+  "updated_at": "2026-11-01T14:14:18+08:00",
   "source_report_date": "2026-11-02",
   "wr_version": "3.7",
   "status": "prototype",
@@ -101,7 +101,7 @@
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：歐元區關鍵通膨指標，將直接影響 ECB 利率路徑定價、歐元匯率及歐洲公債殖利率；對主要市場具有跨資產影響。",
-        "previous": null,
+        "previous": 3.8,
         "forecast": null,
         "actual": null,
         "status": "upcoming",
@@ -114,6 +114,13 @@
           "observed_at": "2026-11-01T12:39:11+08:00",
           "publisher": "Eurostat",
           "notes": "最新官方週曆列示 10 月歐元區通膨初值於 11/03 發布；先前 10/16 頁面曾列 11/04，已採用更新後官方週曆。官方週曆未列具體時間，故不顯示時刻。 日期依 Eurostat 官方週曆 11/2–11/6 頁面列示 11/03；ECB 另列 11/04 的 seasonally adjusted HICP flash estimate，屬另一統計序列／發布安排，不混用日期。精確發布時刻仍待官方確認。"
+        },
+        "data_unit": "% y/y HICP",
+        "data_reference": {
+          "name": "Eurostat｜Annual inflation up to 3.8% in the euro area",
+          "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
+          "publisher": "Eurostat",
+          "notes": "2026年9月歐元區年增 HICP 為 3.8%，作為10月 flash estimate 的 previous。forecast 因來源發布日期／序列口徑尚待對齊，暫不填入。"
         }
       },
       {
@@ -290,7 +297,7 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
-        "previous": null,
+        "previous": 13.75,
         "forecast": null,
         "actual": null,
         "status": "upcoming",
@@ -302,6 +309,13 @@
           "observed_at": "2026-11-01T12:17:52+08:00",
           "publisher": "Banco Central do Brasil",
           "notes": "Copom 於 11/3–11/4 開會，決策聲明於巴西時間 18:30 後發布；以台灣時間 11/5 05:30 作最早預計時間，實際分鐘待官方公告。"
+        },
+        "data_unit": "% Selic rate",
+        "data_reference": {
+          "name": "Banco Central do Brasil｜Copom September 2026 decision",
+          "url": "https://www.bcb.gov.br/en/monetarypolicy/copomstatements/2680",
+          "publisher": "Banco Central do Brasil",
+          "notes": "最新已公布決議於 2026-09-16 將 Selic 降至 13.75%；11月會議 forecast 因市場來源分歧，保留待核實。"
         }
       },
       {
@@ -2233,10 +2247,12 @@
         "https://uk.investing.com/economic-calendar/united-states-jolts-job-openings-1057",
         "https://www.asx.com.au/markets/trade-our-derivatives-market/rba-rate-tracker",
         "https://finchiefs.com/central-banks/sveriges-riksbank/meetings/2026-11-04",
-        "https://www.investing.com/economic-calendar/norwegian-interest-rate-decision-444"
+        "https://www.investing.com/economic-calendar/norwegian-interest-rate-decision-444",
+        "https://www.bcb.gov.br/en/monetarypolicy/copomstatements/2680",
+        "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap"
       ],
-      "checked_at": "2026-11-01T14:13:18+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。"
+      "checked_at": "2026-11-01T14:14:18+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。"
     },
     "earnings": {
       "status": "incomplete",
@@ -5864,6 +5880,134 @@
         "forecast_applicable": false
       },
       "note": "此政策文件／政治事件並非 previous/forecast 數值型經濟指標；標記為 not applicable，避免品質報告誤判為資料缺漏。"
+    },
+    {
+      "at": "2026-11-01T14:14:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-bcb-rate-20261104",
+      "changed_fields": [
+        "previous",
+        "data_unit",
+        "data_reference"
+      ],
+      "before": {
+        "id": "current-bcb-rate-20261104",
+        "event_date": "2026-11-05T05:30:00+08:00",
+        "region": "巴西",
+        "event_name": "巴西央行 Copom 利率決策",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Banco Central do Brasil",
+          "url": "https://www.bcb.gov.br/en/monetarypolicy/committee?os=0",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Banco Central do Brasil",
+          "notes": "Copom 於 11/3–11/4 開會，決策聲明於巴西時間 18:30 後發布；以台灣時間 11/5 05:30 作最早預計時間，實際分鐘待官方公告。"
+        }
+      },
+      "after": {
+        "id": "current-bcb-rate-20261104",
+        "event_date": "2026-11-05T05:30:00+08:00",
+        "region": "巴西",
+        "event_name": "巴西央行 Copom 利率決策",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
+        "previous": 13.75,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": null,
+        "source": {
+          "name": "Banco Central do Brasil",
+          "url": "https://www.bcb.gov.br/en/monetarypolicy/committee?os=0",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Banco Central do Brasil",
+          "notes": "Copom 於 11/3–11/4 開會，決策聲明於巴西時間 18:30 後發布；以台灣時間 11/5 05:30 作最早預計時間，實際分鐘待官方公告。"
+        },
+        "data_unit": "% Selic rate",
+        "data_reference": {
+          "name": "Banco Central do Brasil｜Copom September 2026 decision",
+          "url": "https://www.bcb.gov.br/en/monetarypolicy/copomstatements/2680",
+          "publisher": "Banco Central do Brasil",
+          "notes": "最新已公布決議於 2026-09-16 將 Selic 降至 13.75%；11月會議 forecast 因市場來源分歧，保留待核實。"
+        }
+      },
+      "source": "https://www.bcb.gov.br/en/monetarypolicy/copomstatements/2680",
+      "note": "只填入可由官方上一期實際公布核實的 previous；forecast 保留待核實，避免跨來源混用。"
+    },
+    {
+      "at": "2026-11-01T14:14:18+08:00",
+      "action": "event_updated",
+      "event_id": "current-eurozone-flash-cpi-20261103",
+      "changed_fields": [
+        "previous",
+        "data_unit",
+        "data_reference"
+      ],
+      "before": {
+        "id": "current-eurozone-flash-cpi-20261103",
+        "event_date": "2026-11-03T12:00:00+08:00",
+        "region": "歐元區",
+        "event_name": "歐元區 10 月 HICP 通膨初值",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：歐元區關鍵通膨指標，將直接影響 ECB 利率路徑定價、歐元匯率及歐洲公債殖利率；對主要市場具有跨資產影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "觀察整體與核心通膨是否延續黏著，影響 ECB 降息預期及歐元區利率曲線。",
+        "source": {
+          "name": "Eurostat｜Release Calendar for Euro Indicators",
+          "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1793574000000&type=dayGridWeek",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Eurostat",
+          "notes": "最新官方週曆列示 10 月歐元區通膨初值於 11/03 發布；先前 10/16 頁面曾列 11/04，已採用更新後官方週曆。官方週曆未列具體時間，故不顯示時刻。 日期依 Eurostat 官方週曆 11/2–11/6 頁面列示 11/03；ECB 另列 11/04 的 seasonally adjusted HICP flash estimate，屬另一統計序列／發布安排，不混用日期。精確發布時刻仍待官方確認。"
+        }
+      },
+      "after": {
+        "id": "current-eurozone-flash-cpi-20261103",
+        "event_date": "2026-11-03T12:00:00+08:00",
+        "region": "歐元區",
+        "event_name": "歐元區 10 月 HICP 通膨初值",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：歐元區關鍵通膨指標，將直接影響 ECB 利率路徑定價、歐元匯率及歐洲公債殖利率；對主要市場具有跨資產影響。",
+        "previous": 3.8,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": false,
+        "impact_judgment": "觀察整體與核心通膨是否延續黏著，影響 ECB 降息預期及歐元區利率曲線。",
+        "source": {
+          "name": "Eurostat｜Release Calendar for Euro Indicators",
+          "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1793574000000&type=dayGridWeek",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Eurostat",
+          "notes": "最新官方週曆列示 10 月歐元區通膨初值於 11/03 發布；先前 10/16 頁面曾列 11/04，已採用更新後官方週曆。官方週曆未列具體時間，故不顯示時刻。 日期依 Eurostat 官方週曆 11/2–11/6 頁面列示 11/03；ECB 另列 11/04 的 seasonally adjusted HICP flash estimate，屬另一統計序列／發布安排，不混用日期。精確發布時刻仍待官方確認。"
+        },
+        "data_unit": "% y/y HICP",
+        "data_reference": {
+          "name": "Eurostat｜Annual inflation up to 3.8% in the euro area",
+          "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
+          "publisher": "Eurostat",
+          "notes": "2026年9月歐元區年增 HICP 為 3.8%，作為10月 flash estimate 的 previous。forecast 因來源發布日期／序列口徑尚待對齊，暫不填入。"
+        }
+      },
+      "source": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
+      "note": "只填入可由官方上一期實際公布核實的 previous；forecast 保留待核實，避免跨來源混用。"
     }
   ]
 }
