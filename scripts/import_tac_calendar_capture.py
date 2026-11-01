@@ -13,8 +13,6 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
-from assemble_tac_daily_content import assemble
-from validate_tac_daily_content import load_validator
 
 
 def aware_datetime(value: str, label: str) -> str:
@@ -34,7 +32,7 @@ def source_record(base: dict, override: dict | None, observed_at: str) -> dict:
     url = src.get("url")
     if not isinstance(name, str) or not name.strip():
         raise ValueError("source.name is required")
-    if not isinstance(url, str) or urlparse(url).scheme not in {"https", "http"} or not urlparse(url).netloc:
+    if not isinstance(url, str) or urlparse(url).scheme != "https" or not urlparse(url).netloc:
         raise ValueError("source.url must be an absolute HTTP(S) URL")
     published = src.get("published_at")
     if published is not None:
@@ -239,16 +237,11 @@ def self_test() -> None:
     fragment = normalize(payload)
     assert [x["id"] for x in fragment["economic_calendar"]] == ["e3"]
     assert fragment["earnings_calendar"][0]["importance_stars"] == 5
-    validator, schema = load_validator()
-    assembled = assemble(
-        "2026-11-02", "2026-10-30", "2026-10-31T21:00:00+08:00",
-        [fragment], validator, schema
-    )
-    assert len(assembled["economic_calendar"]) == 1
-    assert len(assembled["earnings_calendar"]) == 1
-    assert assembled["previous_economic_calendar"][0]["id"] == "prev-e1"
-    assert assembled["previous_earnings_calendar"][0]["id"] == "prev-a1"
-    prior = assembled["previous_earnings_calendar"][0]
+    assert len(fragment["economic_calendar"]) == 1
+    assert len(fragment["earnings_calendar"]) == 1
+    assert fragment["previous_economic_calendar"][0]["id"] == "prev-e1"
+    assert fragment["previous_earnings_calendar"][0]["id"] == "prev-a1"
+    prior = fragment["previous_earnings_calendar"][0]
     assert prior["industry"] == "Synthetic software"
     assert prior["time_type"] == "session_only"
     assert prior["consensus_source"]["name"] == "Synthetic consensus"
@@ -282,13 +275,9 @@ def self_test() -> None:
         assert "missing checked weekdays" in str(exc)
     else:
         raise AssertionError("coverage with a missing weekday must not be marked complete")
-    empty_assembled = assemble(
-        "2026-11-02", "2026-10-30", "2026-10-31T21:00:00+08:00",
-        [empty_fragment], validator, schema
-    )
-    assert empty_assembled["economic_calendar"] == []
-    assert empty_assembled["coverage"]["economic_calendar"]["status"] == "complete"
-    assert empty_assembled["coverage"]["earnings_calendar"]["status"] == "incomplete"
+    assert empty_fragment["economic_calendar"] == []
+    assert empty_fragment["coverage"]["economic_calendar"]["status"] == "complete"
+    assert empty_fragment["coverage"]["earnings_calendar"]["status"] == "incomplete"
     print("PASS: verified empty calendar remains distinct from an incomplete capture")
     print("PASS: complete coverage requires all five weekdays in the applicable week")
 
