@@ -119,7 +119,7 @@ class TacDailyPipelineTests(unittest.TestCase):
                 )
                 rendered = result.read_text(encoding="utf-8")
                 self.assertIn("<title>TAC 投資早報｜2026/11/02（一）審核版</title>", rendered)
-                self.assertIn('name="report-date" content="2026-11-02"', rendered)
+                self.assertIn('content="2026-11-02" name="report-date"', rendered)
                 self.assertIn("整合測試摘要標題", rendered)
                 self.assertIn("測試新聞 global_focus 1", rendered)
                 self.assertIn("7,000.00", rendered)
