@@ -31,6 +31,9 @@ class Node:
     children: list["Node | TextSpan"] = field(default_factory=list)
     class_value_span: tuple[int, int] | None = None
     attr_value_spans: dict[str, tuple[int, int]] = field(default_factory=dict)
+    start_tag_end: int | None = None
+    end_tag_start: int | None = None
+    end_tag_end: int | None = None
 
     @property
     def classes(self) -> set[str]:
@@ -64,6 +67,10 @@ class SourceTreeParser(HTMLParser):
         start = self.source_offset()
         raw_tag = self.get_starttag_text() or ""
         node = Node(tag.lower(), dict(attrs), self.stack[-1])
+        node.start_tag_end = start + len(raw_tag)
+        if tag.lower() in VOID:
+            node.end_tag_start = node.start_tag_end
+            node.end_tag_end = node.start_tag_end
         class_match = re.search(r"""\bclass\s*=\s*(["'])(.*?)\1""", raw_tag, re.I | re.S)
         if class_match:
             node.class_value_span = (start + class_match.start(2), start + class_match.end(2))
@@ -76,12 +83,25 @@ class SourceTreeParser(HTMLParser):
             self.stack.append(node)
 
     def handle_startendtag(self, tag, attrs):
-        self.stack[-1].children.append(Node(tag.lower(), dict(attrs), self.stack[-1]))
+        start = self.source_offset()
+        raw_tag = self.get_starttag_text() or ""
+        node = Node(tag.lower(), dict(attrs), self.stack[-1])
+        node.start_tag_end = start + len(raw_tag)
+        node.end_tag_start = node.start_tag_end
+        node.end_tag_end = node.start_tag_end
+        self.stack[-1].children.append(node)
 
     def handle_endtag(self, tag):
         tag = tag.lower()
+        end_start = self.source_offset()
+        end_end = self.source.find(">", end_start)
+        if end_end < 0:
+            raise ValueError("malformed closing tag; refusing source splice")
+        end_end += 1
         for i in range(len(self.stack) - 1, 0, -1):
             if self.stack[i].tag == tag:
+                self.stack[i].end_tag_start = end_start
+                self.stack[i].end_tag_end = end_end
                 del self.stack[i:]
                 break
 
@@ -140,6 +160,15 @@ def matches(node: Node, selector: str) -> bool:
 def select(root: Node, selector: str) -> list[Node]:
     parts = [part.strip() for part in selector.split(",") if part.strip()]
     return [n for n in descendants(root) if any(matches(n, p) for p in parts)]
+
+
+def inner_bounds(node: Node) -> tuple[int, int]:
+    """Return the source interval inside one parsed element, never including its tags."""
+    if node.start_tag_end is None or node.end_tag_start is None or node.end_tag_end is None:
+        raise ValueError(f"{node.tag}: source boundaries unavailable; refusing dynamic-region edit")
+    if node.start_tag_end > node.end_tag_start:
+        raise ValueError(f"{node.tag}: invalid source boundaries; refusing dynamic-region edit")
+    return node.start_tag_end, node.end_tag_start
 
 
 def spans_inside(node: Node, spans: list[TextSpan]) -> list[TextSpan]:
