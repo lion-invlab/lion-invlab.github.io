@@ -76,7 +76,7 @@ class FedWatchCaptureAdapterTests(unittest.TestCase):
         data["source_updated_at_iso"] = "2026-10-01T00:00:00+00:00"
         normalized, renderer, error = adapt_capture(data, "2026-11-02")
         self.assertIsNone(error)
-        self.assertEqual(normalized["updated_at"], "2026-11-01T21:00:00+00:00")
+        self.assertEqual(normalized["updated_at"], data["observed_at"])
         self.assertIn("provider Updated label=2026-10-01", normalized["notes"])
 
     def test_live_page_capture_does_not_require_provider_updated_label(self):
