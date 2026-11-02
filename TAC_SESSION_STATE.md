@@ -204,3 +204,57 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 本輪未修改 `index.html`、雙母版、Manifest、W45 DB 或預覽 HTML。
 - 正式首頁 SHA 與已知核准 SHA 一致。
 - 下一步：先做預覽內容資料稽核（44 市場指標、11 ETF、FedWatch、新聞、行事曆），逐項以來源與日期核對；同時規劃並執行瀏覽器互動測試。不得因 Pages deploy success 就跳過這些 Gate。
+
+
+## 12. 2026-11-02 預覽資料 QA 與重新 Gate 結果
+
+最後更新：2026-11-02 10:12:42（Asia/Taipei）
+
+### 12.1 本輪最終檔案基線
+- 預覽 `preview/2026-11-02.html` blob SHA：`e3171fd4b6309e0f97ad01d958b596b1e0b8448e`。
+- WR `TAC_WORK_RULES.md` blob SHA：`4b18a156805f19521356a247e7e11f1cfacbded6`。
+- Manifest blob SHA：`6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`。
+- 週一母版 blob SHA：`0ea4775c5d15899a1e0b0a97c78744d90b8fff22`。
+- W45 DB blob SHA：`c15b7aaee56b95b38d5983bbf174f3e9bba894b2`。
+- 正式首頁 `index.html` blob SHA：`bf853317df07920d4a91db7103c2f95b0a1ed725`（仍應與正式核准 SHA `bf853317df07920d4a91db7103c2f95b0a1ed725` 相同；本輪未修改）。
+- 本輪未修改 WR、Manifest、雙母版、W45 DB 或正式首頁。
+
+### 12.2 本輪預覽內容修正
+- FedWatch：直接再次讀取 Investing.com Fed Rate Monitor，頁面最後更新仍為 2026-10-31 00:35 EDT；11/02 10:05 台灣時間複核時，最新可見 12/09 會議機率仍為維持 30.2%、升息一碼 69.8%。預覽總結與來源註記已明確標示為延遲約 45 小時 30 分的快照，不得當作即時市場機率。
+- FactSet 盈餘健康度：將來源註記中殘留的 24% 已公布比率修正為 FactSet 10/30 官方報告的 60%，與主文一致。
+- 預覽 metadata：`meta name="report-date"` 從母版舊日期 2026-10-26 更新為 2026-11-02。
+- 母版內隱藏的舊 `data-sync-warning` 文案已更新為 11/02 審核狀態；該區塊因母版原有 `body.release-ready` class 而仍被 CSS 隱藏。
+- 曾嘗試把 body class 改為 `review-pending`，但 DOM contract 明確保護 body class，Gate run `41376263139` 因此失敗。已恢復母版原有 `release-ready` class；修復後 Gate 通過。不得為了顯示警示而改母版或繞過結構契約。
+- 已知母版矛盾：母版 CSS 註解表示審核版應保留警示、只有全部驗收後才加 `release-ready`，但核准母版本身已帶 `release-ready`。本輪僅記錄，不修改母版。
+
+### 12.3 市場數據抽核
+- 44 項市場指標已逐項抽核：17 個全球指數、11 個產業 ETF、3 個美債期限殖利率、6 個外匯、2 個能源商品、2 個貴金屬、VIX、MOVE、CNN Fear & Greed。
+- 17 個指數與 11 個 ETF 的 2026-10-30 歷史收盤／漲跌幅與 Investing.com 香港站相符。
+- 6 個外匯、WTI、Brent、黃金、白銀、VIX、MOVE 與 2026-10-30 歷史資料相符。
+- 美國財政部官方 2026-10-30 日殖利率：2Y 4.56%、10Y 4.94%、30Y 5.31%，已核對。
+- CNN Fear & Greed：官方 CNN 頁無法直接讀取，採 FGScore 標示為 CNN Provider Index 的備援值 26.0 Fear；已保留來源限制。
+- Brent 價格吻合歷史資料，但合約月份／合約識別仍標示待覆核。
+- 以上 44 項屬人工逐項歷史值抽核；並不代表 Investing.com 當下頁面一定即時更新。
+
+### 12.4 新聞與行事曆 QA
+- Global Focus News 5 則、Market Hot Headlines 10 則均已逐項核對來源頁、原始報導及時間窗（2026-10-30 12:00 至 2026-11-01 22:15 台灣時間）；OpenAI 融資目標新聞的 Investing 頁無法直接開啟，但由 FT／Reuters／Investing.com 搜尋結果交叉核對。
+- 上週經濟行事曆 8 筆，全部五星；已公布事件均含前值、預估、實際值及影響判讀。
+- 上週財報行事曆 8 筆，全部五星；均含 EPS／營收實際值、共識比較及財報後首個常規交易日股價反應。
+- 本週經濟行事曆 17 筆，13 筆四星、4 筆五星；本週財報行事曆 33 筆，31 筆四星、2 筆五星。符合 WR 的本週四／五星、上週五星篩選規則。
+- 官方尚未確認精確時間的事件保留「時間待核實」／`time_known=false`，不得自行填入推測時間。
+- W45 DB coverage incomplete 是動態狀態，依使用者說明不視為錯誤。
+
+### 12.5 最新 Gate、瀏覽器測試與部署
+- 先前失敗的 body class 嘗試：run `41376263139`，失敗原因只有 body class 與核准母版不同；已恢復。
+- 最新 Structural Gate run：`41376350033`，commit `0c2c645d0e2f89c6e0705726da72b34a5c252627`，結論 success。
+- Validator 輸出：`PASS 2026-11-02.html: correct weekday master anchors, structure and local links`；兩組重複 ID 仍明確標為核准母版既有警告。
+- Playwright layout regression：desktop-1440、tablet-768、mobile-320 全部通過；每個 viewport 都截圖並檢查 section geometry、computed layout、overflow，另實際點擊第一個 details disclosure 與第二個 TAC tab radio label；測試腳本並非全卡／全導航的完整點擊測試。
+- Screenshot artifact：`13110989045`（run `41376350033`）。
+- Pages deploy run：`41376413692`，commit `0c2c645...`，deploy job success。
+- 本輪 web 工具仍無法直接載入 Pages URL；因此只能記錄 GitHub Pages deploy job success，不能宣稱已由本輪直接瀏覽器獨立確認頁面載入。
+
+### 12.6 最終交付判定
+- **通過：** 預覽 DOM 結構契約、母版錨點／結構／內部連結、桌面／平板／320px 版面回歸、details 基本收折冒煙測試、TAC tab 基本切換冒煙測試、44 項市場欄位抽核、新聞來源與時間窗、行事曆星等篩選及上週已公布實績欄位。
+- **保留：** 母版兩組重複 ID；CNN 使用備援來源；Brent 合約月份待覆核；母版 `release-ready` class 與隱藏警示的註解矛盾。
+- **尚未完整測試：** 所有紅色 32px 加號逐張點擊、所有 tab、所有導航項目逐項點擊；本輪 Pages URL 無法直接載入驗證。
+- **正式首頁未發布。** 目前僅為 11/02 獨立審核版，不能宣稱所有 QA Gate 全數通過，也不得修改 `index.html`，直到使用者明確核准指定審核版。
