@@ -42,7 +42,7 @@ class Node:
                 result.append(("class", " ".join(sorted(tokens))))
             elif key in KEEP_ATTRS:
                 normalized = value or ""
-                if key == "style" and tag == "div":
+                if key == "style" and tag in {"div", "span"}:
                     # Only explicitly allowlisted chart properties are data slots.
                     dynamic_properties = set()
                     if "fg6-marker" in class_tokens:
@@ -185,13 +185,13 @@ def self_test():
         assert signature(a) == signature(b), "data-driven Fear & Greed marker position should pass"
         b.write_text('<html><body><div class="fg6-marker" style="left:26%;top:1px"></div></body></html>', encoding="utf-8")
         assert signature(a) != signature(b), "non-data marker style mutation must still fail"
-        a.write_text('<html><body><div class="fc-split-hold" style="width:90%"></div></body></html>', encoding="utf-8")
-        b.write_text('<html><body><div class="fc-split-hold" style="width:30.2%"></div></body></html>', encoding="utf-8")
+        a.write_text('<html><body><span class="fc-split-hold" style="width:90%"></span></body></html>', encoding="utf-8")
+        b.write_text('<html><body><span class="fc-split-hold" style="width:30.2%"></span></body></html>', encoding="utf-8")
         assert signature(a) == signature(b), "FedWatch probability bar width should be data-driven"
-        b.write_text('<html><body><div class="fc-split-hold" style="width:30.2%;background:red"></div></body></html>', encoding="utf-8")
+        b.write_text('<html><body><span class="fc-split-hold" style="width:30.2%;background:red"></span></body></html>', encoding="utf-8")
         assert signature(a) != signature(b), "non-data FedWatch bar style mutation must still fail"
-        a.write_text('<html><body><div class="fc-split-hike" style="width:10%"></div></body></html>', encoding="utf-8")
-        b.write_text('<html><body><div class="fc-split-hike" style="width:69.8%"></div></body></html>', encoding="utf-8")
+        a.write_text('<html><body><span class="fc-split-hike" style="width:10%"></span></body></html>', encoding="utf-8")
+        b.write_text('<html><body><span class="fc-split-hike" style="width:69.8%"></span></body></html>', encoding="utf-8")
         assert signature(a) == signature(b), "FedWatch hike bar width should be data-driven"
         a.write_text('<html><body><div class="earnings-actual-card beat"><b class="earnings-actual-status beat">Beat</b></div><div class="earnings-actual-card pending"><b class="earnings-actual-status pending">Pending</b></div></body></html>', encoding="utf-8")
         b.write_text('<html><body><div class="earnings-actual-card miss"><b class="earnings-actual-status miss">Miss</b></div><div class="earnings-actual-card beat"><b class="earnings-actual-status beat">Beat</b></div><div class="earnings-actual-card pending"><b class="earnings-actual-status pending">Pending</b></div></body></html>', encoding="utf-8")
