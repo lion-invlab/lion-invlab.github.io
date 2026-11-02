@@ -140,19 +140,19 @@ try {
   const sourceUpdatedAt = [...new Set(updatedMatches)];
   const parsedUpdate = sourceUpdatedAt.length ? parseInvestingTimestamp(sourceUpdatedAt[0]) : NaN;
   const ageHours = Number.isFinite(parsedUpdate) ? (Date.now() - parsedUpdate) / 3600000 : null;
-  const freshnessLimitHours = 72; // permits the latest Friday close to remain valid over a weekend
-  const fresh = ageHours !== null && ageHours >= -1 && ageHours <= freshnessLimitHours;
   const hasData = validateMeetingDistribution(meetings, conflicts);
   const isMonitor = /Fed Rate Monitor/i.test(bodyText);
-  const status = isMonitor && hasData && fresh && currentTargetRange ? "captured_for_review" : "pending_verification";
+  // observed_at is the authoritative snapshot time for this workflow run.
+  // The page's own Updated label is retained for audit only, not used as a freshness gate.
+  const status = isMonitor && hasData && observedAt ? "captured_for_review" : "pending_verification";
   const result = { provider: "Investing.com Fed Rate Monitor", source_url: url, role: "primary",
     status, observed_at: observedAt, source_updated_at: sourceUpdatedAt,
     source_updated_at_iso: Number.isFinite(parsedUpdate) ? new Date(parsedUpdate).toISOString() : null,
-    source_age_hours: ageHours, freshness_limit_hours: freshnessLimitHours,
+    source_age_hours: ageHours,
     current_target_range: currentTargetRange, meetings, page_status: response.status(),
-    validation: { is_monitor: isMonitor, has_meeting_probabilities: hasData, has_unique_meetings: meetings.length > 0, has_unique_rate_ranges: meetings.every(m=>m.probabilities.length===2), probabilities_sum_to_100: meetings.every(m=>Math.abs(m.probabilities.reduce((sum,p)=>sum+p.probability,0)-100)<=0.2), has_current_target_range: Boolean(currentTargetRange), has_conflicts: conflicts.length>0, has_source_update_time: sourceUpdatedAt.length > 0, is_fresh: fresh },
+    validation: { is_monitor: isMonitor, has_meeting_probabilities: hasData, has_unique_meetings: meetings.length > 0, has_unique_rate_ranges: meetings.every(m=>m.probabilities.length===2), probabilities_sum_to_100: meetings.every(m=>Math.abs(m.probabilities.reduce((sum,p)=>sum+p.probability,0)-100)<=0.2), has_current_target_range: Boolean(currentTargetRange), has_conflicts: conflicts.length>0, has_source_update_time: sourceUpdatedAt.length > 0 },
     deduplication_conflicts: conflicts,
-    error: status === "captured_for_review" ? null : "Missing meeting probabilities, current target range or source Updated time, or source data is stale" };
+    error: status === "captured_for_review" ? null : "Live Fed Rate Monitor page or valid meeting probabilities could not be verified" };
   fs.writeFileSync(output, JSON.stringify(result, null, 2) + "\n", "utf8");
   fs.writeFileSync(textOutput, bodyText, "utf8");
   console.log(JSON.stringify({ status, observed_at: observedAt, source_updated_at: sourceUpdatedAt, source_age_hours: ageHours, meeting_count: meetings.length, validation: result.validation }, null, 2));

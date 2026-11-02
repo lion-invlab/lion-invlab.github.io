@@ -13,6 +13,9 @@ on:
       - scripts/render_tac_market_safe.py
       - scripts/tac_html_binding_map.json
       - scripts/test_tac_daily_pipeline.py
+      - scripts/capture_tac_fedwatch_fallback.mjs
+      - scripts/adapt_tac_fedwatch_capture.py
+      - scripts/test_tac_fedwatch_capture_adapter.py
 
 permissions:
   contents: read
@@ -52,6 +55,8 @@ jobs:
       - name: Validate localized market and OHLC parsers
         run: |
           python -m unittest -v scripts/test_tac_secondary_market.py
+          node scripts/capture_tac_fedwatch_fallback.mjs --self-test
+          python -m unittest -v scripts/test_tac_fedwatch_capture_adapter.py
           python scripts/fetch_tac_global_indices.py --self-test
           python scripts/run_tac_daily_pipeline.py --self-test
           python -m unittest -v scripts/test_tac_daily_pipeline.py

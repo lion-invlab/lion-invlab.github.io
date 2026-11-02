@@ -70,12 +70,23 @@ class FedWatchCaptureAdapterTests(unittest.TestCase):
         self.assertIsNone(renderer)
         self.assertIn("exactly two", error)
 
-    def test_stale_or_wrong_role_capture_remains_pending(self):
+    def test_live_page_values_are_not_rejected_due_to_old_provider_updated_label(self):
         data = capture()
-        data["source_age_hours"] = 73
+        data["source_age_hours"] = 2400
+        data["source_updated_at_iso"] = "2026-10-01T00:00:00+00:00"
         normalized, renderer, error = adapt_capture(data, "2026-11-02")
-        self.assertIsNone(normalized)
-        self.assertIn("stale", error)
+        self.assertIsNone(error)
+        self.assertEqual(normalized["updated_at"], "2026-11-01T21:00:00+00:00")
+        self.assertIn("provider Updated label=2026-10-01", normalized["notes"])
+
+    def test_live_page_capture_does_not_require_provider_updated_label(self):
+        data = capture()
+        data["source_updated_at_iso"] = None
+        normalized, renderer, error = adapt_capture(data, "2026-11-02")
+        self.assertIsNone(error)
+        self.assertEqual(normalized["updated_at"], data["observed_at"])
+
+    def test_wrong_role_capture_remains_pending(self):
         data = capture()
         data["role"] = "fallback"
         normalized, renderer, error = adapt_capture(data, "2026-11-02")

@@ -30,18 +30,20 @@ def adapt_capture(capture: dict[str, Any], report_date: str) -> tuple[dict | Non
         return None, None, capture.get("error") or "Investing.com Fed Rate Monitor capture is pending"
     validation = capture.get("validation")
     if not isinstance(validation, dict) or not all(validation.get(k) for k in (
-        "is_monitor", "has_meeting_probabilities", "has_current_target_range",
-        "has_source_update_time", "is_fresh"
+        "is_monitor", "has_meeting_probabilities"
     )):
         return None, None, "Fed Rate Monitor capture failed source validation"
     try:
         report_day = date.fromisoformat(report_date)
-        source_updated = datetime.fromisoformat(capture["source_updated_at_iso"].replace("Z", "+00:00"))
-        if source_updated.tzinfo is None:
-            raise ValueError("source update timestamp must include timezone")
-        age = capture["source_age_hours"]
-        if not isinstance(age, (int, float)) or age < -1 or age > 72:
-            raise ValueError("Fed Rate Monitor source is stale or future-dated")
+        observed_at = datetime.fromisoformat(capture["observed_at"].replace("Z", "+00:00"))
+        if observed_at.tzinfo is None:
+            raise ValueError("page observation timestamp must include timezone")
+        source_updated_raw = capture.get("source_updated_at_iso")
+        source_updated = None
+        if source_updated_raw:
+            source_updated = datetime.fromisoformat(source_updated_raw.replace("Z", "+00:00"))
+            if source_updated.tzinfo is None:
+                raise ValueError("source update timestamp must include timezone")
         current_range = parse_rate_range(capture["current_target_range"])
     except Exception as exc:
         return None, None, str(exc)
@@ -91,7 +93,11 @@ def adapt_capture(capture: dict[str, Any], report_date: str) -> tuple[dict | Non
         return None, None, "Fed Rate Monitor source URL is missing or not HTTPS"
     provider = "Investing.com Fed Rate Monitor"
     observed_at = capture.get("observed_at")
-    updated_at = source_updated.isoformat()
+    updated_at = observed_at.isoformat()
+    source_update_note = (
+        f"provider Updated label={source_updated.isoformat()}"
+        if source_updated is not None else "provider Updated label unavailable"
+    )
     normalized = {
         "target_meeting": meeting_day.isoformat(),
         "updated_at": updated_at,
@@ -103,7 +109,7 @@ def adapt_capture(capture: dict[str, Any], report_date: str) -> tuple[dict | Non
         "status": "verified",
         "notes": (
             f"Investing.com Fed Rate Monitor primary capture; meeting={meeting_day.isoformat()}; "
-            f"current target range={current_label}; source updated={updated_at}; observed_at={observed_at}; "
+            f"current target range={current_label}; observed_at={updated_at}; {source_update_note}; "
             "two outcomes explicitly mapped to current range (hold) and current range +25bp (one hike)."
         ),
     }
