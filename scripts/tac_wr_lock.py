@@ -22,6 +22,10 @@ def parse_wr_version(content: str) -> str:
     return match.group(1)
 
 
+def load_local_wr_version() -> str:
+    return parse_wr_version((ROOT / "TAC_WORK_RULES.md").read_text(encoding="utf-8"))
+
+
 def resolve_git_lock(ref: str) -> dict:
     commit = subprocess.run(
         ["git", "rev-parse", "--verify", f"{ref}^{{commit}}"],
