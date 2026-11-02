@@ -89,7 +89,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Verify deployed report URL
-        if: github.event_name == 'workflow_run' && steps.release.outputs.should_deploy == 'true'
+        if: steps.deployment.outcome == 'success' && (github.event_name == 'workflow_dispatch' || steps.release.outputs.should_deploy == 'true')
         shell: bash
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
