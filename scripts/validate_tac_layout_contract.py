@@ -17,8 +17,8 @@ VOID = {"area","base","br","col","embed","hr","img","input","link","meta",
         "param","source","track","wbr"}
 STATE_CLASSES = {"up","down","flat","warn","active","selected","open","closed",
                  "published","upcoming","today","is-active","is-open",
-                 # Earnings outcome classes are data states, not layout variants.
-                 "beat","miss","pending"}
+                 "beat","miss","pending","five-star","five-star-earnings","five-star-company"}
+DYNAMIC_LIST_CLASSES = {"econ-event-list", "earnings-accordion-list"}
 KEEP_ATTRS = {"id","style","type","name","role","aria-controls","aria-labelledby",
               "aria-expanded","aria-selected","aria-hidden"}
 
@@ -57,7 +57,17 @@ class Node:
                         )
                 result.append((key, normalized))
         return result
+    @property
+    def class_tokens(self):
+        value = dict(self.attrs).get("class", "")
+        return set(value.split())
+
     def signature(self):
+        # Event lists are data slots: they may be empty or contain any number
+        # of cards. Their contents are validated separately against approved
+        # card prototypes, so an empty-to-populated transition is safe.
+        if self.class_tokens & DYNAMIC_LIST_CLASSES:
+            return (self.tag, self.attrs, ())
         child_sigs = []
         for child in self.children:
             sig = child.signature()
@@ -86,11 +96,59 @@ class TreeParser(HTMLParser):
                 del self.stack[index:]
                 return
 
-def signature(path: Path):
+def parse_tree(path: Path):
     parser = TreeParser()
     parser.feed(path.read_text(encoding="utf-8"))
     parser.close()
-    return parser.root.signature()
+    return parser.root
+
+def signature(path: Path):
+    return parse_tree(path).signature()
+
+def walk(node):
+    yield node
+    for child in node.children:
+        yield from walk(child)
+
+def card_kind(node):
+    classes = node.class_tokens
+    if node.tag == "details" and "econ-event" in classes:
+        return "economic"
+    if node.tag == "details" and "earnings-accordion" in classes:
+        return "earnings"
+    return None
+
+def validate_dynamic_lists(master_root, report_root):
+    prototypes = {"economic": set(), "earnings": set()}
+    for node in walk(master_root):
+        kind = card_kind(node)
+        if kind:
+            prototypes[kind].add(node.signature())
+
+    errors = []
+    for node in walk(report_root):
+        classes = node.class_tokens
+        if "econ-event-list" in classes:
+            expected = "economic"
+        elif "earnings-accordion-list" in classes:
+            expected = "earnings"
+        else:
+            continue
+        for index, child in enumerate(node.children):
+            if card_kind(child) != expected:
+                if child.tag == "div" and "calendar-status-empty" in child.class_tokens:
+                    continue
+                errors.append(
+                    f"{expected} dynamic list contains unexpected child "
+                    f"{child.tag} classes={sorted(child.class_tokens)}"
+                )
+                continue
+            if child.signature() not in prototypes[expected]:
+                errors.append(
+                    f"{expected} card schema differs from every approved-master prototype "
+                    f"(list child {index})"
+                )
+    return errors
 
 def first_difference(left, right, path='root'):
     if left[0] != right[0]:
@@ -133,6 +191,13 @@ def self_test():
         a.write_text('<html><body><div class="earnings-actual-card beat"><b class="earnings-actual-status beat">Beat</b></div><div class="earnings-actual-card pending"><b class="earnings-actual-status pending">Pending</b></div></body></html>', encoding="utf-8")
         b.write_text('<html><body><div class="earnings-actual-card miss"><b class="earnings-actual-status miss">Miss</b></div><div class="earnings-actual-card beat"><b class="earnings-actual-status beat">Beat</b></div><div class="earnings-actual-card pending"><b class="earnings-actual-status pending">Pending</b></div></body></html>', encoding="utf-8")
         assert signature(a) == signature(b), "earnings outcome states and repeated results should be data-driven"
+        a.write_text('<html><body><div class="earnings-accordion-list"><div class="calendar-status-empty">Empty</div></div><div class="earnings-accordion-list"><details class="earnings-accordion"><summary><span>Prototype</span></summary></details></div></body></html>', encoding="utf-8")
+        b.write_text('<html><body><div class="earnings-accordion-list"><details class="earnings-accordion"><summary><span>Today</span></summary></details></div><div class="earnings-accordion-list"><details class="earnings-accordion"><summary><span>One</span></summary></details><details class="earnings-accordion"><summary><span>Two</span></summary></details></div></body></html>', encoding="utf-8")
+        master_tree, report_tree = parse_tree(a), parse_tree(b)
+        assert master_tree.signature() == report_tree.signature(), "dynamic list empty-to-populated transition should be accepted"
+        assert not validate_dynamic_lists(master_tree, report_tree), "dynamic cards must match a master prototype"
+        b.write_text('<html><body><div class="earnings-accordion-list"><details class="earnings-accordion"><summary><span>Today</span><i>Unexpected</i></summary></details></div><div class="earnings-accordion-list"><details class="earnings-accordion"><summary><span>One</span></summary></details></div></body></html>', encoding="utf-8")
+        assert validate_dynamic_lists(master_tree, parse_tree(b)), "mutated dynamic card schema must be rejected"
     print("PASS: text-only update and repeated cards accepted")
     print("PASS: DOM element mutation rejected")
     print("PASS: inline layout-style mutation rejected")
@@ -140,6 +205,8 @@ def self_test():
     print("PASS: other Fear & Greed marker styles remain protected")
     print("PASS: dynamic FedWatch probability bar widths accepted")
     print("PASS: other FedWatch bar styles remain protected")
+    print("PASS: dynamic event lists accept empty-to-populated and variable card counts")
+    print("PASS: dynamic event card schema mutations are rejected")
 
 def main():
     parser = argparse.ArgumentParser()
@@ -156,15 +223,24 @@ def main():
     if not master.is_file() or not report.is_file():
         print("FAIL: master or report file is missing", file=sys.stderr)
         return 2
-    master_sig = signature(master)
-    report_sig = signature(report)
+    master_tree = parse_tree(master)
+    report_tree = parse_tree(report)
+    master_sig = master_tree.signature()
+    report_sig = report_tree.signature()
     if master_sig != report_sig:
         print("FAIL: report DOM layout contract differs from approved master", file=sys.stderr)
         print(first_difference(master_sig, report_sig) or "DOM signatures differ", file=sys.stderr)
         print("Protected: element hierarchy, IDs, layout classes, inline styles and interaction controls.")
         print("Allowed: text/value changes and repeated identical sibling components.")
         return 1
+    dynamic_errors = validate_dynamic_lists(master_tree, report_tree)
+    if dynamic_errors:
+        print("FAIL: dynamic calendar card contract failed", file=sys.stderr)
+        for error in dynamic_errors:
+            print(" - " + error, file=sys.stderr)
+        return 1
     print("PASS: report DOM layout contract matches approved master")
+    print("PASS: all dynamic calendar cards match approved-master prototypes")
     return 0
 
 if __name__ == "__main__":
