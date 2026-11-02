@@ -10,6 +10,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION_RE = re.compile(r"^版本：([0-9]+\.[0-9]+)", re.MULTILINE)
@@ -47,6 +48,7 @@ def resolve_git_lock(ref: str) -> dict:
         "wr_content_sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
         "source_ref": ref,
         "locked_at_utc": datetime.now(timezone.utc).isoformat(),
+        "locked_at_taipei": datetime.now(ZoneInfo("Asia/Taipei")).isoformat(),
     }
 
 
