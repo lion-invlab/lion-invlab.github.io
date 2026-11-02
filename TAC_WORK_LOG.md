@@ -81,3 +81,7 @@
 - `scripts/tac_wr_lock.py` 新增 `locked_at_taipei`，保留 UTC timestamp，讓 lock 記錄同時具備台灣時間。
 - 兩筆 main commits：`b268cfc3b51cc9c7a732c98a712cf336b84afb04`（Taipei timestamp）、`23cb4986e3be0ebd35befafcb57ea3bf7b8169a7`（快照使用 active WR lock）。
 - 這兩筆變更符合既有 Structural Gate paths，預期會觸發 main push 驗證；目前尚未取得對應 run ID／最終狀態，待確認後補記。
+
+- 後續補強：`scripts/assemble_tac_daily_snapshot.py` 的正式組裝模式現在強制要求 `TAC_WR_LOCK_FILE`，沒有本次 WR lock 就拒絕輸出正式快照；self-test 仍可獨立執行。Structural Gate 的 PR paths 已納入 assembler。
+- Pages workflow 的部署後 URL 驗證條件也涵蓋 workflow_dispatch 手動部署，不再只有 workflow_run 路徑才驗證。相關 main commits：`6ca519a0801a1f5471883649ec219f3bb6d42d41`、`9cc5a10e38c59e98bcbf62b774d5455e6bcf751e`、`cd23d81b20c0a20c0ba609ba7d7952cad3d89f37`。
+- 上述合併後修改均應觸發 Structural Gate；目前尚未取得這些 main push runs 的最終狀態，須待確認。
