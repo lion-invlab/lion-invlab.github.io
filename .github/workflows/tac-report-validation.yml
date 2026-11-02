@@ -28,10 +28,12 @@ on:
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
+      - ".github/workflows/pages.yml"
   pull_request:
     branches: ["main"]
     paths:
       - "2026-*.html"
+      - "index.html"
       - "TAC_WORK_RULES.md"
       - "scripts/tac_wr_lock.py"
       - "review/2026-*-review.html"
