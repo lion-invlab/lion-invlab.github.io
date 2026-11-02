@@ -153,8 +153,8 @@ jobs:
           else
             changed="$(git diff-tree --no-commit-id --name-only -r HEAD)"
           fi
-          report="$(printf '%s\\n' "$changed" | grep -E '^preview/20[0-9]{2}-[0-9]{2}-[0-9]{2}\\.html$' | head -n 1 || true)"
-          volatility="$(printf '%s\\n' "$changed" | grep -E '^volatility\\.html$' | head -n 1 || true)"
+          report="$(printf '%s\n' "$changed" | grep -E '^preview/20[0-9]{2}-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
+          volatility="$(printf '%s\n' "$changed" | grep -E '^volatility\.html$' | head -n 1 || true)"
           echo "path=$report" >> "$GITHUB_OUTPUT"
           echo "volatility=$volatility" >> "$GITHUB_OUTPUT"
 
