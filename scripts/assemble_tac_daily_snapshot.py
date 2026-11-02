@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -161,6 +162,8 @@ def main() -> int:
     if args.self_test:
         self_test()
         return 0
+    if not os.environ.get("TAC_WR_LOCK_FILE"):
+        parser.error("TAC_WR_LOCK_FILE is required; create the per-run WR lock before assembling a formal snapshot")
     if not all((args.report_date, args.trading_date, args.output)):
         parser.error("--report-date, --trading-date and --output are required")
     if not args.fragment:
