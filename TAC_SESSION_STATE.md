@@ -323,3 +323,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 本輪未執行真實瀏覽器全項互動測試；Pages URL 仍因外部讀取工具不可存取而無法完成獨立載入確認。不可標示互動 Gate 通過。
 - JS 事件綁定的靜態抽查結果：`[{"id":"tfn-close","containsIdLiteral":true,"getElementById":1,"querySelector":0},{"id":"tac-toolbar-bubble-preview-v1","containsIdLiteral":false,"getElementById":0,"querySelector":0},{"id":"tac-toolbar-bubble-preview-v1-js","containsIdLiteral":false,"getElementById":0,"querySelector":0}]`。
 - 正式首頁、預覽 HTML、WR、Manifest、母版均未修改；僅追加本狀態檔紀錄。
+
+
+## 16. Brent 合約核實與預覽內容修正（2026-11-02）
+
+- 查證來源：Investing.com 2026/10/30 Brent 歷史列為 US$117.64、+2.40%；Reuters 明確報導 2026/10/30 到期的 December Brent futures 結算 US$117.64；ICE 官方 expiry 表列 Dec26 最後交易日 2026/10/30、最終結算日 2026/11/02。
+- 因此已解除原先「Brent 合約月份待覆核」警示；核實口徑為 2026 年 12 月（Dec26）合約。Investing.com 當前頁面合約代碼標籤與 10/30 歷史日期列不完全同口徑，故以日期歷史列並用 Reuters／ICE 交叉確認，沒有改動價格或漲跌幅。
+- 已更新唯一審核版 `preview/2026-11-02.html`：commit `41920966ca625f20ab1a4ec93510a8ec03fff893`；新 blob SHA `1206f3ae5f25110789cdfca373a9a72f516393e1`。改動僅限頂部審核提示、Brent 資料來源說明及頁尾 Brent 狀態；沒有改行情值、CSS、JavaScript、DOM 結構或首頁。
+- 更新後回讀確認：預覽 SHA 為 `1206f3ae5f25110789cdfca373a9a72f516393e1`；style 124、script 25、head 1；Brent pending 字樣已清除，Reuters 與 ICE 來源連結已寫入。
+- 新一輪 Structural Gate run `41377564345`（head SHA `41920966...`）已啟動；截至本紀錄更新時仍在執行，market snapshot／mapping／binding／treasury／DOM self-test／dated report structure 等步驟均已 success，Playwright Chromium 安裝尚在進行，故新一輪瀏覽器回歸與 Pages 部署尚未確認。
+- 關於時間戳：FedWatch 來源區的 08:21 是本次報告初次擷取時間；10:05 是再次直接讀取頁面的複核時間。兩者代表不同動作，並非資料矛盾，不需修改。
+- 本輪沒有改動 `index.html`、WR、Manifest、母版、W45 DB。正式首頁仍未發布；互動逐項實測及 Pages 預覽網址獨立載入仍待完成。
