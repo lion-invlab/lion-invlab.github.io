@@ -16,7 +16,7 @@ const widths = [320, 390, 430, 1280];
 try {
   for (const width of widths) {
     const page = await browser.newPage({ viewport: { width, height: 844 }, deviceScaleFactor: 1 });
-    await page.setContent(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${style}</style>${fixtureTable}`);
+    await page.setContent(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${style}</style><div class="tablewrap">${fixtureTable}</div>`);
     const result = await page.evaluate(() => {
       const wrap = document.querySelector(".tablewrap");
       const table = document.querySelector("table.constituent-table");
