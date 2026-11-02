@@ -258,3 +258,40 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - **保留：** 母版兩組重複 ID；CNN 使用備援來源；Brent 合約月份待覆核；母版 `release-ready` class 與隱藏警示的註解矛盾。
 - **尚未完整測試：** 所有紅色 32px 加號逐張點擊、所有 tab、所有導航項目逐項點擊；本輪 Pages URL 無法直接載入驗證。
 - **正式首頁未發布。** 目前僅為 11/02 獨立審核版，不能宣稱所有 QA Gate 全數通過，也不得修改 `index.html`，直到使用者明確核准指定審核版。
+
+
+## 13. 2026-11-02 最終審核版補漏與部署
+
+最後更新：2026-11-02 10:15:52（Asia/Taipei）
+
+### 13.1 上週經濟卡片影響判讀補漏
+- 重新讀取 W44 `data/calendar/weeks/2026-W44.json`，確認上週 8 筆五星經濟事件均有 actual、status=released 及 `impact_judgment`。
+- 原預覽卡片只顯示前值、預估、實際、來源，未把資料庫已有的結果比較／市場影響判讀呈現；這違反 WR v4.0 F2。
+- 已在 8 張既有卡片的「實際」欄位內，以文字內容更新標籤為「實際與判讀」，補上結果比較及市場影響；未增加 DOM 元件、未改母版結構。
+- 八張卡片 ID：`prev-au-cpi-202609`、`prev-rbnz-rate-20261028`、`prev-boc-rate-20261028`、`prev-fomc-rate-20261028`、`prev-us-gdp-20261029`、`prev-us-pce-20261029`、`prev-ecb-rate-20261029`、`prev-boj-rate-20261030`。
+- 上週 8 張五星財報卡已含 EPS／營收實際值、共識比較、財報判讀與首個常規交易日股價反應，無需改動。
+
+### 13.2 最新預覽與驗收證據
+- 最新預覽 blob SHA：`1106c98b0347e20ef33154e928d7cee1268f2d0e`。
+- 最新預覽 commit：`d5974dc226dfaa45bfd41ad5c43c43a31ccf1153`。
+- 最新 Structural Gate run：`41376653308`，結論 success。
+- Validator：`PASS 2026-11-02.html: correct weekday master anchors, structure and local links`。
+- Playwright：desktop-1440、tablet-768、mobile-320 全部通過；每個 viewport 都檢查區塊幾何、computed layout、overflow，並測試第一個 details disclosure、第二個 TAC tab label 的點擊切換。
+- 最新截圖 artifact：`13111781056`。
+- 最新 Pages deploy run：`41376710207`，commit `d5974dc...`，結論 success。
+- 直接開啟 `https://lion-invlab.github.io/preview/2026-11-02.html` 的本輪 web 工具仍回傳不可讀取；只能確認 deploy job success，不能聲稱本輪已獨立瀏覽器載入確認。
+
+### 13.3 目前仍保留的限制
+- 完整互動仍未逐項點擊全部 25 張經濟卡、41 張財報卡、全部 tabs 與導航；目前 Playwright 僅在三種 viewport 各測一個 details 和一個 tab。
+- CNN Fear & Greed 使用已標示的 FGScore 備援；Brent 合約月份仍待覆核。
+- 母版兩組重複 ID 與 `body.release-ready`／隱藏審核警示的註解矛盾仍是母版既有問題；本輪不改母版。
+- 正式首頁未發布；使用者核准前不得修改 `index.html`。
+
+### 13.4 最終保護基線
+- WR SHA：`4b18a156805f19521356a247e7e11f1cfacbded6`。
+- Manifest SHA：`6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`。
+- 週一母版 SHA：`0ea4775c5d15899a1e0b0a97c78744d90b8fff22`。
+- W44 DB SHA：`ea4f17badae8c7f7727f8fe1df3aadba8dfc2c98`。
+- W45 DB SHA：`c15b7aaee56b95b38d5983bbf174f3e9bba894b2`。
+- 正式首頁 SHA：`bf853317df07920d4a91db7103c2f95b0a1ed725`；應維持 `bf853317df07920d4a91db7103c2f95b0a1ed725`，本輪未修改。
+- 本輪只修改 `preview/2026-11-02.html` 與 `TAC_SESSION_STATE.md`；沒有修改 WR、Manifest、雙母版、W44/W45 DB 或正式首頁。
