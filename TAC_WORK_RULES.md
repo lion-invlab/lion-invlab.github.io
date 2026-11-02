@@ -1,8 +1,8 @@
 # TAC 投資早報｜正式工作規則
 
-版本：4.4（2026-11-03｜行情改由人工網頁查核）
+版本：4.5（2026-11-03｜CNN Fear & Greed 讀取口徑修正）
 建立日期：2026-10-28
-本次整併日期：2026-11-02
+本次整併日期：2026-11-03
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
 
 ## A. 規則權威、責任與基本原則
@@ -150,7 +150,7 @@
 - **SOX：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/phlx-semiconductor-historical-data`，採最近已完成交易日正式收盤及日漲跌幅；核對日期、指數名稱與延遲標記。Yahoo Finance `^SOX` 僅作備援／交叉核對。
 - **VIX：** 優先 Investing.com 香港站 `https://hk.investing.com/indices/volatility-s-p-500`，採最近已完成交易日正式收盤；Cboe 歷史資料 `https://www.cboe.com/tradable_products/vix/vix_historical_data` 作官方交叉核對，Yahoo Finance `^VIX` 作備援。
 - **MOVE：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/ice-bofaml-move-historical-data`。必須確認確為 ICE BofA MOVE Index 及同一交易日；不得只因 Yahoo `^MOVE` 有數字就採用，無法確認標的身分即待核實。
-- **CNN Fear & Greed：** 優先 CNN Business `https://www.cnn.com/markets/fear-and-greed`；頁面無法讀取時，嘗試 CNN 頁面使用的資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`。記錄分數、評級、資料日期與實際更新時間；端點非有公開穩定性保證的正式 API。官方來源皆不可用時才使用 FGScore、Fear & Greed Tracker 等第三方備援，並保留網址及時間戳。
+- **CNN Fear & Greed：** 優先直接開啟 CNN Business 官方頁面 `https://edition.cnn.com/markets/fear-and-greed`（或 `https://www.cnn.com/markets/fear-and-greed`），在每次早報行情查核當下，以儀表板中央／指針所指向的**當前分數**為正式讀數；不可採用下方「Previous close」數字代替。`Previous close` 是上一個美股交易日的收盤值，只能作為前收比較欄位，必須依實際美股交易日判定日期，不可誤認為當前值。同步記錄儀表板當前分數、指針所在情緒區間（如 Extreme Fear／Fear／Neutral／Greed／Extreme Greed）、頁面顯示的 `Last updated` 時間及時區、查核時間與網址。若頁面只顯示當前分數及更新時間，仍以該分數為準；不得因資料端點或第三方資料較容易讀取而覆蓋官方頁面當前儀表板讀數。官方頁面無法讀取時，才嘗試 CNN 頁面使用的資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`；端點非有公開穩定性保證的正式 API。CNN 官方頁面與端點皆不可用時，才使用 FGScore、Fear & Greed Tracker 等第三方備援，並保留網址、資料時間戳及備援狀態。
 - **FedWatch：** 日常讀取優先使用 Investing.com Fed Rate Monitor `https://www.investing.com/central-banks/fed-rate-monitor`，必須在本次製作當下讀取，記錄台灣時間、目標 FOMC 會議日期、各目標利率區間機率及頁面可得的期貨價格／比較欄位。CME 官方工具 `https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool` 僅作方法與交叉核對，不得把 Investing.com 數據稱為 CME 官方數據。機率合計與卡片／長條圖須一致；無法取得動態機率或更新時間時標示待核實，不用舊快照或自行推算填補。
 - **美國公債殖利率 2Y／10Y／30Y：** 優先美國財政部 Daily Treasury Par Yield Curve Rates `https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics`，三個期限採同一資料日期的 CMT／par yield。備援 FRED：`https://fred.stlouisfed.org/series/DGS2`、`https://fred.stlouisfed.org/series/DGS10`、`https://fred.stlouisfed.org/series/DGS30`。不得混用個別債券即時殖利率或不同日期。
 - **DXY：** 使用美元指數現貨／CFD 序列，不得誤用美元指數期貨 DX。Investing.com 歷史頁 `https://www.investing.com/indices/usdollar-historical-data`。
@@ -254,6 +254,11 @@
 5. 長期規則變更須記錄日期、舊規則、新規則、適用範圍與原因；只更新本檔，不另建第二份 Work Rules。每次規則變更後做章節編號、內部引用、連結、重複條文與必要需求保留檢查。
 
 ## J. 版本紀錄
+
+### 版本 4.5（2026-11-03｜CNN Fear & Greed 讀取口徑修正）
+- 依使用者提供的 CNN Business 官方頁面截圖，明確規定以儀表板中央／指針所指向的當前分數作為早報最新讀數；下方 Previous close 僅代表上一個美股交易日收盤值，不得誤作當前分數。
+- 新增當前情緒區間、Last updated 時間與時區、查核時間及網址的紀錄要求；官方頁面當下讀數優先於第三方摘要值。
+
 
 ### 版本 4.4（2026-11-03｜行情改由人工網頁查核）
 - 依使用者明確指示，正式早報行情改由 ChatGPT 直接讀取及刷新指定網頁，不再啟動 GitHub 行情擷取器供應正式報價。
