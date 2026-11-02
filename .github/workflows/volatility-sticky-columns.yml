@@ -1,0 +1,35 @@
+name: Volatility Dashboard Sticky Columns
+
+on:
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "volatility.html"
+      - "scripts/test_volatility_sticky_columns.mjs"
+      - ".github/workflows/volatility-sticky-columns.yml"
+  push:
+    branches: ["main"]
+    paths:
+      - "volatility.html"
+      - "scripts/test_volatility_sticky_columns.mjs"
+      - ".github/workflows/volatility-sticky-columns.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  sticky-columns:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Test sticky rank and ticker columns
+        run: node scripts/test_volatility_sticky_columns.mjs
