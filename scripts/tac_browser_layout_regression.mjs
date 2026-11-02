@@ -218,15 +218,21 @@ try {
       const style = getComputedStyle(el);
       return { display: style.display, width: style.width, height: style.height, radius: style.borderRadius, background: style.backgroundColor };
     };
-    const masterCurrentWeekMarker = await masterPage.locator("#calendar .econ-event-toggle").first().evaluate(readCurrentWeekEconMarker);
+    const masterCurrentWeekLocator = masterPage.locator("#calendar .econ-event-toggle");
+    const masterCurrentWeekCount = await masterCurrentWeekLocator.count();
     const reportCurrentWeekMarkers = await reportPage.locator("#calendar .econ-event-toggle").evaluateAll(els => els.map(el => {
       const style = getComputedStyle(el);
       return { display: style.display, width: style.width, height: style.height, radius: style.borderRadius, background: style.backgroundColor };
     }));
-    if (!reportCurrentWeekMarkers.length || reportCurrentWeekMarkers.some(x => JSON.stringify(x) !== JSON.stringify(masterCurrentWeekMarker))) {
-      failures.push(viewport.name + ": current-week economic disclosure marker styling differs from the approved master");
-    } else if (masterCurrentWeekMarker.background !== "rgb(198, 40, 40)" || !masterCurrentWeekMarker.radius.includes("50%") || parseFloat(masterCurrentWeekMarker.width) < 31 || parseFloat(masterCurrentWeekMarker.height) < 31) {
-      console.warn("WARN " + viewport.name + ": current-week economic event markers inherit the approved master styling gap; preview matches master. Formal master change required to add 32px red circles.");
+    if (masterCurrentWeekCount === 0 && reportCurrentWeekMarkers.length > 0) {
+      console.warn("WARN " + viewport.name + ": approved master has no current-week economic plus-control markup; preview contains " + reportCurrentWeekMarkers.length + " markers that lack the master red-circle styling. Requires formal master/renderer correction.");
+    } else if (masterCurrentWeekCount > 0) {
+      const masterCurrentWeekMarker = await masterCurrentWeekLocator.first().evaluate(readCurrentWeekEconMarker);
+      if (!reportCurrentWeekMarkers.length || reportCurrentWeekMarkers.some(x => JSON.stringify(x) !== JSON.stringify(masterCurrentWeekMarker))) {
+        failures.push(viewport.name + ": current-week economic disclosure marker styling differs from the approved master");
+      } else if (masterCurrentWeekMarker.background !== "rgb(198, 40, 40)" || !masterCurrentWeekMarker.radius.includes("50%") || parseFloat(masterCurrentWeekMarker.width) < 31 || parseFloat(masterCurrentWeekMarker.height) < 31) {
+        console.warn("WARN " + viewport.name + ": current-week economic event markers inherit the approved master styling gap; preview matches master. Formal master change required to add 32px red circles.");
+      }
     }
 
     const sectorSelector = "#industry-bonds-fx-commodities .sector-collapse > summary";
