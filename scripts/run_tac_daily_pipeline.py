@@ -137,6 +137,14 @@ def derive_key_levels(market_fragments: list[dict], report_date: str,
     records = bundle.get("indices", {}) if isinstance(bundle, dict) else {}
     if not isinstance(records, dict):
         records = {}
+    market_records = {}
+    for fragment in market_fragments:
+        group = fragment.get("global_indices")
+        if isinstance(group, dict):
+            for key, value in group.items():
+                if key in market_records:
+                    raise ValueError(f"duplicate global index record for key levels: {key}")
+                market_records[key] = value
 
     segments = []
     items = []
@@ -159,6 +167,11 @@ def derive_key_levels(market_fragments: list[dict], report_date: str,
             reason = "指數標的身分不符"
         elif not isinstance(ohlc, dict) or set(ohlc) != {"open", "high", "low", "close"}:
             reason = "OHLC 欄位不完整"
+        elif not isinstance(market_records.get(key), dict) or market_records[key].get("status") != "verified":
+            reason = "同一指數的收市價尚未核實"
+        elif (market_records[key].get("source", {}).get("data_date") != trading_date
+              or market_records[key].get("value") != ohlc.get("close")):
+            reason = "OHLC 收市價與行情片段不一致"
         else:
             candidate = [ohlc.get(name) for name in ("open", "high", "low", "close")]
             if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or v <= 0 for v in candidate):
