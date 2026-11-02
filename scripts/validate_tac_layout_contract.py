@@ -16,7 +16,9 @@ from pathlib import Path
 VOID = {"area","base","br","col","embed","hr","img","input","link","meta",
         "param","source","track","wbr"}
 STATE_CLASSES = {"up","down","flat","warn","active","selected","open","closed",
-                 "published","upcoming","today","is-active","is-open"}
+                 "published","upcoming","today","is-active","is-open",
+                 # Earnings outcome classes are data states, not layout variants.
+                 "beat","miss","pending"}
 KEEP_ATTRS = {"id","style","type","name","role","aria-controls","aria-labelledby",
               "aria-expanded","aria-selected","aria-hidden"}
 
@@ -128,6 +130,9 @@ def self_test():
         a.write_text('<html><body><div class="fc-split-hike" style="width:10%"></div></body></html>', encoding="utf-8")
         b.write_text('<html><body><div class="fc-split-hike" style="width:69.8%"></div></body></html>', encoding="utf-8")
         assert signature(a) == signature(b), "FedWatch hike bar width should be data-driven"
+        a.write_text('<html><body><div class="earnings-actual-card beat"><b class="earnings-actual-status beat">Beat</b></div><div class="earnings-actual-card pending"><b class="earnings-actual-status pending">Pending</b></div></body></html>', encoding="utf-8")
+        b.write_text('<html><body><div class="earnings-actual-card miss"><b class="earnings-actual-status miss">Miss</b></div><div class="earnings-actual-card beat"><b class="earnings-actual-status beat">Beat</b></div><div class="earnings-actual-card pending"><b class="earnings-actual-status pending">Pending</b></div></body></html>', encoding="utf-8")
+        assert signature(a) == signature(b), "earnings outcome states and repeated results should be data-driven"
     print("PASS: text-only update and repeated cards accepted")
     print("PASS: DOM element mutation rejected")
     print("PASS: inline layout-style mutation rejected")
