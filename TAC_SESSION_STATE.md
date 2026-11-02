@@ -364,3 +364,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新 Structural Gate run `41378735011` success，Playwright 三種 viewport regression success；Pages deploy run `41378810037` success。部署後 smoke test 再次確認 `https://lion-invlab.github.io/preview/2026-11-02.html` 回傳 HTTP 200，且週一專屬兩個上週行事曆區塊存在。
 - 正式首頁 SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`，未發布。最新 main HEAD（本節寫入前）為 `277927f485e651f100bf3c4b7eb734df0e803d36`。
 - 本次解除白銀合約月份待核。仍待處理：FedWatch 原始快照延遲約 45 小時，CNN Fear & Greed 本輪使用備援來源；正式母版本週經濟 plus 控制缺口與產業 disclosure 桌面／平板 30px 問題依既有母版保護限制保留為警告。正式雙母版、Manifest、WR、首頁均未修改。
+
+
+## 19. FedWatch 最新來源再核（2026-11-02）
+
+- 再次查詢 Investing.com Fed Rate Monitor，2026/12/09 會議仍顯示維持 3.75%–4.00% 為 30.2%、升至 4.00%–4.25% 為 69.8%；頁面更新時間仍為 2026/10/31 00:35 EDT。
+- 這確認本報告標示「延遲快照」是正確的；沒有新原始頁面數值可替換，不得將第三方頁面的 73% 或其他不同口徑數字替代 Investing.com。
+- 本次只做來源核對，沒有修改 preview 或任何 GitHub HTML。下一輪若頁面更新時間推進，再重新讀取原始頁面並記錄新的台灣時間。
