@@ -160,3 +160,47 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 4. 結構通過後才執行桌面、手機及 320px 視覺檢查，以及 tabs、導航、紅色圓形加號收折、行情連結等互動測試。
 5. 實際確認 Pages 預覽網址可正常載入；未能實測的項目明確標示未測試。
 6. 交付獨立審核版及 QA 結果；保留預覽檔，不觸碰正式首頁。
+
+
+## 11. 2026-11-02 接續驗收進度（本輪即時回讀）
+
+最後更新：2026-11-02 10:05:49（Asia/Taipei）
+
+### 11.1 最新基線已回讀
+- main 最新狀態檔 blob SHA（更新前）：`de5a50e3250cf92f828843c4bc65e5da66318563`。
+- WR v4.0 blob SHA：`4b18a156805f19521356a247e7e11f1cfacbded6`。
+- Manifest blob SHA：`6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`。
+- 週一核准母版 blob SHA：`0ea4775c5d15899a1e0b0a97c78744d90b8fff22`，與 Manifest 一致。
+- 預覽 `preview/2026-11-02.html` blob SHA：`e0e6c72b293b4abd97c0a0bdb6b9d58f1851f367`。
+- 正式首頁 `index.html` blob SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`；本輪未修改。
+- W45 DB blob SHA：`c15b7aaee56b95b38d5983bbf174f3e9bba894b2`；updated_at 為 `2026-11-02T03:32:09+08:00`，`wr_version` 仍為 `3.12`。本輪未修改。
+
+### 11.2 預覽結構靜態比對
+- 預覽與週一母版均為 DOCTYPE 1、head 1、body 1、style 124、script 25。
+- 預覽 ID 數 250；母版 ID 數 184。母版全部 184 個 ID 均保留；額外 66 個 ID 對應本次上週／本週經濟與財報事件卡。
+- 預覽有 2 組重複 ID：`tac-toolbar-bubble-preview-v1`、`tac-toolbar-bubble-preview-v1-js`；同樣重複存在於核准母版。Actions validator 已將其標記為「pre-existing duplicate IDs retained from approved master」，故本輪不改母版，也不在預覽中自行消除。
+- 本輪靜態檢查未發現失效內部錨點。
+- 預覽共有 86 個 details，初始 open 屬性 0；週一上週經濟與財報區塊及其 ID 均存在。
+- 預覽內含 25 個 econ-event、41 個 earnings-accordion、21 個 radio inputs；紅色 32px 收折控制相關 CSS 規則存在。以上屬靜態盤點，不代表已逐項點擊互動。
+- 母版與預覽標題日期不同（母版 2026/10/26、預覽 2026/11/02），符合當日報告日期更新。
+
+### 11.3 已找到的實際 GitHub Actions 證據
+- Structural Gate run：`41374656254`，commit `b006d67ec2c3cf02a31d8a73c8089f0013fecc09`，結論 success。
+- 日報驗證輸出：`PASS 2026-11-02.html: correct weekday master anchors, structure and local links`；並明確警告兩組重複 ID 是核准母版既有問題。
+- 該 workflow 明確聲明：Structural Gate 不等於 browser/visual 或 data-verification pass。
+- Playwright layout regression 實測通過：desktop-1440、tablet-768、mobile-320；輸出稱已截圖並檢查 section geometry、computed layout 與 overflow。Regression artifact ID：`13110409382`。
+- Pages deploy run：`41374723228`，commit 同為 `b006d67...`，deploy job conclusion success；部署 artifact ID：`13110816508`。
+- 本輪 web 頁面讀取工具無法直接開啟 Pages URL，因此記錄為「Actions 部署成功；本輪直接頁面載入未能獨立驗證」，不可將兩者混為一談。
+- 上述 Playwright workflow 是版面／溢位回歸，未提供收折、tabs、導航等實際點擊互動測試證據。
+
+### 11.4 本輪驗收判定
+- **已通過：** 來源鎖定、母版 SHA、基本文件骨架數量、母版 ID 保留、局部錨點、Structural Gate、desktop/tablet/320px layout regression、Pages deploy job。
+- **已知母版既有警告：** 兩組重複 ID；不得未經核准修改母版。
+- **未測試：** 逐卡紅色圓形加號實際點擊／收折、週一兩個上週區塊展開／收合、FedWatch/FOMC tabs、導航、行情連結逐項開啟。
+- **待核實：** 44 項行情數值與資料日期／口徑、11 個產業 ETF 數值、FedWatch 當下機率及時間、新聞 5+10 則原文時間與來源、行事曆事件欄位與公布值、分析與行情同步、Pages URL 實際載入。
+- 因資料驗證及互動測試未完成，預覽目前**尚不得標示為完整 QA 通過或最終可交付**。
+
+### 11.5 保護檔案狀態與下一步
+- 本輪未修改 `index.html`、雙母版、Manifest、W45 DB 或預覽 HTML。
+- 正式首頁 SHA 與已知核准 SHA 一致。
+- 下一步：先做預覽內容資料稽核（44 市場指標、11 ETF、FedWatch、新聞、行事曆），逐項以來源與日期核對；同時規劃並執行瀏覽器互動測試。不得因 Pages deploy success 就跳過這些 Gate。
