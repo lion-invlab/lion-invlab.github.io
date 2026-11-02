@@ -108,7 +108,7 @@ jobs:
             --report-date "2026-11-02" \
             --output "/tmp/tac-treasury-yields-2026-10-30.json"
 
-      - name: Test DOM layout contract
+      - name: Self-test DOM layout contract
         run: python scripts/validate_tac_layout_contract.py --self-test
 
       - name: Validate dated report structure
@@ -126,6 +126,38 @@ jobs:
           fi
           report="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
           echo "path=$report" >> "$GITHUB_OUTPUT"
+
+      - name: Validate dated preview DOM against date-selected approved mother
+        if: steps.preview.outputs.path != ''
+        env:
+          REPORT_PATH: ${{ steps.preview.outputs.path }}
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import os
+          import subprocess
+          import sys
+          from datetime import date
+          from pathlib import Path
+
+          report = Path(os.environ["REPORT_PATH"])
+          report_date = date.fromisoformat(report.stem)
+          mode = "monday" if report_date.weekday() == 0 else "weekday"
+          manifest = json.loads(Path("母版專區/mother-template-manifest.json").read_text(encoding="utf-8"))
+          entry = manifest["templates"][mode]
+          master = Path(entry["path"])
+          data = master.read_bytes()
+          actual_sha = hashlib.sha1(f"blob {len(data)}\\0".encode("ascii") + data).hexdigest()
+          expected_sha = entry["blob_sha"]
+          if actual_sha != expected_sha:
+              raise SystemExit(f"Approved master SHA mismatch: {master} expected={expected_sha} actual={actual_sha}")
+          print(f"DOM contract: {report} vs {master} ({mode}, SHA verified)")
+          subprocess.run([
+              sys.executable, "scripts/validate_tac_layout_contract.py",
+              "--master", str(master), "--report", str(report)
+          ], check=True)
+          PY
 
       - name: Set up Node.js for browser regression
         uses: actions/setup-node@v4
