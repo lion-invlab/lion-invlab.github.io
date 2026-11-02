@@ -705,15 +705,19 @@ def render_editorial(html: str, parser: SourceTreeParser,
         if len(source_nodes) != 1:
             raise ValueError("editorial.levels_source: source details content slot missing or duplicated")
         source_html = (
-        '<b>「今日關鍵價位」工作規則：</b>「今日」指報告日期當天即將展開的交易日；'
-        '價位以最近一個已正式收盤交易日的同日 OHLC 計算，並標示基準交易日。<br><br>'
-        f'<b>基準交易日：</b>{escape(source_data["trading_date"], quote=False)}'
-        f'（美國當地正式收盤；報告日期 {escape(source_data["report_date"], quote=False)}）。<br>'
-        f'<b>計算公式：</b>{escape(source_data["method"], quote=False)}<br>'
-        '<b>來源與 OHLC 核對：</b><br>'
-    )
+            '<b>「今日關鍵價位」工作規則：</b>「今日」指報告日期當天即將展開的交易日；'
+            '價位以最近一個已正式收盤交易日的同日 OHLC 計算，並標示基準交易日。<br><br>'
+            f'<b>基準交易日：</b>{escape(source_data["trading_date"], quote=False)}'
+            f'（美國當地正式收盤；報告日期 {escape(source_data["report_date"], quote=False)}）。<br>'
+            f'<b>計算公式：</b>{escape(source_data["method"], quote=False)}<br>'
+            '<b>來源與 OHLC 核對：</b><br>'
+        )
         for item in source_data["items"]:
-            if not isinstance(item, dict) or not {"label", "status", "ohlc", "source_url", "source_instrument", "observed_at", "notes"} <= set(item):
+            required_item_fields = {
+                "label", "status", "ohlc", "source_url", "source_instrument",
+                "observed_at", "notes",
+            }
+            if not isinstance(item, dict) or not required_item_fields <= set(item):
                 raise ValueError("editorial.levels_source: malformed index source item")
             label = escape(str(item["label"]), quote=False)
             if item["status"] == "verified":
@@ -743,7 +747,7 @@ def render_editorial(html: str, parser: SourceTreeParser,
             raise ValueError("editorial.levels_source: overlapping mapped source-details slot")
         used.add(ident)
         edits.append((start, end, source_html))
-    
+
 
 def render_news(html: str, parser: SourceTreeParser,
                 snapshot: dict[str, Any], binding: dict[str, Any],

@@ -139,6 +139,7 @@ class TacDailyPipelineTests(unittest.TestCase):
                 self.assertIn("51,428.08", rendered)
                 self.assertIn("基準交易日：</b>2026-10-30", rendered)
                 self.assertIn("Investing.com 香港站歷史資料", rendered)
+                self.assertNotIn("基準交易日：2026/10/23", rendered)
                 self.assertIn("待核實", rendered)
                 # Real W44/W45 databases must flow through the Monday pipeline:
                 # prior-week five-star events and current-week four/five-star events.
