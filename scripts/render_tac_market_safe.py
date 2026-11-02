@@ -698,7 +698,10 @@ def render_editorial(html: str, parser: SourceTreeParser,
                 raise ValueError("editorial.levels_source: report date differs from market snapshot")
             if meta.get("trading_date") and source_data["trading_date"] != meta["trading_date"]:
                 raise ValueError("editorial.levels_source: trading date differs from market snapshot")
-        details_nodes = select(parser.root, observation["levels_source_details_selector"])
+        levels_panel_nodes = select(parser.root, observation["levels_panel"])
+        if len(levels_panel_nodes) != 1:
+            raise ValueError("editorial.levels_source: levels panel missing or duplicated")
+        details_nodes = select(levels_panel_nodes[0], observation["levels_source_details_selector"])
         if len(details_nodes) != 1:
             raise ValueError("editorial.levels_source: source details wrapper missing or duplicated")
         source_nodes = select(details_nodes[0], observation["levels_source_content_selector"])
