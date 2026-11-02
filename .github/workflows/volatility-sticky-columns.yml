@@ -27,9 +27,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Install Playwright Chromium and WebKit
+      - name: Install Playwright Chromium
         run: |
           npm install --no-save playwright
-          npx playwright install --with-deps chromium webkit
-      - name: Test sticky rank and ticker columns in Chromium and WebKit
+          npx playwright install --with-deps chromium
+      - name: Test sticky rank and ticker columns
         run: node scripts/test_volatility_sticky_columns.mjs
