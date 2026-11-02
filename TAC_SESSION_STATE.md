@@ -311,3 +311,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 上週經濟／財報兩區及其導航存在；兩區初始收折。行事曆紅色圓形加號 CSS 可見 32px 寬、高、min-width／flex-basis 設定。
 - 正式首頁 `index.html` SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`，未修改。未修改 WR、Manifest、母版或 W45 DB。
 - **交付狀態：** 結構 Gate 與三種 viewport 版面回歸通過；靜態結構盤點完成；全卡片／全 tabs／全導航逐項互動測試尚未完成；Pages URL 本輪獨立載入未確認。不得標示為完整 QA 全通過；正式首頁仍未發布。
+
+
+## 15. 互動結構盤點續驗（2026-11-02）
+
+- 本輪重新讀取預覽 SHA：`1106c98b0347e20ef33154e928d7cee1268f2d0e`；目前 main HEAD：`d7e5544717326641a6f2e4658ee68671dcbe7b06`。
+- 全部 21 個 radio 分屬 7 組：tac-news 2、tac-global 3、tac-assets 5、week-econ-tab 3、week-earnings-tab 3、fed-live-tab 2、focus-tab 3。
+- 21 個 radio 全部具有對應的 `label[for]`；每個 radio ID 都能在 HTML/CSS 找到對應的 `:checked` 規則（靜態檢查）。
+- 13 個頁內導航連結的目標 ID 全部存在；未發現空 href 或缺少 href 的 anchor。
+- 86 個 `details` 都有直接子層 `summary`；靜態確認不代表 86 個收合動作都已在真實瀏覽器逐一點擊。
+- 本輪未執行真實瀏覽器全項互動測試；Pages URL 仍因外部讀取工具不可存取而無法完成獨立載入確認。不可標示互動 Gate 通過。
+- JS 事件綁定的靜態抽查結果：`[{"id":"tfn-close","containsIdLiteral":true,"getElementById":1,"querySelector":0},{"id":"tac-toolbar-bubble-preview-v1","containsIdLiteral":false,"getElementById":0,"querySelector":0},{"id":"tac-toolbar-bubble-preview-v1-js","containsIdLiteral":false,"getElementById":0,"querySelector":0}]`。
+- 正式首頁、預覽 HTML、WR、Manifest、母版均未修改；僅追加本狀態檔紀錄。
