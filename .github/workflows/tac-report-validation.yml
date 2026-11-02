@@ -142,7 +142,8 @@ jobs:
           REPORT_PATH: ${{ steps.preview.outputs.path }}
         run: |
           if [ -z "$REPORT_PATH" ]; then
-            REPORT_PATH="母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html"
+            echo "No dated preview changed in this commit; browser regression is not applicable."
+            exit 0
           fi
           node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
 
