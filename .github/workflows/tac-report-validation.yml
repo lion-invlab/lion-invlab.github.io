@@ -136,12 +136,8 @@ jobs:
       # Live source collection is exercised by the dedicated manual source-probe
       # workflow; structural validation remains deterministic and network-independent.
 
-      - name: Fetch official Treasury 2Y/10Y/30Y data (read-only test)
-        run: |
-          python scripts/fetch_tac_treasury_yields.py \
-            --trading-date "2026-10-30" \
-            --report-date "2026-11-02" \
-            --output "/tmp/tac-treasury-yields-2026-10-30.json"
+      # Live market-source probes belong to the production data-collection step,
+      # not this deterministic structural gate. Avoid stale fixed-date network reads here.
 
       - name: Self-test DOM layout contract
         run: python scripts/validate_tac_layout_contract.py --self-test
@@ -163,24 +159,22 @@ jobs:
           echo "path=$report" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node.js for browser regression
+        if: steps.preview.outputs.path != ''
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install Playwright Chromium
+        if: steps.preview.outputs.path != ''
         run: |
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
       - name: Run desktop and mobile layout regression
+        if: steps.preview.outputs.path != ''
         env:
           REPORT_PATH: ${{ steps.preview.outputs.path }}
-        run: |
-          if [ -z "$REPORT_PATH" ]; then
-            echo "No dated preview changed in this commit; browser regression is not applicable."
-            exit 0
-          fi
-          node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
+        run: node scripts/tac_browser_layout_regression.mjs --report "$REPORT_PATH" --output artifacts/tac-layout
 
       - name: Upload layout regression screenshots
         if: always()
