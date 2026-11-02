@@ -186,7 +186,6 @@ try {
     const circleSpecs = [
       { selector: ".econ-event-toggle", pseudo: null },
       { selector: ".earnings-accordion-toggle", pseudo: null },
-      { selector: "details.calendar-collapse > summary", pseudo: "::after" },
       { selector: "#industry-bonds-fx-commodities .sector-collapse > summary", pseudo: "::before" }
     ];
     for (const spec of circleSpecs) {
