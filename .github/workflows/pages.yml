@@ -54,15 +54,16 @@ jobs:
             const changed = files.map(file => file.filename);
             const preview = changed.find(path => /^preview\/20[0-9]{2}-[0-9]{2}-[0-9]{2}\.html$/.test(path));
             const homepage = changed.includes("index.html");
+            const volatilityDashboard = changed.includes("volatility.html");
 
             if (preview) {
               core.setOutput("should_deploy", "true");
               core.setOutput("preview_path", preview);
               core.info(`Validated dated preview changed: ${preview}`);
-            } else if (homepage) {
+            } else if (homepage || volatilityDashboard) {
               core.setOutput("should_deploy", "true");
               core.setOutput("preview_path", "");
-              core.info("Approved homepage changed; deploy root site.");
+              core.info(homepage ? "Approved homepage changed; deploy root site." : "Volatility dashboard changed; deploy root site.");
             } else {
               core.setOutput("should_deploy", "false");
               core.setOutput("preview_path", "");
