@@ -3,7 +3,7 @@ import fs from "node:fs";
 
 const html = fs.readFileSync("volatility.html", "utf8");
 const style = html.match(/<style>([\s\S]*?)<\/style>/i)?.[1];
-const table = html.match(/<div class="tablewrap">([\s\S]*?)<\/div>/i)?.[1];
+const table = html.match(/<div class="tablewrap"[^>]*>([\s\S]*?)<\/div>/i)?.[1];
 if (!style || !table || !table.includes('class="constituent-table"') || !table.includes("<colgroup>")) {
   throw new Error("Could not extract the real constituent table and its column geometry");
 }
@@ -16,12 +16,13 @@ const widths = [320, 390, 430, 1280];
 try {
   for (const width of widths) {
     const page = await browser.newPage({ viewport: { width, height: 844 }, deviceScaleFactor: 1 });
-    await page.setContent(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${style}</style><div class="tablewrap">${fixtureTable}</div>`);
+    await page.setContent(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${style}</style><div class="tablewrap">${fixtureTable}</div><script>const w=document.querySelector(".tablewrap");w.addEventListener("scroll",()=>w.style.setProperty("--frozen-x",w.scrollLeft+"px"),{passive:true});<\/script>`);
     const result = await page.evaluate(() => {
       const wrap = document.querySelector(".tablewrap");
       const table = document.querySelector("table.constituent-table");
       wrap.scrollLeft = 450;
-      const rect = (el) => { const r=el.getBoundingClientRect(); return {left:r.left,width:r.width,position:getComputedStyle(el).position}; };
+      wrap.dispatchEvent(new Event("scroll"));
+      const rect = (el) => { const r=el.getBoundingClientRect(); return {left:r.left,width:r.width,position:getComputedStyle(el).position,transform:getComputedStyle(el).transform}; };
       return {wrap:rect(wrap),table:rect(table),rankHead:rect(table.querySelector("th:first-child")),tickerHead:rect(table.querySelector("th:nth-child(2)")),rankCell:rect(table.querySelector("tbody td:first-child")),tickerCell:rect(table.querySelector("tbody td:nth-child(2)")),scrollLeft:wrap.scrollLeft,scrollWidth:wrap.scrollWidth,clientWidth:wrap.clientWidth};
     });
     const close = (a,b) => Math.abs(a-b) <= 1;
