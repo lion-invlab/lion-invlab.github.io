@@ -23,6 +23,7 @@ concurrency:
 
 jobs:
   collect:
+    if: false # Disabled 2026-11-03: TAC production quotes are read directly by ChatGPT per WR v4.4.
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
