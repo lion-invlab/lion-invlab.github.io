@@ -148,7 +148,7 @@ jobs:
           entry = manifest["templates"][mode]
           master = Path(entry["path"])
           data = master.read_bytes()
-          actual_sha = hashlib.sha1(f"blob {len(data)}\\0".encode("ascii") + data).hexdigest()
+          actual_sha = hashlib.sha1(b"blob " + str(len(data)).encode("ascii") + bytes([0]) + data).hexdigest()
           expected_sha = entry["blob_sha"]
           if actual_sha != expected_sha:
               raise SystemExit(f"Approved master SHA mismatch: {master} expected={expected_sha} actual={actual_sha}")
