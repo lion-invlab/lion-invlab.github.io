@@ -621,9 +621,9 @@ def render_editorial(html: str, parser: SourceTreeParser,
     data = snapshot.get("editorial")
     if spec is None or data is None:
         return
-    required = {"headline", "body_segments", "market_text", "levels_segments", "core_text"}
+    required = {"headline", "body_segments", "market_text", "levels_segments", "core_text", "levels_source"}
     if not isinstance(data, dict) or set(data) != required:
-        raise ValueError("editorial snapshot must contain headline, body_segments, market_text, levels_segments, core_text")
+        raise ValueError("editorial snapshot must contain headline, body_segments, market_text, levels_segments, core_text and levels_source")
 
     def add_text(span: TextSpan, text: str, label: str):
         if not isinstance(text, str) or not text:
@@ -682,6 +682,62 @@ def render_editorial(html: str, parser: SourceTreeParser,
             if len(direct_spans) != 1:
                 raise ValueError(f"editorial.{field_name}: expected one direct text node, found {len(direct_spans)}")
             add_text(direct_spans[0], value, f"editorial.{field_name}")
+
+    # Replace only the approved inner source-details slot. The details wrapper,
+    # summary control and surrounding mother-template geometry remain untouched.
+    source_data = data["levels_source"]
+    if (not isinstance(source_data, dict)
+            or set(source_data) != {"report_date", "trading_date", "method", "items"}
+            or source_data.get("report_date") != source_data.get("report_date")
+            or source_data.get("trading_date") != source_data.get("trading_date")
+            or not isinstance(source_data.get("items"), list)
+            or len(source_data["items"]) != 5):
+        raise ValueError("editorial.levels_source: invalid structured source details")
+    details_nodes = select(parser.root, observation["levels_source_details_selector"])
+    if len(details_nodes) != 1:
+        raise ValueError("editorial.levels_source: source details wrapper missing or duplicated")
+    source_nodes = select(details_nodes[0], observation["levels_source_content_selector"])
+    if len(source_nodes) != 1:
+        raise ValueError("editorial.levels_source: source details content slot missing or duplicated")
+    source_html = (
+        '<b>「今日關鍵價位」工作規則：</b>「今日」指報告日期當天即將展開的交易日；'
+        '價位以最近一個已正式收盤交易日的同日 OHLC 計算，並標示基準交易日。<br><br>'
+        f'<b>基準交易日：</b>{escape(source_data["trading_date"], quote=False)}'
+        f'（美國當地正式收盤；報告日期 {escape(source_data["report_date"], quote=False)}）。<br>'
+        f'<b>計算公式：</b>{escape(source_data["method"], quote=False)}<br>'
+        '<b>來源與 OHLC 核對：</b><br>'
+    )
+    for item in source_data["items"]:
+        if not isinstance(item, dict) or not {"label", "status", "ohlc", "source_url", "source_instrument", "observed_at", "notes"} <= set(item):
+            raise ValueError("editorial.levels_source: malformed index source item")
+        label = escape(str(item["label"]), quote=False)
+        if item["status"] == "verified":
+            ohlc = item["ohlc"]
+            if not isinstance(ohlc, dict) or set(ohlc) != {"open", "high", "low", "close"}:
+                raise ValueError("editorial.levels_source: verified OHLC fields incomplete")
+            if not isinstance(item["source_url"], str) or not item["source_url"].startswith("https://hk.investing.com/indices/"):
+                raise ValueError("editorial.levels_source: invalid Investing.com HK index source URL")
+            fmt = lambda value: f"{value:,.2f}"
+            source_url = escape(item["source_url"], quote=True)
+            source_instrument = escape(str(item["source_instrument"] or ""), quote=False)
+            observed_at = escape(str(item["observed_at"] or "時間未提供"), quote=False)
+            source_html += (
+                f'<b>{label}</b>：O {fmt(ohlc["open"])}｜H {fmt(ohlc["high"])}｜'
+                f'L {fmt(ohlc["low"])}｜C {fmt(ohlc["close"])}；'
+                f'S1 {fmt(item["support1"])}｜P {fmt(item["pivot"])}｜R1 {fmt(item["resistance1"])}；'
+                f'<a href="{source_url}" target="_blank" rel="noopener">Investing.com 香港站歷史資料</a>'
+                f'（{source_instrument}；擷取 {observed_at}）。<br>'
+            )
+        elif item["status"] == "pending_verification":
+            source_html += f'<b>{label}</b>：待核實（{escape(str(item["notes"]), quote=False)}）。<br>'
+        else:
+            raise ValueError("editorial.levels_source: unsupported OHLC verification status")
+    start, end = inner_bounds(source_nodes[0])
+    ident = (start, end)
+    if ident in used:
+        raise ValueError("editorial.levels_source: overlapping mapped source-details slot")
+    used.add(ident)
+    edits.append((start, end, source_html))
 
 
 def render_news(html: str, parser: SourceTreeParser,

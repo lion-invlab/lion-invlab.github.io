@@ -23,6 +23,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 SOURCE_ROOT = "https://hk.investing.com/indices/"
+KEY_LEVEL_INDEXES = ("dow", "sp500", "nasdaq_composite", "sox", "russell_2000")
 INDEXES = {
     "dow": ("us-30", "DJI", "道瓊"),
     "sp500": ("us-spx-500", "SPX", "標普"),
@@ -87,6 +88,9 @@ def parse_history_page(html: str, ticker: str, trading_date: date) -> dict:
         date_i = next((i for i, h in enumerate(headers) if "日期" in h or h == "date"), None)
         close_i = next((i for i, h in enumerate(headers) if "收市" in h or "收盤" in h or h == "close"), None)
         change_i = next((i for i, h in enumerate(headers) if ("升跌" in h or "change" in h) and ("%" in h or "percent" in h or "升跌" in h)), None)
+        open_i = next((i for i, h in enumerate(headers) if "開市" in h or "開盤" in h or h == "open"), None)
+        high_i = next((i for i, h in enumerate(headers) if h in {"高", "high"} or "最高" in h), None)
+        low_i = next((i for i, h in enumerate(headers) if h in {"低", "low"} or "最低" in h), None)
         if date_i is None or close_i is None or change_i is None:
             continue
         for row in rows[1:]:
@@ -103,7 +107,25 @@ def parse_history_page(html: str, ticker: str, trading_date: date) -> dict:
             change_pct = parse_number(cells[change_i].get_text(" ", strip=True))
             if close <= 0:
                 raise ValueError("historical close must be positive")
-            return {"close": close, "change_pct": change_pct, "heading": heading_text}
+            ohlc = None
+            ohlc_error = "OHLC columns missing from the historical table"
+            if None not in (open_i, high_i, low_i) and max(open_i, high_i, low_i) < len(cells):
+                try:
+                    open_value = parse_number(cells[open_i].get_text(" ", strip=True))
+                    high_value = parse_number(cells[high_i].get_text(" ", strip=True))
+                    low_value = parse_number(cells[low_i].get_text(" ", strip=True))
+                    if (min(open_value, high_value, low_value) <= 0
+                            or high_value < max(open_value, close)
+                            or low_value > min(open_value, close)
+                            or high_value < low_value):
+                        raise ValueError("OHLC range is internally inconsistent")
+                    ohlc = {"open": open_value, "high": high_value,
+                            "low": low_value, "close": close}
+                    ohlc_error = None
+                except ValueError as exc:
+                    ohlc_error = str(exc)
+            return {"close": close, "change_pct": change_pct, "heading": heading_text,
+                    "ohlc": ohlc, "ohlc_error": ohlc_error}
     raise ValueError(f"exact trading-date row {trading_date.isoformat()} not found")
 
 def make_pending(observed_at: str, trading_date: date, reason: str) -> dict:
@@ -112,6 +134,7 @@ def make_pending(observed_at: str, trading_date: date, reason: str) -> dict:
         "change_unit": "percent", "status": "pending_verification",
         "source": None, "fallback_used": False, "fallback_reason": None,
         "notes": f"未取得指定交易日資料，未沿用舊值。原因：{reason}",
+        "ohlc": None, "ohlc_error": reason,
     }
 
 def fetch_one(session: requests.Session, key: str, config: tuple,
@@ -127,6 +150,7 @@ def fetch_one(session: requests.Session, key: str, config: tuple,
         return key, {
             "value": parsed["close"], "unit": "index_point",
             "change": parsed["change_pct"], "change_unit": "percent",
+            "ohlc": parsed.get("ohlc"), "ohlc_error": parsed.get("ohlc_error"),
             "status": "verified",
             "source": {
                 "name": "Investing.com 香港站",
@@ -147,6 +171,21 @@ def build_fragment(trading_date: date, report_date: date, records: dict,
         missing = sorted(set(INDEXES) - set(records))
         extra = sorted(set(records) - set(INDEXES))
         raise ValueError(f"global index field mismatch; missing={missing}, extra={extra}")
+    global_records = {}
+    key_level_records = {}
+    for key, item in records.items():
+        record = dict(item)
+        ohlc = record.pop("ohlc", None)
+        ohlc_error = record.pop("ohlc_error", None)
+        global_records[key] = record
+        if key in KEY_LEVEL_INDEXES:
+            verified = record.get("status") == "verified" and isinstance(ohlc, dict)
+            key_level_records[key] = {
+                "status": "verified" if verified else "pending_verification",
+                "ohlc": ohlc if verified else None,
+                "source": record.get("source"),
+                "notes": "同日 OHLC 已核實" if verified else (ohlc_error or record.get("notes")),
+            }
     return {
         "fragment_schema_version": 1,
         "dataset": "tac_global_indices",
@@ -154,7 +193,14 @@ def build_fragment(trading_date: date, report_date: date, records: dict,
         "trading_date": trading_date.isoformat(),
         "fetched_at": observed_at,
         "source_priority": "Investing.com Hong Kong historical data pages per TAC_WORK_RULES.md §21.2",
-        "global_indices": records,
+        "global_indices": global_records,
+        "key_levels": {
+            "report_date": report_date.isoformat(),
+            "trading_date": trading_date.isoformat(),
+            "fetched_at": observed_at,
+            "method": "classic_pivot_p=(H+L+C)/3_s1=2P-H_r1=2P-L",
+            "indices": key_level_records,
+        },
     }
 
 def self_test() -> None:
@@ -164,6 +210,11 @@ def self_test() -> None:
     parsed = parse_history_page(sample, "DJI", date(2026, 10, 30))
     assert parsed["close"] == 51770.31
     assert parsed["change_pct"] == -1.09
+    assert parsed["ohlc"] == {
+        "open": 52383.90, "high": 52383.90,
+        "low": 51563.76, "close": 51770.31,
+    }
+    assert parsed["ohlc_error"] is None
     try:
         parse_history_page(sample, "IXIC", date(2026, 10, 30))
     except ValueError:
@@ -180,7 +231,7 @@ def self_test() -> None:
     assert parse_date("2026年10月30日") == date(2026, 10, 30)
     assert parse_number("−1.09%") == -1.09
     print("PASS: 17 fixed index mappings and unique source slugs")
-    print("PASS: Investing.com HK historical table close/change parsing")
+    print("PASS: Investing.com HK historical table close/change/OHLC parsing")
     print("PASS: instrument identity mismatch rejected")
     print("PASS: missing exact trading-date row rejected")
     print("PASS: signed percentage and Chinese date parsing")

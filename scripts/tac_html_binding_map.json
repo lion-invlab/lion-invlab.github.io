@@ -264,7 +264,9 @@
         "core_panel": ".focus-core",
         "market_text_selector": ".key",
         "levels_text_selector": ".key",
-        "core_text_selector": ".callout"
+        "core_text_selector": ".callout",
+        "levels_source_details_selector": ".focus-levels details.compact-disclosure",
+        "levels_source_content_selector": "div"
       },
       "snapshot_fields": {
         "summary_headline": "headline",

@@ -8,6 +8,11 @@ on:
       - .github/workflows/tac-live-capture-probe.yml
       - scripts/fetch_tac_secondary_market.py
       - scripts/test_tac_secondary_market.py
+      - scripts/fetch_tac_global_indices.py
+      - scripts/run_tac_daily_pipeline.py
+      - scripts/render_tac_market_safe.py
+      - scripts/tac_html_binding_map.json
+      - scripts/test_tac_daily_pipeline.py
 
 permissions:
   contents: read
@@ -44,8 +49,12 @@ jobs:
           npm install --no-save playwright
           npx playwright install --with-deps chromium
 
-      - name: Validate localized identity and contract-code parser
-        run: python -m unittest -v scripts/test_tac_secondary_market.py
+      - name: Validate localized market and OHLC parsers
+        run: |
+          python -m unittest -v scripts/test_tac_secondary_market.py
+          python scripts/fetch_tac_global_indices.py --self-test
+          python scripts/run_tac_daily_pipeline.py --self-test
+          python -m unittest -v scripts/test_tac_daily_pipeline.py
 
       - name: Capture live market data for the 2026-11-02 Monday report
         run: |
@@ -79,6 +88,10 @@ jobs:
                   records = [record for group in groups for record in data[group].values() if isinstance(record, dict)]
                   verified = sum(record.get("status") == "verified" for record in records)
                   summary.append(f"{name}: {verified}/{len(records)} verified; {len(records)-verified} pending")
+                  if name == "global-indices.json":
+                      levels = data.get("key_levels", {}).get("indices", {})
+                      ok = sum(item.get("status") == "verified" for item in levels.values())
+                      summary.append(f"same-day OHLC key levels: {ok}/{len(levels)} verified")
               fed = root / "fedwatch-investing-com.json"
               if fed.exists():
                   data = json.loads(fed.read_text(encoding="utf-8"))

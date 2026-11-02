@@ -8,6 +8,7 @@ a review HTML file. It never fetches quotes, edits mothers/WR, or deploys index.
 from __future__ import annotations
 import argparse
 import json
+import math
 import subprocess
 import sys
 from datetime import date, datetime, timedelta
@@ -114,6 +115,92 @@ def load_capture_bundle(capture_dir: Path, report_date: str, trading_date: str) 
     return fragments, fedwatch_path
 
 
+KEY_LEVELS = {
+    "dow": ("道瓊工業指數", "DJI", "us-30"),
+    "sp500": ("S&P 500", "SPX", "us-spx-500"),
+    "nasdaq_composite": ("Nasdaq Composite", "IXIC", "nasdaq-composite"),
+    "sox": ("費城半導體指數（SOX）", "SOX", "phlx-semiconductor"),
+    "russell_2000": ("Russell 2000", "RUT", "smallcap-2000"),
+}
+
+
+def derive_key_levels(market_fragments: list[dict], report_date: str,
+                      trading_date: str) -> tuple[list[str], dict]:
+    bundles = [fragment["key_levels"] for fragment in market_fragments
+               if isinstance(fragment.get("key_levels"), dict)]
+    if len(bundles) > 1:
+        raise ValueError("multiple key-level OHLC bundles supplied")
+    bundle = bundles[0] if bundles else {}
+    if bundle and (bundle.get("report_date") != report_date
+                   or bundle.get("trading_date") != trading_date):
+        raise ValueError("key-level OHLC bundle report/trading date mismatch")
+    records = bundle.get("indices", {}) if isinstance(bundle, dict) else {}
+    if not isinstance(records, dict):
+        records = {}
+
+    segments = []
+    items = []
+    for key, (label, ticker, slug) in KEY_LEVELS.items():
+        record = records.get(key, {})
+        source = record.get("source") if isinstance(record, dict) else None
+        ohlc = record.get("ohlc") if isinstance(record, dict) else None
+        expected_url = f"https://hk.investing.com/indices/{slug}-historical-data"
+        reason = None
+        values = None
+        if not isinstance(record, dict) or record.get("status") != "verified":
+            reason = record.get("notes", "未取得指定交易日 OHLC") if isinstance(record, dict) else "未取得指定交易日 OHLC"
+        elif not isinstance(source, dict) or source.get("name") != "Investing.com 香港站":
+            reason = "來源身分未核實"
+        elif source.get("data_date") != trading_date:
+            reason = "OHLC 資料日期不符"
+        elif source.get("url") != expected_url:
+            reason = "OHLC 來源網址不符"
+        elif not isinstance(source.get("instrument"), str) or ticker not in source["instrument"]:
+            reason = "指數標的身分不符"
+        elif not isinstance(ohlc, dict) or set(ohlc) != {"open", "high", "low", "close"}:
+            reason = "OHLC 欄位不完整"
+        else:
+            candidate = [ohlc.get(name) for name in ("open", "high", "low", "close")]
+            if any(isinstance(v, bool) or not isinstance(v, (int, float)) or not math.isfinite(v) or v <= 0 for v in candidate):
+                reason = "OHLC 數值無效"
+            else:
+                open_value, high_value, low_value, close_value = candidate
+                if high_value < max(open_value, close_value) or low_value > min(open_value, close_value) or high_value < low_value:
+                    reason = "OHLC 區間不合理"
+                else:
+                    values = dict(ohlc)
+        if values is None:
+            segments.append(f"{label}：待核實（{reason or 'OHLC 尚未完成核對'}）")
+            items.append({
+                "key": key, "label": label, "status": "pending_verification",
+                "ohlc": None, "pivot": None, "support1": None, "resistance1": None,
+                "source_url": source.get("url") if isinstance(source, dict) else None,
+                "source_instrument": source.get("instrument") if isinstance(source, dict) else None,
+                "observed_at": source.get("observed_at") if isinstance(source, dict) else None,
+                "notes": reason or "OHLC 尚未完成核對",
+            })
+            continue
+        pivot = (values["high"] + values["low"] + values["close"]) / 3
+        support1 = 2 * pivot - values["high"]
+        resistance1 = 2 * pivot - values["low"]
+        segments.append(
+            f"{label}：支撐 S1：{support1:,.2f}｜中樞 P：{pivot:,.2f}｜壓力 R1：{resistance1:,.2f}"
+        )
+        items.append({
+            "key": key, "label": label, "status": "verified",
+            "ohlc": values, "pivot": round(pivot, 2),
+            "support1": round(support1, 2), "resistance1": round(resistance1, 2),
+            "source_url": source["url"], "source_instrument": source["instrument"],
+            "observed_at": source.get("observed_at"),
+            "notes": "同一基準交易日 OHLC；經典樞紐點公式",
+        })
+    return segments, {
+        "report_date": report_date, "trading_date": trading_date,
+        "method": "經典樞紐點：P=(H+L+C)/3；S1=2P−H；R1=2P−L。",
+        "items": items,
+    }
+
+
 def validate_content_fragments(fragments: list[dict]) -> dict:
     merged = {}
     for index, fragment in enumerate(fragments):
@@ -135,9 +222,9 @@ def validate_content_fragments(fragments: list[dict]) -> dict:
         if len(panel["items"]) != expected_count:
             raise ValueError(f"news.{key}: WR requires exactly {expected_count} items, got {len(panel['items'])}")
     editorial = merged["editorial"]
-    required_editorial = {"headline", "body_segments", "market_text", "levels_segments", "core_text"}
+    required_editorial = {"headline", "body_segments", "market_text", "core_text"}
     if not isinstance(editorial, dict) or set(editorial) != required_editorial:
-        raise ValueError("editorial fragment does not match the five required renderer fields")
+        raise ValueError("editorial fragment must provide headline, body_segments, market_text and core_text; key levels are derived from verified OHLC")
     return merged
 
 def build_preview(report_date: str, trading_date: str, market_fragments: list[Path],
@@ -196,6 +283,11 @@ def build_preview(report_date: str, trading_date: str, market_fragments: list[Pa
         load_object(path, f"content fragment {path}") for path in content_fragments
     ]
     editorial = validate_content_fragments(editorial_fragments)
+    levels_segments, levels_source = derive_key_levels(market_data, report_day.isoformat(), trading_day.isoformat())
+    editorial["editorial"]["levels_segments"] = levels_segments
+    editorial["editorial"]["levels_source"] = levels_source
+    verified_levels = sum(item["status"] == "verified" for item in levels_source["items"])
+    print(f"Key levels: {verified_levels}/5 verified from same-day OHLC; remaining items marked 待核實")
     renderer_snapshot = compose(renderer_market, calendar, [editorial])
     rendered = render_market_html(template, renderer_snapshot, binding)
 

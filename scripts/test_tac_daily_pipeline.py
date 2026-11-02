@@ -61,43 +61,56 @@ class TacDailyPipelineTests(unittest.TestCase):
             span for span in spans_inside(body_node, parser.spans)
             if span.parent is body_node and span.text.strip()
         ])
-        levels_panel = select(parser.root, editorial_spec["observation"]["levels_panel"])[0]
-        levels_node = select(levels_panel, editorial_spec["observation"]["levels_text_selector"])[0]
-        level_spans = coalesce_spans([
-            span for span in spans_inside(levels_node, parser.spans)
-            if span.parent is levels_node and span.text.strip()
-        ])
         self.assertGreaterEqual(len(body_spans), 1)
-        self.assertGreaterEqual(len(level_spans), 1)
         editorial = {
             "headline": "整合測試摘要標題",
             "body_segments": [f"整合測試摘要段落 {i + 1}" for i in range(len(body_spans))],
             "market_text": "整合測試盤面觀察",
-            "levels_segments": [f"整合測試價位觀察 {i + 1}" for i in range(len(level_spans))],
             "core_text": "整合測試核心結論",
         }
         return {"news": news, "editorial": editorial}
 
     def test_monday_pipeline_produces_review_only_and_updates_report_dates(self):
+        key_ohlc = {
+            "dow": ("DJI", "us-30", 52383.90, 52383.90, 51563.76, 51770.31),
+            "sp500": ("SPX", "us-spx-500", 7631.07, 7637.48, 7527.56, 7580.07),
+            "nasdaq_composite": ("IXIC", "nasdaq-composite", 25592.49, 25673.00, 25177.33, 25437.00),
+            "sox": ("SOX", "phlx-semiconductor", 10855.80, 10957.30, 10439.00, 10688.80),
+            "russell_2000": ("RUT", "smallcap-2000", 2838.77, 2843.00, 2787.12, 2811.84),
+        }
+        global_indices = {}
+        key_level_indices = {}
+        for key, (ticker, slug, open_value, high_value, low_value, close_value) in key_ohlc.items():
+            source = {
+                "name": "Investing.com 香港站",
+                "url": f"https://hk.investing.com/indices/{slug}-historical-data",
+                "observed_at": "2026-11-02T05:00:00+08:00",
+                "data_date": "2026-10-30",
+                "quote_type": "investing_com_hk_historical_close_pct_change",
+                "instrument": f"Synthetic {ticker}",
+            }
+            global_indices[key] = {
+                "value": close_value, "unit": "index_points",
+                "change": -1.0, "change_unit": "percent",
+                "status": "verified", "source": source,
+                "fallback_used": False, "fallback_reason": None,
+                "notes": "Synthetic integration test only",
+            }
+            key_level_indices[key] = {
+                "status": "verified",
+                "ohlc": {"open": open_value, "high": high_value, "low": low_value, "close": close_value},
+                "source": source,
+                "notes": "Synthetic integration test only",
+            }
         market_fragment = {
             "report_date": "2026-11-02",
             "trading_date": "2026-10-30",
-            "global_indices": {
-                "sp500": {
-                    "value": 7000.0, "unit": "index_points",
-                    "change": 1.25, "change_unit": "percent",
-                    "status": "verified",
-                    "source": {
-                        "name": "Synthetic integration test source",
-                        "url": "https://example.com/tac-test/market",
-                        "observed_at": "2026-11-02T05:00:00+08:00",
-                        "data_date": "2026-10-30",
-                        "quote_type": "daily_close",
-                        "instrument": "S&P 500",
-                    },
-                    "fallback_used": False, "fallback_reason": None,
-                    "notes": "Synthetic test only",
-                }
+            "global_indices": global_indices,
+            "key_levels": {
+                "report_date": "2026-11-02", "trading_date": "2026-10-30",
+                "fetched_at": "2026-11-02T05:00:00+08:00",
+                "method": "classic_pivot_p=(H+L+C)/3_s1=2P-H_r1=2P-L",
+                "indices": key_level_indices,
             },
         }
         protected_before = {
@@ -122,7 +135,10 @@ class TacDailyPipelineTests(unittest.TestCase):
                 self.assertIn('content="2026-11-02" name="report-date"', rendered)
                 self.assertIn("整合測試摘要標題", rendered)
                 self.assertIn("測試新聞 global_focus 1", rendered)
-                self.assertIn("7,000.00", rendered)
+                self.assertIn("7,580.07", rendered)
+                self.assertIn("51,428.08", rendered)
+                self.assertIn("基準交易日：</b>2026-10-30", rendered)
+                self.assertIn("Investing.com 香港站歷史資料", rendered)
                 self.assertIn("待核實", rendered)
                 # Real W44/W45 databases must flow through the Monday pipeline:
                 # prior-week five-star events and current-week four/five-star events.
@@ -170,6 +186,15 @@ class TacDailyPipelineTests(unittest.TestCase):
             self.assertEqual(fedwatch_path, fedwatch.resolve())
             with self.assertRaisesRegex(ValueError, "dates do not match"):
                 load_capture_bundle(bundle, "2026-11-03", "2026-11-02")
+
+    def test_key_levels_without_same_day_ohlc_fail_closed(self):
+        segments, source = __import__("run_tac_daily_pipeline").derive_key_levels(
+            [{"report_date": "2026-11-02", "trading_date": "2026-10-30", "global_indices": {}}],
+            "2026-11-02", "2026-10-30"
+        )
+        self.assertEqual(len(segments), 5)
+        self.assertTrue(all("待核實" in item for item in segments))
+        self.assertTrue(all(item["status"] == "pending_verification" for item in source["items"]))
 
     def test_weekend_report_date_is_rejected(self):
         for value in ("2026-11-07", "2026-11-08"):
