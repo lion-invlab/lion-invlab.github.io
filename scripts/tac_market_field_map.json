@@ -125,8 +125,8 @@
       "row_class": "fc-prob",
       "expected_count": 2,
       "labels": [
-        "目標區間 A",
-        "目標區間 B"
+        "維持不變",
+        "升息一碼"
       ],
       "required_texts": [
         "Investing.com Fed Rate Monitor",
