@@ -5,12 +5,44 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-02T03:32:09+08:00",
+  "updated_at": "2026-11-02T12:47:51+08:00",
   "source_report_date": "2026-11-02",
-  "wr_version": "3.12",
+  "wr_version": "4.3",
   "status": "active",
   "events": {
     "economic": [
+      {
+        "id": "current-pboc-overnight-framework-20261102",
+        "event_date": "2026-11-02T12:00:00+08:00",
+        "region": "中國",
+        "event_name": "中國人民銀行｜公開市場操作框架轉向每日隔夜逆回購（11/02 起實施）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：中國為全球主要經濟體，央行將隔夜逆回購常態化並調整七天期工具操作方式，改變短端利率管理與市場資金價格傳導；對人民幣利率、債券及金融機構資金成本具明顯區域市場影響，但不等同全球系統性政策轉折或全面降息。",
+        "previous": null,
+        "forecast": null,
+        "actual": "2026-11-02 起每日隔夜逆回購操作正式啟動，操作利率 1.25%；首日操作量人民幣 5,410 億元。",
+        "status": "released",
+        "impact_judgment": "政策操作框架由日常七天期逆回購轉向每日隔夜逆回購，七天期操作改為固定數量、多重中標利率，主要用於稅期及月末流動性調節。這是操作框架與短端利率錨的調整，不是傳統政策利率直接下調；Reuters 引述分析師認為利率框架下限約降低 15 個基點、可能壓低債券殖利率，但 Citi 不預期因此立即帶來 11 月 LPR 降息。後續觀察 DR001、DR007、債券殖利率及 LPR 傳導。",
+        "source": {
+          "name": "中國人民銀行公開市場業務公告［2026］第13號（全文轉載）",
+          "url": "https://finance.sina.com.cn/roll/2026-10-30/doc-iniwywtv8245573.shtml",
+          "published_at": "2026-10-30T17:07:00+08:00",
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "21世紀經濟報導／新浪財經（轉載中國人民銀行公告）",
+          "notes": "公告全文載明自 2026-11-02 起每個工作日開展隔夜逆回購固定利率、數量招標，操作利率 1.25%；七天期逆回購改為固定數量、利率招標、多重價位中標，主要在稅期及月末操作。頁面標示來源為中國人民銀行網站。事件精確操作時刻未確認，12:00 僅為日期佔位。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": "政策框架；利率 %；操作量 CNY 億元",
+        "data_reference": {
+          "name": "Reuters｜China's shift to new policy rate signals easier funding conditions",
+          "url": "https://www.reuters.com/world/asia-pacific/china-cbank-injects-cash-shifts-overnight-rate-key-policy-lever-2026-11-02/",
+          "publisher": "Reuters",
+          "notes": "Reuters 2026-11-02 報導首日透過隔夜逆回購投放人民幣 5,410 億元、利率 1.25%；並說明市場分析師對短端利率框架下限及債券殖利率的看法。"
+        },
+        "time_known": false
+      },
       {
         "id": "current-boj-outlook-20261102",
         "event_date": "2026-11-02T13:00:00+08:00",
@@ -97,38 +129,6 @@
         }
       },
       {
-        "id": "current-eurozone-flash-cpi-20261103",
-        "event_date": "2026-11-04T12:00:00+08:00",
-        "region": "歐元區",
-        "event_name": "歐元區 10 月 HICP 通膨初值",
-        "importance_stars": 5,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC五星：歐元區關鍵通膨指標，將直接影響 ECB 利率路徑定價、歐元匯率及歐洲公債殖利率；對主要市場具有跨資產影響。",
-        "previous": 3.8,
-        "forecast": 3.9,
-        "actual": null,
-        "status": "pending_verification",
-        "time_known": false,
-        "impact_judgment": "觀察整體與核心通膨是否延續黏著，影響 ECB 降息預期及歐元區利率曲線。",
-        "source": {
-          "name": "Eurostat｜October 2026 flash HICP schedule note",
-          "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
-          "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
-          "publisher": "Eurostat",
-          "notes": "Eurostat 2026-10-16 系列說明指 10 月 flash estimate 排定 2026-11-04；但官方 Release Calendar 查詢頁仍顯示 11-03，兩個官方頁面日期衝突。暫以系列專屬發布說明的 11-04 作日期、12:00 台灣時間僅作未知時間佔位，time_known=false、status=pending_verification；須再核對官方行事曆。"
-        },
-        "data_unit": "% y/y HICP",
-        "data_reference": {
-          "name": "ArabicTrader｜Euro area CPI Flash Estimate y/y",
-          "url": "https://www.arabictrader.com/en/economic-calendar/301/135940/cpi-flash-estimate-yy",
-          "publisher": "ArabicTrader",
-          "notes": "市場預期 3.9%、前值 3.8%；共識為第三方市場預期，非 Eurostat 官方數值。日期以 Eurostat 系列專屬發布說明為主，但官方日曆仍有衝突。"
-        },
-        "previous_applicable": true,
-        "forecast_applicable": true
-      },
-      {
         "id": "current-us-midterms-20261103",
         "event_date": "2026-11-03T12:00:00+08:00",
         "region": "美國",
@@ -180,6 +180,38 @@
           "url": "https://ca.investing.com/economic-calendar/jolts-1057",
           "publisher": "Investing.com",
           "notes": "目前可讀的 2026-11-03 列僅顯示 previous 7.079M，未列 forecast；原 7.110M 無法在最新頁面重現，故清除未核實 forecast。"
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true
+      },
+      {
+        "id": "current-eurozone-flash-cpi-20261103",
+        "event_date": "2026-11-04T12:00:00+08:00",
+        "region": "歐元區",
+        "event_name": "歐元區 10 月 HICP 通膨初值",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：歐元區關鍵通膨指標，將直接影響 ECB 利率路徑定價、歐元匯率及歐洲公債殖利率；對主要市場具有跨資產影響。",
+        "previous": 3.8,
+        "forecast": 3.9,
+        "actual": null,
+        "status": "pending_verification",
+        "time_known": false,
+        "impact_judgment": "觀察整體與核心通膨是否延續黏著，影響 ECB 降息預期及歐元區利率曲線。",
+        "source": {
+          "name": "Eurostat｜October 2026 flash HICP schedule note",
+          "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
+          "published_at": null,
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Eurostat",
+          "notes": "Eurostat 2026-10-16 系列說明指 10 月 flash estimate 排定 2026-11-04；但官方 Release Calendar 查詢頁仍顯示 11-03，兩個官方頁面日期衝突。暫以系列專屬發布說明的 11-04 作日期、12:00 台灣時間僅作未知時間佔位，time_known=false、status=pending_verification；須再核對官方行事曆。"
+        },
+        "data_unit": "% y/y HICP",
+        "data_reference": {
+          "name": "ArabicTrader｜Euro area CPI Flash Estimate y/y",
+          "url": "https://www.arabictrader.com/en/economic-calendar/301/135940/cpi-flash-estimate-yy",
+          "publisher": "ArabicTrader",
+          "notes": "市場預期 3.9%、前值 3.8%；共識為第三方市場預期，非 Eurostat 官方數值。日期以 Eurostat 系列專屬發布說明為主，但官方日曆仍有衝突。"
         },
         "previous_applicable": true,
         "forecast_applicable": true
@@ -255,16 +287,16 @@
           "name": "ADP National Employment Report",
           "url": "https://www.adpemploymentreport.com/",
           "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
+          "observed_at": "2026-11-02T12:47:51+08:00",
           "publisher": "ADP",
-          "notes": "官方報告頁確認本次為 2026-11-04 October report；Investing.com 經濟日曆列 08:15 UTC，換算台灣時間 21:15。前值 90K、共識 68K。"
+          "notes": "ADP 官方報告頁確認本次為 2026-11-04 October report；Investing.com 香港站列 08:15 EST（13:15 UTC），換算台灣時間 21:15。前值 90K、共識 68K。"
         },
         "data_unit": "thousand jobs",
         "data_reference": {
-          "name": "Investing.com｜U.S. ADP Nonfarm Employment Change",
-          "url": "https://ca.investing.com/economic-calendar/---------adp-1",
-          "publisher": "Investing.com",
-          "notes": "2026-11-04：forecast 68.00K、previous 90.00K；時間欄 13:15 UTC，換算台灣時間 21:15。"
+          "name": "Investing.com 香港｜美國 ADP 非農就業人數變化",
+          "url": "https://hk.investing.com/economic-calendar/adp-nonfarm-employment-change-1",
+          "publisher": "Investing.com Hong Kong",
+          "notes": "2026-11-04（10月）：forecast 68.00K、previous 90.00K；08:15 EST = 13:15 UTC = 21:15 Asia/Taipei。"
         },
         "previous_applicable": true,
         "forecast_applicable": true
@@ -301,6 +333,31 @@
         "forecast_applicable": true
       },
       {
+        "id": "current-boj-minutes-20261105",
+        "event_date": "2026-11-05T07:50:00+08:00",
+        "region": "日本",
+        "event_name": "日本央行｜9 月貨幣政策會議紀錄",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：日本央行會議紀錄揭示政策委員對通膨、薪資及利率正常化的判斷，可能影響日圓、日債殖利率及全球套利交易。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "time_known": true,
+        "impact_judgment": "觀察委員對薪資與通膨持續性、後續升息條件及政策分歧的描述。",
+        "source": {
+          "name": "Bank of Japan｜Release Schedule",
+          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "官方最新排程確認 11/05 08:50 JST 發布 9/17–9/18 貨幣政策會議紀錄；換算台灣時間 07:50。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false
+      },
+      {
         "id": "current-bcb-rate-20261104",
         "event_date": "2026-11-05T12:00:00+08:00",
         "region": "巴西",
@@ -331,31 +388,6 @@
         "time_known": false,
         "previous_applicable": true,
         "forecast_applicable": true
-      },
-      {
-        "id": "current-boj-minutes-20261105",
-        "event_date": "2026-11-05T07:50:00+08:00",
-        "region": "日本",
-        "event_name": "日本央行｜9 月貨幣政策會議紀錄",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：日本央行會議紀錄揭示政策委員對通膨、薪資及利率正常化的判斷，可能影響日圓、日債殖利率及全球套利交易。",
-        "previous": null,
-        "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "time_known": true,
-        "impact_judgment": "觀察委員對薪資與通膨持續性、後續升息條件及政策分歧的描述。",
-        "source": {
-          "name": "Bank of Japan｜Release Schedule",
-          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:39:11+08:00",
-          "publisher": "Bank of Japan",
-          "notes": "官方最新排程確認 11/05 08:50 JST 發布 9/17–9/18 貨幣政策會議紀錄；換算台灣時間 07:50。"
-        },
-        "previous_applicable": false,
-        "forecast_applicable": false
       },
       {
         "id": "current-canada-budget-20261105",
@@ -498,9 +530,9 @@
           "name": "U.S. Bureau of Labor Statistics｜Employment Situation schedule",
           "url": "https://www.bls.gov/schedule/news_release/empsit.htm",
           "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
+          "observed_at": "2026-11-02T12:47:51+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
-          "notes": "BLS 官方確認 October 2026 Employment Situation 於 2026-11-06 08:30 ET 發布，換算台灣時間 21:30。"
+          "notes": "BLS 官方確認 October 2026 Employment Situation 於 2026-11-06 08:30 EST 發布，換算台灣時間 21:30；headline forecast／previous 另以 Investing.com 香港站核對。"
         },
         "data_unit": "thousand jobs",
         "components": {
@@ -516,16 +548,136 @@
           }
         },
         "data_reference": {
-          "name": "Investing.com｜U.S. Nonfarm Payrolls",
-          "url": "https://ca.investing.com/economic-calendar/nonfarm-payrolls-227",
-          "publisher": "Investing.com",
-          "notes": "2026-11-06 headline payroll consensus 63.00K、previous 29.00K。平均時薪及失業率 components 保留原 TD Economics/Bloomberg consensus 來源，未與 headline 混用。"
+          "name": "Investing.com 香港｜美國非農就業人數",
+          "url": "https://hk.investing.com/economic-calendar/nonfarm-payrolls-227",
+          "publisher": "Investing.com Hong Kong",
+          "notes": "2026-11-06（10月）：headline payroll forecast 63.00K、previous 29.00K；08:30 EST = 13:30 UTC = 21:30 Asia/Taipei。平均時薪與失業率 components 仍沿用 TD Economics／Bloomberg 共識，未與 headline 混用。"
         },
         "previous_applicable": true,
         "forecast_applicable": true
       }
     ],
     "earnings": [
+      {
+        "id": "current-mar-20261102",
+        "company": "Marriott International",
+        "ticker": "MAR",
+        "event_date": "2026-11-02T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球大型酒店與住宿營運／加盟平台，財報及 RevPAR、客房需求與管理費收入可反映全球旅遊消費景氣；產業指標性明顯，但系統性影響低於全球最大權值企業。",
+        "importance_rating_source": null,
+        "industry": "旅遊／酒店與住宿",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 2.85,
+        "eps_actual": null,
+        "revenue_estimate": 6.92,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Marriott Investor Relations｜Q3 2026 earnings release schedule",
+          "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-announces-release-date-third-quarter-2026",
+          "published_at": "2026-10-09",
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Marriott International Investor Relations",
+          "notes": "公司公告 2026-11-02 約 07:00 ET 發布 Q3 結果，08:00 ET 舉行電話會議；event_date 記錄 08:00 ET call time，換算台灣 21:00，盤前公布。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜Marriott Q3 2026 EPS consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-marriott-international-inc-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 EPS consensus US$2.85；來源未明確揭露 GAAP／adjusted 口徑，故 eps_basis 保留 basis not disclosed。"
+        },
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜Marriott Q3 2026 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-marriott-international-inc-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 revenue consensus US$6.92B；獨立記錄營收共識來源，不覆蓋 EPS 共識來源。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "MAR",
+        "listing_evidence": {
+          "name": "Marriott Investor Relations｜NASDAQ issuer",
+          "url": "https://marriott.gcs-web.com/press-releases",
+          "publisher": "Company Investor Relations",
+          "notes": "公司正式財報公告列示 Marriott International, Inc. (Nasdaq: MAR)。"
+        }
+      },
+      {
+        "id": "current-vrtx-20261102",
+        "company": "Vertex Pharmaceuticals",
+        "ticker": "VRTX",
+        "event_date": "2026-11-03T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球大型生技製藥企業，囊括囊腫性纖維化、血液疾病及新產品管線；季度業績與新藥商業化、併購整合進度對全球生技產業具指標性，但影響範圍低於全球系統性權值企業。",
+        "importance_rating_source": null,
+        "industry": "生技製藥／創新藥品",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 4.77,
+        "eps_actual": null,
+        "revenue_estimate": 3.41,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Vertex Investor Relations｜Q3 2026 results announcement",
+          "url": "https://investors.vrtx.com/node/35036/pdf",
+          "published_at": "2026-10-07",
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Vertex Pharmaceuticals Investor Relations",
+          "notes": "公司 2026-10-07 公告確認 2026-11-02 美股收盤後發布 Q3 結果，16:30 ET 舉行電話會議；換算台灣時間 2026-11-03 05:30。"
+        },
+        "consensus_source": {
+          "name": "Investing.com｜Vertex Pharmaceuticals earnings",
+          "url": "https://www.investing.com/equities/vertex-pharm-earnings",
+          "publisher": "Investing.com",
+          "notes": "Q3 2026 EPS forecast US$4.77；來源未明確揭露 GAAP／adjusted 口徑，故 eps_basis 保留 basis not disclosed。"
+        },
+        "revenue_consensus_source": {
+          "name": "Investing.com｜Vertex Pharmaceuticals revenue consensus",
+          "url": "https://www.investing.com/equities/vertex-pharm-earnings",
+          "publisher": "Investing.com",
+          "notes": "Q3 2026 revenue forecast US$3.41B；與 EPS 共識分欄保存。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "VRTX",
+        "listing_evidence": {
+          "name": "Vertex Investor Relations｜NASDAQ issuer announcement",
+          "url": "https://investors.vrtx.com/node/35036/pdf",
+          "publisher": "Company Investor Relations",
+          "notes": "公司正式公告列示 Vertex Pharmaceuticals Incorporated (Nasdaq: VRTX)。"
+        }
+      },
       {
         "id": "current-aapl-20261102",
         "company": "Apple",
@@ -586,6 +738,66 @@
           "url": "https://investor.apple.com/",
           "publisher": "Company Investor Relations",
           "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
+      },
+      {
+        "id": "current-on-20261102",
+        "company": "onsemi",
+        "ticker": "ON",
+        "event_date": "2026-11-03T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：S&P 500 半導體供應商，產品涵蓋 AI 資料中心電源／感測、車用與工業半導體；財報可反映功率元件需求及半導體景氣循環，具產業指標性。",
+        "importance_rating_source": null,
+        "industry": "半導體／電源與感測元件",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 0.877,
+        "eps_actual": null,
+        "revenue_estimate": 1.7,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "onsemi Investor Relations｜Q3 2026 results announcement",
+          "url": "https://investor.onsemi.com/node/23341/pdf",
+          "published_at": "2026-10-15",
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "onsemi Investor Relations",
+          "notes": "公司 2026-10-15 公告確認 2026-11-02 美股收盤後發布 Q3 結果，17:00 ET 舉行電話會議；換算台灣時間 2026-11-03 06:00。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜onsemi Q3 2026 EPS consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-on-semiconductor-co-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 EPS consensus US$0.877；來源未明確揭露 GAAP／adjusted 口徑，故 eps_basis 保留 basis not disclosed。"
+        },
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜onsemi Q3 2026 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-on-semiconductor-co-stock/",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 revenue consensus US$1.70B；獨立保存營收共識來源。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "ON",
+        "listing_evidence": {
+          "name": "onsemi Investor Relations｜NASDAQ issuer announcement",
+          "url": "https://investor.onsemi.com/node/23341/pdf",
+          "publisher": "Company Investor Relations",
+          "notes": "公司正式公告列示 onsemi (Nasdaq: ON)，並註明公司為 S&P 500 成分股。"
         }
       },
       {
@@ -708,6 +920,70 @@
           "url": "https://www.philips.com/a-w/about/investor-relations/stock.html",
           "publisher": "Company / depositary official source",
           "notes": "Philips官方列示Euronext Amsterdam及NYSE，NYSE代碼PHG。"
+        }
+      },
+      {
+        "id": "current-fisv-20261103",
+        "company": "Fiserv",
+        "ticker": "FISV",
+        "event_date": "2026-11-03T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：全球主要支付處理與金融科技服務商，連結商戶收單、發卡、銀行核心系統及電子支付基礎設施；財報可反映跨境支付、商戶交易與金融機構科技支出景氣，具產業指標性，但系統性影響低於全球最大權值企業。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.72,
+        "eps_actual": null,
+        "revenue_estimate": 4.85,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "Fiserv Investor Relations｜Q3 2026 earnings release schedule",
+          "url": "https://investors.fiserv.com/node/53131/pdf",
+          "published_at": "2026-10-05",
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "Fiserv Investor Relations",
+          "notes": "公司公告 Q3 2026 結果於 2026-11-03 美股盤前發布，電話會議 7:00 CT／8:00 ET；換算台灣時間 21:00。公司公告列示 Nasdaq: FISV。"
+        },
+        "industry": "金融科技／支付處理、銀行與商戶服務",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "MarketBeat｜Fiserv Q3 2026 consensus estimates",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-fiserv-inc-stock/",
+          "published_at": null,
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 consensus EPS US$1.72；來源未明確揭露 GAAP／adjusted 口徑，故標記 basis not disclosed。公司 IR 日期與時段公告優先於第三方日曆。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜Fiserv Q3 2026 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-fiserv-inc-stock/",
+          "published_at": null,
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 revenue consensus US$4.85B；與 EPS 共識來源分欄保存。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NASDAQ",
+        "us_listing_ticker": "FISV",
+        "listing_evidence": {
+          "name": "Fiserv Investor Relations｜NASDAQ listing",
+          "url": "https://investors.fiserv.com/node/53131/pdf",
+          "publisher": "Fiserv Investor Relations",
+          "notes": "公司正式公告明列 Fiserv, Inc. (NASDAQ: FISV)，屬美國交易所掛牌。"
         }
       },
       {
@@ -1203,68 +1479,6 @@
         }
       },
       {
-        "id": "current-uber-20261102",
-        "company": "Uber",
-        "ticker": "UBER",
-        "event_date": "2026-11-04T21:00:00+08:00",
-        "session": "before_market",
-        "status": "upcoming",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
-        "importance_rating_source": null,
-        "eps_estimate": 0.94,
-        "eps_actual": null,
-        "revenue_estimate": 14.67,
-        "revenue_actual": null,
-        "stock_price_reaction": null,
-        "source": {
-          "name": "公司投資人關係／財報日期公告",
-          "url": "https://investor.uber.com/",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "Company Investor Relations",
-          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
-        },
-        "industry": "叫車／外送平台",
-        "reporting_period": "2026 Q3",
-        "time_known": true,
-        "time_type": "call_time",
-        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction_window": null,
-        "consensus_source": {
-          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.94；營收預估未在此表提供。"
-        },
-        "price_reaction_source": null,
-        "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
-          "publisher": "TipRanks",
-          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
-        },
-        "issuer_country": "United States",
-        "us_exchange_listed": true,
-        "us_listing_exchange": null,
-        "us_listing_ticker": "UBER",
-        "listing_evidence": {
-          "name": "U.S. issuer / domestic listing",
-          "url": "https://investor.uber.com/",
-          "publisher": "Company Investor Relations",
-          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
-        }
-      },
-      {
         "id": "current-cvs-20261102",
         "company": "CVS Health",
         "ticker": "CVS",
@@ -1386,6 +1600,132 @@
           "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
           "publisher": "Company Investor Relations",
           "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
+      },
+      {
+        "id": "current-uber-20261102",
+        "company": "Uber",
+        "ticker": "UBER",
+        "event_date": "2026-11-04T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 0.94,
+        "eps_actual": null,
+        "revenue_estimate": 14.67,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "公司投資人關係／財報日期公告",
+          "url": "https://investor.uber.com/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "公司投資人關係頁面；財報日期與時段另以 Nasdaq/StockTitan 週曆交叉核對。"
+        },
+        "industry": "叫車／外送平台",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.94；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "UBER",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://investor.uber.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
+      },
+      {
+        "id": "current-fis-20261104",
+        "company": "FIS",
+        "ticker": "FIS",
+        "event_date": "2026-11-04T21:30:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：全球金融科技服務商，為銀行、支付、資本市場及金融機構提供核心系統與交易處理服務，且為 S&P 500／Fortune 500 成分企業；財報對金融科技及金融機構 IT 支出具指標性，但不構成全球系統性權值，評為四星。",
+        "importance_rating_source": null,
+        "eps_estimate": 1.6,
+        "eps_actual": null,
+        "revenue_estimate": 3.43,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "FIS Investor Relations｜New date for Q3 2026 earnings",
+          "url": "https://www.investor.fisglobal.com/news-releases/news-release-details/fis-announced-new-date-third-quarter-earnings-november-4-2026/",
+          "published_at": "2026-10-20T16:30:00-04:00",
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "FIS Investor Relations",
+          "notes": "公司 10/20 正式公告將 Q3 2026 財報日期由 11/03 改為 11/04，並於盤前發布；電話會議 08:30 EST，換算台灣時間 21:30。此公告取代公司 10/12 的舊日期公告。"
+        },
+        "industry": "金融科技／銀行核心系統、支付及資本市場基礎設施",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "MarketBeat｜FIS Q3 2026 consensus estimates",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-fidelity-national-information-services-inc-stock/",
+          "published_at": null,
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 consensus EPS US$1.60；MarketBeat 頁面仍列舊日期 11/03，僅採其共識值，財報日期與時段以 FIS 10/20 官方改期公告為準；EPS GAAP／adjusted 口徑未披露。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜FIS Q3 2026 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-fidelity-national-information-services-inc-stock/",
+          "published_at": null,
+          "observed_at": "2026-11-02T12:47:51+08:00",
+          "publisher": "MarketBeat",
+          "notes": "Q3 2026 revenue consensus US$3.43B；MarketBeat 頁面日期為舊排程，僅採營收共識，與 EPS 共識來源分欄保存。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "FIS",
+        "listing_evidence": {
+          "name": "FIS Investor Relations｜NYSE listing and rescheduled earnings notice",
+          "url": "https://www.investor.fisglobal.com/news-releases/news-release-details/fis-announced-new-date-third-quarter-earnings-november-4-2026/",
+          "publisher": "FIS Investor Relations",
+          "notes": "公司正式公告明列 FIS (NYSE: FIS)，並確認 11/04 盤前公布，屬美國交易所掛牌。"
         }
       },
       {
@@ -1575,68 +1915,6 @@
         }
       },
       {
-        "id": "current-mck-20261102",
-        "company": "McKesson",
-        "ticker": "MCK",
-        "event_date": "2026-11-05T05:30:00+08:00",
-        "session": "after_market",
-        "status": "upcoming",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
-        "importance_rating_source": null,
-        "eps_estimate": 10.69,
-        "eps_actual": null,
-        "revenue_estimate": 109.9,
-        "revenue_actual": null,
-        "stock_price_reaction": null,
-        "source": {
-          "name": "StockTitan／Nasdaq 週度財報日程",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "StockTitan / Nasdaq",
-          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
-        },
-        "industry": "醫療通路／藥品配送",
-        "reporting_period": "2026 Q3",
-        "time_known": true,
-        "time_type": "call_time",
-        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction_window": null,
-        "consensus_source": {
-          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$10.69；營收預估未在此表提供。"
-        },
-        "price_reaction_source": null,
-        "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
-          "publisher": "TipRanks",
-          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
-        },
-        "issuer_country": "United States",
-        "us_exchange_listed": true,
-        "us_listing_exchange": null,
-        "us_listing_ticker": "MCK",
-        "listing_evidence": {
-          "name": "U.S. issuer / domestic listing",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "publisher": "Company Investor Relations",
-          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
-        }
-      },
-      {
         "id": "current-dash-20261102",
         "company": "DoorDash",
         "ticker": "DASH",
@@ -1691,6 +1969,68 @@
         "us_exchange_listed": true,
         "us_listing_exchange": null,
         "us_listing_ticker": "DASH",
+        "listing_evidence": {
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "publisher": "Company Investor Relations",
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
+        }
+      },
+      {
+        "id": "current-mck-20261102",
+        "company": "McKesson",
+        "ticker": "MCK",
+        "event_date": "2026-11-05T05:30:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
+        "importance_rating_source": null,
+        "eps_estimate": 10.69,
+        "eps_actual": null,
+        "revenue_estimate": 109.9,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "醫療通路／藥品配送",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction_window": null,
+        "consensus_source": {
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$10.69；營收預估未在此表提供。"
+        },
+        "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-4",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": null,
+        "us_listing_ticker": "MCK",
         "listing_evidence": {
           "name": "U.S. issuer / domestic listing",
           "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
@@ -1885,66 +2225,6 @@
         }
       },
       {
-        "id": "current-toyota-20261105",
-        "company": "Toyota Motor",
-        "ticker": "TM",
-        "event_date": "2026-11-05T12:00:00+08:00",
-        "session": "unknown",
-        "importance_stars": 4,
-        "importance_basis_source": "TAC四星：全球最大汽車製造商之一，財報對全球汽車需求、日圓、混合動力與電動車競爭及汽車供應鏈具明顯指標性。",
-        "industry": "汽車／全球整車與供應鏈",
-        "reporting_period": "FY2027 Q2",
-        "time_known": false,
-        "time_type": "unknown",
-        "eps_currency": "JPY",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "source": {
-          "name": "Toyota Motor｜Investor Relations Calendar",
-          "url": "https://global.toyota/en/ir/",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:39:11+08:00",
-          "publisher": "Company Investor Relations",
-          "notes": "官方投資人日曆確認 2026-11-05 FY2027 第二季財報；官方頁面未列發布時間，時間與時段待核實。"
-        },
-        "consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
-          "publisher": "TipRanks",
-          "notes": "TipRanks 當日財報行事曆列示之 EPS / Forecast；該頁未披露 GAAP／Adjusted 會計口徑，故標記為未披露，不與其他來源的 EPS basis 混用。"
-        },
-        "eps_basis": "TipRanks basis not disclosed",
-        "eps_estimate": 3.37,
-        "eps_actual": null,
-        "revenue_estimate": 84.74,
-        "revenue_actual": null,
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction": null,
-        "stock_price_reaction_window": null,
-        "price_reaction_source": null,
-        "importance_basis": "major_event_assessment",
-        "importance_rating_source": null,
-        "status": "upcoming",
-        "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
-          "publisher": "TipRanks",
-          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
-        },
-        "issuer_country": "Japan",
-        "us_exchange_listed": true,
-        "us_listing_exchange": "NYSE",
-        "us_listing_ticker": "TM",
-        "listing_evidence": {
-          "name": "Toyota Motor｜SEC 424B2 ADS listing disclosure",
-          "url": "https://www.sec.gov/Archives/edgar/data/1094517/000119312525146113/d64173d424b2.htm",
-          "publisher": "U.S. Securities and Exchange Commission",
-          "notes": "日本發行人；SEC 文件確認 Toyota American Depositary Shares 在 NYSE 以 TM 交易。2026-11-02 重新核對。"
-        }
-      },
-      {
         "id": "current-mt-20261105",
         "company": "ArcelorMittal",
         "ticker": "MT",
@@ -2002,6 +2282,66 @@
           "url": "https://corporate.arcelormittal.com/investors/equity-investors/listing-and-listings-agents",
           "publisher": "Company / depositary official source",
           "notes": "ArcelorMittal官方確認於NYSE以MT掛牌。"
+        }
+      },
+      {
+        "id": "current-toyota-20261105",
+        "company": "Toyota Motor",
+        "ticker": "TM",
+        "event_date": "2026-11-05T12:00:00+08:00",
+        "session": "unknown",
+        "importance_stars": 4,
+        "importance_basis_source": "TAC四星：全球最大汽車製造商之一，財報對全球汽車需求、日圓、混合動力與電動車競爭及汽車供應鏈具明顯指標性。",
+        "industry": "汽車／全球整車與供應鏈",
+        "reporting_period": "FY2027 Q2",
+        "time_known": false,
+        "time_type": "unknown",
+        "eps_currency": "JPY",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": {
+          "name": "Toyota Motor｜Investor Relations Calendar",
+          "url": "https://global.toyota/en/ir/",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:39:11+08:00",
+          "publisher": "Company Investor Relations",
+          "notes": "官方投資人日曆確認 2026-11-05 FY2027 第二季財報；官方頁面未列發布時間，時間與時段待核實。"
+        },
+        "consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 EPS / Forecast；該頁未披露 GAAP／Adjusted 會計口徑，故標記為未披露，不與其他來源的 EPS basis 混用。"
+        },
+        "eps_basis": "TipRanks basis not disclosed",
+        "eps_estimate": 3.37,
+        "eps_actual": null,
+        "revenue_estimate": 84.74,
+        "revenue_actual": null,
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "price_reaction_source": null,
+        "importance_basis": "major_event_assessment",
+        "importance_rating_source": null,
+        "status": "upcoming",
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；營收共識獨立記錄，不覆寫 EPS 共識來源。"
+        },
+        "issuer_country": "Japan",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "TM",
+        "listing_evidence": {
+          "name": "Toyota Motor｜SEC 424B2 ADS listing disclosure",
+          "url": "https://www.sec.gov/Archives/edgar/data/1094517/000119312525146113/d64173d424b2.htm",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "notes": "日本發行人；SEC 文件確認 Toyota American Depositary Shares 在 NYSE 以 TM 交易。2026-11-02 重新核對。"
         }
       },
       {
@@ -2127,68 +2467,6 @@
         }
       },
       {
-        "id": "current-net-20261102",
-        "company": "Cloudflare",
-        "ticker": "NET",
-        "event_date": "2026-11-06T06:00:00+08:00",
-        "session": "after_market",
-        "status": "upcoming",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
-        "importance_rating_source": null,
-        "eps_estimate": 0.02,
-        "eps_actual": null,
-        "revenue_estimate": 0.7368,
-        "revenue_actual": null,
-        "stock_price_reaction": null,
-        "source": {
-          "name": "StockTitan／Nasdaq 週度財報日程",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "StockTitan / Nasdaq",
-          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
-        },
-        "industry": "雲端網路／資安",
-        "reporting_period": "2026 Q3",
-        "time_known": true,
-        "time_type": "call_time",
-        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction_window": null,
-        "consensus_source": {
-          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.02；營收預估未在此表提供。"
-        },
-        "price_reaction_source": null,
-        "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
-          "publisher": "TipRanks",
-          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
-        },
-        "issuer_country": "United States",
-        "us_exchange_listed": true,
-        "us_listing_exchange": null,
-        "us_listing_ticker": "NET",
-        "listing_evidence": {
-          "name": "U.S. issuer / domestic listing",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "publisher": "Company Investor Relations",
-          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
-        }
-      },
-      {
         "id": "current-abnb-20261102",
         "company": "Airbnb",
         "ticker": "ABNB",
@@ -2243,68 +2521,6 @@
         "us_exchange_listed": true,
         "us_listing_exchange": null,
         "us_listing_ticker": "ABNB",
-        "listing_evidence": {
-          "name": "U.S. issuer / domestic listing",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "publisher": "Company Investor Relations",
-          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
-        }
-      },
-      {
-        "id": "current-team-20261102",
-        "company": "Atlassian",
-        "ticker": "TEAM",
-        "event_date": "2026-11-06T06:00:00+08:00",
-        "session": "after_market",
-        "status": "upcoming",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
-        "importance_rating_source": null,
-        "eps_estimate": 0.24,
-        "eps_actual": null,
-        "revenue_estimate": 1.71,
-        "revenue_actual": null,
-        "stock_price_reaction": null,
-        "source": {
-          "name": "StockTitan／Nasdaq 週度財報日程",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "StockTitan / Nasdaq",
-          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
-        },
-        "industry": "企業軟體／協作",
-        "reporting_period": "2026 Q3",
-        "time_known": true,
-        "time_type": "call_time",
-        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction_window": null,
-        "consensus_source": {
-          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.24；營收預估未在此表提供。"
-        },
-        "price_reaction_source": null,
-        "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
-          "publisher": "TipRanks",
-          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
-        },
-        "issuer_country": "United States",
-        "us_exchange_listed": true,
-        "us_listing_exchange": null,
-        "us_listing_ticker": "TEAM",
         "listing_evidence": {
           "name": "U.S. issuer / domestic listing",
           "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
@@ -2375,183 +2591,127 @@
         }
       },
       {
-        "id": "current-mar-20261102",
-        "company": "Marriott International",
-        "ticker": "MAR",
-        "event_date": "2026-11-02T21:00:00+08:00",
-        "session": "before_market",
-        "status": "upcoming",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：全球大型酒店與住宿營運／加盟平台，財報及 RevPAR、客房需求與管理費收入可反映全球旅遊消費景氣；產業指標性明顯，但系統性影響低於全球最大權值企業。",
-        "importance_rating_source": null,
-        "industry": "旅遊／酒店與住宿",
-        "reporting_period": "2026 Q3",
-        "time_known": true,
-        "time_type": "call_time",
-        "eps_basis": "basis not disclosed",
-        "eps_estimate": 2.85,
-        "eps_actual": null,
-        "revenue_estimate": 6.92,
-        "revenue_actual": null,
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction": null,
-        "stock_price_reaction_window": null,
-        "source": {
-          "name": "Marriott Investor Relations｜Q3 2026 earnings release schedule",
-          "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-announces-release-date-third-quarter-2026",
-          "published_at": "2026-10-09",
-          "observed_at": "2026-11-02T03:32:09+08:00",
-          "publisher": "Marriott International Investor Relations",
-          "notes": "公司公告 2026-11-02 約 07:00 ET 發布 Q3 結果，08:00 ET 舉行電話會議；event_date 記錄 08:00 ET call time，換算台灣 21:00，盤前公布。"
-        },
-        "consensus_source": {
-          "name": "MarketBeat｜Marriott Q3 2026 EPS consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-marriott-international-inc-stock/",
-          "publisher": "MarketBeat",
-          "notes": "Q3 2026 EPS consensus US$2.85；來源未明確揭露 GAAP／adjusted 口徑，故 eps_basis 保留 basis not disclosed。"
-        },
-        "revenue_consensus_source": {
-          "name": "MarketBeat｜Marriott Q3 2026 revenue consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-marriott-international-inc-stock/",
-          "publisher": "MarketBeat",
-          "notes": "Q3 2026 revenue consensus US$6.92B；獨立記錄營收共識來源，不覆蓋 EPS 共識來源。"
-        },
-        "price_reaction_source": null,
-        "issuer_country": "United States",
-        "us_exchange_listed": true,
-        "us_listing_exchange": "NASDAQ",
-        "us_listing_ticker": "MAR",
-        "listing_evidence": {
-          "name": "Marriott Investor Relations｜NASDAQ issuer",
-          "url": "https://marriott.gcs-web.com/press-releases",
-          "publisher": "Company Investor Relations",
-          "notes": "公司正式財報公告列示 Marriott International, Inc. (Nasdaq: MAR)。"
-        }
-      },
-      {
-        "id": "current-vrtx-20261102",
-        "company": "Vertex Pharmaceuticals",
-        "ticker": "VRTX",
-        "event_date": "2026-11-03T05:30:00+08:00",
+        "id": "current-net-20261102",
+        "company": "Cloudflare",
+        "ticker": "NET",
+        "event_date": "2026-11-06T06:00:00+08:00",
         "session": "after_market",
         "status": "upcoming",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：全球大型生技製藥企業，囊括囊腫性纖維化、血液疾病及新產品管線；季度業績與新藥商業化、併購整合進度對全球生技產業具指標性，但影響範圍低於全球系統性權值企業。",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
         "importance_rating_source": null,
-        "industry": "生技製藥／創新藥品",
+        "eps_estimate": 0.02,
+        "eps_actual": null,
+        "revenue_estimate": 0.7368,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "雲端網路／資安",
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "basis not disclosed",
-        "eps_estimate": 4.77,
-        "eps_actual": null,
-        "revenue_estimate": 3.41,
-        "revenue_actual": null,
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
         "financial_judgment": null,
-        "stock_price_reaction": null,
         "stock_price_reaction_window": null,
-        "source": {
-          "name": "Vertex Investor Relations｜Q3 2026 results announcement",
-          "url": "https://investors.vrtx.com/node/35036/pdf",
-          "published_at": "2026-10-07",
-          "observed_at": "2026-11-02T03:32:09+08:00",
-          "publisher": "Vertex Pharmaceuticals Investor Relations",
-          "notes": "公司 2026-10-07 公告確認 2026-11-02 美股收盤後發布 Q3 結果，16:30 ET 舉行電話會議；換算台灣時間 2026-11-03 05:30。"
-        },
         "consensus_source": {
-          "name": "Investing.com｜Vertex Pharmaceuticals earnings",
-          "url": "https://www.investing.com/equities/vertex-pharm-earnings",
-          "publisher": "Investing.com",
-          "notes": "Q3 2026 EPS forecast US$4.77；來源未明確揭露 GAAP／adjusted 口徑，故 eps_basis 保留 basis not disclosed。"
-        },
-        "revenue_consensus_source": {
-          "name": "Investing.com｜Vertex Pharmaceuticals revenue consensus",
-          "url": "https://www.investing.com/equities/vertex-pharm-earnings",
-          "publisher": "Investing.com",
-          "notes": "Q3 2026 revenue forecast US$3.41B；與 EPS 共識分欄保存。"
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.02；營收預估未在此表提供。"
         },
         "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
         "issuer_country": "United States",
         "us_exchange_listed": true,
-        "us_listing_exchange": "NASDAQ",
-        "us_listing_ticker": "VRTX",
+        "us_listing_exchange": null,
+        "us_listing_ticker": "NET",
         "listing_evidence": {
-          "name": "Vertex Investor Relations｜NASDAQ issuer announcement",
-          "url": "https://investors.vrtx.com/node/35036/pdf",
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
           "publisher": "Company Investor Relations",
-          "notes": "公司正式公告列示 Vertex Pharmaceuticals Incorporated (Nasdaq: VRTX)。"
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       },
       {
-        "id": "current-on-20261102",
-        "company": "onsemi",
-        "ticker": "ON",
-        "event_date": "2026-11-03T06:00:00+08:00",
+        "id": "current-team-20261102",
+        "company": "Atlassian",
+        "ticker": "TEAM",
+        "event_date": "2026-11-06T06:00:00+08:00",
         "session": "after_market",
         "status": "upcoming",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：S&P 500 半導體供應商，產品涵蓋 AI 資料中心電源／感測、車用與工業半導體；財報可反映功率元件需求及半導體景氣循環，具產業指標性。",
+        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
         "importance_rating_source": null,
-        "industry": "半導體／電源與感測元件",
+        "eps_estimate": 0.24,
+        "eps_actual": null,
+        "revenue_estimate": 1.71,
+        "revenue_actual": null,
+        "stock_price_reaction": null,
+        "source": {
+          "name": "StockTitan／Nasdaq 週度財報日程",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "StockTitan / Nasdaq",
+          "notes": "已確認日期及電話會議時間；頁面連結至發行公司公告。"
+        },
+        "industry": "企業軟體／協作",
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "basis not disclosed",
-        "eps_estimate": 0.877,
-        "eps_actual": null,
-        "revenue_estimate": 1.7,
-        "revenue_actual": null,
+        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
         "financial_judgment": null,
-        "stock_price_reaction": null,
         "stock_price_reaction_window": null,
-        "source": {
-          "name": "onsemi Investor Relations｜Q3 2026 results announcement",
-          "url": "https://investor.onsemi.com/node/23341/pdf",
-          "published_at": "2026-10-15",
-          "observed_at": "2026-11-02T03:32:09+08:00",
-          "publisher": "onsemi Investor Relations",
-          "notes": "公司 2026-10-15 公告確認 2026-11-02 美股收盤後發布 Q3 結果，17:00 ET 舉行電話會議；換算台灣時間 2026-11-03 06:00。"
-        },
         "consensus_source": {
-          "name": "MarketBeat｜onsemi Q3 2026 EPS consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-on-semiconductor-co-stock/",
-          "publisher": "MarketBeat",
-          "notes": "Q3 2026 EPS consensus US$0.877；來源未明確揭露 GAAP／adjusted 口徑，故 eps_basis 保留 basis not disclosed。"
-        },
-        "revenue_consensus_source": {
-          "name": "MarketBeat｜onsemi Q3 2026 revenue consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-2-on-semiconductor-co-stock/",
-          "publisher": "MarketBeat",
-          "notes": "Q3 2026 revenue consensus US$1.70B；獨立保存營收共識來源。"
+          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
+          "published_at": null,
+          "observed_at": "2026-11-01T12:17:52+08:00",
+          "publisher": "Nasdaq via StockTitan",
+          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.24；營收預估未在此表提供。"
         },
         "price_reaction_source": null,
+        "revenue_consensus_source": {
+          "name": "TipRanks｜Earnings Calendar",
+          "url": "https://www.tipranks.com/calendars/earnings/2026-11-5",
+          "publisher": "TipRanks",
+          "notes": "TipRanks 當日財報行事曆列示之 Revenue / Forecast；獨立保存營收共識來源，不覆寫既有 EPS 共識及其會計口徑。"
+        },
         "issuer_country": "United States",
         "us_exchange_listed": true,
-        "us_listing_exchange": "NASDAQ",
-        "us_listing_ticker": "ON",
+        "us_listing_exchange": null,
+        "us_listing_ticker": "TEAM",
         "listing_evidence": {
-          "name": "onsemi Investor Relations｜NASDAQ issuer announcement",
-          "url": "https://investor.onsemi.com/node/23341/pdf",
+          "name": "U.S. issuer / domestic listing",
+          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
           "publisher": "Company Investor Relations",
-          "notes": "公司正式公告列示 onsemi (Nasdaq: ON)，並註明公司為 S&P 500 成分股。"
+          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
       }
     ]
@@ -2592,10 +2752,14 @@
         "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate",
         "https://forexfundamentals.com/economic-calendar/boe/next",
         "https://www.arabictrader.com/en/economic-calendar/301/135940/cpi-flash-estimate-yy",
-        "https://www.bcb.gov.br/detalhenoticia/20739/nota/https%3A/www3.bcb.gov.br/sgspub"
+        "https://www.bcb.gov.br/detalhenoticia/20739/nota/https%3A/www3.bcb.gov.br/sgspub",
+        "https://finance.sina.com.cn/roll/2026-10-30/doc-iniwywtv8245573.shtml",
+        "https://www.reuters.com/world/asia-pacific/china-cbank-injects-cash-shifts-overnight-rate-key-policy-lever-2026-11-02/",
+        "https://hk.investing.com/economic-calendar/adp-nonfarm-employment-change-1",
+        "https://hk.investing.com/economic-calendar/nonfarm-payrolls-227"
       ],
-      "checked_at": "2026-11-02T03:32:09+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。"
+      "checked_at": "2026-11-02T12:47:51+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。"
     },
     "earnings": {
       "status": "incomplete",
@@ -2649,10 +2813,16 @@
         "https://corporate.arcelormittal.com/investors/equity-investors/listing-and-listings-agents",
         "https://www.philips.com/a-w/about/investor-relations/stock.html",
         "https://global.toyota/en/newsroom/corporate/44579871.html",
-        "https://www.sony.com/en/SonyInfo/IR/faq/stock_general.html"
+        "https://www.sony.com/en/SonyInfo/IR/faq/stock_general.html",
+        "https://investors.fiserv.com/node/53131/pdf",
+        "https://www.marketbeat.com/earnings/reports/2026-11-3-fiserv-inc-stock/",
+        "https://www.investor.fisglobal.com/news-releases/news-release-details/fis-announced-new-date-third-quarter-earnings-november-4-2026/",
+        "https://www.marketbeat.com/earnings/reports/2026-11-3-fidelity-national-information-services-inc-stock/",
+        "https://www.berkshirehathaway.com/news/2026news.html",
+        "https://www.svmuu.com/ko/calendar/earnings/brk-b/"
       ],
-      "checked_at": "2026-11-02T03:32:09+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。"
+      "checked_at": "2026-11-02T12:47:51+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。"
     }
   },
   "audit": [
@@ -9276,6 +9446,171 @@
       "action": "previous_week_summary_recorded",
       "source": "data/calendar/weeks/2026-W44.json",
       "note": "2026-W44（2026-10-26 至 2026-11-01）上週摘要。僅摘要 W44 現有正式 5 星事件；W44 原始事件、來源及 audit 全數保留於原 JSON，且其 coverage 仍為 incomplete，故本摘要不宣稱涵蓋全市場。\n經濟事件 8 筆：\n- 日本央行（BOJ）利率決策及10月展望報告：實際 1.25%（維持不變；8比1表決）；BOJ以8比1維持政策利率1.25%，一名委員主張升至1.50%；央行上調部分通膨預測並重申必要時續升息，屬偏鷹派按兵不動。\n- 美國第三季 GDP 初值（年化季增率）：實際 3.4%；實際GDP年化季增3.4%，高於Investing.com市場共識3.2%，顯示第三季經濟仍具韌性；成長主要由AI相關投資與消費支出支撐，但進口大增及出口下滑抵銷部分增幅。\n- 美國個人所得與支出／PCE 物價指數（9月）：實際 PCE月增0.5%、年增3.6%；核心PCE月增0.3%、年增3.1%；整體與核心月增率均未顯示通膨快速降溫，核心年增率仍高於聯準會2%目標，增加利率維持高檔或再升息的壓力。\n- 歐洲央行 ECB 利率決策：實際 三項主要利率維持不變；ECB維持利率，但明確指出能源價格帶來通膨上行與成長下行的雙向風險，政策仍採逐次會議、依數據決策。\n- 聯準會 FOMC 利率決策：實際 維持3.75%–4.00%；投票10比2，兩名委員主張升息25個基點；表面維持利率不變，但兩名委員異議支持升息，搭配通膨仍高，政策風險偏向重新緊縮，需留意市場對12月利率路徑重新定價。\n- 加拿大央行（BoC）利率決策：實際 2.50%（升息25基點；Bank Rate 2.75%、存款利率2.45%）；加拿大央行首度自2023年7月以來升息，反映能源價格推升通膨風險及經濟活動較預期具韌性；決策方向偏鷹，需留意加拿大短端利率與加幣重新定價。\n- 紐西蘭央行（RBNZ）利率決策：實際 2.75%（維持不變；4比3表決，三名委員主張升息至3.00%）；結果明顯低於市場升息預期，紐元一度下跌約1.74%，紐西蘭兩年期swap利率亦急挫。央行雖維持利率，但表示未來可能仍需收緊政策，政策分歧與後續升息時點成為焦點。\n- 澳洲9月消費者物價指數（CPI）：實際 CPI年增4.3%；Trimmed mean年增3.6%；第三季CPI季增1.3%，季度Trimmed mean季增1.0%；通膨高於預期且核心指標同步升溫，市場提高RBA於11月升息25基點的機率，澳幣獲得支撐；能源與住房成本推升通膨，增加政策收緊壓力。\n財報事件 8 筆：\n- AstraZeneca（AZN）：EPS 2.79 / 共識 2.59（beat）；營收 16.209 / 共識 15.94（beat）；股價反應 財報公布後首個常規交易日（10/30）收盤 +7.02%；Q3 Core EPS US$2.79，高於Reuters彙整分析師預期US$2.59；總營收US$16.209B，高於預期US$15.94B。公司維持2026全年指引，腫瘤及罕見疾病藥物帶動成長。\n- 亞馬遜 Amazon（AMZN）：EPS 1.89 / 共識 1.96（miss）；營收 201.9 / 共識 202.1（miss）；股價反應 財報公布後首個常規交易日（10/30）收盤 -1.41%；GAAP EPS 與營收均略低於市場共識；AWS 成長仍強，但市場關注零售利潤率、AI 基礎設施支出及自由現金流。\n- 英特爾 Intel（INTC）：EPS 0.52 / 共識 0.4（beat）；營收 16.5 / 共識 16.48（beat）；股價反應 財報公布後首個常規交易日（10/30）收盤 -28.58%；Non-GAAP EPS 高於共識，營收僅略高於預期；但第四季營收與 EPS 指引偏弱、PC 需求放緩疑慮升高，股價於首個常規交易日重挫 28.58%。\n- Mastercard（MA）：EPS 5.31 / 共識 5.14（beat）；營收 9.81 / 共識 9.63（beat）；股價反應 財報公布後首個常規交易日（10/29）收盤 +4.16%；調整後 EPS 與營收均高於共識；淨營收年增14%，支付量與跨境交易維持成長。\n- Shell（SHEL）：EPS 3.86 / 共識 3.54（beat）；營收 95.32 / 共識 95.17（beat）；股價反應 財報公布後首個常規交易日（10/29）收盤 +2.36%；Adjusted EPS per ADR US$3.86，高於共識US$3.54；Total revenue and other income US$95.32B，高於共識US$95.17B。公司Adjusted Earnings達US$10.8B、營運現金流US$21.0B，並宣布未來三個月US$5B庫藏股。\n- 微軟 Microsoft（MSFT）：EPS 4.89 / 共識 4.72（beat）；營收 92.279 / 共識 90.61（beat）；股價反應 財報公布後首個常規交易日（10/29）收盤 -0.16%；Non-GAAP EPS 與營收均高於共識；Azure 年增 48%，雲端需求仍強，但市場仍評估 AI 資本支出與現金流回收。\n- Alphabet（Google）（GOOGL）：EPS 2.67 / 共識 3.02（miss）；營收 127.577 / 共識 128.2（miss）；股價反應 財報公布後首個常規交易日（10/29）收盤 -12.64%；Reuters/LSEG 調整後 EPS 與營收均低於共識；Google Cloud 成長強勁，但搜尋廣告失速、負自由現金流及 AI 資本支出擴張壓力蓋過雲端亮點。\n- Visa（V）：EPS 3.48 / 共識 3.44（beat）；營收 12.14 / 共識 12.09（beat）；股價反應 財報公布後首個常規交易日（10/28）收盤 -0.31%；Non-GAAP EPS 與營收均高於共識；支付量年增9%、跨境支付量年增14%，但客戶激勵費用增加，市場同時評估 FY2027 指引。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "wr_lock_applied",
+      "source": "https://github.com/lion-invlab/lion-invlab.github.io/blob/4fb559fc5670a7590b31738041b3a1cdb60539db/TAC_WORK_RULES.md",
+      "note": "本次唯一 WR lock：version=4.3; main commit SHA=4fb559fc5670a7590b31738041b3a1cdb60539db; TAC_WORK_RULES.md blob SHA=45da40e9350d1fbb9f7660f2f28d9e46ed278678; content SHA-256=dacfceabbd392b6880b280789242ea4dbbda4109134ac9a94fdbb1df35007d8d; locked_at=2026-11-02T12:47:51+08:00。全程固定使用此版本。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "wr_version_updated",
+      "source": "https://github.com/lion-invlab/lion-invlab.github.io/blob/4fb559fc5670a7590b31738041b3a1cdb60539db/TAC_WORK_RULES.md",
+      "changed_fields": [
+        "wr_version"
+      ],
+      "before": "3.12",
+      "after": "4.3",
+      "note": "W45 wr_version 由舊標記 3.12 更新為本次 main 固定 WR lock 的 4.3；歷史 audit 保留原紀錄，不回填。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_added",
+      "event_id": "current-pboc-overnight-framework-20261102",
+      "changed_fields": [
+        "event"
+      ],
+      "after": {
+        "id": "current-pboc-overnight-framework-20261102",
+        "event_date": "2026-11-02T12:00:00+08:00",
+        "region": "中國",
+        "event_name": "中國人民銀行｜公開市場操作框架轉向每日隔夜逆回購（11/02 起實施）",
+        "importance_stars": 4,
+        "status": "released",
+        "actual": "2026-11-02 起每日隔夜逆回購操作正式啟動，操作利率 1.25%；首日操作量人民幣 5,410 億元。",
+        "time_known": false
+      },
+      "source": "https://finance.sina.com.cn/roll/2026-10-30/doc-iniwywtv8245573.shtml",
+      "note": "依 PBOC 公告［2026］第13號及 Reuters 首日操作報導新增；TAC 獨立評四星。非數值政策框架事件，previous／forecast 不適用；精確操作時刻未知，12:00 僅作日期佔位。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_updated",
+      "event_id": "current-adp-20261104",
+      "changed_fields": [
+        "source.observed_at",
+        "source.notes",
+        "data_reference"
+      ],
+      "before": {
+        "data_reference": {
+          "name": "Investing.com｜U.S. ADP Nonfarm Employment Change",
+          "url": "https://ca.investing.com/economic-calendar/---------adp-1",
+          "publisher": "Investing.com",
+          "notes": "2026-11-04：forecast 68.00K、previous 90.00K；時間欄 13:15 UTC，換算台灣時間 21:15。"
+        },
+        "source_observed_at": "2026-11-02T03:32:09+08:00",
+        "source_notes": "官方報告頁確認本次為 2026-11-04 October report；Investing.com 經濟日曆列 08:15 UTC，換算台灣時間 21:15。前值 90K、共識 68K。"
+      },
+      "after": {
+        "data_reference": {
+          "name": "Investing.com 香港｜美國 ADP 非農就業人數變化",
+          "url": "https://hk.investing.com/economic-calendar/adp-nonfarm-employment-change-1",
+          "publisher": "Investing.com Hong Kong",
+          "notes": "2026-11-04（10月）：forecast 68.00K、previous 90.00K；08:15 EST = 13:15 UTC = 21:15 Asia/Taipei。"
+        },
+        "source_observed_at": "2026-11-02T12:47:51+08:00",
+        "source_notes": "ADP 官方報告頁確認本次為 2026-11-04 October report；Investing.com 香港站列 08:15 EST（13:15 UTC），換算台灣時間 21:15。前值 90K、共識 68K。"
+      },
+      "source": "https://hk.investing.com/economic-calendar/adp-nonfarm-employment-change-1",
+      "note": "以 Investing.com 香港站替換原加拿大站 data_reference；forecast 68K、previous 90K 與台灣時間 21:15 均重新核對，數值不變。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_updated",
+      "event_id": "current-us-nfp-20261106",
+      "changed_fields": [
+        "source.observed_at",
+        "source.notes",
+        "data_reference"
+      ],
+      "before": {
+        "data_reference": {
+          "name": "Investing.com｜U.S. Nonfarm Payrolls",
+          "url": "https://ca.investing.com/economic-calendar/nonfarm-payrolls-227",
+          "publisher": "Investing.com",
+          "notes": "2026-11-06 headline payroll consensus 63.00K、previous 29.00K。平均時薪及失業率 components 保留原 TD Economics/Bloomberg consensus 來源，未與 headline 混用。"
+        },
+        "source_observed_at": "2026-11-02T03:32:09+08:00",
+        "source_notes": "BLS 官方確認 October 2026 Employment Situation 於 2026-11-06 08:30 ET 發布，換算台灣時間 21:30。"
+      },
+      "after": {
+        "data_reference": {
+          "name": "Investing.com 香港｜美國非農就業人數",
+          "url": "https://hk.investing.com/economic-calendar/nonfarm-payrolls-227",
+          "publisher": "Investing.com Hong Kong",
+          "notes": "2026-11-06（10月）：headline payroll forecast 63.00K、previous 29.00K；08:30 EST = 13:30 UTC = 21:30 Asia/Taipei。平均時薪與失業率 components 仍沿用 TD Economics／Bloomberg 共識，未與 headline 混用。"
+        },
+        "source_observed_at": "2026-11-02T12:47:51+08:00",
+        "source_notes": "BLS 官方確認 October 2026 Employment Situation 於 2026-11-06 08:30 EST 發布，換算台灣時間 21:30；headline forecast／previous 另以 Investing.com 香港站核對。"
+      },
+      "source": "https://hk.investing.com/economic-calendar/nonfarm-payrolls-227",
+      "note": "headline NFP data_reference 改用 Investing.com 香港站；forecast 63K、previous 29K 及台灣時間 21:30 重新核對，數值不變。平均時薪與失業率次指標維持原獨立共識來源。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_added",
+      "event_id": "current-fisv-20261103",
+      "changed_fields": [
+        "event"
+      ],
+      "after": {
+        "id": "current-fisv-20261103",
+        "company": "Fiserv",
+        "ticker": "FISV",
+        "event_date": "2026-11-03T21:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "eps_estimate": 1.72,
+        "revenue_estimate": 4.85,
+        "us_listing_exchange": "NASDAQ"
+      },
+      "source": "https://investors.fiserv.com/node/53131/pdf",
+      "note": "公司 IR 確認 11/03 盤前及 8:00 ET 電話會議；MarketBeat 提供 EPS US$1.72、營收 US$4.85B。TAC 獨立評四星，EPS 口徑未披露。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_added",
+      "event_id": "current-fis-20261104",
+      "changed_fields": [
+        "event"
+      ],
+      "after": {
+        "id": "current-fis-20261104",
+        "company": "FIS",
+        "ticker": "FIS",
+        "event_date": "2026-11-04T21:30:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "eps_estimate": 1.6,
+        "revenue_estimate": 3.43,
+        "us_listing_exchange": "NYSE"
+      },
+      "source": "https://www.investor.fisglobal.com/news-releases/news-release-details/fis-announced-new-date-third-quarter-earnings-november-4-2026/",
+      "note": "依 FIS 10/20 官方改期公告，將正式事件排於 11/04 盤前、8:30 EST；MarketBeat 共識 EPS US$1.60、營收 US$3.43B 僅作估值來源。TAC 獨立評四星，EPS 口徑未披露。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_excluded",
+      "event_id": "candidate-scan-low-impact-macro-20261102",
+      "reason": "TD Economics 11/2–11/6 與 Investing.com 香港站候選掃描中的 S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均屬常規或次級資料，TAC 獨立評級未達四星，故不放入正式 events。",
+      "source": "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-10-30/upcoming.htm",
+      "note": "候選掃描排除紀錄；不因外部日曆列示或 Investing.com 外部星等而自動納入。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "event_excluded",
+      "event_id": "candidate-berkshire-q3-2026",
+      "reason": "Berkshire Hathaway 官方 2026 News Releases 截至 2026-11-02 未列 Q3 2026 財報日期；第三方日曆分別出現 11/02 估計與 11/07 未確認日期，缺乏公司 IR 確認，無法安全設定 event_date，故暫不納入正式 earnings events。",
+      "source": "https://www.berkshirehathaway.com/news/2026news.html",
+      "note": "保留待公司正式公告後再建立事件；不得以第三方估計日期填入正式資料庫。"
+    },
+    {
+      "at": "2026-11-02T12:47:51+08:00",
+      "action": "previous_week_metadata_discrepancy",
+      "source": "data/calendar/weeks/2026-W44.json",
+      "note": "週一摘要核對發現 W44 top-level week_end 為 2026-10-30（週五），但 ISO 2026-W44 週一至週日應為 2026-10-26 至 2026-11-01；W45 既有上週摘要已按 10/26–11/01 範圍記錄。依本次僅更新目標 W45 的寫入範圍，未修改 W44；需在 W44 專項修正時處理其 week_end。"
     }
   ]
 }
