@@ -48,3 +48,18 @@
 - 排程查核限制：05:25 的最新 last_run 記錄為 failed（run id 08392cbd-67e8-832f-a978-963b5c8c5887）；工具回傳的 latest_result 卻屬更早 run id f6f529cd-6410-8331-a946-630b1aceecb6，不能拿舊的路徑錯誤訊息當作這次失敗原因。05:25 排程目前 is_enabled=true，下一次應於 2026-11-03 05:25 Asia/Taipei 執行；失敗根因尚待取得該次執行對話／錯誤細節。
 - 05:00 與 05:25 的季節切換依 America/New_York EDT/EST；目前為 EST，11/03 應由 05:25 排程負責。03:30、05:25 均啟用；05:00 在 EST 必須自行 no-op。
 - 未修改 Manifest、雙母版、preview、index.html、行事曆 JSON。Pages workflow 正式首頁更新觸發缺口仍是另一項待辦，不屬於排程時間修正。
+
+
+## 2026-11-02｜全產線 WR 執行版本鎖定與部署鏈修正（PR #270）
+- 使用者要求盤點並修正整條早報產線的規則繼承問題，避免 WR 更新後排程、CI、部署或資料工具繼續沿用舊規則。
+- 建立 feature branch：`fix/tac-wr-runtime-lock-20261102`；PR #270： https://github.com/lion-invlab/lion-invlab.github.io/pull/270 。目前尚未合併，main 不受影響。
+- WR 分支版本升至 v4.3，加入全產線單次執行 WR lock 規格：記錄版本、Git commit SHA、WR blob SHA、內容 SHA-256；同次執行所有模組沿用同一版本；讀取／解析失敗重試一次後 fail closed。
+- 新增 `scripts/tac_wr_lock.py`：從指定 Git ref 解析 WR 版本與 commit/blob/content SHA，產生 JSON lock record；含版本解析及 fail-closed self-test。
+- Structural Gate workflow 加入 WR／lock script 變更觸發，PR 以受測 HEAD、main push 以最新 origin/main 建立 lock；將 lock JSON 寫入 step summary 並上傳 artifact。PR #270 首輪 run `41385401201` 的 lock step、artifact upload、lock parser、snapshot schema／assembler、母版欄位綁定、行情 collector 與 DOM contract 均通過；Playwright 尚在執行中。
+- 快照 Schema 移除固定 `wr_version=3.5`，改為版本格式驗證，並允許保存 WR commit SHA、blob SHA、內容 SHA-256；快照測試資料改從目前 WR 讀取版本，若設定 lock file 則寫入 lock provenance；正式快照驗證預設拒絕舊 WR 版本，歷史驗證需明確使用 `--allow-historical-wr`。
+- 三個排程 prompt 已更新：03:30、05:00、05:25 均要求每次執行先解析 main HEAD，再以該 commit 讀取 WR，建立唯一 lock，確認版本／commit／blob／內容 SHA，整次工作不混用版本；讀取失敗重試一次後停止受影響工作。排程啟用狀態與時間未變。
+- Pages workflow 已加入受測 commit 的 WR lock；Structural Gate 觸發範圍加入 `index.html`，Pages release 條件支援通過 Gate 的 canonical preview 或首頁更新，線上驗證不再錯誤地要求所有預覽都含週一專屬上週區塊，改驗證 TAC 通用核心區塊。
+- 修正 Pages workflow 的 shell regex escaping，並把 `.github/workflows/pages.yml` 加入 Structural Gate 的 push／PR 觸發路徑。
+- 保護範圍：沒有修改 main、index.html、雙母版、Manifest 或 W45 JSON。W45 的 `wr_version=3.12` 保留作歷史紀錄，不回填成新版本。
+- 目前 PR 最新 head：`626058495a6910e58b8d9f52284c05a94b0d4140`；最新 Structural Gate run `41385521727` 正在執行 Playwright 安裝／回歸；Mother Template Guard run `41385521784` success。
+- 待辦：確認最新 PR run 完成及 lock artifact 內容；若全部通過，保留 PR 等待合併；合併後 main 才正式升至 WR v4.3。下一次 03:30／05:25 實際執行須確認報告中的 WR lock，不能只憑 prompt 更新宣稱端到端已完成。

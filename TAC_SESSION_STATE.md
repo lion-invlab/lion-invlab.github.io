@@ -401,3 +401,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 三個排程均沒有授權自行更新首頁；05:00／05:25 只產出 preview/YYYY-MM-DD.html。11/02 早報已核准發布的狀態仍依第 20 節記錄。
 - 未修改 Manifest、雙母版、行事曆 JSON、preview 或 index.html。Pages workflow 正式首頁發布觸發缺口仍待獨立修復。
 - 工作紀錄：TAC_WORK_LOG.md 已新增本次排程查核及 WR v4.1 變更。
+
+
+## 22. 2026-11-02｜目前交接狀態：WR runtime lock PR #270
+- 目前工作分支：`fix/tac-wr-runtime-lock-20261102`；PR #270 尚未合併，main 仍維持 WR v4.2，分支內 WR 為 v4.3。
+- PR 內容：WR v4.3 執行鎖規則、`scripts/tac_wr_lock.py`、Structural Gate lock + artifact、snapshot schema 動態版本與 SHA provenance、三個排程 prompt 更新、Pages workflow lock 與 index.html 部署觸發修正。
+- 三個 Automations ID：03:30 `6ae6dff2200c81919ba2cee4db78f8a5`、05:00 `6ad9e48c33c081918a32b34fa3bb9e9c`、05:25 `6ae1819903348191951f91de2b2e0591`；均已回讀確認啟用，且 prompt 含 WR 最新版本鎖定要求。排程時間未變。
+- 目前 PR head SHA：`626058495a6910e58b8d9f52284c05a94b0d4140`。最新 Structural Gate run `41385521727`：lock、artifact、Python self-test、snapshot schema／assembler、母版欄位與 HTML binding、行情 collector、DOM contract 已通過；Playwright 尚待完成。Mother Template Guard run `41385521784` success。
+- 重要限制：prompt 更新成功不等於排程實際執行成功；WR v4.3 尚未進 main；main 最新 WR 仍是 v4.2，直到 PR 合併。歷史 W45 `wr_version=3.12` 不應回填。
+- 下一步：取得 run `41385521727` 最終結果與 lock artifact；修復任何失敗；通過後合併 PR #270，確認 main WR v4.3 及 workflow 觸發；再驗證 Pages 部署鏈及下一次排程產線確實回報相同 WR lock。

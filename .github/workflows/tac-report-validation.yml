@@ -5,6 +5,9 @@ on:
     branches: ["main"]
     paths:
       - "2026-*.html"
+      - "index.html"
+      - "TAC_WORK_RULES.md"
+      - "scripts/tac_wr_lock.py"
       - "review/2026-*-review.html"
       - "preview/2026-*.html"
       - "demo-2026-10-26.html"
@@ -25,10 +28,14 @@ on:
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
+      - ".github/workflows/pages.yml"
   pull_request:
     branches: ["main"]
     paths:
       - "2026-*.html"
+      - "index.html"
+      - "TAC_WORK_RULES.md"
+      - "scripts/tac_wr_lock.py"
       - "review/2026-*-review.html"
       - "preview/2026-*.html"
       - "demo-2026-10-26.html"
@@ -63,10 +70,37 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Lock authoritative TAC Work Rules revision
+        id: wr-lock
+        shell: bash
+        run: |
+          git fetch origin main --prune
+          if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+            wr_ref="HEAD"
+          else
+            wr_ref="origin/main"
+          fi
+          mkdir -p artifacts
+          python scripts/tac_wr_lock.py --ref "$wr_ref" --output artifacts/tac-wr-lock.json
+          echo "TAC_WR_LOCK_FILE=artifacts/tac-wr-lock.json" >> "$GITHUB_ENV"
+          echo "## TAC Work Rules lock" >> "$GITHUB_STEP_SUMMARY"
+          cat artifacts/tac-wr-lock.json >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload TAC Work Rules lock record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-wr-lock-${{ github.run_id }}
+          path: artifacts/tac-wr-lock.json
+          if-no-files-found: error
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Test TAC Work Rules lock parser
+        run: python scripts/tac_wr_lock.py --self-test
 
       - name: Install snapshot schema validator
         run: python -m pip install jsonschema requests beautifulsoup4
