@@ -55,15 +55,16 @@ jobs:
             const preview = changed.find(path => /^preview\/20[0-9]{2}-[0-9]{2}-[0-9]{2}\.html$/.test(path));
             const homepage = changed.includes("index.html");
             const volatilityDashboard = changed.includes("volatility.html");
+            const pagesWorkflow = changed.includes(".github/workflows/pages.yml");
 
             if (preview) {
               core.setOutput("should_deploy", "true");
               core.setOutput("preview_path", preview);
               core.info(`Validated dated preview changed: ${preview}`);
-            } else if (homepage || volatilityDashboard) {
+            } else if (homepage || volatilityDashboard || pagesWorkflow) {
               core.setOutput("should_deploy", "true");
               core.setOutput("preview_path", "");
-              core.info(homepage ? "Approved homepage changed; deploy root site." : "Volatility dashboard changed; deploy root site.");
+              core.info(homepage ? "Approved homepage changed; deploy root site." : volatilityDashboard ? "Volatility dashboard changed; deploy root site." : "Pages workflow changed; deploy root site to validate deployment configuration.");
             } else {
               core.setOutput("should_deploy", "false");
               core.setOutput("preview_path", "");
