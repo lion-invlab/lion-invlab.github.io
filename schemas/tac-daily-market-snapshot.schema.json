@@ -50,6 +50,18 @@
         "wr_version": {
           "type": "string",
           "pattern": "^[0-9]+\\.[0-9]+$"
+        },
+        "wr_commit_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "wr_blob_sha": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "wr_content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
         }
       }
     },
