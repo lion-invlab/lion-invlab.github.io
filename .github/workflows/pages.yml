@@ -31,21 +31,46 @@ jobs:
           ref: ${{ github.event.workflow_run.head_sha || github.sha }}
           fetch-depth: 0
 
-      - name: Require a changed canonical dated preview
+      - name: Lock validated TAC Work Rules revision
+        shell: bash
+        run: |
+          git fetch origin main --prune
+          mkdir -p artifacts
+          python scripts/tac_wr_lock.py --ref HEAD --output artifacts/tac-wr-lock.json
+          echo "TAC_WR_LOCK_FILE=artifacts/tac-wr-lock.json" >> "$GITHUB_ENV"
+          echo "## TAC Work Rules lock" >> "$GITHUB_STEP_SUMMARY"
+          cat artifacts/tac-wr-lock.json >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload TAC Work Rules lock record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-pages-wr-lock-${{ github.run_id }}
+          path: artifacts/tac-wr-lock.json
+          if-no-files-found: error
+
+      - name: Require a changed canonical preview or homepage
         id: release
         if: github.event_name == 'workflow_run'
         shell: bash
         run: |
           sha="${{ github.event.workflow_run.head_sha }}"
           changed="$(git diff --name-only "$sha^1" "$sha")"
-          preview="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
+          preview="$(printf '%s\\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\\.html$' | head -n 1 || true)"
+          homepage="$(printf '%s\\n' "$changed" | grep -Fx 'index.html' || true)"
           if [ -n "$preview" ]; then
             echo "should_deploy=true" >> "$GITHUB_OUTPUT"
             echo "preview_path=$preview" >> "$GITHUB_OUTPUT"
+            echo "deploy_target=preview" >> "$GITHUB_OUTPUT"
             echo "Validated dated preview changed: $preview"
+          elif [ -n "$homepage" ]; then
+            echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            echo "preview_path=" >> "$GITHUB_OUTPUT"
+            echo "deploy_target=homepage" >> "$GITHUB_OUTPUT"
+            echo "Approved homepage changed; deploy root site."
           else
             echo "should_deploy=false" >> "$GITHUB_OUTPUT"
-            echo "SKIP: validation succeeded but this commit did not change a canonical dated preview."
+            echo "SKIP: validation succeeded but neither a canonical preview nor index.html changed."
           fi
 
       - name: Configure Pages
@@ -63,30 +88,34 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Verify deployed canonical preview URL
+      - name: Verify deployed report URL
         if: github.event_name == 'workflow_run' && steps.release.outputs.should_deploy == 'true'
         shell: bash
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
           PREVIEW_PATH: ${{ steps.release.outputs.preview_path }}
         run: |
-          if [ -z "$PAGE_URL" ] || [ -z "$PREVIEW_PATH" ]; then
-            echo "FAIL: Pages URL or canonical preview path is missing."
+          if [ -z "$PAGE_URL" ]; then
+            echo "FAIL: Pages deployment URL is missing."
             exit 1
           fi
-          url="${PAGE_URL%/}/$PREVIEW_PATH"
+          if [ -n "$PREVIEW_PATH" ]; then
+            url="${PAGE_URL%/}/$PREVIEW_PATH"
+          else
+            url="${PAGE_URL%/}/"
+          fi
           for attempt in $(seq 1 12); do
-            status="$(curl --location --silent --show-error --output /tmp/tac-preview.html --write-out '%{http_code}' "$url" || true)"
+            status="$(curl --location --silent --show-error --output /tmp/tac-report.html --write-out '%{http_code}' "$url" || true)"
             if [ "$status" = "200" ] \
-              && grep -Fq 'TAC 投資早報' /tmp/tac-preview.html \
-              && grep -Fq 'id="last-week-calendar"' /tmp/tac-preview.html \
-              && grep -Fq 'id="last-week-earnings"' /tmp/tac-preview.html; then
-              echo "PASS: deployed preview URL returned HTTP 200 and expected Monday report sections."
+              && grep -Fq 'TAC 投資早報' /tmp/tac-report.html \
+              && grep -Fq 'id="overview"' /tmp/tac-report.html \
+              && grep -Fq 'id="sentiment"' /tmp/tac-report.html; then
+              echo "PASS: deployed report URL returned HTTP 200 and expected TAC report sections."
               echo "Verified URL: $url"
               exit 0
             fi
             echo "Attempt $attempt/12: HTTP $status; waiting for Pages propagation."
             sleep 5
           done
-          echo "FAIL: deployed preview URL did not return the expected report content: $url"
+          echo "FAIL: deployed report URL did not return expected TAC report content: $url"
           exit 1
