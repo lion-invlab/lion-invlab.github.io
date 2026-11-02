@@ -295,3 +295,19 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - W45 DB SHA：`c15b7aaee56b95b38d5983bbf174f3e9bba894b2`。
 - 正式首頁 SHA：`bf853317df07920d4a91db7103c2f95b0a1ed725`；應維持 `bf853317df07920d4a91db7103c2f95b0a1ed725`，本輪未修改。
 - 本輪只修改 `preview/2026-11-02.html` 與 `TAC_SESSION_STATE.md`；沒有修改 WR、Manifest、雙母版、W44/W45 DB 或正式首頁。
+
+
+## 14. 2026-11-02 接續驗收補充（最新 main 回讀）
+
+最後核對：2026-11-02（台灣時間）
+- main HEAD：`c83ef57131840e1469a098dca86381a20af5fec0`，commit message：`Record final TAC 2026-11-02 preview validation and impact analysis`。
+- 本節寫入前，`TAC_SESSION_STATE.md` blob SHA：`20cd7555fe402012b877743f97d25453236ac657`。
+- 正式 WR v4.0 SHA：`4b18a156805f19521356a247e7e11f1cfacbded6`；Manifest SHA：`6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`；週一母版 SHA：`0ea4775c5d15899a1e0b0a97c78744d90b8fff22`；預覽 SHA：`1106c98b0347e20ef33154e928d7cee1268f2d0e`。
+- 預覽內容最後一次變更 commit：`d5974dc226dfaa45bfd41ad5c43c43a31ccf1153`（補入上週經濟事件結果比較與市場影響判讀）；後續 main HEAD 的 `c83ef57...` 只更新本狀態檔，沒有改預覽。
+- 最新結構 Gate：run `41376653308`，job `125058254224`，結論 success。Log 明確指出：市場欄位契約檢查是結構檢查，不代表行情數值／日期／來源已核實；HTML validator 通過週一母版 anchors、結構與 local links；兩個重複 ID 是母版既有警告；Structural Gate 本身不是完整資料或互動驗收。
+- 最新 Playwright layout regression：同一 run，desktop-1440、tablet-768、mobile-320 全部通過 section geometry、computed layout、overflow；截圖 artifact `13111781056`。測試腳本 `scripts/tac_browser_layout_regression.mjs` 目前只逐 viewport 點擊第一個 details disclosure 及第二個 TAC tab，並未逐項測完所有卡片、tabs、導航。
+- Pages deploy run：`41376710207`，結論 success，對應預覽 commit `d5974dc...`。本輪 web 開啟 Pages URL 仍不可讀取，因此「部署 job 成功」已確認，但「本輪獨立瀏覽器實際載入 URL」仍未確認。
+- 最新靜態盤點：母版／預覽分別為 style 124／124、script 25／25、ID attribute 183／183；預覽 HTML 另有 86 個 details 與 86 個 summary、10 個 `tac-tab-radio`、21 個 radio、258 個 anchors（其中 13 個頁內錨點，未發現缺失目標）、0 個初始 open details。預覽 250 個 ID attributes、248 個唯一 ID；兩組重複 ID 僅為 `tac-toolbar-bubble-preview-v1` 與 `tac-toolbar-bubble-preview-v1-js`，與母版一致。
+- 上週經濟／財報兩區及其導航存在；兩區初始收折。行事曆紅色圓形加號 CSS 可見 32px 寬、高、min-width／flex-basis 設定。
+- 正式首頁 `index.html` SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`，未修改。未修改 WR、Manifest、母版或 W45 DB。
+- **交付狀態：** 結構 Gate 與三種 viewport 版面回歸通過；靜態結構盤點完成；全卡片／全 tabs／全導航逐項互動測試尚未完成；Pages URL 本輪獨立載入未確認。不得標示為完整 QA 全通過；正式首頁仍未發布。
