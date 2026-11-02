@@ -4,12 +4,12 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "20??-*.html"
+      - "20[0-9][0-9]-*.html"
       - "index.html"
       - "TAC_WORK_RULES.md"
       - "scripts/tac_wr_lock.py"
-      - "review/20??-*-review.html"
-      - "preview/20??-*.html"
+      - "review/20[0-9][0-9]-*-review.html"
+      - "preview/20[0-9][0-9]-*.html"
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
@@ -31,13 +31,13 @@ on:
   pull_request:
     branches: ["main"]
     paths:
-      - "20??-*.html"
+      - "20[0-9][0-9]-*.html"
       - "scripts/assemble_tac_daily_snapshot.py"
       - "index.html"
       - "TAC_WORK_RULES.md"
       - "scripts/tac_wr_lock.py"
-      - "review/20??-*-review.html"
-      - "preview/20??-*.html"
+      - "review/20[0-9][0-9]-*-review.html"
+      - "preview/20[0-9][0-9]-*.html"
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
