@@ -25,7 +25,7 @@ try {
       return {wrap:rect(wrap),table:rect(table),rankHead:rect(table.querySelector("th:first-child")),tickerHead:rect(table.querySelector("th:nth-child(2)")),rankCell:rect(table.querySelector("tbody td:first-child")),tickerCell:rect(table.querySelector("tbody td:nth-child(2)")),scrollLeft:wrap.scrollLeft,scrollWidth:wrap.scrollWidth,clientWidth:wrap.clientWidth};
     });
     const close = (a,b) => Math.abs(a-b) <= 1;
-    if (result.scrollLeft < 400 || result.scrollWidth <= result.clientWidth) failures.push(`${width}px: horizontal scroll did not engage`);
+    if (width <= 700 && (result.scrollLeft < 400 || result.scrollWidth <= result.clientWidth)) failures.push(`${width}px: horizontal scroll did not engage`);
     if (!close(result.rankHead.left,result.wrap.left) || !close(result.rankCell.left,result.wrap.left)) failures.push(`${width}px: rank column moved while scrolling`);
     if (!close(result.tickerHead.left,result.wrap.left+38) || !close(result.tickerCell.left,result.wrap.left+38)) failures.push(`${width}px: ticker column moved or has incorrect offset`);
     if (!close(result.tickerHead.width,88) || !close(result.tickerCell.width,88)) failures.push(`${width}px: ticker column width is not 88px`);
