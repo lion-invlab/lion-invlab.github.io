@@ -421,3 +421,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Pages 部署鏈已修正：Structural Gate 納入 index.html；Pages 在 gate 成功後可部署 preview 或正式首頁，並驗證通用 TAC 核心區塊。未因本次 workflow 文件更新而發布任何報告內容。
 - 保護檔案：index.html、雙母版、Manifest、W45 JSON 均未修改。W45 現存 `wr_version=3.12` 是歷史執行版本，下一次 03:30 維護時才應更新為 v4.3。
 - 尚待驗證：合併後 main push 的獨立 Structural Gate／Pages workflow_run 最終結果；下一次 03:30 與 05:25 排程是否真的輸出一致 WR lock。不得把 PR 測試成功等同排程端到端已驗證。
+
+
+### 追加狀態｜WR lock 後續強化（2026-11-02）
+- `scripts/tac_wr_lock.py` 已加入台灣時間欄位 `locked_at_taipei`，同時保留 UTC。
+- 快照產生／驗證改為優先讀取 `TAC_WR_LOCK_FILE` 中的 active lock 版本與 SHA，不再以 checkout 工作樹版本覆蓋 lock；沒有 lock file 時才使用當前 checkout 的 WR 版本。
+- 最新程式 commits：`b268cfc3b51cc9c7a732c98a712cf336b84afb04`、`23cb4986e3be0ebd35befafcb57ea3bf7b8169a7`。兩筆已在 main，但對應 post-merge Structural Gate run 尚未取得可核實狀態。
+- 下一步優先取得這兩筆 main 更新的 CI 執行結果；不可把 PR #270 的通過結果當成後續 main refinement 已測通。
