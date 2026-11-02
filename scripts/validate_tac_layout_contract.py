@@ -66,8 +66,10 @@ class Node:
         # Event lists are data slots: they may be empty or contain any number
         # of cards. Their contents are validated separately against approved
         # card prototypes, so an empty-to-populated transition is safe.
-        if self.class_tokens & DYNAMIC_LIST_CLASSES:
-            return (self.tag, self.attrs, ())
+        if self.class_tokens & DYNAMIC_LIST_CLASSES or "calendar-status-empty" in self.class_tokens:
+            # An empty-state placeholder occupies the same slot as a populated
+            # event list; card internals are still checked against master prototypes.
+            return ("div", (("class", "__dynamic_calendar_list__"),), ())
         child_sigs = []
         for child in self.children:
             sig = child.signature()
@@ -133,6 +135,9 @@ def validate_dynamic_lists(master_root, report_root):
         elif "earnings-accordion-list" in classes:
             expected = "earnings"
         else:
+            continue
+        if not node.children:
+            errors.append(f"{expected} dynamic list is missing cards and an explicit empty-state placeholder")
             continue
         for index, child in enumerate(node.children):
             if card_kind(child) != expected:
