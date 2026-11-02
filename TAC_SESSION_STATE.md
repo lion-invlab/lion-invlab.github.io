@@ -428,3 +428,6 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 快照產生／驗證改為優先讀取 `TAC_WR_LOCK_FILE` 中的 active lock 版本與 SHA，不再以 checkout 工作樹版本覆蓋 lock；沒有 lock file 時才使用當前 checkout 的 WR 版本。
 - 最新程式 commits：`b268cfc3b51cc9c7a732c98a712cf336b84afb04`、`23cb4986e3be0ebd35befafcb57ea3bf7b8169a7`。兩筆已在 main，但對應 post-merge Structural Gate run 尚未取得可核實狀態。
 - 下一步優先取得這兩筆 main 更新的 CI 執行結果；不可把 PR #270 的通過結果當成後續 main refinement 已測通。
+
+- 追加防漏：正式快照組裝器 `scripts/assemble_tac_daily_snapshot.py` 已要求 `TAC_WR_LOCK_FILE`，缺少 active lock 不會產生正式快照；self-test 不受影響。Pages workflow 的手動部署現在也必須執行部署後 URL 驗證。
+- 新 commits：`6ca519a0801a1f5471883649ec219f3bb6d42d41`、`9cc5a10e38c59e98bcbf62b774d5455e6bcf751e`、`cd23d81b20c0a20c0ba609ba7d7952cad3d89f37`。這些 post-merge main commits 的 Structural Gate 最終狀態尚未取得。
