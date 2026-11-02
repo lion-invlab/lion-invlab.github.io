@@ -28,14 +28,14 @@ nav a{color:#5f646b;text-decoration:none;font-size:12px;font-weight:850;padding:
 .controls input,.controls select,.controls button{height:38px;border:1px solid var(--line);border-radius:8px;background:#fff;padding:0 10px;font:inherit;font-size:12px}
 .controls input{min-width:230px}.controls button{font-weight:850}.controls button.active{background:var(--black);color:#fff}
 .tablewrap{overflow:auto;max-height:720px;border:1px solid var(--line);border-radius:8px}
-table{width:100%;border-collapse:separate;border-spacing:0;min-width:1050px;font-size:11px}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:1050px;table-layout:fixed;font-size:11px}
 th{position:sticky;top:0;background:#fafafa;color:var(--muted);padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;z-index:2}
 th:first-child,td:first-child{text-align:left}
 td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;background:#fff}
 /* Keep rank and ticker visible while the wide stock table scrolls horizontally. */
-th:first-child,td:first-child{position:sticky;left:0;width:38px;min-width:38px;z-index:4;background:#fafafa}
+th:first-child,td:first-child{position:sticky;left:0;width:38px;min-width:38px;max-width:38px;box-sizing:border-box;z-index:4;background:#fafafa}
 td:first-child{background:#fff}
-th:nth-child(2),td:nth-child(2){position:sticky;left:38px;width:88px;min-width:88px;z-index:4;background:#fafafa;box-shadow:2px 0 4px rgba(0,0,0,.08)}
+th:nth-child(2),td:nth-child(2){position:sticky;left:38px;width:88px;min-width:88px;max-width:88px;box-sizing:border-box;z-index:4;background:#fafafa;box-shadow:2px 0 4px rgba(0,0,0,.08)}
 td:nth-child(2){background:#fff}
 th:first-child,th:nth-child(2){z-index:6}
 .ticker{color:var(--blue);font-weight:950}.company{font-weight:800}.pos{color:var(--red);font-weight:900}.neg{color:var(--green);font-weight:900}
