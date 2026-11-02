@@ -431,3 +431,5 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 
 - 追加防漏：正式快照組裝器 `scripts/assemble_tac_daily_snapshot.py` 已要求 `TAC_WR_LOCK_FILE`，缺少 active lock 不會產生正式快照；self-test 不受影響。Pages workflow 的手動部署現在也必須執行部署後 URL 驗證。
 - 新 commits：`6ca519a0801a1f5471883649ec219f3bb6d42d41`、`9cc5a10e38c59e98bcbf62b774d5455e6bcf751e`、`cd23d81b20c0a20c0ba609ba7d7952cad3d89f37`。這些 post-merge main commits 的 Structural Gate 最終狀態尚未取得。
+
+- 驗證限制補充：PR run `41385521727` 的 Playwright step 因 PR 沒有 dated preview 變更而跳過，僅 workflow step 成功結束，沒有執行新報告的實際視覺比較。
