@@ -33,6 +33,7 @@ on:
     branches: ["main"]
     paths:
       - "2026-*.html"
+      - "scripts/assemble_tac_daily_snapshot.py"
       - "index.html"
       - "TAC_WORK_RULES.md"
       - "scripts/tac_wr_lock.py"
