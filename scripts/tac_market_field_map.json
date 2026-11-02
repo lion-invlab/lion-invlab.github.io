@@ -125,11 +125,11 @@
       "row_class": "fc-prob",
       "expected_count": 2,
       "labels": [
-        "維持不變",
-        "升息一碼"
+        "目標區間 A",
+        "目標區間 B"
       ],
       "required_texts": [
-        "CME FedWatch",
+        "Investing.com Fed Rate Monitor",
         "FOMC 會議",
         "資料時間與快照口徑"
       ]
