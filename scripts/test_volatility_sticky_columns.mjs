@@ -2,8 +2,8 @@ import { chromium } from "playwright";
 import fs from "node:fs";
 
 const html = fs.readFileSync("volatility.html", "utf8");
-const style = html.match(/<style>([\\s\\S]*?)<\\/style>/i)?.[1];
-const table = html.match(/<div class="tablewrap">([\\s\\S]*?)<\\/div>/i)?.[1];
+const style = html.match(/<style>([\s\S]*?)<\/style>/i)?.[1];
+const table = html.match(/<div class="tablewrap">([\s\S]*?)<\/div>/i)?.[1];
 if (!style || !table || !table.includes('class="constituent-table"') || !table.includes("<colgroup>")) {
   throw new Error("Could not extract the real constituent table and its column geometry");
 }
@@ -35,5 +35,5 @@ try {
 } finally {
   await browser.close();
 }
-if (failures.length) { console.error(failures.join("\\n")); process.exit(1); }
+if (failures.length) { console.error(failures.join("\n")); process.exit(1); }
 console.log("PASS: actual constituent table keeps rank and ticker columns fixed at all tested viewport widths.");
