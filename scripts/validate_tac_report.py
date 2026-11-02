@@ -19,8 +19,8 @@ import argparse
 ROOT = Path(__file__).resolve().parents[1]
 MONDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週一_2026-10-28_最終定版.html"
 WEEKDAY_MASTER = ROOT / "母版專區" / "TAC_母版_週二至週五_2026-10-28_最終定版.html"
-DATE_RE = re.compile(r"^2026-\d{2}-\d{2}\.html$")
-REVIEW_DATE_RE = re.compile(r"^(2026-\d{2}-\d{2})-review\.html$")
+DATE_RE = re.compile(r"^20\d{2}-\d{2}-\d{2}\.html$")
+REVIEW_DATE_RE = re.compile(r"^(20\d{2}-\d{2}-\d{2})-review\.html$")
 
 # This is a legacy 10/23 test report from before the currently approved dual-master
 # workflow. Keep the file intact, but do not apply today's master gate to it.
