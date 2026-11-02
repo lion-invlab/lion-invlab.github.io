@@ -38,3 +38,13 @@
 - **已完成本次正式首頁更新及 Pages workflow 部署成功確認；**但需持續區分 GitHub Actions deploy success 與使用者裝置快取／瀏覽器顯示，若使用者仍見舊畫面，先強制重新整理或無痕檢查。
 - Pages workflow 的正式發布觸發條件仍有結構性缺口：核准後只更新 `index.html` 不會自然觸發部署。需另立最小修正，讓正式首頁發布 commit 在既有驗證與核准閘門下能可靠部署，不應長期依賴預覽檔註解觸發。
 - 不得因本次 deploy success 推定所有行情即時性、母版視覺差異及所有互動均已完全驗收；未實測項目仍依 QA 證據如實標示。
+
+
+## 2026-11-02｜每日產製規格與排程健檢
+- 回讀 main 上 WR v4.0、Manifest 及三個現存排程。確認 03:30 行事曆維護排程使用唯一路徑 data/calendar/weeks/YYYY-Www.json，責任限於 JSON 資料庫；05:25 冬令時間排程啟用，指令採用最新 WR、正確 weeks 路徑及 Investing.com Fed Rate Monitor；05:00 夏令時間排程原 prompt 仍含舊版 CME-only FedWatch 規則，與 WR 現行規定不一致。
+- 已修正 05:00 排程 prompt：保留 EDT 啟動／EST 停止條件，將資料來源、FedWatch、星等、流程、QA、停止條件及發布閘門統一改為繼承 main 最新 WR，移除舊規格覆蓋風險。排程仍啟用，時間未變。
+- WR 更新為 v4.1：明定 03:30 為資料庫唯一例行寫入入口，05:00／05:25 為同一早報流程的季節性入口；排程 prompt 不得另立或複製可能過期的內容規格；兩個早報排程只產出 preview，使用者核准前不得修改 index.html。
+- WR v4.1 commit：2e3f6d8fe1ad9cc9da2dd3ab8c1d24e4be6cb6b1；新 blob SHA：78f0ebb13df6df5bf5d4bd2da8ced981fe0afb5c。
+- 排程查核限制：05:25 的最新 last_run 記錄為 failed（run id 08392cbd-67e8-832f-a978-963b5c8c5887）；工具回傳的 latest_result 卻屬更早 run id f6f529cd-6410-8331-a946-630b1aceecb6，不能拿舊的路徑錯誤訊息當作這次失敗原因。05:25 排程目前 is_enabled=true，下一次應於 2026-11-03 05:25 Asia/Taipei 執行；失敗根因尚待取得該次執行對話／錯誤細節。
+- 05:00 與 05:25 的季節切換依 America/New_York EDT/EST；目前為 EST，11/03 應由 05:25 排程負責。03:30、05:25 均啟用；05:00 在 EST 必須自行 no-op。
+- 未修改 Manifest、雙母版、preview、index.html、行事曆 JSON。Pages workflow 正式首頁更新觸發缺口仍是另一項待辦，不屬於排程時間修正。
