@@ -5,6 +5,7 @@ import argparse
 import copy
 import json
 import sys
+import os
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -34,6 +35,14 @@ def sample_snapshot(schema):
             "wr_version": load_local_wr_version(),
         },
     }
+    lock_path = os.environ.get("TAC_WR_LOCK_FILE")
+    if lock_path:
+        lock = json.loads(Path(lock_path).read_text(encoding="utf-8"))
+        snapshot["meta"].update({
+            "wr_commit_sha": lock["wr_commit_sha"],
+            "wr_blob_sha": lock["wr_blob_sha"],
+            "wr_content_sha256": lock["wr_content_sha256"],
+        })
     for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators"):
         snapshot[group] = {}
         for key in props[group]["required"]:
@@ -82,6 +91,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", help="Snapshot JSON file to validate")
     parser.add_argument("--self-test", action="store_true")
+    parser.add_argument("--allow-historical-wr", action="store_true", help="Allow a snapshot created under a prior WR version")
     args = parser.parse_args()
     validator, schema = load_validator()
     if args.self_test:
@@ -91,6 +101,8 @@ def main():
         parser.error("--file is required unless --self-test is used")
     path = Path(args.file)
     data = json.loads(path.read_text(encoding="utf-8"))
+    if not args.allow_historical_wr and data.get("meta", {}).get("wr_version") != load_local_wr_version():
+        raise ValueError("snapshot WR version does not match the current checked-out TAC_WORK_RULES.md; use --allow-historical-wr only for intentional historical validation")
     errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
     if errors:
         for error in errors:
