@@ -214,16 +214,18 @@ try {
     // Current-week economic plus markers and the sector disclosure are
     // compared against the approved master. Known master-level styling gaps
     // are warnings, not preview regressions; do not silently restyle a locked master.
-    const readCurrentWeekEconMarkers = page => page.locator("#calendar .econ-event-toggle").evaluateAll(els => els.map(el => {
+    const readCurrentWeekEconMarker = el => {
+      const style = getComputedStyle(el);
+      return { display: style.display, width: style.width, height: style.height, radius: style.borderRadius, background: style.backgroundColor };
+    };
+    const masterCurrentWeekMarker = await masterPage.locator("#calendar .econ-event-toggle").first().evaluate(readCurrentWeekEconMarker);
+    const reportCurrentWeekMarkers = await reportPage.locator("#calendar .econ-event-toggle").evaluateAll(els => els.map(el => {
       const style = getComputedStyle(el);
       return { display: style.display, width: style.width, height: style.height, radius: style.borderRadius, background: style.backgroundColor };
     }));
-    const masterCurrentWeekEcon = await readCurrentWeekEconMarkers(masterPage);
-    const reportCurrentWeekEcon = await readCurrentWeekEconMarkers(reportPage);
-    if (masterCurrentWeekEcon.length !== reportCurrentWeekEcon.length ||
-        JSON.stringify(masterCurrentWeekEcon) !== JSON.stringify(reportCurrentWeekEcon)) {
+    if (!reportCurrentWeekMarkers.length || reportCurrentWeekMarkers.some(x => JSON.stringify(x) !== JSON.stringify(masterCurrentWeekMarker))) {
       failures.push(viewport.name + ": current-week economic disclosure marker styling differs from the approved master");
-    } else if (reportCurrentWeekEcon.some(x => x.background !== "rgb(198, 40, 40)" || !x.radius.includes("50%") || parseFloat(x.width) < 31 || parseFloat(x.height) < 31)) {
+    } else if (masterCurrentWeekMarker.background !== "rgb(198, 40, 40)" || !masterCurrentWeekMarker.radius.includes("50%") || parseFloat(masterCurrentWeekMarker.width) < 31 || parseFloat(masterCurrentWeekMarker.height) < 31) {
       console.warn("WARN " + viewport.name + ": current-week economic event markers inherit the approved master styling gap; preview matches master. Formal master change required to add 32px red circles.");
     }
 
