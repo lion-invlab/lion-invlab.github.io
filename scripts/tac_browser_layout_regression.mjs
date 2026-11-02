@@ -110,25 +110,110 @@ try {
       }
     }
 
-    const disclosure = reportPage.locator("details summary").first();
-    if (await disclosure.count()) {
-      const details = reportPage.locator("details").first();
-      const before = await details.evaluate(el => el.open);
-      await disclosure.click();
-      const after = await details.evaluate(el => el.open);
-      if (before === after) failures.push(viewport.name + ": details disclosure did not toggle");
+    // Exercise every native disclosure, including nested cards hidden inside
+    // collapsed parent sections. Restore the original state after each click.
+    const disclosures = reportPage.locator("details > summary");
+    const disclosureCount = await disclosures.count();
+    if (!disclosureCount) failures.push(viewport.name + ": no details disclosures found");
+    for (let i = 0; i < disclosureCount; i++) {
+      const result = await disclosures.nth(i).evaluate(el => {
+        const own = el.parentElement;
+        const before = own.open;
+        const ancestors = [];
+        for (let parent = own.parentElement; parent; parent = parent.parentElement) {
+          if (parent.tagName === "DETAILS") {
+            ancestors.push([parent, parent.open]);
+            parent.open = true;
+          }
+        }
+        own.open = before;
+        el.click();
+        const after = own.open;
+        el.click();
+        const restored = own.open;
+        for (let j = ancestors.length - 1; j >= 0; j--) {
+          ancestors[j][0].open = ancestors[j][1];
+        }
+        return { before, after, restored };
+      });
+      if (result.before === result.after) failures.push(viewport.name + ": disclosure " + (i + 1) + "/" + disclosureCount + " did not toggle");
+      if (result.restored !== result.before) failures.push(viewport.name + ": disclosure " + (i + 1) + "/" + disclosureCount + " did not restore its initial state");
     }
-    const tabs = reportPage.locator("input.tac-tab-radio");
-    if (await tabs.count() >= 2) {
-      const secondTabId = await tabs.nth(1).getAttribute("id");
-      const tabLabel = reportPage.locator('label[for="' + secondTabId + '"]');
-      if (!(await tabLabel.count())) {
-        failures.push(viewport.name + ": second TAC tab has no associated label");
+
+    // Activate every radio-backed tab, not just one representative TAC tab.
+    const radios = reportPage.locator('input[type="radio"]');
+    const radioCount = await radios.count();
+    for (let i = 0; i < radioCount; i++) {
+      const radio = radios.nth(i);
+      const id = await radio.getAttribute("id");
+      if (!id) {
+        failures.push(viewport.name + ": radio " + (i + 1) + " has no id");
+        continue;
+      }
+      const label = reportPage.locator('label[for="' + id + '"]');
+      if (!(await label.count())) {
+        failures.push(viewport.name + ": radio " + id + " has no associated label");
+        continue;
+      }
+      await label.first().click({ force: true });
+      if (!(await radio.isChecked())) failures.push(viewport.name + ": tab label did not activate radio " + id);
+    }
+
+    // Verify every in-page navigation target and exercise its click behavior.
+    const internalLinks = reportPage.locator('a[href^="#"]');
+    const internalLinkCount = await internalLinks.count();
+    for (let i = 0; i < internalLinkCount; i++) {
+      const link = internalLinks.nth(i);
+      const href = await link.getAttribute("href");
+      const targetId = decodeURIComponent((href || "").slice(1));
+      const targetExists = await reportPage.evaluate(id => !!document.getElementById(id), targetId);
+      if (!targetExists) {
+        failures.push(viewport.name + ": internal link target missing for " + href);
+        continue;
+      }
+      await link.evaluate(el => el.click());
+      if (href === "#tac-history-shortcut") {
+        const opened = await reportPage.evaluate(() => document.body.classList.contains("tac-side-open"));
+        if (!opened) failures.push(viewport.name + ": history shortcut did not open the side panel");
+        await reportPage.keyboard.press("Escape");
       } else {
-        await tabLabel.click();
-        if (!(await tabs.nth(1).isChecked())) failures.push(viewport.name + ": TAC tab label did not activate its radio control");
+        const currentHash = await reportPage.evaluate(() => window.location.hash);
+        if (currentHash !== href) failures.push(viewport.name + ": internal navigation did not reach " + href);
       }
     }
+
+    // The approved red circular plus controls are fixed at 32 x 32 px.
+    const circleSpecs = [
+      { selector: ".econ-event-toggle", pseudo: null },
+      { selector: ".earnings-accordion-toggle", pseudo: null },
+      { selector: "details.calendar-collapse > summary", pseudo: "::after" },
+      { selector: "#industry-bonds-fx-commodities .sector-collapse > summary", pseudo: "::before" }
+    ];
+    for (const spec of circleSpecs) {
+      const controls = reportPage.locator(spec.selector);
+      const count = await controls.count();
+      if (!count) {
+        failures.push(viewport.name + ": missing plus-control selector " + spec.selector);
+        continue;
+      }
+      const dimensions = await controls.evaluateAll((els, pseudo) => els.map(el => {
+        const style = getComputedStyle(el, pseudo);
+        return {
+          width: parseFloat(style.width),
+          height: parseFloat(style.height),
+          radius: style.borderRadius,
+          background: style.backgroundColor
+        };
+      }), spec.pseudo);
+      dimensions.forEach((d, i) => {
+        if (Math.abs(d.width - 32) > 1 || Math.abs(d.height - 32) > 1) {
+          failures.push(viewport.name + ": " + spec.selector + " control " + (i + 1) + " is not 32 x 32 px (" + d.width + " x " + d.height + ")");
+        }
+        if (!d.radius.includes("50%")) failures.push(viewport.name + ": " + spec.selector + " control " + (i + 1) + " is not circular");
+        if (d.background !== "rgb(198, 40, 40)") failures.push(viewport.name + ": " + spec.selector + " control " + (i + 1) + " is not TAC red (" + d.background + ")");
+      });
+    }
+    console.log("PASS " + viewport.name + ": " + disclosureCount + " disclosures, " + radioCount + " radio tabs, " + internalLinkCount + " internal links and 32px plus controls exercised");
     await masterPage.close();
     await reportPage.close();
     console.log("PASS " + viewport.name + ": screenshots captured; section geometry, computed layout and overflow checked");
