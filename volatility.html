@@ -32,12 +32,22 @@ table{width:100%;border-collapse:separate;border-spacing:0;min-width:1050px;tabl
 th{position:sticky;top:0;background:#fafafa;color:var(--muted);padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;z-index:2}
 th:first-child,td:first-child{text-align:left}
 td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;background:#fff}
-/* Keep rank and ticker visible while the wide stock table scrolls horizontally. */
-th:first-child,td:first-child{position:sticky;left:0;width:38px;min-width:38px;max-width:38px;box-sizing:border-box;z-index:4;background:#fafafa}
-td:first-child{background:#fff}
-th:nth-child(2),td:nth-child(2){position:sticky;left:38px;width:88px;min-width:88px;max-width:88px;box-sizing:border-box;z-index:4;background:#fafafa;box-shadow:2px 0 4px rgba(0,0,0,.08)}
-td:nth-child(2){background:#fff}
-th:first-child,th:nth-child(2){z-index:6}
+/* Explicit column geometry is required for reliable sticky offsets in iOS Safari. */
+.constituent-table{width:1146px;min-width:1146px;table-layout:fixed}
+.constituent-table col.col-rank{width:38px}
+.constituent-table col.col-ticker{width:88px}
+.constituent-table col.col-company{width:240px}
+.constituent-table col.col-sector{width:120px}
+.constituent-table col.col-price{width:90px}
+.constituent-table col.col-vol{width:75px}
+.constituent-table col.col-return{width:90px}
+.constituent-table col.col-drawdown{width:90px}
+.constituent-table col.col-ratio{width:90px}
+.constituent-table th:first-child,.constituent-table td:first-child{position:sticky;left:0;width:38px;min-width:38px;max-width:38px;z-index:4;background:#fafafa}
+.constituent-table td:first-child{background:#fff}
+.constituent-table th:nth-child(2),.constituent-table td:nth-child(2){position:sticky;left:38px;width:88px;min-width:88px;max-width:88px;z-index:4;background:#fafafa;box-shadow:2px 0 4px rgba(0,0,0,.08)}
+.constituent-table td:nth-child(2){background:#fff}
+.constituent-table th:first-child,.constituent-table th:nth-child(2){z-index:6}
 .ticker{color:var(--blue);font-weight:950}.company{font-weight:800}.pos{color:var(--red);font-weight:900}.neg{color:var(--green);font-weight:900}
 .detail{display:none}.detail.show{display:block}.detailgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .mini{border:1px solid var(--line);border-radius:8px;padding:10px}.mini strong{display:block;font-size:17px;margin-top:3px}
@@ -123,7 +133,11 @@ th:first-child,th:nth-child(2){z-index:6}
 <button id="dir" class="active">由高至低</button>
 </div>
 <div class="tablewrap">
-<table><thead><tr><th>#</th><th>代號</th><th>公司</th><th>產業</th><th>價格</th><th>90D</th><th>60D</th><th>30D</th><th>20D</th><th>90D報酬</th><th>最大回撤</th><th>20D/90D</th></tr></thead>
+<table class="constituent-table"><colgroup>
+<col class="col-rank"><col class="col-ticker"><col class="col-company"><col class="col-sector">
+<col class="col-price"><col class="col-vol"><col class="col-vol"><col class="col-vol"><col class="col-vol">
+<col class="col-return"><col class="col-drawdown"><col class="col-ratio">
+</colgroup><thead><tr><th>#</th><th>代號</th><th>公司</th><th>產業</th><th>價格</th><th>90D</th><th>60D</th><th>30D</th><th>20D</th><th>90D報酬</th><th>最大回撤</th><th>20D/90D</th></tr></thead>
 <tbody id="body"></tbody></table>
 </div>
 </section>
