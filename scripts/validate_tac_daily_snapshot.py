@@ -23,8 +23,21 @@ def load_validator():
     Draft202012Validator.check_schema(schema)
     return Draft202012Validator(schema, format_checker=FormatChecker()), schema
 
+def load_active_wr_lock():
+    lock_path = os.environ.get("TAC_WR_LOCK_FILE")
+    if lock_path:
+        lock = json.loads(Path(lock_path).read_text(encoding="utf-8"))
+        required = {"wr_version", "wr_commit_sha", "wr_blob_sha", "wr_content_sha256"}
+        missing = sorted(required - set(lock))
+        if missing:
+            raise ValueError("WR lock record is missing: " + ", ".join(missing))
+        return lock
+    return {"wr_version": load_local_wr_version()}
+
+
 def sample_snapshot(schema):
     props = schema["properties"]
+    lock = load_active_wr_lock()
     snapshot = {
         "schema_version": 1,
         "meta": {
@@ -32,12 +45,10 @@ def sample_snapshot(schema):
             "trading_date": "2026-10-30",
             "generated_at": "2026-10-31T11:00:00+08:00",
             "timezone": "Asia/Taipei",
-            "wr_version": load_local_wr_version(),
+            "wr_version": lock["wr_version"],
         },
     }
-    lock_path = os.environ.get("TAC_WR_LOCK_FILE")
-    if lock_path:
-        lock = json.loads(Path(lock_path).read_text(encoding="utf-8"))
+    if "wr_commit_sha" in lock:
         snapshot["meta"].update({
             "wr_commit_sha": lock["wr_commit_sha"],
             "wr_blob_sha": lock["wr_blob_sha"],
@@ -101,7 +112,7 @@ def main():
         parser.error("--file is required unless --self-test is used")
     path = Path(args.file)
     data = json.loads(path.read_text(encoding="utf-8"))
-    if not args.allow_historical_wr and data.get("meta", {}).get("wr_version") != load_local_wr_version():
+    if not args.allow_historical_wr and data.get("meta", {}).get("wr_version") != load_active_wr_lock()["wr_version"]:
         raise ValueError("snapshot WR version does not match the current checked-out TAC_WORK_RULES.md; use --allow-historical-wr only for intentional historical validation")
     errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
     if errors:
