@@ -92,7 +92,6 @@ def adapt_capture(capture: dict[str, Any], report_date: str) -> tuple[dict | Non
     if not isinstance(source_url, str) or not source_url.startswith("https://"):
         return None, None, "Fed Rate Monitor source URL is missing or not HTTPS"
     provider = "Investing.com Fed Rate Monitor"
-    observed_at = capture.get("observed_at")
     updated_at = observed_at.isoformat()
     source_update_note = (
         f"provider Updated label={source_updated.isoformat()}"
