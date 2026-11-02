@@ -79,6 +79,7 @@ jobs:
           fi
           mkdir -p artifacts
           python scripts/tac_wr_lock.py --ref "$wr_ref" --output artifacts/tac-wr-lock.json
+          echo "TAC_WR_LOCK_FILE=artifacts/tac-wr-lock.json" >> "$GITHUB_ENV"
           echo "## TAC Work Rules lock" >> "$GITHUB_STEP_SUMMARY"
           cat artifacts/tac-wr-lock.json >> "$GITHUB_STEP_SUMMARY"
 
