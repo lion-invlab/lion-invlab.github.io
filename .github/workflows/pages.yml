@@ -41,6 +41,7 @@ jobs:
           preview="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
           if [ -n "$preview" ]; then
             echo "should_deploy=true" >> "$GITHUB_OUTPUT"
+            echo "preview_path=$preview" >> "$GITHUB_OUTPUT"
             echo "Validated dated preview changed: $preview"
           else
             echo "should_deploy=false" >> "$GITHUB_OUTPUT"
@@ -61,3 +62,31 @@ jobs:
         if: github.event_name == 'workflow_dispatch' || steps.release.outputs.should_deploy == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify deployed canonical preview URL
+        if: github.event_name == 'workflow_run' && steps.release.outputs.should_deploy == 'true'
+        shell: bash
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          PREVIEW_PATH: ${{ steps.release.outputs.preview_path }}
+        run: |
+          if [ -z "$PAGE_URL" ] || [ -z "$PREVIEW_PATH" ]; then
+            echo "FAIL: Pages URL or canonical preview path is missing."
+            exit 1
+          fi
+          url="${PAGE_URL%/}/$PREVIEW_PATH"
+          for attempt in $(seq 1 12); do
+            status="$(curl --location --silent --show-error --output /tmp/tac-preview.html --write-out '%{http_code}' "$url" || true)"
+            if [ "$status" = "200" ] \
+              && grep -Fq 'TAC 投資早報' /tmp/tac-preview.html \
+              && grep -Fq 'id="last-week-calendar"' /tmp/tac-preview.html \
+              && grep -Fq 'id="last-week-earnings"' /tmp/tac-preview.html; then
+              echo "PASS: deployed preview URL returned HTTP 200 and expected Monday report sections."
+              echo "Verified URL: $url"
+              exit 0
+            fi
+            echo "Attempt $attempt/12: HTTP $status; waiting for Pages propagation."
+            sleep 5
+          done
+          echo "FAIL: deployed preview URL did not return the expected report content: $url"
+          exit 1
