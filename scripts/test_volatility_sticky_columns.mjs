@@ -20,7 +20,8 @@ try {
     const result = await page.evaluate(() => {
       const wrap = document.querySelector(".tablewrap");
       const table = document.querySelector("table.constituent-table");
-      wrap.scrollLeft = 450;\n      wrap.dispatchEvent(new Event("scroll"));
+      wrap.scrollLeft = 450;
+      wrap.dispatchEvent(new Event("scroll"));
       const rect = (el) => { const r=el.getBoundingClientRect(); return {left:r.left,width:r.width,position:getComputedStyle(el).position,transform:getComputedStyle(el).transform}; };
       return {wrap:rect(wrap),table:rect(table),rankHead:rect(table.querySelector("th:first-child")),tickerHead:rect(table.querySelector("th:nth-child(2)")),rankCell:rect(table.querySelector("tbody td:first-child")),tickerCell:rect(table.querySelector("tbody td:nth-child(2)")),scrollLeft:wrap.scrollLeft,scrollWidth:wrap.scrollWidth,clientWidth:wrap.clientWidth};
     });
