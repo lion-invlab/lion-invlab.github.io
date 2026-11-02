@@ -8,6 +8,8 @@ import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+from tac_wr_lock import load_local_wr_version
+
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas" / "tac-daily-market-snapshot.schema.json"
 
@@ -29,7 +31,7 @@ def sample_snapshot(schema):
             "trading_date": "2026-10-30",
             "generated_at": "2026-10-31T11:00:00+08:00",
             "timezone": "Asia/Taipei",
-            "wr_version": "3.5",
+            "wr_version": load_local_wr_version(),
         },
     }
     for group in ("global_indices", "sectors", "bonds", "fx", "energy", "precious_metals", "risk_indicators"):
