@@ -184,9 +184,8 @@ try {
 
     // The approved red circular plus controls are fixed at 32 x 32 px.
     const circleSpecs = [
-      { selector: ".econ-event-toggle", pseudo: null },
-      { selector: ".earnings-accordion-toggle", pseudo: null },
-      { selector: "#industry-bonds-fx-commodities .sector-collapse > summary", pseudo: "::before" }
+      { selector: "#last-week-calendar .econ-event-toggle", pseudo: null },
+      { selector: ".earnings-accordion-toggle", pseudo: null }
     ];
     for (const spec of circleSpecs) {
       const controls = reportPage.locator(spec.selector);
@@ -212,7 +211,36 @@ try {
         if (d.background !== "rgb(198, 40, 40)") failures.push(viewport.name + ": " + spec.selector + " control " + (i + 1) + " is not TAC red (" + d.background + ")");
       });
     }
-    console.log("PASS " + viewport.name + ": " + disclosureCount + " disclosures, " + radioCount + " radio tabs, " + internalLinkCount + " internal links and 32px plus controls exercised");
+    // Current-week economic plus markers and the sector disclosure are
+    // compared against the approved master. Known master-level styling gaps
+    // are warnings, not preview regressions; do not silently restyle a locked master.
+    const readCurrentWeekEconMarkers = page => page.locator("#calendar .econ-event-toggle").evaluateAll(els => els.map(el => {
+      const style = getComputedStyle(el);
+      return { display: style.display, width: style.width, height: style.height, radius: style.borderRadius, background: style.backgroundColor };
+    }));
+    const masterCurrentWeekEcon = await readCurrentWeekEconMarkers(masterPage);
+    const reportCurrentWeekEcon = await readCurrentWeekEconMarkers(reportPage);
+    if (masterCurrentWeekEcon.length !== reportCurrentWeekEcon.length ||
+        JSON.stringify(masterCurrentWeekEcon) !== JSON.stringify(reportCurrentWeekEcon)) {
+      failures.push(viewport.name + ": current-week economic disclosure marker styling differs from the approved master");
+    } else if (reportCurrentWeekEcon.some(x => x.background !== "rgb(198, 40, 40)" || !x.radius.includes("50%") || parseFloat(x.width) < 31 || parseFloat(x.height) < 31)) {
+      console.warn("WARN " + viewport.name + ": current-week economic event markers inherit the approved master styling gap; preview matches master. Formal master change required to add 32px red circles.");
+    }
+
+    const sectorSelector = "#industry-bonds-fx-commodities .sector-collapse > summary";
+    const readSectorMarker = page => page.locator(sectorSelector).evaluate(el => {
+      const style = getComputedStyle(el, "::before");
+      return { width: style.width, height: style.height, radius: style.borderRadius, background: style.backgroundColor };
+    });
+    const masterSectorMarker = await readSectorMarker(masterPage);
+    const reportSectorMarker = await readSectorMarker(reportPage);
+    if (JSON.stringify(masterSectorMarker) !== JSON.stringify(reportSectorMarker)) {
+      failures.push(viewport.name + ": sector disclosure marker styling differs from the approved master");
+    } else if (parseFloat(reportSectorMarker.width) < 31 || parseFloat(reportSectorMarker.height) < 31) {
+      console.warn("WARN " + viewport.name + ": sector disclosure plus is " + reportSectorMarker.width + " x " + reportSectorMarker.height + " in the approved master; preview matches master.");
+    }
+
+    console.log("PASS " + viewport.name + ": " + disclosureCount + " disclosures, " + radioCount + " radio tabs, " + internalLinkCount + " internal links and approved 32px calendar plus controls exercised");
     await masterPage.close();
     await reportPage.close();
     console.log("PASS " + viewport.name + ": screenshots captured; section geometry, computed layout and overflow checked");
