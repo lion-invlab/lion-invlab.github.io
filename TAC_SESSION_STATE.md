@@ -334,3 +334,23 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新一輪 Structural Gate run `41377564345`（head SHA `41920966...`）已啟動；截至本紀錄更新時仍在執行，market snapshot／mapping／binding／treasury／DOM self-test／dated report structure 等步驟均已 success，Playwright Chromium 安裝尚在進行，故新一輪瀏覽器回歸與 Pages 部署尚未確認。
 - 關於時間戳：FedWatch 來源區的 08:21 是本次報告初次擷取時間；10:05 是再次直接讀取頁面的複核時間。兩者代表不同動作，並非資料矛盾，不需修改。
 - 本輪沒有改動 `index.html`、WR、Manifest、母版、W45 DB。正式首頁仍未發布；互動逐項實測及 Pages 預覽網址獨立載入仍待完成。
+
+
+## 17. 全量互動驗收與 Pages 實際部署確認（2026-11-02）
+
+- PR #265 已合併：`72e9030502f090b93b91ea21349790007e3cd110`。僅更新既有 `scripts/tac_browser_layout_regression.mjs`、`.github/workflows/pages.yml`，以及在預覽結尾加入不渲染的 QA HTML 註解以觸發同一條既有驗證／部署流程；沒有新增 Orchestrator、Renderer 或平行產線。
+- PR 最終驗證：Structural Gate run `41378335021` success；Market Field Contract run `41378334912` success。Main push Structural Gate run `41378467559` success。
+- Playwright 已在桌面 1440px、平板 768px、手機 320px 三種 viewport 實際執行：
+  - 86 個 `details > summary` 全部逐一切換並恢復原狀。
+  - 21 個 radio tab 全部逐一點擊並確認 checked。
+  - 13 個頁內導航連結全部點擊並確認目標。
+  - 已核准母版中具備 32×32px 紅色圓形控制的上週經濟卡及財報卡逐項檢查；版面幾何與水平溢位檢查全部通過。
+  - Browser regression 最終 log：`TAC BROWSER LAYOUT REGRESSION PASSED`。Artifact run `41378467559`。
+- **仍保留兩項母版層級警告，不宣稱全視覺規格完全通過：**
+  1. 核准週一母版的本週經濟卡沒有對應的 plus-control markup；本次 preview 有 17 個 `.econ-event-toggle` marker，但母版 CSS 的 selector 與 markup 不一致，因此這 17 個 marker 沒有紅色圓形樣式。需要正式母版／Renderer 修正；依既有授權限制，本輪未修改正式雙母版或 Manifest。
+  2. 產業收合控制在核准母版及 preview 桌面／平板為 30×30px，手機 320px 為 32×32px；preview 與母版一致。未擅自改動鎖定母版。
+- Pages deploy run `41378554136` success；部署後 smoke test 實際對 `https://lion-invlab.github.io/preview/2026-11-02.html` 執行 curl，回傳 HTTP 200，並確認頁面標題及週一專屬 `last-week-calendar`、`last-week-earnings` 區塊存在。這是本輪首次有自動化實際載入已部署預覽 URL 的證據。
+- 最新預覽 blob SHA：`ea51a256f05e3858d2f7370d7c5c83590eb6c817`；最新 main HEAD：`72e9030502f090b93b91ea21349790007e3cd110`。
+- 正式首頁 SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`；WR SHA `4b18a156805f19521356a247e7e11f1cfacbded6`；Manifest SHA `6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`；週一母版 SHA `0ea4775c5d15899a1e0b0a97c78744d90b8fff22`；週二至週五母版 SHA `e5976190efd4c7fcc92cd623bfa94926997cc672`。以上均保持不變，首頁未發布。
+- FedWatch 時間說明：08:21 是初次擷取，10:05 是再次直接讀取複核，非時間戳矛盾；但來源頁最新快照仍延遲約 45 小時，必須繼續標示為延遲快照，不得稱即時數據。
+- Brent Dec26 合約已交叉核實並更新預覽說明。CNN Fear & Greed 本輪使用備援來源；白銀合約月份仍標示待核。故本輪 QA 狀態為：**結構、三種尺寸版面、已存在互動控制、部署 URL 通過；母版 plus 規格缺口及部分行情來源時效／合約資訊仍待處理。** 正式首頁仍未發布。
