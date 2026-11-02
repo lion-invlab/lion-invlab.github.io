@@ -410,3 +410,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 目前 PR head SHA：`626058495a6910e58b8d9f52284c05a94b0d4140`。最新 Structural Gate run `41385521727`：lock、artifact、Python self-test、snapshot schema／assembler、母版欄位與 HTML binding、行情 collector、DOM contract 已通過；Playwright 尚待完成。Mother Template Guard run `41385521784` success。
 - 重要限制：prompt 更新成功不等於排程實際執行成功；WR v4.3 尚未進 main；main 最新 WR 仍是 v4.2，直到 PR 合併。歷史 W45 `wr_version=3.12` 不應回填。
 - 下一步：取得 run `41385521727` 最終結果與 lock artifact；修復任何失敗；通過後合併 PR #270，確認 main WR v4.3 及 workflow 觸發；再驗證 Pages 部署鏈及下一次排程產線確實回報相同 WR lock。
+
+
+## 23. 2026-11-02｜目前交接狀態：WR v4.3 已合併
+- main 正式 WR：v4.3；blob SHA `45da40e9350d1fbb9f7660f2f28d9e46ed278678`。
+- PR #270 已合併，merge commit `798219a4813d3292780b9104302793e44590f791`。
+- 統一鎖定工具：`scripts/tac_wr_lock.py`。Structural Gate 與 Pages workflow 均在執行時建立 WR lock，記錄版本、commit SHA、blob SHA、內容 SHA-256；CI lock artifact 已成功上傳。
+- PR Structural Gate run `41385521727`：completed / success；所有資料 schema、assembler、母版 binding、行情 collector、DOM contract、Playwright steps 完成。Mother Template Guard run `41385521784` success。
+- 三個排程仍啟用，prompt 已加入每次讀取 main HEAD + WR 的版本鎖定：03:30 `6ae6dff2200c81919ba2cee4db78f8a5`、05:00 `6ad9e48c33c081918a32b34fa3bb9e9c`、05:25 `6ae1819903348191951f91de2b2e0591`。03:30 會更新行事曆 JSON 既有 `wr_version` 欄位為當次 lock 版本；歷史 audit 不重寫。
+- Pages 部署鏈已修正：Structural Gate 納入 index.html；Pages 在 gate 成功後可部署 preview 或正式首頁，並驗證通用 TAC 核心區塊。未因本次 workflow 文件更新而發布任何報告內容。
+- 保護檔案：index.html、雙母版、Manifest、W45 JSON 均未修改。W45 現存 `wr_version=3.12` 是歷史執行版本，下一次 03:30 維護時才應更新為 v4.3。
+- 尚待驗證：合併後 main push 的獨立 Structural Gate／Pages workflow_run 最終結果；下一次 03:30 與 05:25 排程是否真的輸出一致 WR lock。不得把 PR 測試成功等同排程端到端已驗證。
