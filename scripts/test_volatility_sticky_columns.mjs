@@ -2,9 +2,13 @@ import { chromium } from "playwright";
 import fs from "node:fs";
 
 const html = fs.readFileSync("volatility.html", "utf8");
-const style = html.match(/<style>([\s\S]*?)<\/style>/i)?.[1];
-if (!style) throw new Error("Could not extract dashboard stylesheet");
+const style = html.match(/<style>([\\s\\S]*?)<\\/style>/i)?.[1];
+const table = html.match(/<div class="tablewrap">([\\s\\S]*?)<\\/div>/i)?.[1];
+if (!style || !table || !table.includes('class="constituent-table"') || !table.includes("<colgroup>")) {
+  throw new Error("Could not extract the real constituent table and its column geometry");
+}
 
+const fixtureTable = table.replace('<tbody id="body"></tbody>', `<tbody id="body">${Array.from({length:12},(_,i)=>`<tr><td>${i+1}</td><td class="ticker">T${i}</td>${Array.from({length:10},()=>"<td>12.34%</td>").join("")}</tr>`).join("")}</tbody>`);
 const browser = await chromium.launch({ headless: true });
 const failures = [];
 const widths = [320, 390, 430, 1280];
@@ -12,14 +16,13 @@ const widths = [320, 390, 430, 1280];
 try {
   for (const width of widths) {
     const page = await browser.newPage({ viewport: { width, height: 844 }, deviceScaleFactor: 1 });
-    await page.setContent(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${style}</style>
-      <div class="tablewrap" id="wrap"><table><thead><tr><th>#</th><th>代號</th><th>公司</th><th>產業</th><th>價格</th><th>90D</th><th>60D</th><th>30D</th><th>20D</th><th>90D報酬</th><th>最大回撤</th><th>20D/90D</th></tr></thead>
-      <tbody>${Array.from({length:12}, (_,i)=>`<tr><td>${i+1}</td><td class="ticker">T${i}</td>${Array.from({length:10},()=>"<td>12.34%</td>").join("")}</tr>`).join("")}</tbody></table></div>`);
+    await page.setContent(`<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>${style}</style>${fixtureTable}`);
     const result = await page.evaluate(() => {
-      const wrap = document.querySelector("#wrap");
+      const wrap = document.querySelector(".tablewrap");
+      const table = document.querySelector("table.constituent-table");
       wrap.scrollLeft = 450;
       const rect = (el) => { const r=el.getBoundingClientRect(); return {left:r.left,width:r.width,position:getComputedStyle(el).position}; };
-      return {wrap:rect(wrap),rankHead:rect(document.querySelector("th:first-child")),tickerHead:rect(document.querySelector("th:nth-child(2)")),rankCell:rect(document.querySelector("tbody td:first-child")),tickerCell:rect(document.querySelector("tbody td:nth-child(2)")),scrollLeft:wrap.scrollLeft,scrollWidth:wrap.scrollWidth,clientWidth:wrap.clientWidth};
+      return {wrap:rect(wrap),table:rect(table),rankHead:rect(table.querySelector("th:first-child")),tickerHead:rect(table.querySelector("th:nth-child(2)")),rankCell:rect(table.querySelector("tbody td:first-child")),tickerCell:rect(table.querySelector("tbody td:nth-child(2)")),scrollLeft:wrap.scrollLeft,scrollWidth:wrap.scrollWidth,clientWidth:wrap.clientWidth};
     });
     const close = (a,b) => Math.abs(a-b) <= 1;
     if (result.scrollLeft < 400 || result.scrollWidth <= result.clientWidth) failures.push(`${width}px: horizontal scroll did not engage`);
@@ -32,5 +35,5 @@ try {
 } finally {
   await browser.close();
 }
-if (failures.length) { console.error(failures.join("\n")); process.exit(1); }
-console.log("PASS: rank and ticker columns remain fixed at all tested viewport widths.");
+if (failures.length) { console.error(failures.join("\\n")); process.exit(1); }
+console.log("PASS: actual constituent table keeps rank and ticker columns fixed at all tested viewport widths.");
