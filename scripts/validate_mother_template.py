@@ -128,7 +128,7 @@ def main() -> int:
     if path != policy["path"]:
         fail(f"manifest 的 {kind} 路徑不符合核准路徑：{path}")
     if approved_sha != policy["blob_sha"]:
-        fail(f"manifest 的 {kind} SHA 不符合核准 SHA：{approved_sha}")
+        fail(f"manifest 的 {kind} SHA 不符合硬編碼核准 SHA：{approved_sha}")
     if not path or not approved_sha:
         fail(f"manifest 的 {kind} 路徑或 SHA 不完整。")
 
