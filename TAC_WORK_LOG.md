@@ -74,3 +74,10 @@
 - Pages workflow 已改為自身也鎖定受測 commit 的 WR；Structural Gate 對 `index.html` 變更觸發，Pages 僅在 Gate 成功且 canonical preview 或首頁變更時部署，部署驗證同時適用週一與週二至週五通用核心區塊。
 - 保護檔案狀態：本次沒有修改首頁內容、雙母版、Manifest 或 W45 JSON。歷史 W45 `wr_version=3.12` 保留，不回填。
 - 限制：PR Gate 的完整測試已通過；合併後 main push 對應的獨立 Structural Gate／Pages workflow_run 尚未取得可核實的 run ID 與最終狀態，不能宣稱 post-merge workflow 已完成。下一次排程實際執行亦尚未驗證。
+
+
+### 追加修正｜WR lock 與快照綁定強化（2026-11-02）
+- 合併後再檢查發現快照測試樣本在有 lock artifact 時，應直接採用 lock 內的 `wr_version`，不能先讀 checkout 工作樹的版本；已修正 `scripts/validate_tac_daily_snapshot.py` 的 active lock 解析、sample metadata 與舊版本拒絕邏輯。
+- `scripts/tac_wr_lock.py` 新增 `locked_at_taipei`，保留 UTC timestamp，讓 lock 記錄同時具備台灣時間。
+- 兩筆 main commits：`b268cfc3b51cc9c7a732c98a712cf336b84afb04`（Taipei timestamp）、`23cb4986e3be0ebd35befafcb57ea3bf7b8169a7`（快照使用 active WR lock）。
+- 這兩筆變更符合既有 Structural Gate paths，預期會觸發 main push 驗證；目前尚未取得對應 run ID／最終狀態，待確認後補記。
