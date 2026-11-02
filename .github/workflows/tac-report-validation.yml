@@ -4,13 +4,12 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "2026-*.html"
+      - "20??-*.html"
       - "index.html"
       - "TAC_WORK_RULES.md"
       - "scripts/tac_wr_lock.py"
-      - "review/2026-*-review.html"
-      - "preview/2026-*.html"
-      - "demo-2026-10-26.html"
+      - "review/20??-*-review.html"
+      - "preview/20??-*.html"
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
@@ -32,14 +31,13 @@ on:
   pull_request:
     branches: ["main"]
     paths:
-      - "2026-*.html"
+      - "20??-*.html"
       - "scripts/assemble_tac_daily_snapshot.py"
       - "index.html"
       - "TAC_WORK_RULES.md"
       - "scripts/tac_wr_lock.py"
-      - "review/2026-*-review.html"
-      - "preview/2026-*.html"
-      - "demo-2026-10-26.html"
+      - "review/20??-*-review.html"
+      - "preview/20??-*.html"
       - "scripts/validate_tac_report.py"
       - "scripts/validate_tac_layout_contract.py"
       - "scripts/validate_tac_daily_snapshot.py"
@@ -155,7 +153,7 @@ jobs:
           else
             changed="$(git diff-tree --no-commit-id --name-only -r HEAD)"
           fi
-          report="$(printf '%s\n' "$changed" | grep -E '^preview/2026-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
+          report="$(printf '%s\n' "$changed" | grep -E '^preview/20[0-9]{2}-[0-9]{2}-[0-9]{2}\.html$' | head -n 1 || true)"
           echo "path=$report" >> "$GITHUB_OUTPUT"
 
       - name: Set up Node.js for browser regression
