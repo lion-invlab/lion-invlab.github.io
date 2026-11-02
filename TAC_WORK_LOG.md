@@ -63,3 +63,14 @@
 - 保護範圍：沒有修改 main、index.html、雙母版、Manifest 或 W45 JSON。W45 的 `wr_version=3.12` 保留作歷史紀錄，不回填成新版本。
 - 目前 PR 最新 head：`626058495a6910e58b8d9f52284c05a94b0d4140`；最新 Structural Gate run `41385521727` 正在執行 Playwright 安裝／回歸；Mother Template Guard run `41385521784` success。
 - 待辦：確認最新 PR run 完成及 lock artifact 內容；若全部通過，保留 PR 等待合併；合併後 main 才正式升至 WR v4.3。下一次 03:30／05:25 實際執行須確認報告中的 WR lock，不能只憑 prompt 更新宣稱端到端已完成。
+
+
+## 2026-11-02｜WR v4.3 runtime lock 已合併 main
+- PR #270 已 squash merge，merge commit：`798219a4813d3292780b9104302793e44590f791`。
+- main 已回讀確認 WR v4.3；WR blob SHA：`45da40e9350d1fbb9f7660f2f28d9e46ed278678`。`scripts/tac_wr_lock.py`、Structural Gate、snapshot schema、Pages workflow 均已存在於 main。
+- PR 驗證 run `41385521727` 的 job completed / success；WR lock step 回報版本 4.3、WR commit SHA `7107f6d91f5a6668a30c7579271b44642b37f404`、blob SHA `45da40e9350d1fbb9f7660f2f28d9e46ed278678`、content SHA-256 `dacfceabbd392b6880b280789242ea4dbbda4109134ac9a94fdbb1df35007d8d`。lock artifact 已成功上傳。
+- Mother Template Guard run `41385521784` success。
+- 03:30、05:00、05:25 三個排程 prompt 已更新並回讀確認啟用、時間未變；03:30 另明定行事曆 JSON 頂層既有 `wr_version` 隨本次 lock 更新，SHA 資訊保存在本次執行結果，不改造 JSON schema。
+- Pages workflow 已改為自身也鎖定受測 commit 的 WR；Structural Gate 對 `index.html` 變更觸發，Pages 僅在 Gate 成功且 canonical preview 或首頁變更時部署，部署驗證同時適用週一與週二至週五通用核心區塊。
+- 保護檔案狀態：本次沒有修改首頁內容、雙母版、Manifest 或 W45 JSON。歷史 W45 `wr_version=3.12` 保留，不回填。
+- 限制：PR Gate 的完整測試已通過；合併後 main push 對應的獨立 Structural Gate／Pages workflow_run 尚未取得可核實的 run ID 與最終狀態，不能宣稱 post-merge workflow 已完成。下一次排程實際執行亦尚未驗證。
