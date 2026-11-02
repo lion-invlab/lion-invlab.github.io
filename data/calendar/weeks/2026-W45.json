@@ -5,8 +5,8 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-02T12:47:51+08:00",
-  "source_report_date": "2026-11-02",
+  "updated_at": "2026-11-03T03:26:09+08:00",
+  "source_report_date": "2026-11-03",
   "wr_version": "4.3",
   "status": "active",
   "events": {
@@ -53,16 +53,16 @@
         "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
         "previous": null,
         "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": null,
+        "actual": "日本央行《October 2026 Outlook for Economic Activity and Prices》全文於 2026-11-02 14:00 JST 正式公開。報告預期日本經濟溫和成長；核心 CPI 走勢大致符合 2% 物價穩定目標，但整體 CPI 可能加速至明顯高於 2%，通膨風險偏向上行。",
+        "status": "released",
+        "impact_judgment": "這是正式展望文件而非利率決議；報告明確表示將視經濟、物價與金融條件持續調升政策利率並調整寬鬆程度，且通膨風險偏上行，對日圓及日本利率路徑預期具政策訊號。",
         "source": {
-          "name": "Bank of Japan｜October 2026 Outlook Report full text",
-          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
-          "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
+          "name": "Bank of Japan｜Outlook for Economic Activity and Prices (October 2026, full text)",
+          "url": "https://www.boj.or.jp/en/mopo/outlook/gor2610b.pdf",
+          "published_at": "2026-11-02T14:00:00+09:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
           "publisher": "Bank of Japan",
-          "notes": "日本時間 2026-11-02 14:00 發布展望報告全文，換算台灣時間 13:00；非數值文件事件，previous／forecast 不適用。"
+          "notes": "官方PDF封面明示不得於 2026-11-02 日本時間 14:00 前發布；換算 Asia/Taipei 為 2026-11-02 13:00。非數值政策文件，previous／forecast 不適用。"
         },
         "previous_applicable": false,
         "forecast_applicable": false,
@@ -78,16 +78,16 @@
         "importance_basis_source": "TAC獨立評估：重要經濟體或主要央行的關鍵數據／政策事件，可能影響區域利率、匯率或產業預期，具明顯但低於五星的市場影響。",
         "previous": 54.5,
         "forecast": 54.7,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": null,
+        "actual": 55.5,
+        "status": "released",
+        "impact_judgment": "10月製造業 PMI 為 55.5，高於前值 54.5，亦高於資料庫既有共識 54.7（高出 0.8 點），連續第 10 個月擴張。新訂單 55.5、產出 59.0 均維持擴張；價格指數 75.2 雖低於前月 77.9，仍顯示投入成本壓力偏高。整體訊號為製造業需求與產出偏強，但價格壓力仍未解除。",
         "source": {
-          "name": "Institute for Supply Management｜Manufacturing PMI",
-          "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
-          "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
+          "name": "Institute for Supply Management｜October 2026 Manufacturing PMI Report",
+          "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/october/",
+          "published_at": "2026-11-02T10:00:00-05:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
           "publisher": "Institute for Supply Management",
-          "notes": "ISM 官方發布規則為每月第一個營業日 10:00 ET；換算台灣時間 23:00。前值／共識另由 Investing.com 經濟日曆核對。"
+          "notes": "官方10月報告確認 Manufacturing PMI 55.5、9月 54.5；依 ISM 發布時程於 11/02 10:00 EST 發布。Forecast 54.7 保留原先 Investing.com 預發布來源值，未用事後來源反向改寫。"
         },
         "data_unit": "ISM index",
         "data_reference": {
@@ -186,7 +186,7 @@
       },
       {
         "id": "current-eurozone-flash-cpi-20261103",
-        "event_date": "2026-11-04T12:00:00+08:00",
+        "event_date": "2026-11-03T12:00:00+08:00",
         "region": "歐元區",
         "event_name": "歐元區 10 月 HICP 通膨初值",
         "importance_stars": 5,
@@ -199,19 +199,19 @@
         "time_known": false,
         "impact_judgment": "觀察整體與核心通膨是否延續黏著，影響 ECB 降息預期及歐元區利率曲線。",
         "source": {
-          "name": "Eurostat｜October 2026 flash HICP schedule note",
-          "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
+          "name": "Eurostat｜Release calendar for Euro indicators (2–6 November 2026)",
+          "url": "https://ec.europa.eu/eurostat/en/news/euro-indicators/release-calendar",
           "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
           "publisher": "Eurostat",
-          "notes": "Eurostat 2026-10-16 系列說明指 10 月 flash estimate 排定 2026-11-04；但官方 Release Calendar 查詢頁仍顯示 11-03，兩個官方頁面日期衝突。暫以系列專屬發布說明的 11-04 作日期、12:00 台灣時間僅作未知時間佔位，time_known=false、status=pending_verification；須再核對官方行事曆。"
+          "notes": "最新官方週曆 2–6 November 2026 將 October 2026 euro area flash inflation 列於 2026-11-03；頁面使用 Europe/Luxembourg 時區但該事件列未提供精確時間。舊版 2026-10-16 Eurostat 產品說明仍列 2026-11-04，官方頁面日期衝突尚未完全消除；event_date 的 12:00 Asia/Taipei 僅作日期佔位，time_known=false，status 維持 pending_verification。"
         },
         "data_unit": "% y/y HICP",
         "data_reference": {
           "name": "ArabicTrader｜Euro area CPI Flash Estimate y/y",
           "url": "https://www.arabictrader.com/en/economic-calendar/301/135940/cpi-flash-estimate-yy",
           "publisher": "ArabicTrader",
-          "notes": "市場預期 3.9%、前值 3.8%；共識為第三方市場預期，非 Eurostat 官方數值。日期以 Eurostat 系列專屬發布說明為主，但官方日曆仍有衝突。"
+          "notes": "市場共識 forecast 3.9%、previous 3.8% 仍為第三方來源值；日期目前依最新 Eurostat 2–6 November release calendar 暫列 11/03，但 10/16 系列專屬說明仍列 11/04，待官方事件專頁／發布通知消除衝突。"
         },
         "previous_applicable": true,
         "forecast_applicable": true
@@ -564,7 +564,7 @@
         "ticker": "MAR",
         "event_date": "2026-11-02T21:00:00+08:00",
         "session": "before_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：全球大型酒店與住宿營運／加盟平台，財報及 RevPAR、客房需求與管理費收入可反映全球旅遊消費景氣；產業指標性明顯，但系統性影響低於全球最大權值企業。",
@@ -573,26 +573,26 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "basis not disclosed",
+        "eps_basis": "Adjusted diluted EPS (company-reported non-GAAP); analyst consensus basis not disclosed",
         "eps_estimate": 2.85,
-        "eps_actual": null,
+        "eps_actual": 3.02,
         "revenue_estimate": 6.92,
-        "revenue_actual": null,
+        "revenue_actual": 7.005,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
-        "stock_price_reaction": null,
-        "stock_price_reaction_window": null,
+        "eps_comparison_status": "pending_verification",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "Marriott Q3 2026 reported GAAP diluted EPS US$3.04 and adjusted diluted EPS US$3.02; analyst EPS consensus US$2.85 is retained, but its GAAP/adjusted basis is not disclosed, so EPS beat/miss remains pending verification. Reported revenue was US$7.005B versus US$6.92B consensus, a beat of about 1.2%. Worldwide RevPAR rose 6.5% and the company raised its full-year RevPAR growth outlook to 4.5%–5%.",
+        "stock_price_reaction": "+7% (U.S. regular-session morning trading; not final close)",
+        "stock_price_reaction_window": "2026-11-02 U.S. regular-session morning trading; Reuters reported shares rose 7% after results and outlook update. The full-session closing reaction was not yet available at this observation time.",
         "source": {
-          "name": "Marriott Investor Relations｜Q3 2026 earnings release schedule",
-          "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-announces-release-date-third-quarter-2026",
-          "published_at": "2026-10-09",
-          "observed_at": "2026-11-02T03:32:09+08:00",
-          "publisher": "Marriott International Investor Relations",
-          "notes": "公司公告 2026-11-02 約 07:00 ET 發布 Q3 結果，08:00 ET 舉行電話會議；event_date 記錄 08:00 ET call time，換算台灣 21:00，盤前公布。"
+          "name": "Marriott International Investor Relations｜Q3 2026 results",
+          "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-reports-third-quarter-2026-results",
+          "published_at": "2026-11-02T07:00:00-05:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Marriott International",
+          "notes": "公司 IR 已正式公布 Q3 2026 結果；PRNewswire 發行時間交叉核對為 2026-11-02 07:00 ET，早於 08:00 ET 電話會議。官方 IR 報告 GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、total revenues US$7.005B。"
         },
         "consensus_source": {
           "name": "MarketBeat｜Marriott Q3 2026 EPS consensus",
@@ -606,7 +606,13 @@
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus US$6.92B；獨立記錄營收共識來源，不覆蓋 EPS 共識來源。"
         },
-        "price_reaction_source": null,
+        "price_reaction_source": {
+          "name": "Reuters｜Marriott raises annual room-revenue growth forecast",
+          "url": "https://www.reuters.com/business/marriott-raises-annual-room-revenue-growth-forecast-2026-11-02/",
+          "publisher": "Reuters",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "notes": "Reuters 於 2026-11-02 報導 Marriott 股價在美股早盤上漲約 7%；本紀錄只代表早盤觀察，不冒充全日收盤反應。"
+        },
         "issuer_country": "United States",
         "us_exchange_listed": true,
         "us_listing_exchange": "NASDAQ",
@@ -2713,6 +2719,124 @@
           "publisher": "Company Investor Relations",
           "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
         }
+      },
+      {
+        "id": "us-eaton-q3-2026-20261103",
+        "company": "Eaton Corporation plc",
+        "ticker": "ETN",
+        "event_date": "2026-11-03T23:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評級：全球大型電力管理與工業設備供應商，業務涵蓋 AI 資料中心供電、電網、工業及航太；其訂單、積壓與資料中心電力需求指引可影響 AI 基建及工業資本支出預期，對關鍵產業具明顯市場影響。",
+        "importance_rating_source": "TAC independent assessment; no external vendor rating used.",
+        "industry": "電力管理／工業設備／資料中心基礎設施",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 3.54,
+        "eps_actual": null,
+        "revenue_estimate": 8.591,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Eaton｜Q3 2026 earnings date and conference call notice",
+          "url": "https://www.businesswire.com/news/home/20261020762951/en/",
+          "published_at": "2026-10-20T06:45:00-04:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Eaton",
+          "notes": "公司公告確認 2026-11-03 財報於 NYSE 開盤前發布，電話會議 11:00 ET；11:00 EST 換算台灣時間 2026-11-03 23:00。"
+        },
+        "consensus_source": {
+          "name": "Nasdaq｜Eaton earnings calendar",
+          "url": "https://www.nasdaq.com/market-activity/stocks/etn/earnings",
+          "publisher": "Nasdaq",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "notes": "Nasdaq 2026-11-02 earnings-calendar snapshot lists Q3 2026 EPS consensus US$3.54; GAAP/adjusted basis not disclosed."
+        },
+        "revenue_consensus_source": {
+          "name": "ChartMill｜Eaton Q3 2026 analyst estimates",
+          "url": "https://www.chartmill.com/stock/quote/ETN/estimates",
+          "publisher": "ChartMill",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "notes": "Q3 2026 revenue consensus US$8.591B; third-party analyst consensus, not issuer guidance."
+        },
+        "price_reaction_source": null,
+        "issuer_country": "Ireland",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "ETN",
+        "listing_evidence": {
+          "name": "Eaton Corporation plc 2025 Form 10-K｜SEC",
+          "url": "https://www.sec.gov/Archives/edgar/data/0001551182/000119312526105133/etn-2025-ars.pdf",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "notes": "SEC-filed 2025 Form 10-K identifies Eaton Corporation plc as incorporated in Ireland and states its ordinary shares are listed on the New York Stock Exchange under ETN."
+        }
+      },
+      {
+        "id": "us-apollo-q3-2026-20261103",
+        "company": "Apollo Global Management, Inc.",
+        "ticker": "APO",
+        "event_date": "2026-11-03T21:30:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評級：全球大型另類資產管理機構，管理資產約 US$1.05 兆，涵蓋投資級信貸、私募股權及退休／保險資產；財報可反映私人信貸、資本市場及長期資金配置狀況，對金融條件具明顯市場影響。",
+        "importance_rating_source": "TAC independent assessment; no external vendor rating used.",
+        "industry": "另類資產管理／私人信貸／退休服務",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "basis not disclosed",
+        "eps_estimate": 2.04,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Apollo Investor Relations｜Q3 2026 financial results announcement",
+          "url": "https://ir.apollo.com/news-events/press-releases/detail/652/apollo-to-announce-third-quarter-2026-financial-results-on",
+          "published_at": "2026-09-29T08:00:00-04:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Apollo Global Management",
+          "notes": "公司 IR 確認 2026-11-03 盤前發布 Q3 結果，08:30 ET 舉行 webcast；換算台灣時間 21:30。公司公告截至 2026-06-30 AUM 約 US$1.05T。"
+        },
+        "consensus_source": {
+          "name": "Nasdaq｜Apollo earnings calendar",
+          "url": "https://www.nasdaq.com/market-activity/stocks/apo/earnings",
+          "publisher": "Nasdaq",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "notes": "Nasdaq 2026-11-02 earnings-calendar snapshot lists Q3 2026 EPS consensus US$2.04; GAAP/adjusted basis not disclosed."
+        },
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "APO",
+        "listing_evidence": {
+          "name": "Apollo Investor Relations｜Q3 2026 results notice",
+          "url": "https://ir.apollo.com/news-events/press-releases/detail/652/apollo-to-announce-third-quarter-2026-financial-results-on",
+          "publisher": "Apollo Global Management",
+          "notes": "公司正式 IR 公告列示 Apollo (NYSE: APO)，確認 NYSE 掛牌及公司身分。"
+        }
       }
     ]
   },
@@ -2756,10 +2880,13 @@
         "https://finance.sina.com.cn/roll/2026-10-30/doc-iniwywtv8245573.shtml",
         "https://www.reuters.com/world/asia-pacific/china-cbank-injects-cash-shifts-overnight-rate-key-policy-lever-2026-11-02/",
         "https://hk.investing.com/economic-calendar/adp-nonfarm-employment-change-1",
-        "https://hk.investing.com/economic-calendar/nonfarm-payrolls-227"
+        "https://hk.investing.com/economic-calendar/nonfarm-payrolls-227",
+        "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/october/",
+        "https://www.boj.or.jp/en/mopo/outlook/gor2610b.pdf",
+        "https://ec.europa.eu/eurostat/en/news/euro-indicators/release-calendar"
       ],
-      "checked_at": "2026-11-02T12:47:51+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。"
+      "checked_at": "2026-11-03T03:26:09+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。"
     },
     "earnings": {
       "status": "incomplete",
@@ -2819,10 +2946,18 @@
         "https://www.investor.fisglobal.com/news-releases/news-release-details/fis-announced-new-date-third-quarter-earnings-november-4-2026/",
         "https://www.marketbeat.com/earnings/reports/2026-11-3-fidelity-national-information-services-inc-stock/",
         "https://www.berkshirehathaway.com/news/2026news.html",
-        "https://www.svmuu.com/ko/calendar/earnings/brk-b/"
+        "https://www.svmuu.com/ko/calendar/earnings/brk-b/",
+        "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-reports-third-quarter-2026-results",
+        "https://www.reuters.com/business/marriott-raises-annual-room-revenue-growth-forecast-2026-11-02/",
+        "https://www.nasdaq.com/market-activity/stocks/etn/earnings",
+        "https://www.nasdaq.com/market-activity/stocks/apo/earnings",
+        "https://www.chartmill.com/stock/quote/ETN/estimates",
+        "https://www.businesswire.com/news/home/20261020762951/en/",
+        "https://ir.apollo.com/news-events/press-releases/detail/652/apollo-to-announce-third-quarter-2026-financial-results-on",
+        "https://www.sec.gov/Archives/edgar/data/0001551182/000119312526105133/etn-2025-ars.pdf"
       ],
-      "checked_at": "2026-11-02T12:47:51+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。"
+      "checked_at": "2026-11-03T03:26:09+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。"
     }
   },
   "audit": [
@@ -9611,6 +9746,274 @@
       "action": "previous_week_metadata_discrepancy",
       "source": "data/calendar/weeks/2026-W44.json",
       "note": "週一摘要核對發現 W44 top-level week_end 為 2026-10-30（週五），但 ISO 2026-W44 週一至週日應為 2026-10-26 至 2026-11-01；W45 既有上週摘要已按 10/26–11/01 範圍記錄。依本次僅更新目標 W45 的寫入範圍，未修改 W44；需在 W44 專項修正時處理其 week_end。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_updated",
+      "event_id": "current-us-ism-mfg-20261102",
+      "changed_fields": [
+        "status",
+        "actual",
+        "impact_judgment",
+        "source"
+      ],
+      "before": {
+        "status": "upcoming",
+        "actual": null,
+        "impact_judgment": null,
+        "source": {
+          "name": "Institute for Supply Management｜Manufacturing PMI",
+          "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
+          "published_at": null,
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Institute for Supply Management",
+          "notes": "ISM 官方發布規則為每月第一個營業日 10:00 ET；換算台灣時間 23:00。前值／共識另由 Investing.com 經濟日曆核對。"
+        }
+      },
+      "after": {
+        "status": "released",
+        "actual": 55.5,
+        "impact_judgment": "10月製造業 PMI 為 55.5，高於前值 54.5，亦高於資料庫既有共識 54.7（高出 0.8 點），連續第 10 個月擴張。新訂單 55.5、產出 59.0 均維持擴張；價格指數 75.2 雖低於前月 77.9，仍顯示投入成本壓力偏高。整體訊號為製造業需求與產出偏強，但價格壓力仍未解除。",
+        "source": {
+          "name": "Institute for Supply Management｜October 2026 Manufacturing PMI Report",
+          "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/october/",
+          "published_at": "2026-11-02T10:00:00-05:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Institute for Supply Management",
+          "notes": "官方10月報告確認 Manufacturing PMI 55.5、9月 54.5；依 ISM 發布時程於 11/02 10:00 EST 發布。Forecast 54.7 保留原先 Investing.com 預發布來源值，未用事後來源反向改寫。"
+        }
+      },
+      "source": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/pmi/october/",
+      "note": "官方 ISM October 2026 報告已發布，實際值 55.5；依已核對發布時點更新為 released。既有 forecast 54.7／previous 54.5 保留，影響判讀補入新訂單、產出及價格指數。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_updated",
+      "event_id": "current-boj-outlook-20261102",
+      "changed_fields": [
+        "status",
+        "actual",
+        "impact_judgment",
+        "source"
+      ],
+      "before": {
+        "status": "upcoming",
+        "actual": null,
+        "impact_judgment": null,
+        "source": {
+          "name": "Bank of Japan｜October 2026 Outlook Report full text",
+          "url": "https://www.boj.or.jp/en/about/calendar/index.htm",
+          "published_at": null,
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "日本時間 2026-11-02 14:00 發布展望報告全文，換算台灣時間 13:00；非數值文件事件，previous／forecast 不適用。"
+        }
+      },
+      "after": {
+        "status": "released",
+        "actual": "日本央行《October 2026 Outlook for Economic Activity and Prices》全文於 2026-11-02 14:00 JST 正式公開。報告預期日本經濟溫和成長；核心 CPI 走勢大致符合 2% 物價穩定目標，但整體 CPI 可能加速至明顯高於 2%，通膨風險偏向上行。",
+        "impact_judgment": "這是正式展望文件而非利率決議；報告明確表示將視經濟、物價與金融條件持續調升政策利率並調整寬鬆程度，且通膨風險偏上行，對日圓及日本利率路徑預期具政策訊號。",
+        "source": {
+          "name": "Bank of Japan｜Outlook for Economic Activity and Prices (October 2026, full text)",
+          "url": "https://www.boj.or.jp/en/mopo/outlook/gor2610b.pdf",
+          "published_at": "2026-11-02T14:00:00+09:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Bank of Japan",
+          "notes": "官方PDF封面明示不得於 2026-11-02 日本時間 14:00 前發布；換算 Asia/Taipei 為 2026-11-02 13:00。非數值政策文件，previous／forecast 不適用。"
+        }
+      },
+      "source": "https://www.boj.or.jp/en/mopo/outlook/gor2610b.pdf",
+      "note": "官方全文 PDF 已按封面 embargo 時點發布；將事件由 upcoming 更新為 released，並以官方 PDF 取代僅列日期的通用日程來源。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_updated",
+      "event_id": "current-eurozone-flash-cpi-20261103",
+      "changed_fields": [
+        "event_date",
+        "source",
+        "data_reference.notes",
+        "time_known",
+        "status"
+      ],
+      "before": {
+        "event_date": "2026-11-04T12:00:00+08:00",
+        "status": "pending_verification",
+        "time_known": false,
+        "source": {
+          "name": "Eurostat｜October 2026 flash HICP schedule note",
+          "url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-16102026-ap",
+          "published_at": null,
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Eurostat",
+          "notes": "Eurostat 2026-10-16 系列說明指 10 月 flash estimate 排定 2026-11-04；但官方 Release Calendar 查詢頁仍顯示 11-03，兩個官方頁面日期衝突。暫以系列專屬發布說明的 11-04 作日期、12:00 台灣時間僅作未知時間佔位，time_known=false、status=pending_verification；須再核對官方行事曆。"
+        },
+        "data_reference": {
+          "name": "ArabicTrader｜Euro area CPI Flash Estimate y/y",
+          "url": "https://www.arabictrader.com/en/economic-calendar/301/135940/cpi-flash-estimate-yy",
+          "publisher": "ArabicTrader",
+          "notes": "市場共識 forecast 3.9%、previous 3.8% 仍為第三方來源值；日期目前依最新 Eurostat 2–6 November release calendar 暫列 11/03，但 10/16 系列專屬說明仍列 11/04，待官方事件專頁／發布通知消除衝突。"
+        }
+      },
+      "after": {
+        "event_date": "2026-11-03T12:00:00+08:00",
+        "status": "pending_verification",
+        "time_known": false,
+        "source": {
+          "name": "Eurostat｜Release calendar for Euro indicators (2–6 November 2026)",
+          "url": "https://ec.europa.eu/eurostat/en/news/euro-indicators/release-calendar",
+          "published_at": null,
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Eurostat",
+          "notes": "最新官方週曆 2–6 November 2026 將 October 2026 euro area flash inflation 列於 2026-11-03；頁面使用 Europe/Luxembourg 時區但該事件列未提供精確時間。舊版 2026-10-16 Eurostat 產品說明仍列 2026-11-04，官方頁面日期衝突尚未完全消除；event_date 的 12:00 Asia/Taipei 僅作日期佔位，time_known=false，status 維持 pending_verification。"
+        },
+        "data_reference": {
+          "name": "ArabicTrader｜Euro area CPI Flash Estimate y/y",
+          "url": "https://www.arabictrader.com/en/economic-calendar/301/135940/cpi-flash-estimate-yy",
+          "publisher": "ArabicTrader",
+          "notes": "市場共識 forecast 3.9%、previous 3.8% 仍為第三方來源值；日期目前依最新 Eurostat 2–6 November release calendar 暫列 11/03，但 10/16 系列專屬說明仍列 11/04，待官方事件專頁／發布通知消除衝突。"
+        }
+      },
+      "source": "https://ec.europa.eu/eurostat/en/news/euro-indicators/release-calendar",
+      "note": "最新 Eurostat 官方 2–6 Nov 週曆將 Flash estimate inflation euro area 列於 11/03；舊 10/16 產品頁仍列 11/04。日期先按最新官方週曆更新，但保留 pending_verification、time_known=false，未確認發布時間不作推定。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_updated",
+      "event_id": "current-mar-20261102",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "eps_comparison_status",
+        "revenue_comparison_status",
+        "financial_judgment",
+        "stock_price_reaction",
+        "stock_price_reaction_window",
+        "source",
+        "price_reaction_source"
+      ],
+      "before": {
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": "basis not disclosed",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Marriott Investor Relations｜Q3 2026 earnings release schedule",
+          "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-announces-release-date-third-quarter-2026",
+          "published_at": "2026-10-09",
+          "observed_at": "2026-11-02T03:32:09+08:00",
+          "publisher": "Marriott International Investor Relations",
+          "notes": "公司公告 2026-11-02 約 07:00 ET 發布 Q3 結果，08:00 ET 舉行電話會議；event_date 記錄 08:00 ET call time，換算台灣 21:00，盤前公布。"
+        },
+        "price_reaction_source": null
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": 3.02,
+        "revenue_actual": 7.005,
+        "eps_basis": "Adjusted diluted EPS (company-reported non-GAAP); analyst consensus basis not disclosed",
+        "eps_comparison_status": "pending_verification",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "Marriott Q3 2026 reported GAAP diluted EPS US$3.04 and adjusted diluted EPS US$3.02; analyst EPS consensus US$2.85 is retained, but its GAAP/adjusted basis is not disclosed, so EPS beat/miss remains pending verification. Reported revenue was US$7.005B versus US$6.92B consensus, a beat of about 1.2%. Worldwide RevPAR rose 6.5% and the company raised its full-year RevPAR growth outlook to 4.5%–5%.",
+        "stock_price_reaction": "+7% (U.S. regular-session morning trading; not final close)",
+        "stock_price_reaction_window": "2026-11-02 U.S. regular-session morning trading; Reuters reported shares rose 7% after results and outlook update. The full-session closing reaction was not yet available at this observation time.",
+        "source": {
+          "name": "Marriott International Investor Relations｜Q3 2026 results",
+          "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-reports-third-quarter-2026-results",
+          "published_at": "2026-11-02T07:00:00-05:00",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "publisher": "Marriott International",
+          "notes": "公司 IR 已正式公布 Q3 2026 結果；PRNewswire 發行時間交叉核對為 2026-11-02 07:00 ET，早於 08:00 ET 電話會議。官方 IR 報告 GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、total revenues US$7.005B。"
+        },
+        "price_reaction_source": {
+          "name": "Reuters｜Marriott raises annual room-revenue growth forecast",
+          "url": "https://www.reuters.com/business/marriott-raises-annual-room-revenue-growth-forecast-2026-11-02/",
+          "publisher": "Reuters",
+          "observed_at": "2026-11-03T03:26:09+08:00",
+          "notes": "Reuters 於 2026-11-02 報導 Marriott 股價在美股早盤上漲約 7%；本紀錄只代表早盤觀察，不冒充全日收盤反應。"
+        }
+      },
+      "source": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-reports-third-quarter-2026-results",
+      "note": "Marriott 官方 Q3 release 已於 11/02 07:00 EST 發布。GAAP diluted EPS 3.04、adjusted diluted EPS 3.02、營收 7.005B；EPS consensus 2.85 未揭露口徑，故比較維持 pending_verification；營收 7.005B 高於 6.92B。Reuters 早盤股價反應約 +7%，明確標示為早盤而非收盤。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_added",
+      "event_id": "us-eaton-q3-2026-20261103",
+      "changed_fields": [
+        "event"
+      ],
+      "after": {
+        "id": "us-eaton-q3-2026-20261103",
+        "company": "Eaton Corporation plc",
+        "ticker": "ETN",
+        "event_date": "2026-11-03T23:00:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "eps_estimate": 3.54,
+        "revenue_estimate": 8.591,
+        "us_listing_exchange": "NYSE"
+      },
+      "source": "https://www.businesswire.com/news/home/20261020762951/en/",
+      "note": "公司公告確認 11/03 盤前及 11:00 EST 電話會議；Nasdaq EPS consensus US$3.54、ChartMill revenue consensus US$8.591B 分別保存。愛爾蘭發行人以 SEC 10-K 證實 NYSE: ETN 掛牌。TAC 獨立評四星。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_added",
+      "event_id": "us-apollo-q3-2026-20261103",
+      "changed_fields": [
+        "event"
+      ],
+      "after": {
+        "id": "us-apollo-q3-2026-20261103",
+        "company": "Apollo Global Management, Inc.",
+        "ticker": "APO",
+        "event_date": "2026-11-03T21:30:00+08:00",
+        "session": "before_market",
+        "importance_stars": 4,
+        "eps_estimate": 2.04,
+        "revenue_estimate": null,
+        "us_listing_exchange": "NYSE"
+      },
+      "source": "https://ir.apollo.com/news-events/press-releases/detail/652/apollo-to-announce-third-quarter-2026-financial-results-on",
+      "note": "公司 IR 確認 11/03 盤前及 08:30 ET webcast；Nasdaq EPS consensus US$2.04。營收共識未取得，不推填。公司 IR 確認 NYSE: APO；AUM 約 US$1.05T，TAC 獨立評四星。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_excluded",
+      "event_id": "candidate-mpc-q3-2026-20261103",
+      "reason": "Marathon Petroleum 已確認 2026-11-03 Q3 財報，但 TAC 獨立評級為三星：公司與煉油產業具規模，但單一煉油商財報的跨資產／系統性影響未達四星門檻；另不同第三方 EPS 與營收共識差距較大，未建立可一致核對的共識口徑，因此不放入正式 earnings events。",
+      "source": "https://www.stocktitan.net/news/MPC/marathon-petroleum-corp-to-report-third-quarter-financial-results-on-u7ukrtplj3zk.html",
+      "note": "候選掃描參考 Nasdaq/StockTitan weekly earnings list；不以外部日曆排序或外部星等取代 TAC 評級。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "event_excluded",
+      "event_id": "candidate-eurostat-building-permits-20261103",
+      "reason": "Eurostat 最新 2–6 November release calendar 另列 July 2026 building permits；屬次級區域數據，TAC 獨立評級未達四星，不納入正式 economic events。",
+      "source": "https://ec.europa.eu/eurostat/en/news/euro-indicators/release-calendar",
+      "note": "依最新官方週曆完成候選掃描；不因官方發布即自動納入精選事件。"
+    },
+    {
+      "at": "2026-11-03T03:26:09+08:00",
+      "action": "coverage_updated",
+      "changed_fields": [
+        "coverage.economic.checked_at",
+        "coverage.economic.source_refs",
+        "coverage.economic.notes",
+        "coverage.earnings.checked_at",
+        "coverage.earnings.source_refs",
+        "coverage.earnings.notes"
+      ],
+      "source": "Official economic releases, company investor relations, Nasdaq and analyst consensus sources",
+      "note": "本次增量核對來源及未完成範圍已更新；economic/earnings coverage 均維持 incomplete，不以尚未完成的市場／候選掃描推定 complete。"
     }
   ]
 }
