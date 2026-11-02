@@ -354,3 +354,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 正式首頁 SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`；WR SHA `4b18a156805f19521356a247e7e11f1cfacbded6`；Manifest SHA `6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`；週一母版 SHA `0ea4775c5d15899a1e0b0a97c78744d90b8fff22`；週二至週五母版 SHA `e5976190efd4c7fcc92cd623bfa94926997cc672`。以上均保持不變，首頁未發布。
 - FedWatch 時間說明：08:21 是初次擷取，10:05 是再次直接讀取複核，非時間戳矛盾；但來源頁最新快照仍延遲約 45 小時，必須繼續標示為延遲快照，不得稱即時數據。
 - Brent Dec26 合約已交叉核實並更新預覽說明。CNN Fear & Greed 本輪使用備援來源；白銀合約月份仍標示待核。故本輪 QA 狀態為：**結構、三種尺寸版面、已存在互動控制、部署 URL 通過；母版 plus 規格缺口及部分行情來源時效／合約資訊仍待處理。** 正式首頁仍未發布。
+
+
+## 18. 白銀 Dec26 合約核實與第二次預覽部署（2026-11-02）
+
+- 已核實 Investing.com 香港站 2026/10/30 白銀歷史列為 US$49.276、-5.93%，合約頁標示 2026 年 12 月（SIZ6）；合約清單 Dec26 行亦為 49.276、-3.104、-5.93%。故白銀月份待核已解除。
+- 更新 preview 內容僅限貴金屬卡：meta 行改為黃金 GCZ6／白銀 SIZ6 均為 2026 年 12 月合約；白銀列標示 SIZ6（2026年12月）；來源區加入 Investing.com 香港站白銀歷史資料及合約清單連結。未改價格、漲跌幅、CSS、JS 或 DOM 結構。
+- 預覽更新 commit：`277927f485e651f100bf3c4b7eb734df0e803d36`；新 preview blob SHA：`3f13e08722c02952e84e050ecd35e0495c5ae0f5`。
+- 新 Structural Gate run `41378735011` success，Playwright 三種 viewport regression success；Pages deploy run `41378810037` success。部署後 smoke test 再次確認 `https://lion-invlab.github.io/preview/2026-11-02.html` 回傳 HTTP 200，且週一專屬兩個上週行事曆區塊存在。
+- 正式首頁 SHA 仍為 `bf853317df07920d4a91db7103c2f95b0a1ed725`，未發布。最新 main HEAD（本節寫入前）為 `277927f485e651f100bf3c4b7eb734df0e803d36`。
+- 本次解除白銀合約月份待核。仍待處理：FedWatch 原始快照延遲約 45 小時，CNN Fear & Greed 本輪使用備援來源；正式母版本週經濟 plus 控制缺口與產業 disclosure 桌面／平板 30px 問題依既有母版保護限制保留為警告。正式雙母版、Manifest、WR、首頁均未修改。
