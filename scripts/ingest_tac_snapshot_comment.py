@@ -55,6 +55,27 @@ def extract_payload(body: str) -> dict:
     return payload
 
 
+def validate_fragment(fragment: object, report_date: str, trading_date: str) -> dict:
+    if not isinstance(fragment, dict):
+        fail("fragment must be a JSON object")
+    unexpected = set(fragment) - FRAGMENT_FIELDS
+    if unexpected:
+        fail("fragment contains unsupported fields: " + ", ".join(sorted(unexpected)))
+    if fragment.get("report_date") != report_date:
+        fail("fragment report_date does not match handoff report_date")
+    if fragment.get("trading_date") != trading_date:
+        fail("fragment trading_date does not match handoff trading_date")
+    groups = set(fragment) & DATA_GROUPS
+    if not groups:
+        fail("fragment contains no recognized TAC data group")
+    for group in groups:
+        if not isinstance(fragment[group], dict):
+            fail(f"fragment group {group} must be an object")
+    if not any(fragment[group] for group in groups):
+        fail("fragment must contain at least one actual market or FedWatch record")
+    return fragment
+
+
 def self_test() -> None:
     sample = {
         "schema_version": 1,
@@ -67,6 +88,14 @@ def self_test() -> None:
     body = BEGIN + json.dumps(sample) + END
     assert extract_payload(body) == sample
     assert iso_date("2026-11-04", "report_date") == "2026-11-04"
+    validate_fragment(sample["fragment"], "2026-11-04", "2026-11-03")
+    try:
+        validate_fragment({"report_date": "2026-11-04", "trading_date": "2026-11-03",
+                           "global_indices": {}}, "2026-11-04", "2026-11-03")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("empty data fragment must be rejected")
     try:
         extract_payload(body + BEGIN)
     except ValueError:
@@ -126,22 +155,7 @@ def main() -> int:
     if supplied_lock != active_lock:
         fail("handoff WR identity does not match the active main-branch WR lock")
 
-    fragment = payload["fragment"]
-    if not isinstance(fragment, dict):
-        fail("fragment must be a JSON object")
-    unexpected = set(fragment) - FRAGMENT_FIELDS
-    if unexpected:
-        fail("fragment contains unsupported fields: " + ", ".join(sorted(unexpected)))
-    if fragment.get("report_date") != report_date:
-        fail("fragment report_date does not match handoff report_date")
-    if fragment.get("trading_date") != trading_date:
-        fail("fragment trading_date does not match handoff trading_date")
-    if not (set(fragment) & DATA_GROUPS):
-        fail("fragment contains no recognized TAC data group")
-
-    for group in set(fragment) & DATA_GROUPS:
-        if not isinstance(fragment[group], dict):
-            fail(f"fragment group {group} must be an object")
+    fragment = validate_fragment(payload["fragment"], report_date, trading_date)
 
     Path(args.fragment_out).write_text(
         json.dumps(fragment, ensure_ascii=False, indent=2) + "\n",
