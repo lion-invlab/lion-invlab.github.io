@@ -68,7 +68,7 @@ jobs:
   # Daily lock bootstrap: runs in a real Git checkout, then relays the exact
   # lock artifact to the ChatGPT report automation through issue #319.
   daily-wr-lock:
-    if: github.event_name == 'schedule'
+    if: github.event_name == 'schedule' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -135,13 +135,32 @@ jobs:
               '',
               'The ChatGPT report automation must download this exact artifact and compare its contents with this relay and the current main WR before proceeding.'
             ].join('\n');
-            await github.rest.issues.createComment({
+            const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: 319,
-              body
+              per_page: 100
             });
-            core.info('Relayed WR lock to issue #319');
+            const previous = comments.data.reverse().find(comment =>
+              comment.body && comment.body.includes('## TAC WR Lock — daily bootstrap')
+            );
+            if (previous) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previous.id,
+                body
+              });
+              core.info('Updated WR lock relay comment on issue #319');
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: 319,
+                body
+              });
+              core.info('Created WR lock relay comment on issue #319');
+            }
 
   structural-gate:
     if: github.event_name != 'schedule'
