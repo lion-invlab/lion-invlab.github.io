@@ -57,7 +57,8 @@ on:
       - ".github/workflows/tac-report-validation.yml"
   schedule:
     # 04:50 Asia/Taipei, Monday-Friday (UTC Sunday-Thursday)
-    - cron: "50 20 * * 0-4"
+    - cron: "25 20 * * 0-4" # 04:25 Asia/Taipei — calendar DB lock
+    - cron: "50 20 * * 0-4" # 04:50 Asia/Taipei — morning report lock
   workflow_dispatch:
 
 permissions:
@@ -117,6 +118,7 @@ jobs:
               '## TAC WR Lock — daily bootstrap',
               '',
               '- Status: **SUCCESS**',
+              '- Trigger: ' + context.eventName,
               '- Taiwan run date: ' + lock.locked_at_taipei.slice(0, 10),
               '- Workflow run: ' + context.runId,
               '- Run attempt: ' + context.runAttempt,
@@ -135,32 +137,13 @@ jobs:
               '',
               'The ChatGPT report automation must download this exact artifact and compare its contents with this relay and the current main WR before proceeding.'
             ].join('\n');
-            const comments = await github.rest.issues.listComments({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: 319,
-              per_page: 100
+              body
             });
-            const previous = comments.data.reverse().find(comment =>
-              comment.body && comment.body.includes('## TAC WR Lock — daily bootstrap')
-            );
-            if (previous) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: previous.id,
-                body
-              });
-              core.info('Updated WR lock relay comment on issue #319');
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: 319,
-                body
-              });
-              core.info('Created WR lock relay comment on issue #319');
-            }
+            core.info('Appended WR lock relay record to issue #319');
 
   structural-gate:
     if: github.event_name != 'schedule'
