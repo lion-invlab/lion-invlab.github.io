@@ -17,7 +17,7 @@ try{
   await page.setContent('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+style+'</style><div class="tablewrap" id="constituentTableWrap">'+fixture+'</div>');
   const r=await page.evaluate(()=>{
    const w=document.getElementById("constituentTableWrap"),t=document.querySelector("table.constituent-table");w.scrollLeft=450;w.scrollTop=300;
-   const rect=e=>{const b=e.getBoundingClientRect(),s=getComputedStyle(e);return{left:b.left,width:b.width,position:s.position,stickyLeft:s.left}};
+   const rect=e=>{const b=e.getBoundingClientRect(),s=getComputedStyle(e);return{left:b.left,top:b.top,width:b.width,height:b.height,position:s.position,stickyLeft:s.left}};
    const rh=t.querySelector("th:first-child"),th=t.querySelector("th:nth-child(2)");return{wrap:rect(w),rankHead:rect(rh),tickerHead:rect(th),rankHeadText:rh.textContent.trim(),tickerHeadText:th.textContent.trim(),rankCell:rect(t.querySelector("tbody td:first-child")),tickerCell:rect(t.querySelector("tbody td:nth-child(2)")),scrollLeft:w.scrollLeft,scrollTop:w.scrollTop,scrollHeight:w.scrollHeight,clientHeight:w.clientHeight,scrollWidth:w.scrollWidth,clientWidth:w.clientWidth};
   });
   const near=(a,b)=>Math.abs(a-b)<=1;
