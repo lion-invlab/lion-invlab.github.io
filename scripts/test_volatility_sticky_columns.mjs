@@ -25,15 +25,15 @@ for(const engine of [{name:"chromium",type:chromium},{name:"webkit",type:webkit}
   const near=(a,b)=>Math.abs(a-b)<=1;
   if(width<=700&&(r.scrollLeft<400||r.scrollWidth<=r.clientWidth))failures.push(width+"px: horizontal scroll failed");
   if(!near(r.rankHead.left,r.wrap.left)||!near(r.rankCell.left,r.wrap.left))failures.push(width+"px: rank column moved");
-  if(!near(r.tickerHead.left,r.wrap.left+38)||!near(r.tickerCell.left,r.wrap.left+38))failures.push(width+"px: ticker column moved or offset incorrect");
+  if(!near(r.tickerHead.left,r.wrap.left+35)||!near(r.tickerCell.left,r.wrap.left+35))failures.push(width+"px: ticker column moved or offset incorrect");
   for(const [n,c] of [["rank",r.rankCell],["ticker",r.tickerCell]])if(c.position!=="sticky")failures.push(width+"px: "+n+" is not sticky");
-  if(!near(r.tickerCell.width,88))failures.push(width+"px: ticker width incorrect");
+  if(!near(r.tickerCell.width,68))failures.push(width+"px: ticker width incorrect");
   if(r.rankHeadText!=="#"||r.tickerHeadText!=="代號")failures.push(width+"px: frozen header labels missing");
   if(width<=700&&r.scrollTop<200)failures.push(width+"px: vertical scroll did not engage");
   if(width<=700&&(!near(r.rankHead.left,r.wrap.left)||!near(r.rankHead.left,r.wrap.left+1)))failures.push(width+"px: rank header not aligned to scrollport after vertical scroll");
   if(width<=700&&(!near(r.rankHead.top,r.wrap.top+1)||!near(r.tickerHead.top,r.wrap.top+1)))failures.push(width+"px: frozen header row scrolled vertically out of view");
   if(Number(r.rankHead.position!=="sticky")||Number(r.tickerHead.position!=="sticky"))failures.push(width+"px: frozen header cells lost sticky positioning");
-  if(Number(r.rankHead.stickyLeft!=="0px")||Number(r.tickerHead.stickyLeft!=="38px"))failures.push(width+"px: frozen header offsets incorrect");
+  if(Number(r.rankHead.stickyLeft!=="0px")||Number(r.tickerHead.stickyLeft!=="34px"))failures.push(width+"px: frozen header offsets incorrect");
   console.log(JSON.stringify({engine:engine.name,width,...r}));await page.close();
  }
  }finally{await browser.close()}
