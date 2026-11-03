@@ -25,6 +25,7 @@ on:
       - "scripts/fetch_tac_global_indices.py"
       - "scripts/fetch_tac_sector_etfs.py"
       - "schemas/tac-daily-market-snapshot.schema.json"
+      - "data/market/snapshots/*.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
       - ".github/workflows/pages.yml"
@@ -109,6 +110,57 @@ jobs:
 
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
+
+      - name: Validate and reassemble committed TAC market snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          snapshots=(data/market/snapshots/*.json)
+          if [ ${#snapshots[@]} -eq 0 ]; then
+            echo "No dated market snapshots found; skipping."
+            exit 0
+          fi
+          mkdir -p artifacts
+          for snapshot in "${snapshots[@]}"; do
+            echo "Validating committed snapshot: $snapshot"
+            python scripts/validate_tac_daily_snapshot.py --file "$snapshot"
+            python - "$snapshot" <<'PY'
+          import json, pathlib, sys
+          source = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          fragment = {
+              "report_date": source["meta"]["report_date"],
+              "trading_date": source["meta"]["trading_date"],
+              **{key: source[key] for key in (
+                  "global_indices", "sectors", "bonds", "fx", "energy",
+                  "precious_metals", "risk_indicators", "fedwatch"
+              )}
+          }
+          pathlib.Path("artifacts/tac-market-snapshot-fragment.json").write_text(
+              json.dumps(fragment, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8"
+          )
+          PY
+            output="artifacts/assembled-$(basename "$snapshot")"
+            python scripts/assemble_tac_daily_snapshot.py \
+              --report-date "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["meta"]["report_date"])' "$snapshot")" \
+              --trading-date "$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["meta"]["trading_date"])' "$snapshot")" \
+              --fragment artifacts/tac-market-snapshot-fragment.json \
+              --output "$output"
+            python scripts/validate_tac_daily_snapshot.py --file "$output"
+            python - "$snapshot" "$output" <<'PY'
+          import json, pathlib, sys
+          source = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))
+          assembled = json.loads(pathlib.Path(sys.argv[2]).read_text(encoding="utf-8"))
+          groups = (
+              "global_indices", "sectors", "bonds", "fx", "energy",
+              "precious_metals", "risk_indicators", "fedwatch"
+          )
+          for key in groups:
+              if source[key] != assembled[key]:
+                  raise SystemExit(f"FAIL: assembled {key} differs from committed snapshot")
+          print("PASS: committed market data preserved through official assembler")
+          PY
+          done
 
       - name: Validate market-field contract against both approved masters
         run: |
