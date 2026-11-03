@@ -55,6 +55,9 @@ on:
       - "schemas/tac-daily-market-snapshot.schema.json"
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
+  schedule:
+    # 04:50 Asia/Taipei, Monday-Friday (UTC Sunday-Thursday)
+    - cron: "50 20 * * 0-4"
   workflow_dispatch:
 
 permissions:
@@ -62,7 +65,86 @@ permissions:
   issues: write
 
 jobs:
+  # Daily lock bootstrap: runs in a real Git checkout, then relays the exact
+  # lock artifact to the ChatGPT report automation through issue #319.
+  daily-wr-lock:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout main with full history
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Resolve latest main WR and create this run's lock
+        id: wr-lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --prune
+          mkdir -p artifacts
+          python scripts/tac_wr_lock.py --ref origin/main --output artifacts/tac-wr-lock.json
+          cat artifacts/tac-wr-lock.json
+
+      - name: Upload exact WR lock artifact
+        id: lock-artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-wr-lock-${{ github.run_id }}
+          path: artifacts/tac-wr-lock.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Relay run and artifact identity to ChatGPT
+        if: success()
+        uses: actions/github-script@v7
+        env:
+          ARTIFACT_ID: ${{ steps.lock-artifact.outputs.artifact-id }}
+        with:
+          script: |
+            const fs = require('fs');
+            const lock = JSON.parse(fs.readFileSync('artifacts/tac-wr-lock.json', 'utf8'));
+            const body = [
+              '## TAC WR Lock — daily bootstrap',
+              '',
+              '- Status: **SUCCESS**',
+              '- Taiwan run date: ' + lock.locked_at_taipei.slice(0, 10),
+              '- Workflow run: ' + context.runId,
+              '- Run attempt: ' + context.runAttempt,
+              '- Artifact ID: ' + process.env.ARTIFACT_ID,
+              '- Artifact name: tac-wr-lock-' + context.runId,
+              '- Main commit: ' + lock.wr_commit_sha,
+              '- WR version: ' + lock.wr_version,
+              '- WR blob SHA: ' + lock.wr_blob_sha,
+              '- WR content SHA-256: ' + lock.wr_content_sha256,
+              '- Locked at (Taipei): ' + lock.locked_at_taipei,
+              '',
+              'Exact lock JSON from the uploaded artifact:',
+              '```json',
+              JSON.stringify(lock, null, 2),
+              '```',
+              '',
+              'The ChatGPT report automation must download this exact artifact and compare its contents with this relay and the current main WR before proceeding.'
+            ].join('\n');
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: 319,
+              body
+            });
+            core.info('Relayed WR lock to issue #319');
+
   structural-gate:
+    if: github.event_name != 'schedule'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
