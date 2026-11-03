@@ -25,7 +25,7 @@ for(const engine of [{name:"chromium",type:chromium},{name:"webkit",type:webkit}
   const near=(a,b)=>Math.abs(a-b)<=1;
   if(width<=700&&(r.scrollLeft<400||r.scrollWidth<=r.clientWidth))failures.push(width+"px: horizontal scroll failed");
   if(!near(r.rankHead.left,r.wrap.left)||!near(r.rankCell.left,r.wrap.left))failures.push(width+"px: rank column moved");
-  if(!near(r.tickerHead.left,r.wrap.left+35)||!near(r.tickerCell.left,r.wrap.left+38))failures.push(width+"px: ticker column moved or offset incorrect");
+  if(!near(r.tickerHead.left,r.wrap.left+35)||!near(r.tickerCell.left,r.wrap.left+35))failures.push(width+"px: ticker column moved or offset incorrect");
   for(const [n,c] of [["rank",r.rankCell],["ticker",r.tickerCell]])if(c.position!=="sticky")failures.push(width+"px: "+n+" is not sticky");
   if(!near(r.tickerCell.width,68))failures.push(width+"px: ticker width incorrect");
   if(r.rankHeadText!=="#"||r.tickerHeadText!=="代號")failures.push(width+"px: frozen header labels missing");
