@@ -56,7 +56,7 @@ on:
       - "scripts/tac_browser_layout_regression.mjs"
       - ".github/workflows/tac-report-validation.yml"
   schedule:
-    # 04:50 Asia/Taipei, Monday-Friday (UTC Sunday-Thursday)
+    # 04:25 and 04:50 Asia/Taipei, Monday-Friday (UTC Sunday-Thursday)
     - cron: "25 20 * * 0-4" # 04:25 Asia/Taipei — calendar DB lock
     - cron: "50 20 * * 0-4" # 04:50 Asia/Taipei — morning report lock
   workflow_dispatch:
@@ -121,7 +121,7 @@ jobs:
               '- Trigger: ' + context.eventName,
               '- Taiwan run date: ' + lock.locked_at_taipei.slice(0, 10),
               '- Workflow run: ' + context.runId,
-              '- Run attempt: ' + context.runAttempt,
+              '- Run attempt: ' + process.env.GITHUB_RUN_ATTEMPT,
               '- Artifact ID: ' + process.env.ARTIFACT_ID,
               '- Artifact name: tac-wr-lock-' + context.runId,
               '- Main commit: ' + lock.wr_commit_sha,
