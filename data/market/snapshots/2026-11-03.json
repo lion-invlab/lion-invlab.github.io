@@ -514,15 +514,22 @@
   },
   "fx": {
     "dxy": {
-      "value": null,
+      "value": 101.81,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -0.07,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站美元指數歷史數據",
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "US Dollar Index (DXY)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟標準美元指數歷史頁；採該頁2026-11-02列，未混用DXY期貨或其他RT合約序列。"
     },
     "usd_twd": {
       "value": 32.605,
@@ -693,26 +700,40 @@
   },
   "risk_indicators": {
     "vix": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 21.17,
+      "unit": "volatility_index_point",
+      "change": 9.01,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 VIX 歷史數據",
+        "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "CBOE Volatility Index (VIX)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史頁，取2026-11-02列收市21.17及+9.01%。"
     },
     "move": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
-      "fallback_used": false,
-      "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "value": 100.36,
+      "unit": "MOVE_index_point",
+      "change": 0.16,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Yahoo Finance ^MOVE（使用者提供截圖）",
+        "url": "https://finance.yahoo.com/quote/%5EMOVE/history/",
+        "observed_at": "2026-11-03T05:17:00+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "ICE BofA MOVE Index (^MOVE)"
+      },
+      "fallback_used": true,
+      "fallback_reason": "Investing.com ICE BofA MOVE歷史頁未提供2026-11-02列；依WR v4.7指定Yahoo Finance ^MOVE備援，數值由使用者提供截圖佐證，並非助理獨立刷新。",
+      "notes": "使用者截圖顯示2026-11-02 16:17 EST收盤100.36，+0.16（+0.16%）；證據型態為使用者提供截圖。"
     },
     "cnn_fear_greed": {
       "value": null,
