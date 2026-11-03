@@ -1,6 +1,6 @@
 # TAC 投資早報｜正式工作規則
 
-版本：4.11（2026-11-03｜統一行情欄位統計口徑）
+版本：4.12（2026-11-03｜固定 Snapshot 路徑與 WR Lock 生命週期）
 建立日期：2026-10-28
 本次整併日期：2026-11-03
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
@@ -23,6 +23,7 @@
 5. 所有正式資料及快照的 `wr_version` 必須取自本次 WR lock，不得在程式、JSON Schema、測試樣本或排程文字中硬編碼固定版本號。測試樣本應由受測版本的 WR 動態取得版本；歷史資料保留其當時實際採用的版本，不回填成目前版本。
 6. 下游腳本不必各自下載或解讀完整 WR；由入口傳遞 WR lock 及必要的核定參數。若腳本內有來源、欄位、評級、路徑或流程等規則性硬編碼，必須納入與 WR 的相容性測試；發現不相容不得默默沿用舊規則。
 7. 本機或自動化工具無法取得最新 WR 時，重試一次；仍失敗即停止受影響的產線步驟並明確回報。不得將舊 lock 冒充最新 lock，也不得因單一非核心行情／新聞來源失敗而停止其他可安全完成的工作。
+8. WR lock 是單次執行的暫存產物，不是長期資料；由產線入口建立後，以 `TAC_WR_LOCK_FILE` 傳遞給所有下游程序。lock 檔存放於該次執行專用的暫存工作目錄，不提交至 main、不與 Snapshot 混放；執行結束時可隨工作目錄清理，但須將版本、commit SHA、blob SHA、content SHA-256 留在該次執行紀錄／workflow artifact。lock 建立必須使用 `scripts/tac_wr_lock.py`，以本次權威 Git ref 解析，禁止手工拼造或沿用上一輪 lock。
 
 ### A2. 不可妥協的原則
 - 先核實，再呈現；不猜值、不捏造新聞、不用舊快照冒充最新資料。
@@ -179,6 +180,17 @@
 - 關鍵價位驗收與 FedWatch 驗收分開；其中一項失敗不得冒充另一項成功。
 - 若無法確認來源、OHLC 或基準日期，標示待核實，不得使用舊快照冒充最新價位。
 
+### D6. 正式行情 Snapshot 儲存與驗證規格
+
+1. 正式 Snapshot 唯一儲存路徑為 `data/market/snapshots/YYYY-MM-DD.json`，檔名日期使用台灣時間的報告日期；例如 2026 年 11 月 3 日早報使用 `data/market/snapshots/2026-11-03.json`。交易日期只記錄於 Snapshot `meta.trading_date`，不得用交易日期取代報告日期命名。
+2. 每個報告日期只保留一份正式 Snapshot。組裝器輸出、正式資料讀取及下游交接均使用此路徑；source fragments 為執行中暫存檔，存放於該次執行專用暫存工作目錄，不提交至正式 Snapshot 目錄。
+3. Snapshot 必須使用既有 `schemas/tac-daily-market-snapshot.schema.json`、`scripts/assemble_tac_daily_snapshot.py` 及 `scripts/validate_tac_daily_snapshot.py`。不得另建平行 schema、改用自訂 JSON 欄位或繞過既有驗證器。正式組裝前必須建立本次 WR lock，並將 `TAC_WR_LOCK_FILE` 指向該 lock；`meta.wr_version`、`wr_commit_sha`、`wr_blob_sha`、`wr_content_sha256` 必須完整對應本次 lock。
+4. Snapshot 的 `meta.report_date`、`meta.trading_date`、`meta.generated_at` 及 `meta.timezone` 必須符合本次報告；timezone 固定為 `Asia/Taipei`。不得使用驗證器自我測試樣本內的日期作為正式日期。
+5. 44 項固定行情欄位必須全部存在且逐項登記狀態；FedWatch 獨立記錄。只有具備完整來源、標的、日期／時間及報價口徑證據的項目可標示 `verified`。待核實、暫缺及休市項目依 Schema 狀態保留，不得以 null 偽裝為已核實，也不得為通過驗證而填入猜測值。
+6. 寫入前先檢查同報告日期檔案是否存在。首次建立可直接寫入；若已存在，必須先回讀並比較內容及來源證據，只能在確認為同一報告日期的未完成草稿且保留修訂紀錄後更新，不得靜默覆寫已完成或已交接的 Snapshot。若屬正式更正，須保留原始內容及更正原因／時間於執行紀錄，並重新執行完整 Schema 驗證。
+7. 組裝完成後必須以既有驗證器執行 `--file` 驗證，且使用同一份 WR lock；另檢查 44 項欄位數、各狀態計數、FedWatch 狀態、日期一致性及 WR lock 四項識別值。驗證失敗不得交接下游。
+8. Snapshot 是當日行情台帳及下游資料依據，不是 HTML 預覽或正式首頁；建立 Snapshot 不代表早報已完成，也不代表可發布。不得修改核准母版、Manifest 或 `index.html`。
+
 ### D5. 標準行情超連結
 以下網址是讀者點擊目的頁規範，不會自動取代 D3 的數據來源／結算口徑。只連結名稱或代碼；一般行情連結新分頁並設 `rel="noopener"`。CNN Fear & Greed 是唯一固定同頁開啟例外。
 - 全球指數：道瓊 `https://hk.investing.com/indices/us-30`；S&P 500 `https://hk.investing.com/indices/us-spx-500`；Nasdaq Composite `https://hk.investing.com/indices/nasdaq-composite`；Russell 2000 `https://hk.investing.com/indices/smallcap-2000`；SOX `https://hk.investing.com/indices/phlx-semiconductor`；Hang Seng `https://hk.investing.com/indices/hang-sen-40`；上海綜合 `https://hk.investing.com/indices/shanghai-composite`；深證成指 `https://hk.investing.com/indices/szse-component`；Nikkei 225 `https://hk.investing.com/indices/japan-ni225`；KOSPI `https://hk.investing.com/indices/kospi`；台灣加權 `https://hk.investing.com/indices/taiwan-weighted`；STI `https://hk.investing.com/indices/singapore-straits-time`；S&P/ASX 200 `https://hk.investing.com/indices/aus-200-historical-data`；FTSE 100 `https://hk.investing.com/indices/uk-100`；DAX `https://hk.investing.com/indices/germany-30`；CAC 40 `https://hk.investing.com/indices/france-40`；STOXX Europe 600 `https://hk.investing.com/indices/stoxx-600`。
@@ -265,6 +277,11 @@
 5. 長期規則變更須記錄日期、舊規則、新規則、適用範圍與原因；只更新本檔，不另建第二份 Work Rules。每次規則變更後做章節編號、內部引用、連結、重複條文與必要需求保留檢查。
 
 ## J. 版本紀錄
+
+### 版本 4.12（2026-11-03｜固定 Snapshot 路徑與 WR Lock 生命週期）
+- 正式行情 Snapshot 固定儲存於 `data/market/snapshots/YYYY-MM-DD.json`，以台灣報告日期命名，統一資料產出、讀取及下游交接路徑。
+- 明定 WR lock 使用既有鎖定程式於單次執行暫存目錄建立，透過 `TAC_WR_LOCK_FILE` 傳遞，不提交至 main，並保留完整版本與 SHA 紀錄。
+- 明定正式 Snapshot 必須使用既有 Schema、組裝器及驗證器，保留 44 項欄位與獨立 FedWatch 狀態，並規範已存在快照的修訂保護及驗證門檻。
 
 ### 版本 4.11（2026-11-03｜統一行情欄位統計口徑）
 - 依正式 Snapshot Schema 統一行情欄位計數：44 項固定行情欄位已包含 11 項產業 ETF，ETF 不得重複加計；FedWatch 獨立記錄，不計入 44 項。
