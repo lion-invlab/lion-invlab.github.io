@@ -1,0 +1,540 @@
+{
+  "schema_version": 1,
+  "meta": {
+    "report_date": "2026-11-03",
+    "trading_date": "2026-11-02",
+    "generated_at": "2026-11-03T08:08:56+08:00",
+    "timezone": "Asia/Taipei",
+    "wr_version": "4.12",
+    "wr_commit_sha": "a9f3f0501e57c1b8e0093c732f52dd13de0d0300",
+    "wr_blob_sha": "bd85837d3653b6a6ab8ec397bc78d12378babf39",
+    "wr_content_sha256": "6de60f70c934d6f5e9e7aba58d694dcb1805b1de6fac9df2d01232d6ef3d48e0"
+  },
+  "fedwatch": {
+    "target_meeting": null,
+    "updated_at": null,
+    "source": null,
+    "probabilities": [],
+    "status": "pending_verification",
+    "notes": "本次尚未重新直接讀取 Investing.com Fed Rate Monitor 動態頁；不得沿用前次讀值冒充本次核實"
+  },
+  "global_indices": {
+    "dow": {
+      "value": 51983.98,
+      "unit": "index_point",
+      "change": 0.41,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Reuters",
+        "url": "https://www.reuters.com/business/media-telecom/wall-street-futures-rise-ai-stocks-catch-their-breath-midterms-focus-2026-11-02/",
+        "observed_at": "2026-11-02T10:57:00Z",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "Dow Jones Industrial Average"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "Reuters 2026-11-02 報導明確列出正式收盤點位與當日漲跌幅"
+    },
+    "sp500": {
+      "value": 7541.4,
+      "unit": "index_point",
+      "change": -0.51,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Reuters",
+        "url": "https://www.reuters.com/business/media-telecom/wall-street-futures-rise-ai-stocks-catch-their-breath-midterms-focus-2026-11-02/",
+        "observed_at": "2026-11-02T10:57:00Z",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "S&P 500"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "Reuters 2026-11-02 報導明確列出正式收盤點位與當日漲跌幅"
+    },
+    "nasdaq_composite": {
+      "value": 25164.32,
+      "unit": "index_point",
+      "change": -1.07,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Reuters",
+        "url": "https://www.reuters.com/business/media-telecom/wall-street-futures-rise-ai-stocks-catch-their-breath-midterms-focus-2026-11-02/",
+        "observed_at": "2026-11-02T10:57:00Z",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "Nasdaq Composite"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "Reuters 2026-11-02 報導明確列出正式收盤點位與當日漲跌幅"
+    },
+    "russell_2000": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "sox": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "hang_seng": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "shanghai_composite": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "shenzhen_component": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "nikkei_225": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "kospi": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "twse": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "singapore_sti": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "asx_200": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "ftse_100": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "dax": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "cac_40": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "stoxx_europe_600": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  },
+  "sectors": {
+    "xlk": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xly": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlb": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlu": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xli": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlv": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlf": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlc": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlre": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xlp": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "xle": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  },
+  "bonds": {
+    "us_2y": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "us_10y": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "us_30y": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  },
+  "fx": {
+    "dxy": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "usd_twd": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "eur_usd": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "gbp_usd": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "aud_usd": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "usd_jpy": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  },
+  "energy": {
+    "wti": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "brent": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  },
+  "precious_metals": {
+    "gold_gc": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "silver_si": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  },
+  "risk_indicators": {
+    "vix": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "move": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    },
+    "cnn_fear_greed": {
+      "value": null,
+      "unit": "index_point",
+      "change": null,
+      "change_unit": null,
+      "status": "pending_verification",
+      "source": null,
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+    }
+  }
+}
