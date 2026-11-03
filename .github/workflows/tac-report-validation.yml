@@ -124,7 +124,7 @@ jobs:
           mkdir -p artifacts
           for snapshot in "${snapshots[@]}"; do
             echo "Validating committed snapshot: $snapshot"
-            python scripts/validate_tac_daily_snapshot.py --file "$snapshot"
+            python scripts/validate_tac_daily_snapshot.py --file "$snapshot" --allow-historical-wr
             python - "$snapshot" <<'PY'
           import json, pathlib, sys
           source = json.loads(pathlib.Path(sys.argv[1]).read_text(encoding="utf-8"))

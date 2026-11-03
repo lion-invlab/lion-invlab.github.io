@@ -6,10 +6,13 @@ import copy
 import json
 import sys
 import os
+import hashlib
+import re
+import subprocess
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-from tac_wr_lock import load_local_wr_version
+from tac_wr_lock import load_local_wr_version, parse_wr_version
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = ROOT / "schemas" / "tac-daily-market-snapshot.schema.json"
@@ -34,6 +37,64 @@ def load_active_wr_lock():
         return lock
     return {"wr_version": load_local_wr_version()}
 
+
+
+def validate_snapshot_wr_provenance(data: dict, allow_historical: bool) -> None:
+    """Validate the exact WR revision recorded by a formal snapshot."""
+    meta = data.get("meta", {})
+    required = ("wr_version", "wr_commit_sha", "wr_blob_sha", "wr_content_sha256")
+    missing = [key for key in required if not meta.get(key)]
+    if missing:
+        raise ValueError("snapshot WR provenance is incomplete: " + ", ".join(missing))
+
+    commit_sha = meta["wr_commit_sha"]
+    blob_sha = meta["wr_blob_sha"]
+    content_sha256 = meta["wr_content_sha256"]
+    if not re.fullmatch(r"[0-9a-f]{40}", commit_sha):
+        raise ValueError("snapshot WR provenance has an invalid wr_commit_sha")
+    if not re.fullmatch(r"[0-9a-f]{40}", blob_sha):
+        raise ValueError("snapshot WR provenance has an invalid wr_blob_sha")
+    if not re.fullmatch(r"[0-9a-f]{64}", content_sha256):
+        raise ValueError("snapshot WR provenance has an invalid wr_content_sha256")
+
+    active_lock = load_active_wr_lock()
+    if not allow_historical:
+        if meta["wr_version"] != active_lock["wr_version"]:
+            raise ValueError(
+                "snapshot WR version does not match the current checked-out TAC_WORK_RULES.md; "
+                "use --allow-historical-wr only for intentional historical validation"
+            )
+        for key in ("wr_commit_sha", "wr_blob_sha", "wr_content_sha256"):
+            if active_lock.get(key) and meta[key] != active_lock[key]:
+                raise ValueError(f"snapshot {key} does not match the active WR lock")
+
+    try:
+        committed_content = subprocess.run(
+            ["git", "show", f"{commit_sha}:TAC_WORK_RULES.md"],
+            cwd=ROOT, check=True, capture_output=True, text=True,
+        ).stdout
+        committed_blob = subprocess.run(
+            ["git", "rev-parse", f"{commit_sha}:TAC_WORK_RULES.md"],
+            cwd=ROOT, check=True, capture_output=True, text=True,
+        ).stdout.strip()
+    except subprocess.CalledProcessError as exc:
+        raise ValueError(
+            "cannot resolve the snapshot's recorded WR commit; ensure repository history is available"
+        ) from exc
+
+    actual_version = parse_wr_version(committed_content)
+    actual_content_sha256 = hashlib.sha256(committed_content.encode("utf-8")).hexdigest()
+    if actual_version != meta["wr_version"]:
+        raise ValueError(
+            f"snapshot wr_version {meta['wr_version']} does not match recorded commit version {actual_version}"
+        )
+    if committed_blob != blob_sha:
+        raise ValueError("snapshot wr_blob_sha does not match TAC_WORK_RULES.md at wr_commit_sha")
+    if actual_content_sha256 != content_sha256:
+        raise ValueError("snapshot wr_content_sha256 does not match TAC_WORK_RULES.md at wr_commit_sha")
+
+    if not allow_historical and commit_sha != active_lock.get("wr_commit_sha"):
+        raise ValueError("snapshot wr_commit_sha does not match the active WR lock")
 
 def sample_snapshot(schema):
     props = schema["properties"]
@@ -112,8 +173,7 @@ def main():
         parser.error("--file is required unless --self-test is used")
     path = Path(args.file)
     data = json.loads(path.read_text(encoding="utf-8"))
-    if not args.allow_historical_wr and data.get("meta", {}).get("wr_version") != load_active_wr_lock()["wr_version"]:
-        raise ValueError("snapshot WR version does not match the current checked-out TAC_WORK_RULES.md; use --allow-historical-wr only for intentional historical validation")
+    validate_snapshot_wr_provenance(data, allow_historical=args.allow_historical_wr)
     errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
     if errors:
         for error in errors:
