@@ -394,15 +394,22 @@
       "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
     },
     "xlf": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 57.54,
+      "unit": "USD_per_share",
+      "change": 1.82,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Financial Select Sector SPDR ETF (XLF)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟歷史資料頁，2026-11-02列收市57.54，升跌+1.82%；非收市後報價。"
     },
     "xlc": {
       "value": null,
