@@ -3,12 +3,12 @@
   "meta": {
     "report_date": "2026-11-04",
     "trading_date": "2026-11-03",
-    "generated_at": "2026-11-04T07:34:45.437183+08:00",
+    "generated_at": "2026-11-04T07:58:46.526831+08:00",
     "timezone": "Asia/Taipei",
-    "wr_version": "4.18",
-    "wr_commit_sha": "793375af1c0638ad9912e4f7d27682c0c012117a",
-    "wr_blob_sha": "6b1309fedc8a65d6982230ee11e8a368b2c78871",
-    "wr_content_sha256": "de6f482d3972e647c6dba5f626b05db81ba73e9f7001447cccc2128e4874403e"
+    "wr_version": "4.19",
+    "wr_commit_sha": "300258b70abadeba633138e1801eb50d63e18de4",
+    "wr_blob_sha": "9f30cf37b96a33c4029f69ea69e449d250feaaa4",
+    "wr_content_sha256": "194ccb926afee192f0cc66a298985ed9879d830753f8796ea91e2fdfd229f41a"
   },
   "global_indices": {
     "dow": {
@@ -780,22 +780,22 @@
       "notes": "Investing.com 香港站歷史資料 2026-11-03 收盤列。"
     },
     "move": {
-      "value": 100.36,
+      "value": 99.97,
       "unit": "MOVE_index_point",
-      "change": 0.16,
+      "change": -0.39,
       "change_unit": "percent",
       "status": "verified",
       "source": {
-        "name": "Investing.com 香港站 MOVE 歷史數據",
-        "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
-        "observed_at": "2026-11-04T07:32:40+08:00",
-        "data_date": "2026-11-02",
+        "name": "EODData — INDEX:MOVE (second fallback; user screenshot corroboration)",
+        "url": "https://www.eoddata.com/stockquote/INDEX/MOVE.htm",
+        "observed_at": "2026-11-04T07:57:19+08:00",
+        "data_date": "2026-11-03",
         "quote_type": "daily_close",
-        "instrument": "ICE BofA MOVE Index (^MOVE)"
+        "instrument": "INDEX:MOVE — Merrill Lynch Option Volatility Estimate"
       },
-      "fallback_used": false,
-      "fallback_reason": null,
-      "notes": "Investing.com MOVE 歷史頁區間至 2026-11-03，但最後可見資料列為 2026-11-02；Yahoo Finance ^MOVE 備援頁讀取遇 HTTP 429，故僅列示已核實的 11/02 最新可讀值，不冒充 11/03。"
+      "fallback_used": true,
+      "fallback_reason": "Investing.com 香港站歷史頁最新可見資料仍為 2026-11-02；Yahoo Finance ^MOVE 讀取遭 HTTP 429，依 WR 4.19 D3 啟用第二備援 EODData。",
+      "notes": "EODData 03 Nov 2026 日線列示 Close 99.97、Open 100.56、High 100.66、Low 99.79、Prev 100.36；收盤較前收低 0.39 點，計算跌幅約 0.39%。使用者提供截圖亦顯示 11/03 16:17 EST 報價 99.97、前收 100.36，作交叉佐證；截圖非 Yahoo 頁面，未冒稱為 Yahoo 證據。"
     },
     "cnn_fear_greed": {
       "value": 19,

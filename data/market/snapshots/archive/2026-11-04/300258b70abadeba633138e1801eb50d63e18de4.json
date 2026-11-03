@@ -1,0 +1,839 @@
+{
+  "schema_version": 1,
+  "meta": {
+    "report_date": "2026-11-04",
+    "trading_date": "2026-11-03",
+    "generated_at": "2026-11-04T07:34:45.437183+08:00",
+    "timezone": "Asia/Taipei",
+    "wr_version": "4.18",
+    "wr_commit_sha": "793375af1c0638ad9912e4f7d27682c0c012117a",
+    "wr_blob_sha": "6b1309fedc8a65d6982230ee11e8a368b2c78871",
+    "wr_content_sha256": "de6f482d3972e647c6dba5f626b05db81ba73e9f7001447cccc2128e4874403e"
+  },
+  "global_indices": {
+    "dow": {
+      "value": 51786.72,
+      "unit": "index_point",
+      "change": -0.38,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "道瓊斯工業平均指數 (DJI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "sp500": {
+      "value": 7568.96,
+      "unit": "index_point",
+      "change": 0.37,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "美國標準普爾500指數 (SPX)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "nasdaq_composite": {
+      "value": 25372.01,
+      "unit": "index_point",
+      "change": 0.83,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "納斯達克綜合指數 (IXIC)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "russell_2000": {
+      "value": 2815.79,
+      "unit": "index_point",
+      "change": 0.35,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/smallcap-2000-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "美國小型股2000 (RUT)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "sox": {
+      "value": 10600.5,
+      "unit": "index_point",
+      "change": 2.64,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "費城半導體指數 (SOX)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "hang_seng": {
+      "value": 23525.97,
+      "unit": "index_point",
+      "change": 0.57,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "香港恒生指數 (HSI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "shanghai_composite": {
+      "value": 3608.1,
+      "unit": "index_point",
+      "change": -0.82,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "上證綜合指數 (SSEC)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "shenzhen_component": {
+      "value": 10876.99,
+      "unit": "index_point",
+      "change": -1.21,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "深證成份指數 (SZI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "nikkei_225": {
+      "value": 63081.86,
+      "unit": "index_point",
+      "change": -0.33,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "日經225指數 (N225)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "日本 2026-11-03 休市；採最近交易日 2026-11-02 歷史收盤列。"
+    },
+    "kospi": {
+      "value": 5648.79,
+      "unit": "index_point",
+      "change": -3.59,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/kospi-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "韓國KOSPI指數 (KS11)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "twse": {
+      "value": 43307.54,
+      "unit": "index_point",
+      "change": -3.59,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "台灣加權指數 (TWII)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "singapore_sti": {
+      "value": 5269.29,
+      "unit": "index_point",
+      "change": -0.65,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "新加坡海峽時報指數 (STI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "asx_200": {
+      "value": 8886.8,
+      "unit": "index_point",
+      "change": 0.34,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/aus-200-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "澳大利亞S&P/ASX200指數 (AXJO)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "ftse_100": {
+      "value": 10640.27,
+      "unit": "index_point",
+      "change": -1.12,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/uk-100-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "英國富時100指數 (FTSE)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "dax": {
+      "value": 25864.62,
+      "unit": "index_point",
+      "change": -0.45,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/germany-30-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "德國DAX30指數 (GDAXI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "cac_40": {
+      "value": 8020.31,
+      "unit": "index_point",
+      "change": -0.34,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/france-40-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "法國CAC40指數 (FCHI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "stoxx_europe_600": {
+      "value": 645.66,
+      "unit": "index_point",
+      "change": -0.58,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/stoxx-600-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "泛歐斯托克600指數 (STOXX)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    }
+  },
+  "sectors": {
+    "xlk": {
+      "value": 176.51,
+      "unit": "USD_per_share",
+      "change": 1.31,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Technology Select Sector SPDR ETF (XLK)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xly": {
+      "value": 117.35,
+      "unit": "USD_per_share",
+      "change": -0.69,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Consumer Discretionary Select Sector SPDR ETF (XLY)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlb": {
+      "value": 52.59,
+      "unit": "USD_per_share",
+      "change": -2.01,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Materials Select Sector SPDR ETF (XLB)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlu": {
+      "value": 43.42,
+      "unit": "USD_per_share",
+      "change": -0.57,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Utilities Select Sector SPDR ETF (XLU)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xli": {
+      "value": 171.32,
+      "unit": "USD_per_share",
+      "change": 0.95,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Industrial Select Sector SPDR ETF (XLI)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlv": {
+      "value": 184.03,
+      "unit": "USD_per_share",
+      "change": -0.31,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Health Care Select Sector SPDR ETF (XLV)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlf": {
+      "value": 57.19,
+      "unit": "USD_per_share",
+      "change": -0.64,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Financial Select Sector SPDR ETF (XLF)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlc": {
+      "value": 101.44,
+      "unit": "USD_per_share",
+      "change": 1.18,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Communication Services Select Sector SPDR ETF (XLC)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlre": {
+      "value": 43.59,
+      "unit": "USD_per_share",
+      "change": -0.11,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 全球站歷史數據",
+        "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Real Estate Select Sector SPDR ETF (XLRE)"
+      },
+      "fallback_used": true,
+      "fallback_reason": "Investing.com 香港站該 ETF 歷史頁未能取得；改讀 Investing.com 全球站同一 ETF 的 2026-11-03 歷史資料列。",
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xlp": {
+      "value": 88.97,
+      "unit": "USD_per_share",
+      "change": -2.05,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Consumer Staples Select Sector SPDR ETF (XLP)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    },
+    "xle": {
+      "value": 66.68,
+      "unit": "USD_per_share",
+      "change": -0.85,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "State Street Energy Select Sector SPDR ETF (XLE)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "依使用者規則以 ETF 歷史資料列收盤價及單日百分比變動；Dashboard 僅顯示百分比變動。"
+    }
+  },
+  "bonds": {
+    "us_2y": {
+      "value": 4.61,
+      "unit": "percent",
+      "change": null,
+      "change_unit": null,
+      "status": "verified",
+      "source": {
+        "name": "U.S. Treasury — Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_treasury_par_yield",
+        "instrument": "2 Yr"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "美國財政部官方 Daily Treasury Par Yield Curve Rates，2026-11-03 日期列；採 2 Yr／10 Yr／30 Yr par yield。"
+    },
+    "us_10y": {
+      "value": 4.95,
+      "unit": "percent",
+      "change": null,
+      "change_unit": null,
+      "status": "verified",
+      "source": {
+        "name": "U.S. Treasury — Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_treasury_par_yield",
+        "instrument": "10 Yr"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "美國財政部官方 Daily Treasury Par Yield Curve Rates，2026-11-03 日期列；採 2 Yr／10 Yr／30 Yr par yield。"
+    },
+    "us_30y": {
+      "value": 5.32,
+      "unit": "percent",
+      "change": null,
+      "change_unit": null,
+      "status": "verified",
+      "source": {
+        "name": "U.S. Treasury — Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_treasury_par_yield",
+        "instrument": "30 Yr"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "美國財政部官方 Daily Treasury Par Yield Curve Rates，2026-11-03 日期列；採 2 Yr／10 Yr／30 Yr par yield。"
+    }
+  },
+  "fx": {
+    "dxy": {
+      "value": 101.88,
+      "unit": "index_point",
+      "change": 0.13,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "US Dollar Index (DXY)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "usd_twd": {
+      "value": 32.745,
+      "unit": "exchange_rate",
+      "change": 0.39,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "USD/TWD"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "eur_usd": {
+      "value": 1.1188,
+      "unit": "exchange_rate",
+      "change": 0.01,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 歷史數據",
+        "url": "https://www.investing.com/currencies/eur-usd-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "EUR/USD"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "gbp_usd": {
+      "value": 1.3415,
+      "unit": "exchange_rate",
+      "change": 0.06,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 歷史數據",
+        "url": "https://www.investing.com/currencies/gbp-usd-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "GBP/USD"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "aud_usd": {
+      "value": 0.6966,
+      "unit": "exchange_rate",
+      "change": -0.47,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 歷史數據",
+        "url": "https://www.investing.com/currencies/aud-usd-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "AUD/USD"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    },
+    "usd_jpy": {
+      "value": 158.72,
+      "unit": "exchange_rate",
+      "change": 0.49,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 歷史數據",
+        "url": "https://www.investing.com/currencies/usd-jpy-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "USD/JPY"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "直接讀取指定來源歷史資料頁，採 2026-11-03 日期列收盤價及升跌百分比。"
+    }
+  },
+  "energy": {
+    "wti": {
+      "value": 96.76,
+      "unit": "USD_per_barrel",
+      "change": 0.31,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據（CME fallback）",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_futures_close",
+        "instrument": "WTI原油期貨 — 2026年12月 (OIL)"
+      },
+      "fallback_used": true,
+      "fallback_reason": "CME Daily Settlements 頁面可讀，但未提供可直接核對的當日產品結算資料列；依規則改採 Investing.com 歷史收盤資料，並明確標示為 futures close，非 CME 官方 settlement。",
+      "notes": "Investing.com 歷史資料列；CME Daily Settlements 無可讀產品結算列，故本筆是 Investing.com futures close，不宣稱為 CME 官方結算價。"
+    },
+    "brent": {
+      "value": 104.35,
+      "unit": "USD_per_barrel",
+      "change": -0.4,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據（CME fallback）",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_futures_close",
+        "instrument": "倫敦布倫特原油期貨 — 2027年1月 (LCOF7)"
+      },
+      "fallback_used": true,
+      "fallback_reason": "CME Daily Settlements 頁面可讀，但未提供可直接核對的當日產品結算資料列；依規則改採 Investing.com 歷史收盤資料，並明確標示為 futures close，非 CME 官方 settlement。",
+      "notes": "Investing.com 歷史資料列；CME Daily Settlements 無可讀產品結算列，故本筆是 Investing.com futures close，不宣稱為 CME 官方結算價。"
+    }
+  },
+  "precious_metals": {
+    "gold_gc": {
+      "value": 3941,
+      "unit": "USD_per_troy_ounce",
+      "change": -0.72,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據（CME fallback）",
+        "url": "https://hk.investing.com/commodities/gold-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_futures_close",
+        "instrument": "黃金期貨 — 2026年12月 (GCZ6)"
+      },
+      "fallback_used": true,
+      "fallback_reason": "CME Daily Settlements 頁面可讀，但未提供可直接核對的當日產品結算資料列；依規則改採 Investing.com 歷史收盤資料，並明確標示為 futures close，非 CME 官方 settlement。",
+      "notes": "Investing.com 歷史資料列；CME Daily Settlements 無可讀產品結算列，故本筆是 Investing.com futures close，不宣稱為 CME 官方結算價。"
+    },
+    "silver_si": {
+      "value": 49.792,
+      "unit": "USD_per_troy_ounce",
+      "change": -2.15,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據（CME fallback）",
+        "url": "https://hk.investing.com/commodities/silver-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_futures_close",
+        "instrument": "白銀期貨 — 2026年12月 (SIZ6)"
+      },
+      "fallback_used": true,
+      "fallback_reason": "CME Daily Settlements 頁面可讀，但未提供可直接核對的當日產品結算資料列；依規則改採 Investing.com 歷史收盤資料，並明確標示為 futures close，非 CME 官方 settlement。",
+      "notes": "Investing.com 歷史資料列；CME Daily Settlements 無可讀產品結算列，故本筆是 Investing.com futures close，不宣稱為 CME 官方結算價。"
+    }
+  },
+  "risk_indicators": {
+    "vix": {
+      "value": 20.83,
+      "unit": "volatility_index_point",
+      "change": -1.51,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 VIX 歷史數據",
+        "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "daily_close",
+        "instrument": "CBOE Volatility Index (VIX)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "Investing.com 香港站歷史資料 2026-11-03 收盤列。"
+    },
+    "move": {
+      "value": 100.36,
+      "unit": "MOVE_index_point",
+      "change": 0.16,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 MOVE 歷史數據",
+        "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "ICE BofA MOVE Index (^MOVE)"
+      },
+      "fallback_used": false,
+      "fallback_reason": null,
+      "notes": "Investing.com MOVE 歷史頁區間至 2026-11-03，但最後可見資料列為 2026-11-02；Yahoo Finance ^MOVE 備援頁讀取遇 HTTP 429，故僅列示已核實的 11/02 最新可讀值，不冒充 11/03。"
+    },
+    "cnn_fear_greed": {
+      "value": 19,
+      "unit": "fear_greed_score",
+      "change": null,
+      "change_unit": null,
+      "status": "verified",
+      "source": {
+        "name": "FGScore — CNN provider index backup",
+        "url": "https://fgscore.com/en/markets/sp500",
+        "observed_at": "2026-11-04T07:32:40+08:00",
+        "data_date": "2026-11-03",
+        "quote_type": "provider_index_latest_reading",
+        "instrument": "CNN Fear & Greed Index — US stocks"
+      },
+      "fallback_used": true,
+      "fallback_reason": "CNN Business 原頁與官方動態端點無法讀取；依備援來源採 FGScore 所列 CNN provider index，最新值為 19。",
+      "notes": "CNN US stocks provider index；19 = Extreme Fear。FGScore 顯示 As of Nov 3, 2026 UTC；市場時間戳 Nov 3 17:35 EST（換算台北 2026-11-04 06:35）。"
+    }
+  },
+  "fedwatch": {
+    "target_meeting": "2026-12-10 03:00 Asia/Taipei",
+    "updated_at": "2026-11-04T02:55:00+08:00",
+    "source": {
+      "name": "Investing.com 香港站 Fed Rate Monitor",
+      "url": "https://hk.investing.com/central-banks/fed-rate-monitor"
+    },
+    "probabilities": [
+      {
+        "rate_range": "3.75%-4.00%",
+        "probability": 26.6
+      },
+      {
+        "rate_range": "4.00%-4.25%",
+        "probability": 73.4
+      }
+    ],
+    "status": "verified",
+    "notes": "直接讀取 Investing.com Fed Rate Monitor 動態頁；頁面更新時間 2026-11-03 12:55 CST（按美國 Central Standard Time 換算台北為 2026-11-04 02:55）；兩檔機率合計 100%。"
+  }
+}
