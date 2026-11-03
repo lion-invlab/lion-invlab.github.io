@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T04:30:40+08:00",
+  "updated_at": "2026-11-04T04:43:37+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "4.18",
   "status": "active",
@@ -116,7 +116,7 @@
           "name": "Reserve Bank of Australia｜Monetary Policy Decision, 3 November 2026",
           "url": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Reserve Bank of Australia",
           "notes": "官方決議：cash rate target 上調25bp至4.85%，6-3表決；前值4.60%。決議日期為2026-11-03；既有官方行事曆確認公布時間14:30 AEDT，換算台灣時間11:30。"
         },
@@ -146,7 +146,7 @@
           "name": "Federal Election Commission｜Election results and voting information",
           "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Federal Election Commission",
           "notes": "官方選舉資訊入口；截至本次查核時，投票日仍在進行，未取得全國最終結果。"
         },
@@ -156,7 +156,7 @@
           "name": "Ballotpedia｜2026 election results tracker",
           "url": "https://ballotpedia.org/Election_results,_2026",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Ballotpedia",
           "notes": "僅作即時席次進度的次級追蹤；尚未視為州級正式認證結果。"
         }
@@ -178,7 +178,7 @@
           "name": "U.S. Bureau of Labor Statistics｜JOLTS, September 2026",
           "url": "https://www.bls.gov/news.release/jolts.htm",
           "published_at": "2026-11-03T10:00:00-05:00",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
           "notes": "官方發布於2026-11-03 10:00 ET。9月職缺7.523M；8月由原7.079M修訂為7.190M；招聘5.402M、總離職5.319M。"
         },
@@ -187,7 +187,7 @@
           "name": "WSJ / ForexFactory｜JOLTS September 2026 market expectation cross-check",
           "url": "https://www.wsj.com/economy/jobs/u-s-job-openings-rose-in-september-86fb0e38",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Wall Street Journal; ForexFactory",
           "notes": "WSJ報導經濟學家預期約7.1M（四捨五入）；ForexFactory日曆列示7.15M。精確共識不一致，故正式forecast欄不填值；僅作市場預期區間參考。"
         },
@@ -212,7 +212,7 @@
           "name": "Eurostat｜Euro-indicators release calendar (date conflict under verification)",
           "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1793574000000&type=dayGridWeek",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Eurostat",
           "notes": "官方週曆搜尋結果仍列10月Flash inflation於11/03，但動態頁無法讀取該列完整欄位。2026-10-16一般Euro-indicators頁面標示下一次常規發布為11/18，不能作為11/04 Flash發布證據；ECB 11/04 15:00 CET項目屬ECB季調HICP資料發布，不能直接當作Eurostat headline flash發布時間。日期及時間衝突仍未解，維持pending_verification、time_known=false，actual不填。"
         },
@@ -221,7 +221,7 @@
           "name": "European Central Bank｜ECB statistics release calendar",
           "url": "https://www.ecb.europa.eu/stats/ecb_statistics/events/html/index.en.html",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "European Central Bank",
           "notes": "ECB日曆列有11/04 15:00 CET的季調HICP flash資料；此資料系列與Eurostat headline flash release不直接等同，不用來覆蓋Eurostat事件日期或發布時間。"
         },
@@ -246,7 +246,7 @@
           "name": "U.S. Treasury｜Quarterly Refunding Announcement schedule",
           "url": "https://home.treasury.gov/news/press-releases/sb0590",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "U.S. Department of the Treasury",
           "notes": "官方資料確認2026-11-04為季度再融資公告日期，但該頁未提供精確發布時間；event_date的12:00 Asia/Taipei僅為日期佔位，time_known=false。"
         },
@@ -270,7 +270,7 @@
           "name": "Sveriges Riksbank｜Calendar, 4 November 2026",
           "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Sveriges Riksbank",
           "notes": "官方行事曆確認11/04 09:30 CET公布貨幣政策決議／Monetary Policy Update，換算台灣時間16:30；11:00 CET記者會為另一時點，不覆蓋決議時間。"
         },
@@ -419,7 +419,7 @@
           "name": "Department of Finance Canada｜Budget 2026 release notice",
           "url": "https://www.canada.ca/en/department-finance/news/2026/10/government-of-canada-to-release-budget-2026-on-november-5-2026.html",
           "published_at": "2026-10-20",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Department of Finance Canada",
           "notes": "政府確認Budget 2026於2026-11-05提出；本次官方公告未提供可確認的精確發布時刻，event_date的12:00 Asia/Taipei僅作日期佔位，time_known=false。"
         },
@@ -668,7 +668,7 @@
           "name": "Vertex Pharmaceuticals Investor Relations｜Q3 2026 results",
           "url": "https://investors.vrtx.com/node/35036/pdf",
           "published_at": "2026-11-02",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Vertex Pharmaceuticals",
           "notes": "公司正式Q3結果：營收US$3.4408B；GAAP diluted EPS US$2.56；Non-GAAP diluted EPS US$4.76。2026-11-02美股收盤後公布；EPS共識口徑未明，未機械判定beat/miss。"
         },
@@ -716,7 +716,7 @@
           "name": "Apple Newsroom｜Apple reports fourth quarter results",
           "url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Apple Inc.",
           "notes": "官方新聞稿2026-11-02：FY2026 Q4營收US$114.5B、diluted EPS US$2.10、毛利率47.9%。"
         },
@@ -736,7 +736,7 @@
           "name": "Nasdaq EPS consensus（StockTitan 週曆）",
           "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
           "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Nasdaq via StockTitan",
           "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$1.98；營收預估未在此表提供。"
         },
@@ -790,7 +790,7 @@
           "name": "onsemi Investor Relations｜Q3 2026 results",
           "url": "https://investor.onsemi.com/node/23341/pdf",
           "published_at": "2026-11-02",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "onsemi",
           "notes": "公司正式Q3結果：營收US$1.722B；GAAP diluted EPS US$0.79；Non-GAAP diluted EPS US$0.90；AI資料中心營收年增175%。"
         },
@@ -838,7 +838,7 @@
           "name": "MT Newswires｜Palantir Q3 2026 results and FactSet comparison",
           "url": "https://finance.yahoo.com/markets/stocks/articles/palantir-q3-adjusted-earnings-revenue-211850162.html",
           "published_at": "2026-11-02",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "MT Newswires via Yahoo Finance",
           "notes": "2026-11-02公布；adjusted EPS US$0.44、FactSet共識US$0.41、營收US$2.31B。公司IR有Q3結果公告入口，數值另以Reuters／MT Newswires交叉核對。"
         },
@@ -858,7 +858,7 @@
           "name": "FactSet consensus via MT Newswires｜Palantir Q3 2026",
           "url": "https://finance.yahoo.com/markets/stocks/articles/palantir-q3-adjusted-earnings-revenue-211850162.html",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "MT Newswires via Yahoo Finance",
           "notes": "FactSet adjusted EPS consensus US$0.41；公司／市場報導的adjusted EPS US$0.44。先前Nasdaq週曆US$0.33口徑不明，已以同口徑FactSet來源替代，舊值保留於audit。"
         },
@@ -900,7 +900,7 @@
           "name": "Philips｜Q3 2026 Form 6-K and quarterly results",
           "url": "https://www.stocktitan.net/sec-filings/PHG/6-k-koninklijke-philips-nv-current-report-foreign-issuer-ca4afc88766b.html",
           "published_at": "2026-11-03T08:11:00-05:00",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Philips / SEC Form 6-K (via StockTitan)",
           "notes": "SEC Form 6-K filed 2026-11-03 08:11 ET。Q3 sales €4.393B；adjusted diluted EPS €0.40；GAAP diluted EPS €0.03；net income €28M；Respironics provision €288M。"
         },
@@ -927,7 +927,7 @@
           "name": "MarketBeat｜Philips Q3 2026 revenue estimate (currency mismatch noted)",
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-koninklijke-philips-stock/",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "MarketBeat",
           "notes": "原始共識US$5.02B與公司EUR實際營收不可直接比較；estimate欄已清空，保留來源以供後續取得同幣別共識。"
         },
@@ -962,7 +962,7 @@
           "name": "Fiserv Investor Relations｜Q3 2026 results",
           "url": "https://investors.fiserv.com/news-releases/news-release-details/fiserv-reports-third-quarter-2026-results",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Fiserv, Inc.",
           "notes": "公司正式Q3結果：adjusted diluted EPS US$1.75；adjusted revenue US$4.852B；GAAP revenue US$5.196B；GAAP diluted EPS US$-11.17，包含約US$6.45B非現金商譽減損。"
         },
@@ -982,7 +982,7 @@
           "name": "MarketBeat｜Fiserv Q3 2026 consensus estimates",
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-fiserv-inc-stock/",
           "published_at": null,
-          "observed_at": "2026-11-02T12:47:51+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 consensus EPS US$1.72；來源未明確揭露 GAAP／adjusted 口徑，故標記 basis not disclosed。公司 IR 日期與時段公告優先於第三方日曆。"
         },
@@ -991,7 +991,7 @@
           "name": "MarketBeat｜Fiserv Q3 2026 revenue consensus",
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-3-fiserv-inc-stock/",
           "published_at": null,
-          "observed_at": "2026-11-02T12:47:51+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "MarketBeat",
           "notes": "Q3 2026 revenue consensus US$4.85B；與 EPS 共識來源分欄保存。"
         },
@@ -1026,7 +1026,7 @@
           "name": "Shopify Investor Relations｜Q3 2026 results",
           "url": "https://www.shopify.com/investors/press-releases/shopify-sustains-rapid-growth-with-revenue-up-32-and-free-cash-flow-margin-of-22",
           "published_at": "2026-11-03T07:00:00-05:00",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Shopify Inc.",
           "notes": "官方新聞稿2026-11-03 07:00 ET：營收US$3.742B、GMV US$119.145B、FCF margin 22%；GAAP diluted EPS US$0.36。Adjusted EPS US$0.49及FactSet共識US$0.47由Barron's／IBD交叉核對。"
         },
@@ -1046,7 +1046,7 @@
           "name": "Barron's｜Shopify Q3 adjusted EPS consensus",
           "url": "https://www.barrons.com/articles/shopify-earnings-stock-price-f5cec098",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Barron's / Dow Jones",
           "notes": "Adjusted EPS共識US$0.47；公司公布adjusted EPS US$0.49。原Nasdaq週曆US$0.33屬未確認口徑，已以FactSet同口徑共識替代，舊值保留於audit。"
         },
@@ -1054,7 +1054,7 @@
           "name": "Investor's Business Daily｜Shopify Q3 2026 stock reaction",
           "url": "https://www.investors.com/news/technology/shopify-stock-shop-shopify-earnings-news-q32026/",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Investor's Business Daily",
           "notes": "報導adjusted EPS US$0.49高於US$0.47預期；營收US$3.742B低於US$3.775B預期；股價於11/03正常交易時段午後仍跌逾7%，非收盤價。"
         },
@@ -1062,7 +1062,7 @@
           "name": "Investor's Business Daily｜Shopify Q3 revenue consensus",
           "url": "https://www.investors.com/news/technology/shopify-stock-shop-shopify-earnings-news-q32026/",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Investor's Business Daily",
           "notes": "Revenue consensus US$3.775B；issuer actual US$3.742B，低於共識US$0.033B。"
         },
@@ -1097,7 +1097,7 @@
           "name": "Pfizer Investor Relations｜Q3 2026 earnings release",
           "url": "https://investors.pfizer.com/Q3-2026-PFE-Earnings-Release",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Pfizer Inc.",
           "notes": "公司正式Q3 2026財報：營收US$16.583B；adjusted diluted EPS US$0.87；GAAP diluted EPS US$0.56；提高全年營收及adjusted EPS指引。"
         },
@@ -1117,7 +1117,7 @@
           "name": "FactSet consensus via MT Newswires｜Pfizer Q3 2026",
           "url": "https://finance.yahoo.com/healthcare/articles/pfizer-fiscal-q3-adjusted-earnings-120247871.html",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "MT Newswires via Yahoo Finance",
           "notes": "FactSet adjusted EPS consensus US$0.74；Pfizer adjusted diluted EPS US$0.87。原Nasdaq週曆US$0.72為不同／未確認口徑，已以同口徑FactSet來源替代，舊值保留於audit。"
         },
@@ -1839,7 +1839,7 @@
           "name": "Emerson Investor Relations｜Q4 and FY2026 earnings release and conference call",
           "url": "https://ir.emerson.com/news-events/press-releases/detail/648/emerson-schedules-fourth-quarter-and-full-year-2026-earnings-release-and-conference-call",
           "published_at": "2026-10-14",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Emerson",
           "notes": "公司2026-10-14公告確認11/04美股開盤前發布FY2026 Q4及全年結果，電話會議08:30 ET；換算台灣時間21:30。公司公告明確標示NYSE: EMR。"
         },
@@ -2825,7 +2825,7 @@
           "name": "Eaton｜Q3 2026 earnings release",
           "url": "https://finance.yahoo.com/markets/stocks/articles/eaton-reports-record-third-quarter-113000525.html",
           "published_at": "2026-11-03T06:00:00-05:00",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Business Wire via Yahoo Finance",
           "notes": "2026-11-03 06:00 ET發布；Q3營收US$8.947B、adjusted diluted EPS US$3.68、GAAP diluted EPS US$2.77；官方公司新聞稿由Business Wire發布。"
         },
@@ -2833,7 +2833,7 @@
           "name": "Zacks Equity Research｜Eaton Q3 2026 adjusted EPS consensus",
           "url": "https://www.zacks.com/stock/news/3022022/eaton-q3-earnings-top-estimates-on-strong-organic-sales-view-up",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Zacks Equity Research",
           "notes": "Zacks確認adjusted EPS共識US$3.54；公司adjusted EPS US$3.68，高於共識。"
         },
@@ -2841,7 +2841,7 @@
           "name": "Zacks Equity Research｜Eaton Q3 2026 revenue consensus",
           "url": "https://www.zacks.com/stock/news/3022022/eaton-q3-earnings-top-estimates-on-strong-organic-sales-view-up",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Zacks Equity Research",
           "notes": "Zacks列示營收共識US$8.48B；公司實際營收US$8.947B，高於共識。原ChartMill US$8.591B已保留於audit。"
         },
@@ -2889,7 +2889,7 @@
           "name": "Apollo Investor Relations｜3Q 2026 Earnings Release PDF",
           "url": "https://ir.apollo.com/_assets/_4d78ea0278c7eff425a87b0d289155f8/apollo/db/2247/22889/full_earnings_release/AGM_Earnings_Release_3Q%272026.pdf",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "Apollo Global Management",
           "notes": "官方Q3 2026財報PDF：Total revenues US$4.739B；Adjusted Net Income US$1.293B／US$2.07 per share；GAAP net loss US$1.057B／US$-1.78 diluted EPS；AUM US$1.074T。"
         },
@@ -2897,7 +2897,7 @@
           "name": "FactSet consensus via Wall Street Journal｜Apollo Q3 2026",
           "url": "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "The Wall Street Journal",
           "notes": "FactSet adjusted EPS consensus US$2.19；Apollo Adjusted Net Income per share US$2.07。原Nasdaq週曆US$2.04為不同／未確認口徑，已以FactSet同口徑共識替代，舊值保留於audit。"
         },
@@ -2905,7 +2905,7 @@
           "name": "FactSet consensus via Wall Street Journal｜Apollo Q3 2026 revenue",
           "url": "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
           "published_at": null,
-          "observed_at": "2026-11-04T04:30:40+08:00",
+          "observed_at": "2026-11-04T04:43:37+08:00",
           "publisher": "The Wall Street Journal",
           "notes": "FactSet revenue consensus US$5.79B；Apollo reported total revenue US$4.739B。"
         },
@@ -2974,7 +2974,7 @@
         "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
         "https://ballotpedia.org/Election_results,_2026"
       ],
-      "checked_at": "2026-11-04T04:30:40+08:00",
+      "checked_at": "2026-11-04T04:43:37+08:00",
       "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。"
     },
     "earnings": {
@@ -3058,7 +3058,7 @@
         "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
         "https://ir.emerson.com/news-events/press-releases/detail/648/emerson-schedules-fourth-quarter-and-full-year-2026-earnings-release-and-conference-call"
       ],
-      "checked_at": "2026-11-04T04:30:40+08:00",
+      "checked_at": "2026-11-04T04:43:37+08:00",
       "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。"
     }
   },
@@ -10466,6 +10466,18 @@
       ],
       "source": "WR 4.18 + official issuer / government / BLS / SEC / Reuters / FactSet / Zacks source sweep",
       "note": "source_report_date 2026-11-03 -> 2026-11-04; wr_version 4.3 -> 4.18; both coverage statuses intentionally remain incomplete; checked_at=2026-11-04T04:30:40+08:00."
+    },
+    {
+      "at": "2026-11-04T04:43:37+08:00",
+      "action": "post_write_validation",
+      "changed_fields": [
+        "updated_at",
+        "coverage.economic.checked_at",
+        "coverage.earnings.checked_at",
+        "source.observed_at"
+      ],
+      "source": "https://github.com/lion-invlab/lion-invlab.github.io/commit/fab8aaf77a1681e5feb25bf9b1d52ceeb0382161",
+      "note": "Final source observation and post-write read-back timestamp set to 2026-11-04T04:43:37+08:00; previous write commit fab8aaf77a1681e5feb25bf9b1d52ceeb0382161, previous blob a81c01bfbe94697441d09874bd28ff33bee5370a; WR lock remains 4.18 at main HEAD c6d4c01d3cb3cd210c6265cc9482952284f2235b; updated_at 2026-11-04T04:30:40+08:00 -> 2026-11-04T04:43:37+08:00."
     }
   ]
 }
