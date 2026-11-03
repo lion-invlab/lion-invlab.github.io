@@ -184,7 +184,11 @@ try {
 
     // The approved red circular plus controls are fixed at 32 x 32 px.
     const circleSpecs = [
-      { selector: "#last-week-calendar .econ-event-toggle", pseudo: null },
+      // The previous-week economic calendar exists only in the Monday master.
+      // The Manifest-selected weekday master has no #last-week-calendar by design.
+      ...(scenario === "monday" ? [
+        { selector: "#last-week-calendar .econ-event-toggle", pseudo: null }
+      ] : []),
       { selector: ".earnings-accordion-toggle", pseudo: null }
     ];
     for (const spec of circleSpecs) {
