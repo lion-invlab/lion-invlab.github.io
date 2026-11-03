@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -56,13 +55,46 @@ def extract_payload(body: str) -> dict:
     return payload
 
 
+def self_test() -> None:
+    sample = {
+        "schema_version": 1,
+        "report_date": "2026-11-04",
+        "trading_date": "2026-11-03",
+        "wr_lock": {key: "x" for key in LOCK_FIELDS},
+        "fragment": {"report_date": "2026-11-04", "trading_date": "2026-11-03",
+                     "global_indices": {}},
+    }
+    body = BEGIN + json.dumps(sample) + END
+    assert extract_payload(body) == sample
+    assert iso_date("2026-11-04", "report_date") == "2026-11-04"
+    try:
+        extract_payload(body + BEGIN)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("duplicate marker must be rejected")
+    try:
+        iso_date("2026/11/04", "report_date")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("non-ISO date must be rejected")
+    print("PASS: TAC handoff marker, JSON, and date validation")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--self-test", action="store_true")
     parser.add_argument("--event", required=True)
     parser.add_argument("--lock", required=True)
     parser.add_argument("--fragment-out", required=True)
     parser.add_argument("--metadata-out", required=True)
     args = parser.parse_args()
+    if args.self_test:
+        self_test()
+        return 0
+    if not all((args.event, args.lock, args.fragment_out, args.metadata_out)):
+        parser.error("--event, --lock, --fragment-out and --metadata-out are required")
 
     event = json.loads(Path(args.event).read_text(encoding="utf-8"))
     lock = json.loads(Path(args.lock).read_text(encoding="utf-8"))
