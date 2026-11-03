@@ -147,7 +147,7 @@ jobs:
             });
             core.info('Appended WR lock relay record to issue #319');
 
-  # Authenticated ChatGPT-to-runner handoff. Only the pinned repository owner
+  # Authenticated ChatGPT-to-runner handoff. Only the exact pinned owner ID is accepted.
   # can submit a versioned fragment on ordinary issue #319.
   snapshot-comment-intake:
     if: >-
