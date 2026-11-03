@@ -20,40 +20,40 @@
   },
   "global_indices": {
     "dow": {
-      "value": 51983.98,
+      "value": 51986.3,
       "unit": "index_point",
-      "change": 0.41,
+      "change": 0.42,
       "change_unit": "percent",
       "status": "verified",
       "source": {
-        "name": "Reuters",
-        "url": "https://www.reuters.com/business/media-telecom/wall-street-futures-rise-ai-stocks-catch-their-breath-midterms-focus-2026-11-02/",
-        "observed_at": "2026-11-02T10:57:00Z",
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
         "data_date": "2026-11-02",
         "quote_type": "daily_close",
-        "instrument": "Dow Jones Industrial Average"
+        "instrument": "道瓊斯工業平均指數 (DJI)"
       },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "Reuters 2026-11-02 報導明確列出正式收盤點位與當日漲跌幅"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "sp500": {
-      "value": 7541.4,
+      "value": 7541.83,
       "unit": "index_point",
-      "change": -0.51,
+      "change": -0.5,
       "change_unit": "percent",
       "status": "verified",
       "source": {
-        "name": "Reuters",
-        "url": "https://www.reuters.com/business/media-telecom/wall-street-futures-rise-ai-stocks-catch-their-breath-midterms-focus-2026-11-02/",
-        "observed_at": "2026-11-02T10:57:00Z",
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
         "data_date": "2026-11-02",
         "quote_type": "daily_close",
-        "instrument": "S&P 500"
+        "instrument": "美國標準普爾500指數 (SPX)"
       },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "Reuters 2026-11-02 報導明確列出正式收盤點位與當日漲跌幅"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "nasdaq_composite": {
       "value": 25164.32,
@@ -62,16 +62,16 @@
       "change_unit": "percent",
       "status": "verified",
       "source": {
-        "name": "Reuters",
-        "url": "https://www.reuters.com/business/media-telecom/wall-street-futures-rise-ai-stocks-catch-their-breath-midterms-focus-2026-11-02/",
-        "observed_at": "2026-11-02T10:57:00Z",
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
         "data_date": "2026-11-02",
         "quote_type": "daily_close",
-        "instrument": "Nasdaq Composite"
+        "instrument": "納斯達克綜合指數 (IXIC)"
       },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "Reuters 2026-11-02 報導明確列出正式收盤點位與當日漲跌幅"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "russell_2000": {
       "value": null,
