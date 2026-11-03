@@ -1,4 +1,4 @@
-import { chromium } from "playwright";
+import { chromium, webkit } from "playwright";
 import fs from "node:fs";
 
 const html=fs.readFileSync("volatility.html","utf8");
@@ -10,8 +10,10 @@ if(!table.includes('class="constituent-table"')||!table.includes("<colgroup>"))t
 if(html.includes("initFrozenColumns")||html.includes("--frozen-x"))throw new Error("Legacy scroll-transform implementation remains");
 const rows=Array.from({length:40},(_,i)=>'<tr><td>'+(i+1)+'</td><td class="ticker">T'+i+'</td>'+Array.from({length:10},()=>"<td>12.34%</td>").join("")+"</tr>").join("");
 const fixture=table.replace('<tbody id="body"></tbody>','<tbody id="body">'+rows+'</tbody>');
-const browser=await chromium.launch({headless:true}),failures=[];
-try{
+const failures=[];
+for(const engine of [{name:"chromium",type:chromium},{name:"webkit",type:webkit}]){
+ const browser=await engine.type.launch({headless:true});
+ try{
  for(const width of [320,390,430,1280]){
   const page=await browser.newPage({viewport:{width,height:844},deviceScaleFactor:1});
   await page.setContent('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+style+'</style><div class="tablewrap" id="constituentTableWrap">'+fixture+'</div>');
@@ -32,8 +34,9 @@ try{
   if(width<=700&&(!near(r.rankHead.top,r.wrap.top+1)||!near(r.tickerHead.top,r.wrap.top+1)))failures.push(width+"px: frozen header row scrolled vertically out of view");
   if(Number(r.rankHead.position!=="sticky")||Number(r.tickerHead.position!=="sticky"))failures.push(width+"px: frozen header cells lost sticky positioning");
   if(Number(r.rankHead.stickyLeft!=="0px")||Number(r.tickerHead.stickyLeft!=="38px"))failures.push(width+"px: frozen header offsets incorrect");
-  console.log(JSON.stringify({width,...r}));await page.close();
+  console.log(JSON.stringify({engine:engine.name,width,...r}));await page.close();
  }
-}finally{await browser.close()}
+ }finally{await browser.close()}
+}
 if(failures.length){console.error(failures.join("\n"));process.exit(1)}
 console.log("PASS: native sticky columns stay fixed at all tested viewport widths.");
