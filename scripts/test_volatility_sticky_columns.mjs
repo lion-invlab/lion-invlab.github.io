@@ -28,7 +28,7 @@ for(const engine of [{name:"chromium",type:chromium},{name:"webkit",type:webkit}
   if(!near(r.tickerHead.left,r.wrap.left+35)||!near(r.tickerCell.left,r.wrap.left+35))failures.push(width+"px: ticker column moved or offset incorrect");
   for(const [n,c] of [["rank",r.rankCell],["ticker",r.tickerCell]])if(c.position!=="sticky")failures.push(width+"px: "+n+" is not sticky");
   if(!near(r.tickerCell.width,68))failures.push(width+"px: ticker width incorrect");
-  if(!near(r.companyCell.width,190))failures.push(width+"px: company column width incorrect");
+  if(!near(r.companyCell.width,145))failures.push(width+"px: company column width incorrect (145px)");
   if(r.companyStyle.align!=="left"||r.companyStyle.whiteSpace!=="normal"||r.companyStyle.overflowWrap!=="anywhere")failures.push(width+"px: company text wrapping/alignment incorrect");
   if(r.companyCell.height<=44.5)failures.push(width+"px: long company name did not wrap to multiple lines");
   if(r.rankHeadText!=="#"||r.tickerHeadText!=="代號")failures.push(width+"px: frozen header labels missing");
