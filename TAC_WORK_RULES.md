@@ -124,6 +124,15 @@
 6. QA 清單中已完整且無需更新的內容，採保留制；不為了形式重複重抓或重製。
 
 ### 第六步｜交付審核版與正式發布
+
+**審核版 Git 路徑與分支政策（2026-11-03 起適用）**
+- 每日審核版必須直接寫入 GitHub repository `main` 分支的 `preview/YYYY-MM-DD.html`；`preview/` 是目錄，不是分支名稱。
+- 每日早報正常產製不得另建日期型 QA／preview 分支，不得為交付審核版建立 PR，也不得要求使用者切換分支才能預覽。不得把審核版留在非 main 分支後宣稱已完成正式預覽交付。
+- 若同日審核版已存在於 main，先回讀並核對內容及 SHA，再依本次產製結果更新同一路徑；不得另造同日副本。
+- 寫入 main 僅限本次日期的 `preview/YYYY-MM-DD.html` 與必要且經授權的工作規則／流程修正；絕不可連帶修改 `index.html`、雙母版、Manifest、歷史報告或其他保護資產。
+- 若 main 寫入遭分支保護、權限或其他技術限制阻擋，停止該次寫入並回報具體阻塞；不得自行改用新分支／PR 作為等價替代。只有使用者另行明確授權例外時，才可採用其他交付路徑。
+- 預覽以 `https://lion-invlab.github.io/preview/YYYY-MM-DD.html` 為唯一首選；必須實際確認 Pages 已部署且載入正常 HTML。GitHub 檔案存在或 commit 成功不等於預覽已可瀏覽。
+
 1. 審核版固定寫入 `preview/YYYY-MM-DD.html`。若同日檔案已存在，先回讀後更新同一路徑，不另造多份同日副本。
 2. 首選預覽網址：`https://lion-invlab.github.io/preview/YYYY-MM-DD.html`。不得以 GitHub /blob/ 原始碼頁代替。GitHub 寫入成功不等於 Pages 已部署或可開啟。
 3. 寫入後重新 fetch 回讀審核版，核對檔案路徑、日期、內容、commit／blob SHA、母版來源及保護檔案未被修改；並實際開啟 Pages 網址確認載入正常 HTML。無法確認部署時明確標示「已寫入 GitHub，Pages 尚未驗證」。
