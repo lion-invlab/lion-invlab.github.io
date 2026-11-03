@@ -617,50 +617,78 @@
   },
   "energy": {
     "wti": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 96.26,
+      "unit": "USD_per_barrel",
+      "change": -5.9,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_futures_settlement_close",
+        "instrument": "WTI原油期貨 — 2026年12月 (OIL)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟歷史數據頁，取2026-11-02日期列；已記錄頁面所示合約月份，未使用即時／收市後欄位。"
     },
     "brent": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 104.18,
+      "unit": "USD_per_barrel",
+      "change": -6.62,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_futures_settlement_close",
+        "instrument": "倫敦布倫特原油期貨 — 2027年1月 (LCOF7)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟歷史數據頁，取2026-11-02日期列；已記錄頁面所示合約月份，未使用即時／收市後欄位。"
     }
   },
   "precious_metals": {
     "gold_gc": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 3956.6,
+      "unit": "USD_per_troy_ounce",
+      "change": 1.28,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/gold-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_futures_settlement_close",
+        "instrument": "黃金期貨 — 2026年12月 (GCZ6)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟歷史數據頁，取2026-11-02日期列；已記錄頁面所示合約月份，未使用即時／收市後欄位。"
     },
     "silver_si": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 50.71,
+      "unit": "USD_per_troy_ounce",
+      "change": 1.89,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站期貨歷史數據",
+        "url": "https://hk.investing.com/commodities/silver-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_futures_settlement_close",
+        "instrument": "白銀期貨 — 2026年12月 (SIZ6)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟歷史數據頁，取2026-11-02日期列；已記錄頁面所示合約月份，未使用即時／收市後欄位。"
     }
   },
   "risk_indicators": {
