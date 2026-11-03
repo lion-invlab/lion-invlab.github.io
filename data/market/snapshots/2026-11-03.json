@@ -74,92 +74,148 @@
       "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "russell_2000": {
-      "value": null,
+      "value": 2808.2,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -0.13,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/smallcap-2000-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "美國小型股2000 (RUT)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "sox": {
-      "value": null,
+      "value": 10328.4,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -3.37,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "費城半導體指數 (SOX)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "hang_seng": {
-      "value": null,
+      "value": 23393.32,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 0.42,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "香港恒生指數 (HSI)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "shanghai_composite": {
-      "value": null,
+      "value": 3638.03,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 1.08,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "上證綜合指數 (SSEC)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "shenzhen_component": {
-      "value": null,
+      "value": 11010.68,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 1.63,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "深證成份指數 (SZI)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "nikkei_225": {
-      "value": null,
+      "value": 63081.86,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -0.33,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "日經225指數 (N225)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "kospi": {
-      "value": null,
+      "value": 5859.08,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 2.24,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/kospi-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "韓國KOSPI指數 (KS11)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "twse": {
-      "value": null,
+      "value": 44920.14,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -0.65,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "台灣加權指數 (TWII)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "singapore_sti": {
       "value": null,
