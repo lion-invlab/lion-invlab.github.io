@@ -137,7 +137,7 @@ jobs:
               )}
           }
           pathlib.Path("artifacts/tac-market-snapshot-fragment.json").write_text(
-              json.dumps(fragment, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8"
+              json.dumps(fragment, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
           )
           PY
             output="artifacts/assembled-$(basename "$snapshot")"
