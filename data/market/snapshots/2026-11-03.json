@@ -3,7 +3,7 @@
   "meta": {
     "report_date": "2026-11-03",
     "trading_date": "2026-11-02",
-    "generated_at": "2026-11-03T08:13:51+08:00",
+    "generated_at": "2026-11-03T08:15:30+08:00",
     "timezone": "Asia/Taipei",
     "wr_version": "4.12",
     "wr_commit_sha": "a9f3f0501e57c1b8e0093c732f52dd13de0d0300",
@@ -351,15 +351,22 @@
       "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
     },
     "xly": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 118.16,
+      "unit": "USD_per_share",
+      "change": 2.41,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Consumer Discretionary Select Sector SPDR ETF (XLY)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xlb": {
       "value": null,
@@ -373,37 +380,58 @@
       "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
     },
     "xlu": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 43.67,
+      "unit": "USD_per_share",
+      "change": 0.55,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Utilities Select Sector SPDR ETF (XLU)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xli": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 169.71,
+      "unit": "USD_per_share",
+      "change": 1.38,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Industrial Select Sector SPDR ETF (XLI)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xlv": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 184.67,
+      "unit": "USD_per_share",
+      "change": -0.11,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Health Care Select Sector SPDR ETF (XLV)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xlf": {
       "value": 57.54,
@@ -424,15 +452,22 @@
       "notes": "直接開啟歷史資料頁，2026-11-02列收市57.54，升跌+1.82%；非收市後報價。"
     },
     "xlc": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 100.26,
+      "unit": "USD_per_share",
+      "change": 0.36,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Communication Services Select Sector SPDR ETF (XLC)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xlre": {
       "value": null,
@@ -446,26 +481,40 @@
       "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
     },
     "xlp": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 90.83,
+      "unit": "USD_per_share",
+      "change": 1.58,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Consumer Staples Select Sector SPDR ETF (XLP)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xle": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 67.25,
+      "unit": "USD_per_share",
+      "change": -3.96,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Energy Select Sector SPDR ETF (XLE)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     }
   },
   "bonds": {
