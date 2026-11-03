@@ -85,10 +85,10 @@ def self_test() -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--self-test", action="store_true")
-    parser.add_argument("--event", required=True)
-    parser.add_argument("--lock", required=True)
-    parser.add_argument("--fragment-out", required=True)
-    parser.add_argument("--metadata-out", required=True)
+    parser.add_argument("--event")
+    parser.add_argument("--lock")
+    parser.add_argument("--fragment-out")
+    parser.add_argument("--metadata-out")
     args = parser.parse_args()
     if args.self_test:
         self_test()
