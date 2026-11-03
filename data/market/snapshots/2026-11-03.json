@@ -458,37 +458,58 @@
   },
   "bonds": {
     "us_2y": {
-      "value": null,
-      "unit": "index_point",
+      "value": 4.38,
+      "unit": "percent",
       "change": null,
       "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "status": "verified",
+      "source": {
+        "name": "U.S. Department of the Treasury — Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_treasury_par_yield",
+        "instrument": "2 Yr"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "美國財政部官方日度 Par Yield Curve 表，按表頭對應2年、10年及30年欄位；不是市場盤中報價。"
     },
     "us_10y": {
-      "value": null,
-      "unit": "index_point",
+      "value": 4.79,
+      "unit": "percent",
       "change": null,
       "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "status": "verified",
+      "source": {
+        "name": "U.S. Department of the Treasury — Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_treasury_par_yield",
+        "instrument": "10 Yr"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "美國財政部官方日度 Par Yield Curve 表，按表頭對應2年、10年及30年欄位；不是市場盤中報價。"
     },
     "us_30y": {
-      "value": null,
-      "unit": "index_point",
+      "value": 5.28,
+      "unit": "percent",
       "change": null,
       "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "status": "verified",
+      "source": {
+        "name": "U.S. Department of the Treasury — Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_treasury_par_yield",
+        "instrument": "30 Yr"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "美國財政部官方日度 Par Yield Curve 表，按表頭對應2年、10年及30年欄位；不是市場盤中報價。"
     }
   },
   "fx": {
