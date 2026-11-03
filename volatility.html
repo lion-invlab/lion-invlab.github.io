@@ -33,10 +33,10 @@ th{position:sticky;top:0;background:#fafafa;color:var(--muted);padding:9px 6px;b
 th:first-child,td:first-child{text-align:left}
 td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;background:#fff}
 /* Native sticky columns: avoid scroll-event transforms that can lag during iOS Safari scrolling. */
-.constituent-table{width:1146px;min-width:1146px;table-layout:fixed}
+.constituent-table{width:1072px;min-width:1072px;table-layout:fixed}
 .constituent-table col.col-rank{width:34px}
 .constituent-table col.col-ticker{width:68px}
-.constituent-table col.col-company{width:266px}
+.constituent-table col.col-company{width:190px}
 .constituent-table col.col-sector{width:120px}
 .constituent-table col.col-price{width:90px}
 .constituent-table col.col-vol{width:75px}
@@ -56,7 +56,7 @@ td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;background:#fff
 }
 .constituent-table td:first-child,.constituent-table td:nth-child(2){background:#fff}
 .constituent-table th:nth-child(2),.constituent-table td:nth-child(2){text-align:left}
-.ticker{color:var(--blue);font-weight:950}.company{font-weight:800}.pos{color:var(--red);font-weight:900}.neg{color:var(--green);font-weight:900}
+.ticker{color:var(--blue);font-weight:950}.company{font-weight:800;text-align:left;white-space:normal;overflow-wrap:anywhere;line-height:1.25}.pos{color:var(--red);font-weight:900}.neg{color:var(--green);font-weight:900}
 .detail{display:none}.detail.show{display:block}.detailgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .mini{border:1px solid var(--line);border-radius:8px;padding:10px}.mini strong{display:block;font-size:17px;margin-top:3px}
 .tickerbtn{border:0;background:none;color:var(--blue);font:inherit;font-weight:950;cursor:pointer;padding:0;text-decoration:underline;text-underline-offset:2px}
