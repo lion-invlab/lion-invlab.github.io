@@ -302,6 +302,9 @@ jobs:
       - name: Test TAC snapshot fragment assembler
         run: python scripts/assemble_tac_daily_snapshot.py --self-test
 
+      - name: Test authenticated TAC snapshot handoff parser
+        run: python scripts/ingest_tac_snapshot_comment.py --self-test
+
       - name: Validate and reassemble committed TAC market snapshots
         shell: bash
         run: |
