@@ -60,6 +60,8 @@ on:
     - cron: "25 20 * * 0-4" # 04:25 Asia/Taipei — calendar DB lock
     - cron: "50 20 * * 0-4" # 04:50 Asia/Taipei — morning report lock
   workflow_dispatch:
+  issue_comment:
+    types: [created]
 
 permissions:
   contents: read
@@ -145,8 +147,113 @@ jobs:
             });
             core.info('Appended WR lock relay record to issue #319');
 
+  # Authenticated ChatGPT-to-runner handoff. Only the pinned repository owner
+  # can submit a versioned fragment on ordinary issue #319.
+  snapshot-comment-intake:
+    if: >-
+      github.event_name == 'issue_comment' &&
+      github.event.action == 'created' &&
+      github.event.issue.number == 319 &&
+      github.event.issue.pull_request == null &&
+      github.event.comment.user.id == 335424146 &&
+      contains(github.event.comment.body, '<!-- TAC_MARKET_SNAPSHOT_V1_BEGIN -->') &&
+      contains(github.event.comment.body, '<!-- TAC_MARKET_SNAPSHOT_V1_END -->')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: read
+    steps:
+      - name: Checkout the exact current main revision
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install snapshot schema validator
+        run: python -m pip install jsonschema
+
+      - name: Resolve current main WR lock
+        id: lock
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main --prune
+          main_sha="$(git rev-parse origin/main)"
+          git checkout --detach "$main_sha"
+          mkdir -p "$RUNNER_TEMP/tac-snapshot-handoff"
+          python scripts/tac_wr_lock.py --ref "$main_sha" --output "$RUNNER_TEMP/tac-snapshot-handoff/wr-lock.json"
+          echo "main_sha=$main_sha" >> "$GITHUB_OUTPUT"
+          echo "TAC_WR_LOCK_FILE=$RUNNER_TEMP/tac-snapshot-handoff/wr-lock.json" >> "$GITHUB_ENV"
+
+      - name: Authenticate and extract issue comment payload
+        run: |
+          set -euo pipefail
+          python scripts/ingest_tac_snapshot_comment.py \
+            --event "$GITHUB_EVENT_PATH" \
+            --lock "$RUNNER_TEMP/tac-snapshot-handoff/wr-lock.json" \
+            --fragment-out "$RUNNER_TEMP/tac-snapshot-handoff/fragment.json" \
+            --metadata-out "$RUNNER_TEMP/tac-snapshot-handoff/metadata.json"
+
+      - name: Assemble and validate the official Snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          report_date="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["report_date"])' "$RUNNER_TEMP/tac-snapshot-handoff/metadata.json")"
+          trading_date="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["trading_date"])' "$RUNNER_TEMP/tac-snapshot-handoff/metadata.json")"
+          generated_at="$(python -c 'from datetime import datetime; from zoneinfo import ZoneInfo; print(datetime.now(ZoneInfo("Asia/Taipei")).isoformat())')"
+          snapshot="$RUNNER_TEMP/tac-snapshot-handoff/snapshot.json"
+          python scripts/assemble_tac_daily_snapshot.py \
+            --report-date "$report_date" \
+            --trading-date "$trading_date" \
+            --generated-at "$generated_at" \
+            --fragment "$RUNNER_TEMP/tac-snapshot-handoff/fragment.json" \
+            --output "$snapshot"
+          python scripts/validate_tac_daily_snapshot.py --file "$snapshot"
+          echo "REPORT_DATE=$report_date" >> "$GITHUB_ENV"
+          echo "SNAPSHOT_TEMP=$snapshot" >> "$GITHUB_ENV"
+
+      - name: Commit the validated dated Snapshot to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot_path="data/market/snapshots/$REPORT_DATE.json"
+          if [ -e "$snapshot_path" ]; then
+            echo "Refusing to overwrite the existing dated Snapshot: $snapshot_path" >&2
+            exit 1
+          fi
+          git fetch origin main --prune
+          if [ "$(git rev-parse origin/main)" != "${{ steps.lock.outputs.main_sha }}" ]; then
+            echo "main advanced after WR lock creation; refusing a stale-lock commit" >&2
+            exit 1
+          fi
+          mkdir -p data/market/snapshots
+          cp "$SNAPSHOT_TEMP" "$snapshot_path"
+          git add "$snapshot_path"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Add TAC market Snapshot $REPORT_DATE"
+          git push origin HEAD:main
+          echo "## TAC Snapshot intake: PASS" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Report date: $REPORT_DATE" >> "$GITHUB_STEP_SUMMARY"
+          echo "- WR lock commit: ${{ steps.lock.outputs.main_sha }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Snapshot: $snapshot_path" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Preserve assembled Snapshot artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-market-snapshot-handoff-${{ github.run_id }}
+          path: ${{ runner.temp }}/tac-snapshot-handoff/
+          if-no-files-found: warn
+          retention-days: 14
+
   structural-gate:
-    if: github.event_name != 'schedule'
+    if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
