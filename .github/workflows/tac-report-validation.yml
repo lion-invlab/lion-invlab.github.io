@@ -222,21 +222,45 @@ jobs:
         run: |
           set -euo pipefail
           snapshot_path="data/market/snapshots/$REPORT_DATE.json"
-          if [ -e "$snapshot_path" ]; then
-            echo "Refusing to overwrite the existing dated Snapshot: $snapshot_path" >&2
-            exit 1
-          fi
           git fetch origin main --prune
           if [ "$(git rev-parse origin/main)" != "${{ steps.lock.outputs.main_sha }}" ]; then
             echo "main advanced after WR lock creation; refusing a stale-lock commit" >&2
             exit 1
           fi
           mkdir -p data/market/snapshots
+          archive_path=""
+          if [ -e "$snapshot_path" ]; then
+            # Validate the prior Snapshot against its own historical WR provenance.
+            python scripts/validate_tac_daily_snapshot.py --file "$snapshot_path" --allow-historical-wr
+            existing_report_date="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["meta"]["report_date"])' "$snapshot_path")"
+            existing_trading_date="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["meta"]["trading_date"])' "$snapshot_path")"
+            incoming_trading_date="$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["meta"]["trading_date"])' "$SNAPSHOT_TEMP")"
+            if [ "$existing_report_date" != "$REPORT_DATE" ] || [ "$existing_trading_date" != "$incoming_trading_date" ]; then
+              echo "Existing Snapshot date identity differs; refusing replacement" >&2
+              exit 1
+            fi
+            archive_dir="data/market/snapshots/archive/$REPORT_DATE"
+            archive_path="$archive_dir/$(git rev-parse HEAD).json"
+            mkdir -p "$archive_dir"
+            if [ -e "$archive_path" ]; then
+              echo "Snapshot archive already exists; refusing ambiguous replacement: $archive_path" >&2
+              exit 1
+            fi
+            cp "$snapshot_path" "$archive_path"
+            echo "Archived previous Snapshot: $archive_path" >> "$GITHUB_STEP_SUMMARY"
+          fi
           cp "$SNAPSHOT_TEMP" "$snapshot_path"
           git add "$snapshot_path"
+          if [ -n "$archive_path" ]; then
+            git add "$archive_path"
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Add TAC market Snapshot $REPORT_DATE"
+          if [ -n "$archive_path" ]; then
+            git commit -m "Correct TAC market Snapshot $REPORT_DATE with archived prior version"
+          else
+            git commit -m "Add TAC market Snapshot $REPORT_DATE"
+          fi
           git push origin HEAD:main
           echo "## TAC Snapshot intake: PASS" >> "$GITHUB_STEP_SUMMARY"
           echo "- Report date: $REPORT_DATE" >> "$GITHUB_STEP_SUMMARY"
