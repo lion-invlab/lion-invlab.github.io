@@ -534,7 +534,7 @@
       "source": {
         "name": "Investing.com 香港站美元指數歷史數據",
         "url": "https://hk.investing.com/indices/usdollar-historical-data",
-        "observed_at": "2026-11-03T09:11:31+08:00",
+        "observed_at": "2026-11-03T08:11:31+08:00",
         "data_date": "2026-11-02",
         "quote_type": "daily_close",
         "instrument": "US Dollar Index (DXY)"
@@ -720,7 +720,7 @@
       "source": {
         "name": "Investing.com 香港站 VIX 歷史數據",
         "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
-        "observed_at": "2026-11-03T09:11:31+08:00",
+        "observed_at": "2026-11-03T08:11:31+08:00",
         "data_date": "2026-11-02",
         "quote_type": "daily_close",
         "instrument": "CBOE Volatility Index (VIX)"
@@ -748,15 +748,15 @@
       "notes": "使用者截圖顯示2026-11-02 16:17 EST收盤100.36，+0.16（+0.16%）；證據型態為使用者提供截圖。"
     },
     "cnn_fear_greed": {
-      "value": null,
-      "unit": "index_point",
+      "value": 23,
+      "unit": "fear_greed_score",
       "change": null,
       "change_unit": null,
       "status": "pending_verification",
       "source": null,
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "使用者先前提供的CNN Business官方頁截圖曾顯示Current 23（Extreme Fear）、Previous Close 26；本次無法直接讀取CNN頁面（robots限制），且無法確認該截圖精確觀測時間，因此保留截圖讀數但不標verified。"
     }
   }
 }
