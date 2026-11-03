@@ -1,6 +1,6 @@
 # TAC 投資早報｜正式工作規則
 
-版本：4.16（2026-11-03｜行事曆截稿前更新緩衝定版）
+版本：4.17（2026-11-03｜歷史 Snapshot WR provenance 驗證修正）
 建立日期：2026-10-28
 本次整併日期：2026-11-03
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
@@ -194,6 +194,16 @@
 7. 組裝完成後必須以既有驗證器執行 `--file` 驗證，且使用同一份 WR lock；另檢查 44 項欄位數、各狀態計數、FedWatch 狀態、日期一致性及 WR lock 四項識別值。驗證失敗不得交接下游。
 8. Snapshot 是當日行情台帳及下游資料依據，不是 HTML 預覽或正式首頁；建立 Snapshot 不代表早報已完成，也不代表可發布。不得修改核准母版、Manifest 或 `index.html`。
 
+
+### D6-補充｜歷史 Snapshot 與當次 WR lock 的驗證裁決（2026-11-03）
+
+1. 新產製 Snapshot 必須使用當次 WR lock，並以嚴格模式驗證；meta.wr_version、wr_commit_sha、wr_blob_sha、wr_content_sha256 四項均須與當次 lock 完全一致。
+2. 已提交的歷史 Snapshot 必須保留產製當時的 WR 版本及四項 provenance，不得為配合目前 main 版本而回填或改寫歷史識別值。
+3. CI 對已提交 Snapshot 做歷史結構／Schema 驗證時，得使用 validate_tac_daily_snapshot.py --allow-historical-wr；此參數只放寬「必須等於目前 WR lock」的限制，不得略過四項 provenance 驗證。驗證器必須以 Snapshot 記錄的 wr_commit_sha 讀取當時 TAC_WORK_RULES.md，並核對版本、Git blob SHA 及內容 SHA-256；任一不符即失敗。
+4. 歷史 Snapshot 通過 provenance 與 Schema 驗證後，CI 可將其資料群組抽出，使用本次執行的 WR lock 重新組裝為暫存 Snapshot，再以嚴格模式驗證新產物，並逐群組比對資料值完全一致。這只驗證資料可在目前契約下無損交接，不得回寫歷史 Snapshot。
+5. --allow-historical-wr 僅供已提交歷史資料的驗證；每日新產製 Snapshot、當次正式輸出及新組裝產物一律不得使用此參數。
+
+
 ### D5. 標準行情超連結
 以下網址是讀者點擊目的頁規範，不會自動取代 D3 的數據來源／結算口徑。只連結名稱或代碼；一般行情連結新分頁並設 `rel="noopener"`。CNN Fear & Greed 是唯一固定同頁開啟例外。
 - 全球指數：道瓊 `https://hk.investing.com/indices/us-30`；S&P 500 `https://hk.investing.com/indices/us-spx-500`；Nasdaq Composite `https://hk.investing.com/indices/nasdaq-composite`；Russell 2000 `https://hk.investing.com/indices/smallcap-2000`；SOX `https://hk.investing.com/indices/phlx-semiconductor`；Hang Seng `https://hk.investing.com/indices/hang-sen-40`；上海綜合 `https://hk.investing.com/indices/shanghai-composite`；深證成指 `https://hk.investing.com/indices/szse-component`；Nikkei 225 `https://hk.investing.com/indices/japan-ni225`；KOSPI `https://hk.investing.com/indices/kospi`；台灣加權 `https://hk.investing.com/indices/taiwan-weighted`；STI `https://hk.investing.com/indices/singapore-straits-time`；S&P/ASX 200 `https://hk.investing.com/indices/aus-200-historical-data`；FTSE 100 `https://hk.investing.com/indices/uk-100`；DAX `https://hk.investing.com/indices/germany-30`；CAC 40 `https://hk.investing.com/indices/france-40`；STOXX Europe 600 `https://hk.investing.com/indices/stoxx-600`。
@@ -280,6 +290,12 @@
 5. 長期規則變更須記錄日期、舊規則、新規則、適用範圍與原因；只更新本檔，不另建第二份 Work Rules。每次規則變更後做章節編號、內部引用、連結、重複條文與必要需求保留檢查。
 
 ## J. 版本紀錄
+
+### 版本 4.17（2026-11-03｜歷史 Snapshot WR provenance 驗證修正）
+- 修正歷史 Snapshot 以舊版 WR 產製、但在新版 main 執行 CI 時被錯誤拒絕的情況；歷史版本不得回填成目前版本。
+- --allow-historical-wr 僅放寬當前版本相等檢查，仍須以記錄的 WR commit 驗證版本、blob SHA 與內容 SHA-256。
+- CI 對歷史 Snapshot 先做 provenance／Schema 驗證，再以當次 WR lock 重組暫存資料並嚴格驗證，確保資料值無損交接。
+
 
 ### 版本 4.12（2026-11-03｜固定 Snapshot 路徑與 WR Lock 生命週期）
 - 正式行情 Snapshot 固定儲存於 `data/market/snapshots/YYYY-MM-DD.json`，以台灣報告日期命名，統一資料產出、讀取及下游交接路徑。
