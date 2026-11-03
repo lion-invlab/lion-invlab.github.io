@@ -1,6 +1,6 @@
 # TAC 投資早報｜正式工作規則
 
-版本：4.18（2026-11-03｜每日審核版固定寫入 main/preview）
+版本：4.19（2026-11-04｜MOVE 與 CNN 情緒指標備援來源補齊）
 建立日期：2026-10-28
 本次整併日期：2026-11-03
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
@@ -173,8 +173,8 @@
 ### D3. 指標專屬來源與口徑
 - **SOX：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/phlx-semiconductor-historical-data`，採最近已完成交易日正式收盤及日漲跌幅；核對日期、指數名稱與延遲標記。Yahoo Finance `^SOX` 僅作備援／交叉核對。
 - **VIX：** 優先 Investing.com 香港站 `https://hk.investing.com/indices/volatility-s-p-500`，採最近已完成交易日正式收盤；Cboe 歷史資料 `https://www.cboe.com/tradable_products/vix/vix_historical_data` 作官方交叉核對，Yahoo Finance `^VIX` 作備援。
-- **MOVE：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/ice-bofaml-move-historical-data`。備援來源包含 Yahoo Finance `https://finance.yahoo.com/quote/%5EMOVE/history`（代號 `^MOVE`）；依使用者確認，Yahoo Finance `^MOVE` 為本早報所追蹤的 MOVE 指標備援序列，應納入正式備援查核，不得僅因 Yahoo 頁面顯示名稱文字與 ICE BofA MOVE 的正式名稱不同，就逕行判定為不同標的或排除。查核時仍須確認代號 `^MOVE`、資料日期、收盤時間及收盤欄位；不得把盤中值、其他日期值或搜尋摘要當成指定交易日收盤。Yahoo 頁面截圖可作為其畫面所示報價、日期及收盤時間的證據，並須註明證據型態為「使用者提供截圖」，不得冒稱助理已獨立直讀／刷新 Yahoo 網頁。
-- **CNN Fear & Greed：** 優先直接開啟 CNN Business 官方頁面 `https://edition.cnn.com/markets/fear-and-greed`（或 `https://www.cnn.com/markets/fear-and-greed`），在每次早報行情查核當下，以儀表板中央／指針所指向的**當前分數**為正式讀數；不可採用下方「Previous close」數字代替。`Previous close` 是上一個美股交易日的收盤值，只能作為前收比較欄位，必須依實際美股交易日判定日期，不可誤認為當前值。同步記錄儀表板當前分數、指針所在情緒區間（如 Extreme Fear／Fear／Neutral／Greed／Extreme Greed）、頁面顯示的 `Last updated` 時間及時區、查核時間與網址。若頁面只顯示當前分數及更新時間，仍以該分數為準；不得因資料端點或第三方資料較容易讀取而覆蓋官方頁面當前儀表板讀數。官方頁面無法讀取時，才嘗試 CNN 頁面使用的資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`；端點非有公開穩定性保證的正式 API。CNN 官方頁面與端點皆不可用時，才使用 FGScore、Fear & Greed Tracker 等第三方備援，並保留網址、資料時間戳及備援狀態。
+- **MOVE：** 優先 Investing.com 香港站歷史資料 `https://hk.investing.com/indices/ice-bofaml-move-historical-data`。備援依序為 Yahoo Finance `https://finance.yahoo.com/quote/%5EMOVE/history`（代號 `^MOVE`），再為 EODData `https://www.eoddata.com/stockquote/INDEX/MOVE.htm`（代碼 `INDEX:MOVE`）。依使用者確認，Yahoo Finance `^MOVE` 為本早報所追蹤的 MOVE 指標備援序列，不得僅因 Yahoo 頁面顯示名稱文字與 ICE BofA MOVE 的正式名稱不同，就逕行判定為不同標的或排除。EODData 僅在 Yahoo 無法讀取或缺少指定日期資料時使用，須核對其 `INDEX:MOVE` 標的說明、指定交易日期及 Close 欄位；其報價精度可能只有一位小數，不得將四捨五入後的數值誤認為與 Investing.com 完全相同精度。查核時均須確認資料日期、收盤時間及收盤欄位；不得把盤中值、其他日期值或搜尋摘要當成指定交易日收盤。Yahoo 頁面截圖可作為其畫面所示報價、日期及收盤時間的證據，並須註明證據型態為「使用者提供截圖」，不得冒稱助理已獨立直讀／刷新 Yahoo 網頁。
+- **CNN Fear & Greed：** 優先直接開啟 CNN Business 官方頁面 `https://edition.cnn.com/markets/fear-and-greed`（或 `https://www.cnn.com/markets/fear-and-greed`），在每次早報行情查核當下，以儀表板中央／指針所指向的**當前分數**為正式讀數；不可採用下方「Previous close」數字代替。`Previous close` 是上一個美股交易日的收盤值，只能作為前收比較欄位，必須依實際美股交易日判定日期，不可誤認為當前值。同步記錄儀表板當前分數、指針所在情緒區間、頁面顯示的 `Last updated` 時間及時區、查核時間與網址。若頁面只顯示當前分數及更新時間，仍以該分數為準；不得因資料端點或第三方資料較容易讀取而覆蓋官方頁面當前儀表板讀數。官方頁面無法讀取時，才嘗試 CNN 頁面使用的資料端點 `https://production.dataviz.cnn.io/index/fearandgreed/graphdata`；該端點是 CNN 網頁使用的非正式資料端點，無公開穩定性保證。CNN 官方頁面與端點皆不可用時，第三方即時備援依序使用 FGScore 的「US stocks · CNN / Provider index」`https://fgscore.com/en/markets/sp500`，再使用 Financial Context CNN Fear & Greed Tracker `https://staging.fcontext.com/en/fear-and-greed`。僅可採用明確標示 CNN 原始 Provider Index 的分數，不可採用第三方自行估算的 Nasdaq／其他市場情緒分數或自行合成指數；須記錄來源時間戳、資料日期、讀取時間及備援狀態。若第三方來源間數值或時間戳不一致，先核對資料日期、時區及更新時間；無法解釋即標示待核實，不取平均、不自行挑值。GitHub 歷史資料集僅供歷史日期回查／缺口交叉核對，不得充當當前即時備援。
 - **FedWatch：** 日常讀取優先使用 Investing.com Fed Rate Monitor `https://www.investing.com/central-banks/fed-rate-monitor`，必須在本次製作當下讀取，記錄台灣時間、目標 FOMC 會議日期、各目標利率區間機率及頁面可得的期貨價格／比較欄位。CME 官方工具 `https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool` 僅作方法與交叉核對，不得把 Investing.com 數據稱為 CME 官方數據。機率合計與卡片／長條圖須一致；無法取得動態機率或更新時間時標示待核實，不用舊快照或自行推算填補。
 - **美國公債殖利率 2Y／10Y／30Y：** 優先美國財政部 Daily Treasury Par Yield Curve Rates `https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics`，三個期限採同一資料日期的 CMT／par yield。備援 FRED：`https://fred.stlouisfed.org/series/DGS2`、`https://fred.stlouisfed.org/series/DGS10`、`https://fred.stlouisfed.org/series/DGS30`。不得混用個別債券即時殖利率或不同日期。
 - **DXY：** 使用美元指數現貨／CFD 序列，不得誤用美元指數期貨 DX。Investing.com 歷史頁 `https://www.investing.com/indices/usdollar-historical-data`。
@@ -319,6 +319,11 @@
 - 明定 44 項固定行情欄位（包含 11 項產業 ETF）必須逐項登記狀態；待核實／暫缺不阻斷完整台帳交接。
 - 新增行情台帳完整性 Gate，規定通過後可將完整台帳與狀態寫入 Snapshot，交接行事曆、新聞及市場分析流程。
 - 明定只有欄位缺漏、身分／日期／口徑錯誤、已核實值缺乏證據或 Snapshot 結構不完整才阻止交接；保留既有四大 QA Gate 與使用者正式發布核准閘門。
+
+### 版本 4.19（2026-11-04｜MOVE 與 CNN 情緒指標備援來源補齊）
+- MOVE 保留 Investing.com 為優先來源、Yahoo Finance `^MOVE` 為第一備援，新增 EODData `INDEX:MOVE` 為第二備援；明定標的、日期、Close 欄位及精度核對，避免一位小數報價被誤當成相同精度。
+- CNN Fear & Greed 保留 CNN 官方頁與官方頁面資料端點的既有順序；明列 FGScore CNN Provider Index 與 Financial Context Tracker 為第三方即時備援，限制只能使用 CNN 原始 Provider Index，並規定時間戳差異裁決。
+- 明定 GitHub 歷史資料集僅供歷史回查，不得冒充即時備援；未能取得同日期且可核實的讀數時仍須標示待核實／暫缺。
 
 ### 版本 4.9（2026-11-03｜行情查核來源輪次與備援啟用順序明確化）
 - 明定第一至第三輪均遵守 D3 各指標第一優先來源／來源系統；第二輪刷新原始頁，第三輪改用同一來源系統的歷史頁、日期區間或其他查詢方式，不得提前跳用備援網站。
