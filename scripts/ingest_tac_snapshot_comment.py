@@ -83,7 +83,7 @@ def self_test() -> None:
         "trading_date": "2026-11-03",
         "wr_lock": {key: "x" for key in LOCK_FIELDS},
         "fragment": {"report_date": "2026-11-04", "trading_date": "2026-11-03",
-                     "global_indices": {}},
+                     "global_indices": {"sp500": {}}},
     }
     body = BEGIN + json.dumps(sample) + END
     assert extract_payload(body) == sample
