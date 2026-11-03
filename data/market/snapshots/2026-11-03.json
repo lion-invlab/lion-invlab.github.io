@@ -218,70 +218,112 @@
       "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "singapore_sti": {
-      "value": null,
+      "value": 5303.83,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -1.36,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "新加坡海峽時報指數 (STI)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "asx_200": {
-      "value": null,
+      "value": 8856.5,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": -0.58,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/aus-200-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "澳大利亞S&P/ASX200指數 (AXJO)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "ftse_100": {
-      "value": null,
+      "value": 10767.45,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 0.35,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/uk-100-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "英國富時100指數 (FTSE)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "dax": {
-      "value": null,
+      "value": 25981.09,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 0.63,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/germany-30-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "德國DAX30指數 (GDAXI)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "cac_40": {
-      "value": null,
+      "value": 8047.69,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 0.98,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/france-40-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "法國CAC40指數 (FCHI)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     },
     "stoxx_europe_600": {
-      "value": null,
+      "value": 649.44,
       "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "change": 0.42,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/indices/stoxx-600-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "泛歐斯托克600指數 (STOXX)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定歷史報價頁；取2026-11-02列之收市價及升跌幅。"
     }
   },
   "sectors": {
