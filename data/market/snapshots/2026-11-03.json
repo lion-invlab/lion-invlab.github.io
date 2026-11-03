@@ -340,15 +340,22 @@
   },
   "sectors": {
     "xlk": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 174.22,
+      "unit": "USD_per_share",
+      "change": -2.95,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Technology Select Sector SPDR ETF (XLK)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xly": {
       "value": 118.16,
@@ -369,15 +376,22 @@
       "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xlb": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 53.67,
+      "unit": "USD_per_share",
+      "change": 1.76,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站 ETF 歷史數據",
+        "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+        "observed_at": "2026-11-03T08:15:30+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "State Street Materials Select Sector SPDR ETF (XLB)"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟對應美國上市ETF歷史資料頁，取2026-11-02日期列收市價及升跌幅；排除收市後欄位。"
     },
     "xlu": {
       "value": 43.67,
