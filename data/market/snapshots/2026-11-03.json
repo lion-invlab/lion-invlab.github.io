@@ -504,59 +504,94 @@
       "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
     },
     "usd_twd": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 32.605,
+      "unit": "exchange_rate",
+      "change": -0.05,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "USD/TWD"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定貨幣對歷史數據頁；取2026-11-02列收市價與升跌幅。"
     },
     "eur_usd": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 1.1191,
+      "unit": "exchange_rate",
+      "change": 0.3,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "EUR/USD"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定貨幣對歷史數據頁；取2026-11-02列收市價與升跌幅。"
     },
     "gbp_usd": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 1.3407,
+      "unit": "exchange_rate",
+      "change": 0.16,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "GBP/USD"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定貨幣對歷史數據頁；取2026-11-02列收市價與升跌幅。"
     },
     "aud_usd": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 0.7001,
+      "unit": "exchange_rate",
+      "change": -0.4,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "AUD/USD"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定貨幣對歷史數據頁；取2026-11-02列收市價與升跌幅。"
     },
     "usd_jpy": {
-      "value": null,
-      "unit": "index_point",
-      "change": null,
-      "change_unit": null,
-      "status": "pending_verification",
-      "source": null,
+      "value": 157.92,
+      "unit": "exchange_rate",
+      "change": 0.15,
+      "change_unit": "percent",
+      "status": "verified",
+      "source": {
+        "name": "Investing.com 香港站歷史數據",
+        "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
+        "observed_at": "2026-11-03T08:11:31+08:00",
+        "data_date": "2026-11-02",
+        "quote_type": "daily_close",
+        "instrument": "USD/JPY"
+      },
       "fallback_used": false,
       "fallback_reason": null,
-      "notes": "尚未取得符合 WR 指定來源、日期及報價口徑的本次查核證據"
+      "notes": "直接開啟指定貨幣對歷史數據頁；取2026-11-02列收市價與升跌幅。"
     }
   },
   "energy": {
