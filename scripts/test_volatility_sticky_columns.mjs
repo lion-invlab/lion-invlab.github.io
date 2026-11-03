@@ -8,7 +8,7 @@ if(!style||!wrapper)throw new Error("Could not extract production wrapper and st
 const table=wrapper[1];
 if(!table.includes('class="constituent-table"')||!table.includes("<colgroup>"))throw new Error("Production table geometry missing");
 if(html.includes("initFrozenColumns")||html.includes("--frozen-x"))throw new Error("Legacy scroll-transform implementation remains");
-const rows=Array.from({length:40},(_,i)=>'<tr><td>'+(i+1)+'</td><td class="ticker">T'+i+'</td><td class="company">Nebius Group N.V. Class A Ordinary Shares</td>'+Array.from({length:9},()=>"<td>12.34%</td>").join("")+"</tr>").join("");
+const rows=Array.from({length:40},(_,i)=>'<tr><td>'+(i+1)+'</td><td class="ticker">T'+i+'</td><td class="company">Nebius Group N.V. Class A Ordinary Shares Incorporated Holdings International</td>'+Array.from({length:9},()=>"<td>12.34%</td>").join("")+"</tr>").join("");
 const fixture=table.replace('<tbody id="body"></tbody>','<tbody id="body">'+rows+'</tbody>');
 const failures=[];
 for(const engine of [{name:"chromium",type:chromium},{name:"webkit",type:webkit}]){
@@ -30,7 +30,7 @@ for(const engine of [{name:"chromium",type:chromium},{name:"webkit",type:webkit}
   if(!near(r.tickerCell.width,68))failures.push(width+"px: ticker width incorrect");
   if(!near(r.companyCell.width,190))failures.push(width+"px: company column width incorrect");
   if(r.companyStyle.align!=="left"||r.companyStyle.whiteSpace!=="normal"||r.companyStyle.overflowWrap!=="anywhere")failures.push(width+"px: company text wrapping/alignment incorrect");
-  if(r.companyCell.height<=r.tickerCell.height)failures.push(width+"px: long company name did not wrap to multiple lines");
+  if(r.companyCell.height<=44.5)failures.push(width+"px: long company name did not wrap to multiple lines");
   if(r.rankHeadText!=="#"||r.tickerHeadText!=="代號")failures.push(width+"px: frozen header labels missing");
   if(width<=700&&r.scrollTop<200)failures.push(width+"px: vertical scroll did not engage");
   if(width<=700&&(!near(r.rankHead.left,r.wrap.left)||!near(r.rankHead.left,r.wrap.left+1)))failures.push(width+"px: rank header not aligned to scrollport after vertical scroll");
