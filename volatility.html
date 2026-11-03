@@ -32,8 +32,7 @@ table{width:100%;border-collapse:separate;border-spacing:0;min-width:1050px;tabl
 th{position:sticky;top:0;background:#fafafa;color:var(--muted);padding:9px 6px;border-bottom:1px solid var(--line);text-align:right;z-index:2}
 th:first-child,td:first-child{text-align:left}
 td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;background:#fff}
-/* Fixed columns use scroll-linked translation rather than table-cell sticky,
-   which is unreliable in iOS Safari horizontal overflow containers. */
+/* Native sticky columns: avoid scroll-event transforms that can lag during iOS Safari scrolling. */
 .constituent-table{width:1146px;min-width:1146px;table-layout:fixed}
 .constituent-table col.col-rank{width:38px}
 .constituent-table col.col-ticker{width:88px}
@@ -44,16 +43,17 @@ td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;background:#fff
 .constituent-table col.col-return{width:90px}
 .constituent-table col.col-drawdown{width:90px}
 .constituent-table col.col-ratio{width:90px}
-.constituent-table th:first-child,.constituent-table td:first-child,
-.constituent-table th:nth-child(2),.constituent-table td:nth-child(2){
-  position:relative;left:auto;transform:translate3d(var(--frozen-x,0px),0,0);
-  backface-visibility:hidden;background:#fff
+.constituent-table th:first-child,.constituent-table td:first-child{
+  position:sticky;left:0;width:38px;min-width:38px;max-width:38px;
+  background:#fff;z-index:4
 }
-.constituent-table th:first-child,.constituent-table td:first-child{width:38px;min-width:38px;max-width:38px;z-index:4}
 .constituent-table th:nth-child(2),.constituent-table td:nth-child(2){
-  width:88px;min-width:88px;max-width:88px;z-index:4;box-shadow:2px 0 4px rgba(0,0,0,.08)
+  position:sticky;left:38px;width:88px;min-width:88px;max-width:88px;
+  background:#fff;z-index:4;box-shadow:2px 0 4px rgba(0,0,0,.08)
 }
-.constituent-table th:first-child,.constituent-table th:nth-child(2){z-index:6;background:#fafafa}
+.constituent-table th:first-child,.constituent-table th:nth-child(2){
+  top:0;background:#fafafa;z-index:7
+}
 .constituent-table td:first-child,.constituent-table td:nth-child(2){background:#fff}
 .ticker{color:var(--blue);font-weight:950}.company{font-weight:800}.pos{color:var(--red);font-weight:900}.neg{color:var(--green);font-weight:900}
 .detail{display:none}.detail.show{display:block}.detailgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
@@ -426,14 +426,7 @@ search.oninput=renderTable;sector.onchange=renderTable;metric.onchange=e=>{key=e
 dir.onclick=e=>{desc=!desc;e.target.textContent=desc?"由高至低":"由低至高";renderTable()};
 init();
 
-// iOS-safe frozen columns: cancel horizontal scroll displacement for the first two columns.
-(function initFrozenColumns(){
-  const scroller=document.getElementById("constituentTableWrap");
-  if(!scroller)return;
-  const sync=()=>scroller.style.setProperty("--frozen-x",scroller.scrollLeft+"px");
-  scroller.addEventListener("scroll",sync,{passive:true});
-  sync();
-})();
+// Frozen columns are handled by native CSS position:sticky; no scroll listener needed.
 
 // V5 review controls: 20D / 30D / 60D / 90D, default 90D; Top 40 only.
 function renderTop40ByPeriod(){
