@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   detect_release:
-    name: Detect validated report changes
+    name: Detect dated preview or manual site deployment
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
@@ -73,7 +73,7 @@ jobs:
             }
 
   deploy:
-    name: Deploy validated TAC site
+    name: Deploy TAC preview or approved site
     needs: detect_release
     if: needs.detect_release.outputs.should_deploy == 'true'
     environment:
@@ -86,24 +86,6 @@ jobs:
         with:
           ref: ${{ github.sha }}
           fetch-depth: 1
-
-      - name: Lock validated TAC Work Rules revision
-        shell: bash
-        run: |
-          git fetch origin main --depth=1
-          mkdir -p artifacts
-          python scripts/tac_wr_lock.py --ref HEAD --output artifacts/tac-wr-lock.json
-          echo "TAC_WR_LOCK_FILE=artifacts/tac-wr-lock.json" >> "$GITHUB_ENV"
-          echo "## TAC Work Rules lock" >> "$GITHUB_STEP_SUMMARY"
-          cat artifacts/tac-wr-lock.json >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload TAC Work Rules lock record
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: tac-pages-wr-lock-${{ github.run_id }}
-          path: artifacts/tac-wr-lock.json
-          if-no-files-found: error
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
