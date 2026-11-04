@@ -70,6 +70,22 @@ footer{background:#101c32;color:#bfc9d7;padding:24px 0;font-size:11px}.footerin{
 .policy-photo-inline b{display:block;color:#1b2b43;font-size:13px}
 .policy-photo-inline span{display:block;color:#778191;font-size:10px;margin-top:4px}
 @media(max-width:700px){.policy-photo-inline img{width:112px;height:78px}.policy-photo-inline{gap:10px;padding:9px}}
+
+/* High-contrast emphasis for the 6-month comparison row on mobile and desktop */
+.compare-table tbody tr.focus-row td{background:#f7f1e3 !important;color:#1b2b43 !important;border-top:1px solid #d9c38d;border-bottom:1px solid #d9c38d;font-weight:750}
+.compare-table tbody tr.focus-row td:first-child{color:#1b2b43 !important}
+.compare-table tbody tr.focus-row td.highlight{color:#9f1f2d !important;font-weight:950}
+.compare-table tbody tr.focus-row td.spread{color:#176b48 !important;font-weight:950}
+.stock-watch-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.stock-watch-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.stock-watch-card h3{font-size:16px;color:#18263b;margin:0 0 8px}
+.stock-watch-card p{font-size:12px;color:#596678;margin:0 0 10px;line-height:1.65}
+.stock-picks{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}
+.stock-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid #dce2ea;background:#f7f9fc;border-radius:8px;padding:6px 9px;font-size:11px;color:#24344b}
+.stock-chip b{color:#b8202d;font-size:12px}
+.stock-watch-card .risk{font-size:11px;color:#7a5b26;background:#fbf7ed;border-radius:8px;padding:8px 10px;margin-top:10px}
+.stock-watch-note{font-size:11px;color:#687384;margin-top:14px;line-height:1.65}
+@media(max-width:700px){.stock-watch-grid{grid-template-columns:1fr}.stock-watch-card{padding:15px}}
 </style>
 </head>
 <body>
@@ -91,7 +107,7 @@ footer{background:#101c32;color:#bfc9d7;padding:24px 0;font-size:11px}.footerin{
       <thead><tr><th>選後期間</th><th>本專題組合<br>7 次</th><th>其他政治組合<br>12 次</th><th>全部 19 次<br>平均</th><th>領先其他組合</th></tr></thead>
       <tbody>
         <tr><td>3 個月</td><td class="highlight">+10.74%</td><td>+5.94%</td><td>+7.71%</td><td class="spread">+4.80 個百分點</td></tr>
-        <tr><td>6 個月</td><td class="highlight">+17.53%</td><td>+12.16%</td><td>+14.14%</td><td class="spread">+5.37 個百分點</td></tr>
+        <tr class="focus-row"><td>6 個月</td><td class="highlight">+17.53%</td><td>+12.16%</td><td>+14.14%</td><td class="spread">+5.37 個百分點</td></tr>
         <tr><td>12 個月</td><td class="highlight">+15.51%</td><td>+14.88%</td><td>+15.12%</td><td class="spread">+0.63 個百分點</td></tr>
       </tbody>
     </table>
@@ -134,6 +150,41 @@ footer{background:#101c32;color:#bfc9d7;padding:24px 0;font-size:11px}.footerin{
 <section class="section"><div class="risk"><div class="kicker">06 / WHAT TO WATCH</div><h2>接下來盯緊四個市場變數</h2><div class="riskgrid"><div class="riskitem"><b>財政預算與政府停擺</b><span>國會撥款談判是否升高短期政策與市場波動。</span></div><div class="riskitem"><b>債務上限</b><span>是否出現新一輪僵局，以及財政部現金與融資安排。</span></div><div class="riskitem"><b>關稅與行政權</b><span>國會立法受阻不等於行政部門所有政策工具同步失效。</span></div><div class="riskitem"><b>聯準會與企業獲利</b><span>利率路徑、通膨、就業與盈餘修正，仍是股市估值核心。</span></div></div></div></section>
 <section class="section"><div class="section-head"><div><div class="kicker">07 / EXECUTION PLAN</div><h2>進場策略：分三批，不猜單日低點</h2></div><div class="sub">適用於長期投資、且目前股票部位低於既定目標者</div></div><div class="entryplan"><b style="color:#18263b;font-size:16px">TAC 建議：未配置足額者可開始加碼；已滿倉者不因選舉結果追買。</b><div class="steps"><div class="step"><strong>1/3</strong><b>第一批｜建立部位</b><span>從原定加碼資金撥出三分之一，優先醫療保健與大型金融股；分 2–3 個交易日進場，不追盤中急拉。</span></div><div class="step"><strong>1/3</strong><b>第二批｜市場確認</b><span>若 S&P 500 守住選後低點、上漲家數改善，再投入三分之一；若再破底，暫停這一批。</span></div><div class="step"><strong>1/3</strong><b>第三批｜獲利確認</b><span>等企業獲利預估停止下修、AI資本支出回報更清楚，再投入最後三分之一；否則保留現金。</span></div></div><p style="font-size:11px;color:#687384;margin:13px 0 0">若投資期限短於一年、資金有明確用途或無法承受 10%–15% 回撤，不應套用此加碼節奏；應先維持較低股票比重。此處是策略框架，不是個人化資產配置指令。</p></div></section>
 <section class="section"><div class="conclusion"><div class="kicker">TAC INVESTMENT VIEW｜FINAL CALL</div><h2>結論｜中期偏多，短線不追高；優先醫療與金融，避開純政策題材</h2><p><b>現在可以進場，但只適合分批布局，不適合一次性重倉。</b>優先順序：①醫療保健（醫院、Medicaid 曝險較高的保險商）②大型金融與資本市場服務③有訂單與現金流支撐的電力／工業基建④具AI變現能力的科技龍頭。暫時減碼或避開：高槓桿資料中心開發商、純加密監管題材，以及沒有獲利支撐的高估值AI概念股。若市場跌破選後低點且獲利預估同步下修，停止加碼；若廣度改善、殖利率回落且盈餘預估穩定，才逐批完成配置。<br><br>理由很清楚：歷史資料支持選後不必全面看空；2026 年當下的市場資料卻顯示，AI 投資回報正在被重新檢驗，且股市雖較 Morningstar 估值低約 10%，仍不足以支持超越長期目標的全面加碼。這是一個「選股與分批進場」的市場，不是「看到選舉結果就全面買進」的市場。</p></div></section>
+<section class="section">
+  <div class="section-head"><div><div class="kicker">08 / STOCK WATCHLIST</div><h2>受惠族群與代表公司｜美股觀察名單</h2></div><div class="sub">產業催化 × 公司定位 × 風險</div></div>
+  <p class="sub">以下是依本篇政策與產業分析整理的研究觀察名單，不是單純因選舉結果就買進；優先挑選業務受惠路徑較清楚、具規模或現金流支撐的公司。</p>
+  <div class="stock-watch-grid">
+    <article class="stock-watch-card">
+      <h3>01｜醫療保健：醫院與 Medicaid 保險</h3>
+      <p>若 Medicaid 參保削減或州政府支付限制延後，醫院未收款壓力與保險商會員流失風險可能緩和。</p>
+      <div class="stock-picks"><span class="stock-chip"><b>HCA</b> HCA Healthcare</span><span class="stock-chip"><b>THC</b> Tenet Healthcare</span><span class="stock-chip"><b>CNC</b> Centene</span><span class="stock-chip"><b>MOH</b> Molina Healthcare</span><span class="stock-chip"><b>ELV</b> Elevance Health</span></div>
+      <p><b>優先研究：</b>HCA（大型醫院營運商、近期提高全年展望）；CNC（Medicaid／ACA 政策敏感度高，政策改善彈性較大）。</p>
+      <div class="risk">主要風險：醫療成本率、州政府費率、政策協商未果及總統否決權；CNC、MOH 波動可能較大。</div>
+    </article>
+    <article class="stock-watch-card">
+      <h3>02｜金融：大型銀行與資本市場</h3>
+      <p>若市場波動降溫、併購與承銷活動回溫，具多元收入或財富管理平台的金融機構較有機會受惠。</p>
+      <div class="stock-picks"><span class="stock-chip"><b>JPM</b> JPMorgan Chase</span><span class="stock-chip"><b>MS</b> Morgan Stanley</span><span class="stock-chip"><b>GS</b> Goldman Sachs</span></div>
+      <p><b>優先研究：</b>JPM（商業銀行、交易與財富管理業務較多元）；MS（財富管理加上資本市場業務）。GS 對交易與投資銀行景氣更敏感。</p>
+      <div class="risk">主要風險：殖利率快速變動、信用損失、存款成本，以及 IPO／併購活動不如預期。</div>
+    </article>
+    <article class="stock-watch-card">
+      <h3>03｜工業／電力基建：電網與供電設備</h3>
+      <p>不押注高槓桿資料中心開發商，改看電網升級、電力管理、工程承包與發電設備等「賣鏟子」環節。</p>
+      <div class="stock-picks"><span class="stock-chip"><b>ETN</b> Eaton</span><span class="stock-chip"><b>PWR</b> Quanta Services</span><span class="stock-chip"><b>GEV</b> GE Vernova</span><span class="stock-chip"><b>VRT</b> Vertiv</span></div>
+      <p><b>優先研究：</b>ETN（電力管理與配電設備）；PWR（電網工程與電力基建）。GEV、VRT 可作為發電設備與資料中心電力／散熱的延伸觀察。</p>
+      <div class="risk">主要風險：估值已反映大量 AI 基建需求、專案延遲、電網審批與資本支出週期反轉。</div>
+    </article>
+    <article class="stock-watch-card">
+      <h3>04｜科技／半導體：AI 變現與關鍵晶片</h3>
+      <p>保留 AI 長期需求，但優先選擇有實際訂單、產品護城河與現金流的供應商，不追逐只靠遠期題材的公司。</p>
+      <div class="stock-picks"><span class="stock-chip"><b>NVDA</b> NVIDIA</span><span class="stock-chip"><b>AVGO</b> Broadcom</span><span class="stock-chip"><b>MSFT</b> Microsoft</span></div>
+      <p><b>優先研究：</b>NVDA（AI 加速運算平台）；AVGO（客製化 AI 晶片與網路）；MSFT（雲端平台與企業 AI 商業化）。</p>
+      <div class="risk">主要風險：AI 資本支出回報不如預期、客戶集中、出口管制、競爭及高估值修正。</div>
+    </article>
+  </div>
+  <p class="stock-watch-note">觀察順序：醫療與金融偏政策／營運修復；ETN、PWR 偏長期電力基建；NVDA、AVGO、MSFT 偏 AI 獲利兌現。這些公司不是同一種風險，應分別檢查估值、最新財報、現金流與進場價格；本文不提供目標價，也不代表全部同時買進。</p>
+</section>
 <section class="section"><div class="sourcebox"><div class="kicker">SOURCES & METHODOLOGY</div><h2 style="font-size:19px;margin:3px 0">資料來源與統計口徑</h2><ol><li><a href="https://www.exent.ai/resources/stock-market-after-midterm-elections" target="_blank" rel="noopener">Exent｜How Does the Stock Market Do After Midterm Elections?（2026/10/27，更新 2026/11/04）</a>。列出 1950–2022 年全部 19 次期中選舉的 S&P 500 選後 3、6、12 個月價格報酬與起算、終點口徑；本專題據此將七次指定政治組合與其餘十二次重新分組計算。</li><li><a href="https://archive.yardeni.com/pub/cc_20221109.pdf" target="_blank" rel="noopener">Yardeni Research｜Chart Collection for Morning Briefing（2022/11/09），Figure 1：S&P 500 after Mid-Term Elections</a>。提供 1954–2006 各次選舉後 3、6、12 個月報酬；來源標示 Haver Analytics、Standard & Poor’s、Yardeni Research calculations。</li><li><a href="https://pepperstone.me/en/insights/guides/cfds/do-stocks-rally-after-midterms" target="_blank" rel="noopener">Pepperstone｜Do stocks really rally after midterms? Testing 19 elections since 1950（2026/11/01）</a>。用於核對選後總統／國會控制權及歷史宏觀背景。</li><li><a href="https://am.jpmorgan.com/us/en/asset-management/per/insights/market-themes/us-elections/" target="_blank" rel="noopener">J.P. Morgan Asset Management｜2026 Midterm Election Hub</a>。用於政策權限、分裂政府及宏觀因素的補充觀點。</li><li><a href="https://www.reuters.com/business/analysts-react-us-midterm-election-results-2026-11-04/" target="_blank" rel="noopener">Reuters｜Market analysts react to Democratic sweep in US midterms（2026/11/04）</a>。核對民主黨取得參眾兩院後，AI、資料中心、國債殖利率、美元及政策僵局的即時市場反應。</li><li><a href="https://www.reuters.com/legal/litigation/health-insurers-hospitals-rally-after-sweeping-midterm-win-democrats-2026-11-04/" target="_blank" rel="noopener">Reuters｜Health insurers, hospitals rally after sweeping midterm win for Democrats（2026/11/04）</a>。醫療保險商與醫院股的即時反應，以及 Medicaid／ACA 補助政策預期。</li><li><a href="https://dorseywright.nasdaq.com/research/bigwire/2026/11/03/11-03-2026/congressional-power-and-industry-returns" target="_blank" rel="noopener">Nasdaq Dorsey Wright｜Congressional Power and Industry Returns（2026/11/03）</a>。使用 Ken French Data Library 1926–2026 產業資料，分析分裂政府下健康、商業零售、科技等產業的歷史相對表現。</li><li><a href="https://www.morningstar.com.au/markets/november-us-stock-market-outlook-how-to-position-your-portfolio-remainder-2026" target="_blank" rel="noopener">Morningstar｜November US stock market outlook（2026/11/04）</a>。估值折價、AI 資本支出回報與年底配置建議。</li><li><a href="https://www.ssga.com/hk/en/individual/insights/sector-market-perspectives-q4-2026" target="_blank" rel="noopener">State Street Investment Management｜Sector Market Perspectives Q4 2026（2026/10/06）</a>。科技、金融、工業、醫療等產業基本面觀點。</li><li>封面照片：<a href="https://commons.wikimedia.org/wiki/File:United_States_Capitol_-_west_front_edit.jpg" target="_blank" rel="noopener">United States Capitol – west front edit</a>，Wikimedia Commons，美國聯邦政府作品公共領域圖像。</li></ol><div class="disclaimer"><b>計算方式：</b>依選後政治結構篩選七次案例，分別將每次 S&P 500 選後 3、6、12 個月報酬做簡單算術平均。報酬為價格報酬，不含股息；不是年化報酬。1950 年代部分選舉日市場休市，歷史來源使用最近可用收盤值。不同研究若採選舉日前一交易日、選舉日收盤、月均價、含息總報酬或不同期間終點，數字可能不同。樣本僅七次、跨越不同經濟制度與市場環境，不能視為因果證據或未來報酬預測。歷史績效不代表未來結果。</div></div></section>
 </main>
 <footer><div class="wrap footerin"><b>TAC 投資早報</b><span>深度市場觀察　·　資料與分析截至 2026/11/04</span></div></footer>
