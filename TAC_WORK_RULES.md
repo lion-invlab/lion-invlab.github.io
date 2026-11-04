@@ -261,7 +261,7 @@
 - 每日早報由 ChatGPT 單一執行者在使用者提出需求時直接完成，不再設立季節性入口、獨立行情產線、WR Lock Relay、Snapshot handoff、Orchestrator 或自動 HTML Renderer 作為前置條件。
 - 行情由 ChatGPT 當次直接讀取指定來源；行事曆沿用唯一 data/calendar/weeks/YYYY-Www.json，由 ChatGPT 在同一工作中讀取、必要時增量更新並回讀。不得建立平行資料庫或額外中繼資料庫。
 - 舊 WR Lock、Snapshot、collector、assembler、renderer、validator、workflow artifact 及其程式／資料均保留作歷史參考或必要的歷史資料讀取；不得作為當日正式行情或早報產製的強制前置關卡。
-- GitHub Actions 僅保留必要的母版保護檢查及 Pages 預覽／正式網站部署。母版保護檢查不代替每日內容 QA；Pages 部署成功也不代表內容已審核。其他 TAC 報價擷取、WR Lock、Snapshot handoff、結構 Gate、關鍵價位排程及來源探測 workflow 均退出每日生產流程。
+- GitHub Actions 保留母版保護檢查、Pages 預覽／正式網站部署，以及獨立的 `archive_index.yml` 歷史封存任務。歷史封存只新增／核對 `history/`，並明確驗證 `index.html` 未被修改；它不是早報產製或 QA 關卡。母版保護檢查不代替每日內容 QA；Pages 部署成功也不代表內容已審核。其他 TAC 報價擷取、WR Lock、Snapshot handoff、結構 Gate、關鍵價位排程、手動 key-level 測試及來源探測 workflow 均退出每日生產流程。
 - 審核版一律先寫入 preview/YYYY-MM-DD.html；只有使用者明確核准指定審核版後，才可更新 index.html。任何自動部署不得視為使用者已授權正式發布。
 
 ## I. 工作狀態、錯誤處理與規則變更
