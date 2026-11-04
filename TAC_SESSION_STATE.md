@@ -456,7 +456,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 不以 WR Lock、Issue #319 relay、Snapshot、Assembler、Renderer、Collector、Orchestrator 或 GitHub Actions 成功作為早報生產前置條件。
 - 舊 Snapshot、lock、workflow artifact、collector、assembler、renderer、validator 及歷史流程程式僅供歷史資料／必要回查，不得冒充當次資料或正式生產前置。
 - 每日交付仍須寫入並回讀 `preview/YYYY-MM-DD.html`，完成資料與內容、母版結構、互動、視覺四類 QA；未實測項目標示未測試。
-- 正式首頁 `index.html)、雙母版、Manifest 仍屬保護範圍；正式發布必須經使用者明確核准指定預覽版。
+- 正式首頁 `index.html`、雙母版、Manifest 仍屬保護範圍；正式發布必須經使用者明確核准指定預覽版。
 
 ## 12.3 本輪已核對的 workflow 與執行證據
 - main 的 `.github/workflows/` 目前有 8 個檔案：`archive_index.yml`、`company_nasdaq100.yml`、`company_profiles.yml`、`company_profiles_nasdaq100.yml`、`main.yml`、`mother-template-guard.yml`、`pages.yml`、`volatility-sticky-columns.yml`。
@@ -490,7 +490,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 本次只更新本狀態檔作為交接錨點；沒有修改 WR、Manifest、雙母版、`index.html`、每日 preview、行事曆 JSON、workflow 或任何生產程式。
 - 更新前狀態檔 blob SHA：`2eb4b767392713937bc5d94544a1fc91b328a296`。
 - 本次核對／更新前 main HEAD：`8abec31cb1440de973f840b034830bf4bc538028`。
-- 更新後 commit／blob SHA 必須以本次 GitHub update 回報及隨後 readback 為準；未完成回讀前不得宣稱交接檔更新完成。
+- 更新後 commit SHA：`29299c2b2fec2e95feb0ce2c8e76baeb37b10573`；更新後狀態檔 blob SHA：`bfae7cbd7d766287ccb93e7ce897ea4aa07c4d26`。已重新 fetch 回讀，確認第 12 節存在且內容完整。
 
 ## 12.7 下一步唯一工作位置
 1. 完成尚未覆蓋的 scripts／tests／config／docs 依賴引用掃描，特別確認舊 snapshot／lock／renderer 有沒有非 workflow 的呼叫入口。
