@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "0ea4775c5d15899a1e0b0a97c78744d90b8fff22",
+      "blob_sha": "6160ec812845c2c80e1ebfb68412bc3cd6a2f8a8",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "e5976190efd4c7fcc92cd623bfa94926997cc672",
+      "blob_sha": "eab724f7818989385f7d2373c626477c71c498a7",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -53,6 +53,10 @@
     {
       "date": "2026-10-31",
       "change": "依使用者指定，全球主要市場美國／亞洲／歐洲 17 個指數名稱連結統一導向 Investing.com 香港站對應商品頁；只更新 href 與母版 SHA 鎖，未修改行情數值及版面。"
+    },
+    {
+      "date": "2026-11-05",
+      "change": "依使用者明確核准，雙母版僅將重複的工具欄提示 style/script ID 改為唯一識別值；不刪除重複區塊、不改 CSS／JavaScript 行為或版面；完成雙母版 ID 與內部錨點檢查後同步更新核准 SHA。"
     }
   ]
 }
