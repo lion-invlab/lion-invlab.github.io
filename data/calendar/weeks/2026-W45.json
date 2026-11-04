@@ -5,9 +5,9 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T11:00:24+08:00",
+  "updated_at": "2026-11-04T11:18:00+08:00",
   "source_report_date": "2026-11-04",
-  "wr_version": "4.18",
+  "wr_version": "5.0",
   "status": "active",
   "events": {
     "economic": [
@@ -1280,7 +1280,7 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
         "importance_rating_source": null,
-        "eps_estimate": 4.48,
+        "eps_estimate": 4.49,
         "eps_actual": 4.66,
         "revenue_estimate": 9.55,
         "revenue_actual": 8.89,
@@ -1305,10 +1305,10 @@
         "financial_judgment": "Booking Holdings Q3 2026 adjusted EPS US$4.66，高於資料庫既有US$4.48共識；GAAP EPS US$3.61。營收US$8.89B，低於US$9.55B共識；公司說明FTC事項使報告營收減少約US$0.9B，調整後營收US$9.8B。總預訂額年增10%、間夜數年增7%，但國際旅遊需求於季末轉弱。股價盤後約下跌2%。",
         "stock_price_reaction_window": "2026-11-03 U.S. after-hours/late trading following results; reported by financial press; not a regular-session closing return.",
         "consensus_source": {
-          "name": "Nasdaq EPS consensus（W45既有週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "保留資料庫既有EPS共識US$4.48；調整後EPS實績US$4.66，會計口徑差異已於financial_judgment揭露。"
+          "name": "FactSet consensus via WSJ｜Booking Holdings Q3 2026",
+          "url": "https://www.wsj.com/business/earnings/booking-profit-sales-fall-as-global-conflicts-wear-on-travel-demand-f91deef1",
+          "publisher": "The Wall Street Journal (citing analyst consensus)",
+          "notes": "FactSet adjusted EPS consensus US$4.49; actual adjusted EPS US$4.66. GAAP EPS actual US$3.61, kept separate."
         },
         "price_reaction_source": {
           "name": "WSJ｜Booking Q3 2026 stock reaction",
@@ -2983,8 +2983,8 @@
         "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
         "https://ballotpedia.org/Election_results,_2026"
       ],
-      "checked_at": "2026-11-04T04:43:37+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。"
+      "checked_at": "2026-11-04T11:18:00+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 11:18 Asia/Taipei：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3067,7 +3067,7 @@
         "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
         "https://ir.emerson.com/news-events/press-releases/detail/648/emerson-schedules-fourth-quarter-and-full-year-2026-earnings-release-and-conference-call"
       ],
-      "checked_at": "2026-11-04T11:00:24+08:00",
+      "checked_at": "2026-11-04T11:18:00+08:00",
       "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 11:00 Asia/Taipei：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。"
     }
   },
@@ -10601,6 +10601,26 @@
       ],
       "source": "https://www.sec.gov/Archives/edgar/data/1375365/000137536526000026/exhibit991_20260930.htm",
       "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。"
+    },
+    {
+      "at": "2026-11-04T11:18:00+08:00",
+      "action": "event_updated",
+      "event_id": "current-bkng-20261102",
+      "changed_fields": [
+        "eps_estimate",
+        "consensus_source"
+      ],
+      "source": "https://www.wsj.com/business/earnings/booking-profit-sales-fall-as-global-conflicts-wear-on-travel-demand-f91deef1",
+      "note": "before={\"eps_estimate\":4.48,\"consensus_source\":{\"name\":\"Nasdaq EPS consensus（W45既有週曆）\",\"url\":\"https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026\",\"publisher\":\"Nasdaq via StockTitan\",\"notes\":\"保留資料庫既有EPS共識US$4.48；調整後EPS實績US$4.66，會計口徑差異已於financial_judgment揭露。\"}}; after={eps_estimate:4.49, adjusted EPS actual:4.66}; reason=採WSJ引述FactSet同口徑共識，與原Nasdaq週曆4.48存在0.01差異，改用可追溯的FactSet consensus。"
+    },
+    {
+      "at": "2026-11-04T11:18:00+08:00",
+      "action": "wr_version_updated",
+      "changed_fields": [
+        "wr_version"
+      ],
+      "source": "TAC_WORK_RULES.md v5.0",
+      "note": "W45既有JSON schema相容；本次增量維護依main最新WR v5.0執行。"
     }
   ]
 }
