@@ -28,6 +28,13 @@
       "url": "https://guba.eastmoney.com/usnvda.html",
       "scope": "英偉達吧；半導體、AI、科技股情緒",
       "collection_status": "active"
+    },
+    {
+      "source_id": "eastmoney-us-stock-recent-list",
+      "platform": "東方財富股吧",
+      "url": "https://guba.eastmoney.com/us_5932.html",
+      "scope": "美股吧最新討論列表；觀察跨個股留言與高互動標題",
+      "collection_status": "active"
     }
   ],
   "categories": [
@@ -64,7 +71,7 @@
     {
       "id": "EFB-20261019-001",
       "type": "verbatim_sample",
-      "quote": "不让你反弹，我怎么做空",
+      "quote": "不讓你反彈，我怎麼做空",
       "platform": "東方財富股吧",
       "board": "英偉達吧",
       "ticker": "NVDA",
@@ -84,12 +91,14 @@
       "engagement_snapshot": null,
       "tac_use": "適合市場急跌後反彈、空頭回補或多空角力明顯的情境；需確認當日確有反彈與空頭敘事。",
       "reuse_mode": "短句語感參考；若直接引用需標註來源",
-      "confidence": "source_verified"
+      "confidence": "source_verified",
+      "raw_quote_original": "不让你反弹，我怎么做空",
+      "language": "zh-TW"
     },
     {
       "id": "EFB-20261019-002",
       "type": "verbatim_sample",
-      "quote": "人家调整6个点创新高，咱们调整60个点没量[哭]",
+      "quote": "人家回檔 6 個點就創新高，我們回檔 60 個點還沒量（哭）",
       "platform": "東方財富股吧",
       "board": "英偉達吧",
       "ticker": "NVDA",
@@ -109,12 +118,14 @@
       "engagement_snapshot": null,
       "tac_use": "適合比較不同市場、同族群股票或個股回檔幅度時使用；原留言中的數字不可脫離原討論情境沿用。",
       "reuse_mode": "優先學習「人家X，我們Y」的反差句型；不要複製原數字當成當日事實",
-      "confidence": "source_verified"
+      "confidence": "source_verified",
+      "raw_quote_original": "人家调整6个点创新高，咱们调整60个点没量[哭]",
+      "language": "zh-TW"
     },
     {
       "id": "EFB-20261019-003",
       "type": "verbatim_sample",
-      "quote": "别拉了今天还没上车！！！",
+      "quote": "別拉了，今天還沒上車！！！",
       "platform": "東方財富股吧",
       "board": "AXT Inc吧",
       "ticker": "AXTI",
@@ -133,12 +144,14 @@
       "engagement_snapshot": null,
       "tac_use": "適合個股急漲、盤中拉升、投資人擔心踏空的情境；不應暗示追價。",
       "reuse_mode": "短句語感參考；直接引用需標註來源",
-      "confidence": "source_verified"
+      "confidence": "source_verified",
+      "raw_quote_original": "别拉了今天还没上车！！！",
+      "language": "zh-TW"
     },
     {
       "id": "EFB-20261019-004",
       "type": "verbatim_sample",
-      "quote": "这就是美科技强股，它们绝对不会坑股民。",
+      "quote": "這就是美國科技強股，它們絕對不會坑股民。",
       "platform": "東方財富股吧",
       "board": "閃迪吧",
       "ticker": "SNDK",
@@ -158,6 +171,222 @@
       "engagement_snapshot": null,
       "tac_use": "適合強勢股或熱門科技股被過度追捧時作反諷觀察；不得把原句當成對公司品質的真實背書。",
       "reuse_mode": "只借用反諷語氣；避免照搬絕對化投資判斷",
+      "confidence": "source_verified",
+      "raw_quote_original": "这就是美科技强股，它们绝对不会坑股民。",
+      "language": "zh-TW"
+    },
+    {
+      "id": "EFB-20260408-005",
+      "type": "verbatim_sample",
+      "raw_quote_original": "开盘即巅峰，又低走",
+      "quote": "開盤即巔峰，又低走",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-04-08T21:59:49",
+      "captured_at": "2026-11-04",
+      "category": [
+        "高開低走",
+        "反轉神回"
+      ],
+      "tone": [
+        "短促",
+        "反差",
+        "吐槽"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usnvda,1690769384.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合開盤衝高後一路回落；一句話就把全天走勢講完。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-006",
+      "type": "verbatim_sample",
+      "raw_quote_original": "真是恶心啊别人向上它向下",
+      "quote": "真是有夠煩，別人向上它向下",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "特斯拉吧",
+      "ticker": "TSLA",
+      "posted_at": "2026-04-08T21:58:14",
+      "captured_at": "2026-11-04",
+      "category": [
+        "相對強弱",
+        "無奈自嘲"
+      ],
+      "tone": [
+        "抱怨",
+        "對比",
+        "口語"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,ustsla,1690769016.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合同族群普漲、單一股票逆勢走弱；保留股民抱怨的直白感。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-007",
+      "type": "verbatim_sample",
+      "raw_quote_original": "什么玩意",
+      "quote": "什麼玩意",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "特斯拉吧",
+      "ticker": "TSLA",
+      "posted_at": "2026-04-08T21:57:33",
+      "captured_at": "2026-11-04",
+      "category": [
+        "無奈自嘲"
+      ],
+      "tone": [
+        "極短句",
+        "不耐煩"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,ustsla,1690768783.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "極短的情緒型回覆；適合當短副標或段落小標，不適合單獨承載重要新聞。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-008",
+      "type": "verbatim_sample",
+      "raw_quote_original": "给点力涨上去啊，不然明天狗A要跌",
+      "quote": "給點力漲上去啊，不然明天 A 股又要跌",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "Lumentum Holdings Inc吧",
+      "ticker": "LITE",
+      "posted_at": "2026-04-08T21:57:14",
+      "captured_at": "2026-11-04",
+      "category": [
+        "跨市場連動",
+        "無奈自嘲"
+      ],
+      "tone": [
+        "祈求",
+        "戲謔",
+        "跨市場"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,uslite,1690768710.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合美股科技股被視為隔日亞洲市場風向球的情境；使用前須確認跨市場連動脈絡。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-009",
+      "type": "verbatim_sample",
+      "raw_quote_original": "你看你爷爷妇联，再看看你[呲牙][呲牙][呲牙]",
+      "quote": "你看看人家，再看看你（笑）",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-04-08T21:57:03",
+      "captured_at": "2026-11-04",
+      "category": [
+        "相對強弱",
+        "反轉神回"
+      ],
+      "tone": [
+        "挖苦",
+        "對照",
+        "迷因語氣"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usnvda,1690768637.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "原留言涉及圈內人物梗，資料庫保留其對照式語氣，不保留難以確認的內梗指涉；適合同業績、股價強弱對照。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-010",
+      "type": "verbatim_sample",
+      "raw_quote_original": "啊，港股都上7个点，你在这磨磨唧唧的，干脆在美股退市得了",
+      "quote": "港股都漲 7 個點了，你還在這裡磨磨蹭蹭，乾脆從美股退市算了",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "阿里巴巴吧",
+      "ticker": "BABA",
+      "posted_at": "2026-04-08T21:55:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "相對強弱",
+        "無奈自嘲"
+      ],
+      "tone": [
+        "誇張",
+        "對比",
+        "毒舌"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usbaba,1690768351.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合 ADR 與港股雙重上市標的表現明顯分歧；留言中的 7 個點是原討論數字，不可沿用到其他日期。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-011",
+      "type": "verbatim_sample",
+      "raw_quote_original": "你今天不乘机多涨点，明天又没机会了！",
+      "quote": "你今天不趁機多漲一點，明天又沒機會了！",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-04-08T21:55:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "追高踏空",
+        "短線情緒"
+      ],
+      "tone": [
+        "急切",
+        "戲謔",
+        "催促"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usnvda,1690768230.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合重大事件前後、行情急拉時呈現股民怕錯過的情緒；不作為追價暗示。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260408-012",
+      "type": "verbatim_sample",
+      "raw_quote_original": "唉看见开这么高就慌肯定要低走",
+      "quote": "唉，看到開這麼高就慌，肯定要低走",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "閃迪吧",
+      "ticker": "SNDK",
+      "posted_at": "2026-04-08T21:55:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "高開低走",
+        "反向預期"
+      ],
+      "tone": [
+        "預判",
+        "焦慮",
+        "口語"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,ussndk,1690768140.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合開盤跳空後市場擔心獲利回吐的情境；只能表達當時留言情緒，不能當作走勢預測。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
       "confidence": "source_verified"
     }
   ],
@@ -166,6 +395,11 @@
       "date": "2026-11-04",
       "action": "initial_seed",
       "result": "新增 4 筆可回開原始貼文核對的短留言；未保存發文者帳號；互動數未可靠取得，故留空。"
+    },
+    {
+      "date": "2026-11-04",
+      "action": "second_collection",
+      "result": "新增 8 筆可回開原始貼文核對的留言；將既有 4 筆原句轉存繁體中文，並保留 raw_quote_original 供溯源。"
     }
   ]
 }
