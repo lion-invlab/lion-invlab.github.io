@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T11:30:10+08:00",
+  "updated_at": "2026-11-04T16:58:10+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "5.2",
   "status": "active",
@@ -268,9 +268,9 @@
           "name": "Sveriges Riksbank｜Calendar, 4 November 2026",
           "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
           "published_at": null,
-          "observed_at": "2026-11-04T04:43:37+08:00",
+          "observed_at": "2026-11-04T16:58:10+08:00",
           "publisher": "Sveriges Riksbank",
-          "notes": "官方行事曆確認11/04 09:30 CET公布貨幣政策決議／Monetary Policy Update，換算台灣時間16:30；11:00 CET記者會為另一時點，不覆蓋決議時間。"
+          "notes": "官方行事曆確認11/04 09:30 CET公布決議（台灣16:30）；16:58台灣時間重新查核官方首頁，仍顯示政策利率1.75%（適用自9/30）及「Next monetary policy announcement published on 4 November 2026」，未見11/04決議文本。故保留 actual=null、status=upcoming，不以頁面舊利率推定本次決議結果；待官方決議頁更新後再核實。"
         },
         "data_unit": "% policy rate",
         "data_reference": {
@@ -10764,6 +10764,17 @@
       ],
       "source": "https://apnews.com/article/ef6199e25927a9ac9f4c18eae0e497cd",
       "note": "更新美國期中選舉狀態：AP 已確認民主黨取得參議院控制權，眾議院結果仍未定；保留 pending_verification 以表示眾議院及州級認證尚待確認。"
+    },
+    {
+      "at": "2026-11-04T16:58:10+08:00",
+      "action": "event_reverified",
+      "event_id": "current-riksbank-rate-20261104",
+      "changed_fields": [
+        "source.observed_at",
+        "source.notes"
+      ],
+      "source": "https://www.riksbank.se/en-gb/",
+      "note": "16:58 Asia/Taipei recheck: official homepage still shows 1.75% effective 30 September and says next announcement will be published on 4 November; no 4 November decision text visible. Keep actual=null and status=upcoming; do not infer decision from stale current-rate widget."
     }
   ]
 }
