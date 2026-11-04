@@ -7,7 +7,7 @@
   "created_at": "2026-11-01T00:00:00+08:00",
   "updated_at": "2026-11-04T11:30:10+08:00",
   "source_report_date": "2026-11-04",
-  "wr_version": "5.0",
+  "wr_version": "5.2",
   "status": "active",
   "events": {
     "economic": [
@@ -138,27 +138,25 @@
         "importance_basis_source": "TAC四星：選舉結果將影響國會控制權、財政預算、稅制及監管政策方向，可能改變中期政策預期與市場風險溢價。",
         "previous": null,
         "forecast": null,
-        "actual": null,
+        "actual": "美聯社（AP）已確認民主黨取得美國參議院控制權；眾議院席次仍未完成判定，尚待更多選區結果。",
         "status": "pending_verification",
         "time_known": false,
-        "impact_judgment": "截至2026-11-04 04:30 Asia/Taipei（美東2026-11-03 15:30 EST），美國中期選舉投票日仍在進行，部分州投票及計票尚未完成；尚無可確認的國會控制權結果。待各州結果及官方認證進一步明朗後再更新，不以即時未定席次推斷最終結果。",
+        "impact_judgment": "截至 2026-11-04 最新報導，民主黨已取得參議院控制權，眾議院仍未定案。參議院控制權改變將提高國會對行政部門政策的制衡，未來兩年財政、預算、監管及人事任命議題的不確定性上升；眾議院結果及各州正式認證仍須追蹤，不將媒體預測等同官方最終認證。",
         "source": {
-          "name": "Federal Election Commission｜Election results and voting information",
-          "url": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
-          "published_at": null,
-          "observed_at": "2026-11-04T04:43:37+08:00",
-          "publisher": "Federal Election Commission",
-          "notes": "官方選舉資訊入口；截至本次查核時，投票日仍在進行，未取得全國最終結果。"
+          "name": "Associated Press｜The Latest: Voters hand Democrats Senate control in sharp rebuke to Trump's power",
+          "url": "https://apnews.com/article/ef6199e25927a9ac9f4c18eae0e497cd",
+          "published_at": "2026-11-04",
+          "observed_at": "2026-11-04",
+          "publisher": "Associated Press",
+          "notes": "AP 報導確認民主黨取得參議院控制權；眾議院仍 too early to call。本文作為最新媒體結果確認，州級正式認證仍待完成。"
         },
         "previous_applicable": false,
         "forecast_applicable": false,
         "data_reference": {
-          "name": "Ballotpedia｜2026 election results tracker",
-          "url": "https://ballotpedia.org/Election_results,_2026",
-          "published_at": null,
-          "observed_at": "2026-11-04T04:43:37+08:00",
-          "publisher": "Ballotpedia",
-          "notes": "僅作即時席次進度的次級追蹤；尚未視為州級正式認證結果。"
+          "name": "Reuters｜Top takeaways from the US midterm elections",
+          "url": "https://www.reuters.com/business/media-telecom/takeaways-us-midterm-elections-2026-11-04/",
+          "publisher": "Reuters",
+          "notes": "Reuters 同日報導亦指出民主黨在參眾兩院取得重大進展；眾議院仍需留意逐席結果。"
         }
       },
       {
@@ -10752,6 +10750,20 @@
       "action": "timestamp_reconciliation",
       "source": "ChatGPT time widget",
       "note": "Corrected assistant-generated placeholder audit times. Exact current reconciliation time is 11:30:10 Asia/Taipei; earlier individual update times were not captured, so those historical audit entries and Booking source observation are date-only rather than falsely precise. updated_at and current coverage checks use the verified current time."
+    },
+    {
+      "at": "2026-11-04",
+      "action": "event_reverified",
+      "event_id": "current-us-midterms-20261103",
+      "changed_fields": [
+        "actual",
+        "status",
+        "impact_judgment",
+        "source",
+        "data_reference"
+      ],
+      "source": "https://apnews.com/article/ef6199e25927a9ac9f4c18eae0e497cd",
+      "note": "更新美國期中選舉狀態：AP 已確認民主黨取得參議院控制權，眾議院結果仍未定；保留 pending_verification 以表示眾議院及州級認證尚待確認。"
     }
   ]
 }
