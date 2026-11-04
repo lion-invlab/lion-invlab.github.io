@@ -203,11 +203,19 @@ def classify_rate_outcome(rate_range: str, current_rate_range: str) -> str:
         return "維持不變"
     chinese_steps = {1: "一", 2: "兩", 3: "三", 4: "四"}
     if upper <= current_lower:
+        # Compare lower bounds: adjacent target ranges differ by one 25 bp step.
         steps = round((current_lower-lower)/0.25)
-        return f"降息{chinese_steps.get(steps, steps)}碼" if steps else "降息"
+        if steps < 1 or abs((current_lower-lower) - steps*0.25) > 1e-6:
+            fail(f"Invalid Fed rate-cut step: {rate_range!r} vs {current_rate_range!r}")
+        return f"降息{chinese_steps.get(steps, steps)}碼"
     if lower >= current_upper:
-        steps = round((lower-current_upper)/0.25)
-        return f"升息{chinese_steps.get(steps, steps)}碼" if steps else "升息"
+        # Compare lower bounds rather than lower-to-current-upper; otherwise
+        # the first adjacent hike (e.g. 4.00%-4.25% from 3.75%-4.00%) is
+        # incorrectly classified as zero steps.
+        steps = round((lower-current_lower)/0.25)
+        if steps < 1 or abs((lower-current_lower) - steps*0.25) > 1e-6:
+            fail(f"Invalid Fed rate-hike step: {rate_range!r} vs {current_rate_range!r}")
+        return f"升息{chinese_steps.get(steps, steps)}碼"
     fail(f"Outcome range {rate_range!r} overlaps current range {current_rate_range!r} ambiguously")
 
 def update_fedwatch(container, fedwatch: dict) -> None:
@@ -309,6 +317,7 @@ def self_test() -> None:
     assert classify_rate_outcome("3.75%-4.00%", "3.75%-4.00%") == "維持不變"
     assert classify_rate_outcome("4.00%-4.25%", "3.75%-4.00%") == "升息一碼"
     assert classify_rate_outcome("3.25%-3.50%", "3.75%-4.00%") == "降息兩碼"
+    assert classify_rate_outcome("4.25%-4.50%", "3.75%-4.00%") == "升息兩碼"
     print("PASS: numeric formatting and signed percentage formatting")
     print("PASS: missing data is rendered as 待核實")
     print("PASS: FedWatch probability arithmetic")
