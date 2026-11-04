@@ -598,6 +598,93 @@
       "tac_use": "適合比較美股高價股與 A 股交易文化、股價心理及炒作想像；屬反諷，不代表真實估值判斷。",
       "reuse_mode": "保留原留言語感；直接引用需標註來源",
       "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260630-020",
+      "type": "verbatim_sample",
+      "raw_quote_original": "明天我们又可以砸了",
+      "quote": "明天我們又可以砸了。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "美光科技吧",
+      "ticker": "MU",
+      "posted_at": "2026-06-30T03:28:36",
+      "captured_at": "2026-11-04",
+      "category": [
+        "空頭預期",
+        "反諷"
+      ],
+      "tone": [
+        "幸災樂禍",
+        "反諷",
+        "口語"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usmu,1734675197.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合股價反彈後，留言者反而預期隔日再度遭賣壓時，呈現偏空投資人的黑色幽默；不可視為實際走勢預測。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260630-021",
+      "type": "verbatim_sample",
+      "raw_quote_original": "自拉自唱",
+      "quote": "自拉自唱。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "特斯拉吧",
+      "ticker": "TSLA",
+      "posted_at": "2026-06-30T03:19:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "量價質疑",
+        "市場擬人"
+      ],
+      "tone": [
+        "嘲諷",
+        "簡短",
+        "質疑"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,ustsla,1734674994.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 50,
+        "comments": 0
+      },
+      "tac_use": "適合股價上漲但市場參與度、成交量或買盤廣度受到質疑時，作為『自拉自唱』的短句語料；須先核對當日量價事實。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20260630-022",
+      "type": "verbatim_sample",
+      "raw_quote_original": "大家不看好你，偏偏你最争气",
+      "quote": "大家都不看好你，偏偏你最爭氣。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "特斯拉吧",
+      "ticker": "TSLA",
+      "posted_at": "2026-06-30T03:21:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "反市場共識",
+        "反轉神回"
+      ],
+      "tone": [
+        "戲謔",
+        "反差",
+        "稱讚"
+      ],
+      "source_url": "https://iguba.eastmoney.com/6320013983329172",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 44,
+        "comments": 0
+      },
+      "tac_use": "適合個股走勢逆市場普遍預期上漲時，呈現反共識的驚喜語氣；需與當日實際表現搭配。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
     }
   ],
   "collection_log": [
@@ -622,6 +709,16 @@
         "EFB-20261102-017",
         "EFB-20261102-018",
         "EFB-20261102-019"
+      ]
+    },
+    {
+      "date": "2026-11-04",
+      "action": "新增 3 則來自美光與特斯拉討論區的留言，包含原文、發文時間及來源連結；顯示引文採繁體中文。",
+      "source": "東方財富美股吧",
+      "entry_ids": [
+        "EFB-20260630-020",
+        "EFB-20260630-021",
+        "EFB-20260630-022"
       ]
     }
   ]
