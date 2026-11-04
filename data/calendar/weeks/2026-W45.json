@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T17:35:56+08:00",
+  "updated_at": "2026-11-04T17:36:52+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "5.2",
   "status": "active",
@@ -138,25 +138,25 @@
         "importance_basis_source": "TAC四星：選舉結果將影響國會控制權、財政預算、稅制及監管政策方向，可能改變中期政策預期與市場風險溢價。",
         "previous": null,
         "forecast": null,
-        "actual": "美聯社（AP）已確認民主黨取得美國參議院控制權；眾議院席次仍未完成判定，尚待更多選區結果。",
+        "actual": "Reuters 報導：媒體已預測民主黨拿回美國眾議院與參議院控制權；屬媒體預測結果，州級正式認證仍待完成。",
         "status": "pending_verification",
         "time_known": false,
-        "impact_judgment": "截至 2026-11-04 最新報導，民主黨已取得參議院控制權，眾議院仍未定案。參議院控制權改變將提高國會對行政部門政策的制衡，未來兩年財政、預算、監管及人事任命議題的不確定性上升；眾議院結果及各州正式認證仍須追蹤，不將媒體預測等同官方最終認證。",
+        "impact_judgment": "Reuters 11/04 00:07 UTC 報導，媒體已預測民主黨取得眾議院與參議院控制權，構成對執政黨的重大挫敗。國會控制權翻轉將提高行政部門政策、財政預算、稅制、監管及人事任命的制衡與不確定性；但媒體預測不等同州級最終認證，正式結果仍待各州認證完成。",
         "source": {
-          "name": "Associated Press｜The Latest: Voters hand Democrats Senate control in sharp rebuke to Trump's power",
-          "url": "https://apnews.com/article/ef6199e25927a9ac9f4c18eae0e497cd",
-          "published_at": "2026-11-04",
-          "observed_at": "2026-11-04",
-          "publisher": "Associated Press",
-          "notes": "AP 報導確認民主黨取得參議院控制權；眾議院仍 too early to call。本文作為最新媒體結果確認，州級正式認證仍待完成。"
+          "name": "Reuters｜Top takeaways from the US midterm elections",
+          "url": "https://www.reuters.com/business/media-telecom/takeaways-us-midterm-elections-2026-11-04/",
+          "published_at": "2026-11-04T00:07:00Z",
+          "observed_at": "2026-11-04T17:36:52+08:00",
+          "publisher": "Reuters",
+          "notes": "Reuters 發布時間 2026-11-04 00:07 UTC（08:07 Asia/Taipei）。報導稱民主黨取得國會控制權，並指出媒體已預測民主黨贏得眾議院與參議院；因州級正式認證仍未完成，事件 status 保留 pending_verification。"
         },
         "previous_applicable": false,
         "forecast_applicable": false,
         "data_reference": {
-          "name": "Reuters｜Top takeaways from the US midterm elections",
-          "url": "https://www.reuters.com/business/media-telecom/takeaways-us-midterm-elections-2026-11-04/",
-          "publisher": "Reuters",
-          "notes": "Reuters 同日報導亦指出民主黨在參眾兩院取得重大進展；眾議院仍需留意逐席結果。"
+          "name": "Associated Press｜The Latest: Voters hand Democrats Senate control in sharp rebuke to Trump's power",
+          "url": "https://apnews.com/article/ef6199e25927a9ac9f4c18eae0e497cd",
+          "publisher": "Associated Press",
+          "notes": "AP 作為獨立交叉核對；Reuters 更新後已報導媒體預測民主黨取得兩院控制權。兩者均不取代州級最終認證。"
         }
       },
       {
@@ -2954,8 +2954,8 @@
         "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
         "https://ballotpedia.org/Election_results,_2026"
       ],
-      "checked_at": "2026-11-04T17:35:56+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。\n2026-11-04 17:35:56 Asia/Taipei：Riksbank 預定公告時點 16:30 已過；重新查核官方首頁與 2026 年 press-release archive，仍未見 11/04 決議文本。將事件狀態由 upcoming 改為 pending_verification，actual 維持 null，不以研究機構預期代替實際值。"
+      "checked_at": "2026-11-04T17:36:52+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。\n2026-11-04 17:35:56 Asia/Taipei：Riksbank 預定公告時點 16:30 已過；重新查核官方首頁與 2026 年 press-release archive，仍未見 11/04 決議文本。將事件狀態由 upcoming 改為 pending_verification，actual 維持 null，不以研究機構預期代替實際值。\n2026-11-04 17:36:52 Asia/Taipei：Reuters 00:07 UTC 報導媒體已預測民主黨拿回眾議院與參議院控制權；更新期中選舉 actual／impact_judgment／source，status 保留 pending_verification 以區分媒體預測與州級最終認證。"
     },
     "earnings": {
       "status": "incomplete",
@@ -10788,6 +10788,19 @@
       ],
       "source": "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2026/",
       "note": "before={\"status\":\"upcoming\",\"actual\":null,\"source_observed_at\":\"2026-11-04T16:58:10+08:00\"}; after scheduled publication time 09:30 CET (16:30 Taipei), checked official Riksbank homepage and 2026 press-release archive at 17:35:56 Taipei; no Nov 4 decision text found. Reclassify to pending_verification; actual remains null; do not infer from stale 1.75% display or 2.00% forecast."
+    },
+    {
+      "at": "2026-11-04T17:36:52+08:00",
+      "action": "event_reverified",
+      "event_id": "current-us-midterms-20261103",
+      "changed_fields": [
+        "actual",
+        "impact_judgment",
+        "source",
+        "data_reference"
+      ],
+      "source": "https://www.reuters.com/business/media-telecom/takeaways-us-midterm-elections-2026-11-04/",
+      "note": "before={\"actual\":\"美聯社（AP）已確認民主黨取得美國參議院控制權；眾議院席次仍未完成判定，尚待更多選區結果。\",\"status\":\"pending_verification\",\"source\":{\"name\":\"Associated Press｜The Latest: Voters hand Democrats Senate control in sharp rebuke to Trump's power\",\"url\":\"https://apnews.com/article/ef6199e25927a9ac9f4c18eae0e497cd\",\"published_at\":\"2026-11-04\",\"observed_at\":\"2026-11-04\",\"publisher\":\"Associated Press\",\"notes\":\"AP 報導確認民主黨取得參議院控制權；眾議院仍 too early to call。本文作為最新媒體結果確認，州級正式認證仍待完成。\"}}; Reuters published 2026-11-04 00:07 UTC and reports media projections that Democrats won both House and Senate. Keep status pending_verification until state certifications are complete."
     }
   ]
 }
