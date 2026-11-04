@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T11:58:00+08:00",
+  "updated_at": "2026-11-04T11:30:10+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "5.0",
   "status": "active",
@@ -116,7 +116,7 @@
           "name": "Reserve Bank of Australia｜Monetary Policy Decision, 3 November 2026",
           "url": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
           "published_at": "2026-11-03T14:30:00+11:00",
-          "observed_at": "2026-11-04T11:52:00+08:00",
+          "observed_at": "2026-11-04T11:30:10+08:00",
           "publisher": "Reserve Bank of Australia",
           "notes": "官方決議於2026-11-03 14:30 AEDT發布（換算台灣時間11:30）；cash rate target上調25bp至4.85%，6票支持、3票反對；前值4.60%。"
         },
@@ -178,7 +178,7 @@
           "name": "U.S. Bureau of Labor Statistics｜JOLTS, September 2026",
           "url": "https://www.bls.gov/news.release/jolts.htm",
           "published_at": "2026-11-03T10:00:00-05:00",
-          "observed_at": "2026-11-04T11:52:00+08:00",
+          "observed_at": "2026-11-04T11:30:10+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
           "notes": "BLS官方新聞稿明示發布於2026-11-03 10:00 ET。9月職缺7.523M；8月由原7.079M修訂為7.190M；招聘5.402M、總離職5.319M、離職自願辭職3.365M、裁員與解雇約1.641M（官方表格以千人為單位）。"
         },
@@ -602,7 +602,7 @@
           "name": "Marriott International Investor Relations｜Q3 2026 results",
           "url": "https://marriott.gcs-web.com/news-releases/news-release-details/marriott-international-reports-third-quarter-2026-results",
           "published_at": "2026-11-02T07:00:00-05:00",
-          "observed_at": "2026-11-03T03:26:09+08:00",
+          "observed_at": "2026-11-04T11:30:10+08:00",
           "publisher": "Marriott International",
           "notes": "公司 IR 已正式公布 Q3 2026 結果；PRNewswire 發行時間交叉核對為 2026-11-02 07:00 ET，早於 08:00 ET 電話會議。官方 IR 報告 GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、total revenues US$7.005B。"
         },
@@ -668,7 +668,7 @@
           "name": "Vertex Pharmaceuticals Investor Relations｜Q3 2026 results",
           "url": "https://investors.vrtx.com/node/35036/pdf",
           "published_at": "2026-11-02",
-          "observed_at": "2026-11-04T04:43:37+08:00",
+          "observed_at": "2026-11-04T11:30:10+08:00",
           "publisher": "Vertex Pharmaceuticals",
           "notes": "公司正式Q3結果：營收US$3.4408B；GAAP diluted EPS US$2.56；Non-GAAP diluted EPS US$4.76。2026-11-02美股收盤後公布；EPS共識口徑未明，未機械判定beat/miss。"
         },
@@ -1394,7 +1394,7 @@
           "name": "Supermicro｜FY2027 Q1 results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1375365/000137536526000026/exhibit991_20260930.htm",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T11:45:00+08:00",
+          "observed_at": "2026-11-04T11:30:10+08:00",
           "publisher": "Super Micro Computer / SEC"
         },
         "consensus_source": null,
@@ -2956,8 +2956,8 @@
         "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
         "https://ballotpedia.org/Election_results,_2026"
       ],
-      "checked_at": "2026-11-04T11:52:00+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 11:18 Asia/Taipei：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 11:52 Asia/Taipei：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。"
+      "checked_at": "2026-11-04T11:30:10+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3040,8 +3040,8 @@
         "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
         "https://ir.emerson.com/news-events/press-releases/detail/648/emerson-schedules-fourth-quarter-and-full-year-2026-earnings-release-and-conference-call"
       ],
-      "checked_at": "2026-11-04T11:58:00+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 11:00 Asia/Taipei：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。\n2026-11-04 11:25 Asia/Taipei：AMD EPS consensus口徑由Investing.com財報報導確認為non-GAAP US$1.94，與實績US$2.09可比；EPS狀態由pending_verification改為beat。營收共識US$13.06B，實績US$13.377B；新增明確盤後股價反應+7.54%及觀察時段。\n2026-11-04 11:32 Asia/Taipei：依Investing.com當次財報報導統一核對AMGN、BKNG、SMCI共識及盤後反應。AMGN採adjusted EPS US$5.76／營收US$10.06B、盤後−1.36%；BKNG採adjusted EPS US$4.49／營收US$9.54B、盤後−0.94%；SMCI採adjusted EPS US$1.23／營收US$16.26B、盤後+9.78%。上述均標明美東盤後觀察時段，不冒充正式收盤報酬。\n2026-11-04 11:45 Asia/Taipei：對ANET、BKNG、SMCI重新執行共識來源回讀。ANET與SMCI可讀取的官方／Investing原文未提供可追溯同口徑分析師共識，清除先前無法由原文支持的EPS／營收估計並將比較狀態改為pending_verification。BKNG僅保留Investing.com Canada原文可確認的adjusted EPS consensus US$4.49；營收共識未能在原文確認，清除估計值並標示pending_verification。已公布實際數字與可核實股價反應保留。\n2026-11-04 11:58 Asia/Taipei：Amgen EPS／營收共識改採可讀取的Reuters原始報導（LSEG adjusted EPS US$5.79、revenue US$10.1B），覆蓋先前未經原文直接核實的Investing.com估值。Reuters原文未列盤後報酬，清除未能回讀支持的−1.36%反應值，改為待核實。"
+      "checked_at": "2026-11-04T11:30:10+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。\n2026-11-04 Asia/Taipei（具體時分未記錄）：AMD EPS consensus口徑由Investing.com財報報導確認為non-GAAP US$1.94，與實績US$2.09可比；EPS狀態由pending_verification改為beat。營收共識US$13.06B，實績US$13.377B；新增明確盤後股價反應+7.54%及觀察時段。\n2026-11-04 Asia/Taipei（具體時分未記錄）：依Investing.com當次財報報導統一核對AMGN、BKNG、SMCI共識及盤後反應。AMGN採adjusted EPS US$5.76／營收US$10.06B、盤後−1.36%；BKNG採adjusted EPS US$4.49／營收US$9.54B、盤後−0.94%；SMCI採adjusted EPS US$1.23／營收US$16.26B、盤後+9.78%。上述均標明美東盤後觀察時段，不冒充正式收盤報酬。\n2026-11-04 Asia/Taipei（具體時分未記錄）：對ANET、BKNG、SMCI重新執行共識來源回讀。ANET與SMCI可讀取的官方／Investing原文未提供可追溯同口徑分析師共識，清除先前無法由原文支持的EPS／營收估計並將比較狀態改為pending_verification。BKNG僅保留Investing.com Canada原文可確認的adjusted EPS consensus US$4.49；營收共識未能在原文確認，清除估計值並標示pending_verification。已公布實際數字與可核實股價反應保留。\n2026-11-04 Asia/Taipei（具體時分未記錄）：Amgen EPS／營收共識改採可讀取的Reuters原始報導（LSEG adjusted EPS US$5.79、revenue US$10.1B），覆蓋先前未經原文直接核實的Investing.com估值。Reuters原文未列盤後報酬，清除未能回讀支持的−1.36%反應值，改為待核實。"
     }
   },
   "audit": [
@@ -10462,7 +10462,7 @@
       "note": "Final source observation and post-write read-back timestamp set to 2026-11-04T04:43:37+08:00; previous write commit fab8aaf77a1681e5feb25bf9b1d52ceeb0382161, previous blob a81c01bfbe94697441d09874bd28ff33bee5370a; WR lock remains 4.18 at main HEAD c6d4c01d3cb3cd210c6265cc9482952284f2235b; updated_at 2026-11-04T04:30:40+08:00 -> 2026-11-04T04:43:37+08:00."
     },
     {
-      "at": "2026-11-04T11:00:24+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-amgn-20261102",
       "changed_fields": [
@@ -10483,10 +10483,10 @@
         "price_reaction_source"
       ],
       "source": "https://investors.amgen.com/static-files/06e4edb3-ffc6-41bc-bd6e-49b7419e1149",
-      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。"
+      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:00:24+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-anet-20261102",
       "changed_fields": [
@@ -10507,10 +10507,10 @@
         "price_reaction_source"
       ],
       "source": "https://www.arista.com/en/company/news/press-release/25025-pr-20261103",
-      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。"
+      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:00:24+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-bkng-20261102",
       "changed_fields": [
@@ -10531,10 +10531,10 @@
         "price_reaction_source"
       ],
       "source": "https://www.sec.gov/Archives/edgar/data/1075531/000107553126000044/q3-26bkngearningsrelease.htm",
-      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。"
+      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:00:24+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-amd-20261102",
       "changed_fields": [
@@ -10550,10 +10550,10 @@
         "revenue_consensus_source"
       ],
       "source": "https://ir.amd.com/news-events/press-releases/detail/1303/amd-reports-third-quarter-2026-financial-results",
-      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。"
+      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:00:24+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-smci-20261103",
       "changed_fields": [
@@ -10573,10 +10573,10 @@
         "price_reaction_source"
       ],
       "source": "https://www.sec.gov/Archives/edgar/data/1375365/000137536526000026/exhibit991_20260930.htm",
-      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。"
+      "note": "11/04 11:00台灣時間重新檢查；原狀態=upcoming，財報已公布，更新actual與比較欄位；EPS口徑不明者保留pending_verification。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:18:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-bkng-20261102",
       "changed_fields": [
@@ -10584,19 +10584,19 @@
         "consensus_source"
       ],
       "source": "https://www.wsj.com/business/earnings/booking-profit-sales-fall-as-global-conflicts-wear-on-travel-demand-f91deef1",
-      "note": "before={\"eps_estimate\":4.48,\"consensus_source\":{\"name\":\"Nasdaq EPS consensus（W45既有週曆）\",\"url\":\"https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026\",\"publisher\":\"Nasdaq via StockTitan\",\"notes\":\"保留資料庫既有EPS共識US$4.48；調整後EPS實績US$4.66，會計口徑差異已於financial_judgment揭露。\"}}; after={eps_estimate:4.49, adjusted EPS actual:4.66}; reason=採WSJ引述FactSet同口徑共識，與原Nasdaq週曆4.48存在0.01差異，改用可追溯的FactSet consensus。"
+      "note": "before={\"eps_estimate\":4.48,\"consensus_source\":{\"name\":\"Nasdaq EPS consensus（W45既有週曆）\",\"url\":\"https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026\",\"publisher\":\"Nasdaq via StockTitan\",\"notes\":\"保留資料庫既有EPS共識US$4.48；調整後EPS實績US$4.66，會計口徑差異已於financial_judgment揭露。\"}}; after={eps_estimate:4.49, adjusted EPS actual:4.66}; reason=採WSJ引述FactSet同口徑共識，與原Nasdaq週曆4.48存在0.01差異，改用可追溯的FactSet consensus。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:18:00+08:00",
+      "at": "2026-11-04",
       "action": "wr_version_updated",
       "changed_fields": [
         "wr_version"
       ],
       "source": "TAC_WORK_RULES.md v5.0",
-      "note": "W45既有JSON schema相容；本次增量維護依main最新WR v5.0執行。"
+      "note": "W45既有JSON schema相容；本次增量維護依main最新WR v5.0執行。 Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:25:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-amd-20261102",
       "changed_fields": [
@@ -10612,10 +10612,10 @@
         "price_reaction_source"
       ],
       "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
-      "note": "before={\"eps_estimate\":1.68,\"eps_comparison_status\":\"pending_verification\",\"revenue_estimate\":13.09,\"stock_price_reaction\":null}; after=non-GAAP EPS 2.09 vs 1.94 beat; revenue 13.377 vs 13.06 beat; after-hours +7.54%."
+      "note": "before={\"eps_estimate\":1.68,\"eps_comparison_status\":\"pending_verification\",\"revenue_estimate\":13.09,\"stock_price_reaction\":null}; after=non-GAAP EPS 2.09 vs 1.94 beat; revenue 13.377 vs 13.06 beat; after-hours +7.54%. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:32:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-amgn-20261102",
       "changed_fields": [
@@ -10627,10 +10627,10 @@
         "financial_judgment"
       ],
       "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-amgen-tops-q3-2026-estimates-shares-slip-after-hours-93CH-4996821",
-      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":5.79,\"revenue_estimate\":10.1,\"stock_price_reaction\":\"盤後下跌逾2%\"}; consensus/after-hours snapshot normalized to same source and stated observation window."
+      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":5.79,\"revenue_estimate\":10.1,\"stock_price_reaction\":\"盤後下跌逾2%\"}; consensus/after-hours snapshot normalized to same source and stated observation window. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:32:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-bkng-20261102",
       "changed_fields": [
@@ -10642,10 +10642,10 @@
         "financial_judgment"
       ],
       "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-booking-holdings-posts-q3-eps-beat-revenue-miss-93CH-4996814",
-      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":4.49,\"revenue_estimate\":9.55,\"stock_price_reaction\":\"盤後下跌約2%\"}; consensus/after-hours snapshot normalized to same source and stated observation window."
+      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":4.49,\"revenue_estimate\":9.55,\"stock_price_reaction\":\"盤後下跌約2%\"}; consensus/after-hours snapshot normalized to same source and stated observation window. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:32:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-smci-20261103",
       "changed_fields": [
@@ -10658,10 +10658,10 @@
         "financial_judgment"
       ],
       "source": "https://www.investing.com/news/company-news/supermicro-q1-fy2027-slides-20b-revenue-milestone-ai-infrastructure-surge-93CH-4996931",
-      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":1.23,\"revenue_estimate\":17.53,\"eps_comparison_status\":\"pending_verification\",\"stock_price_reaction\":\"盤後上漲約10.1%\"}; consensus/after-hours snapshot normalized to same source and stated observation window."
+      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":1.23,\"revenue_estimate\":17.53,\"eps_comparison_status\":\"pending_verification\",\"stock_price_reaction\":\"盤後上漲約10.1%\"}; consensus/after-hours snapshot normalized to same source and stated observation window. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:45:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-anet-20261102",
       "changed_fields": [
@@ -10675,10 +10675,10 @@
         "price_reaction_source"
       ],
       "source": "https://ca.investing.com/news/stock-market-news/booking-holdings-q3-2026-slides-room-night-growth-accelerates-to-7-93CH-4927252",
-      "note": "before={\"eps_estimate\":1.08,\"revenue_estimate\":3.33,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"beat\",\"stock_price_reaction\":\"盤後上漲約12.1%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values."
+      "note": "before={\"eps_estimate\":1.08,\"revenue_estimate\":3.33,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"beat\",\"stock_price_reaction\":\"盤後上漲約12.1%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:45:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-bkng-20261102",
       "changed_fields": [
@@ -10687,10 +10687,10 @@
         "revenue_consensus_source"
       ],
       "source": "https://ca.investing.com/news/stock-market-news/booking-holdings-q3-2026-slides-room-night-growth-accelerates-to-7-93CH-4927252",
-      "note": "before={\"eps_estimate\":4.49,\"revenue_estimate\":9.54,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"miss\",\"stock_price_reaction\":\"盤後下跌0.94%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values."
+      "note": "before={\"eps_estimate\":4.49,\"revenue_estimate\":9.54,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"miss\",\"stock_price_reaction\":\"盤後下跌0.94%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:45:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-smci-20261103",
       "changed_fields": [
@@ -10702,10 +10702,10 @@
         "revenue_consensus_source"
       ],
       "source": "https://ca.investing.com/news/stock-market-news/booking-holdings-q3-2026-slides-room-night-growth-accelerates-to-7-93CH-4927252",
-      "note": "before={\"eps_estimate\":1.23,\"revenue_estimate\":16.26,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"beat\",\"stock_price_reaction\":\"盤後上漲9.78%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values."
+      "note": "before={\"eps_estimate\":1.23,\"revenue_estimate\":16.26,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"beat\",\"stock_price_reaction\":\"盤後上漲9.78%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:52:00+08:00",
+      "at": "2026-11-04",
       "action": "event_reverified",
       "event_id": "current-us-jolts-20261103",
       "changed_fields": [
@@ -10715,10 +10715,10 @@
         "impact_judgment"
       ],
       "source": "https://www.bls.gov/news.release/jolts.htm",
-      "note": "before={\"actual\":7.523,\"forecast\":null,\"previous\":7.19}; BLS confirms actual 7.523M, prior revised 7.190M; Reuters consensus 7.100M vs calendar 7.150M so forecast remains null."
+      "note": "before={\"actual\":7.523,\"forecast\":null,\"previous\":7.19}; BLS confirms actual 7.523M, prior revised 7.190M; Reuters consensus 7.100M vs calendar 7.150M so forecast remains null. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:52:00+08:00",
+      "at": "2026-11-04",
       "action": "event_reverified",
       "event_id": "current-rba-rate-20261103",
       "changed_fields": [
@@ -10728,10 +10728,10 @@
         "impact_judgment"
       ],
       "source": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
-      "note": "before={\"actual\":4.85,\"forecast\":4.85,\"previous\":4.6}; RBA confirms target 4.85%, prior 4.60%, 6-3 vote; 14:30 AEDT publication."
+      "note": "before={\"actual\":4.85,\"forecast\":4.85,\"previous\":4.6}; RBA confirms target 4.85%, prior 4.60%, 6-3 vote; 14:30 AEDT publication. Timestamp precision normalized to date-only; exact individual time was not captured."
     },
     {
-      "at": "2026-11-04T11:58:00+08:00",
+      "at": "2026-11-04",
       "action": "event_updated",
       "event_id": "current-amgn-20261102",
       "changed_fields": [
@@ -10745,7 +10745,13 @@
         "financial_judgment"
       ],
       "source": "https://finance.yahoo.com/healthcare/articles/amgen-third-quarter-sales-rise-210709853.html",
-      "note": "before={\"eps_estimate\":5.76,\"revenue_estimate\":10.06,\"stock_price_reaction\":\"盤後下跌1.36%\"}; after=Reuters/LSEG adjusted EPS consensus 5.79, revenue consensus 10.1B; actual 6.45 and 10.4B; after-hours price reaction not provided in Reuters source so cleared."
+      "note": "before={\"eps_estimate\":5.76,\"revenue_estimate\":10.06,\"stock_price_reaction\":\"盤後下跌1.36%\"}; after=Reuters/LSEG adjusted EPS consensus 5.79, revenue consensus 10.1B; actual 6.45 and 10.4B; after-hours price reaction not provided in Reuters source so cleared. Timestamp precision normalized to date-only; exact individual time was not captured."
+    },
+    {
+      "at": "2026-11-04T11:30:10+08:00",
+      "action": "timestamp_reconciliation",
+      "source": "ChatGPT time widget",
+      "note": "Corrected assistant-generated placeholder audit times. Exact current reconciliation time is 11:30:10 Asia/Taipei; earlier individual update times were not captured, so those historical audit entries and Booking source observation are date-only rather than falsely precise. updated_at and current coverage checks use the verified current time."
     }
   ]
 }
