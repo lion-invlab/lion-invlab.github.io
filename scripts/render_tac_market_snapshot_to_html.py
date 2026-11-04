@@ -199,9 +199,7 @@ def update_fedwatch(container, fedwatch: dict) -> None:
     for row, outcome in zip(rows, probs):
         strong = find_unique(row.select("strong"), "FedWatch probability slot")
         rate_range = find_unique(row.select(".fc-range"), "FedWatch rate range slot")
-        label = find_unique(row.select(".fc-prob-label span:not(.fc-dot)"), "FedWatch outcome label")
         strong.string = f"{float(outcome['probability']):.1f}%"
-        label.string = "目標利率區間"
         rate_range.string = outcome["rate_range"]
     split = container.select_one(".fc-split-bar")
     if split:
@@ -215,6 +213,14 @@ def update_fedwatch(container, fedwatch: dict) -> None:
         split["aria-label"] = "；".join(
             f"{x['rate_range']} {float(x['probability']):.1f}%" for x in probs
         )
+    legend_values = container.select(".fc-split-legend b")
+    if len(legend_values) != 2:
+        fail("FedWatch split legend must contain two probability values")
+    for node, outcome in zip(legend_values, probs):
+        node.string = f"{float(outcome['probability']):.1f}%"
+    split_head = container.select(".fc-split-head span")
+    if len(split_head) >= 2:
+        split_head[0].string = "市場隱含機率分布"
     # Update only the dedicated snapshot timestamp text node; never relabel this
     # market-implied probability as an official CME decision.
     timestamp = fedwatch.get("updated_at")
