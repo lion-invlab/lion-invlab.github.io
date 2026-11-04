@@ -61,7 +61,7 @@ jobs:
             if (preview) {
               core.setOutput("should_deploy", "true");
               core.setOutput("preview_path", preview);
-              core.info(`Validated dated preview changed: ${preview}`);
+              core.info(`Dated preview changed: ${preview}`);
             } else if (homepage || volatilityDashboard || pagesWorkflow) {
               core.setOutput("should_deploy", "true");
               core.setOutput("preview_path", "");
@@ -81,7 +81,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout validated main revision
+      - name: Checkout selected main revision
         uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
