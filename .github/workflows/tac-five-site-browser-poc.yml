@@ -71,7 +71,7 @@ jobs:
               source: target.id, responseStatus, title, finalUrl,
               navigationError: navigationError ? navigationError.slice(0, 500) : null,
               bodyChars: bodyText.length,
-              containsRateRanges: /\\d+\\.\\d+\\s*%|\\d+\\.\\d+\\s*[-–]\\s*\\d+\\.\\d+/i.test(bodyText),
+              containsRateRanges: /\d+\.\d+\s*%|\d+\.\d+\s*[-–]\s*\d+\.\d+/i.test(bodyText),
               capturedAtUtc: result.capturedAtUtc
             };
           }));
