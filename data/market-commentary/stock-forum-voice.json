@@ -388,6 +388,36 @@
       "tac_use": "適合開盤跳空後市場擔心獲利回吐的情境；只能表達當時留言情緒，不能當作走勢預測。",
       "reuse_mode": "保留原留言語感；直接引用需標註來源，若僅借句型須另標記 pattern_adaptation",
       "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-013",
+      "type": "verbatim_sample",
+      "raw_quote_original": "怎么跟a股一个走势",
+      "quote": "怎麼跟 A 股一個走勢？",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "GE Vernova 吧",
+      "ticker": "GEV",
+      "posted_at": "2026-11-02T01:38:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "跨市場連動",
+        "無奈自嘲"
+      ],
+      "tone": [
+        "疑惑",
+        "吐槽",
+        "對比"
+      ],
+      "source_url": "https://iguba.eastmoney.com/4627087573321934",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 18,
+        "comments": 0
+      },
+      "tac_use": "適合美股個股走勢與 A 股同步或背離時，呈現投資人對跨市場連動的直覺吐槽。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
     }
   ],
   "collection_log": [
