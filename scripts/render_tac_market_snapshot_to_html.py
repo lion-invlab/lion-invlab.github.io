@@ -201,12 +201,13 @@ def classify_rate_outcome(rate_range: str, current_rate_range: str) -> str:
     current_lower, current_upper = rate_range_bounds(current_rate_range)
     if abs(lower-current_lower) < 1e-6 and abs(upper-current_upper) < 1e-6:
         return "維持不變"
+    chinese_steps = {1: "一", 2: "兩", 3: "三", 4: "四"}
     if upper <= current_lower:
         steps = round((current_lower-lower)/0.25)
-        return f"降息{steps}碼" if steps else "降息"
+        return f"降息{chinese_steps.get(steps, steps)}碼" if steps else "降息"
     if lower >= current_upper:
         steps = round((lower-current_upper)/0.25)
-        return f"升息{steps}碼" if steps else "升息"
+        return f"升息{chinese_steps.get(steps, steps)}碼" if steps else "升息"
     fail(f"Outcome range {rate_range!r} overlaps current range {current_rate_range!r} ambiguously")
 
 def update_fedwatch(container, fedwatch: dict) -> None:
