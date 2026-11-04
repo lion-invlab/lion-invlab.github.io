@@ -1,0 +1,94 @@
+name: TAC Five-Site Browser PoC
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  five-site-readonly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright and Chromium
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Open five sources in parallel and capture evidence
+        run: |
+          mkdir -p poc-evidence
+          cat > /tmp/five-site-poc.mjs <<'JS'
+          import { chromium } from 'playwright';
+          import fs from 'node:fs/promises';
+
+          const targets = [
+            { id: 'fedwatch', url: 'https://www.investing.com/central-banks/fed-rate-monitor' },
+            { id: 'cnn-fear-greed', url: 'https://www.cnn.com/markets/fear-and-greed' },
+            { id: 'sox', url: 'https://www.investing.com/indices/phlx-semiconductor' },
+            { id: 'vix', url: 'https://www.investing.com/indices/volatility-s-p-500' },
+            { id: 'move', url: 'https://www.investing.com/indices/ice-bofaml-move' }
+          ];
+
+          const browser = await chromium.launch({ headless: true, args: ['--no-sandbox'] });
+          const results = await Promise.all(targets.map(async target => {
+            const page = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
+            const started = new Date().toISOString();
+            const errors = [];
+            page.on('pageerror', e => errors.push('pageerror: ' + e.message));
+            page.on('console', msg => { if (msg.type() === 'error') errors.push('console: ' + msg.text()); });
+            let responseStatus = null;
+            let title = '';
+            let finalUrl = target.url;
+            let bodyText = '';
+            let navigationError = null;
+            try {
+              const response = await page.goto(target.url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+              responseStatus = response?.status() ?? null;
+              await page.waitForTimeout(7000);
+              title = await page.title();
+              finalUrl = page.url();
+              bodyText = (await page.locator('body').innerText({ timeout: 15000 })).slice(0, 18000);
+              await page.screenshot({ path: 'poc-evidence/' + target.id + '.png', fullPage: true, timeout: 20000 }).catch(e => errors.push('screenshot: ' + e.message));
+            } catch (e) {
+              navigationError = e.message;
+              try { title = await page.title(); finalUrl = page.url(); } catch {}
+            }
+            const result = {
+              source: target.id, requestedUrl: target.url, finalUrl, startedAtUtc: started,
+              capturedAtUtc: new Date().toISOString(), responseStatus, title,
+              navigationError, bodyText, browserErrors: errors
+            };
+            await fs.writeFile('poc-evidence/' + target.id + '.json', JSON.stringify(result, null, 2));
+            await page.close();
+            return {
+              source: target.id, responseStatus, title, finalUrl,
+              navigationError: navigationError ? navigationError.slice(0, 500) : null,
+              bodyChars: bodyText.length,
+              containsRateRanges: /\\d+\\.\\d+\\s*%|\\d+\\.\\d+\\s*[-–]\\s*\\d+\\.\\d+/i.test(bodyText),
+              capturedAtUtc: result.capturedAtUtc
+            };
+          }));
+          await browser.close();
+          await fs.writeFile('poc-evidence/summary.json', JSON.stringify({
+            purpose: 'Read-only five-site browser feasibility test; not a production data feed',
+            generatedAtUtc: new Date().toISOString(), results
+          }, null, 2));
+          console.log(JSON.stringify(results, null, 2));
+          JS
+          node /tmp/five-site-poc.mjs
+
+      - name: Upload read-only evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-five-site-browser-poc
+          path: poc-evidence/
+          if-no-files-found: warn
+          retention-days: 7
