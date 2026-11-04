@@ -523,3 +523,31 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 待核實：repo 其他未讀取的 HTML／JSON／歷史文件是否仍有僅供參考的字串引用；非 workflow 的外部手動呼叫／排程系統是否存在。
 - 未測試：本輪未執行舊工具 self-test、Playwright regression 或每日 preview QA。
 - 未修改：除 `TAC_SESSION_STATE.md` 外，未修改任何 scripts、workflow、資料、preview、母版、Manifest 或首頁。
+
+
+## 13. 2026-11-04 審核版 QA 證據核查（續查）
+
+核查基準：main 最新 WR v5.1（blob SHA `daadc59c0b5043e2c38e6cc3b83fc205160d3177`）、Manifest（`6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`）、QA 清單（`d2d90c990972f117414e169b07e1df69f79c49aa`）。本節只記錄檢查結果；未修改每日預覽、母版、Manifest、WR、首頁、資料庫或工作流程。
+
+### 13.1 審核版檔案存在與母版來源
+- `preview/2026-11-04.html` 存在於 main，blob SHA：`1358a0e5d75fa320cc67440424a4403ca7631d02`，405,210 bytes；title 為 2026/11/04（三）審核版。
+- 依星期應使用 Tue–Fri 母版。Manifest 登記路徑及 SHA 與 main 實際母版相符：`母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html`，SHA `e5976190efd4c7fcc92cd623bfa94926997cc672`。
+- 靜態 ID 比較：母版 174 個 ID（173 個唯一），預覽 175 個 ID（174 個唯一）；母版 ID 集合沒有缺項，預覽新增 `tac-news-title-summary-hierarchy`。兩份文件均含一個重複 ID `tac-toolbar-bubble-preview-v1-js`，屬共同既有問題，不能算作預覽新增。此結果僅為 ID 集合檢查，不等同完整 DOM 差異驗收。
+- 「上週經濟行事曆／上週財報行事曆」文字出現在母版規則註解及 CSS 註解；僅憑全文字串搜尋不能判定頁面實際顯示。需另對可見 DOM／導航做驗證，不把註解命中誤報為頁面顯示錯誤。
+
+### 13.2 四類 QA 證據狀態
+- **內容／資料 QA：未完成證據核對。** 預覽警示標示行情 40/44 項已核實、WTI／Brent／GC／SI 待核實；本次尚未逐項重查來源及行事曆／新聞／財報內容，因此不把頁面自述當成獨立驗證。
+- **母版結構 QA：部分靜態檢查，整體未通過／未完成。** 核准母版 SHA 本身正確，且 ID 集合沒有缺項；但尚未完成清單 J 所要求的完整結構差異稽核、卡片欄位與連結逐項驗收。ID 比較不是完整結構驗收。
+- **互動 QA：未測試。** 本次沒有對 11/04 預覽執行真實瀏覽器點擊、tabs、收折、導航及連結操作。
+- **視覺 QA：未測試。** 本次沒有對 11/04 預覽執行桌面、常見手機及 320px 實際瀏覽器截圖比對。
+
+### 13.3 Actions 證據裁決
+- Run `41755764881`（TAC Daily Report Structural Gate，commit `b81c72c0de2d01b4f1c923a46f6b009607b6109b`）雖顯示 success，但該 run 鎖定 WR v4.19；`validate_tac_report.py --changed-only` 日誌明確輸出「SKIP: no dated report changed in this commit/PR; historical previews are not revalidated」。
+- 同一 run 的 Playwright Chromium 安裝與 desktop/mobile regression 步驟均為 skipped；`artifacts/tac-layout/` 沒有檔案可上傳。故該 run 不能證明 11/04 預覽通過結構、互動或視覺 QA。
+- Run `41774120466` 的 Mother Template Guard success 只驗證核准母版／Manifest 規則；Run `41772569357` 的 Pages success 只證明部署步驟成功。兩者均非每日預覽 QA 證據。
+- 11/04 預覽頁尾聲稱「桌面視覺與互動 QA 完成」，目前未找到對應執行紀錄或截圖支持；此聲明應視為**未有證據支持**，不得當作通過。320px 行動版則明確標示未測。
+
+### 13.4 本輪結論與限制
+- 目前可確認預覽存在、日期正確、週別應用母版路徑正確且核准母版 SHA 相符；不能據此推定每日內容、結構、互動或視覺 QA 全數通過。
+- 本輪只讀取了主要規則、QA 清單、Manifest、指定母版、指定預覽及相關 Actions runs/jobs/logs；未檢查全 repo 每一個檔案，也未對預覽執行瀏覽器測試。
+- 本次沒有修改任何正式資產或預覽，亦未發布首頁。後續若要把頁尾 QA 聲明改為符合證據的狀態，必須先完成實際測試並依 WR v5.1 做最小差異更新與回讀；本次不擅自修改預覽。
