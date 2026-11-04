@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T11:25:00+08:00",
+  "updated_at": "2026-11-04T11:32:00+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "5.0",
   "status": "active",
@@ -1150,47 +1150,49 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
         "importance_rating_source": null,
-        "eps_estimate": 5.79,
+        "eps_estimate": 5.76,
         "eps_actual": 6.45,
-        "revenue_estimate": 10.1,
+        "revenue_estimate": 10.06,
         "revenue_actual": 10.4,
-        "stock_price_reaction": "盤後下跌逾2%",
+        "stock_price_reaction": "盤後下跌1.36%",
         "source": {
           "name": "Amgen Investor Relations｜Q3 2026 results",
           "url": "https://investors.amgen.com/static-files/06e4edb3-ffc6-41bc-bd6e-49b7419e1149",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T11:00:24+08:00",
+          "observed_at": "2026-11-04T11:32:00+08:00",
           "publisher": "Amgen"
         },
         "industry": "製藥／生技",
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Adjusted diluted EPS (non-GAAP; Reuters/FactSet consensus basis)",
+        "eps_basis": "Adjusted diluted EPS (non-GAAP; Investing.com consensus basis)",
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Amgen Q3 2026營收US$10.4B，高於Reuters引述分析師共識US$10.1B；non-GAAP diluted EPS US$6.45，高於共識US$5.79；GAAP diluted EPS US$7.08。公司上調2026全年adjusted EPS展望至US$22.90–23.70、營收US$38.9–39.7B。Repatha銷售年增37%，但Prolia銷售年減45%；股價盤後下跌逾2%，顯示市場亦關注成熟產品侵蝕與新藥管線。",
-        "stock_price_reaction_window": "2026-11-03 U.S. after-hours trading following results; Reuters report describes shares down more than 2%; not a regular-session closing return.",
+        "financial_judgment": "Amgen Q3 2026營收US$10.4B，高於Investing.com共識US$10.06B；adjusted diluted EPS US$6.45，高於共識US$5.76；GAAP diluted EPS US$7.08。公司上調2026全年adjusted EPS展望至US$22.90–23.70、營收US$38.9–39.7B。Repatha銷售年增37%，但Prolia銷售年減45%；財報公布後股價盤後下跌1.36%，市場仍關注成熟產品侵蝕與新藥管線。",
+        "stock_price_reaction_window": "2026-11-03 U.S. after-hours trading; Investing.com snapshot published 17:46 ET; not a regular-session close.",
         "consensus_source": {
-          "name": "Reuters｜Amgen Q3 2026 FactSet EPS consensus",
-          "url": "https://www.reuters.com/legal/litigation/amgen-third-quarter-sales-rise-8-led-by-cholesterol-cancer-drugs-2026-11-03/",
-          "publisher": "Reuters (citing analyst consensus)",
-          "notes": "Reuters cites adjusted EPS consensus US$5.79; adjusted actual US$6.45. GAAP EPS separately US$7.08."
+          "name": "Investing.com｜Amgen Q3 2026 earnings transcript",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amgen-tops-q3-2026-estimates-shares-slip-after-hours-93CH-4996821",
+          "published_at": "2026-11-03T17:46:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "列示adjusted EPS actual/forecast US$6.45/US$5.76。"
         },
         "price_reaction_source": {
-          "name": "Reuters｜Amgen Q3 2026 stock reaction",
-          "url": "https://www.reuters.com/legal/litigation/amgen-third-quarter-sales-rise-8-led-by-cholesterol-cancer-drugs-2026-11-03/",
-          "published_at": "2026-11-03",
-          "publisher": "Reuters"
+          "name": "Investing.com｜Amgen Q3 2026 after-hours reaction",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amgen-tops-q3-2026-estimates-shares-slip-after-hours-93CH-4996821",
+          "published_at": "2026-11-03T17:46:00-05:00",
+          "publisher": "Investing.com"
         },
         "revenue_consensus_source": {
-          "name": "Reuters｜Amgen Q3 2026 revenue consensus",
-          "url": "https://www.reuters.com/legal/litigation/amgen-third-quarter-sales-rise-8-led-by-cholesterol-cancer-drugs-2026-11-03/",
-          "publisher": "Reuters (citing analyst consensus)",
-          "notes": "Reuters cites revenue consensus US$10.1B; actual US$10.4B."
+          "name": "Investing.com｜Amgen Q3 2026 earnings transcript",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amgen-tops-q3-2026-estimates-shares-slip-after-hours-93CH-4996821",
+          "published_at": "2026-11-03T17:46:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "列示revenue actual/forecast US$10.4B/US$10.06B。"
         },
         "issuer_country": "United States",
         "us_exchange_listed": true,
@@ -1282,45 +1284,47 @@
         "importance_rating_source": null,
         "eps_estimate": 4.49,
         "eps_actual": 4.66,
-        "revenue_estimate": 9.55,
+        "revenue_estimate": 9.54,
         "revenue_actual": 8.89,
-        "stock_price_reaction": "盤後下跌約2%",
+        "stock_price_reaction": "盤後下跌0.94%",
         "source": {
           "name": "Booking Holdings｜Q3 2026 results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1075531/000107553126000044/q3-26bkngearningsrelease.htm",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T11:00:24+08:00",
+          "observed_at": "2026-11-04T11:32:00+08:00",
           "publisher": "Booking Holdings / SEC"
         },
         "industry": "線上旅遊／平台",
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Adjusted EPS (non-GAAP; consensus reporting basis retained; GAAP EPS separately US$3.61)",
+        "eps_basis": "Adjusted EPS (non-GAAP; Investing.com consensus basis; GAAP EPS separately US$3.61)",
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": "beat",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "Booking Holdings Q3 2026 adjusted EPS US$4.66，高於資料庫既有US$4.48共識；GAAP EPS US$3.61。營收US$8.89B，低於US$9.55B共識；公司說明FTC事項使報告營收減少約US$0.9B，調整後營收US$9.8B。總預訂額年增10%、間夜數年增7%，但國際旅遊需求於季末轉弱。股價盤後約下跌2%。",
-        "stock_price_reaction_window": "2026-11-03 U.S. after-hours/late trading following results; reported by financial press; not a regular-session closing return.",
+        "financial_judgment": "Booking Holdings Q3 2026 adjusted EPS US$4.66，高於Investing.com共識US$4.49；GAAP EPS US$3.61。營收US$8.89B，低於共識US$9.54B；公司說明FTC事項使報告營收減少約US$0.9B，調整後營收US$9.8B。總預訂額年增10%、間夜數年增7%；股價正常交易時段上漲2.28%，公布後盤後回落0.94%。",
+        "stock_price_reaction_window": "2026-11-03 U.S. after-hours trading; Investing.com snapshot published 17:42 ET; not a regular-session close.",
         "consensus_source": {
-          "name": "FactSet consensus via WSJ｜Booking Holdings Q3 2026",
-          "url": "https://www.wsj.com/business/earnings/booking-profit-sales-fall-as-global-conflicts-wear-on-travel-demand-f91deef1",
-          "publisher": "The Wall Street Journal (citing analyst consensus)",
-          "notes": "FactSet adjusted EPS consensus US$4.49; actual adjusted EPS US$4.66. GAAP EPS actual US$3.61, kept separate."
+          "name": "Investing.com｜Booking Holdings Q3 2026 earnings transcript",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-booking-holdings-posts-q3-eps-beat-revenue-miss-93CH-4996814",
+          "published_at": "2026-11-03T17:42:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "列示adjusted EPS actual/forecast US$4.66/US$4.49。"
         },
         "price_reaction_source": {
-          "name": "WSJ｜Booking Q3 2026 stock reaction",
-          "url": "https://www.wsj.com/business/earnings/booking-profit-sales-fall-as-global-conflicts-wear-on-travel-demand-f91deef1",
-          "published_at": "2026-11-03",
-          "publisher": "The Wall Street Journal"
+          "name": "Investing.com｜Booking Holdings Q3 2026 after-hours reaction",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-booking-holdings-posts-q3-eps-beat-revenue-miss-93CH-4996814",
+          "published_at": "2026-11-03T17:42:00-05:00",
+          "publisher": "Investing.com"
         },
         "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
-          "publisher": "TipRanks",
-          "notes": "保留資料庫既有營收共識US$9.55B；SEC官方實際營收US$8.89B。"
+          "name": "Investing.com｜Booking Holdings Q3 2026 earnings transcript",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-booking-holdings-posts-q3-eps-beat-revenue-miss-93CH-4996814",
+          "published_at": "2026-11-03T17:42:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "列示revenue actual/forecast US$8.9B/US$9.54B；實績原始公司數據US$8.89B。"
         },
         "issuer_country": "United States",
         "us_exchange_listed": true,
@@ -1418,39 +1422,41 @@
           "name": "Supermicro｜FY2027 Q1 results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1375365/000137536526000026/exhibit991_20260930.htm",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T11:00:24+08:00",
+          "observed_at": "2026-11-04T11:32:00+08:00",
           "publisher": "Super Micro Computer / SEC"
         },
         "consensus_source": {
-          "name": "FactSet consensus via MT Newswires｜SMCI FY2027 Q1",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/super-micro-computer-fiscal-q1-211718055.html",
-          "publisher": "MT Newswires citing FactSet",
-          "notes": "EPS consensus US$1.23; consensus accounting basis not disclosed, comparison remains pending verification."
+          "name": "Investing.com｜Supermicro Q1 FY2027 results",
+          "url": "https://www.investing.com/news/company-news/supermicro-q1-fy2027-slides-20b-revenue-milestone-ai-infrastructure-surge-93CH-4996931",
+          "published_at": "2026-11-03T18:25:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "列示adjusted EPS actual/forecast US$1.81/US$1.23。"
         },
-        "eps_basis": "Non-GAAP diluted EPS (issuer-reported); consensus basis not disclosed, comparison pending verification",
+        "eps_basis": "Adjusted diluted EPS (non-GAAP; Investing.com consensus basis)",
         "eps_estimate": 1.23,
         "eps_actual": 1.81,
-        "revenue_estimate": 17.53,
+        "revenue_estimate": 16.26,
         "revenue_actual": 19.945832,
-        "eps_comparison_status": "pending_verification",
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Supermicro FY2027 Q1營收US$19.946B，高於FactSet共識US$17.53B；GAAP diluted EPS US$1.75、non-GAAP diluted EPS US$1.81。EPS共識US$1.23未明確揭露GAAP／non-GAAP口徑，故不直接判定beat/miss。公司Q2營收指引US$19.5–21.5B，FY2027營收指引US$72–82B。盤後股價曾上漲約10.1%（StockAnalysis 18:44 ET快照）。",
-        "stock_price_reaction": "盤後上漲約10.1%",
-        "stock_price_reaction_window": "2026-11-03 U.S. after-hours trading; StockAnalysis snapshot at 18:44 ET; not a regular-session closing return.",
+        "financial_judgment": "Supermicro FY2027 Q1營收US$19.946B，高於Investing.com共識US$16.26B；adjusted diluted EPS US$1.81，高於共識US$1.23；GAAP diluted EPS US$1.75。公司Q2營收指引US$19.5–21.5B，FY2027營收指引US$72–82B。盤後股價上漲約9.78%；AI解決方案占營收71%，單一客戶占比44%，客戶集中與低毛利產品組合仍是風險。",
+        "stock_price_reaction": "盤後上漲9.78%",
+        "stock_price_reaction_window": "2026-11-03 U.S. after-hours trading; Investing.com snapshot published 18:25 ET; not a regular-session close.",
         "price_reaction_source": {
-          "name": "StockAnalysis｜SMCI FY2027 Q1 after-hours snapshot",
-          "url": "https://stockanalysis.com/stocks/smci/transcripts/730322-q1-2027/",
-          "published_at": "2026-11-03",
-          "publisher": "StockAnalysis"
+          "name": "Investing.com｜Supermicro Q1 FY2027 after-hours reaction",
+          "url": "https://www.investing.com/news/company-news/supermicro-q1-fy2027-slides-20b-revenue-milestone-ai-infrastructure-surge-93CH-4996931",
+          "published_at": "2026-11-03T18:25:00-05:00",
+          "publisher": "Investing.com"
         },
         "importance_basis": "major_event_assessment",
         "importance_rating_source": null,
         "status": "released",
         "revenue_consensus_source": {
-          "name": "FactSet consensus via MT Newswires｜SMCI FY2027 Q1",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/super-micro-computer-fiscal-q1-211718055.html",
-          "publisher": "MT Newswires citing FactSet",
-          "notes": "Revenue consensus US$17.53B; issuer-reported revenue US$19.945832B."
+          "name": "Investing.com｜Supermicro Q1 FY2027 results",
+          "url": "https://www.investing.com/news/company-news/supermicro-q1-fy2027-slides-20b-revenue-milestone-ai-infrastructure-surge-93CH-4996931",
+          "published_at": "2026-11-03T18:25:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "列示revenue actual/forecast US$19.9B/US$16.26B；SEC實績US$19.945832B。"
         },
         "issuer_country": "United States",
         "us_exchange_listed": true,
@@ -3074,8 +3080,8 @@
         "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
         "https://ir.emerson.com/news-events/press-releases/detail/648/emerson-schedules-fourth-quarter-and-full-year-2026-earnings-release-and-conference-call"
       ],
-      "checked_at": "2026-11-04T11:25:00+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 11:00 Asia/Taipei：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。\n2026-11-04 11:25 Asia/Taipei：AMD EPS consensus口徑由Investing.com財報報導確認為non-GAAP US$1.94，與實績US$2.09可比；EPS狀態由pending_verification改為beat。營收共識US$13.06B，實績US$13.377B；新增明確盤後股價反應+7.54%及觀察時段。"
+      "checked_at": "2026-11-04T11:32:00+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 11:00 Asia/Taipei：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。\n2026-11-04 11:25 Asia/Taipei：AMD EPS consensus口徑由Investing.com財報報導確認為non-GAAP US$1.94，與實績US$2.09可比；EPS狀態由pending_verification改為beat。營收共識US$13.06B，實績US$13.377B；新增明確盤後股價反應+7.54%及觀察時段。\n2026-11-04 11:32 Asia/Taipei：依Investing.com當次財報報導統一核對AMGN、BKNG、SMCI共識及盤後反應。AMGN採adjusted EPS US$5.76／營收US$10.06B、盤後−1.36%；BKNG採adjusted EPS US$4.49／營收US$9.54B、盤後−0.94%；SMCI採adjusted EPS US$1.23／營收US$16.26B、盤後+9.78%。上述均標明美東盤後觀察時段，不冒充正式收盤報酬。"
     }
   },
   "audit": [
@@ -10647,6 +10653,52 @@
       ],
       "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
       "note": "before={\"eps_estimate\":1.68,\"eps_comparison_status\":\"pending_verification\",\"revenue_estimate\":13.09,\"stock_price_reaction\":null}; after=non-GAAP EPS 2.09 vs 1.94 beat; revenue 13.377 vs 13.06 beat; after-hours +7.54%."
+    },
+    {
+      "at": "2026-11-04T11:32:00+08:00",
+      "action": "event_updated",
+      "event_id": "current-amgn-20261102",
+      "changed_fields": [
+        "eps_estimate",
+        "revenue_estimate",
+        "consensus_source",
+        "revenue_consensus_source",
+        "stock_price_reaction",
+        "financial_judgment"
+      ],
+      "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-amgen-tops-q3-2026-estimates-shares-slip-after-hours-93CH-4996821",
+      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":5.79,\"revenue_estimate\":10.1,\"stock_price_reaction\":\"盤後下跌逾2%\"}; consensus/after-hours snapshot normalized to same source and stated observation window."
+    },
+    {
+      "at": "2026-11-04T11:32:00+08:00",
+      "action": "event_updated",
+      "event_id": "current-bkng-20261102",
+      "changed_fields": [
+        "eps_estimate",
+        "revenue_estimate",
+        "consensus_source",
+        "revenue_consensus_source",
+        "stock_price_reaction",
+        "financial_judgment"
+      ],
+      "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-booking-holdings-posts-q3-eps-beat-revenue-miss-93CH-4996814",
+      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":4.49,\"revenue_estimate\":9.55,\"stock_price_reaction\":\"盤後下跌約2%\"}; consensus/after-hours snapshot normalized to same source and stated observation window."
+    },
+    {
+      "at": "2026-11-04T11:32:00+08:00",
+      "action": "event_updated",
+      "event_id": "current-smci-20261103",
+      "changed_fields": [
+        "eps_estimate",
+        "revenue_estimate",
+        "eps_comparison_status",
+        "consensus_source",
+        "revenue_consensus_source",
+        "stock_price_reaction",
+        "financial_judgment"
+      ],
+      "source": "https://www.investing.com/news/company-news/supermicro-q1-fy2027-slides-20b-revenue-milestone-ai-infrastructure-surge-93CH-4996931",
+      "note": "Investing.com earnings transcript cross-check; before={\"eps_estimate\":1.23,\"revenue_estimate\":17.53,\"eps_comparison_status\":\"pending_verification\",\"stock_price_reaction\":\"盤後上漲約10.1%\"}; consensus/after-hours snapshot normalized to same source and stated observation window."
     }
   ]
 }
