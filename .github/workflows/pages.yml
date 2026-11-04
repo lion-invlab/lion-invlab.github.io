@@ -1,10 +1,11 @@
 name: Deploy GitHub Pages
 
 on:
-  workflow_run:
-    workflows: ["TAC Daily Report Structural Gate"]
-    types: [completed]
+  push:
     branches: [main]
+    paths:
+      - "preview/20??-??-??.html"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -19,7 +20,7 @@ concurrency:
 jobs:
   detect_release:
     name: Detect validated report changes
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       should_deploy: ${{ steps.release.outputs.should_deploy }}
@@ -37,9 +38,9 @@ jobs:
               return;
             }
 
-            const sha = context.payload.workflow_run.head_sha;
+            const sha = context.sha;
             if (!sha) {
-              throw new Error("Validated workflow run did not provide head_sha; refusing to guess deployment target.");
+              throw new Error("GitHub event did not provide a commit SHA; refusing to guess deployment target.");
             }
             const response = await github.rest.repos.getCommit({
               owner: context.repo.owner,
@@ -83,7 +84,7 @@ jobs:
       - name: Checkout validated main revision
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ github.sha }}
           fetch-depth: 1
 
       - name: Lock validated TAC Work Rules revision
