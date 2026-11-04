@@ -24,7 +24,7 @@ jobs:
       - name: Open five sources in parallel and capture evidence
         run: |
           mkdir -p poc-evidence
-          cat > /tmp/five-site-poc.mjs <<'JS'
+          cat > five-site-poc.mjs <<'JS'
           import { chromium } from 'playwright';
           import fs from 'node:fs/promises';
 
@@ -82,7 +82,7 @@ jobs:
           }, null, 2));
           console.log(JSON.stringify(results, null, 2));
           JS
-          node /tmp/five-site-poc.mjs
+          node ./five-site-poc.mjs
 
       - name: Upload read-only evidence
         if: always()
