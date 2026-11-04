@@ -241,15 +241,21 @@
         "time_known": true,
         "impact_judgment": "QRA顯示本季中長天期票息債供給維持既有規模，新增融資約280億美元；長端發行未擴大，短期供給壓力主要取決於T-bill與現金管理券調整。7年期新券改為季發是供給結構變動，需留意長端期限溢酬及拍賣需求。",
         "source": {
-          "name": "U.S. Treasury｜Quarterly Refunding Announcement schedule",
-          "url": "https://home.treasury.gov/news/press-releases/sb0590",
-          "published_at": null,
-          "observed_at": "2026-11-04T04:43:37+08:00",
+          "name": "U.S. Treasury｜Quarterly Refunding Statement",
+          "url": "https://home.treasury.gov/news/press-releases/sb0678/",
+          "published_at": "2026-11-04T08:30:00-05:00",
+          "observed_at": "2026-11-05T04:34:15+08:00",
           "publisher": "U.S. Department of the Treasury",
-          "notes": "官方資料確認2026-11-04為季度再融資公告日期，但該頁未提供精確發布時間；event_date的12:00 Asia/Taipei僅為日期佔位，time_known=false。"
+          "notes": "官方QRA聲明列出125B發行、97B到期再融資、28B新增現金；3Y 58B、10Y 42B、30Y 25B。官方Most Recent Quarterly Refunding Documents確認政策聲明及TBAC文件於08:30 ET釋出，換算台灣21:30。"
         },
         "previous_applicable": false,
-        "forecast_applicable": false
+        "forecast_applicable": false,
+        "data_reference": {
+          "name": "U.S. Treasury｜Most Recent Quarterly Refunding Documents",
+          "url": "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents/",
+          "publisher": "U.S. Department of the Treasury",
+          "notes": "官方頁確認Policy Statement、TBAC Report及Minutes於2026-11-04 08:30 AM ET發布；換算台灣21:30。"
+        }
       },
       {
         "id": "current-riksbank-rate-20261104",
@@ -265,12 +271,12 @@
         "status": "released",
         "impact_judgment": "Riksbank於2026-11-04 09:30 CET公布升息25bp，政策利率由1.75%升至2.00%，自11月11日起生效。央行指出能源／供應衝擊使通膨風險偏上行；此為實際決議，不再以會前預期代替。",
         "source": {
-          "name": "Sveriges Riksbank｜Calendar, 4 November 2026",
-          "url": "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
-          "published_at": null,
-          "observed_at": "2026-11-04T17:35:56+08:00",
+          "name": "Sveriges Riksbank｜Policy rate raised to 2 per cent",
+          "url": "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2026/policy-rate-raised-to-2-per-cent/",
+          "published_at": "2026-11-04T09:30:00+01:00",
+          "observed_at": "2026-11-05T04:34:15+08:00",
           "publisher": "Sveriges Riksbank",
-          "notes": "官方行事曆確認 11/04 09:30 CET 公布決議（台灣 16:30）。17:35:56 台灣時間重新檢查 Riksbank 官方首頁及 2026 年 press-release archive，仍未找到 11/04 決議文本；官方首頁仍顯示前次政策利率 1.75%（適用自 9/30）及下一次公告日期 11/04。因公告時點已過但原始決議未取得，狀態改為 pending_verification，actual 保持 null；不採用兩家研究機構預期 2.00% 代替實際值。"
+          "notes": "官方決議確認政策利率由1.75%升至2.00%，自11/11生效；官方行事曆列09:30 CET發布（台灣16:30）。若通膨及經濟展望維持，央行認為明年進一步升息可能性高。"
         },
         "data_unit": "% policy rate",
         "data_reference": {
@@ -295,19 +301,19 @@
         "status": "released",
         "impact_judgment": "10月ADP民間就業增加86K，與修訂後9月前值86K相同，較Investing.com香港站原存共識68K高18K；顯示民間招聘仍有增長但未加速。Reuters報導的市場預期約69K，與香港站68K有1K差異，正式forecast保留原先可追溯的68K。ADP為民間薪資資料，不等同BLS非農。",
         "source": {
-          "name": "ADP National Employment Report",
+          "name": "ADP National Employment Report｜October 2026",
           "url": "https://www.adpemploymentreport.com/",
-          "published_at": null,
-          "observed_at": "2026-11-02T12:47:51+08:00",
-          "publisher": "ADP",
-          "notes": "ADP 官方報告頁確認本次為 2026-11-04 October report；Investing.com 香港站列 08:15 EST（13:15 UTC），換算台灣時間 21:15。前值 90K、共識 68K。"
+          "published_at": "2026-11-04T08:15:00-05:00",
+          "observed_at": "2026-11-05T04:34:15+08:00",
+          "publisher": "ADP Research / Stanford Digital Economy Lab",
+          "notes": "ADP October 2026 National Employment Report於11/04 08:15 EST發布；actual 86K，September previous由90K修訂至86K。ADP資料基於超過2,600萬名民間受薪員工匿名薪資資料。"
         },
         "data_unit": "thousand jobs",
         "data_reference": {
           "name": "Investing.com 香港｜美國 ADP 非農就業人數變化",
           "url": "https://hk.investing.com/economic-calendar/adp-nonfarm-employment-change-1",
           "publisher": "Investing.com Hong Kong",
-          "notes": "2026-11-04（10月）：forecast 68.00K、previous 90.00K；08:15 EST = 13:15 UTC = 21:15 Asia/Taipei。"
+          "notes": "2026-11-04：Investing.com香港站forecast 68.00K、previous 90.00K；實際公布後ADP將September previous修訂為86.00K。Reuters調查共識約69K，與香港站68K相差1K，正式forecast保留原Investing.com香港站68K。發布時間08:15 EST = 21:15 Asia/Taipei。"
         },
         "previous_applicable": true,
         "forecast_applicable": true
@@ -326,12 +332,12 @@
         "status": "released",
         "impact_judgment": "10月ISM服務業PMI為54.5，低於原存共識54.8及9月54.9，但仍連續第28個月處於擴張區間。商業活動53.8、新訂單55.9、就業51.4；價格指數73.0，雖低於前值74.0仍處高位，顯示服務業擴張放緩但價格壓力未解除。",
         "source": {
-          "name": "Institute for Supply Management｜Services PMI",
-          "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/",
-          "published_at": null,
-          "observed_at": "2026-11-02T03:32:09+08:00",
+          "name": "Institute for Supply Management｜October 2026 Services PMI Report",
+          "url": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/october/",
+          "published_at": "2026-11-04T10:00:00-05:00",
+          "observed_at": "2026-11-05T04:34:15+08:00",
           "publisher": "Institute for Supply Management",
-          "notes": "ISM 官方發布規則為每月第三個營業日 10:00 ET；換算台灣時間 23:00。前值／共識另由 Investing.com 經濟日曆核對。"
+          "notes": "官方October 2026報告確認Services PMI 54.5、Business Activity 53.8、New Orders 55.9、Employment 51.4、Prices 73.0；官方報告說明於第三個營業日10:00 ET發布，換算台灣23:00。"
         },
         "data_unit": "ISM index",
         "data_reference": {
@@ -2970,10 +2976,12 @@
         "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2026/policy-rate-raised-to-2-per-cent/",
         "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/october",
         "https://home.treasury.gov/news/press-releases/sb0678/",
-        "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents/"
+        "https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents/",
+        "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/october/",
+        "https://finance.yahoo.com/economy/articles/adp-national-employment-report-private-131500737.html"
       ],
       "checked_at": "2026-11-05T04:34:15+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。\n2026-11-04 17:35:56 Asia/Taipei：Riksbank 預定公告時點 16:30 已過；重新查核官方首頁與 2026 年 press-release archive，仍未見 11/04 決議文本。將事件狀態由 upcoming 改為 pending_verification，actual 維持 null，不以研究機構預期代替實際值。\n2026-11-04 17:36:52 Asia/Taipei：Reuters 00:07 UTC 報導媒體已預測民主黨拿回眾議院與參議院控制權；更新期中選舉 actual／impact_judgment／source，status 保留 pending_verification 以區分媒體預測與州級最終認證。\n2026-11-05T04:34:15+08:00 增量預更新：Riksbank 11/04政策利率actual 2.00%；ADP 10月actual 86K、9月previous修訂86K（香港站forecast 68K，Reuters約69K差異保留說明）；ISM服務業actual 54.5；美國QRA官方公告於08:30 ET發布，新增發行規模與7年期發行方式變動。Eurostat HICP日期／時間仍待官方釐清；Brazil Copom決議尚未到可確認時點；11/05 BOJ minutes、Norges、BoE及加拿大Budget後續仍待公布／核實。未完成全週其他市場及日期欄位掃描，維持incomplete。"
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 Asia/Taipei（具體時分未記錄）：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。\n2026-11-04 17:35:56 Asia/Taipei：Riksbank 預定公告時點 16:30 已過；重新查核官方首頁與 2026 年 press-release archive，仍未見 11/04 決議文本。將事件狀態由 upcoming 改為 pending_verification，actual 維持 null，不以研究機構預期代替實際值。\n2026-11-04 17:36:52 Asia/Taipei：Reuters 00:07 UTC 報導媒體已預測民主黨拿回眾議院與參議院控制權；更新期中選舉 actual／impact_judgment／source，status 保留 pending_verification 以區分媒體預測與州級最終認證。\n2026-11-05T04:34:15+08:00 增量預更新：Riksbank 11/04政策利率actual 2.00%；ADP 10月actual 86K、9月previous修訂86K（香港站forecast 68K，Reuters約69K差異保留說明）；ISM服務業actual 54.5；美國QRA官方公告於08:30 ET發布，新增發行規模與7年期發行方式變動。Eurostat HICP日期／時間仍待官方釐清；Brazil Copom決議尚未到可確認時點；11/05 BOJ minutes、Norges、BoE及加拿大Budget後續仍待公布／核實。未完成全週其他市場及日期欄位掃描，維持incomplete。\n2026-11-05T04:34:15+08:00 補強來源可追溯性：Riksbank決議改連官方press release；ADP補上08:15 EST原始發布時間與前值修訂；ISM改連October 2026官方報告頁；QRA改連11/04官方聲明及08:30 ET發布文件索引。Coverage仍為incomplete。"
     },
     "earnings": {
       "status": "incomplete",
@@ -11087,6 +11095,59 @@
         "updated_at"
       ],
       "note": "observed_at=2026-11-05T04:34:15+08:00; WR v5.10 read from main HEAD ff1ade244bf43e22c4ef5e44d8e0d58cbe763bf5; TAC_WORK_RULES.md blob 60fa1df215da1620f5364df43b356e8a5109838c; no WR Lock artifact or Issue #319 relay used, consistent with A1-supplement."
+    },
+    {
+      "at": "2026-11-05T04:34:15+08:00",
+      "action": "event_reverified",
+      "event_id": "current-riksbank-rate-20261104",
+      "changed_fields": [
+        "source"
+      ],
+      "source": "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2026/policy-rate-raised-to-2-per-cent/",
+      "note": "observed_at=2026-11-05T04:34:15+08:00; before_source={\"name\":\"Sveriges Riksbank｜Calendar, 4 November 2026\",\"url\":\"https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04\",\"published_at\":null,\"observed_at\":\"2026-11-04T17:35:56+08:00\",\"publisher\":\"Sveriges Riksbank\",\"notes\":\"官方行事曆確認 11/04 09:30 CET 公布決議（台灣 16:30）。17:35:56 台灣時間重新檢查 Riksbank 官方首頁及 2026 年 press-release archive，仍未找到 11/04 決議文本；官方首頁仍顯示前次政策利率 1.75%（適用自 9/30）及下一次公告日期 11/04。因公告時點已過但原始決議未取得，狀態改為 pending_verification，actual 保持 null；不採用兩家研究機構預期 2.00% 代替實際值。\"}; after_source={\"name\":\"Sveriges Riksbank｜Policy rate raised to 2 per cent\",\"url\":\"https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2026/policy-rate-raised-to-2-per-cent/\",\"published_at\":\"2026-11-04T09:30:00+01:00\",\"observed_at\":\"2026-11-05T04:34:15+08:00\",\"publisher\":\"Sveriges Riksbank\",\"notes\":\"官方決議確認政策利率由1.75%升至2.00%，自11/11生效；官方行事曆列09:30 CET發布（台灣16:30）。若通膨及經濟展望維持，央行認為明年進一步升息可能性高。\"}; 官方決議原文確認升息至2.00%，公告時點09:30 CET。"
+    },
+    {
+      "at": "2026-11-05T04:34:15+08:00",
+      "action": "event_reverified",
+      "event_id": "current-adp-20261104",
+      "changed_fields": [
+        "source",
+        "data_reference.notes"
+      ],
+      "source": "https://www.adpemploymentreport.com/",
+      "note": "observed_at=2026-11-05T04:34:15+08:00; before_source={\"name\":\"ADP National Employment Report\",\"url\":\"https://www.adpemploymentreport.com/\",\"published_at\":null,\"observed_at\":\"2026-11-02T12:47:51+08:00\",\"publisher\":\"ADP\",\"notes\":\"ADP 官方報告頁確認本次為 2026-11-04 October report；Investing.com 香港站列 08:15 EST（13:15 UTC），換算台灣時間 21:15。前值 90K、共識 68K。\"}; after_source={\"name\":\"ADP National Employment Report｜October 2026\",\"url\":\"https://www.adpemploymentreport.com/\",\"published_at\":\"2026-11-04T08:15:00-05:00\",\"observed_at\":\"2026-11-05T04:34:15+08:00\",\"publisher\":\"ADP Research / Stanford Digital Economy Lab\",\"notes\":\"ADP October 2026 National Employment Report於11/04 08:15 EST發布；actual 86K，September previous由90K修訂至86K。ADP資料基於超過2,600萬名民間受薪員工匿名薪資資料。\"}; ADP官方報告／PR Newswire確認08:15 EST發布，86K實際及前值修訂。"
+    },
+    {
+      "at": "2026-11-05T04:34:15+08:00",
+      "action": "event_reverified",
+      "event_id": "current-us-ism-services-20261104",
+      "changed_fields": [
+        "source"
+      ],
+      "source": "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/october/",
+      "note": "observed_at=2026-11-05T04:34:15+08:00; before_source={\"name\":\"Institute for Supply Management｜Services PMI\",\"url\":\"https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/\",\"published_at\":null,\"observed_at\":\"2026-11-02T03:32:09+08:00\",\"publisher\":\"Institute for Supply Management\",\"notes\":\"ISM 官方發布規則為每月第三個營業日 10:00 ET；換算台灣時間 23:00。前值／共識另由 Investing.com 經濟日曆核對。\"}; after_source={\"name\":\"Institute for Supply Management｜October 2026 Services PMI Report\",\"url\":\"https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/october/\",\"published_at\":\"2026-11-04T10:00:00-05:00\",\"observed_at\":\"2026-11-05T04:34:15+08:00\",\"publisher\":\"Institute for Supply Management\",\"notes\":\"官方October 2026報告確認Services PMI 54.5、Business Activity 53.8、New Orders 55.9、Employment 51.4、Prices 73.0；官方報告說明於第三個營業日10:00 ET發布，換算台灣23:00。\"}; ISM官方October頁面確認54.5及各分項，發布時點10:00 ET。"
+    },
+    {
+      "at": "2026-11-05T04:34:15+08:00",
+      "action": "event_reverified",
+      "event_id": "current-us-qra-20261104",
+      "changed_fields": [
+        "source",
+        "data_reference"
+      ],
+      "source": "https://home.treasury.gov/news/press-releases/sb0678/",
+      "note": "observed_at=2026-11-05T04:34:15+08:00; before_source={\"name\":\"U.S. Treasury｜Quarterly Refunding Announcement schedule\",\"url\":\"https://home.treasury.gov/news/press-releases/sb0590\",\"published_at\":null,\"observed_at\":\"2026-11-04T04:43:37+08:00\",\"publisher\":\"U.S. Department of the Treasury\",\"notes\":\"官方資料確認2026-11-04為季度再融資公告日期，但該頁未提供精確發布時間；event_date的12:00 Asia/Taipei僅為日期佔位，time_known=false。\"}; after_source={\"name\":\"U.S. Treasury｜Quarterly Refunding Statement\",\"url\":\"https://home.treasury.gov/news/press-releases/sb0678/\",\"published_at\":\"2026-11-04T08:30:00-05:00\",\"observed_at\":\"2026-11-05T04:34:15+08:00\",\"publisher\":\"U.S. Department of the Treasury\",\"notes\":\"官方QRA聲明列出125B發行、97B到期再融資、28B新增現金；3Y 58B、10Y 42B、30Y 25B。官方Most Recent Quarterly Refunding Documents確認政策聲明及TBAC文件於08:30 ET釋出，換算台灣21:30。\"}; Treasury官方QRA及文件發布日程確認08:30 ET。"
+    },
+    {
+      "at": "2026-11-05T04:34:15+08:00",
+      "action": "coverage_updated",
+      "source": "https://www.riksbank.se/en-gb/press-and-published/notices-and-press-releases/press-releases/2026/policy-rate-raised-to-2-per-cent/;https://www.ismworld.org/supply-management-news-and-reports/reports/ism-pmi-reports/services/october/;https://home.treasury.gov/news/press-releases/sb0678/;https://home.treasury.gov/policy-issues/financing-the-government/quarterly-refunding/most-recent-quarterly-refunding-documents/;https://finance.yahoo.com/economy/articles/adp-national-employment-report-private-131500737.html",
+      "changed_fields": [
+        "coverage.economic.checked_at",
+        "coverage.economic.source_refs",
+        "coverage.economic.notes"
+      ],
+      "note": "observed_at=2026-11-05T04:34:15+08:00; refined official source URLs and publication timestamps for four already-updated economic events; no coverage promotion."
     }
   ]
 }
