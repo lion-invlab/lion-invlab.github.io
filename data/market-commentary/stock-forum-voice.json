@@ -1,0 +1,171 @@
+{
+  "database_name": "TAC 股吧神回覆／美股留言語感資料庫",
+  "schema_version": "1.0.0",
+  "created_at": "2026-11-04",
+  "timezone": "Asia/Taipei",
+  "purpose": "蒐集公開股票討論區的原生留言語感，供 TAC 美股早報標題與短評挑選；保留原句的口語、反諷、自嘲與情緒張力。",
+  "editorial_rules": [
+    "優先保留公開留言原句的語氣與節奏，不要改寫成制式新聞腔。",
+    "每筆素材必須記錄原始網址、來源平台、討論板、發文日期及擷取日期；無法核實的欄位明確標示 null 或待核實。",
+    "原句只作短句語感參考；引用時保留來源，不將網友言論冒充 TAC 原創。",
+    "若只借用句型，標記為 pattern_adaptation，不宣稱是原留言。",
+    "留言是個人情緒與觀點，不是行情事實、投資建議或市場共識；使用前必須另行核對當日行情。",
+    "避免人身攻擊、歧視、髒話、喊單、未證實指控及鼓吹槓桿／追漲殺跌的內容。",
+    "優先挑選短、直白、有畫面、反差強、脫口而出的留言；不以留言數或閱讀數單獨判斷品質。",
+    "使用頻率以每期早報 1 至 2 則為上限，符合當日行情才使用；不為了用梗而用梗。"
+  ],
+  "sources": [
+    {
+      "source_id": "eastmoney-us-stock-bars",
+      "platform": "東方財富股吧",
+      "url": "https://guba.eastmoney.com/us_707.html",
+      "scope": "美股吧總覽；英偉達、特斯拉、閃迪、美光等個股討論",
+      "collection_status": "active"
+    },
+    {
+      "source_id": "eastmoney-nvidia-board",
+      "platform": "東方財富股吧",
+      "url": "https://guba.eastmoney.com/usnvda.html",
+      "scope": "英偉達吧；半導體、AI、科技股情緒",
+      "collection_status": "active"
+    }
+  ],
+  "categories": [
+    {
+      "id": "追高踏空",
+      "description": "股價上漲、投資人尚未上車、怕錯過行情"
+    },
+    {
+      "id": "空頭反諷",
+      "description": "反彈、做空、空頭與多頭互相吐槽"
+    },
+    {
+      "id": "相對強弱",
+      "description": "同類股票或指數漲跌幅度差異、強弱對比"
+    },
+    {
+      "id": "無奈自嘲",
+      "description": "套牢、虧損、追高、等待解套等情緒"
+    },
+    {
+      "id": "高開低走",
+      "description": "開盤強勢但盤中轉弱、利多不漲"
+    },
+    {
+      "id": "市場擬人",
+      "description": "把個股、板塊、Fed 或市場當成角色"
+    },
+    {
+      "id": "反轉神回",
+      "description": "前半句與後半句形成反差或突然反轉"
+    }
+  ],
+  "entries": [
+    {
+      "id": "EFB-20261019-001",
+      "type": "verbatim_sample",
+      "quote": "不让你反弹，我怎么做空",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-10-19T23:51:55",
+      "captured_at": "2026-11-04",
+      "category": [
+        "空頭反諷",
+        "市場擬人"
+      ],
+      "tone": [
+        "反諷",
+        "短句",
+        "黑色幽默"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usnvda,1784445942.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合市場急跌後反彈、空頭回補或多空角力明顯的情境；需確認當日確有反彈與空頭敘事。",
+      "reuse_mode": "短句語感參考；若直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261019-002",
+      "type": "verbatim_sample",
+      "quote": "人家调整6个点创新高，咱们调整60个点没量[哭]",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-10-19T23:27:20",
+      "captured_at": "2026-11-04",
+      "category": [
+        "相對強弱",
+        "無奈自嘲"
+      ],
+      "tone": [
+        "對比",
+        "自嘲",
+        "誇張反差"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usnvda,1784443673.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合比較不同市場、同族群股票或個股回檔幅度時使用；原留言中的數字不可脫離原討論情境沿用。",
+      "reuse_mode": "優先學習「人家X，我們Y」的反差句型；不要複製原數字當成當日事實",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261019-003",
+      "type": "verbatim_sample",
+      "quote": "别拉了今天还没上车！！！",
+      "platform": "東方財富股吧",
+      "board": "AXT Inc吧",
+      "ticker": "AXTI",
+      "posted_at": "2026-10-19T23:51:43",
+      "captured_at": "2026-11-04",
+      "category": [
+        "追高踏空"
+      ],
+      "tone": [
+        "急切",
+        "誇張",
+        "口語"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,usaxti,1784445925.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合個股急漲、盤中拉升、投資人擔心踏空的情境；不應暗示追價。",
+      "reuse_mode": "短句語感參考；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261019-004",
+      "type": "verbatim_sample",
+      "quote": "这就是美科技强股，它们绝对不会坑股民。",
+      "platform": "東方財富股吧",
+      "board": "閃迪吧",
+      "ticker": "SNDK",
+      "posted_at": "2026-10-19T23:27:31",
+      "captured_at": "2026-11-04",
+      "category": [
+        "反轉神回",
+        "市場擬人"
+      ],
+      "tone": [
+        "反諷",
+        "戲謔",
+        "誇張"
+      ],
+      "source_url": "https://guba.eastmoney.com/news,ussndk,1784443699.html",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": null,
+      "tac_use": "適合強勢股或熱門科技股被過度追捧時作反諷觀察；不得把原句當成對公司品質的真實背書。",
+      "reuse_mode": "只借用反諷語氣；避免照搬絕對化投資判斷",
+      "confidence": "source_verified"
+    }
+  ],
+  "collection_log": [
+    {
+      "date": "2026-11-04",
+      "action": "initial_seed",
+      "result": "新增 4 筆可回開原始貼文核對的短留言；未保存發文者帳號；互動數未可靠取得，故留空。"
+    }
+  ]
+}
