@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T11:18:00+08:00",
+  "updated_at": "2026-11-04T11:25:00+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "5.0",
   "status": "active",
@@ -1344,42 +1344,49 @@
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：AI加速器與資料中心半導體核心供應商，財報對AI資本支出與半導體板塊定價具高影響。",
         "importance_rating_source": null,
-        "eps_estimate": 1.68,
+        "eps_estimate": 1.94,
         "eps_actual": 2.09,
-        "revenue_estimate": 13.09,
+        "revenue_estimate": 13.06,
         "revenue_actual": 13.377,
-        "stock_price_reaction": null,
+        "stock_price_reaction": "+7.54%",
         "source": {
           "name": "AMD Investor Relations｜Q3 2026 results",
           "url": "https://ir.amd.com/news-events/press-releases/detail/1303/amd-reports-third-quarter-2026-financial-results",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T11:00:24+08:00",
+          "observed_at": "2026-11-04T11:25:00+08:00",
           "publisher": "Advanced Micro Devices"
         },
         "industry": "半導體／AI加速器",
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Non-GAAP diluted EPS (issuer-reported); existing Nasdaq consensus basis not disclosed, comparison pending verification",
+        "eps_basis": "Non-GAAP diluted EPS; Investing.com consensus basis",
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": "pending_verification",
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "AMD Q3 2026營收US$13.377B，高於資料庫既有US$13.09B共識；GAAP diluted EPS US$1.46，non-GAAP diluted EPS US$2.09。既有EPS共識US$1.68未明確揭露GAAP／non-GAAP口徑，因此EPS比較維持pending verification，不機械判定beat/miss。資料中心營收US$8.5B、年增97%；公司Q4營收展望約US$17B±3%。股價反應未取得可核實時段，暫不填。",
-        "stock_price_reaction_window": null,
+        "financial_judgment": "AMD Q3 2026營收US$13.377B，高於Investing.com所列共識US$13.06B；non-GAAP diluted EPS US$2.09，高於同來源共識US$1.94；GAAP diluted EPS US$1.46。資料中心營收US$8.5B、年增97%；公司Q4營收展望約US$17B±3%，並表示2027年營收預期年增逾80%。Investing.com報導財報公布後股價盤後上漲7.54%。",
+        "stock_price_reaction_window": "2026-11-03 U.S. after-hours trading; Investing.com article published 18:08 ET reports after-hours share price US$520.40 versus regular-session close US$483.90.",
         "consensus_source": {
-          "name": "Nasdaq EPS consensus（W45既有週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "保留EPS共識US$1.68；GAAP／non-GAAP口徑未披露，故不作直接比較。"
+          "name": "Investing.com｜AMD Q3 2026 earnings transcript",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
+          "published_at": "2026-11-03T18:08:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "同一篇財報報導列示non-GAAP EPS consensus US$1.94；實績US$2.09。"
         },
-        "price_reaction_source": null,
+        "price_reaction_source": {
+          "name": "Investing.com｜AMD Q3 2026 after-hours reaction",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
+          "published_at": "2026-11-03T18:08:00-05:00",
+          "publisher": "Investing.com"
+        },
         "revenue_consensus_source": {
-          "name": "TipRanks｜Earnings Calendar",
-          "url": "https://www.tipranks.com/calendars/earnings/2026-11-3",
-          "publisher": "TipRanks",
-          "notes": "保留資料庫既有營收共識US$13.09B；官方實際營收US$13.377B。"
+          "name": "Investing.com｜AMD Q3 2026 earnings transcript",
+          "url": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
+          "published_at": "2026-11-03T18:08:00-05:00",
+          "publisher": "Investing.com",
+          "notes": "同一篇財報報導列示revenue consensus US$13.06B；實績US$13.377B。"
         },
         "issuer_country": "United States",
         "us_exchange_listed": true,
@@ -3067,8 +3074,8 @@
         "https://www.wsj.com/business/earnings/apollo-global-swings-to-a-loss-on-investment-related-losses-e2141fd4",
         "https://ir.emerson.com/news-events/press-releases/detail/648/emerson-schedules-fourth-quarter-and-full-year-2026-earnings-release-and-conference-call"
       ],
-      "checked_at": "2026-11-04T11:18:00+08:00",
-      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 11:00 Asia/Taipei：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。"
+      "checked_at": "2026-11-04T11:25:00+08:00",
+      "notes": "第二輪跨市場漏項掃描後，再新增 Philips、Ahold Delhaize、ArcelorMittal 三家 TAC 四星企業；連同前一輪新增企業，跨市場財報清單擴增至 36 家。尚需掃描其他歐洲與亞洲大型權值企業，並補足部分共識資料與未確認時間，故維持 incomplete。 已由 TipRanks 11/2–11/5 各日財報頁補入24家公司的 Revenue / Forecast，另設 revenue_consensus_source，與 EPS 共識來源分離；其餘缺漏仍保留，不以其他季度或不同會計口徑推填。 另補入 Suncor、Toyota Motor、Sony Group 三家營收預期，使用 TipRanks 當日頁面，分別記錄 revenue_consensus_source。 另補入 Super Micro Computer、Novo Nordisk、Toyota Motor、Sony Group 四家 EPS estimate，均取自 TipRanks 當日頁；其會計口徑未披露，已明確標記 basis not disclosed。 新增 Philips、BMW、Deutsche Telekom、Rheinmetall、Commerzbank、ArcelorMittal、Siemens Healthineers、DoorDash 共識補漏；Deutsche Telekom 與 Siemens Healthineers 使用 EUR 普通股／官方或本地市場口徑，其他 MarketBeat 數值標記 basis not disclosed。 Ahold Delhaize EPS 以 TipRanks 0.67 EUR 記錄；revenue forecast 因 Investing.com、ChartMill 等來源口徑／樣本不同仍保留 pending。 新增美國交易所掛牌資格篩選：36筆候選中保留30筆；排除BMW Group、Ahold Delhaize、Deutsche Telekom、Rheinmetall、Commerzbank、Siemens Healthineers（僅本國交易所或OTC/OTCQX）。非美國公司需附掛牌市場與查證來源；OTC ADR不算美國交易所掛牌。 已將不符合美國交易所掛牌條件的非美國公司移出正式 earnings events 集合；原始候選資料及排除原因保留於 audit，供追溯，不會輸出至快照或品質統計。\n2026-11-02 03:32 台灣時間增量核對：正式 earnings events 由 30 筆增至 33 筆，新增 Marriott（MAR）、Vertex（VRTX）、onsemi（ON）三筆 TAC 四星事件，日期／電話會議時間以公司公告核實；EPS 與營收共識分欄保存，口徑未披露者標 basis not disclosed。8 家非美國發行人（PHG、SHOP、NVO、SU、ARM、TM、MT、SONY）均保留美國交易所掛牌資格證據；NVO、TM、SONY 的證據網址改為公司 Form 20-F、SEC 文件及 Citi 存託機構資料。仍需繼續掃描其他大型美國／跨國發行人，逐家補足 EPS／營收共識口徑、未確認時段及價格反應觀察窗；coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增 Fiserv（FISV）11/03 盤前、8:00 ET 電話會議及 FIS 11/04 盤前、8:30 EST 電話會議；FIS 日期以公司 10/20 改期公告取代 10/12 舊排程。兩家公司均為美國本土 NYSE／Nasdaq 掛牌，EPS 與營收共識分欄保存，未揭露 EPS 口徑標 basis not disclosed。Berkshire Hathaway 官方 2026 News Releases 頁截至本次查核未列 Q3 財報日期，第三方日曆出現 11/02 與 11/07 不一致日期，故不猜測日期、不納入正式集合，列 audit 待公司確認。其他大型發行人仍需持續掃描，部分事件時間、共識口徑及股價反應觀察窗尚未完成，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：Marriott Q3 2026 官方 IR 實績已更新 released；GAAP diluted EPS US$3.04、adjusted diluted EPS US$3.02、營收 US$7.005B。EPS consensus US$2.85 未揭露口徑，故 eps_comparison_status 保留 pending_verification；營收 US$7.005B 高於 US$6.92B 共識。Reuters 報導美股早盤股價約 +7%，明確記錄為早盤觀察而非收盤反應。Nasdaq/StockTitan 11/03 候選掃描列 152 份報告；新增 TAC 四星 Eaton (ETN) 與 Apollo (APO)，分別核實公司公告、電話會議台灣時間、EPS consensus 及美國交易所掛牌資格。Apollo 營收共識未取得，保留 null。Marathon Petroleum (MPC) 經 TAC 評為三星且共識口徑分歧，排除。其餘候選尚未逐家完成重要性與資格查證，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：已更新VRTX、AAPL、ON、PLTR、PHG、FISV、SHOP、PFE、ETN、APO十家已公布財報；GAAP／adjusted口徑分開，PLTR、SHOP、PFE、ETN、APO使用可追溯的同口徑FactSet／Zacks共識；FISV、VRTX、AAPL、ON、PHG未能完全確認共識口徑者保留pending_verification。PHG原USD營收共識與EUR實際不相容，estimate清空並保留來源。SHOP股價反應記錄為11/03正常交易時段午後報導快照，非收盤報酬。新增Emerson（NYSE: EMR）FY2026 Q4/全年財報，11/04盤前、08:30 ET電話會議。候選掃描另見W.W. Grainger等公司，但尚未完成公司IR時段與TAC獨立評級，不納入正式events。其餘全球候選、部分共識及股價反應觀察窗仍待查，維持incomplete。\n2026-11-04 11:00 Asia/Taipei：重新檢查11/04台灣清晨已公布的五家美國公司財報，AMGN、ANET、BKNG、AMD、SMCI均由upcoming更新為released。AMGN、ANET、BKNG EPS／營收比較依已查核共識口徑更新；AMD及SMCI EPS因既有共識basis未揭露保留pending_verification，營收比較依可追溯共識更新。股價反應僅記錄明確after-hours觀察窗；未取得者不填。\n2026-11-04 11:25 Asia/Taipei：AMD EPS consensus口徑由Investing.com財報報導確認為non-GAAP US$1.94，與實績US$2.09可比；EPS狀態由pending_verification改為beat。營收共識US$13.06B，實績US$13.377B；新增明確盤後股價反應+7.54%及觀察時段。"
     }
   },
   "audit": [
@@ -10621,6 +10628,25 @@
       ],
       "source": "TAC_WORK_RULES.md v5.0",
       "note": "W45既有JSON schema相容；本次增量維護依main最新WR v5.0執行。"
+    },
+    {
+      "at": "2026-11-04T11:25:00+08:00",
+      "action": "event_updated",
+      "event_id": "current-amd-20261102",
+      "changed_fields": [
+        "eps_estimate",
+        "eps_basis",
+        "eps_comparison_status",
+        "revenue_estimate",
+        "financial_judgment",
+        "consensus_source",
+        "revenue_consensus_source",
+        "stock_price_reaction",
+        "stock_price_reaction_window",
+        "price_reaction_source"
+      ],
+      "source": "https://www.investing.com/news/transcripts/earnings-call-transcript-amd-tops-q3-2026-estimates-as-stock-jumps-after-hours-93CH-4996894",
+      "note": "before={\"eps_estimate\":1.68,\"eps_comparison_status\":\"pending_verification\",\"revenue_estimate\":13.09,\"stock_price_reaction\":null}; after=non-GAAP EPS 2.09 vs 1.94 beat; revenue 13.377 vs 13.06 beat; after-hours +7.54%."
     }
   ]
 }
