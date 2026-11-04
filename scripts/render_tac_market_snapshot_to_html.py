@@ -231,7 +231,8 @@ def render(master_path: Path, snapshot_path: Path, output_path: Path,
     if master_path.resolve() != (ROOT / expected_path).resolve():
         fail(f"wrong weekday master: expected {expected_path}")
     raw = master_path.read_text(encoding="utf-8")
-    actual_sha = hashlib.sha1(raw.encode("utf-8")).hexdigest()
+    blob = raw.encode("utf-8")
+    actual_sha = hashlib.sha1(b"blob " + str(len(blob)).encode("ascii") + bytes([0]) + blob).hexdigest()
     if actual_sha != expected_master_sha:
         fail(f"mother SHA mismatch: {actual_sha} != {expected_master_sha}")
     if actual_sha != manifest["templates"]["monday" if weekday == "monday" else "weekdays"]["blob_sha"]:
