@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-05T07:06:00+08:00",
+  "updated_at": "2026-11-05T07:12:00+08:00",
   "source_report_date": "2026-11-05",
   "wr_version": "5.10",
   "status": "active",
@@ -1998,7 +1998,7 @@
         "id": "current-dash-20261102",
         "company": "DoorDash",
         "ticker": "DASH",
-        "event_date": "2026-11-05T05:30:00+08:00",
+        "event_date": "2026-11-06T05:30:00+08:00",
         "session": "after_market",
         "status": "upcoming",
         "importance_stars": 4,
@@ -2060,7 +2060,7 @@
         "id": "current-mck-20261102",
         "company": "McKesson",
         "ticker": "MCK",
-        "event_date": "2026-11-05T05:30:00+08:00",
+        "event_date": "2026-11-06T05:30:00+08:00",
         "session": "after_market",
         "status": "upcoming",
         "importance_stars": 4,
@@ -2122,7 +2122,7 @@
         "id": "current-qcom-20261102",
         "company": "Qualcomm",
         "ticker": "QCOM",
-        "event_date": "2026-11-05T05:45:00+08:00",
+        "event_date": "2026-11-06T05:45:00+08:00",
         "session": "after_market",
         "status": "upcoming",
         "importance_stars": 4,
@@ -2184,7 +2184,7 @@
         "id": "current-app-20261102",
         "company": "AppLovin",
         "ticker": "APP",
-        "event_date": "2026-11-05T06:00:00+08:00",
+        "event_date": "2026-11-06T06:00:00+08:00",
         "session": "after_market",
         "status": "upcoming",
         "importance_stars": 4,
@@ -11216,6 +11216,14 @@
       ],
       "source": "https://newsroom.arm.com/news/arm-holdings-plc-reports-results-for-the-second-quarter-of-the-fiscal-year-ending-2027;https://investors.arm.com/static-files/0b5baa2e-fc47-4d05-b724-e49de7bd4356",
       "note": "before={\"event_date\":\"2026-11-05T00:00:00+08:00\",\"status\":\"upcoming\",\"eps_actual\":null,\"revenue_actual\":null,\"financial_judgment\":null}; after=Arm Q2 FYE27 released 2026-11-04 after US market close; revenue actual 1.443B vs 1.38B consensus; non-GAAP EPS 0.52, GAAP EPS 0.12. EPS consensus 0.22 basis not confirmed so comparison pending_verification. Stock reaction not yet verified."
+    },
+    {
+      "at": "2026-11-05T07:12:00+08:00",
+      "action": "event_dates_corrected",
+      "changed_fields": [
+        "event_date"
+      ],
+      "note": "US after-market events on Nov 5 occur in Taiwan on Nov 6 early morning; corrected DASH/MCK/QCOM/APP dates. Before=[{\"ticker\":\"DASH\",\"date\":\"2026-11-05T05:30:00+08:00\"},{\"ticker\":\"MCK\",\"date\":\"2026-11-05T05:30:00+08:00\"},{\"ticker\":\"QCOM\",\"date\":\"2026-11-05T05:45:00+08:00\"},{\"ticker\":\"APP\",\"date\":\"2026-11-05T06:00:00+08:00\"}]"
     }
   ]
 }
