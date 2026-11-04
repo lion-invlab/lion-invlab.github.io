@@ -418,6 +418,186 @@
       "tac_use": "適合美股個股走勢與 A 股同步或背離時，呈現投資人對跨市場連動的直覺吐槽。",
       "reuse_mode": "保留原留言語感；直接引用需標註來源",
       "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-014",
+      "type": "verbatim_sample",
+      "raw_quote_original": "我擦，最后2941.8万是股还是手啊？",
+      "quote": "我去，最後 2,941.8 萬是股還是手啊？",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-11-02T01:16:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "數字震撼",
+        "散戶疑惑"
+      ],
+      "tone": [
+        "驚訝",
+        "口語",
+        "疑問"
+      ],
+      "source_url": "https://iguba.eastmoney.com/7764047290970950",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 27,
+        "comments": 0
+      },
+      "tac_use": "適合成交量或大額交易數字引發市場驚訝時使用；數字不可當作已核實行情。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-015",
+      "type": "verbatim_sample",
+      "raw_quote_original": "盘前全是利空，Meta降评级，OpenAI降融资额，已无力吐槽，其它的你们补充",
+      "quote": "盤前全是利空，Meta 降評級、OpenAI 降融資額，已無力吐槽，其他的你們補充。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "Meta Platforms 吧",
+      "ticker": "META",
+      "posted_at": "2026-11-02T00:09:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "利空連發",
+        "無奈自嘲"
+      ],
+      "tone": [
+        "疲憊",
+        "反諷",
+        "接龍"
+      ],
+      "source_url": "https://iguba.eastmoney.com/7629097907775940",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 27,
+        "comments": 0
+      },
+      "tac_use": "適合多項利空在盤前集中出現時，呈現投資人已經吐槽不動的情緒；事件內容須另行核實。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-016",
+      "type": "verbatim_sample",
+      "raw_quote_original": "给我天天送快递的京东快递小哥都买上保时捷了",
+      "quote": "每天幫我送快遞的京東快遞小哥，都買上保時捷了。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "京東吧",
+      "ticker": "JD",
+      "posted_at": "2026-11-01T23:56:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "財富落差",
+        "酸民式幽默"
+      ],
+      "tone": [
+        "羨慕",
+        "自嘲",
+        "誇張"
+      ],
+      "source_url": "https://iguba.eastmoney.com/1423316388728258",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 28,
+        "comments": 0
+      },
+      "tac_use": "適合股價或產業熱度與一般投資人財富感受形成反差時使用；不視為可驗證的個人事實。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-017",
+      "type": "verbatim_sample",
+      "raw_quote_original": "出三季报，带崩Ai",
+      "quote": "一出第三季財報，就把 AI 整個帶崩。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "英偉達吧",
+      "ticker": "NVDA",
+      "posted_at": "2026-11-01T23:55:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "財報反應",
+        "板塊連坐"
+      ],
+      "tone": [
+        "抱怨",
+        "簡短",
+        "歸因"
+      ],
+      "source_url": "https://iguba.eastmoney.com/4808097544732442",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 27,
+        "comments": 0
+      },
+      "tac_use": "適合大型公司財報牽動 AI 或科技板塊時，呈現市場對板塊連動的簡短抱怨；因果關係須另行查證。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-018",
+      "type": "verbatim_sample",
+      "raw_quote_original": "半导体应该结束了，算了，承认吧，唉，我的账户呀",
+      "quote": "半導體行情應該結束了。算了，承認吧……唉，我的帳戶啊。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "半導體 ETF（iShares）吧",
+      "ticker": "SOXX",
+      "posted_at": "2026-10-15T23:02:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "板塊悲觀",
+        "帳戶哀號"
+      ],
+      "tone": [
+        "認輸",
+        "沮喪",
+        "自嘲"
+      ],
+      "source_url": "https://iguba.eastmoney.com/7499356066947796",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 424,
+        "comments": 33
+      },
+      "tac_use": "適合半導體板塊回檔或信心轉弱時，作為悲觀情緒語料；留言日期較早，引用需標註時間。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
+    },
+    {
+      "id": "EFB-20261102-019",
+      "type": "verbatim_sample",
+      "raw_quote_original": "一股82万美元，要是在大a，能把他炒成82亿美元",
+      "quote": "一股 82 萬美元，要是在 A 股，能把它炒成 82 億美元。",
+      "language": "zh-TW",
+      "platform": "東方財富股吧",
+      "board": "波克夏海瑟威 A 股吧",
+      "ticker": "BRK.A",
+      "posted_at": "2026-10-27T12:21:00",
+      "captured_at": "2026-11-04",
+      "category": [
+        "市場制度反差",
+        "誇張反諷"
+      ],
+      "tone": [
+        "誇張",
+        "調侃",
+        "跨市場比較"
+      ],
+      "source_url": "https://iguba.eastmoney.com/4100113807393264",
+      "source_author": "未保存（避免收錄個人識別資訊）",
+      "engagement_snapshot": {
+        "reads": 63,
+        "comments": 2
+      },
+      "tac_use": "適合比較美股高價股與 A 股交易文化、股價心理及炒作想像；屬反諷，不代表真實估值判斷。",
+      "reuse_mode": "保留原留言語感；直接引用需標註來源",
+      "confidence": "source_verified"
     }
   ],
   "collection_log": [
@@ -430,6 +610,19 @@
       "date": "2026-11-04",
       "action": "second_collection",
       "result": "新增 8 筆可回開原始貼文核對的留言；將既有 4 筆原句轉存繁體中文，並保留 raw_quote_original 供溯源。"
+    },
+    {
+      "date": "2026-11-04",
+      "action": "新增 6 則已核對原始留言頁的繁體中文語料，保留簡體原文供追溯。",
+      "source": "東方財富股吧美股討論串",
+      "entry_ids": [
+        "EFB-20261102-014",
+        "EFB-20261102-015",
+        "EFB-20261102-016",
+        "EFB-20261102-017",
+        "EFB-20261102-018",
+        "EFB-20261102-019"
+      ]
     }
   ]
 }
