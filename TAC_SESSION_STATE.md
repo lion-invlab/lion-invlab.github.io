@@ -504,3 +504,22 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 待核實：完整 repo-wide 依賴引用掃描、其他 scripts/tests/config 的間接呼叫、browser regression 工具的實際執行證據。
 - 未測試：本輪未執行任何舊工具的 self-test、未執行 Playwright browser regression、未對當日 preview 做 QA。
 - 未修改：除本狀態檔外，所有正式／生產資產均未修改。
+
+
+## 12.9｜階段 3 補充：剩餘 scripts 分類（2026-11-04）
+- 已補讀其餘主要 scripts 的檔頭／用途，並對照目前 workflow：
+  - **獨立保留，不屬 TAC 早報產線：** `update_data.py`、`update_tac_watchlist.py`（S&P 500／TAC watchlist volatility 資料）；`update_nasdaq100.py`（Nasdaq-100 volatility）；`update_profiles.py`、`update_nasdaq100_profiles.py`、`validate_profiles.py`（公司資料檔維護與驗證）；`test_volatility_sticky_columns.mjs`（volatility.html 的 Chromium／WebKit 欄位固定測試）。相應 workflow 已存在且與早報分離，保留。
+  - **母版保護必要工具：** `validate_mother_template.py`，由 `mother-template-guard.yml` 使用，屬現行保留工具。
+  - **歷史／非正式早報前置：** `fetch_tac_global_indices.py`、`fetch_tac_sector_etfs.py`、`fetch_tac_treasury_yields.py`、`fetch_tac_treasury_fred_fallback.py`（舊行情擷取器）；`validate_tac_key_levels_daily.py`（Yahoo Finance key-level CI artifact）；`capture_tac_fedwatch_fallback.mjs`（Investing.com FedWatch fallback capture）；Snapshot／Issue #319 handoff／Assembler／Renderer／WR lock／相關 snapshot validators。依 WR v5.1，不作每日早報前置，不重新接回產線。
+  - **獨立但目前未證實有排程入口：** `tac_browser_layout_regression.mjs`。它有實際瀏覽器檢查能力，但沒有現行 workflow 呼叫；不能宣稱每日執行。
+  - **仍在使用：** `validate_mother_template.py`；`validate_tac_report.py` 及其 layout／market mapping validators 保留在 repo 作歷史或手動診斷用途，但其目前無 workflow 呼叫證據，且不作正式日報 Gate。
+- Workflow 直接呼叫關係（依已讀取 YAML）：`main.yml` → `update_data.py`、`update_tac_watchlist.py`；`company_nasdaq100.yml` → `update_nasdaq100.py`；`company_profiles.yml` → `update_profiles.py)、`validate_profiles.py`；`company_profiles_nasdaq100.yml` → `update_nasdaq100_profiles.py`；`mother-template-guard.yml` → `validate_mother_template.py`；`volatility-sticky-columns.yml` → `test_volatility_sticky_columns.mjs`。Pages／archive workflow 與 TAC Snapshot 工具無直接依賴。
+- 本輪確認的歷史工作程式依賴鏈：`assemble_tac_daily_snapshot.py` → `validate_tac_daily_snapshot.py` → `tac_wr_lock.py`；`validate_tac_report.py` → `validate_mother_template.py`、`validate_tac_layout_contract.py`、`validate_tac_market_mapping.py`。以上只說明程式內依賴，不代表現行生產呼叫。
+- **掃描邊界：** 已讀取 8 個現行 workflow、主要 TAC scripts（包含上述檔案）及 TAC 規則／工作紀錄／母版驗收文件；沒有逐一讀取 repo 全部 189 個 blob，也未對所有 HTML、JSON、資料及歷史 demo 做全文掃描。因此「完整 repo-wide 零引用」仍不可宣稱。
+- **結論：** 現行每日 TAC 早報不需要舊 Snapshot／Assembler／Renderer／WR Lock／Issue relay；依 WR v5.1 保持直接製作。獨立 Dashboard 與母版保護 workflow 保留。無刪除建議可在未完成全面依賴掃描前執行。
+
+### 階段 3 狀態
+- 已完成：現行 workflow 直接呼叫盤點；主要 scripts 的用途分類；已知 Python／Node 直接依賴鏈；過期狀態檔已更新。
+- 待核實：repo 其他未讀取的 HTML／JSON／歷史文件是否仍有僅供參考的字串引用；非 workflow 的外部手動呼叫／排程系統是否存在。
+- 未測試：本輪未執行舊工具 self-test、Playwright regression 或每日 preview QA。
+- 未修改：除 `TAC_SESSION_STATE.md` 外，未修改任何 scripts、workflow、資料、preview、母版、Manifest 或首頁。
