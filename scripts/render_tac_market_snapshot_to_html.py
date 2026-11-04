@@ -187,8 +187,10 @@ def update_group(soup, group: str, spec: dict, snapshot: dict) -> None:
 
 def update_fedwatch(container, fedwatch: dict) -> None:
     probs = fedwatch.get("probabilities", [])
-    if fedwatch.get("status") != "verified" or len(probs) != 2:
-        fail("FedWatch requires exactly two verified rate outcomes under current binding contract")
+    if fedwatch.get("status") != "verified":
+        fail("FedWatch requires verified probabilities")
+    if len(probs) != 2:
+        fail(f"FedWatch has {len(probs)} rate outcomes; approved two-card master cannot safely render this distribution. Dynamic-card upgrade required; no outcomes were discarded.")
     if abs(sum(float(x["probability"]) for x in probs) - 100.0) > 0.05:
         fail("FedWatch probabilities do not sum to 100%")
     rows = container.select(".fc-prob")
