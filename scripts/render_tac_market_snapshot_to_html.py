@@ -176,7 +176,11 @@ def update_group(soup, group: str, spec: dict, snapshot: dict) -> None:
                     )
                 status = "極度恐懼" if record.get("value", 0) <= 24 else "恐懼" if record.get("value", 0) <= 44 else "中性" if record.get("value", 0) <= 55 else "貪婪" if record.get("value", 0) <= 75 else "極度貪婪"
                 state = find_unique(row.select(".fg6-status"), "Fear & Greed status")
-                state.string = status
+                chinese = find_unique(state.select("b"), "Fear & Greed Chinese label")
+                english = find_unique(state.select("span"), "Fear & Greed English label")
+                english_map = {"極度恐懼": "Extreme Fear", "恐懼": "Fear", "中性": "Neutral", "貪婪": "Greed", "極度貪婪": "Extreme Greed"}
+                chinese.string = status
+                english.string = english_map[status]
     elif group == "fedwatch":
         update_fedwatch(container, snapshot.get("fedwatch", {}))
 
@@ -195,7 +199,9 @@ def update_fedwatch(container, fedwatch: dict) -> None:
     for row, outcome in zip(rows, probs):
         strong = find_unique(row.select("strong"), "FedWatch probability slot")
         rate_range = find_unique(row.select(".fc-range"), "FedWatch rate range slot")
+        label = find_unique(row.select(".fc-prob-label span:not(.fc-dot)"), "FedWatch outcome label")
         strong.string = f"{float(outcome['probability']):.1f}%"
+        label.string = "目標利率區間"
         rate_range.string = outcome["rate_range"]
     split = container.select_one(".fc-split-bar")
     if split:
