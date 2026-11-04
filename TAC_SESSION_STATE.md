@@ -433,3 +433,74 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新 commits：`6ca519a0801a1f5471883649ec219f3bb6d42d41`、`9cc5a10e38c59e98bcbf62b774d5455e6bcf751e`、`cd23d81b20c0a20c0ba609ba7d7952cad3d89f37`。這些 post-merge main commits 的 Structural Gate 最終狀態尚未取得。
 
 - 驗證限制補充：PR run `41385521727` 的 Playwright step 因 PR 沒有 dated preview 變更而跳過，僅 workflow step 成功結束，沒有執行新報告的實際視覺比較。
+
+
+---
+
+# 12. 2026-11-04｜WR v5.1 自動化殘留核對與接續錨點（最新優先）
+
+> 本節是 2026-11-04 的最新交接狀態；若與上方第 1–11 節的舊歷史描述衝突，以本節、main 最新 WR v5.1、Manifest 及即時 GitHub 狀態為準。舊節保留作歷史，不得照舊啟動已退役流程。
+
+## 12.1 最新基線（2026-11-04 回讀）
+- Repository：`lion-invlab/lion-invlab.github.io`，branch：`main`。
+- 本次核對時 main HEAD：`8abec31cb1440de973f840b034830bf4bc538028`。
+- 正式 WR：`TAC_WORK_RULES.md` v5.1；blob SHA：`daadc59c0b5043e2c38e6cc3b83fc205160d3177`。
+- 本狀態檔修改前 blob SHA：`2eb4b767392713937bc5d94544a1fc91b328a296`。
+- Manifest：`母版專區/mother-template-manifest.json`；blob SHA：`6f1fb4d3b350961c3adb28e7ff2f9dd4932e560e`。
+- 唯一 QA 清單：`母版專區/母版結構驗收清單.md`；blob SHA：`d2d90c990972f117414e169b07e1df69f79c49aa`。
+- Manifest 仍鎖定週一母版 SHA `0ea4775c5d15899a1e0b0a97c78744d90b8fff22`、週二至週五母版 SHA `e5976190efd4c7fcc92cd623bfa94926997cc672`；本輪未修改母版或 Manifest。
+
+## 12.2 WR v5.1 現行生產原則（覆蓋舊版排程／管線描述）
+- 每日早報由 ChatGPT 單一執行者直接完成；使用者提出需求時開始，不設早報或行事曆資料庫自動排程入口。
+- 行情直接查核並填入核准母版；行事曆只使用 `data/calendar/weeks/YYYY-Www.json`。
+- 不以 WR Lock、Issue #319 relay、Snapshot、Assembler、Renderer、Collector、Orchestrator 或 GitHub Actions 成功作為早報生產前置條件。
+- 舊 Snapshot、lock、workflow artifact、collector、assembler、renderer、validator 及歷史流程程式僅供歷史資料／必要回查，不得冒充當次資料或正式生產前置。
+- 每日交付仍須寫入並回讀 `preview/YYYY-MM-DD.html`，完成資料與內容、母版結構、互動、視覺四類 QA；未實測項目標示未測試。
+- 正式首頁 `index.html)、雙母版、Manifest 仍屬保護範圍；正式發布必須經使用者明確核准指定預覽版。
+
+## 12.3 本輪已核對的 workflow 與執行證據
+- main 的 `.github/workflows/` 目前有 8 個檔案：`archive_index.yml`、`company_nasdaq100.yml`、`company_profiles.yml`、`company_profiles_nasdaq100.yml`、`main.yml`、`mother-template-guard.yml`、`pages.yml`、`volatility-sticky-columns.yml`。
+- `tac-report-validation.yml` 不在目前 workflow 目錄；TAC Daily Report Structural Gate 已退出目前 workflow 清單。
+- 2026-11-04 的歷史 run 顯示 Structural Gate 曾多次失敗；之後 Pages workflow 與已退役 Gate 脫鉤。Pages 最新相關 run 成功只證明部署工作成功，不代表早報內容／視覺 QA 通過。
+- Mother Template Guard run `41774120466`（run #194，commit `8abec31cb1440de973f840b034830bf4bc538028`）成功；jobs 顯示週一母版、週二至週五母版、週末拒絕、Manifest SHA 篡改拒絕、日期檢查均成功。這是母版保護測試，不是每日預覽驗收。
+- Pages run `41772569357`（run #1383）成功；部署成功不等於報告內容正確。
+- Pages run `41754765860` 的 event 為 `workflow_run`，結論 `skipped`；兩個部署 jobs 均 skipped。不得把 skipped 當成部署成功。
+
+## 12.4 已讀取程式及已確認依賴
+- `scripts/assemble_tac_daily_snapshot.py`（blob `d7877a0541c6355fef702bfe56a8dc09a8a79851`）：匯集 source fragments，明確不抓行情、不編輯 HTML；import `validate_tac_daily_snapshot.py` 的 validator 與 sample snapshot。
+- `scripts/validate_tac_daily_snapshot.py`（blob `d5f63940a5ff412b7d831a9fbac7e11c449e8daa`）：使用 `tac_wr_lock.py` 讀取 WR 版本／lock，驗證 snapshot provenance 與 schema。
+- `scripts/tac_wr_lock.py`（blob `8e3734a5d60ca274aa663ec65d277a3843f4b2cc`）：解析 Git ref 的 WR 版本、commit、blob SHA 與內容 hash；屬舊 lock 流程工具。
+- `scripts/render_tac_market_snapshot_to_html.py`（blob `b920e0e64efcc082975dfb3318376885d81817db`）：只負責市場 snapshot 欄位綁定；檔頭明確聲明不是完整審核版 renderer，新聞、分析、經濟與財報行事曆需其他輸入／後續階段。
+- `scripts/ingest_tac_snapshot_comment.py`（blob `b2ce160766c8ef4549b77ba0640073537119a0b7`）：驗證 Issue #319 的認證 snapshot handoff 與 WR lock 欄位，屬舊 handoff。
+- `scripts/validate_tac_report.py`（blob `919a9270feda2b0e86b6e5d1a6fa8a97960a28b5`）：舊結構驗證器；會呼叫 `validate_mother_template.py`、`validate_tac_layout_contract.py`、`validate_tac_market_mapping.py`；自身聲明不驗證行情正確性或視覺。
+- `scripts/validate_tac_layout_contract.py`（blob `aa6fee03cc2c8e609236a1f24973922516fd4e45`）：唯讀 DOM 結構／動態卡片契約檢查。
+- `scripts/validate_tac_market_mapping.py`（blob `4f6d8c34f3ea50975a5fc000b0fb701808effa77`）：唯讀市場欄位／列數檢查；輸出明確限定為 structure only，不驗證報價日期或來源。
+- `scripts/validate_tac_html_binding.py`（blob `3f2fc593e3b3b60e44e5d6196929a9c0bd7c3af9`）：檢查雙母版 snapshot-to-DOM binding slots。
+- `scripts/tac_browser_layout_regression.mjs`：Playwright 瀏覽器比較工具，檢查 1440／768／320 視窗、區塊幾何、部分 computed styles、overflow、details、radio tabs、內部連結及部分加號尺寸；目前沒有接入現行 workflow。已知目前程式對本週經濟 plus 與 sector plus 的母版既有尺寸缺陷只輸出 WARN，不會 fail，因此其 PASS 不代表所有 plus 規格均符合。
+- `scripts/capture_tac_fedwatch_fallback.mjs`（blob `23b60139f466fe771e4fc08c2210965f9cfe3b65`）：只讀 Investing.com Fed Rate Monitor fallback capture；明確標記 fallback only，不是 CME；目前未證實接入正式 workflow。
+
+## 12.5 交叉引用掃描結果與限制
+- 已檢查現行 8 個 workflow、主要 TAC scripts 及部分文件的文字引用。
+- 可確認的程式內直接依賴：Assembler → Snapshot validator → WR lock；Report validator → Mother template validator、Layout contract validator、Market mapping validator。
+- `TAC_WORK_LOG.md` 仍有歷史引用 Assembler、WR lock、Snapshot validator；屬工作歷史記錄，不代表目前生產呼叫。
+- GitHub code search connector 對這些精確檔名未回傳可用結果；因此本輪不能宣稱完成整個 repository 所有 189 個檔案的全面依賴掃描。尚未逐一讀取的其他測試、資料、設定及所有文件引用，仍列待核實。
+- 沒有證據顯示現行 8 個 workflow 會呼叫 Snapshot／Assembler／Renderer／WR Lock；但也未把所有 repo 內可能的非 workflow 呼叫入口完全排除。
+
+## 12.6 本輪修改與保護狀態
+- 本次只更新本狀態檔作為交接錨點；沒有修改 WR、Manifest、雙母版、`index.html`、每日 preview、行事曆 JSON、workflow 或任何生產程式。
+- 更新前狀態檔 blob SHA：`2eb4b767392713937bc5d94544a1fc91b328a296`。
+- 本次核對／更新前 main HEAD：`8abec31cb1440de973f840b034830bf4bc538028`。
+- 更新後 commit／blob SHA 必須以本次 GitHub update 回報及隨後 readback 為準；未完成回讀前不得宣稱交接檔更新完成。
+
+## 12.7 下一步唯一工作位置
+1. 完成尚未覆蓋的 scripts／tests／config／docs 依賴引用掃描，特別確認舊 snapshot／lock／renderer 有沒有非 workflow 的呼叫入口。
+2. 依證據把程式分類為：仍獨立使用（保留）、歷史參考（保留但不得作生產前置）、疑似可停用（只列建議，不自行刪除）。
+3. 檢查目前正式 preview／每日早報工作是否需要任何這些舊工具；依 WR v5.1 原則不把它們重新接回生產流程。
+4. 除非發現明確、已證實的依賴或安全問題，否則不刪除程式、不重構 workflow、不改 WR／母版／Manifest／首頁。
+5. 每完成一個階段，立即更新本狀態檔的本節，記錄路徑、SHA、證據、未測試項目及下一步，避免跨對話重複核對。
+
+## 12.8 狀態標籤
+- 已完成：本節列明的 WR、Manifest、QA 清單、workflow 目錄、指定程式及指定 Actions run 已讀取。
+- 待核實：完整 repo-wide 依賴引用掃描、其他 scripts/tests/config 的間接呼叫、browser regression 工具的實際執行證據。
+- 未測試：本輪未執行任何舊工具的 self-test、未執行 Playwright browser regression、未對當日 preview 做 QA。
+- 未修改：除本狀態檔外，所有正式／生產資產均未修改。
