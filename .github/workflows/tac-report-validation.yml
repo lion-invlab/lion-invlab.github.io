@@ -15,6 +15,7 @@ on:
       - "scripts/validate_tac_daily_snapshot.py"
       - "scripts/assemble_tac_daily_snapshot.py"
       - "scripts/validate_tac_market_mapping.py"
+      - "scripts/render_tac_market_snapshot_to_html.py"
       - "scripts/tac_market_field_map.json"
       - "scripts/validate_tac_html_binding.py"
       - "scripts/tac_html_binding_map.json"
