@@ -5,7 +5,7 @@
   "week_start": "2026-11-02",
   "week_end": "2026-11-08",
   "created_at": "2026-11-01T00:00:00+08:00",
-  "updated_at": "2026-11-04T11:45:00+08:00",
+  "updated_at": "2026-11-04T11:52:00+08:00",
   "source_report_date": "2026-11-04",
   "wr_version": "5.0",
   "status": "active",
@@ -111,14 +111,14 @@
         "forecast": 4.85,
         "actual": 4.85,
         "status": "released",
-        "impact_judgment": "澳洲央行將現金利率目標上調25個基點至4.85%，表決為6票支持升息、3票維持不變。升息幅度符合市場事前預期，但央行指出通膨壓力仍廣泛且上行風險存在，政策訊號偏鷹；不能把符合預期的升息描述為意外緊縮。",
+        "impact_judgment": "澳洲央行將現金利率目標上調25個基點至4.85%，表決為6票支持升息、3票維持不變。升息幅度符合市場事前預期，但央行指出通膨壓力仍廣泛且上行風險存在，政策訊號偏鷹；不能把符合預期的升息描述為意外緊縮。後續觀察薪資、服務通膨及家庭需求對進一步升息的影響。",
         "source": {
           "name": "Reserve Bank of Australia｜Monetary Policy Decision, 3 November 2026",
           "url": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
-          "published_at": "2026-11-03",
-          "observed_at": "2026-11-04T04:43:37+08:00",
+          "published_at": "2026-11-03T14:30:00+11:00",
+          "observed_at": "2026-11-04T11:52:00+08:00",
           "publisher": "Reserve Bank of Australia",
-          "notes": "官方決議：cash rate target 上調25bp至4.85%，6-3表決；前值4.60%。決議日期為2026-11-03；既有官方行事曆確認公布時間14:30 AEDT，換算台灣時間11:30。"
+          "notes": "官方決議於2026-11-03 14:30 AEDT發布（換算台灣時間11:30）；cash rate target上調25bp至4.85%，6票支持、3票反對；前值4.60%。"
         },
         "data_unit": "% cash rate",
         "data_reference": {
@@ -173,23 +173,23 @@
         "forecast": null,
         "actual": 7.523,
         "status": "released",
-        "impact_judgment": "美國9月職缺為7.523M，較8月修訂值7.190M增加333K。BLS稱職缺、招聘與總離職整體變化不大；招聘5.402M、總離職5.319M。市場預期來源出現約7.1M至7.15M差異，且精確共識口徑不一致，因此forecast欄維持null，不選取單一數字；實際值高於各來源所示區間。",
+        "impact_judgment": "9月職缺7.523M，較8月修訂值7.190M增加333K；BLS表示職缺率4.5%、招聘5.402M、總離職5.319M。Reuters調查共識約7.100M，另有日曆來源列7.150M，因共識差異正式forecast欄維持null；實際值高於兩者。裁員與解雇約1.641M，Reuters指出為2025年3月以來低點，顯示勞動需求仍有韌性，但新增職缺增量較集中於州與地方政府，不能直接解讀為全面招聘加速。對Fed而言，勞動市場韌性可能使政策更重視通膨風險。",
         "source": {
           "name": "U.S. Bureau of Labor Statistics｜JOLTS, September 2026",
           "url": "https://www.bls.gov/news.release/jolts.htm",
           "published_at": "2026-11-03T10:00:00-05:00",
-          "observed_at": "2026-11-04T04:43:37+08:00",
+          "observed_at": "2026-11-04T11:52:00+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
-          "notes": "官方發布於2026-11-03 10:00 ET。9月職缺7.523M；8月由原7.079M修訂為7.190M；招聘5.402M、總離職5.319M。"
+          "notes": "BLS官方新聞稿明示發布於2026-11-03 10:00 ET。9月職缺7.523M；8月由原7.079M修訂為7.190M；招聘5.402M、總離職5.319M、離職自願辭職3.365M、裁員與解雇約1.641M（官方表格以千人為單位）。"
         },
         "data_unit": "million job openings",
         "data_reference": {
-          "name": "WSJ / ForexFactory｜JOLTS September 2026 market expectation cross-check",
-          "url": "https://www.wsj.com/economy/jobs/u-s-job-openings-rose-in-september-86fb0e38",
-          "published_at": null,
-          "observed_at": "2026-11-04T04:43:37+08:00",
-          "publisher": "Wall Street Journal; ForexFactory",
-          "notes": "WSJ報導經濟學家預期約7.1M（四捨五入）；ForexFactory日曆列示7.15M。精確共識不一致，故正式forecast欄不填值；僅作市場預期區間參考。"
+          "name": "Reuters｜US job openings jump in September; layoffs lowest in 1-1/2 years",
+          "url": "https://finance.yahoo.com/economy/articles/us-job-openings-increase-sharply-152156751.html",
+          "published_at": "2026-11-03T18:44:43Z",
+          "observed_at": "2026-11-04T11:52:00+08:00",
+          "publisher": "Reuters via Yahoo Finance",
+          "notes": "Reuters poll median 7.100M; other calendar sources showed 7.150M. Because consensus sources differ, formal forecast remains null; actual 7.523M is higher than both cited reference points. Reuters reported layoffs and discharges 1.641M, lowest since March 2025."
         },
         "previous_applicable": true,
         "forecast_applicable": true
@@ -2961,8 +2961,8 @@
         "https://www.riksbank.se/en-gb/press-and-published/calendar/calendar-2026/2026-11-04",
         "https://ballotpedia.org/Election_results,_2026"
       ],
-      "checked_at": "2026-11-04T11:18:00+08:00",
-      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 11:18 Asia/Taipei：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。"
+      "checked_at": "2026-11-04T11:52:00+08:00",
+      "notes": "第二輪宏觀日程掃描已新增歐元區 HICP 初值、美國期中選舉、日本央行會議紀錄、加拿大聯邦預算、加拿大就業報告及美國財政部季度再融資公告。歐元區 HICP 日期採用更新後 Eurostat 官方週曆 11/03（舊版 10/16 頁面曾列 11/04）；未確認時間均以 time_known=false 顯示。仍需最後檢查全球 PMI、其他主要經濟體及官方發布日程，故維持 incomplete。 已補入 TD Economics 11/2–11/6 表中可直接對應的六項事件 previous／forecast：ISM製造業、ADP、ISM服務業、非農、加拿大就業、英格蘭銀行利率；加拿大就業與非農的失業率／薪資次指標另存 components。歐元區 HICP 發布日期及口徑仍有官方行事曆差異，未套用該來源數值。 新增 JOLTS、RBA、Riksbank、Norges previous／forecast。BOJ展望報告、期中選舉、QRA、BOJ會議紀錄、加拿大預算案非 previous/forecast 數值型指標，已明確標記 not applicable；quality report 不再把它們計入缺漏。Riksbank forecast 依兩家研究機構共識，樣本有限並已註記。 HICP previous 3.8% 依 Eurostat 2026-10-16 官方已公布值；Brazil Copom previous 13.75% 依 BCB 官方 9月決議。兩項 forecast 因預期來源／發布序列口徑分歧仍待核實。\n2026-11-02 03:32 台灣時間增量核對：ISM製造業 54.7/54.5、ISM服務業 54.8/54.9；ADP forecast 68K/previous 90K；非農 forecast 63K/previous 29K；加拿大就業 forecast 14.5K/previous -68.3K；BoE previous 精確修正為 3.75%，市場 forecast 4.00%。JOLTS 最新可見日程只列 previous 7.079M，未列 forecast，故清除無法重現的 7.110M。Eurostat 系列頁列 11/04、官方週曆頁仍列 11/03，保留 pending_verification；BCB 官方日程只確認 11/03–04 會議，決議精確時刻待官方確認，亦標 pending_verification。BLS 11/05 Productivity and Costs (P) 已掃描，但 TAC 評級未達四星，排除原因記於 audit。其餘主要經濟體、所有每日發布序列及部分共識／次指標仍未完成全週核對，coverage 維持 incomplete。\n2026-11-02 12:47 台灣時間增量核對（WR 4.3）：新增中國人民銀行 11/02 起每日隔夜逆回購操作框架調整事件，首日利率 1.25%、操作量人民幣 5,410 億元；精確操作時間未確認，time_known=false。PBOC 公告全文由媒體轉載並標示來源為央行網站，Reuters 交叉確認首日操作量與市場影響；此舉不等同傳統政策利率直接降息。ADP 68K／前值 90K、非農 63K／前值 29K 重新以 Investing.com 香港站核對，數值未變，已將 data_reference 改為香港站。另掃描 TD Economics 11/2–11/6 及 Investing.com 香港站當日資料：S&P Global 製造業／服務業 PMI、Factory Orders、Durable Goods Orders、Trade Balance、澳洲 MI Inflation Gauge／Building Approvals、韓國製造業 PMI 均未達 TAC 四星門檻，排除並記錄 audit。其他主要經濟體及部分日常發布序列仍未完成全週核對，coverage 維持 incomplete。\n2026-11-03 03:26 台灣時間增量核對：美國 ISM 製造業 PMI 官方實際值 55.5、前值 54.5；高於資料庫原存共識 54.7，已更新 released。日本央行 October 2026 Outlook 全文依官方 PDF 封面 embargo 於 11/02 14:00 JST 公開，已更新 released，previous／forecast 不適用。歐元區 10 月 HICP flash：最新 Eurostat 2–6 Nov 官方週曆列 11/03，但 10/16 產品說明仍列 11/04；日期先按最新週曆更新，仍保留 pending_verification 與 time_known=false。Eurostat building permits 經 TAC 評級未達四星，已排除。RBA 決議與美國 JOLTS 尚未到預定公布時點，actual 保持 null；其他主要經濟體及次級發布序列仍未完成全週掃描，coverage 維持 incomplete。\n2026-11-04 04:30 Asia/Taipei：RBA 11/03官方決議actual 4.85%；JOLTS 9月actual 7.523M、8月修訂7.190M，forecast來源約7.1–7.15M不一致，正式forecast維持null。Eurostat Flash日期／時間仍待核實：一般Euro-indicators頁面下一次常規發布為11/18，ECB 11/04 15:00 CET為另一季調HICP資料系列，不據此覆蓋Eurostat事件日期。Riksbank 11/04 09:30 CET已核對；QRA 11/04與加拿大Budget 11/05日期確認但精確時間未知；美國中期選舉截至本次觀察仍在投票／計票，結果待核實；Brazil Copom決議時間仍待官方確認。其餘主要市場及日期欄位尚未完成全範圍核對，維持incomplete。\n2026-11-04 11:18 Asia/Taipei：依WR v5.0重新確認W45事件欄位與發布狀態；Eurostat HICP仍因官方日曆與產品頁日期／時間口徑不一致而保留pending_verification，不以二手摘要補值。coverage維持incomplete。\n2026-11-04 11:52 Asia/Taipei：重新直接讀取BLS 2026-09 JOLTS官方新聞稿，確認actual 7.523M、previous 7.190M（修訂後）、發布時間2026-11-03 10:00 ET；共識7.100M與7.150M來源不一致，正式forecast維持null。同步回讀RBA官方決議，確認14:30 AEDT發布、cash rate 4.85%、6-3表決。"
     },
     "earnings": {
       "status": "incomplete",
@@ -10708,6 +10708,32 @@
       ],
       "source": "https://ca.investing.com/news/stock-market-news/booking-holdings-q3-2026-slides-room-night-growth-accelerates-to-7-93CH-4927252",
       "note": "before={\"eps_estimate\":1.23,\"revenue_estimate\":16.26,\"eps_comparison_status\":\"beat\",\"revenue_comparison_status\":\"beat\",\"stock_price_reaction\":\"盤後上漲9.78%\"}; re-read accessible original source; remove unsupported consensus fields, keep only verified same-basis values."
+    },
+    {
+      "at": "2026-11-04T11:52:00+08:00",
+      "action": "event_reverified",
+      "event_id": "current-us-jolts-20261103",
+      "changed_fields": [
+        "source.observed_at",
+        "source.notes",
+        "data_reference",
+        "impact_judgment"
+      ],
+      "source": "https://www.bls.gov/news.release/jolts.htm",
+      "note": "before={\"actual\":7.523,\"forecast\":null,\"previous\":7.19}; BLS confirms actual 7.523M, prior revised 7.190M; Reuters consensus 7.100M vs calendar 7.150M so forecast remains null."
+    },
+    {
+      "at": "2026-11-04T11:52:00+08:00",
+      "action": "event_reverified",
+      "event_id": "current-rba-rate-20261103",
+      "changed_fields": [
+        "source.observed_at",
+        "source.published_at",
+        "source.notes",
+        "impact_judgment"
+      ],
+      "source": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
+      "note": "before={\"actual\":4.85,\"forecast\":4.85,\"previous\":4.6}; RBA confirms target 4.85%, prior 4.60%, 6-3 vote; 14:30 AEDT publication."
     }
   ]
 }
