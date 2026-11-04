@@ -1,6 +1,6 @@
 # TAC 投資早報｜正式工作規則
 
-版本：5.1（2026-11-04｜全專案每次修改強制閉環）
+版本：5.2（2026-11-04｜期貨活躍合約與連結同步）
 建立日期：2026-10-28
 本次整併日期：2026-11-04
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
@@ -187,7 +187,9 @@
 - **WTI：** 欄位採期貨結算價，優先 CME／NYMEX Daily Settlements `https://www.cmegroup.com/market-data/daily-settlements.html`；備援 Investing.com `https://www.investing.com/commodities/crude-oil-historical-data`。不得用 EIA 現貨價替代。
 - **Brent：** 優先 ICE Brent 官方產品／結算資訊 `https://www.ice.com/products/219`；備援 Investing.com `https://www.investing.com/commodities/brent-oil-historical-data`。核對合約月份、日期及結算口徑。
 - **黃金 GC、白銀 SI：** 優先 CME／COMEX Daily Settlements `https://www.cmegroup.com/market-data/daily-settlements.html`；備援 Investing.com 黃金 `https://www.investing.com/commodities/gold-historical-data`、白銀 `https://www.investing.com/commodities/silver-historical-data`。不得以 XAU/USD、XAG/USD 現貨或 LBMA／ICE IBA 定盤價替代期貨欄位。
-- **期貨換月：** 記錄標的、合約月份、交易日期、settlement／close 欄位及來源。Investing.com 連續期貨序列不得冒稱特定交易所合約官方結算價；換月日若不可比，不自行計算漲跌幅，標示待核實。
+- **期貨活躍合約選取（WTI、Brent、黃金 GC、白銀 SI）：** 每個報告基準日均須依該商品交易所／合約市場的最新完整交易日合約清單，選取「最近活躍合約」，不得單純按距離到期日最近或為四項商品強制使用同一月份。先排除已到最後交易日、已進入交割／通知限制期或不適合一般市場代表性的合約；在最近的可交易交割月份中，以最新完整交易日成交量最高者作為主選，並以未平倉量、交易所換月／到期日規則及前後交易日成交量作交叉確認。若近月成交量已被次月持續超越，應切換至次月；若成交量、未平倉量或到期限制訊號互相矛盾，標示待核實，不自行猜選。每筆須記錄交易所、標準合約代碼、交割月份、成交量、可得的未平倉量、最後交易日／交割限制、基準交易日及來源。歷史早報必須按該歷史基準日當時可得的合約資料選取，不得用今日活躍月份回填歷史日期。
+- **期貨報價與換月：** WTI、Brent、GC、SI 均須採已選定具體交割月份的同一合約報價；優先使用交易所該合約官方 settlement，備援平台報價須明確標示平台 close／last，不得冒稱官方 settlement。Investing.com 連續期貨序列不得冒稱特定交易所合約官方結算價；不得將連續序列價格與單一合約價格混算漲跌幅。換月日若前後合約不可比，不自行計算漲跌幅，標示待核實。
+- **期貨商品名稱超連結同步：** WTI、Brent、黃金 GC、白銀 SI 的可見名稱／代碼須顯示本次採用的交割月份（例如「WTI Dec 2026」），其 href 必須同步指向同一交易所、同一商品、同一交割月份的合約專屬頁。若來源沒有可驗證的合約專屬頁，才可連至該商品的合約月份清單頁，且該頁必須實際列出本次選定月份；不得保留指向舊月份、連續合約、現貨商品或泛用介紹頁的舊連結。每次換月須同時更新可見標籤、href、資料來源說明及連結驗收紀錄；若無法驗證相符目的頁，該項連結標示待核實，不得宣稱連結 Gate 通過。
 - **其他全球指數與 11 大產業 ETF：** 依核准母版指定的 Investing.com 香港站對應標的頁讀取；核對標的、交易日、正式收盤及漲跌幅。不得以相似代碼或不同市場標的代替。
 
 ### D4. 關鍵價位
@@ -201,7 +203,7 @@
 - 全球指數：道瓊 `https://hk.investing.com/indices/us-30`；S&P 500 `https://hk.investing.com/indices/us-spx-500`；Nasdaq Composite `https://hk.investing.com/indices/nasdaq-composite`；Russell 2000 `https://hk.investing.com/indices/smallcap-2000`；SOX `https://hk.investing.com/indices/phlx-semiconductor`；Hang Seng `https://hk.investing.com/indices/hang-sen-40`；上海綜合 `https://hk.investing.com/indices/shanghai-composite`；深證成指 `https://hk.investing.com/indices/szse-component`；Nikkei 225 `https://hk.investing.com/indices/japan-ni225`；KOSPI `https://hk.investing.com/indices/kospi`；台灣加權 `https://hk.investing.com/indices/taiwan-weighted`；STI `https://hk.investing.com/indices/singapore-straits-time`；S&P/ASX 200 `https://hk.investing.com/indices/aus-200-historical-data`；FTSE 100 `https://hk.investing.com/indices/uk-100`；DAX `https://hk.investing.com/indices/germany-30`；CAC 40 `https://hk.investing.com/indices/france-40`；STOXX Europe 600 `https://hk.investing.com/indices/stoxx-600`。
 - 風險／情緒：VIX `https://hk.investing.com/indices/volatility-s-p-500`；MOVE `https://hk.investing.com/indices/ice-bofaml-move`；CNN Fear & Greed `https://edition.cnn.com/markets/fear-and-greed`（同頁開啟）。
 - 殖利率：美國 2 年 `https://www.investing.com/rates-bonds/u.s.-2-year-bond-yield`；10 年 `https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield`；30 年 `https://www.investing.com/rates-bonds/u.s.-30-year-bond-yield`。
-- 外匯／商品：DXY `https://www.investing.com/indices/usdollar`；USD/TWD `https://hk.investing.com/currencies/usd-twd`；EUR/USD `https://hk.investing.com/currencies/eur-usd`；GBP/USD `https://hk.investing.com/currencies/gbp-usd`；AUD/USD `https://hk.investing.com/currencies/aud-usd`；USD/JPY `https://hk.investing.com/currencies/usd-jpy`；WTI `https://hk.investing.com/commodities/crude-oil`；Brent `https://hk.investing.com/commodities/brent-oil`；黃金 `https://hk.investing.com/commodities/gold`；白銀 `https://hk.investing.com/commodities/silver`。
+- 外匯／商品：DXY `https://www.investing.com/indices/usdollar`；USD/TWD `https://hk.investing.com/currencies/usd-twd`；EUR/USD `https://hk.investing.com/currencies/eur-usd`；GBP/USD `https://hk.investing.com/currencies/gbp-usd`；AUD/USD `https://hk.investing.com/currencies/aud-usd`；USD/JPY `https://hk.investing.com/currencies/usd-jpy`。WTI、Brent、黃金 GC、白銀 SI 不再固定連至泛用商品頁，依 D3「期貨商品名稱超連結同步」規則，href 必須隨採用的活躍交割月份同步更新；合約專屬頁不可驗證時，使用實際列出該月份的合約清單頁，並在可見名稱標明月份。
 - 11 大產業 ETF：XLE `https://hk.investing.com/etfs/spdr-energy-select-sector-fund`；XLF `https://hk.investing.com/etfs/financial-select-sector-spdr-fund`；XLK `https://hk.investing.com/etfs/spdr-select-sector---technology`；XLI `https://hk.investing.com/etfs/industrial-sector-spdr-trust`；XLY `https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector`；XLP `https://hk.investing.com/etfs/spdr---consumer-staples`；XLU `https://hk.investing.com/etfs/spdr-select-sector---utilities`；XLV `https://hk.investing.com/etfs/spdr---health-care`；XLB `https://hk.investing.com/etfs/spdr-materials-select-sector-etf`；XLRE `https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413`；XLC `https://hk.investing.com/etfs/communication-services-select-spdr`。
 - 同一指數在不同頁籤重複出現時，href 必須一致；連結不可包住數值、漲跌幅或評論。連結目的頁驗收只確認連結與標的相符，不代表行情數據已核實。
 
@@ -280,6 +282,11 @@
 4. 同一路徑不可並行寫入。更新前先回讀當前版本與 SHA；更新後重新 fetch 回讀，核對內容、commit／blob SHA 及未授權檔案未變更。
 5. 長期規則變更須記錄日期、舊規則、新規則、適用範圍與原因；只更新本檔，不另建第二份 Work Rules。每次規則變更後做章節編號、內部引用、連結、重複條文與必要需求保留檢查。
 
+### 版本 5.2（2026-11-04｜期貨活躍合約與名稱連結同步）
+- 依使用者確認，新增 WTI、Brent、黃金 GC、白銀 SI 的最近活躍合約選取原則：以基準日最新完整交易日成交量為主，交叉核對未平倉量、到期／交割限制及換月訊號；各商品可採不同月份，歷史報告按當時資料判定。
+- 明確區分交易所官方 settlement 與平台 close／last，禁止連續期貨序列冒充單一交割月份官方結算。
+- 明定商品名稱可見月份與 href 必須同步切換至相同商品、交易所及交割月份；無合約專屬頁時僅可使用確實列出該月份的合約清單頁，禁止保留泛用商品頁或錯誤月份連結。
+- D5 移除四項期貨固定泛用商品頁連結規範，改由 D3 的動態合約連結規則管理。
 ## J. 版本紀錄
 
 ### 版本 5.1（2026-11-04｜全專案每次修改強制閉環）
