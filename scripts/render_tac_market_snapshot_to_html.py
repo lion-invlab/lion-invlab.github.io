@@ -185,6 +185,30 @@ def update_group(soup, group: str, spec: dict, snapshot: dict) -> None:
         update_fedwatch(container, snapshot.get("fedwatch", {}))
 
 
+
+def rate_range_bounds(value: str) -> tuple[float, float]:
+    match = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*%\s*[-–—]\s*(\d+(?:\.\d+)?)\s*%\s*", value)
+    if not match:
+        fail(f"Unrecognized Fed target-rate range: {value!r}")
+    lower, upper = map(float, match.groups())
+    if lower >= upper:
+        fail(f"Invalid Fed target-rate range: {value!r}")
+    return lower, upper
+
+
+def classify_rate_outcome(rate_range: str, current_rate_range: str) -> str:
+    lower, upper = rate_range_bounds(rate_range)
+    current_lower, current_upper = rate_range_bounds(current_rate_range)
+    if abs(lower-current_lower) < 1e-6 and abs(upper-current_upper) < 1e-6:
+        return "維持不變"
+    if upper <= current_lower:
+        steps = round((current_lower-lower)/0.25)
+        return f"降息{steps}碼" if steps else "降息"
+    if lower >= current_upper:
+        steps = round((lower-current_upper)/0.25)
+        return f"升息{steps}碼" if steps else "升息"
+    fail(f"Outcome range {rate_range!r} overlaps current range {current_rate_range!r} ambiguously")
+
 def update_fedwatch(container, fedwatch: dict) -> None:
     probs = fedwatch.get("probabilities", [])
     if fedwatch.get("status") != "verified":
@@ -280,9 +304,14 @@ def self_test() -> None:
     assert format_change({"status": "verified", "change": -0.39, "change_unit": "percent"}) == "−0.39%"
     assert format_change({"status": "pending_verification", "change": None}) == "待核實"
     assert abs(26.6 + 73.4 - 100) < 0.001
+    assert classify_rate_outcome("3.50%-3.75%", "3.75%-4.00%") == "降息一碼"
+    assert classify_rate_outcome("3.75%-4.00%", "3.75%-4.00%") == "維持不變"
+    assert classify_rate_outcome("4.00%-4.25%", "3.75%-4.00%") == "升息一碼"
+    assert classify_rate_outcome("3.25%-3.50%", "3.75%-4.00%") == "降息兩碼"
     print("PASS: numeric formatting and signed percentage formatting")
     print("PASS: missing data is rendered as 待核實")
     print("PASS: FedWatch probability arithmetic")
+    print("PASS: FedWatch cut/hold/hike classification")
 
 
 def main() -> int:
