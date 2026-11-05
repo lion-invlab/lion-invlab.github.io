@@ -724,3 +724,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 情緒解讀校正：VIX 26.01（+56.59%）與 MOVE 97.92（+4.30%）同向走高，股票與美債波動壓力同時升溫；CNN 20/100 顯示極度恐懼，較前收 27、1 週前 30、1 個月前 43 進一步惡化。
 - FedWatch 仍採 Investing.com Fed Rate Monitor 12/09 會議：升息 64.7%、維持 35.3%；CME 官方 iframe 分布尚未讀取，不得稱已交叉核對。
 - 此校正僅更新 F 情緒指標與文字依據；尚未組裝進 HTML，亦未執行第五步 QA。
+
+
+### 2026/11/06 G 階段狀態
+- 審核版已寫入 preview/2026-11-06.html，最終讀回 SHA 44d82fd2c4967665feb4f5d44ee3dff8115e4a32。
+- 依核准 weekdays 母版 SHA 3785405e331b10ec6189002e480be2a1edbe20ef；W45 JSON SHA bef8db0fb4d37774194e731e1d35c518d0996e55；WR v5.13 SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb。
+- 更新總結、情緒、17 個全球市場列、11 ETF、債匯商品、新聞 5+10、經濟 18、財報 38、Fed Rate Monitor 與盤面觀察。行情 43/44 已核實，1 項待核實；CME FedWatch 交叉核對未完成；Atlassian 官方原始稿待補核。
+- HTML section/article/div/details 標籤堆疊檢查無未閉合或多餘結束標籤。視覺回歸及互動測試未執行，故僅為審核版，不代表完整 QA。未修改首頁、母版、Manifest 或排程，未發布。
