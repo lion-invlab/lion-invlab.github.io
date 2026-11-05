@@ -54,10 +54,10 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
       <button class="tab" type="button" data-symbol="OANDA:NAS100USD" aria-pressed="false">Nasdaq 100</button>
       <button class="tab" type="button" data-symbol="OANDA:US30USD" aria-pressed="false">Dow Jones</button>
       <button class="tab" type="button" data-symbol="OANDA:US2000USD" aria-pressed="false">Russell 2000</button>
-      <button class="tab" type="button" data-symbol="CME_MINI:SOX1!" aria-pressed="false">費城半導體期貨</button>
+      <button class="tab" type="button" data-symbol="TAIFEX:SXF1!" aria-pressed="false">費城半導體期貨</button>
     </nav>
     <section class="chart-wrap" aria-label="指數互動走勢圖"><div id="chart"></div></section>
-    <footer>前四項為 OANDA 指數 CFD；第五項為 CME E-mini PHLX 半導體指數期貨（SOX1!），期貨價格不等同現貨指數點位。</footer>
+    <footer>前四項為 OANDA 指數 CFD；第五項為 TAIFEX PHLX 半導體指數期貨（SXF1!），期貨價格不等同現貨指數點位。</footer>
   </section>
   <section id="overviewView" class="overview-grid" aria-label="五大指數同步走勢" hidden>
     <article class="mini-card"><div class="mini-title">S&amp;P 500</div><div class="mini-chart"></div></article>
@@ -97,7 +97,7 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
   function renderOverview(){
     if(overviewRendered) return;
     const cards=[...overviewView.querySelectorAll('.mini-card')];
-    const symbols=['OANDA:SPX500USD','OANDA:NAS100USD','OANDA:US30USD','OANDA:US2000USD','CME_MINI:SOX1!'];
+    const symbols=['OANDA:SPX500USD','OANDA:NAS100USD','OANDA:US30USD','OANDA:US2000USD','TAIFEX:SXF1!'];
     cards.forEach((card,index)=>{
       const host=card.querySelector('.mini-chart');
       const container=document.createElement('div');
