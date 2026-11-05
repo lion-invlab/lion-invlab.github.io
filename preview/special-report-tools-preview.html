@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC 工具欄｜專題報導功能試作</title>
+<style>
+:root{--red:#b8202f;--ink:#202630;--muted:#8a929d;--line:#e3e6ea;--bg:#f3f4f6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#202630;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+@media(min-width:1100px){body{padding-left:208px}}
+.sidebar{position:fixed;z-index:5;left:0;top:0;bottom:0;width:208px;padding:22px 14px;background:#fff;border-right:1px solid #e2e5e9;box-shadow:5px 0 18px #161c240b;display:flex;flex-direction:column;gap:9px}
+.brand{font-weight:950;font-size:17px;color:var(--red);padding:4px 8px 18px;border-bottom:1px solid #eceef1;margin-bottom:8px}
+.caption{font-size:10px;font-weight:800;color:var(--muted);letter-spacing:1.1px;padding:4px 9px}
+.tool{display:flex;align-items:center;gap:10px;padding:12px 11px;border-radius:9px;text-decoration:none;color:#38414c;border:1px solid transparent;font-size:13px;font-weight:800;cursor:pointer;background:white}
+.tool:hover,.tool.active{background:#fff4f4;border-color:#f0d4d7;color:#a92332}
+.ico{width:27px;height:27px;border-radius:7px;display:grid;place-items:center;background:#f0f2f5;font-size:15px;flex-shrink:0}
+.history{margin-top:-3px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#f8f9fa}
+.history label{display:block;font-size:11px;font-weight:800;color:#606873;margin-bottom:6px}
+.history input{width:100%;height:36px;border:1px solid #dfe3e8;border-radius:7px;padding:0 8px;background:white}
+.history button{width:100%;margin-top:7px;min-height:36px;border:0;border-radius:7px;background:#202630;color:white;font-weight:800}
+.history button.primary{background:var(--red)}
+.foot{margin-top:auto;font-size:10px;line-height:1.7;color:#98a0aa;padding:10px 8px;border-top:1px solid #eceef1}
+main{max-width:1120px;margin:0 auto;padding:32px 26px}
+.topline{font-size:12px;color:#737981;margin-bottom:10px}
+h1{font-size:27px;margin:0 0 8px;font-weight:950}
+.lead{color:#626a74;font-size:14px;line-height:1.7;margin:0 0 22px}
+.panel{background:white;border:1px solid var(--line);border-radius:13px;padding:20px;box-shadow:0 2px 8px #00000008}
+.search{display:flex;align-items:center;gap:10px;border:1px solid #dfe3e8;border-radius:9px;padding:0 13px;height:48px;background:#fff}
+.search input{border:0;outline:0;flex:1;min-width:0;font-size:14px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 20px}
+.filter{border:1px solid #e2e5e9;background:#fff;border-radius:99px;padding:7px 13px;font-size:12px;font-weight:800;color:#535c67;cursor:pointer}
+.filter.active{background:#202630;color:#fff;border-color:#202630}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:6px 0 12px}
+.sectionhead strong{font-size:16px}.count{font-size:11px;color:#858d97}
+.article{display:grid;grid-template-columns:112px 1fr auto;gap:16px;align-items:center;padding:15px 0;border-top:1px solid #edf0f2}
+.thumb{height:82px;border-radius:9px;background:linear-gradient(135deg,#1b2638,#43546b);display:grid;place-items:center;color:#f6d78a;font-size:28px}
+.article h2{font-size:16px;margin:0 0 6px;font-weight:900}
+.meta{font-size:11px;color:#858d97;margin-bottom:7px}
+.desc{font-size:12px;color:#59616b;line-height:1.6}
+.open{white-space:nowrap;color:var(--red);font-size:12px;font-weight:900;text-decoration:none}
+.empty{display:none;padding:28px 10px;text-align:center;color:#858d97;font-size:13px}
+.note{margin-top:15px;color:#9097a0;font-size:10px;line-height:1.6}
+.mobile-trigger,.close,.backdrop{display:none}
+@media(max-width:1099px){
+ .sidebar{width:min(82vw,310px);padding:22px 16px;transform:translateX(-110%);transition:transform .22s;z-index:20;overflow:auto}
+ body.open .sidebar{transform:translateX(0)}
+ .backdrop{display:none;position:fixed;inset:0;background:#0a0f167a;z-index:19}
+ body.open .backdrop{display:block}
+ .close{display:block;margin-left:auto;border:1px solid #e0e4e9;background:white;border-radius:8px;padding:5px 10px;font-size:18px}
+ .mobile-trigger{display:flex;position:fixed;z-index:15;left:12px;bottom:18px;border:0;border-radius:999px;padding:11px 15px;background:#202630;color:#fff;font-size:12px;font-weight:850;box-shadow:0 5px 18px #0003}
+ main{padding:28px 15px 88px}
+ h1{font-size:23px}
+ .panel{padding:15px}
+ .article{grid-template-columns:76px 1fr;gap:12px}
+ .thumb{height:72px}
+ .open{grid-column:2}
+}
+</style>
+</head>
+<body>
+<aside class="sidebar" id="sidebar" aria-label="TAC 工具欄">
+ <div style="display:flex;align-items:center;gap:8px"><div class="brand" style="flex:1">TAC 工具欄</div><button class="close" onclick="toggleTools(false)" aria-label="關閉">×</button></div>
+ <div class="caption">QUICK ACCESS</div>
+ <a class="tool" href="https://lion-invlab.github.io/volatility.html"><span class="ico">📊</span><span>美股個股波動率</span></a>
+ <a class="tool" href="https://lion-invlab.github.io/fund-dividend.html"><span class="ico">💰</span><span>Q4 精選基金</span></a>
+ <a class="tool" href="https://lion-invlab.github.io/history/index_2026-11-05.html"><span class="ico">📚</span><span>歷史早報</span></a>
+ <a class="tool active" href="#special-index" onclick="showSpecial(event)"><span class="ico">📖</span><span>專題報導</span></a>
+ <div class="foot">TAC 投資早報<br>研究專題索引與歷史查詢</div>
+</aside>
+<div class="backdrop" onclick="toggleTools(false)"></div>
+<button class="mobile-trigger" onclick="toggleTools(true)">☰ <span style="margin-left:7px">工具欄</span></button>
+<main id="special-index">
+ <div class="topline">TAC 投資早報　/　工具欄　/　專題報導</div>
+ <h1>專題報導</h1>
+ <p class="lead">集中查找 TAC 投資早報刊載的深度研究，依關鍵字、日期與主題分類瀏覽歷史專題。</p>
+ <section class="panel">
+  <div class="search"><span>⌕</span><input id="q" type="search" placeholder="搜尋專題標題、關鍵字或摘要…" oninput="filterArticles()"></div>
+  <div class="filters">
+   <button class="filter active" data-cat="全部" onclick="setCategory('全部',this)">全部專題</button>
+   <button class="filter" data-cat="美股" onclick="setCategory('美股',this)">美股</button>
+   <button class="filter" data-cat="總體經濟" onclick="setCategory('總體經濟',this)">總體經濟</button>
+   <button class="filter" data-cat="產業分析" onclick="setCategory('產業分析',this)">產業分析</button>
+   <button class="filter" data-cat="投資策略" onclick="setCategory('投資策略',this)">投資策略</button>
+  </div>
+  <div class="sectionhead"><strong>歷史專題索引</strong><span class="count" id="count">1 篇專題</span></div>
+  <article class="article" data-category="美股" data-search="美股歷史報酬分析 美國股市 長期報酬 年度績效 歷史週期">
+   <div class="thumb">TAC</div>
+   <div><h2>美股歷史報酬分析</h2><div class="meta">2026/11/05　·　美股　·　歷史績效</div><div class="desc">回顧美股長期歷史報酬、年度表現與不同市場週期，作為理解市場風險與長期投資的重要參考。</div></div>
+   <a class="open" href="https://lion-invlab.github.io/research/us-midterm-divided-government-2026.html" target="_blank" rel="noopener">閱讀專題 ↗</a>
+  </article>
+  <div class="empty" id="empty">找不到符合條件的專題，請調整搜尋關鍵字或分類。</div>
+  <div class="note">試作版目前先展示已知專題資料；正式建置時，索引將由實際發布紀錄累積，不會以示意文章充當歷史資料。</div>
+ </section>
+</main>
+<script>
+let category='全部';
+function toggleTools(open){document.body.classList.toggle('open',open)}
+function showSpecial(e){e.preventDefault();toggleTools(false);document.getElementById('special-index').scrollIntoView({behavior:'smooth'})}
+function setCategory(c,el){category=c;document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));el.classList.add('active');filterArticles()}
+function filterArticles(){const q=document.getElementById('q').value.trim().toLowerCase();let n=0;document.querySelectorAll('.article').forEach(a=>{const ok=(category==='全部'||a.dataset.category===category)&&a.dataset.search.toLowerCase().includes(q);a.style.display=ok?'grid':'none';if(ok)n++});document.getElementById('count').textContent=n+' 篇專題';document.getElementById('empty').style.display=n?'none':'block'}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleTools(false)});
+</script>
+</body>
+</html>
