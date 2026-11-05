@@ -9,6 +9,7 @@ on:
       - "research/**"
       - "index.html"
       - "special-reports.html"
+      - "scripts/build-special-reports-index.py"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -34,6 +35,9 @@ jobs:
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+
+      - name: Generate TAC special reports index
+        run: python3 scripts/build-special-reports-index.py
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
