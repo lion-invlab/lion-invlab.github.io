@@ -28,7 +28,7 @@ main{width:100%;max-width:1500px;margin:0 auto;padding:8px 12px 8px;display:flex
 .mini-card{min-width:0;min-height:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:9px;background:#0b111b;overflow:hidden}
 .mini-title{flex:0 0 auto;padding:5px 7px 2px;font-size:11px;font-weight:700;color:#dce5f3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mini-chart{flex:1;min-height:0;width:100%;height:100%;overflow:hidden}
-tv-mini-chart{display:block;width:100%;height:100%;min-height:0}
+
 .mini-card:last-child{grid-column:1 / -1}
 #chart,.tradingview-widget-container,.tradingview-widget-container__widget{width:100%;height:100%;min-height:0}
 .tradingview-widget-container iframe{width:100%!important;height:100%!important}
@@ -36,7 +36,7 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
 @media(min-width:700px){header{padding-top:22px}main{padding:12px 20px 12px}.tab{font-size:14px;padding:11px 20px}.overview-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:12px}.mini-card:last-child{grid-column:auto}.mini-title{font-size:13px;padding:8px 10px 3px}}
 @media(max-width:420px){header{padding:calc(7px + env(safe-area-inset-top)) 12px 6px}h1{font-size:18px}.sub{font-size:9px}.view-tab{padding:8px;font-size:12px}.tab{padding:8px 12px;font-size:12px}.tabs{padding-bottom:7px}main{padding:4px 10px calc(5px + env(safe-area-inset-bottom))}footer{display:none}.overview-grid{gap:6px}.mini-title{font-size:10px;padding:4px 5px 1px}}
 </style>
-<script type="module" src="https://www.tradingview-widget.com/w/en/tv-mini-chart.js"></script>
+
 </head>
 <body>
 <header>
@@ -60,11 +60,11 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
     <footer>前四項為 OANDA 指數 CFD；第五項為 NASDAQ:SOXQ ETF，追蹤 PHLX 半導體指數。ETF 價格不等同指數點位。</footer>
   </section>
   <section id="overviewView" class="overview-grid" aria-label="五大指數同步走勢" hidden>
-    <article class="mini-card"><div class="mini-title">S&amp;P 500</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:SPX500USD" theme="dark"></tv-mini-chart></div></article>
-    <article class="mini-card"><div class="mini-title">Nasdaq 100</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:NAS100USD" theme="dark"></tv-mini-chart></div></article>
-    <article class="mini-card"><div class="mini-title">Dow Jones</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:US30USD" theme="dark"></tv-mini-chart></div></article>
-    <article class="mini-card"><div class="mini-title">Russell 2000</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:US2000USD" theme="dark"></tv-mini-chart></div></article>
-    <article class="mini-card"><div class="mini-title">半導體 SOXQ</div><div class="mini-chart"><tv-mini-chart symbol="NASDAQ:SOXQ" theme="dark"></tv-mini-chart></div></article>
+    <article class="mini-card"><div class="mini-title">S&amp;P 500</div><div class="mini-chart"></div></article>
+    <article class="mini-card"><div class="mini-title">Nasdaq 100</div><div class="mini-chart"></div></article>
+    <article class="mini-card"><div class="mini-title">Dow Jones</div><div class="mini-chart"></div></article>
+    <article class="mini-card"><div class="mini-title">Russell 2000</div><div class="mini-chart"></div></article>
+    <article class="mini-card"><div class="mini-title">半導體 SOXQ</div><div class="mini-chart"></div></article>
   </section>
 </main>
 <script>
@@ -93,12 +93,36 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
     container.appendChild(script);
     chart.appendChild(container);
   }
+  let overviewRendered=false;
+  function renderOverview(){
+    if(overviewRendered) return;
+    const cards=[...overviewView.querySelectorAll('.mini-card')];
+    const symbols=['OANDA:SPX500USD','OANDA:NAS100USD','OANDA:US30USD','OANDA:US2000USD','NASDAQ:SOXQ'];
+    cards.forEach((card,index)=>{
+      const host=card.querySelector('.mini-chart');
+      const container=document.createElement('div');
+      container.className='tradingview-widget-container';
+      container.style.cssText='width:100%;height:100%';
+      const widget=document.createElement('div');
+      widget.className='tradingview-widget-container__widget';
+      widget.style.cssText='width:100%;height:100%';
+      container.appendChild(widget);
+      const script=document.createElement('script');
+      script.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+      script.async=true;
+      script.textContent=JSON.stringify({autosize:true,symbol:symbols[index],interval:'60',timezone:'Asia/Taipei',theme:'dark',style:'1',locale:'zh_TW',allow_symbol_change:false,calendar:false,hide_top_toolbar:true,hide_side_toolbar:true,hide_legend:true,save_image:false,withdateranges:false,details:false,hotlist:false,show_popup_button:false,support_host:'https://www.tradingview.com'});
+      container.appendChild(script);
+      host.replaceChildren(container);
+    });
+    overviewRendered=true;
+  }
   function setView(view){
     activeView=view;
     singleView.hidden=view!=='single';
     overviewView.hidden=view!=='overview';
     viewButtons.forEach(button=>button.setAttribute('aria-selected',String(button.dataset.view===view)));
     if(view==='single') requestAnimationFrame(()=>loadChart(activeSymbol));
+    else requestAnimationFrame(renderOverview);
   }
   buttons.forEach(button=>button.addEventListener('click',()=>loadChart(button.dataset.symbol)));
   viewButtons.forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
