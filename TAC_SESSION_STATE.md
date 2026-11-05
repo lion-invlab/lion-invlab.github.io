@@ -579,3 +579,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 
 ### 14.4 執行限制
 嘗試以本機 Chromium CLI 另做 320px 載入時逾時，未取得頁面或截圖；因此 320px 仍記「未測試」，不將逾時解讀為版面失敗。未修改預覽、母版、Manifest、WR、首頁或工作流程。
+
+
+## 2026-11-05｜11/05 審核版新增「專題報導」工具入口
+
+- 任務：依使用者確認的專題報導工具欄試作，將「專題報導」新增為今日審核版側邊工具欄第四個同層級入口。
+- 修改檔案：`preview/2026-11-05.html`；僅在既有 `<aside class="tac-side-tools">` 中，於歷史早報日期快捷區後、工具欄 footer 前新增一個沿用 `tac-side-link`／`tac-side-icon` 的連結項目。
+- 目的地：`https://lion-invlab.github.io/preview/special-report-tools-preview.html`；使用新分頁開啟（`target="_blank" rel="noopener"`）。
+- 寫入前 preview blob SHA：`a235ca869a308e30607dcfce67928f992f0d3803`。
+- 寫入 commit：`d26326c9b9d19806c03089ad68ed910ff356a8fb`；寫入後回讀 preview blob SHA：`a32f3dc3d672a79edff72e5da0e750b38b603147`。
+- 專題索引試作檔 `preview/special-report-tools-preview.html` blob SHA：`84efea25ba41eb35e9eaece2253c6f768e6bcdb6`。
+- 回讀確認：新增入口文字僅出現一次、href 正確；沿用既有工具欄樣式，不新增 CSS／JS，不改變原有歷史早報日期快捷功能。
+- 保護檔案確認：`index.html` 回讀 SHA 仍為 `a235ca869a308e30607dcfce67928f992f0d3803`，且不含新入口；雙母版、Manifest 未修改。
+- 驗收狀態：GitHub 檔案寫入及回讀已完成；靜態檢查確認側欄新增項目與目的地正確。真實瀏覽器點擊、不同 viewport 視覺／互動及 Pages 線上實際載入本次未測試，不宣稱完整 QA 通過。
+- 下一步：交付 11/05 審核版供使用者檢視；未經使用者核准，不更新正式首頁。專題索引頁仍為獨立試作，不代表已建立正式根目錄專題入口。
