@@ -123,3 +123,7 @@
 - 新證據定點校正：Nasdaq Composite 11/05 由舊記 24,418.32（-5.12%）更正為 Investing HK 歷史列及 Reuters 一致的 24,315.00（-5.52%）；Fed Rate Monitor 最新頁更新 11/05 04:25PM EST（台灣 05:25）顯示 12/09 會議維持 35.3%、升息 64.7%，取代 04:55 舊值；CME iframe 分布仍不可讀，不宣稱已交叉核對。
 - D 階段後 W45 JSON 又由 05:48:03 的增量 audit 將 ABNB 轉為 released；目前 JSON SHA d695036ff05283ca292520a9b7c05946aaba676f，18 economic／38 earnings／205 audit，未由本輪再次寫入。
 - F 市場分析：06:02:41 開始；後續完成時再記錄結束時間。
+
+- D 階段增量回補（重新開啟）：在原 D 05:40 結束後，依新公告補入既有 NET、TEAM 穩定 ID。NET 官方 SEC EDGAR 8-K Exhibit 99.1：GAAP EPS −0.10、Revenue US$782.513M；GAAP EPS 共識口徑不明故比較待核實，Non-GAAP EPS 0.38 vs 約0.34只作補充；Q4營收指引US$845–846M，盤後約+17%為次級來源。TEAM Investing.com/Reuters：adjusted EPS 1.65 vs 1.43、Revenue 1.77B vs 1.71B，subscription ARR growth outlook約18.5%（前季23%），盤後約−16%；官方IR/SEC文件尚待補核。寫入後回讀 SHA bef8db0fb4d37774194e731e1d35c518d0996e55，18/38/207 audit，updated_at 06:09:56。
+- E 補漏：將 Atlassian 05:18 台灣時間原始報導納入熱門頭條，取代 DTE Energy；窗口延至 11/06 06:09:56。原始 E 完成 06:02:41，補漏 06:09:56。
+- F 分析使用最終 W45 JSON SHA bef8db0fb4d37774194e731e1d35c518d0996e55，並納入 ABNB、NET、TEAM 最新實績。
