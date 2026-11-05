@@ -118,3 +118,8 @@
 - 重複工作：無重抓前一日已確認數值；本輪只按 11/05 新交易日讀取。
 - C 行情例外、備援與重試：05:29:36–05:33:05 +08:00，牆鐘 03:29；處理時間／工具等待不可得；首輪 10 個待核實欄位補齊 9 個，MOVE 仍待核實；VIX/CNN/FedWatch 另記錄來源限制及時間差。
 - D 行事曆核對/增量更新：05:33:05–05:40:00 +08:00，牆鐘 06:55；處理時間／工具等待不可得；18 economic/38 earnings回讀，7個穩定ID增量merge/upsert，未刪事件；JSON SHA e83f56fe82ca70b474c93905fe62638fc48c46b4 → 2215b0129945fb0d2778982bf3aefcae32cf8bb3，寫後重新fetch一致。
+
+- E 新聞蒐集與查證：完成時間 06:02:41 +08:00；精確開始時間不可得，牆鐘耗時不可得；工具等待／處理時間不可拆分。窗口 11/05 12:00 至 11/06 06:02:41 台灣時間；全球焦點 5/5、熱門頭條 10/10，均核對原始發布時間及原文。焦點：Nasdaq AI 修正、Fed 官員漸進升息、BoE 升息、加拿大 Budget、US jobless claims/productivity。頭條：台股重挫、Toyota 財報、Tapestry、Euronext、Airbnb、ArcelorMittal、Legrand、Microsoft neocloud、DTE Energy、Sony/Nintendo。來源與原始發布時間已附於 Session State。
+- 新證據定點校正：Nasdaq Composite 11/05 由舊記 24,418.32（-5.12%）更正為 Investing HK 歷史列及 Reuters 一致的 24,315.00（-5.52%）；Fed Rate Monitor 最新頁更新 11/05 04:25PM EST（台灣 05:25）顯示 12/09 會議維持 35.3%、升息 64.7%，取代 04:55 舊值；CME iframe 分布仍不可讀，不宣稱已交叉核對。
+- D 階段後 W45 JSON 又由 05:48:03 的增量 audit 將 ABNB 轉為 released；目前 JSON SHA d695036ff05283ca292520a9b7c05946aaba676f，18 economic／38 earnings／205 audit，未由本輪再次寫入。
+- F 市場分析：06:02:41 開始；後續完成時再記錄結束時間。
