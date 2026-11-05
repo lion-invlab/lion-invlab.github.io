@@ -2489,7 +2489,7 @@
         "revenue_actual": 3429.446,
         "eps_comparison_status": "pending_verification",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "FY2026 Q2單季sales JPY3.429T，高於FactSet共識JPY3.194T；IFRS diluted EPS JPY76.49，FactSet共識JPY63.67但會計口徑未明，故EPS比較暫列pending。營業利益JPY622.329B、歸屬母公司淨利JPY449.603B；公司上調全年營業利益展望。股價於東京正常交易時段收漲約7%。",
+        "financial_judgment": "FY2026 Q2單季sales JPY3.429T，高於FactSet共識JPY3.194T；IFRS diluted EPS JPY76.49，FactSet共識JPY63.67但會計口徑未明，故EPS比較暫列pending。營業利益JPY622.329B、歸屬母公司淨利JPY449.603B；公司上調全年營業利益展望。AP報導的東京收盤約+7%發生在財報正式公布前；財報公布後的美股盤前觀察為MT Newswires所報約+5.1%，兩個觀察窗分開記錄。",
         "stock_price_reaction": "美股盤前上漲約5.1%。",
         "stock_price_reaction_window": "2026-11-05 U.S. premarket snapshot at 05:01 EST following FY2026 Q2 results.",
         "price_reaction_source": {
@@ -13031,6 +13031,22 @@
       },
       "source": "https://www.reuters.com/world/americas/brazils-central-bank-ends-run-rate-cuts-after-lula-election-win-2026-11-04/",
       "note": "observed_at=2026-11-06T04:37:48+08:00; 修正coverage敘述，05:37為Reuters新聞刊出時間而非Copom官方決議時刻；精確決議時間維持待核實。"
+    },
+    {
+      "at": "2026-11-06T04:37:48+08:00",
+      "action": "stock_reaction_window_clarified",
+      "event_id": "current-sony-20261105",
+      "changed_fields": [
+        "financial_judgment"
+      ],
+      "before": {
+        "financial_judgment": "FY2026 Q2單季sales JPY3.429T，高於FactSet共識JPY3.194T；IFRS diluted EPS JPY76.49，FactSet共識JPY63.67但會計口徑未明，故EPS比較暫列pending。營業利益JPY622.329B、歸屬母公司淨利JPY449.603B；公司上調全年營業利益展望。股價於東京正常交易時段收漲約7%。"
+      },
+      "after": {
+        "financial_judgment": "FY2026 Q2單季sales JPY3.429T，高於FactSet共識JPY3.194T；IFRS diluted EPS JPY76.49，FactSet共識JPY63.67但會計口徑未明，故EPS比較暫列pending。營業利益JPY622.329B、歸屬母公司淨利JPY449.603B；公司上調全年營業利益展望。AP報導的東京收盤約+7%發生在財報正式公布前；財報公布後的美股盤前觀察為MT Newswires所報約+5.1%，兩個觀察窗分開記錄。"
+      },
+      "source": "https://apnews.com/article/b0947fc04d94f70e172f39fcf8dd021b;https://finance.yahoo.com/markets/stocks/articles/sony-group-fiscal-q2-earnings-sales-rise-100135942.html",
+      "note": "observed_at=2026-11-06T04:37:48+08:00; 區分財報公布前東京收盤漲幅與公布後美股盤前反應，避免把前者誤當財報後反應。"
     }
   ]
 }
