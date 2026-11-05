@@ -28,7 +28,7 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:9px 4px 0}
 <body>
 <header>
   <h1>美股五大指數｜走勢圖</h1>
-  <div class="sub">US INDEX CFD &amp; SEMICONDUCTOR INDEX</div>
+  <div class="sub">US INDEX CFD &amp; SEMICONDUCTOR ETF</div>
 </header>
 <main>
   <nav class="tabs" aria-label="選擇指數">
@@ -36,12 +36,12 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:9px 4px 0}
     <button class="tab" type="button" data-symbol="OANDA:NAS100USD" aria-pressed="false">Nasdaq 100</button>
     <button class="tab" type="button" data-symbol="OANDA:US30USD" aria-pressed="false">Dow Jones</button>
     <button class="tab" type="button" data-symbol="OANDA:US2000USD" aria-pressed="false">Russell 2000</button>
-    <button class="tab" type="button" data-symbol="NASDAQ:SOX" aria-pressed="false">費城半導體</button>
+    <button class="tab" type="button" data-symbol="NASDAQ:SOXQ" aria-pressed="false">半導體 SOXQ</button>
   </nav>
   <section class="chart-wrap" aria-label="指數互動走勢圖">
     <div id="chart"></div>
   </section>
-  <footer>前四項為 OANDA 指數 CFD；費城半導體為 NASDAQ:SOX 現貨指數。報價時效依資料供應商授權而定。</footer>
+  <footer>前四項為 OANDA 指數 CFD；第五項為 NASDAQ:SOXQ ETF，追蹤 PHLX 半導體指數。ETF 價格不等同指數點位。</footer>
 </main>
 <script>
 (function(){
