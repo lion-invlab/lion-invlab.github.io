@@ -14,17 +14,28 @@ header{padding:calc(16px + env(safe-area-inset-top)) 16px 14px;text-align:center
 h1{font-size:20px;line-height:1.3;margin:0;font-weight:750;letter-spacing:.03em}
 .sub{font-size:10px;letter-spacing:.14em;color:var(--muted);margin-top:5px}
 main{width:100%;max-width:1500px;margin:0 auto;padding:8px 12px 8px;display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
+.view-tabs{display:flex;gap:8px;padding:2px 1px 9px;flex:0 0 auto}
+.view-tab{appearance:none;flex:1;border:1px solid var(--line);background:#111c2c;color:#aebbd0;border-radius:9px;padding:9px 12px;font-size:13px;font-weight:700;white-space:nowrap}
+.view-tab[aria-selected="true"]{background:#e8eef8;color:#101827;border-color:#e8eef8}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:3px 1px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
 .tab{appearance:none;flex:0 0 auto;border:1px solid var(--line);background:#111c2c;color:#aebbd0;border-radius:9px;padding:10px 14px;font-size:13px;font-weight:650;white-space:nowrap;cursor:pointer}
 .tab[aria-pressed="true"]{background:#e8eef8;color:#101827;border-color:#e8eef8}
+.single-view{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
 .chart-wrap{flex:1;min-height:0;height:auto;max-height:none;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0b111b}
+.overview-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:7px;overflow:hidden}
+.mini-card{min-width:0;min-height:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:9px;background:#0b111b;overflow:hidden}
+.mini-title{flex:0 0 auto;padding:5px 7px 2px;font-size:11px;font-weight:700;color:#dce5f3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-chart{flex:1;min-height:0;width:100%;overflow:hidden}
+tv-mini-chart{display:block;width:100%;height:100%;min-height:0}
+.mini-card:last-child{grid-column:1 / -1}
 #chart,.tradingview-widget-container,.tradingview-widget-container__widget{width:100%;height:100%;min-height:0}
 .tradingview-widget-container iframe{width:100%!important;height:100%!important}
 footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0 auto}
-@media(min-width:700px){header{padding-top:22px}main{padding:12px 20px 12px}.tab{font-size:14px;padding:11px 20px}}
-@media(max-width:420px){header{padding:calc(8px + env(safe-area-inset-top)) 12px 8px}h1{font-size:18px}.sub{font-size:9px}.tab{padding:8px 12px;font-size:12px}.tabs{padding-bottom:8px}main{padding:4px 12px calc(6px + env(safe-area-inset-bottom))}footer{display:none}}
+@media(min-width:700px){header{padding-top:22px}main{padding:12px 20px 12px}.tab{font-size:14px;padding:11px 20px}.overview-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:12px}.mini-card:last-child{grid-column:auto}.mini-title{font-size:13px;padding:8px 10px 3px}}
+@media(max-width:420px){header{padding:calc(7px + env(safe-area-inset-top)) 12px 6px}h1{font-size:18px}.sub{font-size:9px}.view-tab{padding:8px;font-size:12px}.tab{padding:8px 12px;font-size:12px}.tabs{padding-bottom:7px}main{padding:4px 10px calc(5px + env(safe-area-inset-bottom))}footer{display:none}.overview-grid{gap:6px}.mini-title{font-size:10px;padding:4px 5px 1px}}
 </style>
+<script type="module" src="https://www.tradingview-widget.com/w/en/tv-mini-chart.js"></script>
 </head>
 <body>
 <header>
@@ -32,23 +43,38 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
   <div class="sub">US INDEX CFD &amp; SEMICONDUCTOR ETF</div>
 </header>
 <main>
-  <nav class="tabs" aria-label="選擇指數">
-    <button class="tab" type="button" data-symbol="OANDA:SPX500USD" aria-pressed="true">S&amp;P 500</button>
-    <button class="tab" type="button" data-symbol="OANDA:NAS100USD" aria-pressed="false">Nasdaq 100</button>
-    <button class="tab" type="button" data-symbol="OANDA:US30USD" aria-pressed="false">Dow Jones</button>
-    <button class="tab" type="button" data-symbol="OANDA:US2000USD" aria-pressed="false">Russell 2000</button>
-    <button class="tab" type="button" data-symbol="NASDAQ:SOXQ" aria-pressed="false">半導體 SOXQ</button>
+  <nav class="view-tabs" aria-label="切換看板">
+    <button class="view-tab" type="button" data-view="single" aria-selected="true">單一走勢</button>
+    <button class="view-tab" type="button" data-view="overview" aria-selected="false">五大指數總覽</button>
   </nav>
-  <section class="chart-wrap" aria-label="指數互動走勢圖">
-    <div id="chart"></div>
+  <section id="singleView" class="single-view">
+    <nav class="tabs" aria-label="選擇指數">
+      <button class="tab" type="button" data-symbol="OANDA:SPX500USD" aria-pressed="true">S&amp;P 500</button>
+      <button class="tab" type="button" data-symbol="OANDA:NAS100USD" aria-pressed="false">Nasdaq 100</button>
+      <button class="tab" type="button" data-symbol="OANDA:US30USD" aria-pressed="false">Dow Jones</button>
+      <button class="tab" type="button" data-symbol="OANDA:US2000USD" aria-pressed="false">Russell 2000</button>
+      <button class="tab" type="button" data-symbol="NASDAQ:SOXQ" aria-pressed="false">半導體 SOXQ</button>
+    </nav>
+    <section class="chart-wrap" aria-label="指數互動走勢圖"><div id="chart"></div></section>
+    <footer>前四項為 OANDA 指數 CFD；第五項為 NASDAQ:SOXQ ETF，追蹤 PHLX 半導體指數。ETF 價格不等同指數點位。</footer>
   </section>
-  <footer>前四項為 OANDA 指數 CFD；第五項為 NASDAQ:SOXQ ETF，追蹤 PHLX 半導體指數。ETF 價格不等同指數點位。</footer>
+  <section id="overviewView" class="overview-grid" aria-label="五大指數同步走勢" hidden>
+    <article class="mini-card"><div class="mini-title">S&amp;P 500</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:SPX500USD" theme="dark"></tv-mini-chart></div></article>
+    <article class="mini-card"><div class="mini-title">Nasdaq 100</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:NAS100USD" theme="dark"></tv-mini-chart></div></article>
+    <article class="mini-card"><div class="mini-title">Dow Jones</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:US30USD" theme="dark"></tv-mini-chart></div></article>
+    <article class="mini-card"><div class="mini-title">Russell 2000</div><div class="mini-chart"><tv-mini-chart symbol="OANDA:US2000USD" theme="dark"></tv-mini-chart></div></article>
+    <article class="mini-card"><div class="mini-title">半導體 SOXQ</div><div class="mini-chart"><tv-mini-chart symbol="NASDAQ:SOXQ" theme="dark"></tv-mini-chart></div></article>
+  </section>
 </main>
 <script>
 (function(){
   const chart=document.getElementById('chart');
   const buttons=[...document.querySelectorAll('.tab')];
+  const viewButtons=[...document.querySelectorAll('.view-tab')];
+  const singleView=document.getElementById('singleView');
+  const overviewView=document.getElementById('overviewView');
   let activeSymbol='OANDA:SPX500USD';
+  let activeView='single';
   function loadChart(symbol){
     activeSymbol=symbol;
     buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.symbol===symbol)));
@@ -62,32 +88,22 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0
     script.type='text/javascript';
     script.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
     script.async=true;
-    script.textContent=JSON.stringify({
-      autosize:false,
-      width:'100%',
-      height:Math.max(240,Math.floor(chart.clientHeight)),
-      symbol:symbol,
-      interval:'5',
-      timezone:'Asia/Taipei',
-      theme:'dark',
-      style:'1',
-      locale:'zh_TW',
-      allow_symbol_change:false,
-      calendar:false,
-      hide_side_toolbar:false,
-      withdateranges:true,
-      details:false,
-      hotlist:false,
-      show_popup_button:false,
-      support_host:'https://www.tradingview.com'
-    });
+    script.textContent=JSON.stringify({autosize:false,width:'100%',height:Math.max(240,Math.floor(chart.clientHeight)),symbol:symbol,interval:'5',timezone:'Asia/Taipei',theme:'dark',style:'1',locale:'zh_TW',allow_symbol_change:false,calendar:false,hide_side_toolbar:false,withdateranges:true,details:false,hotlist:false,show_popup_button:false,support_host:'https://www.tradingview.com'});
     container.appendChild(script);
     chart.appendChild(container);
   }
+  function setView(view){
+    activeView=view;
+    singleView.hidden=view!=='single';
+    overviewView.hidden=view!=='overview';
+    viewButtons.forEach(button=>button.setAttribute('aria-selected',String(button.dataset.view===view)));
+    if(view==='single') requestAnimationFrame(()=>loadChart(activeSymbol));
+  }
   buttons.forEach(button=>button.addEventListener('click',()=>loadChart(button.dataset.symbol)));
+  viewButtons.forEach(button=>button.addEventListener('click',()=>setView(button.dataset.view)));
   loadChart(activeSymbol);
   let resizeTimer;
-  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>loadChart(activeSymbol),180)});
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{if(activeView==='single')loadChart(activeSymbol)},180)});
 })();
 </script>
 </body>
