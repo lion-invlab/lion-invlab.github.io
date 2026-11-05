@@ -657,3 +657,33 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 更新後重新fetch回讀成功：JSON SHA 2215b0129945fb0d2778982bf3aefcae32cf8bb3；18 economic / 38 earnings；audit 204；coverage economic/earnings仍為incomplete（保留原狀態）。
 - 行事曆實績仍待核實：美國期中選舉州級最終認證；其他upcoming事件依當下發布時點保留，不以未到時實績填寫。DoorDash記錄日期落在W44，並未從W45 JSON刪除。
 - 階段 D 結果：7筆事件增量更新，回讀SHA一致；階段 E 開始。
+
+### 恢復接收／最新來源版本（06:02）
+- 恢復時再次確認 main HEAD：`79ee26c48cb29e2e266c61738cdd2df586cb34d0`；WR v5.13 blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`；Manifest blob `b6a24300276d7bed9dbc74472b42a97313117bd6`；週二至週五母版 blob `3785405e331b10ec6189002e480be2a1edbe20ef`（Manifest SHA 相符）；驗收清單 v1.1 blob `3debe876c804d23907cbf60a24a4dada7cf392f0`。
+- A 原始開工讀取仍以 05:24:49–05:25:39 為準；本輪 provenance refresh 05:53:03–05:53:08，確認 main HEAD 已因資料庫後續更新前進，WR／Manifest／母版／清單 SHA 未變。目標 `preview/2026-11-06.html` 再次確認 404、不存在；正式首頁 index.html 讀取 SHA `64488827b72e01f6054225f444260e3cdf027a57`，保護不改。
+- W45 JSON 最新 blob SHA `d695036ff05283ca292520a9b7c05946aaba676f`，updated_at `2026-11-06T05:48:03+08:00`，18 economic／38 earnings／205 audit；coverage economic、earnings 均 incomplete（資料庫動態覆蓋狀態，依 WR 保留，不自行改成 complete）。
+- 05:40 D 階段回讀 SHA `2215b0129945fb0d2778982bf3aefcae32cf8bb3` 後，05:48:03 又出現正式增量 audit：Airbnb（穩定 ID `current-abnb-20261102`）由 upcoming 改 released，EPS 3.16 vs 2.85、營收 US$4.87B vs US$4.75B、2026 營收成長展望上修 high-teens、盤後約 +10%；來源 Reuters 21:06 UTC（台灣 05:06）。本次不再寫 JSON，直接採最新回讀 SHA，避免與 04:35 預更新並行覆寫。
+- 行情新證據定點修正（僅重開一項）：Nasdaq Composite 11/05 原記 24,418.32（−5.12%）與直接歷史列不符；Investing.com HK 歷史列及 Reuters 同日報導一致為 24,315.00（−5.52%），OHLC 25,558.11／25,558.11／24,262.14／24,315.00。正式採 24,315.00（−5.52%）；其他已鎖定行情不全量重抓。
+- Fed Rate Monitor 本次直接讀取頁面更新時間 Nov 05 04:25 PM EST（換算台灣 11/06 05:25）；12/09/2026 會議、目前區間 3.75%–4.00%，維持 35.3%、升息一碼至 4.00%–4.25% 64.7%。此讀值取代 04:55 舊頁面 33.7%／66.3%。CME FedWatch 官方頁可開啟，但 QuikStrike iframe 未提供可讀分布；CME exact cross-check 仍待核實，不宣稱通過。
+- 關鍵價位 OHLC 來源已取得 11/05 同日列：Dow H/L/C 53,706.65／51,486.82／51,521.28；S&P 500 7,681.29／7,350.35／7,353.79；Nasdaq Composite 25,558.11／24,262.14／24,315.00；Russell 2000 2,863.16／2,721.85／2,728.27；SOX 9,837.1／8,997.8／9,011.2。來源均為 Investing.com HK 同標的歷史頁，資料日 11/05。
+- 新聞窗口：2026/11/05 12:00 至本次截稿 2026/11/06 06:02:41（台灣時間）。階段 E 精確開始時間不可得（搜尋已在前一階段交接後展開，工具未提供可回溯分秒）；完成時間 06:02:41；工具等待與純處理時間不可分拆，標不可得。
+- 全球焦點 5 則／熱門頭條 10 則均已讀原文並核對原始發布時間、時區、事件與影響；合格來源均在窗口內。全球焦點使用 Investing.com（Reuters 原文轉載）與 Reuters；熱門頭條使用鉅亨網及 Reuters。未採用窗口開始前的油價、Qualcomm、AppLovin 舊報導作新聞卡，避免違反時間窗。
+### 階段 E｜新聞蒐集與查證（完成；接收給 F）
+- 全球焦點 5 則：
+  1. Nasdaq 修正／AI 投資與監管疑慮：Investing.com/Reuters，原始發布 Nov 05 10:21 AM ET（台灣 23:21），https://www.investing.com/news/stock-market-news/nasdaq-set-for-correction-as-investors-reassess-ai-spending-boom-5005046
+  2. Fed Hammack、Barkin 支持漸進升息：Investing.com/Reuters，Nov 05 08:51 AM ET（台灣 21:51），https://www.investing.com/news/economy-news/feds-hammack-favors-gradual-ratehike-path-to-lower-inflation-5004429
+  3. 英格蘭銀行升息 25bp 至 4%、8–1 表決：Investing.com，Nov 05 07:05 AM ET（台灣 20:05），https://www.investing.com/news/economy-news/bank-of-england-hikes-interest-rates-amid-mounting-inflationary-pressures-5003501；官方 BoE 會議摘要交叉核對 https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026
+  4. 加拿大 Budget 2026：五年 C$142.1B 投資／支出計畫：Reuters，Nov 05 11:05 UTC（台灣 19:05），https://www.reuters.com/world/americas/economists-urge-fiscal-restraint-canadian-budget-despite-oil-windfall-2026-11-05/
+  5. 美國初領失業金 189K、第三季生產力增長及單位勞動成本下降：Reuters，Nov 05 13:41 UTC（台灣 21:41），https://www.reuters.com/business/world-at-work/us-weekly-jobless-claims-57-year-lows-amid-low-layoffs-2026-11-05/
+- 市場熱門頭條 10 則：
+  1. 台股收跌 1,374.19 點至 41,574.72，電子、記憶體、PCB 壓力擴大：鉅亨網 11/05 15:14 台灣，https://news.cnyes.com/news/id/6647916
+  2. Toyota Q2 營業利益年增 34%、上修全年營益展望 15% 至 ¥3.9T：鉅亨網 11/05 15:00 台灣，https://news.cnyes.com/news/id/6647912
+  3. Tapestry 上修 FY2027 營收與 EPS 展望、Coach 成長抵銷 Kate Spade 下滑：Reuters 11/05 11:50 UTC（台灣 19:50），https://www.reuters.com/business/retail-consumer/tapestry-lifts-annual-forecasts-young-shoppers-snap-up-coach-bags-2026-11-05/
+  4. Euronext Q3 EBITDA +31.6%、宣布 €350M 回購：Reuters 11/05 16:47 UTC（台灣 11/06 00:47），https://www.reuters.com/business/euronext-announces-350-million-share-buyback-after-beating-earnings-view-2026-11-05/
+  5. Airbnb Q3 EPS／營收雙優於共識、全年營收展望上修、增額 US$12B 回購：Reuters 11/05 21:06 UTC（台灣 11/06 05:06），https://www.reuters.com/business/airbnb-lifts-annual-revenue-growth-forecast-resilient-global-travel-demand-2026-11-05/
+  6. ArcelorMittal Q3 EBITDA US$2.02B 高於 LSEG 共識 US$1.96B，歐盟鋼鐵進口限制助益出貨：Reuters 11/05 06:14 UTC（台灣 14:14），https://www.reuters.com/business/arcelormittal-beats-profit-expectations-european-market-strengthens-2026-11-05/
+  7. Legrand 上修 2026 銷售展望，資料中心九個月營收成長近 40%：Reuters 11/05 06:34 UTC（台灣 14:34），https://www.reuters.com/business/legrand-lifts-2026-sales-outlook-strong-data-centre-demand-2026-11-05/
+  8. Microsoft 收緊部分 neocloud 資料中心專案審查（Reuters 明確標註消息源為 Bloomberg）：Reuters 11/05 17:30 UTC（台灣 11/06 01:30），https://www.reuters.com/business/microsoft-tightens-oversight-neocloud-data-center-projects-bloomberg-news-2026-11-05/
+  9. DTE Energy 以約 US$3B 出售非公用事業部門，支應未來五年 US$44B 客戶導向資本投資：Reuters 11/05 15:25 UTC（台灣 23:25），https://www.reuters.com/legal/litigation/dte-energy-sell-its-non-utility-business-about-3-billion-2026-11-05/
+  10. Sony Q2 營益年增 45%、上修全年獲利展望；Nintendo 營益年減 16%：Reuters 11/05 06:37 UTC（台灣 14:37），https://www.reuters.com/business/retail-consumer/sony-posts-45-q2-profit-rise-beating-estimates-2026-11-05/
+- 階段 E 接收結果：5/5 宏觀焦點、10/10 熱門頭條；原始時間與新聞窗口相符，來源可開啟，未將行情快訊冒充新聞。下一步進入 F，僅依已鎖定行情／新聞／W45 JSON 組合市場判斷與盤面觀察。
