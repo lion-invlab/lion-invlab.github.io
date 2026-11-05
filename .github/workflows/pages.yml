@@ -8,6 +8,7 @@ on:
       - "preview/**"
       - "research/**"
       - "index.html"
+      - "special-reports.html"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
