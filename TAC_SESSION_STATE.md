@@ -687,3 +687,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
   9. DTE Energy 以約 US$3B 出售非公用事業部門，支應未來五年 US$44B 客戶導向資本投資：Reuters 11/05 15:25 UTC（台灣 23:25），https://www.reuters.com/legal/litigation/dte-energy-sell-its-non-utility-business-about-3-billion-2026-11-05/
   10. Sony Q2 營益年增 45%、上修全年獲利展望；Nintendo 營益年減 16%：Reuters 11/05 06:37 UTC（台灣 14:37），https://www.reuters.com/business/retail-consumer/sony-posts-45-q2-profit-rise-beating-estimates-2026-11-05/
 - 階段 E 接收結果：5/5 宏觀焦點、10/10 熱門頭條；原始時間與新聞窗口相符，來源可開啟，未將行情快訊冒充新聞。下一步進入 F，僅依已鎖定行情／新聞／W45 JSON 組合市場判斷與盤面觀察。
+
+
+### 06:10 追加｜D 階段增量回補與 E 新聞補漏
+- D 原階段 05:40 結束後，11/06 05:18–05:25 已有 Cloudflare、Atlassian 財報公告；本輪發現時已超過原先資料庫 05:48 更新，故重新開啟 D，僅對兩個既有穩定 ID 做增量 upsert，未新增平行資料庫、未刪事件。
+- NET（`current-net-20261102`）：官方 SEC EDGAR 8-K Exhibit 99.1，發布時間 11/05 16:18 EST（台灣 11/06 05:18），GAAP EPS −0.10；原存 Nasdaq 共識 0.02 的口徑未確認，EPS 比較維持待核實；Non-GAAP EPS 0.38 vs MarketBeat 約 0.34 僅作補充；營收 US$782.513M vs 原存共識 US$736.8M；Q4 指引 US$845–846M；盤後約 +17%（Investors.com 次級來源）。
+- TEAM（`current-team-20261102`）：Investing.com/Reuters 11/06 05:18 台灣報導；FY2027 Q1 adjusted EPS US$1.65 vs 1.43、營收 US$1.77B vs 1.71B，雙雙高於共識；subscription ARR 成長展望約 18.5%（低於前季 23%），股價盤後約 −16%。發行人正式財報／SEC 6-K 尚未獨立回讀，事件已標 released、來源註明次級來源待官方補核。
+- D 寫入後重新 fetch：W45 JSON SHA `bef8db0fb4d37774194e731e1d35c518d0996e55`；18 economic／38 earnings／207 audit；updated_at `2026-11-06T06:09:56+08:00`。最後兩筆 audit 分別對應 NET、TEAM，穩定 ID 保留。此 SHA 為目前日報採用版本。
+- E 新聞補漏：Atlassian 報導原始發布 11/06 05:18 台灣時間，落在新聞窗口內；熱門頭條 10 則以 Atlassian −16% 取代原列 DTE Energy，保留 10 則不重複。新聞窗口截稿延至 `2026-11-06 06:09:56 +08:00`；原先 E 完成 06:02:41，補漏完成 06:09:56。
+- 目前時間（本次追加紀錄）：2026/11/6 清晨6:11:47；main HEAD `e1c9a34252f948023c534e0db683eb466d41dd96`。
