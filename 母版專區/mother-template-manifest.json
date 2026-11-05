@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "6160ec812845c2c80e1ebfb68412bc3cd6a2f8a8",
+      "blob_sha": "9a694976772c582cd0e0c21ebff4add6a72c9bee",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "eab724f7818989385f7d2373c626477c71c498a7",
+      "blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -57,6 +57,10 @@
     {
       "date": "2026-11-05",
       "change": "依使用者明確核准，雙母版僅將重複的工具欄提示 style/script ID 改為唯一識別值；不刪除重複區塊、不改 CSS／JavaScript 行為或版面；完成雙母版 ID 與內部錨點檢查後同步更新核准 SHA。"
+    },
+    {
+      "date": "2026-11-05",
+      "change": "依使用者指示，僅於週一及週二至週五雙母版 QUICK ACCESS 工具欄的 Q4 精選基金與歷史早報之間新增「📖 專題報導」連結，目標為 https://lion-invlab.github.io/special-reports.html；未建立或修改專題報導頁面及其他內容。"
     }
   ]
 }
