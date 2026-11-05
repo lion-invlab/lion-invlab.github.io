@@ -8,21 +8,22 @@
 <style>
 :root{color-scheme:dark;--bg:#080e19;--panel:#101b2b;--line:#26364c;--muted:#91a2ba;--text:#f2f5fa;--active:#e8eef8}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-body{min-height:100svh;display:flex;flex-direction:column}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{height:100vh;height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 header{padding:calc(16px + env(safe-area-inset-top)) 16px 14px;text-align:center}
 h1{font-size:20px;line-height:1.3;margin:0;font-weight:750;letter-spacing:.03em}
 .sub{font-size:10px;letter-spacing:.14em;color:var(--muted);margin-top:5px}
-main{width:100%;max-width:1500px;margin:0 auto;padding:8px 12px 18px;display:flex;flex-direction:column;flex:1;min-height:0}
+main{width:100%;max-width:1500px;margin:0 auto;padding:8px 12px 8px;display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:3px 1px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
 .tab{appearance:none;flex:0 0 auto;border:1px solid var(--line);background:#111c2c;color:#aebbd0;border-radius:9px;padding:10px 14px;font-size:13px;font-weight:650;white-space:nowrap;cursor:pointer}
 .tab[aria-pressed="true"]{background:#e8eef8;color:#101827;border-color:#e8eef8}
-.chart-wrap{flex:1;min-height:560px;height:calc(100svh - 155px);max-height:1100px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0b111b}
-#chart,.tradingview-widget-container,.tradingview-widget-container__widget{width:100%;height:100%}
-footer{font-size:10px;color:#71829a;text-align:center;padding:9px 4px 0}
-@media(min-width:700px){header{padding-top:22px}main{padding:12px 20px 20px}.tab{font-size:14px;padding:11px 20px}.chart-wrap{height:calc(100vh - 165px)}}
-@media(max-width:420px){h1{font-size:18px}.sub{font-size:9px}.tab{padding:9px 12px;font-size:12px}.chart-wrap{height:calc(100svh - 145px);min-height:440px}}
+.chart-wrap{flex:1;min-height:0;height:auto;max-height:none;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0b111b}
+#chart,.tradingview-widget-container,.tradingview-widget-container__widget{width:100%;height:100%;min-height:0}
+.tradingview-widget-container iframe{width:100%!important;height:100%!important}
+footer{font-size:10px;color:#71829a;text-align:center;padding:7px 4px 0;flex:0 0 auto}
+@media(min-width:700px){header{padding-top:22px}main{padding:12px 20px 12px}.tab{font-size:14px;padding:11px 20px}}
+@media(max-width:420px){header{padding:calc(8px + env(safe-area-inset-top)) 12px 8px}h1{font-size:18px}.sub{font-size:9px}.tab{padding:8px 12px;font-size:12px}.tabs{padding-bottom:8px}main{padding:4px 12px calc(6px + env(safe-area-inset-bottom))}footer{display:none}}
 </style>
 </head>
 <body>
@@ -64,7 +65,7 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:9px 4px 0}
     script.textContent=JSON.stringify({
       autosize:false,
       width:'100%',
-      height:780,
+      height:Math.max(240,Math.floor(chart.clientHeight)),
       symbol:symbol,
       interval:'5',
       timezone:'Asia/Taipei',
@@ -85,6 +86,8 @@ footer{font-size:10px;color:#71829a;text-align:center;padding:9px 4px 0}
   }
   buttons.forEach(button=>button.addEventListener('click',()=>loadChart(button.dataset.symbol)));
   loadChart(activeSymbol);
+  let resizeTimer;
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>loadChart(activeSymbol),180)});
 })();
 </script>
 </body>
