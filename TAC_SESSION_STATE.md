@@ -608,3 +608,20 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 修正前預覽 SHA：`a8473ce6fc48c64ac772ae876d1e7c4a55a67425`；commit：`d9d72241485110db85ceeac0bb5908ed9ef13b2c`；修正後回讀 SHA：`f6f1e35d5090d8ab862c4ebd355deea763e7c82f`。
 - 回讀確認四個標的連結均正確，商品區已無 FT Markets 舊網址；工具欄排序仍為精選基金 → 專題報導 → 歷史早報。未改動行情數值、文字分析、版面或其他區塊。
 - Investing.com 香港標的頁已用搜尋結果核對：WTI、Brent、GC、SI。僅修正超連結，不以目前頁面報價改寫 11/04 行情數據。
+
+## 2026-11-06｜TAC 投資早報 R3 當日執行（五日計時實驗 Day 1）
+
+### 開工鎖定（階段 A）
+- 報告日期：2026-11-06（星期五，Asia/Taipei）。
+- 行情基準日：預定採各市場最近一個已完成交易日；美股預定 2026-11-05 收盤，其他市場按各自交易日曆採 11/05 或最近已完成正式交易日。
+- WR：main 最新 TAC_WORK_RULES.md v5.13；blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb；讀取時間 2026-11-06 05:24:49–05:25:39 +08:00。main HEAD（最近提交查詢）421e71debf80e5e4805ac30206f65c94ed2ffc69。
+- Manifest：母版專區/mother-template-manifest.json blob SHA b6a24300276d7bed9dbc74472b42a97313117bd6。
+- 核准母版：週二至週五 母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html；實際 blob SHA 3785405e331b10ec6189002e480be2a1edbe20ef，與 Manifest 完全相符。
+- 結構驗收清單：母版專區/母版結構驗收清單.md v1.1；blob SHA 3debe876c804d23907cbf60a24a4dada7cf392f0。
+- 唯一行事曆：data/calendar/weeks/2026-W45.json；開工讀取 blob SHA e83f56fe82ca70b474c93905fe62638fc48c46b4；updated_at=2026-11-06T04:37:48+08:00；18 economic / 38 earnings events；04:35 預更新已在早報開始前結束。coverage incomplete 若存在，依 WR 屬動態狀態，不視為故障。
+- 目標：preview/2026-11-06.html；開工確認不存在（GitHub Contents API 404）。不得改寫 index.html、雙母版、Manifest、QA 清單或其他非本次授權資產。
+- 開工政策：依 WR v5.13 不建立 WR Lock、不使用 Issue #319 relay；ChatGPT 單一執行者直接製作。無需借用或偽造 lock。
+- 階段 A 實際時間：開始 05:24:49、結束 05:25:39、牆鐘 50 秒；處理時間與工具等待無法精確拆分（不可得），不得補估。
+- 階段 A 結果：規則、Manifest、母版、清單、W45 JSON、既有 Session State／Work Log 均已讀取；母版 SHA 與 Manifest 一致；報告星期與母版情境相符。階段 A 完成。
+- 階段 B 接收：行情欄位清單必須從核准母版實際 DOM 盤點 44 欄（含 11 ETF）；下一步只執行第一輪直接來源掃描，已鎖定項目不重抓。
+- 五日計時實驗：Day 1；A 完成，B 開始。僅在本檔及既有 Work Log 累積，不新增計時檔、資料庫或排程。
