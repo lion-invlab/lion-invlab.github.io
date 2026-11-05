@@ -637,3 +637,16 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 首輪 44 項計數：34 確認（17 指數＋10 ETF＋3 美債＋2 FX＋VIX＋CNN 備援）；10 待核實（XLRE、4 FX、4 商品、MOVE）。Fed Rate Monitor/FedWatch 另列獨立政策指標，動態頁未解析出本次即時會議機率，待 C 階段再試；不得沿用 11/04 舊截圖當作當前值。
 - 觀察到 11/05 美國市場出現顯著風險拋售：Dow -3.44%、S&P -4.35%、Nasdaq -5.12%、Russell -4.50%、SOX -12.25%、VIX +56.59%；不得沿用 11/04 反彈敘事。進入 C 階段，先驗證交易日與數值、對 10 個例外按規定重試，再找宏觀觸發因素。
 - 階段 B 結果：44 項首輪掃描完成，34 confirmed / 10 pending；階段 C 開始。
+### 階段 C｜例外、備援與重試（完成；MOVE 留待核實）
+- 實際時間：開始 05:29:36、結束 05:33:05（+08:00），牆鐘 3 分 29 秒；處理時間與工具等待無法獨立計量（不可得）。
+- 例外處理：首輪 10 個待核實欄位中，XLRE、4 個 FX、4 個商品共 9 項已補齊；MOVE 仍無 11/05 數據。最終 44 項：43 確認、1 待核實。
+- XLRE：11/05 44.30（-1.82%），Investing.com HK historical page 第 2 次讀取後出現 11/05 列；先前即時摘要與歷史列不一致，採歷史列，不採即時摘要。
+- FX 11/05：EUR/USD 1.1217 (-0.11%)；GBP/USD 1.3451 (-0.16%)；AUD/USD 0.6927 (-1.13%)；USD/JPY 157.72 (-0.46%)。來源均為 Investing.com HK historical pages。加上 DXY 101.56 (-0.01%)、USD/TWD 33.023 (+0.48%)，6 項全數有同日列。
+- 商品採 Investing.com 同一活躍月份的 11/05 平台歷史收市列（非 CME 官方結算）：WTI Dec-2026 89.57 (+1.65%)、131.47K；Brent Jan-2027 96.63 (+2.12%)、604.74K；Gold Dec-2026 4,108.80 (+0.88%)、181.47K；Silver Dec-2026 52.618 (+0.64%)、27.48K。來源：WTI https://cn.investing.com/commodities/crude-oil-historical-data；Brent https://hk.investing.com/commodities/brent-oil-historical-data；Gold https://cn.investing.com/commodities/gold-historical-data；Silver https://cn.investing.com/commodities/silver-historical-data。Investing 合約列表 11/05 同日顯示各月成交量：WTI Dec26 90,142 vs Jan27 33,866；Brent Jan27 142,420 vs Feb27 91,833；Gold Dec26 207,853 vs Feb27 25,297；Silver Dec26 73,530 vs Mar27 11,938。另以 FXEmpire 合約清單交叉核對 WTI Dec26 volume/OI 231,825/222,982、Jan27 111,198/212,771；Gold Dec26 199,781/264,948、Feb27 24,307/82,428；Silver Dec26 45,544/78,076、Jan27 374/876。合約月選擇有量能優勢；Brent OI 未取得，明確不宣稱 OI 已交叉驗證。
+- 油價來源差異：Reuters 11/05 前月結算報導 Brent 98.29、WTI 90.52，Investing 同日活躍月平台歷史列分別 96.63、89.57。兩者報價口徑／時間切點未能完全對齊，報表採用明確標示的 Investing 平台收市列，不把 Reuters 結算數字混入同一欄；在資料註記保留差異。
+- MOVE：Investing.com HK 3 次讀取/刷新仍只到 11/04 93.88；Yahoo Finance ^MOVE 兩次 HTTP 429；CNBC .MOVE 受限制；EODData 只更新至 11/04 93.88。11/05 無可用值，保持「待核實」，不沿用 11/04。
+- VIX：Investing.com HK 11/05 26.01 (+56.59%)；Cboe 官方歷史 CSV 因重新導向至不可讀端點，未完成官方交叉核對，來源狀態標為「主來源已讀、官方備援未取得」。
+- CNN：CNN 官網及官方 JSON endpoint 不可讀；FGScore Provider Index 21/100（04:21 台灣）與 Financial Context CNN tracker 20/100（05:12 台灣）相差 1 點，後者更新晚 51 分鐘，採較晚 20/100 並在頁面標註備援與時間，不平均、不稱為 CNN 官網直接值。
+- Fed Rate Monitor：Investing.com 當前頁面讀到 2026/12/09 會議，目標區間 3.75%–4.00%，維持 33.7%、升息一碼至 4.00%–4.25% 66.3%，頁面更新 2026-11-05 15:55 EST（台灣 11/06 04:55）。CME FedWatch 官方頁可開啟，但 QuikStrike iframe 因 referrer access denied 無法讀出分布；Reuters 同日報導約 66% 升息機率與 Investing 66.3% 方向一致，CME 數值交叉核對仍標示未取得。
+- 最終 44 項計數：43 confirmed / 1 pending（MOVE）。FedWatch 為另列政策觀察值，Investing 動態頁已讀，CME exact cross-check 未取得。
+- 階段 C 結果：9 個行情例外補齊，MOVE 維持待核實；完成規定重試與備援，不重抓已確認的 17 指數與 11 ETF。階段 D 開始。
