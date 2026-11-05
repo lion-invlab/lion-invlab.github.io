@@ -67,7 +67,19 @@ def main():
         raise SystemExit("Index generation markers missing or duplicated.")
     articles = load_articles()
     cards = "\n".join(render(item) for item in articles)
-    html = html.replace(START + "\n" + END, START + "\n" + cards + "\n" + END)
+    # Replace the complete marker region, tolerating indentation/whitespace
+    # around either marker. The previous exact-string replacement silently
+    # missed the indented markers in special-reports.html.
+    marker_pattern = re.compile(re.escape(START) + r"[\\s\\S]*?" + re.escape(END))
+    html, replacements = marker_pattern.subn(
+        lambda _: START + "\\n" + cards + "\\n " + END, html, count=1
+    )
+    if replacements != 1:
+        raise SystemExit(f"Expected to replace one article region; replaced {replacements}.")
+    generated_region = html.split(START, 1)[1].split(END, 1)[0]
+    generated_count = len(re.findall(r'<article class="featured article"', generated_region))
+    if generated_count != len(articles):
+        raise SystemExit(f"Generated card count mismatch: expected {len(articles)}, found {generated_count}.")
     if '<b id="archive-total">' not in html:
         raise SystemExit("Archive total target missing.")
     html = re.sub(r'<b id="archive-total">\d+</b>',
