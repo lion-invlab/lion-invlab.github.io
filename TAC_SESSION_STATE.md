@@ -600,3 +600,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 僅調整 `preview/2026-11-05.html` 側邊工具欄既有連結順序，未更動連結目的地、歷史早報日期控制或任何其他頁面。
 - 更新 commit：`0528058f74fe754b7fbda2877ee088ffcf91ffd7`；回讀 blob SHA：`a8473ce6fc48c64ac772ae876d1e7c4a55a67425`。
 - 回讀靜態位置核對：精選基金位置 < 專題報導位置 < 歷史早報位置，排序符合指定。瀏覽器實際視覺／互動仍未測試。
+
+
+## 2026-11-05｜商品超連結定點修正
+- 使用者要求僅修正今日審核版商品超連結，其餘內容、版面與工具欄均不變。
+- 僅修改 `preview/2026-11-05.html` 商品區四個標的連結及其來源分類連結：WTI → `https://hk.investing.com/commodities/crude-oil`；Brent → `https://hk.investing.com/commodities/brent-oil`；黃金 GC → `https://hk.investing.com/commodities/gold`；白銀 SI → `https://hk.investing.com/commodities/silver`；能源來源連結 → Investing.com 香港能源商品頁；金屬來源連結 → Investing.com 香港金屬商品頁。
+- 修正前預覽 SHA：`a8473ce6fc48c64ac772ae876d1e7c4a55a67425`；commit：`d9d72241485110db85ceeac0bb5908ed9ef13b2c`；修正後回讀 SHA：`f6f1e35d5090d8ab862c4ebd355deea763e7c82f`。
+- 回讀確認四個標的連結均正確，商品區已無 FT Markets 舊網址；工具欄排序仍為精選基金 → 專題報導 → 歷史早報。未改動行情數值、文字分析、版面或其他區塊。
+- Investing.com 香港標的頁已用搜尋結果核對：WTI、Brent、GC、SI。僅修正超連結，不以目前頁面報價改寫 11/04 行情數據。
