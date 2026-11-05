@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>美股五大指數｜CFD 行情看板</title>
+<style>
+:root{color-scheme:dark;--bg:#080e19;--panel:#111c2d;--line:#27364b;--muted:#93a4bb;--white:#f3f6fb}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--white);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:22px max(18px,calc((100vw - 1440px)/2));background:#0e192a;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(21px,3vw,30px);margin:0;font-weight:760;letter-spacing:.025em}
+.sub{font-size:11px;color:var(--muted);letter-spacing:.16em;margin-top:7px}
+main{max-width:1480px;margin:auto;padding:22px 18px 34px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:0 2px 14px}
+.section-head h2{font-size:16px;margin:0}.section-head p{font-size:12px;color:var(--muted);margin:5px 0 0}
+.status{font-size:11px;color:#9bdab5;white-space:nowrap}
+.tape{height:58px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#0d1726;margin-bottom:18px}
+.tape .tradingview-widget-container,.tape .tradingview-widget-container__widget{height:100%;width:100%}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.card{min-width:0;border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,#152238,#0e1828);overflow:hidden}
+.card-head{padding:14px 14px 10px;border-bottom:1px solid rgba(148,163,184,.15)}
+.name{font-size:14px;font-weight:700;line-height:1.4}.symbol{font-size:11px;color:#9bcaff;margin-top:5px}
+.quote{height:190px;padding:6px 8px 2px}
+.quote .tradingview-widget-container,.quote .tradingview-widget-container__widget{width:100%;height:100%}
+.chartbox{margin-top:18px;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#0e1828}
+.chart-title{font-size:14px;font-weight:700;padding:14px 16px;border-bottom:1px solid var(--line)}
+.chart{height:510px;padding:4px}.chart .tradingview-widget-container,.chart .tradingview-widget-container__widget{width:100%;height:100%}
+.note{margin-top:16px;padding:13px 15px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:12px;line-height:1.75}
+a{color:#9bcaff}
+@media(max-width:1100px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card:last-child{grid-column:1/-1}}
+@media(max-width:600px){main{padding:16px 12px 26px}.grid{grid-template-columns:1fr}.card:last-child{grid-column:auto}.quote{height:175px}.chart{height:440px}.section-head{align-items:start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <h1>美股五大指數｜行情看板</h1>
+  <div class="sub">US INDEX CFD &amp; PHILADELPHIA SEMICONDUCTOR INDEX</div>
+</header>
+<main>
+  <div class="section-head">
+    <div><h2>五項報價總覽</h2><p>各商品獨立載入 TradingView 報價元件</p></div>
+    <div class="status">● MARKET DATA FEED</div>
+  </div>
+
+  <div class="tape">
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+      {
+        "symbols":[
+          {"proName":"OANDA:SPX500USD","title":"S&P 500 CFD"},
+          {"proName":"OANDA:NAS100USD","title":"Nasdaq 100 CFD"},
+          {"proName":"OANDA:US30USD","title":"Dow Jones CFD"},
+          {"proName":"OANDA:US2000USD","title":"Russell 2000 CFD"},
+          {"proName":"TVC:SOX","title":"Philadelphia Semiconductor SOX"}
+        ],
+        "showSymbolLogo":false,"colorTheme":"dark","isTransparent":true,"displayMode":"adaptive","locale":"zh_TW"
+      }
+      </script>
+    </div>
+  </div>
+
+  <section class="grid" aria-label="五大指數即時報價">
+    <article class="card">
+      <div class="card-head"><div class="name">S&amp;P 500｜標普 500</div><div class="symbol">OANDA:SPX500USD · CFD</div></div>
+      <div class="quote"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{"symbol":"OANDA:SPX500USD","width":"100%","locale":"zh_TW","colorTheme":"dark","isTransparent":true}</script></div></div>
+    </article>
+    <article class="card">
+      <div class="card-head"><div class="name">Nasdaq 100｜納斯達克 100</div><div class="symbol">OANDA:NAS100USD · CFD</div></div>
+      <div class="quote"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{"symbol":"OANDA:NAS100USD","width":"100%","locale":"zh_TW","colorTheme":"dark","isTransparent":true}</script></div></div>
+    </article>
+    <article class="card">
+      <div class="card-head"><div class="name">Dow Jones｜道瓊工業</div><div class="symbol">OANDA:US30USD · CFD</div></div>
+      <div class="quote"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{"symbol":"OANDA:US30USD","width":"100%","locale":"zh_TW","colorTheme":"dark","isTransparent":true}</script></div></div>
+    </article>
+    <article class="card">
+      <div class="card-head"><div class="name">Russell 2000｜羅素 2000</div><div class="symbol">OANDA:US2000USD · CFD</div></div>
+      <div class="quote"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{"symbol":"OANDA:US2000USD","width":"100%","locale":"zh_TW","colorTheme":"dark","isTransparent":true}</script></div></div>
+    </article>
+    <article class="card">
+      <div class="card-head"><div class="name">Philadelphia Semiconductor｜費城半導體</div><div class="symbol">TVC:SOX · 現貨指數（非 CFD）</div></div>
+      <div class="quote"><div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div><script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>{"symbol":"TVC:SOX","width":"100%","locale":"zh_TW","colorTheme":"dark","isTransparent":true}</script></div></div>
+    </article>
+  </section>
+
+  <section class="chartbox">
+    <div class="chart-title">互動走勢圖｜預設標普 500 CFD，可自行切換商品</div>
+    <div class="chart">
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {"autosize":true,"symbol":"OANDA:SPX500USD","interval":"5","timezone":"Asia/Taipei","theme":"dark","style":"1","locale":"zh_TW","allow_symbol_change":true,"calendar":false,"support_host":"https://www.tradingview.com"}
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">
+    <b style="color:#e4edf8">報價口徑</b><br>
+    前四項為 OANDA 指數 CFD；第五項為費城半導體 SOX 現貨指數，並非 CFD。行情是否即時、延遲時間及可用時段取決於 TradingView 對各商品的資料供應與授權。TradingView 官方說明：嵌入 Widget 的交易所股票資料可能延遲，付費帳戶不會改變網站 Widget 的資料權限。<br>
+    若個別商品無法取得資料，請以該卡片的供應商狀態為準；本頁不會以程式生成或填入假報價。
+  </div>
+</main>
+</body>
+</html>
