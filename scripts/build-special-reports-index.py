@@ -70,9 +70,9 @@ def main():
     # Replace the complete marker region, tolerating indentation/whitespace
     # around either marker. The previous exact-string replacement silently
     # missed the indented markers in special-reports.html.
-    marker_pattern = re.compile(re.escape(START) + r"[\\s\\S]*?" + re.escape(END))
+    marker_pattern = re.compile(re.escape(START) + r"[\s\S]*?" + re.escape(END))
     html, replacements = marker_pattern.subn(
-        lambda _: START + "\\n" + cards + "\\n " + END, html, count=1
+        lambda _: START + "\n" + cards + "\n " + END, html, count=1
     )
     if replacements != 1:
         raise SystemExit(f"Expected to replace one article region; replaced {replacements}.")
