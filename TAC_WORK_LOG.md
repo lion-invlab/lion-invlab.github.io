@@ -87,3 +87,12 @@
 - 上述合併後修改均應觸發 Structural Gate；目前尚未取得這些 main push runs 的最終狀態，須待確認。
 
 - 驗證口徑補充：PR run `41385521727` 的 Playwright workflow step 是成功結束但因 PR 沒有變更 dated preview 而跳過，故本次沒有對新早報執行實際視覺回歸；不得將它寫成完成視覺比對。
+
+
+## 2026-11-05｜11/05 審核版工具欄新增專題報導入口
+- 使用者確認專題報導索引試作版面可採用，要求修改今日審核版。
+- 僅修改 `preview/2026-11-05.html`：在側邊工具欄新增第四項「專題報導」，沿用既有工具項目 class，連至 `https://lion-invlab.github.io/preview/special-report-tools-preview.html`，新分頁開啟。
+- 修改前 preview SHA：`a235ca869a308e30607dcfce67928f992f0d3803`；commit：`d26326c9b9d19806c03089ad68ed910ff356a8fb`；修改後回讀 SHA：`a32f3dc3d672a79edff72e5da0e750b38b603147`。
+- 專題索引試作 SHA：`84efea25ba41eb35e9eaece2253c6f768e6bcdb6`。
+- 回讀核對確認新增文字與 href 正確；正式首頁 `index.html` SHA 維持 `a235ca869a308e30607dcfce67928f992f0d3803`，未包含新入口；雙母版與 Manifest 未修改。
+- 驗收限制：完成 GitHub 寫入、回讀與靜態檢查；本次未執行真實瀏覽器點擊、響應式視覺回歸或 Pages 實際載入驗證，以上均標示未測試。
