@@ -42,12 +42,13 @@ main{max-width:1180px;margin:0 auto;padding:30px 34px 60px}.breadcrumb{font-size
 <button class="mobile-trigger" onclick="toggleTools(true)">☰ <span style="margin-left:7px">工具欄</span></button>
 <main id="special-index">
  <div class="breadcrumb">TAC 投資早報　/　工具欄　/　專題報導</div>
- <div class="pagehead"><div><div class="eyebrow">TAC RESEARCH LIBRARY</div><h1>專題報導</h1><p class="lead">市場不只看每日漲跌，更要理解背後的脈絡。<br>在這裡搜尋、整理與回顧 TAC 的深度市場研究。</p></div><div class="archive-count"><b>01</b><span>已收錄專題</span></div></div>
+ <div class="pagehead"><div><div class="eyebrow">TAC RESEARCH LIBRARY</div><h1>專題報導</h1><p class="lead">市場不只看每日漲跌，更要理解背後的脈絡。<br>在這裡搜尋、整理與回顧 TAC 的深度市場研究。</p></div><div class="archive-count"><b id="archive-total">0</b><span>已收錄專題</span></div></div>
  <section class="search-panel"><div class="search-label">SEARCH THE RESEARCH ARCHIVE</div><div class="search"><span class="glass">⌕</span><input id="q" type="search" placeholder="搜尋專題標題、關鍵字或市場議題…" oninput="filterArticles()"></div><div class="search-hint">可搜尋：美股、選舉、利率政策、產業趨勢、投資策略</div>
  <div class="filters"><button class="filter active" data-cat="全部" onclick="setCategory('全部',this)">全部專題</button><button class="filter" data-cat="美股" onclick="setCategory('美股',this)">美股市場</button><button class="filter" data-cat="總體經濟" onclick="setCategory('總體經濟',this)">總體經濟</button><button class="filter" data-cat="產業分析" onclick="setCategory('產業分析',this)">產業分析</button><button class="filter" data-cat="投資策略" onclick="setCategory('投資策略',this)">投資策略</button></div></section>
  <div class="sectionbar"><div class="sectiontitle"><strong>精選與最新專題</strong></div><span class="count" id="count">01 篇專題</span></div>
- <article class="featured article" data-category="美股" data-search="美國期中選舉 美股投資機會 美國股市 國會權力版圖 政策制衡 產業市場"><div class="feature-art"><span class="art-label">TAC SPECIAL REPORT</span><span class="art-line"></span><span class="art-mark">MARKET<br>INSIGHT</span></div><div class="feature-copy"><div class="feature-kicker">美股市場　/　政策與投資機會</div><h2>美國期中選舉 × 美股投資機會</h2><p>從國會權力版圖與政策制衡出發，解析美國政治局勢變化對市場、產業及投資布局的可能影響。</p><div class="tags"><span class="tag">美國期中選舉</span><span class="tag">國會權力</span><span class="tag">美股策略</span></div><div class="feature-bottom"><span class="date-meta">發布日期　2026.11.05</span><a class="read-link" href="https://lion-invlab.github.io/research/us-midterm-divided-government-2026.html" target="_blank" rel="noopener">閱讀完整專題 <span>↗</span></a></div></div></article>
- <div class="empty" id="empty">目前沒有符合條件的專題，請調整關鍵字或分類。</div><div class="archive-foot"><span>RESEARCH ARCHIVE　·　TAC 投資早報</span><span>索引內容依實際發布紀錄持續累積</span></div>
+ <!-- TAC_AUTO_ARTICLES_START -->
+ <!-- TAC_AUTO_ARTICLES_END -->
+ <div class="empty" id="empty">目前沒有符合條件的專題，請調整關鍵字或分類。</div><div class="archive-foot"><span>RESEARCH ARCHIVE　·　TAC 投資早報</span><span>索引由已發布的 research/*.html 專題自動產生</span></div>
 </main>
 <script>
 let category='全部';
@@ -56,6 +57,7 @@ function showSpecial(e){e.preventDefault();toggleTools(false);document.getElemen
 function setCategory(c,el){category=c;document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));el.classList.add('active');filterArticles()}
 function filterArticles(){const q=document.getElementById('q').value.trim().toLowerCase();let n=0;document.querySelectorAll('.article').forEach(a=>{const ok=(category==='全部'||a.dataset.category===category)&&a.dataset.search.toLowerCase().includes(q);a.style.display=ok?'grid':'none';if(ok)n++});document.getElementById('count').textContent=n+' 篇專題';document.getElementById('empty').style.display=n?'none':'block'}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleTools(false)});
+filterArticles();
 </script>
 </body>
 </html>
