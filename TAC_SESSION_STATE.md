@@ -650,3 +650,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Fed Rate Monitor：Investing.com 當前頁面讀到 2026/12/09 會議，目標區間 3.75%–4.00%，維持 33.7%、升息一碼至 4.00%–4.25% 66.3%，頁面更新 2026-11-05 15:55 EST（台灣 11/06 04:55）。CME FedWatch 官方頁可開啟，但 QuikStrike iframe 因 referrer access denied 無法讀出分布；Reuters 同日報導約 66% 升息機率與 Investing 66.3% 方向一致，CME 數值交叉核對仍標示未取得。
 - 最終 44 項計數：43 confirmed / 1 pending（MOVE）。FedWatch 為另列政策觀察值，Investing 動態頁已讀，CME exact cross-check 未取得。
 - 階段 C 結果：9 個行情例外補齊，MOVE 維持待核實；完成規定重試與備援，不重抓已確認的 17 指數與 11 ETF。階段 D 開始。
+### 階段 D｜W45 行事曆核對與同檔增量 merge/upsert（完成）
+- 實際時間：開始 05:33:05、結束 05:40:00（+08:00），牆鐘 6 分 55 秒；處理時間／工具等待無獨立計時資料，標示不可得。
+- 04:35 預更新檔於本次開工時已回讀；本輪寫入前最新 SHA e83f56fe82ca70b474c93905fe62638fc48c46b4，未見並行版本變更。只更新同一 data/calendar/weeks/2026-W45.json，未建立平行DB、未刪事件、未覆蓋其他欄位的已核實值或以null覆蓋實績。
+- 新增／校正7筆穩定ID：Eurostat HICP日期改為官方產品頁11/04、actual 4.0% y/y及0.4% m/m；加拿大Budget 11/05改released；DoorDash官方日期改為10/29美東（台灣10/30，實際屬W44，保留ID但排除W45日期範圍）；McKesson FY2027 Q2、Qualcomm FY2026 Q4、AppLovin Q3 2026改為11/04美東盤後（台灣11/05）並寫入actual/共識/可核實股價反應；Lumentum FY2027 Q1改為11/02美東（台灣11/03）並寫入actual/共識/指引。
+- 更新後重新fetch回讀成功：JSON SHA 2215b0129945fb0d2778982bf3aefcae32cf8bb3；18 economic / 38 earnings；audit 204；coverage economic/earnings仍為incomplete（保留原狀態）。
+- 行事曆實績仍待核實：美國期中選舉州級最終認證；其他upcoming事件依當下發布時點保留，不以未到時實績填寫。DoorDash記錄日期落在W44，並未從W45 JSON刪除。
+- 階段 D 結果：7筆事件增量更新，回讀SHA一致；階段 E 開始。
