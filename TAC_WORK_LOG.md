@@ -292,3 +292,12 @@
 - 回讀驗收：JSON 可解析；36 筆財報 event ID 與 ticker 均唯一；所有事件日期在 W46（11/09–11/15）；每筆均有 source URL、listing evidence、NYSE／Nasdaq 掛牌欄位及 TAC 4／5 星。仍有五家因幣別／口徑待核實而未填共識：PBR、MUFG、MFG、VOD、GIB。
 - W46 寫入 commits：3a7aae2553ca95e27982384e303d7c8b601e0f3f（第七輪與初步估值補入）、0cc61c155e1b23d6a64012ed18bd721844e2274c（HIVE 共識補入及幣別覆核）。Session State 更新 commit：123a7dfff546729ff338dbd6a7a91ef74c9b9b21。
 - 本輪未修改 WR、Manifest、雙母版、index.html、preview、W45 JSON 或排程；未執行瀏覽器測試（純 JSON 維護不涉及頁面 QA）。
+
+
+## 2026-11-06｜W46 第九輪大型數位基礎設施／農業科技財報補漏
+- 續依 main 最新 WR v5.13 及既有 W46 JSON 做增量掃描；候選來源只作發現，納入前確認發行人官方財報時程、NYSE／Nasdaq 掛牌與 TAC 四星門檻。
+- 新增 MARA Holdings（MARA，Nasdaq，Q3 2026；官方確認 11/09 17:00 ET 電話會議，換算台灣 11/10 06:00；能源／數位資產運算及 AI/HPC 資料中心基礎設施，四星）。官方來源：https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results 。共識來源 MarketBeat：EPS -US$0.3918、營收 US$183.24M，basis 未披露。
+- 新增 Vylor（VYLR，NYSE，Q3 2026；官方 IR 確認 11/11 收盤後發布、11/12 09:00 ET webcast，換算台灣 11/12 22:00；農業科技／種子與基因科技，四星）。官方來源：https://www.vylor.com/en/investors/ 及 Nasdaq 發行人公告：https://www.nasdaq.com/press-release/vylor-announces-dates-third-quarter-2026-earnings-release-and-webcast-2026-10-06 。共識來源 The Right Trader：EPS -US$0.44、營收 US$918.1M，basis 未披露。
+- 最新 W46 回讀 SHA：792d5e9064cfe63ea88dfa5bcc651f47340f6923；經濟 8、財報 38、audit 13；EPS／營收共識各 33 筆。五家共識仍保留 null：PBR、MUFG、MFG、VOD、GIB（跨幣別／口徑不一致，不作機械換算）。
+- 驗收：JSON 可解析；38 筆財報 ID/ticker 唯一；日期均落在 W46；每筆 source URL、listing evidence、NYSE／Nasdaq 掛牌欄位及 TAC 4/5 星完整。coverage 維持 incomplete，不宣稱全球候選掃描完成。
+- 本輪 commit：bcf5135ba58efce773b33fb4d40dd6ce9036e910。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；未執行瀏覽器 QA。
