@@ -34,8 +34,6 @@ def main():
     ap.add_argument("--expected-master-sha", required=True)
     args=ap.parse_args()
     manifest=json.loads(MANIFEST.read_text())
-    raw=MASTER.read_text()
-    actual=sha_blob(raw)
     template_record = manifest["templates"]["weekdays"]
     master_path = ROOT / template_record.get("simulation_path", "simulation-lab/baseline/weekday-mother-template.html")
     raw = master_path.read_text(encoding="utf-8")
