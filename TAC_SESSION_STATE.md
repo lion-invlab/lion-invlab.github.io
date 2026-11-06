@@ -876,3 +876,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 因重新啟用後 Automations peek 仍回傳 `next_run_time=null`，將既有重複排程 DTSTART 從已過期的 2026-11-06 05:25（台灣時間）順延至下一個工作日 2026-11-09 05:25；RRULE 仍為週一至週五 05:25，時區仍為 Asia/Taipei，未改變頻率或時刻。
 - 更新工具回傳 success=true，更新後再次 peek 確認 schedule DTSTART 為 20261109T052500 且 `is_enabled=true`；但 `next_run_time` 仍為 null，故排程器是否已排定下一次觸發仍未獲證實。不得宣稱下次排程已驗證。
 - 執行環境仍為 inherited、environments=null；本輪未取得新的獨立排程 run 終端結果。排程維持啟用，04:35 排程不變。
+
+
+## 2026-11-06｜W45 本週補漏與 W46 下週行事曆建立
+- 開工前重新讀取 GitHub main 最新 `TAC_WORK_RULES.md`：WR v5.13，blob SHA `27d8065135ec610dce971a5dc1cdc3c00f922bdb`。本輪依 WR 既有行事曆資料庫規範操作，未修改 WR、母版、Manifest、首頁或排程。
+- W45（2026-11-02 至 2026-11-08）原檔增量更新，保留原有 18 筆經濟事件及已公布財報實績／來源／audit；補入 Moderna、Humana、Vistra、Enbridge、Brookfield Asset Management 五筆 11/06 官方確認財報時程。另將 DoorDash（實際事件日 10/30 台灣）從 W45 events 移除，避免跨週污染，穩定 ID 與歷史 audit 保留。
+- W45 寫後回讀 blob SHA：`0a001ae32097d3ab1a6a7bb5b1ff81910aebedf4`；共 18 筆經濟事件、42 筆財報事件、210 筆 audit。驗證：事件 ID 無重複、所有 event_date 均落在 W45 週界內、所有事件有來源 URL、評級均為 TAC 4/5 星、財報均有美國交易所掛牌證據。coverage economic／earnings 仍為 incomplete，不能宣稱已完成所有全球事件掃描。
+- W46（2026-11-09 至 2026-11-15）原先不存在，已依 W45 schema 新建 `data/calendar/weeks/2026-W46.json`。第一輪加入中國 10 月 CPI/PPI、美國 10 月 CPI/PPI、英國 Q3 GDP；第二輪補入 Eurostat T+45 GDP／就業 flash estimate。另依官方 IR／SEC 公告補入 Constellation Energy、KKR、Barrick、Occidental、Take-Two、Cisco、Applied Materials、Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 共 15 筆財報事件。
+- W46 對公司財報日期／時間以發行人 IR 或 SEC 文件優先；Cisco 採公司官方確認 11/12（美東）而非第三方日曆的 11/11。對時間僅確認日期者明確標示 time_known=false／unknown，不自行猜時刻；尚未取得同口徑 EPS／營收共識者保留 null，不預填實績。MUFG/Mizuho 報表幣別校正為 JPY，Petrobras 為 BRL，並補強 ADR／NYSE 掛牌證據。
+- W46 寫後回讀最新 blob SHA：`0676ecd8967bef84353a8bb0045501ff218d6735`；共 6 筆經濟事件、15 筆財報事件、4 筆 audit。驗證：事件 ID 無重複、所有 event_date 均落在 W46 週界內、所有事件有來源 URL、評級均為 TAC 4/5 星、財報均有美國交易所掛牌證據。coverage economic／earnings 仍為 incomplete：後續仍需按官方日程補掃其他主要市場及更多美國掛牌發行人，並補齊可追溯共識；本次不以不完整冒充齊備。
+- W46 經濟日程交叉掃描排除項目：日本國際收支、韓國一般貨幣／貿易價格統計、澳洲 ABS 多項一般數據，依 TAC 四星門檻未列入；美國 Veterans Day 已納入 BLS 發布日程檢查，不作為四星經濟指標。未列入不代表漏查，排除原因已記於 coverage notes。
+- 本輪 GitHub 寫入及回讀均使用正式連接器；未執行瀏覽器／Playwright QA（行事曆 DB 不涉及頁面視覺 Gate）。
