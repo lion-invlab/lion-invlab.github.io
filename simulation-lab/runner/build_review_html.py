@@ -149,18 +149,83 @@ def main():
     for span in fed.select(".fc-split-head span"):
         if "資料時間" in span.get_text() or "官方截圖" in span.get_text():
             set_text(span,f"Investing.com｜{ts} 台灣時間")
-    # Calendar data status: retain mother cards where no current record was safely mapped.
-    # Mark the section's existing heading with current week and explain that only W45 applies.
+    # Replace stale calendar cards with W45 records frozen at the report cutoff.
+    from datetime import datetime
+    def dateparts(v):
+        try:
+            z=datetime.fromisoformat(v); return z.strftime("%m/%d"), z.strftime("%H:%M") if z.hour or z.minute else "時間未確認"
+        except Exception: return "日期待核實","時間未確認"
+    def groupkey(x):
+        d=(x.get("date") or "")[:10]
+        return "today" if d=="2026-11-06" else ("upcoming" if d>"2026-11-06" else "published")
+    def startext(x):
+        n=max(0,min(5,int(x.get("stars") or 0))); return "★"*n+"☆"*(5-n)
+    def putfield(card,label,value):
+        for field in card.select(".econ-field"):
+            lab=field.select_one("label")
+            if lab and lab.get_text(strip=True)==label: set_text(field.select_one(".econ-value"),value if value is not None else "不適用／待核實")
     cal=unique(soup,"#calendar","economic calendar")
-    for node in cal.select(".title"):
-        if "本週經濟行事曆" in node.get_text():
-            small=node.select_one("small")
-            if small: set_text(small,"2026/11/02～11/08｜W45 資料庫")
+    econ=data.get("calendar",{}).get("events",[])
+    if not econ: raise ValueError("W45 economic calendar data missing")
+    title=cal.select_one(".title small")
+    if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
+    panels=unique(cal,".week-econ-panels","economic panels")
+    template=panels.select_one("details.econ-event")
+    group_template=panels.select_one(".calendar-status-group")
+    if not template or not group_template: raise ValueError("economic calendar template missing")
+    panels.clear()
+    for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
+        items=[x for x in econ if groupkey(x)==key]
+        group=BeautifulSoup(str(group_template),"html.parser").select_one(".calendar-status-group")
+        heading=group.select_one(".calendar-status-heading span") or group.select_one(".calendar-status-heading")
+        if heading: set_text(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）")
+        listing=group.select_one(".econ-event-list"); listing.clear()
+        for x in items:
+            card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
+            day,clock=dateparts(x.get("date",""))
+            for sel,val in [(".econ-date",day),(".econ-time",clock),(".econ-country",x.get("region","")),(".econ-name",x.get("name","")),(".econ-stars",startext(x))]:
+                node=card.select_one(sel)
+                if node: set_text(node,val)
+            card["class"]=["econ-event","five-star" if int(x.get("stars") or 0)>=5 else "four-star"]
+            putfield(card,"前值",x.get("previous")); putfield(card,"市場預估",x.get("forecast"))
+            putfield(card,"實際",x.get("actual") if x.get("status")=="released" else "尚未公布（資料截點 11/06 05:25）")
+            putfield(card,"市場影響",x.get("impact") or "待核實")
+            link=card.select_one(".econ-field a")
+            if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
+            listing.append(card)
+        panels.append(group)
     earn=unique(soup,"#earnings","earnings calendar")
-    for node in earn.select(".title"):
-        if "本週財報行事曆" in node.get_text():
-            small=node.select_one("small")
-            if small: set_text(small,"2026/11/02～11/08｜W45 資料庫")
+    earnings=data.get("earnings",{}).get("events",[])
+    if not earnings: raise ValueError("W45 earnings calendar data missing")
+    title=earn.select_one(".title small")
+    if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
+    ep=unique(earn,".week-earnings-panels","earnings panels")
+    et=ep.select_one("details.earnings-accordion"); eg=ep.select_one(".calendar-status-group")
+    if not et or not eg: raise ValueError("earnings calendar template missing")
+    ep.clear()
+    for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
+        items=[x for x in earnings if groupkey(x)==key]
+        group=BeautifulSoup(str(eg),"html.parser").select_one(".calendar-status-group")
+        heading=group.select_one(".calendar-status-heading")
+        if heading: set_text(heading,f"{label}｜TAC 四星／五星（{len(items)}家）")
+        listing=group.select_one(".earnings-accordion-list"); listing.clear()
+        for x in items:
+            card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
+            day,clock=dateparts(x.get("date",""))
+            fields=[(".earnings-us-date",day),(".earnings-tw-date",("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")+"；"+clock),(".earnings-company-name",x.get("company","")),(".earnings-company-sub",str(x.get("ticker",""))+"｜"+str(x.get("industry",""))),(".earnings-stars",startext(x))]
+            for sel,val in fields:
+                node=card.select_one(sel)
+                if node: set_text(node,val)
+            detail=card.select(".earnings-detail-value")
+            if len(detail)>=5:
+                set_text(detail[0],("盤前／盤後時間待核實" if not clock else clock))
+                set_text(detail[1],f"{x.get(chr(101)+chr(112)+chr(115)+chr(95)+chr(101)+chr(115)+chr(116)+chr(105)+chr(109)+chr(97)+chr(116)+chr(101))}／{x.get(chr(101)+chr(112)+chr(115)+chr(97)+chr(99)+chr(116)+chr(117)+chr(97)+chr(108)) if x.get(chr(115)+chr(116)+chr(97)+chr(116)+chr(117)+chr(115))==chr(114)+chr(101)+chr(108)+chr(101)+chr(97)+chr(115)+chr(101)+chr(100) else chr(24453)+chr(20844)+chr(24067)}")
+                set_text(detail[2],f"{x.get(chr(114)+chr(101)+chr(118)+chr(101)+chr(110)+chr(117)+chr(101)+chr(95)+chr(101)+chr(115)+chr(116)+chr(105)+chr(109)+chr(97)+chr(116)+chr(101))}／{x.get(chr(114)+chr(101)+chr(118)+chr(101)+chr(110)+chr(117)+chr(101)+chr(95)+chr(97)+chr(99)+chr(116)+chr(117)+chr(97)+chr(108)) if x.get(chr(115)+chr(116)+chr(97)+chr(116)+chr(117)+chr(115))==chr(114)+chr(101)+chr(108)+chr(101)+chr(97)+chr(115)+chr(101)+chr(100) else chr(24453)+chr(20844)+chr(24067)}")
+                set_text(detail[3],(x.get("judgment") or "財報尚未公布；關注 EPS、營收與公司指引。")+"；股價反應："+str(x.get("price_reaction") or "待核實"))
+            link=card.select_one(".earnings-detail-value a")
+            if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
+            listing.append(card)
+        ep.append(group)
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
