@@ -358,3 +358,29 @@
 - 更新 `TAC_WORK_RULES.md` 至 v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`：母版 SHA 未變時直接沿用契約，每日只做 SHA、錨點唯一性／星期情境及輸出 DOM 驗證；只有核准母版 SHA 改變且 Manifest 同步後才完整重析一次。明確禁止標題文字、註解、字串 index、regex 或固定字元範圍替代 DOM 定位。
 - 本次只修改 WR 與既有驗收清單；未修改 Manifest、雙母版、正式首頁、preview、行事曆 JSON、排程或其他程式。未執行真實瀏覽器 DOM／視覺／互動測試；本次屬規則與定位契約固定化，不宣稱早報組裝器已完成程式級修復或預覽 QA 通過。
 - 更新 commit：驗收清單 `66281280e1f4ccccc401f4d1132134652f5db755`；WR `a31ee17683309aa5752c37723c14de75cfd7e2ec`。
+
+
+## 2026-11-06｜週一母版本週經濟卡紅色展開控制修復
+
+### 授權與範圍
+- 使用者明確授權：只修復週一正式母版 `#calendar` 的 12 張本週經濟事件卡，在各自 `summary` 內補入母版既有 `<span aria-hidden="true" class="econ-toggle"></span>` 控制。
+- 不修改週二至週五母版、正式首頁、WR、行事曆資料庫、排程、CSS／JavaScript 樣式行為或其他版面元件。
+
+### 寫入與版本
+- 週一母版：`母版專區/TAC_母版_週一_2026-10-28_最終定版.html`；新 blob SHA：`a568e594e55909041d51d8eae7e6fe5f7986c096`。
+- Manifest：`母版專區/mother-template-manifest.json`；新 blob SHA：`fade5e3d88de76a79cb5c1656cc592b98827ab55`；monday.blob_sha 已同步。
+- 結構驗收清單：`母版專區/母版結構驗收清單.md`；版本 1.3；新 blob SHA：`74a7c90aaaeee497b7b2b134d9569aee615d95c0`。
+- Commit：`d3bb716ccb4b3bbeec6ca645c1b3bc246ae0e2e1`（main）。
+- 使用真正的結構解析定位 `section#calendar` 下 12 個 `details.econ-event` 及其唯一 `summary`，逐張確認尚無控制後才插入；未對全檔做盲目替換。
+
+### 寫後回讀／靜態驗收
+- 重新 fetch main：週一母版 SHA 與 Manifest 登記完全一致。
+- `#calendar` 12 張事件卡均有且只有一個直接位於 `summary` 的 `.econ-toggle`；週二至週五母版仍為原本 16 個控制，SHA 未變。
+- 週一文件基準：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184；ID 無重複。
+- 既有 CSS 已確認存在：32×32px、紅色 `#c62828` 圓形控制；收合狀態顯示「＋」，`details[open]` 顯示「−」。未修改 CSS 或 JavaScript。
+- Commit diff 只包含 12 個控制節點插入、Manifest SHA／變更紀錄、驗收清單版本／selector 更新；未改其他檔案。
+- 免費替代方式：使用 GitHub 整合直接讀取、建立 blob/tree/commit、更新 main ref 及回讀驗證；未使用 TinyFish 付費瀏覽器流程。
+
+### 尚未完成／限制
+- 真實 Chromium 瀏覽器與視窗尺寸視覺測試未完成：執行環境對 GitHub Pages 外部網頁導覽回報 `ERR_BLOCKED_BY_ADMINISTRATOR`，GitHub raw 網址亦無法由瀏覽器工具讀取；不得宣稱實際畫面或點擊互動已通過。
+- 靜態 CSS／DOM 契約已核實，但紅色圓形控制在 360／390／412／768／1440px 的實際位置、觸控與展開後畫面仍標記「未測試」。
