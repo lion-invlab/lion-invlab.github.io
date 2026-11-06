@@ -277,3 +277,18 @@
 ## 2026-11-06｜W46 財報第五輪科技／電信發行人補漏
 - 新增 Sea Limited（NYSE: SE，Q3 2026，5星；官方公告 https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27；官方公告確認 11/10 開盤前發布、07:30 ET 電話會議）、Vodafone Group（Nasdaq ADS: VOD，H1 FY2027，4星；官方財務行事曆 https://www.vodafone.com/investors/performance-and-reports/financial-calendar 確認 11/10 發布，未提供時刻，故標示日期待核實；SEC掛牌證據 https://www.sec.gov/Archives/edgar/data/839923/000119312526235425/d143190dex27.htm）、Rigetti Computing（Nasdaq: RGTI，Q3 2026，4星；官方公告 https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results 確認 11/10 17:00 ET 收盤後電話會議）。
 - 寫後回讀 W46 JSON SHA：`553f9a48a33b47c3a4faf06f0331c27e266ab903`；財報 28 筆、經濟 8 筆、audit 8；本輪新增三筆已納入 source_refs 及 audit，coverage.earnings 仍為 incomplete。EPS／營收共識尚未取得逐項同口徑可追溯來源，維持 null。
+
+
+## 2026-11-06｜W46 第七／八輪財報補漏、共識估值與幣別覆核
+- 開工前重新讀取 main 最新 TAC_WORK_RULES.md v5.13，blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb；依 WR 第三步及 H 節執行，只增量更新既有 data/calendar/weeks/2026-W46.json。W45 未修改。
+- 第七輪新增 monday.com（MNDY，Nasdaq；Q3 2026，官方確認 11/09 08:30 ET call）、Hims & Hers（HIMS，NYSE；官方確認 11/09 after close、17:00 ET call）、The Trade Desk（TTD，Nasdaq；官方確認 11/09 after close、17:00 ET call）、Ascendis Pharma（ASND，Nasdaq；官方確認 11/12 before open、08:00 ET call）。來源：
+  - https://ir.monday.com/news-and-events/news-releases/news-details/2026/monday-com-to-Announce-Third-Quarter-2026-Financial-Results-on-Monday-November-9-2026/default.aspx
+  - https://investors.hims.com/news/news-details/2026/Hims--Hers-to-Announce-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx
+  - https://investors.thetradedesk.com/news-and-events/news/news-details/2026/The-Trade-Desk-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx
+  - https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide
+- 擴大補入既有財報事件之公布前 EPS／營收共識。Finviz 逐日行事曆用於大多數美國掛牌公司，Nasdaq via StockTitan 用於 CSCO EPS US$1.15、AMAT EPS US$4.06；MarketBeat individual estimates 用於 MNDY、HIMS、ASND 及 HIVE。來源未揭露 GAAP／non-GAAP basis 者只保存原始共識，不據此判斷 beat/miss。來源差異不取平均，並在 coverage notes 記錄；例如 TTWO、TDG、CRWV、NBIS、CBRS 等第三方共識數字有差異，所採數值均綁定所列來源。
+- 第八輪針對原先共識空值逐家覆核：HIVE 已補入同幣別 USD EPS -0.16、營收 US$79.44M；PBR、MUFG、MFG、VOD、GIB 找到的 ADR／ADS 美元口徑估計與發行人報表幣別／口徑未能證明一致，故保留 null，不跨幣別硬填。SMFG 官方日曆只寫 mid-Nov，未提供確切日期，不使用第三方估計日補入。
+- 最新正式 JSON 回讀 SHA：9c1859ad894f266fd1cd253a82c160eeb95daec2；事件數 economic 8、earnings 36、audit 12；EPS 共識 31 筆、營收共識 31 筆。coverage economic／earnings 均維持 incomplete。
+- 回讀驗收：JSON 可解析；36 筆財報 event ID 與 ticker 均唯一；所有事件日期在 W46（11/09–11/15）；每筆均有 source URL、listing evidence、NYSE／Nasdaq 掛牌欄位及 TAC 4／5 星。仍有五家因幣別／口徑待核實而未填共識：PBR、MUFG、MFG、VOD、GIB。
+- W46 寫入 commits：3a7aae2553ca95e27982384e303d7c8b601e0f3f（第七輪與初步估值補入）、0cc61c155e1b23d6a64012ed18bd721844e2274c（HIVE 共識補入及幣別覆核）。Session State 更新 commit：123a7dfff546729ff338dbd6a7a91ef74c9b9b21。
+- 本輪未修改 WR、Manifest、雙母版、index.html、preview、W45 JSON 或排程；未執行瀏覽器測試（純 JSON 維護不涉及頁面 QA）。
