@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-06T05:20:00+08:00",
+  "updated_at": "2026-11-06T05:24:00+08:00",
   "source_report_date": "2026-11-06",
   "wr_version": "5.13",
   "status": "active",
@@ -66,6 +66,33 @@
         "time_known": true
       },
       {
+        "id": "current-us-treasury-3y-auction-20261110",
+        "event_date": "2026-11-10T02:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國財政部 3 年期公債標售（580 億美元）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國季度再融資公債供給對利率曲線與金融條件具明顯影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "中短端標售需求可反映財政供給吸收狀況，觀察投標倍數與得標殖利率。",
+        "source": {
+          "name": "U.S. Department of the Treasury｜November 2026 Quarterly Refunding Statement",
+          "url": "https://home.treasury.gov/news/press-releases/sb0678",
+          "published_at": "2026-11-04",
+          "observed_at": "2026-11-06T05:24:00+08:00",
+          "publisher": "U.S. Department of the Treasury",
+          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；3 年期 580 億美元，11/09 13:00 ET 標售。 換算台灣時間如事件日期。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": "十億美元",
+        "data_reference": null,
+        "time_known": true
+      },
+      {
         "id": "current-us-cpi-20261110",
         "event_date": "2026-11-10T21:30:00+08:00",
         "region": "美國",
@@ -89,6 +116,33 @@
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "% m/m、% y/y",
+        "data_reference": null,
+        "time_known": true
+      },
+      {
+        "id": "current-us-treasury-10y-auction-20261111",
+        "event_date": "2026-11-11T02:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國財政部 10 年期公債標售（420 億美元）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國季度再融資公債供給對利率曲線與金融條件具明顯影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "10 年期是全球長天期利率定價基準，需求疲弱可能推升長端殖利率。",
+        "source": {
+          "name": "U.S. Department of the Treasury｜November 2026 Quarterly Refunding Statement",
+          "url": "https://home.treasury.gov/news/press-releases/sb0678",
+          "published_at": "2026-11-04",
+          "observed_at": "2026-11-06T05:24:00+08:00",
+          "publisher": "U.S. Department of the Treasury",
+          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；10 年期 420 億美元，11/10 13:00 ET 標售。 換算台灣時間如事件日期。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": "十億美元",
         "data_reference": null,
         "time_known": true
       },
@@ -197,6 +251,33 @@
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "千人",
+        "data_reference": null,
+        "time_known": true
+      },
+      {
+        "id": "current-us-treasury-30y-auction-20261113",
+        "event_date": "2026-11-13T02:00:00+08:00",
+        "region": "美國",
+        "event_name": "美國財政部 30 年期公債標售（250 億美元）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國季度再融資公債供給對利率曲線與金融條件具明顯影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "超長天期標售需求落差可能擴大期限溢酬並影響長端利率。",
+        "source": {
+          "name": "U.S. Department of the Treasury｜November 2026 Quarterly Refunding Statement",
+          "url": "https://home.treasury.gov/news/press-releases/sb0678",
+          "published_at": "2026-11-04",
+          "observed_at": "2026-11-06T05:24:00+08:00",
+          "publisher": "U.S. Department of the Treasury",
+          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；30 年期 250 億美元，11/12 13:00 ET 標售。 換算台灣時間如事件日期。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": "十億美元",
         "data_reference": null,
         "time_known": true
       },
@@ -2813,10 +2894,11 @@
         "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
         "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
         "https://www.newyorkfed.org/research/calendars/i-nov26.html",
-        "https://www.dol.gov/ui/data.pdf"
+        "https://www.dol.gov/ui/data.pdf",
+        "https://home.treasury.gov/news/press-releases/sb0678"
       ],
-      "checked_at": "2026-11-06T05:20:00+08:00",
-      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。"
+      "checked_at": "2026-11-06T05:24:00+08:00",
+      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3321,6 +3403,24 @@
       },
       "source": "Federal Reserve Bank of New York and U.S. Department of Labor official sources",
       "note": "新增可由官方日程確認且達 TAC 四星的美國每週初領失業救濟金；既有 CPI/PPI 不重複新增。"
+    },
+    {
+      "at": "2026-11-06T05:24:00+08:00",
+      "action": "us_treasury_quarterly_refunding_auction_supplement",
+      "event_id": "current-us-treasury-3y-auction-20261110,current-us-treasury-10y-auction-20261111,current-us-treasury-30y-auction-20261113",
+      "changed_fields": [
+        "events.economic",
+        "coverage.economic",
+        "audit"
+      ],
+      "before": {
+        "economic_count": 9
+      },
+      "after": {
+        "economic_count": 12
+      },
+      "source": "U.S. Department of the Treasury",
+      "note": "依官方季度再融資公告增補三筆美國公債標售。"
     }
   ]
 }
