@@ -323,3 +323,15 @@
 - 最新 W46 回讀 SHA：25a370db4336f1bbadb523cc1fb8b3f448ad664f；economic 8、earnings 42、audit 16；EPS／revenue consensus 各 37 筆。五家仍保留 null：PBR、MUFG、MFG、VOD、GIB，因 ADR／ADS 共識與發行人報表幣別／口徑未能證明一致。
 - 全面驗收：JSON 可解析；42 筆財報 ID／ticker 唯一；所有經濟與財報日期均在 W46 週界；財報 source URL、listing evidence、NYSE／Nasdaq 欄位及 TAC 4／5 星完整；經濟事件 source URL 及 TAC 4／5 星完整；未發現週界／來源／掛牌資格錯誤。coverage 維持 incomplete。
 - 本輪新增 commits：9fdad1259f8cd013f5557ca743e9f9ad1be7c391（ASTS／ONTO）、da9176fc817a77081846b1099e69209d0301c19e（SANM／QLYS）。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；未執行瀏覽器 QA。
+
+
+## 2026-11-06｜W46 美國經濟行事曆官方日程補漏
+- 依 main 最新 WR v5.13（blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb）及 W46 現有 JSON 增量補查；本輪只更新 `data/calendar/weeks/2026-W46.json`，財報 42 筆維持不動，W45 不修改。
+- 先核對既有美國 CPI（11/10 21:30 台灣時間）與 PPI（11/13 21:30）已在資料庫，不重複新增。BLS 官方 11 月日程列出 CPI、Real Earnings、Veterans Day 及 PPI；11/11 不另列 BLS 數據。
+- 依紐約聯準銀行 11 月官方經濟指標日曆，補入 11/12 21:30 台灣時間初領失業救濟金（截至 11/07 當週）；11/11 Veterans Day 假日後，該週初領數據排在 11/12。
+- 依美國財政部 11/04 季度再融資公告，補入 3 年期 580 億美元（台灣 11/10 02:00）、10 年期 420 億美元（11/11 02:00）、30 年期 250 億美元（11/13 02:00）三筆標售。
+- 依 Fed 官方 11 月日曆，補入 Waller 11/10 17:00 及 Bowman 11/11 04:30、07:30（台灣時間）三場 Economic Outlook 談話；一般監理／非經濟展望活動不納入。
+- 官方來源：BLS https://www.bls.gov/schedule/2026/11_sched_list.htm；New York Fed https://www.newyorkfed.org/research/calendars/i-nov26.html；Treasury https://home.treasury.gov/news/press-releases/sb0678；Federal Reserve https://www.federalreserve.gov/newsevents/2026-november.htm；DOL weekly claims https://www.dol.gov/ui/data.pdf。
+- 寫入採增量 upsert，沿用既有 schema 並新增 audit。W46 經濟事件由 8 增至 15，財報維持 42，audit 由 16 增至 19；EPS／營收共識仍各 37 筆。
+- 最終回讀 W46 JSON blob SHA：2f7a290f33512cef8c5707ebb5663227b35237dc。驗收：JSON 可解析；經濟 event ID 無重複；全部事件落在 11/09–11/15；所有經濟事件均有來源 URL 及 TAC 4／5 星；財報數量與共識欄位未變。coverage.economic 維持 incomplete，不宣稱全市場掃描完成。
+- 未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；純 JSON 更新未執行瀏覽器 QA。
