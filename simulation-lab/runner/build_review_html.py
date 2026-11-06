@@ -140,7 +140,7 @@ def main():
         hold=[x for x in outcomes if x["outcome"]=="hold"]
         nonhold=[x for x in outcomes if x["outcome"]!="hold"]
         if len(hold)!=1: raise ValueError("cannot safely aggregate multiple hold outcomes")
-        set_text(unique(rows[0,"strong","hold prob"),f'{float(hold[0]["probability"]):.1f}%')
+        set_text(unique(rows[0],"strong","hold prob"),f'{float(hold[0]["probability"]):.1f}%')
         set_text(unique(rows[0],".fc-range","hold range"),hold[0]["rate_range"])
         set_text(unique(rows[0],".fc-prob-label span:not(.fc-dot)","hold label"),"維持不變")
         set_text(unique(rows[1],"strong","non-hold prob"),f'{sum(float(x["probability"]) for x in nonhold):.1f}%')
