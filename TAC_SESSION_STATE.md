@@ -3,15 +3,31 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-06（台灣時間；W46 行事曆第七／八輪補漏後）
+- 最後更新：2026-11-06（台灣時間；雙母版 DOM 定位契約固定化後）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
-- 正式規則：TAC_WORK_RULES.md v5.13；最新 blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb
+- 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
 
 ## 1. 目前主線目標
 
 完成 TAC 投資早報 R3 可重複、可靠的每日審核版產製流程。2026-11-02（週一）早報已完成審核、使用者核准、更新正式首頁並完成 GitHub Pages 部署。接續主線改為修正正式首頁發布觸發鏈，並收斂每日自動產製流程；不得把本次部署成功誤認為所有 QA 項目永久全通過。
+
+
+## 1A. 2026-11-06 最新主線狀態｜母版 DOM 定位契約
+
+- 最新 WR：v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`。
+- 最新 Manifest：`母版專區/mother-template-manifest.json`，blob SHA `b6a24300276d7bed9dbc74472b42a97313117bd6`。
+- 週一正式母版 SHA：`9a694976772c582cd0e0c21ebff4add6a72c9bee`；週二至週五正式母版 SHA：`3785405e331b10ec6189002e480be2a1edbe20ef`；兩者均與 Manifest 相符。
+- 唯一結構驗收清單已更新為 v1.2，blob SHA `4b08fd5819452174abdefb2070880385a56933ca`。固定 DOM 定位契約直接存於此既有清單，不另建結構資料庫或第二份驗收文件。
+- 已固定共用主要錨點：`#overview`、`#sentiment`、`#news-scan`、`#headlines`、`#global-markets`、`#industry-bonds-fx-commodities`、`#calendar`、`#earnings`、`#sp500-earnings-health`、`#fed`、`#view`。週一另有 `#last-week-calendar`、`#last-week-earnings`；週二至週五禁止出現。
+- 已記錄兩母版的經濟卡 toggle selector 差異：週二至週五本週卡為 `.econ-toggle`；週一上週卡為 `.econ-event-toggle`。另記錄經濟／財報 tabs、事件卡、財報展開卡及 EPS／營收雙卡的巢狀結構。
+- 每日規則：先核對 Manifest 與母版 SHA；SHA 相同即沿用契約，只做錨點唯一性、星期情境及輸出 DOM 驗證，不重新完整分析母版。只有核准母版 SHA 改變且 Manifest 同步後，才解析新版本一次並更新契約。
+- 禁止使用標題文字、註解、字串 index、regex 或固定字元範圍尋找替換邊界；selector 缺失／不唯一／結構不符時停止該區塊寫入，不得猜測或 fallback。每日更新必須使用真正 DOM parser；若執行環境無法提供 DOM parser，停止不安全寫入並如實回報。
+- 本次變更只修改 WR、既有結構驗收清單、Work Log 與本狀態檔；未修改 Manifest、雙母版、首頁、preview、行事曆 JSON、排程或其他程式。
+- **驗收限制：** 本輪完成規則及定位契約固定化，沒有執行真實瀏覽器 DOM／視覺／互動測試，也沒有修改或驗收程式級 assembler。依 WR v5.14，日常早報由 ChatGPT 單一執行者直接組裝；不可把本輪規則更新宣稱為程式級修復或每日預覽 QA 通過。
+- 本次相關 commits：驗收清單 `66281280e1f4ccccc401f4d1132134652f5db755`；WR `a31ee17683309aa5752c37723c14de75cfd7e2ec`；Work Log `c58e774d1156a7460833f1fc0c8bb9aebeaab1d5`。
+- 下一步：下次早報製作直接讀取 WR v5.14、Manifest 及此契約；SHA 相同時不得重新解析母版。組裝時使用 DOM 定位並對輸出執行必要驗證；若工具環境不能實際執行 DOM 操作，明確標示未完成，不得回到字串替換。
 
 ## 2. 正式規則與核准母版（建立時已重新讀取 main）
 
