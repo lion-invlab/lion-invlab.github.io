@@ -972,3 +972,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新全面驗收：42 筆財報 ID／ticker 唯一；所有事件日期均在 W46；財報來源、掛牌證據、NYSE／Nasdaq 欄位、TAC 4／5 星完整；經濟事件來源及星等完整。五家仍保留共識 null：PBR、MUFG、MFG、VOD、GIB，因 ADR／ADS 幣別或會計口徑待核實。
 - Work Log 最新同步 blob SHA：90c2be8482a74be6a8ab61836998287234887fd9；更新 commit e6002be83f0552db319429cafa7659110e5d18df。
 - coverage.economic／earnings 仍 incomplete；不宣稱全球掃描完整。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程。
+
+
+## 2026-11-06｜W46 美國經濟行事曆補漏完成
+- 依 WR v5.13（blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb）完成美國官方日程專項掃描；本輪只更新既有 W46 JSON，不修改財報、W45、WR、Manifest、母版、首頁、preview 或排程。
+- W46 最新正式 JSON：`data/calendar/weeks/2026-W46.json`；回讀 blob SHA `2f7a290f33512cef8c5707ebb5663227b35237dc`；經濟 15、財報 42、audit 19；EPS／營收共識各 37。
+- 美國事件已涵蓋既有 CPI（11/10 21:30）、PPI（11/13 21:30），新增初領失業救濟金（11/12 21:30）、財政部 3Y／10Y／30Y 標售（11/10 02:00、11/11 02:00、11/13 02:00），以及 Fed Waller／Bowman 三場經濟展望談話（11/10 17:00、11/11 04:30、07:30），均為台灣時間。
+- 日期與時間來源：BLS 11 月官方日曆、New York Fed November Economic Indicators Calendar、U.S. Treasury 11/04 Quarterly Refunding Statement、Federal Reserve Board November Calendar。11/11 Veterans Day 造成週度統計發布調整已反映；CPI／PPI 已存在，不重複新增。
+- 驗收：JSON 可解析、經濟 event ID 唯一、全部事件在 W46 週界、經濟來源 URL／TAC 4-5 星完整；財報 42 筆未變。coverage.economic 仍為 incomplete，持續保留掃描未完狀態。
+- Work Log 最新更新 commit：`d83556c85838924780ed1093f89ad33d231c0e6d`；Work Log blob SHA：`4e11d98f63257641186026ff989582bc99652419`。
+- 純 JSON 資料維護，未執行瀏覽器／視覺 QA；未修改其他受保護檔案。
