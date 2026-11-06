@@ -168,16 +168,16 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "4.46%",
+      "change_display": "−12bp"
     },
     "10年期美債殖利率": {
       "display": "4.84%",
       "change_display": "−6bp"
     },
     "30年期美債殖利率": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "5.25%",
+      "change_display": "−3bp"
     }
   },
   "fx": {
