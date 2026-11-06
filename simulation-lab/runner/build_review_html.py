@@ -96,7 +96,8 @@ def main():
         t=row.select_one("span.r").get_text(strip=True).replace("%","").replace("−","-").replace("－","-")
         try: return float(t)
         except Exception: return -999.0
-    for row in sorted(sector_rows,key=sector_change,reverse=True): sectors.append(row)
+    sector_list=sector_rows[0].parent
+    for row in sorted(sector_rows,key=sector_change,reverse=True): sector_list.append(row)
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
