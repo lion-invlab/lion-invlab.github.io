@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-06T18:00:00+08:00",
+  "updated_at": "2026-11-06T05:20:00+08:00",
   "source_report_date": "2026-11-06",
   "wr_version": "5.13",
   "status": "active",
@@ -170,6 +170,33 @@
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "% q/q、% m/m",
+        "data_reference": null,
+        "time_known": true
+      },
+      {
+        "id": "current-us-initial-claims-20261112",
+        "event_date": "2026-11-12T21:30:00+08:00",
+        "region": "美國",
+        "event_name": "美國每週初領失業救濟金人數（截至 11/07 當週）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國重要勞動市場領先指標，對就業韌性及利率預期具明顯影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "初領失業金可較即時反映裁員變化；需搭配四週均值與續領人數，避免單週季節性波動造成過度解讀。",
+        "source": {
+          "name": "Federal Reserve Bank of New York｜November 2026 Economic Indicators Calendar",
+          "url": "https://www.newyorkfed.org/research/calendars/i-nov26.html",
+          "published_at": null,
+          "observed_at": "2026-11-06T05:20:00+08:00",
+          "publisher": "Federal Reserve Bank of New York",
+          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。"
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "千人",
         "data_reference": null,
         "time_known": true
       },
@@ -2784,10 +2811,12 @@
         "https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359",
         "https://www.bankofcanada.ca/2026/11/release-bank-canadas-summary-deliberations-2026-10-28/",
         "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
-        "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming"
+        "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
+        "https://www.newyorkfed.org/research/calendars/i-nov26.html",
+        "https://www.dol.gov/ui/data.pdf"
       ],
-      "checked_at": "2026-11-06T18:00:00+08:00",
-      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。"
+      "checked_at": "2026-11-06T05:20:00+08:00",
+      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3274,6 +3303,24 @@
       },
       "source": "Sanmina Investor Relations; Qualys Investor Relations; MarketBeat",
       "note": "Issuer-confirmed reporting schedules and US listing verified; SANM fiscal period explicitly FY2026 Q4, QLYS Q3 2026."
+    },
+    {
+      "at": "2026-11-06T05:20:00+08:00",
+      "action": "us_economic_calendar_official_schedule_supplement",
+      "event_id": "current-us-initial-claims-20261112",
+      "changed_fields": [
+        "events.economic",
+        "coverage.economic",
+        "audit"
+      ],
+      "before": {
+        "economic_count": 8
+      },
+      "after": {
+        "economic_count": 9
+      },
+      "source": "Federal Reserve Bank of New York and U.S. Department of Labor official sources",
+      "note": "新增可由官方日程確認且達 TAC 四星的美國每週初領失業救濟金；既有 CPI/PPI 不重複新增。"
     }
   ]
 }
