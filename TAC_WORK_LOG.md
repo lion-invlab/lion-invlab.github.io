@@ -393,3 +393,15 @@
 - 執行阻塞於第五步母版 DOM 組裝：本機無法解析 raw.githubusercontent.com（DNS Temporary failure）；GitHub connector 可讀取完整文字，但無法將完整母版載入可用的真正 DOM parser 執行環境。WR v5.14 禁止以 regex／字串切片代替 DOM 定位，故停止寫入，不以不合規方式產生 HTML。
 - 本輪未刷新 44 項行情、未重跑新聞分析、未執行四大 QA；未寫 preview／首頁／母版／Manifest／WR／行事曆 JSON／排程。結論：本次端到端重跑未完成，已證實母版 Guard 入口正常，但 DOM 組裝執行環境仍是阻塞點。
 - Session State 已追加本次狀態並回讀確認；新 blob SHA decb8dc8afe352af66088cceed4494206436e574，commit 71ce7fe422ad6abc4d2c85b44b99512b026e1241。
+
+
+## 2026-11-06｜11/06 早報重跑：母版 DOM 阻塞解除與 W45 增量更新（WR v5.14）
+
+- 重新核對 main 最新 WR v5.14（blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`）、Manifest（`fade5e3d88de76a79cb5c1656cc592b98827ab55`）、週二至週五正式母版（`3785405e331b10ec6189002e480be2a1edbe20ef`）及結構驗收清單 v1.3（`74a7c90aaaeee497b7b2b134d9569aee615d95c0`）。
+- 使用者提供的本機母版檔案經 Git Blob SHA 驗證與正式母版完全一致；使用 lxml DOM parser 成功解析。DOCTYPE 1、style 120、script 24、ID 175、無重複 ID；主要錨點唯一。先前「GitHub connector 無法把母版交給本機 DOM parser」的阻塞已解除，不再要求使用者上傳或重做母版解析。
+- 重新讀取 W45，原 blob SHA `0a001ae32097d3ab1a6a7bb5b1ff81910aebedf4`。核對至 20:31 台灣時間後，BAM 官方 Q3 財報已發布，增量更新穩定 event ID `current-bam-20261106`：FRE/share US$0.54、總營收 US$2.149B、FRE US$864M、DE US$763M；FRE/share 明確標為公司自訂非GAAP指標，不冒充 GAAP EPS；無同口徑共識，不判定 beat/miss。Humana 原定 06:00 ET 發布，但截至 20:31 官方新聞稿列表及 SEC 最新申報頁仍未見 Q3 文件，狀態改為 `pending_verification`，actual 維持 null。
+- W45 寫入後回讀：`data/calendar/weeks/2026-W45.json` blob SHA `8187c743deea2d7455fe66e5a90bf97b5b653899`；wr_version 5.14、updated_at 2026-11-06T20:31:00+08:00；經濟 18、財報 42、audit 213。coverage.economic／earnings 仍 incomplete。此次修正並記錄實際財報 event count 42，避免沿用 DASH 移出週界前的舊暫時計數 43。
+- 行情查核：44 項固定資料已確認 43 項；CNN Fear & Greed 即時值無法讀取，保留待核實，不沿用母版舊值。FedWatch Investing.com 12/09/2026 會議顯示升息一碼 69.9%、維持 30.1%，更新時間 11/06 06:55 EST；CME 官方動態嵌入圖未能讀取，不宣稱已完成數值交叉驗證。美股採 11/05 收盤、亞洲採 11/06 正式收盤、歐洲採 11/05 最近完成交易日。
+- 來源裁決：TWSE 官方 11/06 加權指數收盤 39,701.64、-4.51%，覆蓋 Investing 歷史表格錯列 39,717.22；VIX 11/05 28.18、+69.66%；MOVE 97.92、+4.30%。美國財政部 11/05 Par CMT：2Y 4.46%（+7bp）、10Y 4.84%（-6bp）、30Y 5.25%（-3bp）。11 大產業 ETF 全數下跌，XLK -8.00% 最弱，XLC -0.59% 相對抗跌。
+- S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；依同日 OHLC 計算第二支撐 7,130.85、第一支撐 7,242.29、中樞 7,461.79、第一壓力 7,573.23、第二壓力 7,792.73。
+- 本次只更新 W45 JSON、Session State 與 Work Log；未修改首頁、雙母版、Manifest、WR、排程。新聞 5+10、DOM 內容組裝及四類 QA 尚未完成，不得宣稱審核版已交付。
