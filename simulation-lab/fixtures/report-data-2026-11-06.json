@@ -63,9 +63,9 @@
       "url": "https://www.reuters.com/business/energy/oil-falls-fourth-day-expectations-lower-risk-iran-war-escalation-2026-11-05/"
     },
     {
-      "title": "Fed 後續利率機率呈現多個目標區間",
-      "summary": "Fed Rate Monitor 同時呈現維持、升息與多個利率區間情境，不能把不同會議的機率合併成單一升降息標籤。",
-      "url": "https://www.investing.com/central-banks/fed-rate-monitor"
+      "title": "MOVE 指數升至 97.92，債市波動同步升高",
+      "summary": "11/05 ICE BofA MOVE 指數上升 4.30% 至 97.92，顯示利率市場波動升溫；與 VIX 急升並列觀察。",
+      "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data"
     },
     {
       "title": "美股跌勢不只集中於少數大型股",
@@ -238,22 +238,11 @@
     }
   },
   "fedwatch": {
-    "target_meeting": "2026-12-09",
-    "updated_at_tw": "2026-11-06 17:45",
-    "probabilities": [
-      {
-        "outcome": "hold",
-        "rate_range": "3.75%-4.00%",
-        "probability": 27.7
-      },
-      {
-        "outcome": "hike",
-        "rate_range": "4.00%-4.25%",
-        "probability": 72.3
-      }
-    ]
+    "target_meeting": "待核實",
+    "updated_at_tw": "未取得 05:25 前快照",
+    "probabilities": []
   },
-  "observation": "① 美股風險：11/05 S&P 500 −4.36%、Nasdaq −5.52%，AI 與半導體相關賣壓造成大型指數同步急跌。\n② 市場廣度：S&P 500 11 大產業全數收跌，科技類股跌幅最深；產業 ETF 個別收盤百分比待核實。\n③ 亞洲傳導：11/06 日韓台股盤中急跌，台股收盤約 −4.5%；各市場正式收盤指數仍需依原始交易所資料逐項核實。\n④ 跨資產：VIX 11/05 收 28.18；10 年期美債殖利率約 4.84%，其餘債券、匯率與原物料欄位待核實。\n⑤ 政策預期：Fed Rate Monitor 11/06 04:45 EST 更新，12/09 會議維持 27.7%、升息一碼 72.3%；其他會議另有三種以上目標區間，母版兩卡不能完整呈現。",
+  "observation": "盤面觀察重點：本輪賣壓由 AI／半導體與大型科技股領跌，並擴散至美股 11 大產業；XLK −8.00% 明顯弱於 XLC −0.59% 與 XLP −0.75%，顯示市場正在降低高估值成長曝險、提高防禦配置。費半單日 −12.25% 需留意是否引發半導體設備、記憶體與亞洲供應鏈後續下修；美債殖利率回落至 4.84% 暫時反映避險買盤。早報截點 05:25 前未取得可核實 FedWatch 快照，因此不引用當日稍晚更新的機率。",
   "calendar": {
     "week_id": "2026-W45",
     "week_start": "2026-11-02",
