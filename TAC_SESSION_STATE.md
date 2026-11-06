@@ -982,3 +982,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 驗收：JSON 可解析、經濟 event ID 唯一、全部事件在 W46 週界、經濟來源 URL／TAC 4-5 星完整；財報 42 筆未變。coverage.economic 仍為 incomplete，持續保留掃描未完狀態。
 - Work Log 最新更新 commit：`d83556c85838924780ed1093f89ad33d231c0e6d`；Work Log blob SHA：`4e11d98f63257641186026ff989582bc99652419`。
 - 純 JSON 資料維護，未執行瀏覽器／視覺 QA；未修改其他受保護檔案。
+
+
+## 2026-11-06｜W46 既有經濟事件缺值補齊
+- 依 WR v5.13 完成既有 W46 經濟事件前值／市場預期補值；不新增事件，不改財報資料。
+- W46 JSON：`data/calendar/weeks/2026-W46.json`；最新 blob SHA `02859c30c57b2d697e30da55430ff7ccddde6b88`；經濟 15、財報 42、audit 20。
+- 更新 8 筆：中國 CPI/PPI、美國 CPI/PPI、印度 CPI、英國 GDP、歐元區 GDP／就業、美國初領失業救濟金。採官方統計前值及可追溯市場共識；美國 CPI/PPI YoY 預期及初領失業金本週 forecast 未取得者保留 null 並註明，不以猜值填補。
+- 非數值型 Treasury 標售、Fed 談話、加拿大央行會議紀要不適用 previous／forecast；所有未來事件 actual 保持 null。
+- 驗收：JSON 可解析、ID 無重複、原始主來源保留、secondary_refs 已記錄、財報 42 筆未變；coverage.economic 仍 incomplete。
+- Work Log 最新 commit：`08e88a2010d9a2b3eeec8e38544740a6d0f00871`；Work Log blob SHA：`69a525cb03835bf8749606d38d6f3323cd286583`。
