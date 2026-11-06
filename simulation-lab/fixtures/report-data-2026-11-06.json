@@ -6,29 +6,29 @@
   "sentiment": "風險情緒明顯轉弱。11/05 費半下跌 12.25%、科技類 ETF XLK 下跌 8.00%；通訊服務 XLC 僅跌 0.59%、必需消費 XLP 下跌 0.75%，防禦類股相對抗跌。美國 10 年期公債殖利率回落 6 個基點至 4.84%。VIX 收 28.18；MOVE 與 CNN Fear & Greed 同日數值尚待核實。",
   "focus_news": [
     {
-      "title": "AI 監管疑慮引發全球科技股拋售",
-      "summary": "Reuters 指出，美國期中選舉結果使市場擔心資料中心建設與 AI 基礎建設投資面臨更高監管審查；美股科技股急跌後，亞洲晶片與設備股承壓。",
-      "url": "https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"
-    },
-    {
-      "title": "亞洲股市延續 AI 拋售壓力",
-      "summary": "Reuters 報導 11/06 亞洲科技權重市場走弱，日經開盤大跌，韓國與台灣基準指數盤中跌幅一度超過 8%，反映 AI 投資疑慮向亞洲供應鏈擴散。",
-      "url": "https://www.investing.com/news/economy-news/asia-stocks-to-drop-after-ai-rout-rocks-us-markets-5006125"
-    },
-    {
-      "title": "美股 11/05 出現 2025 年 4 月以來最大單日跌幅",
-      "summary": "AP 報導 S&P 500 下跌 4.4%、Nasdaq 下跌 5.5%，AI 資料中心建設相關股票領跌，市場擔憂政策監管與資本支出回報。",
+      "title": "美股科技股重挫，AI 投資回報疑慮升高",
+      "summary": "AP 報導 11/05 S&P 500 下跌約 4.4%、Nasdaq 下跌約 5.5%，AI 資料中心相關股票領跌。",
       "url": "https://apnews.com/article/afe254c608c3d1fe2ea792812ba9765a"
     },
     {
-      "title": "半導體指數重挫，產業跌勢擴大",
-      "summary": "Investing.com／Reuters 市場綜述指出費城半導體指數下跌約 12.2%，大型半導體與記憶體個股跌幅顯著，反映市場重新評估 AI 供應鏈估值與投資回收期。",
+      "title": "AI 拋售擴大至半導體供應鏈",
+      "summary": "Reuters 市場綜述記錄 11/05 美股急跌與晶片股重挫，市場評估 AI 產業估值及資本支出回收期。",
       "url": "https://www.investing.com/news/economy-news/trading-day-a-november-5-market-bonfire-5005919"
     },
     {
-      "title": "避險需求推升債券吸引力",
-      "summary": "Reuters 報導在科技股急跌與市場風險升高下，資金轉向美國公債及避險貨幣；殖利率曲線出現明顯下行，市場重新評估成長與政策路徑。",
-      "url": "https://live.euronext.com/en/financial-news/stocks-tumble-ai-panic-sweeps-markets-bonds-draw-haven-demand"
+      "title": "英格蘭銀行升息至 4.00%",
+      "summary": "英國央行以 8 比 1 通過升息 25 個基點，指出能源價格衝擊使通膨風險偏上行。",
+      "url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026"
+    },
+    {
+      "title": "巴西央行維持 Selic 13.75%",
+      "summary": "巴西央行決議維持利率，並刪除先前暗示未來降息的措辭，政策訊號偏鷹。",
+      "url": "https://www.reuters.com/world/americas/brazils-central-bank-ends-run-rate-cuts-after-lula-election-win-2026-11-04/"
+    },
+    {
+      "title": "加拿大提交 2026 年度財政預算案",
+      "summary": "加拿大政府提出未來五年支出規劃，涵蓋投資、基礎建設、國防及住房，後續須觀察財政赤字與公債供給。",
+      "url": "https://www.reuters.com/world/key-proposed-measures-canadian-federal-budget-2026-11-05/"
     }
   ],
   "headlines": [
