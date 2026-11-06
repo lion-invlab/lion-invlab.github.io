@@ -955,3 +955,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 現有 38 筆財報 event ID 與 ticker 唯一、日期均在 W46、來源 URL／listing evidence／NYSE-Nasdaq 欄位／TAC 4-5 星完整。仍有五家共識 null：PBR、MUFG、MFG、VOD、GIB；因跨幣別或口徑未能證明一致，維持 null。
 - Work Log 最新同步：TAC_WORK_LOG.md blob SHA f6e743cf137cea17a70a84d8bbe460f50d79ba6d；更新 commit ac31472000ff41b134e6199ca08a5baa2735ecf2。
 - 本次未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；coverage economic／earnings 仍 incomplete。
+
+
+## 2026-11-06｜W46 最終回讀狀態
+- W46 最新正式 JSON blob SHA：fc1192c08fb57a96bc8f5542d00f2c65ddd92e12；economic 8、earnings 38、audit 14；EPS／revenue consensus 各 33。
+- 最終全面檢查：JSON 可解析；財報 ID／ticker 唯一；所有經濟與財報日期均在 W46 週界；財報來源、listing evidence、NYSE／Nasdaq 掛牌欄位、TAC 4／5 星完整；經濟事件來源及 TAC 星等完整；未發現週界、來源或掛牌證據錯誤。
+- VYLR listing evidence 已精確指向 Nasdaq 刊載的發行人正式公告，明確確認 NYSE: VYLR。
+- 五家共識仍保留 null：PBR、MUFG、MFG、VOD、GIB；跨幣別／口徑待核實，不強行換算。coverage.economic／earnings 仍 incomplete。
+- Work Log 最終同步 blob SHA：e92d2602f593acb9f7643b695b9a765b5eb548e6；commit 71cc72274101d47fd1e058d36678618f7158885d。
