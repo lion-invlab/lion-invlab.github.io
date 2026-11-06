@@ -904,3 +904,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 排除／跨週判斷：Sony FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告而非季度財報；NVIDIA 11/17、Palo Alto Networks 11/18 屬 W47，不得塞入 W46。Siemens 11/12 雖發布 Q4 結果，但未取得符合本 DB 美國交易所掛牌欄位的 Nasdaq／NYSE 掛牌證據，暫不列入美國掛牌財報清單。
 - 新增三家公司尚未取得可追溯且同口徑 EPS／營收共識，相關欄位保留 null，不採二手預估填值。
 - W46 寫後回讀 blob SHA：`f5148be51199557a638f03be334ae9a67f8b1beb`；commit `db51bb0d306b4b8a30675e8fe9829025139b7ef1`。驗收：earnings 由 15 增至 18、economic 維持 8、audit 增至 6；ID 唯一、日期均在 11/09–11/15、每筆均有來源 URL、均有美國交易所掛牌證據。coverage.earnings 維持 incomplete，仍需持續掃描其他美國掛牌大型公司及 ADR。
+
+
+## 2026-11-06｜W46 財報第四輪科技與大型發行人補漏（進行中）
+- 依 main 最新 WR v5.13（blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`）及 W46 既有正式 JSON 增量續作；不重抓已核實的 18 筆，不修改 W45、WR、Manifest、母版、首頁或排程。
+- 以第三方 earnings calendar 作候選發現，再逐筆要求發行人官方公告及美國交易所掛牌證據。新增 HIVE（Nasdaq: HIVE，FY2027 Q2，4星）、Rocket Lab（Nasdaq: RKLB，Q3 2026，5星）、D-Wave Quantum（Nasdaq: QBTS，Q3 2026，4星）、Wix.com（Nasdaq: WIX，Q3 2026，4星）、Mercury Systems（Nasdaq: MRCY，FY2027 Q1，4星）、Skydance（NYSE: SKYD，Q3 2026，4星）、JBS N.V.（NYSE: JBS，Q3 2026，4星）。共新增 7 筆，均有官方公告及掛牌證據；事件時間以官方電話會議時間記錄，notes 區分財報實際發布時段與電話會議時間。
+- 排除：EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；D-Wave、Wix、Mercury 等已依官方 IR 確認後納入；第三方日曆列出的 VYLR 等尚未取得同等級官方公告／掛牌證據者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。
+- 最新 W46 JSON 回讀 blob SHA：`585260ce7ae044aca6a06d576bcf2e3c35dd2269`；earnings 25、economic 8、audit 7；ID 與 ticker 唯一，所有財報日期落於 W46，均有 source URL、listing_evidence、NYSE/Nasdaq 掛牌欄位及 TAC 4/5 星。coverage.earnings 維持 incomplete，仍不宣稱全市場完整。
+- 下一步：繼續從 W46 大型公司／科技供應鏈候選清單逐筆確認是否已有官方公告及是否達 TAC 四星；另需對本輪新增 7 筆補查可追溯、同口徑 EPS／營收共識，未核實前不得填入。
