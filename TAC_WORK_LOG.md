@@ -309,3 +309,9 @@
 - 全面驗收：JSON 可解析；財報 event ID 與 ticker 唯一；全部經濟及財報日期落在 2026-11-09 至 2026-11-15；每筆財報均有來源 URL、掛牌證據、NYSE／Nasdaq 欄位與 TAC 4/5 星；經濟事件均有來源 URL 與 TAC 4/5 星；檢查無不合週界／缺來源／缺掛牌證據項目。
 - 五家 ADR／ADS 共識仍因報表幣別／會計口徑待核實而保留 null：PBR、MUFG、MFG、VOD、GIB。coverage.economic／earnings 維持 incomplete，不宣稱全球完整。
 - 最終精確化 commit：014cb6a40f59ba43cbf89c6eaf304781970cb0e6。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；未執行瀏覽器 QA。
+
+
+## 2026-11-06｜W46 第十輪科技／太空基礎設施財報補漏
+- 新增 AST SpaceMobile（ASTS，Nasdaq，Q3 2026；官方 IR 活動日程確認 11/09 17:00 EST webcast，換算台灣 11/10 06:00，TAC 四星）。官方來源：https://investors.ast-science.com/events 及 https://investors.ast-science.com/ 。MarketBeat 公布前共識 EPS -US$0.4197、營收 US$45.73M；basis 未披露。
+- 新增 Onto Innovation（ONTO，NYSE，Q3 2026；官方公告確認 11/09 16:30 ET 財報／電話會議，換算台灣 11/10 05:30，TAC 四星）。官方來源：https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-to-Report-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx；官方股票資訊頁確認 NYSE: ONTO。MarketBeat 公布前共識 EPS US$2.30、營收 US$392.08M；basis 未披露。
+- 本輪 W46 更新 commit：9fdad1259f8cd013f5557ca743e9f9ad1be7c391；待回讀驗收後同步最終 SHA 與數量。
