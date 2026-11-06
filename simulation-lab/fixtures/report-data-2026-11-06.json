@@ -97,56 +97,56 @@
       "change_display": "−5.52%"
     },
     "羅素2000指數": {
-      "display": "2,729.75",
+      "display": "2,729.89",
       "change_display": "−4.45%"
     },
     "費城半導體指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "9,011.14",
+      "change_display": "−12.25%"
     },
     "香港恆生指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "24,796.98",
+      "change_display": "+3.67%"
     },
     "上海綜合指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "3,689.91",
+      "change_display": "+0.10%"
     },
     "深證成指": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "13,770.32",
+      "change_display": "+0.11%"
     },
     "日經 225": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "61,077.90",
+      "change_display": "−1.79%"
     },
     "韓國 KOSPI": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "5,383.80",
+      "change_display": "−5.28%"
     },
     "台灣加權指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "41,575.00",
+      "change_display": "−3.20%"
     },
     "新加坡海峽時報指數 STI": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "5,296.25",
+      "change_display": "+0.52%"
     },
     "澳洲 S&P/ASX 200": {
       "display": "待核實",
       "change_display": "待核實"
     },
     "英國 FTSE 100": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "10,782.66",
+      "change_display": "−0.43%"
     },
     "德國 DAX": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "26,325.01",
+      "change_display": "−0.43%"
     },
     "法國 CAC 40": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "8,205.37",
+      "change_display": "+0.34%"
     },
     "STOXX Europe 600": {
       "display": "待核實",
@@ -154,17 +154,17 @@
     }
   },
   "sectors": {
-    "XLK": "待核實",
-    "XLY": "待核實",
-    "XLB": "待核實",
-    "XLU": "待核實",
-    "XLI": "待核實",
-    "XLV": "待核實",
-    "XLF": "待核實",
-    "XLC": "待核實",
-    "XLRE": "待核實",
-    "XLP": "待核實",
-    "XLE": "待核實"
+    "XLK": "−8.00%",
+    "XLY": "−3.83%",
+    "XLB": "−2.91%",
+    "XLU": "−0.71%",
+    "XLI": "−4.12%",
+    "XLV": "−2.50%",
+    "XLF": "−2.87%",
+    "XLC": "−0.59%",
+    "XLRE": "−1.82%",
+    "XLP": "−0.75%",
+    "XLE": "−2.98%"
   },
   "bonds": {
     "2年期美債殖利率": {
