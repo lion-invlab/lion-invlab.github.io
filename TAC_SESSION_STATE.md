@@ -3,10 +3,10 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-02（台灣時間；建立時）
+- 最後更新：2026-11-06（台灣時間；W46 行事曆第七／八輪補漏後）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
-- 正式規則：`TAC_WORK_RULES.md` v4.0
+- 正式規則：TAC_WORK_RULES.md v5.13；最新 blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
 
 ## 1. 目前主線目標
@@ -917,3 +917,32 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ## 2026-11-06｜W46 財報第五輪科技／電信發行人補漏
 - 延續 WR v5.13 及既有 W46 正式 JSON；再增量納入 Sea Limited（NYSE: SE，Q3 2026，5星）、Vodafone Group（Nasdaq ADS: VOD，H1 FY2027，4星）、Rigetti Computing（Nasdaq: RGTI，Q3 2026，4星）。Sea 與 Rigetti 精確時間依官方公告換算；Vodafone 官方只確認 11/10 發布日期，time_known=false，未猜時段。
 - 最新 W46 JSON blob SHA：`553f9a48a33b47c3a4faf06f0331c27e266ab903`；earnings 28、economic 8、audit 8；coverage.earnings=incomplete。下一步仍需持續候選掃描與同口徑共識查核。
+
+
+## 2026-11-06｜W46 行事曆資料庫第七／八輪補漏（目前有效狀態）
+
+### 權威基準與正式檔案
+- 本輪重新讀取 main 最新 TAC_WORK_RULES.md v5.13，blob SHA：27d8065135ec610dce971a5dc1cdc3c00f922bdb；依第三步行事曆維護規則及 H 節單一路徑操作。
+- W45：data/calendar/weeks/2026-W45.json，回讀 blob SHA 0a001ae32097d3ab1a6a7bb5b1ff81910aebedf4；18 筆經濟、42 筆財報，未修改。
+- W46：data/calendar/weeks/2026-W46.json，最新回讀 blob SHA 9c1859ad894f266fd1cd253a82c160eeb95daec2；ISO 週界 2026-11-09 至 2026-11-15；WR version 5.13。
+- 本輪 W46 正式資料更新 commit：3a7aae2553ca95e27982384e303d7c8b601e0f3f；第二次估值／幣別覆核 commit：0cc61c155e1b23d6a64012ed18bd721844e2274c。
+
+### W46 最新內容盤點
+- 經濟事件 8 筆；財報事件 36 筆；audit 12 筆。
+- 財報 EPS 共識已填 31 筆；營收共識已填 31 筆。所有共識均保留獨立來源；來源未揭露 GAAP／non-GAAP basis 者，明確標示 basis not disclosed，不推定 beat／miss。
+- 第七輪新增四家：monday.com（MNDY，11/09 08:30 ET call）、Hims & Hers（HIMS，11/09 17:00 ET call）、The Trade Desk（TTD，11/09 17:00 ET call）、Ascendis Pharma（ASND，11/12 08:00 ET call）；均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。
+- 估值補入既有事件：B、FERG、NRG、CEG、KKR、TTWO、OXY、TDG、CRWV、CTVA、BN、NBIS、CBRS、RKLB、SKYD、JBS、QBTS、WIX、MRCY、SE、RGTI、VG、ONON、FNV、CSCO、AMAT；另新增四家估值及後續補入 HIVE。CSCO EPS 使用 Nasdaq via StockTitan US$1.15；AMAT EPS 使用 Nasdaq US$4.06。Finviz／MarketBeat 等來源若未揭露會計 basis，均不作 beat／miss 判斷。
+- 仍保留 null 的五家：PBR、MUFG、MFG、VOD、GIB。原因是目前取得的美國 ADR／ADS 共識幣別／口徑與發行人報表幣別未能證明一致，避免跨幣別直接比較。SMFG 官方日程僅寫 mid-Nov，未確認精確日期，不用第三方估計日期補入。
+- 已排除不合週界或未確認者：NVIDIA／Palo Alto Networks 屬 W47；TSMC 11/10 是月營收而非季度財報；SMFG 仍未有官方確切日；不得把這些候選混入 W46 已確認事件。
+
+### 寫後回讀與驗收
+- 最新 W46 SHA：9c1859ad894f266fd1cd253a82c160eeb95daec2；經濟 8、財報 36、audit 12。
+- 結構檢查：36 筆財報 event ID 唯一、ticker 唯一；全部日期落在 W46 週界；每筆均有 source URL、listing evidence、NYSE／Nasdaq 掛牌欄位及 TAC 4／5 星；JSON 可解析。
+- coverage.economic 與 coverage.earnings 均維持 incomplete，這是仍可續掃的狀態，不宣稱全球事件掃描完整。
+- 未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；本輪只增量更新 W46 JSON 及本狀態／工作紀錄。行事曆 JSON 更新不涉及瀏覽器視覺 QA，未執行瀏覽器測試。
+
+### 下一步
+1. 續查 W46 仍缺共識的五家，但只有找到同幣別、同報表口徑的可追溯來源才填值；否則保留 null。
+2. 針對美國掛牌大型企業與科技供應鏈持續候選掃描；只有發行人官方日期／時間與美國交易所掛牌證據成立，且 TAC 達四／五星，才新增。
+3. 重新掃描 W46 經濟事件官方日程；只有達 TAC 四／五星且可核實日期／來源者才增量納入。
+4. 每次寫入前先讀當前 SHA；同一路徑不可並行寫入；寫後 fetch 回讀並核對 schema、ID、週界、來源、掛牌資格、星等及 audit。
