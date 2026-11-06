@@ -1624,6 +1624,206 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 Rigetti Computing, Inc. (Nasdaq: RGTI)。"
         }
+      },
+      {
+        "id": "current-vg-20261110",
+        "company": "Venture Global",
+        "ticker": "VG",
+        "event_date": "2026-11-10T22:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：美國主要LNG出口商及天然氣液化、運輸、船運與再氣化整合業者，財報可觀察美國LNG出口供應、長約執行及大型液化設施建設進度，對能源供應鏈具指標性。",
+        "importance_rating_source": null,
+        "industry": "LNG／天然氣出口與能源基礎設施",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Venture Global Investor Relations｜Q3 2026 Results",
+          "url": "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx",
+          "published_at": "2026-10-14",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "Venture Global, Inc.",
+          "notes": "官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "VG",
+        "listing_evidence": {
+          "name": "Venture Global official Q3 2026 earnings announcement",
+          "url": "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx",
+          "publisher": "Venture Global, Inc.",
+          "notes": "發行人官方公告明確列示 Venture Global, Inc. (NYSE: VG)。"
+        }
+      },
+      {
+        "id": "current-onon-20261110",
+        "company": "On Holding",
+        "ticker": "ONON",
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：全球高成長高端運動鞋服品牌，產品定價、直營通路、北美及亞洲需求與毛利率表現具消費產業觀察價值，財報可檢視高端運動消費韌性。",
+        "importance_rating_source": null,
+        "industry": "運動服飾／高端運動鞋與戶外用品",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "On Holding Investor Relations｜Q3 2026 Results",
+          "url": "https://investors.on-running.com/news/news-details/2026/On-to-Release-Third-Quarter-2026-Results-on-Tuesday-November-10-2026/default.aspx",
+          "published_at": "2026-10-27",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "On Holding AG",
+          "notes": "官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "Switzerland",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "ONON",
+        "listing_evidence": {
+          "name": "On Holding official Q3 2026 earnings announcement",
+          "url": "https://investors.on-running.com/news/news-details/2026/On-to-Release-Third-Quarter-2026-Results-on-Tuesday-November-10-2026/default.aspx",
+          "publisher": "On Holding AG",
+          "notes": "發行人官方公告明確列示 On Holding AG (NYSE: ONON)。"
+        }
+      },
+      {
+        "id": "current-gib-20261111",
+        "company": "CGI Inc.",
+        "ticker": "GIB",
+        "event_date": "2026-11-11T22:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：全球大型IT顧問與系統整合服務商，企業數位轉型、政府與大型企業IT支出及訂單能見度具代表性，財報可觀察企業科技服務需求。",
+        "importance_rating_source": null,
+        "industry": "資訊科技服務／企業IT顧問與系統整合",
+        "reporting_period": "Q4 FY2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "CGI Investor Relations｜Q4 & FY2026 Results",
+          "url": "https://www.cgi.com/en/event/fourth-quarter-results",
+          "published_at": null,
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "CGI Inc.",
+          "notes": "官方活動頁確認 11/11 美股開盤前發布 FY2026 Q4 財報，09:00 EST 電話會議，換算台灣時間 11/11 22:00；CGI官方投資人頁列示 GIB (NYSE)，另於TSX以GIB.A交易。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "Canada",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "GIB",
+        "listing_evidence": {
+          "name": "CGI Investor Relations｜US listing",
+          "url": "https://www.cgi.com/en/investors",
+          "publisher": "CGI Inc.",
+          "notes": "官方投資人關係頁明確列示 GIB (NYSE)；此筆使用美國掛牌代碼 GIB。"
+        }
+      },
+      {
+        "id": "current-fnv-20261112",
+        "company": "Franco-Nevada",
+        "ticker": "FNV",
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：全球主要貴金屬權利金與串流融資公司，對金銀價格、礦山產量、資產組合及礦業投資週期具代表性，財報可檢視貴金屬價格上漲如何轉化為現金流。",
+        "importance_rating_source": null,
+        "industry": "貴金屬權利金／礦業融資",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Franco-Nevada｜Q3 2026 Results Release and Conference Call",
+          "url": "https://www.nasdaq.com/press-release/franco-nevada-release-third-quarter-2026-results-2026-10-13",
+          "published_at": "2026-10-13",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "Franco-Nevada Corporation via Nasdaq",
+          "notes": "公司發布的公告確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 08:00 ET 電話會議，換算台灣時間 11/12 21:00；事件時間採官方電話會議時間，公告來源為公司發稿經 Nasdaq 刊載。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "Canada",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "FNV",
+        "listing_evidence": {
+          "name": "Franco-Nevada Investor Relations｜NYSE listing",
+          "url": "https://www.franco-nevada.com/investors/overview/",
+          "publisher": "Franco-Nevada Corporation via Nasdaq",
+          "notes": "官方投資人頁明確列示 TSX:FNV 及 NYSE:FNV。"
+        }
       }
     ]
   },
@@ -1683,10 +1883,16 @@
         "https://www.vodafone.com/investors/performance-and-reports/financial-calendar",
         "https://www.sec.gov/Archives/edgar/data/839923/000119312526235425/d143190dex27.htm",
         "https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results",
-        "https://investors.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fourth-quarter-and-fiscal-2026-results"
+        "https://investors.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fourth-quarter-and-fiscal-2026-results",
+        "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx",
+        "https://investors.on-running.com/news/news-details/2026/On-to-Release-Third-Quarter-2026-Results-on-Tuesday-November-10-2026/default.aspx",
+        "https://www.cgi.com/en/event/fourth-quarter-results",
+        "https://www.cgi.com/en/investors",
+        "https://www.nasdaq.com/press-release/franco-nevada-release-third-quarter-2026-results-2026-10-13",
+        "https://www.franco-nevada.com/investors/overview/"
       ],
       "checked_at": "2026-11-06T17:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。"
     }
   },
   "audit": [
@@ -1893,6 +2099,30 @@
       },
       "source": "https://investors.appliedmaterials.com/news-releases/news-release-details/applied-materials-report-fourth-quarter-and-fiscal-2026-results",
       "note": "官方 IR 公告明確為 11/12 16:30 ET，修正原僅日期且時間待核實的紀錄，換算台灣時間 11/13 05:30。"
+    },
+    {
+      "at": "2026-11-06T17:00:00+08:00",
+      "action": "sixth_round_major_issuer_earnings_supplement",
+      "event_id": "current-vg-20261110,current-onon-20261110,current-gib-20261111,current-fnv-20261112",
+      "changed_fields": [
+        "events.earnings",
+        "coverage.earnings",
+        "audit"
+      ],
+      "before": {
+        "earnings_count": 28
+      },
+      "after": {
+        "earnings_count": 32,
+        "addedEarnings": [
+          "current-vg-20261110",
+          "current-onon-20261110",
+          "current-gib-20261111",
+          "current-fnv-20261112"
+        ]
+      },
+      "source": "Issuer investor relations and issuer-originated Nasdaq announcement",
+      "note": "新增VG、ONON、GIB、FNV；均有官方財報日期與NYSE掛牌證據。"
     }
   ]
 }
