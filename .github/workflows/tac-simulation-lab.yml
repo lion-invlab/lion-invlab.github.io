@@ -49,6 +49,7 @@ jobs:
           node-version: "22"
 
       - name: Install Playwright Chromium
+        timeout-minutes: 6
         run: |
           npm install --no-save --package-lock=false playwright
           npx playwright install --with-deps chromium
