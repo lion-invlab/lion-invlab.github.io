@@ -81,6 +81,32 @@ try {
       return { count: cards.length, invalid, columns };
     });
     snapshots[v.name].earnings_component = earningsAudit;
+    const economicAudit = await reportPage.evaluate(() => {
+      const cards = [...document.querySelectorAll("#calendar details.econ-event")];
+      const invalid = [];
+      for (const [i, card] of cards.entries()) {
+        const grid = card.querySelector(":scope > .econ-details > .econ-primary-grid");
+        if (!grid) { invalid.push("card " + (i+1) + ": comparison grid missing"); continue; }
+        for (const cls of ["econ-prev","econ-forecast","econ-actual"]) {
+          if (!grid.querySelector(":scope > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing");
+        }
+        for (const cls of ["econ-impact","econ-source"]) {
+          if (!card.querySelector(":scope > .econ-details > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing or not full-width");
+        }
+        const prev = grid.querySelector(".econ-prev")?.getBoundingClientRect();
+        const forecast = grid.querySelector(".econ-forecast")?.getBoundingClientRect();
+        const actual = grid.querySelector(".econ-actual")?.getBoundingClientRect();
+        if (prev && forecast && actual && Math.abs(actual.height - (prev.height + forecast.height + parseFloat(getComputedStyle(grid).rowGap || "0"))) > 4) {
+          invalid.push("card " + (i+1) + ": actual field height does not span previous + forecast");
+        }
+      }
+      return { count: cards.length, invalid };
+    });
+    snapshots[v.name].economic_component = economicAudit;
+    if (economicAudit.count === 0 || economicAudit.invalid.length) {
+      failures.push(v.name + ": 經濟行事曆元件 QA FAIL：" + (economicAudit.invalid.join("; ") || "no economic cards"));
+    }
+
     if (earningsAudit.count === 0 || earningsAudit.invalid.length) {
       failures.push(v.name + ": 已公布財報元件 QA FAIL：" + (earningsAudit.invalid.join("; ") || "no published cards"));
     }
