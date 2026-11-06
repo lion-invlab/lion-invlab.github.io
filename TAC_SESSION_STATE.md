@@ -1055,3 +1055,8 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 分析主軸：AI風險從高估值科技股延伸至資料中心投資政策及融資風險定價；SOX -12.25%、Nasdaq -5.52%、XLK -8.00%，11個產業ETF全跌；VIX 28.18（+69.66%）、MOVE 97.92（+4.30%），CNN Fear & Greed仍待核實，不得沿用舊分數。亞洲11/06 Nikkei -5.96%、KOSPI -6.02%、TWSE官方39,701.64（-4.51%）。市場情緒偏防禦，避免僅以單日價格推論趨勢反轉。
 - S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；Pivot 7,461.79；S1 7,242.29、S2 7,130.85；R1 7,573.23、R2 7,792.73。
 - 仍未完成：正式母版DOM內容組裝、calendar card增量同步、四類QA及preview/2026-11-06.html更新。尚未修改preview、index.html、母版、Manifest、WR；不得宣稱審核版已完成。正式母版SHA仍為3785405e331b10ec6189002e480be2a1edbe20ef。
+
+
+## 2026-11-06 20:56｜W45 財報幣別欄位一致性修正
+- 回查 ENB 卡片時發現 `current-enb-20261106.eps_actual=0.59`、`eps_basis` 明確為 CAD GAAP earnings per common share，但 `eps_currency` 誤填 USD。已更正為 CAD，實績、比較狀態與財報判讀不變。
+- W45 最新 blob SHA：`7cba2c0c48971df37c7b85d3a72e6117893a4ef5`；commit `35b4cd0e274f0bf99adc438c1036783872c98f8d`；updated_at `2026-11-06T20:56:30+08:00`；財報42、經濟18、audit220。
