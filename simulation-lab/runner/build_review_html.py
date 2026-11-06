@@ -183,6 +183,7 @@ def main():
         for x in items:
             card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
             day,clock=dateparts(x.get("date",""))
+            if not x.get("time_known",False): clock="時間未確認"
             for sel,val in [(".econ-date",day),(".econ-time",clock),(".econ-country",x.get("region","")),(".econ-name",x.get("name","")),(".econ-stars",startext(x))]:
                 node=card.select_one(sel)
                 if node: set_text(node,val)
@@ -212,6 +213,7 @@ def main():
         for x in items:
             card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
             day,clock=dateparts(x.get("date",""))
+            if not x.get("time_known",False): clock="時間未確認"
             fields=[(".earnings-us-date",day),(".earnings-tw-date",("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")+"；"+clock),(".earnings-company-name",x.get("company","")),(".earnings-company-sub",str(x.get("ticker",""))+"｜"+str(x.get("industry",""))),(".earnings-stars",startext(x))]
             for sel,val in fields:
                 node=card.select_one(sel)
