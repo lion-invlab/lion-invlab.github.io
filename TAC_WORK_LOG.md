@@ -208,5 +208,5 @@
 ## 2026-11-06｜六步驟執行證據交接紀錄
 - 使用者要求明確指出執行規範放置位置、紀錄位置及如何確保下次實際執行。重新讀取 main 最新 WR v5.13（blob SHA 27d8065135ec610dce971a5dc1cdc3c00f922bdb）後確認：WR A1 補充第 5–8 點、C 節六步驟及 A2 修改閉環已完整規定此要求；因此本次沒有再修改 WR，也沒有新增第二套流程。
 - 將下一次六步驟的逐步成果欄位、完成判定、跨對話接續方式及缺證不得標記完成的要求，追加至既有 TAC_SESSION_STATE.md「2026-11-06｜WR 六步驟執行證據與跨對話接續要求」章節。
-- Session State 寫入 main commit：7531cd9180d6d3fd9ae9f486e9bbf854ac25c2f2；新 blob SHA：ae249adcc07e3dd586cb877500f21a672bd13a82。寫入後尚須回讀確認，回讀結果將補記。
+- Session State 寫入 main commit：7531cd9180d6d3fd9ae9f486e9bbf854ac25c2f2；新 blob SHA：ae249adcc07e3dd586cb877500f21a672bd13a82。寫後重新 fetch 回讀，確認該章節存在且 blob SHA 一致。
 - 執行保障的界線：Session State／Work Log 是可追溯的工作證據與接續錨點，不是能在技術層面自動鎖住模型的執行器。每一步必須以真實產出、來源、回讀 SHA 和下游接收紀錄證明；缺證只能標記進行中／待核實／未測試，不能宣稱完成。
