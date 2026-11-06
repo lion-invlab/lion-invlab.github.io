@@ -55,7 +55,7 @@ jobs:
 
       - name: Assemble 11/06 simulation review HTML from approved mother
         run: |
-          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-06.json --output simulation-lab/output/TAC_投資早報_2026-11-06_審核版.html --expected-master-sha 3785405e331b10ec6189002e480be2a1edbe20ef
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-06.json --output simulation-lab/output/TAC_投資早報_2026-11-06_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
 
       - name: Compare assembled HTML against approved weekday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-06_審核版.html
