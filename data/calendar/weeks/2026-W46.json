@@ -93,10 +93,64 @@
         "time_known": true
       },
       {
+        "id": "current-canada-boc-summary-20261111",
+        "event_date": "2026-11-11T02:30:00+08:00",
+        "region": "加拿大",
+        "event_name": "加拿大央行 10/28 貨幣政策會議紀要（Summary of Deliberations）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：主要央行政策決策過程與利率評估資訊，可能調整市場對後續政策路徑的預期。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "會議紀要可補充加拿大央行對通膨、成長與風險平衡的內部評估；若措辭偏鷹／偏鴿，可能影響加拿大利率預期、加幣及加拿大公債殖利率。",
+        "source": {
+          "name": "Bank of Canada｜Release of the Bank of Canada’s summary of deliberations",
+          "url": "https://www.bankofcanada.ca/2026/11/release-bank-canadas-summary-deliberations-2026-10-28/",
+          "published_at": null,
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "Bank of Canada",
+          "notes": "加拿大央行官方公告確認 2026-11-10 13:30 Eastern Time 發布 10/28 利率決策前的 Governing Council deliberations 摘要；11 月加拿大已採 EST（UTC−5），換算台灣時間為 11/11 02:30。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": null,
+        "time_known": true
+      },
+      {
+        "id": "current-india-cpi-20261112",
+        "event_date": "2026-11-12T12:00:00+08:00",
+        "region": "印度",
+        "event_name": "印度 10 月消費者物價指數（CPI）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：大型新興經濟體核心通膨數據，對印度央行政策預期、債匯市場及區域資金風險偏好具影響。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "印度 CPI 將反映食品與核心通膨壓力，影響印度央行政策空間及印度債券、盧比與股市評價；須留意食品價格對總體通膨的貢獻。",
+        "source": {
+          "name": "Press Information Bureau, Government of India｜CPI on base 2024=100 for September 2026",
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
+          "published_at": "2026-10-12",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "Ministry of Statistics & Programme Implementation / Press Information Bureau",
+          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。"
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% y/y",
+        "data_reference": null,
+        "time_known": false
+      },
+      {
         "id": "current-uk-gdp-20261112",
         "event_date": "2026-11-12T15:00:00+08:00",
         "region": "英國",
-        "event_name": "英國第三季 GDP 初值及 9 月月度 GDP",
+        "event_name": "英國第三季 GDP 初值、9 月月度 GDP／工業生產／貿易數據",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：重要經濟體關鍵通膨／成長數據，對區域利率、匯率及市場預期具明顯影響。",
@@ -106,12 +160,12 @@
         "status": "upcoming",
         "impact_judgment": "英國第三季成長初值將影響英格蘭銀行對需求、薪資與通膨的權衡；月度 GDP 與服務業、工業產出可辨識成長動能來源。",
         "source": {
-          "name": "Office for National Statistics｜GDP first quarterly estimate, UK: July to September 2026",
-          "url": "https://www.ons.gov.uk/releases/gdpfirstquarterlyestimateukjulytoseptember2026",
+          "name": "Office for National Statistics｜12 November 2026 release calendar",
+          "url": "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "Office for National Statistics",
-          "notes": "ONS 官方頁確認 2026-11-12 07:00 發布第三季 GDP 初值；英國當時為 GMT，換算台灣時間 15:00。同步發布 9 月月度 GDP。"
+          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。"
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -933,10 +987,13 @@
         "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap",
         "https://www.mof.go.jp/english/policy/international_policy/reference/balance_of_payments/index.htm",
         "https://www.abs.gov.au/release-calendar/future-releases-calendar",
-        "https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359"
+        "https://www.bok.or.kr/eng/stats/statsPublictSchdul/listCldr.do?menuNo=400359",
+        "https://www.bankofcanada.ca/2026/11/release-bank-canadas-summary-deliberations-2026-10-28/",
+        "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
+        "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming"
       ],
       "checked_at": "2026-11-06T18:00:00+08:00",
-      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。"
+      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。"
     },
     "earnings": {
       "status": "incomplete",
@@ -1048,6 +1105,31 @@
       },
       "source": "issuer investor-relations and SEC/ADR evidence",
       "note": "校正外國發行人財報報表幣別及美國掛牌證據，避免以美國ADR交易代號錯置發行人報表幣別。"
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "economic_calendar_incremental_supplement",
+      "event_id": "current-canada-boc-summary-20261111,current-india-cpi-20261112,current-uk-gdp-20261112",
+      "changed_fields": [
+        "events.economic",
+        "coverage.economic",
+        "audit"
+      ],
+      "before": {
+        "economic_count": 6
+      },
+      "after": {
+        "economic_count": 8,
+        "addedEconomic": [
+          "current-canada-boc-summary-20261111",
+          "current-india-cpi-20261112"
+        ],
+        "updatedEconomic": [
+          "current-uk-gdp-20261112"
+        ]
+      },
+      "source": "Bank of Canada official event advisory; Government of India PIB release; ONS official release calendar",
+      "note": "補入加拿大央行會議紀要及印度10月CPI；將英國同日同步發布的月度GDP、工業生產與貿易數據納入既有GDP事件說明。未確認時間者不推測。"
     }
   ]
 }
