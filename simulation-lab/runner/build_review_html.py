@@ -205,6 +205,38 @@ def main():
             putfield(card,"前值",x.get("previous")); putfield(card,"市場預估",x.get("forecast"))
             putfield(card,"實際",x.get("actual") if x.get("status")=="released" else "尚未公布（資料截點 11/06 05:25）")
             putfield(card,"市場影響",x.get("impact") or "待核實")
+            # Requested comparison layout: previous/forecast stacked left, actual spans
+            # both rows on the right; market impact and source remain full-width below.
+            details=card.select_one(".econ-details")
+            if not details: raise ValueError("economic event details container missing")
+            field_map={}
+            for field in list(details.select(":scope > .econ-field")):
+                label_node=field.select_one("label")
+                if label_node:
+                    field_map[label_node.get_text(" ",strip=True)]=field
+            def pick_field(*names):
+                for name in names:
+                    if name in field_map: return field_map[name]
+                return None
+            previous_field=pick_field("前值")
+            forecast_field=pick_field("市場預估","預估")
+            actual_field=pick_field("實際")
+            impact_field=pick_field("市場影響")
+            source_field=pick_field("資料來源","來源")
+            if not all([previous_field,forecast_field,actual_field,impact_field,source_field]):
+                raise ValueError("economic event detail fields incomplete: "+", ".join(field_map.keys()))
+            primary=soup.new_tag("div",attrs={"class":["econ-primary-grid"]})
+            previous_field["class"]=["econ-field","econ-prev"]
+            forecast_field["class"]=["econ-field","econ-forecast"]
+            actual_field["class"]=["econ-field","econ-actual"]
+            impact_field["class"]=["econ-field","econ-impact","wide"]
+            source_field["class"]=["econ-field","econ-source","wide"]
+            for field in [previous_field,forecast_field,actual_field]:
+                primary.append(field)
+            details.clear()
+            details.append(primary)
+            details.append(impact_field)
+            details.append(source_field)
             link=card.select_one(".econ-field a")
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
             listing.append(card)
@@ -402,6 +434,19 @@ def main():
     if data.get("observation"):
         panel=unique(view,".focus-panel.focus-market","market observation text")
         set_text(panel.select_one(".key") or panel,data["observation"])
+    # Enforce the approved economic-event comparison layout across desktop and mobile.
+    econ_style=soup.new_tag("style")
+    econ_style.string="""
+.econ-event .econ-details{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:9px!important}
+.econ-event .econ-primary-grid{display:grid;grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(72px,auto) minmax(72px,auto);gap:9px;min-width:0}
+.econ-event .econ-primary-grid>.econ-prev{grid-column:1;grid-row:1}
+.econ-event .econ-primary-grid>.econ-forecast{grid-column:1;grid-row:2}
+.econ-event .econ-primary-grid>.econ-actual{grid-column:2;grid-row:1/span 2;align-self:stretch;min-height:0}
+.econ-event .econ-impact,.econ-event .econ-source{grid-column:1/-1!important}
+.econ-event .econ-field{min-width:0;overflow-wrap:anywhere;box-sizing:border-box}
+@media(max-width:640px){.econ-event .econ-details{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:8px!important}.econ-event .econ-primary-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:minmax(72px,auto) minmax(72px,auto);gap:8px}.econ-event .econ-field{padding:10px}.econ-event .econ-field .econ-value{font-size:13px}}
+"""
+    soup.head.append(econ_style)
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
