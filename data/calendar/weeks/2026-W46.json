@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-06T05:26:00+08:00",
+  "updated_at": "2026-11-06T19:10:00+08:00",
   "source_report_date": "2026-11-06",
   "wr_version": "5.13",
   "status": "active",
@@ -19,8 +19,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：重要經濟體關鍵通膨／成長數據，對區域利率、匯率及市場預期具明顯影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "0.9% y/y",
+        "forecast": "0.6% y/y",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "中國通膨回升或持續偏弱，將影響內需修復、實質利率及人民銀行政策空間；需同時觀察食品與非食品價格結構。",
@@ -30,7 +30,10 @@
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月 CPI；北京時間與台灣時間相同。"
+          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月 CPI；北京時間與台灣時間相同。 中國 10 月 CPI 市場共識：前值 0.9%、預期 0.6%。",
+          "secondary_refs": [
+            "https://www.mql5.com/en/economic-calendar/china"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -46,8 +49,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：重要經濟體關鍵通膨／成長數據，對區域利率、匯率及市場預期具明顯影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "5.0% y/y",
+        "forecast": "6.7% y/y",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "PPI 用於觀察工業品價格、企業定價能力與上游通縮壓力；需與 CPI、原物料價格及工業利潤訊號交叉判讀。",
@@ -57,7 +60,10 @@
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月工業生產者價格指數；北京時間與台灣時間相同。"
+          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月工業生產者價格指數；北京時間與台灣時間相同。 中國 10 月 PPI 市場共識：前值 5.0%、預期 6.7%。",
+          "secondary_refs": [
+            "https://www.mql5.com/en/economic-calendar/china"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -127,8 +133,8 @@
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星：主要經濟體核心通膨／成長數據，可能顯著改變央行政策路徑與跨資產定價。",
-        "previous": null,
-        "forecast": null,
+        "previous": "MoM 0.6%; YoY 3.7%",
+        "forecast": "MoM 0.3%; YoY 未取得",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "美國核心與整體通膨是 Fed 利率路徑及美債實質殖利率的重要定價依據；須分辨能源基期、住房與服務通膨，不以單一 headline 數字推論政策轉向。",
@@ -138,7 +144,11 @@
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
-          "notes": "BLS 官方日程確認 2026-11-10 08:30 ET 發布 10 月 CPI 與 Real Earnings；換算台灣時間 11/10 21:30。"
+          "notes": "BLS 官方日程確認 2026-11-10 08:30 ET 發布 10 月 CPI 與 Real Earnings；換算台灣時間 11/10 21:30。 前值依 BLS 9 月 CPI；10 月 MoM 預期依 Investing.com。YoY 同口徑共識未能確認，保留未取得。",
+          "secondary_refs": [
+            "https://www.bls.gov/news.release/CPI.htm",
+            "https://www.investing.com/economic-calendar/cpi-69"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -262,8 +272,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：大型新興經濟體核心通膨數據，對印度央行政策預期、債匯市場及區域資金風險偏好具影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "5.54% y/y",
+        "forecast": "5.93% y/y",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "印度 CPI 將反映食品與核心通膨壓力，影響印度央行政策空間及印度債券、盧比與股市評價；須留意食品價格對總體通膨的貢獻。",
@@ -273,7 +283,11 @@
           "published_at": "2026-10-12",
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "Ministry of Statistics & Programme Implementation / Press Information Bureau",
-          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。"
+          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。 前值依印度官方 9 月 CPI；預期採 Reuters 11/06 對 36 位經濟學家的調查。",
+          "secondary_refs": [
+            "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
+            "https://www.reuters.com/world/india/indias-october-consumer-inflation-likely-nears-top-rbi-target-food-costs-2026-11-06/"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -289,8 +303,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：重要經濟體關鍵通膨／成長數據，對區域利率、匯率及市場預期具明顯影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "GDP q/q 0.5%; GDP y/y 1.4%; monthly GDP 0.1%",
+        "forecast": "GDP q/q 0.7%; GDP y/y 1.7%; monthly GDP 0.2%",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "英國第三季成長初值將影響英格蘭銀行對需求、薪資與通膨的權衡；月度 GDP 與服務業、工業產出可辨識成長動能來源。",
@@ -300,7 +314,11 @@
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "Office for National Statistics",
-          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。"
+          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。 前值含上季 GDP 及 ONS 最近月度 GDP；預期依 Trading Economics 11/12 英國 GDP 日曆。工業生產及貿易分項未取得同口徑共識。",
+          "secondary_refs": [
+            "https://www.tradingeconomics.com/calendar/gdp",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -316,7 +334,7 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：美國重要勞動市場領先指標，對就業韌性及利率預期具明顯影響。",
-        "previous": null,
+        "previous": "189 千人",
         "forecast": null,
         "actual": null,
         "status": "upcoming",
@@ -327,7 +345,11 @@
           "published_at": null,
           "observed_at": "2026-11-06T05:20:00+08:00",
           "publisher": "Federal Reserve Bank of New York",
-          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。"
+          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。 前值為 11/05 初領實際值 189K。11/06 查核時下週預期尚未發布，forecast 保留 null。",
+          "secondary_refs": [
+            "https://www.investing.com/economiccalendar/initial-jobless-claims-294",
+            "https://api.fxblue.com/calendar/item/Initial_Jobless_Claims_US"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -370,8 +392,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：歐元區整體成長與就業數據為 ECB 政策評估及歐元區跨國景氣的重要依據，可能影響歐元利率曲線與歐元匯率。",
-        "previous": null,
-        "forecast": null,
+        "previous": "GDP q/q 0.6%; GDP y/y 1.2%; employment q/q 0.1%; employment y/y 0.5%",
+        "forecast": "GDP q/q 0.4%; GDP y/y 1.3%; employment q/q 0.0%; employment y/y 0.3%",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "這是第三季 GDP 的 T+45 flash estimate，與 10/30 初步 flash 不同，主要觀察更完整資料對成長估計的修正及就業變化；官方公告未提供本次可核實的發布時刻，故僅記日期。",
@@ -381,7 +403,12 @@
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "Eurostat",
-          "notes": "官方10/30 GDP初值新聞稿明確指出 T+45 flash estimate 預定於 2026-11-13 發布；時間未於該官方頁面確認。"
+          "notes": "官方10/30 GDP初值新聞稿明確指出 T+45 flash estimate 預定於 2026-11-13 發布；時間未於該官方頁面確認。 前值依 Eurostat 前季 GDP／就業發布；預期依 Trading Economics 11/13 歐元區日曆共識，並非 Eurostat 官方預測。",
+          "secondary_refs": [
+            "https://www.tradingeconomics.com/euro-area/calendar",
+            "https://ec.europa.eu/eurostat/en/web/products-euro-indicators/w/2-07092026-ap",
+            "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-30102026-ap"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -397,8 +424,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：重要經濟體關鍵通膨／成長數據，對區域利率、匯率及市場預期具明顯影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "MoM 1.3%; YoY 6.3%",
+        "forecast": "MoM 0.4%; YoY 未取得",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "PPI 可觀察上游成本與企業售價壓力，並作為消費者通膨傳導的參考；需留意商品、服務及貿易服務分項，不將單月波動直接視為 CPI 趨勢。",
@@ -408,7 +435,11 @@
           "published_at": null,
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "U.S. Bureau of Labor Statistics",
-          "notes": "BLS 官方日程確認 2026-11-13 08:30 ET 發布 10 月 PPI；換算台灣時間 11/13 21:30。"
+          "notes": "BLS 官方日程確認 2026-11-13 08:30 ET 發布 10 月 PPI；換算台灣時間 11/13 21:30。 前值依 BLS 9 月 PPI；MoM 預期依 MetaTrader 經濟日曆。YoY 同口徑共識未能確認，保留未取得。",
+          "secondary_refs": [
+            "https://www.bls.gov/ppi/",
+            "https://www.metatrader.com/en/economic-calendar/united-states/producer-price-index-mm"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -2977,10 +3008,22 @@
         "https://www.newyorkfed.org/research/calendars/i-nov26.html",
         "https://www.dol.gov/ui/data.pdf",
         "https://home.treasury.gov/news/press-releases/sb0678",
-        "https://www.federalreserve.gov/newsevents/2026-november.htm"
+        "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "https://www.mql5.com/en/economic-calendar/china",
+        "https://www.bls.gov/news.release/CPI.htm",
+        "https://www.investing.com/economic-calendar/cpi-69",
+        "https://www.reuters.com/world/india/indias-october-consumer-inflation-likely-nears-top-rbi-target-food-costs-2026-11-06/",
+        "https://www.tradingeconomics.com/calendar/gdp",
+        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest",
+        "https://www.investing.com/economiccalendar/initial-jobless-claims-294",
+        "https://api.fxblue.com/calendar/item/Initial_Jobless_Claims_US",
+        "https://www.tradingeconomics.com/euro-area/calendar",
+        "https://ec.europa.eu/eurostat/en/web/products-euro-indicators/w/2-07092026-ap",
+        "https://www.bls.gov/ppi/",
+        "https://www.metatrader.com/en/economic-calendar/united-states/producer-price-index-mm"
       ],
-      "checked_at": "2026-11-06T05:26:00+08:00",
-      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。；Fed 官方 11 月行事曆補入 Waller 及 Bowman 三場 Economic Outlook 談話，日期與時間依官方議程換算台灣時間；非政策相關的一般監理談話及非經濟展望活動未列入精選。"
+      "checked_at": "2026-11-06T19:10:00+08:00",
+      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。；Fed 官方 11 月行事曆補入 Waller 及 Bowman 三場 Economic Outlook 談話，日期與時間依官方議程換算台灣時間；非政策相關的一般監理談話及非經濟展望活動未列入精選。；既有事件前值／市場預期缺值補齊：已補中國 CPI/PPI、美國 CPI/PPI、印度 CPI、英國 GDP、歐元區 GDP／就業及美國初領失業金可核實欄位；不可比或尚未發布的共識維持 null。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3521,6 +3564,28 @@
       },
       "source": "Federal Reserve Board official November calendar",
       "note": "新增具經濟展望主題的聯準會理事／副主席談話；依官方議程確認日期時間。"
+    },
+    {
+      "at": "2026-11-06T19:10:00+08:00",
+      "action": "existing_economic_event_missing_values_supplement",
+      "event_id": "current-china-cpi-20261109,current-china-ppi-20261109,current-us-cpi-20261110,current-india-cpi-20261112,current-uk-gdp-20261112,current-us-initial-claims-20261112,current-eurozone-gdp-flash-20261113,current-us-ppi-20261113",
+      "changed_fields": [
+        "previous",
+        "forecast",
+        "source.notes",
+        "source.secondary_refs",
+        "coverage.economic",
+        "audit"
+      ],
+      "before": {
+        "economic_count": 15
+      },
+      "after": {
+        "economic_count": 15,
+        "events_updated": 8
+      },
+      "source": "Official statistical releases plus Reuters, Investing.com, Trading Economics, MQL5 and MetaTrader calendar cross-checks",
+      "note": "只補有來源且口徑可辨識的既有事件前值／市場預期；未發布實際值及不可比共識不填。"
     }
   ]
 }
