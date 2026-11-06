@@ -104,7 +104,7 @@ def main():
             if len(vals)>1 and record.get("change_display") is not None: set_text(vals[1],record["change_display"])
     # VIX/MOVE/F&G status slots; do not infer a value.
     for key,label in [("vix","VIX"),("move","MOVE")]:
-        rows=[r for r in sent.select(".sbox") if re.search(rf"\b{label}\b", r.get_text(" ",strip=True))]
+        rows=[r for r in sent.select(".sbox") if (r.select_one(".label-en") and r.select_one(".label-en").get_text(" ",strip=True).strip()==label)]
         if not rows: raise ValueError(f"{label} row not found")
         # The approved mother repeats VIX in its overview and risk strip; update both existing slots.
         for idx,row in enumerate(rows):
