@@ -782,3 +782,8 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 結構回讀：style 120/120、script 24/24 且內容一致；174 IDs 無重複；11 錨點無缺失；經濟卡 18/18、財報卡 37/37。
 - 首頁 SHA `64488827b72e01f6054225f444260e3cdf027a57` 未變；母版、Manifest、W45 JSON 未修改。
 - 瀏覽器驗證依使用者指示不執行；Pages 部署狀態未回讀；CME FedWatch 官方分布未完成交叉核對。未核准前不得更新首頁。
+
+
+## 2026-11-06｜SOX 來源差異揭露補記
+- 最新 preview blob SHA：`92c378a6ab5e145c6798cee9f87f2d45b13fdd09`；最後 preview commit：`0e33a58acd6245031da755169b620823e30d640a`。
+- 預覽的 SOX 來源說明已補上 Yahoo Finance 9,011.14（-12.25%）交叉支持，並揭露 Nasdaq overview 9,408.15（-8.38%）與歷史列不一致；正式採用 Investing.com HK 歷史收盤列。
