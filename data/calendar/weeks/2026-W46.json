@@ -1474,6 +1474,156 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 Mercury Systems Inc. (NASDAQ: MRCY)。"
         }
+      },
+      {
+        "id": "current-se-20261110",
+        "company": "Sea Limited",
+        "ticker": "SE",
+        "event_date": "2026-11-10T20:30:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星獨立評估：全球大型科技平台，Shopee電商、Monee數位金融及Garena數位娛樂橫跨東南亞與台灣市場，財報可同時反映電商競爭、金融科技成長及遊戲業務趨勢。",
+        "importance_rating_source": null,
+        "industry": "科技平台／電商／數位金融／遊戲",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Sea Limited Investor Relations｜Q3 2026 Results",
+          "url": "https://www.sea.com/investor/home",
+          "published_at": "2026-10-27",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "Sea Limited",
+          "notes": "官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "Singapore",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "SE",
+        "listing_evidence": {
+          "name": "Sea Limited official Q3 2026 results announcement",
+          "url": "https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27",
+          "publisher": "Sea Limited / Business Wire via Nasdaq",
+          "notes": "公司公告明確列示 Sea Limited (NYSE: SE)。"
+        }
+      },
+      {
+        "id": "current-vod-20261110",
+        "company": "Vodafone Group",
+        "ticker": "VOD",
+        "event_date": "2026-11-10T12:00:00+08:00",
+        "session": "unknown",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：全球主要電信營運商之一，H1 FY2027 半年度業績對歐洲、非洲電信營運、現金流及整併效益具代表性。",
+        "importance_rating_source": null,
+        "industry": "電信／通訊服務",
+        "reporting_period": "H1 FY2027",
+        "time_known": false,
+        "time_type": "release_date_only",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "EUR",
+        "revenue_currency": "EUR",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Vodafone Investor Relations｜Financial Calendar",
+          "url": "https://www.vodafone.com/investors/performance-and-reports/financial-calendar",
+          "published_at": null,
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "Vodafone Group Plc",
+          "notes": "官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United Kingdom",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "VOD",
+        "listing_evidence": {
+          "name": "Vodafone SEC Form 20-F｜Section 12(b) securities",
+          "url": "https://www.sec.gov/Archives/edgar/data/839923/000119312526235425/d143190dex27.htm",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "notes": "SEC文件確認 Vodafone ADS 每份代表10股普通股，於 Nasdaq Global Select Market 以 VOD 交易。"
+        }
+      },
+      {
+        "id": "current-rgti-20261111",
+        "company": "Rigetti Computing",
+        "ticker": "RGTI",
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：超導量子運算晶片、整機及雲端服務供應商，與D-Wave形成量子運算產業重要上市公司組合，財報可檢視量子硬體交付、政府研發合約與商業化進度。",
+        "importance_rating_source": null,
+        "industry": "量子運算／超導量子晶片",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "M",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Rigetti Computing Investor Relations｜Q3 2026 Results",
+          "url": "https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results",
+          "published_at": "2026-10-27",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "Rigetti Computing, Inc.",
+          "notes": "官方公告確認 Nasdaq: RGTI；11/10 美股收盤後發布 Q3 2026 財報，電話會議 17:00 ET，換算台灣時間 11/11 06:00。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "RGTI",
+        "listing_evidence": {
+          "name": "Rigetti official Q3 2026 earnings announcement",
+          "url": "https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results",
+          "publisher": "Company Investor Relations",
+          "notes": "官方公告明確列示 Rigetti Computing, Inc. (Nasdaq: RGTI)。"
+        }
       }
     ]
   },
@@ -1527,10 +1677,15 @@
         "https://finance.yahoo.com/markets/stocks/articles/jbs-host-third-quarter-2026-133400144.html",
         "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Quantum-to-Report-Third-Quarter-2026-Financial-Results-on-November-10-2026/default.aspx",
         "https://www.wix.com/press-room/home/post/wix-to-announce-third-quarter-2026-results-on-november-10-2026",
-        "https://ir.mrcy.com/index.php/news-releases/news-release-details/mercury-systems-report-first-quarter-fiscal-year-2027-financial"
+        "https://ir.mrcy.com/index.php/news-releases/news-release-details/mercury-systems-report-first-quarter-fiscal-year-2027-financial",
+        "https://www.sea.com/investor/home",
+        "https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27",
+        "https://www.vodafone.com/investors/performance-and-reports/financial-calendar",
+        "https://www.sec.gov/Archives/edgar/data/839923/000119312526235425/d143190dex27.htm",
+        "https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results"
       ],
       "checked_at": "2026-11-06T17:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。"
     }
   },
   "audit": [
@@ -1690,6 +1845,29 @@
       },
       "source": "Issuer investor-relations announcements and issuer/exchange listing disclosures",
       "note": "新增HIVE、RKLB、QBTS、WIX、MRCY、SKYD、JBS；均核對美國交易所掛牌、正式財報性質及美東時間換算。第三方日曆只用於候選發現，不作正式日期證據。"
+    },
+    {
+      "at": "2026-11-06T17:00:00+08:00",
+      "action": "technology_and_global_issuer_earnings_supplement",
+      "event_id": "current-se-20261110,current-vod-20261110,current-rgti-20261111",
+      "changed_fields": [
+        "events.earnings",
+        "coverage.earnings",
+        "audit"
+      ],
+      "before": {
+        "earnings_count": 25
+      },
+      "after": {
+        "earnings_count": 28,
+        "addedEarnings": [
+          "current-se-20261110",
+          "current-vod-20261110",
+          "current-rgti-20261111"
+        ]
+      },
+      "source": "Issuer investor-relations announcements, SEC listing disclosure and Nasdaq issuer announcement",
+      "note": "新增Sea、Vodafone及Rigetti；均確認W46財報性質及美國交易所掛牌，Vodafone精確發布時間未知，保留日期待核實。"
     }
   ]
 }
