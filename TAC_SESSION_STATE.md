@@ -947,3 +947,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 2. 針對美國掛牌大型企業與科技供應鏈持續候選掃描；只有發行人官方日期／時間與美國交易所掛牌證據成立，且 TAC 達四／五星，才新增。
 3. 重新掃描 W46 經濟事件官方日程；只有達 TAC 四／五星且可核實日期／來源者才增量納入。
 4. 每次寫入前先讀當前 SHA；同一路徑不可並行寫入；寫後 fetch 回讀並核對 schema、ID、週界、來源、掛牌資格、星等及 audit。
+
+
+## 2026-11-06｜W46 第九輪補漏最新增補
+- W46 最新 blob SHA：792d5e9064cfe63ea88dfa5bcc651f47340f6923；economic 8、earnings 38、audit 13；EPS consensus 33、revenue consensus 33。
+- 第九輪再新增 MARA Holdings（MARA，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，TAC 4 星）及 Vylor（VYLR，NYSE，11/11 after-close release、11/12 09:00 ET webcast，台灣 11/12 22:00，TAC 4 星）；兩者均有官方財報公告及掛牌證據，EPS／營收共識已補入，basis 未披露，不推定 beat/miss。
+- 現有 38 筆財報 event ID 與 ticker 唯一、日期均在 W46、來源 URL／listing evidence／NYSE-Nasdaq 欄位／TAC 4-5 星完整。仍有五家共識 null：PBR、MUFG、MFG、VOD、GIB；因跨幣別或口徑未能證明一致，維持 null。
+- Work Log 最新同步：TAC_WORK_LOG.md blob SHA f6e743cf137cea17a70a84d8bbe460f50d79ba6d；更新 commit ac31472000ff41b134e6199ca08a5baa2735ecf2。
+- 本次未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；coverage economic／earnings 仍 incomplete。
