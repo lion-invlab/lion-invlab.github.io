@@ -1,0 +1,60 @@
+{
+  "report_date": "2026-11-06",
+  "timezone": "Asia/Taipei",
+  "trading_date": "2026-11-05",
+  "summary": "美股 11/05 遭遇 AI／資料中心相關股票拋售，S&P 500 下跌 4.36%、Nasdaq 下跌 5.52%，費半與科技產業承壓；市場擔憂 AI 基礎建設監管與資本支出回報。11/06 亞洲交易時段延續避險，日韓台股盤中急挫後部分收斂。今日需區分美股前一交易日正式收盤與亞洲當日盤中／收盤資料，不能混為同一時間截面。",
+  "sentiment": "風險情緒明顯轉弱：11/05 美國大型指數同步重挫，VIX 收於 28.18，反映避險需求急升；美債殖利率下滑與日圓等避險貨幣走強，顯示資金轉向防禦。11/06 亞洲科技權重市場再承受賣壓，但盤中跌幅曾自低點收斂。此處行情基準為 11/05 美股收盤；即時 Fed Rate Monitor 另於 11/06 更新，不代表同一時點的市場收盤。",
+  "focus_news": [
+    {"title":"AI 監管疑慮引發全球科技股拋售","summary":"Reuters 指出，美國期中選舉結果使市場擔心資料中心建設與 AI 基礎建設投資面臨更高監管審查；美股科技股急跌後，亞洲晶片與設備股承壓。","url":"https://www.reuters.com/world/asia-pacific/analysts-investors-react-ai-market-rout-2026-11-06/"},
+    {"title":"亞洲股市延續 AI 拋售壓力","summary":"Reuters 報導 11/06 亞洲科技權重市場走弱，日經開盤大跌，韓國與台灣基準指數盤中跌幅一度超過 8%，反映 AI 投資疑慮向亞洲供應鏈擴散。","url":"https://www.investing.com/news/economy-news/asia-stocks-to-drop-after-ai-rout-rocks-us-markets-5006125"},
+    {"title":"美股 11/05 出現 2025 年 4 月以來最大單日跌幅","summary":"AP 報導 S&P 500 下跌 4.4%、Nasdaq 下跌 5.5%，AI 資料中心建設相關股票領跌，市場擔憂政策監管與資本支出回報。","url":"https://apnews.com/article/afe254c608c3d1fe2ea792812ba9765a"},
+    {"title":"半導體指數重挫，產業跌勢擴大","summary":"Investing.com／Reuters 市場綜述指出費城半導體指數下跌約 12.2%，大型半導體與記憶體個股跌幅顯著，反映市場重新評估 AI 供應鏈估值與投資回收期。","url":"https://www.investing.com/news/economy-news/trading-day-a-november-5-market-bonfire-5005919"},
+    {"title":"避險需求推升債券吸引力","summary":"Reuters 報導在科技股急跌與市場風險升高下，資金轉向美國公債及避險貨幣；殖利率曲線出現明顯下行，市場重新評估成長與政策路徑。","url":"https://live.euronext.com/en/financial-news/stocks-tumble-ai-panic-sweeps-markets-bonds-draw-haven-demand"}
+  ],
+  "headlines": [
+    {"title":"Nasdaq 11/05 下跌 5.52%，收 24,315","summary":"AI 資料中心與科技股遭集中賣壓，Nasdaq Composite 收跌 1,421.51 點；跌幅為主要美股指數中最大。","url":"https://apnews.com/article/afe254c608c3d1fe2ea792812ba9765a"},
+    {"title":"S&P 500 收跌 4.36%，11 大產業全數下跌","summary":"指數收在 7,353.73 點，科技類股跌幅約 7.3%；市場廣度急速惡化。","url":"https://www.investing.com/news/economy-news/trading-day-a-november-5-market-bonfire-5005919"},
+    {"title":"費城半導體指數單日重挫約 12.2%","summary":"半導體股拋售擴大，SanDisk、Micron、AMD 與 Marvell 等個股跌幅沉重。","url":"https://www.investing.com/news/economy-news/trading-day-a-november-5-market-bonfire-5005919"},
+    {"title":"Dow Jones 下跌 3.44%，收 51,523.06","summary":"道瓊單日下跌 1,833.06 點，成分股賣壓廣泛。","url":"https://apnews.com/article/afe254c608c3d1fe2ea792812ba9765a"},
+    {"title":"Russell 2000 下跌約 4.45%","summary":"小型股同步承壓，顯示賣壓並非只集中在少數大型科技股。","url":"https://portfolio-terminal.com/markets/stock-market-close/november-5-2026"},
+    {"title":"VIX 11/05 收 28.18，單日升約 69.7%","summary":"波動率指數反映避險需求急升；需注意 11/06 盤中 VIX 已有不同報價，不應與前一日收盤混列。","url":"https://www.investing.com/indices/volatility-s-p-500-historical-data"},
+    {"title":"台灣加權指數 11/06 收跌約 4.5%","summary":"Reuters 報導台股盤中一度大幅下挫，尾盤跌幅收斂；全週跌幅約 12.2%，創 1991 年以來最差週表現。","url":"https://live.euronext.com/en/financial-news/stocks-tumble-ai-panic-sweeps-markets-bonds-draw-haven-demand"},
+    {"title":"日本日經指數 11/06 盤中跌逾 6%","summary":"日股受到科技與半導體賣壓衝擊，日經盤中跌幅一度擴大，與美股科技股急跌連動。","url":"https://live.euronext.com/en/financial-news/stocks-tumble-ai-panic-sweeps-markets-bonds-draw-haven-demand"},
+    {"title":"美國 10 年期公債殖利率跌至約 4.84%","summary":"避險買盤推升公債價格；報導顯示殖利率自前一日約 4.90% 下滑。","url":"https://gmg-kprc-prod.cdn.arcpublishing.com/business/2026/11/06/japans-nikkei-falls-more-than-6-as-asian-benchmarks-tumble-after-wall-street-drop/"},
+    {"title":"Fed Rate Monitor 顯示後續會議機率存在多情境","summary":"11/06 04:45 EST 更新的利率監測資料中，2027 年 1 月、3 月等會議已出現維持、升息及多個利率區間並存的分布。","url":"https://www.investing.com/central-banks/fed-rate-monitor"}
+  ],
+  "global_markets": {
+    "道瓊工業指數":{"display":"51,523.06","change_display":"−3.44%"},
+    "標普500指數":{"display":"7,353.73","change_display":"−4.36%"},
+    "那斯達克綜合指數":{"display":"24,315.00","change_display":"−5.52%"},
+    "羅素2000指數":{"display":"2,729.75","change_display":"−4.45%"},
+    "費城半導體指數":{"display":"待核實","change_display":"待核實"},
+    "香港恆生指數":{"display":"待核實","change_display":"待核實"},
+    "上海綜合指數":{"display":"待核實","change_display":"待核實"},
+    "深證成指":{"display":"待核實","change_display":"待核實"},
+    "日經 225":{"display":"待核實","change_display":"待核實"},
+    "韓國 KOSPI":{"display":"待核實","change_display":"待核實"},
+    "台灣加權指數":{"display":"待核實","change_display":"待核實"},
+    "新加坡海峽時報指數 STI":{"display":"待核實","change_display":"待核實"},
+    "澳洲 S&P/ASX 200":{"display":"待核實","change_display":"待核實"},
+    "英國 FTSE 100":{"display":"待核實","change_display":"待核實"},
+    "德國 DAX":{"display":"待核實","change_display":"待核實"},
+    "法國 CAC 40":{"display":"待核實","change_display":"待核實"},
+    "STOXX Europe 600":{"display":"待核實","change_display":"待核實"}
+  },
+  "sectors": {"XLK":"待核實","XLY":"待核實","XLB":"待核實","XLU":"待核實","XLI":"待核實","XLV":"待核實","XLF":"待核實","XLC":"待核實","XLRE":"待核實","XLP":"待核實","XLE":"待核實"},
+  "bonds": {"2年期美債殖利率":{"display":"待核實","change_display":"待核實"},"10年期美債殖利率":{"display":"4.84%","change_display":"−6bp"},"30年期美債殖利率":{"display":"待核實","change_display":"待核實"}},
+  "fx": {"美元指數":{"display":"待核實","change_display":"待核實"},"美元／新台幣":{"display":"待核實","change_display":"待核實"},"歐元／美元":{"display":"待核實","change_display":"待核實"},"英鎊／美元":{"display":"待核實","change_display":"待核實"},"澳幣／美元":{"display":"待核實","change_display":"待核實"},"美元／日圓":{"display":"待核實","change_display":"待核實"}},
+  "energy": {"WTI原油期貨":{"display":"待核實","change_display":"待核實"},"Brent原油期貨":{"display":"待核實","change_display":"待核實"}},
+  "metals": {"黃金期貨 GC":{"display":"待核實","change_display":"待核實"},"白銀期貨 SI":{"display":"待核實","change_display":"待核實"}},
+  "risk": {"vix":{"display":"28.18"},"move":{"display":"待核實"},"fear_greed":{"display":"待核實"}},
+  "fedwatch": {
+    "target_meeting":"2026-12-09",
+    "updated_at_tw":"2026-11-06 17:45",
+    "probabilities":[
+      {"outcome":"hold","rate_range":"3.75%-4.00%","probability":27.7},
+      {"outcome":"hike","rate_range":"4.00%-4.25%","probability":72.3}
+    ]
+  },
+  "observation":"① 美股風險：11/05 S&P 500 −4.36%、Nasdaq −5.52%，AI 與半導體相關賣壓造成大型指數同步急跌。\n② 市場廣度：S&P 500 11 大產業全數收跌，科技類股跌幅最深；產業 ETF 個別收盤百分比待核實。\n③ 亞洲傳導：11/06 日韓台股盤中急跌，台股收盤約 −4.5%；各市場正式收盤指數仍需依原始交易所資料逐項核實。\n④ 跨資產：VIX 11/05 收 28.18；10 年期美債殖利率約 4.84%，其餘債券、匯率與原物料欄位待核實。\n⑤ 政策預期：Fed Rate Monitor 11/06 04:45 EST 更新，12/09 會議維持 27.7%、升息一碼 72.3%；其他會議另有三種以上目標區間，母版兩卡不能完整呈現。"
+}
