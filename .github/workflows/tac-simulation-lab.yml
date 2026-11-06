@@ -43,6 +43,19 @@ jobs:
           python scripts/assemble_tac_daily_snapshot.py --self-test
           python scripts/render_tac_market_snapshot_to_html.py --help >/dev/null
 
+      - name: Set up Node for browser regression
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save --package-lock=false playwright
+          npx playwright install --with-deps chromium
+
+      - name: Compare 11/06 preview against approved weekday mother
+        run: node simulation-lab/runner/visual_regression.mjs simulation-lab/fixtures/existing-preview-2026-11-06.html
+
       - name: Record isolated run metadata
         if: always()
         shell: bash
