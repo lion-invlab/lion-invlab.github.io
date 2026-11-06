@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "purpose": "TAC 投資早報唯一核准母版來源；不得以其他 HTML、分支或最近修改時間取代",
+  "approved_on": "2026-10-29",
+  "approval_basis": "使用者於 2026-10-29 明確確認截圖中的兩份「最終定版」母版為唯一製作來源",
+  "timezone": "Asia/Taipei",
+  "selection_rule": "依台灣報告日期的星期選擇唯一來源；週一使用 monday，週二至週五使用 weekdays；週末不自動製作",
+  "failure_policy": "來源不存在、SHA 不符、星期情境不符或必要結構驗證失敗時立即停止；禁止自動 fallback；只有使用者明確核准才可更新母版或 SHA",
+  "templates": {
+    "monday": {
+      "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
+      "blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
+      "required_calendar_sections": [
+        "上週經濟行事曆",
+        "上週財報行事曆"
+      ],
+      "forbidden_calendar_sections": [],
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。"
+    },
+    "weekdays": {
+      "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+      "blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
+      "required_calendar_sections": [],
+      "forbidden_calendar_sections": [
+        "上週經濟行事曆",
+        "上週財報行事曆"
+      ],
+      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。"
+    }
+  },
+  "protected_paths": [
+    "index.html",
+    "refactor-work/design-system.css",
+    "refactor-work/source-baseline-2026-10-26.html"
+  ],
+  "change_log": [
+    {
+      "date": "2026-10-29",
+      "change": "首次建立唯一母版登記；以使用者確認的兩份最終定版檔案及其實際 Git blob SHA 鎖定來源"
+    },
+    {
+      "date": "2026-10-30",
+      "change": "依使用者核准，雙母版同步標準行情超連結與 CNN 同頁返回規則；版面及既有互動保留，僅更新連結與必要樣式。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者明確核准，將週一與週二至週五正式雙母版的經濟及財報小卡紅色圓形加減控制統一為 32×32px（含 flex-basis、width、height 與 min-height）；同步更新母版 SHA 鎖。未修改首頁、WR 或其他版面內容。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者明確指示，雙母版全球市場固定欄位同步增加新加坡 STI、澳洲 S&P/ASX 200、STOXX Europe 600；三項新增列以待核實佔位，不帶入未核實行情；同步更新母版 SHA 鎖。"
+    },
+    {
+      "date": "2026-10-31",
+      "change": "依使用者指定，全球主要市場美國／亞洲／歐洲 17 個指數名稱連結統一導向 Investing.com 香港站對應商品頁；只更新 href 與母版 SHA 鎖，未修改行情數值及版面。"
+    },
+    {
+      "date": "2026-11-05",
+      "change": "依使用者明確核准，雙母版僅將重複的工具欄提示 style/script ID 改為唯一識別值；不刪除重複區塊、不改 CSS／JavaScript 行為或版面；完成雙母版 ID 與內部錨點檢查後同步更新核准 SHA。"
+    },
+    {
+      "date": "2026-11-05",
+      "change": "依使用者指示，僅於週一及週二至週五雙母版 QUICK ACCESS 工具欄的 Q4 精選基金與歷史早報之間新增「📖 專題報導」連結，目標為 https://lion-invlab.github.io/special-reports.html；未建立或修改專題報導頁面及其他內容。"
+    },
+    {
+      "date": "2026-11-06",
+      "change": "依使用者明確核准，僅修復週一母版 #calendar 的 12 張本週經濟事件卡：在各 summary 內補入既有規格 econ-toggle 控制；沿用原有 32×32px 紅色圓形加減控制 CSS，不改版面、樣式、JavaScript 或其他卡片。同步更新週一母版 SHA 與結構驗收契約。"
+    }
+  ]
+}
