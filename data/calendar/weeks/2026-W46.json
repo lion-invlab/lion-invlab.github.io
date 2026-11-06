@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-06T05:24:00+08:00",
+  "updated_at": "2026-11-06T05:26:00+08:00",
   "source_report_date": "2026-11-06",
   "wr_version": "5.13",
   "status": "active",
@@ -93,6 +93,33 @@
         "time_known": true
       },
       {
+        "id": "current-fed-waller-economic-outlook-20261110",
+        "event_date": "2026-11-10T17:00:00+08:00",
+        "region": "美國",
+        "event_name": "聯準會理事 Christopher Waller 發表經濟展望談話",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：聯準會理事／副主席的經濟展望談話可能影響市場對政策路徑的預期。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "官員對經濟、通膨及金融條件的措辭可能改變市場對後續利率路徑的解讀；應以正式講稿及問答內容判讀，不預設鷹鴿方向。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+          "published_at": null,
+          "observed_at": "2026-11-06T05:26:00+08:00",
+          "publisher": "Board of Governors of the Federal Reserve System",
+          "notes": "Fed 官方 11 月行事曆列示 Waller 於 11/10 04:00 ET 發表 Economic Outlook；換算台灣時間 11/10 17:00。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": null,
+        "time_known": true
+      },
+      {
         "id": "current-us-cpi-20261110",
         "event_date": "2026-11-10T21:30:00+08:00",
         "region": "美國",
@@ -166,6 +193,60 @@
           "observed_at": "2026-11-06T18:00:00+08:00",
           "publisher": "Bank of Canada",
           "notes": "加拿大央行官方公告確認 2026-11-10 13:30 Eastern Time 發布 10/28 利率決策前的 Governing Council deliberations 摘要；11 月加拿大已採 EST（UTC−5），換算台灣時間為 11/11 02:30。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": null,
+        "time_known": true
+      },
+      {
+        "id": "current-fed-bowman-economic-outlook-20261111",
+        "event_date": "2026-11-11T04:30:00+08:00",
+        "region": "美國",
+        "event_name": "聯準會副主席 Michelle Bowman 發表經濟展望談話",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：聯準會理事／副主席的經濟展望談話可能影響市場對政策路徑的預期。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "官員對經濟、通膨及金融條件的措辭可能改變市場對後續利率路徑的解讀；應以正式講稿及問答內容判讀，不預設鷹鴿方向。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+          "published_at": null,
+          "observed_at": "2026-11-06T05:26:00+08:00",
+          "publisher": "Board of Governors of the Federal Reserve System",
+          "notes": "Fed 官方 11 月行事曆列示 Bowman 於 11/10 15:30 ET 發表 Economic Outlook；換算台灣時間 11/11 04:30。"
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": null,
+        "time_known": true
+      },
+      {
+        "id": "current-fed-bowman-economic-outlook-evening-20261111",
+        "event_date": "2026-11-11T07:30:00+08:00",
+        "region": "美國",
+        "event_name": "聯準會副主席 Michelle Bowman 發表經濟展望談話（晚間場）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：聯準會理事／副主席的經濟展望談話可能影響市場對政策路徑的預期。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "官員對經濟、通膨及金融條件的措辭可能改變市場對後續利率路徑的解讀；應以正式講稿及問答內容判讀，不預設鷹鴿方向。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+          "published_at": null,
+          "observed_at": "2026-11-06T05:26:00+08:00",
+          "publisher": "Board of Governors of the Federal Reserve System",
+          "notes": "Fed 官方 11 月行事曆另列 Bowman 於 11/10 18:30 ET 發表 Economic Outlook；換算台灣時間 11/11 07:30，與同日 15:30 ET 場次為不同活動。"
         },
         "previous_applicable": false,
         "forecast_applicable": false,
@@ -2895,10 +2976,11 @@
         "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
         "https://www.newyorkfed.org/research/calendars/i-nov26.html",
         "https://www.dol.gov/ui/data.pdf",
-        "https://home.treasury.gov/news/press-releases/sb0678"
+        "https://home.treasury.gov/news/press-releases/sb0678",
+        "https://www.federalreserve.gov/newsevents/2026-november.htm"
       ],
-      "checked_at": "2026-11-06T05:24:00+08:00",
-      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。"
+      "checked_at": "2026-11-06T05:26:00+08:00",
+      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。；Fed 官方 11 月行事曆補入 Waller 及 Bowman 三場 Economic Outlook 談話，日期與時間依官方議程換算台灣時間；非政策相關的一般監理談話及非經濟展望活動未列入精選。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3421,6 +3503,24 @@
       },
       "source": "U.S. Department of the Treasury",
       "note": "依官方季度再融資公告增補三筆美國公債標售。"
+    },
+    {
+      "at": "2026-11-06T05:26:00+08:00",
+      "action": "fed_policy_speech_calendar_supplement",
+      "event_id": "current-fed-waller-economic-outlook-20261110,current-fed-bowman-economic-outlook-20261111,current-fed-bowman-economic-outlook-evening-20261111",
+      "changed_fields": [
+        "events.economic",
+        "coverage.economic",
+        "audit"
+      ],
+      "before": {
+        "economic_count": 12
+      },
+      "after": {
+        "economic_count": 15
+      },
+      "source": "Federal Reserve Board official November calendar",
+      "note": "新增具經濟展望主題的聯準會理事／副主席談話；依官方議程確認日期時間。"
     }
   ]
 }
