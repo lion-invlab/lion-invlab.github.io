@@ -225,3 +225,11 @@
 - 執行環境設定仍為 `environment_selection=inherited`，`environments=null`；目前可用管理介面未提供為既有任務直接指定／更換 cloud computer 或環境設定的更新欄位。故本次沒有完成瀏覽器 QA 執行環境修復，也沒有做端到端試跑。
 - 另外發現歷史上另有一個不同 ID 的冬令 05:25 早報排程 `6ae9085693108191a768cfed282e14c2`，目前停用；本次不刪除或改動它，以免未確認用途前誤動歷史排程。
 - 下一個修復驗收點：先在實際排程環境取得非 null 的環境資訊並驗證 repo／瀏覽器能力；再執行一次受控端到端試跑，核對排程延遲、GitHub 連接器讀寫及 preview 回讀。完成前不重新啟用正式 05:25 排程。
+
+## 2026-11-06｜05:25 排程重新啟用與受控觸發
+- 既有冬令早報排程 `6aeb149252548191babee862e4799680` 已重新啟用；update 回傳 success=true，時間 10:26:18 Asia/Taipei。未建立第三個排程，04:35 行事曆排程未變更。
+- 立即執行呼叫回傳 success=true、Ready to run in this conversation，並提供 inline_run.prompt；此只代表可在目前對話中執行該指令，不能冒充獨立排程 run 已成功。
+- 已重新讀取 main 最新 WR v5.13、Manifest、核准週二至週五母版、結構驗收清單、W45 JSON，並回讀 Session State／Work Log；GitHub 連接器讀取可用。SHA：WR 27d8065135ec610dce971a5dc1cdc3c00f922bdb；Manifest b6a24300276d7bed9dbc74472b42a97313117bd6；母版 3785405e331b10ec6189002e480be2a1edbe20ef；QA 清單 3debe876c804d23907cbf60a24a4dada7cf392f0；W45 JSON bef8db0fb4d37774194e731e1d35c518d0996e55。
+- 11/06 早報已在先前完成首頁 GitHub 寫入，本輪未重做或覆寫當日報告。
+- 再次 peek：is_enabled=true，但 next_run_time=null；environment_selection=inherited、environments=null；last_run 仍為 11/06 failed run 80f9d5d0-6bd4-8333-8c05-666e8d4b05b5。故尚無新獨立排程 run 的終端成功證據，不能宣稱下一次 05:25 已驗證。
+- 瀏覽器／Playwright QA 未執行；WR、母版、Manifest、preview、首頁及 W45 JSON 均未修改。
