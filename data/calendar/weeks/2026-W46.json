@@ -1320,10 +1320,10 @@
         "reporting_period": "FY2027 Q2",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": null,
-        "eps_estimate": null,
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_estimate": -0.16,
         "eps_actual": null,
-        "revenue_estimate": null,
+        "revenue_estimate": 79.44,
         "revenue_actual": null,
         "eps_currency": "USD",
         "revenue_currency": "USD",
@@ -1341,8 +1341,20 @@
           "publisher": "HIVE Digital Technologies Ltd.",
           "notes": "官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。"
         },
-        "consensus_source": null,
-        "revenue_consensus_source": null,
+        "consensus_source": {
+          "name": "MarketBeat｜HIVE Digital Technologies Q2 FY2027 consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-hive-blockchain-technologies-ltd-stock-1/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "Q2 FY2027 analyst consensus EPS -US$0.16；來源未揭露 GAAP／normalized basis，保留 basis not disclosed。公司官方公告確認財報於 11/09 收盤後發布，估值日期與官方發布時程一致。"
+        },
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜HIVE Digital Technologies Q2 FY2027 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-hive-blockchain-technologies-ltd-stock-1/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "Q2 FY2027 revenue consensus US$79.44M；同幣別 USD。"
+        },
         "price_reaction_source": null,
         "issuer_country": "Canada",
         "us_exchange_listed": true,
@@ -2458,10 +2470,16 @@
         "https://ir.monday.com/news-and-events/news-releases/news-details/2026/monday-com-to-Announce-Third-Quarter-2026-Financial-Results-on-Monday-November-9-2026/default.aspx",
         "https://investors.hims.com/news/news-details/2026/Hims--Hers-to-Announce-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx",
         "https://investors.thetradedesk.com/news-and-events/news/news-details/2026/The-Trade-Desk-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx",
-        "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide"
+        "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide",
+        "https://www.marketbeat.com/earnings/reports/2026-11-9-hive-blockchain-technologies-ltd-stock-1/",
+        "https://www.marketbeat.com/earnings/reports/2026-11-10-petrleo-brasileiro-sa--petrobras-stock/",
+        "https://www.marketbeat.com/stocks/NYSE/MUFG/earnings/",
+        "https://www.marketbeat.com/stocks/NYSE/MFG/earnings/",
+        "https://www.marketbeat.com/stocks/NYSE/GIB/earnings/",
+        "https://www.marketbeat.com/stocks/NASDAQ/VOD/earnings/"
       ],
       "checked_at": "2026-11-06T17:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。"
     }
   },
   "audit": [
@@ -2751,6 +2769,38 @@
       },
       "source": "Issuer investor relations; Finviz daily earnings calendar; Nasdaq consensus via StockTitan; MarketBeat individual earnings estimates",
       "note": "Only issuer-confirmed release dates and US-listed companies added. EPS/revenue estimates are pre-announcement consensus snapshots; unknown accounting basis and currency differences remain explicitly unresolved."
+    },
+    {
+      "at": "2026-11-06T17:00:00+08:00",
+      "action": "remaining_consensus_currency_and_basis_review",
+      "event_id": "current-hive-20261110,current-pbr-20261110,current-mufg-20261113,current-mfg-20261113,current-vod-20261110,current-gib-20261111",
+      "changed_fields": [
+        "eps_estimate",
+        "revenue_estimate",
+        "eps_basis",
+        "consensus_source",
+        "revenue_consensus_source",
+        "coverage.earnings",
+        "audit"
+      ],
+      "before": {
+        "HIVE_eps": null,
+        "HIVE_revenue": null
+      },
+      "after": {
+        "HIVE_eps": -0.16,
+        "HIVE_revenue": 79.44,
+        "HIVE_unit": "USD M",
+        "remaining_null": [
+          "PBR",
+          "MUFG",
+          "MFG",
+          "VOD",
+          "GIB"
+        ]
+      },
+      "source": "MarketBeat issuer-specific earnings consensus pages and issuer financial reporting currency disclosures",
+      "note": "HIVE consensus is same USD reporting currency and was populated. ADR/ADS consensus values for PBR, MUFG, MFG, VOD and GIB are not directly comparable to issuer reporting currencies/bases; left null rather than mixing currencies. SMFG date not confirmed beyond mid-Nov."
     }
   ]
 }
