@@ -586,68 +586,6 @@
     ],
     "earnings": [
       {
-        "id": "current-dash-20261102",
-        "company": "DoorDash",
-        "ticker": "DASH",
-        "event_date": "2026-10-30T12:00:00+08:00",
-        "session": "after_market",
-        "status": "released",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：依公司市值、產業代表性、全球供應鏈／需求指標性及財報可能帶來的同業定價影響評級；非沿用來源原生星等。",
-        "importance_rating_source": null,
-        "eps_estimate": 0.82,
-        "eps_actual": 1.06,
-        "revenue_estimate": 4.56,
-        "revenue_actual": 4.616,
-        "stock_price_reaction": null,
-        "source": {
-          "name": "DoorDash Investor Relations｜Q3 2026 Financial Results",
-          "url": "https://ir.doordash.com/news/news-details/2026/DoorDash-Releases-Third-Quarter-2026-Financial-Results/default.aspx",
-          "published_at": "2026-10-29",
-          "observed_at": "2026-11-06T05:40:00+08:00",
-          "publisher": "DoorDash",
-          "notes": "發行公司正式財報頁明確標示2026-10-29；校正原StockTitan週曆錯置日期。"
-        },
-        "industry": "外送／消費平台",
-        "reporting_period": "2026 Q3",
-        "time_known": false,
-        "time_type": "release_date_only",
-        "eps_basis": "Nasdaq EPS consensus; reporting basis may differ by issuer.",
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
-        "revenue_unit": "B",
-        "eps_comparison_status": "pending_verification",
-        "revenue_comparison_status": "beat",
-        "financial_judgment": "DoorDash官方於2026-10-29發布Q3 2026結果（台灣日期10/30）。營收US$4.616B，高於原存共識US$4.56B；GAAP diluted EPS US$1.06，原存Nasdaq EPS共識US$0.82的GAAP／adjusted口徑未能確認，故EPS beat/miss不判定。總訂單年增28%至993M、Marketplace GOV年增36%至US$33.9B、GAAP淨利US$466M。原週曆所列11/05盤後日期與公司正式公告日期不符，已校正至實際發布日；此事件屬W44，保留在W45 JSON但不列入W45日期範圍。",
-        "stock_price_reaction_window": null,
-        "consensus_source": {
-          "name": "Nasdaq EPS consensus（StockTitan 週曆）",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "published_at": null,
-          "observed_at": "2026-11-01T12:17:52+08:00",
-          "publisher": "Nasdaq via StockTitan",
-          "notes": "2026-11-02 至 11-06 週度 EPS 共識；EPS 共識 US$0.82；營收預估未在此表提供。"
-        },
-        "price_reaction_source": null,
-        "revenue_consensus_source": {
-          "name": "MarketBeat｜DoorDash Q3 2026 estimates",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-04-doordash-inc-stock/",
-          "publisher": "MarketBeat",
-          "notes": "Q3 2026 revenue consensus USD 4.56B；EPS 已由其他來源記錄。"
-        },
-        "issuer_country": "United States",
-        "us_exchange_listed": true,
-        "us_listing_exchange": null,
-        "us_listing_ticker": "DASH",
-        "listing_evidence": {
-          "name": "U.S. issuer / domestic listing",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-2-2026",
-          "publisher": "Company Investor Relations",
-          "notes": "美國註冊／美國發行公司；依美國本土公司規則納入。"
-        }
-      },
-      {
         "id": "current-mar-20261102",
         "company": "Marriott International",
         "ticker": "MAR",
@@ -14266,6 +14204,28 @@
       },
       "source": "official issuer and government release calendars",
       "note": "完成 11/06 18:00 台灣時間的本週補漏；新增五家已由公司官方確認時程的財報事件，核對美國及加拿大就業報告尚未到官方發布時間。原有事件、實績與 207 筆歷史 audit 保留。"
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "event_removed_from_week_scope",
+      "event_id": "current-dash-20261102",
+      "changed_fields": [
+        "events.earnings"
+      ],
+      "before": {
+        "removed": [
+          {
+            "id": "current-dash-20261102",
+            "ticker": "DASH",
+            "event_date": "2026-10-30T12:00:00+08:00"
+          }
+        ]
+      },
+      "after": {
+        "reason": "event_date_outside_2026-W45"
+      },
+      "source": "existing W45 event data and prior correction audit",
+      "note": "DoorDash DASH 財報實際日期為 2026-10-29 美東（台灣 10/30），不屬於 W45 11/02–11/08，從 W45 活動事件集合移除；原穩定 ID 與歷史 audit 保留，不刪除追溯紀錄。"
     }
   ]
 }
