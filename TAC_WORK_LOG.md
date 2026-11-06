@@ -301,3 +301,11 @@
 - 最新 W46 回讀 SHA：792d5e9064cfe63ea88dfa5bcc651f47340f6923；經濟 8、財報 38、audit 13；EPS／營收共識各 33 筆。五家共識仍保留 null：PBR、MUFG、MFG、VOD、GIB（跨幣別／口徑不一致，不作機械換算）。
 - 驗收：JSON 可解析；38 筆財報 ID/ticker 唯一；日期均落在 W46；每筆 source URL、listing evidence、NYSE／Nasdaq 掛牌欄位及 TAC 4/5 星完整。coverage 維持 incomplete，不宣稱全球候選掃描完成。
 - 本輪 commit：bcf5135ba58efce773b33fb4d40dd6ce9036e910。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；未執行瀏覽器 QA。
+
+
+## 2026-11-06｜W46 最終來源欄位精確化與閉環回讀
+- 針對 Vylor（VYLR）listing_evidence，將來源從一般 Investor Relations 首頁改為發行人正式公告經 Nasdaq 刊載頁，該頁明確列示 NYSE: VYLR；不變更事件日期、共識或星等。
+- W46 最新回讀 SHA：fc1192c08fb57a96bc8f5542d00f2c65ddd92e12；economic 8、earnings 38、audit 14；EPS／revenue 共識各 33 筆。
+- 全面驗收：JSON 可解析；財報 event ID 與 ticker 唯一；全部經濟及財報日期落在 2026-11-09 至 2026-11-15；每筆財報均有來源 URL、掛牌證據、NYSE／Nasdaq 欄位與 TAC 4/5 星；經濟事件均有來源 URL 與 TAC 4/5 星；檢查無不合週界／缺來源／缺掛牌證據項目。
+- 五家 ADR／ADS 共識仍因報表幣別／會計口徑待核實而保留 null：PBR、MUFG、MFG、VOD、GIB。coverage.economic／earnings 維持 incomplete，不宣稱全球完整。
+- 最終精確化 commit：014cb6a40f59ba43cbf89c6eaf304781970cb0e6。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；未執行瀏覽器 QA。
