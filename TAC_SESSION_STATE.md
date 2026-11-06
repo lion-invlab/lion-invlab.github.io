@@ -887,3 +887,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - W46 寫後回讀最新 blob SHA：`0676ecd8967bef84353a8bb0045501ff218d6735`；共 6 筆經濟事件、15 筆財報事件、4 筆 audit。驗證：事件 ID 無重複、所有 event_date 均落在 W46 週界內、所有事件有來源 URL、評級均為 TAC 4/5 星、財報均有美國交易所掛牌證據。coverage economic／earnings 仍為 incomplete：後續仍需按官方日程補掃其他主要市場及更多美國掛牌發行人，並補齊可追溯共識；本次不以不完整冒充齊備。
 - W46 經濟日程交叉掃描排除項目：日本國際收支、韓國一般貨幣／貿易價格統計、澳洲 ABS 多項一般數據，依 TAC 四星門檻未列入；美國 Veterans Day 已納入 BLS 發布日程檢查，不作為四星經濟指標。未列入不代表漏查，排除原因已記於 coverage notes。
 - 本輪 GitHub 寫入及回讀均使用正式連接器；未執行瀏覽器／Playwright QA（行事曆 DB 不涉及頁面視覺 Gate）。
+
+
+## 2026-11-06｜W46 經濟行事曆第三輪官方來源補查
+- 依 main 最新 WR v5.13（blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`）及第三步行事曆規則，僅增量更新既有 `data/calendar/weeks/2026-W46.json`；未修改 W45、WR、Manifest、母版、首頁、排程或其他資料庫。
+- 新增加拿大央行 10/28 貨幣政策會議紀要：官方公告確認 11/10 13:30 ET 發布，換算台灣時間為 11/11 02:30，TAC 4 星。官方來源：https://www.bankofcanada.ca/2026/11/release-bank-canadas-summary-deliberations-2026-10-28/
+- 新增印度 10 月 CPI：印度政府 PIB 官方新聞稿確認 11/12 發布，但未提供精確時刻，故記為 11/12 日期事件、`time_known=false`，TAC 4 星，不猜發布時間。官方來源：https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3
+- 修訂既有英國 11/12 GDP 事件標題及來源說明：ONS 官方 release calendar 確認 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade、Index of Production 及建築產出；以一個同時段宏觀發布群組呈現，不重複拆卡。官方日程：https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming
+- 已查但未獨立列入：美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等，依 TAC 四星門檻未升格；印度 IIP 未取得官方獨立日期／時間證據，未與 CPI 合併猜填。W46 economic coverage 維持 incomplete，表示仍可續掃，非全市場完整聲明。
+- 寫後回讀 W46 blob SHA：`5a5b4b8ab8d3acde6bc39312fd2e79511a1a098a`；commit `824b5be39426bc8b1e1fa0f201c0fd0d3d8d4e84`。驗收：economic 8、earnings 15、audit 5；economic event ID 唯一、8 筆日期均落在 11/09–11/15、每筆均有來源 URL、星等均為 TAC 4/5。未執行瀏覽器 QA（本輪僅更新資料庫）。
