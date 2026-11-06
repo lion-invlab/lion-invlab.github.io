@@ -335,3 +335,13 @@
 - 寫入採增量 upsert，沿用既有 schema 並新增 audit。W46 經濟事件由 8 增至 15，財報維持 42，audit 由 16 增至 19；EPS／營收共識仍各 37 筆。
 - 最終回讀 W46 JSON blob SHA：2f7a290f33512cef8c5707ebb5663227b35237dc。驗收：JSON 可解析；經濟 event ID 無重複；全部事件落在 11/09–11/15；所有經濟事件均有來源 URL 及 TAC 4／5 星；財報數量與共識欄位未變。coverage.economic 維持 incomplete，不宣稱全市場掃描完成。
 - 未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；純 JSON 更新未執行瀏覽器 QA。
+
+
+## 2026-11-06｜W46 既有經濟事件前值／預期缺值補齊
+- 僅處理既有 `data/calendar/weeks/2026-W46.json` 的經濟事件數值缺欄；未新增事件、未改動財報 42 筆。
+- 已補 8 個事件的可核實前值／市場預期：中國 CPI/PPI、美國 CPI/PPI、印度 CPI、英國 GDP、歐元區 GDP／就業、美國初領失業救濟金。
+- 主要來源／交叉資料：中國市場日曆 MQL5；BLS CPI/PPI；Investing.com CPI／初領；印度 MoSPI 官方前值與 Reuters 11/06 對 36 位經濟學家調查；ONS 與 Trading Economics 英國 GDP 日曆；Eurostat 前季數據與 Trading Economics 歐元區共識；MetaTrader PPI 市場預估。
+- 美國 CPI 前值填 MoM 0.6%、YoY 3.7%，預期只填 MoM 0.3%；YoY 同口徑預期未能確認。美國 PPI 前值填 MoM 1.3%、YoY 6.3%，預期只填 MoM 0.4%；YoY 同口徑預期未能確認。初領失業金前值 189K；截至查核時下一週預期尚未發布，保留 null 並註明，不沿用前週 forecast。
+- Treasury 標售、Fed 談話、加拿大央行會議紀要等非數值型事件，previous／forecast 維持不適用；所有未來事件 actual 保持 null。
+- 寫入後回讀 JSON blob SHA：`02859c30c57b2d697e30da55430ff7ccddde6b88`。驗收：JSON 可解析；經濟事件 15、財報 42、audit 20；事件 ID 無重複；8 筆更新均保留原始官方主來源及 secondary_refs；所有 upcoming actual 仍為 null。仍有一筆初領失業金 forecast 暫缺，因市場共識尚未發布；不可比的 CPI/PPI YoY 預期也明確保留未取得。
+- coverage.economic 維持 incomplete；未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程。
