@@ -15,7 +15,9 @@
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
-      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。"
+      "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。",
+      "simulation_blob_sha": "0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7",
+      "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
@@ -25,7 +27,9 @@
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
-      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。"
+      "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。",
+      "simulation_blob_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+      "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
   "protected_paths": [
