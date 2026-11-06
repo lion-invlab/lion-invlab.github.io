@@ -2644,6 +2644,130 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公司頁確認美國交易所掛牌代碼 ONTO。"
         }
+      },
+      {
+        "id": "current-sanm-20261109",
+        "company": "Sanmina",
+        "ticker": "SANM",
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：全球大型電子製造服務商，涵蓋通訊網路、雲端與 AI 基礎設施製造，財報可反映 AI 伺服器與電子供應鏈訂單、產能及整合效益。",
+        "importance_rating_source": null,
+        "industry": "電子製造服務／AI伺服器與雲端基礎設施供應鏈",
+        "reporting_period": "FY2026 Q4",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_estimate": 3.27,
+        "eps_actual": null,
+        "revenue_estimate": 3.48,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Sanmina Investor Relations｜FY2026 Q4 results call",
+          "url": "https://ir.sanmina.com/news/news-details/2026/SANMINA-CORPORATION-INVITES-YOU-TO-JOIN-ITS-FOURTH-QUARTER-AND-FISCAL-YEAR-2026-EARNINGS-CONFERENCE-CALL/default.aspx",
+          "published_at": "2026-10-19",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "Sanmina",
+          "notes": "官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜Sanmina FY2026 Q4 consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-sanmina-co-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+        },
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜Sanmina FY2026 Q4 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-sanmina-co-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "公布前 revenue consensus，原始幣別 USD。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "SANM",
+        "listing_evidence": {
+          "name": "Sanmina Investor Relations",
+          "url": "https://ir.sanmina.com/overview/default.aspx",
+          "publisher": "Company Investor Relations",
+          "notes": "官方資料確認美國交易所掛牌代碼 SANM。"
+        }
+      },
+      {
+        "id": "current-qlys-20261109",
+        "company": "Qualys",
+        "ticker": "QLYS",
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：大型雲端原生資安平台，服務全球企業與 Fortune 1000 客戶，財報可反映企業資安支出、雲端風險管理及 AI 時代資安需求。",
+        "importance_rating_source": null,
+        "industry": "資安軟體／雲端風險管理",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_estimate": 1.96,
+        "eps_actual": null,
+        "revenue_estimate": 186.63,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "M",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Qualys Investor Relations｜Q3 2026 results schedule",
+          "url": "https://investor.qualys.com/news-releases/news-release-details/qualys-report-third-quarter-2026-financial-results-november-9",
+          "published_at": "2026-10-26",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "Qualys",
+          "notes": "官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜Qualys Q3 2026 consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-qualys-inc-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+        },
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜Qualys Q3 2026 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-qualys-inc-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "公布前 revenue consensus，原始幣別 USD。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "QLYS",
+        "listing_evidence": {
+          "name": "Qualys Investor Relations",
+          "url": "https://investor.qualys.com/node/5921",
+          "publisher": "Company Investor Relations",
+          "notes": "官方資料確認美國交易所掛牌代碼 QLYS。"
+        }
       }
     ]
   },
@@ -2735,10 +2859,16 @@
         "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-to-Report-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx",
         "https://investors.ontoinnovation.com/stock-info/default.aspx",
         "https://www.marketbeat.com/earnings/reports/2026-11-9-ast-spacemobile-inc-stock/",
-        "https://www.marketbeat.com/earnings/reports/2026-11-9-onto-innovation-inc-stock/"
+        "https://www.marketbeat.com/earnings/reports/2026-11-9-onto-innovation-inc-stock/",
+        "https://ir.sanmina.com/news/news-details/2026/SANMINA-CORPORATION-INVITES-YOU-TO-JOIN-ITS-FOURTH-QUARTER-AND-FISCAL-YEAR-2026-EARNINGS-CONFERENCE-CALL/default.aspx",
+        "https://ir.sanmina.com/overview/default.aspx",
+        "https://investor.qualys.com/news-releases/news-release-details/qualys-report-third-quarter-2026-financial-results-november-9",
+        "https://investor.qualys.com/node/5921",
+        "https://www.marketbeat.com/earnings/reports/2026-11-9-sanmina-co-stock/",
+        "https://www.marketbeat.com/earnings/reports/2026-11-9-qualys-inc-stock/"
       ],
       "checked_at": "2026-11-06T18:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。"
     }
   },
   "audit": [
@@ -3122,6 +3252,28 @@
       },
       "source": "AST SpaceMobile Investor Relations; Onto Innovation Investor Relations; MarketBeat",
       "note": "Both companies have official earnings event schedules and US listing evidence; estimates recorded with basis-not-disclosed caveat."
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "semiconductor_supply_chain_and_cybersecurity_issuer_supplement",
+      "event_id": "current-sanm-20261109,current-qlys-20261109",
+      "changed_fields": [
+        "events.earnings",
+        "coverage.earnings",
+        "audit"
+      ],
+      "before": {
+        "earnings_count": 40
+      },
+      "after": {
+        "earnings_count": 42,
+        "added": [
+          "SANM",
+          "QLYS"
+        ]
+      },
+      "source": "Sanmina Investor Relations; Qualys Investor Relations; MarketBeat",
+      "note": "Issuer-confirmed reporting schedules and US listing verified; SANM fiscal period explicitly FY2026 Q4, QLYS Q3 2026."
     }
   ]
 }
