@@ -219,8 +219,8 @@ def main():
             detail=card.select(".earnings-detail-value")
             if len(detail)>=5:
                 set_text(detail[0],("盤前／盤後時間待核實" if not clock else clock))
-                set_text(detail[1],f"{x.get(chr(101)+chr(112)+chr(115)+chr(95)+chr(101)+chr(115)+chr(116)+chr(105)+chr(109)+chr(97)+chr(116)+chr(101))}／{x.get(chr(101)+chr(112)+chr(115)+chr(97)+chr(99)+chr(116)+chr(117)+chr(97)+chr(108)) if x.get(chr(115)+chr(116)+chr(97)+chr(116)+chr(117)+chr(115))==chr(114)+chr(101)+chr(108)+chr(101)+chr(97)+chr(115)+chr(101)+chr(100) else chr(24453)+chr(20844)+chr(24067)}")
-                set_text(detail[2],f"{x.get(chr(114)+chr(101)+chr(118)+chr(101)+chr(110)+chr(117)+chr(101)+chr(95)+chr(101)+chr(115)+chr(116)+chr(105)+chr(109)+chr(97)+chr(116)+chr(101))}／{x.get(chr(114)+chr(101)+chr(118)+chr(101)+chr(110)+chr(117)+chr(101)+chr(95)+chr(97)+chr(99)+chr(116)+chr(117)+chr(97)+chr(108)) if x.get(chr(115)+chr(116)+chr(97)+chr(116)+chr(117)+chr(115))==chr(114)+chr(101)+chr(108)+chr(101)+chr(97)+chr(115)+chr(101)+chr(100) else chr(24453)+chr(20844)+chr(24067)}")
+                set_text(detail[1],f"{x.get('eps_estimate') if x.get('eps_estimate') is not None else '待核實'}／{x.get('eps_actual') if x.get('status')=='released' and x.get('eps_actual') is not None else '待公布'}")
+                set_text(detail[2],f"{x.get('revenue_estimate') if x.get('revenue_estimate') is not None else '待核實'}／{x.get('revenue_actual') if x.get('status')=='released' and x.get('revenue_actual') is not None else '待公布'}")
                 set_text(detail[3],(x.get("judgment") or "財報尚未公布；關注 EPS、營收與公司指引。")+"；股價反應："+str(x.get("price_reaction") or "待核實"))
             link=card.select_one(".earnings-detail-value a")
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
