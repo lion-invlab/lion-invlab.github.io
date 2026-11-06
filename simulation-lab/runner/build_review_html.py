@@ -277,10 +277,35 @@ def main():
         ("#tac-assets-panel-4 .source","https://markets.ft.markitdigital.com/data/commodities/tearsheet/historical?c=COMEX+Gold","COMEX Gold 歷史收盤；白銀採 Investing.com 期貨歷史資料。")
     ]
     for selector,url,label in source_specs:
-        node=soup.select_one(selector)
-        if node:
+        for node in soup.select(selector):
             node.clear()
             node.append(source_link(url,label))
+
+    # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
+    reasons=[
+        ("#global-markets .market-reason",[
+            "📌 美股觀察｜11/05 四大美股指數同步重挫，費半跌幅最大；AI／半導體及大型科技股是主要賣壓來源，市場正在重新評估資本支出回報與估值。",
+            "📌 亞股觀察｜本報採 11/05 各市場正式收盤，不混入 11/06 盤中數據。日經、KOSPI、台灣、香港及中國市場表現分歧，後續應比較各地科技權重與政策因素。",
+            "📌 歐股觀察｜歐洲主要指數 11/05 漲跌互見，STOXX Europe 600 小幅回落；歐洲市場未出現與美國科技股相同幅度的同步跌勢。"
+        ]),
+        ("#tac-assets-panel-0 .market-reason",["📌 產業觀察｜11/05 11 大產業 ETF 全數收跌。XLC、XLU、XLP 相對抗跌；XLK 跌幅最深，顯示科技成長曝險遭集中調降。"]),
+        ("#tac-assets-panel-1 .market-reason",["📌 債券觀察｜11/05 美國 2 年、10 年及 30 年期公債殖利率分別收於 4.46%、4.84%、5.25%，較前一日均下行；需區分避險買盤與政策預期變化。"]),
+        ("#tac-assets-panel-2 .market-reason",["📌 匯率觀察｜美元指數 101.55，美元兌台幣 33.082；EUR/USD、GBP/USD、AUD/USD 與 USD/JPY 依各自歷史收盤口徑列示，部分日變動未取得一致來源，故保留待核實。"]),
+        ("#tac-assets-panel-3 .market-reason",["📌 原油觀察｜11/05 WTI 與 Brent 期貨分別上漲 2.72% 與 3.88%；油輪事件與中東運輸風險使供應風險溢價回升。"]),
+        ("#tac-assets-panel-4 .market-reason",["📌 貴金屬觀察｜11/05 COMEX 黃金與白銀期貨均收高；同日股市急跌與債券殖利率下行，避險需求及美元變動仍需一併觀察。"])
+    ]
+    for selector,values in reasons:
+        nodes=soup.select(selector)
+        for i,node in enumerate(nodes):
+            if i<len(values): set_text(node,values[i])
+    level_source=soup.select_one("#view .focus-panel.focus-levels .source")
+    if level_source: set_text(level_source,"支撐與壓力區間未完成 11/05 OHLC 重算，故本版不沿用母版 10/27 價位；取得完整近 20 日序列後再補。")
+    status=soup.select_one(".status")
+    if status: set_text(status,"2026/11/06（五）｜週二至週五版；美股行情採 11/05 正式收盤，其他市場依各自 11/05 當地交易日核對。")
+    warning=soup.select_one(".data-sync-warning")
+    if warning: set_text(warning,"2026/11/06 早報審核版｜已更新 17 項全球指數、11 檔產業 ETF、3 段美債殖利率及主要匯率／商品；CNN Fear & Greed 與部分匯率日變動仍待核實。FedWatch 未取得 05:25 前快照，不引用晚間更新。")
+    footer=soup.select_one(".footer")
+    if footer: set_text(footer,"TAC 投資早報｜2026/11/06（五）審核版｜資料截點 2026/11/06 05:25 台灣時間｜行情基準為各市場 2026/11/05 當地正式交易日；未取得一致可追溯資料者標示待核實。本檔為隔離模擬審核版，未發布至正式首頁。")
 
     # Risk indicators and their source notes.
     for label,change,note in [("VIX","+69.66%","Investing.com 歷史資料｜11/05 收盤 28.18；盤中高點 28.36。"),("MOVE","+4.30%","Investing.com ICE BofAML MOVE 歷史資料｜11/05 收盤 97.92。")]:
