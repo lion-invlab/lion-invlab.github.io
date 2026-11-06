@@ -2396,6 +2396,130 @@
           "publisher": "Company Investor Relations",
           "notes": "發行人官方公告明確列示美國交易所代碼 ASND。"
         }
+      },
+      {
+        "id": "current-mara-20261109",
+        "company": "MARA Holdings",
+        "ticker": "MARA",
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：大型數位資產運算與能源基礎設施業者，正拓展 AI／HPC／雲端算力業務，財報可觀察能源容量、資料中心轉型及數位資產運算需求。",
+        "importance_rating_source": null,
+        "industry": "數位資產／能源與AI算力基礎設施",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_estimate": -0.3918,
+        "eps_actual": null,
+        "revenue_estimate": 183.24,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "M",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "MARA Investor Relations｜Q3 2026 results schedule",
+          "url": "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results",
+          "published_at": "2026-11-02",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "MARA Holdings",
+          "notes": "官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。"
+        },
+        "consensus_source": {
+          "name": "MarketBeat｜MARA Q3 2026 consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-marathon-patent-group-inc-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+        },
+        "revenue_consensus_source": {
+          "name": "MarketBeat｜MARA Q3 2026 revenue consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-marathon-patent-group-inc-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "公布前 revenue consensus；以 USD million 保存。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "MARA",
+        "listing_evidence": {
+          "name": "MARA Holdings Investor Relations",
+          "url": "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results",
+          "publisher": "Company Investor Relations",
+          "notes": "官方公告明確列示美國交易所掛牌代碼 MARA。"
+        }
+      },
+      {
+        "id": "current-vylr-20261111",
+        "company": "Vylor",
+        "ticker": "VYLR",
+        "event_date": "2026-11-12T22:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：美國大型農業科技與種子基因公司，承接大型種質資產及研發管線，財報可反映全球農業投入、種子定價與作物科技需求。",
+        "importance_rating_source": null,
+        "industry": "農業科技／種子與基因科技",
+        "reporting_period": "2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_estimate": -0.44,
+        "eps_actual": null,
+        "revenue_estimate": 918.1,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "M",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Vylor Investor Relations｜Q3 2026 earnings release and webcast",
+          "url": "https://www.vylor.com/en/investors/",
+          "published_at": "2026-10-06",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "publisher": "Vylor",
+          "notes": "官方 IR 確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 09:00 ET 舉行 webcast；換算台灣時間 11/12 22:00。官方公司公告確認 NYSE: VYLR。"
+        },
+        "consensus_source": {
+          "name": "The Right Trader｜VYLR Q3 2026 consensus",
+          "url": "https://therighttrader.com/earnings-calendar/vylr",
+          "publisher": "The Right Trader",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+        },
+        "revenue_consensus_source": {
+          "name": "The Right Trader｜VYLR Q3 2026 revenue consensus",
+          "url": "https://therighttrader.com/earnings-calendar/vylr",
+          "publisher": "The Right Trader",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "公布前 revenue consensus；以 USD million 保存。"
+        },
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "VYLR",
+        "listing_evidence": {
+          "name": "Vylor Investor Relations",
+          "url": "https://www.vylor.com/en/investors/",
+          "publisher": "Company Investor Relations",
+          "notes": "官方公告明確列示美國交易所掛牌代碼 VYLR。"
+        }
       }
     ]
   },
@@ -2476,10 +2600,15 @@
         "https://www.marketbeat.com/stocks/NYSE/MUFG/earnings/",
         "https://www.marketbeat.com/stocks/NYSE/MFG/earnings/",
         "https://www.marketbeat.com/stocks/NYSE/GIB/earnings/",
-        "https://www.marketbeat.com/stocks/NASDAQ/VOD/earnings/"
+        "https://www.marketbeat.com/stocks/NASDAQ/VOD/earnings/",
+        "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results",
+        "https://www.vylor.com/en/investors/",
+        "https://www.nasdaq.com/press-release/vylor-announces-dates-third-quarter-2026-earnings-release-and-webcast-2026-10-06",
+        "https://www.marketbeat.com/earnings/reports/2026-11-9-marathon-patent-group-inc-stock/",
+        "https://therighttrader.com/earnings-calendar/vylr"
       ],
       "checked_at": "2026-11-06T17:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。"
     }
   },
   "audit": [
@@ -2801,6 +2930,28 @@
       },
       "source": "MarketBeat issuer-specific earnings consensus pages and issuer financial reporting currency disclosures",
       "note": "HIVE consensus is same USD reporting currency and was populated. ADR/ADS consensus values for PBR, MUFG, MFG, VOD and GIB are not directly comparable to issuer reporting currencies/bases; left null rather than mixing currencies. SMFG date not confirmed beyond mid-Nov."
+    },
+    {
+      "at": "2026-11-06T17:00:00+08:00",
+      "action": "issuer_confirmed_additional_earnings_candidates",
+      "event_id": "current-mara-20261109,current-vylr-20261111",
+      "changed_fields": [
+        "events.earnings",
+        "coverage.earnings",
+        "audit"
+      ],
+      "before": {
+        "earnings_count": 36
+      },
+      "after": {
+        "earnings_count": 38,
+        "added": [
+          "MARA",
+          "VYLR"
+        ]
+      },
+      "source": "MARA Investor Relations; Vylor Investor Relations and Nasdaq; MarketBeat; The Right Trader",
+      "note": "Both issuers have official release schedules and US exchange listing evidence; estimates preserved with basis-not-disclosed caveat."
     }
   ]
 }
