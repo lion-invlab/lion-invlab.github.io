@@ -870,3 +870,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Session State 顯示 11/06 早報已完成正式首頁 GitHub 寫入（首頁 blob `e6a6cc404e91852917693b590d4946dee20bcd56`）；本輪不重做當日報告、不覆寫既有 preview／首頁，也不修改 WR、母版、Manifest、JSON。
 - 再次 peek 後排程 `is_enabled=true`；但 `next_run_time=null`，`environment_selection=inherited`、`environments=null)，last_run 仍是 11/06 原 failed run `80f9d5d0-6bd4-8333-8c05-666e8d4b05b5`。因此只能確認「已重新啟用、GitHub 連接器讀取可用」；尚未取得新的獨立排程 run 終端結果，也未證明下一次 05:25 會準時啟動。
 - 本輪未執行瀏覽器／Playwright 視覺互動 QA；未修改任何 TAC 報告資產。下一個待驗證點是排程本身是否產生新的 run 及其真實執行結果；若 next_run_time 持續為 null，需先查明排程觸發排程器狀態，不得宣稱修復完成。
+
+
+## 2026-11-06｜05:25 排程下次觸發時間校正
+- 因重新啟用後 Automations peek 仍回傳 `next_run_time=null`，將既有重複排程 DTSTART 從已過期的 2026-11-06 05:25（台灣時間）順延至下一個工作日 2026-11-09 05:25；RRULE 仍為週一至週五 05:25，時區仍為 Asia/Taipei，未改變頻率或時刻。
+- 更新工具回傳 success=true，更新後再次 peek 確認 schedule DTSTART 為 20261109T052500 且 `is_enabled=true`；但 `next_run_time` 仍為 null，故排程器是否已排定下一次觸發仍未獲證實。不得宣稱下次排程已驗證。
+- 執行環境仍為 inherited、environments=null；本輪未取得新的獨立排程 run 終端結果。排程維持啟用，04:35 排程不變。
