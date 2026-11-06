@@ -238,3 +238,12 @@
 ## 2026-11-06｜05:25 排程 DTSTART 校正
 - 排程重新啟用後 peek 的 next_run_time 仍為 null；因此將原排程 DTSTART 校正至下一個工作日 2026-11-09 05:25 Asia/Taipei，保留原週一至週五 05:25 RRULE。update 回傳 success=true。
 - 更新後再次 peek：is_enabled=true、DTSTART=20261109T052500，但 next_run_time 仍為 null；environment_selection=inherited、environments=null。下次觸發仍未能由工具確認，不能宣稱修復完成。
+
+
+## 2026-11-06 18:00 Asia/Taipei｜W45/W46 行事曆增量更新與驗收
+- 啟動前重新 fetch main 最新 WR v5.13，blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`；依規範只修改既有 W45 JSON 並建立下一週 W46 JSON，未動 WR、Manifest、母版、首頁或排程。
+- W45：原始 18 economic／38 earnings；新增 MRNA、HUM、VST、ENB、BAM 五筆財報日程，修正週界錯誤，將實際日期 10/30 的 DASH 移出 W45 active events，保留 audit。最終 18 economic／42 earnings；blob `0a001ae32097d3ab1a6a7bb5b1ff81910aebedf4`；audit 210。
+- W46：新建 2026-11-09 至 2026-11-15 週檔；6 economic（中國 CPI/PPI、美國 CPI/PPI、英國 GDP、歐元區 GDP T+45 flash）；15 earnings（CEG、KKR、B、OXY、TTWO、CSCO、AMAT、FERG、NRG、TDG、BN、PBR、MUFG、MFG、CTVA）。最終 blob `0676ecd8967bef84353a8bb0045501ff218d6735`；audit 4。
+- 關鍵來源：BLS 2026 發布日程（11/10 CPI、11/13 PPI、11/11 Veterans Day）；中國 NBS 2026 統計發布日程；ONS Q3 GDP 發布頁；Eurostat 10/30 GDP 新聞稿明確列示 T+45 flash 於 11/13；公司 IR／SEC 逐家核實財報日期與時段；Petrobras 官方 FAQ、MUFG／Mizuho 官方資料核實 NYSE ADR 掛牌資格。
+- QA：兩週 event IDs 均唯一；所有事件日期落在各自週界內；每筆事件均有來源 URL；所有事件 TAC 星等為 4 或 5；所有財報均具美國交易所掛牌欄位及 listing_evidence。W45 18/42；W46 6/15。W45 舊有實績及歷史 audit 保留；未核實共識不填，未到發布時點實績不填。
+- 重要限制：兩週 coverage.economic／coverage.earnings 均維持 incomplete。W46 尚需繼續掃描其他主要市場及美國掛牌大型公司，並補充可核實 EPS／營收共識。此次完成的是已核實範圍內的增量更新，不等同全市場掃描已完全結束。
