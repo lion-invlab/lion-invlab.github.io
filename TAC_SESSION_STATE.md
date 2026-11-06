@@ -1032,3 +1032,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；依 WR D4 同日 OHLC 計算：第二支撐 7,130.85、第一支撐 7,242.29、中樞 7,461.79、第一壓力 7,573.23、第二壓力 7,792.73。
 - 流程狀態：第一步規則／母版鎖定完成；第二步行情 43/44，CNN 一項待核實；第三步 W45 已更新並回讀驗證；第四步新聞 5 則全球焦點及 10 則熱門頭條仍在整理；第五步 DOM 組裝尚未寫入 preview；四大 QA 尚未執行；第六步尚未交付。未修改 index.html、雙母版、Manifest、WR 或排程。
 - 下一步：完成新聞原文／時間／連結核對與分析，同步整理 W45 已公布及待核實事件；以核准母版 DOM 定位契約更新內容槽位，完成一次四類 QA，通過後才寫入 preview/2026-11-06.html，回讀 SHA 並驗證 Pages；不更新首頁。
+
+
+## 2026-11-06｜11/06 早報重跑｜W45 第二輪補正與新聞／行情交接（20:38 TST）
+- WR v5.14 blob SHA：80d49eeaa54e16a18dc34416239e4b46664ba44b；週二至週五正式母版 SHA：3785405e331b10ec6189002e480be2a1edbe20ef；Manifest SHA：fade5e3d88de76a79cb5c1656cc592b98827ab55。使用者提供母版與正式母版 Git Blob SHA 一致；lxml DOM 驗證 DOCTYPE 1、style 120、script 24、ID 175、無重複 ID。只允許更新正式母版內容槽位。
+- W45 JSON 最新 blob SHA：e39b7403e14dad3ab36ffbb96c7e4a6b6f142dfa；wr_version 5.14；updated_at 2026-11-06T20:38:45+08:00；economic 18、earnings 42、audit 217。coverage.economic／earnings 仍 incomplete，依 WR 動態狀態規則保留，不宣稱完整掃描。
+- W45 財報狀態：BAM、MRNA、ENB、VST 已發布並沿用原 event ID 更新實績；HUM 預定 06:00 ET 後仍未找到官方 Q3 文件，維持 pending_verification。MRNA 營收 US$1.313B 高於 LSEG US$885.1M、GAAP diluted EPS US$0.38；ENB GAAP EPS CAD0.59、adjusted EPS CAD0.49，官方未列可比總營收／共識；VST 營運收入 US$6.347B 高於 MarketBeat US$6.03B，公司稿未提供可核對 EPS；BAM FRE/share US$0.54、總營收 US$2.149B，無同口徑共識。W45 42 筆財報事件未新增重複卡。
+- 行情台帳：44/44 固定市場資料均有可用讀值；CNN Fear & Greed 以使用者指定備援 FGScore 讀取 20/100（Extreme Fear），資料時間 2026-11-05 20:00 EST／台灣 11/06 09:00；CNN 官網即時頁仍非直接讀值。USD/TWD 依 WR D3 優先採 Investing.com HK 11/05 33.126、+0.80%；央行銀行間參考匯率 32.876 為不同口徑，不混用。其餘市場基準：美股／歐洲 11/05，亞洲 11/06；VIX 28.18 +69.66%、MOVE 97.92 +4.30%；美債 CMT 2Y 4.46%（+7bp）、10Y 4.84%（-6bp）、30Y 5.25%（-3bp）；FedWatch Investing.com 12/09/2026 升息一碼 69.9%、維持 30.1%，CME 動態嵌入圖本輪未能獨立讀取，不冒稱交叉驗證。
+- S&P 500、Dow、Nasdaq Composite、Russell 2000、SOX 均取得 11/05 OHLC，依 WR D4 同日 OHLC 計算五層樞紐參考位；不沿用舊區間。11 大產業 ETF 全數下跌，依跌幅排序及標籤顯示，主畫面只呈現百分比。
+- FactSet：Q3 最新可核實季報快照為 2026/10/30（60%公司已報告、82% EPS beat、平均 surprise +1.9%、混合盈餘成長 +30.2%、營收 beat 70%）；另採 11/04 Q4 bottom-up EPS estimate +1.4%至94.79、CY2026 EPS estimate +0.6%至363.94。兩種日期／統計口徑分開標示。
+- 新聞窗口 2026/11/05 12:00 至 2026/11/06 20:38:45（台灣時間）。全球焦點 5 則已整理：AI風險與亞洲拋售、BoE升息、Norges維持4.5%、加拿大預算、美國非農預覽；熱門頭條 10 則以公司官方／Reuters／Investing來源整理，ENB及BAM原始公告僅標日期，發布時分待核實並明確標示。NFP日曆採Investing.com HK共識63k，Reuters調查約65k屬不同來源口徑，不混成同一預估。
+- 流程狀態：第一步規則／母版核對完成；第二步行情44/44完成；第三步W45已更新並回讀；第四步新聞與分析稿完成；第五步依核准母版DOM內容槽位組裝及單一QA Gate進行中；第六步尚未交付。preview/2026-11-06.html 為舊版，待本輪完成結構／內容／互動／視覺驗收後才更新同一路徑。首頁、雙母版、Manifest、WR、排程均未修改。
