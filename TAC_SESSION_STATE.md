@@ -807,3 +807,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Preview 最新 blob SHA：`fd1cbc74ed37437c66ccb90a8f88651ac1f6961c`；寫入 commit：`f660bc79740fb8f06b137a46b86cc21edfb0910d`。寫後回讀確認總結區無連結、無來源標籤、三點策略均存在；HTML style/script/ID 數量為 120/24/174。
 - Work Log 已同步，最新 blob SHA：`9f81c83d44ae25098ba8c66eb0863bb4cc1c377c`。
 - 保護範圍：正式首頁、核准母版、Manifest、行情與行事曆資料均未修改。瀏覽器視覺／互動未測試（依使用者先前指示）；Pages 部署未查證；未發布正式首頁。
+
+
+## 2026-11-06｜正式首頁發布狀態（最新）
+- 使用者明確授權將 11/06 審核版上傳首頁；依 WR v5.13 例外條款，授權者明確豁免未完成 QA Gate。
+- 發布來源：`preview/2026-11-06.html`，核准版本 blob SHA `fd1cbc74ed37437c66ccb90a8f88651ac1f6961c`。
+- 正式首頁 `index.html` 已寫入 main：commit `3b8d980f829a93fd30f894d8ab97f64b22879813`；寫後回讀 blob SHA `e6a6cc404e91852917693b590d4946dee20bcd56`。回讀比對正式版與 preview 的差異只限發布狀態轉換，逐字比對結果為 true。
+- 永久警語保留：頁首及側欄顯示「教育訓練用途｜資訊僅供參考，不構成投資建議」，頁尾亦保留同義完整警語。頁面可見區已移除審核版標籤與內部審核狀態提示。
+- QA 狀態：瀏覽器視覺／互動、多尺寸驗證未測試（依使用者先前指示）；CME FedWatch 官方精確分布交叉核對未完成；上述項目由本次明確授權豁免發布阻擋，並未宣稱通過。
+- Pages 部署狀態：未能線上驗證。web 讀取工具回報首頁 URL 不可存取，執行環境 DNS 亦無法連線。準確狀態為「GitHub 已寫入，正式網站尚未驗證」。
+- 本次僅修改 `index.html`；核准母版、Manifest、preview、W45 JSON 均未修改。
