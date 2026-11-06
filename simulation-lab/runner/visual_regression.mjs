@@ -62,6 +62,29 @@ try {
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
+    // Component-level acceptance: published earnings retain paired EPS/revenue cards.
+    const earningsAudit = await reportPage.evaluate(() => {
+      const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
+      const published = groups[2];
+      if (!published) return { count: 0, invalid: ["published group missing"] };
+      const cards = [...published.querySelectorAll("details.earnings-accordion")];
+      const invalid = [];
+      for (const [i, card] of cards.entries()) {
+        const grid = card.querySelector(":scope > .earnings-accordion-details > .earnings-results-grid");
+        const resultCards = grid ? grid.querySelectorAll(":scope > .earnings-actual-card").length : 0;
+        if (!grid || resultCards !== 2) invalid.push("card " + (i+1) + ": paired EPS/revenue cards missing");
+        if (!card.querySelector(".earnings-detail-field label")) invalid.push("card " + (i+1) + ": supporting details missing");
+      }
+      const sampleGrid = published.querySelector(".earnings-results-grid");
+      const columns = sampleGrid ? getComputedStyle(sampleGrid).gridTemplateColumns.split(" ").length : 0;
+      if (cards.length && columns !== 2) invalid.push("published result grid columns=" + columns + ", expected 2");
+      return { count: cards.length, invalid, columns };
+    });
+    snapshots[v.name].earnings_component = earningsAudit;
+    if (earningsAudit.count === 0 || earningsAudit.invalid.length) {
+      failures.push(v.name + ": 已公布財報元件 QA FAIL：" + (earningsAudit.invalid.join("; ") || "no published cards"));
+    }
+
     if (a.documentWidth > v.width + 2) failures.push(`${v.name}: 母版本身橫向溢出 ${a.documentWidth}px`);
     if (b.documentWidth > v.width + 2) failures.push(`${v.name}: 審核版橫向溢出 ${b.documentWidth}px`);
     for (const selector of selectors) {
