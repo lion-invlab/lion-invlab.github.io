@@ -82,22 +82,28 @@ try {
     });
     snapshots[v.name].earnings_component = earningsAudit;
     const economicAudit = await reportPage.evaluate(() => {
-      const cards = [...document.querySelectorAll("#calendar details.econ-event")];
+      const cards = [...document.querySelectorAll("#calendar details.econ-event, #last-week-calendar details.econ-event")];
       const invalid = [];
       for (const [i, card] of cards.entries()) {
-        const grid = card.querySelector(":scope > .econ-details > .econ-primary-grid");
+        const details = card.querySelector(":scope > .econ-details");
+        const grid = details?.querySelector(":scope > .econ-primary-grid");
         if (!grid) { invalid.push("card " + (i+1) + ": comparison grid missing"); continue; }
         for (const cls of ["econ-prev","econ-forecast","econ-actual"]) {
           if (!grid.querySelector(":scope > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing");
         }
         for (const cls of ["econ-impact","econ-source"]) {
-          if (!card.querySelector(":scope > .econ-details > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing or not full-width");
+          if (!details.querySelector(":scope > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing");
         }
         const prev = grid.querySelector(".econ-prev")?.getBoundingClientRect();
         const forecast = grid.querySelector(".econ-forecast")?.getBoundingClientRect();
         const actual = grid.querySelector(".econ-actual")?.getBoundingClientRect();
-        if (prev && forecast && actual && Math.abs(actual.height - (prev.height + forecast.height + parseFloat(getComputedStyle(grid).rowGap || "0"))) > 4) {
-          invalid.push("card " + (i+1) + ": actual field height does not span previous + forecast");
+        if (prev && forecast && actual) {
+          if (Math.abs(actual.top-prev.top)>2 || Math.abs(actual.bottom-forecast.bottom)>4) {
+            invalid.push("card " + (i+1) + ": actual field does not span previous + forecast");
+          }
+          if (Math.abs(prev.left-forecast.left)>2 || actual.left < prev.right-2) {
+            invalid.push("card " + (i+1) + ": previous/forecast left stack and actual right column misaligned");
+          }
         }
       }
       return { count: cards.length, invalid };
