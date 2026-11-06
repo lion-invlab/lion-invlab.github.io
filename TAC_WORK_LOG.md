@@ -405,3 +405,13 @@
 - 來源裁決：TWSE 官方 11/06 加權指數收盤 39,701.64、-4.51%，覆蓋 Investing 歷史表格錯列 39,717.22；VIX 11/05 28.18、+69.66%；MOVE 97.92、+4.30%。美國財政部 11/05 Par CMT：2Y 4.46%（+7bp）、10Y 4.84%（-6bp）、30Y 5.25%（-3bp）。11 大產業 ETF 全數下跌，XLK -8.00% 最弱，XLC -0.59% 相對抗跌。
 - S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；依同日 OHLC 計算第二支撐 7,130.85、第一支撐 7,242.29、中樞 7,461.79、第一壓力 7,573.23、第二壓力 7,792.73。
 - 本次只更新 W45 JSON、Session State 與 Work Log；未修改首頁、雙母版、Manifest、WR、排程。新聞 5+10、DOM 內容組裝及四類 QA 尚未完成，不得宣稱審核版已交付。
+
+
+## 2026-11-06 20:38 TST｜W45 財報第二輪補正、44 項行情收斂與新聞交接
+
+- W45 data/calendar/weeks/2026-W45.json 最新 blob e39b7403e14dad3ab36ffbb96c7e4a6b6f142dfa，WR v5.14，18 經濟／42 財報／217 audit。沿用原事件 ID 更新 MRNA、ENB、VST；BAM 已於前輪更新；HUM 維持 pending_verification。coverage incomplete 仍保留。
+- MRNA 8-K 06:47 EST：GAAP diluted EPS US$0.38、營收 US$1.313B，高於 LSEG US$885.1M；Reuters 06:50 EST 盤前觀察約 +6%。ENB 官方 Q3 release：GAAP EPS CAD0.59、adjusted EPS CAD0.49、Adjusted EBITDA CAD4.434B、DCF CAD2.689B；未列可比總營收／共識，時間只確認日期。VST issuer release 07:00 EST：營運收入 US$6.347B 高於 MarketBeat US$6.03B，GAAP 淨利 US$1.14B、Ongoing Operations Adjusted EBITDA US$2.378B；公司稿未列可比 EPS。HUM 預定 06:00 ET 後未找到官方 Q3 文件，實績不填。
+- 44 項行情完成：CNN F&G 使用指定備援 FGScore 20/100 Extreme Fear（11/05 20:00 EST），不再沿用母版舊 33；USD/TWD 按 D3 優先採 Investing.com HK 33.126、+0.80%，與央行銀行間參考匯率分開口徑。VIX 28.18、MOVE97.92；FedWatch Investing.com 69.9% hike／30.1% hold，CME 動態圖未讀取，明確不宣稱 CME 交叉驗證。
+- 5 個美股主要指數已取得 11/05 OHLC 並計算同日五層 pivot 參考位。FactSet 採最新 Q3 scorecard 10/30 與 Q4 EPS revision 11/04 分開呈現。
+- 新聞窗口 11/05 12:00–11/06 20:38:45 TST；全球焦點 5 則、熱門頭條 10 則。ENB/BAM 原始公告只有日期，新聞卡明確標「發布時分待核實」；非農 Investing.com 63k 與 Reuters 調查約65k作不同來源口徑標示。
+- 下一步：以正式週二至週五母版的既有 DOM 節點定位更新各內容槽位；不得重建 DOM/CSS/JS。完成一次四類 QA，未測試項目如實標示；通過後才更新同日 main 預覽檔，回讀 SHA 並檢查 Pages；不修改首頁。
