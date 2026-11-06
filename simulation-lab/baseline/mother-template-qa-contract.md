@@ -1,0 +1,194 @@
+# TAC 投資早報｜雙母版結構驗收清單
+
+版本：1.3（2026-11-06｜修正週一本週經濟卡展開控制定位契約）
+定位：TAC_WORK_RULES.md 的執行附件；不取代、不另立第二份工作規則。
+適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
+最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
+
+## A. 開工前來源鎖定（未通過即停止）
+
+- [ ] 已先讀取根目錄 `TAC_WORK_RULES.md`。
+- [ ] 已讀取 `母版專區/mother-template-manifest.json`。
+- [ ] 已依台灣報告日期選定正確情境：週一／週二至週五。
+- [ ] 母版精確路徑與 manifest 登記一致。
+- [ ] 實際 Git blob SHA 與 manifest 核准 SHA 完全一致；不一致即停止，不得自行更新 manifest 或 fallback。
+- [ ] 已記錄母版 SHA、每日輸出路徑及禁止修改檔案。
+- [ ] 每日審核版由核准母版完整複製建立；不是由舊 preview、首頁、歷史早報或手動重建頁面產生。
+
+## A2. 固定母版結構定位契約（依核准 SHA 快取，不每日重析）
+
+### A2.1 結構基準與有效範圍
+
+本節是兩份正式母版的固定結構定位契約，已依 main 上核准 HTML 的實際標記、ID、父子層級與重複卡片結構建立。定位契約只對下列精確 blob SHA 有效：
+
+| 情境 | 母版路徑 | 核准 blob SHA | 基準結構統計 |
+|---|---|---|---|
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184；ID 無重複 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 175；ID 無重複 |
+
+以上統計是版本基準，不是要求每日重新逐項分析的工作。母版 SHA 未變時，直接使用本節定位契約；不得每天重新推導 selector、搜尋標題文字或重新決定替換邊界。
+
+### A2.2 共用主要區塊錨點
+
+所有 selector 均以核准母版內唯一 ID 為入口；下列 ID 在兩份母版各出現一次：
+
+| 區塊 | 固定入口／結構 |
+|---|---|
+| 主內容根節點 | `main#overview.wrap` |
+| 總結 | `main#overview > section.grid.two > article.card.bluf` |
+| 市場情緒 | `#overview > section.tac-main-panel > article#sentiment` |
+| 新聞掃瞄 | `section#news-scan.tac-tabset`；分頁輸入 `#tac-news-0`、`#tac-news-1`；面板 `#tac-news-panel-0`、`#tac-news-panel-1` |
+| 全球焦點新聞 | `#tac-news-panel-0 > article#global-focus` |
+| 市場熱門頭條 | `#tac-news-panel-1 > article#headlines` |
+| 全球主要股市 | `section#global-markets.tac-tabset`；3 個 radio：`#tac-global-0..2`；面板：`#tac-global-panel-0..2` |
+| 產業／債匯商品 | `section#industry-bonds-fx-commodities.tac-tabset`；5 個 radio：`#tac-assets-0..4`；面板：`#tac-assets-panel-0..4` |
+| 本週經濟行事曆 | `section#calendar` |
+| 本週財報行事曆 | `section#earnings` |
+| S&P 500 盈餘健康度 | `section#sp500-earnings-health` |
+| Fed 限時動態 | `section#fed`；radio：`#fed-live-tab-watch`、`#fed-live-tab-fomc`；面板由 `.fed-live-panel.fed-live-watch` 與 `.fed-live-panel.fed-live-fomc` 承載 |
+| 今日觀察／盤面觀察 | `section#view` |
+
+### A2.3 行事曆卡片的固定巢狀結構
+
+**經濟行事曆：**
+- 入口：`#calendar`；三個 radio 為 `#week-econ-today`、`#week-econ-upcoming`、`#week-econ-published`，由 `.week-econ-tab-labels` 與 `.week-econ-panels` 對應。
+- 狀態容器：`.calendar-status-group`；事件清單：`.econ-event-list`；事件節點：`details.econ-event`。
+- 卡片標頭：`details.econ-event > summary > .econ-meta`，內含 `.econ-date`、`.econ-time`、`.econ-country`、`.econ-name`、`.econ-stars`。
+- 卡片內容：`details.econ-event > .econ-details > .econ-field`；欄位值為 `.econ-value`。來源連結必須保留在相應欄位內。
+- **母版差異不可抹平：** 週一與週二至週五的本週經濟卡均使用 `.econ-toggle`；週一上週經濟卡使用 `.econ-event-toggle`。不得把上週卡片 selector 套用到本週卡片，也不得為統一 selector 改寫其他結構。
+- 展開控制定位：`#calendar details.econ-event > summary > span.econ-toggle`；週一正式母版已逐張補齊 12 張本週事件卡，週二至週五母版原有 16 張控制。
+
+**財報行事曆：**
+- 入口：`#earnings`；三個 radio 為 `#week-earnings-today`、`#week-earnings-upcoming`、`#week-earnings-published`，由 `.week-earnings-tab-labels` 與 `.week-earnings-panels` 對應。
+- 狀態容器：`.calendar-status-group`；卡片清單：`.earnings-accordion-list`；事件節點：`details.earnings-accordion`。
+- 卡片標頭：`summary.earnings-accordion-summary > .earnings-summary-main`，內含 `.earnings-summary-dates`、`.earnings-us-date`、`.earnings-tw-date`、`.earnings-company-name`、`.earnings-company-sub`、`.earnings-stars`；展開控制為 `.earnings-accordion-toggle`。
+- 卡片內容：`.earnings-accordion-details`；一般欄位為 `.earnings-detail-field`／`.earnings-detail-value`。
+- 已公布財報的 EPS／營收雙卡結構必須保留：`.earnings-results-grid` 內有兩張 `.earnings-actual-card`，並保留實際、預期、狀態與說明；不得改成單一文字欄或一般 callout。
+
+### A2.4 週一專用結構
+
+週一母版額外且唯一具有：
+- `section#last-week-calendar`，內含 `details.last-week-calendar-collapse`，其下保留 `.calendar-status-group > .econ-event-list > details.econ-event`。
+- `section#last-week-earnings`，內含 `details.last-week-earnings-collapse`，其下保留 `.calendar-status-group > .earnings-accordion-list > details.earnings-accordion`。
+- 兩個上週區塊預設收折；不得在 `details` 加上 `open`。
+- 週二至週五母版不存在 `#last-week-calendar` 與 `#last-week-earnings`，也不得新增。
+
+### A2.5 每日沿用規則與重新解析觸發條件
+
+1. 每日先讀 Manifest，取得本次情境的核准路徑及 SHA，再 fetch 該母版核對實際 blob SHA。
+2. **實際 SHA 與本節對應 SHA 相同：** 直接沿用本節 selector／巢狀結構契約；只做錨點存在且唯一、必要星期專屬區塊存在／禁止存在、基礎文件節點及 ID 唯一性檢查。不得重新分析整份母版 DOM。
+3. **實際 SHA 與 Manifest 或本節 SHA 任一不符：** 停止組裝，不得 fallback、不得猜測 selector。只有在使用者已核准母版變更且 Manifest 已同步後，才對新 SHA 做一次完整結構解析、更新本節契約及版本統計。
+4. **定位契約中的 selector 缺失、重複或父子關係不符：** 視為結構失效，停止該區塊寫入並回報；不得退回標題文字、HTML 註解、字串 index、正規表示式或固定字元範圍尋找替換邊界。
+5. 每日組裝必須使用 DOM parser 定位節點；只更新已授權目標節點的文字、屬性或子節點。重複事件卡應以該情境母版的原始卡片節點 clone，再填入資料；保留原有外層容器、details/summary、class、ID 規則、tabs、CSS、JavaScript 及互動。
+6. 每日輸出仍須解析 preview DOM，依本節錨點及本清單其餘 QA 驗收輸出；這是輸出驗證，不是重新分析母版。若無法使用真正 DOM parser，不得以字串替換冒充 DOM 更新，應標示未完成並停止不安全寫入。
+7. 母版結構解析是「每個核准 SHA 一次」；每日例行工作是「SHA 核對＋定位契約快速檢查＋輸出驗證」。只有核准 SHA 改變才重新解析母版。
+
+---
+
+## B. 共用結構完整性（兩份母版均適用）
+
+- [ ] 頁首、報告日期、狀態列、導航、所有區塊錨點完整。
+- [ ] 總結、Market Sentiment、焦點新聞、熱門頭條、全球市場、產業／債匯商品、行事曆、今日觀察、資料來源及頁尾均保留。
+- [ ] 原始 CSS、JavaScript、字體、版面容器及響應式規則完整；不得只複製 HTML 內容而漏掉相依樣式／腳本。
+- [ ] 所有原有 tabs、radio inputs、labels、details/summary、展開／收折控制及其關聯 ID 均保留。
+- [ ] 無重複 ID、新增錯誤巢狀、未閉合標籤、失效錨點或無效 href。
+- [ ] 與母版相比的差異僅為當日資料更新及明確授權的內容變動；不得出現元件刪除、簡化、換成純文字或結構重建。
+
+## C. 經濟行事曆卡片（兩份母版均適用）
+
+逐張檢查「今日公布／即將公布／已公布」中的事件卡：
+
+- [ ] 每張事件卡保留母版原有獨立展開／收折結構。
+- [ ] 每張卡片標頭右側均有母版規格的紅色圓形「＋」控制；展開後圖示／狀態依母版互動規則切換。
+- [ ] 日期、台灣時間、國家／地區、事件名稱、重要性星等及展開內容欄位完整。
+- [ ] 展開後前值、預估、實際、影響判讀與來源欄位依事件狀態正確呈現；未公布事件不得偽造實際值。
+- [ ] 三分頁狀態分類、日期／時間排序、卡片數量及事件搬移正確。
+- [ ] 以手機寬度及桌面寬度檢查按鈕位置、觸控區、文字換行與水平溢位。
+
+注意：不同母版可能使用不同的卡片 class／實作；驗收應以各自核准母版的實際結構與視覺為準，不可為了統一 selector 而重寫母版。
+
+## D. 財報行事曆卡片
+
+### D1. 所有財報卡
+
+- [ ] 公司日期、盤前／盤後、台灣時間、公司名稱、代碼、產業、星等及右側展開控制完整。
+- [ ] 卡片保留母版原有獨立展開／收折結構與視覺。
+- [ ] 三分頁分類及日期／時間排序正確。
+
+### D2. 已公布財報專用版型（必須逐卡檢查）
+
+- [ ] EPS 與營收兩張實績卡並列；手機版仍為兩欄，不可任意堆疊。
+- [ ] EPS 卡顯示實際、預期、幣別、GAAP／調整後口徑及狀態標籤。
+- [ ] 營收卡顯示實際、預期、幣別／單位及狀態標籤。
+- [ ] EPS 與營收各自獨立判斷高於／符合／低於預期；無可比共識須明確標示。
+- [ ] 兩張實績卡下方保留母版的全寬詳細資訊區：公布時段、EPS 比較、營收比較、財報判讀與股價反應、資料來源。
+- [ ] 上方實績卡與下方詳細資訊數字、口徑、方向及日期一致。
+- [ ] 不可把 EPS／營收雙卡改成一般文字、單一 callout 或普通事件卡。
+- [ ] 完整且已驗收的卡片應保留；只補缺漏欄位，不無故重製整張卡。
+
+## E. 週一專用：上週行事曆
+
+僅週一母版適用：
+
+- [ ] 上週經濟行事曆區塊及導航存在。
+- [ ] 上週財報行事曆區塊及導航存在。
+- [ ] 兩個上週區塊初始狀態均為收折；不得在 details 上加 `open`。
+- [ ] 使用者點擊後才展開；再次操作可收折。
+- [ ] 週二至週五母版不得出現這兩個上週區塊及其導航。
+
+## F. S&P 500 盈餘健康度 Dashboard
+
+- [ ] 保留母版完整 Dashboard，而非改成純文字段落或單一 callout。
+- [ ] 保留「TAC 核心判讀」獨立區。
+- [ ] 保留母版原有指標卡數量、欄數、排列、底色、邊框、數字層級與說明文字。
+- [ ] 依母版顯示混合盈餘年增率、EPS 優於預期比例、EPS 平均超預期幅度、混合營收年增率等核心指標；若母版另有營收超預期比率、估值等欄位亦須保留。
+- [ ] 保留「如何解讀／收入面與解讀」、「接下來看三件事」及收折式資料來源／統計口徑。
+- [ ] 指標值、FactSet 快照日期、公布進度及文字判讀一致；不得把舊快照標示為即時數據。
+- [ ] 週一與週二至週五的卡片欄數可依各自核准母版不同；不得把其中一份母版的排列強行套到另一份。
+
+## G. Fed 限時動態兩個活頁
+
+- [ ] 保留「CME FedWatch」及「FOMC 會議」兩個活頁標籤與 radio/tab 結構。
+- [ ] 兩個活頁均可切換，沒有重複 ID、錯誤 label for 或失效互動。
+- [ ] CME FedWatch 活頁保留母版原有維持／升息（及母版實際列出的其他情境）機率卡、百分比、目標利率區間、機率分布長條、圖例、資料時間／快照口徑及來源。
+- [ ] 機率卡與分布長條百分比相加一致；來源與快照時間明確，歷史快照不得標示為即時。
+- [ ] FOMC 活頁保留母版原有會議日期、政策聲明時間、記者會時間、目前目標利率、核心觀察及官方來源。
+- [ ] 不得把任一活頁改成純文字、單一 callout 或只剩會議日期的簡化卡。
+- [ ] 兩活頁內容及時間均按報告當日更新；未核實資訊明確標示，不得沿用過期會議資訊。
+
+## H. 行情超連結
+
+- [ ] 指數／商品／外匯／殖利率／ETF 名稱連結與標的完全一致；數值及評論不被錯誤包進連結。
+- [ ] 依 WR 標準行情超連結清單核對 href、target、rel。
+- [ ] 全球主要股市每個指數均連至對應標的頁，重複指數目的網址一致。
+- [ ] 新加坡海峽時報指數（STI）使用：`https://hk.investing.com/indices/singapore-straits-time`。
+- [ ] CNN Fear & Greed 依 WR 規定同頁開啟；其他一般行情連結依規定另開分頁。
+- [ ] 每日更新行情內容後，重新檢查所有受影響的連結沒有遺失、錯置或連到相似但不同標的。
+
+## I. 技術與視覺回歸
+
+- [ ] HTML 標籤巢狀與閉合檢查通過。
+- [ ] 所有 ID 唯一；所有 label for、錨點及 tabs 對應有效。
+- [ ] 所有內部／外部連結均有合理目的地；可用工具實際開啟的連結已抽測。
+- [ ] 依標準視窗尺寸檢查：手機 360px、390px、412px；平板 768px；桌面 1440px。320px 不列入例行或發布必要測試。
+- [ ] 行事曆紅色圓形＋、財報雙卡、健康度 Dashboard、Fed 兩活頁均完成視覺比對。
+- [ ] 收折／展開、tabs、radio、導航、回頂端及其他母版互動完成實際測試。
+- [ ] 如未能執行真實瀏覽器或裝置測試，必須標示「未測試」，不可宣稱視覺與互動通過。
+- [ ] GitHub Pages 預覽已實際開啟或以可用方式確認部署；若無法確認，明確標示尚未驗證。
+
+## J. 交付前差異稽核與保護
+
+- [ ] 將每日審核版與所選母版比較，逐項檢查結構差異；不可只做關鍵字存在檢查。
+- [ ] 上述 C–H 各項全部通過；任何一項失敗即不得標示為「可審核完成」。
+- [ ] 正式首頁 `index.html`、雙母版、manifest、設計系統及其他受保護檔案均未被擅自修改。
+- [ ] 使用者未授權發布前，不得更新正式首頁。
+- [ ] 寫入後重新 fetch 回讀每日審核版，確認 SHA、內容及差異。
+- [ ] 回報逐項列出「通過／未通過／未測試／待核實」，並提供實際證據；不得以 commit 成功取代驗收。
+
+## K. 發現不符合時的處理
+
+1. 立即停止在不符合版面上繼續填資料，不得用補 CSS 或臨時覆蓋樣式掩蓋結構缺失。
+2. 保留原有行情／新聞／行事曆內容，不得為了修版型而任意刪除、改寫或重抓已核實內容。
+3. 回到核准母版，找出缺失元件，優先以母版原有完整結構及樣式修復；不得自行重設計。
+4. 修復後重新執行本清單全部相關項目及完整差異稽核。
+5. 母版本身若有疑義或 manifest SHA 不符，停止並回報；未經使用者明確核准不得改母版或 manifest。
