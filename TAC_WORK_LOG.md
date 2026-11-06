@@ -256,3 +256,11 @@
 - 修訂既有英國 11/12 GDP 事件標題及來源說明：ONS 官方 release calendar 確認 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade、Index of Production 及建築產出；以一個同時段宏觀發布群組呈現，不重複拆卡。官方日程：https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming
 - 已查但未獨立列入：美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等，依 TAC 四星門檻未升格；印度 IIP 未取得官方獨立日期／時間證據，未與 CPI 合併猜填。W46 economic coverage 維持 incomplete，表示仍可續掃，非全市場完整聲明。
 - 寫後回讀 W46 blob SHA：`5a5b4b8ab8d3acde6bc39312fd2e79511a1a098a`；commit `824b5be39426bc8b1e1fa0f201c0fd0d3d8d4e84`。驗收：economic 8、earnings 15、audit 5；economic event ID 唯一、8 筆日期均落在 11/09–11/15、每筆均有來源 URL、星等均為 TAC 4/5。未執行瀏覽器 QA（本輪僅更新資料庫）。
+
+
+## 2026-11-06｜W46 科技／AI 基礎設施財報專項補漏
+- 重新讀取 main 最新 WR v5.13，blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`，並回讀 W46 現有財報清單；確認原 15 筆只列 CSCO、AMAT 兩家大型科技相關公司，專項掃描不足。
+- 依發行人官方公告及 Nasdaq 掛牌證據，新增三筆：CoreWeave（CRWV，Q3 2026，11/10 17:00 ET 電話會議，台灣 11/11 06:00，五星）；Nebius Group（NBIS，Q3 2026，11/12 08:00 ET 電話會議，台灣 11/12 21:00，五星）；Cerebras Systems（CBRS，Q3 2026，11/12 17:00 ET 電話會議，台灣 11/13 06:00，四星）。來源分別為 https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx、https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call、https://investors.cerebras.ai/news-releases/news-release-details/cerebras-systems-announces-date-third-quarter-2026-financial 。
+- 排除／跨週判斷：Sony FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告而非季度財報；NVIDIA 11/17、Palo Alto Networks 11/18 屬 W47，不得塞入 W46。Siemens 11/12 雖發布 Q4 結果，但未取得符合本 DB 美國交易所掛牌欄位的 Nasdaq／NYSE 掛牌證據，暫不列入美國掛牌財報清單。
+- 新增三家公司尚未取得可追溯且同口徑 EPS／營收共識，相關欄位保留 null，不採二手預估填值。
+- W46 寫後回讀 blob SHA：`f5148be51199557a638f03be334ae9a67f8b1beb`；commit `db51bb0d306b4b8a30675e8fe9829025139b7ef1`。驗收：earnings 由 15 增至 18、economic 維持 8、audit 增至 6；ID 唯一、日期均在 11/09–11/15、每筆均有來源 URL、均有美國交易所掛牌證據。coverage.earnings 維持 incomplete，仍需持續掃描其他美國掛牌大型公司及 ADR。
