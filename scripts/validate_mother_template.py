@@ -22,7 +22,7 @@ RULES_PATH = Path("TAC_WORK_RULES.md")
 APPROVED = {
     "monday": {
         "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-        "blob_sha": "0ea4775c5d15899a1e0b0a97c78744d90b8fff22",
+        "blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
         "title": "TAC 投資早報｜2026/10/26（一）審核版",
         "required_ids": {
             "overview", "sentiment", "news-scan", "global-markets",
