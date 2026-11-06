@@ -334,7 +334,7 @@ def main():
     market_panel=view.select_one(".focus-panel.focus-market .key")
     if market_panel: set_text(market_panel,data.get("observation","盤面觀察待核實"))
     levels=view.select_one(".focus-panel.focus-levels .key")
-    if levels: set_text(levels,"支撐與壓力區間待依 11/05 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用 10/27 舊區間。")
+    if levels: set_text(levels,"支撐與壓力區間待依 11/05 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用母版舊區間。")
     core_panel=view.select_one(".focus-panel.focus-core .callout")
     if core_panel: set_text(core_panel,"第一｜風險來源：AI／半導體估值與資本支出回報疑慮引發科技股集中賣壓。\n第二｜市場廣度：11 大產業 ETF 全數收跌，科技跌幅最大，通訊服務及必需消費相對抗跌。\n第三｜跨資產：美債殖利率下行，VIX 與 MOVE 同步上升，股債波動均需關注。\n第四｜政策預期：FedWatch 12/09 會議機率僅為單一會議快照，不代表其他會議或聯準會承諾。\n第五｜操作原則：待價格波動收斂、產業廣度改善及財報指引確認後，再評估風險曝險。")
     # FedWatch is a dated market snapshot, not the old October decision snapshot.
@@ -363,8 +363,8 @@ def main():
     if health: set_text(health,"FactSet 最新可核實快照：2026/10/23；非 11/05 即時統計。")
     health_panel=soup.select_one("#sp500-earnings-health")
     if health_panel:
-        for node in health_panel.select(".source, p"):
-            if node.get_text(strip=True): set_text(node,node.get_text(" ",strip=True).replace("10/27","11/05"))
+        for node in health_panel.find_all(string=True):
+            if "10/27" in str(node): node.replace_with(str(node).replace("10/27","11/05"))
 
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
