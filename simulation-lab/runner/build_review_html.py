@@ -185,8 +185,8 @@ def main():
         heading=group.select_one(".calendar-status-heading span") or group.select_one(".calendar-status-heading")
         if heading:
             set_text(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）")
-            heading["class"]=["calendar-status-heading",key]
-            if heading.name=="span": heading["class"]=["earnings-badge",key]
+            heading.parent["class"]=["calendar-status-heading",key]
+            heading["class"]=["earnings-badge",key]
         listing=group.select_one(".econ-event-list"); listing.clear()
         for x in items:
             card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
@@ -261,6 +261,21 @@ def main():
         if panel:
             meta=panel.select_one(".tab-panel-meta")
             if meta: set_text(meta,label)
+    # Replace old market-source captions with the sources for this report date.
+    source_specs=[
+        ("#global-markets .source","https://countryeconomy.com/stock-exchange","各市場 11/05 收盤彙整；美股、歐洲與亞洲指數另依各市場歷史行情交叉核對。"),
+        ("#tac-assets-panel-0 .source","https://www.exent.ai/resources/stock-market-crash-november-2026","11/05 S&P 500 11 大產業 ETF 單日收盤漲跌幅。"),
+        ("#tac-assets-panel-1 .source","https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/textview","U.S. Treasury Daily Treasury Par Yield Curve Rates｜11/05。"),
+        ("#tac-assets-panel-2 .source","https://www.investing.com/currencies/usd-twd-historical-data","Investing.com 外匯歷史資料；EUR/USD、GBP/USD、AUD/USD、USD/JPY 另參照 11/05 前一日外匯收盤表。"),
+        ("#tac-assets-panel-3 .source","https://www.reuters.com/business/energy/oil-falls-fourth-day-expectations-lower-risk-iran-war-escalation-2026-11-05/","Reuters｜11/05 WTI 與 Brent 期貨結算報價。"),
+        ("#tac-assets-panel-4 .source","https://markets.ft.markitdigital.com/data/commodities/tearsheet/historical?c=COMEX+Gold","COMEX Gold 歷史收盤；白銀採 Investing.com 期貨歷史資料。")
+    ]
+    for selector,url,label in source_specs:
+        node=soup.select_one(selector)
+        if node:
+            node.clear()
+            node.append(source_link(url,label))
+
     # Risk indicators and their source notes.
     for label,change,note in [("VIX","+69.66%","Investing.com 歷史資料｜11/05 收盤 28.18；盤中高點 28.36。"),("MOVE","+4.30%","Investing.com ICE BofAML MOVE 歷史資料｜11/05 收盤 97.92。")]:
         rows=[r for r in sent.select(".sbox") if r.select_one(".label-en") and r.select_one(".label-en").get_text(strip=True)==label]
