@@ -62,13 +62,16 @@ try {
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
-    // Component-level acceptance: open one published card before measuring its EPS/revenue pair.
-    const publishedGroup = reportPage.locator("#earnings .calendar-status-group").nth(2);
-    const firstPublishedCard = publishedGroup.locator("details.earnings-accordion").first();
-    if (await firstPublishedCard.count()) {
-      await firstPublishedCard.locator("summary").click();
-      await reportPage.waitForTimeout(80);
-    }
+    // Expand the containing calendar panels and one published accordion for geometry measurement.
+    // Do this after screenshots so the delivered initial-state captures remain unchanged.
+    await reportPage.evaluate(() => {
+      document.querySelectorAll("#earnings details").forEach(node => { node.open = true; });
+      document.querySelectorAll("#earnings .calendar-status-group").forEach(node => {
+        node.hidden = false;
+        node.style.display = "";
+      });
+    });
+    await reportPage.waitForTimeout(80);
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
       const published = groups[2];
