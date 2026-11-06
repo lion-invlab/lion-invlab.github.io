@@ -168,3 +168,11 @@
 - preview commit 4b23a5089b8a13db46283cf18833a72090812709；最新 blob SHA 9c06929e3b94f381e501c7bec23f82b3004e36ed。寫後回讀：style 120/120、script 24/24 且內容一致；174 IDs 無重複；11 內部錨點無缺失；經濟卡 18/18；本週財報卡 37/37；日期正確，無舊 10/28 報告日期殘留。
 - 正式首頁 SHA 64488827b72e01f6054225f444260e3cdf027a57 未變；母版、Manifest、W45 JSON 未修改。
 - 尚未完成／未測試：Pages 部署回讀；瀏覽器視覺與互動測試依使用者指示不執行；CME FedWatch 精確分布交叉核對未取得。只可稱內容與靜態結構核對完成，不可稱全部 QA Gate 通過，未發布正式首頁。
+
+
+## 2026-11-06｜44 項行情最終回讀與校正
+- Preview 最新 blob `986f6766c4d1d0d4f66c4a5ec8658eb77fb9c17a`，最後 preview commit `6f7255a0a03d9e71e64f669f2dd60decbe8dee1c`。
+- 更正 FTSE、XLC/XLP 排序、六項外匯、四項期貨商品及 VIX；同步更新摘要、跨資產風險及商品評論。44 項行情已登記有效讀值（43 項來源／備援＋MOVE 使用者截圖）。
+- Nikkei 依日經官方／Yahoo／Reuters 保留 61,077.90/-1.79%；SOX 依 Investing.com HK／Yahoo／Reuters 採 9,011.2/-12.25%，來源差異另註。
+- 靜態回讀：style/script 120/24 且內容與母版一致；174 IDs 唯一；11 個錨點全數存在；經濟卡 18/18、財報卡 37/37。
+- 正式首頁未修改；瀏覽器驗證依使用者指示不執行；Pages 部署及 CME FedWatch 官方分布仍待核對，未核准前不發布。
