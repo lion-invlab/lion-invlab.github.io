@@ -11,7 +11,7 @@ MANIFEST = json.loads((BASE / "mother-template-manifest.json").read_text(encodin
 
 def blob_sha(text: str) -> str:
     raw = text.encode("utf-8")
-    return hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\\0" + raw).hexdigest()
+    return hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
 
 def validate(key: str) -> dict:
     record = MANIFEST["templates"][key]
