@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "9a694976772c582cd0e0c21ebff4add6a72c9bee",
+      "blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -61,6 +61,10 @@
     {
       "date": "2026-11-05",
       "change": "依使用者指示，僅於週一及週二至週五雙母版 QUICK ACCESS 工具欄的 Q4 精選基金與歷史早報之間新增「📖 專題報導」連結，目標為 https://lion-invlab.github.io/special-reports.html；未建立或修改專題報導頁面及其他內容。"
+    },
+    {
+      "date": "2026-11-06",
+      "change": "依使用者明確核准，僅修復週一母版 #calendar 的 12 張本週經濟事件卡：在各 summary 內補入既有規格 econ-toggle 控制；沿用原有 32×32px 紅色圓形加減控制 CSS，不改版面、樣式、JavaScript 或其他卡片。同步更新週一母版 SHA 與結構驗收契約。"
     }
   ]
 }
