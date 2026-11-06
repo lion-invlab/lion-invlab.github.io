@@ -630,6 +630,56 @@
         }
       },
       {
+        "id": "current-crwv-20261110",
+        "company": "CoreWeave",
+        "ticker": "CRWV",
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星獨立評估：美國上市的AI雲端／GPU算力基礎設施公司，財報直接反映AI資料中心需求、資本支出、GPU供應與大型客戶投資趨勢，對AI基礎設施族群具高度指標性。",
+        "importance_rating_source": null,
+        "industry": "AI雲端／GPU算力基礎設施",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "CoreWeave Investor Relations｜Q3 2026 Financial Results",
+          "url": "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx",
+          "published_at": "2026-10-27",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "CoreWeave, Inc.",
+          "notes": "公司官方公告確認 2026-11-10 17:00 Eastern Time 舉行 Q3 2026 財報電話會議；美國已進入 EST（UTC−5），換算台灣時間為 11/11 06:00。公告未明確寫出財報發布精確時刻，以電話會議時間作事件時間並標示 time_type=call_time。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "CRWV",
+        "listing_evidence": {
+          "name": "CoreWeave Investor Relations",
+          "url": "https://investors.coreweave.com/",
+          "publisher": "Company Investor Relations",
+          "notes": "公司官方公告明確列示 Nasdaq: CRWV。"
+        }
+      },
+      {
         "id": "current-pbr-20261110",
         "company": "Petrobras",
         "ticker": "PBR",
@@ -778,6 +828,56 @@
         }
       },
       {
+        "id": "current-nbis-20261112",
+        "company": "Nebius Group",
+        "ticker": "NBIS",
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星獨立評估：Nasdaq上市AI雲端與資料中心基礎設施公司，財報對AI算力供給、資料中心擴張及超大規模客戶投資具高度指標性。",
+        "importance_rating_source": null,
+        "industry": "AI雲端／資料中心基礎設施",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Nebius Group｜Q3 2026 Results Announcement",
+          "url": "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
+          "published_at": "2026-10-30",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "Nebius Group N.V.",
+          "notes": "官方公告確認 11/12 美股開盤前發布 Q3 2026 財報，並於 08:00 ET 舉行電話會議；換算台灣時間為 11/12 21:00。事件時間採官方電話會議時間，財報發布時段標記 before_market。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "Netherlands",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "NBIS",
+        "listing_evidence": {
+          "name": "Nebius Group｜Official Q3 results announcement",
+          "url": "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
+          "publisher": "Company Investor Relations",
+          "notes": "公司官方公告明確列示 Nasdaq: NBIS。"
+        }
+      },
+      {
         "id": "current-csco-20261112",
         "company": "Cisco Systems",
         "ticker": "CSCO",
@@ -825,6 +925,56 @@
           "url": "https://investor.cisco.com/",
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 CSCO。"
+        }
+      },
+      {
+        "id": "current-cbrs-20261112",
+        "company": "Cerebras Systems",
+        "ticker": "CBRS",
+        "event_date": "2026-11-13T06:00:00+08:00",
+        "session": "after_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：Nasdaq上市AI專用晶片與高效能運算系統公司，財報可補充GPU替代架構、AI訓練／推論算力需求及客戶採用情況。",
+        "importance_rating_source": null,
+        "industry": "AI晶片／高效能運算",
+        "reporting_period": "Q3 2026",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "M",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Cerebras Investor Relations｜Q3 2026 Financial Results",
+          "url": "https://investors.cerebras.ai/news-releases/news-release-details/cerebras-systems-announces-date-third-quarter-2026-financial",
+          "published_at": "2026-10-20",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "publisher": "Cerebras Systems Inc.",
+          "notes": "公司官方公告確認 Nasdaq: CBRS，11/12 美股收盤後發布 Q3 2026 財報，並於 17:00 ET 舉行電話會議；換算台灣時間為 11/13 06:00。"
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "Nasdaq",
+        "us_listing_ticker": "CBRS",
+        "listing_evidence": {
+          "name": "Cerebras Investor Relations｜Q3 results announcement",
+          "url": "https://investors.cerebras.ai/news-releases/news-release-details/cerebras-systems-announces-date-third-quarter-2026-financial",
+          "publisher": "Company Investor Relations",
+          "notes": "公司官方公告明確列示 Nasdaq: CBRS。"
         }
       },
       {
@@ -1017,10 +1167,13 @@
         "https://investors.corteva.com/news-events/news-releases",
         "https://investors.corteva.com/events/event-details/corteva-agriscience-3q-2026-earnings",
         "https://www.atlas-stocks.com/calendar/earnings/week/2026-W46",
-        "https://www.investidorpetrobras.com.br/en/investor-services/individual-investor/common-questions/"
+        "https://www.investidorpetrobras.com.br/en/investor-services/individual-investor/common-questions/",
+        "https://investors.coreweave.com/news/news-details/2026/CoreWeave-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx",
+        "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
+        "https://investors.cerebras.ai/news-releases/news-release-details/cerebras-systems-announces-date-third-quarter-2026-financial"
       ],
       "checked_at": "2026-11-06T18:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。"
     }
   },
   "audit": [
@@ -1130,6 +1283,29 @@
       },
       "source": "Bank of Canada official event advisory; Government of India PIB release; ONS official release calendar",
       "note": "補入加拿大央行會議紀要及印度10月CPI；將英國同日同步發布的月度GDP、工業生產與貿易數據納入既有GDP事件說明。未確認時間者不推測。"
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "technology_earnings_specialist_supplement",
+      "event_id": "current-crwv-20261110,current-nbis-20261112,current-cbrs-20261112",
+      "changed_fields": [
+        "events.earnings",
+        "coverage.earnings",
+        "audit"
+      ],
+      "before": {
+        "earnings_count": 15
+      },
+      "after": {
+        "earnings_count": 18,
+        "addedEarnings": [
+          "current-crwv-20261110",
+          "current-nbis-20261112",
+          "current-cbrs-20261112"
+        ]
+      },
+      "source": "CoreWeave, Nebius Group and Cerebras Systems official investor-relations earnings announcements",
+      "note": "針對科技／AI基礎設施企業重新掃描；加入官方已公告且具Nasdaq掛牌證據的三家。Sony已於W45發布；TSMC僅月營收非季報；NVDA/PANW屬後週，故不跨週納入。"
     }
   ]
 }
