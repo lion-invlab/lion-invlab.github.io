@@ -315,3 +315,11 @@
 - 新增 AST SpaceMobile（ASTS，Nasdaq，Q3 2026；官方 IR 活動日程確認 11/09 17:00 EST webcast，換算台灣 11/10 06:00，TAC 四星）。官方來源：https://investors.ast-science.com/events 及 https://investors.ast-science.com/ 。MarketBeat 公布前共識 EPS -US$0.4197、營收 US$45.73M；basis 未披露。
 - 新增 Onto Innovation（ONTO，NYSE，Q3 2026；官方公告確認 11/09 16:30 ET 財報／電話會議，換算台灣 11/10 05:30，TAC 四星）。官方來源：https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-to-Report-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx；官方股票資訊頁確認 NYSE: ONTO。MarketBeat 公布前共識 EPS US$2.30、營收 US$392.08M；basis 未披露。
 - 本輪 W46 更新 commit：9fdad1259f8cd013f5557ca743e9f9ad1be7c391；待回讀驗收後同步最終 SHA 與數量。
+
+
+## 2026-11-06｜W46 第十／十一輪科技與供應鏈財報補漏
+- 第十輪新增 AST SpaceMobile（ASTS，Nasdaq，Q3 2026；官方 IR 確認 11/09 17:00 EST webcast，台灣 11/10 06:00，四星；MarketBeat EPS -US$0.4197、營收 US$45.73M）及 Onto Innovation（ONTO，NYSE，Q3 2026；官方公告確認 11/09 16:30 ET，台灣 11/10 05:30，四星；MarketBeat EPS US$2.30、營收 US$392.08M）。
+- 第十一輪新增 Sanmina（SANM，Nasdaq，FY2026 Q4；官方公告確認 11/09 17:00 ET call，台灣 11/10 06:00，四星；MarketBeat EPS US$3.27、營收 US$3.48B）及 Qualys（QLYS，Nasdaq，Q3 2026；官方公告確認 11/09 after close、17:00 ET call，台灣 11/10 06:00，四星；MarketBeat EPS US$1.96、營收 US$186.63M）。Sanmina 的 reporting_period 明確記為 FY2026 Q4，不誤寫為 Q3。
+- 最新 W46 回讀 SHA：25a370db4336f1bbadb523cc1fb8b3f448ad664f；economic 8、earnings 42、audit 16；EPS／revenue consensus 各 37 筆。五家仍保留 null：PBR、MUFG、MFG、VOD、GIB，因 ADR／ADS 共識與發行人報表幣別／口徑未能證明一致。
+- 全面驗收：JSON 可解析；42 筆財報 ID／ticker 唯一；所有經濟與財報日期均在 W46 週界；財報 source URL、listing evidence、NYSE／Nasdaq 欄位及 TAC 4／5 星完整；經濟事件 source URL 及 TAC 4／5 星完整；未發現週界／來源／掛牌資格錯誤。coverage 維持 incomplete。
+- 本輪新增 commits：9fdad1259f8cd013f5557ca743e9f9ad1be7c391（ASTS／ONTO）、da9176fc817a77081846b1099e69209d0301c19e（SANM／QLYS）。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程；未執行瀏覽器 QA。
