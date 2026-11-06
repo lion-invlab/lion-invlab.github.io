@@ -121,40 +121,45 @@ def main():
     if fg:
         score=fg[0].select_one(".fg6-score-main")
         if score: set_text(score,data["risk"]["fear_greed"].get("display","待核實"))
-    # FedWatch data must never be collapsed into two fake buckets.
+    # FedWatch: only use a snapshot available before the 05:25 report cutoff.
     fed=unique(soup,"#fed .fed-live-watch","FedWatch panel")
     outcomes=data["fedwatch"]["probabilities"]
-    total=sum(float(x["probability"]) for x in outcomes)
-    if abs(total-100)>0.2: raise ValueError(f"FedWatch distribution totals {total}")
     rows=fed.select(".fc-prob")
     if len(rows)!=2: raise ValueError("approved master has exactly two probability cards")
-    # Represent complete distribution in the existing two cards without falsifying categories:
-    # cards become two explicitly labelled aggregates only when source outcomes support exact groups.
-    hold=[x for x in outcomes if x["outcome"]=="hold"]
-    nonhold=[x for x in outcomes if x["outcome"]!="hold"]
-    if len(hold)!=1:
-        raise ValueError("cannot safely aggregate multiple hold outcomes")
-    set_text(unique(rows[0],"strong","hold prob"),f'{float(hold[0]["probability"]):.1f}%')
-    set_text(unique(rows[0],".fc-range","hold range"),hold[0]["rate_range"])
-    set_text(unique(rows[0],".fc-prob-label span:not(.fc-dot)","hold label"),"維持不變")
-    set_text(unique(rows[1],"strong","non-hold prob"),f'{sum(float(x["probability"]) for x in nonhold):.1f}%')
-    set_text(unique(rows[1],".fc-range","non-hold range"),"；".join(f'{x["outcome"]} {float(x["probability"]):.1f}%（{x["rate_range"]}）' for x in nonhold))
-    set_text(unique(rows[1],".fc-prob-label span:not(.fc-dot)","non-hold label"),"政策區間變動（合計）")
     bar=fed.select_one(".fc-split-bar")
-    if bar:
-        spans=bar.select("span")
-        if len(spans)==2:
-            spans[0]["style"]="width:"+str(float(hold[0]["probability"]))+"%"
-            spans[1]["style"]="width:"+str(sum(float(x["probability"]) for x in nonhold))+"%"
-        bar["aria-label"]="；".join(f'{x["rate_range"]} {float(x["probability"]):.1f}%' for x in outcomes)
-    legend=fed.select(".fc-split-legend b")
-    if len(legend)==2:
-        set_text(legend[0],f'{float(hold[0]["probability"]):.1f}%')
-        set_text(legend[1],f'{sum(float(x["probability"]) for x in nonhold):.1f}%')
-    ts=data["fedwatch"]["updated_at_tw"]
+    if not outcomes:
+        for row in rows:
+            set_text(unique(row,"strong","probability"),"待核實")
+            set_text(unique(row,".fc-range","range"),"未取得 05:25 前快照")
+            set_text(unique(row,".fc-prob-label span:not(.fc-dot)","label"),"機率資料待核實")
+        if bar: bar["style"]="display:none"
+        for legend in fed.select(".fc-split-legend"): set_text(legend,"未取得 05:25 前可用快照")
+    else:
+        total=sum(float(x["probability"]) for x in outcomes)
+        if abs(total-100)>0.2: raise ValueError(f"FedWatch distribution totals {total}")
+        hold=[x for x in outcomes if x["outcome"]=="hold"]
+        nonhold=[x for x in outcomes if x["outcome"]!="hold"]
+        if len(hold)!=1: raise ValueError("cannot safely aggregate multiple hold outcomes")
+        set_text(unique(rows[0,"strong","hold prob"),f'{float(hold[0]["probability"]):.1f}%')
+        set_text(unique(rows[0],".fc-range","hold range"),hold[0]["rate_range"])
+        set_text(unique(rows[0],".fc-prob-label span:not(.fc-dot)","hold label"),"維持不變")
+        set_text(unique(rows[1],"strong","non-hold prob"),f'{sum(float(x["probability"]) for x in nonhold):.1f}%')
+        set_text(unique(rows[1],".fc-range","non-hold range"),"；".join(f'{x["outcome"]} {float(x["probability"]):.1f}%（{x["rate_range"]}）' for x in nonhold))
+        set_text(unique(rows[1],".fc-prob-label span:not(.fc-dot)","non-hold label"),"政策區間變動（合計）")
+        if bar:
+            spans=bar.select("span")
+            if len(spans)==2:
+                spans[0]["style"]="width:"+str(float(hold[0]["probability"]))+"%"
+                spans[1]["style"]="width:"+str(sum(float(x["probability"]) for x in nonhold))+"%"
+            bar["aria-label"]="；".join(f'{x["rate_range"]} {float(x["probability"]):.1f}%' for x in outcomes)
+        legend=fed.select(".fc-split-legend b")
+        if len(legend)==2:
+            set_text(legend[0],f'{float(hold[0]["probability"]):.1f}%')
+            set_text(legend[1],f'{sum(float(x["probability"]) for x in nonhold):.1f}%')
+    ts=data["fedwatch"].get("updated_at_tw","未取得 05:25 前快照")
     for span in fed.select(".fc-split-head span"):
-        if "資料時間" in span.get_text() or "官方截圖" in span.get_text():
-            set_text(span,f"Investing.com｜{ts} 台灣時間")
+        if "資料時間" in span.get_text() or "官方截圖" in span.get_text() or "Investing.com" in span.get_text():
+            set_text(span,f"Fed Rate Monitor｜{ts}")
     # Replace stale calendar cards with W45 records frozen at the report cutoff.
     from datetime import datetime
     def dateparts(v):
@@ -310,7 +315,7 @@ def main():
     # FedWatch is a dated market snapshot, not the old October decision snapshot.
     fed_panel=unique(soup,"#fed .fed-live-watch","FedWatch panel")
     audit=fed_panel.select_one(".fedwatch-time .audit-content")
-    if audit: set_text(audit,"目標會議：2026/12/09。資料來源：Investing.com Fed Rate Monitor，更新時間 2026/11/06 17:45 台灣時間。此為該時間點市場定價快照，並非聯準會承諾或決策結果；僅呈現此會議目前可核實的目標區間分布。")
+    if audit: set_text(audit,"早報資料截點為 2026/11/06 05:25 台灣時間；未取得該截點之前可核實的 FedWatch 機率快照。Investing.com 頁面於當日 17:45 更新的數據晚於早報截點，因此不納入本報。")
     fsrc=fed_panel.select_one(".fc-source")
     if fsrc:
         a=fsrc.select_one("a")
@@ -319,11 +324,11 @@ def main():
             set_text(a,"Investing.com Fed Rate Monitor")
         for child in list(fsrc.find_all(string=True)):
             if "官方截圖" in str(child) or "快照時間" in str(child): child.extract()
-        fsrc.append("｜資料更新：2026/11/06 17:45 台灣時間；CME FedWatch 僅作交叉參考。")
+        fsrc.append("｜05:25 前快照未取得；不採用晚間更新資料。")
     fomc=soup.select_one("#fed .fc-fomc")
     if fomc:
         meeting=fomc.select_one(".fc-fomc-meeting b")
-        if meeting: set_text(meeting,"2026/12/09（機率目標會議）")
+        if meeting: set_text(meeting,"下次會議日期待官方日曆核對")
         for sel in [".fc-fomc-press b",".fc-fomc-observation b"]:
             node=fomc.select_one(sel)
             if node: set_text(node,"官方時間待核實")
