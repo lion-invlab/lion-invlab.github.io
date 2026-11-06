@@ -272,3 +272,8 @@
 - 時間換算均依 2026-11-01 美國夏令時間結束後 EST（UTC−5）換算台灣 UTC+8；事件時間採官方電話會議時間，來源 notes 明確說明財報 release 與 conference call 的時點差異。
 - EchoStar 已於 11/03 提交 10-Q／8-K，排除於 W46 未來事件；VYLR 等未取得發行人官方日期與掛牌證據者暫不納入。共識 EPS／營收尚未逐筆取得同口徑可追溯來源，保持 null。
 - W46 JSON 寫後回讀 SHA：`585260ce7ae044aca6a06d576bcf2e3c35dd2269`；earnings 25、economic 8、audit 7；ID/ticker 唯一、週界正確、每筆 source URL／listing evidence 完整、掛牌欄位有效、TAC 星等均 4/5。coverage.earnings 維持 incomplete。
+
+
+## 2026-11-06｜W46 財報第五輪科技／電信發行人補漏
+- 新增 Sea Limited（NYSE: SE，Q3 2026，5星；官方公告 https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27；官方公告確認 11/10 開盤前發布、07:30 ET 電話會議）、Vodafone Group（Nasdaq ADS: VOD，H1 FY2027，4星；官方財務行事曆 https://www.vodafone.com/investors/performance-and-reports/financial-calendar 確認 11/10 發布，未提供時刻，故標示日期待核實；SEC掛牌證據 https://www.sec.gov/Archives/edgar/data/839923/000119312526235425/d143190dex27.htm）、Rigetti Computing（Nasdaq: RGTI，Q3 2026，4星；官方公告 https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results 確認 11/10 17:00 ET 收盤後電話會議）。
+- 寫後回讀 W46 JSON SHA：`553f9a48a33b47c3a4faf06f0331c27e266ab903`；財報 28 筆、經濟 8 筆、audit 8；本輪新增三筆已納入 source_refs 及 audit，coverage.earnings 仍為 incomplete。EPS／營收共識尚未取得逐項同口徑可追溯來源，維持 null。
