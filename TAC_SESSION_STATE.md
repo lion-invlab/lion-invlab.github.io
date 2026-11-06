@@ -862,3 +862,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 執行環境設定仍為 `environment_selection=inherited`，`environments=null`；目前可用管理介面未提供為既有任務直接指定／更換 cloud computer 或環境設定的更新欄位。故本次沒有完成瀏覽器 QA 執行環境修復，也沒有做端到端試跑。
 - 另外發現歷史上另有一個不同 ID 的冬令 05:25 早報排程 `6ae9085693108191a768cfed282e14c2`，目前停用；本次不刪除或改動它，以免未確認用途前誤動歷史排程。
 - 下一個修復驗收點：先在實際排程環境取得非 null 的環境資訊並驗證 repo／瀏覽器能力；再執行一次受控端到端試跑，核對排程延遲、GitHub 連接器讀寫及 preview 回讀。完成前不重新啟用正式 05:25 排程。
+
+## 2026-11-06｜05:25 排程重新啟用與受控觸發（本輪）
+- 使用者要求繼續修復；已將既有冬令早報排程 `6aeb149252548191babee862e4799680` 設為啟用，Automations update 回傳 `success=true`，更新時間 2026-11-06T02:26:18Z（台灣時間 10:26:18）。未建立新排程，04:35 行事曆排程未更動。
+- 隨後呼叫該排程的立即執行，工具回傳 `success=true`、`Ready to run in this conversation`，並交付 inline_run.prompt；此為在目前對話中執行指令，不是獨立排程執行器的終端 run 證據。
+- 本輪已依該指令重新讀取 main 最新 WR v5.13（blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`）、Manifest（`b6a24300276d7bed9dbc74472b42a97313117bd6`）、週二至週五核准母版（實際 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`，與 Manifest 一致）、結構驗收清單（`3debe876c804d23907cbf60a24a4dada7cf392f0`）、W45 JSON（`bef8db0fb4d37774194e731e1d35c518d0996e55`），並回讀現有 Session State／Work Log。GitHub 連接器讀取能力已實際確認可用。
+- Session State 顯示 11/06 早報已完成正式首頁 GitHub 寫入（首頁 blob `e6a6cc404e91852917693b590d4946dee20bcd56`）；本輪不重做當日報告、不覆寫既有 preview／首頁，也不修改 WR、母版、Manifest、JSON。
+- 再次 peek 後排程 `is_enabled=true`；但 `next_run_time=null`，`environment_selection=inherited`、`environments=null)，last_run 仍是 11/06 原 failed run `80f9d5d0-6bd4-8333-8c05-666e8d4b05b5`。因此只能確認「已重新啟用、GitHub 連接器讀取可用」；尚未取得新的獨立排程 run 終端結果，也未證明下一次 05:25 會準時啟動。
+- 本輪未執行瀏覽器／Playwright 視覺互動 QA；未修改任何 TAC 報告資產。下一個待驗證點是排程本身是否產生新的 run 及其真實執行結果；若 next_run_time 持續為 null，需先查明排程觸發排程器狀態，不得宣稱修復完成。
