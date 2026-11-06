@@ -210,3 +210,10 @@
 - 將下一次六步驟的逐步成果欄位、完成判定、跨對話接續方式及缺證不得標記完成的要求，追加至既有 TAC_SESSION_STATE.md「2026-11-06｜WR 六步驟執行證據與跨對話接續要求」章節。
 - Session State 寫入 main commit：7531cd9180d6d3fd9ae9f486e9bbf854ac25c2f2；新 blob SHA：ae249adcc07e3dd586cb877500f21a672bd13a82。寫後重新 fetch 回讀，確認該章節存在且 blob SHA 一致。
 - 執行保障的界線：Session State／Work Log 是可追溯的工作證據與接續錨點，不是能在技術層面自動鎖住模型的執行器。每一步必須以真實產出、來源、回讀 SHA 和下游接收紀錄證明；缺證只能標記進行中／待核實／未測試，不能宣稱完成。
+
+## 2026-11-06｜05:25 早報排程失敗檢討
+- 查核 04:35 任務 `6ae6dff2200c81919ba2cee4db78f8a5`：04:37:46 啟動、04:59:09 完成，recorded_status=completed；W45 JSON 增量更新與回讀通過。
+- 查核 05:25 任務 `6aeb149252548191babee862e4799680`：scheduled 05:25，started 05:52:40，completed 06:17:44，recorded_status=failed；chat_ref=null。本次 latest_result 未更新，仍是 11/05 的舊 run，故本次錯誤細節不可得。任務目前 is_enabled=false，updated_at 對應台灣 06:18:48。
+- Work Log 本身記錄同日早報人工主線於 05:24:49 啟動，早於排程實際啟動時間；因此存在執行重疊，11/06 早報實際進展不能視為 05:25 排程成功執行。
+- 11/05 的上一筆早報排程結果曾證實 git clone 因 `Could not resolve host: github.com` 失敗，但不可將該原因直接套用至 11/06，因 11/06 run 沒有對應錯誤輸出或 chat_ref。
+- 結論：05:25 排程本身未完成；已證實啟動延遲、執行失敗、失敗後停用及人工流程重疊。底層例外原因不可得。未修改排程或其他正式資產；修復與重新啟用未執行。
