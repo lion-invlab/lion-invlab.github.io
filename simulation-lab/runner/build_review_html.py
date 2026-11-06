@@ -6,7 +6,6 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[2]
-MASTER = ROOT / "simulation-lab/baseline/weekday-mother-template.html"
 MANIFEST = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
 
 def sha_blob(text: str) -> str:
@@ -37,9 +36,13 @@ def main():
     manifest=json.loads(MANIFEST.read_text())
     raw=MASTER.read_text()
     actual=sha_blob(raw)
-    approved=manifest["templates"]["weekdays"]["blob_sha"]
+    template_record = manifest["templates"]["weekdays"]
+    master_path = ROOT / template_record.get("simulation_path", "simulation-lab/baseline/weekday-mother-template.html")
+    raw = master_path.read_text(encoding="utf-8")
+    actual=sha_blob(raw)
+    approved=template_record["simulation_blob_sha"]
     if actual!=approved or actual!=args.expected_master_sha:
-        raise SystemExit(f"MASTER SHA FAIL actual={actual} manifest={approved}")
+        raise SystemExit(f"SIMULATION MASTER SHA FAIL actual={actual} manifest={approved} expected={args.expected_master_sha}")
     data=json.loads(Path(args.data).read_text())
     if data["report_date"]!="2026-11-06" or data["timezone"]!="Asia/Taipei":
         raise SystemExit("report date/timezone mismatch")
