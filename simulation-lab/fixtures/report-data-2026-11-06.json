@@ -33,54 +33,54 @@
   ],
   "headlines": [
     {
-      "title": "Nasdaq 11/05 下跌 5.52%，收 24,315",
-      "summary": "AI 資料中心與科技股遭集中賣壓，Nasdaq Composite 收跌 1,421.51 點；跌幅為主要美股指數中最大。",
-      "url": "https://apnews.com/article/afe254c608c3d1fe2ea792812ba9765a"
+      "title": "AI 交易部位快速去槓桿，科技股賣壓集中",
+      "summary": "Reuters 指出基金降低大型 AI 股票曝險，波動率策略及槓桿 ETF 可能放大收盤賣壓；是否代表長期投資趨勢反轉仍未有定論。",
+      "url": "https://www.reuters.com/business/wall-street-fear-gauge-jumps-most-since-liberation-day-ai-trade-stumbles-2026-11-05/"
     },
     {
-      "title": "S&P 500 收跌 4.36%，11 大產業全數下跌",
-      "summary": "指數收在 7,353.73 點，科技類股跌幅約 7.3%；市場廣度急速惡化。",
-      "url": "https://www.investing.com/news/economy-news/trading-day-a-november-5-market-bonfire-5005919"
+      "title": "半導體指數跌幅擴大，創 2020 年以來最大單日跌幅",
+      "summary": "費半 11/05 下跌 12.25%，收 9,011.14 點；晶片股成為本輪科技股修正的主要壓力來源。",
+      "url": "https://www.exent.ai/resources/stock-market-crash-november-2026"
     },
     {
-      "title": "費城半導體指數單日重挫約 12.2%",
-      "summary": "半導體股拋售擴大，SanDisk、Micron、AMD 與 Marvell 等個股跌幅沉重。",
-      "url": "https://www.investing.com/news/economy-news/trading-day-a-november-5-market-bonfire-5005919"
+      "title": "11 大產業 ETF 全數收黑，科技與防禦類股差距擴大",
+      "summary": "XLK 下跌 8.00%，XLC 僅跌 0.59%、XLP 下跌 0.75%；產業相對表現顯示資金偏向防禦。",
+      "url": "https://www.exent.ai/resources/stock-market-crash-november-2026"
     },
     {
-      "title": "Dow Jones 下跌 3.44%，收 51,523.06",
-      "summary": "道瓊單日下跌 1,833.06 點，成分股賣壓廣泛。",
-      "url": "https://apnews.com/article/afe254c608c3d1fe2ea792812ba9765a"
+      "title": "VIX 升至 28.18，避險需求明顯升溫",
+      "summary": "VIX 單日上升 69.66%，盤中高點 28.36；收盤數值與盤中高點分開呈現。",
+      "url": "https://tallacoptions.com/Data/EOD/VIX"
     },
     {
-      "title": "Russell 2000 下跌約 4.45%",
-      "summary": "小型股同步承壓，顯示賣壓並非只集中在少數大型科技股。",
-      "url": "https://portfolio-terminal.com/markets/stock-market-close/november-5-2026"
+      "title": "美國公債殖利率曲線下移，10 年期降至 4.84%",
+      "summary": "美國財政部 11/05 公債殖利率資料顯示 2 年期 4.46%、10 年期 4.84%、30 年期 5.25%，三段殖利率均較前一日下降。",
+      "url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/textview"
     },
     {
-      "title": "VIX 11/05 收 28.18，單日升約 69.7%",
-      "summary": "波動率指數反映避險需求急升；需注意 11/06 盤中 VIX 已有不同報價，不應與前一日收盤混列。",
-      "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data"
+      "title": "原油價格反彈，地緣運輸風險重新受到關注",
+      "summary": "Reuters 報導 11/05 Brent 上漲 3.88% 至每桶 98.29 美元，WTI 上漲 2.72% 至 90.52 美元；油輪事件推升供應中斷風險溢價。",
+      "url": "https://www.reuters.com/business/energy/oil-falls-fourth-day-expectations-lower-risk-iran-war-escalation-2026-11-05/"
     },
     {
-      "title": "台灣加權指數 11/06 收跌約 4.5%",
-      "summary": "Reuters 報導台股盤中一度大幅下挫，尾盤跌幅收斂；全週跌幅約 12.2%，創 1991 年以來最差週表現。",
-      "url": "https://live.euronext.com/en/financial-news/stocks-tumble-ai-panic-sweeps-markets-bonds-draw-haven-demand"
-    },
-    {
-      "title": "日本日經指數 11/06 盤中跌逾 6%",
-      "summary": "日股受到科技與半導體賣壓衝擊，日經盤中跌幅一度擴大，與美股科技股急跌連動。",
-      "url": "https://live.euronext.com/en/financial-news/stocks-tumble-ai-panic-sweeps-markets-bonds-draw-haven-demand"
-    },
-    {
-      "title": "美國 10 年期公債殖利率跌至約 4.84%",
-      "summary": "避險買盤推升公債價格；報導顯示殖利率自前一日約 4.90% 下滑。",
-      "url": "https://gmg-kprc-prod.cdn.arcpublishing.com/business/2026/11/06/japans-nikkei-falls-more-than-6-as-asian-benchmarks-tumble-after-wall-street-drop/"
-    },
-    {
-      "title": "Fed Rate Monitor 顯示後續會議機率存在多情境",
-      "summary": "11/06 04:45 EST 更新的利率監測資料中，2027 年 1 月、3 月等會議已出現維持、升息及多個利率區間並存的分布。",
+      "title": "Fed 後續利率機率呈現多個目標區間",
+      "summary": "Fed Rate Monitor 同時呈現維持、升息與多個利率區間情境，不能把不同會議的機率合併成單一升降息標籤。",
       "url": "https://www.investing.com/central-banks/fed-rate-monitor"
+    },
+    {
+      "title": "美股跌勢不只集中於少數大型股",
+      "summary": "Russell 2000 下跌 4.45%，跌幅接近主要大型指數；市場風險收縮擴及小型股。",
+      "url": "https://www.exent.ai/resources/stock-market-crash-november-2026"
+    },
+    {
+      "title": "科技與通訊類股表現分化，市場重新排序成長曝險",
+      "summary": "科技 ETF XLK 跌幅遠大於通訊服務 XLC，顯示市場並非平均減碼所有大型科技相關公司，而是重新評估產業內部估值與資本需求。",
+      "url": "https://www.thetrading.tools/sector-performance"
+    },
+    {
+      "title": "原油反彈與股市風險升高並存，通膨路徑增添變數",
+      "summary": "能源價格受到地緣運輸風險支撐，與股市急跌、債券殖利率下行同時出現；後續需觀察油價是否將成本壓力重新帶回通膨預期。",
+      "url": "https://www.reuters.com/business/energy/oil-falls-fourth-day-expectations-lower-risk-iran-war-escalation-2026-11-05/"
     }
   ],
   "global_markets": {
