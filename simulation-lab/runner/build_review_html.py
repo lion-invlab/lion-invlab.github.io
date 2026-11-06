@@ -46,9 +46,13 @@ def main():
         raise SystemExit("report date/timezone mismatch")
     soup=BeautifulSoup(raw,"html.parser")
     # Date/title: update only existing text nodes.
-    for node in soup.select(".top .date, .top .report-date, header .date, .date-line"):
+    for node in soup.select(".top .report-date, header .report-date"):
         if node.get_text(strip=True):
-            set_text(node,"2026/11/06（五）｜美股基準：2026/11/05 收盤")
+            # Keep the approved compact inline header; market-basis detail belongs in report content, not the masthead.
+            set_text(node,"｜2026/11/06（五）")
+    for node in soup.select(".top .date, header .date, .date-line"):
+        if node.get_text(strip=True):
+            set_text(node,"2026/11/06（五）")
     for node in soup.select("title"):
         set_text(node,"TAC 投資早報｜2026/11/06")
     # Update the approved summary card's text slot without changing wrappers.
