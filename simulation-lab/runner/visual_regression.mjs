@@ -75,32 +75,43 @@ try {
         if (!grid || resultCards !== 2) invalid.push("card " + (i+1) + ": paired EPS/revenue cards missing");
         if (!card.querySelector(".earnings-detail-field label")) invalid.push("card " + (i+1) + ": supporting details missing");
       }
-      const sampleGrid = published.querySelector(".earnings-results-grid");
-      let columns = 0;
-      let pairedGeometry = null;
-      if (sampleGrid) {
-        const computed = getComputedStyle(sampleGrid);
-        const children = [...sampleGrid.querySelectorAll(":scope > .earnings-actual-card")];
-        // CSS grid tracks may contain spaces inside minmax()/calc(); whitespace splitting
-        // is not a valid way to count tracks. Count distinct rendered child columns instead.
-        const lefts = [...new Set(children.map(node => Math.round(node.getBoundingClientRect().left)))];
-        columns = computed.display === "grid" ? lefts.length : 0;
-        if (children.length >= 2) {
-          const a = children[0].getBoundingClientRect();
-          const b = children[1].getBoundingClientRect();
-          pairedGeometry = {
+      // Several report components retain hidden copies in alternate tabs.
+      // Audit only visible result grids and choose one with two measurable cards.
+      const visibleGrids = [...published.querySelectorAll(".earnings-results-grid")]
+        .filter(grid => {
+          const rect = grid.getBoundingClientRect();
+          const style = getComputedStyle(grid);
+          return rect.width > 0 && rect.height > 0 &&
+            style.display !== "none" && style.visibility !== "hidden";
+        });
+      const measured = visibleGrids.map(grid => {
+        const children = [...grid.querySelectorAll(":scope > .earnings-actual-card")];
+        const visibleCards = children.filter(card => {
+          const rect = card.getBoundingClientRect();
+          const style = getComputedStyle(card);
+          return rect.width > 0 && rect.height > 0 &&
+            style.display !== "none" && style.visibility !== "hidden";
+        });
+        if (visibleCards.length < 2) return null;
+        const a = visibleCards[0].getBoundingClientRect();
+        const b = visibleCards[1].getBoundingClientRect();
+        return {
+          columns: Math.abs(a.left - b.left) > 2 && Math.abs(a.top - b.top) <= 2 ? 2 : 1,
+          pairedGeometry: {
             firstLeft: Math.round(a.left), secondLeft: Math.round(b.left),
+            firstTop: Math.round(a.top), secondTop: Math.round(b.top),
             firstWidth: Math.round(a.width), secondWidth: Math.round(b.width),
             sameRow: Math.abs(a.top - b.top) <= 2,
             distinctColumns: Math.abs(a.left - b.left) > 2
-          };
-          if (!pairedGeometry.sameRow || !pairedGeometry.distinctColumns || !a.width || !b.width) {
-            invalid.push("EPS/revenue cards are not visibly side-by-side");
           }
-        }
-      }
-      if (cards.length && columns !== 2) invalid.push("published result grid rendered columns=" + columns + ", expected 2");
-      return { count: cards.length, invalid, columns, pairedGeometry };
+        };
+      }).filter(Boolean);
+      const sample = measured.find(x => x.columns === 2) || measured[0] || null;
+      const columns = sample?.columns || 0;
+      const pairedGeometry = sample?.pairedGeometry || null;
+      if (!sample) invalid.push("visible published EPS/revenue result grid with two measurable cards missing");
+      else if (columns !== 2) invalid.push("visible EPS/revenue cards are not in two side-by-side columns");
+      return { count: cards.length, invalid, columns, pairedGeometry, visible_result_grids: measured.length };
     });
     snapshots[v.name].earnings_component = earningsAudit;
     const economicAudit = await reportPage.evaluate(() => {
