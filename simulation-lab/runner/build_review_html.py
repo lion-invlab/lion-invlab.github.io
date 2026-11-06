@@ -246,8 +246,17 @@ def main():
                     details=card.select_one(".earnings-accordion-details")
                     original_fields={f.select_one("label").get_text(strip=True):f for f in details.select(":scope > .earnings-detail-field") if f.select_one("label")}
                     grid=soup.new_tag("div",attrs={"class":["earnings-results-grid"]})
-                    def actual_card(title_text,value_text):
-                        result=soup.new_tag("div",attrs={"class":["earnings-actual-card"]})
+                    def compare_result(estimate, actual):
+                        try:
+                            e=float(str(estimate).replace(",","").replace("$","").replace("US","").replace("USD","").strip())
+                            a=float(str(actual).replace(",","").replace("$","").replace("US","").replace("USD","").strip())
+                            return "beat" if a>e else "miss" if a<e else "inline"
+                        except (TypeError,ValueError):
+                            return "pending"
+                    def actual_card(title_text,value_text,estimate,actual):
+                        outcome=compare_result(estimate,actual)
+                        classes=["earnings-actual-card"]+([outcome] if outcome in ("beat","miss") else [])
+                        result=soup.new_tag("div",attrs={"class":classes})
                         heading=soup.new_tag("div",attrs={"class":["earnings-actual-card-title"]}); heading.string=title_text; result.append(heading)
                         parts=value_text.split("／",1)
                         for caption,value in [("市場預估",parts[0]),("實際公布",parts[1] if len(parts)>1 else "待核實")]:
@@ -255,10 +264,11 @@ def main():
                             label_node=soup.new_tag("span"); label_node.string=caption
                             value_node=soup.new_tag("strong"); value_node.string=value
                             line.append(label_node); line.append(value_node); result.append(line)
-                        status=soup.new_tag("span",attrs={"class":["earnings-actual-status","pending"]}); status.string="實際數值已列示｜差異判讀見下方"; result.append(status)
+                        status_label={"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"實際數值已列示｜差異判讀見下方"}[outcome]
+                        status=soup.new_tag("span",attrs={"class":["earnings-actual-status",outcome]}); status.string=status_label; result.append(status)
                         return result
-                    grid.append(actual_card("EPS｜預估 vs 實際",eps_value))
-                    grid.append(actual_card("營收｜預估 vs 實際",revenue_value))
+                    grid.append(actual_card("EPS｜預估 vs 實際",eps_value,x.get("eps_estimate"),x.get("eps_actual")))
+                    grid.append(actual_card("營收｜預估 vs 實際",revenue_value,x.get("revenue_estimate"),x.get("revenue_actual")))
                     details.clear(); details.append(grid)
                     for field_label in ("公布時段","財報判讀與股價反應","資料來源"):
                         field=original_fields.get(field_label)
