@@ -1305,7 +1305,7 @@
         "stock_price_reaction_window": null,
         "source": {
           "name": "JBS N.V.｜Q3 2026 Earnings Call Announcement",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/jbs-host-third-quarter-2026-133400144.html",
+          "url": "https://www.businesswire.com/news/home/20261023951554/en/JBS-to-Host-Third-Quarter-2026-Earnings-Call-on-November-10-2026",
           "published_at": "2026-10-23",
           "observed_at": "2026-11-06T17:00:00+08:00",
           "publisher": "Business Wire / JBS N.V.",
@@ -1320,7 +1320,7 @@
         "us_listing_ticker": "JBS",
         "listing_evidence": {
           "name": "JBS N.V. official earnings announcement",
-          "url": "https://finance.yahoo.com/markets/stocks/articles/jbs-host-third-quarter-2026-133400144.html",
+          "url": "https://www.businesswire.com/news/home/20261023951554/en/JBS-to-Host-Third-Quarter-2026-Earnings-Call-on-November-10-2026",
           "publisher": "Business Wire / JBS N.V.",
           "notes": "發行人官方公告明確列示 NYSE: JBS。"
         }
