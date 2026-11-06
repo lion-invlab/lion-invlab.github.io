@@ -92,6 +92,11 @@ def main():
         ticker=ticker_match.group(1)
         slot=unique(row,"span.r",f"ETF {ticker} value")
         set_text(slot,data["sectors"].get(ticker,"待核實"))
+    def sector_change(row):
+        t=row.select_one("span.r").get_text(strip=True).replace("%","").replace("−","-").replace("－","-")
+        try: return float(t)
+        except Exception: return -999.0
+    for row in sorted(sector_rows,key=sector_change,reverse=True): sectors.append(row)
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
@@ -178,7 +183,10 @@ def main():
         items=[x for x in econ if groupkey(x)==key]
         group=BeautifulSoup(str(group_template),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading span") or group.select_one(".calendar-status-heading")
-        if heading: set_text(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）")
+        if heading:
+            set_text(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）")
+            heading["class"]=["calendar-status-heading",key]
+            if heading.name=="span": heading["class"]=["earnings-badge",key]
         listing=group.select_one(".econ-event-list"); listing.clear()
         for x in items:
             card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
@@ -208,7 +216,9 @@ def main():
         items=[x for x in earnings if groupkey(x)==key]
         group=BeautifulSoup(str(eg),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
-        if heading: set_text(heading,f"{label}｜TAC 四星／五星（{len(items)}家）")
+        if heading:
+            set_text(heading,f"{label}｜TAC 四星／五星（{len(items)}家）")
+            heading["class"]=["calendar-status-heading",key]
         listing=group.select_one(".earnings-accordion-list"); listing.clear()
         for x in items:
             card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
@@ -228,6 +238,84 @@ def main():
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
             listing.append(card)
         ep.append(group)
+    # Refresh all remaining date-sensitive mother-template text slots.
+    bluf_title=bluf.select_one("h1")
+    if bluf_title: set_text(bluf_title,"AI／半導體賣壓引發跨市場避險")
+    # News cutoff and source labels.
+    for sid,items_key,label in [("global-focus","focus_news","全球焦點"),("headlines","headlines","市場熱門頭條")]:
+        section=unique(soup,"#"+sid,sid)
+        meta=section.select_one(".tab-panel-meta")
+        if meta: set_text(meta,f"{label}｜資料窗口：2026/11/05 12:00 至 2026/11/06 05:25（台灣時間）")
+        for idx,node in enumerate(section.select(".newsitem")):
+            metas=node.select(".newsmeta")
+            items=data[items_key]
+            if idx<len(items) and metas:
+                domain=re.sub(r"^https?://([^/]+).*",r"\1",items[idx].get("url",""))
+                set_text(metas[0],f"資料來源：{domain}｜截至 11/06 05:25")
+    gm=unique(soup,"#global-markets","global markets")
+    for i,meta in enumerate(gm.select(".tab-panel-meta")):
+        labels=["美股｜2026/11/05 正式收盤","亞洲市場｜2026/11/05 正式收盤","歐洲市場｜2026/11/05 正式收盤"]
+        if i<len(labels): set_text(meta,labels[i])
+    for pid,label in [("tac-assets-panel-0","11 檔產業 ETF｜2026/11/05 美股收盤｜依單日漲跌幅排序"),("tac-assets-panel-1","美國公債殖利率｜2026/11/05 官方日終資料"),("tac-assets-panel-2","外匯｜2026/11/05 歷史收盤參考值"),("tac-assets-panel-3","能源期貨｜2026/11/05 收盤"),("tac-assets-panel-4","貴金屬期貨｜2026/11/05 收盤")]:
+        panel=soup.select_one("#"+pid)
+        if panel:
+            meta=panel.select_one(".tab-panel-meta")
+            if meta: set_text(meta,label)
+    # Risk indicators and their source notes.
+    for label,change,note in [("VIX","+69.66%","Investing.com 歷史資料｜11/05 收盤 28.18；盤中高點 28.36。"),("MOVE","+4.30%","Investing.com ICE BofAML MOVE 歷史資料｜11/05 收盤 97.92。")]:
+        rows=[r for r in sent.select(".sbox") if r.select_one(".label-en") and r.select_one(".label-en").get_text(strip=True)==label]
+        for row in rows:
+            ch=row.select_one("span.down,span.up")
+            if ch: set_text(ch,change); ch["class"]=["up"]
+            src=row.select_one(".source")
+            if src: set_text(src,note)
+    fgbox=sent.select_one(".cnn-fg-preview")
+    if fgbox:
+        score=fgbox.select_one(".fg6-score-main")
+        if score: set_text(score,"待核實")
+        status=fgbox.select_one(".fg6-status")
+        if status: set_text(status,"待核實")
+        marker=fgbox.select_one(".fg6-marker")
+        if marker: marker["style"]="display:none"
+        src=fgbox.select_one(".source")
+        if src: set_text(src,"11/05 歷史來源讀值不一致，暫不採用；待 CNN Business 官方歷史值核對。")
+    core=sent.select(".sbox")[-1].select_one("div[style]")
+    if core: set_text(core,"11/05 美股全面急跌，費半與科技類股領跌；MOVE 上升顯示債券波動亦升溫。VIX 收 28.18，MOVE 收 97.92。CNN Fear & Greed 因歷史來源讀值不一致暫列待核實。觀察重點是 AI 資本支出回報、科技股估值與風險是否擴散至信用及流動性市場。")
+    # Observation title, market view, levels and core priorities.
+    view=unique(soup,"#view","market observation")
+    vtitle=view.select_one(".today-focus-title")
+    if vtitle: set_text(vtitle,"今日觀察重點｜2026/11/06（五）")
+    market_panel=view.select_one(".focus-panel.focus-market .key")
+    if market_panel: set_text(market_panel,data.get("observation","盤面觀察待核實"))
+    levels=view.select_one(".focus-panel.focus-levels .key")
+    if levels: set_text(levels,"支撐與壓力區間待依 11/05 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用 10/27 舊區間。")
+    core_panel=view.select_one(".focus-panel.focus-core .callout")
+    if core_panel: set_text(core_panel,"第一｜風險來源：AI／半導體估值與資本支出回報疑慮引發科技股集中賣壓。\n第二｜市場廣度：11 大產業 ETF 全數收跌，科技跌幅最大，通訊服務及必需消費相對抗跌。\n第三｜跨資產：美債殖利率下行，VIX 與 MOVE 同步上升，股債波動均需關注。\n第四｜政策預期：FedWatch 12/09 會議機率僅為單一會議快照，不代表其他會議或聯準會承諾。\n第五｜操作原則：待價格波動收斂、產業廣度改善及財報指引確認後，再評估風險曝險。")
+    # FedWatch is a dated market snapshot, not the old October decision snapshot.
+    fed_panel=unique(soup,"#fed .fed-live-watch","FedWatch panel")
+    audit=fed_panel.select_one(".fedwatch-time .audit-content")
+    if audit: set_text(audit,"目標會議：2026/12/09。資料來源：Investing.com Fed Rate Monitor，更新時間 2026/11/06 17:45 台灣時間。此為該時間點市場定價快照，並非聯準會承諾或決策結果；僅呈現此會議目前可核實的目標區間分布。")
+    fsrc=fed_panel.select_one(".fc-source")
+    if fsrc:
+        a=fsrc.select_one("a")
+        if a:
+            a["href"]="https://www.investing.com/central-banks/fed-rate-monitor"
+            set_text(a,"Investing.com Fed Rate Monitor")
+        for child in list(fsrc.find_all(string=True)):
+            if "官方截圖" in str(child) or "快照時間" in str(child): child.extract()
+        fsrc.append("｜資料更新：2026/11/06 17:45 台灣時間；CME FedWatch 僅作交叉參考。")
+    fomc=soup.select_one("#fed .fc-fomc")
+    if fomc:
+        meeting=fomc.select_one(".fc-fomc-meeting b")
+        if meeting: set_text(meeting,"2026/12/09（機率目標會議）")
+        for sel in [".fc-fomc-press b",".fc-fomc-observation b"]:
+            node=fomc.select_one(sel)
+            if node: set_text(node,"官方時間待核實")
+        p=fomc.select_one("p")
+        if p: set_text(p,"下一次會議日期與決策時間以 Federal Reserve 官方日曆為準；本欄不沿用 10 月會議舊資料。")
+    health=soup.select_one("#sp500-earnings-health .title small")
+    if health: set_text(health,"FactSet 最新可核實快照：2026/10/23；非 11/05 即時統計。")
+
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
