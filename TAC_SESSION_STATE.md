@@ -1043,3 +1043,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - FactSet：Q3 最新可核實季報快照為 2026/10/30（60%公司已報告、82% EPS beat、平均 surprise +1.9%、混合盈餘成長 +30.2%、營收 beat 70%）；另採 11/04 Q4 bottom-up EPS estimate +1.4%至94.79、CY2026 EPS estimate +0.6%至363.94。兩種日期／統計口徑分開標示。
 - 新聞窗口 2026/11/05 12:00 至 2026/11/06 20:38:45（台灣時間）。全球焦點 5 則已整理：AI風險與亞洲拋售、BoE升息、Norges維持4.5%、加拿大預算、美國非農預覽；熱門頭條 10 則以公司官方／Reuters／Investing來源整理，ENB及BAM原始公告僅標日期，發布時分待核實並明確標示。NFP日曆採Investing.com HK共識63k，Reuters調查約65k屬不同來源口徑，不混成同一預估。
 - 流程狀態：第一步規則／母版核對完成；第二步行情44/44完成；第三步W45已更新並回讀；第四步新聞與分析稿完成；第五步依核准母版DOM內容槽位組裝及單一QA Gate進行中；第六步尚未交付。preview/2026-11-06.html 為舊版，待本輪完成結構／內容／互動／視覺驗收後才更新同一路徑。首頁、雙母版、Manifest、WR、排程均未修改。
+
+
+## 2026-11-06 20:53｜新聞／分析整理與 W45 最後回查（WR v5.14）
+- W45 最新回讀 blob SHA：ba97b83a48e77859a74841a70c1779e9411a7635；commit：2352b132f7655a9435478772c221d9a9f682df72；updated_at 2026-11-06T20:53:04+08:00；經濟18、財報42、audit 219。
+- Humana：20:53再查官方IR press release archive與SEC EDGAR，最新仍為10/29股息公告，未見11/06 Q3財報或8-K；維持pending_verification，actual與股價反應null，不推定延期原因。來源：https://news.humana.com/press-room/press-releases；https://www.sec.gov/edgar/browse/?CIK=49071。
+- 美國10月非農與加拿大10月就業均仍預定11/06 21:30台灣時間發布；截至20:53尚未到發布時點，actual維持null。
+- 新聞窗口鎖定：2026-11-05 12:00至2026-11-06 20:53（Asia/Taipei）。Global Focus宏觀5則：AI交易／資料中心政策疑慮與全球風險重估（Investing.com/Reuters，11/05頁面顯示11:40，時區未標）；全球股債避險及亞洲科技股賣壓（Reuters Morning Bid，11/06 05:37 UTC）；加拿大Budget 2026（Reuters，11/05頁面顯示16:07，時區未標；官方Finance Canada頁11/05）；挪威央行維持4.5%但保留升息可能（Norges Bank官方，11/05 10:00 CET）；油輪攻擊與Brent供應風險（Reuters/Euronext，頁面顯示11/05 21:15，時區未標）。
+- Market Hot Headlines 10則：Qualcomm手機晶片業務承壓（Investing.com/Reuters，11/05頁面05:01，時區未標）；Toyota FY2027 Q2獲利與股東回饋計畫（Investing.com/Reuters，11/05頁面00:01，時區未標）；Anthropic IPO估值與roadshow疑慮（Investing.com/Reuters，11/05頁面18:41，時區未標）；SoftBank CDS升至2022年10月以來高點（Reuters，頁面11/05 21:20，時區未標）；Moderna Q3營收US$1.313B高於LSEG US$885.1M、上修全年營收成長（Reuters，11/06 11:50 UTC）；Enbridge Q3獲利年增、天然氣業務支撐（Reuters，11/06 12:08 UTC）；Vistra Q3營運收入US$6.347B、Ongoing Operations Adjusted EBITDA US$2.378B（公司新聞稿，11/06 12:00 GMT）；BAM Q3 FRE US$864M、DE US$763M（公司新聞稿，11/06日期，未列精確時分）；Cloudflare Q3營收US$782.5M、年增39%（公司新聞稿11/05 16:15 EST）；Atlassian Q1營收及adjusted EPS優於共識但FY27訂閱ARR成長展望放緩、股價下跌（Investing.com 11/05 16:16頁面時間，時區未標）。
+- 新聞原文連結及來源時間已在工作草稿核對；Investing.com頁面未明示時區者，正式新聞卡必須照實標「頁面未標時區」，不得擅自換算成ET或UTC。Global Focus限宏觀，10則熱門頭條涵蓋半導體、汽車、AI融資、醫藥、能源及企業財報，避免全部集中同一事件。
+- 分析主軸：AI風險從高估值科技股延伸至資料中心投資政策及融資風險定價；SOX -12.25%、Nasdaq -5.52%、XLK -8.00%，11個產業ETF全跌；VIX 28.18（+69.66%）、MOVE 97.92（+4.30%），CNN Fear & Greed仍待核實，不得沿用舊分數。亞洲11/06 Nikkei -5.96%、KOSPI -6.02%、TWSE官方39,701.64（-4.51%）。市場情緒偏防禦，避免僅以單日價格推論趨勢反轉。
+- S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；Pivot 7,461.79；S1 7,242.29、S2 7,130.85；R1 7,573.23、R2 7,792.73。
+- 仍未完成：正式母版DOM內容組裝、calendar card增量同步、四類QA及preview/2026-11-06.html更新。尚未修改preview、index.html、母版、Manifest、WR；不得宣稱審核版已完成。正式母版SHA仍為3785405e331b10ec6189002e480be2a1edbe20ef。
