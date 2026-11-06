@@ -41,7 +41,7 @@ APPROVED = {
     },
     "weekdays": {
         "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-        "blob_sha": "e5976190efd4c7fcc92cd623bfa94926997cc672",
+        "blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
         "title": "TAC 投資早報｜2026/10/28（三）審核版",
         "required_ids": {
             "overview", "sentiment", "news-scan", "global-markets",
