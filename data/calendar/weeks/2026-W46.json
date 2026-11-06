@@ -202,7 +202,7 @@
         "id": "current-kkr-20261109",
         "company": "KKR & Co.",
         "ticker": "KKR",
-        "event_date": "2026-11-09T12:00:00+08:00",
+        "event_date": "2026-11-09T23:00:00+08:00",
         "session": "before_market",
         "status": "upcoming",
         "importance_stars": 4,
@@ -211,8 +211,8 @@
         "importance_rating_source": null,
         "industry": "另類資產管理／私募股權",
         "reporting_period": "2026 Q3",
-        "time_known": false,
-        "time_type": "release_date_only",
+        "time_known": true,
+        "time_type": "call_time",
         "eps_basis": null,
         "eps_estimate": null,
         "eps_actual": null,
@@ -532,6 +532,28 @@
       "action": "initialized_from_official_calendar_scan",
       "source": "official issuer / government release calendars",
       "note": "建立 W46 週檔；僅納入已核實且 TAC 評級達四／五星的事件。保留日期、時區、時間精確度與來源；不填入未公布實績或未核實共識。"
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "event_incremental_merge_upsert",
+      "event_id": "current-kkr-20261109",
+      "changed_fields": [
+        "event_date",
+        "time_known",
+        "time_type"
+      ],
+      "before": {
+        "event_date": "2026-11-09T12:00:00+08:00",
+        "time_known": false,
+        "time_type": "release_date_only"
+      },
+      "after": {
+        "event_date": "2026-11-09T23:00:00+08:00",
+        "time_known": true,
+        "time_type": "call_time"
+      },
+      "source": "https://ir.kkr.com/",
+      "note": "KKR 官方 IR 頁明確列示 11/09 10:00 ET 財報電話會議，換算台灣時間 23:00；保留結果發布精確時點未確認的限制。"
     }
   ]
 }
