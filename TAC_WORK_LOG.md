@@ -148,3 +148,13 @@
 - 風險情緒解讀更新：VIX 26.01（+56.59%）與 MOVE 97.92（+4.30%）同向走高，CNN 20/100 進入極度恐懼；此補證不改寫其他市場收盤行情。
 - FedWatch 仍採 Investing.com 12/09 會議升息 64.7%、維持 35.3%；CME iframe 數值交叉核對仍未完成。
 - 尚未寫入 HTML，尚未執行第五步 QA。
+
+
+## 2026-11-06｜週五早報審核版持續修正（未交付）
+- 當次依 main 最新 WR v5.13（blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`）、Manifest（blob `b6a24300276d7bed9dbc74472b42a97313117bd6`）及核准週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef` 工作。
+- 修正 `preview/2026-11-06.html` 中殘留 10/28 頁首、提示框及頁尾文字；修正 FactSet 快照敘述；統一 S&P 500、Russell 2000 主表值與 Investing.com OHLC 口徑，並重算 Dow 樞紐位。
+- SOX：Investing.com 11/05 歷史頁為 9,011.2、-12.25%；Yahoo Finance 為 9,011.14、-12.25%；Nasdaq 官方頁同日顯示 9,408.15、-8.38%。主頁依 WR 指定 Investing.com 優先序暫採 9,011.2，來源衝突保留待查。參考網址：https://www.investing.com/indices/phlx-semiconductor-historical-data、https://finance.yahoo.com/quote/%5ESOX/history/、https://indexes.nasdaq.com/index/Overview/SOX
+- 靜態結構回讀：母版／預覽 style 120/120、script 24/24，style/script 內容一致；預覽 ID 174 個且唯一，11 個內部錨點全部存在。W45 JSON 經濟事件 18 筆與預覽 18 卡相符；財報 JSON 38 筆，其中 DASH 日期為 10/30，非本週；預覽 37 卡符合本週範圍。
+- 最新 preview blob SHA：`635acef6eae9a4a1141f40dc888227f59faa9f8c`；更新 commit：`a85868c2cf50285ffbf7e3c5d3f20113e0ce585f`。
+- 保護確認：`index.html` SHA `64488827b72e01f6054225f444260e3cdf027a57` 未修改；母版、Manifest、W45 JSON 未修改。
+- 未完成：44 項行情完整逐項來源回讀、SOX 差異裁決、新聞與分析閉環、Pages 部署回讀。瀏覽器視覺／互動測試依使用者指示不執行。故本版仍非可交付審核版，亦未發布正式首頁。
