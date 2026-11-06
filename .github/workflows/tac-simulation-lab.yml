@@ -53,6 +53,9 @@ jobs:
           npm install --no-save --package-lock=false playwright
           npx playwright install --with-deps chromium
 
+      - name: Validate simulation dual mother five-zone layout
+        run: python simulation-lab/runner/validate_dual_mothers.py
+
       - name: Assemble 11/06 simulation review HTML from approved mother
         run: |
           python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-06.json --output simulation-lab/output/TAC_投資早報_2026-11-06_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
