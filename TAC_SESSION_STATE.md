@@ -963,3 +963,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - VYLR listing evidence 已精確指向 Nasdaq 刊載的發行人正式公告，明確確認 NYSE: VYLR。
 - 五家共識仍保留 null：PBR、MUFG、MFG、VOD、GIB；跨幣別／口徑待核實，不強行換算。coverage.economic／earnings 仍 incomplete。
 - Work Log 最終同步 blob SHA：e92d2602f593acb9f7643b695b9a765b5eb548e6；commit 71cc72274101d47fd1e058d36678618f7158885d。
+
+
+## 2026-11-06｜W46 第十／十一輪補漏最終狀態
+- W46 最新 blob SHA：25a370db4336f1bbadb523cc1fb8b3f448ad664f；economic 8、earnings 42、audit 16；EPS consensus 37、revenue consensus 37。
+- 第十輪新增 AST SpaceMobile（ASTS，Nasdaq，Q3 2026，11/09 17:00 EST webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，Q3 2026，11/09 16:30 ET call，台灣 11/10 05:30，四星）。
+- 第十一輪新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。四家均有官方時程及美國掛牌證據，EPS／營收共識已補入，basis 未披露者不作 beat/miss 判斷。
+- 最新全面驗收：42 筆財報 ID／ticker 唯一；所有事件日期均在 W46；財報來源、掛牌證據、NYSE／Nasdaq 欄位、TAC 4／5 星完整；經濟事件來源及星等完整。五家仍保留共識 null：PBR、MUFG、MFG、VOD、GIB，因 ADR／ADS 幣別或會計口徑待核實。
+- Work Log 最新同步 blob SHA：90c2be8482a74be6a8ab61836998287234887fd9；更新 commit e6002be83f0552db319429cafa7659110e5d18df。
+- coverage.economic／earnings 仍 incomplete；不宣稱全球掃描完整。未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程。
