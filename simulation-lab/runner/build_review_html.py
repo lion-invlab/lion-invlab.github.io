@@ -361,6 +361,10 @@ def main():
         if p: set_text(p,"下一次會議日期與決策時間以 Federal Reserve 官方日曆為準；本欄不沿用 10 月會議舊資料。")
     health=soup.select_one("#sp500-earnings-health .title small")
     if health: set_text(health,"FactSet 最新可核實快照：2026/10/23；非 11/05 即時統計。")
+    health_panel=soup.select_one("#sp500-earnings-health")
+    if health_panel:
+        for node in health_panel.select(".source, p"):
+            if node.get_text(strip=True): set_text(node,node.get_text(" ",strip=True).replace("10/27","11/05"))
 
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
