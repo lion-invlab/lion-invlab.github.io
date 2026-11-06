@@ -76,9 +76,31 @@ try {
         if (!card.querySelector(".earnings-detail-field label")) invalid.push("card " + (i+1) + ": supporting details missing");
       }
       const sampleGrid = published.querySelector(".earnings-results-grid");
-      const columns = sampleGrid ? getComputedStyle(sampleGrid).gridTemplateColumns.split(" ").length : 0;
-      if (cards.length && columns !== 2) invalid.push("published result grid columns=" + columns + ", expected 2");
-      return { count: cards.length, invalid, columns };
+      let columns = 0;
+      let pairedGeometry = null;
+      if (sampleGrid) {
+        const computed = getComputedStyle(sampleGrid);
+        const children = [...sampleGrid.querySelectorAll(":scope > .earnings-actual-card")];
+        // CSS grid tracks may contain spaces inside minmax()/calc(); whitespace splitting
+        // is not a valid way to count tracks. Count distinct rendered child columns instead.
+        const lefts = [...new Set(children.map(node => Math.round(node.getBoundingClientRect().left)))];
+        columns = computed.display === "grid" ? lefts.length : 0;
+        if (children.length >= 2) {
+          const a = children[0].getBoundingClientRect();
+          const b = children[1].getBoundingClientRect();
+          pairedGeometry = {
+            firstLeft: Math.round(a.left), secondLeft: Math.round(b.left),
+            firstWidth: Math.round(a.width), secondWidth: Math.round(b.width),
+            sameRow: Math.abs(a.top - b.top) <= 2,
+            distinctColumns: Math.abs(a.left - b.left) > 2
+          };
+          if (!pairedGeometry.sameRow || !pairedGeometry.distinctColumns || !a.width || !b.width) {
+            invalid.push("EPS/revenue cards are not visibly side-by-side");
+          }
+        }
+      }
+      if (cards.length && columns !== 2) invalid.push("published result grid rendered columns=" + columns + ", expected 2");
+      return { count: cards.length, invalid, columns, pairedGeometry };
     });
     snapshots[v.name].earnings_component = earningsAudit;
     const economicAudit = await reportPage.evaluate(() => {
