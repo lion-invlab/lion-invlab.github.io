@@ -182,48 +182,48 @@
   },
   "fx": {
     "美元指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "101.55",
+      "change_display": "−0.02%"
     },
     "美元／新台幣": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "33.082",
+      "change_display": "+0.66%"
     },
     "歐元／美元": {
-      "display": "待核實",
+      "display": "1.1218",
       "change_display": "待核實"
     },
     "英鎊／美元": {
-      "display": "待核實",
+      "display": "1.3449",
       "change_display": "待核實"
     },
     "澳幣／美元": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "0.6930",
+      "change_display": "−1.08%"
     },
     "美元／日圓": {
-      "display": "待核實",
+      "display": "157.70",
       "change_display": "待核實"
     }
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "90.52",
+      "change_display": "+2.72%"
     },
     "Brent原油期貨": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "98.29",
+      "change_display": "+3.88%"
     }
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "4,102.50",
+      "change_display": "+0.99%"
     },
     "白銀期貨 SI": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "52.376",
+      "change_display": "+0.18%"
     }
   },
   "risk": {
