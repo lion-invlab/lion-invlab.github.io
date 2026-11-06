@@ -190,7 +190,7 @@ def main():
             if lab and lab.get_text(strip=True)==label: set_text(field.select_one(".econ-value"),value if value is not None else "不適用／待核實")
     cal=unique(soup,"#calendar","economic calendar")
     econ=data.get("calendar",{}).get("events",[])
-    if not econ: raise ValueError("W45 economic calendar data missing")
+    if not econ: raise ValueError("current-week economic calendar data missing")
     title=cal.select_one(".title small")
     if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
     panels=unique(cal,".week-econ-panels","economic panels")
@@ -224,7 +224,7 @@ def main():
         panels.append(group)
     earn=unique(soup,"#earnings","earnings calendar")
     earnings=data.get("earnings",{}).get("events",[])
-    if not earnings: raise ValueError("W45 earnings calendar data missing")
+    if not earnings: raise ValueError("current-week earnings calendar data missing")
     title=earn.select_one(".title small")
     if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
     ep=unique(earn,".week-earnings-panels","earnings panels")
@@ -298,9 +298,89 @@ def main():
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
             listing.append(card)
         ep.append(group)
+    # Monday retrospective: populate dedicated prior-week sections from W45 only.
+    if monday:
+        last_econ = data.get("last_week_calendar", {})
+        last_earn = data.get("last_week_earnings", {})
+        lw = unique(soup, "#last-week-calendar", "last-week economic calendar")
+        lw_title = lw.select_one(".title small")
+        if lw_title:
+            set_text(lw_title, f"{last_econ.get('week_start','')}～{last_econ.get('week_end','')}｜{last_econ.get('week_id','')}｜上週五星事件")
+        lw_details = unique(lw, "details.last-week-calendar-collapse", "last-week economic collapse")
+        lw_list = unique(lw_details, ".econ-event-list", "last-week economic list")
+        lw_template = lw_list.select_one("details.econ-event")
+        if lw_template is None: raise ValueError("Monday mother last-week economic card template missing")
+        lw_list.clear()
+        for x in last_econ.get("events", []):
+            if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
+            card = BeautifulSoup(str(lw_template), "html.parser").select_one("details.econ-event")
+            day, clock = dateparts(x.get("date", ""))
+            if not x.get("time_known", False): clock = "時間未確認"
+            for sel, val in [(".econ-date", day), (".econ-time", clock), (".econ-country", x.get("region", "")), (".econ-name", x.get("name", "")), (".econ-stars", startext(x))]:
+                node = card.select_one(sel)
+                if node: set_text(node, val)
+            fields = {"前值": x.get("previous"), "預估": x.get("forecast"), "實際": x.get("actual"), "市場影響": x.get("impact")}
+            for field in card.select(".econ-field"):
+                label = field.select_one("label"); value = field.select_one(".econ-value")
+                if not label or not value: continue
+                key = label.get_text(strip=True)
+                if key in fields: set_text(value, fields[key] if fields[key] is not None else "不適用／待核實")
+                if key == "來源":
+                    value.clear()
+                    if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
+                    else: value.append("來源待核實")
+            lw_list.append(card)
+        if not lw_list.select("details.econ-event"): raise ValueError("W45 has no verified five-star published economic events")
+        le = unique(soup, "#last-week-earnings", "last-week earnings")
+        le_title = le.select_one(".title small")
+        if le_title: set_text(le_title, f"{last_earn.get('week_start','')}～{last_earn.get('week_end','')}｜{last_earn.get('week_id','')}｜上週五星財報")
+        le_details = unique(le, "details.last-week-earnings-collapse", "last-week earnings collapse")
+        le_list = unique(le_details, ".earnings-accordion-list", "last-week earnings list")
+        le_template = le_list.select_one("details.earnings-accordion")
+        if le_template is None: raise ValueError("Monday mother last-week earnings card template missing")
+        le_list.clear()
+        for x in last_earn.get("events", []):
+            if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
+            card = BeautifulSoup(str(le_template), "html.parser").select_one("details.earnings-accordion")
+            day, clock = dateparts(x.get("date", ""))
+            if not x.get("time_known", False): clock = "時間未確認"
+            fields = [(".earnings-us-date", day), (".earnings-tw-date", ("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")+"；"+clock), (".earnings-company-name", x.get("company","")), (".earnings-company-sub", str(x.get("ticker",""))+"｜"+str(x.get("industry",""))), (".earnings-stars", startext(x))]
+            for sel, val in fields:
+                node = card.select_one(sel)
+                if node: set_text(node, val)
+            details = card.select_one(".earnings-accordion-details")
+            if details:
+                grid = details.select_one(".earnings-results-grid")
+                if grid:
+                    grid.clear()
+                    for label, actual, estimate in [("EPS", x.get("eps_actual"), x.get("eps_estimate")), ("營收", x.get("revenue_actual"), x.get("revenue_estimate"))]:
+                        result = soup.new_tag("div", attrs={"class":["earnings-actual-card","pending"]})
+                        h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
+                        for caption, val in [("實際", actual), ("預期", estimate)]:
+                            line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
+                            lab=soup.new_tag("span"); lab.string=caption
+                            strong=soup.new_tag("strong"); strong.string=str(val) if val is not None else "待核實"
+                            line.append(lab); line.append(strong); result.append(line)
+                        status=soup.new_tag("div", attrs={"class":["earnings-actual-status","pending"]}); status.string="比較口徑待核實"; result.append(status)
+                        grid.append(result)
+                for field in details.select(".earnings-detail-field"):
+                    label = field.select_one("label"); value = field.select_one(".earnings-detail-value")
+                    if not label or not value: continue
+                    name = label.get_text(strip=True)
+                    if name in ("財報判讀","財報判讀與股價反應"):
+                        set_text(value, (x.get("judgment") or "財報數據及市場預期口徑待核實")+"；股價反應："+str(x.get("price_reaction") or "待核實"))
+                    elif name in ("公布時段","股價當日表現"):
+                        set_text(value, "公布時段："+clock+"；股價反應："+str(x.get("price_reaction") or "待核實"))
+                    elif name in ("來源","資料來源"):
+                        value.clear()
+                        if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
+                        else: value.append("來源待核實")
+            le_list.append(card)
+        if not le_list.select("details.earnings-accordion"): raise ValueError("W45 has no verified five-star published earnings")
+
     # Refresh all remaining date-sensitive mother-template text slots.
     bluf_title=bluf.select_one("h1")
-    if bluf_title: set_text(bluf_title,"AI／半導體賣壓引發跨市場避險")
+    if bluf_title: set_text(bluf_title,data.get("summary_title","本週市場主軸與風險觀察"))
     # News cutoff and source labels.
     for sid,items_key,label in [("global-focus","focus_news","全球焦點"),("headlines","headlines","市場熱門頭條")]:
         section=unique(soup,"#"+sid,sid)
@@ -384,7 +464,7 @@ def main():
     # Observation title, market view, levels and core priorities.
     view=unique(soup,"#view","market observation")
     vtitle=view.select_one(".today-focus-title")
-    if vtitle: set_text(vtitle,"今日觀察重點｜2026/11/06（五）")
+    if vtitle: set_text(vtitle,f"盤面觀察重點｜{report_label}（{report_weekday}）")
     market_panel=view.select_one(".focus-panel.focus-market .key")
     if market_panel: set_text(market_panel,data.get("observation","盤面觀察待核實"))
     levels=view.select_one(".focus-panel.focus-levels .key")
@@ -394,7 +474,7 @@ def main():
     # FedWatch is a dated market snapshot, not the old October decision snapshot.
     fed_panel=unique(soup,"#fed .fed-live-watch","FedWatch panel")
     audit=fed_panel.select_one(".fedwatch-time .audit-content")
-    if audit: set_text(audit,"早報資料截點為 2026/11/06 05:25 台灣時間；未取得該截點之前可核實的 FedWatch 機率快照。Investing.com 頁面於當日 17:45 更新的數據晚於早報截點，因此不納入本報。")
+    if audit: set_text(audit,f"早報資料截點為 {report_cutoff} 台灣時間；未取得符合本次截點的可核實 FedWatch 機率快照時，不引用晚間或盤中更新資料。")
     fsrc=fed_panel.select_one(".fc-source")
     if fsrc:
         a=fsrc.select_one("a")
