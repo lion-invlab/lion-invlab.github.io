@@ -912,3 +912,8 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 排除：EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；D-Wave、Wix、Mercury 等已依官方 IR 確認後納入；第三方日曆列出的 VYLR 等尚未取得同等級官方公告／掛牌證據者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。
 - 最新 W46 JSON 回讀 blob SHA：`585260ce7ae044aca6a06d576bcf2e3c35dd2269`；earnings 25、economic 8、audit 7；ID 與 ticker 唯一，所有財報日期落於 W46，均有 source URL、listing_evidence、NYSE/Nasdaq 掛牌欄位及 TAC 4/5 星。coverage.earnings 維持 incomplete，仍不宣稱全市場完整。
 - 下一步：繼續從 W46 大型公司／科技供應鏈候選清單逐筆確認是否已有官方公告及是否達 TAC 四星；另需對本輪新增 7 筆補查可追溯、同口徑 EPS／營收共識，未核實前不得填入。
+
+
+## 2026-11-06｜W46 財報第五輪科技／電信發行人補漏
+- 延續 WR v5.13 及既有 W46 正式 JSON；再增量納入 Sea Limited（NYSE: SE，Q3 2026，5星）、Vodafone Group（Nasdaq ADS: VOD，H1 FY2027，4星）、Rigetti Computing（Nasdaq: RGTI，Q3 2026，4星）。Sea 與 Rigetti 精確時間依官方公告換算；Vodafone 官方只確認 11/10 發布日期，time_known=false，未猜時段。
+- 最新 W46 JSON blob SHA：`553f9a48a33b47c3a4faf06f0331c27e266ab903`；earnings 28、economic 8、audit 8；coverage.earnings=incomplete。下一步仍需持續候選掃描與同口徑共識查核。
