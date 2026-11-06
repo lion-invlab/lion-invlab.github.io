@@ -384,3 +384,12 @@
 ### 尚未完成／限制
 - 真實 Chromium 瀏覽器與視窗尺寸視覺測試未完成：執行環境對 GitHub Pages 外部網頁導覽回報 `ERR_BLOCKED_BY_ADMINISTRATOR`，GitHub raw 網址亦無法由瀏覽器工具讀取；不得宣稱實際畫面或點擊互動已通過。
 - 靜態 CSS／DOM 契約已核實，但紅色圓形控制在 360／390／412／768／1440px 的實際位置、觸控與展開後畫面仍標記「未測試」。
+
+
+## 2026-11-06｜11/06 早報流程重跑測試（WR v5.14）
+- 依使用者指示重新試跑 11/06 早報；重新讀取 main 最新 WR v5.14（blob 80d49eeaa54e16a18dc34416239e4b46664ba44b）、Manifest（fade5e3d88de76a79cb5c1656cc592b98827ab55）、週二至週五母版（3785405e331b10ec6189002e480be2a1edbe20ef）及結構驗收清單 v1.3（74a7c90aaaeee497b7b2b134d9569aee615d95c0）。母版 SHA 與定位契約一致。
+- W45 正式 JSON 回讀 SHA 0a001ae32097d3ab1a6a7bb5b1ff81910aebedf4；18 經濟、42 財報、audit 210。新增 MRNA、HUM、VST、ENB、BAM 五筆 11/06 upcoming 財報；preview 尚未反映。
+- 既有 preview/2026-11-06.html SHA fd1cbc74ed37437c66ccb90a8f88651ac1f6961c，仍標示 W45 JSON 更新時間 06:09，且缺少上述五家公司；因此判定舊 preview 已落後資料庫，不可直接交付為本次重跑成果。首頁 index.html SHA e6a6cc404e91852917693b590d4946dee20bcd56，本輪未改。
+- 執行阻塞於第五步母版 DOM 組裝：本機無法解析 raw.githubusercontent.com（DNS Temporary failure）；GitHub connector 可讀取完整文字，但無法將完整母版載入可用的真正 DOM parser 執行環境。WR v5.14 禁止以 regex／字串切片代替 DOM 定位，故停止寫入，不以不合規方式產生 HTML。
+- 本輪未刷新 44 項行情、未重跑新聞分析、未執行四大 QA；未寫 preview／首頁／母版／Manifest／WR／行事曆 JSON／排程。結論：本次端到端重跑未完成，已證實母版 Guard 入口正常，但 DOM 組裝執行環境仍是阻塞點。
+- Session State 已追加本次狀態並回讀確認；新 blob SHA decb8dc8afe352af66088cceed4494206436e574，commit 71ce7fe422ad6abc4d2c85b44b99512b026e1241。
