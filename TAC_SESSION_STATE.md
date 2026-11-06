@@ -1020,3 +1020,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 正式首頁 index.html 回讀 SHA：e6a6cc404e91852917693b590d4946dee20bcd56；本輪未修改。
 - 流程狀態：第一步規則／母版鎖定完成；第三步讀取最新 W45 JSON 完成；第二步 44 項行情沿用既有報告證據但本輪未重新逐項刷新；第四步新聞與分析尚未重跑；第五步組裝被阻塞。阻塞原因：本執行環境無法解析 GitHub raw host（本機 DNS Temporary failure in name resolution），GitHub connector 雖可讀取檔案內容，但目前無法把完整母版放入可用的真正 DOM parser 執行環境；WR v5.14 明確禁止以 regex／字串切片代替 DOM 定位，因此不得冒險更新 preview。
 - 本輪未寫入 preview、index.html、母版、Manifest、WR、W45／W46 JSON 或排程；四大 QA 未執行，不能宣稱早報重跑成功。下一步須先取得可讀取 repo 檔案且可使用真正 DOM parser 的本機執行環境，再從核准週二至週五母版重新組裝，不能以舊 preview 作為母版。
+
+
+## 2026-11-06｜11/06 早報重跑進度更新（WR v5.14）
+- 重新確認 main 最新 WR v5.14，blob SHA：80d49eeaa54e16a18dc34416239e4b46664ba44b；本輪 W45 更新 commit：a7ee270926e6687e76cf69ec14d5bf6d36890b5b。
+- Manifest SHA：fade5e3d88de76a79cb5c1656cc592b98827ab55；週二至週五母版 SHA：3785405e331b10ec6189002e480be2a1edbe20ef；結構驗收清單 v1.3 SHA：74a7c90aaaeee497b7b2b134d9569aee615d95c0。使用者提供的母版檔案以 Git Blob SHA 驗證與正式母版完全一致，已在本機 lxml DOM parser 解析；DOCTYPE 1、style 120、script 24、ID 175、無重複 ID，主要動態區塊錨點均唯一。阻塞已解除，不再要求使用者重新上傳。
+- W45 正式 JSON：data/calendar/weeks/2026-W45.json；本輪更新後 blob SHA：8187c743deea2d7455fe66e5a90bf97b5b653899；wr_version 5.14、updated_at 2026-11-06T20:31:00+08:00；經濟 18、財報 42、audit 213。coverage.economic／earnings 仍 incomplete，不宣稱全週掃描完整。
+- W45 增量更新：BAM（Brookfield Asset Management）官方 Q3 PDF 已發布，FRE/share US$0.54、總營收 US$2.149B、FRE US$864M、DE US$763M；FRE/share 為公司自訂非GAAP指標，無同口徑共識，不冒充 GAAP EPS 或判定 beat/miss。Humana 原定 06:00 ET 發布，至台灣 20:31 官方新聞稿列表及 SEC 最新申報仍未見 Q3 結果，改為 pending_verification，實績保持 null。其餘 MRNA 21:00、ENB 22:00、VST 23:00 台灣時間仍為 upcoming；美國非農與加拿大就業報告 21:30 台灣時間仍未到發布時間。
+- 44 項市場資料：43 項已核實，CNN Fear & Greed 即時分數仍無法讀取，保留待核實，不沿用母版舊分數。FedWatch Investing.com 12/09/2026 會議：升息一碼 69.9%、維持 30.1%，頁面更新 11/06 06:55 EST；CME 官方嵌入式機率圖未能讀取，未宣稱 CME 數值交叉驗證完成。
+- 市場日期口徑：美股 11/05 收盤、亞洲市場 11/06 正式收盤、歐洲 11/05 最近完成交易日。TWSE 官方 11/06 收盤 39,701.64、-4.51%，覆蓋 Investing 歷史表格錯列 39,717.22；VIX 11/05 28.18、+69.66%；MOVE 97.92、+4.30%。美債採 Treasury 11/05 Par CMT：2Y 4.46%（+7bp）、10Y 4.84%（-6bp）、30Y 5.25%（-3bp）。11 大產業 ETF 全數下跌，XLK -8.00% 為最弱、XLC -0.59% 相對抗跌。
+- S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；依 WR D4 同日 OHLC 計算：第二支撐 7,130.85、第一支撐 7,242.29、中樞 7,461.79、第一壓力 7,573.23、第二壓力 7,792.73。
+- 流程狀態：第一步規則／母版鎖定完成；第二步行情 43/44，CNN 一項待核實；第三步 W45 已更新並回讀驗證；第四步新聞 5 則全球焦點及 10 則熱門頭條仍在整理；第五步 DOM 組裝尚未寫入 preview；四大 QA 尚未執行；第六步尚未交付。未修改 index.html、雙母版、Manifest、WR 或排程。
+- 下一步：完成新聞原文／時間／連結核對與分析，同步整理 W45 已公布及待核實事件；以核准母版 DOM 定位契約更新內容槽位，完成一次四類 QA，通過後才寫入 preview/2026-11-06.html，回讀 SHA 並驗證 Pages；不更新首頁。
