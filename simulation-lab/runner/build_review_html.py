@@ -236,10 +236,41 @@ def main():
                 if node: set_text(node,val)
             detail=card.select(".earnings-detail-value")
             if len(detail)>=5:
-                set_text(detail[0],("盤前／盤後時間待核實" if not clock else clock))
-                set_text(detail[1],f"{x.get('eps_estimate') if x.get('eps_estimate') is not None else '待核實'}／{x.get('eps_actual') if x.get('status')=='released' and x.get('eps_actual') is not None else '待公布'}")
-                set_text(detail[2],f"{x.get('revenue_estimate') if x.get('revenue_estimate') is not None else '待核實'}／{x.get('revenue_actual') if x.get('status')=='released' and x.get('revenue_actual') is not None else '待公布'}")
-                set_text(detail[3],(x.get("judgment") or "財報尚未公布；關注 EPS、營收與公司指引。")+"；股價反應："+str(x.get("price_reaction") or "待核實"))
+                timing_value=("盤前／盤後時間待核實" if not clock else clock)
+                eps_value=f"{x.get('eps_estimate') if x.get('eps_estimate') is not None else '待核實'}／{x.get('eps_actual') if x.get('status')=='released' and x.get('eps_actual') is not None else '待公布'}"
+                revenue_value=f"{x.get('revenue_estimate') if x.get('revenue_estimate') is not None else '待核實'}／{x.get('revenue_actual') if x.get('status')=='released' and x.get('revenue_actual') is not None else '待公布'}"
+                judgment_value=(x.get("judgment") or "財報尚未公布；關注 EPS、營收與公司指引。")+"；股價反應："+str(x.get("price_reaction") or "待核實")
+                if key=="published":
+                    # Published earnings must use the approved paired EPS/revenue result-card structure.
+                    details=card.select_one(".earnings-accordion-details")
+                    original_fields={f.select_one("label").get_text(strip=True):f for f in details.select(":scope > .earnings-detail-field") if f.select_one("label")}
+                    grid=soup.new_tag("div",attrs={"class":["earnings-results-grid"]})
+                    def actual_card(title_text,value_text):
+                        result=soup.new_tag("div",attrs={"class":["earnings-actual-card"]})
+                        heading=soup.new_tag("div",attrs={"class":["earnings-actual-card-title"]}); heading.string=title_text; result.append(heading)
+                        parts=value_text.split("／",1)
+                        for caption,value in [("市場預估",parts[0]),("實際公布",parts[1] if len(parts)>1 else "待核實")]:
+                            line=soup.new_tag("div",attrs={"class":["earnings-actual-line"]})
+                            label_node=soup.new_tag("span"); label_node.string=caption
+                            value_node=soup.new_tag("strong"); value_node.string=value
+                            line.append(label_node); line.append(value_node); result.append(line)
+                        status=soup.new_tag("span",attrs={"class":["earnings-actual-status","pending"]}); status.string="實際數值已列示｜差異判讀見下方"; result.append(status)
+                        return result
+                    grid.append(actual_card("EPS｜預估 vs 實際",eps_value))
+                    grid.append(actual_card("營收｜預估 vs 實際",revenue_value))
+                    details.clear(); details.append(grid)
+                    for field_label in ("公布時段","財報判讀與股價反應","資料來源"):
+                        field=original_fields.get(field_label)
+                        if field:
+                            field["class"]=["earnings-detail-field","wide"]
+                            if field_label=="公布時段": set_text(field.select_one(".earnings-detail-value"),timing_value)
+                            elif field_label=="財報判讀與股價反應": set_text(field.select_one(".earnings-detail-value"),judgment_value)
+                            details.append(field)
+                else:
+                    set_text(detail[0],timing_value)
+                    set_text(detail[1],eps_value)
+                    set_text(detail[2],revenue_value)
+                    set_text(detail[3],judgment_value)
             link=card.select_one(".earnings-detail-value a")
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
             listing.append(card)
