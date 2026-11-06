@@ -415,3 +415,13 @@
 - 5 個美股主要指數已取得 11/05 OHLC 並計算同日五層 pivot 參考位。FactSet 採最新 Q3 scorecard 10/30 與 Q4 EPS revision 11/04 分開呈現。
 - 新聞窗口 11/05 12:00–11/06 20:38:45 TST；全球焦點 5 則、熱門頭條 10 則。ENB/BAM 原始公告只有日期，新聞卡明確標「發布時分待核實」；非農 Investing.com 63k 與 Reuters 調查約65k作不同來源口徑標示。
 - 下一步：以正式週二至週五母版的既有 DOM 節點定位更新各內容槽位；不得重建 DOM/CSS/JS。完成一次四類 QA，未測試項目如實標示；通過後才更新同日 main 預覽檔，回讀 SHA 並檢查 Pages；不修改首頁。
+
+
+## 2026-11-06 20:53｜新聞與分析完成初稿、W45再次回查（WR v5.14）
+
+- W45 再次核對並寫回：blob `ba97b83a48e77859a74841a70c1779e9411a7635`；commit `2352b132f7655a9435478772c221d9a9f682df72`；updated_at `2026-11-06T20:53:04+08:00`；經濟18、財報42、audit219。Humana官方IR新聞稿列表最新仍為10/29股息公告，SEC EDGAR亦未見11/06 Q3財報8-K，維持pending_verification；美國非農及加拿大就業21:30台灣時間仍未到發布時點，actual null。
+- 新聞時間窗口：11/05 12:00至11/06 20:53（台灣時間）。Global Focus 5則均為宏觀：AI交易與資料中心政策疑慮；全球股債避險與亞洲科技股賣壓；加拿大Budget 2026；挪威央行維持4.5%；油輪攻擊及Brent供應風險。Market Hot Headlines 10則：Qualcomm、Toyota、Anthropic IPO、SoftBank CDS、Moderna、Enbridge、Vistra、Brookfield Asset Management、Cloudflare、Atlassian。
+- 時區紀律：Reuters官方時間有UTC標示者照UTC呈現；Investing.com或其他頁面只顯示日期／時間而未標時區者，卡片明確寫「頁面未標時區」，不推定為ET或UTC。新聞均須標原文發布時間、查核時間、直接URL及摘要。Moderna Reuters 11/06 11:50 UTC；Enbridge Reuters 12:08 UTC；Vistra公司新聞稿11/06 12:00 GMT；Cloudflare Business Wire 11/05 16:15 EST；Atlassian Investing.com 11/05 16:16（頁面未標時區）。
+- 分析方向：AI交易估值修正已延伸至資料中心政策與融資風險定價；SOX -12.25%、Nasdaq -5.52%、XLK -8.00%，11個產業ETF全跌；VIX 28.18（+69.66%）、MOVE 97.92（+4.30%），CNN F&G即時值未取得，保留待核實。亞洲11/06日經-5.96%、KOSPI-6.02%、台股官方39,701.64（-4.51%）。市場情緒偏防禦，不以單日波動推論趨勢反轉。
+- S&P500 11/05 OHLC H 7,681.29、L 7,350.35、C 7,353.73；Pivot 7,461.79；S1 7,242.29、S2 7,130.85；R1 7,573.23、R2 7,792.73。
+- Session State已更新（blob `63d42f1f4ea309e8c2a616a5d98e2750004c2d96`）。目前正式母版DOM內容組裝、日曆卡片同步、四類QA與preview更新尚未完成；本輪未修改preview、首頁、雙母版、Manifest或WR，不得宣稱審核版已交付。
