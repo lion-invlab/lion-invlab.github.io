@@ -3,7 +3,7 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-06（台灣時間；雙母版 DOM 定位契約固定化後）
+- 最後更新：2026-11-06（台灣時間；週一母版經濟卡展開控制修復後）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
 - 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
@@ -14,20 +14,22 @@
 完成 TAC 投資早報 R3 可重複、可靠的每日審核版產製流程。2026-11-02（週一）早報已完成審核、使用者核准、更新正式首頁並完成 GitHub Pages 部署。接續主線改為修正正式首頁發布觸發鏈，並收斂每日自動產製流程；不得把本次部署成功誤認為所有 QA 項目永久全通過。
 
 
-## 1A. 2026-11-06 最新主線狀態｜母版 DOM 定位契約
+## 1A. 2026-11-06 最新主線狀態｜週一母版經濟卡展開控制修復
 
+- 最新 main HEAD（本次狀態更新前）：`f6d0bd77c4ca4c0378fc8b0d2dd83b9fed0ddac8`。
 - 最新 WR：v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`。
-- 最新 Manifest：`母版專區/mother-template-manifest.json`，blob SHA `b6a24300276d7bed9dbc74472b42a97313117bd6`。
-- 週一正式母版 SHA：`9a694976772c582cd0e0c21ebff4add6a72c9bee`；週二至週五正式母版 SHA：`3785405e331b10ec6189002e480be2a1edbe20ef`；兩者均與 Manifest 相符。
-- 唯一結構驗收清單已更新為 v1.2，blob SHA `4b08fd5819452174abdefb2070880385a56933ca`。固定 DOM 定位契約直接存於此既有清單，不另建結構資料庫或第二份驗收文件。
-- 已固定共用主要錨點：`#overview`、`#sentiment`、`#news-scan`、`#headlines`、`#global-markets`、`#industry-bonds-fx-commodities`、`#calendar`、`#earnings`、`#sp500-earnings-health`、`#fed`、`#view`。週一另有 `#last-week-calendar`、`#last-week-earnings`；週二至週五禁止出現。
-- 已記錄兩母版的經濟卡 toggle selector 差異：週二至週五本週卡為 `.econ-toggle`；週一上週卡為 `.econ-event-toggle`。另記錄經濟／財報 tabs、事件卡、財報展開卡及 EPS／營收雙卡的巢狀結構。
-- 每日規則：先核對 Manifest 與母版 SHA；SHA 相同即沿用契約，只做錨點唯一性、星期情境及輸出 DOM 驗證，不重新完整分析母版。只有核准母版 SHA 改變且 Manifest 同步後，才解析新版本一次並更新契約。
-- 禁止使用標題文字、註解、字串 index、regex 或固定字元範圍尋找替換邊界；selector 缺失／不唯一／結構不符時停止該區塊寫入，不得猜測或 fallback。每日更新必須使用真正 DOM parser；若執行環境無法提供 DOM parser，停止不安全寫入並如實回報。
-- 本次變更只修改 WR、既有結構驗收清單、Work Log 與本狀態檔；未修改 Manifest、雙母版、首頁、preview、行事曆 JSON、排程或其他程式。
-- **驗收限制：** 本輪完成規則及定位契約固定化，沒有執行真實瀏覽器 DOM／視覺／互動測試，也沒有修改或驗收程式級 assembler。依 WR v5.14，日常早報由 ChatGPT 單一執行者直接組裝；不可把本輪規則更新宣稱為程式級修復或每日預覽 QA 通過。
-- 本次相關 commits：驗收清單 `66281280e1f4ccccc401f4d1132134652f5db755`；WR `a31ee17683309aa5752c37723c14de75cfd7e2ec`；Work Log `c58e774d1156a7460833f1fc0c8bb9aebeaab1d5`。
-- 下一步：下次早報製作直接讀取 WR v5.14、Manifest 及此契約；SHA 相同時不得重新解析母版。組裝時使用 DOM 定位並對輸出執行必要驗證；若工具環境不能實際執行 DOM 操作，明確標示未完成，不得回到字串替換。
+- 最新週一母版：`母版專區/TAC_母版_週一_2026-10-28_最終定版.html`，blob SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`。
+- 最新週二至週五母版：`母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html`，blob SHA `3785405e331b10ec6189002e480be2a1edbe20ef`，未修改。
+- 最新 Manifest：`母版專區/mother-template-manifest.json`，blob SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；週一 SHA 已與母版回讀一致，週二至週五 SHA 保持原值。
+- 唯一結構驗收清單：v1.3，blob SHA `74a7c90aaaeee497b7b2b134d9569aee615d95c0`。週一與週二至週五本週經濟卡均以 `.econ-toggle` 作為展開控制；週一上週經濟卡仍使用 `.econ-event-toggle`。
+- 使用者已明確授權修復週一母版 `#calendar` 的 12 張本週經濟事件卡。已逐一在各 `summary` 內插入既有規格 `<span aria-hidden="true" class="econ-toggle"></span>`，未改 CSS／JavaScript、其他卡片或版面。
+- 靜態回讀驗收：週一 `#calendar` 控制 12／12；週二至週五維持 16 個控制且 SHA 未變；週一 DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184 且無重複。原有 CSS 已核實 32×32px、紅色 `#c62828` 圓形控制，收合顯示「＋」、展開顯示「−」。
+- 本次 commit：`d3bb716ccb4b3bbeec6ca645c1b3bc246ae0e2e1`；修復 diff 僅涉及週一 12 個控制節點、Manifest SHA／變更紀錄及驗收清單 v1.3。
+- 免費執行方式已驗證可行：GitHub 整合完成讀取、blob/tree/commit、main ref 更新及回讀，不需 TinyFish 付費。
+- **QA 限制：** 真實瀏覽器／裝置視覺與點擊互動未測試。執行環境對 GitHub Pages 導覽回報 `ERR_BLOCKED_BY_ADMINISTRATOR`，因此不得宣稱 360／390／412／768／1440px 畫面及互動已通過。DOM／CSS 靜態檢查通過，瀏覽器 QA 保持未測試。
+- Work Log 最新 blob SHA：`59281805de6f93666b4af87962932b2456a323e9`；Work Log 更新 commit：`f6d0bd77c4ca4c0378fc8b0d2dd83b9fed0ddac8`。
+- 下一步：如需完成視覺／互動 Gate，需在可正常存取 GitHub Pages 的瀏覽器環境開啟週一母版或其預覽；未取得瀏覽器證據前不標示該 Gate 通過。
+
 
 ## 2. 正式規則與核准母版（建立時已重新讀取 main）
 
