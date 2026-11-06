@@ -233,3 +233,8 @@
 - 11/06 早報已在先前完成首頁 GitHub 寫入，本輪未重做或覆寫當日報告。
 - 再次 peek：is_enabled=true，但 next_run_time=null；environment_selection=inherited、environments=null；last_run 仍為 11/06 failed run 80f9d5d0-6bd4-8333-8c05-666e8d4b05b5。故尚無新獨立排程 run 的終端成功證據，不能宣稱下一次 05:25 已驗證。
 - 瀏覽器／Playwright QA 未執行；WR、母版、Manifest、preview、首頁及 W45 JSON 均未修改。
+
+
+## 2026-11-06｜05:25 排程 DTSTART 校正
+- 排程重新啟用後 peek 的 next_run_time 仍為 null；因此將原排程 DTSTART 校正至下一個工作日 2026-11-09 05:25 Asia/Taipei，保留原週一至週五 05:25 RRULE。update 回傳 success=true。
+- 更新後再次 peek：is_enabled=true、DTSTART=20261109T052500，但 next_run_time 仍為 null；environment_selection=inherited、environments=null。下次觸發仍未能由工具確認，不能宣稱修復完成。
