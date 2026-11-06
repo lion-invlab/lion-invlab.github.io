@@ -1009,3 +1009,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 非數值型 Treasury 標售、Fed 談話、加拿大央行會議紀要不適用 previous／forecast；所有未來事件 actual 保持 null。
 - 驗收：JSON 可解析、ID 無重複、原始主來源保留、secondary_refs 已記錄、財報 42 筆未變；coverage.economic 仍 incomplete。
 - Work Log 最新 commit：`08e88a2010d9a2b3eeec8e38544740a6d0f00871`；Work Log blob SHA：`69a525cb03835bf8749606d38d6f3323cd286583`。
+
+
+## 2026-11-06｜11/06 早報流程重跑測試（WR v5.14）
+- 使用者要求依最新流程重新試做 2026/11/06 早報；本輪明確保護正式首頁與雙母版，不發布、不改寫 index.html。
+- 開工重新讀取 main 最新 WR v5.14，blob SHA：80d49eeaa54e16a18dc34416239e4b46664ba44b；當時 main HEAD：9a5e0a41e8ff43803fb7d884e9a917cd0514ba4e。
+- Manifest 回讀 SHA：fade5e3d88de76a79cb5c1656cc592b98827ab55；週二至週五正式母版 SHA：3785405e331b10ec6189002e480be2a1edbe20ef，與 Manifest 及結構驗收清單 v1.3 定位契約一致。母版基準統計：DOCTYPE 1、style 120、script 24、ID 175；主要區塊錨點各唯一。
+- 本週 W45 正式 JSON 回讀 SHA：0a001ae32097d3ab1a6a7bb5b1ff81910aebedf4；18 筆經濟、42 筆財報、audit 210；coverage economic／earnings 仍 incomplete。新增五筆 11/06 upcoming 財報：MRNA、HUM、VST、ENB、BAM；未到公布時點，不填實績。
+- 既有 preview/2026-11-06.html 回讀 SHA：fd1cbc74ed37437c66ccb90a8f88651ac1f6961c；行情基準日 11/05，頁尾仍標示 W45 JSON 更新於 06:09，且 HTML 未包含 MRNA、HUM、VST、ENB、BAM。故該 preview 已落後目前 W45 JSON，不能當作本次流程重跑的合格輸出。
+- 正式首頁 index.html 回讀 SHA：e6a6cc404e91852917693b590d4946dee20bcd56；本輪未修改。
+- 流程狀態：第一步規則／母版鎖定完成；第三步讀取最新 W45 JSON 完成；第二步 44 項行情沿用既有報告證據但本輪未重新逐項刷新；第四步新聞與分析尚未重跑；第五步組裝被阻塞。阻塞原因：本執行環境無法解析 GitHub raw host（本機 DNS Temporary failure in name resolution），GitHub connector 雖可讀取檔案內容，但目前無法把完整母版放入可用的真正 DOM parser 執行環境；WR v5.14 明確禁止以 regex／字串切片代替 DOM 定位，因此不得冒險更新 preview。
+- 本輪未寫入 preview、index.html、母版、Manifest、WR、W45／W46 JSON 或排程；四大 QA 未執行，不能宣稱早報重跑成功。下一步須先取得可讀取 repo 檔案且可使用真正 DOM parser 的本機執行環境，再從核准週二至週五母版重新組裝，不能以舊 preview 作為母版。
