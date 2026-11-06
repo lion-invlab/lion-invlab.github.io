@@ -345,3 +345,16 @@
 - Treasury 標售、Fed 談話、加拿大央行會議紀要等非數值型事件，previous／forecast 維持不適用；所有未來事件 actual 保持 null。
 - 寫入後回讀 JSON blob SHA：`02859c30c57b2d697e30da55430ff7ccddde6b88`。驗收：JSON 可解析；經濟事件 15、財報 42、audit 20；事件 ID 無重複；8 筆更新均保留原始官方主來源及 secondary_refs；所有 upcoming actual 仍為 null。仍有一筆初領失業金 forecast 暫缺，因市場共識尚未發布；不可比的 CPI/PPI YoY 預期也明確保留未取得。
 - coverage.economic 維持 incomplete；未修改 W45、WR、Manifest、雙母版、首頁、preview 或排程。
+
+
+## 2026-11-06｜雙母版 DOM 定位契約固定化（WR v5.14）
+
+- 依使用者要求，處理早報組裝時不應每天重新分析固定母版結構的問題。開工先回讀 main 最新 WR v5.13、Manifest、雙母版及唯一結構驗收清單；核准母版 SHA 與 Manifest 一致。
+- 週一母版：`母版專區/TAC_母版_週一_2026-10-28_最終定版.html`，blob SHA `9a694976772c582cd0e0c21ebff4add6a72c9bee`；基準統計 DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184、無重複 ID。
+- 週二至週五母版：`母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html`，blob SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；基準統計 DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 175、無重複 ID。
+- 已確認兩份母版主要動態區塊錨點均唯一，包括 `#overview`、`#sentiment`、`#news-scan`、`#headlines`、`#global-markets`、`#industry-bonds-fx-commodities`、`#calendar`、`#earnings`、`#sp500-earnings-health`、`#fed`、`#view`。週一另有 `#last-week-calendar` 與 `#last-week-earnings`；週二至週五不得出現。
+- 已辨識必須保留的母版差異：週二至週五本週經濟卡使用 `.econ-toggle`，週一上週經濟卡使用 `.econ-event-toggle`；經濟卡、財報卡、已公布財報 EPS／營收雙卡及 tabs 的巢狀結構均寫入唯一驗收附件，禁止統一 selector 後重寫母版。
+- 更新 `母版專區/母版結構驗收清單.md` 至 v1.2，blob SHA `4b08fd5819452174abdefb2070880385a56933ca`，新增 SHA 綁定的固定定位契約、主要錨點表、經濟／財報卡片結構、週一專用結構及每日沿用／重新解析觸發條件。
+- 更新 `TAC_WORK_RULES.md` 至 v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`：母版 SHA 未變時直接沿用契約，每日只做 SHA、錨點唯一性／星期情境及輸出 DOM 驗證；只有核准母版 SHA 改變且 Manifest 同步後才完整重析一次。明確禁止標題文字、註解、字串 index、regex 或固定字元範圍替代 DOM 定位。
+- 本次只修改 WR 與既有驗收清單；未修改 Manifest、雙母版、正式首頁、preview、行事曆 JSON、排程或其他程式。未執行真實瀏覽器 DOM／視覺／互動測試；本次屬規則與定位契約固定化，不宣稱早報組裝器已完成程式級修復或預覽 QA 通過。
+- 更新 commit：驗收清單 `66281280e1f4ccccc401f4d1132134652f5db755`；WR `a31ee17683309aa5752c37723c14de75cfd7e2ec`。
