@@ -158,3 +158,13 @@
 - 最新 preview blob SHA：`635acef6eae9a4a1141f40dc888227f59faa9f8c`；更新 commit：`a85868c2cf50285ffbf7e3c5d3f20113e0ce585f`。
 - 保護確認：`index.html` SHA `64488827b72e01f6054225f444260e3cdf027a57` 未修改；母版、Manifest、W45 JSON 未修改。
 - 未完成：44 項行情完整逐項來源回讀、SOX 差異裁決、新聞與分析閉環、Pages 部署回讀。瀏覽器視覺／互動測試依使用者指示不執行。故本版仍非可交付審核版，亦未發布正式首頁。
+
+
+## 2026-11-06 續作修正與最新驗收
+- 重新讀取 WR、Manifest、核准母版、W45 JSON、Session State、Work Log 及 preview；確認 43/44 項原先完成來源核實，MOVE 後由使用者 06:25 截圖補證，因此 44 項均有有效讀值（43 項指定來源／備援核實＋MOVE 使用者截圖補證）。FedWatch 另列，不計入 44 項。
+- SOX 依 WR 主來源 Investing.com HK 11/05 歷史列採 9,011.2（-12.25%）；Yahoo Finance historical 9,011.14（-12.25%）及 Reuters 下跌超過 12% 交叉支持。Nasdaq overview 動態頁快照不一致，不用其動態快照覆蓋歷史列。
+- Atlassian FY2027 Q1 已補核 11/05 公司新聞稿及 SEC Form 8-K Exhibit 99.1：GAAP diluted EPS 0.35、non-GAAP diluted EPS 1.65、營收 US$1,772.15M、Subscription ARR US$6.812B（+23%），FY2027 Subscription ARR growth outlook 約18.5%。更新熱門頭條及財報卡官方稿連結，移除過時「官方稿待補核」註記。
+- Dow 11/05 OHLC 修正為 H 53,710.61／L 51,486.82／C 51,523.06；重算 S2 50,016.37／S1 50,769.72／P 52,240.16／R1 52,993.51／R2 54,463.95。
+- preview commit 4b23a5089b8a13db46283cf18833a72090812709；最新 blob SHA 9c06929e3b94f381e501c7bec23f82b3004e36ed。寫後回讀：style 120/120、script 24/24 且內容一致；174 IDs 無重複；11 內部錨點無缺失；經濟卡 18/18；本週財報卡 37/37；日期正確，無舊 10/28 報告日期殘留。
+- 正式首頁 SHA 64488827b72e01f6054225f444260e3cdf027a57 未變；母版、Manifest、W45 JSON 未修改。
+- 尚未完成／未測試：Pages 部署回讀；瀏覽器視覺與互動測試依使用者指示不執行；CME FedWatch 精確分布交叉核對未取得。只可稱內容與靜態結構核對完成，不可稱全部 QA Gate 通過，未發布正式首頁。
