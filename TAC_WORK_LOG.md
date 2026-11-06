@@ -264,3 +264,11 @@
 - 排除／跨週判斷：Sony FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告而非季度財報；NVIDIA 11/17、Palo Alto Networks 11/18 屬 W47，不得塞入 W46。Siemens 11/12 雖發布 Q4 結果，但未取得符合本 DB 美國交易所掛牌欄位的 Nasdaq／NYSE 掛牌證據，暫不列入美國掛牌財報清單。
 - 新增三家公司尚未取得可追溯且同口徑 EPS／營收共識，相關欄位保留 null，不採二手預估填值。
 - W46 寫後回讀 blob SHA：`f5148be51199557a638f03be334ae9a67f8b1beb`；commit `db51bb0d306b4b8a30675e8fe9829025139b7ef1`。驗收：earnings 由 15 增至 18、economic 維持 8、audit 增至 6；ID 唯一、日期均在 11/09–11/15、每筆均有來源 URL、均有美國交易所掛牌證據。coverage.earnings 維持 incomplete，仍需持續掃描其他美國掛牌大型公司及 ADR。
+
+
+## 2026-11-06｜W46 財報第四輪科技與大型發行人補漏
+- 依 WR v5.13（blob `27d8065135ec610dce971a5dc1cdc3c00f922bdb`）延續 W46 財報增量掃描。第三方日曆只作候選發現；正式納入須有發行人官方財報公告及美國交易所掛牌證據。
+- 新增 7 筆：HIVE（Nasdaq: HIVE，FY2027 Q2，4星；官方來源 https://www.hivedigitaltechnologies.com/news/hive-digital-technologies-to-release-fiscal-q2-2027-financial-results-on-november-9th-and-hold-earnings-call-on-november-10th/）；Rocket Lab（Nasdaq: RKLB，Q3 2026，5星；https://investors.rocketlabcorp.com/node/13431/pdf）；D-Wave Quantum（Nasdaq: QBTS，Q3 2026，4星；https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Quantum-to-Report-Third-Quarter-2026-Financial-Results-on-November-10-2026/default.aspx）；Wix.com（Nasdaq: WIX，Q3 2026，4星；https://www.wix.com/press-room/home/post/wix-to-announce-third-quarter-2026-results-on-november-10-2026）；Mercury Systems（Nasdaq: MRCY，FY2027 Q1，4星；https://ir.mrcy.com/index.php/news-releases/news-release-details/mercury-systems-report-first-quarter-fiscal-year-2027-financial）；Skydance（NYSE: SKYD，Q3 2026，4星；https://ir.paramount.com/news-releases/news-release-details/skydance-report-third-quarter-2026-financial-results-november-9）；JBS N.V.（NYSE: JBS，Q3 2026，4星；Business Wire 原始發行人公告 https://www.businesswire.com/news/home/20261023951554/en/JBS-to-Host-Third-Quarter-2026-Earnings-Call-on-November-10-2026）。
+- 時間換算均依 2026-11-01 美國夏令時間結束後 EST（UTC−5）換算台灣 UTC+8；事件時間採官方電話會議時間，來源 notes 明確說明財報 release 與 conference call 的時點差異。
+- EchoStar 已於 11/03 提交 10-Q／8-K，排除於 W46 未來事件；VYLR 等未取得發行人官方日期與掛牌證據者暫不納入。共識 EPS／營收尚未逐筆取得同口徑可追溯來源，保持 null。
+- W46 JSON 寫後回讀 SHA：`585260ce7ae044aca6a06d576bcf2e3c35dd2269`；earnings 25、economic 8、audit 7；ID/ticker 唯一、週界正確、每筆 source URL／listing evidence 完整、掛牌欄位有效、TAC 星等均 4/5。coverage.earnings 維持 incomplete。
