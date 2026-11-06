@@ -1060,3 +1060,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ## 2026-11-06 20:56｜W45 財報幣別欄位一致性修正
 - 回查 ENB 卡片時發現 `current-enb-20261106.eps_actual=0.59`、`eps_basis` 明確為 CAD GAAP earnings per common share，但 `eps_currency` 誤填 USD。已更正為 CAD，實績、比較狀態與財報判讀不變。
 - W45 最新 blob SHA：`7cba2c0c48971df37c7b85d3a72e6117893a4ef5`；commit `35b4cd0e274f0bf99adc438c1036783872c98f8d`；updated_at `2026-11-06T20:56:30+08:00`；財報42、經濟18、audit220。
+
+
+## 2026-11-06 21:01｜W45最終欄位校正與審核版寫入阻塞
+- W45最新回讀：`data/calendar/weeks/2026-W45.json` blob SHA `fef9dff14968709974c16096bede07d2efcf103f`；updated_at `2026-11-06T21:00:30+08:00`；WR v5.14；經濟18、財報42、audit221。
+- ENB `current-enb-20261106` 的 EPS 幣別已更正 CAD；VST `current-vst-20261106` 發布時間07:00 ET（台灣20:00）屬美東盤前，session已由during_market更正為before_market；HUM維持pending_verification，官方IR與SEC截至20:53未見Q3結果。
+- 新聞與分析初稿已整理：Global Focus宏觀5則、Market Hot Headlines 10則；資料窗口11/05 12:00–11/06 21:00台灣時間。FactSet S&P 500財報健康度採10/30完整快照，並補入11/03 Mag7與11/04 Q4 EPS預估更新。
+- 正式母版SHA仍為`3785405e331b10ec6189002e480be2a1edbe20ef`；舊同日preview仍為`fd1cbc74ed37437c66ccb90a8f88651ac1f6961c`，內容未更新。嘗試依正式母版組裝新HTML並寫回`preview/2026-11-06.html`時，GitHub寫入動作遭平台安全檢查阻擋；未能完成寫入，未修改任何preview或首頁檔案。不得宣稱新審核版已生成。
+- 待處理：需找到可被允許的HTML檔案交付／GitHub寫入路徑，再完成DOM結構、連結、互動靜態QA；視覺瀏覽器驗證依使用者先前指示不執行，須在審核版註明未測試。首頁index.html、雙母版、Manifest、WR及排程均未修改。
