@@ -595,8 +595,8 @@
         "eps_actual": null,
         "revenue_estimate": null,
         "revenue_actual": null,
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
+        "eps_currency": "BRL",
+        "revenue_currency": "BRL",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -843,8 +843,8 @@
         "eps_actual": null,
         "revenue_estimate": null,
         "revenue_actual": null,
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
+        "eps_currency": "JPY",
+        "revenue_currency": "JPY",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -866,10 +866,10 @@
         "us_listing_exchange": "NYSE",
         "us_listing_ticker": "MUFG",
         "listing_evidence": {
-          "name": "Mitsubishi UFJ Financial Group Investor Relations",
-          "url": "https://www.mufg.jp/english/ir/index.html",
-          "publisher": "Company Investor Relations",
-          "notes": "MUFG 官方公司資料確認 NYSE 掛牌代碼 MUFG；符合美國交易所掛牌資格。"
+          "name": "MUFG Company Overview｜Stock Exchange Listings",
+          "url": "https://www.mufg.jp/english/profile/overview/index.html",
+          "publisher": "Mitsubishi UFJ Financial Group",
+          "notes": "官方公司資料明確列示 New York Stock Exchange（NYSE）及 ticker MUFG。"
         }
       },
       {
@@ -892,8 +892,8 @@
         "eps_actual": null,
         "revenue_estimate": null,
         "revenue_actual": null,
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
+        "eps_currency": "JPY",
+        "revenue_currency": "JPY",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
@@ -915,10 +915,10 @@
         "us_listing_exchange": "NYSE",
         "us_listing_ticker": "MFG",
         "listing_evidence": {
-          "name": "Mizuho Financial Group Investor Relations",
-          "url": "https://www.mizuhogroup.com/investors/Calender",
-          "publisher": "Company Investor Relations",
-          "notes": "Mizuho 官方股票資訊確認 Sponsored Level 2 ADR 於 NYSE 掛牌，代碼 MFG。"
+          "name": "Mizuho Financial Group｜ADR Information",
+          "url": "https://www.mizuhogroup.com/investors/financial-information/stock-information",
+          "publisher": "Mizuho Financial Group",
+          "notes": "官方股票資訊確認 Sponsored Level 2 ADR、NYSE ticker MFG。"
         }
       }
     ]
@@ -963,7 +963,7 @@
         "https://www.investidorpetrobras.com.br/en/investor-services/individual-investor/common-questions/"
       ],
       "checked_at": "2026-11-06T18:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。"
     }
   },
   "audit": [
@@ -1028,6 +1028,26 @@
       },
       "source": "official government statistical calendars, issuer investor-relations calendars and SEC filings",
       "note": "第二輪全球日程及美國掛牌大型企業掃描。加入Eurostat GDP flash及8家經官方確認的美國掛牌財報；日本BOP、韓國BOK一般統計、澳洲ABS非核心項目依TAC星等排除。所有未取得共識保留null。"
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "currency_and_listing_evidence_correction",
+      "event_id": "current-mufg-20261113,current-mfg-20261113,current-pbr-20261110",
+      "changed_fields": [
+        "eps_currency",
+        "revenue_currency",
+        "listing_evidence"
+      ],
+      "before": {
+        "currency": "USD default"
+      },
+      "after": {
+        "MUFG": "JPY",
+        "MFG": "JPY",
+        "PBR": "BRL"
+      },
+      "source": "issuer investor-relations and SEC/ADR evidence",
+      "note": "校正外國發行人財報報表幣別及美國掛牌證據，避免以美國ADR交易代號錯置發行人報表幣別。"
     }
   ]
 }
