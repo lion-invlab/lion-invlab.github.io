@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-06T17:00:00+08:00",
+  "updated_at": "2026-11-06T18:00:00+08:00",
   "source_report_date": "2026-11-06",
   "wr_version": "5.13",
   "status": "active",
@@ -2516,9 +2516,9 @@
         "us_listing_ticker": "VYLR",
         "listing_evidence": {
           "name": "Vylor Investor Relations",
-          "url": "https://www.vylor.com/en/investors/",
-          "publisher": "Company Investor Relations",
-          "notes": "官方公告明確列示美國交易所掛牌代碼 VYLR。"
+          "url": "https://www.nasdaq.com/press-release/vylor-announces-dates-third-quarter-2026-earnings-release-and-webcast-2026-10-06",
+          "publisher": "Vylor issuer announcement via Nasdaq",
+          "notes": "發行人正式公告經 Nasdaq 刊載，明確列示 Vylor, Inc. (NYSE: VYLR)。"
         }
       }
     ]
@@ -2952,6 +2952,24 @@
       },
       "source": "MARA Investor Relations; Vylor Investor Relations and Nasdaq; MarketBeat; The Right Trader",
       "note": "Both issuers have official release schedules and US exchange listing evidence; estimates preserved with basis-not-disclosed caveat."
+    },
+    {
+      "at": "2026-11-06T18:00:00+08:00",
+      "action": "listing_evidence_precision_update",
+      "event_id": "current-vylr-20261111",
+      "changed_fields": [
+        "listing_evidence.url",
+        "listing_evidence.publisher",
+        "listing_evidence.notes"
+      ],
+      "before": {
+        "url": "https://www.vylor.com/en/investors/"
+      },
+      "after": {
+        "url": "https://www.nasdaq.com/press-release/vylor-announces-dates-third-quarter-2026-earnings-release-and-webcast-2026-10-06"
+      },
+      "source": "https://www.nasdaq.com/press-release/vylor-announces-dates-third-quarter-2026-earnings-release-and-webcast-2026-10-06",
+      "note": "Use issuer announcement carried by Nasdaq that explicitly identifies NYSE: VYLR."
     }
   ]
 }
