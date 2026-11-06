@@ -25,17 +25,19 @@ def validate(key: str) -> dict:
     if not cards:
         raise SystemExit(f"{key}: no economic event cards")
     for i, card in enumerate(cards, 1):
-        details = card.select_one(":scope > .econ-details")
-        grid = details.select_one(":scope > .econ-primary-grid") if details else None
+        direct_divs = [node for node in card.find_all("div", recursive=False)]
+        details = next((node for node in direct_divs if "econ-details" in node.get("class", [])), None)
+        detail_divs = [node for node in details.find_all("div", recursive=False)] if details else []
+        grid = next((node for node in detail_divs if "econ-primary-grid" in node.get("class", [])), None)
         if not grid:
             raise SystemExit(f"{key} card {i}: primary comparison grid missing")
         for cls in ("econ-prev", "econ-forecast", "econ-actual"):
-            if len(grid.select(f":scope > .{cls}")) != 1:
+            if sum(cls in node.get("class", []) for node in grid.find_all("div", recursive=False)) != 1:
                 raise SystemExit(f"{key} card {i}: expected exactly one {cls}")
         for cls in ("econ-impact", "econ-source"):
-            if len(details.select(f":scope > .{cls}")) != 1:
+            if sum(cls in node.get("class", []) for node in detail_divs) != 1:
                 raise SystemExit(f"{key} card {i}: expected exactly one full-width {cls}")
-        direct = [x.get("class", []) for x in details.find_all(recursive=False) if x.name == "div"]
+        direct = [x.get("class", []) for x in detail_divs]
         expected = [["econ-primary-grid"], ["econ-field", "econ-impact"], ["econ-field", "econ-source"]]
         if direct != expected:
             raise SystemExit(f"{key} card {i}: five-zone field order mismatch: {direct}")
