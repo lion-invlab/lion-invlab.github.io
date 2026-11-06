@@ -2,6 +2,7 @@
 """Simulation-only DOM updater. Never edits formal scripts or approved master."""
 from __future__ import annotations
 import argparse, hashlib, json, re, sys
+from datetime import datetime, timedelta
 from pathlib import Path
 from bs4 import BeautifulSoup
 
@@ -33,28 +34,36 @@ def main():
     ap.add_argument("--output", required=True)
     ap.add_argument("--expected-master-sha", required=True)
     args=ap.parse_args()
+    data=json.loads(Path(args.data).read_text())
+    report_date=datetime.fromisoformat(data["report_date"]).date()
+    if data.get("timezone")!="Asia/Taipei": raise SystemExit("timezone mismatch")
+    monday = report_date.weekday()==0
     manifest=json.loads(MANIFEST.read_text())
-    template_record = manifest["templates"]["weekdays"]
+    template_record = manifest["templates"]["monday" if monday else "weekdays"]
     master_path = ROOT / template_record.get("simulation_path", "simulation-lab/baseline/weekday-mother-template.html")
     raw = master_path.read_text(encoding="utf-8")
     actual=sha_blob(raw)
     approved=template_record["simulation_blob_sha"]
     if actual!=approved or actual!=args.expected_master_sha:
         raise SystemExit(f"SIMULATION MASTER SHA FAIL actual={actual} manifest={approved} expected={args.expected_master_sha}")
-    data=json.loads(Path(args.data).read_text())
-    if data["report_date"]!="2026-11-06" or data["timezone"]!="Asia/Taipei":
-        raise SystemExit("report date/timezone mismatch")
+    if report_date.weekday()>=5: raise SystemExit("weekend report date is not allowed")
+    report_iso=report_date.isoformat()
+    report_label=f"{report_date.year}/{report_date.month:02d}/{report_date.day:02d}"
+    report_weekday="一二三四五六日"[report_date.weekday()]
+    report_cutoff=f"{report_label} 05:25"
+    previous_trade=data.get("trading_date","待核實")
+    report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
     # Date/title: update only existing text nodes.
     for node in soup.select(".top .report-date, header .report-date"):
         if node.get_text(strip=True):
             # Keep the approved compact inline header; market-basis detail belongs in report content, not the masthead.
-            set_text(node,"｜2026/11/06（五）")
+            set_text(node,f"｜{report_label}（{report_weekday}）")
     for node in soup.select(".top .date, header .date, .date-line"):
         if node.get_text(strip=True):
-            set_text(node,"2026/11/06（五）")
+            set_text(node,f"{report_label}（{report_weekday}）")
     for node in soup.select("title"):
-        set_text(node,"TAC 投資早報｜2026/11/06")
+        set_text(node,f"TAC 投資早報｜{report_label}")
     # Update the approved summary card's text slot without changing wrappers.
     bluf=unique(soup,"#overview > section.grid.two > article.card.bluf","summary")
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
@@ -166,14 +175,13 @@ def main():
         if "資料時間" in span.get_text() or "官方截圖" in span.get_text() or "Investing.com" in span.get_text():
             set_text(span,f"Fed Rate Monitor｜{ts}")
     # Replace stale calendar cards with W45 records frozen at the report cutoff.
-    from datetime import datetime
     def dateparts(v):
         try:
             z=datetime.fromisoformat(v); return z.strftime("%m/%d"), z.strftime("%H:%M") if z.hour or z.minute else "時間未確認"
         except Exception: return "日期待核實","時間未確認"
     def groupkey(x):
         d=(x.get("date") or "")[:10]
-        return "today" if d=="2026-11-06" else ("upcoming" if d>"2026-11-06" else "published")
+        return "today" if d==report_iso else ("upcoming" if d>report_iso else "published")
     def startext(x):
         n=max(0,min(5,int(x.get("stars") or 0))); return "★"*n+"☆"*(5-n)
     def putfield(card,label,value):
@@ -297,18 +305,18 @@ def main():
     for sid,items_key,label in [("global-focus","focus_news","全球焦點"),("headlines","headlines","市場熱門頭條")]:
         section=unique(soup,"#"+sid,sid)
         meta=section.select_one(".tab-panel-meta")
-        if meta: set_text(meta,f"{label}｜資料窗口：2026/11/05 12:00 至 2026/11/06 05:25（台灣時間）")
+        if meta: set_text(meta,f"{label}｜資料窗口：{(report_date-timedelta(days=3)).isoformat()} 12:00 至 {report_cutoff}（台灣時間）")
         for idx,node in enumerate(section.select(".newsitem")):
             metas=node.select(".newsmeta")
             items=data[items_key]
             if idx<len(items) and metas:
                 domain=re.sub(r"^https?://([^/]+).*",r"\1",items[idx].get("url",""))
-                set_text(metas[0],f"資料來源：{domain}｜截至 11/06 05:25")
+                set_text(metas[0],f"資料來源：{domain}｜截至 {report_cutoff}")
     gm=unique(soup,"#global-markets","global markets")
     for i,meta in enumerate(gm.select(".tab-panel-meta")):
-        labels=["美股｜2026/11/05 正式收盤","亞洲市場｜2026/11/05 正式收盤","歐洲市場｜2026/11/05 正式收盤"]
+        labels=[f"美股｜{previous_trade} 正式收盤",f"亞洲市場｜{previous_trade} 最近正式收盤",f"歐洲市場｜{previous_trade} 最近正式收盤"]
         if i<len(labels): set_text(meta,labels[i])
-    for pid,label in [("tac-assets-panel-0","11 檔產業 ETF｜2026/11/05 美股收盤｜依單日漲跌幅排序"),("tac-assets-panel-1","美國公債殖利率｜2026/11/05 官方日終資料"),("tac-assets-panel-2","外匯｜2026/11/05 歷史收盤參考值"),("tac-assets-panel-3","能源期貨｜2026/11/05 收盤"),("tac-assets-panel-4","貴金屬期貨｜2026/11/05 收盤")]:
+    for pid,label in [("tac-assets-panel-0",f"11 檔產業 ETF｜{previous_trade} 美股收盤｜依單日漲跌幅排序"),("tac-assets-panel-1",f"美國公債殖利率｜{previous_trade} 官方日終資料"),("tac-assets-panel-2",f"外匯｜{previous_trade} 歷史收盤參考值"),("tac-assets-panel-3",f"能源期貨｜{previous_trade} 收盤"),("tac-assets-panel-4",f"貴金屬期貨｜{previous_trade} 收盤")]:
         panel=soup.select_one("#"+pid)
         if panel:
             meta=panel.select_one(".tab-panel-meta")
@@ -347,11 +355,11 @@ def main():
     level_source=soup.select_one("#view .focus-panel.focus-levels .source")
     if level_source: set_text(level_source,"支撐與壓力區間未完成 11/05 OHLC 重算，故本版不沿用母版 10/27 價位；取得完整近 20 日序列後再補。")
     status=soup.select_one(".status")
-    if status: set_text(status,"2026/11/06（五）｜週二至週五版；美股行情採 11/05 正式收盤，其他市場依各自 11/05 當地交易日核對。")
+    if status: set_text(status,f"{report_label}（{report_weekday}）｜{report_context}")
     warning=soup.select_one(".data-sync-warning")
-    if warning: set_text(warning,"2026/11/06 早報審核版｜已更新 17 項全球指數、11 檔產業 ETF、3 段美債殖利率及主要匯率／商品；CNN Fear & Greed 與部分匯率日變動仍待核實。FedWatch 未取得 05:25 前快照，不引用晚間更新。")
+    if warning: set_text(warning,f"{report_label} 早報審核版｜市場資料依各自來源與交易日更新；待核實項目不以估值補齊。")
     footer=soup.select_one(".footer")
-    if footer: set_text(footer,"TAC 投資早報｜2026/11/06（五）審核版｜資料截點 2026/11/06 05:25 台灣時間｜行情基準為各市場 2026/11/05 當地正式交易日；未取得一致可追溯資料者標示待核實。本檔為隔離模擬審核版，未發布至正式首頁。")
+    if footer: set_text(footer,f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜資料截點 {report_cutoff} 台灣時間｜行情基準為各市場最近正式交易日；未取得一致可追溯資料者標示待核實。本檔為隔離模擬審核版，未發布至正式首頁。")
 
     # Risk indicators and their source notes.
     for label,change,note in [("VIX","+69.66%","Investing.com 歷史資料｜11/05 收盤 28.18；盤中高點 28.36。"),("MOVE","+4.30%","Investing.com ICE BofAML MOVE 歷史資料｜11/05 收盤 97.92。")]:
@@ -420,7 +428,7 @@ def main():
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()
