@@ -303,13 +303,13 @@
   "bonds": {
     "2年期美債殖利率": {
       "display": "4.51%",
-      "change_display": "待核實",
+      "change_display": "+5bp",
       "source": {
         "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
         "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
         "data_date": "2026-11-06",
-        "quote_type": "daily_close",
-        "note": "11/06 官方 CMT 2Y 4.51%；日變動依獨立來源交叉核對。"
+        "quote_type": "daily_par_yield",
+        "note": "11/06 2Y par yield 4.51%；11/05 為 4.46%，同一官方日度曲線計算單日變動 +5bp。"
       }
     },
     "10年期美債殖利率": {
@@ -521,7 +521,7 @@
       "note": "Fed 官方最新目標利率區間；2026/10/28 FOMC 維持 3.75%–4.00%，有效日期 2026/10/29。"
     }
   },
-  "observation": "亞洲科技權重市場週五仍承受明顯賣壓，日韓台走勢疲弱；美股科技股則出現反彈，標普500收漲0.31%、Nasdaq收漲1.09%，但週線主要指數仍為負報酬。美元走強、長債殖利率維持高檔，使就業韌性對利率定價的影響仍在；本週中國通膨及美國CPI將是檢驗需求與政策路徑的關鍵。觀察科技反彈是否擴散、長債殖利率是否續升，以及油價分化能否緩和通膨壓力。",
+  "observation": "週五美股反彈主要由科技股與小型股帶動，但四大指數週線仍全數收黑，且亞洲科技權重市場此前承受更深的跌幅，顯示這仍是急跌後的修復而非已確認的趨勢反轉。週一先看中國 CPI／PPI 是否支持內需與工業價格修復，再觀察市場能否由半導體擴散至金融、工業與消費；若反彈仍集中於少數 AI 權值股，且美債殖利率續升，追價風險仍高。",
   "calendar": {
     "week_id": "2026-W46",
     "week_start": "2026-11-09",
@@ -2018,5 +2018,56 @@
       "quote_type": "daily_close",
       "note": "11/06 收盤 117.58，前收 117.64，日變動 −0.05%。"
     }
+  },
+  "key_levels": {
+    "baseline_date": "2026-11-06",
+    "formula": "經典樞紐點：P=(H+L+C)/3；S1=2P−H；R1=2P−L。以 2026/11/06 最近一個美股正式交易日 OHLC 計算，供 2026/11/09 交易日參考。",
+    "items": [
+      {
+        "name": "道瓊工業指數",
+        "s1": "50,964.81",
+        "p": "51,313.53",
+        "r1": "51,634.46",
+        "ohlc": "H 51,662.26｜L 50,992.61｜C 51,285.73",
+        "url": "https://finance.yahoo.com/quote/%5EDJI/history/?frequency=1d"
+      },
+      {
+        "name": "S&P 500",
+        "s1": "7,349.54",
+        "p": "7,396.87",
+        "r1": "7,424.19",
+        "ohlc": "H 7,444.20｜L 7,369.55｜C 7,376.86",
+        "url": "https://finance.yahoo.com/quote/%5EGSPC/history/?frequency=1d"
+      },
+      {
+        "name": "Nasdaq Composite",
+        "s1": "24,449.52",
+        "p": "24,637.53",
+        "r1": "24,767.44",
+        "ohlc": "H 24,825.55｜L 24,507.63｜C 24,579.42",
+        "url": "https://finance.yahoo.com/quote/%5EIXIC/history/?frequency=1d"
+      },
+      {
+        "name": "費城半導體指數（SOX）",
+        "s1": "9,198.65",
+        "p": "9,412.95",
+        "r1": "9,604.56",
+        "ohlc": "H 9,627.26｜L 9,221.35｜C 9,390.25",
+        "url": "https://finance.yahoo.com/quote/%5ESOX/history/?frequency=1d"
+      },
+      {
+        "name": "Russell 2000",
+        "s1": "2,729.55",
+        "p": "2,745.56",
+        "r1": "2,770.13",
+        "ohlc": "H 2,761.58｜L 2,721.00｜C 2,754.11",
+        "url": "https://finance.yahoo.com/quote/%5ERUT/history/?frequency=1d"
+      }
+    ]
+  },
+  "core_observation": {
+    "heading": "今日核心觀察",
+    "text": "週一亞股開盤先檢驗中國 10 月 CPI／PPI：若 CPI 回升而 PPI 仍偏弱，代表消費端價格改善未必已傳導至工業企業定價，不能單憑單一通膨數字判定需求全面復甦。第二個焦點是美國就業韌性與 Fed 官員偏鷹訊號，週二美國 CPI 將決定短端利率是否再被上修；若通膨高於預期、2 年期殖利率續升，科技股估值修復可能受阻。第三個焦點是 AI 投資回報：本週半導體、雲端與資料中心相關財報／指引，需同時檢視訂單能見度、資本支出、電力取得及自由現金流；若股價反彈但指引未改善，應視為情緒修復而非基本面確認。",
+    "details": "本活頁依報告日 2026/11/09 的交易順序安排：中國 CPI／PPI 為週一上午首個驗證；美國 10 月 CPI 排定 11/10 21:30（台灣時間）；本週續追蹤美債標售、Fed 官員談話與 AI／半導體企業財報。事件時間及實際值以本週行事曆與發布機構公告為準，未公布數據不預填。"
   }
 }
