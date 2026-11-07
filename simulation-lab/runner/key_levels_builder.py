@@ -36,7 +36,7 @@ def build(payload, report_date):
     if payload.get("report_date") != report_date:
         raise ValueError("report_date mismatch between OHLC input and report fixture")
     trading_date = payload.get("trading_date")
-    if not re.fullmatch(r"20\\d{2}-\\d{2}-\\d{2}", str(trading_date or "")):
+    if not re.fullmatch(r"20\d{2}-\d{2}-\d{2}", str(trading_date or "")):
         raise ValueError("invalid trading_date")
     items = payload.get("items")
     if not isinstance(items, list):
