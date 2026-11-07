@@ -42,6 +42,7 @@ jobs:
           python scripts/validate_tac_daily_snapshot.py --self-test
           python scripts/assemble_tac_daily_snapshot.py --self-test
           python scripts/render_tac_market_snapshot_to_html.py --help >/dev/null
+          python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09 --self-test
 
       - name: Set up Node for browser regression
         uses: actions/setup-node@v4
@@ -56,6 +57,9 @@ jobs:
 
       - name: Validate simulation dual mother five-zone layout
         run: python simulation-lab/runner/validate_dual_mothers.py
+
+      - name: Build 11/09 key levels from normalized source OHLC input
+        run: python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09
 
       - name: Assemble 11/09 Monday simulation review HTML from approved Monday mother
         run: |
