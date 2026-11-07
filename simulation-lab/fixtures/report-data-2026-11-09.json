@@ -8,59 +8,52 @@
     {
       "title": "美國就業數據強於預期，市場重新評估 Fed 年底利率路徑",
       "summary": "美國 10 月非農就業增加 16.5 萬人，失業率降至 4.1%，高於市場原先預期。就業韌性降低短期降息想像，也使本週 CPI 對利率定價更重要。",
-      "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
+      "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm",
+      "published_at_tw": "2026/11/06 21:30"
     },
     {
-      "title": "科技股急跌後反彈，Nasdaq 仍連續第四週下跌",
-      "summary": "科技股週五自前一日重挫中反彈，但 Nasdaq 仍錄得連續第四週週線下跌，市場持續評估 AI 投資交易的後續風險。",
-      "url": "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/"
+      "title": "IMF 總裁：AI 成長若放緩，央行須納入通膨與金融穩定評估",
+      "summary": "Kristalina Georgieva 指出，AI 投資熱潮支撐部分經濟體成長，也帶來通膨與金融穩定風險；若 AI 成長動能放緩，央行制定抗通膨政策時必須納入考量。",
+      "url": "https://www.reuters.com/business/imfs-georgieva-says-any-slowdown-ai-driven-growth-would-be-factor-central-banks-2026-11-06/",
+      "published_at_tw": "2026/11/07 07:52"
     },
     {
-      "title": "美股進入新一週仍受 AI 賣壓牽制，焦點轉向美國通膨",
-      "summary": "Reuters 指出，科技股與 AI 相關股票急跌後，投資人將關注 10 月 CPI、Fed 利率預期，以及大型 AI 基礎建設企業接下來的財報。",
-      "url": "https://www.reuters.com/business/wall-st-week-ahead-tech-swoon-roils-market-us-inflation-data-tap-2026-11-06/"
+      "title": "Fed 官員 Daly：即使科技股重估，進一步升息仍可能有必要",
+      "summary": "舊金山聯準銀行總裁 Mary Daly 表示，若通膨仍過高，Fed 可能需要進一步緊縮；她同時形容科技股重新定價雖痛苦，但目前仍屬有序調整。",
+      "url": "https://www.reuters.com/business/daly-says-fed-rate-hike-likely-despite-painful-tech-stock-dive-2026-11-06/",
+      "published_at_tw": "2026/11/07 02:32"
     },
     {
-      "title": "亞洲市場承受 AI 科技股修正衝擊，區域股市走勢分化",
-      "summary": "亞洲科技權重市場遭遇明顯賣壓，投資人擔心 AI 基礎建設投資放緩及監管風險升高，半導體供應鏈成為焦點。",
-      "url": "https://www.fidelity.com/news/article/international/202611052253RTRSNEWSCOMBINED_L2N46N03I_1"
-    },
-    {
-      "title": "美股部分回穩但週線仍收低，市場聚焦就業與通膨拉鋸",
-      "summary": "美股主要指數週五表現分歧，科技股反彈未完全抵銷本週跌幅；強勁就業數據則令債券市場重新評估利率風險。",
-      "url": "https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad"
+      "title": "QatarEnergy 洽談採購美國 LNG，供應鏈布局延伸至新液化產能",
+      "summary": "QatarEnergy 正與 NextDecade 洽談採購其德州 Rio Grande LNG 設施第六列產能，規模最高每年 200 萬噸；該項目仍處許可程序，尚未作出最終投資決定。",
+      "url": "https://www.reuters.com/business/energy/qatarenergy-eyes-nextdecade-train-6-supply-latest-us-lng-push-sources-say-2026-11-06/",
+      "published_at_tw": "2026/11/07 05:20"
     }
   ],
   "headlines": [
     {
-      "title": "Amadeus 第三季核心獲利符合預期，全年展望維持區間下緣",
-      "summary": "旅遊科技公司 Amadeus 表示訂位量較前季改善，但全年財測維持在原區間較低端，反映旅遊需求與成本環境仍有壓力。",
-      "url": "https://www.reuters.com/business/amadeus-meets-profit-expectations-reiterates-2026-guidance-lower-end-range-2026-11-06/"
+      "title": "Amadeus 第三季核心獲利大致符合預期，全年展望落在原區間下緣",
+      "summary": "旅遊科技公司 Amadeus 表示訂位量較前季改善，但全年展望仍落在原指引區間下緣，並指出中東衝突持續影響業務；第三季核心獲利略高於 LSEG 平均預估。",
+      "url": "https://www.reuters.com/business/amadeus-meets-profit-expectations-reiterates-2026-guidance-lower-end-range-2026-11-06/",
+      "published_at_tw": "2026/11/06 15:24"
     },
     {
-      "title": "AI 科技股反彈仍難扭轉 Nasdaq 週線連跌",
-      "summary": "晶片股自前一交易日大幅下跌後回升，但 Nasdaq 仍連續第四週下跌，顯示資金對 AI 交易的信心尚未完全恢復。",
-      "url": "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/"
+      "title": "OpenAI 完成 110 億美元新一輪融資，估值約 1.25 兆美元",
+      "summary": "Reuters 引述知情人士指出，OpenAI 已完成新一輪融資的首部分，SoftBank 與 MGX 參與；本輪原先目標最高 300 億美元，估值亦低於先前尋求的 1.5 兆美元。",
+      "url": "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/",
+      "published_at_tw": "2026/11/07 05:12"
     },
     {
-      "title": "Reuters：投資人將檢視 AI 基礎建設支出與獲利可持續性",
-      "summary": "市場關注 CoreWeave、Applied Materials、Cisco 等企業後續財報，重點在 AI 算力需求、資本支出融資及投資回收週期。",
-      "url": "https://www.reuters.com/business/wall-st-week-ahead-tech-swoon-roils-market-us-inflation-data-tap-2026-11-06/"
+      "title": "Google 收購 Crusoe 在懷俄明州的資料中心基地，擴大 AI 基礎設施布局",
+      "summary": "Google 收購 Crusoe 位於懷俄明州的資料中心基地；Alphabet 前一日宣布對該項目投資 170 億美元，交易財務條款未披露。",
+      "url": "https://www.reuters.com/business/google-acquires-wyoming-data-center-site-ai-infrastructure-firm-crusoe-2026-11-06/",
+      "published_at_tw": "2026/11/07 04:00"
     },
     {
-      "title": "美國非農就業增加 16.5 萬人，失業率降至 4.1%",
-      "summary": "官方就業報告顯示勞動市場比預期強韌，平均時薪月增 0.4%；數據提高市場對 Fed 維持緊縮立場的敏感度。",
-      "url": "https://www.bls.gov/news.release/archives/empsit_11062026.htm"
-    },
-    {
-      "title": "Cloudflare 第三季營收年增 39%，年度化營收跨越 30 億美元",
-      "summary": "Cloudflare 公布第三季營收 7.825 億美元，年增 39%，並表示當季成長速度為近四年最快；此為公司正式財報公告。",
-      "url": "https://www.cloudflare.com/press/press-releases/2026/cloudflare-announces-third-quarter-2026-financial-results/"
-    },
-    {
-      "title": "AMD 第三季資料中心營收年增 97%，公司提高第四季營收展望",
-      "summary": "AMD 官方財報顯示資料中心業務持續擴張，第四季營收展望約 170 億美元，反映 AI 加速器需求仍強，但市場仍將檢視供應與毛利率兌現。",
-      "url": "https://ir.amd.com/financial-information/sec-filings/content/0000002488-26-000188/q32026991.htm"
+      "title": "美股科技股反彈，Nasdaq 仍錄得連續第四週週線下跌",
+      "summary": "晶片股自前一日重挫後回升，但 Nasdaq 仍連續第四週下跌；Reuters 指出市場仍在評估 AI 交易的後續發展與投資風險。",
+      "url": "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/",
+      "published_at_tw": "2026/11/06 17:41"
     }
   ],
   "global_markets": {
@@ -1502,9 +1495,11 @@
   "summary_title": "美股反彈未消除全球科技股修正壓力",
   "market_comments": {
     "global_markets": [
+      "📌 亞股摘要｜日韓台科技權重市場遭遇集中賣壓，反映美國 AI 估值重估快速傳導至半導體供應鏈；後續需追蹤晶片企業訂單、庫存與資本支出指引，確認是否由估值修正轉為基本面下修。",
+      "📌 歐股摘要｜英德法主要指數同步走低，市場風險調整已超出美國科技板塊；歐洲工業、能源與金融股的相對抗跌能力，將影響區域指數能否止穩。",
       "📌 美股觀察｜週五科技股反彈帶動 Nasdaq 與小型股回升，但 Dow 仍收低；週線主要指數仍為負報酬，反彈尚不足以確認趨勢反轉。",
-      "📌 亞股觀察｜日經、KOSPI 與台股同步大幅回落，半導體與大型科技權重集中，使亞洲市場承受比美股更直接的估值修正壓力；需觀察供應鏈公司財報與外資流向。",
-      "📌 歐股觀察｜英德法主要指數同步走弱，顯示風險調整並非只限於美國科技股；後續需觀察能源、工業與金融類股是否擴大跌勢。"
+      "📌 亞洲市場觀察｜日經、KOSPI 與台股跌幅集中於科技權重較高的市場；若記憶體、晶圓代工與設備股後續財報下修，區域市場可能持續落後。",
+      "📌 歐洲市場觀察｜歐洲股市跌幅小於部分亞洲科技市場，但能源成本、利率與企業指引仍是主要變數；需觀察市場是否由科技股風險擴散至工業與消費。"
     ],
     "sectors": "📌 產業觀察｜週五科技與通訊服務 ETF 領漲，必需消費及金融相對落後；這與前一日科技股急跌形成反彈，但單日領漲不代表週線風險已解除。",
     "bonds": "📌 債券觀察｜美國公債殖利率週五回升，與前一日避險買盤形成反向變化；強勁就業數據可能推升短端利率預期，需觀察本週 CPI 是否確認通膨黏性。",
@@ -1617,5 +1612,28 @@
         "time_known": true
       }
     ]
-  }
+  },
+  "summary_points": [
+    {
+      "label": "反彈不等於風險解除",
+      "text": "美股科技權值股在急跌後回升，但亞洲科技權重市場承受更大壓力，跨市場修正尚未收斂。"
+    },
+    {
+      "label": "AI 投資主線進入驗證期",
+      "text": "市場焦點由資本支出規模轉向資料中心投資回收、電力供應、監管成本與終端需求能否同步成長。"
+    },
+    {
+      "label": "宏觀數據重新牽動利率定價",
+      "text": "美國就業韌性提高市場對政策利率維持高檔甚至再升息的敏感度；本週 CPI 將是下一個關鍵驗證點。"
+    },
+    {
+      "label": "區域市場分化擴大",
+      "text": "亞洲半導體供應鏈承受集中賣壓，歐美市場雖有反彈，內部產業表現仍不一致，不能只看大型指數回升。"
+    },
+    {
+      "label": "短線觀察條件",
+      "text": "需確認科技股反彈能否擴散至更多產業、債券殖利率是否續升，以及 CPI 是否改變市場對 Fed 年底政策路徑的預期。"
+    }
+  ],
+  "warning_note": "W45 與 W46 行事曆資料庫 coverage 均為 incomplete；本版僅呈現符合 TAC 星等與已核實條件的事件。行情缺值維持待核實，不以舊日報價補填。"
 }

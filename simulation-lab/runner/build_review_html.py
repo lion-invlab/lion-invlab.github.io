@@ -67,7 +67,15 @@ def main():
     # Update the approved summary card's text slot without changing wrappers.
     bluf=unique(soup,"#overview > section.grid.two > article.card.bluf","summary")
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
-    set_text(summary,data["summary"])
+    if data.get("summary_points"):
+        summary.clear()
+        for point in data["summary_points"]:
+            p=soup.new_tag("p")
+            label=soup.new_tag("strong"); label.string=point["label"]
+            p.append(label); p.append("｜"+point["text"])
+            summary.append(p)
+    else:
+        set_text(summary,data["summary"])
     # Market sentiment narrative: keep card structure, replace the narrative paragraph only.
     sent=unique(soup,"#sentiment","sentiment")
     paragraphs=sent.select("p")
@@ -453,18 +461,28 @@ def main():
         section=unique(soup,"#"+sid,sid)
         meta=section.select_one(".tab-panel-meta")
         if meta: set_text(meta,f"{label}｜資料窗口：{(report_date-timedelta(days=3)).isoformat()} 12:00 至 {report_cutoff}（台灣時間）")
-        for idx,node in enumerate(section.select(".newsitem")):
+        news_nodes=section.select(".newsitem")
+        for idx,node in enumerate(news_nodes):
+            if idx>=len(items):
+                node.decompose()
+                continue
+            item=items[idx]
+            if not item.get("url") or not item.get("published_at_tw"):
+                raise ValueError(f"{sid}[{idx}] missing original URL or verified Taiwan publication time")
+            if not item["url"].startswith("https://"):
+                raise ValueError(f"{sid}[{idx}] non-HTTPS source URL")
             metas=node.select(".newsmeta")
-            items=data[items_key]
-            if idx<len(items) and metas:
-                domain=re.sub(r"^https?://([^/]+).*",r"\1",items[idx].get("url",""))
+            if metas:
+                domain=re.sub(r"^https?://([^/]+).*",r"\1",item["url"])
                 metas[0].clear()
                 metas[0].append("資料來源：")
-                if idx<len(items) and items[idx].get("url"):
-                    metas[0].append(source_link(items[idx]["url"],domain))
-                else:
-                    metas[0].append(domain)
-                metas[0].append(f"｜截至 {report_cutoff}")
+                metas[0].append(source_link(item["url"],domain))
+                metas[0].append("｜發布："+item["published_at_tw"])
+                metas[0].append(f"｜截稿 {report_cutoff}")
+    focus_urls={x.get("url") for x in data.get("focus_news",[])}
+    headline_urls={x.get("url") for x in data.get("headlines",[])}
+    if focus_urls & headline_urls:
+        raise ValueError("duplicate original news URL across Global Focus and Market Headlines")
     gm=unique(soup,"#global-markets","global markets")
     for i,meta in enumerate(gm.select(".tab-panel-meta")):
         labels=[f"美股｜{previous_trade} 正式收盤",f"亞洲市場｜{previous_trade} 最近正式收盤",f"歐洲市場｜{previous_trade} 最近正式收盤"]
