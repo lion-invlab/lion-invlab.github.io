@@ -254,14 +254,6 @@ def main():
             body = detail.select_one(".source")
             if body:
                 set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項應視為待核實。")
-    # The health dashboard is explicitly a historical FactSet snapshot, not a live 11/09 metric.
-    # Keep its historical date but remove any wording that can imply current-report data.
-    for node in soup.select("#health-dashboard .tab-panel-meta, #health-dashboard .title small"):
-        if node:
-            set_text(node, "FactSet 歷史快照｜2026/10/23（非本期即時統計；不得作為 11/09 市場數據）")
-    for node in soup.find_all(string=True):
-        if "本週重點財報時程請參考下方 W46 財報行事曆；本區數據僅為10/23歷史快照。" in str(node):
-            node.replace_with("本週重點財報時程請參考下方 W46 財報行事曆；本區為 2026/10/23 歷史快照，非本期即時統計。")
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
