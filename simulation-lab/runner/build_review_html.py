@@ -48,10 +48,16 @@ def main():
     ap.add_argument("--key-levels-live", help="optional live OHLC capture envelope produced by collect_key_levels_ohlc.py")
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text())
+    is_live_key_levels = False
     if args.key_levels_live:
         live=json.loads(Path(args.key_levels_live).read_text(encoding="utf-8"))
         if live.get("report_date") != data.get("report_date"):
             raise ValueError("live key-level report_date does not match report JSON")
+        is_live_key_levels = (
+            bool(live.get("captured_at_taipei"))
+            and live.get("captured_at_taipei") != "fixture-only"
+            and live.get("source") != "deterministic fixture; not live market data"
+        )
         levels=live.get("key_levels")
         if not isinstance(levels, dict) or levels.get("baseline_date") != live.get("trading_date"):
             raise ValueError("live key-level baseline_date/trading_date mismatch")
@@ -398,10 +404,12 @@ def main():
         if node.get_text(strip=True):
             set_text(node, f"{report_label}（{report_weekday}）｜週一審核版；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
     for warning in soup.select(".data-sync-warning"):
-        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。缺少來源／日期的行情依 fail-closed 規則顯示待核實；本檔僅供模擬區審核，未發布至正式首頁。")
+        scope_note = "五項關鍵價位已採即時 OHLC 擷取；其餘行情、新聞及行事曆仍為模擬 fixture，並非完整 live-data E2E。" if is_live_key_levels else "資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。"
+        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note} 缺少來源／日期的行情依 fail-closed 規則顯示待核實；本檔僅供模擬區審核，未發布至正式首頁。")
     footer = soup.select_one("footer.footer")
     if footer:
-        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜缺少來源或日期的項目明確標示待核實；本版由固定 JSON fixture 組裝，非 live data E2E。資訊整理與教育用途，不構成投資建議。")
+        scope_note = "五項關鍵價位採即時 OHLC 擷取；其餘行情、新聞與行事曆仍為模擬 fixture，非完整 live-data E2E" if is_live_key_levels else "本版由固定 JSON fixture 組裝，非 live data E2E"
+        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜缺少來源或日期的項目明確標示待核實；{scope_note}。資訊整理與教育用途，不構成投資建議。")
     # Remove duplicate timezone suffix from preformatted window label.
     news_window_label = news_window_label.replace("（台灣時間）", "")
     # The three Today Focus tabs are updated atomically below; do not clear their approved DOM here.
