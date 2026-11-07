@@ -35,6 +35,30 @@ def main():
     ap.add_argument("--expected-master-sha", required=True)
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text())
+    # Fail closed on quote records without a traceable source and item-level date.
+    # A top-level trading_date is not evidence that every market item was updated that day.
+    market_groups = ["global_markets", "bonds", "fx", "energy", "metals"]
+    for group_name in market_groups:
+        for item_name, record in data.get(group_name, {}).items():
+            source = record.get("source") if isinstance(record, dict) else None
+            if not isinstance(source, dict) or not source.get("name") or not source.get("url") or not source.get("data_date"):
+                if isinstance(record, dict):
+                    record["display"] = "待核實"
+                    record["change_display"] = "待核實"
+                    record["qa_status"] = "missing_item_source_or_date"
+    for key in ["vix", "move", "fear_greed"]:
+        record = data.get("risk", {}).get(key, {})
+        source = record.get("source") if isinstance(record, dict) else None
+        item_date = (source or {}).get("data_date") or record.get("as_of_date") or record.get("as_of")
+        if not isinstance(source, dict) or not source.get("name") or not source.get("url") or not item_date:
+            record["display"] = "待核實"
+            record["change_display"] = "待核實"
+            record["qa_status"] = "missing_item_source_or_date"
+    sector_sources = data.get("sector_sources", {})
+    for ticker in list(data.get("sectors", {})):
+        source = sector_sources.get(ticker, {})
+        if not source.get("name") or not source.get("url") or not source.get("data_date"):
+            data["sectors"][ticker] = "待核實"
     report_date=datetime.fromisoformat(data["report_date"]).date()
     if data.get("timezone")!="Asia/Taipei": raise SystemExit("timezone mismatch")
     monday = report_date.weekday()==0
