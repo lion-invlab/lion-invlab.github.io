@@ -603,13 +603,24 @@ def main():
         if abs(total-100)>0.2: raise ValueError(f"FedWatch distribution totals {total}")
         hold=[x for x in outcomes if x["outcome"]=="hold"]
         nonhold=[x for x in outcomes if x["outcome"]!="hold"]
-        if len(hold)!=1: raise ValueError("cannot safely aggregate multiple hold outcomes")
+        current_range=data["fedwatch"].get("current_target_range")
+        if len(hold)!=1 or not current_range:
+            raise ValueError("FedWatch requires one hold outcome and the official current target range")
+        if hold[0].get("rate_range") != current_range:
+            raise ValueError(f"FedWatch hold range {hold[0].get('rate_range')} does not match current target range {current_range}")
+        directions={x.get("outcome") for x in nonhold}
+        if directions=={"hike"}:
+            nonhold_label="升息一碼" if len(nonhold)==1 else "升息機率（合計）"
+        elif directions=={"cut"}:
+            nonhold_label="降息一碼" if len(nonhold)==1 else "降息機率（合計）"
+        else:
+            nonhold_label="政策區間變動（合計）"
         set_text(unique(rows[0],"strong","hold prob"),f'{float(hold[0]["probability"]):.1f}%')
-        set_text(unique(rows[0],".fc-range","hold range"),hold[0]["rate_range"])
+        set_text(unique(rows[0],".fc-range","hold range"),current_range)
         set_text(unique(rows[0],".fc-prob-label span:not(.fc-dot)","hold label"),"維持不變")
         set_text(unique(rows[1],"strong","non-hold prob"),f'{sum(float(x["probability"]) for x in nonhold):.1f}%')
-        set_text(unique(rows[1],".fc-range","non-hold range"),"；".join(f'{x["outcome"]} {float(x["probability"]):.1f}%（{x["rate_range"]}）' for x in nonhold))
-        set_text(unique(rows[1],".fc-prob-label span:not(.fc-dot)","non-hold label"),"政策區間變動（合計）")
+        set_text(unique(rows[1],".fc-range","non-hold range"),"；".join(f'{x["rate_range"]} {float(x["probability"]):.1f}%' for x in nonhold))
+        set_text(unique(rows[1],".fc-prob-label span:not(.fc-dot)","non-hold label"),nonhold_label)
         if bar:
             spans=bar.select("span")
             if len(spans)==2:
@@ -873,7 +884,8 @@ def main():
         press = fed.select_one(".fc-fomc-press b")
         if press: set_text(press, "2026/12/10 03:30")
         rate = fed.select_one(".fc-fomc-rate b")
-        if rate: set_text(rate, "3.75%–4.00%")
+        current_target_range = data.get("fedwatch", {}).get("current_target_range", "待核實")
+        if rate: set_text(rate, current_target_range.replace("–", "%–") + ("%" if current_target_range != "待核實" and not current_target_range.endswith("%") else ""))
         rate_date = fed.select_one(".fc-fomc-rate small")
         if rate_date: set_text(rate_date, "Fed官方最新資料：2026/10/29")
         observation = fed.select_one(".fc-fomc-observation b")
@@ -881,8 +893,9 @@ def main():
         hold = next((x for x in probabilities if x.get("outcome") == "hold"), None)
         changed = [x for x in probabilities if x.get("outcome") != "hold"]
         if observation and hold:
+            change_label = "升息" if changed and all(x.get("outcome")=="hike" for x in changed) else "降息" if changed and all(x.get("outcome")=="cut" for x in changed) else "政策區間變動"
             change_text = "；".join(f"{x.get('rate_range')} {float(x.get('probability',0)):.1f}%" for x in changed)
-            set_text(observation, f"12/09會議機率：維持 {hold.get('rate_range')} {float(hold.get('probability',0)):.1f}%；政策區間變動 {change_text}。")
+            set_text(observation, f"12/09會議機率：維持 {hold.get('rate_range')} {float(hold.get('probability',0)):.1f}%；{change_label}機率 {change_text}。")
         fed_source = fed.select_one(".fc-source")
         if fed_source:
             fed_source.clear()
