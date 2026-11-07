@@ -5,14 +5,16 @@ import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 
 const reportPath = process.argv[2] || "simulation-lab/fixtures/existing-preview-2026-11-06.html";
-const reportDate = "2026-11-06";
-const manifest = JSON.parse(fs.readFileSync("母版專區/mother-template-manifest.json", "utf8"));
-const master = manifest.templates.weekdays;
-const masterBytes = fs.readFileSync(master.path);
+const templateKey = process.argv[3] || "weekdays";
+const reportDate = process.argv[4] || "2026-11-06";
+const manifest = JSON.parse(fs.readFileSync("simulation-lab/baseline/mother-template-manifest.json", "utf8"));
+const master = manifest.templates[templateKey];
+const masterPath = master.simulation_path;
+const masterBytes = fs.readFileSync(masterPath);
 const gitBlobSha = crypto.createHash("sha1").update(Buffer.concat([
   Buffer.from(`blob ${masterBytes.length}\0`), masterBytes
 ])).digest("hex");
-if (gitBlobSha !== master.blob_sha) throw new Error(`母版 SHA 不符：Manifest=${master.blob_sha} actual=${gitBlobSha}`);
+if (gitBlobSha !== master.simulation_blob_sha) throw new Error(`模擬母版 SHA 不符：Manifest=${master.simulation_blob_sha} actual=${gitBlobSha}`);
 if (!fs.existsSync(reportPath)) throw new Error(`審核版不存在：${reportPath}`);
 
 const output = "simulation-lab/output/visual";
@@ -20,7 +22,7 @@ fs.mkdirSync(output, { recursive: true });
 const selectors = [
   ".top", ".nav", ".wrap", ".bluf", ".sent", "#overview", "#sentiment",
   "#news-scan", "#global-markets", "#industry-bonds-fx-commodities",
-  "#calendar", "#earnings", "#sp500-earnings-health", "#fed", "#view", ".footer"
+  "#calendar", "#earnings", "#last-week-calendar", "#last-week-earnings", "#sp500-earnings-health", "#fed", "#view", ".footer"
 ];
 const viewports = [
   { name: "desktop-1440", width: 1440, height: 1000 },
@@ -74,7 +76,7 @@ try {
     await reportPage.waitForTimeout(80);
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
-      const published = groups[2];
+      const published = document.querySelector("#last-week-earnings .calendar-status-group") || groups[2];
       if (!published) return { count: 0, invalid: ["published group missing"] };
       const cards = [...published.querySelectorAll("details.earnings-accordion")];
       const invalid = [];
@@ -178,8 +180,8 @@ try {
   await browser.close();
 }
 fs.writeFileSync(path.join(output, "visual-regression.json"), JSON.stringify({
-  report_date: reportDate, report_path: reportPath, master_path: master.path,
-  master_blob_sha: gitBlobSha, viewports, failures, snapshots
+  report_date: reportDate, report_path: reportPath, master_path: masterPath,
+  master_blob_sha: gitBlobSha, template: templateKey, viewports, failures, snapshots
 }, null, 2));
 console.log(`視覺基準比對：${failures.length ? "FAIL" : "PASS"}；視窗：1440 / 768 / 360；母版 SHA：${gitBlobSha}`);
 if (failures.length) { console.error(failures.join("\n")); process.exit(1); }

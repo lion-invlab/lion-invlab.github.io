@@ -57,9 +57,9 @@ jobs:
       - name: Validate simulation dual mother five-zone layout
         run: python simulation-lab/runner/validate_dual_mothers.py
 
-      - name: Assemble 11/06 simulation review HTML from approved mother
+      - name: Assemble 11/09 Monday simulation review HTML from approved Monday mother
         run: |
-          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-06.json --output simulation-lab/output/TAC_投資早報_2026-11-06_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-09.json --output simulation-lab/output/TAC_投資早報_2026-11-09_審核版.html --expected-master-sha 0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7
 
       - name: Compare assembled HTML against approved weekday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-06_審核版.html
