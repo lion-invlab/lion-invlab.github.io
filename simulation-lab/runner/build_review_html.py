@@ -114,12 +114,50 @@ def main():
         ticker=ticker_match.group(1)
         slot=unique(row,"span.r",f"ETF {ticker} value")
         set_text(slot,data["sectors"].get(ticker,"待核實"))
+    # Sort verified daily changes descending; unknown values stay after verified rows.
+    # Python's stable sort preserves the original ETF order when changes are equal.
+    def sector_ticker(row):
+        match=re.search(r"\\b(XLK|XLY|XLB|XLU|XLI|XLV|XLF|XLC|XLRE|XLP|XLE)\\b",row.get_text(" ",strip=True))
+        if not match: raise ValueError("unidentified sector ETF row during ranking")
+        return match.group(1)
     def sector_change(row):
-        t=row.select_one("span.r").get_text(strip=True).replace("%","").replace("−","-").replace("－","-")
-        try: return float(t)
-        except Exception: return -999.0
+        raw=row.select_one("span.r").get_text(strip=True)
+        normalized=raw.replace("%","").replace("−","-").replace("－","-").replace("+","").strip()
+        if not re.fullmatch(r"-?\\d+(?:\\.\\d+)?",normalized):
+            return None
+        return float(normalized)
+    ranked=[]
+    for row in sector_rows:
+        ticker=sector_ticker(row)
+        change=sector_change(row)
+        ranked.append((row,ticker,change))
+    ranked.sort(key=lambda item: (item[2] is None, -(item[2] if item[2] is not None else 0)))
     sector_list=sector_rows[0].parent
-    for row in sorted(sector_rows,key=sector_change,reverse=True): sector_list.append(row)
+    for rank,(row,ticker,change) in enumerate(ranked, start=1):
+        rank_node=unique(row,".rank",f"ETF {ticker} rank")
+        set_text(rank_node,str(rank))
+        value_node=unique(row,"span.r",f"ETF {ticker} value")
+        if change is None:
+            set_text(value_node,"待核實")
+            value_node["class"]=["r","pending"]
+        else:
+            value_node["class"]=["r","up" if change>0 else "down" if change<0 else "flat"]
+        sector_list.append(row)
+    # Hard gate: displayed order, rank labels and values must agree.
+    displayed=sector_list.select(".sector-row")
+    if len(displayed)!=11:
+        raise ValueError(f"sector ranking output count={len(displayed)}")
+    parsed=[]
+    for expected_rank,row in enumerate(displayed,start=1):
+        rank_text=unique(row,".rank","sector rank").get_text(strip=True)
+        if rank_text!=str(expected_rank):
+            raise ValueError(f"sector rank mismatch: expected {expected_rank}, got {rank_text}")
+        parsed.append(sector_change(row))
+    verified=[x for x in parsed if x is not None]
+    if verified!=sorted(verified,reverse=True):
+        raise ValueError("sector ETF order is not descending by verified daily change")
+    if any(x is None for x in parsed[:-1]):
+        raise ValueError("unverified sector ETF appears before a verified ETF")
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
