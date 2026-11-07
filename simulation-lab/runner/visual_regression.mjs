@@ -64,6 +64,33 @@ try {
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
+    const focusAudit = await reportPage.evaluate(() => {
+      const cases = [
+        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "週五美股反彈"] },
+        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["50,964.81", "7,349.54", "24,449.52", "9,198.65", "2,729.55"] },
+        { id: "focus-tab-core", panel: ".focus-core", needles: ["中國 10 月 CPI／PPI", "美國 10 月 CPI", "AI 投資回報"] }
+      ];
+      const results = [], invalid = [];
+      for (const item of cases) {
+        const input = document.getElementById(item.id);
+        const label = document.querySelector(`label[for="${item.id}"]`);
+        const panel = document.querySelector("#view " + item.panel);
+        if (!input || !label || !panel) { invalid.push(item.id + ": input/label/panel missing"); continue; }
+        label.click();
+        const rect = panel.getBoundingClientRect();
+        const visible = getComputedStyle(panel).display !== "none" && rect.width > 0 && rect.height > 0;
+        const text = panel.innerText || "";
+        if (!input.checked) invalid.push(item.id + ": radio did not become checked after label click");
+        if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
+        for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
+        results.push({ id: item.id, checked: input.checked, visible, text_length: text.length, needles: item.needles });
+      }
+      return { count: results.length, results, invalid };
+    });
+    snapshots[v.name].today_focus_tabs = focusAudit;
+    if (focusAudit.count !== 3 || focusAudit.invalid.length) {
+      failures.push(`${v.name}: 今日觀察三活頁互動 QA FAIL：` + (focusAudit.invalid.join("; ") || "three tabs not tested"));
+    }
     // Expand the containing calendar panels and one published accordion for geometry measurement.
     // Do this after screenshots so the delivered initial-state captures remain unchanged.
     await reportPage.evaluate(() => {
