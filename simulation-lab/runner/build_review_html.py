@@ -767,6 +767,48 @@ def main():
     if data.get("observation"):
         panel=unique(view,".focus-panel.focus-market","market observation text")
         set_text(panel.select_one(".key") or panel,data["observation"])
+    # Normalize instrument-name typography across every market quote panel.
+    # Keep English tickers/sub-labels, prices, percentage changes and section headings untouched.
+    instrument_css = """
+<style id="tac-market-instrument-name-unified-v1">
+/* One consistent Chinese instrument-name size across index, sector, bond, FX and commodity quotes. */
+#global-markets .row > b,
+#asia .row > b,
+[id^="tac-region-panel-"] .row > b,
+#industry-bonds-fx-commodities .row > b,
+#industry-bonds-fx-commodities .sector-label b {
+  font-size:16px !important;
+  line-height:1.35 !important;
+}
+@media(max-width:700px) {
+  #global-markets .row > b,
+  #asia .row > b,
+  [id^="tac-region-panel-"] .row > b,
+  #industry-bonds-fx-commodities .row > b,
+  #industry-bonds-fx-commodities .sector-label b {
+    font-size:16px !important;
+    line-height:1.35 !important;
+  }
+}
+</style>
+"""
+    existing_typography = soup.select_one("#tac-market-instrument-name-unified-v1")
+    if existing_typography:
+        existing_typography.replace_with(BeautifulSoup(instrument_css, "html.parser").style)
+    else:
+        head = soup.select_one("head")
+        if head is None: raise ValueError("HTML head missing; cannot install unified instrument typography")
+        head.append(BeautifulSoup(instrument_css, "html.parser").style)
+    # Verify the expected market-name groups exist before emitting the review HTML.
+    typography_targets = {
+        "global indices": "#global-markets .row > b",
+        "regional indices": "[id^='tac-region-panel-'] .row > b",
+        "sector ETF names": "#industry-bonds-fx-commodities .sector-label b",
+        "bonds/FX/commodities": "#industry-bonds-fx-commodities .row > b",
+    }
+    typography_counts = {name: len(soup.select(selector)) for name, selector in typography_targets.items()}
+    if any(count == 0 for count in typography_counts.values()):
+        raise ValueError(f"unified instrument typography target missing: {typography_counts}")
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
