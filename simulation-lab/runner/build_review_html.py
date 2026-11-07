@@ -95,6 +95,59 @@ def main():
     head = soup.select_one("head")
     if head is None: raise ValueError("HTML head missing; cannot install display normalization")
     head.append(BeautifulSoup(disclosure_css, "html.parser").style)
+
+    # Rebuild both disclosure labels with explicit marker/text spans. This avoids
+    # inherited native markers and inconsistent pseudo-element spacing.
+    for selector, marker_class, text_class in [
+        ("#last-week-calendar .last-week-calendar-collapse > summary", "tac-disclosure-marker", "tac-disclosure-label"),
+        ("#last-week-earnings .last-week-earnings-collapse > summary", "tac-disclosure-marker", "tac-disclosure-label"),
+    ]:
+        summary_node = unique(soup, selector, "previous-week disclosure summary")
+        label_text = summary_node.get_text(" ", strip=True)
+        label_text = re.sub(r"^展開\\s*", "", label_text)
+        summary_node.clear()
+        marker = soup.new_tag("span", attrs={"class": marker_class, "aria-hidden": "true"})
+        marker.string = "▸"
+        label = soup.new_tag("span", attrs={"class": text_class})
+        label.string = "展開" + label_text
+        summary_node.append(marker)
+        summary_node.append(label)
+
+    disclosure_layout_css = """
+<style id="tac-disclosure-explicit-layout-v2">
+#last-week-calendar .last-week-calendar-collapse > summary,
+#last-week-earnings .last-week-earnings-collapse > summary {
+  display:flex!important; align-items:center!important; justify-content:flex-start!important;
+  gap:12px!important; box-sizing:border-box!important; width:100%!important;
+  padding:10px 12px!important; text-align:left!important; list-style:none!important;
+}
+#last-week-calendar .last-week-calendar-collapse > summary::before,
+#last-week-earnings .last-week-earnings-collapse > summary::before { content:none!important; display:none!important; }
+#last-week-calendar .last-week-calendar-collapse > summary::-webkit-details-marker,
+#last-week-earnings .last-week-earnings-collapse > summary::-webkit-details-marker { display:none!important; }
+.tac-disclosure-marker { display:inline-flex!important; flex:0 0 14px!important; width:14px!important;
+  align-items:center!important; justify-content:center!important; margin:0!important; padding:0!important;
+  font-size:13px!important; line-height:1!important; }
+.tac-disclosure-label { display:block!important; flex:0 1 auto!important; min-width:0!important;
+  margin:0!important; padding:0!important; font:inherit!important; line-height:1.4!important; text-align:left!important; }
+#last-week-calendar .last-week-calendar-collapse[open] .tac-disclosure-marker,
+#last-week-earnings .last-week-earnings-collapse[open] .tac-disclosure-marker { transform:rotate(90deg)!important; }
+@media(max-width:1099px) {
+  .tac-side-tools { overflow-x:hidden!important; overflow-y:auto!important; height:100dvh!important;
+    max-height:100dvh!important; padding-bottom:calc(22px + env(safe-area-inset-bottom))!important;
+    overscroll-behavior:contain!important; }
+  .tac-side-tools .tac-history-mini { display:block!important; flex:0 0 auto!important;
+    height:auto!important; min-height:max-content!important; max-height:none!important;
+    overflow:visible!important; padding-bottom:10px!important; }
+  .tac-side-tools .tac-history-mini button { display:block!important; flex:0 0 auto!important;
+    width:100%!important; min-height:42px!important; height:auto!important; white-space:normal!important;
+    line-height:1.35!important; padding:10px 8px!important; }
+  .tac-side-tools .tac-side-foot { flex:0 0 auto!important; margin-top:10px!important; }
+}
+</style>
+"""
+    head.append(BeautifulSoup(disclosure_layout_css, "html.parser").style)
+
     fed_title = soup.select_one(".fed-live-title")
     if fed_title: set_text(fed_title, "Fed 限時動態")
     for anchor in soup.select("#tac-assets-panel-3 .energy-card .row > b a"):
