@@ -44,11 +44,11 @@ def expected_capture_slot(now_taipei: datetime) -> str:
     return "04:50" if is_dst else "05:15"
 
 
-def collect(now: datetime | None = None) -> dict:
+def collect(now: datetime | None = None, allow_manual: bool = False) -> dict:
     now = now or datetime.now(TAIPEI)
     now = now.astimezone(TAIPEI)
     slot = expected_capture_slot(now)
-    if now.strftime("%H:%M") != slot:
+    if not allow_manual and now.strftime("%H:%M") != slot:
         raise ValueError(
             f"wrong schedule slot: Taipei={now:%Y-%m-%d %H:%M}; "
             f"expected {slot} for current US DST regime"
@@ -127,12 +127,38 @@ def collect(now: datetime | None = None) -> dict:
     }
 
 
+def self_test() -> None:
+    winter = datetime(2026, 1, 12, 5, 15, tzinfo=TAIPEI)
+    summer = datetime(2026, 7, 13, 4, 50, tzinfo=TAIPEI)
+    assert expected_capture_slot(winter) == "05:15"
+    assert expected_capture_slot(summer) == "04:50"
+    sample = {
+        "report_date": "2026-11-09", "trading_date": "2026-11-06",
+        "items": [{
+            "key": key, "name": EXPECTED[key], "symbol": SYMBOLS[key][0],
+            "trading_date": "2026-11-06", "high": 110, "low": 90, "close": 100,
+            "source_name": "test source", "source_url": "https://example.com/ohlc",
+            "quote_type": "cash_index"
+        } for key in REQUIRED]
+    }
+    result = build(sample, "2026-11-09")
+    assert len(result["items"]) == 5 and result["items"][0]["p"] == "100.00"
+    print("collect_key_levels_ohlc self-test: PASS")
+
+
 def main() -> None:
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("--output", required=True)
+    ap.add_argument("--output")
+    ap.add_argument("--allow-manual", action="store_true", help="bypass clock-slot guard for an intentional manual run")
+    ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
-    result = collect()
+    if args.self_test:
+        self_test()
+        return
+    if not args.output:
+        ap.error("--output is required unless --self-test is used")
+    result = collect(allow_manual=args.allow_manual)
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
