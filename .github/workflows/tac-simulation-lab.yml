@@ -63,25 +63,9 @@ jobs:
       - name: Build 11/09 key levels from normalized source OHLC input
         run: python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09
 
-      - name: Package deterministic key-level artifact contract (fixture only)
+      - name: Capture live 11/06 cash-index OHLC for 11/09 key-levels (integration probe)
         run: |
-          mkdir -p simulation-lab/output
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          report=json.loads(Path("simulation-lab/fixtures/report-data-2026-11-09.json").read_text())
-          envelope={
-            "schema_version":"1.0",
-            "report_date":report["report_date"],
-            "trading_date":report["key_levels"]["baseline_date"],
-            "captured_at_taipei":"fixture-only",
-            "timezone":"Asia/Taipei",
-            "source":"deterministic fixture; not live market data",
-            "key_levels":report["key_levels"]
-          }
-          Path("simulation-lab/output/key-levels-live.json").write_text(json.dumps(envelope,ensure_ascii=False,indent=2)+"\n")
-          PY
-
+          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date 2026-11-09 --output simulation-lab/output/key-levels-live.json
       - name: Assemble 11/09 Monday simulation review HTML from approved Monday mother
         run: |
           python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-09.json --key-levels-live simulation-lab/output/key-levels-live.json --output simulation-lab/output/TAC_投資早報_2026-11-09_審核版.html --expected-master-sha 0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7
