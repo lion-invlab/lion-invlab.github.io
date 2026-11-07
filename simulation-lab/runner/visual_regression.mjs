@@ -103,53 +103,63 @@ try {
     await reportPage.waitForTimeout(80);
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
-      const published = document.querySelector("#last-week-earnings .calendar-status-group") || groups[2];
-      if (!published) return { count: 0, invalid: ["published group missing"] };
-      const cards = [...published.querySelectorAll("details.earnings-accordion")];
+      const mondayRetrospective = document.querySelector("#last-week-earnings .calendar-status-group");
+      const auditGroup = mondayRetrospective || groups[1];
+      const mode = mondayRetrospective ? "monday-published-results" : "weekday-upcoming-events";
+      if (!auditGroup) return { mode, count: 0, invalid: ["earnings audit group missing"] };
+      const cards = [...auditGroup.querySelectorAll("details.earnings-accordion")];
       const invalid = [];
       for (const [i, card] of cards.entries()) {
-        const grid = card.querySelector(":scope > .earnings-accordion-details > .earnings-results-grid");
-        const resultCards = grid ? grid.querySelectorAll(":scope > .earnings-actual-card").length : 0;
-        if (!grid || resultCards !== 2) invalid.push("card " + (i+1) + ": paired EPS/revenue cards missing");
+        if (!card.querySelector(":scope > summary.earnings-accordion-summary")) invalid.push("card " + (i+1) + ": summary missing");
+        const details = card.querySelector(":scope > .earnings-accordion-details");
+        if (!details) invalid.push("card " + (i+1) + ": detail panel missing");
         if (!card.querySelector(".earnings-detail-field label")) invalid.push("card " + (i+1) + ": supporting details missing");
+        if (mondayRetrospective) {
+          const grid = details?.querySelector(":scope > .earnings-results-grid");
+          const resultCards = grid ? grid.querySelectorAll(":scope > .earnings-actual-card").length : 0;
+          if (!grid || resultCards !== 2) invalid.push("card " + (i+1) + ": paired EPS/revenue cards missing");
+        }
       }
-      // Several report components retain hidden copies in alternate tabs.
-      // Audit only visible result grids and choose one with two measurable cards.
-      const visibleGrids = [...published.querySelectorAll(".earnings-results-grid")]
-        .filter(grid => {
-          const rect = grid.getBoundingClientRect();
-          const style = getComputedStyle(grid);
-          return rect.width > 0 && rect.height > 0 &&
-            style.display !== "none" && style.visibility !== "hidden";
-        });
-      const measured = visibleGrids.map(grid => {
-        const children = [...grid.querySelectorAll(":scope > .earnings-actual-card")];
-        const visibleCards = children.filter(card => {
-          const rect = card.getBoundingClientRect();
-          const style = getComputedStyle(card);
-          return rect.width > 0 && rect.height > 0 &&
-            style.display !== "none" && style.visibility !== "hidden";
-        });
-        if (visibleCards.length < 2) return null;
-        const a = visibleCards[0].getBoundingClientRect();
-        const b = visibleCards[1].getBoundingClientRect();
-        return {
-          columns: Math.abs(a.left - b.left) > 2 && Math.abs(a.top - b.top) <= 2 ? 2 : 1,
-          pairedGeometry: {
-            firstLeft: Math.round(a.left), secondLeft: Math.round(b.left),
-            firstTop: Math.round(a.top), secondTop: Math.round(b.top),
-            firstWidth: Math.round(a.width), secondWidth: Math.round(b.width),
-            sameRow: Math.abs(a.top - b.top) <= 2,
-            distinctColumns: Math.abs(a.left - b.left) > 2
-          }
-        };
-      }).filter(Boolean);
-      const sample = measured.find(x => x.columns === 2) || measured[0] || null;
-      const columns = sample?.columns || 0;
-      const pairedGeometry = sample?.pairedGeometry || null;
-      if (!sample) invalid.push("visible published EPS/revenue result grid with two measurable cards missing");
-      else if (columns !== 2) invalid.push("visible EPS/revenue cards are not in two side-by-side columns");
-      return { count: cards.length, invalid, columns, pairedGeometry, visible_result_grids: measured.length };
+      if (cards.length === 0) invalid.push("no earnings cards in the selected report-week group");
+      let columns = null, pairedGeometry = null, measured = [];
+      if (mondayRetrospective) {
+        // Monday retrospective cards contain published EPS/revenue result pairs.
+        const visibleGrids = [...auditGroup.querySelectorAll(".earnings-results-grid")]
+          .filter(grid => {
+            const rect = grid.getBoundingClientRect();
+            const style = getComputedStyle(grid);
+            return rect.width > 0 && rect.height > 0 &&
+              style.display !== "none" && style.visibility !== "hidden";
+          });
+        measured = visibleGrids.map(grid => {
+          const children = [...grid.querySelectorAll(":scope > .earnings-actual-card")];
+          const visibleCards = children.filter(card => {
+            const rect = card.getBoundingClientRect();
+            const style = getComputedStyle(card);
+            return rect.width > 0 && rect.height > 0 &&
+              style.display !== "none" && style.visibility !== "hidden";
+          });
+          if (visibleCards.length < 2) return null;
+          const a = visibleCards[0].getBoundingClientRect();
+          const b = visibleCards[1].getBoundingClientRect();
+          return {
+            columns: Math.abs(a.left - b.left) > 2 && Math.abs(a.top - b.top) <= 2 ? 2 : 1,
+            pairedGeometry: {
+              firstLeft: Math.round(a.left), secondLeft: Math.round(b.left),
+              firstTop: Math.round(a.top), secondTop: Math.round(b.top),
+              firstWidth: Math.round(a.width), secondWidth: Math.round(b.width),
+              sameRow: Math.abs(a.top - b.top) <= 2,
+              distinctColumns: Math.abs(a.left - b.left) > 2
+            }
+          };
+        }).filter(Boolean);
+        const sample = measured.find(x => x.columns === 2) || measured[0] || null;
+        columns = sample?.columns || 0;
+        pairedGeometry = sample?.pairedGeometry || null;
+        if (!sample) invalid.push("visible published EPS/revenue result grid with two measurable cards missing");
+        else if (columns !== 2) invalid.push("visible EPS/revenue cards are not in two side-by-side columns");
+      }
+      return { mode, count: cards.length, invalid, columns, pairedGeometry, visible_result_grids: measured.length };
     });
     snapshots[v.name].earnings_component = earningsAudit;
     const economicAudit = await reportPage.evaluate(() => {

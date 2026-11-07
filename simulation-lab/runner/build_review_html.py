@@ -1130,9 +1130,10 @@ def main():
     if data.get("key_levels"):
         levels_panel = unique(view, ".focus-panel.focus-levels", "key levels tab")
         levels_box = unique(levels_panel, ".key", "key levels content")
-        disclosure = levels_box.select_one("details.compact-disclosure")
+        disclosure_selector = "details.compact-disclosure" if monday else "details.source-details"
+        disclosure = levels_box.select_one(disclosure_selector)
         if disclosure is None:
-            raise ValueError("key levels source/method disclosure missing from approved mother template")
+            raise ValueError(f"key levels source/method disclosure missing from approved {'Monday' if monday else 'weekday'} mother template")
         disclosure.extract()
         levels_box.clear()
         for item in data["key_levels"].get("items", []):
@@ -1144,9 +1145,9 @@ def main():
             levels_box.append(line)
             levels_box.append(soup.new_tag("br"))
         levels_box.append(disclosure)
-        detail_body = disclosure.select_one("div")
+        detail_body = disclosure.select_one("div") if monday else disclosure.select_one(".source")
         if detail_body is None:
-            raise ValueError("key levels disclosure body missing")
+            raise ValueError("key levels disclosure body missing from selected mother template")
         detail_body.clear()
         detail_body.append(f"基準交易日：{data['key_levels']['baseline_date']}（美國當地正式收盤）。{data['key_levels']['formula']} ")
         for item in data["key_levels"].get("items", []):
@@ -1160,23 +1161,30 @@ def main():
         core_panel = unique(view, ".focus-panel.focus-core", "core observation tab")
         callout = unique(core_panel, ".callout", "core observation content")
         disclosure = callout.select_one("details.compact-disclosure")
-        if disclosure is None:
-            raise ValueError("core observation disclosure missing from approved mother template")
-        disclosure.extract()
+        if monday and disclosure is None:
+            raise ValueError("Monday core-observation disclosure missing from approved mother template")
+        if disclosure is not None:
+            disclosure.extract()
         callout.clear()
         title = soup.new_tag("b")
         title.string = data["core_observation"].get("heading", "今日核心觀察") + "："
         callout.append(title)
         callout.append(data["core_observation"]["text"])
-        callout.append(soup.new_tag("br"))
-        callout.append(disclosure)
-        detail_nodes = disclosure.select("div")
-        if not detail_nodes:
-            raise ValueError("core observation disclosure detail body missing")
-        detail_nodes[0].clear()
-        detail_nodes[0].append(data["core_observation"].get("details", ""))
-        for stale_detail in detail_nodes[1:]:
-            stale_detail.decompose()
+        if disclosure is not None:
+            callout.append(soup.new_tag("br"))
+            callout.append(disclosure)
+            detail_nodes = disclosure.select("div")
+            if not detail_nodes:
+                raise ValueError("core observation disclosure detail body missing")
+            detail_nodes[0].clear()
+            detail_nodes[0].append(data["core_observation"].get("details", ""))
+            for stale_detail in detail_nodes[1:]:
+                stale_detail.decompose()
+        elif data["core_observation"].get("details"):
+            # The approved Tue-Fri mother has no core-observation disclosure slot.
+            # Keep its native callout structure and append the supplied detail as text.
+            callout.append(soup.new_tag("br"))
+            callout.append(data["core_observation"]["details"])
     else:
         raise ValueError("core_observation data missing; refusing to retain stale mother-template core text")
     # Normalize instrument-name typography across every market quote panel.
