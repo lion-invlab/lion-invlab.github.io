@@ -1293,10 +1293,17 @@
         "revenue_estimate": 113.4,
         "revenue_actual": 114.5,
         "judgment": "Apple FY2026 Q4營收US$114.5B，年增12%，高於既有共識US$113.4B；GAAP diluted EPS US$2.10，年增14%。EPS共識US$1.98未明確揭露會計口徑，故EPS比較維持pending_verification。公司毛利率47.9%，其中關稅退款約貢獻1個百分點。",
-        "price_reaction": null,
+        "price_reaction": "待核實",
         "source_name": "Apple Newsroom｜Apple reports fourth quarter results",
         "source_url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
-        "time_known": true
+        "time_known": true,
+        "eps_basis": "GAAP diluted EPS (issuer-reported); consensus basis not explicitly disclosed",
+        "eps_comparison_status": "pending_verification",
+        "revenue_comparison_status": "beat",
+        "eps_actual_display": "US$2.10",
+        "eps_estimate_display": "US$1.98",
+        "revenue_actual_display": "US$114.5B",
+        "revenue_estimate_display": "US$113.4B"
       },
       {
         "date": "2026-11-04T06:00:00+08:00",
@@ -1314,7 +1321,14 @@
         "price_reaction": "+7.54%",
         "source_name": "AMD Investor Relations｜Q3 2026 results",
         "source_url": "https://ir.amd.com/news-events/press-releases/detail/1303/amd-reports-third-quarter-2026-financial-results",
-        "time_known": true
+        "time_known": true,
+        "eps_basis": "Non-GAAP diluted EPS; Investing.com consensus basis",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "beat",
+        "eps_actual_display": "US$2.09",
+        "eps_estimate_display": "US$1.94",
+        "revenue_actual_display": "US$13.377B",
+        "revenue_estimate_display": "US$13.06B"
       }
     ]
   },

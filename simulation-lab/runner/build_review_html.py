@@ -357,15 +357,24 @@ def main():
                 grid = details.select_one(".earnings-results-grid")
                 if grid:
                     grid.clear()
-                    for label, actual, estimate in [("EPS", x.get("eps_actual"), x.get("eps_estimate")), ("營收", x.get("revenue_actual"), x.get("revenue_estimate"))]:
-                        result = soup.new_tag("div", attrs={"class":["earnings-actual-card","pending"]})
+                    for label, actual, estimate, actual_display, estimate_display, comparison in [
+                        ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), x.get("eps_comparison_status")),
+                        ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), x.get("revenue_comparison_status"))
+                    ]:
+                        state = comparison if comparison in ("beat","miss","inline") else "pending"
+                        status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
+                        result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
-                        for caption, val in [("實際", actual), ("預期", estimate)]:
+                        for caption, val, formatted in [("實際", actual, actual_display), ("預期", estimate, estimate_display)]:
                             line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
                             lab=soup.new_tag("span"); lab.string=caption
-                            strong=soup.new_tag("strong"); strong.string=str(val) if val is not None else "待核實"
+                            strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
                             line.append(lab); line.append(strong); result.append(line)
-                        status=soup.new_tag("div", attrs={"class":["earnings-actual-status","pending"]}); status.string="比較口徑待核實"; result.append(status)
+                        status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
+                        if label=="EPS" and state=="pending" and x.get("eps_basis"):
+                            note=soup.new_tag("div", attrs={"class":["earnings-actual-note"]})
+                            note.string="EPS口徑："+str(x.get("eps_basis"))
+                            result.append(note)
                         grid.append(result)
                 for field in details.select(".earnings-detail-field"):
                     label = field.select_one("label"); value = field.select_one(".earnings-detail-value")
@@ -454,7 +463,7 @@ def main():
         change=rdata.get("change_display","待核實")
         rows=[r for r in sent.select(".sbox") if r.select_one(".label-en") and r.select_one(".label-en").get_text(strip=True)==label]
         for row in rows:
-            ch=row.select_one("span.down,span.up")
+            ch=row.select_one("span.down,span.up,span.warn,span.pending")
             if ch:
                 set_text(ch,change)
                 ch["class"]=["pending"] if change=="待核實" else (["down"] if "−" in str(change) or "-" in str(change) else ["up"])
