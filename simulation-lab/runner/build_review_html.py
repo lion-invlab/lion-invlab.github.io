@@ -69,11 +69,12 @@ def main():
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
     if data.get("summary_points"):
         summary.clear()
-        for point in data["summary_points"]:
-            p=soup.new_tag("p")
+        for idx,point in enumerate(data["summary_points"]):
             label=soup.new_tag("strong"); label.string=point["label"]
-            p.append(label); p.append("｜"+point["text"])
-            summary.append(p)
+            summary.append(label)
+            summary.append("｜"+point["text"])
+            if idx < len(data["summary_points"])-1:
+                summary.append(soup.new_tag("br"))
     else:
         set_text(summary,data["summary"])
     # Market sentiment narrative: keep card structure, replace the narrative paragraph only.
@@ -460,7 +461,8 @@ def main():
     for sid,items_key,label in [("global-focus","focus_news","全球焦點"),("headlines","headlines","市場熱門頭條")]:
         section=unique(soup,"#"+sid,sid)
         meta=section.select_one(".tab-panel-meta")
-        if meta: set_text(meta,f"{label}｜資料窗口：{(report_date-timedelta(days=3)).isoformat()} 12:00 至 {report_cutoff}（台灣時間）")
+        if meta: set_text(meta,f"{label}｜資料窗口：2026/11/06 12:00 至 {report_cutoff}（台灣時間）")
+        items=data[items_key]
         news_nodes=section.select(".newsitem")
         for idx,node in enumerate(news_nodes):
             if idx>=len(items):
