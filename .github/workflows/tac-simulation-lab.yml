@@ -65,6 +65,7 @@ jobs:
 
       - name: Package deterministic key-level artifact contract (fixture only)
         run: |
+          mkdir -p simulation-lab/output
           python - <<'PY'
           import json
           from pathlib import Path
