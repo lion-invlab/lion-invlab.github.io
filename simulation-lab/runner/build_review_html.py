@@ -332,17 +332,23 @@ def main():
     displayed=sector_list.select(".sector-row")
     if len(displayed)!=11:
         raise ValueError(f"sector ranking output count={len(displayed)}")
-    parsed=[]
+    displayed_tickers=[]
+    displayed_changes=[]
     for expected_rank,row in enumerate(displayed,start=1):
         rank_text=unique(row,".rank","sector rank").get_text(strip=True)
         if rank_text!=str(expected_rank):
             raise ValueError(f"sector rank mismatch: expected {expected_rank}, got {rank_text}")
-        parsed.append(sector_change(row))
-    verified=[x for x in parsed if x is not None]
+        displayed_tickers.append(sector_ticker(row))
+        displayed_changes.append(sector_change(row))
+    expected_tickers=[ticker for _,ticker,_ in ranked]
+    if displayed_tickers!=expected_tickers:
+        raise ValueError("sector ETF DOM order differs from computed ranking order")
+    verified=[x for x in displayed_changes if x is not None]
     if verified!=sorted(verified,reverse=True):
         raise ValueError("sector ETF order is not descending by verified daily change")
-    if any(x is None for x in parsed[:-1]):
-        raise ValueError("unverified sector ETF appears before a verified ETF")
+    first_pending=next((i for i,x in enumerate(displayed_changes) if x is None),len(displayed_changes))
+    if any(x is not None for x in displayed_changes[first_pending:]):
+        raise ValueError("verified sector ETF appears after an unverified ETF")
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
