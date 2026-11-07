@@ -93,7 +93,7 @@ def main():
             summary_nodes=node.select(".news-summary, p, .summary")
             if summary_nodes: set_text(summary_nodes[0],item["summary"])
             if item.get("url"):
-                title_anchor=title.find_parent("a")
+                title_anchor=title if title.name=="a" else title.find_parent("a")
                 if title_anchor:
                     title_anchor["href"]=item["url"]; title_anchor["target"]="_blank"; title_anchor["rel"]="noopener"
                 else:
@@ -578,7 +578,8 @@ def main():
         marker=fgbox.select_one(".fg6-marker")
         if marker: marker["style"]="display:none"
         src=fgbox.select_one(".source")
-        if src: set_text(src,"本次早報截點未取得可核實的 CNN Business 官方同日歷史值。")
+        if src:
+            src.clear(); src.append("資料來源："); src.append(source_link("https://www.cnn.com/markets/fear-and-greed","CNN Business｜官方指數頁")); src.append("｜本次頁面未載入最新讀值。")
     core=sent.select(".sbox")[-1].select_one("div[style]")
     if core: set_text(core,data["sentiment"])
     # Observation title, market view, levels and core priorities.
@@ -603,18 +604,23 @@ def main():
             set_text(a,"Investing.com Fed Rate Monitor")
         for child in list(fsrc.find_all(string=True)):
             if "官方截圖" in str(child) or "快照時間" in str(child): child.extract()
-        fsrc.append("｜05:25 前快照未取得；不採用晚間更新資料。")
+        
     fomc=soup.select_one("#fed .fc-fomc")
     if fomc:
         meeting=fomc.select_one(".fc-fomc-meeting b")
-        if meeting: set_text(meeting,"下次會議日期待官方日曆核對")
-        for sel in [".fc-fomc-press b",".fc-fomc-observation b"]:
-            node=fomc.select_one(sel)
-            if node: set_text(node,"官方時間待核實")
+        if meeting: set_text(meeting,"2026/12/08–12/09")
+        press=fomc.select_one(".fc-fomc-press b")
+        if press: set_text(press,"2026/12/10 03:30")
+        observation=fomc.select_one(".fc-fomc-observation b")
+        if observation: set_text(observation,"10/28聯準會維持3.75%–4.00%；12/09會議機率因未取得05:25前快照，暫不填列。")
         p=fomc.select_one("p")
         if p: set_text(p,"下一次會議日期與決策時間以 Federal Reserve 官方日曆為準；本欄不沿用 10 月會議舊資料。")
     health=soup.select_one("#sp500-earnings-health .title small")
-    if health: set_text(health,"FactSet 最新可核實快照：2026/10/30；非本次早報即時統計。")
+    if health: set_text(health,"FactSet 歷史快照：2026/10/23；非11/06即時統計。")
+    health_panel=soup.select_one("#sp500-earnings-health")
+    if health_panel:
+        for node in health_panel.find_all(string=True):
+            if "179" in str(node) and "10/26" in str(node): node.replace_with("本週重點財報時程請參考下方 W46 財報行事曆；本區數據僅為10/23歷史快照。")
 
     # Refresh regional market tabs so no October mother-template quotes survive.
     region_specs = [
