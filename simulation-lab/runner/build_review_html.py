@@ -899,11 +899,79 @@ def main():
         if rate: set_text(rate, current_target_range.replace("–", "%–") + ("%" if current_target_range != "待核實" and not current_target_range.endswith("%") else ""))
         rate_date = fed.select_one(".fc-fomc-rate small")
         if rate_date: set_text(rate_date, "Fed官方最新資料：2026/10/29")
-        observation_label = fed.select_one(".fc-fomc-observation span")
-        if observation_label: set_text(observation_label, "本次會議焦點")
-        observation = fed.select_one(".fc-fomc-observation b")
+        # FOMC tab is a weekly, calendar-driven "limited-time updates" feed.
+        # Use only verified US inflation releases and scheduled Fed speaker events
+        # already present in this report's weekly calendar; never hard-code dates.
+        observation = fed.select_one(".fc-fomc-observation")
         if observation:
-            set_text(observation, "利率決策與政策聲明；重點檢視通膨、就業風險的描述，以及主席記者會對後續政策路徑的訊號。")
+            from datetime import date
+            weekly = data.get("calendar", {})
+            report_day = date.fromisoformat(data.get("report_date"))
+            week_end = date.fromisoformat(weekly.get("week_end", data.get("report_date")))
+            selected = []
+            for event in weekly.get("events", []):
+                if event.get("region") != "美國":
+                    continue
+                name = str(event.get("name", ""))
+                relevant = any(term in name.lower() for term in ("cpi", "ppi", "聯準會", "federal reserve", "fed "))
+                if not relevant:
+                    continue
+                try:
+                    dt = datetime.fromisoformat(str(event.get("date", "")).replace("Z", "+00:00"))
+                    event_day = dt.date()
+                except (TypeError, ValueError):
+                    continue
+                if event_day < report_day or event_day > week_end:
+                    continue
+                selected.append((dt, event))
+            selected.sort(key=lambda pair: pair[0])
+            observation.clear()
+            observation.name = "div"
+            observation["class"] = ["fc-fomc-weekly-events"]
+            observation["style"] = "grid-column:1 / -1;grid-row:2;display:block;min-width:0;padding:12px 14px;border:1px solid #dce4ec;border-radius:12px;background:#f7f9fc;box-sizing:border-box;"
+            title = soup.new_tag("div")
+            title.string = "本週聯準會限時動態"
+            title["style"] = "font-size:15px;font-weight:850;color:#244b68;margin:0 0 9px;"
+            observation.append(title)
+            if selected:
+                for dt, event in selected[:6]:
+                    card = soup.new_tag("div")
+                    card["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
+                    stamp = soup.new_tag("div")
+                    stamp["style"] = "font-size:12px;line-height:1.5;font-weight:850;color:#a92a32;"
+                    stamp.string = dt.strftime("%m/%d") + " " + ["一","二","三","四","五","六","日"][dt.weekday()]
+                    if event.get("time_known", True):
+                        stamp.string += dt.strftime(" %H:%M")
+                    else:
+                        stamp.string += " 時間待確認"
+                    body = soup.new_tag("div")
+                    heading = soup.new_tag("div")
+                    heading["style"] = "font-size:13px;line-height:1.45;font-weight:800;color:#273746;"
+                    heading.string = str(event.get("name", ""))
+                    body.append(heading)
+                    impact = str(event.get("impact", "")).strip()
+                    if impact:
+                        desc = soup.new_tag("div")
+                        desc["style"] = "font-size:12px;line-height:1.55;color:#687583;margin-top:3px;"
+                        desc.string = impact
+                        body.append(desc)
+                    url = event.get("source_url")
+                    if isinstance(url, str) and url.startswith("https://"):
+                        link = source_link(url, str(event.get("source_name") or "官方來源"))
+                        link["style"] = "display:inline-block;font-size:11px;margin-top:4px;color:#315d7b;text-decoration:underline;"
+                        body.append(link)
+                    card.append(stamp)
+                    card.append(body)
+                    observation.append(card)
+            else:
+                empty = soup.new_tag("div")
+                empty["style"] = "font-size:12px;color:#687583;line-height:1.5;"
+                empty.string = "本週尚無已核實的美國通膨數據或聯準會官員公開談話排程。"
+                observation.append(empty)
+            note = soup.new_tag("div")
+            note["style"] = "font-size:10px;color:#7b8793;margin-top:8px;"
+            note.string = "事件與時間依本週經濟行事曆更新；未確認時刻不推測。"
+            observation.append(note)
         fed_source = fed.select_one(".fc-source")
         if fed_source:
             fed_source.clear()
