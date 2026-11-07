@@ -1081,3 +1081,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新成功驗收：GitHub Actions run `42346436669`，head SHA `0d17805d23474fd5b7709ad0be64e016e4bff6b0`，conclusion success。母版結構、組裝、1440/768/360 視覺回歸及三活頁互動均通過；`visual-regression.json` failures=[]，每個視窗三活頁 invalid=[]。
 - 輸出為固定 JSON fixture → HTML 組裝的模擬審核版，不是 live-data E2E；未發布至正式首頁。Artifact `tac-simulation-smoke-42346436669-1`；本對話已下載並檢視 HTML 與桌機／手機截圖。
 - 本次模擬分支最新程式：`simulation-lab/runner/build_review_html.py` blob SHA `56ea0b192e93a76daf5a36a6900d47a837a220b9`；fixture blob SHA `04adcb2928746e48c6f64f57a8674c33254bf514`；視覺測試 blob SHA `e36ec5b45a747aad7777fd9d1aefd60eecf74c0d`。
+## 2026-11-07｜關鍵價位責任分工與產生器接線
+
+- 開工重讀 main `TAC_WORK_RULES.md` v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`。所有程式／fixture／workflow 修改僅在 `simulation/tac-process-lab-2026-11-06`；main HEAD 回讀 `a6a8749f1532fdf71db108eb2d48fd54d7c3e08a`，未修改。
+- 新增 `simulation-lab/runner/key_levels_builder.py`：上游 OHLC 擷取者提供五項美股現貨指數 H/L/C、商品代碼、交易日、quote_type、來源名稱與 HTTPS URL；本模組只負責 fail-closed 驗證及 Decimal 計算 P=(H+L+C)/3、S1=2P-H、R1=2P-L；輸出寫入 report JSON 的 `key_levels.items`。
+- 新增 `simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json` 作為 11/9 固定回放輸入；五項數值計算與既有 11/9 fixture 一致。加入缺少標的、CFD quote_type、日期錯配、缺來源等 fail-closed 測試。
+- `.github/workflows/tac-simulation-lab.yml` 已在 HTML 組裝前執行 key_levels_builder；`build_review_html.py` 維持只讀取 `key_levels.items`，不擷取行情、不計算價位。
+- 首次整合 CI 發現 JSON 輸出多寫了字面反斜線 n，造成 JSONDecodeError Extra data；已修正換行寫入，並以新 run 重跑。
+- 最新成功 CI：run `42347185435`，commit `ed2396c57c8bbb064c10cb3df98953f8c08e6605`；key-levels builder self-test、五區母版驗證、OHLC builder、HTML 組裝及 1440/768/360 視覺回歸均通過；`visual-regression.json` failures=[]，三個視窗的三活頁皆 count=3、invalid=[]。
+- 最新 artifact `tac-simulation-smoke-42347185435-1`，已下載並解壓；產出 HTML 444,313 bytes，視覺證據包含桌機、平板、手機三尺寸。五項 pivot 值及五條 Yahoo Finance OHLC 連結均存在。
+- **尚未完成 live acquisition 接線：** 新 OHLC JSON 是固定 replay fixture，不是當日即時擷取。main 現有 `scripts/fetch_tac_global_indices.py` 讀 Investing.com HK 的 17 個指數歷史收盤價與日變動，未輸出 OHLC H/L；因此它目前不能直接供關鍵價位模組使用。下一步需在模擬區建立／驗證可取得同日 H/L/C 的擷取 adapter，再把結果交給本 builder；不得將固定 fixture 說成 live data。
+- 本次不修改 main、正式首頁、正式母版、Manifest、排程或正式資料庫；沒有發布。
