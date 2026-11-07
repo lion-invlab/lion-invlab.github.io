@@ -423,6 +423,7 @@ def main():
         change=sector_change(row)
         ranked.append((row,ticker,change))
     ranked.sort(key=lambda item: (item[2] is None, -(item[2] if item[2] is not None else 0)))
+    ranked_rows_for_source = [row for row, _, _ in ranked]
     # Sector source list explicitly calls out every item without complete provenance.
     sector_meta = soup.select_one("#tac-assets-panel-0 .tab-panel-meta")
     if sector_meta:
@@ -529,7 +530,6 @@ def main():
                         source_node.append("；")
                 else:
                     source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關值已標示待核實。")
-    ranked_rows_for_source = [row for row, _, _ in ranked]
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
