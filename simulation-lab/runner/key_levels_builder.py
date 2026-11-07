@@ -129,7 +129,7 @@ def main():
     if report.get("report_date") != args.report_date:
         raise SystemExit("report fixture date mismatch")
     report["key_levels"]=generated
-    Path(args.data).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+    Path(args.data).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(f"key_levels_builder: generated {len(generated['items'])} levels from {generated['baseline_date']}")
 
 if __name__ == "__main__":
