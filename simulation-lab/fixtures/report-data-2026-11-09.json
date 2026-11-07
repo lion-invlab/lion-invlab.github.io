@@ -334,8 +334,28 @@
   },
   "fedwatch": {
     "target_meeting": "2026-12-09",
-    "updated_at_tw": "2026-11-07 04:15（Investing.com頁面更新 11/06 16:15 ET；本次讀取頁面）",
-    "probabilities": []
+    "updated_at_tw": "2026-11-07 11:15（Investing.com頁面更新 2026-11-06 22:15 EST）",
+    "probabilities": [
+      {
+        "outcome": "cut",
+        "rate_range": "3.75–4.00%",
+        "probability": 24.5
+      },
+      {
+        "outcome": "hold",
+        "rate_range": "4.00–4.25%",
+        "probability": 75.5
+      }
+    ],
+    "source": {
+      "name": "Investing.com Fed Rate Monitor",
+      "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+      "updated_at": "2026-11-06 22:15 EST",
+      "observed_at_tw": "2026-11-07 11:15",
+      "target_meeting": "2026-12-09",
+      "future_price": "95.985",
+      "note": "頁面 Dec 09, 2026 機率表 3.75–4.00 為 24.5%，4.00–4.25 為 75.5%，合計 100%。"
+    }
   },
   "observation": "亞洲科技權重市場在週五仍承受明顯賣壓，日韓台走勢疲弱；美股科技股則出現反彈，但標普與Nasdaq的Investing.com歷史頁收盤值與部分新聞摘要存在差異，報告採指定優先行情頁讀值。美國就業韌性與偏高的長端利率使政策預期重新敏感；本週中國通膨及美國CPI將是檢驗需求與利率路徑的關鍵。觀察科技反彈是否擴散、長債殖利率是否續升，以及油價回落能否緩和通膨壓力。",
   "calendar": {
