@@ -117,13 +117,13 @@ def main():
     # Sort verified daily changes descending; unknown values stay after verified rows.
     # Python's stable sort preserves the original ETF order when changes are equal.
     def sector_ticker(row):
-        match=re.search(r"\\b(XLK|XLY|XLB|XLU|XLI|XLV|XLF|XLC|XLRE|XLP|XLE)\\b",row.get_text(" ",strip=True))
+        match=re.search(r"\b(XLK|XLY|XLB|XLU|XLI|XLV|XLF|XLC|XLRE|XLP|XLE)\b",row.get_text(" ",strip=True))
         if not match: raise ValueError("unidentified sector ETF row during ranking")
         return match.group(1)
     def sector_change(row):
         raw=row.select_one("span.r").get_text(strip=True)
         normalized=raw.replace("%","").replace("−","-").replace("－","-").replace("+","").strip()
-        if not re.fullmatch(r"-?\\d+(?:\\.\\d+)?",normalized):
+        if not re.fullmatch(r"-?\d+(?:\.\d+)?",normalized):
             return None
         return float(normalized)
     ranked=[]
