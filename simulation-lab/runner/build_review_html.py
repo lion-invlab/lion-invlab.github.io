@@ -84,8 +84,13 @@ def main():
             set_text(title,item["title"])
             summary_nodes=node.select(".news-summary, p, .summary")
             if summary_nodes: set_text(summary_nodes[0],item["summary"])
-            links=node.select("a")
-            if links and item.get("url"): links[0]["href"]=item["url"]
+            if item.get("url"):
+                title_anchor=title.find_parent("a")
+                if title_anchor:
+                    title_anchor["href"]=item["url"]; title_anchor["target"]="_blank"; title_anchor["rel"]="noopener"
+                else:
+                    a=soup.new_tag("a",href=item["url"],target="_blank",rel="noopener")
+                    title.wrap(a)
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
@@ -192,7 +197,7 @@ def main():
     econ=data.get("calendar",{}).get("events",[])
     if not econ: raise ValueError("current-week economic calendar data missing")
     title=cal.select_one(".title small")
-    if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
+    if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["calendar"]["week_start"],data["calendar"]["week_end"],data["calendar"]["week_id"],report_cutoff))
     panels=unique(cal,".week-econ-panels","economic panels")
     template=panels.select_one("details.econ-event")
     group_template=panels.select_one(".calendar-status-group")
@@ -391,7 +396,13 @@ def main():
             items=data[items_key]
             if idx<len(items) and metas:
                 domain=re.sub(r"^https?://([^/]+).*",r"\1",items[idx].get("url",""))
-                set_text(metas[0],f"資料來源：{domain}｜截至 {report_cutoff}")
+                metas[0].clear()
+                metas[0].append("資料來源：")
+                if idx<len(items) and items[idx].get("url"):
+                    metas[0].append(source_link(items[idx]["url"],domain))
+                else:
+                    metas[0].append(domain)
+                metas[0].append(f"｜截至 {report_cutoff}")
     gm=unique(soup,"#global-markets","global markets")
     for i,meta in enumerate(gm.select(".tab-panel-meta")):
         labels=[f"美股｜{previous_trade} 正式收盤",f"亞洲市場｜{previous_trade} 最近正式收盤",f"歐洲市場｜{previous_trade} 最近正式收盤"]
