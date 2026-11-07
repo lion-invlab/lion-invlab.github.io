@@ -260,7 +260,7 @@ def main():
         # Keep the report date and window visible in both news section headers.
         panel_meta=box.select_one(".tab-panel-meta")
         if panel_meta:
-            set_text(panel_meta,f"{section_label}｜報告日期 {report_label}｜新聞時間窗：{news_window_label}（台灣時間）")
+            set_text(panel_meta,f"{section_label}｜報告日期 {report_label}｜新聞時間窗：{news_window_label}")
         warning=box.select_one(".news-window-warning")
         if warning and section_id=="global-focus":
             set_text(warning,f"新聞時間窗｜{news_window_label}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
@@ -279,6 +279,99 @@ def main():
             body = detail.select_one(".source")
             if body:
                 set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項應視為待核實。")
+    # Region quote rows are separate DOM nodes from the U.S. market tab.
+    region_rows = {
+        "香港恆生指數":"香港恆生指數", "上海綜合指數":"上海綜合指數", "深證成指":"深證成指",
+        "日經 225":"日經 225", "韓國 KOSPI":"韓國 KOSPI", "台灣加權指數":"台灣加權指數",
+        "新加坡海峽時報指數 STI":"新加坡海峽時報指數 STI", "澳洲 S&P/ASX 200":"澳洲 S&P/ASX 200",
+        "英國 FTSE 100":"英國 FTSE 100", "德國 DAX":"德國 DAX", "法國 CAC 40":"法國 CAC 40",
+        "STOXX Europe 600":"STOXX Europe 600",
+    }
+    for selector in ["#asia", "#tac-region-panel-2"]:
+        panel = soup.select_one(selector)
+        if panel is None:
+            raise ValueError(f"Missing regional quote panel {selector}")
+        for row in panel.select(".row"):
+            label_node = row.select_one("a.global-index-link")
+            if not label_node:
+                continue
+            key = region_rows.get(label_node.get_text(" ", strip=True))
+            if not key:
+                continue
+            record = data.get("global_markets", {}).get(key, {})
+            values = row.select("span.r")
+            if len(values) >= 2:
+                set_text(values[0], record.get("display", "待核實"))
+                change = str(record.get("change_display", "待核實"))
+                set_text(values[1], change)
+                state = "up" if change.startswith("+") else "down" if change.startswith(("−", "-")) else "flat"
+                values[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
+        meta = panel.select_one(".tab-panel-meta")
+        if meta:
+            set_text(meta, f"{'亞洲' if selector == '#asia' else '歐洲'}市場｜逐項行情以各自資料日期及來源註記；未附來源者顯示待核實。")
+        reason = panel.select_one(".market-reason")
+        if reason:
+            comment_index = 0 if selector == "#asia" else 1
+            set_text(reason, data.get("market_comments", {}).get("global_markets", [])[comment_index])
+        for details_node in panel.select("details.source-details, details.region-source"):
+            body = details_node.select_one(".source")
+            if body:
+                body.clear()
+                for label, record in data.get("global_markets", {}).items():
+                    if label not in region_rows:
+                        continue
+                    src = record.get("source") if isinstance(record, dict) else None
+                    if isinstance(src, dict) and src.get("name") and src.get("url") and src.get("data_date"):
+                        body.append(f"{label}｜{src['name']}｜{src['data_date']}｜")
+                        body.append(source_link(src["url"], "來源"))
+                        body.append("；")
+    # Market and instrument narrative blocks are rewritten from the current fixture, not inherited from October.
+    narrative_targets = [
+        ("#global-markets", "美股觀察", "global_markets", 2),
+        ("#asia", "亞股觀察", "global_markets", 3),
+        ("#tac-region-panel-2", "歐股觀察", "global_markets", 4),
+        ("#tac-assets-panel-0", "產業觀察", "sectors", None),
+        ("#bonds", "債券觀察", "bonds", None),
+        ("#fx", "匯率觀察", "fx", None),
+        ("#tac-assets-panel-3", "原油觀察", "energy", None),
+        ("#tac-assets-panel-4", "貴金屬觀察", "metals", None),
+    ]
+    for selector, title_text, group_key, idx in narrative_targets:
+        section = soup.select_one(selector)
+        if section is None:
+            continue
+        note = section.select_one(".market-reason")
+        if note:
+            if group_key == "global_markets":
+                comment = data.get("market_comments", {}).get(group_key, [])
+                text_value = comment[idx] if idx is not None and idx < len(comment) else ""
+            else:
+                text_value = data.get("market_comments", {}).get(group_key, "")
+            if text_value:
+                set_text(note, text_value)
+    # Sector source list explicitly calls out every item without complete provenance.
+    sector_meta = soup.select_one("#tac-assets-panel-0 .tab-panel-meta")
+    if sector_meta:
+        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜僅依可追溯來源與資料日期核實；缺漏者待核實")
+    sector_source = soup.select_one("#tac-assets-panel-0 details .source")
+    if sector_source:
+        sector_source.clear()
+        for ticker in [x[1] for x in ranked]:
+            src = data.get("sector_sources", {}).get(ticker, {})
+            if src.get("name") and src.get("url") and src.get("data_date"):
+                sector_source.append(f"{ticker}｜{src['name']}｜{src['data_date']}｜")
+                sector_source.append(source_link(src["url"], "來源"))
+                sector_source.append("；")
+            else:
+                sector_source.append(f"{ticker}｜待核實（缺來源或資料日期）；")
+    # Ensure all quote cards carry current per-item dates in the visible heading.
+    # Current report label belongs to source link and section only; never duplicate timezone suffixes.
+    for market_section in soup.select("#global-markets, #bonds, #fx, #tac-assets-panel-3, #tac-assets-panel-4"):
+        meta_node = market_section.select_one(".tab-panel-meta")
+        if meta_node:
+            title_text = market_section.select_one(".tac-section-heading h2, .title")
+            title_label = title_text.get_text(" ", strip=True) if title_text else "市場行情"
+            set_text(meta_node, f"{title_label}｜資料基準 {previous_trade}；各品項日期與交易型態依來源逐項列示。")
     # Refresh report masthead, status banner and footer for this report date.
     for node in soup.select(".top .status, header .status, .status"):
         if node.get_text(strip=True):
