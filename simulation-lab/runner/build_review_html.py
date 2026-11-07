@@ -179,7 +179,7 @@ def main():
     for span in fed.select(".fc-split-head span"):
         if "資料時間" in span.get_text() or "官方截圖" in span.get_text() or "Investing.com" in span.get_text():
             set_text(span,f"Fed Rate Monitor｜{ts}")
-    # Replace stale calendar cards with W45 records frozen at the report cutoff.
+    # Replace current-week calendar cards from the current W46 records.
     def dateparts(v):
         try:
             z=datetime.fromisoformat(v); return z.strftime("%m/%d"), z.strftime("%H:%M") if z.hour or z.minute else "時間未確認"
@@ -231,7 +231,7 @@ def main():
     earnings=data.get("earnings",{}).get("events",[])
     if not earnings: raise ValueError("current-week earnings calendar data missing")
     title=earn.select_one(".title small")
-    if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
+    if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["earnings"]["week_start"],data["earnings"]["week_end"],data["earnings"]["week_id"],report_cutoff))
     ep=unique(earn,".week-earnings-panels","earnings panels")
     et=ep.select_one("details.earnings-accordion"); eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
     if not et or not eg: raise ValueError("earnings calendar template missing")
@@ -414,17 +414,18 @@ def main():
             if meta: set_text(meta,label)
     # Replace old market-source captions with the sources for this report date.
     source_specs=[
-        ("#global-markets .source","https://countryeconomy.com/stock-exchange","各市場 11/05 收盤彙整；美股、歐洲與亞洲指數另依各市場歷史行情交叉核對。"),
-        ("#tac-assets-panel-0 .source","https://www.exent.ai/resources/stock-market-crash-november-2026","11/05 S&P 500 11 大產業 ETF 單日收盤漲跌幅。"),
-        ("#tac-assets-panel-1 .source","https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/textview","U.S. Treasury Daily Treasury Par Yield Curve Rates｜11/05。"),
-        ("#tac-assets-panel-2 .source","https://www.investing.com/currencies/usd-twd-historical-data","Investing.com 外匯歷史資料；EUR/USD、GBP/USD、AUD/USD、USD/JPY 另參照 11/05 前一日外匯收盤表。"),
-        ("#tac-assets-panel-3 .source","https://www.reuters.com/business/energy/oil-falls-fourth-day-expectations-lower-risk-iran-war-escalation-2026-11-05/","Reuters｜11/05 WTI 與 Brent 期貨結算報價。"),
-        ("#tac-assets-panel-4 .source","https://markets.ft.markitdigital.com/data/commodities/tearsheet/historical?c=COMEX+Gold","COMEX Gold 歷史收盤；白銀採 Investing.com 期貨歷史資料。")
+        ("#global-markets .source","https://apnews.com/article/markets-japan-nikkei-oil-ai-bba6f0bf9035a6e6b1c4fef3e8230b89","AP｜11/06 美股收盤與週線市場報導；亞洲／歐洲指數另待同日行情核實。"),
+        ("#tac-assets-panel-0 .source",None,"11/06 S&P 500 11 大產業 ETF 同日收盤資料尚待核實。"),
+        ("#tac-assets-panel-1 .source",None,"11/06 美國公債殖利率官方日終資料尚待核實。"),
+        ("#tac-assets-panel-2 .source",None,"11/06 六項固定匯率同日收盤資料尚待核實。"),
+        ("#tac-assets-panel-3 .source",None,"11/06 WTI／Brent 期貨結算資料尚待核實。"),
+        ("#tac-assets-panel-4 .source",None,"11/06 COMEX 黃金／白銀期貨結算資料尚待核實。")
     ]
     for selector,url,label in source_specs:
         for node in soup.select(selector):
             node.clear()
-            node.append(source_link(url,label))
+            if url: node.append(source_link(url,label))
+            else: node.append(label)
 
     # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
     reasons=[
@@ -440,7 +441,7 @@ def main():
         for i,node in enumerate(nodes):
             if i<len(values): set_text(node,values[i])
     level_source=soup.select_one("#view .focus-panel.focus-levels .source")
-    if level_source: set_text(level_source,"支撐與壓力區間未完成 11/05 OHLC 重算，故本版不沿用母版 10/27 價位；取得完整近 20 日序列後再補。")
+    if level_source: set_text(level_source,f"支撐與壓力區間尚未完成 {previous_trade} OHLC 與近 20 日序列重算；本版不沿用母版舊價位。")
     status=soup.select_one(".status")
     if status: set_text(status,f"{report_label}（{report_weekday}）｜{report_context}")
     warning=soup.select_one(".data-sync-warning")
@@ -465,7 +466,7 @@ def main():
         marker=fgbox.select_one(".fg6-marker")
         if marker: marker["style"]="display:none"
         src=fgbox.select_one(".source")
-        if src: set_text(src,"11/05 歷史來源讀值不一致，暫不採用；待 CNN Business 官方歷史值核對。")
+        if src: set_text(src,"本次早報截點未取得可核實的 CNN Business 官方同日歷史值。")
     core=sent.select(".sbox")[-1].select_one("div[style]")
     if core: set_text(core,data["sentiment"])
     # Observation title, market view, levels and core priorities.
@@ -475,7 +476,7 @@ def main():
     market_panel=view.select_one(".focus-panel.focus-market .key")
     if market_panel: set_text(market_panel,data.get("observation","盤面觀察待核實"))
     levels=view.select_one(".focus-panel.focus-levels .key")
-    if levels: set_text(levels,"支撐與壓力區間待依 11/05 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用母版舊區間。")
+    if levels: set_text(levels,f"支撐與壓力區間待依 {previous_trade} 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用母版舊區間。")
     core_panel=view.select_one(".focus-panel.focus-core .callout")
     if core_panel: set_text(core_panel,data.get("observation","盤面觀察待核實"))
     # FedWatch is a dated market snapshot, not the old October decision snapshot.
@@ -501,12 +502,7 @@ def main():
         p=fomc.select_one("p")
         if p: set_text(p,"下一次會議日期與決策時間以 Federal Reserve 官方日曆為準；本欄不沿用 10 月會議舊資料。")
     health=soup.select_one("#sp500-earnings-health .title small")
-    if health: set_text(health,"FactSet 最新可核實快照：2026/10/23；非 11/05 即時統計。")
-    health_panel=soup.select_one("#sp500-earnings-health")
-    if health_panel:
-        for node in health_panel.find_all(string=True):
-            if "10/27" in str(node): node.replace_with(str(node).replace("10/27","11/05"))
-
+    if health: set_text(health,"FactSet 最新可核實快照：2026/10/30；非本次早報即時統計。")
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
