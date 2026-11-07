@@ -422,22 +422,39 @@ def main():
             if meta: set_text(meta,label)
     # Replace old market-source captions with the sources for this report date.
     source_specs=[
-        ("#global-markets .source","https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/","Reuters｜11/06 美股收盤；亞洲與歐洲市場另參考 AP／交易所收盤資料。"),
-        ("#tac-assets-panel-1 .source","https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data","Investing.com｜11/06 美國公債殖利率歷史資料。"),
-        ("#tac-assets-panel-2 .source","https://www.investing.com/indices/usdollar-historical-data","Investing.com｜11/06 美元指數；主要匯率參考 Reuters。"),
-        ("#tac-assets-panel-3 .source","https://www.investing.com/commodities/crude-oil-historical-data","Investing.com｜11/06 WTI／Brent 期貨歷史報價。"),
-        ("#tac-assets-panel-4 .source","https://www.investing.com/commodities/gold-historical-data","Investing.com｜11/06 黃金／白銀期貨歷史報價。")
+        ("#global-markets .source","https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/","Reuters｜11/06 美股收盤"),
+        ("#tac-assets-panel-1 .source","https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data","Investing.com｜11/06 美國公債殖利率歷史資料"),
+        ("#tac-assets-panel-3 .source","https://www.investing.com/commodities/crude-oil-historical-data","Investing.com｜11/06 WTI／Brent 期貨歷史報價"),
+        ("#tac-assets-panel-4 .source","https://www.investing.com/commodities/gold-historical-data","Investing.com｜11/06 黃金／白銀期貨歷史報價")
     ]
     for selector,url,label in source_specs:
         for node in soup.select(selector):
             node.clear()
             node.append(source_link(url,label))
+    for node in soup.select("#global-markets .source"):
+        node.append("｜")
+        node.append(source_link("https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad","AP｜亞洲／歐洲收盤"))
+        node.append("｜")
+        node.append(source_link("https://indexes.nasdaq.com/Index/Overview/SOX","Nasdaq｜SOX"))
     for node in soup.select("#tac-assets-panel-0 .source"):
         node.clear()
         node.append("Yahoo Finance 歷史行情（11/06 收盤漲跌幅）：")
         for ticker in ("XLK","XLY","XLB","XLU","XLI","XLV","XLF","XLC","XLRE","XLP","XLE"):
             node.append(source_link(f"https://finance.yahoo.com/quote/{ticker}/history/",ticker))
             node.append(" ")
+    for node in soup.select("#tac-assets-panel-2 .source"):
+        node.clear()
+        node.append("Investing.com 歷史匯率（11/06）：")
+        for url,label in [
+            ("https://www.investing.com/indices/usdollar-historical-data","DXY"),
+            ("https://www.investing.com/currencies/usd-twd-historical-data","USD/TWD"),
+            ("https://www.investing.com/currencies/eur-usd-historical-data","EUR/USD"),
+            ("https://www.investing.com/currencies/gbp-usd-historical-data","GBP/USD"),
+            ("https://www.investing.com/currencies/aud-usd-historical-data","AUD/USD"),
+            ("https://www.investing.com/currencies/usd-jpy-historical-data","USD/JPY")
+        ]:
+            node.append(source_link(url,label)); node.append(" ")
+
 
     # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
     reasons=[
@@ -478,7 +495,8 @@ def main():
                 elif label=="MOVE" and rdata.get("display")!="待核實":
                     src.clear(); src.append(source_link("https://www.investing.com/indices/ice-bofaml-move-historical-data","Investing.com｜最新可得11/05收盤"))
                 else:
-                    set_text(src,"本次早報截點未取得可核實的歷史收盤值。")
+                    src.clear()
+                    src.append(source_link("https://www.cnn.com/markets/fear-and-greed","CNN Business｜官方指數頁；本次頁面未載入最新讀值"))
     fgbox=sent.select_one(".cnn-fg-preview")
     if fgbox:
         score=fgbox.select_one(".fg6-score-main")
