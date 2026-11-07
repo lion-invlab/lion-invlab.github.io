@@ -763,88 +763,39 @@ def main():
     # Normalize instrument-name typography across every market quote panel.
     # Keep English tickers/sub-labels, prices, percentage changes and section headings untouched.
     instrument_css = """
-<style id="tac-market-instrument-name-unified-v1">
-/* One consistent Chinese instrument-name size across index, sector, bond, FX and commodity quotes. */
+<style id="tac-market-instrument-name-unified-v2">
+/* Identical Chinese instrument-name typography in every quote panel. */
 #global-markets .row > b,
 #asia .row > b,
 [id^="tac-region-panel-"] .row > b,
 #industry-bonds-fx-commodities .row > b,
-#industry-bonds-fx-commodities .sector-label b {
+#industry-bonds-fx-commodities .sector-label b,
+#industry-bonds-fx-commodities .energy-card .row b,
+#industry-bonds-fx-commodities .energy-card .row b a {
   font-size:16px !important;
+  font-weight:700 !important;
   line-height:1.35 !important;
+  letter-spacing:normal !important;
+  transform:none !important;
 }
 @media(max-width:700px) {
   #global-markets .row > b,
   #asia .row > b,
   [id^="tac-region-panel-"] .row > b,
   #industry-bonds-fx-commodities .row > b,
-  #industry-bonds-fx-commodities .sector-label b {
+  #industry-bonds-fx-commodities .sector-label b,
+  #industry-bonds-fx-commodities .energy-card .row b,
+  #industry-bonds-fx-commodities .energy-card .row b a {
     font-size:16px !important;
+    font-weight:700 !important;
     line-height:1.35 !important;
+    letter-spacing:normal !important;
+    transform:none !important;
   }
 }
 </style>
 """
-    # Match the approved earnings-card reference: five full-width stacked information fields.
-    earnings_layout_css = """
-<style id="tac-earnings-card-five-field-layout-v1">
-.earnings-accordion-details { grid-template-columns:minmax(0,1fr) !important; }
-.earnings-accordion-details > .earnings-detail-field { grid-column:1/-1 !important; }
-@media(max-width:640px) {
-  .earnings-accordion-details { grid-template-columns:minmax(0,1fr) !important; }
-  .earnings-accordion-details > .earnings-detail-field { grid-column:1/-1 !important; }
-}
-</style>
-"""
-    head = soup.select_one("head")
-    if head is None: raise ValueError("HTML head missing; cannot install earnings card layout")
-    head.append(BeautifulSoup(earnings_layout_css,"html.parser").style)
-    # Fix mobile sidebar clipping: keep every quick link/history control visible and scrollable.
-    sidebar_css = """
-<style id="tac-sidebar-mobile-no-clipping-v1">
-@media(max-width:1099px) {
-  .tac-side-tools {
-    width:min(82vw,310px) !important;
-    height:100vh !important;
-    height:100dvh !important;
-    max-height:100dvh !important;
-    box-sizing:border-box !important;
-    overflow-x:hidden !important;
-    overflow-y:auto !important;
-    overscroll-behavior:contain !important;
-    -webkit-overflow-scrolling:touch !important;
-    padding-top:max(22px,env(safe-area-inset-top)) !important;
-    padding-bottom:max(18px,env(safe-area-inset-bottom)) !important;
-  }
-  .tac-side-tools > * { flex-shrink:0 !important; }
-  .tac-side-tools .tac-side-brand { min-width:0 !important; }
-  .tac-side-tools .tac-history-mini { flex:0 0 auto !important; min-height:max-content !important; }
-  .tac-side-tools .tac-history-mini input,
-  .tac-side-tools .tac-history-mini button { flex-shrink:0 !important; }
-  .tac-side-tools .tac-side-foot { margin-top:12px !important; }
-}
-</style>
-"""
-    # Correct the energy-card mobile override that previously forced crude-oil names to 14px.
-    existing_sidebar = soup.select_one("#tac-sidebar-mobile-no-clipping-v1")
-    sidebar_style = BeautifulSoup(sidebar_css, "html.parser").style
-    if existing_sidebar:
-        existing_sidebar.replace_with(sidebar_style)
-    else:
-        head = soup.select_one("head")
-        if head is None: raise ValueError("HTML head missing; cannot install sidebar fix")
-        head.append(sidebar_style)
-    # Add the exact energy-card selector; it overrides the mother's legacy 14px mobile rule.
-    instrument_css = instrument_css.replace(
-        "#industry-bonds-fx-commodities .sector-label b {",
-        "#industry-bonds-fx-commodities .sector-label b,\n"
-        "  #industry-bonds-fx-commodities .energy-card .row > b {"
-    ).replace(
-        "#industry-bonds-fx-commodities .sector-label b {",
-        "#industry-bonds-fx-commodities .sector-label b,\n"
-        "  #industry-bonds-fx-commodities .energy-card .row > b {"
-    )
-    existing_typography = soup.select_one("#tac-market-instrument-name-unified-v1")
+    existing_typography = soup.select_one("#tac-market-instrument-name-unified-v2")
     if existing_typography:
         existing_typography.replace_with(BeautifulSoup(instrument_css, "html.parser").style)
     else:
