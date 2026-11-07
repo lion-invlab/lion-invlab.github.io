@@ -463,24 +463,30 @@ def main():
         meta=section.select_one(".tab-panel-meta")
         if meta: set_text(meta,f"{label}｜資料窗口：2026/11/06 12:00 至 {report_cutoff}（台灣時間）")
         items=data[items_key]
-        news_nodes=section.select(".newsitem")
-        for idx,node in enumerate(news_nodes):
-            if idx>=len(items):
-                node.decompose()
-                continue
-            item=items[idx]
-            if not item.get("url") or not item.get("published_at_tw"):
-                raise ValueError(f"{sid}[{idx}] missing original URL or verified Taiwan publication time")
+        if not items:
+            raise ValueError(f"{sid} has no verified news items")
+        for old_node in section.select(".newsitem"):
+            old_node.decompose()
+        for idx,item in enumerate(items):
+            if not item.get("url") or not item.get("published_at_tw") or not item.get("title") or not item.get("summary"):
+                raise ValueError(f"{sid}[{idx}] missing title, summary, original URL or verified Taiwan publication time")
             if not item["url"].startswith("https://"):
                 raise ValueError(f"{sid}[{idx}] non-HTTPS source URL")
-            metas=node.select(".newsmeta")
-            if metas:
-                domain=re.sub(r"^https?://([^/]+).*",r"\1",item["url"])
-                metas[0].clear()
-                metas[0].append("資料來源：")
-                metas[0].append(source_link(item["url"],domain))
-                metas[0].append("｜發布："+item["published_at_tw"])
-                metas[0].append(f"｜截稿 {report_cutoff}")
+            node=soup.new_tag("div",attrs={"class":["newsitem"]})
+            heading=soup.new_tag("h3")
+            heading.append(source_link(item["url"],item["title"]))
+            paragraph=soup.new_tag("p")
+            paragraph.string=item["summary"]
+            meta_line=soup.new_tag("div",attrs={"class":["newsmeta"]})
+            domain=re.sub(r"^https?://([^/]+).*",r"\1",item["url"])
+            meta_line.append("資料來源：")
+            meta_line.append(source_link(item["url"],domain))
+            meta_line.append("｜發布："+item["published_at_tw"])
+            meta_line.append(f"｜截稿 {report_cutoff}")
+            node.append(heading)
+            node.append(paragraph)
+            node.append(meta_line)
+            section.append(node)
     focus_urls={x.get("url") for x in data.get("focus_news",[])}
     headline_urls={x.get("url") for x in data.get("headlines",[])}
     if focus_urls & headline_urls:
