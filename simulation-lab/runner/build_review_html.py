@@ -558,8 +558,28 @@ def main():
 
 
     # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
+    # Market commentary is bound by semantic market key, never by array position.
+    market_comments=data.get("market_comments",{}).get("global_markets",[])
+    global_comment_map = {
+        "us": next((x for x in market_comments if x.startswith("📌 美股觀察")), None),
+        "asia": next((x for x in market_comments if x.startswith("📌 亞洲市場觀察")), None),
+        "europe": next((x for x in market_comments if x.startswith("📌 歐洲市場觀察")), None),
+    }
+    global_panels = [
+        ("#tac-global-panel-0 .market-reason", "us", "📌 美股觀察"),
+        ("#tac-global-panel-1 .market-reason", "asia", "📌 亞洲市場觀察"),
+        ("#tac-global-panel-2 .market-reason", "europe", "📌 歐洲市場觀察"),
+    ]
+    for selector, key, expected_prefix in global_panels:
+        node=unique(soup,selector,f"{key} global-market commentary")
+        value=global_comment_map.get(key)
+        if not value or not value.startswith(expected_prefix):
+            raise ValueError(f"missing or mismatched {key} market commentary")
+        set_text(node,value)
+        if not node.get_text(" ",strip=True).startswith(expected_prefix):
+            raise ValueError(f"{key} market commentary binding validation failed")
+
     reasons=[
-        ("#global-markets .market-reason",data.get("market_comments",{}).get("global_markets",["📌 美股觀察｜行情待核實。","📌 亞股觀察｜行情待核實。","📌 歐股觀察｜行情待核實。"])),
         ("#tac-assets-panel-0 .market-reason",[data.get("market_comments",{}).get("sectors","📌 產業觀察｜11 檔產業 ETF 報價待核實。")]),
         ("#tac-assets-panel-1 .market-reason",[data.get("market_comments",{}).get("bonds","📌 債券觀察｜殖利率待核實。")]),
         ("#tac-assets-panel-2 .market-reason",[data.get("market_comments",{}).get("fx","📌 匯率觀察｜匯率待核實。")]),
@@ -653,7 +673,7 @@ def main():
 
     # Refresh regional market tabs so no October mother-template quotes survive.
     region_specs = [
-        ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 1, "亞洲市場｜2026/11/06各市場當地正式收盤", [
+        ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 0, "亞洲市場｜2026/11/06各市場當地正式收盤", [
             ("https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad","AP市場報導"),
             ("https://www.investing.com/indices/japan-ni225-historical-data","Nikkei 225"),
             ("https://www.investing.com/indices/kospi-historical-data","KOSPI"),
@@ -662,7 +682,7 @@ def main():
             ("https://www.investing.com/indices/shanghai-composite-historical-data","Shanghai"),
             ("https://www.investing.com/indices/shenzhen-composite-historical-data","Shenzhen")
         ]),
-        ("#tac-region-panel-2", {"英國FTSE 100":"英國 FTSE 100","德國DAX":"德國 DAX","法國CAC 40":"法國 CAC 40"}, 2, "歐洲市場｜2026/11/06各市場當地正式收盤", [
+        ("#tac-region-panel-2", {"英國FTSE 100":"英國 FTSE 100","德國DAX":"德國 DAX","法國CAC 40":"法國 CAC 40"}, 1, "歐洲市場｜2026/11/06各市場當地正式收盤", [
             ("https://www.investing.com/indices/uk-100-historical-data","FTSE 100"),
             ("https://www.investing.com/indices/germany-30-historical-data","DAX"),
             ("https://www.investing.com/indices/france-40-historical-data","CAC 40"),
