@@ -232,20 +232,48 @@
       }
     },
     "澳洲 S&P/ASX 200": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "9,020.80",
+      "change_display": "−0.49%",
+      "source": {
+        "name": "Investing.com 香港站｜S&P/ASX 200 歷史資料",
+        "url": "https://hk.investing.com/indices/aus-200-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 現貨指數收盤列。"
+      }
     },
     "英國 FTSE 100": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "10,546.69",
+      "change_display": "−2.19%",
+      "source": {
+        "name": "Investing.com 香港站｜FTSE 100 歷史資料",
+        "url": "https://hk.investing.com/indices/uk-100-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 現貨指數收盤列。"
+      }
     },
     "德國 DAX": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "25,820.36",
+      "change_display": "−1.92%",
+      "source": {
+        "name": "Investing.com 香港站｜DAX 歷史資料",
+        "url": "https://hk.investing.com/indices/germany-30-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 現貨指數收盤列；非 DAX 期貨。"
+      }
     },
     "法國 CAC 40": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "8,139.00",
+      "change_display": "−0.81%",
+      "source": {
+        "name": "Investing.com 香港站｜CAC 40 歷史資料",
+        "url": "https://hk.investing.com/indices/france-40-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 現貨指數 CFD 歷史資料列，標示現貨指數追蹤報價。"
+      }
     },
     "STOXX Europe 600": {
       "display": "648.33",
