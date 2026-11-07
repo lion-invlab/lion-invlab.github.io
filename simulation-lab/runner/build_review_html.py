@@ -195,19 +195,46 @@ def main():
     sent=unique(soup,"#sentiment","sentiment")
     paragraphs=sent.select("p")
     if paragraphs: set_text(paragraphs[0],data["sentiment"])
-    # Global Focus News and headlines use .newsitem nodes, not list items.
-    for section_id, items_key, expected in [("global-focus","focus_news",5),("headlines","headlines",10)]:
+    # Rebuild every news card's complete data-bearing fields from the current JSON.
+    # Never retain mother-template source URLs, publication timestamps or report-window labels.
+    from urllib.parse import urlparse
+    for section_id, items_key, expected, section_label in [
+        ("global-focus","focus_news",5,"全球焦點"),
+        ("headlines","headlines",10,"市場熱門頭條")
+    ]:
         box=unique(soup,f"#{section_id}",section_id)
         nodes=box.select(".newsitem")
         items=data[items_key]
-        if len(nodes)<expected: raise ValueError(f"{section_id}: mother cards {len(nodes)} < {expected}")
-        for idx,item in enumerate(items[:expected]):
+        if len(items)!=expected:
+            raise ValueError(f"{items_key}: expected exactly {expected} current records, got {len(items)}")
+        if len(nodes)<expected:
+            raise ValueError(f"{section_id}: mother cards {len(nodes)} < {expected}")
+        for idx,item in enumerate(items):
+            if not item.get("title") or not item.get("summary") or not item.get("url") or not item.get("published_at_tw"):
+                raise ValueError(f"{items_key}[{idx}]: title/summary/url/published_at_tw required")
+            if not str(item["url"]).startswith("https://"):
+                raise ValueError(f"{items_key}[{idx}]: non-HTTPS source URL")
             node=nodes[idx]
             title=unique(node,".news-title, h3, h4, strong",f"{section_id}[{idx}] title")
-            set_text(title,item["title"])
+            prefix=(f"{idx+1}. " if section_id=="global-focus" else f"{idx+1:02d}｜")
+            set_text(title,prefix+item["title"])
             summary_nodes=node.select(".news-summary, p, .summary")
-            if summary_nodes: set_text(summary_nodes[0],item["summary"])
-            # News headlines are plain text; only the source line below is clickable.
+            if not summary_nodes:
+                raise ValueError(f"{section_id}[{idx}]: summary slot missing")
+            set_text(summary_nodes[0],item["summary"])
+            meta=unique(node,".newsmeta",f"{section_id}[{idx}] source metadata")
+            meta.clear()
+            host=urlparse(item["url"]).hostname or "原始來源"
+            source=soup.new_tag("a",href=item["url"],target="_blank",rel="noopener")
+            source.string=f"{host}｜發布 {item['published_at_tw']}（台灣時間）｜閱讀原文 ↗"
+            meta.append(source)
+        # Keep the report date and window visible in both news section headers.
+        panel_meta=box.select_one(".tab-panel-meta")
+        if panel_meta:
+            set_text(panel_meta,f"{section_label}｜報告日期 {report_label}｜新聞時間窗：2026/11/06 12:00–{report_cutoff}（台灣時間）")
+        warning=box.select_one(".news-window-warning")
+        if warning and section_id=="global-focus":
+            set_text(warning,f"新聞時間窗｜2026/11/06 12:00–{report_cutoff}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
