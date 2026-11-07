@@ -546,7 +546,7 @@ def main():
     status=soup.select_one(".status")
     if status: set_text(status,f"{report_label}（{report_weekday}）｜{report_context}")
     warning=soup.select_one(".data-sync-warning")
-    if warning: set_text(warning,f"{report_label} 早報審核版｜市場資料依各自來源與交易日更新；待核實項目不以估值補齊。")
+    if warning: set_text(warning,f"{report_label} 早報審核版｜"+data.get("warning_note","市場資料依各自來源與交易日更新；待核實項目不以估值補齊。"))
     footer=soup.select_one(".footer")
     if footer: set_text(footer,f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜資料截點 {report_cutoff} 台灣時間｜行情基準為各市場最近正式交易日；未取得一致可追溯資料者標示待核實。本檔為隔離模擬審核版，未發布至正式首頁。")
 
