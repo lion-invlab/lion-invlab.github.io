@@ -78,7 +78,7 @@ jobs:
             "source":"deterministic fixture; not live market data",
             "key_levels":report["key_levels"]
           }
-          Path("simulation-lab/output/key-levels-live.json").write_text(json.dumps(envelope,ensure_ascii=False,indent=2)+"\\n")
+          Path("simulation-lab/output/key-levels-live.json").write_text(json.dumps(envelope,ensure_ascii=False,indent=2)+"\n")
           PY
 
       - name: Assemble 11/09 Monday simulation review HTML from approved Monday mother
