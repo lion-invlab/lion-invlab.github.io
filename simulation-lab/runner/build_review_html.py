@@ -615,7 +615,7 @@ def main():
             raise ValueError("FedWatch cannot mix hike and cut outcomes in this two-card summary")
         if hikes and len(hikes)==1:
             nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?", str(hikes[0].get("rate_range","")))]
-            current_nums=[float(v) for v in re.findall(r"\\d+(?:\\.\\d+)?", str(current_range))]
+            current_nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?", str(current_range))]
             if len(nums)!=2 or len(current_nums)!=2 or abs(nums[0]-(current_nums[0]+0.25))>0.001 or abs(nums[1]-(current_nums[1]+0.25))>0.001:
                 raise ValueError("FedWatch hike range must be exactly +25 bp above the official current target range")
         directions={x.get("outcome") for x in nonhold}
