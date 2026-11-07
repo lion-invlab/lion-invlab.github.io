@@ -1232,7 +1232,7 @@ def main():
     # Verify the expected market-name groups exist before emitting the review HTML.
     typography_targets = {
         "global indices": "#global-markets .row > b",
-        "regional indices": "[id^='tac-region-panel-'] .row > b",
+        "regional indices": "#asia .row > b, #tac-region-panel-2 .row > b, #tac-global-panel-1 .row > b, #tac-global-panel-2 .row > b",
         "sector ETF names": "#industry-bonds-fx-commodities .sector-label b",
         "bonds/FX/commodities": "#industry-bonds-fx-commodities .row > b",
     }
