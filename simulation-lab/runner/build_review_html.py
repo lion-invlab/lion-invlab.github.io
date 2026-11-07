@@ -338,6 +338,18 @@ def main():
     for span in fed.select(".fc-split-head span"):
         if "資料時間" in span.get_text() or "官方截圖" in span.get_text() or "Investing.com" in span.get_text():
             set_text(span,f"Fed Rate Monitor｜{ts}")
+    # Replace stale mother-template disclaimer with the actual verified snapshot state.
+    snapshot_note = f"Investing.com Fed Rate Monitor｜目標會議 {data['fedwatch'].get('target_meeting','待核實')}｜更新時間 {ts}。"
+    snapshot_detail = fed.select_one("details")
+    if snapshot_detail:
+        detail_body = snapshot_detail.select_one("div")
+        if detail_body:
+            set_text(detail_body, snapshot_note + " 本版採頁面所列機率分布，非舊截圖或自行估算。")
+    source_line = fed.select_one(".fc-source")
+    if source_line:
+        for text_node in list(source_line.find_all(string=True)):
+            if "本次資料截點未取得可核實的機率快照" in str(text_node):
+                text_node.replace_with("｜" + snapshot_note)
     # Replace current-week calendar cards from the current W46 records.
     def dateparts(v):
         try:
