@@ -491,27 +491,27 @@
   },
   "fedwatch": {
     "target_meeting": "2026-12-09",
-    "updated_at_tw": "2026-11-07 06:59（CME FedWatch 參照快照：2026-11-06 22:59 UTC）",
+    "updated_at_tw": "2026-11-07 08:55（Investing.com頁面更新 2026-11-06 19:55 EST）",
     "probabilities": [
       {
         "outcome": "hold",
         "rate_range": "3.75–4.00%",
-        "probability": 21.9
+        "probability": 24.5
       },
       {
         "outcome": "hike",
         "rate_range": "4.00–4.25%",
-        "probability": 78.1
+        "probability": 75.5
       }
     ],
     "source": {
-      "name": "CME FedWatch｜30-Day Fed Funds Futures",
-      "url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
-      "updated_at": "2026-11-06 22:59 UTC",
-      "observed_at_tw": "2026-11-07 06:59",
+      "name": "Investing.com Fed Rate Monitor｜CME 30-Day Fed Funds Futures",
+      "url": "https://www.investing.com/central-banks/fed-rate-monitor",
+      "updated_at": "2026-11-06 19:55 EST",
+      "observed_at_tw": "2026-11-07 08:55",
       "target_meeting": "2026-12-09",
-      "future_price": "95.9850",
-      "note": "CME FedWatch 最新可核對快照；維持現行 3.75%–4.00% 為 21.9%，升息一碼至 4.00%–4.25% 為 78.1%，合計 100%。使用 CME 30-Day Fed Funds Futures 機率分布；Investing.com 原先 75.5%／24.5% 與 CME 方向性結果不一致，不採用。"
+      "future_price": "95.985",
+      "note": "頁面 2026-11-06 19:55 EST 快照：維持現行 3.75%–4.00% 為 24.5%；升息一碼至 4.00%–4.25% 為 75.5%；合計 100%。機率與區間逐列對應，不可對調。"
     },
     "current_target_range": "3.75–4.00%",
     "current_target_range_source": {
