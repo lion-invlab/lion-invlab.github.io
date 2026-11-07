@@ -3,84 +3,84 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-06",
   "summary": "① 市場主軸｜11/06 美股科技股自前一日急跌後反彈，但道瓊仍收低，反彈集中於科技與半導體，尚不能視為全面風險解除。② 趨勢確認｜Nasdaq 本週仍下跌約 3.4%，連續第四週收黑；S&P 500 本週跌約 2.7%，為逾一年最差單週表現。③ 宏觀牽制｜10 月非農增加 165,000 人、失業率 4.1%，就業強於預期，市場提高 12 月升息押注；11/10 美國 CPI 將成為下一個關鍵驗證。④ AI 投資｜政治監管、資料中心建置與資本回報疑慮尚未解除，半導體反彈需觀察後續企業指引與資本支出。⑤ 本週焦點｜中國 CPI/PPI、美國 CPI、科技財報與能源價格，將共同決定反彈能否延續。",
-  "sentiment": "風險情緒由急跌轉為技術性反彈，但仍屬高波動、未確認築底。Nasdaq 與 S&P 500 週線連續走弱，週五科技股回升並未扭轉週跌勢；道瓊仍下跌，反映資金回補集中而非全面追價。非農強於預期推升市場對 12 月升息的押注，科技估值修正與利率風險同時存在。VIX、MOVE 與 CNN Fear & Greed 未取得符合早報截點的同日官方收盤值，故不以盤中或晚間數值代替。",
+  "sentiment": "市場情緒由急跌轉為選擇性回補，但整體仍偏謹慎。週五Nasdaq上漲1.1%、S&P 500上漲0.32%，道瓊卻下跌0.46%；Nasdaq週線仍下跌3.4%，顯示科技股反彈尚未帶動全面風險偏好回升。非農數據強於預期，市場重新提高12月升息押注；AI監管、資料中心資本支出回報與通膨仍是壓抑情緒的三項主因。",
   "focus_news": [
     {
-      "title": "科技股重挫後反彈，Nasdaq 仍錄得連續第四週下跌",
-      "summary": "Reuters 報導，晶片股週五反彈帶動 Nasdaq 上漲約 1.1%，但全週仍下跌 3.4%；S&P 500 全週下跌 2.7%，AI 資本支出與監管疑慮仍是市場焦點。",
+      "title": "美國10月非農新增16.5萬人，失業率降至4.1%，升息押注回升",
+      "summary": "鉅亨網報導，美國10月非農新增165,000人，高於預期65,000人，失業率降至4.1%；數據公布後，市場對12月升息一碼的押注升至約76.8%，短端利率重新承壓。",
+      "url": "https://news.cnyes.com/news/id/6651131"
+    },
+    {
+      "title": "Nasdaq反彈1.1%，但仍錄得連續第四週下跌",
+      "summary": "Reuters指出，晶片股帶動週五科技股反彈，費半上漲4.2%，但Nasdaq全週仍下跌3.4%、S&P 500下跌2.7%；反彈尚未扭轉週線弱勢。",
       "url": "https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/"
     },
     {
-      "title": "美國就業數據強於預期，市場重新評估聯準會升息路徑",
-      "summary": "AP 報導，10 月非農新增 165,000 人、失業率 4.1%；強勁就業支撐經濟韌性，同時推升市場對 12 月升息的預期。",
-      "url": "https://apnews.com/article/bba6f0bf9035a6e6b1c4fef3e8230b89"
-    },
-    {
-      "title": "全球股票基金連續第七週吸金，科技基金資金流入降溫",
-      "summary": "Reuters 引述 LSEG Lipper 資料，截至 11/04 當週全球股票基金淨流入 386.3 億美元；科技基金流入降至三週低點，醫療與金融基金吸引較多資金。",
+      "title": "全球股票基金連續第七週吸金，科技基金流入降至三週低點",
+      "summary": "Reuters引述LSEG Lipper資料，截至11月4日當週全球股票基金淨流入386.3億美元；科技基金流入降至三週低點，醫療與金融基金吸引較多資金，顯示資金仍在股市內部調整配置。",
       "url": "https://www.reuters.com/world/china/global-markets-flows-graphic-2026-11-06/"
     },
     {
-      "title": "日本政府擬運用央行 ETF 出售收益，投入經濟安全與成長領域",
-      "summary": "Reuters 報導，日本首相高市早苗表示，將把日本央行增加 ETF 出售所產生的收益，導向具競爭優勢的策略產業；市場波動也增加財政與貨幣政策協調難度。",
-      "url": "https://www.reuters.com/world/asia-pacific/japan-vigilant-market-moves-will-focus-boosting-economy-pm-takaichi-says-2026-11-06/"
+      "title": "科技股修正後迎接美國CPI，CoreWeave、Applied Materials與Cisco將公布財報",
+      "summary": "Investing.com刊載Reuters週前瞻指出，AI交易波動及資料中心建置疑慮仍未解除；下週美國CPI與科技企業財報將檢驗通膨、AI資本支出與市場估值。",
+      "url": "https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256"
     },
     {
-      "title": "中國企業利潤率落後全球同業，內需疲弱持續壓抑獲利",
-      "summary": "Reuters 分析 5,209 家中國上市公司資料指出，上半年中國企業利潤率為 4.88%，低於全球同業的 8.87%；零售需求與房地產疲弱仍是主要壓力。",
-      "url": "https://www.reuters.com/business/autos-transportation/s-chinese-firms-profit-margins-trail-global-peers-domestic-demand-stays-weak-2026-11-06/"
+      "title": "IMF總裁：AI成長若放緩，央行制定抗通膨政策時必須納入考量",
+      "summary": "Reuters報導，Georgieva指出AI投資熱潮既支撐部分經濟成長，也帶來通膨與金融穩定風險；若AI投資動能減弱，將影響央行對成長與物價的政策權衡。",
+      "url": "https://www.reuters.com/business/imfs-georgieva-says-any-slowdown-in-ai-driven-growth-would-be-factor-central-banks-2026-11-06/"
     }
   ],
   "headlines": [
     {
-      "title": "Reuters：市場擔憂科技股修正將拖累全球成長展望",
-      "summary": "科技股急跌增加全球成長不確定性；能源價格與中東風險又使通膨壓力難以完全消退，央行政策空間受到雙重牽制。",
-      "url": "https://www.reuters.com/business/retail-consumer/trader-angst-pivots-inflation-growth-tech-rout-deepens-2026-11-06/"
+      "title": "AI晶片股盤前回穩，半導體與光通訊族群反彈",
+      "summary": "鉅亨網引述盤前市場資料，MU、AMD、Lumentum及光通訊族群走強，顯示前一交易日重挫後有資金回補；仍須觀察開盤後能否延續。",
+      "url": "https://news.cnyes.com/news/id/6650488"
     },
     {
-      "title": "Reuters：美股週五反彈，但三大指數仍以週線下跌作收",
-      "summary": "S&P 500 上漲 0.31%、Nasdaq 上漲約 1.1%，道瓊下跌 0.46%；科技、通訊服務與工業股領漲，反彈未能消除本週累積跌幅。",
-      "url": "https://www.reuters.com/business/energy/global-markets-global-markets-2026-11-05/"
+      "title": "彰化銀行前10月獲利超越去年全年，EPS達1.58元",
+      "summary": "鉅亨網報導，彰銀前10月稅後盈餘189.98億元、年增22%，累計EPS 1.58元；核心業務淨收益成長帶動獲利，為金融業營運觀察提供參考。",
+      "url": "https://news.cnyes.com/news/id/6651519"
     },
     {
-      "title": "Reuters：美國 10 月非農新增 165,000 人，失業率降至 4.1%",
-      "summary": "Reuters 報導，10 月非農新增 165,000 人，優於市場預估；就業韌性提高市場對聯準會 12 月升息的押注。",
-      "url": "https://www.fidelity.com/news/article/us-markets/202611061004RTRSNEWSCOMBINED_L6N46N0YR_1"
+      "title": "高盛下修2026及2027年底金價目標，仍看好央行買盤支撐",
+      "summary": "鉅亨網報導，高盛將2026年底金價目標由4,650美元下調至4,150美元，2027年底目標由5,400美元降至4,800美元；投資需求預期轉弱，但央行購金仍是長期支撐。",
+      "url": "https://news.cnyes.com/news/id/6650475"
     },
     {
-      "title": "Reuters：下週美國 CPI 與科技企業財報成為市場焦點",
-      "summary": "市場將在 AI 交易震盪後迎接 11/10 CPI，以及 CoreWeave、Applied Materials、Cisco 等企業財報，通膨與科技需求將同時接受檢驗。",
-      "url": "https://www.reuters.com/business/wall-st-week-ahead-tech-swoon-roils-market-us-inflation-data-tap-2026-11-06/"
+      "title": "輝達傳洽談改造逾130棟舊電信大樓，擴充AI資料中心容量",
+      "summary": "鉅亨網報導，輝達據傳研究將美國多州舊電信大樓改建為小型AI資料中心，藉既有電力與建物條件避開部分新建審批障礙；消息仍屬洽談階段。",
+      "url": "https://news.cnyes.com/news/id/6650103"
     },
     {
-      "title": "Reuters：Bosch 印度子公司第二季獲利年增近 22%",
-      "summary": "Bosch 印度子公司受乘用車與商用車零組件需求帶動，季度淨利升至 67.5 億盧比，反映部分汽車供應鏈需求仍具韌性。",
+      "title": "Alphabet第三季買進高通持股，價值約5.48億美元",
+      "summary": "鉅亨網引述Reuters報導，Alphabet申報第三季持有約5.48億美元高通股票；高通正拓展AI資料中心晶片業務，市場關注其能否降低手機晶片需求波動的影響。",
+      "url": "https://gfe-news2.prod.cnyes.cool/news/id/6651143"
+    },
+    {
+      "title": "沙烏地主權基金與Silver Lake研議以250億美元估值收購Unity",
+      "summary": "鉅亨網引述Reuters報導，PIF與Silver Lake已接觸Unity並研議私有化交易，談判仍在早期且尚未簽約；若推進，將成為遊戲工具與平台產業的重要併購案。",
+      "url": "https://news.cnyes.com/news/id/6651354"
+    },
+    {
+      "title": "Bosch印度子公司第二季獲利年增近22%，汽車零組件需求帶動",
+      "summary": "Reuters報導，Bosch印度子公司第二季淨利升至67.5億盧比，年增近22%；乘用車與商用車零組件需求改善，但公司預期下一季印度車輛產量可能減少。",
       "url": "https://www.reuters.com/world/india/boschs-india-unit-posts-higher-quarterly-profit-demand-auto-parts-2026-11-06/"
     },
     {
-      "title": "Reuters Breakingviews：Toyota 機器人業務商業化，布局中國競爭",
-      "summary": "Toyota 推動機器人業務商業化，可能擴大其估值來源並強化與中國製造業者競爭的能力；後續需觀察實際訂單與資本投入。",
-      "url": "https://www.reuters.com/commentary/breakingviews/toyota-robots-reboot-its-china-battle-plan-2026-11-06/"
+      "title": "Google收購Crusoe在懷俄明州的資料中心基地，擴大AI基礎設施",
+      "summary": "Reuters報導，Google收購Crusoe在懷俄明州的資料中心基地，並已宣布投入170億美元建置；此舉顯示AI基礎設施投資持續，但政治與能源限制仍是後續風險。",
+      "url": "https://www.reuters.com/business/google-acquires-wyoming-data-center-site-ai-infrastructure-firm-crusoe-2026-11-06/"
     },
     {
-      "title": "Reuters：AI 投資疑慮與美國監管風向改變科技產業評價",
-      "summary": "美國期中選舉結果使資料中心擴建及 AI 監管前景受到重新評估；市場開始更重視龐大資本支出的現金流回收。",
-      "url": "https://www.reuters.com/business/sp-500-futures-steady-after-midterm-rally-nasdaq-lags-chip-weakness-2026-11-05/"
+      "title": "OpenAI完成110億美元新一輪融資，估值約1.25兆美元",
+      "summary": "Reuters引述知情人士報導，OpenAI已完成110億美元融資，為原定最高300億美元募資計畫的一部分；AI企業估值降溫下，資金規模與投資回報備受關注。",
+      "url": "https://www.reuters.com/business/openai-secures-11-billion-funding-125-trillion-valuation-bloomberg-news-reports-2026-11-06/"
     },
     {
-      "title": "Reuters：全球基金資金流向轉向醫療與金融，科技基金吸金降溫",
-      "summary": "全球股票基金仍維持淨流入，但科技基金資金流入降至三週低點，顯示投資人並未全面撤離股票，而是調整產業配置。",
-      "url": "https://www.reuters.com/world/china/global-markets-flows-graphic-2026-11-06/"
-    },
-    {
-      "title": "Reuters：中國上市公司利潤率偏低，消費與房地產需求仍弱",
-      "summary": "中國企業獲利能力低於全球同業，內需與房市疲弱壓抑企業定價能力；出口成長尚未充分轉化為廣泛企業獲利改善。",
-      "url": "https://www.reuters.com/business/autos-transportation/s-chinese-firms-profit-margins-trail-global-peers-domestic-demand-stays-weak-2026-11-06/"
-    },
-    {
-      "title": "AP：AI 股票止跌回升，但市場仍面臨政治與利率不確定性",
-      "summary": "AP 指出週五美股部分收復前一日跌幅，惟投資人仍擔憂政治監管、借貸成本及資料中心建置限制，科技股反彈尚未解除風險。",
-      "url": "https://apnews.com/article/bba6f0bf9035a6e6b1c4fef3e8230b89"
+      "title": "QatarEnergy洽談向NextDecade採購美國LNG，供應鏈布局擴大",
+      "summary": "Reuters引述知情人士報導，QatarEnergy正與NextDecade洽談採購其德州Rio Grande LNG專案每年最多200萬噸供應；交易若落實，將進一步連結美國出口與中東能源企業的長約布局。",
+      "url": "https://www.reuters.com/business/energy/qatarenergy-eyes-nextdecade-train-6-supply-latest-us-lng-push-sources-say-2026-11-06/"
     }
   ],
   "global_markets": {
@@ -90,10 +90,10 @@
     },
     "標普500指數": {
       "display": "7,376.86",
-      "change_display": "+0.31%"
+      "change_display": "+0.32%"
     },
     "那斯達克綜合指數": {
-      "display": "24,579.42",
+      "display": "24,579.43",
       "change_display": "+1.08%"
     },
     "羅素2000指數": {
@@ -102,7 +102,7 @@
     },
     "費城半導體指數": {
       "display": "待核實",
-      "change_display": "待核實"
+      "change_display": "+4.21%"
     },
     "香港恆生指數": {
       "display": "待核實",
@@ -151,6 +151,14 @@
     "STOXX Europe 600": {
       "display": "待核實",
       "change_display": "待核實"
+    },
+    "日經225": {
+      "display": "待核實",
+      "change_display": "−5.70%"
+    },
+    "KOSPI": {
+      "display": "待核實",
+      "change_display": "−7.40%"
     }
   },
   "sectors": {
@@ -242,7 +250,7 @@
     "updated_at_tw": "未取得 05:25 前快照",
     "probabilities": []
   },
-  "observation": "盤面觀察重點｜週五科技股反彈屬急跌後回補，並非風險事件解除。第一，Nasdaq 週線連四週下跌且跌幅仍深，須觀察能否重新站回關鍵均線並擴大上漲家數。第二，非農高於預期使利率路徑再度偏鷹，若 CPI 同步偏熱，科技估值可能再受壓。第三，AI 監管與資料中心投資回報是中期基本面變數，應追蹤企業資本支出指引、訂單與自由現金流。第四，全球股票基金仍有淨流入但科技基金吸金降溫，需辨識產業輪動是否延續。第五，未取得同一截點的 VIX、MOVE、CNN 指標及完整跨市場行情，不據此推論全面風險偏好反轉。",
+  "observation": "盤面觀察重點｜① 指數分歧：Nasdaq上漲1.1%、S&P 500上漲0.32%，道瓊下跌0.46%，顯示週五買盤仍偏向科技成長股。② 趨勢未反轉：Nasdaq週線連四週收跌、全週下跌3.4%，S&P 500週跌2.7%，單日反彈尚不足以確認趨勢扭轉。③ 半導體回補：費半上漲4.2%，AMD上漲11%、Nvidia上漲2.8%，但需觀察後續交易日成交與上漲家數是否擴散。④ 產業廣度：S&P 500產業表現分歧，資訊科技領漲，必需消費與醫療保健落後，不是十一大產業全面反彈。⑤ 後續驗證：週二美國CPI與CoreWeave、Applied Materials、Cisco財報，將檢驗利率壓力及AI資本支出能否轉化為營收與現金流。",
   "calendar": {
     "week_id": "2026-W46",
     "week_start": "2026-11-09",
@@ -1320,14 +1328,14 @@
   "summary_title": "科技股急跌後反彈，市場等待通膨與財報確認",
   "market_comments": {
     "global_markets": [
-      "📌 美股觀察｜11/06 Nasdaq 上漲 1.08%、S&P 500 上漲 0.31%，但道瓊下跌 0.46%；科技股反彈尚未擴大為全面上漲。Nasdaq 週線仍下跌約 3.4%，須觀察反彈延續性及市場廣度。",
-      "📌 亞洲市場觀察｜本次 11/06 各亞洲市場收盤指數尚未完成同日來源核對，暫不沿用 11/05 數值；待補齊後再判讀科技權重市場是否跟隨美股反彈。",
-      "📌 歐洲市場觀察｜本次 11/06 歐洲主要指數同日收盤資料尚未完成核對，暫不以舊交易日數字推論跨市場風險偏好。"
+      "📌 美股觀察｜Nasdaq +1.08%、S&P 500 +0.32%，道瓊 −0.46%；半導體反彈4.2%，但Nasdaq週線仍跌3.4%，顯示回補集中於科技成長股，尚未形成全面反轉。",
+      "📌 亞洲市場觀察｜AP報導，11/06日經225下跌5.7%、韓國KOSPI下跌7.4%，反映前一日美國科技股賣壓向亞洲擴散；其他亞洲指數仍須分別核對各自收盤數據。",
+      "📌 歐洲市場觀察｜AP報導，11/06德國DAX下跌1.9%；歐洲科技權重較低，但仍受全球AI估值修正與風險偏好下降影響。"
     ],
-    "sectors": "📌 產業觀察｜11/06 S&P 500 十一大產業 ETF 同日收盤報價尚未完成來源核對；不沿用 11/05 跌幅，也不據此推斷產業輪動。",
-    "bonds": "📌 債券觀察｜11/06 美國公債各期限日終殖利率尚未完成官方資料核對；非農數據強於預期可能影響短端利率定價，仍須以實際殖利率曲線確認。",
-    "fx": "📌 匯率觀察｜11/06 DXY、USD/TWD、EUR/USD、GBP/USD、AUD/USD 與 USD/JPY 尚未完成同日收盤核對；不以其他時區盤中報價替代。",
-    "energy": "📌 能源觀察｜11/06 WTI、Brent 期貨結算價尚未完成同日核對；中東供應風險與全球成長疑慮對油價的拉鋸，待結算數據確認。",
-    "metals": "📌 貴金屬觀察｜11/06 黃金、白銀期貨結算價尚未完成同日核對；就業數據與利率預期可能影響實質利率及避險需求，暫不先行判定方向。"
+    "sectors": "📌 產業觀察｜Reuters指出11/06美股產業表現分歧，資訊科技領漲，必需消費與醫療保健落後；應觀察反彈能否由半導體擴散至更多產業，而非只看單日科技股漲幅。",
+    "bonds": "📌 債券觀察｜非農新增16.5萬人、失業率4.1%後，美債殖利率走高，市場提高12月升息押注；短端利率對政策預期更敏感，後續須與CPI共同判讀。",
+    "fx": "📌 匯率觀察｜強勁就業數據提高美元利率優勢預期；美元方向仍須與美債殖利率及主要貨幣交叉確認，不以單一盤中報價推論趨勢。",
+    "energy": "📌 能源觀察｜市場同時評估中東供應風險與AI資料中心投資帶動的能源需求；QatarEnergy洽談美國LNG供應，反映跨區域天然氣供應鏈仍在調整。",
+    "metals": "📌 貴金屬觀察｜高盛下修中期金價目標，理由包括聯準會政策轉鷹與投資需求可能降溫；但央行購金仍被視為長期支撐，短線須留意實質利率變化。"
   }
 }
