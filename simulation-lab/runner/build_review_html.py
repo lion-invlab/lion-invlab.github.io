@@ -914,7 +914,7 @@ def main():
         # Preserve the existing health-dashboard card and visual system; replace only its content.
         from bs4 import BeautifulSoup as _BS
         health.clear()
-        health.append(_BS("""
+        _health_fragment = _BS("""
 <div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet｜2026/11/06（Q3 2026，88% 成份股已公布）</small></div>
 <div style="margin-top:10px;padding:14px 15px;background:#f1f6fb;border:1px solid #d6e3ee;border-left:5px solid #c62828;border-radius:11px;color:#202124">
 <div style="font-size:11px;font-weight:850;color:#626a73;margin-bottom:5px">TAC 核心判讀</div>
@@ -930,7 +930,9 @@ def main():
 <div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>獲利年增 31.4%，11 個產業全數呈現獲利年增；營收年增 14.3%，11 個產業營收亦全數年增。<br><b style="color:#ad7427">保留：</b>EPS 優於預期比例雖達 84%，但平均超預期幅度僅 2.7%，若此數字成為最終值，將是 2022 年 Q4 以來最低。<br><b style="color:#202124">估值：</b>Forward P/E 17.7 倍，低於五年與十年均值，亦低於 Q3 季底的 19.0 倍。</div></div>
 <div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65;color:#30343a"><b style="color:#202124">接下來看三件事：</b>EPS 超預期幅度能否回升、Q3 財報季收官後獲利增速是否維持 30% 以上、Q4 分析師預估獲利成長 28.4% 是否開始下修。</div>
 <details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">FactSet《S&amp;P 500 Earnings Season Update: November 6, 2026》，John Butters，發布日期 2026/11/06。混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估；截至報告日 88% 的標普 500 成份股已公布 Q3 財報。數值為 FactSet 報告當週快照，非即時盤中更新。<br><a href="https://insight.factset.com/sp-500-earnings-season-update-november-6-2026" target="_blank" rel="noopener" style="color:#1d4ed8">FactSet 11/06 官方報告</a></div></details>
-""", "html.parser"))
+""", "html.parser")
+        for _node in list(_health_fragment.contents):
+            health.append(_node)
     fed = soup.select_one("#fed")
     if fed:
         meeting = fed.select_one(".fc-fomc-meeting b")
