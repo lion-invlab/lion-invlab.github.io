@@ -9,7 +9,7 @@ on:
       - ".github/workflows/tac-simulation-lab.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: tac-simulation-lab
@@ -63,15 +63,6 @@ jobs:
 
       - name: Compare assembled HTML against approved Monday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-09_審核版.html monday 2026-11-09
-
-      - name: Persist successful simulation QA artifacts on branch
-        if: success()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add simulation-lab/output/TAC_投資早報_2026-11-09_審核版.html simulation-lab/output/visual/
-          git diff --cached --quiet || git commit -m "Save validated 2026-11-09 Monday simulation review HTML"
-          git push origin HEAD:simulation/tac-process-lab-2026-11-06
 
       - name: Record isolated run metadata
         if: always()
