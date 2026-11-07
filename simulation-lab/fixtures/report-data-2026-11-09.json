@@ -101,33 +101,47 @@
   "global_markets": {
     "道瓊工業指數": {
       "display": "51,285.73",
-      "change_display": "−0.46%"
-    },
-    "標普500指數": {
-      "display": "7,401.15",
-      "change_display": "+0.64%",
+      "change_display": "−0.46%",
       "source": {
-        "name": "Investing.com 香港站｜S&P 500 歷史資料",
-        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "name": "AP｜How major US stock indexes fared Friday 11/6/2026",
+        "url": "https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 歷史資料列；與 AP/Reuters 摘要值不同，依 WR 優先來源採用。"
+        "note": "AP 11/06 美股收盤報導；指數點位及日漲跌。"
+      }
+    },
+    "標普500指數": {
+      "display": "7,376.86",
+      "change_display": "+0.31%",
+      "source": {
+        "name": "AP｜How major US stock indexes fared Friday 11/6/2026",
+        "url": "https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "AP 11/06 美股收盤報導；指數點位及日漲跌。"
       }
     },
     "那斯達克綜合指數": {
-      "display": "24,741.03",
-      "change_display": "+1.75%",
+      "display": "24,579.42",
+      "change_display": "+1.09%",
       "source": {
-        "name": "Investing.com 香港站｜Nasdaq Composite 歷史資料",
-        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "name": "AP｜How major US stock indexes fared Friday 11/6/2026",
+        "url": "https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 歷史資料列；與 AP 摘要值不同，依 WR 優先來源採用。"
+        "note": "AP 11/06 美股收盤報導；指數點位及日漲跌。"
       }
     },
     "羅素2000指數": {
       "display": "2,754.11",
-      "change_display": "+0.89%"
+      "change_display": "+0.89%",
+      "source": {
+        "name": "AP｜How major US stock indexes fared Friday 11/6/2026",
+        "url": "https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "AP 11/06 美股收盤報導；指數點位及日漲跌。"
+      }
     },
     "費城半導體指數": {
       "display": "9,390.3",
@@ -137,98 +151,126 @@
         "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 收市列直接讀取。"
+        "note": "11/06 歷史收盤列。"
       }
     },
     "香港恆生指數": {
       "display": "24,481.86",
-      "change_display": "−1.27%"
+      "change_display": "−1.27%",
+      "source": {
+        "name": "StockQ｜World Market Indices 2026/11/06",
+        "url": "https://en.stockq.org/stock/history/2026/11/20261106_en.php",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 亞洲市場歷史收盤表；現貨指數收盤與日漲跌。"
+      }
     },
     "上海綜合指數": {
       "display": "3,649.18",
-      "change_display": "−1.10%"
+      "change_display": "−1.10%",
+      "source": {
+        "name": "StockQ｜World Market Indices 2026/11/06",
+        "url": "https://en.stockq.org/stock/history/2026/11/20261106_en.php",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 亞洲市場歷史收盤表；現貨指數收盤與日漲跌。"
+      }
     },
     "深證成指": {
       "display": "11,175.78",
       "change_display": "−2.57%",
       "source": {
-        "name": "Investing.com 香港站｜深證成指歷史資料",
-        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "name": "StockQ｜World Market Indices 2026/11/06",
+        "url": "https://en.stockq.org/stock/history/2026/11/20261106_en.php",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "補回原缺少的當日漲跌幅。"
+        "note": "11/06 亞洲市場歷史收盤表；現貨指數收盤與日漲跌。"
       }
     },
     "日經 225": {
       "display": "57,434.77",
-      "change_display": "−5.96%"
+      "change_display": "−5.96%",
+      "source": {
+        "name": "StockQ｜World Market Indices 2026/11/06",
+        "url": "https://en.stockq.org/stock/history/2026/11/20261106_en.php",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 亞洲市場歷史收盤表；現貨指數收盤與日漲跌。"
+      }
     },
     "韓國 KOSPI": {
       "display": "5,059.69",
-      "change_display": "−6.02%"
+      "change_display": "−6.02%",
+      "source": {
+        "name": "StockQ｜World Market Indices 2026/11/06",
+        "url": "https://en.stockq.org/stock/history/2026/11/20261106_en.php",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 亞洲市場歷史收盤表；現貨指數收盤與日漲跌。"
+      }
     },
     "台灣加權指數": {
       "display": "39,701.64",
-      "change_display": "−4.51%"
+      "change_display": "−4.51%",
+      "source": {
+        "name": "StockQ｜World Market Indices 2026/11/06",
+        "url": "https://en.stockq.org/stock/history/2026/11/20261106_en.php",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 亞洲市場歷史收盤表；現貨指數收盤與日漲跌。"
+      }
     },
     "新加坡海峽時報指數 STI": {
       "display": "5,179.17",
       "change_display": "−2.21%",
       "source": {
-        "name": "Investing.com 香港站｜STI 歷史資料",
-        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "name": "SGinvestors｜FTSE Straits Times Index 2026/11/06",
+        "url": "https://sginvestors.io/market/ftse-st-indices-straits-times-index-constituents",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "補齊原待核實欄位。"
+        "note": "SGX 11/06 17:20 市場收盤資料。"
       }
     },
     "澳洲 S&P/ASX 200": {
-      "display": "9,020.80",
-      "change_display": "−0.49%",
-      "source": {
-        "name": "Investing.com｜S&P/ASX 200 歷史資料",
-        "url": "https://www.investing.com/indices/aus-200-historical-data",
-        "data_date": "2026-11-06",
-        "quote_type": "daily_close",
-        "note": "修正原 fixture 誤植的 +2.11%。"
-      }
+      "display": "待核實",
+      "change_display": "待核實"
     },
     "英國 FTSE 100": {
-      "display": "10,673.94",
-      "change_display": "−1.01%"
+      "display": "待核實",
+      "change_display": "待核實"
     },
     "德國 DAX": {
-      "display": "25,820.36",
-      "change_display": "−1.92%"
+      "display": "待核實",
+      "change_display": "待核實"
     },
     "法國 CAC 40": {
-      "display": "8,139.00",
-      "change_display": "−0.81%"
+      "display": "待核實",
+      "change_display": "待核實"
     },
     "STOXX Europe 600": {
       "display": "648.33",
       "change_display": "−1.00%",
       "source": {
-        "name": "Reuters｜歐洲市場收盤",
+        "name": "Reuters｜European shares close 2026/11/06",
         "url": "https://www.reuters.com/markets/europe/european-shares-set-fall-global-ai-rout-gathers-pace-2026-11-06/",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "來源顯示 11/06 close 648.33；11/05 close 654.87，計算日變動約 −1.00%。"
+        "note": "Reuters 11/06 歐洲收盤報導；來源報價 648.33，日跌約 1.00%。"
       }
     }
   },
   "sectors": {
-    "XLK": "+1.50%",
-    "XLY": "−0.10%",
-    "XLB": "−0.70%",
-    "XLU": "−0.40%",
-    "XLI": "+0.10%",
+    "XLK": "+1.45%",
+    "XLY": "待核實",
+    "XLB": "+0.01%",
+    "XLU": "−0.39%",
+    "XLI": "+0.12%",
     "XLV": "−0.06%",
-    "XLF": "−0.60%",
-    "XLC": "+0.40%",
-    "XLRE": "−0.70%",
-    "XLP": "−1.30%",
-    "XLE": "0.00%"
+    "XLF": "−0.59%",
+    "XLC": "+0.43%",
+    "XLRE": "−0.68%",
+    "XLP": "−1.28%",
+    "XLE": "−0.02%"
   },
   "bonds": {
     "2年期美債殖利率": {
@@ -239,63 +281,98 @@
         "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 官方 CMT 2Y 4.51%；前日變動尚未取得同口徑核實值。"
+        "note": "11/06 官方 CMT 2Y 4.51%；日變動依獨立來源交叉核對。"
       }
     },
     "10年期美債殖利率": {
       "display": "4.859%",
-      "change_display": "+2.2bp"
+      "change_display": "+2.2bp",
+      "source": {
+        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 官方 CMT 10Y 約 4.859%。"
+      }
     },
     "30年期美債殖利率": {
       "display": "5.260%",
-      "change_display": "+0.9bp"
+      "change_display": "+0.9bp",
+      "source": {
+        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 官方 CMT 30Y 約 5.260%。"
+      }
     }
   },
   "fx": {
     "美元指數": {
-      "display": "102.27",
-      "change_display": "+0.78%",
+      "display": "102.28",
+      "change_display": "+0.73%",
       "source": {
-        "name": "Investing.com 香港站｜美元指數（現貨指數）歷史資料",
-        "url": "https://hk.investing.com/indices/investing.com-usd-index-historical-data",
+        "name": "Investing.com 香港站｜美元指數現貨 CFD 歷史資料",
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
         "data_date": "2026-11-06",
         "quote_type": "daily_close_or_last",
-        "note": "採 =USD 指數，非 DX 美元指數期貨；11/06 收市列。"
+        "note": "採 DXY 現貨指數 CFD，不使用 DX 美元指數期貨。"
       }
     },
     "美元／新台幣": {
-      "display": "32.784",
-      "change_display": "−0.90%",
+      "display": "32.768",
+      "change_display": "−0.33%",
       "source": {
-        "name": "Investing.com 香港站｜USD/TWD 歷史資料",
-        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "name": "中央銀行｜新臺幣／美元銀行間收盤匯率",
+        "url": "https://www.cbc.gov.tw/tw/lp-645-1-1-60.html",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 收市列。"
+        "note": "11/06 銀行間收盤匯率 32.768；非 Investing.com 平台參考價。"
       }
     },
     "歐元／美元": {
-      "display": "1.1143",
-      "change_display": "−0.82%"
+      "display": "1.1169",
+      "change_display": "−0.45%",
+      "source": {
+        "name": "Investing.com 香港站｜EUR/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close_or_last",
+        "note": "11/06 歷史資料收市列。"
+      }
     },
     "英鎊／美元": {
-      "display": "1.3351",
-      "change_display": "−0.94%"
+      "display": "1.3428",
+      "change_display": "−0.17%",
+      "source": {
+        "name": "Investing.com 香港站｜GBP/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close_or_last",
+        "note": "11/06 歷史資料收市列。"
+      }
     },
     "澳幣／美元": {
-      "display": "0.6864",
-      "change_display": "−0.95%",
+      "display": "0.6865",
+      "change_display": "−0.94%",
       "source": {
-        "name": "Investing.com｜AUD/USD 歷史資料",
-        "url": "https://www.investing.com/currencies/aud-usd-historical-data",
+        "name": "Investing.com 香港站｜AUD/USD 歷史資料",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
         "data_date": "2026-11-06",
-        "quote_type": "daily_close",
-        "note": "11/06 收市列。"
+        "quote_type": "daily_close_or_last",
+        "note": "11/06 歷史資料收市列。"
       }
     },
     "美元／日圓": {
       "display": "158.50",
-      "change_display": "+0.09%"
+      "change_display": "+0.52%",
+      "source": {
+        "name": "Investing.com 香港站｜USD/JPY 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close_or_last",
+        "note": "11/06 歷史資料收市列。"
+      }
     }
   },
   "energy": {
@@ -349,7 +426,14 @@
   "risk": {
     "vix": {
       "display": "25.64",
-      "change_display": "−9.01%"
+      "change_display": "−9.01%",
+      "source": {
+        "name": "Investing.com 香港站｜VIX 歷史資料",
+        "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 VIX 收市讀值；與 CBOE／Yahoo 備援交叉核對。"
+      }
     },
     "move": {
       "display": "92.77",
@@ -360,7 +444,7 @@
         "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 收市列；補齊原缺漏。"
+        "note": "11/06 歷史資料列；收盤資料日期與畫面 as-of 欄位須一致。"
       }
     },
     "fear_greed": {
@@ -1830,13 +1914,74 @@
   "warning_note": "W45 與 W46 行事曆資料庫 coverage 均為 incomplete；本版僅呈現符合 TAC 星等與已核實條件的事件。行情缺值維持待核實，不以舊日報價補填。",
   "sector_sources": {
     "XLV": {
-      "name": "Yahoo Finance｜XLV Historical Prices（Investing.com 指定日期列未更新，依備援）",
+      "name": "Yahoo Finance｜XLV Historical Prices（Investing.com 香港站 11/06 列未更新，依備援）",
       "url": "https://finance.yahoo.com/quote/XLV/history/",
       "data_date": "2026-11-06",
-      "close": 184.8,
-      "previous_close": 184.91,
-      "change": "−0.06%",
-      "note": "Investing.com XLV 歷史頁當時最新列停留於 11/05；改用 Yahoo 11/06 收盤與前收計算。"
+      "quote_type": "daily_close",
+      "note": "11/06 收盤 184.80，前收 184.91，日變動約 −0.06%。"
+    },
+    "XLK": {
+      "name": "Investing.com 香港站｜XLK 歷史資料",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLB": {
+      "name": "Investing.com 香港站｜XLB 歷史資料",
+      "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLU": {
+      "name": "Investing.com 香港站｜XLU 歷史資料",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLI": {
+      "name": "Investing.com 香港站｜XLI 歷史資料",
+      "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLF": {
+      "name": "Investing.com 香港站｜XLF 歷史資料",
+      "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLC": {
+      "name": "Investing.com 日本站｜XLC 歷史資料（香港站未提供 11/06 列）",
+      "url": "https://jp.investing.com/etfs/communication-services-select-spdr-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLRE": {
+      "name": "Investing.com 日本站｜XLRE 歷史資料（香港站未提供 11/06 列）",
+      "url": "https://jp.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLP": {
+      "name": "Investing.com 香港站｜XLP 歷史資料",
+      "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLE": {
+      "name": "Investing.com 香港站｜XLE 歷史資料",
+      "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
     }
   }
 }
