@@ -289,7 +289,7 @@
   },
   "sectors": {
     "XLK": "+1.45%",
-    "XLY": "待核實",
+    "XLY": "−0.05%",
     "XLB": "+0.01%",
     "XLU": "−0.39%",
     "XLI": "+0.12%",
@@ -2010,6 +2010,13 @@
       "data_date": "2026-11-06",
       "quote_type": "daily_close",
       "note": "11/06 ETF 歷史資料列，採收盤價及來源頁面日漲跌幅。"
+    },
+    "XLY": {
+      "name": "Yahoo Finance｜XLY Historical Prices（Investing.com 香港站 11/06 列未更新，依備援）",
+      "url": "https://finance.yahoo.com/quote/XLY/history/",
+      "data_date": "2026-11-06",
+      "quote_type": "daily_close",
+      "note": "11/06 收盤 117.58，前收 117.64，日變動 −0.05%。"
     }
   }
 }
