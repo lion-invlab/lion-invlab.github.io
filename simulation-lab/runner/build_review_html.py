@@ -591,7 +591,12 @@ def main():
         rate_date = fed.select_one(".fc-fomc-rate small")
         if rate_date: set_text(rate_date, "Fed官方最新資料：2026/10/29")
         observation = fed.select_one(".fc-fomc-observation b")
-        if observation: set_text(observation, "10/28聯準會維持3.75%–4.00%；12/09會議機率因未取得05:25前快照，暫不填列。")
+        probabilities = data.get("fedwatch", {}).get("probabilities", [])
+        hold = next((x for x in probabilities if x.get("outcome") == "hold"), None)
+        changed = [x for x in probabilities if x.get("outcome") != "hold"]
+        if observation and hold:
+            change_text = "；".join(f"{x.get('rate_range')} {float(x.get('probability',0)):.1f}%" for x in changed)
+            set_text(observation, f"12/09會議機率：維持 {hold.get('rate_range')} {float(hold.get('probability',0)):.1f}%；政策區間變動 {change_text}。")
         fed_source = fed.select_one(".fc-source")
         if fed_source:
             fed_source.clear()
@@ -603,244 +608,41 @@ def main():
                 ("https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm","Fed官方會議日曆")
             ]:
                 fed_source.append(source_link(url,label)); fed_source.append("｜")
-            fed_source.append("本次資料截點未取得可核實的機率快照，故不填入推估機率。")
+            snapshot_note = f"12/09會議機率資料更新：{data.get('fedwatch',{}).get('updated_at_tw','時間待核實')}；採頁面公布值，非自行估算。"
+            fed_source.append(snapshot_note)
         watch=fed.select_one(".fed-live-watch")
         if watch:
             bar=watch.select_one(".fc-split-bar")
-            if bar:
+            if bar and probabilities:
+                bar["aria-label"]="；".join(f"{x.get('rate_range')} {float(x.get('probability',0)):.1f}%" for x in probabilities)
+                bar.attrs.pop("style", None)
+            elif bar:
                 bar["aria-label"]="未取得 2026/11/09 05:25 前可核實的 FedWatch 機率快照"
                 bar["style"]="display:none"
             note=watch.select_one("details > div")
             if note:
-                set_text(note,"本次報告資料截點為 2026/11/09 05:25（台灣時間）。未取得該截點前可核實的 CME FedWatch／Investing.com Fed Rate Monitor 機率快照，因此本版不展示 10 月舊截圖，也不以其他日期或自行估算的機率代替。請以 CME FedWatch 與 Investing.com Fed Rate Monitor 當日官方／即時資料為準。")
+                if probabilities:
+                    set_text(note, f"本次報告資料截點為 {report_cutoff}（台灣時間）。Investing.com Fed Rate Monitor 於 {data.get('fedwatch',{}).get('updated_at_tw','時間待核實')} 提供 2026/12/09 會議機率；本版依來源頁面公布值呈現，不以舊截圖或自行估算代替。")
+                else:
+                    set_text(note, f"本次報告資料截點為 {report_cutoff}（台灣時間）。未取得該截點前可核實的 FedWatch 機率快照，因此不填入推估機率。")
     fg = soup.select_one(".cnn-fg-preview")
     if fg:
+        fg_record = data.get("risk", {}).get("fear_greed", {})
+        fg_value = fg_record.get("display", "待核實")
+        fg_source = fg_record.get("source", {})
+        fg_date = fg_record.get("as_of", previous_trade)
         date_node = fg.select_one(".fg6-date")
-        if date_node: set_text(date_node, f"CNN Fear & Greed｜{previous_trade}官方歷史讀值未能載入；不沿用母版舊值")
+        if date_node:
+            source_label = "CNN官方歷史讀值" if "FGScore" not in str(fg_source.get("name","")) else "FGScore｜CNN Provider Index備援"
+            set_text(date_node, f"{source_label}｜{fg_date}")
         score = fg.select_one(".fg6-score")
-        if score: set_text(score, "待核實")
+        if score: set_text(score, fg_value)
         klass = fg.select_one(".fg6-class")
-        if klass: set_text(klass, "官方讀值待核實")
+        if klass: set_text(klass, fg_record.get("band", "待核實"))
         explain = fg.select_one(".fg6-explain")
-        if explain: set_text(explain, "本次未能取得CNN官方歷史讀值，暫不判定市場恐懼或貪婪程度。")
-        src = fg.select_one(".source")
-        if src:
-            src.clear()
-            src.append("資料來源：")
-            src.append(source_link("https://www.cnn.com/markets/fear-and-greed","CNN Business｜Fear & Greed Index"))
-            src.append("｜官方頁面本次未載入讀值。")
-
-    # Refresh all remaining date-sensitive mother-template text slots.
-    bluf_title=bluf.select_one("h1")
-    if bluf_title: set_text(bluf_title,data.get("summary_title","本週市場主軸與風險觀察"))
-    # News cutoff and source labels.
-    for sid,items_key,label in [("global-focus","focus_news","全球焦點"),("headlines","headlines","市場熱門頭條")]:
-        section=unique(soup,"#"+sid,sid)
-        meta=section.select_one(".tab-panel-meta")
-        if meta: set_text(meta,f"{label}｜資料窗口：2026/11/06 12:00 至 {report_cutoff}（台灣時間）")
-        items=data[items_key]
-        if not items:
-            raise ValueError(f"{sid} has no verified news items")
-        for old_node in section.select(".newsitem"):
-            old_node.decompose()
-        for idx,item in enumerate(items):
-            if not item.get("url") or not item.get("published_at_tw") or not item.get("title") or not item.get("summary"):
-                raise ValueError(f"{sid}[{idx}] missing title, summary, original URL or verified Taiwan publication time")
-            if not item["url"].startswith("https://"):
-                raise ValueError(f"{sid}[{idx}] non-HTTPS source URL")
-            node=soup.new_tag("div",attrs={"class":["newsitem"]})
-            heading=soup.new_tag("h3")
-            # Preserve the numbering convention used by the approved mother template.
-            number_prefix = f"{idx+1}. " if sid=="global-focus" else f"{idx+1:02d}｜"
-            heading.string=number_prefix + item["title"]
-            paragraph=soup.new_tag("p")
-            paragraph.string=item["summary"]
-            meta_line=soup.new_tag("div",attrs={"class":["newsmeta"]})
-            domain=re.sub(r"^https?://([^/]+).*",r"\1",item["url"])
-            meta_line.append("資料來源：")
-            meta_line.append(source_link(item["url"],domain))
-            meta_line.append("｜發布："+item["published_at_tw"])
-            meta_line.append(f"｜截稿 {report_cutoff}")
-            node.append(heading)
-            node.append(paragraph)
-            node.append(meta_line)
-            section.append(node)
-    focus_urls={x.get("url") for x in data.get("focus_news",[])}
-    headline_urls={x.get("url") for x in data.get("headlines",[])}
-    if focus_urls & headline_urls:
-        raise ValueError("duplicate original news URL across Global Focus and Market Headlines")
-    gm=unique(soup,"#global-markets","global markets")
-    for i,meta in enumerate(gm.select(".tab-panel-meta")):
-        labels=[f"美股｜{previous_trade} 正式收盤",f"亞洲市場｜{previous_trade} 最近正式收盤",f"歐洲市場｜{previous_trade} 最近正式收盤"]
-        if i<len(labels): set_text(meta,labels[i])
-    for pid,label in [("tac-assets-panel-0",f"11 檔產業 ETF｜{previous_trade} 美股收盤｜依單日漲跌幅排序"),("tac-assets-panel-1",f"美國公債殖利率｜{previous_trade} 官方日終資料"),("tac-assets-panel-2",f"外匯｜{previous_trade} 歷史收盤參考值"),("tac-assets-panel-3",f"能源期貨｜{previous_trade} 收盤"),("tac-assets-panel-4",f"貴金屬期貨｜{previous_trade} 收盤")]:
-        panel=soup.select_one("#"+pid)
-        if panel:
-            meta=panel.select_one(".tab-panel-meta")
-            if meta: set_text(meta,label)
-    # Replace old market-source captions with the sources for this report date.
-    source_specs=[
-        ("#global-markets .source","https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/","Reuters｜11/06 美股收盤"),
-        ("#tac-assets-panel-1 .source","https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data","Investing.com｜11/06 美國公債殖利率歷史資料"),
-        ("#tac-assets-panel-3 .source","https://www.investing.com/commodities/crude-oil-historical-data","Investing.com｜11/06 WTI／Brent 期貨歷史報價"),
-        ("#tac-assets-panel-4 .source","https://www.investing.com/commodities/gold-historical-data","Investing.com｜11/06 黃金／白銀期貨歷史報價")
-    ]
-    for selector,url,label in source_specs:
-        for node in soup.select(selector):
-            node.clear()
-            node.append(source_link(url,label))
-    for node in soup.select("#global-markets .source"):
-        node.append("｜")
-        node.append(source_link("https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad","AP｜亞洲／歐洲收盤"))
-        node.append("｜")
-        node.append(source_link("https://indexes.nasdaq.com/Index/Overview/SOX","Nasdaq｜SOX"))
-    for node in soup.select("#tac-assets-panel-0 .source"):
-        node.clear()
-        node.append("Yahoo Finance 歷史行情（11/06 收盤漲跌幅）：")
-        for ticker in ("XLK","XLY","XLB","XLU","XLI","XLV","XLF","XLC","XLRE","XLP","XLE"):
-            node.append(source_link(f"https://finance.yahoo.com/quote/{ticker}/history/",ticker))
-            node.append(" ")
-    for node in soup.select("#tac-assets-panel-2 .source"):
-        node.clear()
-        node.append("Investing.com 歷史匯率（11/06）：")
-        for url,label in [
-            ("https://www.investing.com/indices/usdollar-historical-data","DXY"),
-            ("https://www.investing.com/currencies/usd-twd-historical-data","USD/TWD"),
-            ("https://www.investing.com/currencies/eur-usd-historical-data","EUR/USD"),
-            ("https://www.investing.com/currencies/gbp-usd-historical-data","GBP/USD"),
-            ("https://www.investing.com/currencies/aud-usd-historical-data","AUD/USD"),
-            ("https://www.investing.com/currencies/usd-jpy-historical-data","USD/JPY")
-        ]:
-            node.append(source_link(url,label)); node.append(" ")
-
-
-    # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
-    # Market commentary is bound by semantic market key, never by array position.
-    market_comments=data.get("market_comments",{}).get("global_markets",[])
-    # Keep selecting the already-approved commentary bodies by their source keys,
-    # while presenting consistent concise labels in all three global-market tabs.
-    source_prefixes = {
-        "us": "📌 美股觀察",
-        "asia": "📌 亞洲市場觀察",
-        "europe": "📌 歐洲市場觀察",
-    }
-    display_prefixes = {
-        "us": "📌 美股摘要",
-        "asia": "📌 亞股摘要",
-        "europe": "📌 歐股摘要",
-    }
-    global_comment_map = {
-        key: next((x for x in market_comments if x.startswith(prefix)), None)
-        for key, prefix in source_prefixes.items()
-    }
-    global_panels = [
-        ("#tac-global-panel-0 .market-reason", "us"),
-        ("#tac-global-panel-1 .market-reason", "asia"),
-        ("#tac-global-panel-2 .market-reason", "europe"),
-    ]
-    for selector, key in global_panels:
-        node=unique(soup,selector,f"{key} global-market commentary")
-        value=global_comment_map.get(key)
-        source_prefix=source_prefixes[key]
-        if not value or not value.startswith(source_prefix):
-            raise ValueError(f"missing or mismatched {key} market commentary")
-        display_value=display_prefixes[key] + value[len(source_prefix):]
-        set_text(node,display_value)
-        if not node.get_text(" ",strip=True).startswith(display_prefixes[key]):
-            raise ValueError(f"{key} market commentary binding validation failed")
-
-    reasons=[
-        ("#tac-assets-panel-0 .market-reason",[data.get("market_comments",{}).get("sectors","📌 產業觀察｜11 檔產業 ETF 報價待核實。")]),
-        ("#tac-assets-panel-1 .market-reason",[data.get("market_comments",{}).get("bonds","📌 債券觀察｜殖利率待核實。")]),
-        ("#tac-assets-panel-2 .market-reason",[data.get("market_comments",{}).get("fx","📌 匯率觀察｜匯率待核實。")]),
-        ("#tac-assets-panel-3 .market-reason",[data.get("market_comments",{}).get("energy","📌 能源觀察｜期貨報價待核實。")]),
-        ("#tac-assets-panel-4 .market-reason",[data.get("market_comments",{}).get("metals","📌 貴金屬觀察｜期貨報價待核實。")])
-    ]
-    for selector,values in reasons:
-        nodes=soup.select(selector)
-        for i,node in enumerate(nodes):
-            if i<len(values): set_text(node,values[i])
-    level_source=soup.select_one("#view .focus-panel.focus-levels .source")
-    if level_source: set_text(level_source,f"支撐與壓力區間尚未完成 {previous_trade} OHLC 與近 20 日序列重算；本版不沿用母版舊價位。")
-    status=soup.select_one(".status")
-    if status: set_text(status,f"{report_label}（{report_weekday}）｜{report_context}")
-    warning=soup.select_one(".data-sync-warning")
-    if warning: set_text(warning,f"{report_label} 早報審核版｜"+data.get("warning_note","市場資料依各自來源與交易日更新；待核實項目不以估值補齊。"))
-    footer=soup.select_one(".footer")
-    if footer: set_text(footer,f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜資料截點 {report_cutoff} 台灣時間｜行情基準為各市場最近正式交易日；未取得一致可追溯資料者標示待核實。本檔為隔離模擬審核版，未發布至正式首頁。")
-
-    # Risk indicators and their source notes.
-    for label in ("VIX","MOVE"):
-        rdata=data.get("risk",{}).get(label.lower(),{})
-        change=rdata.get("change_display","待核實")
-        rows=[r for r in sent.select(".sbox") if r.select_one(".label-en") and r.select_one(".label-en").get_text(strip=True)==label]
-        for row in rows:
-            ch=row.select_one("span.down,span.up,span.warn,span.pending")
-            if ch:
-                set_text(ch,change)
-                ch["class"]=["pending"] if change=="待核實" else (["down"] if "−" in str(change) or "-" in str(change) else ["up"])
-            src=row.select_one(".source")
-            if src:
-                if label=="VIX" and rdata.get("display")!="待核實":
-                    src.clear(); src.append(source_link("https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487","Investing.com｜11/06 VIX收盤"))
-                elif label=="MOVE" and rdata.get("display")!="待核實":
-                    src.clear(); src.append(source_link("https://www.investing.com/indices/ice-bofaml-move-historical-data","Investing.com｜最新可得11/05收盤"))
-                else:
-                    src.clear()
-                    src.append(source_link("https://www.cnn.com/markets/fear-and-greed","CNN Business｜官方指數頁；本次頁面未載入最新讀值"))
-    fgbox=sent.select_one(".cnn-fg-preview")
-    if fgbox:
-        score=fgbox.select_one(".fg6-score-main")
-        if score: set_text(score,"待核實")
-        status=fgbox.select_one(".fg6-status")
-        if status: set_text(status,"待核實")
-        marker=fgbox.select_one(".fg6-marker")
-        if marker: marker["style"]="display:none"
-        src=fgbox.select_one(".source")
-        if src:
-            src.clear(); src.append("資料來源："); src.append(source_link("https://www.cnn.com/markets/fear-and-greed","CNN Business｜官方指數頁")); src.append("｜本次頁面未載入最新讀值。")
-    core=sent.select(".sbox")[-1].select_one("div[style]")
-    if core: set_text(core,data["sentiment"])
-    # Observation title, market view, levels and core priorities.
-    view=unique(soup,"#view","market observation")
-    vtitle=view.select_one(".today-focus-title")
-    if vtitle: set_text(vtitle,f"盤面觀察重點｜{report_label}（{report_weekday}）")
-    market_panel=view.select_one(".focus-panel.focus-market .key")
-    if market_panel: set_text(market_panel,data.get("observation","盤面觀察待核實"))
-    levels=view.select_one(".focus-panel.focus-levels .key")
-    if levels: set_text(levels,f"支撐與壓力區間待依 {previous_trade} 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用母版舊區間。")
-    core_panel=view.select_one(".focus-panel.focus-core .callout")
-    if core_panel: set_text(core_panel,data.get("observation","盤面觀察待核實"))
-    # FedWatch is a dated market snapshot, not the old October decision snapshot.
-    fed_panel=unique(soup,"#fed .fed-live-watch","FedWatch panel")
-    audit=fed_panel.select_one(".fedwatch-time .audit-content")
-    if audit: set_text(audit,f"早報資料截點為 {report_cutoff} 台灣時間；未取得符合本次截點的可核實 FedWatch 機率快照時，不引用晚間或盤中更新資料。")
-    fsrc=fed_panel.select_one(".fc-source")
-    if fsrc:
-        a=fsrc.select_one("a")
-        if a:
-            a["href"]="https://www.investing.com/central-banks/fed-rate-monitor"
-            set_text(a,"Investing.com Fed Rate Monitor")
-        for child in list(fsrc.find_all(string=True)):
-            if "官方截圖" in str(child) or "快照時間" in str(child): child.extract()
-        
-    fomc=soup.select_one("#fed .fc-fomc")
-    if fomc:
-        meeting=fomc.select_one(".fc-fomc-meeting b")
-        if meeting: set_text(meeting,"2026/12/08–12/09")
-        press=fomc.select_one(".fc-fomc-press b")
-        if press: set_text(press,"2026/12/10 03:30")
-        observation=fomc.select_one(".fc-fomc-observation b")
-        if observation: set_text(observation,"10/28聯準會維持3.75%–4.00%；12/09會議機率因未取得05:25前快照，暫不填列。")
-        p=fomc.select_one("p")
-        if p: set_text(p,"下一次會議日期與決策時間以 Federal Reserve 官方日曆為準；本欄不沿用 10 月會議舊資料。")
-    health=soup.select_one("#sp500-earnings-health .title small")
-    if health: set_text(health,"FactSet 歷史快照：2026/10/23；非11/06即時統計。")
-    health_panel=soup.select_one("#sp500-earnings-health")
-    if health_panel:
-        for node in health_panel.find_all(string=True):
-            if "179" in str(node) and "10/26" in str(node): node.replace_with("本週重點財報時程請參考下方 W46 財報行事曆；本區數據僅為10/23歷史快照。")
-
+        if explain:
+            explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
+            set_text(explain, explanation)
     # Refresh regional market tabs so no October mother-template quotes survive.
     region_specs = [
         ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 0, "亞洲市場｜2026/11/06各市場當地正式收盤", [
