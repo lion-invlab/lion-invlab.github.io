@@ -17,6 +17,18 @@ def set_text(node, value):
     node.clear()
     node.append(str(value))
 
+def set_market_observation(node, title, value):
+    """Render every observation block with the same heading + paragraph DOM."""
+    raw = str(value or "").strip()
+    if "｜" in raw and raw.startswith("📌"):
+        raw = raw.split("｜", 1)[1].strip()
+    node.clear()
+    heading = BeautifulSoup("", "html.parser").new_tag("b")
+    heading.string = title
+    node.append(heading)
+    node.append(BeautifulSoup("<br/>", "html.parser").br)
+    node.append(raw)
+
 def unique(root, selector, label):
     nodes=root.select(selector)
     if len(nodes)!=1:
@@ -325,30 +337,34 @@ def main():
                         body.append(f"{label}｜{src['name']}｜{src['data_date']}｜")
                         body.append(source_link(src["url"], "來源"))
                         body.append("；")
-    # Market and instrument narrative blocks are rewritten from the current fixture, not inherited from October.
+    # All observation cards use the same semantic DOM: bold 📌 heading + line break + paragraph.
+    # Target the active global-market tab panels explicitly; the former #asia / #tac-region-panel-2
+    # selectors belonged to legacy region tabs and left the visible Asia tab stale.
     narrative_targets = [
-        ("#global-markets", "美股觀察", "global_markets", 2),
-        ("#asia", "亞股觀察", "global_markets", 3),
-        ("#tac-region-panel-2", "歐股觀察", "global_markets", 4),
-        ("#tac-assets-panel-0", "產業觀察", "sectors", None),
-        ("#bonds", "債券觀察", "bonds", None),
-        ("#fx", "匯率觀察", "fx", None),
-        ("#tac-assets-panel-3", "原油觀察", "energy", None),
-        ("#tac-assets-panel-4", "貴金屬觀察", "metals", None),
+        ("#tac-global-panel-0", "📌 美股觀察", "global_markets", 2),
+        ("#tac-global-panel-1", "📌 亞股觀察", "global_markets", 3),
+        ("#tac-global-panel-2", "📌 歐股觀察", "global_markets", 4),
+        ("#asia", "📌 亞股摘要", "global_markets", 0),
+        ("#tac-region-panel-2", "📌 歐股摘要", "global_markets", 1),
+        ("#tac-assets-panel-0", "📌 產業觀察", "sectors", None),
+        ("#bonds", "📌 債券觀察", "bonds", None),
+        ("#fx", "📌 匯率觀察", "fx", None),
+        ("#tac-assets-panel-3", "📌 原油觀察", "energy", None),
+        ("#tac-assets-panel-4", "📌 貴金屬觀察", "metals", None),
     ]
-    for selector, title_text, group_key, idx in narrative_targets:
+    for selector, heading, group_key, idx in narrative_targets:
         section = soup.select_one(selector)
         if section is None:
             continue
         note = section.select_one(".market-reason")
         if note:
             if group_key == "global_markets":
-                comment = data.get("market_comments", {}).get(group_key, [])
-                text_value = comment[idx] if idx is not None and idx < len(comment) else ""
+                comments = data.get("market_comments", {}).get(group_key, [])
+                value = comments[idx] if idx is not None and idx < len(comments) else ""
             else:
-                text_value = data.get("market_comments", {}).get(group_key, "")
-            if text_value:
-                set_text(note, text_value)
+                value = data.get("market_comments", {}).get(group_key, "")
+            if value:
+                set_market_observation(note, heading, value)
     # Ensure all quote cards carry current per-item dates in the visible heading.
     # Current report label belongs to source link and section only; never duplicate timezone suffixes.
     for market_section in soup.select("#global-markets, #bonds, #fx, #tac-assets-panel-3, #tac-assets-panel-4"):
