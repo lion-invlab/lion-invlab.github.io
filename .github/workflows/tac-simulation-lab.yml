@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: tac-simulation-lab
+  group: tac-simulation-lab-focus-tabs-20261107
   cancel-in-progress: true
 
 jobs:
