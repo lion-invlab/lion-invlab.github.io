@@ -1004,7 +1004,7 @@ def main():
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
         panel=unique(view,".focus-panel.focus-market","market observation text")
-        set_text(panel.select_one(".key") or panel,data["observation"])
+        set_market_observation(panel.select_one(".key") or panel, "市場觀點", data["observation"])
 
     # Populate all three existing Today Focus tabs; never leave stale mother-template text.
     if data.get("key_levels"):
