@@ -292,53 +292,46 @@ def main():
             for sel,val in fields:
                 node=card.select_one(sel)
                 if node: set_text(node,val)
-            detail=card.select(".earnings-detail-value")
-            if len(detail)>=5:
-                timing_value=("盤前／盤後時間待核實" if not clock else clock)
-                eps_value=f"{x.get('eps_estimate') if x.get('eps_estimate') is not None else '待核實'}／{x.get('eps_actual') if x.get('status')=='released' and x.get('eps_actual') is not None else '待公布'}"
-                revenue_value=f"{x.get('revenue_estimate') if x.get('revenue_estimate') is not None else '待核實'}／{x.get('revenue_actual') if x.get('status')=='released' and x.get('revenue_actual') is not None else '待公布'}"
-                judgment_value=(x.get("judgment") or "財報尚未公布；關注 EPS、營收與公司指引。")+"；股價反應："+str(x.get("price_reaction") or "待核實")
-                if key=="published":
-                    # Published earnings must use the approved paired EPS/revenue result-card structure.
-                    details=card.select_one(".earnings-accordion-details")
-                    original_fields={f.select_one("label").get_text(strip=True):f for f in details.select(":scope > .earnings-detail-field") if f.select_one("label")}
-                    grid=soup.new_tag("div",attrs={"class":["earnings-results-grid"]})
-                    def compare_result(estimate, actual):
-                        try:
-                            e=float(str(estimate).replace(",","").replace("$","").replace("US","").replace("USD","").strip())
-                            a=float(str(actual).replace(",","").replace("$","").replace("US","").replace("USD","").strip())
-                            return "beat" if a>e else "miss" if a<e else "inline"
-                        except (TypeError,ValueError):
-                            return "pending"
-                    def actual_card(title_text,value_text,estimate,actual):
-                        outcome=compare_result(estimate,actual)
-                        classes=["earnings-actual-card"]+([outcome] if outcome in ("beat","miss") else [])
-                        result=soup.new_tag("div",attrs={"class":classes})
-                        heading=soup.new_tag("div",attrs={"class":["earnings-actual-card-title"]}); heading.string=title_text; result.append(heading)
-                        parts=value_text.split("／",1)
-                        for caption,value in [("市場預估",parts[0]),("實際公布",parts[1] if len(parts)>1 else "待核實")]:
-                            line=soup.new_tag("div",attrs={"class":["earnings-actual-line"]})
-                            label_node=soup.new_tag("span"); label_node.string=caption
-                            value_node=soup.new_tag("strong"); value_node.string=value
-                            line.append(label_node); line.append(value_node); result.append(line)
-                        status_label={"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"實際數值已列示｜差異判讀見下方"}[outcome]
-                        status=soup.new_tag("span",attrs={"class":["earnings-actual-status",outcome]}); status.string=status_label; result.append(status)
-                        return result
-                    grid.append(actual_card("EPS｜預估 vs 實際",eps_value,x.get("eps_estimate"),x.get("eps_actual")))
-                    grid.append(actual_card("營收｜預估 vs 實際",revenue_value,x.get("revenue_estimate"),x.get("revenue_actual")))
-                    details.clear(); details.append(grid)
-                    for field_label in ("公布時段","財報判讀與股價反應","資料來源"):
-                        field=original_fields.get(field_label)
-                        if field:
-                            field["class"]=["earnings-detail-field","wide"]
-                            if field_label=="公布時段": set_text(field.select_one(".earnings-detail-value"),timing_value)
-                            elif field_label=="財報判讀與股價反應": set_text(field.select_one(".earnings-detail-value"),judgment_value)
-                            details.append(field)
-                else:
-                    set_text(detail[0],timing_value)
-                    set_text(detail[1],eps_value)
-                    set_text(detail[2],revenue_value)
-                    set_text(detail[3],judgment_value)
+            # Every earnings card uses the same five vertically stacked information fields.
+            details=card.select_one(".earnings-accordion-details")
+            if details is None: raise ValueError("earnings card detail container missing")
+            timing_value=("時間待核實" if not x.get("time_known",False) else clock)
+            session_label={"before_market":"盤前","after_market":"盤後"}.get(x.get("session"),"時段待核實")
+            timing_status=("即將公布" if x.get("status")!="released" else "已公布")
+            eps_est=x.get("eps_estimate_display") or (str(x.get("eps_estimate")) if x.get("eps_estimate") is not None else "待核實")
+            eps_act=x.get("eps_actual_display") or (str(x.get("eps_actual")) if x.get("eps_actual") is not None else ("待公布" if x.get("status")!="released" else "待核實"))
+            rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "待核實")
+            rev_act=x.get("revenue_actual_display") or (str(x.get("revenue_actual")) if x.get("revenue_actual") is not None else ("待公布" if x.get("status")!="released" else "待核實"))
+            eps_value=f"共識 {eps_est}；實際 {eps_act}"
+            revenue_value=f"共識 {rev_est}；實際 {rev_act}"
+            judgment_value=(x.get("judgment") or ("財報尚未公布，公布後依公司實際值、同口徑共識及股價反應更新。" if x.get("status")!="released" else "財報判讀待核實。"))
+            if x.get("price_reaction"):
+                judgment_value += " 股價反應："+str(x.get("price_reaction"))
+            else:
+                judgment_value += " 股價反應："+("尚未公布" if x.get("status")!="released" else "待核實")
+            source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
+            source_value.string=x.get("source_name") or "來源待核實"
+            field_specs=[
+                ("公布時段／狀態",f"{timing_status}；{day}（{session_label}；{timing_value} 台灣時間）"),
+                ("EPS 預估／實際",eps_value),
+                ("營收預估／實際",revenue_value),
+                ("財報判讀與股價反應",judgment_value),
+                ("資料來源",source_value),
+            ]
+            prototype=details.select_one(".earnings-detail-field")
+            if prototype is None: raise ValueError("earnings detail field prototype missing")
+            details.clear()
+            for field_label,field_value in field_specs:
+                field=BeautifulSoup(str(prototype),"html.parser").select_one(".earnings-detail-field")
+                field["class"]=["earnings-detail-field","wide"]
+                label_node=field.select_one("label")
+                value_node=field.select_one(".earnings-detail-value")
+                if label_node: set_text(label_node,field_label)
+                if value_node:
+                    value_node.clear()
+                    if hasattr(field_value,"name"): value_node.append(field_value)
+                    else: set_text(value_node,field_value)
+                details.append(field)
             link=card.select_one(".earnings-detail-value a")
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
             listing.append(card)
@@ -792,6 +785,20 @@ def main():
 }
 </style>
 """
+    # Match the approved earnings-card reference: five full-width stacked information fields.
+    earnings_layout_css = """
+<style id="tac-earnings-card-five-field-layout-v1">
+.earnings-accordion-details { grid-template-columns:minmax(0,1fr) !important; }
+.earnings-accordion-details > .earnings-detail-field { grid-column:1/-1 !important; }
+@media(max-width:640px) {
+  .earnings-accordion-details { grid-template-columns:minmax(0,1fr) !important; }
+  .earnings-accordion-details > .earnings-detail-field { grid-column:1/-1 !important; }
+}
+</style>
+"""
+    head = soup.select_one("head")
+    if head is None: raise ValueError("HTML head missing; cannot install earnings card layout")
+    head.append(BeautifulSoup(earnings_layout_css,"html.parser").style)
     # Fix mobile sidebar clipping: keep every quick link/history control visible and scrollable.
     sidebar_css = """
 <style id="tac-sidebar-mobile-no-clipping-v1">
