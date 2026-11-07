@@ -1126,6 +1126,29 @@ def main():
     typography_counts = {name: len(soup.select(selector)) for name, selector in typography_targets.items()}
     if any(count == 0 for count in typography_counts.values()):
         raise ValueError(f"unified instrument typography target missing: {typography_counts}")
+    # Fail closed if any Today Focus tab is stale, missing, or only partially assembled.
+    focus_tabs = {
+        "market": unique(view, ".focus-panel.focus-market", "market tab"),
+        "levels": unique(view, ".focus-panel.focus-levels", "levels tab"),
+        "core": unique(view, ".focus-panel.focus-core", "core tab"),
+    }
+    if len(view.select(".focus-tab-labels label")) != 3 or len(view.select(".focus-panels > .focus-panel")) != 3:
+        raise ValueError("Today Focus must retain exactly three approved tabs and panels")
+    if data["observation"] not in focus_tabs["market"].get_text(" ", strip=True):
+        raise ValueError("market observation text did not assemble")
+    levels_text = focus_tabs["levels"].get_text(" ", strip=True)
+    if len(data["key_levels"].get("items", [])) != 5 or any(item["s1"] not in levels_text or item["p"] not in levels_text or item["r1"] not in levels_text for item in data["key_levels"]["items"]):
+        raise ValueError("one or more key levels did not assemble")
+    if data["core_observation"]["text"] not in focus_tabs["core"].get_text(" ", strip=True):
+        raise ValueError("core observation text did not assemble")
+    focus_text = view.get_text(" ", strip=True)
+    if "10/23" in focus_text or "2026/10/23" in focus_text:
+        raise ValueError("stale 10/23 mother-template text remains in Today Focus")
+    if data.get("bonds", {}).get("2年期美債殖利率", {}).get("change_display") == "待核實":
+        raise ValueError("2-year Treasury daily change remains unresolved")
+    for item in data["key_levels"]["items"]:
+        if not any(a.get("href") == item["url"] for a in focus_tabs["levels"].select("a")):
+            raise ValueError("key level OHLC source link missing for " + item.get("name", "unknown index"))
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
