@@ -73,6 +73,24 @@ jobs:
       - name: Compare assembled HTML against approved Monday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-09_審核版.html monday 2026-11-09
 
+      - name: Assemble and visually verify Tue-Fri weekday mother (deterministic replay)
+        run: |
+          set -euo pipefail
+          cp simulation-lab/fixtures/report-data-2026-11-09.json simulation-lab/output/report-data-weekday-replay.json
+          cp simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json simulation-lab/output/key-levels-weekday-replay.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for name in ("report-data-weekday-replay.json", "key-levels-weekday-replay.json"):
+              path = Path("simulation-lab/output") / name
+              payload = json.loads(path.read_text(encoding="utf-8"))
+              payload["report_date"] = "2026-11-10"
+              path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+          PY
+          python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/output/key-levels-weekday-replay.json --data simulation-lab/output/report-data-weekday-replay.json --report-date 2026-11-10
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/output/report-data-weekday-replay.json --output simulation-lab/output/TAC_投資早報_2026-11-10_週二至週五相容性測試.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
+          node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-10_週二至週五相容性測試.html weekdays 2026-11-10
+
       - name: Record isolated run metadata
         if: always()
         shell: bash

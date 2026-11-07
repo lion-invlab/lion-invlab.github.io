@@ -156,24 +156,26 @@ def main():
 """
     head = soup.select_one("head")
     if head is None: raise ValueError("HTML head missing; cannot install display normalization")
-    head.append(BeautifulSoup(disclosure_css, "html.parser").style)
+    if monday:
+        head.append(BeautifulSoup(disclosure_css, "html.parser").style)
 
     # Rebuild both disclosure labels with explicit marker/text spans. This avoids
     # inherited native markers and inconsistent pseudo-element spacing.
-    for selector, marker_class, text_class in [
-        ("#last-week-calendar .last-week-calendar-collapse > summary", "tac-disclosure-marker", "tac-disclosure-label"),
-        ("#last-week-earnings .last-week-earnings-collapse > summary", "tac-disclosure-marker", "tac-disclosure-label"),
-    ]:
-        summary_node = unique(soup, selector, "previous-week disclosure summary")
-        label_text = summary_node.get_text(" ", strip=True)
-        label_text = re.sub(r"^展開\\s*", "", label_text)
-        summary_node.clear()
-        marker = soup.new_tag("span", attrs={"class": marker_class, "aria-hidden": "true"})
-        marker.string = "▸"
-        label = soup.new_tag("span", attrs={"class": text_class})
-        label.string = "展開" + label_text
-        summary_node.append(marker)
-        summary_node.append(label)
+    if monday:
+        for selector, marker_class, text_class in [
+            ("#last-week-calendar .last-week-calendar-collapse > summary", "tac-disclosure-marker", "tac-disclosure-label"),
+            ("#last-week-earnings .last-week-earnings-collapse > summary", "tac-disclosure-marker", "tac-disclosure-label"),
+        ]:
+            summary_node = unique(soup, selector, "previous-week disclosure summary")
+            label_text = summary_node.get_text(" ", strip=True)
+            label_text = re.sub(r"^展開\\s*", "", label_text)
+            summary_node.clear()
+            marker = soup.new_tag("span", attrs={"class": marker_class, "aria-hidden": "true"})
+            marker.string = "▸"
+            label = soup.new_tag("span", attrs={"class": text_class})
+            label.string = "展開" + label_text
+            summary_node.append(marker)
+            summary_node.append(label)
 
     # Preserve all mother-template layout styles; override only sidebar internals below.
     disclosure_layout_css = """
@@ -1245,6 +1247,13 @@ def main():
     for item in data["key_levels"]["items"]:
         if not any(a.get("href") == item["url"] for a in focus_tabs["levels"].select("a")):
             raise ValueError("key level OHLC source link missing for " + item.get("name", "unknown index"))
+    # Enforce the selected template's weekday-specific section contract.
+    monday_only_ids = ("#last-week-calendar", "#last-week-earnings")
+    if monday:
+        for selector in monday_only_ids:
+            unique(soup, selector, "Monday-only section")
+    elif any(soup.select(selector) for selector in monday_only_ids):
+        raise ValueError("weekday mother/output must not contain Monday-only previous-week sections")
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
