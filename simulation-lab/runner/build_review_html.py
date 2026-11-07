@@ -413,12 +413,12 @@ def main():
             if meta: set_text(meta,label)
     # Replace old market-source captions with the sources for this report date.
     source_specs=[
-        ("#global-markets .source","https://apnews.com/article/markets-japan-nikkei-oil-ai-bba6f0bf9035a6e6b1c4fef3e8230b89","AP｜11/06 美股收盤與週線市場報導；亞洲／歐洲指數另待同日行情核實。"),
+        ("#global-markets .source","https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/","Reuters｜11/06 美股指數收盤與半導體表現；亞洲指數另參考 AP。"),
         ("#tac-assets-panel-0 .source",None,"11/06 S&P 500 11 大產業 ETF 同日收盤資料尚待核實。"),
-        ("#tac-assets-panel-1 .source",None,"11/06 美國公債殖利率官方日終資料尚待核實。"),
-        ("#tac-assets-panel-2 .source",None,"11/06 六項固定匯率同日收盤資料尚待核實。"),
-        ("#tac-assets-panel-3 .source",None,"11/06 WTI／Brent 期貨結算資料尚待核實。"),
-        ("#tac-assets-panel-4 .source",None,"11/06 COMEX 黃金／白銀期貨結算資料尚待核實。")
+        ("#tac-assets-panel-1 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 債券市場報價快照；殖利率以頁面更新時點為準。"),
+        ("#tac-assets-panel-2 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com／Reuters｜11/06 美元及主要貨幣市場報導。"),
+        ("#tac-assets-panel-3 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 WTI／Brent 期貨報價快照。"),
+        ("#tac-assets-panel-4 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 黃金／白銀期貨報價快照。")
     ]
     for selector,url,label in source_specs:
         for node in soup.select(selector):

@@ -118,11 +118,11 @@
     },
     "日經 225": {
       "display": "待核實",
-      "change_display": "待核實"
+      "change_display": "−5.70%"
     },
     "韓國 KOSPI": {
       "display": "待核實",
-      "change_display": "待核實"
+      "change_display": "−7.40%"
     },
     "台灣加權指數": {
       "display": "待核實",
@@ -142,7 +142,7 @@
     },
     "德國 DAX": {
       "display": "待核實",
-      "change_display": "待核實"
+      "change_display": "−1.90%"
     },
     "法國 CAC 40": {
       "display": "待核實",
@@ -176,67 +176,68 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "4.52%",
+      "change_display": "+0.91%"
     },
     "10年期美債殖利率": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "4.856%",
+      "change_display": "+0.54%"
     },
     "30年期美債殖利率": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "5.268%",
+      "change_display": "+0.32%"
     }
   },
   "fx": {
     "美元指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "102.18",
+      "change_display": "+0.74%"
     },
     "美元／新台幣": {
       "display": "待核實",
       "change_display": "待核實"
     },
     "歐元／美元": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "1.11437",
+      "change_display": "−0.67%"
     },
     "英鎊／美元": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "1.3355",
+      "change_display": "−0.71%"
     },
     "澳幣／美元": {
       "display": "待核實",
       "change_display": "待核實"
     },
     "美元／日圓": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "158.430",
+      "change_display": "+0.47%"
     }
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "90.34",
+      "change_display": "−0.20%"
     },
     "Brent原油期貨": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "97.75",
+      "change_display": "−0.55%"
     }
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "4,079.50",
+      "change_display": "−0.83%"
     },
     "白銀期貨 SI": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "51.97",
+      "change_display": "−0.78%"
     }
   },
   "risk": {
     "vix": {
-      "display": "待核實"
+      "display": "25.64",
+      "change_display": "−9.01%"
     },
     "move": {
       "display": "待核實"
