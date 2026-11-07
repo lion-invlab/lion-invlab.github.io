@@ -113,40 +113,58 @@ def main():
         summary_node.append(marker)
         summary_node.append(label)
 
+    # Remove legacy sidebar CSS patches from the generated copy; keep the approved mother template untouched.
+    for legacy_style_id in ("tac-sidebar-tools-preview-v2", "tac-history-button-visibility-v32"):
+        for legacy_style in soup.select("style#" + legacy_style_id):
+            legacy_style.decompose()
+
     disclosure_layout_css = """
-<style id="tac-disclosure-explicit-layout-v2">
+<style id="tac-simulation-layout-authority-v1">
+/* Explicit marker-to-label spacing; does not depend on flex-gap support. */
 #last-week-calendar .last-week-calendar-collapse > summary,
 #last-week-earnings .last-week-earnings-collapse > summary {
   display:flex!important; align-items:center!important; justify-content:flex-start!important;
-  gap:12px!important; box-sizing:border-box!important; width:100%!important;
+  gap:0!important; box-sizing:border-box!important; width:100%!important;
   padding:10px 12px!important; text-align:left!important; list-style:none!important;
 }
 #last-week-calendar .last-week-calendar-collapse > summary::before,
 #last-week-earnings .last-week-earnings-collapse > summary::before { content:none!important; display:none!important; }
 #last-week-calendar .last-week-calendar-collapse > summary::-webkit-details-marker,
 #last-week-earnings .last-week-earnings-collapse > summary::-webkit-details-marker { display:none!important; }
-.tac-disclosure-marker { display:inline-flex!important; flex:0 0 14px!important; width:14px!important;
-  align-items:center!important; justify-content:center!important; margin:0!important; padding:0!important;
-  font-size:13px!important; line-height:1!important; }
+.tac-disclosure-marker {
+  display:inline-flex!important; flex:0 0 14px!important; width:14px!important;
+  align-items:center!important; justify-content:center!important;
+  margin:0 12px 0 0!important; padding:0!important; font-size:13px!important; line-height:1!important;
+}
 .tac-disclosure-label { display:block!important; flex:0 1 auto!important; min-width:0!important;
   margin:0!important; padding:0!important; font:inherit!important; line-height:1.4!important; text-align:left!important; }
 #last-week-calendar .last-week-calendar-collapse[open] .tac-disclosure-marker,
 #last-week-earnings .last-week-earnings-collapse[open] .tac-disclosure-marker { transform:rotate(90deg)!important; }
-@media(max-width:1099px) {
-  .tac-side-tools { overflow-x:hidden!important; overflow-y:auto!important; height:100dvh!important;
-    max-height:100dvh!important; padding-bottom:calc(22px + env(safe-area-inset-bottom))!important;
-    overscroll-behavior:contain!important; }
-  .tac-side-tools .tac-history-mini { display:block!important; flex:0 0 auto!important;
-    height:auto!important; min-height:max-content!important; max-height:none!important;
-    overflow:visible!important; padding-bottom:10px!important; }
-  .tac-side-tools .tac-history-mini button { display:block!important; flex:0 0 auto!important;
-    width:100%!important; min-height:42px!important; height:auto!important; white-space:normal!important;
-    line-height:1.35!important; padding:10px 8px!important; }
-  .tac-side-tools .tac-side-foot { flex:0 0 auto!important; margin-top:10px!important; }
-}
+
+/* Single authoritative sidebar layout for desktop and mobile. */
+.tac-side-tools { box-sizing:border-box!important; display:flex!important; flex-direction:column!important;
+  min-height:0!important; overflow-x:hidden!important; overflow-y:auto!important;
+  overscroll-behavior:contain!important; -webkit-overflow-scrolling:touch!important; }
+.tac-side-tools > * { flex-shrink:0!important; }
+.tac-side-tools .tac-history-mini { display:block!important; box-sizing:border-box!important;
+  flex:0 0 auto!important; min-height:max-content!important; height:auto!important; max-height:none!important; overflow:visible!important; }
+.tac-side-tools .tac-history-mini button { display:block!important; box-sizing:border-box!important;
+  flex:0 0 auto!important; width:100%!important; min-height:42px!important; height:auto!important;
+  white-space:normal!important; line-height:1.35!important; padding:10px 8px!important; }
+.tac-side-tools .tac-side-foot { flex:0 0 auto!important; margin-top:10px!important; }
+@media(min-width:1100px) { .tac-side-tools { position:fixed!important; z-index:10000!important;
+  left:0!important; top:0!important; bottom:0!important; width:208px!important; height:auto!important;
+  max-height:none!important; padding:22px 14px!important; gap:9px!important; } }
+@media(max-width:1099px) { .tac-side-tools { position:fixed!important; z-index:100001!important;
+  left:0!important; top:0!important; bottom:0!important; width:min(82vw,310px)!important;
+  height:auto!important; max-height:none!important;
+  padding:22px 16px calc(22px + env(safe-area-inset-bottom))!important; gap:9px!important; } }
 </style>
 """
-    head.append(BeautifulSoup(disclosure_layout_css, "html.parser").style)
+    # Append last in body so this authority overrides all template-local sidebar rules.
+    layout_style = BeautifulSoup(disclosure_layout_css, "html.parser").style
+    if soup.body is None: raise ValueError("HTML body missing; cannot install layout authority")
+    soup.body.append(layout_style)
 
     fed_title = soup.select_one(".fed-live-title")
     if fed_title: set_text(fed_title, "Fed 限時動態")
