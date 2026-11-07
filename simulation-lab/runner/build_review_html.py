@@ -200,7 +200,7 @@ def main():
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["calendar"]["week_start"],data["calendar"]["week_end"],data["calendar"]["week_id"],report_cutoff))
     panels=unique(cal,".week-econ-panels","economic panels")
     template=panels.select_one("details.econ-event")
-    group_template=panels.select_one(".calendar-status-group")
+    group_template=next((g for g in panels.select(".calendar-status-group") if g.select_one(".econ-event-list")),None)
     if not template or not group_template: raise ValueError("economic calendar template missing")
     panels.clear()
     for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
@@ -221,7 +221,7 @@ def main():
                 if node: set_text(node,val)
             card["class"]=["econ-event","five-star" if int(x.get("stars") or 0)>=5 else "four-star"]
             putfield(card,"前值",x.get("previous")); putfield(card,"市場預估",x.get("forecast"))
-            putfield(card,"實際",x.get("actual") if x.get("status")=="released" else "尚未公布（資料截點 11/06 05:25）")
+            putfield(card,"實際",x.get("actual") if x.get("status")=="released" else f"尚未公布（資料截點 {report_cutoff}）")
             putfield(card,"市場影響",x.get("impact") or "待核實")
             link=card.select_one(".econ-field a")
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
@@ -233,7 +233,7 @@ def main():
     title=earn.select_one(".title small")
     if title: set_text(title,"2026/11/02～11/08｜W45｜資料截點 11/06 05:25 台灣時間")
     ep=unique(earn,".week-earnings-panels","earnings panels")
-    et=ep.select_one("details.earnings-accordion"); eg=ep.select_one(".calendar-status-group")
+    et=ep.select_one("details.earnings-accordion"); eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
     if not et or not eg: raise ValueError("earnings calendar template missing")
     ep.clear()
     for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
