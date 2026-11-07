@@ -356,6 +356,28 @@ def main():
         else:
             value_node["class"]=["r","up" if change>0 else "down" if change<0 else "flat"]
         sector_list.append(row)
+    # Hard gate: displayed order, rank labels and values must agree.
+    displayed=sector_list.select(".sector-row")
+    if len(displayed)!=11:
+        raise ValueError(f"sector ranking output count={len(displayed)}")
+    displayed_tickers=[]
+    displayed_changes=[]
+    for expected_rank,row in enumerate(displayed,start=1):
+        rank_text=unique(row,".rank","sector rank").get_text(strip=True)
+        if rank_text!=str(expected_rank):
+            raise ValueError(f"sector rank mismatch: expected {expected_rank}, got {rank_text}")
+        displayed_tickers.append(sector_ticker(row))
+        displayed_changes.append(sector_change(row))
+    expected_tickers=[ticker for _,ticker,_ in ranked]
+    if displayed_tickers!=expected_tickers:
+        raise ValueError("sector ETF DOM order differs from computed ranking order")
+    verified=[x for x in displayed_changes if x is not None]
+    if verified!=sorted(verified,reverse=True):
+        raise ValueError("sector ETF order is not descending by verified daily change")
+    first_pending=next((i for i,x in enumerate(displayed_changes) if x is None),len(displayed_changes))
+    if any(x is not None for x in displayed_changes[first_pending:]):
+        raise ValueError("verified sector ETF appears after an unverified ETF")
+    ranked_rows_for_source = [row for row, _, _ in ranked]
     # The sector ETF panel also carries source prose and a dated heading; refresh both.
     sector_meta = sectors.select_one(".tab-panel-meta")
     if sector_meta:
@@ -364,10 +386,9 @@ def main():
     if sector_source:
         sector_source.clear()
         verified_sector_lines = []
-        for ticker in [sector_ticker(row) for row in displayed]:
+        for ticker in [sector_ticker(row) for row in ranked_rows_for_source]:
             item = data.get("sector_sources", {}).get(ticker, {})
             if item.get("name") and item.get("url") and item.get("data_date"):
-                verified_sector_lines.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜{item.get('change', data['sectors'].get(ticker, '待核實'))}")
                 sector_source.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜")
                 sector_source.append(source_link(item["url"], "原始來源"))
                 sector_source.append("；")
@@ -416,27 +437,6 @@ def main():
                         source_node.append("；")
                 else:
                     source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關值已標示待核實。")
-    # Hard gate: displayed order, rank labels and values must agree.
-    displayed=sector_list.select(".sector-row")
-    if len(displayed)!=11:
-        raise ValueError(f"sector ranking output count={len(displayed)}")
-    displayed_tickers=[]
-    displayed_changes=[]
-    for expected_rank,row in enumerate(displayed,start=1):
-        rank_text=unique(row,".rank","sector rank").get_text(strip=True)
-        if rank_text!=str(expected_rank):
-            raise ValueError(f"sector rank mismatch: expected {expected_rank}, got {rank_text}")
-        displayed_tickers.append(sector_ticker(row))
-        displayed_changes.append(sector_change(row))
-    expected_tickers=[ticker for _,ticker,_ in ranked]
-    if displayed_tickers!=expected_tickers:
-        raise ValueError("sector ETF DOM order differs from computed ranking order")
-    verified=[x for x in displayed_changes if x is not None]
-    if verified!=sorted(verified,reverse=True):
-        raise ValueError("sector ETF order is not descending by verified daily change")
-    first_pending=next((i for i,x in enumerate(displayed_changes) if x is None),len(displayed_changes))
-    if any(x is not None for x in displayed_changes[first_pending:]):
-        raise ValueError("verified sector ETF appears after an unverified ETF")
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
