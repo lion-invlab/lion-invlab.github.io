@@ -1,0 +1,79 @@
+{
+  "schema_version": "1.0",
+  "report_date": "2026-11-09",
+  "trading_date": "2026-11-06",
+  "timezone": "America/New_York",
+  "formula": "P=(H+L+C)/3; S1=2P-H; R1=2P-L",
+  "items": [
+    {
+      "key": "dow",
+      "name": "道瓊工業指數",
+      "symbol": "^DJI",
+      "market": "US",
+      "trading_date": "2026-11-06",
+      "open": 51400.12,
+      "high": 51662.26,
+      "low": 50992.61,
+      "close": 51285.73,
+      "source_name": "Yahoo Finance historical data",
+      "source_url": "https://finance.yahoo.com/quote/%5EDJI/history/?frequency=1d",
+      "quote_type": "cash_index"
+    },
+    {
+      "key": "sp500",
+      "name": "S&P 500",
+      "symbol": "^GSPC",
+      "market": "US",
+      "trading_date": "2026-11-06",
+      "open": 7390,
+      "high": 7444.2,
+      "low": 7369.55,
+      "close": 7376.86,
+      "source_name": "Yahoo Finance historical data",
+      "source_url": "https://finance.yahoo.com/quote/%5EGSPC/history/?frequency=1d",
+      "quote_type": "cash_index"
+    },
+    {
+      "key": "nasdaq",
+      "name": "Nasdaq Composite",
+      "symbol": "^IXIC",
+      "market": "US",
+      "trading_date": "2026-11-06",
+      "open": 24710,
+      "high": 24825.55,
+      "low": 24507.63,
+      "close": 24579.42,
+      "source_name": "Yahoo Finance historical data",
+      "source_url": "https://finance.yahoo.com/quote/%5EIXIC/history/?frequency=1d",
+      "quote_type": "cash_index"
+    },
+    {
+      "key": "sox",
+      "name": "費城半導體指數（SOX）",
+      "symbol": "^SOX",
+      "market": "US",
+      "trading_date": "2026-11-06",
+      "open": 9420,
+      "high": 9627.26,
+      "low": 9221.35,
+      "close": 9390.25,
+      "source_name": "Yahoo Finance historical data",
+      "source_url": "https://finance.yahoo.com/quote/%5ESOX/history/?frequency=1d",
+      "quote_type": "cash_index"
+    },
+    {
+      "key": "russell2000",
+      "name": "Russell 2000",
+      "symbol": "^RUT",
+      "market": "US",
+      "trading_date": "2026-11-06",
+      "open": 2740,
+      "high": 2761.58,
+      "low": 2721,
+      "close": 2754.11,
+      "source_name": "Yahoo Finance historical data",
+      "source_url": "https://finance.yahoo.com/quote/%5ERUT/history/?frequency=1d",
+      "quote_type": "cash_index"
+    }
+  ]
+}
