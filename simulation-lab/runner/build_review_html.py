@@ -422,18 +422,22 @@ def main():
             if meta: set_text(meta,label)
     # Replace old market-source captions with the sources for this report date.
     source_specs=[
-        ("#global-markets .source","https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/","Reuters｜11/06 美股指數收盤與半導體表現；亞洲指數另參考 AP。"),
-        ("#tac-assets-panel-0 .source",None,"11/06 S&P 500 11 大產業 ETF 同日收盤資料尚待核實。"),
-        ("#tac-assets-panel-1 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 債券市場報價快照；殖利率以頁面更新時點為準。"),
-        ("#tac-assets-panel-2 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com／Reuters｜11/06 美元及主要貨幣市場報導。"),
-        ("#tac-assets-panel-3 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 WTI／Brent 期貨報價快照。"),
-        ("#tac-assets-panel-4 .source","https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 黃金／白銀期貨報價快照。")
+        ("#global-markets .source","https://www.reuters.com/business/nasdaq-futures-rise-after-steep-ai-selloff-chip-stocks-stabilize-2026-11-06/","Reuters｜11/06 美股收盤；亞洲與歐洲市場另參考 AP／交易所收盤資料。"),
+        ("#tac-assets-panel-1 .source","https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data","Investing.com｜11/06 美國公債殖利率歷史資料。"),
+        ("#tac-assets-panel-2 .source","https://www.investing.com/indices/usdollar-historical-data","Investing.com｜11/06 美元指數；主要匯率參考 Reuters。"),
+        ("#tac-assets-panel-3 .source","https://www.investing.com/commodities/crude-oil-historical-data","Investing.com｜11/06 WTI／Brent 期貨歷史報價。"),
+        ("#tac-assets-panel-4 .source","https://www.investing.com/commodities/gold-historical-data","Investing.com｜11/06 黃金／白銀期貨歷史報價。")
     ]
     for selector,url,label in source_specs:
         for node in soup.select(selector):
             node.clear()
-            if url: node.append(source_link(url,label))
-            else: node.append(label)
+            node.append(source_link(url,label))
+    for node in soup.select("#tac-assets-panel-0 .source"):
+        node.clear()
+        node.append("Yahoo Finance 歷史行情（11/06 收盤漲跌幅）：")
+        for ticker in ("XLK","XLY","XLB","XLU","XLI","XLV","XLF","XLC","XLRE","XLP","XLE"):
+            node.append(source_link(f"https://finance.yahoo.com/quote/{ticker}/history/",ticker))
+            node.append(" ")
 
     # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
     reasons=[
@@ -470,9 +474,11 @@ def main():
             src=row.select_one(".source")
             if src:
                 if label=="VIX" and rdata.get("display")!="待核實":
-                    src.clear(); src.append(source_link("https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 VIX報價快照"))
+                    src.clear(); src.append(source_link("https://www.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487","Investing.com｜11/06 VIX收盤"))
+                elif label=="MOVE" and rdata.get("display")!="待核實":
+                    src.clear(); src.append(source_link("https://www.investing.com/indices/ice-bofaml-move-historical-data","Investing.com｜最新可得11/05收盤"))
                 else:
-                    set_text(src,"本次早報截點未取得可核實的同日歷史收盤值。")
+                    set_text(src,"本次早報截點未取得可核實的歷史收盤值。")
     fgbox=sent.select_one(".cnn-fg-preview")
     if fgbox:
         score=fgbox.select_one(".fg6-score-main")
