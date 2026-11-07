@@ -1070,6 +1070,8 @@ def main():
             raise ValueError("core observation disclosure detail body missing")
         detail_nodes[0].clear()
         detail_nodes[0].append(data["core_observation"].get("details", ""))
+        for stale_detail in detail_nodes[1:]:
+            stale_detail.decompose()
     else:
         raise ValueError("core_observation data missing; refusing to retain stale mother-template core text")
     # Normalize instrument-name typography across every market quote panel.
