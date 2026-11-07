@@ -442,3 +442,22 @@
 - 三個視窗的今日觀察 tab interaction 均為 count=3、invalid=[]；五組關鍵價位與來源連結存在；2 年期美債顯示 4.51% / +5bp；今日觀察不含 10/23 舊內容。
 - 本版仍屬固定 JSON fixture → HTML assembler 模擬測試，非 live-data E2E；未更新 main、index.html、正式雙母版、正式 Manifest，未發布 Pages。
 - 最新程式／資料／測試 blob SHA：builder `56ea0b192e93a76daf5a36a6900d47a837a220b9`；fixture `04adcb2928746e48c6f64f57a8674c33254bf514`；visual regression `e36ec5b45a747aad7777fd9d1aefd60eecf74c0d`。
+## 2026-11-07｜新增關鍵價位計算模組並接入模擬組裝流程
+
+### 權責與資料契約
+- 行情擷取端負責交付五項美股現貨指數的 OHLC、symbol、trading_date、quote_type、source_name、source_url；不得以 CFD／期貨代替現貨指數。
+- 新增 `simulation-lab/runner/key_levels_builder.py` 作為獨立關鍵價位計算模組。只驗證輸入與計算，不擷取行情；依 P=(H+L+C)/3、S1=2P-H、R1=2P-L，以 Decimal 四捨五入兩位小數。
+- 產生結果寫回單一 report JSON 的 `key_levels.items`；HTML 組裝器只讀該欄位呈現。新增 normalized OHLC replay fixture `simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json`。
+- Workflow 已串成 OHLC input → key_levels_builder → report JSON → build_review_html → visual regression。README 已寫明模組責任、輸入契約、公式及 live/replay 範圍。
+
+### 測試與修正
+- Builder self-test 覆蓋正確 pivot 數學、缺少必要指數拒絕、CFD quote_type 拒絕；CI deterministic self-tests 通過。
+- 首次 pipeline 執行：builder 成功產生五組 pivot，但發現輸出檔案把 `\\n` 字面字元寫進 JSON，導致 assembler JSONDecodeError Extra data。已修正為實際換行並重新執行。
+- 最新 CI run `42347185435`，commit `ed2396c57c8bbb064c10cb3df98953f8c08e6605`，completed/success。母版五區結構、builder、HTML 組裝、Playwright 三尺寸視覺回歸均通過。
+- `visual-regression.json` failures=[]；desktop-1440、tablet-768、mobile-360 三種尺寸，每個尺寸三活頁均 count=3、checked=true、visible=true、invalid=[]。五項 pivot 數值與五條來源連結在組裝 HTML 中均存在。
+- 成功 artifact：`tac-simulation-smoke-42347185435-1`，Artifact ID `13564146380`；下載解壓後檢視 HTML（444,313 bytes）及視覺報告。
+
+### 未完成與限制
+- 目前 OHLC 仍由固定 replay fixture 提供，不能宣稱即時行情端到端完成。main 現有 `scripts/fetch_tac_global_indices.py` 僅輸出 17 項指數歷史 close 與 change_pct，未提供 H/L/C，因此不能直接餵入 pivot builder。
+- 下一個工作是模擬區新增並驗證 OHLC acquisition adapter（優先 Investing.com HK 歷史表；精確交易日、商品身分、現貨口徑及 H/L/C 欄位必須同時成立），再將真實擷取結果轉成 builder input。未完成前不接 main、不發布。
+- main HEAD 回讀仍為 `a6a8749f1532fdf71db108eb2d48fd54d7c3e08a`；本次只改 simulation branch，正式首頁、母版、Manifest、排程未動。
