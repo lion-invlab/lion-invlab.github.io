@@ -2,6 +2,11 @@ name: TAC live key-level OHLC capture (simulation only)
 
 on:
   workflow_dispatch:
+    inputs:
+      report_date:
+        description: "Taipei report date to build from the latest completed NYSE session (YYYY-MM-DD)"
+        required: true
+        type: string
   schedule:
     # Taiwan 04:50 during US daylight time; 05:15 during US standard time.
     # GitHub cron is UTC; Sunday-Thursday UTC maps to Monday-Friday Taiwan.
@@ -34,12 +39,37 @@ jobs:
       - name: Install live OHLC dependencies
         run: python -m pip install --disable-pip-version-check yfinance pandas pandas-market-calendars
 
-      - name: Capture latest completed NYSE cash-index OHLC
+      - name: Check whether this is the active Taipei capture slot
+        id: slot
+        shell: bash
         run: |
-          python simulation-lab/runner/collect_key_levels_ohlc.py \
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import os
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          now = datetime.now(ZoneInfo("Asia/Taipei"))
+          is_dst = bool(now.astimezone(ZoneInfo("America/New_York")).dst())
+          expected = "04:50" if is_dst else "05:15"
+          manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
+          run_capture = manual or now.strftime("%H:%M") == expected
+          print(f"run_capture={'true' if run_capture else 'false'}")
+          print(f"taipei_now={now.isoformat()}")
+          print(f"expected_slot={expected}")
+          PY
+
+      - name: Capture latest completed NYSE cash-index OHLC
+        if: steps.slot.outputs.run_capture == 'true'
+        run: |
+          mkdir -p simulation-lab/output
+          EXTRA_ARGS=()
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            EXTRA_ARGS+=(--allow-manual --report-date "${{ inputs.report_date }}")
+          fi
+          python simulation-lab/runner/collect_key_levels_ohlc.py "${EXTRA_ARGS[@]}" \\
             --output simulation-lab/output/key-levels-live.json
 
       - name: Upload live key-level JSON for the 05:25 report assembler
+        if: steps.slot.outputs.run_capture == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: tac-key-levels-live-${{ github.run_id }}-${{ github.run_attempt }}
