@@ -49,10 +49,14 @@ def collect(now: datetime | None = None, allow_manual: bool = False, report_date
     now = now or datetime.now(TAIPEI)
     now = now.astimezone(TAIPEI)
     slot = expected_capture_slot(now)
-    if not allow_manual and now.strftime("%H:%M") != slot:
+    expected_time = datetime.combine(
+        now.date(), datetime.strptime(slot, "%H:%M").time(), tzinfo=TAIPEI
+    )
+    # GitHub scheduled workflows can start late; allow a 10-minute window.
+    if not allow_manual and abs((now - expected_time).total_seconds()) > 600:
         raise ValueError(
-            f"wrong schedule slot: Taipei={now:%Y-%m-%d %H:%M}; "
-            f"expected {slot} for current US DST regime"
+            f"wrong schedule slot: Taipei={now:%Y-%m-%d %H:%M:%S}; "
+            f"expected {slot} +/- 10 minutes for current US DST regime"
         )
     report_date = date.fromisoformat(report_date_override) if report_date_override else now.date()
     if report_date.weekday() > 4:
