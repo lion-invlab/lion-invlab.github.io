@@ -45,8 +45,28 @@ def main():
     ap.add_argument("--data", required=True)
     ap.add_argument("--output", required=True)
     ap.add_argument("--expected-master-sha", required=True)
+    ap.add_argument("--key-levels-live", help="optional live OHLC capture envelope produced by collect_key_levels_ohlc.py")
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text())
+    if args.key_levels_live:
+        live=json.loads(Path(args.key_levels_live).read_text(encoding="utf-8"))
+        if live.get("report_date") != data.get("report_date"):
+            raise ValueError("live key-level report_date does not match report JSON")
+        levels=live.get("key_levels")
+        if not isinstance(levels, dict) or levels.get("baseline_date") != live.get("trading_date"):
+            raise ValueError("live key-level baseline_date/trading_date mismatch")
+        required_keys=("dow","sp500","nasdaq","sox","russell2000")
+        rows=levels.get("items")
+        if not isinstance(rows,list) or [row.get("key") for row in rows] != list(required_keys):
+            raise ValueError("live key-level artifact must contain the five required indices in canonical order")
+        for row in rows:
+            if row.get("trading_date") != live.get("trading_date") or row.get("quote_type") != "cash_index":
+                raise ValueError(f"live key-level row has invalid trading date or quote type: {row.get('key')}")
+            if not row.get("source_name") or not str(row.get("url","")).startswith("https://"):
+                raise ValueError(f"live key-level row missing source attribution: {row.get('key')}")
+            if not all(row.get(field) for field in ("s1","p","r1","ohlc")):
+                raise ValueError(f"live key-level row missing calculated levels/OHLC: {row.get('key')}")
+        data["key_levels"]=levels
     # Fail closed on quote records without a traceable source and item-level date.
     # A top-level trading_date is not evidence that every market item was updated that day.
     market_groups = ["global_markets", "bonds", "fx", "energy", "metals"]
