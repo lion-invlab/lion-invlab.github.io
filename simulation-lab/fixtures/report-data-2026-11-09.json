@@ -438,13 +438,13 @@
     "move": {
       "display": "92.77",
       "change_display": "−5.26%",
-      "as_of_date": "未取得2026-11-06正式收盤",
+      "as_of_date": "2026-11-06",
       "source": {
         "name": "Investing.com 香港站｜ICE BofAML MOVE 歷史資料",
         "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
         "data_date": "2026-11-06",
         "quote_type": "daily_close",
-        "note": "11/06 歷史資料列；收盤資料日期與畫面 as-of 欄位須一致。"
+        "note": "Investing.com 香港站 MOVE 歷史資料 11/06 列；正式收盤日為 2026-11-06。"
       }
     },
     "fear_greed": {
