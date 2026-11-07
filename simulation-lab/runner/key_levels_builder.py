@@ -78,7 +78,6 @@ def build(payload, report_date):
             "key": key, "name": EXPECTED[key], "symbol": symbol,
             "s1": fmt(s1), "p": fmt(p), "r1": fmt(r1),
             "ohlc": f"H {fmt(h)}｜L {fmt(l)}｜C {fmt(c)}",
-            "open": fmt(dec(item.get("open"), f"{key}.open")),
             "trading_date": trading_date, "quote_type": "cash_index",
             "source_name": source_name, "url": source_url,
             "formula": payload.get("formula", "P=(H+L+C)/3; S1=2P-H; R1=2P-L")
