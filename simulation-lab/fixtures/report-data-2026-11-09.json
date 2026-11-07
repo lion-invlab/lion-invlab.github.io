@@ -104,20 +104,41 @@
       "change_display": "−0.46%"
     },
     "標普500指數": {
-      "display": "7,376.86",
-      "change_display": "+0.31%"
+      "display": "7,401.15",
+      "change_display": "+0.64%",
+      "source": {
+        "name": "Investing.com 香港站｜S&P 500 歷史資料",
+        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 歷史資料列；與 AP/Reuters 摘要值不同，依 WR 優先來源採用。"
+      }
     },
     "那斯達克綜合指數": {
-      "display": "24,579.42",
-      "change_display": "+1.09%"
+      "display": "24,741.03",
+      "change_display": "+1.75%",
+      "source": {
+        "name": "Investing.com 香港站｜Nasdaq Composite 歷史資料",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 歷史資料列；與 AP 摘要值不同，依 WR 優先來源採用。"
+      }
     },
     "羅素2000指數": {
       "display": "2,754.11",
       "change_display": "+0.89%"
     },
     "費城半導體指數": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "9,390.3",
+      "change_display": "+4.21%",
+      "source": {
+        "name": "Investing.com 香港站｜SOX 歷史資料",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 收市列直接讀取。"
+      }
     },
     "香港恆生指數": {
       "display": "24,481.86",
@@ -129,7 +150,14 @@
     },
     "深證成指": {
       "display": "11,175.78",
-      "change_display": "待核實"
+      "change_display": "−2.57%",
+      "source": {
+        "name": "Investing.com 香港站｜深證成指歷史資料",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "補回原缺少的當日漲跌幅。"
+      }
     },
     "日經 225": {
       "display": "57,434.77",
@@ -144,12 +172,26 @@
       "change_display": "−4.51%"
     },
     "新加坡海峽時報指數 STI": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "5,179.17",
+      "change_display": "−2.21%",
+      "source": {
+        "name": "Investing.com 香港站｜STI 歷史資料",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "補齊原待核實欄位。"
+      }
     },
     "澳洲 S&P/ASX 200": {
       "display": "9,020.80",
-      "change_display": "+2.11%"
+      "change_display": "−0.49%",
+      "source": {
+        "name": "Investing.com｜S&P/ASX 200 歷史資料",
+        "url": "https://www.investing.com/indices/aus-200-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "修正原 fixture 誤植的 +2.11%。"
+      }
     },
     "英國 FTSE 100": {
       "display": "10,673.94",
@@ -164,8 +206,15 @@
       "change_display": "−0.81%"
     },
     "STOXX Europe 600": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "648.33",
+      "change_display": "−1.00%",
+      "source": {
+        "name": "Reuters｜歐洲市場收盤",
+        "url": "https://www.reuters.com/markets/europe/european-shares-set-fall-global-ai-rout-gathers-pace-2026-11-06/",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "來源顯示 11/06 close 648.33；11/05 close 654.87，計算日變動約 −1.00%。"
+      }
     }
   },
   "sectors": {
@@ -183,8 +232,15 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "4.47%",
-      "change_display": "待核實"
+      "display": "4.51%",
+      "change_display": "待核實",
+      "source": {
+        "name": "U.S. Treasury｜Daily Treasury Par Yield Curve Rates",
+        "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 官方 CMT 2Y 4.51%；前日變動尚未取得同口徑核實值。"
+      }
     },
     "10年期美債殖利率": {
       "display": "4.859%",
@@ -201,8 +257,15 @@
       "change_display": "+0.73%"
     },
     "美元／新台幣": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "32.784",
+      "change_display": "−0.90%",
+      "source": {
+        "name": "Investing.com 香港站｜USD/TWD 歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 收市列。"
+      }
     },
     "歐元／美元": {
       "display": "1.1143",
@@ -213,8 +276,15 @@
       "change_display": "−0.94%"
     },
     "澳幣／美元": {
-      "display": "待核實",
-      "change_display": "待核實"
+      "display": "0.6864",
+      "change_display": "−0.95%",
+      "source": {
+        "name": "Investing.com｜AUD/USD 歷史資料",
+        "url": "https://www.investing.com/currencies/aud-usd-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 收市列。"
+      }
     },
     "美元／日圓": {
       "display": "158.50",
@@ -247,9 +317,16 @@
       "change_display": "−9.01%"
     },
     "move": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "as_of_date": "未取得2026-11-06正式收盤"
+      "display": "92.77",
+      "change_display": "−5.26%",
+      "as_of_date": "未取得2026-11-06正式收盤",
+      "source": {
+        "name": "Investing.com 香港站｜ICE BofAML MOVE 歷史資料",
+        "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+        "data_date": "2026-11-06",
+        "quote_type": "daily_close",
+        "note": "11/06 收市列；補齊原缺漏。"
+      }
     },
     "fear_greed": {
       "display": "待核實"
@@ -257,10 +334,10 @@
   },
   "fedwatch": {
     "target_meeting": "2026-12-09",
-    "updated_at_tw": "未取得 11/09 05:25 前可核實快照",
+    "updated_at_tw": "2026-11-07 04:15（Investing.com頁面更新 11/06 16:15 ET；本次讀取頁面）",
     "probabilities": []
   },
-  "observation": "AI／半導體賣壓在亞洲交易時段進一步擴散，日韓台科技權重市場跌幅顯著；美股週五反彈則主要由晶片股回補帶動，市場廣度與區域表現並不同步。美國就業數據強於預期，使短端利率及 Fed 12 月政策預期再度敏感。本週先看中國通膨、美國 CPI，再觀察科技股反彈能否由少數權值擴散至更廣泛產業，以及長債殖利率是否進一步推升折現率。",
+  "observation": "亞洲科技權重市場在週五仍承受明顯賣壓，日韓台走勢疲弱；美股科技股則出現反彈，但標普與Nasdaq的Investing.com歷史頁收盤值與部分新聞摘要存在差異，報告採指定優先行情頁讀值。美國就業韌性與偏高的長端利率使政策預期重新敏感；本週中國通膨及美國CPI將是檢驗需求與利率路徑的關鍵。觀察科技反彈是否擴散、長債殖利率是否續升，以及油價回落能否緩和通膨壓力。",
   "calendar": {
     "week_id": "2026-W46",
     "week_start": "2026-11-09",
