@@ -1020,6 +1020,58 @@ def main():
     if data.get("observation"):
         panel=unique(view,".focus-panel.focus-market","market observation text")
         set_text(panel.select_one(".key") or panel,data["observation"])
+
+    # Populate all three existing Today Focus tabs; never leave stale mother-template text.
+    if data.get("key_levels"):
+        levels_panel = unique(view, ".focus-panel.focus-levels", "key levels tab")
+        levels_box = unique(levels_panel, ".key", "key levels content")
+        disclosure = levels_box.select_one("details.compact-disclosure")
+        if disclosure is None:
+            raise ValueError("key levels source/method disclosure missing from approved mother template")
+        disclosure.extract()
+        levels_box.clear()
+        for item in data["key_levels"].get("items", []):
+            line = soup.new_tag("div")
+            label = soup.new_tag("b")
+            label.string = item["name"] + "："
+            line.append(label)
+            line.append(f"支撐 S1：{item['s1']}｜中樞 P：{item['p']}｜壓力 R1：{item['r1']}")
+            levels_box.append(line)
+            levels_box.append(soup.new_tag("br"))
+        levels_box.append(disclosure)
+        detail_body = disclosure.select_one("div")
+        if detail_body is None:
+            raise ValueError("key levels disclosure body missing")
+        detail_body.clear()
+        detail_body.append(f"基準交易日：{data['key_levels']['baseline_date']}（美國當地正式收盤）。{data['key_levels']['formula']} ")
+        for item in data["key_levels"].get("items", []):
+            detail_body.append(soup.new_tag("br"))
+            detail_body.append(f"{item['name']}｜{item['ohlc']}｜")
+            detail_body.append(source_link(item["url"], "Yahoo Finance OHLC"))
+            detail_body.append("。")
+    else:
+        raise ValueError("key_levels data missing; refusing to retain stale mother-template key levels")
+    if data.get("core_observation"):
+        core_panel = unique(view, ".focus-panel.focus-core", "core observation tab")
+        callout = unique(core_panel, ".callout", "core observation content")
+        disclosure = callout.select_one("details.compact-disclosure")
+        if disclosure is None:
+            raise ValueError("core observation disclosure missing from approved mother template")
+        disclosure.extract()
+        callout.clear()
+        title = soup.new_tag("b")
+        title.string = data["core_observation"].get("heading", "今日核心觀察") + "："
+        callout.append(title)
+        callout.append(data["core_observation"]["text"])
+        callout.append(soup.new_tag("br"))
+        callout.append(disclosure)
+        detail_nodes = disclosure.select("div")
+        if not detail_nodes:
+            raise ValueError("core observation disclosure detail body missing")
+        detail_nodes[0].clear()
+        detail_nodes[0].append(data["core_observation"].get("details", ""))
+    else:
+        raise ValueError("core_observation data missing; refusing to retain stale mother-template core text")
     # Normalize instrument-name typography across every market quote panel.
     # Keep English tickers/sub-labels, prices, percentage changes and section headings untouched.
     instrument_css = """
