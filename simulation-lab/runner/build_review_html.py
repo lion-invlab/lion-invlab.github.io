@@ -417,16 +417,12 @@ def main():
 
     # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
     reasons=[
-        ("#global-markets .market-reason",[
-            "📌 美股觀察｜11/05 四大美股指數同步重挫，費半跌幅最大；AI／半導體及大型科技股是主要賣壓來源，市場正在重新評估資本支出回報與估值。",
-            "📌 亞股觀察｜本報採 11/05 各市場正式收盤，不混入 11/06 盤中數據。日經、KOSPI、台灣、香港及中國市場表現分歧，後續應比較各地科技權重與政策因素。",
-            "📌 歐股觀察｜歐洲主要指數 11/05 漲跌互見，STOXX Europe 600 小幅回落；歐洲市場未出現與美國科技股相同幅度的同步跌勢。"
-        ]),
-        ("#tac-assets-panel-0 .market-reason",["📌 產業觀察｜11/05 11 大產業 ETF 全數收跌。XLC、XLU、XLP 相對抗跌；XLK 跌幅最深，顯示科技成長曝險遭集中調降。"]),
-        ("#tac-assets-panel-1 .market-reason",["📌 債券觀察｜11/05 美國 2 年、10 年及 30 年期公債殖利率分別收於 4.46%、4.84%、5.25%，較前一日均下行；需區分避險買盤與政策預期變化。"]),
-        ("#tac-assets-panel-2 .market-reason",["📌 匯率觀察｜美元指數 101.55，美元兌台幣 33.082；EUR/USD、GBP/USD、AUD/USD 與 USD/JPY 依各自歷史收盤口徑列示，部分日變動未取得一致來源，故保留待核實。"]),
-        ("#tac-assets-panel-3 .market-reason",["📌 原油觀察｜11/05 WTI 與 Brent 期貨分別上漲 2.72% 與 3.88%；油輪事件與中東運輸風險使供應風險溢價回升。"]),
-        ("#tac-assets-panel-4 .market-reason",["📌 貴金屬觀察｜11/05 COMEX 黃金與白銀期貨均收高；同日股市急跌與債券殖利率下行，避險需求及美元變動仍需一併觀察。"])
+        ("#global-markets .market-reason",data.get("market_comments",{}).get("global_markets",["📌 美股觀察｜行情待核實。","📌 亞股觀察｜行情待核實。","📌 歐股觀察｜行情待核實。"])),
+        ("#tac-assets-panel-0 .market-reason",[data.get("market_comments",{}).get("sectors","📌 產業觀察｜11 檔產業 ETF 報價待核實。")]),
+        ("#tac-assets-panel-1 .market-reason",[data.get("market_comments",{}).get("bonds","📌 債券觀察｜殖利率待核實。")]),
+        ("#tac-assets-panel-2 .market-reason",[data.get("market_comments",{}).get("fx","📌 匯率觀察｜匯率待核實。")]),
+        ("#tac-assets-panel-3 .market-reason",[data.get("market_comments",{}).get("energy","📌 能源觀察｜期貨報價待核實。")]),
+        ("#tac-assets-panel-4 .market-reason",[data.get("market_comments",{}).get("metals","📌 貴金屬觀察｜期貨報價待核實。")])
     ]
     for selector,values in reasons:
         nodes=soup.select(selector)
@@ -442,13 +438,13 @@ def main():
     if footer: set_text(footer,f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜資料截點 {report_cutoff} 台灣時間｜行情基準為各市場最近正式交易日；未取得一致可追溯資料者標示待核實。本檔為隔離模擬審核版，未發布至正式首頁。")
 
     # Risk indicators and their source notes.
-    for label,change,note in [("VIX","+69.66%","Investing.com 歷史資料｜11/05 收盤 28.18；盤中高點 28.36。"),("MOVE","+4.30%","Investing.com ICE BofAML MOVE 歷史資料｜11/05 收盤 97.92。")]:
+    for label in ("VIX","MOVE"):
         rows=[r for r in sent.select(".sbox") if r.select_one(".label-en") and r.select_one(".label-en").get_text(strip=True)==label]
         for row in rows:
             ch=row.select_one("span.down,span.up")
-            if ch: set_text(ch,change); ch["class"]=["up"]
+            if ch: set_text(ch,"待核實"); ch["class"]=["pending"]
             src=row.select_one(".source")
-            if src: set_text(src,note)
+            if src: set_text(src,"本次早報截點未取得可核實的同日官方歷史收盤值。")
     fgbox=sent.select_one(".cnn-fg-preview")
     if fgbox:
         score=fgbox.select_one(".fg6-score-main")
@@ -460,7 +456,7 @@ def main():
         src=fgbox.select_one(".source")
         if src: set_text(src,"11/05 歷史來源讀值不一致，暫不採用；待 CNN Business 官方歷史值核對。")
     core=sent.select(".sbox")[-1].select_one("div[style]")
-    if core: set_text(core,"11/05 美股全面急跌，費半與科技類股領跌；MOVE 上升顯示債券波動亦升溫。VIX 收 28.18，MOVE 收 97.92。CNN Fear & Greed 因歷史來源讀值不一致暫列待核實。觀察重點是 AI 資本支出回報、科技股估值與風險是否擴散至信用及流動性市場。")
+    if core: set_text(core,data["sentiment"])
     # Observation title, market view, levels and core priorities.
     view=unique(soup,"#view","market observation")
     vtitle=view.select_one(".today-focus-title")
@@ -470,7 +466,7 @@ def main():
     levels=view.select_one(".focus-panel.focus-levels .key")
     if levels: set_text(levels,"支撐與壓力區間待依 11/05 正式收盤及近 20 個交易日 OHLC 重新計算；不沿用母版舊區間。")
     core_panel=view.select_one(".focus-panel.focus-core .callout")
-    if core_panel: set_text(core_panel,"第一｜風險來源：AI／半導體估值與資本支出回報疑慮引發科技股集中賣壓。\n第二｜市場廣度：11 大產業 ETF 全數收跌，科技跌幅最大，通訊服務及必需消費相對抗跌。\n第三｜跨資產：美債殖利率下行，VIX 與 MOVE 同步上升，股債波動均需關注。\n第四｜政策預期：FedWatch 12/09 會議機率僅為單一會議快照，不代表其他會議或聯準會承諾。\n第五｜操作原則：待價格波動收斂、產業廣度改善及財報指引確認後，再評估風險曝險。")
+    if core_panel: set_text(core_panel,data.get("observation","盤面觀察待核實"))
     # FedWatch is a dated market snapshot, not the old October decision snapshot.
     fed_panel=unique(soup,"#fed .fed-live-watch","FedWatch panel")
     audit=fed_panel.select_one(".fedwatch-time .audit-content")
