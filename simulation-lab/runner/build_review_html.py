@@ -560,23 +560,36 @@ def main():
     # Replace all old market commentary blocks; never leave 10/27 analysis in the 11/06 report.
     # Market commentary is bound by semantic market key, never by array position.
     market_comments=data.get("market_comments",{}).get("global_markets",[])
+    # Keep selecting the already-approved commentary bodies by their source keys,
+    # while presenting consistent concise labels in all three global-market tabs.
+    source_prefixes = {
+        "us": "📌 美股觀察",
+        "asia": "📌 亞洲市場觀察",
+        "europe": "📌 歐洲市場觀察",
+    }
+    display_prefixes = {
+        "us": "📌 美股摘要",
+        "asia": "📌 亞股摘要",
+        "europe": "📌 歐股摘要",
+    }
     global_comment_map = {
-        "us": next((x for x in market_comments if x.startswith("📌 美股觀察")), None),
-        "asia": next((x for x in market_comments if x.startswith("📌 亞洲市場觀察")), None),
-        "europe": next((x for x in market_comments if x.startswith("📌 歐洲市場觀察")), None),
+        key: next((x for x in market_comments if x.startswith(prefix)), None)
+        for key, prefix in source_prefixes.items()
     }
     global_panels = [
-        ("#tac-global-panel-0 .market-reason", "us", "📌 美股觀察"),
-        ("#tac-global-panel-1 .market-reason", "asia", "📌 亞洲市場觀察"),
-        ("#tac-global-panel-2 .market-reason", "europe", "📌 歐洲市場觀察"),
+        ("#tac-global-panel-0 .market-reason", "us"),
+        ("#tac-global-panel-1 .market-reason", "asia"),
+        ("#tac-global-panel-2 .market-reason", "europe"),
     ]
-    for selector, key, expected_prefix in global_panels:
+    for selector, key in global_panels:
         node=unique(soup,selector,f"{key} global-market commentary")
         value=global_comment_map.get(key)
-        if not value or not value.startswith(expected_prefix):
+        source_prefix=source_prefixes[key]
+        if not value or not value.startswith(source_prefix):
             raise ValueError(f"missing or mismatched {key} market commentary")
-        set_text(node,value)
-        if not node.get_text(" ",strip=True).startswith(expected_prefix):
+        display_value=display_prefixes[key] + value[len(source_prefix):]
+        set_text(node,display_value)
+        if not node.get_text(" ",strip=True).startswith(display_prefixes[key]):
             raise ValueError(f"{key} market commentary binding validation failed")
 
     reasons=[
