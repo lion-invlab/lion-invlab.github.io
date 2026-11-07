@@ -51,7 +51,9 @@ jobs:
           is_dst = bool(now.astimezone(ZoneInfo("America/New_York")).dst())
           expected = "04:50" if is_dst else "05:15"
           manual = os.environ.get("GITHUB_EVENT_NAME") == "workflow_dispatch"
-          run_capture = manual or now.strftime("%H:%M") == expected
+          from datetime import time, timedelta
+          target = datetime.combine(now.date(), time.fromisoformat(expected), tzinfo=now.tzinfo)
+          run_capture = manual or abs((now - target).total_seconds()) <= 600
           print(f"run_capture={'true' if run_capture else 'false'}")
           print(f"taipei_now={now.isoformat()}")
           print(f"expected_slot={expected}")
