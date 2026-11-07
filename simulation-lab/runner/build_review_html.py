@@ -54,6 +54,53 @@ def main():
     previous_trade=data.get("trading_date","待核實")
     report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
+    # Normalize the two Monday previous-week disclosure controls to the economic-calendar reference layout.
+    disclosure_css = """
+<style id="tac-last-week-disclosure-unified-v1">
+#last-week-calendar .last-week-calendar-collapse > summary,
+#last-week-earnings .last-week-earnings-collapse > summary {
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  gap:8px !important;
+  padding:10px 12px !important;
+  text-align:left !important;
+  font-size:13px !important;
+  font-weight:850 !important;
+  line-height:1.35 !important;
+  color:#6b7077 !important;
+  list-style:none !important;
+}
+#last-week-calendar .last-week-calendar-collapse > summary::-webkit-details-marker,
+#last-week-earnings .last-week-earnings-collapse > summary::-webkit-details-marker { display:none !important; }
+#last-week-calendar .last-week-calendar-collapse > summary::before,
+#last-week-earnings .last-week-earnings-collapse > summary::before {
+  content:"▸" !important;
+  display:inline-block !important;
+  flex:0 0 auto !important;
+  width:auto !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:#6b7077 !important;
+  font-size:11px !important;
+  line-height:1 !important;
+}
+#last-week-calendar .last-week-calendar-collapse[open] > summary::before,
+#last-week-earnings .last-week-earnings-collapse[open] > summary::before { transform:rotate(90deg) !important; }
+</style>
+"""
+    head = soup.select_one("head")
+    if head is None: raise ValueError("HTML head missing; cannot install display normalization")
+    head.append(BeautifulSoup(disclosure_css, "html.parser").style)
+    fed_title = soup.select_one(".fed-live-title")
+    if fed_title: set_text(fed_title, "Fed 限時動態")
+    for anchor in soup.select("#tac-assets-panel-3 .energy-card .row > b a"):
+        label = anchor.get_text(" ", strip=True)
+        if label == "WTI原油期貨": set_text(anchor, "WTI 原油期貨")
+        elif label == "Brent原油期貨": set_text(anchor, "Brent 原油期貨")
     # Date/title: update only existing text nodes.
     for node in soup.select(".top .report-date, header .report-date"):
         if node.get_text(strip=True):
