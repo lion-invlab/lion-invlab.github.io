@@ -382,14 +382,14 @@
     "updated_at_tw": "2026-11-07 11:15（Investing.com頁面更新 2026-11-06 22:15 EST）",
     "probabilities": [
       {
-        "outcome": "cut",
+        "outcome": "hold",
         "rate_range": "3.75–4.00%",
-        "probability": 24.5
+        "probability": 75.5
       },
       {
-        "outcome": "hold",
+        "outcome": "hike",
         "rate_range": "4.00–4.25%",
-        "probability": 75.5
+        "probability": 24.5
       }
     ],
     "source": {
@@ -399,7 +399,14 @@
       "observed_at_tw": "2026-11-07 11:15",
       "target_meeting": "2026-12-09",
       "future_price": "95.985",
-      "note": "頁面 Dec 09, 2026 機率表 3.75–4.00 為 24.5%，4.00–4.25 為 75.5%，合計 100%。"
+      "note": "Investing.com Fed Rate Monitor 12/09/2026 會議機率：維持目前 3.75%–4.00% 為 75.5%；升息一碼至 4.00%–4.25% 為 24.5%；合計 100%。現行目標區間另以 Federal Reserve 官方資料交叉核對。"
+    },
+    "current_target_range": "3.75–4.00%",
+    "current_target_range_source": {
+      "name": "Federal Reserve｜Target Range for the Federal Funds Rate",
+      "url": "https://www.federalreserve.gov/FOMC/fundsrate.htm",
+      "data_date": "2026-10-29",
+      "note": "Fed 官方最新目標利率區間；2026/10/28 FOMC 維持 3.75%–4.00%，有效日期 2026/10/29。"
     }
   },
   "observation": "亞洲科技權重市場在週五仍承受明顯賣壓，日韓台走勢疲弱；美股科技股則出現反彈，但標普與Nasdaq的Investing.com歷史頁讀值與部分新聞摘要存在差異，報告採指定優先行情頁讀值。美元走強、長債殖利率維持高檔，使就業韌性對利率定價的影響仍在；本週中國通膨及美國CPI將是檢驗需求與政策路徑的關鍵。觀察科技反彈是否擴散、長債殖利率是否續升，以及油價回落能否緩和通膨壓力。",
