@@ -3,11 +3,27 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-06（台灣時間；週一母版經濟卡展開控制修復後）
+- 最後更新：2026-11-07（台灣時間；模擬組裝器雙母版相容性已完成驗收）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
 - 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
+
+## 1B. 2026-11-07 模擬區｜同一 HTML 組裝器支援雙母版（已驗收）
+
+- 工作分支：`simulation/tac-process-lab-2026-11-06`；最新功能 commit：`ab644b6f4469d6d791f8ea28952ece3be14127fa`。
+- 開工已重讀 main 最新 WR v5.14（blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`）、main Manifest（blob SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`）及雙母版驗收清單 v1.3（blob SHA `74a7c90aaaeee497b7b2b134d9569aee615d95c0`）。
+- 原組裝器備份：`simulation-lab/backups/build_review_html.py.pre-weekday-mother-test`，blob SHA `c33662b6c89859bc243c88f1142e3164e9365146`；與修復前原檔一致，備份保留未覆寫。
+- 最終組裝器 blob SHA：`4ea226840e432b7e62b6d9e632047d49b6f1d1ef`；視覺回歸程式 blob SHA：`89c07780b7d1932a8b58d0870c674362d501bcd7`；模擬 workflow blob SHA：`6b8da18ad79f83a301236aabd88b6db1777850d1`。
+- 雙母版定位修正：週一專用上週經濟／財報收折控制只在 Monday 執行；區域行情依母版 SHA 選擇 Monday 的 `#asia`／`#tac-region-panel-2` 或 Tue–Fri 的 `#tac-global-panel-1`／`#tac-global-panel-2`；關鍵價位來源區分別保留 Monday `details.compact-disclosure` 與 weekday `details.source-details`；週二至週五核心觀察不再強制要求母版不存在的收折節點；區域行情字體驗收同時涵蓋兩套 DOM。
+- 視覺回歸依情境驗收財報區：週一檢查上週已公布財報的 EPS／營收雙卡；週二至週五檢查本週即將公布財報卡片，不要求不存在的上週已公布區塊。
+- 最終 GitHub Actions run：`42365303387`，commit `ab644b6f4469d6d791f8ea28952ece3be14127fa`，completed/success。雙母版結構驗證、確定性自測、週一 11/09 組裝與視覺回歸、週二至週五 11/10 確定性 replay 組裝與視覺回歸全部成功。
+- 週一視覺比對：PASS，視窗 1440／768／360，模擬母版 SHA `0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7`。週二至週五視覺比對：PASS，視窗 1440／768／360，模擬母版 SHA `6fe79308eca71db5dd54308fd35efe3900451081`。
+- 測試 artifact：`tac-simulation-smoke-42365303387-1`，Artifact ID `13571711407`；內含 `TAC_投資早報_2026-11-09_審核版.html` 及 `TAC_投資早報_2026-11-10_週二至週五相容性測試.html`、視覺回歸證據。
+- 限制：週二至週五案例是固定 JSON fixture 的 11/10 結構 replay，非實際 11/10 行情／新聞 live-data E2E；workflow 輸出 `review_ready:false`，僅作組裝器相容性驗收，不是可發布審核版。
+- 本次僅修改模擬分支的組裝器、視覺回歸程式與模擬 workflow；未修改 main、正式首頁、正式雙母版、Manifest、WR、任何 preview 成品，亦未部署／發布。
+- 下一步：同一組裝器已具備雙母版結構相容性；正式日報仍須依當日資料流程輸入及 QA Gate 產出，不得把本次 fixture replay 當作 live-data E2E 完成。
+
 
 ## 1. 目前主線目標
 

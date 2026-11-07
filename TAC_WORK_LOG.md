@@ -461,3 +461,26 @@
 - 目前 OHLC 仍由固定 replay fixture 提供，不能宣稱即時行情端到端完成。main 現有 `scripts/fetch_tac_global_indices.py` 僅輸出 17 項指數歷史 close 與 change_pct，未提供 H/L/C，因此不能直接餵入 pivot builder。
 - 下一個工作是模擬區新增並驗證 OHLC acquisition adapter（優先 Investing.com HK 歷史表；精確交易日、商品身分、現貨口徑及 H/L/C 欄位必須同時成立），再將真實擷取結果轉成 builder input。未完成前不接 main、不發布。
 - main HEAD 回讀仍為 `a6a8749f1532fdf71db108eb2d48fd54d7c3e08a`；本次只改 simulation branch，正式首頁、母版、Manifest、排程未動。
+
+## 2026-11-07｜同一 HTML 組裝器完成週一與週二至週五母版相容性驗收
+
+### 修復前證據與備份
+- main 最新 WR v5.14：`TAC_WORK_RULES.md` blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`；main Manifest blob SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；母版結構驗收清單 v1.3 blob SHA `74a7c90aaaeee497b7b2b134d9569aee615d95c0`。
+- 修復前模擬組裝器 SHA `c33662b6c89859bc243c88f1142e3164e9365146`，先備份至 `simulation-lab/backups/build_review_html.py.pre-weekday-mother-test`；備份 SHA 回讀相同，未覆寫。
+- 首輪測試確認 Monday 組裝與視覺回歸通過，但 weekday 因週一專用收折 selector、舊區域行情 panel、關鍵價位／核心觀察 disclosure 差異而中斷。錯誤逐項依實際 DOM／CI log 定位，沒有修改或重建母版。
+
+### 修正內容
+- 週一專用 `#last-week-calendar`、`#last-week-earnings` selector、標籤正規化與 CSS 插入改為 Monday-only；weekday 另加輸出 DOM 驗證，確認兩個上週區塊不存在。
+- 區域行情定位改為依星期使用各母版既有節點：Monday `#asia`／`#tac-region-panel-2`；Tue–Fri `#tac-global-panel-1`／`#tac-global-panel-2`。兩種 DOM 均以 BeautifulSoup 解析、唯一 selector 定位，不以字串替換代替 DOM 更新。
+- 關鍵價位來源 disclosure 依母版原結構更新：Monday 使用 `details.compact-disclosure`；weekday 使用 `details.source-details`。週二至週五核心觀察原母版沒有 disclosure，故保留既有 callout，不再強制建立週一專用節點。
+- 統一字體驗收 selector 擴充為涵蓋兩份母版的區域行情 panel。
+- 視覺回歸 earnings audit 依情境分流：Monday 驗證上週已公布 EPS／營收雙卡；weekday 驗證本週財報 accordion 與 detail 欄位，不錯誤要求上週 retrospective 區塊。
+
+### 最終驗收
+- 最新功能 commit：`ab644b6f4469d6d791f8ea28952ece3be14127fa`；最終組裝器 SHA `4ea226840e432b7e62b6d9e632047d49b6f1d1ef`；視覺回歸 SHA `89c07780b7d1932a8b58d0870c674362d501bcd7`；workflow SHA `6b8da18ad79f83a301236aabd88b6db1777850d1`。
+- GitHub Actions run `42365303387` completed/success。自我測試、雙母版五區結構驗證、週一組裝、週一視覺回歸、weekday 組裝、weekday 視覺回歸均成功。
+- Monday 11/09：模擬母版 SHA `0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7`，視覺基準 PASS，1440／768／360。
+- Tue–Fri 11/10 deterministic replay：模擬母版 SHA `6fe79308eca71db5dd54308fd35efe3900451081`，視覺基準 PASS，1440／768／360。
+- Artifact `tac-simulation-smoke-42365303387-1`，Artifact ID `13571711407`，下載頁：`https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/42365303387/artifacts/13571711407`。
+- 本次 weekday 是固定 JSON fixture replay，不是即時行情／新聞 E2E；輸出 JSON 明確為 `review_ready:false`。不可將此結果宣稱為 11/10 真實早報已完成。
+- 本次只變更模擬分支的 `.github/workflows/tac-simulation-lab.yml`、`simulation-lab/runner/build_review_html.py`、`simulation-lab/runner/visual_regression.mjs`；main、index.html、正式雙母版、Manifest、WR 與 preview 成品均未修改。
