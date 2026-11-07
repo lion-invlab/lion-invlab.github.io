@@ -209,7 +209,11 @@ def main():
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
         for label,record in records.items():
-            rows=[r for r in container.select(".row") if label in r.get_text(" ",strip=True)]
+            # Display labels may add Latin/Chinese spacing (e.g. "WTI 原油期貨").
+            # Match the stable semantic label independent of presentation whitespace.
+            normalized_label="".join(str(label).split())
+            rows=[r for r in container.select(".row")
+                  if normalized_label in "".join(r.get_text(" ",strip=True).split())]
             if len(rows)!=1: raise ValueError(f"{container_id}/{label}: rows={len(rows)}")
             vals=rows[0].select("span.r")
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
