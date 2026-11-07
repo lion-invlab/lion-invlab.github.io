@@ -45,7 +45,7 @@ def expected_capture_slot(now_taipei: datetime) -> str:
     return "04:50" if is_dst else "05:15"
 
 
-def collect(now: datetime | None = None, allow_manual: bool = False) -> dict:
+def collect(now: datetime | None = None, allow_manual: bool = False, report_date_override: str | None = None) -> dict:
     now = now or datetime.now(TAIPEI)
     now = now.astimezone(TAIPEI)
     slot = expected_capture_slot(now)
@@ -54,7 +54,7 @@ def collect(now: datetime | None = None, allow_manual: bool = False) -> dict:
             f"wrong schedule slot: Taipei={now:%Y-%m-%d %H:%M}; "
             f"expected {slot} for current US DST regime"
         )
-    report_date = now.date()
+    report_date = date.fromisoformat(report_date_override) if report_date_override else now.date()
     if report_date.weekday() > 4:
         raise ValueError(f"report date is not a weekday: {report_date}")
 
@@ -152,6 +152,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--output")
     ap.add_argument("--allow-manual", action="store_true", help="bypass clock-slot guard for an intentional manual run")
+    ap.add_argument("--report-date", help="report date to build for; defaults to today's Taipei date")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     if args.self_test:
@@ -159,7 +160,10 @@ def main() -> None:
         return
     if not args.output:
         ap.error("--output is required unless --self-test is used")
-    result = collect(allow_manual=(args.allow_manual or os.getenv('GITHUB_EVENT_NAME') == 'workflow_dispatch'))
+    result = collect(
+        allow_manual=(args.allow_manual or os.getenv('GITHUB_EVENT_NAME') == 'workflow_dispatch'),
+        report_date_override=args.report_date,
+    )
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
