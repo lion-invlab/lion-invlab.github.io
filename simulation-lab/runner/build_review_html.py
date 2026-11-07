@@ -231,10 +231,37 @@ def main():
         # Keep the report date and window visible in both news section headers.
         panel_meta=box.select_one(".tab-panel-meta")
         if panel_meta:
-            set_text(panel_meta,f"{section_label}｜報告日期 {report_label}｜新聞時間窗：2026/11/06 12:00–{report_cutoff}（台灣時間）")
+            set_text(panel_meta,f"{section_label}｜報告日期 {report_label}｜新聞時間窗：{news_window_label}（台灣時間）")
         warning=box.select_one(".news-window-warning")
         if warning and section_id=="global-focus":
-            set_text(warning,f"新聞時間窗｜2026/11/06 12:00–{report_cutoff}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
+            set_text(warning,f"新聞時間窗｜{news_window_label}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
+    # Replace mother-template market snapshot labels; never leave its old 10/23 dates.
+    news_window_start = (report_date - timedelta(days=3 if monday else 1)).strftime("%Y/%m/%d")
+    news_window_start_label = news_window_start + " 12:00"
+    news_window_end_label = report_cutoff
+    news_window_label = f"{news_window_start_label}–{news_window_end_label}（台灣時間）"
+    for section_id, section_label in [
+        ("global-markets", "全球主要股市"),
+        ("bonds", "美債殖利率"),
+        ("fx", "外匯"),
+        ("tac-assets-panel-3", "能源期貨"),
+        ("tac-assets-panel-4", "貴金屬期貨"),
+    ]:
+        section = unique(soup, f"#{section_id}", section_label)
+        for meta in section.select(".tab-panel-meta"):
+            set_text(meta, f"{section_label}｜報告基準日 {previous_trade}；各項報價日期、交易型態與來源以逐筆核實資料為準，未附完整來源者標示待核實。")
+        for detail in section.select("details.source-details"):
+            body = detail.select_one(".source")
+            if body:
+                set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項應視為待核實。")
+    # The health dashboard is explicitly a historical FactSet snapshot, not a live 11/09 metric.
+    # Keep its historical date but remove any wording that can imply current-report data.
+    for node in soup.select("#health-dashboard .tab-panel-meta, #health-dashboard .title small"):
+        if node:
+            set_text(node, "FactSet 歷史快照｜2026/10/23（非本期即時統計；不得作為 11/09 市場數據）")
+    for node in soup.find_all(string=True):
+        if "本週重點財報時程請參考下方 W46 財報行事曆；本區數據僅為10/23歷史快照。" in str(node):
+            node.replace_with("本週重點財報時程請參考下方 W46 財報行事曆；本區為 2026/10/23 歷史快照，非本期即時統計。")
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
@@ -598,7 +625,7 @@ def main():
     # Remove stale mother-template dates from news, CNN, FactSet and FedWatch panels.
     news_window = soup.select_one("#news-scan .news-window-warning")
     if news_window:
-        set_text(news_window, f"新聞時間窗｜2026/11/06 12:00–{report_cutoff}（台灣時間）。焦點新聞與市場熱門頭條均逐則核對原始報導及發布時間；未符合時間窗的資料不納入。")
+        set_text(news_window, f"新聞時間窗｜{news_window_label}（台灣時間）。焦點新聞與市場熱門頭條均逐則核對原始報導及發布時間；未符合時間窗的資料不納入。")
     health = soup.select_one("#sp500-earnings-health")
     if health:
         health_title = health.select_one(".title small")
