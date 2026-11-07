@@ -67,8 +67,8 @@ try {
     // Expand the containing calendar panels and one published accordion for geometry measurement.
     // Do this after screenshots so the delivered initial-state captures remain unchanged.
     await reportPage.evaluate(() => {
-      document.querySelectorAll("#earnings details").forEach(node => { node.open = true; });
-      document.querySelectorAll("#earnings .calendar-status-group").forEach(node => {
+      document.querySelectorAll("#earnings details, #last-week-calendar details, #last-week-earnings details").forEach(node => { node.open = true; });
+      document.querySelectorAll("#earnings .calendar-status-group, #last-week-calendar .calendar-status-group, #last-week-earnings .calendar-status-group").forEach(node => {
         node.hidden = false;
         node.style.display = "";
       });
