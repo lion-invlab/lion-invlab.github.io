@@ -899,14 +899,11 @@ def main():
         if rate: set_text(rate, current_target_range.replace("–", "%–") + ("%" if current_target_range != "待核實" and not current_target_range.endswith("%") else ""))
         rate_date = fed.select_one(".fc-fomc-rate small")
         if rate_date: set_text(rate_date, "Fed官方最新資料：2026/10/29")
+        observation_label = fed.select_one(".fc-fomc-observation span")
+        if observation_label: set_text(observation_label, "本次會議焦點")
         observation = fed.select_one(".fc-fomc-observation b")
-        probabilities = data.get("fedwatch", {}).get("probabilities", [])
-        hold = next((x for x in probabilities if x.get("outcome") == "hold"), None)
-        changed = [x for x in probabilities if x.get("outcome") != "hold"]
-        if observation and hold:
-            change_label = "升息" if changed and all(x.get("outcome")=="hike" for x in changed) else "降息" if changed and all(x.get("outcome")=="cut" for x in changed) else "政策區間變動"
-            change_text = "；".join(f"{x.get('rate_range')} {float(x.get('probability',0)):.1f}%" for x in changed)
-            set_text(observation, f"12/09會議機率：維持 {hold.get('rate_range')} {float(hold.get('probability',0)):.1f}%；{change_label}機率 {change_text}。")
+        if observation:
+            set_text(observation, "利率決策與政策聲明；重點檢視通膨、就業風險的描述，以及主席記者會對後續政策路徑的訊號。")
         fed_source = fed.select_one(".fc-source")
         if fed_source:
             fed_source.clear()
