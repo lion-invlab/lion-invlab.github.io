@@ -792,6 +792,51 @@ def main():
 }
 </style>
 """
+    # Fix mobile sidebar clipping: keep every quick link/history control visible and scrollable.
+    sidebar_css = """
+<style id="tac-sidebar-mobile-no-clipping-v1">
+@media(max-width:1099px) {
+  .tac-side-tools {
+    width:min(82vw,310px) !important;
+    height:100vh !important;
+    height:100dvh !important;
+    max-height:100dvh !important;
+    box-sizing:border-box !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain !important;
+    -webkit-overflow-scrolling:touch !important;
+    padding-top:max(22px,env(safe-area-inset-top)) !important;
+    padding-bottom:max(18px,env(safe-area-inset-bottom)) !important;
+  }
+  .tac-side-tools > * { flex-shrink:0 !important; }
+  .tac-side-tools .tac-side-brand { min-width:0 !important; }
+  .tac-side-tools .tac-history-mini { flex:0 0 auto !important; min-height:max-content !important; }
+  .tac-side-tools .tac-history-mini input,
+  .tac-side-tools .tac-history-mini button { flex-shrink:0 !important; }
+  .tac-side-tools .tac-side-foot { margin-top:12px !important; }
+}
+</style>
+"""
+    # Correct the energy-card mobile override that previously forced crude-oil names to 14px.
+    existing_sidebar = soup.select_one("#tac-sidebar-mobile-no-clipping-v1")
+    sidebar_style = BeautifulSoup(sidebar_css, "html.parser").style
+    if existing_sidebar:
+        existing_sidebar.replace_with(sidebar_style)
+    else:
+        head = soup.select_one("head")
+        if head is None: raise ValueError("HTML head missing; cannot install sidebar fix")
+        head.append(sidebar_style)
+    # Add the exact energy-card selector; it overrides the mother's legacy 14px mobile rule.
+    instrument_css = instrument_css.replace(
+        "#industry-bonds-fx-commodities .sector-label b {",
+        "#industry-bonds-fx-commodities .sector-label b,\n"
+        "  #industry-bonds-fx-commodities .energy-card .row > b {"
+    ).replace(
+        "#industry-bonds-fx-commodities .sector-label b {",
+        "#industry-bonds-fx-commodities .sector-label b,\n"
+        "  #industry-bonds-fx-commodities .energy-card .row > b {"
+    )
     existing_typography = soup.select_one("#tac-market-instrument-name-unified-v1")
     if existing_typography:
         existing_typography.replace_with(BeautifulSoup(instrument_css, "html.parser").style)
