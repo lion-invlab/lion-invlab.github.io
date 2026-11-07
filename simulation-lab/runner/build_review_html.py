@@ -327,10 +327,14 @@ def main():
         "英國 FTSE 100":"英國 FTSE 100", "德國 DAX":"德國 DAX", "法國 CAC 40":"法國 CAC 40",
         "STOXX Europe 600":"STOXX Europe 600",
     }
-    for selector in ["#asia", "#tac-region-panel-2"]:
-        panel = soup.select_one(selector)
-        if panel is None:
-            raise ValueError(f"Missing regional quote panel {selector}")
+    # The two approved mothers expose regional quotes in different, SHA-locked DOM locations.
+    # Monday retains legacy regional panels; Tue-Fri uses the three native global-market tabs.
+    region_panel_specs = [
+        ("#asia" if monday else "#tac-global-panel-1", "亞洲", 0),
+        ("#tac-region-panel-2" if monday else "#tac-global-panel-2", "歐洲", 1),
+    ]
+    for selector, region_label, comment_index in region_panel_specs:
+        panel = unique(soup, selector, f"{region_label} regional quote panel")
         for row in panel.select(".row"):
             label_node = row.select_one("a.global-index-link")
             if not label_node:
@@ -348,11 +352,12 @@ def main():
                 values[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
         meta = panel.select_one(".tab-panel-meta")
         if meta:
-            set_text(meta, f"{'亞洲' if selector == '#asia' else '歐洲'}市場｜逐項行情以各自資料日期及來源註記；未附來源者顯示待核實。")
+            set_text(meta, f"{region_label}市場｜逐項行情以各自資料日期及來源註記；未附來源者顯示待核實。")
         reason = panel.select_one(".market-reason")
         if reason:
-            comment_index = 0 if selector == "#asia" else 1
-            set_text(reason, data.get("market_comments", {}).get("global_markets", [])[comment_index])
+            comments = data.get("market_comments", {}).get("global_markets", [])
+            if comment_index < len(comments):
+                set_text(reason, comments[comment_index])
         for details_node in panel.select("details.source-details, details.region-source"):
             body = details_node.select_one(".source")
             if body:
@@ -520,7 +525,7 @@ def main():
         if pending_tickers:
             sector_source.append("未核實（缺來源／日期，未沿用母版數據）： " + "、".join(pending_tickers))
     # Date and item provenance in every region tab are updated from the same records.
-    for selector in ["#asia", "#tac-region-panel-2"]:
+    for selector, _, _ in region_panel_specs:
         panel = soup.select_one(selector)
         if panel:
             region_meta = panel.select_one(".tab-panel-meta")
