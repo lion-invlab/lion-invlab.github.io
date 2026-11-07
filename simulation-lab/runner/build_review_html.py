@@ -349,21 +349,6 @@ def main():
                 text_value = data.get("market_comments", {}).get(group_key, "")
             if text_value:
                 set_text(note, text_value)
-    # Sector source list explicitly calls out every item without complete provenance.
-    sector_meta = soup.select_one("#tac-assets-panel-0 .tab-panel-meta")
-    if sector_meta:
-        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜僅依可追溯來源與資料日期核實；缺漏者待核實")
-    sector_source = soup.select_one("#tac-assets-panel-0 details .source")
-    if sector_source:
-        sector_source.clear()
-        for ticker in [x[1] for x in ranked]:
-            src = data.get("sector_sources", {}).get(ticker, {})
-            if src.get("name") and src.get("url") and src.get("data_date"):
-                sector_source.append(f"{ticker}｜{src['name']}｜{src['data_date']}｜")
-                sector_source.append(source_link(src["url"], "來源"))
-                sector_source.append("；")
-            else:
-                sector_source.append(f"{ticker}｜待核實（缺來源或資料日期）；")
     # Ensure all quote cards carry current per-item dates in the visible heading.
     # Current report label belongs to source link and section only; never duplicate timezone suffixes.
     for market_section in soup.select("#global-markets, #bonds, #fx, #tac-assets-panel-3, #tac-assets-panel-4"):
@@ -438,6 +423,21 @@ def main():
         change=sector_change(row)
         ranked.append((row,ticker,change))
     ranked.sort(key=lambda item: (item[2] is None, -(item[2] if item[2] is not None else 0)))
+    # Sector source list explicitly calls out every item without complete provenance.
+    sector_meta = soup.select_one("#tac-assets-panel-0 .tab-panel-meta")
+    if sector_meta:
+        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜僅依可追溯來源與資料日期核實；缺漏者待核實")
+    sector_source = soup.select_one("#tac-assets-panel-0 details .source")
+    if sector_source:
+        sector_source.clear()
+        for ticker in [x[1] for x in ranked]:
+            src = data.get("sector_sources", {}).get(ticker, {})
+            if src.get("name") and src.get("url") and src.get("data_date"):
+                sector_source.append(f"{ticker}｜{src['name']}｜{src['data_date']}｜")
+                sector_source.append(source_link(src["url"], "來源"))
+                sector_source.append("；")
+            else:
+                sector_source.append(f"{ticker}｜待核實（缺來源或資料日期）；")
     sector_list=sector_rows[0].parent
     for rank,(row,ticker,change) in enumerate(ranked, start=1):
         rank_node=unique(row,".rank",f"ETF {ticker} rank")
