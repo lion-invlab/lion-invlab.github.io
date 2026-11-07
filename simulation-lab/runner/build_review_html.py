@@ -93,13 +93,7 @@ def main():
             set_text(title,item["title"])
             summary_nodes=node.select(".news-summary, p, .summary")
             if summary_nodes: set_text(summary_nodes[0],item["summary"])
-            if item.get("url"):
-                title_anchor=title if title.name=="a" else title.find_parent("a")
-                if title_anchor:
-                    title_anchor["href"]=item["url"]; title_anchor["target"]="_blank"; title_anchor["rel"]="noopener"
-                else:
-                    a=soup.new_tag("a",href=item["url"],target="_blank",rel="noopener")
-                    title.wrap(a)
+            # News headlines are plain text; only the source line below is clickable.
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
@@ -495,7 +489,9 @@ def main():
                 raise ValueError(f"{sid}[{idx}] non-HTTPS source URL")
             node=soup.new_tag("div",attrs={"class":["newsitem"]})
             heading=soup.new_tag("h3")
-            heading.append(source_link(item["url"],item["title"]))
+            # Preserve the numbering convention used by the approved mother template.
+            number_prefix = f"{idx+1}. " if sid=="global-focus" else f"{idx+1:02d}｜"
+            heading.string=number_prefix + item["title"]
             paragraph=soup.new_tag("p")
             paragraph.string=item["summary"]
             meta_line=soup.new_tag("div",attrs={"class":["newsmeta"]})
