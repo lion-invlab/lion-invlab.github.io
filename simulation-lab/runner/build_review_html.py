@@ -643,6 +643,10 @@ def main():
         if explain:
             explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
             set_text(explain, explanation)
+        source_detail = fg.select_one(".source-details .source")
+        if source_detail:
+            source_detail.clear()
+            source_detail.append(explanation)
     # Refresh regional market tabs so no October mother-template quotes survive.
     region_specs = [
         ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 0, "亞洲市場｜2026/11/06各市場當地正式收盤", [
