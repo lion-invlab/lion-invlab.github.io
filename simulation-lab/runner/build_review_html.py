@@ -264,7 +264,67 @@ def main():
         warning=box.select_one(".news-window-warning")
         if warning and section_id=="global-focus":
             set_text(warning,f"新聞時間窗｜{news_window_label}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
-    # Replace mother-template market snapshot labels; never leave its old 10/23 dates.
+    # The sector ETF panel also carries source prose and a dated heading; refresh both.
+    sector_meta = sectors.select_one(".tab-panel-meta")
+    if sector_meta:
+        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜已核實項目依單日漲跌幅降序；未核實項目列後")
+    sector_source = sectors.select_one("details.sector-source .source") or sectors.select_one("details.source-details .source")
+    if sector_source:
+        sector_source.clear()
+        verified_sector_lines = []
+        for ticker in [sector_ticker(row) for row in displayed]:
+            item = data.get("sector_sources", {}).get(ticker, {})
+            if item.get("name") and item.get("url") and item.get("data_date"):
+                verified_sector_lines.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜{item.get('change', data['sectors'].get(ticker, '待核實'))}")
+                sector_source.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜")
+                sector_source.append(source_link(item["url"], "原始來源"))
+                sector_source.append("；")
+        pending_tickers = [ticker for ticker in data.get("sectors", {}) if ticker not in data.get("sector_sources", {})]
+        if pending_tickers:
+            sector_source.append("未核實（缺來源／日期，未沿用母版數據）： " + "、".join(pending_tickers))
+    # Date and item provenance in every region tab are updated from the same records.
+    for selector in ["#asia", "#tac-region-panel-2"]:
+        panel = soup.select_one(selector)
+        if panel:
+            region_meta = panel.select_one(".tab-panel-meta")
+            if region_meta:
+                set_text(region_meta, f"{selector}｜市場報價資料基準 {previous_trade}；無逐項來源與日期者顯示待核實。")
+    # Classify global market moves according to the report color convention (rise red, fall green).
+    for row in gm.select(".row"):
+        spans = row.select("span.r")
+        if len(spans) >= 2:
+            change = spans[1].get_text(strip=True)
+            state = "up" if change.startswith("+") else "down" if change.startswith(("−", "-")) else "flat"
+            spans[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
+    # Replace all remaining old source paragraphs in risk and market cards with current evidence state.
+    # Refresh quote metadata for every instrument group; unresolved rows are explicitly listed.
+    for group_id, records in [
+        ("global-markets", data.get("global_markets", {})),
+        ("bonds", data.get("bonds", {})),
+        ("fx", data.get("fx", {})),
+        ("tac-assets-panel-3", data.get("energy", {})),
+        ("tac-assets-panel-4", data.get("metals", {})),
+    ]:
+        group = soup.select_one("#" + group_id)
+        if not group:
+            continue
+        summary = []
+        for instrument, record in records.items():
+            source = record.get("source") if isinstance(record, dict) else None
+            if isinstance(source, dict) and source.get("name") and source.get("url") and source.get("data_date"):
+                summary.append((instrument, source))
+        for details_node in group.select("details.source-details"):
+            source_node = details_node.select_one(".source")
+            if source_node:
+                source_node.clear()
+                if summary:
+                    for instrument, source in summary:
+                        source_node.append(f"{instrument}｜{source['name']}｜{source['data_date']}｜")
+                        source_node.append(source_link(source["url"], "原始資料"))
+                        source_node.append("；")
+                else:
+                    source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關值已標示待核實。")
+    # Replace stale mother-template market snapshot labels; never leave its old 10/23 dates.
     for section_id, section_label in [
         ("global-markets", "全球主要股市"),
         ("bonds", "美債殖利率"),
@@ -279,6 +339,34 @@ def main():
             body = detail.select_one(".source")
             if body:
                 set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項應視為待核實。")
+    # Refresh report masthead, status banner and footer for this report date.
+    for node in soup.select(".top .status, header .status, .status"):
+        if node.get_text(strip=True):
+            set_text(node, f"{report_label}（{report_weekday}）｜週一審核版；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
+    for warning in soup.select(".data-sync-warning"):
+        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。缺少來源／日期的行情依 fail-closed 規則顯示待核實；本檔僅供模擬區審核，未發布至正式首頁。")
+    footer = soup.select_one("footer.footer")
+    if footer:
+        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜缺少來源或日期的項目明確標示待核實；本版由固定 JSON fixture 組裝，非 live data E2E。資訊整理與教育用途，不構成投資建議。")
+    # Remove duplicate timezone suffix from preformatted window label.
+    news_window_label = news_window_label.replace("（台灣時間）", "")
+    # Replace old one-day market observation/pivot values if the fixture does not contain a current snapshot.
+    view_panel = soup.select_one("#view")
+    if view_panel:
+        current_observation = data.get("observation") or data.get("summary")
+        market_panel = view_panel.select_one(".focus-market .key")
+        if market_panel and current_observation:
+            set_text(market_panel, "市場觀點｜" + str(current_observation))
+        level_panel = view_panel.select_one(".focus-levels .key")
+        if level_panel:
+            set_text(level_panel, "道瓊工業指數：支撐／中樞／壓力｜待核實<br/>S&P 500：支撐／中樞／壓力｜待核實<br/>Nasdaq Composite：支撐／中樞／壓力｜待核實<br/>費城半導體指數（SOX）：支撐／中樞／壓力｜待核實<br/>Russell 2000：支撐／中樞／壓力｜待核實")
+        core_panel = view_panel.select_one(".focus-core .callout")
+        if core_panel:
+            core_panel.clear()
+            core_panel.append("今日核心觀察｜")
+            core_panel.append(str(data.get("summary") or data.get("sentiment") or "待核實"))
+            core_panel.append(" 本版未提供可核實的 2026-11-06 五項指數同日 OHLC 與支撐壓力計算資料，因此不沿用母版舊日價位。")
+    # Update only the explicitly historical FactSet snapshot; its historical date remains intentional.
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
     for label,record in data["global_markets"].items():
@@ -363,15 +451,43 @@ def main():
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
             set_text(vals[0],record.get("display","待核實"))
             if len(vals)>1 and record.get("change_display") is not None: set_text(vals[1],record["change_display"])
-    # VIX/MOVE/F&G status slots; do not infer a value.
+    # Refresh risk quote value, move, source and date together. Never retain mother-template quote annotations.
     for key,label in [("vix","VIX"),("move","MOVE")]:
+        record = data["risk"][key]
         rows=[r for r in sent.select(".sbox") if (r.select_one(".label-en") and r.select_one(".label-en").get_text(" ",strip=True).strip()==label)]
         if not rows: raise ValueError(f"{label} row not found")
-        # The approved mother repeats VIX in its overview and risk strip; update both existing slots.
-        for idx,row in enumerate(rows):
+        source = record.get("source") or {}
+        is_verified = bool(source.get("name") and source.get("url") and source.get("data_date"))
+        if key == "move" and str(record.get("as_of_date", "")).startswith("未取得"):
+            is_verified = False
+        if not is_verified:
+            record["display"] = "待核實"
+            record["change_display"] = "待核實"
+        for row in rows:
             strong=row.select("strong")
             if not strong: raise ValueError(f"{label} value slot missing")
-            set_text(strong[-1],data["risk"][key].get("display","待核實"))
+            set_text(strong[-1],record.get("display","待核實"))
+            change_nodes = row.select(".up, .down, .warn, .flat")
+            if change_nodes:
+                change_node = change_nodes[0]
+                set_text(change_node,record.get("change_display","待核實"))
+                change_text = str(record.get("change_display","待核實"))
+                change_state = "up" if change_text.startswith("+") else "down" if change_text.startswith(("−","-")) else "flat"
+                change_node["class"] = [change_state] if change_text != "待核實" else ["warn"]
+            source_node = row.select_one(".source-details .source")
+            if source_node:
+                source_node.clear()
+                if is_verified:
+                    source_node.append(f'{source.get("name")}｜資料日期 {source.get("data_date")}｜')
+                    if source.get("url"):
+                        source_node.append(source_link(source["url"], "查看原始資料"))
+                    if source.get("note"):
+                        source_node.append("｜" + str(source["note"]))
+                else:
+                    reason = "來源或資料日期未核實，母版舊數值及變動率已清除。"
+                    if record.get("as_of_date"):
+                        reason = str(record["as_of_date"]) + "；" + reason
+                    source_node.append(reason)
     fg=sent.select(".cnn-fg-preview")
     if fg:
         score=fg[0].select_one(".fg6-score-main")
