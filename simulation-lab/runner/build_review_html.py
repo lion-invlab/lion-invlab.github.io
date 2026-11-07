@@ -206,11 +206,10 @@ def main():
     for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
         items=[x for x in econ if groupkey(x)==key]
         group=BeautifulSoup(str(group_template),"html.parser").select_one(".calendar-status-group")
-        heading=group.select_one(".calendar-status-heading span") or group.select_one(".calendar-status-heading")
+        heading=group.select_one(".calendar-status-heading")
         if heading:
             set_text(heading,f"{label}｜重要性★★★★☆以上（{len(items)}項）")
-            heading.parent["class"]=["calendar-status-heading",key]
-            heading["class"]=["earnings-badge",key]
+            heading["class"]=["calendar-status-heading",key]
         listing=group.select_one(".econ-event-list"); listing.clear()
         for x in items:
             card=BeautifulSoup(str(template),"html.parser").select_one("details.econ-event")
