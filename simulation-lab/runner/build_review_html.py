@@ -222,6 +222,11 @@ def main():
     # Rebuild every news card's complete data-bearing fields from the current JSON.
     # Never retain mother-template source URLs, publication timestamps or report-window labels.
     from urllib.parse import urlparse
+    # Derive the report-specific news window before rendering either news section.
+    news_window_start = (report_date - timedelta(days=3 if monday else 1)).strftime("%Y/%m/%d")
+    news_window_start_label = news_window_start + " 12:00"
+    news_window_end_label = report_cutoff
+    news_window_label = f"{news_window_start_label}–{news_window_end_label}（台灣時間）"
     for section_id, items_key, expected, section_label in [
         ("global-focus","focus_news",5,"全球焦點"),
         ("headlines","headlines",10,"市場熱門頭條")
@@ -260,10 +265,6 @@ def main():
         if warning and section_id=="global-focus":
             set_text(warning,f"新聞時間窗｜{news_window_label}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
     # Replace mother-template market snapshot labels; never leave its old 10/23 dates.
-    news_window_start = (report_date - timedelta(days=3 if monday else 1)).strftime("%Y/%m/%d")
-    news_window_start_label = news_window_start + " 12:00"
-    news_window_end_label = report_cutoff
-    news_window_label = f"{news_window_start_label}–{news_window_end_label}（台灣時間）"
     for section_id, section_label in [
         ("global-markets", "全球主要股市"),
         ("bonds", "美債殖利率"),
