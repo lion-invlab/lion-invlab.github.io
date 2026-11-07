@@ -917,6 +917,7 @@ def main():
                 fed_source.append(source_link(url,label)); fed_source.append("｜")
             snapshot_note = f"12/09會議機率資料更新：{data.get('fedwatch',{}).get('updated_at_tw','時間待核實')}；採頁面公布值，非自行估算。"
             fed_source.append(snapshot_note)
+        probabilities = data.get("fedwatch", {}).get("probabilities", [])
         watch=fed.select_one(".fed-live-watch")
         if watch:
             bar=watch.select_one(".fc-split-bar")
