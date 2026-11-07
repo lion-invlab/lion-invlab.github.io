@@ -113,11 +113,7 @@ def main():
         summary_node.append(marker)
         summary_node.append(label)
 
-    # Remove legacy sidebar CSS patches from the generated copy; keep the approved mother template untouched.
-    for legacy_style_id in ("tac-sidebar-tools-preview-v2", "tac-history-button-visibility-v32"):
-        for legacy_style in soup.select("style#" + legacy_style_id):
-            legacy_style.decompose()
-
+    # Preserve all mother-template layout styles; override only sidebar internals below.
     disclosure_layout_css = """
 <style id="tac-simulation-layout-authority-v1">
 /* Explicit marker-to-label spacing; does not depend on flex-gap support. */
