@@ -384,22 +384,7 @@ def main():
         set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜缺少來源或日期的項目明確標示待核實；本版由固定 JSON fixture 組裝，非 live data E2E。資訊整理與教育用途，不構成投資建議。")
     # Remove duplicate timezone suffix from preformatted window label.
     news_window_label = news_window_label.replace("（台灣時間）", "")
-    # Replace old one-day market observation/pivot values if the fixture does not contain a current snapshot.
-    view_panel = soup.select_one("#view")
-    if view_panel:
-        current_observation = data.get("observation") or data.get("summary")
-        market_panel = view_panel.select_one(".focus-market .key")
-        if market_panel and current_observation:
-            set_text(market_panel, "市場觀點｜" + str(current_observation))
-        level_panel = view_panel.select_one(".focus-levels .key")
-        if level_panel:
-            set_text(level_panel, "道瓊工業指數：支撐／中樞／壓力｜待核實<br/>S&P 500：支撐／中樞／壓力｜待核實<br/>Nasdaq Composite：支撐／中樞／壓力｜待核實<br/>費城半導體指數（SOX）：支撐／中樞／壓力｜待核實<br/>Russell 2000：支撐／中樞／壓力｜待核實")
-        core_panel = view_panel.select_one(".focus-core .callout")
-        if core_panel:
-            core_panel.clear()
-            core_panel.append("今日核心觀察｜")
-            core_panel.append(str(data.get("summary") or data.get("sentiment") or "待核實"))
-            core_panel.append(" 本版未提供可核實的 2026-11-06 五項指數同日 OHLC 與支撐壓力計算資料，因此不沿用母版舊日價位。")
+    # The three Today Focus tabs are updated atomically below; do not clear their approved DOM here.
     # Update only the explicitly historical FactSet snapshot; its historical date remains intentional.
     # Update existing global-market value slots by exact Chinese label.
     gm=unique(soup,"#global-markets","global markets")
