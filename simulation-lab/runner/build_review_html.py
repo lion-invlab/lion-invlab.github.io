@@ -344,6 +344,11 @@ def main():
                     else: value.append("來源待核實")
             lw_list.append(card)
         if not lw_list.select("details.econ-event"): raise ValueError("W45 has no verified five-star published economic events")
+        lw_range=f"{last_econ.get('week_start','')[5:7]}/{last_econ.get('week_start','')[8:10]}～{last_econ.get('week_end','')[5:7]}/{last_econ.get('week_end','')[8:10]}"
+        lw_summary=lw_details.select_one("summary")
+        if lw_summary: set_text(lw_summary, f"展開上週經濟行事曆（{lw_range}）")
+        lw_heading=lw.select_one(".calendar-status-heading.published")
+        if lw_heading: set_text(lw_heading, "上週已公布｜全球五顆星重要經濟事件")
         le = unique(soup, "#last-week-earnings", "last-week earnings")
         le_title = le.select_one(".title small")
         if le_title: set_text(le_title, f"{last_earn.get('week_start','')}～{last_earn.get('week_end','')}｜{last_earn.get('week_id','')}｜上週五星財報")
@@ -399,6 +404,13 @@ def main():
                         else: value.append("來源待核實")
             le_list.append(card)
         if not le_list.select("details.earnings-accordion"): raise ValueError("W45 has no verified five-star published earnings")
+        le_range=f"{last_earn.get('week_start','')[5:7]}/{last_earn.get('week_start','')[8:10]}～{last_earn.get('week_end','')[5:7]}/{last_earn.get('week_end','')[8:10]}"
+        le_summary=le_details.select_one("summary")
+        if le_summary: set_text(le_summary, f"展開上週財報行事曆（{le_range}）")
+        le_heading=le.select_one(".calendar-status-heading.published")
+        if le_heading: set_text(le_heading, "上週已公布｜五星財報，依公布日期排序")
+        le_source=le.select_one(".source")
+        if le_source: set_text(le_source, f"排序依美國公司實際公布日期（{le_range.replace('～','→')}）；台灣時間另列。僅納入重要性五星的已公布代表性公司，非所有市場財報完整清單。EPS 及營收採 GAAP／非 GAAP 時已註明口徑；未能核實的欄位明確標示待核。")
 
 
     # Remove stale mother-template dates from news, CNN, FactSet and FedWatch panels.
@@ -436,7 +448,16 @@ def main():
                 ("https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm","Fed官方會議日曆")
             ]:
                 fed_source.append(source_link(url,label)); fed_source.append("｜")
-            fed_source.append("本次資料截點未取得可核實的機率快照，故不沿用10/24舊截圖。")
+            fed_source.append("本次資料截點未取得可核實的機率快照，故不填入推估機率。")
+        watch=fed.select_one(".fed-live-watch")
+        if watch:
+            bar=watch.select_one(".fc-split-bar")
+            if bar:
+                bar["aria-label"]="未取得 2026/11/09 05:25 前可核實的 FedWatch 機率快照"
+                bar["style"]="display:none"
+            note=watch.select_one("details > div")
+            if note:
+                set_text(note,"本次報告資料截點為 2026/11/09 05:25（台灣時間）。未取得該截點前可核實的 CME FedWatch／Investing.com Fed Rate Monitor 機率快照，因此本版不展示 10 月舊截圖，也不以其他日期或自行估算的機率代替。請以 CME FedWatch 與 Investing.com Fed Rate Monitor 當日官方／即時資料為準。")
     fg = soup.select_one(".cnn-fg-preview")
     if fg:
         date_node = fg.select_one(".fg6-date")
