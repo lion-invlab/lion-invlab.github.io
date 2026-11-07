@@ -1,0 +1,48 @@
+name: TAC live key-level OHLC capture (simulation only)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Taiwan 04:50 during US daylight time; 05:15 during US standard time.
+    # GitHub cron is UTC; Sunday-Thursday UTC maps to Monday-Friday Taiwan.
+    - cron: "50 20 * * 0-4"
+    - cron: "15 21 * * 0-4"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tac-live-key-level-capture-simulation
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout isolated simulation branch
+        uses: actions/checkout@v4
+        with:
+          ref: simulation/tac-process-lab-2026-11-06
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install live OHLC dependencies
+        run: python -m pip install --disable-pip-version-check yfinance pandas pandas-market-calendars
+
+      - name: Capture latest completed NYSE cash-index OHLC
+        run: |
+          python simulation-lab/runner/collect_key_levels_ohlc.py \
+            --output simulation-lab/output/key-levels-live.json
+
+      - name: Upload live key-level JSON for the 05:25 report assembler
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-key-levels-live-${{ github.run_id }}-${{ github.run_attempt }}
+          path: simulation-lab/output/key-levels-live.json
+          if-no-files-found: error
+          retention-days: 7
