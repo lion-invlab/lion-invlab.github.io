@@ -639,10 +639,9 @@ def main():
         if score: set_text(score, fg_value)
         klass = fg.select_one(".fg6-class")
         if klass: set_text(klass, fg_record.get("band", "待核實"))
+        explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
         explain = fg.select_one(".fg6-explain")
-        if explain:
-            explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
-            set_text(explain, explanation)
+        if explain: set_text(explain, explanation)
         source_detail = fg.select_one(".source-details .source")
         if source_detail:
             source_detail.clear()
