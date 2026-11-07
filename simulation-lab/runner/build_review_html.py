@@ -1074,9 +1074,9 @@ def main():
         if source_detail:
             source_detail.clear()
             source_detail.append(explanation)
-    # Refresh regional market tabs so no October mother-template quotes survive.
+    # Refresh regional market tabs using the location registered for each approved mother.
     region_specs = [
-        ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 0, f"亞洲市場｜{previous_trade}各市場當地正式收盤", [
+        (region_panel_specs[0][0], {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","日經 225":"日經 225","韓國KOSPI":"韓國 KOSPI","韓國 KOSPI":"韓國 KOSPI"}, 0, f"亞洲市場｜{previous_trade}各市場當地正式收盤", [
             ("https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad","AP市場報導"),
             ("https://www.investing.com/indices/japan-ni225-historical-data","Nikkei 225"),
             ("https://www.investing.com/indices/kospi-historical-data","KOSPI"),
@@ -1085,7 +1085,7 @@ def main():
             ("https://www.investing.com/indices/shanghai-composite-historical-data","Shanghai"),
             ("https://www.investing.com/indices/shenzhen-composite-historical-data","Shenzhen")
         ]),
-        ("#tac-region-panel-2", {"英國FTSE 100":"英國 FTSE 100","德國DAX":"德國 DAX","法國CAC 40":"法國 CAC 40"}, 1, f"歐洲市場｜{previous_trade}各市場當地正式收盤", [
+        (region_panel_specs[1][0], {"英國FTSE 100":"英國 FTSE 100","英國 FTSE100":"英國 FTSE 100","德國DAX":"德國 DAX","德國 DAX":"德國 DAX","法國CAC 40":"法國 CAC 40","法國 CAC 40":"法國 CAC 40","STOXX Europe 600":"STOXX Europe 600"}, 1, f"歐洲市場｜{previous_trade}各市場當地正式收盤", [
             ("https://www.investing.com/indices/uk-100-historical-data","FTSE 100"),
             ("https://www.investing.com/indices/germany-30-historical-data","DAX"),
             ("https://www.investing.com/indices/france-40-historical-data","CAC 40"),
@@ -1093,14 +1093,15 @@ def main():
         ])
     ]
     for selector, row_map, comment_index, meta_text, links in region_specs:
-        panel = soup.select_one(selector)
-        if panel is None: raise ValueError(f"Regional market panel missing: {selector}")
+        panel = unique(soup, selector, "regional market panel")
         meta = panel.select_one(".tab-panel-meta")
         if meta: set_text(meta, meta_text)
+        normalized_map = {"".join(str(label).split()): key for label, key in row_map.items()}
         for row in panel.select(".row"):
             label = row.select_one("a.global-index-link")
             if not label: continue
-            key = row_map.get(label.get_text(strip=True))
+            normalized_label = "".join(label.get_text(" ", strip=True).split())
+            key = normalized_map.get(normalized_label)
             record = data.get("global_markets", {}).get(key) if key else None
             spans = row.select("span.r")
             if record and len(spans) >= 2:
@@ -1108,9 +1109,10 @@ def main():
                 change = record.get("change_display","待核實")
                 set_text(spans[1], change)
                 state = "up" if "+" in str(change) else "down" if ("−" in str(change) or "-" in str(change)) else "flat"
-                spans[1]["class"] = ["r", state]
+                spans[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
         reason = panel.select_one(".market-reason")
-        if reason: set_text(reason, data["market_comments"]["global_markets"][comment_index])
+        comments = data.get("market_comments", {}).get("global_markets", [])
+        if reason and comment_index < len(comments): set_text(reason, comments[comment_index])
         source = panel.select_one(".source")
         if source:
             source.clear()
