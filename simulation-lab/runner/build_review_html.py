@@ -264,24 +264,6 @@ def main():
         warning=box.select_one(".news-window-warning")
         if warning and section_id=="global-focus":
             set_text(warning,f"新聞時間窗｜{news_window_label}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
-    # The sector ETF panel also carries source prose and a dated heading; refresh both.
-    sector_meta = sectors.select_one(".tab-panel-meta")
-    if sector_meta:
-        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜已核實項目依單日漲跌幅降序；未核實項目列後")
-    sector_source = sectors.select_one("details.sector-source .source") or sectors.select_one("details.source-details .source")
-    if sector_source:
-        sector_source.clear()
-        verified_sector_lines = []
-        for ticker in [sector_ticker(row) for row in displayed]:
-            item = data.get("sector_sources", {}).get(ticker, {})
-            if item.get("name") and item.get("url") and item.get("data_date"):
-                verified_sector_lines.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜{item.get('change', data['sectors'].get(ticker, '待核實'))}")
-                sector_source.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜")
-                sector_source.append(source_link(item["url"], "原始來源"))
-                sector_source.append("；")
-        pending_tickers = [ticker for ticker in data.get("sectors", {}) if ticker not in data.get("sector_sources", {})]
-        if pending_tickers:
-            sector_source.append("未核實（缺來源／日期，未沿用母版數據）： " + "、".join(pending_tickers))
     # Date and item provenance in every region tab are updated from the same records.
     for selector in ["#asia", "#tac-region-panel-2"]:
         panel = soup.select_one(selector)
@@ -416,6 +398,24 @@ def main():
         else:
             value_node["class"]=["r","up" if change>0 else "down" if change<0 else "flat"]
         sector_list.append(row)
+    # The sector ETF panel also carries source prose and a dated heading; refresh both.
+    sector_meta = sectors.select_one(".tab-panel-meta")
+    if sector_meta:
+        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜已核實項目依單日漲跌幅降序；未核實項目列後")
+    sector_source = sectors.select_one("details.sector-source .source") or sectors.select_one("details.source-details .source")
+    if sector_source:
+        sector_source.clear()
+        verified_sector_lines = []
+        for ticker in [sector_ticker(row) for row in displayed]:
+            item = data.get("sector_sources", {}).get(ticker, {})
+            if item.get("name") and item.get("url") and item.get("data_date"):
+                verified_sector_lines.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜{item.get('change', data['sectors'].get(ticker, '待核實'))}")
+                sector_source.append(f"{ticker}｜{item['name']}｜{item['data_date']}｜")
+                sector_source.append(source_link(item["url"], "原始來源"))
+                sector_source.append("；")
+        pending_tickers = [ticker for ticker in data.get("sectors", {}) if ticker not in data.get("sector_sources", {})]
+        if pending_tickers:
+            sector_source.append("未核實（缺來源／日期，未沿用母版數據）： " + "、".join(pending_tickers))
     # Hard gate: displayed order, rank labels and values must agree.
     displayed=sector_list.select(".sector-row")
     if len(displayed)!=11:
