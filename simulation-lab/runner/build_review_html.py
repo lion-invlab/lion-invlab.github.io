@@ -264,48 +264,6 @@ def main():
         warning=box.select_one(".news-window-warning")
         if warning and section_id=="global-focus":
             set_text(warning,f"新聞時間窗｜{news_window_label}（台灣時間）。以下 5 則逐則列出發布時間與原始來源；不以行情報價或波動率數據充當新聞。")
-    # Date and item provenance in every region tab are updated from the same records.
-    for selector in ["#asia", "#tac-region-panel-2"]:
-        panel = soup.select_one(selector)
-        if panel:
-            region_meta = panel.select_one(".tab-panel-meta")
-            if region_meta:
-                set_text(region_meta, f"{selector}｜市場報價資料基準 {previous_trade}；無逐項來源與日期者顯示待核實。")
-    # Classify global market moves according to the report color convention (rise red, fall green).
-    for row in gm.select(".row"):
-        spans = row.select("span.r")
-        if len(spans) >= 2:
-            change = spans[1].get_text(strip=True)
-            state = "up" if change.startswith("+") else "down" if change.startswith(("−", "-")) else "flat"
-            spans[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
-    # Replace all remaining old source paragraphs in risk and market cards with current evidence state.
-    # Refresh quote metadata for every instrument group; unresolved rows are explicitly listed.
-    for group_id, records in [
-        ("global-markets", data.get("global_markets", {})),
-        ("bonds", data.get("bonds", {})),
-        ("fx", data.get("fx", {})),
-        ("tac-assets-panel-3", data.get("energy", {})),
-        ("tac-assets-panel-4", data.get("metals", {})),
-    ]:
-        group = soup.select_one("#" + group_id)
-        if not group:
-            continue
-        summary = []
-        for instrument, record in records.items():
-            source = record.get("source") if isinstance(record, dict) else None
-            if isinstance(source, dict) and source.get("name") and source.get("url") and source.get("data_date"):
-                summary.append((instrument, source))
-        for details_node in group.select("details.source-details"):
-            source_node = details_node.select_one(".source")
-            if source_node:
-                source_node.clear()
-                if summary:
-                    for instrument, source in summary:
-                        source_node.append(f"{instrument}｜{source['name']}｜{source['data_date']}｜")
-                        source_node.append(source_link(source["url"], "原始資料"))
-                        source_node.append("；")
-                else:
-                    source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關值已標示待核實。")
     # Replace stale mother-template market snapshot labels; never leave its old 10/23 dates.
     for section_id, section_label in [
         ("global-markets", "全球主要股市"),
@@ -416,6 +374,48 @@ def main():
         pending_tickers = [ticker for ticker in data.get("sectors", {}) if ticker not in data.get("sector_sources", {})]
         if pending_tickers:
             sector_source.append("未核實（缺來源／日期，未沿用母版數據）： " + "、".join(pending_tickers))
+    # Date and item provenance in every region tab are updated from the same records.
+    for selector in ["#asia", "#tac-region-panel-2"]:
+        panel = soup.select_one(selector)
+        if panel:
+            region_meta = panel.select_one(".tab-panel-meta")
+            if region_meta:
+                set_text(region_meta, f"{selector}｜市場報價資料基準 {previous_trade}；無逐項來源與日期者顯示待核實。")
+    # Classify global market moves according to the report color convention (rise red, fall green).
+    for row in gm.select(".row"):
+        spans = row.select("span.r")
+        if len(spans) >= 2:
+            change = spans[1].get_text(strip=True)
+            state = "up" if change.startswith("+") else "down" if change.startswith(("−", "-")) else "flat"
+            spans[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
+    # Replace all remaining old source paragraphs in risk and market cards with current evidence state.
+    # Refresh quote metadata for every instrument group; unresolved rows are explicitly listed.
+    for group_id, records in [
+        ("global-markets", data.get("global_markets", {})),
+        ("bonds", data.get("bonds", {})),
+        ("fx", data.get("fx", {})),
+        ("tac-assets-panel-3", data.get("energy", {})),
+        ("tac-assets-panel-4", data.get("metals", {})),
+    ]:
+        group = soup.select_one("#" + group_id)
+        if not group:
+            continue
+        summary = []
+        for instrument, record in records.items():
+            source = record.get("source") if isinstance(record, dict) else None
+            if isinstance(source, dict) and source.get("name") and source.get("url") and source.get("data_date"):
+                summary.append((instrument, source))
+        for details_node in group.select("details.source-details"):
+            source_node = details_node.select_one(".source")
+            if source_node:
+                source_node.clear()
+                if summary:
+                    for instrument, source in summary:
+                        source_node.append(f"{instrument}｜{source['name']}｜{source['data_date']}｜")
+                        source_node.append(source_link(source["url"], "原始資料"))
+                        source_node.append("；")
+                else:
+                    source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關值已標示待核實。")
     # Hard gate: displayed order, rank labels and values must agree.
     displayed=sector_list.select(".sector-row")
     if len(displayed)!=11:
