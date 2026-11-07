@@ -391,6 +391,60 @@ def main():
             le_list.append(card)
         if not le_list.select("details.earnings-accordion"): raise ValueError("W45 has no verified five-star published earnings")
 
+
+    # Remove stale mother-template dates from news, CNN, FactSet and FedWatch panels.
+    news_window = soup.select_one("#news-scan .news-window-warning")
+    if news_window:
+        set_text(news_window, f"新聞時間窗｜2026/11/06 12:00–{report_cutoff}（台灣時間）。焦點新聞與市場熱門頭條均逐則核對原始報導及發布時間；未符合時間窗的資料不納入。")
+    health = soup.select_one("#sp500-earnings-health")
+    if health:
+        health_title = health.select_one(".title small")
+        if health_title:
+            set_text(health_title, "FactSet 歷史快照：2026/10/23（截至當時24%成份股已公布；非11/06即時統計）")
+        for node in health.find_all(string=True):
+            if "179 家標普500公司預計" in str(node) or "179家標普500公司預計" in str(node):
+                node.replace_with("本週重點財報時程請參考下方 W46 財報行事曆；本區數據僅為10/23歷史快照。")
+    fed = soup.select_one("#fed")
+    if fed:
+        meeting = fed.select_one(".fc-fomc-meeting b")
+        if meeting: set_text(meeting, "2026/12/08–12/09")
+        press = fed.select_one(".fc-fomc-press b")
+        if press: set_text(press, "2026/12/10 03:30")
+        rate = fed.select_one(".fc-fomc-rate b")
+        if rate: set_text(rate, "3.75%–4.00%")
+        rate_date = fed.select_one(".fc-fomc-rate small")
+        if rate_date: set_text(rate_date, "Fed官方最新資料：2026/10/29")
+        observation = fed.select_one(".fc-fomc-observation b")
+        if observation: set_text(observation, "10/28聯準會維持3.75%–4.00%；12/09會議機率因未取得05:25前快照，暫不填列。")
+        fed_source = fed.select_one(".fc-source")
+        if fed_source:
+            fed_source.clear()
+            fed_source.append("資料來源：")
+            for url, label in [
+                ("https://www.investing.com/central-banks/fed-rate-monitor","Investing.com Fed Rate Monitor"),
+                ("https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html","CME FedWatch"),
+                ("https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm","Fed 10/28官方聲明"),
+                ("https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm","Fed官方會議日曆")
+            ]:
+                fed_source.append(source_link(url,label)); fed_source.append("｜")
+            fed_source.append("本次資料截點未取得可核實的機率快照，故不沿用10/24舊截圖。")
+    fg = soup.select_one(".cnn-fg-preview")
+    if fg:
+        date_node = fg.select_one(".fg6-date")
+        if date_node: set_text(date_node, f"CNN Fear & Greed｜{previous_trade}官方歷史讀值未能載入；不沿用母版舊值")
+        score = fg.select_one(".fg6-score")
+        if score: set_text(score, "待核實")
+        klass = fg.select_one(".fg6-class")
+        if klass: set_text(klass, "官方讀值待核實")
+        explain = fg.select_one(".fg6-explain")
+        if explain: set_text(explain, "本次未能取得CNN官方歷史讀值，暫不判定市場恐懼或貪婪程度。")
+        src = fg.select_one(".source")
+        if src:
+            src.clear()
+            src.append("資料來源：")
+            src.append(source_link("https://www.cnn.com/markets/fear-and-greed","CNN Business｜Fear & Greed Index"))
+            src.append("｜官方頁面本次未載入讀值。")
+
     # Refresh all remaining date-sensitive mother-template text slots.
     bluf_title=bluf.select_one("h1")
     if bluf_title: set_text(bluf_title,data.get("summary_title","本週市場主軸與風險觀察"))
@@ -543,6 +597,51 @@ def main():
         if p: set_text(p,"下一次會議日期與決策時間以 Federal Reserve 官方日曆為準；本欄不沿用 10 月會議舊資料。")
     health=soup.select_one("#sp500-earnings-health .title small")
     if health: set_text(health,"FactSet 最新可核實快照：2026/10/30；非本次早報即時統計。")
+
+    # Refresh regional market tabs so no October mother-template quotes survive.
+    region_specs = [
+        ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 1, "亞洲市場｜2026/11/06各市場當地正式收盤", [
+            ("https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad","AP市場報導"),
+            ("https://www.investing.com/indices/japan-ni225-historical-data","Nikkei 225"),
+            ("https://www.investing.com/indices/kospi-historical-data","KOSPI"),
+            ("https://www.investing.com/indices/taiwan-weighted-historical-data","TWSE"),
+            ("https://www.investing.com/indices/hang-sen-40-historical-data","Hang Seng"),
+            ("https://www.investing.com/indices/shanghai-composite-historical-data","Shanghai"),
+            ("https://www.investing.com/indices/shenzhen-composite-historical-data","Shenzhen")
+        ]),
+        ("#tac-region-panel-2", {"英國FTSE 100":"英國 FTSE 100","德國DAX":"德國 DAX","法國CAC 40":"法國 CAC 40"}, 2, "歐洲市場｜2026/11/06各市場當地正式收盤", [
+            ("https://www.investing.com/indices/uk-100-historical-data","FTSE 100"),
+            ("https://www.investing.com/indices/germany-30-historical-data","DAX"),
+            ("https://www.investing.com/indices/france-40-historical-data","CAC 40"),
+            ("https://www.investing.com/indices/stoxx-600-historical-data","STOXX Europe 600")
+        ])
+    ]
+    for selector, row_map, comment_index, meta_text, links in region_specs:
+        panel = soup.select_one(selector)
+        if panel is None: raise ValueError(f"Regional market panel missing: {selector}")
+        meta = panel.select_one(".tab-panel-meta")
+        if meta: set_text(meta, meta_text)
+        for row in panel.select(".row"):
+            label = row.select_one("a.global-index-link")
+            if not label: continue
+            key = row_map.get(label.get_text(strip=True))
+            record = data.get("global_markets", {}).get(key) if key else None
+            spans = row.select("span.r")
+            if record and len(spans) >= 2:
+                set_text(spans[0], record.get("display","待核實"))
+                change = record.get("change_display","待核實")
+                set_text(spans[1], change)
+                state = "up" if "+" in str(change) else "down" if ("−" in str(change) or "-" in str(change)) else "flat"
+                spans[1]["class"] = ["r", state]
+        reason = panel.select_one(".market-reason")
+        if reason: set_text(reason, data["market_comments"]["global_markets"][comment_index])
+        source = panel.select_one(".source")
+        if source:
+            source.clear()
+            source.append("資料來源：")
+            for url, label in links:
+                source.append(source_link(url,label)); source.append(" ")
+
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
