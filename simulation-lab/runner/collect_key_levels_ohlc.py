@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import math
+import os
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from urllib.parse import quote
@@ -158,7 +159,7 @@ def main() -> None:
         return
     if not args.output:
         ap.error("--output is required unless --self-test is used")
-    result = collect(allow_manual=args.allow_manual)
+    result = collect(allow_manual=(args.allow_manual or os.getenv('GITHUB_EVENT_NAME') == 'workflow_dispatch'))
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
