@@ -1068,3 +1068,16 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新聞與分析初稿已整理：Global Focus宏觀5則、Market Hot Headlines 10則；資料窗口11/05 12:00–11/06 21:00台灣時間。FactSet S&P 500財報健康度採10/30完整快照，並補入11/03 Mag7與11/04 Q4 EPS預估更新。
 - 正式母版SHA仍為`3785405e331b10ec6189002e480be2a1edbe20ef`；舊同日preview仍為`fd1cbc74ed37437c66ccb90a8f88651ac1f6961c`，內容未更新。嘗試依正式母版組裝新HTML並寫回`preview/2026-11-06.html`時，GitHub寫入動作遭平台安全檢查阻擋；未能完成寫入，未修改任何preview或首頁檔案。不得宣稱新審核版已生成。
 - 待處理：需找到可被允許的HTML檔案交付／GitHub寫入路徑，再完成DOM結構、連結、互動靜態QA；視覺瀏覽器驗證依使用者先前指示不執行，須在審核版註明未測試。首頁index.html、雙母版、Manifest、WR及排程均未修改。
+
+## 2026-11-07｜模擬區 2026/11/09 週一早報修正與驗收
+
+- 本次工作僅在 `simulation/tac-process-lab-2026-11-06`；main 最新 HEAD 經回讀為 `a6a8749f1532fdf71db108eb2d48fd54d7c3e08a`，未修改 main、正式首頁、正式雙母版或正式 Manifest。
+- 開工重新讀取 main `TAC_WORK_RULES.md`：v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`。週一正式母版 SHA 與 Manifest 登記 `a568e594e55909041d51d8eae7e6fe5f7986c096` 一致；模擬母版 SHA `0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7`。
+- 修正 2 年期美債殖利率：2026-11-06 4.51%，對比 11-05 4.46%，同一 U.S. Treasury 日度公債殖利率曲線計算日變動 +5bp；畫面不再顯示待核實。
+- 修正今日觀察三活頁：市場觀點、今日關鍵價位、今日核心觀察均由 fixture 欄位獨立組裝；保留市場觀點標題／換行格式；移除舊 fallback 先行清空關鍵價位與核心觀察 DOM 的程式；核心觀察收折區移除母版舊日期內容。
+- 新增 2026-11-06 OHLC 五項指數樞紐價位（2026-11-09 使用）：Dow S1/P/R1 50,964.81/51,313.53/51,634.46；S&P 500 7,349.54/7,396.87/7,424.19；Nasdaq 24,449.52/24,637.53/24,767.44；SOX 9,198.65/9,412.95/9,604.56；Russell 2000 2,729.55/2,745.56/2,770.13。公式 P=(H+L+C)/3、S1=2P-H、R1=2P-L；五項均附 Yahoo Finance OHLC 來源連結。
+- 今日核心觀察聚焦中國 10 月 CPI/PPI、美國 10 月 CPI、Fed 利率再定價與 AI 投資回報／財報指引；未把未公布實際值寫成已知結果。
+- 模擬組裝器新增 fail-closed 檢查：三活頁數量、內容、五組 S1/P/R1、來源連結及 10/23 舊內容；瀏覽器視覺回歸另逐一點擊三個活頁，驗證 radio checked、面板可見及核心關鍵文字。
+- 最新成功驗收：GitHub Actions run `42346436669`，head SHA `0d17805d23474fd5b7709ad0be64e016e4bff6b0`，conclusion success。母版結構、組裝、1440/768/360 視覺回歸及三活頁互動均通過；`visual-regression.json` failures=[]，每個視窗三活頁 invalid=[]。
+- 輸出為固定 JSON fixture → HTML 組裝的模擬審核版，不是 live-data E2E；未發布至正式首頁。Artifact `tac-simulation-smoke-42346436669-1`；本對話已下載並檢視 HTML 與桌機／手機截圖。
+- 本次模擬分支最新程式：`simulation-lab/runner/build_review_html.py` blob SHA `56ea0b192e93a76daf5a36a6900d47a837a220b9`；fixture blob SHA `04adcb2928746e48c6f64f57a8674c33254bf514`；視覺測試 blob SHA `e36ec5b45a747aad7777fd9d1aefd60eecf74c0d`。
