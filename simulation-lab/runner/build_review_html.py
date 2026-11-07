@@ -702,7 +702,7 @@ def main():
             source_detail.append(explanation)
     # Refresh regional market tabs so no October mother-template quotes survive.
     region_specs = [
-        ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 0, "亞洲市場｜2026/11/06各市場當地正式收盤", [
+        ("#asia", {"台灣加權指數":"台灣加權指數","香港恆生指數":"香港恆生指數","上海綜合指數":"上海綜合指數","深證成指":"深證成指","日經225":"日經 225","韓國KOSPI":"韓國 KOSPI"}, 0, f"亞洲市場｜{previous_trade}各市場當地正式收盤", [
             ("https://apnews.com/article/806f71d95105bc7efbc760b194dd8cad","AP市場報導"),
             ("https://www.investing.com/indices/japan-ni225-historical-data","Nikkei 225"),
             ("https://www.investing.com/indices/kospi-historical-data","KOSPI"),
@@ -711,7 +711,7 @@ def main():
             ("https://www.investing.com/indices/shanghai-composite-historical-data","Shanghai"),
             ("https://www.investing.com/indices/shenzhen-composite-historical-data","Shenzhen")
         ]),
-        ("#tac-region-panel-2", {"英國FTSE 100":"英國 FTSE 100","德國DAX":"德國 DAX","法國CAC 40":"法國 CAC 40"}, 1, "歐洲市場｜2026/11/06各市場當地正式收盤", [
+        ("#tac-region-panel-2", {"英國FTSE 100":"英國 FTSE 100","德國DAX":"德國 DAX","法國CAC 40":"法國 CAC 40"}, 1, f"歐洲市場｜{previous_trade}各市場當地正式收盤", [
             ("https://www.investing.com/indices/uk-100-historical-data","FTSE 100"),
             ("https://www.investing.com/indices/germany-30-historical-data","DAX"),
             ("https://www.investing.com/indices/france-40-historical-data","CAC 40"),
