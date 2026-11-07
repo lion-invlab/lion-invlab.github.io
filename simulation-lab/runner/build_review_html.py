@@ -450,12 +450,20 @@ def main():
 
     # Risk indicators and their source notes.
     for label in ("VIX","MOVE"):
+        rdata=data.get("risk",{}).get(label.lower(),{})
+        change=rdata.get("change_display","待核實")
         rows=[r for r in sent.select(".sbox") if r.select_one(".label-en") and r.select_one(".label-en").get_text(strip=True)==label]
         for row in rows:
             ch=row.select_one("span.down,span.up")
-            if ch: set_text(ch,"待核實"); ch["class"]=["pending"]
+            if ch:
+                set_text(ch,change)
+                ch["class"]=["pending"] if change=="待核實" else (["down"] if "−" in str(change) or "-" in str(change) else ["up"])
             src=row.select_one(".source")
-            if src: set_text(src,"本次早報截點未取得可核實的同日官方歷史收盤值。")
+            if src:
+                if label=="VIX" and rdata.get("display")!="待核實":
+                    src.clear(); src.append(source_link("https://www.investing.com/news/stock-market-news/as-tech-swoon-roils-market-us-inflation-data-on-tap-5007256","Investing.com｜11/06 VIX報價快照"))
+                else:
+                    set_text(src,"本次早報截點未取得可核實的同日歷史收盤值。")
     fgbox=sent.select_one(".cnn-fg-preview")
     if fgbox:
         score=fgbox.select_one(".fg6-score-main")

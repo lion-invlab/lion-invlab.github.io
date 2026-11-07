@@ -151,14 +151,6 @@
     "STOXX Europe 600": {
       "display": "待核實",
       "change_display": "待核實"
-    },
-    "日經225": {
-      "display": "待核實",
-      "change_display": "−5.70%"
-    },
-    "KOSPI": {
-      "display": "待核實",
-      "change_display": "−7.40%"
     }
   },
   "sectors": {
