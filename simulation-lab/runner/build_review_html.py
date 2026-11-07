@@ -608,6 +608,17 @@ def main():
             raise ValueError("FedWatch requires one hold outcome and the official current target range")
         if hold[0].get("rate_range") != current_range:
             raise ValueError(f"FedWatch hold range {hold[0].get('rate_range')} does not match current target range {current_range}")
+        # A single +25 bp outcome must be exactly one quarter-point above the current range.
+        hikes=[x for x in nonhold if x.get("outcome")=="hike"]
+        cuts=[x for x in nonhold if x.get("outcome")=="cut"]
+        if hikes and cuts:
+            raise ValueError("FedWatch cannot mix hike and cut outcomes in this two-card summary")
+        if hikes and len(hikes)==1:
+            import re
+            nums=[float(v) for v in re.findall(r"\\d+(?:\\.\\d+)?", str(hikes[0].get("rate_range","")))]
+            current_nums=[float(v) for v in re.findall(r"\\d+(?:\\.\\d+)?", str(current_range))]
+            if len(nums)!=2 or len(current_nums)!=2 or abs(nums[0]-(current_nums[0]+0.25))>0.001 or abs(nums[1]-(current_nums[1]+0.25))>0.001:
+                raise ValueError("FedWatch hike range must be exactly +25 bp above the official current target range")
         directions={x.get("outcome") for x in nonhold}
         if directions=={"hike"}:
             nonhold_label="升息一碼" if len(nonhold)==1 else "升息機率（合計）"
