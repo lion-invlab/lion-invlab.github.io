@@ -489,3 +489,13 @@
 - 整份 DOM 重新序列化會改變註解間空白、部分屬性順序及空白行，不適合作為全文件重寫方式；source-preserving patch POC 避免改動目標範圍外內容。
 - 尚未完成：main 週一核准母版（SHA a568e594e55909041d51d8eae7e6fe5f7986c096）目前不在可 materialize 的 Library；雖可由 GitHub connector 讀取，但尚無可用橋接將完整內容交給 Python parser。故週一 DOM parser／source span 驗證尚未執行，亦未建立 preview/2026-11-09.html。沒有修改 index.html、雙母版、Manifest、週 JSON 或任何 preview。
 - 下一步：取得同一 SHA 的週一正式母版至 Python 工作目錄，執行同一套 DOM／source-span 驗證；週一及週二至週五均通過後，才將 source-preserving DOM patch 工具納入 main 正式執行路徑並開始當日 HTML 組裝。不得用舊版母版、舊 preview 或 simulation 資產替代。
+
+
+## 2026-11-09｜週一核准母版 DOM 執行環境驗證（main）
+- 使用者提供週一正式母版；本機 materialize 後 Git blob SHA 實算 `a568e594e55909041d51d8eae7e6fe5f7986c096`，與 main Manifest／驗收清單一致；383,636 bytes。
+- BeautifulSoup+lxml DOM parse：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、重複 ID 0。主要 10 個入口及驗收清單規定巢狀 selector 均通過；週一專用／共用卡片節點及展開控制數量符合契約。
+- 清單基準 ID 184 與三種 parser 對同 SHA 的實測 183 不一致；不修改清單、不臆造 ID，列為待校正差異。
+- 對 9 個非根層主要區塊進行 source-preserving DOM 測試註解插入；每個 selector 唯一且註解各落位一次，重解析後 style/script/ID 數不變、無重複 ID；移除註解後各區塊 DOM signature 與原 DOM 相同，目標外來源 bytes 完全不變。未寫入 repo。
+- 原始 HTML parser 記錄 4 個警示，位於產業／債匯商品區及上週經濟卡區；正式組裝時需對這些區域採更細粒度節點映射與逐卡驗證，不可全頁重新序列化。
+- 週一母版不再是無法 materialize／解析的阻塞。正式資料槽位更新、11/09 HTML、QA、preview 寫入仍未完成；index.html、雙母版、Manifest、週 JSON、preview 均未修改。
+- 下一步依驗收清單 A2.2–A2.4 的既有 selector／巢狀契約更新實際資料槽位；重複卡片 clone 原情境節點；對 parser 警示區先做更細粒度映射，再完成組裝、preview 回讀及四類 QA。
