@@ -2,6 +2,15 @@
 
 > 本檔記錄重要決策、正式檔案變更、驗收與部署證據，不保存聊天逐字稿。正式規則以 `TAC_WORK_RULES.md` 為準；跨對話即時狀態以 `TAC_SESSION_STATE.md` 為準。每筆紀錄須區分已完成、待核實及未測試。
 
+
+## 2026-11-09｜11/09 週一早報開工來源鎖定（WR v5.14）
+- Stage A：開始 05:24:27、完成 05:26:34（Asia/Taipei），牆鐘耗時 2分07秒，含 GitHub connector 等待；純處理時間與工具等待無獨立計時資料，標示不可得。WR 第一次讀取為本次第一個動作；main HEAD 以 branch API 回讀為 414cd301ea47dada3b1efad8e210d7d50bc05ffb。
+- WR v5.14 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b；Manifest SHA fade5e3d88de76a79cb5c1656cc592b98827ab55；週一母版實際／核准 SHA a568e594e55909041d51d8eae7e6fe5f7986c096；唯一結構清單 v1.3 SHA 74a7c90aaaeee497b7b2b134d9569aee615d95c0。SHA 全部相符。
+- 母版既有 SHA 綁定契約有效；靜態基準 DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184、重複 ID 0；共用主要錨點及週一上週經濟／財報兩錨點各唯一。沒有重新完整分析母版。
+- W46 JSON SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22，04:35 預更新後 updated_at 04:35:59，16 經濟／48 財報／30 audit，兩類 coverage 均 incomplete；W45 JSON SHA fef9dff14968709974c16096bede07d2efcf103f，作為週一上週精選來源。preview/2026-11-09.html 初始查詢 404，確認目標不存在。
+- 本階段工作量：讀取 WR、Manifest、週一母版、結構清單、W46／W45 JSON、Session State、Work Log，回讀 main HEAD；確認週一情境、保護範圍及 preview 目標。沒有重抓已鎖定的歷史報價；沒有寫入行情或日曆資料。
+- 異常／限制：GitHub connector 可讀取；本機 DNS／外網下載失敗，尚未取得可用的本機 DOM parser 檔案環境。這不阻止後續行情、行事曆及新聞查核，但若無法取得真正 DOM parser，依 WR v5.14 不得以字串／regex 代替 DOM 定位或宣稱 HTML 組裝完成。此項留待 G 階段確認。
+- 保護檔案尚未修改；本階段完成，交接 B 行情第一輪。
 ## 2026-11-02｜11/02 早報審核、核准發布與 Pages 部署
 
 ### 使用者決策
