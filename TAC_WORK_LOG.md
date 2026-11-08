@@ -522,3 +522,8 @@
 - 週二至週五測試：DOCTYPE 1、根節點各 1、style 120、script 24、ID 174、無重複 ID；5 個 asset panels 局部 patch 測試通過，DOM signatures 不變，測試標記移除後原始 bytes 完全一致。
 - 驗收清單 ID 基準 184／175 與實測 183／174 差異持續保留，不補造 ID、不改清單。兩份正式母版、Manifest、index.html 均未修改。
 - 尚未完成：這只是 G 階段執行環境與局部 patch 能力恢復；尚未填入真實 11/09 內容、尚未建立 preview/2026-11-09.html，完整結構／內容／連結／視覺／互動 QA 均未完成。不得稱為早報已交付。
+## 2026-11-09｜Stage G 局部市場資料組裝第一批（未交付）
+- 使用核准週一母版 SHA a568e594e55909041d51d8eae7e6fe5f7986c096，在本機以 BeautifulSoup+lxml DOM 定位與 source-span 局部 splice，更新 5 個 asset panels 與 3 個 global market panels。暫存輸出 `/mnt/data/preview-2026-11-09-stageg-panels.html`，未上傳 GitHub，非正式 preview。
+- 寫入已鎖定 11/06 資料：10 檔 ETF 漲跌幅排序，XLF 待核實；美債 2Y/10Y/30Y；六項外匯；WTI CL Dec26、Brent Jan27、GC Dec26、SI Dec26；全球美／亞／歐市場指數。Dow、Russell 2000 待核實，未以代理值補入。
+- 同步更新 FedWatch 24.5%／75.5%（Investing.com 11/07 00:35 EST 快照；CME 交叉核對未完成）及 S&P 500 11/06 五價位。局部輸出 DOM 靜態解析：DOCTYPE 1、根節點各 1、style 124、script 25、ID 183、重複 ID 0；asset panel 5／5、global market panel 3／3 唯一。
+- 仍未完成：新聞卡、summary／Market Sentiment、W45 上週卡、W46 本週行事曆、FactSet 盈餘健康度、header 日期、來源文字全面同步；舊模板殘留文字仍存在。故不可視為完整早報或可審核版；未寫入正式 preview，未改首頁／雙母版／Manifest／週 JSON。視覺與互動未測試。
