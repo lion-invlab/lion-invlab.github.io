@@ -28,6 +28,14 @@
 - MOVE：EODData 11/06 close 92.77、前收 97.92，變動 −5.26%；Yahoo 429、CNBC 讀取失敗後按 WR 使用 EODData 最後備援。CNN 官方 endpoint 取得 22.079／Extreme Fear，時間 2026-11-06 23:59:54 UTC。VIX：Investing.com 同名頁為 CFD 26.55，不採作現貨；Yahoo 備援資料列 25.64（−9.01%），但 Yahoo 直接頁 429、Cboe CSV 不可讀，採備援值並揭露限制。
 - 仍待核實 3/44：Dow、Russell 2000、XLF。Investing.com 原始頁、重開／刷新、日期區間三輪仍無 11/06 原始表格；WR 未列可替代備援，禁止用搜尋摘要、代理 ETF 或估值代填。
 - 結果：41/44 已核實／鎖定，3/44 待核實；FedWatch 24.5%／75.5%（Investing.com 最新快照 11/07 00:35 EST），CME QuikStrike 交叉頁 access denied。
+
+## 2026-11-09｜Stage D 完成：W45 actuals 增量回填
+- 開始 05:36:02、完成 05:37:35（Asia/Taipei），牆鐘 1分33秒；工具等待未獨立計時。
+- W46 SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22，04:35:59 預更新後仍是最新；中國 CPI/PPI 尚未到發布時間，其餘本週事件均仍為 upcoming，沒有 04:35 後可核實的新實績，故 W46 不寫入。
+- W45 原 SHA fef9dff14968709974c16096bede07d2efcf103f；BLS 10月 NFP +165K、9月修訂 +60K、失業率 4.1%、AHE +0.4% m/m／+3.1% y/y；StatsCan 就業 −4.7K、失業率 6.7%、平均時薪 +2.2% y/y。補入 NFP／Canada jobs stable ID 的 actual、status、components、impact、source 及 audit。
+- AAPL 5-star earnings 追加 Reuters 11/03 當日約 −4% 股價反應；EPS 共識 basis 仍 pending，未改變比較狀態。AMD 原有 beat 與 +7.54% 盤後反應保留。
+- W45 寫入後 SHA 991d69b1ee963752a284cd0914c09011084a404f，18 經濟／42 財報／224 audit，重新 fetch 確認；W46 SHA 未變。無事件刪除、無未核實欄位覆蓋、無平行資料庫。
+
 ## 2026-11-02｜11/02 早報審核、核准發布與 Pages 部署
 
 ### 使用者決策
