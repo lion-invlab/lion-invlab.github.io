@@ -20,6 +20,14 @@
 - 異常：部分 Investing.com 直接開頁的歷史表格只更新到 11/05 或無法讀取；依 WR D2 不採用搜尋摘要代替原始頁。CNN 官方頁受限，TinyFish 靜態抽取未取得當前數字。這些均進入 C 階段例外清單。
 - 下一步 C 僅對 10 項未結案資料執行第二輪／第三輪，不重新查核已鎖定的 34 項。
 
+
+## 2026-11-09｜Stage C 完成：例外／備援／重試
+- 開始 05:30:55、完成 05:35:10（Asia/Taipei），牆鐘 4分15秒；工具等待包含在內，純處理／等待拆分不可得。工作僅針對 B 階段 10 個待核實項目，未重做 34 個已鎖定項。
+- 例外收斂：XLRE −0.68%；WTI CL Dec26 90.83（+0.31），量 280,251、OI 199,490；GC Dec26 4,074.90（−38.60），量 176,944、OI 256,901；SI Dec26 51.942（−0.434），量 49,099、OI 70,641，均由 CME 11/06 preliminary Daily Bulletin PG61/62 鎖定。
+- Brent：ICE report center 未取得原始結算表；Investing.com Jan27 (LCOF7) 11/06 volume 410.39K，但頁面標 CFD、close 98.06；Reuters 原文確認 Jan 2027 futures settlement 98.32（+0.03）。採 Reuters settlement，Investing.com 只用於月份／成交量佐證，並記錄兩種報價口徑差異。
+- MOVE：EODData 11/06 close 92.77、前收 97.92，變動 −5.26%；Yahoo 429、CNBC 讀取失敗後按 WR 使用 EODData 最後備援。CNN 官方 endpoint 取得 22.079／Extreme Fear，時間 2026-11-06 23:59:54 UTC。VIX：Investing.com 同名頁為 CFD 26.55，不採作現貨；Yahoo 備援資料列 25.64（−9.01%），但 Yahoo 直接頁 429、Cboe CSV 不可讀，採備援值並揭露限制。
+- 仍待核實 3/44：Dow、Russell 2000、XLF。Investing.com 原始頁、重開／刷新、日期區間三輪仍無 11/06 原始表格；WR 未列可替代備援，禁止用搜尋摘要、代理 ETF 或估值代填。
+- 結果：41/44 已核實／鎖定，3/44 待核實；FedWatch 24.5%／75.5%（Investing.com 最新快照 11/07 00:35 EST），CME QuikStrike 交叉頁 access denied。
 ## 2026-11-02｜11/02 早報審核、核准發布與 Pages 部署
 
 ### 使用者決策
