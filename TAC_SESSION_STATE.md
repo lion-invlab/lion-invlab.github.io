@@ -101,6 +101,29 @@
 - W45 增量更新後 SHA 991d69b1ee963752a284cd0914c09011084a404f，18 經濟／42 財報／224 audit，updated_at 05:37:35；回讀確認 NFP actual 165、previous 60、released；Canada actual −4.7、released；AAPL reaction 已寫入。W46 SHA 回讀仍與原值一致，沒有並行覆寫。
 - 本階段只更新同一 W45 JSON，未刪事件、未覆蓋未核實值、未建立平行資料庫；coverage 未擅自標 complete。
 
+
+### E 階段｜新聞蒐集與查證（完成 05:42:37）
+- 時間窗：2026-11-06 12:00 至 2026-11-09 05:00（Asia/Taipei）；開始 05:37:35、完成 05:42:37，牆鐘 5分02秒（含 web 工具等待；純處理／等待拆分不可得）。
+- 完成 5 則 Global Focus News + 10 則 Market Hot Headlines，共 15 則；逐篇開啟原文，核對發布時間、事實、數字及市場影響；不採用 11/06 12:00 台灣時間以前的新聞，不重複焦點事件與頭條事件。
+- Global Focus 5：
+  1. 美國 10 月非農 +165K、失業率 4.1%、平均時薪 +0.4% m/m；薪資與就業強於共識，12 月升息定價上升。Cnyes 發布 11/06 13:40 TST；source ref turn849680search3／原文 turn317539view0。
+  2. 加拿大 10 月就業 −4.7K、失業率 6.7%，弱於 +14.5K 共識，與美國勞動市場形成分化。Investing.com/Reuters 發布 11/06 08:32 ET（21:32 TST）；source ref turn600109search9／原文 turn317539view1。
+  3. Fed 官員 Daly 表示若通膨未能回落，進一步升息仍可能，強調政策取決於數據，並非 FOMC 已承諾升息。Cnyes 發布 11/07 06:20 TST；source ref turn600109search4／原文 turn317539view2。
+  4. 原油週線重挫：Brent、WTI 11/06 結算 98.32、90.83，單週約 −13.3%、−12.8%；市場反映供應恢復／美伊緩和與需求疑慮，地緣風險仍未消失。Cnyes 發布 11/07 06:08 TST；source ref turn442099search2／原文 turn317539view3。
+  5. 本週宏觀焦點為中國 CPI/PPI、美國 CPI/PPI、英國 Q3 GDP 等；通膨數據將影響 Fed 利率路徑。Cnyes 發布 11/08 21:50 TST；source ref turn442099search3／原文 turn317539view4。該文將 Fed 12 月「按兵不動」機率寫約 80%，與 Investing.com Fed Rate Monitor（24.5% 留在 3.75–4.00、75.5% 升至 4.00–4.25）及 Fed 官方目前目標區間 3.75–4.00 不符，該機率句不採用；FedWatch 以直接讀取頁面為準。
+- Market Hot Headlines 10：
+  1. 美國密西根消費者信心初值回升至 51（前值 48），一年通膨預期降至 4.3%、五年 3.4%，但生活成本壓力與 AI 泡沫疑慮仍高。Investing.com/Reuters 11/06 10:30 ET（23:30 TST）；ref turn600109search3／原文 turn317539view5。
+  2. 美股盤前 AI 晶片／記憶體股反彈，Micron、SanDisk、AMD 等漲幅領先；屬盤前快照，不當作正式收盤。Cnyes 11/06 18:05 TST；ref turn962077search1／原文 turn317539view6。
+  3. IREN 由比特幣挖礦轉向 AI 雲端，AI cloud revenue 季增 182%，挖礦收入季減 58%，單季仍虧損約 2.63 億美元；股價反彈不等於轉型風險解除。Cnyes 11/07 15:00 TST；ref turn460681search0／原文 turn317539view7。
+  4. Reuters／Bloomberg 報導 Microsoft 正逐步結束部分 Oracle AI compute 租用安排，舊世代 Nvidia GPU 不再符合其需求；Microsoft 未評論、Oracle 表示 OCI 需求仍強，屬媒體消息而非雙方正式公告。Investing.com 11/07 01:53 TST；ref turn240698search2／原文 turn317539view8。
+  5. ING 擬出售約 5 億美元資料中心貸款組合，約 12 筆貸款含 Stargate 相關約 2,500 萬美元部位；仍是貸款組合出售流程，不能解讀成 OpenAI 專案取消或違約。Cnyes 11/06 13:00 TST；ref turn905141search0。
+  6. Helios Technologies 旗下 Faster 接獲首筆資料中心液冷連接器訂單，切入 AI 機房熱管理供應鏈；單筆訂單仍不足以推論營收規模。Cnyes 11/07 20:30 TST；ref turn460681search3／原文 turn317539view10。
+  7. Nasdaq 規劃 12/06 起美股 23 小時、每週五天交易，保留每日一小時維護；延長交易時間不代表流動性平均分布，核心時段仍可能最深。Cnyes 11/08 14:10 TST；ref turn460681search14／Nasdaq official turn240698search0。
+  8. 中國商務部反對美方對兩家中企的制裁措施，保留採取必要措施；第三方交易與制裁合規風險升高。Cnyes 11/08 07:00 TST；ref turn905141search4／原文 turn?（頁面已直接開啟）。
+  9. 美國現貨比特幣 ETF 當週淨流出約 12.817 億美元，其中 IBIT 流出約 12.09 億美元，FBTC 小幅流入；顯示機構資金風險偏好轉弱，但單週流量不等同長期趨勢。Cnyes 11/07 18:05 TST；ref turn722798search12／原文 turn317539view14。
+  10. 沙烏地阿美金融區大樓遭攔截胡塞飛彈／無人機殘骸波及，建物受損但無人傷亡，官方稱能源設施未受直接破壞；短期未證實供應中斷，但中東能源設施風險溢價上升。Reuters 11/08 05:24 UTC（13:24 TST），Cnyes 11/08 20:20 TST；ref turn905141news72／turn905141search1。
+- 篩選原則：以上 15 則均在指定新聞時間窗內；5 則焦點與 10 則頭條沒有重複同一篇報導／同一個事件。未選入 11/06 12:00 前舊聞；未將未獲獨立確認的 Anthropic 1.7GW 發電機採購傳聞列入正式頭條。
+
 ## 1. 目前主線目標
 
 完成 TAC 投資早報 R3 可重複、可靠的每日審核版產製流程。2026-11-02（週一）早報已完成審核、使用者核准、更新正式首頁並完成 GitHub Pages 部署。接續主線改為修正正式首頁發布觸發鏈，並收斂每日自動產製流程；不得把本次部署成功誤認為所有 QA 項目永久全通過。
