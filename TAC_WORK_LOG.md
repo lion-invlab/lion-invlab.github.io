@@ -499,3 +499,11 @@
 - 原始 HTML parser 記錄 4 個警示，位於產業／債匯商品區及上週經濟卡區；正式組裝時需對這些區域採更細粒度節點映射與逐卡驗證，不可全頁重新序列化。
 - 週一母版不再是無法 materialize／解析的阻塞。正式資料槽位更新、11/09 HTML、QA、preview 寫入仍未完成；index.html、雙母版、Manifest、週 JSON、preview 均未修改。
 - 下一步依驗收清單 A2.2–A2.4 的既有 selector／巢狀契約更新實際資料槽位；重複卡片 clone 原情境節點；對 parser 警示區先做更細粒度映射，再完成組裝、preview 回讀及四類 QA。
+
+
+## 2026-11-09｜main 雙母版警示區細粒度 DOM 映射驗證
+- 依 WR v5.14 及驗收清單 v1.3，在同 SHA 核准母版上測試，不修改母版或正式內容。
+- 週一版：5 個 #tac-assets-panel-0..4 均可唯一定位；上週經濟區 3 張無 ID 的 details.econ-event 可由 DOM 順序與獨立 details source boundaries 一對一映射。8 個局部測試 patch 後，各目標 DOM tag/attribute/child structure signature 完全一致；輸出重解析後 style 124、script 25、ID 183、無重複 ID；所有目標外來源 bytes 完全一致。panel 區原始多餘 </a> warning 消失；上週卡片外側 2 個多餘 </div> 與 1 個隱含閉合 warning 保持，因測試未觸碰其外層標籤。
+- 週二至週五版：5 個 asset panel 均唯一定位；5 個局部測試 patch 後各 panel DOM structure signature 不變，style 120、script 24、ID 174、無重複 ID，主要 section selector 不變；panel 內原始多餘 </a> warning 消失。
+- 本輪只做隔離測試，無真實行情／行事曆／新聞資料寫入，無正式 HTML 組裝，無 preview 寫入，無瀏覽器視覺／互動測試。index.html、雙母版、Manifest、週 JSON及其他 preview 未修改。
+- 執行結論：雙母版兩個高風險區域已有可重現的局部 DOM 更新定位方法；下一步整合本機 helper 後，才可開始真實資料槽位更新。ID 數量清單基準 184 vs 實測 183 仍待核准修訂，不以補造 ID 解決。
