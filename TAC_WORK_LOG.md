@@ -507,3 +507,10 @@
 - 週二至週五版：5 個 asset panel 均唯一定位；5 個局部測試 patch 後各 panel DOM structure signature 不變，style 120、script 24、ID 174、無重複 ID，主要 section selector 不變；panel 內原始多餘 </a> warning 消失。
 - 本輪只做隔離測試，無真實行情／行事曆／新聞資料寫入，無正式 HTML 組裝，無 preview 寫入，無瀏覽器視覺／互動測試。index.html、雙母版、Manifest、週 JSON及其他 preview 未修改。
 - 執行結論：雙母版兩個高風險區域已有可重現的局部 DOM 更新定位方法；下一步整合本機 helper 後，才可開始真實資料槽位更新。ID 數量清單基準 184 vs 實測 183 仍待核准修訂，不以補造 ID 解決。
+
+
+## 2026-11-09｜本機 DOM 更新 helper 整合回歸測試
+- 將既有 source-preserving ID patch 與 details-card source-span mapping 整合為本機 helper 副本 `/mnt/data/tac-main-dom-assembler-v2.py`；未提交 repo，未建立第二套 production pipeline。
+- 週一：5 個 asset panels + 3 張上週經濟 details cards sequential patch regression 通過；重新解析後 style 124、script 25、ID 183、無重複 ID、主要 selector 唯一性不變。
+- 週二至週五：5 個 asset panels sequential patch regression 通過；重新解析後 style 120、script 24、ID 174、無重複 ID、主要 selector 唯一性不變。
+- 本輪僅 no-op regression，不是實際資料更新；沒有寫入 preview，沒有執行真實瀏覽器／視覺／互動 QA。index.html、雙母版、Manifest、週 JSON均未修改。
