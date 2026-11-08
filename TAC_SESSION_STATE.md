@@ -1252,3 +1252,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 週二至週五母版也有產業／債匯商品區多餘 </a> 警示；5 個 asset panel 均有唯一來源 span。5 panel 局部測試後各自 DOM structure signature 相同，DOCTP/根節點、style 120、script 24、ID 174、無重複 ID及主要 section selector 數量不變；原始 </a> warning 因 panel 內部序列化而消失。週二至週五母版無上週經濟卡區，故不套用週一卡片邏輯。
 - 此結果證明週一及週二至週五的警示區均可採既有母版 DOM 錨點／卡片節點進行細粒度局部更新；不是正式資料更新，也不是完整早報組裝。未執行真實瀏覽器、視覺、互動 QA；未產出 preview/2026-11-09.html；index.html、雙母版、Manifest、週 JSON、preview 均未修改。
 - 下一步：將已驗證的 details 卡片定位與 5 panel 局部更新方式整合到本機單一執行 helper（不新增 repo pipeline／排程／第二套 assembler）；再按已鎖定行情、W45/W46 及新聞成果填入核准母版的真實資料節點，完成 HTML 後做輸出 DOM／差異驗證及四類 QA。ID 基準 184 vs 實測 183 仍待清單基準校正，不臆造 ID。
+
+
+### 2026-11-09｜本機 DOM 更新 helper 整合回歸測試
+- 將已驗證的 ID panel 更新及無 ID details 卡片定位整合為本機 helper 副本 `/mnt/data/tac-main-dom-assembler-v2.py`；未提交 repo、未新增正式 pipeline／排程／第二套流程。原始 helper 保留，v2 僅供本次 Python 執行使用。
+- 週一核准母版整合測試：先對 5 個 #tac-assets-panel-0..4 執行 DOM selector 局部 patch，再對 #last-week-calendar 內 3 張 details.econ-event 執行卡片級 patch；輸出可重新 DOM parse，DOCTYPE、根節點、style 124、script 25、ID 183、無重複 ID、全部主要 selector 數量不變。
+- 週二至週五核准母版整合測試：同一 helper 對 5 個 asset panels patch；輸出 DOCTYPE、根節點、style 120、script 24、ID 174、無重複 ID、主要 selector 數量不變。
+- 兩種星期情境的局部更新 helper 均通過本機回歸。這是 no-op／測試性更新，未寫入任何行情、新聞或行事曆資料；不是 11/09 成品，不代表四類 QA 通過。真實瀏覽器、視覺、互動仍未測試；preview/2026-11-09.html 尚未建立；首頁、雙母版、Manifest、週 JSON未修改。
+- 下一步：開始使用當日 A–F 已有查核成果，將真實資料更新至核准母版的對應 DOM 節點；遇到未核實欄位保留明確狀態，不得補猜。完成後再執行結構／內容／連結／互動／視覺 QA，未通過不得寫入 preview。
