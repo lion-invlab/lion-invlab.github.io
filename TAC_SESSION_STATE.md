@@ -9,6 +9,21 @@
 - 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
 
+
+## 2026-11-09｜當日早報活動狀態（報告日週一）
+
+- 開工時間（Asia/Taipei）：2026-11-09 05:24:27；第一個動作為讀取 main 最新 TAC_WORK_RULES.md。WR 讀取工具完成時間未單獨回傳，故不虛構精確完成秒數；本階段讀取／核對工作至 05:26:34 完成，牆鐘耗時 2分07秒（含工具等待；純人工處理時間及工具等待拆分不可得）。
+- main HEAD：414cd301ea47dada3b1efad8e210d7d50bc05ffb（branch API 回讀；commit 2026-11-09 04:44:31 台灣時間）。
+- WR：v5.14；TAC_WORK_RULES.md blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b；第一個工具讀取時間記錄為開工 05:24:27，工具回傳時間不可單獨取得。
+- Manifest：母版專區/mother-template-manifest.json SHA fade5e3d88de76a79cb5c1656cc592b98827ab55。
+- 核准週一母版：母版專區/TAC_母版_週一_2026-10-28_最終定版.html 實際／核准 SHA 均為 a568e594e55909041d51d8eae7e6fe5f7986c096；沿用結構驗收清單 SHA 綁定契約，不每日重析。靜態基準核對：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184、重複 ID 0；主要錨點及週一專用上週行事曆錨點均各 1。
+- 唯一結構驗收清單：v1.3，母版專區/母版結構驗收清單.md SHA 74a7c90aaaeee497b7b2b134d9569aee615d95c0。
+- 當週資料庫：data/calendar/weeks/2026-W46.json SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22，updated_at 2026-11-09T04:35:59+08:00，WR 5.14，經濟 16、財報 48、audit 30；coverage.economic／earnings 均 incomplete。上週資料庫：data/calendar/weeks/2026-W45.json SHA fef9dff14968709974c16096bede07d2efcf103f，供週一上週精選卡使用。
+- 報告日期：2026-11-09（一）；行情預定基準日：2026-11-06（五）各市場最近完整交易日，仍須逐市場以官方日曆及來源日期確認，不得預設所有市場同口徑。
+- 預覽目標：preview/2026-11-09.html；開工時 GitHub contents API 回傳 404，確認目標不存在，可於 QA 通過後建立；不得以舊 preview 代替母版。
+- 保護範圍：index.html、雙母版、Manifest、既有歷史報告及其他非本次日期檔均不修改。依 WR A1-補充，不建立 WR Lock／Issue relay；不使用舊 snapshot、collector、assembler、renderer 作為正式行情來源。
+- 下一步：B 對核准母版 44 項固定行情做第一輪，逐項記錄來源、日期／時間、口徑、查核時間與狀態；FedWatch 獨立處理。C 僅補第一輪未鎖定項目。D 先核對 W46 04:35 後事件及 W45 上週實績，必要時增量更新同一週 JSON。
+
 ## 1. 目前主線目標
 
 完成 TAC 投資早報 R3 可重複、可靠的每日審核版產製流程。2026-11-02（週一）早報已完成審核、使用者核准、更新正式首頁並完成 GitHub Pages 部署。接續主線改為修正正式首頁發布觸發鏈，並收斂每日自動產製流程；不得把本次部署成功誤認為所有 QA 項目永久全通過。
