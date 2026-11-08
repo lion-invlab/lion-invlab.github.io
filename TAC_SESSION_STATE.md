@@ -92,6 +92,15 @@
 - Dow、Russell 2000、XLF：Investing.com 香港站原始歷史頁、重開／刷新、指定 11/06 日期區間三輪後仍只顯示到 11/05 或讀取失敗；WR 未列可替代備援，故保持待核實，不用搜尋摘要或 ETF 代理值代填。
 - Stage C 結果：41/44 鎖定，3/44 待核實（Dow、Russell、XLF）。FedWatch 仍以 Investing.com 最新頁面快照 24.5%／75.5% 記錄，CME QuikStrike 交叉核對未成功。
 
+
+### D 階段｜行事曆核對與增量更新（完成 05:37:35）
+- 開始 05:36:02、完成 05:37:35（Asia/Taipei），牆鐘 1分33秒；含 GitHub／web 工具等待，純處理與工具等待拆分不可得。
+- W46（當週）04:35 預更新回讀 SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22，updated_at 04:35:59，16 經濟／48 財報／30 audit，coverage 仍 incomplete。逐項確認 11/09 09:30 中國 CPI/PPI 尚未到發布時間；美國 CPI 11/10、印度 CPI／英國 GDP／初領失業金等仍為 upcoming。04:35 後尚無可核實新 actual，W46 不寫入，避免不必要改動。
+- W45（上週）回讀原 SHA fef9dff14968709974c16096bede07d2efcf103f；補查 11/06 正式發布：BLS 10 月非農 +165K（共識 63K）、9 月修訂 +60K（原 29K）、失業率 4.1%（前值／共識 4.2%）、平均時薪 +0.4% m/m、+3.1% y/y；Statistics Canada 就業 −4.7K（共識 +14.5K）、失業率 6.7%（前值／共識 6.5%）、平均時薪 +2.2% y/y。兩事件 stable ID 保留，status 改 released，補 actual／components／impact／source／audit。
+- W45 5-star earnings：AAPL 補 Reuters 11/03 股價當日約跌 4%（報導快照、非精確收盤報酬），反映市場轉而聚焦下一季毛利率指引與記憶體成本；EPS consensus basis 仍待核實，不改 beat/miss。AMD 原有 EPS／營收 beat 及盤後 +7.54% 保留。
+- W45 增量更新後 SHA 991d69b1ee963752a284cd0914c09011084a404f，18 經濟／42 財報／224 audit，updated_at 05:37:35；回讀確認 NFP actual 165、previous 60、released；Canada actual −4.7、released；AAPL reaction 已寫入。W46 SHA 回讀仍與原值一致，沒有並行覆寫。
+- 本階段只更新同一 W45 JSON，未刪事件、未覆蓋未核實值、未建立平行資料庫；coverage 未擅自標 complete。
+
 ## 1. 目前主線目標
 
 完成 TAC 投資早報 R3 可重複、可靠的每日審核版產製流程。2026-11-02（週一）早報已完成審核、使用者核准、更新正式首頁並完成 GitHub Pages 部署。接續主線改為修正正式首頁發布觸發鏈，並收斂每日自動產製流程；不得把本次部署成功誤認為所有 QA 項目永久全通過。
