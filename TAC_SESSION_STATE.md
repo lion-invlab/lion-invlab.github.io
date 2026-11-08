@@ -1222,3 +1222,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新聞與分析初稿已整理：Global Focus宏觀5則、Market Hot Headlines 10則；資料窗口11/05 12:00–11/06 21:00台灣時間。FactSet S&P 500財報健康度採10/30完整快照，並補入11/03 Mag7與11/04 Q4 EPS預估更新。
 - 正式母版SHA仍為`3785405e331b10ec6189002e480be2a1edbe20ef`；舊同日preview仍為`fd1cbc74ed37437c66ccb90a8f88651ac1f6961c`，內容未更新。嘗試依正式母版組裝新HTML並寫回`preview/2026-11-06.html`時，GitHub寫入動作遭平台安全檢查阻擋；未能完成寫入，未修改任何preview或首頁檔案。不得宣稱新審核版已生成。
 - 待處理：需找到可被允許的HTML檔案交付／GitHub寫入路徑，再完成DOM結構、連結、互動靜態QA；視覺瀏覽器驗證依使用者先前指示不執行，須在審核版註明未測試。首頁index.html、雙母版、Manifest、WR及排程均未修改。
+
+
+### 2026-11-09｜Stage G 組裝執行環境修復調查（未結案）
+- 最新確認 WR v5.14 blob SHA：80d49eeaa54e16a18dc34416239e4b46664ba44b；Manifest SHA：fade5e3d88de76a79cb5c1656cc592b98827ab55；調查起始 main HEAD：5a3e9a7bedf3403df4ce5384787a790c8eb87b1d。
+- 已證實 Python 環境可用 BeautifulSoup+lxml；週二至週五正式母版 Library 副本的 Git blob SHA 實算與 Manifest 核准 SHA 一致。DOM 解析、8 個主要 selector 唯一性、週二至週五禁用區塊不存在、無重複 ID 均通過。解析得到 ID 174，與驗收清單記載 175 不一致，待週一同口徑驗證後裁決。
+- 已完成 source-preserving DOM patch 本機概念驗證：DOM selector 定位＋parser-derived source span；7 個目標區塊測試後，目標外原始內容保持不變，重新解析的錨點、style/script/ID 數量不變且無重複 ID。測試僅在本機暫存輸出，未寫入 repo。
+- 本機 Python／container DNS 無法連線 raw.githubusercontent.com；GitHub connector 的檔案回傳尚未直接 materialize 至 Python。Playwright 有套件但沒有 Chromium executable；TinyFish browser run 因帳戶 wallet 餘額不足未啟動，不採用付費補值方案。
+- 週一核准母版 SHA a568e594e55909041d51d8eae7e6fe5f7986c096 尚未進入可 materialize 的 Library，故週一 source-span 測試與正式組裝仍待執行。preview/2026-11-09.html 仍未建立；index.html、雙母版、Manifest、週 JSON 未修改。
+- Work Log 本次調查紀錄 commit：ef29b322983798e7f135cd80632e5300c509c1fe；新 blob SHA：d2db3406f6fa81db620455aaa98d4da878baaeb4。
+- 下一步：取得完全相同 SHA 的週一母版供 Python parser 使用；完成週一／週二至週五兩份母版測試後，再接入正式 main 組裝執行路徑。不可用舊版母版、舊 preview 或 simulation 產物替代。
