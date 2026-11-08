@@ -478,3 +478,14 @@
 - Stage G：05:56:05–05:56:08 TST，3秒；確認 connector 可讀寫，但 V8 無 DOMParser／document，無可用 HTML DOM parser／Playwright evaluate 工具；本機 raw.githubusercontent.com DNS 曾回 Temporary failure in name resolution。依 WR v5.14 禁止字串／regex 定位，故不寫 preview。
 - Stage H：未開始／未測試，無當日 preview 可執行四類 QA；360／390／412／768／1440 視覺、tabs/details／導航互動均未測。preview/2026-11-09.html 仍不存在；index.html、雙母版、Manifest、W46 未修改。W45 僅有 Stage D 的增量更新。
 - 計時實驗今日 A–F 時間：A 05:24:27–05:26:34（2:07）、B 05:27:14–05:29:57（2:43）、C 05:30:55–05:35:10（4:15）、D 05:36:02–05:37:35（1:33）、E 05:37:35–05:42:37（5:02）、F 05:54:54–05:56:05（1:11）；各階段純處理／工具等待無法精確拆分，標不可得。G 為3秒環境能力確認；H 未啟動。
+
+
+## 2026-11-09｜Stage G 組裝執行環境修復調查（未結案）
+- 調查起始 main HEAD：5a3e9a7bedf3403df4ce5384787a790c8eb87b1d；WR v5.14 blob SHA：80d49eeaa54e16a18dc34416239e4b46664ba44b；Manifest SHA：fade5e3d88de76a79cb5c1656cc592b98827ab55。
+- 更正前次 G 階段診斷：functions.exec 的 V8 環境沒有 DOMParser／document，不代表整個執行環境沒有 DOM parser。Python 執行環境實測可用 BeautifulSoup、lxml；Playwright 套件存在，但 Chromium executable 不存在。Python／container 對 raw.githubusercontent.com 的 DNS 查詢失敗；GitHub connector 可讀取 main，但回傳內容未直接掛載至 Python 工作目錄。
+- 取得並 materialize Library 中的週二至週五母版副本，Git blob SHA 實算為 3785405e331b10ec6189002e480be2a1edbe20ef，與 main Manifest 核准 SHA 完全一致。以 BeautifulSoup+lxml 解析實際母版：DOCTYPE、html/head/body 各 1；style 120、script 24；ID 174、重複 ID 0；主要錨點 8 項均唯一；週二至週五禁止的 #last-week-calendar／#last-week-earnings 均不存在。
+- 發現結構驗收清單 v1.3 的週二至週五基準 ID 數記為 175，但對 SHA 完全相同的正式母版以 BeautifulSoup+lxml 與 lxml XPath 均計得 174。此差異尚未裁決，不擅自修改驗收清單；需以相同解析口徑確認週一母版及必要的瀏覽器 DOM 差異後再處理。
+- 建立本機 source-preserving DOM patch proof of concept（/mnt/data/tac-main-dom-assembler.py，未提交 repo）：BeautifulSoup+lxml 先依 CSS selector 定位唯一 DOM 節點；Python HTMLParser 僅用於取得該已定位 ID 節點的原始來源邊界；只序列化目標節點 innerHTML，按反向來源位置套用，保留目標區塊以外原始 HTML bytes。以正式週二至週五母版對 7 個主要區塊做測試性 DOM 註解插入，輸出重新解析後所有 selector 數量不變、style/script/ID 數量不變、無重複 ID，7 個測試註解均正確落位；未將測試輸出寫入 GitHub。來源 parser 記錄一處原始多餘 </a>（offset 192237），不影響已驗證目標區塊範圍。
+- 整份 DOM 重新序列化會改變註解間空白、部分屬性順序及空白行，不適合作為全文件重寫方式；source-preserving patch POC 避免改動目標範圍外內容。
+- 尚未完成：main 週一核准母版（SHA a568e594e55909041d51d8eae7e6fe5f7986c096）目前不在可 materialize 的 Library；雖可由 GitHub connector 讀取，但尚無可用橋接將完整內容交給 Python parser。故週一 DOM parser／source span 驗證尚未執行，亦未建立 preview/2026-11-09.html。沒有修改 index.html、雙母版、Manifest、週 JSON 或任何 preview。
+- 下一步：取得同一 SHA 的週一正式母版至 Python 工作目錄，執行同一套 DOM／source-span 驗證；週一及週二至週五均通過後，才將 source-preserving DOM patch 工具納入 main 正式執行路徑並開始當日 HTML 組裝。不得用舊版母版、舊 preview 或 simulation 資產替代。
