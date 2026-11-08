@@ -1281,3 +1281,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Header 日期更新為 2026/11/09（一），行情基準日 2026/11/06。全檔靜態 DOM 重新解析：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、duplicate IDs 0。這些是靜態結構檢查，不是視覺／互動 QA。
 - 尚未完成：15 則新聞卡及原文 href、W45 上週 4 筆五星經濟／2 筆五星財報卡、W46 本週經濟／財報卡、FactSet S&P 500 盈餘健康度、今日觀察核心區其他文字與全部來源連結回查。母版其餘區塊仍有舊日期／舊內容，局部檔不得作正式審核版。
 - 暫存檔仍為本機工作檔 `/mnt/data/preview-2026-11-09-stageg-panels.html`；未建立／寫入 GitHub `preview/2026-11-09.html`，未修改 `index.html`、雙母版、Manifest、W45／W46 JSON。
+### 2026-11-09｜保護檔案回讀差異校正
+- 本輪先前使用的 index.html SHA e6a6cc404e91852917693b590d4946dee20bcd56 為較早狀態；最新回讀 main `index.html` blob SHA 為 f167d34ec84f813fafe68bea982b751d62c8c717，內容標題已是「TAC 投資早報｜2026/11/09」。
+- GitHub commit history 證實該首頁更新由既有 commit `1dcfc6176b6b45291d5a9abfcf776791e743bfc2`（2026-11-08 22:51:12 UTC，訊息 Publish TAC investment morning report for 2026-11-09）寫入，早於本輪 Stage G 局部組裝；不是本輪操作造成。本輪沒有呼叫 index.html update。
+- `preview/2026-11-09.html` 目前 main contents API 回讀仍為 404；因此首頁已有 11/09 發布內容與本輪本機局部組裝工作檔是兩個不同狀態，不可混稱為同一份審核版。
