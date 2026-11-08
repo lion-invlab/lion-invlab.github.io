@@ -514,3 +514,11 @@
 - 週一：5 個 asset panels + 3 張上週經濟 details cards sequential patch regression 通過；重新解析後 style 124、script 25、ID 183、無重複 ID、主要 selector 唯一性不變。
 - 週二至週五：5 個 asset panels sequential patch regression 通過；重新解析後 style 120、script 24、ID 174、無重複 ID、主要 selector 唯一性不變。
 - 本輪僅 no-op regression，不是實際資料更新；沒有寫入 preview，沒有執行真實瀏覽器／視覺／互動 QA。index.html、雙母版、Manifest、週 JSON均未修改。
+
+## 2026-11-09｜main DOM 組裝執行環境恢復（續作）
+- 從本對話附件重新 materialize 正式週一母版；實算 Git blob SHA a568e594e55909041d51d8eae7e6fe5f7986c096，與 Manifest 相符。週二至週五母版 SHA 3785405e331b10ec6189002e480be2a1edbe20ef 亦與 Manifest 相符。
+- 先前狀態錨點記載的 helper 檔在本輪容器不存在；未聲稱恢復原檔，改依已記錄演算法重建等效本機工具 /mnt/data/tac-main-dom-assembler-v2.py，不提交 repo、不新增 pipeline。
+- 週一測試：DOCTYPE 1、根節點各 1、style 124、script 25、ID 183、無重複 ID；5 個 asset panels + 3 張無 ID 上週經濟卡，局部 patch 測試通過，DOM signatures 不變，測試標記移除後原始 bytes 完全一致。
+- 週二至週五測試：DOCTYPE 1、根節點各 1、style 120、script 24、ID 174、無重複 ID；5 個 asset panels 局部 patch 測試通過，DOM signatures 不變，測試標記移除後原始 bytes 完全一致。
+- 驗收清單 ID 基準 184／175 與實測 183／174 差異持續保留，不補造 ID、不改清單。兩份正式母版、Manifest、index.html 均未修改。
+- 尚未完成：這只是 G 階段執行環境與局部 patch 能力恢復；尚未填入真實 11/09 內容、尚未建立 preview/2026-11-09.html，完整結構／內容／連結／視覺／互動 QA 均未完成。不得稱為早報已交付。
