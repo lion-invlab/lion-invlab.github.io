@@ -531,3 +531,6 @@
 - 更新 header 日期／基準日、Summary 五點、Market Sentiment 三指標及 FedWatch 最新可得快照；FedWatch 明確標示 12/09 會議、Investing.com 11/07 00:35 EST、CME 交叉核對未完成。
 - Summary／情緒數值：VIX 25.64（-9.01%）；MOVE 92.77（-5.26%）；CNN F&G 22.079 Extreme Fear。局部 DOM source-span 更新後仍為 DOCTYPE 1、根節點各 1、style 124、script 25、ID 183、無重複 ID。
 - 尚未完成新聞、W45/W46 行事曆、FactSet 盈餘健康度、今日觀察其餘內容與完整連結回查。局部輸出不是正式審核版，尚未寫入 GitHub preview；首頁及核准母版未修改。
+### 2026-11-09｜首頁 SHA／發布來源差異校正
+- 最新 main `index.html` blob SHA 為 `f167d34ec84f813fafe68bea982b751d62c8c717`，標題已顯示 2026/11/09。GitHub commit `1dcfc6176b6b45291d5a9abfcf776791e743bfc2`（2026-11-08 22:51:12 UTC）已先行發布 11/09 首頁；該提交早於本輪局部組裝，本輪未更新 `index.html`。
+- main `preview/2026-11-09.html` 仍為 404；本輪 `/mnt/data/preview-2026-11-09-stageg-panels.html` 是局部工作檔，與既有首頁發布內容不同，不可混稱為正式審核版。
