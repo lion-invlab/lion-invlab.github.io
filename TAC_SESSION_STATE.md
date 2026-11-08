@@ -1242,3 +1242,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - HTMLParser source-span parser 在原始母版記錄 4 個格式警示：1 個多餘 `</a>` 位於產業／債匯商品區，另 2 個多餘 `</div>` 及 1 個隱含閉合警示位於上週經濟卡區。目標外 source bytes 與 DOM signature 測試均未見變化，但正式組裝仍須將這些區域列入逐卡 DOM 驗證，不能忽略或全頁重新序列化。
 - 本輪已解除「週一母版無法交給 Python」的環境阻塞；尚未完成正式資料槽位更新、完整 11/09 HTML、輸出 QA 或 preview 寫入。沒有修改首頁、雙母版、Manifest、週 JSON或 preview。
 - 下一步：依 A2.2–A2.4 的已核准 selector／巢狀契約，以最小 DOM 節點更新實際資料槽位；重複事件卡必須 clone 原情境卡片節點。對上述 parser 警示區先做更細粒度節點映射及輸出差異檢查，再組裝並寫入 `preview/2026-11-09.html`，回讀後執行 WR 四類 QA。不可把本次註解測試當成正式內容組裝或 QA 通過。
+
+
+### 2026-11-09｜main 組裝執行問題：警示區細粒度 DOM 映射測試
+- 本階段重新讀取 WR v5.14（blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b）、Manifest（fade5e3d88de76a79cb5c1656cc592b98827ab55）、結構驗收清單 v1.3（74a7c90aaaeee497b7b2b134d9569aee615d95c0）、Session State、Work Log；最新 main commit 查詢仍為 478f0a75f139c14c87d8d83a96d33e079d5cc62e。保護檔案回讀 SHA：index.html e6a6cc404e91852917693b590d4946dee20bcd56；週一母版 a568e594e55909041d51d8eae7e6fe5f7986c096；週二至週五母版 3785405e331b10ec6189002e480be2a1edbe20ef；Manifest SHA 不變。
+- 週一產業／債匯商品區細分為 5 個既有唯一 ID 錨點：#tac-assets-panel-0 至 #tac-assets-panel-4。逐一對應來源 spans 後做 5 個局部 DOM 序列化／splice 測試；5 個 panel 的 tag/attribute/child structure signature 均與原 DOM 相同。
+- 週一「上週經濟行事曆」3 張無 ID 的 details.econ-event，以真正 DOM selector 的卡片順序對應獨立 details 開閉標籤來源位置；三張卡均一對一映射。對 5 個 panel + 3 張卡共 8 個目標做測試性內容標記後，8 個目標結構 signature 均保持一致；重新解析後 DOCTYPE、html/head/body、style 124、script 25、ID 183、無重複 ID，所有錨點數量不變；所有目標範圍外原始來源 bytes 完全一致。測試輸出只在本機，未寫入 GitHub。
+- 週一原始來源 4 個 parser 警示中，局部序列化 5 個 panel 後，多餘 </a> 警示消失；上週經濟卡外側的 2 個多餘 </div> 及 1 個隱含閉合警示仍存在，因測試僅修改三張 details 卡內部，未觸及警示標籤。需在輸出驗收中保持其原始外層 source bytes，並以 DOM signature 確認瀏覽器解析結構未變；不得將 warning 數量歸零當成必要目標。
+- 週二至週五母版也有產業／債匯商品區多餘 </a> 警示；5 個 asset panel 均有唯一來源 span。5 panel 局部測試後各自 DOM structure signature 相同，DOCTP/根節點、style 120、script 24、ID 174、無重複 ID及主要 section selector 數量不變；原始 </a> warning 因 panel 內部序列化而消失。週二至週五母版無上週經濟卡區，故不套用週一卡片邏輯。
+- 此結果證明週一及週二至週五的警示區均可採既有母版 DOM 錨點／卡片節點進行細粒度局部更新；不是正式資料更新，也不是完整早報組裝。未執行真實瀏覽器、視覺、互動 QA；未產出 preview/2026-11-09.html；index.html、雙母版、Manifest、週 JSON、preview 均未修改。
+- 下一步：將已驗證的 details 卡片定位與 5 panel 局部更新方式整合到本機單一執行 helper（不新增 repo pipeline／排程／第二套 assembler）；再按已鎖定行情、W45/W46 及新聞成果填入核准母版的真實資料節點，完成 HTML 後做輸出 DOM／差異驗證及四類 QA。ID 基準 184 vs 實測 183 仍待清單基準校正，不臆造 ID。
