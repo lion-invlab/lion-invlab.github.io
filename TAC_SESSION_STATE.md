@@ -1269,3 +1269,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 局部 patch 回歸：週一 5 個 #tac-assets-panel-0..4 加 3 張 #last-week-calendar details.econ-event；週二至週五 5 個 asset panels。兩種情境均完成 no-op round-trip 及測試註解插入／移除；目標 DOM signature 不變，目標外來源 bytes 完全一致，DOCTYPE／根節點／style／script／ID 數量不變，無重複 ID。
 - 本輪只恢復與驗證組裝執行 helper，尚未填入 11/09 真實行情、新聞、分析或行事曆；未建立 preview/2026-11-09.html，未執行完整輸出 QA、真實瀏覽器、360／390／412／768／1440px 視覺或互動測試。helper 為本機工作檔，尚未提交 GitHub。
 - 保護檔案回讀：index.html e6a6cc404e91852917693b590d4946dee20bcd56；週一母版 a568e594e55909041d51d8eae7e6fe5f7986c096；週二至週五母版 3785405e331b10ec6189002e480be2a1edbe20ef；Manifest fade5e3d88de76a79cb5c1656cc592b98827ab55。均未修改；preview/2026-11-09.html 仍不存在。下一步可在已恢復的本機 DOM 環境直接進行資料槽位更新，不再重做 A–F。
+### 2026-11-09｜Stage G 局部正式母版資料組裝（第一批，尚未交付）
+- 已在本機以核准週一母版 SHA a568e594e55909041d51d8eae7e6fe5f7986c096 為輸入，使用 source-preserving DOM helper 更新五個既有 `#tac-assets-panel-0..4` 及三個 `#tac-global-panel-0..2`。輸出暫存檔：`/mnt/data/preview-2026-11-09-stageg-panels.html`；此為局部組裝工作檔，不是正式 `preview/2026-11-09.html`，未上傳 GitHub。
+- 已寫入 11/06 已核實的 10 檔產業 ETF 漲跌幅（依值排序）、2Y／10Y／30Y 美國公債 Par yield、DXY／USD/TWD／EUR/USD／GBP/USD／AUD/USD／USD/JPY、WTI CL Dec26／Brent Jan27、GC／SI Dec26，以及全球美／亞／歐指數面板。XLF、Dow、Russell 2000 保留「待核實」，沒有代理或估值補值。
+- 已寫入 FedWatch Investing.com 24.5% 維持／75.5% 升息的快照、S&P 500 11/06 傳統 Pivot 五價位及 11/06 跨市場觀察文字。FedWatch 快照實際更新時間 11/07 00:35 EST；CME QuikStrike 交叉核對仍未完成。視覺及互動尚未測試。
+- 局部輸出重新以 BeautifulSoup+lxml 解析：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、重複 ID 0；5 個 asset panels、3 個 global-market panels 均唯一；ETF 11 行（10 數值＋XLF 待核實）。局部測試通過不代表全頁結構／內容 QA 通過。
+- 本輪只建立本機局部組裝檔；未更新新聞卡、summary／Market Sentiment 完整卡、W45 上週卡、W46 本週經濟／財報卡、S&P 500 FactSet 盈餘健康度，亦未校正 header 日期及全部來源文字。母版中仍有 10/23 舊來源敘述，禁止把本檔當審核版。沒有修改 index.html、雙母版、Manifest、W45／W46 JSON 或 GitHub preview。下一步需完成上述區塊及來源／連結同步後，才可建立正式 preview。
