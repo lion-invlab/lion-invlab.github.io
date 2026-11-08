@@ -56,7 +56,7 @@
 | 24 | XLU Utilities | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.39% | https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data | 已核實／鎖定 |
 | 25 | XLV Health Care | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.06% | https://hk.investing.com/etfs/spdr---health-care-historical-data | 已核實／鎖定 |
 | 26 | XLB Materials | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.73% | https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data | 已核實／鎖定 |
-| 27 | XLRE Real Estate | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | 第一輪歷史頁 URL 無法開啟；未鎖值 | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 | 待核實：頁面讀取失敗 |
+| 27 | XLRE Real Estate | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.68% | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 | 已核實／鎖定（11/06 歷史頁回讀） |
 | 28 | XLC Communication Services | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | +0.43% | https://hk.investing.com/etfs/communication-services-select-spdr-historical-data | 已核實／鎖定 |
 | 29 | U.S. Treasury 2Y CMT | 11/06；America/New_York 約 15:30；官方 Daily Treasury Par Yield | 4.51%；較前日 +5 bp | https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=202611&type=daily_treasury_yield_curve | 已核實／鎖定 |
 | 30 | U.S. Treasury 10Y CMT | 11/06；America/New_York 約 15:30；官方 Daily Treasury Par Yield | 4.86%；較前日 +2 bp | 同上 | 已核實／鎖定 |
@@ -67,17 +67,30 @@
 | 35 | GBP/USD | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 1.3350；−0.75% | https://www.investing.com/currencies/gbp-usd-historical-data | 已核實／鎖定 |
 | 36 | AUD/USD | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 0.6866；−0.92% | https://www.investing.com/currencies/aud-usd-historical-data | 已核實／鎖定 |
 | 37 | USD/JPY | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 158.48；+0.51% | https://www.investing.com/currencies/usd-jpy-historical-data | 已核實／鎖定 |
-| 38 | WTI | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 90.83；+0.34%，不得作正式採用值 | https://www.investing.com/commodities/crude-oil-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
-| 39 | Brent | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 98.32；+0.03%，不得作正式採用值 | https://www.investing.com/commodities/brent-oil-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
-| 40 | Gold COMEX GC | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 4,074.90；−0.94%，不得作正式採用值 | https://www.investing.com/commodities/gold-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
-| 41 | Silver COMEX SI | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 51.942；−0.83%，不得作正式採用值 | https://www.investing.com/commodities/silver-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
-| 42 | VIX (CBOE Volatility Index) | 11/06；Investing.com 香港站歷史頁；CFD 指數歷史收盤 | 26.55；−5.78% | https://hk.investing.com/indices/volatility-s-p-500-historical-data | 已核實／鎖定（Cboe 官方交叉核對待 C） |
-| 43 | MOVE (ICE BofA MOVE Index) | 11/06；Investing.com 香港站歷史頁；指數歷史收盤 | 第一輪直接開頁表格只呈現至 11/05；未鎖值 | https://hk.investing.com/indices/ice-bofaml-move-historical-data | 待核實：頁面表格未顯示 11/06 |
-| 44 | CNN Fear & Greed | 當前儀表板；CNN 官方頁直接開啟受限，TinyFish 抽取只取得靜態說明、無分數 | 官方當前分數未取得 | https://www.cnn.com/markets/fear-and-greed | 待核實：需依序試 CNN data endpoint，再用明確 CNN Provider Index 備援 |
+| 38 | WTI NYMEX CL Dec26 | 11/06；CME Globex／NYMEX；官方結算價，CME PG61 preliminary；成交量 280,251、未平倉 199,490 | 90.83；+0.31 美元（約 +0.34%） | https://www.cmegroup.com/daily_bulletin/current/Section61_Energy_Futures_Products.pdf | 已核實／鎖定；Dec26 為當日成交量最高活躍月 |
+| 39 | Brent ICE Jan27 (LCOF7) | 11/06；ICE Brent Jan 2027；Reuters front-month settlement；Investing.com Jan27 合約歷史頁量 410.39K | 98.32；+0.03 美元（+0.03%）；Reuters 結算價。Investing.com 同月 CFD 歷史收市 98.06（−0.23%），價差為不同報價口徑，不混用 | https://www.reuters.com/business/energy/oil-set-sharp-weekly-drop-middle-east-supply-concerns-provide-floor-2026-11-06/；https://hk.investing.com/commodities/brent-oil-historical-data | 已核實／鎖定（Reuters 結算價＋Investing.com 合約月份／成交量交叉；差異已註明） |
+| 40 | Gold COMEX GC Dec26 | 11/06；COMEX；官方結算價，CME PG62 preliminary；成交量 176,944、未平倉 256,901 | 4,074.90；−38.60 美元（約 −0.94%） | https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf | 已核實／鎖定；Dec26 當日成交量最高 |
+| 41 | Silver COMEX SI Dec26 | 11/06；COMEX；官方結算價，CME PG62 preliminary；成交量 49,099、未平倉 70,641 | 51.942；−0.434 美元（約 −0.83%） | https://www.cmegroup.com/daily_bulletin/current/Section62_Metals_Futures_Products.pdf | 已核實／鎖定；Dec26 當日成交量最高 |
+| 42 | VIX (CBOE Volatility Index) | 11/06；Cboe spot index；Yahoo Finance 備援資料列示 15:15:01 GMT-6 | 25.64；−2.54（−9.01%）；Investing.com 同名頁明確標為即時 CFD，26.55 不採作現貨指數 | https://es.finance.yahoo.com/quote/%5EVIX/history/；Cboe 官方歷史頁 https://www.cboe.com/tradable_products/vix/vix_historical_data | 已核實／備援鎖定；Yahoo 直接頁 429、Cboe CSV endpoint 無法讀取，值依 Yahoo 資料列，須保留來源限制 |
+| 43 | MOVE (ICE BofA MOVE Index) | 11/06；EODData end-of-day；日收盤 | 92.77；前收 97.92；依兩值計算 −5.26% | https://www.eoddata.com/stockquote/INDEX/MOVE.htm | 已核實／鎖定（Yahoo 429、CNBC 讀取失敗後使用 WR 最後備援 EODData） |
+| 44 | CNN Fear & Greed | 11/06 最新已公布值；CNN official data endpoint；UTC timestamp 2026-11-06T23:59:54Z | 22.079／100；Extreme Fear；前收 19.8775、週前 26.3193、月前 47.0286 | https://production.dataviz.cnn.io/index/fearandgreed/graphdata；儀表板 https://www.cnn.com/markets/fear-and-greed | 已核實／鎖定（官方 endpoint 取得完整資料；週末無 11/09 新交易值） |
 
 - 來源頁批次讀取時間：2026-11-09 05:27:14 至 05:29:57（台灣時間）；逐 URL 秒級時間戳未由工具提供，故不可得。各項來源日期與口徑按上表記錄；未鎖定項不得放入主畫面當作正式值。
-- 本輪完成數：34／44 已核實／鎖定；10／44 待核實。已鎖定項退出後續查核；第二輪僅處理上述 10 項。FedWatch 為獨立項目，不計入 44。
+- Stage B 第一輪：34／44 鎖定、10／44 待核實。Stage C 例外處理後：41／44 已核實／鎖定；3／44 待核實（Dow、Russell 2000、XLF）。已鎖定項不再重抓。FedWatch 為獨立項目，不計入 44。
 - FedWatch（獨立）：Investing.com Dec 09, 2026 meeting，3.75–4.00 區間 24.5%，4.00–4.25 區間 75.5%，頁面更新 Nov 07 2026 12:35 AM EST（台灣時間 11/07 13:35）。頁面最新資料日期早於本次週一截稿，週末利率期貨未開市；標示為最新可得市場快照，不稱為 11/09 即時報價。CME QuikStrike iframe 回傳 access denied（unexpected null referrer），CME 交叉核對未完成。
+
+
+### C 階段｜例外、備援與重試（完成 05:35:10）
+- 開始 05:30:55、完成 05:35:10（Asia/Taipei），牆鐘耗時 4分15秒；含網頁／connector 等待，主動處理與工具等待拆分不可得。重複工作只針對 B 階段 10 個待核實項目；沒有重抓其餘 34 個已鎖定值。
+- XLRE：重試 Investing.com 主頁及歷史頁，成功讀到 11/06 −0.68%。
+- WTI：依 WR 優先查 CME 官方 Daily Bulletin PG61。11/06 preliminary：CL Dec26 結算 90.83（+0.31），成交量 280,251、OI 199,490；Jan27 成交量 165,259，故 Dec26 為當日活躍月。採官方結算，不採連續 CFD。
+- Gold：CME PG62，GC Dec26 結算 4,074.90（−38.60），量 176,944、OI 256,901；高於其他近月。Silver：SI Dec26 結算 51.942（−0.434），量 49,099、OI 70,641；高於 Mar27 13,751。兩者採 CME 官方 preliminary 結算，明確標註初步版。
+- Brent：ICE 官方產品頁、Data tab、Report Center／End-of-day 路徑均無法取到 11/06 settlement table。備援 Investing.com 歷史頁確認 Jan 2027 (LCOF7)，11/06 該月成交量 410.39K；該頁同時標明 CFD，歷史 close 98.06（−0.23%）。Reuters 11/06 原文確認 Brent January futures settlement 98.32（+0.03%）。報告採 Reuters 結算價 98.32，Investing.com 僅佐證合約月份／量，並揭露 CFD 價差；不將 98.06 誤標為 ICE settlement。
+- MOVE：Investing.com 香港頁重開／日期區間查詢仍未呈現 11/06；Yahoo Finance 429、CNBC 讀取失敗，依 WR 最後備援 EODData 直接頁確認 11/06 close 92.77、前收 97.92，算得 −5.26%。
+- CNN：官方儀表板 TinyFish 抽取未顯示分數；進一步讀取 CNN 自有 data endpoint 成功，22.079、Extreme Fear，時間 2026-11-06 23:59:54 UTC；不採用第三方替代。
+- VIX：Investing.com 同名頁清楚標示 CFD，26.55 不可冒充 Cboe spot。Cboe 歷史頁可讀但 CSV 資料檔 endpoint 被拒；Yahoo Finance ^VIX 歷史資料列顯示 11/06 25.64（−9.01%），直接頁 429。以 Yahoo 備援資料暫鎖 25.64，來源限制明示。
+- Dow、Russell 2000、XLF：Investing.com 香港站原始歷史頁、重開／刷新、指定 11/06 日期區間三輪後仍只顯示到 11/05 或讀取失敗；WR 未列可替代備援，故保持待核實，不用搜尋摘要或 ETF 代理值代填。
+- Stage C 結果：41/44 鎖定，3/44 待核實（Dow、Russell、XLF）。FedWatch 仍以 Investing.com 最新頁面快照 24.5%／75.5% 記錄，CME QuikStrike 交叉核對未成功。
 
 ## 1. 目前主線目標
 
