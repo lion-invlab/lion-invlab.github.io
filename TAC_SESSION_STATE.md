@@ -3,7 +3,7 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-06（台灣時間；週一母版經濟卡展開控制修復後）
+- 最後更新：2026-11-09（台灣時間；當日早報 A–F 已完成，G/H 受 DOM parser 環境限制）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
 - 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
@@ -18,7 +18,7 @@
 - Manifest：母版專區/mother-template-manifest.json SHA fade5e3d88de76a79cb5c1656cc592b98827ab55。
 - 核准週一母版：母版專區/TAC_母版_週一_2026-10-28_最終定版.html 實際／核准 SHA 均為 a568e594e55909041d51d8eae7e6fe5f7986c096；沿用結構驗收清單 SHA 綁定契約，不每日重析。靜態基準核對：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184、重複 ID 0；主要錨點及週一專用上週行事曆錨點均各 1。
 - 唯一結構驗收清單：v1.3，母版專區/母版結構驗收清單.md SHA 74a7c90aaaeee497b7b2b134d9569aee615d95c0。
-- 當週資料庫：data/calendar/weeks/2026-W46.json SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22，updated_at 2026-11-09T04:35:59+08:00，WR 5.14，經濟 16、財報 48、audit 30；coverage.economic／earnings 均 incomplete。上週資料庫：data/calendar/weeks/2026-W45.json SHA fef9dff14968709974c16096bede07d2efcf103f，供週一上週精選卡使用。
+- 當週資料庫：data/calendar/weeks/2026-W46.json SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22，updated_at 2026-11-09T04:35:59+08:00，WR 5.14，經濟 16、財報 48、audit 30；coverage.economic／earnings 均 incomplete。上週資料庫：data/calendar/weeks/2026-W45.json 最新 SHA 991d69b1ee963752a284cd0914c09011084a404f（Stage D 05:37:35 增量更新並回讀），供週一上週精選卡使用。
 - 報告日期：2026-11-09（一）；行情預定基準日：2026-11-06（五）各市場最近完整交易日，仍須逐市場以官方日曆及來源日期確認，不得預設所有市場同口徑。
 - 預覽目標：preview/2026-11-09.html；開工時 GitHub contents API 回傳 404，確認目標不存在，可於 QA 通過後建立；不得以舊 preview 代替母版。
 - 保護範圍：index.html、雙母版、Manifest、既有歷史報告及其他非本次日期檔均不修改。依 WR A1-補充，不建立 WR Lock／Issue relay；不使用舊 snapshot、collector、assembler、renderer 作為正式行情來源。
@@ -123,6 +123,44 @@
   9. 美國現貨比特幣 ETF 當週淨流出約 12.817 億美元，其中 IBIT 流出約 12.09 億美元，FBTC 小幅流入；顯示機構資金風險偏好轉弱，但單週流量不等同長期趨勢。Cnyes 11/07 18:05 TST；ref turn722798search12／原文 turn317539view14。
   10. 沙烏地阿美金融區大樓遭攔截胡塞飛彈／無人機殘骸波及，建物受損但無人傷亡，官方稱能源設施未受直接破壞；短期未證實供應中斷，但中東能源設施風險溢價上升。Reuters 11/08 05:24 UTC（13:24 TST），Cnyes 11/08 20:20 TST；ref turn905141news72／turn905141search1。
 - 篩選原則：以上 15 則均在指定新聞時間窗內；5 則焦點與 10 則頭條沒有重複同一篇報導／同一個事件。未選入 11/06 12:00 前舊聞；未將未獲獨立確認的 Anthropic 1.7GW 發電機採購傳聞列入正式頭條。
+
+
+## 2026-11-09｜Stage F 完成：市場總結／情緒／盤面觀察分析
+
+- 開始 05:54:54、完成 05:56:05（Asia/Taipei），牆鐘耗時 1分11秒；含網頁查核、計算與工具等待，純處理時間／工具等待無法精確拆分，標示不可得。
+- 接收確認：B 44 項台帳、C 例外收斂、D W45 回讀 SHA 991d69b1ee963752a284cd0914c09011084a404f、W46 SHA 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22、E 5+10 新聞均可讀；未重抓已鎖定行情與合格新聞。
+- 最新 provenance：main HEAD adba9104c2c1f65cec2d1726164fc3d806e7dfe7（commit 時間 2026-11-09 05:43:32 TST）；WR v5.14 blob 80d49eeaa54e16a18dc34416239e4b46664ba44b；Manifest fade5e3d88de76a79cb5c1656cc592b98827ab55；週一母版 a568e594e55909041d51d8eae7e6fe5f7986c096；結構清單 v1.3 74a7c90aaaeee497b7b2b134d9569aee615d95c0；W45 991d69b1ee963752a284cd0914c09011084a404f；W46 1e77bd6889bb91d40e1a6fafa3b701dd0aaf0e22。母版 SHA／Manifest SHA 相符。
+- 行情交接：44 項中 41 項已核實／鎖定，3 項待核實（Dow、Russell 2000、XLF）；不得用其他非 D3 指定來源補值。11 ETF 中 10 項已核實、XLF 待核實。VIX 25.64（11/06，Yahoo 指定備援；Investing 同名頁 26.55 為 CFD，不採）、MOVE 92.77（11/06，EODData 最後備援）、CNN Fear & Greed 22.079／Extreme Fear（CNN endpoint，資料時間 2026-11-06 23:59:54 UTC）。美債 2Y／10Y／30Y 4.51%／4.86%／5.26%，分別 +5／+2／+1 bp；DXY 102.30 +0.74%；USD/TWD 32.781 −0.91%；EUR/USD 1.1144 −0.67%；GBP/USD 1.3350 −0.75%；AUD/USD 0.6866 −0.92%；USD/JPY 158.48 +0.51%。商品：WTI CL Dec26 90.83（CME preliminary settlement +0.31%）；Brent Jan27 98.32（Reuters settlement +0.03%，Investing CFD 98.06 不混用）；GC Dec26 4,074.90（−38.60）；SI Dec26 51.942（−0.434%）。
+- FedWatch：2026-11-09 約 05:53 TST 直接開啟 Investing.com Fed Rate Monitor；12/09/2026 會議目前頁面顯示 3.75–4.00 為 24.5%、4.00–4.25 為 75.5%，Future Price 95.985；Previous Day 32.7%／67.3%，Previous Week 30.2%／69.8%；頁面最後更新 Nov 07, 2026 12:35AM EST。這是本次開啟時可見的最新快照，不可標成 11/09 即時成交。CME 官方頁 iframe 的 QuikStrike 開啟回傳 access denied／unexpected null referrer，CME 交叉核對未完成。來源：https://www.investing.com/central-banks/fed-rate-monitor；https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool；QuikStrike error ref turn618013view0。
+- D4 關鍵價位已完成：S&P 500 2026-11-06 OHLC（Open 7,377.65／High 7,444.20／Low 7,369.55／Close 7,376.86），直接開啟 ChartExchange 歷史表（America/New_York 16:00 close）。以傳統 Pivot：P=(H+L+C)/3、S1=2P−H、S2=P−(H−L)、R1=2P−L、R2=P+(H−L)，計得第二支撐 7,322.22、第一支撐 7,349.54、中樞 7,396.87、第一壓力 7,424.19、第二壓力 7,471.52。來源：https://chartexchange.com/symbol/index-spx/historical/；直接開頁 ref turn392556view0 lines 14–35。Yahoo 歷史頁本輪回傳 429，未作直接開頁證據。
+- 行事曆接收：W45 共 18 經濟／42 財報／224 audit；週一上週精選僅呈現 4 筆五星經濟（RBA 升息、歐元區 HICP、BoE 升息、美國 NFP）及 2 筆五星財報（AAPL、AMD）。W46 16 經濟／48 財報／30 audit，coverage 仍 incomplete；11/09 09:30 TST 中國 CPI（預估 0.6% y/y、前值 0.9%）及 PPI（預估 6.7% y/y、前值 5.0%）仍為 upcoming；本週後續關注美國 CPI（11/10 21:30 TST，五星）、印度 CPI、英國 Q3 GDP、歐元區 Q3 GDP／就業初值及美國 PPI。今日財報時程含 Barrick、Ferguson、NRG、Constellation Energy、KKR、monday.com；本週五星財報焦點含 Sea、Rocket Lab、CoreWeave、Nebius、Cisco、Applied Materials。
+- 可直接組裝的分析稿：
+  1. **總結（5點）：**
+     - 週五美股出現局部修復，科技與半導體領漲，但標普反彈幅度有限、產業上漲家數不多，資金回補仍集中，不能視為市場廣度已全面回穩。
+     - 亞洲股市普遍下跌，日韓台跌幅尤其深，歐洲主要市場亦收低；美股科技反彈與亞歐續弱並存，跨區域風險傳導尚未完全消化。
+     - 美國就業與薪資強於預期，短端美債殖利率升幅大於長端，利率市場提高對 12 月再升息的定價；Fed 官員仍保留進一步緊縮可能，接下來通膨數據將驗證這條路徑。
+     - 原油週線大幅下跌反映供應預期改善與需求疑慮，但中東能源設施周邊仍有安全風險，不能把油價回落等同地緣風險解除。
+     - 本週中國通膨、美國 CPI／PPI、英國 GDP 與 AI／科技供應鏈財報密集；市場需確認通膨是否黏著，以及科技反彈能否擴散至更多產業。
+  2. **Market Sentiment：** VIX 與 MOVE 在週五回落，顯示急跌後的波動壓力暫時緩和；但 CNN Fear & Greed 仍落在 Extreme Fear，情緒尚未跟上價格反彈。這是波動降溫，不是風險偏好已完成反轉。
+  3. **盤面觀察重點：**
+     - 美股科技領漲但廣度不足：Nasdaq +1.09%、SOX +4.21%、S&P 500 +0.31%；已核實的 10 檔 ETF 中僅 XLK、XLC、XLI 上漲，XLF 待核實。
+     - 亞洲市場全面承壓：Nikkei −5.96%、KOSPI −6.02%、台灣加權 −4.51%，中國、香港、新加坡及澳洲亦收低；歐洲四項主要指數同樣下跌。
+     - 美債曲線短端殖利率升幅最大，2s10s 利差收窄，反映就業數據後短期政策利率預期上修；需觀察後續 CPI 是否延續。
+     - 美元對 EUR、GBP、AUD 及 JPY 偏強；USD/TWD 平台日線呈不同方向，台幣市場不與 G10 貨幣對混為同一結論。
+     - 原油週跌約 13%，黃金與白銀亦回落；能源價格的供需重估與中東供應安全風險仍需分開觀察。
+  4. **關鍵價位（S&P 500，基準日 11/06）：** 第二支撐 7,322.22；第一支撐 7,349.54；中樞 7,396.87；第一壓力 7,424.19；第二壓力 7,471.52。收盤低於中樞，短線先觀察支撐區能否守穩及反彈是否突破第一壓力。
+  5. **今日／本週催化劑：** 今日台灣時間 09:30 中國 CPI／PPI；今晚起陸續公布大型礦業、能源、金融及科技公司財報；11/10 美國 CPI 為本週關鍵宏觀事件，之後接續英國 GDP、印度 CPI、歐元區 GDP 與美國 PPI。
+- 重要限制：Dow、Russell 2000、XLF 仍待核實；CME FedWatch 交叉核對未完成；CNN 讀值為官方 endpoint 最後可用資料時間，不代表 11/09 盤中更新。限制須放在資料來源／審核區，不可寫成總結市場觀點。
+- Stage F 結果：分析稿已完成，可交接 G；未重複 B–E 已核實工作。
+
+### 2026-11-09｜Stage G／H 狀態（阻塞／未測試）
+- G 檢查時間 05:56:05–05:56:08（Asia/Taipei），牆鐘耗時 3 秒；只做執行環境能力確認，未開始 HTML 寫入。
+- GitHub connector 可讀取並具備正式檔案寫入 API；但本機 raw.githubusercontent.com DNS 查詢先前回傳 Temporary failure in name resolution，無法下載母版到可執行 DOM parser 的本機環境。functions.exec V8 實測 DOMParser、document 均 undefined；可用工具中沒有 HTML DOM parser／Playwright evaluate 工具。不得以 regex、字串搜尋／切片或手工重建代替 DOM 定位（WR v5.14）。
+- 因此 G：**未完成／阻塞**，沒有寫入 preview/2026-11-09.html；目標路徑初始 404、目前仍不存在。沒有使用舊 preview 代替母版。
+- H：**未開始／未測試**，因沒有完成的當日 preview 可供四類 QA；資料內容 Gate 尚有 3 項行情待核實及 CME 交叉核對未完成。互動與 360／390／412／768／1440px 視覺回歸均未測試。
+- 保護檔案未修改：index.html、雙母版、Manifest、W46 JSON；W45 僅 Stage D 已授權的實績增量更新。不得發布或把本輪稱為完整審核版。
+- 下一步唯一安全路徑：取得可將 GitHub connector 回讀母版內容交由真正 DOM parser 處理的執行環境後，沿用已鎖定 SHA 綁定契約組裝；未取得前不對 HTML 進行字串替換。五日計時實驗今日 A–F 已有時間證據；G/H 受阻如上，下一工作日從當日最新 SHA 及有證據交接點續跑，不重做 B–E。
+
 
 ## 1. 目前主線目標
 
