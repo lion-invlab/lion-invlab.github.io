@@ -1260,3 +1260,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 週二至週五核准母版整合測試：同一 helper 對 5 個 asset panels patch；輸出 DOCTYPE、根節點、style 120、script 24、ID 174、無重複 ID、主要 selector 數量不變。
 - 兩種星期情境的局部更新 helper 均通過本機回歸。這是 no-op／測試性更新，未寫入任何行情、新聞或行事曆資料；不是 11/09 成品，不代表四類 QA 通過。真實瀏覽器、視覺、互動仍未測試；preview/2026-11-09.html 尚未建立；首頁、雙母版、Manifest、週 JSON未修改。
 - 下一步：開始使用當日 A–F 已有查核成果，將真實資料更新至核准母版的對應 DOM 節點；遇到未核實欄位保留明確狀態，不得補猜。完成後再執行結構／內容／連結／互動／視覺 QA，未通過不得寫入 preview。
+
+## 2026-11-09｜main Stage G DOM 執行環境恢復與 helper 重建（本輪續作）
+- 重新讀取 main 最新 WR v5.14（blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b）、Manifest（fade5e3d88de76a79cb5c1656cc592b98827ab55）、結構驗收清單 v1.3（74a7c90aaaeee497b7b2b134d9569aee615d95c0）、Session State 與 Work Log。main HEAD 以 branch API 回讀為 0c0b86509ea8604df5cc844d9d8ceba8a31e1266。
+- 從本對話原始附件 materialize 週一母版至本機 /mnt/data/TAC_母版_週一_2026-10-28_最終定版.txt，Git blob SHA 實算 a568e594e55909041d51d8eae7e6fe5f7986c096，與 main 正式母版及 Manifest 完全一致；不是 simulation 檔案。週二至週五母版 Library 副本亦實算 SHA 3785405e331b10ec6189002e480be2a1edbe20ef，與 Manifest 一致。
+- 先前狀態錨點記錄的本機 helper /mnt/data/tac-main-dom-assembler-v2.py 在本輪執行環境不存在；未假稱找回原始檔。依已記錄並通過的 source-preserving DOM 定位方法，重建等效本機 helper /mnt/data/tac-main-dom-assembler-v2.py；不提交 repo、不新增正式 pipeline／排程／第二套流程。
+- 實際測試環境：Python 3.13、BeautifulSoup+lxml DOM parser、HTMLParser source-span 定位。週一母版基準：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、重複 ID 0；週二至週五：DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174、重複 ID 0。ID 183／174 與驗收清單記載 184／175 的差異仍保留，不補造 ID、不修改驗收清單。
+- 局部 patch 回歸：週一 5 個 #tac-assets-panel-0..4 加 3 張 #last-week-calendar details.econ-event；週二至週五 5 個 asset panels。兩種情境均完成 no-op round-trip 及測試註解插入／移除；目標 DOM signature 不變，目標外來源 bytes 完全一致，DOCTYPE／根節點／style／script／ID 數量不變，無重複 ID。
+- 本輪只恢復與驗證組裝執行 helper，尚未填入 11/09 真實行情、新聞、分析或行事曆；未建立 preview/2026-11-09.html，未執行完整輸出 QA、真實瀏覽器、360／390／412／768／1440px 視覺或互動測試。helper 為本機工作檔，尚未提交 GitHub。
+- 保護檔案回讀：index.html e6a6cc404e91852917693b590d4946dee20bcd56；週一母版 a568e594e55909041d51d8eae7e6fe5f7986c096；週二至週五母版 3785405e331b10ec6189002e480be2a1edbe20ef；Manifest fade5e3d88de76a79cb5c1656cc592b98827ab55。均未修改；preview/2026-11-09.html 仍不存在。下一步可在已恢復的本機 DOM 環境直接進行資料槽位更新，不再重做 A–F。
