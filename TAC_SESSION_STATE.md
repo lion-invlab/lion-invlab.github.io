@@ -24,6 +24,61 @@
 - 保護範圍：index.html、雙母版、Manifest、既有歷史報告及其他非本次日期檔均不修改。依 WR A1-補充，不建立 WR Lock／Issue relay；不使用舊 snapshot、collector、assembler、renderer 作為正式行情來源。
 - 下一步：B 對核准母版 44 項固定行情做第一輪，逐項記錄來源、日期／時間、口徑、查核時間與狀態；FedWatch 獨立處理。C 僅補第一輪未鎖定項目。D 先核對 W46 04:35 後事件及 W45 上週實績，必要時增量更新同一週 JSON。
 
+
+### B 階段｜44 項固定行情第一輪台帳（2026-11-06 基準）
+查核批次完成時間：2026-11-09 05:29:57 Asia/Taipei；網頁工具未提供每個 URL 的獨立完成秒數，以下為同批查核結果，逐項秒數不可得。除另註外，來源均為 Investing.com 香港站歷史頁；表列值是 2026-11-06 當地最近完整交易日收盤及日變動。紅漲綠跌沿用 TAC 規則。
+
+| # | 標的／識別 | 日期／時區／口徑 | 11/06 值／日變動 | 來源 URL | 第一輪狀態 |
+|---:|---|---|---|---|---|
+| 1 | Dow Jones Industrial Average (DJI) | 11/06；America/New_York；指數歷史收盤 | 頁面第一輪最新可讀表仍停在 11/05；未鎖值 | https://hk.investing.com/indices/us-30-historical-data | 待核實：表格日期未更新 |
+| 2 | S&P 500 (SPX) | 11/06；America/New_York；指數歷史收盤 | 7,376.86；+0.31% | https://hk.investing.com/indices/us-spx-500-historical-data | 已核實／鎖定 |
+| 3 | Nasdaq Composite (IXIC) | 11/06；America/New_York；指數歷史收盤 | 24,579.43；+1.09% | https://hk.investing.com/indices/nasdaq-composite-historical-data | 已核實／鎖定 |
+| 4 | Russell 2000 (RUT) | 11/06；America/New_York；指數歷史收盤 | 頁面第一輪最新可讀表未顯示 11/06；未鎖值 | https://hk.investing.com/indices/smallcap-2000-historical-data | 待核實：表格日期未更新 |
+| 5 | Philadelphia Semiconductor Index (SOX) | 11/06；America/New_York；指數歷史收盤 | 9,390.3；+4.21% | https://hk.investing.com/indices/phlx-semiconductor-historical-data | 已核實／鎖定 |
+| 6 | Nikkei 225 (N225) | 11/06；Asia/Tokyo；指數歷史收盤 | 57,434.77；−5.96% | https://hk.investing.com/indices/japan-ni225-historical-data | 已核實／鎖定 |
+| 7 | KOSPI (KS11) | 11/06；Asia/Seoul；指數歷史收盤 | 5,059.69；−6.02% | https://hk.investing.com/indices/kospi-historical-data | 已核實／鎖定 |
+| 8 | Taiwan Weighted (TWII) | 11/06；Asia/Taipei；指數歷史收盤 | 39,701.64；−4.51% | https://hk.investing.com/indices/taiwan-weighted-historical-data | 已核實／鎖定 |
+| 9 | Singapore STI | 11/06；Asia/Singapore；指數歷史收盤 | 5,179.17；−2.21% | https://hk.investing.com/indices/singapore-straits-time-historical-data | 已核實／鎖定 |
+| 10 | S&P/ASX 200 (AXJO) | 11/06；Australia/Sydney；指數歷史收盤 | 9,020.80；−0.49% | https://hk.investing.com/indices/aus-200-historical-data | 已核實／鎖定 |
+| 11 | Shanghai Composite (SSEC) | 11/06；Asia/Shanghai；指數歷史收盤 | 3,649.18；−1.10% | https://hk.investing.com/indices/shanghai-composite-historical-data | 已核實／鎖定 |
+| 12 | Shenzhen Component (SZI) | 11/06；Asia/Shanghai；指數歷史收盤 | 11,175.78；−2.57% | https://hk.investing.com/indices/szse-component-historical-data | 已核實／鎖定 |
+| 13 | Hang Seng (HSI) | 11/06；Asia/Hong_Kong；指數歷史收盤 | 24,481.86；−1.27% | https://hk.investing.com/indices/hang-sen-40-historical-data | 已核實／鎖定 |
+| 14 | FTSE 100 (UKX) | 11/06；Europe/London；指數歷史收盤 | 10,673.94；−1.01% | https://hk.investing.com/indices/uk-100-historical-data | 已核實／鎖定 |
+| 15 | DAX (GDAXI) | 11/06；Europe/Berlin；指數歷史收盤 | 25,820.36；−1.92% | https://hk.investing.com/indices/germany-30-historical-data | 已核實／鎖定 |
+| 16 | CAC 40 (FCHI) | 11/06；Europe/Paris；指數歷史收盤 | 8,139.00；−0.81% | https://hk.investing.com/indices/france-40-historical-data | 已核實／鎖定 |
+| 17 | STOXX Europe 600 (SXXP) | 11/06；Europe/Brussels；指數歷史收盤 | 648.33；−1.00% | https://hk.investing.com/indices/stoxx-600-historical-data | 已核實／鎖定 |
+| 18 | XLE Energy | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.02% | https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data | 已核實／鎖定 |
+| 19 | XLF Financials | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | 第一輪直接開頁表格停在 11/05；未鎖值 | https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data | 待核實：表格日期未更新 |
+| 20 | XLK Technology | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | +1.45% | https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data | 已核實／鎖定 |
+| 21 | XLI Industrials | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | +0.12% | https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data | 已核實／鎖定 |
+| 22 | XLY Consumer Discretionary | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.05% | https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data | 已核實／鎖定 |
+| 23 | XLP Consumer Staples | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −1.28% | https://hk.investing.com/etfs/spdr---consumer-staples-historical-data | 已核實／鎖定 |
+| 24 | XLU Utilities | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.39% | https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data | 已核實／鎖定 |
+| 25 | XLV Health Care | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.06% | https://hk.investing.com/etfs/spdr---health-care-historical-data | 已核實／鎖定 |
+| 26 | XLB Materials | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | −0.73% | https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data | 已核實／鎖定 |
+| 27 | XLRE Real Estate | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | 第一輪歷史頁 URL 無法開啟；未鎖值 | https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413 | 待核實：頁面讀取失敗 |
+| 28 | XLC Communication Services | 11/06；America/New_York；ETF 歷史收盤漲跌幅 | +0.43% | https://hk.investing.com/etfs/communication-services-select-spdr-historical-data | 已核實／鎖定 |
+| 29 | U.S. Treasury 2Y CMT | 11/06；America/New_York 約 15:30；官方 Daily Treasury Par Yield | 4.51%；較前日 +5 bp | https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=202611&type=daily_treasury_yield_curve | 已核實／鎖定 |
+| 30 | U.S. Treasury 10Y CMT | 11/06；America/New_York 約 15:30；官方 Daily Treasury Par Yield | 4.86%；較前日 +2 bp | 同上 | 已核實／鎖定 |
+| 31 | U.S. Treasury 30Y CMT | 11/06；America/New_York 約 15:30；官方 Daily Treasury Par Yield | 5.26%；較前日 +1 bp | 同上 | 已核實／鎖定 |
+| 32 | DXY cash index | 11/06；Investing.com 平台日線；CFD／指數現貨序列，非 DX 期貨 | 102.30；+0.74% | https://hk.investing.com/indices/usdollar-historical-data | 已核實／鎖定 |
+| 33 | USD/TWD | 11/06；平台日線，頁面未明示日界線時區 | 32.781；−0.91% | https://hk.investing.com/currencies/usd-twd-historical-data | 已核實／鎖定（非央行銀行間官方收盤） |
+| 34 | EUR/USD | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 1.1144；−0.67% | https://www.investing.com/currencies/eur-usd-historical-data | 已核實／鎖定 |
+| 35 | GBP/USD | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 1.3350；−0.75% | https://www.investing.com/currencies/gbp-usd-historical-data | 已核實／鎖定 |
+| 36 | AUD/USD | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 0.6866；−0.92% | https://www.investing.com/currencies/aud-usd-historical-data | 已核實／鎖定 |
+| 37 | USD/JPY | 11/06；Investing.com 平台日線，頁面未明示日界線時區 | 158.48；+0.51% | https://www.investing.com/currencies/usd-jpy-historical-data | 已核實／鎖定 |
+| 38 | WTI | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 90.83；+0.34%，不得作正式採用值 | https://www.investing.com/commodities/crude-oil-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
+| 39 | Brent | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 98.32；+0.03%，不得作正式採用值 | https://www.investing.com/commodities/brent-oil-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
+| 40 | Gold COMEX GC | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 4,074.90；−0.94%，不得作正式採用值 | https://www.investing.com/commodities/gold-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
+| 41 | Silver COMEX SI | 11/06；Investing.com 連續／活躍期貨歷史頁；尚未確認具體交割月及交易所合約量 | 連續序列暫讀 51.942；−0.83%，不得作正式採用值 | https://www.investing.com/commodities/silver-historical-data | 待核實：須確認最近活躍合約／成交量／合約月 |
+| 42 | VIX (CBOE Volatility Index) | 11/06；Investing.com 香港站歷史頁；CFD 指數歷史收盤 | 26.55；−5.78% | https://hk.investing.com/indices/volatility-s-p-500-historical-data | 已核實／鎖定（Cboe 官方交叉核對待 C） |
+| 43 | MOVE (ICE BofA MOVE Index) | 11/06；Investing.com 香港站歷史頁；指數歷史收盤 | 第一輪直接開頁表格只呈現至 11/05；未鎖值 | https://hk.investing.com/indices/ice-bofaml-move-historical-data | 待核實：頁面表格未顯示 11/06 |
+| 44 | CNN Fear & Greed | 當前儀表板；CNN 官方頁直接開啟受限，TinyFish 抽取只取得靜態說明、無分數 | 官方當前分數未取得 | https://www.cnn.com/markets/fear-and-greed | 待核實：需依序試 CNN data endpoint，再用明確 CNN Provider Index 備援 |
+
+- 來源頁批次讀取時間：2026-11-09 05:27:14 至 05:29:57（台灣時間）；逐 URL 秒級時間戳未由工具提供，故不可得。各項來源日期與口徑按上表記錄；未鎖定項不得放入主畫面當作正式值。
+- 本輪完成數：34／44 已核實／鎖定；10／44 待核實。已鎖定項退出後續查核；第二輪僅處理上述 10 項。FedWatch 為獨立項目，不計入 44。
+- FedWatch（獨立）：Investing.com Dec 09, 2026 meeting，3.75–4.00 區間 24.5%，4.00–4.25 區間 75.5%，頁面更新 Nov 07 2026 12:35 AM EST（台灣時間 11/07 13:35）。頁面最新資料日期早於本次週一截稿，週末利率期貨未開市；標示為最新可得市場快照，不稱為 11/09 即時報價。CME QuikStrike iframe 回傳 access denied（unexpected null referrer），CME 交叉核對未完成。
+
 ## 1. 目前主線目標
 
 完成 TAC 投資早報 R3 可重複、可靠的每日審核版產製流程。2026-11-02（週一）早報已完成審核、使用者核准、更新正式首頁並完成 GitHub Pages 部署。接續主線改為修正正式首頁發布觸發鏈，並收斂每日自動產製流程；不得把本次部署成功誤認為所有 QA 項目永久全通過。
