@@ -1232,3 +1232,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 週一核准母版 SHA a568e594e55909041d51d8eae7e6fe5f7986c096 尚未進入可 materialize 的 Library，故週一 source-span 測試與正式組裝仍待執行。preview/2026-11-09.html 仍未建立；index.html、雙母版、Manifest、週 JSON 未修改。
 - Work Log 本次調查紀錄 commit：ef29b322983798e7f135cd80632e5300c509c1fe；新 blob SHA：d2db3406f6fa81db620455aaa98d4da878baaeb4。
 - 下一步：取得完全相同 SHA 的週一母版供 Python parser 使用；完成週一／週二至週五兩份母版測試後，再接入正式 main 組裝執行路徑。不可用舊版母版、舊 preview 或 simulation 產物替代。
+
+
+### 2026-11-09｜週一核准母版 DOM 執行環境驗證（main，修正前次阻塞）
+- 使用者提供正式週一母版檔案；materialize 後以 Git blob object SHA 實算為 `a568e594e55909041d51d8eae7e6fe5f7986c096`，與 main Manifest 及結構驗收清單核准 SHA 完全一致。檔案 383,636 bytes。這不是 simulation 檔案。
+- BeautifulSoup+lxml 真正 DOM parse 結果：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、重複 ID 0。主要 10 個入口 selector（含 `main#overview.wrap`、`#sentiment`、`#news-scan`、`#global-markets`、`#industry-bonds-fx-commodities`、`#calendar`、`#earnings`、`#last-week-calendar`、`#last-week-earnings`、`#view`）均唯一；驗收清單所列總結、Market Sentiment、焦點新聞、熱門頭條、Fed、S&P 500 盈餘健康度及週一卡片展開控制等巢狀 selector 均符合，12 張本週經濟卡、3 張上週經濟卡、16 張本週財報卡、7 張上週財報卡均找到規定控制／節點。
+- 與結構驗收清單 v1.3 基準統計有一項差異：清單記載 ID 184，BeautifulSoup+lxml、lxml XPath 及 Python HTMLParser 對同一核准 SHA 均計得 183，且無重複 ID。此差異已記錄，未修改清單；需在日後核准清單修訂時校正基準，當前不因數量差異臆造第 184 個 ID。
+- source-preserving DOM patch 原型對 9 個非根層主要區塊做測試註解插入（排除作為共同祖先的 `main#overview`，避免父子 patch 重疊）。9 個目標 selector 均唯一，測試註解各正確落位一次；重新 parse 後 ID 183、style 124、script 25 不變、無重複 ID；移除測試註解後，9 個目標區塊 DOM signature 與原始 DOM 完全一致；目標範圍以外原始來源 bytes 完全一致。測試輸出只留在本機，未寫入 GitHub。
+- HTMLParser source-span parser 在原始母版記錄 4 個格式警示：1 個多餘 `</a>` 位於產業／債匯商品區，另 2 個多餘 `</div>` 及 1 個隱含閉合警示位於上週經濟卡區。目標外 source bytes 與 DOM signature 測試均未見變化，但正式組裝仍須將這些區域列入逐卡 DOM 驗證，不能忽略或全頁重新序列化。
+- 本輪已解除「週一母版無法交給 Python」的環境阻塞；尚未完成正式資料槽位更新、完整 11/09 HTML、輸出 QA 或 preview 寫入。沒有修改首頁、雙母版、Manifest、週 JSON或 preview。
+- 下一步：依 A2.2–A2.4 的已核准 selector／巢狀契約，以最小 DOM 節點更新實際資料槽位；重複事件卡必須 clone 原情境卡片節點。對上述 parser 警示區先做更細粒度節點映射及輸出差異檢查，再組裝並寫入 `preview/2026-11-09.html`，回讀後執行 WR 四類 QA。不可把本次註解測試當成正式內容組裝或 QA 通過。
