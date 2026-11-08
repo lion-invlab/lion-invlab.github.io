@@ -1275,3 +1275,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 已寫入 FedWatch Investing.com 24.5% 維持／75.5% 升息的快照、S&P 500 11/06 傳統 Pivot 五價位及 11/06 跨市場觀察文字。FedWatch 快照實際更新時間 11/07 00:35 EST；CME QuikStrike 交叉核對仍未完成。視覺及互動尚未測試。
 - 局部輸出重新以 BeautifulSoup+lxml 解析：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、重複 ID 0；5 個 asset panels、3 個 global-market panels 均唯一；ETF 11 行（10 數值＋XLF 待核實）。局部測試通過不代表全頁結構／內容 QA 通過。
 - 本輪只建立本機局部組裝檔；未更新新聞卡、summary／Market Sentiment 完整卡、W45 上週卡、W46 本週經濟／財報卡、S&P 500 FactSet 盈餘健康度，亦未校正 header 日期及全部來源文字。母版中仍有 10/23 舊來源敘述，禁止把本檔當審核版。沒有修改 index.html、雙母版、Manifest、W45／W46 JSON 或 GitHub preview。下一步需完成上述區塊及來源／連結同步後，才可建立正式 preview。
+### 2026-11-09｜Stage G 第二批：Summary／Market Sentiment／FedWatch 同步
+- 續用本機局部組裝檔 `/mnt/data/preview-2026-11-09-stageg-panels.html`；以 DOM selector 定位核准母版既有 summary card、`#sentiment`、`#fed`，再由 parser-derived source spans 做局部 splice。未重新抓取 B–F 已鎖定資料。
+- Summary 已改為 5 點市場判斷；Market Sentiment 更新 VIX 25.64（-9.01%，Yahoo 指定備援）、MOVE 92.77（-5.26%，EODData 最後備援）、CNN Fear & Greed 22.079（Extreme Fear，CNN 官方 endpoint 2026-11-06 23:59:54 UTC）。FedWatch 卡更新為 Investing.com 12/09/2026 會議 24.5% 維持／75.5% 升息，快照更新時間 11/07 00:35 EST，明示非 11/09 即時且 CME QuikStrike 交叉核對未完成。
+- Header 日期更新為 2026/11/09（一），行情基準日 2026/11/06。全檔靜態 DOM 重新解析：DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183、duplicate IDs 0。這些是靜態結構檢查，不是視覺／互動 QA。
+- 尚未完成：15 則新聞卡及原文 href、W45 上週 4 筆五星經濟／2 筆五星財報卡、W46 本週經濟／財報卡、FactSet S&P 500 盈餘健康度、今日觀察核心區其他文字與全部來源連結回查。母版其餘區塊仍有舊日期／舊內容，局部檔不得作正式審核版。
+- 暫存檔仍為本機工作檔 `/mnt/data/preview-2026-11-09-stageg-panels.html`；未建立／寫入 GitHub `preview/2026-11-09.html`，未修改 `index.html`、雙母版、Manifest、W45／W46 JSON。
