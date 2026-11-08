@@ -527,3 +527,7 @@
 - 寫入已鎖定 11/06 資料：10 檔 ETF 漲跌幅排序，XLF 待核實；美債 2Y/10Y/30Y；六項外匯；WTI CL Dec26、Brent Jan27、GC Dec26、SI Dec26；全球美／亞／歐市場指數。Dow、Russell 2000 待核實，未以代理值補入。
 - 同步更新 FedWatch 24.5%／75.5%（Investing.com 11/07 00:35 EST 快照；CME 交叉核對未完成）及 S&P 500 11/06 五價位。局部輸出 DOM 靜態解析：DOCTYPE 1、根節點各 1、style 124、script 25、ID 183、重複 ID 0；asset panel 5／5、global market panel 3／3 唯一。
 - 仍未完成：新聞卡、summary／Market Sentiment、W45 上週卡、W46 本週行事曆、FactSet 盈餘健康度、header 日期、來源文字全面同步；舊模板殘留文字仍存在。故不可視為完整早報或可審核版；未寫入正式 preview，未改首頁／雙母版／Manifest／週 JSON。視覺與互動未測試。
+### 2026-11-09｜Stage G 第二批內容同步（未交付）
+- 更新 header 日期／基準日、Summary 五點、Market Sentiment 三指標及 FedWatch 最新可得快照；FedWatch 明確標示 12/09 會議、Investing.com 11/07 00:35 EST、CME 交叉核對未完成。
+- Summary／情緒數值：VIX 25.64（-9.01%）；MOVE 92.77（-5.26%）；CNN F&G 22.079 Extreme Fear。局部 DOM source-span 更新後仍為 DOCTYPE 1、根節點各 1、style 124、script 25、ID 183、無重複 ID。
+- 尚未完成新聞、W45/W46 行事曆、FactSet 盈餘健康度、今日觀察其餘內容與完整連結回查。局部輸出不是正式審核版，尚未寫入 GitHub preview；首頁及核准母版未修改。
