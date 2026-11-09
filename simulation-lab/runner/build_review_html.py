@@ -797,8 +797,16 @@ def main():
     et=ep.select_one("details.earnings-accordion"); eg=next((g for g in ep.select(".calendar-status-group") if g.select_one(".earnings-accordion-list")),None)
     if not et or not eg: raise ValueError("earnings calendar template missing")
     ep.clear()
+    def earnings_groupkey(x):
+        # Actual publication status outranks Taiwan-local calendar date.
+        # US after-market releases can fall on the following Taiwan date.
+        status = x.get("status") or x.get("status_in_db")
+        if status in ("released", "published"):
+            return "published"
+        event_day = ((x.get("event_date") or x.get("date") or "")[:10])
+        return "today" if event_day == report_iso else ("upcoming" if event_day > report_iso else "published")
     for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
-        items=[x for x in earnings if groupkey(x)==key]
+        items=[x for x in earnings if earnings_groupkey(x)==key]
         group=BeautifulSoup(str(eg),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
         if heading:
@@ -857,6 +865,23 @@ def main():
             if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
             listing.append(card)
         ep.append(group)
+    # Fail closed if any already-released company is missing from the published accordion
+    # or appears in more than one status group.
+    released_tickers={str(x.get("ticker","")).upper() for x in earnings
+                      if (x.get("status") or x.get("status_in_db")) in ("released","published")}
+    published_group=ep.select_one(".calendar-status-group.published")
+    if published_group is None: raise ValueError("published earnings group missing")
+    published_tickers={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
+                       for n in published_group.select(".earnings-company-sub")}
+    if released_tickers != published_tickers:
+        raise ValueError(f"released earnings classification mismatch: expected {sorted(released_tickers)}, rendered {sorted(published_tickers)}")
+    for status_class in ("today","upcoming"):
+        group_node=ep.select_one(f".calendar-status-group.{status_class}")
+        if group_node:
+            other={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
+                   for n in group_node.select(".earnings-company-sub")}
+            overlap=other & released_tickers
+            if overlap: raise ValueError(f"released earnings duplicated outside published group: {sorted(overlap)}")
     # Monday retrospective: populate dedicated prior-week sections from W45 only.
     if monday:
         last_econ = data.get("last_week_calendar", {})
