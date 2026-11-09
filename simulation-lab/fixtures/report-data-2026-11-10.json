@@ -607,332 +607,337 @@
       }
     ]
   },
-  "earnings": [
-    {
-      "event_date": "2026-11-10T05:30:00+08:00",
-      "company": "Take-Two Interactive",
-      "ticker": "TTWO",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T12:00:00+08:00",
-      "company": "Occidental Petroleum",
-      "ticker": "OXY",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": false
-    },
-    {
-      "event_date": "2026-11-10T23:00:00+08:00",
-      "company": "TransDigm Group",
-      "ticker": "TDG",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-11T06:00:00+08:00",
-      "company": "CoreWeave",
-      "ticker": "CRWV",
-      "session": "after_market",
-      "stars": 5,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-11T12:00:00+08:00",
-      "company": "Petrobras",
-      "ticker": "PBR",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": false
-    },
-    {
-      "event_date": "2026-11-12T05:00:00+08:00",
-      "company": "Corteva",
-      "ticker": "CTVA",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": false
-    },
-    {
-      "event_date": "2026-11-12T20:00:00+08:00",
-      "company": "Brookfield Corporation",
-      "ticker": "BN",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-12T21:00:00+08:00",
-      "company": "Nebius Group",
-      "ticker": "NBIS",
-      "session": "before_market",
-      "stars": 5,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-13T05:30:00+08:00",
-      "company": "Cisco Systems",
-      "ticker": "CSCO",
-      "session": "after_market",
-      "stars": 5,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-13T06:00:00+08:00",
-      "company": "Cerebras Systems",
-      "ticker": "CBRS",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-13T05:30:00+08:00",
-      "company": "Applied Materials",
-      "ticker": "AMAT",
-      "session": "after_market",
-      "stars": 5,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-13T12:00:00+08:00",
-      "company": "Mitsubishi UFJ Financial Group",
-      "ticker": "MUFG",
-      "session": "unknown",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": false
-    },
-    {
-      "event_date": "2026-11-13T12:00:00+08:00",
-      "company": "Mizuho Financial Group",
-      "ticker": "MFG",
-      "session": "unknown",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": false
-    },
-    {
-      "event_date": "2026-11-10T21:00:00+08:00",
-      "company": "HIVE Digital Technologies",
-      "ticker": "HIVE",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "Rocket Lab",
-      "ticker": "RKLB",
-      "session": "after_market",
-      "stars": 5,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "Skydance Corporation",
-      "ticker": "SKYD",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T22:00:00+08:00",
-      "company": "JBS N.V.",
-      "ticker": "JBS",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T21:00:00+08:00",
-      "company": "D-Wave Quantum",
-      "ticker": "QBTS",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T21:30:00+08:00",
-      "company": "Wix.com",
-      "ticker": "WIX",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-11T06:00:00+08:00",
-      "company": "Mercury Systems",
-      "ticker": "MRCY",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T20:30:00+08:00",
-      "company": "Sea Limited",
-      "ticker": "SE",
-      "session": "before_market",
-      "stars": 5,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T12:00:00+08:00",
-      "company": "Vodafone Group",
-      "ticker": "VOD",
-      "session": "unknown",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": false
-    },
-    {
-      "event_date": "2026-11-11T06:00:00+08:00",
-      "company": "Rigetti Computing",
-      "ticker": "RGTI",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T22:00:00+08:00",
-      "company": "Venture Global",
-      "ticker": "VG",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T21:00:00+08:00",
-      "company": "On Holding",
-      "ticker": "ONON",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-11T22:00:00+08:00",
-      "company": "CGI Inc.",
-      "ticker": "GIB",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-12T21:00:00+08:00",
-      "company": "Franco-Nevada",
-      "ticker": "FNV",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "Hims & Hers Health",
-      "ticker": "HIMS",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "The Trade Desk",
-      "ticker": "TTD",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-12T21:00:00+08:00",
-      "company": "Ascendis Pharma",
-      "ticker": "ASND",
-      "session": "before_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "MARA Holdings",
-      "ticker": "MARA",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-12T22:00:00+08:00",
-      "company": "Vylor",
-      "ticker": "VYLR",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "AST SpaceMobile",
-      "ticker": "ASTS",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T05:30:00+08:00",
-      "company": "Onto Innovation",
-      "ticker": "ONTO",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "Sanmina",
-      "ticker": "SANM",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    },
-    {
-      "event_date": "2026-11-10T06:00:00+08:00",
-      "company": "Qualys",
-      "ticker": "QLYS",
-      "session": "after_market",
-      "stars": 4,
-      "status_in_db": "upcoming",
-      "time_known": true
-    }
-  ],
+  "earnings": {
+    "week_id": "2026-W46",
+    "week_start": "2026-11-09",
+    "week_end": "2026-11-15",
+    "events": [
+      {
+        "event_date": "2026-11-10T05:30:00+08:00",
+        "company": "Take-Two Interactive",
+        "ticker": "TTWO",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T12:00:00+08:00",
+        "company": "Occidental Petroleum",
+        "ticker": "OXY",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false
+      },
+      {
+        "event_date": "2026-11-10T23:00:00+08:00",
+        "company": "TransDigm Group",
+        "ticker": "TDG",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "company": "CoreWeave",
+        "ticker": "CRWV",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-11T12:00:00+08:00",
+        "company": "Petrobras",
+        "ticker": "PBR",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false
+      },
+      {
+        "event_date": "2026-11-12T05:00:00+08:00",
+        "company": "Corteva",
+        "ticker": "CTVA",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false
+      },
+      {
+        "event_date": "2026-11-12T20:00:00+08:00",
+        "company": "Brookfield Corporation",
+        "ticker": "BN",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "company": "Nebius Group",
+        "ticker": "NBIS",
+        "session": "before_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-13T05:30:00+08:00",
+        "company": "Cisco Systems",
+        "ticker": "CSCO",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-13T06:00:00+08:00",
+        "company": "Cerebras Systems",
+        "ticker": "CBRS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-13T05:30:00+08:00",
+        "company": "Applied Materials",
+        "ticker": "AMAT",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-13T12:00:00+08:00",
+        "company": "Mitsubishi UFJ Financial Group",
+        "ticker": "MUFG",
+        "session": "unknown",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false
+      },
+      {
+        "event_date": "2026-11-13T12:00:00+08:00",
+        "company": "Mizuho Financial Group",
+        "ticker": "MFG",
+        "session": "unknown",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false
+      },
+      {
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "company": "HIVE Digital Technologies",
+        "ticker": "HIVE",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Rocket Lab",
+        "ticker": "RKLB",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Skydance Corporation",
+        "ticker": "SKYD",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T22:00:00+08:00",
+        "company": "JBS N.V.",
+        "ticker": "JBS",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "company": "D-Wave Quantum",
+        "ticker": "QBTS",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T21:30:00+08:00",
+        "company": "Wix.com",
+        "ticker": "WIX",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "company": "Mercury Systems",
+        "ticker": "MRCY",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T20:30:00+08:00",
+        "company": "Sea Limited",
+        "ticker": "SE",
+        "session": "before_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T12:00:00+08:00",
+        "company": "Vodafone Group",
+        "ticker": "VOD",
+        "session": "unknown",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false
+      },
+      {
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "company": "Rigetti Computing",
+        "ticker": "RGTI",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T22:00:00+08:00",
+        "company": "Venture Global",
+        "ticker": "VG",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "company": "On Holding",
+        "ticker": "ONON",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-11T22:00:00+08:00",
+        "company": "CGI Inc.",
+        "ticker": "GIB",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "company": "Franco-Nevada",
+        "ticker": "FNV",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Hims & Hers Health",
+        "ticker": "HIMS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "The Trade Desk",
+        "ticker": "TTD",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "company": "Ascendis Pharma",
+        "ticker": "ASND",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "MARA Holdings",
+        "ticker": "MARA",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-12T22:00:00+08:00",
+        "company": "Vylor",
+        "ticker": "VYLR",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "AST SpaceMobile",
+        "ticker": "ASTS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T05:30:00+08:00",
+        "company": "Onto Innovation",
+        "ticker": "ONTO",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Sanmina",
+        "ticker": "SANM",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Qualys",
+        "ticker": "QLYS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true
+      }
+    ]
+  },
   "summary_title": "美股反彈未消除全球科技股修正壓力",
   "market_comments": {
     "global_markets": [
