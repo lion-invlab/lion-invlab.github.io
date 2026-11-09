@@ -405,49 +405,49 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "90.81",
-      "change_display": "+0.40%",
+      "display": "86.85",
+      "change_display": "-4.4%",
       "source": {
-        "name": "Investing.com HK",
-        "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+        "name": "WSJ｜WTI front-month futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/oil-falls-amid-hopes-for-easing-mideast-tensions-28ffdb0c",
         "data_date": "2026-11-09",
-        "quote_type": "daily_close",
-        "note": ""
+        "quote_type": "futures_settlement",
+        "note": "11/9 WTI期貨結算價86.85美元/桶，跌4.4%；以WSJ報導的結算口徑呈現，不混用盤中Last或現貨報價。"
       }
     },
     "Brent原油期貨": {
-      "display": "97.03",
-      "change_display": "-0.58%",
+      "display": "92.57",
+      "change_display": "-5.8%",
       "source": {
-        "name": "Investing.com HK",
-        "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
+        "name": "WSJ｜Brent front-month futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/oil-falls-amid-hopes-for-easing-mideast-tensions-28ffdb0c",
         "data_date": "2026-11-09",
-        "quote_type": "daily_close",
-        "note": ""
+        "quote_type": "futures_settlement",
+        "note": "11/9 Brent期貨結算價92.57美元/桶，跌5.8%；以WSJ報導的結算口徑呈現。"
       }
     }
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "4,083.72",
-      "change_display": "+0.49%",
+      "display": "4,114.50",
+      "change_display": "+1.0%",
       "source": {
-        "name": "Investing.com HK",
-        "url": "https://hk.investing.com/commodities/gold-historical-data",
+        "name": "Reuters｜COMEX December gold futures settlement",
+        "url": "https://www.reuters.com/world/india/gold-gains-more-than-1-softer-oil-prices-ease-inflation-worries-2026-11-09/",
         "data_date": "2026-11-09",
-        "quote_type": "daily_close",
-        "note": ""
+        "quote_type": "futures_settlement",
+        "note": "Reuters報導11/9美國12月黃金期貨結算上漲1%至4,114.50美元/盎司；不可與現貨金價或不同供應商GCZ6報價混用。"
       }
     },
     "白銀期貨 SI": {
-      "display": "53.088",
-      "change_display": "+2.78%",
+      "display": "52.564",
+      "change_display": "+1.47%",
       "source": {
-        "name": "Investing.com HK",
-        "url": "https://hk.investing.com/commodities/silver-historical-data",
+        "name": "WSJ｜front-month silver futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-higher-amid-mixed-signals-00565ca1",
         "data_date": "2026-11-09",
-        "quote_type": "daily_close",
-        "note": ""
+        "quote_type": "futures_settlement",
+        "note": "11/9白銀期貨結算52.564美元/盎司，上漲1.47%。"
       }
     }
   },
