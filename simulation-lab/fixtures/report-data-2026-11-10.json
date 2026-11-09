@@ -667,9 +667,9 @@
         "time_known": true,
         "eps_estimate_display": "$1.58（調整後EPS共識）",
         "eps_actual_display": "$1.78（調整後）",
-        "revenue_estimate_display": "$2.69B（市場估計）",
+        "revenue_estimate_display": "$2.59B（24/7 Wall St.列示共識）",
         "revenue_actual_display": "$4.56B",
-        "judgment": "調整後EPS高於共識約12.7%；營收高於市場估計。營收口徑及估計來源需留意。",
+        "judgment": "調整後EPS $1.78，高於$1.58共識約12.7%；營收$4.56B，高於$2.59B市場估計。營收共識不同來源可能存在口徑差異，應以同口徑比較。",
         "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "source_url": "https://media.kkr.com/news-details?news_id=7de02651-80a6-4c76-8c9e-09ca75b83478",
         "source_name": "KKR官方新聞稿；24/7 Wall St.共識"
