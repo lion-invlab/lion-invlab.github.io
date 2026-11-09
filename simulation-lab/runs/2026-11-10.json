@@ -69,12 +69,13 @@
   "data_quality": {
     "indicator_count": 44,
     "current_2026_11_09_count": 42,
-    "pending_or_stale_count": 2,
+    "pending_or_stale_count": 0,
     "breakdown": {
       "global_markets": {
         "checked": 17,
         "current": 16,
-        "pending": 1
+        "pending": 0,
+        "market_holiday": 1
       },
       "sp500_sector_etfs": {
         "checked": 11,
@@ -96,7 +97,8 @@
       "risk": {
         "checked": 3,
         "current": 2,
-        "stale_or_outside_cutoff": 1
+        "supplemental_intraday": 1,
+        "stale_or_outside_cutoff": 0
       }
     },
     "indicators": [
@@ -268,17 +270,17 @@
       {
         "group": "global_markets",
         "name": "新加坡海峽時報指數（STI）",
-        "value": "待核實",
-        "change": "待核實",
-        "data_date": null,
-        "status": "pending",
+        "value": "休市",
+        "change": "—",
+        "data_date": "2026-11-09",
+        "status": "market_holiday",
         "source": {
-          "name": "Investing.com HK",
-          "url": "https://hk.investing.com/indices/singapore-straits-times-index-historical-data",
-          "data_date": null,
-          "notes": "11/9 官方收盤仍未能確認。Investing.com HK 與 Yahoo Finance 歷史資料均停留 11/6；SGX 官方產品頁目前顯示 5,179.17，且前收 5,296.25，與 11/6 歷史列一致，未顯示 11/9 日期；另一非官方頁 11/9 數值的前收／漲跌幅算術不一致，排除。"
+          "name": "Singapore Ministry of Manpower / SGX trading calendar",
+          "url": "https://www.mom.gov.sg/newsroom/press-releases/2025/0616-public-holidays-for-2026",
+          "data_date": "2026-11-09",
+          "notes": "2026 Deepavali falls on Sunday 11/8; Monday 11/9 is the observed public holiday. SGX official trading page states SGX follows Singapore public holiday calendar. No 11/9 cash close exists."
         },
-        "notes": "仍待核實：Investing.com HK 與 Yahoo 歷史頁最新可確認列均停留 11/06；另一搜尋結果 11/09 數字內部前收／漲跌幅算術不一致，排除，不採用。"
+        "notes": "2026/11/09（週一）新加坡屠妖節補假，SGX休市；不應列出11/9收盤價，也不計為行情缺漏。"
       },
       {
         "group": "global_markets",
@@ -733,17 +735,18 @@
       {
         "group": "risk",
         "name": "MOVE",
-        "value": "92.77",
-        "change": "-5.26%",
-        "data_date": "2026-11-06",
-        "status": "stale_last_available",
+        "value": "85.99",
+        "change": "-7.32%",
+        "data_date": "2026-11-10",
+        "status": "supplemental_intraday_observation",
         "source": {
-          "name": "Investing.com HK",
-          "url": "https://hk.investing.com/indices/ice-bofa-merrill-lynch-option-volatility-estimate-historical-data",
-          "data_date": "2026-11-06",
-          "notes": "Investing.com 最新歷史列為 11/6；Yahoo Finance ^MOVE 頁面直接讀取遭 HTTP 429；CNBC .MOVE 頁面無法讀取（restricted URL）；EODData INDEX:MOVE 直接頁面最新 EOD 亦為 11/6，92.77。已依 WR 備援順序查至 EODData，仍無 11/9 值。"
+          "name": "TradingView screenshot provided by user",
+          "url": null,
+          "data_date": "2026-11-10",
+          "observed_at_taipei": "2026-11-10T06:30:00+08:00",
+          "notes": "User-provided mobile screenshot: MOVE 85.99 USD, change -6.79 (-7.32%); chart last label 85.9938; previous close marker 92.7821. This is a 06:30 Taipei-time intraday observation on report date, not the 11/9 close."
         },
-        "notes": "仍無法取得 11/09 收盤；Investing.com 最新可見列為 11/06，92.77（-5.26%）。Yahoo Finance ^MOVE 直接頁面讀取遭 429 限制，故不得當作 11/09 行情。"
+        "notes": "採用使用者提供的TradingView截圖：2026/11/10 06:30（台灣時間）盤中85.99，-6.79（-7.32%）；前收92.7821。此值不是11/9收盤價，須以盤中觀測標示。"
       },
       {
         "group": "risk",
@@ -796,7 +799,7 @@
         "Russell 2000"
       ]
     },
-    "supplemental_refresh_taipei": "2026-11-10T05:55:00+08:00"
+    "supplemental_refresh_taipei": "2026-11-10T06:30:00+08:00"
   },
   "analysis": {
     "summary": "11/9美股強彈，道瓊+2.15%、標普+2.35%、那指+2.74%，半導體與工業類股領漲；但市場情緒仍未完全轉為樂觀。中國10月CPI低於共識、PPI高於共識，呈現消費端偏弱與上游價格回升的分化。美國10月CPI今晚公布，將是短線利率與風險資產的主要催化劑。",
@@ -2265,7 +2268,7 @@
     }
   },
   "qa": {
-    "data_quality": "supplemental refresh: 42/44 current for 2026-11-09; STI pending, MOVE last available 2026-11-06; FedWatch independently refreshed at 2026-11-10 05:55 TST.",
+    "data_quality": "42/44 indicators have 2026-11-09 trading-date closes; STI was officially closed for Deepavali observed holiday on 2026-11-09 (not a missing quote); MOVE replaced with user-provided 2026-11-10 06:30 TST intraday snapshot (85.99, -7.32%), explicitly not represented as 11/9 close. FedWatch supplemental snapshot remains 05:55 TST.",
     "html_assembly": "not_run",
     "dom_structure": "not_run",
     "javascript_syntax": "not_run",
@@ -2289,11 +2292,10 @@
       "build_review_html.py將key_levels items數量硬性要求為5；本次五個現金指數OHLC無法在同一交易日與正式收盤價對齊，必須待核實，不能用CFD或期貨替代。",
       "visual_regression.mjs仍有11/6舊關鍵價位與「週五美股反彈」硬編碼，無法直接用來驗收11/10內容。",
       "W46 calendar DB仍為WR v5.13且更新於11/6，15個經濟事件與42個財報事件的coverage均為incomplete；已發生事件仍標upcoming，且中國CPI/PPI預估值與本輪Reuters共識不同。",
-      "STI 11/9 現貨收盤仍待核實：指定來源未更新，替代頁數值內部不一致。",
-      "MOVE 11/9 收盤仍待核實：Investing.com 最新可見值停留 11/6，Yahoo Finance 頁面遭 429 限制。"
+      "MOVE採用使用者提供的2026-11-10 06:30 TST TradingView盤中截圖；此觀測時間晚於05:25排程截點，報告須明確標示盤中值，不可冒充11/9收盤。"
     ],
     "next_steps": [
-      "行情補查已完成：42/44 項具可用的基準日行情；STI 與 MOVE 保留明確待核實狀態。FedWatch 已補入 05:55 TST 動態快照。",
+      "行情補查狀態更新：42/44 項具 2026-11-09 收盤基準；STI 為新加坡屠妖節補假休市，MOVE 改採 11/10 06:30 TST 使用者截圖盤中值；FedWatch為05:55 TST補查快照。",
       "在simulation-lab/fixtures建立2026-11-10資料快照，將已核實數據、資料日期、來源與待核實項目完整寫入既有assembler輸入格式。",
       "透過既有push-triggered模擬工作流執行weekday母版組裝與QA，並取得該次run的artifact及run id；不可用舊artifact替代。",
       "完成桌機、手機、互動與Pages實際載入驗證後，才寫入preview/2026-11-10-simulation.html並交付預覽連結。"
