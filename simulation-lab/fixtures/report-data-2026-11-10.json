@@ -453,18 +453,19 @@
   },
   "risk": {
     "vix": {
-      "display": "20.18",
-      "change_display": "-21.29%",
+      "display": "19.92",
+      "change_display": "-22.31%",
       "source": {
-        "name": "Investing.com HK",
-        "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+        "name": "Investing.com S&P 500 VIX CFD（使用者提供歷史資料截圖）",
+        "url": "https://www.investing.com/indices/volatility-s-p-500",
         "data_date": "2026-11-09",
-        "quote_type": "daily_close",
-        "note": ""
+        "quote_type": "CFD historical daily price",
+        "observed_at_tw": "2026-11-10 06:47",
+        "note": "依使用者提供截圖：11/9歷史價格19.92；頁首即時CFD報價05:14:46亦為19.92。跌幅-5.72（-22.31%）。此為CFD，不冒充CBOE現貨VIX正式收盤。"
       },
       "as_of_date": "2026-11-09",
       "as_of": "2026-11-09",
-      "band": "-21.29%"
+      "band": "-22.31%"
     },
     "move": {
       "display": "85.99",
@@ -564,6 +565,20 @@
         "time_known": true
       },
       {
+        "date": "2026-11-10T17:00:00+08:00",
+        "region": "美國",
+        "name": "Fed理事Christopher Waller演講｜Economic Outlook",
+        "stars": 5,
+        "status": "upcoming",
+        "previous": "-",
+        "forecast": "-",
+        "actual": null,
+        "impact": "官員對經濟展望及通膨、利率路徑的措辭可能影響市場對12月政策預期。",
+        "source_name": "Federal Reserve November 2026 Calendar",
+        "source_url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "time_known": true
+      },
+      {
         "date": "2026-11-10T21:30:00+08:00",
         "region": "美國",
         "name": "美國10月CPI",
@@ -604,6 +619,34 @@
         "source_name": "來源詳見事件資料",
         "source_url": "W46 calendar DB",
         "time_known": true
+      },
+      {
+        "date": "2026-11-11T04:30:00+08:00",
+        "region": "美國",
+        "name": "Fed副主席Michelle Bowman演講｜Economic Outlook",
+        "stars": 5,
+        "status": "upcoming",
+        "previous": "-",
+        "forecast": "-",
+        "actual": null,
+        "impact": "監理副主席談經濟展望，留意對通膨、就業與金融條件的評估。",
+        "source_name": "Federal Reserve November 2026 Calendar",
+        "source_url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-11T07:30:00+08:00",
+        "region": "美國",
+        "name": "Fed副主席Michelle Bowman演講｜Economic Outlook（線上）",
+        "stars": 4,
+        "status": "upcoming",
+        "previous": "-",
+        "forecast": "-",
+        "actual": null,
+        "impact": "第二場Bowman活動，留意是否提供與前一場不同的政策訊號。",
+        "source_name": "Federal Reserve November 2026 Calendar",
+        "source_url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "time_known": true
       }
     ]
   },
@@ -613,24 +656,80 @@
     "week_end": "2026-11-15",
     "events": [
       {
-        "event_date": "2026-11-10T05:30:00+08:00",
-        "company": "Take-Two Interactive",
-        "ticker": "TTWO",
-        "session": "after_market",
+        "date": "2026-11-09T19:51:00+08:00",
+        "event_date": "2026-11-09T19:51:00+08:00",
+        "company": "KKR",
+        "ticker": "KKR",
+        "session": "before_market",
         "stars": 4,
-        "status_in_db": "upcoming",
+        "status": "released",
+        "status_in_db": "released",
         "time_known": true,
-        "date": "2026-11-10T05:30:00+08:00"
+        "eps_estimate_display": "$1.58（調整後EPS共識）",
+        "eps_actual_display": "$1.78（調整後）",
+        "revenue_estimate_display": "$2.69B（市場估計）",
+        "revenue_actual_display": "$4.56B",
+        "judgment": "調整後EPS高於共識約12.7%；營收高於市場估計。營收口徑及估計來源需留意。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://media.kkr.com/news-details?news_id=7de02651-80a6-4c76-8c9e-09ca75b83478",
+        "source_name": "KKR官方新聞稿；24/7 Wall St.共識"
       },
       {
-        "event_date": "2026-11-10T12:00:00+08:00",
+        "date": "2026-11-09T21:00:00+08:00",
+        "event_date": "2026-11-09T21:00:00+08:00",
+        "company": "NRG Energy",
+        "ticker": "NRG",
+        "session": "before_market",
+        "stars": 4,
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "待核實",
+        "eps_actual_display": "$4.68（調整後EPS；GAAP EPS $2.59）",
+        "revenue_estimate_display": "待核實",
+        "revenue_actual_display": "$9.466B",
+        "judgment": "公司公布Q3調整後EPS $4.68、營收$9.466B；缺乏同口徑市場共識，暫不判定beat/miss。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://www.nrg.com/en/about/newsroom/2026/46136",
+        "source_name": "NRG官方新聞稿"
+      },
+      {
+        "date": "2026-11-10T05:15:00+08:00",
+        "event_date": "2026-11-10T05:15:00+08:00",
         "company": "Occidental Petroleum",
         "ticker": "OXY",
         "session": "after_market",
         "stars": 4,
-        "status_in_db": "upcoming",
-        "time_known": false,
-        "date": "2026-11-10T12:00:00+08:00"
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "$1.47（調整後EPS共識）",
+        "eps_actual_display": "$1.91（調整後EPS）",
+        "revenue_estimate_display": "$6.89B",
+        "revenue_actual_display": "$6.77B",
+        "judgment": "調整後EPS高於共識約29.9%，營收低於共識約1.7%；獲利優於預期但營收略低。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
+        "source_name": "Occidental官方新聞稿；24/7 Wall St.共識"
+      },
+      {
+        "date": "2026-11-10T05:10:00+08:00",
+        "event_date": "2026-11-10T05:10:00+08:00",
+        "company": "Take-Two Interactive",
+        "ticker": "TTWO",
+        "session": "after_market",
+        "stars": 5,
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "-$0.86（GAAP EPS共識）",
+        "eps_actual_display": "-$0.29（GAAP EPS）",
+        "revenue_estimate_display": "$1.58B",
+        "revenue_actual_display": "$1.50B",
+        "judgment": "GAAP EPS虧損小於市場預期；營收低於共識約5.1%，Net Bookings $1.60B、年減18%，呈現盈餘改善但營收及預訂額承壓。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://taketwointeractivesoftwareinc.gcs-web.com/news-releases/news-release-details/take-two-interactive-software-inc-reports-results-fiscal-4/",
+        "source_name": "Take-Two官方新聞稿；GuruFocus共識"
       },
       {
         "event_date": "2026-11-10T23:00:00+08:00",
