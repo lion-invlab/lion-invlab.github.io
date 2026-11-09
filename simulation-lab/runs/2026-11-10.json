@@ -68,7 +68,7 @@
   },
   "data_quality": {
     "indicator_count": 44,
-    "current_2026_11_09_count": 42,
+    "current_2026_11_09_count": 43,
     "pending_or_stale_count": 0,
     "breakdown": {
       "global_markets": {
@@ -96,8 +96,8 @@
       },
       "risk": {
         "checked": 3,
-        "current": 2,
-        "supplemental_intraday": 1,
+        "current": 3,
+        "supplemental_intraday": 0,
         "stale_or_outside_cutoff": 0
       }
     },
@@ -280,7 +280,7 @@
           "data_date": "2026-11-09",
           "notes": "2026 Deepavali falls on Sunday 11/8; Monday 11/9 is the observed public holiday. SGX official trading page states SGX follows Singapore public holiday calendar. No 11/9 cash close exists."
         },
-        "notes": "2026/11/09（週一）新加坡屠妖節補假，SGX休市；不應列出11/9收盤價，也不計為行情缺漏。"
+        "notes": "休市｜印度教排燈節（Deepavali）補假。2026/11/08 排燈節適逢星期日，11/09（星期一）為補假，SGX休市。"
       },
       {
         "group": "global_markets",
@@ -737,16 +737,16 @@
         "name": "MOVE",
         "value": "85.99",
         "change": "-7.32%",
-        "data_date": "2026-11-10",
-        "status": "supplemental_intraday_observation",
+        "data_date": "2026-11-09",
+        "status": "verified",
         "source": {
           "name": "TradingView screenshot provided by user",
           "url": null,
-          "data_date": "2026-11-10",
+          "data_date": "2026-11-09",
           "observed_at_taipei": "2026-11-10T06:30:00+08:00",
-          "notes": "User-provided mobile screenshot: MOVE 85.99 USD, change -6.79 (-7.32%); chart last label 85.9938; previous close marker 92.7821. This is a 06:30 Taipei-time intraday observation on report date, not the 11/9 close."
+          "notes": "User confirms the 06:30 Taipei-time screenshot shows the completed U.S. trading session close for 2026-11-09: MOVE 85.99 USD, down 6.79 (-7.32%); previous close 92.7821. Chart last label 85.9938. Treat as 11/9 closing value, not intraday."
         },
-        "notes": "採用使用者提供的TradingView截圖：2026/11/10 06:30（台灣時間）盤中85.99，-6.79（-7.32%）；前收92.7821。此值不是11/9收盤價，須以盤中觀測標示。"
+        "notes": "2026/11/09 收盤：85.99，跌6.79（-7.32%）。依使用者確認，TradingView截圖於2026/11/10 06:30（台灣時間）顯示已完成的美國交易日收盤值；前收92.7821。"
       },
       {
         "group": "risk",
@@ -2268,7 +2268,7 @@
     }
   },
   "qa": {
-    "data_quality": "42/44 indicators have 2026-11-09 trading-date closes; STI was officially closed for Deepavali observed holiday on 2026-11-09 (not a missing quote); MOVE replaced with user-provided 2026-11-10 06:30 TST intraday snapshot (85.99, -7.32%), explicitly not represented as 11/9 close. FedWatch supplemental snapshot remains 05:55 TST.",
+    "data_quality": "43/44 indicators have verified 2026-11-09 closing values; STI was closed on 2026-11-09 for the observed Deepavali holiday; MOVE 85.99 (-7.32%) is confirmed by the user as the completed 2026-11-09 U.S. session close, observed in the screenshot at 2026-11-10 06:30 TST. FedWatch remains a 05:55 TST supplemental snapshot.",
     "html_assembly": "not_run",
     "dom_structure": "not_run",
     "javascript_syntax": "not_run",
@@ -2292,7 +2292,8 @@
       "build_review_html.py將key_levels items數量硬性要求為5；本次五個現金指數OHLC無法在同一交易日與正式收盤價對齊，必須待核實，不能用CFD或期貨替代。",
       "visual_regression.mjs仍有11/6舊關鍵價位與「週五美股反彈」硬編碼，無法直接用來驗收11/10內容。",
       "W46 calendar DB仍為WR v5.13且更新於11/6，15個經濟事件與42個財報事件的coverage均為incomplete；已發生事件仍標upcoming，且中國CPI/PPI預估值與本輪Reuters共識不同。",
-      "MOVE採用使用者提供的2026-11-10 06:30 TST TradingView盤中截圖；此觀測時間晚於05:25排程截點，報告須明確標示盤中值，不可冒充11/9收盤。"
+      "新加坡STI於2026/11/09因印度教排燈節補假休市，須在早報直接標示「休市｜印度教排燈節」，不可列為行情缺漏。",
+      "MOVE 85.99（-7.32%）依使用者確認為2026/11/09美國交易日收盤值；截圖觀測時間為2026/11/10 06:30台灣時間。"
     ],
     "next_steps": [
       "行情補查狀態更新：42/44 項具 2026-11-09 收盤基準；STI 為新加坡屠妖節補假休市，MOVE 改採 11/10 06:30 TST 使用者截圖盤中值；FedWatch為05:55 TST補查快照。",
