@@ -1,0 +1,1098 @@
+{
+  "schema_version": "1.0",
+  "run_date": "2026-11-10",
+  "run_started_at_taipei": "2026-11-10T05:51:07+08:00",
+  "scheduled_report_cutoff_taipei": "2026-11-10T05:25:00+08:00",
+  "report_date": "2026-11-10",
+  "trading_date": "2026-11-09",
+  "report_type": "Tuesday-Friday mother",
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "status": "partial_research_only_not_assembled",
+  "rules_and_baseline": {
+    "main_wr": {
+      "version": "v5.14",
+      "blob_sha": "80d49eeaa54e16a18dc34416239e4b46664ba44b"
+    },
+    "simulation_rules": {
+      "path": "simulation-lab/TAC_WORK_RULES_SIM.md",
+      "blob_sha": "94862e44dd4b6f5eadcb8a277af98c4bb1374bbf"
+    },
+    "official_weekday_mother": {
+      "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
+      "blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef"
+    },
+    "frozen_weekday_mother": {
+      "path": "simulation-lab/baseline/weekday-mother-template.html",
+      "blob_sha": "6fe79308eca71db5dd54308fd35efe3900451081"
+    },
+    "live_manifest": {
+      "path": "母版專區/mother-template-manifest.json",
+      "blob_sha": "fade5e3d88de76a79cb5c1656cc592b98827ab55"
+    },
+    "frozen_manifest": {
+      "path": "simulation-lab/baseline/mother-template-manifest.json",
+      "blob_sha": "3a79432e6c96762c2ad6cce4e64cc07e294ac9cb"
+    },
+    "qa_contract": {
+      "path": "母版專區/母版結構驗收清單.md",
+      "blob_sha": "74a7c90aaaeee497b7b2b134d9569aee615d95c0"
+    },
+    "existing_assembler": {
+      "path": "simulation-lab/runner/build_review_html.py",
+      "blob_sha": "4ea226840e432b7e62b6d9e632047d49b6f1d1ef"
+    },
+    "key_levels_builder": {
+      "path": "simulation-lab/runner/key_levels_builder.py",
+      "blob_sha": "ede9c255593b6836cf9abd297d4288e8d30143be"
+    },
+    "visual_regression": {
+      "path": "simulation-lab/runner/visual_regression.mjs",
+      "blob_sha": "89c07780b7d1932a8b58d0870c674362d501bcd7"
+    },
+    "workflow": {
+      "path": ".github/workflows/tac-simulation-lab.yml",
+      "blob_sha": "6b8da18ad79f83a301236aabd88b6db1777850d1"
+    },
+    "calendar_db": {
+      "path": "data/calendar/weeks/2026-W46.json",
+      "blob_sha": "02859c30c57b2d697e30da55430ff7ccddde6b88",
+      "updated_at": "2026-11-06T19:10:00+08:00",
+      "wr_version": "5.13",
+      "economic_events": 15,
+      "earnings_events": 42,
+      "coverage": {
+        "economic": "incomplete",
+        "earnings": "incomplete"
+      }
+    }
+  },
+  "data_quality": {
+    "indicator_count": 44,
+    "current_2026_11_09_count": 37,
+    "pending_or_stale_count": 7,
+    "breakdown": {
+      "global_markets": {
+        "checked": 17,
+        "current": 16,
+        "pending": 1
+      },
+      "sp500_sector_etfs": {
+        "checked": 11,
+        "current": 7,
+        "pending": 4
+      },
+      "bonds": {
+        "checked": 3,
+        "current": 3
+      },
+      "fx": {
+        "checked": 6,
+        "current": 6
+      },
+      "commodities": {
+        "checked": 4,
+        "current": 4
+      },
+      "risk": {
+        "checked": 3,
+        "current": 1,
+        "stale_or_outside_cutoff": 2
+      }
+    },
+    "indicators": [
+      {
+        "group": "global_markets",
+        "name": "道瓊工業指數",
+        "value": "52,389.75",
+        "change": "+2.15%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+          "data_date": "2026-11-09",
+          "notes": "Reuters cash close; Investing.com HK cross-check was 52,367.45 (+2.11%), 22.3 points lower."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "S&P 500",
+        "value": "7,549.94",
+        "change": "+2.35%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+          "data_date": "2026-11-09",
+          "notes": "Cash index close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "Nasdaq Composite",
+        "value": "25,253.14",
+        "change": "+2.74%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+          "data_date": "2026-11-09",
+          "notes": "Cash index close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "Russell 2000",
+        "value": "2,840.81",
+        "change": "+3.10%",
+        "data_date": "2026-11-09",
+        "status": "verified_source_link_pending",
+        "source": {
+          "name": "AP News",
+          "url": null,
+          "data_date": "2026-11-09",
+          "notes": "Value located in AP market wrap; direct article URL not captured in this run."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "費城半導體指數（SOX）",
+        "value": "10,024.40",
+        "change": "+6.75%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Reuters cross-check reported +6.9%."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "日經225",
+        "value": "58,775.50",
+        "change": "+2.33%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Yahoo Finance",
+          "url": "https://finance.yahoo.com/quote/%5EN225/history/",
+          "data_date": "2026-11-09",
+          "notes": "Historical close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "韓國綜合指數（KOSPI）",
+        "value": "5,018.85",
+        "change": "-0.81%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/kospi-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "台灣加權指數",
+        "value": "41,661.70",
+        "change": "+4.94%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "香港恆生指數",
+        "value": "24,448.95",
+        "change": "-0.13%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "上海綜合指數",
+        "value": "3,660.79",
+        "change": "+0.32%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "深圳成分指數",
+        "value": "11,145.49",
+        "change": "-0.27%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/shenzhen-component-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "新加坡海峽時報指數（STI）",
+        "value": "待核實",
+        "change": "待核實",
+        "data_date": null,
+        "status": "pending",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/singapore-straits-times-index-historical-data",
+          "data_date": null,
+          "notes": "11/9 historical row not available; last visible row was 11/6. No substitute used."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "澳洲 S&P/ASX 200",
+        "value": "9,029.70",
+        "change": "+0.10%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/australia-200-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "英國 FTSE 100",
+        "value": "10,782.87",
+        "change": "+1.02%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Financial Times",
+          "url": "https://markets.ft.com/data/indices/tearsheet/historical?s=FTSE:FSI",
+          "data_date": "2026-11-09",
+          "notes": "Cash index close, 16:35 GMT."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "德國 DAX",
+        "value": "26,282.55",
+        "change": "+1.79%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/germany-30-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "法國 CAC 40",
+        "value": "8,196.21",
+        "change": "+0.70%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/france-40-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash index historical row."
+        },
+        "notes": ""
+      },
+      {
+        "group": "global_markets",
+        "name": "STOXX Europe 600",
+        "value": "656.52",
+        "change": "+1.26%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Reuters",
+          "url": "https://www.reuters.com/markets/europe/europe-shares-tread-water-investors-weigh-ai-trade-banks-focus-2026-11-09/",
+          "data_date": "2026-11-09",
+          "notes": "Cash index close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLI｜工業類股",
+        "value": "4.17%",
+        "change": "+4.17%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLK｜科技類股",
+        "value": "2.76%",
+        "change": "+2.76%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLB｜原物料類股",
+        "value": "2.06%",
+        "change": "+2.06%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLV｜醫療保健類股",
+        "value": "2.04%",
+        "change": "+2.04%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLF｜金融類股",
+        "value": "1.41%",
+        "change": "+1.41%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLE｜能源類股",
+        "value": "0.31%",
+        "change": "+0.31%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLP｜民生必需品類股",
+        "value": "0.28%",
+        "change": "+0.28%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 ETF percentage change only."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLC｜通訊服務類股",
+        "value": "待核實",
+        "change": "待核實",
+        "data_date": null,
+        "status": "pending",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
+          "data_date": null,
+          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLRE｜房地產類股",
+        "value": "待核實",
+        "change": "待核實",
+        "data_date": null,
+        "status": "pending",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data?cid=1231545",
+          "data_date": null,
+          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLU｜公用事業類股",
+        "value": "待核實",
+        "change": "待核實",
+        "data_date": null,
+        "status": "pending",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+          "data_date": null,
+          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+        },
+        "notes": ""
+      },
+      {
+        "group": "sp500_sectors",
+        "name": "XLY｜非必需消費類股",
+        "value": "待核實",
+        "change": "待核實",
+        "data_date": null,
+        "status": "pending",
+        "source": {
+          "name": "Investing.com HK ETF historical data",
+          "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+          "data_date": null,
+          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+        },
+        "notes": ""
+      },
+      {
+        "group": "bonds",
+        "name": "美國2年期公債殖利率",
+        "value": "4.568%",
+        "change": "+4.6 bp",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Daily yield change calculated from 4.522% prior close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "bonds",
+        "name": "美國10年期公債殖利率",
+        "value": "4.862%",
+        "change": "+0.3 bp",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Daily yield change calculated from 4.859% prior close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "bonds",
+        "name": "美國30年期公債殖利率",
+        "value": "5.266%",
+        "change": "+0.6 bp",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Daily yield change calculated from 5.260% prior close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "fx",
+        "name": "美元指數 DXY",
+        "value": "101.81",
+        "change": "-0.40%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/us-dollar-index-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Cash dollar index, not dollar-index futures."
+        },
+        "notes": ""
+      },
+      {
+        "group": "fx",
+        "name": "USD/TWD",
+        "value": "32.850",
+        "change": "+0.23%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Historical close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "fx",
+        "name": "EUR/USD",
+        "value": "1.1193",
+        "change": "+0.41%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Historical close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "fx",
+        "name": "GBP/USD",
+        "value": "1.3375",
+        "change": "+0.11%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Historical close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "fx",
+        "name": "AUD/USD",
+        "value": "0.6919",
+        "change": "+0.73%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Historical close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "fx",
+        "name": "USD/JPY",
+        "value": "157.92",
+        "change": "-0.24%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Historical close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "commodities",
+        "name": "WTI 原油（2026年12月）",
+        "value": "90.81",
+        "change": "+0.40%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "December 2026 contract; do not mix with Reuters front-month quote."
+        },
+        "notes": ""
+      },
+      {
+        "group": "commodities",
+        "name": "Brent 原油（2027年1月）",
+        "value": "97.03",
+        "change": "-0.58%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "January 2027 contract; do not mix with Reuters front-month quote."
+        },
+        "notes": ""
+      },
+      {
+        "group": "commodities",
+        "name": "黃金（2026年12月）",
+        "value": "4,083.72",
+        "change": "+0.49%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/commodities/gold-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "December 2026 contract."
+        },
+        "notes": ""
+      },
+      {
+        "group": "commodities",
+        "name": "白銀（2026年12月）",
+        "value": "53.088",
+        "change": "+2.78%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/commodities/silver-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "December 2026 contract."
+        },
+        "notes": ""
+      },
+      {
+        "group": "risk",
+        "name": "VIX",
+        "value": "20.18",
+        "change": "-21.29%",
+        "data_date": "2026-11-09",
+        "status": "verified",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "11/9 close."
+        },
+        "notes": ""
+      },
+      {
+        "group": "risk",
+        "name": "MOVE",
+        "value": "92.77",
+        "change": "-5.26%",
+        "data_date": "2026-11-06",
+        "status": "stale_last_available",
+        "source": {
+          "name": "Investing.com HK",
+          "url": "https://hk.investing.com/indices/ice-bofa-merrill-lynch-option-volatility-estimate-historical-data",
+          "data_date": "2026-11-06",
+          "notes": "11/9 row not available; latest visible close 11/6."
+        },
+        "notes": ""
+      },
+      {
+        "group": "risk",
+        "name": "CNN Fear & Greed",
+        "value": "31.71",
+        "change": "Fear",
+        "data_date": "2026-11-09",
+        "status": "outside_report_cutoff",
+        "source": {
+          "name": "CNN Business official graphdata",
+          "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2026-11-09",
+          "data_date": "2026-11-09",
+          "notes": "Official API timestamp 21:38 UTC = 05:38 TST on 11/10, 13 minutes after the scheduled 05:25 report cutoff; do not include in 05:25 snapshot."
+        },
+        "notes": ""
+      }
+    ],
+    "fedwatch": {
+      "status": "pending_direct_snapshot",
+      "target_meeting": "2026-12-08/09",
+      "secondary_context": "Reuters reported CME FedWatch odds above 80% for a 25bp hike; no exact official Investing.com/CME snapshot captured in this run.",
+      "primary_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
+      "crosscheck_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+    },
+    "key_levels": {
+      "status": "pending",
+      "reason": "Five cash-index OHLC values could not be reconciled to the same 2026-11-09 official closes. Yahoo pages showed intraday/stale values that did not match Reuters/Investing close. No CFD/futures substitution permitted.",
+      "required_indices": [
+        "Dow Jones",
+        "S&P 500",
+        "Nasdaq Composite",
+        "SOX",
+        "Russell 2000"
+      ]
+    }
+  },
+  "analysis": {
+    "summary": "11/9美股強彈，道瓊+2.15%、標普+2.35%、那指+2.74%，半導體與工業類股領漲；但市場情緒仍未完全轉為樂觀。中國10月CPI低於共識、PPI高於共識，呈現消費端偏弱與上游價格回升的分化。美國10月CPI今晚公布，將是短線利率與風險資產的主要催化劑。",
+    "market_sentiment": "VIX收20.18、單日下跌21.29%；MOVE最新可得值92.77（11/6）；CNN Fear & Greed 31.71（Fear）於11/10 05:38才更新，晚於05:25排程截點，因此不得放入05:25快照；FedWatch官方機率未取得。結論：風險偏好顯著修復，但尚不能定義為全面risk-on。",
+    "market_observation_highlights": [
+      "美股反彈廣泛：Reuters報導11個S&P產業指數全數收高，SOX Reuters口徑+6.9%，Investing.com HK口徑+6.75%；Nvidia仍跌4.2%，AI交易內部分化。",
+      "中國10月CPI年增0.7%低於0.8%共識，核心CPI 0.8%；PPI年增5.7%高於5.3%共識，內需與上游價格訊號分歧。",
+      "美國3年期公債標售需求偏弱：得標殖利率4.627%、BTC 2.53x、間接投標55.5%；官方Treasury PDF仍待直接回讀。",
+      "今晚21:30台灣時間公布美國10月CPI；月增率預期0.3%、核心月增率0.2%，年增率是否發布需以BLS公告確認。"
+    ],
+    "news_window_taipei": "2026-11-09 12:00 至 2026-11-10 05:25",
+    "global_focus_news": [
+      {
+        "title": "中國10月CPI年增0.7%、PPI年增5.7%，消費與上游價格走勢分化",
+        "published_at_taipei": "2026-11-09 10:00",
+        "source": "鉅亨網",
+        "url": "https://news.cnyes.com/news/id/6652843",
+        "summary": "CPI低於Reuters調查的0.8%共識，核心CPI降至0.8%；PPI則高於5.3%共識，反映內需價格偏弱、上游成本壓力回升。",
+        "impact": "對中國需求復甦偏審慎，但上游通膨可能支撐原物料價格。"
+      },
+      {
+        "title": "市場提高12月Fed升息定價，投資人聚焦本週美國通膨數據",
+        "published_at_taipei": "2026-11-09 12:33",
+        "source": "Investing.com",
+        "url": "https://hk.investing.com/news/forex-news/article-1746490",
+        "summary": "Investing.com報導市場對12月升息的定價明顯升高；Reuters亦引述CME FedWatch機率高於80%，但本輪未取得官方動態機率快照。",
+        "impact": "利率預期仍偏鷹，短端殖利率與美元對CPI結果敏感。"
+      },
+      {
+        "title": "美國10月CPI發布口徑可能受資料缺口影響，月增率成為觀察焦點",
+        "published_at_taipei": "2026-11-09 17:36",
+        "source": "Investing.com",
+        "url": "https://hk.investing.com/news/stock-market-news/article-1747008",
+        "summary": "Investing.com指出年增率資料可能因前期價格資料缺口而無法完整發布；本項仍須以BLS正式公告確認。",
+        "impact": "若年增率缺席，市場將更聚焦整體與核心CPI月增率及分項。"
+      },
+      {
+        "title": "川普淡化再度攻擊伊朗的可能性，油價回落並緩解通膨憂慮",
+        "published_at_taipei": "2026-11-10 02:59",
+        "source": "Investing.com",
+        "url": "https://hk.investing.com/news/commodities-news/article-1748240",
+        "summary": "市場解讀中東局勢升溫機率下降，前月原油價格回落；但報價區塊採用WTI 2026/12與Brent 2027/01合約，不能混用前月跌幅。",
+        "impact": "短線降低能源通膨壓力，但地緣政治風險仍需追蹤。"
+      },
+      {
+        "title": "中國提出資本市場穩定與基礎設施網路建設措施",
+        "published_at_taipei": "2026-11-09 08:31",
+        "source": "Investing.com",
+        "url": "https://hk.investing.com/news/stock-market-news/article-1746240",
+        "summary": "政策訊號聚焦資本市場穩定機制與基礎設施投資，為市場提供政策面支撐。",
+        "impact": "有助穩定風險偏好，但實際效果仍取決於資金與項目落地。"
+      }
+    ],
+    "market_hot_headlines": [
+      {
+        "title": "Barrick Q3：調整後EPS 0.82美元，營收50.7億美元",
+        "source": "Investing.com",
+        "url": "https://uk.investing.com/news/earnings/barrick-mining-beats-on-q3-profit-reaffirms-2026-output-4967691",
+        "summary": "EPS高於0.79美元共識；營收低於5.13億美元以外的市場估值基準（實際為50.7億美元、共識51.3億美元），股價盤中約上漲0.8%。"
+      },
+      {
+        "title": "Ferguson Q3：調整後EPS 3.43美元、營收90.3億美元，股價大漲",
+        "source": "Investing.com",
+        "url": "https://uk.investing.com/news/earnings/ferguson-soars-on-earnings-beat-raised-guidance-4969096",
+        "summary": "調整後EPS高於2.46美元共識，營收高於82.2億美元共識；股價盤中上漲約12%。日曆資料庫原估值口徑不同，需同步修正。"
+      },
+      {
+        "title": "NRG Q3：調整後EPS 4.68美元、營收約95億美元",
+        "source": "Investing.com",
+        "url": "https://uk.investing.com/news/earnings/nrg-earnings-beat-by-152-revenue-topped-estimates-4967874",
+        "summary": "EPS高於3.16美元共識，營收高於93.3億美元共識；11/9股價收高約9.61%。"
+      },
+      {
+        "title": "Constellation Energy Q3：調整後營運EPS 5.06美元",
+        "source": "Investing.com",
+        "url": "https://uk.investing.com/news/stock-market-news/earnings-call-transcript-constellation-energy-tops-q3-2026-forecasts-shares-rise-93CH-4969092",
+        "summary": "EPS高於3.72美元共識，營收約95.5億美元高於92.1億美元共識；盤前股價約上漲5.12%，Reuters另報股價漲逾10%。"
+      },
+      {
+        "title": "KKR Q3：調整後淨利每股1.78美元，股價上漲",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/legal/transactional/kkr-profit-hits-record-asset-sales-fees-surge-2026-11-09/",
+        "summary": "調整後淨利每股高於1.59美元共識，總營收約45.6億美元；Reuters報導股價上漲約1.7%。"
+      },
+      {
+        "title": "monday.com Q3：EPS與營收優於預期，但短期營收指引偏弱",
+        "source": "Investing.com",
+        "url": "https://uk.investing.com/news/earnings/mondaycom-falls-despite-q3-beat-sees-nearterm-operational-headwinds-4968047",
+        "summary": "調整後EPS 2.14美元高於1.37美元共識，營收3.775億美元高於3.692億美元；因下一季營收指引低於市場預期，股價盤中下跌約6.6%。"
+      },
+      {
+        "title": "台股11/9大漲4.94%，權值與半導體股帶動反彈",
+        "source": "鉅亨網",
+        "url": "https://news.cnyes.com/news/id/6652988",
+        "summary": "台灣加權指數收41,661.70點，上漲4.94%；需留意反彈集中度與後續外資現貨、期貨部位。"
+      },
+      {
+        "title": "美股11/9強彈，道瓊、標普、那指同步大漲",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+        "summary": "道瓊+2.15%、標普+2.35%、那指+2.74%，半導體指數Reuters口徑+6.9%；市場從前週AI股賣壓中反彈。"
+      },
+      {
+        "title": "Nvidia逆勢下跌4.2%，市場關注針對黃仁勳的外國情報調查說法",
+        "source": "Reuters",
+        "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
+        "summary": "Nvidia收跌4.2%，為當日半導體族群少數逆勢下跌者；報導內容涉及公司內部調查與地緣政治風險，不應延伸為未證實的私人傳聞。"
+      },
+      {
+        "title": "美國3年期公債標售需求偏弱，投標倍數降至2.53倍",
+        "source": "SafeRate / Treasury data cross-check",
+        "url": "https://saferate.com/treasury/auctions",
+        "summary": "580億美元標售得標殖利率4.627%，間接投標55.5%、直接投標35.0%、交易商9.5%；官方Treasury PDF尚未完成直接回讀。"
+      }
+    ],
+    "calendar": {
+      "week": "2026-W46",
+      "economic_events": [
+        {
+          "id": "current-china-cpi-20261109",
+          "event_date": "2026-11-09T09:30:00+08:00",
+          "name": "中國10月CPI",
+          "stars": 4,
+          "status": "released",
+          "actual": "0.7% y/y; m/m 0.0%; core 0.8% y/y",
+          "forecast": "0.8% y/y (Reuters poll)",
+          "previous": "0.9% y/y",
+          "impact": "CPI低於共識0.1個百分點，核心通膨降至0.8%，反映消費端價格壓力偏弱。",
+          "source": "https://news.cnyes.com/news/id/6652843",
+          "source_note": "Cnyes實際值；Reuters調查共識。"
+        },
+        {
+          "id": "current-china-ppi-20261109",
+          "event_date": "2026-11-09T09:30:00+08:00",
+          "name": "中國10月PPI",
+          "stars": 4,
+          "status": "released",
+          "actual": "5.7% y/y; m/m 0.7%",
+          "forecast": "5.3% y/y (Reuters poll)",
+          "previous": "5.0% y/y",
+          "impact": "PPI高於共識0.4個百分點且較前值加速，工業端價格壓力回升；與CPI偏弱形成分化。",
+          "source": "https://news.cnyes.com/news/id/6652843",
+          "source_note": "Cnyes實際值；Reuters調查共識。"
+        },
+        {
+          "id": "us-3y-auction-20261110",
+          "event_date": "2026-11-10T02:00:00+08:00",
+          "name": "美國財政部3年期公債標售（580億美元）",
+          "stars": 4,
+          "status": "released_provisional",
+          "actual": "高殖利率4.627%；投標倍數2.53x；間接投標55.5%；直接投標35.0%；交易商9.5%；tail 4.7bp",
+          "forecast": "未取得可靠市場預估",
+          "previous": "前次殖利率4.932%；前六次BTC平均約2.64x",
+          "impact": "投標倍數與間接投標比率偏弱，需求不佳；得標殖利率較前次低，但尾差顯示標售價格略弱。官方Treasury PDF仍待直接回讀。",
+          "source": "https://saferate.com/treasury/auctions",
+          "secondary_source": "https://primexbt-broker.com/news/us-3-year-treasury-auction-draws-weak-demand-as-bid-cover-hits-lowest-since-augu/"
+        },
+        {
+          "id": "us-cpi-20261110",
+          "event_date": "2026-11-10T21:30:00+08:00",
+          "name": "美國10月CPI",
+          "stars": 5,
+          "status": "upcoming",
+          "actual": null,
+          "forecast": "CPI m/m 0.3%; core m/m 0.2%; y/y需以BLS公告確認",
+          "previous": "CPI m/m 0.6%; y/y 3.7%; core m/m 0.3%; core y/y 2.6%",
+          "impact": "今晚最重要數據；若年增率因資料缺口未發布，市場將聚焦整體與核心月增率、住房與服務分項。",
+          "source": "https://hk.investing.com/news/stock-market-news/article-1747008",
+          "source_note": "年增率是否缺席尚待BLS正式公告確認。"
+        },
+        {
+          "id": "us-10y-auction-20261111",
+          "event_date": "2026-11-11T02:00:00+08:00",
+          "name": "美國財政部10年期公債標售（420億美元）",
+          "stars": 4,
+          "status": "upcoming",
+          "actual": null,
+          "forecast": "-",
+          "previous": "-",
+          "impact": "3年期標售需求偏弱後，10年期標售將檢驗中長天期需求。",
+          "source": "W46 calendar DB"
+        },
+        {
+          "id": "canada-boc-minutes-20261111",
+          "event_date": "2026-11-11T02:30:00+08:00",
+          "name": "加拿大央行10/28會議審議摘要",
+          "stars": 4,
+          "status": "upcoming",
+          "actual": null,
+          "forecast": "-",
+          "previous": "-",
+          "impact": "觀察央行對通膨黏著度、就業與後續利率路徑的評估。",
+          "source": "W46 calendar DB"
+        }
+      ],
+      "earnings_events_in_db": 42,
+      "earnings_actuals": [
+        {
+          "company": "Barrick Mining",
+          "ticker": "B",
+          "event_date_taipei": "2026-11-09 19:00",
+          "eps_actual": "0.82 USD adjusted",
+          "eps_consensus": "0.79 USD",
+          "revenue_actual": "5.07B USD",
+          "revenue_consensus": "5.13B USD Investing.com; W46 DB 5.16B USD",
+          "stock_reaction": "+0.8% intraday",
+          "judgment": "EPS beat; revenue miss on Investing.com consensus. EPS basis still needs same-basis confirmation.",
+          "source": "https://uk.investing.com/news/earnings/barrick-mining-beats-on-q3-profit-reaffirms-2026-output-4967691"
+        },
+        {
+          "company": "Ferguson Enterprises",
+          "ticker": "FERG",
+          "event_date_taipei": "2026-11-09 19:45",
+          "eps_actual": "3.43 USD adjusted",
+          "eps_consensus": "2.46 USD Investing.com; W46 DB estimate differs",
+          "revenue_actual": "9.03B USD",
+          "revenue_consensus": "8.22B USD Investing.com; W46 DB estimate differs",
+          "stock_reaction": "+12% intraday",
+          "judgment": "Adjusted EPS and revenue beat Investing.com consensus; calendar DB consensus values conflict and must be reconciled.",
+          "source": "https://uk.investing.com/news/earnings/ferguson-soars-on-earnings-beat-raised-guidance-4969096"
+        },
+        {
+          "company": "NRG Energy",
+          "ticker": "NRG",
+          "event_date_taipei": "2026-11-09 21:00",
+          "eps_actual": "4.68 USD adjusted",
+          "eps_consensus": "3.16 USD",
+          "revenue_actual": "9.50B USD",
+          "revenue_consensus": "9.33B USD",
+          "stock_reaction": "+9.61% close-to-close",
+          "judgment": "Adjusted EPS and revenue beat Investing.com consensus.",
+          "source": "https://uk.investing.com/news/earnings/nrg-earnings-beat-by-152-revenue-topped-estimates-4967874"
+        },
+        {
+          "company": "Constellation Energy",
+          "ticker": "CEG",
+          "event_date_taipei": "2026-11-09 21:30",
+          "eps_actual": "5.06 USD adjusted operating EPS",
+          "eps_consensus": "3.72 USD",
+          "revenue_actual": "9.55B USD",
+          "revenue_consensus": "9.21B USD",
+          "stock_reaction": "+5.12% premarket; Reuters reported >10% intraday",
+          "judgment": "Adjusted operating EPS and revenue beat Investing.com consensus; price reaction window differs by source.",
+          "source": "https://uk.investing.com/news/stock-market-news/earnings-call-transcript-constellation-energy-tops-q3-2026-forecasts-shares-rise-93CH-4969092"
+        },
+        {
+          "company": "KKR & Co.",
+          "ticker": "KKR",
+          "event_date_taipei": "2026-11-09 23:00",
+          "eps_actual": "1.78 USD adjusted net income per share",
+          "eps_consensus": "1.59 USD",
+          "revenue_actual": "4.56B USD total revenue",
+          "revenue_consensus": "2.66B USD (source definition needs comparability check)",
+          "stock_reaction": "+1.7% close/intraday Reuters",
+          "judgment": "Adjusted earnings per share beat; revenue comparison is provisional due financial-company revenue composition.",
+          "source": "https://www.reuters.com/legal/transactional/kkr-profit-hits-record-asset-sales-fees-surge-2026-11-09/"
+        },
+        {
+          "company": "monday.com",
+          "ticker": "MNDY",
+          "event_date_taipei": "2026-11-09 23:00",
+          "eps_actual": "2.14 USD adjusted",
+          "eps_consensus": "1.37 USD",
+          "revenue_actual": "377.54M USD",
+          "revenue_consensus": "369.18M USD",
+          "stock_reaction": "-6.6% intraday",
+          "judgment": "EPS and revenue beat, but near-term revenue guidance disappointed and drove share weakness.",
+          "source": "https://uk.investing.com/news/earnings/mondaycom-falls-despite-q3-beat-sees-nearterm-operational-headwinds-4968047"
+        }
+      ],
+      "db_note": "W46資料庫仍將11/9中國CPI/PPI與11/10凌晨3年期標售標為upcoming，且CPI/PPI forecast仍是0.6%與6.7%；本輪已取得的共識資料為0.8%與5.3%。資料庫本身未修改，因模擬規則限制寫入範圍在simulation-lab/。"
+    }
+  },
+  "qa": {
+    "data_quality": "partial; 44/44 checked, 37 current, 7 pending/stale/outside cutoff",
+    "html_assembly": "not_run",
+    "dom_structure": "not_run",
+    "javascript_syntax": "not_run",
+    "dual_mother_regression": "not_run",
+    "desktop_visual": "not_run",
+    "mobile_visual": "not_run",
+    "interaction": "not_run",
+    "pages_preview": "not_run",
+    "latest_available_artifact": {
+      "run_id": 42347185435,
+      "commit_sha": "ed2396c57c8bbb064c10cb3df98953f8c08e6605",
+      "report_date": "2026-11-09",
+      "template": "Monday",
+      "artifact_file": "TAC_投資早報_2026-11-09_審核版.html",
+      "visual_regression_failures": 0,
+      "note": "這是舊的11/9週一母版產物，不能作為11/10週二至週五報告或QA證據。"
+    },
+    "blockers": [
+      "目前執行環境可讀寫GitHub檔案，但無法直接執行simulation-lab/runner/build_review_html.py及Playwright視覺測試；GitHub檔案讀取不等於程式執行。",
+      "現有.github/workflows/tac-simulation-lab.yml只有push觸發，沒有workflow_dispatch；weekday replay仍使用2026-11-09 fixture（交易資料日為11/6），不是本次2026-11-09收盤資料。",
+      "build_review_html.py將key_levels items數量硬性要求為5；本次五個現金指數OHLC無法在同一交易日與正式收盤價對齊，必須待核實，不能用CFD或期貨替代。",
+      "visual_regression.mjs仍有11/6舊關鍵價位與「週五美股反彈」硬編碼，無法直接用來驗收11/10內容。",
+      "W46 calendar DB仍為WR v5.13且更新於11/6，15個經濟事件與42個財報事件的coverage均為incomplete；已發生事件仍標upcoming，且中國CPI/PPI預估值與本輪Reuters共識不同。",
+      "FedWatch未取得Investing.com與CME官方動態機率快照；CNN Fear & Greed 31.71的更新時間05:38晚於05:25排程截點。"
+    ],
+    "next_steps": [
+      "在simulation-lab/fixtures建立2026-11-10資料快照，將已核實數據、資料日期、來源與待核實項目完整寫入既有assembler輸入格式。",
+      "以最小修改讓既有assembler可將五項關鍵價位標示為待核實，而不是要求虛構五組數值；同步更新visual regression的日期文字與預期值。",
+      "透過既有push-triggered模擬工作流執行weekday母版組裝與QA，並取得該次run的artifact及run id；不可用舊artifact替代。",
+      "完成桌機、手機、互動與Pages實際載入驗證後，才寫入preview/2026-11-10-simulation.html並交付預覽連結。"
+    ]
+  },
+  "output": {
+    "preview_path": "preview/2026-11-10-simulation.html",
+    "preview_written": false,
+    "preview_url": null,
+    "html_assembled": false,
+    "main_index_modified": false,
+    "main_files_modified": false,
+    "main_branch_touched": false
+  }
+}
