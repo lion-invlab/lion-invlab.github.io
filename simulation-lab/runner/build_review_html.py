@@ -228,6 +228,44 @@ def main():
 
     fed_title = soup.select_one(".fed-live-title")
     if fed_title: set_text(fed_title, "Fed 限時動態")
+    # Rebuild the Fed/FOMC weekly-events card from verified calendar records.
+    # The prior version left the mother's stale CPI-only static card untouched.
+    fed_events_box = soup.select_one(".fc-fomc-weekly-events")
+    if fed_events_box:
+        fed_events_box.clear()
+        heading = soup.new_tag("div")
+        heading["style"] = "font-size:15px;font-weight:850;color:#244b68;margin:0 0 9px;"
+        heading.string = "本週聯準會官員行程"
+        fed_events_box.append(heading)
+        fed_records = [e for e in data.get("calendar", {}).get("events", [])
+                       if re.search(r"Fed|Federal Reserve|Waller|Bowman|Goolsbee|Barkin|Logan|Schmid|Jefferson|Barr|Daly|Hammack|Williams", str(e.get("name", "")), re.I)
+                       and e.get("status") == "upcoming"]
+        for event in sorted(fed_records, key=lambda x: x.get("date", "")):
+            dt = datetime.fromisoformat(event["date"])
+            date_label = f"{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
+            row = soup.new_tag("div")
+            row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
+            when = soup.new_tag("div")
+            when["style"] = "font-size:12px;line-height:1.5;font-weight:850;color:#a92a32;"
+            when.string = date_label
+            detail = soup.new_tag("div")
+            name = soup.new_tag("div")
+            name["style"] = "font-size:13px;line-height:1.45;font-weight:800;color:#273746;"
+            name.string = event.get("name", "")
+            note = soup.new_tag("div")
+            note["style"] = "font-size:12px;line-height:1.55;color:#687583;margin-top:3px;"
+            note.string = event.get("impact", "")
+            detail.append(name)
+            detail.append(note)
+            if event.get("source_url", "").startswith("http"):
+                link = source_link(event["source_url"], "官方行程")
+                link["style"] = "display:inline-block;font-size:11px;margin-top:4px;color:#315d7b;text-decoration:underline;"
+                detail.append(link)
+            row.append(when); row.append(detail); fed_events_box.append(row)
+        if not fed_records:
+            empty = soup.new_tag("div")
+            empty.string = "本週尚無已核實的聯準會官員公開行程。"
+            fed_events_box.append(empty)
     for anchor in soup.select("#tac-assets-panel-3 .energy-card .row > b a"):
         label = anchor.get_text(" ", strip=True)
         if label == "WTI原油期貨": set_text(anchor, "WTI 原油期貨")
