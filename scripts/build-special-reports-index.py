@@ -43,20 +43,27 @@ def load_articles():
         category = meta.get("category", "其他")
         summary = meta.get("summary", "")
         tags = [tag.strip() for tag in meta.get("tags", "").split("|") if tag.strip()]
+        image = meta.get("image", "").strip()
+        if image and not image.startswith("https://"):
+            raise SystemExit(f"tac:image must be an HTTPS URL: {path}")
         if not title or not date or not summary:
             raise SystemExit(f"Published article missing title/date/summary metadata: {path}")
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", date):
             raise SystemExit(f"Invalid tac:date in {path}: {date}")
         href = "/" + path.relative_to(ROOT).as_posix()
         search = " ".join([title, category, summary, *tags])
-        items.append((date, title, category, summary, tags, href, search))
+        items.append((date, title, category, summary, tags, href, search, image))
     return sorted(items, key=lambda item: (item[0], item[1]), reverse=True)
 
 def render(item):
-    date, title, category, summary, tags, href, search = item
+    date, title, category, summary, tags, href, search, image = item
     tag_html = "".join(f'<span class="tag">{escape(tag)}</span>' for tag in tags)
+    art_style = (
+        "background-image:linear-gradient(90deg,rgba(12,25,45,.82),rgba(12,25,45,.42)),url('" + escape(image, quote=True) + "')"
+        if image else ""
+    )
     return f'''<article class="featured article" data-category="{escape(category, quote=True)}" data-search="{escape(search, quote=True)}">
- <div class="feature-art"><span class="art-label">TAC SPECIAL REPORT</span><span class="art-line"></span><span class="art-mark">MARKET<br>INSIGHT</span></div>
+ <div class="feature-art" style="{art_style}"><span class="art-label">TAC SPECIAL REPORT</span></div>
  <div class="feature-copy"><div class="feature-kicker">{escape(category)}　/　TAC 深度專題</div><h2>{escape(title)}</h2><p>{escape(summary)}</p>
  <div class="tags">{tag_html}</div><div class="feature-bottom"><span class="date-meta">發布日期　{date.replace("-", ".")}</span>
  <a class="read-link" href="{escape(href, quote=True)}" target="_blank" rel="noopener">閱讀完整專題 <span>↗</span></a></div></div></article>'''
