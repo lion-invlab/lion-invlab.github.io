@@ -497,16 +497,23 @@
   },
   "fedwatch": {
     "updated_at_tw": "2026/11/10 05:55",
+    "target_meeting": "2026/12/09（美國時間）",
+    "current_target_range": "3.75–4.00%",
     "probabilities": [
       {
+        "outcome": "hold",
         "rate_range": "3.75–4.00%",
         "probability": 18.2
       },
       {
+        "outcome": "hike",
         "rate_range": "4.00–4.25%",
         "probability": 81.8
       }
-    ]
+    ],
+    "source_name": "Investing.com Fed Rate Monitor",
+    "source_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
+    "note": "補查快照時間晚於排程05:25截止時間，須標示05:55資料時間。"
   },
   "observation": "美股反彈具廣度，11個S&P 500產業類股全數收高；SOX上漲6.75%，但Nvidia仍跌4.2%，顯示AI供應鏈內部並非同步反彈。 MOVE 11/9收盤降至85.99（-7.32%），債市波動壓力回落；但3年期公債標售投標倍數僅2.53倍、間接投標55.5%，供給吸收仍需觀察。 中國10月CPI年增0.7%低於0.8%共識，核心CPI 0.8%；PPI年增5.7%高於5.3%共識，內需價格偏弱與上游價格回升並存。 美國10月CPI今晚21:30公布；市場預期整體月增0.3%、核心月增0.2%。年增率發布口徑仍待BLS正式確認，不能預先當作確定缺席。 FedWatch 05:55補查顯示12月會議目標利率4.00–4.25%機率81.8%；此為排程05:25後快照，須標明讀取時間。",
   "calendar": {
