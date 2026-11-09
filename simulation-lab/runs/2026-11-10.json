@@ -276,7 +276,7 @@
           "name": "Investing.com HK",
           "url": "https://hk.investing.com/indices/singapore-straits-times-index-historical-data",
           "data_date": null,
-          "notes": "11/9 historical row not available; last visible row was 11/6. No substitute used."
+          "notes": "11/9 官方收盤仍未能確認。Investing.com HK 與 Yahoo Finance 歷史資料均停留 11/6；SGX 官方產品頁目前顯示 5,179.17，且前收 5,296.25，與 11/6 歷史列一致，未顯示 11/9 日期；另一非官方頁 11/9 數值的前收／漲跌幅算術不一致，排除。"
         },
         "notes": "仍待核實：Investing.com HK 與 Yahoo 歷史頁最新可確認列均停留 11/06；另一搜尋結果 11/09 數字內部前收／漲跌幅算術不一致，排除，不採用。"
       },
@@ -741,7 +741,7 @@
           "name": "Investing.com HK",
           "url": "https://hk.investing.com/indices/ice-bofa-merrill-lynch-option-volatility-estimate-historical-data",
           "data_date": "2026-11-06",
-          "notes": "11/9 row not available; latest visible close 11/6."
+          "notes": "Investing.com 最新歷史列為 11/6；Yahoo Finance ^MOVE 頁面直接讀取遭 HTTP 429；CNBC .MOVE 頁面無法讀取（restricted URL）；EODData INDEX:MOVE 直接頁面最新 EOD 亦為 11/6，92.77。已依 WR 備援順序查至 EODData，仍無 11/9 值。"
         },
         "notes": "仍無法取得 11/09 收盤；Investing.com 最新可見列為 11/06，92.77（-5.26%）。Yahoo Finance ^MOVE 直接頁面讀取遭 429 限制，故不得當作 11/09 行情。"
       },
