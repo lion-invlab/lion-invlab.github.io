@@ -239,7 +239,7 @@ def main():
         fed_events_box.append(heading)
         fed_records = [e for e in data.get("calendar", {}).get("events", [])
                        if re.search(r"Fed|Federal Reserve|Waller|Bowman|Goolsbee|Barkin|Logan|Schmid|Jefferson|Barr|Daly|Hammack|Williams", str(e.get("name", "")), re.I)
-                       and e.get("status") == "upcoming"]
+                       and str(e.get("status", "upcoming")).lower() not in {"released", "published", "completed", "cancelled"}]
         for event in sorted(fed_records, key=lambda x: x.get("date", "")):
             dt = datetime.fromisoformat(event["date"])
             date_label = f"{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
@@ -266,6 +266,16 @@ def main():
             empty = soup.new_tag("div")
             empty.string = "本週尚無已核實的聯準會官員公開行程。"
             fed_events_box.append(empty)
+    # Fail the build if the authoritative Fed calendar events are present in the input
+    # but absent from the visible Fed panel. Prevents "data exists but UI omitted it".
+    if fed_events_box:
+        rendered_fed_text = fed_events_box.get_text(" ", strip=True)
+        expected_fed_names = [e.get("name", "") for e in data.get("calendar", {}).get("events", [])
+                              if re.search(r"Waller|Bowman", str(e.get("name", "")), re.I)
+                              and str(e.get("status", "upcoming")).lower() not in {"released", "published", "completed", "cancelled"}]
+        missing_fed = [name for name in expected_fed_names if name and name not in rendered_fed_text]
+        if missing_fed:
+            raise ValueError("Fed live panel omitted calendar records: " + "; ".join(missing_fed))
     for anchor in soup.select("#tac-assets-panel-3 .energy-card .row > b a"):
         label = anchor.get_text(" ", strip=True)
         if label == "WTI原油期貨": set_text(anchor, "WTI 原油期貨")
