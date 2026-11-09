@@ -293,6 +293,8 @@ def main():
     # Update the approved summary card's text slot without changing wrappers.
     bluf=unique(soup,"#overview > section.grid.two > article.card.bluf","summary")
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
+    if data.get("summary_title"):
+        set_text(unique(bluf, "h1", "summary headline"), data["summary_title"])
     if data.get("summary_points"):
         summary.clear()
         for idx,point in enumerate(data["summary_points"]):
@@ -303,10 +305,24 @@ def main():
                 summary.append(soup.new_tag("br"))
     else:
         set_text(summary,data["summary"])
-    # Market sentiment narrative: keep card structure, replace the narrative paragraph only.
+    # Market sentiment narrative: replace the dedicated final interpretation card,
+    # not metric source/disclosure blocks (the mother template has no paragraph slot).
     sent=unique(soup,"#sentiment","sentiment")
-    paragraphs=sent.select("p")
-    if paragraphs: set_text(paragraphs[0],data["sentiment"])
+    sentiment_cards=sent.select(".sbox")
+    if not sentiment_cards:
+        raise ValueError("sentiment interpretation card missing from approved mother template")
+    interpretation=sentiment_cards[-1]
+    interpretation_label=interpretation.select_one(".label")
+    interpretation.clear()
+    if interpretation_label is not None:
+        interpretation.append(interpretation_label)
+    interpretation.append(data["sentiment"])
+    if data.get("summary_title") and data["summary_title"] not in bluf.get_text(" ", strip=True):
+        raise ValueError("summary headline did not render from current report data")
+    if data.get("sentiment") and data["sentiment"] not in interpretation.get_text(" ", strip=True):
+        raise ValueError("market sentiment interpretation did not render from current report data")
+    if "10/27 已核實" in sent.get_text(" ", strip=True):
+        raise ValueError("stale mother-template sentiment interpretation remains")
     # Rebuild every news card's complete data-bearing fields from the current JSON.
     # Never retain mother-template source URLs, publication timestamps or report-window labels.
     from urllib.parse import urlparse
