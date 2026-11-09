@@ -1329,6 +1329,52 @@ def main():
             unique(soup, selector, "Monday-only section")
     elif any(soup.select(selector) for selector in monday_only_ids):
         raise ValueError("weekday mother/output must not contain Monday-only previous-week sections")
+    # FINAL Fed panel render, after every template mutation. This is deliberately
+    # placed immediately before serialization so no later step can overwrite it.
+    final_fed_box = soup.select_one("#fed .fc-fomc-weekly-events")
+    if final_fed_box is None:
+        raise ValueError("Fed live panel container #fed .fc-fomc-weekly-events missing")
+    final_fed_box.clear()
+    fed_heading = soup.new_tag("div")
+    fed_heading["style"] = "font-size:15px;font-weight:850;color:#244b68;margin:0 0 9px;"
+    fed_heading.string = "本週聯準會官員行程"
+    final_fed_box.append(fed_heading)
+    fed_final_events = [e for e in data.get("calendar", {}).get("events", [])
+                        if re.search(r"Waller|Bowman|Jefferson|Barr|Goolsbee|Barkin|Logan|Schmid|Daly|Hammack|Williams", str(e.get("name", "")), re.I)
+                        and str(e.get("status", "upcoming")).lower() not in {"released", "published", "completed", "cancelled"}]
+    fed_final_events.sort(key=lambda e: e.get("date", ""))
+    for event in fed_final_events:
+        dt = datetime.fromisoformat(event["date"])
+        date_label = f"{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
+        row = soup.new_tag("div")
+        row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
+        when = soup.new_tag("div")
+        when["style"] = "font-size:12px;line-height:1.5;font-weight:850;color:#a92a32;"
+        when.string = date_label
+        detail = soup.new_tag("div")
+        title = soup.new_tag("div")
+        title["style"] = "font-size:13px;line-height:1.45;font-weight:800;color:#273746;"
+        title.string = event.get("name", "")
+        note = soup.new_tag("div")
+        note["style"] = "font-size:12px;line-height:1.55;color:#687583;margin-top:3px;"
+        note.string = event.get("impact", "")
+        detail.append(title); detail.append(note)
+        url = event.get("source_url", "")
+        if url.startswith("http"):
+            link = source_link(url, "Fed 官方行程")
+            detail.append(link)
+        row.append(when); row.append(detail); final_fed_box.append(row)
+    rendered_fed = final_fed_box.get_text(" ", strip=True)
+    required_speakers = ["Waller", "Bowman"]
+    missing_speakers = [n for n in required_speakers if any(n.lower() in str(e.get("name", "")).lower() for e in fed_final_events) and n not in rendered_fed]
+    if missing_speakers:
+        raise ValueError("Fed live panel missing required speakers: " + ", ".join(missing_speakers))
+    if not fed_final_events:
+        raise ValueError("No verified Fed speaking events found for Fed live panel")
+    # Commodity commentary must match the settlement values actually displayed.
+    energy_text = soup.select_one("#tac-assets-panel-3 .market-reason")
+    if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
+        raise ValueError("Commodity commentary still conflicts with displayed settlement prices")
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
