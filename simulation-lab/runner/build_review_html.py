@@ -1127,16 +1127,18 @@ def main():
         set_market_observation(panel.select_one(".key") or panel, "市場觀點", data["observation"])
 
     # Populate all three existing Today Focus tabs; never leave stale mother-template text.
-    if data.get("key_levels"):
-        levels_panel = unique(view, ".focus-panel.focus-levels", "key levels tab")
-        levels_box = unique(levels_panel, ".key", "key levels content")
-        disclosure_selector = "details.compact-disclosure" if monday else "details.source-details"
-        disclosure = levels_box.select_one(disclosure_selector)
-        if disclosure is None:
-            raise ValueError(f"key levels source/method disclosure missing from approved {'Monday' if monday else 'weekday'} mother template")
-        disclosure.extract()
-        levels_box.clear()
-        for item in data["key_levels"].get("items", []):
+    levels_panel = unique(view, ".focus-panel.focus-levels", "key levels tab")
+    levels_box = unique(levels_panel, ".key", "key levels content")
+    disclosure_selector = "details.compact-disclosure" if monday else "details.source-details"
+    disclosure = levels_box.select_one(disclosure_selector)
+    if disclosure is None:
+        raise ValueError(f"key levels source/method disclosure missing from approved {'Monday' if monday else 'weekday'} mother template")
+    disclosure.extract()
+    levels_box.clear()
+    levels_data = data.get("key_levels") or {}
+    level_items = levels_data.get("items", [])
+    if len(level_items) == 5:
+        for item in level_items:
             line = soup.new_tag("div")
             label = soup.new_tag("b")
             label.string = item["name"] + "："
@@ -1144,19 +1146,25 @@ def main():
             line.append(f"支撐 S1：{item['s1']}｜中樞 P：{item['p']}｜壓力 R1：{item['r1']}")
             levels_box.append(line)
             levels_box.append(soup.new_tag("br"))
-        levels_box.append(disclosure)
-        detail_body = disclosure.select_one("div") if monday else disclosure.select_one(".source")
-        if detail_body is None:
-            raise ValueError("key levels disclosure body missing from selected mother template")
-        detail_body.clear()
-        detail_body.append(f"基準交易日：{data['key_levels']['baseline_date']}（美國當地正式收盤）。{data['key_levels']['formula']} ")
-        for item in data["key_levels"].get("items", []):
+    else:
+        pending = soup.new_tag("div")
+        pending.string = "五項關鍵價位 OHLC 尚未完成同日現金指數核實，暫不提供支撐／中樞／壓力數值。"
+        levels_box.append(pending)
+        levels_box.append(soup.new_tag("br"))
+    levels_box.append(disclosure)
+    detail_body = disclosure.select_one("div") if monday else disclosure.select_one(".source")
+    if detail_body is None:
+        raise ValueError("key levels source/method disclosure body missing from selected mother template")
+    detail_body.clear()
+    if len(level_items) == 5:
+        detail_body.append(f"基準交易日：{levels_data['baseline_date']}（美國當地正式收盤）。{levels_data['formula']} ")
+        for item in level_items:
             detail_body.append(soup.new_tag("br"))
             detail_body.append(f"{item['name']}｜{item['ohlc']}｜")
             detail_body.append(source_link(item["url"], "Yahoo Finance OHLC"))
             detail_body.append("。")
     else:
-        raise ValueError("key_levels data missing; refusing to retain stale mother-template key levels")
+        detail_body.append("本次五項現金指數 OHLC 未能在同一交易日與正式收盤點位完成一致性核實；因此不沿用母版舊數值，也不以 CFD／期貨替代。")
     if data.get("core_observation"):
         core_panel = unique(view, ".focus-panel.focus-core", "core observation tab")
         callout = unique(core_panel, ".callout", "core observation content")
@@ -1250,8 +1258,12 @@ def main():
     if data["observation"] not in focus_tabs["market"].get_text(" ", strip=True):
         raise ValueError("market observation text did not assemble")
     levels_text = focus_tabs["levels"].get_text(" ", strip=True)
-    if len(data["key_levels"].get("items", [])) != 5 or any(item["s1"] not in levels_text or item["p"] not in levels_text or item["r1"] not in levels_text for item in data["key_levels"]["items"]):
-        raise ValueError("one or more key levels did not assemble")
+    level_items = (data.get("key_levels") or {}).get("items", [])
+    if len(level_items) == 5:
+        if any(item["s1"] not in levels_text or item["p"] not in levels_text or item["r1"] not in levels_text for item in level_items):
+            raise ValueError("one or more key levels did not assemble")
+    elif "暫不提供支撐" not in levels_text:
+        raise ValueError("pending key levels state did not assemble")
     if data["core_observation"]["text"] not in focus_tabs["core"].get_text(" ", strip=True):
         raise ValueError("core observation text did not assemble")
     focus_text = view.get_text(" ", strip=True)
@@ -1259,7 +1271,7 @@ def main():
         raise ValueError("stale 10/23 mother-template text remains in Today Focus")
     if data.get("bonds", {}).get("2年期美債殖利率", {}).get("change_display") == "待核實":
         raise ValueError("2-year Treasury daily change remains unresolved")
-    for item in data["key_levels"]["items"]:
+    for item in level_items:
         if not any(a.get("href") == item["url"] for a in focus_tabs["levels"].select("a")):
             raise ValueError("key level OHLC source link missing for " + item.get("name", "unknown index"))
     # Enforce the selected template's weekday-specific section contract.
