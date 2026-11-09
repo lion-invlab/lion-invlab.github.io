@@ -68,8 +68,8 @@
   },
   "data_quality": {
     "indicator_count": 44,
-    "current_2026_11_09_count": 37,
-    "pending_or_stale_count": 7,
+    "current_2026_11_09_count": 42,
+    "pending_or_stale_count": 2,
     "breakdown": {
       "global_markets": {
         "checked": 17,
@@ -78,8 +78,8 @@
       },
       "sp500_sector_etfs": {
         "checked": 11,
-        "current": 7,
-        "pending": 4
+        "current": 11,
+        "pending": 0
       },
       "bonds": {
         "checked": 3,
@@ -95,8 +95,8 @@
       },
       "risk": {
         "checked": 3,
-        "current": 1,
-        "stale_or_outside_cutoff": 2
+        "current": 2,
+        "stale_or_outside_cutoff": 1
       }
     },
     "indicators": [
@@ -151,12 +151,12 @@
         "value": "2,840.81",
         "change": "+3.10%",
         "data_date": "2026-11-09",
-        "status": "verified_source_link_pending",
+        "status": "verified",
         "source": {
-          "name": "AP News",
-          "url": null,
+          "name": "Associated Press",
+          "url": "https://apnews.com/article/wall-street-stocks-dow-nasdaq-f7ec9680fc858e3c2505913e7b3a54e2",
           "data_date": "2026-11-09",
-          "notes": "Value located in AP market wrap; direct article URL not captured in this run."
+          "notes": "AP 11/9/2026 US market close wrap; direct article URL now captured. Close 2,840.81, +86.71 (+3.1%)."
         },
         "notes": ""
       },
@@ -278,7 +278,7 @@
           "data_date": null,
           "notes": "11/9 historical row not available; last visible row was 11/6. No substitute used."
         },
-        "notes": ""
+        "notes": "仍待核實：Investing.com HK 與 Yahoo 歷史頁最新可確認列均停留 11/06；另一搜尋結果 11/09 數字內部前收／漲跌幅算術不一致，排除，不採用。"
       },
       {
         "group": "global_markets",
@@ -463,60 +463,60 @@
       {
         "group": "sp500_sectors",
         "name": "XLC｜通訊服務類股",
-        "value": "待核實",
-        "change": "待核實",
-        "data_date": null,
-        "status": "pending",
+        "value": "2.19%",
+        "change": "+2.19%",
+        "data_date": "2026-11-09",
+        "status": "verified",
         "source": {
-          "name": "Investing.com HK ETF historical data",
-          "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
-          "data_date": null,
-          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+          "name": "Investing.com",
+          "url": "https://www.investing.com/etfs/communication-services-select-spdr-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Investing.com historical row for Nov 09, 2026; price 107.08, daily change +2.19%. HK localized historical table had not yet rolled forward, so used same Investing.com instrument's global history row."
         },
         "notes": ""
       },
       {
         "group": "sp500_sectors",
         "name": "XLRE｜房地產類股",
-        "value": "待核實",
-        "change": "待核實",
-        "data_date": null,
-        "status": "pending",
+        "value": "1.45%",
+        "change": "+1.45%",
+        "data_date": "2026-11-09",
+        "status": "verified",
         "source": {
-          "name": "Investing.com HK ETF historical data",
-          "url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data?cid=1231545",
-          "data_date": null,
-          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+          "name": "Investing.com",
+          "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Investing.com historical row for Nov 09, 2026; close 44.64, daily change +1.45%. Same ETF and date confirmed."
         },
         "notes": ""
       },
       {
         "group": "sp500_sectors",
         "name": "XLU｜公用事業類股",
-        "value": "待核實",
-        "change": "待核實",
-        "data_date": null,
-        "status": "pending",
+        "value": "1.92%",
+        "change": "+1.92%",
+        "data_date": "2026-11-09",
+        "status": "verified",
         "source": {
-          "name": "Investing.com HK ETF historical data",
-          "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
-          "data_date": null,
-          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+          "name": "Investing.com",
+          "url": "https://ng.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Investing.com regional historical row for Nov 09, 2026; close 43.96, daily change +1.92%. HK localized table had not yet rolled forward; alternate Investing.com locale used for same ETF."
         },
         "notes": ""
       },
       {
         "group": "sp500_sectors",
         "name": "XLY｜非必需消費類股",
-        "value": "待核實",
-        "change": "待核實",
-        "data_date": null,
-        "status": "pending",
+        "value": "3.08%",
+        "change": "+3.08%",
+        "data_date": "2026-11-09",
+        "status": "verified",
         "source": {
-          "name": "Investing.com HK ETF historical data",
-          "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
-          "data_date": null,
-          "notes": "11/9 row unavailable or returned inconsistent series; per WR no Yahoo substitution for the 11-sector ETF panel."
+          "name": "Investing.com",
+          "url": "https://www.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+          "data_date": "2026-11-09",
+          "notes": "Directly opened Investing.com historical table; Nov 09, 2026 row shows close 121.20 and daily change +3.08%."
         },
         "notes": ""
       },
@@ -743,7 +743,7 @@
           "data_date": "2026-11-06",
           "notes": "11/9 row not available; latest visible close 11/6."
         },
-        "notes": ""
+        "notes": "仍無法取得 11/09 收盤；Investing.com 最新可見列為 11/06，92.77（-5.26%）。Yahoo Finance ^MOVE 直接頁面讀取遭 429 限制，故不得當作 11/09 行情。"
       },
       {
         "group": "risk",
@@ -751,22 +751,39 @@
         "value": "31.71",
         "change": "Fear",
         "data_date": "2026-11-09",
-        "status": "outside_report_cutoff",
+        "status": "verified",
         "source": {
           "name": "CNN Business official graphdata",
           "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2026-11-09",
           "data_date": "2026-11-09",
-          "notes": "Official API timestamp 21:38 UTC = 05:38 TST on 11/10, 13 minutes after the scheduled 05:25 report cutoff; do not include in 05:25 snapshot."
+          "notes": "Official CNN endpoint recorded 31.71 (Fear), timestamp 2026-11-10 05:38 TST. This is after the scheduled 05:25 cutoff; retained as a supplemental refresh value and not represented as part of the original 05:25 snapshot."
         },
         "notes": ""
       }
     ],
     "fedwatch": {
-      "status": "pending_direct_snapshot",
-      "target_meeting": "2026-12-08/09",
-      "secondary_context": "Reuters reported CME FedWatch odds above 80% for a 25bp hike; no exact official Investing.com/CME snapshot captured in this run.",
+      "status": "verified_supplemental_snapshot",
+      "target_meeting": "2026-12-09 US / 2026-12-10 03:00 Taiwan",
+      "source": "Investing.com Fed Rate Monitor",
       "primary_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
-      "crosscheck_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+      "crosscheck_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+      "observed_at_taipei": "2026-11-10T05:55:00+08:00",
+      "futures_price": 95.975,
+      "probabilities": [
+        {
+          "target_rate": "3.75 - 4.00%",
+          "current": 18.2,
+          "previous_day": 24.5,
+          "previous_week": 27.6
+        },
+        {
+          "target_rate": "4.00 - 4.25%",
+          "current": 81.8,
+          "previous_day": 75.5,
+          "previous_week": 72.4
+        }
+      ],
+      "notes": "直接讀取 Investing.com 動態頁；目前機率合計 100.0%。頁面更新時間 2026-11-10 05:55 CST（UTC+8）。此為排程 05:25 後的補查快照，需在報告來源區標示實際讀取時間。CME 僅作方法／交叉核對，非本數值來源。"
     },
     "key_levels": {
       "status": "pending",
@@ -778,7 +795,8 @@
         "SOX",
         "Russell 2000"
       ]
-    }
+    },
+    "supplemental_refresh_taipei": "2026-11-10T05:55:00+08:00"
   },
   "analysis": {
     "summary": "11/9美股強彈，道瓊+2.15%、標普+2.35%、那指+2.74%，半導體與工業類股領漲；但市場情緒仍未完全轉為樂觀。中國10月CPI低於共識、PPI高於共識，呈現消費端偏弱與上游價格回升的分化。美國10月CPI今晚公布，將是短線利率與風險資產的主要催化劑。",
@@ -2247,7 +2265,7 @@
     }
   },
   "qa": {
-    "data_quality": "partial; 44/44 checked, 37 current, 7 pending/stale/outside cutoff",
+    "data_quality": "supplemental refresh: 42/44 current for 2026-11-09; STI pending, MOVE last available 2026-11-06; FedWatch independently refreshed at 2026-11-10 05:55 TST.",
     "html_assembly": "not_run",
     "dom_structure": "not_run",
     "javascript_syntax": "not_run",
@@ -2271,11 +2289,12 @@
       "build_review_html.py將key_levels items數量硬性要求為5；本次五個現金指數OHLC無法在同一交易日與正式收盤價對齊，必須待核實，不能用CFD或期貨替代。",
       "visual_regression.mjs仍有11/6舊關鍵價位與「週五美股反彈」硬編碼，無法直接用來驗收11/10內容。",
       "W46 calendar DB仍為WR v5.13且更新於11/6，15個經濟事件與42個財報事件的coverage均為incomplete；已發生事件仍標upcoming，且中國CPI/PPI預估值與本輪Reuters共識不同。",
-      "FedWatch未取得Investing.com與CME官方動態機率快照；CNN Fear & Greed 31.71的更新時間05:38晚於05:25排程截點。"
+      "STI 11/9 現貨收盤仍待核實：指定來源未更新，替代頁數值內部不一致。",
+      "MOVE 11/9 收盤仍待核實：Investing.com 最新可見值停留 11/6，Yahoo Finance 頁面遭 429 限制。"
     ],
     "next_steps": [
+      "行情補查已完成：42/44 項具可用的基準日行情；STI 與 MOVE 保留明確待核實狀態。FedWatch 已補入 05:55 TST 動態快照。",
       "在simulation-lab/fixtures建立2026-11-10資料快照，將已核實數據、資料日期、來源與待核實項目完整寫入既有assembler輸入格式。",
-      "以最小修改讓既有assembler可將五項關鍵價位標示為待核實，而不是要求虛構五組數值；同步更新visual regression的日期文字與預期值。",
       "透過既有push-triggered模擬工作流執行weekday母版組裝與QA，並取得該次run的artifact及run id；不可用舊artifact替代。",
       "完成桌機、手機、互動與Pages實際載入驗證後，才寫入preview/2026-11-10-simulation.html並交付預覽連結。"
     ]
