@@ -66,9 +66,9 @@ try {
     snapshots[v.name] = { master: a, report: b };
     const focusAudit = await reportPage.evaluate(() => {
       const cases = [
-        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美股"] },
-        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["五項關鍵價位", "暫不提供支撐"] },
-        { id: "focus-tab-core", panel: ".focus-core", needles: ["今日核心觀察", "今晚CPI"] }
+        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美股強彈與債市波動回落"] },
+        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["OHLC 尚未完成同日現金指數核實", "暫不提供支撐"] },
+        { id: "focus-tab-core", panel: ".focus-core", needles: ["今日核心觀察", "美股強彈與債市波動回落並存"] }
       ];
       const results = [], invalid = [];
       for (const item of cases) {
