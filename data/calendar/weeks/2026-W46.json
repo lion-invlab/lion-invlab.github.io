@@ -30,7 +30,7 @@
           "published_at": "2026-11-09T09:30:00+08:00",
           "observed_at": "2026-11-10T04:38:07+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月 CPI；北京時間與台灣時間相同。 中國 10 月 CPI 市場共識：前值 0.9%、預期 0.6%。；2026-11-09 09:30（台灣時間）官方公布：CPI YoY 0.7%、MoM 0.0%、核心 CPI YoY 0.8%。共識 0.8% YoY／0.0% MoM／核心 0.9% 由 InvestingLive 預覽及 Trading Economics 交叉核對；原始發布日程來源保留於原事件 notes。",
+          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月 CPI；北京時間與台灣時間相同。 原 2026-11-06 預估記錄 0.6%；11/09 發布前 InvestingLive／Trading Economics 最終交叉核對為 0.8%，以後者作本次 forecast，原估值差異保留於 audit。；2026-11-09 09:30（台灣時間）官方公布：CPI YoY 0.7%、MoM 0.0%、核心 CPI YoY 0.8%。共識 0.8% YoY／0.0% MoM／核心 0.9% 由 InvestingLive 預覽及 Trading Economics 交叉核對；原始發布日程來源保留於原事件 notes。",
           "secondary_refs": [
             "https://www.mql5.com/en/economic-calendar/china"
           ]
@@ -60,7 +60,7 @@
           "published_at": "2026-11-09T09:30:00+08:00",
           "observed_at": "2026-11-10T04:38:07+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月工業生產者價格指數；北京時間與台灣時間相同。 中國 10 月 PPI 市場共識：前值 5.0%、預期 6.7%。；2026-11-09 09:30（台灣時間）官方公布：PPI YoY 5.7%、MoM 0.7%、1–10 月平均 YoY 2.7%。共識 5.3% 由 Investing.com 澳洲站及 InvestingLive 發布前預覽交叉核對；原始發布日程來源保留於原事件 notes。",
+          "notes": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月工業生產者價格指數；北京時間與台灣時間相同。 原 2026-11-06 預估記錄 6.7%；11/09 發布前 Investing.com／InvestingLive 最終交叉核對為 5.3%，以後者作本次 forecast，原估值差異保留於 audit。；2026-11-09 09:30（台灣時間）官方公布：PPI YoY 5.7%、MoM 0.7%、1–10 月平均 YoY 2.7%。共識 5.3% 由 Investing.com 澳洲站及 InvestingLive 發布前預覽交叉核對；原始發布日程來源保留於原事件 notes。",
           "secondary_refs": [
             "https://www.mql5.com/en/economic-calendar/china"
           ]
@@ -3088,7 +3088,7 @@
         "revenue_actual": 1.2744,
         "eps_currency": "USD",
         "revenue_currency": "USD",
-        "revenue_unit": null,
+        "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
         "financial_judgment": "公司營收 US$1,274.4M、GAAP diluted EPS US$0.70、adjusted diluted EPS US$1.03、adjusted EBITDA US$370.9M。原資料庫未有可追溯同口徑 EPS／營收共識，故不作 beat/miss 判斷。",
@@ -3138,7 +3138,7 @@
         "revenue_actual": 4.35,
         "eps_currency": "USD",
         "revenue_currency": "USD",
-        "revenue_unit": null,
+        "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
         "financial_judgment": "公司 Q3 consolidated revenue US$4.35B、GAAP diluted EPS US$0.02、adjusted diluted EPS US$0.16；GAAP net income US$35M、adjusted net income US$205M。原資料庫未有可追溯同口徑 EPS／營收共識，故不作 beat/miss 判斷。",
@@ -4341,7 +4341,7 @@
           ]
         }
       },
-      "source": "https://www.stats.gov.cn/zwfwck/sjfb/sjfbz/202611/t20261109_1965796.html ; https://www.investinglive.com/news/china-october-inflation-preview-cpi-seen-near-0-8-ppi-above-5/ ; https://www.tradingeconomics.com/china/inflation-cpi",
+      "source": "https://www.stats.gov.cn/zwfwck/sjfb/202611/t20261109_1965796.html ; https://www.investinglive.com/news/china-october-inflation-preview-cpi-seen-near-0-8-ppi-above-5/ ; https://www.tradingeconomics.com/china/inflation-cpi",
       "note": "官方統計局已公布 10 月 CPI；前值與市場共識已用發布前來源交叉核對，修正原週檔中的錯誤共識值並更新實績。"
     },
     {
@@ -4944,6 +4944,35 @@
       },
       "source": "https://github.com/lion-invlab/lion-invlab.github.io/blob/d21492151efe94843f5b96e9754867a4225ae503/TAC_WORK_RULES.md",
       "note": "本次直接讀取 main HEAD d21492151efe94843f5b96e9754867a4225ae503 的 TAC_WORK_RULES.md；WR 版本 5.14，blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b。"
+    },
+    {
+      "at": "2026-11-10T04:38:07+08:00",
+      "observed_at": "2026-11-10T04:38:07+08:00",
+      "action": "source_note_and_unit_correction",
+      "event_id": null,
+      "changed_fields": [
+        "events.economic.current-china-cpi-20261109.source.notes",
+        "events.economic.current-china-ppi-20261109.source.notes",
+        "audit.current-china-cpi-20261109.source",
+        "events.earnings.current-rba-20261109.revenue_unit",
+        "events.earnings.current-cnh-20261109.revenue_unit"
+      ],
+      "before": {
+        "cpi_note": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月 CPI；北京時間與台灣時間相同。 中國 10 月 CPI 市場共識：前值 0.9%、預期 0.6%。；2026-11-09 09:30（台灣時間）官方公布：CPI YoY 0.7%、MoM 0.0%、核心 CPI YoY 0.8%。共識 0.8% YoY／0.0% MoM／核心 0.9% 由 InvestingLive 預覽及 Trading Economics 交叉核對；原始發布日程來源保留於原事件 notes。",
+        "ppi_note": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月工業生產者價格指數；北京時間與台灣時間相同。 中國 10 月 PPI 市場共識：前值 5.0%、預期 6.7%。；2026-11-09 09:30（台灣時間）官方公布：PPI YoY 5.7%、MoM 0.7%、1–10 月平均 YoY 2.7%。共識 5.3% 由 Investing.com 澳洲站及 InvestingLive 發布前預覽交叉核對；原始發布日程來源保留於原事件 notes。",
+        "cpi_audit_source": "https://www.stats.gov.cn/zwfwck/sjfb/sjfbz/202611/t20261109_1965796.html ; https://www.investinglive.com/news/china-october-inflation-preview-cpi-seen-near-0-8-ppi-above-5/ ; https://www.tradingeconomics.com/china/inflation-cpi",
+        "rba_revenue_unit": null,
+        "cnh_revenue_unit": null
+      },
+      "after": {
+        "cpi_note": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月 CPI；北京時間與台灣時間相同。 原 2026-11-06 預估記錄 0.6%；11/09 發布前 InvestingLive／Trading Economics 最終交叉核對為 0.8%，以後者作本次 forecast，原估值差異保留於 audit。；2026-11-09 09:30（台灣時間）官方公布：CPI YoY 0.7%、MoM 0.0%、核心 CPI YoY 0.8%。共識 0.8% YoY／0.0% MoM／核心 0.9% 由 InvestingLive 預覽及 Trading Economics 交叉核對；原始發布日程來源保留於原事件 notes。",
+        "ppi_note": "官方年度發布日程列示 11 月 9 日 09:30 發布 10 月工業生產者價格指數；北京時間與台灣時間相同。 原 2026-11-06 預估記錄 6.7%；11/09 發布前 Investing.com／InvestingLive 最終交叉核對為 5.3%，以後者作本次 forecast，原估值差異保留於 audit。；2026-11-09 09:30（台灣時間）官方公布：PPI YoY 5.7%、MoM 0.7%、1–10 月平均 YoY 2.7%。共識 5.3% 由 Investing.com 澳洲站及 InvestingLive 發布前預覽交叉核對；原始發布日程來源保留於原事件 notes。",
+        "cpi_audit_source": "https://www.stats.gov.cn/zwfwck/sjfb/202611/t20261109_1965796.html ; https://www.investinglive.com/news/china-october-inflation-preview-cpi-seen-near-0-8-ppi-above-5/ ; https://www.tradingeconomics.com/china/inflation-cpi",
+        "rba_revenue_unit": "B",
+        "cnh_revenue_unit": "B"
+      },
+      "source": "official NBS releases / Investing.com consensus pages / SEC EDGAR filings",
+      "note": "修正兩筆中國通膨事件 source.notes 中已被新發布前共識取代的舊估值敘述；更正 CPI audit 中的官方來源 URL 路徑；補齊 RBA 與 CNH 實際營收單位為 USD billion。未變更事件實績或 ID。"
     }
   ]
 }
