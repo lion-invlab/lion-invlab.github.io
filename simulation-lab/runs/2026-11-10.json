@@ -803,116 +803,117 @@
   },
   "analysis": {
     "summary": "11/9美股強彈，道瓊+2.15%、標普+2.35%、那指+2.74%，半導體與工業類股領漲；但市場情緒仍未完全轉為樂觀。中國10月CPI低於共識、PPI高於共識，呈現消費端偏弱與上游價格回升的分化。美國10月CPI今晚公布，將是短線利率與風險資產的主要催化劑。",
-    "market_sentiment": "VIX收20.18、單日下跌21.29%；MOVE最新可得值92.77（11/6）；CNN Fear & Greed 31.71（Fear）於11/10 05:38才更新，晚於05:25排程截點，因此不得放入05:25快照；FedWatch官方機率未取得。結論：風險偏好顯著修復，但尚不能定義為全面risk-on。",
+    "market_sentiment": "VIX 20.18，11/9下跌21.29%；MOVE 85.99，11/9收盤下跌6.79（-7.32%）；CNN Fear & Greed 31.71（Fear，官方資料更新於11/10 05:38）；FedWatch於11/10 05:55補查，12/9會議目標利率4.00–4.25%機率81.8%，3.75–4.00%機率18.2%。風險偏好隨股市反彈修復，但恐慌情緒仍在，利率市場對今晚CPI保持敏感。",
     "market_observation_highlights": [
-      "美股反彈廣泛：Reuters報導11個S&P產業指數全數收高，SOX Reuters口徑+6.9%，Investing.com HK口徑+6.75%；Nvidia仍跌4.2%，AI交易內部分化。",
-      "中國10月CPI年增0.7%低於0.8%共識，核心CPI 0.8%；PPI年增5.7%高於5.3%共識，內需與上游價格訊號分歧。",
-      "美國3年期公債標售需求偏弱：得標殖利率4.627%、BTC 2.53x、間接投標55.5%；官方Treasury PDF仍待直接回讀。",
-      "今晚21:30台灣時間公布美國10月CPI；月增率預期0.3%、核心月增率0.2%，年增率是否發布需以BLS公告確認。"
+      "美股反彈具廣度，11個S&P 500產業類股全數收高；SOX上漲6.75%，但Nvidia仍跌4.2%，顯示AI供應鏈內部並非同步反彈。",
+      "MOVE 11/9收盤降至85.99（-7.32%），債市波動壓力回落；但3年期公債標售投標倍數僅2.53倍、間接投標55.5%，供給吸收仍需觀察。",
+      "中國10月CPI年增0.7%低於0.8%共識，核心CPI 0.8%；PPI年增5.7%高於5.3%共識，內需價格偏弱與上游價格回升並存。",
+      "美國10月CPI今晚21:30公布；市場預期整體月增0.3%、核心月增0.2%。年增率發布口徑仍待BLS正式確認，不能預先當作確定缺席。",
+      "FedWatch 05:55補查顯示12月會議目標利率4.00–4.25%機率81.8%；此為排程05:25後快照，須標明讀取時間。"
     ],
     "news_window_taipei": "2026-11-09 12:00 至 2026-11-10 05:25",
     "global_focus_news": [
       {
-        "title": "中國10月CPI年增0.7%、PPI年增5.7%，消費與上游價格走勢分化",
-        "published_at_taipei": "2026-11-09 10:00",
-        "source": "鉅亨網",
-        "url": "https://news.cnyes.com/news/id/6652843",
-        "summary": "CPI低於Reuters調查的0.8%共識，核心CPI降至0.8%；PPI則高於5.3%共識，反映內需價格偏弱、上游成本壓力回升。",
-        "impact": "對中國需求復甦偏審慎，但上游通膨可能支撐原物料價格。"
+        "title": "Fed官員警告對通膨缺乏耐心，CPI小幅超預期或鎖定12月升息",
+        "published_at_taipei": "2026-11-10 02:10",
+        "source": "Investing.com（引述Russell Investments）",
+        "url": "https://www.investing.com/news/economy-news/fed-going-to-have-little-patience-with-inflation-russell-investments-5012976",
+        "summary": "Russell Investments策略師指出，就業韌性及通膨黏著使Fed對意外升溫的容忍度降低；CPI即使小幅高於預期，也可能鞏固12月升息定價。",
+        "impact": "市場對今晚CPI的反應可能不對稱，核心服務與廣泛漲價程度尤其重要。"
       },
       {
-        "title": "市場提高12月Fed升息定價，投資人聚焦本週美國通膨數據",
-        "published_at_taipei": "2026-11-09 12:33",
+        "title": "美國3年期公債標售需求疲弱，投標倍數降至2025年8月以來低點",
+        "published_at_taipei": "2026-11-10 03:34",
         "source": "Investing.com",
-        "url": "https://hk.investing.com/news/forex-news/article-1746490",
-        "summary": "Investing.com報導市場對12月升息的定價明顯升高；Reuters亦引述CME FedWatch機率高於80%，但本輪未取得官方動態機率快照。",
-        "impact": "利率預期仍偏鷹，短端殖利率與美元對CPI結果敏感。"
+        "url": "https://www.investing.com/news/economy-news/us-3year-treasury-auction-draws-weak-demand-amid-yield-decline-93CH-5013059",
+        "summary": "580億美元標售得標殖利率4.627%，投標倍數2.53倍、間接投標55.5%；間接需求偏弱，但直接投標占比升至35%。",
+        "impact": "本週後續10年及30年標售將檢驗美債供給吸收能力，若需求持續疲弱，長端殖利率可能承壓。"
       },
       {
-        "title": "美國10月CPI發布口徑可能受資料缺口影響，月增率成為觀察焦點",
-        "published_at_taipei": "2026-11-09 17:36",
-        "source": "Investing.com",
-        "url": "https://hk.investing.com/news/stock-market-news/article-1747008",
-        "summary": "Investing.com指出年增率資料可能因前期價格資料缺口而無法完整發布；本項仍須以BLS正式公告確認。",
-        "impact": "若年增率缺席，市場將更聚焦整體與核心CPI月增率及分項。"
+        "title": "美國10月CPI與Fed官員談話成為本週政策焦點",
+        "published_at_taipei": "2026-11-10 03:02",
+        "source": "Investing.com（Reuters內容）",
+        "url": "https://ca.investing.com/news/stock-market-news/cpi-data-and-fed-speakers-highlight-tuesdays-economic-calendar-93CH-4944095",
+        "summary": "市場聚焦今晚CPI月增率及核心月增率，並留意Waller等Fed官員談話；年增率預估與發布口徑仍需以BLS公告為準。",
+        "impact": "通膨分項及政策官員措辭將共同影響短端利率與12月政策預期。"
       },
       {
-        "title": "川普淡化再度攻擊伊朗的可能性，油價回落並緩解通膨憂慮",
+        "title": "川普淡化再度攻擊伊朗可能性，油價回落緩和能源通膨疑慮",
         "published_at_taipei": "2026-11-10 02:59",
         "source": "Investing.com",
         "url": "https://hk.investing.com/news/commodities-news/article-1748240",
-        "summary": "市場解讀中東局勢升溫機率下降，前月原油價格回落；但報價區塊採用WTI 2026/12與Brent 2027/01合約，不能混用前月跌幅。",
-        "impact": "短線降低能源通膨壓力，但地緣政治風險仍需追蹤。"
+        "summary": "市場降低中東局勢進一步升級的風險評估，能源價格回落；需留意地緣政治風險是否真正降溫。",
+        "impact": "油價回落有助緩和短期通膨壓力，但仍須以報告採用的具體期貨合約核對價格變化。"
       },
       {
-        "title": "中國提出資本市場穩定與基礎設施網路建設措施",
-        "published_at_taipei": "2026-11-09 08:31",
+        "title": "市場押注Fed 12月升息機率升高，投資人等待美國通膨數據",
+        "published_at_taipei": "2026-11-09 12:33",
         "source": "Investing.com",
-        "url": "https://hk.investing.com/news/stock-market-news/article-1746240",
-        "summary": "政策訊號聚焦資本市場穩定機制與基礎設施投資，為市場提供政策面支撐。",
-        "impact": "有助穩定風險偏好，但實際效果仍取決於資金與項目落地。"
+        "url": "https://hk.investing.com/news/forex-news/article-1746490",
+        "summary": "就業數據韌性推升市場對12月政策收緊的預期，CPI成為確認或修正利率路徑的關鍵。",
+        "impact": "短端美債殖利率及美元對CPI意外幅度維持高度敏感。"
       }
     ],
     "market_hot_headlines": [
       {
-        "title": "Barrick Q3：調整後EPS 0.82美元，營收50.7億美元",
+        "title": "Barrick Q3調整後EPS 0.82美元，略高於0.79美元共識",
         "source": "Investing.com",
         "url": "https://uk.investing.com/news/earnings/barrick-mining-beats-on-q3-profit-reaffirms-2026-output-4967691",
-        "summary": "EPS高於0.79美元共識；營收低於5.13億美元以外的市場估值基準（實際為50.7億美元、共識51.3億美元），股價盤中約上漲0.8%。"
+        "summary": "第三季調整後EPS高於共識，營收50.7億美元低於Investing.com的51.3億美元共識；股價盤中約漲0.8%。營收與資料庫原估值有差異，依本次報導口徑呈現。"
       },
       {
-        "title": "Ferguson Q3：調整後EPS 3.43美元、營收90.3億美元，股價大漲",
+        "title": "Ferguson Q3獲利與營收優於市場預期，股價盤中大漲",
         "source": "Investing.com",
         "url": "https://uk.investing.com/news/earnings/ferguson-soars-on-earnings-beat-raised-guidance-4969096",
-        "summary": "調整後EPS高於2.46美元共識，營收高於82.2億美元共識；股價盤中上漲約12%。日曆資料庫原估值口徑不同，需同步修正。"
+        "summary": "調整後EPS 3.43美元、營收90.3億美元均高於該報導所列共識；股價盤中約漲12%，公司並提高全年營收成長展望。"
       },
       {
-        "title": "NRG Q3：調整後EPS 4.68美元、營收約95億美元",
+        "title": "NRG Q3調整後EPS 4.68美元，營收約95億美元",
         "source": "Investing.com",
         "url": "https://uk.investing.com/news/earnings/nrg-earnings-beat-by-152-revenue-topped-estimates-4967874",
-        "summary": "EPS高於3.16美元共識，營收高於93.3億美元共識；11/9股價收高約9.61%。"
+        "summary": "調整後EPS高於3.16美元共識，營收約95億美元高於93.3億美元共識；11/9股價收高約9.61%。"
       },
       {
-        "title": "Constellation Energy Q3：調整後營運EPS 5.06美元",
+        "title": "Constellation Energy Q3營運EPS 5.06美元，優於分析師預期",
         "source": "Investing.com",
         "url": "https://uk.investing.com/news/stock-market-news/earnings-call-transcript-constellation-energy-tops-q3-2026-forecasts-shares-rise-93CH-4969092",
-        "summary": "EPS高於3.72美元共識，營收約95.5億美元高於92.1億美元共識；盤前股價約上漲5.12%，Reuters另報股價漲逾10%。"
+        "summary": "調整後營運EPS及營收均高於報導所列共識；公司上調全年展望，市場關注核能供電與AI資料中心需求。股價反應因報價時間窗口不同而有差異。"
       },
       {
-        "title": "KKR Q3：調整後淨利每股1.78美元，股價上漲",
+        "title": "KKR Q3獲利創高，資產出售與費用收入帶動表現",
         "source": "Reuters",
         "url": "https://www.reuters.com/legal/transactional/kkr-profit-hits-record-asset-sales-fees-surge-2026-11-09/",
-        "summary": "調整後淨利每股高於1.59美元共識，總營收約45.6億美元；Reuters報導股價上漲約1.7%。"
+        "summary": "調整後每股淨利1.78美元，高於1.59美元共識；總營收約45.6億美元，但金融業營收組成與共識口徑可比性有限。"
       },
       {
-        "title": "monday.com Q3：EPS與營收優於預期，但短期營收指引偏弱",
+        "title": "monday.com Q3營收與EPS雙雙優於預期，短期指引壓抑股價",
         "source": "Investing.com",
         "url": "https://uk.investing.com/news/earnings/mondaycom-falls-despite-q3-beat-sees-nearterm-operational-headwinds-4968047",
-        "summary": "調整後EPS 2.14美元高於1.37美元共識，營收3.775億美元高於3.692億美元；因下一季營收指引低於市場預期，股價盤中下跌約6.6%。"
+        "summary": "調整後EPS 2.14美元、營收3.775億美元均高於共識；但下一季營收指引偏弱，股價盤中下跌約6.6%。"
       },
       {
-        "title": "台股11/9大漲4.94%，權值與半導體股帶動反彈",
-        "source": "鉅亨網",
-        "url": "https://news.cnyes.com/news/id/6652988",
-        "summary": "台灣加權指數收41,661.70點，上漲4.94%；需留意反彈集中度與後續外資現貨、期貨部位。"
+        "title": "美國3年期公債標售需求疲弱，BTC降至2.53倍",
+        "source": "Investing.com",
+        "url": "https://www.investing.com/news/economy-news/us-3year-treasury-auction-draws-weak-demand-amid-yield-decline-93CH-5013059",
+        "summary": "得標殖利率4.627%，間接投標55.5%，直接投標35%；本週10年及30年期標售將進一步測試市場需求。"
       },
       {
-        "title": "美股11/9強彈，道瓊、標普、那指同步大漲",
-        "source": "Reuters",
-        "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
-        "summary": "道瓊+2.15%、標普+2.35%、那指+2.74%，半導體指數Reuters口徑+6.9%；市場從前週AI股賣壓中反彈。"
+        "title": "Fed策略師警告：CPI小幅超預期可能鞏固12月升息",
+        "source": "Investing.com",
+        "url": "https://www.investing.com/news/economy-news/fed-going-to-have-little-patience-with-inflation-russell-investments-5012976",
+        "summary": "Russell Investments認為就業韌性提高Fed對通膨意外的敏感度；今晚核心通膨與價格上漲廣度將是政策定價焦點。"
       },
       {
-        "title": "Nvidia逆勢下跌4.2%，市場關注針對黃仁勳的外國情報調查說法",
-        "source": "Reuters",
-        "url": "https://www.reuters.com/business/wall-st-futures-rise-after-rough-week-nvidia-unsettles-investors-2026-11-09/",
-        "summary": "Nvidia收跌4.2%，為當日半導體族群少數逆勢下跌者；報導內容涉及公司內部調查與地緣政治風險，不應延伸為未證實的私人傳聞。"
+        "title": "油價因中東局勢升級風險降溫而回落",
+        "source": "Investing.com",
+        "url": "https://hk.investing.com/news/commodities-news/article-1748240",
+        "summary": "市場降低伊朗局勢再度升級的風險評估，能源價格回落；仍須留意地緣政治變化及實際期貨合約價格。"
       },
       {
-        "title": "美國3年期公債標售需求偏弱，投標倍數降至2.53倍",
-        "source": "SafeRate / Treasury data cross-check",
-        "url": "https://saferate.com/treasury/auctions",
-        "summary": "580億美元標售得標殖利率4.627%，間接投標55.5%、直接投標35.0%、交易商9.5%；官方Treasury PDF尚未完成直接回讀。"
+        "title": "美國10月CPI年增率發布口徑仍待BLS確認",
+        "source": "Investing.com",
+        "url": "https://hk.investing.com/news/stock-market-news/article-1747008",
+        "summary": "報導指出資料缺口可能影響年增率可用性；正式呈現應以BLS當日發布內容為準，今晚先聚焦整體與核心月增率。"
       }
     ],
     "calendar": {
@@ -949,13 +950,14 @@
           "event_date": "2026-11-10T02:00:00+08:00",
           "name": "美國財政部3年期公債標售（580億美元）",
           "stars": 4,
-          "status": "released_provisional",
-          "actual": "高殖利率4.627%；投標倍數2.53x；間接投標55.5%；直接投標35.0%；交易商9.5%；tail 4.7bp",
+          "status": "released",
+          "actual": "得標殖利率4.627%；投標倍數2.53x；間接投標55.5%；直接投標35.0%；交易商9.5%；tail 0.5bp",
           "forecast": "未取得可靠市場預估",
           "previous": "前次殖利率4.932%；前六次BTC平均約2.64x",
-          "impact": "投標倍數與間接投標比率偏弱，需求不佳；得標殖利率較前次低，但尾差顯示標售價格略弱。官方Treasury PDF仍待直接回讀。",
-          "source": "https://saferate.com/treasury/auctions",
-          "secondary_source": "https://primexbt-broker.com/news/us-3-year-treasury-auction-draws-weak-demand-as-bid-cover-hits-lowest-since-augu/"
+          "impact": "投標倍數為2025年8月以來低點，間接投標占比偏低；直接投標35%提供部分承接。整體需求偏弱，需觀察後續10年及30年期標售。",
+          "source": "https://www.investing.com/news/economy-news/us-3year-treasury-auction-draws-weak-demand-amid-yield-decline-93CH-5013059",
+          "secondary_source": "https://primexbt-broker.com/news/us-3-year-treasury-auction-draws-weak-demand-as-bid-cover-hits-lowest-since-augu/",
+          "source_note": "Investing.com於11/9 14:34 ET發布，列示標售結果；市場數據文章，非Treasury官方結果表。"
         },
         {
           "id": "us-cpi-20261110",
@@ -1070,7 +1072,7 @@
           "source": "https://uk.investing.com/news/earnings/mondaycom-falls-despite-q3-beat-sees-nearterm-operational-headwinds-4968047"
         }
       ],
-      "db_note": "W46資料庫仍將11/9中國CPI/PPI與11/10凌晨3年期標售標為upcoming，且CPI/PPI forecast仍是0.6%與6.7%；本輪已取得的共識資料為0.8%與5.3%。資料庫本身未修改，因模擬規則限制寫入範圍在simulation-lab/。",
+      "db_note": "W46正式資料庫仍保留原始upcoming狀態與舊預估值；本次早報run已在獨立快照中修正中國CPI/PPI實績與市場共識、3年期標售結果及六家已公布財報。未修改正式data/calendar週檔。財報共識來源口徑不一致者保留差異註記，不以不一致數字作絕對beat/miss。",
       "database_snapshot": {
         "path": "data/calendar/weeks/2026-W46.json",
         "blob_sha": "02859c30c57b2d697e30da55430ff7ccddde6b88",
@@ -2287,20 +2289,22 @@
       "note": "這是舊的11/9週一母版產物，不能作為11/10週二至週五報告或QA證據。"
     },
     "blockers": [
-      "目前執行環境可讀寫GitHub檔案，但無法直接執行simulation-lab/runner/build_review_html.py及Playwright視覺測試；GitHub檔案讀取不等於程式執行。",
       "現有.github/workflows/tac-simulation-lab.yml只有push觸發，沒有workflow_dispatch；weekday replay仍使用2026-11-09 fixture（交易資料日為11/6），不是本次2026-11-09收盤資料。",
       "build_review_html.py將key_levels items數量硬性要求為5；本次五個現金指數OHLC無法在同一交易日與正式收盤價對齊，必須待核實，不能用CFD或期貨替代。",
       "visual_regression.mjs仍有11/6舊關鍵價位與「週五美股反彈」硬編碼，無法直接用來驗收11/10內容。",
-      "W46 calendar DB仍為WR v5.13且更新於11/6，15個經濟事件與42個財報事件的coverage均為incomplete；已發生事件仍標upcoming，且中國CPI/PPI預估值與本輪Reuters共識不同。",
       "新加坡STI於2026/11/09因印度教排燈節補假休市，須在早報直接標示「休市｜印度教排燈節」，不可列為行情缺漏。",
-      "MOVE 85.99（-7.32%）依使用者確認為2026/11/09美國交易日收盤值；截圖觀測時間為2026/11/10 06:30台灣時間。"
+      "MOVE 85.99（-7.32%）依使用者確認為2026/11/09美國交易日收盤值；截圖觀測時間為2026/11/10 06:30台灣時間。",
+      "W46資料庫本身未修改（模擬WR限定寫入simulation-lab）；run內快照已同步已知實績。其他42筆財報中仍有多筆需確認是否於11/9或11/10已公布，不可一律視為upcoming。",
+      "五項關鍵價位現金指數OHLC仍未取得同一日期且與正式收盤價一致的可靠來源；關鍵價位模組暫缺，不能以CFD／期貨代替。"
     ],
     "next_steps": [
-      "行情補查狀態更新：42/44 項具 2026-11-09 收盤基準；STI 為新加坡屠妖節補假休市，MOVE 改採 11/10 06:30 TST 使用者截圖盤中值；FedWatch為05:55 TST補查快照。",
-      "在simulation-lab/fixtures建立2026-11-10資料快照，將已核實數據、資料日期、來源與待核實項目完整寫入既有assembler輸入格式。",
-      "透過既有push-triggered模擬工作流執行weekday母版組裝與QA，並取得該次run的artifact及run id；不可用舊artifact替代。",
-      "完成桌機、手機、互動與Pages實際載入驗證後，才寫入preview/2026-11-10-simulation.html並交付預覽連結。"
-    ]
+      "完成11/10當日已公布與待公布財報的狀態辨識及可核實實績補入run快照。",
+      "處理五項關鍵價位OHLC缺口；無法可靠取得時依模擬規則保留暫缺，不阻斷其他區塊。",
+      "核對並執行weekday HTML組裝；若現有執行環境無法跑Python/Playwright，改用既有模擬workflow或明確標記未測試，不得宣稱完成。",
+      "輸出preview/2026-11-10-simulation.html並回讀，完成可執行的DOM與視覺QA後交付。"
+    ],
+    "news_window": "PASS：5則Global Focus News均落在2026-11-09 12:00至2026-11-10 05:25台灣時間；原本早於時間窗的中國CPI/PPI及政策新聞已剔除。",
+    "calendar": "PARTIAL：中國CPI/PPI與美國3年期標售改列已公布；六家11/9財報已完成結果整理。資料庫42筆財報仍有其他事件需逐筆辨識發布狀態；正式W46 JSON未修改。"
   },
   "output": {
     "preview_path": "preview/2026-11-10-simulation.html",
