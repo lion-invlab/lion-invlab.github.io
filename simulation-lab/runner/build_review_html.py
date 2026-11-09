@@ -869,14 +869,16 @@ def main():
     # or appears in more than one status group.
     released_tickers={str(x.get("ticker","")).upper() for x in earnings
                       if (x.get("status") or x.get("status_in_db")) in ("released","published")}
-    published_group=ep.select_one(".calendar-status-group.published")
+    published_heading=ep.select_one(".calendar-status-heading.published")
+    published_group=published_heading.find_parent(class_="calendar-status-group") if published_heading else None
     if published_group is None: raise ValueError("published earnings group missing")
     published_tickers={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                        for n in published_group.select(".earnings-company-sub")}
     if released_tickers != published_tickers:
         raise ValueError(f"released earnings classification mismatch: expected {sorted(released_tickers)}, rendered {sorted(published_tickers)}")
     for status_class in ("today","upcoming"):
-        group_node=ep.select_one(f".calendar-status-group.{status_class}")
+        status_heading=ep.select_one(f".calendar-status-heading.{status_class}")
+        group_node=status_heading.find_parent(class_="calendar-status-group") if status_heading else None
         if group_node:
             other={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                    for n in group_node.select(".earnings-company-sub")}
