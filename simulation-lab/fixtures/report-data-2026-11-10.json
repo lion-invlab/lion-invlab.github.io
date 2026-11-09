@@ -489,7 +489,7 @@
         "url": "https://production.dataviz.cnn.io/index/fearandgreed/graphdata/2026-11-09",
         "data_date": "2026-11-09",
         "quote_type": "daily_close",
-        "note": ""
+        "note": "CNN Business 官方 graphdata 歷史序列：2026/11/09 收盤值 31.71，分類 Fear；本值為官方歷史讀值，非即時盤中值。"
       },
       "as_of_date": "2026-11-09",
       "as_of": "2026-11-09",
@@ -1295,5 +1295,5 @@
     "text": "反彈已有市場廣度，但利率與情緒尚未同步確認；今晚美國CPI將檢驗這波修復能否延續。",
     "details": "重點觀察核心通膨月增與住房、服務分項，以及後續公債標售需求和AI權值股的參與度。"
   },
-  "qa_run_revision": "summary-sentiment-dom-binding-2026-11-10-v3"
+  "qa_run_revision": "fear-greed-disclosure-consistency-2026-11-10-v1"
 }
