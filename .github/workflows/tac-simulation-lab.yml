@@ -91,6 +91,13 @@ jobs:
           python simulation-lab/runner/build_review_html.py --data simulation-lab/output/report-data-weekday-replay.json --output simulation-lab/output/TAC_投資早報_2026-11-10_週二至週五相容性測試.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
           node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-10_週二至週五相容性測試.html weekdays 2026-11-10
 
+      - name: Assemble actual 2026-11-10 weekday review from verified report data
+        run: |
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-10.json --output simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
+
+      - name: Compare 2026-11-10 review against approved weekday mother
+        run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html weekdays 2026-11-10
+
       - name: Record isolated run metadata
         if: always()
         shell: bash
