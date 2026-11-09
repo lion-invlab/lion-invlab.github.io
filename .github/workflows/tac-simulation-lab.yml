@@ -67,31 +67,6 @@ jobs:
       - name: Compare 2026-11-10 review against approved weekday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html weekdays 2026-11-10
 
-      - name: Publish approved review preview to main (preview path only)
-        if: success()
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          test -s simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html
-          mkdir -p main-preview
-          git worktree add main-preview origin/main
-          install -D simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html main-preview/preview/2026-11-10-simulation.html
-          cd main-preview
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -- preview/2026-11-10-simulation.html
-          if git diff --cached --quiet; then
-            echo "Preview already matches; no main commit needed."
-          else
-            git commit -m "Publish 2026-11-10 TAC simulation review preview"
-            git push origin HEAD:main
-          fi
-          test -s preview/2026-11-10-simulation.html
-          git status --short
-          echo "Published only preview/2026-11-10-simulation.html"
-
       - name: Record isolated run metadata
         if: always()
         shell: bash
@@ -102,7 +77,7 @@ jobs:
             echo "commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
             echo "run_attempt=$GITHUB_RUN_ATTEMPT"
-            echo "main_write_scope=preview/2026-11-10-simulation.html only, after QA pass"
+            echo "main_write_scope=forbidden; simulation branch artifacts only"
             echo "production_deploy=forbidden"
           } > simulation-lab/output/runner-metadata.txt
 
