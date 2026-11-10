@@ -1737,15 +1737,16 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Skydance Corporation｜Q3/Q4 FY2026 results",
-          "url": "https://ir.skydance.com/investor-relations",
+          "name": "Skydance Corporation｜Q3 2026 Results",
+          "url": "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Skydance Corporation",
-          "notes": "原有排程／查核註記保留：公司官方公告確認 NYSE: SKYD；11/09 公布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；原有排程／查核註記保留：公司官方公告確認 NYSE: SKYD；11/09 公布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；Skydance 官方投資人關係頁列示 11/09 Q3 2026 財報；摘要顯示 revenue US$7.0B、net earnings US$73M、adjusted EBITDA US$1.0B，期間為 WBD 交易完成前。",
+          "notes": "原有排程／查核註記保留：公司官方公告確認 NYSE: SKYD；11/09 公布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；Skydance 官方投資人關係頁列示 11/09 Q3 2026 財報；摘要顯示 revenue US$7.0B、net earnings US$73M、adjusted EBITDA US$1.0B，期間為 WBD 交易完成前。",
           "secondary_refs": [
             "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
-            "https://ir.paramount.com/news-releases/news-release-details/skydance-report-third-quarter-2026-financial-results-november-9"
+            "https://ir.paramount.com/news-releases/news-release-details/skydance-report-third-quarter-2026-financial-results-november-9",
+            "https://ir.skydance.com/investor-relations"
           ]
         },
         "consensus_source": {
@@ -1854,9 +1855,9 @@
         "reporting_period": "Q3 2026",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Per-share EPS not extracted from the accessed official release; retain null pending full financial-statement verification.",
+        "eps_basis": "GAAP diluted loss per share US$0.13; analyst EPS consensus basis not disclosed.",
         "eps_estimate": -0.1,
-        "eps_actual": null,
+        "eps_actual": -0.13,
         "revenue_estimate": 4.36,
         "revenue_actual": 4.5,
         "eps_currency": "USD",
@@ -1864,16 +1865,16 @@
         "revenue_unit": "M",
         "eps_comparison_status": null,
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$4.5M，高於 US$4.36M 共識；bookings US$1.9M、remaining performance obligations US$38.3M。可讀取的公司新聞稿未提供 per-share EPS，故 EPS actual 維持 null。",
+        "financial_judgment": "Q3 revenue US$4.5M，高於 US$4.36M 共識；GAAP net loss US$48.2M、GAAP diluted loss per share US$0.13。EPS 共識 basis 未揭露，不作 EPS beat/miss 判斷；bookings US$1.9M、RPO US$38.3M。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "D-Wave Quantum｜Q3/Q4 FY2026 results",
+          "name": "D-Wave Quantum｜Q3 2026 Results",
           "url": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Reports-Third-Quarter-2026-Results/",
           "published_at": "2026-11-10",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "D-Wave Quantum",
-          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: QBTS；11/10 08:00 EST 於美股開盤前發布 Q3 2026 財報並舉行 webcast，換算台灣時間 11/10 21:00。；原有排程／查核註記保留：官方公告確認 Nasdaq: QBTS；11/10 08:00 EST 於美股開盤前發布 Q3 2026 財報並舉行 webcast，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：revenue US$4.5M，年增 21%；RPO US$38.3M。",
+          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: QBTS；11/10 08:00 EST 於美股開盤前發布 Q3 2026 財報並舉行 webcast，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：revenue US$4.5M，年增 21%；RPO US$38.3M。",
           "secondary_refs": [
             "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Quantum-to-Report-Third-Quarter-2026-Financial-Results-on-November-10-2026/default.aspx"
           ]
@@ -2061,12 +2062,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Sea Limited / Business Wire｜Q3/Q4 FY2026 results",
+          "name": "Sea Limited｜Q3 2026 Results (Business Wire)",
           "url": "https://finance.yahoo.com/markets/stocks/articles/sea-limited-reports-third-quarter-113000884.html",
           "published_at": "2026-11-10T06:30:00-05:00",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Sea Limited / Business Wire",
-          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。；原有排程／查核註記保留：官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。；Business Wire 於 11/10 06:30 ET 發布 Sea Q3 2026 結果：GAAP revenue 約 US$8.6B、net income US$502.5M、adjusted EBITDA US$931.3M。",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。；Business Wire 於 11/10 06:30 ET 發布 Sea Q3 2026 結果：GAAP revenue 約 US$8.6B、net income US$502.5M、adjusted EBITDA US$931.3M。",
           "secondary_refs": [
             "https://www.sea.com/investor/home",
             "https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27"
@@ -2127,12 +2128,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Vodafone Group｜Q3/Q4 FY2026 results",
+          "name": "Vodafone Group｜H1 FY2027 Results",
           "url": "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
-          "published_at": "",
+          "published_at": null,
           "observed_at": "2026-11-11T04:34:41+08:00",
-          "publisher": "Vodafone Group",
-          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。",
+          "publisher": "Vodafone Group Plc",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。",
           "secondary_refs": [
             "https://www.vodafone.com/investors/performance-and-reports/financial-calendar"
           ]
@@ -2242,15 +2243,16 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Venture Global｜Q3/Q4 FY2026 results",
-          "url": "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Reports-Third-Quarter-2026-Results/default.aspx",
+          "name": "Venture Global｜Q3 2026 Results (SEC Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
           "published_at": "2026-11-10",
           "observed_at": "2026-11-11T04:34:41+08:00",
-          "publisher": "Venture Global",
-          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。；原有排程／查核註記保留：官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。；公司官方 Q3 2026 財報摘要：revenue US$4.8B、net income US$2.5B、adjusted EBITDA US$2.6B；數字以 US$0.1B 精度呈現。",
+          "publisher": "Venture Global / SEC EDGAR",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。；公司官方 Q3 2026 財報摘要：revenue US$4.8B、net income US$2.5B、adjusted EBITDA US$2.6B；數字以 US$0.1B 精度呈現。",
           "secondary_refs": [
             "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
-            "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx"
+            "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx",
+            "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Reports-Third-Quarter-2026-Results/default.aspx"
           ]
         },
         "consensus_source": {
@@ -2740,15 +2742,16 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "MARA Holdings｜Q3/Q4 FY2026 results",
-          "url": "https://ir.mara.com/news-events/press-releases/detail/1430/mara-announces-third-quarter-2026-results",
-          "published_at": "2026-11-09",
+          "name": "MARA Holdings｜Q3 2026 Results",
+          "url": "https://www.globenewswire.com/news-release/2026/11/09/3398980/0/en/mara-announces-third-quarter-2026-results.html",
+          "published_at": "2026-11-09T16:05:00-05:00",
           "observed_at": "2026-11-11T04:34:41+08:00",
-          "publisher": "MARA Holdings",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。；公司官方 IR 確認 Q3 2026 結果已發布；收入 US$164.2M、net income US$632.1M、diluted EPS US$1.28，SEC 8-K 摘要指出包含 US$885.3M digital-asset fair-value gain。",
+          "publisher": "MARA Holdings / GlobeNewswire",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。；公司官方 IR 確認 Q3 2026 結果已發布；收入 US$164.2M、net income US$632.1M、diluted EPS US$1.28，SEC 8-K 摘要指出包含 US$885.3M digital-asset fair-value gain。",
           "secondary_refs": [
             "https://www.stocktitan.net/sec-filings/MARA/8-k-mara-holdings-inc-reports-material-event-a0b6ed495585.html",
-            "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results"
+            "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results",
+            "https://ir.mara.com/news-events/press-releases/detail/1430/mara-announces-third-quarter-2026-results"
           ]
         },
         "consensus_source": {
@@ -2868,15 +2871,16 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "AST SpaceMobile / SEC EDGAR｜Q3/Q4 FY2026 results",
-          "url": "https://www.sec.gov/Archives/edgar/data/1780312/000119312526453758/",
+          "name": "AST SpaceMobile｜Q3 2026 Form 8-K (SEC filing mirror)",
+          "url": "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html",
           "published_at": "2026-11-09T16:49:00-05:00",
           "observed_at": "2026-11-11T04:34:41+08:00",
-          "publisher": "AST SpaceMobile / SEC EDGAR",
-          "notes": "原有排程／查核註記保留：官方 IR 活動日程確認 11/09 17:00 EST 舉行 Q3 2026 Results webcast；換算台灣時間 11/10 06:00。官方 IR 頁面列示 Nasdaq: ASTS。；原有排程／查核註記保留：官方 IR 活動日程確認 11/09 17:00 EST 舉行 Q3 2026 Results webcast；換算台灣時間 11/10 06:00。官方 IR 頁面列示 Nasdaq: ASTS。；SEC 8-K 於 11/09 16:49 ET 收錄；第三季 revenue US$42.321M、net loss attributable to common stockholders US$132.380M。EPS per-share 未由可讀取摘要核實。",
+          "publisher": "SEC EDGAR filing mirror / StockTitan",
+          "notes": "原有排程／查核註記保留：官方 IR 活動日程確認 11/09 17:00 EST 舉行 Q3 2026 Results webcast；換算台灣時間 11/10 06:00。官方 IR 頁面列示 Nasdaq: ASTS。；SEC 8-K 於 11/09 16:49 ET 收錄；第三季 revenue US$42.321M、net loss attributable to common stockholders US$132.380M。EPS per-share 未由可讀取摘要核實。",
           "secondary_refs": [
             "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html",
-            "https://investors.ast-science.com/events"
+            "https://investors.ast-science.com/events",
+            "https://www.sec.gov/Archives/edgar/data/1780312/000119312526453758/"
           ]
         },
         "consensus_source": {
@@ -2934,12 +2938,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Onto Innovation｜Q3/Q4 FY2026 results",
+          "name": "Onto Innovation｜Q3 2026 Results",
           "url": "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-Reports-2026-Third-Quarter-Results/default.aspx",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Onto Innovation",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 16:30 ET 發布第三季財報並舉行電話會議；換算台灣時間 11/10 05:30。官方股票資訊頁明確列示 NYSE: ONTO。；原有排程／查核註記保留：官方公告確認 11/09 16:30 ET 發布第三季財報並舉行電話會議；換算台灣時間 11/10 05:30。官方股票資訊頁明確列示 NYSE: ONTO。；公司官方 Q3 2026 財報：revenue US$409.7M、GAAP diluted EPS US$0.95、non-GAAP diluted EPS US$2.44。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 16:30 ET 發布第三季財報並舉行電話會議；換算台灣時間 11/10 05:30。官方股票資訊頁明確列示 NYSE: ONTO。；公司官方 Q3 2026 財報：revenue US$409.7M、GAAP diluted EPS US$0.95、non-GAAP diluted EPS US$2.44。",
           "secondary_refs": [
             "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-to-Report-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx"
           ]
@@ -2999,15 +3003,16 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Sanmina Corporation｜Q3/Q4 FY2026 results",
-          "url": "https://ir.sanmina.com/news/news-details/2026/Sanmina-Reports-Fourth-Quarter-and-Fiscal-2026-Financial-Results/default.aspx",
+          "name": "Sanmina｜Q4 FY2026 Results (SEC Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
-          "publisher": "Sanmina Corporation",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。；原有排程／查核註記保留：官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。；公司官方 Q4 FY2026 財報：revenue US$3.86B、GAAP diluted EPS US$2.14、non-GAAP diluted EPS US$4.43。",
+          "publisher": "Sanmina / SEC EDGAR",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。；公司官方 Q4 FY2026 財報：revenue US$3.86B、GAAP diluted EPS US$2.14、non-GAAP diluted EPS US$4.43。",
           "secondary_refs": [
             "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
-            "https://ir.sanmina.com/news/news-details/2026/SANMINA-CORPORATION-INVITES-YOU-TO-JOIN-ITS-FOURTH-QUARTER-AND-FISCAL-YEAR-2026-EARNINGS-CONFERENCE-CALL/default.aspx"
+            "https://ir.sanmina.com/news/news-details/2026/SANMINA-CORPORATION-INVITES-YOU-TO-JOIN-ITS-FOURTH-QUARTER-AND-FISCAL-YEAR-2026-EARNINGS-CONFERENCE-CALL/default.aspx",
+            "https://ir.sanmina.com/news/news-details/2026/Sanmina-Reports-Fourth-Quarter-and-Fiscal-2026-Financial-Results/default.aspx"
           ]
         },
         "consensus_source": {
@@ -3280,12 +3285,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Credicorp Ltd.｜Q3/Q4 FY2026 results",
+          "name": "Credicorp Ltd.｜3Q26 release status and conflicting third-party figures",
           "url": "https://inversionistas.grupocredicorp.com/ir-press-releases",
-          "published_at": "",
+          "published_at": null,
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Credicorp Ltd.",
-          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。",
+          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。",
           "secondary_refs": [
             "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
             "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288"
@@ -3575,7 +3580,12 @@
         "https://www.sec.gov/Archives/edgar/data/1107843/000110784326000043/qlys-20261109xex991.htm",
         "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
         "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
-        "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288"
+        "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288",
+        "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
+        "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
+        "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
+        "https://www.globenewswire.com/news-release/2026/11/09/3398980/0/en/mara-announces-third-quarter-2026-results.html",
+        "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html"
       ],
       "checked_at": "2026-11-11T04:34:41+08:00",
       "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-09 04:35 預更新：依 169 家美國掛牌公司候選掃描及發行人公告補入 Kaspi.kz、RB Global、CNH Industrial、Credicorp、Alcon、Ecopetrol 六筆 TAC 四星事件。非美國發行人已另核對註冊地及 NYSE/Nasdaq 掛牌證據。新增事件的 EPS／營收共識未取得可追溯且同幣別、同口徑資料，保留 null；候選掃描仍未全部完成，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：已核實並更新 9 家已公布企業：Barrick、Ferguson、NRG、Constellation Energy、KKR、monday.com、Kaspi.kz、RB Global、CNH Industrial。EPS GAAP／adjusted 口徑分開記錄；共識來源有衝突或 basis 未披露者保留待核，不覆蓋既有值。OXY、TTWO、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 等截至本次觀察時間尚未到其官方發布／電話會議時段，維持 upcoming；仍有其他候選與共識欄位待核，coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：增量核實 TTWO、OXY、TDG、HIVE、RKLB、SKYD、JBS、QBTS、WIX、SE、VG、ONON、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 共 19 家已公布財報並更新可核實實績；EPS GAAP／adjusted 分開保存，未揭露共識 basis 者不判 beat/miss。Vodafone 官方 H1 結果頁已找到但原始 PDF 財務表未抽取，Credicorp 第三方實績來源衝突，兩者均 pending_verification；其他尚未公布企業維持 upcoming，coverage incomplete。"
@@ -6430,6 +6440,418 @@
       },
       "source": "https://github.com/lion-invlab/lion-invlab.github.io/blob/0c159818ec9c740d58ed0505d9f8575413f58509/TAC_WORK_RULES.md",
       "note": "本次直接讀取 main HEAD 0c159818ec9c740d58ed0505d9f8575413f58509 的 TAC_WORK_RULES.md；版本 5.14，Blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-skyd-20261110",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Skydance Corporation｜Q3/Q4 FY2026 results",
+          "url": "https://ir.skydance.com/investor-relations",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Skydance Corporation",
+          "notes": "原有排程／查核註記保留：公司官方公告確認 NYSE: SKYD；11/09 公布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；原有排程／查核註記保留：公司官方公告確認 NYSE: SKYD；11/09 公布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；Skydance 官方投資人關係頁列示 11/09 Q3 2026 財報；摘要顯示 revenue US$7.0B、net earnings US$73M、adjusted EBITDA US$1.0B，期間為 WBD 交易完成前。",
+          "secondary_refs": [
+            "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
+            "https://ir.paramount.com/news-releases/news-release-details/skydance-report-third-quarter-2026-financial-results-november-9"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Skydance Corporation｜Q3 2026 Results",
+          "url": "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Skydance Corporation",
+          "notes": "原有排程／查核註記保留：公司官方公告確認 NYSE: SKYD；11/09 公布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；Skydance 官方投資人關係頁列示 11/09 Q3 2026 財報；摘要顯示 revenue US$7.0B、net earnings US$73M、adjusted EBITDA US$1.0B，期間為 WBD 交易完成前。",
+          "secondary_refs": [
+            "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
+            "https://ir.paramount.com/news-releases/news-release-details/skydance-report-third-quarter-2026-financial-results-november-9",
+            "https://ir.skydance.com/investor-relations"
+          ]
+        }
+      },
+      "source": "https://www.skydance.com/news/press/skydance-reports-third-quarter-2026-financial-results-for-paramount-skydance",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-vg-20261110",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Venture Global｜Q3/Q4 FY2026 results",
+          "url": "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Reports-Third-Quarter-2026-Results/default.aspx",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Venture Global",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。；原有排程／查核註記保留：官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。；公司官方 Q3 2026 財報摘要：revenue US$4.8B、net income US$2.5B、adjusted EBITDA US$2.6B；數字以 US$0.1B 精度呈現。",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
+            "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Venture Global｜Q3 2026 Results (SEC Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Venture Global / SEC EDGAR",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: VG；11/10 美股開盤前發布 Q3 2026 財報，09:00 ET 電話會議，換算台灣時間 11/10 22:00。公告內文一處誤寫 first quarter results，標題與公告主旨均為 third quarter 2026，以Q3為準。；公司官方 Q3 2026 財報摘要：revenue US$4.8B、net income US$2.5B、adjusted EBITDA US$2.6B；數字以 US$0.1B 精度呈現。",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
+            "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Inc--Announces-Timing-of-Third-Quarter-2026-Earnings-Release-and-Conference-Call/default.aspx",
+            "https://investors.ventureglobal.com/news/news-details/2026/Venture-Global-Reports-Third-Quarter-2026-Results/default.aspx"
+          ]
+        }
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/2007855/000200785526000091/vgincq32026earningsrelease.htm",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-sanm-20261109",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Sanmina Corporation｜Q3/Q4 FY2026 results",
+          "url": "https://ir.sanmina.com/news/news-details/2026/Sanmina-Reports-Fourth-Quarter-and-Fiscal-2026-Financial-Results/default.aspx",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Sanmina Corporation",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。；原有排程／查核註記保留：官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。；公司官方 Q4 FY2026 財報：revenue US$3.86B、GAAP diluted EPS US$2.14、non-GAAP diluted EPS US$4.43。",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
+            "https://ir.sanmina.com/news/news-details/2026/SANMINA-CORPORATION-INVITES-YOU-TO-JOIN-ITS-FOURTH-QUARTER-AND-FISCAL-YEAR-2026-EARNINGS-CONFERENCE-CALL/default.aspx"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Sanmina｜Q4 FY2026 Results (SEC Exhibit 99.1)",
+          "url": "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Sanmina / SEC EDGAR",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET FY2026 Q4 財報電話會議；換算台灣時間 11/10 06:00。官方 IR 頁列示 Nasdaq: SANM。；公司官方 Q4 FY2026 財報：revenue US$3.86B、GAAP diluted EPS US$2.14、non-GAAP diluted EPS US$4.43。",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
+            "https://ir.sanmina.com/news/news-details/2026/SANMINA-CORPORATION-INVITES-YOU-TO-JOIN-ITS-FOURTH-QUARTER-AND-FISCAL-YEAR-2026-EARNINGS-CONFERENCE-CALL/default.aspx",
+            "https://ir.sanmina.com/news/news-details/2026/Sanmina-Reports-Fourth-Quarter-and-Fiscal-2026-Financial-Results/default.aspx"
+          ]
+        }
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/897723/000089772326000044/sanmina_exx991xoctober32026.htm",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-onto-20261109",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Onto Innovation｜Q3/Q4 FY2026 results",
+          "url": "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-Reports-2026-Third-Quarter-Results/default.aspx",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Onto Innovation",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 16:30 ET 發布第三季財報並舉行電話會議；換算台灣時間 11/10 05:30。官方股票資訊頁明確列示 NYSE: ONTO。；原有排程／查核註記保留：官方公告確認 11/09 16:30 ET 發布第三季財報並舉行電話會議；換算台灣時間 11/10 05:30。官方股票資訊頁明確列示 NYSE: ONTO。；公司官方 Q3 2026 財報：revenue US$409.7M、GAAP diluted EPS US$0.95、non-GAAP diluted EPS US$2.44。",
+          "secondary_refs": [
+            "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-to-Report-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Onto Innovation｜Q3 2026 Results",
+          "url": "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-Reports-2026-Third-Quarter-Results/default.aspx",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Onto Innovation",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 16:30 ET 發布第三季財報並舉行電話會議；換算台灣時間 11/10 05:30。官方股票資訊頁明確列示 NYSE: ONTO。；公司官方 Q3 2026 財報：revenue US$409.7M、GAAP diluted EPS US$0.95、non-GAAP diluted EPS US$2.44。",
+          "secondary_refs": [
+            "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-to-Report-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx"
+          ]
+        }
+      },
+      "source": "https://investors.ontoinnovation.com/news/news-details/2026/Onto-Innovation-Reports-2026-Third-Quarter-Results/default.aspx",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-qbts-20261110",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "D-Wave Quantum｜Q3/Q4 FY2026 results",
+          "url": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Reports-Third-Quarter-2026-Results/",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "D-Wave Quantum",
+          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: QBTS；11/10 08:00 EST 於美股開盤前發布 Q3 2026 財報並舉行 webcast，換算台灣時間 11/10 21:00。；原有排程／查核註記保留：官方公告確認 Nasdaq: QBTS；11/10 08:00 EST 於美股開盤前發布 Q3 2026 財報並舉行 webcast，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：revenue US$4.5M，年增 21%；RPO US$38.3M。",
+          "secondary_refs": [
+            "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Quantum-to-Report-Third-Quarter-2026-Financial-Results-on-November-10-2026/default.aspx"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "D-Wave Quantum｜Q3 2026 Results",
+          "url": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Reports-Third-Quarter-2026-Results/",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "D-Wave Quantum",
+          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: QBTS；11/10 08:00 EST 於美股開盤前發布 Q3 2026 財報並舉行 webcast，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：revenue US$4.5M，年增 21%；RPO US$38.3M。",
+          "secondary_refs": [
+            "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Quantum-to-Report-Third-Quarter-2026-Financial-Results-on-November-10-2026/default.aspx"
+          ]
+        }
+      },
+      "source": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Reports-Third-Quarter-2026-Results/",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-mara-20261109",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "MARA Holdings｜Q3/Q4 FY2026 results",
+          "url": "https://ir.mara.com/news-events/press-releases/detail/1430/mara-announces-third-quarter-2026-results",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "MARA Holdings",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。；公司官方 IR 確認 Q3 2026 結果已發布；收入 US$164.2M、net income US$632.1M、diluted EPS US$1.28，SEC 8-K 摘要指出包含 US$885.3M digital-asset fair-value gain。",
+          "secondary_refs": [
+            "https://www.stocktitan.net/sec-filings/MARA/8-k-mara-holdings-inc-reports-material-event-a0b6ed495585.html",
+            "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "MARA Holdings｜Q3 2026 Results",
+          "url": "https://www.globenewswire.com/news-release/2026/11/09/3398980/0/en/mara-announces-third-quarter-2026-results.html",
+          "published_at": "2026-11-09T16:05:00-05:00",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "MARA Holdings / GlobeNewswire",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 17:00 ET 財報電話會議，股東信於會前發布；換算台灣時間 11/10 06:00。；公司官方 IR 確認 Q3 2026 結果已發布；收入 US$164.2M、net income US$632.1M、diluted EPS US$1.28，SEC 8-K 摘要指出包含 US$885.3M digital-asset fair-value gain。",
+          "secondary_refs": [
+            "https://www.stocktitan.net/sec-filings/MARA/8-k-mara-holdings-inc-reports-material-event-a0b6ed495585.html",
+            "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results",
+            "https://ir.mara.com/news-events/press-releases/detail/1430/mara-announces-third-quarter-2026-results"
+          ]
+        }
+      },
+      "source": "https://www.globenewswire.com/news-release/2026/11/09/3398980/0/en/mara-announces-third-quarter-2026-results.html",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-asts-20261109",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "AST SpaceMobile / SEC EDGAR｜Q3/Q4 FY2026 results",
+          "url": "https://www.sec.gov/Archives/edgar/data/1780312/000119312526453758/",
+          "published_at": "2026-11-09T16:49:00-05:00",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "AST SpaceMobile / SEC EDGAR",
+          "notes": "原有排程／查核註記保留：官方 IR 活動日程確認 11/09 17:00 EST 舉行 Q3 2026 Results webcast；換算台灣時間 11/10 06:00。官方 IR 頁面列示 Nasdaq: ASTS。；原有排程／查核註記保留：官方 IR 活動日程確認 11/09 17:00 EST 舉行 Q3 2026 Results webcast；換算台灣時間 11/10 06:00。官方 IR 頁面列示 Nasdaq: ASTS。；SEC 8-K 於 11/09 16:49 ET 收錄；第三季 revenue US$42.321M、net loss attributable to common stockholders US$132.380M。EPS per-share 未由可讀取摘要核實。",
+          "secondary_refs": [
+            "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html",
+            "https://investors.ast-science.com/events"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "AST SpaceMobile｜Q3 2026 Form 8-K (SEC filing mirror)",
+          "url": "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html",
+          "published_at": "2026-11-09T16:49:00-05:00",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "SEC EDGAR filing mirror / StockTitan",
+          "notes": "原有排程／查核註記保留：官方 IR 活動日程確認 11/09 17:00 EST 舉行 Q3 2026 Results webcast；換算台灣時間 11/10 06:00。官方 IR 頁面列示 Nasdaq: ASTS。；SEC 8-K 於 11/09 16:49 ET 收錄；第三季 revenue US$42.321M、net loss attributable to common stockholders US$132.380M。EPS per-share 未由可讀取摘要核實。",
+          "secondary_refs": [
+            "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html",
+            "https://investors.ast-science.com/events",
+            "https://www.sec.gov/Archives/edgar/data/1780312/000119312526453758/"
+          ]
+        }
+      },
+      "source": "https://www.stocktitan.net/sec-filings/ASTS/8-k-ast-space-mobile-inc-reports-material-event-2f45180e8c9f.html",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-se-20261110",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Sea Limited / Business Wire｜Q3/Q4 FY2026 results",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/sea-limited-reports-third-quarter-113000884.html",
+          "published_at": "2026-11-10T06:30:00-05:00",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Sea Limited / Business Wire",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。；原有排程／查核註記保留：官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。；Business Wire 於 11/10 06:30 ET 發布 Sea Q3 2026 結果：GAAP revenue 約 US$8.6B、net income US$502.5M、adjusted EBITDA US$931.3M。",
+          "secondary_refs": [
+            "https://www.sea.com/investor/home",
+            "https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Sea Limited｜Q3 2026 Results (Business Wire)",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/sea-limited-reports-third-quarter-113000884.html",
+          "published_at": "2026-11-10T06:30:00-05:00",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Sea Limited / Business Wire",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: SE；11/10 美股開盤前發布 Q3 2026 財報，電話會議 07:30 EST，換算台灣時間 11/10 20:30。；Business Wire 於 11/10 06:30 ET 發布 Sea Q3 2026 結果：GAAP revenue 約 US$8.6B、net income US$502.5M、adjusted EBITDA US$931.3M。",
+          "secondary_refs": [
+            "https://www.sea.com/investor/home",
+            "https://www.nasdaq.com/press-release/sea-limited-report-third-quarter-2026-results-2026-10-27"
+          ]
+        }
+      },
+      "source": "https://finance.yahoo.com/markets/stocks/articles/sea-limited-reports-third-quarter-113000884.html",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-vod-20261110",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Vodafone Group｜Q3/Q4 FY2026 results",
+          "url": "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
+          "published_at": "",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Vodafone Group",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。",
+          "secondary_refs": [
+            "https://www.vodafone.com/investors/performance-and-reports/financial-calendar"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Vodafone Group｜H1 FY2027 Results",
+          "url": "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
+          "published_at": null,
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Vodafone Group Plc",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。",
+          "secondary_refs": [
+            "https://www.vodafone.com/investors/performance-and-reports/financial-calendar"
+          ]
+        }
+      },
+      "source": "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_and_reference_quality_correction",
+      "event_id": "current-bap-20261109",
+      "changed_fields": [
+        "source"
+      ],
+      "before": {
+        "source": {
+          "name": "Credicorp Ltd.｜Q3/Q4 FY2026 results",
+          "url": "https://inversionistas.grupocredicorp.com/ir-press-releases",
+          "published_at": "",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Credicorp Ltd.",
+          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
+            "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288"
+          ]
+        }
+      },
+      "after": {
+        "source": {
+          "name": "Credicorp Ltd.｜3Q26 release status and conflicting third-party figures",
+          "url": "https://inversionistas.grupocredicorp.com/ir-press-releases",
+          "published_at": null,
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "Credicorp Ltd.",
+          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
+            "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288"
+          ]
+        }
+      },
+      "source": "https://inversionistas.grupocredicorp.com/ir-press-releases",
+      "note": "修正上一輪 source merge 重複保留的原始註記，並將來源 URL／標題校正為已核實的官方或 SEC 財報頁；不改動既有估值與共識來源。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "earnings_eps_actual_supplement",
+      "event_id": "current-qbts-20261110",
+      "changed_fields": [
+        "eps_actual",
+        "eps_basis",
+        "financial_judgment"
+      ],
+      "before": {
+        "eps_actual": null,
+        "eps_basis": "Per-share EPS not extracted from the accessed official release; retain null pending full financial-statement verification.",
+        "financial_judgment": "Q3 revenue US$4.5M，高於 US$4.36M 共識；bookings US$1.9M、remaining performance obligations US$38.3M。可讀取的公司新聞稿未提供 per-share EPS，故 EPS actual 維持 null。"
+      },
+      "after": {
+        "eps_actual": -0.13,
+        "eps_basis": "GAAP diluted loss per share US$0.13; analyst EPS consensus basis not disclosed.",
+        "financial_judgment": "Q3 revenue US$4.5M，高於 US$4.36M 共識；GAAP net loss US$48.2M、GAAP diluted loss per share US$0.13。EPS 共識 basis 未揭露，不作 EPS beat/miss 判斷；bookings US$1.9M、RPO US$38.3M。"
+      },
+      "source": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Reports-Third-Quarter-2026-Results/",
+      "note": "D-Wave 官方 Q3 財報明列 GAAP net loss US$48.2M、loss per share US$0.13；補齊先前未取得的 EPS actual。"
     }
   ]
 }
