@@ -60,9 +60,13 @@ jobs:
       - name: Validate simulation dual mother five-zone layout
         run: python simulation-lab/runner/validate_dual_mothers.py
 
+      - name: Capture verified live OHLC for five US cash indices
+        run: |
+          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date 2026-11-10 --output simulation-lab/output/key-levels-live.json
+
       - name: Assemble actual 2026-11-10 weekday review from verified report data
         run: |
-          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-10.json --output simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-10.json --key-levels-live simulation-lab/output/key-levels-live.json --output simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
 
       - name: Compare 2026-11-10 review against approved weekday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-10_審核版.html weekdays 2026-11-10
