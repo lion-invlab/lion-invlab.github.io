@@ -102,9 +102,16 @@ try {
       }
       return { count: results.length, results, invalid };
     }, reportDate);
-    const fedWatchText = await reportPage.locator(".fed-live-watch").innerText().catch(() => "");
-    if (fedWatchText.includes("4.25–4.50%") && !fedWatchText.includes("升息（25bp／50bp）")) {
-      failures.push(`${v.name}: FedWatch multi-band hike legend is mislabeled`);
+    const fedPanel = reportPage.locator(".fed-live-watch");
+    const fedWatchText = await fedPanel.innerText().catch(() => "");
+    const fedCards = await fedPanel.locator(".fc-prob").count().catch(() => 0);
+    for (const requiredLabel of ["維持不變", "升息一碼（25bp）", "升息兩碼（50bp）"]) {
+      if (!fedWatchText.includes(requiredLabel)) failures.push(`${v.name}: FedWatch missing separate outcome ${requiredLabel}`);
+    }
+    if (fedCards !== 3) failures.push(`${v.name}: FedWatch expected 3 independent probability cards, found ${fedCards}`);
+    if (fedWatchText.includes("升息（25bp／50bp）")) failures.push(`${v.name}: obsolete aggregated hike legend remains`);
+    for (const requiredObservation of ["📌 亞股觀察", "📌 歐股觀察"]) {
+      if (!(await reportPage.getByText(requiredObservation, { exact: false }).count())) failures.push(`${v.name}: missing ${requiredObservation}`);
     }
     snapshots[v.name].today_focus_tabs = focusAudit;
     if (focusAudit.count !== 3 || focusAudit.invalid.length) {
