@@ -1,0 +1,1 @@
+Trigger isolated TAC simulation workflow to execute the already-committed 2026-11-10 HTML assembler and visual regression. No production files, mother templates, or main branch files are changed.
