@@ -499,7 +499,7 @@ def main():
     # Refresh report masthead, status banner and footer for this report date.
     for node in soup.select(".top .status, header .status, .status"):
         if node.get_text(strip=True):
-            set_text(node, f"{report_label}（{report_weekday}）｜週一審核版；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
+            set_text(node, f"{report_label}（{report_weekday}）｜{'週一審核版' if monday else '週二至週五審核版'}；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
     for warning in soup.select(".data-sync-warning"):
         scope_note = "五項關鍵價位已採即時 OHLC 擷取；其餘行情、新聞及行事曆仍為模擬 fixture，並非完整 live-data E2E。" if is_live_key_levels else "資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。"
         set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note} 缺少來源／日期的行情依 fail-closed 規則顯示待核實；本檔僅供模擬區審核，未發布至正式首頁。")
@@ -777,11 +777,16 @@ def main():
         cuts=[x for x in nonhold if x.get("outcome")=="cut"]
         if hikes and cuts:
             raise ValueError("FedWatch cannot mix hike and cut outcomes in this two-card summary")
-        if hikes and len(hikes)==1:
-            nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?", str(hikes[0].get("rate_range","")))]
+        if hikes:
             current_nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?", str(current_range))]
-            if len(nums)!=2 or len(current_nums)!=2 or abs(nums[0]-(current_nums[0]+0.25))>0.001 or abs(nums[1]-(current_nums[1]+0.25))>0.001:
-                raise ValueError("FedWatch hike range must be exactly +25 bp above the official current target range")
+            if len(current_nums)!=2:
+                raise ValueError("FedWatch current target range must contain two numeric bounds")
+            for hike in hikes:
+                nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?", str(hike.get("rate_range","")))]
+                step=round(nums[0]-current_nums[0],2) if len(nums)==2 else None
+                upper_step=round(nums[1]-current_nums[1],2) if len(nums)==2 else None
+                if step not in (0.25,0.50) or upper_step!=step:
+                    raise ValueError(f"FedWatch hike range must be +25 or +50 bp above the official current target range: {hike.get('rate_range')}")
         directions={x.get("outcome") for x in nonhold}
         if directions=={"hike"}:
             nonhold_label="升息一碼" if len(nonhold)==1 else "升息機率（合計）"

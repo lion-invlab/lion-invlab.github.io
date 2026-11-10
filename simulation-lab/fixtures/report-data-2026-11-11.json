@@ -144,14 +144,14 @@
       }
     },
     "費城半導體指數": {
-      "display": "9,923.9",
-      "change_display": "-1.10%",
+      "display": "9,998.33",
+      "change_display": "-0.35%",
       "source": {
-        "name": "Investing.com HK",
-        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "name": "Yahoo Finance｜PHLX Semiconductor cash index",
+        "url": "https://finance.yahoo.com/quote/%5ESOX/history/?frequency=1d",
         "data_date": "2026-11-10",
-        "quote_type": "daily_close",
-        "note": "2026/11/10 close"
+        "quote_type": "cash_index_daily_close",
+        "note": "與五項關鍵價位的Yahoo Finance ^SOX OHLC採同一現金指數與同一交易日，避免來源口徑差異。"
       }
     },
     "香港恆生指數": {
@@ -484,13 +484,35 @@
     }
   },
   "fedwatch": {
-    "updated_at_tw": "待核實",
-    "target_meeting": "2026/12/08–09（美國時間）",
-    "current_target_range": "待核實",
-    "probabilities": [],
-    "source_name": "Investing.com Fed Rate Monitor（本輪未完成重新讀取）",
+    "updated_at_tw": "2026/11/11 02:55",
+    "target_meeting": "2026/12/09（美國時間）",
+    "current_target_range": "3.75–4.00%",
+    "probabilities": [
+      {
+        "outcome": "hold",
+        "rate_range": "3.75–4.00%",
+        "probability": 0,
+        "previous_day": 17.2,
+        "previous_week": 20.2
+      },
+      {
+        "outcome": "hike",
+        "rate_range": "4.00–4.25%",
+        "probability": 92,
+        "previous_day": 82.8,
+        "previous_week": 79.8
+      },
+      {
+        "outcome": "hike",
+        "rate_range": "4.25–4.50%",
+        "probability": 8,
+        "previous_day": 0,
+        "previous_week": 0
+      }
+    ],
+    "source_name": "Investing.com Fed Rate Monitor",
     "source_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
-    "note": "Investing.com Fed Rate Monitor本輪未完成11/10最新快照讀取；Reuters市場定價可作背景參考，但不替代FedWatch機率欄位。"
+    "note": "11/10 13:55 EST（台灣時間11/11 02:55）快照：市場定價12月升息25bp機率92%、升息50bp機率8%；維持現行區間機率0%。"
   },
   "observation": "美國10月CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，BLS未發布通常的年增率。Waller支持12月升息25個基點，並認為若核心通膨達到或高於0.3%，應考慮更大幅度行動。短端美債殖利率急升、美元走強，金銀與美股承壓；觀察焦點是利率重定價是否向長端擴散，以及市場是否進一步反映50個基點升息風險。",
   "calendar": {

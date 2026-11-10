@@ -118,27 +118,36 @@
       }
     },
     "html_assembly": {
-      "status": "blocked",
+      "status": "completed",
       "started_at": "2026-11-11T06:12:00+08:00",
-      "completed_at": "2026-11-11T06:17:21+08:00",
-      "error": "Assembler failed on TDG: event date had passed but result status was pending_verification; card was grouped as published but rendered using upcoming layout. Fixed renderer to use earnings_groupkey(x) == published and classify all past events in published_expected_tickers. Published heading now discloses unverified results."
+      "completed_at": "2026-11-11T06:19:02+08:00",
+      "outputs": {
+        "html_path": "simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html",
+        "size_bytes": 390517,
+        "master_sha": "6fe79308eca71db5dd54308fd35efe3900451081"
+      }
     },
     "qa": {
-      "status": "pending"
+      "status": "blocked",
+      "started_at": "2026-11-11T06:19:02+08:00",
+      "completed_at": "2026-11-11T06:19:30+08:00",
+      "error": "Visual regression rejected stale 11/9 rebound narrative and hardcoded 2026-11-09 OHLC date; screenshots generated at desktop 1440, tablet 768, mobile 360."
     },
     "delivery": {
       "status": "pending"
     }
   },
   "blockers": [
-    "HTML assembly attempt 2 failed because past-but-unverified earnings (e.g. TDG) were grouped under published but rendered using upcoming card layout.",
-    "Assembler now renders all past events with the published EPS/revenue side-by-side layout; unverified actuals display 待核實 and heading indicates results pending verification.",
-    "Notification action mcp__Automations__notify_parent returns HTTP 404."
+    "Visual regression today-focus assertions were hard-coded to an earlier 11/9 rebound report; updated to 11/11 CPI/Waller content and dynamic source trading-date validation.",
+    "FedWatch latest Investing.com snapshot at 2026-11-11 02:55 Taiwan added: 92% +25bp, 8% +50bp, 0% hold; assembler validation now supports multiple hike bands.",
+    "SOX global quote aligned to Yahoo ^SOX cash-index close used by key-level OHLC to avoid source-value mismatch.",
+    "Main branch remains untouched; output will be delivered from simulation-branch artifact only.",
+    "notify_parent action remains HTTP 404."
   ],
-  "recovery_point": "Run assembly and visual regression after fixing past-but-unverified earnings card classification; source news now aligned to 鉅亨網 and Investing.com.",
+  "recovery_point": "Re-run existing visual regression with current 11/11 narrative, dynamic OHLC date check, FedWatch snapshot and corrected weekday label.",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:17:21+08:00",
-    "status": "earnings_pending_state_fix_committed",
+    "last_checked_at_taipei": "2026-11-11T06:19:30+08:00",
+    "status": "visual_qa_repair_committed_next_ci",
     "notification_channel": "unavailable",
     "notification_error": "notify_parent HTTP 404"
   },
@@ -149,7 +158,7 @@
     "trading_date": "2026-11-10",
     "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json",
     "note": "Verified quotes populated; remaining quote fields explicitly pending verification, no stale 11/9 carry-forward.",
-    "revision": 3,
+    "revision": 4,
     "market_coverage": {
       "verified": 40,
       "total": 44,
@@ -159,6 +168,12 @@
         "XLY",
         "MOVE"
       ]
+    },
+    "fedwatch": {
+      "updated_at_tw": "2026/11/11 02:55",
+      "probability_25bp": 92,
+      "probability_50bp": 8,
+      "hold": 0
     }
   }
 }
