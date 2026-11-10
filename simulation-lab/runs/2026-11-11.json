@@ -102,6 +102,16 @@
       "status": "pending"
     }
   },
-  "blockers": [],
-  "recovery_point": "Complete manifest/template and existing run artifacts inspection; then market source checks."
+  "blockers": [
+    "Observability blocker: no heartbeat or market-data outputs recorded after 05:30:30+08:00; worker liveness unconfirmed; parent-notification action returns 404."
+  ],
+  "recovery_point": "Complete manifest/template and existing run artifacts inspection; then market source checks.",
+  "observability": {
+    "last_checked_at_taipei": "2026-11-11T06:04:48+08:00",
+    "status": "stale_no_heartbeat",
+    "note": "The market_data stage has only a started timestamp (05:30:30+08:00), with no item counts, outputs, or later stage transitions. The simulation branch has no commits after the 05:30:28+08:00 baseline-lock commit. This is evidence of no recorded progress, not proof that the background worker has stopped.",
+    "notification_channel": "unavailable",
+    "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found when invoked from the parent conversation as well as recorded in the run state.",
+    "safe_action": "Do not start a duplicate run or overwrite stage status. Resume from market_data only after confirming the existing worker is no longer active; retain completed WR/Manifest/template checks."
+  }
 }
