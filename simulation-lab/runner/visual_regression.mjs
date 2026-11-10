@@ -103,15 +103,17 @@ try {
     await reportPage.waitForTimeout(80);
     const mondayHasRetrospective = await reportPage.locator("#last-week-earnings .calendar-status-group").count();
     if (!mondayHasRetrospective) {
-      const publishedTab = reportPage.locator('label[for="week-earnings-published"]');
-      if (await publishedTab.count()) {
-        await publishedTab.click();
-        await reportPage.waitForFunction(() => {
-          const radio = document.querySelector("#week-earnings-published");
-          const group = document.querySelector("#earnings .calendar-status-group:nth-child(3)");
-          return !!radio?.checked && !!group && getComputedStyle(group).display !== "none";
-        });
-      }
+      // The approved fund reminder may auto-open and cover the tab labels.
+      // Dismiss it and activate the published radio through the label's native click event.
+      await reportPage.evaluate(() => {
+        document.querySelector("#tfn-close")?.click();
+        document.querySelector('label[for="week-earnings-published"]')?.click();
+      });
+      await reportPage.waitForFunction(() => {
+        const radio = document.querySelector("#week-earnings-published");
+        const group = document.querySelector("#earnings .calendar-status-group:nth-child(3)");
+        return !!radio?.checked && !!group && getComputedStyle(group).display !== "none";
+      });
     }
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
