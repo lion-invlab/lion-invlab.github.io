@@ -40,6 +40,21 @@ def source_link(url, label):
     a.string=label
     return a
 
+def earnings_comparison_status(item, metric):
+    """Return beat/miss/inline only from an explicit sourced decision or comparable numeric inputs."""
+    explicit = item.get(f"{metric}_comparison_status")
+    if explicit in ("beat", "miss", "inline"):
+        return explicit
+    actual = item.get(f"{metric}_actual")
+    estimate = item.get(f"{metric}_estimate")
+    actual_basis = item.get(f"{metric}_actual_basis")
+    estimate_basis = item.get(f"{metric}_estimate_basis")
+    if (isinstance(actual, (int, float)) and not isinstance(actual, bool)
+            and isinstance(estimate, (int, float)) and not isinstance(estimate, bool)
+            and actual_basis and estimate_basis and actual_basis == estimate_basis):
+        return "beat" if actual > estimate else "miss" if actual < estimate else "inline"
+    return "pending"
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
@@ -844,8 +859,8 @@ def main():
             if x.get("status") == "released" or x.get("status_in_db") == "released" or x.get("status") == "published" or x.get("status_in_db") == "published":
                 grid=soup.new_tag("div", attrs={"class":["earnings-results-grid"]})
                 for label, actual, estimate, actual_display, estimate_display, comparison in [
-                    ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), x.get("eps_comparison_status")),
-                    ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), x.get("revenue_comparison_status"))
+                    ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
+                    ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
                     state = comparison if comparison in ("beat","miss","inline") else "pending"
                     status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
