@@ -77,10 +77,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          test -s simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html
+          cp simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html /tmp/TAC_投資早報_2026-11-11_審核版.html
           git fetch origin main
           git checkout -B tac-preview-2026-11-11 FETCH_HEAD
           mkdir -p preview
-          cp simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html preview/2026-11-11-simulation.html
+          cp /tmp/TAC_投資早報_2026-11-11_審核版.html preview/2026-11-11-simulation.html
           git add preview/2026-11-11-simulation.html
           git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Publish 2026-11-11 TAC simulation review preview"
           git push origin HEAD:main
