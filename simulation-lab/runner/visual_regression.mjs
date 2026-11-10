@@ -35,6 +35,13 @@ const snapshots = {};
 async function load(page, file) {
   await page.goto(pathToFileURL(path.resolve(file)).href, { waitUntil: "load" });
   await page.evaluate(() => document.fonts.ready);
+  // Dismiss the approved fund-reminder overlay in QA captures only.
+  // The source HTML remains unchanged; this prevents a modal from obscuring the visual baseline.
+  await page.evaluate(() => {
+    const close = document.querySelector("#tfn-close");
+    if (close && getComputedStyle(close).display !== "none") close.click();
+  });
+  await page.waitForTimeout(80);
 }
 async function inspect(page) {
   return page.evaluate((targets) => {
@@ -182,6 +189,18 @@ try {
       return { mode, count: cards.length, invalid, columns, pairedGeometry, visible_result_grids: measured.length };
     });
     snapshots[v.name].earnings_component = earningsAudit;
+    // Save a focused, unobscured screenshot of the actual published cards after
+    // activating the published tab and expanding the cards for visual review.
+    if (earningsAudit.mode === "weekday-published-results") {
+      const publishedGroup = reportPage.locator("#earnings .calendar-status-group").filter({
+        has: reportPage.locator(".calendar-status-heading.published")
+      });
+      await publishedGroup.screenshot({ path: path.join(output, `${v.name}-published-earnings.png`) });
+    } else if (earningsAudit.mode === "monday-published-results") {
+      await reportPage.locator("#last-week-earnings .calendar-status-group").screenshot({
+        path: path.join(output, `${v.name}-published-earnings.png`)
+      });
+    }
     const economicAudit = await reportPage.evaluate(() => {
       const cards = [...document.querySelectorAll("#calendar details.econ-event, #last-week-calendar details.econ-event")];
       const invalid = [];
