@@ -829,12 +829,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Take-Two Interactive / SEC EDGAR｜Q3/Q4 FY2026 results",
+          "name": "Take-Two Interactive｜FY2027 Q2 Results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/946581/000162828026072175/ttwo2q27earningsrelease.htm",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Take-Two Interactive / SEC EDGAR",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。；SEC Exhibit 99.1：FY2027 Q2 total net revenue US$1.497B、GAAP basic/diluted loss per share US$0.29、Net Bookings US$1.601B。保留原始 Finviz 共識，不將 Net Bookings 當營收。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。；SEC Exhibit 99.1：FY2027 Q2 total net revenue US$1.497B、GAAP basic/diluted loss per share US$0.29、Net Bookings US$1.601B。保留原始 Finviz 共識，不將 Net Bookings 當營收。",
           "secondary_refs": [
             "https://www.take2games.com/ir/news/take-two-interactive-software-inc-report-second-quarter-fiscal-8"
           ]
@@ -894,12 +894,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Occidental Petroleum｜Q3/Q4 FY2026 results",
+          "name": "Occidental Petroleum｜Q3 2026 Results",
           "url": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
           "published_at": "2026-11-09T16:15:00-05:00",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Occidental Petroleum",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。；官方 IR 明確標示 11/09 16:15 ET 發布，換算台灣時間 11/10 05:15；公布 GAAP EPS US$1.61、adjusted continuing-operations EPS US$1.91。Q3 revenue US$7.08B 由 SEC 10-Q 彙整來源交叉核對。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。；官方 IR 明確標示 11/09 16:15 ET 發布，換算台灣時間 11/10 05:15；公布 GAAP EPS US$1.61、adjusted continuing-operations EPS US$1.91。Q3 revenue US$7.08B 由 SEC 10-Q 彙整來源交叉核對。",
           "secondary_refs": [
             "https://thaler.sh/s/OXY/earnings/q3-2026",
             "https://www.oxy.com/news/news-releases/occidental-to-announce-third-quarter-results-monday-november-9-2026--hold-conference-call-tuesday-november-10-2026/"
@@ -960,12 +960,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "TransDigm Group / SEC EDGAR｜Q3/Q4 FY2026 results",
+          "name": "TransDigm Group｜Q4 FY2026 Results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1260221/000126022126000073/exhibit991tdg2026q4earning.htm",
           "published_at": "2026-11-10",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "TransDigm Group / SEC EDGAR",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/10 美股開盤前發布 FY2026 Q4 財報，10:00 ET 舉行電話會議；換算台灣時間 23:00。；原有排程／查核註記保留：官方公告確認 11/10 美股開盤前發布 FY2026 Q4 財報，10:00 ET 舉行電話會議；換算台灣時間 23:00。；SEC Exhibit 99.1：Q4 FY2026 net sales US$2,988M、GAAP EPS US$10.33、adjusted EPS US$12.44。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/10 美股開盤前發布 FY2026 Q4 財報，10:00 ET 舉行電話會議；換算台灣時間 23:00。；SEC Exhibit 99.1：Q4 FY2026 net sales US$2,988M、GAAP EPS US$10.33、adjusted EPS US$12.44。",
           "secondary_refs": [
             "https://transdigmgroupinc.gcs-web.com/news-releases/news-release-details/transdigm-fourth-quarter-earnings-report-and-conference-call-16"
           ]
@@ -1605,12 +1605,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "HIVE Digital Technologies｜Q3/Q4 FY2026 results",
+          "name": "HIVE Digital Technologies｜Q2 FY2027 Results",
           "url": "https://www.hivedigitaltechnologies.com/news/hive-reports-q2-revenue-of-849-million-with-ai-gpu-revenue-expanding-70-as-dual-engine-model-drives-resilience-with-139-million-in-cash-on-the-balance-sheet/",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "HIVE Digital Technologies",
-          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。；原有排程／查核註記保留：官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。；公司官方新聞稿確認 Q2 FY2027 revenue US$84.9M、GAAP net loss US$78.7M；未列 per-share EPS。",
+          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。；公司官方新聞稿確認 Q2 FY2027 revenue US$84.9M、GAAP net loss US$78.7M；未列 per-share EPS。",
           "secondary_refs": [
             "https://www.sec.gov/Archives/edgar/data/1720424/000106299326005856/exhibit99-1.htm",
             "https://www.hivedigitaltechnologies.com/news/hive-digital-technologies-to-release-fiscal-q2-2027-financial-results-on-november-9th-and-hold-earnings-call-on-november-10th/"
@@ -1671,12 +1671,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Rocket Lab Corporation｜Q3/Q4 FY2026 results",
+          "name": "Rocket Lab｜Q3 2026 Results",
           "url": "https://investors.rocketlabcorp.com/news-releases/news-release-details/rocket-lab-announces-third-quarter-2026-financial-results-posts",
           "published_at": "2026-11-09T16:05:00-05:00",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Rocket Lab Corporation",
-          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: RKLB；11/09 美股收盤後發布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 Nasdaq: RKLB；11/09 美股收盤後發布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；公司官方財報新聞稿：Q3 revenue US$267.834M、GAAP net loss US$79.677M、basic/diluted loss per share US$0.12。",
+          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: RKLB；11/09 美股收盤後發布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；公司官方財報新聞稿：Q3 revenue US$267.834M、GAAP net loss US$79.677M、basic/diluted loss per share US$0.12。",
           "secondary_refs": [
             "https://www.sec.gov/Archives/edgar/data/1819994/000181999426000073/rklb-11092026ex991.htm",
             "https://investors.rocketlabcorp.com/node/13431/pdf"
@@ -1804,12 +1804,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "JBS N.V. / SEC EDGAR｜Q3/Q4 FY2026 results",
+          "name": "JBS N.V.｜Q3 2026 Results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1791942/000179194226000009/a991earningsrelease3q26.htm",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "JBS N.V. / SEC EDGAR",
-          "notes": "原有排程／查核註記保留：JBS 官方新聞稿經 Business Wire 發布：11/09 美股收盤後發布 Q3 2026 財報，11/10 09:00 ET 舉行電話會議，換算台灣時間 11/10 22:00；公告列示 NYSE: JBS。；原有排程／查核註記保留：JBS 官方新聞稿經 Business Wire 發布：11/09 美股收盤後發布 Q3 2026 財報，11/10 09:00 ET 舉行電話會議，換算台灣時間 11/10 22:00；公告列示 NYSE: JBS。；SEC Exhibit 99.1：Q3 net sales US$22,738M、IFRS EPS attributable US$0.15、adjusted IFRS EPS US$0.16。",
+          "notes": "原有排程／查核註記保留：JBS 官方新聞稿經 Business Wire 發布：11/09 美股收盤後發布 Q3 2026 財報，11/10 09:00 ET 舉行電話會議，換算台灣時間 11/10 22:00；公告列示 NYSE: JBS。；SEC Exhibit 99.1：Q3 net sales US$22,738M、IFRS EPS attributable US$0.15、adjusted IFRS EPS US$0.16。",
           "secondary_refs": [
             "https://www.businesswire.com/news/home/20261023951554/en/JBS-to-Host-Third-Quarter-2026-Earnings-Call-on-November-10-2026"
           ]
@@ -1934,12 +1934,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Wix.com Ltd.｜Q3/Q4 FY2026 results",
+          "name": "Wix.com｜Q3 2026 Results",
           "url": "https://www.wix.com/press-room/home/post/wix-reports-third-quarter-2026-results",
           "published_at": "2026-11-10",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Wix.com Ltd.",
-          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: WIX；11/10 08:30 ET 美股開盤前發布 Q3 2026 財報並舉行電話會議，換算台灣時間 11/10 21:30。；原有排程／查核註記保留：官方公告確認 Nasdaq: WIX；11/10 08:30 ET 美股開盤前發布 Q3 2026 財報並舉行電話會議，換算台灣時間 11/10 21:30。；Wix 官方 Q3 2026 新聞稿確認 revenue US$570M；S&P analyst summary 經 Yahoo Finance 發布，列精確 revenue US$570.2M 及 non-GAAP EPS US$1.42。",
+          "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: WIX；11/10 08:30 ET 美股開盤前發布 Q3 2026 財報並舉行電話會議，換算台灣時間 11/10 21:30。；Wix 官方 Q3 2026 新聞稿確認 revenue US$570M；S&P analyst summary 經 Yahoo Finance 發布，列精確 revenue US$570.2M 及 non-GAAP EPS US$1.42。",
           "secondary_refs": [
             "https://finance.yahoo.com/markets/stocks/articles/wix-nasdaq-wix-q3-2026-082448465.html",
             "https://www.wix.com/press-room/home/post/wix-to-announce-third-quarter-2026-results-on-november-10-2026"
@@ -2310,12 +2310,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "On Holding AG｜Q3/Q4 FY2026 results",
+          "name": "On Holding｜Q3 2026 Results",
           "url": "https://investors.on-running.com/news/news-details/2026/On-Reports-Results-for-the-Third-Quarter-and-Nine-Month-Period-Ended-September-30-2026/default.aspx",
           "published_at": "2026-11-10",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "On Holding AG",
-          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。；原有排程／查核註記保留：官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：net sales CHF931.4M、GAAP diluted EPS Class A CHF0.48、adjusted diluted EPS CHF0.54。原資料庫估計為 USD，保留但標示不可比較。",
+          "notes": "原有排程／查核註記保留：官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：net sales CHF931.4M、GAAP diluted EPS Class A CHF0.48、adjusted diluted EPS CHF0.54。原資料庫估計為 USD，保留但標示不可比較。",
           "secondary_refs": [
             "https://investors.on-running.com/news/news-details/2026/On-to-Release-Third-Quarter-2026-Results-on-Tuesday-November-10-2026/default.aspx"
           ]
@@ -2549,12 +2549,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Hims & Hers Health / SEC EDGAR｜Q3/Q4 FY2026 results",
+          "name": "Hims & Hers｜Q3 2026 Results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1773751/000177375126000242/hims-20260930x8xkearningsr.htm",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Hims & Hers Health / SEC EDGAR",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；SEC Exhibit 99.1：Q3 revenue US$890.373M、GAAP diluted loss per share US$0.14、GAAP net loss US$33.04M、adjusted EBITDA US$82.4M。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；SEC Exhibit 99.1：Q3 revenue US$890.373M、GAAP diluted loss per share US$0.14、GAAP net loss US$33.04M、adjusted EBITDA US$82.4M。",
           "secondary_refs": [
             "https://www.sec.gov/Archives/edgar/data/1773751/000177375126000242/hims-20260930x8xkearningsr.htm",
             "https://investors.hims.com/news/news-details/2026/Hims--Hers-to-Announce-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx"
@@ -2615,12 +2615,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "The Trade Desk / Business Wire｜Q3/Q4 FY2026 results",
+          "name": "The Trade Desk｜Q3 2026 Results (Business Wire)",
           "url": "https://finance.yahoo.com/media-advertising/articles/trade-desk-reports-third-quarter-210100474.html",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "The Trade Desk / Business Wire",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；Business Wire 財報新聞稿經 Yahoo Finance 發布：Q3 revenue 約 US$736M、GAAP diluted EPS US$0.08、non-GAAP diluted EPS US$0.33。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；Business Wire 財報新聞稿經 Yahoo Finance 發布：Q3 revenue 約 US$736M、GAAP diluted EPS US$0.08、non-GAAP diluted EPS US$0.33。",
           "secondary_refs": [
             "https://investors.thetradedesk.com/news-and-events/news/news-details/2026/The-Trade-Desk-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx"
           ]
@@ -3070,12 +3070,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Qualys / SEC EDGAR｜Q3/Q4 FY2026 results",
+          "name": "Qualys｜Q3 2026 Results (SEC Exhibit 99.1)",
           "url": "https://www.sec.gov/Archives/edgar/data/1107843/000110784326000043/qlys-20261109xex991.htm",
           "published_at": "2026-11-09",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "Qualys / SEC EDGAR",
-          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。；SEC Exhibit 99.1：Q3 revenue US$188.0M、GAAP diluted EPS US$1.62、non-GAAP diluted EPS US$2.12。",
+          "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。；SEC Exhibit 99.1：Q3 revenue US$188.0M、GAAP diluted EPS US$1.62、non-GAAP diluted EPS US$2.12。",
           "secondary_refs": [
             "https://investor.qualys.com/news-releases/news-release-details/qualys-report-third-quarter-2026-financial-results-november-9"
           ]
@@ -6852,6 +6852,226 @@
       },
       "source": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Reports-Third-Quarter-2026-Results/",
       "note": "D-Wave 官方 Q3 財報明列 GAAP net loss US$48.2M、loss per share US$0.13；補齊先前未取得的 EPS actual。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-ttwo-20261109",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "Take-Two Interactive / SEC EDGAR｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。；SEC Exhibit 99.1：FY2027 Q2 total net revenue US$1.497B、GAAP basic/diluted loss per share US$0.29、Net Bookings US$1.601B。保留原始 Finviz 共識，不將 Net Bookings 當營收。"
+      },
+      "after": {
+        "name": "Take-Two Interactive｜FY2027 Q2 Results (SEC Exhibit 99.1)",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。；SEC Exhibit 99.1：FY2027 Q2 total net revenue US$1.497B、GAAP basic/diluted loss per share US$0.29、Net Bookings US$1.601B。保留原始 Finviz 共識，不將 Net Bookings 當營收。"
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/946581/000162828026072175/ttwo2q27earningsrelease.htm",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-oxy-20261109",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "Occidental Petroleum｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。；官方 IR 明確標示 11/09 16:15 ET 發布，換算台灣時間 11/10 05:15；公布 GAAP EPS US$1.61、adjusted continuing-operations EPS US$1.91。Q3 revenue US$7.08B 由 SEC 10-Q 彙整來源交叉核對。"
+      },
+      "after": {
+        "name": "Occidental Petroleum｜Q3 2026 Results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。；官方 IR 明確標示 11/09 16:15 ET 發布，換算台灣時間 11/10 05:15；公布 GAAP EPS US$1.61、adjusted continuing-operations EPS US$1.91。Q3 revenue US$7.08B 由 SEC 10-Q 彙整來源交叉核對。"
+      },
+      "source": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-tdg-20261110",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "TransDigm Group / SEC EDGAR｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/10 美股開盤前發布 FY2026 Q4 財報，10:00 ET 舉行電話會議；換算台灣時間 23:00。；原有排程／查核註記保留：官方公告確認 11/10 美股開盤前發布 FY2026 Q4 財報，10:00 ET 舉行電話會議；換算台灣時間 23:00。；SEC Exhibit 99.1：Q4 FY2026 net sales US$2,988M、GAAP EPS US$10.33、adjusted EPS US$12.44。"
+      },
+      "after": {
+        "name": "TransDigm Group｜Q4 FY2026 Results (SEC Exhibit 99.1)",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/10 美股開盤前發布 FY2026 Q4 財報，10:00 ET 舉行電話會議；換算台灣時間 23:00。；SEC Exhibit 99.1：Q4 FY2026 net sales US$2,988M、GAAP EPS US$10.33、adjusted EPS US$12.44。"
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/1260221/000126022126000073/exhibit991tdg2026q4earning.htm",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-hive-20261110",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "HIVE Digital Technologies｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。；原有排程／查核註記保留：官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。；公司官方新聞稿確認 Q2 FY2027 revenue US$84.9M、GAAP net loss US$78.7M；未列 per-share EPS。"
+      },
+      "after": {
+        "name": "HIVE Digital Technologies｜Q2 FY2027 Results",
+        "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: HIVE；財報於 11/09 美股收盤後發布，電話會議為 11/10 08:00 EST，換算台灣時間 11/10 21:00。事件時間採電話會議時間，並非將收盤後發布誤寫成同一時刻。；公司官方新聞稿確認 Q2 FY2027 revenue US$84.9M、GAAP net loss US$78.7M；未列 per-share EPS。"
+      },
+      "source": "https://www.hivedigitaltechnologies.com/news/hive-reports-q2-revenue-of-849-million-with-ai-gpu-revenue-expanding-70-as-dual-engine-model-drives-resilience-with-139-million-in-cash-on-the-balance-sheet/",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-rklb-20261110",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "Rocket Lab Corporation｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: RKLB；11/09 美股收盤後發布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 Nasdaq: RKLB；11/09 美股收盤後發布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；公司官方財報新聞稿：Q3 revenue US$267.834M、GAAP net loss US$79.677M、basic/diluted loss per share US$0.12。"
+      },
+      "after": {
+        "name": "Rocket Lab｜Q3 2026 Results",
+        "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: RKLB；11/09 美股收盤後發布 Q3 2026 財報，電話會議 17:00 EST，換算台灣時間 11/10 06:00。；公司官方財報新聞稿：Q3 revenue US$267.834M、GAAP net loss US$79.677M、basic/diluted loss per share US$0.12。"
+      },
+      "source": "https://investors.rocketlabcorp.com/news-releases/news-release-details/rocket-lab-announces-third-quarter-2026-financial-results-posts",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-jbs-20261110",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "JBS N.V. / SEC EDGAR｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：JBS 官方新聞稿經 Business Wire 發布：11/09 美股收盤後發布 Q3 2026 財報，11/10 09:00 ET 舉行電話會議，換算台灣時間 11/10 22:00；公告列示 NYSE: JBS。；原有排程／查核註記保留：JBS 官方新聞稿經 Business Wire 發布：11/09 美股收盤後發布 Q3 2026 財報，11/10 09:00 ET 舉行電話會議，換算台灣時間 11/10 22:00；公告列示 NYSE: JBS。；SEC Exhibit 99.1：Q3 net sales US$22,738M、IFRS EPS attributable US$0.15、adjusted IFRS EPS US$0.16。"
+      },
+      "after": {
+        "name": "JBS N.V.｜Q3 2026 Results (SEC Exhibit 99.1)",
+        "notes": "原有排程／查核註記保留：JBS 官方新聞稿經 Business Wire 發布：11/09 美股收盤後發布 Q3 2026 財報，11/10 09:00 ET 舉行電話會議，換算台灣時間 11/10 22:00；公告列示 NYSE: JBS。；SEC Exhibit 99.1：Q3 net sales US$22,738M、IFRS EPS attributable US$0.15、adjusted IFRS EPS US$0.16。"
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/1791942/000179194226000009/a991earningsrelease3q26.htm",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-wix-20261110",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "Wix.com Ltd.｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: WIX；11/10 08:30 ET 美股開盤前發布 Q3 2026 財報並舉行電話會議，換算台灣時間 11/10 21:30。；原有排程／查核註記保留：官方公告確認 Nasdaq: WIX；11/10 08:30 ET 美股開盤前發布 Q3 2026 財報並舉行電話會議，換算台灣時間 11/10 21:30。；Wix 官方 Q3 2026 新聞稿確認 revenue US$570M；S&P analyst summary 經 Yahoo Finance 發布，列精確 revenue US$570.2M 及 non-GAAP EPS US$1.42。"
+      },
+      "after": {
+        "name": "Wix.com｜Q3 2026 Results",
+        "notes": "原有排程／查核註記保留：官方公告確認 Nasdaq: WIX；11/10 08:30 ET 美股開盤前發布 Q3 2026 財報並舉行電話會議，換算台灣時間 11/10 21:30。；Wix 官方 Q3 2026 新聞稿確認 revenue US$570M；S&P analyst summary 經 Yahoo Finance 發布，列精確 revenue US$570.2M 及 non-GAAP EPS US$1.42。"
+      },
+      "source": "https://www.wix.com/press-room/home/post/wix-reports-third-quarter-2026-results",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-onon-20261110",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "On Holding AG｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。；原有排程／查核註記保留：官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：net sales CHF931.4M、GAAP diluted EPS Class A CHF0.48、adjusted diluted EPS CHF0.54。原資料庫估計為 USD，保留但標示不可比較。"
+      },
+      "after": {
+        "name": "On Holding｜Q3 2026 Results",
+        "notes": "原有排程／查核註記保留：官方公告確認 NYSE: ONON；11/10 美股開盤前發布 Q3 2026 財報，08:00 ET 電話會議，換算台灣時間 11/10 21:00。；公司官方 Q3 2026 結果：net sales CHF931.4M、GAAP diluted EPS Class A CHF0.48、adjusted diluted EPS CHF0.54。原資料庫估計為 USD，保留但標示不可比較。"
+      },
+      "source": "https://investors.on-running.com/news/news-details/2026/On-Reports-Results-for-the-Third-Quarter-and-Nine-Month-Period-Ended-September-30-2026/default.aspx",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-hims-20261109",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "Hims & Hers Health / SEC EDGAR｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；SEC Exhibit 99.1：Q3 revenue US$890.373M、GAAP diluted loss per share US$0.14、GAAP net loss US$33.04M、adjusted EBITDA US$82.4M。"
+      },
+      "after": {
+        "name": "Hims & Hers｜Q3 2026 Results (SEC Exhibit 99.1)",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；SEC Exhibit 99.1：Q3 revenue US$890.373M、GAAP diluted loss per share US$0.14、GAAP net loss US$33.04M、adjusted EBITDA US$82.4M。"
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/1773751/000177375126000242/hims-20260930x8xkearningsr.htm",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-ttd-20261109",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "The Trade Desk / Business Wire｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；Business Wire 財報新聞稿經 Yahoo Finance 發布：Q3 revenue 約 US$736M、GAAP diluted EPS US$0.08、non-GAAP diluted EPS US$0.33。"
+      },
+      "after": {
+        "name": "The Trade Desk｜Q3 2026 Results (Business Wire)",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。；Business Wire 財報新聞稿經 Yahoo Finance 發布：Q3 revenue 約 US$736M、GAAP diluted EPS US$0.08、non-GAAP diluted EPS US$0.33。"
+      },
+      "source": "https://finance.yahoo.com/media-advertising/articles/trade-desk-reports-third-quarter-210100474.html",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "source_note_deduplication",
+      "event_id": "current-qlys-20261109",
+      "changed_fields": [
+        "source.name",
+        "source.notes"
+      ],
+      "before": {
+        "name": "Qualys / SEC EDGAR｜Q3/Q4 FY2026 results",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。；原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。；SEC Exhibit 99.1：Q3 revenue US$188.0M、GAAP diluted EPS US$1.62、non-GAAP diluted EPS US$2.12。"
+      },
+      "after": {
+        "name": "Qualys｜Q3 2026 Results (SEC Exhibit 99.1)",
+        "notes": "原有排程／查核註記保留：官方公告確認 11/09 美股收盤後發布 Q3 2026 財報，17:00 ET 電話會議；換算台灣時間 11/10 06:00。官方股票資訊頁列示 Nasdaq: QLYS。；SEC Exhibit 99.1：Q3 revenue US$188.0M、GAAP diluted EPS US$1.62、non-GAAP diluted EPS US$2.12。"
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/1107843/000110784326000043/qlys-20261109xex991.htm",
+      "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
     }
   ]
 }
