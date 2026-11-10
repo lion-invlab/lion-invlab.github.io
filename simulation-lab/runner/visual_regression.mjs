@@ -74,7 +74,7 @@ try {
     snapshots[v.name] = { master: a, report: b };
     const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
-        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美國10月CPI月增0.4%", "Waller支持12月升息"] },
+        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美國10月CPI高於預期", "Waller對12月升息"] },
         { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S1：", "中樞 P：", "壓力 R1：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
         { id: "focus-tab-core", panel: ".focus-core", needles: ["今日核心觀察", "12月升息", "50個基點"] }
       ];
