@@ -668,13 +668,15 @@ def main():
                 for cls in ("up", "down", "flat"):
                     if cls in vals[1].get("class", []):
                         vals[1]["class"].remove(cls)
+                current_classes = list(vals[1].get("class", []))
                 if negative_change:
-                    vals[1].add_class("down")
+                    current_classes.append("down")
                 elif numeric_change:
                     amount = float(numeric_change.group(1).replace(",", ""))
-                    vals[1].add_class("flat" if amount == 0 else "up")
+                    current_classes.append("flat" if amount == 0 else "up")
                 else:
-                    vals[1].add_class("pending")
+                    current_classes.append("pending")
+                vals[1]["class"] = current_classes
     # Validate TAC directional colors for all refreshed bond/FX/commodity changes.
     for container_id, records in [("bonds", data["bonds"]), ("fx", data["fx"]),
                                   ("tac-assets-panel-3", data["energy"]), ("tac-assets-panel-4", data["metals"])]:
