@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0",
+  "run_date": "2026-11-11",
+  "run_started_at_taipei": "2026-11-11T05:28:50+08:00",
+  "report_date": "2026-11-11",
+  "trading_date": "2026-11-10",
+  "report_type": "Tuesday-Friday mother",
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "status": "in_progress",
+  "rules": {
+    "path": "simulation-lab/TAC_WORK_RULES_SIM.md",
+    "version": "SIM-0.2",
+    "blob_sha": "94862e44dd4b6f5eadcb8a277af98c4bb1374bbf",
+    "read_at_taipei": "2026-11-11T05:28:50+08:00",
+    "authority": "simulation rules only; main WR not read"
+  },
+  "notifications": {
+    "notify_parent": "failed_not_found_action",
+    "attempted_at_taipei": "2026-11-11T05:29:00+08:00",
+    "error": "mcp__Automations__notify_parent returned NOT_FOUND: Action not found; continue without live notifications"
+  },
+  "stages": {
+    "rules_manifest": {
+      "status": "started",
+      "started_at": "2026-11-11T05:28:50+08:00",
+      "inputs": [
+        "simulation-lab/TAC_WORK_RULES_SIM.md"
+      ],
+      "outputs": [
+        "WR SIM-0.2 / 94862e44dd4b6f5eadcb8a277af98c4bb1374bbf"
+      ]
+    },
+    "market_data": {
+      "status": "pending"
+    },
+    "news_calendar": {
+      "status": "pending"
+    },
+    "analysis": {
+      "status": "pending"
+    },
+    "html_assembly": {
+      "status": "pending"
+    },
+    "qa": {
+      "status": "pending"
+    },
+    "delivery": {
+      "status": "pending"
+    }
+  },
+  "blockers": [],
+  "recovery_point": "Complete manifest/template and existing run artifacts inspection; then market source checks."
+}
