@@ -6,7 +6,7 @@
   "trading_date": "2026-11-10",
   "report_type": "Tuesday-Friday mother",
   "branch": "simulation/tac-process-lab-2026-11-06",
-  "status": "in_progress",
+  "status": "completed",
   "rules": {
     "path": "simulation-lab/TAC_WORK_RULES_SIM.md",
     "version": "SIM-0.2",
@@ -62,7 +62,7 @@
         },
         "assembler": {
           "path": "simulation-lab/runner/build_review_html.py",
-          "blob_sha": "e55e2b545a31a92557a1009877b219d66f98e585"
+          "blob_sha": "dbeb18ae4c33312e265f316c7dedcb33f48d66d5"
         },
         "key_levels_builder": {
           "path": "simulation-lab/runner/key_levels_builder.py",
@@ -70,7 +70,7 @@
         },
         "visual_regression": {
           "path": "simulation-lab/runner/visual_regression.mjs",
-          "blob_sha": "129593e3fc383067824b253f76210565569b9e7e"
+          "blob_sha": "d4976644b2b2f1f07f6f248beb415c5be3ebb063"
         }
       },
       "errors": [
@@ -128,28 +128,64 @@
       }
     },
     "qa": {
-      "status": "blocked",
+      "status": "completed",
       "started_at": "2026-11-11T06:19:02+08:00",
-      "completed_at": "2026-11-11T06:19:30+08:00",
-      "error": "Visual regression rejected stale 11/9 rebound narrative and hardcoded 2026-11-09 OHLC date; screenshots generated at desktop 1440, tablet 768, mobile 360."
+      "completed_at": "2026-11-11T06:29:32+08:00",
+      "outputs": {
+        "visual_regression": "PASS",
+        "mother_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+        "viewports": [
+          1440,
+          768,
+          360,
+          320
+        ],
+        "horizontal_overflow": false,
+        "focus_tabs_interaction": "PASS",
+        "published_earnings_eps_revenue_cards": "PASS",
+        "source_trading_date": "2026-11-10",
+        "screenshot_files": [
+          "desktop-1440-report.png",
+          "tablet-768-report.png",
+          "mobile-360-report.png",
+          "mobile-320-report.png"
+        ],
+        "failures": []
+      }
     },
     "delivery": {
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-11-11T06:29:32+08:00",
+      "completed_at": "2026-11-11T06:29:41+08:00",
+      "outputs": {
+        "preview_path": "main:preview/2026-11-11-simulation.html",
+        "preview_url": "https://lion-invlab.github.io/preview/2026-11-11-simulation.html",
+        "main_commit_sha": "0d8c400bf69c0283d411221ed31af9d95e7515ec",
+        "preview_blob_sha": "45300e54dae78d150a9982b425e075c9d5b12439",
+        "main_changed_files": [
+          "preview/2026-11-11-simulation.html"
+        ],
+        "artifact_id": 13807834978,
+        "workflow_run_id": 42914879028,
+        "html_sha256": "2c41ca4dd4d21f970fc05c9a499991ed3b33636f557970e8fb0518700af4f690",
+        "html_bytes": 367339,
+        "sandbox_path": "/mnt/data/TAC_投資早報_2026-11-11_審核版.html"
+      }
     }
   },
   "blockers": [
-    "Visual regression today-focus assertions were hard-coded to an earlier 11/9 rebound report; updated to 11/11 CPI/Waller content and dynamic source trading-date validation.",
-    "FedWatch latest Investing.com snapshot at 2026-11-11 02:55 Taiwan added: 92% +25bp, 8% +50bp, 0% hold; assembler validation now supports multiple hike bands.",
-    "SOX global quote aligned to Yahoo ^SOX cash-index close used by key-level OHLC to avoid source-value mismatch.",
-    "Main branch remains untouched; output will be delivered from simulation-branch artifact only.",
-    "notify_parent action remains HTTP 404."
+    "市場44欄位中40項已核實；XLC、XLU、XLY與MOVE未取得11/10同日可追溯值，明確標示待核實。",
+    "W46行事曆資料庫最後更新時間為11/6，資料庫標示經濟與財報覆蓋不完整；本版依TAC篩選呈現9項經濟事件與38項財報事件，部分實績仍待核實。",
+    "背景自動化的notify_parent通知動作回傳HTTP 404 Action not found；階段狀態已寫入run state，並由本對話人工接手回報。",
+    "GitHub main僅新增已核准的preview/2026-11-11-simulation.html；index.html、母版、WR、Manifest及其他main檔案均未修改。"
   ],
-  "recovery_point": "Trigger the corrected 11/11 workflow after updating visual assertions, weekday label, SOX consistency and FedWatch multi-hike probabilities.",
+  "recovery_point": "11/11審核版已交付；若要補齊四項待核實行情或更新W46行事曆資料庫，應另開補漏任務，不需重跑已通過的HTML組裝與視覺QA。",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:22:30+08:00",
-    "status": "qa_repair_committed_triggering_ci",
+    "last_checked_at_taipei": "2026-11-11T06:29:41+08:00",
+    "status": "completed_with_explicit_pending_items",
     "notification_channel": "unavailable",
-    "notification_error": "notify_parent HTTP 404"
+    "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found.",
+    "note": "GitHub Actions 42914879028 completed successfully. Visual regression passed at 1440, 768, 360 and 320 widths. Main commit contains exactly one file: preview/2026-11-11-simulation.html. No production homepage changes."
   },
   "manual_takeover": {
     "started_at_taipei": "2026-11-11T06:12:00+08:00",
@@ -158,7 +194,7 @@
     "trading_date": "2026-11-10",
     "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json",
     "note": "Verified quotes populated; remaining quote fields explicitly pending verification, no stale 11/9 carry-forward.",
-    "revision": 4,
+    "revision": 5,
     "market_coverage": {
       "verified": 40,
       "total": 44,
@@ -174,6 +210,10 @@
       "probability_25bp": 92,
       "probability_50bp": 8,
       "hold": 0
-    }
-  }
+    },
+    "status": "delivered_for_user_review",
+    "preview_url": "https://lion-invlab.github.io/preview/2026-11-11-simulation.html",
+    "html_sha256": "2c41ca4dd4d21f970fc05c9a499991ed3b33636f557970e8fb0518700af4f690"
+  },
+  "completed_at_taipei": "2026-11-11T06:29:41+08:00"
 }
