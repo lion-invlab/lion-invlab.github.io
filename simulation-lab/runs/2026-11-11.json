@@ -133,42 +133,47 @@
     },
     "html_assembly": {
       "status": "started",
-      "started_at_taipei": "2026-11-11T06:45:28+08:00",
+      "started_at_taipei": "2026-11-11T06:47:47+08:00",
       "input": {
-        "report_data_pending_sha": "new-blob",
-        "calendar_pending_sha": "new-blob",
-        "branch_head_before_commit": "633eccd226aa126bfb04f32592c3dae80225e3f1"
+        "report_data_old_sha": "0b313f3f1f00faf45f50d5ca1948709c7c356b40",
+        "branch_head_before_commit": "19cc205e00df3e96f54d24b9df1807269bc1f0c9",
+        "calendar_sha": "61946ce9c961502bfd13b6336f2424e00d2aca14"
       },
       "output": {
         "expected_path": "main:preview/2026-11-11-simulation.html",
         "workflow": "tac-simulation-lab"
       },
-      "note": "資料與行事曆修訂後重新啟動既有組裝器；等待GitHub Actions端到端重跑。"
+      "note": "已修正summary_points與core_observation的關鍵字完整性，重跑既有組裝器。"
     },
     "qa": {
       "status": "pending",
-      "note": "等待本輪新HTML完成DOM、JS、雙母版、桌機／手機視覺與互動驗收。"
+      "previous_attempt": {
+        "run_id": 42917323266,
+        "status": "blocked",
+        "error": "visual_regression focus-tab-market缺少『美國10月CPI月增0.4%』；focus-tab-core缺少『50個基點』。"
+      }
     },
     "delivery": {
       "status": "pending",
-      "note": "等待新HTML寫入main/preview/後回讀SHA、長度、結尾及Pages實際載入驗證。"
+      "note": "前一輪QA失敗，未發布；等待本輪QA通過後才寫入main/preview例外路徑。"
     }
   },
   "blockers": [
-    "市場44欄位40項已核實；XLC、XLU、XLY與MOVE仍未取得11/10同日可追溯值，明確標示待核實。",
-    "W46資料庫已更新至2026-11-11 05:25截點：經濟15項、財報42家；11家已公布實績，18家過發布時點但實績仍待核實，13家尚未公布。",
-    "notify_parent進度通知動作回傳NOT_FOUND；已記錄一次失敗，不反覆重試，階段紀錄仍寫入單一run state。",
-    "main例外通道只允許preview/2026-11-11-simulation.html；本輪workflow尚待重跑，index.html及其他main檔案不得修改。"
+    "上一輪workflow 42917323266於視覺／互動QA失敗：今日觀察分頁缺少兩段必要文案；已修正summary_points與core_observation，正在重跑。",
+    "市場44欄位40項已核實；XLC、XLU、XLY與MOVE仍待核實。",
+    "W46資料庫：經濟15項、財報42家；11家已公布、18家過發布時點但實績待核實、13家尚未公布。",
+    "notify_parent進度通知動作回傳NOT_FOUND；已記錄一次失敗，不反覆重試。",
+    "main例外通道僅允許preview/2026-11-11-simulation.html；QA通過前不寫入main。"
   ],
-  "recovery_point": "2026-11-11 06:45+08：W46 15項經濟事件、42家財報已補齊；11家已公布、18家待核實、13家未公布。下一步由最新資料重跑既有HTML組裝及QA。",
+  "recovery_point": "2026-11-11 06:47+08：summary_points與core_observation文案已修正；等待最新workflow完成HTML組裝、視覺／互動QA。",
   "observability": {
     "last_checked_at_taipei": "2026-11-11T06:37:09+08:00",
     "status": "completed_with_explicit_pending_items",
     "notification_channel": "unavailable",
     "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found.",
     "note": "GitHub Actions 42916075104 completed successfully. Visual regression passed at 1440, 768, 360 and 320 widths. FedWatch legend correctly distinguishes 25bp/50bp. Main commit contains exactly one file: preview/2026-11-11-simulation.html.",
-    "last_known_progress_at_taipei": "2026-11-11T06:45:28+08:00",
-    "last_known_progress": "calendar/earnings reconciliation complete; new HTML build pending",
+    "last_known_progress_at_taipei": "2026-11-11T06:47:47+08:00",
+    "last_known_progress": "focus-tab content assertions corrected; new workflow run pending",
     "heartbeat_available": false,
     "notification_action": "notify_parent NOT_FOUND; recorded once"
   },
@@ -200,5 +205,15 @@
     "preview_url": "https://lion-invlab.github.io/preview/2026-11-11-simulation.html",
     "html_sha256": "93eae8400783327e4ea8e5f014553897d91783227dc3afae926ffd51f5b21599"
   },
-  "completed_at_taipei": null
+  "completed_at_taipei": null,
+  "timeline": [
+    {
+      "at": "2026-11-11T06:47:47+08:00",
+      "stage": "qa",
+      "status": "blocked_then_retry",
+      "run_id": 42917323266,
+      "error": "focus-tab-market missing exact CPI phrase; focus-tab-core missing 50bp wording",
+      "recovery": "updated summary_points and core_observation; retriggered build"
+    }
+  ]
 }
