@@ -305,6 +305,16 @@ def main():
             set_text(node,f"{report_label}（{report_weekday}）")
     for node in soup.select("title"):
         set_text(node,f"TAC 投資早報｜{report_label}")
+    # Refresh the date shown in the "今日觀察重點" section title.
+    focus_heading = soup.select_one(".today-focus-title")
+    if focus_heading:
+        heading_text = focus_heading.get_text(" ", strip=True)
+        heading_text = re.sub(r"今日觀察重點\\s*[｜|｜:]?\\s*.*$", f"今日觀察重點｜{report_label}（{report_weekday}）", heading_text)
+        set_text(focus_heading, heading_text)
+    # The mother template carries a historical report-date meta tag; replace it for every daily build.
+    report_date_meta = soup.select_one('meta[name="report-date"]')
+    if report_date_meta:
+        report_date_meta["content"] = report_iso
     # Update the approved summary card's text slot without changing wrappers.
     bluf=unique(soup,"#overview > section.grid.two > article.card.bluf","summary")
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
@@ -1474,6 +1484,12 @@ def main():
         raise ValueError("pending key levels state did not assemble")
     if data["core_observation"]["text"] not in focus_tabs["core"].get_text(" ", strip=True):
         raise ValueError("core observation text did not assemble")
+    visible_focus_heading = soup.select_one(".today-focus-title")
+    if visible_focus_heading and report_label not in visible_focus_heading.get_text(" ", strip=True):
+        raise ValueError("today-focus heading retained a stale report date")
+    report_date_meta = soup.select_one('meta[name="report-date"]')
+    if report_date_meta and report_date_meta.get("content") != report_iso:
+        raise ValueError("report-date metadata did not match report_date")
     focus_text = view.get_text(" ", strip=True)
     if "10/23" in focus_text or "2026/10/23" in focus_text:
         raise ValueError("stale 10/23 mother-template text remains in Today Focus")
