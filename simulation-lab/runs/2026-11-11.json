@@ -144,10 +144,10 @@
     "Main branch remains untouched; output will be delivered from simulation-branch artifact only.",
     "notify_parent action remains HTTP 404."
   ],
-  "recovery_point": "Re-run existing visual regression with current 11/11 narrative, dynamic OHLC date check, FedWatch snapshot and corrected weekday label.",
+  "recovery_point": "Trigger the corrected 11/11 workflow after updating visual assertions, weekday label, SOX consistency and FedWatch multi-hike probabilities.",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:19:30+08:00",
-    "status": "visual_qa_repair_committed_next_ci",
+    "last_checked_at_taipei": "2026-11-11T06:22:30+08:00",
+    "status": "qa_repair_committed_triggering_ci",
     "notification_channel": "unavailable",
     "notification_error": "notify_parent HTTP 404"
   },
