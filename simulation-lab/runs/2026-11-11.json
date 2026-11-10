@@ -87,11 +87,12 @@
         "AP/BLS/Federal Reserve/Reuters/WSJ/CMOTS/ET Now/countryeconomy"
       ],
       "outputs": {
-        "verified_quotes": 18,
-        "explicit_pending_verification": 26,
+        "verified_quotes": 16,
+        "explicit_pending_verification": 28,
         "carry_forward_from_2026_11_09": false,
         "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json"
-      }
+      },
+      "note": "44欄位全部已登錄狀態；目前16項有11/10同日可追溯報價，28項標示待核實，未沿用11/9舊值。"
     },
     "news_calendar": {
       "status": "completed",
@@ -117,7 +118,14 @@
       }
     },
     "html_assembly": {
-      "status": "pending"
+      "status": "started",
+      "started_at": "2026-11-11T06:12:00+08:00",
+      "inputs": [
+        "simulation-lab/fixtures/report-data-2026-11-11.json",
+        "simulation-lab/baseline/weekday-mother-template.html",
+        "simulation-lab/runner/build_review_html.py"
+      ],
+      "outputs": {}
     },
     "qa": {
       "status": "pending"
@@ -132,12 +140,13 @@
     "資料涵蓋不完整；缺乏11/10同日證據的欄位明確標示待核實，不沿用11/9報價。",
     "HTML組裝與瀏覽器QA待本次GitHub Actions執行結果。"
   ],
-  "recovery_point": "本次單一原子commit觸發GitHub Actions；檢查HTML組裝、視覺回歸及preview例外檔案回讀。",
+  "recovery_point": "GitHub Actions run 42912161495 was cancelled during Playwright installation after workflow file correction; this run-state update triggers a new run using the corrected workflow.",
   "observability": {
     "last_checked_at_taipei": "2026-11-11T06:12:00+08:00",
-    "status": "manual_takeover_committed_waiting_ci",
+    "status": "retriggered_after_cancelled_ci",
     "notification_channel": "unavailable",
-    "notification_error": "notify_parent HTTP 404"
+    "notification_error": "notify_parent HTTP 404",
+    "note": "Previous CI run cancelled because workflow was edited during execution. This run-state commit will retrigger CI with the corrected workflow."
   },
   "manual_takeover": {
     "started_at_taipei": "2026-11-11T06:12:00+08:00",
