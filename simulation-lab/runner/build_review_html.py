@@ -1283,6 +1283,22 @@ def main():
                 bar["aria-label"]="未取得 2026/11/09 05:25 前可核實的 FedWatch 機率快照"
                 bar["style"]="display:none"
             note=watch.select_one("details > div")
+            legend_items=watch.select(".fc-split-legend > span")
+            if len(legend_items)>=2 and nonhold:
+                if len(nonhold)>1:
+                    bands=[]
+                    for item in nonhold:
+                        nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(item.get("rate_range","")))]
+                        step=round(nums[0]-current_nums[0],2) if len(nums)==2 else None
+                        bands.append("25bp" if step==0.25 else "50bp" if step==0.50 else "升息")
+                    hike_legend_label=f"升息（{'／'.join(bands)}）"
+                else:
+                    nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(nonhold[0].get("rate_range","")))]
+                    step=round(nums[0]-current_nums[0],2) if len(nums)==2 else None
+                    hike_legend_label="升息一碼" if step==0.25 else "升息兩碼" if step==0.50 else "升息"
+                for text_node in legend_items[1].find_all(string=True):
+                    if "升息一碼" in str(text_node) or "升息兩碼" in str(text_node):
+                        text_node.replace_with(hike_legend_label)
             if note:
                 if probabilities:
                     set_text(note, f"本次報告資料截點為 {report_cutoff}（台灣時間）。Investing.com Fed Rate Monitor 於 {data.get('fedwatch',{}).get('updated_at_tw','時間待核實')} 提供 2026/12/09 會議機率；本版依來源頁面公布值呈現，不以舊截圖或自行估算代替。")

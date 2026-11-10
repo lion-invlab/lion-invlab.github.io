@@ -119,8 +119,8 @@
     },
     "html_assembly": {
       "status": "started",
-      "started_at": "2026-11-11T06:32:00+08:00",
-      "note": "Final source refresh: corrected FedWatch to latest verified Investing.com 11/10 12:55 PM EST snapshot (Taiwan 01:55), 92.4% +25bp / 7.6% +50bp."
+      "started_at": "2026-11-11T06:36:00+08:00",
+      "note": "Final presentation fix: the FedWatch lower legend now labels the 92.4% +25bp and 7.6% +50bp distribution as 升息（25bp／50bp）, not 升息一碼 100%."
     },
     "qa": {
       "status": "pending"
@@ -137,8 +137,8 @@
   ],
   "recovery_point": "11/11審核版已交付；若要補齊四項待核實行情或更新W46行事曆資料庫，應另開補漏任務，不需重跑已通過的HTML組裝與視覺QA。",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:32:00+08:00",
-    "status": "fedwatch_latest_snapshot_refresh_pending_qa",
+    "last_checked_at_taipei": "2026-11-11T06:36:00+08:00",
+    "status": "fedwatch_legend_fix_committed_next_ci",
     "notification_channel": "unavailable",
     "notification_error": "notify_parent HTTP 404"
   },

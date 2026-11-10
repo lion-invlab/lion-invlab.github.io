@@ -93,7 +93,11 @@ try {
         for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
         if (item.id === "focus-tab-levels") {
           const source = panel.querySelector("details.source-details .source")?.textContent || "";
-          const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
+          const fedWatchText = await page.locator(".fed-live-watch").innerText().catch(() => "");
+      if (fedWatchText.includes("4.25–4.50%") && !fedWatchText.includes("升息（25bp／50bp）")) {
+        invalid.push("FedWatch multi-band hike legend is mislabeled");
+      }
+      const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
           if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
           else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
           if (!source.includes("Yahoo Finance OHLC")) invalid.push(item.id + ": missing OHLC source attribution");
