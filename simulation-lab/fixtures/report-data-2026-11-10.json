@@ -672,7 +672,8 @@
         "judgment": "調整後EPS $1.78，高於$1.58共識約12.7%；營收$4.56B，高於$2.59B市場估計。營收共識不同來源可能存在口徑差異，應以同口徑比較。",
         "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "source_url": "https://media.kkr.com/news-details?news_id=7de02651-80a6-4c76-8c9e-09ca75b83478",
-        "source_name": "KKR官方新聞稿；24/7 Wall St.共識"
+        "source_name": "KKR官方新聞稿；24/7 Wall St.共識",
+        "eps_comparison_status": "beat"
       },
       {
         "date": "2026-11-09T21:00:00+08:00",
@@ -710,7 +711,9 @@
         "judgment": "調整後EPS高於共識約29.9%，營收低於共識約1.7%；獲利優於預期但營收略低。",
         "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "source_url": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
-        "source_name": "Occidental官方新聞稿；24/7 Wall St.共識"
+        "source_name": "Occidental官方新聞稿；24/7 Wall St.共識",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "miss"
       },
       {
         "date": "2026-11-10T05:10:00+08:00",
@@ -729,7 +732,9 @@
         "judgment": "GAAP EPS虧損小於市場預期；營收低於共識約5.1%，Net Bookings $1.60B、年減18%，呈現盈餘改善但營收及預訂額承壓。",
         "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "source_url": "https://taketwointeractivesoftwareinc.gcs-web.com/news-releases/news-release-details/take-two-interactive-software-inc-reports-results-fiscal-4/",
-        "source_name": "Take-Two官方新聞稿；GuruFocus共識"
+        "source_name": "Take-Two官方新聞稿；GuruFocus共識",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "miss"
       },
       {
         "event_date": "2026-11-10T23:00:00+08:00",
