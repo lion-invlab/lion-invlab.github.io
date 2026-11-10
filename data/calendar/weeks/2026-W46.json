@@ -172,19 +172,19 @@
         "importance_basis_source": "TAC四星：美國季度再融資公債供給對利率曲線與金融條件具明顯影響。",
         "previous": null,
         "forecast": null,
-        "actual": "US$42B; high yield 5.020%; median yield 4.961%; bid-to-cover 2.460x; indirect bidders 61.2%; tail approximately +1bp versus when-issued.",
+        "actual": "US$42B; high yield 5.020%; median yield 4.961%; bid-to-cover 2.460x.",
         "status": "released",
-        "impact_judgment": "10 年期標售得標殖利率 5.020%，投標倍數 2.46x，低於近 10 次平均約 2.54x；間接投標者占比 61.2%，較前次 80.3% 明顯下降，且尾差約 1bp。整體需求偏軟，可能增加長端殖利率及期限溢酬壓力。結果細項取自反映 Treasury Fiscal Data 的市場資料彙整，並非本次直接取得 TreasuryDirect 結果 PDF。",
+        "impact_judgment": "10 年期標售得標殖利率 5.020%，投標倍數 2.46x，低於前次 10/07 標售的 2.77x，顯示需求較前次降溫。Treasury Fiscal Data 彙整頁未提供本次可核實的 indirect/direct/dealer allocation 或 when-issued tail，本次不填入這些欄位，也不據此推論外資需求或尾差。",
         "source": {
-          "name": "U.S. Treasury Fiscal Data auction results｜10-Year Note, 2026-11-10 (via Fed Gazette)",
+          "name": "U.S. Treasury Fiscal Data auction results｜10-Year Note, 2026-11-10 (Fed Gazette data mirror)",
           "url": "https://fedgazette.com/treasury-auction-results/",
           "published_at": "2026-11-10",
           "observed_at": "2026-11-11T04:34:41+08:00",
           "publisher": "U.S. Department of the Treasury Fiscal Data (republished by Fed Gazette)",
-          "notes": "原有排程／查核註記保留：財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；10 年期 420 億美元，11/10 13:00 ET 標售。 換算台灣時間如事件日期。；US$42B 10-Year Note 於 2026-11-10 標售；high yield 5.020%、median yield 4.961%、bid-to-cover 2.460x。另據同日結果報導，indirect bidders 61.2%、tail 約 1bp。財政部原公告確認標售金額及時段；本次未直接取得 TreasuryDirect 結果 PDF，故結果細項以 Treasury Fiscal Data 彙整頁及市場報導交叉核對。",
+          "notes": "Treasury Fiscal Data 彙整頁列示 2026-11-10 US$42B 10-Year Note：high yield 5.020%、median yield 4.961%、bid-to-cover 2.460x。該頁未列本次可核實的 indirect/direct/dealer allocation 或 when-issued tail，因此 actual 不含此類數值；財政部 11/04 季度再融資公告僅作金額及時段來源。",
           "secondary_refs": [
             "https://home.treasury.gov/news/press-releases/sb0678",
-            "https://civl.com/news/story/u-s-treasury-sells-more-notes-at-lower-yield-than-last-month-378743af"
+            "https://home.treasury.gov/news/press-releases/sb0678"
           ]
         },
         "previous_applicable": false,
@@ -7072,6 +7072,51 @@
       },
       "source": "https://www.sec.gov/Archives/edgar/data/1107843/000110784326000043/qlys-20261109xex991.htm",
       "note": "清理上次增量 merge 重複保留的原始排程註記，保留一份原始來源註記及本次實績查核說明；不更動 actual、共識或狀態。"
+    },
+    {
+      "at": "2026-11-11T04:34:41+08:00",
+      "observed_at": "2026-11-11T04:34:41+08:00",
+      "action": "auction_result_detail_correction",
+      "event_id": "current-us-treasury-10y-auction-20261111",
+      "changed_fields": [
+        "actual",
+        "impact_judgment",
+        "source"
+      ],
+      "before": {
+        "actual": "US$42B; high yield 5.020%; median yield 4.961%; bid-to-cover 2.460x; indirect bidders 61.2%; tail approximately +1bp versus when-issued.",
+        "impact_judgment": "10 年期標售得標殖利率 5.020%，投標倍數 2.46x，低於近 10 次平均約 2.54x；間接投標者占比 61.2%，較前次 80.3% 明顯下降，且尾差約 1bp。整體需求偏軟，可能增加長端殖利率及期限溢酬壓力。結果細項取自反映 Treasury Fiscal Data 的市場資料彙整，並非本次直接取得 TreasuryDirect 結果 PDF。",
+        "source": {
+          "name": "U.S. Treasury Fiscal Data auction results｜10-Year Note, 2026-11-10 (via Fed Gazette)",
+          "url": "https://fedgazette.com/treasury-auction-results/",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "U.S. Department of the Treasury Fiscal Data (republished by Fed Gazette)",
+          "notes": "原有排程／查核註記保留：財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；10 年期 420 億美元，11/10 13:00 ET 標售。 換算台灣時間如事件日期。；US$42B 10-Year Note 於 2026-11-10 標售；high yield 5.020%、median yield 4.961%、bid-to-cover 2.460x。另據同日結果報導，indirect bidders 61.2%、tail 約 1bp。財政部原公告確認標售金額及時段；本次未直接取得 TreasuryDirect 結果 PDF，故結果細項以 Treasury Fiscal Data 彙整頁及市場報導交叉核對。",
+          "secondary_refs": [
+            "https://home.treasury.gov/news/press-releases/sb0678",
+            "https://civl.com/news/story/u-s-treasury-sells-more-notes-at-lower-yield-than-last-month-378743af"
+          ]
+        }
+      },
+      "after": {
+        "actual": "US$42B; high yield 5.020%; median yield 4.961%; bid-to-cover 2.460x.",
+        "impact_judgment": "10 年期標售得標殖利率 5.020%，投標倍數 2.46x，低於前次 10/07 標售的 2.77x，顯示需求較前次降溫。Treasury Fiscal Data 彙整頁未提供本次可核實的 indirect/direct/dealer allocation 或 when-issued tail，本次不填入這些欄位，也不據此推論外資需求或尾差。",
+        "source": {
+          "name": "U.S. Treasury Fiscal Data auction results｜10-Year Note, 2026-11-10 (Fed Gazette data mirror)",
+          "url": "https://fedgazette.com/treasury-auction-results/",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "publisher": "U.S. Department of the Treasury Fiscal Data (republished by Fed Gazette)",
+          "notes": "Treasury Fiscal Data 彙整頁列示 2026-11-10 US$42B 10-Year Note：high yield 5.020%、median yield 4.961%、bid-to-cover 2.460x。該頁未列本次可核實的 indirect/direct/dealer allocation 或 when-issued tail，因此 actual 不含此類數值；財政部 11/04 季度再融資公告僅作金額及時段來源。",
+          "secondary_refs": [
+            "https://home.treasury.gov/news/press-releases/sb0678",
+            "https://home.treasury.gov/news/press-releases/sb0678"
+          ]
+        }
+      },
+      "source": "https://fedgazette.com/treasury-auction-results/",
+      "note": "二次核查後，僅保留 Treasury Fiscal Data 彙整頁可直接支持的 US$42B、5.020%、4.961%、2.460x；移除未能獨立核實的 indirect share 與 tail 數字，並避免對未提供欄位作市場推論。"
     }
   ]
 }
