@@ -74,7 +74,7 @@ try {
     const focusAudit = await reportPage.evaluate(() => {
       const cases = [
         { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "本輪反彈的廣度優於單純權值拉抬"] },
-        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["OHLC 尚未完成同日現金指數核實", "暫不提供支撐"] },
+        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S1：", "中樞 P：", "壓力 R1：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源", "基準交易日：2026-11-09"] },
         { id: "focus-tab-core", panel: ".focus-core", needles: ["今日核心觀察", "反彈已有市場廣度"] }
       ];
       const results = [], invalid = [];
