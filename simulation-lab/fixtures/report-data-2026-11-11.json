@@ -6,96 +6,96 @@
   "sentiment": "通膨數據偏熱、Waller談話偏鷹，短端利率與美元走強；FedWatch截至台灣時間11/11 01:55顯示12月升息25bp機率92.4%、升息50bp機率7.6%、維持不變0%。10年期標售投標倍數2.46低於近10次均值約2.54，需求略偏軟；CNN Fear & Greed採次級鏡像33（Fear），MOVE與三檔產業ETF仍待核實。",
   "focus_news": [
     {
-      "title": "美國10月CPI月增0.4%，升幅高於預期，核心通膨仍具黏性",
+      "title": "美國10月CPI月增0.4%，高於預期，核心通膨仍具黏性",
       "summary": "BLS公布整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；因2025年10月缺少對應蒐集資料，本次未發布年增率。",
       "url": "https://hk.investing.com/news/economic-indicators/article-1750140",
       "published_at_tw": "2026-11-10 21:34"
     },
     {
-      "title": "Fed理事Waller支持12月升息，核心通膨偏高時應考慮50個基點",
-      "summary": "Waller表示即使數據改善仍支持升息25bp；若核心CPI月增達0.3%或更高，聯準會應考慮更大幅度行動。",
-      "url": "https://hk.investing.com/news/economy-news/article-1749866",
-      "published_at_tw": "2026-11-10 19:52"
-    },
-    {
-      "title": "美國10年期公債標售得標殖利率5.020%，投標倍數2.46",
-      "summary": "美國財政部10年期標售規模420億美元，投標倍數2.46，低於近10次平均約2.54；長端需求略偏軟，後續30年期標售值得留意。",
+      "title": "美國10年期公債標售需求偏弱，得標殖利率升至5.020%",
+      "summary": "420億美元10年期公債標售投標倍數2.46，低於近10次平均約2.54；長端需求偏軟，增加市場對期限溢酬與後續標售的關注。",
       "url": "https://yielddocket.com/treasury-auctions/",
       "published_at_tw": "2026-11-11 02:00"
     },
     {
-      "title": "加拿大央行會議紀要保留再升息可能，通膨風險仍在",
-      "summary": "10/28會議紀要顯示理事會曾討論維持2.25%或升至2.50%，最後選擇升息；官員表示若成本壓力擴散，仍可能需要進一步行動。",
+      "title": "加拿大央行紀要：理事會曾討論再升息，通膨風險尚未解除",
+      "summary": "10/28會議紀要顯示理事會曾討論維持2.25%或升至2.50%，最終選擇升息；若成本壓力擴散，仍可能需要進一步緊縮。",
       "url": "https://www.bankofcanada.ca/2026/11/summary-of-governing-council-deliberations-fixed-announcement-date-of-october-28-2026/",
       "published_at_tw": "2026-11-11 02:30"
     },
     {
-      "title": "Fed副主席Bowman稱通膨回落停滯，AI與能源成本可能延續價格壓力",
-      "summary": "Bowman指出勞動市場趨穩，但通膨進展停滯；她未對12月升息幅度作出承諾，政策仍須依後續數據判斷。",
+      "title": "Fed副主席Bowman：通膨回落停滯，AI與能源成本仍是潛在壓力",
+      "summary": "Bowman指出勞動市場趨穩，但通膨改善停滯；她未承諾12月升息幅度，政策仍取決於後續數據與價格壓力擴散情況。",
       "url": "https://www.federalreserve.gov/newsevents/speech/bowman20261110a.htm",
       "published_at_tw": "2026-11-11 04:30"
+    },
+    {
+      "title": "AI融資風險升溫，投資人重新評估資料中心債務與監管成本",
+      "summary": "AI資料中心相關高收益債利差擴大，市場擔心國會監管與建設放緩影響開發商、電力設備商及供應鏈融資；短期已承諾資本支出仍不易立即縮減。",
+      "url": "https://www.reuters.com/legal/transactional/ai-debt-faces-pressure-democrats-prepare-to-take-over-congress-2026-11-10/",
+      "published_at_tw": "2026-11-10 18:02"
     }
   ],
   "headlines": [
     {
       "title": "CoreWeave Q3營收年增168%、上修全年指引，融資成本仍是關鍵風險",
-      "summary": "CoreWeave營收$3.661B高於LSEG共識$3.55B，2026營收指引上修至$13.0B–$13.3B；backlog達$132.5B，但利息支出$846M、淨虧損$709M及資本支出擴張仍受市場關注。",
+      "summary": "營收36.61億美元高於LSEG共識35.5億美元，全年營收指引上修至130億至133億美元；backlog達1,325億美元，但利息支出8.46億美元、淨虧損7.09億美元及資本支出擴張仍受關注。",
       "url": "https://www.reuters.com/business/coreweave-beats-quarterly-revenue-estimates-ai-demand-defies-growing-doubts-2026-11-10/",
       "published_at_tw": "2026-11-11 05:09"
     },
     {
-      "title": "Mercury Systems Q1 FY27營收創高、訂單與backlog同步擴大",
-      "summary": "公司公布營收$253M、GAAP稀釋EPS $0.21、調整後EPS $0.52；訂單$370M、book-to-bill 1.46，並上修FY27展望。",
+      "title": "SoftBank單季虧損約70億美元，資料中心設備預付款與融資成本拖累",
+      "summary": "第二季淨虧損1.1兆日圓，資料中心設備預付款造成重大損失，融資成本年增逾一倍；AI投資擴張的資金成本與回報風險受到檢視。",
+      "url": "https://www.reuters.com/world/asia-pacific/softbank-swings-7-billion-net-loss-second-quarter-2026-11-10/",
+      "published_at_tw": "2026-11-10 18:00"
+    },
+    {
+      "title": "Nvidia股價再承壓，AI交易疑慮與資料中心開發風險交織",
+      "summary": "Reuters指出，市場除關注公司內部調查外，也擔心俄亥俄州資料中心建設複雜化；GE Vernova因SoftBank調整採購計畫下跌，反映AI基建鏈條並非單向受惠。",
+      "url": "https://www.investing.com/news/stock-market-news/nvidia-selloff-deepens-adding-toai-jitters-5016732",
+      "published_at_tw": "2026-11-11 03:46"
+    },
+    {
+      "title": "AI相關債券風險升高，資料中心融資利差擴大",
+      "summary": "投資人對AI基建債務更審慎，高收益債利差與單B級債利差走寬；若監管或建設進度拖慢，影響可能沿開發商、電力及設備供應鏈擴散。",
+      "url": "https://www.reuters.com/legal/transactional/ai-debt-faces-pressure-democrats-prepare-to-take-over-congress-2026-11-10/",
+      "published_at_tw": "2026-11-10 18:02"
+    },
+    {
+      "title": "Mercury Systems營收創高、訂單與backlog同步擴大",
+      "summary": "公司公布季度營收2.53億美元、GAAP稀釋EPS 0.21美元、調整後EPS 0.52美元；訂單3.70億美元、book-to-bill 1.46，並上修FY27展望。",
       "url": "https://ir.mrcy.com/news-releases/news-release-details/mercury-systems-reports-first-quarter-results-0",
       "published_at_tw": "2026-11-11 05:01"
     },
     {
-      "title": "Rigetti Q3營收僅$1.411M，低於預期；108-qubit系統達99.5%保真度",
-      "summary": "Rigetti公布GAAP稀釋虧損-$0.08、Non-GAAP稀釋虧損-$0.06，營收$1.411M低於資料庫共識$3.52M；技術指標達標但商業化收入仍小。",
+      "title": "Rigetti營收低於預期，量子運算技術進展尚待商業化驗證",
+      "summary": "Q3營收141.1萬美元，低於資料庫共識352萬美元；GAAP稀釋虧損每股0.08美元，108-qubit系統保真度達99.5%，但營收規模仍小。",
       "url": "https://investors.rigetti.com/news-releases/news-release-details/rigetti-computing-reports-third-quarter-2026-financial-results",
       "published_at_tw": "2026-11-11 05:05"
     },
     {
-      "title": "美國10年期公債標售5.020%，投標倍數2.46，需求略低近期均值",
-      "summary": "420億美元10年期公債標售得標殖利率5.020%，BTC 2.46，低於近10次均值約2.54；標售需求偏軟，市場將觀察30年期標售。",
+      "title": "美國10年期公債標售需求偏軟，長端殖利率壓力值得留意",
+      "summary": "420億美元標售得標殖利率5.020%、投標倍數2.46，低於近10次平均約2.54；後續30年期標售將檢驗長債需求。",
       "url": "https://yielddocket.com/treasury-auctions/",
       "published_at_tw": "2026-11-11 02:00"
     },
     {
-      "title": "加拿大央行紀要顯示官員曾討論升息幅度，未排除後續緊縮",
-      "summary": "理事會在10/28會議討論維持2.25%或升至2.50%，最後選擇升息；紀要強調通膨風險與逐次會議評估。",
+      "title": "加拿大央行紀要保留再升息可能，政策仍受成本與通膨風險牽動",
+      "summary": "理事會在10/28會議討論維持2.25%或升至2.50%，最終選擇升息；紀要顯示官員仍關注成本壓力擴散。",
       "url": "https://www.bankofcanada.ca/2026/11/summary-of-governing-council-deliberations-fixed-announcement-date-of-october-28-2026/",
       "published_at_tw": "2026-11-11 02:30"
     },
     {
-      "title": "Bowman：通膨改善停滯，AI投資與能源成本可能增加價格壓力",
-      "summary": "Fed副主席指出失業率約4.1%、勞動市場趨穩，但通膨回落停滯；演講未構成對12月升息幅度的明確承諾。",
+      "title": "油價回落反映美伊緊張降溫，能源供應風險仍未完全解除",
+      "summary": "美方表示談判持續、短期不預期擴大攻擊，WTI收86.04美元、Brent收91.49美元；若外交進展受阻，地緣風險溢價仍可能快速回升。",
+      "url": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-a3b73811",
+      "published_at_tw": "2026-11-11 03:00"
+    },
+    {
+      "title": "Fed副主席Bowman談通膨與AI能源成本，未承諾12月升息幅度",
+      "summary": "Bowman表示通膨改善停滯、勞動市場趨穩，AI投資與能源成本可能延續價格壓力；她未就12月政策幅度作出明確承諾。",
       "url": "https://www.federalreserve.gov/newsevents/speech/bowman20261110a.htm",
       "published_at_tw": "2026-11-11 04:30"
-    },
-    {
-      "title": "美國10月CPI與核心CPI月增均高於預期，年增率未發布",
-      "summary": "整體CPI月增0.4%、核心CPI月增0.3%；BLS說明因去年10月缺少對應蒐集資料，未發布通常的年增率。",
-      "url": "https://hk.investing.com/news/economic-indicators/article-1750140",
-      "published_at_tw": "2026-11-10 21:34"
-    },
-    {
-      "title": "Waller支持12月升息，核心CPI若維持0.3%可考慮更大幅度",
-      "summary": "Waller表示支持升息25bp，若核心通膨持續偏高，50bp也應列入討論；此為個別官員觀點，不代表FOMC已形成共識。",
-      "url": "https://hk.investing.com/news/economy-news/article-1749866",
-      "published_at_tw": "2026-11-10 19:52"
-    },
-    {
-      "title": "亞洲科技股反彈，韓日台領漲，市場等待美國CPI",
-      "summary": "鉅亨網指出韓國、日本與台灣市場在CPI公布前反彈，科技與半導體股回升；市場同時關注美國通膨數據與12月升息機率。",
-      "url": "https://news.cnyes.com/news/id/6655458",
-      "published_at_tw": "2026-11-10 13:53"
-    },
-    {
-      "title": "CPI公布後AI與高估值科技股承壓，市場重新提高升息押注",
-      "summary": "Investing.com整理CPI公布後市場反應，通膨高於預期使殖利率上升、科技股期貨走弱，投資人重新評估聯準會緊縮幅度。",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1750361",
-      "published_at_tw": "2026-11-10 21:49"
     }
   ],
   "global_markets": {
@@ -296,9 +296,9 @@
     "XLB": "-0.30%",
     "XLRE": "-0.71%",
     "XLK": "-1.46%",
-    "XLC": "待核實",
-    "XLU": "待核實",
-    "XLY": "待核實"
+    "XLC": "-0.31%",
+    "XLU": "-0.14%",
+    "XLY": "-0.49%"
   },
   "bonds": {
     "2年期美債殖利率": {
@@ -465,10 +465,16 @@
       }
     },
     "move": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "band": "-7.32%",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "92.44",
+      "change_display": "+7.50%",
+      "band": "",
+      "source": {
+        "name": "TradingView｜ICE BofA MOVE Index（使用者提供截圖）",
+        "url": "https://www.tradingview.com/",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "使用者提供之TradingView截圖；收盤92.44，較前收上漲6.45（+7.50%）。"
+      }
     },
     "fear_greed": {
       "display": "33",
@@ -2124,7 +2130,7 @@
     },
     {
       "label": "風險管理",
-      "text": "VIX收19.95、CNN Fear & Greed次級鏡像33（Fear）；MOVE、XLC、XLU、XLY待核實，市場44欄位40項已核實。"
+      "text": "VIX收19.95、MOVE收92.44（+6.45／+7.50%）、CNN Fear & Greed次級鏡像33（Fear）；XLC、XLU、XLY已補入11/10報價，44項行情仍須逐項依來源核對。"
     }
   ],
   "warning_note": "資料截點固定為2026-11-11 05:25台灣時間。市場44欄位40項已核實，XLC、XLU、XLY與MOVE待核實；W46經濟事件15項、財報事件42家。已公布財報11家，另18家過發布時點但實績待核實，13家尚未公布。FedWatch採01:55前快照；不使用05:45後資料。",
@@ -2168,6 +2174,31 @@
       "name": "Investing.com historical data",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
       "data_date": "2026-11-10"
+    },
+    "XLC": {
+      "name": "Investing.com Hong Kong｜XLC historical data",
+      "url": "https://hk.investing.com/etfs/communication-services-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-10",
+      "quote_type": "ETF_daily_close",
+      "close": "107.03",
+      "change_display": "-0.31%"
+    },
+    "XLU": {
+      "name": "Investing.com Hong Kong｜XLU historical data",
+      "url": "https://hk.investing.com/etfs/utilities-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-10",
+      "quote_type": "ETF_daily_close",
+      "close": "43.73",
+      "change_display": "-0.14%"
+    },
+    "XLY": {
+      "name": "Investing.com Hong Kong｜XLY historical data",
+      "url": "https://hk.investing.com/etfs/consumer-discretionary-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-10",
+      "quote_type": "ETF_daily_close",
+      "close": "120.42",
+      "change_display": "-0.49%",
+      "note": "收盤價以可得行情交叉核對；頁面表格未完整回傳當日列。"
     }
   },
   "key_levels": {
@@ -2177,8 +2208,8 @@
   },
   "core_observation": {
     "heading": "今日核心觀察",
-    "text": "美國10月CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；Waller支持12月升息25個基點，並指出核心通膨若維持0.3%或更高，應考慮50個基點。FedWatch在05:25前快照顯示25bp機率92.4%、50bp機率7.6%。10年期標售投標倍數2.46略低於近期平均；CoreWeave營收與指引強勁，但資本支出與利息支出急升，AI需求與融資風險必須一起看。",
-    "details": "BLS未發布10月CPI年增率，不得自行推算。10年期標售5.020%、BTC2.46，近10次平均2.54為第三方統計。CoreWeave Reuters可比EPS與官方GAAP EPS口徑不同，卡片已分別標示。"
+    "text": "美國10月CPI高於預期，FedWatch顯示12月升息25bp機率92.4%、升息50bp機率7.6%、維持不變0%。但市場焦點不只通膨：10年期標售需求偏軟、AI資料中心債務利差擴大，SoftBank巨額虧損也凸顯AI基建融資成本與資本配置風險。CoreWeave營收與指引強勁，顯示需求仍在，但利息支出與資本支出同步攀升，需區分需求成長與股東回報。",
+    "details": "BLS未發布10月CPI年增率，不得自行推算。MOVE採使用者提供TradingView截圖之11/10收盤值。XLC、XLU、XLY補入11/10收盤漲跌幅；各ETF來源與報價日期逐項標示。FedWatch三種結果分列：升息25bp 92.4%、升息50bp 7.6%、維持不變0%。"
   },
   "qa_run_revision": "2026-11-11-revision-3-market-tab-copy-fix",
   "market_sentiment": "通膨數據偏熱、Waller談話偏鷹，短端利率與美元走強；FedWatch截至台灣時間11/11 01:55顯示12月升息25bp機率92.4%、升息50bp機率7.6%、維持不變0%。10年期標售投標倍數2.46低於近10次均值約2.54，需求略偏軟；CNN Fear & Greed採次級鏡像33（Fear），MOVE與三檔產業ETF仍待核實。",
