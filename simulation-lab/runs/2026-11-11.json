@@ -6,7 +6,7 @@
   "trading_date": "2026-11-10",
   "report_type": "Tuesday-Friday mother",
   "branch": "simulation/tac-process-lab-2026-11-06",
-  "status": "completed",
+  "status": "in_progress",
   "rules": {
     "path": "simulation-lab/TAC_WORK_RULES_SIM.md",
     "version": "SIM-0.2",
@@ -118,59 +118,15 @@
       }
     },
     "html_assembly": {
-      "status": "completed",
-      "started_at": "2026-11-11T06:12:00+08:00",
-      "completed_at": "2026-11-11T06:19:02+08:00",
-      "outputs": {
-        "html_path": "simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html",
-        "size_bytes": 390517,
-        "master_sha": "6fe79308eca71db5dd54308fd35efe3900451081"
-      }
+      "status": "started",
+      "started_at": "2026-11-11T06:32:00+08:00",
+      "note": "Final source refresh: corrected FedWatch to latest verified Investing.com 11/10 12:55 PM EST snapshot (Taiwan 01:55), 92.4% +25bp / 7.6% +50bp."
     },
     "qa": {
-      "status": "completed",
-      "started_at": "2026-11-11T06:19:02+08:00",
-      "completed_at": "2026-11-11T06:29:32+08:00",
-      "outputs": {
-        "visual_regression": "PASS",
-        "mother_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
-        "viewports": [
-          1440,
-          768,
-          360,
-          320
-        ],
-        "horizontal_overflow": false,
-        "focus_tabs_interaction": "PASS",
-        "published_earnings_eps_revenue_cards": "PASS",
-        "source_trading_date": "2026-11-10",
-        "screenshot_files": [
-          "desktop-1440-report.png",
-          "tablet-768-report.png",
-          "mobile-360-report.png",
-          "mobile-320-report.png"
-        ],
-        "failures": []
-      }
+      "status": "pending"
     },
     "delivery": {
-      "status": "completed",
-      "started_at": "2026-11-11T06:29:32+08:00",
-      "completed_at": "2026-11-11T06:29:41+08:00",
-      "outputs": {
-        "preview_path": "main:preview/2026-11-11-simulation.html",
-        "preview_url": "https://lion-invlab.github.io/preview/2026-11-11-simulation.html",
-        "main_commit_sha": "0d8c400bf69c0283d411221ed31af9d95e7515ec",
-        "preview_blob_sha": "45300e54dae78d150a9982b425e075c9d5b12439",
-        "main_changed_files": [
-          "preview/2026-11-11-simulation.html"
-        ],
-        "artifact_id": 13807834978,
-        "workflow_run_id": 42914879028,
-        "html_sha256": "2c41ca4dd4d21f970fc05c9a499991ed3b33636f557970e8fb0518700af4f690",
-        "html_bytes": 367339,
-        "sandbox_path": "/mnt/data/TAC_投資早報_2026-11-11_審核版.html"
-      }
+      "status": "pending"
     }
   },
   "blockers": [
@@ -181,11 +137,10 @@
   ],
   "recovery_point": "11/11審核版已交付；若要補齊四項待核實行情或更新W46行事曆資料庫，應另開補漏任務，不需重跑已通過的HTML組裝與視覺QA。",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:29:41+08:00",
-    "status": "completed_with_explicit_pending_items",
+    "last_checked_at_taipei": "2026-11-11T06:32:00+08:00",
+    "status": "fedwatch_latest_snapshot_refresh_pending_qa",
     "notification_channel": "unavailable",
-    "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found.",
-    "note": "GitHub Actions 42914879028 completed successfully. Visual regression passed at 1440, 768, 360 and 320 widths. Main commit contains exactly one file: preview/2026-11-11-simulation.html. No production homepage changes."
+    "notification_error": "notify_parent HTTP 404"
   },
   "manual_takeover": {
     "started_at_taipei": "2026-11-11T06:12:00+08:00",
@@ -206,9 +161,9 @@
       ]
     },
     "fedwatch": {
-      "updated_at_tw": "2026/11/11 02:55",
-      "probability_25bp": 92,
-      "probability_50bp": 8,
+      "updated_at_tw": "2026/11/11 01:55",
+      "probability_25bp": 92.4,
+      "probability_50bp": 7.6,
       "hold": 0
     },
     "status": "delivered_for_user_review",
