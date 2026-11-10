@@ -890,7 +890,8 @@ def main():
         group=BeautifulSoup(str(eg),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
         if heading:
-            set_text(heading,f"{label}｜TAC 四星／五星（{len(items)}家）")
+            display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else label)
+            set_text(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）")
             heading["class"]=["calendar-status-heading",key]
         listing=group.select_one(".earnings-accordion-list"); listing.clear()
         for x in items:
@@ -905,7 +906,7 @@ def main():
             # Released cards use the approved EPS/revenue side-by-side layout.
             details=card.select_one(".earnings-accordion-details")
             if details is None: raise ValueError("earnings card detail container missing")
-            if x.get("status") == "released" or x.get("status_in_db") == "released" or x.get("status") == "published" or x.get("status_in_db") == "published":
+            if earnings_groupkey(x) == "published":
                 grid=soup.new_tag("div", attrs={"class":["earnings-results-grid"]})
                 for label, actual, estimate, actual_display, estimate_display, comparison in [
                     ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
@@ -974,8 +975,10 @@ def main():
         ep.append(group)
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
-    released_tickers={str(x.get("ticker","")).upper() for x in earnings
-                      if (x.get("status") or x.get("status_in_db")) in ("released","published")}
+    # The published accordion includes past events even when actual results remain unverified.
+    # Such cards must still use the side-by-side EPS/revenue layout with explicit 待核實 values.
+    published_expected_tickers={str(x.get("ticker","")).upper() for x in earnings
+                                if earnings_groupkey(x) == "published"}
     published_heading=ep.select_one(".calendar-status-heading.published")
     published_group=published_heading.find_parent(class_="calendar-status-group") if published_heading else None
     if published_group is None: raise ValueError("published earnings group missing")
@@ -997,16 +1000,16 @@ def main():
             raise ValueError(f"published earnings card missing required sections: {ticker}; {sorted(required_labels)}")
     published_tickers={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                        for n in published_group.select(".earnings-company-sub")}
-    if released_tickers != published_tickers:
-        raise ValueError(f"released earnings classification mismatch: expected {sorted(released_tickers)}, rendered {sorted(published_tickers)}")
+    if published_expected_tickers != published_tickers:
+        raise ValueError(f"published earnings classification mismatch: expected {sorted(published_expected_tickers)}, rendered {sorted(published_tickers)}")
     for status_class in ("today","upcoming"):
         status_heading=ep.select_one(f".calendar-status-heading.{status_class}")
         group_node=status_heading.find_parent(class_="calendar-status-group") if status_heading else None
         if group_node:
             other={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                    for n in group_node.select(".earnings-company-sub")}
-            overlap=other & released_tickers
-            if overlap: raise ValueError(f"released earnings duplicated outside published group: {sorted(overlap)}")
+            overlap=other & published_expected_tickers
+            if overlap: raise ValueError(f"published earnings duplicated outside published group: {sorted(overlap)}")
     # Monday retrospective: populate dedicated prior-week sections from W45 only.
     if monday:
         last_econ = data.get("last_week_calendar", {})

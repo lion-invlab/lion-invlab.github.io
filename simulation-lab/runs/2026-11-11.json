@@ -120,8 +120,8 @@
     "html_assembly": {
       "status": "blocked",
       "started_at": "2026-11-11T06:12:00+08:00",
-      "completed_at": "2026-11-11T06:13:03+08:00",
-      "error": "build_review_html.py raised ValueError: published earnings card missing side-by-side EPS/revenue result cards. Deterministic tests, dual-mother validation, and live OHLC capture passed. Validation patched to inspect direct DOM nodes and include ticker diagnostics."
+      "completed_at": "2026-11-11T06:17:21+08:00",
+      "error": "Assembler failed on TDG: event date had passed but result status was pending_verification; card was grouped as published but rendered using upcoming layout. Fixed renderer to use earnings_groupkey(x) == published and classify all past events in published_expected_tickers. Published heading now discloses unverified results."
     },
     "qa": {
       "status": "pending"
@@ -131,14 +131,14 @@
     }
   },
   "blockers": [
-    "HTML assembly attempt 1 failed at published earnings card verification; deterministic tests, both mother layouts, and five-index live OHLC capture passed.",
-    "Assembler earnings-card validation used :scope CSS selectors; patched to inspect direct DOM nodes and provide ticker-specific diagnostics.",
+    "HTML assembly attempt 2 failed because past-but-unverified earnings (e.g. TDG) were grouped under published but rendered using upcoming card layout.",
+    "Assembler now renders all past events with the published EPS/revenue side-by-side layout; unverified actuals display 待核實 and heading indicates results pending verification.",
     "Notification action mcp__Automations__notify_parent returns HTTP 404."
   ],
-  "recovery_point": "Re-run existing assembler with expanded 40/44 market data fixture and repaired earnings-card DOM validation.",
+  "recovery_point": "Run assembly and visual regression after fixing past-but-unverified earnings card classification; source news now aligned to 鉅亨網 and Investing.com.",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:13:03+08:00",
-    "status": "assembler_fix_committed_next_ci",
+    "last_checked_at_taipei": "2026-11-11T06:17:21+08:00",
+    "status": "earnings_pending_state_fix_committed",
     "notification_channel": "unavailable",
     "notification_error": "notify_parent HTTP 404"
   },
@@ -149,7 +149,7 @@
     "trading_date": "2026-11-10",
     "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json",
     "note": "Verified quotes populated; remaining quote fields explicitly pending verification, no stale 11/9 carry-forward.",
-    "revision": 2,
+    "revision": 3,
     "market_coverage": {
       "verified": 40,
       "total": 44,

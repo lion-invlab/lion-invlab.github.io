@@ -6,96 +6,96 @@
   "sentiment": "美股回落與美債殖利率急升反映市場重新定價通膨與聯準會政策風險。兩年期殖利率上升約19個基點，美元指數走高，黃金與白銀承壓；CNN Fear & Greed讀值33，仍處Fear區間。MOVE本輪未取得11/10同日讀值，FedWatch亦未完成Investing.com最新快照重讀，不以舊數據推斷債券波動或政策機率。",
   "focus_news": [
     {
-      "title": "美國10月CPI高於預期，通膨壓力令12月升息路徑再度升溫",
-      "summary": "BLS公布整體CPI月增0.4%、核心CPI月增0.3%，分別高於市場預期的0.3%與0.2%；因去年政府停擺期間未蒐集對應月份資料，官方未發布年增率。",
-      "url": "https://www.investing.com/news/economic-indicators/hot-october-inflation-report-rattles-markets-5015775",
-      "published_at_tw": "2026-11-10 21:58"
+      "title": "美國10月CPI月增0.4%，升幅高於預期，核心通膨仍具黏性",
+      "summary": "BLS公布整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，本次未發布年增率。",
+      "url": "https://hk.investing.com/news/economic-indicators/article-1750140",
+      "published_at_tw": "2026-11-10 21:34"
     },
     {
-      "title": "Fed理事Waller支持12月升息，若核心通膨偏高應考慮50個基點",
-      "summary": "Waller表示即使通膨改善仍支持升息25個基點；若核心CPI維持0.3%或更高，應考慮更大幅度升息，以維持抗通膨政策可信度。",
-      "url": "https://www.reuters.com/business/feds-waller-plans-support-least-quarter-point-rate-hike-december-2026-11-10/",
-      "published_at_tw": "2026-11-10 16:12"
+      "title": "Fed理事Waller支持12月升息，核心通膨偏高時應考慮50個基點",
+      "summary": "Waller表示即使通膨數據改善仍支持升息25個基點；若核心CPI月增達0.3%或更高，聯準會應考慮更大幅度升息。",
+      "url": "https://hk.investing.com/news/economy-news/article-1749866",
+      "published_at_tw": "2026-11-10 19:52"
     },
     {
-      "title": "美債殖利率急升，美股因通膨數據偏熱而回落",
-      "summary": "Reuters指出兩年期殖利率單日大幅攀升，創2025年4月以來最大單日升幅之一；10年期殖利率接近5%，市場提高對12月升息的定價。",
-      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
-      "published_at_tw": "2026-11-11 05:00"
+      "title": "亞洲科技股反彈，韓日領漲，市場等待美國CPI決定利率方向",
+      "summary": "鉅亨網指出韓國、日本與台灣市場在CPI公布前反彈，科技與半導體股回升；市場同時關注美國通膨數據與12月升息機率。",
+      "url": "https://news.cnyes.com/news/id/6655458",
+      "published_at_tw": "2026-11-10 13:53"
     },
     {
-      "title": "美國股市週二收低，投資人重新評估利率與政策風險",
-      "summary": "AP報導美股四大指數下跌，通膨數據高於預期及Fed官員談話促使交易員提高升息預期；美債殖利率上升，油價續跌。",
-      "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
-      "published_at_tw": "2026-11-11 04:30"
+      "title": "美國CPI超預期，Waller升息訊號加重美股與美債壓力",
+      "summary": "鉅亨網報導10月CPI與核心CPI月增均高於預期，Waller提出必要時升息兩碼，推升殖利率並使美股科技股再度承壓。",
+      "url": "https://news.cnyes.com/news/id/6656401",
+      "published_at_tw": "2026-11-10 22:39"
     },
     {
-      "title": "金銀價格下挫，美元與殖利率走高加重貴金屬壓力",
-      "summary": "WSJ報導12月黃金期貨下跌2.05%至每盎司4,020.70美元，11月白銀期貨下跌2.78%至51.101美元，反映通膨與升息預期衝擊。",
-      "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
-      "published_at_tw": "2026-11-11 05:00"
+      "title": "CPI澆熄反彈，AI交易承壓，市場重新討論12月升息50個基點",
+      "summary": "Investing.com整理CPI公布後市場反應，通膨高於預期使美債殖利率上升、科技股期貨走弱，投資人重新評估聯準會緊縮幅度。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1750529",
+      "published_at_tw": "2026-11-10 22:39"
     }
   ],
   "headlines": [
     {
-      "title": "美國10月CPI月增0.4%，高於市場預期",
-      "summary": "整體CPI月增0.4%，核心CPI月增0.3%，均高於市場預期；BLS未發布年增率，因去年同期政府停擺期間未蒐集資料。",
-      "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
-      "published_at_tw": "2026/11/10 21:30"
+      "title": "美國10月CPI與核心CPI月增均高於預期",
+      "summary": "整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；年增率因去年同期資料缺失未發布，市場焦點轉向通膨黏性。",
+      "url": "https://hk.investing.com/news/economic-indicators/article-1750140",
+      "published_at_tw": "2026-11-10 21:34"
     },
     {
-      "title": "Waller支持12月升息，並提出必要時考慮升息兩碼",
-      "summary": "Fed理事Waller表示即使CPI改善仍支持升息25個基點；若核心通膨仍達0.3%或更高，應考慮50個基點。",
-      "url": "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
-      "published_at_tw": "2026/11/10"
+      "title": "Waller支持12月升息，核心CPI若達0.3%可考慮升息兩碼",
+      "summary": "Fed理事Waller表示即使數據改善仍支持升息25個基點；若核心通膨持續偏高，升息50個基點也應列入選項。",
+      "url": "https://hk.investing.com/news/economy-news/article-1749866",
+      "published_at_tw": "2026-11-10 19:52"
     },
     {
-      "title": "美國兩年期公債殖利率單日大幅攀升",
-      "summary": "Reuters指出兩年期殖利率上升19.28個基點至4.74%，為2025年4月以來最大單日升幅之一，反映政策利率預期急速調整。",
-      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
-      "published_at_tw": "2026/11/11"
+      "title": "市場重新提高12月升息押注，AI與高估值科技股承壓",
+      "summary": "CPI公布後，交易員提高對聯準會緊縮政策的押注，納斯達克100期貨下挫，半導體與大型科技股盤前走弱。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1750361",
+      "published_at_tw": "2026-11-10 21:49"
     },
     {
-      "title": "美國十年期公債殖利率升至接近5%",
-      "summary": "通膨數據偏熱與Fed官員偏鷹談話推升長端殖利率，十年期殖利率升至4.988%，提高股票估值折現壓力。",
-      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
-      "published_at_tw": "2026/11/11"
+      "title": "鉅亨：CPI超預期，科技股反彈遭遇新一輪賣壓",
+      "summary": "美股在連續反彈後再遇利率壓力，科技股領跌；市場擔憂通膨持續偏高將迫使Fed採取更積極的緊縮政策。",
+      "url": "https://news.cnyes.com/news/id/6656401",
+      "published_at_tw": "2026-11-10 22:39"
     },
     {
-      "title": "黃金期貨跌至一週低點，單日跌幅擴大",
-      "summary": "COMEX 12月黃金期貨下跌2.05%至4,020.70美元，為11月3日以來最低收盤；美元及美債殖利率走高削弱黃金吸引力。",
-      "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
-      "published_at_tw": "2026/11/11"
+      "title": "亞洲晶片股回神，韓日台市場在美國CPI前反彈",
+      "summary": "亞洲市場延續前一交易日科技股反彈，韓國與日本領漲，台股終結連跌；投資人仍等待美國通膨數據確認升息路徑。",
+      "url": "https://news.cnyes.com/news/id/6655458",
+      "published_at_tw": "2026-11-10 13:53"
     },
     {
-      "title": "白銀期貨同步回落，工業與投資需求預期轉弱",
-      "summary": "11月白銀期貨下跌2.78%至51.101美元，顯示貴金屬承受實質利率與美元走強的雙重壓力。",
-      "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
-      "published_at_tw": "2026/11/11"
+      "title": "油價於亞洲交易時段走低，市場評估中東衝突降溫",
+      "summary": "Investing.com報導WTI與Brent期貨在亞洲時段下跌，市場對美伊談判進展抱持期待；能源價格回落短線緩和通膨疑慮。",
+      "url": "https://hk.investing.com/news/commodities-news/article-1748932",
+      "published_at_tw": "2026-11-10 11:25"
     },
     {
-      "title": "油價續跌至兩個月低點，中東風險溢價降溫",
-      "summary": "Reuters指出油價走低，市場降低美國對伊朗進一步軍事行動的預期；能源價格回落仍不足以抵銷其他商品與服務價格壓力。",
-      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
-      "published_at_tw": "2026/11/11"
+      "title": "黃金價格在4,130美元附近盤整，油價回落緩解通膨擔憂",
+      "summary": "Investing.com指出油價回落與美伊談判希望降低通膨憂慮，但聯準會可能持續收緊政策仍限制金價表現。",
+      "url": "https://hk.investing.com/news/commodities-news/article-1748743",
+      "published_at_tw": "2026-11-10 09:12"
     },
     {
-      "title": "歐洲股市小幅收高，與美股走勢分歧",
-      "summary": "Reuters全球市場報導指出歐洲股市小幅上漲，投資人同時評估美國通膨與利率前景，跨市場風險偏好並不一致。",
-      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
-      "published_at_tw": "2026/11/11"
+      "title": "美元維持弱勢，亞洲貨幣走低，市場靜待美國通膨數據",
+      "summary": "Investing.com報導亞洲貨幣在美國CPI公布前走弱，市場預期數據將影響聯準會利率路徑；若通膨偏熱，美元可能獲得支撐。",
+      "url": "https://hk.investing.com/news/forex-news/article-1749005",
+      "published_at_tw": "2026-11-10 12:21"
     },
     {
-      "title": "亞洲主要市場在美國通膨數據公布前反彈",
-      "summary": "亞洲市場11/10收盤多數上漲，日本、韓國與台灣表現相對突出；該時段尚未反映美國當日稍晚公布的CPI衝擊。",
-      "url": "https://em.etnownews.com/global-indices",
-      "published_at_tw": "2026/11/10"
+      "title": "美股期貨漲跌不一，投資人關注CPI與AI資本支出壓力",
+      "summary": "Investing.com盤前報導美股期貨表現分歧，市場等待CPI，同時評估資料中心建設、AI投資成本與科技股估值的可持續性。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1749880",
+      "published_at_tw": "2026-11-10 19:33"
     },
     {
-      "title": "AI投資成本與大型科技公司獲利展望仍是市場焦點",
-      "summary": "Reuters指出投資人持續關注科技公司財報與AI投資成本，市場對人工智慧資本支出回報的疑慮仍未消失。",
-      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
-      "published_at_tw": "2026/11/11"
+      "title": "CPI公布後，納指期貨跳水，市場擴大對未來升息的押注",
+      "summary": "Investing.com指出通膨數據公布後納斯達克100期貨一度下跌1.3%，大型科技股盤前普遍承壓，利率敏感型資產面臨重新定價。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1750361",
+      "published_at_tw": "2026-11-10 21:49"
     }
   ],
   "global_markets": {
