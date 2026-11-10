@@ -101,11 +101,25 @@ try {
       });
     });
     await reportPage.waitForTimeout(80);
+    const mondayHasRetrospective = await reportPage.locator("#last-week-earnings .calendar-status-group").count();
+    if (!mondayHasRetrospective) {
+      const publishedTab = reportPage.locator('label[for="week-earnings-published"]');
+      if (await publishedTab.count()) {
+        await publishedTab.click();
+        await reportPage.waitForFunction(() => {
+          const radio = document.querySelector("#week-earnings-published");
+          const group = document.querySelector("#earnings .calendar-status-group:nth-child(3)");
+          return !!radio?.checked && !!group && getComputedStyle(group).display !== "none";
+        });
+      }
+    }
     const earningsAudit = await reportPage.evaluate(() => {
       const groups = [...document.querySelectorAll("#earnings .calendar-status-group")];
       const mondayRetrospective = document.querySelector("#last-week-earnings .calendar-status-group");
-      const auditGroup = mondayRetrospective || groups[1];
-      const mode = mondayRetrospective ? "monday-published-results" : "weekday-upcoming-events";
+      const weekdayPublished = groups.find(group => group.querySelector(".calendar-status-heading.published"));
+      const auditGroup = mondayRetrospective || weekdayPublished || groups[1];
+      const publishedMode = !!mondayRetrospective || !!weekdayPublished;
+      const mode = mondayRetrospective ? "monday-published-results" : weekdayPublished ? "weekday-published-results" : "weekday-upcoming-events";
       if (!auditGroup) return { mode, count: 0, invalid: ["earnings audit group missing"] };
       const cards = [...auditGroup.querySelectorAll("details.earnings-accordion")];
       const invalid = [];
@@ -114,16 +128,20 @@ try {
         const details = card.querySelector(":scope > .earnings-accordion-details");
         if (!details) invalid.push("card " + (i+1) + ": detail panel missing");
         if (!card.querySelector(".earnings-detail-field label")) invalid.push("card " + (i+1) + ": supporting details missing");
-        if (mondayRetrospective) {
+        if (publishedMode) {
           const grid = details?.querySelector(":scope > .earnings-results-grid");
           const resultCards = grid ? grid.querySelectorAll(":scope > .earnings-actual-card").length : 0;
           if (!grid || resultCards !== 2) invalid.push("card " + (i+1) + ": paired EPS/revenue cards missing");
+          const labels = [...(details?.querySelectorAll(":scope > .earnings-detail-field label") || [])].map(node => node.textContent.trim());
+          if (!["財報判讀", "股價當日表現", "來源"].every(label => labels.includes(label))) {
+            invalid.push("card " + (i+1) + ": published analysis/reaction/source sections missing");
+          }
         }
       }
       if (cards.length === 0) invalid.push("no earnings cards in the selected report-week group");
       let columns = null, pairedGeometry = null, measured = [];
-      if (mondayRetrospective) {
-        // Monday retrospective cards contain published EPS/revenue result pairs.
+      if (publishedMode) {
+        // Published earnings cards (Monday retrospective or weekday current-week) contain EPS/revenue pairs.
         const visibleGrids = [...auditGroup.querySelectorAll(".earnings-results-grid")]
           .filter(grid => {
             const rect = grid.getBoundingClientRect();
