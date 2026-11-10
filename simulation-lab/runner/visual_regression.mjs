@@ -74,7 +74,7 @@ try {
     const focusAudit = await reportPage.evaluate(() => {
       const cases = [
         { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "本輪反彈的廣度優於單純權值拉抬"] },
-        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S1：", "中樞 P：", "壓力 R1：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源", "基準交易日：2026-11-09"] },
+        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S1：", "中樞 P：", "壓力 R1：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
         { id: "focus-tab-core", panel: ".focus-core", needles: ["今日核心觀察", "反彈已有市場廣度"] }
       ];
       const results = [], invalid = [];
@@ -90,6 +90,11 @@ try {
         if (!input.checked) invalid.push(item.id + ": radio did not become checked after label click");
         if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
         for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
+        if (item.id === "focus-tab-levels") {
+          const source = panel.querySelector("details.source-details .source")?.textContent || "";
+          if (!source.includes("基準交易日：2026-11-09")) invalid.push(item.id + ": missing OHLC source trading date");
+          if (!source.includes("Yahoo Finance OHLC")) invalid.push(item.id + ": missing OHLC source attribution");
+        }
         results.push({ id: item.id, checked: input.checked, visible, text_length: text.length, needles: item.needles });
       }
       return { count: results.length, results, invalid };
