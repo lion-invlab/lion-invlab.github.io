@@ -484,7 +484,7 @@
     }
   },
   "fedwatch": {
-    "updated_at_tw": "2026/11/11 02:55",
+    "updated_at_tw": "2026/11/11 01:55",
     "target_meeting": "2026/12/09（美國時間）",
     "current_target_range": "3.75–4.00%",
     "probabilities": [
@@ -498,21 +498,21 @@
       {
         "outcome": "hike",
         "rate_range": "4.00–4.25%",
-        "probability": 92,
+        "probability": 92.4,
         "previous_day": 82.8,
         "previous_week": 79.8
       },
       {
         "outcome": "hike",
         "rate_range": "4.25–4.50%",
-        "probability": 8,
+        "probability": 7.6,
         "previous_day": 0,
         "previous_week": 0
       }
     ],
     "source_name": "Investing.com Fed Rate Monitor",
-    "source_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
-    "note": "11/10 13:55 EST（台灣時間11/11 02:55）快照：市場定價12月升息25bp機率92%、升息50bp機率8%；維持現行區間機率0%。"
+    "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
+    "note": "Investing.com Fed Rate Monitor 11/10 12:55 PM EST（台灣時間11/11 01:55）快照：12月會議升息25bp機率92.4%、升息50bp機率7.6%；維持現行區間機率為0%。"
   },
   "observation": "美國10月CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，BLS未發布通常的年增率。Waller支持12月升息25個基點，並認為若核心通膨達到或高於0.3%，應考慮更大幅度行動。短端美債殖利率急升、美元走強，金銀與美股承壓；觀察焦點是利率重定價是否向長端擴散，以及市場是否進一步反映50個基點升息風險。",
   "calendar": {
