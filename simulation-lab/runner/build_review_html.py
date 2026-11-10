@@ -658,7 +658,43 @@ def main():
             vals=rows[0].select("span.r")
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
             set_text(vals[0],record.get("display","待核實"))
-            if len(vals)>1 and record.get("change_display") is not None: set_text(vals[1],record["change_display"])
+            if len(vals)>1 and record.get("change_display") is not None:
+                change_text = str(record["change_display"]).strip()
+                set_text(vals[1], change_text)
+                # TAC convention: positive/rising = red (.up); negative/falling = green (.down).
+                # Recompute the semantic class from the refreshed value; never retain stale mother-template classes.
+                numeric_change = re.match(r"^[+＋]?\s*([0-9][0-9,]*(?:\.[0-9]+)?)", change_text)
+                negative_change = re.match(r"^[-−－]\s*([0-9][0-9,]*(?:\.[0-9]+)?)", change_text)
+                for cls in ("up", "down", "flat"):
+                    if cls in vals[1].get("class", []):
+                        vals[1]["class"].remove(cls)
+                if negative_change:
+                    vals[1].add_class("down")
+                elif numeric_change:
+                    amount = float(numeric_change.group(1).replace(",", ""))
+                    vals[1].add_class("flat" if amount == 0 else "up")
+                else:
+                    vals[1].add_class("pending")
+    # Validate TAC directional colors for all refreshed bond/FX/commodity changes.
+    for container_id, records in [("bonds", data["bonds"]), ("fx", data["fx"]),
+                                  ("tac-assets-panel-3", data["energy"]), ("tac-assets-panel-4", data["metals"])]:
+        container = unique(soup, f"#{container_id}", container_id)
+        for label, record in records.items():
+            if record.get("change_display") is None:
+                continue
+            normalized_label = "".join(str(label).split())
+            row = next((r for r in container.select(".row")
+                        if normalized_label in "".join(r.get_text(" ", strip=True).split())), None)
+            if row is None:
+                raise ValueError(f"{container_id}/{label}: directional QA row missing")
+            change = row.select("span.r")
+            if len(change) < 2:
+                raise ValueError(f"{container_id}/{label}: directional QA change span missing")
+            cls = change[1].get("class", [])
+            value = str(record["change_display"]).strip()
+            expected = "down" if re.match(r"^[-−－]", value) else "up" if re.match(r"^[+＋]?\\s*[0-9]", value) and not re.match(r"^[+＋]?\\s*0(?:\\.0+)?(?:\\s|$)", value) else "flat" if re.match(r"^[+＋]?\\s*0(?:\\.0+)?(?:\\s|$)", value) else None
+            if expected and expected not in cls:
+                raise ValueError(f"{container_id}/{label}: TAC direction class mismatch for {value}: {cls}, expected {expected}")
     # Refresh risk quote value, move, source and date together. Never retain mother-template quote annotations.
     for key,label in [("vix","VIX"),("move","MOVE")]:
         record = data["risk"][key]
