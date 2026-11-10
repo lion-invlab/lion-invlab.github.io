@@ -1011,8 +1011,8 @@ def main():
                 if grid:
                     grid.clear()
                     for label, actual, estimate, actual_display, estimate_display, comparison in [
-                        ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), x.get("eps_comparison_status")),
-                        ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), x.get("revenue_comparison_status"))
+                        ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
+                        ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                     ]:
                         state = comparison if comparison in ("beat","miss","inline") else "pending"
                         status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
