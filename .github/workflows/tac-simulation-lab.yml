@@ -6,6 +6,8 @@ on:
       - simulation/tac-process-lab-2026-11-06
     paths:
       - "simulation-lab/**"
+      - "!simulation-lab/runs/**"
+      - "!simulation-lab/output/**"
       - ".github/workflows/tac-simulation-lab.yml"
       - ".github/workflows/tac-key-levels-live.yml"
 
@@ -72,6 +74,27 @@ jobs:
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html weekdays 2026-11-11
 
 
+
+      - name: Publish the approved simulation review preview only
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html
+          cp simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html /tmp/TAC_投資早報_2026-11-11_審核版.html
+          git fetch origin main
+          git checkout -B tac-preview-2026-11-11 FETCH_HEAD
+          mkdir -p preview
+          cp /tmp/TAC_投資早報_2026-11-11_審核版.html preview/2026-11-11-simulation.html
+          git add preview/2026-11-11-simulation.html
+          staged_files="$(git diff --cached --name-only)"
+          test "$staged_files" = "preview/2026-11-11-simulation.html"
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" commit -m "Publish 2026-11-11 TAC simulation review preview"
+          git push origin HEAD:main
+          git fetch origin main
+          git show origin/main:preview/2026-11-11-simulation.html | grep -q "</html>"
+          git checkout -B simulation/tac-process-lab-2026-11-06 origin/simulation/tac-process-lab-2026-11-06
+
       - name: Record isolated run metadata
         if: always()
         shell: bash
@@ -82,7 +105,7 @@ jobs:
             echo "commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
             echo "run_attempt=$GITHUB_RUN_ATTEMPT"
-            echo "main_write_scope=forbidden; simulation branch artifacts only"
+            echo "main_write_scope=preview/2026-11-11-simulation.html only; all other main files forbidden"
             echo "production_deploy=forbidden"
           } > simulation-lab/output/runner-metadata.txt
 
