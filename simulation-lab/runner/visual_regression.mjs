@@ -110,8 +110,22 @@ try {
     }
     if (fedCards !== 3) failures.push(`${v.name}: FedWatch expected 3 independent probability cards, found ${fedCards}`);
     if (fedWatchText.includes("升息（25bp／50bp）")) failures.push(`${v.name}: obsolete aggregated hike legend remains`);
-    for (const requiredObservation of ["📌 亞股觀察", "📌 歐股觀察"]) {
-      if (!(await reportPage.getByText(requiredObservation, { exact: false }).count())) failures.push(`${v.name}: missing ${requiredObservation}`);
+    // Regional observation cards live inside switchable global-market tabs.
+    // Assert their actual DOM textContent (not rendered innerText/getByText visibility),
+    // because inactive tabs are intentionally hidden until selected by the reader.
+    for (const [panelId, requiredObservation] of [
+      ["tac-global-panel-1", "📌 亞股觀察"],
+      ["tac-global-panel-2", "📌 歐股觀察"]
+    ]) {
+      const observationText = await reportPage.locator(`#${panelId} .market-reason`).evaluate(
+        node => node.textContent || ""
+      ).catch(() => "");
+      if (!observationText.includes(requiredObservation)) {
+        failures.push(`${v.name}: ${panelId} missing observation heading in DOM: ${requiredObservation}`);
+      }
+      if (observationText.trim().length < requiredObservation.length + 10) {
+        failures.push(`${v.name}: ${panelId} observation content is empty or incomplete`);
+      }
     }
     snapshots[v.name].today_focus_tabs = focusAudit;
     if (focusAudit.count !== 3 || focusAudit.invalid.length) {
