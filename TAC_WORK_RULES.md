@@ -17,7 +17,7 @@
 
 # TAC 投資早報｜正式工作規則
 
-版本：5.15（2026-11-10｜模擬區單一審核檔案與 Main Preview 特例通道）
+版本：5.16（2026-11-10｜每次修改後預覽交付閉環與路徑統一）
 建立日期：2026-10-28
 本次整併日期：2026-11-04
 適用範圍：TAC 投資早報資料蒐集、分析、每日審核版、版面更新、品質驗收及正式發布。
@@ -61,7 +61,7 @@
 - 計畫、資料取得、檔案寫入、commit、Pages 部署、內容驗收是不同狀態，不得混稱完成。
 - 工作應在授權範圍內自主連續執行，不要求使用者逐步輸入「繼續」；只在需要使用者決策、權限或無法安全推斷時暫停該項，其餘工作繼續。
 - 不以流程文件、測試程式或 GitHub Actions 狀態，推定當日行情已核實或早報已完成。
-- **每日 HTML 審核版的內容整合與產製責任：** 由 ChatGPT 單一執行者直接完成行情網頁查核、行事曆資料庫讀取／必要增量更新、新聞原文查證、財報核對、總結、市場情緒、盤面觀察、評論及 HTML 組裝。行情與分析直接填入核准母版，不經 Snapshot、Collector、Assembler 或 Renderer 中轉。行事曆只使用 `data/calendar/weeks/YYYY-Www.json`；若需更新，只能更新同一路徑既有週檔並保留 audit，不得建立平行資料庫。ChatGPT 必須寫入並回讀 `preview/YYYY-MM-DD.html`，完成四類 QA；工具無法實際執行的檢查須標示「未測試」，不得宣稱通過。若無法實際寫入或回讀，明確回報「未產出審核版」及阻塞點，不得把工作轉嫁給使用者或宣稱完成。
+- **每日 HTML 審核版的內容整合與產製責任：** 由 ChatGPT 單一執行者直接完成行情網頁查核、行事曆資料庫讀取／必要增量更新、新聞原文查證、財報核對、總結、市場情緒、盤面觀察、評論及 HTML 組裝。行情與分析直接填入核准母版，不經 Snapshot、Collector、Assembler 或 Renderer 中轉。行事曆只使用 `data/calendar/weeks/YYYY-Www.json`；若需更新，只能更新同一路徑既有週檔並保留 audit，不得建立平行資料庫。ChatGPT 必須寫入並回讀 `preview/YYYY-MM-DD-simulation.html`，完成四類 QA；工具無法實際執行的檢查須標示「未測試」，不得宣稱通過。若無法實際寫入或回讀，明確回報「未產出審核版」及阻塞點，不得把工作轉嫁給使用者或宣稱完成。
 
 ## B. 唯一核准母版與保護範圍
 
@@ -173,22 +173,23 @@
 ### 第六步｜交付審核版與正式發布
 
 **審核版 Git 路徑與分支政策（2026-11-03 起適用）**
-- 每日審核版必須直接寫入 GitHub repository `main` 分支的 `preview/YYYY-MM-DD.html`；`preview/` 是目錄，不是分支名稱。
+- 每日審核版必須直接寫入 GitHub repository `main` 分支的 `preview/YYYY-MM-DD-simulation.html`；`preview/` 是目錄，不是分支名稱。
 - 每日早報正常產製不得另建日期型 QA／preview 分支，不得為交付審核版建立 PR，也不得要求使用者切換分支才能預覽。不得把審核版留在非 main 分支後宣稱已完成正式預覽交付。
 - 若同日審核版已存在於 main，先回讀並核對內容及 SHA，再依本次產製結果更新同一路徑；不得另造同日副本。
-- 寫入 main 僅限本次日期的 `preview/YYYY-MM-DD.html` 與必要且經授權的工作規則／流程修正；絕不可連帶修改 `index.html`、雙母版、Manifest、歷史報告或其他保護資產。
+- 寫入 main 僅限本次日期的 `preview/YYYY-MM-DD-simulation.html` 與必要且經授權的工作規則／流程修正；絕不可連帶修改 `index.html`、雙母版、Manifest、歷史報告或其他保護資產。
 - 若 main 寫入遭分支保護、權限或其他技術限制阻擋，停止該次寫入並回報具體阻塞；不得自行改用新分支／PR 作為等價替代。只有使用者另行明確授權例外時，才可採用其他交付路徑。
-- 預覽以 `https://lion-invlab.github.io/preview/YYYY-MM-DD.html` 為唯一首選；必須實際確認 Pages 已部署且載入正常 HTML。GitHub 檔案存在或 commit 成功不等於預覽已可瀏覽。
+- 預覽以 `https://lion-invlab.github.io/preview/YYYY-MM-DD-simulation.html` 為唯一首選；必須實際確認 Pages 已部署且載入正常 HTML。GitHub 檔案存在或 commit 成功不等於預覽已可瀏覽。
 
-1. 審核版固定寫入 `preview/YYYY-MM-DD.html`。若同日檔案已存在，先回讀後更新同一路徑，不另造多份同日副本。
+1. 審核版固定寫入 `preview/YYYY-MM-DD-simulation.html`。若同日檔案已存在，先回讀後更新同一路徑，不另造多份同日副本。
    - 第六步接收第五步的 QA 結果、四類證據、母版 SHA、完整 HTML 內容及當次交付版本識別。若是 QA 後使用者指定追加的單次專題，應明確記錄「QA 後追加／不在原 QA 範圍」，不得回頭重跑 QA 或將其列為通過；交付狀態須區分「原早報 QA 已通過」與「後加專題未另行 QA」。
-2. 首選預覽網址：`https://lion-invlab.github.io/preview/YYYY-MM-DD.html`。不得以 GitHub /blob/ 原始碼頁代替。GitHub 寫入成功不等於 Pages 已部署或可開啟。
+2. 首選預覽網址：`https://lion-invlab.github.io/preview/YYYY-MM-DD-simulation.html`。不得以 GitHub /blob/ 原始碼頁代替。GitHub 寫入成功不等於 Pages 已部署或可開啟。
 3. 寫入後重新 fetch 回讀審核版，核對檔案路徑、日期、內容、commit／blob SHA、母版來源及保護檔案未被修改；並實際開啟 Pages 網址確認載入正常 HTML。無法確認部署時明確標示「已寫入 GitHub，Pages 尚未驗證」。
 4. 回報資料基準日、來源、完成項目、待核實／暫缺項目、QA 四類狀態、GitHub 寫入狀態及 Pages 部署狀態。不得將未測試項目寫成通過。
-5. **預覽交付格式（強制）：** 審核版完成必要 QA、寫入 main、回讀核對，且 Pages 實際開啟並確認載入正常 HTML 後，交付訊息必須直接提供該日期可點擊的 Pages 預覽網址（`https://lion-invlab.github.io/preview/YYYY-MM-DD.html`），並清楚標示報告日期、行情基準日、審核版檔案路徑、GitHub commit／blob SHA、QA 四類結果及 Pages 驗證狀態，讓使用者可直接開啟審閱。不得只回報「已完成」、貼 GitHub 原始碼頁、只提供 commit／SHA，或要求使用者自行尋找預覽檔。若 Pages 尚未部署、無法開啟或尚未實測，必須明確標示「預覽尚未可交付／Pages 尚未驗證」，不得將未驗證網址包裝成可用預覽，也不得宣稱審核版已完成交付；仍須回報已完成的 GitHub 寫入與回讀狀態及具體阻塞。
+5. **預覽交付格式（強制）：** 審核版完成必要 QA、寫入 main、回讀核對，且 Pages 實際開啟並確認載入正常 HTML 後，交付訊息必須直接提供該日期可點擊的 Pages 預覽網址（`https://lion-invlab.github.io/preview/YYYY-MM-DD-simulation.html`），並清楚標示報告日期、行情基準日、審核版檔案路徑、GitHub commit／blob SHA、QA 四類結果及 Pages 驗證狀態，讓使用者可直接開啟審閱。不得只回報「已完成」、貼 GitHub 原始碼頁、只提供 commit／SHA，或要求使用者自行尋找預覽檔。若 Pages 尚未部署、無法開啟或尚未實測，必須明確標示「預覽尚未可交付／Pages 尚未驗證」，不得將未驗證網址包裝成可用預覽，也不得宣稱審核版已完成交付；仍須回報已完成的 GitHub 寫入與回讀狀態及具體阻塞。
+6. **每次修改後的預覽回交（強制）：** 只要對當日唯一審核版 HTML 做出任何修改（包含文字、行情數據、新聞、行事曆、卡片、區塊、樣式或互動），完成該次修改後都必須直接覆寫同一個 `preview/YYYY-MM-DD-simulation.html`，不得另建副本；隨即重新 fetch 回讀並核對修改內容、檔案路徑及最新 blob／commit SHA，確認 GitHub Pages 已部署到該版本，並實際開啟同一個預覽 URL，確認載入的是最新 HTML。每次修改完成後，必須主動把同一個可點擊 Pages 預覽網址交給使用者，並簡述本次修改內容及 GitHub 回讀、Pages 實測狀態，不得等使用者再次索取。若 Pages 尚未部署、無法開啟或無法確認最新版本，仍須回報已完成的 GitHub 寫入／回讀證據，但明確標示「Pages 尚未驗證／預覽尚未可交付」，不得把 URL 包裝成已可用預覽。此項屬修改後交付完整性驗證，不代表每次微調都要重跑四大 QA；是否重跑 QA，依第五步既定 QA 範圍及修改是否影響受驗項目判定。
 6. **「定版」即正式發布授權（強制）：**
    - 當使用者在特定日期審核版的審閱脈絡中明確表示「定版」，即視為已核准該份審核版，並同時授權 ChatGPT 自動執行正式版轉換及更新正式首頁 `index.html`；不得再要求使用者二次確認是否發布，也不得把「定版」只解讀為停止修改或保存草稿。
-   - 此授權只適用於當時已交付、已識別的報告日期、`preview/YYYY-MM-DD.html` 路徑及其已回讀確認的 blob SHA。若審核版在「定版」後、正式轉換前有任何內容變更，原核准即失效，必須重新交付審核並取得新的「定版」指示。
+   - 此授權只適用於當時已交付、已識別的報告日期、`preview/YYYY-MM-DD-simulation.html` 路徑及其已回讀確認的 blob SHA。若審核版在「定版」後、正式轉換前有任何內容變更，原核准即失效，必須重新交付審核並取得新的「定版」指示。
    - 若使用者說「定版」時無法唯一辨識是哪一份日期／SHA，或存在多份候選審核版，才可暫停並只詢問必要的辨識資訊；不得自行猜選。
 7. **正式版轉換規則（以核准審核版為唯一來源）：**
    - 先重新 fetch 核准的 preview，核對日期、SHA 與使用者核准時的版本一致；以該份核准內容建立正式版，不得從舊首頁、其他日期報告或其他分支取代來源。
@@ -377,7 +378,7 @@
 - 兩流程不得同時寫入同一週 JSON；04:35 預更新必須在 05:25 開始前結束。若未完成或回讀驗證失敗，05:25 執行者不得盲目覆蓋，應讀取當前版本、完成必要查證後序列更新，或標示阻塞。不得建立平行資料庫或額外中繼資料庫。
 - 舊 WR Lock、Snapshot、collector、assembler、renderer、validator、workflow artifact 及其程式／資料均保留作歷史參考或必要的歷史資料讀取；不得作為當日正式行情或早報產製的強制前置關卡。
 - GitHub Actions 保留母版保護檢查、Pages 預覽／正式網站部署，以及獨立的 `archive_index.yml` 歷史封存任務。歷史封存只新增／核對 `history/`，並明確驗證 `index.html` 未被修改；它不是早報產製或 QA 關卡。母版保護檢查不代替每日內容 QA；Pages 部署成功也不代表內容已審核。其他 TAC 報價擷取、WR Lock、Snapshot handoff、結構 Gate、關鍵價位排程、手動 key-level 測試及來源探測 workflow 均退出每日生產流程。
-- 審核版一律先寫入 preview/YYYY-MM-DD.html；只有使用者明確核准指定審核版後，才可更新 index.html。任何自動部署不得視為使用者已授權正式發布。
+- 審核版一律先寫入 preview/YYYY-MM-DD-simulation.html；只有使用者明確核准指定審核版後，才可更新 index.html。任何自動部署不得視為使用者已授權正式發布。
 
 ## I. 工作狀態、錯誤處理與規則變更
 1. 進度回報只列真實狀態：已完成、進行中、待核實、未測試、未通過。可列完成數／待處理數，但不得用估計進度冒充實際進度。
