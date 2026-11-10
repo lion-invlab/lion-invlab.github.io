@@ -71,7 +71,7 @@ try {
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
-    const focusAudit = await reportPage.evaluate(() => {
+    const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
         { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美國10月CPI月增0.4%", "Waller支持12月升息"] },
         { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S1：", "中樞 P：", "壓力 R1：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
@@ -100,7 +100,7 @@ try {
         results.push({ id: item.id, checked: input.checked, visible, text_length: text.length, needles: item.needles });
       }
       return { count: results.length, results, invalid };
-    });
+    }, reportDate);
     snapshots[v.name].today_focus_tabs = focusAudit;
     if (focusAudit.count !== 3 || focusAudit.invalid.length) {
       failures.push(`${v.name}: 今日觀察三活頁互動 QA FAIL：` + (focusAudit.invalid.join("; ") || "three tabs not tested"));
