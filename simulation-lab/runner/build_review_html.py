@@ -837,50 +837,85 @@ def main():
             for sel,val in fields:
                 node=card.select_one(sel)
                 if node: set_text(node,val)
-            # Every earnings card uses the same five vertically stacked information fields.
+            # Published and upcoming earnings share one native card shell.
+            # Released cards use the approved EPS/revenue side-by-side layout.
             details=card.select_one(".earnings-accordion-details")
             if details is None: raise ValueError("earnings card detail container missing")
-            timing_value=("時間待核實" if not x.get("time_known",False) else clock)
-            session_label={"before_market":"盤前","after_market":"盤後"}.get(x.get("session"),"時段待核實")
-            timing_status=("即將公布" if x.get("status")!="released" else "已公布")
-            eps_est=x.get("eps_estimate_display") or (str(x.get("eps_estimate")) if x.get("eps_estimate") is not None else "待核實")
-            eps_act=x.get("eps_actual_display") or (str(x.get("eps_actual")) if x.get("eps_actual") is not None else ("待公布" if x.get("status")!="released" else "待核實"))
-            rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "待核實")
-            rev_act=x.get("revenue_actual_display") or (str(x.get("revenue_actual")) if x.get("revenue_actual") is not None else ("待公布" if x.get("status")!="released" else "待核實"))
-            eps_value=f"共識 {eps_est}；實際 {eps_act}"
-            revenue_value=f"共識 {rev_est}；實際 {rev_act}"
-            judgment_value=(x.get("judgment") or ("財報尚未公布，公布後依公司實際值、同口徑共識及股價反應更新。" if x.get("status")!="released" else "財報判讀待核實。"))
-            if x.get("price_reaction"):
-                judgment_value += " 股價反應："+str(x.get("price_reaction"))
+            if x.get("status") == "released" or x.get("status_in_db") == "released" or x.get("status") == "published" or x.get("status_in_db") == "published":
+                grid=soup.new_tag("div", attrs={"class":["earnings-results-grid"]})
+                for label, actual, estimate, actual_display, estimate_display, comparison in [
+                    ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), x.get("eps_comparison_status")),
+                    ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), x.get("revenue_comparison_status"))
+                ]:
+                    state = comparison if comparison in ("beat","miss","inline") else "pending"
+                    status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
+                    result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
+                    h=soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
+                    for caption, val, formatted in [("實際",actual,actual_display),("預期",estimate,estimate_display)]:
+                        line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
+                        lab=soup.new_tag("span"); lab.string=caption
+                        strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
+                        line.append(lab); line.append(strong); result.append(line)
+                    status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
+                    if label=="EPS" and state=="pending" and x.get("eps_basis"):
+                        note=soup.new_tag("div", attrs={"class":["earnings-actual-note"]}); note.string="EPS口徑："+str(x.get("eps_basis")); result.append(note)
+                    grid.append(result)
+                details.clear()
+                details.append(grid)
+                detail_specs=[
+                    ("財報判讀", x.get("judgment") or "財報判讀待核實。"),
+                    ("股價當日表現", x.get("price_reaction") or "股價反應待核實。"),
+                ]
+                for field_label, field_value in detail_specs:
+                    field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
+                    label_node=soup.new_tag("label"); label_node.string=field_label
+                    value_node=soup.new_tag("div", attrs={"class":["earnings-detail-value"]}); value_node.string=str(field_value)
+                    field.append(label_node); field.append(value_node); details.append(field)
+                source_field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
+                source_label=soup.new_tag("label"); source_label.string="來源"
+                source_value=soup.new_tag("div", attrs={"class":["earnings-detail-value"]})
+                if x.get("source_url"):
+                    source_value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
+                else:
+                    source_value.string="來源待核實"
+                source_field.append(source_label); source_field.append(source_value); details.append(source_field)
             else:
-                judgment_value += " 股價反應："+("尚未公布" if x.get("status")!="released" else "待核實")
-            source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
-            source_value.string=x.get("source_name") or "來源待核實"
-            field_specs=[
-                ("公布時段／狀態",f"{timing_status}；{day}（{session_label}；{timing_value} 台灣時間）"),
-                ("EPS 預估／實際",eps_value),
-                ("營收預估／實際",revenue_value),
-                ("財報判讀與股價反應",judgment_value),
-                ("資料來源",source_value),
-            ]
-            prototype=details.select_one(".earnings-detail-field")
-            if prototype is None: raise ValueError("earnings detail field prototype missing")
-            details.clear()
-            for field_label,field_value in field_specs:
-                field=BeautifulSoup(str(prototype),"html.parser").select_one(".earnings-detail-field")
-                field["class"]=["earnings-detail-field","wide"]
-                label_node=field.select_one("label")
-                value_node=field.select_one(".earnings-detail-value")
-                if label_node: set_text(label_node,field_label)
-                if value_node:
-                    value_node.clear()
-                    if hasattr(field_value,"name"): value_node.append(field_value)
-                    else: set_text(value_node,field_value)
-                details.append(field)
-            link=card.select_one(".earnings-detail-value a")
-            if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
+                # Upcoming cards retain the existing forecast disclosure, not a false actual result.
+                timing_value=("時間待核實" if not x.get("time_known",False) else clock)
+                session_label={"before_market":"盤前","after_market":"盤後"}.get(x.get("session"),"時段待核實")
+                eps_est=x.get("eps_estimate_display") or (str(x.get("eps_estimate")) if x.get("eps_estimate") is not None else "待核實")
+                rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "待核實")
+                source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
+                source_value.string=x.get("source_name") or "來源待核實"
+                field_specs=[
+                    ("公布時段／狀態",f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"),
+                    ("EPS 預估",eps_est),
+                    ("營收預估",rev_est),
+                    ("資料來源",source_value),
+                ]
+                prototype=details.select_one(".earnings-detail-field")
+                if prototype is None: raise ValueError("earnings detail field prototype missing")
+                details.clear()
+                for field_label,field_value in field_specs:
+                    field=BeautifulSoup(str(prototype),"html.parser").select_one(".earnings-detail-field")
+                    field["class"]=["earnings-detail-field","wide"]
+                    label_node=field.select_one("label"); value_node=field.select_one(".earnings-detail-value")
+                    if label_node: set_text(label_node,field_label)
+                    if value_node:
+                        value_node.clear()
+                        if hasattr(field_value,"name"): value_node.append(field_value)
+                        else: set_text(value_node,field_value)
+                    details.append(field)
             listing.append(card)
         ep.append(group)
+    # Verify every published earnings card uses the two-column results grid and separate analysis/reaction/source blocks.
+    for published_card in published_group.select("details.earnings-accordion"):
+        published_details=published_card.select_one(".earnings-accordion-details")
+        if published_details is None or len(published_details.select(":scope > .earnings-results-grid > .earnings-actual-card")) != 2:
+            raise ValueError("published earnings card missing side-by-side EPS/revenue result cards")
+        required_labels={n.get_text(" ",strip=True) for n in published_details.select(":scope > .earnings-detail-field label")}
+        if not {"財報判讀","股價當日表現","來源"}.issubset(required_labels):
+            raise ValueError(f"published earnings card missing required sections: {sorted(required_labels)}")
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
     released_tickers={str(x.get("ticker","")).upper() for x in earnings
@@ -1001,6 +1036,35 @@ def main():
         le_source=le.select_one(".source")
         if le_source: set_text(le_source, f"排序依美國公司實際公布日期（{le_range.replace('～','→')}）；台灣時間另列。僅納入重要性五星的已公布代表性公司，非所有市場財報完整清單。EPS 及營收採 GAAP／非 GAAP 時已註明口徑；未能核實的欄位明確標示待核。")
 
+
+    # Unified published earnings-card presentation (matches the approved previous-week card).
+    earnings_css = """
+<style id="tac-published-earnings-card-v2">
+#earnings .earnings-accordion-details{display:flex!important;flex-direction:column!important;align-items:stretch!important;background:#fff;padding:12px!important;gap:10px!important;min-width:0!important}
+#earnings .earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;padding:0!important;background:transparent!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
+#earnings .earnings-actual-card{border:1px solid #e1e5e9!important;border-radius:14px!important;padding:12px!important;background:#fff!important;box-shadow:0 3px 12px rgba(20,30,40,.045);min-width:0!important;box-sizing:border-box!important}
+#earnings .earnings-actual-card.beat{border-top:3px solid #16834c!important}
+#earnings .earnings-actual-card.miss{border-top:3px solid #a56b13!important}
+#earnings .earnings-actual-card-title{font-size:14px!important;font-weight:950!important;color:#20242b!important;margin-bottom:10px!important}
+#earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:flex-start!important;gap:8px!important;padding:5px 0!important;margin:0!important;border-bottom:1px solid #f0f1f3}
+#earnings .earnings-actual-line:last-of-type{border-bottom:0}
+#earnings .earnings-actual-line span{font-size:12px!important;color:#6b7280!important;flex:0 0 auto}
+#earnings .earnings-actual-line strong{font-size:14px!important;font-weight:900!important;text-align:right;overflow-wrap:anywhere}
+#earnings .earnings-actual-status{font-size:12px!important;font-weight:900!important;margin-top:10px!important;padding:5px 9px!important;border-radius:999px!important;display:inline-block}
+#earnings .earnings-actual-status.beat{color:#16834c!important;background:#eaf7ef!important}
+#earnings .earnings-actual-status.miss{color:#a56b13!important;background:#fff4df!important}
+#earnings .earnings-actual-status.inline,#earnings .earnings-actual-status.pending{color:#596170!important;background:#f0f2f5!important}
+#earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
+#earnings .earnings-detail-field.wide{border:1px solid #e5e7eb!important;border-radius:11px!important;padding:11px 12px!important;background:#fbfcfe!important;width:100%!important;box-sizing:border-box!important}
+@media(max-width:640px){#earnings .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#earnings .earnings-actual-card{padding:10px!important}#earnings .earnings-actual-line strong{font-size:13px!important}#earnings .earnings-detail-value{font-size:13px!important}}
+</style>
+"""
+    existing_earnings_css=soup.select_one("#tac-published-earnings-card-v2")
+    if existing_earnings_css: existing_earnings_css.replace_with(BeautifulSoup(earnings_css,"html.parser").style)
+    else:
+        head=soup.select_one("head")
+        if head is None: raise ValueError("HTML head missing; cannot install published earnings-card styles")
+        head.append(BeautifulSoup(earnings_css,"html.parser").style)
 
     # Remove stale mother-template dates from news, CNN, FactSet and FedWatch panels.
     news_window = soup.select_one("#news-scan .news-window-warning")
