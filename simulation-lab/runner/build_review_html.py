@@ -908,6 +908,13 @@ def main():
                     details.append(field)
             listing.append(card)
         ep.append(group)
+    # Fail closed if any already-released company is missing from the published accordion
+    # or appears in more than one status group.
+    released_tickers={str(x.get("ticker","")).upper() for x in earnings
+                      if (x.get("status") or x.get("status_in_db")) in ("released","published")}
+    published_heading=ep.select_one(".calendar-status-heading.published")
+    published_group=published_heading.find_parent(class_="calendar-status-group") if published_heading else None
+    if published_group is None: raise ValueError("published earnings group missing")
     # Verify every published earnings card uses the two-column results grid and separate analysis/reaction/source blocks.
     for published_card in published_group.select("details.earnings-accordion"):
         published_details=published_card.select_one(".earnings-accordion-details")
@@ -916,13 +923,6 @@ def main():
         required_labels={n.get_text(" ",strip=True) for n in published_details.select(":scope > .earnings-detail-field label")}
         if not {"財報判讀","股價當日表現","來源"}.issubset(required_labels):
             raise ValueError(f"published earnings card missing required sections: {sorted(required_labels)}")
-    # Fail closed if any already-released company is missing from the published accordion
-    # or appears in more than one status group.
-    released_tickers={str(x.get("ticker","")).upper() for x in earnings
-                      if (x.get("status") or x.get("status_in_db")) in ("released","published")}
-    published_heading=ep.select_one(".calendar-status-heading.published")
-    published_group=published_heading.find_parent(class_="calendar-status-group") if published_heading else None
-    if published_group is None: raise ValueError("published earnings group missing")
     published_tickers={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                        for n in published_group.select(".earnings-company-sub")}
     if released_tickers != published_tickers:
