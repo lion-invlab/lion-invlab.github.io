@@ -2,8 +2,8 @@
   "report_date": "2026-11-11",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-10",
-  "summary": "美國10月整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，BLS未發布年增率。Fed理事Waller支持12月升息25個基點，並提出若核心通膨維持偏高，應考慮50個基點。美債短端殖利率急升、美元走強，黃金與白銀承壓，美股主要指數回落。亞洲股市在美國CPI公布前反彈，歐洲主要市場小幅收高，區域表現並不同步。短線焦點轉向12月FOMC政策幅度、後續通膨分項與美債長端殖利率能否穩定。",
-  "sentiment": "美股回落與美債殖利率急升反映市場重新定價通膨與聯準會政策風險。兩年期美債殖利率單日上升約19個基點，Fed官員Waller公開支持12月升息，並提出若核心通膨偏高可考慮50個基點。CNN情緒指標及FedWatch即時讀值尚未完成本輪來源重讀，因此不以舊快照推斷市場情緒或政策機率。現階段風險偏向利率上行對高估值資產的壓力，仍需觀察後續數據與官方政策訊號。",
+  "summary": "美國10月整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；因2025年政府停擺期間未蒐集對應月份資料，BLS未發布年增率。Fed理事Waller支持12月升息25個基點，並提出若核心通膨維持偏高，應考慮50個基點。美債殖利率與美元走高，黃金、白銀及美股回落；油價續跌至兩個月低點。亞洲及歐洲股市在不同交易時段上漲，與美股在CPI公布後的回落形成分歧。短線焦點轉向12月FOMC政策幅度、後續通膨分項與長端殖利率能否穩定。",
+  "sentiment": "美股回落與美債殖利率急升反映市場重新定價通膨與聯準會政策風險。兩年期殖利率上升約19個基點，美元指數走高，黃金與白銀承壓；CNN Fear & Greed讀值33，仍處Fear區間。MOVE本輪未取得11/10同日讀值，FedWatch亦未完成Investing.com最新快照重讀，不以舊數據推斷債券波動或政策機率。",
   "focus_news": [
     {
       "title": "美國10月CPI高於預期，通膨壓力令12月升息路徑再度升溫",
@@ -107,7 +107,7 @@
         "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "標普500指數": {
@@ -118,7 +118,7 @@
         "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "那斯達克綜合指數": {
@@ -129,7 +129,7 @@
         "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "羅素2000指數": {
@@ -140,40 +140,52 @@
         "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "費城半導體指數": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
-    },
-    "香港恆生指數": {
-      "display": "24,522.99",
-      "change_display": "+0.30%",
+      "display": "9,923.9",
+      "change_display": "-1.10%",
       "source": {
-        "name": "CMOTS Global Indices",
-        "url": "https://cmapis.cmots.com/CNIGlobal/OtherMarkets/World-Indices.aspx",
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
+      }
+    },
+    "香港恆生指數": {
+      "display": "24,557.04",
+      "change_display": "+0.44%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
       }
     },
     "上海綜合指數": {
       "display": "3,663.72",
       "change_display": "+0.08%",
       "source": {
-        "name": "CMOTS Global Indices",
-        "url": "https://cmapis.cmots.com/CNIGlobal/OtherMarkets/World-Indices.aspx",
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "深證成指": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "11,241.54",
+      "change_display": "+0.86%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     },
     "日經 225": {
       "display": "60,560.79",
@@ -183,90 +195,108 @@
         "url": "https://cmapis.cmots.com/CNIGlobal/OtherMarkets/World-Indices.aspx",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "韓國 KOSPI": {
       "display": "5,239.13",
       "change_display": "+4.39%",
       "source": {
-        "name": "countryeconomy.com",
-        "url": "https://countryeconomy.com/stock-exchange",
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/kospi-historical-data",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "台灣加權指數": {
       "display": "42,711.92",
       "change_display": "+2.52%",
       "source": {
-        "name": "ET Now",
-        "url": "https://em.etnownews.com/global-indices",
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "新加坡海峽時報指數 STI": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
-    },
-    "澳洲 S&P/ASX 200": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
-    },
-    "英國 FTSE 100": {
-      "display": "10,755.67",
-      "change_display": "-0.25%",
+      "display": "5,258.59",
+      "change_display": "+1.53%",
       "source": {
-        "name": "countryeconomy.com",
-        "url": "https://countryeconomy.com/stock-exchange",
+        "name": "The Business Times",
+        "url": "https://www.businesstimes.com.sg/companies-markets/singapore-shares-rise-tech-stocks-gain-ground-sti-1-5",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
+      }
+    },
+    "澳洲 S&P/ASX 200": {
+      "display": "9,129.00",
+      "change_display": "+1.10%",
+      "source": {
+        "name": "Financial Times",
+        "url": "https://markets.ft.markitdigital.com/data/indices/tearsheet/historical?s=XJO%3AASX",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
+    },
+    "英國 FTSE 100": {
+      "display": "10,843.80",
+      "change_display": "+0.57%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/uk-100-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
       }
     },
     "德國 DAX": {
-      "display": "26,390.22",
-      "change_display": "+0.47%",
+      "display": "26,373.43",
+      "change_display": "+0.40%",
       "source": {
-        "name": "countryeconomy.com",
-        "url": "https://countryeconomy.com/stock-exchange",
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/germany-30-historical-data",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "法國 CAC 40": {
-      "display": "8,278.59",
-      "change_display": "+0.55%",
+      "display": "8,327.51",
+      "change_display": "+1.14%",
       "source": {
-        "name": "countryeconomy.com",
-        "url": "https://countryeconomy.com/stock-exchange",
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/france-40-historical-data",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "STOXX Europe 600": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "658.32",
+      "change_display": "+0.27%",
+      "source": {
+        "name": "Investing.com Canada",
+        "url": "https://ca.investing.com/indices/stoxx-600-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     }
   },
   "sectors": {
-    "XLI": "待核實",
-    "XLK": "待核實",
-    "XLB": "待核實",
-    "XLV": "待核實",
-    "XLF": "待核實",
-    "XLE": "待核實",
-    "XLP": "待核實",
+    "XLF": "+0.20%",
+    "XLE": "+0.18%",
+    "XLV": "-0.08%",
+    "XLP": "-0.14%",
+    "XLI": "-0.15%",
+    "XLB": "-0.30%",
+    "XLRE": "-0.71%",
+    "XLK": "-1.46%",
     "XLC": "待核實",
-    "XLRE": "待核實",
     "XLU": "待核實",
     "XLY": "待核實"
   },
@@ -279,7 +309,7 @@
         "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "10年期美債殖利率": {
@@ -290,57 +320,111 @@
         "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
         "data_date": "2026-11-10",
         "quote_type": "daily_close",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "30年期美債殖利率": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "5.368%",
+      "change_display": "+11 bp",
+      "source": {
+        "name": "MarketWatch",
+        "url": "https://www.marketwatch.com/livecoverage/stock-market-today-dow-s-p-500-nasdaq-rally-nvidia-scandal-shares-inflation-data-cpi/card/treasury-yields-up-sharply-with-2-year-rates-on-track-for-their-biggest-daily-gain-since-april-2025-AlCyFhVki7ADytg0H3w",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     }
   },
   "fx": {
     "美元指數": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "102.25",
+      "change_display": "+0.59%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     },
     "美元／新台幣": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "32.865",
+      "change_display": "-0.05%",
+      "source": {
+        "name": "中央銀行｜NT$/US$ Closing Rate",
+        "url": "https://www.cbc.gov.tw/en/np-700-2.html",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "CBC 11/10 close; change calculated versus 11/9 32.882."
+      }
     },
     "歐元／美元": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "1.1183",
+      "change_display": "-0.37%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     },
     "英鎊／美元": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "1.3446",
+      "change_display": "+0.03%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     },
     "澳幣／美元": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "0.6865",
+      "change_display": "-0.90%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     },
     "美元／日圓": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "158.81",
+      "change_display": "+0.57%",
+      "source": {
+        "name": "Investing.com HK",
+        "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10 close"
+      }
     }
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "86.04",
+      "change_display": "-0.90%",
+      "source": {
+        "name": "Wall Street Journal｜WTI futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/oil-falls-as-u-s-iran-conflict-risks-ease-32fa5d4f",
+        "data_date": "2026-11-10",
+        "quote_type": "futures_settlement",
+        "note": "2026/11/10 close"
+      }
     },
     "Brent原油期貨": {
-      "display": "待核實",
-      "change_display": "待核實",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "display": "91.49",
+      "change_display": "-1.20%",
+      "source": {
+        "name": "Wall Street Journal｜Brent futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/oil-falls-as-u-s-iran-conflict-risks-ease-32fa5d4f",
+        "data_date": "2026-11-10",
+        "quote_type": "futures_settlement",
+        "note": "2026/11/10 close"
+      }
     }
   },
   "metals": {
@@ -352,7 +436,7 @@
         "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
         "data_date": "2026-11-10",
         "quote_type": "futures_settlement",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     },
     "白銀期貨 SI": {
@@ -363,16 +447,22 @@
         "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
         "data_date": "2026-11-10",
         "quote_type": "futures_settlement",
-        "note": "2026/11/10來源日期及報價口徑已記錄。"
+        "note": "2026/11/10 close"
       }
     }
   },
   "risk": {
     "vix": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "19.95",
+      "change_display": "+0.15%",
       "band": "-22.31%",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "source": {
+        "name": "Yahoo Finance｜CBOE VIX historical close",
+        "url": "https://finance.yahoo.com/quote/%5EVIX/history/",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "CBOE VIX cash index close 11/10; prior close 19.92."
+      }
     },
     "move": {
       "display": "待核實",
@@ -381,10 +471,16 @@
       "qa_status": "not_retrieved_for_2026-11-10"
     },
     "fear_greed": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "33",
+      "change_display": "Fear",
       "band": "Fear",
-      "qa_status": "not_retrieved_for_2026-11-10"
+      "source": {
+        "name": "Wantgoo｜CNN Fear & Greed daily index",
+        "url": "https://www.wantgoo.com/global/macroeconomics/fearandgreed",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "CNN Fear & Greed daily reading 11/10, secondary mirror."
+      }
     }
   },
   "fedwatch": {
@@ -394,7 +490,7 @@
     "probabilities": [],
     "source_name": "Investing.com Fed Rate Monitor（本輪未完成重新讀取）",
     "source_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
-    "note": "不沿用11/9舊快照。"
+    "note": "Investing.com Fed Rate Monitor本輪未完成11/10最新快照讀取；Reuters市場定價可作背景參考，但不替代FedWatch機率欄位。"
   },
   "observation": "美國10月CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，BLS未發布通常的年增率。Waller支持12月升息25個基點，並認為若核心通膨達到或高於0.3%，應考慮更大幅度行動。短端美債殖利率急升、美元走強，金銀與美股承壓；觀察焦點是利率重定價是否向長端擴散，以及市場是否進一步反映50個基點升息風險。",
   "calendar": {
@@ -998,16 +1094,16 @@
   "summary_title": "通膨再度升溫推升利率預期，美股回落",
   "market_comments": {
     "global_markets": [
-      "美股四大指數因通膨數據偏熱而收低，顯示市場重新評估聯準會政策路徑；亞洲市場在美國CPI公布前反彈，兩個時段的市場定價不可混為一談。",
-      "日本、韓國與台灣股市上漲幅度較大，香港與中國市場溫和走高；歐洲主要指數小幅收高，區域表現與美股回落形成分歧。",
-      "美股回檔與美債殖利率急升同步發生，短線需觀察科技與高估值成長股對折現率變化的敏感度。",
-      "本輪部分全球指數尚未取得一致口徑的11/10收盤證據，畫面已標示待核實，不以11/9舊數字替代。"
+      "美股四大指數因美國10月通膨高於預期而收低；費半亦回落，與亞洲股市在美國CPI公布前反彈形成時段差異。",
+      "亞洲主要指數普遍上漲，日韓台表現較強，香港與中國市場溫和走高；新加坡及澳洲亦收高。",
+      "歐洲主要股市上漲，STOXX Europe 600升0.27%；但美國通膨公布後，美債殖利率與美元走強，市場風險定價出現分歧。",
+      "17項全球指數均已補入11/10同日資料；各市場以現金指數或來源明確標示的指數口徑呈現。"
     ],
-    "sectors": "11大標普產業ETF本輪未完成11/10同日報價核實，全部標示待核實；不以舊日漲跌推論產業強弱。",
-    "bonds": "美國兩年期殖利率上升19.28個基點至4.74%，十年期升至4.988%；短端反應更劇烈，反映市場提高對12月升息的定價。30年期殖利率待核實。",
-    "fx": "美元指數及主要匯率本輪尚未完成同日核實，暫不以舊報價推論美元方向；待補齊美元指數、美元兌台幣及主要貨幣交叉匯率。",
-    "energy": "油價續跌至兩個月低點的報導可支持方向性判斷，但WTI與Brent當日結算價尚未取得可追溯的同口徑數值，故行情欄位標示待核實。",
-    "metals": "黃金與白銀期貨分別下跌2.05%及2.78%，美元與美債殖利率走高加重貴金屬壓力；本次明確區分COMEX期貨結算，不混用現貨報價。"
+    "sectors": "11大標普產業ETF已核實8項11/10漲跌：金融+0.20%、能源+0.18%相對抗跌；醫療-0.08%、必需消費-0.14%、工業-0.15%、材料-0.30%、房地產-0.71%、科技-1.46%。XLC、XLU、XLY尚未取得同日收盤列，標示待核實。",
+    "bonds": "美國2年期殖利率升至4.740%，10年期升至4.988%，30年期升至5.368%；短端升幅最大，市場重新定價12月升息風險。",
+    "fx": "美元指數升至102.25，歐元及澳幣走弱、美元兌日圓升至158.81；美元兌台幣採央行收盤價32.865。",
+    "energy": "WTI與Brent期貨分別收於86.04及91.49美元，跌0.90%及1.20%；油價下探兩個月低點，地緣政治風險溢價回落。",
+    "metals": "黃金與白銀期貨分別下跌2.05%及2.78%，美債殖利率與美元走強提高持有無息資產的機會成本。"
   },
   "last_week_calendar": {
     "week_id": "2026-W45",
@@ -1134,11 +1230,52 @@
     },
     {
       "label": "風險管理",
-      "text": "後續觀察通膨分項、美元與長端殖利率能否穩定；VIX、MOVE、CNN情緒及FedWatch本輪未完成重讀，暫不提供未核實判斷。"
+      "text": "後續觀察通膨分項、美元與長端殖利率；VIX收19.95、CNN情緒33（Fear），MOVE及FedWatch本輪未完成同日核實。"
     }
   ],
-  "warning_note": "本版行情基準日為2026/11/10。美股四大指數、部分亞洲及歐洲指數、美債2年／10年殖利率、黃金與白銀有可追溯來源；其餘未能在本輪完成同日查證的欄位一律標示「待核實」，不沿用11/9舊報價。11/10及11/11已過公布時點的財報／事件，未取得正式結果者維持待核實。",
-  "sector_sources": {},
+  "warning_note": "本版行情基準日為2026/11/10。44項市場欄位中40項已有同日可追溯資料，XLC、XLU、XLY及MOVE標示待核實；未以11/9舊報價替代。FedWatch快照及部分已過時點財報實績仍待補核。",
+  "sector_sources": {
+    "XLF": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLE": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLV": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLP": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLI": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLB": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLRE": {
+      "name": "Investing.com historical data",
+      "url": "https://www.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "data_date": "2026-11-10"
+    },
+    "XLK": {
+      "name": "Investing.com historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+      "data_date": "2026-11-10"
+    }
+  },
   "key_levels": {
     "baseline_date": "2026-11-09",
     "formula": "OHLC資料尚未完成同日現金指數一致性核實。",

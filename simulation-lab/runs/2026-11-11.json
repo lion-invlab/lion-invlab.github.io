@@ -87,12 +87,12 @@
         "AP/BLS/Federal Reserve/Reuters/WSJ/CMOTS/ET Now/countryeconomy"
       ],
       "outputs": {
-        "verified_quotes": 16,
-        "explicit_pending_verification": 28,
+        "verified_quotes": 40,
+        "explicit_pending_verification": 4,
         "carry_forward_from_2026_11_09": false,
         "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json"
       },
-      "note": "44欄位全部已登錄狀態；目前16項有11/10同日可追溯報價，28項標示待核實，未沿用11/9舊值。"
+      "note": "44欄位全部已登錄狀態；40項有11/10同日可追溯報價，XLC、XLU、XLY與MOVE標示待核實，未沿用11/9舊值。"
     },
     "news_calendar": {
       "status": "completed",
@@ -118,14 +118,10 @@
       }
     },
     "html_assembly": {
-      "status": "started",
+      "status": "blocked",
       "started_at": "2026-11-11T06:12:00+08:00",
-      "inputs": [
-        "simulation-lab/fixtures/report-data-2026-11-11.json",
-        "simulation-lab/baseline/weekday-mother-template.html",
-        "simulation-lab/runner/build_review_html.py"
-      ],
-      "outputs": {}
+      "completed_at": "2026-11-11T06:13:03+08:00",
+      "error": "build_review_html.py raised ValueError: published earnings card missing side-by-side EPS/revenue result cards. Deterministic tests, dual-mother validation, and live OHLC capture passed. Validation patched to inspect direct DOM nodes and include ticker diagnostics."
     },
     "qa": {
       "status": "pending"
@@ -135,18 +131,16 @@
     }
   },
   "blockers": [
-    "原背景執行在05:30:30後無心跳；run_now回傳inline_run，本輪依原任務接手執行。",
-    "notify_parent回傳HTTP 404。",
-    "資料涵蓋不完整；缺乏11/10同日證據的欄位明確標示待核實，不沿用11/9報價。",
-    "HTML組裝與瀏覽器QA待本次GitHub Actions執行結果。"
+    "HTML assembly attempt 1 failed at published earnings card verification; deterministic tests, both mother layouts, and five-index live OHLC capture passed.",
+    "Assembler earnings-card validation used :scope CSS selectors; patched to inspect direct DOM nodes and provide ticker-specific diagnostics.",
+    "Notification action mcp__Automations__notify_parent returns HTTP 404."
   ],
-  "recovery_point": "GitHub Actions run 42912161495 was cancelled during Playwright installation after workflow file correction; this run-state update triggers a new run using the corrected workflow.",
+  "recovery_point": "Re-run existing assembler with expanded 40/44 market data fixture and repaired earnings-card DOM validation.",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:12:00+08:00",
-    "status": "retriggered_after_cancelled_ci",
+    "last_checked_at_taipei": "2026-11-11T06:13:03+08:00",
+    "status": "assembler_fix_committed_next_ci",
     "notification_channel": "unavailable",
-    "notification_error": "notify_parent HTTP 404",
-    "note": "Previous CI run cancelled because workflow was edited during execution. This run-state commit will retrigger CI with the corrected workflow."
+    "notification_error": "notify_parent HTTP 404"
   },
   "manual_takeover": {
     "started_at_taipei": "2026-11-11T06:12:00+08:00",
@@ -154,6 +148,17 @@
     "report_date": "2026-11-11",
     "trading_date": "2026-11-10",
     "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json",
-    "note": "Verified quotes populated; remaining quote fields explicitly pending verification, no stale 11/9 carry-forward."
+    "note": "Verified quotes populated; remaining quote fields explicitly pending verification, no stale 11/9 carry-forward.",
+    "revision": 2,
+    "market_coverage": {
+      "verified": 40,
+      "total": 44,
+      "pending": [
+        "XLC",
+        "XLU",
+        "XLY",
+        "MOVE"
+      ]
+    }
   }
 }

@@ -982,11 +982,19 @@ def main():
     # Verify every published earnings card uses the two-column results grid and separate analysis/reaction/source blocks.
     for published_card in published_group.select("details.earnings-accordion"):
         published_details=published_card.select_one(".earnings-accordion-details")
-        if published_details is None or len(published_details.select(":scope > .earnings-results-grid > .earnings-actual-card")) != 2:
-            raise ValueError("published earnings card missing side-by-side EPS/revenue result cards")
-        required_labels={n.get_text(" ",strip=True) for n in published_details.select(":scope > .earnings-detail-field label")}
+        ticker_node=published_card.select_one(".earnings-company-sub")
+        ticker=ticker_node.get_text(" ",strip=True) if ticker_node else "unknown ticker"
+        results_grid=(published_details.find("div", class_="earnings-results-grid", recursive=False)
+                      if published_details is not None else None)
+        actual_cards=(results_grid.find_all("div", class_="earnings-actual-card", recursive=False)
+                      if results_grid is not None else [])
+        if published_details is None or len(actual_cards) != 2:
+            detail_html=str(published_details)[:1200] if published_details is not None else "missing details container"
+            raise ValueError(f"published earnings card missing side-by-side EPS/revenue result cards: {ticker}; details={detail_html}")
+        direct_fields=published_details.find_all("div", class_="earnings-detail-field", recursive=False)
+        required_labels={label.get_text(" ",strip=True) for field in direct_fields for label in field.find_all("label", recursive=False)}
         if not {"財報判讀","股價當日表現","來源"}.issubset(required_labels):
-            raise ValueError(f"published earnings card missing required sections: {sorted(required_labels)}")
+            raise ValueError(f"published earnings card missing required sections: {ticker}; {sorted(required_labels)}")
     published_tickers={str(n.get_text(" ",strip=True)).split("｜",1)[0].strip().upper()
                        for n in published_group.select(".earnings-company-sub")}
     if released_tickers != published_tickers:
