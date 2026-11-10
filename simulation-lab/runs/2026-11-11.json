@@ -21,17 +21,70 @@
   },
   "stages": {
     "rules_manifest": {
-      "status": "started",
+      "status": "completed",
       "started_at": "2026-11-11T05:28:50+08:00",
+      "completed_at": "2026-11-11T05:30:30+08:00",
       "inputs": [
-        "simulation-lab/TAC_WORK_RULES_SIM.md"
+        "simulation-lab/TAC_WORK_RULES_SIM.md",
+        "simulation-lab/baseline/mother-template-manifest.json",
+        "simulation-lab/baseline/weekday-mother-template.html",
+        "data/calendar/weeks/2026-W46.json",
+        "simulation-lab/runner/build_review_html.py",
+        "simulation-lab/runner/key_levels_builder.py",
+        "simulation-lab/runner/visual_regression.mjs",
+        "simulation-lab/runs/2026-11-10.json"
       ],
-      "outputs": [
-        "WR SIM-0.2 / 94862e44dd4b6f5eadcb8a277af98c4bb1374bbf"
-      ]
+      "outputs": {
+        "simulation_wr": {
+          "version": "SIM-0.2",
+          "blob_sha": "94862e44dd4b6f5eadcb8a277af98c4bb1374bbf",
+          "read_at_taipei": "2026-11-11T05:28:50+08:00"
+        },
+        "manifest": {
+          "blob_sha": "3a79432e6c96762c2ad6cce4e64cc07e294ac9cb"
+        },
+        "weekday_mother": {
+          "path": "simulation-lab/baseline/weekday-mother-template.html",
+          "blob_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+          "manifest_expected_simulation_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+          "match": true
+        },
+        "calendar": {
+          "path": "data/calendar/weeks/2026-W46.json",
+          "blob_sha": "02859c30c57b2d697e30da55430ff7ccddde6b88",
+          "updated_at": "2026-11-06T19:10:00+08:00",
+          "economic_events": 15,
+          "earnings_events": 42,
+          "coverage": {
+            "economic": "incomplete",
+            "earnings": "incomplete"
+          }
+        },
+        "assembler": {
+          "path": "simulation-lab/runner/build_review_html.py",
+          "blob_sha": "e55e2b545a31a92557a1009877b219d66f98e585"
+        },
+        "key_levels_builder": {
+          "path": "simulation-lab/runner/key_levels_builder.py",
+          "blob_sha": "ede9c255593b6836cf9abd297d4288e8d30143be"
+        },
+        "visual_regression": {
+          "path": "simulation-lab/runner/visual_regression.mjs",
+          "blob_sha": "129593e3fc383067824b253f76210565569b9e7e"
+        }
+      },
+      "errors": [
+        "notify_parent unavailable: Action not found"
+      ],
+      "recovery_point": "Use 2026-11-10 run state only as schema/history; all market values must be refreshed for 2026-11-10. Calendar W46 is stale/incomplete and needs event refresh."
     },
     "market_data": {
-      "status": "pending"
+      "status": "started",
+      "started_at": "2026-11-11T05:30:30+08:00",
+      "inputs": [
+        "44 fixed market fields from approved weekday mother"
+      ],
+      "outputs": {}
     },
     "news_calendar": {
       "status": "pending"
