@@ -309,7 +309,8 @@ def main():
     focus_heading = soup.select_one(".today-focus-title")
     if focus_heading:
         heading_text = focus_heading.get_text(" ", strip=True)
-        heading_text = re.sub(r"今日觀察重點\\s*[｜|｜:]?\\s*.*$", f"今日觀察重點｜{report_label}（{report_weekday}）", heading_text)
+        if "今日觀察重點" in heading_text:
+            heading_text = f"今日觀察重點｜{report_label}（{report_weekday}）"
         set_text(focus_heading, heading_text)
     # The mother template carries a historical report-date meta tag; replace it for every daily build.
     report_date_meta = soup.select_one('meta[name="report-date"]')
