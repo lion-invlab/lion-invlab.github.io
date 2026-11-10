@@ -6,7 +6,7 @@
   "trading_date": "2026-11-10",
   "report_type": "Tuesday-Friday mother",
   "branch": "simulation/tac-process-lab-2026-11-06",
-  "status": "in_progress",
+  "status": "completed",
   "rules": {
     "path": "simulation-lab/TAC_WORK_RULES_SIM.md",
     "version": "SIM-0.2",
@@ -62,7 +62,7 @@
         },
         "assembler": {
           "path": "simulation-lab/runner/build_review_html.py",
-          "blob_sha": "dbeb18ae4c33312e265f316c7dedcb33f48d66d5"
+          "blob_sha": "36498c3705d867562847fd644329021afcc904a1"
         },
         "key_levels_builder": {
           "path": "simulation-lab/runner/key_levels_builder.py",
@@ -70,7 +70,7 @@
         },
         "visual_regression": {
           "path": "simulation-lab/runner/visual_regression.mjs",
-          "blob_sha": "d4976644b2b2f1f07f6f248beb415c5be3ebb063"
+          "blob_sha": "022e9d42cae81e2a9626960844257d9ebb582eab"
         }
       },
       "errors": [
@@ -118,29 +118,71 @@
       }
     },
     "html_assembly": {
-      "status": "started",
+      "status": "completed",
       "started_at": "2026-11-11T06:36:00+08:00",
-      "note": "Final presentation fix: the FedWatch lower legend now labels the 92.4% +25bp and 7.6% +50bp distribution as 升息（25bp／50bp）, not 升息一碼 100%."
+      "completed_at": "2026-11-11T06:36:45+08:00",
+      "outputs": {
+        "html_path": "simulation-lab/output/TAC_投資早報_2026-11-11_審核版.html",
+        "master_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+        "fedwatch_snapshot": "2026-11-11 01:55 TST",
+        "fedwatch_25bp": 92.4,
+        "fedwatch_50bp": 7.6,
+        "legend": "升息（25bp／50bp）"
+      }
     },
     "qa": {
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-11-11T06:36:45+08:00",
+      "completed_at": "2026-11-11T06:37:04+08:00",
+      "outputs": {
+        "visual_regression": "PASS",
+        "viewports": [
+          1440,
+          768,
+          360,
+          320
+        ],
+        "horizontal_overflow": false,
+        "focus_tabs_interaction": "PASS",
+        "fedwatch_multi_band_legend": "PASS",
+        "published_earnings_eps_revenue_cards": "PASS",
+        "source_trading_date": "2026-11-10",
+        "failures": []
+      }
     },
     "delivery": {
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-11-11T06:37:04+08:00",
+      "completed_at": "2026-11-11T06:37:09+08:00",
+      "outputs": {
+        "preview_path": "main:preview/2026-11-11-simulation.html",
+        "preview_url": "https://lion-invlab.github.io/preview/2026-11-11-simulation.html",
+        "main_commit_sha": "6c4dcb343c666a98c755a9a9fd13f14d7d95cc39",
+        "preview_blob_sha": "0e4f70cfb8b64e9e55721cc7a8aec955e5b4c132",
+        "main_changed_files": [
+          "preview/2026-11-11-simulation.html"
+        ],
+        "artifact_id": 13808374923,
+        "workflow_run_id": 42916075104,
+        "html_sha256": "93eae8400783327e4ea8e5f014553897d91783227dc3afae926ffd51f5b21599",
+        "html_bytes": 390717,
+        "sandbox_path": "/mnt/data/TAC_投資早報_2026-11-11_審核版.html"
+      }
     }
   },
   "blockers": [
     "市場44欄位中40項已核實；XLC、XLU、XLY與MOVE未取得11/10同日可追溯值，明確標示待核實。",
     "W46行事曆資料庫最後更新時間為11/6，資料庫標示經濟與財報覆蓋不完整；本版依TAC篩選呈現9項經濟事件與38項財報事件，部分實績仍待核實。",
-    "背景自動化的notify_parent通知動作回傳HTTP 404 Action not found；階段狀態已寫入run state，並由本對話人工接手回報。",
-    "GitHub main僅新增已核准的preview/2026-11-11-simulation.html；index.html、母版、WR、Manifest及其他main檔案均未修改。"
+    "背景自動化的notify_parent通知動作回傳HTTP 404 Action not found；已調整排程提示，當次失敗只記錄一次，不再反覆重試；階段紀錄寫入run state。",
+    "GitHub main僅新增／更新已核准的preview/2026-11-11-simulation.html；index.html、母版、WR、Manifest及其他main檔案均未修改。"
   ],
-  "recovery_point": "11/11審核版已交付；若要補齊四項待核實行情或更新W46行事曆資料庫，應另開補漏任務，不需重跑已通過的HTML組裝與視覺QA。",
+  "recovery_point": "11/11審核版已交付並通過四尺寸QA；若要補齊四項待核實行情或更新W46行事曆資料庫，另開補漏任務，不需重跑已通過的HTML組裝與視覺QA。",
   "observability": {
-    "last_checked_at_taipei": "2026-11-11T06:36:00+08:00",
-    "status": "fedwatch_legend_fix_committed_next_ci",
+    "last_checked_at_taipei": "2026-11-11T06:37:09+08:00",
+    "status": "completed_with_explicit_pending_items",
     "notification_channel": "unavailable",
-    "notification_error": "notify_parent HTTP 404"
+    "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found.",
+    "note": "GitHub Actions 42916075104 completed successfully. Visual regression passed at 1440, 768, 360 and 320 widths. FedWatch legend correctly distinguishes 25bp/50bp. Main commit contains exactly one file: preview/2026-11-11-simulation.html."
   },
   "manual_takeover": {
     "started_at_taipei": "2026-11-11T06:12:00+08:00",
@@ -149,7 +191,7 @@
     "trading_date": "2026-11-10",
     "data_path": "simulation-lab/fixtures/report-data-2026-11-11.json",
     "note": "Verified quotes populated; remaining quote fields explicitly pending verification, no stale 11/9 carry-forward.",
-    "revision": 5,
+    "revision": 6,
     "market_coverage": {
       "verified": 40,
       "total": 44,
@@ -168,7 +210,7 @@
     },
     "status": "delivered_for_user_review",
     "preview_url": "https://lion-invlab.github.io/preview/2026-11-11-simulation.html",
-    "html_sha256": "2c41ca4dd4d21f970fc05c9a499991ed3b33636f557970e8fb0518700af4f690"
+    "html_sha256": "93eae8400783327e4ea8e5f014553897d91783227dc3afae926ffd51f5b21599"
   },
-  "completed_at_taipei": "2026-11-11T06:29:41+08:00"
+  "completed_at_taipei": "2026-11-11T06:37:09+08:00"
 }
