@@ -1,0 +1,1153 @@
+{
+  "report_date": "2026-11-11",
+  "timezone": "Asia/Taipei",
+  "trading_date": "2026-11-10",
+  "summary": "美國10月整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，BLS未發布年增率。Fed理事Waller支持12月升息25個基點，並提出若核心通膨維持偏高，應考慮50個基點。美債短端殖利率急升、美元走強，黃金與白銀承壓，美股主要指數回落。亞洲股市在美國CPI公布前反彈，歐洲主要市場小幅收高，區域表現並不同步。短線焦點轉向12月FOMC政策幅度、後續通膨分項與美債長端殖利率能否穩定。",
+  "sentiment": "美股回落與美債殖利率急升反映市場重新定價通膨與聯準會政策風險。兩年期美債殖利率單日上升約19個基點，Fed官員Waller公開支持12月升息，並提出若核心通膨偏高可考慮50個基點。CNN情緒指標及FedWatch即時讀值尚未完成本輪來源重讀，因此不以舊快照推斷市場情緒或政策機率。現階段風險偏向利率上行對高估值資產的壓力，仍需觀察後續數據與官方政策訊號。",
+  "focus_news": [
+    {
+      "title": "美國10月CPI高於預期，通膨壓力令12月升息路徑再度升溫",
+      "summary": "BLS公布整體CPI月增0.4%、核心CPI月增0.3%，分別高於市場預期的0.3%與0.2%；因去年政府停擺期間未蒐集對應月份資料，官方未發布年增率。",
+      "url": "https://www.investing.com/news/economic-indicators/hot-october-inflation-report-rattles-markets-5015775",
+      "published_at_tw": "2026-11-10 21:58"
+    },
+    {
+      "title": "Fed理事Waller支持12月升息，若核心通膨偏高應考慮50個基點",
+      "summary": "Waller表示即使通膨改善仍支持升息25個基點；若核心CPI維持0.3%或更高，應考慮更大幅度升息，以維持抗通膨政策可信度。",
+      "url": "https://www.reuters.com/business/feds-waller-plans-support-least-quarter-point-rate-hike-december-2026-11-10/",
+      "published_at_tw": "2026-11-10 16:12"
+    },
+    {
+      "title": "美債殖利率急升，美股因通膨數據偏熱而回落",
+      "summary": "Reuters指出兩年期殖利率單日大幅攀升，創2025年4月以來最大單日升幅之一；10年期殖利率接近5%，市場提高對12月升息的定價。",
+      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+      "published_at_tw": "2026-11-11 05:00"
+    },
+    {
+      "title": "美國股市週二收低，投資人重新評估利率與政策風險",
+      "summary": "AP報導美股四大指數下跌，通膨數據高於預期及Fed官員談話促使交易員提高升息預期；美債殖利率上升，油價續跌。",
+      "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
+      "published_at_tw": "2026-11-11 04:30"
+    },
+    {
+      "title": "金銀價格下挫，美元與殖利率走高加重貴金屬壓力",
+      "summary": "WSJ報導12月黃金期貨下跌2.05%至每盎司4,020.70美元，11月白銀期貨下跌2.78%至51.101美元，反映通膨與升息預期衝擊。",
+      "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
+      "published_at_tw": "2026-11-11 05:00"
+    }
+  ],
+  "headlines": [
+    {
+      "title": "美國10月CPI月增0.4%，高於市場預期",
+      "summary": "整體CPI月增0.4%，核心CPI月增0.3%，均高於市場預期；BLS未發布年增率，因去年同期政府停擺期間未蒐集資料。",
+      "url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+      "published_at_tw": "2026/11/10 21:30"
+    },
+    {
+      "title": "Waller支持12月升息，並提出必要時考慮升息兩碼",
+      "summary": "Fed理事Waller表示即使CPI改善仍支持升息25個基點；若核心通膨仍達0.3%或更高，應考慮50個基點。",
+      "url": "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
+      "published_at_tw": "2026/11/10"
+    },
+    {
+      "title": "美國兩年期公債殖利率單日大幅攀升",
+      "summary": "Reuters指出兩年期殖利率上升19.28個基點至4.74%，為2025年4月以來最大單日升幅之一，反映政策利率預期急速調整。",
+      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+      "published_at_tw": "2026/11/11"
+    },
+    {
+      "title": "美國十年期公債殖利率升至接近5%",
+      "summary": "通膨數據偏熱與Fed官員偏鷹談話推升長端殖利率，十年期殖利率升至4.988%，提高股票估值折現壓力。",
+      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+      "published_at_tw": "2026/11/11"
+    },
+    {
+      "title": "黃金期貨跌至一週低點，單日跌幅擴大",
+      "summary": "COMEX 12月黃金期貨下跌2.05%至4,020.70美元，為11月3日以來最低收盤；美元及美債殖利率走高削弱黃金吸引力。",
+      "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
+      "published_at_tw": "2026/11/11"
+    },
+    {
+      "title": "白銀期貨同步回落，工業與投資需求預期轉弱",
+      "summary": "11月白銀期貨下跌2.78%至51.101美元，顯示貴金屬承受實質利率與美元走強的雙重壓力。",
+      "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
+      "published_at_tw": "2026/11/11"
+    },
+    {
+      "title": "油價續跌至兩個月低點，中東風險溢價降溫",
+      "summary": "Reuters指出油價走低，市場降低美國對伊朗進一步軍事行動的預期；能源價格回落仍不足以抵銷其他商品與服務價格壓力。",
+      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+      "published_at_tw": "2026/11/11"
+    },
+    {
+      "title": "歐洲股市小幅收高，與美股走勢分歧",
+      "summary": "Reuters全球市場報導指出歐洲股市小幅上漲，投資人同時評估美國通膨與利率前景，跨市場風險偏好並不一致。",
+      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+      "published_at_tw": "2026/11/11"
+    },
+    {
+      "title": "亞洲主要市場在美國通膨數據公布前反彈",
+      "summary": "亞洲市場11/10收盤多數上漲，日本、韓國與台灣表現相對突出；該時段尚未反映美國當日稍晚公布的CPI衝擊。",
+      "url": "https://em.etnownews.com/global-indices",
+      "published_at_tw": "2026/11/10"
+    },
+    {
+      "title": "AI投資成本與大型科技公司獲利展望仍是市場焦點",
+      "summary": "Reuters指出投資人持續關注科技公司財報與AI投資成本，市場對人工智慧資本支出回報的疑慮仍未消失。",
+      "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+      "published_at_tw": "2026/11/11"
+    }
+  ],
+  "global_markets": {
+    "道瓊工業指數": {
+      "display": "52,231.89",
+      "change_display": "-0.30%",
+      "source": {
+        "name": "Associated Press",
+        "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "標普500指數": {
+      "display": "7,520.93",
+      "change_display": "-0.40%",
+      "source": {
+        "name": "Associated Press",
+        "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "那斯達克綜合指數": {
+      "display": "25,065.87",
+      "change_display": "-0.70%",
+      "source": {
+        "name": "Associated Press",
+        "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "羅素2000指數": {
+      "display": "2,821.38",
+      "change_display": "-0.70%",
+      "source": {
+        "name": "Associated Press",
+        "url": "https://apnews.com/article/a97eb31c415811065561f2c2ac552cd7",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "費城半導體指數": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "香港恆生指數": {
+      "display": "24,522.99",
+      "change_display": "+0.30%",
+      "source": {
+        "name": "CMOTS Global Indices",
+        "url": "https://cmapis.cmots.com/CNIGlobal/OtherMarkets/World-Indices.aspx",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "上海綜合指數": {
+      "display": "3,663.72",
+      "change_display": "+0.08%",
+      "source": {
+        "name": "CMOTS Global Indices",
+        "url": "https://cmapis.cmots.com/CNIGlobal/OtherMarkets/World-Indices.aspx",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "深證成指": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "日經 225": {
+      "display": "60,560.79",
+      "change_display": "+3.04%",
+      "source": {
+        "name": "CMOTS Global Indices",
+        "url": "https://cmapis.cmots.com/CNIGlobal/OtherMarkets/World-Indices.aspx",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "韓國 KOSPI": {
+      "display": "5,239.13",
+      "change_display": "+4.39%",
+      "source": {
+        "name": "countryeconomy.com",
+        "url": "https://countryeconomy.com/stock-exchange",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "台灣加權指數": {
+      "display": "42,711.92",
+      "change_display": "+2.52%",
+      "source": {
+        "name": "ET Now",
+        "url": "https://em.etnownews.com/global-indices",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "新加坡海峽時報指數 STI": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "澳洲 S&P/ASX 200": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "英國 FTSE 100": {
+      "display": "10,755.67",
+      "change_display": "-0.25%",
+      "source": {
+        "name": "countryeconomy.com",
+        "url": "https://countryeconomy.com/stock-exchange",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "德國 DAX": {
+      "display": "26,390.22",
+      "change_display": "+0.47%",
+      "source": {
+        "name": "countryeconomy.com",
+        "url": "https://countryeconomy.com/stock-exchange",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "法國 CAC 40": {
+      "display": "8,278.59",
+      "change_display": "+0.55%",
+      "source": {
+        "name": "countryeconomy.com",
+        "url": "https://countryeconomy.com/stock-exchange",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "STOXX Europe 600": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    }
+  },
+  "sectors": {
+    "XLI": "待核實",
+    "XLK": "待核實",
+    "XLB": "待核實",
+    "XLV": "待核實",
+    "XLF": "待核實",
+    "XLE": "待核實",
+    "XLP": "待核實",
+    "XLC": "待核實",
+    "XLRE": "待核實",
+    "XLU": "待核實",
+    "XLY": "待核實"
+  },
+  "bonds": {
+    "2年期美債殖利率": {
+      "display": "4.740%",
+      "change_display": "+19.28 bp",
+      "source": {
+        "name": "Reuters",
+        "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "10年期美債殖利率": {
+      "display": "4.988%",
+      "change_display": "+12.6 bp",
+      "source": {
+        "name": "Reuters",
+        "url": "https://www.reuters.com/world/china/global-markets-wrapup-1-2026-11-10/",
+        "data_date": "2026-11-10",
+        "quote_type": "daily_close",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "30年期美債殖利率": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    }
+  },
+  "fx": {
+    "美元指數": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "美元／新台幣": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "歐元／美元": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "英鎊／美元": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "澳幣／美元": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "美元／日圓": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    }
+  },
+  "energy": {
+    "WTI原油期貨": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "Brent原油期貨": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    }
+  },
+  "metals": {
+    "黃金期貨 GC": {
+      "display": "4,020.70",
+      "change_display": "-2.05%",
+      "source": {
+        "name": "Wall Street Journal｜COMEX December gold futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
+        "data_date": "2026-11-10",
+        "quote_type": "futures_settlement",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    },
+    "白銀期貨 SI": {
+      "display": "51.101",
+      "change_display": "-2.78%",
+      "source": {
+        "name": "Wall Street Journal｜November silver futures settlement",
+        "url": "https://www.wsj.com/finance/commodities-futures/gold-edges-lower-as-yields-dollar-rise-on-u-s-cpi-data-d4a0623a",
+        "data_date": "2026-11-10",
+        "quote_type": "futures_settlement",
+        "note": "2026/11/10來源日期及報價口徑已記錄。"
+      }
+    }
+  },
+  "risk": {
+    "vix": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "band": "-22.31%",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "move": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "band": "-7.32%",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    },
+    "fear_greed": {
+      "display": "待核實",
+      "change_display": "待核實",
+      "band": "Fear",
+      "qa_status": "not_retrieved_for_2026-11-10"
+    }
+  },
+  "fedwatch": {
+    "updated_at_tw": "待核實",
+    "target_meeting": "2026/12/08–09（美國時間）",
+    "current_target_range": "待核實",
+    "probabilities": [],
+    "source_name": "Investing.com Fed Rate Monitor（本輪未完成重新讀取）",
+    "source_url": "https://hk.investing.com/central-banks/fed-rate-monitor",
+    "note": "不沿用11/9舊快照。"
+  },
+  "observation": "美國10月CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；由於2025年政府停擺期間未蒐集對應月份資料，BLS未發布通常的年增率。Waller支持12月升息25個基點，並認為若核心通膨達到或高於0.3%，應考慮更大幅度行動。短端美債殖利率急升、美元走強，金銀與美股承壓；觀察焦點是利率重定價是否向長端擴散，以及市場是否進一步反映50個基點升息風險。",
+  "calendar": {
+    "week_id": "2026-W46",
+    "week_start": "2026-11-09",
+    "week_end": "2026-11-15",
+    "events": [
+      {
+        "date": "2026-11-09T09:30:00+08:00",
+        "region": "中國",
+        "name": "中國10月CPI",
+        "stars": 4,
+        "status": "released",
+        "previous": "0.9% y/y",
+        "forecast": "0.8% y/y (Reuters poll)",
+        "actual": "0.7% y/y; m/m 0.0%; core 0.8% y/y",
+        "impact": "CPI低於共識0.1個百分點，核心通膨降至0.8%，反映消費端價格壓力偏弱。",
+        "source_name": "Cnyes實際值；Reuters調查共識。",
+        "source_url": "https://news.cnyes.com/news/id/6652843",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-09T09:30:00+08:00",
+        "region": "中國",
+        "name": "中國10月PPI",
+        "stars": 4,
+        "status": "released",
+        "previous": "5.0% y/y",
+        "forecast": "5.3% y/y (Reuters poll)",
+        "actual": "5.7% y/y; m/m 0.7%",
+        "impact": "PPI高於共識0.4個百分點且較前值加速，工業端價格壓力回升；與CPI偏弱形成分化。",
+        "source_name": "Cnyes實際值；Reuters調查共識。",
+        "source_url": "https://news.cnyes.com/news/id/6652843",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-10T02:00:00+08:00",
+        "region": "美國",
+        "name": "美國財政部3年期公債標售（580億美元）",
+        "stars": 4,
+        "status": "released",
+        "previous": "前次殖利率4.932%；前六次BTC平均約2.64x",
+        "forecast": "未取得可靠市場預估",
+        "actual": "得標殖利率4.627%；投標倍數2.53x；間接投標55.5%；直接投標35.0%；交易商9.5%；tail 0.5bp",
+        "impact": "投標倍數為2025年8月以來低點，間接投標占比偏低；直接投標35%提供部分承接。整體需求偏弱，需觀察後續10年及30年期標售。",
+        "source_name": "Investing.com於11/9 14:34 ET發布，列示標售結果；市場數據文章，非Treasury官方結果表。",
+        "source_url": "https://www.investing.com/news/economy-news/us-3year-treasury-auction-draws-weak-demand-amid-yield-decline-93CH-5013059",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-10T17:00:00+08:00",
+        "region": "美國",
+        "name": "Fed理事Christopher Waller演講｜Economic Outlook",
+        "stars": 5,
+        "status": "released",
+        "previous": "-",
+        "forecast": "-",
+        "actual": "Waller表示即使10月通膨改善仍支持12月升息25bp；若核心CPI約0.3%或更高，應考慮50bp。",
+        "impact": "官員公開支持12月升息，並提出若核心通膨偏高可考慮50bp，政策訊號明顯偏鷹。",
+        "source_name": "Federal Reserve｜Speech by Governor Waller",
+        "source_url": "https://www.federalreserve.gov/newsevents/speech/waller20261110a.htm",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-10T21:30:00+08:00",
+        "region": "美國",
+        "name": "美國10月CPI",
+        "stars": 5,
+        "status": "released",
+        "previous": "CPI m/m 0.6%; y/y 3.7%; core m/m 0.3%; core y/y 2.6%",
+        "forecast": "CPI m/m +0.3%; core m/m +0.2%",
+        "actual": "CPI m/m +0.4%（預期+0.3%）；core CPI m/m +0.3%（預期+0.2%）；BLS未發布y/y。",
+        "impact": "整體與核心CPI月增均高於預期，顯示通膨壓力仍具黏著性；年增率因去年同期資料缺失未發布。",
+        "source_name": "U.S. Bureau of Labor Statistics｜October 2026 CPI",
+        "source_url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-11T02:00:00+08:00",
+        "region": "美國",
+        "name": "美國財政部10年期公債標售（420億美元）",
+        "stars": 4,
+        "status": "pending_verification",
+        "previous": "-",
+        "forecast": "-",
+        "actual": "待核實：標售已過預定時間，尚未取得官方結果。",
+        "impact": "3年期標售需求偏弱後，10年期標售將檢驗中長天期需求。",
+        "source_name": "U.S. Treasury",
+        "source_url": "https://www.treasurydirect.gov/auctions/announcements-data-results/",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-11T02:30:00+08:00",
+        "region": "美國",
+        "name": "加拿大央行10/28會議審議摘要",
+        "stars": 4,
+        "status": "upcoming",
+        "previous": "-",
+        "forecast": "-",
+        "actual": null,
+        "impact": "觀察央行對通膨黏著度、就業與後續利率路徑的評估。",
+        "source_name": "來源詳見事件資料",
+        "source_url": "W46 calendar DB",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-11T04:30:00+08:00",
+        "region": "美國",
+        "name": "Fed副主席Michelle Bowman演講｜Economic Outlook",
+        "stars": 5,
+        "status": "pending_verification",
+        "previous": "-",
+        "forecast": "-",
+        "actual": "待核實：演講時間已過，尚未確認實際內容。",
+        "impact": "監理副主席談經濟展望，留意對通膨、就業與金融條件的評估。",
+        "source_name": "Federal Reserve November 2026 Calendar",
+        "source_url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-11T07:30:00+08:00",
+        "region": "美國",
+        "name": "Fed副主席Michelle Bowman演講｜Economic Outlook（線上）",
+        "stars": 4,
+        "status": "upcoming",
+        "previous": "-",
+        "forecast": "-",
+        "actual": null,
+        "impact": "第二場Bowman活動，留意是否提供與前一場不同的政策訊號。",
+        "source_name": "Federal Reserve November 2026 Calendar",
+        "source_url": "https://www.federalreserve.gov/newsevents/2026-november.htm",
+        "time_known": true
+      }
+    ]
+  },
+  "earnings": {
+    "week_id": "2026-W46",
+    "week_start": "2026-11-09",
+    "week_end": "2026-11-15",
+    "events": [
+      {
+        "date": "2026-11-09T19:51:00+08:00",
+        "event_date": "2026-11-09T19:51:00+08:00",
+        "company": "KKR",
+        "ticker": "KKR",
+        "session": "before_market",
+        "stars": 4,
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "$1.58（調整後EPS共識）",
+        "eps_actual_display": "$1.78（調整後）",
+        "revenue_estimate_display": "$2.59B（24/7 Wall St.列示共識）",
+        "revenue_actual_display": "$4.56B",
+        "judgment": "調整後EPS $1.78，高於$1.58共識約12.7%；營收$4.56B，高於$2.59B市場估計。營收共識不同來源可能存在口徑差異，應以同口徑比較。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://media.kkr.com/news-details?news_id=7de02651-80a6-4c76-8c9e-09ca75b83478",
+        "source_name": "KKR官方新聞稿；24/7 Wall St.共識",
+        "eps_comparison_status": "beat"
+      },
+      {
+        "date": "2026-11-09T21:00:00+08:00",
+        "event_date": "2026-11-09T21:00:00+08:00",
+        "company": "NRG Energy",
+        "ticker": "NRG",
+        "session": "before_market",
+        "stars": 4,
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "待核實",
+        "eps_actual_display": "$4.68（調整後EPS；GAAP EPS $2.59）",
+        "revenue_estimate_display": "待核實",
+        "revenue_actual_display": "$9.466B",
+        "judgment": "公司公布Q3調整後EPS $4.68、營收$9.466B；缺乏同口徑市場共識，暫不判定beat/miss。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://www.nrg.com/en/about/newsroom/2026/46136",
+        "source_name": "NRG官方新聞稿"
+      },
+      {
+        "date": "2026-11-10T05:15:00+08:00",
+        "event_date": "2026-11-10T05:15:00+08:00",
+        "company": "Occidental Petroleum",
+        "ticker": "OXY",
+        "session": "after_market",
+        "stars": 4,
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "$1.47（調整後EPS共識）",
+        "eps_actual_display": "$1.91（調整後EPS）",
+        "revenue_estimate_display": "$6.89B",
+        "revenue_actual_display": "$6.77B",
+        "judgment": "調整後EPS高於共識約29.9%，營收低於共識約1.7%；獲利優於預期但營收略低。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
+        "source_name": "Occidental官方新聞稿；24/7 Wall St.共識",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "miss"
+      },
+      {
+        "date": "2026-11-10T05:10:00+08:00",
+        "event_date": "2026-11-10T05:10:00+08:00",
+        "company": "Take-Two Interactive",
+        "ticker": "TTWO",
+        "session": "after_market",
+        "stars": 5,
+        "status": "released",
+        "status_in_db": "released",
+        "time_known": true,
+        "eps_estimate_display": "-$0.86（GAAP EPS共識）",
+        "eps_actual_display": "-$0.29（GAAP EPS）",
+        "revenue_estimate_display": "$1.58B",
+        "revenue_actual_display": "$1.50B",
+        "judgment": "GAAP EPS虧損小於市場預期；營收低於共識約5.1%，Net Bookings $1.60B、年減18%，呈現盈餘改善但營收及預訂額承壓。",
+        "price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
+        "source_url": "https://taketwointeractivesoftwareinc.gcs-web.com/news-releases/news-release-details/take-two-interactive-software-inc-reports-results-fiscal-4/",
+        "source_name": "Take-Two官方新聞稿；GuruFocus共識",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "miss"
+      },
+      {
+        "event_date": "2026-11-10T23:00:00+08:00",
+        "company": "TransDigm Group",
+        "ticker": "TDG",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T23:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "company": "CoreWeave",
+        "ticker": "CRWV",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-11T06:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-11T12:00:00+08:00",
+        "company": "Petrobras",
+        "ticker": "PBR",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false,
+        "date": "2026-11-11T12:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-12T05:00:00+08:00",
+        "company": "Corteva",
+        "ticker": "CTVA",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false,
+        "date": "2026-11-12T05:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-12T20:00:00+08:00",
+        "company": "Brookfield Corporation",
+        "ticker": "BN",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-12T20:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "company": "Nebius Group",
+        "ticker": "NBIS",
+        "session": "before_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-12T21:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-13T05:30:00+08:00",
+        "company": "Cisco Systems",
+        "ticker": "CSCO",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-13T05:30:00+08:00"
+      },
+      {
+        "event_date": "2026-11-13T06:00:00+08:00",
+        "company": "Cerebras Systems",
+        "ticker": "CBRS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-13T06:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-13T05:30:00+08:00",
+        "company": "Applied Materials",
+        "ticker": "AMAT",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-13T05:30:00+08:00"
+      },
+      {
+        "event_date": "2026-11-13T12:00:00+08:00",
+        "company": "Mitsubishi UFJ Financial Group",
+        "ticker": "MUFG",
+        "session": "unknown",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false,
+        "date": "2026-11-13T12:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-13T12:00:00+08:00",
+        "company": "Mizuho Financial Group",
+        "ticker": "MFG",
+        "session": "unknown",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false,
+        "date": "2026-11-13T12:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "company": "HIVE Digital Technologies",
+        "ticker": "HIVE",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T21:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Rocket Lab",
+        "ticker": "RKLB",
+        "session": "after_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Skydance Corporation",
+        "ticker": "SKYD",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T22:00:00+08:00",
+        "company": "JBS N.V.",
+        "ticker": "JBS",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T22:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "company": "D-Wave Quantum",
+        "ticker": "QBTS",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T21:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T21:30:00+08:00",
+        "company": "Wix.com",
+        "ticker": "WIX",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T21:30:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "company": "Mercury Systems",
+        "ticker": "MRCY",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-11T06:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-10T20:30:00+08:00",
+        "company": "Sea Limited",
+        "ticker": "SE",
+        "session": "before_market",
+        "stars": 5,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T20:30:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T12:00:00+08:00",
+        "company": "Vodafone Group",
+        "ticker": "VOD",
+        "session": "unknown",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": false,
+        "date": "2026-11-10T12:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-11T06:00:00+08:00",
+        "company": "Rigetti Computing",
+        "ticker": "RGTI",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-11T06:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-10T22:00:00+08:00",
+        "company": "Venture Global",
+        "ticker": "VG",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T22:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T21:00:00+08:00",
+        "company": "On Holding",
+        "ticker": "ONON",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T21:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-11T22:00:00+08:00",
+        "company": "CGI Inc.",
+        "ticker": "GIB",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-11T22:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "company": "Franco-Nevada",
+        "ticker": "FNV",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-12T21:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Hims & Hers Health",
+        "ticker": "HIMS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "The Trade Desk",
+        "ticker": "TTD",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "company": "Ascendis Pharma",
+        "ticker": "ASND",
+        "session": "before_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-12T21:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "MARA Holdings",
+        "ticker": "MARA",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-12T22:00:00+08:00",
+        "company": "Vylor",
+        "ticker": "VYLR",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-12T22:00:00+08:00"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "AST SpaceMobile",
+        "ticker": "ASTS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T05:30:00+08:00",
+        "company": "Onto Innovation",
+        "ticker": "ONTO",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T05:30:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Sanmina",
+        "ticker": "SANM",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      },
+      {
+        "event_date": "2026-11-10T06:00:00+08:00",
+        "company": "Qualys",
+        "ticker": "QLYS",
+        "session": "after_market",
+        "stars": 4,
+        "status_in_db": "upcoming",
+        "time_known": true,
+        "date": "2026-11-10T06:00:00+08:00",
+        "status": "pending_verification",
+        "actual": "待核實：公布時點已過，尚未取得公司正式財報與一致預期比較。"
+      }
+    ],
+    "note": "W46財報清單沿用已核對事件集合；11/10已過公布時點但尚未取得公司正式財報及一致預期比較者，標示待核實，不冒充已公布實績。"
+  },
+  "summary_title": "通膨再度升溫推升利率預期，美股回落",
+  "market_comments": {
+    "global_markets": [
+      "美股四大指數因通膨數據偏熱而收低，顯示市場重新評估聯準會政策路徑；亞洲市場在美國CPI公布前反彈，兩個時段的市場定價不可混為一談。",
+      "日本、韓國與台灣股市上漲幅度較大，香港與中國市場溫和走高；歐洲主要指數小幅收高，區域表現與美股回落形成分歧。",
+      "美股回檔與美債殖利率急升同步發生，短線需觀察科技與高估值成長股對折現率變化的敏感度。",
+      "本輪部分全球指數尚未取得一致口徑的11/10收盤證據，畫面已標示待核實，不以11/9舊數字替代。"
+    ],
+    "sectors": "11大標普產業ETF本輪未完成11/10同日報價核實，全部標示待核實；不以舊日漲跌推論產業強弱。",
+    "bonds": "美國兩年期殖利率上升19.28個基點至4.74%，十年期升至4.988%；短端反應更劇烈，反映市場提高對12月升息的定價。30年期殖利率待核實。",
+    "fx": "美元指數及主要匯率本輪尚未完成同日核實，暫不以舊報價推論美元方向；待補齊美元指數、美元兌台幣及主要貨幣交叉匯率。",
+    "energy": "油價續跌至兩個月低點的報導可支持方向性判斷，但WTI與Brent當日結算價尚未取得可追溯的同口徑數值，故行情欄位標示待核實。",
+    "metals": "黃金與白銀期貨分別下跌2.05%及2.78%，美元與美債殖利率走高加重貴金屬壓力；本次明確區分COMEX期貨結算，不混用現貨報價。"
+  },
+  "last_week_calendar": {
+    "week_id": "2026-W45",
+    "week_start": "2026-11-02",
+    "week_end": "2026-11-06",
+    "events": [
+      {
+        "date": "2026-11-03T11:30:00+08:00",
+        "region": "澳洲",
+        "name": "澳洲央行利率決策及貨幣政策聲明",
+        "stars": 5,
+        "status": "released",
+        "previous": 4.6,
+        "forecast": 4.85,
+        "actual": 4.85,
+        "impact": "澳洲央行將現金利率目標上調25個基點至4.85%，表決為6票支持升息、3票維持不變。升息幅度符合市場事前預期，但央行指出通膨壓力仍廣泛且上行風險存在，政策訊號偏鷹；不能把符合預期的升息描述為意外緊縮。後續觀察薪資、服務通膨及家庭需求對進一步升息的影響。",
+        "source_name": "Reserve Bank of Australia｜Monetary Policy Decision, 3 November 2026",
+        "source_url": "https://www.rba.gov.au/media-releases/2026/mr-26-30.html",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-04T12:00:00+08:00",
+        "region": "歐元區",
+        "name": "歐元區 10 月 HICP 通膨初值",
+        "stars": 5,
+        "status": "released",
+        "previous": 3.8,
+        "forecast": 3.9,
+        "actual": "4.0% y/y；0.4% m/m（2026年10月Flash estimate）",
+        "impact": "Eurostat於11/04發布10月Flash HICP：年增4.0%，高於前值3.8%及資料庫原存共識3.9%；月增0.4%。能源年增20.8%（前值18.9%）、服務3.3%（前值3.2%），通膨壓力擴散；可能降低ECB寬鬆空間並推升歐元區短中期利率預期。官方產品頁未載明精確發布時刻，time_known=false。",
+        "source_name": "Eurostat｜Euro area annual inflation up to 4.0% (Flash estimate - October 2026)",
+        "source_url": "https://ec.europa.eu/eurostat/web/products-euro-indicators/w/2-04112026-ap",
+        "time_known": false
+      },
+      {
+        "date": "2026-11-05T20:00:00+08:00",
+        "region": "英國",
+        "name": "英格蘭銀行利率決策、MPC 會議紀錄及貨幣政策報告",
+        "stars": 5,
+        "status": "released",
+        "previous": 3.75,
+        "forecast": 4,
+        "actual": 4,
+        "impact": "MPC以8比1決議升息25bp至4.00%；Catherine Mann主張升息50bp至4.25%。央行指出能源價格衝擊推升通膨風險，並稱未來政策非預設路徑，仍需觀察薪資、價格及能源傳導；本次為偏鷹升息。",
+        "source_name": "Bank of England｜Bank rate increased to 4% - November 2026 Monetary Policy Summary and Minutes",
+        "source_url": "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/november-2026",
+        "time_known": true
+      }
+    ]
+  },
+  "last_week_earnings": {
+    "week_id": "2026-W45",
+    "week_start": "2026-11-02",
+    "week_end": "2026-11-06",
+    "events": [
+      {
+        "date": "2026-11-03T06:00:00+08:00",
+        "session": "after_market",
+        "company": "Apple",
+        "ticker": "AAPL",
+        "industry": "消費電子／平台生態系",
+        "stars": 5,
+        "status": "released",
+        "eps_estimate": 1.98,
+        "eps_actual": 2.1,
+        "revenue_estimate": 113.4,
+        "revenue_actual": 114.5,
+        "eps_estimate_display": "US$1.98",
+        "eps_actual_display": "US$2.1",
+        "revenue_estimate_display": "US$113.4B",
+        "revenue_actual_display": "US$114.5B",
+        "eps_comparison_status": "pending_verification",
+        "revenue_comparison_status": "beat",
+        "eps_basis": "GAAP diluted EPS (issuer-reported); consensus basis not explicitly disclosed",
+        "judgment": "Apple FY2026 Q4營收US$114.5B，年增12%，高於既有共識US$113.4B；GAAP diluted EPS US$2.10，年增14%。EPS共識US$1.98未明確揭露會計口徑，故EPS比較維持pending_verification。公司毛利率47.9%，其中關稅退款約貢獻1個百分點。",
+        "price_reaction": null,
+        "source_name": "Apple Newsroom｜Apple reports fourth quarter results",
+        "source_url": "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+        "time_known": true
+      },
+      {
+        "date": "2026-11-04T06:00:00+08:00",
+        "session": "after_market",
+        "company": "AMD",
+        "ticker": "AMD",
+        "industry": "半導體／AI加速器",
+        "stars": 5,
+        "status": "released",
+        "eps_estimate": 1.94,
+        "eps_actual": 2.09,
+        "revenue_estimate": 13.06,
+        "revenue_actual": 13.377,
+        "eps_estimate_display": "US$1.94",
+        "eps_actual_display": "US$2.09",
+        "revenue_estimate_display": "US$13.06B",
+        "revenue_actual_display": "US$13.377B",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "beat",
+        "eps_basis": "Non-GAAP diluted EPS; Investing.com consensus basis",
+        "judgment": "AMD Q3 2026營收US$13.377B，高於Investing.com所列共識US$13.06B；non-GAAP diluted EPS US$2.09，高於同來源共識US$1.94；GAAP diluted EPS US$1.46。資料中心營收US$8.5B、年增97%；公司Q4營收展望約US$17B±3%，並表示2027年營收預期年增逾80%。Investing.com報導財報公布後股價盤後上漲7.54%。",
+        "price_reaction": "+7.54%",
+        "source_name": "AMD Investor Relations｜Q3 2026 results",
+        "source_url": "https://ir.amd.com/news-events/press-releases/detail/1303/amd-reports-third-quarter-2026-financial-results",
+        "time_known": true
+      }
+    ]
+  },
+  "summary_points": [
+    {
+      "label": "通膨再升溫",
+      "text": "10月整體CPI月增0.4%、核心CPI月增0.3%，均高於市場預期；BLS未發布年增率，不能以估算值替代官方數據。"
+    },
+    {
+      "label": "Fed政策轉鷹",
+      "text": "Waller支持12月升息25個基點，並提出若核心通膨維持0.3%或更高，應考慮50個基點；市場政策路徑重新定價。"
+    },
+    {
+      "label": "利率衝擊",
+      "text": "兩年期美債殖利率升至4.74%，單日上升19.28個基點；十年期殖利率接近5%，高估值資產面臨折現率壓力。"
+    },
+    {
+      "label": "跨市場分歧",
+      "text": "亞洲股市在美國CPI公布前上漲，歐洲小幅收高，但美股在通膨數據公布後回落；交易時段差異是解讀關鍵。"
+    },
+    {
+      "label": "風險管理",
+      "text": "後續觀察通膨分項、美元與長端殖利率能否穩定；VIX、MOVE、CNN情緒及FedWatch本輪未完成重讀，暫不提供未核實判斷。"
+    }
+  ],
+  "warning_note": "本版行情基準日為2026/11/10。美股四大指數、部分亞洲及歐洲指數、美債2年／10年殖利率、黃金與白銀有可追溯來源；其餘未能在本輪完成同日查證的欄位一律標示「待核實」，不沿用11/9舊報價。11/10及11/11已過公布時點的財報／事件，未取得正式結果者維持待核實。",
+  "sector_sources": {},
+  "key_levels": {
+    "baseline_date": "2026-11-09",
+    "formula": "OHLC資料尚未完成同日現金指數一致性核實。",
+    "items": []
+  },
+  "core_observation": {
+    "heading": "今日核心觀察",
+    "text": "美國10月整體與核心CPI月增均高於預期，Waller明確支持12月升息，並提出必要時考慮50個基點。短端殖利率急升已反映政策路徑重新定價，市場接下來須觀察10年期殖利率、美元及高估值科技股是否持續承壓。",
+    "details": "BLS未發布10月CPI年增率，原因是2025年政府停擺期間未蒐集對應月份資料；分析只採官方公布的月增率及可確認分項，不推算年增率。"
+  },
+  "qa_run_revision": "manual-takeover-2026-11-11-v1"
+}
