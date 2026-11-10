@@ -133,47 +133,56 @@
     },
     "html_assembly": {
       "status": "started",
-      "started_at_taipei": "2026-11-11T06:47:47+08:00",
+      "started_at_taipei": "2026-11-11T06:51:00+08:00",
       "input": {
-        "report_data_old_sha": "0b313f3f1f00faf45f50d5ca1948709c7c356b40",
-        "branch_head_before_commit": "19cc205e00df3e96f54d24b9df1807269bc1f0c9",
-        "calendar_sha": "61946ce9c961502bfd13b6336f2424e00d2aca14"
+        "report_data_old_sha": "32e90d5f7dae75639d89777b9299db6cc3948b3e",
+        "branch_head_before_commit": "fc4d1cc9b69f73c4a458932b65155efbe11859be"
       },
       "output": {
         "expected_path": "main:preview/2026-11-11-simulation.html",
         "workflow": "tac-simulation-lab"
       },
-      "note": "已修正summary_points與core_observation的關鍵字完整性，重跑既有組裝器。"
+      "note": "修正market觀察分頁的精確文案後重新組裝。"
     },
     "qa": {
-      "status": "pending",
-      "previous_attempt": {
-        "run_id": 42917323266,
-        "status": "blocked",
-        "error": "visual_regression focus-tab-market缺少『美國10月CPI月增0.4%』；focus-tab-core缺少『50個基點』。"
-      }
+      "status": "blocked",
+      "previous_attempts": [
+        {
+          "run_id": 42917323266,
+          "error": "focus-tab-market缺少『美國10月CPI月增0.4%』；focus-tab-core缺少『50個基點』。"
+        },
+        {
+          "run_id": 42917621270,
+          "error": "同前一輪，因summary_points／core_observation尚未同步修正。"
+        },
+        {
+          "run_id": 42917892543,
+          "error": "focus-tab-core已通過；focus-tab-market仍缺少『美國10月CPI月增0.4%』，因觀察文字在『CPI』與『月增』間插入『整體』。"
+        }
+      ],
+      "error": "僅剩market觀察分頁的精確字串斷言；已修正observation開頭為『美國10月CPI月增0.4%』，準備最後一次重跑。"
     },
     "delivery": {
       "status": "pending",
-      "note": "前一輪QA失敗，未發布；等待本輪QA通過後才寫入main/preview例外路徑。"
+      "note": "QA通過前不發布main/preview例外檔案。"
     }
   },
   "blockers": [
-    "上一輪workflow 42917323266於視覺／互動QA失敗：今日觀察分頁缺少兩段必要文案；已修正summary_points與core_observation，正在重跑。",
-    "市場44欄位40項已核實；XLC、XLU、XLY與MOVE仍待核實。",
+    "前兩輪視覺QA因今日觀察分頁精確文案斷言失敗；本輪已修正market觀察文字，準備最後一次重跑。若再失敗將停止無效重試並保留現場。",
+    "市場44欄位40項已核實；XLC、XLU、XLY與MOVE待核實。",
     "W46資料庫：經濟15項、財報42家；11家已公布、18家過發布時點但實績待核實、13家尚未公布。",
-    "notify_parent進度通知動作回傳NOT_FOUND；已記錄一次失敗，不反覆重試。",
+    "notify_parent進度通知動作連續回傳NOT_FOUND；已記錄，不再重試。",
     "main例外通道僅允許preview/2026-11-11-simulation.html；QA通過前不寫入main。"
   ],
-  "recovery_point": "2026-11-11 06:47+08：summary_points與core_observation文案已修正；等待最新workflow完成HTML組裝、視覺／互動QA。",
+  "recovery_point": "2026-11-11 06:51+08：focus-tab-market文案精確字串已修正；最後一次既有workflow重跑。",
   "observability": {
     "last_checked_at_taipei": "2026-11-11T06:37:09+08:00",
     "status": "completed_with_explicit_pending_items",
     "notification_channel": "unavailable",
     "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found.",
     "note": "GitHub Actions 42916075104 completed successfully. Visual regression passed at 1440, 768, 360 and 320 widths. FedWatch legend correctly distinguishes 25bp/50bp. Main commit contains exactly one file: preview/2026-11-11-simulation.html.",
-    "last_known_progress_at_taipei": "2026-11-11T06:47:47+08:00",
-    "last_known_progress": "focus-tab content assertions corrected; new workflow run pending",
+    "last_known_progress_at_taipei": "2026-11-11T06:51:00+08:00",
+    "last_known_progress": "market observation text fixed; final QA retry pending",
     "heartbeat_available": false,
     "notification_action": "notify_parent NOT_FOUND; recorded once"
   },
@@ -214,6 +223,14 @@
       "run_id": 42917323266,
       "error": "focus-tab-market missing exact CPI phrase; focus-tab-core missing 50bp wording",
       "recovery": "updated summary_points and core_observation; retriggered build"
+    },
+    {
+      "at": "2026-11-11T06:51:00+08:00",
+      "stage": "qa",
+      "status": "blocked_then_retry",
+      "run_id": 42917892543,
+      "error": "focus-tab-market missing exact CPI phrase",
+      "recovery": "updated observation string to exact expected phrase; final retry"
     }
   ]
 }
