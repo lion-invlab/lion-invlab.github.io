@@ -791,11 +791,11 @@ def main():
             raise ValueError("FedWatch requires one hold outcome matching official current target range")
         if cuts or not hikes:
             raise ValueError("This three-card FedWatch layout expects hold plus distinct hike outcomes")
-        current_nums=[float(v) for v in re.findall(r"\\d+(?:\\.\\d+)?",str(current_range))]
+        current_nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(current_range))]
         if len(current_nums)!=2: raise ValueError("FedWatch current target range must contain two numeric bounds")
         expected_steps=set()
         for item in hikes:
-            nums=[float(v) for v in re.findall(r"\\d+(?:\\.\\d+)?",str(item.get("rate_range","")))]
+            nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(item.get("rate_range","")))]
             step=round(nums[0]-current_nums[0],2) if len(nums)==2 else None
             upper_step=round(nums[1]-current_nums[1],2) if len(nums)==2 else None
             if step not in (0.25,0.50) or upper_step!=step:
@@ -805,7 +805,7 @@ def main():
             raise ValueError("FedWatch must contain separate +25bp and +50bp outcomes")
         outcome_by_step={}
         for item in hikes:
-            nums=[float(v) for v in re.findall(r"\\d+(?:\\.\\d+)?",str(item["rate_range"]))]
+            nums=[float(v) for v in re.findall(r"\d+(?:\.\d+)?",str(item["rate_range"]))]
             outcome_by_step[round(nums[0]-current_nums[0],2)]=item
         ordered=[hold[0],outcome_by_step[0.25],outcome_by_step[0.50]]
         container=rows[0].parent
