@@ -111,7 +111,7 @@
         "cutoff": "2026-11-11 05:25 +08:00",
         "calendar_update_at": "2026-11-11T06:38:33+08:00"
       },
-      "note": "已將W46 DB更新至11/11截點，補齊15項經濟事件與42家財報事件；不明EPS口徑不判定beat/miss。"
+      "note": "已將W46 DB更新至11/11截點，補齊15項經濟事件與42家財報事件；不明EPS口徑不判定beat/miss。；已完成與先前已核實的NRG、KKR、TTWO、OXY結果回填，修正狀態欄同步錯誤。"
     },
     "analysis": {
       "status": "completed",
@@ -125,17 +125,19 @@
         "headlines": 10,
         "summary_updated": true,
         "market_sentiment_updated": true,
-        "observation_updated": true
+        "observation_updated": true,
+        "released_earnings": 11,
+        "pending_verification_earnings": 18
       },
       "note": "新聞時間窗11/10 12:00至11/11 05:25；納入10年標售、BoC紀要、Bowman、CoreWeave、MRCY及RGTI；移除窗口前新聞。"
     },
     "html_assembly": {
       "status": "started",
-      "started_at_taipei": "2026-11-11T06:38:33+08:00",
+      "started_at_taipei": "2026-11-11T06:45:28+08:00",
       "input": {
-        "report_data_pending_sha": "to_be_committed",
-        "calendar_pending_sha": "to_be_committed",
-        "weekday_master_sha": "6fe7d3d7e8d5a8a0c1f5f3d4b3e0c8c1a1d6a0f1"
+        "report_data_pending_sha": "new-blob",
+        "calendar_pending_sha": "new-blob",
+        "branch_head_before_commit": "633eccd226aa126bfb04f32592c3dae80225e3f1"
       },
       "output": {
         "expected_path": "main:preview/2026-11-11-simulation.html",
@@ -158,15 +160,15 @@
     "notify_parent進度通知動作回傳NOT_FOUND；已記錄一次失敗，不反覆重試，階段紀錄仍寫入單一run state。",
     "main例外通道只允許preview/2026-11-11-simulation.html；本輪workflow尚待重跑，index.html及其他main檔案不得修改。"
   ],
-  "recovery_point": "2026-11-11 06:38+08：report-data與W46資料庫已完成截點刷新；下一步等待simulation branch push觸發既有workflow，從HTML組裝開始恢復。",
+  "recovery_point": "2026-11-11 06:45+08：W46 15項經濟事件、42家財報已補齊；11家已公布、18家待核實、13家未公布。下一步由最新資料重跑既有HTML組裝及QA。",
   "observability": {
     "last_checked_at_taipei": "2026-11-11T06:37:09+08:00",
     "status": "completed_with_explicit_pending_items",
     "notification_channel": "unavailable",
     "notification_error": "mcp__Automations__notify_parent returned HTTP 404 Action not found.",
     "note": "GitHub Actions 42916075104 completed successfully. Visual regression passed at 1440, 768, 360 and 320 widths. FedWatch legend correctly distinguishes 25bp/50bp. Main commit contains exactly one file: preview/2026-11-11-simulation.html.",
-    "last_known_progress_at_taipei": "2026-11-11T06:38:33+08:00",
-    "last_known_progress": "news/calendar/analysis refreshed; html assembly started",
+    "last_known_progress_at_taipei": "2026-11-11T06:45:28+08:00",
+    "last_known_progress": "calendar/earnings reconciliation complete; new HTML build pending",
     "heartbeat_available": false,
     "notification_action": "notify_parent NOT_FOUND; recorded once"
   },

@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-11T06:38:33+08:00",
+  "updated_at": "2026-11-11T06:45:28+08:00",
   "source_report_date": "2026-11-11",
   "wr_version": "SIM-0.2",
   "status": "active",
@@ -597,7 +597,7 @@
         "ticker": "NRG",
         "event_date": "2026-11-09T21:00:00+08:00",
         "session": "before_market",
-        "status": "pending_verification",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：依公司規模、產業代表性、財報對全球／區域需求與同業定價的指標性評估；不採用外部網站原生星等。",
@@ -606,18 +606,18 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "調整後EPS $4.68、GAAP EPS $2.59；EPS共識口徑未揭露，不判定beat/miss。",
         "eps_estimate": 3.35,
-        "eps_actual": null,
+        "eps_actual": 4.68,
         "revenue_estimate": 8.42,
-        "revenue_actual": null,
+        "revenue_actual": 9.466,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "實績尚待核實；不得將預估值當作實際值。",
-        "stock_price_reaction": null,
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "營收$9.466B高於$8.42B共識約12.4%；調整後EPS $4.68、GAAP EPS $2.59。EPS共識口徑未揭露，故不判定beat/miss。",
+        "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
           "name": "NRG Energy Investor Relations｜Q3 2026 Results Schedule",
@@ -652,7 +652,18 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 NRG Energy, Inc. (NYSE: NRG)。"
         },
-        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。"
+        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。",
+        "eps_actual_display": "調整後EPS $4.68；GAAP EPS $2.59",
+        "eps_estimate_display": "$3.35（共識口徑未揭露）",
+        "revenue_actual_display": "$9.466B",
+        "revenue_estimate_display": "$8.42B",
+        "judgment": "營收$9.466B高於$8.42B共識約12.4%；調整後EPS $4.68、GAAP EPS $2.59。EPS共識口徑未揭露，故不判定beat/miss。",
+        "source_name": "NRG官方Q3 2026財報；共識值沿用Finviz W46資料庫",
+        "actual_source": {
+          "name": "NRG官方Q3 2026財報；共識值沿用Finviz W46資料庫",
+          "url": "https://www.nrg.com/en/about/newsroom/2026/46136",
+          "observed_at": "2026-11-11T06:45:28+08:00"
+        }
       },
       {
         "id": "current-ceg-20261109",
@@ -731,7 +742,7 @@
         "ticker": "KKR",
         "event_date": "2026-11-09T23:00:00+08:00",
         "session": "before_market",
-        "status": "pending_verification",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：依公司規模、產業代表性、財報對全球／區域需求與同業定價的指標性評估；不採用外部網站原生星等。",
@@ -740,18 +751,18 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "調整後EPS $1.78；市場共識雖列$1.58但口徑未揭露，不判定beat/miss。",
         "eps_estimate": 1.58,
-        "eps_actual": null,
+        "eps_actual": 1.78,
         "revenue_estimate": 2.66,
-        "revenue_actual": null,
+        "revenue_actual": 4.56,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": "實績尚待核實；不得將預估值當作實際值。",
-        "stock_price_reaction": null,
+        "financial_judgment": "調整後EPS $1.78、總營收$4.56B；EPS共識口徑未揭露，且資產管理業收入可能包含投資收益，營收可比性待核實，不判定beat/miss。",
+        "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
           "name": "KKR Investor Relations｜Third Quarter 2026 Financial Results Conference Call",
@@ -786,7 +797,18 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 KKR。"
         },
-        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。"
+        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。",
+        "eps_actual_display": "調整後EPS $1.78",
+        "eps_estimate_display": "$1.58（調整後共識；口徑待確認）",
+        "revenue_actual_display": "$4.56B",
+        "revenue_estimate_display": "$2.66B（Finviz共識；修正前顯示值不一致）",
+        "judgment": "調整後EPS $1.78、總營收$4.56B；EPS共識口徑未揭露，且資產管理業收入可能包含投資收益，營收可比性待核實，不判定beat/miss。",
+        "source_name": "KKR官方Q3 2026財報；共識值沿用Finviz W46資料庫",
+        "actual_source": {
+          "name": "KKR官方Q3 2026財報；共識值沿用Finviz W46資料庫",
+          "url": "https://media.kkr.com/news-details?news_id=7de02651-80a6-4c76-8c9e-09ca75b83478",
+          "observed_at": "2026-11-11T06:45:28+08:00"
+        }
       },
       {
         "id": "current-ttwo-20261109",
@@ -794,7 +816,7 @@
         "ticker": "TTWO",
         "event_date": "2026-11-10T05:30:00+08:00",
         "session": "after_market",
-        "status": "pending_verification",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：依公司規模、產業代表性、財報對全球／區域需求與同業定價的指標性評估；不採用外部網站原生星等。",
@@ -803,18 +825,18 @@
         "reporting_period": "FY2027 Q2",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "GAAP稀釋EPS -$0.29；共識口徑未揭露，不判定beat/miss。",
         "eps_estimate": 0.97,
-        "eps_actual": null,
+        "eps_actual": -0.29,
         "revenue_estimate": 1.64,
-        "revenue_actual": null,
+        "revenue_actual": 1.5,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "實績尚待核實；不得將預估值當作實際值。",
-        "stock_price_reaction": null,
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "營收$1.50B低於$1.64B共識約8.5%；GAAP稀釋EPS -$0.29，但共識口徑未揭露，不判定EPS beat/miss。",
+        "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
           "name": "Take-Two Investor Relations｜FY2027 Q2 Results Schedule",
@@ -849,7 +871,18 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 TTWO。"
         },
-        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。"
+        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。",
+        "eps_actual_display": "GAAP稀釋EPS -$0.29",
+        "eps_estimate_display": "-$0.97（Finviz共識；GAAP／調整後口徑未揭露）",
+        "revenue_actual_display": "$1.50B",
+        "revenue_estimate_display": "$1.64B",
+        "judgment": "營收$1.50B低於$1.64B共識約8.5%；GAAP稀釋EPS -$0.29，但共識口徑未揭露，不判定EPS beat/miss。",
+        "source_name": "Take-Two官方FY2027 Q2財報；共識值沿用Finviz W46資料庫",
+        "actual_source": {
+          "name": "Take-Two官方FY2027 Q2財報；共識值沿用Finviz W46資料庫",
+          "url": "https://taketwointeractivesoftwareinc.gcs-web.com/news-releases/news-release-details/take-two-interactive-software-inc-reports-results-fiscal-4/",
+          "observed_at": "2026-11-11T06:45:28+08:00"
+        }
       },
       {
         "id": "current-oxy-20261109",
@@ -857,7 +890,7 @@
         "ticker": "OXY",
         "event_date": "2026-11-10T12:00:00+08:00",
         "session": "after_market",
-        "status": "pending_verification",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：依公司規模、產業代表性、財報對全球／區域需求與同業定價的指標性評估；不採用外部網站原生星等。",
@@ -866,18 +899,18 @@
         "reporting_period": "2026 Q3",
         "time_known": false,
         "time_type": "release_date_only",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "調整後EPS $1.91；市場共識口徑未揭露，不判定beat/miss。",
         "eps_estimate": 1.45,
-        "eps_actual": null,
+        "eps_actual": 1.91,
         "revenue_estimate": 6.8,
-        "revenue_actual": null,
+        "revenue_actual": 6.77,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "實績尚待核實；不得將預估值當作實際值。",
-        "stock_price_reaction": null,
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "調整後EPS $1.91；營收$6.77B略低於$6.80B共識約0.4%。EPS共識口徑未揭露，不判定beat/miss。",
+        "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
           "name": "Occidental Investor Relations｜Q3 2026 Results Schedule",
@@ -912,7 +945,18 @@
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 OXY。"
         },
-        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。"
+        "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。",
+        "eps_actual_display": "調整後EPS $1.91",
+        "eps_estimate_display": "$1.45（調整後共識；口徑待確認）",
+        "revenue_actual_display": "$6.77B",
+        "revenue_estimate_display": "$6.80B",
+        "judgment": "調整後EPS $1.91；營收$6.77B略低於$6.80B共識約0.4%。EPS共識口徑未揭露，不判定beat/miss。",
+        "source_name": "Occidental官方Q3 2026財報；共識值沿用Finviz W46資料庫",
+        "actual_source": {
+          "name": "Occidental官方Q3 2026財報；共識值沿用Finviz W46資料庫",
+          "url": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
+          "observed_at": "2026-11-11T06:45:28+08:00"
+        }
       },
       {
         "id": "current-tdg-20261110",
@@ -3206,7 +3250,7 @@
         "https://www.bls.gov/news.release/archives/cpi_11102026.htm"
       ],
       "checked_at": "2026-11-11T06:38:33+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-11 05:25報告截點刷新：補入Barrick、Ferguson、Constellation Energy、monday.com四筆既有4星事件；更新CoreWeave、Mercury Systems、Rigetti已於截點前公布之Q3/Q1實績。對EPS共識口徑未揭露者不判定beat/miss；其餘已過發布時間但尚未取得發行人實績者維持pending_verification。"
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-11 05:25報告截點刷新：補入Barrick、Ferguson、Constellation Energy、monday.com四筆既有4星事件；更新CoreWeave、Mercury Systems、Rigetti已於截點前公布之Q3/Q1實績。對EPS共識口徑未揭露者不判定beat/miss；其餘已過發布時間但尚未取得發行人實績者維持pending_verification。；補正先前四筆已核實財報（NRG、KKR、TTWO、OXY）因資料庫狀態欄未同步而被錯列pending；已回填實績並統一EPS共識口徑判斷。"
     }
   },
   "audit": [
@@ -3718,6 +3762,30 @@
       },
       "source": "BLS; Federal Reserve Board; Bank of Canada; U.S. Treasury Fiscal Data API via YieldDocket; Barrick, Ferguson, Constellation Energy, monday.com, Mercury Systems and Rigetti official IR; Reuters",
       "note": "只補可追溯的實際值；EPS共識口徑不明者標示待核實，不推定beat/miss；新聞與行情仍採05:25台灣時間資料截點。"
+    },
+    {
+      "at": "2026-11-11T06:45:28+08:00",
+      "action": "reconcile_published_earnings_status",
+      "event_id": "current-nrg-20261109,current-kkr-20261109,current-ttwo-20261109,current-oxy-20261109",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "actual_source",
+        "financial_judgment",
+        "report_data.earnings.events"
+      ],
+      "before": {
+        "released_earnings": 7,
+        "pending_verification_earnings": 22,
+        "upcoming_earnings": 13
+      },
+      "after": {
+        "released_earnings": 11,
+        "pending_verification_earnings": 18,
+        "upcoming_earnings": 13
+      },
+      "note": "修正上一輪refresh將四筆舊報告已核實結果覆寫為pending的狀態錯誤；保留共識口徑未揭露的EPS為待核實，不推定beat/miss。"
     }
   ]
 }
