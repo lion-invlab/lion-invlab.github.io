@@ -1597,6 +1597,25 @@ def main():
     energy_text = soup.select_one("#tac-assets-panel-3 .market-reason")
     if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
         raise ValueError("Commodity commentary still conflicts with displayed settlement prices")
+    # FINAL regional observation render. Keep the three global-market tabs aligned
+    # with the fixture contract (2=US, 3=Asia, 4=Europe) after all earlier mutations.
+    final_region_observations = [
+        ("#tac-global-panel-0", "📌 美股觀察", 2),
+        ("#tac-global-panel-1", "📌 亞股觀察", 3),
+        ("#tac-global-panel-2", "📌 歐股觀察", 4),
+    ]
+    final_comments = data.get("market_comments", {}).get("global_markets", [])
+    for selector, heading, idx in final_region_observations:
+        panel = unique(soup, selector, heading + " final panel")
+        note = unique(panel, ".market-reason", heading + " final card")
+        value = final_comments[idx] if idx < len(final_comments) else ""
+        if not str(value).strip():
+            raise ValueError(heading + " final content missing from report data")
+        set_market_observation(note, heading, value)
+    for selector, heading, idx in final_region_observations:
+        rendered = unique(soup, selector, heading + " final panel").select_one(".market-reason")
+        if heading not in rendered.get_text(" ", strip=True) or len(rendered.get_text(" ", strip=True)) < len(heading) + 10:
+            raise ValueError(heading + " final observation failed DOM verification")
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
