@@ -35,6 +35,18 @@ class IncrementalTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 INC.merge_event_gzip(old,[event("2026-02-01","2026-02-05","20.0")],merged)
 
+    def test_initial_release_additive_merge_and_conflict_guard(self):
+        fields=INC.INITIAL_FIELDS
+        def row(date,value):
+            return {"series_id":"VIXCLS","observation_date":date,"value":value,"realtime_start":"2026-02-05","realtime_end":"9999-12-31","release_date":"","release_date_status":"exact_release_date_not_supplied_by_observations_endpoint","retrieved_at":"2026-02-20T00:00:00Z","source_method":"FRED API output_type=4 initial release only","license_status":"review_required_before_redistribution"}
+        with tempfile.TemporaryDirectory() as td:
+            old=Path(td)/"old.csv.gz";merged=Path(td)/"merged.csv.gz"
+            INC.write_gzip_csv(old,fields,[row("2026-02-01","19.8")])
+            added,_,count=INC.merge_initial_release(old,[row("2026-02-01","19.8"),row("2026-02-08","20.1")],merged)
+            self.assertEqual((added,count),(1,2))
+            with self.assertRaises(RuntimeError):
+                INC.merge_initial_release(old,[row("2026-02-01","20.0")],merged)
+
     def test_no_change_merge_is_byte_identical(self):
         with tempfile.TemporaryDirectory() as td:
             old=Path(td)/"old.csv.gz";merged=Path(td)/"merged.csv.gz"
