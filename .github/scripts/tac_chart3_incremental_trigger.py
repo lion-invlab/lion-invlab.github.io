@@ -11,3 +11,5 @@
 # Smoke-test revision 4: assert deterministic no-change chart dataset generation.
 
 # Smoke-test revision 5: deterministic chart builder syntax fix.
+
+# Smoke-test revision 6: verify full FRED observations pagination and truncation guard.
