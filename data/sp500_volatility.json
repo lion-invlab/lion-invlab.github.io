@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "S&P 500 90D Historical Volatility",
-    "updated_at": "2026-11-10T03:27:15.146135+00:00",
+    "updated_at": "2026-11-11T01:13:03.570732+00:00",
     "calculation": "std(log(Pt/Pt-1)) * sqrt(252)",
     "windows": [
       90,
@@ -17,7 +17,7 @@
   "summary": {
     "constituents": 503,
     "valid": 502,
-    "average_vol_90d": 0.36942829482733874,
+    "average_vol_90d": 0.3694282945709521,
     "median_vol_90d": 0.32552287668435353,
     "max_vol_90d": 1.9583597328257765,
     "min_vol_90d": 0.0288407638884463,
@@ -46,7 +46,7 @@
       "max_drawdown_90d": -0.12580123053332426,
       "vol_ratio_20d_90d": 1.468133160097052,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AOS",
@@ -54,15 +54,15 @@
       "company": "A. O. Smith",
       "sector": "Industrials",
       "price": 65.19999694824219,
-      "vol_90d": 0.30401478309767355,
+      "vol_90d": 0.30401482685019665,
       "vol_60d": 0.30110872855024456,
       "vol_30d": 0.3403120839840938,
       "vol_20d": 0.373213355526505,
-      "return_90d": 0.052132870049329316,
+      "return_90d": 0.0521329348163182,
       "max_drawdown_90d": -0.13504219663764505,
-      "vol_ratio_20d_90d": 1.2276158143487363,
+      "vol_ratio_20d_90d": 1.2276156376754805,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ABT",
@@ -78,7 +78,7 @@
       "max_drawdown_90d": -0.1712521962537622,
       "vol_ratio_20d_90d": 1.0857563754982973,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ABBV",
@@ -94,7 +94,7 @@
       "max_drawdown_90d": -0.07406000890245679,
       "vol_ratio_20d_90d": 1.160438584406549,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ACN",
@@ -102,15 +102,15 @@
       "company": "Accenture",
       "sector": "Information Technology",
       "price": 254.3699951171875,
-      "vol_90d": 0.5224707947769389,
+      "vol_90d": 0.5224707886888664,
       "vol_60d": 0.5497224277743592,
       "vol_30d": 0.6351879088511301,
       "vol_20d": 0.48621450149672046,
-      "return_90d": 0.8892878424976183,
+      "return_90d": 0.8892880566142964,
       "max_drawdown_90d": -0.10528208444718834,
-      "vol_ratio_20d_90d": 0.9306060862297623,
+      "vol_ratio_20d_90d": 0.930606097073617,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ADBE",
@@ -126,7 +126,7 @@
       "max_drawdown_90d": -0.21100451598438752,
       "vol_ratio_20d_90d": 0.915405222073417,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMD",
@@ -142,7 +142,7 @@
       "max_drawdown_90d": -0.377290498385494,
       "vol_ratio_20d_90d": 1.4997433663145674,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AES",
@@ -158,7 +158,7 @@
       "max_drawdown_90d": -0.00406505287530301,
       "vol_ratio_20d_90d": 1.1794406866341116,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AFL",
@@ -174,7 +174,7 @@
       "max_drawdown_90d": -0.13747637802918777,
       "vol_ratio_20d_90d": 1.0756973073127771,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "A",
@@ -190,7 +190,7 @@
       "max_drawdown_90d": -0.09987426850450065,
       "vol_ratio_20d_90d": 1.0762081656109457,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "APD",
@@ -206,7 +206,7 @@
       "max_drawdown_90d": -0.12435226929876242,
       "vol_ratio_20d_90d": 1.0745000556571498,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ABNB",
@@ -222,7 +222,7 @@
       "max_drawdown_90d": -0.21480313999446354,
       "vol_ratio_20d_90d": 1.1306002147436882,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AKAM",
@@ -238,7 +238,7 @@
       "max_drawdown_90d": -0.3990117837384809,
       "vol_ratio_20d_90d": 1.1735032271115036,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ALB",
@@ -254,7 +254,7 @@
       "max_drawdown_90d": -0.36828026689438687,
       "vol_ratio_20d_90d": 0.9773437699053852,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ARE",
@@ -270,7 +270,7 @@
       "max_drawdown_90d": -0.2809409859363732,
       "vol_ratio_20d_90d": 1.2237836487586031,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ALGN",
@@ -286,7 +286,7 @@
       "max_drawdown_90d": -0.25755084892859226,
       "vol_ratio_20d_90d": 1.1835368869659362,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ALLE",
@@ -302,7 +302,7 @@
       "max_drawdown_90d": -0.12137216128690742,
       "vol_ratio_20d_90d": 1.2747506079502486,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LNT",
@@ -318,7 +318,7 @@
       "max_drawdown_90d": -0.18376694328929943,
       "vol_ratio_20d_90d": 1.2039802886429467,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ALL",
@@ -334,7 +334,7 @@
       "max_drawdown_90d": -0.1902025866836663,
       "vol_ratio_20d_90d": 1.0737461079265787,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GOOGL",
@@ -350,7 +350,7 @@
       "max_drawdown_90d": -0.26077235611292937,
       "vol_ratio_20d_90d": 1.3800254161971583,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GOOG",
@@ -366,7 +366,7 @@
       "max_drawdown_90d": -0.25877043863440796,
       "vol_ratio_20d_90d": 1.3696844930228724,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MO",
@@ -382,7 +382,7 @@
       "max_drawdown_90d": -0.14628938629838117,
       "vol_ratio_20d_90d": 0.9901886769891918,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMZN",
@@ -398,7 +398,7 @@
       "max_drawdown_90d": -0.1537567234679884,
       "vol_ratio_20d_90d": 1.0783577305563912,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMCR",
@@ -414,7 +414,7 @@
       "max_drawdown_90d": -0.13865374633336625,
       "vol_ratio_20d_90d": 1.2831012663190928,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AEE",
@@ -430,7 +430,7 @@
       "max_drawdown_90d": -0.13142278984578315,
       "vol_ratio_20d_90d": 1.1796297083308078,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AEP",
@@ -446,7 +446,7 @@
       "max_drawdown_90d": -0.14471794976535723,
       "vol_ratio_20d_90d": 1.2025118909099066,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AXP",
@@ -462,7 +462,7 @@
       "max_drawdown_90d": -0.1648643674065906,
       "vol_ratio_20d_90d": 1.1151581603737764,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AIG",
@@ -478,7 +478,7 @@
       "max_drawdown_90d": -0.09619898247040515,
       "vol_ratio_20d_90d": 1.3009681155135688,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMT",
@@ -494,7 +494,7 @@
       "max_drawdown_90d": -0.09181441751112618,
       "vol_ratio_20d_90d": 1.0613167131741905,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AWK",
@@ -510,7 +510,7 @@
       "max_drawdown_90d": -0.09589042653671187,
       "vol_ratio_20d_90d": 1.2183787033974065,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMP",
@@ -526,7 +526,7 @@
       "max_drawdown_90d": -0.158179662117387,
       "vol_ratio_20d_90d": 1.297897306515962,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AME",
@@ -542,7 +542,7 @@
       "max_drawdown_90d": -0.13617911216363066,
       "vol_ratio_20d_90d": 1.5632024189865068,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMGN",
@@ -558,7 +558,7 @@
       "max_drawdown_90d": -0.15417004857580507,
       "vol_ratio_20d_90d": 0.9234189416382786,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "APH",
@@ -574,7 +574,7 @@
       "max_drawdown_90d": -0.19160463586860466,
       "vol_ratio_20d_90d": 1.4886537787295184,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ADI",
@@ -590,7 +590,7 @@
       "max_drawdown_90d": -0.1667974271078333,
       "vol_ratio_20d_90d": 1.6013608571227882,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AON",
@@ -598,15 +598,15 @@
       "company": "Aon plc",
       "sector": "Financials",
       "price": 335.7699890136719,
-      "vol_90d": 0.3300045880660348,
+      "vol_90d": 0.3300046367761319,
       "vol_60d": 0.3641756447995163,
       "vol_30d": 0.3147332935690756,
       "vol_20d": 0.344933282500341,
       "return_90d": -0.05613092216667348,
-      "max_drawdown_90d": -0.2916533820640975,
-      "vol_ratio_20d_90d": 1.045237839030647,
+      "max_drawdown_90d": -0.2916534390374731,
+      "vol_ratio_20d_90d": 1.0452376847490672,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "APA",
@@ -622,7 +622,7 @@
       "max_drawdown_90d": -0.17682696339551685,
       "vol_ratio_20d_90d": 1.140844151104419,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "APO",
@@ -638,7 +638,7 @@
       "max_drawdown_90d": -0.22518505711797554,
       "vol_ratio_20d_90d": 1.3711783064809362,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AAPL",
@@ -654,7 +654,7 @@
       "max_drawdown_90d": -0.11047195570954838,
       "vol_ratio_20d_90d": 1.0239882920752286,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AMAT",
@@ -670,7 +670,7 @@
       "max_drawdown_90d": -0.47003283702071386,
       "vol_ratio_20d_90d": 1.3196542252273815,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "APP",
@@ -686,7 +686,7 @@
       "max_drawdown_90d": -0.5798010091526362,
       "vol_ratio_20d_90d": 1.4866424499501352,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "APTV",
@@ -702,7 +702,7 @@
       "max_drawdown_90d": -0.3488525866695822,
       "vol_ratio_20d_90d": 0.9417395526572442,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ACGL",
@@ -718,7 +718,7 @@
       "max_drawdown_90d": -0.13260708397284804,
       "vol_ratio_20d_90d": 1.1879332384114871,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ADM",
@@ -734,7 +734,7 @@
       "max_drawdown_90d": -0.20717448925752802,
       "vol_ratio_20d_90d": 1.0655428595323009,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ARES",
@@ -750,7 +750,7 @@
       "max_drawdown_90d": -0.24084029659711914,
       "vol_ratio_20d_90d": 1.147598297645081,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ANET",
@@ -766,7 +766,7 @@
       "max_drawdown_90d": -0.2656639308467248,
       "vol_ratio_20d_90d": 1.4266109266418256,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AJG",
@@ -782,7 +782,7 @@
       "max_drawdown_90d": -0.16646144628003412,
       "vol_ratio_20d_90d": 1.1527699971544314,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AIZ",
@@ -798,7 +798,7 @@
       "max_drawdown_90d": -0.12899431685009743,
       "vol_ratio_20d_90d": 1.0170293920362699,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "T",
@@ -814,7 +814,7 @@
       "max_drawdown_90d": -0.21654176274822357,
       "vol_ratio_20d_90d": 1.290144341458743,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ATO",
@@ -830,7 +830,7 @@
       "max_drawdown_90d": -0.12433389745003232,
       "vol_ratio_20d_90d": 1.2746607768035754,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ADSK",
@@ -846,7 +846,7 @@
       "max_drawdown_90d": -0.24909452746418626,
       "vol_ratio_20d_90d": 0.9874323506460425,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ADP",
@@ -862,7 +862,7 @@
       "max_drawdown_90d": -0.09792301287968974,
       "vol_ratio_20d_90d": 1.0698397477597246,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AZO",
@@ -878,7 +878,7 @@
       "max_drawdown_90d": -0.11624483951862119,
       "vol_ratio_20d_90d": 1.068706749720661,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AVY",
@@ -894,7 +894,7 @@
       "max_drawdown_90d": -0.08583988008742482,
       "vol_ratio_20d_90d": 0.9847941768144839,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AXON",
@@ -910,7 +910,7 @@
       "max_drawdown_90d": -0.5304775964329425,
       "vol_ratio_20d_90d": 1.2190771473988062,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BKR",
@@ -926,7 +926,7 @@
       "max_drawdown_90d": -0.2881355982015319,
       "vol_ratio_20d_90d": 1.5004818769618846,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BALL",
@@ -942,7 +942,7 @@
       "max_drawdown_90d": -0.1596872153746871,
       "vol_ratio_20d_90d": 1.5636455755871899,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BAC",
@@ -958,7 +958,7 @@
       "max_drawdown_90d": -0.23357283277653906,
       "vol_ratio_20d_90d": 1.3095937649309746,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BAX",
@@ -974,7 +974,7 @@
       "max_drawdown_90d": -0.19545696872484697,
       "vol_ratio_20d_90d": 1.2722796777790073,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BDX",
@@ -990,7 +990,7 @@
       "max_drawdown_90d": -0.07572717011868835,
       "vol_ratio_20d_90d": 1.0181912391129742,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BRK.B",
@@ -1006,7 +1006,7 @@
       "max_drawdown_90d": -0.06346563535672112,
       "vol_ratio_20d_90d": 1.2687767311751612,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BBY",
@@ -1022,7 +1022,7 @@
       "max_drawdown_90d": -0.11256514600331258,
       "vol_ratio_20d_90d": 1.3244960340688057,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TECH",
@@ -1038,7 +1038,7 @@
       "max_drawdown_90d": -0.007210200397015365,
       "vol_ratio_20d_90d": 0.4848379063388938,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BIIB",
@@ -1054,7 +1054,7 @@
       "max_drawdown_90d": -0.111836011081897,
       "vol_ratio_20d_90d": 1.045229451162038,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BLK",
@@ -1070,7 +1070,7 @@
       "max_drawdown_90d": -0.11859338746137071,
       "vol_ratio_20d_90d": 1.2803129421598616,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BX",
@@ -1078,15 +1078,15 @@
       "company": "Blackstone Inc.",
       "sector": "Financials",
       "price": 124.05000305175781,
-      "vol_90d": 0.3866536878559102,
+      "vol_90d": 0.386653743547107,
       "vol_60d": 0.38645888979837295,
       "vol_30d": 0.4410811071475135,
       "vol_20d": 0.5308855780510328,
       "return_90d": 0.030387971174326678,
       "max_drawdown_90d": -0.2887088193321754,
-      "vol_ratio_20d_90d": 1.3730260300759676,
+      "vol_ratio_20d_90d": 1.3730258323138507,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "XYZ",
@@ -1102,7 +1102,7 @@
       "max_drawdown_90d": -0.13600472743729042,
       "vol_ratio_20d_90d": 1.4549851070338398,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BE",
@@ -1118,7 +1118,7 @@
       "max_drawdown_90d": -0.44500929749266616,
       "vol_ratio_20d_90d": 1.1363686785533678,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BNY",
@@ -1126,15 +1126,15 @@
       "company": "BNY Mellon",
       "sector": "Financials",
       "price": 151.22999572753906,
-      "vol_90d": 0.22319768428273698,
+      "vol_90d": 0.22319775484956772,
       "vol_60d": 0.2092959044566772,
       "vol_30d": 0.22682874114245835,
       "vol_20d": 0.2576435101245069,
-      "return_90d": 0.04005766223037854,
+      "return_90d": 0.040057771373660955,
       "max_drawdown_90d": -0.16500844543712112,
-      "vol_ratio_20d_90d": 1.1543287778834457,
+      "vol_ratio_20d_90d": 1.1543284129276083,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BA",
@@ -1150,7 +1150,7 @@
       "max_drawdown_90d": -0.30413423668446893,
       "vol_ratio_20d_90d": 1.2778735997945532,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BKNG",
@@ -1166,7 +1166,7 @@
       "max_drawdown_90d": -0.3083794168995634,
       "vol_ratio_20d_90d": 1.2136872873542597,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BSX",
@@ -1182,7 +1182,7 @@
       "max_drawdown_90d": -0.2005382970020263,
       "vol_ratio_20d_90d": 1.2690886025793593,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BMY",
@@ -1198,7 +1198,7 @@
       "max_drawdown_90d": -0.1590994846833127,
       "vol_ratio_20d_90d": 1.2749367214268352,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "AVGO",
@@ -1214,7 +1214,7 @@
       "max_drawdown_90d": -0.317231946396641,
       "vol_ratio_20d_90d": 1.4136553603034787,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BR",
@@ -1230,7 +1230,7 @@
       "max_drawdown_90d": -0.14857608732726169,
       "vol_ratio_20d_90d": 0.9452244301574279,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BRO",
@@ -1246,7 +1246,7 @@
       "max_drawdown_90d": -0.19796062727182062,
       "vol_ratio_20d_90d": 1.3027425047365282,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BF.B",
@@ -1262,7 +1262,7 @@
       "max_drawdown_90d": -0.12062974223411005,
       "vol_ratio_20d_90d": 1.2902969628957672,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BG",
@@ -1278,7 +1278,7 @@
       "max_drawdown_90d": -0.24375949923638696,
       "vol_ratio_20d_90d": 0.8995714174934692,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BXP",
@@ -1294,7 +1294,7 @@
       "max_drawdown_90d": -0.20019153259068057,
       "vol_ratio_20d_90d": 1.2956429298223973,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CHRW",
@@ -1310,7 +1310,7 @@
       "max_drawdown_90d": -0.4024091139762931,
       "vol_ratio_20d_90d": 1.0223232603656114,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CDNS",
@@ -1326,7 +1326,7 @@
       "max_drawdown_90d": -0.29016716468421677,
       "vol_ratio_20d_90d": 1.1864970780670379,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CPT",
@@ -1342,7 +1342,7 @@
       "max_drawdown_90d": -0.17636854868279428,
       "vol_ratio_20d_90d": 1.3305891249500732,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COF",
@@ -1358,7 +1358,7 @@
       "max_drawdown_90d": -0.14774427012381686,
       "vol_ratio_20d_90d": 0.9649114196988416,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CAH",
@@ -1374,7 +1374,7 @@
       "max_drawdown_90d": -0.11419491212614852,
       "vol_ratio_20d_90d": 1.0787420442601916,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CCL",
@@ -1390,7 +1390,7 @@
       "max_drawdown_90d": -0.26174163343483714,
       "vol_ratio_20d_90d": 1.1314992036865124,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CARR",
@@ -1398,15 +1398,15 @@
       "company": "Carrier Global",
       "sector": "Industrials",
       "price": 53.33000183105469,
-      "vol_90d": 0.30392527048860296,
+      "vol_90d": 0.30392517335492025,
       "vol_60d": 0.24425414743361382,
       "vol_30d": 0.2611559030798916,
       "vol_20d": 0.3008868052413299,
       "return_90d": -0.23289518808420506,
-      "max_drawdown_90d": -0.24688260221362535,
-      "vol_ratio_20d_90d": 0.9900025909580065,
+      "max_drawdown_90d": -0.2468825196003236,
+      "vol_ratio_20d_90d": 0.9900029073602199,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CVNA",
@@ -1422,7 +1422,7 @@
       "max_drawdown_90d": -0.25287048807686785,
       "vol_ratio_20d_90d": 1.2431919591982936,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CASY",
@@ -1438,7 +1438,7 @@
       "max_drawdown_90d": -0.33131271825828146,
       "vol_ratio_20d_90d": 0.6905400587504102,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CAT",
@@ -1454,7 +1454,7 @@
       "max_drawdown_90d": -0.426771011246194,
       "vol_ratio_20d_90d": 1.4206005606053531,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CBOE",
@@ -1470,7 +1470,7 @@
       "max_drawdown_90d": -0.1910702254485226,
       "vol_ratio_20d_90d": 1.0685160322473788,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CBRE",
@@ -1486,7 +1486,7 @@
       "max_drawdown_90d": -0.21551560082450794,
       "vol_ratio_20d_90d": 1.2936218341454526,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CDW",
@@ -1502,7 +1502,7 @@
       "max_drawdown_90d": -0.16735963366216589,
       "vol_ratio_20d_90d": 1.2637930580517183,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COR",
@@ -1518,7 +1518,7 @@
       "max_drawdown_90d": -0.10963169766584235,
       "vol_ratio_20d_90d": 1.1214154532593061,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CNC",
@@ -1534,7 +1534,7 @@
       "max_drawdown_90d": -0.12130819103009238,
       "vol_ratio_20d_90d": 1.4266458048654513,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CNP",
@@ -1550,7 +1550,7 @@
       "max_drawdown_90d": -0.17420211130144214,
       "vol_ratio_20d_90d": 1.2489658916620454,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CF",
@@ -1566,7 +1566,7 @@
       "max_drawdown_90d": -0.19910966113481254,
       "vol_ratio_20d_90d": 1.0235800023892365,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CRL",
@@ -1582,7 +1582,7 @@
       "max_drawdown_90d": -0.1677213934223707,
       "vol_ratio_20d_90d": 1.444566581384603,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SCHW",
@@ -1598,7 +1598,7 @@
       "max_drawdown_90d": -0.22525295319324556,
       "vol_ratio_20d_90d": 1.1211623790706862,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CHTR",
@@ -1614,7 +1614,7 @@
       "max_drawdown_90d": -0.357237217584744,
       "vol_ratio_20d_90d": 1.04520314633884,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CVX",
@@ -1630,7 +1630,7 @@
       "max_drawdown_90d": -0.10504417902669372,
       "vol_ratio_20d_90d": 1.1413258380806426,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CMG",
@@ -1646,7 +1646,7 @@
       "max_drawdown_90d": -0.28556593637794103,
       "vol_ratio_20d_90d": 1.0084339470136092,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CB",
@@ -1662,7 +1662,7 @@
       "max_drawdown_90d": -0.10252394593346492,
       "vol_ratio_20d_90d": 1.005408554229269,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CHD",
@@ -1678,7 +1678,7 @@
       "max_drawdown_90d": -0.09082938523180262,
       "vol_ratio_20d_90d": 1.2440007690186838,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CIEN",
@@ -1694,7 +1694,7 @@
       "max_drawdown_90d": -0.5007786490747135,
       "vol_ratio_20d_90d": 1.320496853486806,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CI",
@@ -1710,7 +1710,7 @@
       "max_drawdown_90d": -0.12323757470325047,
       "vol_ratio_20d_90d": 1.1498522505273456,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CINF",
@@ -1726,7 +1726,7 @@
       "max_drawdown_90d": -0.1653464035479646,
       "vol_ratio_20d_90d": 0.9641274775184253,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CTAS",
@@ -1742,7 +1742,7 @@
       "max_drawdown_90d": -0.11112233703833674,
       "vol_ratio_20d_90d": 1.0870216030071622,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CSCO",
@@ -1758,7 +1758,7 @@
       "max_drawdown_90d": -0.23947505007111503,
       "vol_ratio_20d_90d": 1.1884450090772913,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "C",
@@ -1774,7 +1774,7 @@
       "max_drawdown_90d": -0.16789805030982718,
       "vol_ratio_20d_90d": 1.2152816198345822,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CFG",
@@ -1782,15 +1782,15 @@
       "company": "Citizens Financial Group",
       "sector": "Financials",
       "price": 65.0999984741211,
-      "vol_90d": 0.24431253153525403,
+      "vol_90d": 0.24431257013918706,
       "vol_60d": 0.23106863402287692,
       "vol_30d": 0.21901155722610757,
       "vol_20d": 0.24614913726529314,
-      "return_90d": -0.0695278409279263,
+      "return_90d": -0.06952773946300828,
       "max_drawdown_90d": -0.16271915489861855,
-      "vol_ratio_20d_90d": 1.0075174438187755,
+      "vol_ratio_20d_90d": 1.007517284620516,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CLX",
@@ -1806,7 +1806,7 @@
       "max_drawdown_90d": -0.2547729400794402,
       "vol_ratio_20d_90d": 1.1169156279860044,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CME",
@@ -1822,7 +1822,7 @@
       "max_drawdown_90d": -0.08113170972724004,
       "vol_ratio_20d_90d": 1.1181320847424876,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CMS",
@@ -1838,7 +1838,7 @@
       "max_drawdown_90d": -0.18814883634264556,
       "vol_ratio_20d_90d": 1.2752945465095278,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KO",
@@ -1854,7 +1854,7 @@
       "max_drawdown_90d": -0.06336460702805458,
       "vol_ratio_20d_90d": 1.0584680923658043,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CTSH",
@@ -1870,7 +1870,7 @@
       "max_drawdown_90d": -0.1519262151042139,
       "vol_ratio_20d_90d": 1.0867570215292917,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COHR",
@@ -1886,7 +1886,7 @@
       "max_drawdown_90d": -0.5522380388771708,
       "vol_ratio_20d_90d": 1.205975705206174,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COIN",
@@ -1902,7 +1902,7 @@
       "max_drawdown_90d": -0.32978569852270456,
       "vol_ratio_20d_90d": 1.0168416259831674,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CL",
@@ -1918,7 +1918,7 @@
       "max_drawdown_90d": -0.10918685907744874,
       "vol_ratio_20d_90d": 1.3882381690550099,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CMCSA",
@@ -1934,7 +1934,7 @@
       "max_drawdown_90d": -0.22863459052713297,
       "vol_ratio_20d_90d": 1.020920075810539,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FIX",
@@ -1950,7 +1950,7 @@
       "max_drawdown_90d": -0.48705601011561694,
       "vol_ratio_20d_90d": 1.5536917496194773,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COP",
@@ -1966,7 +1966,7 @@
       "max_drawdown_90d": -0.12698823419858918,
       "vol_ratio_20d_90d": 1.146055430987797,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ED",
@@ -1982,7 +1982,7 @@
       "max_drawdown_90d": -0.0959883881585939,
       "vol_ratio_20d_90d": 1.3892226045185594,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "STZ",
@@ -1998,7 +1998,7 @@
       "max_drawdown_90d": -0.18975420547063426,
       "vol_ratio_20d_90d": 1.2141668512464874,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CEG",
@@ -2014,7 +2014,7 @@
       "max_drawdown_90d": -0.20223036362954794,
       "vol_ratio_20d_90d": 1.300906280252467,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COO",
@@ -2030,7 +2030,7 @@
       "max_drawdown_90d": -0.3065607827468819,
       "vol_ratio_20d_90d": 0.8920065049651119,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CPRT",
@@ -2046,7 +2046,7 @@
       "max_drawdown_90d": -0.23478010321572407,
       "vol_ratio_20d_90d": 1.0125891490626409,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GLW",
@@ -2062,7 +2062,7 @@
       "max_drawdown_90d": -0.47342465657649313,
       "vol_ratio_20d_90d": 1.0440419571090016,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CPAY",
@@ -2078,7 +2078,7 @@
       "max_drawdown_90d": -0.08616307255266586,
       "vol_ratio_20d_90d": 1.27846172772885,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CSGP",
@@ -2094,7 +2094,7 @@
       "max_drawdown_90d": -0.22313116155646107,
       "vol_ratio_20d_90d": 1.4783067656548163,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "COST",
@@ -2110,7 +2110,7 @@
       "max_drawdown_90d": -0.08243072651094863,
       "vol_ratio_20d_90d": 1.168947313423,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CRH",
@@ -2126,7 +2126,7 @@
       "max_drawdown_90d": -0.26085321029910846,
       "vol_ratio_20d_90d": 1.2889844711378726,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CRWD",
@@ -2142,7 +2142,7 @@
       "max_drawdown_90d": -0.2221903274396444,
       "vol_ratio_20d_90d": 0.9870217965804515,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CCI",
@@ -2158,7 +2158,7 @@
       "max_drawdown_90d": -0.15980192358422218,
       "vol_ratio_20d_90d": 1.11926303906986,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CSX",
@@ -2174,7 +2174,7 @@
       "max_drawdown_90d": -0.1336482361201765,
       "vol_ratio_20d_90d": 1.423838749732559,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CMI",
@@ -2190,7 +2190,7 @@
       "max_drawdown_90d": -0.3361498770444604,
       "vol_ratio_20d_90d": 1.290236000803769,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CVS",
@@ -2198,15 +2198,15 @@
       "company": "CVS Health",
       "sector": "Health Care",
       "price": 85.25,
-      "vol_90d": 0.35176565825614253,
+      "vol_90d": 0.3517656227620136,
       "vol_60d": 0.3807438096280641,
       "vol_30d": 0.47285015662392627,
       "vol_20d": 0.5648822553379776,
       "return_90d": -0.17501384711865497,
-      "max_drawdown_90d": -0.2673448425823338,
-      "vol_ratio_20d_90d": 1.6058482176411082,
+      "max_drawdown_90d": -0.2673448937996108,
+      "vol_ratio_20d_90d": 1.605848379675656,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DHR",
@@ -2222,7 +2222,7 @@
       "max_drawdown_90d": -0.1268231098855207,
       "vol_ratio_20d_90d": 0.8576904643360137,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DRI",
@@ -2238,7 +2238,7 @@
       "max_drawdown_90d": -0.15122095345979547,
       "vol_ratio_20d_90d": 0.945869444700427,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DDOG",
@@ -2254,7 +2254,7 @@
       "max_drawdown_90d": -0.40462388225705614,
       "vol_ratio_20d_90d": 1.2666659813981178,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DVA",
@@ -2270,7 +2270,7 @@
       "max_drawdown_90d": -0.27863544787071315,
       "vol_ratio_20d_90d": 1.0709643895131034,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DECK",
@@ -2286,7 +2286,7 @@
       "max_drawdown_90d": -0.2890947170133471,
       "vol_ratio_20d_90d": 1.1389664987973154,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DE",
@@ -2302,7 +2302,7 @@
       "max_drawdown_90d": -0.1227212850003725,
       "vol_ratio_20d_90d": 0.7702670061701127,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DELL",
@@ -2310,15 +2310,15 @@
       "company": "Dell Technologies",
       "sector": "Information Technology",
       "price": 346.30999755859375,
-      "vol_90d": 0.8472148177179415,
+      "vol_90d": 0.847214829178124,
       "vol_60d": 0.8487002573374998,
       "vol_30d": 0.9004743423743434,
       "vol_20d": 1.0490080544970506,
-      "return_90d": -0.11908413017378316,
+      "return_90d": -0.11908406178987185,
       "max_drawdown_90d": -0.46065772238732483,
-      "vol_ratio_20d_90d": 1.238184262785511,
+      "vol_ratio_20d_90d": 1.2381842460367278,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DAL",
@@ -2334,7 +2334,7 @@
       "max_drawdown_90d": -0.19647927603231297,
       "vol_ratio_20d_90d": 1.4027360725240383,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DVN",
@@ -2350,7 +2350,7 @@
       "max_drawdown_90d": -0.1906040680837492,
       "vol_ratio_20d_90d": 1.2320058903845246,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DXCM",
@@ -2366,7 +2366,7 @@
       "max_drawdown_90d": -0.15594535918966146,
       "vol_ratio_20d_90d": 1.2648151519307669,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FANG",
@@ -2382,7 +2382,7 @@
       "max_drawdown_90d": -0.15989250928582355,
       "vol_ratio_20d_90d": 1.1269834229948186,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DLR",
@@ -2398,7 +2398,7 @@
       "max_drawdown_90d": -0.14008421594634635,
       "vol_ratio_20d_90d": 1.1238452031785886,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DG",
@@ -2414,7 +2414,7 @@
       "max_drawdown_90d": -0.10719925579759093,
       "vol_ratio_20d_90d": 1.3822240667058523,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DLTR",
@@ -2430,7 +2430,7 @@
       "max_drawdown_90d": -0.18127971419032796,
       "vol_ratio_20d_90d": 1.4933302932848416,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "D",
@@ -2446,7 +2446,7 @@
       "max_drawdown_90d": -0.15066294024244686,
       "vol_ratio_20d_90d": 1.543786161475548,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DPZ",
@@ -2462,7 +2462,7 @@
       "max_drawdown_90d": -0.20042784865062802,
       "vol_ratio_20d_90d": 1.0215705657375698,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DASH",
@@ -2478,7 +2478,7 @@
       "max_drawdown_90d": -0.28907268961974686,
       "vol_ratio_20d_90d": 1.4314276840672115,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DOV",
@@ -2494,7 +2494,7 @@
       "max_drawdown_90d": -0.1421864198722268,
       "vol_ratio_20d_90d": 1.1869682922593416,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DOW",
@@ -2510,7 +2510,7 @@
       "max_drawdown_90d": -0.1532037627850239,
       "vol_ratio_20d_90d": 1.0342176552922764,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DHI",
@@ -2526,7 +2526,7 @@
       "max_drawdown_90d": -0.1572993811700344,
       "vol_ratio_20d_90d": 1.3899986489933536,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DTE",
@@ -2542,7 +2542,7 @@
       "max_drawdown_90d": -0.20852059889530727,
       "vol_ratio_20d_90d": 1.1889232554913274,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DUK",
@@ -2558,7 +2558,7 @@
       "max_drawdown_90d": -0.12484261501781768,
       "vol_ratio_20d_90d": 1.287927787681318,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DD",
@@ -2574,7 +2574,7 @@
       "max_drawdown_90d": -0.1529021283446218,
       "vol_ratio_20d_90d": 1.4750197303720485,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ETN",
@@ -2590,7 +2590,7 @@
       "max_drawdown_90d": -0.2890251432974683,
       "vol_ratio_20d_90d": 1.415909603900195,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EBAY",
@@ -2606,7 +2606,7 @@
       "max_drawdown_90d": -0.14049730240315716,
       "vol_ratio_20d_90d": 1.0625170816941814,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ECHO",
@@ -2622,7 +2622,7 @@
       "max_drawdown_90d": -0.17349754295912867,
       "vol_ratio_20d_90d": 1.4745788895088527,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ECL",
@@ -2638,7 +2638,7 @@
       "max_drawdown_90d": -0.07253623263430531,
       "vol_ratio_20d_90d": 1.1765410968289831,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EIX",
@@ -2654,7 +2654,7 @@
       "max_drawdown_90d": -0.3596665565530953,
       "vol_ratio_20d_90d": 0.3480838921753249,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EW",
@@ -2670,7 +2670,7 @@
       "max_drawdown_90d": -0.1318554634536533,
       "vol_ratio_20d_90d": 1.0534435229294201,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ELV",
@@ -2686,7 +2686,7 @@
       "max_drawdown_90d": -0.126385324115877,
       "vol_ratio_20d_90d": 0.925929600855081,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EME",
@@ -2694,15 +2694,15 @@
       "company": "Emcor",
       "sector": "Industrials",
       "price": 652.8900146484375,
-      "vol_90d": 0.5182043666573763,
+      "vol_90d": 0.5182043877580389,
       "vol_60d": 0.47058629604359287,
       "vol_30d": 0.5610316809048842,
       "vol_20d": 0.6129471712909187,
       "return_90d": -0.15630332776282174,
       "max_drawdown_90d": -0.30943529758102206,
-      "vol_ratio_20d_90d": 1.1828290356653515,
+      "vol_ratio_20d_90d": 1.1828289875019686,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EMR",
@@ -2718,7 +2718,7 @@
       "max_drawdown_90d": -0.10983972464508118,
       "vol_ratio_20d_90d": 1.1388391451527589,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ETR",
@@ -2734,7 +2734,7 @@
       "max_drawdown_90d": -0.14889507355629727,
       "vol_ratio_20d_90d": 0.9978853998454033,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EOG",
@@ -2742,15 +2742,15 @@
       "company": "EOG Resources",
       "sector": "Energy",
       "price": 148.42999267578125,
-      "vol_90d": 0.33781980944480916,
+      "vol_90d": 0.33781993500338103,
       "vol_60d": 0.30581653753210997,
       "vol_30d": 0.3244555091504808,
       "vol_20d": 0.36190428635643507,
       "return_90d": 0.1510754011454536,
       "max_drawdown_90d": -0.12474323265672271,
-      "vol_ratio_20d_90d": 1.071293856186846,
+      "vol_ratio_20d_90d": 1.071293458015771,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EQT",
@@ -2758,15 +2758,15 @@
       "company": "EQT Corporation",
       "sector": "Energy",
       "price": 49.90999984741211,
-      "vol_90d": 0.2951573336888389,
+      "vol_90d": 0.2951572770452477,
       "vol_60d": 0.2740455321130608,
       "vol_30d": 0.3117324851551214,
       "vol_20d": 0.3326808372992629,
       "return_90d": -0.04535391006225309,
       "max_drawdown_90d": -0.12896861092431455,
-      "vol_ratio_20d_90d": 1.1271305142293435,
+      "vol_ratio_20d_90d": 1.1271307305368006,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EFX",
@@ -2782,7 +2782,7 @@
       "max_drawdown_90d": -0.2928295346337101,
       "vol_ratio_20d_90d": 1.271159572141977,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EQIX",
@@ -2798,7 +2798,7 @@
       "max_drawdown_90d": -0.13150196929042113,
       "vol_ratio_20d_90d": 1.3501487295936023,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ERIE",
@@ -2814,7 +2814,7 @@
       "max_drawdown_90d": -0.18493149901664419,
       "vol_ratio_20d_90d": 0.8998884375350472,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ESS",
@@ -2830,7 +2830,7 @@
       "max_drawdown_90d": -0.11535767750655568,
       "vol_ratio_20d_90d": 1.3160291858524162,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EL",
@@ -2846,7 +2846,7 @@
       "max_drawdown_90d": -0.14794879353727797,
       "vol_ratio_20d_90d": 1.01681963393321,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EG",
@@ -2862,7 +2862,7 @@
       "max_drawdown_90d": -0.08786050431162196,
       "vol_ratio_20d_90d": 1.1880158239851781,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EVRG",
@@ -2878,7 +2878,7 @@
       "max_drawdown_90d": -0.11144387058275329,
       "vol_ratio_20d_90d": 1.147019701379566,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "P",
@@ -2894,7 +2894,7 @@
       "max_drawdown_90d": -0.40472700697741837,
       "vol_ratio_20d_90d": 1.3410412485830867,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ES",
@@ -2910,7 +2910,7 @@
       "max_drawdown_90d": -0.15074937017069,
       "vol_ratio_20d_90d": 1.3567980671573738,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EXC",
@@ -2926,7 +2926,7 @@
       "max_drawdown_90d": -0.15240666184511764,
       "vol_ratio_20d_90d": 1.2721130434836483,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EXE",
@@ -2942,7 +2942,7 @@
       "max_drawdown_90d": -0.15893185122543807,
       "vol_ratio_20d_90d": 1.0152723561696524,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EXPE",
@@ -2958,7 +2958,7 @@
       "max_drawdown_90d": -0.2355935571343153,
       "vol_ratio_20d_90d": 1.5273653094290274,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EXPD",
@@ -2974,7 +2974,7 @@
       "max_drawdown_90d": -0.09642208988129641,
       "vol_ratio_20d_90d": 1.1037897388928517,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "EXR",
@@ -2990,7 +2990,7 @@
       "max_drawdown_90d": -0.12949775805225572,
       "vol_ratio_20d_90d": 1.0574550554747857,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "XOM",
@@ -3006,7 +3006,7 @@
       "max_drawdown_90d": -0.12026704551381007,
       "vol_ratio_20d_90d": 1.204777856704687,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FFIV",
@@ -3022,7 +3022,7 @@
       "max_drawdown_90d": -0.35218722248181955,
       "vol_ratio_20d_90d": 1.6532419833641134,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FDS",
@@ -3038,7 +3038,7 @@
       "max_drawdown_90d": -0.1717110458745742,
       "vol_ratio_20d_90d": 0.9338927831402707,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FICO",
@@ -3054,7 +3054,7 @@
       "max_drawdown_90d": -0.5685102181481936,
       "vol_ratio_20d_90d": 0.7281028235522341,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FAST",
@@ -3062,15 +3062,15 @@
       "company": "Fastenal",
       "sector": "Industrials",
       "price": 54.56999969482422,
-      "vol_90d": 0.22269768423041972,
+      "vol_90d": 0.2226976267660629,
       "vol_60d": 0.20172952227543953,
       "vol_30d": 0.2165976899188162,
       "vol_20d": 0.2344222989065684,
       "return_90d": 0.13472429595516244,
       "max_drawdown_90d": -0.08495607622043522,
-      "vol_ratio_20d_90d": 1.052648121226162,
+      "vol_ratio_20d_90d": 1.0526483928489365,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FRT",
@@ -3086,7 +3086,7 @@
       "max_drawdown_90d": -0.16695948385556336,
       "vol_ratio_20d_90d": 1.3843102640642404,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FDX",
@@ -3102,7 +3102,7 @@
       "max_drawdown_90d": -0.1730148538262375,
       "vol_ratio_20d_90d": 1.2089606006221159,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FDXF",
@@ -3134,7 +3134,7 @@
       "max_drawdown_90d": -0.18470175923469023,
       "vol_ratio_20d_90d": 1.4039810503776637,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FIS",
@@ -3150,7 +3150,7 @@
       "max_drawdown_90d": -0.3875783398844297,
       "vol_ratio_20d_90d": 1.8131014853620722,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FITB",
@@ -3166,7 +3166,7 @@
       "max_drawdown_90d": -0.15694051593486413,
       "vol_ratio_20d_90d": 1.1302313472605943,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FSLR",
@@ -3182,7 +3182,7 @@
       "max_drawdown_90d": -0.327534525717726,
       "vol_ratio_20d_90d": 0.9301172423051679,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FE",
@@ -3190,15 +3190,15 @@
       "company": "FirstEnergy",
       "sector": "Utilities",
       "price": 46.619998931884766,
-      "vol_90d": 0.1516207188021108,
+      "vol_90d": 0.1516206998830209,
       "vol_60d": 0.14688407700036732,
       "vol_30d": 0.13659097021991823,
       "vol_20d": 0.1493037241948686,
       "return_90d": -0.020160029171140792,
       "max_drawdown_90d": -0.12967774661605347,
-      "vol_ratio_20d_90d": 0.9847184828989878,
+      "vol_ratio_20d_90d": 0.9847186057712441,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FISV",
@@ -3214,7 +3214,7 @@
       "max_drawdown_90d": -0.20473285082221837,
       "vol_ratio_20d_90d": 1.2566262684835507,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FLEX",
@@ -3230,7 +3230,7 @@
       "max_drawdown_90d": -0.5231527640934989,
       "vol_ratio_20d_90d": 1.5700724668300876,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "F",
@@ -3246,7 +3246,7 @@
       "max_drawdown_90d": -0.23393878354184527,
       "vol_ratio_20d_90d": 0.9639820204603381,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FTNT",
@@ -3262,7 +3262,7 @@
       "max_drawdown_90d": -0.3897817903060815,
       "vol_ratio_20d_90d": 1.548941122108297,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FTV",
@@ -3278,7 +3278,7 @@
       "max_drawdown_90d": -0.14844187080387927,
       "vol_ratio_20d_90d": 1.0588350367429922,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FOXA",
@@ -3294,7 +3294,7 @@
       "max_drawdown_90d": -0.1248296559057468,
       "vol_ratio_20d_90d": 1.2343655458876415,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FOX",
@@ -3310,7 +3310,7 @@
       "max_drawdown_90d": -0.11961813658008724,
       "vol_ratio_20d_90d": 1.1911384830453433,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "BEN",
@@ -3326,7 +3326,7 @@
       "max_drawdown_90d": -0.137782200831163,
       "vol_ratio_20d_90d": 1.5082466011902438,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "FCX",
@@ -3342,7 +3342,7 @@
       "max_drawdown_90d": -0.27387044297805896,
       "vol_ratio_20d_90d": 1.0783245990828985,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GRMN",
@@ -3358,7 +3358,7 @@
       "max_drawdown_90d": -0.1448683986165975,
       "vol_ratio_20d_90d": 1.0203269617743176,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IT",
@@ -3374,7 +3374,7 @@
       "max_drawdown_90d": -0.19195778907496364,
       "vol_ratio_20d_90d": 1.0622970666841975,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GE",
@@ -3390,7 +3390,7 @@
       "max_drawdown_90d": -0.24958199212032595,
       "vol_ratio_20d_90d": 1.3248044552385774,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GEHC",
@@ -3398,15 +3398,15 @@
       "company": "GE HealthCare",
       "sector": "Health Care",
       "price": 84.02999877929688,
-      "vol_90d": 0.3687955365485633,
+      "vol_90d": 0.36879568012507075,
       "vol_60d": 0.30208962369158515,
       "vol_30d": 0.36105122523824323,
       "vol_20d": 0.38951070826805817,
-      "return_90d": 0.2830715675414224,
+      "return_90d": 0.28307141807025427,
       "max_drawdown_90d": -0.15143008871768737,
-      "vol_ratio_20d_90d": 1.0561698005170057,
+      "vol_ratio_20d_90d": 1.056169389337647,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GEV",
@@ -3422,7 +3422,7 @@
       "max_drawdown_90d": -0.33078646996594785,
       "vol_ratio_20d_90d": 1.4054827595628323,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GEN",
@@ -3438,7 +3438,7 @@
       "max_drawdown_90d": -0.3361986474766706,
       "vol_ratio_20d_90d": 1.2286073935860202,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GNRC",
@@ -3454,7 +3454,7 @@
       "max_drawdown_90d": -0.3315619895931755,
       "vol_ratio_20d_90d": 1.2561699228128353,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GD",
@@ -3470,7 +3470,7 @@
       "max_drawdown_90d": -0.1751143262283923,
       "vol_ratio_20d_90d": 1.3511832795227927,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GIS",
@@ -3478,15 +3478,15 @@
       "company": "General Mills",
       "sector": "Consumer Staples",
       "price": 34.880001068115234,
-      "vol_90d": 0.3532052839094217,
+      "vol_90d": 0.35320525872188474,
       "vol_60d": 0.36616697616928356,
       "vol_30d": 0.4066434145825819,
       "vol_20d": 0.43779258651815955,
-      "return_90d": -0.0375756283331542,
+      "return_90d": -0.03757572963486211,
       "max_drawdown_90d": -0.23778583161706657,
-      "vol_ratio_20d_90d": 1.2394848165137586,
+      "vol_ratio_20d_90d": 1.23948490490307,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GM",
@@ -3502,7 +3502,7 @@
       "max_drawdown_90d": -0.15750832079175192,
       "vol_ratio_20d_90d": 1.3409698953256168,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GPC",
@@ -3518,7 +3518,7 @@
       "max_drawdown_90d": -0.1265243899078008,
       "vol_ratio_20d_90d": 1.2071768327798518,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GILD",
@@ -3534,7 +3534,7 @@
       "max_drawdown_90d": -0.05528265240474106,
       "vol_ratio_20d_90d": 1.2643078903175708,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GPN",
@@ -3550,7 +3550,7 @@
       "max_drawdown_90d": -0.17112822771065728,
       "vol_ratio_20d_90d": 1.2871128925572837,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GL",
@@ -3566,7 +3566,7 @@
       "max_drawdown_90d": -0.16622451810162553,
       "vol_ratio_20d_90d": 1.4085352458318021,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GDDY",
@@ -3582,7 +3582,7 @@
       "max_drawdown_90d": -0.212749771027421,
       "vol_ratio_20d_90d": 0.8887989080971931,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GS",
@@ -3598,7 +3598,7 @@
       "max_drawdown_90d": -0.24478505626208502,
       "vol_ratio_20d_90d": 1.1228941947278914,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HAL",
@@ -3614,7 +3614,7 @@
       "max_drawdown_90d": -0.16183895773917711,
       "vol_ratio_20d_90d": 1.0610880375175828,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HIG",
@@ -3630,7 +3630,7 @@
       "max_drawdown_90d": -0.15639244583211953,
       "vol_ratio_20d_90d": 1.1820766266012592,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HAS",
@@ -3646,7 +3646,7 @@
       "max_drawdown_90d": -0.10564400916252925,
       "vol_ratio_20d_90d": 1.2639243343898694,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HCA",
@@ -3662,7 +3662,7 @@
       "max_drawdown_90d": -0.1406489450935302,
       "vol_ratio_20d_90d": 1.2311249590284143,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DOC",
@@ -3670,15 +3670,15 @@
       "company": "Healthpeak Properties",
       "sector": "Real Estate",
       "price": 20.6200008392334,
-      "vol_90d": 0.22444734233692626,
+      "vol_90d": 0.22444727453382365,
       "vol_60d": 0.2325007646406247,
       "vol_30d": 0.2889396947329482,
       "vol_20d": 0.2946685047881091,
       "return_90d": -0.03909775892975864,
       "max_drawdown_90d": -0.1812221992871882,
-      "vol_ratio_20d_90d": 1.3128625258826687,
+      "vol_ratio_20d_90d": 1.3128629224842883,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HSIC",
@@ -3694,7 +3694,7 @@
       "max_drawdown_90d": -0.09200969132944425,
       "vol_ratio_20d_90d": 1.5712380142395674,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HSY",
@@ -3710,7 +3710,7 @@
       "max_drawdown_90d": -0.17021165323522636,
       "vol_ratio_20d_90d": 1.4733960307594578,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HPE",
@@ -3726,7 +3726,7 @@
       "max_drawdown_90d": -0.3988565151405471,
       "vol_ratio_20d_90d": 1.1754680879580317,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HLT",
@@ -3742,7 +3742,7 @@
       "max_drawdown_90d": -0.11269418145050092,
       "vol_ratio_20d_90d": 1.2154077365314697,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HD",
@@ -3758,7 +3758,7 @@
       "max_drawdown_90d": -0.20865642347130509,
       "vol_ratio_20d_90d": 1.3178361058968027,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HONA",
@@ -3790,7 +3790,7 @@
       "max_drawdown_90d": -0.18813355745674265,
       "vol_ratio_20d_90d": 1.1618578375261601,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HRL",
@@ -3806,7 +3806,7 @@
       "max_drawdown_90d": -0.2633396625324276,
       "vol_ratio_20d_90d": 1.1559098743614629,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HST",
@@ -3822,7 +3822,7 @@
       "max_drawdown_90d": -0.15270170112633796,
       "vol_ratio_20d_90d": 1.2658869908888102,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HWM",
@@ -3838,7 +3838,7 @@
       "max_drawdown_90d": -0.36473602436346597,
       "vol_ratio_20d_90d": 1.4441920728063138,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HPQ",
@@ -3854,7 +3854,7 @@
       "max_drawdown_90d": -0.20377676537536438,
       "vol_ratio_20d_90d": 1.108451153320945,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HUBB",
@@ -3870,7 +3870,7 @@
       "max_drawdown_90d": -0.19154813262490578,
       "vol_ratio_20d_90d": 1.2805195593754193,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HUM",
@@ -3886,7 +3886,7 @@
       "max_drawdown_90d": -0.11187399194259051,
       "vol_ratio_20d_90d": 0.895356411717998,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HBAN",
@@ -3902,7 +3902,7 @@
       "max_drawdown_90d": -0.17837224954322295,
       "vol_ratio_20d_90d": 0.9288480231200503,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HII",
@@ -3918,7 +3918,7 @@
       "max_drawdown_90d": -0.21934410741095434,
       "vol_ratio_20d_90d": 1.3535912045011924,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IBM",
@@ -3934,7 +3934,7 @@
       "max_drawdown_90d": -0.3278345564644184,
       "vol_ratio_20d_90d": 0.4767541387723111,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IEX",
@@ -3950,7 +3950,7 @@
       "max_drawdown_90d": -0.07924496792617575,
       "vol_ratio_20d_90d": 1.4668201423132396,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IDXX",
@@ -3966,7 +3966,7 @@
       "max_drawdown_90d": -0.1528467773364265,
       "vol_ratio_20d_90d": 1.7614231052885971,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ITW",
@@ -3982,7 +3982,7 @@
       "max_drawdown_90d": -0.12906064430630393,
       "vol_ratio_20d_90d": 1.1239278032503952,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ILMN",
@@ -3998,7 +3998,7 @@
       "max_drawdown_90d": -0.29177023980754047,
       "vol_ratio_20d_90d": 1.4949777939225737,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "INCY",
@@ -4014,7 +4014,7 @@
       "max_drawdown_90d": -0.1640113224848304,
       "vol_ratio_20d_90d": 1.1783134228430283,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IR",
@@ -4030,7 +4030,7 @@
       "max_drawdown_90d": -0.20603481724473816,
       "vol_ratio_20d_90d": 1.260155934273235,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PODD",
@@ -4046,7 +4046,7 @@
       "max_drawdown_90d": -0.23531822204606223,
       "vol_ratio_20d_90d": 0.9274976372917477,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "INTC",
@@ -4062,7 +4062,7 @@
       "max_drawdown_90d": -0.5898422148493567,
       "vol_ratio_20d_90d": 1.5429779025503252,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IBKR",
@@ -4078,7 +4078,7 @@
       "max_drawdown_90d": -0.25862260844516305,
       "vol_ratio_20d_90d": 1.2342980724766441,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ICE",
@@ -4094,7 +4094,7 @@
       "max_drawdown_90d": -0.08469967084374297,
       "vol_ratio_20d_90d": 1.3568565638058108,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IFF",
@@ -4110,7 +4110,7 @@
       "max_drawdown_90d": -0.12691530017350972,
       "vol_ratio_20d_90d": 1.1851537517449762,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IP",
@@ -4126,7 +4126,7 @@
       "max_drawdown_90d": -0.27191079815082353,
       "vol_ratio_20d_90d": 0.9876097843974094,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "INTU",
@@ -4134,15 +4134,15 @@
       "company": "Intuit",
       "sector": "Information Technology",
       "price": 338.2300109863281,
-      "vol_90d": 0.44724163838736175,
+      "vol_90d": 0.4472416784043248,
       "vol_60d": 0.42815580560562666,
       "vol_30d": 0.39861325254567354,
       "vol_20d": 0.46231007759715426,
-      "return_90d": 0.23956020530641853,
+      "return_90d": 0.23956006667134178,
       "max_drawdown_90d": -0.27543794738978733,
-      "vol_ratio_20d_90d": 1.033691941707676,
+      "vol_ratio_20d_90d": 1.0336918492180573,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ISRG",
@@ -4158,7 +4158,7 @@
       "max_drawdown_90d": -0.23290899587836766,
       "vol_ratio_20d_90d": 0.9747476655168458,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IVZ",
@@ -4174,7 +4174,7 @@
       "max_drawdown_90d": -0.18703095745232745,
       "vol_ratio_20d_90d": 1.4095260339346616,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "INVH",
@@ -4190,7 +4190,7 @@
       "max_drawdown_90d": -0.1434220477740964,
       "vol_ratio_20d_90d": 1.1860959647054439,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IQV",
@@ -4206,7 +4206,7 @@
       "max_drawdown_90d": -0.07820326709192726,
       "vol_ratio_20d_90d": 0.8833129382814299,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "IRM",
@@ -4222,7 +4222,7 @@
       "max_drawdown_90d": -0.18152615310018794,
       "vol_ratio_20d_90d": 1.5044923248281739,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "JBHT",
@@ -4238,7 +4238,7 @@
       "max_drawdown_90d": -0.2682361787251296,
       "vol_ratio_20d_90d": 0.8085168721508713,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "JBL",
@@ -4254,7 +4254,7 @@
       "max_drawdown_90d": -0.3616722442757906,
       "vol_ratio_20d_90d": 1.1727444695170466,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "JKHY",
@@ -4270,7 +4270,7 @@
       "max_drawdown_90d": -0.176026451828182,
       "vol_ratio_20d_90d": 1.323329999238542,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "J",
@@ -4286,7 +4286,7 @@
       "max_drawdown_90d": -0.10994862432444619,
       "vol_ratio_20d_90d": 1.4093194354003822,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "JNJ",
@@ -4302,7 +4302,7 @@
       "max_drawdown_90d": -0.10710050228013213,
       "vol_ratio_20d_90d": 1.4106846758849114,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "JCI",
@@ -4318,7 +4318,7 @@
       "max_drawdown_90d": -0.17195760101763713,
       "vol_ratio_20d_90d": 1.6033042243262483,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "JPM",
@@ -4334,7 +4334,7 @@
       "max_drawdown_90d": -0.09406326594784031,
       "vol_ratio_20d_90d": 1.361012449218209,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KDP",
@@ -4350,7 +4350,7 @@
       "max_drawdown_90d": -0.12372368533098621,
       "vol_ratio_20d_90d": 1.1340044934173565,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KEY",
@@ -4366,7 +4366,7 @@
       "max_drawdown_90d": -0.16717235152771415,
       "vol_ratio_20d_90d": 1.1472240899279513,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KEYS",
@@ -4382,7 +4382,7 @@
       "max_drawdown_90d": -0.32837670754473847,
       "vol_ratio_20d_90d": 1.4658165592573655,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KMB",
@@ -4398,7 +4398,7 @@
       "max_drawdown_90d": -0.16792711277585526,
       "vol_ratio_20d_90d": 1.3387436754248068,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KIM",
@@ -4414,7 +4414,7 @@
       "max_drawdown_90d": -0.16191054984340636,
       "vol_ratio_20d_90d": 1.3885257730328695,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KMI",
@@ -4422,15 +4422,15 @@
       "company": "Kinder Morgan",
       "sector": "Energy",
       "price": 30.56999969482422,
-      "vol_90d": 0.242953645527035,
+      "vol_90d": 0.24295374729238628,
       "vol_60d": 0.26371997792293256,
       "vol_30d": 0.3016303265499122,
       "vol_20d": 0.33142496114560427,
-      "return_90d": -0.029019840668827457,
+      "return_90d": -0.029019781844714654,
       "max_drawdown_90d": -0.12210459695377052,
-      "vol_ratio_20d_90d": 1.3641489528862596,
+      "vol_ratio_20d_90d": 1.364148381489033,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KKR",
@@ -4446,7 +4446,7 @@
       "max_drawdown_90d": -0.25758893140969374,
       "vol_ratio_20d_90d": 1.1484229400194597,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KLAC",
@@ -4462,7 +4462,7 @@
       "max_drawdown_90d": -0.4483264359327107,
       "vol_ratio_20d_90d": 1.4024967388249965,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KHC",
@@ -4478,7 +4478,7 @@
       "max_drawdown_90d": -0.19662708895058367,
       "vol_ratio_20d_90d": 1.251743155678851,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "KR",
@@ -4494,7 +4494,7 @@
       "max_drawdown_90d": -0.07895610526271046,
       "vol_ratio_20d_90d": 1.2262865139914072,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LHX",
@@ -4510,7 +4510,7 @@
       "max_drawdown_90d": -0.2308342742456475,
       "vol_ratio_20d_90d": 1.331250024089512,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LH",
@@ -4526,7 +4526,7 @@
       "max_drawdown_90d": -0.10228165783802456,
       "vol_ratio_20d_90d": 1.3568745158078852,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LRCX",
@@ -4542,7 +4542,7 @@
       "max_drawdown_90d": -0.47504959606048025,
       "vol_ratio_20d_90d": 1.3603405607839036,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LVS",
@@ -4558,7 +4558,7 @@
       "max_drawdown_90d": -0.27997108832225737,
       "vol_ratio_20d_90d": 1.3203971943278807,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LDOS",
@@ -4574,7 +4574,7 @@
       "max_drawdown_90d": -0.22138751106326515,
       "vol_ratio_20d_90d": 0.964208322806627,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LEN",
@@ -4590,7 +4590,7 @@
       "max_drawdown_90d": -0.16071643324748386,
       "vol_ratio_20d_90d": 1.3061632847154878,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LII",
@@ -4606,7 +4606,7 @@
       "max_drawdown_90d": -0.4142399065530853,
       "vol_ratio_20d_90d": 1.0478730391220288,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LLY",
@@ -4622,7 +4622,7 @@
       "max_drawdown_90d": -0.12859085793120018,
       "vol_ratio_20d_90d": 1.265298128627243,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LIN",
@@ -4638,7 +4638,7 @@
       "max_drawdown_90d": -0.16031282595138452,
       "vol_ratio_20d_90d": 0.9393487336671763,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LYV",
@@ -4654,7 +4654,7 @@
       "max_drawdown_90d": -0.1146662413270596,
       "vol_ratio_20d_90d": 1.0510583258366957,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LMT",
@@ -4670,7 +4670,7 @@
       "max_drawdown_90d": -0.17475880330236904,
       "vol_ratio_20d_90d": 1.4354252961685336,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "L",
@@ -4686,7 +4686,7 @@
       "max_drawdown_90d": -0.12488660577758948,
       "vol_ratio_20d_90d": 1.1244288118667776,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LOW",
@@ -4694,15 +4694,15 @@
       "company": "Lowe's",
       "sector": "Consumer Discretionary",
       "price": 232.10000610351562,
-      "vol_90d": 0.313661543376598,
+      "vol_90d": 0.31366152883854465,
       "vol_60d": 0.31671169182245046,
       "vol_30d": 0.3799824004659462,
       "vol_20d": 0.4089811101008527,
       "return_90d": 0.033029156852568686,
       "max_drawdown_90d": -0.2061128321201453,
-      "vol_ratio_20d_90d": 1.303893061604333,
+      "vol_ratio_20d_90d": 1.3038931220391177,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LULU",
@@ -4718,7 +4718,7 @@
       "max_drawdown_90d": -0.28542544762021405,
       "vol_ratio_20d_90d": 0.9834010413529412,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LITE",
@@ -4734,7 +4734,7 @@
       "max_drawdown_90d": -0.5502911582602688,
       "vol_ratio_20d_90d": 1.2936658324339727,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LYB",
@@ -4750,7 +4750,7 @@
       "max_drawdown_90d": -0.14738217050753832,
       "vol_ratio_20d_90d": 1.1004452761599626,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MTB",
@@ -4766,7 +4766,7 @@
       "max_drawdown_90d": -0.1533734926433058,
       "vol_ratio_20d_90d": 1.0942715488814754,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MPC",
@@ -4782,7 +4782,7 @@
       "max_drawdown_90d": -0.23133716919703318,
       "vol_ratio_20d_90d": 1.2970625418058226,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MAR",
@@ -4798,7 +4798,7 @@
       "max_drawdown_90d": -0.14096219522463305,
       "vol_ratio_20d_90d": 0.974070021724814,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MRSH",
@@ -4814,7 +4814,7 @@
       "max_drawdown_90d": -0.14454174521541974,
       "vol_ratio_20d_90d": 1.2085201729175392,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MLM",
@@ -4830,7 +4830,7 @@
       "max_drawdown_90d": -0.2204457269410678,
       "vol_ratio_20d_90d": 1.2118425041505922,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MRVL",
@@ -4846,7 +4846,7 @@
       "max_drawdown_90d": -0.5345835606618957,
       "vol_ratio_20d_90d": 1.3463169042224663,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MAS",
@@ -4862,7 +4862,7 @@
       "max_drawdown_90d": -0.1832163779429209,
       "vol_ratio_20d_90d": 1.108249380274179,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MA",
@@ -4878,7 +4878,7 @@
       "max_drawdown_90d": -0.0831194214341252,
       "vol_ratio_20d_90d": 1.2951978976045468,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MKC",
@@ -4894,7 +4894,7 @@
       "max_drawdown_90d": -0.21848442997130435,
       "vol_ratio_20d_90d": 1.301064602382493,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MCD",
@@ -4910,7 +4910,7 @@
       "max_drawdown_90d": -0.17607072211850094,
       "vol_ratio_20d_90d": 1.2154950907741984,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MCK",
@@ -4926,7 +4926,7 @@
       "max_drawdown_90d": -0.07674260850144099,
       "vol_ratio_20d_90d": 0.9887622371754824,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MDT",
@@ -4942,7 +4942,7 @@
       "max_drawdown_90d": -0.08451410369476586,
       "vol_ratio_20d_90d": 1.2407629617073461,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MRK",
@@ -4958,7 +4958,7 @@
       "max_drawdown_90d": -0.10282087405596418,
       "vol_ratio_20d_90d": 1.0895899091974857,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "META",
@@ -4974,7 +4974,7 @@
       "max_drawdown_90d": -0.22185213776885226,
       "vol_ratio_20d_90d": 0.9506525806108609,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MET",
@@ -4990,7 +4990,7 @@
       "max_drawdown_90d": -0.06493247724165274,
       "vol_ratio_20d_90d": 1.2979874842522543,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MTD",
@@ -5006,7 +5006,7 @@
       "max_drawdown_90d": -0.11378549754000866,
       "vol_ratio_20d_90d": 0.9077271354440184,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MGM",
@@ -5022,7 +5022,7 @@
       "max_drawdown_90d": -0.42273498118451514,
       "vol_ratio_20d_90d": 1.2929845508927782,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MCHP",
@@ -5038,7 +5038,7 @@
       "max_drawdown_90d": -0.3373849788394334,
       "vol_ratio_20d_90d": 1.3830635558190938,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MU",
@@ -5054,7 +5054,7 @@
       "max_drawdown_90d": -0.40176843408462726,
       "vol_ratio_20d_90d": 1.2381140212812212,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MSFT",
@@ -5070,7 +5070,7 @@
       "max_drawdown_90d": -0.06685070618050437,
       "vol_ratio_20d_90d": 1.0005805395328073,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MAA",
@@ -5086,7 +5086,7 @@
       "max_drawdown_90d": -0.18747955172766584,
       "vol_ratio_20d_90d": 1.2424775255553597,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MRNA",
@@ -5102,7 +5102,7 @@
       "max_drawdown_90d": -0.34156480927913413,
       "vol_ratio_20d_90d": 0.535361604808533,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MDLZ",
@@ -5118,7 +5118,7 @@
       "max_drawdown_90d": -0.10338818410940132,
       "vol_ratio_20d_90d": 1.2040875886124998,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MPWR",
@@ -5134,7 +5134,7 @@
       "max_drawdown_90d": -0.2354634178812809,
       "vol_ratio_20d_90d": 1.4538102651476605,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MNST",
@@ -5150,7 +5150,7 @@
       "max_drawdown_90d": -0.1671003018778967,
       "vol_ratio_20d_90d": 1.217855935286783,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MCO",
@@ -5166,7 +5166,7 @@
       "max_drawdown_90d": -0.14783109590014532,
       "vol_ratio_20d_90d": 1.2447981236103993,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MS",
@@ -5182,7 +5182,7 @@
       "max_drawdown_90d": -0.21482204757339074,
       "vol_ratio_20d_90d": 1.3334670903898138,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MOS",
@@ -5198,7 +5198,7 @@
       "max_drawdown_90d": -0.34352855213977285,
       "vol_ratio_20d_90d": 1.4605060960877154,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MSI",
@@ -5214,7 +5214,7 @@
       "max_drawdown_90d": -0.09346025193337959,
       "vol_ratio_20d_90d": 0.790537684646535,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "MSCI",
@@ -5230,7 +5230,7 @@
       "max_drawdown_90d": -0.15594310015838198,
       "vol_ratio_20d_90d": 1.1205422130321332,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NDAQ",
@@ -5246,7 +5246,7 @@
       "max_drawdown_90d": -0.10465402551446634,
       "vol_ratio_20d_90d": 1.2761178444612458,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NTAP",
@@ -5254,15 +5254,15 @@
       "company": "NetApp",
       "sector": "Information Technology",
       "price": 176.07000732421875,
-      "vol_90d": 0.5137194261939045,
+      "vol_90d": 0.5137193946452037,
       "vol_60d": 0.534987900111064,
       "vol_30d": 0.636648791094455,
       "vol_20d": 0.6925164741591722,
-      "return_90d": 0.14810366133952613,
+      "return_90d": 0.14810354710514106,
       "max_drawdown_90d": -0.2926247695360098,
-      "vol_ratio_20d_90d": 1.3480441635037181,
+      "vol_ratio_20d_90d": 1.3480442462902404,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NFLX",
@@ -5278,7 +5278,7 @@
       "max_drawdown_90d": -0.25069504214795346,
       "vol_ratio_20d_90d": 1.0866447438196998,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NEM",
@@ -5294,7 +5294,7 @@
       "max_drawdown_90d": -0.2094721998538832,
       "vol_ratio_20d_90d": 1.1904881206509086,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NWSA",
@@ -5310,7 +5310,7 @@
       "max_drawdown_90d": -0.15104856788118326,
       "vol_ratio_20d_90d": 1.6277768843446758,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NWS",
@@ -5326,7 +5326,7 @@
       "max_drawdown_90d": -0.17760128607958592,
       "vol_ratio_20d_90d": 1.5866449758960854,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NEE",
@@ -5342,7 +5342,7 @@
       "max_drawdown_90d": -0.15293823859607913,
       "vol_ratio_20d_90d": 1.4876940330244743,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NKE",
@@ -5358,7 +5358,7 @@
       "max_drawdown_90d": -0.23201045366118167,
       "vol_ratio_20d_90d": 1.1978886904362918,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NI",
@@ -5366,15 +5366,15 @@
       "company": "NiSource",
       "sector": "Utilities",
       "price": 45.060001373291016,
-      "vol_90d": 0.19144054246381073,
+      "vol_90d": 0.19144055503937918,
       "vol_60d": 0.17970116169643,
       "vol_30d": 0.19424944401823688,
       "vol_20d": 0.2122078877780657,
       "return_90d": -0.04500005901943971,
       "max_drawdown_90d": -0.17897669346580425,
-      "vol_ratio_20d_90d": 1.1084793484545248,
+      "vol_ratio_20d_90d": 1.1084792756394521,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NDSN",
@@ -5390,7 +5390,7 @@
       "max_drawdown_90d": -0.07865748493476354,
       "vol_ratio_20d_90d": 1.3372574606409946,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NSC",
@@ -5398,15 +5398,15 @@
       "company": "Norfolk Southern",
       "sector": "Industrials",
       "price": 325.82000732421875,
-      "vol_90d": 0.21598839960606678,
+      "vol_90d": 0.21598823134178763,
       "vol_60d": 0.21189738796766786,
       "vol_30d": 0.24088859243413158,
       "vol_20d": 0.2754462161007281,
       "return_90d": 0.017806249337444457,
       "max_drawdown_90d": -0.12459631996599707,
-      "vol_ratio_20d_90d": 1.2752824531461144,
+      "vol_ratio_20d_90d": 1.275283446646924,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NTRS",
@@ -5422,7 +5422,7 @@
       "max_drawdown_90d": -0.1465654117494457,
       "vol_ratio_20d_90d": 1.19988665106969,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NOC",
@@ -5438,7 +5438,7 @@
       "max_drawdown_90d": -0.19269911757696356,
       "vol_ratio_20d_90d": 1.3131782712546338,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NCLH",
@@ -5454,7 +5454,7 @@
       "max_drawdown_90d": -0.33458999328652805,
       "vol_ratio_20d_90d": 1.2703370181568017,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NRG",
@@ -5470,7 +5470,7 @@
       "max_drawdown_90d": -0.4318649612400264,
       "vol_ratio_20d_90d": 1.3246404426332603,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NUE",
@@ -5486,7 +5486,7 @@
       "max_drawdown_90d": -0.14717393475516294,
       "vol_ratio_20d_90d": 1.1403067851942583,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NVDA",
@@ -5502,7 +5502,7 @@
       "max_drawdown_90d": -0.25317675110130966,
       "vol_ratio_20d_90d": 1.2041697142557308,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NVR",
@@ -5518,7 +5518,7 @@
       "max_drawdown_90d": -0.15154078465063914,
       "vol_ratio_20d_90d": 1.4347527683359256,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NXPI",
@@ -5534,7 +5534,7 @@
       "max_drawdown_90d": -0.24736403061336876,
       "vol_ratio_20d_90d": 1.185054070062832,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ORLY",
@@ -5550,7 +5550,7 @@
       "max_drawdown_90d": -0.11386722618279677,
       "vol_ratio_20d_90d": 0.9355889983946564,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "OXY",
@@ -5566,7 +5566,7 @@
       "max_drawdown_90d": -0.13507559460362073,
       "vol_ratio_20d_90d": 0.958430001045564,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "OKTA",
@@ -5582,7 +5582,7 @@
       "max_drawdown_90d": -0.27329514111470865,
       "vol_ratio_20d_90d": 1.1698553848238482,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ODFL",
@@ -5598,7 +5598,7 @@
       "max_drawdown_90d": -0.3034950725172272,
       "vol_ratio_20d_90d": 1.296815116572706,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "OMC",
@@ -5614,7 +5614,7 @@
       "max_drawdown_90d": -0.16362584899832666,
       "vol_ratio_20d_90d": 1.0513801244777505,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ON",
@@ -5630,7 +5630,7 @@
       "max_drawdown_90d": -0.35618681359714444,
       "vol_ratio_20d_90d": 1.2323473262297713,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "OKE",
@@ -5646,7 +5646,7 @@
       "max_drawdown_90d": -0.1255255955166904,
       "vol_ratio_20d_90d": 1.0918129584156067,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ORCL",
@@ -5662,7 +5662,7 @@
       "max_drawdown_90d": -0.28878958097429397,
       "vol_ratio_20d_90d": 1.3292631994497737,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "OTIS",
@@ -5678,7 +5678,7 @@
       "max_drawdown_90d": -0.14082352241639773,
       "vol_ratio_20d_90d": 1.175967328935035,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PCAR",
@@ -5694,7 +5694,7 @@
       "max_drawdown_90d": -0.26069133621362417,
       "vol_ratio_20d_90d": 1.1430476629474826,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PKG",
@@ -5710,7 +5710,7 @@
       "max_drawdown_90d": -0.11711915244807414,
       "vol_ratio_20d_90d": 1.0469062181171858,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PLTR",
@@ -5726,7 +5726,7 @@
       "max_drawdown_90d": -0.25859840597662787,
       "vol_ratio_20d_90d": 0.9500167072933273,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PANW",
@@ -5742,7 +5742,7 @@
       "max_drawdown_90d": -0.2526017632329868,
       "vol_ratio_20d_90d": 1.0978328520079337,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PH",
@@ -5758,7 +5758,7 @@
       "max_drawdown_90d": -0.1783516664633512,
       "vol_ratio_20d_90d": 1.4294034644632276,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PAYX",
@@ -5774,7 +5774,7 @@
       "max_drawdown_90d": -0.22648024871382522,
       "vol_ratio_20d_90d": 1.0862081174194989,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PYPL",
@@ -5790,7 +5790,7 @@
       "max_drawdown_90d": -0.16053194180389563,
       "vol_ratio_20d_90d": 0.5892099385778765,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PNR",
@@ -5798,15 +5798,15 @@
       "company": "Pentair",
       "sector": "Industrials",
       "price": 70.19999694824219,
-      "vol_90d": 0.4594713739192945,
+      "vol_90d": 0.4594713597499651,
       "vol_60d": 0.38885799591377784,
       "vol_30d": 0.4661149980374471,
       "vol_20d": 0.5503680759017476,
       "return_90d": -0.07648919408768662,
       "max_drawdown_90d": -0.3178093756091078,
-      "vol_ratio_20d_90d": 1.1978288684387528,
+      "vol_ratio_20d_90d": 1.1978289053777946,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PEP",
@@ -5822,7 +5822,7 @@
       "max_drawdown_90d": -0.13745487172613924,
       "vol_ratio_20d_90d": 1.2074523805762976,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PFE",
@@ -5830,15 +5830,15 @@
       "company": "Pfizer",
       "sector": "Health Care",
       "price": 29.229999542236328,
-      "vol_90d": 0.2051948779374675,
+      "vol_90d": 0.20519488706784114,
       "vol_60d": 0.21029661516060405,
       "vol_30d": 0.2328194986824236,
       "vol_20d": 0.2558557707611433,
       "return_90d": 0.24077304400143107,
       "max_drawdown_90d": -0.05547902714365005,
-      "vol_ratio_20d_90d": 1.2468916053504735,
+      "vol_ratio_20d_90d": 1.2468915498686512,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PCG",
@@ -5854,7 +5854,7 @@
       "max_drawdown_90d": -0.3491286052457786,
       "vol_ratio_20d_90d": 0.4054712117719333,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PM",
@@ -5870,7 +5870,7 @@
       "max_drawdown_90d": -0.08812511421907443,
       "vol_ratio_20d_90d": 1.1887727814163596,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PSX",
@@ -5886,7 +5886,7 @@
       "max_drawdown_90d": -0.17346700474942567,
       "vol_ratio_20d_90d": 1.327594035982459,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PNW",
@@ -5894,15 +5894,15 @@
       "company": "Pinnacle West Capital",
       "sector": "Utilities",
       "price": 105.26000213623047,
-      "vol_90d": 0.1798543132314031,
+      "vol_90d": 0.17985440640467992,
       "vol_60d": 0.17729479419465416,
       "vol_30d": 0.20529790795507236,
       "vol_20d": 0.222526895531409,
       "return_90d": -0.02030111066690432,
       "max_drawdown_90d": -0.15965838524753717,
-      "vol_ratio_20d_90d": 1.2372619345809224,
+      "vol_ratio_20d_90d": 1.23726129361943,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PNC",
@@ -5918,7 +5918,7 @@
       "max_drawdown_90d": -0.15586782183483572,
       "vol_ratio_20d_90d": 1.1936753356544016,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PPG",
@@ -5934,7 +5934,7 @@
       "max_drawdown_90d": -0.16735798907686494,
       "vol_ratio_20d_90d": 1.2035693163835557,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PPL",
@@ -5950,7 +5950,7 @@
       "max_drawdown_90d": -0.12616126566501096,
       "vol_ratio_20d_90d": 1.0651442133387645,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PFG",
@@ -5966,7 +5966,7 @@
       "max_drawdown_90d": -0.09830395169925754,
       "vol_ratio_20d_90d": 1.263227658929641,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PG",
@@ -5974,15 +5974,15 @@
       "company": "Procter & Gamble",
       "sector": "Consumer Staples",
       "price": 168.32000732421875,
-      "vol_90d": 0.20771376483743573,
+      "vol_90d": 0.20771372978827377,
       "vol_60d": 0.21016750838154769,
       "vol_30d": 0.2557074381014467,
       "vol_20d": 0.28462269349455444,
-      "return_90d": 0.12739649249609686,
+      "return_90d": 0.12739660771871275,
       "max_drawdown_90d": -0.059215582942571454,
-      "vol_ratio_20d_90d": 1.3702639963091054,
+      "vol_ratio_20d_90d": 1.3702642275244652,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PGR",
@@ -5998,7 +5998,7 @@
       "max_drawdown_90d": -0.13779422568542088,
       "vol_ratio_20d_90d": 0.959560257843283,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PLD",
@@ -6014,7 +6014,7 @@
       "max_drawdown_90d": -0.1664987165963504,
       "vol_ratio_20d_90d": 1.1881361185968862,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PRU",
@@ -6030,7 +6030,7 @@
       "max_drawdown_90d": -0.09168749350092986,
       "vol_ratio_20d_90d": 1.4962042640720241,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PTC",
@@ -6046,7 +6046,7 @@
       "max_drawdown_90d": -0.19018556972594758,
       "vol_ratio_20d_90d": 0.08156257489268508,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PEG",
@@ -6062,7 +6062,7 @@
       "max_drawdown_90d": -0.17879745435411432,
       "vol_ratio_20d_90d": 1.1227716683213023,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PSA",
@@ -6078,7 +6078,7 @@
       "max_drawdown_90d": -0.13895415802380584,
       "vol_ratio_20d_90d": 1.0784095176237727,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PHM",
@@ -6094,7 +6094,7 @@
       "max_drawdown_90d": -0.18671935209564683,
       "vol_ratio_20d_90d": 1.3128511926967084,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "Q",
@@ -6110,7 +6110,7 @@
       "max_drawdown_90d": -0.25789187965346105,
       "vol_ratio_20d_90d": 1.3702734011728523,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "QCOM",
@@ -6126,7 +6126,7 @@
       "max_drawdown_90d": -0.22761764689118524,
       "vol_ratio_20d_90d": 1.3699601284399132,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "PWR",
@@ -6142,7 +6142,7 @@
       "max_drawdown_90d": -0.2951126750409747,
       "vol_ratio_20d_90d": 1.5328104352184353,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DGX",
@@ -6150,15 +6150,15 @@
       "company": "Quest Diagnostics",
       "sector": "Health Care",
       "price": 259.6700134277344,
-      "vol_90d": 0.24959958196099785,
+      "vol_90d": 0.24959957313366776,
       "vol_60d": 0.22285588641087953,
       "vol_30d": 0.21704314722350532,
       "vol_20d": 0.22421066840497506,
       "return_90d": 0.2131232359431121,
       "max_drawdown_90d": -0.07898964809053466,
-      "vol_ratio_20d_90d": 0.8982814259681331,
+      "vol_ratio_20d_90d": 0.8982814577367237,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RL",
@@ -6174,7 +6174,7 @@
       "max_drawdown_90d": -0.18140042642845522,
       "vol_ratio_20d_90d": 1.3312652141176646,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RJF",
@@ -6190,7 +6190,7 @@
       "max_drawdown_90d": -0.15020330450633324,
       "vol_ratio_20d_90d": 1.2943540097324304,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RDDT",
@@ -6206,7 +6206,7 @@
       "max_drawdown_90d": -0.5524671653040951,
       "vol_ratio_20d_90d": 1.4778192428101977,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "O",
@@ -6214,15 +6214,15 @@
       "company": "Realty Income",
       "sector": "Real Estate",
       "price": 59.5,
-      "vol_90d": 0.1684380268106512,
-      "vol_60d": 0.1700389857133591,
+      "vol_90d": 0.1684380026818883,
+      "vol_60d": 0.17003897446740143,
       "vol_30d": 0.19342259500513437,
       "vol_20d": 0.1980162637717768,
       "return_90d": -0.05076133204062572,
       "max_drawdown_90d": -0.17753042348661374,
-      "vol_ratio_20d_90d": 1.1756030839424154,
+      "vol_ratio_20d_90d": 1.17560325234769,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "REG",
@@ -6238,7 +6238,7 @@
       "max_drawdown_90d": -0.1350148531140274,
       "vol_ratio_20d_90d": 1.3889955376338328,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "REGN",
@@ -6254,7 +6254,7 @@
       "max_drawdown_90d": -0.14736576678801627,
       "vol_ratio_20d_90d": 1.4807030090889606,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RF",
@@ -6270,7 +6270,7 @@
       "max_drawdown_90d": -0.16756816865460933,
       "vol_ratio_20d_90d": 0.9886627633061826,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RSG",
@@ -6286,7 +6286,7 @@
       "max_drawdown_90d": -0.0835510798396627,
       "vol_ratio_20d_90d": 1.2843099848573671,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RMD",
@@ -6302,7 +6302,7 @@
       "max_drawdown_90d": -0.12678040874559537,
       "vol_ratio_20d_90d": 1.2751799208913175,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RVTY",
@@ -6318,7 +6318,7 @@
       "max_drawdown_90d": -0.09017973855908357,
       "vol_ratio_20d_90d": 1.246125353982182,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "HOOD",
@@ -6334,7 +6334,7 @@
       "max_drawdown_90d": -0.37147210854391854,
       "vol_ratio_20d_90d": 1.0283232494175332,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ROK",
@@ -6350,7 +6350,7 @@
       "max_drawdown_90d": -0.21921469589408404,
       "vol_ratio_20d_90d": 1.6663782523066624,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ROL",
@@ -6366,7 +6366,7 @@
       "max_drawdown_90d": -0.3437160735123824,
       "vol_ratio_20d_90d": 1.070256166204692,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ROP",
@@ -6382,7 +6382,7 @@
       "max_drawdown_90d": -0.1801736484786951,
       "vol_ratio_20d_90d": 1.190128601020149,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ROST",
@@ -6398,7 +6398,7 @@
       "max_drawdown_90d": -0.1269056665233259,
       "vol_ratio_20d_90d": 1.3589698402536097,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RCL",
@@ -6414,7 +6414,7 @@
       "max_drawdown_90d": -0.2924423281752788,
       "vol_ratio_20d_90d": 1.1550425124123802,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "RTX",
@@ -6430,7 +6430,7 @@
       "max_drawdown_90d": -0.20058543564893971,
       "vol_ratio_20d_90d": 1.2802711013356753,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SPGI",
@@ -6446,7 +6446,7 @@
       "max_drawdown_90d": -0.15357633915486535,
       "vol_ratio_20d_90d": 0.9945136949428488,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "CRM",
@@ -6462,7 +6462,7 @@
       "max_drawdown_90d": -0.19061427518534035,
       "vol_ratio_20d_90d": 0.7060515587961134,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SNDK",
@@ -6478,7 +6478,7 @@
       "max_drawdown_90d": -0.5790899546020931,
       "vol_ratio_20d_90d": 1.113216487440578,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SBAC",
@@ -6494,7 +6494,7 @@
       "max_drawdown_90d": -0.17491645390912847,
       "vol_ratio_20d_90d": 1.053647383533541,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SLB",
@@ -6510,7 +6510,7 @@
       "max_drawdown_90d": -0.19785607950832262,
       "vol_ratio_20d_90d": 0.9643462087814669,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "STX",
@@ -6526,7 +6526,7 @@
       "max_drawdown_90d": -0.5362241845303184,
       "vol_ratio_20d_90d": 1.2268837510920871,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SRE",
@@ -6542,7 +6542,7 @@
       "max_drawdown_90d": -0.186658952478573,
       "vol_ratio_20d_90d": 1.0720176867518472,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "NOW",
@@ -6558,7 +6558,7 @@
       "max_drawdown_90d": -0.3585178855443042,
       "vol_ratio_20d_90d": 1.6293923547826064,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SHW",
@@ -6574,7 +6574,7 @@
       "max_drawdown_90d": -0.1460577668848695,
       "vol_ratio_20d_90d": 1.3619030138920338,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SPG",
@@ -6590,7 +6590,7 @@
       "max_drawdown_90d": -0.15627052025320898,
       "vol_ratio_20d_90d": 1.1751927585944817,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SKYD",
@@ -6606,7 +6606,7 @@
       "max_drawdown_90d": -0.3895870752992624,
       "vol_ratio_20d_90d": 1.7248681551188558,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SWKS",
@@ -6622,7 +6622,7 @@
       "max_drawdown_90d": -0.18316020294106705,
       "vol_ratio_20d_90d": 0.5256674746798645,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SJM",
@@ -6638,7 +6638,7 @@
       "max_drawdown_90d": -0.12399876444621338,
       "vol_ratio_20d_90d": 1.139980091189376,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SW",
@@ -6654,7 +6654,7 @@
       "max_drawdown_90d": -0.19886297804908382,
       "vol_ratio_20d_90d": 0.8715722316375184,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SNA",
@@ -6670,7 +6670,7 @@
       "max_drawdown_90d": -0.14663037091950215,
       "vol_ratio_20d_90d": 1.1580088735711132,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SOLV",
@@ -6686,7 +6686,7 @@
       "max_drawdown_90d": -0.12018607006629745,
       "vol_ratio_20d_90d": 1.2270807882629549,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SO",
@@ -6702,7 +6702,7 @@
       "max_drawdown_90d": -0.15258234502553925,
       "vol_ratio_20d_90d": 1.2999318822816879,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "LUV",
@@ -6718,7 +6718,7 @@
       "max_drawdown_90d": -0.2584137271730097,
       "vol_ratio_20d_90d": 1.2897014263301307,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SWK",
@@ -6734,7 +6734,7 @@
       "max_drawdown_90d": -0.1434755335607193,
       "vol_ratio_20d_90d": 1.372089519853877,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SBUX",
@@ -6750,7 +6750,7 @@
       "max_drawdown_90d": -0.16351735840243609,
       "vol_ratio_20d_90d": 1.2544727257865709,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "STT",
@@ -6766,7 +6766,7 @@
       "max_drawdown_90d": -0.14493312782588863,
       "vol_ratio_20d_90d": 1.261679391458374,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "STLD",
@@ -6782,7 +6782,7 @@
       "max_drawdown_90d": -0.18466121889016562,
       "vol_ratio_20d_90d": 1.0727759752673973,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "STE",
@@ -6798,7 +6798,7 @@
       "max_drawdown_90d": -0.13915027043011674,
       "vol_ratio_20d_90d": 1.2888240559456137,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SYK",
@@ -6814,7 +6814,7 @@
       "max_drawdown_90d": -0.23420864653338824,
       "vol_ratio_20d_90d": 1.2410768134586294,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SMCI",
@@ -6830,7 +6830,7 @@
       "max_drawdown_90d": -0.3974187638801635,
       "vol_ratio_20d_90d": 1.040976333811403,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SYF",
@@ -6846,7 +6846,7 @@
       "max_drawdown_90d": -0.12753093514996416,
       "vol_ratio_20d_90d": 0.8072141279777761,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SNPS",
@@ -6862,7 +6862,7 @@
       "max_drawdown_90d": -0.20906020645529244,
       "vol_ratio_20d_90d": 0.9991146999639627,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "SYY",
@@ -6878,7 +6878,7 @@
       "max_drawdown_90d": -0.1252010203553232,
       "vol_ratio_20d_90d": 1.6773119007136938,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TMUS",
@@ -6894,7 +6894,7 @@
       "max_drawdown_90d": -0.2466482097545719,
       "vol_ratio_20d_90d": 1.0243092697355596,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TROW",
@@ -6910,7 +6910,7 @@
       "max_drawdown_90d": -0.17111037459643075,
       "vol_ratio_20d_90d": 1.3088081019035769,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TTWO",
@@ -6926,7 +6926,7 @@
       "max_drawdown_90d": -0.26407648514410076,
       "vol_ratio_20d_90d": 1.1748277784014902,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TPR",
@@ -6942,7 +6942,7 @@
       "max_drawdown_90d": -0.327658752732789,
       "vol_ratio_20d_90d": 0.9506772937376042,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TRGP",
@@ -6958,7 +6958,7 @@
       "max_drawdown_90d": -0.16000506511011092,
       "vol_ratio_20d_90d": 1.361365795359959,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TGT",
@@ -6974,7 +6974,7 @@
       "max_drawdown_90d": -0.1287892457556019,
       "vol_ratio_20d_90d": 1.2927067817367897,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TEL",
@@ -6990,7 +6990,7 @@
       "max_drawdown_90d": -0.08426893711483152,
       "vol_ratio_20d_90d": 1.3259641495025045,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TDY",
@@ -7006,7 +7006,7 @@
       "max_drawdown_90d": -0.14404747410420338,
       "vol_ratio_20d_90d": 1.619001506849915,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TER",
@@ -7022,7 +7022,7 @@
       "max_drawdown_90d": -0.5262337398787004,
       "vol_ratio_20d_90d": 1.2248570713254194,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TSLA",
@@ -7038,7 +7038,7 @@
       "max_drawdown_90d": -0.28932507055786094,
       "vol_ratio_20d_90d": 1.1640895013619945,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TXN",
@@ -7046,15 +7046,15 @@
       "company": "Texas Instruments",
       "sector": "Information Technology",
       "price": 295.7300109863281,
-      "vol_90d": 0.3956953049422312,
+      "vol_90d": 0.3956953737957482,
       "vol_60d": 0.40236930671122156,
       "vol_30d": 0.49723399831837367,
       "vol_20d": 0.5781328086491251,
       "return_90d": 0.019158599604661708,
-      "max_drawdown_90d": -0.18244030547635082,
-      "vol_ratio_20d_90d": 1.461055517789195,
+      "max_drawdown_90d": -0.1824403863859012,
+      "vol_ratio_20d_90d": 1.461055263556223,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TPL",
@@ -7070,7 +7070,7 @@
       "max_drawdown_90d": -0.3705450335004249,
       "vol_ratio_20d_90d": 1.2354396920129447,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TXT",
@@ -7086,7 +7086,7 @@
       "max_drawdown_90d": -0.2401076815808879,
       "vol_ratio_20d_90d": 1.4272574862211531,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TMO",
@@ -7102,7 +7102,7 @@
       "max_drawdown_90d": -0.05240577775682953,
       "vol_ratio_20d_90d": 1.1215828687609237,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TJX",
@@ -7118,7 +7118,7 @@
       "max_drawdown_90d": -0.2396175476811545,
       "vol_ratio_20d_90d": 1.3237487649132411,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TKO",
@@ -7134,7 +7134,7 @@
       "max_drawdown_90d": -0.14754756760702803,
       "vol_ratio_20d_90d": 1.0499004049218092,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TSCO",
@@ -7150,7 +7150,7 @@
       "max_drawdown_90d": -0.1406866424521237,
       "vol_ratio_20d_90d": 1.3157471527606293,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TT",
@@ -7166,7 +7166,7 @@
       "max_drawdown_90d": -0.19268174530945825,
       "vol_ratio_20d_90d": 1.4712118584349623,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TDG",
@@ -7182,7 +7182,7 @@
       "max_drawdown_90d": -0.20206303527799374,
       "vol_ratio_20d_90d": 1.244928127963612,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TRV",
@@ -7198,7 +7198,7 @@
       "max_drawdown_90d": -0.09941862912293897,
       "vol_ratio_20d_90d": 0.9183108696530201,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TRMB",
@@ -7214,7 +7214,7 @@
       "max_drawdown_90d": -0.18529765532840925,
       "vol_ratio_20d_90d": 1.6559442419483772,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TFC",
@@ -7230,7 +7230,7 @@
       "max_drawdown_90d": -0.14180789069074473,
       "vol_ratio_20d_90d": 1.1527127991603927,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TWLO",
@@ -7246,7 +7246,7 @@
       "max_drawdown_90d": -0.3329571014630752,
       "vol_ratio_20d_90d": 1.1777687847159148,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TYL",
@@ -7262,7 +7262,7 @@
       "max_drawdown_90d": -0.16613489354090571,
       "vol_ratio_20d_90d": 1.0353366454832773,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "TSN",
@@ -7278,7 +7278,7 @@
       "max_drawdown_90d": -0.16735586874232633,
       "vol_ratio_20d_90d": 0.9559381086151729,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "USB",
@@ -7294,7 +7294,7 @@
       "max_drawdown_90d": -0.13334458689539175,
       "vol_ratio_20d_90d": 1.1783258224860618,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UBER",
@@ -7310,7 +7310,7 @@
       "max_drawdown_90d": -0.18792780038427082,
       "vol_ratio_20d_90d": 0.9996140535237605,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UDR",
@@ -7318,15 +7318,15 @@
       "company": "UDR, Inc.",
       "sector": "Real Estate",
       "price": 36.709999084472656,
-      "vol_90d": 0.19808243617490823,
-      "vol_60d": 0.18829431753376774,
+      "vol_90d": 0.19808218783095563,
+      "vol_60d": 0.1882943482295674,
       "vol_30d": 0.21836258952607762,
       "vol_20d": 0.23498389882053178,
       "return_90d": -0.0924046597781022,
       "max_drawdown_90d": -0.1839136430832864,
-      "vol_ratio_20d_90d": 1.1862934612387304,
+      "vol_ratio_20d_90d": 1.1862949485446328,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ULTA",
@@ -7342,7 +7342,7 @@
       "max_drawdown_90d": -0.12708136731703867,
       "vol_ratio_20d_90d": 1.0911626461618358,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UNP",
@@ -7358,7 +7358,7 @@
       "max_drawdown_90d": -0.1279336082547491,
       "vol_ratio_20d_90d": 1.214289101902534,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UAL",
@@ -7374,7 +7374,7 @@
       "max_drawdown_90d": -0.28292834366838115,
       "vol_ratio_20d_90d": 1.3696852532096095,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UPS",
@@ -7390,7 +7390,7 @@
       "max_drawdown_90d": -0.20559251981413307,
       "vol_ratio_20d_90d": 1.0864841613287834,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "URI",
@@ -7406,7 +7406,7 @@
       "max_drawdown_90d": -0.15882277733500805,
       "vol_ratio_20d_90d": 1.2391503753486548,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UNH",
@@ -7422,7 +7422,7 @@
       "max_drawdown_90d": -0.15790363295893062,
       "vol_ratio_20d_90d": 1.269725266734341,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "UHS",
@@ -7438,7 +7438,7 @@
       "max_drawdown_90d": -0.10560589378894847,
       "vol_ratio_20d_90d": 1.4495956505499672,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VLO",
@@ -7454,7 +7454,7 @@
       "max_drawdown_90d": -0.24648742196953677,
       "vol_ratio_20d_90d": 1.3268418916463243,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VEEV",
@@ -7470,7 +7470,7 @@
       "max_drawdown_90d": -0.09031964692920447,
       "vol_ratio_20d_90d": 0.7236662634843078,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VTR",
@@ -7486,7 +7486,7 @@
       "max_drawdown_90d": -0.1990273961411928,
       "vol_ratio_20d_90d": 1.1364695677412857,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VLTO",
@@ -7502,7 +7502,7 @@
       "max_drawdown_90d": -0.06643360966399192,
       "vol_ratio_20d_90d": 1.1936366872300224,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VRSN",
@@ -7518,7 +7518,7 @@
       "max_drawdown_90d": -0.0919592348997994,
       "vol_ratio_20d_90d": 0.7200496819272466,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VRSK",
@@ -7534,7 +7534,7 @@
       "max_drawdown_90d": -0.23191325537608498,
       "vol_ratio_20d_90d": 1.1615591313150606,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VZ",
@@ -7542,15 +7542,15 @@
       "company": "Verizon",
       "sector": "Communication Services",
       "price": 46.060001373291016,
-      "vol_90d": 0.28569315183524696,
+      "vol_90d": 0.2856931296850702,
       "vol_60d": 0.2984249627516014,
       "vol_30d": 0.3713867268368751,
       "vol_20d": 0.28385129518184915,
       "return_90d": 0.11775967666085307,
       "max_drawdown_90d": -0.1779188617973103,
-      "vol_ratio_20d_90d": 0.9935530248395315,
+      "vol_ratio_20d_90d": 0.9935531018710482,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VRTX",
@@ -7566,7 +7566,7 @@
       "max_drawdown_90d": -0.13036780035742035,
       "vol_ratio_20d_90d": 1.2870459988323402,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VRT",
@@ -7582,7 +7582,7 @@
       "max_drawdown_90d": -0.45426862653263733,
       "vol_ratio_20d_90d": 1.4650287385014829,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VTRS",
@@ -7598,7 +7598,7 @@
       "max_drawdown_90d": -0.10190369589068482,
       "vol_ratio_20d_90d": 1.1843490415961844,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VICI",
@@ -7614,7 +7614,7 @@
       "max_drawdown_90d": -0.1555509532196946,
       "vol_ratio_20d_90d": 1.4321077737474588,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "V",
@@ -7630,7 +7630,7 @@
       "max_drawdown_90d": -0.06458589870903675,
       "vol_ratio_20d_90d": 1.2705218888945606,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VST",
@@ -7646,7 +7646,7 @@
       "max_drawdown_90d": -0.3308386469595337,
       "vol_ratio_20d_90d": 1.545928323997103,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VMRK",
@@ -7662,7 +7662,7 @@
       "max_drawdown_90d": -0.14768358698178596,
       "vol_ratio_20d_90d": 0.9351490913335319,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VMC",
@@ -7678,7 +7678,7 @@
       "max_drawdown_90d": -0.2085110799865717,
       "vol_ratio_20d_90d": 1.2477397314378866,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "VYLR",
@@ -7710,7 +7710,7 @@
       "max_drawdown_90d": -0.12149649796494089,
       "vol_ratio_20d_90d": 1.182799851541965,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "GWW",
@@ -7726,7 +7726,7 @@
       "max_drawdown_90d": -0.11164704167493944,
       "vol_ratio_20d_90d": 1.2114414667905813,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WAB",
@@ -7742,7 +7742,7 @@
       "max_drawdown_90d": -0.1084367861679485,
       "vol_ratio_20d_90d": 1.2736927692347653,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WMT",
@@ -7758,7 +7758,7 @@
       "max_drawdown_90d": -0.11321700268310819,
       "vol_ratio_20d_90d": 1.0121871193951655,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "DIS",
@@ -7774,7 +7774,7 @@
       "max_drawdown_90d": -0.08916852286692412,
       "vol_ratio_20d_90d": 0.9231276927381914,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WM",
@@ -7790,7 +7790,7 @@
       "max_drawdown_90d": -0.16288010304791023,
       "vol_ratio_20d_90d": 1.4042125965009142,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WAT",
@@ -7806,7 +7806,7 @@
       "max_drawdown_90d": -0.0636157395358724,
       "vol_ratio_20d_90d": 1.192746620691152,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WEC",
@@ -7822,7 +7822,7 @@
       "max_drawdown_90d": -0.14450481163730378,
       "vol_ratio_20d_90d": 1.312108689044506,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WFC",
@@ -7830,15 +7830,15 @@
       "company": "Wells Fargo",
       "sector": "Financials",
       "price": 85.48999786376953,
-      "vol_90d": 0.2433747658598766,
+      "vol_90d": 0.2433747372558391,
       "vol_60d": 0.24937463519500913,
       "vol_30d": 0.24415116029937572,
       "vol_20d": 0.2742614352954867,
       "return_90d": 0.011469740790086558,
       "max_drawdown_90d": -0.1134122960256061,
-      "vol_ratio_20d_90d": 1.1269099091949126,
+      "vol_ratio_20d_90d": 1.1269100416415818,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WELL",
@@ -7854,7 +7854,7 @@
       "max_drawdown_90d": -0.11947186248825159,
       "vol_ratio_20d_90d": 1.2929229687191963,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WST",
@@ -7870,7 +7870,7 @@
       "max_drawdown_90d": -0.10264116001467849,
       "vol_ratio_20d_90d": 1.00998318693523,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WDC",
@@ -7886,7 +7886,7 @@
       "max_drawdown_90d": -0.5470834383068199,
       "vol_ratio_20d_90d": 1.2303007849520304,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WY",
@@ -7902,7 +7902,7 @@
       "max_drawdown_90d": -0.27864191043555775,
       "vol_ratio_20d_90d": 1.2436992557519597,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WSM",
@@ -7910,15 +7910,15 @@
       "company": "Williams-Sonoma, Inc.",
       "sector": "Consumer Discretionary",
       "price": 261.67999267578125,
-      "vol_90d": 0.31355142668560937,
+      "vol_90d": 0.3135514206567881,
       "vol_60d": 0.31909877558819716,
       "vol_30d": 0.3714968040368798,
       "vol_20d": 0.43046161796487314,
       "return_90d": 0.15742033052916082,
       "max_drawdown_90d": -0.133370425537916,
-      "vol_ratio_20d_90d": 1.372858106611286,
+      "vol_ratio_20d_90d": 1.372858133007965,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WMB",
@@ -7934,7 +7934,7 @@
       "max_drawdown_90d": -0.15049561790511468,
       "vol_ratio_20d_90d": 1.5198750611774883,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WTW",
@@ -7950,7 +7950,7 @@
       "max_drawdown_90d": -0.17727727465574405,
       "vol_ratio_20d_90d": 1.0546308510048872,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WDAY",
@@ -7966,7 +7966,7 @@
       "max_drawdown_90d": -0.1314359347485181,
       "vol_ratio_20d_90d": 0.6893541854010901,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "WYNN",
@@ -7982,7 +7982,7 @@
       "max_drawdown_90d": -0.3171605690825495,
       "vol_ratio_20d_90d": 1.5015873083386648,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "XEL",
@@ -7998,7 +7998,7 @@
       "max_drawdown_90d": -0.14654311943375664,
       "vol_ratio_20d_90d": 1.1222192492106038,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "XYL",
@@ -8014,7 +8014,7 @@
       "max_drawdown_90d": -0.2931702216323663,
       "vol_ratio_20d_90d": 1.7203039097914652,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "YUM",
@@ -8030,7 +8030,7 @@
       "max_drawdown_90d": -0.18541761700386816,
       "vol_ratio_20d_90d": 1.0606777443263977,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ZBRA",
@@ -8046,7 +8046,7 @@
       "max_drawdown_90d": -0.1773912668837916,
       "vol_ratio_20d_90d": 0.81850457955982,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ZBH",
@@ -8062,7 +8062,7 @@
       "max_drawdown_90d": -0.12909853073575484,
       "vol_ratio_20d_90d": 1.4563547861071013,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     },
     {
       "ticker": "ZTS",
@@ -8070,15 +8070,15 @@
       "company": "Zoetis",
       "sector": "Health Care",
       "price": 82.31999969482422,
-      "vol_90d": 0.35642153621889705,
+      "vol_90d": 0.35642148936341334,
       "vol_60d": 0.36920315445357277,
       "vol_30d": 0.44585511628516494,
       "vol_20d": 0.5276244690437298,
       "return_90d": 0.11571065934471592,
       "max_drawdown_90d": -0.11330686573872384,
-      "vol_ratio_20d_90d": 1.480338350597558,
+      "vol_ratio_20d_90d": 1.4803385452041447,
       "valid": true,
-      "price_days": 251
+      "price_days": 250
     }
   ]
 }
