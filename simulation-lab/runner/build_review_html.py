@@ -1032,6 +1032,9 @@ def main():
                 ]:
                     state = comparison if comparison in ("beat","miss","inline") else "pending"
                     status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
+                    if state == "pending" and label == "EPS" and isinstance(actual_value, (int, float)) and isinstance(estimate, (int, float)):
+                        direction = "數值高於預期" if actual_value > estimate else "數值低於預期" if actual_value < estimate else "數值相同"
+                        status_text = direction + "（EPS口徑待核實）"
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                     h=soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
                     for caption, val, formatted in [("實際",actual_value,actual_display),("預期",estimate,estimate_display)]:
@@ -1194,6 +1197,9 @@ def main():
                     ]:
                         state = comparison if comparison in ("beat","miss","inline") else "pending"
                         status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
+                    if state == "pending" and label == "EPS" and isinstance(actual_value, (int, float)) and isinstance(estimate, (int, float)):
+                        direction = "數值高於預期" if actual_value > estimate else "數值低於預期" if actual_value < estimate else "數值相同"
+                        status_text = direction + "（EPS口徑待核實）"
                         result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
                         for caption, val, formatted in [("實際", actual_value, actual_display), ("預期", estimate, estimate_display)]:
