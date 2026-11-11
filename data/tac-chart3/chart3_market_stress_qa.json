@@ -1,10 +1,10 @@
 {
   "dataset_id": "TAC_CHART3_MARKET_STRESS",
   "status": "PASS",
-  "generated_at": "2026-11-11T14:17:27+00:00",
+  "generated_at": "2026-11-11T13:56:19+00:00",
   "file": "chart3_market_stress.json",
   "bytes": 1492459,
-  "sha256": "65b39226849d8d361036f8b76b85076df818aed1ff6eedd66fe0c502cef788b2",
+  "sha256": "9d62eaecf1ab7f29062ac4c2f7fe0c8325c8d15e26e663ae5101730a699d3315",
   "series": [
     {
       "series_id": "VIXCLS",
