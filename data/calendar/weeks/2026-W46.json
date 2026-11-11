@@ -464,17 +464,17 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "release_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "Adjusted EPS (non-GAAP); company GAAP EPS US$0.80 separately disclosed.",
         "eps_estimate": 0.79,
-        "eps_actual": 0.8,
+        "eps_actual": 0.82,
         "revenue_estimate": 5.16,
         "revenue_actual": 5.073,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": "pending",
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "營收$5.073B低於共識$5.16B約1.7%；GAAP EPS $0.80、調整後EPS $0.82，但共識口徑未揭露，故不判定EPS優劣。黃金產量816千盎司，AISC升至每盎司$1,911，成本壓力仍需觀察。",
+        "financial_judgment": "調整後 EPS US$0.82，高於同口徑分析師共識 US$0.79，優於預期約 3.8%；GAAP EPS US$0.80 另列。營收 US$5.073B 低於共識，兩項分開判讀。",
         "stock_price_reaction": "股價反應待核實；不以未核實盤前報價代替收盤表現。",
         "stock_price_reaction_window": null,
         "source": {
@@ -486,11 +486,11 @@
           "notes": "官方頁確認 11/09 06:00 ET 在市場開盤前發布第三季結果；11:00 ET 另有簡報與 webcast。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "Investing.com｜Barrick Q3 2026 earnings",
+          "url": "https://uk.investing.com/news/earnings/barrick-mining-beats-on-q3-profit-reaffirms-2026-output-4967691",
+          "publisher": "Investing.com / Reuters",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "Article explicitly identifies adjusted EPS US$0.82 and analyst consensus US$0.79; GAAP EPS US$0.80 is separately disclosed and not compared with adjusted consensus."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -516,7 +516,7 @@
           "name": "Barrick official Q3 2026 results",
           "url": "https://www.barrick.com/English/news/news-details/2026/q3-2026-results/default.aspx"
         },
-        "eps_estimate_basis": "consensus basis not fully disclosed",
+        "eps_estimate_basis": "Investing.com earnings report explicitly states adjusted EPS actual US$0.82 versus analyst consensus US$0.79.",
         "revenue_actual_basis": "USD; report unit as stored in revenue_unit",
         "revenue_estimate_basis": "USD; report unit as stored in revenue_unit"
       },
@@ -607,17 +607,17 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "調整後EPS $4.68、GAAP EPS $2.59；EPS共識口徑未揭露，不判定beat/miss。",
-        "eps_estimate": 3.35,
+        "eps_basis": "Adjusted EPS (non-GAAP); GAAP basic EPS US$2.59 is separately disclosed.",
+        "eps_estimate": 3.16,
         "eps_actual": 4.68,
         "revenue_estimate": 8.42,
         "revenue_actual": 9.466,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "營收$9.466B高於$8.42B共識約12.4%；調整後EPS $4.68、GAAP EPS $2.59。EPS共識口徑未揭露，故不判定beat/miss。",
+        "financial_judgment": "調整後 EPS US$4.68，高於 Investing.com 列示的分析師共識 US$3.16，優於預期約 48.1%；公司 GAAP basic EPS US$2.59 另列。營收另依其自身共識獨立判讀。",
         "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
@@ -629,11 +629,11 @@
           "notes": "官方公告確認 11/09 08:00 ET 財報電話會議，財報新聞稿於會議前發布；換算台灣時間 21:00。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "Investing.com｜NRG Q3 2026 earnings",
+          "url": "https://uk.investing.com/news/earnings/nrg-earnings-beat-by-152-revenue-topped-estimates-4967874",
+          "publisher": "Investing.com / Reuters",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "Article reports EPS US$4.68 versus analyst estimate US$3.16. Issuer release confirms US$4.68 is Adjusted EPS (non-GAAP), GAAP basic EPS is US$2.59."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -664,7 +664,8 @@
           "name": "NRG官方Q3 2026財報；共識值沿用Finviz W46資料庫",
           "url": "https://www.nrg.com/en/about/newsroom/2026/46136",
           "observed_at": "2026-11-11T06:45:28+08:00"
-        }
+        },
+        "eps_estimate_basis": "Investing.com earnings report compares Q3 EPS actual US$4.68 against analyst estimate US$3.16; company actual is explicitly Adjusted EPS under non-GAAP definition."
       },
       {
         "id": "current-ceg-20261109",
@@ -681,17 +682,17 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "Adjusted operating EPS; GAAP net income per share US$5.19 is separately disclosed.",
         "eps_estimate": 3.9,
-        "eps_actual": 5.19,
+        "eps_actual": 5.06,
         "revenue_estimate": 9.23,
         "revenue_actual": 9.55,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": "pending",
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "營收$9.55B高於共識$9.23B約3.5%；GAAP EPS $5.19、調整後營運EPS $5.06。公司上修並收窄全年調整後營運EPS指引至$12.50–$12.80。",
+        "financial_judgment": "調整後營運 EPS US$5.06，高於公布前共識 US$3.89，優於預期約 30.1%；GAAP 每股盈餘 US$5.19 另列，不混用口徑。",
         "stock_price_reaction": "股價反應待核實；未取得可追溯的同日收盤／盤前變動。",
         "stock_price_reaction_window": null,
         "source": {
@@ -703,11 +704,11 @@
           "notes": "官方投資人關係頁確認 11/09 09:00 ET 舉行第三季財報電話會議；美股開盤前公布，精確財報發布分鐘未另行確認。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "The Market Wrap｜Earnings Chatter 2026-11-10",
+          "url": "https://market-wrap.com/earnings-chatter/2026-11-10/",
+          "publisher": "The Market Wrap",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "Post-report scorecard states CEG EPS US$5.06 against US$3.89 consensus; issuer reports adjusted operating EPS US$5.06 and GAAP EPS US$5.19 separately."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -733,7 +734,7 @@
           "name": "Constellation Energy official Q3 2026 results",
           "url": "https://investors.constellationenergy.com/news-releases/news-release-details/constellation-reports-third-quarter-2026-results"
         },
-        "eps_estimate_basis": "consensus basis not fully disclosed",
+        "eps_estimate_basis": "Market Wrap pre-open consensus scorecard identifies adjusted EPS actual US$5.06 versus consensus US$3.89; do not compare GAAP US$5.19 with adjusted consensus.",
         "revenue_actual_basis": "USD; report unit as stored in revenue_unit",
         "revenue_estimate_basis": "USD; report unit as stored in revenue_unit"
       },
@@ -827,7 +828,7 @@
         "reporting_period": "FY2027 Q2",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "GAAP稀釋EPS -$0.29；共識口徑未揭露，不判定beat/miss。",
+        "eps_basis": "GAAP diluted EPS -US$0.29; available analyst estimates differ materially and basis not sufficiently verified.",
         "eps_estimate": 0.97,
         "eps_actual": -0.29,
         "revenue_estimate": 1.64,
@@ -835,9 +836,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "pending",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "營收$1.50B低於$1.64B共識約8.5%；GAAP稀釋EPS -$0.29，但共識口徑未揭露，不判定EPS beat/miss。",
+        "financial_judgment": "GAAP 稀釋 EPS -US$0.29；市場共識來源出現差異，且尚未確認 GAAP／Adjusted 比較口徑，暫列比較口徑待核實，不以不同口徑數字直接判斷。",
         "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
@@ -849,11 +850,11 @@
           "notes": "官方公告確認 11/09 美股收盤後發布 FY2027 Q2 財報，16:30 ET 舉行電話會議；換算台灣時間為 11/10 05:30。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "The Market Wrap｜Earnings Chatter 2026-11-10",
+          "url": "https://market-wrap.com/earnings-chatter/2026-11-10/",
+          "publisher": "The Market Wrap",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "Post-report summary uses -US$0.86 consensus; alternate calendar sources show different estimates. Because the GAAP/adjusted basis is not explicitly confirmed, do not assign beat/miss."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -884,7 +885,8 @@
           "name": "Take-Two官方FY2027 Q2財報；共識值沿用Finviz W46資料庫",
           "url": "https://taketwointeractivesoftwareinc.gcs-web.com/news-releases/news-release-details/take-two-interactive-software-inc-reports-results-fiscal-4/",
           "observed_at": "2026-11-11T06:45:28+08:00"
-        }
+        },
+        "eps_estimate_basis": "Consensus basis unresolved; sources differ between -US$0.86 and -US$0.61 and do not provide sufficient accounting-basis evidence."
       },
       {
         "id": "current-oxy-20261109",
@@ -901,17 +903,17 @@
         "reporting_period": "2026 Q3",
         "time_known": false,
         "time_type": "release_date_only",
-        "eps_basis": "調整後EPS $1.91；市場共識口徑未揭露，不判定beat/miss。",
-        "eps_estimate": 1.45,
+        "eps_basis": "Adjusted EPS (non-GAAP); compared with Reuters analyst adjusted EPS estimate.",
+        "eps_estimate": 1.46,
         "eps_actual": 1.91,
         "revenue_estimate": 6.8,
         "revenue_actual": 6.77,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "調整後EPS $1.91；營收$6.77B略低於$6.80B共識約0.4%。EPS共識口徑未揭露，不判定beat/miss。",
+        "financial_judgment": "調整後 EPS US$1.91，高於 Reuters 分析師共識 US$1.46，優於預期約 30.8%；營收低於共識，兩項分開判讀。",
         "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
@@ -923,11 +925,11 @@
           "notes": "官方公告確認 11/09 美股收盤後發布第三季財報；11/10 13:00 ET 舉行電話會議。精確發布時間未確認。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "Reuters｜Occidental Q3 2026 earnings",
+          "url": "https://www.reuters.com/business/energy/occidental-petroleum-beats-quarterly-profit-estimates-2026-11-09/",
+          "publisher": "Reuters",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "Reuters reports adjusted earnings US$1.91 per share against analyst estimates US$1.46."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -958,7 +960,8 @@
           "name": "Occidental官方Q3 2026財報；共識值沿用Finviz W46資料庫",
           "url": "https://www.oxy.com/news/news-releases/occidental-announces-3rd-quarter-2026-results",
           "observed_at": "2026-11-11T06:45:28+08:00"
-        }
+        },
+        "eps_estimate_basis": "Reuters explicitly identifies adjusted EPS actual US$1.91 against analyst estimate US$1.46."
       },
       {
         "id": "current-tdg-20261110",
