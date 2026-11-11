@@ -5,7 +5,7 @@ on:
     branches:
       - simulation/tac-process-lab-2026-11-06
     paths:
-      - ".github/scripts/tac_chart3_bootstrap.py"
+      - ".github/scripts/tac_chart3_bootstrap_redirect.py"
   workflow_dispatch:
     inputs:
       source_run_id:
@@ -40,7 +40,7 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           SOURCE_RUN_ID: ${{ github.event.inputs.source_run_id || '43026998120' }}
         run: |
-          python .github/scripts/tac_chart3_bootstrap.py --run-id "$SOURCE_RUN_ID" --output data/tac-chart3
+          python .github/scripts/tac_chart3_bootstrap_redirect.py --run-id "$SOURCE_RUN_ID" --output data/tac-chart3
       - name: Commit baseline store to simulation branch
         run: |
           git config user.name "github-actions[bot]"
@@ -49,6 +49,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Baseline store unchanged; no commit required."
           else
-            git commit -m "data(chart3): seed verified FRED-ALFRED baseline from run $SOURCE_RUN_ID"
+            git commit -m "data(chart3): seed verified FRED-ALFRED baseline"
             git push origin HEAD:simulation/tac-process-lab-2026-11-06
           fi
