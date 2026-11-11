@@ -27,10 +27,11 @@ h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-he
 .notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
 .note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:12px;line-height:1.6;color:#526077}
 .note strong{display:block;color:#202c43;font-size:13px;margin-bottom:4px}
+.guide{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.guide h2{margin-bottom:12px}.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.guide-item{background:#f7f8fb;border:1px solid #edf0f5;border-radius:11px;padding:12px 13px}.guide-item strong{font-size:13px;color:#24334d}.guide-item p{font-size:12px;line-height:1.65;color:#526077;margin:5px 0 0}.guide-caution{font-size:11px;color:#7a8496;margin-top:12px;line-height:1.6}.guide a,footer a{color:#315f9d;text-decoration:underline}
 .status{padding:18px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--muted)}
 footer{margin-top:18px;color:#778196;font-size:11px;line-height:1.7}
 svg text{font-family:inherit;fill:#718096;font-size:11px}
-@media(max-width:700px){main{padding:14px 10px 34px}header{padding:22px 18px;border-radius:14px}.card{padding:14px 10px}.notegrid{grid-template-columns:1fr}.latest{text-align:left}.chart svg{min-width:760px}.chart:after{display:block;content:'手機可左右滑動查看完整時間軸';font-size:11px;color:var(--muted);padding:4px 0}}
+@media(max-width:700px){main{padding:14px 10px 34px}header{padding:22px 18px;border-radius:14px}.card{padding:14px 10px}.notegrid{grid-template-columns:1fr}.guide{padding:14px 12px}.guide-grid{grid-template-columns:1fr}.latest{text-align:left}.chart svg{min-width:760px}.chart:after{display:block;content:'手機可左右滑動查看完整時間軸';font-size:11px;color:var(--muted);padding:4px 0}}
 </style>
 </head>
 <body>
@@ -59,7 +60,17 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="note"><strong>避免重複計算</strong>NFCICREDIT 是 NFCI 的信用子指標，不應當成與 NFCI 完全獨立的風險來源。</div>
  <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
 </div>
-<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
+<section class="guide">
+ <h2>投資判讀｜先看變化，再看水位</h2>
+ <div class="guide-grid">
+  <div class="guide-item"><strong>VIX｜市場避險需求</strong><p>VIX 上升代表選擇權市場反映的未來波動預期升高，不代表市場必然下跌。先觀察升速與是否持續，再搭配股市走勢判讀。</p></div>
+  <div class="guide-item"><strong>NFCI｜金融環境是否收緊</strong><p>高於 0 代表金融條件較長期平均緊縮；低於 0 代表較寬鬆。由負轉正或持續上行，比單週的小幅波動更值得注意。</p></div>
+  <div class="guide-item"><strong>STLFSI4｜金融市場壓力</strong><p>0 代表正常水準；高於 0 表示高於平均的金融壓力，低於 0 則低於平均。持續走高比單週短暫跳升更值得警戒。</p></div>
+  <div class="guide-item"><strong>交叉確認｜避免單一指標誤判</strong><p>若 VIX 急升，但 NFCI 與 STLFSI4 仍低於 0，可能偏向股市短期避險需求；若三者同步走高，則代表壓力可能擴散至整體金融環境。NFCI Credit 僅作為 NFCI 的信用面補充。</p></div>
+ </div>
+ <div class="guide-caution">注意：上述為方向性判讀框架，不是機械式買賣訊號。不同指數的統計口徑與發布頻率不同，不應直接比較絕對值。</div>
+</section>
+<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
 </main>
 <script>
 const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
