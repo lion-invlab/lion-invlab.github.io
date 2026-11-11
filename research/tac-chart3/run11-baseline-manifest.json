@@ -1,0 +1,71 @@
+{
+  "project": "TAC Chart 3",
+  "run_id": 43026998120,
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "source_commit": "fd892464c00c6776f9fef5396288ba7136f2e80b",
+  "qa_status": "PASS_WITH_DOCUMENTED_COVERAGE_LIMITATIONS",
+  "package": {
+    "filename": "TAC_Chart3_Run11_full_baseline_20261111.zip",
+    "sha256": "df4cb4ee18c01f4871a51eb4d7245a6322c682ef30cd89f8d11e37532693840d"
+  },
+  "artifacts": {
+    "VIXCLS": {
+      "artifact_id": 13859041307,
+      "sha256": "6d653f79661a8dbf169b402e27dbb84c4d606d9004332e97854fee98df5faf65",
+      "vintage_dates": 3970,
+      "current_rows": 9615,
+      "vintage_event_rows": 9637
+    },
+    "NFCI": {
+      "artifact_id": 13859024693,
+      "sha256": "649cc2f38a07c7619e3bc1a33af332e33861defe06162ca990582797311019cb",
+      "vintage_dates": 803,
+      "current_rows": 2913,
+      "vintage_event_rows": 934790
+    },
+    "NFCICREDIT": {
+      "artifact_id": 13860389018,
+      "sha256": "f326a81adc05e84a2d0f500127f417f3f40f7374985d9a49c5322d3fe9d97440",
+      "vintage_dates": 745,
+      "current_rows": 2913,
+      "vintage_event_rows": 930171
+    },
+    "STLFSI4": {
+      "artifact_id": 13858851611,
+      "sha256": "ecdf384b5f3120e4869121fb05bb81e4546e29e499f4aad1e1382ed3ea5de599",
+      "vintage_dates": 209,
+      "current_rows": 1714,
+      "vintage_event_rows": 319948
+    }
+  },
+  "totals": {
+    "current_rows": 17155,
+    "vintage_event_rows": 2194546,
+    "raw_source_files": 552,
+    "chunk_grid_missing": 0,
+    "duplicate_event_keys": 0,
+    "conflicting_duplicate_values": 0,
+    "current_snapshot_mismatches": 0,
+    "initial_release_mismatches": 0
+  },
+  "method": {
+    "current": "FRED observations output_type=1",
+    "initial_release": "FRED observations output_type=4",
+    "vintage_changes": "FRED observations output_type=3 (new and revised observations only)",
+    "vintage_index": "FRED series/vintagedates",
+    "dot_value": "Preserved as an explicit source_missing_value event",
+    "blank_cells": "Empty string/null only; omitted as no event",
+    "release_date": "Not supplied as exact per-observation date; left blank",
+    "imputation": false,
+    "interpolation": false,
+    "forward_fill": false,
+    "license_status": "review_required_before_redistribution"
+  },
+  "coverage_start": {
+    "VIXCLS": "2010-11-22",
+    "NFCI": "2011-05-25",
+    "NFCICREDIT": "2012-07-05",
+    "STLFSI4": "2022-11-10"
+  },
+  "next_gate": "Seed the baseline store durably before enabling idempotent incremental updates."
+}
