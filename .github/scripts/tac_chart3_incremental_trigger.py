@@ -3,3 +3,5 @@
 # The workflow runs test_tac_chart3_incremental.py and tac_chart3_incremental.py.
 
 # Smoke-test revision: include initial-release append-only validation.
+
+# Smoke-test revision 2: scope output_type=4 to the last five ALFRED vintage dates.
