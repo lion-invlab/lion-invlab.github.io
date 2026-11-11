@@ -23,3 +23,5 @@
 # Smoke-test revision 10: validate strict point-in-time reconstruction and current snapshot parity.
 
 # Smoke-test revision 11: commit verified chart QA and point-in-time snapshot changes from frozen branch head.
+
+# Smoke-test revision 12: validate dynamically resolved latest-vintage-plus-one as-of date.
