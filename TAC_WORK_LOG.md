@@ -484,3 +484,19 @@
 - Artifact `tac-simulation-smoke-42365303387-1`，Artifact ID `13571711407`，下載頁：`https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/42365303387/artifacts/13571711407`。
 - 本次 weekday 是固定 JSON fixture replay，不是即時行情／新聞 E2E；輸出 JSON 明確為 `review_ready:false`。不可將此結果宣稱為 11/10 真實早報已完成。
 - 本次只變更模擬分支的 `.github/workflows/tac-simulation-lab.yml`、`simulation-lab/runner/build_review_html.py`、`simulation-lab/runner/visual_regression.mjs`；main、index.html、正式雙母版、Manifest、WR 與 preview 成品均未修改。
+
+
+## 2026-11-12｜11/12 審核版接手稽核：行情差異、新聞重複及 QA 缺口
+- 規則與基準：模擬 WR SIM-0.3 blob `1fa5e3a32e1cb456810189a460a605285a026308`；main WR v5.14 blob `80d49eeaa54e16a18dc34416239e4b46664ba44b`；正式 weekday mother `3785405e331b10ec6189002e480be2a1edbe20ef`；simulation baseline `6fe79308eca71db5dd54308fd35efe3900451081`。
+- 既有 preview 已於 2026-11-12 06:12:58（台灣時間）提交：commit `54d4e12bf3389ecb5509c57fde16176b86ebc469`，blob `22155e1f0a57f3876f6ba2b966a71eb91f32fbe2`。commit 僅含 `preview/2026-11-12-simulation.html`；`index.html` blob SHA `98d8613921b225e78226033e97c0cb72aed5c577` 未變。Pages deploy run `43109860660` success，但 web open 無法實際載入頁面，live preview 尚未完成獨立驗證。
+- 行情交叉查核：
+  - SOX：Nasdaq official history 11/11 = 10,729.98 / +7.32%（https://indexes.nasdaq.com/Index/History/SOX）；Investing.com history 11/11 = 10,603.4 / +6.05%（https://www.investing.com/indices/phlx-semiconductor-historical-data）。差異尚未裁決；報告採 Nasdaq official 值，但 WR D3 優先 Investing.com HK，必須補足來源裁決紀錄。
+  - Gold GCZ6：報告為 4,028.70；Investing.com Dec-2026 GCZ6 history 11/11 為 3,995.32 / -0.87%（https://nl.investing.com/commodities/gold-historical-data）；Reuters 對 US December futures 報 4,000.50、跌 0.7%（https://www.reuters.com/world/india/gold-edges-higher-after-sharp-selloff-fed-hike-bets-weigh-2026-11-11/）。報告值未能與同合約歷史資料對上，列為重大行情差異。
+  - Russell 2000：AP 11/11 close 2,846.26（https://apnews.com/article/027cd5f4583d1a11c1795150bf065afb）；Yahoo ^RUT history 11/11 close 2,834.57、high 2,843.19、low 2,832.42（https://finance.yahoo.com/quote/%5ERUT/history/）。報告 pivot OHLC H 2,852.14／L 2,832.42／C 2,846.26 不與 Yahoo 同頁一致，關鍵價位不得放行。
+  - 交叉確認：Taiwan Weighted 11/11 44,257.15 / +3.62%（Investing.com HK）；WTI 86.53 / +0.57%、Brent 92.76 / +1.39%（Reuters）；STI 5,289.66 / +0.59%。美國 11/11 公債市場休市，三項殖利率欄位標示休市而非沿用舊值。
+- 44 項行情原始狀態為 36 numeric、3 closed、5 pending（MOVE、XLC、XLU、XLY、XLRE）；因 SOX、GCZ6、Russell OHLC 有獨立來源差異，36 numeric 不等於 36 項全部完成裁決。
+- 行事曆 W46 SHA `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`，updated_at 04:34:17 +08；16 economic、48 earnings；coverage incomplete，依 WR 視為動態狀態。11/12 當日 3 筆經濟、6 筆財報事件。
+- 新聞卡片 5+10，但德國 CPI、中國雙11購物節、美國貨櫃進口、Nvidia 對中晶片管制至少 4 組跨區重複；應改以合格不同事件補足，不足時減少則數。直接開啟原文頁未成功，不能宣稱完成原文逐篇閱讀；靜態 HTML 212 個連結均有 href，無空連結、失效內錨點或 target/rel 缺漏。
+- HTML 靜態檢查：html/head/body 各 1；181 個 ID 無重複；16 個經濟事件卡、48 個財報事件卡、36 個已公布雙卡。頁面另含 11/10 CPI 特別焦點區塊，非固定母版區塊，且不是 11/12 QA 後使用者追加內容，故不得列為原 QA 通過。
+- 視覺截圖 1440／768／360／320，documentWidth=viewport，無水平溢位；視覺回歸只對 simulation baseline 執行，沒有與 formal main mother 直接比對。實際 tabs／details／導航／外部連結互動未測試。Pages deploy run success，live URL 未實際開啟。
+- 關鍵價位 builder 僅輸出 S1/P/R1，未符合 D4 五層中文標籤要求；OHLC 由 GitHub Actions/artifact 取得，未符合 D4「ChatGPT 直接查核」責任規定。當前輸出不可標示可審核完成。
