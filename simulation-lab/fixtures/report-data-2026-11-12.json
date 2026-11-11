@@ -2,7 +2,7 @@
   "report_date": "2026-11-12",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-11",
-  "summary": "11/11全球風險資產明顯反彈，台灣加權+3.62%、KOSPI+2.60%；SOX收10,761.3、上漲7.63%，Russell 2000收2,850.36、上漲1.03%。S&P 11產業ETF已補齊全部11檔同日歷史收盤，科技+3.46%領漲，醫療與必需消費落後。WTI、Brent與白銀同步反彈，美元走強；FedWatch仍顯示12月升息25bp機率90.8%，CNN Fear & Greed為37（Fear）。美債市場因Veterans Day休市，MOVE無當日報價。",
+  "summary": "11/11全球風險資產明顯反彈，台灣加權+3.62%、KOSPI+2.60%；SOX收10,761.3、上漲7.63%，Russell 2000收2,850.36、上漲1.03%。S&P 11產業ETF已補齊全部11檔同日歷史收盤，科技+3.46%領漲，醫療與必需消費落後。WTI、Brent、黃金與白銀同步走高，美元走強；FedWatch仍顯示12月升息25bp機率90.8%，CNN Fear & Greed為37（Fear）。美債市場因Veterans Day休市，MOVE無當日報價。",
   "sentiment": "市場情緒呈現股市強彈、宏觀風險未退的分歧：SOX上漲7.63%、Russell 2000上漲1.03%，11大產業ETF全部收高或收低均已完成同日核實；但美元上行、油價回彈及FedWatch對12月升息的高度定價，仍對高估值資產形成約束。CNN Fear & Greed維持Fear區，MOVE因美債休市無當日報價。",
   "focus_news": [
     {
@@ -429,14 +429,14 @@
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "4,028.70",
-      "change_display": "-0.04%",
+      "display": "4,048.65",
+      "change_display": "+0.46%",
       "source": {
-        "name": "Investing.com HK｜COMEX December 2026 gold futures",
-        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+        "name": "Investing.com HK｜Gold Futures Dec 2026 (GCZ6) historical data",
+        "url": "https://hk.investing.com/commodities/gold-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "futures_settlement",
-        "note": "COMEX 2026年12月黃金期貨（GCZ6）11/11 結算價；勿與現貨 XAU/USD 混用。"
+        "quote_type": "CFD_reference_daily_close",
+        "note": "Investing.com HK 預設 GCZ6 歷史頁 11/11 收盤 4,048.65、上漲0.46%；此頁標示為即時差價合約參考報價，與 CME 專屬 cid=1178341 頁面不同，不混用兩個報價系列。"
       }
     },
     "白銀期貨 SI": {
@@ -4445,7 +4445,7 @@
     "bonds": "美國公債市場11/11因Veterans Day休市，2年、10年、30年期殖利率均標示休市；MOVE亦無當日報價。不得以11/10收盤值冒充當日行情。",
     "fx": "美元指數升至102.90、上漲0.65%；USD/TWD 32.866，EUR/USD 1.1093、GBP/USD 1.3336，AUD/USD 0.6874，USD/JPY 159.88。美元走強與市場對12月升息的定價一致，亞洲貨幣仍須留意美元利差壓力。",
     "energy": "WTI 2026年12月期貨收87.02美元、上漲1.14%；Brent 2027年1月期貨收93.00美元、上漲1.65%。油價反彈，市場同時衡量OPEC+供給回升與荷姆茲海峽航運風險，能源價格仍可能造成通膨波動。",
-    "metals": "COMEX 2026年12月黃金期貨收4,028.70美元、跌0.04%；白銀期貨收53.020美元、漲3.50%。金價近乎持平、銀價明顯走高，需搭配美元與實質利率後續變化判斷貴金屬方向。"
+    "metals": "Investing.com HK 預設 GCZ6 11/11 歷史收盤4,048.65美元、上漲0.46%（頁面標示CFD參考報價）；白銀 SIZ6 收53.020美元、上漲3.50%。黃金與白銀同步走高，需搭配美元與實質利率後續變化判斷貴金屬方向。"
   },
   "last_week_calendar": {
     "week_id": "2026-W45",
@@ -4568,7 +4568,7 @@
     },
     {
       "label": "跨資產風險",
-      "text": "美元指數上漲0.65%；WTI +1.14%、Brent +1.65%、白銀 +3.50%，CNN Fear & Greed為37（Fear）。"
+      "text": "美元指數上漲0.65%；WTI +1.14%、Brent +1.65%、黃金 +0.46%、白銀 +3.50%，CNN Fear & Greed為37（Fear）。"
     },
     {
       "label": "資料口徑",
