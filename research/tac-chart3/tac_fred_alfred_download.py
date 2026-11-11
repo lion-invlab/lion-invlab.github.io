@@ -73,12 +73,16 @@ def main():
     key = os.environ.get("FRED_API_KEY", "").strip()
     if len(key) != 32 or not key.isalnum() or key.lower() != key:
         raise SystemExit("FRED_API_KEY missing or malformed; expected 32 lowercase alphanumeric characters.")
+    selected = os.environ.get("TAC_SERIES_ID", "").strip().upper()
+    if selected and selected not in SERIES:
+        raise SystemExit(f"Unknown TAC_SERIES_ID: {selected}")
+    selected_series = {selected: SERIES[selected]} if selected else SERIES
     root = Path("artifacts/tac-chart3")
     root.mkdir(parents=True, exist_ok=True)
     retrieved = datetime.now(timezone.utc).isoformat(timespec="seconds")
     manifest = {"project":"TAC Chart 3","retrieved_at":retrieved,
                 "api":"FRED/ALFRED official API","series":{},"failures":[]}
-    for sid, start in SERIES.items():
+    for sid, start in selected_series.items():
         print(f"START {sid}", flush=True)
         sd = root / sid; sd.mkdir(exist_ok=True)
         entry = {"observation_start":start,"status":"RUNNING","files":[]}

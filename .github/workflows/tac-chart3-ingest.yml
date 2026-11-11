@@ -1,5 +1,4 @@
 name: TAC Chart 3 FRED-ALFRED historical ingestion
-
 on:
   push:
     branches:
@@ -8,18 +7,20 @@ on:
       - "research/tac-chart3/**"
       - ".github/workflows/tac-chart3-ingest.yml"
   workflow_dispatch:
-
 permissions:
   contents: read
-
 concurrency:
   group: tac-chart3-ingest
   cancel-in-progress: true
-
 jobs:
   ingest:
+    name: Ingest ${{ matrix.series }}
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        series: [VIXCLS, NFCI, NFCICREDIT, STLFSI4]
     steps:
       - name: Checkout isolated simulation branch
         uses: actions/checkout@v4
@@ -42,12 +43,13 @@ jobs:
       - name: Download current, initial-release and ALFRED vintage history
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          TAC_SERIES_ID: ${{ matrix.series }}
         run: python research/tac-chart3/tac_fred_alfred_download.py
-      - name: Upload immutable ingestion evidence
+      - name: Upload per-series immutable ingestion evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-chart3-fred-alfred-${{ github.run_id }}-${{ github.run_attempt }}
-          path: artifacts/tac-chart3/
+          name: tac-chart3-${{ matrix.series }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/tac-chart3/${{ matrix.series }}/
           if-no-files-found: warn
           retention-days: 30
