@@ -5,3 +5,5 @@
 # Smoke-test revision: include initial-release append-only validation.
 
 # Smoke-test revision 2: scope output_type=4 to the last five ALFRED vintage dates.
+
+# Smoke-test revision 3: run chart dataset QA and materialize chart-ready JSON.
