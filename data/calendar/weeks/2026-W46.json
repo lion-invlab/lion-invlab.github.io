@@ -751,17 +751,17 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "調整後EPS $1.78；市場共識雖列$1.58但口徑未揭露，不判定beat/miss。",
-        "eps_estimate": 1.58,
+        "eps_basis": "Adjusted Net Income per share (ANI per Adjusted Share); actual and consensus use adjusted/non-GAAP basis.",
+        "eps_estimate": 1.59,
         "eps_actual": 1.78,
         "revenue_estimate": 2.66,
         "revenue_actual": 4.56,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": null,
-        "financial_judgment": "調整後EPS $1.78、總營收$4.56B；EPS共識口徑未揭露，且資產管理業收入可能包含投資收益，營收可比性待核實，不判定beat/miss。",
+        "financial_judgment": "調整後 Net Income per Adjusted Share US$1.78，高於 Reuters 分析師同口徑共識 US$1.59，優於預期約 12.0%；GAAP diluted EPS US$1.19 另列，不與 adjusted consensus 混比。營收 US$4.56B 的統計定義與共識口徑仍待獨立核實。",
         "stock_price_reaction": "截至早報資料截點，未取得可核實的正式收盤／盤後股價反應，待補查。",
         "stock_price_reaction_window": null,
         "source": {
@@ -773,11 +773,11 @@
           "notes": "官方 IR 日程確認 11/09 10:00 ET 財報電話會議；發布前時段，精確財報發稿分鐘未確認。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "Reuters｜KKR Q3 2026 adjusted EPS consensus",
+          "url": "https://www.reuters.com/legal/transactional/kkr-profit-hits-record-asset-sales-fees-surge-2026-11-09/",
+          "publisher": "Reuters",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "Reuters identifies adjusted net income per share actual US$1.78 versus analyst estimate US$1.59; company defines adjusted per-share measures as ANI per Adjusted Share. Same adjusted basis; GAAP diluted EPS US$1.19 is not used for this comparison."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -799,7 +799,7 @@
         },
         "actual": "公布時點已過；截至2026-11-11 05:25尚未取得可追溯的發行人實績與同口徑共識，待核實。",
         "eps_actual_display": "調整後EPS $1.78",
-        "eps_estimate_display": "$1.58（調整後共識；口徑待確認）",
+        "eps_estimate_display": "US$1.59（Reuters adjusted EPS 共識）",
         "revenue_actual_display": "$4.56B",
         "revenue_estimate_display": "$2.66B（Finviz共識；修正前顯示值不一致）",
         "judgment": "調整後EPS $1.78、總營收$4.56B；EPS共識口徑未揭露，且資產管理業收入可能包含投資收益，營收可比性待核實，不判定beat/miss。",
@@ -808,7 +808,8 @@
           "name": "KKR官方Q3 2026財報；共識值沿用Finviz W46資料庫",
           "url": "https://media.kkr.com/news-details?news_id=7de02651-80a6-4c76-8c9e-09ca75b83478",
           "observed_at": "2026-11-11T06:45:28+08:00"
-        }
+        },
+        "eps_estimate_basis": "Reuters/LSEG analyst consensus for adjusted EPS; same adjusted earnings basis as KKR ANI per Adjusted Share."
       },
       {
         "id": "current-ttwo-20261109",
