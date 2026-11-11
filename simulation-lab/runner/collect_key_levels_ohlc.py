@@ -38,6 +38,22 @@ def number(value: object, label: str) -> float:
     return result
 
 
+def apply_ohlc_override(key: str, values: dict[str, float], override: dict | None, trading_date: str):
+    """Apply a same-session, source-identified OHLC override when a vendor bar conflicts."""
+    if not override:
+        return values, "Yahoo Finance historical data", None
+    if str(override.get("trading_date", "")) != trading_date:
+        raise ValueError(f"{key}: OHLC override trading date does not match {trading_date}")
+    adjusted = dict(values)
+    for field in ("high", "low", "close"):
+        adjusted[field.title()] = number(override[field], f"{key}.override.{field}")
+    if adjusted["High"] < adjusted["Low"]:
+        raise ValueError(f"{key}: override High is below Low")
+    if not adjusted["Low"] <= adjusted["Close"] <= adjusted["High"]:
+        raise ValueError(f"{key}: override Close outside High/Low")
+    return adjusted, str(override.get("source_name", "Verified OHLC override")), str(override.get("source_url", ""))
+
+
 def expected_capture_slot(now_taipei: datetime) -> str:
     # TAC report is assembled at 05:00 in US daylight time and 05:25 in
     # US standard time. Capture ten minutes before the report.
@@ -73,6 +89,11 @@ def collect(now: datetime | None = None, allow_manual: bool = False, report_date
         raise ValueError("NYSE calendar returned no prior session")
     trading_date = schedule.index[-1].date().isoformat()
 
+    report_data = {}
+    if report_data_path:
+        report_data = json.loads(Path(report_data_path).read_text(encoding="utf-8"))
+    overrides = report_data.get("key_levels_overrides", {})
+
     items = []
     for key in REQUIRED:
         symbol, url_symbol = SYMBOLS[key]
@@ -96,20 +117,25 @@ def collect(now: datetime | None = None, allow_manual: bool = False, report_date
             field: number(row[field], f"{key}.{field}")
             for field in ("Open", "High", "Low", "Close")
         }
+        values, override_source_name, override_source_url = apply_ohlc_override(
+            key, values, overrides.get(key), trading_date
+        )
         if values["High"] < values["Low"]:
             raise ValueError(f"{key}: High is below Low")
         if not values["Low"] <= values["Open"] <= values["High"]:
             raise ValueError(f"{key}: Open outside High/Low")
         if not values["Low"] <= values["Close"] <= values["High"]:
             raise ValueError(f"{key}: Close outside High/Low")
+        source_name = override_source_name
+        source_url = override_source_url or f"https://finance.yahoo.com/quote/{url_symbol}/history/?frequency=1d"
         items.append({
             "key": key,
             "name": EXPECTED[key],
             "symbol": symbol,
             "trading_date": trading_date,
             **{field.lower(): value for field, value in values.items()},
-            "source_name": "Yahoo Finance historical data",
-            "source_url": f"https://finance.yahoo.com/quote/{url_symbol}/history/?frequency=1d",
+            "source_name": source_name,
+            "source_url": source_url,
             "quote_type": "cash_index",
         })
 
@@ -127,7 +153,7 @@ def collect(now: datetime | None = None, allow_manual: bool = False, report_date
         "trading_date": trading_date,
         "captured_at_taipei": now.isoformat(),
         "timezone": "Asia/Taipei",
-        "source": "Yahoo Finance historical daily cash-index OHLC",
+        "source": "Yahoo Finance daily cash-index OHLC with same-session official overrides where specified",
         "key_levels": levels,
     }
 
@@ -148,6 +174,14 @@ def self_test() -> None:
     }
     result = build(sample, "2026-11-09")
     assert len(result["items"]) == 5 and result["items"][0]["p"] == "100.00"
+    overridden, name, url = apply_ohlc_override(
+        "sox", {"Open": 10469.04, "High": 10787.06, "Low": 10287.32, "Close": 10564.11},
+        {"trading_date": "2026-11-06", "high": 10746.25, "low": 10287.32, "close": 10729.98,
+         "source_name": "Nasdaq official", "source_url": "https://indexes.nasdaq.com/Index/History/SOX"},
+        "2026-11-06"
+    )
+    assert overridden["Close"] == 10729.98 and overridden["High"] == 10746.25
+    assert name == "Nasdaq official" and url.endswith("/SOX")
     print("collect_key_levels_ohlc self-test: PASS")
 
 
@@ -157,6 +191,7 @@ def main() -> None:
     ap.add_argument("--output")
     ap.add_argument("--allow-manual", action="store_true", help="bypass clock-slot guard for an intentional manual run")
     ap.add_argument("--report-date", help="report date to build for; defaults to today's Taipei date")
+    ap.add_argument("--report-data", help="report data JSON containing source-verified same-session OHLC overrides")
     ap.add_argument("--self-test", action="store_true")
     args = ap.parse_args()
     if args.self_test:
@@ -167,6 +202,7 @@ def main() -> None:
     result = collect(
         allow_manual=(args.allow_manual or os.getenv('GITHUB_EVENT_NAME') == 'workflow_dispatch'),
         report_date_override=args.report_date,
+        report_data_path=args.report_data,
     )
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
