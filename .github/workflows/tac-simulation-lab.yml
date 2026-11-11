@@ -64,7 +64,7 @@ jobs:
 
       - name: Capture verified live OHLC for five US cash indices
         run: |
-          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date 2026-11-12 --output simulation-lab/output/key-levels-live.json
+          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date 2026-11-12 --report-data simulation-lab/fixtures/report-data-2026-11-12.json --output simulation-lab/output/key-levels-live.json
 
       - name: Assemble actual 2026-11-12 weekday review from verified report data
         run: |
