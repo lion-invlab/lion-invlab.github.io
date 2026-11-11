@@ -7,6 +7,8 @@ on:
     paths:
       - ".github/scripts/analyze_tac_chart3_stress_episodes.py"
       - ".github/scripts/test_analyze_tac_chart3_stress_episodes.py"
+      - ".github/scripts/analyze_tac_chart3_historical_asof.py"
+      - ".github/scripts/test_analyze_tac_chart3_historical_asof.py"
       - ".github/workflows/tac-chart3-stress-analysis-tests.yml"
 
 permissions:
@@ -26,5 +28,9 @@ jobs:
           python-version: "3.12"
       - name: Compile analysis code
         run: python -m py_compile .github/scripts/analyze_tac_chart3_stress_episodes.py
-      - name: Run unit tests
+      - name: Compile historical as-of code
+        run: python -m py_compile .github/scripts/analyze_tac_chart3_historical_asof.py
+      - name: Run retrospective analysis unit tests
         run: python .github/scripts/test_analyze_tac_chart3_stress_episodes.py
+      - name: Run historical as-of unit tests
+        run: python .github/scripts/test_analyze_tac_chart3_historical_asof.py
