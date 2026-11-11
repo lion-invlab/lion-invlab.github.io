@@ -1188,7 +1188,7 @@ def main():
                 grid = details.select_one(".earnings-results-grid")
                 if grid:
                     grid.clear()
-                    for label, actual, estimate, actual_display, estimate_display, comparison in [
+                    for label, actual_value, estimate, actual_display, estimate_display, comparison in [
                         ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                         ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                     ]:
