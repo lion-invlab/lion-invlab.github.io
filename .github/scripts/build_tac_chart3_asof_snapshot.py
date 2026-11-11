@@ -2,7 +2,7 @@
 """Reconstruct conservative point-in-time TAC Chart 3 snapshots from ALFRED events."""
 from __future__ import annotations
 import argparse,csv,gzip,hashlib,json
-from datetime import date,datetime,timezone
+from datetime import date,datetime,timedelta,timezone
 from pathlib import Path
 
 SERIES=("VIXCLS","NFCI","NFCICREDIT","STLFSI4")
@@ -72,6 +72,14 @@ def reconcile_current_snapshot(current_path:Path,observations:list[dict]):
         raise RuntimeError(f"Point-in-time/current reconciliation failed: missing={len(missing)}, extra={len(extra)}, mismatches={len(mismatch)}; examples={missing[:2]} {extra[:2]} {mismatch[:2]}")
     return {"status":"PASS","current_rows":len(current),"reconstructed_rows":len(reconstructed),"mismatches":0}
 
+def resolve_as_of_latest_plus_one(data_dir:Path):
+    latest=[]
+    for sid in SERIES:
+        dates=json.loads((data_dir/"series"/sid/"vintage_dates.json").read_text(encoding="utf-8"))["vintage_dates"]
+        if not dates:raise RuntimeError(f"{sid}: vintage date index is empty")
+        latest.append(date.fromisoformat(dates[-1]))
+    return (max(latest)+timedelta(days=1)).isoformat()
+
 def build_snapshot(data_dir:Path,as_of_date:str,output:Path|None=None):
     date.fromisoformat(as_of_date)
     manifest=json.loads((data_dir/"manifest.json").read_text(encoding="utf-8"))
@@ -122,8 +130,12 @@ def build_snapshot(data_dir:Path,as_of_date:str,output:Path|None=None):
 if __name__=="__main__":
     p=argparse.ArgumentParser()
     p.add_argument("--data-dir",default="data/tac-chart3")
-    p.add_argument("--as-of-date",required=True,help="YYYY-MM-DD; same-day vintage is excluded conservatively")
+    p.add_argument("--as-of-date",default=None,help="YYYY-MM-DD; same-day vintage is excluded conservatively")
+    p.add_argument("--as-of-latest-plus-one",action="store_true",help="Use one calendar day after the newest vintage across all four series")
     p.add_argument("--output",default=None)
     a=p.parse_args()
-    result=build_snapshot(Path(a.data_dir),a.as_of_date,Path(a.output) if a.output else None)
+    if bool(a.as_of_date)==bool(a.as_of_latest_plus_one):p.error("Specify exactly one of --as-of-date or --as-of-latest-plus-one")
+    data_dir=Path(a.data_dir)
+    as_of=a.as_of_date or resolve_as_of_latest_plus_one(data_dir)
+    result=build_snapshot(data_dir,as_of,Path(a.output) if a.output else None)
     print(json.dumps(result,ensure_ascii=False,indent=2))
