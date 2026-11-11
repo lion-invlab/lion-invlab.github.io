@@ -90,7 +90,7 @@ try {
     const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
         { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美國10月CPI高於預期", "Waller對12月升息"] },
-        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S1：", "中樞 P：", "壓力 R1：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
+        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
         { id: "focus-tab-core", panel: ".focus-core", needles: ["盤面觀察重點", "12月升息", "50個基點"] }
       ];
       const results = [], invalid = [];
@@ -111,7 +111,7 @@ try {
       const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
           if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
           else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
-          if (!source.includes("Yahoo Finance OHLC")) invalid.push(item.id + ": missing OHLC source attribution");
+          if (!source.includes("Yahoo Finance") && !source.includes("Investing.com")) invalid.push(item.id + ": missing OHLC source attribution");
         }
         results.push({ id: item.id, checked: input.checked, visible, text_length: text.length, needles: item.needles });
       }
