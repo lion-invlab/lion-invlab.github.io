@@ -6,9 +6,9 @@ class T(unittest.TestCase):
  def test_cutoff_is_strict(self):
   d={"X":{"2020-01-01":{"2020-01-01":"1","2020-01-03":"2"}}}
   self.assertEqual(a.rows(d,"X","2020-01-01","2020-01-01","2020-01-03")[0]["value"],1)
- def test_same_day_excluded_from_pit(self):
+ def test_pre_observation_check_excludes_same_day(self):
   d={"X":{"2020-01-01":{"2020-01-01":"1"}}}
-  self.assertEqual(a.pit_count(d,"X","2020-01-01","2020-01-01"),0)
+  self.assertEqual(a.pre_observation_vintage_count(d,"X","2020-01-01","2020-01-01"),0)
  def test_no_fill_for_missing(self):
   self.assertIsNone(a.num("."));self.assertIsNone(a.num(""))
  def test_missing_event_not_counted_as_historical_pit(self):
