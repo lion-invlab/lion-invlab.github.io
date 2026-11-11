@@ -1,4 +1,4 @@
-name: TAC Chart 3 weekday incremental update
+name: TAC Chart 3 incremental update (simulation branch trigger)
 
 on:
   push:
@@ -6,9 +6,6 @@ on:
       - simulation/tac-process-lab-2026-11-06
     paths:
       - ".github/scripts/tac_chart3_incremental_trigger.py"
-  schedule:
-    - cron: "30 21 * * 0-4"
-  workflow_dispatch:
 
 permissions:
   contents: write
