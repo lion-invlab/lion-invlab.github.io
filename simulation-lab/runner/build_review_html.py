@@ -252,12 +252,18 @@ def main():
         heading["style"] = "font-size:15px;font-weight:850;color:#244b68;margin:0 0 9px;"
         heading.string = "本週聯準會官員行程"
         fed_events_box.append(heading)
+        fed_week_start = str(data.get("calendar", {}).get("week_start", ""))[:10]
+        fed_week_end = str(data.get("calendar", {}).get("week_end", ""))[:10]
+        # Keep completed as well as upcoming speakers in the current report week.
         fed_records = [e for e in data.get("calendar", {}).get("events", [])
                        if re.search(r"Fed|Federal Reserve|Waller|Bowman|Goolsbee|Barkin|Logan|Schmid|Jefferson|Barr|Daly|Hammack|Williams", str(e.get("name", "")), re.I)
-                       and str(e.get("status", "upcoming")).lower() not in {"released", "published", "completed", "cancelled"}]
+                       and fed_week_start <= str(e.get("date", ""))[:10] <= fed_week_end
+                       and str(e.get("status", "upcoming")).lower() not in {"cancelled"}]
         for event in sorted(fed_records, key=lambda x: x.get("date", "")):
             dt = datetime.fromisoformat(event["date"])
-            date_label = f"{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
+            event_status = str(event.get("status", "upcoming")).lower()
+            status_label = "已發表" if event_status in {"released", "published", "completed"} else "預定"
+            date_label = f"{status_label}｜{dt.month}/{dt.day} {['一','二','三','四','五','六','日'][dt.weekday()]} {dt:%H:%M}"
             row = soup.new_tag("div")
             row["style"] = "display:grid;grid-template-columns:94px minmax(0,1fr);gap:8px;padding:9px 0;border-top:1px solid #e1e7ee;"
             when = soup.new_tag("div")
