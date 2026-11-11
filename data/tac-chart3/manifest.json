@@ -3512,5 +3512,13 @@
     "interpolation": false,
     "forward_fill": false,
     "license_status": "review_required_before_redistribution"
+  },
+  "chart_dataset": {
+    "file": "chart3_market_stress.json",
+    "sha256": "65b39226849d8d361036f8b76b85076df818aed1ff6eedd66fe0c502cef788b2",
+    "bytes": 1492459,
+    "qa_file": "chart3_market_stress_qa.json",
+    "status": "PASS",
+    "generated_at": "2026-11-11T14:17:27+00:00"
   }
 }
