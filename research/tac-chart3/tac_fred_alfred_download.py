@@ -82,11 +82,24 @@ def main():
             # FRED observations defaults realtime_start/end to TODAY. If no release
             # exists on that calendar date, the API returns HTTP 400. Resolve the
             # latest actual vintage first, then query the current snapshot as-of it.
-            vintages, vurl = request_json("series/vintagedates",
-                {"series_id":sid,"sort_order":"asc","limit":10000,"offset":0}, key)
+            # Page the complete vintage-date index rather than assuming one page is enough.
+            dates = []
+            vintage_pages = []
+            offset = 0
+            while True:
+                page, vurl = request_json("series/vintagedates",
+                    {"series_id":sid,"sort_order":"asc","limit":10000,"offset":offset}, key)
+                page_dates = page.get("vintage_dates", [])
+                vintage_pages.append(page)
+                dates.extend(page_dates)
+                print(f"  {sid} vintage-date index offset={offset}: {len(page_dates)} dates", flush=True)
+                if len(page_dates) < 10000:
+                    break
+                offset += len(page_dates)
+            vintages = {"series_id":sid,"vintage_dates":dates,"page_count":len(vintage_pages),
+                        "count":len(dates),"source_endpoint":vurl}
             vh,vb = write_json(sd/f"{sid}_vintage_dates.json", vintages)
             entry["files"].append({"name":f"{sid}_vintage_dates.json","sha256":vh,"bytes":vb})
-            dates = vintages.get("vintage_dates",[])
             if not dates: raise RuntimeError("vintage_dates empty")
             latest_vintage = dates[-1]
             entry["latest_vintage_date"] = latest_vintage
@@ -114,8 +127,13 @@ def main():
 
             change_rows = 0
             # API JSON output_type 3 permits up to 2,000 vintage dates per request.
-            for ix in range(0, len(dates), 500):
-                batch = dates[ix:ix+500]
+            batch_size = 500
+            total_batches = (len(dates) + batch_size - 1) // batch_size
+            for ix in range(0, len(dates), batch_size):
+                batch = dates[ix:ix+batch_size]
+                batch_no = ix//batch_size + 1
+                print(f"  START {sid} vintage batch {batch_no}/{total_batches}: {len(batch)} dates", flush=True)
+                batch_started = time.monotonic()
                 payload, purl = request_json("series/observations",
                     {"series_id":sid,"observation_start":start,
                      "observation_end":datetime.now(timezone.utc).date().isoformat(),
@@ -126,7 +144,7 @@ def main():
                 entry["files"].append({"name":name,"sha256":ph,"bytes":pb})
                 count = len(payload.get("observations",[]))
                 change_rows += count
-                print(f"  {sid} vintage batch {ix//500+1}: {len(batch)} dates, {count} change rows", flush=True)
+                print(f"  DONE {sid} vintage batch {batch_no}/{total_batches}: {len(batch)} dates, {count} change rows, {time.monotonic()-batch_started:.1f}s", flush=True)
             entry["vintage_change_rows"] = change_rows
             entry["status"] = "PASS"
             print(f"PASS {sid}: current={len(rows)}, initial={len(ir)}, vintages={len(dates)}, changes={change_rows}", flush=True)
