@@ -29,6 +29,9 @@ class ChartBuilderTests(unittest.TestCase):
     (sd/"state.json").write_text(json.dumps({"series_id":sid,"last_vintage_date":"2026-01-12","current_rows":2,"current_sha256":current_sha,"events_sha256":event_sha,"initial_release_sha256":initial_sha,"vintage_dates_sha256":vd_sha,"last_success_at":"2026-02-01T00:00:00Z"}))
    report=BUILDER.build(root)
    self.assertEqual(report["status"],"PASS")
+   first_sha=report["sha256"]
+   second_report=BUILDER.build(root)
+   self.assertEqual(second_report["sha256"],first_sha,"No-data rebuild must be byte-identical and must not force a commit.")
    data=json.loads((root/"chart3_market_stress.json").read_text())
    self.assertEqual(len(data["series"]),4)
    self.assertEqual(data["series"][0]["observations"][1]["value"],None)
