@@ -69,6 +69,14 @@ class IncrementalTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 INC.merge_event_gzip(old,[event("2026-02-01","2026-02-05","20.0")],merged)
 
+    def test_initial_release_skips_when_no_new_vintages(self):
+        original=INC.request_json
+        def fail(*args,**kwargs):raise AssertionError("No API request expected without new vintage dates")
+        INC.request_json=fail
+        try:rows=INC.fetch_initial_release("VIXCLS","fake","2026-02-20T00:00:00Z",[])
+        finally:INC.request_json=original
+        self.assertEqual(rows,[])
+
     def test_initial_release_query_uses_vintage_window(self):
         original=INC.request_json
         calls=[]
