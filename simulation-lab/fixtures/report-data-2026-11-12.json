@@ -428,17 +428,6 @@
     }
   },
   "metals": {
-    "黃金期貨 GC": {
-      "display": "4,048.65",
-      "change_display": "+0.46%",
-      "source": {
-        "name": "Investing.com HK｜Gold Futures Dec 2026 (GCZ6) historical data",
-        "url": "https://hk.investing.com/commodities/gold-historical-data",
-        "data_date": "2026-11-11",
-        "quote_type": "CFD_reference_daily_close",
-        "note": "Investing.com HK 預設 GCZ6 歷史頁 11/11 收盤 4,048.65、上漲0.46%；此頁標示為即時差價合約參考報價，與 CME 專屬 cid=1178341 頁面不同，不混用兩個報價系列。"
-      }
-    },
     "白銀期貨 SI": {
       "display": "53.020",
       "change_display": "+3.50%",
@@ -448,6 +437,17 @@
         "data_date": "2026-11-11",
         "quote_type": "futures_daily_close",
         "note": "COMEX 2026年12月白銀期貨（SIZ6）11/11 歷史收盤 53.020，上漲3.50%。"
+      }
+    },
+    "黃金 GCZ6（CFD參考）": {
+      "display": "4,048.65",
+      "change_display": "+0.46%",
+      "source": {
+        "name": "Investing.com HK｜Gold Futures Dec 2026 (GCZ6) historical data",
+        "url": "https://hk.investing.com/commodities/gold-historical-data",
+        "data_date": "2026-11-11",
+        "quote_type": "CFD_reference_daily_close",
+        "note": "Investing.com HK 預設 GCZ6 歷史頁 11/11 收盤 4,048.65、上漲0.46%；此頁標示為即時差價合約參考報價，與 CME 專屬 cid=1178341 頁面不同，不混用兩個報價系列。"
       }
     }
   },
