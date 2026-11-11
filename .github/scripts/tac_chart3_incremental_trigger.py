@@ -19,3 +19,5 @@
 # Smoke-test revision 8: run streaming full-history vintage integrity QA.
 
 # Smoke-test revision 9: clean rerun after branch fast-forward conflict.
+
+# Smoke-test revision 10: validate strict point-in-time reconstruction and current snapshot parity.
