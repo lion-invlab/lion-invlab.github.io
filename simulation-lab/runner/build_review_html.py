@@ -817,8 +817,12 @@ def main():
         rows=container.select(".fc-prob")
         if len(rows)!=3: raise ValueError("FedWatch three probability cards failed to materialize")
         labels=["維持不變","升息一碼（25bp）","升息兩碼（50bp）"]
-        for row,item,label in zip(rows,ordered,labels):
-            row["class"]=["fc-prob fc-hold","fc-prob fc-hike","fc-prob fc-hike fc-hike-50bp"][labels.index(label)]
+        for idx,(row,item,label) in enumerate(zip(rows,ordered,labels)):
+            row["class"]=["fc-prob fc-hold","fc-prob fc-hike","fc-prob fc-hike fc-hike-50bp"][idx]
+            palette=[("#eaf4fc","#2876a8","#216b99"),("#fff0ed","#c93432","#b52d2d"),("#f2edff","#7854b8","#6946a5")][idx]
+            row["style"]=f"background:{palette[0]} !important;border-top:4px solid {palette[1]} !important;color:{palette[2]} !important;"
+            dot=row.select_one(".fc-dot")
+            if dot: dot["style"]=f"background:{palette[1]} !important;"
             set_text(unique(row,"strong","probability"),f'{float(item["probability"]):.1f}%')
             set_text(unique(row,".fc-range","range"),item["rate_range"])
             set_text(unique(row,".fc-prob-label span:not(.fc-dot)","label"),label)
@@ -827,12 +831,14 @@ def main():
         for cls,item in zip(["fc-split-hold","fc-split-hike","fc-split-hike fc-split-hike-50bp"],ordered):
             seg=soup.new_tag("span")
             seg["class"]=cls.split()
-            seg["style"]="width:"+str(float(item["probability"]))+"%"
+            seg_color=["#2876a8","#c93432","#7854b8"][len(bar.contents)]
+            seg["style"]="width:"+str(float(item["probability"]))+"%;background:"+seg_color+" !important;"
             bar.append(seg)
         legend_box.clear()
         for cls,label,item in zip(["fc-legend-hold","fc-legend-hike","fc-legend-hike-50bp"],labels,ordered):
             entry=soup.new_tag("span")
             dot=soup.new_tag("i");dot["class"]=[cls]
+            dot["style"]="background:"+["#2876a8","#c93432","#7854b8"][len(legend_box.contents)]+" !important;"
             value=soup.new_tag("b");value.string=f'{float(item["probability"]):.1f}%'
             entry.append(dot);entry.append(label+" ");entry.append(value);legend_box.append(entry)
         style=soup.new_tag("style",id="tac-fedwatch-three-outcomes-v1")
