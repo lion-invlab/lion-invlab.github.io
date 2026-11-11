@@ -61,7 +61,7 @@ def expected_capture_slot(now_taipei: datetime) -> str:
     return "04:50" if is_dst else "05:15"
 
 
-def collect(now: datetime | None = None, allow_manual: bool = False, report_date_override: str | None = None) -> dict:
+def collect(now: datetime | None = None, allow_manual: bool = False, report_date_override: str | None = None, report_data_path: str | None = None) -> dict:
     now = now or datetime.now(TAIPEI)
     now = now.astimezone(TAIPEI)
     slot = expected_capture_slot(now)
