@@ -9,6 +9,7 @@ BASE='https://api.stlouisfed.org/fred'
 SERIES_START={'VIXCLS':'1990-01-01','NFCI':'1971-01-01','NFCICREDIT':'1971-01-01','STLFSI4':'1993-12-01'}
 EVENT_FIELDS=['series_id','observation_date','vintage_date','value','value_status','release_date','release_date_status','source_method','source_chunk','artifact_created_at','license_status']
 CURRENT_FIELDS=['series_id','observation_date','value','realtime_start','realtime_end','retrieved_at','source_method','license_status','quality_flags']
+INITIAL_FIELDS=['series_id','observation_date','value','realtime_start','realtime_end','release_date','release_date_status','retrieved_at','source_method','license_status']
 
 def sha_file(p):
  h=hashlib.sha256()
@@ -125,6 +126,33 @@ def fetch_new_events(sid,key,vintages):
    rows.extend(parse_event_matrix(sid,p,datetime.now(timezone.utc).isoformat(timespec='seconds'),f'{sid}_incremental_v{batch_no//50+1:03d}_{lo[:4]}_{hi[:4]}.json'))
  return rows
 
+def fetch_initial_release(sid,key,retrieved):
+ rows=[];now=datetime.now(timezone.utc).date();y0=int(SERIES_START[sid][:4])
+ while y0<=now.year:
+  y1=min(y0+9,now.year)
+  p=request_json('series/observations',{'series_id':sid,'observation_start':max(SERIES_START[sid],f'{y0}-01-01'),'observation_end':f'{y1}-12-31','output_type':4,'sort_order':'asc','limit':100000,'offset':0},key)
+  for r in p.get('observations',[]):
+   rows.append({'series_id':sid,'observation_date':r['date'],'value':r['value'],'realtime_start':r.get('realtime_start',''),'realtime_end':r.get('realtime_end',''),'release_date':'','release_date_status':'exact_release_date_not_supplied_by_observations_endpoint','retrieved_at':retrieved,'source_method':'FRED API output_type=4 initial release only','license_status':'review_required_before_redistribution'})
+  y0=y1+1
+ return rows
+
+def merge_initial_release(old_path,new_rows,out_path):
+ existing={}
+ with gzip.open(old_path,'rt',encoding='utf-8-sig',newline='') as f:
+  for r in csv.DictReader(f):existing[r['observation_date']]=r
+ added=0
+ for r in new_rows:
+  d=r['observation_date']
+  if d in existing:
+   if existing[d]['value']!=r['value']:
+    raise RuntimeError(f'Initial-release conflict for {d}: baseline={existing[d]["value"]}, API={r["value"]}; manual review required')
+  else:existing[d]=r;added+=1
+ if added:
+  rows=[existing[k] for k in sorted(existing)]
+  write_gzip_csv(out_path,INITIAL_FIELDS,rows)
+  return added,sha_file(out_path),len(rows)
+ return 0,sha_file(old_path),len(existing)
+
 def reconcile(current_rows,event_path):
  current={r['date']:r['value'] for r in current_rows};needed=set(current);latest={}
  with gzip.open(event_path,'rt',encoding='utf-8-sig',newline='') as f:
@@ -152,12 +180,19 @@ def update_series(sid,root,key,retrieved,overlap=5):
   current_tmp.unlink();current_sha=sha_file(sd/'current.csv.gz');current_changed=False
  else:current_changed,current_sha=replace_if_hash_changed(current_tmp,sd/'current.csv.gz')
  checked,_=reconcile(current,sd/'vintage_events.csv.gz')
+ initial_rows=fetch_initial_release(sid,key,retrieved)
+ initial_tmp=sd/'initial_release.next.csv.gz'
+ initial_added,initial_sha,initial_count=merge_initial_release(sd/'initial_release.csv.gz',initial_rows,initial_tmp)
+ initial_changed=False
+ if initial_added:
+  initial_changed,initial_sha=replace_if_hash_changed(initial_tmp,sd/'initial_release.csv.gz')
+ elif initial_tmp.exists():initial_tmp.unlink()
  dates_obj={'series_id':sid,'vintage_dates':dates,'count':len(dates),'source_endpoint':'FRED series/vintagedates'}
  dates_tmp=sd/'vintage_dates.next.json';dates_tmp.write_text(json.dumps(dates_obj,ensure_ascii=False,indent=2))
  dates_changed,dates_sha=replace_if_hash_changed(dates_tmp,sd/'vintage_dates.json')
- changed=event_changed or current_changed or dates_changed or bool(new_dates)
+ changed=event_changed or current_changed or dates_changed or bool(new_dates) or initial_changed
  if changed:
-  state.update({'last_vintage_date':dates[-1],'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'current_rows':checked,'current_sha256':current_sha,'last_success_at':retrieved,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'overlap_window':overlap})
+  state.update({'last_vintage_date':dates[-1],'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'current_rows':checked,'current_sha256':current_sha,'last_success_at':retrieved,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'overlap_window':overlap,'initial_release_rows':initial_count,'initial_release_sha256':initial_sha,'initial_release_added_rows':initial_added})
   (sd/'state.json').write_text(json.dumps(state,ensure_ascii=False,indent=2))
  return {'series_id':sid,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'current_rows':checked,'latest_vintage_date':dates[-1],'changed':changed}
 
@@ -176,7 +211,16 @@ def main():
  try:
   for sid in SERIES_START:results.append(update_series(sid,stage,key,retrieved,args.overlap))
   if any(x['changed'] for x in results):
-   manifest=json.loads((stage/'manifest.json').read_text());manifest['last_incremental_at']=retrieved;manifest['last_incremental_results']=results;manifest['overall_status']='PASS';(stage/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
+   manifest=json.loads((stage/'manifest.json').read_text());manifest['last_incremental_at']=retrieved;manifest['last_incremental_results']=results;manifest['overall_status']='PASS'
+   for item in manifest.get('series',[]):
+    result=next((x for x in results if x['series_id']==item.get('series_id')),None)
+    if result:
+     item['current_rows']=result['current_rows'];item['current_sha256']=result.get('current_sha256',item.get('current_sha256'))
+     item['event_rows']=result.get('event_count',item.get('event_rows'));item['event_sha256']=result.get('events_sha256',item.get('event_sha256'))
+     item['initial_release_rows']=result['initial_release_rows'];item['initial_release_sha256']=result['initial_release_sha256']
+     item['vintage_dates']=result.get('vintage_date_count',item.get('vintage_dates'))
+     item['vintage_span']={'first':item.get('vintage_span',{}).get('first'),'last':result['latest_vintage_date']}
+   (stage/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2))
   else:print('NO_DATA_CHANGE: preserving baseline files and checkpoint timestamps')
   if backup.exists():shutil.rmtree(backup)
   os.replace(root,backup)
