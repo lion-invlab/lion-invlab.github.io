@@ -72,6 +72,21 @@ try {
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
+    const specialAudit = await reportPage.evaluate(() => {
+      const node = document.querySelector("#tac-special-focus-cpi");
+      if (!node) return { exists: false };
+      const rect = node.getBoundingClientRect();
+      const summary = document.querySelector("#overview > section.grid.two > article.card.bluf");
+      const summaryRect = summary?.getBoundingClientRect();
+      const bg = getComputedStyle(node).backgroundImage;
+      return { exists: true, width: Math.round(rect.width), right: Math.round(rect.right),
+        beforeSummary: !!summaryRect && rect.bottom <= summaryRect.top + 1,
+        darkOverlay: bg.includes("linear-gradient"), text: node.innerText };
+    });
+    snapshots[v.name].special_focus = specialAudit;
+    if (!specialAudit.exists) failures.push(`${v.name}: one-off CPI special focus block missing`);
+    if (specialAudit.exists && (!specialAudit.beforeSummary || specialAudit.width > v.width || specialAudit.right > v.width)) failures.push(`${v.name}: CPI special focus placement/overflow invalid`);
+    if (specialAudit.exists && !["0.4%", "0.3%", "未公布", "Waller"].every(x => specialAudit.text.includes(x))) failures.push(`${v.name}: CPI special focus missing key data/analysis`);
     const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
         { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美國10月CPI高於預期", "Waller對12月升息"] },
