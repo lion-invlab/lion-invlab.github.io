@@ -25,3 +25,5 @@
 # Smoke-test revision 11: commit verified chart QA and point-in-time snapshot changes from frozen branch head.
 
 # Smoke-test revision 12: validate dynamically resolved latest-vintage-plus-one as-of date.
+
+# Scheduled incremental trigger: 2026-11-12T05:34:23+08:00; branch-isolated; no full-history reload.
