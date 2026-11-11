@@ -140,7 +140,7 @@
         "url": "https://ca.investing.com/indices/smallcap-2000-historical-data",
         "data_date": "2026-11-11",
         "quote_type": "cash_index_daily_close",
-        "note": "11/11 歷史收盤 2,850.36；開盤 2,846.30、最高 2,852.41、最低 2,831.49。香港站歷史表未能取得當日列，採 Investing.com CA 歷史頁交叉區域鏡像。"
+        "note": "11/11 歷史收盤 2,850.36；最高 2,852.41、最低 2,831.49。香港站歷史表未能取得當日列，採 Investing.com CA 歷史頁交叉區域鏡像。"
       }
     },
     "費城半導體指數": {
@@ -4684,7 +4684,7 @@
       "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
       "note": "Investing.com HK 11/11 SOX H/L/C 10,787.0 / 10,288.2 / 10,761.3。"
     },
-    "russell": {
+    "russell2000": {
       "trading_date": "2026-11-11",
       "high": 2852.41,
       "low": 2831.49,

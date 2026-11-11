@@ -143,7 +143,7 @@ def collect(now: datetime | None = None, allow_manual: bool = False, report_date
         "report_date": report_date.isoformat(),
         "trading_date": trading_date,
         "timezone": "America/New_York",
-        "formula": "P=(H+L+C)/3; S1=2P-H; R1=2P-L",
+        "formula": "P=(H+L+C)/3; S2=P-(H-L); S1=2P-H; R1=2P-L; R2=P+(H-L)",
         "items": items,
     }
     levels = build(payload, report_date.isoformat())

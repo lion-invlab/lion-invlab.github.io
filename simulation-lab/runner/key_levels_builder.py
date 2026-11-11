@@ -72,19 +72,21 @@ def build(payload, report_date):
         if h < l or not (l <= c <= h):
             raise ValueError(f"{key}: invalid OHLC relationship")
         p = (h + l + c) / Decimal(3)
+        s2 = p - (h - l)
         s1 = Decimal(2) * p - h
         r1 = Decimal(2) * p - l
+        r2 = p + (h - l)
         output.append({
             "key": key, "name": EXPECTED[key], "symbol": symbol,
-            "s1": fmt(s1), "p": fmt(p), "r1": fmt(r1),
+            "s2": fmt(s2), "s1": fmt(s1), "p": fmt(p), "r1": fmt(r1), "r2": fmt(r2),
             "ohlc": f"H {fmt(h)}｜L {fmt(l)}｜C {fmt(c)}",
             "trading_date": trading_date, "quote_type": "cash_index",
             "source_name": source_name, "url": source_url,
-            "formula": payload.get("formula", "P=(H+L+C)/3; S1=2P-H; R1=2P-L")
+            "formula": payload.get("formula", "P=(H+L+C)/3; S2=P-(H-L); S1=2P-H; R1=2P-L; R2=P+(H-L)")
         })
     return {
         "baseline_date": trading_date,
-        "formula": "經典樞紐點：P=(H+L+C)/3；S1=2P−H；R1=2P−L。",
+        "formula": "經典樞紐點：P=(H+L+C)/3；S2=P−(H−L)；S1=2P−H；R1=2P−L；R2=P+(H−L)。",
         "items": output
     }
 
@@ -104,6 +106,8 @@ def self_test():
     assert result["items"][0]["p"] == "100.00"
     assert result["items"][0]["s1"] == "90.00"
     assert result["items"][0]["r1"] == "110.00"
+    assert result["items"][0]["s2"] == "80.00"
+    assert result["items"][0]["r2"] == "120.00"
     bad=json.loads(json.dumps(sample)); bad["items"][0]["quote_type"]="cfd"
     try: build(bad,"2026-11-09")
     except ValueError: pass

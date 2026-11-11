@@ -85,7 +85,7 @@ def main():
                 raise ValueError(f"live key-level row has invalid trading date or quote type: {row.get('key')}")
             if not row.get("source_name") or not str(row.get("url","")).startswith("https://"):
                 raise ValueError(f"live key-level row missing source attribution: {row.get('key')}")
-            if not all(row.get(field) for field in ("s1","p","r1","ohlc")):
+            if not all(row.get(field) for field in ("s2","s1","p","r1","r2","ohlc")):
                 raise ValueError(f"live key-level row missing calculated levels/OHLC: {row.get('key')}")
         data["key_levels"]=levels
     # Fail closed on quote records without a traceable source and item-level date.
@@ -1498,7 +1498,7 @@ def main():
             label = soup.new_tag("b")
             label.string = item["name"] + "："
             line.append(label)
-            line.append(f"支撐 S1：{item['s1']}｜中樞 P：{item['p']}｜壓力 R1：{item['r1']}")
+            line.append(f"支撐 S2：{item['s2']}｜支撐 S1：{item['s1']}｜中樞 P：{item['p']}｜壓力 R1：{item['r1']}｜壓力 R2：{item['r2']}")
             levels_box.append(line)
             levels_box.append(soup.new_tag("br"))
     else:
@@ -1516,7 +1516,7 @@ def main():
         for item in level_items:
             detail_body.append(soup.new_tag("br"))
             detail_body.append(f"{item['name']}｜{item['ohlc']}｜")
-            detail_body.append(source_link(item["url"], "Yahoo Finance OHLC"))
+            detail_body.append(source_link(item["url"], item.get("source_name") or "OHLC source"))
             detail_body.append("。")
     else:
         detail_body.append("本次五項現金指數 OHLC 未能在同一交易日與正式收盤點位完成一致性核實；因此不沿用母版舊數值，也不以 CFD／期貨替代。")
