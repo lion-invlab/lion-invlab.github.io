@@ -332,7 +332,8 @@ def main():
             "background-image:linear-gradient(90deg,rgba(3,7,12,.94) 0%,rgba(3,7,12,.82) 58%,rgba(3,7,12,.66) 100%),"
             "linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.72)),"
             "radial-gradient(circle at 82% 12%,rgba(189,133,54,.32),transparent 34%),"
-            "linear-gradient(135deg,#101c2c,#05080d 72%);"
+            "linear-gradient(135deg,#101c2c,#05080d 72%),"
+            "url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1200 400%22%3E%3Cpath fill=%22none%22 stroke=%22%23c99a4c%22 stroke-opacity=%22.16%22 stroke-width=%224%22 d=%22M520 300 L650 260 L730 280 L840 180 L930 205 L1080 90 L1200 110%22/%3E%3Cpath fill=%22none%22 stroke=%22%23ffffff%22 stroke-opacity=%22.10%22 stroke-width=%2218%22 d=%22M0 40 H400 M0 90 H400 M0 140 H400%22/%3E%3Cpath fill=%22%231b2b3c%22 fill-opacity=%22.55%22 d=%22M820 280 V170 H860 V130 H900 V170 H940 V280 Z M790 170 L880 100 L970 170 Z%22/%3E%3Cpath fill=%22%23b53a3a%22 fill-opacity=%22.25%22 d=%22M0 0 H480 V26 H0 Z M0 52 H480 V78 H0 Z M0 104 H480 V130 H0 Z%22/%3E%3Ctext x=%22890%22 y=%22340%22 fill=%22%23d8ad65%22 fill-opacity=%22.22%22 font-size=%22140%22 font-family=%22Arial%22 font-weight=%22900%22%3E%25%3C/text%3E%3C/svg%3E');"
             "box-shadow:0 12px 32px rgba(0,0,0,.25);")
         top = soup.new_tag("div")
         top["style"]="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;"
@@ -368,6 +369,8 @@ def main():
         foot=soup.new_tag("div");foot["style"]="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:#aeb8c4;"
         src=source_link(special["source_url"],special["source_name"]);src["style"]="color:#d9bd83;text-decoration:underline;"
         foot.append(src)
+        if special.get("source_note"):
+            note=soup.new_tag("span");note.string=special["source_note"];foot.append(note)
         stamp=soup.new_tag("span");stamp.string="TAC｜突發專題，非每日固定版位"
         foot.append(stamp);feature.append(foot)
         overview=unique(soup,"#overview","overview")
