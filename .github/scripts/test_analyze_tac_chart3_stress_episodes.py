@@ -11,9 +11,9 @@ class T(unittest.TestCase):
   self.assertEqual(a.pre_observation_vintage_count(d,"X","2020-01-01","2020-01-01"),0)
  def test_no_fill_for_missing(self):
   self.assertIsNone(a.num("."));self.assertIsNone(a.num(""))
- def test_missing_event_not_counted_as_historical_pit(self):
+ def test_missing_event_not_counted_as_pre_observation_vintage(self):
   d={"X":{"2020-01-01":{"2019-12-31":"."},"2020-01-02":{"2020-01-01":""},"2020-01-03":{"2020-01-01":"2.5"}}}
-  self.assertEqual(a.pit_count(d,"X","2020-01-01","2020-01-03"),1)
+  self.assertEqual(a.pre_observation_vintage_count(d,"X","2020-01-01","2020-01-03"),1)
  def test_peak(self):
   x=a.stats([{"observation_date":"a","value":1},{"observation_date":"b","value":3}])
   self.assertEqual((x["max"],x["max_date"],x["n"]),(3,"b",2))
