@@ -1,0 +1,54 @@
+name: TAC Chart 3 bootstrap baseline from completed run
+
+on:
+  push:
+    branches:
+      - simulation/tac-process-lab-2026-11-06
+    paths:
+      - ".github/scripts/tac_chart3_bootstrap.py"
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Completed FRED/ALFRED ingestion run ID"
+        required: true
+        default: "43026998120"
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: tac-chart3-bootstrap
+  cancel-in-progress: false
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout isolated simulation branch
+        uses: actions/checkout@v4
+        with:
+          ref: simulation/tac-process-lab-2026-11-06
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download and verify completed run artifacts, normalize baseline
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          SOURCE_RUN_ID: ${{ github.event.inputs.source_run_id || '43026998120' }}
+        run: |
+          python .github/scripts/tac_chart3_bootstrap.py --run-id "$SOURCE_RUN_ID" --output data/tac-chart3
+      - name: Commit baseline store to simulation branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tac-chart3
+          if git diff --cached --quiet; then
+            echo "Baseline store unchanged; no commit required."
+          else
+            git commit -m "data(chart3): seed verified FRED-ALFRED baseline from run $SOURCE_RUN_ID"
+            git push origin HEAD:simulation/tac-process-lab-2026-11-06
+          fi
