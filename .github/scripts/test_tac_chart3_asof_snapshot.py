@@ -51,6 +51,15 @@ class AsOfSnapshotTests(unittest.TestCase):
             write_events(path,[ev("2026-01-01","2026-01-12","12"),ev("2026-01-01","2026-01-05","10")])
             with self.assertRaises(RuntimeError):ASOF.reconstruct_series(path,"VIXCLS","2026-01-20")
 
+    def test_as_of_date_resolves_after_latest_vintage_across_all_series(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            dates={"VIXCLS":"2026-11-09","NFCI":"2026-11-04","NFCICREDIT":"2026-11-04","STLFSI4":"2026-11-04"}
+            for sid,last in dates.items():
+                sd=root/"series"/sid;sd.mkdir(parents=True)
+                (sd/"vintage_dates.json").write_text(__import__("json").dumps({"vintage_dates":["2026-01-01",last]}))
+            self.assertEqual(ASOF.resolve_as_of_latest_plus_one(root),"2026-11-10")
+
     def test_current_snapshot_reconciliation(self):
         with tempfile.TemporaryDirectory() as td:
             path=Path(td)/"current.csv.gz"
