@@ -364,7 +364,7 @@ def main():
         analysis_box.append(ah);analysis_box.append(ap);feature.append(analysis_box)
         outlook=soup.new_tag("div"); outlook["style"]="padding:13px 14px;border:1px solid rgba(222,177,93,.5);border-radius:10px;background:rgba(67,42,13,.48);"
         oh=soup.new_tag("div");oh["style"]="font-size:13px;font-weight:900;color:#f4c56e;margin-bottom:5px;";oh.string=special["outlook_title"]
-        op=soup.new_tag("p");op["style"]="font-size:13px;line-height:1.65;color:#fff;margin:0;";op.string=special["outlook"]
+        op=soup.new_tag("p",attrs={"class":"tac-special-focus-outlook"});op["style"]="font-size:13px;line-height:1.65;color:#fff;margin:0;";op.string=special["outlook"]
         outlook.append(oh);outlook.append(op);feature.append(outlook)
         foot=soup.new_tag("div");foot["style"]="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:10px;color:#aeb8c4;"
         src=source_link(special["source_url"],special["source_name"]);src["style"]="color:#d9bd83;text-decoration:underline;"
@@ -377,7 +377,7 @@ def main():
         bluf_anchor=unique(overview,"section.grid.two > article.card.bluf","summary")
         bluf_anchor.parent.insert_before(feature)
         responsive=soup.new_tag("style",id="tac-special-focus-responsive")
-        responsive.string="#tac-special-focus-cpi .tac-special-focus-subtitle{color:#cbd3dc!important}#tac-special-focus-cpi .tac-special-focus-analysis{color:#f3f5f7!important}@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi .tac-special-focus-metrics{grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}";
+        responsive.string="#tac-special-focus-cpi .tac-special-focus-subtitle{color:#cbd3dc!important}#tac-special-focus-cpi .tac-special-focus-analysis{color:#f3f5f7!important}#tac-special-focus-cpi .tac-special-focus-outlook{color:#fff!important}@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi .tac-special-focus-metrics{grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}";
         head.append(responsive)
         rendered_special=unique(soup,"#tac-special-focus-cpi","special event focus")
         if special["title"] not in rendered_special.get_text(" ",strip=True) or any(m["value"] not in rendered_special.get_text(" ",strip=True) for m in special["metrics"]):
