@@ -12,14 +12,14 @@ SERIES = {
     "STLFSI4": "1993-12-01",
 }
 
-def request_json(endpoint, params, key, retries=3):
+def request_json(endpoint, params, key, retries=5):
     q = dict(params, api_key=key, file_type="json")
     url = BASE + "/" + endpoint + "?" + urllib.parse.urlencode(q)
     last = None
     for attempt in range(retries):
         try:
             req = urllib.request.Request(url, headers={"User-Agent":"TAC-Decision-Charts/1.0"})
-            with urllib.request.urlopen(req, timeout=90) as r:
+            with urllib.request.urlopen(req, timeout=120) as r:
                 data = json.loads(r.read().decode("utf-8"))
             if "error_code" in data:
                 raise RuntimeError(str(data))
@@ -32,11 +32,15 @@ def request_json(endpoint, params, key, retries=3):
                 body = ""
             last = RuntimeError(f"HTTP {e.code}: {body or e.reason}")
             if attempt + 1 < retries:
-                time.sleep(2 ** attempt)
+                delay = min(3 * (2 ** attempt), 30)
+                print(f"  RETRY {endpoint} after HTTP {e.code}; attempt {attempt + 2}/{retries} in {delay}s", flush=True)
+                time.sleep(delay)
         except Exception as e:
             last = e
             if attempt + 1 < retries:
-                time.sleep(2 ** attempt)
+                delay = min(3 * (2 ** attempt), 30)
+                print(f"  RETRY {endpoint} after {type(e).__name__}; attempt {attempt + 2}/{retries} in {delay}s", flush=True)
+                time.sleep(delay)
     raise RuntimeError(f"{endpoint} request failed: {last}")
 
 def write_json(path, obj):
@@ -127,7 +131,7 @@ def main():
 
             change_rows = 0
             # API JSON output_type 3 permits up to 2,000 vintage dates per request.
-            batch_size = 500
+            batch_size = 100
             total_batches = (len(dates) + batch_size - 1) // batch_size
             for ix in range(0, len(dates), batch_size):
                 batch = dates[ix:ix+batch_size]
