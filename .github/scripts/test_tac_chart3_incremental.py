@@ -35,6 +35,21 @@ class IncrementalTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 INC.merge_event_gzip(old,[event("2026-02-01","2026-02-05","20.0")],merged)
 
+    def test_initial_release_query_uses_vintage_window(self):
+        original=INC.request_json
+        calls=[]
+        def fake(endpoint,params,key,retries=5):
+            calls.append(params.copy())
+            return {"observations":[{"date":"2026-02-01","value":"19.8","realtime_start":"2026-02-05","realtime_end":"9999-12-31"}]}
+        INC.request_json=fake
+        try:
+            rows=INC.fetch_initial_release("VIXCLS","fake","2026-02-20T00:00:00Z",["2026-02-05","2026-02-12"])
+        finally:
+            INC.request_json=original
+        self.assertEqual(len(calls),4)
+        self.assertTrue(all(c["realtime_start"]=="2026-02-05" and c["realtime_end"]=="2026-02-12" and c["output_type"]==4 for c in calls))
+        self.assertEqual(rows[0]["value"],"19.8")
+
     def test_initial_release_additive_merge_and_conflict_guard(self):
         fields=INC.INITIAL_FIELDS
         def row(date,value):
