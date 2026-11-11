@@ -28,6 +28,16 @@ class IncrementalTests(unittest.TestCase):
         self.assertEqual(calls,[0,100000])
         self.assertEqual(len(rows),100002)
 
+    def test_sparse_output_type3_can_have_zero_rows_with_nonzero_count(self):
+        original=INC.request_json
+        def fake(endpoint,params,key,retries=5):
+            return {"count":2609,"observations":[]}
+        INC.request_json=fake
+        try:
+            rows=INC.fetch_all_observations({"series_id":"NFCI","output_type":3},"fake",validate_count=False)
+        finally:INC.request_json=original
+        self.assertEqual(rows,[])
+
     def test_fred_observations_pagination_fails_on_truncation(self):
         original=INC.request_json
         def fake(endpoint,params,key,retries=5):
