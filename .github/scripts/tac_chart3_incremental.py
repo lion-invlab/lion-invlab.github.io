@@ -106,13 +106,36 @@ def replace_if_hash_changed(tmp_path,final_path):
   tmp_path.unlink();return False,new_hash
  os.replace(tmp_path,final_path);return True,new_hash
 
+def fetch_all_observations(params,key,retries=5):
+ """Fetch every observations row; never silently accept a 100k-page truncation."""
+ limit=100000;offset=0;rows=[];expected=None
+ while True:
+  page_params=dict(params,limit=limit,offset=offset)
+  payload=request_json('series/observations',page_params,key,retries=retries)
+  batch=payload.get('observations',[])
+  count=payload.get('count')
+  if count is not None:
+   count=int(count)
+   if expected is None:expected=count
+   elif expected!=count:raise RuntimeError(f'FRED count changed during pagination: {expected} -> {count}')
+  if not batch and expected is not None and len(rows)<expected:
+   raise RuntimeError(f'FRED pagination stopped early: received {len(rows)} of {expected} rows')
+  rows.extend(batch)
+  if len(batch)<limit:break
+  offset+=len(batch)
+  if offset>10_000_000:raise RuntimeError('FRED pagination safety limit exceeded')
+  if expected is not None and len(rows)>=expected:break
+ if expected is not None and len(rows)!=expected:
+  raise RuntimeError(f'FRED pagination incomplete: received {len(rows)} of {expected} rows')
+ return rows
+
 def fetch_current(sid,key,latest_vintage):
  rows=[];now=datetime.now(timezone.utc).date();y0=int(SERIES_START[sid][:4]);windows=[]
  while y0<=now.year:
   y1=min(y0+9,now.year);windows.append((f'{y0}-01-01',f'{y1}-12-31'));y0=y1+1
  for lo,hi in windows:
-  p=request_json('series/observations',{'series_id':sid,'observation_start':max(SERIES_START[sid],lo),'observation_end':hi,'realtime_start':latest_vintage,'realtime_end':latest_vintage,'output_type':1,'sort_order':'asc','limit':100000,'offset':0},key)
-  rows.extend(p.get('observations',[]))
+  p=fetch_all_observations({'series_id':sid,'observation_start':max(SERIES_START[sid],lo),'observation_end':hi,'realtime_start':latest_vintage,'realtime_end':latest_vintage,'output_type':1,'sort_order':'asc'},key)
+  rows.extend(p)
  return rows
 
 def fetch_new_events(sid,key,vintages):
@@ -122,8 +145,8 @@ def fetch_new_events(sid,key,vintages):
  for batch_no in range(0,len(vintages),50):
   batch=vintages[batch_no:batch_no+50]
   for lo,hi in windows:
-   p=request_json('series/observations',{'series_id':sid,'observation_start':max(SERIES_START[sid],lo),'observation_end':hi,'output_type':3,'vintage_dates':','.join(batch),'sort_order':'asc','limit':100000,'offset':0},key,retries=2)
-   rows.extend(parse_event_matrix(sid,p,datetime.now(timezone.utc).isoformat(timespec='seconds'),f'{sid}_incremental_v{batch_no//50+1:03d}_{lo[:4]}_{hi[:4]}.json'))
+   p=fetch_all_observations({'series_id':sid,'observation_start':max(SERIES_START[sid],lo),'observation_end':hi,'output_type':3,'vintage_dates':','.join(batch),'sort_order':'asc'},key,retries=2)
+   rows.extend(parse_event_matrix(sid,{'observations':p},datetime.now(timezone.utc).isoformat(timespec='seconds'),f'{sid}_incremental_v{batch_no//50+1:03d}_{lo[:4]}_{hi[:4]}.json'))
  return rows
 
 def fetch_initial_release(sid,key,retrieved,vintages):
@@ -132,8 +155,8 @@ def fetch_initial_release(sid,key,retrieved,vintages):
  vintage_start,vintage_end=vintages[0],vintages[-1]
  while y0<=now.year:
   y1=min(y0+9,now.year)
-  p=request_json('series/observations',{'series_id':sid,'observation_start':max(SERIES_START[sid],f'{y0}-01-01'),'observation_end':f'{y1}-12-31','realtime_start':vintage_start,'realtime_end':vintage_end,'output_type':4,'sort_order':'asc','limit':100000,'offset':0},key)
-  for r in p.get('observations',[]):
+  p=fetch_all_observations({'series_id':sid,'observation_start':max(SERIES_START[sid],f'{y0}-01-01'),'observation_end':f'{y1}-12-31','realtime_start':vintage_start,'realtime_end':vintage_end,'output_type':4,'sort_order':'asc'},key)
+  for r in p:
    rows.append({'series_id':sid,'observation_date':r['date'],'value':r['value'],'realtime_start':r.get('realtime_start',''),'realtime_end':r.get('realtime_end',''),'release_date':'','release_date_status':'exact_release_date_not_supplied; realtime vintage window retained','retrieved_at':retrieved,'source_method':'FRED API output_type=4 initial release only; scoped to recent ALFRED vintage window','license_status':'review_required_before_redistribution'})
   y0=y1+1
  return rows
