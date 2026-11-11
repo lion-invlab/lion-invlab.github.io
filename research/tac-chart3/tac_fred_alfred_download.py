@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """TAC Chart 3 FRED/ALFRED archive downloader. Never prints the API key."""
-import csv, hashlib, json, os, sys, time, urllib.parse, urllib.request
+import csv, hashlib, json, os, sys, time, urllib.parse, urllib.request, urllib.error
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -24,6 +24,15 @@ def request_json(endpoint, params, key, retries=3):
             if "error_code" in data:
                 raise RuntimeError(str(data))
             return data, url.split("?")[0]
+        except urllib.error.HTTPError as e:
+            # Preserve the provider response body for diagnosis; never print request URLs or API keys.
+            try:
+                body = e.read().decode("utf-8", errors="replace")[:2000]
+            except Exception:
+                body = ""
+            last = RuntimeError(f"HTTP {e.code}: {body or e.reason}")
+            if attempt + 1 < retries:
+                time.sleep(2 ** attempt)
         except Exception as e:
             last = e
             if attempt + 1 < retries:
