@@ -21,6 +21,7 @@ h1{font-size:clamp(24px,4vw,36px);margin:9px 0 8px;letter-spacing:.02em}
 h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-height:1.5}
 .latest{font-size:12px;color:var(--muted);text-align:right}
 .chart{width:100%;overflow:hidden;margin-top:8px}.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.mini-series{padding:10px 0 12px;border-bottom:1px solid var(--line)}.mini-series:last-child{border-bottom:0}.mini-title{font-size:13px;font-weight:700;color:#33415b;margin:0 0 2px 2px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 2px;font-size:12px;color:#4f5b70}
 .legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:3px;border-radius:4px;display:inline-block}
 .notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
@@ -48,12 +49,8 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
   <div class="chart" id="vix-chart"></div>
  </section>
  <section class="card">
-  <div class="card-head"><div><h2>02｜金融條件與壓力</h2><div class="desc">三項週頻指標各自依原始觀測日期繪製；零軸代表各指標自身的長期平均基準。</div></div><div class="latest" id="stress-latest"></div></div>
-  <div class="legend">
-   <span><i class="swatch" style="background:#315f9d"></i>NFCI</span>
-   <span><i class="swatch" style="background:#c49a43"></i>NFCI Credit</span>
-   <span><i class="swatch" style="background:#8064a8"></i>STLFSI4</span>
-  </div>
+  <div class="card-head"><div><h2>02｜金融條件與壓力</h2><div class="desc">三項週頻指標分開呈現，各自使用獨立縱軸；共用時間範圍，零軸代表各指標自身的長期平均基準。</div></div><div class="latest" id="stress-latest"></div></div>
+  <div class="desc">三個指標分開縮放，避免將不同統計口徑的指數絕對值直接比較。</div>
   <div class="chart" id="stress-chart"></div>
  </section>
 </div>
@@ -69,11 +66,11 @@ const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
 const COLORS={VIXCLS:'#c84b4b',NFCI:'#315f9d',NFCICREDIT:'#c49a43',STLFSI4:'#8064a8'};
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const year=d=>String(d).slice(0,4);
-function drawChart(targetId,seriesList,{zeroLine=false}={}){
+function drawChart(targetId,seriesList,{zeroLine=false,xBounds=null}={}){
  const W=1040,H=390,L=72,R=24,T=24,B=48,iw=W-L-R,ih=H-T-B;
  const all=seriesList.flatMap(s=>s.observations.filter(o=>o.value!==null).map(o=>({date:o.date,value:Number(o.value)})));
  const times=all.map(o=>Date.parse(o.date+'T00:00:00Z'));
- let minX=Math.min(...times),maxX=Math.max(...times),minY=Math.min(...all.map(o=>o.value)),maxY=Math.max(...all.map(o=>o.value));
+ let minX=xBounds?xBounds[0]:Math.min(...times),maxX=xBounds?xBounds[1]:Math.max(...times),minY=Math.min(...all.map(o=>o.value)),maxY=Math.max(...all.map(o=>o.value));
  if(minY===maxY){minY-=1;maxY+=1}
  const pad=(maxY-minY)*.08;minY-=pad;maxY+=pad;
  const x=t=>L+(t-minX)/(maxX-minX||1)*iw,y=v=>T+(maxY-v)/(maxY-minY)*ih;
@@ -114,7 +111,12 @@ fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HT
  document.getElementById('vix-latest').textContent=latestLine(byId.VIXCLS);
  document.getElementById('stress-latest').innerHTML=[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4].map(latestLine).join('<br>');
  drawChart('vix-chart',[byId.VIXCLS]);
- drawChart('stress-chart',[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4],{zeroLine:true});
+ const stressSeries=[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4];
+ const stressTimes=stressSeries.flatMap(s=>s.observations.map(o=>Date.parse(o.date+'T00:00:00Z')).filter(Number.isFinite));
+ const stressBounds=[Math.min(...stressTimes),Math.max(...stressTimes)];
+ const miniTitles={NFCI:'NFCI｜全國金融情勢指數',NFCICREDIT:'NFCI Credit｜信用子指標',STLFSI4:'STLFSI4｜聖路易聯準銀行金融壓力指數'};
+ document.getElementById('stress-chart').innerHTML=stressSeries.map(s=>'<div class="mini-series"><div class="mini-title">'+miniTitles[s.series_id]+'</div><div id="chart-'+s.series_id+'"></div></div>').join('');
+ for(const s of stressSeries)drawChart('chart-'+s.series_id,[s],{zeroLine:true,xBounds:stressBounds});
  document.getElementById('status').hidden=true;document.getElementById('charts').hidden=false;
 }).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與 data/tac-chart3/chart3_market_stress.json 位於同一分支。'});
 </script>
