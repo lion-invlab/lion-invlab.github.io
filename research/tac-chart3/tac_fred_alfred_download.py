@@ -79,9 +79,21 @@ def main():
         sd = root / sid; sd.mkdir(exist_ok=True)
         entry = {"observation_start":start,"status":"RUNNING","files":[]}
         try:
+            # FRED observations defaults realtime_start/end to TODAY. If no release
+            # exists on that calendar date, the API returns HTTP 400. Resolve the
+            # latest actual vintage first, then query the current snapshot as-of it.
+            vintages, vurl = request_json("series/vintagedates",
+                {"series_id":sid,"sort_order":"asc","limit":10000,"offset":0}, key)
+            vh,vb = write_json(sd/f"{sid}_vintage_dates.json", vintages)
+            entry["files"].append({"name":f"{sid}_vintage_dates.json","sha256":vh,"bytes":vb})
+            dates = vintages.get("vintage_dates",[])
+            if not dates: raise RuntimeError("vintage_dates empty")
+            latest_vintage = dates[-1]
+            entry["latest_vintage_date"] = latest_vintage
+            entry["vintage_date_count"] = len(dates)
             current, url = request_json("series/observations",
                 {"series_id":sid,"observation_start":start,"observation_end":datetime.now(timezone.utc).date().isoformat(),
-                 "output_type":1,"sort_order":"asc","limit":100000,"offset":0}, key)
+                 "realtime_start":latest_vintage,"realtime_end":latest_vintage,"output_type":1,"sort_order":"asc","limit":100000,"offset":0}, key)
             h,n = write_json(sd/f"{sid}_current_output_type1.json", current)
             entry["files"].append({"name":f"{sid}_current_output_type1.json","sha256":h,"bytes":n})
             rows = current.get("observations",[])
@@ -92,7 +104,7 @@ def main():
 
             initial, iurl = request_json("series/observations",
                 {"series_id":sid,"observation_start":start,"observation_end":datetime.now(timezone.utc).date().isoformat(),
-                 "output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
+                 "realtime_start":latest_vintage,"realtime_end":latest_vintage,"output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
             ih,ib = write_json(sd/f"{sid}_initial_release_output_type4.json", initial)
             entry["files"].append({"name":f"{sid}_initial_release_output_type4.json","sha256":ih,"bytes":ib})
             ir = initial.get("observations",[])
@@ -100,13 +112,6 @@ def main():
             entry["files"].append({"name":f"{sid}_initial_release.csv","sha256":ich,"bytes":icn})
             entry["initial_release_observations"] = len(ir)
 
-            vintages, vurl = request_json("series/vintagedates",
-                {"series_id":sid,"sort_order":"asc","limit":10000,"offset":0}, key)
-            vh,vb = write_json(sd/f"{sid}_vintage_dates.json", vintages)
-            entry["files"].append({"name":f"{sid}_vintage_dates.json","sha256":vh,"bytes":vb})
-            dates = vintages.get("vintage_dates",[])
-            if not dates: raise RuntimeError("vintage_dates empty")
-            entry["vintage_date_count"] = len(dates)
             change_rows = 0
             # API JSON output_type 3 permits up to 2,000 vintage dates per request.
             for ix in range(0, len(dates), 500):
