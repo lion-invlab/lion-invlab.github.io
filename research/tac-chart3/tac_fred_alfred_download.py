@@ -112,24 +112,56 @@ def main():
             latest_vintage = dates[-1]
             entry["latest_vintage_date"] = latest_vintage
             entry["vintage_date_count"] = len(dates)
-            current, url = request_json("series/observations",
-                {"series_id":sid,"observation_start":start,"observation_end":datetime.now(timezone.utc).date().isoformat(),
-                 "realtime_start":latest_vintage,"realtime_end":latest_vintage,"output_type":1,"sort_order":"asc","limit":100000,"offset":0}, key)
+            # Split observation history into 10-year windows to avoid gateway timeouts.
+            end_date = datetime.now(timezone.utc).date()
+            obs_windows = []
+            y0 = int(start[:4])
+            while y0 <= end_date.year:
+                y1 = min(y0 + 9, end_date.year)
+                obs_windows.append((f"{y0:04d}-01-01", f"{y1:04d}-12-31"))
+                y0 = y1 + 1
+            current_rows = []
+            current_payloads = []
+            url = "https://api.stlouisfed.org/fred/series/observations"
+            for wi, (obs_lo, obs_hi) in enumerate(obs_windows, 1):
+                print(f"  CURRENT {sid} observation window {wi}/{len(obs_windows)}: {obs_lo}..{obs_hi}", flush=True)
+                part, url = request_json("series/observations",
+                    {"series_id":sid,"observation_start":max(start,obs_lo),"observation_end":obs_hi,
+                     "realtime_start":latest_vintage,"realtime_end":latest_vintage,"output_type":1,"sort_order":"asc","limit":100000,"offset":0}, key)
+                current_payloads.append(part)
+                current_rows.extend(part.get("observations", []))
+            current = {"series_id":sid,"realtime_start":latest_vintage,"realtime_end":latest_vintage,
+                       "count":len(current_rows),"observations":current_rows,"window_count":len(current_payloads)}
             h,n = write_json(sd/f"{sid}_current_output_type1.json", current)
             entry["files"].append({"name":f"{sid}_current_output_type1.json","sha256":h,"bytes":n})
-            rows = current.get("observations",[])
-            ch,cn = write_csv(sd/f"{sid}_current.csv", rows, sid, retrieved, url, "FRED API output_type=1 current vintage")
+            rows = current_rows
+            ch,cn = write_csv(sd/f"{sid}_current.csv", rows, sid, retrieved, url, "FRED API output_type=1 current vintage; 10-year observation windows")
             entry["files"].append({"name":f"{sid}_current.csv","sha256":ch,"bytes":cn})
             entry["current_observations"] = len(rows)
             if not rows: raise RuntimeError("current observations empty")
 
-            initial, iurl = request_json("series/observations",
-                {"series_id":sid,"observation_start":start,"observation_end":datetime.now(timezone.utc).date().isoformat(),
-                 "realtime_start":dates[0],"realtime_end":latest_vintage,"output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
+            # output_type=4 is limited to 2,000 vintage dates per real-time window.
+            # Split the vintage-date index into 1,000-date windows and combine.
+            initial_rows = []
+            initial_payloads = []
+            vintage_batch_size = 1000
+            vintage_windows = [dates[i:i+vintage_batch_size] for i in range(0, len(dates), vintage_batch_size)]
+            for vi, vbatch in enumerate(vintage_windows, 1):
+                v_lo, v_hi = vbatch[0], vbatch[-1]
+                print(f"  INITIAL {sid} vintage window {vi}/{len(vintage_windows)}: {v_lo}..{v_hi} ({len(vbatch)} dates)", flush=True)
+                for wi, (obs_lo, obs_hi) in enumerate(obs_windows, 1):
+                    part, iurl = request_json("series/observations",
+                        {"series_id":sid,"observation_start":max(start,obs_lo),"observation_end":obs_hi,
+                         "realtime_start":v_lo,"realtime_end":v_hi,"output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
+                    initial_payloads.append(part)
+                    initial_rows.extend(part.get("observations", []))
+            # Keep exact provider rows; no imputation or synthetic release dates.
+            initial = {"series_id":sid,"count":len(initial_rows),"observations":initial_rows,
+                       "vintage_window_count":len(vintage_windows),"observation_window_count":len(obs_windows)}
             ih,ib = write_json(sd/f"{sid}_initial_release_output_type4.json", initial)
             entry["files"].append({"name":f"{sid}_initial_release_output_type4.json","sha256":ih,"bytes":ib})
-            ir = initial.get("observations",[])
-            ich,icn = write_csv(sd/f"{sid}_initial_release.csv", ir, sid, retrieved, iurl, "FRED API output_type=4 initial release")
+            ir = initial_rows
+            ich,icn = write_csv(sd/f"{sid}_initial_release.csv", ir, sid, retrieved, iurl, "FRED API output_type=4 initial release; chunked vintage and observation windows")
             entry["files"].append({"name":f"{sid}_initial_release.csv","sha256":ich,"bytes":icn})
             entry["initial_release_observations"] = len(ir)
 
