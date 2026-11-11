@@ -3399,7 +3399,7 @@
         "ticker": "EC",
         "event_date": "2026-11-13T12:00:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "postponed",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC 四星獨立評估：哥倫比亞最大企業及美洲主要綜合能源公司，約 US$32B 市值，承擔哥倫比亞逾 60% 碳氫化合物產量與主要運輸、物流及煉製系統，對拉美能源供給及原油市場具區域代表性。",
@@ -7942,6 +7942,23 @@
       },
       "source": "Official issuer releases / Federal Reserve / OPEC / Reuters / Investing.com; observed 2026-11-12T04:34:17+08:00",
       "note": "僅更新本次實際查核時間、來源索引與 coverage notes；兩類 coverage 均維持 incomplete，不因事件數量推定 complete。"
+    },
+    {
+      "at": "2026-11-12T04:34:17+08:00",
+      "observed_at": "2026-11-12T04:34:17+08:00",
+      "action": "earnings_event_postponed_and_rescheduled",
+      "event_id": "current-ec-20261110",
+      "changed_fields": [
+        "status"
+      ],
+      "before": {
+        "status": "upcoming"
+      },
+      "after": {
+        "status": "postponed"
+      },
+      "source": "https://files.ecopetrol.com.co/web/esp/informacion%20relevante/Resultados-esp-nov.pdf",
+      "note": "Ecopetrol 2026-11-09 官方更正公告明確將原 11/10 財報發布延期至 11/12 收盤後，電話會議改至 11/13；依正式事件狀態語意標示 postponed，保留修正後日期及 upcoming 實績空值。"
     }
   ]
 }
