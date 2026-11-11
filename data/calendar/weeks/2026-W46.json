@@ -535,17 +535,17 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "release_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "Adjusted diluted EPS (non-GAAP); company reports GAAP diluted EPS US$3.08 separately.",
         "eps_estimate": 3.31,
-        "eps_actual": 3.08,
+        "eps_actual": 3.43,
         "revenue_estimate": 8.74,
         "revenue_actual": 9.026,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": "pending",
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "營收$9.026B高於共識$8.74B約3.3%；報告稀釋EPS $3.08、調整後EPS $3.43，因共識口徑未揭露，不判定EPS beat/miss。公司上修全年指引，但加拿大住宅市場仍偏弱。",
+        "financial_judgment": "調整後稀釋 EPS US$3.43，高於 TipRanks 同口徑共識 US$3.31，優於預期約 3.6%；GAAP diluted EPS US$3.08 另列。營收 US$9.026B 高於共識 US$8.74B。",
         "stock_price_reaction": "股價反應待核實；未取得可追溯的同日收盤／盤前變動。",
         "stock_price_reaction_window": null,
         "source": {
@@ -557,11 +557,11 @@
           "notes": "官方公告確認 11/09 06:45 ET 發布第三季結果，08:30 ET 舉行電話會議；換算台灣時間 19:45。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "TipRanks｜Ferguson Q3 2026 Earnings Report",
+          "url": "https://www.tipranks.com/stocks/ferg/earnings/q3-2026-report",
+          "publisher": "TipRanks",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "The earnings result table reports adjusted EPS actual US$3.43 against consensus US$3.31; company release separately identifies reported diluted EPS US$3.08 and adjusted EPS US$3.43."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -587,9 +587,10 @@
           "name": "Ferguson official Q3 2026 results",
           "url": "https://www.corporate.ferguson.com/pressroom/news-releases/news-details/2026/Ferguson-Reports-Third-Quarter-Ended-September-30-2026/"
         },
-        "eps_estimate_basis": "consensus basis not fully disclosed",
+        "eps_estimate_basis": "TipRanks Q3 FY2026 earnings comparison reports adjusted EPS actual US$3.43 versus consensus US$3.31.",
         "revenue_actual_basis": "USD; report unit as stored in revenue_unit",
-        "revenue_estimate_basis": "USD; report unit as stored in revenue_unit"
+        "revenue_estimate_basis": "USD; report unit as stored in revenue_unit",
+        "eps_basis_note": "GAAP diluted EPS US$3.08 is not compared with adjusted consensus."
       },
       {
         "id": "current-nrg-20261109",
@@ -2004,7 +2005,7 @@
         "reporting_period": "FY2027 Q1",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "Adjusted EPS (non-GAAP); company GAAP diluted EPS US$0.21 is separately reported.",
         "eps_estimate": 0.3,
         "eps_actual": 0.52,
         "revenue_estimate": 245,
@@ -2012,9 +2013,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": "pending",
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "營收$253M高於$245M共識約3.3%；GAAP稀釋EPS $0.21、調整後EPS $0.52。訂單$370M、book-to-bill 1.46、backlog近$2.1B；公司上修FY27展望。",
+        "financial_judgment": "調整後 EPS US$0.52，高於 Investing.com 同口徑共識 US$0.30，優於預期約 73.3%；GAAP diluted EPS US$0.21 另列。營收 US$253.0M 高於共識 US$245.0M。",
         "stock_price_reaction": "盤後股價反應待核實；未取得可追溯的同一截點報價。",
         "stock_price_reaction_window": null,
         "source": {
@@ -2026,11 +2027,11 @@
           "notes": "官方公告確認 Nasdaq: MRCY；11/10 美股收盤後發布 FY2027 Q1 財報，電話會議 17:00 ET，換算台灣時間 11/11 06:00。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-10",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "Investing.com｜Mercury Systems Q1 FY2027 earnings analysis",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/mercury-systems-earnings-analysis-questions-180212932.html",
+          "publisher": "Investing.com via Yahoo Finance",
+          "observed_at": "2026-11-12T06:00:00+08:00",
+          "notes": "The article explicitly states adjusted EPS US$0.52 against US$0.30 estimate; GAAP diluted EPS US$0.21 is not used for this comparison."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -2056,7 +2057,7 @@
           "name": "Mercury Systems official Q1 FY2027 results",
           "url": "https://ir.mrcy.com/news-releases/news-release-details/mercury-systems-reports-first-quarter-results-0"
         },
-        "eps_estimate_basis": "consensus basis not fully disclosed",
+        "eps_estimate_basis": "Investing.com earnings analysis explicitly identifies adjusted EPS actual US$0.52 versus adjusted estimate US$0.30.",
         "revenue_actual_basis": "USD; report unit as stored in revenue_unit",
         "revenue_estimate_basis": "USD; report unit as stored in revenue_unit"
       },
