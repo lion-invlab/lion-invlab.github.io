@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "report_date": "2026-11-12",
+  "status": "review_preview_delivered",
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "simulation_wr": {
+    "version": "SIM-0.3",
+    "blob_sha": "1fa5e3a32e1cb456810189a460a605285a026308"
+  },
+  "workflow": {
+    "run_id": 43108782859,
+    "artifact_id": 13894783617,
+    "conclusion": "success",
+    "review_ready": false
+  },
+  "baselines": {
+    "weekday_mother_template": "simulation-lab/baseline/weekday-mother-template.html",
+    "weekday_mother_blob_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+    "manifest_blob_sha": "fade5e3d88de76a79cb5c1656cc592b98827ab55",
+    "structure_checklist_blob_sha": "74a7c90aaaeee497b7b2b134d9569aee615d95c0"
+  },
+  "inputs": {
+    "report_data_path": "simulation-lab/fixtures/report-data-2026-11-12.json",
+    "report_data_blob_sha": "af0ce10f39427814467ecf2ab31b6f3199be28da",
+    "calendar_db_path": "data/calendar/weeks/2026-W46.json",
+    "calendar_db_blob_sha": "06a776b0d30998a0aadbfa57e80b976a8ac2c6a7",
+    "report_cutoff_taipei": "2026-11-12T05:25:00+08:00",
+    "market_trading_date": "2026-11-11",
+    "key_levels_captured_at_taipei": "2026-11-12T06:06:34.310595+08:00"
+  },
+  "code": {
+    "builder_blob_sha": "c8cc7a2575e910b381f2636fe7d98ebda08af0c6",
+    "key_levels_collector_blob_sha": "b3335df9596a3dde990a75281c21b20872977dc0",
+    "visual_regression_blob_sha": "1f62e3fa9cf0cf45128f9db5c0fae4e01c2dc3c3",
+    "workflow_blob_sha": "efd3dfb1069873ce52546ad57fbae4acdd42538b"
+  },
+  "quality": {
+    "indicators_total": 44,
+    "numeric_verified": 36,
+    "confirmed_market_closed": 3,
+    "pending": 5,
+    "pending_items": [
+      "MOVE",
+      "XLC",
+      "XLU",
+      "XLY",
+      "XLRE"
+    ],
+    "focus_news": 5,
+    "hot_headlines": 10,
+    "economic_calendar_events": 16,
+    "earnings_calendar_events": 48,
+    "key_level_indices": 5,
+    "sox_ohlc_crosscheck": "Nasdaq official SOX H/L/C; close matches global market quote",
+    "visual_regression": {
+      "status": "pass",
+      "failures": [],
+      "viewports": [
+        1440,
+        768,
+        360,
+        320
+      ]
+    },
+    "html_structure": "pass",
+    "output_identity": "exact Git blob SHA verified against local artifact"
+  },
+  "delivery": {
+    "main_preview_path": "preview/2026-11-12-simulation.html",
+    "main_preview_blob_sha": "22155e1f0a57f3876f6ba2b966a71eb91f32fbe2",
+    "main_commit_sha": "54d4e12bf3389ecb5509c57fde16176b86ebc469",
+    "main_index_blob_sha_before": "98d8613921b225e78226033e97c0cb72aed5c577",
+    "main_index_blob_sha_after": "98d8613921b225e78226033e97c0cb72aed5c577",
+    "main_changed_files": [
+      "preview/2026-11-12-simulation.html"
+    ],
+    "pages_deploy_run_id": 43109860660,
+    "pages_deploy_status": "success",
+    "pages_url": "https://lion-invlab.github.io/preview/2026-11-12-simulation.html"
+  },
+  "notes": [
+    "審核版資料截點固定05:25；實際組裝與關鍵價位擷取延後完成，未納入05:25之後的新資訊。",
+    "行情、新聞與行事曆為05:25前人工查核快照；不是完整自動 live-data E2E。",
+    "review_ready=false 表示仍待使用者審核；沒有修改 main/index.html。",
+    "main preview 例外通道僅用於本次指定審核版路徑；未修改其他 main 檔案。"
+  ]
+}
