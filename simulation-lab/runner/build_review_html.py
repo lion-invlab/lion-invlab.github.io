@@ -823,9 +823,15 @@ def main():
             row["style"]=f"background:{palette[0]} !important;border-top:4px solid {palette[1]} !important;color:{palette[2]} !important;"
             dot=row.select_one(".fc-dot")
             if dot: dot["style"]=f"background:{palette[1]} !important;"
-            set_text(unique(row,"strong","probability"),f'{float(item["probability"]):.1f}%')
-            set_text(unique(row,".fc-range","range"),item["rate_range"])
-            set_text(unique(row,".fc-prob-label span:not(.fc-dot)","label"),label)
+            probability_node=unique(row,"strong","probability")
+            set_text(probability_node,f'{float(item["probability"]):.1f}%')
+            probability_node["style"]=f"color:{palette[2]} !important;"
+            range_node=unique(row,".fc-range","range")
+            set_text(range_node,item["rate_range"])
+            range_node["style"]=f"color:{palette[2]} !important;"
+            label_node=unique(row,".fc-prob-label span:not(.fc-dot)","label")
+            set_text(label_node,label)
+            label_node["style"]=f"color:{palette[2]} !important;"
         bar.clear()
         bar["aria-label"]="；".join(f'{label} {float(item["probability"]):.1f}%' for label,item in zip(labels,ordered))
         for cls,item in zip(["fc-split-hold","fc-split-hike","fc-split-hike fc-split-hike-50bp"],ordered):
