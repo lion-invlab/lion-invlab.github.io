@@ -412,7 +412,7 @@
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
         "data_date": "2026-11-11",
         "quote_type": "futures_daily_close",
-        "note": "WTI 2026年12月期貨 11/11 收市 87.02；開市 86.18、高 87.39、低 85.83。"
+        "note": "WTI 2026年12月期貨 11/11 歷史收盤 87.02，上漲1.14%。"
       }
     },
     "Brent原油期貨": {
@@ -423,7 +423,7 @@
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
         "data_date": "2026-11-11",
         "quote_type": "futures_daily_close",
-        "note": "Brent 2027年1月期貨 11/11 收市 93.00；開市 91.99、高 93.61、低 91.45。"
+        "note": "Brent 2027年1月期貨 11/11 歷史收盤 93.00，上漲1.65%。"
       }
     }
   },
@@ -447,7 +447,7 @@
         "url": "https://hk.investing.com/commodities/silver-historical-data",
         "data_date": "2026-11-11",
         "quote_type": "futures_daily_close",
-        "note": "COMEX 2026年12月白銀期貨（SIZ6）11/11 收市 53.020；開市 51.555、高 53.170、低 51.428。"
+        "note": "COMEX 2026年12月白銀期貨（SIZ6）11/11 歷史收盤 53.020，上漲3.50%。"
       }
     }
   },
@@ -4582,7 +4582,6 @@
       "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "174.75",
       "change_display": "+3.46%"
     },
     "XLE": {
@@ -4590,7 +4589,6 @@
       "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "63.03",
       "change_display": "+1.31%"
     },
     "XLI": {
@@ -4598,7 +4596,6 @@
       "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "170.93",
       "change_display": "+1.30%"
     },
     "XLC": {
@@ -4614,7 +4611,6 @@
       "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "52.98",
       "change_display": "+0.25%"
     },
     "XLF": {
@@ -4622,7 +4618,6 @@
       "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "58.35",
       "change_display": "+0.11%"
     },
     "XLU": {
@@ -4654,7 +4649,6 @@
       "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "90.58",
       "change_display": "-0.49%"
     },
     "XLV": {
@@ -4662,7 +4656,6 @@
       "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
       "data_date": "2026-11-11",
       "quote_type": "ETF_daily_close",
-      "close": "187.91",
       "change_display": "-0.51%"
     }
   },
