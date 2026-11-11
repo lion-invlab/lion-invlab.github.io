@@ -346,7 +346,7 @@ def main():
         h.string=special["title"]; feature.append(h)
         sub=soup.new_tag("p"); sub["style"]="margin:0 0 18px;color:#cbd3dc;font-size:13px;line-height:1.5;"
         sub.string=special["subtitle"]; feature.append(sub)
-        metric_grid=soup.new_tag("div"); metric_grid["style"]="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:16px;"
+        metric_grid=soup.new_tag("div",attrs={"class":"tac-special-focus-metrics"}); metric_grid["style"]="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:16px;"
         metric_colors=["#e5b95f","#e9edf3","#e5b95f"]
         for idx,item in enumerate(special["metrics"]):
             card=soup.new_tag("div"); card["style"]="min-width:0;padding:12px 11px;border:1px solid rgba(226,190,120,.34);border-radius:12px;background:rgba(6,12,19,.72);backdrop-filter:blur(5px);"
@@ -375,9 +375,9 @@ def main():
         foot.append(stamp);feature.append(foot)
         overview=unique(soup,"#overview","overview")
         bluf_anchor=unique(overview,"section.grid.two > article.card.bluf","summary")
-        bluf_anchor.insert_before(feature)
+        bluf_anchor.parent.insert_before(feature)
         responsive=soup.new_tag("style",id="tac-special-focus-responsive")
-        responsive.string="@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi>div:nth-of-type(4){grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}"
+        responsive.string="@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi .tac-special-focus-metrics{grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}"
         head.append(responsive)
         rendered_special=unique(soup,"#tac-special-focus-cpi","special event focus")
         if special["title"] not in rendered_special.get_text(" ",strip=True) or any(m["value"] not in rendered_special.get_text(" ",strip=True) for m in special["metrics"]):
