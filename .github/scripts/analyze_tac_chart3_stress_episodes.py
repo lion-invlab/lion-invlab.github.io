@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Read-only TAC Chart 3 stress-episode analysis from existing ALFRED output_type=3 chunks.
-Latest-vintage results are retrospective, NOT contemporaneous PIT. Historical availability
-uses vintage_date < observation_date. No fill, interpolation, resampling or imputation.
+Latest-vintage results are retrospective, NOT contemporaneous PIT. The pre-observation
+vintage check is diagnostic only, NOT historical as-of availability. Use the separate
+historical as-of reconstruction for decision-date snapshots. No fill or imputation.
 """
 import argparse,csv,glob,hashlib,json,re,statistics
 from collections import defaultdict
@@ -52,7 +53,7 @@ def stats(r):
  if not r:return None
  v=[x["value"] for x in r];lo=min(r,key=lambda x:x["value"]);hi=max(r,key=lambda x:x["value"])
  return {"n":len(r),"start":r[0]["observation_date"],"end":r[-1]["observation_date"],"mean":statistics.mean(v),"median":statistics.median(v),"min":lo["value"],"min_date":lo["observation_date"],"max":hi["value"],"max_date":hi["observation_date"],"last":r[-1]["value"],"last_date":r[-1]["observation_date"]}
-def pit_count(d,s,a,b):
+def pre_observation_vintage_count(d,s,a,b):
  # A vintage event containing "." is a source-reported missing value, not an available numeric observation.
  return sum(1 for obs,vs in d[s].items() if a<=obs<=b and any(v<obs and num(x) is not None for v,x in vs.items()))
 def revisions(d,s,a,b,cutoff):
@@ -63,18 +64,18 @@ def revisions(d,s,a,b,cutoff):
  return {"n":len(z),"mean_abs_revision":statistics.mean(z) if z else None,"max_abs_revision":max(z) if z else None}
 def main():
  p=argparse.ArgumentParser();p.add_argument("--artifact-dir",type=Path,required=True);p.add_argument("--as-of",default="2026-11-12");p.add_argument("--output-json",type=Path,default=Path("tac_chart3_stress_episode_analysis.json"));p.add_argument("--output-csv",type=Path,default=Path("tac_chart3_stress_episode_summary.csv"));a=p.parse_args();date.fromisoformat(a.as_of)
- d,files=load(a.artifact_dir);out={"as_of":a.as_of,"executed_at_utc":datetime.now(timezone.utc).isoformat(),"retrospective_rule":f"latest vintage strictly before {a.as_of}; retrospective only, NOT historical real-time PIT","historical_pit_rule":"vintage_date < observation_date; same-day vintages excluded; no fill/interpolation/resampling/imputation","input_chunk_file_count":len(files),"input_chunk_files":files,"episodes":{},"limitations":["Latest vintage results may include later revisions and are not contemporaneous PIT.","No exact intraday release timestamps; same-day vintages are excluded from historical PIT.","Weekly and daily series have different frequencies.","NFCICREDIT is a component of NFCI, not independent confirmation.","VIX methodology changed in 2003.","No S&P 500 return series; no signal or return backtest.","Redistribution requires license review."]}
+ d,files=load(a.artifact_dir);out={"as_of":a.as_of,"executed_at_utc":datetime.now(timezone.utc).isoformat(),"retrospective_rule":f"latest vintage strictly before {a.as_of}; retrospective only, NOT historical real-time PIT","pre_observation_diagnostic":"Counts numeric vintages dated before their own observation date; this is NOT a historical as-of/PIT reconstruction.","input_chunk_file_count":len(files),"input_chunk_files":files,"episodes":{},"limitations":["Latest vintage results may include later revisions and are not contemporaneous PIT.","The pre-observation vintage diagnostic is not a historical as-of/PIT metric.","Weekly and daily series have different frequencies.","NFCICREDIT is a component of NFCI, not independent confirmation.","VIX methodology changed in 2003.","No S&P 500 return series; no signal or return backtest.","Redistribution requires license review."]}
  csv=[]
  for ep,(st,en,bs,be) in E.items():
   out["episodes"][ep]={}
   for s in S:
    br=rows(d,s,bs,be,a.as_of);er=rows(d,s,st,en,a.as_of);b=stats(br);e=stats(er)
-   out["episodes"][ep][s]={"retrospective_baseline":b,"retrospective_event":e,"historical_pit_availability":{"baseline_n":pit_count(d,s,bs,be),"event_n":pit_count(d,s,st,en)},"revision_sensitivity":revisions(d,s,st,en,a.as_of)}
+   out["episodes"][ep][s]={"retrospective_baseline":b,"retrospective_event":e,"pre_observation_vintage_check":{"baseline_n":pre_observation_vintage_count(d,s,bs,be),"event_n":pre_observation_vintage_count(d,s,st,en)},"revision_sensitivity":revisions(d,s,st,en,a.as_of)}
    if b and e:e["mean_minus_baseline_mean"]=e["mean"]-b["mean"]
-   csv.append([ep,s,b["mean"] if b else "",e["mean"] if e else "",e["max"] if e else "",e["max_date"] if e else "",e["n"] if e else 0,pit_count(d,s,bs,be),pit_count(d,s,st,en),"RETROSPECTIVE_NOT_REALTIME_PIT"])
+   csv.append([ep,s,b["mean"] if b else "",e["mean"] if e else "",e["max"] if e else "",e["max_date"] if e else "",e["n"] if e else 0,pre_observation_vintage_count(d,s,bs,be),pre_observation_vintage_count(d,s,st,en),"RETROSPECTIVE_NOT_REALTIME_PIT"])
  a.output_json.write_text(json.dumps(out,ensure_ascii=False,indent=2),encoding="utf-8")
  with a.output_csv.open("w",newline="",encoding="utf-8-sig") as f:
-  w=csvmod.writer(f);w.writerow(["episode","series","baseline_mean","event_mean","event_peak","peak_date","event_n","baseline_historical_pit_n","event_historical_pit_n","status"]);w.writerows(csv)
- print(json.dumps({"as_of":a.as_of,"input_files":len(files),"episodes":{k:{s:v["historical_pit_availability"] for s,v in z.items()} for k,z in out["episodes"].items()}},ensure_ascii=False,indent=2))
+  w=csvmod.writer(f);w.writerow(["episode","series","baseline_mean","event_mean","event_peak","peak_date","event_n","baseline_pre_observation_vintage_n","event_pre_observation_vintage_n","status"]);w.writerows(csv)
+ print(json.dumps({"as_of":a.as_of,"input_files":len(files),"episodes":{k:{s:v["pre_observation_vintage_check"] for s,v in z.items()} for k,z in out["episodes"].items()}},ensure_ascii=False,indent=2))
 import csv as csvmod
 if __name__=="__main__":main()
