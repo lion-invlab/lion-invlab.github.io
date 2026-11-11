@@ -470,10 +470,10 @@
       "band": "",
       "source": {
         "name": "ICE BofA MOVE｜Treasury market holiday",
-        "url": "https://www.ice.com/marketdata/reports/200",
+        "url": "https://www.sifma.org/news/press-releases/sifma-fixed-income-market-close-recommendation-in-the-u-s-the-u-k-and-japan-for-the-u-s-veterans-day-holiday-2026",
         "data_date": "2026-11-11",
         "quote_type": "market_closed",
-        "note": "美國公債市場 11/11 因 Veterans Day 休市，MOVE 當日無有效報價；這是市場休市，不是來源讀取失敗。"
+        "note": "SIFMA 2026-10-28 確認 11/11 Veterans Day 對美元固定收益市場作 full market close recommendation；Treasury securities included。MOVE 無當日有效報價，非資料讀取失敗。"
       }
     },
     "fear_greed": {
