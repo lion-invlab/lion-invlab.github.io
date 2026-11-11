@@ -3515,8 +3515,8 @@
   },
   "chart_dataset": {
     "file": "chart3_market_stress.json",
-    "sha256": "9d62eaecf1ab7f29062ac4c2f7fe0c8325c8d15e26e663ae5101730a699d3315",
-    "bytes": 1492459,
+    "sha256": "0fccd00b1541831383a4b765fe26e4b19001f9a52fdc76e68d4472e0402b5e8f",
+    "bytes": 1492678,
     "qa_file": "chart3_market_stress_qa.json",
     "status": "PASS",
     "generated_at": "2026-11-11T13:56:19+00:00"
