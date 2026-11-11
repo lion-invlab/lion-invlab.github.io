@@ -143,7 +143,7 @@ def main():
                      "observation_end":datetime.now(timezone.utc).date().isoformat(),
                      "output_type":3,"vintage_dates":",".join(batch),
                      "sort_order":"asc","limit":100000,"offset":0}, key)
-                name = f"{sid}_vintage_changes_{ix//500+1:03d}.json"
+                name = f"{sid}_vintage_changes_{batch_no:03d}.json"
                 ph,pb = write_json(sd/name, payload)
                 entry["files"].append({"name":name,"sha256":ph,"bytes":pb})
                 count = len(payload.get("observations",[]))
