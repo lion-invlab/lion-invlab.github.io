@@ -33,18 +33,17 @@ def build(root):
   dates=json.loads((sd/'vintage_dates.json').read_text(encoding='utf-8'))['vintage_dates']
   if not dates or dates[-1]!=state['last_vintage_date']:raise RuntimeError(f'{sid}: vintage index and checkpoint disagree')
   vintage_set=set(dates)
-  event_count=0;event_seen=set();previous_event=None
+  event_count=0;previous_event=None
   with gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig',newline='') as ef:
    for event in csv.DictReader(ef):
     key=(event['observation_date'],event['vintage_date'])
-    if key in event_seen:raise RuntimeError(f'{sid}: duplicate vintage event {key}')
     if previous_event is not None and key<=previous_event:raise RuntimeError(f'{sid}: vintage events not strictly sorted at {key}')
     if event['vintage_date'] not in vintage_set:raise RuntimeError(f'{sid}: event references unknown vintage {event["vintage_date"]}')
     if event['value'] in ('',None):raise RuntimeError(f'{sid}: blank event value at {key}; blank cells must not become events')
     if event['value']=='.' and event.get('value_status')!='source_missing_value':raise RuntimeError(f'{sid}: dot event missing-value status mismatch at {key}')
     if event['value']!='.' and event.get('value_status')!='source_value':raise RuntimeError(f'{sid}: numeric event status mismatch at {key}')
     if event.get('release_date'):raise RuntimeError(f'{sid}: unsupported release_date was populated at {key}')
-    event_seen.add(key);previous_event=key;event_count+=1
+    previous_event=key;event_count+=1
   if event_count!=state.get('event_count'):raise RuntimeError(f'{sid}: event row count mismatch: {event_count} vs {state.get("event_count")}')
   initial_count=0;initial_seen=set();previous_initial=None
   with gzip.open(sd/'initial_release.csv.gz','rt',encoding='utf-8-sig',newline='') as inf:
