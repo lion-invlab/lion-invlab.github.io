@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "report_date": "2026-11-12",
-  "status": "review_preview_delivered",
+  "status": "review_preview_delivered_with_qa_gaps",
   "branch": "simulation/tac-process-lab-2026-11-06",
   "simulation_wr": {
     "version": "SIM-0.3",
@@ -60,10 +60,31 @@
         768,
         360,
         320
-      ]
+      ],
+      "baseline_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
+      "formal_main_mother_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
+      "interpretation": "pass against simulation baseline at 1440/768/360/320; not a formal-main-mother comparison"
     },
-    "html_structure": "pass",
-    "output_identity": "exact Git blob SHA verified against local artifact"
+    "html_structure": "partial: HTML syntax/ID/static-link checks pass; exact scope and key-level requirements fail",
+    "output_identity": "exact Git blob SHA verified against downloaded Actions artifact; preview existed before this run and was not overwritten",
+    "key_level_layers": 3,
+    "required_key_level_layers": 5,
+    "news_cross_section_duplicate_events": 4,
+    "static_links": {
+      "count": 212,
+      "empty_href": 0,
+      "broken_internal_anchors": 0,
+      "invalid_scheme": 0,
+      "blank_without_noopener": 0
+    },
+    "interaction_test": "not_run",
+    "pages_live_open": "not_verified",
+    "independent_market_discrepancies": [
+      "SOX: Nasdaq official 10729.98/+7.32% vs Investing.com 10603.4/+6.05%",
+      "GCZ6: report 4028.70 vs Investing.com 3995.32/-0.87% and Reuters Dec futures 4000.50",
+      "Russell 2000: AP close 2846.26 vs Yahoo ^RUT 2834.57; OHLC mismatch"
+    ],
+    "unapproved_extra_section": "2026-11-10 CPI special-focus block present; not part of fixed weekday mother or a 2026-11-12 post-QA user addition"
   },
   "delivery": {
     "main_preview_path": "preview/2026-11-12-simulation.html",
@@ -76,12 +97,31 @@
     ],
     "pages_deploy_run_id": 43109860660,
     "pages_deploy_status": "success",
-    "pages_url": "https://lion-invlab.github.io/preview/2026-11-12-simulation.html"
+    "pages_url": "https://lion-invlab.github.io/preview/2026-11-12-simulation.html",
+    "live_preview_status": "Pages deployment run success; live URL could not be independently opened in this run"
   },
   "notes": [
     "審核版資料截點固定05:25；實際組裝與關鍵價位擷取延後完成，未納入05:25之後的新資訊。",
     "行情、新聞與行事曆為05:25前人工查核快照；不是完整自動 live-data E2E。",
     "review_ready=false 表示仍待使用者審核；沒有修改 main/index.html。",
     "main preview 例外通道僅用於本次指定審核版路徑；未修改其他 main 檔案。"
-  ]
+  ],
+  "post_run_audit": {
+    "checked_at_taipei": "2026-11-12 06:27 onward",
+    "preview_path": "preview/2026-11-12-simulation.html",
+    "preview_blob_sha": "22155e1f0a57f3876f6ba2b966a71eb91f32fbe2",
+    "preview_commit_sha": "54d4e12bf3389ecb5509c57fde16176b86ebc469",
+    "main_index_sha_unchanged": "98d8613921b225e78226033e97c0cb72aed5c577",
+    "calendar_json_sha": "06a776b0d30998a0aadbfa57e80b976a8ac2c6a7",
+    "findings": [
+      "Gold GCZ6 quote unresolved",
+      "SOX source discrepancy unresolved",
+      "Russell 2000 OHLC mismatch",
+      "key levels only S1/P/R1 instead of five Chinese layers",
+      "four duplicate news events across focus/headline sections",
+      "special-focus block outside original QA scope",
+      "interaction tests and live Pages open not performed"
+    ],
+    "review_ready": false
+  }
 }
