@@ -28,11 +28,15 @@ jobs:
         with:
           python-version: "3.12"
       - name: Test incremental invariants
-        run: python .github/scripts/test_tac_chart3_incremental.py
+        run: |
+          python .github/scripts/test_tac_chart3_incremental.py
+          python .github/scripts/test_build_tac_chart3_visualization.py
       - name: Fetch new vintage events and reconcile current snapshots
         env:
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: python .github/scripts/tac_chart3_incremental.py --data-dir data/tac-chart3 --overlap 5
+      - name: Build chart-ready dataset and verify source hashes
+        run: python .github/scripts/build_tac_chart3_visualization.py --data-dir data/tac-chart3
       - name: Commit only if data changed
         run: |
           git config user.name "github-actions[bot]"
