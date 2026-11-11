@@ -126,13 +126,15 @@ def fetch_new_events(sid,key,vintages):
    rows.extend(parse_event_matrix(sid,p,datetime.now(timezone.utc).isoformat(timespec='seconds'),f'{sid}_incremental_v{batch_no//50+1:03d}_{lo[:4]}_{hi[:4]}.json'))
  return rows
 
-def fetch_initial_release(sid,key,retrieved):
+def fetch_initial_release(sid,key,retrieved,vintages):
+ if not vintages:return []
  rows=[];now=datetime.now(timezone.utc).date();y0=int(SERIES_START[sid][:4])
+ vintage_start,vintage_end=vintages[0],vintages[-1]
  while y0<=now.year:
   y1=min(y0+9,now.year)
-  p=request_json('series/observations',{'series_id':sid,'observation_start':max(SERIES_START[sid],f'{y0}-01-01'),'observation_end':f'{y1}-12-31','output_type':4,'sort_order':'asc','limit':100000,'offset':0},key)
+  p=request_json('series/observations',{'series_id':sid,'observation_start':max(SERIES_START[sid],f'{y0}-01-01'),'observation_end':f'{y1}-12-31','realtime_start':vintage_start,'realtime_end':vintage_end,'output_type':4,'sort_order':'asc','limit':100000,'offset':0},key)
   for r in p.get('observations',[]):
-   rows.append({'series_id':sid,'observation_date':r['date'],'value':r['value'],'realtime_start':r.get('realtime_start',''),'realtime_end':r.get('realtime_end',''),'release_date':'','release_date_status':'exact_release_date_not_supplied_by_observations_endpoint','retrieved_at':retrieved,'source_method':'FRED API output_type=4 initial release only','license_status':'review_required_before_redistribution'})
+   rows.append({'series_id':sid,'observation_date':r['date'],'value':r['value'],'realtime_start':r.get('realtime_start',''),'realtime_end':r.get('realtime_end',''),'release_date':'','release_date_status':'exact_release_date_not_supplied; realtime vintage window retained','retrieved_at':retrieved,'source_method':'FRED API output_type=4 initial release only; scoped to recent ALFRED vintage window','license_status':'review_required_before_redistribution'})
   y0=y1+1
  return rows
 
@@ -180,7 +182,7 @@ def update_series(sid,root,key,retrieved,overlap=5):
   current_tmp.unlink();current_sha=sha_file(sd/'current.csv.gz');current_changed=False
  else:current_changed,current_sha=replace_if_hash_changed(current_tmp,sd/'current.csv.gz')
  checked,_=reconcile(current,sd/'vintage_events.csv.gz')
- initial_rows=fetch_initial_release(sid,key,retrieved)
+ initial_rows=fetch_initial_release(sid,key,retrieved,selected)
  initial_tmp=sd/'initial_release.next.csv.gz'
  initial_added,initial_sha,initial_count=merge_initial_release(sd/'initial_release.csv.gz',initial_rows,initial_tmp)
  initial_changed=False
