@@ -15,3 +15,5 @@
 # Smoke-test revision 6: verify full FRED observations pagination and truncation guard.
 
 # Smoke-test revision 7: honor sparse output_type=3 result counts.
+
+# Smoke-test revision 8: run streaming full-history vintage integrity QA.
