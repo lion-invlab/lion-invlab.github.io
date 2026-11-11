@@ -5,7 +5,6 @@ on:
       - simulation/tac-process-lab-2026-11-06
     paths:
       - "research/tac-chart3/**"
-      - ".github/workflows/tac-chart3-ingest.yml"
   workflow_dispatch:
 permissions:
   contents: read
