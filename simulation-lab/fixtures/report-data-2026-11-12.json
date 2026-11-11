@@ -148,10 +148,10 @@
       "change_display": "+7.32%",
       "source": {
         "name": "Nasdaq｜PHLX Semiconductor Index historical",
-        "url": "https://www.nasdaq.com/market-activity/index/sox/historical",
+        "url": "https://indexes.nasdaq.com/Index/History/SOX",
         "data_date": "2026-11-11",
         "quote_type": "cash_index_daily_close",
-        "note": "Nasdaq 官方 SOX 歷史收盤資料；採現金指數。"
+        "note": "Nasdaq 官方 SOX 歷史頁 2026/11/11 收盤 10,729.98、漲幅7.32%；關鍵價位 OHLC 亦以同頁 H/L/C 為準。"
       }
     },
     "香港恆生指數": {
@@ -4643,5 +4643,17 @@
   "quality_note": "行情基準日2026/11/11。44項固定指標中，36項取得同日可核實數值、3項確認市場休市、5項待核實（4檔產業ETF及MOVE）。全球17項指數均有同日收盤來源；產業ETF僅7檔具同日歷史列。行事曆採main最新2026-W46資料庫，更新時間2026-11-12 04:34:17+08:00。",
   "report_cutoff_taipei": "05:25",
   "news_window_taipei": "2026/11/11 12:00–2026/11/12 05:25",
-  "special_focus": null
+  "special_focus": null,
+  "key_levels_overrides": {
+    "sox": {
+      "trading_date": "2026-11-11",
+      "high": 10746.25,
+      "low": 10287.32,
+      "close": 10729.98,
+      "source_name": "Nasdaq official SOX historical OHLC (Yahoo cross-check)",
+      "source_url": "https://indexes.nasdaq.com/Index/History/SOX",
+      "secondary_source_url": "https://finance.yahoo.com/quote/%5ESOX/history/?frequency=1d",
+      "note": "yfinance 取回的 SOX close 與同日官方歷史資料衝突；採 Nasdaq official 11/11 H/L/C 10,746.25 / 10,287.32 / 10,729.98，避免與市場指標卡出現兩個收盤值。"
+    }
+  }
 }
