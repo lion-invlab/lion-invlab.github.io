@@ -61,6 +61,17 @@ def reconstruct_series(path:Path,series_id:str,as_of_date:str):
         "observations":observations
     }
 
+def reconcile_current_snapshot(current_path:Path,observations:list[dict]):
+    with gzip.open(current_path,"rt",encoding="utf-8-sig",newline="") as f:
+        current={r["observation_date"]:r["value"] for r in csv.DictReader(f)}
+    reconstructed={r["date"]:r["value_raw"] for r in observations}
+    if current!=reconstructed:
+        missing=sorted(set(current)-set(reconstructed))
+        extra=sorted(set(reconstructed)-set(current))
+        mismatch=sorted(d for d in set(current)&set(reconstructed) if current[d]!=reconstructed[d])
+        raise RuntimeError(f"Point-in-time/current reconciliation failed: missing={len(missing)}, extra={len(extra)}, mismatches={len(mismatch)}; examples={missing[:2]} {extra[:2]} {mismatch[:2]}")
+    return {"status":"PASS","current_rows":len(current),"reconstructed_rows":len(reconstructed),"mismatches":0}
+
 def build_snapshot(data_dir:Path,as_of_date:str,output:Path|None=None):
     date.fromisoformat(as_of_date)
     manifest=json.loads((data_dir/"manifest.json").read_text(encoding="utf-8"))
@@ -74,6 +85,10 @@ def build_snapshot(data_dir:Path,as_of_date:str,output:Path|None=None):
         dates=json.loads((data_dir/"series"/sid/"vintage_dates.json").read_text(encoding="utf-8"))["vintage_dates"]
         result["vintage_history_coverage"]={"first":dates[0],"last":dates[-1],"count":len(dates)}
         result["history_available_for_as_of"]=bool(result["latest_available_vintage_before_as_of"])
+        if date.fromisoformat(as_of_date)>date.fromisoformat(state["last_vintage_date"]):
+            result["current_snapshot_reconciliation"]=reconcile_current_snapshot(data_dir/"series"/sid/"current.csv.gz",result["observations"])
+        else:
+            result["current_snapshot_reconciliation"]={"status":"NOT_APPLICABLE","reason":"as_of_date is not later than the latest current vintage"}
         series.append(result)
     obj={
         "schema_version":"1.0","dataset_id":"TAC_CHART3_POINT_IN_TIME_SNAPSHOT","as_of_date":as_of_date,
