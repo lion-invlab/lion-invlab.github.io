@@ -39,7 +39,7 @@ jobs:
       - name: Build chart-ready dataset and verify source hashes
         run: python .github/scripts/build_tac_chart3_visualization.py --data-dir data/tac-chart3
       - name: Validate point-in-time reconstruction against current snapshots
-        run: python .github/scripts/build_tac_chart3_asof_snapshot.py --data-dir data/tac-chart3 --as-of-date 2026-11-10 --output /tmp/tac-chart3-asof-2026-11-10.json
+        run: python .github/scripts/build_tac_chart3_asof_snapshot.py --data-dir data/tac-chart3 --as-of-latest-plus-one --output /tmp/tac-chart3-asof-current.json
       - name: Commit only if data changed
         run: |
           git config user.name "github-actions[bot]"
