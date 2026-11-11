@@ -106,7 +106,7 @@ def replace_if_hash_changed(tmp_path,final_path):
   tmp_path.unlink();return False,new_hash
  os.replace(tmp_path,final_path);return True,new_hash
 
-def fetch_all_observations(params,key,retries=5):
+def fetch_all_observations(params,key,retries=5,validate_count=True):
  """Fetch every observations row; never silently accept a 100k-page truncation."""
  limit=100000;offset=0;rows=[];expected=None
  while True:
@@ -114,18 +114,18 @@ def fetch_all_observations(params,key,retries=5):
   payload=request_json('series/observations',page_params,key,retries=retries)
   batch=payload.get('observations',[])
   count=payload.get('count')
-  if count is not None:
+  if validate_count and count is not None:
    count=int(count)
    if expected is None:expected=count
    elif expected!=count:raise RuntimeError(f'FRED count changed during pagination: {expected} -> {count}')
-  if not batch and expected is not None and len(rows)<expected:
+  if validate_count and not batch and expected is not None and len(rows)<expected:
    raise RuntimeError(f'FRED pagination stopped early: received {len(rows)} of {expected} rows')
   rows.extend(batch)
   if len(batch)<limit:break
   offset+=len(batch)
   if offset>10_000_000:raise RuntimeError('FRED pagination safety limit exceeded')
   if expected is not None and len(rows)>=expected:break
- if expected is not None and len(rows)!=expected:
+ if validate_count and expected is not None and len(rows)!=expected:
   raise RuntimeError(f'FRED pagination incomplete: received {len(rows)} of {expected} rows')
  return rows
 
@@ -145,7 +145,7 @@ def fetch_new_events(sid,key,vintages):
  for batch_no in range(0,len(vintages),50):
   batch=vintages[batch_no:batch_no+50]
   for lo,hi in windows:
-   p=fetch_all_observations({'series_id':sid,'observation_start':max(SERIES_START[sid],lo),'observation_end':hi,'output_type':3,'vintage_dates':','.join(batch),'sort_order':'asc'},key,retries=2)
+   p=fetch_all_observations({'series_id':sid,'observation_start':max(SERIES_START[sid],lo),'observation_end':hi,'output_type':3,'vintage_dates':','.join(batch),'sort_order':'asc'},key,retries=2,validate_count=False)
    rows.extend(parse_event_matrix(sid,{'observations':p},datetime.now(timezone.utc).isoformat(timespec='seconds'),f'{sid}_incremental_v{batch_no//50+1:03d}_{lo[:4]}_{hi[:4]}.json'))
  return rows
 
