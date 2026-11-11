@@ -1,10 +1,7 @@
 name: TAC Chart 3 FRED-ALFRED historical ingestion
+# Full historical ingestion is intentionally manual-only.
+# Daily refreshes must use tac-chart3-incremental.yml.
 on:
-  push:
-    branches:
-      - simulation/tac-process-lab-2026-11-06
-    paths:
-      - "research/tac-chart3/**"
   workflow_dispatch:
 permissions:
   contents: read
