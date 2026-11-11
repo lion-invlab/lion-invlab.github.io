@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC Chart 3｜市場恐慌與金融壓力</title>
+<style>
+:root{color-scheme:light;--ink:#172033;--muted:#657086;--line:#e5e9f0;--paper:#f5f7fb;--card:#fff;--navy:#101c35;--gold:#c8a45b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 56px}
+header{background:var(--navy);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:18px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(200,164,91,.32);border-radius:50%;right:-80px;top:-140px;box-shadow:0 0 0 24px rgba(200,164,91,.05),0 0 0 50px rgba(200,164,91,.035)}
+.eyebrow{color:#d8bd83;font-size:12px;letter-spacing:.14em;font-weight:700}
+h1{font-size:clamp(24px,4vw,36px);margin:9px 0 8px;letter-spacing:.02em}
+.sub{color:#c5ccda;font-size:14px;line-height:1.6;max-width:720px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 10px;color:#e4e8ef;font-size:12px}
+.grid{display:grid;grid-template-columns:1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;box-shadow:0 6px 22px rgba(21,36,65,.04)}
+.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-height:1.5}
+.latest{font-size:12px;color:var(--muted);text-align:right}
+.chart{width:100%;overflow:hidden;margin-top:8px}.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 2px;font-size:12px;color:#4f5b70}
+.legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:3px;border-radius:4px;display:inline-block}
+.notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:12px;line-height:1.6;color:#526077}
+.note strong{display:block;color:#202c43;font-size:13px;margin-bottom:4px}
+.status{padding:18px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--muted)}
+footer{margin-top:18px;color:#778196;font-size:11px;line-height:1.7}
+svg text{font-family:inherit;fill:#718096;font-size:11px}
+@media(max-width:700px){main{padding:14px 10px 34px}header{padding:22px 18px;border-radius:14px}.card{padding:14px 10px}.notegrid{grid-template-columns:1fr}.latest{text-align:left}}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div class="eyebrow">TAC INVESTMENT DECISION CHARTS · CHART 03</div>
+ <h1>市場恐慌與金融壓力</h1>
+ <div class="sub">以市場隱含波動率、金融條件與金融壓力指標，觀察風險偏好變化及金融環境收緊程度。</div>
+ <div class="meta"><span class="pill">FRED / ALFRED</span><span class="pill">歷史觀測＋修訂版本</span><span class="pill">不補值・不前值填補</span><span class="pill" id="asof">資料讀取中…</span></div>
+</header>
+<div id="status" class="status">正在載入已驗證的圖表資料…</div>
+<div id="charts" class="grid" hidden>
+ <section class="card">
+  <div class="card-head"><div><h2>01｜市場隱含波動率</h2><div class="desc">CBOE VIX｜以選擇權價格反映市場對未來約 30 日波動的預期</div></div><div class="latest" id="vix-latest"></div></div>
+  <div class="legend"><span><i class="swatch" style="background:#c84b4b"></i>VIXCLS</span></div>
+  <div class="chart" id="vix-chart"></div>
+ </section>
+ <section class="card">
+  <div class="card-head"><div><h2>02｜金融條件與壓力</h2><div class="desc">三項週頻指標各自依原始觀測日期繪製；零軸代表各指標自身的長期平均基準。</div></div><div class="latest" id="stress-latest"></div></div>
+  <div class="legend">
+   <span><i class="swatch" style="background:#315f9d"></i>NFCI</span>
+   <span><i class="swatch" style="background:#c49a43"></i>NFCI Credit</span>
+   <span><i class="swatch" style="background:#8064a8"></i>STLFSI4</span>
+  </div>
+  <div class="chart" id="stress-chart"></div>
+ </section>
+</div>
+<div class="notegrid">
+ <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
+ <div class="note"><strong>避免重複計算</strong>NFCICREDIT 是 NFCI 的信用子指標，不應當成與 NFCI 完全獨立的風險來源。</div>
+ <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
+</div>
+<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
+</main>
+<script>
+const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
+const COLORS={VIXCLS:'#c84b4b',NFCI:'#315f9d',NFCICREDIT:'#c49a43',STLFSI4:'#8064a8'};
+const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
+const year=d=>String(d).slice(0,4);
+function drawChart(targetId,seriesList,{zeroLine=false}={}){
+ const W=1040,H=390,L=72,R=24,T=24,B=48,iw=W-L-R,ih=H-T-B;
+ const all=seriesList.flatMap(s=>s.observations.filter(o=>o.value!==null).map(o=>({date:o.date,value:Number(o.value)})));
+ const times=all.map(o=>Date.parse(o.date+'T00:00:00Z'));
+ let minX=Math.min(...times),maxX=Math.max(...times),minY=Math.min(...all.map(o=>o.value)),maxY=Math.max(...all.map(o=>o.value));
+ if(minY===maxY){minY-=1;maxY+=1}
+ const pad=(maxY-minY)*.08;minY-=pad;maxY+=pad;
+ const x=t=>L+(t-minX)/(maxX-minX||1)*iw,y=v=>T+(maxY-v)/(maxY-minY)*ih;
+ const ticks=5,parts=[];
+ for(let i=0;i<=ticks;i++){
+  const v=minY+(maxY-minY)*i/ticks,yy=y(v);
+  parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3" stroke-width="1"/>');
+  parts.push('<text x="'+(L-12)+'" y="'+(yy+4)+'" text-anchor="end">'+fmt(v)+'</text>');
+ }
+ const startYear=Number(year(new Date(minX).toISOString().slice(0,10))),endYear=Number(year(new Date(maxX).toISOString().slice(0,10)));
+ const step=Math.max(1,Math.ceil((endYear-startYear)/6));
+ for(let yr=startYear;yr<=endYear;yr+=step){
+  const t=Date.parse(yr+'-01-01T00:00:00Z');
+  if(t<minX||t>maxX)continue;
+  const xx=x(t);parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');
+  parts.push('<text x="'+xx+'" y="'+(H-17)+'" text-anchor="middle">'+yr+'</text>');
+ }
+ if(zeroLine&&minY<0&&maxY>0){const yy=y(0);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 4"/>');}
+ for(const s of seriesList){
+  let d='',open=false;
+  for(const o of s.observations){
+   if(o.value===null){open=false;continue}
+   const t=Date.parse(o.date+'T00:00:00Z'),xx=x(t),yy=y(Number(o.value));
+   d+=(open?' L':' M')+xx.toFixed(2)+' '+yy.toFixed(2);open=true;
+  }
+  parts.push('<path d="'+d+'" fill="none" stroke="'+(COLORS[s.series_id]||'#555')+'" stroke-width="'+(s.series_id==='VIXCLS'?1.55:1.65)+'" stroke-linejoin="round" stroke-linecap="round"><title>'+s.label+'</title></path>');
+  const last=[...s.observations].reverse().find(o=>o.value!==null);
+  if(last){const xx=x(Date.parse(last.date+'T00:00:00Z')),yy=y(Number(last.value));parts.push('<circle cx="'+xx+'" cy="'+yy+'" r="3.5" fill="'+COLORS[s.series_id]+'"><title>'+s.label+' · '+last.date+' · '+fmt(last.value)+'</title></circle>');}
+ }
+ parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
+ parts.push('<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
+ document.getElementById(targetId).innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="歷史時間序列折線圖">'+parts.join('')+'</svg>';
+}
+function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
+fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
+ const byId=Object.fromEntries(data.series.map(s=>[s.series_id,s]));
+ document.getElementById('asof').textContent='最新 Vintage '+data.series.map(s=>s.as_of_vintage).sort().at(-1);
+ document.getElementById('vix-latest').textContent=latestLine(byId.VIXCLS);
+ document.getElementById('stress-latest').innerHTML=[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4].map(latestLine).join('<br>');
+ drawChart('vix-chart',[byId.VIXCLS]);
+ drawChart('stress-chart',[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4],{zeroLine:true});
+ document.getElementById('status').hidden=true;document.getElementById('charts').hidden=false;
+}).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與 data/tac-chart3/chart3_market_stress.json 位於同一分支。'});
+</script>
+</body>
+</html>
