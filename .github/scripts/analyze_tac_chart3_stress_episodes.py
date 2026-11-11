@@ -53,7 +53,8 @@ def stats(r):
  v=[x["value"] for x in r];lo=min(r,key=lambda x:x["value"]);hi=max(r,key=lambda x:x["value"])
  return {"n":len(r),"start":r[0]["observation_date"],"end":r[-1]["observation_date"],"mean":statistics.mean(v),"median":statistics.median(v),"min":lo["value"],"min_date":lo["observation_date"],"max":hi["value"],"max_date":hi["observation_date"],"last":r[-1]["value"],"last_date":r[-1]["observation_date"]}
 def pit_count(d,s,a,b):
- return sum(1 for obs,vs in d[s].items() if a<=obs<=b and any(v<obs for v in vs))
+ # A vintage event containing "." is a source-reported missing value, not an available numeric observation.
+ return sum(1 for obs,vs in d[s].items() if a<=obs<=b and any(v<obs and num(x) is not None for v,x in vs.items()))
 def revisions(d,s,a,b,cutoff):
  z=[]
  for obs,vs in d[s].items():
