@@ -9,20 +9,20 @@
       "series_id": "VIXCLS",
       "artifact_id": 13859041307,
       "artifact_sha256": "6d653f79661a8dbf169b402e27dbb84c4d606d9004332e97854fee98df5faf65",
-      "current_rows": 9615,
+      "current_rows": 9616,
       "current_span": {
         "first": "1990-01-02",
         "last": "2026-11-09"
       },
-      "initial_release_rows": 4134,
+      "initial_release_rows": 4135,
       "initial_release_span": {
         "first": "2010-11-22",
         "last": "2026-11-09"
       },
-      "vintage_dates": 3970,
+      "vintage_dates": 3971,
       "vintage_span": {
         "first": "2010-11-22",
-        "last": "2026-11-09"
+        "last": "2026-11-10"
       },
       "chunk_files": 320,
       "chunk_grid_expected": 320,
@@ -33,14 +33,14 @@
       "raw_observation_rows": 28023,
       "vintage_columns_seen": 3970,
       "missing_vintage_columns": 0,
-      "event_rows": 9637,
+      "event_rows": 9638,
       "source_missing_value_events": 305,
       "duplicate_event_keys": 0,
       "current_snapshot_mismatches": 0,
       "initial_release_mismatches": 0,
-      "event_sha256": "2f2429614ce2d7877172abb1748e67659abcc1f2e624eb48146601e1bdcd9df1",
-      "current_sha256": "c2221b5e7c2b24bf09991a2b4c1f820f6d79f37d776bda2b48fdc0d51f810e0a",
-      "initial_release_sha256": "eb2c4cd0932d78afb475004db25a316f1964a830557a6a2275bcb897ba22ae81"
+      "event_sha256": "5be0ec0bbe807239c6f6496957484dda08b423ff920cac07a8e9d672543e0ba9",
+      "current_sha256": "01db438ce4295675772e9a4c571cd3b216cf3e871b5934bc1b72bccdffe999bc",
+      "initial_release_sha256": "c92fe80f202ca634feac8c6b21eb7b8238e3959a28c9116eed01109608431c4b"
     },
     {
       "series_id": "NFCI",
@@ -3515,10 +3515,90 @@
   },
   "chart_dataset": {
     "file": "chart3_market_stress.json",
-    "sha256": "0fccd00b1541831383a4b765fe26e4b19001f9a52fdc76e68d4472e0402b5e8f",
-    "bytes": 1492678,
+    "sha256": "53ccd8d93fc6c9fca5b78f8d834c20d825a4a06de3af2f73c5e912114a4afe24",
+    "bytes": 1492764,
     "qa_file": "chart3_market_stress_qa.json",
     "status": "PASS",
-    "generated_at": "2026-11-11T13:56:19+00:00"
-  }
+    "generated_at": "2026-11-11T14:41:25+00:00"
+  },
+  "last_incremental_at": "2026-11-11T14:41:25+00:00",
+  "last_incremental_results": [
+    {
+      "series_id": "VIXCLS",
+      "new_vintage_dates": 1,
+      "queried_vintage_dates": 6,
+      "new_event_rows_fetched": 6,
+      "added_event_rows": 1,
+      "overlap_duplicate_rows": 5,
+      "current_rows": 9616,
+      "current_sha256": "01db438ce4295675772e9a4c571cd3b216cf3e871b5934bc1b72bccdffe999bc",
+      "event_count": 9638,
+      "events_sha256": "5be0ec0bbe807239c6f6496957484dda08b423ff920cac07a8e9d672543e0ba9",
+      "initial_release_rows": 4135,
+      "initial_release_sha256": "c92fe80f202ca634feac8c6b21eb7b8238e3959a28c9116eed01109608431c4b",
+      "initial_release_added_rows": 1,
+      "vintage_date_count": 3971,
+      "vintage_dates_sha256": "1a630f15046f2c50b66620ca78544d1c5f68e43af4872586a2b7d30e0bdd0f00",
+      "latest_vintage_date": "2026-11-10",
+      "changed": true
+    },
+    {
+      "series_id": "NFCI",
+      "new_vintage_dates": 0,
+      "queried_vintage_dates": 5,
+      "new_event_rows_fetched": 9235,
+      "added_event_rows": 0,
+      "overlap_duplicate_rows": 9235,
+      "current_rows": 2913,
+      "current_sha256": "baf46aae4400a70047ca2e8e3f3f711dc4063d8803052aa66af9ee12c12003d8",
+      "event_count": 934790,
+      "events_sha256": "8393ba607833de18f55249cefce2d49c7b881375723ebf8f42519f2d65d2a960",
+      "initial_release_rows": 806,
+      "initial_release_sha256": "1e918de1260d6239fc3b493e786e6829dfdfcb6cf91ebe2bddd6ece3645a73dd",
+      "initial_release_added_rows": 0,
+      "vintage_date_count": 803,
+      "vintage_dates_sha256": "2e4b5ee5de32fc6748e5b619fb716f67247fb46248e0e0da50b0a285775dcb69",
+      "latest_vintage_date": "2026-11-04",
+      "changed": false
+    },
+    {
+      "series_id": "NFCICREDIT",
+      "new_vintage_dates": 0,
+      "queried_vintage_dates": 5,
+      "new_event_rows_fetched": 9092,
+      "added_event_rows": 0,
+      "overlap_duplicate_rows": 9092,
+      "current_rows": 2913,
+      "current_sha256": "0545eb7acef4ba2515ef6d5bc52816280c0a14d62c6f38a10627cb2adad893ad",
+      "event_count": 930171,
+      "events_sha256": "d459c2cb8c13e38d99ffa7fb08584f8b47cec890ed9214990a4d568adebf1244",
+      "initial_release_rows": 748,
+      "initial_release_sha256": "99266bb9e613ebb0b7cbdf04e39198094a03f545bd1cececcf8e4284594499c0",
+      "initial_release_added_rows": 0,
+      "vintage_date_count": 745,
+      "vintage_dates_sha256": "dfd69963008093a53b93cea978d36b358ebf256f3d9eab14435d743f60692426",
+      "latest_vintage_date": "2026-11-04",
+      "changed": false
+    },
+    {
+      "series_id": "STLFSI4",
+      "new_vintage_dates": 0,
+      "queried_vintage_dates": 5,
+      "new_event_rows_fetched": 8140,
+      "added_event_rows": 0,
+      "overlap_duplicate_rows": 8140,
+      "current_rows": 1714,
+      "current_sha256": "2578ae28ac0030589f8987277a7fbde22d37f81fde72e3409b0acf0246d88e06",
+      "event_count": 319948,
+      "events_sha256": "0379e6d99fae4c68feec65ededaa44a08e6b123034441e5d56a78ed1b88947de",
+      "initial_release_rows": 208,
+      "initial_release_sha256": "5c7ae46c84ef3fcd1146e08689a1a69f8fb740f1812718fac2bb3f6f1d85d431",
+      "initial_release_added_rows": 0,
+      "vintage_date_count": 209,
+      "vintage_dates_sha256": "71184029a8bb9fcb525a279f84d60ac8d36814678a626d92dc28da3e67b2b52c",
+      "latest_vintage_date": "2026-11-04",
+      "changed": false
+    }
+  ],
+  "overall_status": "PASS"
 }
