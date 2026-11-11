@@ -1,15 +1,19 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-0.2
-更新日期：2026-11-06
+版本：SIM-0.3
+更新日期：2026-11-12
 基準：main f05c889857f66c7b6d5bf9c78325932f2eb39a55 的 TAC_WORK_RULES.md v5.14（blob 80d49eeaa54e16a18dc34416239e4b46664ba44b）
-適用範圍：僅限 branch `simulation/tac-process-lab-2026-11-06` 及 `simulation-lab/`。本文件不是正式 WR，不得回寫 main，不得觸發正式發布。
+適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
 
 ## 0. 模擬區最高優先授權覆寫（SIM-0.2）
 
 使用者已明確授權：隔離區內所有規則、程式、資料契約、測試方式及模擬流程均可自由修改、刪除、重寫；以下五項為唯一不可違反的交付約束：
 
-1. **main 絕對唯讀。** 不得對 main 建立任何 commit、檔案、設定、排程、workflow、首頁或母版變更。模擬程式、資料、報告及測試產物僅寫入本 branch 的 `simulation-lab/`。唯一執行環境例外：允許在本 branch 新增一個專用 `.github/workflows/tac-simulation-lab.yml`，只監聽本模擬 branch 的 push、僅執行唯讀測試、僅將結果上傳為 Actions artifact；不得 checkout／寫入 main、不得 push commit、不得 deploy Pages、不得使用 production secrets。該 workflow 不存在於 main，因此不會觸發正式流程。禁止 PR、合併及任何正式發布。
+1. **main 原則唯讀，但明確保留審核版例外通道。** 除下列例外外，不得對 main 建立或修改任何 commit、檔案、設定、排程、workflow、首頁或母版：
+   - **審核版例外通道：** 當使用者在當次任務明確授權交付模擬審核版至 main preview（包括排程指令已明確授權）時，允許且只允許新增／更新 `main/preview/YYYY-MM-DD-simulation.html`，其中日期必須是該次報告日期。這是明確、狹窄的 main 寫入例外，不得因「main 唯讀」而拒絕，也不得擴張至其他路徑。
+   - 寫入前須確認目標檔案現況及 SHA；若已存在，先核對日期與內容身分，避免覆蓋非本次模擬審核版。寫入後必須回讀同一路徑，記錄 commit SHA、blob SHA，確認實際內容與預期一致。
+   - 此通道只交付獨立審核版，不得修改 `main/index.html`、任何正式母版、Manifest、正式規則、資料庫或其他 main 檔案；不得建立 PR、合併或將審核版宣稱為正式發布。若該次任務沒有明確授權，則只寫入本 branch 的 `simulation-lab/`。
+   - **模擬 workflow 例外：** 允許在本 branch 新增專用 `.github/workflows/tac-simulation-lab.yml`，只監聽本模擬 branch 的 push、僅執行唯讀測試、僅將結果上傳為 Actions artifact；不得 checkout／寫入 main、不得 push commit、不得 deploy Pages、不得使用 production secrets。該 workflow 不存在於 main，因此不會觸發正式流程。禁止 PR、合併及任何正式發布。
 2. **速度優先，驗證精簡。** 移除重複讀取、重複核對、逐步人工簽核、每一小步寫回 GitHub 等形式流程。採批次處理、一次性資料鎖定、增量重跑。只保留能防止錯誤行情、資料串錯、母版結構／視覺退化的必要檢查；已通過且輸入未變的檢查直接沿用。
 3. **母版視覺零退化。** 正式母版是不可改動的唯讀視覺基準。輸出只能替換核准內容槽位，不得改變版面、DOM 結構、CSS、JS、元件、尺寸、間距、字體、色彩、互動或響應式行為。視覺有差異即修復，不以「大致相同」放行。
 4. **自動連續模擬。** 不設模擬次數上限；每次發現問題，立即在隔離區修改規則或程式、重跑受影響步驟，再接續完整流程。不得只交問題清單、計畫或要求使用者逐步輸入「繼續」。若執行環境本身阻斷（例如網路、權限、瀏覽器不可用），先找同環境可行替代路徑；替代路徑仍不可行時，記錄精確阻塞，繼續所有不依賴該能力的工作。
@@ -25,8 +29,8 @@
 - 每次模擬只保存一份 run state，節點記錄輸入／輸出識別、狀態、錯誤及恢復位置；只在節點完成或遇阻時持久化，不逐項寫回。
 - 若工具限制無法完成瀏覽器截圖或互動操作，不得宣稱該項已通過；但不得因此停止資料流程、HTML 組裝及其他可執行測試。
 
-### 0.2 唯讀基準
-下方複製的 main v5.14 原文僅作歷史參照；與本節衝突時，本節優先。正式母版、Manifest、QA 契約及 main 的任何檔案均只讀。模擬版可直接刪改後文與其他 simulation-lab 檔案，不需先取得額外授權。
+### 0.2 唯讀基準與審核版例外
+下方複製的 main v5.14 原文僅作歷史參照；與本節衝突時，本節優先。正式母版、Manifest、QA 契約及 main 的所有檔案均為唯讀基準；**唯一允許的 main 寫入例外，是第 0 節明定、且當次任務已獲使用者明確授權的 `main/preview/YYYY-MM-DD-simulation.html` 審核版通道。** 不得將此例外解讀為允許修改首頁、母版、Manifest、正式規則或其他 main 檔案。模擬版可直接刪改後文與其他 simulation-lab 檔案，不需先取得額外授權。
 
 ---
 
