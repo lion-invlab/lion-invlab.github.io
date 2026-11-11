@@ -205,7 +205,7 @@ def update_series(sid,root,key,retrieved,overlap=5):
   current_tmp.unlink();current_sha=sha_file(sd/'current.csv.gz');current_changed=False
  else:current_changed,current_sha=replace_if_hash_changed(current_tmp,sd/'current.csv.gz')
  checked,_=reconcile(current,sd/'vintage_events.csv.gz')
- initial_rows=fetch_initial_release(sid,key,retrieved,selected)
+ initial_rows=fetch_initial_release(sid,key,retrieved,new_dates) if new_dates else []
  initial_tmp=sd/'initial_release.next.csv.gz'
  initial_added,initial_sha,initial_count=merge_initial_release(sd/'initial_release.csv.gz',initial_rows,initial_tmp)
  initial_changed=False
