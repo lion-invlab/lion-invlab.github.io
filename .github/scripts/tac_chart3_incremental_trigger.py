@@ -13,3 +13,5 @@
 # Smoke-test revision 5: deterministic chart builder syntax fix.
 
 # Smoke-test revision 6: verify full FRED observations pagination and truncation guard.
+
+# Smoke-test revision 7: honor sparse output_type=3 result counts.
