@@ -14,6 +14,30 @@ def event(date,vintage,value):
       "artifact_created_at":"2026-11-11T00:00:00Z","license_status":"review_required_before_redistribution"}
 
 class IncrementalTests(unittest.TestCase):
+    def test_fred_observations_pagination_reads_all_pages(self):
+        original=INC.request_json
+        calls=[]
+        first=[{"date":f"2000-01-{(i%28)+1:02d}","value":"1"} for i in range(100000)]
+        second=[{"date":"2000-02-01","value":"2"},{"date":"2000-02-02","value":"3"}]
+        def fake(endpoint,params,key,retries=5):
+            calls.append(params["offset"])
+            return {"count":100002,"observations":first if params["offset"]==0 else second}
+        INC.request_json=fake
+        try:rows=INC.fetch_all_observations({"series_id":"VIXCLS","output_type":1},"fake")
+        finally:INC.request_json=original
+        self.assertEqual(calls,[0,100000])
+        self.assertEqual(len(rows),100002)
+
+    def test_fred_observations_pagination_fails_on_truncation(self):
+        original=INC.request_json
+        def fake(endpoint,params,key,retries=5):
+            return {"count":100001,"observations":[{"date":"2000-01-01","value":"1"}]}
+        INC.request_json=fake
+        try:
+            with self.assertRaises(RuntimeError):
+                INC.fetch_all_observations({"series_id":"VIXCLS","output_type":1},"fake")
+        finally:INC.request_json=original
+
     def test_vintage_overlap(self):
         dates=["2026-01-01","2026-01-08","2026-01-15","2026-01-22","2026-01-29","2026-02-05","2026-02-12"]
         self.assertEqual(INC.choose_vintages(dates,"2026-02-05",5),dates[1:])
