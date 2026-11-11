@@ -1,0 +1,30 @@
+name: TAC Chart 3 stress episode analysis tests
+
+on:
+  push:
+    branches:
+      - simulation/tac-process-lab-2026-11-06
+    paths:
+      - ".github/scripts/analyze_tac_chart3_stress_episodes.py"
+      - ".github/scripts/test_analyze_tac_chart3_stress_episodes.py"
+      - ".github/workflows/tac-chart3-stress-analysis-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout isolated simulation branch
+        uses: actions/checkout@v4
+        with:
+          ref: simulation/tac-process-lab-2026-11-06
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile analysis code
+        run: python -m py_compile .github/scripts/analyze_tac_chart3_stress_episodes.py
+      - name: Run unit tests
+        run: python .github/scripts/test_analyze_tac_chart3_stress_episodes.py
