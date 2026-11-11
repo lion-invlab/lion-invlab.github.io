@@ -2,8 +2,8 @@
   "report_date": "2026-11-12",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-11",
-  "summary": "11/11全球風險資產明顯反彈，亞洲以台灣加權+3.62%、KOSPI+2.60%領先，SOX大漲7.32%；美股標普500上漲1.31%、那斯達克上漲1.60%。但反彈高度集中於AI與半導體，S&P 11產業ETF目前僅7檔取得同日可核實資料，科技領漲、醫療與必需消費落後。美元指數走強、油價反彈，FedWatch仍顯示12月升息25bp機率90.8%，CNN Fear & Greed為37（Fear）；美債市場因Veterans Day休市。整體較像風險偏好急速修復，而非利率、地緣政治與AI資本支出風險解除。",
-  "sentiment": "市場情緒呈現股市強彈、宏觀風險未退的分歧：半導體與AI基建消息帶動科技股急升，台韓股市同步走強；但美元上行、油價回彈及FedWatch對12月升息的高度定價，仍對高估值資產形成約束。CNN Fear & Greed維持Fear區，表示價格反彈尚未轉化為廣泛的風險偏好改善。",
+  "summary": "11/11全球風險資產明顯反彈，台灣加權+3.62%、KOSPI+2.60%；SOX收10,761.3、上漲7.63%，Russell 2000收2,850.36、上漲1.03%。S&P 11產業ETF已補齊全部11檔同日歷史收盤，科技+3.46%領漲，醫療與必需消費落後。WTI、Brent與白銀同步反彈，美元走強；FedWatch仍顯示12月升息25bp機率90.8%，CNN Fear & Greed為37（Fear）。美債市場因Veterans Day休市，MOVE無當日報價。",
+  "sentiment": "市場情緒呈現股市強彈、宏觀風險未退的分歧：SOX上漲7.63%、Russell 2000上漲1.03%，11大產業ETF全部收高或收低均已完成同日核實；但美元上行、油價回彈及FedWatch對12月升息的高度定價，仍對高估值資產形成約束。CNN Fear & Greed維持Fear區，MOVE因美債休市無當日報價。",
   "focus_news": [
     {
       "title": "德國10月通膨確認降至2.8%，核心通膨同步放緩",
@@ -24,24 +24,24 @@
       "published_at_tw": "2026-11-12 03:56"
     },
     {
-      "title": "美股科技股反彈，AI基建需求重新獲得市場定價",
-      "summary": "AP報導，11/11美股收高，標普500上漲1.31%、那斯達克上漲1.60%、道瓊上漲0.49%；CoreWeave財報與展望改善AI支出疑慮，帶動科技股回升。惟美國公債市場因Veterans Day休市，當日缺少新的美債收盤殖利率作交叉驗證。",
-      "url": "https://apnews.com/article/297d040c83844a9563327340b370c24e",
-      "published_at_tw": "2026-11-11 23:57"
+      "title": "OPEC+ 10月原油產量大幅回升，接近伊朗戰事前水準",
+      "summary": "Reuters引述OPEC月報，OPEC+ 10月原油產量增加約204萬桶／日，達4,123萬桶／日，約為2月戰事前產量的97%；沙烏地阿拉伯產量升至1,056.3萬桶／日。供給恢復有助緩解部分供應壓力，但荷姆茲海峽航運仍受干擾，市場需同時觀察產量回升與運輸瓶頸。",
+      "url": "https://www.reuters.com/business/energy/saudi-arabia-leads-further-jump-opec-oil-output-despite-war-2026-11-11/",
+      "published_at_tw": "2026-11-11 21:22"
     },
     {
-      "title": "美國Nvidia晶片出口管制執行出現分歧，對中政策不確定性升高",
-      "summary": "Reuters引述Axios報導，商務部長Lutnick多次延後針對疑似轉運Nvidia晶片至中國企業的打擊行動；報導稱川普再度授權執法。出口管制執行與政治協調的不確定性，可能影響AI晶片供應鏈、企業合規與中美科技競爭。",
-      "url": "https://www.reuters.com/world/china/lutnick-stalled-trump-crackdown-diversion-nvidia-chips-china-axios-reports-2026-11-11/",
-      "published_at_tw": "2026-11-12 05:21"
+      "title": "荷姆茲海峽船流量回升，船舶遇襲事件也升至戰事以來高點",
+      "summary": "Reuters報導，10月荷姆茲海峽LNG出口船次回升，但商船遇襲達37艘，為戰事開始以來最高；IMO已記錄130起事件、至少25名海員死亡。能源運輸逐步恢復不代表安全風險解除，若攻擊再升高，油氣運費與供應中斷風險可能重新推升能源價格。",
+      "url": "https://www.reuters.com/world/middle-east/hormuz-traffic-is-up-so-are-attacks-2026-11-11/",
+      "published_at_tw": "2026-11-12 00:12"
     }
   ],
   "headlines": [
     {
-      "title": "CoreWeave第三季營收年增168%，上修全年指引但資本支出同步擴張",
-      "summary": "第三季營收36.61億美元，高於市場預期，年增168%；公司將全年營收指引上調至130億至133億美元，並預估全年資本支出370億至390億美元。需求強勁與客戶預付款改善融資彈性，但單季利息支出8.46億美元、淨虧損7.09億美元，仍須檢視資本效率與現金流。",
-      "url": "https://stockanalysis.com/news/coreweave-earnings-call-unsecured-debt-plan/",
-      "published_at_tw": "2026-11-11 21:39"
+      "title": "CoreWeave第三季營收年增168%，上修全年指引並降低無擔保融資依賴",
+      "summary": "CoreWeave第三季營收達36.61億美元、年增168%，並上調全年營收指引至130億至133億美元；公司表示現有客戶合約現金流可支應現有與未來債務償付，並暫不進入無擔保債市場。需求強勁，但資本支出與高負債仍是投資人檢驗重點。",
+      "url": "https://www.investing.com/news/stock-market-news/coreweave-sparks-ai-cloud-stock-rally-lifts-nvidia-as-results-ease-bubble-fears-5018610",
+      "published_at_tw": "2026-11-11 20:16"
     },
     {
       "title": "OpenAI第三季營收達100億美元，營運虧損卻擴大至109億美元",
@@ -50,28 +50,16 @@
       "published_at_tw": "2026-11-11 21:24"
     },
     {
-      "title": "Nvidia執行長捲入中國晶片爭議，國安與治理風險升高",
-      "summary": "Reuters指出，Nvidia執行長黃仁勳與中國晶片及間諜醜聞的關聯，已演變為國安與政治爭議，並引發美國國會議員、公司董事會及投資人關注。事件重新點燃華府對最先進AI晶片是否應銷往中國的政策辯論。市場風險不只在出口限制，也包括治理、聲譽與政策不確定性。",
+      "title": "Nvidia執行長捲入中國晶片與間諜爭議，國安及公司治理風險升高",
+      "summary": "Reuters報導，Nvidia執行長黃仁勳與一名被指涉中國間諜活動的商業人士之關係，引發美國國會、董事會與投資人關注。事件使先進AI晶片出口政策、企業治理與執行長穩定性同時成為風險因子，影響不只限於短期股價波動。",
       "url": "https://www.investing.com/news/stock-market-news/how-nvidia-ceo-jensen-huang-got-entangled-in-a-china-chip-and-spy-scandal-5019824",
       "published_at_tw": "2026-11-12 04:58"
-    },
-    {
-      "title": "美國商務部對Nvidia晶片轉運中國的執法時程出現延宕",
-      "summary": "Reuters引述Axios報導，商務部長Lutnick曾阻擋或延後對疑似轉運晶片企業的打擊行動，白宮內部對執行方式存在分歧。這使先進AI晶片出口政策仍具高度不確定性，企業需同時評估中國需求、許可風險與供應鏈合規成本。",
-      "url": "https://www.reuters.com/world/china/lutnick-stalled-trump-crackdown-diversion-nvidia-chips-china-axios-reports-2026-11-11/",
-      "published_at_tw": "2026-11-12 05:21"
     },
     {
       "title": "澳洲企業以AI轉型為由裁員與外包，引發「AI洗白」質疑",
       "summary": "Reuters報導，Qantas計畫裁減850個職位並將部分職能外包至印度，WiseTech、Atlassian與Telstra也曾以AI為理由調整人力。工會質疑部分措施本質是成本削減與離岸外包；澳洲失業率已升至4.7%，AI生產力效益與勞動市場衝擊仍需區分。",
       "url": "https://www.reuters.com/business/world-at-work/australian-companies-face-ai-washing-claims-after-wave-job-cuts-offshoring-2026-11-11/",
       "published_at_tw": "2026-11-12 05:01"
-    },
-    {
-      "title": "美國貨櫃進口量創紀錄，中國出貨連四月增加",
-      "summary": "Reuters引述Descartes指出，美國10月貨櫃進口量達267.5萬TEU，年增16%；中國出貨量達98.8萬TEU，年增22.9%，為2025年1月以來最高。數據顯示商品進口需求仍有韌性，但關稅與提前拉貨效應可能使未來月度數據波動。",
-      "url": "https://www.reuters.com/world/china/us-container-imports-set-all-time-volume-record-october-chinese-imports-spike-2026-11-11/",
-      "published_at_tw": "2026-11-12 03:56"
     },
     {
       "title": "美國汽車工會要求國會持續監督中國車廠與電動車產能過剩",
@@ -86,16 +74,28 @@
       "published_at_tw": "2026-11-11 17:17"
     },
     {
-      "title": "德國10月通膨降至2.8%，能源價格仍年增12.2%",
-      "summary": "德國統計局確認10月CPI年增2.8%，低於9月3.3%；核心通膨降至2.1%，月增為-0.2%。能源價格仍高於去年同期12.2%，顯示整體通膨回落與能源成本壓力並存，歐洲央行政策仍需觀察服務與能源分項。",
-      "url": "https://www.investing.com/news/economy-news/germanoctober-inflation-confirmed-at-28-5017862",
-      "published_at_tw": "2026-11-11 15:08"
+      "title": "Anthropic啟動IPO路演，目標估值1.4兆美元，考驗AI資本市場承接力",
+      "summary": "Reuters報導，Anthropic已啟動IPO路演，目標完全稀釋估值約1.4兆美元，低於夏季市場曾討論的2兆美元。此案將測試投資人對AI模型公司的營收成長、算力支出與長期獲利能力願意給予多高估值。",
+      "url": "https://www.reuters.com/podcasts/reuters-morning-bid/trillion-dollar-question-2026-11-11/",
+      "published_at_tw": "2026-11-11 18:20"
     },
     {
-      "title": "中國雙11促銷延長，消費者信心與非必需品需求仍顯疲弱",
-      "summary": "AP指出，截至10月底雙11累計銷售額略逾1兆人民幣，與去年同期大致持平；中國前九個月零售銷售僅年增1.1%，房價下跌與收入不確定性使家庭減少非必要消費。出口強勁但內需偏弱，仍是中國經濟再平衡的重要觀察點。",
-      "url": "https://ca.finance.yahoo.com/news/subdued-sales-singles-day-chinas-034606011.html",
-      "published_at_tw": "2026-11-11 19:39"
+      "title": "SoftBank第二季虧損約70億美元，AI資料中心設備預付款成為資本配置警訊",
+      "summary": "Reuters報導，SoftBank第二季淨損約1.1兆日圓（約70億美元），其中美國資料中心設備採購計畫調整造成約37億美元損失，融資成本亦大幅上升。公司對AI基建的龐大資本承諾，凸顯需求成長與資金使用效率之間仍有落差。",
+      "url": "https://www.reuters.com/business/media-telecom/global-markets-view-europe-2026-11-11/",
+      "published_at_tw": "2026-11-11 14:25"
+    },
+    {
+      "title": "美國軍事關聯大學採購Nvidia H200晶片，出口管制執行漏洞再受關注",
+      "summary": "Reuters根據採購紀錄指出，列入美國出口黑名單、與中國軍方有密切關係的西北工業大學，仍透過中國供應商購得兩枚Nvidia H200晶片，並租用更多受限制晶片算力。事件凸顯出口管制與第三方供應鏈監管存在落差。",
+      "url": "https://www.reuters.com/world/pla-linked-chinese-university-bought-nvidia-h200-chips-despite-us-blacklist-records-show-2026-11-11/",
+      "published_at_tw": "2026-11-11 13:08"
+    },
+    {
+      "title": "美股三大指數11/11同步收高，科技股反彈帶動標普與那指回升",
+      "summary": "AP整理11/11收盤，標普500上漲1.31%至7,619.38，那斯達克上漲1.60%至25,466.19，道瓊上漲0.49%至52,486.49，Russell 2000上漲0.9%。反彈主要由AI相關股票帶動，但美債市場因Veterans Day休市，當日缺少新的美債殖利率收盤作交叉驗證。",
+      "url": "https://apnews.com/article/027cd5f4583d1a11c1795150bf065afb",
+      "published_at_tw": "2026-11-11 23:57"
     }
   ],
   "global_markets": {
@@ -133,25 +133,25 @@
       }
     },
     "羅素2000指數": {
-      "display": "2,846.26",
-      "change_display": "+0.90%",
+      "display": "2,850.36",
+      "change_display": "+1.03%",
       "source": {
-        "name": "Associated Press",
-        "url": "https://apnews.com/article/297d040c83844a9563327340b370c24e",
+        "name": "Investing.com CA｜Russell 2000 historical data",
+        "url": "https://ca.investing.com/indices/smallcap-2000-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "daily_close",
-        "note": "美股 2026/11/11 正式收盤；漲幅依 AP 報導。"
+        "quote_type": "cash_index_daily_close",
+        "note": "11/11 歷史收盤 2,850.36；開盤 2,846.30、最高 2,852.41、最低 2,831.49。香港站歷史表未能取得當日列，採 Investing.com CA 歷史頁交叉區域鏡像。"
       }
     },
     "費城半導體指數": {
-      "display": "10,729.98",
-      "change_display": "+7.32%",
+      "display": "10,761.3",
+      "change_display": "+7.63%",
       "source": {
-        "name": "Nasdaq｜PHLX Semiconductor Index historical",
-        "url": "https://indexes.nasdaq.com/Index/History/SOX",
+        "name": "Investing.com HK｜SOX historical data",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-11",
         "quote_type": "cash_index_daily_close",
-        "note": "Nasdaq 官方 SOX 歷史頁 2026/11/11 收盤 10,729.98、漲幅7.32%；關鍵價位 OHLC 亦以同頁 H/L/C 為準。"
+        "note": "11/11 歷史收盤 10,761.3；開盤 10,469.0、最高 10,787.0、最低 10,288.2。"
       }
     },
     "香港恆生指數": {
@@ -291,14 +291,14 @@
     "XLK": "+3.46%",
     "XLE": "+1.31%",
     "XLI": "+1.30%",
+    "XLC": "+0.83%",
     "XLB": "+0.25%",
     "XLF": "+0.11%",
+    "XLU": "-0.03%",
+    "XLRE": "-0.25%",
+    "XLY": "-0.29%",
     "XLP": "-0.49%",
-    "XLV": "-0.51%",
-    "XLC": "待核實",
-    "XLU": "待核實",
-    "XLY": "待核實",
-    "XLRE": "待核實"
+    "XLV": "-0.51%"
   },
   "bonds": {
     "2年期美債殖利率": {
@@ -405,25 +405,25 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "86.53",
-      "change_display": "+0.57%",
+      "display": "87.02",
+      "change_display": "+1.14%",
       "source": {
-        "name": "Reuters／Investing.com HK｜WTI futures settlement",
+        "name": "Investing.com HK｜WTI December 2026 futures historical data",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "futures_settlement",
-        "note": "2026/11/11 WTI 期貨結算價。"
+        "quote_type": "futures_daily_close",
+        "note": "WTI 2026年12月期貨 11/11 收市 87.02；開市 86.18、高 87.39、低 85.83。"
       }
     },
     "Brent原油期貨": {
-      "display": "92.76",
-      "change_display": "+1.39%",
+      "display": "93.00",
+      "change_display": "+1.65%",
       "source": {
-        "name": "Reuters／Investing.com HK｜Brent futures settlement",
+        "name": "Investing.com HK｜Brent January 2027 futures historical data",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "futures_settlement",
-        "note": "2026/11/11 Brent 期貨結算價。"
+        "quote_type": "futures_daily_close",
+        "note": "Brent 2027年1月期貨 11/11 收市 93.00；開市 91.99、高 93.61、低 91.45。"
       }
     }
   },
@@ -440,14 +440,14 @@
       }
     },
     "白銀期貨 SI": {
-      "display": "51.900",
-      "change_display": "+1.32%",
+      "display": "53.020",
+      "change_display": "+3.50%",
       "source": {
-        "name": "Investing.com HK｜COMEX December 2026 silver futures",
+        "name": "Investing.com HK｜COMEX December 2026 silver futures historical data",
         "url": "https://hk.investing.com/commodities/silver-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "futures_settlement",
-        "note": "COMEX 2026年12月白銀期貨（SIZ6）11/11 結算價。"
+        "quote_type": "futures_daily_close",
+        "note": "COMEX 2026年12月白銀期貨（SIZ6）11/11 收市 53.020；開市 51.555、高 53.170、低 51.428。"
       }
     }
   },
@@ -465,10 +465,16 @@
       }
     },
     "move": {
-      "display": "待核實",
-      "change_display": "待核實",
+      "display": "休市",
+      "change_display": "無報價",
       "band": "",
-      "source": null
+      "source": {
+        "name": "ICE BofA MOVE｜Treasury market holiday",
+        "url": "https://www.ice.com/marketdata/reports/200",
+        "data_date": "2026-11-11",
+        "quote_type": "market_closed",
+        "note": "美國公債市場 11/11 因 Veterans Day 休市，MOVE 當日無有效報價；這是市場休市，不是來源讀取失敗。"
+      }
     },
     "fear_greed": {
       "display": "37",
@@ -514,7 +520,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "Investing.com Fed Rate Monitor 11/11 15:45 ET（台灣時間 11/12 04:45）快照：12/09 升息25bp機率90.8%、升息50bp機率9.2%、維持現行區間0%。前一日快照分別為92.4%、7.6%、0%。屬市場隱含機率，非FOMC決議。"
   },
-  "observation": "美國10月CPI高於預期，整體月增0.4%、核心月增0.3%；Waller對12月升息50個基點保留空間，市場仍須評估政策風險。FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。在此背景下，11/11科技股反彈雖強，SOX上漲7.32%、Nasdaq上漲1.60%，但美元指數上漲0.65%、油價反彈，CNN Fear & Greed 37仍在Fear區。市場反彈高度集中於AI與半導體，尚待驗證企業營收現金流與產業廣度能否跟上。",
+  "observation": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。11/11 SOX上漲7.63%、Russell 2000上漲1.03%，Nasdaq上漲1.60%；S&P 11產業ETF 11檔均已取得11/11歷史收盤。WTI上漲1.14%、Brent上漲1.65%，美元指數上漲0.65%，CNN Fear & Greed 37仍在Fear區。這是風險偏好修復，尚非宏觀風險解除。",
   "calendar": {
     "week_id": "2026-W46",
     "week_start": "2026-11-09",
@@ -1308,7 +1314,7 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": null,
         "financial_judgment": "公司 adjusted Net Income per share US$1.78，高於 Reuters adjusted EPS 共識 US$1.59 及原 Finviz US$1.58；GAAP diluted EPS US$1.19。GAAP total revenues US$4.563679B；原營收估值 US$2.66B 的統計定義未能確認與 total revenues 相同，營收比較保留待核。",
         "stock_price_reaction": null,
@@ -3327,7 +3333,7 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": null,
         "financial_judgment": "公司 non-GAAP diluted EPS US$2.14、GAAP diluted EPS US$0.80；營收 US$377.535M。Barron's 指 adjusted EPS 高於 US$1.41 共識；營收高於原 MarketBeat 共識 US$369.17M。公司 Q4 營收展望 US$380–382M，低於市場約 US$386M 預期，需與本季實績分開判讀。",
         "stock_price_reaction": null,
@@ -4429,17 +4435,17 @@
   "summary_title": "AI與半導體領漲，市場風險偏好修復但政策壓力未退",
   "market_comments": {
     "global_markets": [
-      "📌 全球總覽｜台灣加權上漲3.62%、KOSPI上漲2.60%，SOX大漲7.32%，亞洲與美股科技股同步反彈；但恆生收低，區域風險偏好仍有分歧。",
-      "📌 跨資產觀察｜美元指數上漲0.65%、WTI與Brent反彈；FedWatch仍高度定價12月升息，CNN Fear & Greed為37（Fear）。美債因Veterans Day休市，當日無新殖利率收盤。",
-      "📌 美股觀察｜標普500上漲1.31%、Nasdaq上漲1.60%、道瓊上漲0.49%，SOX大漲7.32%。CoreWeave營收與指引改善，暫時緩解AI支出疑慮；但AI資料中心高資本支出、利息費用與現金流仍是估值檢驗重點。",
+      "📌 全球總覽｜台灣加權上漲3.62%、KOSPI上漲2.60%，SOX上漲7.63%、Russell 2000上漲1.03%上漲1.03%；但恆生收低，區域風險偏好仍有分歧。",
+      "📌 跨資產觀察｜美元指數上漲0.65%、WTI與Brent反彈；FedWatch仍高度定價12月升息，CNN Fear & Greed為37（Fear）。美債因Veterans Day休市，MOVE與殖利率均無11/11新報價。",
+      "📌 美股觀察｜標普500上漲1.31%、Nasdaq上漲1.60%、道瓊上漲0.49%，SOX上漲7.63%、Russell 2000上漲1.03%。AI需求與資本支出回報仍是估值檢驗重點。",
       "📌 亞股觀察｜台灣加權上漲3.62%、KOSPI上漲2.60%，日經與新加坡亦收高；中國內地科技股帶動上海、深圳收漲，但恆生下跌0.98%，顯示區域市場並非一致性反彈。",
       "📌 歐股觀察｜DAX上漲1.20%、STOXX Europe 600上漲0.72%，英法股市小幅走高。德國通膨降至2.8%、核心降至2.1%，有助緩和部分政策壓力；但能源價格仍年增12.2%，成本端風險尚未完全消失。"
     ],
-    "sectors": "S&P 11產業ETF依已核實漲跌幅排序：XLK +3.46%、XLE +1.31%、XLI +1.30%、XLB +0.25%、XLF +0.11%、XLP -0.49%、XLV -0.51%；XLC、XLU、XLY、XLRE缺少可確認的11/11收盤列，標示待核實，不沿用11/10數值。",
-    "bonds": "美國公債市場11/11因Veterans Day休市，2年、10年、30年期殖利率均標示休市；不以11/10收盤值冒充當日行情。下一交易日恢復報價後，再觀察短端政策預期與長端期限溢酬。",
+    "sectors": "S&P 11產業ETF依11/11 Investing.com歷史漲跌幅排序：XLK +3.46%、XLE +1.31%、XLI +1.30%、XLC +0.83%、XLB +0.25%、XLF +0.11%、XLU -0.03%、XLRE -0.25%、XLY -0.29%、XLP -0.49%、XLV -0.51%；11檔全部補齊。",
+    "bonds": "美國公債市場11/11因Veterans Day休市，2年、10年、30年期殖利率均標示休市；MOVE亦無當日報價。不得以11/10收盤值冒充當日行情。",
     "fx": "美元指數升至102.90、上漲0.65%；USD/TWD 32.866，EUR/USD 1.1093、GBP/USD 1.3336，AUD/USD 0.6874，USD/JPY 159.88。美元走強與市場對12月升息的定價一致，亞洲貨幣仍須留意美元利差壓力。",
-    "energy": "WTI期貨收86.53美元、上漲0.57%；Brent收92.76美元、上漲1.39%。油價自兩個月低點反彈，市場同時衡量伊朗局勢降溫希望與荷姆茲海峽航運風險，能源價格仍可能造成通膨波動。",
-    "metals": "COMEX 2026年12月黃金期貨收4,028.70美元、跌0.04%，白銀期貨收51.900美元、漲1.32%。金價近乎持平、銀價走高，需搭配美元與實質利率後續變化判斷貴金屬方向。"
+    "energy": "WTI 2026年12月期貨收87.02美元、上漲1.14%；Brent 2027年1月期貨收93.00美元、上漲1.65%。油價反彈，市場同時衡量OPEC+供給回升與荷姆茲海峽航運風險，能源價格仍可能造成通膨波動。",
+    "metals": "COMEX 2026年12月黃金期貨收4,028.70美元、跌0.04%；白銀期貨收53.020美元、漲3.50%。金價近乎持平、銀價明顯走高，需搭配美元與實質利率後續變化判斷貴金屬方向。"
   },
   "last_week_calendar": {
     "week_id": "2026-W45",
@@ -4550,11 +4556,11 @@
   "summary_points": [
     {
       "label": "科技領漲",
-      "text": "SOX上漲7.32%、Nasdaq上漲1.60%；台灣加權+3.62%、KOSPI+2.60%，反映AI與半導體供應鏈風險偏好快速修復。"
+      "text": "SOX收10,761.3、上漲7.63%；Nasdaq上漲1.60%，台灣加權+3.62%、KOSPI+2.60%，AI與半導體供應鏈風險偏好快速修復。"
     },
     {
       "label": "市場廣度",
-      "text": "可確認的S&P 11產業ETF中，科技+3.46%領先，能源與工業亦上漲；醫療及必需消費下跌，另有4檔資料待核實，不能過度推論全面普漲。"
+      "text": "S&P 11產業ETF已全部補齊11/11歷史收盤；XLK +3.46%領漲，XLE +1.31%、XLI +1.30%，XLV -0.51%、XLP -0.49%落後。"
     },
     {
       "label": "政策定價",
@@ -4562,11 +4568,11 @@
     },
     {
       "label": "跨資產風險",
-      "text": "美元指數上漲0.65%、WTI與Brent反彈；CNN Fear & Greed為37（Fear），顯示情緒仍偏謹慎。"
+      "text": "美元指數上漲0.65%；WTI +1.14%、Brent +1.65%、白銀 +3.50%，CNN Fear & Greed為37（Fear）。"
     },
     {
       "label": "資料口徑",
-      "text": "11/11美國公債市場因Veterans Day休市；XLC、XLU、XLY、XLRE與MOVE未取得可確認的同日數值，均明確標示待核實。"
+      "text": "MOVE因美國公債市場11/11 Veterans Day休市而無當日報價；不是資料缺漏，也不沿用前一交易日舊值。"
     }
   ],
   "warning_note": "待核實項目：S&P 11產業ETF中的XLC、XLU、XLY、XLRE，以及MOVE指數，均未取得可確認的11/11同日收盤值；美國公債市場11/11因Veterans Day休市。未以舊交易日數值替代。",
@@ -4595,6 +4601,14 @@
       "close": "170.93",
       "change_display": "+1.30%"
     },
+    "XLC": {
+      "name": "Investing.com CA｜XLC historical data",
+      "url": "https://ca.investing.com/etfs/communication-services-select-spdr-historical-data",
+      "data_date": "2026-11-11",
+      "quote_type": "ETF_daily_close",
+      "close": "108.65",
+      "change_display": "+0.83%"
+    },
     "XLB": {
       "name": "Investing.com HK｜XLB historical data",
       "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
@@ -4610,6 +4624,30 @@
       "quote_type": "ETF_daily_close",
       "close": "58.35",
       "change_display": "+0.11%"
+    },
+    "XLU": {
+      "name": "Investing.com CA｜XLU historical data",
+      "url": "https://ca.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "data_date": "2026-11-11",
+      "quote_type": "ETF_daily_close",
+      "close": "43.72",
+      "change_display": "-0.03%"
+    },
+    "XLRE": {
+      "name": "Investing.com CA｜XLRE historical data",
+      "url": "https://ca.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
+      "data_date": "2026-11-11",
+      "quote_type": "ETF_daily_close",
+      "close": "44.47",
+      "change_display": "-0.25%"
+    },
+    "XLY": {
+      "name": "Investing.com CA｜XLY historical data",
+      "url": "https://ca.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
+      "data_date": "2026-11-11",
+      "quote_type": "ETF_daily_close",
+      "close": "120.70",
+      "change_display": "-0.29%"
     },
     "XLP": {
       "name": "Investing.com HK｜XLP historical data",
@@ -4635,54 +4673,32 @@
   },
   "core_observation": {
     "heading": "盤面觀察重點",
-    "text": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；最新FedWatch（11/12 04:45）顯示25bp升息90.8%、50bp升息9.2%、維持不變0%。同時11/11 SOX上漲7.32%、Nasdaq上漲1.60%，AI與半導體領漲；但美元指數上漲0.65%、油價反彈，CNN Fear & Greed 37仍在Fear區。這是價格修復，而非宏觀風險解除。",
-    "details": "關鍵驗證點：①AI需求能否轉化為營收與現金流，而非只擴大資本支出；②美債恢復交易後，殖利率是否再度上行；③科技股反彈能否擴散至更多產業。S&P 11 ETF有4檔及MOVE仍待核實；美債11/11休市，均不以舊值補填。"
+    "text": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。11/11 SOX上漲7.63%、Russell 2000上漲1.03%，Nasdaq上漲1.60%；S&P 11產業ETF 11檔均已取得11/11歷史收盤。WTI上漲1.14%、Brent上漲1.65%，美元指數上漲0.65%，CNN Fear & Greed 37仍在Fear區。這是風險偏好修復，尚非宏觀風險解除。",
+    "details": "關鍵驗證點：①AI需求能否轉化為營收與現金流，而非只擴大資本支出；②美債恢復交易後，殖利率與MOVE是否重新反映升息風險；③科技股反彈能否擴散至更多產業。S&P 11產業ETF 11檔均已補齊11/11歷史資料；MOVE因美債休市無報價。"
   },
   "qa_run_revision": "2026-11-12-manual-review-01",
-  "market_sentiment": "11/11股市反彈由半導體與AI基建帶動，SOX +7.32%、Nasdaq +1.60%；但DXY +0.65%、油價上漲，FedWatch截至11/12 04:45顯示12月升息25bp機率90.8%、升息50bp機率9.2%、維持不變0%。CNN Fear & Greed 37仍在Fear區。美債市場因Veterans Day休市，殖利率沒有11/11新收盤值。",
+  "market_sentiment": "11/11股市反彈由半導體與AI基建帶動，SOX +7.63%、Russell 2000 +1.03%、Nasdaq +1.60%；DXY +0.65%，WTI +1.14%、Brent +1.65%。FedWatch截至11/12 04:45顯示12月升息25bp機率90.8%、升息50bp機率9.2%、維持不變0%。CNN Fear & Greed 37仍在Fear區。美債市場因Veterans Day休市，MOVE無當日報價。",
   "quality_note": "行情基準日2026/11/11。44項固定指標中，36項取得同日可核實數值、3項確認市場休市、5項待核實（4檔產業ETF及MOVE）。全球17項指數均有同日收盤來源；產業ETF僅7檔具同日歷史列。行事曆採main最新2026-W46資料庫，更新時間2026-11-12 04:34:17+08:00。",
   "report_cutoff_taipei": "05:25",
   "news_window_taipei": "2026/11/11 12:00–2026/11/12 05:25",
-  "special_focus": {
-    "eyebrow": "TAC MACRO ALERT｜重大經濟數據焦點",
-    "title": "美國 10 月 CPI｜通膨降溫仍不穩",
-    "subtitle": "核心物價連續第三個月月增 0.3%，市場重新評估聯準會 12 月政策路徑",
-    "date_label": "2026/11/10 公布｜美國勞工統計局",
-    "metrics": [
-      {
-        "label": "整體 CPI 月增",
-        "value": "0.4%",
-        "note": "高於市場預期 0.3%"
-      },
-      {
-        "label": "核心 CPI 月增",
-        "value": "0.3%",
-        "note": "高於市場預期 0.2%"
-      },
-      {
-        "label": "CPI 年增率",
-        "value": "未公布",
-        "note": "去年同期政府停擺，缺乏比較基期"
-      }
-    ],
-    "analysis_title": "通膨主因｜住房、食品與服務價格仍有韌性",
-    "analysis": "10 月整體 CPI 月增 0.4%，高於市場預期；核心 CPI 月增 0.3%，已連續第三個月維持此增幅。住房指數上升 0.3%，貢獻整體月增幅逾三成；食品上升 0.5%，能源上升 0.7%，但能源漲幅低於 9 月的 5.2%。這顯示能源價格動能雖放緩，核心與民生項目仍使通膨回落不易。BLS 因 2025 年 10 月未能蒐集調查資料，無法計算本月多數 CPI 指標年增率，不應以估算值補齊。",
-    "outlook_title": "政策與市場展望｜12 月升息風險升高，但幅度仍待數據確認",
-    "outlook": "CPI高於預期，加上Waller對50個基點升息保留空間，使市場持續關注12月政策幅度。FedWatch台灣時間11/12 04:45快照顯示升息25bp機率90.8%、升息50bp機率9.2%、維持不變0%；這是市場定價而非聯準會決議。短線仍需觀察通膨、就業與官員談話；若殖利率續升，長天期債券、高估值成長股及融資依賴度高的企業將較敏感。",
-    "source_name": "BLS｜October 2026 CPI News Release（官方數據）",
-    "source_url": "https://www.bls.gov/news.release/archives/cpi_11102026.htm",
-    "source_note": "市場預期與政策反應參考 Reuters 2026/11/10 報導；FedWatch 採 2026/11/12 04:45 台灣時間快照。"
-  },
   "key_levels_overrides": {
     "sox": {
       "trading_date": "2026-11-11",
-      "high": 10746.25,
-      "low": 10287.32,
-      "close": 10729.98,
-      "source_name": "Nasdaq official SOX historical OHLC (Yahoo cross-check)",
-      "source_url": "https://indexes.nasdaq.com/Index/History/SOX",
-      "secondary_source_url": "https://finance.yahoo.com/quote/%5ESOX/history/?frequency=1d",
-      "note": "yfinance 取回的 SOX close 與同日官方歷史資料衝突；採 Nasdaq official 11/11 H/L/C 10,746.25 / 10,287.32 / 10,729.98，避免與市場指標卡出現兩個收盤值。"
+      "high": 10787,
+      "low": 10288.2,
+      "close": 10761.3,
+      "source_name": "Investing.com HK｜SOX historical OHLC",
+      "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+      "note": "Investing.com HK 11/11 SOX H/L/C 10,787.0 / 10,288.2 / 10,761.3。"
+    },
+    "russell": {
+      "trading_date": "2026-11-11",
+      "high": 2852.41,
+      "low": 2831.49,
+      "close": 2850.36,
+      "source_name": "Investing.com CA｜Russell 2000 historical OHLC",
+      "source_url": "https://ca.investing.com/indices/smallcap-2000-historical-data",
+      "note": "Investing.com CA 11/11 Russell 2000 H/L/C 2,852.41 / 2,831.49 / 2,850.36。"
     }
   }
 }
