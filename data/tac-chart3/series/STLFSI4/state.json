@@ -1,0 +1,15 @@
+{
+  "series_id": "STLFSI4",
+  "last_vintage_date": "2026-11-04",
+  "vintage_date_count": 209,
+  "vintage_dates_sha256": "71184029a8bb9fcb525a279f84d60ac8d36814678a626d92dc28da3e67b2b52c",
+  "event_count": 319948,
+  "events_sha256": "0379e6d99fae4c68feec65ededaa44a08e6b123034441e5d56a78ed1b88947de",
+  "current_rows": 1714,
+  "current_sha256": "2578ae28ac0030589f8987277a7fbde22d37f81fde72e3409b0acf0246d88e06",
+  "initial_release_rows": 208,
+  "initial_release_sha256": "5c7ae46c84ef3fcd1146e08689a1a69f8fb740f1812718fac2bb3f6f1d85d431",
+  "last_success_at": "2026-11-11T13:56:19+00:00",
+  "source_run_id": 43026998120,
+  "artifact_sha256": "ecdf384b5f3120e4869121fb05bb81e4546e29e499f4aad1e1382ed3ea5de599"
+}

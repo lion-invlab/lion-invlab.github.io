@@ -1,0 +1,15 @@
+{
+  "series_id": "NFCI",
+  "last_vintage_date": "2026-11-04",
+  "vintage_date_count": 803,
+  "vintage_dates_sha256": "2e4b5ee5de32fc6748e5b619fb716f67247fb46248e0e0da50b0a285775dcb69",
+  "event_count": 934790,
+  "events_sha256": "8393ba607833de18f55249cefce2d49c7b881375723ebf8f42519f2d65d2a960",
+  "current_rows": 2913,
+  "current_sha256": "baf46aae4400a70047ca2e8e3f3f711dc4063d8803052aa66af9ee12c12003d8",
+  "initial_release_rows": 806,
+  "initial_release_sha256": "1e918de1260d6239fc3b493e786e6829dfdfcb6cf91ebe2bddd6ece3645a73dd",
+  "last_success_at": "2026-11-11T13:56:19+00:00",
+  "source_run_id": 43026998120,
+  "artifact_sha256": "649cc2f38a07c7619e3bc1a33af332e33861defe06162ca990582797311019cb"
+}

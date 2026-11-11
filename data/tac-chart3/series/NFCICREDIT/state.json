@@ -1,0 +1,15 @@
+{
+  "series_id": "NFCICREDIT",
+  "last_vintage_date": "2026-11-04",
+  "vintage_date_count": 745,
+  "vintage_dates_sha256": "dfd69963008093a53b93cea978d36b358ebf256f3d9eab14435d743f60692426",
+  "event_count": 930171,
+  "events_sha256": "d459c2cb8c13e38d99ffa7fb08584f8b47cec890ed9214990a4d568adebf1244",
+  "current_rows": 2913,
+  "current_sha256": "0545eb7acef4ba2515ef6d5bc52816280c0a14d62c6f38a10627cb2adad893ad",
+  "initial_release_rows": 748,
+  "initial_release_sha256": "99266bb9e613ebb0b7cbdf04e39198094a03f545bd1cececcf8e4284594499c0",
+  "last_success_at": "2026-11-11T13:56:19+00:00",
+  "source_run_id": 43026998120,
+  "artifact_sha256": "f326a81adc05e84a2d0f500127f417f3f40f7374985d9a49c5322d3fe9d97440"
+}
