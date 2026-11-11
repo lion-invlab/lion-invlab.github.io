@@ -26,7 +26,7 @@ class ChartBuilderTests(unittest.TestCase):
     vd={"series_id":sid,"vintage_dates":["2026-01-05","2026-01-12"],"count":2,"source_endpoint":"fixture"}
     (sd/"vintage_dates.json").write_text(json.dumps(vd))
     vd_sha=hashlib.sha256((sd/"vintage_dates.json").read_bytes()).hexdigest()
-    (sd/"state.json").write_text(json.dumps({"series_id":sid,"last_vintage_date":"2026-01-12","current_rows":2,"current_sha256":current_sha,"events_sha256":event_sha,"initial_release_sha256":initial_sha,"vintage_dates_sha256":vd_sha,"last_success_at":"2026-02-01T00:00:00Z"}))
+    (sd/"state.json").write_text(json.dumps({"series_id":sid,"last_vintage_date":"2026-01-12","current_rows":2,"current_sha256":current_sha,"events_sha256":event_sha,"initial_release_sha256":initial_sha,"vintage_dates_sha256":vd_sha,"last_success_at":"2026-02-01T00:00:00Z","event_count":0,"initial_release_rows":0}))
    report=BUILDER.build(root)
    self.assertEqual(report["status"],"PASS")
    first_sha=report["sha256"]
