@@ -1026,7 +1026,7 @@ def main():
             if details is None: raise ValueError("earnings card detail container missing")
             if earnings_groupkey(x) == "published":
                 grid=soup.new_tag("div", attrs={"class":["earnings-results-grid"]})
-                for label, actual, estimate, actual_display, estimate_display, comparison in [
+                for label, actual_value, estimate, actual_display, estimate_display, comparison in [
                     ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                     ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
@@ -1034,7 +1034,7 @@ def main():
                     status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                     h=soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
-                    for caption, val, formatted in [("實際",actual,actual_display),("預期",estimate,estimate_display)]:
+                    for caption, val, formatted in [("實際",actual_value,actual_display),("預期",estimate,estimate_display)]:
                         line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
                         lab=soup.new_tag("span"); lab.string=caption
                         strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
@@ -1196,7 +1196,7 @@ def main():
                         status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
                         result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
-                        for caption, val, formatted in [("實際", actual, actual_display), ("預期", estimate, estimate_display)]:
+                        for caption, val, formatted in [("實際", actual_value, actual_display), ("預期", estimate, estimate_display)]:
                             line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
                             lab=soup.new_tag("span"); lab.string=caption
                             strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
