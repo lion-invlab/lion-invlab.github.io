@@ -121,7 +121,7 @@ def main():
 
             initial, iurl = request_json("series/observations",
                 {"series_id":sid,"observation_start":start,"observation_end":datetime.now(timezone.utc).date().isoformat(),
-                 "realtime_start":latest_vintage,"realtime_end":latest_vintage,"output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
+                 "realtime_start":dates[0],"realtime_end":latest_vintage,"output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
             ih,ib = write_json(sd/f"{sid}_initial_release_output_type4.json", initial)
             entry["files"].append({"name":f"{sid}_initial_release_output_type4.json","sha256":ih,"bytes":ib})
             ir = initial.get("observations",[])
