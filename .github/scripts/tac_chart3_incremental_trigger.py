@@ -9,3 +9,5 @@
 # Smoke-test revision 3: run chart dataset QA and materialize chart-ready JSON.
 
 # Smoke-test revision 4: assert deterministic no-change chart dataset generation.
+
+# Smoke-test revision 5: deterministic chart builder syntax fix.
