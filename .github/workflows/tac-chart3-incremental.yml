@@ -5,7 +5,7 @@ on:
     branches:
       - simulation/tac-process-lab-2026-11-06
     paths:
-      - ".github/scripts/tac_chart3_incremental.py"
+      - ".github/scripts/tac_chart3_incremental_trigger.py"
   schedule:
     - cron: "30 21 * * 0-4"
   workflow_dispatch:
