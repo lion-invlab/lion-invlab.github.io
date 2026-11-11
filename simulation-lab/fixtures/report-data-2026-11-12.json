@@ -4575,7 +4575,7 @@
       "text": "MOVE因美國公債市場11/11 Veterans Day休市而無當日報價；不是資料缺漏，也不沿用前一交易日舊值。"
     }
   ],
-  "warning_note": "待核實項目：S&P 11產業ETF中的XLC、XLU、XLY、XLRE，以及MOVE指數，均未取得可確認的11/11同日收盤值；美國公債市場11/11因Veterans Day休市。未以舊交易日數值替代。",
+  "warning_note": "資料口徑：S&P 11產業ETF 11檔均已取得2026-11-11 Investing.com歷史收盤並完成核對；MOVE因美國公債市場Veterans Day休市無當日報價。不得以舊交易日報價替代。",
   "sector_sources": {
     "XLK": {
       "name": "Investing.com HK｜XLK historical data",
