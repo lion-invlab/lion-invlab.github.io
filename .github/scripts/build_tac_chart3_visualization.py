@@ -69,6 +69,11 @@ def build(root):
  digest=hashlib.sha256(raw).hexdigest();(root/'chart3_market_stress.sha256').write_text(digest+'  chart3_market_stress.json\n',encoding='utf-8')
  report={'dataset_id':'TAC_CHART3_MARKET_STRESS','status':'PASS','generated_at':generated,'file':'chart3_market_stress.json','bytes':len(raw),'sha256':digest,'series':qa,'rules':{'interpolation':False,'forward_fill':False,'resampling':False,'native_dates_only':True}}
  (root/'chart3_market_stress_qa.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
+ manifest_path=root/'manifest.json'
+ if manifest_path.exists():
+  manifest=json.loads(manifest_path.read_text(encoding='utf-8'))
+  manifest['chart_dataset']={'file':'chart3_market_stress.json','sha256':digest,'bytes':len(raw),'qa_file':'chart3_market_stress_qa.json','status':'PASS','generated_at':generated}
+  manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
  print(json.dumps(report,ensure_ascii=False,indent=2))
  return report
 if __name__=='__main__':
