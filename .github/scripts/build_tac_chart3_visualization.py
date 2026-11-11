@@ -32,6 +32,29 @@ def build(root):
   if not all(checks.values()):raise RuntimeError(f'{sid}: stored file hash does not match checkpoint: {checks}')
   dates=json.loads((sd/'vintage_dates.json').read_text(encoding='utf-8'))['vintage_dates']
   if not dates or dates[-1]!=state['last_vintage_date']:raise RuntimeError(f'{sid}: vintage index and checkpoint disagree')
+  vintage_set=set(dates)
+  event_count=0;event_seen=set();previous_event=None
+  with gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig',newline='') as ef:
+   for event in csv.DictReader(ef):
+    key=(event['observation_date'],event['vintage_date'])
+    if key in event_seen:raise RuntimeError(f'{sid}: duplicate vintage event {key}')
+    if previous_event is not None and key<=previous_event:raise RuntimeError(f'{sid}: vintage events not strictly sorted at {key}')
+    if event['vintage_date'] not in vintage_set:raise RuntimeError(f'{sid}: event references unknown vintage {event["vintage_date"]}')
+    if event['value'] in ('',None):raise RuntimeError(f'{sid}: blank event value at {key}; blank cells must not become events')
+    if event['value']=='.' and event.get('value_status')!='source_missing_value':raise RuntimeError(f'{sid}: dot event missing-value status mismatch at {key}')
+    if event['value']!='.' and event.get('value_status')!='source_value':raise RuntimeError(f'{sid}: numeric event status mismatch at {key}')
+    if event.get('release_date'):raise RuntimeError(f'{sid}: unsupported release_date was populated at {key}')
+    event_seen.add(key);previous_event=key;event_count+=1
+  if event_count!=state.get('event_count'):raise RuntimeError(f'{sid}: event row count mismatch: {event_count} vs {state.get("event_count")}')
+  initial_count=0;initial_seen=set();previous_initial=None
+  with gzip.open(sd/'initial_release.csv.gz','rt',encoding='utf-8-sig',newline='') as inf:
+   for initial in csv.DictReader(inf):
+    d=initial['observation_date']
+    if d in initial_seen:raise RuntimeError(f'{sid}: duplicate initial-release observation {d}')
+    if previous_initial is not None and d<=previous_initial:raise RuntimeError(f'{sid}: initial-release rows not strictly sorted at {d}')
+    if initial.get('release_date'):raise RuntimeError(f'{sid}: unsupported initial release_date populated at {d}')
+    initial_seen.add(d);previous_initial=d;initial_count+=1
+  if initial_count!=state.get('initial_release_rows'):raise RuntimeError(f'{sid}: initial-release row count mismatch: {initial_count} vs {state.get("initial_release_rows")}')
   rows=read_csv_gz(sd/'current.csv.gz')
   if len(rows)!=state['current_rows']:raise RuntimeError(f'{sid}: current row count mismatch')
   observations=[];seen=set();valid=[];missing=0
@@ -54,13 +77,13 @@ def build(root):
    'series_id':sid,'label':meta['label'],'frequency':meta['frequency'],'panel':meta['panel'],'unit':meta['unit'],
    'as_of_vintage':state['last_vintage_date'],'vintage_coverage':{'first':dates[0],'last':dates[-1],'count':len(dates)},
    'observation_span':{'first':observations[0]['date'],'last':observations[-1]['date']},
-   'valid_observations':len(valid),'missing_observations':missing,'latest_valid_observation':{'date':valid[-1][0],'value':valid[-1][1]},
+   'valid_observations':len(valid),'missing_observations':missing,'vintage_event_rows':event_count,'initial_release_rows':initial_count,'latest_valid_observation':{'date':valid[-1][0],'value':valid[-1][1]},
    'source':'Federal Reserve Bank of St. Louis FRED/ALFRED','source_series_id':sid,
    'source_file_sha256':state['current_sha256'],'vintage_events_sha256':state['events_sha256'],
    'initial_release_sha256':state['initial_release_sha256'],'retrieved_at':state['last_success_at'],
    'license_status':'review_required_before_redistribution','note':meta['note'],'observations':observations
   })
-  qa.append({'series_id':sid,'status':'PASS','current_rows':len(rows),'valid_rows':len(valid),'missing_rows':missing,'current_sha256':state['current_sha256'],'vintage_events_sha256':state['events_sha256'],'initial_release_sha256':state['initial_release_sha256'],'vintage_coverage':{'first':dates[0],'last':dates[-1],'count':len(dates)},'hash_checks':checks})
+  qa.append({'series_id':sid,'status':'PASS','current_rows':len(rows),'valid_rows':len(valid),'missing_rows':missing,'vintage_event_rows':event_count,'initial_release_rows':initial_count,'current_sha256':state['current_sha256'],'vintage_events_sha256':state['events_sha256'],'initial_release_sha256':state['initial_release_sha256'],'vintage_coverage':{'first':dates[0],'last':dates[-1],'count':len(dates)},'hash_checks':checks})
  generated=max(x['retrieved_at'] for x in series)
  obj={'schema_version':'1.0','dataset_id':'TAC_CHART3_MARKET_STRESS','generated_at':generated,
   'method':{'current_snapshot':'FRED observations output_type=1','vintage_history':'ALFRED observations output_type=3 new/revised events only','initial_release':'FRED observations output_type=4','date_alignment':'native observation dates; no resampling or interpolation','missing_values':'preserved as null with source_missing_value status','forward_fill':False,'interpolation':False},
