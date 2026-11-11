@@ -344,7 +344,7 @@ def main():
         top.append(eyebrow); top.append(date); feature.append(top)
         h=soup.new_tag("h2"); h["style"]="margin:0 0 5px;font-size:clamp(23px,3.5vw,34px);line-height:1.18;font-weight:950;color:#fff;"
         h.string=special["title"]; feature.append(h)
-        sub=soup.new_tag("p"); sub["style"]="margin:0 0 18px;color:#cbd3dc;font-size:13px;line-height:1.5;"
+        sub=soup.new_tag("p",attrs={"class":"tac-special-focus-subtitle"}); sub["style"]="margin:0 0 18px;color:#cbd3dc;font-size:13px;line-height:1.5;"
         sub.string=special["subtitle"]; feature.append(sub)
         metric_grid=soup.new_tag("div",attrs={"class":"tac-special-focus-metrics"}); metric_grid["style"]="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-bottom:16px;"
         metric_colors=["#e5b95f","#e9edf3","#e5b95f"]
@@ -360,7 +360,7 @@ def main():
         feature.append(metric_grid)
         analysis_box=soup.new_tag("div"); analysis_box["style"]="padding:13px 14px;border-left:3px solid #d9a94e;background:rgba(0,0,0,.43);border-radius:0 10px 10px 0;margin-bottom:10px;"
         ah=soup.new_tag("div"); ah["style"]="font-size:13px;font-weight:900;color:#edc777;margin-bottom:5px;";ah.string=special["analysis_title"]
-        ap=soup.new_tag("p"); ap["style"]="font-size:13px;line-height:1.65;color:#f3f5f7;margin:0;";ap.string=special["analysis"]
+        ap=soup.new_tag("p",attrs={"class":"tac-special-focus-analysis"}); ap["style"]="font-size:13px;line-height:1.65;color:#f3f5f7;margin:0;";ap.string=special["analysis"]
         analysis_box.append(ah);analysis_box.append(ap);feature.append(analysis_box)
         outlook=soup.new_tag("div"); outlook["style"]="padding:13px 14px;border:1px solid rgba(222,177,93,.5);border-radius:10px;background:rgba(67,42,13,.48);"
         oh=soup.new_tag("div");oh["style"]="font-size:13px;font-weight:900;color:#f4c56e;margin-bottom:5px;";oh.string=special["outlook_title"]
@@ -377,7 +377,7 @@ def main():
         bluf_anchor=unique(overview,"section.grid.two > article.card.bluf","summary")
         bluf_anchor.parent.insert_before(feature)
         responsive=soup.new_tag("style",id="tac-special-focus-responsive")
-        responsive.string="@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi .tac-special-focus-metrics{grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}"
+        responsive.string="#tac-special-focus-cpi .tac-special-focus-subtitle{color:#cbd3dc!important}#tac-special-focus-cpi .tac-special-focus-analysis{color:#f3f5f7!important}@media(max-width:560px){#tac-special-focus-cpi{padding:17px 14px!important}#tac-special-focus-cpi .tac-special-focus-metrics{grid-template-columns:1fr!important}#tac-special-focus-cpi h2{font-size:24px!important}}";
         head.append(responsive)
         rendered_special=unique(soup,"#tac-special-focus-cpi","special event focus")
         if special["title"] not in rendered_special.get_text(" ",strip=True) or any(m["value"] not in rendered_special.get_text(" ",strip=True) for m in special["metrics"]):
