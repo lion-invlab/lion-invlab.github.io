@@ -166,25 +166,56 @@ def main():
             entry["initial_release_observations"] = len(ir)
 
             change_rows = 0
-            # API JSON output_type 3 permits up to 2,000 vintage dates per request.
-            batch_size = 100
-            total_batches = (len(dates) + batch_size - 1) // batch_size
-            for ix in range(0, len(dates), batch_size):
-                batch = dates[ix:ix+batch_size]
-                batch_no = ix//batch_size + 1
-                print(f"  START {sid} vintage batch {batch_no}/{total_batches}: {len(batch)} dates", flush=True)
-                batch_started = time.monotonic()
-                payload, purl = request_json("series/observations",
-                    {"series_id":sid,"observation_start":start,
-                     "observation_end":datetime.now(timezone.utc).date().isoformat(),
-                     "output_type":3,"vintage_dates":",".join(batch),
-                     "sort_order":"asc","limit":100000,"offset":0}, key)
-                name = f"{sid}_vintage_changes_{batch_no:03d}.json"
+            # Chunk output_type=3 across vintage dates and 10-year observation
+            # windows. Transient/provider-size failures trigger recursive splitting.
+            vintage_batch_size = 50
+            total_vintage_batches = (len(dates) + vintage_batch_size - 1) // vintage_batch_size
+            chunk_index = 0
+
+            def fetch_change_chunk(vbatch, obs_lo, obs_hi, depth=0):
+                nonlocal change_rows, chunk_index
+                try:
+                    payload, purl = request_json("series/observations",
+                        {"series_id":sid,"observation_start":max(start,obs_lo),
+                         "observation_end":obs_hi,"output_type":3,
+                         "vintage_dates":",".join(vbatch),
+                         "sort_order":"asc","limit":100000,"offset":0}, key,
+                        retries=2)
+                except Exception as exc:
+                    msg = str(exc)
+                    if depth >= 8:
+                        raise
+                    if len(vbatch) > 1:
+                        mid = len(vbatch) // 2
+                        fetch_change_chunk(vbatch[:mid], obs_lo, obs_hi, depth+1)
+                        fetch_change_chunk(vbatch[mid:], obs_lo, obs_hi, depth+1)
+                        return
+                    y0, y1 = int(obs_lo[:4]), int(obs_hi[:4])
+                    if y1 > y0:
+                        ym = (y0 + y1) // 2
+                        fetch_change_chunk(vbatch, obs_lo, f"{ym}-12-31", depth+1)
+                        fetch_change_chunk(vbatch, f"{ym+1}-01-01", obs_hi, depth+1)
+                        return
+                    raise RuntimeError(f"Unrecoverable output_type=3 chunk failure: {msg}") from exc
+
+                chunk_index += 1
+                name = (f"{sid}_vintage_changes_v{vintage_batch_no:03d}_"
+                        f"obs_{obs_lo[:4]}_{obs_hi[:4]}_chunk_{chunk_index:05d}.json")
                 ph,pb = write_json(sd/name, payload)
                 entry["files"].append({"name":name,"sha256":ph,"bytes":pb})
                 count = len(payload.get("observations",[]))
                 change_rows += count
-                print(f"  DONE {sid} vintage batch {batch_no}/{total_batches}: {len(batch)} dates, {count} change rows, {time.monotonic()-batch_started:.1f}s", flush=True)
+                print(f"  DONE {sid} output_type=3 chunk {chunk_index}: "
+                      f"{len(vbatch)} vintages, {obs_lo}..{obs_hi}, {count} rows",
+                      flush=True)
+
+            for ix in range(0, len(dates), vintage_batch_size):
+                batch = dates[ix:ix+vintage_batch_size]
+                vintage_batch_no = ix//vintage_batch_size + 1
+                print(f"  START {sid} vintage batch {vintage_batch_no}/"
+                      f"{total_vintage_batches}: {len(batch)} dates", flush=True)
+                for obs_lo, obs_hi in obs_windows:
+                    fetch_change_chunk(batch, obs_lo, obs_hi)
             entry["vintage_change_rows"] = change_rows
             entry["status"] = "PASS"
             print(f"PASS {sid}: current={len(rows)}, initial={len(ir)}, vintages={len(dates)}, changes={change_rows}", flush=True)
