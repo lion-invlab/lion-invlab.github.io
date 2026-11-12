@@ -62,12 +62,23 @@ def main():
     ap.add_argument("--output", required=True)
     ap.add_argument("--expected-master-sha", required=True)
     ap.add_argument("--key-levels-live", help="optional live OHLC capture envelope produced by collect_key_levels_ohlc.py")
+    ap.add_argument("--price-reactions", help="optional Yahoo Finance earnings reaction capture JSON")
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text())
     # Gate 0: never trust calendar copies embedded in fixtures or the simulation branch.
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
+    if args.price_reactions:
+        reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
+        if reaction_doc.get("main_commit_sha") != calendar_source["main_commit_sha"] or reaction_doc.get("calendar_blob_sha") != calendar_source["current"]["blob_sha"]:
+            raise ValueError("earnings price reaction snapshot does not match the authoritative main calendar SHA")
+        reaction_map=reaction_doc.get("reactions",{})
+        for event in data.get("earnings",{}).get("events",[]):
+            reaction=reaction_map.get(event.get("id"))
+            if reaction:
+                event["price_reaction"]=reaction.get("display")
+                event["price_reaction_source"]=reaction.get("source")
     is_live_key_levels = False
     if args.key_levels_live:
         live=json.loads(Path(args.key_levels_live).read_text(encoding="utf-8"))
@@ -1060,7 +1071,7 @@ def main():
                 details.append(grid)
                 detail_specs=[
                     ("財報判讀", x.get("judgment") or "財報判讀待核實。"),
-                    ("股價當日表現", x.get("price_reaction") or "股價反應待核實。"),
+                    ("股價當日表現", ((x.get("price_reaction") or "") + ("｜" + x.get("price_reaction_source") if x.get("price_reaction_source") else "")) or "股價反應待核實。"),
                 ]
                 for field_label, field_value in detail_specs:
                     field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
