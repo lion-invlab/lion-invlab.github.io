@@ -74,6 +74,28 @@ jobs:
       - name: Compare 2026-11-12 review against approved weekday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html weekdays 2026-11-12
 
+      - name: Validate calendar counts and non-comparable EPS display
+        run: |
+          python - <<'PY'
+          from bs4 import BeautifulSoup
+          from pathlib import Path
+          p = Path("simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html")
+          soup = BeautifulSoup(p.read_text(encoding="utf-8"), "html.parser")
+          econ = soup.select("#calendar .econ-event")
+          earnings = soup.select("#earnings .earnings-accordion")
+          assert len(econ) == 16, f"expected 16 main economic events, got {len(econ)}"
+          assert len(earnings) == 48, f"expected 48 main earnings events, got {len(earnings)}"
+          all_text = soup.get_text(" ", strip=True)
+          assert "數值高於預期（EPS口徑待核實）" not in all_text
+          assert "數值低於預期（EPS口徑待核實）" not in all_text
+          on = next((x for x in earnings if "On Holding" in x.get_text(" ", strip=True)), None)
+          assert on is not None
+          on_text = on.get_text(" ", strip=True)
+          for expected in ("CHF 0.48", "US$0.48", "CHF 0.931B", "US$1.140B"):
+              assert expected in on_text, f"On Holding currency label missing: {expected}"
+          print("PASS: main calendar counts; pending EPS comparisons are non-directional; On Holding CHF/USD values are separated")
+          PY
+
 
 
       - name: Keep review output isolated to simulation branch artifact
