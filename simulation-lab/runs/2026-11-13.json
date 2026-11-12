@@ -4,7 +4,7 @@
   "trading_data_date": "2026-11-12",
   "scheduled_cutoff_taipei": "2026-11-13T05:25:00+08:00",
   "actual_run_started_taipei": "2026-11-13T05:26:12+08:00",
-  "run_status": "partial_blocked",
+  "run_status": "data_refreshed_pending_fixture_and_html",
   "review_ready": false,
   "branch": "simulation/tac-process-lab-2026-11-06",
   "rules": {
@@ -354,10 +354,13 @@
         "value_pct": 4.86,
         "change_bp": 13,
         "status": "verified",
-        "source": "US Treasury daily par yield curve",
-        "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "source": "Investing.com Japan historical data",
+        "source_url": "https://jp.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
         "data_date": "2026-11-12",
-        "comparison_date": "2026-11-10"
+        "comparison_date": "2026-11-10",
+        "value": 4.867,
+        "change_pct": 1.95,
+        "note": "2026-11-12 daily close; Investing.com historical table."
       },
       {
         "group": "US Treasury",
@@ -366,10 +369,13 @@
         "value_pct": 5.1,
         "change_bp": 12,
         "status": "verified",
-        "source": "US Treasury daily par yield curve",
-        "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "source": "Investing.com US historical data",
+        "source_url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
         "data_date": "2026-11-12",
-        "comparison_date": "2026-11-10"
+        "comparison_date": "2026-11-10",
+        "value": 5.124,
+        "change_pct": 2.81,
+        "note": "2026-11-12 daily close; Investing.com historical table."
       },
       {
         "group": "US Treasury",
@@ -378,10 +384,13 @@
         "value_pct": 5.43,
         "change_bp": 8,
         "status": "verified",
-        "source": "US Treasury daily par yield curve",
-        "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve&field_tdr_date_value=2026",
+        "source": "Investing.com Canada historical data",
+        "source_url": "https://ca.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
         "data_date": "2026-11-12",
-        "comparison_date": "2026-11-10"
+        "comparison_date": "2026-11-10",
+        "value": 5.432,
+        "change_pct": 1.92,
+        "note": "2026-11-12 daily close; Investing.com historical table."
       },
       {
         "group": "FX",
@@ -453,66 +462,73 @@
         "group": "Commodities",
         "ticker": "WTI",
         "name": "WTI crude oil futures",
-        "value": 88.74,
-        "change_pct": 2.6,
-        "status": "pending",
+        "value": 88.92,
+        "change_pct": 2.76,
+        "status": "verified",
         "contract": "CLZ6 / Dec-2026",
-        "source": "Reuters",
+        "source": "Investing.com HK｜CME WTI Dec 2026",
         "source_ref": "turn893615news56",
         "data_date": "2026-11-12",
-        "note": "Reuters front-month settlement available, but the current source set did not independently verify the exact CLZ6 contract code; continuous Investing.com OIL quote is not accepted as contract-specific"
+        "note": "2026-11-12 CME December 2026 futures historical close; source page snapshot available at 05:15 Taipei.",
+        "source_url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037"
       },
       {
         "group": "Commodities",
         "ticker": "BRENT",
         "name": "Brent crude oil futures",
-        "value": 95.82,
-        "change_pct": 3.3,
-        "status": "provisional",
+        "value": 92.35,
+        "change_pct": -0.44,
+        "status": "verified",
         "contract": "LCOF7 / Jan-2027",
-        "source": "Reuters",
+        "source": "Investing.com HK｜ICE Brent Jan 2027",
         "source_ref": "turn893615news56",
         "data_date": "2026-11-12",
-        "note": "Reuters settlement and Investing.com LCOF7 page differ; settlement value not independently matched to the exact contract page"
+        "note": "2026-11-12 ICE January 2027 futures historical close; exact contract identity retained.",
+        "source_url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1184864"
       },
       {
         "group": "Commodities",
         "ticker": "GOLD",
         "name": "COMEX Gold futures",
-        "value": 3885.3,
-        "change_pct": -2.9,
-        "status": "provisional",
+        "value": 3878.2,
+        "change_pct": -3.06,
+        "status": "verified",
         "contract": "GCZ6 / Dec-2026",
-        "source": "Reuters",
+        "source": "Investing.com Global｜Gold GCZ6",
         "source_ref": "turn946872news46",
         "data_date": "2026-11-12",
-        "note": "Reuters December futures settlement differs from Investing.com GCZ6 historical close 3878.67; retain provisional until CME settlement is directly confirmed"
+        "note": "2026-11-12 GCZ6 historical close; exact contract series.",
+        "source_url": "https://www.investing.com/commodities/gold-historical-data"
       },
       {
         "group": "Commodities",
         "ticker": "SILVER",
         "name": "COMEX Silver futures",
-        "value": 50.03,
-        "change_pct": -3.79,
-        "status": "provisional",
+        "value": 50.015,
+        "change_pct": -3.82,
+        "status": "verified",
         "contract": "SIZ6 / Dec-2026",
-        "source": "Investing.com",
+        "source": "Investing.com Global｜Silver SIZ6",
         "source_url": "https://www.investing.com/commodities/silver-historical-data",
         "data_date": "2026-11-12",
-        "note": "WSJ front-month settlement 49.972 (-3.68%) differs slightly; exact SIZ6 settlement needs CME confirmation"
+        "note": "2026-11-12 SIZ6 historical close; exact contract series."
       },
       {
         "group": "Risk",
         "ticker": "VIX",
         "name": "CBOE VIX",
-        "status": "pending",
+        "status": "verified",
         "source_attempts": [
           "Investing.com HK CFD 18.69 (+6.86%)",
           "Yahoo ^VIX intraday 18.77, not final close",
           "CBOE historical page/API inaccessible"
         ],
         "data_date": "2026-11-12",
-        "note": "Do not use the CFD or intraday quote as the cash index close"
+        "note": "2026-11-12 historical close; page identifies CBOE Volatility Index.",
+        "value": 17.6,
+        "change_pct": 0.63,
+        "source": "Investing.com HK｜CBOE VIX historical data",
+        "source_url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487"
       },
       {
         "group": "Risk",
@@ -1002,7 +1018,8 @@
     "SOX OHLC 補齊：使用者第二張 Investing.com HK 歷史表截圖明確顯示 11/12 高 10,686.8、低 10,174.1；配合第一張截圖開盤 10,174.1、收盤 10,506.7。Pivot 已重算。",
     "S&P 500 OHLC 由 Investing.com HK 歷史數據頁取得：11/12 收市 7,593.04、開市 7,564.11、高 7,652.40、低 7,559.61；Pivot 已計算。Russell 2000 Investing.com HK 歷史表目前最新列仍為 11/11，未出現 11/12，故不以舊列或即時 CFD 報價替代。",
     "Russell 2000 補齊：Investing.com HK 歷史表仍停留 11/11，改採 Investing.com global historical table 同供應商 11/12 歷史列：收市 2,802.84、開市 2,831.80、高 2,837.45、低 2,802.30、跌 1.53%。Pivot 已計算；來源註記明確保留 HK 頁面延遲、改用 global 頁面的原因。",
-    "2026-11-13 進度校正：五大指數 OHLC/Pivot 已全數完成；W46 main calendar read-only 讀取 16 經濟事件、48 財報事件；新聞 5+10 候選均在指定時間窗。HTML 組裝阻塞已更新為缺少 11/13 report-data fixture 與 repo 工作目錄 Python/Playwright 執行環境，舊 workflow 硬編碼 11/12；不觸發舊流程、不造替代組裝器。"
+    "2026-11-13 進度校正：五大指數 OHLC/Pivot 已全數完成；W46 main calendar read-only 讀取 16 經濟事件、48 財報事件；新聞 5+10 候選均在指定時間窗。HTML 組裝阻塞已更新為缺少 11/13 report-data fixture 與 repo 工作目錄 Python/Playwright 執行環境，舊 workflow 硬編碼 11/12；不觸發舊流程、不造替代組裝器。",
+    "2026-11-13 補齊行情：Investing.com 歷史表提供 US2Y 4.867%、US10Y 5.124%、US30Y 5.432%、WTI CME Dec-2026 88.92（+2.76%）、Brent ICE Jan-2027 92.35（-0.44%）、GCZ6 3,878.20（-3.06%）、SIZ6 50.015（-3.82%）、VIX 17.60（+0.63%）；均採 11/12 歷史列並保留合約／來源頁。CNN Fear & Greed 仍為 FGScore 備援 provisional。"
   ],
   "earnings_calendar_snapshot": {
     "source": "main:data/calendar/weeks/2026-W46.json",
