@@ -3,11 +3,25 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-07（台灣時間；模擬組裝器雙母版相容性已完成驗收）
+- 最後更新：2026-11-12（台灣時間；main 行事曆來源鎖定、財報呈現與股價反應補強已驗收；整份早報仍未放行）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
-- 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
+- 正式規則：main `TAC_WORK_RULES.md` v5.15；blob SHA `23b52f27b7afad083bbe28ed86021e04759f198d`
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
+
+- 模擬區根規則：本分支根目錄 `TAC_WORK_RULES.md` blob SHA `feb9f87a246bd9e55c8468ac77d99d8acd947f63`；`simulation-lab/TAC_WORK_RULES_SIM.md` SIM-0.8 blob SHA `11cfedfdcb3363d445277e87fccdd504e9ef93ce`。
+
+## 0. 2026-11-12 當前工作狀態（最新）
+
+- 工作分支：`simulation/tac-process-lab-2026-11-06`；最新驗收 commit `a9ae77fbd07568f80266abe4c41b284844741b67`。
+- 最新 GitHub Actions：run `43134968392` completed/success；artifact ID `13907346358`。審核版 HTML：`simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html`（只存在 workflow artifact，沒有寫回 main preview）。
+- 唯一正式行事曆來源：main `data/calendar/weeks/2026-W46.json`；main commit `eb53eb666ece59f113f2e65d7932436ef66bdfa9`；blob SHA `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`；16 economic／48 earnings。05:25 組裝器唯讀；04:35 是唯一 JSON writer。
+- 審核版 HTML 與 main 對帳：16 筆經濟事件、48 筆財報事件，筆數一致。財報顯示已修正 EPS pending 不做方向判斷、跨幣別分開顯示、postponed 標籤、財報發布時段與電話會議時間分離。
+- 已公布財報股價反應：32/32 eligible 計算完成，0 unavailable；26 Yahoo Finance、6 個有來源連結的替代歷史報價。另 4 筆不具資格，仍待核實（Vodafone、Credicorp pending_verification；Kaspi、CNH session unknown）。
+- 視覺回歸：simulation weekday baseline SHA `6fe79308eca71db5dd54308fd35efe3900451081`；1440／768／360／320，failures=[]。這不是與 formal main mother 的比對通過。
+- **目前不可定版**：組裝器 metadata 仍為 `review_ready:false`。SOX／Gold GCZ6／Russell 2000 OHLC 仍有來源差異；新聞至少四組重複；關鍵價位仍只有 S1/P/R1；互動與 live URL 未實測。不得更新 main `index.html` 或正式 preview。
+- 下一步：裁決三項重大行情差異，去除新聞重複，完成五層關鍵價位與互動測試，再重新 QA；完成前保持模擬區隔離。
+
 
 ## 1B. 2026-11-07 模擬區｜同一 HTML 組裝器支援雙母版（已驗收）
 
