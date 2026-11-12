@@ -2163,7 +2163,7 @@
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": "Vodafone 官方 H1 FY2027 結果頁已可取得，確認半年度業績公告存在；本次未成功直接抽取官方 PDF 財務表，且頁面未顯示可核實發布時間。EPS／營收 actual 維持 null，待取得原始 PDF 後更新。",
+        "financial_judgment": "已核對 Vodafone 官方 H1 FY2027 Results Announcement（2026-11-10）：IFRS 總營收 €21.853B，較去年同期 €19.609B 增加 11.4%；IFRS basic loss per share 為 -€0.2075（去年同期 basic EPS +€0.0338），另列 non-GAAP adjusted basic EPS +€0.0148。公司指出本期認列德國 €4.850B impairment 及英國 €2.2B deferred-tax-asset write-down，造成期間淨損 €3.597B；營運面 Adjusted EBITDAaL €6.451B、年增 12.6%，並上調 FY27 Adjusted EBITDAaL 指引至 €13.2–13.4B、Adjusted FCF 指引至 €2.8–3.0B。資料庫未提供同口徑市場 EPS／營收共識，因此不判定 Beat／Miss；股價反應仍待確認公告精確發布時刻與公告後交易日。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2172,7 +2172,7 @@
           "published_at": "2026-11-10",
           "observed_at": "2026-11-13T04:30:43+08:00",
           "publisher": "Vodafone Group Plc",
-          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。；Vodafone 官方 H1 FY27 results announcement：revenue EUR21,853M；IFRS basic loss/share -20.75 eurocents；adjusted basic EPS +1.48 eurocents。公司官方 results page 僅確認 11/10 發布日期，未確認精確時刻，time_known 維持 false。",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。；Vodafone 官方 H1 FY27 results announcement：revenue EUR21,853M；IFRS basic loss/share -20.75 eurocents；adjusted basic EPS +1.48 eurocents。公司官方 results page 僅確認 11/10 發布日期，未確認精確時刻，time_known 維持 false。；已直接核對 Vodafone 官方 H1 FY27 Results Announcement PDF（2026-11-10）：總營收 EUR21,853M、IFRS basic loss/share -20.75 eurocents、adjusted basic EPS +1.48 eurocents、期間淨損 EUR3,597M、Adjusted EBITDAaL EUR6,451M（+12.6%），並上調 FY27 指引。市場共識未提供，不作 Beat/Miss 判讀；精確發布時刻仍未核實。",
           "secondary_refs": [
             "https://www.vodafone.com/investors/performance-and-reports/financial-calendar",
             "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results"
