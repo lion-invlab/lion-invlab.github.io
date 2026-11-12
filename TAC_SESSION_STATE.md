@@ -1269,3 +1269,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 更新 `.github/workflows/tac-simulation-lab.yml`：新增 push fixture 觸發完整日期流程條件；workflow 仍只在模擬分支執行，產物只上傳 Actions artifact，不部署 main。Workflow commit `b0f54e52fd129773b798cc824ba253455e423801`。
 - 11/13 fixture 最新更新 commit `bad8b9a0b137659513feb95f2ec14e3889eedbda`；完整 Actions run `43318535995` 已啟動，狀態 in_progress，尚未宣稱成功。此前 run `43318515432` 因同一 concurrency group 新 push 而取消，非測試失敗。
 - main、index.html、正式母版、Manifest、main 行事曆 JSON 均未修改；main W46 行事曆由組裝器 read-only 讀取。
+
+
+## 2026-11-13｜人工流程接手第 2 輪：規則／母版／行事曆核對
+
+- 本輪先讀模擬區唯一最高規則 `simulation-lab/TAC_WORK_RULES_SIM.md`：SIM-1.1，blob SHA `4c8e493dc7b96c345970469ccd1d418e5273d273`。
+- 同步核對 main 正式 `TAC_WORK_RULES.md`：v5.15，blob SHA `23b52f27b7afad083bbe28ed86021e04759f198d`；main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`。
+- main Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；既有組裝器 SHA `f141da39e584bb670a626b225ceeb3483c3cce60`。
+- main 當週 `data/calendar/weeks/2026-W46.json` 唯讀 SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，JSON `updated_at=2026-11-13T04:30:43+08:00`，16 項經濟事件、48 項財報事件。週五報告不需要上週 W45；本輪不以 W45 作資料來源。
+- 行事曆權責：本輪只讀 main W46，未建立／修改／回寫任何 calendar JSON；04:35 後新資料及矛盾留待預覽與待核實紀錄。
+- 通知紀錄：啟動通知與階段①各嘗試 2 次；`notify_parent` 呼叫未取得 `status=notified` 回傳，均記為 FAILED，未宣稱送達。後續階段仍繼續工作。
+- 階段①完成；下一步：以 2026-11-12 交易日為基準重新核對 44 項行情，特別檢查 11 項產業 ETF、債券、匯率、期貨合約與 VIX 的日期／收盤口徑。
