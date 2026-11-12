@@ -5,6 +5,17 @@
 
 - 最後更新：2026-11-12（台灣時間；main 行事曆來源鎖定、財報呈現與股價反應補強已驗收；整份早報仍未放行）
 - Repository：`lion-invlab/lion-invlab.github.io`
+## 2026-11-13 07:xx｜審核版存在確認與 Fear & Greed 指針連動修正（最新接續紀錄）
+
+- 使用者已明確指出 11/13 審核版已存在；重新讀取 main `preview/2026-11-13-simulation.html`，確認檔案存在，blob SHA `b3521415d5b0a2c0a3a3cfb914276a3f7eebcc2b`；main 最新相關 commit `0547b40ab694418a8fceb95f03894fe1191eb7b2`。不再沿用本檔較早「審核版未產生」的舊狀態。
+- 既有 HTML 顯示 CNN Fear & Greed 40，但 `.fg6-marker` 僅為一般 inline `left:40%`；核准 weekday 母版 CSS 有 `.fg6-marker { left:23%!important }`，因此一般 inline style 被母版 `!important` 壓過，白點視覺位置仍固定在 23%。
+- 模擬分支 `simulation/tac-process-lab-2026-11-06` 已修正 `simulation-lab/runner/build_review_html.py`：新增 0–100 數值解析與 marker 綁定；優先讀取 `risk.fear_greed.value`，兼容現有 `display` 數字字串；以 inline `left: N% !important` 覆蓋母版固定 23%；數值缺失／無效時隱藏白點，避免保留舊位置誤導。新 assembler blob SHA `b09c0c269643ccc91f10eb6e61e1a07c16584bf0`。
+- 新增 `simulation-lab/runner/test_fear_greed_marker.py`，覆蓋 20、40、75、0、100、`40/100` 及缺值／越界；blob SHA `2ea59148dd0990edb1a692319eb6315998952e80`。GitHub Actions run `43328084919`（commit `597981180ffa8e3952e92273eef8e79f93c09a14`）completed/success；3 個單元測試全部 PASS。
+- `simulation-lab/runner/interaction_smoke.mjs` 已加入 Chromium 實際幾何位置測試：先核對輸出分數與白點位置，再模擬 20／40／75 並確認渲染中心位置；blob SHA `dd312a53ad3c16bf605b395660678df9b66fdaee`。此瀏覽器測試尚未執行；本次 push smoke 的完整組裝／Playwright QA steps 均 skipped，不能宣稱瀏覽器 Gate 通過。
+- `.github/workflows/tac-simulation-lab.yml` 已將 Python 單元測試加入 deterministic self-tests；blob SHA `6cb6e67ac706f4bc1c0b1c00854d657645dfbf69`。最新模擬分支程式修正 commit `597981180ffa8e3952e92273eef8e79f93c09a14`。
+- 保護範圍：本輪只寫入 simulation branch 的組裝器、測試、workflow；main 既有審核版只讀核對，未覆寫；main `index.html`、正式母版、Manifest、WR、W46 calendar JSON 均未修改。
+- 下一步：在不重做整份早報的前提下，先完成受影響的瀏覽器位置驗證；之後依 SIM-1.1 審核版例外通道的明確授權與 QA 門檻，才可更新 main 同日 preview。不得將白點的 40% 寫死在共用 CSS／程式中。
+
 - 基準分支：`main`
 - 正式規則：main `TAC_WORK_RULES.md` v5.15；blob SHA `23b52f27b7afad083bbe28ed86021e04759f198d`
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
@@ -20,7 +31,7 @@
 - 模擬規則：`simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.1，blob SHA `4c8e493dc7b96c345970469ccd1d418e5273d273`。
 - Manifest：main `母版專區/mother-template-manifest.json` blob SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；週二至週五核准母版 `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` blob SHA `3785405e331b10ec6189002e480be2a1edbe20ef`，與 Manifest 一致；QA 清單 v1.3 blob SHA `74a7c90aaaeee497b7b2b134d9569aee615d95c0`。
 - 唯一行事曆來源：main `data/calendar/weeks/2026-W46.json`，同一 main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`，blob SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，`updated_at=2026-11-13T04:30:43+08:00`；本週 JSON 只讀，禁止複寫／修補／回存。今日篩選 3 筆經濟事件、6 筆財報事件。
-- 預覽目標：`main/preview/2026-11-13-simulation.html`（本輪尚未建立）；只允許在審核版完成後走狹窄 preview 例外通道，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
+- 預覽目標：`main/preview/2026-11-13-simulation.html`（已存在；blob SHA `b3521415d5b0a2c0a3a3cfb914276a3f7eebcc2b`）。目前尚未套用本輪組裝器修正；只允許依 SIM-1.1 審核版例外通道更新同一路徑，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
 - 第一步狀態：完成。已鎖定日期、交易日、正式 WR、SIM 規則、main HEAD、Manifest、母版、QA 清單與 W46 唯一資料來源。
 - 第二步狀態（依 SIM-1.1 審計紀錄校正）：44 項中 37 verified、5 provisional、2 pending；不得宣稱 44/44 已核實。使用者 05:49 截圖補充 TVC MOVE 即時畫面 98.4202（+6.47%），只能作為 TVC 即時報價證據，不能替代 ICE BofA MOVE 的正式收盤核實。MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
 - 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 財報數值已核對，EPS 以相同會計口徑比較；公告後首個交易日股價反應因截稿時間尚未形成，維持待更新。
