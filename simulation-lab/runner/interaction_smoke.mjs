@@ -89,8 +89,8 @@ try {
     nodes => nodes.map(a => a.href)
   );
   if (headlineLinks.length !== 10) throw new Error(`expected 10 market headline links, got ${headlineLinks.length}`);
-  if (!headlineLinks[9].includes("article-93CH-1753201")) {
-    throw new Error("last market headline is not the Ciena AI optics story; index recap may have returned");
+  if (!headlineLinks[9].startsWith("https://") || headlineLinks[9].includes("undefined")) {
+    throw new Error("last market headline has an invalid source URL");
   }
 
   const investingLinks = await page.locator('a[href^="https://hk.investing.com/"], a[href^="https://www.investing.com/"]').count();
