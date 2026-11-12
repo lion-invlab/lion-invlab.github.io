@@ -694,3 +694,13 @@
 - 行事曆權責：本輪只讀 main W46，未建立／修改／回寫任何 calendar JSON；04:35 後新資料及矛盾留待預覽與待核實紀錄。
 - 通知紀錄：啟動通知與階段①各嘗試 2 次；`notify_parent` 呼叫未取得 `status=notified` 回傳，均記為 FAILED，未宣稱送達。後續階段仍繼續工作。
 - 階段①完成；下一步：以 2026-11-12 交易日為基準重新核對 44 項行情，特別檢查 11 項產業 ETF、債券、匯率、期貨合約與 VIX 的日期／收盤口徑。
+
+## 2026-11-13 07:xx｜Fear & Greed 指針資料連動根因修復
+
+- 問題根因：11/13 main preview 的 `.fg6-score` 顯示 40，但 `.fg6-marker` 為一般 inline `left:40%`；核准 weekday 母版 `.fg6-marker` CSS 使用 `left:23%!important`，所以 inline 普通宣告無法覆蓋，白點仍停在 23%。
+- 修正範圍僅限模擬分支：`simulation-lab/runner/build_review_html.py` 新增 `parse_fear_greed_score`／`apply_fear_greed_marker`，使用來源數值 0–100 動態設定 `left: N% !important`；優先 `risk.fear_greed.value`，兼容現有 `display` 數字字串；缺值、非數字或超出 0–100 時隱藏 marker，避免顯示過期位置。assembler blob `b09c0c269643ccc91f10eb6e61e1a07c16584bf0`。
+- 新增 Python 測試 `simulation-lab/runner/test_fear_greed_marker.py`，測試 20／40／75、0／100、`40/100`、缺值及越界；blob `2ea59148dd0990edb1a692319eb6315998952e80`。GitHub Actions run `43328084919` completed/success，3/3 tests PASS。
+- 修改 `simulation-lab/runner/interaction_smoke.mjs`：增加實際瀏覽器幾何定位檢查，測試輸出分數對應位置及合成 20／40／75 三種刻度；blob `dd312a53ad3c16bf605b395660678df9b66fdaee`。此測試尚未執行；push smoke 未跑組裝與 Playwright steps。
+- 修改 `.github/workflows/tac-simulation-lab.yml`，把 Python 測試納入 deterministic self-tests；blob `6cb6e67ac706f4bc1c0b1c00854d657645dfbf69`。程式修正 commit `597981180ffa8e3952e92273eef8e79f93c09a14`；Session State 更新 commit `6c5696b9ef54c4c04e7c0a818c9f3ca3edb88694`。
+- 11/13 main preview 已重新 fetch 確認存在：blob `b3521415d5b0a2c0a3a3cfb914276a3f7eebcc2b`，相關 main commit `0547b40ab694418a8fceb95f03894fe1191eb7b2`。本輪沒有覆寫 main preview，沒有修改 main index、母版、Manifest、WR 或 W46 JSON。
+- 後續：先執行受影響的瀏覽器測試；再依 SIM-1.1 明確授權及 QA 門檻更新同日 preview。不得把 40 寫死於共用 CSS／程式。
