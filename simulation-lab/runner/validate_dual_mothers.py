@@ -55,19 +55,6 @@ def validate(key: str) -> dict:
             if "econ-field" in node.get("class", [])
         ]
         if scope == "last-week":
-            valid_labels = (
-                len(labels) == 4
-                and labels[:3] == ["前值", "預估", "實際"]
-                and labels[3] in ("來源", "資料來源")
-            )
-        else:
-            valid_labels = (
-                len(labels) in (4, 5)
-                and labels[:3] == ["前值", "市場預估", "實際"]
-                and labels[-1] in ("來源", "資料來源")
-                and (len(labels) == 4 or labels[3] in ("市場影響", "觀察重點"))
-            )
-        if scope == "last-week":
             allowed_counts = [4]
         else:
             allowed_counts = [4, 5]
@@ -82,6 +69,19 @@ def validate(key: str) -> dict:
             if not label or not value:
                 raise SystemExit(f"{key} card {i}: econ-field label/value structure incomplete")
             labels.append(label.get_text(strip=True))
+        if scope == "last-week":
+            valid_labels = (
+                len(labels) == 4
+                and labels[:3] == ["前值", "預估", "實際"]
+                and labels[3] in ("來源", "資料來源")
+            )
+        else:
+            valid_labels = (
+                len(labels) in (4, 5)
+                and labels[:3] == ["前值", "市場預估", "實際"]
+                and labels[-1] in ("來源", "資料來源")
+                and (len(labels) == 4 or labels[3] in ("市場影響", "觀察重點"))
+            )
         if not valid_labels:
             raise SystemExit(f"{key} card {i}: {scope} field labels mismatch: {labels}")
         source_value = fields[-1].select_one(":scope > .econ-value")
