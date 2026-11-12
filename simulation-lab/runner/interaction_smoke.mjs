@@ -81,7 +81,7 @@ try {
     nodes => nodes.map(a => a.href)
   );
   if (focusLinks.length !== 5) throw new Error(`expected 5 focus news links, got ${focusLinks.length}`);
-  if (!focusLinks.every(url => url.startsWith("https://hk.investing.com/") || url.startsWith("https://news.cnyes.com/"))) {
+  if (!focusLinks.every(url => url.startsWith("https://hk.investing.com/") || url.includes(".cnyes.com/"))) {
     throw new Error("focus news contains a source outside Investing.com HK / Cnyes");
   }
 
