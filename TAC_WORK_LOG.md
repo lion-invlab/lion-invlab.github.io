@@ -744,3 +744,14 @@
 ### 修改與保護範圍
 - 本紀錄僅更新 simulation branch 的 Session State／Work Log；未修改 main preview、main index.html、正式母版、Manifest、WR 或 W46 行事曆 JSON。
 - 因本次執行環境無法提供真正 DOM parser 直接處理 main preview，依 WR v5.15 不使用 regex／字串替換修改 HTML。所有內容修正列為待處理，不能宣稱完成或通過 QA。
+
+
+## 2026-11-13｜後續修正與隔離驗收啟動
+
+- Vodafone 官方 PDF 已由官方文件搜尋結果直接抽取核對（Vodafone Group Plc, H1 FY27 Results, 10 Nov 2026）：IFRS total revenue €21.853B（+11.4% y/y；去年同期 €19.609B）、basic loss/share -€0.2075、adjusted basic EPS +€0.0148、period loss €3.597B、Adjusted EBITDAaL €6.451B（+12.6%）；公司上調 FY27 EBITDAaL 指引 €13.2–13.4B、Adjusted FCF 指引 €2.8–3.0B。市場同口徑共識未提供，不判 Beat/Miss；精確公告時刻未確認，不推測公告後股價反應。
+- 已更新 main 權威資料庫 `data/calendar/weeks/2026-W46.json` 中 Vodafone 記錄的 `financial_judgment` 與官方來源 notes，保留 EPS/revenue actual、無共識不判 Beat/Miss、股價反應待核實。Commit `59e706dba19674a2d6ba86a40d5c4c4e96faf499`；新 blob SHA `18a678fff9af133557f01ab7176e71d78ba87b42`。已回讀確認。
+- 原油口徑重新裁定並更正前一筆紀錄：前次提到 WTI 88.70/+2.51%、Brent 95.95/+3.44% 並非本次選定的指定歷史頁收盤資料，撤回，不再引用。指定 Investing.com HK 合約歷史頁（WTI CME Dec-26 cid=1178037）11/12 歷史列為 88.92/+2.76%；指定 Brent ICE Jan-27 cid=1184864 歷史列為 94.54/+1.92%。同日 Reuters 報基準結算 WTI 88.74/+2.6%、Brent 95.82/+3.3%，存在供應商／報價口徑差異。依 TAC 對 Investing.com HK 的優先規則，隔離 fixture 先統一採指定合約歷史列，並保留 Reuters 差異說明，不混用即時價與歷史收盤。
+- 已更新 simulation fixture `simulation-lab/fixtures/report-data-2026-11-13.json`：WTI 88.92/+2.76%、Brent 94.54/+1.92%；同步 summary、observation、market_comments.energy、summary_points、core_observation。Commit `8104b3f755b99f48cdb8eca00557ebaff084cf22`；新 blob SHA `cfbea6235db13405006a9d2be26a4824b5d3665b`。未修改 main preview。
+- 已增強 `interaction_smoke.mjs`：除檢查白點實際幾何位置、inline !important 外，也檢查 `data-score` 與 aria-label 必須與顯示分數一致。Commit `d24fff9938e7e719b0ef97818f03fdcd15867aed`；新 blob SHA `9ed488a744761bbf38b911cbe0b468a6d2f59e40`。
+- 由於 GitHub connector 沒有 workflow_dispatch action，改以既有 workflow 支援的 push commit message `[build-tac-report]` 觸發隔離分支完整建置及 Chromium QA。Run `43329576957`（run 396）目前 in_progress；前一個 fixture push run `43329560280` 被 concurrency 正常取消，沒有進入測試步驟。完整 run 需等結果，不得預先宣稱通過。
+- 本次所有改動只涉及 main W46 的 Vodafone 判讀，以及 simulation fixture／smoke test；main `index.html`、main `preview/2026-11-13-simulation.html`、母版、Manifest、WR 均未修改。
