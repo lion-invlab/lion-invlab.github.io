@@ -1,0 +1,102 @@
+import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+import { chromium } from "playwright";
+
+const htmlPath = path.resolve(process.argv[2] || "");
+const outputPath = path.resolve(process.argv[3] || "simulation-lab/output/interaction-smoke.json");
+if (!fs.existsSync(htmlPath)) throw new Error(`HTML review file not found: ${htmlPath}`);
+
+const browser = await chromium.launch({ headless: true });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+const pageErrors = [];
+page.on("pageerror", error => pageErrors.push(error.message));
+
+try {
+  await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "domcontentloaded" });
+
+  const nav = page.locator("nav.nav a[href^='#']");
+  const navCount = await nav.count();
+  if (navCount !== 10) throw new Error(`expected 10 in-page navigation links, got ${navCount}`);
+  const navTargets = [];
+  for (let i = 0; i < navCount; i++) {
+    const href = await nav.nth(i).getAttribute("href");
+    const targetId = href.slice(1);
+    if (await page.locator(`[id="${targetId}"]`).count() !== 1) {
+      throw new Error(`navigation target missing or duplicated: ${href}`);
+    }
+    navTargets.push(href);
+  }
+  await nav.filter({ hasText: "本週財報行事曆" }).click();
+  if (await page.evaluate(() => location.hash) !== "#earnings") {
+    throw new Error("navigation click did not move to #earnings");
+  }
+
+  async function toggleDetails(selector, iconSelector = null) {
+    const details = page.locator(selector).first();
+    if (await details.count() !== 1) throw new Error(`missing details element: ${selector}`);
+    const summary = details.locator("summary");
+    const before = await details.evaluate(el => el.open);
+    if (iconSelector) {
+      const icon = details.locator(iconSelector).first();
+      if (await icon.count() !== 1 || !(await icon.boundingBox())) {
+        throw new Error(`toggle icon missing or not visible: ${iconSelector}`);
+      }
+    }
+    await summary.click();
+    const after = await details.evaluate(el => el.open);
+    if (after === before) throw new Error(`summary did not toggle details: ${selector}`);
+    await summary.click();
+    const restored = await details.evaluate(el => el.open);
+    if (restored !== before) throw new Error(`details did not restore original state: ${selector}`);
+    return { selector, before, after, restored };
+  }
+
+  const detailsTests = [
+    await toggleDetails("details.earnings-accordion", ".earnings-accordion-toggle"),
+    await toggleDetails("details.econ-event", ".econ-toggle"),
+    await toggleDetails("details.sector-collapse")
+  ];
+
+  const focusLinks = await page.locator("#global-focus .newsmeta a[href]").evaluateAll(
+    nodes => nodes.map(a => a.href)
+  );
+  if (focusLinks.length !== 5) throw new Error(`expected 5 focus news links, got ${focusLinks.length}`);
+  if (!focusLinks.every(url => url.startsWith("https://hk.investing.com/") || url.startsWith("https://news.cnyes.com/"))) {
+    throw new Error("focus news contains a source outside Investing.com HK / Cnyes");
+  }
+
+  const headlineLinks = await page.locator("#headlines .newsmeta a[href]").evaluateAll(
+    nodes => nodes.map(a => a.href)
+  );
+  if (headlineLinks.length !== 10) throw new Error(`expected 10 market headline links, got ${headlineLinks.length}`);
+  if (!headlineLinks[9].includes("article-93CH-1753201")) {
+    throw new Error("last market headline is not the Ciena AI optics story; index recap may have returned");
+  }
+
+  const investingLinks = await page.locator('a[href^="https://hk.investing.com/"], a[href^="https://www.investing.com/"]').count();
+  const cnyesLinks = await page.locator('a[href^="https://news.cnyes.com/"]').count();
+  if (investingLinks < 10 || cnyesLinks < 2) {
+    throw new Error(`source links unexpectedly low: Investing.com=${investingLinks}, Cnyes=${cnyesLinks}`);
+  }
+
+  if (pageErrors.length) throw new Error(`uncaught page errors: ${pageErrors.join(" | ")}`);
+
+  const result = {
+    status: "PASS",
+    nav_count: navCount,
+    nav_targets: navTargets,
+    details_tests: detailsTests,
+    focus_news_links: focusLinks.length,
+    headline_links: headlineLinks.length,
+    investing_links: investingLinks,
+    cnyes_links: cnyesLinks,
+    page_errors: pageErrors
+  };
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + "\n", "utf8");
+  console.log("Interaction smoke test: PASS");
+  console.log(JSON.stringify(result));
+} finally {
+  await browser.close();
+}
