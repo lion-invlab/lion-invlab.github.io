@@ -6,34 +6,34 @@
   "sentiment": "市場情緒呈現股市強彈、宏觀風險未退的分歧：SOX上漲5.66%、Russell 2000上漲0.88%，11大產業ETF全部收高或收低均已完成同日核實；但美元上行、油價回彈、黃金回落及FedWatch對12月升息的高度定價，仍對高估值資產形成約束。CNN Fear & Greed維持Fear區，美債現貨休市，2Y／10Y／30Y及MOVE均無符合05:25截點的有效報價。",
   "focus_news": [
     {
-      "title": "德國10月通膨確認降至2.8%，核心通膨同步放緩",
-      "summary": "德國10月CPI年增2.8%，低於9月3.3%；核心通膨由2.4%降至2.1%，月增則為-0.2%。但能源價格仍年增12.2%，顯示總體通膨降溫不代表成本壓力完全解除，ECB仍須權衡能源與服務價格。",
-      "url": "https://www.investing.com/news/economy-news/germanoctober-inflation-confirmed-at-28-5017862",
-      "published_at_tw": "2026-11-11 15:08"
+      "title": "美債殖利率飆升，美國CPI數據與聯準會鷹派訊號推升升息風險",
+      "summary": "Investing.com HK報導，10月美國核心CPI月增0.3%，高於市場預期的0.2%；美國2年期公債殖利率升18個基點至4.74%，10年期隔夜升至5.01%。市場已消化12月升息1碼，升息2碼機率約10%。市場影響：折現率與美元利率風險升高，對高估值科技股及長久期資產形成壓力。",
+      "url": "https://hk.investing.com/news/forex-news/article-1752077",
+      "published_at_tw": "2026-11-11 17:10"
     },
     {
-      "title": "中國雙11消費力道偏弱，促銷延長仍難扭轉信心不足",
-      "summary": "AP報導，雙11截至10月底累計銷售額略逾1兆人民幣，大致與去年同期相當；中國前九個月零售銷售年增僅1.1%，房市下行與收入成長疲弱壓抑非必需消費。出口強勁與內需疲弱並存，反映中國成長結構仍不平衡。",
-      "url": "https://ca.finance.yahoo.com/news/subdued-sales-singles-day-chinas-034606011.html",
-      "published_at_tw": "2026-11-11 19:39"
+      "title": "德國10月通脹率如預期降至2.8%，核心通脹放緩至2.1%",
+      "summary": "Investing.com HK引述德國最終CPI數據，10月整體通膨年增2.8%，低於9月的3.3%；核心通膨由2.4%降至2.1%。能源成本仍高，取暖油年增84.5%，燃油折讓措施暫時壓低部分通膨。市場影響：核心通膨放緩有利ECB政策彈性，但能源價格黏著，不能視為通膨風險解除。",
+      "url": "https://hk.investing.com/news/economic-indicators/article-1751930",
+      "published_at_tw": "2026-11-11 16:04"
     },
     {
-      "title": "美國10月貨櫃進口量創單月新高，中國貨量年增22.9%",
-      "summary": "Reuters引述Descartes資料，美國港口10月處理267.5萬TEU，年增16%，創單月紀錄；其中中國貨量98.8萬TEU，年增22.9%，連續第四個月增加。進口量顯示商品需求與供應鏈流量仍具韌性，但關稅政策可能使後續來源地與庫存節奏改變。",
-      "url": "https://www.reuters.com/world/china/us-container-imports-set-all-time-volume-record-october-chinese-imports-spike-2026-11-11/",
-      "published_at_tw": "2026-11-12 03:56"
+      "title": "中國「雙11」正褪去狂熱光環回歸常態",
+      "summary": "鉅亨網報導，今年雙11綜合電商GMV年增僅2.4%，平台簡化促銷規則，消費者由衝動囤貨轉向按需購買；AI購物助手、算力Token及家政服務成新動能。市場影響：內需復甦仍溫和，平台促銷拉動力減弱，但AI與服務消費出現結構性增長。",
+      "url": "https://news.cnyes.com/news/id/6658365",
+      "published_at_tw": "2026-11-11 15:50"
     },
     {
-      "title": "OPEC+ 10月原油產量大幅回升，接近伊朗戰事前水準",
-      "summary": "Reuters引述OPEC月報，OPEC+ 10月原油產量增加約204萬桶／日，達4,123萬桶／日，約為2月戰事前產量的97%；沙烏地阿拉伯產量升至1,056.3萬桶／日。供給恢復有助緩解部分供應壓力，但荷姆茲海峽航運仍受干擾，市場需同時觀察產量回升與運輸瓶頸。",
-      "url": "https://www.reuters.com/business/energy/saudi-arabia-leads-further-jump-opec-oil-output-despite-war-2026-11-11/",
-      "published_at_tw": "2026-11-11 21:22"
+      "title": "受美債拋售潮衝擊，10年期日債殖利率飆升10.5個基點至2.795%",
+      "summary": "鉅亨網報導，美國通膨高於預期與Fed鷹派訊號引發美債拋售，日債同步承壓；日本10年期殖利率升10.5bp至2.795%，5年期升至2.195%，2年期升至1.86%，市場對日本央行12月升息機率升至約85%。市場影響：全球利率上行壓力擴散，日圓融資交易與長久期資產估值面臨再定價。",
+      "url": "https://news.cnyes.com/news/id/6658437",
+      "published_at_tw": "2026-11-11 15:20"
     },
     {
-      "title": "荷姆茲海峽船流量回升，船舶遇襲事件也升至戰事以來高點",
-      "summary": "Reuters報導，10月荷姆茲海峽LNG出口船次回升，但商船遇襲達37艘，為戰事開始以來最高；IMO已記錄130起事件、至少25名海員死亡。能源運輸逐步恢復不代表安全風險解除，若攻擊再升高，油氣運費與供應中斷風險可能重新推升能源價格。",
-      "url": "https://www.reuters.com/world/middle-east/hormuz-traffic-is-up-so-are-attacks-2026-11-11/",
-      "published_at_tw": "2026-11-12 00:12"
+      "title": "沙烏地阿拉伯石油產量攀升至2月以來最高水平",
+      "summary": "Investing.com HK引述OPEC月報，沙烏地10月原油日產量升至1,056.3萬桶，較9月的837.2萬桶大幅增加，創2026年2月以來最高。市場影響：中東供給恢復可能增加全球原油供給緩衝、限制油價上行空間，但地緣政治風險仍是供應端變數。",
+      "url": "https://hk.investing.com/news/commodities-news/article-93CH-1752736",
+      "published_at_tw": "2026-11-11 21:20"
     }
   ],
   "headlines": [
@@ -92,10 +92,10 @@
       "published_at_tw": "2026-11-11 13:08"
     },
     {
-      "title": "美股三大指數11/11同步收高，科技股反彈帶動標普與那指回升",
-      "summary": "AP整理11/11收盤，標普500上漲1.31%至7,619.38，那斯達克上漲1.60%至25,466.19，道瓊上漲0.49%至52,486.49，Russell 2000上漲0.88%。反彈主要由AI相關股票帶動，但美債市場因Veterans Day休市，當日缺少新的美債殖利率收盤作交叉驗證。",
-      "url": "https://apnews.com/article/027cd5f4583d1a11c1795150bf065afb",
-      "published_at_tw": "2026-11-11 23:57"
+      "title": "AI光通訊需求回升，Ciena單日大漲9.3%，Lumentum與Applied Optoelectronics同步走強",
+      "summary": "Investing.com HK報導，CoreWeave強勁財報與融資計畫緩解市場對AI資料中心支出可持續性的疑慮，帶動光網路設備股反彈。Ciena早盤上漲9.3%，Lumentum漲逾11%，Applied Optoelectronics漲逾12%，Coherent漲約7%。觀察重點：AI資本支出正由GPU擴散至高速光傳輸與網路設備，但仍須追蹤積壓訂單轉化為營收與利潤的速度。",
+      "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1753201",
+      "published_at_tw": "2026-11-12 00:14"
     }
   ],
   "global_markets": {
