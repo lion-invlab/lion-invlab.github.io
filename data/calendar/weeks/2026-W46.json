@@ -591,8 +591,8 @@
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "公司 adjusted diluted EPS US$3.43、GAAP diluted EPS US$3.08；原 EPS 共識 US$3.31 未揭露會計口徑，故不機械判定 beat/miss。營收 US$9.026B，高於原共識 US$8.74B。",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "公司 GAAP net sales US$9.026B，高於 TipRanks／原存市場共識 US$8.74B，營收優於預期。Adjusted diluted EPS US$3.43、GAAP diluted EPS US$3.08；EPS 共識 US$3.31 未揭露 GAAP／adjusted 口徑，仍不機械判定 Beat/Miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -615,7 +615,10 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 revenue estimate；依頁面原列幣別及單位保存。"
+          "notes": "公布前 revenue estimate；依頁面原列幣別及單位保存。；TipRanks Q3 2026 results 對照列示 actual US$9.03B vs consensus US$8.74B，與公司 GAAP net sales US$9.026B 一致，Revenue Beat。",
+          "secondary_refs": [
+            "https://www.tipranks.com/stocks/ferg/earnings/q3-2026-report"
+          ]
         },
         "price_reaction_source": null,
         "issuer_country": "United States",
@@ -627,7 +630,9 @@
           "url": "https://www.corporate.ferguson.com/pressroom/news-releases/news-details/2026/Ferguson-to-Issue-Third-Quarter-Results-And-Host-Conference-Call-on-November-9-2026/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 Ferguson Enterprises Inc. (NYSE: FERG)。"
-        }
+        },
+        "revenue_actual_basis": "GAAP net sales (USD billions)",
+        "revenue_estimate_basis": "Net sales/revenue consensus (USD billions)"
       },
       {
         "id": "current-nrg-20261109",
@@ -714,9 +719,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "公司 adjusted operating earnings US$5.06／股，GAAP net income US$5.19／股；原 EPS 共識 US$3.90 未揭露口徑。營收 US$9.55B，高於原共識 US$9.23B；Investing.com 另列 US$9.21B。EPS 比較不以未確認口徑作機械判斷。",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "公司 adjusted operating earnings US$5.06／股，高於 Google Finance normalized EPS 共識 US$3.89（原存 Finviz 共識 US$3.90），EPS 優於預期；GAAP net income US$5.19／股。GAAP operating revenue US$9.55B，高於原存共識 US$9.23B（Investing.com 另列 US$9.21B；Google Finance US$9.35B），營收優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -732,14 +737,20 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；Google Finance 結果列 normalized EPS actual US$5.06／estimate US$3.89，與公司 adjusted operating earnings US$5.06 同口徑，EPS Beat。",
+          "secondary_refs": [
+            "https://www.google.com/finance/quote/CEG:NASDAQ?hl=en"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 revenue estimate；依頁面原列幣別及單位保存。"
+          "notes": "公布前 revenue estimate；依頁面原列幣別及單位保存。；Google Finance 結果列 revenue actual US$9.55B／estimate US$9.35B；原存 Finviz US$9.23B 及 Investing.com US$9.21B 亦低於 actual，GAAP operating revenue Beat。",
+          "secondary_refs": [
+            "https://www.google.com/finance/quote/CEG:NASDAQ?hl=en"
+          ]
         },
         "price_reaction_source": null,
         "issuer_country": "United States",
@@ -751,7 +762,11 @@
           "url": "https://investors.constellationenergy.com/",
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 CEG。"
-        }
+        },
+        "eps_actual_basis": "Adjusted operating earnings per share (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Normalized/adjusted EPS consensus (USD/share)",
+        "revenue_actual_basis": "GAAP operating revenue (USD billions)",
+        "revenue_estimate_basis": "GAAP operating revenue consensus (USD billions)"
       },
       {
         "id": "current-kkr-20261109",
@@ -776,9 +791,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": null,
-        "financial_judgment": "公司 adjusted Net Income per share US$1.78，高於 Reuters adjusted EPS 共識 US$1.59 及原 Finviz US$1.58；GAAP diluted EPS US$1.19。GAAP total revenues US$4.563679B；原營收估值 US$2.66B 的統計定義未能確認與 total revenues 相同，營收比較保留待核。",
+        "financial_judgment": "Adjusted Net Income per share US$1.78，高於 Reuters/LSEG adjusted EPS 共識 US$1.59及 Zacks／Finviz US$1.58，EPS 優於預期；GAAP diluted EPS US$1.19。GAAP total revenues US$4.563679B，但原營收估值 US$2.66B 的統計定義未能確認與 total revenues 相同，營收比較仍待核。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -794,7 +809,11 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；2026-11-10 04:38 Taipei 實績後交叉核對：Reuters 報導 adjusted EPS consensus US$1.59；官方 adjusted Net Income per share actual US$1.78。原 Finviz US$1.58 保留，不覆蓋。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；2026-11-10 04:38 Taipei 實績後交叉核對：Reuters 報導 adjusted EPS consensus US$1.59；官方 adjusted Net Income per share actual US$1.78。原 Finviz US$1.58 保留，不覆蓋。；口徑補核：Reuters/LSEG adjusted EPS consensus US$1.59、Zacks adjusted EPS consensus US$1.58，均與公司 adjusted Net Income per share US$1.78 同屬 adjusted EPS 比較；標記 Beat。",
+          "secondary_refs": [
+            "https://www.reuters.com/legal/transactional/kkr-profit-hits-record-asset-sales-fees-surge-2026-11-09/",
+            "https://www.zacks.com/stock/news/3026605/kkr-co-stock-gains-as-q3-earnings-beat-estimates-aum-rises-yy"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -813,7 +832,9 @@
           "url": "https://ir.kkr.com/",
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 KKR。"
-        }
+        },
+        "eps_actual_basis": "Adjusted Net Income per share (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Adjusted EPS consensus (non-GAAP; USD/share)"
       },
       {
         "id": "current-ttwo-20261109",
@@ -2530,9 +2551,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "公司 non-GAAP diluted EPS US$2.14、GAAP diluted EPS US$0.80；營收 US$377.535M。Barron's 指 adjusted EPS 高於 US$1.41 共識；營收高於原 MarketBeat 共識 US$369.17M。公司 Q4 營收展望 US$380–382M，低於市場約 US$386M 預期，需與本季實績分開判讀。",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "公司 non-GAAP diluted EPS US$2.14，高於 MarketBeat 共識 US$1.41，EPS 優於預期；GAAP diluted EPS US$0.80。GAAP 營收 US$377.535M，高於 MarketBeat 共識 US$369.17M，營收優於預期。公司 Q4 營收展望 US$380–382M，低於市場約 US$386M 預期，需與本季實績分開判讀。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2548,14 +2569,21 @@
           "url": "https://www.marketbeat.com/stocks/NASDAQ/MNDY/earnings/",
           "publisher": "MarketBeat",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP 口徑，保留原始估計，不預判 beat/miss。"
+          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP 口徑，保留原始估計，不預判 beat/miss。；結果後同口徑交叉確認：Barron's 指 adjusted EPS US$2.14 高於 US$1.41 預期；MarketBeat 同列 EPS US$2.14／US$1.41，確認 non-GAAP adjusted EPS Beat。",
+          "secondary_refs": [
+            "https://www.barrons.com/articles/mndy-earnings-stock-price-ai-0ea3f2f0"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Analyst revenue consensus",
           "url": "https://www.marketbeat.com/stocks/NASDAQ/MNDY/earnings/",
           "publisher": "MarketBeat",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 revenue consensus，保留來源原列 USD 單位。"
+          "notes": "公布前 revenue consensus，保留來源原列 USD 單位。；MarketBeat 結果頁列實際營收 US$377.54M、共識 US$369.17M，與官方 GAAP revenue US$377.535M 同口徑，Revenue Beat。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-mondaycom-ltd-stock/",
+            "https://www.barrons.com/articles/mndy-earnings-stock-price-ai-0ea3f2f0"
+          ]
         },
         "price_reaction_source": null,
         "issuer_country": "United States",
@@ -2567,7 +2595,11 @@
           "url": "https://ir.monday.com/news-and-events/news-releases/news-details/2026/monday-com-to-Announce-Third-Quarter-2026-Financial-Results-on-Monday-November-9-2026/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "發行人官方公告明確列示美國交易所代碼 MNDY。"
-        }
+        },
+        "eps_actual_basis": "Non-GAAP diluted net income per share (USD/share)",
+        "eps_estimate_basis": "Non-GAAP diluted EPS consensus (USD/share)",
+        "revenue_actual_basis": "GAAP revenue (USD millions)",
+        "revenue_estimate_basis": "GAAP revenue consensus (USD millions)"
       },
       {
         "id": "current-hims-20261109",
