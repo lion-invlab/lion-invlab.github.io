@@ -5,6 +5,7 @@ import argparse, hashlib, json, re, sys
 from datetime import datetime, timedelta
 from pathlib import Path
 from bs4 import BeautifulSoup
+from calendar_source_guard import load_authoritative_calendar, project_calendar_data
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
@@ -63,6 +64,10 @@ def main():
     ap.add_argument("--key-levels-live", help="optional live OHLC capture envelope produced by collect_key_levels_ohlc.py")
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text())
+    # Gate 0: never trust calendar copies embedded in fixtures or the simulation branch.
+    # Fetch origin/main and read both ISO weeks from that immutable main commit only.
+    calendar_source = load_authoritative_calendar(data["report_date"])
+    data.update(project_calendar_data(calendar_source))
     is_live_key_levels = False
     if args.key_levels_live:
         live=json.loads(Path(args.key_levels_live).read_text(encoding="utf-8"))
@@ -131,6 +136,10 @@ def main():
     previous_trade=data.get("trading_date","待核實")
     report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
+    provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": {k:v for k,v in calendar_source["previous"].items() if k != "payload"}, "mode": "READ_ONLY"}
+    head_node = soup.select_one("head")
+    if head_node is None: raise ValueError("HTML head missing; cannot record authoritative calendar provenance")
+    head_node.append(soup.new_string(" TAC_CALENDAR_SOURCE " + json.dumps(provenance, ensure_ascii=False, separators=(",", ":")), Comment=True))
     # Normalize the two Monday previous-week disclosure controls to the economic-calendar reference layout.
     disclosure_css = """
 <style id="tac-last-week-disclosure-unified-v1">
@@ -1719,7 +1728,7 @@ def main():
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False,"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()
