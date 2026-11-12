@@ -162,7 +162,7 @@ def collect(report_date: str, output: str):
 
     # Apply independently sourced, date-locked overrides only to Yahoo gaps.
     # Every override is tied to the same authoritative main calendar SHA.
-    override_path = Path("simulation-lab/fixtures/earnings-price-reaction-overrides-2026-11-12.json")
+    override_path = Path(f"simulation-lab/fixtures/earnings-price-reaction-overrides-{report_date}.json")
     if override_path.exists():
         override_doc = json.loads(override_path.read_text(encoding="utf-8"))
         if override_doc.get("report_date") != report_date or override_doc.get("calendar_blob_sha") != bundle["current"]["blob_sha"]:
