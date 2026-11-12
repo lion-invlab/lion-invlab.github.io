@@ -2,7 +2,7 @@
   "report_date": "2026-11-13",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-12",
-  "summary": "11/12 全球風險資產轉弱，美股三大指數回落，SOX -0.54%、Russell 2000 -1.53%，台灣加權下跌 2.63%。S&P 11 產業 ETF 僅能源、科技、工業等部分板塊上漲，市場廣度分化。美債殖利率明顯上行，2Y 4.867%、10Y 5.124%、30Y 5.432%；WTI CME Dec-26 收 88.92 美元、Brent ICE Jan-27 收 92.35 美元。黃金 GCZ6 下跌 3.06%，白銀 SIZ6 下跌 3.82%；VIX 收 17.60，MOVE 升至 98.4202。CNN Fear & Greed 備援讀值 40（Fear），FedWatch 顯示 12 月升息 25bp 機率 88.3%。",
+  "summary": "11/12 全球風險資產轉弱，美股三大指數回落，SOX -0.54%、Russell 2000 -1.53%，台灣加權下跌 2.63%。S&P 11 產業 ETF 僅能源、科技、工業等部分板塊上漲，市場廣度分化。美債殖利率明顯上行，2Y 4.867%、10Y 5.124%、30Y 5.432%；WTI CME Dec-26 收 88.92 美元、Brent ICE Jan-27 收 94.54 美元。黃金 GCZ6 下跌 3.06%，白銀 SIZ6 下跌 3.82%；VIX 收 17.60，MOVE 升至 98.4202。CNN Fear & Greed 備援讀值 40（Fear），FedWatch 顯示 12 月升息 25bp 機率 88.3%。",
   "sentiment": "市場情緒偏向 Fear。美股與亞洲主要指數同步走弱，半導體與小型股跌幅較大；美債殖利率上行、MOVE 升至 98.4202，顯示利率波動壓力升高。VIX 17.60 尚未進入極端恐慌區，但 CNN Fear & Greed 40 仍處 Fear。FedWatch 12 月升息機率 88.3%，市場須防範利率維持高檔對高估值資產的折現壓力。",
   "focus_news": [
     {
@@ -412,18 +412,18 @@
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 CME December 2026 futures historical close; source page snapshot available at 05:15 Taipei."
+        "note": "2026-11-12 CME WTI December 2026 指定合約歷史收盤；採 historical close 88.92、日變動 +2.76%，不採 11/13 05:15 的盤中即時價 88.94。"
       }
     },
     "Brent原油期貨": {
-      "display": "92.35",
-      "change_display": "-0.44%",
+      "display": "94.54",
+      "change_display": "+1.92%",
       "source": {
         "name": "Investing.com HK｜ICE Brent Jan 2027",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1184864",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 ICE January 2027 futures historical close; exact contract identity retained."
+        "note": "2026-11-12 ICE Brent January 2027 指定合約歷史收盤；Investing.com HK 歷史列為 94.54、+1.92%。Reuters 同日基準結算報 95.82、+3.3%，存在供應商／報價口徑差異；本報表為遵守 Investing.com HK 優先來源，統一採指定合約歷史列，並保留差異註記。"
       }
     }
   },
@@ -520,7 +520,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "11/13 05:05 台灣時間快照：12月升息25bp 88.3%、升息50bp 11.7%。CME QuikStrike 嵌入頁無法取得；此為備援快照，非FOMC決議。"
   },
-  "observation": "11/12 美股與亞洲股市走弱，SOX -0.54%、Russell 2000 -1.53%、台股 -2.63%；歐洲股市相對抗跌。美債 2Y／10Y／30Y 殖利率分別為 4.867%、5.124%、5.432%，MOVE 98.4202 上升 6.47%，VIX 17.60。WTI CME Dec-26 +2.76%，Brent ICE Jan-27 -0.44%；黃金 GCZ6 -3.06%、白銀 SIZ6 -3.82%。FedWatch 12 月升息 25bp 機率 88.3%、50bp 11.7%；風險焦點是高利率、能源通膨與 AI 估值修正是否互相放大。",
+  "observation": "11/12 美股與亞洲股市走弱，SOX -0.54%、Russell 2000 -1.53%、台股 -2.63%；歐洲股市相對抗跌。美債 2Y／10Y／30Y 殖利率分別為 4.867%、5.124%、5.432%，MOVE 98.4202 上升 6.47%，VIX 17.60。WTI CME Dec-26 +2.76%，Brent ICE Jan-27 +1.92%；黃金 GCZ6 -3.06%、白銀 SIZ6 -3.82%。FedWatch 12 月升息 25bp 機率 88.3%、50bp 11.7%；風險焦點是高利率、能源通膨與 AI 估值修正是否互相放大。",
   "calendar": {
     "week_id": "2026-W46",
     "week_start": "2026-11-09",
@@ -4444,7 +4444,7 @@
     "sectors": "S&P 11 產業 ETF 依 11/12 Investing.com 歷史收盤漲跌幅排序：XLK +3.23%、XLE +1.86%、XLI +1.33%、XLC +0.78%、XLF +0.58%、XLP +0.46%、XLB +0.32%、XLU +0.21%、XLV +0.04%、XLRE +0.02%、XLY -0.05%。",
     "bonds": "美債殖利率 11/12 明顯上行：2Y 4.867%（+1.95%）、10Y 5.124%（+2.81%）、30Y 5.432%（+1.92%）。殖利率上升提高長久期資產折現壓力；MOVE 上升 6.47%至 98.4202。",
     "fx": "DXY 103.18（+0.26%），USD/TWD 33.003（+0.34%）；EUR/USD 1.1055（-0.32%）、GBP/USD 1.3237（-0.34%）、AUD/USD 0.6804（-0.63%）、USD/JPY 159.86（+0.05%）。美元偏強，亞洲貨幣及風險資產承壓。",
-    "energy": "WTI CME 2026年12月期貨收 88.92 美元、上漲 2.76%；Brent ICE 2027年1月期貨收 92.35 美元、下跌 0.44%。兩者為不同交易所及月份合約，解讀時須保留合約口徑。",
+    "energy": "WTI CME 2026年12月期貨收 88.92 美元、上漲 2.76%；Brent ICE 2027年1月期貨收 94.54 美元、上漲 1.92%。兩者為不同交易所及月份合約，解讀時須保留合約口徑。",
     "metals": "黃金 GCZ6 11/12 收 3,878.20 美元、下跌 3.06%；白銀 SIZ6 收 50.015 美元、下跌 3.82%。貴金屬回落與殖利率上行同時出現，顯示實質利率與美元因素可能壓抑避險需求。"
   },
   "last_week_calendar": {
@@ -4564,7 +4564,7 @@
     },
     {
       "label": "能源分歧",
-      "text": "WTI CME Dec-26 上漲 2.76%，Brent ICE Jan-27 下跌 0.44%；需留意不同合約與供需因素，不混用報價。"
+      "text": "WTI CME Dec-26 上漲 2.76%，Brent ICE Jan-27 上漲 1.92%；需留意不同合約與供需因素，不混用報價。"
     },
     {
       "label": "避險需求升溫",
@@ -4754,7 +4754,7 @@
   },
   "core_observation": {
     "heading": "盤面觀察重點",
-    "text": "11/12 美股與亞洲股市走弱，SOX -0.54%、Russell 2000 -1.53%、台股 -2.63%；歐洲股市相對抗跌。美債 2Y／10Y／30Y 殖利率分別為 4.867%、5.124%、5.432%，MOVE 98.4202 上升 6.47%，VIX 17.60。WTI CME Dec-26 +2.76%，Brent ICE Jan-27 -0.44%；黃金 GCZ6 -3.06%、白銀 SIZ6 -3.82%。FedWatch 12 月升息 25bp 機率 88.3%、50bp 11.7%；風險焦點是高利率、能源通膨與 AI 估值修正是否互相放大。",
+    "text": "11/12 美股與亞洲股市走弱，SOX -0.54%、Russell 2000 -1.53%、台股 -2.63%；歐洲股市相對抗跌。美債 2Y／10Y／30Y 殖利率分別為 4.867%、5.124%、5.432%，MOVE 98.4202 上升 6.47%，VIX 17.60。WTI CME Dec-26 +2.76%，Brent ICE Jan-27 +1.92%；黃金 GCZ6 -3.06%、白銀 SIZ6 -3.82%。FedWatch 12 月升息 25bp 機率 88.3%、50bp 11.7%；風險焦點是高利率、能源通膨與 AI 估值修正是否互相放大。",
     "details": "關鍵觀察：①美債殖利率及 MOVE 同步上行，檢視金融條件是否進一步收緊；②AI 權值股回檔是否擴散至半導體供應鏈與其他高估值產業；③油價、美元與亞洲匯率變化是否再度推升通膨與資金壓力。"
   },
   "qa_run_revision": "2026-11-13-qa-fix-6",
