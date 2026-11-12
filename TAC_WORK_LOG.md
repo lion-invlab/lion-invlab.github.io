@@ -713,3 +713,34 @@
 - 更新後重新 fetch 確認 score=40 與 marker `left:40% !important` 一致。main `index.html` 未修改；正式母版、Manifest、WR、calendar JSON 均未修改。
 - 本次 preview commit 沒有關聯到 workflow run（查詢回傳空陣列）；單元測試 3/3 PASS 是先前模擬分支 Actions run `43328084919` 的結果。新增的 Chromium 實際座標測試尚未執行，故瀏覽器視覺 Gate 仍待驗證。
 - 下一步：執行 Playwright／瀏覽器 smoke，確認在核准母版的實際 CSS 與 viewport 下，白點中心與刻度位置誤差在允許範圍；不可只憑 inline style 就宣稱視覺 Gate 通過。
+
+
+## 2026-11-13｜11/13 審核版財報／原油補漏與瀏覽器 QA 阻塞紀錄
+
+### 來源與版本基準
+- main WR v5.15 blob：`23b52f27b7afad083bbe28ed86021e04759f198d`。
+- main Manifest blob：`fade5e3d88de76a79cb5c1656cc592b98827ab55`；週二至週五核准母版實際 blob SHA：`3785405e331b10ec6189002e480be2a1edbe20ef`，相符；結構 QA 清單 v1.3：`74a7c90aaaeee497b7b2b134d9569aee615d95c0`。
+- main preview `preview/2026-11-13-simulation.html` SHA：`80a067767ae2e9f0ab5d7ea10b1285f8722516d4`；W46 JSON SHA：`ebad9f0574044b83712a549ea0923af30b39c8e0`；simulation fixture SHA：`fe3196b25e685528dba95e8c8cb206c8c0055abb`。
+
+### 財報卡片盤點
+- W46 有 48 筆事件，42 家四星／五星已公布；preview 內 42 張已公布卡均有 EPS／營收結果雙卡、財報判讀及股價反應欄位。
+- 發現至少 30 家有一個 EPS／營收比較狀態仍顯示「比較口徑待核實」，但判讀文字已明確說明其中一項高於／低於共識。根因在 `simulation-lab/runner/build_review_html.py` 的 `earnings_comparison_status()`：僅接受明確 comparison_status，或 actual_basis 與 estimate_basis 相等；多筆 W46 資料 status/basis 欄位為 null，故 UI 未反映既有判讀文字。30 家為需逐項核實候選，不得直接一律改成 Beat/Miss；需先核對 EPS GAAP／adjusted 口徑、營收定義、幣別、共識來源及四捨五入。
+- Vodafone 是明確資料文字矛盾：W46 JSON 已有 EPS actual -0.2075 EUR、revenue actual 21.853 EUR bn，來源 notes 記載官方 H1 FY27 PDF 的 IFRS basic loss/share -20.75 eurocents、revenue EUR21,853M；但 financial_judgment 仍稱 actual null／未取得 PDF。preview 雙卡已顯示實際數字，判讀文字卻未更新。應以官方 PDF 實際值重寫判讀，不得再稱 actual null。
+
+### 原油數據來源裁決待辦
+- preview 卡片：WTI 88.94（+2.79%）、Brent 95.77（+3.24%）；preview 總結／盤面觀察文字卻引用 WTI +2.76%、Brent -0.44%。
+- simulation fixture 另列 WTI 88.92（+2.76%）、Brent 92.35（-0.44%），與 preview 卡片不一致。
+- 重新讀取 HTML 原列合約 URL：
+  - WTI CME Dec-26：`https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037`，11/12 歷史列顯示 88.70、+2.51%（Investing.com HK，頁面行 16–18、47–51）。
+  - Brent ICE Jan-27：`https://hk.investing.com/commodities/brent-oil-historical-data?cid=1184864`，11/12 歷史列顯示 95.95、+3.44%（Investing.com HK，頁面行 16–18、47–51）。
+  - Reuters 同日報導基準結算 Brent 95.82（+3.3%）、WTI 88.74（+2.6%）：`https://www.reuters.com/business/energy/oil-prices-drop-more-than-1-hopes-iran-ukraine-peace-talks-pressure-markets-2026-11-12/`。
+- 結論：報告卡片、fixture、原油來源頁、摘要／盤面觀察有多套互相衝突數字。暫不將任何單一版本直接回填；須先裁決合約、結算／歷史報價口徑，再同步所有引用位置。
+
+### 瀏覽器 QA
+- workflow `.github/workflows/tac-simulation-lab.yml` 確有 `workflow_dispatch`，而 Chromium QA step 只在 workflow_dispatch 或指定 push commit message 時執行。
+- 本次可用 GitHub connector 無 workflow-dispatch 動作；本機未安裝 Playwright，DNS／外網無法下載 repo HTML 或安裝瀏覽器。因此 `interaction_smoke.mjs` 尚未對 11/13 preview 實際執行；先前 Actions run `43328084919` 的 deterministic unit tests PASS 不等於 browser QA PASS。
+- 狀態：Fear & Greed score 40 與 marker inline 40% !important 已回讀確認；Chromium 實際座標／20、40、75 合成位置測試仍為「未測試」。
+
+### 修改與保護範圍
+- 本紀錄僅更新 simulation branch 的 Session State／Work Log；未修改 main preview、main index.html、正式母版、Manifest、WR 或 W46 行事曆 JSON。
+- 因本次執行環境無法提供真正 DOM parser 直接處理 main preview，依 WR v5.15 不使用 regex／字串替換修改 HTML。所有內容修正列為待處理，不能宣稱完成或通過 QA。
