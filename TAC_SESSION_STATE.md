@@ -1300,3 +1300,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 更新後重新 fetch 確認 score=40 與 marker `left:40% !important` 一致。main `index.html` 未修改；正式母版、Manifest、WR、calendar JSON 均未修改。
 - 本次 preview commit 沒有關聯到 workflow run（查詢回傳空陣列）；單元測試 3/3 PASS 是先前模擬分支 Actions run `43328084919` 的結果。新增的 Chromium 實際座標測試尚未執行，故瀏覽器視覺 Gate 仍待驗證。
 - 下一步：執行 Playwright／瀏覽器 smoke，確認在核准母版的實際 CSS 與 viewport 下，白點中心與刻度位置誤差在允許範圍；不可只憑 inline style 就宣稱視覺 Gate 通過。
+
+
+## 2026-11-13｜審核版 QA 阻塞與財報／原油補漏盤點（接續）
+
+- 本次依 main 最新 WR v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）、Manifest（`fade5e3d88de76a79cb5c1656cc592b98827ab55`）、週二至週五核准母版（實際 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`，與 Manifest 相符）及結構 QA 清單 v1.3（`74a7c90aaaeee497b7b2b134d9569aee615d95c0`）進行只讀盤點。
+- main 審核版 `preview/2026-11-13-simulation.html` 目前 blob SHA `80a067767ae2e9f0ab5d7ea10b1285f8722516d4`；main W46 行事曆 JSON `data/calendar/weeks/2026-W46.json` SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`；simulation fixture `simulation-lab/fixtures/report-data-2026-11-13.json` SHA `fe3196b25e685528dba95e8c8cb206c8c0055abb`。以上均只讀，沒有修改行事曆 JSON 或 preview。
+- Fear & Greed：既有 preview 已顯示 score 40，marker inline `left:40% !important`，但 Chromium 實際座標 smoke 尚未執行。workflow 有 `workflow_dispatch`，但目前可用 GitHub 工具沒有 workflow-dispatch 動作；本機環境未安裝 Playwright，且 DNS／外網不可用，無法把 main preview 拉到本機執行瀏覽器測試。此前 run `43328084919` 只證明 deterministic unit tests 成功，不能視為 browser QA 通過。狀態：**未測試／阻塞**。
+- 財報小卡：main W46 共有 48 個事件，其中 42 家四星／五星已公布；main preview 已有 42 張已公布卡片，卡片結構均包含結果雙卡、財報判讀及股價反應欄位。逐筆比對資料庫與 HTML 後，至少 30 家有一個比較欄位仍呈「比較口徑待核實」，但其 `financial_judgment` 文字已明確敘述營收或 EPS 高於／低於共識；原因是組裝器只接受明確 `*_comparison_status` 或成對的 `actual_basis == estimate_basis`，而 W46 多筆 status 為 null／basis 未填，故 UI 狀態與判讀文字不一致。30 家是待逐項核對的候選集合，不代表 30 家都可直接改判 Beat/Miss；必須排除會計口徑、幣別、營收定義、四捨五入及共識來源差異。
+- 明確 stale text：Vodafone Group 的 W46 記錄已有 `eps_actual=-0.2075`、`revenue_actual=21.853`，來源 notes 亦記錄官方 H1 FY2027 PDF 的 IFRS basic loss/share -20.75 eurocents、revenue EUR21,853M；但 `financial_judgment` 仍稱 actual 維持 null、尚未抽取 PDF。preview 已顯示實際數值，判讀欄卻沿用舊說明，必須修正。
+- 原油：preview 現行卡片為 WTI 88.94（+2.79%）、Brent 95.77（+3.24%）；但同份 preview 的總結／盤面觀察仍沿用 fixture 的 WTI +2.76%、Brent -0.44%，形成內部不一致。fixture 值為 WTI 88.92（+2.76%）、Brent 92.35（-0.44%）。重新開啟 HTML 所列精確 Investing.com HK 合約頁，11/12 歷史列目前分別為 WTI CME Dec-26 88.70（+2.51%）及 Brent ICE Jan-27 95.95（+3.44%）；Reuters 同日報導基準結算 WTI 88.74（+2.6%）、Brent 95.82（+3.3%）。因此 preview 卡片數值、fixture、來源頁及分析文字四者不一致，WTI／Brent 都必須重新鎖定正確報價口徑後再同步，不能只把舊分析文字改成卡片數字。
+- 本次未寫入 preview、母版、Manifest、WR 或 W46 JSON。由於目前無可用 DOM parser 直接存取 main preview 的工作環境，依 WR 禁止以字串／regex 代替 DOM 更新，故不做不安全的 HTML 寫入。
+- 下一步：取得可用 DOM parser／瀏覽器執行環境後，先修正並驗收 Vodafone 判讀及已核實比較欄位；原油依合約歷史列與 Reuters 結算價完成來源裁決後，再同步卡片、摘要、盤面觀察及評論；最後執行 Fear & Greed Chromium 座標 smoke 與標準視窗 QA。正式首頁 `index.html` 未修改。
