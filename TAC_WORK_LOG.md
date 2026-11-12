@@ -674,3 +674,12 @@
 - 視覺回歸視窗依 WR 5.3 修正為 1440、768、412、390、360px。
 - Workflow commit `c0b56147f1c1e0c8ecb13834c960122b9639eab4`，blob `89291a58995b65b9e3c4d22892385b2dc99b7174`；視覺回歸 commit `11fcdc004119c81d5a3ce2fe3b7a6d3ccd7ab6a2`，blob `b7ab04fee5a729a01309017e9ece4d87ae72653c`。
 - Push smoke run `43317826574` 當時 pending；完整 workflow 尚未對 11/13 執行，因 11/13 fixture 尚未建立。未修改 main、正式母版、Manifest、行事曆 JSON、index.html。
+
+
+## 2026-11-13｜11/13 fixture 建立與行情資料補齊
+
+- 建立 `simulation-lab/fixtures/report-data-2026-11-13.json`，日期對應 11/13 報告、11/12 交易日；固定欄位數量為全球17、ETF11、債券3、FX6、能源2、貴金屬2、風險3、新聞5+10、關鍵價位5。
+- Investing.com 歷史數據補齊八項：US2Y 4.867%、US10Y 5.124%、US30Y 5.432%、WTI CME Dec-2026 88.92 +2.76%、Brent ICE Jan-2027 92.35 -0.44%、GCZ6 3,878.20 -3.06%、SIZ6 50.015 -3.82%、VIX 17.60 +0.63%。43 verified、1 provisional；CNN Fear & Greed 40 保留 FGScore 備援標示。
+- 新聞來源及時間窗補齊，並修正 NVIDIA 公告時間欄位為 11/12 22:44（台灣時間）。
+- Workflow 增加 fixture push 時執行日期組裝的條件；commit `b0f54e52fd129773b798cc824ba253455e423801`。觸發的 run `43318535995` 尚在執行；先前 `43318515432` 被新 push 取消。
+- 未修改 main、首頁、正式母版、Manifest 或 main 行事曆；完整 HTML 尚未產出，待 Actions 四大 Gate 結果。
