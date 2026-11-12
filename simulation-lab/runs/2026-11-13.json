@@ -913,7 +913,8 @@
         "source_ref": "turn921110search9",
         "published_taipei": "2026-11-12T17:58:00+08:00"
       }
-    ]
+    ],
+    "editorial_status": "5 macro focus stories and 10 market headlines collected within 2026-11-12 12:00 to 2026-11-13 05:25 Taipei; editorial final dedup and summaries pending."
   },
   "analysis_draft": {
     "summary": "美股與亞洲風險資產走弱，主要催化是 AI 產業領導層事件與高估值科技股風險重估；歐洲則由企業財報支撐。美債殖利率走高、油價反彈，使折現率與通膨風險同時升溫；黃金與白銀的精確結算仍待合約核對。",
@@ -931,19 +932,22 @@
     "assembler_path": "simulation-lab/runner/build_review_html.py",
     "assembler_blob_sha": "f141da39e584bb670a626b225ceeb3483c3cce60",
     "reason": [
-      "本次執行環境無法在 repo 工作目錄執行既有 Python／BeautifulSoup 組裝器。",
-      "現有 tac-simulation-lab.yml 固定使用 2026-11-12 日期，且包含 Actions OHLC 擷取步驟；不符合本次 2026-11-13 人工流程，未擅自修改或觸發。",
-      "五個美股關鍵指數只有 Dow、Nasdaq 取得可用同日現貨 OHLC；SOX 僅 provisional，S&P 500 與 Russell 2000 缺少可接受的同日現貨 OHLC。現有 key-level builder 對缺漏項目不接受，無法形成完整五指數關鍵價位輸入。"
+      "本輪已補齊五大指數 OHLC 與 Pivot（5/5），此項不再是組裝阻塞。",
+      "simulation-lab/fixtures 尚無 report-data-2026-11-13.json；目前既有 fixture 最新為 2026-11-12，且舊 workflow 將日期、輸出檔名、新聞時間窗與若干數值斷言硬編碼為 11/12。",
+      "build_review_html.py 必須在 repo 工作目錄執行，並依賴 calendar_source_guard.py 從 main 讀取 W46；目前對話可讀寫 GitHub 檔案，但無法直接在該 repo 工作目錄執行既有 Python／BeautifulSoup／Playwright。",
+      "未建立替代組裝器、未修改舊 workflow、未用 11/12 fixture 假冒 11/13。"
     ],
     "alternate_assembler_created": false,
-    "replacement_html_created": false
+    "replacement_html_created": false,
+    "missing_report_data_fixture": "simulation-lab/fixtures/report-data-2026-11-13.json",
+    "required_execution": "GitHub Actions / repo runner with Python 3.12, BeautifulSoup, Playwright; workflow must be date-correct before dispatch"
   },
   "qa": {
     "review_ready": false,
-    "data_date_source_audit": "partial; 29 verified, 5 provisional, 14 pending",
+    "data_date_source_audit": "partial; 38 verified, 4 provisional, 2 pending (44 total)",
     "mother_sha_check": "pass",
     "manifest_check": "pass",
-    "calendar_read_only_check": "pass; zero writes",
+    "calendar_read_only_check": "pass; main W46 read-only, 16 economic events and 48 earnings events; zero writes",
     "html_dom_structure": "not_run",
     "html_integrity": "not_run",
     "link_validation": "not_run",
@@ -951,7 +955,9 @@
     "mobile_visual": "not_run",
     "mobile_320px": "not_run",
     "interaction_test": "not_run",
-    "live_preview_open_test": "not_run"
+    "live_preview_open_test": "not_run",
+    "key_levels": "pass; all five US cash indices have 2026-11-12 OHLC and calculated pivot levels",
+    "news_window_check": "pass; 5 global focus stories and 10 market headlines within configured Taipei-time selection window; final editorial dedup/summary review pending"
   },
   "delivery": {
     "planned_main_preview_path": "preview/2026-11-13-simulation.html",
@@ -995,6 +1001,16 @@
     "SOX 歷史數據修正：使用者指出應直接讀取 Investing.com HK 歷史數據表。依截圖校正 2026-11-12 收盤 10,506.7、開盤 10,174.1、最高 10,686.8；最低價欄被截圖裁切。舊計算誤把開盤 10,174.1 當最低價，已撤銷 SOX 舊 Pivot levels，待補最低價後重算。",
     "SOX OHLC 補齊：使用者第二張 Investing.com HK 歷史表截圖明確顯示 11/12 高 10,686.8、低 10,174.1；配合第一張截圖開盤 10,174.1、收盤 10,506.7。Pivot 已重算。",
     "S&P 500 OHLC 由 Investing.com HK 歷史數據頁取得：11/12 收市 7,593.04、開市 7,564.11、高 7,652.40、低 7,559.61；Pivot 已計算。Russell 2000 Investing.com HK 歷史表目前最新列仍為 11/11，未出現 11/12，故不以舊列或即時 CFD 報價替代。",
-    "Russell 2000 補齊：Investing.com HK 歷史表仍停留 11/11，改採 Investing.com global historical table 同供應商 11/12 歷史列：收市 2,802.84、開市 2,831.80、高 2,837.45、低 2,802.30、跌 1.53%。Pivot 已計算；來源註記明確保留 HK 頁面延遲、改用 global 頁面的原因。"
-  ]
+    "Russell 2000 補齊：Investing.com HK 歷史表仍停留 11/11，改採 Investing.com global historical table 同供應商 11/12 歷史列：收市 2,802.84、開市 2,831.80、高 2,837.45、低 2,802.30、跌 1.53%。Pivot 已計算；來源註記明確保留 HK 頁面延遲、改用 global 頁面的原因。",
+    "2026-11-13 進度校正：五大指數 OHLC/Pivot 已全數完成；W46 main calendar read-only 讀取 16 經濟事件、48 財報事件；新聞 5+10 候選均在指定時間窗。HTML 組裝阻塞已更新為缺少 11/13 report-data fixture 與 repo 工作目錄 Python/Playwright 執行環境，舊 workflow 硬編碼 11/12；不觸發舊流程、不造替代組裝器。"
+  ],
+  "earnings_calendar_snapshot": {
+    "source": "main:data/calendar/weeks/2026-W46.json",
+    "blob_sha": "ebad9f0574044b83712a549ea0923af30b39c8e0",
+    "wr_version": "5.15",
+    "economic_events": 16,
+    "earnings_events": 48,
+    "cutoff_taipei": "2026-11-13 05:25",
+    "note": "11/13 05:25 report cutoff: events scheduled after cutoff remain upcoming; no future results or post-release price reactions fabricated."
+  }
 }
