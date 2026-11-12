@@ -657,9 +657,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": null,
-        "financial_judgment": "公司 adjusted EPS US$4.68、GAAP basic EPS US$2.59。Finviz 原 EPS 共識 US$3.35 未揭露口徑；Nexqual 另列 adjusted diluted EPS 共識 US$3.03，兩來源均低於實際 adjusted EPS，但保留來源差異。營收 US$9.47B，高於原 Finviz US$8.42B、Nexqual US$9.29B；Zacks 曾列 US$6.72B，定義差異仍待釐清，故不覆蓋原共識。",
+        "financial_judgment": "公司 non-GAAP Adjusted EPS US$4.68，高於 MarketBeat／Finviz 共識 US$3.35，EPS 優於預期；GAAP basic EPS US$2.59。Yahoo normalized EPS consensus 另列 US$3.03，方向一致但數值來源不同。營收 US$9.47B 高於 Finviz US$8.42B、Nexqual US$9.29B；其他來源曾列不同定義，故保留原估值與來源差異。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -675,7 +675,12 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；口徑補核：MarketBeat Q3 2026 歷史表及 WSJ 均列 actual adjusted EPS US$4.68 vs consensus US$3.35；公司官方明確標示 US$4.68 為 non-GAAP Adjusted EPS，故 EPS Beat。Yahoo normalized EPS consensus 另列 US$3.03，仍保留來源差異。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/stocks/NYSE/NRG/earnings/",
+            "https://finance.yahoo.com/quote/NRG/analysis/?p=NRG",
+            "https://www.wsj.com/business/earnings/nrg-energy-signs-4-billion-asset-sale-agreement-posts-higher-quarterly-earnings-457b3efe"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -694,7 +699,9 @@
           "url": "https://investors.nrg.com/news-releases/news-release-details/nrg-energy-report-third-quarter-2026-financial-results-november",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 NRG Energy, Inc. (NYSE: NRG)。"
-        }
+        },
+        "eps_actual_basis": "Adjusted EPS (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Adjusted EPS consensus (USD/share)"
       },
       {
         "id": "current-ceg-20261109",
@@ -990,9 +997,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "FY2026 Q4 net sales US$2.988B，高於原存 US$2.95B 共識；GAAP EPS US$10.33，adjusted EPS US$12.44。EPS 共識 basis 未揭露，不作 beat/miss 判斷。",
+        "financial_judgment": "Adjusted diluted EPS US$12.44，高於 MarketBeat／RapidTradeView adjusted EPS 共識 US$12.21，EPS 優於預期；GAAP diluted EPS US$10.33。部分聚合頁將 GAAP actual US$10.33 與 adjusted consensus US$12.21 比較，口徑不一致，不採該 Miss 結論。Net sales US$2.988B 高於 US$2.95B 共識，營收亦優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -1011,7 +1018,11 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；口徑補核：MarketBeat 及 RapidTradeView 均列 adjusted EPS actual US$12.44 vs consensus US$12.21；公司 SEC／官方公告確認 adjusted diluted EPS US$12.44，故 EPS Beat。TipRanks 頁面以 GAAP EPS US$10.33 對比 adjusted consensus US$12.21，口徑不一致，不採其 Miss 判讀。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-10-transdigm-group-incorporated-stock/",
+            "https://www.rapidtradeview.trade/earnings/reports/tdg-2026-q4"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -1030,7 +1041,9 @@
           "url": "https://transdigmgroupinc.gcs-web.com/news-releases/news-release-details/transdigm-fourth-quarter-earnings-report-and-conference-call-16",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 TransDigm Group Incorporated (NYSE: TDG)。"
-        }
+        },
+        "eps_actual_basis": "Adjusted diluted EPS (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Adjusted EPS consensus (USD/share)"
       },
       {
         "id": "current-crwv-20261110",
@@ -1304,9 +1317,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$980.8M（+571% y/y），高於已存 Finviz revenue estimate US$907.2M；U.S. GAAP diluted loss/share -US$0.13，continuing-operations net loss US$37.5M，adjusted EBITDA US$465.8M（non-GAAP）。公司 2026 revenue outlook 調至原 US$3.0–3.4B 區間低端，部分容量收入遞延至 2027；EPS consensus basis 未揭露，不判 beat/miss。",
+        "financial_judgment": "GAAP diluted loss/share -US$0.13，優於 TipRanks／MarketBeat 共識約 -US$0.72（虧損小於預期），EPS Beat。Q3 revenue US$980.8M，高於 Finviz 共識 US$907.2M；adjusted EBITDA US$465.8M（non-GAAP）。公司將 2026 revenue outlook 調至原 US$3.0–3.4B 區間低端，部分容量收入遞延至 2027。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -1326,7 +1339,11 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-12&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；TipRanks Q3 2026 results 列 GAAP EPS actual -US$0.13 vs consensus -US$0.72；MarketBeat consensus -US$0.7236，與官方 GAAP diluted loss/share -US$0.13 同方向，EPS Beat。",
+          "secondary_refs": [
+            "https://www.tipranks.com/stocks/nbis/earnings/q3-2026-report?custom18=stockpage&llf=earnings-event-entry",
+            "https://www.marketbeat.com/earnings/reports/2026-11-12-nebius-group-nv-stock/"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -1345,7 +1362,9 @@
           "url": "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
           "publisher": "Company Investor Relations",
           "notes": "公司官方公告明確列示 Nasdaq: NBIS。"
-        }
+        },
+        "eps_actual_basis": "GAAP diluted EPS from continuing operations (USD/share)",
+        "eps_estimate_basis": "GAAP diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-csco-20261112",
@@ -1983,9 +2002,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$570.2M，高於原存 US$566.27M 共識；官方財報表列 non-GAAP diluted net income per share US$1.42。EPS 共識 basis 未確認，故不作 EPS beat/miss 判斷。",
+        "financial_judgment": "公司 non-GAAP diluted EPS US$1.42，高於 MarketBeat／Finviz 共識 US$1.40，EPS 優於預期；Google Finance normalized EPS estimate 另列 US$1.35。GAAP diluted EPS 口徑未以此欄位呈現。Q3 revenue US$570.2M，高於原存共識 US$566.27M，營收亦優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2006,7 +2025,11 @@
           "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap",
           "publisher": "Finviz",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；MarketBeat 結果頁列 EPS actual US$1.42 vs consensus US$1.40；Google Finance normalized EPS actual US$1.42 vs estimate US$1.35；公司官方財報確認 non-GAAP diluted EPS US$1.42，均支持 EPS Beat。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-10-wixcom-ltd-stock/",
+            "https://www.google.com/finance/beta/quote/WIX:NASDAQ?tab=earnings"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -2025,7 +2048,9 @@
           "url": "https://www.wix.com/press-room/home/post/wix-to-announce-third-quarter-2026-results-on-november-10-2026",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 Wix.com Ltd. (Nasdaq: WIX)。"
-        }
+        },
+        "eps_actual_basis": "Non-GAAP diluted net income per share (USD/share)",
+        "eps_estimate_basis": "Normalized/non-GAAP EPS consensus (USD/share)"
       },
       {
         "id": "current-mrcy-20261111",
@@ -2042,17 +2067,17 @@
         "reporting_period": "FY2027 Q1",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "GAAP diluted EPS US$0.21；adjusted EPS US$0.52 另列。Finviz EPS consensus basis 未揭露，故不作 EPS beat/miss 判斷。",
-        "eps_estimate": 0.3,
-        "eps_actual": 0.21,
+        "eps_basis": "Adjusted EPS US$0.52 is the comparable non-GAAP actual; GAAP diluted EPS US$0.21 is also disclosed.",
+        "eps_estimate": 0.2977,
+        "eps_actual": 0.52,
         "revenue_estimate": 245,
         "revenue_actual": 253,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "FY2027 Q1 revenue US$253M，高於 Finviz 原存 US$245M 共識，營收 beat。GAAP diluted EPS US$0.21；adjusted EPS US$0.52。EPS 共識 basis 未揭露，不作 EPS beat/miss。Bookings US$370M、book-to-bill 1.46、backlog 約 US$2.1B；營運現金流 -US$14M、free cash flow -US$24M。",
+        "financial_judgment": "Adjusted EPS US$0.52，高於 MarketBeat 共識 US$0.2977，EPS 優於預期；另列 GAAP diluted EPS US$0.21。Revenue US$253.15M，高於共識 US$245M；Bookings US$370.5M、book-to-bill 1.46、backlog 約 US$2.1B；營運現金流 -US$14M、free cash flow -US$24M。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2067,11 +2092,11 @@
           ]
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-10",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "MarketBeat｜Mercury Systems Q1 FY2027 EPS consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-10-mercury-systems-inc-stock/",
+          "publisher": "MarketBeat",
+          "observed_at": "2026-11-12T05:00:00+08:00",
+          "notes": "MarketBeat Q1 FY2027 results page lists adjusted EPS actual US$0.52 vs consensus US$0.2977; official SEC 8-K / company presentation confirms adjusted EPS US$0.52 and GAAP diluted EPS US$0.21. Use adjusted basis for comparison."
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -2090,7 +2115,9 @@
           "url": "https://ir.mrcy.com/index.php/news-releases/news-release-details/mercury-systems-report-first-quarter-fiscal-year-2027-financial",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 Mercury Systems Inc. (NASDAQ: MRCY)。"
-        }
+        },
+        "eps_actual_basis": "Adjusted EPS (non-GAAP; fully diluted; USD/share)",
+        "eps_estimate_basis": "Adjusted EPS consensus (USD/share)"
       },
       {
         "id": "current-se-20261110",
