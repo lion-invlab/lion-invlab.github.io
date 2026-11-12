@@ -22,10 +22,11 @@
 - 唯一行事曆來源：main `data/calendar/weeks/2026-W46.json`，同一 main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`，blob SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，`updated_at=2026-11-13T04:30:43+08:00`；本週 JSON 只讀，禁止複寫／修補／回存。今日篩選 3 筆經濟事件、6 筆財報事件。
 - 預覽目標：`main/preview/2026-11-13-simulation.html`（本輪尚未建立）；只允許在審核版完成後走狹窄 preview 例外通道，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
 - 第一步狀態：完成。已鎖定日期、交易日、正式 WR、SIM 規則、main HEAD、Manifest、母版、QA 清單與 W46 唯一資料來源。
-- 第二步狀態：進行中。已取得 AP 的美股四大指數 11/12 收盤、11 大產業 ETF 同日收盤備援資料，以及部分外匯／商品資料；SOX、VIX、GCZ6、MOVE、美債殖利率及部分匯率仍有同日來源／口徑差異或待補，不得標記 44 項完成。
-- 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 官方財報已取得，EPS 共識口徑及股價反應仍需分別處理。
-- 第四步狀態：新聞窗口為 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）；已取得 Reuters、鉅亨網等候選資料，原始發布時間、焦點／頭條去重與 5+10 篩選尚未完成。
-- 當前狀態：`review_ready=false`；未組裝、未交付、未發布。下一步先完成 44 項行情逐項台帳及新聞時間窗查核，再組裝既有母版。
+- 第二步狀態：行情 44 項逐項查核已完成 43 項，MOVE 為唯一缺值。全球 17 指數已取得 11/12 收盤（含 SOX 以 Investing.com HK 為主）；11 大產業 ETF 以 StockAnalysis 歷史收盤作為 Investing.com HK 多頁尚停留 11/11 的備援；3 段美債殖利率為 2Y 4.87%、10Y 5.10%、30Y 5.43%；6 組 FX 已取得 11/12 歷史值；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 收盤資料核對。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE Investing.com HK 最新歷史資料停在 11/10，11/12 無有效值，保留待核實。
+- 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 財報數值已核對，EPS 以相同會計口徑比較；公告後首個交易日股價反應因截稿時間尚未形成，維持待更新。
+- 第四步狀態：新聞窗口為 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）；已核對 5 則總經焦點候選與 10 則市場頭條候選的發布時間及主題，仍需完成最後來源網址、5+10 去重與內容摘要。
+- Key Levels：今日 05:15 的 `tac-key-levels-live.yml` 未找到對應 workflow run；五大美股現貨指數 OHLC 尚未取得可驗證的完整快照，禁止沿用 11/12 或更早 fixture。`tac-simulation-lab.yml` 目前仍硬編碼 11/12 fixture 與舊數值斷言，本輪不觸發，以免錯誤重做 11/12 審核版。
+- 當前狀態：`review_ready=false`；尚未執行既有 HTML 組裝器、未產生 11/13 審核版、未交付、未發布。下一步完成來源台帳與新聞去重，並取得當日五大指數 OHLC 後，才可安全執行既有母版組裝及視覺／互動 QA。
 - 保護界線：不得啟動舊的大型端到端 pipeline；不得修改正式首頁、母版、Manifest、正式規則及正式行事曆資料庫；不得用過期 fixture 冒充 live data。
 
 - 工作分支：`simulation/tac-process-lab-2026-11-06`；最新驗收 commit `a9ae77fbd07568f80266abe4c41b284844741b67`。
