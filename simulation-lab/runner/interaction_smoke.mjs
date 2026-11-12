@@ -46,6 +46,14 @@ try {
     if (marker.style.getPropertyPriority("left") !== "important" || Math.abs(inlineLeft - score) > 0.001) {
       throw new Error(`marker inline position does not match displayed score: score=${score}, left=${marker.style.left}`);
     }
+    const dataScore = Number.parseFloat(marker.getAttribute("data-score") || "");
+    const ariaLabel = marker.getAttribute("aria-label") || "";
+    if (!Number.isFinite(dataScore) || Math.abs(dataScore - score) > 0.001) {
+      throw new Error(`marker data-score does not match displayed score: score=${score}, data-score=${marker.getAttribute("data-score")}`);
+    }
+    if (!ariaLabel.includes(String(score)) || !/Fear and Greed score/i.test(ariaLabel)) {
+      throw new Error(`marker accessibility label does not describe the displayed score: ${ariaLabel}`);
+    }
     const measure = () => {
       const track = scale.getBoundingClientRect();
       const dot = marker.getBoundingClientRect();
