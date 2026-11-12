@@ -571,3 +571,39 @@
 - 新聞窗口鎖定 2026-11-12 12:00 至 2026-11-13 05:25（Asia/Taipei）；已核對 5 則總經候選及 10 則市場頭條候選的時間窗，最後去重與摘要仍未完成。
 - Session State 更新 commit `361edede15f9c08960d2d64834ec59acd52c0cc5`，blob `57f0723881e9d463e1acbb8c9db40842491c3adb`。
 - 未執行 HTML 組裝器，未建立 11/13 審核版，未寫入 main preview，未修改 main index、正式母版、Manifest、WR 或 W46 JSON；`review_ready=false`。
+
+
+## 2026-11-13｜人工早報流程續跑紀錄（SIM-1.1）
+
+### ① WR／母版／資料庫
+- 讀取 SIM-1.1、main WR v5.15、main Manifest、正式 weekday 母版、simulation baseline 母版、QA contract、現有 assembler。
+- main W46/W45 JSON 唯讀；W46 SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，W45 SHA `991d69b1ee963752a284cd0914c09011084a404f`；無任何 JSON 寫入。
+- W46 updated_at 記錄為 04:30:43+08，與名義 04:35 更新時刻有 4 分 17 秒差距，僅記錄、不修補。
+
+### ② 行情查核
+- 基準日 2026-11-12；44 項狀態：29 verified、5 provisional、14 pending。
+- 主要已核實：17 個全球市場中 16 個有可用收盤值；美債 2Y/10Y/30Y 為 4.86%/5.10%/5.43%；6 組 FX 有同日歷史列。
+- SOX 的 Yahoo ^SOX 同日收盤交叉核對未完成；VIX 官方現貨收盤未確認；MOVE 最新可用歷史列仍為 11/10；WTI 合約碼尚未由同日合約頁確認。
+- 11 檔產業 ETF 的 Investing.com HK 歷史頁在 05:25 截止仍只顯示 11/11；其他地區鏡像時間不明／晚於截止或彼此衝突，依 SIM-1.1 不採用 StockAnalysis 備援，全部列 pending。
+- 5 個美股關鍵指數只有 Dow、Nasdaq 完整；SOX provisional；S&P 500 與 Russell 2000 缺少同日現貨 OHLC。
+
+### ③ 新聞與行事曆
+- 新聞窗口 11/12 12:00–11/13 05:25 TST；完成 5 則宏觀焦點及 10 則熱門候選的來源與時間篩選。
+- W46 當日 3 筆經濟事件、6 筆財報事件；30 年期公債標售仍 pending_verification，不回寫資料庫；05:30／06:00 財報事件維持 upcoming。
+
+### ④ 分析與 HTML
+- 完成分析草稿：AI 領導層衝擊、殖利率與油價上升、亞洲弱於歐洲、PPI／GDP／標售為後續觸發點。
+- HTML 組裝 BLOCKED：無 repo 本地 Python/BeautifulSoup 執行環境；現有 workflow 固定 11/12 並包含 Actions OHLC 擷取，本次不修改、不觸發、不另建組裝器。
+
+### ⑤ QA／交付
+- 未產生 HTML，DOM／完整性／連結／桌面與 320px 手機／互動／預覽 URL 均 NOT_RUN。
+- 未建立 `main/preview/2026-11-13-simulation.html`；未更新 `main/index.html`；首頁 SHA 保持不變；`review_ready=false`。
+- 詳細審計檔：`simulation-lab/runs/2026-11-13.json`。
+
+### 通知狀態
+- startup、階段①、②、③、④、⑤：全部 `NOT_AVAILABLE`；執行環境沒有可用 notify_parent 動作，沒有任何通知可記為已送達。
+
+### 對先前 11/13 草稿的更正
+- 先前使用 StockAnalysis 作為 ETF 備援，違反 SIM-1.1 的 Investing.com HK 限定，11 檔 ETF 改列待核實。
+- 先前 VIX 17.60 缺少可重現的同日官方收盤證據，不採用。
+- CNN Fear & Greed 以較晚 FGScore 40 作 provisional；Treasury 2Y 採官方 4.86%，不沿用 4.87%。
