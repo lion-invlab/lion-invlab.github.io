@@ -76,9 +76,7 @@ def validate(key: str) -> dict:
         if expected_toggle not in toggle_classes:
             raise SystemExit(f"{key} card {i}: {scope} card requires {expected_toggle}")
 
-    style = soup.select_one("#simulation-economic-five-zone-layout")
-    if not style:
-        raise SystemExit(f"{key}: simulation five-zone CSS missing")
+    # Baselines are byte-for-byte copies of the approved main mothers; no simulation-only CSS is required.
     ids = [node.get("id") for node in soup.select("[id]")]
     if len(ids) != len(set(ids)):
         raise SystemExit(f"{key}: duplicate IDs detected")

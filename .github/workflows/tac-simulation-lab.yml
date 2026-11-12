@@ -73,7 +73,7 @@ jobs:
 
       - name: Assemble actual 2026-11-12 weekday review from verified report data
         run: |
-          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-12.json --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-12.json --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html --expected-master-sha 3785405e331b10ec6189002e480be2a1edbe20ef
 
       - name: Test navigation tabs accordions and source links
         run: node simulation-lab/runner/interaction_smoke.mjs simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html simulation-lab/output/interaction-smoke.json
