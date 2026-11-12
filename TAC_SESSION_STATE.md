@@ -22,7 +22,7 @@
 - 唯一行事曆來源：main `data/calendar/weeks/2026-W46.json`，同一 main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`，blob SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，`updated_at=2026-11-13T04:30:43+08:00`；本週 JSON 只讀，禁止複寫／修補／回存。今日篩選 3 筆經濟事件、6 筆財報事件。
 - 預覽目標：`main/preview/2026-11-13-simulation.html`（本輪尚未建立）；只允許在審核版完成後走狹窄 preview 例外通道，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
 - 第一步狀態：完成。已鎖定日期、交易日、正式 WR、SIM 規則、main HEAD、Manifest、母版、QA 清單與 W46 唯一資料來源。
-- 第二步狀態（依 SIM-1.1 審計紀錄校正）：44 項中 37 verified、5 provisional、2 pending；不得宣稱 44/44 已核實。使用者 05:49 截圖補充 TVC MOVE 即時畫面 98.4202（+6.47%），只能作為 TVC 即時報價證據，不能替代 ICE BofA MOVE 的正式收盤核實。MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 以 Investing.com HK 為主）；11 大產業 ETF 以 StockAnalysis 歷史收盤作為 Investing.com HK 多頁尚停留 11/11 的備援；3 段美債殖利率為 2Y 4.87%、10Y 5.10%、30Y 5.43%；6 組 FX 已取得 11/12 歷史值；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 收盤資料核對。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
+- 第二步狀態（依 SIM-1.1 審計紀錄校正）：44 項中 37 verified、5 provisional、2 pending；不得宣稱 44/44 已核實。使用者 05:49 截圖補充 TVC MOVE 即時畫面 98.4202（+6.47%），只能作為 TVC 即時報價證據，不能替代 ICE BofA MOVE 的正式收盤核實。MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
 - 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 財報數值已核對，EPS 以相同會計口徑比較；公告後首個交易日股價反應因截稿時間尚未形成，維持待更新。
 - 第四步狀態：新聞窗口為 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）；已核對 5 則總經焦點候選與 10 則市場頭條候選的發布時間及主題，仍需完成最後來源網址、5+10 去重與內容摘要。
 - Key Levels：今日 05:15 的 `tac-key-levels-live.yml` 未找到對應 workflow run；五大美股現貨指數 OHLC 尚未取得可驗證的完整快照，禁止沿用 11/12 或更早 fixture。`tac-simulation-lab.yml` 目前仍硬編碼 11/12 fixture 與舊數值斷言，本輪不觸發，以免錯誤重做 11/12 審核版。
@@ -35,7 +35,7 @@
 - 審核版 HTML 與 main 對帳：16 筆經濟事件、48 筆財報事件，筆數一致。財報顯示已修正 EPS pending 不做方向判斷、跨幣別分開顯示、postponed 標籤、財報發布時段與電話會議時間分離。
 - 已公布財報股價反應：32/32 eligible 計算完成，0 unavailable；26 Yahoo Finance、6 個有來源連結的替代歷史報價。另 4 筆不具資格，仍待核實（Vodafone、Credicorp pending_verification；Kaspi、CNH session unknown）。
 - 視覺回歸：simulation weekday baseline SHA `6fe79308eca71db5dd54308fd35efe3900451081`；1440／768／360／320，failures=[]。這不是與 formal main mother 的比對通過。
-- **目前不可定版**：組裝器 metadata 仍為 `review_ready:false`。SOX／Gold GCZ6／Russell 2000 OHLC 仍有來源差異；新聞至少四組重複；關鍵價位仍只有 S1/P/R1；互動與 live URL 未實測。不得更新 main `index.html` 或正式 preview。
+- **目前不可定版**：組裝器 metadata 仍為 `review_ready:false`。SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。不得更新 main `index.html` 或正式 preview。
 - 下一步：裁決三項重大行情差異，去除新聞重複，完成五層關鍵價位與互動測試，再重新 QA；完成前保持模擬區隔離。
 
 
@@ -692,14 +692,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ### 階段 B｜44 項行情第一輪直接來源掃描（完成；例外轉 C）
 - 實際時間：開始 05:26:23、結束 05:28:47（+08:00），牆鐘 2 分 24 秒。處理時間／工具等待無獨立計時訊號，均標示不可得；未補估。
 - 工作量：44/44 項均已依母版標的打開規定第一順位來源並記錄結果；首輪確認 34 項、待核實 10 項。此為首輪狀態，不代表最終資料品質 Gate 已通過。
-- 17 個全球指數（Investing.com HK historical data，日期欄 2026-11-05；各市場當地日期；美股 CFD 頁僅作該頁歷史參考，不冒稱交易所現貨成交）：Dow 51,521.28 (-3.44%)；S&P 500 7,353.79 (-4.35%)；Nasdaq Composite 24,418.32 (-5.12%)；Russell 2000 2,728.27 (-4.50%)；SOX 9,011.2 (-12.25%)；Nikkei 225 61,077.90 (-1.79%)；KOSPI 5,383.80 (-5.28%)；TWII 41,574.72 (-3.20%)；STI 5,296.25 (+0.52%)；ASX 200 9,065.10 (+2.61%)；Shanghai Composite 3,689.91 (+0.10%)；Shenzhen Component 11,471.09 (+1.19%)；Hang Seng 24,796.98 (+3.67%)；FTSE 100 10,797.08 (-0.30%)；DAX 26,325.01 (-0.43%)；CAC 40 8,205.37 (+0.34%)；STOXX Europe 600 654.86 (-0.39%)。Investing 歷史列：Dow https://hk.investing.com/indices/us-30-historical-data；S&P https://hk.investing.com/indices/us-spx-500-historical-data；Nasdaq https://hk.investing.com/indices/nasdaq-composite-historical-data；Russell https://hk.investing.com/indices/smallcap-2000-historical-data；SOX https://hk.investing.com/indices/phlx-semiconductor-historical-data；Nikkei https://hk.investing.com/indices/japan-ni225-historical-data；KOSPI https://hk.investing.com/indices/kospi-historical-data；TWII https://hk.investing.com/indices/taiwan-weighted-historical-data；STI https://hk.investing.com/indices/singapore-straits-time-historical-data；ASX https://hk.investing.com/indices/aus-200-historical-data；Shanghai https://hk.investing.com/indices/shanghai-composite-historical-data；Shenzhen https://hk.investing.com/indices/szse-component-historical-data；Hang Seng https://hk.investing.com/indices/hang-sen-40-historical-data；FTSE https://hk.investing.com/indices/uk-100-historical-data；DAX https://hk.investing.com/indices/germany-30-historical-data；CAC https://hk.investing.com/indices/france-40-historical-data；STOXX https://hk.investing.com/indices/stoxx-600-historical-data。
+- 17 個全球指數（Investing.com HK historical data，日期欄 2026-11-05；各市場當地日期；美股 CFD 頁僅作該頁歷史參考，不冒稱交易所現貨成交）：Dow 51,521.28 (-3.44%)；S&P 500 7,353.79 (-4.35%)；Nasdaq Composite 24,418.32 (-5.12%)；Russell 2000 2,728.27 (-4.50%)；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。Investing 歷史列：Dow https://hk.investing.com/indices/us-30-historical-data；S&P https://hk.investing.com/indices/us-spx-500-historical-data；Nasdaq https://hk.investing.com/indices/nasdaq-composite-historical-data；Russell https://hk.investing.com/indices/smallcap-2000-historical-data；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - S&P 11 ETF 首輪 10 項有 2026-11-05 Investing.com HK 歷史列：XLC 104.49 (-0.45%)；XLP 91.30 (-0.70%)；XLU 43.30 (-0.71%)；XLV 184.91 (-2.50%)；XLF 57.50 (-2.87%)；XLB 52.33 (-2.91%)；XLE 61.63 (-2.98%)；XLY 117.64 (-3.83%)；XLI 162.47 (-4.12%)；XLK 162.38 (-8.00%)。XLRE 歷史頁最新列停在 11/04：45.12 (+3.32%)；頁面摘要即時數值與歷史列不一致，不可代替 11/05 收盤，列待核實。10 個來源均為 hk.investing.com/etfs/[ticker-specific historical-data]；XLRE https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data。
 - 美債官方 Par Yield Curve 2026-11-05：2Y 4.46%、10Y 4.84%、30Y 5.25%；官方頁 https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?field_tdr_date_value=2026&type=daily_treasury_yield_curve；同一列的官方 11/04 值 4.58%、4.90%、5.28%，分別 -12/-6/-3 bp。採 Par 口徑，不與 FRED CMT/二級市場盤中報價混用。
 - FX 首輪確認：DXY 101.56 (-0.01%)，Investing.com historical https://www.investing.com/indices/usdollar-historical-data；USD/TWD 33.023 (+0.48%)，Investing.com HK historical https://hk.investing.com/currencies/usd-twd-historical-data。EUR/USD、GBP/USD、AUD/USD、USD/JPY 直接頁首輪未能讀出 11/05 歷史列，四項待核實，不用即時價冒充歷史收盤。
 - 波動與情緒：VIX 26.01 (+56.59%)，Investing.com HK historical 11/05 row https://hk.investing.com/indices/volatility-s-p-500-historical-data；MOVE 頁面截至 11/05 的區間內最新可見列仍為 11/04 93.88 (-6.09%)，故 11/05 待核實 https://hk.investing.com/indices/ice-bofaml-move-historical-data；CNN 官網與官方 JSON endpoint 受 robots/抓取限制，備援 FGScore 顯示 CNN Provider Index 21（Extreme Fear），as of 2026-11-05 15:21 EST，1 day ago 21，1 week ago 31，1 month ago 47，來源 https://fgscore.com/en/markets/sp500；作備援快照，需在 C 階段註明非 CNN 官網直接讀取。
 - 商品 4 項（WTI、Brent、GC、SI）第一輪只讀到 CME/ICE 合約規格與通用 Daily Settlements 入口，未取得 2026-11-05 同一活躍月份的結算列；四項待核實。CME WTI https://www.cmegroup.com/markets/energy/crude-oil/light-sweet-crude.quotes.html；GC https://www.cmegroup.com/markets/metals/precious/gold.quotes.html；SI https://www.cmegroup.com/markets/metals/precious/silver.quotes.html；ICE Brent https://www.ice.com/products/219。
 - 首輪 44 項計數：34 確認（17 指數＋10 ETF＋3 美債＋2 FX＋VIX＋CNN 備援）；10 待核實（XLRE、4 FX、4 商品、MOVE）。Fed Rate Monitor/FedWatch 另列獨立政策指標，動態頁未解析出本次即時會議機率，待 C 階段再試；不得沿用 11/04 舊截圖當作當前值。
-- 觀察到 11/05 美國市場出現顯著風險拋售：Dow -3.44%、S&P -4.35%、Nasdaq -5.12%、Russell -4.50%、SOX -12.25%、VIX +56.59%；不得沿用 11/04 反彈敘事。進入 C 階段，先驗證交易日與數值、對 10 個例外按規定重試，再找宏觀觸發因素。
+- 觀察到 11/05 美國市場出現顯著風險拋售：Dow -3.44%、S&P -4.35%、Nasdaq -5.12%、Russell -4.50%、SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。進入 C 階段，先驗證交易日與數值、對 10 個例外按規定重試，再找宏觀觸發因素。
 - 階段 B 結果：44 項首輪掃描完成，34 confirmed / 10 pending；階段 C 開始。
 ### 階段 C｜例外、備援與重試（完成；MOVE 留待核實）
 - 實際時間：開始 05:29:36、結束 05:33:05（+08:00），牆鐘 3 分 29 秒；處理時間與工具等待無法獨立計量（不可得）。
@@ -729,7 +729,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 05:40 D 階段回讀 SHA `2215b0129945fb0d2778982bf3aefcae32cf8bb3` 後，05:48:03 又出現正式增量 audit：Airbnb（穩定 ID `current-abnb-20261102`）由 upcoming 改 released，EPS 3.16 vs 2.85、營收 US$4.87B vs US$4.75B、2026 營收成長展望上修 high-teens、盤後約 +10%；來源 Reuters 21:06 UTC（台灣 05:06）。本次不再寫 JSON，直接採最新回讀 SHA，避免與 04:35 預更新並行覆寫。
 - 行情新證據定點修正（僅重開一項）：Nasdaq Composite 11/05 原記 24,418.32（−5.12%）與直接歷史列不符；Investing.com HK 歷史列及 Reuters 同日報導一致為 24,315.00（−5.52%），OHLC 25,558.11／25,558.11／24,262.14／24,315.00。正式採 24,315.00（−5.52%）；其他已鎖定行情不全量重抓。
 - Fed Rate Monitor 本次直接讀取頁面更新時間 Nov 05 04:25 PM EST（換算台灣 11/06 05:25）；12/09/2026 會議、目前區間 3.75%–4.00%，維持 35.3%、升息一碼至 4.00%–4.25% 64.7%。此讀值取代 04:55 舊頁面 33.7%／66.3%。CME FedWatch 官方頁可開啟，但 QuikStrike iframe 未提供可讀分布；CME exact cross-check 仍待核實，不宣稱通過。
-- 關鍵價位 OHLC 來源已取得 11/05 同日列：Dow H/L/C 53,706.65／51,486.82／51,521.28；S&P 500 7,681.29／7,350.35／7,353.79；Nasdaq Composite 25,558.11／24,262.14／24,315.00；Russell 2000 2,863.16／2,721.85／2,728.27；SOX 9,837.1／8,997.8／9,011.2。來源均為 Investing.com HK 同標的歷史頁，資料日 11/05。
+- 關鍵價位 OHLC 來源已取得 11/05 同日列：Dow H/L/C 53,706.65／51,486.82／51,521.28；S&P 500 7,681.29／7,350.35／7,353.79；Nasdaq Composite 25,558.11／24,262.14／24,315.00；Russell 2000 2,863.16／2,721.85／2,728.27；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。來源均為 Investing.com HK 同標的歷史頁，資料日 11/05。
 - 新聞窗口：2026/11/05 12:00 至本次截稿 2026/11/06 06:02:41（台灣時間）。階段 E 精確開始時間不可得（搜尋已在前一階段交接後展開，工具未提供可回溯分秒）；完成時間 06:02:41；工具等待與純處理時間不可分拆，標不可得。
 - 全球焦點 5 則／熱門頭條 10 則均已讀原文並核對原始發布時間、時區、事件與影響；合格來源均在窗口內。全球焦點使用 Investing.com（Reuters 原文轉載）與 Reuters；熱門頭條使用鉅亨網及 Reuters。未採用窗口開始前的油價、Qualcomm、AppLovin 舊報導作新聞卡，避免違反時間窗。
 ### 階段 E｜新聞蒐集與查證（完成；接收給 F）
@@ -764,13 +764,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 
 ### 階段 F｜總結／市場情緒／盤面觀察（完成）
 - F 開始 06:02:41 +08:00；完成 2026/11/6 清晨6:13:45；牆鐘時間以實際時間戳計算，工具等待與純處理時間不可分拆，標示不可得。工作量：1份市場總結、1份情緒判讀、3區域市場評論、11產業輪動評論、債匯商品評論、5個指數的5級關鍵價位、FactSet盈餘健康度及今日核心觀察。
-- 核心判斷：11/05 美股風險去槓桿集中於AI／半導體，Nasdaq Composite進入修正區、SOX跌幅遠大於大盤；11大產業ETF全數收低，但通訊服務、必需消費、公用事業相對抗跌。亞股並非全面同跌，中港澳新收高；歐洲漲跌分歧。
+- 核心判斷：11/05 美股風險去槓桿集中於AI／半導體，Nasdaq Composite進入修正區、SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。亞股並非全面同跌，中港澳新收高；歐洲漲跌分歧。
 - 跨資產：VIX急升、CNN備援分數落在極度恐懼；MOVE缺值。美債殖利率全面下行、前端降幅較大；DXY近乎持平，AUD偏弱、USD/TWD走高；能源及貴金屬上漲。Fed Rate Monitor的升息機率偏高，但美債殖利率下行，政策定價與避險資金流並非單向一致。
 - 政策／數據：Fed官員支持漸進升息；BoE升息至4%；加拿大Budget增加中期支出；今晚美國非農與加拿大就業數據是下一個驗證點。FedWatch 12/09市場隱含升息64.7%、維持35.3%，非官方決策；CME iframe交叉核對未完成。
 - 財報：Cloudflare已取得官方SEC 8-K實績；Atlassian目前為Investing.com/Reuters次級來源，官方IR／SEC全文待補核；Airbnb、ConocoPhillips及其他已公布事件依最新W45 JSON呈現。Cloudflare EPS口徑不一致處維持待核實，不以GAAP與Non-GAAP混比。
 - FactSet最新可核實官方快照為10/30：60%公司已報告；混合EPS成長30.2%、EPS beat 82%、平均驚喜1.9%；混合營收成長13.4%、營收beat 70%、平均驚喜1.7%；forward P/E 18.7。未取得更新至11/06的FactSet正式報告，明確標註快照日期。
 - 關鍵價位採標準樞紐公式，基準日2026/11/05、同標的同來源OHLC：P=(H+L+C)/3；S1=2P−H；S2=P−(H−L)；R1=2P−L；R2=P+(H−L)。所有數值均以中文標籤垂直呈現，來源折疊區記錄OHLC與Investing.com HK歷史頁；不沿用10/28舊區間。
-- 關鍵價位（第二支撐／第一支撐／中樞／第一壓力／第二壓力）：Dow 50,018.42／50,769.85／52,238.25／52,989.68／54,458.52；S&P 500 7,130.87／7,242.45／7,461.81／7,573.89／7,792.75；Nasdaq Composite 23,415.72／23,865.39／24,711.75／25,161.36／26,007.81；Russell 2000 2,629.98／2,679.25／2,771.09／2,820.36／2,912.23；SOX 8,443.30／8,727.30／9,282.03／9,566.23／10,120.83。
+- 關鍵價位（第二支撐／第一支撐／中樞／第一壓力／第二壓力）：Dow 50,018.42／50,769.85／52,238.25／52,989.68／54,458.52；S&P 500 7,130.87／7,242.45／7,461.81／7,573.89／7,792.75；Nasdaq Composite 23,415.72／23,865.39／24,711.75／25,161.36／26,007.81；Russell 2000 2,629.98／2,679.25／2,771.09／2,820.36／2,912.23；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - F 完成後交付 G：僅以核准週二至週五母版填入內容；不重設計、不更動首頁或母版。
 
 
@@ -814,14 +814,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 修正頁面上方提示、頁首報告日期及頁尾仍殘留的 2026/10/28、10/27 舊報告資訊。
 - 修正 FactSet 盈餘健康度區塊中快照日期自相矛盾的敘述，統一為 2026/10/30 官方快照。
 - 美國市場顯示值統一採用 Investing.com 歷史列口徑：S&P 500 7,353.79（-4.35%）、Russell 2000 2,728.27（-4.50%）；對應修正核心觀察與樞紐計算來源。Dow 樞紐計算收盤值同步為 51,523.06，並重算支撐／壓力位。
-- SOX 採 Investing.com 11/05 歷史收盤 9,011.2（-12.25%）；Yahoo Finance 同值交叉支持。Nasdaq 官方頁同日顯示 9,408.15（-8.38%），存在未解釋來源差異，需保留差異紀錄，不得宣稱所有來源一致。
+- SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。Nasdaq 官方頁同日顯示 9,408.15（-8.38%），存在未解釋來源差異，需保留差異紀錄，不得宣稱所有來源一致。
 - 將「44 項行情均已核實」的未證實宣稱改為「44 項逐項狀態仍待最終回讀確認」；因此本版尚不可交付。
 - HTML 靜態結構檢查：母版與預覽 style 數量均 120、script 數量均 24，且所有 style/script 內容完全一致；預覽 174 個 ID 無重複，11 個內部錨點均有目標。母版與預覽經濟卡片數量分別 16 與 18；預覽 18 筆與 W45 JSON 18 筆相符。財報卡片預覽 37 筆；JSON 38 筆中 DASH 為 10/30（非本週），依當週區間排除，故 37 筆相符。
 - 使用者已明確取消瀏覽器驗證；本次不執行瀏覽器／實機視覺與互動測試，相關 QA 必須標示「未測試」。
 
 ### 尚未完成／禁止宣稱完成
 - 44 項行情逐項證據仍需最後回讀與狀態盤點；尤其亞洲、歐洲、11 ETF、債券、FX、能源、貴金屬需確認同日、同標的及報價口徑。
-- SOX 官方頁與 Investing/Yahoo 的數值差異仍待來源裁決。
+- SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - 新聞原始發布時間、焦點新聞及 10 則熱門頭條尚未完成最後逐項核對。
 - 摘要、Market Sentiment、盤面觀察、今日關鍵價位與所有行情尚未完成最後一致性閉環。
 - 預覽尚未完成全部內容／結構 QA，Pages 最新部署狀態尚未回讀確認；瀏覽器視覺與互動測試依使用者指示不執行。
@@ -831,7 +831,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ## 2026-11-06 續作校正（最新狀態）
 - preview/2026-11-06.html 最新 blob SHA：9c06929e3b94f381e501c7bec23f82b3004e36ed；更新 commit：4b23a5089b8a13db46283cf18833a72090812709。
 - 44 項固定行情均已登記有效讀值：43 項依指定來源／備援核實，MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。FedWatch 是額外政策指標，不計入 44 項。前段「44 項仍待最終回讀」已由預覽修正。
-- SOX 採 WR 指定 Investing.com HK 11/05 歷史列 9,011.2（-12.25%）；Yahoo Finance 歷史列 9,011.14（-12.25%）及 Reuters 下跌超過 12% 交叉支持。Nasdaq overview 動態頁快照不一致，不用其作為同口徑歷史收盤值。
+- SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。Nasdaq overview 動態頁快照不一致，不用其作為同口徑歷史收盤值。
 - Atlassian FY2027 Q1 已補核 11/05 公司新聞稿及 SEC Form 8-K Exhibit 99.1；GAAP diluted EPS 0.35、non-GAAP diluted EPS 1.65、營收 US$1,772.15M、Subscription ARR US$6.812B（+23%），FY2027 Subscription ARR 成長展望約18.5%。預覽已更新官方新聞稿連結及財報卡文字。
 - Dow OHLC 修正為 H 53,710.61／L 51,486.82／C 51,523.06；樞紐 S2 50,016.37／S1 50,769.72／P 52,240.16／R1 52,993.51／R2 54,463.95。
 - 靜態回讀：母版／預覽 style 120/120、script 24/24 且內容一致；174 IDs 無重複；11 個內部錨點無缺失；經濟卡 18/18；本週財報卡 37/37；頁面日期正確且無 10/28 舊報告日期殘留。
@@ -842,22 +842,22 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新 preview blob：`986f6766c4d1d0d4f66c4a5ec8658eb77fb9c17a`；最後 preview commit：`6f7255a0a03d9e71e64f669f2dd60decbe8dee1c`。
 - 已完成 44 項有效行情讀值：43 項指定來源／備援，MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。修正涵蓋 FTSE、XLC/XLP、六項 FX、四項商品及 VIX；市場摘要、表格、評論已同步。
 - 主要更正：VIX 28.18/+69.66%；WTI 91.26/+3.56%；Brent 99.35/+5.00%；Gold 4,095.85/+0.56%；Silver 51.730/-1.06%；FX 六項均按 11/05 歷史列更新。
-- Nikkei 61,077.90/-1.79% 採日經官方／Yahoo／Reuters；SOX 9,011.2/-12.25% 採 Investing.com HK／Yahoo／Reuters，兩者的來源差異已記錄。
+- Nikkei 61,077.90/-1.79% 採日經官方／Yahoo／Reuters；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - 結構回讀：style 120/120、script 24/24 且內容一致；174 IDs 無重複；11 錨點無缺失；經濟卡 18/18、財報卡 37/37。
 - 首頁 SHA `64488827b72e01f6054225f444260e3cdf027a57` 未變；母版、Manifest、W45 JSON 未修改。
 - 瀏覽器驗證依使用者指示不執行；Pages 部署狀態未回讀；CME FedWatch 官方分布未完成交叉核對。未核准前不得更新首頁。
 
 
-## 2026-11-06｜SOX 來源差異揭露補記
+## 2026-11-06｜SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算
 - 最新 preview blob SHA：`92c378a6ab5e145c6798cee9f87f2d45b13fdd09`；最後 preview commit：`0e33a58acd6245031da755169b620823e30d640a`。
-- 預覽的 SOX 來源說明已補上 Yahoo Finance 9,011.14（-12.25%）交叉支持，並揭露 Nasdaq overview 9,408.15（-8.38%）與歷史列不一致；正式採用 Investing.com HK 歷史收盤列。
+- 預覽的 SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 
 
 ## 2026-11-06｜總結分析修正後狀態
 - 最新工作：依使用者指示，修正 11/06 審核版的總結、Market Sentiment 核心解讀及「今日核心觀察」下跌成因／後勢段落。
 - 預覽路徑：preview/2026-11-06.html；最新 blob SHA：a22a80327ef0bbfa7a3c5f2438f05cdd0f8b45cc；修改 commit：baaae2dc30df2b95e89d16e63658322ca8f0a886。
 - 新分析明確區分三層：直接導火線為期中選舉後資料中心擴建政策風險重新定價；基本面觸發為 Qualcomm 手機晶片銷售展望不如預期及 AI 資本支出回收疑慮；放大因素為 AI／半導體集中交易解除、融資成本與投資回收期敏感度。已明確說明地方倡議不等於全美禁建。
-- 後勢判斷：短線偏空、高波動，可能急彈但未確認落底；以大型雲端業者資本支出、資料中心限制是否具體化、SOX／大型晶片股止跌、VIX 回落、產業廣度及美國非農／薪資作為情境確認點。
+- 後勢判斷：短線偏空、高波動，可能急彈但未確認落底；以大型雲端業者資本支出、資料中心限制是否具體化、SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - 同步更新情緒解讀，將 VIX 28.18（+69.66%）、MOVE 97.92（+4.30%）、CNN 20/100 與跨資產避險／通膨訊號連結；同步更新核心觀察，確保與總結一致。
 - 內容來源：Reuters 2026-11-05 市場分析及收盤回顧、AP 2026-11-05 收盤報導；原始來源連結已放入預覽總結。
 - 靜態回讀確認：總結已替換、舊模糊段落不存在；style 120、script 24、ID 174。Work Log 已追加記錄，最新 blob SHA 72635e20944a045f1e6a22096ee05153dc2fe587。
@@ -1085,7 +1085,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - W45 JSON 最新 blob SHA：e39b7403e14dad3ab36ffbb96c7e4a6b6f142dfa；wr_version 5.14；updated_at 2026-11-06T20:38:45+08:00；economic 18、earnings 42、audit 217。coverage.economic／earnings 仍 incomplete，依 WR 動態狀態規則保留，不宣稱完整掃描。
 - W45 財報狀態：BAM、MRNA、ENB、VST 已發布並沿用原 event ID 更新實績；HUM 預定 06:00 ET 後仍未找到官方 Q3 文件，維持 pending_verification。MRNA 營收 US$1.313B 高於 LSEG US$885.1M、GAAP diluted EPS US$0.38；ENB GAAP EPS CAD0.59、adjusted EPS CAD0.49，官方未列可比總營收／共識；VST 營運收入 US$6.347B 高於 MarketBeat US$6.03B，公司稿未提供可核對 EPS；BAM FRE/share US$0.54、總營收 US$2.149B，無同口徑共識。W45 42 筆財報事件未新增重複卡。
 - 行情台帳：44/44 固定市場資料均有可用讀值；CNN Fear & Greed 以使用者指定備援 FGScore 讀取 20/100（Extreme Fear），資料時間 2026-11-05 20:00 EST／台灣 11/06 09:00；CNN 官網即時頁仍非直接讀值。USD/TWD 依 WR D3 優先採 Investing.com HK 11/05 33.126、+0.80%；央行銀行間參考匯率 32.876 為不同口徑，不混用。其餘市場基準：美股／歐洲 11/05，亞洲 11/06；VIX 28.18 +69.66%、MOVE 97.92 +4.30%；美債 CMT 2Y 4.46%（+7bp）、10Y 4.84%（-6bp）、30Y 5.25%（-3bp）；FedWatch Investing.com 12/09/2026 升息一碼 69.9%、維持 30.1%，CME 動態嵌入圖本輪未能獨立讀取，不冒稱交叉驗證。
-- S&P 500、Dow、Nasdaq Composite、Russell 2000、SOX 均取得 11/05 OHLC，依 WR D4 同日 OHLC 計算五層樞紐參考位；不沿用舊區間。11 大產業 ETF 全數下跌，依跌幅排序及標籤顯示，主畫面只呈現百分比。
+- S&P 500、Dow、Nasdaq Composite、Russell 2000、SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。11 大產業 ETF 全數下跌，依跌幅排序及標籤顯示，主畫面只呈現百分比。
 - FactSet：Q3 最新可核實季報快照為 2026/10/30（60%公司已報告、82% EPS beat、平均 surprise +1.9%、混合盈餘成長 +30.2%、營收 beat 70%）；另採 11/04 Q4 bottom-up EPS estimate +1.4%至94.79、CY2026 EPS estimate +0.6%至363.94。兩種日期／統計口徑分開標示。
 - 新聞窗口 2026/11/05 12:00 至 2026/11/06 20:38:45（台灣時間）。全球焦點 5 則已整理：AI風險與亞洲拋售、BoE升息、Norges維持4.5%、加拿大預算、美國非農預覽；熱門頭條 10 則以公司官方／Reuters／Investing來源整理，ENB及BAM原始公告僅標日期，發布時分待核實並明確標示。NFP日曆採Investing.com HK共識63k，Reuters調查約65k屬不同來源口徑，不混成同一預估。
 - 流程狀態：第一步規則／母版核對完成；第二步行情44/44完成；第三步W45已更新並回讀；第四步新聞與分析稿完成；第五步依核准母版DOM內容槽位組裝及單一QA Gate進行中；第六步尚未交付。preview/2026-11-06.html 為舊版，待本輪完成結構／內容／互動／視覺驗收後才更新同一路徑。首頁、雙母版、Manifest、WR、排程均未修改。
@@ -1098,7 +1098,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新聞窗口鎖定：2026-11-05 12:00至2026-11-06 20:53（Asia/Taipei）。Global Focus宏觀5則：AI交易／資料中心政策疑慮與全球風險重估（Investing.com/Reuters，11/05頁面顯示11:40，時區未標）；全球股債避險及亞洲科技股賣壓（Reuters Morning Bid，11/06 05:37 UTC）；加拿大Budget 2026（Reuters，11/05頁面顯示16:07，時區未標；官方Finance Canada頁11/05）；挪威央行維持4.5%但保留升息可能（Norges Bank官方，11/05 10:00 CET）；油輪攻擊與Brent供應風險（Reuters/Euronext，頁面顯示11/05 21:15，時區未標）。
 - Market Hot Headlines 10則：Qualcomm手機晶片業務承壓（Investing.com/Reuters，11/05頁面05:01，時區未標）；Toyota FY2027 Q2獲利與股東回饋計畫（Investing.com/Reuters，11/05頁面00:01，時區未標）；Anthropic IPO估值與roadshow疑慮（Investing.com/Reuters，11/05頁面18:41，時區未標）；SoftBank CDS升至2022年10月以來高點（Reuters，頁面11/05 21:20，時區未標）；Moderna Q3營收US$1.313B高於LSEG US$885.1M、上修全年營收成長（Reuters，11/06 11:50 UTC）；Enbridge Q3獲利年增、天然氣業務支撐（Reuters，11/06 12:08 UTC）；Vistra Q3營運收入US$6.347B、Ongoing Operations Adjusted EBITDA US$2.378B（公司新聞稿，11/06 12:00 GMT）；BAM Q3 FRE US$864M、DE US$763M（公司新聞稿，11/06日期，未列精確時分）；Cloudflare Q3營收US$782.5M、年增39%（公司新聞稿11/05 16:15 EST）；Atlassian Q1營收及adjusted EPS優於共識但FY27訂閱ARR成長展望放緩、股價下跌（Investing.com 11/05 16:16頁面時間，時區未標）。
 - 新聞原文連結及來源時間已在工作草稿核對；Investing.com頁面未明示時區者，正式新聞卡必須照實標「頁面未標時區」，不得擅自換算成ET或UTC。Global Focus限宏觀，10則熱門頭條涵蓋半導體、汽車、AI融資、醫藥、能源及企業財報，避免全部集中同一事件。
-- 分析主軸：AI風險從高估值科技股延伸至資料中心投資政策及融資風險定價；SOX -12.25%、Nasdaq -5.52%、XLK -8.00%，11個產業ETF全跌；VIX 28.18（+69.66%）、MOVE 97.92（+4.30%），CNN Fear & Greed仍待核實，不得沿用舊分數。亞洲11/06 Nikkei -5.96%、KOSPI -6.02%、TWSE官方39,701.64（-4.51%）。市場情緒偏防禦，避免僅以單日價格推論趨勢反轉。
+- 分析主軸：AI風險從高估值科技股延伸至資料中心投資政策及融資風險定價；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。亞洲11/06 Nikkei -5.96%、KOSPI -6.02%、TWSE官方39,701.64（-4.51%）。市場情緒偏防禦，避免僅以單日價格推論趨勢反轉。
 - S&P 500 11/05 OHLC：H 7,681.29、L 7,350.35、C 7,353.73；Pivot 7,461.79；S1 7,242.29、S2 7,130.85；R1 7,573.23、R2 7,792.73。
 - 仍未完成：正式母版DOM內容組裝、calendar card增量同步、四類QA及preview/2026-11-06.html更新。尚未修改preview、index.html、母版、Manifest、WR；不得宣稱審核版已完成。正式母版SHA仍為3785405e331b10ec6189002e480be2a1edbe20ef。
 
@@ -1121,7 +1121,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 開工重新讀取 main `TAC_WORK_RULES.md`：v5.14，blob SHA `80d49eeaa54e16a18dc34416239e4b46664ba44b`。週一正式母版 SHA 與 Manifest 登記 `a568e594e55909041d51d8eae7e6fe5f7986c096` 一致；模擬母版 SHA `0169319111f5cd0b7ff6ac3d4546e9ed2d57b0f7`。
 - 修正 2 年期美債殖利率：2026-11-06 4.51%，對比 11-05 4.46%，同一 U.S. Treasury 日度公債殖利率曲線計算日變動 +5bp；畫面不再顯示待核實。
 - 修正今日觀察三活頁：市場觀點、今日關鍵價位、今日核心觀察均由 fixture 欄位獨立組裝；保留市場觀點標題／換行格式；移除舊 fallback 先行清空關鍵價位與核心觀察 DOM 的程式；核心觀察收折區移除母版舊日期內容。
-- 新增 2026-11-06 OHLC 五項指數樞紐價位（2026-11-09 使用）：Dow S1/P/R1 50,964.81/51,313.53/51,634.46；S&P 500 7,349.54/7,396.87/7,424.19；Nasdaq 24,449.52/24,637.53/24,767.44；SOX 9,198.65/9,412.95/9,604.56；Russell 2000 2,729.55/2,745.56/2,770.13。公式 P=(H+L+C)/3、S1=2P-H、R1=2P-L；五項均附 Yahoo Finance OHLC 來源連結。
+- 新增 2026-11-06 OHLC 五項指數樞紐價位（2026-11-09 使用）：Dow S1/P/R1 50,964.81/51,313.53/51,634.46；S&P 500 7,349.54/7,396.87/7,424.19；Nasdaq 24,449.52/24,637.53/24,767.44；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。公式 P=(H+L+C)/3、S1=2P-H、R1=2P-L；五項均附 Yahoo Finance OHLC 來源連結。
 - 今日核心觀察聚焦中國 10 月 CPI/PPI、美國 10 月 CPI、Fed 利率再定價與 AI 投資回報／財報指引；未把未公布實際值寫成已知結果。
 - 模擬組裝器新增 fail-closed 檢查：三活頁數量、內容、五組 S1/P/R1、來源連結及 10/23 舊內容；瀏覽器視覺回歸另逐一點擊三個活頁，驗證 radio checked、面板可見及核心關鍵文字。
 - 最新成功驗收：GitHub Actions run `42346436669`，head SHA `0d17805d23474fd5b7709ad0be64e016e4bff6b0`，conclusion success。母版結構、組裝、1440/768/360 視覺回歸及三活頁互動均通過；`visual-regression.json` failures=[]，每個視窗三活頁 invalid=[]。
@@ -1144,7 +1144,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 行事曆：main `data/calendar/weeks/2026-W46.json` blob SHA `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`；`updated_at=2026-11-12T04:34:17+08:00`，wr_version 5.14，經濟事件 16、財報事件 48，兩類 coverage 均 incomplete（屬動態狀態，不單獨判故障）。11/12 當日目前列有 3 筆經濟事件及 6 筆財報事件。
 - 本次接手時，main `preview/2026-11-12-simulation.html` 已存在，blob SHA `22155e1f0a57f3876f6ba2b966a71eb91f32fbe2`；commit `54d4e12bf3389ecb5509c57fde16176b86ebc469`，只改該 preview 檔。main `index.html` 回讀 SHA `98d8613921b225e78226033e97c0cb72aed5c577`，未變。本次未覆蓋既有 preview。
 - 既有 Actions run `43108782859`、artifact `13894783617` 已回讀；artifact HTML 計算出的 Git blob SHA 與 main preview 完全一致。Pages deploy run `43109860660` completed/success；但本次工具無法實際開啟 Pages URL，故僅記錄部署工作成功，不宣稱已完成瀏覽器載入驗證。
-- 行情欄位原始台帳：44 項；36 個數值、3 項美債休市（Veterans Day）、5 項待核實（MOVE、XLC、XLU、XLY、XLRE）。後續獨立查核發現至少三項尚不能視為完成核實：①SOX：Nasdaq 官方歷史頁 11/11 為 10,729.98、+7.32%，Investing.com 歷史頁同日顯示 10,603.4、+6.05%，與 D3 優先來源有未裁決差異；②GCZ6：報告 4,028.70，Investing.com Dec-2026 GCZ6 歷史列 3,995.32、-0.87%，Reuters 對 December futures 報 4,000.50，需先釐清合約／結算口徑；③Russell 2000：報告 close 2,846.26（AP），Yahoo ^RUT 歷史頁 11/11 close 2,834.57、high 2,843.19，與關鍵價位 OHLC 的 H 2,852.14／L 2,832.42／C 2,846.26 不一致。不得把原 run state 的 36 個數值一概視為已完成獨立驗證。
+- 行情欄位原始台帳：44 項；36 個數值、3 項美債休市（Veterans Day）、5 項待核實（MOVE、XLC、XLU、XLY、XLRE）。後續獨立查核發現至少三項尚不能視為完成核實：①SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。不得把原 run state 的 36 個數值一概視為已完成獨立驗證。
 - 關鍵價位：現有 builder 只輸出 S1／P／R1 三層；SIM WR D4 要求「第二支撐、第一支撐、中樞、第一壓力、第二壓力」五層中文標籤，故此 Gate 未通過。現有 workflow 由 GitHub Actions 取得五項 OHLC；SIM WR D4 要求 ChatGPT 當次直接查核，不得依賴 Actions／artifact，流程來源亦不符合。
 - 新聞：5 則焦點、10 則熱門頭條；跨區重複至少 4 組（德國 CPI、中國雙11購物節、美國貨櫃進口、Nvidia 對中晶片管制），違反 E 節避免同一事件重複。原文網址 11 個獨立頁面的直接開啟測試受目前工具限制未成功；僅完成靜態連結檢查，不能宣稱原文頁均已實際開啟。
 - 行事曆／財報卡片：HTML 內有 16 張經濟事件卡、48 張財報卡，其中 36 張已公布雙卡；結構數量符合本週資料。HTML 靜態檢查：html/head/body 各 1、ID 181 個且無重複、連結 212 個、無空 href／錯誤 scheme／失效內錨點／target=_blank 缺 noopener；沒有實際點擊 tabs、details、導航及外部連結。
@@ -1172,7 +1172,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 44 項行情逐項來源名稱、URL、資料日期、quote_type 均完整；40 項有數值、4 項已確認休市（2Y／10Y／30Y Treasury、MOVE）、0 項待核實。全部資料基準日為 2026-11-11。
 - 新聞為 5 則焦點＋10 則市場熱門頭條，來源與時間窗 Gate PASS；無 11/10 CPI 特別焦點額外區塊。人工檢查未見完全相同標題；跨標題事件語意重複未另作機器計數。
 - W46 唯讀來源：main commit `89f969e0cde60c522ab88354363b10b58049f8ed`，JSON blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`；16/16、48/48 靜態對帳，Ecopetrol postponed 狀態正確。
-- **交付界線：** 最新 HTML 僅在 Actions artifact，尚未寫入 main preview。main 既有 `preview/2026-11-12-simulation.html` 仍為 blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a`，只有先前 Ecopetrol 修正，SOX／Russell／GCZ6 與五層價位尚未同步；main `index.html` blob `daae9c236c566662e83c937375e8e038dfcb1c37` 未變。未獲當次明確授權前，不覆寫 main preview；index 更不得更新。
+- **交付界線：** 最新 HTML 僅在 Actions artifact，尚未寫入 main preview。main 既有 `preview/2026-11-12-simulation.html` 仍為 blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a`，只有先前 Ecopetrol 修正，SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。未獲當次明確授權前，不覆寫 main preview；index 更不得更新。
 - 狀態：`qa_complete=true`、`review_ready=false`（等待授權交付審核版及使用者審閱；不是 Gate 失敗）。
 
 
@@ -1182,9 +1182,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 模擬規則：SIM-1.1，`simulation-lab/TAC_WORK_RULES_SIM.md` SHA `4c8e493dc7b96c345970469ccd1d418e5273d273`；正式 WR v5.15 SHA `23b52f27b7afad083bbe28ed86021e04759f198d`。
 - 週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；現有組裝器 SHA `f141da39e584bb670a626b225ceeb3483c3cce60`。
 - 行事曆只讀 main：W46 SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`（檔案記錄 updated_at 04:30:43+08），W45 SHA `991d69b1ee963752a284cd0914c09011084a404f`；本次零寫入。
-- 44 項行情核對：29 verified、5 provisional、14 pending。主要待核實：VIX、MOVE、WTI 合約碼、11 檔 ETF 的 11/12 Investing.com HK 收盤列；SOX、Brent、Gold、Silver、CNN F&G 有交叉來源限制。
+- 44 項行情核對：29 verified、5 provisional、14 pending。主要待核實：VIX、MOVE、WTI 合約碼、11 檔 ETF 的 11/12 Investing.com HK 收盤列；SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - 新聞已按 11/12 12:00 至 11/13 05:25 TST 篩選 5 則宏觀焦點與 10 則熱門候選；W46 今日行事曆 3 筆經濟事件、6 筆財報事件，30 年期標售仍 pending_verification。
-- 分析草稿已整理；關鍵價位僅 Dow、Nasdaq 兩組完整，SOX provisional，S&P 500／Russell 2000 缺少合規同日現貨 OHLC。
+- 分析草稿已整理；關鍵價位僅 Dow、Nasdaq 兩組完整，SOX 已依使用者提供的 Investing.com HK 歷史數據頁截圖校正：11/12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,686.8；截圖最低價欄遭裁切，Pivot 暫不計算。
 - HTML 組裝未執行：本次環境無法執行 repo 內 Python/BeautifulSoup 組裝器；現有 workflow 固定 11/12 且含 Actions OHLC 擷取，不符合本次人工流程，未修改或觸發。
 - 未建立替代組裝器／替代 HTML；未寫入 main preview；未修改首頁、正式母版、WR、Manifest 或行事曆 JSON。QA 未執行，`review_ready=false`。
 - 前一筆 11/13 草稿中 StockAnalysis ETF 備援與 SIM-1.1 規則不符，該 11 檔數據本次全部改列 pending；VIX 17.60 不採用；CNN F&G 以較晚 FGScore 40 作 provisional；2Y Treasury 採官方 4.86%。
@@ -1206,3 +1206,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - ETF 值：XLE 63.37 (+1.86%); XLF 58.63 (+0.58%); XLK 174.36 (+3.23%); XLI 170.97 (+1.33%); XLY 120.99 (-0.05%); XLP 91.45 (+0.46%); XLU 43.82 (+0.21%); XLV 188.95 (+0.04%); XLB 53.02 (+0.32%); XLC 108.60 (+0.78%); XLRE 44.59 (+0.02%).
 - MOVE 採用使用者明確確認的 TradingView TVC 11/12 收盤截圖值 98.4202 (+6.47%)，上一收盤 92.4415。
 - Audit JSON 更新 commit `72e588ac845bf630208ab61379bc97482bbfaedf`，blob `0c451b02fa44a512ed6c8d8f906876d7dd7f364b`；最新統計 37 verified、5 provisional、2 pending。
+
+
+## SOX 歷史數據截圖校正
+
+- 依使用者提供的 Investing.com HK 歷史數據頁截圖，11/12 SOX 收盤 10,506.7（-0.54%），開盤 10,174.1，最高 10,686.8。
+- 更正舊紀錄：10,174.1 是開盤，不是最低價；舊 Pivot 計算撤銷。截圖最右側最低價欄遭裁切，因此不猜測、不計算支撐壓力，待讀取該欄後重算。
+- 11/13 audit JSON 更新 commit `d4ffda72c7c4022d1e5d7664be5d4c29e62cc8dd`，blob `d925cc714115582787f92a1153061285d75db7c5`。
