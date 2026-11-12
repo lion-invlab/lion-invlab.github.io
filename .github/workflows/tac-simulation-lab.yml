@@ -90,6 +90,21 @@ jobs:
           earnings = soup.select("#earnings .earnings-accordion")
           assert len(econ) == 16, f"expected 16 main economic events, got {len(econ)}"
           assert len(earnings) == 48, f"expected 48 main earnings events, got {len(earnings)}"
+          report_data = json.loads(Path("simulation-lab/fixtures/report-data-2026-11-12.json").read_text(encoding="utf-8"))
+          assert report_data["global_markets"]["費城半導體指數"]["display"] == "10,564.1"
+          assert report_data["global_markets"]["費城半導體指數"]["change_display"] == "+5.66%"
+          assert report_data["global_markets"]["羅素2000指數"]["display"] == "2,846.26"
+          assert report_data["global_markets"]["羅素2000指數"]["change_display"] == "+0.88%"
+          assert report_data["metals"]["黃金期貨 GC"]["display"] == "3,994.30"
+          assert report_data["metals"]["黃金期貨 GC"]["change_display"] == "-0.89%"
+          assert report_data["metals"]["白銀期貨 SI"]["display"] == "51.24"
+          assert report_data["metals"]["白銀期貨 SI"]["change_display"] == "+0.03%"
+          assert "russell2000" not in report_data.get("key_levels_overrides", {}), "CFD Russell override must not be used for ^RUT cash index"
+          levels = json.loads(Path("simulation-lab/output/key-levels-live.json").read_text(encoding="utf-8"))
+          sox_level = next(x for x in levels["key_levels"]["items"] if x["key"] == "sox")
+          rut_level = next(x for x in levels["key_levels"]["items"] if x["key"] == "russell2000")
+          assert "C 10,564.11" in sox_level["ohlc"], f"SOX close mismatch: {sox_level['ohlc']}"
+          assert "C 2,846.26" in rut_level["ohlc"], f"Russell cash close mismatch: {rut_level['ohlc']}"
           reactions = json.loads(Path("simulation-lab/output/earnings-price-reactions.json").read_text(encoding="utf-8"))
           assert reactions["main_commit_sha"], "price reaction source commit SHA missing"
           assert reactions["calendar_blob_sha"], "price reaction calendar blob SHA missing"
