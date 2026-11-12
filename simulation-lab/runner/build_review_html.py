@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse, hashlib, json, re, sys
 from datetime import datetime, timedelta
 from pathlib import Path
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -139,7 +139,7 @@ def main():
     provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": {k:v for k,v in calendar_source["previous"].items() if k != "payload"}, "mode": "READ_ONLY"}
     head_node = soup.select_one("head")
     if head_node is None: raise ValueError("HTML head missing; cannot record authoritative calendar provenance")
-    head_node.append(soup.new_string(" TAC_CALENDAR_SOURCE " + json.dumps(provenance, ensure_ascii=False, separators=(",", ":")), Comment=True))
+    head_node.append(Comment(" TAC_CALENDAR_SOURCE " + json.dumps(provenance, ensure_ascii=False, separators=(",", ":"))))
     # Normalize the two Monday previous-week disclosure controls to the economic-calendar reference layout.
     disclosure_css = """
 <style id="tac-last-week-disclosure-unified-v1">
