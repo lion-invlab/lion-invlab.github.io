@@ -175,14 +175,18 @@
         "group": "US major indices",
         "ticker": "RUT",
         "name": "Russell 2000",
-        "value": 2799.06,
-        "change_pct": -1.66,
+        "value": 2802.84,
+        "change_pct": -1.53,
         "status": "verified",
-        "source": "AP",
+        "source": "Investing.com global historical data (HK history table not yet updated)",
         "source_ref": "turn903521news96",
         "data_date": "2026-11-12",
         "quote_type": "cash_index_close",
-        "note": "Yahoo ^RUT 同日頁仍是盤中資料；沒有可接受的收盤 OHLC"
+        "note": "Investing.com global historical table shows 2026-11-12 close 2,802.84, open 2,831.80, high 2,837.45, low 2,802.30. HK historical table latest visible row remains 11/11; therefore use same-provider global page as fallback and retain source caveat.",
+        "source_url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "open": 2831.8,
+        "high": 2837.45,
+        "low": 2802.3
       },
       {
         "group": "US major indices",
@@ -724,9 +728,9 @@
   },
   "key_levels": {
     "formula": "P=(H+L+C)/3; S1=2P-H; R1=2P-L; S2=P-(H-L); R2=P+(H-L)",
-    "verified_sets": 4,
+    "verified_sets": 5,
     "provisional_sets": 0,
-    "pending_sets": 1,
+    "pending_sets": 0,
     "items": [
       {
         "index": "DJI",
@@ -793,8 +797,19 @@
       },
       {
         "index": "RUT",
-        "status": "pending",
-        "note": "AP cash close only; Yahoo ^RUT page remained intraday"
+        "status": "verified",
+        "note": "11/12 cash index OHLC taken from Investing.com global historical table because HK table had not refreshed the date row. Pivot levels calculated from this same-source row.",
+        "high": 2837.45,
+        "low": 2802.3,
+        "close": 2802.84,
+        "levels": {
+          "S2": 2779.05,
+          "S1": 2790.94,
+          "P": 2814.2,
+          "R1": 2826.09,
+          "R2": 2849.35
+        },
+        "source": "Investing.com global historical data"
       }
     ]
   },
@@ -979,6 +994,7 @@
     "2026-11-13 即時補查修正：11 檔 S&P sector ETF 直接採用 Investing.com HK 報價頁最新收盤報價（Close 04:59:59），不再因歷史表格仍顯示 11/11 而列 pending；MOVE 採使用者明確確認的 TVC 截圖 11/12 收盤 98.4202。",
     "SOX 歷史數據修正：使用者指出應直接讀取 Investing.com HK 歷史數據表。依截圖校正 2026-11-12 收盤 10,506.7、開盤 10,174.1、最高 10,686.8；最低價欄被截圖裁切。舊計算誤把開盤 10,174.1 當最低價，已撤銷 SOX 舊 Pivot levels，待補最低價後重算。",
     "SOX OHLC 補齊：使用者第二張 Investing.com HK 歷史表截圖明確顯示 11/12 高 10,686.8、低 10,174.1；配合第一張截圖開盤 10,174.1、收盤 10,506.7。Pivot 已重算。",
-    "S&P 500 OHLC 由 Investing.com HK 歷史數據頁取得：11/12 收市 7,593.04、開市 7,564.11、高 7,652.40、低 7,559.61；Pivot 已計算。Russell 2000 Investing.com HK 歷史表目前最新列仍為 11/11，未出現 11/12，故不以舊列或即時 CFD 報價替代。"
+    "S&P 500 OHLC 由 Investing.com HK 歷史數據頁取得：11/12 收市 7,593.04、開市 7,564.11、高 7,652.40、低 7,559.61；Pivot 已計算。Russell 2000 Investing.com HK 歷史表目前最新列仍為 11/11，未出現 11/12，故不以舊列或即時 CFD 報價替代。",
+    "Russell 2000 補齊：Investing.com HK 歷史表仍停留 11/11，改採 Investing.com global historical table 同供應商 11/12 歷史列：收市 2,802.84、開市 2,831.80、高 2,837.45、低 2,802.30、跌 1.53%。Pivot 已計算；來源註記明確保留 HK 頁面延遲、改用 global 頁面的原因。"
   ]
 }
