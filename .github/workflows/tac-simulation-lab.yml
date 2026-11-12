@@ -101,9 +101,9 @@ jobs:
           assert report_data["metals"]["白銀期貨 SI"]["change_display"] == "+0.03%"
           for label, expected in (("2年期美債殖利率","4.748%"),("10年期美債殖利率","5.021%"),("30年期美債殖利率","5.358%")):
               bond = report_data["bonds"][label]
-              assert bond["display"] == expected
-              assert bond["source"]["quote_type"] == "cfd_reference_quote"
-              assert "CFD參考價" in bond["change_display"]
+              assert bond["display"] == "休市"
+              assert bond["source"]["quote_type"] == "market_closed_no_valid_quote"
+              assert "無有效" in bond["change_display"]
           assert report_data["risk"]["move"]["display"] == "休市"
           indicator_rows = (
               list(report_data["global_markets"].values()) +
@@ -115,7 +115,7 @@ jobs:
               [{"display": value} for value in report_data["sectors"].values()]
           )
           assert len(indicator_rows) == 44, f"expected 44 indicators, got {len(indicator_rows)}"
-          assert sum(1 for row in indicator_rows if row.get("display") == "休市") == 1, "only MOVE should remain closed after CFD fallback"
+          assert sum(1 for row in indicator_rows if row.get("display") == "休市") == 4, "three Treasury yields and MOVE should remain closed without valid cutoff quotes"
           assert "russell2000" not in report_data.get("key_levels_overrides", {}), "CFD Russell override must not be used for ^RUT cash index"
           levels = json.loads(Path("simulation-lab/output/key-levels-live.json").read_text(encoding="utf-8"))
           sox_level = next(x for x in levels["key_levels"]["items"] if x["key"] == "sox")
@@ -130,7 +130,7 @@ jobs:
           all_text = soup.get_text(" ", strip=True)
           assert "數值高於預期（EPS口徑待核實）" not in all_text
           assert "數值低於預期（EPS口徑待核實）" not in all_text
-          assert "CFD參考價" in all_text, "Treasury holiday CFD references were not rendered"
+          assert "無有效 11/11 收盤／CFD 報價" in all_text, "Treasury holiday no-valid-quote status was not rendered"
           assert "2年期美債殖利率" in all_text and "10年期美債殖利率" in all_text and "30年期美債殖利率" in all_text
           assert "公告後首個交易日收盤" in all_text, "verified earnings price reactions were not rendered into HTML"
           reaction_cards = [x for x in earnings if "公告後首個交易日收盤" in x.get_text(" ", strip=True)]
