@@ -56,6 +56,20 @@ def earnings_comparison_status(item, metric):
         return "beat" if actual > estimate else "miss" if actual < estimate else "inline"
     return "pending"
 
+def parse_fear_greed_score(value):
+    """Return a validated 0..100 Fear & Greed score, or None when unavailable."""
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, (int, float)):
+        score = float(value)
+    else:
+        match = re.fullmatch(r"\\s*(\\d{1,3}(?:\\.\\d+)?)\\s*(?:/100)?\\s*", str(value or ""))
+        if not match:
+            return None
+        score = float(match.group(1))
+    return score if 0 <= score <= 100 else None
+
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--data", required=True)
@@ -1451,6 +1465,24 @@ def main():
             set_text(date_node, f"{source_label}｜{fg_date}")
         score = fg.select_one(".fg6-score")
         if score: set_text(score, fg_value)
+        marker = fg.select_one(".fg6-marker")
+        if marker is None:
+            raise ValueError("CNN Fear & Greed marker missing from approved mother template")
+        numeric_score = parse_fear_greed_score(fg_record.get("value", fg_value))
+        if numeric_score is None:
+            # Never leave the mother's stale fixed 23% marker visible when the
+            # current source value is missing or invalid.
+            marker["style"] = "display: none !important;"
+            marker["aria-hidden"] = "true"
+            marker.attrs.pop("data-score", None)
+            marker.attrs.pop("aria-label", None)
+        else:
+            # The approved mother contains .fg6-marker { left:23%!important }.
+            # An inline !important declaration is required to override it.
+            marker["style"] = f"left: {numeric_score:g}% !important;"
+            marker["data-score"] = f"{numeric_score:g}"
+            marker["aria-label"] = f"Fear and Greed score {numeric_score:g} out of 100"
+            marker.attrs.pop("aria-hidden", None)
         klass = fg.select_one(".fg6-class")
         if klass: set_text(klass, fg_record.get("band", "待核實"))
         explanation = fg_source.get("note") or "未取得可核實的官方歷史讀值，暫不判定市場恐懼或貪婪程度。"
