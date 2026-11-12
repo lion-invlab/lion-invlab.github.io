@@ -781,3 +781,25 @@
 ### 保護範圍
 - main 正式首頁 `index.html`、main preview、正式母版、Manifest、WR 未修改。
 - main W46 行事曆 JSON 僅更新上述已核實財報判讀與比較狀態；模擬區 fixture、QA 腳本及 workflow 僅於 simulation branch 更新。
+
+
+## 2026-11-13｜42 張財報卡比較狀態補核與最新 QA 成果
+
+### 最新 main W46 資料
+- main `data/calendar/weeks/2026-W46.json` 最新 commit：`94583ef624f99e035e563964fb69bd1e384d203e`；blob SHA：`85edcefb1f7b86112e55d43a324c6cb5c8c2fdab`。
+- 42 家四星／五星已公布卡片目前結構化比較狀態：EPS Beat 15、Miss 3、待核 24；Revenue Beat 17、Miss 8、待核 17。其餘待核不是漏寫結果，而是同口徑共識缺失、實際值未披露、幣別不一致、GAAP／adjusted 不同、估值來源衝突或 rounded actual 不足以判定。不得為了填滿 badge 而機械比較。
+- 新增 EPS Beat：Barrick、Ferguson、NRG、Constellation Energy、KKR、TransDigm、Nebius、Wix、Mercury Systems、monday.com、The Trade Desk、MARA、Onto Innovation、Sanmina、Qualys。
+- 新增 EPS Miss：D-Wave、Hims & Hers、Rigetti。Rigetti 比較欄採 non-GAAP diluted loss/share -US$0.06 vs -US$0.05 consensus，GAAP -US$0.08 另列；Mercury 比較欄採 adjusted EPS US$0.52 vs US$0.2977 consensus，GAAP US$0.21 另列；MARA 的 GAAP EPS Beat 附註 US$885.3M digital-asset fair-value gain，不視為經常性獲利。
+- Revenue 比較欄已核實的 Beat 17、Miss 8；17 家仍待核，主要是定義／來源差異或缺乏可比共識。Vodafone EPS／Revenue actual 已有官方值，但無同口徑共識，故維持待核；判讀文字已更新，不再稱 actual null。
+
+### 最新完整 QA run 43330857276（run 430）
+- 結論：completed / success。
+- Deterministic tests：Fear & Greed 3 tests PASS；earnings comparison basis gating regression PASS。
+- Chromium Interaction Smoke：PASS；導航 10 個、財報／經濟／產業收合、新聞 5 個、熱門頭條 10 個、Investing.com links 114、Cnyes links 3、page errors 0；Fear & Greed score 40，白點實際位置 40%，合成 20／40／75 全部精確對齊。
+- Visual regression：PASS；1440／768／360 報表與核准母版比對通過；五種 viewport 截圖完成。
+- 結構／資料 Gate：PASS；經濟行事曆 16/16、財報行事曆 48/48、行情指標 44、焦點新聞 5、熱門頭條 10。
+- 最新輸出 artifact ID `13995430967`。回讀 HTML：42 張已公布卡；EPS badge 15 Beat／3 Miss／24 待核；Revenue 17 Beat／8 Miss／17 待核；WTI 88.92/+2.76%、Brent 94.54/+1.92%；Vodafone 判讀已更新；Fear & Greed marker 40%。Visual regression failures=[]。
+
+### 讓審核版可回讀的最後一步
+- Workflow commit `5d909b94e01407dab7a8f2e7a7842043cdb9ae63` 已加入「QA 全通過後，將 HTML 審核版存入 simulation branch」步驟，且只推送 `simulation/tac-process-lab-2026-11-06`，不推 main、不部署。Workflow token 權限改為 contents:write 僅供此分支存檔；output 路徑不在 push path trigger 中，commit 使用 `[skip ci]`。
+- 此 commit 已觸發新 run，待確認其 QA 成功及 output HTML 已 commit 後，將由 GitHub fetch 回讀該 HTML，再更新 main 的 `preview/2026-11-13-simulation.html` 作為最新審核版。正式首頁 `main/index.html` 不會修改。
