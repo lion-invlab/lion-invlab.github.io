@@ -1381,3 +1381,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新 42 家已公布卡片：EPS Beat 15、Miss 3、pending 24；Revenue Beat 17、Miss 8、pending 17。待核實保留口徑／來源差異說明，不強行判定。
 - 正式首頁 `main/index.html` 未修改；本次回讀 SHA `daae9c236c566662e83c937375e8e038dfcb1c37`，與本輪開始檢查時一致。正式母版、Manifest、WR 未修改。
 - 使用者可審核的 GitHub HTML：`https://github.com/lion-invlab/lion-invlab.github.io/blob/main/preview/2026-11-13-simulation.html`。此檔是審核版，尚未發布至首頁。
+
+
+## 2026-11-13｜審核版最後回讀補充
+
+- 從 run `43331347462` artifact 直接以 BeautifulSoup 回讀 42 張已公布財報卡：股價反應 37 家已填入公告後首個交易日收盤變化；5 家保留待核（Vodafone Group、Franco-Nevada、Vylor、Joint Stock Company Kaspi.kz、CNH Industrial N.V.），沒有用未知公告時間推測。
+- 最新 HTML SHA/blob：`902997848aa212d487ce8fcbe3dffb396995723e`，431,970 chars。Visual regression failures=[]；Fear & Greed 40% marker；油價 WTI 88.92/+2.76%、Brent 94.54/+1.92%。
+- main 審核版已更新 commit `048d58b0abf3ad4080b0a1e76a62ab07289a8add`；main preview blob SHA `902997848aa212d487ce8fcbe3dffb396995723e`。main index blob SHA `daae9c236c566662e83c937375e8e038dfcb1c37`，未修改。
