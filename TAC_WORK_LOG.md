@@ -755,3 +755,29 @@
 - 已增強 `interaction_smoke.mjs`：除檢查白點實際幾何位置、inline !important 外，也檢查 `data-score` 與 aria-label 必須與顯示分數一致。Commit `d24fff9938e7e719b0ef97818f03fdcd15867aed`；新 blob SHA `9ed488a744761bbf38b911cbe0b468a6d2f59e40`。
 - 由於 GitHub connector 沒有 workflow_dispatch action，改以既有 workflow 支援的 push commit message `[build-tac-report]` 觸發隔離分支完整建置及 Chromium QA。Run `43329576957`（run 396）目前 in_progress；前一個 fixture push run `43329560280` 被 concurrency 正常取消，沒有進入測試步驟。完整 run 需等結果，不得預先宣稱通過。
 - 本次所有改動只涉及 main W46 的 Vodafone 判讀，以及 simulation fixture／smoke test；main `index.html`、main `preview/2026-11-13-simulation.html`、母版、Manifest、WR 均未修改。
+
+
+## 2026-11-13｜完整 QA 通過、財報比較狀態補強及再建置
+
+### 完整 QA run 43329879738（run 397）
+- 結論：GitHub Actions run completed / success。
+- Deterministic self-tests：通過；報告日期 2026-11-13、週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。
+- Playwright Chromium Interaction Smoke：PASS。10 個導航錨點、財報／經濟行事曆與產業卡收合、5 個焦點新聞來源、10 個熱門頭條來源、Investing.com 114 個連結、Cnyes 3 個連結、page errors 0；Fear & Greed 顯示分數 40、實際白點位置 40%，合成 20／40／75 三點均精確對齊。
+- Visual regression：PASS；桌面 1440、平板 768、手機 412／390／360 五種 viewport 均完成截圖與母版幾何比對；母版 SHA 符合 Manifest。
+- 結構／資料 Gate：PASS；經濟行事曆 16/16、財報行事曆 48/48、行情指標 44、焦點新聞 5、熱門頭條 10。
+- 首次 run 43329576957 visual regression 失敗原因是腳本把另一份報告的 CPI／Waller 文案硬編碼成固定內容。已在 `visual_regression.mjs` 改為檢查日期無關的穩定區塊語意及市場錨點，再跑 run 43329879738 通過。這是 QA 測試腳本的 false positive，並非報告版面或白點失敗。
+- 輸出僅存在模擬分支 Actions artifact，未發布至 main；artifact ID `13995250358`。HTML 已回讀，白點 score/left/data-score/aria-label 全部為 40；WTI 88.92/+2.76%、Brent 94.54/+1.92%；Vodafone 判讀已採官方財報數據。
+
+### 主行事曆財報比較欄位補強
+- main W46 JSON 更新 commit：`3e61c935395584300617bf05cad7e588c69f19c2`；blob SHA `b1a48046347915ae39127e576340bce4ce36cc33`。
+- 經來源核對後，新增同口徑 basis 與 comparison status：KKR EPS Beat；monday.com EPS／Revenue Beat；Ferguson Revenue Beat；Constellation Energy EPS／Revenue Beat。未核實口徑的其他卡仍保留待核，不以實際數值與預期值的裸數字差直接推斷。
+- Vodafone main W46 record 已由前一 commit `59e706dba19674a2d6ba86a40d5c4c4e96faf499` 修正官方 H1 FY27 判讀；此更新已包含在目前 main W46 最新版中。
+- 目前最新 main preview `preview/2026-11-13-simulation.html` 尚未重建；main `index.html` 仍未動。
+
+### 比較邏輯回歸測試與新 run
+- 新增 `simulation-lab/runner/test_earnings_comparison_status.py`，驗證只有明確 sourced status 或 actual/estimate 同口徑 basis 才能判 Beat/Miss；basis 不同、缺失或 actual 為 bool 時必須 pending。
+- Workflow 已加入該 deterministic test；workflow commit `e81dcad5be5f282c3df3087ba30df0676445be01`。因 commit message 含 `[build-tac-report]`，已觸發新一輪完整 11/13 隔離建置與 QA；待確認新 run 結果後才可宣稱最新 W46 比較欄位已在審核版顯示。
+
+### 保護範圍
+- main 正式首頁 `index.html`、main preview、正式母版、Manifest、WR 未修改。
+- main W46 行事曆 JSON 僅更新上述已核實財報判讀與比較狀態；模擬區 fixture、QA 腳本及 workflow 僅於 simulation branch 更新。
