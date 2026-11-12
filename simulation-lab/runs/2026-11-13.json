@@ -126,9 +126,9 @@
   },
   "market_data": {
     "total_indicators": 44,
-    "verified": 25,
+    "verified": 37,
     "provisional": 5,
-    "pending": 14,
+    "pending": 2,
     "items": [
       {
         "group": "US major indices",
@@ -508,14 +508,23 @@
         "group": "Risk",
         "ticker": "MOVE",
         "name": "ICE BofA MOVE Index",
-        "status": "pending",
+        "status": "verified",
         "source_attempts": [
           "Investing.com HK latest valid row 2026-11-10",
           "Yahoo ^MOVE returned 429",
           "CNBC .MOVE blocked by robots",
           "EODData latest row 2026-11-10"
         ],
-        "data_date": "2026-11-12"
+        "data_date": "2026-11-12",
+        "value": 98.4202,
+        "change": 5.98,
+        "change_pct": 6.47,
+        "source": "User-provided TradingView TVC screenshot",
+        "source_url": "User image supplied in conversation",
+        "quote_type": "user-confirmed close",
+        "quote_time_taipei": "2026-11-13 05:49",
+        "previous_close": 92.4415,
+        "note": "使用者明確確認截圖已為 2026-11-12 收盤價；採用該值。"
       },
       {
         "group": "Risk",
@@ -534,100 +543,155 @@
         "group": "S&P 11 sectors",
         "ticker": "XLE",
         "name": "Energy",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 63.37,
+        "change_pct": 1.86,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLK",
         "name": "Information Technology",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 174.36,
+        "change_pct": 3.23,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLI",
         "name": "Industrials",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 170.97,
+        "change_pct": 1.33,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLC",
         "name": "Communication Services",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
-        "note": "No 2026-11-12 HK historical row; regional mirrors not accepted"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 108.6,
+        "change_pct": 0.78,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLB",
         "name": "Materials",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 53.02,
+        "change_pct": 0.32,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLF",
         "name": "Financials",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 58.63,
+        "change_pct": 0.58,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLU",
         "name": "Utilities",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 43.82,
+        "change_pct": 0.21,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLRE",
         "name": "Real Estate",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
-        "source_url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
-        "note": "HK data unavailable; regional Investing.com mirrors conflict (44.52/-0.16 vs 44.42/-0.38)"
+        "source_url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413",
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 44.59,
+        "change_pct": 0.02,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLY",
         "name": "Consumer Discretionary",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
-        "note": "No 2026-11-12 HK historical row; regional mirrors not accepted"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 120.99,
+        "change_pct": -0.05,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLP",
         "name": "Consumer Staples",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 91.45,
+        "change_pct": 0.46,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       },
       {
         "group": "S&P 11 sectors",
         "ticker": "XLV",
         "name": "Health Care",
-        "status": "pending",
+        "status": "verified",
         "source": "Investing.com HK",
         "source_url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
-        "note": "HK historical table latest row remained 2026-11-11 at 05:25 cutoff"
+        "note": "採用 Investing.com 頁面最新收盤報價（頁面標示 Close 04:59:59）；歷史表格尚未同步更新，依 WR 優先來源直接採用報價頁收盤欄位。",
+        "value": 188.95,
+        "change_pct": 0.04,
+        "data_date": "2026-11-12",
+        "quote_type": "latest_close_quote",
+        "quote_time_taipei": "2026-11-13 05:49"
       }
     ]
   },
@@ -893,6 +957,7 @@
     "本次僅讀取 main W46/W45 行事曆 JSON，未讀取 simulation branch 的舊週 JSON，未對任何 calendar JSON 寫入。",
     "main/preview/2026-11-13-simulation.html 不存在；main/index.html 未修改。",
     "未觸發舊端到端排程，未修改 workflow、WR、Manifest、正式母版或其他 main 檔案。",
-    "本次實際啟動時間 05:26:12，較預定 05:25 晚 1 分 12 秒；行情資料基準日仍為 2026-11-12。"
+    "本次實際啟動時間 05:26:12，較預定 05:25 晚 1 分 12 秒；行情資料基準日仍為 2026-11-12。",
+    "2026-11-13 即時補查修正：11 檔 S&P sector ETF 直接採用 Investing.com HK 報價頁最新收盤報價（Close 04:59:59），不再因歷史表格仍顯示 11/11 而列 pending；MOVE 採使用者明確確認的 TVC 截圖 11/12 收盤 98.4202。"
   ]
 }
