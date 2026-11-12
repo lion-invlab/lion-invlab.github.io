@@ -94,6 +94,7 @@ try {
   }
 
   const investingLinks = await page.locator('a[href^="https://hk.investing.com/"], a[href^="https://www.investing.com/"]').count();
+  // Count every official Cnyes subdomain (news, mobile, and Anue), not one hostname only.
   const cnyesLinks = await page.locator('a[href*=".cnyes.com/"], a[href^="https://cnyes.com/"]').count();
   if (investingLinks < 10 || cnyesLinks < 2) {
     throw new Error(`source links unexpectedly low: Investing.com=${investingLinks}, Cnyes=${cnyesLinks}`);
