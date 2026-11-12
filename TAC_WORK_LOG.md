@@ -607,3 +607,11 @@
 - 先前使用 StockAnalysis 作為 ETF 備援，違反 SIM-1.1 的 Investing.com HK 限定，11 檔 ETF 改列待核實。
 - 先前 VIX 17.60 缺少可重現的同日官方收盤證據，不採用。
 - CNN Fear & Greed 以較晚 FGScore 40 作 provisional；Treasury 2Y 採官方 4.86%，不沿用 4.87%。
+
+
+## 2026-11-13｜使用者補充 MOVE 即時報價截圖
+
+- 使用者提供 TradingView TVC MOVE 截圖，畫面時間 05:49（台灣時間）：98.4202 USD，日變動 +5.98（+6.47%），上一個收盤 92.4415。
+- 修正先前「MOVE 為唯一缺值／待核實」的結論：44 項行情均已有可用讀值。MOVE 的資料來源須標示為使用者提供的 TradingView TVC 畫面，不可寫成 Investing.com 或 ICE 官方直接報價。
+- 口徑限制：在確認 TVC 報價與 WR 指定 ICE BofA MOVE Index 完全同口徑前，保留 TVC 標籤並註明截圖時間；不可無條件宣稱其為 ICE 官方收盤。
+- Session State 更新 commit `4fe5ed8ef049c04eca3e6dc1b19a47ee8a2c43ff`，blob `b82e3373b4c2ea0da34401546e575f9664c01e74`。
