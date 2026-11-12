@@ -158,8 +158,11 @@ jobs:
           ec = next((x for x in earnings if "Ecopetrol S.A." in x.get_text(" ", strip=True)), None)
           assert ec is not None
           ec_text = ec.get_text(" ", strip=True)
-          assert "已延期；改期至" in ec_text, "Ecopetrol postponement status was not rendered"
+          assert "已延期；改期至 11/13" in ec_text, "Ecopetrol postponed date/status was not rendered exactly"
           assert "即將公布；11/13" not in ec_text, "postponed earnings must not be labelled as simply upcoming"
+          assert "時間待核實" in ec_text, "Ecopetrol unconfirmed release time must remain explicit"
+          postponed_cards = [x for x in earnings if "已延期；改期至" in x.get_text(" ", strip=True)]
+          assert len(postponed_cards) == 1, f"expected exactly one postponed earnings card, got {len(postponed_cards)}"
           vylor = next((x for x in earnings if "Vylor" in x.get_text(" ", strip=True)), None)
           assert vylor is not None
           vylor_text = vylor.get_text(" ", strip=True)
