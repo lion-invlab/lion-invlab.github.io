@@ -653,3 +653,14 @@
 - RUT Pivot：S2 2,779.05、S1 2,790.94、P 2,814.20、R1 2,826.09、R2 2,849.35。
 - 五大指數 key levels 全部完成：DJI、IXIC、SOX、SPX、RUT；key_levels verified_sets=5、pending_sets=0。
 - Audit JSON commit `67ddee39db1299a7810644b6fd43b6e11acdc29f`，blob `f854cdf754beeb34df292e4b509b7dbbea13a401`。
+
+
+## 2026-11-13｜新聞與行事曆盤點、組裝阻塞更新
+
+- main W46 行事曆唯讀讀取，SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，WR v5.15：16 項經濟事件、48 項財報事件；無任何 JSON 寫入。
+- 11/13 05:25 截稿時，11/12 已公布事件保留實績；11/13 截稿後預定的歐元區 GDP、美國 PPI 及 11/13 05:30/06:00 財報事件仍維持 upcoming，不預填未公布實績或股價反應。
+- 新聞窗口 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）：已取得 5 則總經焦點及 10 則市場頭條候選，時間窗檢查通過；頭條摘要及最後編輯去重尚未完成。
+- 五大指數 key levels 已全數完成（5/5）。
+- Audit JSON 更新 commit `a776a79877dd26d0a9d4fe0721bd8ff8c54cb8ef`，blob `fcb8c79eb5a4b9ae6e12709777c52c91bf134083`；行情分類 38 verified、4 provisional、2 pending。
+- HTML 尚未組裝：缺少 `simulation-lab/fixtures/report-data-2026-11-13.json`；既有 workflow 硬編碼 11/12；此對話無法直接在 repo runner 執行既有 Python／BeautifulSoup／Playwright。未建立替代組裝器、未修改 workflow、未使用舊 fixture 假冒今日資料。
+- Gate 狀態：母版 SHA pass、Manifest pass、calendar read-only pass；DOM／HTML integrity／links／desktop／mobile／320px／interaction 均 not_run；`review_ready=false`，未產生審核版，main index 未修改。
