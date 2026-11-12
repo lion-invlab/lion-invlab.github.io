@@ -98,7 +98,14 @@ jobs:
           ec_text = ec.get_text(" ", strip=True)
           assert "已延期；改期至" in ec_text, "Ecopetrol postponement status was not rendered"
           assert "即將公布；11/13" not in ec_text, "postponed earnings must not be labelled as simply upcoming"
-          print("PASS: main calendar counts; pending EPS comparisons non-directional; CHF/USD split; postponed event status")
+          vylor = next((x for x in earnings if "Vylor" in x.get_text(" ", strip=True)), None)
+          assert vylor is not None
+          vylor_text = vylor.get_text(" ", strip=True)
+          assert "電話會議 22:00" in vylor_text, "Vylor webcast time must be labelled as call time"
+          assert "財報發布：盤後（發布時間待核實）；電話會議：22:00" in vylor_text, "Vylor release/call times must not be conflated"
+          nebius = next((x for x in earnings if "Nebius Group" in x.get_text(" ", strip=True)), None)
+          assert nebius is not None and "財報發布：盤前（發布時間待核實）；電話會議：21:00" in nebius.get_text(" ", strip=True)
+          print("PASS: main calendar counts; pending EPS non-directional; currencies split; postponed status; release vs call time")
           PY
 
 
