@@ -182,6 +182,14 @@ def self_test() -> None:
     )
     assert overridden["Close"] == 10729.98 and overridden["High"] == 10746.25
     assert name == "Nasdaq official" and url.endswith("/SOX")
+    nov11, nov11_name, nov11_url = apply_ohlc_override(
+        "sox", {"Open": 10469.04, "High": 10787.0, "Low": 10288.2, "Close": 10761.3},
+        {"trading_date": "2026-11-11", "high": 10787.06, "low": 10287.32, "close": 10564.11,
+         "source_name": "Investing.com HK｜SOX H/L/C", "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data"},
+        "2026-11-11"
+    )
+    assert nov11["Close"] == 10564.11 and nov11["High"] == 10787.06 and nov11["Low"] == 10287.32
+    assert nov11_name.startswith("Investing.com HK") and "phlx-semiconductor" in nov11_url
     print("collect_key_levels_ohlc self-test: PASS")
 
 
