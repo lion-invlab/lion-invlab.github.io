@@ -2,6 +2,7 @@
 """Fail-closed, read-only loader for the sole TAC calendar database on main."""
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -248,3 +249,12 @@ def self_test() -> None:
     assert _economic_records(sample)[0]["name"] == "CPI"
     assert _earnings_records(sample)[0]["eps_actual_display"] == "US$1.20"
     print("PASS: main calendar schema mapping")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--self-test", action="store_true")
+    args = parser.parse_args()
+    if args.self_test:
+        self_test()
+    else:
+        parser.error("only --self-test is supported")
