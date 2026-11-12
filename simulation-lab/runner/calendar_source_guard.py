@@ -159,6 +159,11 @@ def _earnings_records(payload: dict) -> list[dict]:
         currency = item.get("eps_currency")
         revenue_currency = item.get("revenue_currency")
         revenue_unit = item.get("revenue_unit")
+        def currency_pair(value):
+            match = re.fullmatch(r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \\(not comparable\\)", value or "")
+            return (match.group(1), match.group(2)) if match else (value, value)
+        eps_actual_currency, eps_estimate_currency = currency_pair(currency)
+        revenue_actual_currency, revenue_estimate_currency = currency_pair(revenue_currency)
         output.append({
             "id": item.get("id"),
             "date": item.get("event_date"),
@@ -172,16 +177,16 @@ def _earnings_records(payload: dict) -> list[dict]:
             "status": "released" if item.get("status") in ("released", "published", "completed") else item.get("status"),
             "eps_actual": item.get("eps_actual"),
             "eps_estimate": item.get("eps_estimate"),
-            "eps_actual_display": _money_display(item.get("eps_actual"), currency),
-            "eps_estimate_display": _money_display(item.get("eps_estimate"), currency),
+            "eps_actual_display": _money_display(item.get("eps_actual"), eps_actual_currency),
+            "eps_estimate_display": _money_display(item.get("eps_estimate"), eps_estimate_currency),
             "eps_basis": item.get("eps_basis"),
             "eps_actual_basis": item.get("eps_actual_basis"),
             "eps_estimate_basis": item.get("eps_estimate_basis"),
             "eps_comparison_status": item.get("eps_comparison_status"),
             "revenue_actual": item.get("revenue_actual"),
             "revenue_estimate": item.get("revenue_estimate"),
-            "revenue_actual_display": _money_display(item.get("revenue_actual"), revenue_currency, revenue_unit, 3),
-            "revenue_estimate_display": _money_display(item.get("revenue_estimate"), revenue_currency, revenue_unit, 3),
+            "revenue_actual_display": _money_display(item.get("revenue_actual"), revenue_actual_currency, revenue_unit, 3),
+            "revenue_estimate_display": _money_display(item.get("revenue_estimate"), revenue_estimate_currency, revenue_unit, 3),
             "revenue_actual_basis": item.get("revenue_actual_basis"),
             "revenue_estimate_basis": item.get("revenue_estimate_basis"),
             "revenue_comparison_status": item.get("revenue_comparison_status"),
