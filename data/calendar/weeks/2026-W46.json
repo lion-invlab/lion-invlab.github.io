@@ -5,9 +5,9 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-12T04:34:17+08:00",
-  "source_report_date": "2026-11-12",
-  "wr_version": "5.14",
+  "updated_at": "2026-11-13T04:30:43+08:00",
+  "source_report_date": "2026-11-13",
+  "wr_version": "5.15",
   "status": "active",
   "events": {
     "economic": [
@@ -293,25 +293,26 @@
         "importance_basis_source": "TAC四星：大型新興經濟體核心通膨數據，對印度央行政策預期、債匯市場及區域資金風險偏好具影響。",
         "previous": "5.54% y/y",
         "forecast": "5.93% y/y",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "印度 CPI 將反映食品與核心通膨壓力，影響印度央行政策空間及印度債券、盧比與股市評價；須留意食品價格對總體通膨的貢獻。",
+        "actual": "6.09% y/y（2026-10，暫定；食品通膨 8.94%）",
+        "status": "released",
+        "impact_judgment": "高於已存市場預期 5.93% 及前值 5.54%，並突破 RBI 2%–6% 容忍區間上限；食品通膨升至 8.94%。此數據增加市場對 12 月升息的押注。實績由 Reuters 引述政府數據核實；MoSPI/PIB October 原始 PDF 本輪未能直接回讀。",
         "source": {
-          "name": "Press Information Bureau, Government of India｜CPI on base 2024=100 for September 2026",
-          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
-          "published_at": "2026-10-12",
-          "observed_at": "2026-11-06T18:00:00+08:00",
-          "publisher": "Ministry of Statistics & Programme Implementation / Press Information Bureau",
-          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。 前值依印度官方 9 月 CPI；預期採 Reuters 11/06 對 36 位經濟學家的調查。",
+          "name": "India October CPI 2026｜Reuters report citing government data",
+          "url": "https://ca.marketscreener.com/news/india-s-october-retail-inflation-at-6-09-on-year-ce785ed8da81f227/",
+          "published_at": "2026-11-12T05:41:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "Reuters（syndicated via MarketScreener）",
+          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。 前值依印度官方 9 月 CPI；預期採 Reuters 11/06 對 36 位經濟學家的調查。；Reuters 2026-11-12 引述印度政府數據：10 月 CPI 年增 6.09%，9 月 5.54%，Reuters poll 預期 5.93%；食品通膨 8.94%（前月 7.74%）。官方 MoSPI/PIB October 原始發布頁本輪未能直接取得，精確發布時刻維持 time_known=false，不以新聞刊出時間替代官方發布時刻。",
           "secondary_refs": [
             "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
-            "https://www.reuters.com/world/india/indias-october-consumer-inflation-likely-nears-top-rbi-target-food-costs-2026-11-06/"
+            "https://www.reuters.com/world/india/indias-october-consumer-inflation-likely-nears-top-rbi-target-food-costs-2026-11-06/",
+            "https://www.investing.com/news/economy-news/indias-october-retail-inflation-at-609-onyear-5020869"
           ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
         "data_unit": "% y/y",
-        "data_reference": null,
+        "data_reference": "CPI General (Combined), 2024=100 base; provisional",
         "time_known": false
       },
       {
@@ -322,21 +323,25 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：重要經濟體關鍵通膨／成長數據，對區域利率、匯率及市場預期具明顯影響。",
-        "previous": "GDP q/q 0.5%; GDP y/y 1.4%; monthly GDP 0.1%",
+        "previous": "Q2 GDP q/q +0.5%；GDP y/y +1.4%；8 月月度 GDP 修正為 0.0%（原報 +0.1%）",
         "forecast": "GDP q/q 0.7%; GDP y/y 1.7%; monthly GDP 0.2%",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "英國第三季成長初值將影響英格蘭銀行對需求、薪資與通膨的權衡；月度 GDP 與服務業、工業產出可辨識成長動能來源。",
+        "actual": "Q3 GDP +0.7% q/q、+1.9% y/y；9 月月度 GDP +0.2%，8 月修正至 0.0%；9 月月度生產 +0.3%，Q3 生產 +0.1%、服務業 +0.9%、營造 -0.7%；Q3 商品與服務貿易逆差擴大 £6.2B 至 £10.4B。",
+        "status": "released",
+        "impact_judgment": "Q3 GDP 季增 0.7% 符合預期，年增 1.9% 高於已存預期；9 月月度 GDP +0.2% 符合預期，但 8 月月度 GDP 下修至持平。服務業仍是主要成長來源，生產溫和回升、營造業收縮；Q3 商品與服務貿易逆差擴大至 £10.4B。",
         "source": {
-          "name": "Office for National Statistics｜12 November 2026 release calendar",
-          "url": "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
-          "published_at": null,
-          "observed_at": "2026-11-06T18:00:00+08:00",
-          "publisher": "Office for National Statistics",
-          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。 前值含上季 GDP 及 ONS 最近月度 GDP；預期依 Trading Economics 11/12 英國 GDP 日曆。工業生產及貿易分項未取得同口徑共識。",
+          "name": "ONS｜GDP first quarterly estimate, UK: July to September 2026",
+          "url": "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/julytoseptember2026",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "UK Office for National Statistics",
+          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。 前值含上季 GDP 及 ONS 最近月度 GDP；預期依 Trading Economics 11/12 英國 GDP 日曆。工業生產及貿易分項未取得同口徑共識。；ONS 2026-11-12 官方 GDP、月度 GDP、生產與貿易資料：Q3 GDP +0.7% q/q、+1.9% y/y；9 月月度 GDP +0.2%，8 月修正至 0.0%；9 月生產 +0.3% m/m、Q3 生產 +0.1%、服務業 +0.9%、營造 -0.7%；Q3 商品與服務貿易逆差擴大 £6.2B 至 £10.4B。",
           "secondary_refs": [
             "https://www.tradingeconomics.com/calendar/gdp",
-            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest"
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest",
+            "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/september2026",
+            "https://www.ons.gov.uk/businessindustryandtrade/industryandmanufacturing/industrystatistics/bulletins/indexofproduction/september2026",
+            "https://www.ons.gov.uk/businessindustryandtrade/internationaltrade/bulletins/uktrade/september2026"
           ]
         },
         "previous_applicable": true,
@@ -353,22 +358,23 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：美國重要勞動市場領先指標，對就業韌性及利率預期具明顯影響。",
-        "previous": "189 千人",
+        "previous": "191 千人（修正後；原報 189 千人）",
         "forecast": "194 千人",
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "初領失業金可較即時反映裁員變化；需搭配四週均值與續領人數，避免單週季節性波動造成過度解讀。",
+        "actual": "200 千人（SA，週截至 11/07）；四週均值 195.25 千人；續領失業人數 1,697 千人（週截至 10/31）",
+        "status": "released",
+        "impact_judgment": "初領人數較修正後前值增加 9 千人，並高於已存預期 194 千人；四週均值維持 195.25 千人，續領失業人數下降 20 千人至 1.697 百萬，訊號偏溫和，尚不足以單週判定勞動市場明顯轉弱。",
         "source": {
-          "name": "Federal Reserve Bank of New York｜November 2026 Economic Indicators Calendar",
-          "url": "https://www.newyorkfed.org/research/calendars/i-nov26.html",
-          "published_at": null,
-          "observed_at": "2026-11-12T04:34:17+08:00",
-          "publisher": "Federal Reserve Bank of New York",
-          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。 前值為 11/05 初領實際值 189K。11/06 查核時下週預期尚未發布，forecast 保留 null。；Investing.com 2026-11-12 Initial Claims 日曆列示 forecast 194K、previous 189K；本次查核時間 2026-11-12 04:34 Taipei。實際值尚未發布，維持 null。",
+          "name": "U.S. Department of Labor｜Unemployment Insurance Weekly Claims, week ending November 7, 2026",
+          "url": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261694.pdf",
+          "published_at": "2026-11-12T08:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "U.S. Department of Labor",
+          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。 前值為 11/05 初領實際值 189K。11/06 查核時下週預期尚未發布，forecast 保留 null。；Investing.com 2026-11-12 Initial Claims 日曆列示 forecast 194K、previous 189K；本次查核時間 2026-11-12 04:34 Taipei。實際值尚未發布，維持 null。；DOL 官方報告：初領 SA 200,000；前週由 189,000 上修至 191,000；四週均值 195,250 不變；續領 SA（截至 10/31）1,697,000，較修正前週下降 20,000。市場預期 194K 沿用既有 Investing.com 共識，DOL 不發布市場預期。",
           "secondary_refs": [
             "https://www.investing.com/economiccalendar/initial-jobless-claims-294",
             "https://api.fxblue.com/calendar/item/Initial_Jobless_Claims_US",
-            "https://www.investing.com/economic-calendar/initial-jobless-claims-294"
+            "https://www.investing.com/economic-calendar/initial-jobless-claims-294",
+            "https://www.newyorkfed.org/research/calendars/i-nov26.html"
           ]
         },
         "previous_applicable": true,
@@ -388,15 +394,15 @@
         "previous": null,
         "forecast": null,
         "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "超長天期標售需求落差可能擴大期限溢酬並影響長端利率。",
+        "status": "pending_verification",
+        "impact_judgment": "標售預定時間已過，但本輪尚未取得可直接回讀的 TreasuryDirect／Treasury Fiscal Data 官方結果。實際殖利率、BTC、tail 及投標人結構全部維持 null，待取得可靠結果後再更新。",
         "source": {
           "name": "U.S. Department of the Treasury｜November 2026 Quarterly Refunding Statement",
           "url": "https://home.treasury.gov/news/press-releases/sb0678",
           "published_at": "2026-11-04",
-          "observed_at": "2026-11-06T05:24:00+08:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
           "publisher": "U.S. Department of the Treasury",
-          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；30 年期 250 億美元，11/12 13:00 ET 標售。 換算台灣時間如事件日期。"
+          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；30 年期 250 億美元，11/12 13:00 ET 標售。 換算台灣時間如事件日期。；2026-11-13 04:30:43 Taipei 查核：標售預定於 2026-11-12 13:00 ET 舉行，事件時間已過；未能直接取得可驗證官方標售結果，故狀態改為 pending_verification，actual 及所有標售結果欄位維持 null，不引用未核實的第三方數值。"
         },
         "previous_applicable": false,
         "forecast_applicable": false,
@@ -1128,36 +1134,40 @@
         "id": "current-ctva-20261111",
         "company": "Corteva",
         "ticker": "CTVA",
-        "event_date": "2026-11-12T05:00:00+08:00",
+        "event_date": "2026-11-12T05:30:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：依公司規模、產業代表性、財報對全球／區域需求與同業定價的指標性評估；不採用外部網站原生星等。",
         "importance_rating_source": null,
         "industry": "農業科技／種子與作物保護",
         "reporting_period": "2026 Q3",
-        "time_known": false,
-        "time_type": "release_date_only",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "time_known": true,
+        "time_type": "release_time",
+        "eps_basis": "Pro forma GAAP EPS -US$0.08；adjusted pro forma non-GAAP operating EPS +US$0.06 separately reported. Existing consensus EPS basis undisclosed; no EPS beat/miss.",
         "eps_estimate": 0.02,
-        "eps_actual": null,
+        "eps_actual": -0.08,
         "revenue_estimate": 1.77,
-        "revenue_actual": null,
+        "revenue_actual": 1.591,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "Q3 pro forma GAAP net sales US$1.591B（-9% y/y），adjusted pro forma organic sales US$1.58B（-9%）；GAAP pro forma EPS -US$0.08，adjusted non-GAAP operating EPS +US$0.06。US$1.591B 低於已存 Finviz revenue estimate US$1.77B；公司因巴西市場弱化調整全年展望。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Corteva Investor Relations｜Q3 2026 Earnings Release Schedule",
-          "url": "https://investors.corteva.com/news-events/news-releases",
-          "published_at": null,
-          "observed_at": "2026-11-06T18:00:00+08:00",
-          "publisher": "Corteva"
+          "name": "Corteva｜Reports Third-Quarter 2026 Results; Updates FY 2026 Outlook",
+          "url": "https://www.prnewswire.com/news-releases/corteva-reports-third-quarter-2026-results-updates-fy-2026-outlook-302936913.html",
+          "published_at": "2026-11-11T16:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "Corteva, Inc.",
+          "notes": "Corteva 發行人提供之 PRNewswire 財報公告，2026-11-11 16:30 ET 發布（台灣 11/12 05:30）；Q3 pro forma GAAP net sales US$1.591B、GAAP EPS -US$0.08；adjusted pro forma organic sales US$1.58B、adjusted operating EPS US$0.06。",
+          "secondary_refs": [
+            "https://investors.corteva.com/news-events/news-releases"
+          ]
         },
         "consensus_source": {
           "name": "Finviz Earnings Calendar｜2026-11-11",
@@ -1189,37 +1199,40 @@
         "id": "current-bn-20261112",
         "company": "Brookfield Corporation",
         "ticker": "BN",
-        "event_date": "2026-11-12T20:00:00+08:00",
+        "event_date": "2026-11-12T12:00:00+08:00",
         "session": "before_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：依公司規模、產業代表性、財報對全球／區域需求與同業定價的指標性評估；不採用外部網站原生星等。",
         "importance_rating_source": null,
         "industry": "全球另類資產管理／基礎建設與實體資產",
         "reporting_period": "2026 Q3",
-        "time_known": true,
-        "time_type": "release_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "time_known": false,
+        "time_type": "release_date_only",
+        "eps_basis": "IFRS diluted EPS US$0.54；Brookfield-defined distributable earnings/share US$0.73（non-IFRS）另列。既有 EPS consensus basis 未揭露，不作 beat/miss。",
         "eps_estimate": 0.69,
-        "eps_actual": null,
+        "eps_actual": 0.54,
         "revenue_estimate": 1.8,
-        "revenue_actual": null,
+        "revenue_actual": 20.691,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": null,
+        "financial_judgment": "Q3 consolidated revenue US$20.691B；net income attributable to Brookfield shareholders US$1.305B；IFRS diluted EPS US$0.54。Brookfield-defined distributable earnings US$1.718B／US$0.73 per share，其中 realizations 前 US$1.496B／US$0.64 per share。既有 EPS／revenue estimates 未證明與 IFRS diluted EPS／consolidated revenue 同口徑，不判 beat/miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Brookfield Corporation Investor Relations｜Q3 2026 Results",
-          "url": "https://bn.brookfield.com/events/bn-q3-2026-conference-call-webcast",
-          "published_at": null,
-          "observed_at": "2026-11-06T18:00:00+08:00",
+          "name": "Brookfield Corporation｜Q3 2026 Results",
+          "url": "https://bn.brookfield.com/sites/brookfield-bn-v2/files/Brookfield-BN-IR-V2/2026/Q3/2026-q3-bn-press-release.pdf",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-13T04:30:43+08:00",
           "publisher": "Brookfield Corporation",
-          "notes": "官方公告確認 11/12 約 07:00 ET 發布第三季結果，10:00 ET 舉行電話會議；換算台灣時間約 20:00，原文為 approximately。"
+          "notes": "官方公告確認 11/12 約 07:00 ET 發布第三季結果，10:00 ET 舉行電話會議；換算台灣時間約 20:00，原文為 approximately。；公司官方 Q3 2026 press release：consolidated revenue US$20,691M；net income attributable to shareholders US$1,305M；IFRS diluted EPS US$0.54；distributable earnings US$1,718M／US$0.73 per share。官方公告僅確認 11/12 發布日期及 10:00 ET conference call，未明示精確 release time，故 event_date 改用日期佔位、time_known=false。",
+          "secondary_refs": [
+            "https://bn.brookfield.com/events/bn-q3-2026-conference-call-webcast"
+          ]
         },
         "consensus_source": {
           "name": "Finviz Earnings Calendar｜2026-11-12",
@@ -1253,7 +1266,7 @@
         "ticker": "NBIS",
         "event_date": "2026-11-12T21:00:00+08:00",
         "session": "before_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 5,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC五星獨立評估：Nasdaq上市AI雲端與資料中心基礎設施公司，財報對AI算力供給、資料中心擴張及超大規模客戶投資具高度指標性。",
@@ -1262,26 +1275,30 @@
         "reporting_period": "Q3 2026",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "U.S. GAAP diluted loss per share from continuing operations -US$0.13；adjusted net income US$90.9M is non-GAAP, not EPS. Existing consensus EPS basis undisclosed.",
         "eps_estimate": -0.72,
-        "eps_actual": null,
+        "eps_actual": -0.13,
         "revenue_estimate": 907.2,
-        "revenue_actual": null,
+        "revenue_actual": 980.8,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "Q3 revenue US$980.8M（+571% y/y），高於已存 Finviz revenue estimate US$907.2M；U.S. GAAP diluted loss/share -US$0.13，continuing-operations net loss US$37.5M，adjusted EBITDA US$465.8M（non-GAAP）。公司 2026 revenue outlook 調至原 US$3.0–3.4B 區間低端，部分容量收入遞延至 2027；EPS consensus basis 未揭露，不判 beat/miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Nebius Group｜Q3 2026 Results Announcement",
-          "url": "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
-          "published_at": "2026-10-30",
-          "observed_at": "2026-11-06T18:00:00+08:00",
+          "name": "Nebius Group｜Reports Third Quarter 2026 Financial Results",
+          "url": "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-13T04:30:43+08:00",
           "publisher": "Nebius Group N.V.",
-          "notes": "官方公告確認 11/12 美股開盤前發布 Q3 2026 財報，並於 08:00 ET 舉行電話會議；換算台灣時間為 11/12 21:00。事件時間採官方電話會議時間，財報發布時段標記 before_market。"
+          "notes": "官方公告確認 11/12 美股開盤前發布 Q3 2026 財報，並於 08:00 ET 舉行電話會議；換算台灣時間為 11/12 21:00。事件時間採官方電話會議時間，財報發布時段標記 before_market。；Nebius 官方 Q3 release 及財報 PDF：revenue US$980.8M（+571% y/y）；GAAP diluted loss/share -US$0.13；continuing-operations net loss US$37.5M；adjusted EBITDA US$465.8M（non-GAAP）。8:00 a.m. ET webcast 時間沿用原官方公告。",
+          "secondary_refs": [
+            "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
+            "https://assets.nebius.com/assets/508584f1-b73d-484f-b64f-f96a5bc3b515/Nebius%20Q3%202026%20Financial%20Results%20Press%20Release.pdf?cache-buster=2026-11-12T11%3A39%3A45.923Z"
+          ]
         },
         "consensus_source": {
           "name": "Finviz Earnings Calendar｜2026-11-12",
@@ -2127,7 +2144,7 @@
         "ticker": "VOD",
         "event_date": "2026-11-10T12:00:00+08:00",
         "session": "unknown",
-        "status": "pending_verification",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：全球主要電信營運商之一，H1 FY2027 半年度業績對歐洲、非洲電信營運、現金流及整併效益具代表性。",
@@ -2136,11 +2153,11 @@
         "reporting_period": "H1 FY2027",
         "time_known": false,
         "time_type": "release_date_only",
-        "eps_basis": null,
+        "eps_basis": "IFRS basic loss per share -20.75 eurocents（-EUR0.2075）；adjusted basic EPS +1.48 eurocents（EUR0.0148）另列。",
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": -0.2075,
         "revenue_estimate": null,
-        "revenue_actual": null,
+        "revenue_actual": 21.853,
         "eps_currency": "EUR",
         "revenue_currency": "EUR",
         "revenue_unit": "B",
@@ -2150,14 +2167,15 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Vodafone Group｜H1 FY2027 Results",
-          "url": "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
-          "published_at": null,
-          "observed_at": "2026-11-11T04:34:41+08:00",
+          "name": "Vodafone Group｜H1 FY27 Results Announcement",
+          "url": "https://www.vodafone.com/~/media/Files/V/vodafone/corp/results-and-presentations/vodafone-h1-fy27-results-announcement.pdf",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-13T04:30:43+08:00",
           "publisher": "Vodafone Group Plc",
-          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。；Vodafone 官方 H1 FY27 results announcement：revenue EUR21,853M；IFRS basic loss/share -20.75 eurocents；adjusted basic EPS +1.48 eurocents。公司官方 results page 僅確認 11/10 發布日期，未確認精確時刻，time_known 維持 false。",
           "secondary_refs": [
-            "https://www.vodafone.com/investors/performance-and-reports/financial-calendar"
+            "https://www.vodafone.com/investors/performance-and-reports/financial-calendar",
+            "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results"
           ]
         },
         "consensus_source": null,
@@ -2430,7 +2448,7 @@
         "ticker": "FNV",
         "event_date": "2026-11-12T21:00:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星獨立評估：全球主要貴金屬權利金與串流融資公司，對金銀價格、礦山產量、資產組合及礦業投資週期具代表性，財報可檢視貴金屬價格上漲如何轉化為現金流。",
@@ -2439,26 +2457,29 @@
         "reporting_period": "Q3 2026",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "GAAP net income/share US$2.05；adjusted net income/share US$1.89 separately reported. Existing consensus EPS basis undisclosed; no EPS beat/miss.",
         "eps_estimate": 1.74,
-        "eps_actual": null,
+        "eps_actual": 2.05,
         "revenue_estimate": 568.44,
-        "revenue_actual": null,
+        "revenue_actual": 549.3,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
         "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": null,
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "Q3 revenue US$549.3M（+13% y/y），低於已存 Finviz revenue estimate US$568.44M；net income US$395.5M／US$2.05 per share；adjusted net income US$364.5M／US$1.89 per share；adjusted EBITDA US$493.9M／US$2.56 per share。EPS consensus basis 未揭露，不判 beat/miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Franco-Nevada｜Q3 2026 Results Release and Conference Call",
-          "url": "https://www.nasdaq.com/press-release/franco-nevada-release-third-quarter-2026-results-2026-10-13",
-          "published_at": "2026-10-13",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "publisher": "Franco-Nevada Corporation via Nasdaq",
-          "notes": "公司發布的公告確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 08:00 ET 電話會議，換算台灣時間 11/12 21:00；事件時間採官方電話會議時間，公告來源為公司發稿經 Nasdaq 刊載。"
+          "name": "Franco-Nevada｜Reports Q3 2026 Results",
+          "url": "https://www.prnewswire.com/news-releases/franco-nevada-reports-q3-2026-results-812447402.html",
+          "published_at": "2026-11-11T17:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "Franco-Nevada Corporation（issuer-provided release）",
+          "notes": "公司發布的公告確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 08:00 ET 電話會議，換算台灣時間 11/12 21:00；事件時間採官方電話會議時間，公告來源為公司發稿經 Nasdaq 刊載。；Franco-Nevada 發行人提供之 PRNewswire release，2026-11-11 17:30 ET 發布；Q3 revenue US$549.3M（+13% y/y）；net income US$395.5M／US$2.05 per share；adjusted net income US$364.5M／US$1.89 per share；adjusted EBITDA US$493.9M／US$2.56 per share。",
+          "secondary_refs": [
+            "https://www.nasdaq.com/press-release/franco-nevada-release-third-quarter-2026-results-2026-10-13"
+          ]
         },
         "consensus_source": {
           "name": "Finviz Earnings Calendar｜2026-11-11",
@@ -2687,7 +2708,7 @@
         "ticker": "ASND",
         "event_date": "2026-11-12T21:00:00+08:00",
         "session": "before_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：美國 Nasdaq 掛牌之大型創新生技公司，TransCon 技術平台及多項關鍵療法進度具全球生技產業代表性。",
@@ -2696,26 +2717,29 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "IFRS diluted EPS EUR1.08；non-IFRS diluted EPS EUR1.71 separately reported. Existing estimates are USD and not directly comparable.",
         "eps_estimate": 0.913,
-        "eps_actual": null,
+        "eps_actual": 1.08,
         "revenue_estimate": 412.08,
-        "revenue_actual": null,
-        "eps_currency": "USD",
-        "revenue_currency": "USD",
+        "revenue_actual": 369.657,
+        "eps_currency": "EUR",
+        "revenue_currency": "EUR",
         "revenue_unit": "M",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": null,
+        "financial_judgment": "Q3 total revenue EUR369.657M（去年同期 EUR213.634M）；IFRS diluted EPS EUR1.08，non-IFRS diluted EPS EUR1.71；IFRS operating profit EUR124.576M，non-IFRS operating profit EUR155.722M。既有 MarketBeat estimates 以 USD 保存，未換算或與 EUR 實績直接比較。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Ascendis Pharma Investor Relations｜Q3 2026 results schedule",
-          "url": "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide",
-          "published_at": null,
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "publisher": "Ascendis Pharma",
-          "notes": "官方公告確認 11/12 08:00 ET 財報電話會議，財報於美股開盤前發布；換算台灣時間 21:00。"
+          "name": "Ascendis Pharma｜Reports Third Quarter 2026 Financial Results",
+          "url": "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-pharma-reports-third-quarter-2026-financial-results",
+          "published_at": "2026-11-12T07:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "Ascendis Pharma A/S",
+          "notes": "官方公告確認 11/12 08:00 ET 財報電話會議，財報於美股開盤前發布；換算台灣時間 21:00。；公司官方 Q3 2026 release，2026-11-12 07:30 ET 發布：total revenue EUR369.657M；IFRS diluted EPS EUR1.08；non-IFRS diluted EPS EUR1.71；IFRS net profit EUR73.973M。",
+          "secondary_refs": [
+            "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide"
+          ]
         },
         "consensus_source": {
           "name": "MarketBeat｜Ascendis Pharma Q3 2026 consensus",
@@ -2816,7 +2840,7 @@
         "ticker": "VYLR",
         "event_date": "2026-11-12T22:00:00+08:00",
         "session": "after_market",
-        "status": "upcoming",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：美國大型農業科技與種子基因公司，承接大型種質資產及研發管線，財報可反映全球農業投入、種子定價與作物科技需求。",
@@ -2825,26 +2849,29 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "eps_basis": "Pro forma GAAP EPS -US$0.72；adjusted pro forma operating EPS -US$0.42（non-GAAP）另列。Existing consensus EPS basis undisclosed; no EPS beat/miss.",
         "eps_estimate": -0.44,
-        "eps_actual": null,
+        "eps_actual": -0.72,
         "revenue_estimate": 918.1,
-        "revenue_actual": null,
+        "revenue_actual": 938,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": null,
+        "financial_judgment": "Q3 pro forma GAAP net sales US$938M（-1% y/y），pro forma organic sales US$911M（-3%）；GAAP pro forma EPS -US$0.72，adjusted pro forma operating EPS -US$0.42；adjusted pro forma operating EBITDA loss US$269M。公司重申 2026 年 adjusted pro forma operating EPS 指引 US$2.25–2.35。既有 The Right Trader consensus basis 未揭露，不判 EPS／營收 beat/miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Vylor Investor Relations｜Q3 2026 earnings release and webcast",
-          "url": "https://www.vylor.com/en/investors/",
-          "published_at": "2026-10-06",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "publisher": "Vylor",
-          "notes": "官方 IR 確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 09:00 ET 舉行 webcast；換算台灣時間 11/12 22:00。官方公司公告確認 NYSE: VYLR。"
+          "name": "Vylor｜Reaffirms Full-Year Guidance on Strong YTD Results",
+          "url": "https://www.prnewswire.com/news-releases/vylor-reaffirms-full-year-guidance-on-strong-ytd-results-advances-leading-technology-302936902.html",
+          "published_at": "2026-11-11T16:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "Vylor, Inc.",
+          "notes": "官方 IR 確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 09:00 ET 舉行 webcast；換算台灣時間 11/12 22:00。官方公司公告確認 NYSE: VYLR。；Vylor 發行人提供之 PRNewswire release，2026-11-11 16:30 ET 發布；Q3 pro forma GAAP net sales US$938M、GAAP pro forma EPS -US$0.72；pro forma organic sales US$911M、adjusted pro forma operating EPS -US$0.42（non-GAAP）。公司重申全年指引。",
+          "secondary_refs": [
+            "https://www.vylor.com/en/investors/"
+          ]
         },
         "consensus_source": {
           "name": "The Right Trader｜VYLR Q3 2026 consensus",
@@ -3292,7 +3319,7 @@
         "ticker": "BAP",
         "event_date": "2026-11-10T22:30:00+08:00",
         "session": "after_market",
-        "status": "pending_verification",
+        "status": "released",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC 四星獨立評估：約 US$28B 市值的秘魯主要金融服務控股集團，業務涵蓋秘魯、智利、哥倫比亞、玻利維亞及巴拿馬之銀行、微型金融、保險、退休金與資產管理，具拉美金融條件及信用需求代表性。",
@@ -3301,9 +3328,9 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": null,
+        "eps_basis": "IFRS company-reported net income/share S/24.3；非美國 GAAP diluted EPS。無可追溯同口徑 analyst consensus。",
         "eps_estimate": null,
-        "eps_actual": null,
+        "eps_actual": 24.3,
         "revenue_estimate": null,
         "revenue_actual": null,
         "eps_currency": "PEN",
@@ -3311,19 +3338,21 @@
         "revenue_unit": null,
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": "Credicorp Q3 2026 已有第三方財報頁及逐字稿摘要，但實際數字互相衝突：MarketBeat 列 EPS US$7.06、營收 US$2.00B；Investing.com transcript 列 EPS US$7.12、營收 US$1.94B。本次未取得可核實的公司官方 6-K／原始財報，故不填入任何 actual，維持 pending_verification。",
+        "financial_judgment": "Q3 net income attributable to Credicorp S/1,929.411M（+11.0% y/y）；company-reported net income/share S/24.3；issuer-defined operating income S/6,644.346M（+17.2% y/y）；ROE 19.9%，NPL ratio 3.9%。Operating income 為銀行業發行人定義指標，並非另行揭露的標準 revenue line，故 revenue_actual 保持 null。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Credicorp Ltd.｜3Q26 release status and conflicting third-party figures",
-          "url": "https://inversionistas.grupocredicorp.com/ir-press-releases",
-          "published_at": null,
-          "observed_at": "2026-11-11T04:34:41+08:00",
-          "publisher": "Credicorp Ltd.",
-          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。",
+          "name": "Credicorp Ltd.｜3Q26 Earnings Release, SEC Exhibit 99.1",
+          "url": "https://www.sec.gov/Archives/edgar/data/1001290/000100129026000011/credicorpltdex-9913q26ingls.htm",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "publisher": "Credicorp Ltd. / U.S. SEC EDGAR",
+          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。；Credicorp 官方 3Q26 earnings release 作為 SEC 6-K Exhibit 99.1；以 IFRS、PEN 呈列。net income/share S/24.3；net income attributable S/1,929.411M；issuer-defined operating income S/6,644.346M。未將 operating income 誤填為標準 revenue_actual。",
           "secondary_refs": [
             "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
-            "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288"
+            "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288",
+            "https://inversionistas.grupocredicorp.com/ir-press-releases",
+            "https://credicorp.gcs-web.com/static-files/737be5e1-5cfe-4cc9-9a83-13825ab1f445"
           ]
         },
         "consensus_source": null,
@@ -3494,10 +3523,17 @@
         "https://www.federalreserve.gov/newsevents/2026-speeches.htm",
         "https://www.reuters.com/business/feds-bowman-says-still-work-do-inflation-2026-11-10/",
         "https://www.reuters.com/business/energy/saudi-arabia-leads-further-jump-opec-oil-output-despite-war-2026-11-11/",
-        "https://www.investing.com/economic-calendar/initial-jobless-claims-294"
+        "https://www.investing.com/economic-calendar/initial-jobless-claims-294",
+        "https://ca.marketscreener.com/news/india-s-october-retail-inflation-at-6-09-on-year-ce785ed8da81f227/",
+        "https://www.investing.com/news/economy-news/indias-october-retail-inflation-at-609-onyear-5020869",
+        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/julytoseptember2026",
+        "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/september2026",
+        "https://www.ons.gov.uk/businessindustryandtrade/industryandmanufacturing/industrystatistics/bulletins/indexofproduction/september2026",
+        "https://www.ons.gov.uk/businessindustryandtrade/internationaltrade/bulletins/uktrade/september2026",
+        "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261694.pdf"
       ],
-      "checked_at": "2026-11-12T04:34:17+08:00",
-      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。；Fed 官方 11 月行事曆補入 Waller 及 Bowman 三場 Economic Outlook 談話，日期與時間依官方議程換算台灣時間；非政策相關的一般監理談話及非經濟展望活動未列入精選。；既有事件前值／市場預期缺值補齊：已補中國 CPI/PPI、美國 CPI/PPI、印度 CPI、英國 GDP、歐元區 GDP／就業及美國初領失業金可核實欄位；不可比或尚未發布的共識維持 null。；2026-11-09 04:35 預更新：中國 CPI/PPI 官方排程為今日 09:30，尚未到發布時間，actual 保持 null；新增 OPEC 官方 2026 MOMR 發布日程 11/11，精確時間未列，time_known=false。仍有其他主要經濟體及欄位待核，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：中國 10 月 CPI/PPI 已於 11/09 09:30 公布，官方 NBS actual 已核實；CPI 共識 0.8%、PPI 共識 5.3% 以發布前 InvestingLive／Investing.com／Trading Economics 交叉核對。美國 3 年期公債 11/09 13:00 ET 標售結果已更新（4.627%、bid-to-cover 2.53x）；官方 Treasury 公告確認金額與時段，結果細項採 Investing.com／InvestingLive 交叉核對。其他尚未到發布時間事件維持 upcoming；coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：美國 10 月 CPI 已公布（headline MoM 0.4%、core MoM 0.3%；BLS 因 2025-10 缺失未公布 YoY）；Fed Waller 談話已確認，Treasury 10Y 標售結果及加拿大央行 deliberations 已更新。Bowman 04:30 場次預定時間已過但未取得完成證據，改 pending_verification；OPEC MOMR 仍未取得官方報告，維持 upcoming。其他未來事件及待核欄位未完成，coverage 維持 incomplete。；最終回讀驗收於 04:47:34 完成，已移除無法獨立核實的標售 tail／投標者組成數值，保留 incomplete。；2026-11-12 04:34:17 Taipei 預更新：已核實 Bowman 11/10 兩場演說完成並補入講稿摘要；OPEC 官方 November MOMR 已上架並更新為 released；美國 11/12 初領失業金共識更新為 194K，actual 尚未公布。印度 CPI、英國 GDP、初領失業金實際值及 30 年期標售／美國 PPI 仍待後續發布；精確時間未由官方確認者維持 time_known=false。Coverage 維持 incomplete。"
+      "checked_at": "2026-11-13T04:30:43+08:00",
+      "notes": "W46 初始跨市場掃描：已依中國國家統計局、BLS、ONS 官方日程建立已確認發布日期／時間的主要 CPI、PPI、GDP 事件。尚需再掃描其他主要經濟體央行、統計局與財政機關日程；未核實項目不列入已確認事件。；擴大掃描補入 Eurostat 11/13 T+45 GDP／就業 flash estimate。另核對日本 MOF 11/10 國際收支、BOK 11/13 貨幣與進出口價格、ABS 11/9–13 日程；相關項目未達 TAC 四星門檻或非主要政策關鍵數據，未列正式事件。美國 11/11 Veterans Day 為 BLS 假日，已納入發布時間檢查，不另作四星經濟指標。；第三輪官方日程補查新增加拿大央行 11/10 13:30 ET 貨幣政策會議紀要（台灣時間 11/11 02:30）及印度政府已公告 11/12 發布 10 月 CPI（精確時間未公布，標記 time_known=false）；並擴充英國 11/12 同時發布之 UK Trade、Index of Production 等數據說明。美國 Census Wholesale Trade、加拿大央行 Market Participants Survey、韓國 BOK 貨幣／進出口價格統計、日本領先指標／工具機訂單等雖已查見，但依 TAC 四星門檻未獨立列入；印度 IIP 時間與官方獨立公告尚未取得，未與 CPI 合併猜填。；美國官方日程補查：新增 11/12 初領失業救濟金（11/11 Veterans Day 順延）；日期與時間依紐約聯準銀行官方經濟指標日曆，指標定義及每週發布性質參照 DOL。；財政部 11/04 季度再融資公告確認 3 年／10 年／30 年期公債標售金額與時間，已補入三筆標售事件。；Fed 官方 11 月行事曆補入 Waller 及 Bowman 三場 Economic Outlook 談話，日期與時間依官方議程換算台灣時間；非政策相關的一般監理談話及非經濟展望活動未列入精選。；既有事件前值／市場預期缺值補齊：已補中國 CPI/PPI、美國 CPI/PPI、印度 CPI、英國 GDP、歐元區 GDP／就業及美國初領失業金可核實欄位；不可比或尚未發布的共識維持 null。；2026-11-09 04:35 預更新：中國 CPI/PPI 官方排程為今日 09:30，尚未到發布時間，actual 保持 null；新增 OPEC 官方 2026 MOMR 發布日程 11/11，精確時間未列，time_known=false。仍有其他主要經濟體及欄位待核，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：中國 10 月 CPI/PPI 已於 11/09 09:30 公布，官方 NBS actual 已核實；CPI 共識 0.8%、PPI 共識 5.3% 以發布前 InvestingLive／Investing.com／Trading Economics 交叉核對。美國 3 年期公債 11/09 13:00 ET 標售結果已更新（4.627%、bid-to-cover 2.53x）；官方 Treasury 公告確認金額與時段，結果細項採 Investing.com／InvestingLive 交叉核對。其他尚未到發布時間事件維持 upcoming；coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：美國 10 月 CPI 已公布（headline MoM 0.4%、core MoM 0.3%；BLS 因 2025-10 缺失未公布 YoY）；Fed Waller 談話已確認，Treasury 10Y 標售結果及加拿大央行 deliberations 已更新。Bowman 04:30 場次預定時間已過但未取得完成證據，改 pending_verification；OPEC MOMR 仍未取得官方報告，維持 upcoming。其他未來事件及待核欄位未完成，coverage 維持 incomplete。；最終回讀驗收於 04:47:34 完成，已移除無法獨立核實的標售 tail／投標者組成數值，保留 incomplete。；2026-11-12 04:34:17 Taipei 預更新：已核實 Bowman 11/10 兩場演說完成並補入講稿摘要；OPEC 官方 November MOMR 已上架並更新為 released；美國 11/12 初領失業金共識更新為 194K，actual 尚未公布。印度 CPI、英國 GDP、初領失業金實際值及 30 年期標售／美國 PPI 仍待後續發布；精確時間未由官方確認者維持 time_known=false。Coverage 維持 incomplete。；2026-11-13 04:30:43 Taipei 預更新：India 10 月 CPI、UK Q3 GDP／9 月月度 GDP／生產／貿易、US initial claims 已更新；US 30Y auction 預定時間已過但官方結果未直接回讀，維持 pending_verification 且 actual null。MoSPI/PIB October 原始發布頁未直接取得，India CPI 以 Reuters 引述政府數據核實。其他本週後續事件尚未公布，coverage 維持 incomplete。"
     },
     "earnings": {
       "status": "incomplete",
@@ -3637,10 +3673,19 @@
         "https://www.cgi.com/en/cgi-reports-fourth-quarter-f2026-results",
         "https://investor.alcon.com/news-and-events/press-releases/news-details/2026/Innovation-and-Product-Launch-Momentum-Drive-Alcons-Third-Quarter-2026-Growth/default.aspx",
         "https://filemanager-cdn.mziq.com/published/25fdf098-34f5-4608-b7fa-17d60b2de47d/b4bd7f3e-21bc-43bf-bd32-fd1ff868f9c4",
-        "https://files.ecopetrol.com.co/web/esp/informacion%20relevante/Resultados-esp-nov.pdf"
+        "https://files.ecopetrol.com.co/web/esp/informacion%20relevante/Resultados-esp-nov.pdf",
+        "https://www.prnewswire.com/news-releases/corteva-reports-third-quarter-2026-results-updates-fy-2026-outlook-302936913.html",
+        "https://bn.brookfield.com/sites/brookfield-bn-v2/files/Brookfield-BN-IR-V2/2026/Q3/2026-q3-bn-press-release.pdf",
+        "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results",
+        "https://assets.nebius.com/assets/508584f1-b73d-484f-b64f-f96a5bc3b515/Nebius%20Q3%202026%20Financial%20Results%20Press%20Release.pdf?cache-buster=2026-11-12T11%3A39%3A45.923Z",
+        "https://www.vodafone.com/~/media/Files/V/vodafone/corp/results-and-presentations/vodafone-h1-fy27-results-announcement.pdf",
+        "https://www.prnewswire.com/news-releases/franco-nevada-reports-q3-2026-results-812447402.html",
+        "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-pharma-reports-third-quarter-2026-financial-results",
+        "https://www.prnewswire.com/news-releases/vylor-reaffirms-full-year-guidance-on-strong-ytd-results-advances-leading-technology-302936902.html",
+        "https://www.sec.gov/Archives/edgar/data/1001290/000100129026000011/credicorpltdex-9913q26ingls.htm"
       ],
-      "checked_at": "2026-11-12T04:34:17+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-09 04:35 預更新：依 169 家美國掛牌公司候選掃描及發行人公告補入 Kaspi.kz、RB Global、CNH Industrial、Credicorp、Alcon、Ecopetrol 六筆 TAC 四星事件。非美國發行人已另核對註冊地及 NYSE/Nasdaq 掛牌證據。新增事件的 EPS／營收共識未取得可追溯且同幣別、同口徑資料，保留 null；候選掃描仍未全部完成，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：已核實並更新 9 家已公布企業：Barrick、Ferguson、NRG、Constellation Energy、KKR、monday.com、Kaspi.kz、RB Global、CNH Industrial。EPS GAAP／adjusted 口徑分開記錄；共識來源有衝突或 basis 未披露者保留待核，不覆蓋既有值。OXY、TTWO、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 等截至本次觀察時間尚未到其官方發布／電話會議時段，維持 upcoming；仍有其他候選與共識欄位待核，coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：增量核實 TTWO、OXY、TDG、HIVE、RKLB、SKYD、JBS、QBTS、WIX、SE、VG、ONON、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 共 19 家已公布財報並更新可核實實績；EPS GAAP／adjusted 分開保存，未揭露共識 basis 者不判 beat/miss。Vodafone 官方 H1 結果頁已找到但原始 PDF 財務表未抽取，Credicorp 第三方實績來源衝突，兩者均 pending_verification；其他尚未公布企業維持 upcoming，coverage incomplete。；最終回讀驗收於 04:47:34 完成；來源註記重複已清理，EPS／營收口徑及非美國發行人掛牌資格欄位已檢查，未核實項目維持 pending_verification。；04:49:04 最終財報來源補強：WIX EPS 1.42 升級至官方 GlobeNewswire 財報表；Sea revenue 精確至 US$8.582284B 並補入 S&P Capital IQ diluted EPS US$0.78；TTD revenue 精確至 SEC 10-Q US$735.965M。；2026-11-12 04:34:17 Taipei 預更新：新增核實 CoreWeave、Mercury Systems、Rigetti、CGI、Alcon、Petrobras 六家已公布財報實績；CoreWeave/Mercury 營收高於可比已存共識，Rigetti 營收低於共識；其餘無可比共識或 EPS basis 未揭露者不判 beat/miss。Alcon 官方 call_time 已修正；Ecopetrol 官方 11/09 公告將發布日改至 11/12 收盤後（台灣 11/13），狀態為 postponed（實績尚未公布）。Corteva 及其餘未到發布時點事件維持 upcoming；股價反應觀察窗口未核實者維持 null。Coverage 維持 incomplete。；狀態一致性補充：Ecopetrol 已依官方延期公告標示 postponed，並非 upcoming；11/12 收盤後（台灣 11/13）發布新日期已保留，實績尚未公布。"
+      "checked_at": "2026-11-13T04:30:43+08:00",
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-09 04:35 預更新：依 169 家美國掛牌公司候選掃描及發行人公告補入 Kaspi.kz、RB Global、CNH Industrial、Credicorp、Alcon、Ecopetrol 六筆 TAC 四星事件。非美國發行人已另核對註冊地及 NYSE/Nasdaq 掛牌證據。新增事件的 EPS／營收共識未取得可追溯且同幣別、同口徑資料，保留 null；候選掃描仍未全部完成，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：已核實並更新 9 家已公布企業：Barrick、Ferguson、NRG、Constellation Energy、KKR、monday.com、Kaspi.kz、RB Global、CNH Industrial。EPS GAAP／adjusted 口徑分開記錄；共識來源有衝突或 basis 未披露者保留待核，不覆蓋既有值。OXY、TTWO、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 等截至本次觀察時間尚未到其官方發布／電話會議時段，維持 upcoming；仍有其他候選與共識欄位待核，coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：增量核實 TTWO、OXY、TDG、HIVE、RKLB、SKYD、JBS、QBTS、WIX、SE、VG、ONON、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 共 19 家已公布財報並更新可核實實績；EPS GAAP／adjusted 分開保存，未揭露共識 basis 者不判 beat/miss。Vodafone 官方 H1 結果頁已找到但原始 PDF 財務表未抽取，Credicorp 第三方實績來源衝突，兩者均 pending_verification；其他尚未公布企業維持 upcoming，coverage incomplete。；最終回讀驗收於 04:47:34 完成；來源註記重複已清理，EPS／營收口徑及非美國發行人掛牌資格欄位已檢查，未核實項目維持 pending_verification。；04:49:04 最終財報來源補強：WIX EPS 1.42 升級至官方 GlobeNewswire 財報表；Sea revenue 精確至 US$8.582284B 並補入 S&P Capital IQ diluted EPS US$0.78；TTD revenue 精確至 SEC 10-Q US$735.965M。；2026-11-12 04:34:17 Taipei 預更新：新增核實 CoreWeave、Mercury Systems、Rigetti、CGI、Alcon、Petrobras 六家已公布財報實績；CoreWeave/Mercury 營收高於可比已存共識，Rigetti 營收低於共識；其餘無可比共識或 EPS basis 未揭露者不判 beat/miss。Alcon 官方 call_time 已修正；Ecopetrol 官方 11/09 公告將發布日改至 11/12 收盤後（台灣 11/13），狀態為 postponed（實績尚未公布）。Corteva 及其餘未到發布時點事件維持 upcoming；股價反應觀察窗口未核實者維持 null。Coverage 維持 incomplete。；狀態一致性補充：Ecopetrol 已依官方延期公告標示 postponed，並非 upcoming；11/12 收盤後（台灣 11/13）發布新日期已保留，實績尚未公布。；2026-11-13 04:30:43 Taipei 預更新：以 issuer release／官方 IR／SEC 更新 Corteva、Brookfield Corporation、Nebius、Vodafone、Franco-Nevada、Ascendis Pharma、Vylor、Credicorp 共 8 筆。EPS／營收口徑不一致或跨幣別者不作 beat/miss；Credicorp operating income 未冒充標準 revenue_actual。尚未取得股價反應明確觀察窗口者維持 null；Cisco、Cerebras、Applied Materials、MUFG、Mizuho 等本日稍後事件維持 upcoming，Ecopetrol 仍 postponed，coverage 維持 incomplete。"
     }
   },
   "audit": [
@@ -7999,6 +8044,740 @@
       },
       "source": "https://files.ecopetrol.com.co/web/esp/informacion%20relevante/Resultados-esp-nov.pdf",
       "note": "將延期事件的現行說明統一為 postponed，避免保留已過時的 upcoming 字樣；原 audit 仍保留狀態變更當時的歷史紀錄。"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "economic_event_actual_and_status_update",
+      "event_id": "current-india-cpi-20261112",
+      "changed_fields": [
+        "data_reference",
+        "actual",
+        "status",
+        "impact_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "data_reference": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "印度 CPI 將反映食品與核心通膨壓力，影響印度央行政策空間及印度債券、盧比與股市評價；須留意食品價格對總體通膨的貢獻。",
+        "source": {
+          "name": "Press Information Bureau, Government of India｜CPI on base 2024=100 for September 2026",
+          "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
+          "publisher": "Ministry of Statistics & Programme Implementation / Press Information Bureau",
+          "published_at": "2026-10-12",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。 前值依印度官方 9 月 CPI；預期採 Reuters 11/06 對 36 位經濟學家的調查。",
+          "secondary_refs": [
+            "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
+            "https://www.reuters.com/world/india/indias-october-consumer-inflation-likely-nears-top-rbi-target-food-costs-2026-11-06/"
+          ]
+        }
+      },
+      "after": {
+        "data_reference": "CPI General (Combined), 2024=100 base; provisional",
+        "actual": "6.09% y/y（2026-10，暫定；食品通膨 8.94%）",
+        "status": "released",
+        "impact_judgment": "高於已存市場預期 5.93% 及前值 5.54%，並突破 RBI 2%–6% 容忍區間上限；食品通膨升至 8.94%。此數據增加市場對 12 月升息的押注。實績由 Reuters 引述政府數據核實；MoSPI/PIB October 原始 PDF 本輪未能直接回讀。",
+        "source": {
+          "name": "India October CPI 2026｜Reuters report citing government data",
+          "url": "https://ca.marketscreener.com/news/india-s-october-retail-inflation-at-6-09-on-year-ce785ed8da81f227/",
+          "publisher": "Reuters（syndicated via MarketScreener）",
+          "published_at": "2026-11-12T05:41:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "印度政府官方 9 月 CPI 新聞稿明確預告 10 月 CPI 將於 2026-11-12（週四）發布；公告未列精確發布時刻，故僅記日期，time_known=false，不推測時間。 前值依印度官方 9 月 CPI；預期採 Reuters 11/06 對 36 位經濟學家的調查。；Reuters 2026-11-12 引述印度政府數據：10 月 CPI 年增 6.09%，9 月 5.54%，Reuters poll 預期 5.93%；食品通膨 8.94%（前月 7.74%）。官方 MoSPI/PIB October 原始發布頁本輪未能直接取得，精確發布時刻維持 time_known=false，不以新聞刊出時間替代官方發布時刻。",
+          "secondary_refs": [
+            "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2322244&lang=1&reg=3",
+            "https://www.reuters.com/world/india/indias-october-consumer-inflation-likely-nears-top-rbi-target-food-costs-2026-11-06/",
+            "https://www.investing.com/news/economy-news/indias-october-retail-inflation-at-609-onyear-5020869"
+          ]
+        }
+      },
+      "source": "https://ca.marketscreener.com/news/india-s-october-retail-inflation-at-6-09-on-year-ce785ed8da81f227/",
+      "note": "India CPI government-data report"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "economic_event_actual_and_previous_revision",
+      "event_id": "current-uk-gdp-20261112",
+      "changed_fields": [
+        "previous",
+        "actual",
+        "status",
+        "impact_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "previous": "GDP q/q 0.5%; GDP y/y 1.4%; monthly GDP 0.1%",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "英國第三季成長初值將影響英格蘭銀行對需求、薪資與通膨的權衡；月度 GDP 與服務業、工業產出可辨識成長動能來源。",
+        "source": {
+          "name": "Office for National Statistics｜12 November 2026 release calendar",
+          "url": "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
+          "publisher": "Office for National Statistics",
+          "published_at": null,
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。 前值含上季 GDP 及 ONS 最近月度 GDP；預期依 Trading Economics 11/12 英國 GDP 日曆。工業生產及貿易分項未取得同口徑共識。",
+          "secondary_refs": [
+            "https://www.tradingeconomics.com/calendar/gdp",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest"
+          ]
+        }
+      },
+      "after": {
+        "previous": "Q2 GDP q/q +0.5%；GDP y/y +1.4%；8 月月度 GDP 修正為 0.0%（原報 +0.1%）",
+        "actual": "Q3 GDP +0.7% q/q、+1.9% y/y；9 月月度 GDP +0.2%，8 月修正至 0.0%；9 月月度生產 +0.3%，Q3 生產 +0.1%、服務業 +0.9%、營造 -0.7%；Q3 商品與服務貿易逆差擴大 £6.2B 至 £10.4B。",
+        "status": "released",
+        "impact_judgment": "Q3 GDP 季增 0.7% 符合預期，年增 1.9% 高於已存預期；9 月月度 GDP +0.2% 符合預期，但 8 月月度 GDP 下修至持平。服務業仍是主要成長來源，生產溫和回升、營造業收縮；Q3 商品與服務貿易逆差擴大至 £10.4B。",
+        "source": {
+          "name": "ONS｜GDP first quarterly estimate, UK: July to September 2026",
+          "url": "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/julytoseptember2026",
+          "publisher": "UK Office for National Statistics",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "ONS 官方發布日曆確認 11/12 07:00 GMT 同時發布第三季 GDP 初值、9 月月度 GDP、UK Trade: September 2026、Index of Production: September 2026，以及建築產出資料；07:00 GMT 換算台灣時間 15:00。事件標題聚焦 GDP、月度 GDP、工業生產與貿易，建築資料不另升格為獨立事件。 前值含上季 GDP 及 ONS 最近月度 GDP；預期依 Trading Economics 11/12 英國 GDP 日曆。工業生產及貿易分項未取得同口徑共識。；ONS 2026-11-12 官方 GDP、月度 GDP、生產與貿易資料：Q3 GDP +0.7% q/q、+1.9% y/y；9 月月度 GDP +0.2%，8 月修正至 0.0%；9 月生產 +0.3% m/m、Q3 生產 +0.1%、服務業 +0.9%、營造 -0.7%；Q3 商品與服務貿易逆差擴大 £6.2B 至 £10.4B。",
+          "secondary_refs": [
+            "https://www.tradingeconomics.com/calendar/gdp",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest",
+            "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
+            "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/september2026",
+            "https://www.ons.gov.uk/businessindustryandtrade/industryandmanufacturing/industrystatistics/bulletins/indexofproduction/september2026",
+            "https://www.ons.gov.uk/businessindustryandtrade/internationaltrade/bulletins/uktrade/september2026"
+          ]
+        }
+      },
+      "source": "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/julytoseptember2026",
+      "note": "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/julytoseptember2026"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "economic_event_actual_and_previous_revision",
+      "event_id": "current-us-initial-claims-20261112",
+      "changed_fields": [
+        "previous",
+        "actual",
+        "status",
+        "impact_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "previous": "189 千人",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "初領失業金可較即時反映裁員變化；需搭配四週均值與續領人數，避免單週季節性波動造成過度解讀。",
+        "source": {
+          "name": "Federal Reserve Bank of New York｜November 2026 Economic Indicators Calendar",
+          "url": "https://www.newyorkfed.org/research/calendars/i-nov26.html",
+          "publisher": "Federal Reserve Bank of New York",
+          "published_at": null,
+          "observed_at": "2026-11-12T04:34:17+08:00",
+          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。 前值為 11/05 初領實際值 189K。11/06 查核時下週預期尚未發布，forecast 保留 null。；Investing.com 2026-11-12 Initial Claims 日曆列示 forecast 194K、previous 189K；本次查核時間 2026-11-12 04:34 Taipei。實際值尚未發布，維持 null。",
+          "secondary_refs": [
+            "https://www.investing.com/economiccalendar/initial-jobless-claims-294",
+            "https://api.fxblue.com/calendar/item/Initial_Jobless_Claims_US",
+            "https://www.investing.com/economic-calendar/initial-jobless-claims-294"
+          ]
+        }
+      },
+      "after": {
+        "previous": "191 千人（修正後；原報 189 千人）",
+        "actual": "200 千人（SA，週截至 11/07）；四週均值 195.25 千人；續領失業人數 1,697 千人（週截至 10/31）",
+        "status": "released",
+        "impact_judgment": "初領人數較修正後前值增加 9 千人，並高於已存預期 194 千人；四週均值維持 195.25 千人，續領失業人數下降 20 千人至 1.697 百萬，訊號偏溫和，尚不足以單週判定勞動市場明顯轉弱。",
+        "source": {
+          "name": "U.S. Department of Labor｜Unemployment Insurance Weekly Claims, week ending November 7, 2026",
+          "url": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261694.pdf",
+          "publisher": "U.S. Department of Labor",
+          "published_at": "2026-11-12T08:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "紐約聯準銀行官方經濟指標日曆列示 11/12 08:30 ET Initial Claims；11/11 為 Veterans Day，故本週發布順延至週四。DOL 每週失業保險申領統計為勞動市場領先觀察指標。 前值為 11/05 初領實際值 189K。11/06 查核時下週預期尚未發布，forecast 保留 null。；Investing.com 2026-11-12 Initial Claims 日曆列示 forecast 194K、previous 189K；本次查核時間 2026-11-12 04:34 Taipei。實際值尚未發布，維持 null。；DOL 官方報告：初領 SA 200,000；前週由 189,000 上修至 191,000；四週均值 195,250 不變；續領 SA（截至 10/31）1,697,000，較修正前週下降 20,000。市場預期 194K 沿用既有 Investing.com 共識，DOL 不發布市場預期。",
+          "secondary_refs": [
+            "https://www.investing.com/economiccalendar/initial-jobless-claims-294",
+            "https://api.fxblue.com/calendar/item/Initial_Jobless_Claims_US",
+            "https://www.investing.com/economic-calendar/initial-jobless-claims-294",
+            "https://www.newyorkfed.org/research/calendars/i-nov26.html"
+          ]
+        }
+      },
+      "source": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261694.pdf",
+      "note": "https://www.dol.gov/sites/dolgov/files/OPA/newsreleases/ui-claims/20261694.pdf"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "economic_event_status_pending_verification",
+      "event_id": "current-us-treasury-30y-auction-20261113",
+      "changed_fields": [
+        "status",
+        "impact_judgment",
+        "source.observed_at",
+        "source.notes"
+      ],
+      "before": {
+        "status": "upcoming",
+        "impact_judgment": "超長天期標售需求落差可能擴大期限溢酬並影響長端利率。",
+        "source": {
+          "observed_at": "2026-11-06T05:24:00+08:00",
+          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；30 年期 250 億美元，11/12 13:00 ET 標售。 換算台灣時間如事件日期。"
+        }
+      },
+      "after": {
+        "status": "pending_verification",
+        "impact_judgment": "標售預定時間已過，但本輪尚未取得可直接回讀的 TreasuryDirect／Treasury Fiscal Data 官方結果。實際殖利率、BTC、tail 及投標人結構全部維持 null，待取得可靠結果後再更新。",
+        "source": {
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "財政部 11/04 季度再融資公告確認金額及 13:00 ET 標售時間；30 年期 250 億美元，11/12 13:00 ET 標售。 換算台灣時間如事件日期。；2026-11-13 04:30:43 Taipei 查核：標售預定於 2026-11-12 13:00 ET 舉行，事件時間已過；未能直接取得可驗證官方標售結果，故狀態改為 pending_verification，actual 及所有標售結果欄位維持 null，不引用未核實的第三方數值。"
+        }
+      },
+      "source": "https://home.treasury.gov/news/press-releases/sb0678",
+      "note": "既有美國財政部標售排程來源"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-ctva-20261111",
+      "changed_fields": [
+        "event_date",
+        "time_known",
+        "time_type",
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "revenue_comparison_status",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "event_date": "2026-11-12T05:00:00+08:00",
+        "time_known": false,
+        "time_type": "release_date_only",
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "source": {
+          "name": "Corteva Investor Relations｜Q3 2026 Earnings Release Schedule",
+          "url": "https://investors.corteva.com/news-events/news-releases",
+          "publisher": "Corteva",
+          "published_at": null,
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": null,
+          "secondary_refs": null
+        }
+      },
+      "after": {
+        "event_date": "2026-11-12T05:30:00+08:00",
+        "time_known": true,
+        "time_type": "release_time",
+        "status": "released",
+        "eps_actual": -0.08,
+        "revenue_actual": 1.591,
+        "eps_basis": "Pro forma GAAP EPS -US$0.08；adjusted pro forma non-GAAP operating EPS +US$0.06 separately reported. Existing consensus EPS basis undisclosed; no EPS beat/miss.",
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "Q3 pro forma GAAP net sales US$1.591B（-9% y/y），adjusted pro forma organic sales US$1.58B（-9%）；GAAP pro forma EPS -US$0.08，adjusted non-GAAP operating EPS +US$0.06。US$1.591B 低於已存 Finviz revenue estimate US$1.77B；公司因巴西市場弱化調整全年展望。",
+        "source": {
+          "name": "Corteva｜Reports Third-Quarter 2026 Results; Updates FY 2026 Outlook",
+          "url": "https://www.prnewswire.com/news-releases/corteva-reports-third-quarter-2026-results-updates-fy-2026-outlook-302936913.html",
+          "publisher": "Corteva, Inc.",
+          "published_at": "2026-11-11T16:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "Corteva 發行人提供之 PRNewswire 財報公告，2026-11-11 16:30 ET 發布（台灣 11/12 05:30）；Q3 pro forma GAAP net sales US$1.591B、GAAP EPS -US$0.08；adjusted pro forma organic sales US$1.58B、adjusted operating EPS US$0.06。",
+          "secondary_refs": [
+            "https://investors.corteva.com/news-events/news-releases"
+          ]
+        }
+      },
+      "source": "https://www.prnewswire.com/news-releases/corteva-reports-third-quarter-2026-results-updates-fy-2026-outlook-302936913.html",
+      "note": "https://www.prnewswire.com/news-releases/corteva-reports-third-quarter-2026-results-updates-fy-2026-outlook-302936913.html"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-bn-20261112",
+      "changed_fields": [
+        "event_date",
+        "time_known",
+        "time_type",
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "event_date": "2026-11-12T20:00:00+08:00",
+        "time_known": true,
+        "time_type": "release_time",
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "financial_judgment": null,
+        "source": {
+          "name": "Brookfield Corporation Investor Relations｜Q3 2026 Results",
+          "url": "https://bn.brookfield.com/events/bn-q3-2026-conference-call-webcast",
+          "published_at": null,
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "官方公告確認 11/12 約 07:00 ET 發布第三季結果，10:00 ET 舉行電話會議；換算台灣時間約 20:00，原文為 approximately。",
+          "secondary_refs": null
+        }
+      },
+      "after": {
+        "event_date": "2026-11-12T12:00:00+08:00",
+        "time_known": false,
+        "time_type": "release_date_only",
+        "status": "released",
+        "eps_actual": 0.54,
+        "revenue_actual": 20.691,
+        "eps_basis": "IFRS diluted EPS US$0.54；Brookfield-defined distributable earnings/share US$0.73（non-IFRS）另列。既有 EPS consensus basis 未揭露，不作 beat/miss。",
+        "financial_judgment": "Q3 consolidated revenue US$20.691B；net income attributable to Brookfield shareholders US$1.305B；IFRS diluted EPS US$0.54。Brookfield-defined distributable earnings US$1.718B／US$0.73 per share，其中 realizations 前 US$1.496B／US$0.64 per share。既有 EPS／revenue estimates 未證明與 IFRS diluted EPS／consolidated revenue 同口徑，不判 beat/miss。",
+        "source": {
+          "name": "Brookfield Corporation｜Q3 2026 Results",
+          "url": "https://bn.brookfield.com/sites/brookfield-bn-v2/files/Brookfield-BN-IR-V2/2026/Q3/2026-q3-bn-press-release.pdf",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "官方公告確認 11/12 約 07:00 ET 發布第三季結果，10:00 ET 舉行電話會議；換算台灣時間約 20:00，原文為 approximately。；公司官方 Q3 2026 press release：consolidated revenue US$20,691M；net income attributable to shareholders US$1,305M；IFRS diluted EPS US$0.54；distributable earnings US$1,718M／US$0.73 per share。官方公告僅確認 11/12 發布日期及 10:00 ET conference call，未明示精確 release time，故 event_date 改用日期佔位、time_known=false。",
+          "secondary_refs": [
+            "https://bn.brookfield.com/events/bn-q3-2026-conference-call-webcast"
+          ]
+        }
+      },
+      "source": "https://bn.brookfield.com/sites/brookfield-bn-v2/files/Brookfield-BN-IR-V2/2026/Q3/2026-q3-bn-press-release.pdf",
+      "note": "https://bn.brookfield.com/sites/brookfield-bn-v2/files/Brookfield-BN-IR-V2/2026/Q3/2026-q3-bn-press-release.pdf"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-nbis-20261112",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "revenue_comparison_status",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "source": {
+          "name": "Nebius Group｜Q3 2026 Results Announcement",
+          "url": "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
+          "published_at": "2026-10-30",
+          "observed_at": "2026-11-06T18:00:00+08:00",
+          "notes": "官方公告確認 11/12 美股開盤前發布 Q3 2026 財報，並於 08:00 ET 舉行電話會議；換算台灣時間為 11/12 21:00。事件時間採官方電話會議時間，財報發布時段標記 before_market。",
+          "secondary_refs": null
+        }
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": -0.13,
+        "revenue_actual": 980.8,
+        "eps_basis": "U.S. GAAP diluted loss per share from continuing operations -US$0.13；adjusted net income US$90.9M is non-GAAP, not EPS. Existing consensus EPS basis undisclosed.",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "Q3 revenue US$980.8M（+571% y/y），高於已存 Finviz revenue estimate US$907.2M；U.S. GAAP diluted loss/share -US$0.13，continuing-operations net loss US$37.5M，adjusted EBITDA US$465.8M（non-GAAP）。公司 2026 revenue outlook 調至原 US$3.0–3.4B 區間低端，部分容量收入遞延至 2027；EPS consensus basis 未揭露，不判 beat/miss。",
+        "source": {
+          "name": "Nebius Group｜Reports Third Quarter 2026 Financial Results",
+          "url": "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "官方公告確認 11/12 美股開盤前發布 Q3 2026 財報，並於 08:00 ET 舉行電話會議；換算台灣時間為 11/12 21:00。事件時間採官方電話會議時間，財報發布時段標記 before_market。；Nebius 官方 Q3 release 及財報 PDF：revenue US$980.8M（+571% y/y）；GAAP diluted loss/share -US$0.13；continuing-operations net loss US$37.5M；adjusted EBITDA US$465.8M（non-GAAP）。8:00 a.m. ET webcast 時間沿用原官方公告。",
+          "secondary_refs": [
+            "https://nebius.com/newsroom/nebius-group-announces-date-of-third-quarter-2026-results-and-conference-call",
+            "https://assets.nebius.com/assets/508584f1-b73d-484f-b64f-f96a5bc3b515/Nebius%20Q3%202026%20Financial%20Results%20Press%20Release.pdf?cache-buster=2026-11-12T11%3A39%3A45.923Z"
+          ]
+        }
+      },
+      "source": "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results",
+      "note": "https://nebius.com/newsroom/nebius-reports-third-quarter-2026-financial-results"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-vod-20261110",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "source.name",
+        "source.url",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "status": "pending_verification",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": null,
+        "source": {
+          "name": "Vodafone Group｜H1 FY2027 Results",
+          "url": "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results",
+          "published_at": null,
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。",
+          "secondary_refs": [
+            "https://www.vodafone.com/investors/performance-and-reports/financial-calendar"
+          ]
+        }
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": -0.2075,
+        "revenue_actual": 21.853,
+        "eps_basis": "IFRS basic loss per share -20.75 eurocents（-EUR0.2075）；adjusted basic EPS +1.48 eurocents（EUR0.0148）另列。",
+        "source": {
+          "name": "Vodafone Group｜H1 FY27 Results Announcement",
+          "url": "https://www.vodafone.com/~/media/Files/V/vodafone/corp/results-and-presentations/vodafone-h1-fy27-results-announcement.pdf",
+          "published_at": "2026-11-10",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "原有排程／查核註記保留：官方財務行事曆確認 11/10 發布 H1 FY2027 Results，未提供可核實精確時刻，故只記日期並標示 time_known=false，不推測盤前／盤後。；官方結果頁已發布 H1 FY2027 results，但本次未抽取原始 PDF 財務表；實際值與精確發布時間待核實。；Vodafone 官方 H1 FY27 results announcement：revenue EUR21,853M；IFRS basic loss/share -20.75 eurocents；adjusted basic EPS +1.48 eurocents。公司官方 results page 僅確認 11/10 發布日期，未確認精確時刻，time_known 維持 false。",
+          "secondary_refs": [
+            "https://www.vodafone.com/investors/performance-and-reports/financial-calendar",
+            "https://www.vodafone.com/news/newsroom/corporate-and-financial/vodafone-group-announces-h1-fy27-results"
+          ]
+        }
+      },
+      "source": "https://www.vodafone.com/~/media/Files/V/vodafone/corp/results-and-presentations/vodafone-h1-fy27-results-announcement.pdf",
+      "note": "https://www.vodafone.com/~/media/Files/V/vodafone/corp/results-and-presentations/vodafone-h1-fy27-results-announcement.pdf"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-fnv-20261112",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "revenue_comparison_status",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "source": {
+          "name": "Franco-Nevada｜Q3 2026 Results Release and Conference Call",
+          "url": "https://www.nasdaq.com/press-release/franco-nevada-release-third-quarter-2026-results-2026-10-13",
+          "publisher": "Franco-Nevada Corporation via Nasdaq",
+          "published_at": "2026-10-13",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "公司發布的公告確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 08:00 ET 電話會議，換算台灣時間 11/12 21:00；事件時間採官方電話會議時間，公告來源為公司發稿經 Nasdaq 刊載。",
+          "secondary_refs": null
+        }
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": 2.05,
+        "revenue_actual": 549.3,
+        "eps_basis": "GAAP net income/share US$2.05；adjusted net income/share US$1.89 separately reported. Existing consensus EPS basis undisclosed; no EPS beat/miss.",
+        "revenue_comparison_status": "miss",
+        "financial_judgment": "Q3 revenue US$549.3M（+13% y/y），低於已存 Finviz revenue estimate US$568.44M；net income US$395.5M／US$2.05 per share；adjusted net income US$364.5M／US$1.89 per share；adjusted EBITDA US$493.9M／US$2.56 per share。EPS consensus basis 未揭露，不判 beat/miss。",
+        "source": {
+          "name": "Franco-Nevada｜Reports Q3 2026 Results",
+          "url": "https://www.prnewswire.com/news-releases/franco-nevada-reports-q3-2026-results-812447402.html",
+          "publisher": "Franco-Nevada Corporation（issuer-provided release）",
+          "published_at": "2026-11-11T17:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "公司發布的公告確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 08:00 ET 電話會議，換算台灣時間 11/12 21:00；事件時間採官方電話會議時間，公告來源為公司發稿經 Nasdaq 刊載。；Franco-Nevada 發行人提供之 PRNewswire release，2026-11-11 17:30 ET 發布；Q3 revenue US$549.3M（+13% y/y）；net income US$395.5M／US$2.05 per share；adjusted net income US$364.5M／US$1.89 per share；adjusted EBITDA US$493.9M／US$2.56 per share。",
+          "secondary_refs": [
+            "https://www.nasdaq.com/press-release/franco-nevada-release-third-quarter-2026-results-2026-10-13"
+          ]
+        }
+      },
+      "source": "https://www.prnewswire.com/news-releases/franco-nevada-reports-q3-2026-results-812447402.html",
+      "note": "https://www.prnewswire.com/news-releases/franco-nevada-reports-q3-2026-results-812447402.html"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-asnd-20261112",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_currency",
+        "revenue_currency",
+        "eps_basis",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "financial_judgment": null,
+        "source": {
+          "name": "Ascendis Pharma Investor Relations｜Q3 2026 results schedule",
+          "url": "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide",
+          "publisher": "Ascendis Pharma",
+          "published_at": null,
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "官方公告確認 11/12 08:00 ET 財報電話會議，財報於美股開盤前發布；換算台灣時間 21:00。",
+          "secondary_refs": null
+        }
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": 1.08,
+        "revenue_actual": 369.657,
+        "eps_currency": "EUR",
+        "revenue_currency": "EUR",
+        "eps_basis": "IFRS diluted EPS EUR1.08；non-IFRS diluted EPS EUR1.71 separately reported. Existing estimates are USD and not directly comparable.",
+        "financial_judgment": "Q3 total revenue EUR369.657M（去年同期 EUR213.634M）；IFRS diluted EPS EUR1.08，non-IFRS diluted EPS EUR1.71；IFRS operating profit EUR124.576M，non-IFRS operating profit EUR155.722M。既有 MarketBeat estimates 以 USD 保存，未換算或與 EUR 實績直接比較。",
+        "source": {
+          "name": "Ascendis Pharma｜Reports Third Quarter 2026 Financial Results",
+          "url": "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-pharma-reports-third-quarter-2026-financial-results",
+          "publisher": "Ascendis Pharma A/S",
+          "published_at": "2026-11-12T07:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "官方公告確認 11/12 08:00 ET 財報電話會議，財報於美股開盤前發布；換算台灣時間 21:00。；公司官方 Q3 2026 release，2026-11-12 07:30 ET 發布：total revenue EUR369.657M；IFRS diluted EPS EUR1.08；non-IFRS diluted EPS EUR1.71；IFRS net profit EUR73.973M。",
+          "secondary_refs": [
+            "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-report-third-quarter-2026-financial-results-and-provide"
+          ]
+        }
+      },
+      "source": "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-pharma-reports-third-quarter-2026-financial-results",
+      "note": "https://investors.ascendispharma.com/news-releases/news-release-details/ascendis-pharma-reports-third-quarter-2026-financial-results"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-vylr-20261111",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "revenue_actual",
+        "eps_basis",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "status": "upcoming",
+        "eps_actual": null,
+        "revenue_actual": null,
+        "eps_basis": "Analyst consensus basis not disclosed by source; do not infer GAAP/non-GAAP beat or miss",
+        "financial_judgment": null,
+        "source": {
+          "name": "Vylor Investor Relations｜Q3 2026 earnings release and webcast",
+          "url": "https://www.vylor.com/en/investors/",
+          "publisher": "Vylor",
+          "published_at": "2026-10-06",
+          "observed_at": "2026-11-06T17:00:00+08:00",
+          "notes": "官方 IR 確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 09:00 ET 舉行 webcast；換算台灣時間 11/12 22:00。官方公司公告確認 NYSE: VYLR。",
+          "secondary_refs": null
+        }
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": -0.72,
+        "revenue_actual": 938,
+        "eps_basis": "Pro forma GAAP EPS -US$0.72；adjusted pro forma operating EPS -US$0.42（non-GAAP）另列。Existing consensus EPS basis undisclosed; no EPS beat/miss.",
+        "financial_judgment": "Q3 pro forma GAAP net sales US$938M（-1% y/y），pro forma organic sales US$911M（-3%）；GAAP pro forma EPS -US$0.72，adjusted pro forma operating EPS -US$0.42；adjusted pro forma operating EBITDA loss US$269M。公司重申 2026 年 adjusted pro forma operating EPS 指引 US$2.25–2.35。既有 The Right Trader consensus basis 未揭露，不判 EPS／營收 beat/miss。",
+        "source": {
+          "name": "Vylor｜Reaffirms Full-Year Guidance on Strong YTD Results",
+          "url": "https://www.prnewswire.com/news-releases/vylor-reaffirms-full-year-guidance-on-strong-ytd-results-advances-leading-technology-302936902.html",
+          "publisher": "Vylor, Inc.",
+          "published_at": "2026-11-11T16:30:00-05:00",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "官方 IR 確認 11/11 美股收盤後發布 Q3 2026 財報，11/12 09:00 ET 舉行 webcast；換算台灣時間 11/12 22:00。官方公司公告確認 NYSE: VYLR。；Vylor 發行人提供之 PRNewswire release，2026-11-11 16:30 ET 發布；Q3 pro forma GAAP net sales US$938M、GAAP pro forma EPS -US$0.72；pro forma organic sales US$911M、adjusted pro forma operating EPS -US$0.42（non-GAAP）。公司重申全年指引。",
+          "secondary_refs": [
+            "https://www.vylor.com/en/investors/"
+          ]
+        }
+      },
+      "source": "https://www.prnewswire.com/news-releases/vylor-reaffirms-full-year-guidance-on-strong-ytd-results-advances-leading-technology-302936902.html",
+      "note": "https://www.prnewswire.com/news-releases/vylor-reaffirms-full-year-guidance-on-strong-ytd-results-advances-leading-technology-302936902.html"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "earnings_event_actual_update",
+      "event_id": "current-bap-20261109",
+      "changed_fields": [
+        "status",
+        "eps_actual",
+        "eps_basis",
+        "financial_judgment",
+        "source.name",
+        "source.url",
+        "source.publisher",
+        "source.published_at",
+        "source.observed_at",
+        "source.notes",
+        "source.secondary_refs"
+      ],
+      "before": {
+        "status": "pending_verification",
+        "eps_actual": null,
+        "eps_basis": null,
+        "financial_judgment": "Credicorp Q3 2026 已有第三方財報頁及逐字稿摘要，但實際數字互相衝突：MarketBeat 列 EPS US$7.06、營收 US$2.00B；Investing.com transcript 列 EPS US$7.12、營收 US$1.94B。本次未取得可核實的公司官方 6-K／原始財報，故不填入任何 actual，維持 pending_verification。",
+        "source": {
+          "name": "Credicorp Ltd.｜3Q26 release status and conflicting third-party figures",
+          "url": "https://inversionistas.grupocredicorp.com/ir-press-releases",
+          "publisher": "Credicorp Ltd.",
+          "published_at": null,
+          "observed_at": "2026-11-11T04:34:41+08:00",
+          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
+            "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288"
+          ]
+        }
+      },
+      "after": {
+        "status": "released",
+        "eps_actual": 24.3,
+        "eps_basis": "IFRS company-reported net income/share S/24.3；非美國 GAAP diluted EPS。無可追溯同口徑 analyst consensus。",
+        "financial_judgment": "Q3 net income attributable to Credicorp S/1,929.411M（+11.0% y/y）；company-reported net income/share S/24.3；issuer-defined operating income S/6,644.346M（+17.2% y/y）；ROE 19.9%，NPL ratio 3.9%。Operating income 為銀行業發行人定義指標，並非另行揭露的標準 revenue line，故 revenue_actual 保持 null。",
+        "source": {
+          "name": "Credicorp Ltd.｜3Q26 Earnings Release, SEC Exhibit 99.1",
+          "url": "https://www.sec.gov/Archives/edgar/data/1001290/000100129026000011/credicorpltdex-9913q26ingls.htm",
+          "publisher": "Credicorp Ltd. / U.S. SEC EDGAR",
+          "published_at": "2026-11-09",
+          "observed_at": "2026-11-13T04:30:43+08:00",
+          "notes": "原有排程／查核註記保留：官方 IR 於 10/27 公告：3Q26 財報 11/09 收盤後發布；11/10 09:30 Lima／Eastern Time 舉行電話會議，換算台灣時間 22:30。發行人年度時程亦確認 3Q26 release 11/09、conference call 11/10。；官方 IR 發布列表尚未直接取得可核實原始 6-K；第三方實績數字互相衝突，暫不填 actual。；Credicorp 官方 3Q26 earnings release 作為 SEC 6-K Exhibit 99.1；以 IFRS、PEN 呈列。net income/share S/24.3；net income attributable S/1,929.411M；issuer-defined operating income S/6,644.346M。未將 operating income 誤填為標準 revenue_actual。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-credicorp-ltd-stock/",
+            "https://ca.investing.com/news/stock-market-news/earnings-call-transcript-credicorp-misses-q3-2026-estimates-but-shares-rise-93CH-4947288",
+            "https://inversionistas.grupocredicorp.com/ir-press-releases",
+            "https://credicorp.gcs-web.com/static-files/737be5e1-5cfe-4cc9-9a83-13825ab1f445"
+          ]
+        }
+      },
+      "source": "https://www.sec.gov/Archives/edgar/data/1001290/000100129026000011/credicorpltdex-9913q26ingls.htm",
+      "note": "https://www.sec.gov/Archives/edgar/data/1001290/000100129026000011/credicorpltdex-9913q26ingls.htm"
+    },
+    {
+      "at": "2026-11-13T04:30:43+08:00",
+      "observed_at": "2026-11-13T04:30:43+08:00",
+      "action": "calendar_preupdate_metadata_and_coverage_refresh",
+      "event_id": null,
+      "changed_fields": [
+        "wr_version",
+        "source_report_date",
+        "updated_at",
+        "coverage.economic.checked_at",
+        "coverage.economic.source_refs",
+        "coverage.economic.notes",
+        "coverage.earnings.checked_at",
+        "coverage.earnings.source_refs",
+        "coverage.earnings.notes"
+      ],
+      "before": {
+        "wr_version": "5.14",
+        "source_report_date": "2026-11-12",
+        "updated_at": "2026-11-12T04:34:17+08:00",
+        "economic": {
+          "checked_at": "2026-11-12T04:34:17+08:00",
+          "source_refs_count": 43,
+          "status": "incomplete"
+        },
+        "earnings": {
+          "checked_at": "2026-11-12T04:34:17+08:00",
+          "source_refs_count": 136,
+          "status": "incomplete"
+        }
+      },
+      "after": {
+        "wr_version": "5.15",
+        "source_report_date": "2026-11-13",
+        "updated_at": "2026-11-13T04:30:43+08:00",
+        "economic": {
+          "checked_at": "2026-11-13T04:30:43+08:00",
+          "source_refs_count": 50,
+          "status": "incomplete"
+        },
+        "earnings": {
+          "checked_at": "2026-11-13T04:30:43+08:00",
+          "source_refs_count": 145,
+          "status": "incomplete"
+        }
+      },
+      "source": "main TAC_WORK_RULES.md v5.15; ONS, U.S. DOL, issuer IR / press releases, SEC EDGAR and Reuters government-data report",
+      "note": "僅增量更新 main W46 JSON；未新增事件、未刪除事件；coverage 依實際核查程度維持 incomplete。"
     }
   ]
 }
