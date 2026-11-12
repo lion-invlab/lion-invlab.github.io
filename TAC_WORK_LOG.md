@@ -557,3 +557,17 @@
 - 新聞候選資料已取得 Reuters／鉅亨網／Investing.com 等來源；新聞窗口鎖定 2026-11-12 12:00 至 2026-11-13 05:25（Asia/Taipei）。尚未完成逐篇原始發布時間查核、焦點新聞 5 則與熱門頭條 10 則去重。
 - Session State 已更新，commit `3630fcb0d1327e7b58f447311a3993eabbf2549c`，blob `51e2575e96b1bbb4d97266d8f8e3300c752c57d1`。
 - 未建立審核版 HTML，未寫入 main preview，未修改 main index、母版、Manifest、WR 或 W46 JSON；`review_ready=false`。
+
+
+## 2026-11-13｜行情查核補充與組裝阻塞
+
+- 44 項行情逐項查核完成 43 項；MOVE 為唯一未取得 11/12 有效收盤的欄位。MOVE Investing.com HK 歷史表最新列停在 11/10，故標記待核實，不以舊值替代。
+- 17 項全球指數：美股四大指數取 AP 收盤；SOX 取 Investing.com HK 11/12 歷史列；亞洲／歐洲指數取 Investing.com HK 歷史列及交易所／FT 歷史資料交叉核對。
+- 11 項產業 ETF：Investing.com HK 多頁尚停留 11/11，改用 StockAnalysis 歷史收盤作備援；不將 11/11 數值當成 11/12。
+- 3 段美債殖利率：2Y 4.87%、10Y 5.10%、30Y 5.43%；6 項 FX 已取得 11/12 歷史資料；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 結算報導核對；VIX 17.60，CNN F&G 43（兩個 CNN 資料轉載來源交叉核對）。
+- FedWatch：Investing.com Fed Rate Monitor 於 11/12 15:15 ET 更新；12/09 會議 4.00–4.25% 機率 88.3%，4.25–4.50% 機率 11.7%。
+- 05:15 的五大美股指數 OHLC workflow run 未出現在最新 Actions 紀錄；五大指數 OHLC 不可驗證。不得沿用前日 key-level fixture。
+- 檢查到現有 `.github/workflows/tac-simulation-lab.yml` 仍硬編碼 2026-11-12 fixture、輸出檔名與舊行情斷言；本輪未觸發該 workflow，以免誤產 11/12 審核版。沒有改動該 workflow 或 pipeline。
+- 新聞窗口鎖定 2026-11-12 12:00 至 2026-11-13 05:25（Asia/Taipei）；已核對 5 則總經候選及 10 則市場頭條候選的時間窗，最後去重與摘要仍未完成。
+- Session State 更新 commit `361edede15f9c08960d2d64834ec59acd52c0cc5`，blob `57f0723881e9d463e1acbb8c9db40842491c3adb`。
+- 未執行 HTML 組裝器，未建立 11/13 審核版，未寫入 main preview，未修改 main index、正式母版、Manifest、WR 或 W46 JSON；`review_ready=false`。
