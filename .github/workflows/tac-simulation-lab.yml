@@ -81,6 +81,7 @@ jobs:
       - name: Validate calendar counts and non-comparable EPS display
         run: |
           python - <<'PY'
+          import json
           from bs4 import BeautifulSoup
           from pathlib import Path
           p = Path("simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html")
