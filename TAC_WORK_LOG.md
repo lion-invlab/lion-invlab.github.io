@@ -500,3 +500,27 @@
 - HTML 靜態檢查：html/head/body 各 1；181 個 ID 無重複；16 個經濟事件卡、48 個財報事件卡、36 個已公布雙卡。頁面另含 11/10 CPI 特別焦點區塊，非固定母版區塊，且不是 11/12 QA 後使用者追加內容，故不得列為原 QA 通過。
 - 視覺截圖 1440／768／360／320，documentWidth=viewport，無水平溢位；視覺回歸只對 simulation baseline 執行，沒有與 formal main mother 直接比對。實際 tabs／details／導航／外部連結互動未測試。Pages deploy run success，live URL 未實際開啟。
 - 關鍵價位 builder 僅輸出 S1/P/R1，未符合 D4 五層中文標籤要求；OHLC 由 GitHub Actions/artifact 取得，未符合 D4「ChatGPT 直接查核」責任規定。當前輸出不可標示可審核完成。
+
+
+## 2026-11-12｜11/12 早報行事曆來源鎖定、財報顯示與股價反應補強
+
+### 已完成
+- 開工重讀 main 正式 WR v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）、main Manifest（blob `fade5e3d88de76a79cb5c1656cc592b98827ab55`）、模擬區根 WR（blob `feb9f87a246bd9e55c8468ac77d99d8acd947f63`）及專屬規則 SIM-0.8（blob `11cfedfdcb3363d445277e87fccdd504e9ef93ce`）。
+- 唯一行事曆來源為 main：`data/calendar/weeks/2026-W46.json`，main commit `eb53eb666ece59f113f2e65d7932436ef66bdfa9`，blob SHA `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`，更新時間 2026-11-12 04:34:17 +08；16 筆經濟事件、48 筆財報事件。
+- 模擬組裝器新增 Gate 0：核對 repository、模擬 checkout branch、main ref、ISO week、日期範圍、timezone、事件 ID；以單一 main commit 讀取當週／上週 JSON，輸出 commit/blob SHA provenance；不允許 simulation JSON、fixture 或舊快取 fallback。
+- 11/12 審核版已逐筆對帳 main W46：HTML 16 筆經濟事件、48 筆財報事件，筆數一致。經濟事件 10 筆已公布、6 筆當日／後續；財報 36 筆已公布／待核實、6 筆當日、6 筆後續。
+- 財報呈現修正：EPS 共識口徑未核實時不再顯示高於／低於預期方向；On Holding CHF 實際值與 USD 預估值分幣別顯示；Ecopetrol postponed 顯示已延期／改期；time_type=call_time 明確顯示電話會議時間，不冒充財報發布時間。
+- 股價反應：32 筆具明確美股上市代號與公告 session 的已公布事件，32/32 完成 close-to-close 計算、0 筆 eligible 缺值；26 筆採 Yahoo Finance，另 6 筆使用有明確來源 URL 的歷史收盤替代來源。另有 4 筆不具計算資格，維持待核實：Vodafone、Credicorp（status pending_verification）；Kaspi、CNH（session unknown）。
+- 六筆替代來源值（均以 11/10 close → 11/11 close 計算）：CRWV 48.73→60.77（+24.71%，StockAnalysis）；PBR 18.28→17.82（-2.52%，StockAnalysis）；MRCY 83.58→88.33（+5.68%，EODData）；RGTI 12.15→11.11（-8.56%，StockAnalysis）；GIB 82.51→81.13（-1.67%，FinancialContent）；ALC 74.06→72.46（-2.16%，FinancialContent）。HTML 每筆均附來源連結；override 綁定 main W46 blob SHA，程式重新核對 event_id／ticker／session／日期並重算百分比。
+- 最新驗收：GitHub Actions run `43134968392`，commit `a9ae77fbd07568f80266abe4c41b284844741b67`，completed/success；artifact ID `13907346358`。視覺回歸對 simulation weekday baseline SHA `6fe79308eca71db5dd54308fd35efe3900451081`，1440／768／360／320 四視窗，failures=[]。
+- 本輪只改模擬分支程式、規則、來源核對 fixture 與 workflow artifact；main 行事曆 JSON、main preview、main `index.html` 均未寫入。
+
+### 尚未完成／不可宣稱完成
+- 組裝器 metadata 仍為 `review_ready:false`；此 artifact 是模擬區審核版，不是正式核准版，不得部署或覆蓋首頁。
+- 44 項行情仍有未裁決差異：SOX、Gold GCZ6、Russell 2000 OHLC；先前盤點 36 numeric、3 closed、5 pending，不可將 numeric 筆數當作全部通過。
+- 新聞仍有至少四組跨區重複（德國 CPI、中國雙11、美國貨櫃進口、Nvidia 對中晶片管制）；原文逐篇閱讀未完成。
+- 關鍵價位 builder 目前只輸出 S1/P/R1，尚未符合 D4 五層中文標籤與 ChatGPT 直接查核責任。
+- 實際 tabs／details／導航／外部連結互動與 live URL 尚未完成實測；本輪視覺回歸只對 simulation baseline，不等於與正式 main 母版完成比對。
+
+### 下一步
+- 先裁決 SOX、GCZ6、Russell 2000 的同日來源與 OHLC 差異；再清除新聞重複、補足五層關鍵價位與互動測試。全部完成前維持 `review_ready:false`，不發布 main。
