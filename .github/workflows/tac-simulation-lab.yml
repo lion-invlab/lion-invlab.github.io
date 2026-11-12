@@ -93,7 +93,12 @@ jobs:
           on_text = on.get_text(" ", strip=True)
           for expected in ("CHF 0.48", "US$0.48", "CHF 0.931B", "US$1.140B"):
               assert expected in on_text, f"On Holding currency label missing: {expected}"
-          print("PASS: main calendar counts; pending EPS comparisons are non-directional; On Holding CHF/USD values are separated")
+          ec = next((x for x in earnings if "Ecopetrol S.A." in x.get_text(" ", strip=True)), None)
+          assert ec is not None
+          ec_text = ec.get_text(" ", strip=True)
+          assert "已延期；改期至" in ec_text, "Ecopetrol postponement status was not rendered"
+          assert "即將公布；11/13" not in ec_text, "postponed earnings must not be labelled as simply upcoming"
+          print("PASS: main calendar counts; pending EPS comparisons non-directional; CHF/USD split; postponed event status")
           PY
 
 
