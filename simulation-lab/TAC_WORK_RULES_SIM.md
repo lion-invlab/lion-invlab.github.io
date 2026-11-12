@@ -1,6 +1,6 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-0.8
+版本：SIM-0.9
 更新日期：2026-11-12
 基準：main eb53eb666ece59f113f2e65d7932436ef66bdfa9 的 TAC_WORK_RULES.md v5.15（blob 23b52f27b7afad083bbe28ed86021e04759f198d）
 適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
@@ -55,6 +55,13 @@
 - EPS 共識口徑未核實、或 `eps_comparison_status` 未明確提供 beat/miss/inline 時，只能顯示「比較口徑待核實」，不得用實際數值大於／小於共識值推導方向性結論。
 - 實際值與預估值幣別不同時，必須分別顯示各自幣別，不得套用同一幣別標籤，也不得暗示已換算或可直接比較。
 - workflow 必須驗證經濟／財報筆數、EPS 待核實不顯示方向性結論、延期事件標籤、電話會議與財報發布時間分離，以及跨幣別欄位標示。
+
+### 0.9 指數／期貨商品來源身分與同日衝突（SIM-0.9）
+- 所有報價必須核對 instrument identity：cash index 不得使用同名 CFD；futures 必須核對交易所、合約月份與代碼；spot、CFD、不同到期月份不得冒充指定期貨合約。
+- Russell 2000 必須使用 `^RUT` 現貨指數；Investing.com RUT 頁面若標示 CFD，不得用於現貨指數收盤或 OHLC。無可用非 CFD 指數來源時，使用已核對的 Yahoo Finance `^RUT` 歷史日線。
+- SOX 使用 Philadelphia Semiconductor Index 現貨指數；Investing.com HK 歷史列須與 Yahoo Finance `^SOX` 同日收盤交叉核對，不能以盤中 Last 或即時報價替代 Close。
+- GCZ6、SIZ6 必須使用指定月份的 CME 合約歷史日收盤；不得混入黃金／白銀 CFD、現貨價或其他月份。區域鏡像若同合約同日報價互相衝突，記錄差異，選擇合約身分明確且可獨立交叉核對的歷史序列，並在來源註記說明。
+- 更正行情時，必須同步修正 global_markets、metals、key_levels_overrides、summary、sentiment、market_comments、summary_points、observation 等所有引用欄位；workflow 必須驗證核心數值、漲跌幅、合約代碼及 OHLC 一致。
 
 ### 0.8 已公布財報股價反應（SIM-0.7）
 - 僅對 `status=released`、具美股上市代號、且 `session` 明確為 `before_market` 或 `after_market` 的事件計算股價反應；pending_verification、session=unknown 或無有效報價者維持「待核實」。
