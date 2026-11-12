@@ -1174,3 +1174,19 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - W46 唯讀來源：main commit `89f969e0cde60c522ab88354363b10b58049f8ed`，JSON blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`；16/16、48/48 靜態對帳，Ecopetrol postponed 狀態正確。
 - **交付界線：** 最新 HTML 僅在 Actions artifact，尚未寫入 main preview。main 既有 `preview/2026-11-12-simulation.html` 仍為 blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a`，只有先前 Ecopetrol 修正，SOX／Russell／GCZ6 與五層價位尚未同步；main `index.html` blob `daae9c236c566662e83c937375e8e038dfcb1c37` 未變。未獲當次明確授權前，不覆寫 main preview；index 更不得更新。
 - 狀態：`qa_complete=true`、`review_ready=false`（等待授權交付審核版及使用者審閱；不是 Gate 失敗）。
+
+
+## 2026-11-13 人工早報試跑｜部分完成、未達審核版
+
+- 實際啟動：05:26:12（台北）；原定資料截止 05:25。
+- 模擬規則：SIM-1.1，`simulation-lab/TAC_WORK_RULES_SIM.md` SHA `4c8e493dc7b96c345970469ccd1d418e5273d273`；正式 WR v5.15 SHA `23b52f27b7afad083bbe28ed86021e04759f198d`。
+- 週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；現有組裝器 SHA `f141da39e584bb670a626b225ceeb3483c3cce60`。
+- 行事曆只讀 main：W46 SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`（檔案記錄 updated_at 04:30:43+08），W45 SHA `991d69b1ee963752a284cd0914c09011084a404f`；本次零寫入。
+- 44 項行情核對：29 verified、5 provisional、14 pending。主要待核實：VIX、MOVE、WTI 合約碼、11 檔 ETF 的 11/12 Investing.com HK 收盤列；SOX、Brent、Gold、Silver、CNN F&G 有交叉來源限制。
+- 新聞已按 11/12 12:00 至 11/13 05:25 TST 篩選 5 則宏觀焦點與 10 則熱門候選；W46 今日行事曆 3 筆經濟事件、6 筆財報事件，30 年期標售仍 pending_verification。
+- 分析草稿已整理；關鍵價位僅 Dow、Nasdaq 兩組完整，SOX provisional，S&P 500／Russell 2000 缺少合規同日現貨 OHLC。
+- HTML 組裝未執行：本次環境無法執行 repo 內 Python/BeautifulSoup 組裝器；現有 workflow 固定 11/12 且含 Actions OHLC 擷取，不符合本次人工流程，未修改或觸發。
+- 未建立替代組裝器／替代 HTML；未寫入 main preview；未修改首頁、正式母版、WR、Manifest 或行事曆 JSON。QA 未執行，`review_ready=false`。
+- 前一筆 11/13 草稿中 StockAnalysis ETF 備援與 SIM-1.1 規則不符，該 11 檔數據本次全部改列 pending；VIX 17.60 不採用；CNN F&G 以較晚 FGScore 40 作 provisional；2Y Treasury 採官方 4.86%。
+- 本次通知：startup 與階段①至⑤均 NOT_AVAILABLE；沒有取得 `status=notified`，不記為已送達。
+- 詳細審計：`simulation-lab/runs/2026-11-13.json`。
