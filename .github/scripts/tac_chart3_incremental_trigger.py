@@ -27,3 +27,5 @@
 # Smoke-test revision 12: validate dynamically resolved latest-vintage-plus-one as-of date.
 
 # Scheduled incremental trigger: 2026-11-12T05:34:23+08:00; branch-isolated; no full-history reload.
+
+# Scheduled incremental trigger: 2026-11-13T05:28:14+08:00; branch-isolated; five-vintage overlap; no full-history vintage reload.
