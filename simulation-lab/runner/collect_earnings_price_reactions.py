@@ -130,12 +130,23 @@ def collect(report_date: str, output: str):
     for event, release_date, session in candidates:
         ticker = event["us_listing_ticker"]
         closes = extract_close_frame(frame, ticker)
-        if not closes:
-            unavailable[event["id"]] = "Yahoo Finance 無可用日收盤資料"
-            continue
-        result = calculate_reaction(closes, release_date, session)
+        result = calculate_reaction(closes, release_date, session) if closes else None
         if not result:
-            unavailable[event["id"]] = "無法建立公告後首個交易日與前一交易日收盤配對"
+            # Per-ticker fallback avoids losing valid closes when a batch response omits a symbol/date.
+            try:
+                single = yf.Ticker(ticker).history(
+                    start=start.isoformat(), end=end.isoformat(), auto_adjust=False
+                )
+                closes = extract_close_frame(single, ticker)
+                result = calculate_reaction(closes, release_date, session) if closes else None
+            except Exception:
+                result = None
+        if not result:
+            available = sorted(closes) if closes else []
+            unavailable[event["id"]] = (
+                "無法建立公告後首個交易日與前一交易日收盤配對；"
+                f"可用日期={','.join(x.isoformat() for x in available)}"
+            )
             continue
         result.update({
             "ticker": ticker,
