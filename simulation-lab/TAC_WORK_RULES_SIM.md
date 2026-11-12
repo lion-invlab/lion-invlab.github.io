@@ -1,6 +1,6 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-1.0
+版本：SIM-1.1
 更新日期：2026-11-12
 基準：main eb53eb666ece59f113f2e65d7932436ef66bdfa9 的 TAC_WORK_RULES.md v5.15（blob 23b52f27b7afad083bbe28ed86021e04759f198d）
 適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
@@ -62,7 +62,7 @@
 - SOX 使用 Philadelphia Semiconductor Index 現貨指數；Investing.com HK 歷史列須與 Yahoo Finance `^SOX` 同日收盤交叉核對，不能以盤中 Last 或即時報價替代 Close。
 - GCZ6、SIZ6 必須使用指定月份的 CME 合約歷史日收盤；不得混入黃金／白銀 CFD、現貨價或其他月份。區域鏡像若同合約同日報價互相衝突，記錄差異，選擇合約身分明確且可獨立交叉核對的歷史序列，並在來源註記說明。
 - 更正行情時，必須同步修正 global_markets、metals、key_levels_overrides、summary、sentiment、market_comments、summary_points、observation 等所有引用欄位；workflow 必須驗證核心數值、漲跌幅、合約代碼及 OHLC 一致。
-- 當底層現貨市場因假期休市時，若 Investing.com HK 仍提供可辨識的 CFD／衍生參考報價，依 WR 要求可顯示該值，但必須在名稱或變動欄明確標示「CFD參考價」，quote_type 設為 `cfd_reference_quote`，註明時間／日期與非官方收盤性質；不得把 CFD 冒充官方殖利率或現貨收盤。若報價時間晚於 05:25 截點、來源不一致或無法確認日期，維持休市／無報價。
+- 當底層現貨市場因假期休市時，只有來源頁面明確標示 CFD，且可確認報價日期／時間不晚於 05:25 截點，才可標示「CFD參考價」並使用 `cfd_reference_quote`。頁面僅寫「即時資料」、分類為「債券」或顯示衍生／參考報價，不足以推定為 CFD；不得自行貼上 CFD 標籤。歷史列缺失、報價晚於截點、來源互相衝突或無法確認工具身分時，一律標示休市／無有效報價。
 
 ### 0.8 已公布財報股價反應（SIM-0.7）
 - 僅對 `status=released`、具美股上市代號、且 `session` 明確為 `before_market` 或 `after_market` 的事件計算股價反應；pending_verification、session=unknown 或無有效報價者維持「待核實」。
