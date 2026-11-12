@@ -88,30 +88,33 @@
   },
   "delivery": {
     "main_preview_path": "preview/2026-11-12-simulation.html",
-    "main_preview_blob_sha": "22155e1f0a57f3876f6ba2b966a71eb91f32fbe2",
-    "main_commit_sha": "54d4e12bf3389ecb5509c57fde16176b86ebc469",
-    "main_index_blob_sha_before": "98d8613921b225e78226033e97c0cb72aed5c577",
-    "main_index_blob_sha_after": "98d8613921b225e78226033e97c0cb72aed5c577",
+    "main_preview_blob_sha": "c3bf3d6f55cfc4be2a474887558210120ff2b14a",
+    "main_commit_sha": "c7850637c1748e40f1a839d0c9878a40ae848f93",
+    "main_index_blob_sha_before": "daae9c236c566662e83c937375e8e038dfcb1c37",
+    "main_index_blob_sha_after": "daae9c236c566662e83c937375e8e038dfcb1c37",
     "main_changed_files": [
       "preview/2026-11-12-simulation.html"
     ],
-    "pages_deploy_run_id": 43109860660,
+    "pages_deploy_run_id": 43142647448,
     "pages_deploy_status": "success",
     "pages_url": "https://lion-invlab.github.io/preview/2026-11-12-simulation.html",
-    "live_preview_status": "Pages deployment run success; live URL could not be independently opened in this run"
+    "live_preview_status": "Pages deploy job success; external URL open was not independently verified"
   },
   "notes": [
     "審核版資料截點固定05:25；實際組裝與關鍵價位擷取延後完成，未納入05:25之後的新資訊。",
     "行情、新聞與行事曆為05:25前人工查核快照；不是完整自動 live-data E2E。",
     "review_ready=false 表示仍待使用者審核；沒有修改 main/index.html。",
-    "main preview 例外通道僅用於本次指定審核版路徑；未修改其他 main 檔案。"
+    "main preview 例外通道僅用於本次指定審核版路徑；未修改其他 main 檔案。",
+    "Latest preview correction commit c7850637c1748e40f1a839d0c9878a40ae848f93; preview blob c3bf3d6f55cfc4be2a474887558210120ff2b14a.",
+    "Calendar read-only reconciliation passed: 16/16 economic and 48/48 earnings cards match main W46; postponed Ecopetrol label corrected.",
+    "Do not promote the corrected preview to index.html without explicit approval; review_ready remains false."
   ],
   "post_run_audit": {
     "checked_at_taipei": "2026-11-12 06:27 onward",
     "preview_path": "preview/2026-11-12-simulation.html",
-    "preview_blob_sha": "22155e1f0a57f3876f6ba2b966a71eb91f32fbe2",
-    "preview_commit_sha": "54d4e12bf3389ecb5509c57fde16176b86ebc469",
-    "main_index_sha_unchanged": "98d8613921b225e78226033e97c0cb72aed5c577",
+    "preview_blob_sha": "c3bf3d6f55cfc4be2a474887558210120ff2b14a",
+    "preview_commit_sha": "c7850637c1748e40f1a839d0c9878a40ae848f93",
+    "main_index_sha_unchanged": "daae9c236c566662e83c937375e8e038dfcb1c37",
     "calendar_json_sha": "06a776b0d30998a0aadbfa57e80b976a8ac2c6a7",
     "findings": [
       "Gold GCZ6 quote unresolved",
@@ -120,8 +123,22 @@
       "key levels only S1/P/R1 instead of five Chinese layers",
       "four duplicate news events across focus/headline sections",
       "special-focus block outside original QA scope",
-      "interaction tests and live Pages open not performed"
+      "interaction tests and live Pages open not performed",
+      "Ecopetrol postponed status corrected in preview; main W46 JSON remains read-only.",
+      "TAC_CALENDAR_SOURCE provenance embedded and read back against the exact main commit and W46 blob.",
+      "Pages deploy run 43142647448 succeeded; live URL opening was not independently verified.",
+      "main/index.html remains at its previously published 11/12 version and was not updated with this correction."
     ],
-    "review_ready": false
+    "review_ready": false,
+    "calendar_static_reconciliation": {
+      "main_week_blob": "06a776b0d30998a0aadbfa57e80b976a8ac2c6a7",
+      "economic_db": 16,
+      "economic_html": 16,
+      "earnings_db": 48,
+      "earnings_html": 48,
+      "missing_events": 0,
+      "postponed_event": "current-ec-20261110",
+      "postponed_label_verified": true
+    }
   }
 }
