@@ -27,7 +27,9 @@ try {
     }
     navTargets.push(href);
   }
-  await nav.filter({ hasText: "本週財報行事曆" }).click();
+  const earningsNav = nav.filter({ hasText: "本週財報行事曆" });
+  if (await earningsNav.count() !== 1) throw new Error("財報行事曆 navigation anchor missing");
+  await earningsNav.evaluate(el => el.click());
   if (await page.evaluate(() => location.hash) !== "#earnings") {
     throw new Error("navigation click did not move to #earnings");
   }
