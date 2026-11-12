@@ -50,21 +50,31 @@ def validate(key: str) -> dict:
         if len(details_nodes) != 1:
             raise SystemExit(f"{key} card {i}: expected one direct .econ-details container")
         details = details_nodes[0]
-        direct_divs = [
+        fields = [
             node for node in details.find_all("div", recursive=False)
+            if "econ-field" in node.get("class", [])
         ]
-        if len(direct_divs) != 3:
-            raise SystemExit(f"{key} card {i}: expected exactly three direct field zones, got {len(direct_divs)}")
-        grid, impact, source = direct_divs
-        if "econ-primary-grid" not in grid.get("class", []):
-            raise SystemExit(f"{key} card {i}: first zone is not .econ-primary-grid")
-        for cls in ("econ-prev", "econ-forecast", "econ-actual"):
-            matches = [node for node in grid.find_all("div", recursive=False) if cls in node.get("class", [])]
-            if len(matches) != 1:
-                raise SystemExit(f"{key} card {i}: expected exactly one {cls}")
-        for node, cls in ((impact, "econ-impact"), (source, "econ-source")):
-            if "econ-field" not in node.get("class", []) or cls not in node.get("class", []):
-                raise SystemExit(f"{key} card {i}: expected full-width {cls} as zone {direct_divs.index(node)+1}")
+        expected_labels = (
+            ["前值", "預估", "實際", "來源"]
+            if scope == "last-week"
+            else ["前值", "市場預估", "實際", "市場影響", "資料來源"]
+        )
+        if len(fields) != len(expected_labels):
+            raise SystemExit(
+                f"{key} card {i}: {scope} mother requires {len(expected_labels)} direct econ-field zones, got {len(fields)}"
+            )
+        labels = []
+        for field in fields:
+            label = field.select_one(":scope > label")
+            value = field.select_one(":scope > .econ-value")
+            if not label or not value:
+                raise SystemExit(f"{key} card {i}: econ-field label/value structure incomplete")
+            labels.append(label.get_text(strip=True))
+        if labels != expected_labels:
+            raise SystemExit(f"{key} card {i}: {scope} field labels mismatch: {labels}")
+        source_value = fields[-1].select_one(":scope > .econ-value")
+        if not source_value or not source_value.select_one("a[href^='https://']"):
+            raise SystemExit(f"{key} card {i}: source field must contain an HTTPS source link")
 
         # Validate the card's matching expand control without normalizing the
         # existing distinction between current-week and Monday retrospective cards.

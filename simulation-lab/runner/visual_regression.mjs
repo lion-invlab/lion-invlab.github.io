@@ -254,25 +254,25 @@ try {
       const invalid = [];
       for (const [i, card] of cards.entries()) {
         const details = card.querySelector(":scope > .econ-details");
-        const grid = details?.querySelector(":scope > .econ-primary-grid");
-        if (!grid) { invalid.push("card " + (i+1) + ": comparison grid missing"); continue; }
-        for (const cls of ["econ-prev","econ-forecast","econ-actual"]) {
-          if (!grid.querySelector(":scope > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing");
+        if (!details) { invalid.push("card " + (i+1) + ": .econ-details missing"); continue; }
+        const lastWeek = !!card.closest("#last-week-calendar");
+        const expected = lastWeek
+          ? ["前值", "預估", "實際", "來源"]
+          : ["前值", "市場預估", "實際", "市場影響", "資料來源"];
+        const fields = [...details.children].filter(node => node.classList.contains("econ-field"));
+        const labels = fields.map(field => field.querySelector(":scope > label")?.textContent.trim() || "");
+        if (fields.length !== expected.length) {
+          invalid.push("card " + (i+1) + ": expected " + expected.length + " direct econ-field zones, got " + fields.length);
+          continue;
         }
-        for (const cls of ["econ-impact","econ-source"]) {
-          if (!details.querySelector(":scope > ." + cls)) invalid.push("card " + (i+1) + ": " + cls + " missing");
+        if (labels.join("|") !== expected.join("|")) {
+          invalid.push("card " + (i+1) + ": field labels mismatch " + labels.join("|"));
         }
-        const prev = grid.querySelector(".econ-prev")?.getBoundingClientRect();
-        const forecast = grid.querySelector(".econ-forecast")?.getBoundingClientRect();
-        const actual = grid.querySelector(".econ-actual")?.getBoundingClientRect();
-        if (prev && forecast && actual) {
-          if (Math.abs(actual.top-prev.top)>2 || Math.abs(actual.bottom-forecast.bottom)>4) {
-            invalid.push("card " + (i+1) + ": actual field does not span previous + forecast");
-          }
-          if (Math.abs(prev.left-forecast.left)>2 || actual.left < prev.right-2) {
-            invalid.push("card " + (i+1) + ": previous/forecast left stack and actual right column misaligned");
-          }
+        for (const [j, field] of fields.entries()) {
+          if (!field.querySelector(":scope > .econ-value")) invalid.push("card " + (i+1) + ": field " + (j+1) + " value missing");
         }
+        const source = fields.at(-1)?.querySelector(":scope > .econ-value");
+        if (!source?.querySelector("a[href^='https://']")) invalid.push("card " + (i+1) + ": HTTPS source link missing");
       }
       return { count: cards.length, invalid };
     });

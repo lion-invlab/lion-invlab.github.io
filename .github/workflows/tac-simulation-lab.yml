@@ -61,7 +61,7 @@ jobs:
           npm install --no-save --package-lock=false playwright
           npx playwright install --with-deps chromium
 
-      - name: Validate simulation dual mother five-zone layout
+      - name: Validate exact approved dual mother DOM contracts
         run: python simulation-lab/runner/validate_dual_mothers.py
 
       - name: Capture verified live OHLC for five US cash indices
