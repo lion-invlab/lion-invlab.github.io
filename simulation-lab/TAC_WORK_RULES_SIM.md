@@ -1,6 +1,6 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-0.6
+版本：SIM-0.7
 更新日期：2026-11-12
 基準：main eb53eb666ece59f113f2e65d7932436ef66bdfa9 的 TAC_WORK_RULES.md v5.15（blob 23b52f27b7afad083bbe28ed86021e04759f198d）
 適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
@@ -55,6 +55,13 @@
 - EPS 共識口徑未核實、或 `eps_comparison_status` 未明確提供 beat/miss/inline 時，只能顯示「比較口徑待核實」，不得用實際數值大於／小於共識值推導方向性結論。
 - 實際值與預估值幣別不同時，必須分別顯示各自幣別，不得套用同一幣別標籤，也不得暗示已換算或可直接比較。
 - workflow 必須驗證經濟／財報筆數、EPS 待核實不顯示方向性結論、延期事件標籤、電話會議與財報發布時間分離，以及跨幣別欄位標示。
+
+### 0.8 已公布財報股價反應（SIM-0.7）
+- 僅對 `status=released`、具美股上市代號、且 `session` 明確為 `before_market` 或 `after_market` 的事件計算股價反應；pending_verification、session=unknown 或無有效報價者維持「待核實」。
+- 先將事件時間轉換為 America/New_York 日期；盤前公告採公告日收盤相對前一交易日收盤，盤後公告採下一個美股交易日收盤相對公告日收盤。若缺少完整兩日收盤價，不得計算或猜測。
+- 每筆反應須顯示百分比、比較日期區間及 Yahoo Finance historical daily close 來源；此數字是公告後首個交易日的收盤至收盤變動，不得描述成純粹由財報造成的因果報酬。
+- 股價反應輸出只寫入模擬區 `simulation-lab/output/earnings-price-reactions.json`，並綁定 main commit SHA 與當週 JSON blob SHA；組裝器必須驗證兩者一致。不得寫回 main 行事曆 JSON。
+- 批次下載缺值時可逐 ticker 重試；仍無法配對則保留待核實，並記錄缺值原因，不得以其他日期或其他上市地價格冒充。
 
 ## 1. 模擬要回答的核心問題
 
