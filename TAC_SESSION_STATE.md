@@ -1291,3 +1291,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 行事曆權責：本輪只讀 main W46，未建立／修改／回寫任何 calendar JSON；04:35 後新資料及矛盾留待預覽與待核實紀錄。
 - 通知紀錄：啟動通知與階段①各嘗試 2 次；`notify_parent` 呼叫未取得 `status=notified` 回傳，均記為 FAILED，未宣稱送達。後續階段仍繼續工作。
 - 階段①完成；下一步：以 2026-11-12 交易日為基準重新核對 44 項行情，特別檢查 11 項產業 ETF、債券、匯率、期貨合約與 VIX 的日期／收盤口徑。
+
+
+## 2026-11-13 07:xx｜11/13 既有審核版套用 Fear & Greed 指針修正
+
+- 使用者以「繼續」確認繼續處理既有審核版；已更新 main `preview/2026-11-13-simulation.html`，commit `0b5fcf23c407565eddf413b57cd1d5bcd0c08605`，blob `80a067767ae2e9f0ab5d7ea10b1285f8722516d4`。
+- 更新前先讀取同一份 HTML 的 CNN Fear & Greed 顯示值 40，驗證為 0–100 有效數值後，將 `.fg6-marker` 設為 `left:40% !important` 並加入 `data-score=40`、aria-label。這是 11/13 當日輸出值，不是將 40 寫死在共用組裝器；模擬分支 assembler 已按來源值動態計算。
+- 更新後重新 fetch 確認 score=40 與 marker `left:40% !important` 一致。main `index.html` 未修改；正式母版、Manifest、WR、calendar JSON 均未修改。
+- 本次 preview commit 沒有關聯到 workflow run（查詢回傳空陣列）；單元測試 3/3 PASS 是先前模擬分支 Actions run `43328084919` 的結果。新增的 Chromium 實際座標測試尚未執行，故瀏覽器視覺 Gate 仍待驗證。
+- 下一步：執行 Playwright／瀏覽器 smoke，確認在核准母版的實際 CSS 與 viewport 下，白點中心與刻度位置誤差在允許範圍；不可只憑 inline style 就宣稱視覺 Gate 通過。
