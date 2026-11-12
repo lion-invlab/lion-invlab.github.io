@@ -664,3 +664,13 @@
 - Audit JSON 更新 commit `a776a79877dd26d0a9d4fe0721bd8ff8c54cb8ef`，blob `fcb8c79eb5a4b9ae6e12709777c52c91bf134083`；行情分類 38 verified、4 provisional、2 pending。
 - HTML 尚未組裝：缺少 `simulation-lab/fixtures/report-data-2026-11-13.json`；既有 workflow 硬編碼 11/12；此對話無法直接在 repo runner 執行既有 Python／BeautifulSoup／Playwright。未建立替代組裝器、未修改 workflow、未使用舊 fixture 假冒今日資料。
 - Gate 狀態：母版 SHA pass、Manifest pass、calendar read-only pass；DOM／HTML integrity／links／desktop／mobile／320px／interaction 均 not_run；`review_ready=false`，未產生審核版，main index 未修改。
+
+
+## 2026-11-13｜模擬 Workflow 日期參數化修復
+
+- 根因：`.github/workflows/tac-simulation-lab.yml` 將 2026-11-12 fixture、OHLC 日期、price-reaction 日期、HTML 輸出路徑、interaction／visual regression 日期及多個市場值斷言全部硬編碼；build_review_html.py 已可依 fixture `report_date` 選擇 monday／weekdays 母版，因此主要問題在 Workflow orchestration 與測試斷言。
+- 已改成 `workflow_dispatch` 傳入 `report_date`，日期驅動 fixture／母版／Manifest SHA／輸出路徑；push 僅執行 deterministic self-tests。日期 fixture 缺失即明確失敗，不回退到其他日期。
+- 移除 11/12 特定數值斷言，改用 main calendar 動態筆數對帳、44 項行情欄位及 5+10 新聞數量驗證。
+- 視覺回歸視窗依 WR 5.3 修正為 1440、768、412、390、360px。
+- Workflow commit `c0b56147f1c1e0c8ecb13834c960122b9639eab4`，blob `89291a58995b65b9e3c4d22892385b2dc99b7174`；視覺回歸 commit `11fcdc004119c81d5a3ce2fe3b7a6d3ccd7ab6a2`，blob `b7ab04fee5a729a01309017e9ece4d87ae72653c`。
+- Push smoke run `43317826574` 當時 pending；完整 workflow 尚未對 11/13 執行，因 11/13 fixture 尚未建立。未修改 main、正式母版、Manifest、行事曆 JSON、index.html。
