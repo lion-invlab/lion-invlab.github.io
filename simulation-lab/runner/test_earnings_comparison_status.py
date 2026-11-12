@@ -25,6 +25,18 @@ def main():
         "eps_estimate_basis": "GAAP diluted EPS",
     }, "eps", "miss")
     check({
+        "eps_actual": 4.68,
+        "eps_estimate": 3.35,
+        "eps_actual_basis": "Adjusted EPS (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Adjusted EPS (non-GAAP; USD/share)",
+    }, "eps", "beat")
+    check({
+        "eps_actual": -0.13,
+        "eps_estimate": -0.10,
+        "eps_actual_basis": "GAAP net loss per share",
+        "eps_estimate_basis": "GAAP net loss per share",
+    }, "eps", "miss")
+    check({
         "eps_actual": 1.2,
         "eps_estimate": 1.0,
         "eps_actual_basis": "GAAP diluted EPS",
