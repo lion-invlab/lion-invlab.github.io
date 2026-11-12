@@ -524,3 +524,14 @@
 
 ### 下一步
 - 先裁決 SOX、GCZ6、Russell 2000 的同日來源與 OHLC 差異；再清除新聞重複、補足五層關鍵價位與互動測試。全部完成前維持 `review_ready:false`，不發布 main。
+
+
+## 2026-11-12 10:33 TST｜Ecopetrol 延期狀態更正、來源收據與 Pages 部署
+
+- 本輪重新讀取 main 正式 WR v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）、模擬規則 SIM-1.1（blob `4c8e493dc7b96c345970469ccd1d418e5273d273`）。行事曆唯讀來源鎖定 main commit `89f969e0cde60c522ab88354363b10b58049f8ed`；W46 JSON blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`、updated_at `2026-11-12T04:34:17+08:00`。
+- 發現 main W46 的 Ecopetrol（current-ec-20261110）已為 `status=postponed`，但 11/12 preview 仍顯示「即將公布」。依 SIM-0.6 僅修改預覽卡片狀態為「已延期／改期；11/13（盤後；發布時刻待核實，台灣時間）」；未改 JSON。
+- 同次於 HTML head 加入 `TAC_CALENDAR_SOURCE`，記錄 repo、source main commit、W46 blob SHA、updated_at、Asia/Taipei 及 read-only mode。寫入 main 僅涉及 `preview/2026-11-12-simulation.html`：commit `c7850637c1748e40f1a839d0c9878a40ae848f93`，新 blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a`；回讀確認 provenance 唯一、延期文字 1 筆、舊「即將公布」文字 0 筆。以 main commit `89f969e...` 回讀 W46，blob SHA 仍為 `06a776...`。
+- 靜態逐筆對帳：W46 JSON 經濟事件 16、財報事件 48；HTML 經濟卡 16、財報卡 48；事件名稱／ticker 對帳均無缺漏。延期事件已正確顯示。這是靜態內容核對，不代表互動 QA 或全行情 44 項重新驗收。
+- Pages deploy run `43142647448` completed/success；Deploy site and TAC previews job 及 Deploy to GitHub Pages step 均 success。嘗試以外部頁面讀取 preview URL 未成功，故 live URL 的實際瀏覽器呈現仍標示未獨立驗證。
+- main `index.html` 回讀 blob `daae9c236c566662e83c937375e8e038dfcb1c37`，與修正前 preview blob 相同；該首頁版本由既有 commit `9c25df67a729aa5c981a5c249949820f4f30a84c`（message: Publish approved TAC investment morning report 2026-11-12）發布。此次只修正 preview，未更新 index.html；不得將新修正版稱為已同步至正式首頁。
+- 本次未更動 main 行事曆 JSON、WR、Manifest、正式母版或 index.html。早報仍不得標示 review_ready：互動測試及 live URL 實際呈現未完成，其他行情／新聞原文驗收仍依既有待辦狀態管理。若要將此最新修正版同步正式首頁，須另依使用者明確核准執行。
