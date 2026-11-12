@@ -1,6 +1,6 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-0.7
+版本：SIM-0.8
 更新日期：2026-11-12
 基準：main eb53eb666ece59f113f2e65d7932436ef66bdfa9 的 TAC_WORK_RULES.md v5.15（blob 23b52f27b7afad083bbe28ed86021e04759f198d）
 適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
@@ -61,7 +61,7 @@
 - 先將事件時間轉換為 America/New_York 日期；盤前公告採公告日收盤相對前一交易日收盤，盤後公告採下一個美股交易日收盤相對公告日收盤。若缺少完整兩日收盤價，不得計算或猜測。
 - 每筆反應須顯示百分比、比較日期區間及 Yahoo Finance historical daily close 來源；此數字是公告後首個交易日的收盤至收盤變動，不得描述成純粹由財報造成的因果報酬。
 - 股價反應輸出只寫入模擬區 `simulation-lab/output/earnings-price-reactions.json`，並綁定 main commit SHA 與當週 JSON blob SHA；組裝器必須驗證兩者一致。不得寫回 main 行事曆 JSON。
-- 批次下載缺值時可逐 ticker 重試；仍無法配對則保留待核實，並記錄缺值原因，不得以其他日期或其他上市地價格冒充。
+- 批次下載缺值時可逐 ticker 重試；仍無法配對時，只有在可取得明確歷史報價來源的情況下，才可使用來源核實 override 補值。override 必須記錄 event_id、ticker、session、release_date_ny、previous_date、reaction_date、previous_close、reaction_close、source_name、HTTPS source_url；程式須核對 main blob SHA、事件身分／日期／session，並由兩個收盤價重新計算百分比。Yahoo 已成功取得者優先採 Yahoo，不得被 override 覆蓋；無可靠來源仍須待核實，不得以其他日期或其他上市地價格冒充。
 
 ## 1. 模擬要回答的核心問題
 
