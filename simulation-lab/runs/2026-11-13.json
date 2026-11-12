@@ -146,14 +146,18 @@
         "group": "US major indices",
         "ticker": "SPX",
         "name": "S&P 500",
-        "value": 7592.4,
-        "change_pct": -0.4,
+        "value": 7593.04,
+        "change_pct": -0.35,
         "status": "verified",
-        "source": "AP",
+        "source": "Investing.com HK historical data",
         "source_ref": "turn903521news96",
         "data_date": "2026-11-12",
         "quote_type": "cash_index_close",
-        "note": "只有收盤值，沒有可接受的同日現貨 OHLC"
+        "note": "採 Investing.com HK 歷史資料 2026-11-12 列：收市 7,593.04、開市 7,564.11、最高 7,652.40、最低 7,559.61。",
+        "source_url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "open": 7564.11,
+        "high": 7652.4,
+        "low": 7559.61
       },
       {
         "group": "US major indices",
@@ -720,9 +724,9 @@
   },
   "key_levels": {
     "formula": "P=(H+L+C)/3; S1=2P-H; R1=2P-L; S2=P-(H-L); R2=P+(H-L)",
-    "verified_sets": 3,
+    "verified_sets": 4,
     "provisional_sets": 0,
-    "pending_sets": 2,
+    "pending_sets": 1,
     "items": [
       {
         "index": "DJI",
@@ -773,8 +777,19 @@
       },
       {
         "index": "SPX",
-        "status": "pending",
-        "note": "AP cash close only; no same-day cash-index OHLC"
+        "status": "verified",
+        "note": "2026-11-12 OHLC 已由 Investing.com HK 歷史資料列確認，依標準 Pivot 公式計算。",
+        "high": 7652.4,
+        "low": 7559.61,
+        "close": 7593.04,
+        "levels": {
+          "S2": 7508.89,
+          "S1": 7550.97,
+          "P": 7601.68,
+          "R1": 7643.76,
+          "R2": 7694.47
+        },
+        "source": "Investing.com HK historical data"
       },
       {
         "index": "RUT",
@@ -963,6 +978,7 @@
     "本次實際啟動時間 05:26:12，較預定 05:25 晚 1 分 12 秒；行情資料基準日仍為 2026-11-12。",
     "2026-11-13 即時補查修正：11 檔 S&P sector ETF 直接採用 Investing.com HK 報價頁最新收盤報價（Close 04:59:59），不再因歷史表格仍顯示 11/11 而列 pending；MOVE 採使用者明確確認的 TVC 截圖 11/12 收盤 98.4202。",
     "SOX 歷史數據修正：使用者指出應直接讀取 Investing.com HK 歷史數據表。依截圖校正 2026-11-12 收盤 10,506.7、開盤 10,174.1、最高 10,686.8；最低價欄被截圖裁切。舊計算誤把開盤 10,174.1 當最低價，已撤銷 SOX 舊 Pivot levels，待補最低價後重算。",
-    "SOX OHLC 補齊：使用者第二張 Investing.com HK 歷史表截圖明確顯示 11/12 高 10,686.8、低 10,174.1；配合第一張截圖開盤 10,174.1、收盤 10,506.7。Pivot 已重算。"
+    "SOX OHLC 補齊：使用者第二張 Investing.com HK 歷史表截圖明確顯示 11/12 高 10,686.8、低 10,174.1；配合第一張截圖開盤 10,174.1、收盤 10,506.7。Pivot 已重算。",
+    "S&P 500 OHLC 由 Investing.com HK 歷史數據頁取得：11/12 收市 7,593.04、開市 7,564.11、高 7,652.40、低 7,559.61；Pivot 已計算。Russell 2000 Investing.com HK 歷史表目前最新列仍為 11/11，未出現 11/12，故不以舊列或即時 CFD 報價替代。"
   ]
 }
