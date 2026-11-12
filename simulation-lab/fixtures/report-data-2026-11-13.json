@@ -4757,7 +4757,7 @@
     "text": "11/12 美股與亞洲股市走弱，SOX -0.54%、Russell 2000 -1.53%、台股 -2.63%；歐洲股市相對抗跌。美債 2Y／10Y／30Y 殖利率分別為 4.867%、5.124%、5.432%，MOVE 98.4202 上升 6.47%，VIX 17.60。WTI CME Dec-26 +2.76%，Brent ICE Jan-27 -0.44%；黃金 GCZ6 -3.06%、白銀 SIZ6 -3.82%。FedWatch 12 月升息 25bp 機率 88.3%、50bp 11.7%；風險焦點是高利率、能源通膨與 AI 估值修正是否互相放大。",
     "details": "關鍵觀察：①美債殖利率及 MOVE 同步上行，檢視金融條件是否進一步收緊；②AI 權值股回檔是否擴散至半導體供應鏈與其他高估值產業；③油價、美元與亞洲匯率變化是否再度推升通膨與資金壓力。"
   },
-  "qa_run_revision": "2026-11-13-investing-refresh-2",
+  "qa_run_revision": "2026-11-13-investing-refresh-3",
   "market_sentiment": "市場情緒偏向 Fear。美股與亞洲主要指數同步走弱，半導體與小型股跌幅較大；美債殖利率上行、MOVE 升至 98.4202，顯示利率波動壓力升高。VIX 17.60 尚未進入極端恐慌區，但 CNN Fear & Greed 40 仍處 Fear。FedWatch 12 月升息機率 88.3%，市場須防範利率維持高檔對高估值資產的折現壓力。",
   "quality_note": "行情基準日 2026/11/12。44 項固定指標已取得 43 項可核實數值；CNN Fear & Greed 使用 FGScore 備援鏡像，標示 provisional。MOVE 使用使用者提供的 TradingView 截圖（98.4202、+6.47%）。五大指數 OHLC/Pivot 全數完成。",
   "report_cutoff_taipei": "2026-11-13 05:25",
