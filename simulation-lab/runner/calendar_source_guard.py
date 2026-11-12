@@ -173,6 +173,7 @@ def _earnings_records(payload: dict) -> list[dict]:
             "industry": item.get("industry", ""),
             "stars": item.get("importance_stars", 0),
             "session": item.get("session"),
+            "time_type": item.get("time_type"),
             "time_known": item.get("time_known", False),
             "status": "released" if item.get("status") in ("released", "published", "completed") else item.get("status"),
             "eps_actual": item.get("eps_actual"),
