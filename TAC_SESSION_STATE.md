@@ -1259,3 +1259,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - `visual_regression.mjs` 視窗改為 WR 5.3 規定 1440／768／412／390／360；移除 320。
 - Workflow SHA `89291a58995b65b9e3c4d22892385b2dc99b7174`（commit `c0b56147f1c1e0c8ecb13834c960122b9639eab4`）；視覺回歸 SHA `b7ab04fee5a729a01309017e9ece4d87ae72653c`（commit `11fcdc004119c81d5a3ce2fe3b7a6d3ccd7ab6a2`）。
 - GitHub Actions push smoke run `43317826574` 截至記錄時狀態 pending；尚未宣稱測試通過。完整日期組裝尚未 dispatch；11/13 專用 fixture 尚未建立，故尚未產生 11/13 HTML。
+
+
+## 2026-11-13｜11/13 fixture 建立與 Investing.com 報價補齊
+
+- 已建立 `simulation-lab/fixtures/report-data-2026-11-13.json`，report_date=2026-11-13、trading_date=2026-11-12、Asia/Taipei；資料結構含全球17、S&P 11 ETF、債券3、FX6、能源2、貴金屬2、風險3、焦點新聞5、頭條10、關鍵價位5。
+- 依 Investing.com 11/12 歷史列補齊 US2Y 4.867%、US10Y 5.124%、US30Y 5.432%、WTI CME Dec-2026 88.92（+2.76%）、Brent ICE Jan-2027 92.35（-0.44%）、GCZ6 3,878.20（-3.06%）、SIZ6 50.015（-3.82%）、VIX 17.60（+0.63%）。市場快照 43 verified、1 provisional（CNN Fear & Greed FGScore 備援）。
+- 更新 `simulation-lab/runs/2026-11-13.json`：market_data 44 筆，43 verified、1 provisional；保留 11/12 交易日及使用者 MOVE 截圖值 98.4202（+6.47%）。
+- 更新 `.github/workflows/tac-simulation-lab.yml`：新增 push fixture 觸發完整日期流程條件；workflow 仍只在模擬分支執行，產物只上傳 Actions artifact，不部署 main。Workflow commit `b0f54e52fd129773b798cc824ba253455e423801`。
+- 11/13 fixture 最新更新 commit `bad8b9a0b137659513feb95f2ec14e3889eedbda`；完整 Actions run `43318535995` 已啟動，狀態 in_progress，尚未宣稱成功。此前 run `43318515432` 因同一 concurrency group 新 push 而取消，非測試失敗。
+- main、index.html、正式母版、Manifest、main 行事曆 JSON 均未修改；main W46 行事曆由組裝器 read-only 讀取。
