@@ -54,11 +54,12 @@ def validate(key: str) -> dict:
             node for node in details.find_all("div", recursive=False)
             if "econ-field" in node.get("class", [])
         ]
-        expected_labels = (
-            ["前值", "預估", "實際", "來源"]
-            if scope == "last-week"
-            else ["前值", "市場預估", "實際", "市場影響", "資料來源"]
-        )
+        if scope == "last-week":
+            expected_labels = ["前值", "預估", "實際", "來源"]
+        elif key == "monday":
+            expected_labels = ["前值", "市場預估", "實際", "資料來源"]
+        else:
+            expected_labels = ["前值", "市場預估", "實際", "市場影響", "資料來源"]
         if len(fields) != len(expected_labels):
             raise SystemExit(
                 f"{key} card {i}: {scope} mother requires {len(expected_labels)} direct econ-field zones, got {len(fields)}"
