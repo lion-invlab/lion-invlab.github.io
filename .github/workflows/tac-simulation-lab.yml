@@ -126,6 +126,17 @@ jobs:
         run: |
           python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}"
 
+      - name: Set up Node for browser QA
+        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Playwright Chromium for browser QA
+        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
       - name: Test navigation tabs accordions and source links
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
