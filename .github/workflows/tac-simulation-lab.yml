@@ -97,6 +97,8 @@ jobs:
           all_text = soup.get_text(" ", strip=True)
           assert "數值高於預期（EPS口徑待核實）" not in all_text
           assert "數值低於預期（EPS口徑待核實）" not in all_text
+          assert "公告後首個交易日收盤" in all_text, "verified earnings price reactions were not rendered into HTML"
+          assert "Yahoo Finance historical daily close" in all_text, "price reaction source attribution missing"
           on = next((x for x in earnings if "On Holding" in x.get_text(" ", strip=True)), None)
           assert on is not None
           on_text = on.get_text(" ", strip=True)
