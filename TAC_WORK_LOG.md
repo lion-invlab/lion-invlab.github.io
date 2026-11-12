@@ -645,3 +645,11 @@
 - Pivot：S2 7,508.89、S1 7,550.97、P 7,601.68、R1 7,643.76、R2 7,694.47。
 - Dow、Nasdaq、SOX、SPX 四項已完成；RUT 頁面最新歷史列停在 11/11，未以其他網站數字替代。
 - Audit JSON commit `0c047cd76a40ce66ac0694578a2f3cf24c857a06`。
+
+
+## 2026-11-13｜Russell 2000 OHLC 與五大指數關鍵價位完成
+
+- Investing.com HK Russell 2000 歷史表尚未出現 11/12 列；改採同供應商 Investing.com global historical table 11/12 列：收市 2,802.84、開市 2,831.80、高 2,837.45、低 2,802.30、跌 1.53%。來源註記保留 HK 歷史頁更新延遲。
+- RUT Pivot：S2 2,779.05、S1 2,790.94、P 2,814.20、R1 2,826.09、R2 2,849.35。
+- 五大指數 key levels 全部完成：DJI、IXIC、SOX、SPX、RUT；key_levels verified_sets=5、pending_sets=0。
+- Audit JSON commit `67ddee39db1299a7810644b6fd43b6e11acdc29f`，blob `f854cdf754beeb34df292e4b509b7dbbea13a401`。
