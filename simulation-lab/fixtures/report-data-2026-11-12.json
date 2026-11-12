@@ -2,8 +2,8 @@
   "report_date": "2026-11-12",
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-11",
-  "summary": "11/11全球風險資產明顯反彈，台灣加權+3.62%、KOSPI+2.60%；SOX收10,564.1、上漲5.66%，Russell 2000收2,846.26、上漲0.88%。S&P 11產業ETF已補齊全部11檔同日歷史收盤，科技+3.46%領漲，醫療與必需消費落後。WTI、Brent走高，黃金回落、白銀近乎持平，美元走強；FedWatch仍顯示12月升息25bp機率90.8%，CNN Fear & Greed為37（Fear）。美債現貨市場因Veterans Day休市，2Y／10Y／30Y改列CFD參考價，MOVE無當日報價。",
-  "sentiment": "市場情緒呈現股市強彈、宏觀風險未退的分歧：SOX上漲5.66%、Russell 2000上漲0.88%，11大產業ETF全部收高或收低均已完成同日核實；但美元上行、油價回彈、黃金回落及FedWatch對12月升息的高度定價，仍對高估值資產形成約束。CNN Fear & Greed維持Fear區，2Y／10Y／30Y僅列CFD參考價，MOVE因美債休市無當日報價。",
+  "summary": "11/11全球風險資產明顯反彈，台灣加權+3.62%、KOSPI+2.60%；SOX收10,564.1、上漲5.66%，Russell 2000收2,846.26、上漲0.88%。S&P 11產業ETF已補齊全部11檔同日歷史收盤，科技+3.46%領漲，醫療與必需消費落後。WTI、Brent走高，黃金回落、白銀近乎持平，美元走強；FedWatch仍顯示12月升息25bp機率90.8%，CNN Fear & Greed為37（Fear）。美債現貨市場因Veterans Day休市；2Y／10Y／30Y及MOVE均無符合05:25截點的有效報價。",
+  "sentiment": "市場情緒呈現股市強彈、宏觀風險未退的分歧：SOX上漲5.66%、Russell 2000上漲0.88%，11大產業ETF全部收高或收低均已完成同日核實；但美元上行、油價回彈、黃金回落及FedWatch對12月升息的高度定價，仍對高估值資產形成約束。CNN Fear & Greed維持Fear區，美債現貨休市，2Y／10Y／30Y及MOVE均無符合05:25截點的有效報價。",
   "focus_news": [
     {
       "title": "德國10月通膨確認降至2.8%，核心通膨同步放緩",
@@ -302,36 +302,36 @@
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "4.748%",
-      "change_display": "CFD參考價｜0.00%",
+      "display": "休市",
+      "change_display": "無有效 11/11 收盤／CFD 報價",
       "source": {
-        "name": "Investing.com HK｜U.S. 2-Year Treasury Yield CFD reference quote",
-        "url": "https://hk.investing.com/rates-bonds/u.s.-2-year-bond-yield-candlestick",
+        "name": "Investing.com HK｜U.S. Treasury yield historical data",
+        "url": "https://hk.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "cfd_reference_quote",
-        "note": "美國公債現貨市場 11/11 因 Veterans Day 休市；Investing.com HK 2Y yield 頁面仍顯示 11/11 即時參考價 4.748%、0.00%。歷史日表未提供 11/11 新收盤，因此僅作 CFD／衍生參考報價，不得稱為官方殖利率收盤。"
+        "quote_type": "market_closed_no_valid_quote",
+        "note": "美國公債現貨市場 11/11 因 Veterans Day 休市；Investing.com HK 頁面分類為債券，11/11 歷史列缺失或僅有超過 05:25 截點的即時報價，未取得來源明確標示 CFD 且符合截點的有效報價，因此不以即時資料冒充 11/11 收盤。"
       }
     },
     "10年期美債殖利率": {
-      "display": "5.021%",
-      "change_display": "CFD參考價｜+0.76%",
+      "display": "休市",
+      "change_display": "無有效 11/11 收盤／CFD 報價",
       "source": {
-        "name": "Investing.com HK｜U.S. 10-Year Treasury Yield CFD reference quote",
+        "name": "Investing.com HK｜U.S. Treasury yield historical data",
         "url": "https://hk.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "cfd_reference_quote",
-        "note": "美國公債現貨市場 11/11 因 Veterans Day 休市；Investing.com HK 10Y yield 歷史頁仍回傳 11/11 參考列 5.021%、+0.76%。視為 CFD／衍生參考報價，不代表官方 Treasury 現貨收盤。"
+        "quote_type": "market_closed_no_valid_quote",
+        "note": "美國公債現貨市場 11/11 因 Veterans Day 休市；Investing.com HK 頁面分類為債券，11/11 歷史列缺失或僅有超過 05:25 截點的即時報價，未取得來源明確標示 CFD 且符合截點的有效報價，因此不以即時資料冒充 11/11 收盤。"
       }
     },
     "30年期美債殖利率": {
-      "display": "5.358%",
-      "change_display": "CFD參考價｜0.00%",
+      "display": "休市",
+      "change_display": "無有效 11/11 收盤／CFD 報價",
       "source": {
-        "name": "Investing.com HK｜U.S. 30-Year Treasury Yield CFD reference quote",
-        "url": "https://hk.investing.com/rates-bonds/u.s.-30-year-bond-yield-candlestick",
+        "name": "Investing.com HK｜U.S. Treasury yield historical data",
+        "url": "https://hk.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
         "data_date": "2026-11-11",
-        "quote_type": "cfd_reference_quote",
-        "note": "美國公債現貨市場 11/11 因 Veterans Day 休市；Investing.com HK 30Y yield K線頁標示 11/11 即時參考價 5.358%、0.00%。歷史日表未提供 11/11 新收盤，因此僅作 CFD／衍生參考報價，不得稱為官方殖利率收盤。"
+        "quote_type": "market_closed_no_valid_quote",
+        "note": "美國公債現貨市場 11/11 因 Veterans Day 休市；Investing.com HK 頁面分類為債券，11/11 歷史列缺失或僅有超過 05:25 截點的即時報價，未取得來源明確標示 CFD 且符合截點的有效報價，因此不以即時資料冒充 11/11 收盤。"
       }
     }
   },
@@ -520,7 +520,7 @@
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
     "note": "Investing.com Fed Rate Monitor 11/11 15:45 ET（台灣時間 11/12 04:45）快照：12/09 升息25bp機率90.8%、升息50bp機率9.2%、維持現行區間0%。前一日快照分別為92.4%、7.6%、0%。屬市場隱含機率，非FOMC決議。"
   },
-  "observation": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。11/11 SOX上漲5.66%、Russell 2000上漲0.88%，Nasdaq上漲1.60%；S&P 11產業ETF 11檔均已取得11/11歷史收盤。WTI上漲1.14%、Brent上漲1.65%，GCZ6下跌0.89%、SIZ6上漲0.03%；美債2Y／10Y／30Y僅列CFD參考價，美元指數上漲0.65%，CNN Fear & Greed 37仍在Fear區。這是風險偏好修復，尚非宏觀風險解除。",
+  "observation": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。11/11 SOX上漲5.66%、Russell 2000上漲0.88%，Nasdaq上漲1.60%；S&P 11產業ETF 11檔均已取得11/11歷史收盤。WTI上漲1.14%、Brent上漲1.65%，GCZ6下跌0.89%、SIZ6上漲0.03%；美債2Y／10Y／30Y因無符合05:25截點的有效報價而標示休市，美元指數上漲0.65%，CNN Fear & Greed 37仍在Fear區。這是風險偏好修復，尚非宏觀風險解除。",
   "calendar": {
     "week_id": "2026-W46",
     "week_start": "2026-11-09",
@@ -4436,13 +4436,13 @@
   "market_comments": {
     "global_markets": [
       "📌 全球總覽｜台灣加權上漲3.62%、KOSPI上漲2.60%，SOX上漲5.66%、Russell 2000上漲0.88%；但恆生收低，區域風險偏好仍有分歧。",
-      "📌 跨資產觀察｜美元指數上漲0.65%、WTI與Brent反彈；FedWatch仍高度定價12月升息，CNN Fear & Greed為37（Fear）。美債現貨市場因Veterans Day休市；2Y／10Y／30Y列CFD參考價，MOVE無11/11有效報價。",
+      "美國公債市場因 Veterans Day 休市；2Y／10Y／30Y 未取得符合 05:25 截點的有效收盤或明確 CFD 報價，MOVE 無 11/11 有效報價。",
       "📌 美股觀察｜標普500上漲1.31%、Nasdaq上漲1.60%、道瓊上漲0.49%，SOX上漲5.66%、Russell 2000上漲0.88%。AI需求與資本支出回報仍是估值檢驗重點。",
       "📌 亞股觀察｜台灣加權上漲3.62%、KOSPI上漲2.60%，日經與新加坡亦收高；中國內地科技股帶動上海、深圳收漲，但恆生下跌0.98%，顯示區域市場並非一致性反彈。",
       "📌 歐股觀察｜DAX上漲1.20%、STOXX Europe 600上漲0.72%，英法股市小幅走高。德國通膨降至2.8%、核心降至2.1%，有助緩和部分政策壓力；但能源價格仍年增12.2%，成本端風險尚未完全消失。"
     ],
     "sectors": "S&P 11產業ETF依11/11 Investing.com歷史漲跌幅排序：XLK +3.46%、XLE +1.31%、XLI +1.30%、XLC +0.83%、XLB +0.25%、XLF +0.11%、XLU -0.03%、XLRE -0.25%、XLY -0.29%、XLP -0.49%、XLV -0.51%；11檔全部補齊。",
-    "bonds": "美國公債現貨市場 11/11 因 Veterans Day 休市；依既定規則，2年、10年、30年期改列 Investing.com HK CFD／衍生參考報價（4.748%、5.021%、5.358%），不得視為官方 Treasury 收盤。MOVE 無 11/11 當日有效報價，維持休市／無報價。",
+    "bonds": "美國公債現貨市場 11/11 因 Veterans Day 休市。2Y、10Y、30Y 的 Investing.com HK 頁面分類為債券，歷史列缺少 11/11，或僅有超過 05:25 截點的即時報價；未取得明確標示 CFD 且符合截點的有效報價，因此三項均標示休市。MOVE 同樣無 11/11 有效報價。",
     "fx": "美元指數升至102.90、上漲0.65%；USD/TWD 32.866，EUR/USD 1.1093、GBP/USD 1.3336，AUD/USD 0.6874，USD/JPY 159.88。美元走強與市場對12月升息的定價一致，亞洲貨幣仍須留意美元利差壓力。",
     "energy": "WTI 2026年12月期貨收87.02美元、上漲1.14%；Brent 2027年1月期貨收93.00美元、上漲1.65%。油價反彈，市場同時衡量OPEC+供給回升與荷姆茲海峽航運風險，能源價格仍可能造成通膨波動。",
     "metals": "GCZ6 11/11 合約歷史收盤 3,994.30 美元、下跌 0.89%；白銀 SIZ6 收 51.24 美元、上漲 0.03%。黃金回落、白銀近乎持平；GCZ6 採合約歷史資料，排除與其他來源不一致的 HK 預設參考報價。"
@@ -4666,11 +4666,11 @@
   },
   "core_observation": {
     "heading": "盤面觀察重點",
-    "text": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。11/11 SOX上漲5.66%、Russell 2000上漲0.88%，Nasdaq上漲1.60%；S&P 11產業ETF 11檔均已取得11/11歷史收盤。WTI上漲1.14%、Brent上漲1.65%，GCZ6下跌0.89%、SIZ6上漲0.03%；美債2Y／10Y／30Y僅列CFD參考價，美元指數上漲0.65%，CNN Fear & Greed 37仍在Fear區。這是風險偏好修復，尚非宏觀風險解除。",
+    "text": "美國10月CPI高於預期，Waller對12月升息50個基點保留空間；FedWatch截至11/12 04:45將25bp升息機率定價在90.8%、50bp升息9.2%。11/11 SOX上漲5.66%、Russell 2000上漲0.88%，Nasdaq上漲1.60%；S&P 11產業ETF 11檔均已取得11/11歷史收盤。WTI上漲1.14%、Brent上漲1.65%，GCZ6下跌0.89%、SIZ6上漲0.03%；美債2Y／10Y／30Y因無符合05:25截點的有效報價而標示休市，美元指數上漲0.65%，CNN Fear & Greed 37仍在Fear區。這是風險偏好修復，尚非宏觀風險解除。",
     "details": "關鍵驗證點：①AI需求能否轉化為營收與現金流，而非只擴大資本支出；②美債恢復交易後，殖利率與MOVE是否重新反映升息風險；③科技股反彈能否擴散至更多產業。S&P 11產業ETF 11檔均已補齊11/11歷史資料；MOVE因美債休市無報價。"
   },
   "qa_run_revision": "2026-11-12-manual-review-01",
-  "market_sentiment": "11/11股市反彈由半導體與AI基建帶動，SOX +5.66%、Russell 2000 +0.88%、Nasdaq +1.60%；DXY +0.65%，WTI +1.14%、Brent +1.65%、GCZ6 -0.89%、SIZ6 +0.03%。FedWatch截至11/12 04:45顯示12月升息25bp機率90.8%、升息50bp機率9.2%、維持不變0%。CNN Fear & Greed 37仍在Fear區。美債現貨市場因Veterans Day休市，2Y／10Y／30Y僅列CFD參考價，MOVE無當日報價。",
+  "market_sentiment": "11/11股市反彈由半導體與AI基建帶動，SOX +5.66%、Russell 2000 +0.88%、Nasdaq +1.60%；DXY +0.65%，WTI +1.14%、Brent +1.65%、GCZ6 -0.89%、SIZ6 +0.03%。FedWatch截至11/12 04:45顯示12月升息25bp機率90.8%、升息50bp機率9.2%、維持不變0%。CNN Fear & Greed 37仍在Fear區。美債現貨市場因Veterans Day休市；2Y／10Y／30Y及MOVE均無符合05:25截點的有效報價。",
   "quality_note": "行情基準日2026/11/11。44項固定指標中，36項取得同日可核實數值、3項確認市場休市、5項待核實（4檔產業ETF及MOVE）。全球17項指數均有同日收盤來源；產業ETF僅7檔具同日歷史列。行事曆採main最新2026-W46資料庫，更新時間2026-11-12 04:34:17+08:00。",
   "report_cutoff_taipei": "05:25",
   "news_window_taipei": "2026/11/11 12:00–2026/11/12 05:25",
