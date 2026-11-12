@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-12",
+  "calendar_blob_sha": "06a776b0d30998a0aadbfa57e80b976a8ac2c6a7",
+  "description": "Only fills Yahoo Finance gaps for 2026-11-11; values independently cross-checked against source pages. No calendar JSON write.",
+  "overrides": [
+    {
+      "event_id": "current-crwv-20261110",
+      "ticker": "CRWV",
+      "release_date_ny": "2026-11-10",
+      "session": "after_market",
+      "previous_date": "2026-11-10",
+      "reaction_date": "2026-11-11",
+      "previous_close": 48.73,
+      "reaction_close": 60.77,
+      "source_name": "StockAnalysis歷史日收盤",
+      "source_url": "https://stockanalysis.com/stocks/crwv/history/"
+    },
+    {
+      "event_id": "current-pbr-20261110",
+      "ticker": "PBR",
+      "release_date_ny": "2026-11-10",
+      "session": "after_market",
+      "previous_date": "2026-11-10",
+      "reaction_date": "2026-11-11",
+      "previous_close": 18.28,
+      "reaction_close": 17.82,
+      "source_name": "StockAnalysis歷史日收盤",
+      "source_url": "https://stockanalysis.com/stocks/pbr/history/"
+    },
+    {
+      "event_id": "current-mrcy-20261111",
+      "ticker": "MRCY",
+      "release_date_ny": "2026-11-10",
+      "session": "after_market",
+      "previous_date": "2026-11-10",
+      "reaction_date": "2026-11-11",
+      "previous_close": 83.58,
+      "reaction_close": 88.33,
+      "source_name": "EODData歷史日收盤",
+      "source_url": "https://www.eoddata.com/stockquote/NASDAQ/MRCY.htm"
+    },
+    {
+      "event_id": "current-rgti-20261111",
+      "ticker": "RGTI",
+      "release_date_ny": "2026-11-10",
+      "session": "after_market",
+      "previous_date": "2026-11-10",
+      "reaction_date": "2026-11-11",
+      "previous_close": 12.15,
+      "reaction_close": 11.11,
+      "source_name": "StockAnalysis歷史日收盤",
+      "source_url": "https://stockanalysis.com/stocks/rgti/history/"
+    },
+    {
+      "event_id": "current-gib-20261111",
+      "ticker": "GIB",
+      "release_date_ny": "2026-11-11",
+      "session": "before_market",
+      "previous_date": "2026-11-10",
+      "reaction_date": "2026-11-11",
+      "previous_close": 82.51,
+      "reaction_close": 81.13,
+      "source_name": "FinancialContent收盤報價",
+      "source_url": "https://markets.financialcontent.com/lightport.lightport8/quote?Symbol=NY%3AGIB"
+    },
+    {
+      "event_id": "current-alc-20261111",
+      "ticker": "ALC",
+      "release_date_ny": "2026-11-11",
+      "session": "before_market",
+      "previous_date": "2026-11-10",
+      "reaction_date": "2026-11-11",
+      "previous_close": 74.06,
+      "reaction_close": 72.46,
+      "source_name": "FinancialContent收盤報價",
+      "source_url": "https://business.theeveningleader.com/theeveningleader/quote?Symbol=NY%3AALC"
+    }
+  ]
+}
