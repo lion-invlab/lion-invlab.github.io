@@ -1134,3 +1134,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 行事曆／財報卡片：HTML 內有 16 張經濟事件卡、48 張財報卡，其中 36 張已公布雙卡；結構數量符合本週資料。HTML 靜態檢查：html/head/body 各 1、ID 181 個且無重複、連結 212 個、無空 href／錯誤 scheme／失效內錨點／target=_blank 缺 noopener；沒有實際點擊 tabs、details、導航及外部連結。
 - 視覺：artifact 有 1440／768／360／320 截圖，documentWidth 均等於 viewport，未見水平溢位；visual-regression.json failures=[]，但比較基準是 simulation baseline SHA `6fe793...`。正式 main 母版為 SHA `3785405e...`，不可把模擬基準通過等同正式母版比對通過。輸出含 11/10 CPI 特別焦點額外區塊，非週二至週五固定母版內容；依 SIM WR 的 QA 後單次專題規則，未獲 11/12 當次追加授權，不納入原 QA 通過範圍。
 - 當前狀態：既有 preview 已部署流程成功但 live URL 未實測；行情有未裁決差異、關鍵價位五層未完成、新聞重複、特別焦點範圍不符、互動未實測。審核版狀態維持 `review_ready=false`，不得定版或發布首頁。下一步須修正資料與現有組裝器／模擬基準，再重新組裝及驗收；禁止用字串替換冒險改寫既有 DOM。
+
+
+## 2026-11-12 10:33 TST｜行事曆延期狀態修正與預覽回讀
+
+- 本輪重新讀取 main 正式 WR v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）、模擬規則 SIM-1.1（blob `4c8e493dc7b96c345970469ccd1d418e5273d273`）。行事曆唯讀來源鎖定 main commit `89f969e0cde60c522ab88354363b10b58049f8ed`；W46 JSON blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`、updated_at `2026-11-12T04:34:17+08:00`。
+- 發現 main W46 的 Ecopetrol（current-ec-20261110）已為 `status=postponed`，但 11/12 preview 仍顯示「即將公布」。依 SIM-0.6 僅修改預覽卡片狀態為「已延期／改期；11/13（盤後；發布時刻待核實，台灣時間）」；未改 JSON。
+- 同次於 HTML head 加入 `TAC_CALENDAR_SOURCE`，記錄 repo、source main commit、W46 blob SHA、updated_at、Asia/Taipei 及 read-only mode。寫入 main 僅涉及 `preview/2026-11-12-simulation.html`：commit `c7850637c1748e40f1a839d0c9878a40ae848f93`，新 blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a`；回讀確認 provenance 唯一、延期文字 1 筆、舊「即將公布」文字 0 筆。以 main commit `89f969e...` 回讀 W46，blob SHA 仍為 `06a776...`。
+- 靜態逐筆對帳：W46 JSON 經濟事件 16、財報事件 48；HTML 經濟卡 16、財報卡 48；事件名稱／ticker 對帳均無缺漏。延期事件已正確顯示。這是靜態內容核對，不代表互動 QA 或全行情 44 項重新驗收。
+- Pages deploy run `43142647448` completed/success；Deploy site and TAC previews job 及 Deploy to GitHub Pages step 均 success。嘗試以外部頁面讀取 preview URL 未成功，故 live URL 的實際瀏覽器呈現仍標示未獨立驗證。
+- main `index.html` 回讀 blob `daae9c236c566662e83c937375e8e038dfcb1c37`，與修正前 preview blob 相同；該首頁版本由既有 commit `9c25df67a729aa5c981a5c249949820f4f30a84c`（message: Publish approved TAC investment morning report 2026-11-12）發布。此次只修正 preview，未更新 index.html；不得將新修正版稱為已同步至正式首頁。
+- 本次未更動 main 行事曆 JSON、WR、Manifest、正式母版或 index.html。早報仍不得標示 review_ready：互動測試及 live URL 實際呈現未完成，其他行情／新聞原文驗收仍依既有待辦狀態管理。若要將此最新修正版同步正式首頁，須另依使用者明確核准執行。
