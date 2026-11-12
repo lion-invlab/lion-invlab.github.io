@@ -201,6 +201,8 @@ jobs:
             exit 0
           fi
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
+          git fetch origin simulation/tac-process-lab-2026-11-06
+          git rebase origin/simulation/tac-process-lab-2026-11-06
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
 
       - name: Record isolated run metadata
