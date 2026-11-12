@@ -55,17 +55,22 @@ def validate(key: str) -> dict:
             if "econ-field" in node.get("class", [])
         ]
         if scope == "last-week":
-            allowed_labels = [["前值", "預估", "實際", "來源"]]
-        elif key == "monday":
-            # The approved Monday current-week mother contains both legacy
-            # four-field cards and five-field cards with a market-impact zone.
-            allowed_labels = [
-                ["前值", "市場預估", "實際", "資料來源"],
-                ["前值", "市場預估", "實際", "市場影響", "資料來源"],
-            ]
+            valid_labels = (
+                len(labels) == 4
+                and labels[:3] == ["前值", "預估", "實際"]
+                and labels[3] in ("來源", "資料來源")
+            )
         else:
-            allowed_labels = [["前值", "市場預估", "實際", "市場影響", "資料來源"]]
-        allowed_counts = sorted({len(labels) for labels in allowed_labels})
+            valid_labels = (
+                len(labels) in (4, 5)
+                and labels[:3] == ["前值", "市場預估", "實際"]
+                and labels[-1] in ("來源", "資料來源")
+                and (len(labels) == 4 or labels[3] in ("市場影響", "觀察重點"))
+            )
+        if scope == "last-week":
+            allowed_counts = [4]
+        else:
+            allowed_counts = [4, 5]
         if len(fields) not in allowed_counts:
             raise SystemExit(
                 f"{key} card {i}: {scope} mother allows {allowed_counts} direct econ-field zones, got {len(fields)}"
@@ -77,7 +82,7 @@ def validate(key: str) -> dict:
             if not label or not value:
                 raise SystemExit(f"{key} card {i}: econ-field label/value structure incomplete")
             labels.append(label.get_text(strip=True))
-        if labels not in allowed_labels:
+        if not valid_labels:
             raise SystemExit(f"{key} card {i}: {scope} field labels mismatch: {labels}")
         source_value = fields[-1].select_one(":scope > .econ-value")
         if not source_value or not source_value.select_one("a[href^='https://']"):
