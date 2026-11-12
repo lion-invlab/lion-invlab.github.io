@@ -52,7 +52,9 @@ try {
   async function toggleDetails(selector, iconSelector = null) {
     const details = page.locator(selector).first();
     if (await details.count() !== 1) throw new Error(`missing details element: ${selector}`);
-    const summary = details.locator("summary");
+    // Restrict to the direct summary child; nested source accordions may
+    // contain their own summary elements (e.g. the sector source disclosure).
+    const summary = details.locator(":scope > summary").first();
     const before = await details.evaluate(el => el.open);
     if (iconSelector) {
       const icon = details.locator(iconSelector).first();
