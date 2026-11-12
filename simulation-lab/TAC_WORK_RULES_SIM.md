@@ -1,6 +1,6 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-0.4
+版本：SIM-0.5
 更新日期：2026-11-12
 基準：main eb53eb666ece59f113f2e65d7932436ef66bdfa9 的 TAC_WORK_RULES.md v5.15（blob 23b52f27b7afad083bbe28ed86021e04759f198d）
 適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
@@ -38,6 +38,15 @@
 - 04:35 排程是行事曆週 JSON 唯一寫入者，正式資料庫只存在 main 分支 `data/calendar/weeks/YYYY-Www.json`。
 - 模擬區早報只讀取 main 分支週 JSON，不得複製至 simulation branch，也不得寫入、複寫、merge/upsert、修補或覆蓋 JSON。
 - 04:35 後新公布資料與差異只標記待下次資料庫更新；不得以 HTML 組裝流程回寫資料庫。
+
+### 0.6 行事曆來源 Gate 0 強制實作（SIM-0.5）
+- 早報組裝器不得採用 fixture 內嵌的 `calendar`、`earnings`、`last_week_calendar` 或 `last_week_earnings` 作為資料來源；這些欄位一律由唯一正式資料庫覆寫。
+- 組裝器必須驗證 repository 為 `lion-invlab/lion-invlab.github.io`、執行分支為 `simulation/tac-process-lab-2026-11-06`，再執行 `git fetch origin main`，以同一個 main commit SHA 讀取當週及上週 `data/calendar/weeks/YYYY-Www.json`。
+- 必須核對 ISO week、timezone、JSON 結構、事件 ID 唯一性，並記錄 main commit SHA、各週 blob SHA、週次、更新時間及事件數量。
+- main 讀取失敗、分支錯誤、週次不符、JSON 無效或 SHA 無法取得時，Gate 0 立即失敗；禁止讀取 simulation JSON、舊快取、fixture 或其他 fallback。
+- 讀取只使用 `git fetch`、`git show`、`git rev-parse`；不得 checkout main、修改 main 工作樹或寫入任何正式 JSON。
+- HTML head 必須保留可追溯的 `TAC_CALENDAR_SOURCE` provenance 註解；組裝器 stdout 必須輸出同一份來源收據。workflow 必須執行錯誤分支負向測試。
+- 04:35 仍是唯一 JSON 寫入者；05:25 僅讀取 main，模擬分支只產生審核版 HTML 與測試證據。
 
 ## 1. 模擬要回答的核心問題
 
