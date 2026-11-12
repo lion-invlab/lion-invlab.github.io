@@ -30,6 +30,47 @@ try {
     }
   }
 
+  // The CNN score and white marker must share one 0..100 coordinate system.
+  // Exercise 20/40/75 in Chromium so the mother's fixed left:23%!important
+  // cannot silently override the generated marker position.
+  const fearGreedMarkerTest = await page.locator(".cnn-fg-preview").evaluate(card => {
+    const scoreNode = card.querySelector(".fg6-score");
+    const scale = card.querySelector(".fg6-scale-wrap");
+    const marker = card.querySelector(".fg6-marker");
+    if (!scoreNode || !scale || !marker) throw new Error("CNN Fear & Greed score, scale, or marker missing");
+    const score = Number.parseFloat(scoreNode.textContent.trim());
+    if (!Number.isFinite(score) || score < 0 || score > 100) {
+      throw new Error("CNN Fear & Greed score is not a valid 0..100 number");
+    }
+    const inlineLeft = Number.parseFloat(marker.style.getPropertyValue("left"));
+    if (marker.style.getPropertyPriority("left") !== "important" || Math.abs(inlineLeft - score) > 0.001) {
+      throw new Error(`marker inline position does not match displayed score: score=${score}, left=${marker.style.left}`);
+    }
+    const measure = () => {
+      const track = scale.getBoundingClientRect();
+      const dot = marker.getBoundingClientRect();
+      return ((dot.left + dot.width / 2 - track.left) / track.width) * 100;
+    };
+    const initialPosition = measure();
+    if (Math.abs(initialPosition - score) > 1.25) {
+      throw new Error(`rendered white marker is misaligned: score=${score}, position=${initialPosition.toFixed(2)}%`);
+    }
+    const synthetic = [];
+    for (const testScore of [20, 40, 75]) {
+      marker.style.setProperty("left", `${testScore}%`, "important");
+      const position = measure();
+      if (Math.abs(position - testScore) > 1.25) {
+        throw new Error(`synthetic marker test failed: expected=${testScore}, position=${position.toFixed(2)}%`);
+      }
+      synthetic.push({ score: testScore, rendered_position_pct: Number(position.toFixed(2)) });
+    }
+    return { displayed_score: score, rendered_position_pct: Number(initialPosition.toFixed(2)), synthetic_tests: synthetic };
+  });
+  // Restore the generated score-bound position after synthetic coordinate tests.
+  await page.locator(".cnn-fg-preview .fg6-marker").evaluate((marker, score) => {
+    marker.style.setProperty("left", `${score}%`, "important");
+  }, await page.locator(".cnn-fg-preview .fg6-score").textContent().then(t => Number.parseFloat(t.trim())));
+
   const nav = page.locator("nav.nav a[href^='#']");
   const navCount = await nav.count();
   if (navCount !== 10) throw new Error(`expected 10 in-page navigation links, got ${navCount}`);
@@ -111,6 +152,7 @@ try {
     headline_links: headlineLinks.length,
     investing_links: investingLinks,
     cnyes_links: cnyesLinks,
+    fear_greed_marker_test: fearGreedMarkerTest,
     page_errors: pageErrors
   };
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
