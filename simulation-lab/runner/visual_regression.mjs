@@ -90,9 +90,11 @@ try {
     if (specialAudit.exists && !["0.4%", "0.3%", "未公布", "Waller"].every(x => specialAudit.text.includes(x))) failures.push(`${v.name}: CPI special focus missing key data/analysis`);
     const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
-        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "美國10月CPI高於預期", "Waller對12月升息"] },
+        // Validate stable section semantics and daily market-data anchors, not
+        // one specific report's CPI/Fed-speaker wording. Daily event text changes.
+        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "SOX", "MOVE", "VIX", "WTI", "Brent", "FedWatch"] },
         { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
-        { id: "focus-tab-core", panel: ".focus-core", needles: ["盤面觀察重點", "12月升息", "50個基點"] }
+        { id: "focus-tab-core", panel: ".focus-core", needles: ["盤面觀察重點", "關鍵觀察"] }
       ];
       const results = [], invalid = [];
       for (const item of cases) {
