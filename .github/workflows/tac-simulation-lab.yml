@@ -91,6 +91,15 @@ jobs:
           assert len(econ) == 16, f"expected 16 main economic events, got {len(econ)}"
           assert len(earnings) == 48, f"expected 48 main earnings events, got {len(earnings)}"
           report_data = json.loads(Path("simulation-lab/fixtures/report-data-2026-11-12.json").read_text(encoding="utf-8"))
+          focus = report_data["focus_news"]
+          assert len(focus) == 5, f"expected 5 global focus stories, got {len(focus)}"
+          assert len({x["title"] for x in focus}) == 5, "duplicate focus news titles"
+          for story in focus:
+              assert story["url"].startswith(("https://hk.investing.com/", "https://news.cnyes.com/")), f"focus source outside Cnyes/Investing.com: {story['url']}"
+              assert "2026-11-11 12:00" <= story["published_at_tw"] <= "2026-11-12 05:25", f"focus story outside 05:25 selection window: {story['published_at_tw']}"
+          assert len(report_data["headlines"]) == 10, "market hot headlines must contain 10 stories"
+          assert "Ciena" in report_data["headlines"][-1]["title"], "index recap was not replaced by the Ciena AI optics story"
+          assert "三大指數" not in report_data["headlines"][-1]["title"], "market hot headline repeats index close list"
           assert report_data["global_markets"]["費城半導體指數"]["display"] == "10,564.1"
           assert report_data["global_markets"]["費城半導體指數"]["change_display"] == "+5.66%"
           assert report_data["global_markets"]["羅素2000指數"]["display"] == "2,846.26"
