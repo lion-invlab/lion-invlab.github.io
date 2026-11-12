@@ -1371,3 +1371,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 ### 讓審核版可回讀的最後一步
 - Workflow commit `5d909b94e01407dab7a8f2e7a7842043cdb9ae63` 已加入「QA 全通過後，將 HTML 審核版存入 simulation branch」步驟，且只推送 `simulation/tac-process-lab-2026-11-06`，不推 main、不部署。Workflow token 權限改為 contents:write 僅供此分支存檔；output 路徑不在 push path trigger 中，commit 使用 `[skip ci]`。
 - 此 commit 已觸發新 run，待確認其 QA 成功及 output HTML 已 commit 後，將由 GitHub fetch 回讀該 HTML，再更新 main 的 `preview/2026-11-13-simulation.html` 作為最新審核版。正式首頁 `main/index.html` 不會修改。
+
+
+## 2026-11-13｜QA 通過後正式更新既有審核版（未動首頁）
+
+- 最新完整 workflow run `43331347462`：completed / success。Deterministic self-tests、Chromium Interaction Smoke、母版 Visual Regression、日期／行事曆／44 指標／新聞結構 Gate 全部 PASS；並成功執行 Persist QA-passed review HTML on simulation branch。
+- workflow commit `b27148563d6784d18d707205ac51f77703fcd690` 加入 rebase 後再 push，解決前次 output commit 因 branch 同時有 Session State／Work Log 新提交而 non-fast-forward 的問題。此次成功在 simulation branch 存檔 `simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html`，blob SHA `902997848aa212d487ce8fcbe3dffb396995723e`，431,970 字元。
+- 已使用該 QA 通過的 HTML 更新 main 既有審核版：`preview/2026-11-13-simulation.html`。main commit：`048d58b0abf3ad4080b0a1e76a62ab07289a8add`；blob SHA 同為 `902997848aa212d487ce8fcbe3d3ffb396995723e`（回讀時實際 SHA：`902997848aa212d487ce8fcbe3dffb396995723e`）。回讀驗證：score 40、marker `left:40% !important`、`data-score=40`；WTI 88.92/+2.76%、Brent 94.54/+1.92%；Vodafone 官方判讀已更新；EPS／Revenue badge 有 Beat/Miss 狀態。
+- 最新 42 家已公布卡片：EPS Beat 15、Miss 3、pending 24；Revenue Beat 17、Miss 8、pending 17。待核實保留口徑／來源差異說明，不強行判定。
+- 正式首頁 `main/index.html` 未修改；本次回讀 SHA `daae9c236c566662e83c937375e8e038dfcb1c37`，與本輪開始檢查時一致。正式母版、Manifest、WR 未修改。
+- 使用者可審核的 GitHub HTML：`https://github.com/lion-invlab/lion-invlab.github.io/blob/main/preview/2026-11-13-simulation.html`。此檔是審核版，尚未發布至首頁。
