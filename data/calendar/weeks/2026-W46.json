@@ -1947,9 +1947,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "miss",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$4.5M，高於 US$4.36M 共識；GAAP net loss US$48.2M、GAAP diluted loss per share US$0.13。EPS 共識 basis 未揭露，不作 EPS beat/miss 判斷；bookings US$1.9M、RPO US$38.3M。",
+        "financial_judgment": "GAAP net loss/share -US$0.13，低於 MarketBeat GAAP EPS 共識 -US$0.1002（虧損高於預期），EPS Miss；Revenue US$4.5M，高於共識 US$4.36M，營收 Beat。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -1964,11 +1964,14 @@
           ]
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-10",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap",
-          "publisher": "Finviz",
+          "name": "MarketBeat｜D-Wave Q3 2026 EPS consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-10-d-wave-quantum-inc-stock/",
+          "publisher": "MarketBeat",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；MarketBeat Q3 2026 結果頁列 actual -US$0.13 vs consensus -US$0.1002；公司官方公告確認 GAAP net loss/share -US$0.13，採同口徑判定 EPS Miss。",
+          "secondary_refs": [
+            "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -1987,7 +1990,9 @@
           "url": "https://ir.dwavequantum.com/news/news-details/2026/D-Wave-Quantum-to-Report-Third-Quarter-2026-Financial-Results-on-November-10-2026/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 D-Wave Quantum Inc. (NASDAQ: QBTS)。"
-        }
+        },
+        "eps_actual_basis": "GAAP net loss per share, basic and diluted (USD/share)",
+        "eps_estimate_basis": "GAAP EPS consensus (USD/share)"
       },
       {
         "id": "current-wix-20261110",
@@ -2265,17 +2270,17 @@
         "reporting_period": "Q3 2026",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "GAAP diluted loss per share US$0.08；non-GAAP diluted loss per share US$0.06 另列。Finviz EPS consensus basis 未揭露，不作 EPS beat/miss 判斷。",
+        "eps_basis": "Non-GAAP diluted loss/share -US$0.06 is the comparable actual; GAAP diluted loss/share -US$0.08 also disclosed.",
         "eps_estimate": -0.05,
-        "eps_actual": -0.08,
+        "eps_actual": -0.06,
         "revenue_estimate": 3.52,
         "revenue_actual": 1.4,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "miss",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "Q3 revenue US$1.4M，低於 Finviz 原存 US$3.52M 共識，營收 miss。GAAP diluted loss per share US$0.08；non-GAAP diluted loss per share US$0.06。EPS 共識 basis 未揭露，不作 EPS beat/miss。季度營業虧損 US$33.2M；期末現金、約當現金及可供出售投資 US$497.1M，無負債。",
+        "financial_judgment": "Non-GAAP diluted loss/share -US$0.06，低於 TipRanks non-GAAP EPS 共識 -US$0.05，EPS Miss；GAAP diluted loss/share -US$0.08 另列。Revenue US$1.4M，低於共識 US$3.52M，營收 Miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2290,11 +2295,14 @@
           ]
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-10",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap",
-          "publisher": "Finviz",
+          "name": "TipRanks｜Rigetti Q3 2026 EPS consensus",
+          "url": "https://www.tipranks.com/stocks/rgti/earnings/q3-2026-report",
+          "publisher": "TipRanks",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；TipRanks Q3 2026 結果頁列 non-GAAP actual -US$0.06 vs consensus -US$0.05；公司官方財報確認 non-GAAP diluted loss/share -US$0.06。GAAP diluted loss/share -US$0.08 另列，不與 non-GAAP 共識混用。",
+          "secondary_refs": [
+            "https://finviz.com/calendar/earnings?dateFrom=2026-11-10&sort=-marketCap"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -2313,7 +2321,9 @@
           "url": "https://rigetticomputing.gcs-web.com/news-releases/news-release-details/rigetti-computing-report-third-quarter-2026-financial-results",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示 Rigetti Computing, Inc. (Nasdaq: RGTI)。"
-        }
+        },
+        "eps_actual_basis": "Non-GAAP diluted loss per share (USD/share)",
+        "eps_estimate_basis": "Non-GAAP diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-vg-20261110",
@@ -2661,9 +2671,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "miss",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "Q3 revenue US$890.373M，略低於 US$892.88M 共識；GAAP diluted loss per share US$0.14，GAAP net loss US$33.04M，adjusted EBITDA US$82.4M。EPS 共識 basis 未揭露，不作 EPS beat/miss。",
+        "financial_judgment": "GAAP diluted loss/share -US$0.14，低於 TipRanks EPS 共識 US$0.06（由獲利預期轉為虧損），EPS Miss；Q3 revenue US$890.373M，略低於共識約 US$892.88M，營收 Miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2679,11 +2689,14 @@
           ]
         },
         "consensus_source": {
-          "name": "MarketBeat｜Hims & Hers Q3 2026 consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-hims-hers-health-inc-stock/",
-          "publisher": "MarketBeat",
+          "name": "TipRanks｜Hims & Hers Q3 2026 EPS consensus",
+          "url": "https://www.tipranks.com/stocks/hims/earnings/q3-2026-report",
+          "publisher": "TipRanks",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP 口徑，保留原始估計，不預判 beat/miss。"
+          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP 口徑，保留原始估計，不預判 beat/miss。；TipRanks Q3 2026 結果頁列 actual -US$0.14 vs consensus US$0.06，並標記 Miss；公司 SEC 8-K 公告及財報確認 GAAP diluted loss/share -US$0.14，採同口徑呈現。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-hims-hers-health-inc-stock/"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Analyst revenue consensus",
@@ -2702,7 +2715,9 @@
           "url": "https://investors.hims.com/news/news-details/2026/Hims--Hers-to-Announce-Third-Quarter-2026-Financial-Results-on-November-9-2026/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "發行人官方公告明確列示美國交易所代碼 HIMS。"
-        }
+        },
+        "eps_actual_basis": "GAAP diluted loss per share (USD/share)",
+        "eps_estimate_basis": "EPS consensus (USD/share; TipRanks reported actual/consensus pair)"
       },
       {
         "id": "current-ttd-20261109",
@@ -2856,7 +2871,7 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "GAAP diluted EPS US$1.28; reported net income includes a US$885.3M digital-asset fair-value gain. Analyst consensus EPS basis not disclosed.",
+        "eps_basis": "GAAP diluted EPS US$1.28; GAAP net income includes US$885.3M digital-asset fair-value gain, so the GAAP Beat is not equivalent to recurring operating profitability.",
         "eps_estimate": -0.3918,
         "eps_actual": 1.28,
         "revenue_estimate": 183.24,
@@ -2864,9 +2879,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "miss",
-        "financial_judgment": "Q3 revenue US$164.2M，低於 US$183.24M 共識；GAAP diluted EPS US$1.28，但 GAAP net income US$632.1M 包含 US$885.3M digital-asset fair-value gain，不能視為經常性營運獲利。EPS 共識 basis 未揭露，不作 beat/miss。",
+        "financial_judgment": "GAAP diluted EPS US$1.28，高於 MarketBeat GAAP EPS 共識 -US$0.3918，帳面 EPS Beat；但 GAAP net income US$632.1M 包含 US$885.3M digital-asset fair-value gain，不應視為經常性營運獲利。Revenue US$164.2M，低於共識 US$183.24M，營收 Miss。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2883,11 +2898,14 @@
           ]
         },
         "consensus_source": {
-          "name": "MarketBeat｜MARA Q3 2026 consensus",
+          "name": "MarketBeat｜MARA Q3 2026 EPS consensus",
           "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-marathon-patent-group-inc-stock/",
           "publisher": "MarketBeat",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。；MarketBeat Q3 2026 結果頁列 GAAP EPS actual US$1.28 vs consensus -US$0.3918，EPS Beat；公司 GAAP net income includes material digital-asset fair-value gain, so Beat is GAAP accounting result and not recurring operating earnings.",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-marathon-patent-group-inc-stock/"
+          ]
         },
         "revenue_consensus_source": {
           "name": "MarketBeat｜MARA Q3 2026 revenue consensus",
@@ -2906,7 +2924,9 @@
           "url": "https://ir.mara.com/news-events/press-releases/detail/1428/mara-schedules-conference-call-for-third-quarter-2026-financial-results",
           "publisher": "Company Investor Relations",
           "notes": "官方公告明確列示美國交易所掛牌代碼 MARA。"
-        }
+        },
+        "eps_actual_basis": "GAAP diluted EPS (USD/share)",
+        "eps_estimate_basis": "GAAP EPS consensus (USD/share)"
       },
       {
         "id": "current-vylr-20261111",
