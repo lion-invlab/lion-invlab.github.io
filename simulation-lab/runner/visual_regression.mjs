@@ -27,8 +27,9 @@ const selectors = [
 const viewports = [
   { name: "desktop-1440", width: 1440, height: 1000 },
   { name: "tablet-768", width: 768, height: 1024 },
-  { name: "mobile-360", width: 360, height: 900 },
-  { name: "mobile-320", width: 320, height: 844 }
+  { name: "mobile-412", width: 412, height: 900 },
+  { name: "mobile-390", width: 390, height: 900 },
+  { name: "mobile-360", width: 360, height: 900 }
 ];
 const browser = await chromium.launch({ headless: true });
 const failures = [];
