@@ -17,7 +17,7 @@ on:
         type: string
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: tac-simulation-lab-${{ github.event.inputs.report_date || 'push-smoke' }}
@@ -187,6 +187,21 @@ jobs:
       - name: Keep review output isolated to simulation branch artifact
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: test -s "${REPORT_OUTPUT}"
+
+      - name: Persist QA-passed review HTML on simulation branch
+        if: success() && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]')))
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "${REPORT_OUTPUT}"
+          if git diff --cached --quiet; then
+            echo "No review HTML changes to persist"
+            exit 0
+          fi
+          git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
+          git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
 
       - name: Record isolated run metadata
         if: always()
