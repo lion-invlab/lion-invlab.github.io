@@ -15,6 +15,21 @@ page.on("pageerror", error => pageErrors.push(error.message));
 try {
   await page.goto(pathToFileURL(htmlPath).href, { waitUntil: "domcontentloaded" });
 
+  // The approved mother opens a fund-date reminder on DOMContentLoaded.
+  // Dismiss this intentional modal before testing navigation and accordions,
+  // otherwise it correctly intercepts pointer events meant for the page.
+  const fundNotice = page.locator("#tac-fund-notice");
+  const fundClose = page.locator("#tfn-close");
+  if (await fundClose.count()) {
+    try {
+      await fundNotice.waitFor({ state: "visible", timeout: 2500 });
+    } catch {}
+    if (await fundNotice.isVisible()) {
+      await fundClose.click();
+      await fundNotice.waitFor({ state: "hidden", timeout: 2000 });
+    }
+  }
+
   const nav = page.locator("nav.nav a[href^='#']");
   const navCount = await nav.count();
   if (navCount !== 10) throw new Error(`expected 10 in-page navigation links, got ${navCount}`);
