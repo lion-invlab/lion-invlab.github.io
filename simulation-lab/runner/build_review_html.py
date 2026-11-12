@@ -1017,7 +1017,7 @@ def main():
         group=BeautifulSoup(str(eg),"html.parser").select_one(".calendar-status-group")
         heading=group.select_one(".calendar-status-heading")
         if heading:
-            display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else label)
+            display_label=("已公布／結果待核實" if key=="published" and any((x.get("status") or x.get("status_in_db")) not in ("released","published") for x in items) else ("後續公布／含已延期" if key=="upcoming" and any((x.get("status") or x.get("status_in_db"))=="postponed" for x in items) else label))
             set_text(heading,f"{display_label}｜TAC 四星／五星（{len(items)}家）")
             heading["class"]=["calendar-status-heading",key]
         listing=group.select_one(".earnings-accordion-list"); listing.clear()
@@ -1082,7 +1082,7 @@ def main():
                 source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
                 source_value.string=x.get("source_name") or "來源待核實"
                 field_specs=[
-                    ("公布時段／狀態",f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"),
+                    ("公布時段／狀態",f"{'已延期；改期至' if (x.get('status') or x.get('status_in_db'))=='postponed' else '即將公布；'}{day}（{session_label}；{timing_value} 台灣時間）"),
                     ("EPS 預估",eps_est),
                     ("營收預估",rev_est),
                     ("資料來源",source_value),
