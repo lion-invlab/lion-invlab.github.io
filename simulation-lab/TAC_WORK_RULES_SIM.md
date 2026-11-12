@@ -1,6 +1,6 @@
 # TAC 投資早報｜隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-0.5
+版本：SIM-0.6
 更新日期：2026-11-12
 基準：main eb53eb666ece59f113f2e65d7932436ef66bdfa9 的 TAC_WORK_RULES.md v5.15（blob 23b52f27b7afad083bbe28ed86021e04759f198d）
 適用範圍：本規則僅管理 branch `simulation/tac-process-lab-2026-11-06` 的隔離模擬工作；本文件本身只可寫入該 branch 的 `simulation-lab/`，不得回寫 main。早報審核版可依第 0 節「審核版例外通道」寫入 main 的指定 preview 路徑；此例外不構成正式首頁發布授權。
@@ -47,6 +47,14 @@
 - 讀取只使用 `git fetch`、`git show`、`git rev-parse`；不得 checkout main、修改 main 工作樹或寫入任何正式 JSON。
 - HTML head 必須保留可追溯的 `TAC_CALENDAR_SOURCE` provenance 註解；組裝器 stdout 必須輸出同一份來源收據。workflow 必須執行錯誤分支負向測試。
 - 04:35 仍是唯一 JSON 寫入者；05:25 僅讀取 main，模擬分支只產生審核版 HTML 與測試證據。
+
+### 0.7 行事曆與財報顯示口徑（SIM-0.6）
+- 每份 HTML 必須逐筆對帳 main 當週 JSON 的經濟事件及財報事件數；不得因 renderer 過濾或組裝失敗而靜默漏列。
+- 財報事件的 `time_type=call_time` 代表電話會議／webcast 時間，不等於財報發布時間。畫面必須分開標示「財報發布時段」與「電話會議時間」，不得把電話會議時間冒充財報發布時間。
+- `status=postponed` 必須明確標示「已延期／改期」，不得顯示為一般「即將公布」；保留改期日期及時間待核實狀態。
+- EPS 共識口徑未核實、或 `eps_comparison_status` 未明確提供 beat/miss/inline 時，只能顯示「比較口徑待核實」，不得用實際數值大於／小於共識值推導方向性結論。
+- 實際值與預估值幣別不同時，必須分別顯示各自幣別，不得套用同一幣別標籤，也不得暗示已換算或可直接比較。
+- workflow 必須驗證經濟／財報筆數、EPS 待核實不顯示方向性結論、延期事件標籤、電話會議與財報發布時間分離，以及跨幣別欄位標示。
 
 ## 1. 模擬要回答的核心問題
 
