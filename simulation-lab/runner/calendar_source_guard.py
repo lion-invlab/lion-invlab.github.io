@@ -160,7 +160,7 @@ def _earnings_records(payload: dict) -> list[dict]:
         revenue_currency = item.get("revenue_currency")
         revenue_unit = item.get("revenue_unit")
         def currency_pair(value):
-            match = re.fullmatch(r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \\(not comparable\\)", value or "")
+            match = re.fullmatch(r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \(not comparable\)", value or "")
             return (match.group(1), match.group(2)) if match else (value, value)
         eps_actual_currency, eps_estimate_currency = currency_pair(currency)
         revenue_actual_currency, revenue_estimate_currency = currency_pair(revenue_currency)
