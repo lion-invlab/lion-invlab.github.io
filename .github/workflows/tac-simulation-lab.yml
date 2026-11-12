@@ -43,6 +43,7 @@ jobs:
           set -euo pipefail
           python scripts/tac_wr_lock.py --self-test
           python scripts/validate_tac_daily_snapshot.py --self-test
+          python simulation-lab/runner/calendar_source_guard.py --self-test
           python scripts/assemble_tac_daily_snapshot.py --self-test
           python scripts/render_tac_market_snapshot_to_html.py --help >/dev/null
           python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09 --self-test
