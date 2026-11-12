@@ -1247,3 +1247,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Audit JSON 更新 commit `a776a79877dd26d0a9d4fe0721bd8ff8c54cb8ef`，blob `fcb8c79eb5a4b9ae6e12709777c52c91bf134083`；行情分類 38 verified、4 provisional、2 pending。
 - HTML 尚未組裝：缺少 `simulation-lab/fixtures/report-data-2026-11-13.json`；既有 workflow 硬編碼 11/12；此對話無法直接在 repo runner 執行既有 Python／BeautifulSoup／Playwright。未建立替代組裝器、未修改 workflow、未使用舊 fixture 假冒今日資料。
 - Gate 狀態：母版 SHA pass、Manifest pass、calendar read-only pass；DOM／HTML integrity／links／desktop／mobile／320px／interaction 均 not_run；`review_ready=false`，未產生審核版，main index 未修改。
+
+
+## 2026-11-13｜模擬 Workflow 日期參數化修復
+
+- 依 main 正式 WR v5.18（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）及 simulation SIM-1.1 隔離授權，僅修改模擬分支 Workflow 與視覺回歸視窗；main、正式母版、Manifest、行事曆 JSON、首頁均未修改。
+- `.github/workflows/tac-simulation-lab.yml` 新增 `workflow_dispatch.report_date`；不再將 11/12 寫死於 OHLC、財報股價反應、組裝輸出、互動測試、視覺回歸或資料斷言。報告日期決定 fixture 路徑、星期母版、Manifest SHA 與輸出檔名。
+- push 事件只執行 deterministic self-tests；完整日期產製僅由 workflow_dispatch 啟動，且只上傳 Actions artifact，不寫回 repo／main、不部署 Pages。
+- 缺少日期相符的 `report-data-YYYY-MM-DD.json`、fixture 內 report_date 不符、週末日期或 timezone 不符時 fail closed；禁止拿最近舊 fixture 假冒當日資料。留白日期時只選最新已存在 fixture。
+- 新增通用驗證：依 main 唯讀週 JSON 動態對帳經濟／財報卡片筆數，檢查 44 項行情欄位及 5+10 新聞結構；移除 11/12 特定價格、標題與日期斷言。
+- `visual_regression.mjs` 視窗改為 WR 5.3 規定 1440／768／412／390／360；移除 320。
+- Workflow SHA `89291a58995b65b9e3c4d22892385b2dc99b7174`（commit `c0b56147f1c1e0c8ecb13834c960122b9639eab4`）；視覺回歸 SHA `b7ab04fee5a729a01309017e9ece4d87ae72653c`（commit `11fcdc004119c81d5a3ce2fe3b7a6d3ccd7ab6a2`）。
+- GitHub Actions push smoke run `43317826574` 截至記錄時狀態 pending；尚未宣稱測試通過。完整日期組裝尚未 dispatch；11/13 專用 fixture 尚未建立，故尚未產生 11/13 HTML。
