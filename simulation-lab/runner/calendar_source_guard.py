@@ -193,6 +193,9 @@ def _earnings_records(payload: dict) -> list[dict]:
             "revenue_comparison_status": item.get("revenue_comparison_status"),
             "judgment": item.get("financial_judgment"),
             "price_reaction": item.get("stock_price_reaction"),
+            "price_reaction_source": item.get("price_reaction_source"),
+            "us_exchange_listed": item.get("us_exchange_listed", False),
+            "us_listing_ticker": item.get("us_listing_ticker"),
             "source_url": source_url,
             "source_name": source_name,
         })
