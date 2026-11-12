@@ -22,7 +22,7 @@
 - 唯一行事曆來源：main `data/calendar/weeks/2026-W46.json`，同一 main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`，blob SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，`updated_at=2026-11-13T04:30:43+08:00`；本週 JSON 只讀，禁止複寫／修補／回存。今日篩選 3 筆經濟事件、6 筆財報事件。
 - 預覽目標：`main/preview/2026-11-13-simulation.html`（本輪尚未建立）；只允許在審核版完成後走狹窄 preview 例外通道，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
 - 第一步狀態：完成。已鎖定日期、交易日、正式 WR、SIM 規則、main HEAD、Manifest、母版、QA 清單與 W46 唯一資料來源。
-- 第二步狀態（依 SIM-1.1 審計紀錄校正）：44 項中 25 verified、5 provisional、14 pending；不得宣稱 44/44 已核實。使用者 05:49 截圖補充 TVC MOVE 即時畫面 98.4202（+6.47%），只能作為 TVC 即時報價證據，不能替代 ICE BofA MOVE 的正式收盤核實。MOVE 補入使用者於 2026-11-13 05:49（台灣時間）提供的 TradingView TVC 即時截圖：98.4202，+5.98（+6.47%），上一個收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 以 Investing.com HK 為主）；11 大產業 ETF 以 StockAnalysis 歷史收盤作為 Investing.com HK 多頁尚停留 11/11 的備援；3 段美債殖利率為 2Y 4.87%、10Y 5.10%、30Y 5.43%；6 組 FX 已取得 11/12 歷史值；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 收盤資料核對。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE：Investing.com HK 歷史資料停在 11/10；使用者補充 TradingView TVC 05:49 截圖讀值 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
+- 第二步狀態（依 SIM-1.1 審計紀錄校正）：44 項中 37 verified、5 provisional、2 pending；不得宣稱 44/44 已核實。使用者 05:49 截圖補充 TVC MOVE 即時畫面 98.4202（+6.47%），只能作為 TVC 即時報價證據，不能替代 ICE BofA MOVE 的正式收盤核實。MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 以 Investing.com HK 為主）；11 大產業 ETF 以 StockAnalysis 歷史收盤作為 Investing.com HK 多頁尚停留 11/11 的備援；3 段美債殖利率為 2Y 4.87%、10Y 5.10%、30Y 5.43%；6 組 FX 已取得 11/12 歷史值；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 收盤資料核對。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
 - 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 財報數值已核對，EPS 以相同會計口徑比較；公告後首個交易日股價反應因截稿時間尚未形成，維持待更新。
 - 第四步狀態：新聞窗口為 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）；已核對 5 則總經焦點候選與 10 則市場頭條候選的發布時間及主題，仍需完成最後來源網址、5+10 去重與內容摘要。
 - Key Levels：今日 05:15 的 `tac-key-levels-live.yml` 未找到對應 workflow run；五大美股現貨指數 OHLC 尚未取得可驗證的完整快照，禁止沿用 11/12 或更早 fixture。`tac-simulation-lab.yml` 目前仍硬編碼 11/12 fixture 與舊數值斷言，本輪不觸發，以免錯誤重做 11/12 審核版。
@@ -779,7 +779,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - MOVE：Northern Trust iBoxx 5-Year Target Duration / ^MOVE，NYSE 延遲報價；11/05/2026 16:17 EST 收盤 97.92，+4.04（+4.30%）。來源證據：使用者提供 Yahoo Finance ^MOVE 頁面截圖。此值取代先前「MOVE 待核實」。
 - CNN Fear & Greed Index：20/100，分類 Extreme Fear；官網頁面顯示 Last updated Nov 5 at 5:07:24 PM ET。前一收盤 27、1週前30、1個月前43、1年前23。來源證據：使用者提供 CNN Business Fear & Greed Index 官網截圖。此官方截圖取代第三方 tracker 備援來源，讀值不再標示待核實。
 - 截圖擷取時間為 11/06 06:25 台灣時間；MOVE 報價資料日為 11/05 美東收盤，CNN 更新時間為 11/05 17:07:24 ET。兩者時間口徑分開呈現，不將截圖擷取時間誤寫成行情更新時間。
-- 後續 G HTML 應將 MOVE 97.92（+4.30%）及 CNN 20/100（Extreme Fear）填入母版既有欄位，並在資料來源／註記中標示「使用者提供來源頁面截圖，11/06 06:25 台灣時間核對」。不再保留 MOVE 待核實或 CNN 第三方備援字樣。
+- 後續 G HTML 應將 MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。不再保留 MOVE 待核實或 CNN 第三方備援字樣。
 
 
 ### 06:25 後續分析校正｜F 階段風險情緒補證
@@ -830,7 +830,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 
 ## 2026-11-06 續作校正（最新狀態）
 - preview/2026-11-06.html 最新 blob SHA：9c06929e3b94f381e501c7bec23f82b3004e36ed；更新 commit：4b23a5089b8a13db46283cf18833a72090812709。
-- 44 項固定行情均已登記有效讀值：43 項依指定來源／備援核實，MOVE 由使用者 11/06 06:25 提供的 Yahoo Finance 截圖補證（97.92，+4.30%，11/05 16:17 EST）。FedWatch 是額外政策指標，不計入 44 項。前段「44 項仍待最終回讀」已由預覽修正。
+- 44 項固定行情均已登記有效讀值：43 項依指定來源／備援核實，MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。FedWatch 是額外政策指標，不計入 44 項。前段「44 項仍待最終回讀」已由預覽修正。
 - SOX 採 WR 指定 Investing.com HK 11/05 歷史列 9,011.2（-12.25%）；Yahoo Finance 歷史列 9,011.14（-12.25%）及 Reuters 下跌超過 12% 交叉支持。Nasdaq overview 動態頁快照不一致，不用其作為同口徑歷史收盤值。
 - Atlassian FY2027 Q1 已補核 11/05 公司新聞稿及 SEC Form 8-K Exhibit 99.1；GAAP diluted EPS 0.35、non-GAAP diluted EPS 1.65、營收 US$1,772.15M、Subscription ARR US$6.812B（+23%），FY2027 Subscription ARR 成長展望約18.5%。預覽已更新官方新聞稿連結及財報卡文字。
 - Dow OHLC 修正為 H 53,710.61／L 51,486.82／C 51,523.06；樞紐 S2 50,016.37／S1 50,769.72／P 52,240.16／R1 52,993.51／R2 54,463.95。
@@ -840,7 +840,7 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 
 ## 2026-11-06｜最新資料校正狀態
 - 最新 preview blob：`986f6766c4d1d0d4f66c4a5ec8658eb77fb9c17a`；最後 preview commit：`6f7255a0a03d9e71e64f669f2dd60decbe8dee1c`。
-- 已完成 44 項有效行情讀值：43 項指定來源／備援，MOVE 依使用者 06:25 截圖補證。修正涵蓋 FTSE、XLC/XLP、六項 FX、四項商品及 VIX；市場摘要、表格、評論已同步。
+- 已完成 44 項有效行情讀值：43 項指定來源／備援，MOVE 採使用者明確確認的 TradingView TVC 截圖 11/12 收盤 98.4202（+6.47%），上一收盤 92.4415。修正涵蓋 FTSE、XLC/XLP、六項 FX、四項商品及 VIX；市場摘要、表格、評論已同步。
 - 主要更正：VIX 28.18/+69.66%；WTI 91.26/+3.56%；Brent 99.35/+5.00%；Gold 4,095.85/+0.56%；Silver 51.730/-1.06%；FX 六項均按 11/05 歷史列更新。
 - Nikkei 61,077.90/-1.79% 採日經官方／Yahoo／Reuters；SOX 9,011.2/-12.25% 採 Investing.com HK／Yahoo／Reuters，兩者的來源差異已記錄。
 - 結構回讀：style 120/120、script 24/24 且內容一致；174 IDs 無重複；11 錨點無缺失；經濟卡 18/18、財報卡 37/37。
@@ -1198,3 +1198,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 使用者 05:49 提供的 TVC MOVE 截圖只證明畫面當時 TVC 報價 98.4202、+6.47%、前收 92.4415；不證明 ICE BofA MOVE 官方收盤值。
 - 當前真正進度：第 1 階段基準鎖定完成；第 2 階段行情有大量 pending；第 3 階段新聞／財報尚有核實；分析未完整；HTML 未組裝；QA 未執行；審核版未產生。
 - 阻塞原因：既有 simulation workflow 硬編碼 11/12 fixture／檔名／行情斷言；SIM-1.1 審計紀錄指出當時無 repo 本地 Python／BeautifulSoup 執行環境。不得以舊 fixture 冒充 11/13 live data，也不得把尚未執行的 QA 標記完成。
+
+
+## 2026-11-13 05:xx｜Investing.com 報價頁直接收盤值補錄
+
+- 依 WR D2-補充第 4–6 點及 D3 指定來源規則，修正先前只讀歷史表格、忽略報價頁上方最新收盤欄位的錯誤。11 檔 S&P 產業 ETF 直接採 Investing.com HK 報價頁最新收盤值，頁面標示 Close 04:59:59，對應 2026-11-12 美股收盤；不再查 Yahoo／StockAnalysis／ChartExchange 作重複核對。
+- ETF 值：XLE 63.37 (+1.86%); XLF 58.63 (+0.58%); XLK 174.36 (+3.23%); XLI 170.97 (+1.33%); XLY 120.99 (-0.05%); XLP 91.45 (+0.46%); XLU 43.82 (+0.21%); XLV 188.95 (+0.04%); XLB 53.02 (+0.32%); XLC 108.60 (+0.78%); XLRE 44.59 (+0.02%).
+- MOVE 採用使用者明確確認的 TradingView TVC 11/12 收盤截圖值 98.4202 (+6.47%)，上一收盤 92.4415。
+- Audit JSON 更新 commit `72e588ac845bf630208ab61379bc97482bbfaedf`，blob `0c451b02fa44a512ed6c8d8f906876d7dd7f364b`；最新統計 37 verified、5 provisional、2 pending。
