@@ -184,14 +184,16 @@
         "group": "US major indices",
         "ticker": "SOX",
         "name": "PHLX Semiconductor Index",
-        "value": 10510.8,
-        "change_pct": -0.5,
-        "status": "provisional",
-        "source": "Investing.com HK",
+        "value": 10506.7,
+        "change_pct": -0.54,
+        "status": "verified",
+        "source": "Investing.com HK historical data (user-provided screenshot)",
         "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-12",
-        "quote_type": "cash_index",
-        "note": "Yahoo ^SOX 可見資料為 11/12 盤中值，未能完成同日收盤交叉核對"
+        "quote_type": "historical_cash_index_close",
+        "note": "依使用者提供的 Investing.com HK 歷史數據頁截圖，2026-11-12 收盤 10,506.7（-0.54%），開盤 10,174.1，最高 10,686.8。歷史表格右側最低價欄在截圖中被裁切，不臆測。",
+        "open": 10174.1,
+        "high": 10686.8
       },
       {
         "group": "Global indices",
@@ -719,8 +721,8 @@
   "key_levels": {
     "formula": "P=(H+L+C)/3; S1=2P-H; R1=2P-L; S2=P-(H-L); R2=P+(H-L)",
     "verified_sets": 2,
-    "provisional_sets": 1,
-    "pending_sets": 2,
+    "provisional_sets": 0,
+    "pending_sets": 3,
     "items": [
       {
         "index": "DJI",
@@ -754,19 +756,14 @@
       },
       {
         "index": "SOX",
-        "status": "provisional",
+        "status": "pending",
         "high": 10686.8,
-        "low": 10174.1,
-        "close": 10510.8,
-        "levels": {
-          "S2": 9944.53,
-          "S1": 10227.67,
-          "P": 10457.23,
-          "R1": 10740.37,
-          "R2": 10969.93
-        },
+        "low": null,
+        "close": 10506.7,
+        "levels": null,
         "source": "Investing.com HK",
-        "note": "Yahoo ^SOX same-day closing cross-check unavailable"
+        "note": "已依 Investing.com HK 歷史頁截圖校正 11/12 收盤、開盤、最高；截圖右側最低價欄遭裁切，待取得該欄數字後才計算 Pivot 支撐壓力。舊資料將 10,174.1 誤作最低價，已撤銷舊計算。",
+        "open": 10174.1
       },
       {
         "index": "SPX",
@@ -958,6 +955,7 @@
     "main/preview/2026-11-13-simulation.html 不存在；main/index.html 未修改。",
     "未觸發舊端到端排程，未修改 workflow、WR、Manifest、正式母版或其他 main 檔案。",
     "本次實際啟動時間 05:26:12，較預定 05:25 晚 1 分 12 秒；行情資料基準日仍為 2026-11-12。",
-    "2026-11-13 即時補查修正：11 檔 S&P sector ETF 直接採用 Investing.com HK 報價頁最新收盤報價（Close 04:59:59），不再因歷史表格仍顯示 11/11 而列 pending；MOVE 採使用者明確確認的 TVC 截圖 11/12 收盤 98.4202。"
+    "2026-11-13 即時補查修正：11 檔 S&P sector ETF 直接採用 Investing.com HK 報價頁最新收盤報價（Close 04:59:59），不再因歷史表格仍顯示 11/11 而列 pending；MOVE 採使用者明確確認的 TVC 截圖 11/12 收盤 98.4202。",
+    "SOX 歷史數據修正：使用者指出應直接讀取 Investing.com HK 歷史數據表。依截圖校正 2026-11-12 收盤 10,506.7、開盤 10,174.1、最高 10,686.8；最低價欄被截圖裁切。舊計算誤把開盤 10,174.1 當最低價，已撤銷 SOX 舊 Pivot levels，待補最低價後重算。"
   ]
 }
