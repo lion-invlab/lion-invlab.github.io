@@ -615,3 +615,11 @@
 - 修正先前「MOVE 為唯一缺值／待核實」的結論：44 項行情均已有可用讀值。MOVE 的資料來源須標示為使用者提供的 TradingView TVC 畫面，不可寫成 Investing.com 或 ICE 官方直接報價。
 - 口徑限制：在確認 TVC 報價與 WR 指定 ICE BofA MOVE Index 完全同口徑前，保留 TVC 標籤並註明截圖時間；不可無條件宣稱其為 ICE 官方收盤。
 - Session State 更新 commit `4fe5ed8ef049c04eca3e6dc1b19a47ee8a2c43ff`，blob `b82e3373b4c2ea0da34401546e575f9664c01e74`。
+
+
+## 2026-11-13｜Investing.com 報價頁最新收盤欄位補錄
+
+- 依 WR D2-補充第 4–6 點，確認 Investing.com HK 歷史表格仍顯示 11/11，但各 ETF 報價頁上方已顯示最新 Close 04:59:59 收盤欄位，故直接採用主來源，不切換備援。
+- 11 檔 ETF 收盤：XLE 63.37 (+1.86%); XLF 58.63 (+0.58%); XLK 174.36 (+3.23%); XLI 170.97 (+1.33%); XLY 120.99 (-0.05%); XLP 91.45 (+0.46%); XLU 43.82 (+0.21%); XLV 188.95 (+0.04%); XLB 53.02 (+0.32%); XLC 108.60 (+0.78%); XLRE 44.59 (+0.02%).
+- MOVE：採使用者確認的 TradingView TVC 截圖 11/12 收盤 98.4202 (+6.47%)，上一收盤 92.4415。
+- 詳細行情審計 JSON 更新 commit `72e588ac845bf630208ab61379bc97482bbfaedf`，blob `0c451b02fa44a512ed6c8d8f906876d7dd7f364b`；統計 37 verified、5 provisional、2 pending。
