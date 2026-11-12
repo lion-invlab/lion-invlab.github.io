@@ -79,6 +79,7 @@ def main():
             if reaction:
                 event["price_reaction"]=reaction.get("display")
                 event["price_reaction_source"]=reaction.get("source")
+                event["price_reaction_source_url"]=reaction.get("source_url")
     is_live_key_levels = False
     if args.key_levels_live:
         live=json.loads(Path(args.key_levels_live).read_text(encoding="utf-8"))
@@ -1071,12 +1072,17 @@ def main():
                 details.append(grid)
                 detail_specs=[
                     ("財報判讀", x.get("judgment") or "財報判讀待核實。"),
-                    ("股價當日表現", ((x.get("price_reaction") or "") + ("｜" + x.get("price_reaction_source") if x.get("price_reaction_source") else "")) or "股價反應待核實。"),
+                    ("股價當日表現", x.get("price_reaction") or "股價反應待核實。"),
                 ]
                 for field_label, field_value in detail_specs:
                     field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
                     label_node=soup.new_tag("label"); label_node.string=field_label
-                    value_node=soup.new_tag("div", attrs={"class":["earnings-detail-value"]}); value_node.string=str(field_value)
+                    value_node=soup.new_tag("div", attrs={"class":["earnings-detail-value"]})
+                    if field_label == "股價當日表現" and x.get("price_reaction_source_url") and x.get("price_reaction"):
+                        value_node.append(soup.new_string(str(field_value) + "｜"))
+                        value_node.append(source_link(x["price_reaction_source_url"], x.get("price_reaction_source") or "行情來源"))
+                    else:
+                        value_node.string=str(field_value)
                     field.append(label_node); field.append(value_node); details.append(field)
                 source_field=soup.new_tag("div", attrs={"class":["earnings-detail-field","wide"]})
                 source_label=soup.new_tag("label"); source_label.string="來源"
