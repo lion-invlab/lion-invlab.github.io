@@ -1228,3 +1228,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 標準 Pivot：S2 7,508.89、S1 7,550.97、P 7,601.68、R1 7,643.76、R2 7,694.47。
 - 五大指數 OHLC 狀態更新：Dow、Nasdaq、SOX、S&P 500 已完成；Russell 2000 待補。Investing.com HK Russell 歷史表目前最新列仍為 11/11，故不拿 11/11 值冒充 11/12。
 - Audit JSON commit `0c047cd76a40ce66ac0694578a2f3cf24c857a06`，blob `c16e9b51f0bea6910779bc2d43ae49328d03c1a6`。
+
+
+## 2026-11-13｜Russell 2000 OHLC 與五大指數關鍵價位完成
+
+- Investing.com HK Russell 2000 歷史表尚未出現 11/12 列；改採同供應商 Investing.com global historical table 11/12 列：收市 2,802.84、開市 2,831.80、高 2,837.45、低 2,802.30、跌 1.53%。來源註記保留 HK 歷史頁更新延遲。
+- RUT Pivot：S2 2,779.05、S1 2,790.94、P 2,814.20、R1 2,826.09、R2 2,849.35。
+- 五大指數 key levels 全部完成：DJI、IXIC、SOX、SPX、RUT；key_levels verified_sets=5、pending_sets=0。
+- Audit JSON commit `67ddee39db1299a7810644b6fd43b6e11acdc29f`，blob `f854cdf754beeb34df292e4b509b7dbbea13a401`。
