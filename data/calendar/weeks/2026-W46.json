@@ -520,17 +520,17 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "release_time",
-        "eps_basis": "Adjusted net earnings per share (non-GAAP) US$0.82; company GAAP EPS US$0.80. Stored analyst consensus basis is undisclosed; do not infer EPS beat/miss.",
-        "eps_estimate": 0.79,
+        "eps_basis": "Adjusted net earnings per share US$0.82; GAAP diluted EPS US$0.80 also disclosed. MarketBeat adjusted EPS consensus US$0.74 is used for same-basis comparison.",
+        "eps_estimate": 0.74,
         "eps_actual": 0.82,
         "revenue_estimate": 5.16,
         "revenue_actual": 5.073,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": null,
-        "financial_judgment": "公司 adjusted EPS US$0.82，GAAP EPS US$0.80；Finviz EPS 共識 US$0.79 未揭露 GAAP／adjusted 口徑，EPS 比較維持待核。營收 US$5.073B，低於 Finviz US$5.16B 及 MarketBeat 約 US$5.10B 共識。",
+        "financial_judgment": "Adjusted net earnings per share US$0.82，高於 MarketBeat adjusted EPS 共識 US$0.74，EPS 優於預期；GAAP diluted EPS US$0.80。Revenue US$5.073B，低於原 Finviz US$5.16B 共識，營收低於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -542,11 +542,14 @@
           "notes": "官方頁確認 11/09 06:00 ET 在市場開盤前發布第三季結果；11:00 ET 另有簡報與 webcast。；官方 Q3 新聞稿：營收 US$5.073B、GAAP EPS US$0.80、adjusted EPS US$0.82。原官方公布時程／webcast URL：https://www.barrick.com/English/investors/presentations/event-details/2026/q3/default.aspx。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
+          "name": "MarketBeat｜Barrick Mining Q3 2026 EPS consensus",
+          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-barrick-gold-corp-stock/",
+          "publisher": "MarketBeat",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；MarketBeat Q3 2026 結果頁列 adjusted EPS actual US$0.82 vs consensus US$0.74，EPS Beat；公司官方公告確認 adjusted net earnings/share US$0.82。原 Finviz estimate US$0.79 basis 未揭露，保留於 secondary refs，不再作為本卡比較值。",
+          "secondary_refs": [
+            "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -565,7 +568,9 @@
           "url": "https://www.barrick.com/English/investors/",
           "publisher": "Company Investor Relations",
           "notes": "官方公司資料確認 NYSE 掛牌代碼 B。"
-        }
+        },
+        "eps_actual_basis": "Adjusted net earnings per share (USD/share)",
+        "eps_estimate_basis": "Adjusted EPS consensus (USD/share)"
       },
       {
         "id": "current-ferg-20261109",
@@ -582,7 +587,7 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "release_time",
-        "eps_basis": "Adjusted diluted EPS (non-GAAP) US$3.43; company GAAP diluted EPS US$3.08. Stored analyst consensus basis is undisclosed.",
+        "eps_basis": "Adjusted diluted EPS US$3.43 is the comparable non-GAAP actual; GAAP diluted EPS US$3.08 is also disclosed.",
         "eps_estimate": 3.31,
         "eps_actual": 3.43,
         "revenue_estimate": 8.74,
@@ -590,9 +595,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "公司 GAAP net sales US$9.026B，高於 TipRanks／原存市場共識 US$8.74B，營收優於預期。Adjusted diluted EPS US$3.43、GAAP diluted EPS US$3.08；EPS 共識 US$3.31 未揭露 GAAP／adjusted 口徑，仍不機械判定 Beat/Miss。",
+        "financial_judgment": "Adjusted diluted EPS US$3.43，高於 TipRanks 共識 US$3.31，EPS 優於預期；GAAP diluted EPS US$3.08。GAAP net sales US$9.026B，高於 TipRanks／原存共識 US$8.74B，營收亦優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -604,11 +609,14 @@
           "notes": "官方公告確認 11/09 06:45 ET 發布第三季結果，08:30 ET 舉行電話會議；換算台灣時間 19:45。；官方新聞稿：銷售額 US$9.026B、GAAP diluted EPS US$3.08、adjusted diluted EPS US$3.43。原官方財報排程 URL：https://www.corporate.ferguson.com/pressroom/news-releases/news-details/2026/Ferguson-to-Issue-Third-Quarter-Results-And-Host-Conference-Call-on-November-9-2026/default.aspx。"
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-09",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
+          "name": "TipRanks｜Ferguson Q3 2026 EPS consensus",
+          "url": "https://www.tipranks.com/stocks/ferg/earnings/q3-2026-report",
+          "publisher": "TipRanks",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。；TipRanks Q3 2026 結果頁列 actual EPS US$3.43 vs consensus US$3.31；公司官方財報明確列 adjusted diluted EPS US$3.43，與頁面 actual 數字一致，故採 adjusted basis 判定 EPS Beat。",
+          "secondary_refs": [
+            "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Finviz Earnings Calendar｜Revenue estimate",
@@ -632,7 +640,9 @@
           "notes": "官方公告明確列示 Ferguson Enterprises Inc. (NYSE: FERG)。"
         },
         "revenue_actual_basis": "GAAP net sales (USD billions)",
-        "revenue_estimate_basis": "Net sales/revenue consensus (USD billions)"
+        "revenue_estimate_basis": "Net sales/revenue consensus (USD billions)",
+        "eps_actual_basis": "Adjusted diluted EPS (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Adjusted diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-nrg-20261109",
@@ -2709,7 +2719,7 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "GAAP diluted EPS US$0.08; non-GAAP diluted EPS US$0.33 also reported. Analyst consensus basis not disclosed.",
+        "eps_basis": "GAAP diluted EPS US$0.08 is compared with GAAP consensus; non-GAAP diluted EPS US$0.33 is disclosed separately.",
         "eps_estimate": 0.04,
         "eps_actual": 0.08,
         "revenue_estimate": 650.93,
@@ -2717,9 +2727,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$735.965M，高於原存 US$650.93M 共識；GAAP diluted EPS US$0.08，non-GAAP diluted EPS US$0.33。EPS 共識 basis 未揭露，故不作 EPS beat/miss 判斷。",
+        "financial_judgment": "GAAP diluted EPS US$0.08，高於 TipRanks GAAP EPS 共識 US$0.04，EPS 優於預期；non-GAAP diluted EPS US$0.33 另列。Revenue US$735.965M，高於原存共識 US$650.93M，營收優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -2736,11 +2746,14 @@
           ]
         },
         "consensus_source": {
-          "name": "Finviz｜The Trade Desk Q3 2026 consensus",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap",
-          "publisher": "Finviz",
+          "name": "TipRanks｜The Trade Desk Q3 2026 EPS consensus",
+          "url": "https://www.tipranks.com/stocks/ttd/earnings/q3-2026-report",
+          "publisher": "TipRanks",
           "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP 口徑，保留原始估計，不預判 beat/miss。"
+          "notes": "公布前 analyst EPS consensus；來源未揭露 GAAP／non-GAAP 口徑，保留原始估計，不預判 beat/miss。；TipRanks Q3 2026 結果頁列 GAAP EPS actual US$0.08 vs consensus US$0.04；公司官方公告確認 GAAP diluted EPS US$0.08，採同口徑判定 EPS Beat。公司 non-GAAP diluted EPS US$0.33 另列，不與 GAAP 共識混用。",
+          "secondary_refs": [
+            "https://finviz.com/calendar/earnings?dateFrom=2026-11-09&sort=-marketCap"
+          ]
         },
         "revenue_consensus_source": {
           "name": "Analyst revenue consensus",
@@ -2759,7 +2772,9 @@
           "url": "https://investors.thetradedesk.com/news-and-events/news/news-details/2026/The-Trade-Desk-Announces-Date-of-Third-Quarter-2026-Financial-Results-and-Conference-Call/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "發行人官方公告明確列示美國交易所代碼 TTD。"
-        }
+        },
+        "eps_actual_basis": "GAAP diluted EPS (USD/share)",
+        "eps_estimate_basis": "GAAP diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-asnd-20261112",
@@ -3040,7 +3055,7 @@
         "reporting_period": "2026 Q3",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Non-GAAP diluted EPS US$2.44; GAAP diluted EPS US$0.95 also disclosed. Analyst consensus EPS basis not disclosed.",
+        "eps_basis": "Non-GAAP diluted EPS US$2.44 is the comparable actual; GAAP diluted EPS US$0.95 is also disclosed.",
         "eps_estimate": 2.3,
         "eps_actual": 2.44,
         "revenue_estimate": 392.08,
@@ -3048,9 +3063,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$409.7M，高於 US$392.08M 共識；non-GAAP diluted EPS US$2.44，GAAP diluted EPS US$0.95。EPS 共識 basis 未揭露，不作 EPS beat/miss 判斷。",
+        "financial_judgment": "Non-GAAP diluted EPS US$2.44，高於 TipRanks 共識 US$2.30，EPS 優於預期；GAAP diluted EPS US$0.95。Revenue US$409.7M，高於原存共識 US$392.08M，營收優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -3065,11 +3080,14 @@
           ]
         },
         "consensus_source": {
-          "name": "MarketBeat｜Onto Innovation Q3 2026 consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-onto-innovation-inc-stock/",
-          "publisher": "MarketBeat",
+          "name": "TipRanks｜Onto Innovation Q3 2026 EPS consensus",
+          "url": "https://www.tipranks.com/stocks/onto/earnings/q3-2026-report",
+          "publisher": "TipRanks",
           "observed_at": "2026-11-06T18:00:00+08:00",
-          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不預判 beat/miss。"
+          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不預判 beat/miss。；TipRanks Q3 2026 結果頁列 actual EPS US$2.44 vs consensus US$2.30；公司官方公告確認 non-GAAP diluted EPS US$2.44，採同口徑判定 EPS Beat。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-onto-innovation-inc-stock/"
+          ]
         },
         "revenue_consensus_source": {
           "name": "MarketBeat｜Onto Innovation Q3 2026 revenue consensus",
@@ -3088,7 +3106,9 @@
           "url": "https://investors.ontoinnovation.com/stock-info/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "官方公司頁確認美國交易所掛牌代碼 ONTO。"
-        }
+        },
+        "eps_actual_basis": "Non-GAAP diluted EPS (USD/share)",
+        "eps_estimate_basis": "Non-GAAP diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-sanm-20261109",
@@ -3105,7 +3125,7 @@
         "reporting_period": "FY2026 Q4",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Non-GAAP diluted EPS US$4.43; GAAP diluted EPS US$2.14 also disclosed. Analyst consensus EPS basis not disclosed.",
+        "eps_basis": "Non-GAAP diluted EPS US$4.43 is the comparable actual; GAAP diluted EPS US$2.14 is also disclosed.",
         "eps_estimate": 3.27,
         "eps_actual": 4.43,
         "revenue_estimate": 3.48,
@@ -3113,9 +3133,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "FY2026 Q4 revenue US$3.86B，高於 US$3.48B 共識；non-GAAP diluted EPS US$4.43，GAAP diluted EPS US$2.14。EPS 共識 basis 未揭露，不作 EPS beat/miss 判斷。",
+        "financial_judgment": "Non-GAAP diluted EPS US$4.43，高於 MarketBeat／Investing.com 共識 US$3.27，EPS 優於預期；GAAP diluted EPS US$2.14。Revenue US$3.86B，高於共識 US$3.48B，營收亦優於預期。TipRanks 的 GAAP actual 與 adjusted consensus 比較不採用。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -3132,11 +3152,14 @@
           ]
         },
         "consensus_source": {
-          "name": "MarketBeat｜Sanmina FY2026 Q4 consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-sanmina-co-stock/",
-          "publisher": "MarketBeat",
+          "name": "MarketBeat／Investing.com｜Sanmina Q4 FY2026 EPS consensus",
+          "url": "https://www.marketbeat.com/stocks/NASDAQ/SANM/earnings/",
+          "publisher": "MarketBeat; Investing.com",
           "observed_at": "2026-11-06T18:00:00+08:00",
-          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。；MarketBeat、Investing.com 結果頁均列 actual non-GAAP EPS US$4.43 vs consensus US$3.27；公司官方公告確認 non-GAAP diluted EPS US$4.43，採同口徑判定 EPS Beat。TipRanks 將 GAAP EPS US$2.14 與 consensus US$3.27 比較，口徑不一致，不採其 Miss 結論。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-sanmina-co-stock/"
+          ]
         },
         "revenue_consensus_source": {
           "name": "MarketBeat｜Sanmina FY2026 Q4 revenue consensus",
@@ -3155,7 +3178,9 @@
           "url": "https://ir.sanmina.com/overview/default.aspx",
           "publisher": "Company Investor Relations",
           "notes": "官方資料確認美國交易所掛牌代碼 SANM。"
-        }
+        },
+        "eps_actual_basis": "Non-GAAP diluted EPS (USD/share)",
+        "eps_estimate_basis": "Non-GAAP diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-qlys-20261109",
@@ -3172,7 +3197,7 @@
         "reporting_period": "Q3 2026",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Non-GAAP diluted EPS US$2.12; GAAP diluted EPS US$1.62 also disclosed. Analyst consensus EPS basis not disclosed.",
+        "eps_basis": "Non-GAAP diluted EPS US$2.12 is the comparable actual; GAAP diluted EPS US$1.62 is also disclosed.",
         "eps_estimate": 1.96,
         "eps_actual": 2.12,
         "revenue_estimate": 186.63,
@@ -3180,9 +3205,9 @@
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "M",
-        "eps_comparison_status": null,
+        "eps_comparison_status": "beat",
         "revenue_comparison_status": "beat",
-        "financial_judgment": "Q3 revenue US$188.0M，高於 US$186.63M 共識；non-GAAP diluted EPS US$2.12，GAAP diluted EPS US$1.62。EPS 共識 basis 未揭露，不作 EPS beat/miss 判斷。",
+        "financial_judgment": "Non-GAAP diluted EPS US$2.12，高於 TipRanks 共識 US$1.96，EPS 優於預期；GAAP diluted EPS US$1.62。Revenue US$188.0M，高於原存共識 US$186.63M，營收優於預期。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -3197,11 +3222,14 @@
           ]
         },
         "consensus_source": {
-          "name": "MarketBeat｜Qualys Q3 2026 consensus",
-          "url": "https://www.marketbeat.com/earnings/reports/2026-11-9-qualys-inc-stock/",
-          "publisher": "MarketBeat",
+          "name": "TipRanks｜Qualys Q3 2026 EPS consensus",
+          "url": "https://www.tipranks.com/stocks/qlys/earnings/q3-2026-report",
+          "publisher": "TipRanks",
           "observed_at": "2026-11-06T18:00:00+08:00",
-          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。"
+          "notes": "公布前 EPS consensus；來源未揭露 GAAP／non-GAAP basis，僅保存原始共識，不推定 beat/miss。；TipRanks Q3 2026 結果頁列 actual EPS US$2.12 vs consensus US$1.96；公司官方財報確認 non-GAAP diluted EPS US$2.12，採同口徑判定 EPS Beat。",
+          "secondary_refs": [
+            "https://www.marketbeat.com/earnings/reports/2026-11-9-qualys-inc-stock/"
+          ]
         },
         "revenue_consensus_source": {
           "name": "MarketBeat｜Qualys Q3 2026 revenue consensus",
@@ -3220,7 +3248,9 @@
           "url": "https://investor.qualys.com/node/5921",
           "publisher": "Company Investor Relations",
           "notes": "官方資料確認美國交易所掛牌代碼 QLYS。"
-        }
+        },
+        "eps_actual_basis": "Non-GAAP diluted net income per share (USD/share)",
+        "eps_estimate_basis": "Non-GAAP diluted EPS consensus (USD/share)"
       },
       {
         "id": "current-kspi-20261109",
