@@ -112,7 +112,7 @@ jobs:
               list(report_data["energy"].values()) +
               list(report_data["metals"].values()) +
               list(report_data["risk"].values()) +
-              list(report_data["sectors"].values())
+              [{"display": value} for value in report_data["sectors"].values()]
           )
           assert len(indicator_rows) == 44, f"expected 44 indicators, got {len(indicator_rows)}"
           assert sum(1 for row in indicator_rows if row.get("display") == "休市") == 1, "only MOVE should remain closed after CFD fallback"
