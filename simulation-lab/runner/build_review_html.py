@@ -1025,7 +1025,9 @@ def main():
             card=BeautifulSoup(str(et),"html.parser").select_one("details.earnings-accordion")
             day,clock=dateparts(x.get("date",""))
             if not x.get("time_known",False): clock="時間未確認"
-            fields=[(".earnings-us-date",day),(".earnings-tw-date",("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")+"；"+clock),(".earnings-company-name",x.get("company","")),(".earnings-company-sub",str(x.get("ticker",""))+"｜"+str(x.get("industry",""))),(".earnings-stars",startext(x))]
+            session_label=("盤前" if x.get("session")=="before_market" else "盤後" if x.get("session")=="after_market" else "時段待核實")
+            clock_label=("電話會議 "+clock if x.get("time_type")=="call_time" else clock)
+            fields=[(".earnings-us-date",day),(".earnings-tw-date",session_label+"；"+clock_label),(".earnings-company-name",x.get("company","")),(".earnings-company-sub",str(x.get("ticker",""))+"｜"+str(x.get("industry",""))),(".earnings-stars",startext(x))]
             for sel,val in fields:
                 node=card.select_one(sel)
                 if node: set_text(node,val)
@@ -1081,8 +1083,14 @@ def main():
                 rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "待核實")
                 source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
                 source_value.string=x.get("source_name") or "來源待核實"
+                if (x.get("status") or x.get("status_in_db")) == "postponed":
+                    schedule_text=f"已延期；改期至 {day}（{session_label}；{timing_value} 台灣時間）"
+                elif x.get("time_type") == "call_time":
+                    schedule_text=f"財報發布：{session_label}（發布時間待核實）；電話會議：{clock}"
+                else:
+                    schedule_text=f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"
                 field_specs=[
-                    ("公布時段／狀態",f"{'已延期；改期至' if (x.get('status') or x.get('status_in_db'))=='postponed' else '即將公布；'}{day}（{session_label}；{timing_value} 台灣時間）"),
+                    ("公布時段／狀態",schedule_text),
                     ("EPS 預估",eps_est),
                     ("營收預估",rev_est),
                     ("資料來源",source_value),
