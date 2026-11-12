@@ -22,11 +22,11 @@
 - 唯一行事曆來源：main `data/calendar/weeks/2026-W46.json`，同一 main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`，blob SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，`updated_at=2026-11-13T04:30:43+08:00`；本週 JSON 只讀，禁止複寫／修補／回存。今日篩選 3 筆經濟事件、6 筆財報事件。
 - 預覽目標：`main/preview/2026-11-13-simulation.html`（本輪尚未建立）；只允許在審核版完成後走狹窄 preview 例外通道，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
 - 第一步狀態：完成。已鎖定日期、交易日、正式 WR、SIM 規則、main HEAD、Manifest、母版、QA 清單與 W46 唯一資料來源。
-- 第二步狀態：行情 44 項逐項查核已完成 43 項，44/44 項均已取得可用讀值；MOVE 補入使用者於 2026-11-13 05:49（台灣時間）提供的 TradingView TVC 即時截圖：98.4202，+5.98（+6.47%），上一個收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 以 Investing.com HK 為主）；11 大產業 ETF 以 StockAnalysis 歷史收盤作為 Investing.com HK 多頁尚停留 11/11 的備援；3 段美債殖利率為 2Y 4.87%、10Y 5.10%、30Y 5.43%；6 組 FX 已取得 11/12 歷史值；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 收盤資料核對。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE：Investing.com HK 歷史資料停在 11/10；使用者補充 TradingView TVC 05:49 截圖讀值 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
+- 第二步狀態（依 SIM-1.1 審計紀錄校正）：44 項中 29 verified、5 provisional、14 pending；不得宣稱 44/44 已核實。使用者 05:49 截圖補充 TVC MOVE 即時畫面 98.4202（+6.47%），只能作為 TVC 即時報價證據，不能替代 ICE BofA MOVE 的正式收盤核實。MOVE 補入使用者於 2026-11-13 05:49（台灣時間）提供的 TradingView TVC 即時截圖：98.4202，+5.98（+6.47%），上一個收盤 92.4415。該值作為截圖時點的 TVC 報價記錄；在確認 TVC 與指定 ICE BofA MOVE 指數完全同口徑前，來源標籤必須保留 TVC，不得冒稱 ICE 官方收盤。全球 17 指數已取得 11/12 收盤（含 SOX 以 Investing.com HK 為主）；11 大產業 ETF 以 StockAnalysis 歷史收盤作為 Investing.com HK 多頁尚停留 11/11 的備援；3 段美債殖利率為 2Y 4.87%、10Y 5.10%、30Y 5.43%；6 組 FX 已取得 11/12 歷史值；WTI 88.74、Brent 95.82、Gold 3,878.40、Silver 49.972 以 Reuters／WSJ 收盤資料核對。VIX 17.60；CNN Fear & Greed 43 由兩個 CNN 資料轉載來源交叉核對；MOVE：Investing.com HK 歷史資料停在 11/10；使用者補充 TradingView TVC 05:49 截圖讀值 98.4202（+6.47%），上一收盤 92.4415。以 TVC 報價補齊觀察值，口徑核對 ICE BofA MOVE 尚需註記。
 - 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 財報數值已核對，EPS 以相同會計口徑比較；公告後首個交易日股價反應因截稿時間尚未形成，維持待更新。
 - 第四步狀態：新聞窗口為 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）；已核對 5 則總經焦點候選與 10 則市場頭條候選的發布時間及主題，仍需完成最後來源網址、5+10 去重與內容摘要。
 - Key Levels：今日 05:15 的 `tac-key-levels-live.yml` 未找到對應 workflow run；五大美股現貨指數 OHLC 尚未取得可驗證的完整快照，禁止沿用 11/12 或更早 fixture。`tac-simulation-lab.yml` 目前仍硬編碼 11/12 fixture 與舊數值斷言，本輪不觸發，以免錯誤重做 11/12 審核版。
-- 當前狀態：`review_ready=false`；尚未執行既有 HTML 組裝器、未產生 11/13 審核版、未交付、未發布。下一步完成來源台帳與新聞去重，並取得當日五大指數 OHLC 後，才可安全執行既有母版組裝及視覺／互動 QA。
+- 當前狀態：`review_ready=false`；HTML 組裝器未執行、11/13 審核版未產生、QA 未執行、未交付、未發布。既有模擬 workflow 固定使用 11/12 fixture，且 SIM-1.1 審計記錄指出執行環境缺少 repo 本地 Python／BeautifulSoup 執行環境；不得觸發舊 workflow 或假稱已組裝。下一步完成來源台帳與新聞去重，並取得當日五大指數 OHLC 後，才可安全執行既有母版組裝及視覺／互動 QA。
 - 保護界線：不得啟動舊的大型端到端 pipeline；不得修改正式首頁、母版、Manifest、正式規則及正式行事曆資料庫；不得用過期 fixture 冒充 live data。
 
 - 工作分支：`simulation/tac-process-lab-2026-11-06`；最新驗收 commit `a9ae77fbd07568f80266abe4c41b284844741b67`。
@@ -1190,3 +1190,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 前一筆 11/13 草稿中 StockAnalysis ETF 備援與 SIM-1.1 規則不符，該 11 檔數據本次全部改列 pending；VIX 17.60 不採用；CNN F&G 以較晚 FGScore 40 作 provisional；2Y Treasury 採官方 4.86%。
 - 本次通知：startup 與階段①至⑤均 NOT_AVAILABLE；沒有取得 `status=notified`，不記為已送達。
 - 詳細審計：`simulation-lab/runs/2026-11-13.json`。
+
+
+## 2026-11-13 進度狀態更正（重要）
+
+- 先前工作紀錄曾誤將 44/44 寫成已取得可用讀值；依 SIM-1.1 詳細審計，正確分類為 29 verified、5 provisional、14 pending。以詳細審計為準，不得沿用 44/44 完成說法。
+- 使用者 05:49 提供的 TVC MOVE 截圖只證明畫面當時 TVC 報價 98.4202、+6.47%、前收 92.4415；不證明 ICE BofA MOVE 官方收盤值。
+- 當前真正進度：第 1 階段基準鎖定完成；第 2 階段行情有大量 pending；第 3 階段新聞／財報尚有核實；分析未完整；HTML 未組裝；QA 未執行；審核版未產生。
+- 阻塞原因：既有 simulation workflow 硬編碼 11/12 fixture／檔名／行情斷言；SIM-1.1 審計紀錄指出當時無 repo 本地 Python／BeautifulSoup 執行環境。不得以舊 fixture 冒充 11/13 live data，也不得把尚未執行的 QA 標記完成。
