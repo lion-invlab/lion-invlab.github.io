@@ -68,6 +68,11 @@ def _load_week(commit: str, day: date) -> dict:
         raise RuntimeError(
             f"calendar week_id mismatch in {path}: {payload.get('week_id')!r} != {week_id!r}"
         )
+    iso = day.isocalendar()
+    expected_start = date.fromisocalendar(iso.year, iso.week, 1).isoformat()
+    expected_end = date.fromisocalendar(iso.year, iso.week, 7).isoformat()
+    if payload.get("week_start") != expected_start or payload.get("week_end") != expected_end:
+        raise RuntimeError(f"calendar date range mismatch in {path}; expected {expected_start}..{expected_end}")
     if payload.get("timezone") != "Asia/Taipei":
         raise RuntimeError(f"calendar timezone mismatch in {path}")
     events = payload.get("events")
@@ -136,7 +141,7 @@ def _economic_records(payload: dict) -> list[dict]:
             "name": item.get("event_name", ""),
             "stars": item.get("importance_stars", 0),
             "time_known": item.get("time_known", False),
-            "status": item.get("status"),
+            "status": "released" if item.get("status") in ("released", "published", "completed") else item.get("status"),
             "previous": item.get("previous"),
             "forecast": item.get("forecast"),
             "actual": item.get("actual"),
@@ -164,7 +169,7 @@ def _earnings_records(payload: dict) -> list[dict]:
             "stars": item.get("importance_stars", 0),
             "session": item.get("session"),
             "time_known": item.get("time_known", False),
-            "status": item.get("status"),
+            "status": "released" if item.get("status") in ("released", "published", "completed") else item.get("status"),
             "eps_actual": item.get("eps_actual"),
             "eps_estimate": item.get("eps_estimate"),
             "eps_actual_display": _money_display(item.get("eps_actual"), currency),
