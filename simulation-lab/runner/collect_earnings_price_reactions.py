@@ -58,6 +58,8 @@ def calculate_reaction(close_by_date: dict[date, float], release_date: date, ses
         "change_pct": round(change, 2),
         "display": f"公告後首個交易日收盤 {change:+.2f}%（{previous_day:%m/%d}→{reaction_day:%m/%d}）",
         "source": f"Yahoo Finance historical daily close｜{previous_day.isoformat()}→{reaction_day.isoformat()}",
+        "source_name": "Yahoo Finance歷史日收盤",
+        "source_url": None,
     }
 
 
@@ -153,9 +155,62 @@ def collect(report_date: str, output: str):
             "company": event.get("company"),
             "session": session,
             "release_date_ny": release_date.isoformat(),
-            "source_name": "Yahoo Finance historical daily close",
+            "source_name": "Yahoo Finance歷史日收盤",
+            "source_url": f"https://finance.yahoo.com/quote/{ticker}/history/",
         })
         reactions[event["id"]] = result
+
+    # Apply independently sourced, date-locked overrides only to Yahoo gaps.
+    # Every override is tied to the same authoritative main calendar SHA.
+    override_path = Path("simulation-lab/fixtures/earnings-price-reaction-overrides-2026-11-12.json")
+    if override_path.exists():
+        override_doc = json.loads(override_path.read_text(encoding="utf-8"))
+        if override_doc.get("report_date") != report_date or override_doc.get("calendar_blob_sha") != bundle["current"]["blob_sha"]:
+            raise RuntimeError("manual price-reaction override does not match report date/main calendar blob SHA")
+        event_map = {event["id"]: event for event in events}
+        for override in override_doc.get("overrides", []):
+            event_id = override["event_id"]
+            if event_id in reactions:
+                continue
+            event = event_map.get(event_id)
+            if event is None or event_id not in unavailable:
+                raise RuntimeError(f"manual override target is not an unresolved main earnings event: {event_id}")
+            window = reaction_window(event)
+            if not window:
+                raise RuntimeError(f"manual override event is not eligible for price reaction: {event_id}")
+            release_date, session = window
+            if (override.get("ticker") != event.get("us_listing_ticker")
+                    or override.get("session") != session
+                    or override.get("release_date_ny") != release_date.isoformat()):
+                raise RuntimeError(f"manual override event identity/session/date mismatch: {event_id}")
+            previous_date = date.fromisoformat(override["previous_date"])
+            reaction_date = date.fromisoformat(override["reaction_date"])
+            expected_reaction_date = release_date if session == "before_market" else release_date + timedelta(days=1)
+            if reaction_date != expected_reaction_date or previous_date >= reaction_date:
+                raise RuntimeError(f"manual override reaction window mismatch: {event_id}")
+            if not override.get("source_url", "").startswith("https://") or not override.get("source_name"):
+                raise RuntimeError(f"manual override source URL/name missing: {event_id}")
+            previous_close = float(override["previous_close"])
+            reaction_close = float(override["reaction_close"])
+            if previous_close <= 0 or reaction_close <= 0:
+                raise RuntimeError(f"manual override prices must be positive: {event_id}")
+            change = round((reaction_close / previous_close - 1.0) * 100.0, 2)
+            reactions[event_id] = {
+                "ticker": override["ticker"],
+                "company": event.get("company"),
+                "session": session,
+                "release_date_ny": release_date.isoformat(),
+                "previous_date": previous_date.isoformat(),
+                "reaction_date": reaction_date.isoformat(),
+                "previous_close": round(previous_close, 4),
+                "reaction_close": round(reaction_close, 4),
+                "change_pct": change,
+                "display": f"公告後首個交易日收盤 {change:+.2f}%（{previous_date:%m/%d}→{reaction_date:%m/%d}）",
+                "source": f"{override['source_name']}｜{previous_date.isoformat()}→{reaction_date.isoformat()}",
+                "source_name": override["source_name"],
+                "source_url": override["source_url"],
+            }
+            unavailable.pop(event_id, None)
 
     doc = {
         "report_date": report_date,
