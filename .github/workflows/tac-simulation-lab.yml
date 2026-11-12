@@ -44,6 +44,7 @@ jobs:
           python scripts/tac_wr_lock.py --self-test
           python scripts/validate_tac_daily_snapshot.py --self-test
           python simulation-lab/runner/calendar_source_guard.py --self-test
+          python simulation-lab/runner/collect_earnings_price_reactions.py --self-test
           python scripts/assemble_tac_daily_snapshot.py --self-test
           python scripts/render_tac_market_snapshot_to_html.py --help >/dev/null
           python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09 --self-test
@@ -67,9 +68,12 @@ jobs:
         run: |
           python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date 2026-11-12 --report-data simulation-lab/fixtures/report-data-2026-11-12.json --output simulation-lab/output/key-levels-live.json
 
+      - name: Capture published earnings price reactions from Yahoo Finance
+        run: python simulation-lab/runner/collect_earnings_price_reactions.py --report-date 2026-11-12 --output simulation-lab/output/earnings-price-reactions.json
+
       - name: Assemble actual 2026-11-12 weekday review from verified report data
         run: |
-          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-12.json --key-levels-live simulation-lab/output/key-levels-live.json --output simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
+          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-12.json --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html --expected-master-sha 6fe79308eca71db5dd54308fd35efe3900451081
 
       - name: Compare 2026-11-12 review against approved weekday mother
         run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html weekdays 2026-11-12
@@ -85,6 +89,10 @@ jobs:
           earnings = soup.select("#earnings .earnings-accordion")
           assert len(econ) == 16, f"expected 16 main economic events, got {len(econ)}"
           assert len(earnings) == 48, f"expected 48 main earnings events, got {len(earnings)}"
+          reactions = json.loads(Path("simulation-lab/output/earnings-price-reactions.json").read_text(encoding="utf-8"))
+          assert reactions["main_commit_sha"], "price reaction source commit SHA missing"
+          assert reactions["calendar_blob_sha"], "price reaction calendar blob SHA missing"
+          assert reactions["reaction_count"] > 0, "no published earnings price reactions captured"
           all_text = soup.get_text(" ", strip=True)
           assert "數值高於預期（EPS口徑待核實）" not in all_text
           assert "數值低於預期（EPS口徑待核實）" not in all_text
