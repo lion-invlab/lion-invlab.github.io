@@ -1145,3 +1145,16 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Pages deploy run `43142647448` completed/success；Deploy site and TAC previews job 及 Deploy to GitHub Pages step 均 success。嘗試以外部頁面讀取 preview URL 未成功，故 live URL 的實際瀏覽器呈現仍標示未獨立驗證。
 - main `index.html` 回讀 blob `daae9c236c566662e83c937375e8e038dfcb1c37`，與修正前 preview blob 相同；該首頁版本由既有 commit `9c25df67a729aa5c981a5c249949820f4f30a84c`（message: Publish approved TAC investment morning report 2026-11-12）發布。此次只修正 preview，未更新 index.html；不得將新修正版稱為已同步至正式首頁。
 - 本次未更動 main 行事曆 JSON、WR、Manifest、正式母版或 index.html。早報仍不得標示 review_ready：互動測試及 live URL 實際呈現未完成，其他行情／新聞原文驗收仍依既有待辦狀態管理。若要將此最新修正版同步正式首頁，須另依使用者明確核准執行。
+
+
+## 2026-11-12｜正式母版基準修正與 11/12 審核版完整 QA（最新）
+
+- 模擬區正式母版基準已改為與 main Manifest 核准檔逐位元一致：週一 SHA `a568e594e55909041d51d8eae7e6fe5f7986c096`；週二至週五 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。模擬 Manifest 的 simulation_blob_sha 已同步正式 SHA；未修改 main 母版或 main Manifest。
+- 修正模擬驗收器：依正式 DOM 合約驗證週一／週二至週五及上週回顧卡欄位；不再要求 simulation-only CSS。修正視覺回歸中的經濟卡檢查，直接核對正式母版欄位與來源連結。
+- 最新 GitHub Actions：run `43144598097`，commit `fa6d8c2ca2b5670916ed0fd7dbf6b81c1c20a8b1`，conclusion success；artifact ID `13911142580`。審核版 HTML 461,163 bytes。
+- 最新 Gate：雙母版 DOM 驗證 PASS；五項現金指數 OHLC 與五層 S2/S1/P/R1/R2 PASS；16 筆經濟、48 筆財報、32/32 已公布財報股價反應 PASS；互動 PASS（10 導航、經濟／財報／產業收折、5 焦點新聞連結、10 頭條連結、無頁面錯誤）；正式週二至週五母版視覺回歸 PASS（1440／768／360／320，failures=[]）。
+- 44 項行情逐項來源名稱、URL、資料日期、quote_type 均完整；40 項有數值、4 項已確認休市（2Y／10Y／30Y Treasury、MOVE）、0 項待核實。全部資料基準日為 2026-11-11。
+- 新聞為 5 則焦點＋10 則市場熱門頭條，來源與時間窗 Gate PASS；無 11/10 CPI 特別焦點額外區塊。人工檢查未見完全相同標題；跨標題事件語意重複未另作機器計數。
+- W46 唯讀來源：main commit `89f969e0cde60c522ab88354363b10b58049f8ed`，JSON blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`；16/16、48/48 靜態對帳，Ecopetrol postponed 狀態正確。
+- **交付界線：** 最新 HTML 僅在 Actions artifact，尚未寫入 main preview。main 既有 `preview/2026-11-12-simulation.html` 仍為 blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a`，只有先前 Ecopetrol 修正，SOX／Russell／GCZ6 與五層價位尚未同步；main `index.html` blob `daae9c236c566662e83c937375e8e038dfcb1c37` 未變。未獲當次明確授權前，不覆寫 main preview；index 更不得更新。
+- 狀態：`qa_complete=true`、`review_ready=false`（等待授權交付審核版及使用者審閱；不是 Gate 失敗）。

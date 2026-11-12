@@ -1,17 +1,21 @@
 {
   "schema_version": "1.0",
   "report_date": "2026-11-12",
-  "status": "review_preview_delivered_with_qa_gaps",
+  "status": "qa_complete_simulation_artifact_pending_user_review",
   "branch": "simulation/tac-process-lab-2026-11-06",
   "simulation_wr": {
     "version": "SIM-0.3",
     "blob_sha": "1fa5e3a32e1cb456810189a460a605285a026308"
   },
   "workflow": {
-    "run_id": 43108782859,
-    "artifact_id": 13894783617,
+    "run_id": 43144598097,
+    "artifact_id": 13911142580,
     "conclusion": "success",
-    "review_ready": false
+    "review_ready": false,
+    "artifact_name": "tac-simulation-smoke-43144598097-1",
+    "head_sha": "fa6d8c2ca2b5670916ed0fd7dbf6b81c1c20a8b1",
+    "qa_complete": true,
+    "review_state": "待使用者審閱；未授權同步 main preview 或首頁"
   },
   "baselines": {
     "weekday_mother_template": "simulation-lab/baseline/weekday-mother-template.html",
@@ -36,16 +40,10 @@
   },
   "quality": {
     "indicators_total": 44,
-    "numeric_verified": 36,
-    "confirmed_market_closed": 3,
-    "pending": 5,
-    "pending_items": [
-      "MOVE",
-      "XLC",
-      "XLU",
-      "XLY",
-      "XLRE"
-    ],
+    "numeric_verified": 40,
+    "confirmed_market_closed": 4,
+    "pending": 0,
+    "pending_items": [],
     "focus_news": 5,
     "hot_headlines": 10,
     "economic_calendar_events": 16,
@@ -61,13 +59,12 @@
         360,
         320
       ],
-      "baseline_sha": "6fe79308eca71db5dd54308fd35efe3900451081",
-      "formal_main_mother_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
-      "interpretation": "pass against simulation baseline at 1440/768/360/320; not a formal-main-mother comparison"
+      "baseline_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
+      "interpretation": "direct comparison against the exact formal main weekday mother; no viewport geometry failures"
     },
-    "html_structure": "partial: HTML syntax/ID/static-link checks pass; exact scope and key-level requirements fail",
+    "html_structure": "PASS: exact approved formal weekday mother SHA; dual mother DOM contracts pass",
     "output_identity": "exact Git blob SHA verified against downloaded Actions artifact; preview existed before this run and was not overwritten",
-    "key_level_layers": 3,
+    "key_level_layers": 5,
     "required_key_level_layers": 5,
     "news_cross_section_duplicate_events": 4,
     "static_links": {
@@ -77,14 +74,47 @@
       "invalid_scheme": 0,
       "blank_without_noopener": 0
     },
-    "interaction_test": "not_run",
+    "interaction_test": {
+      "status": "PASS",
+      "nav_count": 10,
+      "focus_news_links": 5,
+      "headline_links": 10,
+      "investing_links": 106,
+      "cnyes_links": 2,
+      "page_errors": 0,
+      "accordion_tests": [
+        "earnings",
+        "economic",
+        "sector-collapse"
+      ]
+    },
     "pages_live_open": "not_verified",
     "independent_market_discrepancies": [
       "SOX: Nasdaq official 10729.98/+7.32% vs Investing.com 10603.4/+6.05%",
       "GCZ6: report 4028.70 vs Investing.com 3995.32/-0.87% and Reuters Dec futures 4000.50",
       "Russell 2000: AP close 2846.26 vs Yahoo ^RUT 2834.57; OHLC mismatch"
     ],
-    "unapproved_extra_section": "2026-11-10 CPI special-focus block present; not part of fixed weekday mother or a 2026-11-12 post-QA user addition"
+    "unapproved_extra_section": "2026-11-10 CPI special-focus block present; not part of fixed weekday mother or a 2026-11-12 post-QA user addition",
+    "published_earnings_reactions": {
+      "eligible": 32,
+      "calculated": 32,
+      "unavailable": 0
+    },
+    "news_audit": {
+      "focus_news": 5,
+      "hot_headlines": 10,
+      "source_and_time_window_gate": "PASS",
+      "unapproved_special_focus": false,
+      "same_title_repeat_check": "manual inspection: no exact duplicate titles; topic-level duplicate count not separately machine-measured"
+    },
+    "source_completeness": {
+      "total": 44,
+      "source_name_url_date_quote_type_present": 44,
+      "data_date": "2026-11-11",
+      "numeric": 40,
+      "market_closed": 4,
+      "pending": 0
+    }
   },
   "delivery": {
     "main_preview_path": "preview/2026-11-12-simulation.html",
@@ -98,7 +128,14 @@
     "pages_deploy_run_id": 43142647448,
     "pages_deploy_status": "success",
     "pages_url": "https://lion-invlab.github.io/preview/2026-11-12-simulation.html",
-    "live_preview_status": "Pages deploy job success; external URL open was not independently verified"
+    "live_preview_status": "Pages deploy job success; external URL open was not independently verified",
+    "latest_simulation_artifact_id": 13911142580,
+    "latest_simulation_run_id": 43144598097,
+    "latest_simulation_commit": "fa6d8c2ca2b5670916ed0fd7dbf6b81c1c20a8b1",
+    "latest_simulation_html": "TAC_投資早報_2026-11-12_審核版.html",
+    "latest_simulation_artifact_status": "QA passed; artifact only; not written to main",
+    "main_preview_status": "stale relative to latest QA artifact: only Ecopetrol calendar correction present; SOX/Russell/GCZ6 and key-level content remain old",
+    "main_write_scope": "main/index.html unchanged; no new main preview overwrite without explicit user authorization"
   },
   "notes": [
     "審核版資料截點固定05:25；實際組裝與關鍵價位擷取延後完成，未納入05:25之後的新資訊。",
@@ -110,24 +147,23 @@
     "Do not promote the corrected preview to index.html without explicit approval; review_ready remains false."
   ],
   "post_run_audit": {
-    "checked_at_taipei": "2026-11-12 06:27 onward",
+    "checked_at_taipei": "2026-11-12 10:55 onward",
     "preview_path": "preview/2026-11-12-simulation.html",
     "preview_blob_sha": "c3bf3d6f55cfc4be2a474887558210120ff2b14a",
     "preview_commit_sha": "c7850637c1748e40f1a839d0c9878a40ae848f93",
     "main_index_sha_unchanged": "daae9c236c566662e83c937375e8e038dfcb1c37",
     "calendar_json_sha": "06a776b0d30998a0aadbfa57e80b976a8ac2c6a7",
     "findings": [
-      "Gold GCZ6 quote unresolved",
-      "SOX source discrepancy unresolved",
-      "Russell 2000 OHLC mismatch",
-      "key levels only S1/P/R1 instead of five Chinese layers",
-      "four duplicate news events across focus/headline sections",
-      "special-focus block outside original QA scope",
-      "interaction tests and live Pages open not performed",
-      "Ecopetrol postponed status corrected in preview; main W46 JSON remains read-only.",
-      "TAC_CALENDAR_SOURCE provenance embedded and read back against the exact main commit and W46 blob.",
-      "Pages deploy run 43142647448 succeeded; live URL opening was not independently verified.",
-      "main/index.html remains at its previously published 11/12 version and was not updated with this correction."
+      "Latest simulation artifact passed all configured Gates against the exact formal weekday mother SHA 3785405e331b10ec6189002e480be2a1edbe20ef.",
+      "44/44 market indicators have source name, URL, date and quote type; 40 numeric values and 4 confirmed market-closed entries; 0 pending.",
+      "Five US cash-index pivot tables contain all five levels S2/S1/P/R1/R2.",
+      "W46 main calendar JSON remains read-only: blob 06a776b0d30998a0aadbfa57e80b976a8ac2c6a7; 16 economic and 48 earnings events reconcile exactly.",
+      "32/32 eligible published earnings reactions calculated; interaction and visual regression pass at 1440/768/360/320.",
+      "News gates pass for 5 focus stories and 10 hot headlines; no special-focus extra block is present.",
+      "The latest HTML is a GitHub Actions artifact only; it has not been written to main preview.",
+      "The existing main preview remains blob c3bf3d6f55cfc4be2a474887558210120ff2b14a and contains only the earlier Ecopetrol correction; it is stale relative to latest verified market values and five-level pivots.",
+      "main/index.html remains blob daae9c236c566662e83c937375e8e038dfcb1c37 and was not modified.",
+      "review_ready remains false until the latest artifact is delivered to the authorized preview channel and user review is completed."
     ],
     "review_ready": false,
     "calendar_static_reconciliation": {
@@ -139,6 +175,26 @@
       "missing_events": 0,
       "postponed_event": "current-ec-20261110",
       "postponed_label_verified": true
-    }
+    },
+    "latest_verified_artifact": {
+      "run_id": 43144598097,
+      "artifact_id": 13911142580,
+      "commit_sha": "fa6d8c2ca2b5670916ed0fd7dbf6b81c1c20a8b1",
+      "formal_weekday_mother_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
+      "qa_conclusion": "success",
+      "visual_viewports": [
+        1440,
+        768,
+        360,
+        320
+      ],
+      "interaction": "PASS",
+      "economic_events": 16,
+      "earnings_events": 48,
+      "earnings_price_reactions": "32/32",
+      "market_indicators": "44/44 source metadata; 40 numeric, 4 market-closed, 0 pending",
+      "key_level_layers": 5
+    },
+    "qa_complete": true
   }
 }

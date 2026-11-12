@@ -535,3 +535,13 @@
 - Pages deploy run `43142647448` completed/success；Deploy site and TAC previews job 及 Deploy to GitHub Pages step 均 success。嘗試以外部頁面讀取 preview URL 未成功，故 live URL 的實際瀏覽器呈現仍標示未獨立驗證。
 - main `index.html` 回讀 blob `daae9c236c566662e83c937375e8e038dfcb1c37`，與修正前 preview blob 相同；該首頁版本由既有 commit `9c25df67a729aa5c981a5c249949820f4f30a84c`（message: Publish approved TAC investment morning report 2026-11-12）發布。此次只修正 preview，未更新 index.html；不得將新修正版稱為已同步至正式首頁。
 - 本次未更動 main 行事曆 JSON、WR、Manifest、正式母版或 index.html。早報仍不得標示 review_ready：互動測試及 live URL 實際呈現未完成，其他行情／新聞原文驗收仍依既有待辦狀態管理。若要將此最新修正版同步正式首頁，須另依使用者明確核准執行。
+
+
+## 2026-11-12｜正式母版對齊與 11/12 最新 QA 完成
+
+- Run `43144598097` / commit `fa6d8c2ca2b5670916ed0fd7dbf6b81c1c20a8b1` / artifact `13911142580`：SUCCESS。
+- 將模擬雙母版副本校準為 main Manifest 核准母版的逐位元副本；週一 `a568e594e55909041d51d8eae7e6fe5f7986c096`、週二至週五 `3785405e331b10ec6189002e480be2a1edbe20ef`。移除 simulation-only CSS 必要條件；修正 DOM 驗收器，尊重正式母版的不同欄位型態。
+- 審核版依正式 weekday mother 組裝；視覺回歸 1440／768／360／320 全 PASS、failures=[]；互動 PASS；16 經濟、48 財報、32/32 財報股價反應通過。
+- 44 指標 source/name/URL/date/quote_type 全數具備；40 數值、4 休市、0 pending；五項指數五層關鍵價位均輸出。
+- W46 JSON 僅讀取 main blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`，未寫入；Ecopetrol 延期標示通過。
+- 最新 HTML 僅為 Actions artifact，尚未同步 main preview。既有 main preview blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a` 尚未包含本輪行情／五層價位；main index SHA `daae9c236c566662e83c937375e8e038dfcb1c37` 未變。等待使用者明確授權交付至 main preview；首頁發布仍須另行審核授權。
