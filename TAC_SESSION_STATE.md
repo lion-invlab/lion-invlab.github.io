@@ -11,7 +11,22 @@
 
 - 模擬區根規則：本分支根目錄 `TAC_WORK_RULES.md` blob SHA `feb9f87a246bd9e55c8468ac77d99d8acd947f63`；`simulation-lab/TAC_WORK_RULES_SIM.md` SIM-0.8 blob SHA `11cfedfdcb3363d445277e87fccdd504e9ef93ce`。
 
-## 0. 2026-11-12 當前工作狀態（最新）
+## 0. 2026-11-13 當前工作狀態（最新）
+
+- 報告日期：2026-11-13（星期五）；行情基準日：2026-11-12；時區 Asia/Taipei；截稿基準 05:25。
+- 排程狀態：今日 05:25 排程已觸發，紀錄顯示約 05:26 啟動、狀態 in_progress；但階段通知未成功呈現在目前對話。本輪由目前對話人工接手，未另啟動第二次重複排程。
+- 工作分支：`simulation/tac-process-lab-2026-11-06`；本次開始時 branch HEAD `a8a7cffc70cf03988658376c0dbcac86c65f25ad`。
+- 正式規則：main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`；`TAC_WORK_RULES.md` v5.15，blob SHA `23b52f27b7afad083bbe28ed86021e04759f198d`。
+- 模擬規則：`simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.1，blob SHA `4c8e493dc7b96c345970469ccd1d418e5273d273`。
+- Manifest：main `母版專區/mother-template-manifest.json` blob SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；週二至週五核准母版 `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` blob SHA `3785405e331b10ec6189002e480be2a1edbe20ef`，與 Manifest 一致；QA 清單 v1.3 blob SHA `74a7c90aaaeee497b7b2b134d9569aee615d95c0`。
+- 唯一行事曆來源：main `data/calendar/weeks/2026-W46.json`，同一 main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`，blob SHA `ebad9f0574044b83712a549ea0923af30b39c8e0`，`updated_at=2026-11-13T04:30:43+08:00`；本週 JSON 只讀，禁止複寫／修補／回存。今日篩選 3 筆經濟事件、6 筆財報事件。
+- 預覽目標：`main/preview/2026-11-13-simulation.html`（本輪尚未建立）；只允許在審核版完成後走狹窄 preview 例外通道，不得修改 main `index.html`、母版、Manifest、WR 或 calendar JSON。
+- 第一步狀態：完成。已鎖定日期、交易日、正式 WR、SIM 規則、main HEAD、Manifest、母版、QA 清單與 W46 唯一資料來源。
+- 第二步狀態：進行中。已取得 AP 的美股四大指數 11/12 收盤、11 大產業 ETF 同日收盤備援資料，以及部分外匯／商品資料；SOX、VIX、GCZ6、MOVE、美債殖利率及部分匯率仍有同日來源／口徑差異或待補，不得標記 44 項完成。
+- 第三步狀態：W46 當日 3 經濟／6 財報事件已讀取；30 年期標售結果待官方核實；Cisco、Applied Materials、Cerebras 官方財報已取得，EPS 共識口徑及股價反應仍需分別處理。
+- 第四步狀態：新聞窗口為 2026-11-12 12:00 至 2026-11-13 05:25（台灣時間）；已取得 Reuters、鉅亨網等候選資料，原始發布時間、焦點／頭條去重與 5+10 篩選尚未完成。
+- 當前狀態：`review_ready=false`；未組裝、未交付、未發布。下一步先完成 44 項行情逐項台帳及新聞時間窗查核，再組裝既有母版。
+- 保護界線：不得啟動舊的大型端到端 pipeline；不得修改正式首頁、母版、Manifest、正式規則及正式行事曆資料庫；不得用過期 fixture 冒充 live data。
 
 - 工作分支：`simulation/tac-process-lab-2026-11-06`；最新驗收 commit `a9ae77fbd07568f80266abe4c41b284844741b67`。
 - 最新 GitHub Actions：run `43134968392` completed/success；artifact ID `13907346358`。審核版 HTML：`simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html`（只存在 workflow artifact，沒有寫回 main preview）。
