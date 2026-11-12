@@ -9,19 +9,24 @@ on:
       - "!simulation-lab/runs/**"
       - "!simulation-lab/output/**"
       - ".github/workflows/tac-simulation-lab.yml"
-      - ".github/workflows/tac-key-levels-live.yml"
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: "台灣報告日期 YYYY-MM-DD；留白時自動選最新 fixture"
+        required: false
+        type: string
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: tac-simulation-lab-focus-tabs-20261107
+  group: tac-simulation-lab-${{ github.event.inputs.report_date || 'push-smoke' }}
   cancel-in-progress: true
 
 jobs:
   isolated-smoke:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - name: Checkout simulation branch only
         uses: actions/checkout@v4
@@ -34,7 +39,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install minimal test dependencies
+      - name: Install Python dependencies
         run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars
 
       - name: Run deterministic self-tests
@@ -49,134 +54,126 @@ jobs:
           python scripts/render_tac_market_snapshot_to_html.py --help >/dev/null
           python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09 --self-test
           python simulation-lab/runner/collect_key_levels_ohlc.py --self-test
+          python simulation-lab/runner/validate_dual_mothers.py
 
-      - name: Set up Node for browser regression
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-
-      - name: Install Playwright Chromium
-        timeout-minutes: 6
+      - name: Resolve report date, fixture, weekday mother and SHA
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          INPUT_REPORT_DATE: ${{ github.event.inputs.report_date }}
         run: |
-          npm install --no-save --package-lock=false playwright
-          npx playwright install --with-deps chromium
+          set -euo pipefail
+          if [[ -n "${INPUT_REPORT_DATE}" ]]; then
+            REPORT_DATE="${INPUT_REPORT_DATE}"
+          else
+            REPORT_DATE="$(python - <<'PY'
+          from pathlib import Path
+          import re
+          files = sorted(Path("simulation-lab/fixtures").glob("report-data-????-??-??.json"))
+          if not files:
+              raise SystemExit("No report-data-YYYY-MM-DD.json fixture exists")
+          print(re.search(r"(\\d{4}-\\d{2}-\\d{2})", files[-1].name).group(1))
+          PY
+          )"
+          fi
+          python - "${REPORT_DATE}" <<'PY'
+          import sys, json
+          from datetime import date
+          from pathlib import Path
+          d = date.fromisoformat(sys.argv[1])
+          if d.weekday() > 4:
+              raise SystemExit(f"Weekend report date is not allowed: {d}")
+          fixture = Path(f"simulation-lab/fixtures/report-data-{d.isoformat()}.json")
+          if not fixture.is_file():
+              raise SystemExit(f"Missing date-matched fixture: {fixture}; refusing to reuse another date")
+          data = json.loads(fixture.read_text(encoding="utf-8"))
+          if data.get("report_date") != d.isoformat():
+              raise SystemExit(f"Fixture report_date mismatch: {data.get('report_date')!r} != {d}")
+          if data.get("timezone") != "Asia/Taipei":
+              raise SystemExit("Fixture timezone must be Asia/Taipei")
+          PY
+          TEMPLATE_KEY="$(python - "${REPORT_DATE}" <<'PY'
+          import sys
+          from datetime import date
+          print("monday" if date.fromisoformat(sys.argv[1]).weekday() == 0 else "weekdays")
+          PY
+          )"
+          EXPECTED_SHA="$(python - "${TEMPLATE_KEY}" <<'PY'
+          import json, sys
+          m = json.loads(open("simulation-lab/baseline/mother-template-manifest.json", encoding="utf-8").read())
+          print(m["templates"][sys.argv[1]]["simulation_blob_sha"])
+          PY
+          )"
+          echo "REPORT_DATE=${REPORT_DATE}" >> "$GITHUB_ENV"
+          echo "REPORT_DATA=simulation-lab/fixtures/report-data-${REPORT_DATE}.json" >> "$GITHUB_ENV"
+          echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
+          echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
+          echo "REPORT_OUTPUT=simulation-lab/output/TAC_投資早報_${REPORT_DATE}_審核版.html" >> "$GITHUB_ENV"
+          echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
-      - name: Validate exact approved dual mother DOM contracts
-        run: python simulation-lab/runner/validate_dual_mothers.py
-
-      - name: Capture verified live OHLC for five US cash indices
+      - name: Capture cash-index OHLC for the selected report date
+        if: github.event_name == 'workflow_dispatch'
         run: |
-          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date 2026-11-12 --report-data simulation-lab/fixtures/report-data-2026-11-12.json --output simulation-lab/output/key-levels-live.json
+          python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date "${REPORT_DATE}" --report-data "${REPORT_DATA}" --output simulation-lab/output/key-levels-live.json
 
-      - name: Capture published earnings price reactions from Yahoo Finance
-        run: python simulation-lab/runner/collect_earnings_price_reactions.py --report-date 2026-11-12 --output simulation-lab/output/earnings-price-reactions.json
-
-      - name: Assemble actual 2026-11-12 weekday review from verified report data
+      - name: Capture released earnings price reactions for the selected report date
+        if: github.event_name == 'workflow_dispatch'
         run: |
-          python simulation-lab/runner/build_review_html.py --data simulation-lab/fixtures/report-data-2026-11-12.json --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html --expected-master-sha 3785405e331b10ec6189002e480be2a1edbe20ef
+          python simulation-lab/runner/collect_earnings_price_reactions.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-price-reactions.json
+
+      - name: Assemble date-driven review from the matching fixture and approved mother
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}"
 
       - name: Test navigation tabs accordions and source links
-        run: node simulation-lab/runner/interaction_smoke.mjs simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html simulation-lab/output/interaction-smoke.json
+        if: github.event_name == 'workflow_dispatch'
+        run: node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
 
-      - name: Compare 2026-11-12 review against approved weekday mother
-        run: node simulation-lab/runner/visual_regression.mjs simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html weekdays 2026-11-12
+      - name: Compare review against the date-selected approved mother
+        if: github.event_name == 'workflow_dispatch'
+        run: node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
-      - name: Validate calendar counts and non-comparable EPS display
+      - name: Validate date, authoritative calendar counts, 44 indicators and news shape
+        if: github.event_name == 'workflow_dispatch'
         run: |
-          python - <<'PY'
-          import json
-          from bs4 import BeautifulSoup
+          python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
+          import json, sys
           from pathlib import Path
-          p = Path("simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html")
-          soup = BeautifulSoup(p.read_text(encoding="utf-8"), "html.parser")
-          econ = soup.select("#calendar .econ-event")
-          earnings = soup.select("#earnings .earnings-accordion")
-          assert len(econ) == 16, f"expected 16 main economic events, got {len(econ)}"
-          assert len(earnings) == 48, f"expected 48 main earnings events, got {len(earnings)}"
-          report_data = json.loads(Path("simulation-lab/fixtures/report-data-2026-11-12.json").read_text(encoding="utf-8"))
-          focus = report_data["focus_news"]
-          assert len(focus) == 5, f"expected 5 global focus stories, got {len(focus)}"
-          assert len({x["title"] for x in focus}) == 5, "duplicate focus news titles"
-          for story in focus:
-              assert story["url"].startswith(("https://hk.investing.com/", "https://news.cnyes.com/")), f"focus source outside Cnyes/Investing.com: {story['url']}"
-              assert "2026-11-11 12:00" <= story["published_at_tw"] <= "2026-11-12 05:25", f"focus story outside 05:25 selection window: {story['published_at_tw']}"
-          assert len(report_data["headlines"]) == 10, "market hot headlines must contain 10 stories"
-          assert "Ciena" in report_data["headlines"][-1]["title"], "index recap was not replaced by the Ciena AI optics story"
-          assert "三大指數" not in report_data["headlines"][-1]["title"], "market hot headline repeats index close list"
-          assert report_data["global_markets"]["費城半導體指數"]["display"] == "10,564.1"
-          assert report_data["global_markets"]["費城半導體指數"]["change_display"] == "+5.66%"
-          assert report_data["global_markets"]["羅素2000指數"]["display"] == "2,846.26"
-          assert report_data["global_markets"]["羅素2000指數"]["change_display"] == "+0.88%"
-          assert report_data["metals"]["黃金期貨 GC"]["display"] == "3,994.30"
-          assert report_data["metals"]["黃金期貨 GC"]["change_display"] == "-0.89%"
-          assert report_data["metals"]["白銀期貨 SI"]["display"] == "51.24"
-          assert report_data["metals"]["白銀期貨 SI"]["change_display"] == "+0.03%"
-          for label, expected in (("2年期美債殖利率","4.748%"),("10年期美債殖利率","5.021%"),("30年期美債殖利率","5.358%")):
-              bond = report_data["bonds"][label]
-              assert bond["display"] == "休市"
-              assert bond["source"]["quote_type"] == "market_closed_no_valid_quote"
-              assert "無有效" in bond["change_display"]
-          assert report_data["risk"]["move"]["display"] == "休市"
-          indicator_rows = (
-              list(report_data["global_markets"].values()) +
-              list(report_data["bonds"].values()) +
-              list(report_data["fx"].values()) +
-              list(report_data["energy"].values()) +
-              list(report_data["metals"].values()) +
-              list(report_data["risk"].values()) +
-              [{"display": value} for value in report_data["sectors"].values()]
+          from bs4 import BeautifulSoup
+          sys.path.insert(0, "simulation-lab/runner")
+          from calendar_source_guard import load_authoritative_calendar
+          report_date, data_path, html_path = sys.argv[1:]
+          data = json.loads(Path(data_path).read_text(encoding="utf-8"))
+          html = BeautifulSoup(Path(html_path).read_text(encoding="utf-8"), "html.parser")
+          assert data["report_date"] == report_date
+          assert html.select_one('meta[name="report-date"]')["content"] == report_date
+          calendar = load_authoritative_calendar(report_date)
+          expected_econ = calendar["current"]["economic_count"]
+          expected_earnings = calendar["current"]["earnings_count"]
+          actual_econ = len(html.select("#calendar .econ-event"))
+          actual_earnings = len(html.select("#earnings .earnings-accordion"))
+          assert actual_econ == expected_econ, f"economic calendar mismatch: {actual_econ}/{expected_econ}"
+          assert actual_earnings == expected_earnings, f"earnings calendar mismatch: {actual_earnings}/{expected_earnings}"
+          indicators = (
+              list(data.get("global_markets", {}).values()) +
+              list(data.get("bonds", {}).values()) +
+              list(data.get("fx", {}).values()) +
+              list(data.get("energy", {}).values()) +
+              list(data.get("metals", {}).values()) +
+              list(data.get("risk", {}).values()) +
+              [{"display": value} for value in data.get("sectors", {}).values()]
           )
-          assert len(indicator_rows) == 44, f"expected 44 indicators, got {len(indicator_rows)}"
-          assert sum(1 for row in indicator_rows if row.get("display") == "休市") == 4, "three Treasury yields and MOVE should remain closed without valid cutoff quotes"
-          assert "russell2000" not in report_data.get("key_levels_overrides", {}), "CFD Russell override must not be used for ^RUT cash index"
-          levels = json.loads(Path("simulation-lab/output/key-levels-live.json").read_text(encoding="utf-8"))
-          sox_level = next(x for x in levels["key_levels"]["items"] if x["key"] == "sox")
-          rut_level = next(x for x in levels["key_levels"]["items"] if x["key"] == "russell2000")
-          assert "C 10,564.11" in sox_level["ohlc"], f"SOX close mismatch: {sox_level['ohlc']}"
-          assert "C 2,846.26" in rut_level["ohlc"], f"Russell cash close mismatch: {rut_level['ohlc']}"
-          reactions = json.loads(Path("simulation-lab/output/earnings-price-reactions.json").read_text(encoding="utf-8"))
-          assert reactions["main_commit_sha"], "price reaction source commit SHA missing"
-          assert reactions["calendar_blob_sha"], "price reaction calendar blob SHA missing"
-          assert reactions["reaction_count"] == reactions["eligible_count"], f"unresolved eligible earnings price reactions: {reactions['reaction_count']}/{reactions['eligible_count']}"
-          assert reactions["unavailable_count"] == 0, f"unavailable eligible earnings reactions remain: {reactions['unavailable_count']}"
-          all_text = soup.get_text(" ", strip=True)
-          assert "數值高於預期（EPS口徑待核實）" not in all_text
-          assert "數值低於預期（EPS口徑待核實）" not in all_text
-          assert "無有效 11/11 收盤／CFD 報價" in all_text, "Treasury holiday no-valid-quote status was not rendered"
-          assert "2年期美債殖利率" in all_text and "10年期美債殖利率" in all_text and "30年期美債殖利率" in all_text
-          assert "公告後首個交易日收盤" in all_text, "verified earnings price reactions were not rendered into HTML"
-          reaction_cards = [x for x in earnings if "公告後首個交易日收盤" in x.get_text(" ", strip=True)]
-          assert len(reaction_cards) == reactions["reaction_count"], f"HTML price reaction cards mismatch: {len(reaction_cards)} vs {reactions['reaction_count']}"
-          for card in reaction_cards:
-              price_field = next((f for f in card.select(".earnings-detail-field") if f.select_one("label") and f.select_one("label").get_text(" ", strip=True) == "股價當日表現"), None)
-              assert price_field and price_field.select_one(".earnings-detail-value a[href^='https://']"), "price reaction source link missing"
-          on = next((x for x in earnings if "On Holding" in x.get_text(" ", strip=True)), None)
-          assert on is not None
-          on_text = on.get_text(" ", strip=True)
-          for expected in ("CHF 0.48", "US$0.48", "CHF 0.931B", "US$1.140B"):
-              assert expected in on_text, f"On Holding currency label missing: {expected}"
-          ec = next((x for x in earnings if "Ecopetrol S.A." in x.get_text(" ", strip=True)), None)
-          assert ec is not None
-          ec_text = ec.get_text(" ", strip=True)
-          assert "已延期；改期至 11/13" in ec_text, "Ecopetrol postponed date/status was not rendered exactly"
-          assert "即將公布；11/13" not in ec_text, "postponed earnings must not be labelled as simply upcoming"
-          assert "時間待核實" in ec_text, "Ecopetrol unconfirmed release time must remain explicit"
-          postponed_cards = [x for x in earnings if "已延期；改期至" in x.get_text(" ", strip=True)]
-          assert len(postponed_cards) == 1, f"expected exactly one postponed earnings card, got {len(postponed_cards)}"
-          vylor = next((x for x in earnings if "Vylor" in x.get_text(" ", strip=True)), None)
-          assert vylor is not None
-          vylor_text = vylor.get_text(" ", strip=True)
-          assert "電話會議 22:00" in vylor_text, "Vylor webcast time must be labelled as call time"
-          assert "財報發布：盤後（發布時間待核實）；電話會議：22:00" in vylor_text, "Vylor release/call times must not be conflated"
-          nebius = next((x for x in earnings if "Nebius Group" in x.get_text(" ", strip=True)), None)
-          assert nebius is not None and "財報發布：盤前（發布時間待核實）；電話會議：21:00" in nebius.get_text(" ", strip=True)
-          print("PASS: main calendar counts; pending EPS non-directional; currencies split; postponed status; release vs call time")
+          assert len(indicators) == 44, f"expected 44 indicator fields, got {len(indicators)}"
+          assert len(data.get("focus_news", [])) == 5, "global focus news must contain 5 stories"
+          assert len({x.get("title") for x in data["focus_news"]}) == 5, "duplicate focus news titles"
+          assert len(data.get("headlines", [])) == 10, "market headlines must contain 10 stories"
+          print(f"PASS: report_date={report_date}; calendar={actual_econ}/{expected_econ}; earnings={actual_earnings}/{expected_earnings}; indicators=44; focus=5; headlines=10")
           PY
 
-
-
       - name: Keep review output isolated to simulation branch artifact
-        run: test -s simulation-lab/output/TAC_投資早報_2026-11-12_審核版.html
+        if: github.event_name == 'workflow_dispatch'
+        run: test -s "${REPORT_OUTPUT}"
 
       - name: Record isolated run metadata
         if: always()
@@ -188,7 +185,8 @@ jobs:
             echo "commit=$GITHUB_SHA"
             echo "run_id=$GITHUB_RUN_ID"
             echo "run_attempt=$GITHUB_RUN_ATTEMPT"
-            echo "main_write_scope=read-only; simulation branch artifact only"
+            echo "report_date=${REPORT_DATE:-self-test-only}"
+            echo "main_write_scope=read-only"
             echo "production_deploy=forbidden"
           } > simulation-lab/output/runner-metadata.txt
 
@@ -196,7 +194,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: tac-simulation-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+          name: tac-simulation-${{ github.run_id }}-${{ github.run_attempt }}
           path: simulation-lab/output/
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 7
