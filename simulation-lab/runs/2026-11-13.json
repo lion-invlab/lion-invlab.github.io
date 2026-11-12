@@ -720,9 +720,9 @@
   },
   "key_levels": {
     "formula": "P=(H+L+C)/3; S1=2P-H; R1=2P-L; S2=P-(H-L); R2=P+(H-L)",
-    "verified_sets": 2,
+    "verified_sets": 3,
     "provisional_sets": 0,
-    "pending_sets": 3,
+    "pending_sets": 2,
     "items": [
       {
         "index": "DJI",
@@ -756,13 +756,19 @@
       },
       {
         "index": "SOX",
-        "status": "pending",
+        "status": "verified",
         "high": 10686.8,
-        "low": null,
+        "low": 10174.1,
         "close": 10506.7,
-        "levels": null,
-        "source": "Investing.com HK",
-        "note": "已依 Investing.com HK 歷史頁截圖校正 11/12 收盤、開盤、最高；截圖右側最低價欄遭裁切，待取得該欄數字後才計算 Pivot 支撐壓力。舊資料將 10,174.1 誤作最低價，已撤銷舊計算。",
+        "levels": {
+          "S2": 9943.17,
+          "S1": 10224.93,
+          "P": 10455.87,
+          "R1": 10737.63,
+          "R2": 10968.57
+        },
+        "source": "Investing.com HK historical data (user-provided screenshots)",
+        "note": "依使用者提供的兩張 Investing.com HK 歷史表格截圖，2026-11-12 SOX OHLC：開盤 10,174.1、最高 10,686.8、最低 10,174.1、收盤 10,506.7。依既定 Pivot 公式重算。",
         "open": 10174.1
       },
       {
@@ -956,6 +962,7 @@
     "未觸發舊端到端排程，未修改 workflow、WR、Manifest、正式母版或其他 main 檔案。",
     "本次實際啟動時間 05:26:12，較預定 05:25 晚 1 分 12 秒；行情資料基準日仍為 2026-11-12。",
     "2026-11-13 即時補查修正：11 檔 S&P sector ETF 直接採用 Investing.com HK 報價頁最新收盤報價（Close 04:59:59），不再因歷史表格仍顯示 11/11 而列 pending；MOVE 採使用者明確確認的 TVC 截圖 11/12 收盤 98.4202。",
-    "SOX 歷史數據修正：使用者指出應直接讀取 Investing.com HK 歷史數據表。依截圖校正 2026-11-12 收盤 10,506.7、開盤 10,174.1、最高 10,686.8；最低價欄被截圖裁切。舊計算誤把開盤 10,174.1 當最低價，已撤銷 SOX 舊 Pivot levels，待補最低價後重算。"
+    "SOX 歷史數據修正：使用者指出應直接讀取 Investing.com HK 歷史數據表。依截圖校正 2026-11-12 收盤 10,506.7、開盤 10,174.1、最高 10,686.8；最低價欄被截圖裁切。舊計算誤把開盤 10,174.1 當最低價，已撤銷 SOX 舊 Pivot levels，待補最低價後重算。",
+    "SOX OHLC 補齊：使用者第二張 Investing.com HK 歷史表截圖明確顯示 11/12 高 10,686.8、低 10,174.1；配合第一張截圖開盤 10,174.1、收盤 10,506.7。Pivot 已重算。"
   ]
 }
