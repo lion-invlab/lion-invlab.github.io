@@ -545,3 +545,15 @@
 - 44 指標 source/name/URL/date/quote_type 全數具備；40 數值、4 休市、0 pending；五項指數五層關鍵價位均輸出。
 - W46 JSON 僅讀取 main blob `06a776b0d30998a0aadbfa57e80b976a8ac2c6a7`，未寫入；Ecopetrol 延期標示通過。
 - 最新 HTML 僅為 Actions artifact，尚未同步 main preview。既有 main preview blob `c3bf3d6f55cfc4be2a474887558210120ff2b14a` 尚未包含本輪行情／五層價位；main index SHA `daae9c236c566662e83c937375e8e038dfcb1c37` 未變。等待使用者明確授權交付至 main preview；首頁發布仍須另行審核授權。
+
+
+## 2026-11-13 05:33 TST｜11/13 早報人工流程啟動與基準鎖定
+
+- 今日排程 05:25 已觸發，紀錄約 05:26 啟動、狀態 in_progress；但階段通知未呈現在目前對話。本輪由目前對話接手，未另啟動重複排程。
+- 正式基準：main HEAD `8e72c8e08db1258a6391cebdb83c4069aa09f5e5`；WR v5.15 blob `23b52f27b7afad083bbe28ed86021e04759f198d`；Manifest blob `fade5e3d88de76a79cb5c1656cc592b98827ab55`；weekday mother blob `3785405e331b10ec6189002e480be2a1edbe20ef`；QA contract v1.3 blob `74a7c90aaaeee497b7b2b134d9569aee615d95c0`；SIM-1.1 blob `4c8e493dc7b96c345970469ccd1d418e5273d273`。
+- 第一階段已完成。報告日期 2026-11-13（Fri），行情基準日 2026-11-12；唯一行事曆來源為 main W46 blob `ebad9f0574044b83712a549ea0923af30b39c8e0`，updated_at `2026-11-13T04:30:43+08:00`，同一 main HEAD；本輪只讀，今日 3 筆經濟事件、6 筆財報事件。
+- 第二階段進行中：AP 提供 11/12 美股四大指數收盤（S&P 500 7,592.40、Dow 52,297.09、Nasdaq 25,366.09、Russell 2000 2,799.06）；SOX／VIX／GCZ6 等來源仍有同日差異，維持待核實。11 大產業 ETF 已從 StockAnalysis / S&P Global Market Intelligence 歷史頁取得 11/12 收盤資料；Investing.com HK 多個 ETF 歷史頁尚停留 11/11，未冒用舊日數據。
+- 行事曆已讀取：美國 30Y 標售結果官方來源待核實；Eurozone Q3 GDP T+45 flash 12:00；美國 10 月 PPI 21:30。Cisco Q1 FY2027、Applied Materials FY2026 Q4、Cerebras Q3 2026 已取得公司公告／財報資料；EPS 共識口徑及盤後股價反應未核實者不作 beat/miss 或反應結論。
+- 新聞候選資料已取得 Reuters／鉅亨網／Investing.com 等來源；新聞窗口鎖定 2026-11-12 12:00 至 2026-11-13 05:25（Asia/Taipei）。尚未完成逐篇原始發布時間查核、焦點新聞 5 則與熱門頭條 10 則去重。
+- Session State 已更新，commit `3630fcb0d1327e7b58f447311a3993eabbf2549c`，blob `51e2575e96b1bbb4d97266d8f8e3300c752c57d1`。
+- 未建立審核版 HTML，未寫入 main preview，未修改 main index、母版、Manifest、WR 或 W46 JSON；`review_ready=false`。
