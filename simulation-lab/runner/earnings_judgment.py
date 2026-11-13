@@ -84,6 +84,17 @@ def _valid_source(value: Any) -> bool:
     )
 
 
+def _has_explicit_revenue_consensus_divergence(record: dict) -> bool:
+    """Recognize only curated notes that explicitly document unresolved revenue-consensus disagreement."""
+    source = record.get("revenue_consensus_source")
+    notes = source.get("notes") if isinstance(source, dict) else None
+    if not isinstance(notes, str):
+        return False
+    has_revenue_context = "營收共識" in notes or "revenue consensus" in notes.casefold()
+    has_unresolved_divergence = "不一致" in notes or "差異仍未解" in notes or "unresolved divergence" in notes.casefold()
+    return has_revenue_context and has_unresolved_divergence
+
+
 def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
     difference = actual - estimate if actual is not None and estimate is not None else None
     surprise_pct = None
@@ -146,6 +157,13 @@ def evaluate_metric(record: dict, metric: str) -> dict:
         if units_valid and actual_unit.strip().casefold() != estimate_unit.strip().casefold():
             return _result("incomparable", "revenue_unit_mismatch", actual, estimate)
 
+    # A verified, unresolved disagreement between consensus sources must
+    # not be collapsed into a directional result or hidden behind missing basis.
+    consensus_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    if record.get(f"{metric}_consensus_conflict") is True:
+        if _valid_source(record.get("source")) and _valid_source(record.get(consensus_key)):
+            return _result("consensus_divergent", "verified_consensus_sources_diverge", actual, estimate)
+
     actual_basis = record.get(f"{metric}_actual_basis_code")
     estimate_basis = record.get(f"{metric}_estimate_basis_code")
     if not _valid_code(actual_basis, metric) or not _valid_code(estimate_basis, metric):
@@ -171,9 +189,6 @@ def evaluate_metric(record: dict, metric: str) -> dict:
         return _result("pending", "missing_actual_source_url_or_observed_at", actual, estimate)
     if not _valid_source(consensus_source):
         return _result("pending", "missing_consensus_source_url_or_observed_at", actual, estimate)
-
-    if record.get(f"{metric}_consensus_conflict") is True:
-        return _result("consensus_divergent", "verified_consensus_sources_diverge", actual, estimate)
 
     tolerance = _decimal(record.get(f"{metric}_inline_tolerance_abs"))
     if tolerance is None:
@@ -335,6 +350,8 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
         "revenue_estimate_unit",
         _revenue_unit_from_basis_label(record.get("revenue_estimate_basis")),
     )
+    if _has_explicit_revenue_consensus_divergence(record):
+        migrated["revenue_consensus_conflict"] = True
 
     return apply_judgment(migrated, observed_at)
 
