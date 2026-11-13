@@ -58,9 +58,18 @@ EPS 的 18 筆方向性狀態都有自由文字 basis 欄位，但尚無受控 b
 - Actual 與 consensus source 的觀察時間已可存於來源物件，不必重複建立平行來源台帳。
 - 股價反應欄位 42 筆皆未填，應列為獨立資料完整性議題，不可混入 EPS／營收 Beat／Miss 修正。
 
-## GitHub 排程核查
+## 04:35 唯一寫入者與排程核查
 
-main `.github/workflows/` 目前沒有 TAC calendar writer。現有 `.github/workflows/main.yml` 是 S&P 500 volatility updater，不是行事曆抓取器。WR v5.15 提到的 04:35 唯一寫入排程，其實際 workflow／程式入口目前未在 main repo 找到。此為正式整合阻塞，未經確認不得改正式 JSON 或另建第二個 writer。
+已確認 WR v5.15 所稱 04:35 唯一 writer 是 ChatGPT automation，不是 GitHub Actions：
+
+- 任務：`TAC 行事曆資料庫｜每日 04:35 預更新`
+- ID：`6ae6dff2200c81919ba2cee4db78f8a5`
+- Asia/Taipei，週一至週五 04:35；目前 **disabled**。
+- 最近一次 run：`3db31e2d-2b68-832f-94ea-c4dda4bbd91e`，11/13 04:30:35 啟動、04:52:16 完成，更新 W46 JSON。
+- 該 automation prompt 要求「schema 未變」，且沒有引用唯一判讀引擎，因此不會主動遷移 Schema v2。
+- main `.github/workflows/` 沒有 TAC calendar writer；現有 `.github/workflows/main.yml` 是 S&P 500 volatility updater。
+
+因此正式整合前必須同步更新唯一 automation 的執行契約，並完成 42 筆既有資料遷移及回歸；不可另建第二個 JSON writer。
 
 ## 結論
 
