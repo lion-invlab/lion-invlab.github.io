@@ -5,9 +5,9 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-13T14:00:00+08:00",
+  "updated_at": "2026-11-13T17:07:53+08:00",
   "source_report_date": "2026-11-13",
-  "wr_version": "5.15",
+  "wr_version": "5.19",
   "status": "active",
   "events": {
     "economic": [
@@ -1394,17 +1394,17 @@
         "reporting_period": "FY2027 Q1",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Nasdaq analyst consensus via StockTitan; GAAP/non-GAAP basis not disclosed",
-        "eps_estimate": 1.15,
+        "eps_basis": "Non-GAAP diluted EPS (USD/share); Investing.com forecast US$1.32",
+        "eps_estimate": 1.32,
         "eps_actual": 1.4,
         "revenue_estimate": 18.11,
         "revenue_actual": 18.517,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "Cisco Q1 FY2027 revenue US$18.517B，GAAP diluted EPS US$1.14、non-GAAP diluted EPS US$1.40。公司表示營收年增 24%，AI hyperscaler 基礎設施收入 FY27 預期提高至 US$9B。既有 EPS consensus US$1.15 的會計口徑未揭露，不以 non-GAAP US$1.40 或 GAAP US$1.14 任選其一硬判超預期；營收 consensus US$18.11B 的 estimate basis 未提供獨立定義，先保留實績並待口徑核對。",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "Cisco Q1 FY2027：GAAP revenue US$18.517B，高於 Investing.com 公布前共識 US$18.11B；non-GAAP diluted EPS US$1.40，高於 Investing.com 共識 US$1.32。LSEG I/B/E/S 與 FactSet Estimates 本輪未取得可追溯的直接共識資料，依 v5.19 來源階梯採第三來源 Investing.com。共識採用值有歷史快照可回讀限制，來源與限制已揭露。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -1419,18 +1419,18 @@
           ]
         },
         "consensus_source": {
-          "name": "Nasdaq Earnings Calendar consensus via StockTitan",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-9-2026",
-          "publisher": "Nasdaq via StockTitan",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "Nov 6 2026 published EPS consensus. Accounting basis not disclosed; do not infer beat/miss until actual basis verified."
+          "name": "Investing.com｜Cisco Q1 FY2027 earnings consensus",
+          "url": "https://www.investing.com/equities/cisco-sys-inc-earnings",
+          "publisher": "Investing.com",
+          "observed_at": "2026-11-13T17:07:53+08:00",
+          "notes": "來源階梯：本輪未能從可用公開資料直接取得可追溯的 LSEG I/B/E/S 或 FactSet Estimates 共識記錄，依序降至第三來源 Investing.com。Investing.com Q1 FY2027 結果頁列 EPS actual 1.40 / forecast 1.32；其結果摘要明確稱 1.40 為 non-GAAP EPS，故以 non-GAAP diluted EPS US$1.40 對 US$1.32 比較。此為結果頁事後回顧的共識欄位；原始頁顯示發布前預估但未提供本輪可獨立回讀的歷史快照時間，故保留為第三來源並標示快照限制。"
         },
         "revenue_consensus_source": {
-          "name": "Finviz Earnings Calendar｜Revenue estimate",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-12&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 revenue estimate；原頁以 USD B 顯示。"
+          "name": "Investing.com｜Cisco Q1 FY2027 earnings consensus",
+          "url": "https://www.investing.com/equities/cisco-sys-inc-earnings",
+          "publisher": "Investing.com",
+          "observed_at": "2026-11-13T17:07:53+08:00",
+          "notes": "來源階梯：本輪未能從可用公開資料直接取得可追溯的 LSEG I/B/E/S 或 FactSet Estimates 共識記錄，依序降至第三來源 Investing.com。頁面列 GAAP revenue actual US$18.50B / forecast US$18.11B；原頁未明列共識統計方式，按 USD billions 保存。歷史快照時間未能獨立回讀，保留來源事後結果頁的限制。"
         },
         "price_reaction_source": null,
         "issuer_country": "United States",
@@ -1471,7 +1471,7 @@
         "revenue_unit": "M",
         "eps_comparison_status": null,
         "revenue_comparison_status": null,
-        "financial_judgment": "Cerebras Q3 2026 官方發布 GAAP revenue US$210.8M，另列 Core revenue US$230.9M、GAAP cloud revenue US$144.9M。現有 revenue consensus US$214.7M 的定義／是否對應 Core revenue 未揭露，因此不得拿 GAAP revenue 或 Core revenue 任一數字直接判定 beat/miss；官方 release 本頁未取得可直接核實的 EPS actual，EPS 暫留 null。",
+        "financial_judgment": "Cerebras Q3 2026 官方發布 GAAP revenue US$210.8M，另列 Core revenue US$230.9M、GAAP cloud revenue US$144.9M。現有 revenue consensus US$214.7M 的定義／是否對應 Core revenue 未揭露，因此不得拿 GAAP revenue 或 Core revenue 任一數字直接判定 beat/miss；官方 release 本頁未取得可直接核實的 EPS actual，EPS 暫留 null。 本輪依 v5.19 來源階梯檢視：Investing.com Q3/2026 結果頁 EPS forecast、revenue forecast 均顯示未提供；故未取得可用第三來源共識。Reuters 引述 LSEG 的 US$214.7M 為 adjusted sales 共識線索，但未能取得 LSEG 原始估值紀錄，且與公司 GAAP revenue US$210.8M／Core revenue US$230.9M 的定義對應尚未確認，不作直接比較。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -1486,18 +1486,18 @@
           ]
         },
         "consensus_source": {
-          "name": "Finviz Earnings Calendar｜2026-11-12",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-12&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 analyst EPS estimate；Finviz 未揭露 GAAP／non-GAAP 口徑，僅保存市場共識值，不據此預判 beat/miss。"
+          "name": "Investing.com｜Cerebras Q3 2026 earnings page (no estimate)",
+          "url": "https://www.investing.com/equities/cerebras-systems-inc-earnings",
+          "publisher": "Investing.com",
+          "observed_at": "2026-11-13T17:07:53+08:00",
+          "notes": "第三來源查核結果：EPS forecast 與 revenue forecast 均未提供（--）。前兩級 LSEG I/B/E/S、FactSet Estimates 未取得可直接核實的原始共識紀錄；Reuters 對 LSEG compiled adjusted sales US$214.7M 的轉述不等同已取得 LSEG 原始共識記錄，且定義尚未與 GAAP/Core revenue 對齊。維持無可比共識。"
         },
         "revenue_consensus_source": {
-          "name": "Finviz Earnings Calendar｜Revenue estimate",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-12&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 revenue estimate；依頁面原列幣別及單位保存。"
+          "name": "Investing.com｜Cerebras Q3 2026 earnings page (no estimate)",
+          "url": "https://www.investing.com/equities/cerebras-systems-inc-earnings",
+          "publisher": "Investing.com",
+          "observed_at": "2026-11-13T17:07:53+08:00",
+          "notes": "第三來源查核結果：revenue forecast 未提供（--）。Reuters 引述 LSEG compiled adjusted sales US$214.7M，但未取得原始估值紀錄且無法確認與 GAAP/Core revenue 的定義映射，故不採作可比較共識。"
         },
         "price_reaction_source": null,
         "issuer_country": "United States",
@@ -1527,17 +1527,17 @@
         "reporting_period": "FY2026 Q4",
         "time_known": true,
         "time_type": "call_time",
-        "eps_basis": "Nasdaq analyst consensus via StockTitan; GAAP/non-GAAP basis not disclosed",
+        "eps_basis": "Non-GAAP diluted EPS (USD/share); Investing.com forecast US$4.06",
         "eps_estimate": 4.06,
         "eps_actual": 4.16,
-        "revenue_estimate": 10.3,
+        "revenue_estimate": 10.31,
         "revenue_actual": 10.409,
         "eps_currency": "USD",
         "revenue_currency": "USD",
         "revenue_unit": "B",
-        "eps_comparison_status": null,
-        "revenue_comparison_status": null,
-        "financial_judgment": "Applied Materials FY2026 Q4 revenue US$10.409B；GAAP diluted EPS US$3.40、non-GAAP diluted EPS US$4.16。營收年增 53%，營運現金流 US$3.30B，non-GAAP free cash flow US$2.62B。既有 EPS consensus US$4.06 的會計口徑未揭露，因此不直接將 non-GAAP EPS 與該共識比較；營收估值 US$10.3B 的比較基礎待來源口徑補證，先保留實績。",
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "beat",
+        "financial_judgment": "Applied Materials FY2026 Q4：GAAP revenue US$10.409B，高於 Investing.com 共識 US$10.31B；non-GAAP diluted EPS US$4.16，高於 Investing.com 共識 US$4.06。LSEG I/B/E/S 與 FactSet Estimates 本輪未取得可追溯的直接共識資料，依 v5.19 來源階梯採第三來源 Investing.com。共識歷史快照時間未能獨立回讀，來源限制已揭露。",
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
@@ -1552,18 +1552,18 @@
           ]
         },
         "consensus_source": {
-          "name": "Nasdaq Earnings Calendar consensus via StockTitan",
-          "url": "https://www.stocktitan.net/articles/earnings-calendar-week-of-november-9-2026",
-          "publisher": "Nasdaq via StockTitan",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "Nov 6 2026 published EPS consensus. Accounting basis not disclosed; do not infer beat/miss until actual basis verified."
+          "name": "Investing.com｜Applied Materials FY2026 Q4 earnings consensus",
+          "url": "https://www.investing.com/equities/applied-matls-inc-earnings",
+          "publisher": "Investing.com",
+          "observed_at": "2026-11-13T17:07:53+08:00",
+          "notes": "來源階梯：本輪未能從可用公開資料直接取得可追溯的 LSEG I/B/E/S 或 FactSet Estimates 共識記錄，依序降至第三來源 Investing.com。頁面列 FY2026 Q4 EPS forecast US$4.06；Investing.com 結果報導明確列 actual US$4.16 與 analyst estimate US$4.06，且公司實際 US$4.16 為 non-GAAP diluted EPS。歷史快照時間未能獨立回讀，保留來源事後結果頁的限制。"
         },
         "revenue_consensus_source": {
-          "name": "Finviz Earnings Calendar｜Revenue estimate",
-          "url": "https://finviz.com/calendar/earnings?dateFrom=2026-11-12&sort=-marketCap",
-          "publisher": "Finviz",
-          "observed_at": "2026-11-06T17:00:00+08:00",
-          "notes": "公布前 revenue estimate；原頁以 USD B 顯示。"
+          "name": "Investing.com｜Applied Materials FY2026 Q4 earnings consensus",
+          "url": "https://www.investing.com/equities/applied-matls-inc-earnings",
+          "publisher": "Investing.com",
+          "observed_at": "2026-11-13T17:07:53+08:00",
+          "notes": "來源階梯：本輪未能從可用公開資料直接取得可追溯的 LSEG I/B/E/S 或 FactSet Estimates 共識記錄，依序降至第三來源 Investing.com。頁面列 FY2026 Q4 revenue forecast US$10.31B；Investing.com 結果報導列實際營收約 US$10.41B。單位 USD billions。歷史快照時間未能獨立回讀，保留來源事後結果頁的限制。"
         },
         "price_reaction_source": null,
         "issuer_country": "United States",
@@ -3814,8 +3814,8 @@
         "https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-fourth-quarter-and-fiscal-year-2026",
         "https://www.cerebras.ai/press-release/cerebras-systems-delivers-record-revenue-in-third-quarter-2026-raises-full-yea-3402195"
       ],
-      "checked_at": "2026-11-13T14:00:00+08:00",
-      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-09 04:35 預更新：依 169 家美國掛牌公司候選掃描及發行人公告補入 Kaspi.kz、RB Global、CNH Industrial、Credicorp、Alcon、Ecopetrol 六筆 TAC 四星事件。非美國發行人已另核對註冊地及 NYSE/Nasdaq 掛牌證據。新增事件的 EPS／營收共識未取得可追溯且同幣別、同口徑資料，保留 null；候選掃描仍未全部完成，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：已核實並更新 9 家已公布企業：Barrick、Ferguson、NRG、Constellation Energy、KKR、monday.com、Kaspi.kz、RB Global、CNH Industrial。EPS GAAP／adjusted 口徑分開記錄；共識來源有衝突或 basis 未披露者保留待核，不覆蓋既有值。OXY、TTWO、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 等截至本次觀察時間尚未到其官方發布／電話會議時段，維持 upcoming；仍有其他候選與共識欄位待核，coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：增量核實 TTWO、OXY、TDG、HIVE、RKLB、SKYD、JBS、QBTS、WIX、SE、VG、ONON、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 共 19 家已公布財報並更新可核實實績；EPS GAAP／adjusted 分開保存，未揭露共識 basis 者不判 beat/miss。Vodafone 官方 H1 結果頁已找到但原始 PDF 財務表未抽取，Credicorp 第三方實績來源衝突，兩者均 pending_verification；其他尚未公布企業維持 upcoming，coverage incomplete。；最終回讀驗收於 04:47:34 完成；來源註記重複已清理，EPS／營收口徑及非美國發行人掛牌資格欄位已檢查，未核實項目維持 pending_verification。；04:49:04 最終財報來源補強：WIX EPS 1.42 升級至官方 GlobeNewswire 財報表；Sea revenue 精確至 US$8.582284B 並補入 S&P Capital IQ diluted EPS US$0.78；TTD revenue 精確至 SEC 10-Q US$735.965M。；2026-11-12 04:34:17 Taipei 預更新：新增核實 CoreWeave、Mercury Systems、Rigetti、CGI、Alcon、Petrobras 六家已公布財報實績；CoreWeave/Mercury 營收高於可比已存共識，Rigetti 營收低於共識；其餘無可比共識或 EPS basis 未揭露者不判 beat/miss。Alcon 官方 call_time 已修正；Ecopetrol 官方 11/09 公告將發布日改至 11/12 收盤後（台灣 11/13），狀態為 postponed（實績尚未公布）。Corteva 及其餘未到發布時點事件維持 upcoming；股價反應觀察窗口未核實者維持 null。Coverage 維持 incomplete。；狀態一致性補充：Ecopetrol 已依官方延期公告標示 postponed，並非 upcoming；11/12 收盤後（台灣 11/13）發布新日期已保留，實績尚未公布。；2026-11-13 04:30:43 Taipei 預更新：以 issuer release／官方 IR／SEC 更新 Corteva、Brookfield Corporation、Nebius、Vodafone、Franco-Nevada、Ascendis Pharma、Vylor、Credicorp 共 8 筆。EPS／營收口徑不一致或跨幣別者不作 beat/miss；Credicorp operating income 未冒充標準 revenue_actual。尚未取得股價反應明確觀察窗口者維持 null；Cisco、Cerebras、Applied Materials、MUFG、Mizuho 等本日稍後事件維持 upcoming，Ecopetrol 仍 postponed，coverage 維持 incomplete。；2026-11-13 14:00 Taipei 人工增量更新：Cisco Q1 FY2027、Applied Materials FY2026 Q4、Cerebras Q3 2026 已依發行人官方 earnings release 更新 status=released 及可直接核實實績。對 EPS／營收 estimate basis 未揭露或未能證明同口徑者，不填 beat/miss；Cerebras GAAP revenue US$210.8M 與 Core revenue US$230.9M 分開記錄，未與未定義的 US$214.7M 共識強行比較。"
+      "checked_at": "2026-11-13T17:07:53+08:00",
+      "notes": "W46 初始財報掃描：已確認 CEG、KKR、Barrick、OXY、TTWO、Cisco、Applied Materials 的官方財報日期／時段及美國交易所掛牌資格。共識 EPS／營收尚未補齊，未經核實者保留 null；仍需掃描其他美國掛牌大型企業及 ADR，coverage 暫維持 incomplete。；擴大掃描後再新增 Ferguson、NRG、TransDigm、Brookfield Corporation、Petrobras、MUFG、Mizuho、Corteva 八筆。日期與時段以發行人 IR／SEC 文件為準，ADR 掛牌資格另以發行人或 ADR 資料核實。跨來源有日期差異時以官方 IR 日期優先（例如 Cisco 官方確認 11/12，未採第三方日曆的 11/11）。共識 EPS／營收尚未逐項完成同口徑核實，暫留 null；仍有大量候選需按 TAC 星等、官方時程及 NYSE/Nasdaq 掛牌資格篩選，coverage 維持 incomplete。 Petrobras 的 NYSE ADR 資格已補以官方 FAQ 確認 PBR/PBRA 代碼。 MUFG/Mizuho 財報以日圓（JPY）為發行人報表幣別，Petrobras 以巴西雷亞爾（BRL）為報表幣別；估值未核實時不以 ADR 美元價格反推財報幣別。；第三輪科技／AI基礎設施專項掃描新增 CoreWeave（CRWV，11/10 美東收盤後，台灣 11/11 06:00）、Nebius Group（NBIS，11/12 美東開盤前，台灣 11/12 21:00）、Cerebras Systems（CBRS，11/12 美東收盤後，台灣 11/13 06:00），均有發行人官方公告及 Nasdaq 掛牌證據。Sony Group FY2026 Q2 已於 11/05 發布，不屬 W46；TSMC 11/10 為月營收公告、非季度財報，故不放入 earnings；NVIDIA 11/17、Palo Alto Networks 11/18 均在 W47 之後。Nebius／CoreWeave／Cerebras 尚未取得可追溯且同口徑 EPS／營收共識，維持 null。；第四輪大型科技／太空科技／AI基礎設施及大型跨產業公司補掃：新增 HIVE、Rocket Lab、D-Wave Quantum、Wix.com、Mercury Systems、Skydance、JBS 共 7 筆，均有發行人官方財報公告及 Nasdaq／NYSE 掛牌證據。EchoStar 已於 11/03 提交 10-Q／8-K，非 W46 未來財報；其他未達 TAC 四星或尚無官方日期者不納入。EPS／營收共識未完成同口徑來源核實，保留 null。；第五輪補入 Sea Limited（NYSE: SE）、Vodafone Group（Nasdaq ADS: VOD）及 Rigetti Computing（Nasdaq: RGTI）三筆。Sea、Rigetti 精確會議時間按官方公告換算；Vodafone 官方只確認 11/10 H1 FY2027 發布日期，時刻待核實。；第六輪新增 Venture Global（VG）、On Holding（ONON）、CGI（GIB）、Franco-Nevada（FNV）四筆，均依公司公告／官方投資人資料確認美國掛牌與財報時間；Franco-Nevada 的結果發布為 11/11 收盤後，電話會議為 11/12 08:00 ET，事件時間記錄電話會議。；第七輪擴大 Nasdaq／NYSE 財報候選及預期值補查：新增 monday.com（MNDY）、Hims & Hers（HIMS）、The Trade Desk（TTD）、Ascendis Pharma（ASND）四筆，均有發行人官方日期／時段公告及美國掛牌證據。另以 Finviz 逐日財報行事曆補入可對應事件之 EPS／營收市場估計；Finviz 未揭露 GAAP／non-GAAP basis，故僅保存共識原值，不作 beat/miss 預判。CSCO EPS 採 Nasdaq via StockTitan $1.15，避免與 Finviz $1.32 口徑差異混用；AMAT EPS 採 Nasdaq $4.06。多來源估值差異（如 TTWO、TDG、CRWV、NBIS、CBRS）以所列明確來源單一值保存，不取平均，後續需視來源口徑再核對。MUFG、MFG、VOD、HIVE、PBR、GIB 等仍缺同口徑／同幣別可追溯估計者保留 null；SMFG 官方目前僅公告 mid-Nov，尚無精確日期，不以第三方日期推定。；第八輪逐項追查原先 6 家共識空值：HIVE 已取得同幣別 USD 的 EPS -0.16／營收 US$79.44M，補入；PBR、MUFG、MFG、VOD、GIB 雖找到第三方 ADR／ADS 美元口徑預估，但公司原始報表幣別分別為 BRL、JPY、GBP、CAD，且來源未證明估計與報表口徑一致，故維持 null，避免跨幣別直接比較。SMFG 官方只寫 mid-Nov，未提供確切日期；未以第三方預估日期填補。；第九輪候選掃描新增 MARA Holdings（MARA，Nasdaq，11/09 17:00 ET call，Q3 2026，四星；官方 IR 公告）及 Vylor（VYLR，NYSE，11/11 after close release、11/12 09:00 ET webcast，四星；官方 IR／Nasdaq 公告）。兩筆均補入可追溯公布前 EPS／營收估計；MARA MarketBeat -0.3918／US$183.24M，VYLR The Right Trader -0.44／US$918.1M，估值 basis 未披露，不預判 beat/miss。；第十輪科技與太空基礎設施候選掃描新增 AST SpaceMobile（ASTS，Nasdaq，11/09 17:00 ET webcast，台灣 11/10 06:00，四星）及 Onto Innovation（ONTO，NYSE，11/09 16:30 ET release/call，台灣 11/10 05:30，四星）。兩筆均有官方事件日期、掛牌證據與 MarketBeat EPS／營收共識；來源未揭露 GAAP／non-GAAP basis，故不預判 beat/miss。；第十一輪科技供應鏈／資安平台補漏新增 Sanmina（SANM，Nasdaq，FY2026 Q4，11/09 17:00 ET call，台灣 11/10 06:00，四星）及 Qualys（QLYS，Nasdaq，Q3 2026，11/09 17:00 ET call，台灣 11/10 06:00，四星）。兩筆均有發行人官方公告、掛牌證據及 MarketBeat EPS／營收共識，basis 未披露，不預判 beat/miss。；2026-11-09 04:35 預更新：依 169 家美國掛牌公司候選掃描及發行人公告補入 Kaspi.kz、RB Global、CNH Industrial、Credicorp、Alcon、Ecopetrol 六筆 TAC 四星事件。非美國發行人已另核對註冊地及 NYSE/Nasdaq 掛牌證據。新增事件的 EPS／營收共識未取得可追溯且同幣別、同口徑資料，保留 null；候選掃描仍未全部完成，coverage 維持 incomplete。；2026-11-10 04:38:07 Taipei 預更新：已核實並更新 9 家已公布企業：Barrick、Ferguson、NRG、Constellation Energy、KKR、monday.com、Kaspi.kz、RB Global、CNH Industrial。EPS GAAP／adjusted 口徑分開記錄；共識來源有衝突或 basis 未披露者保留待核，不覆蓋既有值。OXY、TTWO、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 等截至本次觀察時間尚未到其官方發布／電話會議時段，維持 upcoming；仍有其他候選與共識欄位待核，coverage incomplete。；2026-11-11 04:34:41 Taipei 預更新：增量核實 TTWO、OXY、TDG、HIVE、RKLB、SKYD、JBS、QBTS、WIX、SE、VG、ONON、HIMS、TTD、MARA、ASTS、ONTO、SANM、QLYS 共 19 家已公布財報並更新可核實實績；EPS GAAP／adjusted 分開保存，未揭露共識 basis 者不判 beat/miss。Vodafone 官方 H1 結果頁已找到但原始 PDF 財務表未抽取，Credicorp 第三方實績來源衝突，兩者均 pending_verification；其他尚未公布企業維持 upcoming，coverage incomplete。；最終回讀驗收於 04:47:34 完成；來源註記重複已清理，EPS／營收口徑及非美國發行人掛牌資格欄位已檢查，未核實項目維持 pending_verification。；04:49:04 最終財報來源補強：WIX EPS 1.42 升級至官方 GlobeNewswire 財報表；Sea revenue 精確至 US$8.582284B 並補入 S&P Capital IQ diluted EPS US$0.78；TTD revenue 精確至 SEC 10-Q US$735.965M。；2026-11-12 04:34:17 Taipei 預更新：新增核實 CoreWeave、Mercury Systems、Rigetti、CGI、Alcon、Petrobras 六家已公布財報實績；CoreWeave/Mercury 營收高於可比已存共識，Rigetti 營收低於共識；其餘無可比共識或 EPS basis 未揭露者不判 beat/miss。Alcon 官方 call_time 已修正；Ecopetrol 官方 11/09 公告將發布日改至 11/12 收盤後（台灣 11/13），狀態為 postponed（實績尚未公布）。Corteva 及其餘未到發布時點事件維持 upcoming；股價反應觀察窗口未核實者維持 null。Coverage 維持 incomplete。；狀態一致性補充：Ecopetrol 已依官方延期公告標示 postponed，並非 upcoming；11/12 收盤後（台灣 11/13）發布新日期已保留，實績尚未公布。；2026-11-13 04:30:43 Taipei 預更新：以 issuer release／官方 IR／SEC 更新 Corteva、Brookfield Corporation、Nebius、Vodafone、Franco-Nevada、Ascendis Pharma、Vylor、Credicorp 共 8 筆。EPS／營收口徑不一致或跨幣別者不作 beat/miss；Credicorp operating income 未冒充標準 revenue_actual。尚未取得股價反應明確觀察窗口者維持 null；Cisco、Cerebras、Applied Materials、MUFG、Mizuho 等本日稍後事件維持 upcoming，Ecopetrol 仍 postponed，coverage 維持 incomplete。；2026-11-13 14:00 Taipei 人工增量更新：Cisco Q1 FY2027、Applied Materials FY2026 Q4、Cerebras Q3 2026 已依發行人官方 earnings release 更新 status=released 及可直接核實實績。對 EPS／營收 estimate basis 未揭露或未能證明同口徑者，不填 beat/miss；Cerebras GAAP revenue US$210.8M 與 Core revenue US$230.9M 分開記錄，未與未定義的 US$214.7M 共識強行比較。；2026-11-13 17:07 Taipei 依模擬區 WR v5.19 來源階梯重查當日最新三筆財報：Cisco、Applied Materials 的 LSEG I/B/E/S／FactSet 原始共識本輪未能直接取得，依序採第三來源 Investing.com；EPS 與營收分開更新。Cerebras Investing.com 頁未提供 EPS／營收 forecast，維持無可比共識；Reuters 引述 LSEG adjusted sales US$214.7M 因未取得原始記錄且與 GAAP/Core revenue 定義映射未證實，不採作比較。此輪只完成三筆最新事件，其他已公布財報仍待逐筆按來源階梯重查，coverage 維持 incomplete。"
     }
   },
   "audit": [
@@ -8938,6 +8938,33 @@
       },
       "source": "WSJ; Cisco Investor Relations; Applied Materials Investor Relations; Cerebras Systems official release",
       "note": "人工增量更新，不新增或刪除事件。對未能證明估值與實績同口徑的財報，僅補實績及 basis 說明，不強行寫入 beat/miss。"
+    },
+    {
+      "at": "2026-11-13T17:07:53+08:00",
+      "action": "manual_consensus_source_priority_recheck",
+      "event_id": "current-csco-20261112,current-amat-20261112,current-cbrs-20261112",
+      "changed_fields": [
+        "eps_estimate",
+        "consensus_source",
+        "eps_basis",
+        "eps_comparison_status",
+        "revenue_estimate",
+        "revenue_consensus_source",
+        "revenue_comparison_status",
+        "financial_judgment",
+        "coverage.earnings",
+        "updated_at",
+        "wr_version"
+      ],
+      "before": {
+        "sha": "2621bb59c78c1b1b4fa19a8bb8d14222fb171bc2",
+        "earnings_count": 48
+      },
+      "after": {
+        "earnings_count": 48
+      },
+      "source": "Investing.com earnings pages; official Cisco/Applied Materials/Cerebras releases; Reuters report citing LSEG",
+      "note": "依 WR v5.19 First Available Wins 重查三筆最新財報。未能取得 LSEG I/B/E/S 或 FactSet 直接原始共識紀錄，採第三來源 Investing.com（CSCO、AMAT）；Cerebras Investing.com 無 forecast，維持不可比較。歷史共識快照可回讀性限制已揭露；本輪不代表其餘 45 筆已完成重查。"
     }
   ]
 }
