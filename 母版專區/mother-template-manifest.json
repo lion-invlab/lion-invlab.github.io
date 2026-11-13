@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "9a334ae7ab2b1827058021993eeb01abe636485b",
+      "blob_sha": "09a35432f2962cbf5138e7e6fdb2bc2d310808e5",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "60002dfeb93694ca5e476dc5afe572409ea7a849",
+      "blob_sha": "8a8249fb744d310708cb5683ec65014cbc306563",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -68,7 +68,7 @@
     },
     {
       "date": "2026-11-13",
-      "change": "依使用者明確要求，雙母版僅新增總結區紅色標題字級規則，使其與市場情緒等主要區塊標題一致（clamp(21px, 3vw, 28px)）；未修改黑色摘要內容、版面結構、互動或其他樣式。同步更新雙母版 SHA。"
+      "change": "依使用者明確要求，雙母版僅新增總結區紅色標題字級規則，實測與市場情緒主標題一致為 21px；未修改黑色摘要內容、版面結構、互動或其他樣式。同步更新雙母版 SHA。"
     }
   ]
 }
