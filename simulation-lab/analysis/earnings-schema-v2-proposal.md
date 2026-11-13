@@ -62,23 +62,33 @@ GitHub Actions 的排程只負責啟動資料處理程式，不應把判讀規�
 - `eps_consensus_conflict`、`revenue_consensus_conflict`：只有來源差異已核實且超出事先定義門檻時才設 true。
 - `eps_inline_tolerance_abs`、`revenue_inline_tolerance_abs`：只有來源精度有證據時才填；預設 0，不得任意設定。
 
-### 3.4 Basis code 建議
+### 3.4 Basis code 受控登錄表
 
-EPS 代碼至少區分：
+目前隔離引擎 v1.0.0 僅接受以下代碼；未登錄代碼一律 Pending，先補充登錄與測試，不得用任意大寫字串繞過。
+
+EPS：
 - `US_GAAP_DILUTED_EPS`
 - `US_GAAP_BASIC_EPS`
+- `US_GAAP_BASIC_AND_DILUTED_EPS`
 - `IFRS_DILUTED_EPS`
 - `IFRS_BASIC_EPS`
+- `IFRS_ATTRIBUTABLE_EPS`
+- `IFRS_ADJUSTED_DILUTED_EPS`
+- `IFRS_ADJUSTED_BASIC_EPS`
 - `NON_GAAP_ADJUSTED_DILUTED_EPS`
 - `NON_GAAP_ADJUSTED_BASIC_EPS`
 - `NON_GAAP_ADJUSTED_UNSPECIFIED_EPS`
+- `NON_GAAP_DILUTED_EPS`
+- `NON_GAAP_BASIC_EPS`
+- `ISSUER_DEFINED_ADJUSTED_EPS`
 
-營收代碼至少區分：
+營收：
 - `US_GAAP_TOTAL_REVENUE`
 - `US_GAAP_NET_SALES`
 - `US_GAAP_OPERATING_REVENUE`
 - `IFRS_TOTAL_REVENUE`
 - `IFRS_NET_SALES`
+- `IFRS_REVENUE`
 - `ISSUER_DEFINED_REVENUE_METRIC`
 
 不得只因名稱相似就把不同代碼視為相同；只有明確核實的代碼相等才能比較。新類型先新增受控代碼並測試，不可退回模糊字串比對。
