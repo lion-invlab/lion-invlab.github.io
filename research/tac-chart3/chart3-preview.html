@@ -162,22 +162,23 @@ function expandingPercentile(points){
 }
 const DRAWDOWNS=[
  {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
- {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.4,source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
- {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-11.2,basis:'SPY total-return proxy; not exact price-index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
- {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.0,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-1999',peak:'1999-07-16',trough:'1999-10-15',pct:-11.9,basis:'SPY total-return proxy; not exact price-index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.4,basis:'SPY close proxy; not exact S&P 500 index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-10.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.3,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-1999',peak:'1999-07-16',trough:'1999-10-15',pct:-12.1,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
  {id:'dd-2000',peak:'2000-03-24',trough:'2002-10-09',pct:-49.1,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-2010',peak:'2010-04-23',trough:'2010-07-02',pct:-15.9,source:'https://www.rio.nd.gov/sites/www/files/documents/PDFs/SIB/Board/Materials/sibmat20200522.pdf',sourceLabel:'Callan / S&P 500 Price Index'},
- {id:'dd-2003',peak:'2003-01-14',trough:'2003-03-11',pct:-14.1,source:'https://andramarkets.com/market-history/2003-mid-2000s-expansion/',sourceLabel:'S&P 500 daily close / Iraq War period'},
- {id:'dd-2007',peak:'2007-10-09',trough:'2009-03-09',pct:-56.5,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2010',peak:'2010-04-23',trough:'2010-07-02',pct:-16.0,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2003',peak:'2002-11-27',trough:'2003-03-11',pct:-14.7,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2007',peak:'2007-10-09',trough:'2009-03-09',pct:-56.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
  {id:'dd-2011',peak:'2011-04-29',trough:'2011-10-03',pct:-19.4,source:'https://www.cmegroup.com/insights/economic-research/2023/debt-ceiling-lessons-from-the-2011-budget-debate.html',sourceLabel:'CME Group'},
- {id:'dd-2015',peak:'2015-05-21',trough:'2016-02-11',pct:-14.4,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-2018a',peak:'2018-01-26',trough:'2018-04-02',pct:-10.2,source:'https://www.rio.nd.gov/sites/www/files/documents/PDFs/SIB/Board/Materials/sibmat20200522.pdf',sourceLabel:'Callan / S&P 500 Price Index'},
- {id:'dd-2018b',peak:'2018-09-20',trough:'2018-12-24',pct:-20.2,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-2020',peak:'2020-02-19',trough:'2020-03-23',pct:-34.1,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2015a',peak:'2015-05-21',trough:'2015-08-25',pct:-12.4,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2015b',peak:'2015-07-20',trough:'2016-02-11',pct:-14.1,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2018a',peak:'2018-01-26',trough:'2018-02-08',pct:-10.2,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2018b',peak:'2018-09-20',trough:'2018-12-24',pct:-19.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2020',peak:'2020-02-19',trough:'2020-03-23',pct:-33.9,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
  {id:'dd-2022',peak:'2022-01-03',trough:'2022-10-12',pct:-25.4,source:'https://historyofmarket.com/sp500/bear-markets/2022/',sourceLabel:'S&P 500 歷史收盤價整理'},
  {id:'dd-2023',peak:'2023-07-31',trough:'2023-10-27',pct:-10.3,source:'https://coronavirus.markets/market-correction/',sourceLabel:'FRED 收盤價計算'},
- {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-19.0,source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'San Francisco Fed'}
+ {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-18.9,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'}
 ];
 const MAJOR_EVENTS=[
  {id:'gulf-war-1990',name:'儲貸危機 × 波灣戰爭／油價衝擊',start:'1990-07-16',end:'1990-10-11',source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
@@ -194,7 +195,7 @@ const MAJOR_EVENTS=[
  {id:'inflation-tightening-2022',name:'高通膨 × Fed 激進升息',start:'2022-01-03',end:'2022-10-12',source:'https://www.federalreserve.gov/monetarypolicy/fomc.htm',sourceLabel:'Federal Reserve（政策會議資料）'},
  {id:'higher-for-longer-2023',name:'高利率維持更久 × 殖利率攀升',start:'2023-07-31',end:'2023-10-27',source:'https://apnews.com/article/ebce1ad72cbe14eb5c2a5538c42c94ee',sourceLabel:'Associated Press'},
  {id:'tariff-shock-2025',name:'美國關稅政策衝擊',start:'2025-02-19',end:'2025-04-08',source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'Federal Reserve Bank of San Francisco'},
- {id:'china-turmoil',name:'中國市場／人民幣動盪',start:'2015-08-11',end:'2016-02-20',source:'https://www.piie.com/blogs/china-economic-watch/churning-over-china-anatomy-slowdown',sourceLabel:'Peterson Institute for International Economics'},
+ {id:'china-turmoil',name:'中國市場／人民幣動盪',start:'2015-05-21',end:'2016-02-11',source:'https://www.piie.com/blogs/china-economic-watch/churning-over-china-anatomy-slowdown',sourceLabel:'Peterson Institute for International Economics'},
  {id:'covid',name:'COVID-19 市場衝擊',start:'2020-02-19',end:'2020-03-23',source:'https://www.ici.org/system/files/attachments/pdf/20_rpt_covid1.pdf',sourceLabel:'Investment Company Institute'},
  {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
 ];
