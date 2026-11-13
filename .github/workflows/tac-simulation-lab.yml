@@ -56,6 +56,7 @@ jobs:
           python simulation-lab/runner/collect_key_levels_ohlc.py --self-test
           python simulation-lab/runner/validate_dual_mothers.py
           python simulation-lab/runner/test_fear_greed_marker.py
+          python simulation-lab/runner/test_summary_headline.py
           python simulation-lab/runner/test_earnings_comparison_status.py
 
       - name: Resolve report date, fixture, weekday mother and SHA
