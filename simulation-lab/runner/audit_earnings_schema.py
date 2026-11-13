@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 from pathlib import Path
 from collections import Counter
@@ -89,6 +90,22 @@ def audit(report_date: str) -> dict:
     )
 
     migrated = [migrate_legacy_record(e, observed_at="read-only-migration-preview") for e in released]
+    result["_migration_rows"] = [
+        {
+            "ticker": e.get("ticker"),
+            "eps_legacy_status": e.get("legacy_eps_comparison_status"),
+            "eps_v2_status": e.get("eps_comparison_status"),
+            "eps_actual_basis_code": e.get("eps_actual_basis_code"),
+            "eps_estimate_basis_code": e.get("eps_estimate_basis_code"),
+            "eps_reason": e.get("eps_comparison_reason"),
+            "revenue_legacy_status": e.get("legacy_revenue_comparison_status"),
+            "revenue_v2_status": e.get("revenue_comparison_status"),
+            "revenue_actual_basis_code": e.get("revenue_actual_basis_code"),
+            "revenue_estimate_basis_code": e.get("revenue_estimate_basis_code"),
+            "revenue_reason": e.get("revenue_comparison_reason"),
+        }
+        for e in migrated
+    ]
     result["migration_preview"] = {
         "mode": "IN_MEMORY_READ_ONLY",
         "eps_status_counts": dict(Counter(e.get("eps_comparison_status") or "null" for e in migrated)),
@@ -137,8 +154,23 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--report-date", required=True, help="Taiwan report date YYYY-MM-DD")
     parser.add_argument("--output", help="Optional local JSON output path; never writes to main")
+    parser.add_argument("--migration-csv", help="Optional local CSV with per-company in-memory v2 migration preview")
     args = parser.parse_args()
     result = audit(args.report_date)
+    migration_rows = result.pop("_migration_rows", [])
+    if args.migration_csv:
+        csv_path = Path(args.migration_csv)
+        csv_path.parent.mkdir(parents=True, exist_ok=True)
+        fieldnames = [
+            "ticker", "eps_legacy_status", "eps_v2_status",
+            "eps_actual_basis_code", "eps_estimate_basis_code", "eps_reason",
+            "revenue_legacy_status", "revenue_v2_status",
+            "revenue_actual_basis_code", "revenue_estimate_basis_code", "revenue_reason",
+        ]
+        with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
+            writer = csv.DictWriter(handle, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(migration_rows)
     rendered = json.dumps(result, ensure_ascii=False, indent=2)
     if args.output:
         path = Path(args.output)
