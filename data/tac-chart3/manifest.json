@@ -9,20 +9,20 @@
       "series_id": "VIXCLS",
       "artifact_id": 13859041307,
       "artifact_sha256": "6d653f79661a8dbf169b402e27dbb84c4d606d9004332e97854fee98df5faf65",
-      "current_rows": 9615,
+      "current_rows": 9618,
       "current_span": {
         "first": "1990-01-02",
         "last": "2026-11-09"
       },
-      "initial_release_rows": 4134,
+      "initial_release_rows": 4137,
       "initial_release_span": {
         "first": "2010-11-22",
         "last": "2026-11-09"
       },
-      "vintage_dates": 3970,
+      "vintage_dates": 3973,
       "vintage_span": {
         "first": "2010-11-22",
-        "last": "2026-11-09"
+        "last": "2026-11-12"
       },
       "chunk_files": 320,
       "chunk_grid_expected": 320,
@@ -33,33 +33,33 @@
       "raw_observation_rows": 28023,
       "vintage_columns_seen": 3970,
       "missing_vintage_columns": 0,
-      "event_rows": 9637,
+      "event_rows": 9640,
       "source_missing_value_events": 305,
       "duplicate_event_keys": 0,
       "current_snapshot_mismatches": 0,
       "initial_release_mismatches": 0,
-      "event_sha256": "666605d5671be441cdbd070845df2cb5ca27a2c7286e7360a512f5c3c002b4bd",
-      "current_sha256": "c301ac8fff2d48cc5cd71dff25607139d7fa48624d7e0dda1f99fb53305c0c31",
-      "initial_release_sha256": "0251c5b399ccccd56f15948b5320b6fa0d707d2695c09a90e16308f1e1582a4a"
+      "event_sha256": "6cc47ec1b20a1418c545f5481ae271a7d41e4082bd23849a61a28a7ce8e31e0f",
+      "current_sha256": "ac87b94810c2c6f9f2b539d8aa481e164bced99fd7d38c896b7a5932c1828dd9",
+      "initial_release_sha256": "946196320cc4b46bb66308252ead7c20be707db2f51ed2ba39353766354861e2"
     },
     {
       "series_id": "NFCI",
       "artifact_id": 13859024693,
       "artifact_sha256": "649cc2f38a07c7619e3bc1a33af332e33861defe06162ca990582797311019cb",
-      "current_rows": 2913,
+      "current_rows": 2914,
       "current_span": {
         "first": "1971-01-08",
         "last": "2026-10-30"
       },
-      "initial_release_rows": 806,
+      "initial_release_rows": 807,
       "initial_release_span": {
         "first": "2011-05-27",
         "last": "2026-10-30"
       },
-      "vintage_dates": 803,
+      "vintage_dates": 804,
       "vintage_span": {
         "first": "2011-05-25",
-        "last": "2026-11-04"
+        "last": "2026-11-12"
       },
       "chunk_files": 102,
       "chunk_grid_expected": 102,
@@ -70,33 +70,33 @@
       "raw_observation_rows": 42816,
       "vintage_columns_seen": 803,
       "missing_vintage_columns": 0,
-      "event_rows": 934790,
+      "event_rows": 937405,
       "source_missing_value_events": 0,
       "duplicate_event_keys": 0,
       "current_snapshot_mismatches": 0,
       "initial_release_mismatches": 0,
-      "event_sha256": "807aa976048bcf93f341917b84171eb6fa16fba8bc216e50377dd1903c521146",
-      "current_sha256": "8ae92032620313ea242108bf59bb6028d2d0bbea60501a17e96fb9626d776302",
-      "initial_release_sha256": "4885a47b380615b50025cd8191ab99a7cf4d64bd797f25c905d61eae9adbaa59"
+      "event_sha256": "243bf5d99d51f28bf97bd5958641704e31d704efaa4a3bcd47736a54dcfc6fcf",
+      "current_sha256": "90b20ffc7cd6ffdf4d021587fe89ce25b83cde5beb10e4839cf23b61c397794f",
+      "initial_release_sha256": "a5bf5d88d0ba6f37651db9605aa8bb83ea3c4fe69205511b7245bbe7d003dc3e"
     },
     {
       "series_id": "NFCICREDIT",
       "artifact_id": 13860389018,
       "artifact_sha256": "f326a81adc05e84a2d0f500127f417f3f40f7374985d9a49c5322d3fe9d97440",
-      "current_rows": 2913,
+      "current_rows": 2914,
       "current_span": {
         "first": "1971-01-08",
         "last": "2026-10-30"
       },
-      "initial_release_rows": 748,
+      "initial_release_rows": 749,
       "initial_release_span": {
         "first": "2012-07-06",
         "last": "2026-10-30"
       },
-      "vintage_dates": 745,
+      "vintage_dates": 746,
       "vintage_span": {
         "first": "2012-07-05",
-        "last": "2026-11-04"
+        "last": "2026-11-12"
       },
       "chunk_files": 90,
       "chunk_grid_expected": 90,
@@ -107,33 +107,33 @@
       "raw_observation_rows": 37968,
       "vintage_columns_seen": 745,
       "missing_vintage_columns": 0,
-      "event_rows": 930171,
+      "event_rows": 932798,
       "source_missing_value_events": 0,
       "duplicate_event_keys": 0,
       "current_snapshot_mismatches": 0,
       "initial_release_mismatches": 0,
-      "event_sha256": "a6dcf905003088b7226ed5c1c07beb1eeeb5b003615b98b1f7b0e47e5ce0d94d",
-      "current_sha256": "680b2bc7345a80c913fbfd7ceefcb26439e01d1e749e43f1f6f5459771cc6cc6",
-      "initial_release_sha256": "9e90e8fbf5c2c278ff34e36d95e032378d12d981bd5188d2297f35f7c8d50a48"
+      "event_sha256": "a8b847347e2bf8f821cb16fe85c6e03efc971099c9f99dc336559e58b934108e",
+      "current_sha256": "806d8547a05a1f0b649f5ac01284330be2068ed563218f0372ca5a6ba6907246",
+      "initial_release_sha256": "a7f31b8166f9446777bd846292c6c199bf85d43ea93fec627079b5b6f5342559"
     },
     {
       "series_id": "STLFSI4",
       "artifact_id": 13858851611,
       "artifact_sha256": "ecdf384b5f3120e4869121fb05bb81e4546e29e499f4aad1e1382ed3ea5de599",
-      "current_rows": 1714,
+      "current_rows": 1715,
       "current_span": {
         "first": "1993-12-31",
         "last": "2026-10-30"
       },
-      "initial_release_rows": 208,
+      "initial_release_rows": 209,
       "initial_release_span": {
         "first": "2022-11-11",
         "last": "2026-10-30"
       },
-      "vintage_dates": 209,
+      "vintage_dates": 210,
       "vintage_span": {
         "first": "2022-11-10",
-        "last": "2026-11-04"
+        "last": "2026-11-12"
       },
       "chunk_files": 20,
       "chunk_grid_expected": 20,
@@ -144,14 +144,14 @@
       "raw_observation_rows": 8234,
       "vintage_columns_seen": 209,
       "missing_vintage_columns": 0,
-      "event_rows": 319948,
+      "event_rows": 321526,
       "source_missing_value_events": 0,
       "duplicate_event_keys": 0,
       "current_snapshot_mismatches": 0,
       "initial_release_mismatches": 0,
-      "event_sha256": "bb87832b1ebbaa5b5aa26764f4ca5ac23393f90ab6bf98e96dde00a218cca6ab",
-      "current_sha256": "5cde5f16b98124f6a363d305188645d52564acd08348c4e3cec89f092851ded3",
-      "initial_release_sha256": "0df7485a1ddfbe0eaeb17fa8de3595dc8413fb8d0cde78050317ca834cdd818a"
+      "event_sha256": "e37df4a58568259991a8925a7aaa87d1055cb4af1de7f45574076bbc9fb80271",
+      "current_sha256": "497ad4dc49ce30acea1deab7f0ffd7fea7467868cb6dfec9f6edb75784d3e1b2",
+      "initial_release_sha256": "2d31fb9f19b41687befc91a2d3f726b64ca08700a5e53539dc0bb3c6223bc979"
     }
   ],
   "raw_file_count": 552,
@@ -3512,5 +3512,93 @@
     "interpolation": false,
     "forward_fill": false,
     "license_status": "review_required_before_redistribution"
+  },
+  "last_incremental_at": "2026-11-13T22:47:07+00:00",
+  "last_incremental_results": [
+    {
+      "series_id": "VIXCLS",
+      "new_vintage_dates": 3,
+      "queried_vintage_dates": 8,
+      "new_event_rows_fetched": 8,
+      "added_event_rows": 3,
+      "overlap_duplicate_rows": 5,
+      "current_rows": 9618,
+      "current_sha256": "ac87b94810c2c6f9f2b539d8aa481e164bced99fd7d38c896b7a5932c1828dd9",
+      "event_count": 9640,
+      "events_sha256": "6cc47ec1b20a1418c545f5481ae271a7d41e4082bd23849a61a28a7ce8e31e0f",
+      "initial_release_rows": 4137,
+      "initial_release_sha256": "946196320cc4b46bb66308252ead7c20be707db2f51ed2ba39353766354861e2",
+      "initial_release_added_rows": 3,
+      "vintage_date_count": 3973,
+      "vintage_dates_sha256": "f5915d7b7b0ac776749445cb56683d029e2d08daf649b20cafd41c7b69d130b2",
+      "latest_vintage_date": "2026-11-12",
+      "changed": true
+    },
+    {
+      "series_id": "NFCI",
+      "new_vintage_dates": 1,
+      "queried_vintage_dates": 6,
+      "new_event_rows_fetched": 11850,
+      "added_event_rows": 2615,
+      "overlap_duplicate_rows": 9235,
+      "current_rows": 2914,
+      "current_sha256": "90b20ffc7cd6ffdf4d021587fe89ce25b83cde5beb10e4839cf23b61c397794f",
+      "event_count": 937405,
+      "events_sha256": "243bf5d99d51f28bf97bd5958641704e31d704efaa4a3bcd47736a54dcfc6fcf",
+      "initial_release_rows": 807,
+      "initial_release_sha256": "a5bf5d88d0ba6f37651db9605aa8bb83ea3c4fe69205511b7245bbe7d003dc3e",
+      "initial_release_added_rows": 1,
+      "vintage_date_count": 804,
+      "vintage_dates_sha256": "cab907380ce791f29eed64dd1fb8e598e5b9d9ae64b69ec13509b7c76bc3d585",
+      "latest_vintage_date": "2026-11-12",
+      "changed": true
+    },
+    {
+      "series_id": "NFCICREDIT",
+      "new_vintage_dates": 1,
+      "queried_vintage_dates": 6,
+      "new_event_rows_fetched": 11719,
+      "added_event_rows": 2627,
+      "overlap_duplicate_rows": 9092,
+      "current_rows": 2914,
+      "current_sha256": "806d8547a05a1f0b649f5ac01284330be2068ed563218f0372ca5a6ba6907246",
+      "event_count": 932798,
+      "events_sha256": "a8b847347e2bf8f821cb16fe85c6e03efc971099c9f99dc336559e58b934108e",
+      "initial_release_rows": 749,
+      "initial_release_sha256": "a7f31b8166f9446777bd846292c6c199bf85d43ea93fec627079b5b6f5342559",
+      "initial_release_added_rows": 1,
+      "vintage_date_count": 746,
+      "vintage_dates_sha256": "0611ba69996995bc0f8f541248b1d573e3dd25563fd4f41fcf926cae1cc4067f",
+      "latest_vintage_date": "2026-11-12",
+      "changed": true
+    },
+    {
+      "series_id": "STLFSI4",
+      "new_vintage_dates": 1,
+      "queried_vintage_dates": 6,
+      "new_event_rows_fetched": 9718,
+      "added_event_rows": 1578,
+      "overlap_duplicate_rows": 8140,
+      "current_rows": 1715,
+      "current_sha256": "497ad4dc49ce30acea1deab7f0ffd7fea7467868cb6dfec9f6edb75784d3e1b2",
+      "event_count": 321526,
+      "events_sha256": "e37df4a58568259991a8925a7aaa87d1055cb4af1de7f45574076bbc9fb80271",
+      "initial_release_rows": 209,
+      "initial_release_sha256": "2d31fb9f19b41687befc91a2d3f726b64ca08700a5e53539dc0bb3c6223bc979",
+      "initial_release_added_rows": 1,
+      "vintage_date_count": 210,
+      "vintage_dates_sha256": "051f3e7eddc4066246926f2bda8d2c2fa9a33987b1e3f01f69354aa9db434cf0",
+      "latest_vintage_date": "2026-11-12",
+      "changed": true
+    }
+  ],
+  "overall_status": "PASS",
+  "chart_dataset": {
+    "file": "chart3_market_stress.json",
+    "sha256": "15b72a43ec176ec4f6848899db214a2ae926ee0b9e06b5cbc742e8bad191d615",
+    "bytes": 1492672,
+    "qa_file": "chart3_market_stress_qa.json",
+    "status": "PASS",
+    "generated_at": "2026-11-13T22:47:07+00:00"
   }
 }
