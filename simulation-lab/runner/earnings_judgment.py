@@ -24,9 +24,32 @@ STATUS_LABELS = {
     "incomparable": "比較口徑不相容",
     "consensus_divergent": "市場共識來源分歧",
 }
-_CODE_RE = re.compile(r"^[A-Z][A-Z0-9_]{1,63}$")
 _CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
-_RESERVED_CODES = {"UNKNOWN", "UNVERIFIED", "NOT_DISCLOSED", "OTHER", "N_A", "NA"}
+EPS_BASIS_CODES = frozenset({
+    "US_GAAP_DILUTED_EPS",
+    "US_GAAP_BASIC_EPS",
+    "US_GAAP_BASIC_AND_DILUTED_EPS",
+    "IFRS_DILUTED_EPS",
+    "IFRS_BASIC_EPS",
+    "IFRS_ATTRIBUTABLE_EPS",
+    "IFRS_ADJUSTED_DILUTED_EPS",
+    "IFRS_ADJUSTED_BASIC_EPS",
+    "NON_GAAP_ADJUSTED_DILUTED_EPS",
+    "NON_GAAP_ADJUSTED_BASIC_EPS",
+    "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS",
+    "NON_GAAP_DILUTED_EPS",
+    "NON_GAAP_BASIC_EPS",
+    "ISSUER_DEFINED_ADJUSTED_EPS",
+})
+REVENUE_BASIS_CODES = frozenset({
+    "US_GAAP_TOTAL_REVENUE",
+    "US_GAAP_NET_SALES",
+    "US_GAAP_OPERATING_REVENUE",
+    "IFRS_TOTAL_REVENUE",
+    "IFRS_NET_SALES",
+    "IFRS_REVENUE",
+    "ISSUER_DEFINED_REVENUE_METRIC",
+})
 
 
 def _decimal(value: Any) -> Decimal | None:
@@ -39,12 +62,9 @@ def _decimal(value: Any) -> Decimal | None:
     return result if result.is_finite() else None
 
 
-def _valid_code(value: Any) -> bool:
-    return (
-        isinstance(value, str)
-        and bool(_CODE_RE.fullmatch(value))
-        and value not in _RESERVED_CODES
-    )
+def _valid_code(value: Any, metric: str) -> bool:
+    registry = EPS_BASIS_CODES if metric == "eps" else REVENUE_BASIS_CODES
+    return isinstance(value, str) and value in registry
 
 
 def _valid_currency(value: Any) -> bool:
