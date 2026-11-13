@@ -1,0 +1,37 @@
+name: TAC earnings v2 validator hardening
+
+on:
+  push:
+    branches:
+      - simulation/earnings-v2-validator-hardening-2026-11-13
+    paths:
+      - "simulation-lab/runner/validate_earnings_v2.py"
+      - "simulation-lab/runner/earnings_judgment.py"
+      - "schemas/tac-earnings-record-v2.schema.json"
+      - ".github/workflows/earnings-v2-validator-hardening.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validator-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout this isolated hardening branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install validator dependency
+        run: python -m pip install --disable-pip-version-check jsonschema
+
+      - name: Run validator fail-closed regression tests
+        run: python simulation-lab/runner/validate_earnings_v2.py --self-test
