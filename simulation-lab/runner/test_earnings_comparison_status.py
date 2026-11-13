@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Renderer contract: display persisted judgment only; never derive Beat/Miss."""
 from earnings_judgment import ENGINE_VERSION
-from build_review_html import earnings_comparison_status
+from build_review_html import earnings_comparison_status, earnings_commentary
 
 
 def check(item, metric, expected):
@@ -16,6 +16,29 @@ def main():
                 f"{metric}_comparison_status": status,
                 "judgment_engine_version": ENGINE_VERSION,
             }, metric, status)
+
+    pending = {
+        "judgment": "EPS US$1.20 高於共識，EPS 優於預期；Revenue US$8B 低於共識，營收低於預期。公司現金流維持穩健。",
+    }
+    safe_pending = earnings_commentary(pending)
+    assert "EPS 優於預期" not in safe_pending
+    assert "營收低於預期" not in safe_pending
+    assert "公司現金流維持穩健" in safe_pending
+    assert "EPS：比較口徑待核實" in safe_pending
+    assert "營收：比較口徑待核實" in safe_pending
+
+    contradictory = {
+        "judgment_engine_version": ENGINE_VERSION,
+        "eps_comparison_status": "beat",
+        "revenue_comparison_status": "pending",
+        "judgment": "EPS 低於預期；Revenue 高於共識，營收優於預期。公司擴大資本支出。",
+    }
+    safe_contradictory = earnings_commentary(contradictory)
+    assert "EPS 低於預期" not in safe_contradictory
+    assert "營收優於預期" not in safe_contradictory
+    assert "公司擴大資本支出" in safe_contradictory
+    assert "EPS：優於預期" in safe_contradictory
+    assert "營收：比較口徑待核實" in safe_contradictory
 
         check({f"{metric}_comparison_status": "beat"}, metric, "pending")
         check({
