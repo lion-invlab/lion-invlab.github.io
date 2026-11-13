@@ -1589,3 +1589,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - main W46 唯讀資料庫本次已讀取 blob SHA `a7bab78c8c4a254e2081d89693571c41897f8243`；04:35 排程為唯一 writer，早報流程不得寫回 JSON。
 - 下一步：執行既有 simulation workflow 的日期指定完整 build；完成資料／結構／互動／視覺 Gate 後，將新 HTML 回讀驗證，再僅寫入 main `preview/2026-11-13-simulation.html`。禁止修改 `index.html`、母版、Manifest、W46 JSON 或其他 main 資產。
 - 目前狀態：舊 main preview 已刪除；新版尚未產生／尚未寫回 main；不可宣稱交付完成。
+
+
+## 2026-11-13｜最終錨點：SIM-1.2 11/13 審核版 v2 已完成
+- 使用者已明確選定 SIM-1.2 作為本次重製規則。最終 workflow run：`43405220258`（success）。
+- main 舊 preview `preview/2026-11-13-simulation.html` 已刪除；新 preview `preview/2026-11-13-v2.html` 已建立，commit `37412c3a9b82350da5bb2ed4d1303de5b8484d3f`，blob SHA `bde31403d2bb40baadcd86b403cc553742286521`。
+- 新檔回讀驗證：日期標題正確；修正後行情存在、已知舊錯值不存在；44 指標／日曆／新聞結構、母版、瀏覽器互動 QA 全數通過。
+- main `index.html`、W46 JSON、正式週二至週五母版、Manifest 均維持原 SHA，未發布首頁。
+- 下一步只等使用者審核；未收到授權前不得把 v2 preview 發布至 index.html。
