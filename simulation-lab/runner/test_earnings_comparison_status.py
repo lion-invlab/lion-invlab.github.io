@@ -1,58 +1,30 @@
 #!/usr/bin/env python3
-"""Regression tests for earnings Beat/Miss gating; no unsupported basis inference."""
-from build_review_html import earnings_comparison_status
+"""Renderer contract: display persisted judgment only; never derive Beat/Miss."""
+from earnings_judgment import ENGINE_VERSION, render_status
 
 
 def check(item, metric, expected):
-    actual = earnings_comparison_status(item, metric)
-    assert actual == expected, f"{metric}: expected {expected!r}, got {actual!r} for {item!r}"
+    actual = render_status(item, metric)
+    assert actual == expected, f"{metric}: expected {expected!r}, got {actual!r}"
 
 
 def main():
-    for status in ("beat", "miss", "inline"):
-        check({f"eps_comparison_status": status}, "eps", status)
+    for metric in ("eps", "revenue"):
+        for status in ("beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"):
+            check({
+                f"{metric}_comparison_status": status,
+                "judgment_engine_version": ENGINE_VERSION,
+            }, metric, status)
 
-    check({
-        "revenue_actual": 9.2,
-        "revenue_estimate": 8.7,
-        "revenue_actual_basis": "GAAP revenue USD bn",
-        "revenue_estimate_basis": "GAAP revenue USD bn",
-    }, "revenue", "beat")
-    check({
-        "eps_actual": 0.8,
-        "eps_estimate": 1.0,
-        "eps_actual_basis": "GAAP diluted EPS",
-        "eps_estimate_basis": "GAAP diluted EPS",
-    }, "eps", "miss")
-    check({
-        "eps_actual": 4.68,
-        "eps_estimate": 3.35,
-        "eps_actual_basis": "Adjusted EPS (non-GAAP; USD/share)",
-        "eps_estimate_basis": "Adjusted EPS (non-GAAP; USD/share)",
-    }, "eps", "beat")
-    check({
-        "eps_actual": -0.13,
-        "eps_estimate": -0.10,
-        "eps_actual_basis": "GAAP net loss per share",
-        "eps_estimate_basis": "GAAP net loss per share",
-    }, "eps", "miss")
-    check({
-        "eps_actual": 1.2,
-        "eps_estimate": 1.0,
-        "eps_actual_basis": "GAAP diluted EPS",
-        "eps_estimate_basis": "adjusted EPS",
-    }, "eps", "pending")
-    check({
-        "eps_actual": 1.2,
-        "eps_estimate": 1.0,
-    }, "eps", "pending")
-    check({
-        "eps_actual": True,
-        "eps_estimate": 1.0,
-        "eps_actual_basis": "GAAP diluted EPS",
-        "eps_estimate_basis": "GAAP diluted EPS",
-    }, "eps", "pending")
-    print("PASS: earnings Beat/Miss requires an explicit decision or identical verified bases")
+        check({f"{metric}_comparison_status": "beat"}, metric, "pending")
+        check({
+            f"{metric}_actual": 2.0,
+            f"{metric}_estimate": 1.0,
+            f"{metric}_actual_basis": "GAAP EPS",
+            f"{metric}_estimate_basis": "GAAP EPS",
+        }, metric, "pending")
+
+    print("PASS: HTML renderer only displays versioned judgment-engine output")
 
 
 if __name__ == "__main__":
