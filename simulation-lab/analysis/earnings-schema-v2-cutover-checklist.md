@@ -94,7 +94,7 @@
 - [ ] 每筆 snapshot 保存 data_as_of、observed_at、event_date、period、basis、currency、unit、analyst_count、raw response ref／SHA-256。
 - [ ] 同日只有 date、沒有時間戳的 data_as_of 不得自行推定為公告前。
 - [ ] 同一 snapshot id 冪等去重；新值／新原始 payload 只 append，不覆寫舊證據。
-- [ ] Simulation prototype + deterministic tests pass；再做連續多日增量演練，確認歷史陣列不被覆蓋。
+- [x] Simulation prototype + deterministic tests pass；連續多日增量演練確認歷史陣列不被覆蓋（3 日 unchanged + 5 日 EPS／Revenue dual-metric regression；17 tests pass，workflow `43420023980`）。
 - [ ] 正式 WR／唯一 updater automation／raw evidence archive 權限及保留政策須經審核後才可變更；目前 production 未部署。
 
 **Main W46 audit count correction:** 直接回讀 JSON 的 `audit.length=132`；先前 129 是較早統計截點。
@@ -115,3 +115,12 @@
 
 - [ ] 正式唯一 writer 尚未接入 append-only snapshots；已核對 task `6af6d10c62448191819f04b976c64cf4` Enabled、每日 04:30 Asia/Taipei、next run 2026-11-14 04:30；現行 prompt 不含兩個 snapshot arrays。
 - [ ] 取得正式 writer prompt／WR／archive retention 變更授權後，才可把 snapshot store 接入唯一 writer；不得另建排程或 writer。
+
+
+## Five-day regression update — 2026-11-13
+
+- [x] Five-day EPS／Revenue append-only polling regression passed in workflow `43420023980` (17 tests total).
+- [x] Value changes do not overwrite earlier snapshots; unchanged daily polls remain distinct by observed_at; exact replay is idempotent.
+- [x] Same-day date-only data_as_of remains Pending; EPS and Revenue arrays remain independent.
+- [ ] Durable raw-response archive destination and retention/licensing approval remain unresolved. Until an approved archive exists, production snapshots must not be labelled `pre_release_eligible` merely because a hash exists; preserve `raw_response_ref=null` and `pending_required_fields`.
+- [ ] Integrate only into the existing unique 04:30 updater prompt after the archive limitation is encoded. This does not authorize main W46 mutation by this assistant outside the updater's normal scheduled run, nor Schema v2 deployment.
