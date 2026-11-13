@@ -185,3 +185,27 @@
 - 再讀 main W46 的兩組 legacy source object：EPS 37/37、Revenue 37/37 均只有 `name/url/publisher/observed_at/notes/secondary_refs` 等欄位；`data_as_of`、`published_at`、`analyst_count`、標準化 `fiscal_period/period` 均為 0/37。這直接證明目前舊來源物件無法提供公告前快照截點與估值期間欄位；`observed_at` 不能替代 `data_as_of`。
 - Workflow run `43415581638` 的 artifact 內雖有 `TAC_投資早報_2026-11-13_審核版.html`，但 `runner-metadata.txt` 記載 `report_date=self-test-only`，且本次 report build 步驟為 skipped；該 HTML 是分支既有檔案，不可宣稱由本次 run 新製作或通過 QA。CSV／audit JSON 則由本次唯讀稽核步驟產生。
 - 正式 main 仍為 schema_version=1；本次沒有改動 main。
+
+## ORTEX TEST consensus API 實際連線驗證（2026-11-13）
+
+- Simulation workflow run：`43416557107`，最終 `success`；專用步驟 `Probe ORTEX TEST consensus API (read-only, simulation only)` 成功。
+- Probe 程式：`simulation-lab/runner/probe_ortex_test.py`；執行時僅使用官方文件公開的 `Ortex-Api-Key: TEST`，不使用付費憑證、不寫入 main、不修改 W46 JSON。
+- 實際 HTTP 回應：NASDAQ/AAPL、NASDAQ/MSFT、NYSE/AMC 均為 HTTP 200，各回傳 10 筆資料列；TEST key note 明確出現在三份回應中，credits used=0。
+- 三組 raw response SHA-256：AAPL `b02807951837eeb05ec6011dd6395391b154937dc2f51cbf20fca2b91484e399`；MSFT `2eca693a092731a458ac60587b7d1fbf34eba584bce292a9a3979ae7dc8bf130`；AMC `232f390acd601f15100769b0856415713a7ea7d6e2966517a531e950facc234b`。
+- Probe JSON SHA-256：`4d226633647fc072bf90364fe13b3b8cf2ee80e4d8718b398c2a64aa20c2c01c`；原始 JSON 已由 run artifact `tac-simulation-43416557107-1` 暫存。後續 workflow 已加上將 probe JSON 歸檔至 simulation `runs/` 的步驟；該歸檔步驟須由後續 run 實際驗證。
+
+### 實際欄位能力
+
+API 實際回傳欄位包含 `date`、`estimateAsOf`、`periodType`、`periodEndDate`、`fiscalYear`、`fiscalQuarter`、`currency`、`epsConsensusMean/Median/High/Low`、`epsNumEstimates`、`revenueConsensusMean/Median/High/Low`、`revenueNumEstimates`。這證明 TEST endpoint 的實際 JSON schema 含 EPS／Revenue 數值、財報期間、幣別及 analyst count。
+
+### 關鍵限制與 Schema 欄位映射
+
+- 雖請求 `from_date=2026-11-05` 至 `to_date=2026-11-13`，TEST key 明確限制日期範圍；response 的 `request` 未回顯這兩個日期，`resolved` 實際為 `2026-05-17` 至 `2026-10-14`，第一筆資料日期為 `2026-05-18`。故本次**不能驗證 W46 歷史快照、不能回填 W46，也不能證明 W46 ticker 覆蓋率**。
+- API 文件定義 `date` 為 consensus as-of date，故可映射至候選 `data_as_of`；`estimateAsOf` 是 vendor last recalculated date，必須獨立保存，不可當成 `published_at`。本次取得時間另記為 `observed_at`；`event_date` 仍取財報事件正式公布時間。API 未提供可直接映射的 `published_at`。
+- API 文件只稱 EPS 為 normalized EPS，未說明 GAAP／Adjusted、Basic／Diluted 的精確規則；basis code 仍無法由本次資料證明。EPS 不得直接進入 Beat/Miss。
+- Revenue 文件定義為 row currency 的 absolute value；實際回應未提供獨立 revenue unit 欄位。若未另有來源定義，必須保存原始 absolute amount 與 currency，不可自行縮放或假設為百萬／十億。
+- 技術連線成功不等於正式存取方案或公開展示／再散布授權成立；目前未購買方案、未取得正式 key、未核准採用。
+
+### 裁決
+
+ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的日期／區域限制、W46 PIT 覆蓋、EPS basis 及公開再散布權利仍未解決。它仍只是 SIM-1.2 之外的候選研究來源，不得插入 LSEG I/B/E/S → FactSet Estimates → Investing.com 的正式來源階梯，不得作為 W46 歷史共識補值來源。下一步應先取得可查詢 W46 日期的正式授權試用／正式方案（未經使用者同意不得付費），再逐筆驗證 45 家 ticker 的指定日期、期間、basis、currency、unit 及授權條款。
