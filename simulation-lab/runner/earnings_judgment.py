@@ -415,12 +415,8 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
     migrated["legacy_revenue_comparison_status"] = record.get("revenue_comparison_status")
 
     for metric in ("eps", "revenue"):
+        # Only the dedicated actual-basis field is admissible. Legacy eps_basis is a narrative/comment field and may mix GAAP, adjusted and consensus descriptions.
         actual_label = record.get(f"{metric}_actual_basis")
-        # Legacy calendar records store the reported EPS definition in the
-        # shared eps_basis field. Use it only as the actual-result basis;
-        # never copy it to the analyst-consensus side.
-        if metric == "eps" and not (isinstance(actual_label, str) and actual_label.strip()):
-            actual_label = record.get("eps_basis")
         estimate_label = record.get(f"{metric}_estimate_basis")
         _fill_if_missing(migrated, f"{metric}_actual_basis_code", _legacy_basis_code(metric, actual_label))
         _fill_if_missing(migrated, f"{metric}_estimate_basis_code", _legacy_basis_code(metric, estimate_label))
