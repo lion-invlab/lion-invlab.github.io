@@ -1,3 +1,4 @@
+// [build-tac-report] Full simulation browser QA; includes summary heading typography parity.
 import { chromium } from "playwright";
 import fs from "node:fs";
 import path from "node:path";
