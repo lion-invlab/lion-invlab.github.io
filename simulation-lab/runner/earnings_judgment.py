@@ -80,8 +80,7 @@ def _valid_source(value: Any) -> bool:
     return (
         isinstance(url, str)
         and url.startswith("https://")
-        and isinstance(observed_at, str)
-        and bool(observed_at.strip())
+        and _parse_aware_datetime(observed_at) is not None
     )
 
 
@@ -123,8 +122,8 @@ def _consensus_attempt_issue(record: dict, metric: str, estimate: Decimal) -> st
         levels.append(level)
         if attempt.get("metric") != expected_metric:
             return "consensus_attempt_metric_mismatch"
-        if not isinstance(attempt.get("observed_at"), str) or not attempt["observed_at"].strip():
-            return "consensus_attempt_missing_observed_at"
+        if _parse_aware_datetime(attempt.get("observed_at")) is None:
+            return "consensus_attempt_missing_aware_observed_at"
         outcome = attempt.get("outcome")
         if outcome not in {"adopted", "unavailable", "unreadable", "not_pre_release", "missing_required_fields", "incompatible"}:
             return "invalid_consensus_attempt_outcome"
@@ -167,9 +166,9 @@ def _consensus_attempt_issue(record: dict, metric: str, estimate: Decimal) -> st
             return "missing_selected_consensus_source_object"
         if selected_source.get("url") != selected.get("url"):
             return "selected_consensus_url_differs_from_attempt_history"
-        if selected_source.get("name") not in (None, selected.get("provider")):
+        if selected_source.get("name") != selected.get("provider"):
             return "selected_consensus_provider_differs_from_attempt_history"
-        if selected_source.get("source_level") not in (None, selected.get("source_level")):
+        if selected_source.get("source_level") != selected.get("source_level"):
             return "selected_consensus_level_differs_from_attempt_history"
         return None
 
