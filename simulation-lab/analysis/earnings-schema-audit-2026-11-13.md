@@ -120,3 +120,55 @@
    - 文件：https://docs.ortex.com/reference/stock_estimates_consensus_retrieve
 
 **來源研究裁決：** 三者都比單純公告後新聞摘要更值得做技術驗證，但目前沒有一個能在不補充授權與欄位定義的情況下直接成為 v2 比較來源。不得自行把它們插入 SIM-1.2 的固定來源順位；先取得使用者／資料供應商授權，再做 API 實測與 basis／period／currency／unit 驗收。
+
+
+## Legacy consensus 逐筆時點稽核補充（2026-11-13 最新 main 回讀）
+
+本次進一步檢查舊有 `legacy_consensus_source`／`legacy_revenue_consensus_source`，發現不能把「舊來源物件存在」直接視為公告前資料：
+
+| 指標 | Legacy source object | estimate value | observed_at 晚於／等於公告時間 | observed_at 早於公告時間 |
+|---|---:|---:|---:|---:|
+| EPS | 37/45 | 36/45 | 4 筆 | 33 筆 |
+| Revenue | 37/45 | 36/45 | 3 筆 | 34 筆 |
+
+- EPS 公告後來源：CSCO、CBRS、AMAT、MRCY。
+- Revenue 公告後來源：CSCO、CBRS、AMAT。
+- 上述公告後來源的 `observed_at` 分別為 11/12 或 11/13，而事件已在更早的美東／台灣時間公布；不得拿來當公告前共識。即使頁面列有 forecast，也不能證明是公告前凍結快照。
+- EPS 及 Revenue 各有 9 筆 estimate value 缺漏；缺值名單：PBR、CBRS、VOD、GIB、KSPI、RBA、CNH、BAP、ALC。
+- EPS 37 筆 source notes 中只有 12 筆文字含可辨識季度／財年期間線索；Revenue 僅 2 筆。這些文字線索不是標準化的來源 period 欄位，也不自動等於已驗證。
+- 因此 33／34 筆 observed_at 早於公告時間，只能證明來源物件記錄時間較早；不能單獨證明該時間就是共識值的資料截點，也不能證明估值 period、basis、currency、unit 全部吻合。
+- 這批 legacy estimate 可留作研究線索與原始歷史紀錄，但 v2 判讀須逐項完成 source cutoff、fiscal period、basis、currency、unit 驗證；未完成前保持 Pending／Incomparable。不得因舊欄位已有數字就回填 estimate_period。
+
+## 外部候選資料來源文件核對更新
+
+以下內容依 2026-11-13 可取得的供應商 API 文件重新核對；候選來源尚未接入、尚未取得帳號／授權、尚未完成 45 ticker 覆蓋測試。
+
+### OHLC Analyst Estimates API
+
+- `effective_date` 可取得該日期或之前最近的共識快照，並回傳實際 `observed_on`；`as_of` 可限制只使用當時已知的修訂。來源最早快照日期為 2026-09-23；對已在供應商開始觀測前公布的期間，不會補發 frozen consensus。
+- 可提供 EPS／Revenue mean、low、high、analyst_count、幣別及來源命名的 fiscal period；文件明示 `period_start`、`fiscal_year` 為 null，`fiscal_quarter` 才是供應商提供的季度欄位。
+- 文件未明確給出 EPS 是 GAAP、Adjusted、Basic 或 Diluted basis。故 EPS 數值不得直接與公司任意 EPS actual 比較；Revenue 也需逐筆核對單位與 metric definition。
+- Estimates 不包含 Free／Developer；Pro 可用但限 internal use；Commercial／Scale 才含 commercial display／redistribution rights。OHLC 公開頁目前列 Commercial USD 899/月，Scale USD 1,499/月；此成本未經使用者核准，不得註冊付費。
+- 文件：https://ohlc.io/docs/analyst-estimates；https://ohlc.io/pricing；https://ohlc.io/terms
+
+### Earnings Whispers Data API
+
+- `GET /earnings` 可提供 upcoming earnings 的 EPS／Revenue estimates；若在公告前定期擷取並於事件公布時鎖定，可以建立本系統自己的 prospective point-in-time snapshot。
+- `GET /history/{ticker}` 提供最近 20 次財報的 reported EPS、consensus EPS、Revenue actual／estimate；文件明確表示 EPS actual 與 consensus 都是 option-expense-adjusted basis，Revenue 以 millions 表示。
+- 但歷史 endpoint 文件沒有為每筆歷史 consensus 提供精確的 pre-release `data_as_of`／凍結時間；不能僅憑歷史值回填 W46 公告前 PIT 快照。未來若採用，必須由排程在公告前留存 raw response、抓取時間、事件時間與 SHA-256。
+- Investor／Trader 訂閱可用不同範圍；Trader 可查約 4,500 家有分析師覆蓋公司。API 文件明示資料供自身使用，重新發布／再散布需另行授權；TAC 公開頁不能直接沿用個人 API 權限。
+- 文件：https://www.earningswhispers.com/data-api
+
+### Ortex Consensus Estimates API
+
+- 可按 `date` 取指定日期共識快照，欄位含 fiscal year／quarter、period end date、currency、EPS／Revenue mean／median／high／low、analyst count，資料來源說明為 S&P Capital IQ 並每日擷取；適合做 point-in-time 可行性測試。
+- 文件將 EPS 稱為 normalized EPS，但未在目前欄位說明中明確定義 GAAP／Adjusted、Basic／Diluted 的正規化規則；未補得 basis 文件前，不得直接做 Beat／Miss。
+- 公開文件提供 TEST 試用 key，但可能受日期與地區限制；尚未實際呼叫 API、驗證 W46 日期與 45 家覆蓋，也未確認 TAC 公開顯示授權。
+- 文件：https://docs.ortex.com/reference/stock_estimates_consensus_retrieve
+
+### 來源裁決
+
+1. **最值得先做無付費／低成本技術驗證：Ortex TEST**，先測 2026-11-05 至 11-13 的 W46 公告前 snapshot 是否能回傳、ticker 覆蓋及 EPS basis metadata；TEST 若受限，不能將其視為可用。
+2. **最適合建立未來公告前快照的候選：Earnings Whispers upcoming endpoint**，但要先確認訂閱範圍、API 權限及 TAC 公開再發布授權；歷史 endpoint 不足以回填 W46 PIT。
+3. **OHLC 可作商業授權候選**，但 Commercial 起價 USD 899/月，且 EPS basis 未定義；沒有使用者授權前不付費、不接入正式排程。
+4. 以上皆為候選，不改動 SIM-1.2 既有來源優先順序。正式納入前需完成授權、API 實測、45 ticker 覆蓋、欄位 schema、point-in-time、basis／period／currency／unit 及重複性驗收。
