@@ -131,6 +131,10 @@ def main():
     check(migrated_f["eps_actual_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "legacy EPS basis mapped")
     check(migrated_f["eps_comparison_status"], "beat", "legacy EPS comparison migrated only after evidence checks")
     check(migrated_f["revenue_comparison_status"], "pending", "ambiguous legacy revenue basis remains pending")
+    check(migrated_f["eps_actual_currency"], "USD", "EPS actual currency parsed from basis evidence")
+    check(migrated_f["eps_estimate_currency"], "USD", "EPS estimate currency parsed from basis evidence")
+    check(migrated_f["revenue_actual_unit"], "USD_BILLION", "revenue actual unit parsed from basis evidence")
+    check(migrated_f["revenue_estimate_unit"], "USD_BILLION", "revenue estimate unit parsed from basis evidence")
     check("eps_actual_basis_code" not in legacy_f, True, "migration preview does not mutate source")
 
     legacy_q = {
@@ -146,6 +150,21 @@ def main():
     }
     migrated_q = migrate_legacy_record(legacy_q)
     check(migrated_q["eps_comparison_status"], "pending", "ambiguous dilution basis does not inherit legacy Miss")
+
+    currency_only = {
+        "eps_actual": 1.2,
+        "eps_estimate": 1.0,
+        "eps_actual_basis_code": "US_GAAP_DILUTED_EPS",
+        "eps_estimate_basis_code": "US_GAAP_DILUTED_EPS",
+        "eps_currency": "USD",
+        "eps_actual_period": "Q3 2026",
+        "eps_estimate_period": "Q3 2026",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"),
+        "consensus_source": source("Consensus"),
+    }
+    migrated_currency_only = migrate_legacy_record(currency_only)
+    check(migrated_currency_only["eps_comparison_status"], "pending", "single legacy currency is not duplicated across actual and estimate")
 
     legacy_onon = {
         "ticker": "ONON",
