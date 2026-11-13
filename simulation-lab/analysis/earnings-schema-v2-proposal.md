@@ -162,3 +162,16 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 - 測試新增：unversioned legacy commentary 的 Beat/Miss 抑制、已 versioned EPS Beat 但文字寫 Miss 的衝突抑制、Revenue Pending 時抑制 Beat、保留中性評論。
 - 另修正句子切分，避免把 US$1.20 等小數點當成句號。
 - 新測試已加入既有 `test_earnings_comparison_status.py`，但本輪最新 commits 尚無 GitHub Actions check-run；因此這部分仍待 CI／實際 11/13 fixture rebuild 驗收。
+
+## 2026-11-13 遷移硬化補充
+
+### 舊欄位不得推定共識期間或口徑
+- 舊 `reporting_period` 是發行公司所報告的財報期間；遷移時最多只可映射到 `eps_actual_period`／`revenue_actual_period`。
+- 不得把 `reporting_period` 複製到任何 `*_estimate_period`。Estimate period 必須由共識來源明確提供；缺少時維持 null，判讀為 Pending。
+- 不得從 `financial_judgment`、`consensus_source.notes` 或其他自由文字推定 `*_estimate_basis_code`。只有結構化的 estimate basis 原始描述經受控 registry 明確解析，才可產生 code；無法明確解析即 Pending。
+- 舊共用幣別欄位只有在 actual／estimate 各自的 basis 描述明確列出幣別，或舊欄位本身明確區分兩側時，才可分別映射；單一幣別不得複製。
+- 舊共用營收單位欄位不得直接複製到 actual／estimate；必須從兩側各自明確的來源描述確認幣別與尺度。
+### v2 驗收必須是 fail-closed
+- 已公布財報逐筆都必須帶目前 engine version；0 筆 v2、部分 v2、任何已公布 legacy record 均不得被報告為 rollout valid。
+- Validator 必須重算並比對 status、reason、surprise、surprise_pct、summary；只核對 Beat／Miss 字串不足以驗收。
+- 歷史診斷可使用 `--allow-legacy`，但正式 Gate 必須使用 strict default，且最好提供獨立核實的已公布事件筆數作 expected count。
