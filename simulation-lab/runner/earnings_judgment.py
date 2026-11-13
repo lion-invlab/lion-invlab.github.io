@@ -354,7 +354,11 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
         migrated.setdefault(f"{metric}_estimate_currency", estimate_currency)
         period = record.get("reporting_period")
         migrated.setdefault(f"{metric}_actual_period", period)
-        migrated.setdefault(f"{metric}_estimate_period", period)
+        # A company's reporting_period identifies the reported actual period.
+        # It is not evidence of the consensus estimate's fiscal period.
+        # Preserve an explicitly sourced estimate period; otherwise leave it
+        # missing so evaluate_metric returns pending rather than assuming a match.
+        migrated.setdefault(f"{metric}_estimate_period", None)
 
     migrated.setdefault(
         "revenue_actual_unit",
