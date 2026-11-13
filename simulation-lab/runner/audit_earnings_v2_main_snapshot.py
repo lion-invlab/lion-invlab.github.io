@@ -33,6 +33,7 @@ def audit(path: str) -> dict:
         "schema_version": payload.get("schema_version"),
         "wr_version": payload.get("wr_version"),
         "updated_at": payload.get("updated_at"),
+        "last_update_audit": payload.get("last_update_audit"),
         "released_count": len(released),
         "metrics": {},
     }
@@ -45,6 +46,33 @@ def audit(path: str) -> dict:
             audit_consensus_attempts(item, metric)
             for item in released
         ]
+        consensus_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+        legacy_consensus_key = "legacy_consensus_source" if metric == "eps" else "legacy_revenue_consensus_source"
+        attempt_outcomes = Counter()
+        attempt_level_outcomes = Counter()
+        for item in released:
+            attempts = item.get(attempt_key)
+            if isinstance(attempts, list):
+                for attempt in attempts:
+                    if isinstance(attempt, dict):
+                        outcome = attempt.get("outcome", "missing")
+                        attempt_outcomes[outcome] += 1
+                        attempt_level_outcomes[
+                            f"{attempt.get('source_level')}:{attempt.get('provider')}:{outcome}"
+                        ] += 1
+        legacy_source_preserved = sum(
+            isinstance(item.get(legacy_consensus_key), dict) for item in released
+        )
+        legacy_estimate_copy_matches = sum(
+            item.get(f"legacy_{metric}_estimate", "__missing__")
+            == item.get(f"{metric}_estimate", "__missing__")
+            for item in released
+        )
+        legacy_status_copy_matches = sum(
+            item.get(f"legacy_{metric}_comparison_status", "__missing__")
+            == item.get(status_key, "__missing__")
+            for item in released
+        )
         result["metrics"][metric] = {
             "legacy_status_counts": dict(Counter(item.get(status_key) or "null" for item in released)),
             "v2_preview_status_counts": dict(Counter(item.get(status_key) or "null" for item in migrated)),
@@ -60,7 +88,12 @@ def audit(path: str) -> dict:
             "estimate_currency_present": sum(item.get(f"{metric}_estimate_currency") not in (None, "") for item in released),
             "actual_period_present": sum(item.get(f"{metric}_actual_period") not in (None, "") for item in released),
             "estimate_period_present": sum(item.get(f"{metric}_estimate_period") not in (None, "") for item in released),
-            "consensus_source_present": sum(isinstance(item.get("consensus_source" if metric == "eps" else "revenue_consensus_source"), dict) for item in released),
+            "consensus_source_present": sum(isinstance(item.get(consensus_key), dict) for item in released),
+            "legacy_consensus_source_preserved": legacy_source_preserved,
+            "legacy_estimate_copy_matches": legacy_estimate_copy_matches,
+            "legacy_status_copy_matches": legacy_status_copy_matches,
+            "attempt_outcome_counts": dict(attempt_outcomes),
+            "attempt_level_outcome_counts": dict(attempt_level_outcomes),
             "preview_actual_basis_code_present": sum(item.get(f"{metric}_actual_basis_code") not in (None, "") for item in migrated),
             "preview_estimate_basis_code_present": sum(item.get(f"{metric}_estimate_basis_code") not in (None, "") for item in migrated),
             "preview_actual_currency_present": sum(item.get(f"{metric}_actual_currency") not in (None, "") for item in migrated),
@@ -79,6 +112,20 @@ def audit(path: str) -> dict:
                     "v2_preview_status": judged.get(status_key),
                     "v2_preview_reason": judged.get(f"{metric}_comparison_reason"),
                     "attempt_count": len(item.get(attempt_key) or []) if isinstance(item.get(attempt_key), list) else 0,
+                    "attempt_outcomes": [
+                        attempt.get("outcome")
+                        for attempt in (item.get(attempt_key) or [])
+                        if isinstance(attempt, dict)
+                    ],
+                    "legacy_source_preserved": isinstance(item.get(legacy_consensus_key), dict),
+                    "legacy_estimate_copy_matches": (
+                        item.get(f"legacy_{metric}_estimate", "__missing__")
+                        == item.get(f"{metric}_estimate", "__missing__")
+                    ),
+                    "legacy_status_copy_matches": (
+                        item.get(f"legacy_{metric}_comparison_status", "__missing__")
+                        == item.get(status_key, "__missing__")
+                    ),
                     "attempt_issue": issue,
                 }
                 for item, judged, issue in zip(released, migrated, attempt_issues)
