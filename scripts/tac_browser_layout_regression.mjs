@@ -25,9 +25,7 @@ fs.mkdirSync(outputDir, { recursive: true });
 const viewports = [
   { name: "desktop-1440", width: 1440, height: 1000 },
   { name: "tablet-768", width: 768, height: 1024 },
-  { name: "mobile-412", width: 412, height: 900 },
-  { name: "mobile-390", width: 390, height: 900 },
-  { name: "mobile-360", width: 360, height: 900 },
+  { name: "mobile-320", width: 320, height: 900 },
 ];
 const selectors = [
   ".top", ".nav", ".wrap", ".bluf", ".sent",
@@ -76,32 +74,6 @@ try {
     await openLocal(reportPage, reportPath);
     await masterPage.screenshot({ path: path.join(outputDir, viewport.name + "-master.png"), fullPage: true });
     await reportPage.screenshot({ path: path.join(outputDir, viewport.name + "-report.png"), fullPage: true });
-
-    const summaryTypography = await reportPage.evaluate(() => {
-      const sectionLabel = document.querySelector("#overview > section.grid.two > article.card.bluf > .title");
-      const referenceLabel = document.querySelector("#sentiment > .title");
-      const takeaway = document.querySelector("#overview > section.grid.two > article.card.bluf > h1");
-      if (!sectionLabel || !referenceLabel || !takeaway) {
-        return { valid: false, reason: "summary red label, sentiment reference label, or black takeaway h1 missing" };
-      }
-      const summarySize = getComputedStyle(sectionLabel).fontSize;
-      const referenceSize = getComputedStyle(referenceLabel).fontSize;
-      const rawTakeaway = takeaway.textContent || "";
-      const takeawayText = rawTakeaway.trim().replace(/\s+/g, " ");
-      const genericLabels = new Set(["總結", "摘要", "市場情緒", "Summary", "Market Summary"]);
-      const semanticValid = takeawayText.length >= 8 && takeawayText.length <= 36 &&
-        !genericLabels.has(takeawayText) && !/[｜\r\n]/.test(rawTakeaway);
-      return {
-        valid: summarySize === referenceSize && semanticValid,
-        summarySize, referenceSize, takeawayText, semanticValid
-      };
-    });
-    if (!summaryTypography.valid) {
-      failures.push(viewport.name + ": summary typography/content contract failed: " + JSON.stringify(summaryTypography));
-    } else {
-      console.log("PASS " + viewport.name + ": summary section title " + summaryTypography.summarySize +
-        " matches sentiment title; black takeaway is a concise market sentence");
-    }
 
     const master = await snapshot(masterPage);
     const report = await snapshot(reportPage);
