@@ -864,3 +864,12 @@
 - Pending 根因：EPS 15 缺 basis code、12 缺 actual／consensus 數值；Revenue 32 缺 basis code、8 缺 actual／consensus 數值。
 - Artifact `14015686988` 已核對，包含 42 筆 `earnings-migration-preview.csv`、`earnings-schema-audit.json`。本次全部只讀 main，沒有寫入正式 JSON。
 - 正式阻塞仍是 04:35 ChatGPT automation disabled，且舊 prompt 要求 schema 不變；必須先完成唯一 writer 的正式契約整合與完整回歸，再談恢復排程。
+
+
+## 2026-11-13｜遷移器幣別／單位安全性與切換草案
+
+- code review 發現單一 legacy currency/unit 被直接複製至 actual／estimate 兩側的風險，已修正為只接受明確 actual／estimate 配對或兩側 basis label 的幣別／尺度證據；單一共用欄位不再作推定。
+- 加入 regression tests：basis label currency/unit parsing、單一 legacy currency 不可複製、明確雙幣別不可比較。GitHub Actions run `43379471248` completed/success。
+- 安全修正後 W46 migration preview：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。CSV 42 筆已核對，artifact ID `14016445759`。
+- 新增 `04-35-automation-v2-prompt.md` 及 `earnings-schema-v2-cutover-checklist.md`。它們只是隔離分支草案，尚未修改真實 automation。
+- 04:35 automation 仍停用；main JSON／正式 WR／首頁／母版均未修改。正式切換仍須 main 部署及使用者授權。
