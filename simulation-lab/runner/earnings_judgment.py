@@ -116,6 +116,36 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     if actual is None or estimate is None:
         return _result("pending", "missing_or_invalid_actual_or_consensus")
 
+    # Explicit non-comparability evidence outranks missing metadata. A known
+    # currency, period, or unit mismatch is sufficient to prohibit a directional
+    # judgment even when the accounting-basis code is not yet available.
+    actual_currency = record.get(f"{metric}_actual_currency")
+    estimate_currency = record.get(f"{metric}_estimate_currency")
+    currencies_valid = _valid_currency(actual_currency) and _valid_currency(estimate_currency)
+    if currencies_valid and actual_currency != estimate_currency:
+        return _result("incomparable", "currency_mismatch", actual, estimate)
+
+    actual_period = record.get(f"{metric}_actual_period")
+    estimate_period = record.get(f"{metric}_estimate_period")
+    periods_valid = (
+        isinstance(actual_period, str) and bool(actual_period.strip())
+        and isinstance(estimate_period, str) and bool(estimate_period.strip())
+    )
+    if periods_valid and actual_period.strip().casefold() != estimate_period.strip().casefold():
+        return _result("incomparable", "reporting_period_mismatch", actual, estimate)
+
+    actual_unit = estimate_unit = None
+    units_valid = True
+    if metric == "revenue":
+        actual_unit = record.get("revenue_actual_unit")
+        estimate_unit = record.get("revenue_estimate_unit")
+        units_valid = (
+            isinstance(actual_unit, str) and bool(actual_unit.strip())
+            and isinstance(estimate_unit, str) and bool(estimate_unit.strip())
+        )
+        if units_valid and actual_unit.strip().casefold() != estimate_unit.strip().casefold():
+            return _result("incomparable", "revenue_unit_mismatch", actual, estimate)
+
     actual_basis = record.get(f"{metric}_actual_basis_code")
     estimate_basis = record.get(f"{metric}_estimate_basis_code")
     if not _valid_code(actual_basis, metric) or not _valid_code(estimate_basis, metric):
@@ -123,31 +153,16 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     if actual_basis != estimate_basis:
         return _result("incomparable", "basis_code_mismatch", actual, estimate)
 
-    actual_currency = record.get(f"{metric}_actual_currency")
-    estimate_currency = record.get(f"{metric}_estimate_currency")
-    if not _valid_currency(actual_currency) or not _valid_currency(estimate_currency):
+    if not currencies_valid:
         return _result("pending", "missing_or_invalid_separate_currency", actual, estimate)
-    if actual_currency != estimate_currency:
-        return _result("incomparable", "currency_mismatch", actual, estimate)
-
-    actual_period = record.get(f"{metric}_actual_period")
-    estimate_period = record.get(f"{metric}_estimate_period")
-    if not isinstance(actual_period, str) or not actual_period.strip():
-        return _result("pending", "missing_actual_reporting_period", actual, estimate)
-    if not isinstance(estimate_period, str) or not estimate_period.strip():
+    if not periods_valid:
+        if not isinstance(actual_period, str) or not actual_period.strip():
+            return _result("pending", "missing_actual_reporting_period", actual, estimate)
         return _result("pending", "missing_consensus_reporting_period", actual, estimate)
-    if actual_period.strip().casefold() != estimate_period.strip().casefold():
-        return _result("incomparable", "reporting_period_mismatch", actual, estimate)
-
-    if metric == "revenue":
-        actual_unit = record.get("revenue_actual_unit")
-        estimate_unit = record.get("revenue_estimate_unit")
+    if metric == "revenue" and not units_valid:
         if not isinstance(actual_unit, str) or not actual_unit.strip():
             return _result("pending", "missing_actual_revenue_unit", actual, estimate)
-        if not isinstance(estimate_unit, str) or not estimate_unit.strip():
-            return _result("pending", "missing_consensus_revenue_unit", actual, estimate)
-        if actual_unit.strip().casefold() != estimate_unit.strip().casefold():
-            return _result("incomparable", "revenue_unit_mismatch", actual, estimate)
+        return _result("pending", "missing_consensus_revenue_unit", actual, estimate)
 
     actual_source = record.get("source")
     consensus_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
