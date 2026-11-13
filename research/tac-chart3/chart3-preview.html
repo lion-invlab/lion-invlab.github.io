@@ -197,61 +197,48 @@ const MAJOR_EVENTS=[
  {id:'covid',name:'COVID-19 市場衝擊',start:'2020-02-19',end:'2020-03-23',source:'https://www.ici.org/system/files/attachments/pdf/20_rpt_covid1.pdf',sourceLabel:'Investment Company Institute'},
  {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
 ];
-function drawCombined(data,visible,eventVisible,drawdownVisible){
- const W=1100,H=550,L=78,R=82,T=34,B=164,iw=W-L-R,ih=H-T-B;
- const minX=Date.parse('1993-12-31T00:00:00Z'),maxX=Date.parse('2026-11-10T00:00:00Z');
- const x=t=>L+(t-minX)/(maxX-minX)*iw,yp=v=>T+(8000-v)/8000*ih,ys=v=>T+(100-v)/100*ih;
- const parts=[];
+const CHART_START=Date.parse('1993-12-31T00:00:00Z');
+const CHART_END=Date.parse('2026-11-10T00:00:00Z');
+const MIN_VIEW_SPAN=365*86400000;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END){
+ const W=1100,H=550,L=78,R=82,T=34,B=164,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
+ const x=t=>L+(t-minX)/(maxX-minX)*iw,yp=v=>T+(8000-v)/8000*ih,ys=v=>T+(100-v)/100*ih,parts=[];
  for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
- for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
- // 標普回檔區間獨立使用細虛線框，與歷史事件帶區別；百分比標籤在圖底部呈兩列。
- const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak));
+ const startYear=new Date(minX).getUTCFullYear(),endYear=new Date(maxX).getUTCFullYear(),yearStep=Math.max(1,Math.ceil((endYear-startYear)/6));
+ for(let yr=Math.ceil(startYear/yearStep)*yearStep;yr<=endYear;yr+=yearStep){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));if(xx<L||xx>W-R)continue;parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
+ const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak)),visibleDD=sortedDD.filter(dd=>(Date.parse(dd.trough+'T23:59:59Z')>=minX&&Date.parse(dd.peak+'T00:00:00Z')<=maxX)||(dd.id==='dd-1990'&&minX===CHART_START));
  for(let idx=0;idx<sortedDD.length;idx++){
-  const dd=sortedDD[idx];
-  const x1=x(Date.parse(dd.peak+'T00:00:00Z')),x2=x(Date.parse(dd.trough+'T23:59:59Z'));
-  const beforeSeries=Date.parse(dd.trough+'T23:59:59Z')<minX;
-  const left=Math.max(L,x1),right=Math.min(W-R,x2),mid=(left+right)/2;
-  parts.push('<rect data-drawdown="'+dd.id+'" data-drawdown-before-series="'+(beforeSeries?'true':'false')+'" display="'+(drawdownVisible[dd.id]?"":"none")+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,right-left).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'（* SPY代理值）':'')+(beforeSeries?'（早於主圖價格線起點；左界細線僅為超出範圍提示）':'')+'｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
-  const lane=idx%2;
-  const labelX=L+(idx+.5)*iw/sortedDD.length;
-  const labelY=H-B-(lane===0?10:28);
-  parts.push('<line data-drawdown-leader="'+dd.id+'" display="'+(drawdownVisible[dd.id]?"":"none")+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-36)+'" x2="'+labelX.toFixed(1)+'" y2="'+(labelY-8)+'" stroke="#526174" stroke-width=".8"/>');
-  parts.push('<rect data-drawdown-label-bg="'+dd.id+'" display="'+(drawdownVisible[dd.id]?"":"none")+'" x="'+(labelX-22).toFixed(1)+'" y="'+(labelY-18)+'" width="44" height="16" rx="5" fill="#26364d"/>');
-  parts.push('<text data-drawdown-label="'+dd.id+'" display="'+(drawdownVisible[dd.id]?"":"none")+'" x="'+labelX.toFixed(1)+'" y="'+(labelY-6)+'" text-anchor="middle" style="fill:#fff;font-size:10px;font-weight:700">'+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</text>');
+  const dd=sortedDD[idx],pt=Date.parse(dd.peak+'T00:00:00Z'),tt=Date.parse(dd.trough+'T23:59:59Z'),before=tt<CHART_START,inView=(tt>=minX&&pt<=maxX)||(before&&minX===CHART_START);
+  const x1=x(pt),x2=x(tt),left=Math.max(L,Math.min(W-R,x1)),right=Math.max(L,Math.min(W-R,x2)),mid=before?L:(Math.max(L,x1)+Math.min(W-R,x2))/2,shown=drawdownVisible[dd.id]&&inView;
+  parts.push('<rect data-drawdown="'+dd.id+'" data-drawdown-before-series="'+(before?'true':'false')+'" display="'+(shown?'':'none')+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+(before?2:Math.max(0,right-left)).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'（* SPY代理值）':'')+(before?'（早於主圖價格線起點；左界細線僅為超出範圍提示）':'')+'｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
+  const vi=visibleDD.findIndex(d=>d.id===dd.id),lane=idx%2,lx=vi<0?L+22:L+(vi+.5)*iw/Math.max(1,visibleDD.length),ly=H-B-(lane===0?10:28);
+  parts.push('<line data-drawdown-leader="'+dd.id+'" display="'+(shown?'':'none')+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-36)+'" x2="'+lx.toFixed(1)+'" y2="'+(ly-8)+'" stroke="#526174" stroke-width=".8"/>');
+  parts.push('<rect data-drawdown-label-bg="'+dd.id+'" display="'+(shown?'':'none')+'" x="'+(lx-22).toFixed(1)+'" y="'+(ly-18)+'" width="44" height="16" rx="5" fill="#26364d"/>');
+  parts.push('<text data-drawdown-label="'+dd.id+'" display="'+(shown?'':'none')+'" x="'+lx.toFixed(1)+'" y="'+(ly-6)+'" text-anchor="middle" style="fill:#fff;font-size:10px;font-weight:700">'+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</text>');
  }
- // 重大事件區間直接疊加在主圖繪圖區：同一日期座標、完整繪圖高度；曲線稍後繪製於上層，確保清晰可讀。
  const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
- for(const ev of sortedEvents){
-  const x1=Math.max(L,Math.min(W-R,x(Date.parse(ev.start+'T00:00:00Z'))));
-  const x2=Math.max(L,Math.min(W-R,x(Date.parse(ev.end+'T23:59:59Z'))));
-  parts.push('<rect data-event="'+ev.id+'" display="'+(eventVisible[ev.id]?"":"none")+'" x="'+x1.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,x2-x1).toFixed(2)+'" height="'+ih+'" fill="#8792a2" fill-opacity=".075" stroke="#7b8794" stroke-opacity=".22" stroke-width="1"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');
- }
- if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜right axis</title></path>');
- const ids=['VIXCLS','NFCI','NFCICREDIT','STLFSI4'];
- for(const id of ids){if(!visible[id])continue;const pts=data[id];let d='',open=false;
+ for(const ev of sortedEvents){const st=Date.parse(ev.start+'T00:00:00Z'),en=Date.parse(ev.end+'T23:59:59Z'),inside=en>=minX&&st<=maxX,xx1=Math.max(L,Math.min(W-R,x(st))),xx2=Math.max(L,Math.min(W-R,x(en)));parts.push('<rect data-event="'+ev.id+'" display="'+(eventVisible[ev.id]&&inside?'':'none')+'" x="'+xx1.toFixed(2)+'" y="'+T+'" width="'+(inside?Math.max(2,xx2-xx1):0).toFixed(2)+'" height="'+ih+'" fill="#8792a2" fill-opacity=".075" stroke="#7b8794" stroke-opacity=".22" stroke-width="1"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');}
+ const nPath=SP500_Y36.length/2,sx=iw/(nPath-1)*(CHART_END-CHART_START)/(maxX-minX),tx=L-72*sx-(minX-CHART_START)*iw/(maxX-minX);
+ parts.push('<defs><clipPath id="plot-clip"><rect x="'+L+'" y="'+T+'" width="'+iw+'" height="'+ih+'"/></clipPath></defs>');
+ if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" transform="matrix('+sx.toFixed(6)+' 0 0 1 '+tx.toFixed(3)+' 0)" clip-path="url(#plot-clip)" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜right axis</title></path>');
+ for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4']){if(!visible[id])continue;const pts=data[id];let d='',open=false;
   for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
-  const cfg=SERIES_CONFIG.find(s=>s.id===id);parts.push('<path id="path-'+id+'" data-series="'+id+'" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜trailing 520-week percentile</title></path>');
+  const cfg=SERIES_CONFIG.find(s=>s.id===id),first=pts.find(p=>Number.isFinite(p.value)),valid=pts.filter(p=>Number.isFinite(p.value)).length;
+  parts.push('<path id="path-'+id+'" data-series="'+id+'" data-first-valid-date="'+(first?.date||'')+'" data-valid-points="'+valid+'" data-percentile-window="520" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜trailing 520-week percentile</title></path>');
  }
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
- document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
- const preSeriesItems=DRAWDOWNS.filter(dd=>drawdownVisible[dd.id]&&Date.parse(dd.trough+'T23:59:59Z')<minX);
- const preSeriesNote=document.getElementById('pre-series-history-note');
- preSeriesNote.hidden=preSeriesItems.length===0;
+ document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" data-view-start="'+new Date(minX).toISOString().slice(0,10)+'" data-view-end="'+new Date(maxX).toISOString().slice(0,10)+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
+ const preSeriesItems=minX===CHART_START?DRAWDOWNS.filter(dd=>drawdownVisible[dd.id]&&Date.parse(dd.trough+'T23:59:59Z')<CHART_START):[];
+ const preSeriesNote=document.getElementById('pre-series-history-note');preSeriesNote.hidden=preSeriesItems.length===0;
  preSeriesNote.innerHTML=preSeriesItems.map(dd=>'<strong>'+dd.peak+' 至 '+dd.trough+'｜S&P 500 收盤回檔 '+dd.pct.toFixed(1)+'%</strong>（峰值 '+fmt(dd.peakClose)+' → 谷底 '+fmt(dd.troughClose)+'）。此期間早於主圖價格線起點（1993-12-31）；圖表左界細線僅提示資料在顯示範圍外，不會把回檔日期移入主圖，也不補畫價格線。收盤價核對：<a href="'+dd.source+'" target="_blank" rel="noopener">SEC 歷史收盤價表</a> · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">BMO 跌幅交叉查核</a>。').join('');
- // 將事件與回檔作為同一時間序列清單中的兩種獨立紀錄。
- // 日期重疊只作背景參照，不代表事件造成回檔；每筆回檔只呈現一次。
  const ledgerRows=[
   ...MAJOR_EVENTS.map(ev=>({kind:'event',date:ev.start,html:'<label class="event-item" data-event-entry="'+ev.id+'"><input type="checkbox" data-history-event="'+ev.id+'" '+(eventVisible[ev.id]?"checked":"")+' aria-label="顯示事件：'+ev.name+'"><span class="event-item-content"><strong>'+ev.name+'</strong><br>事件期間：'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></span></label>'})),
-  ...DRAWDOWNS.map(dd=>{
-   const overlaps=MAJOR_EVENTS.filter(ev=>dd.peak<=ev.end&&dd.trough>=ev.start);
-   const context=overlaps.length?'同期事件（日期重疊，非因果判定）：'+overlaps.map(ev=>ev.name).join('、'):'尚無明確事件對應';
-   return {kind:'drawdown',date:dd.peak,html:'<label class="event-item" data-drawdown-entry="'+dd.id+'"><input type="checkbox" data-history-drawdown="'+dd.id+'" '+(drawdownVisible[dd.id]?"checked":"")+' aria-label="顯示 S&P 500 回檔 '+dd.pct.toFixed(1)+'%"><span class="event-item-content"><strong>S&P 500 市場回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong><br>回檔期間：'+dd.peak+' → '+dd.trough+'<br><span>'+context+'</span>'+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a>'+(dd.crossCheckSource?' · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">'+dd.crossCheckSourceLabel+'</a>':'')+'</span></label>'};
-  })
+  ...DRAWDOWNS.map(dd=>{const overlaps=MAJOR_EVENTS.filter(ev=>dd.peak<=ev.end&&dd.trough>=ev.start),context=overlaps.length?'同期事件（日期重疊，非因果判定）：'+overlaps.map(ev=>ev.name).join('、'):'尚無明確事件對應';return {kind:'drawdown',date:dd.peak,html:'<label class="event-item" data-drawdown-entry="'+dd.id+'"><input type="checkbox" data-history-drawdown="'+dd.id+'" '+(drawdownVisible[dd.id]?"checked":"")+' aria-label="顯示 S&P 500 回檔 '+dd.pct.toFixed(1)+'%"><span class="event-item-content"><strong>S&P 500 市場回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong><br>回檔期間：'+dd.peak+' → '+dd.trough+'<br><span>'+context+'</span>'+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a>'+(dd.crossCheckSource?' · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">'+dd.crossCheckSourceLabel+'</a>':'')+'</span></label>'};})
  ];
- ledgerRows.sort((a,b)=>a.date.localeCompare(b.date)||(a.kind==='event'?-1:1));
- document.getElementById('event-drawdown-key').innerHTML=ledgerRows.map(row=>row.html).join('');
+ ledgerRows.sort((a,b)=>a.date.localeCompare(b.date)||(a.kind==='event'?-1:1));document.getElementById('event-drawdown-key').innerHTML=ledgerRows.map(row=>row.html).join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
@@ -265,7 +252,22 @@ fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HT
  document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
  const eventVisible=Object.fromEntries(MAJOR_EVENTS.map(ev=>[ev.id,true]));
  const drawdownVisible=Object.fromEntries(DRAWDOWNS.map(dd=>[dd.id,true]));
- const render=()=>drawCombined(weekly,visible,eventVisible,drawdownVisible);
+ let viewStart=CHART_START,viewEnd=CHART_END;
+ const normalize=(a,b)=>{const span=clamp(b-a,MIN_VIEW_SPAN,CHART_END-CHART_START);a=clamp(a,CHART_START,CHART_END-span);return [a,a+span];};
+ const render=()=>{drawCombined(weekly,visible,eventVisible,drawdownVisible,viewStart,viewEnd);document.getElementById('timeline-range').textContent=new Date(viewStart).getUTCFullYear()+'–'+new Date(viewEnd).getUTCFullYear();};
+ const setView=(a,b)=>{[viewStart,viewEnd]=normalize(a,b);render();};
+ const zoom=(factor,ratio=.5,baseA=viewStart,baseB=viewEnd)=>{const span=baseB-baseA,r=clamp(ratio,0,1),anchor=baseA+span*r,next=clamp(span*factor,MIN_VIEW_SPAN,CHART_END-CHART_START);setView(anchor-next*r,anchor+next*(1-r));};
+ const pan=(a,b,dx,width)=>{const shift=-dx*(b-a)/Math.max(1,width*940/1100);setView(a+shift,b+shift);};
+ document.getElementById('timeline-zoom-in').addEventListener('click',()=>zoom(.75));document.getElementById('timeline-zoom-out').addEventListener('click',()=>zoom(1.33));document.getElementById('timeline-reset').addEventListener('click',()=>setView(CHART_START,CHART_END));
+ const chart=document.getElementById('combined-chart');let drag=null,touch=null;
+ chart.addEventListener('wheel',e=>{if(!e.target.closest('#combined-svg'))return;e.preventDefault();const r=chart.getBoundingClientRect();zoom(e.deltaY<0?.8:1.25,(e.clientX-r.left)/r.width);},{passive:false});
+ chart.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||!e.target.closest('#combined-svg'))return;drag={id:e.pointerId,x:e.clientX,a:viewStart,b:viewEnd};chart.classList.add('is-dragging');chart.setPointerCapture(e.pointerId);});
+ chart.addEventListener('pointermove',e=>{if(drag&&e.pointerId===drag.id)pan(drag.a,drag.b,e.clientX-drag.x,chart.getBoundingClientRect().width);});
+ const stop=e=>{if(drag&&e.pointerId===drag.id){drag=null;chart.classList.remove('is-dragging');}};chart.addEventListener('pointerup',stop);chart.addEventListener('pointercancel',stop);
+ const dist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+ chart.addEventListener('touchstart',e=>{if(!e.target.closest('#combined-svg'))return;if(e.touches.length===2)touch={kind:'pinch',a:viewStart,b:viewEnd,d:dist(e.touches)};else if(e.touches.length===1)touch={kind:'pan',a:viewStart,b:viewEnd,x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:false});
+ chart.addEventListener('touchmove',e=>{if(!touch)return;const r=chart.getBoundingClientRect();if(e.touches.length===2&&touch.kind==='pinch'){e.preventDefault();const d=dist(e.touches),mx=(e.touches[0].clientX+e.touches[1].clientX)/2,ratio=clamp((mx-r.left)/r.width,0,1),span=touch.b-touch.a,anchor=touch.a+span*ratio,next=clamp(span*touch.d/Math.max(1,d),MIN_VIEW_SPAN,CHART_END-CHART_START);setView(anchor-next*ratio,anchor+next*(1-ratio));}else if(e.touches.length===1&&touch.kind==='pan'){const t=e.touches[0],dx=t.clientX-touch.x,dy=t.clientY-touch.y;if(Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();pan(touch.a,touch.b,dx,r.width);}}},{passive:false});
+ chart.addEventListener('touchend',e=>{if(e.touches.length===1)touch={kind:'pan',a:viewStart,b:viewEnd,x:e.touches[0].clientX,y:e.touches[0].clientY};else if(!e.touches.length)touch=null;},{passive:true});chart.addEventListener('touchcancel',()=>{touch=null;},{passive:true});
  controls.querySelectorAll('input[data-series-toggle]').forEach(input=>input.addEventListener('change',()=>{visible[input.dataset.seriesToggle]=input.checked;render();}));
  document.getElementById('select-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=true;controls.querySelectorAll('input').forEach(i=>i.checked=true);render();});
  document.getElementById('clear-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=false;controls.querySelectorAll('input').forEach(i=>i.checked=false);render();});
