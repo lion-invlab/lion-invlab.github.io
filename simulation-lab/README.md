@@ -1,16 +1,17 @@
 # TAC Process Simulation Lab
 
 - Branch: `simulation/tac-process-lab-2026-11-06`
-- Base main commit: `f05c889857f66c7b6d5bf9c78325932f2eb39a55`
-- Main WR v5.14 blob: `80d49eeaa54e16a18dc34416239e4b46664ba44b`
-- Main Manifest blob: `fade5e3d88de76a79cb5c1656cc592b98827ab55`
-- Main QA contract blob: `74a7c90aaaeee497b7b2b134d9569aee615d95c0`
-- Isolation: no writes to main; no Pages deployment; no PR creation/merge; no repo settings or workflow configuration changes.
+- Unified simulation WR: `simulation-lab/TAC_WORK_RULES_SIM.md` (SIM-1.2)
+- WR merge basis: SIM-1.1 plus the simulation-branch v5.19 rules; the root-level simulation copy `TAC_WORK_RULES.md` is retired after migration.
+- The unified simulation WR is the only authority for the 05:25 simulation report workflow. Do not read the main-branch WR as a second authority for that workflow.
+- Main calendar database: `data/calendar/weeks/YYYY-Www.json` is the single shared authoritative source. The independent 04:35 calendar automation is its only writer; the 05:25 simulation report is read-only.
+- Main writes remain narrowly separated: the authorized dated simulation review preview, and `index.html` only after explicit user approval under the unified WR. No other main assets may be modified.
+- Simulation mother templates, Manifest and QA contract are frozen read-only baselines under `simulation-lab/baseline/`.
 
 ## Lab layout
 
-- `simulation-lab/TAC_WORK_RULES_SIM.md`: working simulation rules; overrides at top, complete main v5.14 preserved below.
-- `simulation-lab/baseline/`: frozen copies of the source manifest and QA contract.
+- `simulation-lab/TAC_WORK_RULES_SIM.md`: the sole unified simulation Work Rules (SIM-1.2), including SIM-1.1 isolation/data gates and the v5.19 operational rules.
+- `simulation-lab/baseline/`: frozen simulation copies of the approved mother templates, Manifest and QA contract.
 - `simulation-lab/analysis/`: contradictions, failure taxonomy, and repair decisions.
 - `simulation-lab/fixtures/`: deterministic replay inputs and injected failures.
 - `simulation-lab/runs/`: per-run step evidence, output hashes, timings, and pass/fail.
@@ -18,7 +19,7 @@
 
 ## Required experiment matrix
 
-1. Current v5.14 direct-authoring workflow.
+1. Current SIM-1.2 direct-authoring workflow.
 2. Existing repository Snapshot -> validation -> HTML-binding candidate (read-only evaluation; no assumption it is production-authorized).
 3. Hybrid workflow: verified source evidence and reusable data ledger, then deterministic DOM-based template population and independent QA.
 
