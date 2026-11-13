@@ -205,9 +205,29 @@ const MIN_VIEW_SPAN=365*86400000;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END){
  const W=1100,H=550,L=78,R=82,T=34,B=164,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
- const x=t=>L+(t-minX)/(maxX-minX)*iw,yp=v=>T+(8000-v)/8000*ih,ys=v=>T+(100-v)/100*ih,parts=[];
+ const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
+ // Decode only the S&P 500 visual observations inside the current time window.
+ // SP500_Y36 stores half-pixel Y coordinates on the original 0–8,000 point scale.
+ const nPath=SP500_Y36.length/2,fullSpan=CHART_END-CHART_START;
+ const i0=clamp(Math.floor((minX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
+ const i1=clamp(Math.ceil((maxX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
+ let visibleMin=Infinity,visibleMax=-Infinity;
+ for(let i=i0;i<=i1;i++){
+  const py=parseInt(SP500_Y36.slice(i*2,i*2+2),36)/2;
+  const price=8000-(py-T)/ih*8000;
+  if(Number.isFinite(price)){visibleMin=Math.min(visibleMin,price);visibleMax=Math.max(visibleMax,price);}
+ }
+ if(!Number.isFinite(visibleMin)||!Number.isFinite(visibleMax)){visibleMin=0;visibleMax=8000;}
+ if(visibleMax-visibleMin<1){visibleMin-=.5;visibleMax+=.5;}
+ const rawStep=(visibleMax-visibleMin)*1.12/5,pow=Math.pow(10,Math.floor(Math.log10(Math.max(rawStep,1e-9))));
+ const norm=rawStep/pow,nice=norm<=1?1:norm<=2?2:norm<=2.5?2.5:norm<=5?5:10,priceStep=nice*pow;
+ const priceMin=Math.floor((visibleMin-(visibleMax-visibleMin)*.06)/priceStep)*priceStep;
+ const priceMax=Math.ceil((visibleMax+(visibleMax-visibleMin)*.06)/priceStep)*priceStep;
+ const priceY=v=>T+(priceMax-v)/(priceMax-priceMin)*ih;
+ const sourceYMax=T+(8000-visibleMax)/8000*ih,sourceYMin=T+(8000-visibleMin)/8000*ih;
+ const priceScaleY=ih/(sourceYMin-sourceYMax),priceTranslateY=T-priceScaleY*sourceYMax;
  for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
- for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
+ for(let i=0;i<=5;i++){const v=priceMin+(priceMax-priceMin)*i/5,yy=priceY(v);parts.push('<text data-axis="right" data-axis-value="'+v.toFixed(2)+'" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+fmt(v)+'</text>');}
  const startYear=new Date(minX).getUTCFullYear(),endYear=new Date(maxX).getUTCFullYear(),yearStep=Math.max(1,Math.ceil((endYear-startYear)/6));
  for(let yr=Math.ceil(startYear/yearStep)*yearStep;yr<=endYear;yr+=yearStep){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));if(xx<L||xx>W-R)continue;parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
  const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak)),visibleDD=sortedDD.filter(dd=>(Date.parse(dd.trough+'T23:59:59Z')>=minX&&Date.parse(dd.peak+'T00:00:00Z')<=maxX)||(dd.id==='dd-1990'&&minX===CHART_START));
@@ -222,9 +242,9 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  }
  const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
  for(const ev of sortedEvents){const st=Date.parse(ev.start+'T00:00:00Z'),en=Date.parse(ev.end+'T23:59:59Z'),beforeRange=en<CHART_START&&minX===CHART_START,inside=(en>=minX&&st<=maxX)||beforeRange,xx1=Math.max(L,Math.min(W-R,x(st))),xx2=Math.max(L,Math.min(W-R,x(en)));parts.push('<rect data-event="'+ev.id+'" display="'+(eventVisible[ev.id]&&inside?'':'none')+'" x="'+xx1.toFixed(2)+'" y="'+T+'" width="'+(inside?Math.max(2,xx2-xx1):0).toFixed(2)+'" height="'+ih+'" fill="#8792a2" fill-opacity=".075" stroke="#7b8794" stroke-opacity=".22" stroke-width="1"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');}
- const nPath=SP500_Y36.length/2,sx=iw/(nPath-1)*(CHART_END-CHART_START)/(maxX-minX),tx=L-72*sx-(minX-CHART_START)*iw/(maxX-minX);
+ const sx=iw/(nPath-1)*(CHART_END-CHART_START)/(maxX-minX),tx=L-72*sx-(minX-CHART_START)*iw/(maxX-minX);
  parts.push('<defs><clipPath id="plot-clip"><rect x="'+L+'" y="'+T+'" width="'+iw+'" height="'+ih+'"/></clipPath></defs>');
- if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" transform="matrix('+sx.toFixed(6)+' 0 0 1 '+tx.toFixed(3)+' 0)" clip-path="url(#plot-clip)" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜right axis</title></path>');
+ if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" data-price-min="'+visibleMin.toFixed(2)+'" data-price-max="'+visibleMax.toFixed(2)+'" data-axis-min="'+priceMin.toFixed(2)+'" data-axis-max="'+priceMax.toFixed(2)+'" transform="matrix('+sx.toFixed(6)+' 0 0 '+priceScaleY.toFixed(6)+' '+tx.toFixed(3)+' '+priceTranslateY.toFixed(3)+')" clip-path="url(#plot-clip)" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜dynamic right axis</title></path>');
  for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4']){if(!visible[id])continue;const pts=data[id];let d='',open=false;
   for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
   const cfg=SERIES_CONFIG.find(s=>s.id===id),first=pts.find(p=>Number.isFinite(p.value)),valid=pts.filter(p=>Number.isFinite(p.value)).length;
