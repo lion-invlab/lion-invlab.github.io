@@ -8,6 +8,7 @@ comparison from raw numbers or free-text basis descriptions.
 from __future__ import annotations
 
 from decimal import Decimal, InvalidOperation
+from datetime import datetime
 import re
 from typing import Any
 
@@ -83,6 +84,98 @@ def _valid_source(value: Any) -> bool:
         and bool(observed_at.strip())
     )
 
+
+
+_SOURCE_LEVELS = {
+    1: "LSEG I/B/E/S",
+    2: "FactSet Estimates",
+    3: "Investing.com",
+}
+
+
+def _parse_aware_datetime(value: Any) -> datetime | None:
+    if not isinstance(value, str) or not value.strip():
+        return None
+    try:
+        parsed = datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    return parsed if parsed.tzinfo is not None else None
+
+
+def _consensus_attempt_issue(record: dict, metric: str, estimate: Decimal) -> str | None:
+    """Enforce the SIM-1.2 source ladder and bind the selected estimate to its evidence."""
+    attempts = record.get(f"{metric}_consensus_attempts")
+    if not isinstance(attempts, list) or not attempts:
+        return "missing_consensus_source_attempt_history"
+    if len(attempts) > 3:
+        return "too_many_consensus_source_attempts"
+
+    expected_metric = "EPS" if metric == "eps" else "REVENUE"
+    levels = []
+    adopted = []
+    for index, attempt in enumerate(attempts):
+        if not isinstance(attempt, dict):
+            return "invalid_consensus_source_attempt_record"
+        level = attempt.get("source_level")
+        if level not in _SOURCE_LEVELS or attempt.get("provider") != _SOURCE_LEVELS[level]:
+            return "consensus_source_level_provider_mismatch"
+        levels.append(level)
+        if attempt.get("metric") != expected_metric:
+            return "consensus_attempt_metric_mismatch"
+        if not isinstance(attempt.get("observed_at"), str) or not attempt["observed_at"].strip():
+            return "consensus_attempt_missing_observed_at"
+        outcome = attempt.get("outcome")
+        if outcome not in {"adopted", "unavailable", "unreadable", "not_pre_release", "missing_required_fields", "incompatible"}:
+            return "invalid_consensus_attempt_outcome"
+        if not isinstance(attempt.get("reason"), str) or not attempt["reason"].strip():
+            return "consensus_attempt_missing_reason"
+        if outcome == "adopted":
+            adopted.append((index, attempt))
+
+    if levels != list(range(1, len(levels) + 1)):
+        return "consensus_source_levels_not_sequential"
+    if len(adopted) > 1:
+        return "multiple_consensus_sources_adopted"
+    if adopted:
+        index, selected = adopted[0]
+        if index != len(attempts) - 1:
+            return "source_search_continued_after_valid_consensus"
+        if not isinstance(selected.get("url"), str) or not selected["url"].startswith("https://"):
+            return "adopted_consensus_missing_source_url"
+        as_of = _parse_aware_datetime(selected.get("data_as_of"))
+        event_time = _parse_aware_datetime(record.get("event_date"))
+        if as_of is None:
+            return "adopted_consensus_missing_aware_data_as_of"
+        if event_time is None:
+            return "missing_aware_earnings_event_time_for_point_in_time_consensus"
+        if as_of >= event_time:
+            return "consensus_snapshot_not_before_earnings_release"
+        if str(selected.get("period") or "").strip().casefold() != str(record.get(f"{metric}_estimate_period") or "").strip().casefold():
+            return "consensus_attempt_period_differs_from_estimate_period"
+        if _decimal(selected.get("value")) != estimate:
+            return "consensus_attempt_value_differs_from_selected_estimate"
+        if selected.get("currency") != record.get(f"{metric}_estimate_currency"):
+            return "consensus_attempt_currency_differs_from_estimate"
+        if selected.get("basis_code") != record.get(f"{metric}_estimate_basis_code"):
+            return "consensus_attempt_basis_differs_from_estimate"
+        if metric == "revenue" and selected.get("unit") != record.get("revenue_estimate_unit"):
+            return "consensus_attempt_unit_differs_from_estimate"
+        source_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+        selected_source = record.get(source_key)
+        if not isinstance(selected_source, dict):
+            return "missing_selected_consensus_source_object"
+        if selected_source.get("url") != selected.get("url"):
+            return "selected_consensus_url_differs_from_attempt_history"
+        if selected_source.get("name") not in (None, selected.get("provider")):
+            return "selected_consensus_provider_differs_from_attempt_history"
+        if selected_source.get("source_level") not in (None, selected.get("source_level")):
+            return "selected_consensus_level_differs_from_attempt_history"
+        return None
+
+    if len(attempts) != 3:
+        return "consensus_source_ladder_stopped_before_all_unavailable"
+    return "no_usable_consensus_after_all_priority_sources"
 
 def _has_explicit_revenue_consensus_divergence(record: dict) -> bool:
     """Recognize only curated notes that explicitly document unresolved revenue-consensus disagreement."""
@@ -189,6 +282,10 @@ def evaluate_metric(record: dict, metric: str) -> dict:
         return _result("pending", "missing_actual_source_url_or_observed_at", actual, estimate)
     if not _valid_source(consensus_source):
         return _result("pending", "missing_consensus_source_url_or_observed_at", actual, estimate)
+
+    attempt_issue = _consensus_attempt_issue(record, metric, estimate)
+    if attempt_issue:
+        return _result("pending", attempt_issue, actual, estimate)
 
     tolerance = _decimal(record.get(f"{metric}_inline_tolerance_abs"))
     if tolerance is None:
