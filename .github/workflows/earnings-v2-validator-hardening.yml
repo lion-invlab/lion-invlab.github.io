@@ -33,7 +33,13 @@ jobs:
           python-version: "3.12"
 
       - name: Install validator dependency
-        run: python -m pip install --disable-pip-version-check jsonschema
+        run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4
+
+      - name: Run earnings judgment engine regression tests
+        run: python simulation-lab/runner/test_earnings_judgment_engine.py
+
+      - name: Run calendar projection and renderer consistency regression tests
+        run: python simulation-lab/runner/test_earnings_comparison_status.py
 
       - name: Run validator fail-closed regression tests
         run: python simulation-lab/runner/validate_earnings_v2.py --self-test
