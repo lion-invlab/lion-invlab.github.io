@@ -5,7 +5,7 @@
   "week_start": "2026-11-09",
   "week_end": "2026-11-15",
   "created_at": "2026-11-06T18:00:00+08:00",
-  "updated_at": "2026-11-13T18:54:22+08:00",
+  "updated_at": "2026-11-13T18:59:36+08:00",
   "source_report_date": "2026-11-13",
   "wr_version": "5.15",
   "status": "active",
@@ -1227,7 +1227,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -1280,7 +1280,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -1419,7 +1419,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -1472,7 +1472,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -2358,7 +2358,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -2411,7 +2411,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -2736,7 +2736,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -2789,7 +2789,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -3792,7 +3792,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -3845,7 +3845,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -3982,7 +3982,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4035,7 +4035,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -4173,7 +4173,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4226,7 +4226,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -4362,7 +4362,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4415,7 +4415,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -4556,7 +4556,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4609,7 +4609,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -4753,7 +4753,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4806,7 +4806,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -4944,7 +4944,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -4997,7 +4997,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -5135,7 +5135,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5188,7 +5188,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -5311,7 +5311,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5364,7 +5364,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -5505,7 +5505,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5558,7 +5558,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -5696,7 +5696,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5749,7 +5749,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -5885,7 +5885,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -5938,7 +5938,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -6060,7 +6060,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6113,7 +6113,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -6249,7 +6249,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6302,7 +6302,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -6446,7 +6446,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6499,7 +6499,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -6641,7 +6641,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6694,7 +6694,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -6837,7 +6837,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -6890,7 +6890,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -7026,7 +7026,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -7079,7 +7079,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -7222,7 +7222,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -7275,7 +7275,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -7411,7 +7411,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -7464,7 +7464,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -7602,7 +7602,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -7655,7 +7655,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -7796,7 +7796,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -7849,7 +7849,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -7992,7 +7992,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -8045,7 +8045,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -8186,7 +8186,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -8239,7 +8239,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -8358,7 +8358,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -8411,7 +8411,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -8530,7 +8530,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -8583,7 +8583,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -8702,7 +8702,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -8755,7 +8755,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -8880,7 +8880,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -8933,7 +8933,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -9055,7 +9055,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ],
         "revenue_consensus_attempts": [
@@ -9108,7 +9108,7 @@
             "statistic": null,
             "analyst_count": null,
             "outcome": "unavailable",
-            "reason": "本輪逐項查找未取得該公司／財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
+            "reason": "本輪批次查找未取得該公司／該財報期間可核實的Investing.com公布前共識頁；不以其他供應商代替。"
           }
         ]
       },
@@ -14555,7 +14555,7 @@
   ],
   "last_update_audit": {
     "executed_at": "2026-11-13T18:54:22+08:00",
-    "writer": "TAC 行事曆資料庫更新（依正式 updater 規格執行）",
+    "writer": "人工回填（依正式 TAC 行事曆 updater 規格執行；非排程自動執行）",
     "main_wr_version": "5.15",
     "main_wr_blob_sha": "23b52f27b7afad083bbe28ed86021e04759f198d",
     "simulation_wr_version": "SIM-1.2",
@@ -14587,6 +14587,7 @@
     "schema_v2_rollout": false,
     "directional_statuses_recomputed": false,
     "estimate_values_overwritten": false,
-    "notes": "LSEG I/B/E/S 與 FactSet 在本次執行環境無登入/API權限；Investing.com 僅取得6筆公布前候選，但其EPS/Revenue定義未揭露，標記missing_required_fields而不採用；另6筆僅有公布後頁面，33筆未取得可核實個股公布前頁。所有舊共識來源複製至legacy_*欄位，selected source清空；舊估值與舊Beat/Miss欄位保留，不宣告完成Schema v2切換。"
+    "notes": "LSEG I/B/E/S 與 FactSet 在本次執行環境無登入/API權限；Investing.com 僅取得6筆公布前候選，但其EPS/Revenue定義未揭露，標記missing_required_fields而不採用；另6筆僅有公布後頁面，33筆在本輪批次查找中未取得可核實個股公布前頁。所有舊共識來源複製至legacy_*欄位，selected source清空；舊估值與舊Beat/Miss欄位保留，不宣告完成Schema v2切換。",
+    "metadata_corrected_at": "2026-11-13T18:59:36+08:00"
   }
 }
