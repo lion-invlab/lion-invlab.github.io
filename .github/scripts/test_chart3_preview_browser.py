@@ -60,6 +60,12 @@ def validate_chart(page, label):
         check(label + "_overlapping_drawdown_labels_suppressed", page.locator("#combined-chart svg text[data-drawdown-label]:visible").count() == 0)
     check(label + "_all_selected_by_default", page.locator("#series-filters input[data-series-toggle]:checked").count() == 5)
     check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 6)
+    legend_text = page.locator("#combined-legend").inner_text()
+    filter_text = page.locator("#series-filters").inner_text()
+    for chinese_name in ["芝加哥聯準會金融狀況指數", "金融狀況信用子指數", "聖路易聯準銀行金融壓力指數"]:
+        check(label + "_traditional_chinese_" + chinese_name, chinese_name in legend_text and chinese_name in filter_text, {"legend":legend_text,"filters":filter_text})
+    check(label + "_vix_label_remains_vix", "VIX" in legend_text)
+    check(label + "_sp500_label_remains_sp500", "S&P 500" in legend_text)
     check(label + "_right_axis_ticks_inside_svg", page.locator("#combined-chart svg").evaluate("(svg)=>{const r=svg.getBoundingClientRect(),ts=[...svg.querySelectorAll('text[data-axis=right]')].map(e=>e.getBoundingClientRect());return ts.every(t=>t.left>=r.left-1&&t.right<=r.right+1)}"))
     check(label + "_left_percentile_axis", any(term in page.locator("#combined-chart svg").evaluate("(e)=>e.textContent") for term in ["金融壓力指標","壓力指標百分位"]))
     check(label + "_legend_five_series", page.locator("#combined-legend .swatch").count() == 5)
