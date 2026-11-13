@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC Chart 3｜市場恐慌與金融壓力</title>
+<style>
+:root{color-scheme:light;--ink:#172033;--muted:#657086;--line:#e5e9f0;--paper:#f5f7fb;--card:#fff;--navy:#101c35;--gold:#c8a45b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 56px}
+header{background:var(--navy);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:18px;position:relative;overflow:hidden}
+header:after{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(200,164,91,.32);border-radius:50%;right:-80px;top:-140px;box-shadow:0 0 0 24px rgba(200,164,91,.05),0 0 0 50px rgba(200,164,91,.035)}
+.eyebrow{color:#d8bd83;font-size:12px;letter-spacing:.14em;font-weight:700}
+h1{font-size:clamp(24px,4vw,36px);margin:9px 0 8px;letter-spacing:.02em}
+.sub{color:#c5ccda;font-size:14px;line-height:1.6;max-width:720px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.pill{border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 10px;color:#e4e8ef;font-size:12px}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;min-width:0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 14px;box-shadow:0 6px 22px rgba(21,36,65,.04);min-width:0}
+.card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-height:1.5}
+.latest{font-size:12px;color:var(--muted);text-align:right}
+.chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.mini-series{padding:10px 0 12px;border-bottom:1px solid var(--line)}.mini-series:last-child{border-bottom:0}.dual-chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.dual-chart svg{display:block;width:100%;height:auto;min-width:0}
+.combined-chart{overflow:hidden;max-width:100%;touch-action:pan-y}.combined-chart svg{display:block;width:100%;min-width:0;height:auto;cursor:grab;user-select:none;-webkit-user-select:none;overflow:hidden}.combined-chart.is-dragging svg{cursor:grabbing}.timeline-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0 6px}.timeline-controls button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:7px 12px;color:#33415b;font-size:12px;font-weight:600;cursor:pointer}.timeline-controls button:active{background:#edf2f8}.timeline-controls .range{font-size:12px;color:var(--muted);margin-left:auto;font-variant-numeric:tabular-nums}.timeline-hint{font-size:11px;color:var(--muted);line-height:1.5;margin:0 0 8px}.history-info-details{margin:14px 0 8px;border:1px solid var(--line,#dbe2ec);border-radius:12px;background:var(--surface,#fff);overflow:hidden}
+.history-info-details>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;cursor:pointer;list-style:none;font-weight:700;color:var(--text,#263449);font-size:14px}
+.history-info-details>summary::-webkit-details-marker{display:none}
+.history-info-details>summary:after{content:'＋';font-size:18px;color:var(--muted,#64748b);flex:0 0 auto}
+.history-info-details[open]>summary:after{content:'－'}
+.history-info-details>summary span{font-size:12px;font-weight:500;color:var(--muted,#64748b);white-space:nowrap}
+.history-info-content{padding:0 12px 12px;border-top:1px solid var(--line,#dbe2ec)}
+.pre-series-note{margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fafbfc;color:#526077;font-size:12px;line-height:1.6}.pre-series-note strong{color:#29364b}.pre-series-note a{color:#315f9d;text-decoration:underline}
+.filter-panel{border-top:1px solid var(--line);margin-top:12px;padding-top:14px}.filter-heading{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.filter-heading span{font-size:12px;color:var(--muted)}
+.filter-actions{display:flex;gap:8px;margin:10px 0}.filter-actions button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:6px 12px;color:#33415b;font-size:12px;cursor:pointer}
+.series-filters{display:flex;gap:9px;flex-wrap:wrap}.series-toggle{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:#fff;font-size:13px;cursor:pointer}.series-toggle input{width:16px;height:16px;accent-color:#315f9d}.series-toggle .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.combined-note{margin-top:12px;line-height:1.65}.event-filter-panel{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}.event-filter-heading{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.event-filter-heading span{font-size:12px;color:var(--muted)}.event-filter-actions{display:flex;gap:8px;flex-wrap:wrap;margin:9px 0}.event-filter-actions button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:6px 12px;color:#33415b;font-size:12px;cursor:pointer}.event-key{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 14px;margin-top:10px}.event-item{display:flex;gap:8px;align-items:flex-start;font-size:11px;line-height:1.5;color:#526077}.event-item input{flex:0 0 15px;width:15px;height:15px;margin:2px 0 0;accent-color:#315f9d;cursor:pointer}.event-item-content{min-width:0}.event-item strong{color:#29364b}.event-item strong{color:#29364b}.event-item a{color:inherit;text-decoration:none}.event-item a:hover{text-decoration:underline}@media(max-width:700px){.event-key{grid-template-columns:1fr}}.dual-note{margin-top:12px;line-height:1.6}.mini-title{font-size:13px;font-weight:700;color:#33415b;margin:0 0 2px 2px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 2px;font-size:12px;color:#4f5b70}
+.legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:3px;border-radius:4px;display:inline-block}
+.notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:12px;line-height:1.6;color:#526077}
+.note strong{display:block;color:#202c43;font-size:13px;margin-bottom:4px}
+.guide{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.guide h2{margin-bottom:12px}.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.guide-item{background:#f7f8fb;border:1px solid #edf0f5;border-radius:11px;padding:12px 13px}.guide-item strong{font-size:13px;color:#24334d}.guide-item p{font-size:12px;line-height:1.65;color:#526077;margin:5px 0 0}.guide-caution{font-size:11px;color:#7a8496;margin-top:12px;line-height:1.6}.guide a,footer a{color:#315f9d;text-decoration:underline}
+.status{padding:18px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--muted)}
+footer{margin-top:18px;color:#778196;font-size:11px;line-height:1.7}
+svg text{font-family:inherit;fill:#718096;font-size:11px}
+@media(max-width:700px){main{padding:14px 10px 34px}header{padding:22px 18px;border-radius:14px}.card{padding:14px 10px}.notegrid{grid-template-columns:1fr}.guide{padding:14px 12px}.guide-grid{grid-template-columns:1fr}.latest{text-align:left}.chart svg{min-width:760px}.combined-chart svg{min-width:0}.combined-chart:after{display:none}.dual-chart svg{min-width:760px}.dual-chart:after{display:block;content:'手機可左右滑動查看雙軸走勢';font-size:11px;color:var(--muted);padding:4px 0}.chart:not(.combined-chart):after{display:block;content:'手機可左右滑動查看完整時間軸';font-size:11px;color:var(--muted);padding:4px 0}}
+.method-details{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.method-details>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:pointer;list-style:none;font-size:12px;font-weight:700;color:#33415b}
+.method-details>summary::-webkit-details-marker{display:none}
+.method-details>summary:after{content:'＋';font-size:16px;color:var(--muted)}
+.method-details[open]>summary:after{content:'－'}
+.method-details>summary span{font-size:11px;font-weight:500;color:var(--muted);white-space:nowrap}
+.method-details-content{padding:0 12px 10px;border-top:1px solid var(--line)}
+.method-details-content .combined-note{margin-top:8px;line-height:1.65}
+
+.daily-brief{position:relative;isolation:isolate;overflow:hidden;margin:0 0 18px;border:1px solid rgba(200,164,91,.48);border-radius:18px;padding:20px;color:#eef3fb;background-color:#071326;background-image:linear-gradient(100deg,rgba(4,11,25,.98) 0%,rgba(4,11,25,.94) 55%,rgba(4,11,25,.76) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 620'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop stop-color='%230e7490' stop-opacity='.42'/%3E%3Cstop offset='1' stop-color='%23020617' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='1200' height='620' fill='%23030b1a'/%3E%3Ccircle cx='980' cy='170' r='360' fill='url(%23g)'/%3E%3Cpath d='M0 470H1200M0 390H1200M0 310H1200M0 230H1200M0 150H1200' stroke='%236b829e' stroke-opacity='.18'/%3E%3Cpath d='M0 0V620M150 0V620M300 0V620M450 0V620M600 0V620M750 0V620M900 0V620M1050 0V620' stroke='%236b829e' stroke-opacity='.12'/%3E%3Cg fill='%230f766e' fill-opacity='.62' stroke='%232dd4bf' stroke-opacity='.65'%3E%3Cpath d='M700 360h14v-85h-14zM760 320h14v-130h-14zM820 290h14v-92h-14zM880 245h14v-160h-14zM940 270h14v-100h-14zM1000 205h14v-150h-14zM1060 185h14v-110h-14zM1120 130h14v-85h-14z'/%3E%3C/g%3E%3Cpath d='M680 390L735 340 785 352 845 250 895 280 950 180 1000 210 1060 105 1120 130 1190 45' fill='none' stroke='%23c8a45b' stroke-width='5' stroke-linecap='round' stroke-linejoin='round' stroke-opacity='.85'/%3E%3Ccircle cx='1010' cy='390' r='145' fill='none' stroke='%23c8a45b' stroke-opacity='.24' stroke-width='2'/%3E%3Ccircle cx='1010' cy='390' r='190' fill='none' stroke='%23c8a45b' stroke-opacity='.12' stroke-width='2'/%3E%3C/svg%3E");background-size:cover;background-position:center}
+.daily-brief:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(2,8,20,.12),rgba(2,8,20,.46))}
+.daily-brief-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.daily-brief-head strong{font-size:19px;letter-spacing:.02em;color:#fff}.daily-brief-head small{font-size:11px;color:#aebbd0}
+.daily-state{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(150px,.6fr);gap:14px;align-items:stretch}
+.daily-state-main,.risk-level,.brief-box,.strategy-box,.trigger-box{background:rgba(4,12,27,.76);border:1px solid rgba(177,195,220,.2);border-radius:12px;padding:14px}
+.daily-state-label{font-size:11px;color:#b8c5d8;letter-spacing:.08em}
+.daily-state h2{font-size:clamp(21px,3.2vw,29px);line-height:1.25;margin:7px 0 8px;color:#ff5a54;font-weight:850}
+.daily-thesis{font-size:13px;line-height:1.7;color:#e1e8f3;margin:0}
+.risk-level{display:flex;flex-direction:column;justify-content:center;gap:9px}
+.risk-level strong{font-size:12px;color:#d8e0eb}.risk-scale{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}.risk-scale span{height:10px;border-radius:5px;background:#344054}.risk-scale span:nth-child(1){background:#21865a}.risk-scale span:nth-child(2){background:#c39a38}.risk-scale span:nth-child(3){background:#d97736}.risk-scale span:nth-child(4){background:#b9363e}.risk-level em{font-style:normal;font-size:16px;font-weight:800;color:#f0c66f}
+.brief-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr);gap:12px;margin-top:12px}
+.brief-box h3,.strategy-box h3,.trigger-box h3{margin:0 0 10px;font-size:14px;color:#f3d38b}
+.risk-metric{display:grid;grid-template-columns:minmax(105px,1fr) auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(177,195,220,.16);font-size:12px}
+.risk-metric:last-child{border-bottom:0}.risk-metric-name{color:#dce5f1}.risk-metric-value{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;color:#fff}.risk-metric-delta{font-size:11px;font-weight:700;color:#c5d2e2;min-width:54px;text-align:right}.risk-metric-delta.up{color:#ff7770}.risk-metric-delta.down{color:#6fd1a6}
+.brief-sp500 h3{font-size:14px;color:#f3d38b;margin:0 0 8px}.sp500-value{font-size:24px;font-weight:800;color:#fff}.sp500-detail{font-size:12px;line-height:1.65;color:#d0d9e7;margin-top:6px}
+.strategy-head{font-size:16px;font-weight:800;color:#f5d58e;margin:16px 0 10px}
+.strategy-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:10px}
+.strategy-box strong{display:block;font-size:15px;color:#fff;margin-bottom:7px}.strategy-box p{margin:0;color:#d5deeb;font-size:12px;line-height:1.7}
+.strategy-box.equity{border-color:rgba(69,173,117,.45)}.strategy-box.defensive{border-color:rgba(67,145,205,.4)}
+.trigger-box{margin-top:10px}.trigger-box ul{margin:0;padding-left:18px;color:#d5deeb;font-size:12px;line-height:1.8}
+.brief-foot{margin-top:10px;color:#9eacc1;font-size:10px;line-height:1.6}
+@media(max-width:700px){.daily-brief{padding:14px 12px;border-radius:14px}.daily-state{grid-template-columns:1fr}.risk-level{padding:10px 12px}.brief-grid{grid-template-columns:1fr}.strategy-grid{grid-template-columns:1fr}.risk-metric{grid-template-columns:minmax(90px,1fr) auto auto}.daily-brief-head strong{font-size:17px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+ <div class="eyebrow">TAC INVESTMENT DECISION CHARTS · CHART 03</div>
+ <h1>市場恐慌與金融壓力</h1>
+ <div class="sub">以市場隱含波動率、金融條件與金融壓力指標，觀察風險偏好變化及金融環境收緊程度。</div>
+ <div class="meta"><span class="pill">FRED / ALFRED</span><span class="pill">歷史觀測＋修訂版本</span><span class="pill">不補值・不前值填補</span><span class="pill" id="asof">資料讀取中…</span></div>
+</header>
+
+
+<section class="daily-brief" id="daily-risk-brief" hidden aria-label="每日市場風險判讀">
+ <div class="daily-brief-head"><strong>每日市場風險判讀｜從數據到投資決策</strong><small id="decision-asof">資料計算中…</small></div>
+ <div class="daily-state">
+  <div class="daily-state-main"><div class="daily-state-label">目前市場狀態</div><h2 id="risk-state">風險訊號分歧，持續觀察</h2><p class="daily-thesis" id="risk-thesis"></p></div>
+  <div class="risk-level"><strong>綜合風險等級（依明確門檻判定）</strong><div class="risk-scale"><span></span><span></span><span></span><span></span></div><em id="risk-grade">計算中</em></div>
+ </div>
+ <div class="brief-grid">
+  <div class="brief-box"><h3>四項關鍵觀察｜近 520 週百分位</h3><div id="risk-metrics"></div></div>
+  <div class="brief-box brief-sp500"><h3>S&amp;P 500 趨勢確認</h3><div class="sp500-value" id="sp500-return">計算中</div><div class="sp500-detail" id="sp500-detail"></div></div>
+ </div>
+ <div class="strategy-head">投資策略建議｜中期 1–3 個月</div>
+ <div class="strategy-grid">
+  <div class="strategy-box equity"><h3>股票部位｜該買、續抱或減碼</h3><strong id="equity-decision">計算中</strong><p id="equity-detail"></p></div>
+  <div class="strategy-box defensive"><h3>債券／現金｜防禦與彈性</h3><strong id="defensive-decision">計算中</strong><p id="defensive-detail"></p></div>
+ </div>
+ <div class="trigger-box"><h3>什麼情況下改變策略</h3><ul id="decision-triggers"></ul></div>
+ <div class="brief-foot">判讀由最新有效觀測自動計算；各指標保留自己的最新觀測日期，缺值不補值。百分位門檻是本頁公開的操作判讀規則，不是官方風險分級。加減碼比例指現有股票部位，不是總資產比例；請依個人投資期限與承受能力調整。</div>
+</section>
+
+<div id="status" class="status">正在載入已驗證的圖表資料…</div>
+<section class="card" id="combined-stress-card" hidden>
+ <div class="card-head">
+  <div><h2>市場恐慌 × 金融壓力 × S&P 500｜五合一互動走勢</h2>
+  <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的最近 520 筆週頻觀測百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。</div></div>
+  <div class="latest" id="combined-asof"></div>
+ </div>
+ <div class="legend" id="combined-legend"></div>
+ <div class="timeline-controls" aria-label="時間軸操作"><button type="button" id="timeline-zoom-in">＋ 放大</button><button type="button" id="timeline-zoom-out">－ 縮小</button><button type="button" id="timeline-reset">重設全期間</button><span class="range" id="timeline-range">1993–2026</span></div>
+ <div class="timeline-hint">電腦：滑鼠滾輪縮放、按住左鍵拖曳平移。手機：雙指縮放、單指左右拖曳；上下滑動頁面仍可正常使用。</div>
+ <div class="chart combined-chart" id="combined-chart"></div>
+ <div class="filter-panel">
+  <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
+  <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
+  <div class="series-filters" id="series-filters"></div>
+ </div>
+ <details class="history-info-details" id="history-info-details">
+  <summary>歷史資料說明與早期回檔註記 <span>點此展開</span></summary>
+  <div class="history-info-content">
+   <div class="pre-series-note" id="pre-series-history-note" role="note" aria-live="polite" hidden></div>
+   <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
+   <div class="desc" style="margin-top:14px"><strong>歷史重大事件與市場回檔</strong>｜依日期整合重大事件與 S&P 500 回檔；兩者各自保留原始期間。同期日期重疊僅作背景參照，不代表因果；每筆回檔只列一次。</div>
+  </div>
+ </details>
+ <div class="event-filter-panel"><div class="event-filter-heading"><strong>歷史事件／市場回檔篩選</strong><span>預設全選；可分別控制事件區帶與回檔標記</span></div><div class="event-filter-actions"><button type="button" id="select-all-history">全選</button><button type="button" id="clear-all-history">全部取消</button></div><div class="event-key" id="event-drawdown-key" aria-label="可勾選的歷史重大事件與標普500回檔清單"></div></div>
+ <details class="method-details" id="method-details">
+  <summary>資料計算與觀測方法 <span>點此展開</span></summary>
+  <div class="method-details-content"><div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div></div>
+ </details>
+</section>
+<div class="notegrid">
+ <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
+ <div class="note"><strong>避免重複計算</strong>NFCI Credit（金融狀況信用子指數）是 NFCI 的信用子指標，不應當成與 NFCI 完全獨立的風險來源。</div>
+ <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
+</div>
+<details class="method-details" id="percentile-reading"><summary>百分位讀法與投資判讀限制 <span>點此展開</span></summary><div class="method-details-content"><div class="desc">四項壓力指標以各自近 520 週有效觀測計算百分位，50 約為自身歷史中位數，80 代表高於約 80% 的歷史觀測。不同指標的百分位只比較各自歷史相對位置，不代表原始幅度相同；NFCI Credit 為 NFCI 子指標，不作獨立壓力確認。買賣建議依本頁列明的風險門檻與 S&amp;P 500 趨勢共同判斷，不因單一指標直接全數清倉。</div></div></details>
+<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 週頻走勢：FJA Yahoo-derived 長歷史價格（圖中價格線起點 1993-12-31；2016-11-10 以前）與 FRED SP500（2016-11-11 起；S&P Dow Jones Indices LLC，retrieved from FRED）；圖中僅嵌入螢幕解析度的視覺曲線，不公開每日／週頻原始價格檔。Dataquest vs FRED：1,467 日重疊，7 日差異 >0.02 點（0.4772%），最大差異 5.2898 點；差異日期為 2018-11-29、2019-08-12、2020-05-11、2020-10-02、2020-10-05、2021-08-11、2022-09-12，均保留稽核紀錄，重疊日採 FRED 官方值覆蓋。FJA vs FRED 為另一組比較：783 日重疊、2 日差異 >0.02 點，不與前述 7 日混為一談。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
+</main>
+<script>
+const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
+const COLORS={VIXCLS:'#c84b4b',NFCI:'#315f9d',NFCICREDIT:'#c49a43',STLFSI4:'#8064a8'};
+const SP500_Y36='hzhyhyhzhzhzhzi0i0i0i1i0i0i1i0i0i0hzhzhzhzi0hzhzhzi0i0hzhzhzhyhyhxhxhwhwhvhuhuhuhththrhrhshrhqhqhqhqhqhphohnhnhnhnhlhkhkhmhkhkhlhlhjhjhjhjhkhlhjhjhkhihhhghghehdhchehchchbh9h8h8hahahdhbh6h5h4h1gzgzgxgygzgygwgvgxgzgygwgwgxgugwgugrgpgnglgkgkgjgkglglgigfghglgmgqgsgpgugnghgfgegegag7gbg9g9g7g5g5g3g2g2g2g2g1fxfvg2g2g1g1g6g6g9g0fxfvfvfsftftfvfyg2fxfnfnfufufwfrfsftfqfqfsfpfnfrfufzfyfvfzg3g4g3g3g0g3g9gaghgggeg8g9g6g7gbgdgbgcgdgeglgvgngngmghghggghgfgigjgkgigfghgjgjgngkgngsgtgzh4h0gygzh1h6h6h1h1gygzh1h2gyh4h6h5h6h1h2h1gygygygtgtgugtgugtgsgrgqgqgpgogogognglgjghgighghgjgkghghglglgjgigigkgmgnglgjgigigjglgfgfgdgdgcgegfgcgcgbgdgfghgggggdgdgdgdgagagagcg9gbgdgegbgag7g8g7g6g8g8g6g6g4g4g5g4g3g7g6g9g7gag6g6g4g4g3g2fzfzfyfxfwfvfvfufvfuftfwfuftfsfpfofnfofpfmfmfuftfqfsfnfkfpfofsfqfrfqfwg3fxg1g2g6g3g2fxfyfvfxg0g6g9g8g5g5g9g8gch1h2gyh8h2h1gyh4h6h3hbhihbh5h3h2h2gzgxgzh1gxgtgsgqgpgpgngmgqglglgkgighglgngkgkghgfgdgbgkgmgngjgrgmgkgjgngkgjghgegegdgdgbg9g8g5g7g2g3g4g4g2g3g0g2g2g7g7g1g1gdgegegggigggag8gbg9gbg7g6g3g1g0fzfwfwfzfwfzg5g6g1g0g0fyfwfwfufrftfufwfyfwfvfufrfrfpfnfoflfkflfkfgfbfdfdfhfef9f8fcfefafafaf5f4f1f0f3eyeyf2f1eyeweyewf0ewevetepeoemeoeneqemekekeoeuekeiegefefegejelededehecegefecebeceeedefefedeeemeoeqekefedeeeeekegereseveselehefeheeegehedefede8e7e6e6e7eae8eaebe8e4e0e0e2dzdydwdsdrdudtdtdpdqdodndmdndjdjdndjdhdhdddbdadbd6d3d3cucocwczd2cxd6d5d4czd0cvcvd0ctcscrcncocjcncwd5cvd7d7dodfd4d1cvcucyctcmclcicpcxcmcicecfcjcmcjcdchcgccc6c4c2c0bubsbqbnbncgdxdecucqcjchbyc6c3bwbsbmbibgbobmbbbsb3azaxauapaoatabalaba89w9s9s9s9q9m9k9d9997979296969b8z8n8n8z8t8h8o9a929e9g958z9b9wa4ae9xawakah9w9ka1a1aub3b3aea7a4abaiaea89v9za8aha89y9v9v9r9k999e9a8z949d91969j9g9x9e918v8l8h8g877w7r7p7p7e7p7r7h7a776y6p6u6y776k726f6b626d615t5k5w5w5r5o5i5v6k6o7t7c6g5u5y5t5d564w4w4r4q4h4c4j40454f3u3x3p3m3q3p3r444n4h39312o2i2p2g2h2j2h1t1z23241y23292e';
+function sp500VisualPath(){let d='';for(let i=0;i<SP500_Y36.length/2;i++){const yy=parseInt(SP500_Y36.slice(i*2,i*2+2),36)/2;d+=(i?' L':'M')+(72+i)+','+yy.toFixed(1);}return d;}
+const SP500_PATH=sp500VisualPath();
+const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
+const year=d=>String(d).slice(0,4);
+function drawChart(targetId,seriesList,{zeroLine=false,xBounds=null}={}){
+ const W=1040,H=390,L=72,R=24,T=24,B=48,iw=W-L-R,ih=H-T-B;
+ const all=seriesList.flatMap(s=>s.observations.filter(o=>o.value!==null).map(o=>({date:o.date,value:Number(o.value)})));
+ const times=all.map(o=>Date.parse(o.date+'T00:00:00Z'));
+ let minX=xBounds?xBounds[0]:Math.min(...times),maxX=xBounds?xBounds[1]:Math.max(...times),minY=Math.min(...all.map(o=>o.value)),maxY=Math.max(...all.map(o=>o.value));
+ if(minY===maxY){minY-=1;maxY+=1}
+ const pad=(maxY-minY)*.08;minY-=pad;maxY+=pad;
+ const x=t=>L+(t-minX)/(maxX-minX||1)*iw,y=v=>T+(maxY-v)/(maxY-minY)*ih;
+ const ticks=5,parts=[];
+ for(let i=0;i<=ticks;i++){
+  const v=minY+(maxY-minY)*i/ticks,yy=y(v);
+  parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3" stroke-width="1"/>');
+  parts.push('<text x="'+(L-12)+'" y="'+(yy+4)+'" text-anchor="end">'+fmt(v)+'</text>');
+ }
+ const startYear=Number(year(new Date(minX).toISOString().slice(0,10))),endYear=Number(year(new Date(maxX).toISOString().slice(0,10)));
+ const step=Math.max(1,Math.ceil((endYear-startYear)/6));
+ for(let yr=startYear;yr<=endYear;yr+=step){
+  const t=Date.parse(yr+'-01-01T00:00:00Z');
+  if(t<minX||t>maxX)continue;
+  const xx=x(t);parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');
+  parts.push('<text x="'+xx+'" y="'+(H-17)+'" text-anchor="middle">'+yr+'</text>');
+ }
+ if(zeroLine&&minY<0&&maxY>0){const yy=y(0);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#64748b" stroke-width="1.5" stroke-dasharray="5 4"/>');}
+ for(const s of seriesList){
+  let d='',open=false;
+  for(const o of s.observations){
+   if(o.value===null){open=false;continue}
+   const t=Date.parse(o.date+'T00:00:00Z'),xx=x(t),yy=y(Number(o.value));
+   d+=(open?' L':' M')+xx.toFixed(2)+' '+yy.toFixed(2);open=true;
+  }
+  parts.push('<path d="'+d+'" fill="none" stroke="'+(COLORS[s.series_id]||'#555')+'" stroke-width="'+(s.series_id==='VIXCLS'?1.55:1.65)+'" stroke-linejoin="round" stroke-linecap="round"><title>'+s.label+'</title></path>');
+  const last=[...s.observations].reverse().find(o=>o.value!==null);
+  if(last){const xx=x(Date.parse(last.date+'T00:00:00Z')),yy=y(Number(last.value));parts.push('<circle cx="'+xx+'" cy="'+yy+'" r="3.5" fill="'+COLORS[s.series_id]+'"><title>'+s.label+' · '+last.date+' · '+fmt(last.value)+'</title></circle>');}
+ }
+ parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
+ parts.push('<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
+ document.getElementById(targetId).innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="歷史時間序列折線圖">'+parts.join('')+'</svg>';
+}
+
+
+const SERIES_CONFIG=[
+ {id:'VIXCLS',name:'VIX',short:'VIX',color:'#c84b4b',kind:'stress'},
+ {id:'NFCI',name:'芝加哥聯準會金融狀況指數（NFCI）',short:'金融狀況指數',color:'#315f9d',kind:'stress'},
+ {id:'NFCICREDIT',name:'金融狀況信用子指數（NFCI Credit）',short:'信用子指數',color:'#c49a43',kind:'stress'},
+ {id:'STLFSI4',name:'聖路易聯準銀行金融壓力指數（STLFSI4）',short:'金融壓力指數',color:'#8064a8',kind:'stress'},
+ {id:'SP500',name:'S&P 500',short:'S&P 500',color:'#0f766e',kind:'price'}
+];
+const SERIES_DISPLAY_NAMES=Object.fromEntries(SERIES_CONFIG.map(c=>[c.id,c.name]));
+function weeklyLast(s){
+ const weeks=new Map();
+ for(const o of s.observations){if(o.value===null||!Number.isFinite(Number(o.value)))continue;
+  const d=new Date(o.date+'T00:00:00Z');if(Number.isNaN(d.getTime()))continue;
+  const dow=(d.getUTCDay()+6)%7;d.setUTCDate(d.getUTCDate()-dow);
+  const key=d.toISOString().slice(0,10);const old=weeks.get(key);
+  if(!old||o.date>old.date)weeks.set(key,{date:o.date,value:Number(o.value)});
+ }
+ return [...weeks.values()].sort((a,b)=>a.date.localeCompare(b.date));
+}
+function expandingPercentile(points){
+ // 完整累積 520 筆有效週頻樣本後才開始計算，樣本不足時保留空白。
+ const out=[];const history=[];
+ for(const p of points){if(history.length<519){out.push({date:p.date,value:null,raw:p.value});history.push(p.value);continue;}
+  const base=history.slice(-519),n=base.length+1,lessOrEqual=base.filter(v=>v<=p.value).length+1;
+  out.push({date:p.date,value:lessOrEqual/n*100,raw:p.value});history.push(p.value);
+ }return out;
+}
+const DRAWDOWNS=[
+ {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,peakClose:368.95,troughClose:295.46,source:'https://www.sec.gov/Archives/edgar/data/357298/000035729801500016/sp500.html',sourceLabel:'SEC 歸檔：S&P 500 每日收盤價',crossCheckSource:'https://bmogamhub.com/system/files/sp_500_drawdowns_and_recoveries.pdf?file=1&id=118272&type=node',crossCheckSourceLabel:'BMO S&P 500 歷史跌幅表'},
+ {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.4,basis:'SPY close proxy; not exact S&P 500 index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-10.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.3,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-1999',peak:'1999-07-16',trough:'1999-10-15',pct:-12.1,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2000',peak:'2000-03-24',trough:'2002-10-09',pct:-49.1,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2010',peak:'2010-04-23',trough:'2010-07-02',pct:-16.0,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2003',peak:'2002-11-27',trough:'2003-03-11',pct:-14.7,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2007',peak:'2007-10-09',trough:'2009-03-09',pct:-56.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2011',peak:'2011-04-29',trough:'2011-10-03',pct:-19.4,source:'https://www.cmegroup.com/insights/economic-research/2023/debt-ceiling-lessons-from-the-2011-budget-debate.html',sourceLabel:'CME Group'},
+ {id:'dd-2015a',peak:'2015-05-21',trough:'2015-08-25',pct:-12.4,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2015b',peak:'2015-07-20',trough:'2016-02-11',pct:-14.1,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2018a',peak:'2018-01-26',trough:'2018-02-08',pct:-10.2,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2018b',peak:'2018-09-20',trough:'2018-12-24',pct:-19.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2020',peak:'2020-02-19',trough:'2020-03-23',pct:-33.9,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
+ {id:'dd-2022',peak:'2022-01-03',trough:'2022-10-12',pct:-25.4,source:'https://historyofmarket.com/sp500/bear-markets/2022/',sourceLabel:'S&P 500 歷史收盤價整理'},
+ {id:'dd-2023',peak:'2023-07-31',trough:'2023-10-27',pct:-10.3,source:'https://coronavirus.markets/market-correction/',sourceLabel:'FRED 收盤價計算'},
+ {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-18.9,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'}
+];
+const MAJOR_EVENTS=[
+ {id:'gulf-war-1990',name:'儲貸危機 × 波灣戰爭／油價衝擊',start:'1990-07-16',end:'1990-10-11',source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
+ {id:'asian-crisis',name:'亞洲金融風暴',start:'1997-07-02',end:'1998-12-31',source:'https://www.federalreservehistory.org/essays/asian-financial-crisis',sourceLabel:'Federal Reserve History'},
+ {id:'russia-default',name:'俄羅斯政府債務違約',start:'1998-08-17',end:'1998-12-31',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
+ {id:'ltcm',name:'LTCM 流動性危機',start:'1998-09-23',end:'1998-10-15',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
+ {id:'iraq-war-2003',name:'伊拉克戰爭前夕與市場再探底',start:'2002-11-27',end:'2003-03-11',source:'https://andramarkets.com/market-history/2003-mid-2000s-expansion/',sourceLabel:'S&P 500 daily close / 2003 market history'},
+ {id:'dotcom',name:'網路泡沫崩跌',start:'2000-03-10',end:'2002-10-09',source:'https://www.bny.com/assets/investments/im/documents/manual/perspectives/market-behavior-during-historical-bouts-of-volatility.pdf',sourceLabel:'BNY market history'},
+ {id:'gfc',name:'全球金融海嘯',start:'2007-07-26',end:'2010-04-29',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
+ {id:'euro-debt',name:'歐洲主權債務危機',start:'2010-04-23',end:'2012-07-26',source:'https://www.minneapolisfed.org/article/2012/chronic-sovereign-debt-crises-in-the-eurozone-20102012',sourceLabel:'Federal Reserve Bank of Minneapolis'},
+ {id:'us-debt-euro-2011',name:'美國債務上限／降評 × 歐債壓力',start:'2011-04-29',end:'2011-10-03',source:'https://www.cmegroup.com/insights/economic-research/2023/debt-ceiling-lessons-from-the-2011-budget-debate.html',sourceLabel:'CME Group'},
+ {id:'volatility-2018',name:'2018 年 2 月 VIX 波動率衝擊',start:'2018-02-02',end:'2018-02-08',source:'https://home.treasury.gov/system/files/261/FSOC2018AnnualReport.pdf',sourceLabel:'U.S. Treasury FSOC'},
+ {id:'rates-trade-2018',name:'Fed 升息 × 美中貿易摩擦',start:'2018-09-20',end:'2018-12-24',source:'https://www.federalreserve.gov/monetarypolicy/fomcminutes20181219.htm',sourceLabel:'Federal Reserve'},
+ {id:'inflation-tightening-2022',name:'高通膨 × Fed 激進升息',start:'2022-01-03',end:'2022-10-12',source:'https://www.federalreserve.gov/monetarypolicy/fomc.htm',sourceLabel:'Federal Reserve（政策會議資料）'},
+ {id:'higher-for-longer-2023',name:'高利率維持更久 × 殖利率攀升',start:'2023-07-31',end:'2023-10-27',source:'https://apnews.com/article/ebce1ad72cbe14eb5c2a5538c42c94ee',sourceLabel:'Associated Press'},
+ {id:'tariff-shock-2025',name:'美國關稅政策衝擊',start:'2025-02-19',end:'2025-04-08',source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'Federal Reserve Bank of San Francisco'},
+ {id:'china-turmoil',name:'中國市場／人民幣動盪',start:'2015-08-11',end:'2016-02-20',source:'https://www.piie.com/blogs/china-economic-watch/churning-over-china-anatomy-slowdown',sourceLabel:'Peterson Institute for International Economics'},
+ {id:'covid',name:'COVID-19 市場衝擊',start:'2020-02-19',end:'2020-03-23',source:'https://www.ici.org/system/files/attachments/pdf/20_rpt_covid1.pdf',sourceLabel:'Investment Company Institute'},
+ {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
+];
+const CHART_START=Date.parse('1993-12-31T00:00:00Z');
+const CHART_END=Date.parse('2026-11-10T00:00:00Z');
+const MIN_VIEW_SPAN=365*86400000;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+// Decode the compact S&P 500 visual series once, not on every drag/zoom frame.
+const SP500_PRICES=(()=>{const n=SP500_Y36.length/2,a=new Float32Array(n);for(let i=0;i<n;i++){const py=parseInt(SP500_Y36.slice(i*2,i*2+2),36)/2;a[i]=8000-(py-34)/352*8000;}return a;})();
+function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END,skipLedger=false){
+ const chartEl=document.getElementById('combined-chart');
+ const availableWidth=chartEl.clientWidth||Math.max(260,window.innerWidth-48);
+ const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<600,H=mobile?430:550,L=mobile?44:78,R=mobile?72:82,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
+ const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
+ const nPath=SP500_PRICES.length,fullSpan=CHART_END-CHART_START;
+ const rawI0=clamp(Math.floor((minX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
+ const rawI1=clamp(Math.ceil((maxX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
+ const i0=Math.max(0,rawI0-1),i1=Math.min(nPath-1,rawI1+1);
+ let visibleMin=Infinity,visibleMax=-Infinity;
+ for(let i=rawI0;i<=rawI1;i++){const price=SP500_PRICES[i];if(Number.isFinite(price)){visibleMin=Math.min(visibleMin,price);visibleMax=Math.max(visibleMax,price);}}
+ if(!Number.isFinite(visibleMin)||!Number.isFinite(visibleMax)){visibleMin=0;visibleMax=8000;}
+ if(visibleMax-visibleMin<1){visibleMin-=.5;visibleMax+=.5;}
+ const rawStep=(visibleMax-visibleMin)*1.12/5,pow=Math.pow(10,Math.floor(Math.log10(Math.max(rawStep,1e-9))));
+ const norm=rawStep/pow,nice=norm<=1?1:norm<=2?2:norm<=2.5?2.5:norm<=5?5:10,priceStep=nice*pow;
+ const priceMin=Math.floor((visibleMin-(visibleMax-visibleMin)*.06)/priceStep)*priceStep;
+ const priceMax=Math.ceil((visibleMax+(visibleMax-visibleMin)*.06)/priceStep)*priceStep;
+ const priceY=v=>T+(priceMax-v)/(priceMax-priceMin)*ih;
+ const sourceYMax=T+(8000-visibleMax)/8000*ih,sourceYMin=T+(8000-visibleMin)/8000*ih;
+ const priceScaleY=ih/(sourceYMin-sourceYMax),priceTranslateY=T-priceScaleY*sourceYMax;
+ for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
+ for(let i=0;i<=5;i++){const v=priceMin+(priceMax-priceMin)*i/5,yy=priceY(v);parts.push('<text data-axis="right" data-axis-value="'+v.toFixed(2)+'" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+fmt(v)+'</text>');}
+ const startYear=new Date(minX).getUTCFullYear(),endYear=new Date(maxX).getUTCFullYear(),yearStep=Math.max(1,Math.ceil((endYear-startYear)/6));
+ for(let yr=Math.ceil(startYear/yearStep)*yearStep;yr<=endYear;yr+=yearStep){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));if(xx<L||xx>W-R)continue;parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
+ const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak)),visibleDD=sortedDD.filter(dd=>(Date.parse(dd.trough+'T23:59:59Z')>=minX&&Date.parse(dd.peak+'T00:00:00Z')<=maxX)||(dd.id==='dd-1990'&&minX===CHART_START));
+ for(let idx=0;idx<sortedDD.length;idx++){
+  const dd=sortedDD[idx],pt=Date.parse(dd.peak+'T00:00:00Z'),tt=Date.parse(dd.trough+'T23:59:59Z'),before=tt<CHART_START,inView=(tt>=minX&&pt<=maxX)||(before&&minX===CHART_START);
+  const x1=x(pt),x2=x(tt),left=Math.max(L,Math.min(W-R,x1)),right=Math.max(L,Math.min(W-R,x2)),mid=before?L:(Math.max(L,x1)+Math.min(W-R,x2))/2,shown=drawdownVisible[dd.id]&&inView;
+  parts.push('<rect data-drawdown="'+dd.id+'" data-drawdown-before-series="'+(before?'true':'false')+'" display="'+(shown?'':'none')+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+(before?2:Math.max(2,right-left)).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'（* SPY代理值）':'')+(before?'（早於主圖價格線起點；左界細線僅為超出範圍提示）':'')+'｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
+  const vi=visibleDD.findIndex(d=>d.id===dd.id),lane=idx%2,lx=clamp(vi<0?L+22:L+(vi+.5)*iw/Math.max(1,visibleDD.length),L+22,W-R-22),ly=H-B-(lane===0?10:28),labelShown=shown&&iw/Math.max(1,visibleDD.length)>=44;
+  parts.push('<line data-drawdown-leader="'+dd.id+'" display="'+(labelShown?'':'none')+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-36)+'" x2="'+lx.toFixed(1)+'" y2="'+(ly-8)+'" stroke="#526174" stroke-width=".8"/>');
+  parts.push('<rect data-drawdown-label-bg="'+dd.id+'" display="'+(labelShown?'':'none')+'" x="'+(lx-22).toFixed(1)+'" y="'+(ly-18)+'" width="44" height="16" rx="5" fill="#26364d"/>');
+  parts.push('<text data-drawdown-label="'+dd.id+'" display="'+(labelShown?'':'none')+'" x="'+lx.toFixed(1)+'" y="'+(ly-6)+'" text-anchor="middle" style="fill:#fff;font-size:10px;font-weight:700">'+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</text>');
+ }
+ const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
+ for(const ev of sortedEvents){const st=Date.parse(ev.start+'T00:00:00Z'),en=Date.parse(ev.end+'T23:59:59Z'),beforeRange=en<CHART_START&&minX===CHART_START,inside=(en>=minX&&st<=maxX)||beforeRange,xx1=Math.max(L,Math.min(W-R,x(st))),xx2=Math.max(L,Math.min(W-R,x(en)));parts.push('<rect data-event="'+ev.id+'" display="'+(eventVisible[ev.id]&&inside?'':'none')+'" x="'+xx1.toFixed(2)+'" y="'+T+'" width="'+(inside?Math.max(2,xx2-xx1):0).toFixed(2)+'" height="'+ih+'" fill="#8792a2" fill-opacity=".075" stroke="#7b8794" stroke-opacity=".22" stroke-width="1"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');}
+ let spD='';
+ for(let i=i0;i<=i1;i++){const t=CHART_START+i/(nPath-1)*fullSpan,xx=x(t),yy=priceY(SP500_PRICES[i]);spD+=(i===i0?'M':' L')+xx.toFixed(2)+' '+yy.toFixed(2);}
+ parts.push('<defs><clipPath id="plot-clip" clipPathUnits="userSpaceOnUse"><rect x="'+L+'" y="'+T+'" width="'+iw+'" height="'+ih+'"/></clipPath></defs>');
+ if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" data-price-min="'+visibleMin.toFixed(2)+'" data-price-max="'+visibleMax.toFixed(2)+'" data-axis-min="'+priceMin.toFixed(2)+'" data-axis-max="'+priceMax.toFixed(2)+'" data-visible-points="'+(i1-i0+1)+'" clip-path="url(#plot-clip)" d="'+spD+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜dynamic right axis</title></path>');
+ for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4']){if(!visible[id])continue;const pts=data[id];let d='',open=false;
+  for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
+  const cfg=SERIES_CONFIG.find(s=>s.id===id),first=pts.find(p=>Number.isFinite(p.value)),valid=pts.filter(p=>Number.isFinite(p.value)).length;
+  parts.push('<path id="path-'+id+'" data-series="'+id+'" data-first-valid-date="'+(first?.date||'')+'" data-valid-points="'+valid+'" data-percentile-window="520" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜trailing 520-week percentile</title></path>');
+ }
+ parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
+ parts.push('<text x="'+L+'" y="17" font-size="'+(mobile?10:12)+'" font-weight="600">'+(mobile?'壓力指標百分位（左軸）':'金融壓力指標｜歷史百分位（左軸）')+'</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="'+(mobile?10:12)+'" font-weight="600">'+(mobile?'S&P 500（右軸）':'S&P 500 點數（右軸）')+'</text>');
+ document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" data-view-start="'+new Date(minX).toISOString().slice(0,10)+'" data-view-end="'+new Date(maxX).toISOString().slice(0,10)+'" data-plot-left="'+L+'" data-plot-right="'+(W-R)+'" data-plot-top="'+T+'" data-plot-bottom="'+(H-B)+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
+ if(skipLedger)return;
+ const preSeriesItems=minX===CHART_START?DRAWDOWNS.filter(dd=>drawdownVisible[dd.id]&&Date.parse(dd.trough+'T23:59:59Z')<CHART_START):[];
+ const preSeriesNote=document.getElementById('pre-series-history-note');preSeriesNote.hidden=preSeriesItems.length===0;
+ preSeriesNote.innerHTML=preSeriesItems.map(dd=>'<strong>'+dd.peak+' 至 '+dd.trough+'｜S&P 500 收盤回檔 '+dd.pct.toFixed(1)+'%</strong>（峰值 '+fmt(dd.peakClose)+' → 谷底 '+fmt(dd.troughClose)+'）。此期間早於主圖價格線起點（1993-12-31）；圖表左界細線僅提示資料在顯示範圍外，不會把回檔日期移入主圖，也不補畫價格線。收盤價核對：<a href="'+dd.source+'" target="_blank" rel="noopener">SEC 歷史收盤價表</a> · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">BMO 跌幅交叉查核</a>。').join('');
+ const ledgerRows=[
+  ...MAJOR_EVENTS.map(ev=>({kind:'event',date:ev.start,html:'<label class="event-item" data-event-entry="'+ev.id+'"><input type="checkbox" data-history-event="'+ev.id+'" '+(eventVisible[ev.id]?"checked":"")+' aria-label="顯示事件：'+ev.name+'"><span class="event-item-content"><strong>'+ev.name+'</strong><br>事件期間：'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></span></label>'})),
+  ...DRAWDOWNS.map(dd=>{const overlaps=MAJOR_EVENTS.filter(ev=>dd.peak<=ev.end&&dd.trough>=ev.start),context=overlaps.length?'同期事件（日期重疊，非因果判定）：'+overlaps.map(ev=>ev.name).join('、'):'尚無明確事件對應';return {kind:'drawdown',date:dd.peak,html:'<label class="event-item" data-drawdown-entry="'+dd.id+'"><input type="checkbox" data-history-drawdown="'+dd.id+'" '+(drawdownVisible[dd.id]?"checked":"")+' aria-label="顯示 S&P 500 回檔 '+dd.pct.toFixed(1)+'%"><span class="event-item-content"><strong>S&P 500 市場回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong><br>回檔期間：'+dd.peak+' → '+dd.trough+'<br><span>'+context+'</span>'+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a>'+(dd.crossCheckSource?' · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">'+dd.crossCheckSourceLabel+'</a>':'')+'</span></label>'};})
+ ];
+ ledgerRows.sort((a,b)=>a.date.localeCompare(b.date)||(a.kind==='event'?-1:1));document.getElementById('event-drawdown-key').innerHTML=ledgerRows.map(row=>row.html).join('');
+}
+function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null),label=SERIES_DISPLAY_NAMES[s.series_id]||s.label;return o?label+'｜'+o.date+'｜'+fmt(o.value):label+'｜無有效值'}
+
+function renderDailyRiskBrief(byId,weekly,generatedAt){
+ const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
+ const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
+ const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
+ // S&P 500 僅以壓縮視覺路徑嵌入本頁，並非可重算的原始收盤價序列；不從繪圖像素推導報酬或均線。
+ const last=null,ret13=null,dd13=null,above13=null;
+ const val=id=>m[id].value;
+ const delta=id=>m[id].delta??0;
+ const enough=Object.values(m).every(x=>x.value!==null);
+ const systemic=enough&&val('NFCI')>=80&&val('STLFSI4')>=80;
+ const systemicExtreme=enough&&val('VIXCLS')>=90&&val('NFCI')>=90&&val('STLFSI4')>=90;
+ const vixSpike=enough&&val('VIXCLS')>=75&&delta('VIXCLS')>=10;
+ const financialTight=enough&&val('NFCI')>=70&&val('STLFSI4')>=70&&(delta('NFCI')>0||delta('STLFSI4')>0);
+ const calm=enough&&val('VIXCLS')<60&&val('NFCI')<60&&val('STLFSI4')<60&&delta('VIXCLS')<=5&&delta('NFCI')<=5&&delta('STLFSI4')<=5;
+ let state='風險訊號分歧，持續觀察',grade='中性偏高',riskBand=1;
+ if(systemic){state='金融壓力同步升高，啟動防禦';grade=systemicExtreme?'高壓':'風險升溫';riskBand=systemicExtreme?3:2;}
+ else if(vixSpike){state='風險訊號分歧，持續觀察';grade='中性偏高';riskBand=1;}
+ else if(financialTight){state='金融環境轉緊，降低追價';grade='風險升溫';riskBand=2;}
+ else if(calm){state='金融壓力相對平穩';grade='相對平穩';riskBand=0;}
+ const fmtP=x=>x===null?'資料不足':Math.round(x).toString()+'%';
+ const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
+ const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
+ document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>'<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'</span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>').join('');
+ const dateList=Object.values(m).map(x=>x.date).filter(Boolean).sort();
+ document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜各指標最新觀測 '+(dateList[0]===dateList.at(-1)?dateList.at(-1):(dateList[0]+' 至 '+dateList.at(-1)));
+ document.getElementById('risk-state').textContent=state;
+ document.getElementById('risk-grade').textContent=grade;
+ const trend='本頁 S&P 500 僅嵌入壓縮後的視覺曲線，沒有可供重算的原始收盤價；因此不虛報近 13 週報酬、均線位置或回檔幅度。';
+ const thesis=enough?'VIX '+fmtP(val('VIXCLS'))+'（四週 '+fmtDelta(m.VIXCLS.delta)+'）；NFCI '+fmtP(val('NFCI'))+'、STLFSI4 '+fmtP(val('STLFSI4'))+'。'+(systemic?'兩項整體金融壓力指標均達 80 百分位以上，防禦優先。':vixSpike?'VIX 已升至高檔，但 NFCI／STLFSI4 尚未同時達 80 百分位；不因避險需求單獨清倉，新增資金改採分批與回檔進場。':financialTight?'金融環境與壓力指標已轉緊；停止追價，等待市場回檔與指標降溫再提高曝險。':calm?'三項主要風險指標均低於 60 百分位且近期未明顯升高；可按計畫分批投入，仍不一次押滿。':'目前未達系統性壓力門檻；維持核心部位，新增資金分批部署，等待價格與金融壓力訊號進一步確認。'):'部分壓力指標尚無足夠有效觀測，暫不生成完整風險結論，避免以缺值推測。';
+ document.getElementById('risk-thesis').textContent=thesis;
+ document.getElementById('sp500-return').textContent='價格序列待接入';
+ document.getElementById('sp500-detail').textContent=trend+' 今日買賣建議不會使用未核實的價格觸發條件。';
+ let eqTitle,eqDetail,defTitle,defDetail,triggers=[];
+ if(systemic){
+  eqTitle=systemicExtreme?'分批減碼現有股票部位 30–50%':'分批減碼現有股票部位 20–30%';
+  eqDetail='分 2–3 次執行，不一次清倉；優先減少高波動、槓桿與單一產業集中部位。若 S&P 500 仍在 13 週均線下方，暫停新增股票資金。';
+  defTitle='提高防禦，保留現金';
+  defDetail='債券以高品質、投資級為主；減少高收益債與長久期集中風險。減碼所得先留現金，待 NFCI 與 STLFSI4 回落且價格重新站回 13 週均線，再分批部署。';
+ }else if(vixSpike){
+  eqTitle='核心持股續抱；新增資金等回檔分批進場';
+  eqDetail='不追高、不因 VIX 單獨急升而全面出場。新增資金分 3 批：S&P 500 自近期高點回落 3–5% 投入第一批、回落 5–8% 投入第二批；第三批待價格止跌並重新站回 13 週均線。';
+  defTitle='維持防禦部位，不急著大幅轉倉';
+  defDetail='保留原有高品質債券配置與約 10–20% 可動用現金作為機動資金；避免為短期波動追買高收益債或一次性大幅提高現金。';
+ }else if(financialTight){
+  eqTitle='續抱核心；暫停追價，回檔後再分批';
+  eqDetail='新增資金先等待 3–5% 回檔，分 2–3 批投入；若 NFCI 與 STLFSI4 同時升至 80 百分位以上，且 S&P 500 跌破 13 週均線，先減碼現有股票部位 10–20%。';
+  defTitle='略提高防禦，保留 10–20% 機動現金';
+  defDetail='債券以高品質、投資級為核心；避免集中高收益債。若金融壓力指標連續回落，再逐步恢復原定風險配置。';
+ }else if(calm){
+  eqTitle='核心持股續抱；新增資金分批等回檔';
+  eqDetail='不一次重押。新增資金分 3 批：先保留至少 2/3，待 S&P 500 自近期高點回落 3–5% 且收盤止跌後投入第一批；其餘批次等待更深回檔或趨勢重新確認。';
+  defTitle='維持原定債券配置，現金保留彈性';
+  defDetail='債券以投資級及符合期限需求的部位為主；保留約 10–20% 可動用現金，避免在低波動時把資金一次投入。';
+ }else{
+  eqTitle='核心持股續抱；新資金先不追價';
+  eqDetail='待 S&P 500 自近期高點回落 3–5% 且收盤止跌，再分 2–3 批進場；若跌破 13 週均線，延後加碼，等重新站回後再執行。由於目前頁面未嵌入可重算的收盤價序列，本日不宣稱上述價位條件已觸發。';
+  defTitle='維持防禦配置與 10–20% 機動現金';
+  defDetail='保留高品質債券作為組合穩定器；現金用於回檔時分批投入，不因單一指標變化全面轉為現金。';
+ }
+ document.getElementById('equity-decision').textContent=eqTitle;document.getElementById('equity-detail').textContent=eqDetail;
+ document.getElementById('defensive-decision').textContent=defTitle;document.getElementById('defensive-detail').textContent=defDetail;
+ triggers.push('加碼：S&P 500 自近期高點回落 3–5% 且收盤止跌時，投入預定新資金的第一批；若跌破 13 週均線，等重新站回後再加碼。本頁目前沒有原始價格序列，無法判定條件今天是否觸發。');
+ triggers.push('減碼：NFCI 與 STLFSI4 同時達 80 百分位以上且仍上升，並伴隨 S&P 500 跌破 13 週均線，分批減少現有股票部位 10–20%；若 VIX、NFCI、STLFSI4 同時達 90 百分位且價格跌破 26 週均線，再評估擴大防禦。');
+ triggers.push('全面清倉：不由單一指標或單週急跌觸發；本判讀框架不自動建議全部賣出，須另行評估投資期限、現金需求與投資組合承受能力。');
+ document.getElementById('decision-triggers').innerHTML=triggers.map(x=>'<li>'+x+'</li>').join('');
+ document.getElementById('daily-risk-brief').hidden=false;
+}
+
+fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
+
+ const byId=Object.fromEntries(data.series.map(s=>[s.series_id,s]));
+ const visible={VIXCLS:true,NFCI:true,NFCICREDIT:true,STLFSI4:true,SP500:true};
+ const weekly={};
+ for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4'])weekly[id]=expandingPercentile(weeklyLast(byId[id]));
+ renderDailyRiskBrief(byId,weekly,data.generated_at);
+ const controls=document.getElementById('series-filters');
+ controls.innerHTML=SERIES_CONFIG.map(c=>'<label class="series-toggle"><input type="checkbox" data-series-toggle="'+c.id+'" checked><span class="dot" style="background:'+c.color+'"></span>'+c.name+'</label>').join('');
+ document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
+ const eventVisible=Object.fromEntries(MAJOR_EVENTS.map(ev=>[ev.id,true]));
+ const drawdownVisible=Object.fromEntries(DRAWDOWNS.map(dd=>[dd.id,true]));
+ let viewStart=CHART_START,viewEnd=CHART_END,renderFrame=0;
+ const normalize=(a,b)=>{const span=clamp(b-a,MIN_VIEW_SPAN,CHART_END-CHART_START);a=clamp(a,CHART_START,CHART_END-span);return [a,a+span];};
+ const paint=(skipLedger)=>{const t0=performance.now();drawCombined(weekly,visible,eventVisible,drawdownVisible,viewStart,viewEnd,skipLedger);document.getElementById('timeline-range').textContent=new Date(viewStart).getUTCFullYear()+'–'+new Date(viewEnd).getUTCFullYear();document.getElementById('combined-chart').dataset.renderMs=(performance.now()-t0).toFixed(1);};
+ // Filter/ledger changes paint immediately. High-frequency timeline gestures are coalesced to one paint per animation frame.
+ const render=(refreshLedger=true)=>{if(refreshLedger){if(renderFrame){cancelAnimationFrame(renderFrame);renderFrame=0;}paint(false);return;}if(renderFrame)return;renderFrame=requestAnimationFrame(()=>{renderFrame=0;paint(true);});};
+ const setView=(a,b)=>{[viewStart,viewEnd]=normalize(a,b);render(false);};
+ const zoom=(factor,ratio=.5,baseA=viewStart,baseB=viewEnd)=>{const span=baseB-baseA,r=clamp(ratio,0,1),anchor=baseA+span*r,next=clamp(span*factor,MIN_VIEW_SPAN,CHART_END-CHART_START);setView(anchor-next*r,anchor+next*(1-r));};
+ const pan=(a,b,dx,width)=>{const left=width<600?44:78,right=width<600?72:82,plotWidth=Math.max(1,width-left-right),shift=-dx*(b-a)/plotWidth;setView(a+shift,b+shift);};
+ document.getElementById('timeline-zoom-in').addEventListener('click',()=>zoom(.75));document.getElementById('timeline-zoom-out').addEventListener('click',()=>zoom(1.33));document.getElementById('timeline-reset').addEventListener('click',()=>setView(CHART_START,CHART_END));
+ const chart=document.getElementById('combined-chart');let drag=null,touch=null;
+ chart.addEventListener('wheel',e=>{if(!e.target.closest('#combined-svg'))return;e.preventDefault();const r=chart.getBoundingClientRect();zoom(e.deltaY<0?.8:1.25,(e.clientX-r.left)/r.width);},{passive:false});
+ chart.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0||!e.target.closest('#combined-svg'))return;drag={id:e.pointerId,x:e.clientX,a:viewStart,b:viewEnd};chart.classList.add('is-dragging');chart.setPointerCapture(e.pointerId);});
+ chart.addEventListener('pointermove',e=>{if(drag&&e.pointerId===drag.id)pan(drag.a,drag.b,e.clientX-drag.x,chart.getBoundingClientRect().width);});
+ const stop=e=>{if(drag&&e.pointerId===drag.id){drag=null;chart.classList.remove('is-dragging');}};chart.addEventListener('pointerup',stop);chart.addEventListener('pointercancel',stop);
+ const dist=t=>Math.hypot(t[0].clientX-t[1].clientX,t[0].clientY-t[1].clientY);
+ chart.addEventListener('touchstart',e=>{if(!e.target.closest('#combined-svg'))return;if(e.touches.length===2)touch={kind:'pinch',a:viewStart,b:viewEnd,d:dist(e.touches)};else if(e.touches.length===1)touch={kind:'pan',a:viewStart,b:viewEnd,x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:false});
+ chart.addEventListener('touchmove',e=>{if(!touch)return;const r=chart.getBoundingClientRect();if(e.touches.length===2&&touch.kind==='pinch'){e.preventDefault();const d=dist(e.touches),mx=(e.touches[0].clientX+e.touches[1].clientX)/2,ratio=clamp((mx-r.left)/r.width,0,1),span=touch.b-touch.a,anchor=touch.a+span*ratio,next=clamp(span*touch.d/Math.max(1,d),MIN_VIEW_SPAN,CHART_END-CHART_START);setView(anchor-next*ratio,anchor+next*(1-ratio));}else if(e.touches.length===1&&touch.kind==='pan'){const t=e.touches[0],dx=t.clientX-touch.x,dy=t.clientY-touch.y;if(Math.abs(dx)>Math.abs(dy)*1.15){e.preventDefault();pan(touch.a,touch.b,dx,r.width);}}},{passive:false});
+ chart.addEventListener('touchend',e=>{if(e.touches.length===1)touch={kind:'pan',a:viewStart,b:viewEnd,x:e.touches[0].clientX,y:e.touches[0].clientY};else if(!e.touches.length)touch=null;},{passive:true});chart.addEventListener('touchcancel',()=>{touch=null;},{passive:true});
+ controls.querySelectorAll('input[data-series-toggle]').forEach(input=>input.addEventListener('change',()=>{visible[input.dataset.seriesToggle]=input.checked;render();}));
+ document.getElementById('select-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=true;controls.querySelectorAll('input').forEach(i=>i.checked=true);render();});
+ document.getElementById('clear-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=false;controls.querySelectorAll('input').forEach(i=>i.checked=false);render();});
+ const historyList=document.getElementById("event-drawdown-key");
+ historyList.addEventListener("change",e=>{const el=e.target;if(el.matches("input[data-history-event]"))eventVisible[el.dataset.historyEvent]=el.checked;else if(el.matches("input[data-history-drawdown]"))drawdownVisible[el.dataset.historyDrawdown]=el.checked;else return;render();});
+ const setHistorySelection=checked=>{for(const ev of MAJOR_EVENTS)eventVisible[ev.id]=checked;for(const dd of DRAWDOWNS)drawdownVisible[dd.id]=checked;render();};
+ document.getElementById("select-all-history").addEventListener("click",()=>setHistorySelection(true));
+ document.getElementById("clear-all-history").addEventListener("click",()=>setHistorySelection(false));
+ const latest=Object.values(byId).map(s=>s.latest_valid_observation?.date||'').filter(Boolean).sort().at(-1);
+ document.getElementById('asof').textContent='資料版本 '+data.generated_at.slice(0,10);document.getElementById('combined-asof').textContent='資料版本 '+data.generated_at.slice(0,10)+'｜最新觀測 '+latest;
+ document.getElementById('status').hidden=true;document.getElementById('combined-stress-card').hidden=false;
+ render(true);
+ window.addEventListener('resize',()=>render(false),{passive:true});
+}).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與 data/tac-chart3/chart3_market_stress.json 位於同一分支。'});
+</script>
+</body>
+</html>
+<!-- visual QA rerun: mobile chart container sizing fix -->

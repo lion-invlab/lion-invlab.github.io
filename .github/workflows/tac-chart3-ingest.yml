@@ -1,0 +1,51 @@
+name: TAC Chart 3 FRED-ALFRED historical ingestion
+# Full historical ingestion is intentionally manual-only.
+# Daily refreshes must use tac-chart3-incremental.yml.
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: tac-chart3-ingest
+  cancel-in-progress: true
+jobs:
+  ingest:
+    name: Ingest ${{ matrix.series }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        series: [VIXCLS, NFCI, NFCICREDIT, STLFSI4]
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify secret is configured without exposing it
+        shell: bash
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: |
+          if [ -z "$FRED_API_KEY" ]; then
+            echo "::error::Repository secret FRED_API_KEY is not available to this workflow."
+            exit 1
+          fi
+          echo "FRED_API_KEY is present; value will not be printed."
+      - name: Download current, initial-release and ALFRED vintage history
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          TAC_SERIES_ID: ${{ matrix.series }}
+        run: python research/tac-chart3/tac_fred_alfred_download.py
+      - name: Upload per-series immutable ingestion evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tac-chart3-${{ matrix.series }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/tac-chart3/${{ matrix.series }}/
+          if-no-files-found: warn
+          retention-days: 30

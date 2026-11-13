@@ -1,0 +1,36 @@
+name: TAC Chart 3 stress episode analysis tests
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/scripts/analyze_tac_chart3_stress_episodes.py"
+      - ".github/scripts/test_analyze_tac_chart3_stress_episodes.py"
+      - ".github/scripts/analyze_tac_chart3_historical_asof.py"
+      - ".github/scripts/test_analyze_tac_chart3_historical_asof.py"
+      - ".github/workflows/tac-chart3-stress-analysis-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile analysis code
+        run: python -m py_compile .github/scripts/analyze_tac_chart3_stress_episodes.py
+      - name: Compile historical as-of code
+        run: python -m py_compile .github/scripts/analyze_tac_chart3_historical_asof.py
+      - name: Run retrospective analysis unit tests
+        run: python .github/scripts/test_analyze_tac_chart3_stress_episodes.py
+      - name: Run historical as-of unit tests
+        run: python .github/scripts/test_analyze_tac_chart3_historical_asof.py

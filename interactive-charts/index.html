@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TAC 互動式圖表｜圖表索引</title>
+<style>
+:root{--red:#b8202f;--navy:#111d30;--ink:#202630;--muted:#7c8795;--line:#e5e8ed;--gold:#c7a66a;--paper:#f5f6f8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+@media(min-width:1100px){body{padding-left:208px}}
+.sidebar{position:fixed;z-index:5;left:0;top:0;bottom:0;width:208px;padding:22px 14px;background:#fff;border-right:1px solid #e2e5e9;box-shadow:5px 0 18px #161c240b;display:flex;flex-direction:column;gap:9px}
+.brand{font-weight:950;font-size:17px;color:var(--red);padding:4px 8px 18px;border-bottom:1px solid #eceef1;margin-bottom:8px}.caption{font-size:10px;font-weight:800;color:#929aa5;letter-spacing:1.2px;padding:4px 9px}
+.tool{display:flex;align-items:center;gap:10px;padding:12px 11px;border-radius:9px;text-decoration:none;color:#38414c;border:1px solid transparent;font-size:13px;font-weight:800;background:white}.tool:hover,.tool.active{background:#fff4f4;border-color:#f0d4d7;color:#a92332}.ico{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:#f0f2f5;font-size:15px;flex-shrink:0}.foot{margin-top:auto;font-size:10px;line-height:1.8;color:#98a0aa;padding:12px 8px;border-top:1px solid #eceef1}
+main{max-width:1120px;margin:0 auto;padding:34px 34px 64px}.breadcrumb{font-size:11px;color:#929aa5;margin-bottom:20px}.eyebrow{font-size:10px;letter-spacing:2px;color:var(--red);font-weight:900;margin-bottom:9px}h1{font-size:30px;margin:0 0 8px;font-weight:950}.lead{font-size:13px;line-height:1.8;color:#6d7682;margin:0;max-width:700px}
+.hero{margin:24px 0 28px;padding:27px 30px;border-radius:16px;color:white;background:radial-gradient(circle at 85% 20%,#314563 0,transparent 36%),linear-gradient(120deg,#101b2e,#1c2c45 70%,#101b2e);position:relative;overflow:hidden;box-shadow:0 12px 30px #101d3024}.hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #c7a66a55;border-radius:50%;right:-65px;top:-140px;box-shadow:0 0 0 24px #c7a66a0c,0 0 0 54px #c7a66a08}.hero-kicker{font-size:10px;letter-spacing:2px;color:#d8bd83;font-weight:900}.hero h2{font-size:23px;margin:12px 0 8px}.hero p{font-size:13px;color:#c5cfdb;line-height:1.8;margin:0;max-width:650px}
+.section{display:flex;align-items:center;gap:10px;margin:30px 2px 13px}.section:before{content:"";width:3px;height:18px;background:var(--red);border-radius:3px}.section strong{font-size:15px;font-weight:950}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{display:flex;flex-direction:column;min-height:190px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit;box-shadow:0 5px 22px #15203308;transition:.18s}.card:hover{transform:translateY(-2px);border-color:#d7c49e;box-shadow:0 10px 25px #15203312}.card-top{display:flex;align-items:center;gap:12px}.card-icon{width:42px;height:42px;border-radius:11px;background:#eaf2f1;color:#0b8176;display:grid;place-items:center;font-size:22px}.number{font-size:10px;color:#9aa2ad;font-weight:900;letter-spacing:1px}.card h3{font-size:17px;margin:15px 0 7px;font-weight:950}.card p{font-size:12px;line-height:1.8;color:#6d7682;margin:0}.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:17px;font-size:10px;color:#8b949f}.open{font-size:11px;font-weight:900;color:var(--red)}
+@media(max-width:1099px){.sidebar{width:min(82vw,310px);padding:22px 16px;transform:translateX(-110%);transition:transform .22s;z-index:20;overflow:auto}body.open .sidebar{transform:translateX(0)}.backdrop{display:none;position:fixed;inset:0;background:#0a0f167a;z-index:19}body.open .backdrop{display:block}.mobile-trigger{display:flex;position:fixed;z-index:15;left:12px;bottom:18px;border:0;border-radius:999px;padding:11px 15px;background:#202630;color:#fff;font-size:12px;font-weight:850;box-shadow:0 5px 18px #0003}main{padding:24px 15px 88px}.hero{padding:22px 20px}.hero h2{font-size:20px}.cards{grid-template-columns:1fr}.card{min-height:165px}}
+.mobile-trigger{display:none}@media(max-width:1099px){.mobile-trigger{display:flex}}
+</style>
+</head>
+<body>
+<aside class="sidebar" aria-label="TAC 工具欄">
+ <div class="brand">TAC 工具欄</div><div class="caption">QUICK ACCESS</div>
+ <a class="tool" href="https://lion-invlab.github.io/volatility.html"><span class="ico">📊</span><span>美股個股波動率</span></a>
+ <a class="tool" href="https://lion-invlab.github.io/fund-dividend.html"><span class="ico">💰</span><span>Q4 精選基金</span></a>
+ <a class="tool active" href="./"><span class="ico">📈</span><span>互動式圖表</span></a>
+ <a class="tool" href="https://lion-invlab.github.io/special-reports.html"><span class="ico">📖</span><span>專題報導</span></a>
+ <a class="tool" href="https://lion-invlab.github.io/#tac-history-shortcut"><span class="ico">📚</span><span>歷史早報</span></a>
+ <div class="foot">TAC 投資早報<br>互動式投資決策圖表</div>
+</aside>
+<div class="backdrop" onclick="toggleTools(false)"></div><button class="mobile-trigger" onclick="toggleTools(true)">☰ <span style="margin-left:7px">工具欄</span></button>
+<main>
+ <div class="breadcrumb">TAC 投資早報　/　工具欄　/　互動式圖表</div>
+ <div class="eyebrow">TAC INVESTMENT DECISION CHARTS</div><h1>互動式圖表</h1>
+ <p class="lead">以可互動、可追溯的數據圖表，協助理解市場環境、風險變化與資產配置。新圖表將持續加入此索引。</p>
+ <section class="hero"><div class="hero-kicker">INTERACTIVE INVESTMENT RESEARCH</div><h2>讓數據轉化為投資判斷</h2><p>從市場恐慌、金融壓力到經濟與估值週期，透過歷史資料與互動視覺化，觀察市場變化並建立決策依據。</p></section>
+ <div class="section"><strong>已上架圖表</strong></div>
+ <div class="cards">
+  <a class="card" href="../research/tac-chart3/chart3-preview.html">
+   <div class="card-top"><span class="card-icon">◉</span><span class="number">CHART 01　·　每日更新</span></div>
+   <h3>市場恐慌與金融壓力</h3>
+   <p>整合 VIX、芝加哥聯準會金融狀況指數、信用子指數、聖路易聯準銀行金融壓力指數與 S&amp;P 500，觀察市場風險與金融環境變化。</p>
+   <div class="card-foot"><span>五合一互動圖表・每日市場風險判讀</span><span class="open">開啟圖表　→</span></div>
+  </a>
+ </div>
+ <div class="section"><strong>規劃中的圖表</strong></div>
+ <div class="cards">
+  <div class="card"><div class="card-top"><span class="card-icon">◈</span><span class="number">CHART 02　·　規劃中</span></div><h3>經濟成長 × 通膨四象限</h3><p>追蹤經濟成長與通膨組合，觀察景氣週期位置及不同環境下的資產配置含意。</p><div class="card-foot"><span>歷史軌跡・資產配置</span><span>規劃中</span></div></div>
+  <div class="card"><div class="card-top"><span class="card-icon">◇</span><span class="number">CHART 03　·　規劃中</span></div><h3>股債相對估值</h3><p>結合 Shiller CAPE、盈餘殖利率與美國實質利率，觀察股票與債券的相對評價。</p><div class="card-foot"><span>相對估值・長期配置</span><span>規劃中</span></div></div>
+ </div>
+</main>
+<script>function toggleTools(open){document.body.classList.toggle('open',open)}document.addEventListener('keydown',e=>{if(e.key==='Escape')toggleTools(false)});</script>
+</body></html>

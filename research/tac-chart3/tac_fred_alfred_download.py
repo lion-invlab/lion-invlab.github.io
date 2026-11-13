@@ -1,0 +1,236 @@
+#!/usr/bin/env python3
+"""TAC Chart 3 FRED/ALFRED archive downloader. Never prints the API key."""
+import csv, hashlib, json, os, sys, time, urllib.parse, urllib.request, urllib.error
+from pathlib import Path
+from datetime import datetime, timezone
+
+BASE = "https://api.stlouisfed.org/fred"
+SERIES = {
+    "VIXCLS": "1990-01-01",
+    "NFCI": "1971-01-01",
+    "NFCICREDIT": "1971-01-01",
+    "STLFSI4": "1993-12-01",
+}
+
+def request_json(endpoint, params, key, retries=5):
+    q = dict(params, api_key=key, file_type="json")
+    url = BASE + "/" + endpoint + "?" + urllib.parse.urlencode(q)
+    last = None
+    for attempt in range(retries):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent":"TAC-Decision-Charts/1.0"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                data = json.loads(r.read().decode("utf-8"))
+            if "error_code" in data:
+                raise RuntimeError(str(data))
+            return data, url.split("?")[0]
+        except urllib.error.HTTPError as e:
+            # Preserve the provider response body for diagnosis; never print request URLs or API keys.
+            try:
+                body = e.read().decode("utf-8", errors="replace")[:2000]
+            except Exception:
+                body = ""
+            last = RuntimeError(f"HTTP {e.code}: {body or e.reason}")
+            if attempt + 1 < retries:
+                delay = min(3 * (2 ** attempt), 30)
+                print(f"  RETRY {endpoint} after HTTP {e.code}; attempt {attempt + 2}/{retries} in {delay}s", flush=True)
+                time.sleep(delay)
+        except Exception as e:
+            last = e
+            if attempt + 1 < retries:
+                delay = min(3 * (2 ** attempt), 30)
+                print(f"  RETRY {endpoint} after {type(e).__name__}; attempt {attempt + 2}/{retries} in {delay}s", flush=True)
+                time.sleep(delay)
+    raise RuntimeError(f"{endpoint} request failed: {last}")
+
+def write_json(path, obj):
+    raw = json.dumps(obj, ensure_ascii=False, indent=2).encode("utf-8")
+    path.write_bytes(raw)
+    return hashlib.sha256(raw).hexdigest(), len(raw)
+
+def write_csv(path, rows, sid, retrieved, source_url, label):
+    fields = ["series_id","observation_date","value","realtime_start","realtime_end",
+              "retrieved_at","source_url","source_method","license_status","quality_flags"]
+    with path.open("w", newline="", encoding="utf-8-sig") as f:
+        w = csv.DictWriter(f, fieldnames=fields); w.writeheader()
+        for row in rows:
+            d = row.get("date", "")
+            value = row.get("value", "")
+            flags = []
+            if not d: flags.append("missing_observation_date")
+            if value in ("", ".", None): flags.append("source_missing_value")
+            if not row.get("realtime_start"): flags.append("release_vintage_not_per_observation")
+            w.writerow({"series_id":sid,"observation_date":d,"value":value,
+                        "realtime_start":row.get("realtime_start",""),
+                        "realtime_end":row.get("realtime_end",""),
+                        "retrieved_at":retrieved,"source_url":source_url,
+                        "source_method":label,
+                        "license_status":"review_required_before_redistribution",
+                        "quality_flags":";".join(flags)})
+    return hashlib.sha256(path.read_bytes()).hexdigest(), path.stat().st_size
+
+def main():
+    key = os.environ.get("FRED_API_KEY", "").strip()
+    if len(key) != 32 or not key.isalnum() or key.lower() != key:
+        raise SystemExit("FRED_API_KEY missing or malformed; expected 32 lowercase alphanumeric characters.")
+    selected = os.environ.get("TAC_SERIES_ID", "").strip().upper()
+    if selected and selected not in SERIES:
+        raise SystemExit(f"Unknown TAC_SERIES_ID: {selected}")
+    selected_series = {selected: SERIES[selected]} if selected else SERIES
+    root = Path("artifacts/tac-chart3")
+    root.mkdir(parents=True, exist_ok=True)
+    retrieved = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    manifest = {"project":"TAC Chart 3","retrieved_at":retrieved,
+                "api":"FRED/ALFRED official API","series":{},"failures":[]}
+    for sid, start in selected_series.items():
+        print(f"START {sid}", flush=True)
+        sd = root / sid; sd.mkdir(exist_ok=True)
+        entry = {"observation_start":start,"status":"RUNNING","files":[]}
+        try:
+            # FRED observations defaults realtime_start/end to TODAY. If no release
+            # exists on that calendar date, the API returns HTTP 400. Resolve the
+            # latest actual vintage first, then query the current snapshot as-of it.
+            # Page the complete vintage-date index rather than assuming one page is enough.
+            dates = []
+            vintage_pages = []
+            offset = 0
+            while True:
+                page, vurl = request_json("series/vintagedates",
+                    {"series_id":sid,"sort_order":"asc","limit":10000,"offset":offset}, key)
+                page_dates = page.get("vintage_dates", [])
+                vintage_pages.append(page)
+                dates.extend(page_dates)
+                print(f"  {sid} vintage-date index offset={offset}: {len(page_dates)} dates", flush=True)
+                if len(page_dates) < 10000:
+                    break
+                offset += len(page_dates)
+            vintages = {"series_id":sid,"vintage_dates":dates,"page_count":len(vintage_pages),
+                        "count":len(dates),"source_endpoint":vurl}
+            vh,vb = write_json(sd/f"{sid}_vintage_dates.json", vintages)
+            entry["files"].append({"name":f"{sid}_vintage_dates.json","sha256":vh,"bytes":vb})
+            if not dates: raise RuntimeError("vintage_dates empty")
+            latest_vintage = dates[-1]
+            entry["latest_vintage_date"] = latest_vintage
+            entry["vintage_date_count"] = len(dates)
+            # Split observation history into 10-year windows to avoid gateway timeouts.
+            end_date = datetime.now(timezone.utc).date()
+            obs_windows = []
+            y0 = int(start[:4])
+            while y0 <= end_date.year:
+                y1 = min(y0 + 9, end_date.year)
+                obs_windows.append((f"{y0:04d}-01-01", f"{y1:04d}-12-31"))
+                y0 = y1 + 1
+            current_rows = []
+            current_payloads = []
+            url = "https://api.stlouisfed.org/fred/series/observations"
+            for wi, (obs_lo, obs_hi) in enumerate(obs_windows, 1):
+                print(f"  CURRENT {sid} observation window {wi}/{len(obs_windows)}: {obs_lo}..{obs_hi}", flush=True)
+                part, url = request_json("series/observations",
+                    {"series_id":sid,"observation_start":max(start,obs_lo),"observation_end":obs_hi,
+                     "realtime_start":latest_vintage,"realtime_end":latest_vintage,"output_type":1,"sort_order":"asc","limit":100000,"offset":0}, key)
+                current_payloads.append(part)
+                current_rows.extend(part.get("observations", []))
+            current = {"series_id":sid,"realtime_start":latest_vintage,"realtime_end":latest_vintage,
+                       "count":len(current_rows),"observations":current_rows,"window_count":len(current_payloads)}
+            h,n = write_json(sd/f"{sid}_current_output_type1.json", current)
+            entry["files"].append({"name":f"{sid}_current_output_type1.json","sha256":h,"bytes":n})
+            rows = current_rows
+            ch,cn = write_csv(sd/f"{sid}_current.csv", rows, sid, retrieved, url, "FRED API output_type=1 current vintage; 10-year observation windows")
+            entry["files"].append({"name":f"{sid}_current.csv","sha256":ch,"bytes":cn})
+            entry["current_observations"] = len(rows)
+            if not rows: raise RuntimeError("current observations empty")
+
+            # output_type=4 is limited to 2,000 vintage dates per real-time window.
+            # Split the vintage-date index into 1,000-date windows and combine.
+            initial_rows = []
+            initial_payloads = []
+            vintage_batch_size = 1000
+            vintage_windows = [dates[i:i+vintage_batch_size] for i in range(0, len(dates), vintage_batch_size)]
+            for vi, vbatch in enumerate(vintage_windows, 1):
+                v_lo, v_hi = vbatch[0], vbatch[-1]
+                print(f"  INITIAL {sid} vintage window {vi}/{len(vintage_windows)}: {v_lo}..{v_hi} ({len(vbatch)} dates)", flush=True)
+                for wi, (obs_lo, obs_hi) in enumerate(obs_windows, 1):
+                    part, iurl = request_json("series/observations",
+                        {"series_id":sid,"observation_start":max(start,obs_lo),"observation_end":obs_hi,
+                         "realtime_start":v_lo,"realtime_end":v_hi,"output_type":4,"sort_order":"asc","limit":100000,"offset":0}, key)
+                    initial_payloads.append(part)
+                    initial_rows.extend(part.get("observations", []))
+            # Keep exact provider rows; no imputation or synthetic release dates.
+            initial = {"series_id":sid,"count":len(initial_rows),"observations":initial_rows,
+                       "vintage_window_count":len(vintage_windows),"observation_window_count":len(obs_windows)}
+            ih,ib = write_json(sd/f"{sid}_initial_release_output_type4.json", initial)
+            entry["files"].append({"name":f"{sid}_initial_release_output_type4.json","sha256":ih,"bytes":ib})
+            ir = initial_rows
+            ich,icn = write_csv(sd/f"{sid}_initial_release.csv", ir, sid, retrieved, iurl, "FRED API output_type=4 initial release; chunked vintage and observation windows")
+            entry["files"].append({"name":f"{sid}_initial_release.csv","sha256":ich,"bytes":icn})
+            entry["initial_release_observations"] = len(ir)
+
+            change_rows = 0
+            # Chunk output_type=3 across vintage dates and 10-year observation
+            # windows. Transient/provider-size failures trigger recursive splitting.
+            vintage_batch_size = 50
+            total_vintage_batches = (len(dates) + vintage_batch_size - 1) // vintage_batch_size
+            chunk_index = 0
+
+            def fetch_change_chunk(vbatch, obs_lo, obs_hi, depth=0):
+                nonlocal change_rows, chunk_index
+                try:
+                    payload, purl = request_json("series/observations",
+                        {"series_id":sid,"observation_start":max(start,obs_lo),
+                         "observation_end":obs_hi,"output_type":3,
+                         "vintage_dates":",".join(vbatch),
+                         "sort_order":"asc","limit":100000,"offset":0}, key,
+                        retries=2)
+                except Exception as exc:
+                    msg = str(exc)
+                    if depth >= 8:
+                        raise
+                    if len(vbatch) > 1:
+                        mid = len(vbatch) // 2
+                        fetch_change_chunk(vbatch[:mid], obs_lo, obs_hi, depth+1)
+                        fetch_change_chunk(vbatch[mid:], obs_lo, obs_hi, depth+1)
+                        return
+                    y0, y1 = int(obs_lo[:4]), int(obs_hi[:4])
+                    if y1 > y0:
+                        ym = (y0 + y1) // 2
+                        fetch_change_chunk(vbatch, obs_lo, f"{ym}-12-31", depth+1)
+                        fetch_change_chunk(vbatch, f"{ym+1}-01-01", obs_hi, depth+1)
+                        return
+                    raise RuntimeError(f"Unrecoverable output_type=3 chunk failure: {msg}") from exc
+
+                chunk_index += 1
+                name = (f"{sid}_vintage_changes_v{vintage_batch_no:03d}_"
+                        f"obs_{obs_lo[:4]}_{obs_hi[:4]}_chunk_{chunk_index:05d}.json")
+                ph,pb = write_json(sd/name, payload)
+                entry["files"].append({"name":name,"sha256":ph,"bytes":pb})
+                count = len(payload.get("observations",[]))
+                change_rows += count
+                print(f"  DONE {sid} output_type=3 chunk {chunk_index}: "
+                      f"{len(vbatch)} vintages, {obs_lo}..{obs_hi}, {count} rows",
+                      flush=True)
+
+            for ix in range(0, len(dates), vintage_batch_size):
+                batch = dates[ix:ix+vintage_batch_size]
+                vintage_batch_no = ix//vintage_batch_size + 1
+                print(f"  START {sid} vintage batch {vintage_batch_no}/"
+                      f"{total_vintage_batches}: {len(batch)} dates", flush=True)
+                for obs_lo, obs_hi in obs_windows:
+                    fetch_change_chunk(batch, obs_lo, obs_hi)
+            entry["vintage_change_rows"] = change_rows
+            entry["status"] = "PASS"
+            print(f"PASS {sid}: current={len(rows)}, initial={len(ir)}, vintages={len(dates)}, changes={change_rows}", flush=True)
+        except Exception as e:
+            entry["status"] = "FAIL"
+            entry["error"] = str(e)
+            manifest["failures"].append({"series_id":sid,"error":str(e)})
+            print(f"FAIL {sid}: {e}", file=sys.stderr, flush=True)
+        manifest["series"][sid] = entry
+    manifest["overall_status"] = "PASS" if all(x["status"]=="PASS" for x in manifest["series"].values()) else "PARTIAL_OR_FAIL"
+    mh,mn = write_json(root/"manifest.json", manifest)
+    print(f"MANIFEST sha256={mh} bytes={mn}")
+    print(f"OVERALL_STATUS={manifest['overall_status']}")
+    if manifest["failures"]:
+        raise SystemExit(2)
+
+if __name__ == "__main__":
+    main()
