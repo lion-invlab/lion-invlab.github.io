@@ -1456,3 +1456,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 將 renderer contract test 改為直接 import `build_review_html.earnings_comparison_status`，不只測底層 helper；驗證 HTML 組裝器本身只讀取 versioned status，legacy status／數字／自由文字 basis 不會觸發 Beat/Miss fallback。
 - GitHub Actions run `43379755113`（job `131734508895`，commit `e50bec24c0ea20291254ea857a7583304e538b79`）completed/success；renderer adapter、engine、CSV exporter 與 main read-only audit steps PASS。
 - 本次為 push smoke test，早報組裝及 Playwright／視覺 QA steps skipped；沒有產生或發布新的 11/13 v2 HTML。
+
+
+## 2026-11-13｜財報 v2 Schema validator 與 automation prompt 現況
+
+- 新增 `schemas/tac-earnings-record-v2.schema.json`：per-record JSON Schema，包含 EPS／Revenue controlled basis enums、分離 actual／estimate currency、period、revenue unit、來源、engine version、status/reason，directional statuses 必須帶齊必要 evidence。
+- 新增 `simulation-lab/runner/validate_earnings_v2.py`：JSON Schema + `audit_record()` consistency validator；self-test 涵蓋 directional evidence 缺漏、status 與 engine 不一致、legacy v1 compatibility。
+- 已把 validator self-test 加入 `.github/workflows/tac-simulation-lab.yml`。Commit `db9c085e8d0c88ebcefb5a371feb686826c74a23`；目前 GitHub 尚未提供對應 workflow run，因此此新增 validator 的 CI 尚未驗收，不能聲稱 PASS。
+- 已重新 peek 真正的 04:35 automation：其儲存 prompt 現在已是 Schema v2 fail-closed 契約（updated_at 2026-11-13T06:36:11Z），但任務仍 disabled。不得重新啟用，因 main 尚未部署 schema/engine/validator，W45/W46 migration 尚未完成。
+- 正式 main HEAD 目前讀到 `d271d1226ba1c19b431118c9967d57d2bce678fa`；W46 blob `85edcefb1f7b86112e55d43a324c6cb5c8c2fdab`；schema_version 仍為 1。沒有寫入 main。
