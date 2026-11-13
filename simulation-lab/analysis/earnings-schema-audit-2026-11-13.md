@@ -79,7 +79,9 @@
 - 已在隔離分支修正：只允許 reporting_period 填 actual_period；estimate_period 沒有明確來源證據時保持 null，判讀結果必須 pending。
 - 修正程式 commit：`d0d8a1af6b137964364ed842823f4864e7aa619b`。
 - 新增回歸測試 commit：`b95192767a2f11e35178fb99fa0127bb4ab934b8`。
-- 截至本次回讀，該測試 commit 沒有可見的 GitHub status checks；測試尚未標記 PASS，須等待 CI 或可執行環境實測。
+- 後續測試案例修正 commit：`5142f4255bb8d95dc4be3e4b6b4ee8c353b69b95`，為合成 FERG 測試明確加入 `eps_estimate_period=Q3 2026`；沒有來源期間的案例仍必須維持 Pending。
+- GitHub Actions run `43415581638`（2026-11-13 11:15 UTC）整體 `success`；`Run deterministic self-tests` 與 `Audit authoritative main earnings schema (read-only)` 均 `success`。這只證明隔離測試及唯讀稽核通過，不代表正式 main 已部署。
+- 此次為一般 `push` smoke run，早報組裝、瀏覽器互動、視覺回歸等需 `workflow_dispatch`／`[build-tac-report]` 的步驟均 `skipped`；不得將本次 run 說成早報端到端驗收。
 
 ## 排程與寫入權責現況
 
@@ -172,3 +174,14 @@
 2. **最適合建立未來公告前快照的候選：Earnings Whispers upcoming endpoint**，但要先確認訂閱範圍、API 權限及 TAC 公開再發布授權；歷史 endpoint 不足以回填 W46 PIT。
 3. **OHLC 可作商業授權候選**，但 Commercial 起價 USD 899/月，且 EPS basis 未定義；沒有使用者授權前不付費、不接入正式排程。
 4. 以上皆為候選，不改動 SIM-1.2 既有來源優先順序。正式納入前需完成授權、API 實測、45 ticker 覆蓋、欄位 schema、point-in-time、basis／period／currency／unit 及重複性驗收。
+
+
+## Schema v2 隔離遷移預覽與 CI 補充（2026-11-13）
+
+- 最新 main W46（45 筆 released）已由 workflow 的唯讀稽核步驟重新產生 `earnings-migration-preview.csv` 與 `earnings-schema-audit.json`；輸出為 `IN_MEMORY_READ_ONLY`，沒有寫入 main JSON。
+- 遷移預覽 45/45 筆：EPS `pending=41`、`incomparable=4`、方向性 Beat/Miss/Inline `0`；Revenue `pending=44`、`incomparable=1`、方向性 `0`。
+- EPS 不可比較：TDG、WIX、MRCY（basis code mismatch），ONON（currency mismatch）。Revenue 不可比較：ONON（currency mismatch）。其餘未達完整證據條件者維持 Pending。
+- 預覽原因分布：EPS missing consensus period 12、missing/unrecognized basis 16、basis mismatch 3、missing/invalid actual or consensus 13、currency mismatch 1；Revenue missing/unrecognized basis 33、missing consensus period 2、missing/invalid actual or consensus 9、currency mismatch 1。
+- 再讀 main W46 的兩組 legacy source object：EPS 37/37、Revenue 37/37 均只有 `name/url/publisher/observed_at/notes/secondary_refs` 等欄位；`data_as_of`、`published_at`、`analyst_count`、標準化 `fiscal_period/period` 均為 0/37。這直接證明目前舊來源物件無法提供公告前快照截點與估值期間欄位；`observed_at` 不能替代 `data_as_of`。
+- Workflow run `43415581638` 的 artifact 內雖有 `TAC_投資早報_2026-11-13_審核版.html`，但 `runner-metadata.txt` 記載 `report_date=self-test-only`，且本次 report build 步驟為 skipped；該 HTML 是分支既有檔案，不可宣稱由本次 run 新製作或通過 QA。CSV／audit JSON 則由本次唯讀稽核步驟產生。
+- 正式 main 仍為 schema_version=1；本次沒有改動 main。
