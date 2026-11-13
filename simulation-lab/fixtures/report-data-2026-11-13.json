@@ -405,25 +405,25 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "88.70",
-      "change_display": "+2.51%",
+      "display": "88.74",
+      "change_display": "+2.55%",
       "source": {
         "name": "Investing.com HK｜CME WTI Dec 2026",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "直接核對 2026-11-12 CME WTI December 2026 歷史列：收盤 88.70、日變動 +2.51%；排除舊 fixture 的 88.92／+2.76%。"
+        "note": "直接核對 Investing.com HK 2026-11-12 CME WTI December 2026 歷史列：收盤 88.74、日變動 +2.55%；原 88.92／+2.76% 及先前暫改的 88.70／+2.51% 均非該列數值。"
       }
     },
     "Brent原油期貨": {
-      "display": "95.95",
-      "change_display": "+3.44%",
+      "display": "95.82",
+      "change_display": "+3.30%",
       "source": {
         "name": "Investing.com HK｜ICE Brent Jan 2027",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1184864",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "直接核對 2026-11-12 ICE Brent January 2027 歷史列：收盤 95.95、日變動 +3.44%；排除舊 fixture 的 94.54／+1.92%。"
+        "note": "直接核對 Investing.com HK 2026-11-12 ICE Brent January 2027 歷史列：收盤 95.82、日變動 +3.30%；原 94.54／+1.92% 及先前暫改的 95.95／+3.44% 均非該列數值。"
       }
     }
   },
@@ -4703,18 +4703,18 @@
       {
         "index": "SOX",
         "status": "verified",
-        "high": 10686.8,
+        "high": 10688.2,
         "low": 10174.1,
         "close": 10506.7,
         "levels": {
-          "S2": 9943.17,
-          "S1": 10224.93,
-          "P": 10455.87,
-          "R1": 10737.63,
-          "R2": 10968.57
+          "S2": 9944.1,
+          "S1": 10225.5,
+          "P": 10456.3,
+          "R1": 10737.7,
+          "R2": 10968.5
         },
         "source": "Investing.com HK historical data (user-provided screenshots)",
-        "note": "依使用者提供的兩張 Investing.com HK 歷史表格截圖，2026-11-12 SOX OHLC：開盤 10,174.1、最高 10,686.8、最低 10,174.1、收盤 10,506.7。依既定 Pivot 公式重算。"
+        "note": "依 Investing.com HK 2026-11-12 歷史列 OHLC（開 10,174.1、高 10,688.2、低 10,174.1、收 10,506.7）依既定 Pivot 公式重算。"
       },
       {
         "index": "SPX",
