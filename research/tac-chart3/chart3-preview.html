@@ -275,11 +275,11 @@ fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HT
  document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
  const eventVisible=Object.fromEntries(MAJOR_EVENTS.map(ev=>[ev.id,true]));
  const drawdownVisible=Object.fromEntries(DRAWDOWNS.map(dd=>[dd.id,true]));
- let viewStart=CHART_START,viewEnd=CHART_END,renderFrame=0,pendingLedgerRefresh=true;
+ let viewStart=CHART_START,viewEnd=CHART_END,renderFrame=0;
  const normalize=(a,b)=>{const span=clamp(b-a,MIN_VIEW_SPAN,CHART_END-CHART_START);a=clamp(a,CHART_START,CHART_END-span);return [a,a+span];};
- // Coalesce high-frequency pointer/touch events into one paint per frame.
- // Timeline-only paints skip rebuilding the 35-item history ledger.
- const render=(refreshLedger=true)=>{pendingLedgerRefresh=pendingLedgerRefresh||refreshLedger;if(renderFrame)return;renderFrame=requestAnimationFrame(()=>{renderFrame=0;const full=pendingLedgerRefresh;pendingLedgerRefresh=false;const t0=performance.now();drawCombined(weekly,visible,eventVisible,drawdownVisible,viewStart,viewEnd,!full);document.getElementById('timeline-range').textContent=new Date(viewStart).getUTCFullYear()+'–'+new Date(viewEnd).getUTCFullYear();document.getElementById('combined-chart').dataset.renderMs=(performance.now()-t0).toFixed(1);});};
+ const paint=(skipLedger)=>{const t0=performance.now();drawCombined(weekly,visible,eventVisible,drawdownVisible,viewStart,viewEnd,skipLedger);document.getElementById('timeline-range').textContent=new Date(viewStart).getUTCFullYear()+'–'+new Date(viewEnd).getUTCFullYear();document.getElementById('combined-chart').dataset.renderMs=(performance.now()-t0).toFixed(1);};
+ // Filter/ledger changes paint immediately. High-frequency timeline gestures are coalesced to one paint per animation frame.
+ const render=(refreshLedger=true)=>{if(refreshLedger){if(renderFrame){cancelAnimationFrame(renderFrame);renderFrame=0;}paint(false);return;}if(renderFrame)return;renderFrame=requestAnimationFrame(()=>{renderFrame=0;paint(true);});};
  const setView=(a,b)=>{[viewStart,viewEnd]=normalize(a,b);render(false);};
  const zoom=(factor,ratio=.5,baseA=viewStart,baseB=viewEnd)=>{const span=baseB-baseA,r=clamp(ratio,0,1),anchor=baseA+span*r,next=clamp(span*factor,MIN_VIEW_SPAN,CHART_END-CHART_START);setView(anchor-next*r,anchor+next*(1-r));};
  const pan=(a,b,dx,width)=>{const left=width<600?44:78,right=width<600?72:82,plotWidth=Math.max(1,width-left-right),shift=-dx*(b-a)/plotWidth;setView(a+shift,b+shift);};
