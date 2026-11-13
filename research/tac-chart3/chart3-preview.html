@@ -328,13 +328,8 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
  const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
- const p=weeklyLast(byId.SP500).filter(o=>Number.isFinite(o.value));
- const last=p.at(-1),prev13=p.length>=14?p[p.length-14]:null,window13=p.slice(-13),window26=p.slice(-26);
- const sma13=window13.length?window13.reduce((a,x)=>a+x.value,0)/window13.length:null;
- const high13=window13.length?Math.max(...window13.map(x=>x.value)):null;
- const ret13=last&&prev13?(last.value/prev13.value-1)*100:null;
- const dd13=last&&high13?(last.value/high13-1)*100:null;
- const above13=last&&sma13!==null?last.value>=sma13:null;
+ // S&P 500 僅以壓縮視覺路徑嵌入本頁，並非可重算的原始收盤價序列；不從繪圖像素推導報酬或均線。
+ const last=null,ret13=null,dd13=null,above13=null;
  const val=id=>m[id].value;
  const delta=id=>m[id].delta??0;
  const enough=Object.values(m).every(x=>x.value!==null);
@@ -356,11 +351,11 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜各指標最新觀測 '+(dateList[0]===dateList.at(-1)?dateList.at(-1):(dateList[0]+' 至 '+dateList.at(-1)));
  document.getElementById('risk-state').textContent=state;
  document.getElementById('risk-grade').textContent=grade;
- const trend=ret13===null?'S&P 500 有效週頻資料不足，暫不產生方向性買賣判斷。':'S&P 500 近 13 週 '+(ret13>=0?'+':'')+ret13.toFixed(1)+'%；'+(above13?'收盤位於 13 週均線之上':'收盤位於 13 週均線之下')+'；相對近 13 週高點回落 '+Math.abs(dd13||0).toFixed(1)+'%。';
+ const trend='本頁 S&P 500 僅嵌入壓縮後的視覺曲線，沒有可供重算的原始收盤價；因此不虛報近 13 週報酬、均線位置或回檔幅度。';
  const thesis=enough?'VIX '+fmtP(val('VIXCLS'))+'（四週 '+fmtDelta(m.VIXCLS.delta)+'）；NFCI '+fmtP(val('NFCI'))+'、STLFSI4 '+fmtP(val('STLFSI4'))+'。'+(systemic?'兩項整體金融壓力指標均達 80 百分位以上，防禦優先。':vixSpike?'VIX 已升至高檔，但 NFCI／STLFSI4 尚未同時達 80 百分位；不因避險需求單獨清倉，新增資金改採分批與回檔進場。':financialTight?'金融環境與壓力指標已轉緊；停止追價，等待市場回檔與指標降溫再提高曝險。':calm?'三項主要風險指標均低於 60 百分位且近期未明顯升高；可按計畫分批投入，仍不一次押滿。':'目前未達系統性壓力門檻；維持核心部位，新增資金分批部署，等待價格與金融壓力訊號進一步確認。'):'部分壓力指標尚無足夠有效觀測，暫不生成完整風險結論，避免以缺值推測。';
  document.getElementById('risk-thesis').textContent=thesis;
- document.getElementById('sp500-return').textContent=ret13===null?'資料不足':(ret13>=0?'+':'')+ret13.toFixed(1)+'%｜近 13 週';
- document.getElementById('sp500-detail').textContent=trend+(above13===false?' 價格尚未站回 13 週均線，先不急著加碼。':above13===true?' 價格趨勢仍提供分批布局的條件。':'');
+ document.getElementById('sp500-return').textContent='價格序列待接入';
+ document.getElementById('sp500-detail').textContent=trend+' 今日買賣建議不會使用未核實的價格觸發條件。';
  let eqTitle,eqDetail,defTitle,defDetail,triggers=[];
  if(systemic){
   eqTitle=systemicExtreme?'分批減碼現有股票部位 30–50%':'分批減碼現有股票部位 20–30%';
@@ -378,20 +373,19 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
   defTitle='略提高防禦，保留 10–20% 機動現金';
   defDetail='債券以高品質、投資級為核心；避免集中高收益債。若金融壓力指標連續回落，再逐步恢復原定風險配置。';
  }else if(calm){
-  eqTitle=above13?'可分批布局，不一次重押':'先等價格站回 13 週均線，再分批布局';
-  eqDetail='新增資金分 3 批：首批不超過預定投入額的 1/3；其餘兩批分別等 3–5% 回檔及價格止跌確認。若沒有回檔，不追價補滿。';
+  eqTitle='核心持股續抱；新增資金分批等回檔';
+  eqDetail='不一次重押。新增資金分 3 批：先保留至少 2/3，待 S&P 500 自近期高點回落 3–5% 且收盤止跌後投入第一批；其餘批次等待更深回檔或趨勢重新確認。';
   defTitle='維持原定債券配置，現金保留彈性';
   defDetail='債券以投資級及符合期限需求的部位為主；保留約 10–20% 可動用現金，避免在低波動時把資金一次投入。';
  }else{
-  eqTitle='核心持股續抱；新資金採分批、逢回布局';
-  eqDetail=above13?'價格仍在 13 週均線上方；新增資金分 3 批，優先等 3–5% 回檔，不在短線急漲時追價。':'價格低於 13 週均線；暫緩新增部位，等重新站回均線後再分 2–3 批進場。';
+  eqTitle='核心持股續抱；新資金先不追價';
+  eqDetail='待 S&P 500 自近期高點回落 3–5% 且收盤止跌，再分 2–3 批進場；若跌破 13 週均線，延後加碼，等重新站回後再執行。由於目前頁面未嵌入可重算的收盤價序列，本日不宣稱上述價位條件已觸發。';
   defTitle='維持防禦配置與 10–20% 機動現金';
   defDetail='保留高品質債券作為組合穩定器；現金用於回檔時分批投入，不因單一指標變化全面轉為現金。';
  }
- if(!last){eqTitle='暫停新增股票部位';eqDetail='S&P 500 有效價格觀測不足，無法確認價格趨勢；先保留既有部位並等待資料恢復。';}
  document.getElementById('equity-decision').textContent=eqTitle;document.getElementById('equity-detail').textContent=eqDetail;
  document.getElementById('defensive-decision').textContent=defTitle;document.getElementById('defensive-detail').textContent=defDetail;
- triggers.push('加碼：若 S&P 500 自近 13 週高點回落 3–5%，且收盤仍守住 13 週均線，可投入第一批；跌破均線則延後，待重新站回再執行。');
+ triggers.push('加碼：S&P 500 自近期高點回落 3–5% 且收盤止跌時，投入預定新資金的第一批；若跌破 13 週均線，等重新站回後再加碼。本頁目前沒有原始價格序列，無法判定條件今天是否觸發。');
  triggers.push('減碼：NFCI 與 STLFSI4 同時達 80 百分位以上且仍上升，並伴隨 S&P 500 跌破 13 週均線，分批減少現有股票部位 10–20%；若 VIX、NFCI、STLFSI4 同時達 90 百分位且價格跌破 26 週均線，再評估擴大防禦。');
  triggers.push('全面清倉：不由單一指標或單週急跌觸發；本判讀框架不自動建議全部賣出，須另行評估投資期限、現金需求與投資組合承受能力。');
  document.getElementById('decision-triggers').innerHTML=triggers.map(x=>'<li>'+x+'</li>').join('');
