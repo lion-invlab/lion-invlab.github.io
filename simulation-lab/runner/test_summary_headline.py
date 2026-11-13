@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regression tests for the summary card's one-line market-takeaway heading."""
+"""Regression tests for the summary card heading contract; included in every simulation build."""
 import sys
 import unittest
 from pathlib import Path
