@@ -72,16 +72,16 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 </section>
 <div class="notegrid">
  <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
- <div class="note"><strong>避免重複計算</strong>NFCICREDIT 是 NFCI 的信用子指標，不應當成與 NFCI 完全獨立的風險來源。</div>
+ <div class="note"><strong>避免重複計算</strong>NFCI Credit（金融狀況信用子指數）是 NFCI 的信用子指標，不應當成與 NFCI 完全獨立的風險來源。</div>
  <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
 </div>
 <section class="guide">
  <h2>投資判讀｜先看變化，再看水位</h2>
  <div class="guide-grid">
   <div class="guide-item"><strong>VIX｜市場避險需求</strong><p>VIX 上升代表選擇權市場反映的未來波動預期升高，不代表市場必然下跌。先觀察升速與是否持續，再搭配股市走勢判讀。</p></div>
-  <div class="guide-item"><strong>NFCI｜金融環境是否收緊</strong><p>高於 0 代表金融條件較長期平均緊縮；低於 0 代表較寬鬆。由負轉正或持續上行，比單週的小幅波動更值得注意。</p></div>
-  <div class="guide-item"><strong>STLFSI4｜金融市場壓力</strong><p>0 代表正常水準；高於 0 表示高於平均的金融壓力，低於 0 則低於平均。持續走高比單週短暫跳升更值得警戒。</p></div>
-  <div class="guide-item"><strong>交叉確認｜避免單一指標誤判</strong><p>若 VIX 急升，但 NFCI 與 STLFSI4 仍低於 0，可能偏向股市短期避險需求；若三者同步走高，則代表壓力可能擴散至整體金融環境。NFCI Credit 僅作為 NFCI 的信用面補充。</p></div>
+  <div class="guide-item"><strong>芝加哥聯準會金融狀況指數（NFCI）｜金融環境是否收緊</strong><p>高於 0 代表金融條件較長期平均緊縮；低於 0 代表較寬鬆。由負轉正或持續上行，比單週的小幅波動更值得注意。</p></div>
+  <div class="guide-item"><strong>聖路易聯準銀行金融壓力指數（STLFSI4）｜金融市場壓力</strong><p>0 代表正常水準；高於 0 表示高於平均的金融壓力，低於 0 則低於平均。持續走高比單週短暫跳升更值得警戒。</p></div>
+  <div class="guide-item"><strong>交叉確認｜避免單一指標誤判</strong><p>若 VIX 急升，但 NFCI 與 STLFSI4 仍低於 0，可能偏向股市短期避險需求；若三者同步走高，則代表壓力可能擴散至整體金融環境。金融狀況信用子指數僅作為 NFCI 的信用面補充。</p></div>
  </div>
  <div class="guide-caution">注意：上述為方向性判讀框架，不是機械式買賣訊號。不同指數的統計口徑與發布頻率不同，不應直接比較絕對值。</div>
 </section>
@@ -137,11 +137,12 @@ function drawChart(targetId,seriesList,{zeroLine=false,xBounds=null}={}){
 
 const SERIES_CONFIG=[
  {id:'VIXCLS',name:'VIX',short:'VIX',color:'#c84b4b',kind:'stress'},
- {id:'NFCI',name:'NFCI',short:'NFCI',color:'#315f9d',kind:'stress'},
- {id:'NFCICREDIT',name:'NFCI Credit',short:'NFCI Credit',color:'#c49a43',kind:'stress'},
- {id:'STLFSI4',name:'STLFSI4',short:'STLFSI4',color:'#8064a8',kind:'stress'},
+ {id:'NFCI',name:'芝加哥聯準會金融狀況指數（NFCI）',short:'金融狀況指數',color:'#315f9d',kind:'stress'},
+ {id:'NFCICREDIT',name:'金融狀況信用子指數（NFCI Credit）',short:'信用子指數',color:'#c49a43',kind:'stress'},
+ {id:'STLFSI4',name:'聖路易聯準銀行金融壓力指數（STLFSI4）',short:'金融壓力指數',color:'#8064a8',kind:'stress'},
  {id:'SP500',name:'S&P 500',short:'S&P 500',color:'#0f766e',kind:'price'}
 ];
+const SERIES_DISPLAY_NAMES=Object.fromEntries(SERIES_CONFIG.map(c=>[c.id,c.name]));
 function weeklyLast(s){
  const weeks=new Map();
  for(const o of s.observations){if(o.value===null||!Number.isFinite(Number(o.value)))continue;
@@ -263,7 +264,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  ];
  ledgerRows.sort((a,b)=>a.date.localeCompare(b.date)||(a.kind==='event'?-1:1));document.getElementById('event-drawdown-key').innerHTML=ledgerRows.map(row=>row.html).join('');
 }
-function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
+function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null),label=SERIES_DISPLAY_NAMES[s.series_id]||s.label;return o?label+'｜'+o.date+'｜'+fmt(o.value):label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
 
  const byId=Object.fromEntries(data.series.map(s=>[s.series_id,s]));
