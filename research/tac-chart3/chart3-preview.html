@@ -58,7 +58,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 
 <section class="card" id="price-stress-card">
  <div class="card-head"><div><h2>03｜市場壓力 × S&P 500 走勢對照</h2><div class="desc">每個壓力指標保留自己的原生左軸；S&P 500 價格使用獨立右軸。共用時間軸，不合成、不重算四項壓力指標。</div></div><div class="latest">S&P 500 價格資料截至 2026-11-10</div></div>
- <div class="legend"><span><i class="swatch" style="background:#c49a43"></i>S&P 500｜週頻收盤（右軸）</span><span><i class="swatch" style="background:#c84b4b"></i>VIX</span><span><i class="swatch" style="background:#315f9d"></i>NFCI</span><span><i class="swatch" style="background:#c49a43"></i>NFCI Credit</span><span><i class="swatch" style="background:#8064a8"></i>STLFSI4</span></div>
+ <div class="legend"><span><i class="swatch" style="background:#0f766e"></i>S&P 500｜週頻收盤（右軸）</span><span><i class="swatch" style="background:#c84b4b"></i>VIX</span><span><i class="swatch" style="background:#315f9d"></i>NFCI</span><span><i class="swatch" style="background:#c49a43"></i>NFCI Credit</span><span><i class="swatch" style="background:#8064a8"></i>STLFSI4</span></div>
  <div id="dual-stress-charts"></div>
  <div class="desc dual-note">週頻價格取每週最後一個實際交易日收盤，不插值、不補值。最後一週只到 2026/11/10，屬未完成週；宏觀壓力指標最新觀測日為 2026/10/30，VIX 最新觀測日為 2026/11/09。各序列日期不同，不應誤認為同日更新。</div>
 </section>
@@ -139,7 +139,7 @@ function drawDualChart(targetId,s){
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
  for(let yr=1995;yr<=2025;yr+=5){const t=Date.parse(yr+'-01-01T00:00:00Z'),xx=x(t);parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-17)+'" text-anchor="middle">'+yr+'</text>');}
  if(minY<0&&maxY>0){const yy=y(0);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4"/>');}
- parts.push('<path d="'+SP500_PATH+'" fill="none" stroke="#c49a43" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close, visual-only path</title></path>');
+ parts.push('<path d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close, visual-only path</title></path>');
  let d='',open=false;
  for(const o of s.observations){if(o.value===null){open=false;continue;}const t=Date.parse(o.date+'T00:00:00Z');if(t<minX||t>maxX){open=false;continue;}d+=(open?' L':' M')+x(t).toFixed(2)+' '+y(Number(o.value)).toFixed(2);open=true;}
  parts.push('<path d="'+d+'" fill="none" stroke="'+(COLORS[s.series_id]||'#555')+'" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round"><title>'+s.label+'</title></path>');
