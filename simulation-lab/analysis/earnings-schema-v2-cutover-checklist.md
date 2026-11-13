@@ -106,3 +106,6 @@
 - [x] Three-day unchanged-value polling retains three distinct observed_at snapshots and idempotently ignores exact replay; verified in workflow `43417601486`.
 
 - [ ] `published_at` 欄位明確存在；可為 null，但不得由 observed_at、data_as_of 或 provider_recalculated_at 推定。
+
+- [x] `published_at` added to v2 PIT snapshot schema and builder as an explicit nullable field; test verifies preservation.
+- [x] Initial CI indentation failure was corrected; follow-up workflow `43417937668` succeeded, including 13 snapshot tests and read-only main audit.
