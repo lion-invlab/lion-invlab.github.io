@@ -1,4 +1,5 @@
 name: TAC earnings schema v2 isolated tests
+# CI includes read-only W45/W46 migration preview and never writes calendar JSON.
 
 on:
   push:
