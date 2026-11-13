@@ -109,3 +109,6 @@
 
 - [x] `published_at` added to v2 PIT snapshot schema and builder as an explicit nullable field; test verifies preservation.
 - [x] Initial CI indentation failure was corrected; follow-up workflow `43417937668` succeeded, including 13 snapshot tests and read-only main audit.
+
+- [x] 16 deterministic PIT snapshot tests passed, including Draft 2020-12 JSON Schema validation and published_at null/timezone checks (run `43418109555`).
+- [x] Latest raw probe archived: `simulation-lab/runs/ortex-test-probe-43418109555.json` (blob SHA `3f2024ed34a7fdad6bc5b7f023e9a6140667883d`).
