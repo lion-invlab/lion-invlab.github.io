@@ -165,6 +165,10 @@ def self_test(schema: dict) -> None:
 
     all_v2 = validate_payload({"schema_version": 2, "events": {"earnings": [good]}}, schema)
     assert all_v2["valid"], all_v2
+    wrong_schema = validate_payload({"schema_version": 1, "events": {"earnings": [good]}}, schema)
+    assert not wrong_schema["valid"], "strict v2 validation must reject top-level schema v1"
+    malformed = validate_payload({"schema_version": 2, "events": {"earnings": [good, None]}}, schema)
+    assert not malformed["valid"], "non-object earnings rows must fail validation"
     wrong_count = validate_payload({"schema_version": 2, "events": {"earnings": [good]}}, schema, expected_released_count=2)
     assert not wrong_count["valid"], "unexpectedly missing released records must fail"
 
