@@ -95,20 +95,6 @@ def _has_explicit_revenue_consensus_divergence(record: dict) -> bool:
     return has_revenue_context and has_unresolved_divergence
 
 
-def _has_explicit_same_basis_consensus(record: dict, metric: str) -> bool:
-    """Use a consensus basis only when curated source notes explicitly confirm the same basis."""
-    key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
-    source = record.get(key)
-    notes = source.get("notes") if isinstance(source, dict) else None
-    if not isinstance(notes, str):
-        return False
-    lowered = notes.casefold()
-    explicit_same_basis = any(marker in notes for marker in ("採同口徑", "同口徑判定", "同口徑呈現", "同口徑比較"))
-    explicit_gaap_pair = "gaap eps actual" in lowered and "consensus" in lowered
-    explicit_gaap_loss_pair = ("gaap net loss/share" in lowered or "gaap diluted loss/share" in lowered) and "consensus" in lowered
-    return explicit_same_basis or explicit_gaap_pair or explicit_gaap_loss_pair
-
-
 def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
     difference = actual - estimate if actual is not None and estimate is not None else None
     surprise_pct = None
@@ -352,9 +338,18 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
             estimate_currency = _currency_from_basis_label(estimate_label)
         migrated.setdefault(f"{metric}_actual_currency", actual_currency)
         migrated.setdefault(f"{metric}_estimate_currency", estimate_currency)
-        period = record.get("reporting_period")
-        migrated.setdefault(f"{metric}_actual_period", period)
-        migrated.setdefault(f"{metric}_estimate_period", period)
+        # reporting_period describes the issuer's reported quarter only.
+        # Never copy it to the consensus side: the provider's estimate period
+        # must be captured independently or the comparison remains pending.
+        actual_period = record.get(f"{metric}_actual_period")
+        if not (isinstance(actual_period, str) and actual_period.strip()):
+            actual_period = record.get("reporting_period")
+        migrated.setdefault(f"{metric}_actual_period", actual_period)
+        estimate_period = record.get(f"{metric}_estimate_period")
+        migrated.setdefault(
+            f"{metric}_estimate_period",
+            estimate_period if isinstance(estimate_period, str) and estimate_period.strip() else None,
+        )
 
     migrated.setdefault(
         "revenue_actual_unit",
@@ -366,16 +361,6 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
     )
     if _has_explicit_revenue_consensus_divergence(record):
         migrated["revenue_consensus_conflict"] = True
-
-    for metric in ("eps", "revenue"):
-        actual_code = migrated.get(f"{metric}_actual_basis_code")
-        estimate_code = migrated.get(f"{metric}_estimate_basis_code")
-        if (
-            _valid_code(actual_code, metric)
-            and not _valid_code(estimate_code, metric)
-            and _has_explicit_same_basis_consensus(record, metric)
-        ):
-            migrated[f"{metric}_estimate_basis_code"] = actual_code
 
     return apply_judgment(migrated, observed_at)
 
