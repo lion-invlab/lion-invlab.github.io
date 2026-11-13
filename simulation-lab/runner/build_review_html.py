@@ -192,6 +192,14 @@ def main():
     previous_trade=data.get("trading_date","待核實")
     report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
+    # The summary card title is nested under article.card.bluf, unlike the old #overview > .title selector.
+    # Bind its type scale to the other primary section headings at the DOM assembly stage.
+    summary_heading_style = soup.new_tag("style", id="tac-summary-heading-size-alignment")
+    summary_heading_style.string = (
+        "#overview > section.grid.two > article.card.bluf > .title,"
+        " #sentiment > .title {font-size:21px!important;line-height:1.25!important;font-weight:900!important;}"
+    )
+    soup.head.append(summary_heading_style)
     provenance = {"repository": "lion-invlab/lion-invlab.github.io", "branch": "main", "main_commit_sha": calendar_source["main_commit_sha"], "current": {k:v for k,v in calendar_source["current"].items() if k != "payload"}, "previous": {k:v for k,v in calendar_source["previous"].items() if k != "payload"}, "mode": "READ_ONLY"}
     head_node = soup.select_one("head")
     if head_node is None: raise ValueError("HTML head missing; cannot record authoritative calendar provenance")
