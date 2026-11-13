@@ -403,6 +403,12 @@ def _revenue_unit_from_basis_label(label: Any) -> str | None:
     return None
 
 
+def _fill_if_missing(record: dict, key: str, value: Any) -> None:
+    """Fill null/blank legacy slots from explicit evidence without overwriting populated values."""
+    current = record.get(key)
+    if current is None or (isinstance(current, str) and not current.strip()):
+        record[key] = value
+
 def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") -> dict:
     """Create an in-memory v2 migration preview; never writes the source JSON."""
     migrated = dict(record)
@@ -417,14 +423,8 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
         if metric == "eps" and not (isinstance(actual_label, str) and actual_label.strip()):
             actual_label = record.get("eps_basis")
         estimate_label = record.get(f"{metric}_estimate_basis")
-        migrated.setdefault(
-            f"{metric}_actual_basis_code",
-            _legacy_basis_code(metric, actual_label),
-        )
-        migrated.setdefault(
-            f"{metric}_estimate_basis_code",
-            _legacy_basis_code(metric, estimate_label),
-        )
+        _fill_if_missing(migrated, f"{metric}_actual_basis_code", _legacy_basis_code(metric, actual_label))
+        _fill_if_missing(migrated, f"{metric}_estimate_basis_code", _legacy_basis_code(metric, estimate_label))
         actual_currency, estimate_currency = _split_legacy_currency(
             record.get(f"{metric}_currency")
         )
@@ -432,29 +432,24 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
             actual_currency = _currency_from_basis_label(actual_label)
         if estimate_currency is None:
             estimate_currency = _currency_from_basis_label(estimate_label)
-        migrated.setdefault(f"{metric}_actual_currency", actual_currency)
-        migrated.setdefault(f"{metric}_estimate_currency", estimate_currency)
+        _fill_if_missing(migrated, f"{metric}_actual_currency", actual_currency)
+        _fill_if_missing(migrated, f"{metric}_estimate_currency", estimate_currency)
         # reporting_period describes the issuer's reported quarter only.
         # Never copy it to the consensus side: the provider's estimate period
         # must be captured independently or the comparison remains pending.
         actual_period = record.get(f"{metric}_actual_period")
         if not (isinstance(actual_period, str) and actual_period.strip()):
             actual_period = record.get("reporting_period")
-        migrated.setdefault(f"{metric}_actual_period", actual_period)
+        _fill_if_missing(migrated, f"{metric}_actual_period", actual_period)
         estimate_period = record.get(f"{metric}_estimate_period")
-        migrated.setdefault(
+        _fill_if_missing(
+            migrated,
             f"{metric}_estimate_period",
             estimate_period if isinstance(estimate_period, str) and estimate_period.strip() else None,
         )
 
-    migrated.setdefault(
-        "revenue_actual_unit",
-        _revenue_unit_from_basis_label(record.get("revenue_actual_basis")),
-    )
-    migrated.setdefault(
-        "revenue_estimate_unit",
-        _revenue_unit_from_basis_label(record.get("revenue_estimate_basis")),
-    )
+    _fill_if_missing(migrated, "revenue_actual_unit", _revenue_unit_from_basis_label(record.get("revenue_actual_basis")))
+    _fill_if_missing(migrated, "revenue_estimate_unit", _revenue_unit_from_basis_label(record.get("revenue_estimate_basis")))
     if _has_explicit_revenue_consensus_divergence(record):
         migrated["revenue_consensus_conflict"] = True
 
