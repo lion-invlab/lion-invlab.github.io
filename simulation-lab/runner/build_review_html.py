@@ -83,7 +83,8 @@ def earnings_commentary(item):
         if not part:
             continue
         directional = bool(re.search(
-            r"優於預期|低於預期|符合預期|Beat|Miss|above consensus|below consensus|"
+            r"符合預期|(?:高於|低於|優於|超過|不及).{0,40}(?:共識|預期)|"
+            r"Beat|Miss|(?:above|below|higher|lower).{0,35}(?:consensus|expectations)|"
             r"exceed(?:ed|s)? expectations|miss(?:ed)? expectations|outperform(?:ed|s)?|"
             r"underperform(?:ed|s)?",
             part,
@@ -101,9 +102,9 @@ def earnings_commentary(item):
             status = statuses["eps"]
             if status not in {"beat", "miss", "inline"}:
                 continue
-            if status == "beat" and re.search(r"低於預期|Miss|below consensus|miss(?:ed)? expectations", part, re.I):
+            if status == "beat" and re.search(r"低於.{0,40}(?:共識|預期)|不及.{0,40}(?:共識|預期)|Miss|below.{0,35}(?:consensus|expectations)|lower.{0,35}(?:consensus|expectations)|miss(?:ed)? expectations|underperform(?:ed|s)?", part, re.I):
                 continue
-            if status == "miss" and re.search(r"優於預期|Beat|above consensus|exceed(?:ed|s)? expectations", part, re.I):
+            if status == "miss" and re.search(r"高於.{0,40}(?:共識|預期)|優於預期|Beat|above.{0,35}(?:consensus|expectations)|higher.{0,35}(?:consensus|expectations)|exceed(?:ed|s)? expectations", part, re.I):
                 continue
             if status == "inline":
                 continue
@@ -111,9 +112,9 @@ def earnings_commentary(item):
             status = statuses["revenue"]
             if status not in {"beat", "miss", "inline"}:
                 continue
-            if status == "beat" and re.search(r"低於預期|Miss|below consensus|miss(?:ed)? expectations", part, re.I):
+            if status == "beat" and re.search(r"低於.{0,40}(?:共識|預期)|不及.{0,40}(?:共識|預期)|Miss|below.{0,35}(?:consensus|expectations)|lower.{0,35}(?:consensus|expectations)|miss(?:ed)? expectations|underperform(?:ed|s)?", part, re.I):
                 continue
-            if status == "miss" and re.search(r"優於預期|Beat|above consensus|exceed(?:ed|s)? expectations", part, re.I):
+            if status == "miss" and re.search(r"高於.{0,40}(?:共識|預期)|優於預期|Beat|above.{0,35}(?:consensus|expectations)|higher.{0,35}(?:consensus|expectations)|exceed(?:ed|s)? expectations", part, re.I):
                 continue
             if status == "inline":
                 continue
@@ -124,9 +125,9 @@ def earnings_commentary(item):
                 continue
             if statuses["eps"] == "inline" or statuses["revenue"] == "inline":
                 continue
-            if re.search(r"優於預期|Beat|above consensus|exceed(?:ed|s)? expectations", part, re.I) and "miss" in {statuses["eps"], statuses["revenue"]}:
+            if re.search(r"高於.{0,40}(?:共識|預期)|優於預期|Beat|above.{0,35}(?:consensus|expectations)|higher.{0,35}(?:consensus|expectations)|exceed(?:ed|s)? expectations", part, re.I) and "miss" in {statuses["eps"], statuses["revenue"]}:
                 continue
-            if re.search(r"低於預期|Miss|below consensus|miss(?:ed)? expectations", part, re.I) and "beat" in {statuses["eps"], statuses["revenue"]}:
+            if re.search(r"低於.{0,40}(?:共識|預期)|不及.{0,40}(?:共識|預期)|Miss|below.{0,35}(?:consensus|expectations)|lower.{0,35}(?:consensus|expectations)|miss(?:ed)? expectations|underperform(?:ed|s)?", part, re.I) and "beat" in {statuses["eps"], statuses["revenue"]}:
                 continue
         kept.append(part)
 
