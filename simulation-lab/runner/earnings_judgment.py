@@ -405,16 +405,34 @@ def render_summary(record: dict) -> str:
 
 
 def audit_record(record: dict) -> list[str]:
-    """Return data-quality issues without mutating the source record."""
+    """Recompute and audit every persisted judgment field without mutation."""
     issues = []
     version = record.get("judgment_engine_version")
     if version != ENGINE_VERSION:
         issues.append("legacy_or_missing_judgment_engine_version")
+
+    results = {}
     for metric in ("eps", "revenue"):
-        stored = record.get(f"{metric}_comparison_status")
-        computed = evaluate_metric(record, metric)["status"]
-        if stored in DIRECTIONAL_STATUSES and computed not in DIRECTIONAL_STATUSES:
+        computed = evaluate_metric(record, metric)
+        results[metric] = computed
+        stored_status = record.get(f"{metric}_comparison_status")
+        if stored_status in DIRECTIONAL_STATUSES and computed["status"] not in DIRECTIONAL_STATUSES:
             issues.append(f"{metric}_directional_status_not_supported_by_v2_evidence")
-        elif version == ENGINE_VERSION and stored != computed:
-            issues.append(f"{metric}_stored_status_differs_from_engine_result")
+        if version == ENGINE_VERSION:
+            if stored_status != computed["status"]:
+                issues.append(f"{metric}_stored_status_differs_from_engine_result")
+            if record.get(f"{metric}_comparison_reason") != computed["reason"]:
+                issues.append(f"{metric}_stored_reason_differs_from_engine_result")
+            if record.get(f"{metric}_surprise") != computed["surprise"]:
+                issues.append(f"{metric}_stored_surprise_differs_from_engine_result")
+            if record.get(f"{metric}_surprise_pct") != computed["surprise_pct"]:
+                issues.append(f"{metric}_stored_surprise_pct_differs_from_engine_result")
+
+    if version == ENGINE_VERSION:
+        expected_summary = (
+            f"EPS：{STATUS_LABELS[results['eps']['status']]}；"
+            f"營收：{STATUS_LABELS[results['revenue']['status']]}"
+        )
+        if record.get("earnings_comparison_summary") != expected_summary:
+            issues.append("stored_summary_differs_from_engine_result")
     return issues
