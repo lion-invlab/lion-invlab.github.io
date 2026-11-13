@@ -17,7 +17,7 @@
 - [ ] 正式 Schema v2 JSON Schema 與版本遷移程式
 - [ ] 逐筆補齊 42 家 basis code、actual/estimate currency、period、revenue unit、來源
 - [ ] W45、W46 歷史資料遷移及回讀 SHA 驗收
-- [ ] 更新唯一 04:35 ChatGPT automation prompt，取消「schema 未變」規則
+- [x] 更新唯一 04:35 ChatGPT automation prompt，取消「schema 未變」規則（2026-11-13 已套用；任務仍 disabled）
 - [ ] 確認 automation runtime 能實際執行正式判讀引擎；若不能，需設計可執行的驗證步驟，不得只靠自由文字承諾
 - [ ] 隔日 04:35 實際增量更新演練
 - [ ] 05:25 唯讀驗證
