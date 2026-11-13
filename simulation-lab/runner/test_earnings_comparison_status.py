@@ -26,6 +26,8 @@ def test_calendar_projection_migrates_legacy_records():
         "event_date": "2026-11-12T21:00:00+08:00",
         "status": "released",
         "reporting_period": "Q3 2026",
+        "eps_estimate_period": "Q3 2026",
+        "revenue_estimate_period": "Q3 2026",
         "eps_actual": 1.20,
         "eps_estimate": 1.00,
         "eps_actual_basis": "US GAAP diluted EPS (USD/share)",
@@ -146,6 +148,7 @@ def test_calendar_projection_migrates_legacy_records():
         "eps_estimate_basis": "EPS consensus (USD/share; TipRanks reported actual/consensus pair)",
         "eps_currency": "USD",
         "reporting_period": "2026 Q3",
+        "eps_estimate_period": "2026 Q3",
         "source": evidence_source("Issuer"),
         "consensus_source": {
             **evidence_source("TipRanks"),
@@ -156,8 +159,8 @@ def test_calendar_projection_migrates_legacy_records():
         {"events": {"earnings": [same_basis_eps]}},
         observed_at="2026-11-13T13:00:00+08:00",
     )[0]
-    assert same_basis_result["eps_estimate_basis_code"] == "US_GAAP_DILUTED_EPS"
-    assert same_basis_result["eps_comparison_status"] == "miss"
+    assert same_basis_result["eps_estimate_basis_code"] is None, "free-text notes must not manufacture consensus basis"
+    assert same_basis_result["eps_comparison_status"] == "pending"
 
     # A single shared currency label is display metadata, not proof that both
     # actual and estimate values use the same currency for comparison.
