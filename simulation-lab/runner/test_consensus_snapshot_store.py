@@ -61,7 +61,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         self.assertEqual(snap["reason"], "same_day_date_only_cannot_prove_pre_release")
 
     def test_same_day_timestamp_can_be_pre_release(self):
-        attempt = dict(self.attempt, data_as_of="2026-11-10T08:00:00-05:00")
+        attempt = dict(self.attempt, data_as_of="2026-11-10T07:00:00-05:00")
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
 
@@ -80,6 +80,11 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["snapshot_status"], "pending_required_fields")
         self.assertIn("basis_code", snap["reason"])
+
+    def test_observed_at_date_only_is_rejected(self):
+        attempt = dict(self.attempt, observed_at="2026-11-10")
+        with self.assertRaises(ValueError):
+            self.build(attempt=attempt)
 
     def test_provider_must_match_source_level(self):
         attempt = dict(self.attempt, source_level=3, provider="LSEG I/B/E/S")

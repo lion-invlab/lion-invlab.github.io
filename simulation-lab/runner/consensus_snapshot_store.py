@@ -107,7 +107,9 @@ def build_consensus_snapshot(
     if isinstance(level, bool) or not isinstance(level, int) or level not in PROVIDER_BY_LEVEL or PROVIDER_BY_LEVEL[level] != provider:
         raise ValueError("provider must match the fixed SIM-1.2 source level")
     observed_at = attempt.get("observed_at")
-    _parse_temporal(observed_at, "observed_at")
+    parsed_observed_at = _parse_temporal(observed_at, "observed_at")
+    if not isinstance(parsed_observed_at, datetime):
+        raise ValueError("observed_at must be a timezone-aware timestamp, not a date-only value")
     data_as_of = attempt.get("data_as_of")
     if data_as_of:
         _parse_temporal(data_as_of, "data_as_of")
