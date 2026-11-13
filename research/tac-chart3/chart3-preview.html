@@ -59,7 +59,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="chart combined-chart" id="combined-chart"></div>
  <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
  <div class="event-key" id="major-event-key" aria-label="重大事件起訖日期與來源"></div>
- <div class="desc" style="margin-top:14px"><strong>標普 500 重大回檔紀錄（約 10% 以上）</strong>｜包含尚未收復前一輪歷史高點期間發生的獨立修正，例如 2011 年；因此不只計算歷史新高回撤。</div>
+ <div class="desc" style="margin-top:14px"><strong>標普 500 重大回檔紀錄（約 10% 以上）</strong>｜包含尚未收復前一輪歷史高點期間發生的獨立修正，例如 2011 年；因此不只計算歷史新高回撤。各筆以收盤價高點至低點為主，跨來源歷史數字可能有約 0.1–1 個百分點差異；SPY 代理值另行註明。</div>
  <div class="event-key" id="drawdown-key" aria-label="標普500重大回檔高低點與跌幅"></div>
  <div class="filter-panel">
   <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
@@ -183,6 +183,12 @@ const MAJOR_EVENTS=[
  {id:'dotcom',name:'網路泡沫崩跌',start:'2000-03-10',end:'2002-10-09',source:'https://www.bny.com/assets/investments/im/documents/manual/perspectives/market-behavior-during-historical-bouts-of-volatility.pdf',sourceLabel:'BNY market history'},
  {id:'gfc',name:'全球金融海嘯',start:'2007-07-26',end:'2010-04-29',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
  {id:'euro-debt',name:'歐洲主權債務危機',start:'2010-04-23',end:'2012-07-26',source:'https://www.minneapolisfed.org/article/2012/chronic-sovereign-debt-crises-in-the-eurozone-20102012',sourceLabel:'Federal Reserve Bank of Minneapolis'},
+ {id:'us-debt-euro-2011',name:'美國債務上限／降評 × 歐債壓力',start:'2011-04-29',end:'2011-10-03',source:'https://www.cmegroup.com/insights/economic-research/2023/debt-ceiling-lessons-from-the-2011-budget-debate.html',sourceLabel:'CME Group'},
+ {id:'volatility-2018',name:'2018 年 2 月 VIX 波動率衝擊',start:'2018-02-02',end:'2018-02-08',source:'https://home.treasury.gov/system/files/261/FSOC2018AnnualReport.pdf',sourceLabel:'U.S. Treasury FSOC'},
+ {id:'rates-trade-2018',name:'Fed 升息 × 美中貿易摩擦',start:'2018-09-20',end:'2018-12-24',source:'https://www.federalreserve.gov/monetarypolicy/fomcminutes20181219.htm',sourceLabel:'Federal Reserve'},
+ {id:'inflation-tightening-2022',name:'高通膨 × Fed 激進升息',start:'2022-01-03',end:'2022-10-12',source:'https://www.federalreserve.gov/monetarypolicy/fomc.htm',sourceLabel:'Federal Reserve（政策會議資料）'},
+ {id:'higher-for-longer-2023',name:'高利率維持更久 × 殖利率攀升',start:'2023-07-31',end:'2023-10-27',source:'https://apnews.com/article/ebce1ad72cbe14eb5c2a5538c42c94ee',sourceLabel:'Associated Press'},
+ {id:'tariff-shock-2025',name:'美國關稅政策衝擊',start:'2025-02-19',end:'2025-04-08',source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'Federal Reserve Bank of San Francisco'},
  {id:'china-turmoil',name:'中國市場／人民幣動盪',start:'2015-08-11',end:'2016-02-20',source:'https://www.piie.com/blogs/china-economic-watch/churning-over-china-anatomy-slowdown',sourceLabel:'Peterson Institute for International Economics'},
  {id:'covid',name:'COVID-19 市場衝擊',start:'2020-02-19',end:'2020-03-23',source:'https://www.ici.org/system/files/attachments/pdf/20_rpt_covid1.pdf',sourceLabel:'Investment Company Institute'},
  {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
