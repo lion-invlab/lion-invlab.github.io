@@ -146,3 +146,10 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 - G7：正式發布仍須使用者審核授權。
 
 本分支完成的程式與測試只代表隔離模擬成果，不等於正式 main 已升級。
+
+## 8. Schema v2 JSON Schema 與 validator
+
+- 已新增 `schemas/tac-earnings-record-v2.schema.json`，定義 EPS／Revenue basis enums、分離幣別／期間／營收單位、來源物件及 engine version/status/reason。
+- directional statuses 在 JSON Schema 層必須具備完整 evidence 欄位；validator 再呼叫唯一 `earnings_judgment.py`，檢查 persisted status 與即時計算結果一致。
+- validator：`simulation-lab/runner/validate_earnings_v2.py`；包含 self-test，測試方向性紀錄缺幣別應失敗、status 與引擎不一致應失敗、legacy v1 record 不納入 v2 驗證。
+- 已加入 simulation workflow 的 deterministic self-tests。最新 workflow commit `db9c085e8d0c88ebcefb5a371feb686826c74a23`，後續 checklist commit `5fca8a236f3d0402166ca9e878921ece2f580832`；截至本次檢查 GitHub 尚未回報這兩個 commit 的 workflow run，因此不可標示 validator CI PASS。先前 engine／renderer／migration CSV 測試的 PASS 仍有效，但不等於新 JSON Schema validator 已通過 CI。
