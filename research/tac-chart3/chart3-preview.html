@@ -52,7 +52,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 <section class="card" id="combined-stress-card" hidden>
  <div class="card-head">
   <div><h2>市場恐慌 × 金融壓力 × S&P 500｜五合一互動走勢</h2>
-  <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的擴展歷史百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。</div></div>
+  <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的最近 520 筆週頻觀測百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。</div></div>
   <div class="latest" id="combined-asof"></div>
  </div>
  <div class="legend" id="combined-legend"></div>
@@ -62,7 +62,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
   <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
   <div class="series-filters" id="series-filters"></div>
  </div>
- <div class="desc combined-note">壓力指標百分位採逐週擴展歷史樣本計算，只使用該週及以前已觀測值，不使用未來資料；缺值保留斷線，不插值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div>
+ <div class="desc combined-note">壓力指標百分位採逐週擴展歷史樣本計算，只使用該週及以前最近 520 筆有效週頻觀測，不使用未來資料；缺值保留斷線，不插值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div>
 </section>
 <div class="notegrid">
  <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
@@ -168,7 +168,7 @@ function drawCombined(data,visible){
  const ids=['VIXCLS','NFCI','NFCICREDIT','STLFSI4'];
  for(const id of ids){if(!visible[id])continue;const pts=data[id];let d='',open=false;
   for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
-  const cfg=SERIES_CONFIG.find(s=>s.id===id);parts.push('<path id="path-'+id+'" data-series="'+id+'" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜expanding historical percentile</title></path>');
+  const cfg=SERIES_CONFIG.find(s=>s.id===id);parts.push('<path id="path-'+id+'" data-series="'+id+'" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜trailing 520-week percentile</title></path>');
  }
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
