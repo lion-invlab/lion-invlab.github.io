@@ -1428,3 +1428,15 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
   - Revenue Pending 細分：32 筆缺 basis code、8 筆缺 actual 或 consensus 數值。
 - GitHub Actions artifact：run `43378999223`，artifact ID `14015686988`，內含 `earnings-migration-preview.csv`（42 筆）及 `earnings-schema-audit.json`。已下載並核對 CSV；沒有寫回 main。
 - 重要：這是 conservative in-memory migration preview，不是已遷移的正式資料庫，也不代表 11/13 正式卡片已修好。正式 main JSON、04:35 automation 及正式排程仍未修改／啟用。
+
+
+## 2026-11-13｜遷移器安全性修正與正式切換文件
+
+- 在 code review 中發現舊資料遷移器曾把單一 `eps_currency`／`revenue_currency` 直接複製到 actual／estimate，並把單一 `revenue_unit` 複製兩側；這會重現原本欄位設計的歧義。已修正：只有舊欄位明確區分 actual／estimate，或 actual／estimate basis 描述各自明確標示幣別／尺度時才可映射；否則 Pending。
+- 新增回歸測試：單一舊 currency 不得自動複製兩側；basis label 可明確提供 currency／unit 時才映射。GitHub Actions run `43379471248`（job `131733658598`，commit `2595486d3cfe9340d480048001366acbe9e854b6`）completed/success；engine、renderer、CSV exporter 及 read-only audit tests 全部 PASS。
+- 安全修正後 W46 in-memory migration 結果不變：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。這表示 12 個 EPS 方向性結果與 2 個 Revenue 結果仍有可追溯口徑證據；其餘舊狀態不能沿用。
+- 最新可下載 migration CSV 已從 Actions artifact `14016445759` 取出並核對 42 筆；本地工作副本：`/mnt/data/tac_migration_artifact_v2/earnings-migration-preview.csv`。這是 in-memory preview，不是正式 JSON。
+- 新增正式切換草案：
+  - `simulation-lab/analysis/04-35-automation-v2-prompt.md`：替換舊「schema 未變」要求，改為 v2 欄位、來源、唯一引擎及 fail-closed 驗收；草案尚未套用到實際 automation。
+  - `simulation-lab/analysis/earnings-schema-v2-cutover-checklist.md`：列出 main 部署、W45/W46 遷移、automation prompt 更新、隔日演練及恢復排程的 Gate。
+- 正式 automation 仍 disabled，未修改其 prompt，未重新啟用；main、W46 JSON、WR、首頁、母版及正式排程均未修改。
