@@ -81,3 +81,11 @@ CI run 同時確認原始週檔沒有被遷移函式修改。
 - 不把 migration preview 寫回正式 JSON。
 - 不重新啟用 04:35 automation。
 - 不把隔離 CI PASS 說成 production ready。
+
+## 8. 可逐筆查核的遷移 CSV
+
+- 最新 CI run：`43381589178`（commit `35f22630de954bbc054f7fa087e97140817aea34`），completed/success。
+- Artifact：`tac-earnings-v2-migration-preview`，ID `14017365190`，SHA-256 `14f132fb16ad00aa247e7ba87b2d61a25acad552d7bea9ba85d18216257354fa`。
+- CSV 含 W45/W46 共 83 筆公司逐筆資料：舊狀態、新狀態、EPS／Revenue 比較原因及 basis code。
+- 已下載並檢查 CSV：83 rows；W45 41、W46 42；與 CI log 的統計一致。
+- CSV 是純遷移預覽，不是正式 JSON 寫入結果。
