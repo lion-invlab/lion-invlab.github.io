@@ -1,11 +1,6 @@
 name: TAC Chart 3 bootstrap baseline from completed run
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/scripts/tac_chart3_bootstrap_redirect.py"
   workflow_dispatch:
     inputs:
       source_run_id:
