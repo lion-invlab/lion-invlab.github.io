@@ -1026,3 +1026,14 @@
 - 已刪除模擬區分支根目錄 `TAC_WORK_RULES.md`（原 v5.19），刪除 commit `992cff873da0f9396be660de95ed7cd4decd5d71`；根目錄清單回讀確認該檔不存在。Git 歷史仍可追溯原始 blob。
 - GitHub Actions `TAC isolated simulation lab` run `43402754735`（commit `13ee0137c899ca07febd326bb6877c465da1c723`）completed/success；deterministic self-tests 與 authoritative main earnings schema read-only audit PASS。報告組裝與瀏覽器 QA steps 本次為 skipped，故不宣稱完整早報端到端測試通過。
 - main 分支未修改；正式首頁、preview、母版、Manifest 與行事曆 JSON 均未修改。模擬區目前 HEAD：`992cff873da0f9396be660de95ed7cd4decd5d71`。
+
+
+## 2026-11-13｜SIM-1.2 重製 main 11/13 審核版 v2
+- 依使用者最新指示，以 `simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.2 製作；報告日 2026-11-13，採週二至週五母版。
+- 刪除 main 舊檔 `preview/2026-11-13-simulation.html`，刪除 commit `ae2925f83b630e751ce0cad9c9434c9debc0fb07`。
+- workflow run `43405220258` completed/success；所有 deterministic self-tests、main earnings schema read-only audit、母版 SHA、cash OHLC、財報股價反應、HTML 組裝、瀏覽器互動、母版比對、44 指標／日期／行事曆／新聞結構 QA 均通過。
+- 最終模擬輸出：`simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html`，blob SHA `bde31403d2bb40baadcd86b403cc553742286521`。
+- 已將通過 QA 的相同 HTML 寫入 main `preview/2026-11-13-v2.html`，commit `37412c3a9b82350da5bb2ed4d1303de5b8484d3f`；回讀 blob SHA 與模擬輸出一致。
+- 本輪修正並核對：11 檔產業 ETF 11/12 歷史列；WTI 88.74（+2.55%）、Brent 95.82（+3.30%）、VIX 18.70（+6.92%）；2Y 4.864（+1.90%）、10Y 5.103（+2.39%）、30Y 5.433（+1.94%）；Gold 3,885.30（-2.88%）、Silver 50.065（-3.72%）；DXY 103.17、USD/TWD 32.996；S&P 500 7,592.40、Russell 2000 2,799.06，兩者以現貨指數口徑處理。FedWatch 05:05 快照：12月升息機率合計 100%（25bp 88.3%、50bp 11.7%）。
+- main 邊界核對：`index.html` SHA `193644d363c8f590b4b2c8d07292b01337e3dee0` 未改；W46 JSON SHA `a7bab78c8c4a254e2081d89693571c41897f8243` 未改；週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef` 未改；Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55` 未改。
+- 狀態：審核版已交付；未更新正式首頁，等待使用者審核授權。
