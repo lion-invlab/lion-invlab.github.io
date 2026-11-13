@@ -32,3 +32,5 @@ jobs:
           python scripts/test_tac_earnings_judgment.py
           python scripts/test_tac_earnings_render.py
           python scripts/validate_tac_earnings_v2.py --self-test
+          python scripts/preview_tac_earnings_v2_migration.py --self-test
+          python scripts/preview_tac_earnings_v2_migration.py --files data/calendar/weeks/2026-W45.json data/calendar/weeks/2026-W46.json
