@@ -49,6 +49,11 @@ def _parse_temporal(value: Any, field: str):
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{field} must be a non-empty ISO date or datetime")
     raw = value.strip().replace("Z", "+00:00")
+    if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", raw):
+        try:
+            return date.fromisoformat(raw)
+        except ValueError as exc:
+            raise ValueError(f"{field} must be ISO-8601 date or timezone-aware datetime") from exc
     try:
         parsed = datetime.fromisoformat(raw)
         if parsed.tzinfo is None or parsed.utcoffset() is None:
@@ -99,7 +104,7 @@ def build_consensus_snapshot(
 
     level = attempt.get("source_level")
     provider = attempt.get("provider")
-    if level not in PROVIDER_BY_LEVEL or PROVIDER_BY_LEVEL[level] != provider:
+    if isinstance(level, bool) or not isinstance(level, int) or level not in PROVIDER_BY_LEVEL or PROVIDER_BY_LEVEL[level] != provider:
         raise ValueError("provider must match the fixed SIM-1.2 source level")
     observed_at = attempt.get("observed_at")
     _parse_temporal(observed_at, "observed_at")
@@ -143,6 +148,8 @@ def build_consensus_snapshot(
             missing.append(key)
     if metric == "REVENUE" and unit is None:
         missing.append("unit")
+    if not isinstance(raw_response_ref, str) or not raw_response_ref.strip():
+        missing.append("raw_response_ref")
     if status == "pre_release_eligible" and missing:
         status, reason = "pending_required_fields", "missing:" + ",".join(missing)
 

@@ -70,6 +70,11 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["snapshot_status"], "not_pre_release")
 
+    def test_missing_raw_response_reference_is_not_eligible(self):
+        snap = self.build(ref=None)
+        self.assertEqual(snap["snapshot_status"], "pending_required_fields")
+        self.assertIn("raw_response_ref", snap["reason"])
+
     def test_missing_basis_is_preserved_but_not_eligible(self):
         attempt = dict(self.attempt, basis_code=None)
         snap = self.build(attempt=attempt)
