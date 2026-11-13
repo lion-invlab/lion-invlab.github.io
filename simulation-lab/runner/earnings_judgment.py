@@ -176,17 +176,6 @@ def _consensus_attempt_issue(record: dict, metric: str, estimate: Decimal) -> st
         return "consensus_source_ladder_stopped_before_all_unavailable"
     return "no_usable_consensus_after_all_priority_sources"
 
-def _has_explicit_revenue_consensus_divergence(record: dict) -> bool:
-    """Recognize only curated notes that explicitly document unresolved revenue-consensus disagreement."""
-    source = record.get("revenue_consensus_source")
-    notes = source.get("notes") if isinstance(source, dict) else None
-    if not isinstance(notes, str):
-        return False
-    has_revenue_context = "營收共識" in notes or "revenue consensus" in notes.casefold()
-    has_unresolved_divergence = "不一致" in notes or "差異仍未解" in notes or "unresolved divergence" in notes.casefold()
-    return has_revenue_context and has_unresolved_divergence
-
-
 def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
     difference = actual - estimate if actual is not None and estimate is not None else None
     surprise_pct = None
@@ -450,8 +439,6 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
 
     _fill_if_missing(migrated, "revenue_actual_unit", _revenue_unit_from_basis_label(record.get("revenue_actual_basis")))
     _fill_if_missing(migrated, "revenue_estimate_unit", _revenue_unit_from_basis_label(record.get("revenue_estimate_basis")))
-    if _has_explicit_revenue_consensus_divergence(record):
-        migrated["revenue_consensus_conflict"] = True
 
     return apply_judgment(migrated, observed_at)
 
