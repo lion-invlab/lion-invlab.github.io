@@ -3,10 +3,10 @@
 > 本檔用途：跨對話延續 TAC 工作的唯一狀態摘要。它不是 Work Rules，不取代 `TAC_WORK_RULES.md`、Manifest、母版或 QA 清單。
 > 每次接續工作，必須先讀取 main 最新版 `TAC_WORK_RULES.md`、本檔及 `母版專區/mother-template-manifest.json`，再以 GitHub 實際狀態校正本檔；若本檔與正式檔案或 GitHub 現況衝突，以正式檔案及即時 GitHub 狀態為準。
 
-- 最後更新：2026-11-09（台灣時間；當日早報 A–F 已完成，G/H 受 DOM parser 環境限制）
+- 最後更新：2026-11-13（台灣時間；正式雙母版總結主標題修正已寫入，Guard／瀏覽器 QA 待驗收）
 - Repository：`lion-invlab/lion-invlab.github.io`
 - 基準分支：`main`
-- 正式規則：TAC_WORK_RULES.md v5.14；最新 blob SHA 80d49eeaa54e16a18dc34416239e4b46664ba44b
+- 正式規則：TAC_WORK_RULES.md v5.15；最新 blob SHA 23b52f27b7afad083bbe28ed86021e04759f198d
 - 本檔定位：工作交接／進度錨點；不得據此推定任何功能已完成或任何預覽已通過 QA。
 
 
@@ -1285,3 +1285,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 本輪先前使用的 index.html SHA e6a6cc404e91852917693b590d4946dee20bcd56 為較早狀態；最新回讀 main `index.html` blob SHA 為 f167d34ec84f813fafe68bea982b751d62c8c717，內容標題已是「TAC 投資早報｜2026/11/09」。
 - GitHub commit history 證實該首頁更新由既有 commit `1dcfc6176b6b45291d5a9abfcf776791e743bfc2`（2026-11-08 22:51:12 UTC，訊息 Publish TAC investment morning report for 2026-11-09）寫入，早於本輪 Stage G 局部組裝；不是本輪操作造成。本輪沒有呼叫 index.html update。
 - `preview/2026-11-09.html` 目前 main contents API 回讀仍為 404；因此首頁已有 11/09 發布內容與本輪本機局部組裝工作檔是兩個不同狀態，不可混稱為同一份審核版。
+## 2026-11-13｜正式雙母版總結主標題修正（目前活動）
+- 工作依據：main 最新 WR v5.15（SHA 23b52f27b7afad083bbe28ed86021e04759f198d）；Manifest SHA cca472c2f10625d0146662e13e5f6fa08b24a54d；QA 清單 v1.4 SHA 00c553b413a9e8c92960d7b8eca1740d10c43b21。
+- 使用者需求：紅色「總結」區塊標題字級須與其他主版面標題一致；黑色 h1 必須是一句昨日行情精華描述，不可再填「總結」等區塊名稱。
+- 正式週一母版 SHA：9a334ae7ab2b1827058021993eeb01abe636485b；週二至週五母版 SHA：60002dfeb93694ca5e476dc5afe572409ea7a849。兩份只新增總結紅色標題的響應式字級規則，DOM 結構、ID、script、既有互動未改。
+- Manifest 已同步；結構驗收清單升至 v1.4，補入總結字級及黑色 h1 語意契約。正式瀏覽器回歸腳本已加入五視窗（1440／768／412／390／360px）computed font-size parity 與黑色 h1 語意檢查。
+- scripts/validate_mother_template.py 的獨立 SHA pin 已同步；Guard workflow run 43360635937 待回讀最終狀態。
+- 未修改 index.html、11/13 已發布早報、當日 preview、週 JSON、WR。尚待：Guard 成功、真實瀏覽器五視窗實測及輸出證據。不得將母版修改完成等同於每日報告內容驗收或 Pages 已部署。
