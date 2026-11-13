@@ -1475,3 +1475,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - `test_earnings_comparison_status.py` 增加 legacy pending commentary、EPS 狀態與文字相反、Revenue Pending 但文字宣稱 Beat 等測試。
 - 目前最新修改尚未取得 GitHub Actions check-run；需 CI 成功及 11/13 fixture rebuild 後才可標記通過。不得把程式已寫入 simulation branch 說成已通過。
 - simulation branch 與 main 嚴重 diverged（681 commits ahead／175 behind），比較結果包含大量 Chart 3、W46 JSON、WR、preview 等歷史差異；不得直接從此分支開 PR 或 merge 至 main。正式切換必須另以最新 main 為 base 建立乾淨 cutover branch，只 cherry-pick 已審核必要檔案。
+
+
+## 2026-11-13｜建立乾淨 main-based 財報 v2 cutover branch 並完成 CI
+
+- 原 simulation branch 相對 main diverged（681 ahead／175 behind），確認不能直接 PR／merge。
+- 已從 main HEAD `d271d1226ba1c19b431118c9967d57d2bce678fa` 建立乾淨分支：`earnings-schema-v2-cutover-2026-11-13`。
+- clean branch 只新增 8 個程式／schema／測試／workflow 檔案及 1 份切換文件；相對 main ahead 13 commits、behind 0，compare 僅顯示 9 個新增檔案，沒有修改正式既有檔案。
+- CI run `43381382184` completed/success（commit `57bd9b4cd44111b5cba41f90d98f198399f5ed9d`）；引擎、render commentary guard、JSON Schema validator、read-only migration preview 全 PASS。
+- clean branch CI 直接讀取 main W45/W46 JSON，83 筆 released records 純記憶體試算，`source_records_unchanged=true`：
+  - W45 41 筆：EPS 41 Pending；Revenue 41 Pending。
+  - W46 42 筆：EPS 11 Beat、1 Miss、3 Incomparable、27 Pending；Revenue 2 Beat、40 Pending。
+- clean branch implementation/cutover 文件：`research/tac-earnings-schema-v2/IMPLEMENTATION-AND-CUTOVER.md`。
+- main、W45/W46 JSON、WR、preview、首頁、母版均未修改；04:35 automation prompt 已是 v2 fail-closed 契約，但 automation 仍 disabled。
+- 剩餘正式阻塞：確認 04:35 writer 可執行唯一 Python engine 的實際架構；把資料更新、engine、validator、JSON writer 整合成唯一 writer；把 commentary guard 接到正式早報 assembler（main 目前沒有對應 production Python assembler）；逐筆補足舊資料證據；完成 PR review、隔日演練後，經使用者核准才啟用排程。
