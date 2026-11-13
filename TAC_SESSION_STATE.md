@@ -1580,3 +1580,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新模擬分支 HEAD：`992cff873da0f9396be660de95ed7cd4decd5d71`。本次 WR blob SHA：`3a5540aca30aa760877951ce47786d2574e4f1a7`。
 - 最新規則變更 smoke workflow：run `43402754735` success；deterministic self-tests、read-only earnings schema audit PASS；report build/browser QA 本輪 skipped。
 - main 正式資產未修改。後續模擬工作從 SIM-1.2 開始，不得再讀取或恢復已刪除的根目錄 v5.19。
+
+
+## 2026-11-13｜依使用者指示重製 main 11/13 審核版（SIM-1.2）
+- 使用者明確要求刪除 main 今日舊審核版，依 SIM-1.2 重新製作。舊檔 `preview/2026-11-13-simulation.html` 已刪除，main deletion commit：`ae2925f83b630e751ce0cad9c9434c9debc0fb07`。
+- 本輪唯一規則：`simulation-lab/TAC_WORK_RULES_SIM.md` SIM-1.2，blob SHA `3a5540aca30aa760877951ce47786d2574e4f1a7`；禁止回讀 main WR 作為第二權威。
+- 報告日期：2026-11-13（週五）；預定母版情境：weekdays。使用 date-matched fixture `simulation-lab/fixtures/report-data-2026-11-13.json`，blob SHA `66866eccbbf216132d21c2108de60301fbb3682b`；母版 Manifest／QA 契約需依 SIM-1.2 開工 Gate 再核對。
+- main W46 唯讀資料庫本次已讀取 blob SHA `a7bab78c8c4a254e2081d89693571c41897f8243`；04:35 排程為唯一 writer，早報流程不得寫回 JSON。
+- 下一步：執行既有 simulation workflow 的日期指定完整 build；完成資料／結構／互動／視覺 Gate 後，將新 HTML 回讀驗證，再僅寫入 main `preview/2026-11-13-simulation.html`。禁止修改 `index.html`、母版、Manifest、W46 JSON 或其他 main 資產。
+- 目前狀態：舊 main preview 已刪除；新版尚未產生／尚未寫回 main；不可宣稱交付完成。
