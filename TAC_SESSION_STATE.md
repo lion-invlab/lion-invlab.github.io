@@ -1489,3 +1489,11 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - clean branch implementation/cutover 文件：`research/tac-earnings-schema-v2/IMPLEMENTATION-AND-CUTOVER.md`。
 - main、W45/W46 JSON、WR、preview、首頁、母版均未修改；04:35 automation prompt 已是 v2 fail-closed 契約，但 automation 仍 disabled。
 - 剩餘正式阻塞：確認 04:35 writer 可執行唯一 Python engine 的實際架構；把資料更新、engine、validator、JSON writer 整合成唯一 writer；把 commentary guard 接到正式早報 assembler（main 目前沒有對應 production Python assembler）；逐筆補足舊資料證據；完成 PR review、隔日演練後，經使用者核准才啟用排程。
+
+
+## 2026-11-13｜逐筆遷移 CSV 已輸出
+
+- clean branch CI run `43381589178` completed/success，artifact ID `14017365190`。
+- 已下載並核對 CSV 83 rows：W45 41 筆、W46 42 筆；統計與 workflow log 一致。
+- 檔案：`tac-earnings-v2-migration-preview.csv`，artifact SHA-256 `14f132fb16ad00aa247e7ba87b2d61a25acad552d7bea9ba85d18216257354fa`。
+- 本機交付副本：`/mnt/data/tac-earnings-v2-migration-preview/tac-earnings-v2-migration-preview.csv`；只供逐筆檢查，未寫回 JSON。
