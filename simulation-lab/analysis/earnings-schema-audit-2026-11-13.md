@@ -291,3 +291,11 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - 最新 run `43418109555`：**SUCCESS**，head `6559b3e1fffc00e0c5f552eb32c086673eea6326`。ORTEX TEST probe、16 個 snapshot tests、deterministic self-tests、main read-only audit、raw evidence archive/upload 全部成功。
 - 原始探測證據已封存：`simulation-lab/runs/ortex-test-probe-43418109555.json`，blob SHA `3f2024ed34a7fdad6bc5b7f023e9a6140667883d`，49,853 bytes。
 - Simulation HEAD after archive: `498a3599b0fcff3d6a5d05167e80c61f2013bb19`。本次仍沒有執行報告組裝、瀏覽器、視覺回歸或完整早報 E2E；不得宣稱早報 QA 通過。
+
+
+### 2026-11-13｜唯一正式 writer 現況核對（未修改）
+
+- 透過 Automations 重新讀取唯一正式資料庫更新 task `6af6d10c62448191819f04b976c64cf4`：Enabled；Asia/Taipei；每日 04:30；下一次 2026-11-14 04:30。
+- 現行 prompt 已包含 data_as_of／observed_at／event_date／來源發布或更新時間的分離要求，並有 W46 legacy 隔離條款；但**尚未包含** `eps_consensus_snapshots`／`revenue_consensus_snapshots` append-only 陣列寫入契約。
+- 因此 11/14 的既有排程仍不會自動寫入本次新建的 PIT snapshot history；只能依目前 prompt 執行 attempts／來源核查。不可誤報為快照機制已接入。
+- 本次沒有修改 automation prompt、排程、main WR、main W46 JSON 或 main schema。新增快照陣列接入唯一 writer 前，仍須完成正式 WR／archive retention & licensing 規則審核，並取得使用者對正式 writer 變更的明確授權；不得另建第二個 writer。
