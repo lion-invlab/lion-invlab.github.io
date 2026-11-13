@@ -274,6 +274,17 @@ def main():
     migrated_q = migrate_legacy_record(legacy_q)
     check(migrated_q["eps_comparison_status"], "pending", "ambiguous dilution basis does not inherit legacy Miss")
 
+    narrative_basis_only = {
+        "eps_actual": 1.2, "eps_estimate": 1.0,
+        "eps_basis": "Adjusted diluted EPS US$1.78; GAAP diluted EPS US$1.19 also disclosed; analyst consensus US$1.59.",
+        "eps_estimate_basis": "Adjusted EPS consensus (USD/share)",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"), "consensus_source": source("Consensus"),
+    }
+    migrated_narrative_only = migrate_legacy_record(narrative_basis_only)
+    check(migrated_narrative_only.get("eps_actual_basis_code"), None, "mixed narrative eps_basis is not treated as actual basis evidence")
+    check(migrated_narrative_only["eps_comparison_status"], "pending", "mixed narrative basis cannot produce directional judgment")
+
     currency_only = {
         "eps_actual": 1.2,
         "eps_estimate": 1.0,
