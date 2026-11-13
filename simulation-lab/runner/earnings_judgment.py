@@ -181,6 +181,15 @@ def _legacy_basis_code(metric: str, label: Any) -> str | None:
     text = re.sub(r"[^a-z0-9]+", " ", label.casefold()).strip()
 
     if metric == "eps":
+        # Narrative summaries sometimes mention both the selected EPS and a
+        # separately disclosed GAAP/adjusted alternative. Such mixed labels
+        # are not a single comparable basis and must never be guessed.
+        plain_gaap_text = text.replace("non gaap", "")
+        if (
+            ("gaap" in plain_gaap_text and ("non gaap" in text or "adjusted" in text or "normalized" in text))
+            or ("ifrs" in text and "non ifrs" in text and ("adjusted" in text or "normalized" in text))
+        ):
+            return None
         if "gaap" in text and "non gaap" not in text:
             if "basic" in text and "diluted" in text:
                 return "US_GAAP_BASIC_AND_DILUTED_EPS"
