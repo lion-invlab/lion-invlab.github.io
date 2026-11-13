@@ -69,6 +69,8 @@ EPS 可由現有描述與來源證據安全映射的 12 筆：B、FERG、NRG、C
 
 這項試算證明舊資料庫的部分狀態確實無法通過統一口徑驗證。它只在記憶體中轉換，沒有修改 main JSON。模擬 workflow 另輸出逐公司 `earnings-migration-preview.csv` artifact，供逐筆核對。
 
+遷移轉換器另經修正：不得把單一 `eps_currency`／`revenue_currency` 或 `revenue_unit` 直接複製到 actual／estimate 兩側；只接受明確 actual／estimate 幣別字串，或兩側 basis 描述各自帶有幣別／單位證據。修正後再次執行，結果仍為 EPS 11 Beat／1 Miss／3 Incomparable／27 Pending，Revenue 2 Beat／40 Pending；測試確認單一舊幣別不會被默認成兩側相同。
+
 Pending 原因再拆解：
 - EPS：15 筆缺少可登錄的 basis code；12 筆缺 actual 或 consensus 數值。
 - Revenue：32 筆缺少可登錄的 basis code；8 筆缺 actual 或 consensus 數值。
