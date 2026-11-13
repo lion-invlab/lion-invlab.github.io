@@ -40,10 +40,19 @@ def preview_files(files: list[str]) -> tuple[list[dict], dict]:
                 "revenue_actual_basis_code": migrated.get("revenue_actual_basis_code"),
                 "revenue_estimate_basis_code": migrated.get("revenue_estimate_basis_code"),
             })
+    per_week = {}
+    for week_id in sorted({row["week_id"] for row in rows}):
+        subset = [row for row in rows if row["week_id"] == week_id]
+        per_week[week_id] = {
+            "released_records": len(subset),
+            "eps_status_counts": dict(Counter(row["eps_v2_status"] for row in subset)),
+            "revenue_status_counts": dict(Counter(row["revenue_v2_status"] for row in subset)),
+        }
     summary = {
         "mode": "IN_MEMORY_READ_ONLY",
         "source_files": files,
         "released_records": len(rows),
+        "per_week": per_week,
         "eps_status_counts": dict(Counter(row["eps_v2_status"] for row in rows)),
         "revenue_status_counts": dict(Counter(row["revenue_v2_status"] for row in rows)),
         "source_records_unchanged": source_unchanged,
