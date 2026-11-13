@@ -57,8 +57,10 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  </div>
  <div class="legend" id="combined-legend"></div>
  <div class="chart combined-chart" id="combined-chart"></div>
- <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶直接標示於主圖繪圖區內，與五條走勢共用日期座標；各事件起訖日期與參考來源列於圖下方。區間為歷史事件編輯標註，不代表官方統一的危機定義。</div>
+ <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
  <div class="event-key" id="major-event-key" aria-label="重大事件起訖日期與來源"></div>
+ <div class="desc" style="margin-top:14px"><strong>標普 500 重大回檔紀錄（約 10% 以上）</strong>｜包含尚未收復前一輪歷史高點期間發生的獨立修正，例如 2011 年；因此不只計算歷史新高回撤。</div>
+ <div class="event-key" id="drawdown-key" aria-label="標普500重大回檔高低點與跌幅"></div>
  <div class="filter-panel">
   <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
   <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
@@ -158,6 +160,22 @@ function expandingPercentile(points){
  }
  return out;
 }
+const DRAWDOWNS=[
+ {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.0,source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-11.2,source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.3,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-1999',peak:'1999-07-16',trough:'1999-10-15',pct:-11.9,source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-2000',peak:'2000-03-24',trough:'2002-10-09',pct:-49.1,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2007',peak:'2007-10-09',trough:'2009-03-09',pct:-56.8,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2011',peak:'2011-04-29',trough:'2011-10-03',pct:-19.4,source:'https://www.cmegroup.com/insights/economic-research/2023/debt-ceiling-lessons-from-the-2011-budget-debate.html',sourceLabel:'CME Group'},
+ {id:'dd-2015',peak:'2015-05-21',trough:'2016-02-11',pct:-14.2,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2018a',peak:'2018-01-26',trough:'2018-02-08',pct:-10.2,source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-2018b',peak:'2018-09-20',trough:'2018-12-24',pct:-19.8,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2020',peak:'2020-02-19',trough:'2020-03-23',pct:-33.9,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2022',peak:'2022-01-03',trough:'2022-10-12',pct:-25.4,source:'https://historyofmarket.com/sp500/bear-markets/2022/',sourceLabel:'S&P 500 歷史收盤價整理'},
+ {id:'dd-2023',peak:'2023-07-31',trough:'2023-10-27',pct:-10.3,source:'https://coronavirus.markets/market-correction/',sourceLabel:'FRED 收盤價計算'},
+ {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-18.9,source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'San Francisco Fed'}
+];
 const MAJOR_EVENTS=[
  {id:'asian-crisis',name:'亞洲金融風暴',start:'1997-07-02',end:'1998-12-31',source:'https://www.federalreservehistory.org/essays/asian-financial-crisis',sourceLabel:'Federal Reserve History'},
  {id:'russia-default',name:'俄羅斯政府債務違約',start:'1998-08-17',end:'1998-12-31',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
@@ -177,6 +195,22 @@ function drawCombined(data,visible){
  for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
  for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
+ // 標普回檔區間獨立使用細虛線框，與歷史事件帶區別；百分比標籤在圖底部呈兩列。
+ const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak));
+ const occupied=[[],[]];
+ for(const dd of sortedDD){
+  const x1=x(Date.parse(dd.peak+'T00:00:00Z')),x2=x(Date.parse(dd.trough+'T23:59:59Z'));
+  const left=Math.max(L,x1),right=Math.min(W-R,x2),mid=(left+right)/2;
+  parts.push('<rect data-drawdown="'+dd.id+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,right-left).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 收盤價回檔 '+dd.pct.toFixed(1)+'%｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
+  let lane=occupied[0].every(v=>Math.abs(v-mid)>=46)?0:1;
+  let labelX=Math.max(L+22,Math.min(W-R-22,mid));
+  if(occupied[lane].some(v=>Math.abs(v-labelX)<46))labelX=Math.max(L+22,Math.min(W-R-22,mid+(mid<(L+W-R)/2?25:-25)));
+  occupied[lane].push(labelX);
+  const labelY=H-B-(lane===0?10:28);
+  parts.push('<line data-drawdown-leader="'+dd.id+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-36)+'" x2="'+labelX.toFixed(1)+'" y2="'+(labelY-8)+'" stroke="#526174" stroke-width=".8"/>');
+  parts.push('<rect data-drawdown-label-bg="'+dd.id+'" x="'+(labelX-22).toFixed(1)+'" y="'+(labelY-18)+'" width="44" height="16" rx="5" fill="#26364d"/>');
+  parts.push('<text data-drawdown-label="'+dd.id+'" x="'+labelX.toFixed(1)+'" y="'+(labelY-6)+'" text-anchor="middle" style="fill:#fff;font-size:10px;font-weight:700">'+dd.pct.toFixed(1)+'%</text>');
+ }
  // 重大事件區間直接疊加在主圖繪圖區：同一日期座標、完整繪圖高度；曲線稍後繪製於上層，確保清晰可讀。
  const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
  for(const ev of sortedEvents){
@@ -193,7 +227,25 @@ function drawCombined(data,visible){
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
+ // 回檔期間以更深的淡灰色框出，百分比標籤放在主圖底部兩列，避免短區間標籤互相遮蔽。
+ const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak));
+ const occupied=[[],[]];
+ for(const dd of sortedDD){
+  const x1=x(Date.parse(dd.peak+'T00:00:00Z')),x2=x(Date.parse(dd.trough+'T23:59:59Z'));
+  parts.push('<rect data-drawdown="'+dd.id+'" x="'+Math.max(L,x1).toFixed(2)+'" y="'+T+'" width="'+Math.max(2,Math.min(W-R,x2)-Math.max(L,x1)).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".035" stroke="#64748b" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
+  const mid=(Math.max(L,x1)+Math.min(W-R,x2))/2;
+  let lane=occupied[0].every(v=>Math.abs(v-mid)>=44)?0:1;
+  if(occupied[lane].some(v=>Math.abs(v-mid)<44))lane=1-lane;
+  let labelX=Math.max(L+20,Math.min(W-R-20,mid));
+  if(occupied[lane].some(v=>Math.abs(v-labelX)<44))labelX=Math.max(L+20,Math.min(W-R-20,mid+(mid<=(L+W-R)/2?24:-24)));
+  occupied[lane].push(labelX);
+  const labelY=H-B-(lane===0?12:30);
+  parts.push('<line data-drawdown-leader="'+dd.id+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-38)+'" x2="'+labelX.toFixed(1)+'" y2="'+(labelY-8)+'" stroke="#526174" stroke-width=".8" stroke-opacity=".75"/>');
+  parts.push('<rect data-drawdown-label-bg="'+dd.id+'" x="'+(labelX-21).toFixed(1)+'" y="'+(labelY-18)+'" width="42" height="16" rx="5" fill="#26364d" fill-opacity=".92"/>');
+  parts.push('<text data-drawdown-label="'+dd.id+'" x="'+labelX.toFixed(1)+'" y="'+(labelY-6)+'" text-anchor="middle" fill="#fff" style="fill:#fff;font-size:10px;font-weight:700">'+dd.pct.toFixed(1)+'%</text>');
+ }
  document.getElementById('major-event-key').innerHTML=MAJOR_EVENTS.map(ev=>'<div class="event-item"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></div></div>').join('');
+ document.getElementById('drawdown-key').innerHTML=sortedDD.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%｜'+dd.peak+' → '+dd.trough+'</strong><br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
