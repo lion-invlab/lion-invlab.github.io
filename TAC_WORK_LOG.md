@@ -915,3 +915,30 @@
   - W46 EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。
 - 切換說明位於 clean branch `research/tac-earnings-schema-v2/IMPLEMENTATION-AND-CUTOVER.md`。
 - 正式 main 尚未修改；04:35 automation disabled。後續需解決唯一 writer 執行 Python engine 的方式、正式 assembler 接線、逐筆補證據及隔日演練。
+
+
+## 2026-11-13｜已公布財報 v2 判讀接線、視覺 QA 修正與審核版完成
+
+### 根因與修正
+- 讀取 simulation branch 最新 `TAC_WORK_RULES.md` v5.18、builder、calendar source guard、engine、schema、validator 與當日 W46 read-only migration audit。
+- 確認唯一接線斷點：`calendar_source_guard._earnings_records()` 原本未呼叫 `migrate_legacy_record()`，只把 legacy status／basis 欄位投影到 HTML；renderer 依設計拒絕沒有 `judgment_engine_version=1.0.0` 的舊狀態，導致已存在的舊 Beat／Miss 不能呈現。
+- 修改 `simulation-lab/runner/calendar_source_guard.py`：在日曆唯讀 projection 中以記憶體執行 `migrate_legacy_record()`，傳遞 v2 engine version、status、reason、surprise、分離 actual／estimate currency、period、revenue unit、來源物件與 summary；不修改原始日曆 JSON。
+- 保留單一共用 legacy currency 作為顯示用途，但不作為 actual／estimate 同幣別的比較證據。
+- 修改 `test_earnings_comparison_status.py`，增加 projection adapter integration test：驗證 EPS／Revenue v2 Beat、幣別／單位解析、三組來源保留、原始資料不被 mutation，以及只有單一 shared currency 時必須 Pending。
+- 首次 workflow run `43391976035`：單元測試、audit、assembly、interaction smoke PASS；visual regression 因測試腳本只允許 beat／miss／inline／pending，未接受 v2 合法狀態 incomparable／consensus_divergent 而 FAIL。失敗卡片為 TDG、WIX、MRCY 的 EPS；HTML 的「比較口徑不相容」正確，屬 QA allowlist 過時。
+- 修正 `visual_regression.mjs` 六種合法狀態與對應標籤，沒有降低或移除檢查門檻。
+
+### 最終驗收
+- Workflow run：`43392246637`，commit `150e7be48097f52be17ba7a8fa99a17aaa73baae`，completed/success。
+- PASS：deterministic self-tests、calendar read-only audit、11/13 HTML assembly、interaction smoke、visual regression、calendar counts／44 indicators／news shape。
+- Interaction smoke：10 個導覽錨點；財報／經濟／產業收合功能正常；焦點新聞 5、熱門頭條 10、Investing.com links 114、鉅亨 links 3；page errors 0；Fear & Greed score 40／marker 40%，合成 20／40／75 測試均對齊。
+- Visual regression：母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；1440、768、412、390、360 五種 viewport；failures=[]。
+- 結構與資料：經濟 16/16、財報 48/48（42 已公布）、44 行情欄位、焦點新聞 5、熱門頭條 10。
+- 42 張已公布財報結果：EPS 11 Beat、1 Miss、3 Incomparable、27 Pending；Revenue 2 Beat、40 Pending。此結果與 in-memory migration CSV／audit JSON 一致。Pending 是 evidence gate 的保守輸出，不可直接改成方向性結論。
+- HTML：`simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html`，blob SHA `bc05cb38273a503f3df6ad4d81ca80e0d4d76e13`。Artifact `14020933375`，Workflow run `43392246637`。
+- 所有程式與輸出寫入只在 simulation branch；main calendar 只讀。沒有修改 main JSON、preview、index.html、WR、正式母版或 Manifest。
+
+### 尚待處理
+- 尚有 27 筆 EPS、40 筆 Revenue 缺少可被 v2 engine 接受的完整 basis／currency／period／unit／source evidence。
+- 下一步只逐筆使用公司官方財報與原共識來源補證據；只有來源明確支持 actual 與 estimate 同口徑時才升級 Beat／Miss／Inline。不得從數值方向、單一 shared currency、非同期間數據或自由文字推斷。無法證明者保留 Pending。
+- 使用者明確要求 main 唯讀；未經另行授權，不得把本模擬分支結果寫回 main calendar、main preview 或首頁。
