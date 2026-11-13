@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Renderer contract: display persisted judgment only; never derive Beat/Miss."""
-from earnings_judgment import ENGINE_VERSION, render_status
+from earnings_judgment import ENGINE_VERSION
+from build_review_html import earnings_comparison_status
 
 
 def check(item, metric, expected):
-    actual = render_status(item, metric)
+    actual = earnings_comparison_status(item, metric)
     assert actual == expected, f"{metric}: expected {expected!r}, got {actual!r}"
 
 
