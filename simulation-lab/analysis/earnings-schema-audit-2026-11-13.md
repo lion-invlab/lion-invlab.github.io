@@ -299,3 +299,14 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - 現行 prompt 已包含 data_as_of／observed_at／event_date／來源發布或更新時間的分離要求，並有 W46 legacy 隔離條款；但**尚未包含** `eps_consensus_snapshots`／`revenue_consensus_snapshots` append-only 陣列寫入契約。
 - 因此 11/14 的既有排程仍不會自動寫入本次新建的 PIT snapshot history；只能依目前 prompt 執行 attempts／來源核查。不可誤報為快照機制已接入。
 - 本次沒有修改 automation prompt、排程、main WR、main W46 JSON 或 main schema。新增快照陣列接入唯一 writer 前，仍須完成正式 WR／archive retention & licensing 規則審核，並取得使用者對正式 writer 變更的明確授權；不得另建第二個 writer。
+
+
+### Five-day dual-metric PIT polling regression — 2026-11-13
+
+- Test commit: `0ede19cdb83e499d88e9538aa18a591cf662176e`; workflow run `43420023980`; final workflow conclusion: **SUCCESS**.
+- Snapshot suite: **17 tests passed**. New five-day test covers independent EPS and Revenue histories, unchanged observations, mid-window consensus value changes, immutable earlier records, exact-replay idempotency, raw-response hash-addressed files in the isolated test fixture, and same-day date-only cutoff retained as Pending.
+- First run of the new test failed because the same-day Pending fixture pointed to a raw-response path that had not been created. Corrected the test to archive that fixture before building the snapshot; rerun passed. The initial failure is retained here rather than hidden.
+- Existing three-day unchanged-value test remains and passed. JSON Schema Draft 2020-12 validation, published_at nullable/timezone checks, deterministic self-tests, ORTEX TEST read-only probe and main read-only audit also passed.
+- Run `43420023980` report assembly, browser interaction, visual regression and full report E2E steps were skipped; this is a snapshot-store regression only, not full TAC report QA.
+- Test file blob SHA after correction: `77496e5f070b60e019fb39e6605781ae0ba83f26`. Simulation branch head after raw probe archive: `4017e5b1` (short SHA).
+- Main HEAD and W46 JSON were not modified by this simulation test. No Schema v2 deployment occurred.
