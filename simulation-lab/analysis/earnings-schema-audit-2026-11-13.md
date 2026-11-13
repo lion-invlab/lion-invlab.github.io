@@ -50,6 +50,25 @@ EPS 的 18 筆方向性狀態都有自由文字 basis 欄位，但尚無受控 b
 - W46（schema_version 1）已新增這些欄位。
 - 因兩週檔案同版本卻不同欄位集合，需建立正式 schema version 2 與遷移工具。
 
+## 舊資料 v2 遷移試算（純記憶體，未寫回）
+
+已在隔離分支使用保守 basis mapper，對 main W46 的 42 筆 released records 執行 in-memory migration preview：
+
+| 指標 | Beat | Miss | Incomparable | Pending |
+|---|---:|---:|---:|---:|
+| EPS | 11 | 1 | 3 | 27 |
+| Revenue | 2 | 0 | 0 | 40 |
+
+EPS 可由現有描述與來源證據安全映射的 12 筆：B、FERG、NRG、CEG、KKR、NBIS、RGTI、MNDY、TTD、ONTO、SANM、QLYS。
+
+- TDG、WIX、MRCY：實際值描述為 diluted，但預期值描述未明確 diluted；新規則不擅自視為同口徑，暫列 Incomparable。
+- QBTS、HIMS、MARA：預期值 basis 不夠明確，原有方向性判讀不沿用，暫列 Pending。
+- Revenue 只有 CEG、MNDY 兩筆具備足夠明確的 GAAP basis 描述可保留 Beat。
+- FERG 雖有 actual GAAP net sales basis，但 estimate 只寫 net sales/revenue consensus，未明確 GAAP，故暫列 Pending。
+- 其餘 23 筆舊 Revenue Beat／Miss 因缺少結構化 basis，全部退回 Pending；不是判定它們的實際財報表現一定不佳，而是拒絕在不可驗證口徑下宣稱 Beat／Miss。
+
+這項試算證明舊資料庫的部分狀態確實無法通過統一口徑驗證。它只在記憶體中轉換，沒有修改 main JSON。模擬 workflow 另輸出逐公司 `earnings-migration-preview.csv` artifact，供逐筆核對。
+
 ## 來源與單位問題
 
 - `consensus_source`、`revenue_consensus_source` 已是物件，可存 name、url、publisher、observed_at、notes、secondary_refs；保留現有來源物件即可。
