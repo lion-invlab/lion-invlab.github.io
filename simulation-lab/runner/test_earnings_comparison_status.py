@@ -5,6 +5,36 @@ from build_review_html import earnings_comparison_status, earnings_commentary
 from calendar_source_guard import _earnings_records
 
 
+def consensus_source(metric):
+    return {
+        "name": "LSEG I/B/E/S",
+        "url": f"https://example.com/{metric.lower()}-consensus",
+        "observed_at": "2026-11-13T12:00:00+08:00",
+        "source_level": 1,
+    }
+
+
+def consensus_attempt(metric, value, basis_code, unit=None):
+    item = {
+        "source_level": 1,
+        "provider": "LSEG I/B/E/S",
+        "metric": metric.upper(),
+        "url": f"https://example.com/{metric.lower()}-consensus",
+        "observed_at": "2026-11-13T12:00:00+08:00",
+        "data_as_of": "2026-11-12T20:00:00+08:00",
+        "period": "Q3 2026",
+        "value": value,
+        "currency": "USD",
+        "basis_code": basis_code,
+        "statistic": "primary_consensus",
+        "outcome": "adopted",
+        "reason": "valid_pre_release_same_basis_consensus",
+    }
+    if unit is not None:
+        item["unit"] = unit
+    return item
+
+
 def check(item, metric, expected):
     actual = earnings_comparison_status(item, metric)
     assert actual == expected, f"{metric}: expected {expected!r}, got {actual!r}"
@@ -23,7 +53,7 @@ def test_calendar_projection_migrates_legacy_records():
         "id": "earn-test-1",
         "company": "Example Corp",
         "ticker": "EX",
-        "event_date": "2026-11-12T21:00:00+08:00",
+        "event_date": "2026-11-13T13:00:00+08:00",
         "status": "released",
         "reporting_period": "Q3 2026",
         "eps_estimate_period": "Q3 2026",
@@ -40,8 +70,10 @@ def test_calendar_projection_migrates_legacy_records():
         "revenue_currency": "USD",
         "revenue_unit": "B",
         "source": evidence_source("Issuer"),
-        "consensus_source": evidence_source("EPS consensus"),
-        "revenue_consensus_source": evidence_source("Revenue consensus"),
+        "consensus_source": consensus_source("eps"),
+        "revenue_consensus_source": consensus_source("revenue"),
+        "eps_consensus_attempts": [consensus_attempt("EPS", 1.00, "US_GAAP_DILUTED_EPS")],
+        "revenue_consensus_attempts": [consensus_attempt("REVENUE", 8.7, "US_GAAP_TOTAL_REVENUE", "USD_BILLION")],
     }
     payload = {"events": {"earnings": [record]}}
     projected = _earnings_records(payload, observed_at="2026-11-13T13:00:00+08:00")
