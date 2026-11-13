@@ -73,6 +73,18 @@ try {
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
+    const summaryHeadingAudit = await reportPage.evaluate(() => {
+      const summary = document.querySelector("#overview > section.grid.two > article.card.bluf > .title");
+      const reference = document.querySelector("#sentiment > .title");
+      if (!summary || !reference) return { valid: false, reason: "summary/sentiment section heading missing" };
+      const summarySize = getComputedStyle(summary).fontSize;
+      const referenceSize = getComputedStyle(reference).fontSize;
+      return { valid: summarySize === referenceSize, summarySize, referenceSize };
+    });
+    snapshots[v.name].summary_heading = summaryHeadingAudit;
+    if (!summaryHeadingAudit.valid) {
+      failures.push(`${v.name}: summary red section heading font size does not match the primary section heading: ${JSON.stringify(summaryHeadingAudit)}`);
+    }
     const specialAudit = await reportPage.evaluate(() => {
       const node = document.querySelector("#tac-special-focus-cpi");
       if (!node) return { exists: false };
