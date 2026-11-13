@@ -7,6 +7,8 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import jsonschema
+
 from consensus_snapshot_store import (
     append_consensus_snapshot,
     archive_raw_response,
@@ -55,6 +57,25 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             self.assertEqual(snap["observed_at"], "2026-11-10T04:00:00+08:00")
             self.assertEqual(snap["raw_response_sha256"], digest)
             self.assertEqual(json.loads((Path(tmp) / ref).read_text()), self.raw)
+
+
+    def test_published_at_absent_is_explicit_null(self):
+        attempt = dict(self.attempt)
+        attempt.pop("published_at")
+        snap = self.build(attempt=attempt)
+        self.assertIsNone(snap["published_at"])
+
+    def test_invalid_published_at_is_rejected(self):
+        attempt = dict(self.attempt, published_at="2026-11-09T16:00:00")
+        with self.assertRaises(ValueError):
+            self.build(attempt=attempt)
+
+    def test_snapshot_matches_schema_v2(self):
+        schema_path = Path(__file__).resolve().parents[2] / "schemas" / "tac-earnings-record-v2.schema.json"
+        schema = json.loads(schema_path.read_text(encoding="utf-8"))
+        jsonschema.Draft202012Validator.check_schema(schema)
+        validator = jsonschema.Draft202012Validator(schema["$defs"]["consensusSnapshot"])
+        validator.validate(self.build())
 
     def test_same_day_date_only_is_not_proven_pre_release(self):
         attempt = dict(self.attempt, data_as_of="2026-11-10")
