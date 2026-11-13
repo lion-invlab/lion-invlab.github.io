@@ -894,3 +894,12 @@
 - 新增 `schemas/tac-earnings-record-v2.schema.json`，並新增 `simulation-lab/runner/validate_earnings_v2.py`。validator 使用 Draft 2020-12 JSON Schema，再以唯一判讀引擎檢查 stored status consistency。
 - 已把 validator self-test 加入 simulation workflow；commit `db9c085e8d0c88ebcefb5a371feb686826c74a23`。GitHub 尚未提供這個 commit 的 workflow run，因此此新增測試仍待 CI 驗收，不得標示通過。
 - 實際 04:35 automation prompt 已保存 v2 fail-closed 契約，但 automation disabled；main schema_version 仍為 1，故不可啟用或寫入正式 JSON。
+
+
+## 2026-11-13｜財報卡片評論方向性防矛盾
+
+- 發現 builder 兩個輸出路徑仍直接輸出自由文字 `judgment`，導致結構化 Pending／Incomparable 與評論中的 Beat／Miss 可能矛盾。
+- 新增 `earnings_commentary()`，依 versioned EPS／Revenue status 過濾無法支持或極性相反的方向性句子，保留中性資訊並附上兩項狀態；兩個 builder 路徑均已套用。
+- 新增回歸測試，涵蓋舊資料方向性評論、EPS polarity conflict、Revenue Pending 被宣稱 Beat。修正句子分割不應破壞小數數值。
+- CI 仍未回報最新 commits 的 check-run；需通過 CI 及重建 11/13 fixture 才能驗收。
+- 另確認 simulation branch 相對 main 已 681 ahead／175 behind，含多項非本次工作內容，禁止整支分支直接合併；正式切換需乾淨 main-based branch。
