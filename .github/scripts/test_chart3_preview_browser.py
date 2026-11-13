@@ -27,6 +27,8 @@ def check(name, ok, detail=None):
 def validate_chart(page, label):
     page.wait_for_function("document.querySelector('#combined-stress-card') && !document.querySelector('#combined-stress-card').hidden", timeout=60000)
     check(label + "_one_combined_svg", page.locator("#combined-chart svg").count() == 1)
+    chart_bottom_space = page.locator("#combined-chart svg").evaluate("(e)=>{const h=e.viewBox.baseVal.height,b=Number(e.dataset.plotBottom);return {height:h,plotBottom:b,bottomGap:h-b,yearLabels:[...e.querySelectorAll('text')].filter(t=>/^20\\d{2}$/.test(t.textContent.trim())).map(t=>Number(t.getAttribute('y')))}}")
+    check(label + "_chart_bottom_whitespace_compact", chart_bottom_space["bottomGap"] <= (72 if "desktop" in label.lower() else 56) + 1, chart_bottom_space)
     check(label + "_five_series_default", page.locator("#combined-chart svg path[data-series]").count() == 5)
     check(label + "_five_filters", page.locator("#series-filters input[data-series-toggle]").count() == 5)
     check(label + "_series_controls_below_chart", page.locator("#series-filters").evaluate("(e)=>e.closest('.filter-panel').previousElementSibling && e.closest('.filter-panel').previousElementSibling.id==='combined-chart'"))
