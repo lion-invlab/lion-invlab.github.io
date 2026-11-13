@@ -1,14 +1,14 @@
 # TAC 投資早報｜雙母版結構驗收清單
 
 版本：1.3（2026-11-06｜修正週一本週經濟卡展開控制定位契約）
-定位：TAC_WORK_RULES.md 的執行附件；不取代、不另立第二份工作規則。
+定位：`simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.2）的唯一執行附件；不取代、不另立第二份工作規則。
 適用：每一份每日審核版與正式發布版；依報告日期選擇週一或週二至週五母版。
 最高原則：每日報告必須從核准母版完整複製，只更新獲授權的日期內容、行情、新聞、行事曆與分析。不得以重寫、簡化或重新排版取代母版既有元件。
 
 ## A. 開工前來源鎖定（未通過即停止）
 
-- [ ] 已先讀取根目錄 `TAC_WORK_RULES.md`。
-- [ ] 已讀取 `母版專區/mother-template-manifest.json`。
+- [ ] 已先讀取 `simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.2）。
+- [ ] 已讀取 `simulation-lab/baseline/mother-template-manifest.json`，並依 `simulation_path` 讀取本目錄的唯讀母版副本。
 - [ ] 已依台灣報告日期選定正確情境：週一／週二至週五。
 - [ ] 母版精確路徑與 manifest 登記一致。
 - [ ] 實際 Git blob SHA 與 manifest 核准 SHA 完全一致；不一致即停止，不得自行更新 manifest 或 fallback。
@@ -19,7 +19,7 @@
 
 ### A2.1 結構基準與有效範圍
 
-本節是兩份正式母版的固定結構定位契約，已依 main 上核准 HTML 的實際標記、ID、父子層級與重複卡片結構建立。定位契約只對下列精確 blob SHA 有效：
+本節是兩份模擬母版的固定結構定位契約；模擬母版與 main Manifest 核准的正式母版逐位元相同，已依核准 HTML 的實際標記、ID、父子層級與重複卡片結構建立。定位契約只對下列精確 blob SHA 有效：
 
 | 情境 | 母版路徑 | 核准 blob SHA | 基準結構統計 |
 |---|---|---|---|
@@ -75,7 +75,7 @@
 
 ### A2.5 每日沿用規則與重新解析觸發條件
 
-1. 每日先讀 Manifest，取得本次情境的核准路徑及 SHA，再 fetch 該母版核對實際 blob SHA。
+1. 每日先讀 `simulation-lab/baseline/mother-template-manifest.json`，取得本次情境的 `simulation_path` 及核准 SHA，再 fetch 該模擬母版副本核對實際 blob SHA。
 2. **實際 SHA 與本節對應 SHA 相同：** 直接沿用本節 selector／巢狀結構契約；只做錨點存在且唯一、必要星期專屬區塊存在／禁止存在、基礎文件節點及 ID 唯一性檢查。不得重新分析整份母版 DOM。
 3. **實際 SHA 與 Manifest 或本節 SHA 任一不符：** 停止組裝，不得 fallback、不得猜測 selector。只有在使用者已核准母版變更且 Manifest 已同步後，才對新 SHA 做一次完整結構解析、更新本節契約及版本統計。
 4. **定位契約中的 selector 缺失、重複或父子關係不符：** 視為結構失效，停止該區塊寫入並回報；不得退回標題文字、HTML 註解、字串 index、正規表示式或固定字元範圍尋找替換邊界。
