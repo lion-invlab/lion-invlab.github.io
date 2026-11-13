@@ -78,7 +78,7 @@ def earnings_commentary(item):
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
-    for fragment in re.split(r"(?<=[。！？.!?])\\s*|[；;]\\s*", raw):
+    for fragment in re.split(r"(?<=[。！？.!?])\s*|[；;]\s*", raw):
         part = fragment.strip()
         if not part:
             continue
@@ -92,7 +92,7 @@ def earnings_commentary(item):
         if not directional:
             kept.append(part)
             continue
-        has_eps = bool(re.search(r"\\bEPS\\b|每股|per[- ]share", part, flags=re.IGNORECASE))
+        has_eps = bool(re.search(r"\bEPS\b|每股|per[- ]share", part, flags=re.IGNORECASE))
         has_revenue = bool(re.search(r"營收|revenue|net sales", part, flags=re.IGNORECASE))
         # An unqualified directional sentence is ambiguous; do not preserve it.
         if not has_eps and not has_revenue:
