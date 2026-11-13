@@ -100,14 +100,14 @@
   ],
   "global_markets": {
     "道瓊工業指數": {
-      "display": "52,299.11",
+      "display": "52,297.09",
       "change_display": "-0.36%",
       "source": {
-        "name": "Investing.com HK",
+        "name": "Investing.com HK｜Yahoo Finance ^DJI／FRED DJIA 交叉核對",
         "url": "https://hk.investing.com/indices/us-30-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": ""
+        "note": "2026-11-12 收盤 52,297.09（-0.36%）；已與 Yahoo Finance ^DJI 歷史日線及 FRED DJIA 同日收盤交叉核對。原 52,299.11 與三方歷史列不符，已更正。"
       }
     },
     "標普500指數": {
@@ -4675,13 +4675,13 @@
         "status": "verified",
         "high": 52751.22,
         "low": 52271.16,
-        "close": 52299.11,
+        "close": 52297.09,
         "levels": {
-          "S2": 51960.44,
-          "S1": 52129.77,
-          "P": 52440.5,
-          "R1": 52609.83,
-          "R2": 52920.56
+          "S2": 51959.76,
+          "S1": 52128.43,
+          "P": 52439.82,
+          "R1": 52608.49,
+          "R2": 52919.88
         },
         "source": "Investing.com HK",
         "note": ""
