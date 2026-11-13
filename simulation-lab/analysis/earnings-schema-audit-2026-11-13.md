@@ -271,3 +271,14 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - Schema v2 snapshot record 新增必備但可為 null 的 `published_at`；以免不同來源的發布時間、資料有效截點、系統取得時間及供應商重算時間被混為一談。
 - Snapshot builder 對來源明確提供的 published_at 做 ISO date／timezone-aware datetime 驗證；來源未提供則保存 null。
 - ORTEX consensus API 文件只描述 consensus date 與 estimateAsOf，未提供獨立 published_at；ORTEX 原始資料不可把 responseGeneratedAt 或 estimateAsOf 轉填為 published_at。
+
+
+### 2026-11-13｜published_at 修正回歸測試結果
+
+- 第一次 push smoke run `43417814715` 因測試檔新增 assertion 的縮排錯誤而失敗（`IndentationError`，發生於 test file line 55）；非 snapshot builder 邏輯錯誤。已修正並重新執行，沒有忽略或掩蓋失敗。
+- 修正後 run `43417937668`：**SUCCESS**，head `d4338abe505eb08c9f290448bafcde683383002d`。
+- 通過步驟：ORTEX TEST read-only probe、append-only PIT snapshot store tests（13 cases）、deterministic self-tests、main earnings schema read-only audit、raw response evidence archive 與 upload。
+- 早報日期解析、行情擷取、HTML 組裝、瀏覽器互動與視覺回歸均 skipped；本次仍不是完整早報 E2E QA。
+- 最新 snapshot module blob `cccbd890048976ad8e1325c2fb0a229aa76dc587`；新增 `published_at` 必備欄位（可 null），與 `data_as_of`、`observed_at`、`provider_recalculated_at` 分離；test file 修正 blob `f4cdbf9fffc967745e074f5789348383f5cb0616`。
+- 最新 probe raw response archive：`simulation-lab/runs/ortex-test-probe-43417937668.json`，blob SHA `fa4411f4a0f7dae582a75b0252040215cfeeed51`，49,853 bytes。
+- Simulation HEAD after CI evidence archive: `d2c44ee9dc5f8ce0b9fd0f2190988349bcaf2e91`。Main HEAD remained `68223e3aa384ae4d75311a243eb029da3c55b32c`; W46 blob remained `ec246b8a765c64b798e348ce8df2760ea89cc5e1`.
