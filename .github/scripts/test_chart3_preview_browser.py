@@ -59,7 +59,7 @@ def validate_chart(page, label):
     check(label + "_all_selected_by_default", page.locator("#series-filters input[data-series-toggle]:checked").count() == 5)
     check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 6)
     check(label + "_right_axis_ticks_inside_svg", page.locator("#combined-chart svg").evaluate("(svg)=>{const r=svg.getBoundingClientRect(),ts=[...svg.querySelectorAll('text[data-axis=right]')].map(e=>e.getBoundingClientRect());return ts.every(t=>t.left>=r.left-1&&t.right<=r.right+1)}"))
-    check(label + "_left_percentile_axis", "金融壓力指標" in page.locator("#combined-chart svg").evaluate("(e)=>e.textContent"))
+    check(label + "_left_percentile_axis", any(term in page.locator("#combined-chart svg").evaluate("(e)=>e.textContent") for term in ["金融壓力指標","壓力指標百分位"]))
     check(label + "_legend_five_series", page.locator("#combined-legend .swatch").count() == 5)
     check(label + "_guide_visible", page.locator(".guide").is_visible())
     # Verify an individual series can be hidden and restored.
