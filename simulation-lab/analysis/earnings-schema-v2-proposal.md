@@ -24,6 +24,8 @@ GitHub Actions 的排程只負責啟動資料處理程式，不應把判讀規�
 - 42 筆已公布財報均沒有 `judgment_engine_version`。
 - W45 仍是 schema_version 1，且沒有 W46 新增的 actual／estimate basis 欄位；同一 schema_version 下已出現欄位漂移。
 - 現有 `consensus_source` 與 `revenue_consensus_source` 已能保存來源 URL、觀察時間及 notes；來源物件應保留，不需再建立平行來源資料庫。
+- 遷移時不得把單一舊 `eps_currency`／`revenue_currency` 直接複製成 actual 與 estimate 兩欄；只有舊值明確標示「XXX actual; YYY estimate」，或 actual／estimate basis 描述各自明確標示幣別時，才能分別映射。否則 Pending。
+- 遷移時不得把單一舊 `revenue_unit` 直接複製成 actual 與 estimate 兩欄；只有 actual／estimate basis 描述各自明確標示相同幣別與尺度時，才能映射成 `USD_BILLION`、`USD_MILLION` 等受控單位。否則 Pending。
 - 現有 `eps_currency`／`revenue_currency` 是共用欄位，無法乾淨表達實際值與預期值不同幣別；ONON 以自由文字拼接兩種幣別，證明欄位型別不足。
 - `financial_judgment` 是自由文字，沒有版本或與結構化狀態的機器一致性保證。
 - `stock_price_reaction` 與 `price_reaction_source` 在本次 42 筆已公布事件中均未填入；這是獨立的股價反應資料完整性工作，不可與 EPS／營收比較混為一談。
