@@ -68,6 +68,7 @@ def audit(report_date: str) -> dict:
             estimate_currency_key, f"{metric}_actual_period",
             f"{metric}_estimate_period", consensus_key,
         ]
+        keys += [f"{metric}_consensus_attempts"]
         if metric == "revenue":
             keys += ["revenue_actual_unit", "revenue_estimate_unit"]
         result["field_coverage"][metric] = {
@@ -98,11 +99,13 @@ def audit(report_date: str) -> dict:
             "eps_actual_basis_code": e.get("eps_actual_basis_code"),
             "eps_estimate_basis_code": e.get("eps_estimate_basis_code"),
             "eps_reason": e.get("eps_comparison_reason"),
+            "eps_consensus_attempt_count": len(e.get("eps_consensus_attempts") or []),
             "revenue_legacy_status": e.get("legacy_revenue_comparison_status"),
             "revenue_v2_status": e.get("revenue_comparison_status"),
             "revenue_actual_basis_code": e.get("revenue_actual_basis_code"),
             "revenue_estimate_basis_code": e.get("revenue_estimate_basis_code"),
             "revenue_reason": e.get("revenue_comparison_reason"),
+            "revenue_consensus_attempt_count": len(e.get("revenue_consensus_attempts") or []),
         }
         for e in migrated
     ]
@@ -158,6 +161,7 @@ def write_migration_csv(rows: list[dict], output_path: str) -> None:
         "eps_actual_basis_code", "eps_estimate_basis_code", "eps_reason",
         "revenue_legacy_status", "revenue_v2_status",
         "revenue_actual_basis_code", "revenue_estimate_basis_code", "revenue_reason",
+        "eps_consensus_attempt_count", "revenue_consensus_attempt_count",
     ]
     with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
