@@ -22,7 +22,7 @@ class SummaryHeadlineTests(unittest.TestCase):
                     validate_summary_title(value)
 
     def test_rejects_missing_or_overlong_headline(self):
-        for value in (None, "", "市場轉弱", "這是一段過長的總結標題文字超過三十六個字所以不應該通過驗收"):
+        for value in (None, "", "市場轉弱", "這是一段刻意寫得非常冗長而且明顯超過三十六個中文字的錯誤總結標題用來確認組裝器會確實拒絕這種不合規的內容"):
             with self.subTest(value=value):
                 with self.assertRaises(ValueError):
                     validate_summary_title(value)
