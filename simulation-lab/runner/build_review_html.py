@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
+from earnings_judgment import render_status
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
@@ -58,19 +59,8 @@ def source_link(url, label):
     return a
 
 def earnings_comparison_status(item, metric):
-    """Return beat/miss/inline only from an explicit sourced decision or comparable numeric inputs."""
-    explicit = item.get(f"{metric}_comparison_status")
-    if explicit in ("beat", "miss", "inline"):
-        return explicit
-    actual = item.get(f"{metric}_actual")
-    estimate = item.get(f"{metric}_estimate")
-    actual_basis = item.get(f"{metric}_actual_basis")
-    estimate_basis = item.get(f"{metric}_estimate_basis")
-    if (isinstance(actual, (int, float)) and not isinstance(actual, bool)
-            and isinstance(estimate, (int, float)) and not isinstance(estimate, bool)
-            and actual_basis and estimate_basis and actual_basis == estimate_basis):
-        return "beat" if actual > estimate else "miss" if actual < estimate else "inline"
-    return "pending"
+    """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
+    return render_status(item, metric)
 
 def parse_fear_greed_score(value):
     """Return a validated 0..100 Fear & Greed score, or None when unavailable."""
@@ -1107,8 +1097,8 @@ def main():
                     ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                     ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
-                    state = comparison if comparison in ("beat","miss","inline") else "pending"
-                    status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
+                    state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
+                    status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
                     # Never imply EPS beat/miss from raw numeric direction when consensus basis is unverified.
                     # A pending comparison must remain explicitly non-directional.
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
@@ -1282,8 +1272,8 @@ def main():
                         ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                         ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                     ]:
-                        state = comparison if comparison in ("beat","miss","inline") else "pending"
-                        status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實"}[state]
+                        state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
+                        status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
                         # Keep pending EPS comparisons non-directional until consensus basis is verified.
                         result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
@@ -1337,7 +1327,7 @@ def main():
 #earnings .earnings-actual-status{font-size:12px!important;font-weight:900!important;margin-top:10px!important;padding:5px 9px!important;border-radius:999px!important;display:inline-block}
 #earnings .earnings-actual-status.beat{color:#16834c!important;background:#eaf7ef!important}
 #earnings .earnings-actual-status.miss{color:#a56b13!important;background:#fff4df!important}
-#earnings .earnings-actual-status.inline,#earnings .earnings-actual-status.pending{color:#596170!important;background:#f0f2f5!important}
+#earnings .earnings-actual-status.inline,#earnings .earnings-actual-status.pending,#earnings .earnings-actual-status.incomparable,#earnings .earnings-actual-status.consensus_divergent{color:#596170!important;background:#f0f2f5!important}
 #earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
 #earnings .earnings-detail-field.wide{border:1px solid #e5e7eb!important;border-radius:11px!important;padding:11px 12px!important;background:#fbfcfe!important;width:100%!important;box-sizing:border-box!important}
 @media(max-width:640px){#earnings .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#earnings .earnings-actual-card{padding:10px!important}#earnings .earnings-actual-line strong{font-size:13px!important}#earnings .earnings-detail-value{font-size:13px!important}}
