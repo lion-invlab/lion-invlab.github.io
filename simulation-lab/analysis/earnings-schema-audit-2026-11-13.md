@@ -310,3 +310,14 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - Run `43420023980` report assembly, browser interaction, visual regression and full report E2E steps were skipped; this is a snapshot-store regression only, not full TAC report QA.
 - Test file blob SHA after correction: `77496e5f070b60e019fb39e6605781ae0ba83f26`. Simulation branch head after raw probe archive: `4017e5b1` (short SHA).
 - Main HEAD and W46 JSON were not modified by this simulation test. No Schema v2 deployment occurred.
+
+
+### Existing unique updater prompt integrated — 2026-11-13
+
+- User explicitly authorized modifying the existing unique database updater prompt only.
+- Existing task `6af6d10c62448191819f04b976c64cf4` was updated in place. Post-update readback confirms: Enabled; Asia/Taipei; daily 04:30; next run 2026-11-14 04:30. Schedule, task ID and single-writer ownership are unchanged.
+- Prompt now includes EPS／Revenue append-only PIT snapshot arrays, independent First Available Wins source hierarchy (LSEG → FactSet → Investing.com), strict timestamp separation, snapshot identity/idempotency, append-only readback checks, and explicit Pending status rules.
+- Public raw-response body archival is prohibited until an authorized private retention destination and provider data-retention rights are confirmed. Until then, raw_response_ref=null; if the exact response hash can be computed, the snapshot is retained as pending_required_fields with reason raw_response_archive_not_authorized. A hash alone is not represented as complete PIT evidence.
+- No Schema v2 deployment, no judgment engine deployment, no schema_version change, no immediate main W46 write, no schedule change, and no second writer were performed.
+- Main readback after the prompt change: HEAD `68223e3aa384ae4d75311a243eb029da3c55b32c`; W46 blob `ec246b8a765c64b798e348ce8df2760ea89cc5e1`; WR v5.15 blob `23b52f27b7afad083bbe28ed86021e04759f198d`. All three remain unchanged.
+- The next scheduled execution is the first run expected to apply this new prompt contract. Its actual snapshot write count and post-write SHA must be checked from that run; prompt update success is not evidence that snapshots have already been written.
