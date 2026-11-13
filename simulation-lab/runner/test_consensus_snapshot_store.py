@@ -160,6 +160,70 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         self.assertEqual(len(self.event["eps_consensus_snapshots"]), 1)
         self.assertEqual(len(self.event["revenue_consensus_snapshots"]), 1)
 
+    def test_five_day_incremental_eps_revenue_history_with_value_changes_and_pending_cutoff(self):
+        self.event["event_date"] = "2026-11-15T21:00:00+08:00"
+        with tempfile.TemporaryDirectory() as tmp:
+            original_eps = None
+            original_revenue = None
+            for day, eps_value, revenue_value in (
+                ("09", 1.25, 1000.0),
+                ("10", 1.25, 1000.0),
+                ("11", 1.30, 1000.0),
+                ("12", 1.30, 1050.0),
+                ("13", 1.30, 1050.0),
+            ):
+                poll_time = f"2026-11-{day}T04:00:00+08:00"
+                eps_attempt = dict(
+                    self.attempt,
+                    observed_at=poll_time,
+                    data_as_of=f"2026-11-{day}",
+                    value=eps_value,
+                )
+                revenue_attempt = dict(
+                    self.attempt,
+                    source_level=2,
+                    provider="FactSet Estimates",
+                    observed_at=poll_time,
+                    data_as_of=f"2026-11-{day}",
+                    value=revenue_value,
+                    unit="USD_MILLION",
+                    basis_code="US_GAAP_TOTAL_REVENUE",
+                )
+                for metric, attempt, raw in (
+                    ("EPS", eps_attempt, {"day": day, "eps": eps_value}),
+                    ("REVENUE", revenue_attempt, {"day": day, "revenue": revenue_value}),
+                ):
+                    raw_ref, _ = archive_raw_response(raw, tmp, f"2026-W46/{metric.lower()}")
+                    snap = self.build(metric, attempt=attempt, raw=raw, ref=raw_ref)
+                    self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
+                    self.assertTrue(append_consensus_snapshot(self.event, snap))
+                    self.assertFalse(append_consensus_snapshot(self.event, snap))
+                if day == "09":
+                    original_eps = dict(self.event["eps_consensus_snapshots"][0])
+                    original_revenue = dict(self.event["revenue_consensus_snapshots"][0])
+
+            # Same-day date-only evidence is retained, but cannot be labelled pre-release eligible.
+            same_day_attempt = dict(
+                self.attempt,
+                observed_at="2026-11-15T04:00:00+08:00",
+                data_as_of="2026-11-15",
+            )
+            pending = self.build("EPS", attempt=same_day_attempt, raw={"same_day": True})
+            self.assertEqual(pending["snapshot_status"], "pending_cutoff_time")
+            self.assertTrue(append_consensus_snapshot(self.event, pending))
+
+            eps_history = self.event["eps_consensus_snapshots"]
+            revenue_history = self.event["revenue_consensus_snapshots"]
+            self.assertEqual(len(eps_history), 6)
+            self.assertEqual(len(revenue_history), 5)
+            self.assertEqual(eps_history[0], original_eps)
+            self.assertEqual(revenue_history[0], original_revenue)
+            self.assertEqual([x["value"] for x in eps_history[:5]], [1.25, 1.25, 1.30, 1.30, 1.30])
+            self.assertEqual([x["value"] for x in revenue_history], [1000.0, 1000.0, 1000.0, 1050.0, 1050.0])
+            self.assertEqual(len({x["snapshot_id"] for x in eps_history}), 6)
+            self.assertEqual(len({x["snapshot_id"] for x in revenue_history}), 5)
+            self.assertTrue(all(Path(tmp, x["raw_response_ref"]).is_file() for x in eps_history + revenue_history))
+
     def test_archive_never_overwrites_corrupted_existing_blob(self):
         with tempfile.TemporaryDirectory() as tmp:
             ref, _ = archive_raw_response(self.raw, tmp, "2026-W46")
