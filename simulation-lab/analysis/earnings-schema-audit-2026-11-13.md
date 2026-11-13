@@ -254,3 +254,13 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 
 - Snapshot identity includes `observed_at` as well as data_as_of and raw response SHA. Thus each distinct polling observation is retained even when the consensus value is unchanged; an exact replay with the same snapshot_id remains idempotent. This matches the requirement to preserve each poll rather than collapse repeated daily observations.
 - Deterministic test coverage expanded to a three-day pre-release sequence with unchanged consensus values; each daily poll appends one immutable snapshot and exact replay does not duplicate it.
+
+
+### Three-day unchanged-value polling regression — PASS
+
+- Latest simulation run `43417601486` completed `success` on commit `7aff5b604ed147a299bc07a9bdd0c77649c1e357`.
+- PIT snapshot test suite now has 13 deterministic cases. The added three-day test uses unchanged consensus values but different `observed_at` values; it confirms all three daily polls append distinct snapshots and exact replay remains idempotent.
+- Snapshot identity now includes `observed_at`, so repeated daily observations are preserved even when consensus values and provider data_as_of remain unchanged.
+- The same run passed Ortex TEST probe, snapshot tests, existing deterministic self-tests and main read-only schema audit. Report assembly/browser/visual QA steps remained skipped.
+- Raw Ortex TEST response archive: `simulation-lab/runs/ortex-test-probe-43417601486.json`; blob SHA `6b80986f584941c6de1f4fc5871897f324bc0788`.
+- Main remains unchanged: HEAD `68223e3aa384ae4d75311a243eb029da3c55b32c`; W46 blob `ec246b8a765c64b798e348ce8df2760ea89cc5e1`.
