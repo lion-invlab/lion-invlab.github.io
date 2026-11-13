@@ -9,6 +9,7 @@ on:
       - "simulation-lab/runner/earnings_judgment.py"
       - "simulation-lab/runner/calendar_source_guard.py"
       - "simulation-lab/runner/audit_earnings_schema.py"
+      - "simulation-lab/runner/audit_earnings_v2_main_snapshot.py"
       - "simulation-lab/runner/test_earnings_judgment_engine.py"
       - "simulation-lab/runner/test_earnings_comparison_status.py"
       - "simulation-lab/runner/test_earnings_schema_audit.py"
@@ -47,6 +48,11 @@ jobs:
 
       - name: Run read-only calendar projection self-test
         run: python simulation-lab/runner/calendar_source_guard.py --self-test
+
+      - name: Audit authoritative main W46 earnings data read-only
+        run: |
+          git fetch --no-tags origin main
+          python simulation-lab/runner/audit_earnings_v2_main_snapshot.py --week-path data/calendar/weeks/2026-W46.json
 
       - name: Run migration audit CSV regression tests
         run: python simulation-lab/runner/test_earnings_schema_audit.py
