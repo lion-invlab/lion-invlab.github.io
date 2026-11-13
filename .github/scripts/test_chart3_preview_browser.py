@@ -105,7 +105,7 @@ def validate_chart(page, label):
     initial_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", initial)
     initial_axis = page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>[Number(e.dataset.axisMin),Number(e.dataset.axisMax)]")
     page.locator("#timeline-zoom-in").click()
-    page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", initial, timeout=3000)
+    page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
     zoomed = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
     zoomed_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", zoomed)
     check(label + "_button_zoom_in_reduces_time_span", zoomed_span < initial_span)
@@ -131,7 +131,7 @@ def validate_chart(page, label):
         cy = svg_box["y"] + svg_box["height"] * 0.45
         page.mouse.move(cx, cy)
         page.mouse.wheel(0, -250)
-        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", reset, timeout=3000)
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset, timeout=3000)
         wheel_zoom = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
         check(label + "_mouse_wheel_zoom", wheel_span < initial_span, wheel_zoom)
@@ -174,7 +174,7 @@ def validate_chart(page, label):
           el.dispatchEvent(new TouchEvent('touchend',{bubbles:true,cancelable:true,touches:[],targetTouches:[],changedTouches:[b]}));
           return [document.querySelector('#combined-svg').dataset.viewStart,document.querySelector('#combined-svg').dataset.viewEnd];
         }""")
-        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", before_pan, timeout=3000)
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=before_pan, timeout=3000)
         panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         page.locator("#timeline-reset").click()
