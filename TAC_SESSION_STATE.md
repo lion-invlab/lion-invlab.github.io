@@ -1465,3 +1465,13 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 已把 validator self-test 加入 `.github/workflows/tac-simulation-lab.yml`。Commit `db9c085e8d0c88ebcefb5a371feb686826c74a23`；目前 GitHub 尚未提供對應 workflow run，因此此新增 validator 的 CI 尚未驗收，不能聲稱 PASS。
 - 已重新 peek 真正的 04:35 automation：其儲存 prompt 現在已是 Schema v2 fail-closed 契約（updated_at 2026-11-13T06:36:11Z），但任務仍 disabled。不得重新啟用，因 main 尚未部署 schema/engine/validator，W45/W46 migration 尚未完成。
 - 正式 main HEAD 目前讀到 `d271d1226ba1c19b431118c9967d57d2bce678fa`；W46 blob `85edcefb1f7b86112e55d43a324c6cb5c8c2fdab`；schema_version 仍為 1。沒有寫入 main。
+
+
+## 2026-11-13｜修正財報小卡評論與結構化判讀矛盾
+
+- 追查實際 HTML builder 發現：兩處卡片渲染雖已改用 versioned `earnings_comparison_status()`，但下方「財報判讀」仍直接輸出原始自由文字 `judgment`，因此會出現卡片 Pending、評論仍宣稱 Beat/Miss 的矛盾。
+- 已在 simulation builder 新增 `earnings_commentary()`，依 EPS／Revenue 狀態逐句過濾方向性語句；非方向性／待核實狀態不允許保留 Beat/Miss 主張；狀態與文字極性相反時也移除該句；保留中性營運資訊，並附上兩項結構化狀態。
+- 兩個 assembly path 均已改用 helper。修正英文及中文方向性詞組，並避免句子切分誤拆 US$1.20 等小數。
+- `test_earnings_comparison_status.py` 增加 legacy pending commentary、EPS 狀態與文字相反、Revenue Pending 但文字宣稱 Beat 等測試。
+- 目前最新修改尚未取得 GitHub Actions check-run；需 CI 成功及 11/13 fixture rebuild 後才可標記通過。不得把程式已寫入 simulation branch 說成已通過。
+- simulation branch 與 main 嚴重 diverged（681 commits ahead／175 behind），比較結果包含大量 Chart 3、W46 JSON、WR、preview 等歷史差異；不得直接從此分支開 PR 或 merge 至 main。正式切換必須另以最新 main 為 base 建立乾淨 cutover branch，只 cherry-pick 已審核必要檔案。
