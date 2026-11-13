@@ -59,7 +59,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="chart combined-chart" id="combined-chart"></div>
  <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
  <div class="event-key" id="major-event-key" aria-label="重大事件起訖日期與來源"></div>
- <div class="desc" style="margin-top:14px"><strong>標普 500 重大回檔紀錄（約 10% 以上）</strong>｜包含尚未收復前一輪歷史高點期間發生的獨立修正，例如 2011 年；因此不只計算歷史新高回撤。各筆以收盤價高點至低點為主，跨來源歷史數字可能有約 0.1–1 個百分點差異；SPY 代理值另行註明。</div>
+ <div class="desc" style="margin-top:14px"><strong>標普 500 重大回檔紀錄（約 10% 以上）</strong>｜採價格指數收盤價高點至後續低點；跨來源四捨五入可能有細微差異。1997/02 一筆採 SPY ETF 收盤價代理，已加註＊。2015 年兩段回檔呈現重疊的 W 型修正，分開保留，不合併成單一區間。</div>
  <div class="event-key" id="drawdown-key" aria-label="標普500重大回檔高低點與跌幅"></div>
  <div class="filter-panel">
   <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
@@ -238,7 +238,7 @@ function drawCombined(data,visible){
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
  document.getElementById('major-event-key').innerHTML=MAJOR_EVENTS.map(ev=>'<div class="event-item"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></div></div>').join('');
- document.getElementById('drawdown-key').innerHTML=DRAWDOWNS.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'｜'+dd.peak+' → '+dd.trough+'</strong><br>'+(dd.basis?'<span>＊SPY 總報酬代理值</span><br>':'')+'<a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
+ document.getElementById('drawdown-key').innerHTML=DRAWDOWNS.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'｜'+dd.peak+' → '+dd.trough+'</strong><br>'+(dd.basis?'<span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span><br>':'')+'<a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
