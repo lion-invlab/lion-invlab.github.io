@@ -58,7 +58,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="legend" id="combined-legend"></div>
  <div class="chart combined-chart" id="combined-chart"></div>
  <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
- <div class="desc" style="margin-top:14px"><strong>歷史重大事件與市場回檔</strong>｜整合事件背景、事件期間、S&P 500 高點至低點回檔期間、最大跌幅及來源。事件期間與市場回檔期間各自保留，不以同一組日期代替；同一事件若有多段修正，分別列示。</div>
+ <div class="desc" style="margin-top:14px"><strong>歷史重大事件與市場回檔</strong>｜依日期整合重大事件與 S&P 500 回檔；兩者各自保留原始期間。同期日期重疊僅作背景參照，不代表因果；每筆回檔只列一次。</div>
  <div class="event-key" id="event-drawdown-key" aria-label="歷史重大事件與標普500回檔整合清單"></div>
  <div class="filter-panel">
   <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
@@ -236,13 +236,18 @@ function drawCombined(data,visible){
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
- const eventRows=MAJOR_EVENTS.map(ev=>{
-  const matched=DRAWDOWNS.filter(dd=>dd.peak>=ev.start&&dd.trough<=ev.end);
-  const drawdownHtml=matched.length?matched.map(dd=>'<div data-drawdown-entry="'+dd.id+'" style="margin-top:5px;padding-left:9px;border-left:2px solid #64748b"><strong>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong>｜'+dd.peak+' → '+dd.trough+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div>').join(''):'<div class="desc" style="margin-top:5px">未列入符合門檻的獨立回檔紀錄</div>';
-  return '<div class="event-item" data-event-entry="'+ev.id+'"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>事件期間：'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a>'+drawdownHtml+'</div></div>';
- });
- const unmatched=DRAWDOWNS.filter(dd=>!MAJOR_EVENTS.some(ev=>dd.peak>=ev.start&&dd.trough<=ev.end)).map(dd=>'<div class="event-item" data-drawdown-standalone="'+dd.id+'"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>市場修正（未指定單一事件）</strong><br>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'｜'+dd.peak+' → '+dd.trough+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>');
- document.getElementById('event-drawdown-key').innerHTML=eventRows.concat(unmatched).join('');
+ // 將事件與回檔作為同一時間序列清單中的兩種獨立紀錄。
+ // 日期重疊只作背景參照，不代表事件造成回檔；每筆回檔只呈現一次。
+ const ledgerRows=[
+  ...MAJOR_EVENTS.map(ev=>({kind:'event',date:ev.start,html:'<div class="event-item" data-event-entry="'+ev.id+'"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>事件期間：'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></div></div>'})),
+  ...DRAWDOWNS.map(dd=>{
+   const overlaps=MAJOR_EVENTS.filter(ev=>dd.peak<=ev.end&&dd.trough>=ev.start);
+   const context=overlaps.length?'同期事件（日期重疊，非因果判定）：'+overlaps.map(ev=>ev.name).join('、'):'尚無明確事件對應';
+   return {kind:'drawdown',date:dd.peak,html:'<div class="event-item" data-drawdown-entry="'+dd.id+'"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>S&P 500 市場回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong><br>回檔期間：'+dd.peak+' → '+dd.trough+'<br><span>'+context+'</span>'+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>'};
+  })
+ ];
+ ledgerRows.sort((a,b)=>a.date.localeCompare(b.date)||(a.kind==='event'?-1:1));
+ document.getElementById('event-drawdown-key').innerHTML=ledgerRows.map(row=>row.html).join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
