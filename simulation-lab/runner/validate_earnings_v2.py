@@ -11,7 +11,7 @@ from earnings_judgment import ENGINE_VERSION, audit_record
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = ROOT / "schemas/tac-earnings-record-v2.schema.json"
-RELEASED_STATUSES = {"released", "published", "completed", "reported", "announced"}
+RELEASED_STATUSES = {"released", "published", "completed"}
 
 
 def is_released_record(record: dict) -> bool:
@@ -59,6 +59,19 @@ def validate_payload(
     checked = 0
     legacy = 0
     failures = []
+
+    for index, record in enumerate(records):
+        if not isinstance(record, dict):
+            failures.append({
+                "index": index, "ticker": None,
+                "issue": "earnings_record_is_not_an_object",
+            })
+
+    if require_v2 and payload.get("schema_version") != 2:
+        failures.append({
+            "index": None, "ticker": None,
+            "issue": "calendar_schema_version_must_be_2_got_" + repr(payload.get("schema_version")),
+        })
 
     if expected_released_count is not None and len(released) != expected_released_count:
         failures.append({
@@ -150,14 +163,14 @@ def self_test(schema: dict) -> None:
     assert not mixed["valid"], "one legacy published record must fail strict rollout validation"
     assert mixed["v2_records_checked"] == 1 and mixed["legacy_or_unversioned_records"] == 1
 
-    all_v2 = validate_payload({"events": {"earnings": [good]}}, schema)
+    all_v2 = validate_payload({"schema_version": 2, "events": {"earnings": [good]}}, schema)
     assert all_v2["valid"], all_v2
-    wrong_count = validate_payload({"events": {"earnings": [good]}}, schema, expected_released_count=2)
+    wrong_count = validate_payload({"schema_version": 2, "events": {"earnings": [good]}}, schema, expected_released_count=2)
     assert not wrong_count["valid"], "unexpectedly missing released records must fail"
 
     # Diagnostic mode may inspect a pre-migration payload, but must remain explicitly non-production.
     diagnostic = validate_payload(
-        {"events": {"earnings": [{"status": "released", "ticker": "OLD"}]}},
+        {"schema_version": 1, "events": {"earnings": [{"status": "released", "ticker": "OLD"}]}},
         schema,
         require_v2=False,
     )
