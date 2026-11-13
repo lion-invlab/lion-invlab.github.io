@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
-from earnings_judgment import ENGINE_VERSION, audit_record
+from earnings_judgment import ENGINE_VERSION, audit_consensus_attempts, audit_record
 
 ROOT = Path(__file__).resolve().parents[2]
 SCHEMA_PATH = ROOT / "schemas/tac-earnings-record-v2.schema.json"
@@ -97,6 +97,15 @@ def validate_payload(
             continue
 
         checked += 1
+        for metric in ("eps", "revenue"):
+            attempt_issue = audit_consensus_attempts(record, metric)
+            if attempt_issue not in (None, "no_usable_consensus_after_all_priority_sources"):
+                failures.append({
+                    "index": index,
+                    "ticker": record.get("ticker"),
+                    "id": record.get("id"),
+                    "issue": f"{metric}_consensus_attempts:{attempt_issue}",
+                })
         for issue in validate_record(record, schema):
             failures.append({
                 "index": index,
@@ -139,6 +148,11 @@ def self_test(schema: dict) -> None:
             "statistic": "primary_consensus", "outcome": "adopted",
             "reason": "valid_pre_release_same_basis_consensus"
         }],
+        "revenue_consensus_attempts": [
+            {"source_level": 1, "provider": "LSEG I/B/E/S", "metric": "REVENUE", "url": None, "observed_at": "2026-11-13T11:00:00+08:00", "outcome": "unavailable", "reason": "No LSEG revenue estimate"},
+            {"source_level": 2, "provider": "FactSet Estimates", "metric": "REVENUE", "url": None, "observed_at": "2026-11-13T11:05:00+08:00", "outcome": "unavailable", "reason": "No FactSet revenue estimate"},
+            {"source_level": 3, "provider": "Investing.com", "metric": "REVENUE", "url": None, "observed_at": "2026-11-13T11:10:00+08:00", "outcome": "unavailable", "reason": "No Investing.com revenue estimate"}
+        ],
     }
     assert validate_record(good, schema) == [], validate_record(good, schema)
 
