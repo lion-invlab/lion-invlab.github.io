@@ -237,3 +237,14 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - 同一份 W46 中，45 筆 released 每個 metric 各有 3 筆最新來源階梯 attempt（EPS 135、Revenue 135）；這些 attempts 是一次查找紀錄，沒有每日 append-only 共識值歷史。
 - 已確認目前事件記錄尚無 `eps_consensus_snapshots`／`revenue_consensus_snapshots` 陣列；也未見逐日不可覆寫的 raw response evidence ref。故未來公告前共識快照機制尚未建立，不能只靠現有 attempts 陣列宣稱已完成。
 - 在 simulation 新增 append-only snapshot store 原型、JSON Schema 欄位及 deterministic tests；正式 main、正式 JSON、WR 與排程未修改。原型通過前不得修改唯一 updater automation。
+
+
+### PIT snapshot prototype verification — 2026-11-13
+
+- Simulation commit under test: `c660e2a9e77d00d3170ac6dae2593045e85983ea`; workflow run `43417361875` completed `success`.
+- New step `Test append-only PIT consensus snapshot store` passed; 12 deterministic tests cover pre-release date handling, same-day date-only pending, timezone-aware same-day cutoff, post-release rejection, missing basis/raw ref, fixed SIM-1.2 provider-level mapping, timezone requirements for observed_at, idempotent append, EPS/Revenue history separation, raw SHA archive and overwrite protection.
+- New module: `simulation-lab/runner/consensus_snapshot_store.py` (blob `922ce179dfeed69af275e4daf82a840efed16e11`); tests: `simulation-lab/runner/test_consensus_snapshot_store.py` (blob `e966c48340a2d3683012ea411fd418ad05815ae6`). Schema v2 adds `eps_consensus_snapshots` and `revenue_consensus_snapshots` arrays; proposal describes append-only semantics and raw response references.
+- Ortex TEST probe in the same run again returned HTTP 200 / 10 rows for AAPL, MSFT and AMC; date window limitation unchanged. Raw response JSON archived at `simulation-lab/runs/ortex-test-probe-43417361875.json`, blob SHA `3e38b54c89a9bcfed043289a4348984bea3e298d`.
+- Deterministic self-tests and main read-only audit also passed. Report assembly, browser interaction, visual regression and full end-to-end QA were skipped; this run does not validate the report.
+- Current simulation HEAD after evidence archive: `e160c3c5c89f58fd8377c8a60a1ace541d557053`. Main HEAD and W46 blob SHA remained unchanged.
+- Scope: simulation prototype only. No updater automation prompt, formal WR, schedule, main JSON or main schema_version was modified. The prototype is not yet connected to the live unique writer and is not deployed.
