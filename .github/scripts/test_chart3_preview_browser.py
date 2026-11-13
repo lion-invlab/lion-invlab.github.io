@@ -120,12 +120,14 @@ def validate_chart(page, label):
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
         check(label + "_mouse_wheel_zoom", wheel_span < initial_span, wheel_zoom)
         page.locator("#timeline-reset").click()
+        page.locator("#timeline-zoom-in").click()
+        before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.mouse.move(cx, cy)
         page.mouse.down()
         page.mouse.move(cx + 55, cy, steps=4)
         page.mouse.up()
         dragged = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
-        check(label + "_mouse_drag_pans_timeline", dragged != ["1993-12-31", "2026-11-10"], dragged)
+        check(label + "_mouse_drag_pans_timeline", dragged != before_drag, dragged)
         page.locator("#timeline-reset").click()
 
 try:
