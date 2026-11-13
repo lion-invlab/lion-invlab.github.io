@@ -1511,3 +1511,19 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 11/13 v2 已公布 42 張卡的引擎結果：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。Pending 是缺少明確 basis、幣別、期間、單位或來源證據的 fail-closed 結果，不得改成裸數字推斷。
 - 審核版只存於本模擬分支：`simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html`；blob SHA `bc05cb38273a503f3df6ad4d81ca80e0d4d76e13`。Workflow artifact ID `14020933375`，run `43392246637`。
 - 尚未完成：27 筆 EPS 與 40 筆 Revenue 的來源／比較口徑證據補強。這是資料證據覆蓋缺口，不是 renderer 接線問題。後續只在可取得原始來源明確支持時補足；無法證明同口徑者維持 Pending。不得寫回 main 日曆 JSON、main preview 或首頁。
+
+
+## 2026-11-13｜EPS basis migration fallback、混合口徑防誤判與 11/13 v2 重建驗收
+
+- 更正前一輪盤點口徑：先前提到的 34 筆是 simulation-lab/fixtures/report-data-2026-11-13.json 內的財報事件，不是實際 HTML builder 最終使用的資料集。build_review_html.py 會讀取當週權威 W46 calendar，再以 project_calendar_data() 覆蓋 fixture 的 calendar／earnings 欄位；本次實際渲染使用 W46 共 48 筆財報事件，其中 42 筆已公布。
+- 讀取權威 W46 僅供本次早報組裝與 read-only audit；未修改 main JSON、main preview、index、WR、母版或 Manifest。
+- 確認 legacy EPS basis 遷移缺口：舊資料常將實際 EPS 口徑放在 eps_basis，但 migrate_legacy_record() 只讀 eps_actual_basis，造成實際口徑漏映射。已修正為：只有 eps_actual_basis 缺失時才以 eps_basis 作 actual basis fallback；不會將其複製到 estimate side。
+- 另新增混合口徑防護：同一 narrative 同時提及 GAAP 與 adjusted／non-GAAP（或 IFRS 與 non-IFRS）替代數值時，不再強行映射成單一 basis code；明確的 metric-specific actual basis 優先於舊 eps_basis。
+- 新增 regression tests：actual-only legacy fallback、shared currency 仍不得單獨授權 Beat／Miss、明確 actual basis 優先、混合 GAAP／adjusted narrative 必須 Pending。GitHub Actions run 43393284757（commit 1685c83ad00069adfc7780addad6d2d79ab2335e）completed/success。
+- 完整驗收 PASS：deterministic self-tests、read-only calendar audit、11/13 HTML assembly、Playwright interaction smoke、mother visual regression、日期／行事曆筆數／44 行情欄位／新聞數量檢查。
+- QA 詳情：16 經濟事件、48 財報事件（42 已公布）、44 行情欄位、5 焦點新聞、10 熱門頭條；互動 page errors=0；導覽 10 個；Investing.com links 114、鉅亨 links 3；Fear & Greed 40 分白點 40%，合成 20／40／75 測試均對齊。視覺回歸 1440／768／412／390／360px，failures=[]；母版 SHA 3785405e331b10ec6189002e480be2a1edbe20ef。
+- 42 筆已公布財報共 84 個 EPS／Revenue 指標卡：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。修正後此結果與上一版一致，代表本次修正是修復遷移漏欄及避免錯判，並未擴張證據不足項目的方向性結論。
+- Pending 原因拆分：EPS 15 筆缺／無法辨識 basis code、12 筆缺 actual 或 consensus 數值；Revenue 32 筆缺／無法辨識 basis code、8 筆缺 actual 或 consensus 數值。EPS Incomparable：TDG、WIX、MRCY（actual／estimate diluted basis 不一致）。Revenue 目前僅 CEG、MNDY 可在相同 basis 下比較。
+- 審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA bc05cb38273a503f3df6ad4d81ca80e0d4d76e13（內容與前一版相同，已重建並通過本次 QA）。Workflow artifact ID 14020898624；run 43393284757。
+- 後續工作：只針對有可追溯原始來源的 15 筆 EPS basis 缺口及 32 筆 Revenue basis 缺口逐筆補證據；12 筆 EPS／8 筆 Revenue 數值缺漏另列資料擷取缺口。不可改用數字大小推測、不可回寫 main 日曆 JSON；無法證明同口徑者維持 Pending。
+- 模擬分支最新工作 commit：1685c83ad00069adfc7780addad6d2d79ab2335e。
