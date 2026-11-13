@@ -881,3 +881,9 @@
 - 新 prompt 取消「schema 未變」要求，改為正式 Schema／engine 未部署時 fail closed；要求分開 actual／estimate basis code、currency、period、Revenue unit 及來源，唯一判讀引擎產生狀態，HTML 不得自行判讀。
 - 再次 peek 確認任務仍 disabled，週一至週五 04:35 Asia/Taipei schedule 未變。未重新啟用，避免正式 main 尚未部署 v2 時寫入。
 - Cutover checklist 已標記 prompt 更新完成；main Schema v2、歷史遷移、engine runtime、隔日演練與使用者核准仍未完成。
+
+
+## 2026-11-13｜組裝器實際 adapter 測試
+
+- renderer test 改為直接呼叫 `build_review_html.earnings_comparison_status`，驗證組裝器沒有數字 fallback。
+- Actions run `43379755113` completed/success；引擎、組裝器 adapter、CSV exporter 及 read-only main audit PASS。早報組裝／Playwright／視覺 QA skipped，未產生新 HTML。
