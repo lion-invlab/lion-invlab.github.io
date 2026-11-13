@@ -183,6 +183,10 @@ def self_test(schema: dict) -> None:
     assert not wrong_schema["valid"], "strict v2 validation must reject top-level schema v1"
     malformed = validate_payload({"schema_version": 2, "events": {"earnings": [good, None]}}, schema)
     assert not malformed["valid"], "non-object earnings rows must fail validation"
+    incomplete_ladder = dict(good)
+    incomplete_ladder["revenue_consensus_attempts"] = good["revenue_consensus_attempts"][:2]
+    incomplete_result = validate_payload({"schema_version": 2, "events": {"earnings": [incomplete_ladder]}}, schema)
+    assert not incomplete_result["valid"], "released metric with only two failed source tiers must fail strict validation"
     wrong_count = validate_payload({"schema_version": 2, "events": {"earnings": [good]}}, schema, expected_released_count=2)
     assert not wrong_count["valid"], "unexpectedly missing released records must fail"
 
