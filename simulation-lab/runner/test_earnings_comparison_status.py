@@ -100,6 +100,27 @@ def test_calendar_projection_migrates_legacy_records():
     )
     assert ambiguous_basis_result["eps_comparison_status"] == "pending"
 
+    explicit_currency_mismatch = {
+        "eps_actual": 0.48,
+        "eps_estimate": 0.48,
+        "eps_currency": "CHF actual; USD estimate (not comparable)",
+        "revenue_actual": 0.9314,
+        "revenue_estimate": 1.14,
+        "revenue_currency": "CHF actual; USD estimate (not comparable)",
+        "reporting_period": "Q3 2026",
+        "source": evidence_source("Issuer"),
+        "consensus_source": evidence_source("Consensus"),
+        "revenue_consensus_source": evidence_source("Revenue consensus"),
+    }
+    currency_mismatch_result = _earnings_records(
+        {"events": {"earnings": [explicit_currency_mismatch]}},
+        observed_at="2026-11-13T13:00:00+08:00",
+    )[0]
+    assert currency_mismatch_result["eps_comparison_status"] == "incomparable"
+    assert currency_mismatch_result["eps_comparison_reason"] == "currency_mismatch"
+    assert currency_mismatch_result["revenue_comparison_status"] == "incomparable"
+    assert currency_mismatch_result["revenue_comparison_reason"] == "currency_mismatch"
+
     # A single shared currency label is display metadata, not proof that both
     # actual and estimate values use the same currency for comparison.
     unsafe = dict(record)
