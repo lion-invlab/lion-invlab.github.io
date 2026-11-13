@@ -181,7 +181,7 @@ def _legacy_basis_code(metric: str, label: Any) -> str | None:
     text = re.sub(r"[^a-z0-9]+", " ", label.casefold()).strip()
 
     if metric == "eps":
-        if "gaap" in text:
+        if "gaap" in text and "non gaap" not in text:
             if "basic" in text and "diluted" in text:
                 return "US_GAAP_BASIC_AND_DILUTED_EPS"
             if "diluted" in text:
