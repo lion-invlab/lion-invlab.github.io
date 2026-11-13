@@ -26,7 +26,7 @@ h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-he
 .filter-panel{border-top:1px solid var(--line);margin-top:12px;padding-top:14px}.filter-heading{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.filter-heading span{font-size:12px;color:var(--muted)}
 .filter-actions{display:flex;gap:8px;margin:10px 0}.filter-actions button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:6px 12px;color:#33415b;font-size:12px;cursor:pointer}
 .series-filters{display:flex;gap:9px;flex-wrap:wrap}.series-toggle{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:#fff;font-size:13px;cursor:pointer}.series-toggle input{width:16px;height:16px;accent-color:#315f9d}.series-toggle .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
-.combined-note{margin-top:12px;line-height:1.65}.dual-note{margin-top:12px;line-height:1.6}.mini-title{font-size:13px;font-weight:700;color:#33415b;margin:0 0 2px 2px}
+.combined-note{margin-top:12px;line-height:1.65}.event-key{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 14px;margin-top:10px}.event-item{display:flex;gap:8px;align-items:flex-start;font-size:11px;line-height:1.5;color:#526077}.event-mark{flex:0 0 13px;height:10px;margin-top:3px;border-radius:2px;background:rgba(116,126,140,.28);border:1px solid #8792a2}.event-item strong{color:#29364b}.event-item a{color:inherit;text-decoration:none}.event-item a:hover{text-decoration:underline}@media(max-width:700px){.event-key{grid-template-columns:1fr}}.dual-note{margin-top:12px;line-height:1.6}.mini-title{font-size:13px;font-weight:700;color:#33415b;margin:0 0 2px 2px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 2px;font-size:12px;color:#4f5b70}
 .legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:3px;border-radius:4px;display:inline-block}
 .notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
@@ -57,6 +57,8 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  </div>
  <div class="legend" id="combined-legend"></div>
  <div class="chart combined-chart" id="combined-chart"></div>
+ <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色區帶依下方共用時間軸標示事件觀察期間；各事件的起訖日期與參考來源列於下方。區間為歷史事件編輯標註，不代表官方統一的危機定義。</div>
+ <div class="event-key" id="major-event-key" aria-label="重大事件起訖日期與來源"></div>
  <div class="filter-panel">
   <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
   <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
@@ -156,14 +158,35 @@ function expandingPercentile(points){
  }
  return out;
 }
+const MAJOR_EVENTS=[
+ {id:'asian-crisis',name:'亞洲金融風暴',start:'1997-07-02',end:'1998-12-31',source:'https://www.federalreservehistory.org/essays/asian-financial-crisis',sourceLabel:'Federal Reserve History'},
+ {id:'russia-ltcm',name:'俄羅斯違約／LTCM 危機',start:'1998-08-17',end:'1998-10-15',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
+ {id:'dotcom',name:'網路泡沫崩跌',start:'2000-03-10',end:'2002-10-09',source:'https://www.bny.com/assets/investments/im/documents/manual/perspectives/market-behavior-during-historical-bouts-of-volatility.pdf',sourceLabel:'BNY market history'},
+ {id:'gfc',name:'全球金融海嘯',start:'2007-07-26',end:'2010-04-29',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
+ {id:'euro-debt',name:'歐洲主權債務危機',start:'2010-04-23',end:'2012-07-26',source:'https://www.minneapolisfed.org/article/2012/chronic-sovereign-debt-crises-in-the-eurozone-20102012',sourceLabel:'Federal Reserve Bank of Minneapolis'},
+ {id:'china-turmoil',name:'中國市場／人民幣動盪',start:'2015-08-11',end:'2016-02-20',source:'https://www.piie.com/blogs/china-economic-watch/churning-over-china-anatomy-slowdown',sourceLabel:'Peterson Institute for International Economics'},
+ {id:'covid',name:'COVID-19 市場衝擊',start:'2020-02-19',end:'2020-03-23',source:'https://www.ici.org/system/files/attachments/pdf/20_rpt_covid1.pdf',sourceLabel:'Investment Company Institute'},
+ {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
+];
 function drawCombined(data,visible){
- const W=1100,H=440,L=78,R=82,T=34,B=54,iw=W-L-R,ih=H-T-B;
+ const W=1100,H=550,L=78,R=82,T=34,B=54,iw=W-L-R,ih=H-T-B;
  const minX=Date.parse('1993-12-31T00:00:00Z'),maxX=Date.parse('2026-11-10T00:00:00Z');
  const x=t=>L+(t-minX)/(maxX-minX)*iw,yp=v=>T+(8000-v)/8000*ih,ys=v=>T+(100-v)/100*ih;
  const parts=[];
  for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
  for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-20)+'" text-anchor="middle">'+yr+'</text>');}
+ const laneEnds=[];const eventTop=465,eventLaneH=19;
+ parts.push('<text x="'+L+'" y="448" font-size="12" font-weight="700" fill="#526077">重大事件區間｜灰色區帶</text>');
+ for(let lane=0;lane<4;lane++){const yy=eventTop+lane*eventLaneH;parts.push('<line x1="'+L+'" y1="'+(yy+eventLaneH-2)+'" x2="'+(W-R)+'" y2="'+(yy+eventLaneH-2)+'" stroke="#edf0f4"/>');}
+ const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
+ for(const ev of sortedEvents){
+  let lane=laneEnds.findIndex(end=>end<ev.start);if(lane<0){lane=laneEnds.length;laneEnds.push(ev.end);}else laneEnds[lane]=ev.end;
+  const x1=Math.max(L,Math.min(W-R,x(Date.parse(ev.start+'T00:00:00Z'))));
+  const x2=Math.max(L,Math.min(W-R,x(Date.parse(ev.end+'T23:59:59Z'))));
+  const yy=eventTop+lane*eventLaneH+3;
+  parts.push('<rect data-event="'+ev.id+'" x="'+x1.toFixed(2)+'" y="'+yy+'" width="'+Math.max(2,x2-x1).toFixed(2)+'" height="11" rx="3" fill="#8792a2" fill-opacity=".28" stroke="#7b8794" stroke-opacity=".8"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');
+ }
  if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜right axis</title></path>');
  const ids=['VIXCLS','NFCI','NFCICREDIT','STLFSI4'];
  for(const id of ids){if(!visible[id])continue;const pts=data[id];let d='',open=false;
@@ -173,6 +196,7 @@ function drawCombined(data,visible){
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
+ document.getElementById('major-event-key').innerHTML=MAJOR_EVENTS.map(ev=>'<div class="event-item"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></div></div>').join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
