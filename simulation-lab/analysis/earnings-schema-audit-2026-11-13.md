@@ -209,3 +209,11 @@ API 實際回傳欄位包含 `date`、`estimateAsOf`、`periodType`、`periodEnd
 ### 裁決
 
 ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的日期／區域限制、W46 PIT 覆蓋、EPS basis 及公開再散布權利仍未解決。它仍只是 SIM-1.2 之外的候選研究來源，不得插入 LSEG I/B/E/S → FactSet Estimates → Investing.com 的正式來源階梯，不得作為 W46 歷史共識補值來源。下一步應先取得可查詢 W46 日期的正式授權試用／正式方案（未經使用者同意不得付費），再逐筆驗證 45 家 ticker 的指定日期、期間、basis、currency、unit 及授權條款。
+
+
+### Raw probe evidence durable archive confirmation
+
+- Follow-up simulation workflow run `43416810131` completed `success`; the ORTEX probe, deterministic self-tests, and main read-only earnings schema audit all succeeded. All report assembly / browser / visual QA steps were skipped because this was a push smoke run.
+- Raw probe JSON archived in the simulation branch at `simulation-lab/runs/ortex-test-probe-43416810131.json`; blob SHA `b082a2ca778521fcdb2b383935d8f4f4c599fd03`; 49,835 bytes; read-back confirmed the raw response bodies are included.
+- Archive commit advanced simulation HEAD to `d47ee45a4a73f269305836a004e7206b45150929`.
+- After the simulation changes, main HEAD remained `68223e3aa384ae4d75311a243eb029da3c55b32c` and W46 JSON blob remained `ec246b8a765c64b798e348ce8df2760ea89cc5e1`; no production data was modified.
