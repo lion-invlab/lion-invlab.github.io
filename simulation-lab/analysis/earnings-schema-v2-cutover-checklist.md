@@ -123,4 +123,4 @@
 - [x] Value changes do not overwrite earlier snapshots; unchanged daily polls remain distinct by observed_at; exact replay is idempotent.
 - [x] Same-day date-only data_as_of remains Pending; EPS and Revenue arrays remain independent.
 - [ ] Durable raw-response archive destination and retention/licensing approval remain unresolved. Until an approved archive exists, production snapshots must not be labelled `pre_release_eligible` merely because a hash exists; preserve `raw_response_ref=null` and `pending_required_fields`.
-- [ ] Integrate only into the existing unique 04:30 updater prompt after the archive limitation is encoded. This does not authorize main W46 mutation by this assistant outside the updater's normal scheduled run, nor Schema v2 deployment.
+- [x] Integrate the append-only snapshot contract into the existing unique 04:30 updater prompt after encoding the raw-archive limitation. Post-update readback confirms the same task remains Enabled with the same schedule and ID. This does not deploy Schema v2 or authorize a separate/manual main W46 write; first scheduled writer execution remains pending.
