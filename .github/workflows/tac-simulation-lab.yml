@@ -235,6 +235,25 @@ jobs:
             echo "production_deploy=forbidden"
           } > simulation-lab/output/runner-metadata.txt
 
+      - name: Archive ORTEX TEST raw probe evidence on simulation branch
+        if: always() && hashFiles('simulation-lab/output/ortex-test-probe.json') != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p simulation-lab/runs
+          cp simulation-lab/output/ortex-test-probe.json "simulation-lab/runs/ortex-test-probe-${GITHUB_RUN_ID}.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f "simulation-lab/runs/ortex-test-probe-${GITHUB_RUN_ID}.json"
+          if git diff --cached --quiet; then
+            echo "No ORTEX probe evidence to archive"
+            exit 0
+          fi
+          git commit -m "[skip ci] Archive ORTEX TEST probe ${GITHUB_RUN_ID}"
+          git fetch origin simulation/tac-process-lab-2026-11-06
+          git rebase origin/simulation/tac-process-lab-2026-11-06
+          git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
+
       - name: Upload simulation evidence
         if: always()
         uses: actions/upload-artifact@v4
