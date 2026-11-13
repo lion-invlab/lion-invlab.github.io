@@ -312,7 +312,7 @@ def _legacy_basis_code(metric: str, label: Any) -> str | None:
         plain_gaap_text = text.replace("non gaap", "")
         if (
             ("gaap" in plain_gaap_text and ("non gaap" in text or "adjusted" in text or "normalized" in text))
-            or ("ifrs" in text and "non ifrs" in text and ("adjusted" in text or "normalized" in text))
+            or ("ifrs" in text and "non ifrs" in text)
         ):
             return None
         if "gaap" in text and "non gaap" not in text:
