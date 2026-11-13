@@ -987,3 +987,16 @@
 - 新版 HTML blob SHA c3c6b936d11c747e24234db3d32f9ad322160229；workflow artifact ID 14021234070；run 43393756104。五個 viewport 1440／768／412／390／360 failures=[]。
 - Pending 根因：EPS 14 筆 basis 缺漏、12 筆 actual／consensus 缺值；Revenue 31 筆 basis 缺漏、8 筆 actual／consensus 缺值。後續應逐筆從 issuer／SEC 與原 consensus source 補證據，不能以一般市場慣例推定 basis。
 - 僅 simulation branch 有寫入；main 只讀，無正式部署、無 main calendar／preview／index 寫入。
+
+
+## 2026-11-13｜NRG Revenue consensus divergence explicit detection
+
+- Read-only audit of W46 consensus source notes found NRG revenue consensus disagreement explicitly documented: Zacks US$6.72B, Finviz US$8.42B, Nexqual US$9.29B; source definitions／basis remain unreconciled. The old migration path hid this known issue behind missing basis code as Pending.
+- Added _has_explicit_revenue_consensus_divergence() in earnings_judgment.py. It only promotes a record when curated notes explicitly mention revenue consensus plus unresolved disagreement terms, and the actual source and revenue consensus source both have valid HTTPS URLs and observed_at. It does not infer conflict from ordinary differences or EPS commentary.
+- evaluate_metric() now returns consensus_divergent before missing basis when the explicit conflict flag and source evidence are valid. Added a regression test for NRG-like notes; all previous migration/currency/basis guard tests remain.
+- GitHub Actions run 43394210226, commit 56558741337b3dbafe8c61805f768589fbaf7e22, completed/success. Deterministic self-tests, read-only calendar audit, assembly, interaction smoke, visual regression, date/calendar/44 indicators/news validation all PASS.
+- Current migration results for 42 released records: EPS 11 Beat／1 Miss／4 Incomparable／26 Pending; Revenue 2 Beat／1 Incomparable／1 Consensus Divergent／38 Pending.
+- NRG Revenue now Consensus Divergent, not Beat/Miss/Pending, due unresolved 6.72／8.42／9.29B consensus-source disagreement. ONON EPS and Revenue are Incomparable due CHF actual／USD estimate. EPS basis mismatch remains for TDG／WIX／MRCY.
+- HTML 84 metric-card statuses: 64 Pending／13 Beat／1 Miss／5 Incomparable／1 Consensus Divergent.
+- Remaining pending causes: EPS 14 basis gaps and 12 missing actual/consensus values; Revenue 30 basis gaps and 8 missing actual/consensus values.
+- Latest review HTML blob SHA f5adebbb1bd1b4f626015e29ab0300620981146e; artifact ID 14021318576; run 43394210226. All changes restricted to simulation branch; main read-only and no production deployment.
