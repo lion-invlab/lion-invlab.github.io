@@ -1497,3 +1497,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 已下載並核對 CSV 83 rows：W45 41 筆、W46 42 筆；統計與 workflow log 一致。
 - 檔案：`tac-earnings-v2-migration-preview.csv`，artifact SHA-256 `14f132fb16ad00aa247e7ba87b2d61a25acad552d7bea9ba85d18216257354fa`。
 - 本機交付副本：`/mnt/data/tac-earnings-v2-migration-preview/tac-earnings-v2-migration-preview.csv`；只供逐筆檢查，未寫回 JSON。
+
+
+## 2026-11-13｜已公布財報 v2 判讀接線與 11/13 審核版 QA 完成
+
+- 僅在 `simulation/tac-process-lab-2026-11-06` 修改；使用者明確要求 main 唯讀，本次沒有對 main 執行任何寫入。
+- 根因：`calendar_source_guard._earnings_records()` 原先只投影 legacy 欄位，沒有呼叫既有 `migrate_legacy_record()`；同時未把 v2 engine version、reason、分離幣別／期間／營收單位與 source objects 傳入 HTML builder。HTML renderer 正確拒絕未版本化舊狀態，因此大量卡片顯示 Pending。
+- 修正：在唯讀日曆投影階段以記憶體呼叫唯一 v2 判讀引擎，將完整 v2 欄位傳給 builder；原始日曆 JSON 不變。舊單一共用幣別只保留作顯示格式，不當成 actual／estimate 同幣別證據。
+- 新增 renderer-to-projection integration test，驗證 v2 Beat、Revenue Beat、source preservation、原始資料不被 mutation，以及單一共用幣別不得當作比較證據。
+- 首次完整建置 run `43391976035` 的 visual QA 因驗收腳本未列入 `incomparable`／`consensus_divergent` 兩種合法 v2 狀態而失敗；HTML 中 TDG、WIX、MRCY 的 EPS 均正確顯示「比較口徑不相容」。已修正 `visual_regression.mjs` 的六狀態 allowlist，並重跑。
+- 最終 GitHub Actions run `43392246637` completed/success；deterministic self-tests、main calendar read-only audit、HTML assembly、interaction smoke、visual regression、calendar／44 indicators／news shape checks 全部 PASS。
+- 驗收數據：經濟行事曆 16/16；財報行事曆 48/48（其中已公布 42 張）；行情欄位 44；焦點新聞 5；熱門頭條 10。互動測試 page errors=0；桌面 1440、平板 768、手機 412／390／360 五種 viewport 視覺回歸 PASS；母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。
+- 11/13 v2 已公布 42 張卡的引擎結果：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。Pending 是缺少明確 basis、幣別、期間、單位或來源證據的 fail-closed 結果，不得改成裸數字推斷。
+- 審核版只存於本模擬分支：`simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html`；blob SHA `bc05cb38273a503f3df6ad4d81ca80e0d4d76e13`。Workflow artifact ID `14020933375`，run `43392246637`。
+- 尚未完成：27 筆 EPS 與 40 筆 Revenue 的來源／比較口徑證據補強。這是資料證據覆蓋缺口，不是 renderer 接線問題。後續只在可取得原始來源明確支持時補足；無法證明同口徑者維持 Pending。不得寫回 main 日曆 JSON、main preview 或首頁。
