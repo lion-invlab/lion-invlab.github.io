@@ -154,6 +154,9 @@ def test_calendar_projection_migrates_legacy_records():
     assert currency_mismatch_result["eps_comparison_reason"] == "currency_mismatch"
     assert currency_mismatch_result["revenue_comparison_status"] == "incomparable"
     assert currency_mismatch_result["revenue_comparison_reason"] == "currency_mismatch"
+    assert currency_mismatch_result["eps_actual_display"] == "CHF 0.48"
+    assert currency_mismatch_result["eps_estimate_display"] == "US$0.48"
+    assert len(currency_mismatch_result["eps_consensus_attempts"]) == 0
 
     unresolved_revenue_consensus = {
         "revenue_actual": 9.47,
