@@ -95,3 +95,32 @@
 - EPS v2 預覽：Pending 41、Incomparable 4；Revenue v2 預覽：Pending 44、Incomparable 1。所有 45 筆的兩個指標仍缺 source attempts，這是本輪正式更新必須補上的資料。
 
 本輪最新完整隔離 CI：run `43412045316`，commit `bafaf832943d48943f4337b8b2528c8705405361`，結果 success；包含 engine、calendar projection、calendar self-test、main W46 read-only audit、migration CSV 及 strict validator。
+
+
+### 2026-11-13｜main W46 來源查找歷程回填（本次正式資料庫更新）
+
+正式資料來源：`origin/main:data/calendar/weeks/2026-W46.json`  
+更新 commit：`9cc9db41e84eaf94c011513ed753ecb71fee62eb`  
+更新後 JSON blob：`1e491b490c053a7792cf433a111548d84c5e88d5`  
+更新時間：`2026-11-13T18:54:22+08:00`  
+main 正式 WR 回讀為 v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）；SIM-1.2 為補充來源階梯規則（blob `3a5540aca30aa76087786d2574e4f1a7`）。原 JSON 的 `wr_version=5.19` 已保留於 `last_update_audit.previous_wr_version`，本次 `wr_version` 更新為正式 main WR v5.15。
+
+- [x] 45／45 已公布財報均新增 EPS 來源階梯歷程。
+- [x] 45／45 已公布財報均新增 Revenue 來源階梯歷程。
+- [x] 每個指標均按 LSEG I/B/E/S → FactSet Estimates → Investing.com 順序記錄，合計 270 筆 attempt records。
+- [x] 37 筆既有 EPS consensus source 與 37 筆既有 Revenue consensus source 均複製至 `legacy_*` 欄位；舊估值及舊 comparison status 保留且回讀比對一致。
+- [x] 保守補入可由專用欄位直接證明的 normalized basis／currency／actual period／revenue unit；不推定 estimate period。
+- [x] 所有未採用的舊 selected source 欄位清空；舊來源仍保留在 `legacy_consensus_source`／`legacy_revenue_consensus_source`。
+- [x] `schema_version` 保持 1；未寫入 `judgment_engine_version`，未重算舊 Beat／Miss，未宣稱 Schema v2 已上線。
+
+**每個指標（45 筆）的來源結果：**
+- LSEG I/B/E/S：45 筆 unavailable（本次執行環境無登入／API 權限）。
+- FactSet Estimates：45 筆 unavailable（本次執行環境無登入／API 權限）。
+- Investing.com：33 筆未取得可核實的個股公布前頁；6 筆僅有公布後頁面；6 筆找到公布前估計值，但缺少 EPS／Revenue basis 定義，標記 `missing_required_fields`，不採用。
+- 因此本次沒有任何一筆新共識被採用；舊估值保留為 legacy，不可當成新制已驗證的共識。
+
+**Normalized 欄位回讀 coverage：**
+- EPS：actual／estimate basis code 18／45、15／45；actual／estimate currency 19／45、19／45；actual period 45／45；estimate period 0／45。
+- Revenue：actual／estimate basis code 5／45、2／45；actual／estimate currency 4／45、4／45；actual／estimate unit 3／45、3／45；actual period 45／45；estimate period 0／45。
+
+**驗收結論：** 來源查找歷程已完整回填，但 45 筆的可採用新共識仍未完成；目前仍是 Schema v1／legacy status。下一階段必須補到有明確 GAAP／Adjusted、Basic／Diluted、Revenue definition、幣別、單位、期間與公告前有效時間的來源證據，才能採用並重算。不得把 attempt history coverage 45／45 誤稱為 consensus value coverage 45／45。
