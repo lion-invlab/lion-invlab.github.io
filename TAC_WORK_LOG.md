@@ -1013,3 +1013,16 @@
 - Remaining Pending: EPS 11 basis-code gaps + 12 actual/consensus value gaps; Revenue 30 basis-code gaps + 8 actual/consensus value gaps.
 - Latest review HTML blob SHA b5b59c1ec9b1ded944941fbc9249e21fb262152f; artifact ID 14021859744; run 43394759935. Visual regression 1440／768／412／390／360px failures=[]; browser interaction page errors=0.
 - All writes remained on simulation/tac-process-lab-2026-11-06; main read-only; no production deployment.
+
+
+## 2026-11-13｜SIM-1.2 統一 WR 整併完成；模擬區 v5.19 根目錄副本退役
+
+- 唯一模擬區 WR：`simulation-lab/TAC_WORK_RULES_SIM.md`，版本 SIM-1.2，blob SHA `3a5540aca30aa760877951ce47786d2574e4f1a7`。
+- 整併來源：SIM-1.1 blob `4c8e493dc7b96c345970469ccd1d418e5273d273`；模擬區根目錄 v5.19 blob `ec86a8ca0bca11b35f18e24087bcd5fc98e7c8d1`。
+- 保留 SIM-1.1 的隔離授權、SIM-0.4～SIM-0.9 行事曆來源 Gate、財報顯示口徑、商品身分與已公布財報股價反應；納入 v5.19 的完整 A–J 規則、G1 總結規範、EPS 同口徑判讀及 LSEG I/B/E/S → FactSet Estimates → Investing.com First Available Wins 規則。
+- 已釐清三個 main 寫入邊界：04:35 排程只寫既有正式週 JSON；早報審核版只寫指定日期 `preview/YYYY-MM-DD-simulation.html`；`index.html` 僅在使用者明確核准後依第六步發布。05:25 早報對行事曆 JSON 嚴格唯讀。
+- 已將母版／Manifest／QA 契約路徑統一指向 `simulation-lab/baseline/` 唯讀基準；更新 `simulation-lab/baseline/mother-template-qa-contract.md` 與 `simulation-lab/README.md`。
+- 已更新兩個排程提示：人工早報改讀 SIM-1.2；行事曆資料庫排程改讀 SIM-1.2 的財報共識規則。兩者均不再依賴模擬區根目錄 v5.19。
+- 已刪除模擬區分支根目錄 `TAC_WORK_RULES.md`（原 v5.19），刪除 commit `992cff873da0f9396be660de95ed7cd4decd5d71`；根目錄清單回讀確認該檔不存在。Git 歷史仍可追溯原始 blob。
+- GitHub Actions `TAC isolated simulation lab` run `43402754735`（commit `13ee0137c899ca07febd326bb6877c465da1c723`）completed/success；deterministic self-tests 與 authoritative main earnings schema read-only audit PASS。報告組裝與瀏覽器 QA steps 本次為 skipped，故不宣稱完整早報端到端測試通過。
+- main 分支未修改；正式首頁、preview、母版、Manifest 與行事曆 JSON 均未修改。模擬區目前 HEAD：`992cff873da0f9396be660de95ed7cd4decd5d71`。
