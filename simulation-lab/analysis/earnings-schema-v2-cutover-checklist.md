@@ -12,6 +12,11 @@
 - [x] 確認 04:35 writer 是 ChatGPT automation，且目前 disabled
 - [x] 草擬 04:35 automation v2 prompt
 
+
+- [x] 明確的 per-record JSON Schema v2（`schemas/tac-earnings-record-v2.schema.json`）
+- [x] Schema v2 validator：JSON Schema + engine status consistency（`simulation-lab/runner/validate_earnings_v2.py`）
+- [ ] 新增 validator 的 GitHub Actions 回歸執行成功（等待本次 commit CI）
+
 ## 尚未完成（正式 main）
 - [ ] 將 engine、schema validator、migration 工具及 assembler 修改部署至正式 main
 - [ ] 正式 Schema v2 JSON Schema 與版本遷移程式
