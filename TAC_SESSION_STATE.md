@@ -1410,3 +1410,21 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 曾有一次 enum registry 呼叫漏傳 metric 參數，Actions run `43377982688` 失敗；已根據日誌修正並以 `43378063934` 成功重跑。錯誤及修復均保留紀錄。
 - 本輪所有寫入只發生在 `simulation/tac-process-lab-2026-11-06`；main HEAD、正式 W46 JSON、正式 WR、母版、Manifest、index.html、preview 均未修改。04:35 automation 未更新、未啟用；沒有建立第二個 JSON writer。
 - 下一步：完成 W46 42 家的 basis-code evidence mapping 與舊資料遷移測試；正式上線前須先決定唯一 writer 的遷移方式，更新 04:35 automation prompt（取消「schema 未變」限制，接入 v2 欄位與判讀契約），完成完整回歸後再恢復排程。未完成前不得直接寫 main JSON 或宣稱 production ready。
+
+
+## 2026-11-13｜W46 舊資料 v2 遷移試算完成（純記憶體）
+
+- 新增 `migrate_legacy_record()` 保守轉換器：僅將可明確對應受控 basis registry 的自由文字映射成 v2 code；currency 可由單一 ISO code 或明確的「XXX actual; YYY estimate」格式拆分；reporting_period 複製至 actual／estimate period；Revenue shared unit 分別複製至 actual／estimate unit。任何模糊 basis、來源缺漏、數值缺漏均 fail closed；不修改原 record。
+- GitHub Actions run `43378644870` 因非 GAAP 字串被 substring 規則誤判為 GAAP 而失敗；依日誌修正為先排除 `non gaap`，run `43378644870` 的後續修正 commit `c7e3b08c58c66b53a733b2341ebfc16c48bf5b6b` completed/success。
+- 新增 migration CSV exporter 及測試；GitHub Actions run `43378999223`（job `131732127592`，commit `912fd8dec411dd5a0ca48ad5fbd26530664d412c`）completed/success。引擎、renderer、CSV exporter、main read-only audit 全部 PASS。
+- W46 42 筆純記憶體 migration 結果：
+  - EPS：11 Beat、1 Miss、3 Incomparable、27 Pending。
+  - Revenue：2 Beat、40 Pending。
+  - EPS 可安全映射並保留方向性結果：B、FERG、NRG、CEG、KKR、NBIS、RGTI、MNDY、TTD、ONTO、SANM、QLYS。
+  - EPS Incomparable：TDG、WIX、MRCY（actual diluted，estimate 未明確 diluted）。
+  - EPS 舊方向性狀態退回 Pending：QBTS、HIMS、MARA（estimate basis 不足）。
+  - Revenue 僅 CEG、MNDY 通過；FERG estimate basis 未明確 GAAP，退回 Pending；其餘 23 筆舊 Revenue Beat／Miss 退回 Pending。
+  - EPS Pending 細分：15 筆缺 basis code、12 筆缺 actual 或 consensus 數值。
+  - Revenue Pending 細分：32 筆缺 basis code、8 筆缺 actual 或 consensus 數值。
+- GitHub Actions artifact：run `43378999223`，artifact ID `14015686988`，內含 `earnings-migration-preview.csv`（42 筆）及 `earnings-schema-audit.json`。已下載並核對 CSV；沒有寫回 main。
+- 重要：這是 conservative in-memory migration preview，不是已遷移的正式資料庫，也不代表 11/13 正式卡片已修好。正式 main JSON、04:35 automation 及正式排程仍未修改／啟用。
