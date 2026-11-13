@@ -59,6 +59,7 @@ jobs:
           python simulation-lab/runner/test_summary_headline.py
           python simulation-lab/runner/test_earnings_comparison_status.py
           python simulation-lab/runner/test_earnings_judgment_engine.py
+          python simulation-lab/runner/test_earnings_schema_audit.py
 
       - name: Audit authoritative main earnings schema (read-only)
         shell: bash
