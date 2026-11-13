@@ -229,11 +229,9 @@ def _legacy_basis_code(metric: str, label: Any) -> str | None:
 
 
 def _split_legacy_currency(value: Any) -> tuple[str | None, str | None]:
+    """Only split a legacy field when it explicitly distinguishes actual and estimate."""
     if not isinstance(value, str):
         return None, None
-    simple = value.strip().upper()
-    if _valid_currency(simple):
-        return simple, simple
     match = re.fullmatch(
         r"\s*([A-Z]{3})\s+actual\s*;\s*([A-Z]{3})\s+estimate(?:\s*\([^)]*\))?\s*",
         value.strip(),
@@ -241,7 +239,33 @@ def _split_legacy_currency(value: Any) -> tuple[str | None, str | None]:
     )
     if match:
         return match.group(1).upper(), match.group(2).upper()
+    # A single legacy currency is ambiguous and must not be copied to both sides.
     return None, None
+
+
+def _currency_from_basis_label(label: Any) -> str | None:
+    if not isinstance(label, str):
+        return None
+    match = re.search(
+        r"\b(USD|EUR|GBP|CHF|CAD|AUD|JPY|CNY|INR|BRL|SGD|HKD|KRW|TWD|MXN|SEK|NOK|DKK|NZD|ZAR|ILS|SAR|AED|PLN|CZK|HUF|TRY|IDR|THB|MYR|PHP|CLP|COP|PEN)\s*(?:/share|per share|billion|billions|million|millions|bn|mm)\b",
+        label,
+        flags=re.IGNORECASE,
+    )
+    return match.group(1).upper() if match else None
+
+
+def _revenue_unit_from_basis_label(label: Any) -> str | None:
+    if not isinstance(label, str):
+        return None
+    text = label.casefold()
+    currency = _currency_from_basis_label(label)
+    if not currency:
+        return None
+    if re.search(r"\b(billions?|bn)\b", text):
+        return f"{currency}_BILLION"
+    if re.search(r"\b(millions?|mm)\b", text):
+        return f"{currency}_MILLION"
+    return None
 
 
 def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") -> dict:
@@ -264,16 +288,24 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
         actual_currency, estimate_currency = _split_legacy_currency(
             record.get(f"{metric}_currency")
         )
+        if actual_currency is None:
+            actual_currency = _currency_from_basis_label(actual_label)
+        if estimate_currency is None:
+            estimate_currency = _currency_from_basis_label(estimate_label)
         migrated.setdefault(f"{metric}_actual_currency", actual_currency)
         migrated.setdefault(f"{metric}_estimate_currency", estimate_currency)
         period = record.get("reporting_period")
         migrated.setdefault(f"{metric}_actual_period", period)
         migrated.setdefault(f"{metric}_estimate_period", period)
 
-    legacy_revenue_unit = record.get("revenue_unit")
-    if isinstance(legacy_revenue_unit, str) and legacy_revenue_unit.strip():
-        migrated.setdefault("revenue_actual_unit", legacy_revenue_unit.strip())
-        migrated.setdefault("revenue_estimate_unit", legacy_revenue_unit.strip())
+    migrated.setdefault(
+        "revenue_actual_unit",
+        _revenue_unit_from_basis_label(record.get("revenue_actual_basis")),
+    )
+    migrated.setdefault(
+        "revenue_estimate_unit",
+        _revenue_unit_from_basis_label(record.get("revenue_estimate_basis")),
+    )
 
     return apply_judgment(migrated, observed_at)
 
