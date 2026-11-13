@@ -153,3 +153,12 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 - directional statuses 在 JSON Schema 層必須具備完整 evidence 欄位；validator 再呼叫唯一 `earnings_judgment.py`，檢查 persisted status 與即時計算結果一致。
 - validator：`simulation-lab/runner/validate_earnings_v2.py`；包含 self-test，測試方向性紀錄缺幣別應失敗、status 與引擎不一致應失敗、legacy v1 record 不納入 v2 驗證。
 - 已加入 simulation workflow 的 deterministic self-tests。最新 workflow commit `db9c085e8d0c88ebcefb5a371feb686826c74a23`，後續 checklist commit `5fca8a236f3d0402166ca9e878921ece2f580832`；截至本次檢查 GitHub 尚未回報這兩個 commit 的 workflow run，因此不可標示 validator CI PASS。先前 engine／renderer／migration CSV 測試的 PASS 仍有效，但不等於新 JSON Schema validator 已通過 CI。
+
+## 9. Commentary 與卡片判讀一致性 Gate
+
+- 實際檢查 builder 發現，雖然 EPS／Revenue 小卡狀態已改為讀取 versioned engine result，兩個 HTML assembly path 仍直接輸出自由文字 `judgment`。這會造成卡片顯示「比較口徑待核實」，但下方評論仍寫「優於／低於預期」的矛盾。
+- 已新增 `earnings_commentary(item)`：逐句依 EPS／Revenue persisted status 篩除無法支持或與狀態相反的方向性主張，保留中性營運敘述，最後附上 EPS 與營收各自的引擎狀態。
+- 兩個 assembly path 均改用該 helper；不再直接顯示原始 `judgment`。
+- 測試新增：unversioned legacy commentary 的 Beat/Miss 抑制、已 versioned EPS Beat 但文字寫 Miss 的衝突抑制、Revenue Pending 時抑制 Beat、保留中性評論。
+- 另修正句子切分，避免把 US$1.20 等小數點當成句號。
+- 新測試已加入既有 `test_earnings_comparison_status.py`，但本輪最新 commits 尚無 GitHub Actions check-run；因此這部分仍待 CI／實際 11/13 fixture rebuild 驗收。
