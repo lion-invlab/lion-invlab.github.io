@@ -64,7 +64,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 .daily-state h2{font-size:clamp(21px,3.2vw,29px);line-height:1.25;margin:7px 0 8px;color:#ff5a54;font-weight:850}
 .daily-thesis{font-size:13px;line-height:1.7;color:#e1e8f3;margin:0}
 .risk-level{display:flex;flex-direction:column;justify-content:center;gap:9px}
-.risk-level strong{font-size:12px;color:#d8e0eb}.risk-scale{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}.risk-scale span{height:10px;border-radius:5px;background:#344054}.risk-scale span:nth-child(1){background:#21865a}.risk-scale span:nth-child(2){background:#c39a38}.risk-scale span:nth-child(3){background:#d97736}.risk-scale span:nth-child(4){background:#b9363e}.risk-level em{font-style:normal;font-size:16px;font-weight:800;color:#f0c66f}
+.risk-level strong{font-size:12px;color:#d8e0eb}.risk-scale-wrap{position:relative;padding-top:13px}.risk-scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}.risk-scale span{height:27px;border-radius:5px;background:#344054;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;letter-spacing:.01em;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)}.risk-scale span:nth-child(1){background:#21865a}.risk-scale span:nth-child(2){background:#c39a38}.risk-scale span:nth-child(3){background:#d97736}.risk-scale span:nth-child(4){background:#b9363e}.risk-scale-marker{position:absolute;z-index:2;top:0;left:50%;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid #fff;transform:translateX(-50%);filter:drop-shadow(0 1px 2px rgba(0,0,0,.75));transition:left .45s ease}.risk-scale-caption{font-size:10px;line-height:1.4;color:#aebbd0}.risk-level em{font-style:normal;font-size:16px;font-weight:800;color:#f0c66f}
 .brief-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr);gap:12px;margin-top:12px}
 .brief-box h3,.strategy-box h3,.trigger-box h3{margin:0 0 10px;font-size:14px;color:#f3d38b}
 .risk-metric{display:grid;grid-template-columns:minmax(105px,1fr) auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(177,195,220,.16);font-size:12px}
@@ -93,7 +93,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="daily-brief-head"><strong>每日市場風險判讀｜從數據到投資決策</strong><small id="decision-asof">資料計算中…</small></div>
  <div class="daily-state">
   <div class="daily-state-main"><div class="daily-state-label">目前市場狀態</div><h2 id="risk-state">風險訊號分歧，持續觀察</h2><p class="daily-thesis" id="risk-thesis"></p></div>
-  <div class="risk-level"><strong>綜合風險等級（依明確門檻判定）</strong><div class="risk-scale"><span></span><span></span><span></span><span></span></div><em id="risk-grade">計算中</em></div>
+  <div class="risk-level"><strong>綜合風險等級（依明確門檻判定）</strong><div class="risk-scale-wrap"><div class="risk-scale-marker" id="risk-scale-marker" aria-hidden="true" hidden></div><div class="risk-scale" role="img" aria-label="風險區間由低至高"><span>安全</span><span>中性</span><span>偏高</span><span>極端</span></div></div><em id="risk-grade">計算中</em><small class="risk-scale-caption" id="risk-scale-caption">白色三角形：四項指標等權平均百分位</small></div>
  </div>
  <div class="brief-grid">
   <div class="brief-box"><h3>四項關鍵觀察｜近 520 週百分位</h3><div id="risk-metrics"></div></div>
@@ -352,6 +352,10 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜各指標最新觀測 '+(dateList[0]===dateList.at(-1)?dateList.at(-1):(dateList[0]+' 至 '+dateList.at(-1)));
  document.getElementById('risk-state').textContent=state;
  document.getElementById('risk-grade').textContent=grade;
+ const riskPosition=enough?Object.values(m).reduce((sum,item)=>sum+item.value,0)/4:null;
+ const riskMarker=document.getElementById('risk-scale-marker');
+ if(riskPosition!==null&&Number.isFinite(riskPosition)){riskMarker.style.left=Math.max(0,Math.min(100,riskPosition))+'%';riskMarker.hidden=false;riskMarker.setAttribute('aria-label','目前綜合風險百分位 '+riskPosition.toFixed(1));document.getElementById('risk-scale-caption').textContent='目前定位 '+riskPosition.toFixed(1)+' 百分位｜四項指標等權平均';}
+ else{riskMarker.hidden=true;document.getElementById('risk-scale-caption').textContent='資料不足：四項指標需全部具備有效百分位，才顯示定位';}
  const trend='本頁 S&P 500 僅嵌入壓縮後的視覺曲線，沒有可供重算的原始收盤價；因此不虛報近 13 週報酬、均線位置或回檔幅度。';
  const thesis=enough?'VIX '+fmtP(val('VIXCLS'))+'（四週 '+fmtDelta(m.VIXCLS.delta)+'）；NFCI '+fmtP(val('NFCI'))+'、STLFSI4 '+fmtP(val('STLFSI4'))+'。'+(systemic?'兩項整體金融壓力指標均達 80 百分位以上，防禦優先。':vixSpike?'VIX 已升至高檔，但 NFCI／STLFSI4 尚未同時達 80 百分位；不因避險需求單獨清倉，新增資金改採分批與回檔進場。':financialTight?'金融環境與壓力指標已轉緊；停止追價，等待市場回檔與指標降溫再提高曝險。':calm?'三項主要風險指標均低於 60 百分位且近期未明顯升高；可按計畫分批投入，仍不一次押滿。':'目前未達系統性壓力門檻；維持核心部位，新增資金分批部署，等待價格與金融壓力訊號進一步確認。'):'部分壓力指標尚無足夠有效觀測，暫不生成完整風險結論，避免以缺值推測。';
  document.getElementById('risk-thesis').textContent=thesis;
