@@ -8,7 +8,7 @@
 - Base branch：`main`
 - Base HEAD：`d271d1226ba1c19b431118c9967d57d2bce678fa`
 - Branch：`earnings-schema-v2-cutover-2026-11-13`
-- 相對 main：7 個核心實作檔案（含 CI workflow），只新增、不修改現有正式檔案。
+- 相對 main：8 個核心實作檔案（含 CI workflow），另有 1 份切換說明；只新增、不修改現有正式檔案。
 - 本分支不含 simulation branch 的 WR、W46 JSON、preview、Chart 3 或其他工作內容。
 - main 沒有被本次工作修改；沒有 PR、merge、正式 JSON 寫入或排程啟用。
 
