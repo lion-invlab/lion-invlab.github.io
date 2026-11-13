@@ -112,3 +112,6 @@
 
 - [x] 16 deterministic PIT snapshot tests passed, including Draft 2020-12 JSON Schema validation and published_at null/timezone checks (run `43418109555`).
 - [x] Latest raw probe archived: `simulation-lab/runs/ortex-test-probe-43418109555.json` (blob SHA `3f2024ed34a7fdad6bc5b7f023e9a6140667883d`).
+
+- [ ] 正式唯一 writer 尚未接入 append-only snapshots；已核對 task `6af6d10c62448191819f04b976c64cf4` Enabled、每日 04:30 Asia/Taipei、next run 2026-11-14 04:30；現行 prompt 不含兩個 snapshot arrays。
+- [ ] 取得正式 writer prompt／WR／archive retention 變更授權後，才可把 snapshot store 接入唯一 writer；不得另建排程或 writer。
