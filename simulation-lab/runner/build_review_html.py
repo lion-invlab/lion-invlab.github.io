@@ -18,6 +18,21 @@ def set_text(node, value):
     node.clear()
     node.append(str(value))
 
+SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
+
+def validate_summary_title(value):
+    """Require the black h1 slot to contain a concise market-takeaway, not a section label."""
+    title = " ".join(str(value or "").split())
+    if not title:
+        raise ValueError("summary_title is required: black summary h1 must contain yesterday's one-line market takeaway")
+    if title.casefold() in {x.casefold() for x in SUMMARY_HEADING_LABELS}:
+        raise ValueError(f"summary_title is a generic section label ({title!r}); provide a one-line market takeaway")
+    if len(title) < 8 or len(title) > 36:
+        raise ValueError(f"summary_title must be a concise 8–36 character market takeaway; got {len(title)}")
+    if "｜" in title or "\n" in title:
+        raise ValueError("summary_title must be a single line without body separators")
+    return title
+
 def set_market_observation(node, title, value):
     """Render every observation block with the same heading + paragraph DOM."""
     raw = str(value or "").strip()
@@ -442,8 +457,8 @@ def main():
     # Update the approved summary card's text slot without changing wrappers.
     bluf=unique(soup,"#overview > section.grid.two > article.card.bluf","summary")
     summary=unique(bluf, ".key, .bluf-content, p","summary content")
-    if data.get("summary_title"):
-        set_text(unique(bluf, "h1", "summary headline"), data["summary_title"])
+    summary_title = validate_summary_title(data.get("summary_title"))
+    set_text(unique(bluf, "h1", "summary headline"), summary_title)
     if data.get("summary_points"):
         summary.clear()
         for idx,point in enumerate(data["summary_points"]):
@@ -466,8 +481,9 @@ def main():
     if interpretation_label is not None:
         interpretation.append(interpretation_label)
     interpretation.append(data["sentiment"])
-    if data.get("summary_title") and data["summary_title"] not in bluf.get_text(" ", strip=True):
-        raise ValueError("summary headline did not render from current report data")
+    rendered_summary_title = unique(bluf, "h1", "summary headline").get_text(" ", strip=True)
+    if rendered_summary_title != summary_title or rendered_summary_title in SUMMARY_HEADING_LABELS:
+        raise ValueError("summary headline failed semantic DOM verification")
     if data.get("sentiment") and data["sentiment"] not in interpretation.get_text(" ", strip=True):
         raise ValueError("market sentiment interpretation did not render from current report data")
     if "10/27 已核實" in sent.get_text(" ", strip=True):
