@@ -1449,3 +1449,10 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - **is_enabled 仍為 false**。沒有重新啟用，因正式 main 尚未部署 Schema v2／判讀引擎，且 W45/W46 歷史遷移尚未完成。若現在啟用，v2 prompt 會按 fail-closed 規則停止正式寫入，不會沿用舊格式。
 - Cutover checklist 已將「更新 04:35 automation prompt」標為完成；剩餘 main 部署、42 筆遷移、正式 engine runtime 能力驗證、隔日演練及使用者核准後恢復排程。
 - 未修改 automation schedule；未修改 main JSON、正式 WR、首頁、母版或 preview。
+
+
+## 2026-11-13｜HTML assembler adapter integration test
+
+- 將 renderer contract test 改為直接 import `build_review_html.earnings_comparison_status`，不只測底層 helper；驗證 HTML 組裝器本身只讀取 versioned status，legacy status／數字／自由文字 basis 不會觸發 Beat/Miss fallback。
+- GitHub Actions run `43379755113`（job `131734508895`，commit `e50bec24c0ea20291254ea857a7583304e538b79`）completed/success；renderer adapter、engine、CSV exporter 與 main read-only audit steps PASS。
+- 本次為 push smoke test，早報組裝及 Playwright／視覺 QA steps skipped；沒有產生或發布新的 11/13 v2 HTML。
