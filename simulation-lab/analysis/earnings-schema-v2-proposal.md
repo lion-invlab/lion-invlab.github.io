@@ -107,11 +107,21 @@ EPS 代碼至少區分：
 - 舊 v1 記錄可讀取，但其方向性狀態標記為 legacy/unverified；不得冒充 v2 引擎產物。
 - 只有正式寫入流程已整合 v2、測試通過且所有必要週檔完成遷移後，才將 schema_version 升至 2。不可先改版本號再補欄位。
 
-## 6. GitHub workflow 現況與阻塞
+## 6. 04:35 唯一寫入者與排程現況
 
-本次讀取 main `.github/workflows/` 目錄，沒有找到 TAC 行事曆資料庫更新 workflow。現有 `.github/workflows/main.yml` 的工作是 S&P 500 volatility data，排程 cron 為 `10 21 * * 0-4`，執行 `scripts/update_data.py` 與 `scripts/update_tac_watchlist.py`，不是行事曆更新器。
+已透過 Automations 私有查詢確認，WR 所稱 04:35 唯一寫入者不是 GitHub Actions cron，而是 ChatGPT automation：
 
-main WR v5.15 說明 04:35 排程是行事曆週 JSON 唯一寫入者，但該排程的實際程式／workflow 在目前 main repo 中尚未定位。故不能安全地把新欄位直接加到正式 JSON，也不能宣稱 GitHub Actions 已具備自動抓取／寫入新欄位的能力。正式整合前必須先找回該寫入者的實際程式與排程設定，或由使用者核准建立正式更新流程。
+- 任務：`TAC 行事曆資料庫｜每日 04:35 預更新`
+- Automation ID：`6ae6dff2200c81919ba2cee4db78f8a5`
+- 時區／頻率：Asia/Taipei，週一至週五 04:35。
+- 目前狀態：**disabled**；雖然 next_run_time 顯示 2026-11-16 04:35，但不能視為已啟用。
+- 最近一次 run：`3db31e2d-2b68-832f-94ea-c4dda4bbd91e`，scheduled_for 2026-11-13 04:35 台灣時間，實際 04:30:35 啟動、04:52:16 完成。
+- 該次回報 W46 64 筆（16 經濟、48 財報）、更新 12 筆、其中 11 筆已公布實績、1 筆狀態更新；寫入時聲稱 schema 未變。
+- 該 automation prompt 明確要求「schema 未變」驗收，且沒有引用唯一、可執行的財報判讀引擎；因此它目前不會主動完成 Schema v2 欄位遷移，也沒有機制保證每次 Beat／Miss 都依同一套標準化比較條件產生。
+
+main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.github/workflows/main.yml` 是 S&P 500 volatility updater，不是行事曆抓取器。
+
+**正式整合阻塞：** 唯一 writer 已定位，但目前停用，而且 prompt 仍要求 schema 不變。不能在不更新這個唯一 writer 的情況下直接修改 W46 JSON；也不能另建第二個 writer。Schema v2 上線時，必須同步更新這個 automation 的 prompt／執行契約，並在其重新啟用前完成回歸測試。
 
 ## 7. 上線 Gate
 
