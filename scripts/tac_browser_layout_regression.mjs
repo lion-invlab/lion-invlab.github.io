@@ -86,9 +86,11 @@ try {
       }
       const summarySize = getComputedStyle(sectionLabel).fontSize;
       const referenceSize = getComputedStyle(referenceLabel).fontSize;
-      const takeawayText = (takeaway.textContent || "").replace(/\\s+/g, " ").trim();
+      const rawTakeaway = takeaway.textContent || "";
+      const takeawayText = rawTakeaway.trim().replace(/\s+/g, " ");
       const genericLabels = new Set(["總結", "摘要", "市場情緒", "Summary", "Market Summary"]);
       const semanticValid = takeawayText.length >= 8 && takeawayText.length <= 36 &&
+        !genericLabels.has(takeawayText) && !/[｜\r\n]/.test(rawTakeaway);
         !genericLabels.has(takeawayText) && !takeawayText.includes("｜") &&
         !takeawayText.includes("\\n") && !takeawayText.includes("\\r");
       return {
