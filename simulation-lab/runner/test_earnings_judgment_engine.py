@@ -284,6 +284,23 @@ def main():
     migrated_narrative_only = migrate_legacy_record(narrative_basis_only)
     check(migrated_narrative_only.get("eps_actual_basis_code"), None, "mixed narrative eps_basis is not treated as actual basis evidence")
     check(migrated_narrative_only["eps_comparison_status"], "pending", "mixed narrative basis cannot produce directional judgment")
+    mixed_actual_basis = {
+        "eps_actual": 1.40, "eps_estimate": 1.15,
+        "eps_actual_basis": "Non-GAAP diluted EPS US$1.40; GAAP diluted EPS US$1.14 also disclosed.",
+        "eps_estimate_basis": "Non-GAAP diluted EPS consensus (USD/share)",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"), "consensus_source": source("Consensus"),
+    }
+    check(migrate_legacy_record(mixed_actual_basis).get("eps_actual_basis_code"), None, "mixed GAAP and non-GAAP actual basis is not guessed")
+
+    mixed_revenue_basis = {
+        "revenue_actual": 210.8, "revenue_estimate": 214.0,
+        "revenue_actual_basis": "GAAP revenue US$210.8M; Core revenue US$230.9M, company-defined metric.",
+        "revenue_estimate_basis": "GAAP revenue consensus (USD millions)",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"), "revenue_consensus_source": source("Consensus"),
+    }
+    check(migrate_legacy_record(mixed_revenue_basis).get("revenue_actual_basis_code"), None, "GAAP and company-defined core revenue are not collapsed")
 
     currency_only = {
         "eps_actual": 1.2,
