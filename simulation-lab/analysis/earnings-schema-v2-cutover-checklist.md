@@ -82,3 +82,5 @@
 - [ ] Full 45-ticker W46 point-in-time coverage and per-event period matching.
 
 **Decision:** technical connectivity is proven; data eligibility, W46 backfill, production adoption and licensing are not. Do not change SIM-1.2 source priority and do not use TEST responses for W46 judgments.
+
+- [x] Raw TEST response evidence archived and read back: `simulation-lab/runs/ortex-test-probe-43416810131.json` (blob SHA `b082a2ca778521fcdb2b383935d8f4f4c599fd03`); follow-up run `43416810131` success.
