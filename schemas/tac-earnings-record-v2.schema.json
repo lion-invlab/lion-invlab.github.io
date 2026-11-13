@@ -259,13 +259,15 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/consensusAttempt"
-      }
+      },
+      "minItems": 1
     },
     "revenue_consensus_attempts": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/consensusAttempt"
-      }
+      },
+      "minItems": 1
     }
   },
   "required": [
@@ -383,6 +385,14 @@
             "type": "string",
             "pattern": "^https://"
           }
+        },
+        "source_level": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ]
         }
       },
       "additionalProperties": true
@@ -527,7 +537,41 @@
               "currency",
               "basis_code",
               "statistic"
-            ]
+            ],
+            "properties": {
+              "url": {
+                "type": "string",
+                "pattern": "^https://"
+              },
+              "data_as_of": {
+                "type": "string",
+                "minLength": 1
+              },
+              "period": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "type": "number"
+              },
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "basis_code": {
+                "type": "string",
+                "minLength": 1
+              },
+              "statistic": {
+                "type": "string",
+                "enum": [
+                  "primary_consensus",
+                  "mean",
+                  "median",
+                  "other"
+                ]
+              }
+            }
           }
         },
         {
