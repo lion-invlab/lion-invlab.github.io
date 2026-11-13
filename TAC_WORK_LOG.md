@@ -974,3 +974,16 @@
 ### 邊界與下一步
 - 本輪所有寫入均限 simulation/tac-process-lab-2026-11-06；main calendar 僅讀取，沒有修改 main JSON、preview、index、WR、母版或 Manifest；production deploy=forbidden。
 - 下一步逐筆補強 15 筆 EPS 與 32 筆 Revenue basis evidence；另對 12 筆 EPS 與 8 筆 Revenue 缺值項目追查實際／共識數據來源。必須以 issuer release／SEC filing 與原共識來源核實；不可用數字方向、單一 shared currency 或未證實的 GAAP／IFRS 慣例推定。缺證據仍保留 Pending。
+
+
+## 2026-11-13｜明確 currency／period／unit mismatch 優先於 basis 缺漏
+
+- 進一步 code review 發現 evaluate_metric() 原先先檢查 basis code；ONON 的 actual CHF／estimate USD 已明確不相容，但因 basis code 缺漏先被回報 Pending，沒有反映已知的 currency mismatch。
+- 已調整引擎順序：actual／estimate currency、period、Revenue unit 若雙側都有明確值且不一致，先回報 incomparable；其餘 basis code 缺漏仍 Pending，不推定方向。
+- 新增 EPS／Revenue regression tests，驗證 CHF actual／USD estimate 在 basis 缺漏時仍回報 incomparable；單一 shared currency 仍不會被複製到雙側。
+- GitHub Actions run 43393756104，commit 85294cc6e2c81343dbf50659e879f2a8b35b691a，completed/success。deterministic tests、read-only audit、assembly、interaction smoke、visual regression、calendar／44 indicators／news validation 全 PASS。
+- 42 released records：EPS 11 Beat／1 Miss／4 Incomparable／26 Pending；Revenue 2 Beat／1 Incomparable／39 Pending。ONON EPS／Revenue 已由 Pending 改為 Incomparable。84 個 HTML metric cards 合計 65 Pending／13 Beat／1 Miss／5 Incomparable。
+- EPS Incomparable：TDG、WIX、MRCY（basis mismatch）、ONON（currency mismatch）；Revenue Incomparable：ONON（currency mismatch）。
+- 新版 HTML blob SHA c3c6b936d11c747e24234db3d32f9ad322160229；workflow artifact ID 14021234070；run 43393756104。五個 viewport 1440／768／412／390／360 failures=[]。
+- Pending 根因：EPS 14 筆 basis 缺漏、12 筆 actual／consensus 缺值；Revenue 31 筆 basis 缺漏、8 筆 actual／consensus 缺值。後續應逐筆從 issuer／SEC 與原 consensus source 補證據，不能以一般市場慣例推定 basis。
+- 僅 simulation branch 有寫入；main 只讀，無正式部署、無 main calendar／preview／index 寫入。
