@@ -69,3 +69,16 @@
 - 本次 CSV／audit JSON 由唯讀 schema audit step 產生；45 筆 migration preview 沒有任何 EPS／Revenue 方向性 Beat/Miss/Inline。
 - Artifact 內的 2026-11-13 HTML 不屬於本次生成：runner metadata 是 `report_date=self-test-only`，且組裝、瀏覽器、視覺回歸步驟均 skipped。不得用該 HTML 當作本次審核版交付。
 - Main 未被修改，仍為 schema_version=1；v2 尚未 cut over。
+
+
+## ORTEX TEST API feasibility — 2026-11-13
+
+- [x] Actual API request using documented TEST key: AAPL, MSFT, AMC each HTTP 200 with 10 rows; no credits consumed; simulation run `43416557107` success.
+- [x] Confirmed response fields for EPS / Revenue consensus, fiscal period, period end, currency, estimate-as-of and analyst counts.
+- [ ] TEST key W46 PIT coverage: not verified. The service overrode the requested 2026-11-05–11-13 window and returned resolved dates 2026-05-17–2026-10-14 (first row 2026-05-18).
+- [ ] EPS normalized basis mapping to GAAP / Adjusted and Basic / Diluted.
+- [ ] Revenue unit semantics beyond absolute amount in row currency; preserve raw value and currency meanwhile.
+- [ ] Production API access and public display / redistribution rights.
+- [ ] Full 45-ticker W46 point-in-time coverage and per-event period matching.
+
+**Decision:** technical connectivity is proven; data eligibility, W46 backfill, production adoption and licensing are not. Do not change SIM-1.2 source priority and do not use TEST responses for W46 judgments.
