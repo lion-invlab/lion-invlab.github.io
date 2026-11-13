@@ -27,7 +27,7 @@ def check(name, ok, detail=None):
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        for label, viewport in [("desktop", {"width": 1440, "height": 1000}), ("mobile", {"width": 390, "height": 844})]:
+        for label, viewport in [("desktop", {"width": 1440, "height": 1000}), ("mobile", {"width": 390, "height": 844}), ("mobile320", {"width": 320, "height": 740})]:
             page = browser.new_page(viewport=viewport, device_scale_factor=1)
             page.on("console", lambda msg: report["console_errors"].append(msg.text) if msg.type == "error" else None)
             page.on("pageerror", lambda err: report["page_errors"].append(str(err)))
@@ -36,16 +36,21 @@ try:
             check(label + "_http_200", response is not None and response.status == 200, response.status if response else None)
             page.wait_for_function("document.querySelector('#charts') && !document.querySelector('#charts').hidden", timeout=60000)
             check(label + "_four_series_svg", page.locator("#vix-chart svg").count() == 1 and page.locator("#stress-chart svg").count() == 3)
+            check(label + "_four_dual_axis_panels", page.locator("#dual-stress-charts .dual-chart svg").count() == 4)
+            check(label + "_dual_axis_paths", page.locator("#dual-stress-charts .dual-chart svg path[d]").count() == 8)
+            check(label + "_dual_right_axis_labels", page.locator("#dual-stress-charts .dual-chart svg text[data-axis='right']").count() == 5)
             check(label + "_guide_visible", page.locator(".guide").is_visible())
             check(label + "_latest_values_visible", bool(page.locator("#vix-latest").inner_text().strip()) and bool(page.locator("#stress-latest").inner_text().strip()))
             check(label + "_no_empty_paths", page.locator(".chart svg path[d]").count() == 4)
-            if label == "mobile":
-                overflow = page.locator(".chart").evaluate_all("(els) => els.map(e => ({client:e.clientWidth,scroll:e.scrollWidth}))")
-                check("mobile_chart_horizontal_scroll", all(x["scroll"] > x["client"] for x in overflow), overflow)
-                check("mobile_svg_min_width", page.locator(".chart svg").evaluate_all("(els) => els.every(e => e.getBoundingClientRect().width >= 760)"))
-            else:
-                widths = page.locator(".chart").evaluate_all("(els) => els.map(e => ({client:e.clientWidth,scroll:e.scrollWidth}))")
+            if label == "desktop":
+                widths = page.locator(".chart, .dual-chart").evaluate_all("(els) => els.map(e => ({client:e.clientWidth,scroll:e.scrollWidth}))")
                 check("desktop_no_chart_overflow", all(x["scroll"] <= x["client"] + 2 for x in widths), widths)
+            else:
+                overflow = page.locator(".chart, .dual-chart").evaluate_all("(els) => els.map(e => ({client:e.clientWidth,scroll:e.scrollWidth}))")
+                check(label + "_chart_horizontal_scroll", all(x["scroll"] > x["client"] for x in overflow), overflow)
+                check(label + "_svg_min_width", page.locator(".chart svg, .dual-chart svg").evaluate_all("(els) => els.every(e => e.getBoundingClientRect().width >= 760)"))
+                page_widths = page.evaluate("({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth})")
+                check(label + "_no_page_level_horizontal_overflow", page_widths["scroll"] <= page_widths["client"] + 2, page_widths)
             page.screenshot(path=str(OUT / f"chart3-{label}.png"), full_page=True)
             page.close()
         browser.close()
