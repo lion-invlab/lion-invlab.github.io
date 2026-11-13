@@ -14,9 +14,40 @@ def source(name):
     }
 
 
+def consensus_source(metric):
+    return {
+        "name": "LSEG I/B/E/S",
+        "url": f"https://example.com/{metric.lower()}-consensus",
+        "observed_at": "2026-11-13T04:30:00+08:00",
+        "source_level": 1,
+    }
+
+
+def consensus_attempt(metric, period, value, currency, basis_code, unit=None):
+    item = {
+        "source_level": 1,
+        "provider": "LSEG I/B/E/S",
+        "metric": metric.upper(),
+        "url": f"https://example.com/{metric.lower()}-consensus",
+        "observed_at": "2026-11-13T04:30:00+08:00",
+        "data_as_of": "2026-11-12T20:00:00+08:00",
+        "period": period,
+        "value": value,
+        "currency": currency,
+        "basis_code": basis_code,
+        "statistic": "primary_consensus",
+        "outcome": "adopted",
+        "reason": "valid_pre_release_same_basis_consensus",
+    }
+    if unit is not None:
+        item["unit"] = unit
+    return item
+
+
 def base_record():
     return {
         "reporting_period": "Q3 2026",
+        "event_date": "2026-11-13T12:00:00+08:00",
         "eps_actual": 1.20,
         "eps_estimate": 1.00,
         "eps_actual_basis_code": "US_GAAP_DILUTED_EPS",
@@ -26,7 +57,8 @@ def base_record():
         "eps_actual_period": "Q3 2026",
         "eps_estimate_period": "Q3 2026",
         "source": source("Issuer"),
-        "consensus_source": source("Consensus provider"),
+        "consensus_source": consensus_source("eps"),
+        "eps_consensus_attempts": [consensus_attempt("EPS", "Q3 2026", 1.00, "USD", "US_GAAP_DILUTED_EPS")],
         "revenue_actual": 9.2,
         "revenue_estimate": 8.7,
         "revenue_actual_basis_code": "US_GAAP_NET_SALES",
@@ -37,7 +69,8 @@ def base_record():
         "revenue_estimate_period": "Q3 2026",
         "revenue_actual_unit": "USD_BILLION",
         "revenue_estimate_unit": "USD_BILLION",
-        "revenue_consensus_source": source("Revenue consensus provider"),
+        "revenue_consensus_source": consensus_source("revenue"),
+        "revenue_consensus_attempts": [consensus_attempt("REVENUE", "Q3 2026", 8.7, "USD", "US_GAAP_NET_SALES", "USD_BILLION")],
     }
 
 
@@ -128,7 +161,8 @@ def main():
         "reporting_period": "Q3 2026",
         "eps_estimate_period": "Q3 2026",
         "source": source("Issuer"),
-        "consensus_source": source("Consensus"),
+        "consensus_source": consensus_source("eps"),
+        "eps_consensus_attempts": [consensus_attempt("EPS", "Q3 2026", 3.31, "USD", "NON_GAAP_ADJUSTED_DILUTED_EPS")],
         "revenue_actual": 9.026,
         "revenue_estimate": 8.74,
         "revenue_actual_basis": "GAAP net sales (USD billions)",
