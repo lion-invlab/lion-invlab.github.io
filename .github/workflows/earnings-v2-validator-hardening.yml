@@ -7,6 +7,8 @@ on:
     paths:
       - "simulation-lab/runner/validate_earnings_v2.py"
       - "simulation-lab/runner/earnings_judgment.py"
+      - "simulation-lab/runner/test_earnings_judgment_engine.py"
+      - "simulation-lab/runner/test_earnings_comparison_status.py"
       - "schemas/tac-earnings-record-v2.schema.json"
       - ".github/workflows/earnings-v2-validator-hardening.yml"
   workflow_dispatch:
