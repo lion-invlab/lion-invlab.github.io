@@ -100,9 +100,9 @@
 ### 2026-11-13｜main W46 來源查找歷程回填（本次正式資料庫更新）
 
 正式資料來源：`origin/main:data/calendar/weeks/2026-W46.json`  
-更新 commit：`9cc9db41e84eaf94c011513ed753ecb71fee62eb`  
-更新後 JSON blob：`1e491b490c053a7792cf433a111548d84c5e88d5`  
-更新時間：`2026-11-13T18:54:22+08:00`  
+更新 commit：`68223e3aa384ae4d75311a243eb029da3c55b32c`（初次回填 commit：`9cc9db41e84eaf94c011513ed753ecb71fee62eb`）  
+更新後 JSON blob：`ec246b8a765c64b798e348ce8df2760ea89cc5e1`  
+更新時間：`2026-11-13T18:59:36+08:00`（來源 attempt observed_at：`2026-11-13T18:54:22+08:00`；後續僅更正回填稽核敘述）  
 main 正式 WR 回讀為 v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`）；SIM-1.2 為補充來源階梯規則（blob `3a5540aca30aa76087786d2574e4f1a7`）。原 JSON 的 `wr_version=5.19` 已保留於 `last_update_audit.previous_wr_version`，本次 `wr_version` 更新為正式 main WR v5.15。
 
 - [x] 45／45 已公布財報均新增 EPS 來源階梯歷程。
@@ -116,7 +116,7 @@ main 正式 WR 回讀為 v5.15（blob `23b52f27b7afad083bbe28ed86021e04759f198d`
 **每個指標（45 筆）的來源結果：**
 - LSEG I/B/E/S：45 筆 unavailable（本次執行環境無登入／API 權限）。
 - FactSet Estimates：45 筆 unavailable（本次執行環境無登入／API 權限）。
-- Investing.com：33 筆未取得可核實的個股公布前頁；6 筆僅有公布後頁面；6 筆找到公布前估計值，但缺少 EPS／Revenue basis 定義，標記 `missing_required_fields`，不採用。
+- Investing.com：33 筆在本輪批次查找中未取得可核實的個股公布前頁；6 筆僅有公布後頁面；6 筆找到公布前估計值，但缺少 EPS／Revenue basis 定義，標記 `missing_required_fields`，不採用。
 - 因此本次沒有任何一筆新共識被採用；舊估值保留為 legacy，不可當成新制已驗證的共識。
 
 **Normalized 欄位回讀 coverage：**
