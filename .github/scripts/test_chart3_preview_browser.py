@@ -57,7 +57,7 @@ def validate_chart(page, label):
     check(label + "_drawdown_bands_inside_plot", page.locator("#combined-chart svg rect[data-drawdown]").evaluate_all("(els)=>els.length===18&&els.every(e=>{const b=e.getBBox();return b.y===34&&b.height===352&&b.width>=2})"))
     check(label + "_drawdown_labels_inside_plot", page.locator("#combined-chart svg text[data-drawdown-label]").evaluate_all("(els)=>els.length===18&&els.every(e=>{const b=e.getBBox();return b.x>=78&&b.x+b.width<=1018&&b.y>=34&&b.y+b.height<=386})"))
     check(label + "_all_selected_by_default", page.locator("#series-filters input[data-series-toggle]:checked").count() == 5)
-    check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 5)
+    check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 6)
     check(label + "_left_percentile_axis", "金融壓力指標" in page.locator("#combined-chart svg").evaluate("(e)=>e.textContent"))
     check(label + "_legend_five_series", page.locator("#combined-legend .swatch").count() == 5)
     check(label + "_guide_visible", page.locator(".guide").is_visible())
