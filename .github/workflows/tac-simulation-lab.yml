@@ -8,6 +8,7 @@ on:
       - "simulation-lab/**"
       - "!simulation-lab/runs/**"
       - "!simulation-lab/output/**"
+      - "!simulation-lab/analysis/**"
       - ".github/workflows/tac-simulation-lab.yml"
   workflow_dispatch:
     inputs:
