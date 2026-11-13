@@ -66,7 +66,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
   <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
   <div class="series-filters" id="series-filters"></div>
  </div>
- <div class="desc combined-note">壓力指標百分位採逐週擴展歷史樣本計算，只使用該週及以前最近 520 筆有效週頻觀測，不使用未來資料；缺值保留斷線，不插值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div>
+ <div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div>
 </section>
 <div class="notegrid">
  <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
@@ -151,14 +151,12 @@ function weeklyLast(s){
  return [...weeks.values()].sort((a,b)=>a.date.localeCompare(b.date));
 }
 function expandingPercentile(points){
+ // 完整累積 520 筆有效週頻樣本後才開始計算，樣本不足時保留空白。
  const out=[];const history=[];
- for(const p of points){
-  const base=history.slice(-519),n=base.length+1;
-  let lessOrEqual=base.filter(v=>v<=p.value).length+1;
-  out.push({date:p.date,value:lessOrEqual/n*100,raw:p.value});
-  history.push(p.value);
- }
- return out;
+ for(const p of points){if(history.length<519){out.push({date:p.date,value:null,raw:p.value});history.push(p.value);continue;}
+  const base=history.slice(-519),n=base.length+1,lessOrEqual=base.filter(v=>v<=p.value).length+1;
+  out.push({date:p.date,value:lessOrEqual/n*100,raw:p.value});history.push(p.value);
+ }return out;
 }
 const DRAWDOWNS=[
  {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,peakClose:368.95,troughClose:295.46,source:'https://www.sec.gov/Archives/edgar/data/357298/000035729801500016/sp500.html',sourceLabel:'SEC 歸檔：S&P 500 每日收盤價',crossCheckSource:'https://bmogamhub.com/system/files/sp_500_drawdowns_and_recoveries.pdf?file=1&id=118272&type=node',crossCheckSourceLabel:'BMO S&P 500 歷史跌幅表'},
