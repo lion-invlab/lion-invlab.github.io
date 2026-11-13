@@ -58,3 +58,12 @@
 - [ ] 把引擎、Schema、validator 與 writer contract 整合後再提正式 main；目前不得修改 main JSON、啟用 04:35 automation 或宣稱 production ready。
 
 注意：CI success 僅證明此隔離分支上的回歸測試通過，不代表 main 已部署，也不代表 W46 已完成遷移。
+
+### 來源階梯證據補強（同一隔離修正分支）
+- [x] Schema v2 新增 `eps_consensus_attempts[]` 與 `revenue_consensus_attempts[]`，逐筆記錄來源層級、provider、URL、查核時間、資料有效時間、期間、數值、幣別／單位、basis code、統計口徑、分析師樣本數（若有）、採用／跳過結果及原因。
+- [x] 唯一判讀引擎強制檢查 LSEG → FactSet → Investing.com 順序、不得跳級、不得在已採用後繼續搜尋。
+- [x] 採用共識必須有具時區的 `data_as_of`，且早於財報公告時間；selected consensus source 必須與唯一 adopted attempt 一致。
+- [x] EPS 與 Revenue 分開保存來源查找歷程；營收採用紀錄必須提供單位。
+- [x] 增加 First Available Wins、來源 fallback、公告後共識不可採用、缺少來源歷程不得方向性判讀等回歸測試。
+- [x] 最新程式／Schema CI：run `43410484429`，commit `506416ab143f8b161ab8c8076f2d860b2f7a8f9d`，結果 success。
+- [ ] 將新增的 attempts 欄位納入正式 writer 的擷取與 merge/upsert；目前只完成 Schema／engine／測試契約，尚未接入正式 04:35 writer。
