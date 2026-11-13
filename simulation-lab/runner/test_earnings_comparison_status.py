@@ -84,8 +84,8 @@ def test_calendar_projection_migrates_legacy_records():
     assert result["eps_actual_currency"] == "USD"
     assert result["revenue_actual_unit"] == "USD_BILLION"
     assert result["source"]["name"] == "Issuer"
-    assert result["consensus_source"]["name"] == "EPS consensus"
-    assert result["revenue_consensus_source"]["name"] == "Revenue consensus"
+    assert result["consensus_source"]["name"] == "LSEG I/B/E/S"
+    assert result["revenue_consensus_source"]["name"] == "LSEG I/B/E/S"
     assert "judgment_engine_version" not in record, "projection must not mutate calendar source data"
 
     # The legacy calendar's eps_basis describes the reported actual EPS.
