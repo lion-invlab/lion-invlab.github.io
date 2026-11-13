@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, os, subprocess, sys, threading, time
+import json, os, sys, threading
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -24,6 +24,29 @@ def check(name, ok, detail=None):
     if not ok:
         raise AssertionError(f"{name}: {detail}")
 
+def validate_chart(page, label):
+    page.wait_for_function("document.querySelector('#combined-stress-card') && !document.querySelector('#combined-stress-card').hidden", timeout=60000)
+    check(label + "_one_combined_svg", page.locator("#combined-chart svg").count() == 1)
+    check(label + "_five_series_default", page.locator("#combined-chart svg path[data-series]").count() == 5)
+    check(label + "_five_filters", page.locator("#series-filters input[data-series-toggle]").count() == 5)
+    check(label + "_all_selected_by_default", page.locator("#series-filters input[data-series-toggle]:checked").count() == 5)
+    check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 5)
+    check(label + "_left_percentile_axis", "金融壓力指標" in page.locator("#combined-chart svg").inner_text())
+    check(label + "_legend_five_series", page.locator("#combined-legend .swatch").count() == 5)
+    check(label + "_guide_visible", page.locator(".guide").is_visible())
+    # Verify an individual series can be hidden and restored.
+    vix = page.locator('#series-filters input[data-series-toggle="VIXCLS"]')
+    vix.uncheck()
+    check(label + "_single_series_hide", page.locator("#combined-chart svg path[data-series]").count() == 4)
+    vix.check()
+    check(label + "_single_series_restore", page.locator("#combined-chart svg path[data-series]").count() == 5)
+    page.locator("#clear-all-series").click()
+    check(label + "_clear_all", page.locator("#combined-chart svg path[data-series]").count() == 0)
+    check(label + "_clear_all_controls", page.locator("#series-filters input:checked").count() == 0)
+    page.locator("#select-all-series").click()
+    check(label + "_select_all_restore", page.locator("#combined-chart svg path[data-series]").count() == 5)
+    check(label + "_select_all_controls", page.locator("#series-filters input:checked").count() == 5)
+
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
@@ -34,21 +57,13 @@ try:
             page.on("requestfailed", lambda req: report["failed_requests"].append({"url": req.url, "failure": req.failure}))
             response = page.goto("http://127.0.0.1:8765/research/tac-chart3/chart3-preview.html", wait_until="networkidle", timeout=60000)
             check(label + "_http_200", response is not None and response.status == 200, response.status if response else None)
-            page.wait_for_function("document.querySelector('#charts') && !document.querySelector('#charts').hidden", timeout=60000)
-            check(label + "_four_series_svg", page.locator("#vix-chart svg").count() == 1 and page.locator("#stress-chart svg").count() == 3)
-            check(label + "_four_dual_axis_panels", page.locator("#dual-stress-charts .dual-chart svg").count() == 4)
-            check(label + "_dual_axis_paths", page.locator("#dual-stress-charts .dual-chart svg path[d]").count() == 8)
-            check(label + "_dual_right_axis_labels", page.locator("#dual-stress-charts .dual-chart svg text[data-axis='right']").count() == 20)
-            check(label + "_guide_visible", page.locator(".guide").is_visible())
-            check(label + "_latest_values_visible", bool(page.locator("#vix-latest").inner_text().strip()) and bool(page.locator("#stress-latest").inner_text().strip()))
-            check(label + "_no_empty_paths", page.locator(".chart svg path[d]").count() == 4)
+            validate_chart(page, label)
+            chart_box = page.locator("#combined-chart").evaluate("(e)=>({client:e.clientWidth,scroll:e.scrollWidth})")
             if label == "desktop":
-                widths = page.locator(".chart, .dual-chart").evaluate_all("(els) => els.map(e => ({client:e.clientWidth,scroll:e.scrollWidth}))")
-                check("desktop_no_chart_overflow", all(x["scroll"] <= x["client"] + 2 for x in widths), widths)
+                check(label + "_no_chart_overflow", chart_box["scroll"] <= chart_box["client"] + 2, chart_box)
             else:
-                overflow = page.locator(".chart, .dual-chart").evaluate_all("(els) => els.map(e => ({client:e.clientWidth,scroll:e.scrollWidth}))")
-                check(label + "_chart_horizontal_scroll", all(x["scroll"] > x["client"] for x in overflow), overflow)
-                check(label + "_svg_min_width", page.locator(".chart svg, .dual-chart svg").evaluate_all("(els) => els.every(e => e.getBoundingClientRect().width >= 760)"))
+                check(label + "_chart_horizontal_scroll", chart_box["scroll"] > chart_box["client"], chart_box)
+                check(label + "_svg_min_width", page.locator("#combined-chart svg").evaluate("(e)=>e.getBoundingClientRect().width >= 760"))
                 page_widths = page.evaluate("({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth})")
                 check(label + "_no_page_level_horizontal_overflow", page_widths["scroll"] <= page_widths["client"] + 2, page_widths)
             page.screenshot(path=str(OUT / f"chart3-{label}.png"), full_page=True)
@@ -62,10 +77,7 @@ try:
             page.on("request", lambda req: standalone_data_requests.append(req.url) if "chart3_market_stress.json" in req.url else None)
             response = page.goto("http://127.0.0.1:8765/artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html", wait_until="networkidle", timeout=60000)
             check(label + "_http_200", response is not None and response.status == 200, response.status if response else None)
-            page.wait_for_selector("#dual-stress-charts .dual-chart svg", timeout=60000)
-            check(label + "_four_dual_axis_panels", page.locator("#dual-stress-charts .dual-chart svg").count() == 4)
-            check(label + "_dual_axis_paths", page.locator("#dual-stress-charts .dual-chart svg path[d]").count() == 8)
-            check(label + "_right_axis_ticks", page.locator("#dual-stress-charts .dual-chart svg text[data-axis='right']").count() == 20)
+            validate_chart(page, label)
             check(label + "_no_external_json_fetch", not standalone_data_requests, standalone_data_requests)
             if label == "standalone_mobile320":
                 page_widths = page.evaluate("({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth})")
