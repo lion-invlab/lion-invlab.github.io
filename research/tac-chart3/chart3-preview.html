@@ -64,7 +64,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 .daily-state h2{font-size:clamp(21px,3.2vw,29px);line-height:1.25;margin:7px 0 8px;color:#ff5a54;font-weight:850}
 .daily-thesis{font-size:13px;line-height:1.7;color:#e1e8f3;margin:0}
 .risk-level{display:flex;flex-direction:column;justify-content:center;gap:9px}
-.risk-level strong{font-size:12px;color:#d8e0eb}.risk-scale-wrap{position:relative;padding-top:13px}.risk-scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}.risk-scale span{height:27px;border-radius:5px;background:#344054;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;letter-spacing:.01em;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)}.risk-scale span:nth-child(1){background:#21865a}.risk-scale span:nth-child(2){background:#c39a38}.risk-scale span:nth-child(3){background:#d97736}.risk-scale span:nth-child(4){background:#b9363e}.risk-scale-marker{position:absolute;z-index:2;top:0;left:50%;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid #fff;transform:translateX(-50%);filter:drop-shadow(0 1px 2px rgba(0,0,0,.75));transition:left .45s ease}.risk-scale-caption{font-size:10px;line-height:1.4;color:#aebbd0}.risk-level em{font-style:normal;font-size:16px;font-weight:800;color:#f0c66f}
+.risk-level strong{font-size:12px;color:#d8e0eb}.risk-scale-wrap{position:relative;padding-top:13px}.risk-scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}.risk-scale span{height:38px;border-radius:5px;background:#344054;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:#fff;font-size:11px;font-weight:800;letter-spacing:.01em;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)}.risk-scale span small{font-size:9px;font-weight:600;opacity:.9}.risk-scale span:nth-child(1){background:#21865a}.risk-scale span:nth-child(2){background:#c39a38}.risk-scale span:nth-child(3){background:#d97736}.risk-scale span:nth-child(4){background:#b9363e}.risk-scale-marker{position:absolute;z-index:2;top:0;left:50%;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid #fff;transform:translateX(-50%);filter:drop-shadow(0 1px 2px rgba(0,0,0,.75));transition:left .45s ease}.risk-scale-caption{font-size:10px;line-height:1.4;color:#aebbd0}.risk-level em{font-style:normal;font-size:16px;font-weight:800;color:#f0c66f}
 .brief-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr);gap:12px;margin-top:12px}
 .brief-box h3,.strategy-box h3,.trigger-box h3{margin:0 0 10px;font-size:14px;color:#f3d38b}
 .risk-metric{display:grid;grid-template-columns:minmax(105px,1fr) auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(177,195,220,.16);font-size:12px}
@@ -93,7 +93,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="daily-brief-head"><strong>每日市場風險判讀｜從數據到投資決策</strong><small id="decision-asof">資料計算中…</small></div>
  <div class="daily-state">
   <div class="daily-state-main"><div class="daily-state-label">目前市場狀態</div><h2 id="risk-state">風險訊號分歧，持續觀察</h2><p class="daily-thesis" id="risk-thesis"></p></div>
-  <div class="risk-level"><strong>綜合風險等級（依明確門檻判定）</strong><div class="risk-scale-wrap"><div class="risk-scale-marker" id="risk-scale-marker" aria-hidden="true" hidden></div><div class="risk-scale" role="img" aria-label="風險區間由低至高"><span>安全</span><span>中性</span><span>偏高</span><span>極端</span></div></div><em id="risk-grade">計算中</em><small class="risk-scale-caption" id="risk-scale-caption">白色三角形：四項指標等權平均百分位</small></div>
+  <div class="risk-level"><strong>綜合風險等級（依明確門檻判定）</strong><div class="risk-scale-wrap"><div class="risk-scale-marker" id="risk-scale-marker" aria-hidden="true" hidden></div><div class="risk-scale" role="img" aria-label="風險區間由低至高"><span>安全<br><small>0–25</small></span><span>中性<br><small>25–50</small></span><span>偏高<br><small>50–75</small></span><span>極端風險<br><small>75–100</small></span></div></div><em id="risk-grade">計算中</em><small class="risk-scale-caption" id="risk-scale-caption">白色三角形：四項指標等權平均百分位</small></div>
  </div>
  <div class="brief-grid">
   <div class="brief-box"><h3>四項關鍵觀察｜近 520 週百分位</h3><div id="risk-metrics"></div></div>
@@ -268,7 +268,7 @@ const SP500_PRICES=(()=>{const n=SP500_Y36.length/2,a=new Float32Array(n);for(le
 function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END,skipLedger=false){
  const chartEl=document.getElementById('combined-chart');
  const availableWidth=chartEl.clientWidth||Math.max(260,window.innerWidth-48);
- const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<900,H=mobile?430:550,L=mobile?34:48,R=mobile?54:62,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
+ const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<900,H=mobile?430:550,L=mobile?28:38,R=mobile?46:48,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
  const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
  const nPath=SP500_PRICES.length,fullSpan=CHART_END-CHART_START;
  const rawI0=clamp(Math.floor((minX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
