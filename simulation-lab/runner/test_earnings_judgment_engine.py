@@ -108,6 +108,15 @@ def main():
     check(render_status(item, "eps"), "beat", "renderer reads persisted result")
     check("EPS：" in render_summary(item), True, "summary persisted")
     check(audit_record(item), [], "engine output passes audit")
+    corrupted = dict(item)
+    corrupted["eps_surprise"] = 999
+    check(any("eps_stored_surprise_differs_from_engine_result" == x for x in audit_record(corrupted)), True, "audit rejects stale surprise")
+    corrupted = dict(item)
+    corrupted["eps_comparison_reason"] = "manual_override"
+    check(any("eps_stored_reason_differs_from_engine_result" == x for x in audit_record(corrupted)), True, "audit rejects manual reason override")
+    corrupted = dict(item)
+    corrupted["earnings_comparison_summary"] = "EPS：低於預期；營收：優於預期"
+    check(any("stored_summary_differs_from_engine_result" == x for x in audit_record(corrupted)), True, "audit rejects contradictory summary")
 
     legacy_f = {
         "ticker": "FERG",
