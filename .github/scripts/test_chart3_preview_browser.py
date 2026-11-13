@@ -105,6 +105,7 @@ def validate_chart(page, label):
     initial_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", initial)
     initial_axis = page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>[Number(e.dataset.axisMin),Number(e.dataset.axisMax)]")
     page.locator("#timeline-zoom-in").click()
+    page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", initial, timeout=3000)
     zoomed = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
     zoomed_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", zoomed)
     check(label + "_button_zoom_in_reduces_time_span", zoomed_span < initial_span)
@@ -119,7 +120,9 @@ def validate_chart(page, label):
     check(label + "_sp500_visible_points_are_bounded", page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>Number(e.dataset.visiblePoints)>1&&e.getAttribute('d').length>20"))
     check(label + "_sp500_path_uses_plot_clip", page.locator("#combined-chart svg").evaluate("(svg)=>{const p=svg.querySelector('path[data-series=SP500]'),c=svg.querySelector('clipPath#plot-clip');return !!p&&p.getAttribute('clip-path')==='url(#plot-clip)'&&c?.getAttribute('clipPathUnits')==='userSpaceOnUse'&&p.getAttribute('transform')===null}"))
     page.locator("#timeline-zoom-out").click()
+    page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
+    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
     check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-10"], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
@@ -128,6 +131,7 @@ def validate_chart(page, label):
         cy = svg_box["y"] + svg_box["height"] * 0.45
         page.mouse.move(cx, cy)
         page.mouse.wheel(0, -250)
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", reset, timeout=3000)
         wheel_zoom = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
         check(label + "_mouse_wheel_zoom", wheel_span < initial_span, wheel_zoom)
@@ -153,6 +157,8 @@ def validate_chart(page, label):
           el.dispatchEvent(new TouchEvent('touchend',{bubbles:true,cancelable:true,touches:[],targetTouches:[],changedTouches:[c,d]}));
           return [document.querySelector('#combined-svg').dataset.viewStart,document.querySelector('#combined-svg').dataset.viewEnd];
         }""")
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", initial, timeout=3000)
+        pinch = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
         check(label + "_two_finger_pinch_zoom", pinch_span < initial_span, pinch)
         page.locator("#timeline-reset").click()
@@ -168,6 +174,8 @@ def validate_chart(page, label):
           el.dispatchEvent(new TouchEvent('touchend',{bubbles:true,cancelable:true,touches:[],targetTouches:[],changedTouches:[b]}));
           return [document.querySelector('#combined-svg').dataset.viewStart,document.querySelector('#combined-svg').dataset.viewEnd];
         }""")
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", before_pan, timeout=3000)
+        panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         page.locator("#timeline-reset").click()
 
