@@ -38,7 +38,7 @@ try:
             check(label + "_four_series_svg", page.locator("#vix-chart svg").count() == 1 and page.locator("#stress-chart svg").count() == 3)
             check(label + "_four_dual_axis_panels", page.locator("#dual-stress-charts .dual-chart svg").count() == 4)
             check(label + "_dual_axis_paths", page.locator("#dual-stress-charts .dual-chart svg path[d]").count() == 8)
-            check(label + "_dual_right_axis_labels", page.locator("#dual-stress-charts .dual-chart svg text[data-axis='right']").count() == 5)
+            check(label + "_dual_right_axis_labels", page.locator("#dual-stress-charts .dual-chart svg text[data-axis='right']").count() == 20)
             check(label + "_guide_visible", page.locator(".guide").is_visible())
             check(label + "_latest_values_visible", bool(page.locator("#vix-latest").inner_text().strip()) and bool(page.locator("#stress-latest").inner_text().strip()))
             check(label + "_no_empty_paths", page.locator(".chart svg path[d]").count() == 4)
