@@ -130,6 +130,15 @@ def main():
     wrong_selected_level = base_record()
     wrong_selected_level["consensus_source"]["source_level"] = 2
     check(evaluate_metric(wrong_selected_level, "eps")["reason"], "selected_consensus_level_differs_from_attempt_history", "selected source level must match attempt history")
+    all_unavailable = base_record()
+    unavailable_attempts = []
+    for level, provider in ((1, "LSEG I/B/E/S"), (2, "FactSet Estimates"), (3, "Investing.com")):
+        attempt = dict(all_unavailable["eps_consensus_attempts"][0])
+        attempt.update({"source_level": level, "provider": provider, "url": None, "data_as_of": None, "period": None, "value": None, "currency": None, "basis_code": None, "statistic": None, "outcome": "unavailable", "reason": provider + " estimate unavailable"})
+        unavailable_attempts.append(attempt)
+    all_unavailable["eps_consensus_attempts"] = unavailable_attempts
+    all_unavailable["consensus_source"] = None
+    check(evaluate_metric(all_unavailable, "eps")["reason"], "no_usable_consensus_after_all_priority_sources", "three unavailable sources must be recorded before consensus-not-found conclusion")
 
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
