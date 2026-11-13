@@ -2,7 +2,7 @@
 """Deterministic tests for the single-source earnings judgment engine."""
 from earnings_judgment import (
     ENGINE_VERSION, apply_judgment, audit_record, evaluate_metric,
-    render_status, render_summary,
+    migrate_legacy_record, render_status, render_summary,
 )
 
 
@@ -108,6 +108,58 @@ def main():
     check(render_status(item, "eps"), "beat", "renderer reads persisted result")
     check("EPS：" in render_summary(item), True, "summary persisted")
     check(audit_record(item), [], "engine output passes audit")
+
+    legacy_f = {
+        "ticker": "FERG",
+        "eps_actual": 3.43,
+        "eps_estimate": 3.31,
+        "eps_actual_basis": "Adjusted diluted EPS (non-GAAP; USD/share)",
+        "eps_estimate_basis": "Adjusted diluted EPS consensus (USD/share)",
+        "eps_currency": "USD",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"),
+        "consensus_source": source("Consensus"),
+        "revenue_actual": 9.026,
+        "revenue_estimate": 8.74,
+        "revenue_actual_basis": "GAAP net sales (USD billions)",
+        "revenue_estimate_basis": "Net sales/revenue consensus (USD billions)",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "revenue_consensus_source": source("Revenue consensus"),
+    }
+    migrated_f = migrate_legacy_record(legacy_f)
+    check(migrated_f["eps_actual_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "legacy EPS basis mapped")
+    check(migrated_f["eps_comparison_status"], "beat", "legacy EPS comparison migrated only after evidence checks")
+    check(migrated_f["revenue_comparison_status"], "pending", "ambiguous legacy revenue basis remains pending")
+    check("eps_actual_basis_code" not in legacy_f, True, "migration preview does not mutate source")
+
+    legacy_q = {
+        "ticker": "QBTS",
+        "eps_actual": -0.13,
+        "eps_estimate": -0.1002,
+        "eps_actual_basis": "GAAP net loss per share, basic and diluted (USD/share)",
+        "eps_estimate_basis": "GAAP EPS consensus (USD/share)",
+        "eps_currency": "USD",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"),
+        "consensus_source": source("Consensus"),
+    }
+    migrated_q = migrate_legacy_record(legacy_q)
+    check(migrated_q["eps_comparison_status"], "pending", "ambiguous dilution basis does not inherit legacy Miss")
+
+    legacy_onon = {
+        "ticker": "ONON",
+        "eps_actual": 0.48,
+        "eps_estimate": 0.48,
+        "eps_actual_basis": "GAAP diluted EPS (USD/share)",
+        "eps_estimate_basis": "GAAP diluted EPS consensus (USD/share)",
+        "eps_currency": "CHF actual; USD estimate (not comparable)",
+        "reporting_period": "Q3 2026",
+        "source": source("Issuer"),
+        "consensus_source": source("Consensus"),
+    }
+    migrated_onon = migrate_legacy_record(legacy_onon)
+    check(migrated_onon["eps_comparison_status"], "incomparable", "legacy dual-currency field is parsed safely")
 
     legacy = base_record()
     legacy["eps_comparison_status"] = "beat"
