@@ -37,6 +37,25 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Render and validate desktop and mobile previews
         run: python .github/scripts/test_chart3_preview_browser.py
+      - name: Build standalone preview artifact
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          html_path = Path("research/tac-chart3/chart3-preview.html")
+          data_path = Path("data/tac-chart3/chart3_market_stress.json")
+          html = html_path.read_text(encoding="utf-8")
+          data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
+          fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
+          if fetch_call not in html:
+              raise SystemExit("Expected data fetch call not found; standalone preview not generated")
+          html = html.replace(fetch_call, "Promise.resolve(" + data + ")")
+          out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(html, encoding="utf-8")
+          print(f"Standalone preview generated: {out} ({out.stat().st_size} bytes)")
+          PY
       - name: Upload screenshots and QA report
         if: always()
         uses: actions/upload-artifact@v4
