@@ -40,3 +40,21 @@
 - 不得把 legacy/unversioned Beat／Miss 當成新規則已驗證。
 - 不得覆蓋原 11/13 審核版或正式首頁。
 - 不得把隔離測試 PASS 說成 production ready。
+
+## 2026-11-13｜Validator 與舊資料遷移硬化（隔離修正分支）
+
+修正分支：`simulation/earnings-v2-validator-hardening-2026-11-13`
+
+- [x] Validator 改為 fail-closed：0 筆 v2、空資料集、部分 v2／部分 legacy 均不得回報 rollout valid。
+- [x] 增加已公布財報筆數及可選 expected count 核對。
+- [x] Validator 重新計算並核對 status、reason、surprise、surprise_pct、summary，防止只改 status 或只留下舊計算欄位。
+- [x] 舊資料遷移不再把單一 `reporting_period` 複製到 estimate period；它只可作為 issuer actual period 的保守來源。
+- [x] 移除根據自由文字 notes 推定 estimate basis code 的路徑；共識口徑必須由 estimate basis 欄位明確提供。
+- [x] 新增期間缺漏、自由文字口徑推定、零筆 v2、混合版本、錯誤 surprise／reason／summary 回歸測試。
+- [x] 新增隔離 GitHub Actions workflow，於修正分支執行 engine、calendar projection、renderer 及 validator 測試。
+- [x] 最新測試 run：`43410005264`，commit `7221da801b72665482655490fb5e7a9c1c2362d2`，結果 success。
+- [ ] 將共識來源證據欄位逐項對照 SIM-1.2 F3-補充2，補足來源級別、資料有效時間、指標／期間／統計口徑及採用／跳過原因。
+- [ ] 對 W45、W46 做逐筆 v2 遷移預演；每筆 EPS 與營收分開列出缺漏及可否比較。
+- [ ] 把引擎、Schema、validator 與 writer contract 整合後再提正式 main；目前不得修改 main JSON、啟用 04:35 automation 或宣稱 production ready。
+
+注意：CI success 僅證明此隔離分支上的回歸測試通過，不代表 main 已部署，也不代表 W46 已完成遷移。
