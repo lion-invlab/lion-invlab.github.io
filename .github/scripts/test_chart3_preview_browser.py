@@ -113,7 +113,7 @@ def validate_chart(page, label):
     check(label + "_dynamic_right_axis_tracks_zoom_range", zoomed_axis != initial_axis and zoomed_axis[1] > zoomed_axis[0], {"initial":initial_axis,"zoomed":zoomed_axis})
     price_meta = page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>({min:Number(e.dataset.priceMin),max:Number(e.dataset.priceMax),axisMin:Number(e.dataset.axisMin),axisMax:Number(e.dataset.axisMax),transform:e.getAttribute('transform')})")
     check(label + "_visible_sp500_range_inside_dynamic_axis", price_meta["axisMin"] <= price_meta["min"] and price_meta["axisMax"] >= price_meta["max"], price_meta)
-    check(label + "_sp500_vertical_scale_is_dynamic", Number(price_meta.transform.split(" ")[3]) != 1, price_meta.transform)
+    check(label + "_sp500_vertical_scale_is_dynamic", Number(price_meta["transform"].split(" ")[3]) != 1, price_meta["transform"])
     page.locator("#timeline-zoom-out").click()
     page.locator("#timeline-reset").click()
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
