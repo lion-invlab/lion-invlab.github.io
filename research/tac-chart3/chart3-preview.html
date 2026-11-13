@@ -44,6 +44,14 @@ h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-he
 footer{margin-top:18px;color:#778196;font-size:11px;line-height:1.7}
 svg text{font-family:inherit;fill:#718096;font-size:11px}
 @media(max-width:700px){main{padding:14px 10px 34px}header{padding:22px 18px;border-radius:14px}.card{padding:14px 10px}.notegrid{grid-template-columns:1fr}.guide{padding:14px 12px}.guide-grid{grid-template-columns:1fr}.latest{text-align:left}.chart svg{min-width:760px}.combined-chart svg{min-width:0}.combined-chart:after{display:none}.dual-chart svg{min-width:760px}.dual-chart:after{display:block;content:'手機可左右滑動查看雙軸走勢';font-size:11px;color:var(--muted);padding:4px 0}.chart:not(.combined-chart):after{display:block;content:'手機可左右滑動查看完整時間軸';font-size:11px;color:var(--muted);padding:4px 0}}
+.method-details{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.method-details>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:pointer;list-style:none;font-size:12px;font-weight:700;color:#33415b}
+.method-details>summary::-webkit-details-marker{display:none}
+.method-details>summary:after{content:'＋';font-size:16px;color:var(--muted)}
+.method-details[open]>summary:after{content:'－'}
+.method-details>summary span{font-size:11px;font-weight:500;color:var(--muted);white-space:nowrap}
+.method-details-content{padding:0 12px 10px;border-top:1px solid var(--line)}
+.method-details-content .combined-note{margin-top:8px;line-height:1.65}
 </style>
 </head>
 <body>
@@ -66,6 +74,11 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="timeline-controls" aria-label="時間軸操作"><button type="button" id="timeline-zoom-in">＋ 放大</button><button type="button" id="timeline-zoom-out">－ 縮小</button><button type="button" id="timeline-reset">重設全期間</button><span class="range" id="timeline-range">1993–2026</span></div>
  <div class="timeline-hint">電腦：滑鼠滾輪縮放、按住左鍵拖曳平移。手機：雙指縮放、單指左右拖曳；上下滑動頁面仍可正常使用。</div>
  <div class="chart combined-chart" id="combined-chart"></div>
+ <div class="filter-panel">
+  <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
+  <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
+  <div class="series-filters" id="series-filters"></div>
+ </div>
  <details class="history-info-details" id="history-info-details">
   <summary>歷史資料說明與早期回檔註記 <span>點此展開</span></summary>
   <div class="history-info-content">
@@ -75,12 +88,10 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
   </div>
  </details>
  <div class="event-filter-panel"><div class="event-filter-heading"><strong>歷史事件／市場回檔篩選</strong><span>預設全選；可分別控制事件區帶與回檔標記</span></div><div class="event-filter-actions"><button type="button" id="select-all-history">全選</button><button type="button" id="clear-all-history">全部取消</button></div><div class="event-key" id="event-drawdown-key" aria-label="可勾選的歷史重大事件與標普500回檔清單"></div></div>
- <div class="filter-panel">
-  <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
-  <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
-  <div class="series-filters" id="series-filters"></div>
- </div>
- <div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div>
+ <details class="method-details" id="method-details">
+  <summary>資料計算與觀測方法 <span>點此展開</span></summary>
+  <div class="method-details-content"><div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div></div>
+ </details>
 </section>
 <div class="notegrid">
  <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
