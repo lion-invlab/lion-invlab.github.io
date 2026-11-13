@@ -7,8 +7,11 @@ on:
     paths:
       - "simulation-lab/runner/validate_earnings_v2.py"
       - "simulation-lab/runner/earnings_judgment.py"
+      - "simulation-lab/runner/calendar_source_guard.py"
+      - "simulation-lab/runner/audit_earnings_schema.py"
       - "simulation-lab/runner/test_earnings_judgment_engine.py"
       - "simulation-lab/runner/test_earnings_comparison_status.py"
+      - "simulation-lab/runner/test_earnings_schema_audit.py"
       - "schemas/tac-earnings-record-v2.schema.json"
       - ".github/workflows/earnings-v2-validator-hardening.yml"
   workflow_dispatch:
@@ -40,6 +43,9 @@ jobs:
 
       - name: Run calendar projection and renderer consistency regression tests
         run: python simulation-lab/runner/test_earnings_comparison_status.py
+
+      - name: Run migration audit CSV regression tests
+        run: python simulation-lab/runner/test_earnings_schema_audit.py
 
       - name: Run validator fail-closed regression tests
         run: python simulation-lab/runner/validate_earnings_v2.py --self-test
