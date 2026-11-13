@@ -65,7 +65,7 @@ jobs:
         run: |
           set -euo pipefail
           REPORT_DATE="$(TZ=Asia/Taipei date +%F)"
-          python simulation-lab/runner/audit_earnings_schema.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-schema-audit.json
+          python simulation-lab/runner/audit_earnings_schema.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-schema-audit.json --migration-csv simulation-lab/output/earnings-migration-preview.csv
 
       - name: Resolve report date, fixture, weekday mother and SHA
         if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
