@@ -7,10 +7,11 @@ import json
 import os
 import re
 import subprocess
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
+from zoneinfo import ZoneInfo
 from pathlib import PurePosixPath
 
-from earnings_judgment import ENGINE_VERSION, render_summary
+from earnings_judgment import ENGINE_VERSION, migrate_legacy_record, render_summary
 
 REPOSITORY = "lion-invlab/lion-invlab.github.io"
 SIMULATION_BRANCH = "simulation/tac-process-lab-2026-11-06"
@@ -154,18 +155,42 @@ def _economic_records(payload: dict) -> list[dict]:
     return output
 
 
-def _earnings_records(payload: dict) -> list[dict]:
+def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dict]:
+    """Project calendar earnings into versioned v2 judgment records in memory.
+
+    The calendar JSON remains read-only. Legacy records are normalized by the
+    single judgment engine before the HTML renderer sees them; old persisted
+    Beat/Miss labels are retained only as legacy metadata, never trusted.
+    """
+    if observed_at is None:
+        observed_at = datetime.now(ZoneInfo("Asia/Taipei")).isoformat(timespec="seconds")
+
     output = []
     for item in payload["events"]["earnings"]:
-        source_url, source_name = _source_fields(item)
-        currency = item.get("eps_currency")
-        revenue_currency = item.get("revenue_currency")
+        # Display formatting may use a shared legacy currency label. This is
+        # deliberately NOT passed to the judgment engine as comparison proof.
+        def display_currency_pair(value):
+            if not isinstance(value, str):
+                return None, None
+            match = re.fullmatch(
+                r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \\(not comparable\\)",
+                value,
+            )
+            if match:
+                return match.group(1), match.group(2)
+            if re.fullmatch(r"[A-Z]{3}", value):
+                return value, value
+            return None, None
+
+        eps_actual_currency, eps_estimate_currency = display_currency_pair(item.get("eps_currency"))
+        revenue_actual_currency, revenue_estimate_currency = display_currency_pair(item.get("revenue_currency"))
         revenue_unit = item.get("revenue_unit")
-        def currency_pair(value):
-            match = re.fullmatch(r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \(not comparable\)", value or "")
-            return (match.group(1), match.group(2)) if match else (value, value)
-        eps_actual_currency, eps_estimate_currency = currency_pair(currency)
-        revenue_actual_currency, revenue_estimate_currency = currency_pair(revenue_currency)
+
+        # This is an in-memory projection only. migrate_legacy_record applies
+        # the v2 evidence gates and will return Pending/Incomparable whenever
+        # actual/estimate basis, currency, period, units or sources are unclear.
+        judged = migrate_legacy_record(item, observed_at=observed_at)
+        source = judged.get("source") if isinstance(judged.get("source"), dict) else {}
         output.append({
             "id": item.get("id"),
             "date": item.get("event_date"),
@@ -178,38 +203,67 @@ def _earnings_records(payload: dict) -> list[dict]:
             "time_type": item.get("time_type"),
             "time_known": item.get("time_known", False),
             "status": "released" if item.get("status") in ("released", "published", "completed") else item.get("status"),
-            "eps_actual": item.get("eps_actual"),
-            "eps_estimate": item.get("eps_estimate"),
+            "reporting_period": item.get("reporting_period"),
+            "eps_actual": judged.get("eps_actual"),
+            "eps_estimate": judged.get("eps_estimate"),
             "eps_actual_display": _money_display(item.get("eps_actual"), eps_actual_currency),
             "eps_estimate_display": _money_display(item.get("eps_estimate"), eps_estimate_currency),
             "eps_basis": item.get("eps_basis"),
             "eps_actual_basis": item.get("eps_actual_basis"),
             "eps_estimate_basis": item.get("eps_estimate_basis"),
-            "eps_comparison_status": item.get("eps_comparison_status"),
-            "revenue_actual": item.get("revenue_actual"),
-            "revenue_estimate": item.get("revenue_estimate"),
+            "eps_actual_basis_code": judged.get("eps_actual_basis_code"),
+            "eps_estimate_basis_code": judged.get("eps_estimate_basis_code"),
+            "eps_actual_currency": judged.get("eps_actual_currency"),
+            "eps_estimate_currency": judged.get("eps_estimate_currency"),
+            "eps_actual_period": judged.get("eps_actual_period"),
+            "eps_estimate_period": judged.get("eps_estimate_period"),
+            "eps_surprise": judged.get("eps_surprise"),
+            "eps_surprise_pct": judged.get("eps_surprise_pct"),
+            "eps_comparison_status": judged.get("eps_comparison_status"),
+            "eps_comparison_reason": judged.get("eps_comparison_reason"),
+            "eps_consensus_conflict": judged.get("eps_consensus_conflict", False),
+            "eps_inline_tolerance_abs": judged.get("eps_inline_tolerance_abs"),
+            "revenue_actual": judged.get("revenue_actual"),
+            "revenue_estimate": judged.get("revenue_estimate"),
             "revenue_actual_display": _money_display(item.get("revenue_actual"), revenue_actual_currency, revenue_unit, 3),
             "revenue_estimate_display": _money_display(item.get("revenue_estimate"), revenue_estimate_currency, revenue_unit, 3),
             "revenue_actual_basis": item.get("revenue_actual_basis"),
             "revenue_estimate_basis": item.get("revenue_estimate_basis"),
-            "revenue_comparison_status": item.get("revenue_comparison_status"),
-            "judgment": render_summary(item) + (
-                "；" + item["earnings_commentary"]
-                if item.get("judgment_engine_version") == ENGINE_VERSION
-                and isinstance(item.get("earnings_commentary"), str)
-                and item["earnings_commentary"].strip()
+            "revenue_actual_basis_code": judged.get("revenue_actual_basis_code"),
+            "revenue_estimate_basis_code": judged.get("revenue_estimate_basis_code"),
+            "revenue_actual_currency": judged.get("revenue_actual_currency"),
+            "revenue_estimate_currency": judged.get("revenue_estimate_currency"),
+            "revenue_actual_unit": judged.get("revenue_actual_unit"),
+            "revenue_estimate_unit": judged.get("revenue_estimate_unit"),
+            "revenue_actual_period": judged.get("revenue_actual_period"),
+            "revenue_estimate_period": judged.get("revenue_estimate_period"),
+            "revenue_surprise": judged.get("revenue_surprise"),
+            "revenue_surprise_pct": judged.get("revenue_surprise_pct"),
+            "revenue_comparison_status": judged.get("revenue_comparison_status"),
+            "revenue_comparison_reason": judged.get("revenue_comparison_reason"),
+            "revenue_consensus_conflict": judged.get("revenue_consensus_conflict", False),
+            "revenue_inline_tolerance_abs": judged.get("revenue_inline_tolerance_abs"),
+            "source": judged.get("source"),
+            "consensus_source": judged.get("consensus_source"),
+            "revenue_consensus_source": judged.get("revenue_consensus_source"),
+            "source_url": source.get("url"),
+            "source_name": source.get("name"),
+            "judgment_engine_version": judged.get("judgment_engine_version"),
+            "judgment_timestamp": judged.get("judgment_timestamp"),
+            "earnings_comparison_summary": judged.get("earnings_comparison_summary"),
+            "earnings_commentary": judged.get("earnings_commentary"),
+            "judgment": render_summary(judged) + (
+                "；" + judged["earnings_commentary"]
+                if isinstance(judged.get("earnings_commentary"), str)
+                and judged["earnings_commentary"].strip()
                 else ""
             ),
-            "judgment_engine_version": item.get("judgment_engine_version"),
             "price_reaction": item.get("stock_price_reaction"),
             "price_reaction_source": item.get("price_reaction_source"),
             "us_exchange_listed": item.get("us_exchange_listed", False),
             "us_listing_ticker": item.get("us_listing_ticker"),
-            "source_url": source_url,
-            "source_name": source_name,
         })
     return output
-
 
 def project_calendar_data(bundle: dict) -> dict:
     current = bundle["current"]["payload"]
