@@ -83,6 +83,8 @@ def test_calendar_projection_migrates_legacy_records():
     assert result["revenue_comparison_status"] == "beat"
     assert result["eps_actual_currency"] == "USD"
     assert result["revenue_actual_unit"] == "USD_BILLION"
+    assert result["revenue_actual_display"] == "US$9.200B"
+    assert result["revenue_estimate_display"] == "US$8.700B"
     assert result["source"]["name"] == "Issuer"
     assert result["consensus_source"]["name"] == "LSEG I/B/E/S"
     assert result["revenue_consensus_source"]["name"] == "LSEG I/B/E/S"
