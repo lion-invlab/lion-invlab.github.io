@@ -107,7 +107,7 @@ def validate_chart(page, label):
     check(label + "_right_axis_ticks_inside_svg", page.locator("#combined-chart svg").evaluate("(svg)=>{const r=svg.getBoundingClientRect(),ts=[...svg.querySelectorAll('text[data-axis=right]')].map(e=>e.getBoundingClientRect());return ts.every(t=>t.left>=r.left-1&&t.right<=r.right+1)}"))
     check(label + "_left_percentile_axis", any(term in page.locator("#combined-chart svg").evaluate("(e)=>e.textContent") for term in ["金融壓力指標","壓力指標百分位"]))
     check(label + "_legend_five_series", page.locator("#combined-legend .swatch").count() == 5)
-    check(label + "_guide_visible", page.locator(".guide").is_visible())
+    check(label + "_percentile_method_visible", page.locator("#percentile-reading").is_visible())
     # Verify an individual series can be hidden and restored.
     vix = page.locator('#series-filters input[data-series-toggle="VIXCLS"]')
     vix.uncheck()
