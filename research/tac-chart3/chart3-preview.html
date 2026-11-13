@@ -22,7 +22,7 @@ h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-he
 .latest{font-size:12px;color:var(--muted);text-align:right}
 .chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.chart svg{display:block;width:100%;height:auto;overflow:visible}
 .mini-series{padding:10px 0 12px;border-bottom:1px solid var(--line)}.mini-series:last-child{border-bottom:0}.dual-chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.dual-chart svg{display:block;width:100%;height:auto;min-width:0}
-.combined-chart{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}.combined-chart svg{display:block;width:100%;min-width:760px;height:auto}
+.combined-chart{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}.combined-chart svg{display:block;width:100%;min-width:760px;height:auto}.pre-series-note{margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fafbfc;color:#526077;font-size:12px;line-height:1.6}.pre-series-note strong{color:#29364b}.pre-series-note a{color:#315f9d;text-decoration:underline}
 .filter-panel{border-top:1px solid var(--line);margin-top:12px;padding-top:14px}.filter-heading{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.filter-heading span{font-size:12px;color:var(--muted)}
 .filter-actions{display:flex;gap:8px;margin:10px 0}.filter-actions button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:6px 12px;color:#33415b;font-size:12px;cursor:pointer}
 .series-filters{display:flex;gap:9px;flex-wrap:wrap}.series-toggle{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:#fff;font-size:13px;cursor:pointer}.series-toggle input{width:16px;height:16px;accent-color:#315f9d}.series-toggle .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -57,6 +57,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  </div>
  <div class="legend" id="combined-legend"></div>
  <div class="chart combined-chart" id="combined-chart"></div>
+ <div class="pre-series-note" id="pre-series-history-note" role="note" aria-live="polite" hidden></div>
  <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
  <div class="desc" style="margin-top:14px"><strong>歷史重大事件與市場回檔</strong>｜依日期整合重大事件與 S&P 500 回檔；兩者各自保留原始期間。同期日期重疊僅作背景參照，不代表因果；每筆回檔只列一次。</div>
  <div class="event-filter-panel"><div class="event-filter-heading"><strong>歷史事件／市場回檔篩選</strong><span>預設全選；可分別控制事件區帶與回檔標記</span></div><div class="event-filter-actions"><button type="button" id="select-all-history">全選</button><button type="button" id="clear-all-history">全部取消</button></div><div class="event-key" id="event-drawdown-key" aria-label="可勾選的歷史重大事件與標普500回檔清單"></div></div>
@@ -82,7 +83,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  </div>
  <div class="guide-caution">注意：上述為方向性判讀框架，不是機械式買賣訊號。不同指數的統計口徑與發布頻率不同，不應直接比較絕對值。</div>
 </section>
-<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 週頻走勢：FJA Yahoo-derived 長歷史價格（2016-11-10 以前）與 FRED SP500（2016-11-11 起；S&P Dow Jones Indices LLC，retrieved from FRED）；圖中僅嵌入螢幕解析度的視覺曲線，不公開每日／週頻原始價格檔。Dataquest vs FRED：1,467 日重疊，7 日差異 >0.02 點（0.4772%），最大差異 5.2898 點；差異日期為 2018-11-29、2019-08-12、2020-05-11、2020-10-02、2020-10-05、2021-08-11、2022-09-12，均保留稽核紀錄，重疊日採 FRED 官方值覆蓋。FJA vs FRED 為另一組比較：783 日重疊、2 日差異 >0.02 點，不與前述 7 日混為一談。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
+<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 週頻走勢：FJA Yahoo-derived 長歷史價格（圖中價格線起點 1993-12-31；2016-11-10 以前）與 FRED SP500（2016-11-11 起；S&P Dow Jones Indices LLC，retrieved from FRED）；圖中僅嵌入螢幕解析度的視覺曲線，不公開每日／週頻原始價格檔。Dataquest vs FRED：1,467 日重疊，7 日差異 >0.02 點（0.4772%），最大差異 5.2898 點；差異日期為 2018-11-29、2019-08-12、2020-05-11、2020-10-02、2020-10-05、2021-08-11、2022-09-12，均保留稽核紀錄，重疊日採 FRED 官方值覆蓋。FJA vs FRED 為另一組比較：783 日重疊、2 日差異 >0.02 點，不與前述 7 日混為一談。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
 </main>
 <script>
 const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
@@ -160,7 +161,7 @@ function expandingPercentile(points){
  return out;
 }
 const DRAWDOWNS=[
- {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
+ {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,peakClose:368.95,troughClose:295.46,source:'https://www.sec.gov/Archives/edgar/data/357298/000035729801500016/sp500.html',sourceLabel:'SEC 歸檔：S&P 500 每日收盤價',crossCheckSource:'https://bmogamhub.com/system/files/sp_500_drawdowns_and_recoveries.pdf?file=1&id=118272&type=node',crossCheckSourceLabel:'BMO S&P 500 歷史跌幅表'},
  {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.4,basis:'SPY close proxy; not exact S&P 500 index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
  {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-10.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
  {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.3,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
@@ -211,8 +212,9 @@ function drawCombined(data,visible,eventVisible,drawdownVisible){
  for(let idx=0;idx<sortedDD.length;idx++){
   const dd=sortedDD[idx];
   const x1=x(Date.parse(dd.peak+'T00:00:00Z')),x2=x(Date.parse(dd.trough+'T23:59:59Z'));
+  const beforeSeries=Date.parse(dd.trough+'T23:59:59Z')<minX;
   const left=Math.max(L,x1),right=Math.min(W-R,x2),mid=(left+right)/2;
-  parts.push('<rect data-drawdown="'+dd.id+'" display="'+(drawdownVisible[dd.id]?"":"none")+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,right-left).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'（* SPY代理值）':'')+'｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
+  parts.push('<rect data-drawdown="'+dd.id+'" data-drawdown-before-series="'+(beforeSeries?'true':'false')+'" display="'+(drawdownVisible[dd.id]?"":"none")+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,right-left).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'（* SPY代理值）':'')+(beforeSeries?'（早於主圖價格線起點；左界細線僅為超出範圍提示）':'')+'｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
   const lane=idx%2;
   const labelX=L+(idx+.5)*iw/sortedDD.length;
   const labelY=H-B-(lane===0?10:28);
@@ -236,6 +238,10 @@ function drawCombined(data,visible,eventVisible,drawdownVisible){
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
+ const preSeriesItems=DRAWDOWNS.filter(dd=>drawdownVisible[dd.id]&&Date.parse(dd.trough+'T23:59:59Z')<minX);
+ const preSeriesNote=document.getElementById('pre-series-history-note');
+ preSeriesNote.hidden=preSeriesItems.length===0;
+ preSeriesNote.innerHTML=preSeriesItems.map(dd=>'<strong>'+dd.peak+' 至 '+dd.trough+'｜S&P 500 收盤回檔 '+dd.pct.toFixed(1)+'%</strong>（峰值 '+fmt(dd.peakClose)+' → 谷底 '+fmt(dd.troughClose)+'）。此期間早於主圖價格線起點（1993-12-31）；圖表左界細線僅提示資料在顯示範圍外，不會把回檔日期移入主圖，也不補畫價格線。收盤價核對：<a href="'+dd.source+'" target="_blank" rel="noopener">SEC 歷史收盤價表</a> · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">BMO 跌幅交叉查核</a>。').join('');
  // 將事件與回檔作為同一時間序列清單中的兩種獨立紀錄。
  // 日期重疊只作背景參照，不代表事件造成回檔；每筆回檔只呈現一次。
  const ledgerRows=[
@@ -243,7 +249,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible){
   ...DRAWDOWNS.map(dd=>{
    const overlaps=MAJOR_EVENTS.filter(ev=>dd.peak<=ev.end&&dd.trough>=ev.start);
    const context=overlaps.length?'同期事件（日期重疊，非因果判定）：'+overlaps.map(ev=>ev.name).join('、'):'尚無明確事件對應';
-   return {kind:'drawdown',date:dd.peak,html:'<label class="event-item" data-drawdown-entry="'+dd.id+'"><input type="checkbox" data-history-drawdown="'+dd.id+'" '+(drawdownVisible[dd.id]?"checked":"")+' aria-label="顯示 S&P 500 回檔 '+dd.pct.toFixed(1)+'%"><span class="event-item-content"><strong>S&P 500 市場回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong><br>回檔期間：'+dd.peak+' → '+dd.trough+'<br><span>'+context+'</span>'+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></span></label>'};
+   return {kind:'drawdown',date:dd.peak,html:'<label class="event-item" data-drawdown-entry="'+dd.id+'"><input type="checkbox" data-history-drawdown="'+dd.id+'" '+(drawdownVisible[dd.id]?"checked":"")+' aria-label="顯示 S&P 500 回檔 '+dd.pct.toFixed(1)+'%"><span class="event-item-content"><strong>S&P 500 市場回檔 '+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'</strong><br>回檔期間：'+dd.peak+' → '+dd.trough+'<br><span>'+context+'</span>'+(dd.basis?'<br><span>＊SPY ETF 收盤價代理值（非 S&P 500 指數原始序列）</span>':'')+'<br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a>'+(dd.crossCheckSource?' · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">'+dd.crossCheckSourceLabel+'</a>':'')+'</span></label>'};
   })
  ];
  ledgerRows.sort((a,b)=>a.date.localeCompare(b.date)||(a.kind==='event'?-1:1));
