@@ -21,7 +21,12 @@ h1{font-size:clamp(24px,4vw,36px);margin:9px 0 8px;letter-spacing:.02em}
 h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-height:1.5}
 .latest{font-size:12px;color:var(--muted);text-align:right}
 .chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.chart svg{display:block;width:100%;height:auto;overflow:visible}
-.mini-series{padding:10px 0 12px;border-bottom:1px solid var(--line)}.mini-series:last-child{border-bottom:0}.dual-chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.dual-chart svg{display:block;width:100%;height:auto;min-width:0}.dual-note{margin-top:12px;line-height:1.6}.mini-title{font-size:13px;font-weight:700;color:#33415b;margin:0 0 2px 2px}
+.mini-series{padding:10px 0 12px;border-bottom:1px solid var(--line)}.mini-series:last-child{border-bottom:0}.dual-chart{width:100%;min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden;margin-top:8px;-webkit-overflow-scrolling:touch}.dual-chart svg{display:block;width:100%;height:auto;min-width:0}
+.combined-chart{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}.combined-chart svg{display:block;width:100%;min-width:760px;height:auto}
+.filter-panel{border-top:1px solid var(--line);margin-top:12px;padding-top:14px}.filter-heading{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.filter-heading span{font-size:12px;color:var(--muted)}
+.filter-actions{display:flex;gap:8px;margin:10px 0}.filter-actions button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:6px 12px;color:#33415b;font-size:12px;cursor:pointer}
+.series-filters{display:flex;gap:9px;flex-wrap:wrap}.series-toggle{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:#fff;font-size:13px;cursor:pointer}.series-toggle input{width:16px;height:16px;accent-color:#315f9d}.series-toggle .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.combined-note{margin-top:12px;line-height:1.65}.dual-note{margin-top:12px;line-height:1.6}.mini-title{font-size:13px;font-weight:700;color:#33415b;margin:0 0 2px 2px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 2px;font-size:12px;color:#4f5b70}
 .legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:3px;border-radius:4px;display:inline-block}
 .notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
@@ -42,25 +47,22 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="sub">以市場隱含波動率、金融條件與金融壓力指標，觀察風險偏好變化及金融環境收緊程度。</div>
  <div class="meta"><span class="pill">FRED / ALFRED</span><span class="pill">歷史觀測＋修訂版本</span><span class="pill">不補值・不前值填補</span><span class="pill" id="asof">資料讀取中…</span></div>
 </header>
-<div id="status" class="status">正在載入已驗證的圖表資料…</div>
-<div id="charts" class="grid" hidden>
- <section class="card">
-  <div class="card-head"><div><h2>01｜市場隱含波動率</h2><div class="desc">CBOE VIX｜以選擇權價格反映市場對未來約 30 日波動的預期</div></div><div class="latest" id="vix-latest"></div></div>
-  <div class="legend"><span><i class="swatch" style="background:#c84b4b"></i>VIXCLS</span></div>
-  <div class="chart" id="vix-chart"></div>
- </section>
- <section class="card">
-  <div class="card-head"><div><h2>02｜金融條件與壓力</h2><div class="desc">三項週頻指標分開呈現，各自使用獨立縱軸；共用時間範圍，零軸代表各指標自身的長期平均基準。</div></div><div class="latest" id="stress-latest"></div></div>
-  <div class="desc">三個指標分開縮放，避免將不同統計口徑的指數絕對值直接比較。</div>
-  <div class="chart" id="stress-chart"></div>
- </section>
-</div>
 
-<section class="card" id="price-stress-card">
- <div class="card-head"><div><h2>03｜市場壓力 × S&P 500 走勢對照</h2><div class="desc">每個壓力指標保留自己的原生左軸；S&P 500 價格使用獨立右軸。共用時間軸，不合成、不重算四項壓力指標。</div></div><div class="latest">S&P 500 價格資料截至 2026-11-10</div></div>
- <div class="legend"><span><i class="swatch" style="background:#0f766e"></i>S&P 500｜週頻收盤（右軸）</span><span><i class="swatch" style="background:#c84b4b"></i>VIX</span><span><i class="swatch" style="background:#315f9d"></i>NFCI</span><span><i class="swatch" style="background:#c49a43"></i>NFCI Credit</span><span><i class="swatch" style="background:#8064a8"></i>STLFSI4</span></div>
- <div id="dual-stress-charts"></div>
- <div class="desc dual-note">週頻價格取每週最後一個實際交易日收盤，不插值、不補值。最後一週只到 2026/11/10，屬未完成週；宏觀壓力指標最新觀測日為 2026/10/30，VIX 最新觀測日為 2026/11/09。各序列日期不同，不應誤認為同日更新。</div>
+<div id="status" class="status">正在載入已驗證的圖表資料…</div>
+<section class="card" id="combined-stress-card" hidden>
+ <div class="card-head">
+  <div><h2>市場恐慌 × 金融壓力 × S&P 500｜五合一互動走勢</h2>
+  <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的擴展歷史百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。</div></div>
+  <div class="latest" id="combined-asof"></div>
+ </div>
+ <div class="legend" id="combined-legend"></div>
+ <div class="chart combined-chart" id="combined-chart"></div>
+ <div class="filter-panel">
+  <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
+  <div class="filter-actions"><button type="button" id="select-all-series">全選</button><button type="button" id="clear-all-series">全部清除</button></div>
+  <div class="series-filters" id="series-filters"></div>
+ </div>
+ <div class="desc combined-note">壓力指標百分位採逐週擴展歷史樣本計算，只使用該週及以前已觀測值，不使用未來資料；缺值保留斷線，不插值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div>
 </section>
 <div class="notegrid">
  <div class="note"><strong>VIX 方法學提醒</strong>2003 年前後存在方法學變化，長期比較需留意結構性斷點。</div>
@@ -126,48 +128,71 @@ function drawChart(targetId,seriesList,{zeroLine=false,xBounds=null}={}){
  document.getElementById(targetId).innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="歷史時間序列折線圖">'+parts.join('')+'</svg>';
 }
 
-function drawDualChart(targetId,s){
- const W=1040,H=390,L=72,R=64,T=24,B=48,iw=W-L-R,ih=H-T-B;
+
+const SERIES_CONFIG=[
+ {id:'VIXCLS',name:'VIX',short:'VIX',color:'#c84b4b',kind:'stress'},
+ {id:'NFCI',name:'NFCI',short:'NFCI',color:'#315f9d',kind:'stress'},
+ {id:'NFCICREDIT',name:'NFCI Credit',short:'NFCI Credit',color:'#c49a43',kind:'stress'},
+ {id:'STLFSI4',name:'STLFSI4',short:'STLFSI4',color:'#8064a8',kind:'stress'},
+ {id:'SP500',name:'S&P 500',short:'S&P 500',color:'#0f766e',kind:'price'}
+];
+const SP500_PATH=sp500VisualPath();
+function weeklyLast(s){
+ const weeks=new Map();
+ for(const o of s.observations){if(o.value===null||!Number.isFinite(Number(o.value)))continue;
+  const d=new Date(o.date+'T00:00:00Z');if(Number.isNaN(d.getTime()))continue;
+  const dow=(d.getUTCDay()+6)%7;d.setUTCDate(d.getUTCDate()-dow);
+  const key=d.toISOString().slice(0,10);const old=weeks.get(key);
+  if(!old||o.date>old.date)weeks.set(key,{date:o.date,value:Number(o.value)});
+ }
+ return [...weeks.values()].sort((a,b)=>a.date.localeCompare(b.date));
+}
+function expandingPercentile(points){
+ const out=[];const history=[];
+ for(const p of points){
+  const base=history.slice(-519),n=base.length+1;
+  let lessOrEqual=base.filter(v=>v<=p.value).length+1;
+  out.push({date:p.date,value:lessOrEqual/n*100,raw:p.value});
+  history.push(p.value);
+ }
+ return out;
+}
+function drawCombined(data,visible){
+ const W=1100,H=440,L=78,R=82,T=34,B=54,iw=W-L-R,ih=H-T-B;
  const minX=Date.parse('1993-12-31T00:00:00Z'),maxX=Date.parse('2026-11-10T00:00:00Z');
- const all=s.observations.filter(o=>o.value!==null).map(o=>({date:o.date,value:Number(o.value)})).filter(o=>{const t=Date.parse(o.date+'T00:00:00Z');return t>=minX&&t<=maxX;});
- if(!all.length)throw new Error('No overlapping observations for '+s.series_id);
- let minY=Math.min(...all.map(o=>o.value)),maxY=Math.max(...all.map(o=>o.value));if(minY===maxY){minY-=1;maxY+=1;}
- const pad=(maxY-minY)*.08;minY-=pad;maxY+=pad;
- const x=t=>L+(t-minX)/(maxX-minX)*iw,y=v=>T+(maxY-v)/(maxY-minY)*ih,yp=v=>T+(8000-v)/8000*ih;
+ const x=t=>L+(t-minX)/(maxX-minX)*iw,yp=v=>T+(8000-v)/8000*ih,ys=v=>T+(100-v)/100*ih;
  const parts=[];
- for(let i=0;i<=5;i++){const v=minY+(maxY-minY)*i/5,yy=y(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-12)+'" y="'+(yy+4)+'" text-anchor="end">'+fmt(v)+'</text>');}
+ for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
- for(let yr=1995;yr<=2025;yr+=5){const t=Date.parse(yr+'-01-01T00:00:00Z'),xx=x(t);parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-17)+'" text-anchor="middle">'+yr+'</text>');}
- if(minY<0&&maxY>0){const yy=y(0);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#64748b" stroke-width="1.3" stroke-dasharray="5 4"/>');}
- parts.push('<path d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close, visual-only path</title></path>');
- let d='',open=false;
- for(const o of s.observations){if(o.value===null){open=false;continue;}const t=Date.parse(o.date+'T00:00:00Z');if(t<minX||t>maxX){open=false;continue;}d+=(open?' L':' M')+x(t).toFixed(2)+' '+y(Number(o.value)).toFixed(2);open=true;}
- parts.push('<path d="'+d+'" fill="none" stroke="'+(COLORS[s.series_id]||'#555')+'" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round"><title>'+s.label+'</title></path>');
- parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
- parts.push('<line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
- parts.push('<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
- parts.push('<text x="'+L+'" y="14" text-anchor="start">'+s.label+'｜左軸</text><text x="'+(W-R)+'" y="14" text-anchor="end">S&P 500 點數｜右軸</text>');
- document.getElementById(targetId).innerHTML='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+s.label+' 與 S&P 500 雙縱軸歷史走勢">'+parts.join('')+'</svg>';
+ for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-20)+'" text-anchor="middle">'+yr+'</text>');}
+ if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜right axis</title></path>');
+ const ids=['VIXCLS','NFCI','NFCICREDIT','STLFSI4'];
+ for(const id of ids){if(!visible[id])continue;const pts=data[id];let d='',open=false;
+  for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
+  const cfg=SERIES_CONFIG.find(s=>s.id===id);parts.push('<path id="path-'+id+'" data-series="'+id+'" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜expanding historical percentile</title></path>');
+ }
+ parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
+ parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
+ document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
- const byId=Object.fromEntries(data.series.map(s=>[s.series_id,s]));
- document.getElementById('asof').textContent='最新 Vintage '+data.series.map(s=>s.as_of_vintage).sort().at(-1);
- document.getElementById('vix-latest').textContent=latestLine(byId.VIXCLS);
- document.getElementById('stress-latest').innerHTML=[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4].map(latestLine).join('<br>');
- drawChart('vix-chart',[byId.VIXCLS]);
- const stressSeries=[byId.NFCI,byId.NFCICREDIT,byId.STLFSI4];
- const stressTimes=stressSeries.flatMap(s=>s.observations.map(o=>Date.parse(o.date+'T00:00:00Z')).filter(Number.isFinite));
- const stressBounds=[Math.min(...stressTimes),Math.max(...stressTimes)];
- const miniTitles={NFCI:'NFCI｜全國金融情勢指數',NFCICREDIT:'NFCI Credit｜信用子指標',STLFSI4:'STLFSI4｜聖路易聯準銀行金融壓力指數'};
- document.getElementById('stress-chart').innerHTML=stressSeries.map(s=>'<div class="mini-series"><div class="mini-title">'+miniTitles[s.series_id]+'</div><div id="chart-'+s.series_id+'"></div></div>').join('');
- for(const s of stressSeries)drawChart('chart-'+s.series_id,[s],{zeroLine:true,xBounds:stressBounds});
- const dualTitles={VIXCLS:'VIXCLS｜CBOE VIX',NFCI:'NFCI｜全國金融情勢指數',NFCICREDIT:'NFCI Credit｜信用子指標',STLFSI4:'STLFSI4｜聖路易聯準銀行金融壓力指數'};
- const dualSeries=[byId.VIXCLS,byId.NFCI,byId.NFCICREDIT,byId.STLFSI4];
- document.getElementById('dual-stress-charts').innerHTML=dualSeries.map(s=>'<div class="mini-series"><div class="mini-title">'+dualTitles[s.series_id]+'</div><div class="latest" id="dual-latest-'+s.series_id+'"></div><div class="dual-chart" id="dual-'+s.series_id+'"></div></div>').join('');
- for(const s of dualSeries){drawDualChart('dual-'+s.series_id,s);document.getElementById('dual-latest-'+s.series_id).textContent=latestLine(s)+' ｜ S&P 500｜2026-11-10｜7,520.93';}
 
- document.getElementById('status').hidden=true;document.getElementById('charts').hidden=false;
+ const byId=Object.fromEntries(data.series.map(s=>[s.series_id,s]));
+ const visible={VIXCLS:true,NFCI:true,NFCICREDIT:true,STLFSI4:true,SP500:true};
+ const weekly={};
+ for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4'])weekly[id]=expandingPercentile(weeklyLast(byId[id]));
+ const controls=document.getElementById('series-filters');
+ controls.innerHTML=SERIES_CONFIG.map(c=>'<label class="series-toggle"><input type="checkbox" data-series-toggle="'+c.id+'" checked><span class="dot" style="background:'+c.color+'"></span>'+c.name+'</label>').join('');
+ document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
+ const render=()=>drawCombined(weekly,visible);
+ controls.querySelectorAll('input[data-series-toggle]').forEach(input=>input.addEventListener('change',()=>{visible[input.dataset.seriesToggle]=input.checked;render();}));
+ document.getElementById('select-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=true;controls.querySelectorAll('input').forEach(i=>i.checked=true);render();});
+ document.getElementById('clear-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=false;controls.querySelectorAll('input').forEach(i=>i.checked=false);render();});
+ const latest=Object.values(byId).map(s=>s.latest_valid_observation?.date||'').filter(Boolean).sort().at(-1);
+ document.getElementById('combined-asof').textContent='資料版本 '+data.generated_at.slice(0,10)+'｜最新觀測 '+latest;
+ render();
+ document.getElementById('status').hidden=true;document.getElementById('combined-stress-card').hidden=false;
 }).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與 data/tac-chart3/chart3_market_stress.json 位於同一分支。'});
 </script>
 </body>
