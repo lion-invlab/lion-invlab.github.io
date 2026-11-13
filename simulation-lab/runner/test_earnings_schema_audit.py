@@ -20,6 +20,8 @@ def main():
         "revenue_actual_basis_code": "US_GAAP_NET_SALES",
         "revenue_estimate_basis_code": None,
         "revenue_reason": "missing_or_unrecognized_normalized_basis_code",
+        "eps_consensus_attempt_count": 1,
+        "revenue_consensus_attempt_count": 3,
     }]
     with TemporaryDirectory() as tmp:
         path = Path(tmp) / "migration.csv"
@@ -30,6 +32,8 @@ def main():
         assert result[0]["ticker"] == "FERG"
         assert result[0]["eps_v2_status"] == "beat"
         assert result[0]["revenue_v2_status"] == "pending"
+        assert result[0]["eps_consensus_attempt_count"] == "1"
+        assert result[0]["revenue_consensus_attempt_count"] == "3"
     print("PASS: per-company migration CSV export")
 
 
