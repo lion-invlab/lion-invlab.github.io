@@ -99,6 +99,10 @@ def main():
     check(evaluate_metric(item, "eps")["status"], "pending", "boolean is not a numeric result")
 
     item = base_record()
+    item["eps_actual_basis_code"] = "UNREGISTERED_BASIS"
+    check(evaluate_metric(item, "eps")["status"], "pending", "unregistered basis code is not comparable")
+
+    item = base_record()
     apply_judgment(item, "2026-11-13T13:00:00+08:00")
     check(item["judgment_engine_version"], ENGINE_VERSION, "engine version persisted")
     check(render_status(item, "eps"), "beat", "renderer reads persisted result")
