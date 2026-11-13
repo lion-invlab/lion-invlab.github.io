@@ -234,6 +234,17 @@ def main():
     check(migrated_f["eps_actual_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "legacy EPS basis mapped")
     check(migrated_f["eps_estimate_period"], "Q3 2026", "explicit consensus period preserved")
     check(migrated_f["eps_comparison_status"], "beat", "legacy EPS comparison migrated only with explicit consensus period")
+    null_slots = dict(legacy_f)
+    for key in ("eps_actual_basis_code", "eps_estimate_basis_code", "eps_actual_currency", "eps_estimate_currency", "eps_actual_period", "eps_estimate_period"):
+        null_slots[key] = None
+    migrated_null_slots = migrate_legacy_record(null_slots)
+    check(migrated_null_slots["eps_actual_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "null actual basis filled from explicit actual label")
+    check(migrated_null_slots["eps_estimate_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "null estimate basis filled from explicit estimate label")
+    check(migrated_null_slots["eps_actual_currency"], "USD", "null actual currency filled from actual label")
+    check(migrated_null_slots["eps_estimate_currency"], "USD", "null estimate currency filled from estimate label")
+    check(migrated_null_slots["eps_actual_period"], "Q3 2026", "null actual period filled from issuer period")
+    check(migrated_null_slots["eps_estimate_period"], None, "null estimate period is not guessed from issuer period")
+    check(migrated_null_slots["eps_comparison_status"], "pending", "missing consensus period still blocks directional judgment")
     period_missing = dict(legacy_f)
     period_missing.pop("eps_estimate_period")
     migrated_period_missing = migrate_legacy_record(period_missing)
