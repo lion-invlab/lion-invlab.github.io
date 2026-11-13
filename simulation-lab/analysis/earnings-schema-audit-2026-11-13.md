@@ -96,3 +96,27 @@
 3. 重新評估現有 legacy source 及其他可追溯來源能否提供公告前快照、期間、basis、幣別與單位；未能證明的值維持 pending，不得猜填。
 4. 完成 Schema v2、engine、validator、W45/W46 migration 與 assembler integration 的隔離測試後，才可評估正式 main 部署。
 5. 正式資料庫寫入權限仍由唯一 updater automation 持有；不得新增第二個週 JSON writer。
+
+
+## 額外來源可行性初查（候選，未納入正式來源階梯）
+
+目前 SIM-1.2 的核准來源順序仍是 LSEG I/B/E/S → FactSet Estimates → Investing.com。以下僅是來源可行性研究，不代表已授權採用、已取得帳號、已測試 API 或已寫入資料庫。
+
+1. **OHLC Analyst Estimates API**
+   - 文件描述支援 EPS／Revenue mean、low、high、analyst_count、issuer fiscal period、currency，以及 `effective_date`／`as_of` 歷史快照；最早公開快照日期為 2026-09-23，理論上涵蓋 W46 公告前日期。
+   - API 需 `estimates.read` 權限；Free／Developer 不含 estimates，Pro 有 estimates 但僅 internal use；若要將資料顯示於公開 TAC 產品，文件列出的 Commercial plan 才含 commercial display／redistribution rights（定價頁列 USD 899/月）。
+   - 文件未證明每筆 EPS consensus 的 GAAP／Adjusted、Basic／Diluted basis code，因此即使取得數值，也不能自動視為可 Beat／Miss 比較；必須先取得明確 basis 定義。
+   - 文件： https://ohlc.io/docs/analyst-estimates ；方案與授權：https://ohlc.io/pricing
+
+2. **Earnings Whispers Data API**
+   - 文件提供每家公司最近 20 次財報歷史，含 reported EPS、consensus EPS、Revenue actual／estimate 及公告時段；EPS actual 與 consensus 明確為 option-expense-adjusted basis，Revenue 以 millions 表示。
+   - 需建立 API key 並依訂閱層級取得資料；Investor 歷史僅限 watchlist，Trader 才可查詢全市場。文件明示資料供使用者自身使用，重新發布／再散布需另行授權。
+   - 適合評估美股 EPS／Revenue 歷史回溯，但仍須逐筆核對 fiscal period、幣別、Revenue 定義、資料截點及 45 家公司的覆蓋；不可把 API 回傳時間當成公告前 data_as_of。
+   - 文件：https://www.earningswhispers.com/data-api
+
+3. **Ortex Consensus Estimates API（S&P Capital IQ sourced）**
+   - 文件列有 point-in-time consensus date、fiscal period、currency、EPS／Revenue mean／median／high／low 及 analyst count；可使用 trial key `TEST`，但試用資料可能受日期與地區限制，完整存取需 API 方案。
+   - 尚需驗證 EPS basis／Revenue definition、各 ticker 覆蓋、試用資料可用範圍及公開顯示授權；未完成前不得納入正式來源順序。
+   - 文件：https://docs.ortex.com/reference/stock_estimates_consensus_retrieve
+
+**來源研究裁決：** 三者都比單純公告後新聞摘要更值得做技術驗證，但目前沒有一個能在不補充授權與欄位定義的情況下直接成為 v2 比較來源。不得自行把它們插入 SIM-1.2 的固定來源順位；先取得使用者／資料供應商授權，再做 API 實測與 basis／period／currency／unit 驗收。
