@@ -31,7 +31,7 @@ def validate_chart(page, label):
     check(label + "_five_filters", page.locator("#series-filters input[data-series-toggle]").count() == 5)
     check(label + "_all_selected_by_default", page.locator("#series-filters input[data-series-toggle]:checked").count() == 5)
     check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 5)
-    check(label + "_left_percentile_axis", "金融壓力指標" in page.locator("#combined-chart svg").inner_text())
+    check(label + "_left_percentile_axis", "金融壓力指標" in page.locator("#combined-chart svg").evaluate("(e)=>e.textContent"))
     check(label + "_legend_five_series", page.locator("#combined-legend .swatch").count() == 5)
     check(label + "_guide_visible", page.locator(".guide").is_visible())
     # Verify an individual series can be hidden and restored.
