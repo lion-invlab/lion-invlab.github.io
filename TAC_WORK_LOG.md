@@ -852,3 +852,15 @@
 - W46 42 筆 basis code evidence mapping 與資料遷移尚未完成。
 - 04:35 automation 目前 disabled，且舊 prompt 仍要求 schema 不變；正式上線前須先改寫唯一 writer 的執行契約，並完成 end-to-end migration test。
 - 依 SIM-1.1 main 唯讀限制，本輪只完成隔離實作；不得直接修改 main JSON、正式 workflow 或 automation schedule。
+
+
+## 2026-11-13｜W46 舊財報資料遷移試算與 CSV 證據
+
+- 新增 legacy v1 → v2 in-memory migration adapter；只映射明確的 EPS／Revenue basis，分離 actual／estimate currency、period、Revenue unit；來源／口徑不完整即 Pending，不繼承舊 Beat／Miss。
+- 修正 basis parser 的 non-GAAP substring bug，並增加測試；最終 Actions run `43378999223` completed/success。
+- 42 筆 migration preview：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。
+- EPS 可保留 12 筆方向性結果：B、FERG、NRG、CEG、KKR、NBIS、RGTI、MNDY、TTD、ONTO、SANM、QLYS。TDG、WIX、MRCY 因 diluted mismatch 為 Incomparable；QBTS、HIMS、MARA 因 estimate basis 不明確退回 Pending。
+- Revenue 僅 CEG、MNDY 通過；其餘 40 筆 Pending，其中 FERG estimate basis 尚未證明為 GAAP。
+- Pending 根因：EPS 15 缺 basis code、12 缺 actual／consensus 數值；Revenue 32 缺 basis code、8 缺 actual／consensus 數值。
+- Artifact `14015686988` 已核對，包含 42 筆 `earnings-migration-preview.csv`、`earnings-schema-audit.json`。本次全部只讀 main，沒有寫入正式 JSON。
+- 正式阻塞仍是 04:35 ChatGPT automation disabled，且舊 prompt 要求 schema 不變；必須先完成唯一 writer 的正式契約整合與完整回歸，再談恢復排程。
