@@ -17,6 +17,11 @@
 - [x] Schema v2 validator：JSON Schema + engine status consistency（`simulation-lab/runner/validate_earnings_v2.py`）
 - [ ] 新增 validator 的 GitHub Actions 回歸執行成功（等待本次 commit CI）
 
+
+- [x] HTML assembler 的兩個財報評論輸出路徑改為狀態一致性過濾，不再無條件輸出自由文字方向性評論
+- [x] 新增 commentary contradiction regression cases（legacy pending、EPS opposite polarity、Revenue pending）
+- [ ] 新增 renderer/commentary guard 的 CI 執行成功與 11/13 fixture rebuild visual/content QA
+
 ## 尚未完成（正式 main）
 - [ ] 將 engine、schema validator、migration 工具及 assembler 修改部署至正式 main
 - [ ] 正式 Schema v2 JSON Schema 與版本遷移程式
