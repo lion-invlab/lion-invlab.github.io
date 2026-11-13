@@ -207,9 +207,16 @@ try {
           if (!grid || resultCards !== 2) invalid.push("card " + (i+1) + ": paired EPS/revenue cards missing");
           if (grid) {
             const resultCards = [...grid.querySelectorAll(":scope > .earnings-actual-card")];
-            const expectedLabels = { beat: "優於預期", miss: "低於預期", inline: "符合預期", pending: "比較口徑待核實" };
+            const expectedLabels = {
+              beat: "優於預期",
+              miss: "低於預期",
+              inline: "符合預期",
+              pending: "比較口徑待核實",
+              incomparable: "比較口徑不相容",
+              consensus_divergent: "市場共識來源分歧"
+            };
             for (const [metricIndex, resultCard] of resultCards.entries()) {
-              const state = ["beat", "miss", "inline", "pending"].find(value => resultCard.classList.contains(value));
+              const state = Object.keys(expectedLabels).find(value => resultCard.classList.contains(value));
               const status = resultCard.querySelector(".earnings-actual-status");
               if (!state || !status || !status.classList.contains(state) || status.textContent.trim() !== expectedLabels[state]) {
                 invalid.push("card " + (i+1) + ": EPS/revenue comparison badge state and label mismatch at metric " + (metricIndex+1));
