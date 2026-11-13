@@ -534,12 +534,3 @@
 ### 2026-11-09｜首頁 SHA／發布來源差異校正
 - 最新 main `index.html` blob SHA 為 `f167d34ec84f813fafe68bea982b751d62c8c717`，標題已顯示 2026/11/09。GitHub commit `1dcfc6176b6b45291d5a9abfcf776791e743bfc2`（2026-11-08 22:51:12 UTC）已先行發布 11/09 首頁；該提交早於本輪局部組裝，本輪未更新 `index.html`。
 - main `preview/2026-11-09.html` 仍為 404；本輪 `/mnt/data/preview-2026-11-09-stageg-panels.html` 是局部工作檔，與既有首頁發布內容不同，不可混稱為正式審核版。
-## 2026-11-13｜正式雙母版總結主標題修正
-- 依使用者先前明確指示，修正「總結」紅色區塊標題與「市場情緒」等主區塊標題字級不一致問題。查核正式母版原始 CSS：一般 .title 桌面 23px／手機 19px；主區塊標題使用 clamp(21px, 3vw, 28px)，故原先總結標題確實未套用主標題字級規則。
-- main 雙母版僅新增 tac-summary-heading-parity-v1 樣式，selector 為 body main.wrap article.card.bluf > .title，字級 clamp(21px, 3vw, 28px)、字重 900、行高 1.25；未改版面結構、黑色 h1、行情資料、其他區塊或互動。
-- 週一母版 SHA 更新為 9a334ae7ab2b1827058021993eeb01abe636485b；週二至週五母版 SHA 更新為 60002dfeb93694ca5e476dc5afe572409ea7a849。Manifest SHA cca472c2f10625d0146662e13e5f6fa08b24a54d 已同步。
-- 母版結構驗收清單升為 v1.4，SHA 00c553b413a9e8c92960d7b8eca1740d10c43b21；增加總結區紅色標籤字級契約及黑色 h1 必須是一句昨日行情精華描述、不可使用「總結」等通用區塊名稱的內容契約。
-- 正式瀏覽器回歸腳本 scripts/tac_browser_layout_regression.mjs 已改為 WR 標準 1440／768／412／390／360px 五種視窗，新增紅色標題與市場情緒主標題 computed font-size 比對，以及黑色 h1 語意／長度檢查。腳本 SHA eb741ad288706c4517edf3be8839f5b1d21a8a45。
-- 首輪 main Mother Template Guard 因獨立硬編碼信任錨仍保留舊 SHA 而失敗；已同步更新 scripts/validate_mother_template.py 的兩份核准 SHA，最新 SHA 493fed860fa58871dab37e7d2de98a12425aa34e。最新 Guard workflow run 43360635937 尚待確認結論。
-- 本次未修改 index.html、11/13 已發布早報、當日 preview、週 JSON、TAC_WORK_RULES.md；Pages 部署及真實瀏覽器五視窗驗收尚未完成，不宣稱全部驗收通過。
-
