@@ -117,6 +117,7 @@ def main():
         "eps_estimate_basis": "Adjusted diluted EPS consensus (USD/share)",
         "eps_currency": "USD",
         "reporting_period": "Q3 2026",
+        "eps_estimate_period": "Q3 2026",
         "source": source("Issuer"),
         "consensus_source": source("Consensus"),
         "revenue_actual": 9.026,
@@ -129,7 +130,14 @@ def main():
     }
     migrated_f = migrate_legacy_record(legacy_f)
     check(migrated_f["eps_actual_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "legacy EPS basis mapped")
-    check(migrated_f["eps_comparison_status"], "beat", "legacy EPS comparison migrated only after evidence checks")
+    check(migrated_f["eps_estimate_period"], "Q3 2026", "explicit consensus period preserved")
+    check(migrated_f["eps_comparison_status"], "beat", "legacy EPS comparison migrated only with explicit consensus period")
+    period_missing = dict(legacy_f)
+    period_missing.pop("eps_estimate_period")
+    migrated_period_missing = migrate_legacy_record(period_missing)
+    check(migrated_period_missing["eps_actual_period"], "Q3 2026", "issuer reporting period maps only to actual period")
+    check(migrated_period_missing["eps_estimate_period"], None, "issuer reporting period is never copied to consensus period")
+    check(migrated_period_missing["eps_comparison_status"], "pending", "missing consensus period blocks directional judgment")
     check(migrated_f["revenue_comparison_status"], "pending", "ambiguous legacy revenue basis remains pending")
     check(migrated_f["eps_actual_currency"], "USD", "EPS actual currency parsed from basis evidence")
     check(migrated_f["eps_estimate_currency"], "USD", "EPS estimate currency parsed from basis evidence")
