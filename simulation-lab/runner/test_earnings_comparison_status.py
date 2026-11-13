@@ -139,6 +139,26 @@ def test_calendar_projection_migrates_legacy_records():
     assert divergent_result["revenue_comparison_status"] == "consensus_divergent"
     assert divergent_result["revenue_comparison_reason"] == "verified_consensus_sources_diverge"
 
+    same_basis_eps = {
+        "eps_actual": -0.14,
+        "eps_estimate": 0.06,
+        "eps_actual_basis": "GAAP diluted loss per share (USD/share)",
+        "eps_estimate_basis": "EPS consensus (USD/share; TipRanks reported actual/consensus pair)",
+        "eps_currency": "USD",
+        "reporting_period": "2026 Q3",
+        "source": evidence_source("Issuer"),
+        "consensus_source": {
+            **evidence_source("TipRanks"),
+            "notes": "公司 SEC 8-K 確認 GAAP diluted loss/share -US$0.14，採同口徑呈現 EPS Miss。",
+        },
+    }
+    same_basis_result = _earnings_records(
+        {"events": {"earnings": [same_basis_eps]}},
+        observed_at="2026-11-13T13:00:00+08:00",
+    )[0]
+    assert same_basis_result["eps_estimate_basis_code"] == "US_GAAP_DILUTED_EPS"
+    assert same_basis_result["eps_comparison_status"] == "miss"
+
     # A single shared currency label is display metadata, not proof that both
     # actual and estimate values use the same currency for comparison.
     unsafe = dict(record)
