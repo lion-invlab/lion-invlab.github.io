@@ -104,3 +104,5 @@
 - [ ] Integrate the snapshot helper with the single authorised production writer only after full simulation multi-day regression, licence review, WR update approval and explicit production deployment approval.
 
 - [x] Three-day unchanged-value polling retains three distinct observed_at snapshots and idempotently ignores exact replay; verified in workflow `43417601486`.
+
+- [ ] `published_at` 欄位明確存在；可為 null，但不得由 observed_at、data_as_of 或 provider_recalculated_at 推定。

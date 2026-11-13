@@ -28,6 +28,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             "url": "https://provider.example/consensus/ABC",
             "observed_at": "2026-11-10T04:00:00+08:00",
             "data_as_of": "2026-11-09",
+            "published_at": "2026-11-09T16:00:00+00:00",
             "period": "2026 Q3",
             "period_end_date": "2026-09-30",
             "value": 1.25,
@@ -50,6 +51,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
             snap = self.build(ref=f"{ref}")
             self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
             self.assertEqual(snap["data_as_of"], "2026-11-09")
+        self.assertEqual(snap["published_at"], "2026-11-09T16:00:00+00:00")
             self.assertEqual(snap["observed_at"], "2026-11-10T04:00:00+08:00")
             self.assertEqual(snap["raw_response_sha256"], digest)
             self.assertEqual(json.loads((Path(tmp) / ref).read_text()), self.raw)

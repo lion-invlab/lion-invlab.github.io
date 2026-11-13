@@ -202,3 +202,11 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 - 每次每日輪詢 append-only 保存快照；05:25 早報仍只讀取當週 JSON。
 - Ortex TEST 不具 W46 日期範圍，也未取得 TAC 公開展示／再散布授權，不可作為此機制的正式來源。SIM-1.2 的 LSEG → FactSet → Investing.com 順序維持不變。
 - 本節是隔離區設計提案；main Schema v1、WR、排程及正式 JSON 均未修改。
+
+
+### 10.5 published_at 必須獨立保存
+
+- Snapshot v2 必須有 `published_at` 欄位（允許 null，但欄位本身不可省略），專門保存來源明確提供的正式發布時間／日期。
+- `data_as_of` 是共識資料有效觀察截點；`observed_at` 是本系統取得時間；`published_at` 是來源正式發布時間；`provider_recalculated_at` 是供應商重算時間。四者不得互相代填。
+- 若來源沒有 published_at，明確寫 null 並保留原始 response；不可將 API responseGeneratedAt、estimateAsOf 或 observed_at 假裝成 published_at。
+- ORTEX consensus API 目前提供 row `date`（consensus as-of）及 `estimateAsOf`（vendor last recalculated），文件沒有承諾獨立的 published_at；ORTEX probe 應保存 `published_at=null`，而非從其他欄位推定。

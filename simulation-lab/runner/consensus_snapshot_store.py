@@ -113,6 +113,9 @@ def build_consensus_snapshot(
     data_as_of = attempt.get("data_as_of")
     if data_as_of:
         _parse_temporal(data_as_of, "data_as_of")
+    published_at = attempt.get("published_at")
+    if published_at:
+        _parse_temporal(published_at, "published_at")
 
     raw = _raw_bytes(raw_response)
     raw_sha = hashlib.sha256(raw).hexdigest()
@@ -172,6 +175,7 @@ def build_consensus_snapshot(
         "source_url": source_url,
         "observed_at": observed_at,
         "data_as_of": data_as_of,
+        "published_at": published_at,
         "provider_recalculated_at": attempt.get("provider_recalculated_at"),
         "event_date": event_date,
         "period": period,
