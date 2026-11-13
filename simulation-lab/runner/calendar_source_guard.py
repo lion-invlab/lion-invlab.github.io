@@ -10,6 +10,8 @@ import subprocess
 from datetime import date, timedelta
 from pathlib import PurePosixPath
 
+from earnings_judgment import ENGINE_VERSION, render_summary
+
 REPOSITORY = "lion-invlab/lion-invlab.github.io"
 SIMULATION_BRANCH = "simulation/tac-process-lab-2026-11-06"
 MAIN_REF = "refs/remotes/origin/main"
@@ -191,7 +193,14 @@ def _earnings_records(payload: dict) -> list[dict]:
             "revenue_actual_basis": item.get("revenue_actual_basis"),
             "revenue_estimate_basis": item.get("revenue_estimate_basis"),
             "revenue_comparison_status": item.get("revenue_comparison_status"),
-            "judgment": item.get("financial_judgment"),
+            "judgment": render_summary(item) + (
+                "；" + item["earnings_commentary"]
+                if item.get("judgment_engine_version") == ENGINE_VERSION
+                and isinstance(item.get("earnings_commentary"), str)
+                and item["earnings_commentary"].strip()
+                else ""
+            ),
+            "judgment_engine_version": item.get("judgment_engine_version"),
             "price_reaction": item.get("stock_price_reaction"),
             "price_reaction_source": item.get("price_reaction_source"),
             "us_exchange_listed": item.get("us_exchange_listed", False),
