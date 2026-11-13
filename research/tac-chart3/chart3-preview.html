@@ -161,26 +161,30 @@ function expandingPercentile(points){
  return out;
 }
 const DRAWDOWNS=[
- {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.0,basis:'SPY total-return proxy; not exact price-index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
+ {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
+ {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.4,source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
  {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-11.2,basis:'SPY total-return proxy; not exact price-index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
- {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.3,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-1998',peak:'1998-07-17',trough:'1998-08-31',pct:-19.0,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
  {id:'dd-1999',peak:'1999-07-16',trough:'1999-10-15',pct:-11.9,basis:'SPY total-return proxy; not exact price-index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
  {id:'dd-2000',peak:'2000-03-24',trough:'2002-10-09',pct:-49.1,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-2010',peak:'2010-04-23',trough:'2010-07-02',pct:-16.0,source:'https://www.rio.nd.gov/sites/www/files/documents/PDFs/SIB/Board/Materials/sibmat20200522.pdf',sourceLabel:'Callan / S&P 500 Price Index'},
- {id:'dd-2007',peak:'2007-10-09',trough:'2009-03-09',pct:-56.8,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2010',peak:'2010-04-23',trough:'2010-07-02',pct:-15.9,source:'https://www.rio.nd.gov/sites/www/files/documents/PDFs/SIB/Board/Materials/sibmat20200522.pdf',sourceLabel:'Callan / S&P 500 Price Index'},
+ {id:'dd-2003',peak:'2003-01-14',trough:'2003-03-11',pct:-14.1,source:'https://andramarkets.com/market-history/2003-mid-2000s-expansion/',sourceLabel:'S&P 500 daily close / Iraq War period'},
+ {id:'dd-2007',peak:'2007-10-09',trough:'2009-03-09',pct:-56.5,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
  {id:'dd-2011',peak:'2011-04-29',trough:'2011-10-03',pct:-19.4,source:'https://www.cmegroup.com/insights/economic-research/2023/debt-ceiling-lessons-from-the-2011-budget-debate.html',sourceLabel:'CME Group'},
- {id:'dd-2015',peak:'2015-05-21',trough:'2016-02-11',pct:-14.2,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-2018a',peak:'2018-01-26',trough:'2018-02-08',pct:-10.2,source:'https://www.rio.nd.gov/sites/www/files/documents/PDFs/SIB/Board/Materials/sibmat20200522.pdf',sourceLabel:'Callan / S&P 500 Price Index'},
- {id:'dd-2018b',peak:'2018-09-20',trough:'2018-12-24',pct:-19.8,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
- {id:'dd-2020',peak:'2020-02-19',trough:'2020-03-23',pct:-33.9,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2015',peak:'2015-05-21',trough:'2016-02-11',pct:-14.4,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2018a',peak:'2018-01-26',trough:'2018-04-02',pct:-10.2,source:'https://www.rio.nd.gov/sites/www/files/documents/PDFs/SIB/Board/Materials/sibmat20200522.pdf',sourceLabel:'Callan / S&P 500 Price Index'},
+ {id:'dd-2018b',peak:'2018-09-20',trough:'2018-12-24',pct:-20.2,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
+ {id:'dd-2020',peak:'2020-02-19',trough:'2020-03-23',pct:-34.1,source:'https://economics.td.com/us-financial-markets',sourceLabel:'TD Economics'},
  {id:'dd-2022',peak:'2022-01-03',trough:'2022-10-12',pct:-25.4,source:'https://historyofmarket.com/sp500/bear-markets/2022/',sourceLabel:'S&P 500 歷史收盤價整理'},
  {id:'dd-2023',peak:'2023-07-31',trough:'2023-10-27',pct:-10.3,source:'https://coronavirus.markets/market-correction/',sourceLabel:'FRED 收盤價計算'},
- {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-18.9,source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'San Francisco Fed'}
+ {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-19.0,source:'https://www.frbsf.org/research-and-insights/publications/economic-letter/2025/10/market-reactions-to-tariff-announcements/',sourceLabel:'San Francisco Fed'}
 ];
 const MAJOR_EVENTS=[
+ {id:'gulf-war-1990',name:'儲貸危機 × 波灣戰爭／油價衝擊',start:'1990-07-16',end:'1990-10-11',source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
  {id:'asian-crisis',name:'亞洲金融風暴',start:'1997-07-02',end:'1998-12-31',source:'https://www.federalreservehistory.org/essays/asian-financial-crisis',sourceLabel:'Federal Reserve History'},
  {id:'russia-default',name:'俄羅斯政府債務違約',start:'1998-08-17',end:'1998-12-31',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
  {id:'ltcm',name:'LTCM 流動性危機',start:'1998-09-23',end:'1998-10-15',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
+ {id:'iraq-war-2003',name:'伊拉克戰爭前夕與市場再探底',start:'2003-01-14',end:'2003-03-11',source:'https://andramarkets.com/market-history/2003-mid-2000s-expansion/',sourceLabel:'S&P 500 daily close / 2003 market history'},
  {id:'dotcom',name:'網路泡沫崩跌',start:'2000-03-10',end:'2002-10-09',source:'https://www.bny.com/assets/investments/im/documents/manual/perspectives/market-behavior-during-historical-bouts-of-volatility.pdf',sourceLabel:'BNY market history'},
  {id:'gfc',name:'全球金融海嘯',start:'2007-07-26',end:'2010-04-29',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
  {id:'euro-debt',name:'歐洲主權債務危機',start:'2010-04-23',end:'2012-07-26',source:'https://www.minneapolisfed.org/article/2012/chronic-sovereign-debt-crises-in-the-eurozone-20102012',sourceLabel:'Federal Reserve Bank of Minneapolis'},
