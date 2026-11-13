@@ -128,7 +128,8 @@ def _money_display(value, currency: str | None, unit: str | None = None, decimal
         return None
     prefix = {"USD": "US$", "CAD": "C$", "EUR": "€", "GBP": "£", "AUD": "A$"}.get(currency, (currency + " ") if currency else "")
     number = f"{value:,.{decimals}f}" if isinstance(value, (int, float)) else str(value)
-    suffix = unit if unit and unit not in ("share", "per_share") else ""
+    unit_labels = {"USD_BILLION":"B","USD_MILLION":"M","USD_THOUSAND":"K","EUR_BILLION":"B","EUR_MILLION":"M","EUR_THOUSAND":"K","GBP_BILLION":"B","GBP_MILLION":"M","GBP_THOUSAND":"K","CAD_BILLION":"B","CAD_MILLION":"M","CAD_THOUSAND":"K","AUD_BILLION":"B","AUD_MILLION":"M","AUD_THOUSAND":"K","CHF_BILLION":"B","CHF_MILLION":"M","CHF_THOUSAND":"K"}
+    suffix = unit_labels.get(unit, unit if unit and unit not in ("share", "per_share") else "")
     return f"{prefix}{number}{suffix}"
 
 
@@ -167,25 +168,6 @@ def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dic
 
     output = []
     for item in payload["events"]["earnings"]:
-        # Display formatting may use a shared legacy currency label. This is
-        # deliberately NOT passed to the judgment engine as comparison proof.
-        def display_currency_pair(value):
-            if not isinstance(value, str):
-                return None, None
-            match = re.fullmatch(
-                r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \(not comparable\)",
-                value,
-            )
-            if match:
-                return match.group(1), match.group(2)
-            if re.fullmatch(r"[A-Z]{3}", value):
-                return value, value
-            return None, None
-
-        eps_actual_currency, eps_estimate_currency = display_currency_pair(item.get("eps_currency"))
-        revenue_actual_currency, revenue_estimate_currency = display_currency_pair(item.get("revenue_currency"))
-        revenue_unit = item.get("revenue_unit")
-
         # This is an in-memory projection only. migrate_legacy_record applies
         # the v2 evidence gates and will return Pending/Incomparable whenever
         # actual/estimate basis, currency, period, units or sources are unclear.
@@ -206,8 +188,8 @@ def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dic
             "reporting_period": item.get("reporting_period"),
             "eps_actual": judged.get("eps_actual"),
             "eps_estimate": judged.get("eps_estimate"),
-            "eps_actual_display": _money_display(item.get("eps_actual"), eps_actual_currency),
-            "eps_estimate_display": _money_display(item.get("eps_estimate"), eps_estimate_currency),
+            "eps_actual_display": _money_display(item.get("eps_actual"), judged.get("eps_actual_currency")),
+            "eps_estimate_display": _money_display(item.get("eps_estimate"), judged.get("eps_estimate_currency")),
             "eps_basis": item.get("eps_basis"),
             "eps_actual_basis": item.get("eps_actual_basis"),
             "eps_estimate_basis": item.get("eps_estimate_basis"),
@@ -222,11 +204,12 @@ def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dic
             "eps_comparison_status": judged.get("eps_comparison_status"),
             "eps_comparison_reason": judged.get("eps_comparison_reason"),
             "eps_consensus_conflict": judged.get("eps_consensus_conflict", False),
+            "eps_consensus_attempts": judged.get("eps_consensus_attempts", []),
             "eps_inline_tolerance_abs": judged.get("eps_inline_tolerance_abs"),
             "revenue_actual": judged.get("revenue_actual"),
             "revenue_estimate": judged.get("revenue_estimate"),
-            "revenue_actual_display": _money_display(item.get("revenue_actual"), revenue_actual_currency, revenue_unit, 3),
-            "revenue_estimate_display": _money_display(item.get("revenue_estimate"), revenue_estimate_currency, revenue_unit, 3),
+            "revenue_actual_display": _money_display(item.get("revenue_actual"), judged.get("revenue_actual_currency"), judged.get("revenue_actual_unit"), 3),
+            "revenue_estimate_display": _money_display(item.get("revenue_estimate"), judged.get("revenue_estimate_currency"), judged.get("revenue_estimate_unit"), 3),
             "revenue_actual_basis": item.get("revenue_actual_basis"),
             "revenue_estimate_basis": item.get("revenue_estimate_basis"),
             "revenue_actual_basis_code": judged.get("revenue_actual_basis_code"),
@@ -242,6 +225,7 @@ def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dic
             "revenue_comparison_status": judged.get("revenue_comparison_status"),
             "revenue_comparison_reason": judged.get("revenue_comparison_reason"),
             "revenue_consensus_conflict": judged.get("revenue_consensus_conflict", False),
+            "revenue_consensus_attempts": judged.get("revenue_consensus_attempts", []),
             "revenue_inline_tolerance_abs": judged.get("revenue_inline_tolerance_abs"),
             "source": judged.get("source"),
             "consensus_source": judged.get("consensus_source"),
