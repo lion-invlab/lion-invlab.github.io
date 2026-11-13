@@ -304,7 +304,7 @@ def self_test() -> None:
             "earnings": [{"id": "earn-1", "event_date": "2026-11-10T20:00:00+08:00",
                           "company": "Example", "ticker": "EX", "importance_stars": 4,
                           "status": "released", "eps_actual": 1.2, "eps_currency": "USD",
-                          "eps_basis": "US GAAP diluted EPS (USD/share)",
+                          "eps_actual_basis": "US GAAP diluted EPS (USD/share)",
                           "source": {"name": "Issuer", "url": "https://example.com"}}],
         },
     }
