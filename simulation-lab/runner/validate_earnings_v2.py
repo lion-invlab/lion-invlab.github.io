@@ -104,6 +104,7 @@ def validate_payload(
 def self_test(schema: dict) -> None:
     good = {
         "status": "released",
+        "event_date": "2026-11-13T12:00:00+08:00",
         "judgment_engine_version": ENGINE_VERSION,
         "judgment_timestamp": "2026-11-13T13:00:00+08:00",
         "earnings_comparison_summary": "EPS：優於預期；營收：資料／比較口徑待核實",
@@ -116,7 +117,15 @@ def self_test(schema: dict) -> None:
         "eps_comparison_status": "beat", "eps_comparison_reason": "actual_above_comparable_consensus",
         "revenue_comparison_status": "pending", "revenue_comparison_reason": "missing_or_invalid_actual_or_consensus",
         "source": {"url": "https://issuer.example/results", "observed_at": "2026-11-13T12:00:00+08:00"},
-        "consensus_source": {"url": "https://consensus.example/eps", "observed_at": "2026-11-13T11:00:00+08:00"},
+        "consensus_source": {"name": "LSEG I/B/E/S", "url": "https://consensus.example/eps", "observed_at": "2026-11-13T11:00:00+08:00", "source_level": 1},
+        "eps_consensus_attempts": [{
+            "source_level": 1, "provider": "LSEG I/B/E/S", "metric": "EPS",
+            "url": "https://consensus.example/eps", "observed_at": "2026-11-13T11:00:00+08:00",
+            "data_as_of": "2026-11-12T20:00:00+08:00", "period": "Q3 2026",
+            "value": 1.0, "currency": "USD", "basis_code": "US_GAAP_DILUTED_EPS",
+            "statistic": "primary_consensus", "outcome": "adopted",
+            "reason": "valid_pre_release_same_basis_consensus"
+        }],
     }
     assert validate_record(good, schema) == [], validate_record(good, schema)
 
