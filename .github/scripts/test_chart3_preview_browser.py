@@ -111,7 +111,7 @@ def validate_chart(page, label):
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
     check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-10"], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
-    if svg_box:
+    if svg_box and label == "desktop":
         cx = svg_box["x"] + svg_box["width"] * 0.55
         cy = svg_box["y"] + svg_box["height"] * 0.45
         page.mouse.move(cx, cy)
@@ -128,6 +128,35 @@ def validate_chart(page, label):
         page.mouse.up()
         dragged = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_mouse_drag_pans_timeline", dragged != before_drag, dragged)
+        page.locator("#timeline-reset").click()
+    elif svg_box:
+        # Simulate two-finger pinch zoom and one-finger horizontal pan on mobile.
+        pinch = page.evaluate("""() => {
+          const el=document.querySelector('#combined-svg');
+          const touch=(id,x,y)=>new Touch({identifier:id,target:el,clientX:x,clientY:y,screenX:x,screenY:y,pageX:x,pageY:y});
+          const a=touch(1,120,180),b=touch(2,220,180);
+          el.dispatchEvent(new TouchEvent('touchstart',{bubbles:true,cancelable:true,touches:[a,b],targetTouches:[a,b],changedTouches:[a,b]}));
+          const c=touch(1,80,180),d=touch(2,260,180);
+          el.dispatchEvent(new TouchEvent('touchmove',{bubbles:true,cancelable:true,touches:[c,d],targetTouches:[c,d],changedTouches:[c,d]}));
+          el.dispatchEvent(new TouchEvent('touchend',{bubbles:true,cancelable:true,touches:[],targetTouches:[],changedTouches:[c,d]}));
+          return [document.querySelector('#combined-svg').dataset.viewStart,document.querySelector('#combined-svg').dataset.viewEnd];
+        }""")
+        pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
+        check(label + "_two_finger_pinch_zoom", pinch_span < initial_span, pinch)
+        page.locator("#timeline-reset").click()
+        page.locator("#timeline-zoom-in").click()
+        before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+        panned = page.evaluate("""() => {
+          const el=document.querySelector('#combined-svg');
+          const touch=(id,x,y)=>new Touch({identifier:id,target:el,clientX:x,clientY:y,screenX:x,screenY:y,pageX:x,pageY:y});
+          const a=touch(1,120,180);
+          el.dispatchEvent(new TouchEvent('touchstart',{bubbles:true,cancelable:true,touches:[a],targetTouches:[a],changedTouches:[a]}));
+          const b=touch(1,180,180);
+          el.dispatchEvent(new TouchEvent('touchmove',{bubbles:true,cancelable:true,touches:[b],targetTouches:[b],changedTouches:[b]}));
+          el.dispatchEvent(new TouchEvent('touchend',{bubbles:true,cancelable:true,touches:[],targetTouches:[],changedTouches:[b]}));
+          return [document.querySelector('#combined-svg').dataset.viewStart,document.querySelector('#combined-svg').dataset.viewEnd];
+        }""")
+        check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         page.locator("#timeline-reset").click()
 
 try:
