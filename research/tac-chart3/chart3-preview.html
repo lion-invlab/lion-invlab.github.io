@@ -232,7 +232,7 @@ const SP500_PRICES=(()=>{const n=SP500_Y36.length/2,a=new Float32Array(n);for(le
 function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END,skipLedger=false){
  const chartEl=document.getElementById('combined-chart');
  const availableWidth=chartEl.clientWidth||Math.max(260,window.innerWidth-48);
- const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<600,H=mobile?430:550,L=mobile?44:78,R=mobile?72:82,T=34,B=mobile?130:164,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
+ const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<600,H=mobile?430:550,L=mobile?44:78,R=mobile?72:82,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
  const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
  const nPath=SP500_PRICES.length,fullSpan=CHART_END-CHART_START;
  const rawI0=clamp(Math.floor((minX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
