@@ -57,7 +57,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  </div>
  <div class="legend" id="combined-legend"></div>
  <div class="chart combined-chart" id="combined-chart"></div>
- <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色區帶依下方共用時間軸標示事件觀察期間；各事件的起訖日期與參考來源列於下方。區間為歷史事件編輯標註，不代表官方統一的危機定義。</div>
+ <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶直接標示於主圖繪圖區內，與五條走勢共用日期座標；各事件起訖日期與參考來源列於圖下方。區間為歷史事件編輯標註，不代表官方統一的危機定義。</div>
  <div class="event-key" id="major-event-key" aria-label="重大事件起訖日期與來源"></div>
  <div class="filter-panel">
   <div class="filter-heading"><strong>顯示／隱藏指標</strong><span>預設全選，可自由組合比較</span></div>
@@ -177,16 +177,12 @@ function drawCombined(data,visible){
  for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
  for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
- const laneEnds=[];const eventTop=450,eventLaneH=19;
- parts.push('<text x="'+L+'" y="435" font-size="12" font-weight="700" fill="#526077">重大事件區間｜灰色區帶</text>');
- for(let lane=0;lane<4;lane++){const yy=eventTop+lane*eventLaneH;parts.push('<line x1="'+L+'" y1="'+(yy+eventLaneH-2)+'" x2="'+(W-R)+'" y2="'+(yy+eventLaneH-2)+'" stroke="#edf0f4"/>');}
+ // 重大事件區間直接疊加在主圖繪圖區：同一日期座標、完整繪圖高度；曲線稍後繪製於上層，確保清晰可讀。
  const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
  for(const ev of sortedEvents){
-  let lane=laneEnds.findIndex(end=>end<ev.start);if(lane<0){lane=laneEnds.length;laneEnds.push(ev.end);}else laneEnds[lane]=ev.end;
   const x1=Math.max(L,Math.min(W-R,x(Date.parse(ev.start+'T00:00:00Z'))));
   const x2=Math.max(L,Math.min(W-R,x(Date.parse(ev.end+'T23:59:59Z'))));
-  const yy=eventTop+lane*eventLaneH+3;
-  parts.push('<rect data-event="'+ev.id+'" x="'+x1.toFixed(2)+'" y="'+yy+'" width="'+Math.max(2,x2-x1).toFixed(2)+'" height="11" rx="3" fill="#8792a2" fill-opacity=".28" stroke="#7b8794" stroke-opacity=".8"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');
+  parts.push('<rect data-event="'+ev.id+'" x="'+x1.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,x2-x1).toFixed(2)+'" height="'+ih+'" fill="#8792a2" fill-opacity=".075" stroke="#7b8794" stroke-opacity=".22" stroke-width="1"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');
  }
  if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" d="'+SP500_PATH+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜right axis</title></path>');
  const ids=['VIXCLS','NFCI','NFCICREDIT','STLFSI4'];
