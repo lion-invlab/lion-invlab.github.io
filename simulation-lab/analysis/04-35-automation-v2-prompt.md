@@ -120,9 +120,9 @@ EPS 與營收必須各自保存來源查找歷程，不得只留下最後採用�
 - `source_level`：1／2／3，分別固定對應 LSEG I/B/E/S、FactSet Estimates、Investing.com。
 - `provider`、`metric`、`url`、`observed_at`。
 - `data_as_of`：共識數據本身的有效／截點時間，與查核時間分開；採用來源必須能證明此時間早於公司財報公布時間。
-- `period`、`value`、`currency`、`unit`、`basis_code)、`statistic`（primary_consensus／mean／median／other）、`analyst_count)（若可取得）。
-- `outcome)：adopted／unavailable／unreadable／not_pre_release／missing_required_fields／incompatible。
-- `reason)：採用或跳過的具體原因。
+- `period`、`value`、`currency`、`unit`、`basis_code`、`statistic`（primary_consensus／mean／median／other）、`analyst_count`（若可取得）。
+- `outcome`：adopted／unavailable／unreadable／not_pre_release／missing_required_fields／incompatible。
+- `reason`：採用或跳過的具體原因。
 
 執行約束：
 1. 查找必須從 source_level=1 開始；每次只可依序增加一級，不可跳級。
