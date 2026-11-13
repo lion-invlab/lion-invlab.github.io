@@ -84,3 +84,5 @@
 **Decision:** technical connectivity is proven; data eligibility, W46 backfill, production adoption and licensing are not. Do not change SIM-1.2 source priority and do not use TEST responses for W46 judgments.
 
 - [x] Raw TEST response evidence archived and read back: `simulation-lab/runs/ortex-test-probe-43416810131.json` (blob SHA `b082a2ca778521fcdb2b383935d8f4f4c599fd03`); follow-up run `43416810131` success.
+
+- [ ] ORTEX 書面確認 Professional／Institutional licence 可涵蓋 TAC 公開展示、PIT 歷史保存及再散布；個人／TEST key 不得用於 TAC 公開產品。
