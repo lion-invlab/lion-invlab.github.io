@@ -118,8 +118,8 @@ def evaluate_metric(record: dict, metric: str) -> dict:
 
     actual_basis = record.get(f"{metric}_actual_basis_code")
     estimate_basis = record.get(f"{metric}_estimate_basis_code")
-    if not _valid_code(actual_basis) or not _valid_code(estimate_basis):
-        return _result("pending", "missing_verified_normalized_basis_code", actual, estimate)
+    if not _valid_code(actual_basis, metric) or not _valid_code(estimate_basis, metric):
+        return _result("pending", "missing_or_unrecognized_normalized_basis_code", actual, estimate)
     if actual_basis != estimate_basis:
         return _result("incomparable", "basis_code_mismatch", actual, estimate)
 
