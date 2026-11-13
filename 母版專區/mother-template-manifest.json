@@ -9,7 +9,7 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "09a35432f2962cbf5138e7e6fdb2bc2d310808e5",
+      "blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
@@ -19,7 +19,7 @@
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "8a8249fb744d310708cb5683ec65014cbc306563",
+      "blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
@@ -65,10 +65,6 @@
     {
       "date": "2026-11-06",
       "change": "依使用者明確核准，僅修復週一母版 #calendar 的 12 張本週經濟事件卡：在各 summary 內補入既有規格 econ-toggle 控制；沿用原有 32×32px 紅色圓形加減控制 CSS，不改版面、樣式、JavaScript 或其他卡片。同步更新週一母版 SHA 與結構驗收契約。"
-    },
-    {
-      "date": "2026-11-13",
-      "change": "依使用者明確要求，雙母版僅新增總結區紅色標題字級規則，實測與市場情緒主標題一致為 21px；未修改黑色摘要內容、版面結構、互動或其他樣式。同步更新雙母版 SHA。"
     }
   ]
 }
