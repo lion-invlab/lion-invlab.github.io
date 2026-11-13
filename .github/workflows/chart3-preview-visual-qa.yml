@@ -1,4 +1,5 @@
 name: TAC Chart 3 preview visual QA
+# Re-run browser QA after history overlay checkbox changes
 
 on:
   push:
