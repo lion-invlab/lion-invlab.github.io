@@ -1,0 +1,19 @@
+{
+  "report_date": "2026-11-13",
+  "timezone": "Asia/Taipei",
+  "work_rules_path": "simulation-lab/TAC_WORK_RULES_SIM.md",
+  "work_rules_version": "SIM-1.2",
+  "work_rules_blob_sha": "3a5540aca30aa760877951ce47786d2574e4f1a7",
+  "fixture_path": "simulation-lab/fixtures/report-data-2026-11-13.json",
+  "fixture_blob_sha": "66866eccbbf216132d21c2108de60301fbb3682b",
+  "reason": "User requested deletion and complete rebuild of today's main preview under SIM-1.2.",
+  "main_calendar_path": "data/calendar/weeks/2026-W46.json",
+  "main_calendar_blob_sha": "a7bab78c8c4a254e2081d89693571c41897f8243",
+  "main_write_scope": "preview/2026-11-13-simulation.html only after QA passes",
+  "forbidden_paths": [
+    "index.html",
+    "母版專區/",
+    "母版 Manifest",
+    "data/calendar/weeks/2026-W46.json"
+  ]
+}
