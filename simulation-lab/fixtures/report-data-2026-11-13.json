@@ -3,7 +3,7 @@
   "timezone": "Asia/Taipei",
   "trading_date": "2026-11-12",
   "summary": "市場主軸已從單純追逐 AI 成長，轉向同時檢驗資本支出回收、融資成本與通膨風險。NVIDIA 領導層變動放大科技權值股的不確定性，但 Broadcom、AMD 相對有承接，顯示資金仍在 AI 供應鏈內重新配置，尚非全面撤出。歐洲企業財報提供區域支撐；整體更接近高利率環境下的選擇性輪動，而非所有市場同步失去成長信心。",
-  "sentiment": "風險偏好降溫，但尚未進入全面恐慌。股市波動仍受控，債券市場的利率壓力卻更突出；CNN 情緒讀數落在 Fear 區，與利率波動訊號一致指向審慎。這代表市場正在提高對政策維持緊縮的防備，而不是已確認信用或流動性危機。",
+  "sentiment": "風險偏好降溫，但尚未進入全面恐慌。VIX 升至 18.70、單日明顯走高，顯示股市波動正在升溫；MOVE 維持偏高，債券市場的利率壓力更突出。CNN Fear & Greed 備援讀數為 40（Fear），整體訊號指向審慎，但尚不足以確認信用或流動性危機。",
   "focus_news": [
     {
       "title": "英國第三季 GDP 季增 0.7%，9 月月增 0.2%",
@@ -111,14 +111,14 @@
       }
     },
     "標普500指數": {
-      "display": "7,593.04",
+      "display": "7,592.40",
       "change_display": "-0.35%",
       "source": {
-        "name": "Investing.com HK historical data",
-        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "name": "Associated Press",
+        "url": "https://apnews.com/article/3f3668a937a11535103e3a5c8d82c9fc",
         "data_date": "2026-11-12",
-        "quote_type": "daily_close",
-        "note": "採 Investing.com HK 歷史資料 2026-11-12 列：收市 7,593.04、開市 7,564.11、最高 7,652.40、最低 7,559.61。"
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK 歷史頁將 US SPX 500 標示為即時 CFD；本項改採 AP 報導的 S&P 500 現貨指數收盤 7,592.40，避免將 CFD 當成現貨指數。"
       }
     },
     "那斯達克綜合指數": {
@@ -133,25 +133,25 @@
       }
     },
     "羅素2000指數": {
-      "display": "2,802.84",
-      "change_display": "-1.53%",
+      "display": "2,799.06",
+      "change_display": "-1.66%",
       "source": {
-        "name": "Investing.com global historical data (HK history table not yet updated)",
-        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "name": "Associated Press",
+        "url": "https://apnews.com/article/3f3668a937a11535103e3a5c8d82c9fc",
         "data_date": "2026-11-12",
-        "quote_type": "daily_close",
-        "note": "Investing.com global historical table shows 2026-11-12 close 2,802.84, open 2,831.80, high 2,837.45, low 2,802.30. HK historical table latest visible row remains 11/11; therefore use same-provider global page as fallback and retain source caveat."
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK 歷史頁標示為 CFD；改採 AP 報導的 Russell 2000 現貨指數收盤 2,799.06，避免將 CFD 當成現貨指數。"
       }
     },
     "費城半導體指數": {
       "display": "10,506.7",
       "change_display": "-0.54%",
       "source": {
-        "name": "Investing.com HK historical data (user-provided screenshot)",
+        "name": "Investing.com HK historical data",
         "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "依使用者提供的 Investing.com HK 歷史數據頁截圖，2026-11-12 收盤 10,506.7（-0.54%），開盤 10,174.1，最高 10,686.8。歷史表格右側最低價欄在截圖中被裁切，不臆測。"
+        "note": "已直接核對 Investing.com HK 歷史資料列：2026-11-12 收盤 10,506.7（-0.54%）、開盤 10,174.1、最高 10,688.2、最低 10,174.1。"
       }
     },
     "香港恆生指數": {
@@ -288,56 +288,56 @@
     }
   },
   "sectors": {
-    "XLE": "+1.86%",
-    "XLK": "+3.23%",
-    "XLI": "+1.33%",
-    "XLC": "+0.78%",
-    "XLB": "+0.32%",
-    "XLF": "+0.58%",
-    "XLU": "+0.21%",
-    "XLRE": "+0.02%",
-    "XLY": "-0.05%",
-    "XLP": "+0.46%",
-    "XLV": "+0.04%"
+    "XLE": "+1.51%",
+    "XLU": "-0.02%",
+    "XLK": "-0.34%",
+    "XLP": "-0.43%",
+    "XLY": "-0.44%",
+    "XLRE": "-0.52%",
+    "XLV": "-0.59%",
+    "XLF": "-0.72%",
+    "XLI": "-0.89%",
+    "XLC": "-0.96%",
+    "XLB": "-1.28%"
   },
   "bonds": {
     "2年期美債殖利率": {
-      "display": "4.867",
-      "change_display": "+1.95%",
+      "display": "4.864",
+      "change_display": "+1.90%",
       "source": {
         "name": "Investing.com Japan historical data",
         "url": "https://jp.investing.com/rates-bonds/u.s.-2-year-bond-yield-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 daily close; Investing.com historical table."
+        "note": "直接核對 Investing.com Japan 2026-11-12 歷史列：收盤 4.864、日變動 +1.90%。"
       }
     },
     "10年期美債殖利率": {
-      "display": "5.124",
-      "change_display": "+2.81%",
+      "display": "5.103",
+      "change_display": "+2.39%",
       "source": {
         "name": "Investing.com US historical data",
         "url": "https://www.investing.com/rates-bonds/u.s.-10-year-bond-yield-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 daily close; Investing.com historical table."
+        "note": "直接核對 Investing.com 2026-11-12 歷史列：收盤 5.103、日變動 +2.39%；原 5.124 為 11/13 報價，非本報告基準日。"
       }
     },
     "30年期美債殖利率": {
-      "display": "5.432",
-      "change_display": "+1.92%",
+      "display": "5.433",
+      "change_display": "+1.94%",
       "source": {
         "name": "Investing.com Canada historical data",
         "url": "https://ca.investing.com/rates-bonds/u.s.-30-year-bond-yield-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 daily close; Investing.com historical table."
+        "note": "直接核對 Investing.com Canada 2026-11-12 歷史列：收盤 5.433、日變動 +1.94%。"
       }
     }
   },
   "fx": {
     "美元指數": {
-      "display": "103.18",
+      "display": "103.17",
       "change_display": "+0.26%",
       "source": {
         "name": "Investing.com HK",
@@ -348,14 +348,14 @@
       }
     },
     "美元／新台幣": {
-      "display": "33.003",
-      "change_display": "+0.34%",
+      "display": "32.996",
+      "change_display": "+0.32%",
       "source": {
         "name": "Investing.com HK",
         "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": ""
+        "note": "直接核對 Investing.com HK USD/TWD 歷史列：2026-11-12 收盤 32.996、日變動 +0.32%。"
       }
     },
     "歐元／美元": {
@@ -405,62 +405,62 @@
   },
   "energy": {
     "WTI原油期貨": {
-      "display": "88.92",
-      "change_display": "+2.76%",
+      "display": "88.70",
+      "change_display": "+2.51%",
       "source": {
         "name": "Investing.com HK｜CME WTI Dec 2026",
         "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 CME WTI December 2026 指定合約歷史收盤；採 historical close 88.92、日變動 +2.76%，不採 11/13 05:15 的盤中即時價 88.94。"
+        "note": "直接核對 2026-11-12 CME WTI December 2026 歷史列：收盤 88.70、日變動 +2.51%；排除舊 fixture 的 88.92／+2.76%。"
       }
     },
     "Brent原油期貨": {
-      "display": "94.54",
-      "change_display": "+1.92%",
+      "display": "95.95",
+      "change_display": "+3.44%",
       "source": {
         "name": "Investing.com HK｜ICE Brent Jan 2027",
         "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1184864",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 ICE Brent January 2027 指定合約歷史收盤；Investing.com HK 歷史列為 94.54、+1.92%。Reuters 同日基準結算報 95.82、+3.3%，存在供應商／報價口徑差異；本報表為遵守 Investing.com HK 優先來源，統一採指定合約歷史列，並保留差異註記。"
+        "note": "直接核對 2026-11-12 ICE Brent January 2027 歷史列：收盤 95.95、日變動 +3.44%；排除舊 fixture 的 94.54／+1.92%。"
       }
     }
   },
   "metals": {
     "黃金期貨 GC": {
-      "display": "3,878.20",
-      "change_display": "-3.06%",
+      "display": "3,885.30",
+      "change_display": "-2.88%",
       "source": {
         "name": "Investing.com Global｜Gold GCZ6",
         "url": "https://www.investing.com/commodities/gold-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 GCZ6 historical close; exact contract series."
+        "note": "直接核對 Investing.com GCZ6 歷史列：2026-11-12 收盤 3,885.30、日變動 -2.88%。"
       }
     },
     "白銀期貨 SI": {
-      "display": "50.015",
-      "change_display": "-3.82%",
+      "display": "50.065",
+      "change_display": "-3.72%",
       "source": {
         "name": "Investing.com Global｜Silver SIZ6",
         "url": "https://www.investing.com/commodities/silver-historical-data",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 SIZ6 historical close; exact contract series."
+        "note": "直接核對 Investing.com SIZ6 歷史列：2026-11-12 收盤 50.065、日變動 -3.72%。"
       }
     }
   },
   "risk": {
     "vix": {
-      "display": "17.60",
-      "change_display": "+0.63%",
+      "display": "18.70",
+      "change_display": "+6.92%",
       "source": {
         "name": "Investing.com HK｜CBOE VIX historical data",
         "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
         "data_date": "2026-11-12",
         "quote_type": "daily_close",
-        "note": "2026-11-12 historical close; page identifies CBOE Volatility Index."
+        "note": "直接核對 Investing.com HK CBOE VIX 歷史列：2026-11-12 收盤 18.70、日變動 +6.92%。"
       },
       "band": "偏低"
     },
@@ -518,7 +518,7 @@
     ],
     "source_name": "Investing.com Fed Rate Monitor",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "11/13 05:05 台灣時間快照：12月升息25bp 88.3%、升息50bp 11.7%。CME QuikStrike 嵌入頁無法取得；此為備援快照，非FOMC決議。"
+    "note": "2026-11-13 05:05 台灣時間快照：12月升息機率合計 100%，其中升息25bp 88.3%、升息50bp 11.7%；Investing.com Fed Rate Monitor 備援快照，非FOMC決議。"
   },
   "observation": "盤面呈現三個值得追蹤的分歧：第一，美亞科技與小型股承壓，歐洲卻受企業財報支撐，區域表現並不同步；第二，AI 供應鏈內部出現資金轉向，但替代受惠者走強尚不能證明訂單或市占已轉移；第三，利率壓力升高之際，能源受地緣供應風險支撐、貴金屬卻未同步受惠。後續要驗證的是輪動能否擴散，以及高融資成本是否開始壓抑企業展望與市場廣度。 追蹤清單包括 SOX 與 Russell 2000 的相對表現、MOVE 與 VIX 的風險訊號、WTI／Brent 的供需定價，以及 FedWatch 對政策路徑的調整。",
   "calendar": {
@@ -4437,11 +4437,9 @@
     "global_markets": [
       "📌 亞股觀察｜亞洲風險資產普遍承壓，台股呈現權值股賣壓與內資承接並存；後續應觀察外資流向、成交結構及匯率是否穩定。",
       "📌 歐股觀察｜企業財報與部分公司展望上修提供支撐，區域表現較有韌性；但單一區域走強不足以確認全球風險偏好反轉。",
-      "📌 美股觀察｜科技權值與小型股承壓，指數壓力集中於高估值及對融資條件敏感的族群；AI 資金轉向其他供應鏈，仍待訂單與營收驗證。",
-      "📌 亞股觀察｜亞洲風險資產普遍承壓，台股呈現權值股賣壓與內資承接並存；後續應觀察外資流向、成交結構及匯率是否穩定。",
-      "📌 歐股觀察｜企業財報與部分公司展望上修提供支撐，區域表現較有韌性；但單一區域走強不足以確認全球風險偏好反轉。"
+      "📌 美股觀察｜科技權值與小型股承壓，指數壓力集中於高估值及對融資條件敏感的族群；AI 資金轉向其他供應鏈，仍待訂單與營收驗證。"
     ],
-    "sectors": "產業輪動以科技、能源與工業相對有承接，消費類股較弱。這反映資金仍在尋找具成長能見度或供給風險支撐的方向，但領漲集中度仍高，尚待更廣泛的產業參與確認。",
+    "sectors": "能源是 11 個產業 ETF 中唯一收漲的板塊，公用事業近乎持平；科技、消費、金融與工業普遍回落，材料及通訊服務相對較弱。資金強勢集中於能源，較像地緣供應風險帶動的單一產業行情，尚未形成廣泛輪動。",
     "bonds": "美債殖利率曲線整體上移，市場對政策維持緊縮的定價升溫。較高的無風險利率會提高企業融資成本與長久期資產折現壓力；若後續通膨與就業數據仍偏熱，寬鬆預期可能再被延後。",
     "fx": "美元偏強，非美貨幣普遍承壓，亞洲匯市同時面對利差與區域資金流壓力。後續觀察美元利差優勢是否延續，以及台灣央行調節能否降低匯率波動。",
     "energy": "原油反彈反映中東談判與荷姆茲航運風險所帶來的供應溢價；但 OPEC+ 增產及美國庫存增加構成反向力量。價格能否續強，仍取決於地緣風險是否實際影響供應，而非僅停留在消息面。",
@@ -4582,88 +4580,88 @@
       "url": "https://hk.investing.com/etfs/spdr-energy-select-sector-fund-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "63.37",
-      "change_display": "+1.86%"
+      "close": "64.33",
+      "change_display": "+1.51%"
     },
     "XLK": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "174.36",
-      "change_display": "+3.23%"
+      "close": "173.77",
+      "change_display": "-0.34%"
     },
     "XLI": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/industrial-sector-spdr-trust-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "170.97",
-      "change_display": "+1.33%"
+      "close": "169.44",
+      "change_display": "-0.89%"
     },
     "XLC": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/communication-services-select-spdr-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "108.60",
-      "change_display": "+0.78%"
+      "close": "107.56",
+      "change_display": "-0.96%"
     },
     "XLB": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/spdr-materials-select-sector-etf-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "53.02",
-      "change_display": "+0.32%"
+      "close": "52.34",
+      "change_display": "-1.28%"
     },
     "XLF": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/financial-select-sector-spdr-fund-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "58.63",
-      "change_display": "+0.58%"
+      "close": "58.21",
+      "change_display": "-0.72%"
     },
     "XLU": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "43.82",
-      "change_display": "+0.21%"
+      "close": "43.81",
+      "change_display": "-0.02%"
     },
     "XLRE": {
       "name": "Investing.com HK",
-      "url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr?cid=959413",
+      "url": "https://hk.investing.com/etfs/real-estate-select-sector-spdr-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "44.59",
-      "change_display": "+0.02%"
+      "close": "44.36",
+      "change_display": "-0.52%"
     },
     "XLY": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/spdr-consumer-discr.-select-sector-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "120.99",
-      "change_display": "-0.05%"
+      "close": "120.46",
+      "change_display": "-0.44%"
     },
     "XLP": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/spdr---consumer-staples-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "91.45",
-      "change_display": "+0.46%"
+      "close": "91.06",
+      "change_display": "-0.43%"
     },
     "XLV": {
       "name": "Investing.com HK",
       "url": "https://hk.investing.com/etfs/spdr---health-care-historical-data",
       "data_date": "2026-11-12",
       "quote_type": "ETF_daily_close",
-      "close": "188.95",
-      "change_display": "+0.04%"
+      "close": "187.83",
+      "change_display": "-0.59%"
     }
   },
   "key_levels": {
@@ -4758,7 +4756,7 @@
     "details": "關鍵觀察：①美債殖利率及 MOVE 同步上行，檢視金融條件是否進一步收緊；②AI 權值股回檔是否擴散至半導體供應鏈與其他高估值產業；③油價、美元與亞洲匯率變化是否再度推升通膨與資金壓力。"
   },
   "qa_run_revision": "2026-11-13-qa-fix-6",
-  "market_sentiment": "市場情緒偏向 Fear。美股與亞洲主要指數同步走弱，半導體與小型股跌幅較大；美債殖利率上行、MOVE 升至 98.4202，顯示利率波動壓力升高。VIX 17.60 尚未進入極端恐慌區，但 CNN Fear & Greed 40 仍處 Fear。FedWatch 12 月升息機率 88.3%，市場須防範利率維持高檔對高估值資產的折現壓力。",
+  "market_sentiment": "市場情緒偏向 Fear。VIX 升至 18.70、單日上升 6.92%，波動升溫但尚未進入極端恐慌區；MOVE 為 98.4202，利率波動壓力仍高。CNN Fear & Greed 備援讀數 40，處於 Fear。Investing.com 05:05 台灣時間快照顯示，12 月升息機率合計 100%（升息 25bp 為 88.3%、升息 50bp 為 11.7%），市場須防範利率維持高檔對高估值資產的折現壓力。",
   "quality_note": "行情基準日 2026/11/12。44 項固定指標已取得 43 項可核實數值；CNN Fear & Greed 使用 FGScore 備援鏡像，標示 provisional。MOVE 使用使用者提供的 TradingView 截圖（98.4202、+6.47%）。五大指數 OHLC/Pivot 全數完成。",
   "report_cutoff_taipei": "2026-11-13 05:25",
   "news_window_taipei": "2026-11-12 12:00–2026-11-13 05:25",
