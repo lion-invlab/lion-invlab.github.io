@@ -227,24 +227,8 @@ function drawCombined(data,visible){
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="12" font-weight="600">金融壓力指標｜歷史百分位（左軸）</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="12" font-weight="600">S&P 500 點數（右軸）</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
- // 回檔期間以更深的淡灰色框出，百分比標籤放在主圖底部兩列，避免短區間標籤互相遮蔽。
- const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak));
- const occupied=[[],[]];
- for(const dd of sortedDD){
-  const x1=x(Date.parse(dd.peak+'T00:00:00Z')),x2=x(Date.parse(dd.trough+'T23:59:59Z'));
-  parts.push('<rect data-drawdown="'+dd.id+'" x="'+Math.max(L,x1).toFixed(2)+'" y="'+T+'" width="'+Math.max(2,Math.min(W-R,x2)-Math.max(L,x1)).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".035" stroke="#64748b" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 回檔 '+dd.pct.toFixed(1)+'%｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
-  const mid=(Math.max(L,x1)+Math.min(W-R,x2))/2;
-  let lane=occupied[0].every(v=>Math.abs(v-mid)>=44)?0:1;
-  if(occupied[lane].some(v=>Math.abs(v-mid)<44))lane=1-lane;
-  let labelX=Math.max(L+20,Math.min(W-R-20,mid));
-  if(occupied[lane].some(v=>Math.abs(v-labelX)<44))labelX=Math.max(L+20,Math.min(W-R-20,mid+(mid<=(L+W-R)/2?24:-24)));
-  occupied[lane].push(labelX);
-  const labelY=H-B-(lane===0?12:30);
-  parts.push('<line data-drawdown-leader="'+dd.id+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-38)+'" x2="'+labelX.toFixed(1)+'" y2="'+(labelY-8)+'" stroke="#526174" stroke-width=".8" stroke-opacity=".75"/>');
-  parts.push('<rect data-drawdown-label-bg="'+dd.id+'" x="'+(labelX-21).toFixed(1)+'" y="'+(labelY-18)+'" width="42" height="16" rx="5" fill="#26364d" fill-opacity=".92"/>');
-  parts.push('<text data-drawdown-label="'+dd.id+'" x="'+labelX.toFixed(1)+'" y="'+(labelY-6)+'" text-anchor="middle" fill="#fff" style="fill:#fff;font-size:10px;font-weight:700">'+dd.pct.toFixed(1)+'%</text>');
- }
  document.getElementById('major-event-key').innerHTML=MAJOR_EVENTS.map(ev=>'<div class="event-item"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></div></div>').join('');
+ document.getElementById('drawdown-key').innerHTML=DRAWDOWNS.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%｜'+dd.peak+' → '+dd.trough+'</strong><br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
  document.getElementById('drawdown-key').innerHTML=sortedDD.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%｜'+dd.peak+' → '+dd.trough+'</strong><br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
