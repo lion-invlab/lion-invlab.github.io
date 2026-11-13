@@ -1,6 +1,6 @@
 # TAC 行事曆資料庫｜04:35 預更新 Automation v2 執行契約（草案）
 
-狀態：simulation branch draft only；尚未套用至使用者的正式 automation，也未重新啟用排程。
+狀態：2026-11-13 已套用至正式 04:35 ChatGPT automation；任務仍維持 disabled，等待 main Schema v2、判讀引擎及歷史遷移完成後再評估啟用。
 適用任務：`TAC 行事曆資料庫｜每日 04:35 預更新`
 唯一正式資料路徑：`data/calendar/weeks/YYYY-Www.json`
 
