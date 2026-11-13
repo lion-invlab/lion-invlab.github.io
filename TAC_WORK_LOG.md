@@ -820,3 +820,35 @@
 - 從 run `43331347462` artifact 直接以 BeautifulSoup 回讀 42 張已公布財報卡：股價反應 37 家已填入公告後首個交易日收盤變化；5 家保留待核（Vodafone Group、Franco-Nevada、Vylor、Joint Stock Company Kaspi.kz、CNH Industrial N.V.），沒有用未知公告時間推測。
 - 最新 HTML SHA/blob：`902997848aa212d487ce8fcbe3dffb396995723e`，431,970 chars。Visual regression failures=[]；Fear & Greed 40% marker；油價 WTI 88.92/+2.76%、Brent 94.54/+1.92%。
 - main 審核版已更新 commit `048d58b0abf3ad4080b0a1e76a62ab07289a8add`；main preview blob SHA `902997848aa212d487ce8fcbe3dffb396995723e`。main index blob SHA `daae9c236c566662e83c937375e8e038dfcb1c37`，未修改。
+
+
+## 2026-11-13｜財報比較資料契約與單一判讀引擎
+
+### 正式資料盤點（read-only）
+- main HEAD：`d271d1226ba1c19b431118c9967d57d2bce678fa`
+- W46 blob：`85edcefb1f7b86112e55d43a324c6cb5c8c2fdab`；schema_version=1；16 economic、48 earnings、129 audit；42 released.
+- EPS：actual 36、estimate 34、both 30；basis actual/estimate 各 18；Beat 15、Miss 3、null 24。
+- Revenue：actual 41、estimate 34、both 34；basis actual/estimate 各 3；Beat 17、Miss 8、null 17。22 個 Revenue directional statuses 沒有結構化 actual/estimate basis。
+- W45/W46 同為 schema_version=1，但 W45 沒有 W46 新增 basis 欄位，確認 schema version 漂移。
+- 所有 42 筆缺 judgment_engine_version；共用 currency/unit 欄位不足以明確區分 actual 與 estimate。
+- 04:35 writer 已定位為 ChatGPT automation `6ae6dff2200c81919ba2cee4db78f8a5`，目前 disabled；其 prompt 要求 schema 不變。它不是 GitHub Actions。main workflow tree 無 calendar writer。
+
+### 隔離分支交付
+- 新增 `simulation-lab/runner/earnings_judgment.py`，唯一計算 EPS／Revenue 狀態；只接受受控 basis codes、分別幣別、期間、Revenue unit、可追溯來源。
+- 修改 `build_review_html.py`，HTML renderer 只讀取帶有 engine version 的狀態，不再自行從數字方向推導 Beat/Miss。
+- 修改 `calendar_source_guard.py`，新版本只顯示 engine summary 與獨立 commentary；舊自由文字 `financial_judgment` 不再作為已驗證判讀。
+- 新增 engine tests、renderer tests、read-only schema audit、Schema v2 proposal、W46 audit report、42 筆 migration CSV。
+- 修改模擬 workflow，push smoke test 自動執行判讀測試並唯讀 audit main W46。
+
+### 驗收
+- 首次受控 basis registry 測試因呼叫漏傳 metric 參數失敗（run 43377982688）；依日誌修正後 run 43378063934 completed/success。
+- 判讀引擎測試 PASS：正常 Beat/Miss/Inline、負 EPS、basis/currency/period/unit mismatch、缺來源、共識分歧、未知 basis code、舊版狀態 fail-closed。
+- Renderer 測試 PASS：不再自行推導方向，未帶 engine version 的舊狀態顯示 pending。
+- main W46 audit PASS：42 released records、42 unversioned；v2 basis code、separate currency、period、revenue unit fields coverage all zero。
+- 本次 push smoke 的完整早報組裝、Playwright、視覺 QA 均 skipped；不宣稱通過。
+- main、正式 W46 JSON、WR、母版、Manifest、index、preview 均未修改；沒有寫入或啟用 04:35 automation。
+
+### 未完成／阻塞
+- W46 42 筆 basis code evidence mapping 與資料遷移尚未完成。
+- 04:35 automation 目前 disabled，且舊 prompt 仍要求 schema 不變；正式上線前須先改寫唯一 writer 的執行契約，並完成 end-to-end migration test。
+- 依 SIM-1.1 main 唯讀限制，本輪只完成隔離實作；不得直接修改 main JSON、正式 workflow 或 automation schedule。
