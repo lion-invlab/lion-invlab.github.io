@@ -103,4 +103,4 @@
 - [x] TEST raw response evidence archived in simulation branch: `simulation-lab/runs/ortex-test-probe-43417361875.json` (blob SHA `3e38b54c89a9bcfed043289a4348984bea3e298d`).
 - [ ] Integrate the snapshot helper with the single authorised production writer only after full simulation multi-day regression, licence review, WR update approval and explicit production deployment approval.
 
-- [ ] Confirm three-day unchanged-value polling retains three distinct observed_at snapshots and idempotently ignores exact replay (added in latest simulation commit; await CI).
+- [x] Three-day unchanged-value polling retains three distinct observed_at snapshots and idempotently ignores exact replay; verified in workflow `43417601486`.
