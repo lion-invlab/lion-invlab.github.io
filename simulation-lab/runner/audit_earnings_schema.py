@@ -150,6 +150,21 @@ def audit(report_date: str) -> dict:
     return result
 
 
+def write_migration_csv(rows: list[dict], output_path: str) -> None:
+    csv_path = Path(output_path)
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    fieldnames = [
+        "ticker", "eps_legacy_status", "eps_v2_status",
+        "eps_actual_basis_code", "eps_estimate_basis_code", "eps_reason",
+        "revenue_legacy_status", "revenue_v2_status",
+        "revenue_actual_basis_code", "revenue_estimate_basis_code", "revenue_reason",
+    ]
+    with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(rows)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--report-date", required=True, help="Taiwan report date YYYY-MM-DD")
@@ -159,18 +174,7 @@ def main():
     result = audit(args.report_date)
     migration_rows = result.pop("_migration_rows", [])
     if args.migration_csv:
-        csv_path = Path(args.migration_csv)
-        csv_path.parent.mkdir(parents=True, exist_ok=True)
-        fieldnames = [
-            "ticker", "eps_legacy_status", "eps_v2_status",
-            "eps_actual_basis_code", "eps_estimate_basis_code", "eps_reason",
-            "revenue_legacy_status", "revenue_v2_status",
-            "revenue_actual_basis_code", "revenue_estimate_basis_code", "revenue_reason",
-        ]
-        with csv_path.open("w", encoding="utf-8-sig", newline="") as handle:
-            writer = csv.DictWriter(handle, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(migration_rows)
+        write_migration_csv(migration_rows, args.migration_csv)
     rendered = json.dumps(result, ensure_ascii=False, indent=2)
     if args.output:
         path = Path(args.output)
