@@ -83,6 +83,47 @@ def main():
     check(evaluate_metric(item, "eps")["status"], "beat", "EPS beat")
     check(evaluate_metric(item, "revenue")["status"], "beat", "revenue beat")
 
+    missing_attempts = base_record()
+    missing_attempts.pop("eps_consensus_attempts")
+    check(evaluate_metric(missing_attempts, "eps")["reason"], "missing_consensus_source_attempt_history", "missing source ladder blocks judgment")
+
+    after_adoption = base_record()
+    later_attempt = dict(after_adoption["eps_consensus_attempts"][0])
+    later_attempt.update({
+        "source_level": 2,
+        "provider": "FactSet Estimates",
+        "url": "https://example.com/factset-eps",
+        "outcome": "unavailable",
+        "reason": "should_not_search_after_valid_lseg",
+    })
+    after_adoption["eps_consensus_attempts"].append(later_attempt)
+    check(evaluate_metric(after_adoption, "eps")["reason"], "source_search_continued_after_valid_consensus", "first valid source stops ladder")
+
+    post_release_snapshot = base_record()
+    post_release_snapshot["eps_consensus_attempts"][0]["data_as_of"] = "2026-11-13T12:00:00+08:00"
+    check(evaluate_metric(post_release_snapshot, "eps")["reason"], "consensus_snapshot_not_before_earnings_release", "post-release consensus cannot be used")
+
+    fallback = base_record()
+    first_unavailable = dict(fallback["eps_consensus_attempts"][0])
+    first_unavailable.update({
+        "url": None, "data_as_of": None, "period": None, "value": None,
+        "currency": None, "basis_code": None, "statistic": None,
+        "outcome": "unavailable", "reason": "LSEG estimate unavailable",
+    })
+    second_adopted = dict(fallback["eps_consensus_attempts"][0])
+    second_adopted.update({
+        "source_level": 2, "provider": "FactSet Estimates",
+        "url": "https://example.com/factset-eps",
+    })
+    fallback["eps_consensus_attempts"] = [first_unavailable, second_adopted]
+    fallback["consensus_source"] = {
+        "name": "FactSet Estimates",
+        "url": "https://example.com/factset-eps",
+        "observed_at": "2026-11-13T04:30:00+08:00",
+        "source_level": 2,
+    }
+    check(evaluate_metric(fallback, "eps")["status"], "beat", "fallback only after first source unavailable")
+
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
     item["eps_consensus_attempts"][0]["value"] = -0.72
