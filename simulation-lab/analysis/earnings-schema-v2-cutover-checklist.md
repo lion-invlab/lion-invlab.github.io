@@ -65,5 +65,6 @@
 - [x] 採用共識必須有具時區的 `data_as_of`，且早於財報公告時間；selected consensus source 必須與唯一 adopted attempt 一致。
 - [x] EPS 與 Revenue 分開保存來源查找歷程；營收採用紀錄必須提供單位。
 - [x] 增加 First Available Wins、來源 fallback、公告後共識不可採用、缺少來源歷程不得方向性判讀等回歸測試。
+- [x] Strict validator 對每筆已公布財報的 EPS／營收分別檢查來源歷程；已採用必須唯一且在找到後停止，未採用必須完整查完三級，否則 Gate fail。
 - [x] 最新程式／Schema CI：run `43410484429`，commit `506416ab143f8b161ab8c8076f2d860b2f7a8f9d`，結果 success。
 - [ ] 將新增的 attempts 欄位納入正式 writer 的擷取與 merge/upsert；目前只完成 Schema／engine／測試契約，尚未接入正式 04:35 writer。
