@@ -189,7 +189,7 @@ fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HT
  document.getElementById('select-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=true;controls.querySelectorAll('input').forEach(i=>i.checked=true);render();});
  document.getElementById('clear-all-series').addEventListener('click',()=>{for(const c of SERIES_CONFIG)visible[c.id]=false;controls.querySelectorAll('input').forEach(i=>i.checked=false);render();});
  const latest=Object.values(byId).map(s=>s.latest_valid_observation?.date||'').filter(Boolean).sort().at(-1);
- document.getElementById('combined-asof').textContent='資料版本 '+data.generated_at.slice(0,10)+'｜最新觀測 '+latest;
+ document.getElementById('asof').textContent='資料版本 '+data.generated_at.slice(0,10);document.getElementById('combined-asof').textContent='資料版本 '+data.generated_at.slice(0,10)+'｜最新觀測 '+latest;
  render();
  document.getElementById('status').hidden=true;document.getElementById('combined-stress-card').hidden=false;
 }).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與 data/tac-chart3/chart3_market_stress.json 位於同一分支。'});
