@@ -887,3 +887,10 @@
 
 - renderer test 改為直接呼叫 `build_review_html.earnings_comparison_status`，驗證組裝器沒有數字 fallback。
 - Actions run `43379755113` completed/success；引擎、組裝器 adapter、CSV exporter 及 read-only main audit PASS。早報組裝／Playwright／視覺 QA skipped，未產生新 HTML。
+
+
+## 2026-11-13｜新增 per-record JSON Schema v2 與 validator
+
+- 新增 `schemas/tac-earnings-record-v2.schema.json`，並新增 `simulation-lab/runner/validate_earnings_v2.py`。validator 使用 Draft 2020-12 JSON Schema，再以唯一判讀引擎檢查 stored status consistency。
+- 已把 validator self-test 加入 simulation workflow；commit `db9c085e8d0c88ebcefb5a371feb686826c74a23`。GitHub 尚未提供這個 commit 的 workflow run，因此此新增測試仍待 CI 驗收，不得標示通過。
+- 實際 04:35 automation prompt 已保存 v2 fail-closed 契約，但 automation disabled；main schema_version 仍為 1，故不可啟用或寫入正式 JSON。
