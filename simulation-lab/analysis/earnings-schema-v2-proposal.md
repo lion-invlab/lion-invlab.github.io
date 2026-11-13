@@ -178,10 +178,10 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 
 ### 共識來源階梯的可稽核資料結構
 只保存最後選中的 `consensus_source` 不足以證明遵守 SIM-1.2 First Available Wins。Schema v2 因此新增：
-- `eps_consensus_attempts[])
-- `revenue_consensus_attempts[])
+- `eps_consensus_attempts[]`
+- `revenue_consensus_attempts[]`
 
-每一筆 attempt 包含 `source_level`、`provider`、`metric`、`url`、`observed_at`、`data_as_of`、`period`、`value`、`currency`、`unit`、`basis_code`、`statistic)、`analyst_count)、`outcome)、`reason`。
+每一筆 attempt 包含 `source_level`、`provider`、`metric`、`url`、`observed_at`、`data_as_of`、`period`、`value`、`currency`、`unit`、`basis_code`、`statistic`、`analyst_count`、`outcome`、`reason`。
 - source_level 1／2／3 固定對應 LSEG I/B/E/S、FactSet Estimates、Investing.com；attempt 必須從 1 開始順序遞增。
 - 有效採用的 attempt 必須是最後一筆，且 selected consensus source 與該筆 URL、provider、level 一致。
 - `data_as_of` 必須具時區且早於 `event_date`；只有 `observed_at` 不足以證明這是公布前共識。
