@@ -1,3 +1,10 @@
+## 2026-11-13｜SIM-1.2 重新執行早報建置
+
+- 依使用者明確指示，重新執行 2026-11-13（週五）審核版完整建置；報價基準日 2026-11-12。
+- 使用 date-matched fixture `simulation-lab/fixtures/report-data-2026-11-13.json`；行事曆僅讀取 main `data/calendar/weeks/2026-W46.json`。
+- 本次由既有隔離 workflow 重新執行 OHLC 擷取、財報股價反應擷取、DOM 組裝、互動及視覺 QA；不沿用舊 preview HTML。
+- 預定輸出僅限 simulation branch `simulation-lab/output/`；QA 全通過後才複製至 main `preview/2026-11-13-simulation.html`。不得修改 `main/index.html` 或 W46 JSON。
+
 # TAC Process Simulation Lab
 
 - Branch: `simulation/tac-process-lab-2026-11-06`
