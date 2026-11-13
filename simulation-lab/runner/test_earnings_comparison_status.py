@@ -165,6 +165,7 @@ def test_calendar_projection_migrates_legacy_records():
         "revenue_estimate": 8.42,
         "reporting_period": "2026 Q3",
         "source": evidence_source("Issuer"),
+        "revenue_consensus_conflict": True,
         "revenue_consensus_source": {
             **evidence_source("Finviz"),
             "notes": "營收共識 US$6.72B 與 Finviz US$8.42B 不一致；兩來源定義差異仍未解。",
@@ -177,6 +178,10 @@ def test_calendar_projection_migrates_legacy_records():
     assert divergent_result["revenue_consensus_conflict"] is True
     assert divergent_result["revenue_comparison_status"] == "consensus_divergent"
     assert divergent_result["revenue_comparison_reason"] == "verified_consensus_sources_diverge"
+    notes_only = dict(unresolved_revenue_consensus)
+    notes_only.pop("revenue_consensus_conflict")
+    notes_only_result = _earnings_records({"events": {"earnings": [notes_only]}}, observed_at="2026-11-13T13:00:00+08:00")[0]
+    assert notes_only_result["revenue_comparison_status"] == "pending", "free-text notes alone cannot assert a verified consensus conflict"
 
     same_basis_eps = {
         "eps_actual": -0.14,
