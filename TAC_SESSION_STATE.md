@@ -1569,3 +1569,14 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Pending 原因：EPS 11 筆缺／無法辨識 basis code、12 筆缺 actual／consensus 數值；Revenue 30 筆缺／無法辨識 basis code、8 筆缺 actual／consensus 數值。
 - 最新審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA b5b59c1ec9b1ded944941fbc9249e21fb262152f；artifact ID 14021859744；run 43394759935。
 - QA viewport 1440／768／412／390／360px，visual failures=[]；interaction page errors=0；本輪仍只寫入 simulation branch，main calendar 只讀，無 main JSON／preview／index／WR／母版／Manifest 修改，production deploy=forbidden。
+
+
+## 2026-11-13｜工作錨點更新：SIM-1.2 統一 WR 已生效
+
+- 當前唯一模擬區 WR：`simulation-lab/TAC_WORK_RULES_SIM.md`；版本 SIM-1.2；blob SHA `3a5540aca30aa760877951ce47786d2574e4f1a7`。
+- 已整合 SIM-1.1 與模擬區 v5.19；舊根目錄 `TAC_WORK_RULES.md` 已刪除，不再是工作入口。
+- 早報排程與行事曆資料庫排程提示已改指向 SIM-1.2；QA 契約與 README 已同步。
+- 04:35 是 main 行事曆 JSON 唯一寫入者；05:25 模擬早報只讀。審核版 preview 與正式首頁 index.html 是分離授權通道。
+- 最新模擬分支 HEAD：`992cff873da0f9396be660de95ed7cd4decd5d71`。本次 WR blob SHA：`3a5540aca30aa760877951ce47786d2574e4f1a7`。
+- 最新規則變更 smoke workflow：run `43402754735` success；deterministic self-tests、read-only earnings schema audit PASS；report build/browser QA 本輪 skipped。
+- main 正式資產未修改。後續模擬工作從 SIM-1.2 開始，不得再讀取或恢復已刪除的根目錄 v5.19。
