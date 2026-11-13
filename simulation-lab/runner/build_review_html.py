@@ -22,15 +22,16 @@ SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market
 
 def validate_summary_title(value):
     """Require the black h1 slot to contain a concise market-takeaway, not a section label."""
-    title = " ".join(str(value or "").split())
+    raw = str(value or "")
+    if "｜" in raw or "\n" in raw or "\r" in raw:
+        raise ValueError("summary_title must be a single line without body separators")
+    title = " ".join(raw.split())
     if not title:
         raise ValueError("summary_title is required: black summary h1 must contain yesterday's one-line market takeaway")
     if title.casefold() in {x.casefold() for x in SUMMARY_HEADING_LABELS}:
         raise ValueError(f"summary_title is a generic section label ({title!r}); provide a one-line market takeaway")
     if len(title) < 8 or len(title) > 36:
         raise ValueError(f"summary_title must be a concise 8–36 character market takeaway; got {len(title)}")
-    if "｜" in title or "\n" in title:
-        raise ValueError("summary_title must be a single line without body separators")
     return title
 
 def set_market_observation(node, title, value):
