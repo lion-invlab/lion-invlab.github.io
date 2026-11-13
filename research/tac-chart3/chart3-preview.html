@@ -233,7 +233,6 @@ function drawCombined(data,visible){
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
  document.getElementById('major-event-key').innerHTML=MAJOR_EVENTS.map(ev=>'<div class="event-item"><i class="event-mark"></i><div><strong>'+ev.name+'</strong><br>'+ev.start+' → '+ev.end+' · <a href="'+ev.source+'" target="_blank" rel="noopener">'+ev.sourceLabel+'</a></div></div>').join('');
  document.getElementById('drawdown-key').innerHTML=DRAWDOWNS.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%'+(dd.basis?'*':'')+'｜'+dd.peak+' → '+dd.trough+'</strong><br>'+(dd.basis?'<span>＊SPY 總報酬代理值</span><br>':'')+'<a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
- document.getElementById('drawdown-key').innerHTML=sortedDD.map(dd=>'<div class="event-item"><i class="event-mark" style="background:#64748b;border-color:#526174"></i><div><strong>'+dd.pct.toFixed(1)+'%｜'+dd.peak+' → '+dd.trough+'</strong><br><a href="'+dd.source+'" target="_blank" rel="noopener">'+dd.sourceLabel+'</a></div></div>').join('');
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null);return o?s.label+'｜'+o.date+'｜'+fmt(o.value):s.label+'｜無有效值'}
 fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
