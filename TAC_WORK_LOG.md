@@ -942,3 +942,35 @@
 - 尚有 27 筆 EPS、40 筆 Revenue 缺少可被 v2 engine 接受的完整 basis／currency／period／unit／source evidence。
 - 下一步只逐筆使用公司官方財報與原共識來源補證據；只有來源明確支持 actual 與 estimate 同口徑時才升級 Beat／Miss／Inline。不得從數值方向、單一 shared currency、非同期間數據或自由文字推斷。無法證明者保留 Pending。
 - 使用者明確要求 main 唯讀；未經另行授權，不得把本模擬分支結果寫回 main calendar、main preview 或首頁。
+
+
+## 2026-11-13｜EPS legacy basis 遷移修正、混合口徑 fail-closed 與審核版重建
+
+### 問題追查與程式修正
+- 重新追蹤正式 HTML builder 的實際資料流：build_review_html.py 先讀取指定日期 fixture，隨後呼叫 load_authoritative_calendar() 與 project_calendar_data()，以 W46 權威 calendar projection 覆蓋 fixture 的 calendar／earnings 欄位。因此，本次實際渲染資料是 W46 48 筆財報事件、42 筆已公布；先前 34 筆統計只代表 fixture，不代表最終 HTML 資料集。
+- 在 simulation-lab/runner/earnings_judgment.py 修正 legacy EPS actual basis fallback：eps_actual_basis 缺失時才讀取 eps_basis；estimate basis 仍必須由 eps_estimate_basis 獨立提供，不複製 actual basis。
+- 新增混合口徑 fail-closed：同一 narrative 同時出現 GAAP 與 adjusted／non-GAAP 替代數值，或 IFRS 與 non-IFRS 替代數值時，不將整段敘述誤映射為單一 basis code。若存在明確 eps_actual_basis，優先使用該欄位。
+- 新增 regression tests，涵蓋 actual-only legacy fallback、明確 actual basis 優先、混合 GAAP／adjusted narrative 必須 Pending、單一 shared currency 不足以授權方向性比較。
+- 相關 commits：351776bf1f3ef1865872e06b2d962ac4f57f823f、5bd444b059186bdc61eec527a00d17e0a57c4741、261f9a6d8e6be9b1b107c51eff91e8617064b696、1685c83ad00069adfc7780addad6d2d79ab2335e。
+
+### 最終 workflow 與 QA
+- GitHub Actions run 43393284757，commit 1685c83ad00069adfc7780addad6d2d79ab2335e，completed/success。
+- Deterministic self-tests、read-only W46 audit、11/13 HTML assembly、Playwright interaction smoke、mother visual regression、calendar／44 indicators／news shape validation 全部 PASS。
+- W46：經濟事件 16、財報事件 48（已公布 42）；行情欄位 44；焦點新聞 5；熱門頭條 10。
+- Interaction smoke：10 個導覽錨點；財報／經濟／產業 accordion 可展開與還原；焦點新聞連結 5、熱門頭條連結 10、Investing.com 連結 114、鉅亨連結 3；page errors 0。Fear & Greed 顯示 40、marker 40%；合成分數 20／40／75 的 marker 位置均正確。
+- Visual regression：weekday mother SHA 3785405e331b10ec6189002e480be2a1edbe20ef；1440、768、412、390、360 五個 viewport；failures=[]。
+- Workflow artifact ID 14020898624，含 11/13 HTML、42 筆 earnings-migration-preview.csv、earnings-schema-audit.json、互動與視覺 QA 證據。
+- 審核版路徑 simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA bc05cb38273a503f3df6ad4d81ca80e0d4d76e13。內容與前次相同，表示修正不會為缺乏證據的項目製造新 Beat／Miss。
+
+### 42 筆已公布財報 v2 結果
+- EPS：11 Beat、1 Miss、3 Incomparable、27 Pending。
+- Revenue：2 Beat、40 Pending。
+- EPS Pending：15 筆 basis code 缺失／無法辨識；12 筆 actual 或 consensus 數值缺失。
+- Revenue Pending：32 筆 basis code 缺失／無法辨識；8 筆 actual 或 consensus 數值缺失。
+- EPS Incomparable：TDG、WIX、MRCY，actual 與 estimate diluted basis 不一致。
+- Revenue 僅 CEG、MNDY 具可接受的相同 basis 比較；其餘不沿用 legacy Beat／Miss。
+- 84 個已公布 EPS／Revenue 指標卡的 HTML 狀態合計：67 Pending、13 Beat、1 Miss、3 Incomparable；與上述 42 筆引擎結果一致。
+
+### 邊界與下一步
+- 本輪所有寫入均限 simulation/tac-process-lab-2026-11-06；main calendar 僅讀取，沒有修改 main JSON、preview、index、WR、母版或 Manifest；production deploy=forbidden。
+- 下一步逐筆補強 15 筆 EPS 與 32 筆 Revenue basis evidence；另對 12 筆 EPS 與 8 筆 Revenue 缺值項目追查實際／共識數據來源。必須以 issuer release／SEC filing 與原共識來源核實；不可用數字方向、單一 shared currency 或未證實的 GAAP／IFRS 慣例推定。缺證據仍保留 Pending。
