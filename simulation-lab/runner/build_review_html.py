@@ -254,6 +254,7 @@ def main():
     report_weekday="一二三四五六日"[report_date.weekday()]
     report_cutoff=f"{report_label} 05:25"
     previous_trade=data.get("trading_date","待核實")
+    key_levels_date_label = previous_trade[5:].replace("-", "/") if len(previous_trade) == 10 else previous_trade
     report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
     # The summary card title is nested under article.card.bluf, unlike the old #overview > .title selector.
@@ -726,11 +727,11 @@ def main():
         if node.get_text(strip=True):
             set_text(node, f"{report_label}（{report_weekday}）｜{'週一審核版' if monday else '週二至週五審核版'}；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
     for warning in soup.select(".data-sync-warning"):
-        scope_note = "五項關鍵價位採 11/11 歷史 OHLC；SOX H/L/C 以 Nasdaq 官方歷史資料覆核。其餘行情、新聞與行事曆為 05:25 截點前人工查核快照，尚非全自動 live-data E2E。" if is_live_key_levels else "資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。"
+        scope_note = "五項關鍵價位採 {key_levels_date_label} 歷史 OHLC；SOX H/L/C 以 Nasdaq 官方歷史資料覆核。其餘行情、新聞與行事曆為 05:25 截點前人工查核快照，尚非全自動 live-data E2E。" if is_live_key_levels else "資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。"
         set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note} 缺少來源／日期的行情依 fail-closed 規則顯示待核實；本檔僅供模擬區審核，未發布至正式首頁。")
     footer = soup.select_one("footer.footer")
     if footer:
-        scope_note = "五項關鍵價位採 11/11 歷史 OHLC，SOX H/L/C 以 Nasdaq 官方歷史資料覆核；其餘行情、新聞與行事曆為 05:25 截點前人工查核快照，非全自動 live-data E2E" if is_live_key_levels else "本版由固定 JSON fixture 組裝，非 live data E2E"
+        scope_note = "五項關鍵價位採 {key_levels_date_label} 歷史 OHLC，SOX H/L/C 以 Nasdaq 官方歷史資料覆核；其餘行情、新聞與行事曆為 05:25 截點前人工查核快照，非全自動 live-data E2E" if is_live_key_levels else "本版由固定 JSON fixture 組裝，非 live data E2E"
         set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜缺少來源或日期的項目明確標示待核實；{scope_note}。資訊整理與教育用途，不構成投資建議。")
     # Remove duplicate timezone suffix from preformatted window label.
     news_window_label = news_window_label.replace("（台灣時間）", "")
