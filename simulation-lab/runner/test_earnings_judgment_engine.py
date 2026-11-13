@@ -123,6 +123,13 @@ def main():
         "source_level": 2,
     }
     check(evaluate_metric(fallback, "eps")["status"], "beat", "fallback only after first source unavailable")
+    naive_timestamp = base_record()
+    naive_timestamp["eps_consensus_attempts"][0]["observed_at"] = "2026-11-13T04:30:00"
+    check(evaluate_metric(naive_timestamp, "eps")["reason"], "consensus_attempt_missing_aware_observed_at", "source check time requires timezone")
+
+    wrong_selected_level = base_record()
+    wrong_selected_level["consensus_source"]["source_level"] = 2
+    check(evaluate_metric(wrong_selected_level, "eps")["reason"], "selected_consensus_level_differs_from_attempt_history", "selected source level must match attempt history")
 
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
