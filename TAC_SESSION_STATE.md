@@ -1555,3 +1555,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - Pending 根因：EPS 14 筆 basis 缺漏、12 筆 actual／consensus 缺值；Revenue 30 筆 basis 缺漏、8 筆 actual／consensus 缺值。NRG 已從 Revenue Pending 改列 Consensus Divergent。
 - 最新審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA f5adebbb1bd1b4f626015e29ab0300620981146e；artifact ID 14021318576；run 43394210226。
 - 仍僅寫入 simulation/tac-process-lab-2026-11-06；main calendar 只讀，main JSON／preview／index／WR／母版／Manifest 未修改，production deploy=forbidden。
+
+
+## 2026-11-13｜來源明確同口徑註記回填與第四輪 QA
+
+- 追查剩餘 EPS Pending 時發現，部分紀錄的 actual basis 已標準化，但 estimate basis 欄位仍寫成泛稱「GAAP EPS consensus／EPS consensus」；同一筆 consensus source notes 已明確記錄「採同口徑判定／呈現」，卻未被 migration adapter 使用。
+- 新增 _has_explicit_same_basis_consensus()：只有當 consensus source notes 明確出現「採同口徑／same basis」，或明確列出 GAAP EPS actual vs consensus／GAAP net loss per share vs consensus，且 actual basis code 已有效時，才將 estimate basis code 對齊 actual basis code。沒有明確註記的紀錄不會套用此規則。
+- 因此 QBTS（GAAP basic/diluted loss per share vs 明確同口徑 consensus）判為 Miss；HIMS（GAAP diluted loss/share vs 明確同口徑 consensus）判為 Miss；MARA（GAAP EPS actual vs GAAP consensus）判為 Beat。這些狀態有來源註記支持，不是通用 GAAP EPS 推定。
+- GitHub Actions run 43394759935（commit 6f5b75e5dc53e60434dc2d47dc37aac9c6f6993f）completed/success；deterministic tests、read-only calendar audit、HTML assembly、Playwright interaction、visual regression、calendar／44 indicators／news shape validation 全 PASS。
+- 最新 42 筆已公布財報：EPS 12 Beat／3 Miss／4 Incomparable／23 Pending；Revenue 2 Beat／1 Incomparable／1 Consensus Divergent／38 Pending。
+- EPS Incomparable：TDG、WIX、MRCY（basis mismatch）、ONON（currency mismatch）；Revenue Incomparable：ONON（currency mismatch）；Revenue Consensus Divergent：NRG。
+- 84 個 HTML metric cards：61 Pending、14 Beat、3 Miss、5 Incomparable、1 Consensus Divergent；合計 84，與引擎 audit 一致。
+- Pending 原因：EPS 11 筆缺／無法辨識 basis code、12 筆缺 actual／consensus 數值；Revenue 30 筆缺／無法辨識 basis code、8 筆缺 actual／consensus 數值。
+- 最新審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA b5b59c1ec9b1ded944941fbc9249e21fb262152f；artifact ID 14021859744；run 43394759935。
+- QA viewport 1440／768／412／390／360px，visual failures=[]；interaction page errors=0；本輪仍只寫入 simulation branch，main calendar 只讀，無 main JSON／preview／index／WR／母版／Manifest 修改，production deploy=forbidden。
