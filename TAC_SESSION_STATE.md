@@ -1541,3 +1541,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA c3c6b936d11c747e24234db3d32f9ad322160229。Artifact ID 14021234070；run 43393756104。視覺回歸母版 SHA 3785405e331b10ec6189002e480be2a1edbe20ef；1440／768／412／390／360px failures=[]。
 - 本輪仍只寫入 simulation/tac-process-lab-2026-11-06；main calendar 只讀，main JSON／preview／index／WR／母版／Manifest 均未修改，production deploy=forbidden。
 - 後續需逐筆補足 EPS 14 筆與 Revenue 31 筆的 basis evidence；另 12 筆 EPS 與 8 筆 Revenue 缺值項目需追查原始 actual／consensus 數據。不可推測；來源不足維持 Pending。
+
+
+## 2026-11-13｜Revenue consensus divergence 判讀補強與第三輪 QA
+
+- 進一步檢查 authoritative W46 source notes，發現 NRG 的 revenue consensus 明確記錄 Zacks US$6.72B、Finviz US$8.42B、Nexqual US$9.29B，來源定義／口徑差異尚未解決。舊引擎因 basis code 缺漏只顯示 Pending，未反映已知的共識來源分歧。
+- 已在 earnings_judgment.py 加入保守偵測：只接受已整理來源註記同時包含「營收共識／revenue consensus」與「不一致／差異仍未解」等明確字樣；且 actual source、revenue consensus source URL／observed_at 均有效，才標記 revenue_consensus_conflict=true。引擎將此狀態優先於 basis code 缺漏，輸出 consensus_divergent；沒有明確註記不會推測。
+- 新增 regression test：NRG 類型的明確 unresolved revenue consensus conflict 必須為 consensus_divergent；原有 currency mismatch、basis mismatch 與 shared currency fail-closed tests 均保留。
+- GitHub Actions run 43394210226（commit 56558741337b3dbafe8c61805f768589fbaf7e22）completed/success；deterministic tests、read-only audit、assembly、Playwright interaction、visual regression、date/calendar/44 indicators/news validation 全 PASS。
+- 最新 42 released earnings 結果：EPS 11 Beat／1 Miss／4 Incomparable／26 Pending；Revenue 2 Beat／1 Incomparable／1 Consensus Divergent／38 Pending。
+- Revenue Consensus Divergent：NRG（Zacks／Finviz／Nexqual 共識數值與定義未能統一，禁止用單一來源直接判 Beat/Miss）。Revenue Incomparable：ONON（CHF actual／USD estimate）。EPS Incomparable：TDG、WIX、MRCY（basis mismatch）、ONON（currency mismatch）。
+- 84 個 HTML metric cards：64 Pending、13 Beat、1 Miss、5 Incomparable、1 Consensus Divergent；合計 84，與引擎 audit 一致。
+- Pending 根因：EPS 14 筆 basis 缺漏、12 筆 actual／consensus 缺值；Revenue 30 筆 basis 缺漏、8 筆 actual／consensus 缺值。NRG 已從 Revenue Pending 改列 Consensus Divergent。
+- 最新審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA f5adebbb1bd1b4f626015e29ab0300620981146e；artifact ID 14021318576；run 43394210226。
+- 仍僅寫入 simulation/tac-process-lab-2026-11-06；main calendar 只讀，main JSON／preview／index／WR／母版／Manifest 未修改，production deploy=forbidden。
