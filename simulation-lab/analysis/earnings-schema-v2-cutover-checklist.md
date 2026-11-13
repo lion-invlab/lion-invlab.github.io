@@ -25,14 +25,15 @@
 - [x] 04:35 Schema v2 automation prompt 已更新，但該任務仍 disabled。
 - [x] 發現並修正 migration bug：不得把 reporting_period 複製到 estimate_period。
   - Code commit：`d0d8a1af6b137964364ed842823f4864e7aa619b`
-  - Test commit：`b95192767a2f11e35178fb99fa0127bb4ab934b8`
-  - 已回讀確認程式與測試內容；CI status 尚無可見結果，**未標記測試通過**。
+  - 回歸測試 commit：`b95192767a2f11e35178fb99fa0127bb4ab934b8`
+  - 測試案例同步修正 commit：`5142f4255bb8d95dc4be3e4b6b4ee8c353b69b95`
+  - GitHub Actions run `43415581638`：整體 success；deterministic self-tests 與 main 唯讀 schema audit 均 success。報告組裝／瀏覽器／視覺 QA 因本次是 push smoke run 而 skipped，不能視為端到端驗收。
 
 ## 尚未完成（隔離模擬）
 
-- [ ] 執行新增 estimate_period 回歸測試與完整 earnings test suite。
-- [ ] 以最新 main W46（45 released）重新產生 migration preview CSV／audit JSON；舊 42 筆 preview 已過期。
-- [ ] 驗證所有沒有來源期間的舊記錄都維持 Pending，不因 reporting_period 被誤判為可比較。
+- [x] 執行新增 estimate_period 回歸測試與 deterministic earnings self-test suite；GitHub Actions run `43415581638` 通過。
+- [x] 以最新 main W46（45 released）重新產生 read-only migration preview CSV／audit JSON；輸出已檢查，45 筆 EPS：41 pending／4 incomparable；Revenue：44 pending／1 incomparable；方向性判讀皆為 0。
+- [x] 驗證缺乏明確 consensus period 的舊記錄不會由 reporting_period 補值；未達條件者維持 Pending，已知 basis／currency 衝突則標示 Incomparable。
 - [ ] 逐筆確認 45 筆 legacy consensus source 的公告前時間、財報期間、EPS basis、Revenue definition、幣別及單位；無證據者不得採用。
 - [ ] 評估新增資料來源前，先確認其 point-in-time 歷史快照、存取權、欄位定義與可重複取得性；未經規則核准不得改變 SIM-1.2 的來源優先順序。
 
@@ -60,3 +61,11 @@
 - 不得以 attempt history 筆數代表共識值取得率。
 - 不得把隔離測試 PASS 說成 production ready。
 - 不得覆蓋歷史早報、preview 或正式首頁。
+
+
+## 最新 workflow artifact provenance（2026-11-13）
+
+- Run：`43415581638`；commit：`5142f4255bb8d95dc4be3e4b6b4ee8c353b69b95`；結論 `success`。
+- 本次 CSV／audit JSON 由唯讀 schema audit step 產生；45 筆 migration preview 沒有任何 EPS／Revenue 方向性 Beat/Miss/Inline。
+- Artifact 內的 2026-11-13 HTML 不屬於本次生成：runner metadata 是 `report_date=self-test-only`，且組裝、瀏覽器、視覺回歸步驟均 skipped。不得用該 HTML 當作本次審核版交付。
+- Main 未被修改，仍為 schema_version=1；v2 尚未 cut over。
