@@ -174,6 +174,9 @@ def _consensus_attempt_issue(record: dict, metric: str, estimate: Decimal) -> st
 
     if len(attempts) != 3:
         return "consensus_source_ladder_stopped_before_all_unavailable"
+    source_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    if record.get(source_key) is not None:
+        return "selected_consensus_source_present_without_adopted_attempt"
     return "no_usable_consensus_after_all_priority_sources"
 
 def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
@@ -188,6 +191,13 @@ def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
         "surprise_pct": surprise_pct,
     }
 
+
+def audit_consensus_attempts(record: dict, metric: str) -> str | None:
+    """Audit the required source ladder even when actual/estimate values are missing."""
+    if metric not in {"eps", "revenue"}:
+        raise ValueError(f"unsupported earnings metric: {metric!r}")
+    estimate = _decimal(record.get(f"{metric}_estimate"))
+    return _consensus_attempt_issue(record, metric, estimate if estimate is not None else Decimal("0"))
 
 def evaluate_metric(record: dict, metric: str) -> dict:
     """Evaluate one metric using explicit normalized evidence only.
