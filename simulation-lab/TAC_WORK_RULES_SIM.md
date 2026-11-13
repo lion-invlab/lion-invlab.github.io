@@ -10,10 +10,11 @@
 
 使用者已明確授權：隔離區內所有規則、程式、資料契約、測試方式及模擬流程均可自由修改、刪除、重寫；以下五項為唯一不可違反的交付約束：
 
-1. **main 原則唯讀，僅保留兩種分離且嚴格限縮的輸出例外。** 除下列明確例外外，不得對 main 建立或修改任何 commit、檔案、設定、排程、workflow、首頁或母版：
+1. **main 原則唯讀，僅保留三種彼此分離且嚴格限縮的例外通道。** 除下列明確例外外，模擬早報流程不得對 main 建立或修改任何 commit、檔案、設定、排程、workflow、首頁或母版：
+   - **行事曆資料庫例外通道（獨立 04:35 排程）：** 僅由既有 TAC 行事曆資料庫更新排程，依其專屬工作指令及 main 正式 schema，增量更新既有 main `data/calendar/weeks/YYYY-Www.json` 並保留 audit／回讀 SHA。此排程是該 JSON 唯一寫入者；05:25 模擬早報及其他模擬流程一律唯讀。此例外不得擴張至其他 main 檔案，也不代表模擬早報可讀取 main WR 作為第二權威。
    - **審核版例外通道：** 當使用者在當次任務明確授權，或既有排程指令已明確授權交付模擬審核版時，只允許新增／更新 `main/preview/YYYY-MM-DD-simulation.html`，日期必須是該次報告日期。寫入前核對目標現況與 SHA；寫入後回讀同一路徑並核對 commit／blob SHA。不得因此修改其他 main 檔案。
    - **正式首頁例外通道：** 只有使用者對已唯一識別的審核版明確核准正式發布（包括本文件第六步明定的「定版」或更直接的首頁發布指示）後，才允許依第六步的嚴格版本核對與轉換規則更新 `main/index.html`。排程的審核版授權不等於首頁發布授權；不得自動發布。
-   - 除上述兩種例外外，main 的 WR、正式母版、Manifest、QA 契約、行事曆 JSON、歷史報告及其他檔案一律唯讀。不得建立 PR、合併或擴張寫入範圍。
+   - 除上述三種例外外，main 的 WR、正式母版、Manifest、QA 契約、行事曆 JSON（04:35 排程限定寫入者除外）、歷史報告及其他檔案一律唯讀。不得建立 PR、合併或擴張寫入範圍。
    - **模擬 workflow 例外：** 允許在本 branch 維護專用 `.github/workflows/tac-simulation-lab.yml`，只監聽本模擬 branch，僅執行規定的測試及模擬輸出；不得 checkout／寫入 main、不得 deploy Pages、不得使用 production secrets。
 2. **速度優先，驗證精簡。** 移除重複讀取、重複核對、逐步人工簽核、每一小步寫回 GitHub 等形式流程。採批次處理、一次性資料鎖定、增量重跑。只保留能防止錯誤行情、資料串錯、母版結構／視覺退化的必要檢查；已通過且輸入未變的檢查直接沿用。
 3. **母版視覺零退化。** 正式母版是不可改動的唯讀視覺基準。輸出只能替換核准內容槽位，不得改變版面、DOM 結構、CSS、JS、元件、尺寸、間距、字體、色彩、互動或響應式行為。視覺有差異即修復，不以「大致相同」放行。
@@ -31,7 +32,7 @@
 - 若工具限制無法完成瀏覽器截圖或互動操作，不得宣稱該項已通過；但不得因此停止資料流程、HTML 組裝及其他可執行測試。
 
 ### 0.2 唯讀基準與審核版例外
-本文件是模擬區唯一工作規則。正式雙母版、Manifest 與 QA 契約以 `simulation-lab/baseline/` 中經核准且 SHA 綁定的唯讀副本為模擬區執行基準；行事曆週 JSON 則是明確例外，唯一正式資料庫位於 main `data/calendar/weeks/YYYY-Www.json`，模擬區只讀。main 其他資產一律唯讀；只有第 0 節明定的審核版 preview 通道，以及使用者明確核准後依第六步執行的 `main/index.html` 正式發布通道，才可依各自條件寫入。
+本文件是模擬區唯一工作規則。正式雙母版、Manifest 與 QA 契約以 `simulation-lab/baseline/` 中經核准且 SHA 綁定的唯讀副本為模擬區執行基準；行事曆週 JSON 則是明確共享例外，唯一正式資料庫位於 main `data/calendar/weeks/YYYY-Www.json`，只由獨立 04:35 排程寫入，模擬早報只讀。main 其他資產一律唯讀；只有第 0 節明定的審核版 preview 通道，以及使用者明確核准後依第六步執行的 `main/index.html` 正式發布通道，才可依各自條件寫入。
 
 ---
 
@@ -103,7 +104,7 @@
 
 ### A1-補充｜單一執行者與版本確認
 
-1. 每次模擬早報由 ChatGPT 單一執行者直接負責。開工時重新讀取本文件、`simulation-lab/baseline/mother-template-manifest.json`、核准模擬母版、`simulation-lab/baseline/mother-template-qa-contract.md` 及 main 當週行事曆 JSON；記錄模擬 WR 版本／blob SHA、Manifest SHA、母版 SHA、QA 契約 SHA、main HEAD 與行事曆 JSON SHA。不得讀取 main WR 作為模擬區第二權威。
+1. 每次模擬早報由 ChatGPT 單一執行者直接負責。開工時重新讀取本文件、`simulation-lab/baseline/mother-template-manifest.json`、核准模擬母版、`simulation-lab/baseline/mother-template-qa-contract.md` 及 main 當週行事曆 JSON；記錄模擬 WR 版本／blob SHA、Manifest SHA、母版 SHA、QA 契約 SHA、main HEAD 與行事曆 JSON SHA。不得讀取 main WR 作為 05:25 模擬早報的第二權威；04:35 行事曆資料庫更新是獨立排程，依其專屬工作指令讀取 main WR，不屬於模擬早報規則來源。
 2. 不再要求建立 WR Lock、下載 lock artifact、讀取 Issue #319 relay，亦不以 GitHub Actions、Snapshot、Assembler、Renderer 或 Orchestrator 成功作為早報開工前提。
 3. 允許每日工作日 04:35 行事曆資料庫預更新排程；該排程是唯一週 JSON 寫入者，只維護既有週 JSON，不製作早報或 HTML。每日 05:25 早報仍由 ChatGPT 單一執行者負責，但對行事曆資料庫嚴格唯讀，不得因新公布資料或欄位缺漏而回寫 JSON；差異僅記錄於早報工作紀錄與預覽 HTML。不得要求使用者逐步輸入「繼續」。
 4. 歷史 Snapshot、lock、workflow artifact 及舊版流程紀錄只作歷史資料，不得冒充當次行情或當次執行證據。
