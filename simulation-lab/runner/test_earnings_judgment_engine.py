@@ -85,6 +85,7 @@ def main():
 
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
+    item["eps_consensus_attempts"][0]["value"] = -0.72
     check(evaluate_metric(item, "eps")["status"], "beat", "smaller loss is beat")
 
     item = base_record()
