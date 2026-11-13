@@ -197,15 +197,13 @@ function drawCombined(data,visible){
  for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
  // 標普回檔區間獨立使用細虛線框，與歷史事件帶區別；百分比標籤在圖底部呈兩列。
  const sortedDD=[...DRAWDOWNS].sort((a,b)=>a.peak.localeCompare(b.peak));
- const occupied=[[],[]];
- for(const dd of sortedDD){
+ for(let idx=0;idx<sortedDD.length;idx++){
+  const dd=sortedDD[idx];
   const x1=x(Date.parse(dd.peak+'T00:00:00Z')),x2=x(Date.parse(dd.trough+'T23:59:59Z'));
   const left=Math.max(L,x1),right=Math.min(W-R,x2),mid=(left+right)/2;
   parts.push('<rect data-drawdown="'+dd.id+'" x="'+left.toFixed(2)+'" y="'+T+'" width="'+Math.max(2,right-left).toFixed(2)+'" height="'+ih+'" fill="#64748b" fill-opacity=".025" stroke="#526174" stroke-opacity=".42" stroke-width="1" stroke-dasharray="3 3"><title>S&P 500 收盤價回檔 '+dd.pct.toFixed(1)+'%｜'+dd.peak+' 至 '+dd.trough+'</title></rect>');
-  let lane=occupied[0].every(v=>Math.abs(v-mid)>=46)?0:1;
-  let labelX=Math.max(L+22,Math.min(W-R-22,mid));
-  if(occupied[lane].some(v=>Math.abs(v-labelX)<46))labelX=Math.max(L+22,Math.min(W-R-22,mid+(mid<(L+W-R)/2?25:-25)));
-  occupied[lane].push(labelX);
+  const lane=idx%2;
+  const labelX=L+(idx+.5)*iw/sortedDD.length;
   const labelY=H-B-(lane===0?10:28);
   parts.push('<line data-drawdown-leader="'+dd.id+'" x1="'+mid.toFixed(1)+'" y1="'+(H-B-36)+'" x2="'+labelX.toFixed(1)+'" y2="'+(labelY-8)+'" stroke="#526174" stroke-width=".8"/>');
   parts.push('<rect data-drawdown-label-bg="'+dd.id+'" x="'+(labelX-22).toFixed(1)+'" y="'+(labelY-18)+'" width="44" height="16" rx="5" fill="#26364d"/>');
