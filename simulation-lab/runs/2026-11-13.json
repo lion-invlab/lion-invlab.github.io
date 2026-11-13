@@ -1029,5 +1029,24 @@
     "earnings_events": 48,
     "cutoff_taipei": "2026-11-13 05:25",
     "note": "11/13 05:25 report cutoff: events scheduled after cutoff remain upcoming; no future results or post-release price reactions fabricated."
+  },
+  "earnings_judgment_repair": {
+    "status": "code_patch_committed_tests_passed_rebuild_pending",
+    "engine_version": "1.0.0",
+    "change": {
+      "file": "simulation-lab/runner/earnings_judgment.py",
+      "behavior": "Use legacy eps_basis as actual EPS basis only when eps_actual_basis is absent; never copy it to consensus basis."
+    },
+    "test": {
+      "file": "simulation-lab/runner/test_earnings_comparison_status.py",
+      "assertion": "Legacy actual EPS basis is migrated, while missing currency comparability remains pending."
+    },
+    "commits": [
+      "351776bf1f3ef1865872e06b2d962ac4f57f823f",
+      "5bd444b059186bdc61eec527a00d17e0a57c4741"
+    ],
+    "ci_run_id": 43392975798,
+    "deterministic_self_tests": "passed",
+    "review_html_rebuild": "pending"
   }
 }
