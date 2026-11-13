@@ -91,8 +91,6 @@ try {
       const genericLabels = new Set(["總結", "摘要", "市場情緒", "Summary", "Market Summary"]);
       const semanticValid = takeawayText.length >= 8 && takeawayText.length <= 36 &&
         !genericLabels.has(takeawayText) && !/[｜\r\n]/.test(rawTakeaway);
-        !genericLabels.has(takeawayText) && !takeawayText.includes("｜") &&
-        !takeawayText.includes("\\n") && !takeawayText.includes("\\r");
       return {
         valid: summarySize === referenceSize && semanticValid,
         summarySize, referenceSize, takeawayText, semanticValid
