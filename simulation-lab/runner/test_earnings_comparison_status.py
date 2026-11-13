@@ -92,9 +92,9 @@ def test_calendar_projection_migrates_legacy_records():
     assert result["revenue_consensus_attempts"] == record["revenue_consensus_attempts"]
     assert "judgment_engine_version" not in record, "projection must not mutate calendar source data"
 
-    # The legacy calendar's eps_basis describes the reported actual EPS.
-    # The adapter may map it to the actual side, but must not infer the
-    # consensus basis or declare a directional result from one shared currency.
+    # Legacy eps_basis is a narrative field that may mix actual and consensus
+    # descriptions. It is not admissible evidence for either side's basis.
+
     legacy_actual_basis_only = {
         "eps_actual": 0.82,
         "eps_estimate": 0.79,
@@ -109,7 +109,7 @@ def test_calendar_projection_migrates_legacy_records():
         {"events": {"earnings": [legacy_actual_basis_only]}},
         observed_at="2026-11-13T13:00:00+08:00",
     )[0]
-    assert migrated_basis["eps_actual_basis_code"] == "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS"
+    assert migrated_basis["eps_actual_basis_code"] is None, "narrative eps_basis must not be mapped to actual basis"
     assert migrated_basis["eps_estimate_basis_code"] == "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS"
     assert migrated_basis["eps_comparison_status"] == "pending", (
         "a shared currency field alone must not authorize Beat/Miss"
@@ -122,7 +122,7 @@ def test_calendar_projection_migrates_legacy_records():
         observed_at="2026-11-13T13:00:00+08:00",
     )[0]
     assert explicit_actual_basis_result["eps_actual_basis_code"] == "US_GAAP_DILUTED_EPS", (
-        "an explicit metric-specific actual basis must take precedence over legacy eps_basis"
+        "only an explicit metric-specific actual basis may populate the actual basis code"
     )
 
     ambiguous_basis = dict(legacy_actual_basis_only)
