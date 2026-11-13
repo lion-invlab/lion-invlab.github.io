@@ -169,15 +169,15 @@ const MAJOR_EVENTS=[
  {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
 ];
 function drawCombined(data,visible){
- const W=1100,H=550,L=78,R=82,T=34,B=54,iw=W-L-R,ih=H-T-B;
+ const W=1100,H=550,L=78,R=82,T=34,B=164,iw=W-L-R,ih=H-T-B;
  const minX=Date.parse('1993-12-31T00:00:00Z'),maxX=Date.parse('2026-11-10T00:00:00Z');
  const x=t=>L+(t-minX)/(maxX-minX)*iw,yp=v=>T+(8000-v)/8000*ih,ys=v=>T+(100-v)/100*ih;
  const parts=[];
  for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
  for(let v=0;v<=8000;v+=2000){const yy=yp(v);parts.push('<text data-axis="right" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+v.toLocaleString('en-US')+'</text>');}
- for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-20)+'" text-anchor="middle">'+yr+'</text>');}
- const laneEnds=[];const eventTop=465,eventLaneH=19;
- parts.push('<text x="'+L+'" y="448" font-size="12" font-weight="700" fill="#526077">重大事件區間｜灰色區帶</text>');
+ for(let yr=1995;yr<=2025;yr+=5){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
+ const laneEnds=[];const eventTop=450,eventLaneH=19;
+ parts.push('<text x="'+L+'" y="435" font-size="12" font-weight="700" fill="#526077">重大事件區間｜灰色區帶</text>');
  for(let lane=0;lane<4;lane++){const yy=eventTop+lane*eventLaneH;parts.push('<line x1="'+L+'" y1="'+(yy+eventLaneH-2)+'" x2="'+(W-R)+'" y2="'+(yy+eventLaneH-2)+'" stroke="#edf0f4"/>');}
  const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
  for(const ev of sortedEvents){
