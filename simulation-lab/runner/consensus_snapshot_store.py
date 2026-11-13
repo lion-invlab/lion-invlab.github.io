@@ -49,7 +49,7 @@ def _parse_temporal(value: Any, field: str):
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"{field} must be a non-empty ISO date or datetime")
     raw = value.strip().replace("Z", "+00:00")
-    if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", raw):
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
         try:
             return date.fromisoformat(raw)
         except ValueError as exc:
