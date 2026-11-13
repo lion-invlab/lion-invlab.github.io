@@ -173,7 +173,7 @@ def _earnings_records(payload: dict, observed_at: str | None = None) -> list[dic
             if not isinstance(value, str):
                 return None, None
             match = re.fullmatch(
-                r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \\(not comparable\\)",
+                r"([A-Z]{3}) actual; ([A-Z]{3}) estimate \(not comparable\)",
                 value,
             )
             if match:
