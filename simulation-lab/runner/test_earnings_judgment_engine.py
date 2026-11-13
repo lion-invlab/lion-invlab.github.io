@@ -195,6 +195,7 @@ def main():
 
     legacy_f = {
         "ticker": "FERG",
+        "event_date": "2026-11-13T12:00:00+08:00",
         "eps_actual": 3.43,
         "eps_estimate": 3.31,
         "eps_actual_basis": "Adjusted diluted EPS (non-GAAP; USD/share)",
