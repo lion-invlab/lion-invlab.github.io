@@ -873,3 +873,11 @@
 - 安全修正後 W46 migration preview：EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。CSV 42 筆已核對，artifact ID `14016445759`。
 - 新增 `04-35-automation-v2-prompt.md` 及 `earnings-schema-v2-cutover-checklist.md`。它們只是隔離分支草案，尚未修改真實 automation。
 - 04:35 automation 仍停用；main JSON／正式 WR／首頁／母版均未修改。正式切換仍須 main 部署及使用者授權。
+
+
+## 2026-11-13｜04:35 automation prompt v2 已套用，排程維持停用
+
+- 已把 Schema v2 執行契約套用到正式 automation `6ae6dff2200c81919ba2cee4db78f8a5`；updated_at `2026-11-13T06:36:11.864333+00:00`。
+- 新 prompt 取消「schema 未變」要求，改為正式 Schema／engine 未部署時 fail closed；要求分開 actual／estimate basis code、currency、period、Revenue unit 及來源，唯一判讀引擎產生狀態，HTML 不得自行判讀。
+- 再次 peek 確認任務仍 disabled，週一至週五 04:35 Asia/Taipei schedule 未變。未重新啟用，避免正式 main 尚未部署 v2 時寫入。
+- Cutover checklist 已標記 prompt 更新完成；main Schema v2、歷史遷移、engine runtime、隔日演練與使用者核准仍未完成。
