@@ -83,3 +83,15 @@
 - 執行紀錄：run `43411434859`，commit `5f424f78ed9b69f922a8e51ba2bf13987978f736`，read-only baseline audit success。
 
 **結論：** 目前 main W46 並非只缺幾個小卡判讀文字，而是整體缺少標準化比較欄位及來源階梯歷程。必須先完成 45 筆已公布財報的 EPS／Revenue 獨立補查與欄位填充，再談 Schema v2 遷移；不可把舊狀態批次複製成新制判讀。
+
+### W46 安全遷移預覽補充（不寫回 main）
+
+以目前硬化後的轉換器再跑一次，從既有專用描述欄位可安全映射出的 coverage：
+- EPS：actual basis label 20／45，estimate basis label 18／45；可安全映射 actual basis code 18／45、estimate basis code 15／45；可從兩側各自 basis 描述辨識 currency 19／45；actual period 可由 issuer reporting_period 映射 45／45，但 estimate period 仍為 0／45。
+- Revenue：actual basis label 6／45、estimate basis label 3／45；可安全映射 actual basis code 5／45、estimate basis code 2／45；可分別辨識 currency 4／45；actual period 45／45、estimate period 0／45；actual／estimate unit code 原始欄位 coverage 仍為 0／45。
+- `eps_basis` 有 44／45 筆，但它是敘述文字，可能同時提及 GAAP、Adjusted、Consensus 及不同數值；硬化後不再將它當作 actual basis 證據。
+- 舊共用 `eps_currency`／`revenue_currency` 及 `revenue_unit` 雖多數有值，但不能直接複製到 Actual／Estimate 兩側；ONON 的 CHF actual／USD estimate 已被判為 incomparable。
+- 4 筆 EPS 預覽為 Incomparable：TDG、WIX、MRCY 為 basis mismatch；ONON 為 currency mismatch。Revenue 另有 ONON 因 currency mismatch 判為 Incomparable。
+- EPS v2 預覽：Pending 41、Incomparable 4；Revenue v2 預覽：Pending 44、Incomparable 1。所有 45 筆的兩個指標仍缺 source attempts，這是本輪正式更新必須補上的資料。
+
+本輪最新完整隔離 CI：run `43412045316`，commit `bafaf832943d48943f4337b8b2528c8705405361`，結果 success；包含 engine、calendar projection、calendar self-test、main W46 read-only audit、migration CSV 及 strict validator。
