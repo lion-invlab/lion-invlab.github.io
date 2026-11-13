@@ -208,7 +208,9 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
                 observed_at="2026-11-15T04:00:00+08:00",
                 data_as_of="2026-11-15",
             )
-            pending = self.build("EPS", attempt=same_day_attempt, raw={"same_day": True})
+            same_day_raw = {"same_day": True}
+            same_day_ref, _ = archive_raw_response(same_day_raw, tmp, "2026-W46/eps")
+            pending = self.build("EPS", attempt=same_day_attempt, raw=same_day_raw, ref=same_day_ref)
             self.assertEqual(pending["snapshot_status"], "pending_cutoff_time")
             self.assertTrue(append_consensus_snapshot(self.event, pending))
 
