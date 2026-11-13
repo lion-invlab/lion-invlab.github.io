@@ -177,7 +177,7 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 
 每個 snapshot 至少保存：
 
-- `snapshot_id`：以 event_id、metric、provider、data_as_of、period、statistic、value、currency、unit、basis_code、raw_response_sha256 計算的 SHA-256；相同原始值不得重複新增。
+- `snapshot_id`：以 event_id、metric、provider、data_as_of、observed_at、period、statistic、value、currency、unit、basis_code、raw_response_sha256 計算的 SHA-256；相同原始值不得重複新增。
 - `event_id`、`ticker`、`metric`、`source_level`、`provider`、`source_url`。
 - `observed_at`：本系統實際取得來源的時間，必須含時區。
 - `data_as_of`：來源明確提供的共識有效日期／時間；不得以 observed_at 代替。

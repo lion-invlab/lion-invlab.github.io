@@ -248,3 +248,9 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - Deterministic self-tests and main read-only audit also passed. Report assembly, browser interaction, visual regression and full end-to-end QA were skipped; this run does not validate the report.
 - Current simulation HEAD after evidence archive: `e160c3c5c89f58fd8377c8a60a1ace541d557053`. Main HEAD and W46 blob SHA remained unchanged.
 - Scope: simulation prototype only. No updater automation prompt, formal WR, schedule, main JSON or main schema_version was modified. The prototype is not yet connected to the live unique writer and is not deployed.
+
+
+### Daily polling identity refinement
+
+- Snapshot identity includes `observed_at` as well as data_as_of and raw response SHA. Thus each distinct polling observation is retained even when the consensus value is unchanged; an exact replay with the same snapshot_id remains idempotent. This matches the requirement to preserve each poll rather than collapse repeated daily observations.
+- Deterministic test coverage expanded to a three-day pre-release sequence with unchanged consensus values; each daily poll appends one immutable snapshot and exact replay does not duplicate it.

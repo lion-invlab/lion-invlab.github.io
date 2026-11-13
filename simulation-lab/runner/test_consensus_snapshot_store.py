@@ -107,6 +107,27 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         self.assertEqual(len(self.event["eps_consensus_snapshots"]), 2)
         self.assertEqual(self.event["eps_consensus_snapshots"][0], saved)
 
+    def test_three_daily_polls_append_distinct_immutable_snapshots(self):
+        self.event["event_date"] = "2026-11-14T21:00:00+08:00"
+        for day in ("09", "10", "11"):
+            attempt = dict(
+                self.attempt,
+                observed_at=f"2026-11-{day}T04:00:00+08:00",
+                data_as_of=f"2026-11-{day}",
+            )
+            snap = self.build(attempt=attempt)
+            self.assertEqual(snap["snapshot_status"], "pre_release_eligible")
+            self.assertTrue(append_consensus_snapshot(self.event, snap))
+            self.assertFalse(append_consensus_snapshot(self.event, snap))
+        history = self.event["eps_consensus_snapshots"]
+        self.assertEqual(len(history), 3)
+        self.assertEqual([x["observed_at"] for x in history], [
+            "2026-11-09T04:00:00+08:00",
+            "2026-11-10T04:00:00+08:00",
+            "2026-11-11T04:00:00+08:00",
+        ])
+        self.assertEqual(len({x["snapshot_id"] for x in history}), 3)
+
     def test_eps_and_revenue_histories_are_separate(self):
         eps = self.build("EPS")
         rev_attempt = dict(self.attempt, unit="USD_UNIT", basis_code="US_GAAP_TOTAL_REVENUE", value=1000)

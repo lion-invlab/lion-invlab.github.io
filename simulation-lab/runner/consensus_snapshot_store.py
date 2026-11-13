@@ -157,7 +157,7 @@ def build_consensus_snapshot(
 
     identity = {
         "event_id": event_id, "metric": metric, "provider": provider,
-        "data_as_of": data_as_of, "period": period, "period_end_date": period_end_date,
+        "data_as_of": data_as_of, "observed_at": observed_at, "period": period, "period_end_date": period_end_date,
         "statistic": statistic, "value": value, "currency": currency, "unit": unit,
         "basis_code": basis_code, "raw_response_sha256": raw_sha,
     }
