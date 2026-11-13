@@ -77,6 +77,16 @@ def test_calendar_projection_migrates_legacy_records():
         "a shared currency field alone must not authorize Beat/Miss"
     )
 
+    explicit_actual_basis = dict(legacy_actual_basis_only)
+    explicit_actual_basis["eps_actual_basis"] = "US GAAP diluted EPS"
+    explicit_actual_basis_result = _earnings_records(
+        {"events": {"earnings": [explicit_actual_basis]}},
+        observed_at="2026-11-13T13:00:00+08:00",
+    )[0]
+    assert explicit_actual_basis_result["eps_actual_basis_code"] == "US_GAAP_DILUTED_EPS", (
+        "an explicit metric-specific actual basis must take precedence over legacy eps_basis"
+    )
+
     # A single shared currency label is display metadata, not proof that both
     # actual and estimate values use the same currency for comparison.
     unsafe = dict(record)
