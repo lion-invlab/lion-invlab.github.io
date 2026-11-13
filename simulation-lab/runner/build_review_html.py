@@ -78,7 +78,7 @@ def earnings_commentary(item):
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
-    for fragment in re.split(r"(?<=[。！？.!?])\s*|[；;]\s*", raw):
+    for fragment in re.split(r"(?<=[。！？])\s*|[；;]\s*|(?<=\.)\s+(?=[A-Z])", raw):
         part = fragment.strip()
         if not part:
             continue
