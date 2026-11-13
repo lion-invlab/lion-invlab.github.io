@@ -136,7 +136,6 @@ const SERIES_CONFIG=[
  {id:'STLFSI4',name:'STLFSI4',short:'STLFSI4',color:'#8064a8',kind:'stress'},
  {id:'SP500',name:'S&P 500',short:'S&P 500',color:'#0f766e',kind:'price'}
 ];
-const SP500_PATH=sp500VisualPath();
 function weeklyLast(s){
  const weeks=new Map();
  for(const o of s.observations){if(o.value===null||!Number.isFinite(Number(o.value)))continue;
