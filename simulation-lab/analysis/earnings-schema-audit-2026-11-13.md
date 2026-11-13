@@ -69,6 +69,17 @@ EPS 可由現有描述與來源證據安全映射的 12 筆：B、FERG、NRG、C
 
 這項試算證明舊資料庫的部分狀態確實無法通過統一口徑驗證。它只在記憶體中轉換，沒有修改 main JSON。模擬 workflow 另輸出逐公司 `earnings-migration-preview.csv` artifact，供逐筆核對。
 
+Pending 原因再拆解：
+- EPS：15 筆缺少可登錄的 basis code；12 筆缺 actual 或 consensus 數值。
+- Revenue：32 筆缺少可登錄的 basis code；8 筆缺 actual 或 consensus 數值。
+- EPS 的 3 筆 Incomparable 是 TDG、WIX、MRCY，均為 diluted 與 unspecified dilution 口徑差異。
+- Revenue 的 2 筆通過是 CEG、MNDY；其餘 40 筆不得在 basis 或數值缺漏時沿用舊方向性狀態。
+
+EPS basis code 待補：TTWO、OXY、CRWV、CTVA、BN、RKLB、JBS、QBTS、SE、ONON、FNV、HIMS、ASND、MARA、VYLR。
+EPS actual／consensus 數值待補：PBR、HIVE、SKYD、VOD、VG、GIB、ASTS、KSPI、RBA、CNH、BAP、ALC。
+Revenue basis code 待補：B、FERG、NRG、KKR、TTWO、OXY、TDG、CRWV、CTVA、BN、NBIS、HIVE、RKLB、SKYD、JBS、QBTS、WIX、MRCY、SE、RGTI、VG、ONON、FNV、HIMS、TTD、ASND、MARA、VYLR、ASTS、ONTO、SANM、QLYS。
+Revenue actual／consensus 數值待補：PBR、VOD、GIB、KSPI、RBA、CNH、BAP、ALC。
+
 ## 來源與單位問題
 
 - `consensus_source`、`revenue_consensus_source` 已是物件，可存 name、url、publisher、observed_at、notes、secondary_refs；保留現有來源物件即可。
