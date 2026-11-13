@@ -1527,3 +1527,17 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA bc05cb38273a503f3df6ad4d81ca80e0d4d76e13（內容與前一版相同，已重建並通過本次 QA）。Workflow artifact ID 14020898624；run 43393284757。
 - 後續工作：只針對有可追溯原始來源的 15 筆 EPS basis 缺口及 32 筆 Revenue basis 缺口逐筆補證據；12 筆 EPS／8 筆 Revenue 數值缺漏另列資料擷取缺口。不可改用數字大小推測、不可回寫 main 日曆 JSON；無法證明同口徑者維持 Pending。
 - 模擬分支最新工作 commit：1685c83ad00069adfc7780addad6d2d79ab2335e。
+
+
+## 2026-11-13｜明確幣別不一致優先判讀與 11/13 v2 第二輪 QA
+
+- 在唯一判讀引擎 evaluate_metric() 調整檢查順序：已明確存在的 actual／estimate currency、period、Revenue unit 不一致，優先回報 incomparable；不再因另一項 basis code 缺漏而先顯示 Pending。缺少不一致證據時仍維持原有 fail-closed 規則。
+- 新增 EPS／Revenue regression test：明確的 CHF actual／USD estimate 即使 basis code 缺漏，也必須回報 incomparable/currency_mismatch；原本只有單一 shared currency 的測試仍必須 Pending。
+- GitHub Actions run 43393756104（commit 85294cc6e2c81343dbf50659e879f2a8b35b691a）completed/success；self-tests、read-only audit、HTML assembly、Playwright interaction、visual regression、日期／行事曆／44 indicators／news shape 全 PASS。
+- 本輪結果：42 released earnings、84 個 EPS／Revenue metric cards；EPS 11 Beat／1 Miss／4 Incomparable／26 Pending；Revenue 2 Beat／1 Incomparable／39 Pending。ONON 的 EPS 與 Revenue 均因 CHF actual／USD estimate 明確幣別不一致改列 Incomparable，不再誤顯 Pending。
+- Incomparable 清單：EPS—TDG、WIX、MRCY（basis mismatch）及 ONON（currency mismatch）；Revenue—ONON（currency mismatch）。
+- Pending reason：EPS 14 缺／無法辨識 basis code、12 缺 actual／consensus 數值；Revenue 31 缺／無法辨識 basis code、8 缺 actual／consensus 數值。方向性結果未因缺乏證據而擴張。
+- HTML metric-card status totals：65 Pending、13 Beat、1 Miss、5 Incomparable；總計 84，與引擎 audit 一致。
+- 最新審核版：simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html；blob SHA c3c6b936d11c747e24234db3d32f9ad322160229。Artifact ID 14021234070；run 43393756104。視覺回歸母版 SHA 3785405e331b10ec6189002e480be2a1edbe20ef；1440／768／412／390／360px failures=[]。
+- 本輪仍只寫入 simulation/tac-process-lab-2026-11-06；main calendar 只讀，main JSON／preview／index／WR／母版／Manifest 均未修改，production deploy=forbidden。
+- 後續需逐筆補足 EPS 14 筆與 Revenue 31 筆的 basis evidence；另 12 筆 EPS 與 8 筆 Revenue 缺值項目需追查原始 actual／consensus 數據。不可推測；來源不足維持 Pending。
