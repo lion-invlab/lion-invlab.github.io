@@ -279,12 +279,12 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     consensus_source = record.get(consensus_key)
     if not _valid_source(actual_source):
         return _result("pending", "missing_actual_source_url_or_observed_at", actual, estimate)
-    if not _valid_source(consensus_source):
-        return _result("pending", "missing_consensus_source_url_or_observed_at", actual, estimate)
 
     attempt_issue = _consensus_attempt_issue(record, metric, estimate)
     if attempt_issue:
         return _result("pending", attempt_issue, actual, estimate)
+    if not _valid_source(consensus_source):
+        return _result("pending", "missing_consensus_source_url_or_observed_at", actual, estimate)
 
     tolerance = _decimal(record.get(f"{metric}_inline_tolerance_abs"))
     if tolerance is None:
