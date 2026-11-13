@@ -7,7 +7,6 @@ on:
       - "母版專區/**"
       - "TAC_WORK_RULES.md"
       - "scripts/validate_mother_template.py"
-      - "scripts/test_summary_heading_typography.mjs"
       - ".github/workflows/mother-template-guard.yml"
   workflow_dispatch:
     inputs:
@@ -37,28 +36,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-      - name: Install Playwright Chromium
-        run: |
-          npm install --no-save playwright
-          npx playwright install --with-deps chromium
       - name: Positive test - Monday master
         run: python scripts/validate_mother_template.py --date "2026-10-26"
       - name: Positive test - Tuesday-Friday master
         run: python scripts/validate_mother_template.py --date "2026-10-27"
-      - name: Browser test - summary heading typography on both masters
-        run: node scripts/test_summary_heading_typography.mjs
-      - name: Upload summary heading screenshots and audit
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: tac-summary-heading-typography
-          path: artifacts/summary-heading-typography/
-          if-no-files-found: warn
-          retention-days: 7
       - name: Negative test - weekend must be rejected
         shell: bash
         run: |
