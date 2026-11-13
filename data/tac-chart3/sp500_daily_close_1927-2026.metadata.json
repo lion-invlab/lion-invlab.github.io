@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "dataset": "S&P 500 daily close",
+  "purpose": "個人研究系統內部風險分析",
+  "price_type": "price index daily close; dividends excluded",
+  "source_files": [
+    {
+      "file": "SP500(1).csv",
+      "rows": 23104,
+      "start": "1927-12-30",
+      "end": "2019-12-23"
+    },
+    {
+      "file": "SP500 3(1).csv",
+      "rows_total": 2608,
+      "rows_non_null": 2512,
+      "start": "2016-11-11",
+      "end": "2026-11-10"
+    },
+    {
+      "file": "SP500 2.csv",
+      "duplicate_of": "SP500 3(1).csv"
+    }
+  ],
+  "merge_method": "Retain long-history observations outside FRED coverage; use non-null FRED observations on overlapping dates and for the recent extension.",
+  "quality_checks": {
+    "rows": 24833,
+    "start": "1927-12-30",
+    "end": "2026-11-10",
+    "duplicate_dates": 0,
+    "missing_close_values": 0,
+    "overlap_rows": 783,
+    "max_abs_difference": 1.050048828125,
+    "differences_over_0_02_points": 2,
+    "differences": [
+      {
+        "date": "2018-11-29",
+        "long_history_close": 2737.800048828125,
+        "fred_close": 2737.76,
+        "abs_difference": 0.040048828125
+      },
+      {
+        "date": "2019-08-12",
+        "long_history_close": 2882.699951171875,
+        "fred_close": 2883.75,
+        "abs_difference": 1.050048828125
+      }
+    ],
+    "sha256": "cfc2aa526c18049fe8204f2a489cab68fc3620a9c15674685b2682ccc2fa3d3c"
+  },
+  "derived_latest_snapshot": {
+    "date": "2026-11-10",
+    "close": 7520.93,
+    "return_13_weeks_pct": -2.994669235958203,
+    "ma_13_weeks": 7681.566923076923,
+    "ma_26_weeks": 7583.223846153846,
+    "above_ma_13_weeks": false,
+    "above_ma_26_weeks": false,
+    "drawdown_from_252_trading_day_high_pct": -3.8112631779540163,
+    "rolling_252_trading_day_high": 7818.93,
+    "method": "13/26 weeks use 65/130 trading sessions; 52-week high uses 252 trading sessions."
+  },
+  "integration_status": "Dataset verified locally; daily CSV not yet committed to this branch; this manifest is provenance and QA only."
+}
