@@ -26,6 +26,8 @@ def test_calendar_projection_migrates_legacy_records():
         "event_date": "2026-11-12T21:00:00+08:00",
         "status": "released",
         "reporting_period": "Q3 2026",
+        "eps_estimate_period": "Q3 2026",
+        "revenue_estimate_period": "Q3 2026",
         "eps_actual": 1.20,
         "eps_estimate": 1.00,
         "eps_actual_basis": "US GAAP diluted EPS (USD/share)",
@@ -52,7 +54,25 @@ def test_calendar_projection_migrates_legacy_records():
     assert result["source"]["name"] == "Issuer"
     assert result["consensus_source"]["name"] == "EPS consensus"
     assert result["revenue_consensus_source"]["name"] == "Revenue consensus"
+    assert result["eps_estimate_period"] == "Q3 2026"
+    assert result["revenue_estimate_period"] == "Q3 2026"
     assert "judgment_engine_version" not in record, "projection must not mutate calendar source data"
+
+    # A reporting period belongs to the issuer's actual result. It must never
+    # be copied to the estimate side without explicit consensus-period evidence.
+    missing_estimate_period = dict(record)
+    missing_estimate_period.pop("eps_estimate_period")
+    missing_estimate_period.pop("revenue_estimate_period")
+    missing_period_result = _earnings_records(
+        {"events": {"earnings": [missing_estimate_period]}},
+        observed_at="2026-11-13T13:00:00+08:00",
+    )[0]
+    assert missing_period_result["eps_actual_period"] == "Q3 2026"
+    assert missing_period_result["eps_estimate_period"] is None
+    assert missing_period_result["revenue_actual_period"] == "Q3 2026"
+    assert missing_period_result["revenue_estimate_period"] is None
+    assert missing_period_result["eps_comparison_status"] == "pending"
+    assert missing_period_result["revenue_comparison_status"] == "pending"
 
     # The legacy calendar's eps_basis describes the reported actual EPS.
     # The adapter may map it to the actual side, but must not infer the
@@ -146,6 +166,7 @@ def test_calendar_projection_migrates_legacy_records():
         "eps_estimate_basis": "EPS consensus (USD/share; TipRanks reported actual/consensus pair)",
         "eps_currency": "USD",
         "reporting_period": "2026 Q3",
+        "eps_estimate_period": "2026 Q3",
         "source": evidence_source("Issuer"),
         "consensus_source": {
             **evidence_source("TipRanks"),
