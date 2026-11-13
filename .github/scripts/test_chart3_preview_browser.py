@@ -121,7 +121,7 @@ def validate_chart(page, label):
     check(label + "_visible_sp500_range_inside_dynamic_axis", price_meta["axisMin"] <= price_meta["min"] and price_meta["axisMax"] >= price_meta["max"], price_meta)
     check(label + "_sp500_visible_points_are_bounded", page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>Number(e.dataset.visiblePoints)>1&&e.getAttribute('d').length>20"))
     check(label + "_sp500_path_uses_plot_clip", page.locator("#combined-chart svg").evaluate("(svg)=>{const p=svg.querySelector('path[data-series=SP500]'),c=svg.querySelector('clipPath#plot-clip');return !!p&&p.getAttribute('clip-path')==='url(#plot-clip)'&&c?.getAttribute('clipPathUnits')==='userSpaceOnUse'&&p.getAttribute('transform')===null}"))
-        check(label + "_sp500_left_edge_segment_is_clipped_at_y_axis", page.locator("#combined-chart svg").evaluate("(svg)=>{const p=svg.querySelector('path[data-series=SP500]'),c=svg.querySelector('clipPath#plot-clip rect'),d=p.getAttribute('d'),first=Number(d.match(/^M(-?[0-9.]+)/)?.[1]),left=Number(svg.dataset.plotLeft);return !!c&&Number(c.getAttribute('x'))===left&&first<left&&p.getAttribute('clip-path')==='url(#plot-clip')}"))
+    check(label + "_sp500_left_edge_segment_is_clipped_at_y_axis", page.locator("#combined-chart svg").evaluate("(svg)=>{const p=svg.querySelector('path[data-series=SP500]'),c=svg.querySelector('clipPath#plot-clip rect'),d=p.getAttribute('d'),first=Number(d.match(/^M(-?[0-9.]+)/)?.[1]),left=Number(svg.dataset.plotLeft);return !!c&&Number(c.getAttribute('x'))===left&&first<left&&p.getAttribute('clip-path')==='url(#plot-clip')}"))
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
