@@ -35,8 +35,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install playwright
           python -m playwright install --with-deps chromium
-      - name: Render and validate desktop and mobile previews
-        run: python .github/scripts/test_chart3_preview_browser.py
       - name: Build standalone preview artifact
         if: always()
         run: |
@@ -56,6 +54,8 @@ jobs:
           out.write_text(html, encoding="utf-8")
           print(f"Standalone preview generated: {out} ({out.stat().st_size} bytes)")
           PY
+      - name: Render and validate desktop and mobile previews
+        run: python .github/scripts/test_chart3_preview_browser.py
       - name: Upload screenshots and QA report
         if: always()
         uses: actions/upload-artifact@v4
