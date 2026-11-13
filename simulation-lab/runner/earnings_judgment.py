@@ -345,18 +345,25 @@ def _legacy_basis_code(metric: str, label: Any) -> str | None:
         return None
 
     if metric == "revenue":
+        if ("gaap" in text and "non gaap" in text) or ("ifrs" in text and "non ifrs" in text):
+            return None
+        if "gaap" in text and any(term in text for term in ("core revenue", "organic revenue", "adjusted revenue")):
+            return None
+        revenue_definitions = sum(term in text for term in ("operating revenue", "net sales", "total revenue"))
+        if revenue_definitions > 1:
+            return None
         if "gaap" in text:
             if "operating revenue" in text:
                 return "US_GAAP_OPERATING_REVENUE"
             if "net sales" in text:
                 return "US_GAAP_NET_SALES"
-            if "revenue" in text:
+            if "total revenue" in text or "revenue" in text:
                 return "US_GAAP_TOTAL_REVENUE"
             return None
         if "ifrs" in text:
             if "net sales" in text:
                 return "IFRS_NET_SALES"
-            if "revenue" in text:
+            if "total revenue" in text or "revenue" in text:
                 return "IFRS_TOTAL_REVENUE"
             return None
     return None
