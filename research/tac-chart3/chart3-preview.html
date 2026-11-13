@@ -68,7 +68,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 .brief-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.7fr);gap:12px;margin-top:12px}
 .brief-box h3,.strategy-box h3,.trigger-box h3{margin:0 0 10px;font-size:14px;color:#f3d38b}
 .risk-metric{display:grid;grid-template-columns:minmax(105px,1fr) auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid rgba(177,195,220,.16);font-size:12px}
-.risk-metric:last-child{border-bottom:0}.risk-metric-name{color:#dce5f1}.risk-metric-value{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;color:#fff}.risk-metric-delta{font-size:11px;font-weight:700;color:#c5d2e2;min-width:54px;text-align:right}.risk-metric-delta.up{color:#ff7770}.risk-metric-delta.down{color:#6fd1a6}
+.risk-metric:last-child{border-bottom:0}.risk-metric-name{color:#dce5f1}.metric-risk-tier{display:inline-block;margin-top:3px;padding:2px 6px;border-radius:4px;font-size:9px;font-weight:800;letter-spacing:.02em}.metric-risk-tier.safe{background:rgba(33,134,90,.25);color:#77e0ae}.metric-risk-tier.neutral{background:rgba(195,154,56,.22);color:#f2d17a}.metric-risk-tier.elevated{background:rgba(217,119,54,.22);color:#ffb17c}.metric-risk-tier.extreme{background:rgba(185,54,62,.25);color:#ff9298}.metric-risk-tier.missing{background:rgba(148,163,184,.2);color:#cbd5e1}.risk-metric-value{font-size:17px;font-weight:800;font-variant-numeric:tabular-nums;color:#fff}.risk-metric-delta{font-size:11px;font-weight:700;color:#c5d2e2;min-width:54px;text-align:right}.risk-metric-delta.up{color:#ff7770}.risk-metric-delta.down{color:#6fd1a6}
 .brief-sp500 h3{font-size:14px;color:#f3d38b;margin:0 0 8px}.sp500-value{font-size:24px;font-weight:800;color:#fff}.sp500-detail{font-size:12px;line-height:1.65;color:#d0d9e7;margin-top:6px}
 .strategy-head{font-size:16px;font-weight:800;color:#f5d58e;margin:16px 0 10px}
 .strategy-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:10px}
@@ -347,8 +347,9 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  else if(calm){state='金融壓力相對平穩';grade='相對平穩';riskBand=0;}
  const fmtP=x=>x===null?'資料不足':Math.round(x).toString()+'%';
  const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
+ const riskTier=x=>x===null?{label:'缺值',cls:'missing'}:x<25?{label:'安全',cls:'safe'}:x<50?{label:'中性',cls:'neutral'}:x<75?{label:'偏高',cls:'elevated'}:{label:'極端風險',cls:'extreme'};
  const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
- document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>'<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'</span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>').join('');
+ document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>{const tier=riskTier(m[id].value);return '<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'<br><small class="metric-risk-tier '+tier.cls+'">'+tier.label+'</small></span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>';}).join('');
  const dateList=Object.values(m).map(x=>x.date).filter(Boolean).sort();
  document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜各指標最新觀測 '+(dateList[0]===dateList.at(-1)?dateList.at(-1):(dateList[0]+' 至 '+dateList.at(-1)));
  document.getElementById('risk-state').textContent=state;
