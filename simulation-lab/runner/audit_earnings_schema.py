@@ -8,6 +8,7 @@ from pathlib import Path
 from collections import Counter
 
 from calendar_source_guard import load_authoritative_calendar
+from earnings_judgment import migrate_legacy_record
 
 
 def present(record, key):
@@ -86,6 +87,49 @@ def audit(report_date: str) -> dict:
     result["unversioned_records"] = sum(
         1 for e in released if e.get("judgment_engine_version") != "1.0.0"
     )
+
+    migrated = [migrate_legacy_record(e, observed_at="read-only-migration-preview") for e in released]
+    result["migration_preview"] = {
+        "mode": "IN_MEMORY_READ_ONLY",
+        "eps_status_counts": dict(Counter(e.get("eps_comparison_status") or "null" for e in migrated)),
+        "revenue_status_counts": dict(Counter(e.get("revenue_comparison_status") or "null" for e in migrated)),
+        "eps_directional_records": [
+            {
+                "ticker": e.get("ticker"),
+                "legacy_status": e.get("legacy_eps_comparison_status"),
+                "v2_status": e.get("eps_comparison_status"),
+                "actual_basis_code": e.get("eps_actual_basis_code"),
+                "estimate_basis_code": e.get("eps_estimate_basis_code"),
+                "reason": e.get("eps_comparison_reason"),
+            }
+            for e in migrated
+            if e.get("eps_comparison_status") in {"beat", "miss", "inline"}
+        ],
+        "revenue_directional_records": [
+            {
+                "ticker": e.get("ticker"),
+                "legacy_status": e.get("legacy_revenue_comparison_status"),
+                "v2_status": e.get("revenue_comparison_status"),
+                "actual_basis_code": e.get("revenue_actual_basis_code"),
+                "estimate_basis_code": e.get("revenue_estimate_basis_code"),
+                "reason": e.get("revenue_comparison_reason"),
+            }
+            for e in migrated
+            if e.get("revenue_comparison_status") in {"beat", "miss", "inline"}
+        ],
+        "legacy_status_changes": [
+            {
+                "ticker": e.get("ticker"),
+                "legacy_eps_status": e.get("legacy_eps_comparison_status"),
+                "v2_eps_status": e.get("eps_comparison_status"),
+                "legacy_revenue_status": e.get("legacy_revenue_comparison_status"),
+                "v2_revenue_status": e.get("revenue_comparison_status"),
+            }
+            for e in migrated
+            if e.get("legacy_eps_comparison_status") != e.get("eps_comparison_status")
+            or e.get("legacy_revenue_comparison_status") != e.get("revenue_comparison_status")
+        ],
+    }
     return result
 
 
