@@ -174,6 +174,110 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     return _result("miss", "actual_below_comparable_consensus", actual, estimate)
 
 
+def _legacy_basis_code(metric: str, label: Any) -> str | None:
+    """Conservatively map a descriptive v1 basis label to a controlled v2 code."""
+    if not isinstance(label, str) or not label.strip():
+        return None
+    text = re.sub(r"[^a-z0-9]+", " ", label.casefold()).strip()
+
+    if metric == "eps":
+        if "gaap" in text:
+            if "basic" in text and "diluted" in text:
+                return "US_GAAP_BASIC_AND_DILUTED_EPS"
+            if "diluted" in text:
+                return "US_GAAP_DILUTED_EPS"
+            if "basic" in text:
+                return "US_GAAP_BASIC_EPS"
+            return None
+        if "ifrs" in text:
+            if "adjusted" in text and "diluted" in text:
+                return "IFRS_ADJUSTED_DILUTED_EPS"
+            if "adjusted" in text and "basic" in text:
+                return "IFRS_ADJUSTED_BASIC_EPS"
+            if "diluted" in text:
+                return "IFRS_DILUTED_EPS"
+            if "basic" in text:
+                return "IFRS_BASIC_EPS"
+            if "attributable" in text:
+                return "IFRS_ATTRIBUTABLE_EPS"
+            return None
+        if "non gaap" in text or "adjusted" in text or "normalized" in text:
+            if "diluted" in text:
+                return "NON_GAAP_ADJUSTED_DILUTED_EPS" if ("adjusted" in text or "normalized" in text) else "NON_GAAP_DILUTED_EPS"
+            if "basic" in text:
+                return "NON_GAAP_ADJUSTED_BASIC_EPS" if ("adjusted" in text or "normalized" in text) else "NON_GAAP_BASIC_EPS"
+            if "adjusted" in text or "normalized" in text:
+                return "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS"
+        return None
+
+    if metric == "revenue":
+        if "gaap" in text:
+            if "operating revenue" in text:
+                return "US_GAAP_OPERATING_REVENUE"
+            if "net sales" in text:
+                return "US_GAAP_NET_SALES"
+            if "revenue" in text:
+                return "US_GAAP_TOTAL_REVENUE"
+            return None
+        if "ifrs" in text:
+            if "net sales" in text:
+                return "IFRS_NET_SALES"
+            if "revenue" in text:
+                return "IFRS_TOTAL_REVENUE"
+            return None
+    return None
+
+
+def _split_legacy_currency(value: Any) -> tuple[str | None, str | None]:
+    if not isinstance(value, str):
+        return None, None
+    simple = value.strip().upper()
+    if _valid_currency(simple):
+        return simple, simple
+    match = re.fullmatch(
+        r"\s*([A-Z]{3})\s+actual\s*;\s*([A-Z]{3})\s+estimate(?:\s*\([^)]*\))?\s*",
+        value.strip(),
+        flags=re.IGNORECASE,
+    )
+    if match:
+        return match.group(1).upper(), match.group(2).upper()
+    return None, None
+
+
+def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") -> dict:
+    """Create an in-memory v2 migration preview; never writes the source JSON."""
+    migrated = dict(record)
+    migrated["legacy_eps_comparison_status"] = record.get("eps_comparison_status")
+    migrated["legacy_revenue_comparison_status"] = record.get("revenue_comparison_status")
+
+    for metric in ("eps", "revenue"):
+        actual_label = record.get(f"{metric}_actual_basis")
+        estimate_label = record.get(f"{metric}_estimate_basis")
+        migrated.setdefault(
+            f"{metric}_actual_basis_code",
+            _legacy_basis_code(metric, actual_label),
+        )
+        migrated.setdefault(
+            f"{metric}_estimate_basis_code",
+            _legacy_basis_code(metric, estimate_label),
+        )
+        actual_currency, estimate_currency = _split_legacy_currency(
+            record.get(f"{metric}_currency")
+        )
+        migrated.setdefault(f"{metric}_actual_currency", actual_currency)
+        migrated.setdefault(f"{metric}_estimate_currency", estimate_currency)
+        period = record.get("reporting_period")
+        migrated.setdefault(f"{metric}_actual_period", period)
+        migrated.setdefault(f"{metric}_estimate_period", period)
+
+    legacy_revenue_unit = record.get("revenue_unit")
+    if isinstance(legacy_revenue_unit, str) and legacy_revenue_unit.strip():
+        migrated.setdefault("revenue_actual_unit", legacy_revenue_unit.strip())
+        migrated.setdefault("revenue_estimate_unit", legacy_revenue_unit.strip())
+
+    return apply_judgment(migrated, observed_at)
+
+
 def apply_judgment(record: dict, observed_at: str) -> dict:
     """Write deterministic comparison fields to a record in the caller's data layer."""
     results = {}
