@@ -1000,3 +1000,16 @@
 - HTML 84 metric-card statuses: 64 Pending／13 Beat／1 Miss／5 Incomparable／1 Consensus Divergent.
 - Remaining pending causes: EPS 14 basis gaps and 12 missing actual/consensus values; Revenue 30 basis gaps and 8 missing actual/consensus values.
 - Latest review HTML blob SHA f5adebbb1bd1b4f626015e29ab0300620981146e; artifact ID 14021318576; run 43394210226. All changes restricted to simulation branch; main read-only and no production deployment.
+
+
+## 2026-11-13｜Explicit same-basis consensus annotation fallback
+
+- Identified a narrow remaining EPS gap: actual basis code was present, but consensus estimate basis was stored as generic “GAAP EPS consensus”／“EPS consensus”; the curated consensus source notes explicitly said same-basis comparison, but the migration adapter ignored that annotation.
+- Added _has_explicit_same_basis_consensus(). It only fills the estimate basis code from a valid actual basis code when the consensus source notes explicitly state same basis (採同口徑／same basis) or explicitly pair GAAP EPS actual／GAAP net loss per share with consensus. It does not apply a generic GAAP diluted convention.
+- QBTS and HIMS are now comparable under the explicit same-basis source notes and classify Miss; MARA has an explicit GAAP actual-vs-consensus note and classifies Beat. No other records were force-mapped.
+- GitHub Actions run 43394759935, commit 6f5b75e5dc53e60434dc2d47dc37aac9c6f6993f, completed/success. Self-tests, read-only audit, assembly, Playwright interaction, visual regression, date/calendar/44 indicators/news checks all PASS.
+- Latest 42 released results: EPS 12 Beat／3 Miss／4 Incomparable／23 Pending; Revenue 2 Beat／1 Incomparable／1 Consensus Divergent／38 Pending.
+- HTML 84 metric cards: 61 Pending／14 Beat／3 Miss／5 Incomparable／1 Consensus Divergent. NRG Revenue remains Consensus Divergent; ONON EPS and Revenue remain Incomparable due currency mismatch; TDG/WIX/MRCY remain EPS basis-mismatch Incomparable.
+- Remaining Pending: EPS 11 basis-code gaps + 12 actual/consensus value gaps; Revenue 30 basis-code gaps + 8 actual/consensus value gaps.
+- Latest review HTML blob SHA b5b59c1ec9b1ded944941fbc9249e21fb262152f; artifact ID 14021859744; run 43394759935. Visual regression 1440／768／412／390／360px failures=[]; browser interaction page errors=0.
+- All writes remained on simulation/tac-process-lab-2026-11-06; main read-only; no production deployment.
