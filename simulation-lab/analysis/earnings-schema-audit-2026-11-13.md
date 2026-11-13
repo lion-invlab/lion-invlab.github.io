@@ -282,3 +282,12 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - 最新 snapshot module blob `cccbd890048976ad8e1325c2fb0a229aa76dc587`；新增 `published_at` 必備欄位（可 null），與 `data_as_of`、`observed_at`、`provider_recalculated_at` 分離；test file 修正 blob `f4cdbf9fffc967745e074f5789348383f5cb0616`。
 - 最新 probe raw response archive：`simulation-lab/runs/ortex-test-probe-43417937668.json`，blob SHA `fa4411f4a0f7dae582a75b0252040215cfeeed51`，49,853 bytes。
 - Simulation HEAD after CI evidence archive: `d2c44ee9dc5f8ce0b9fd0f2190988349bcaf2e91`。Main HEAD remained `68223e3aa384ae4d75311a243eb029da3c55b32c`; W46 blob remained `ec246b8a765c64b798e348ce8df2760ea89cc5e1`.
+
+
+### 2026-11-13｜Schema v2 snapshot schema validation CI
+
+- 新增三項 deterministic tests：`published_at` 缺值明確保存 null、帶時區格式驗證、snapshot record 對 `schemas/tac-earnings-record-v2.schema.json::$defs.consensusSnapshot` 執行 Draft 2020-12 schema validation。
+- Snapshot store 測試總數增至 **16**；test file blob SHA `9be8cdd1d2720cb28bfd0d03660199a31510393e`。
+- 最新 run `43418109555`：**SUCCESS**，head `6559b3e1fffc00e0c5f552eb32c086673eea6326`。ORTEX TEST probe、16 個 snapshot tests、deterministic self-tests、main read-only audit、raw evidence archive/upload 全部成功。
+- 原始探測證據已封存：`simulation-lab/runs/ortex-test-probe-43418109555.json`，blob SHA `3f2024ed34a7fdad6bc5b7f023e9a6140667883d`，49,853 bytes。
+- Simulation HEAD after archive: `498a3599b0fcff3d6a5d05167e80c61f2013bb19`。本次仍沒有執行報告組裝、瀏覽器、視覺回歸或完整早報 E2E；不得宣稱早報 QA 通過。
