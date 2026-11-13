@@ -162,3 +162,43 @@ main `.github/workflows/` 目錄目前沒有 TAC 行事曆 writer。現有 `.git
 - 測試新增：unversioned legacy commentary 的 Beat/Miss 抑制、已 versioned EPS Beat 但文字寫 Miss 的衝突抑制、Revenue Pending 時抑制 Beat、保留中性評論。
 - 另修正句子切分，避免把 US$1.20 等小數點當成句號。
 - 新測試已加入既有 `test_earnings_comparison_status.py`，但本輪最新 commits 尚無 GitHub Actions check-run；因此這部分仍待 CI／實際 11/13 fixture rebuild 驗收。
+
+
+## 10. 公告前共識快照歷史（Append-only PIT Snapshot History）
+
+### 10.1 為何 attempt history 不足
+
+目前 `eps_consensus_attempts`／`revenue_consensus_attempts` 記錄單次來源階梯的 3 個查找結果；45 筆 released 各 3 attempts，只能證明本輪查找流程，不代表逐日共識快照。每日更新若以新 attempts 陣列取代舊陣列，便無法重建共識修訂路徑。v2 必須把「來源查找紀錄」與「來源值的 PIT 快照」分開保存。
+
+### 10.2 每筆財報事件新增兩個 append-only 陣列
+
+- `eps_consensus_snapshots: []`
+- `revenue_consensus_snapshots: []`
+
+每個 snapshot 至少保存：
+
+- `snapshot_id`：以 event_id、metric、provider、data_as_of、period、statistic、value、currency、unit、basis_code、raw_response_sha256 計算的 SHA-256；相同原始值不得重複新增。
+- `event_id`、`ticker`、`metric`、`source_level`、`provider`、`source_url`。
+- `observed_at`：本系統實際取得來源的時間，必須含時區。
+- `data_as_of`：來源明確提供的共識有效日期／時間；不得以 observed_at 代替。
+- `provider_recalculated_at`：供應商最後重算時間（若有），獨立保存，不可自動等同 data_as_of 或 published_at。
+- `event_date`、來源明確提供的 `period`、`period_end_date`。
+- `value`、`statistic`、`currency`、`unit`、`basis_code`、`analyst_count`。
+- `raw_response_ref`、`raw_response_sha256`：指向不可覆寫的原始 response 證據檔；不得只保存整理後數字。
+- `snapshot_status`、`reason`：明確區分 pre_release_eligible、pending_cutoff_time、pending_required_fields、not_pre_release。
+
+### 10.3 時點與可比較性規則
+
+1. data_as_of 必須早於 event_date，才可標記公告前快照。若 data_as_of 只有日期且與 event_date 同一天，無法證明日內先後，必須 pending_cutoff_time；不可依 observed_at 猜測。
+2. 同一來源每日重複回傳相同 data_as_of、period、value、currency、basis、unit 及 raw hash 時，採 snapshot_id 去重；任何值、analyst_count、期間或原始 payload 改變，均新增新 snapshot，不覆寫舊快照。
+3. EPS 與 Revenue 必須分開保存快照及來源，不得共用一筆。
+4. 每日預更新可同時保存尚未公布事件的公告前快照；事件發布後停止新增「公告前」標籤，公告後資料只能另存 post-release evidence，不得回填 PIT。
+5. 每一個 raw response 必須以 SHA-256 驗證，採 create-if-absent；已存在檔案若 hash 不同，不可覆寫，應建立新證據檔並保留舊參照。
+6. raw response archive 是原始來源證據，不是第二份可查詢資料庫；結構化欄位仍只存於唯一週 JSON。正式 archive 路徑、授權、保留期限及 writer 權限須先納入正式 WR／schema 規範，未核准前僅在 simulation 驗證。
+
+### 10.4 單一 writer 與排程
+
+- 未來快照由既有唯一 04:30／WR 所規定的行事曆更新 writer 執行，不新增第二個排程或 writer。
+- 每次每日輪詢 append-only 保存快照；05:25 早報仍只讀取當週 JSON。
+- Ortex TEST 不具 W46 日期範圍，也未取得 TAC 公開展示／再散布授權，不可作為此機制的正式來源。SIM-1.2 的 LSEG → FactSet → Investing.com 順序維持不變。
+- 本節是隔離區設計提案；main Schema v1、WR、排程及正式 JSON 均未修改。

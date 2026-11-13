@@ -5,70 +5,562 @@
   "description": "Normalized EPS and revenue comparison record. Directional statuses require complete, separately sourced, versioned comparison evidence.",
   "type": "object",
   "properties": {
-    "judgment_engine_version": {"const": "1.0.0"},
-    "judgment_timestamp": {"type": "string", "minLength": 1},
-    "earnings_comparison_summary": {"type": "string", "minLength": 1},
-    "earnings_commentary": {"type": ["string", "null"]},
-    "eps_actual": {"type": ["number", "null"]},
-    "eps_estimate": {"type": ["number", "null"]},
-    "eps_actual_basis_code": {"enum": ["US_GAAP_DILUTED_EPS", "US_GAAP_BASIC_EPS", "US_GAAP_BASIC_AND_DILUTED_EPS", "IFRS_DILUTED_EPS", "IFRS_BASIC_EPS", "IFRS_ATTRIBUTABLE_EPS", "IFRS_ADJUSTED_DILUTED_EPS", "IFRS_ADJUSTED_BASIC_EPS", "NON_GAAP_ADJUSTED_DILUTED_EPS", "NON_GAAP_ADJUSTED_BASIC_EPS", "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS", "NON_GAAP_DILUTED_EPS", "NON_GAAP_BASIC_EPS", "ISSUER_DEFINED_ADJUSTED_EPS", null]},
-    "eps_estimate_basis_code": {"enum": ["US_GAAP_DILUTED_EPS", "US_GAAP_BASIC_EPS", "US_GAAP_BASIC_AND_DILUTED_EPS", "IFRS_DILUTED_EPS", "IFRS_BASIC_EPS", "IFRS_ATTRIBUTABLE_EPS", "IFRS_ADJUSTED_DILUTED_EPS", "IFRS_ADJUSTED_BASIC_EPS", "NON_GAAP_ADJUSTED_DILUTED_EPS", "NON_GAAP_ADJUSTED_BASIC_EPS", "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS", "NON_GAAP_DILUTED_EPS", "NON_GAAP_BASIC_EPS", "ISSUER_DEFINED_ADJUSTED_EPS", null]},
-    "eps_actual_currency": {"type": ["string", "null"], "pattern": "^[A-Z]{3}$"},
-    "eps_estimate_currency": {"type": ["string", "null"], "pattern": "^[A-Z]{3}$"},
-    "eps_actual_period": {"type": ["string", "null"]},
-    "eps_estimate_period": {"type": ["string", "null"]},
-    "eps_surprise": {"type": ["number", "null"]},
-    "eps_surprise_pct": {"type": ["number", "null"]},
-    "eps_comparison_status": {"enum": ["beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"]},
-    "eps_comparison_reason": {"type": "string", "minLength": 1},
-    "eps_consensus_conflict": {"type": "boolean"},
-    "eps_inline_tolerance_abs": {"type": ["number", "null"], "minimum": 0},
-    "revenue_actual": {"type": ["number", "null"]},
-    "revenue_estimate": {"type": ["number", "null"]},
-    "revenue_actual_basis_code": {"enum": ["US_GAAP_TOTAL_REVENUE", "US_GAAP_NET_SALES", "US_GAAP_OPERATING_REVENUE", "IFRS_TOTAL_REVENUE", "IFRS_NET_SALES", "IFRS_REVENUE", "ISSUER_DEFINED_REVENUE_METRIC", null]},
-    "revenue_estimate_basis_code": {"enum": ["US_GAAP_TOTAL_REVENUE", "US_GAAP_NET_SALES", "US_GAAP_OPERATING_REVENUE", "IFRS_TOTAL_REVENUE", "IFRS_NET_SALES", "IFRS_REVENUE", "ISSUER_DEFINED_REVENUE_METRIC", null]},
-    "revenue_actual_currency": {"type": ["string", "null"], "pattern": "^[A-Z]{3}$"},
-    "revenue_estimate_currency": {"type": ["string", "null"], "pattern": "^[A-Z]{3}$"},
-    "revenue_actual_unit": {"type": ["string", "null"], "pattern": "^[A-Z]{3}_(BILLION|MILLION|THOUSAND)$"},
-    "revenue_estimate_unit": {"type": ["string", "null"], "pattern": "^[A-Z]{3}_(BILLION|MILLION|THOUSAND)$"},
-    "revenue_actual_period": {"type": ["string", "null"]},
-    "revenue_estimate_period": {"type": ["string", "null"]},
-    "revenue_surprise": {"type": ["number", "null"]},
-    "revenue_surprise_pct": {"type": ["number", "null"]},
-    "revenue_comparison_status": {"enum": ["beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"]},
-    "revenue_comparison_reason": {"type": "string", "minLength": 1},
-    "revenue_consensus_conflict": {"type": "boolean"},
-    "revenue_inline_tolerance_abs": {"type": ["number", "null"], "minimum": 0},
-    "source": {"$ref": "#/$defs/source"},
-    "consensus_source": {"$ref": "#/$defs/source"},
-    "revenue_consensus_source": {"$ref": "#/$defs/source"}
+    "judgment_engine_version": {
+      "const": "1.0.0"
+    },
+    "judgment_timestamp": {
+      "type": "string",
+      "minLength": 1
+    },
+    "earnings_comparison_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "earnings_commentary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eps_actual": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "eps_estimate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "eps_actual_basis_code": {
+      "enum": [
+        "US_GAAP_DILUTED_EPS",
+        "US_GAAP_BASIC_EPS",
+        "US_GAAP_BASIC_AND_DILUTED_EPS",
+        "IFRS_DILUTED_EPS",
+        "IFRS_BASIC_EPS",
+        "IFRS_ATTRIBUTABLE_EPS",
+        "IFRS_ADJUSTED_DILUTED_EPS",
+        "IFRS_ADJUSTED_BASIC_EPS",
+        "NON_GAAP_ADJUSTED_DILUTED_EPS",
+        "NON_GAAP_ADJUSTED_BASIC_EPS",
+        "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS",
+        "NON_GAAP_DILUTED_EPS",
+        "NON_GAAP_BASIC_EPS",
+        "ISSUER_DEFINED_ADJUSTED_EPS",
+        null
+      ]
+    },
+    "eps_estimate_basis_code": {
+      "enum": [
+        "US_GAAP_DILUTED_EPS",
+        "US_GAAP_BASIC_EPS",
+        "US_GAAP_BASIC_AND_DILUTED_EPS",
+        "IFRS_DILUTED_EPS",
+        "IFRS_BASIC_EPS",
+        "IFRS_ATTRIBUTABLE_EPS",
+        "IFRS_ADJUSTED_DILUTED_EPS",
+        "IFRS_ADJUSTED_BASIC_EPS",
+        "NON_GAAP_ADJUSTED_DILUTED_EPS",
+        "NON_GAAP_ADJUSTED_BASIC_EPS",
+        "NON_GAAP_ADJUSTED_UNSPECIFIED_EPS",
+        "NON_GAAP_DILUTED_EPS",
+        "NON_GAAP_BASIC_EPS",
+        "ISSUER_DEFINED_ADJUSTED_EPS",
+        null
+      ]
+    },
+    "eps_actual_currency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}$"
+    },
+    "eps_estimate_currency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}$"
+    },
+    "eps_actual_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eps_estimate_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "eps_surprise": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "eps_surprise_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "eps_comparison_status": {
+      "enum": [
+        "beat",
+        "miss",
+        "inline",
+        "pending",
+        "incomparable",
+        "consensus_divergent"
+      ]
+    },
+    "eps_comparison_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "eps_consensus_conflict": {
+      "type": "boolean"
+    },
+    "eps_inline_tolerance_abs": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "revenue_actual": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "revenue_estimate": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "revenue_actual_basis_code": {
+      "enum": [
+        "US_GAAP_TOTAL_REVENUE",
+        "US_GAAP_NET_SALES",
+        "US_GAAP_OPERATING_REVENUE",
+        "IFRS_TOTAL_REVENUE",
+        "IFRS_NET_SALES",
+        "IFRS_REVENUE",
+        "ISSUER_DEFINED_REVENUE_METRIC",
+        null
+      ]
+    },
+    "revenue_estimate_basis_code": {
+      "enum": [
+        "US_GAAP_TOTAL_REVENUE",
+        "US_GAAP_NET_SALES",
+        "US_GAAP_OPERATING_REVENUE",
+        "IFRS_TOTAL_REVENUE",
+        "IFRS_NET_SALES",
+        "IFRS_REVENUE",
+        "ISSUER_DEFINED_REVENUE_METRIC",
+        null
+      ]
+    },
+    "revenue_actual_currency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}$"
+    },
+    "revenue_estimate_currency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}$"
+    },
+    "revenue_actual_unit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}_(BILLION|MILLION|THOUSAND)$"
+    },
+    "revenue_estimate_unit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Z]{3}_(BILLION|MILLION|THOUSAND)$"
+    },
+    "revenue_actual_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revenue_estimate_period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revenue_surprise": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "revenue_surprise_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "revenue_comparison_status": {
+      "enum": [
+        "beat",
+        "miss",
+        "inline",
+        "pending",
+        "incomparable",
+        "consensus_divergent"
+      ]
+    },
+    "revenue_comparison_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revenue_consensus_conflict": {
+      "type": "boolean"
+    },
+    "revenue_inline_tolerance_abs": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "consensus_source": {
+      "$ref": "#/$defs/source"
+    },
+    "revenue_consensus_source": {
+      "$ref": "#/$defs/source"
+    },
+    "eps_consensus_snapshots": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/consensusSnapshot"
+          },
+          {
+            "properties": {
+              "metric": {
+                "const": "EPS"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "revenue_consensus_snapshots": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          {
+            "$ref": "#/$defs/consensusSnapshot"
+          },
+          {
+            "properties": {
+              "metric": {
+                "const": "REVENUE"
+              }
+            }
+          }
+        ]
+      }
+    }
   },
   "required": [
-    "judgment_engine_version", "judgment_timestamp", "earnings_comparison_summary",
-    "eps_comparison_status", "eps_comparison_reason",
-    "revenue_comparison_status", "revenue_comparison_reason"
+    "judgment_engine_version",
+    "judgment_timestamp",
+    "earnings_comparison_summary",
+    "eps_comparison_status",
+    "eps_comparison_reason",
+    "revenue_comparison_status",
+    "revenue_comparison_reason"
   ],
   "allOf": [
     {
-      "if": {"properties": {"eps_comparison_status": {"enum": ["beat", "miss", "inline"]}}, "required": ["eps_comparison_status"]},
-      "then": {"required": ["eps_actual", "eps_estimate", "eps_actual_basis_code", "eps_estimate_basis_code", "eps_actual_currency", "eps_estimate_currency", "eps_actual_period", "eps_estimate_period", "source", "consensus_source"]}
+      "if": {
+        "properties": {
+          "eps_comparison_status": {
+            "enum": [
+              "beat",
+              "miss",
+              "inline"
+            ]
+          }
+        },
+        "required": [
+          "eps_comparison_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "eps_actual",
+          "eps_estimate",
+          "eps_actual_basis_code",
+          "eps_estimate_basis_code",
+          "eps_actual_currency",
+          "eps_estimate_currency",
+          "eps_actual_period",
+          "eps_estimate_period",
+          "source",
+          "consensus_source"
+        ]
+      }
     },
     {
-      "if": {"properties": {"revenue_comparison_status": {"enum": ["beat", "miss", "inline"]}}, "required": ["revenue_comparison_status"]},
-      "then": {"required": ["revenue_actual", "revenue_estimate", "revenue_actual_basis_code", "revenue_estimate_basis_code", "revenue_actual_currency", "revenue_estimate_currency", "revenue_actual_unit", "revenue_estimate_unit", "revenue_actual_period", "revenue_estimate_period", "source", "revenue_consensus_source"]}
+      "if": {
+        "properties": {
+          "revenue_comparison_status": {
+            "enum": [
+              "beat",
+              "miss",
+              "inline"
+            ]
+          }
+        },
+        "required": [
+          "revenue_comparison_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "revenue_actual",
+          "revenue_estimate",
+          "revenue_actual_basis_code",
+          "revenue_estimate_basis_code",
+          "revenue_actual_currency",
+          "revenue_estimate_currency",
+          "revenue_actual_unit",
+          "revenue_estimate_unit",
+          "revenue_actual_period",
+          "revenue_estimate_period",
+          "source",
+          "revenue_consensus_source"
+        ]
+      }
     }
   ],
   "$defs": {
     "source": {
       "type": "object",
-      "required": ["url", "observed_at"],
+      "required": [
+        "url",
+        "observed_at"
+      ],
       "properties": {
-        "name": {"type": ["string", "null"]},
-        "url": {"type": "string", "pattern": "^https://"},
-        "observed_at": {"type": "string", "minLength": 1},
-        "publisher": {"type": ["string", "null"]},
-        "notes": {"type": ["string", "null"]},
-        "secondary_refs": {"type": "array", "items": {"type": "string", "pattern": "^https://"}}
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "publisher": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "secondary_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^https://"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "consensusSnapshot": {
+      "type": "object",
+      "required": [
+        "snapshot_id",
+        "event_id",
+        "ticker",
+        "metric",
+        "source_level",
+        "provider",
+        "observed_at",
+        "data_as_of",
+        "event_date",
+        "period",
+        "period_end_date",
+        "value",
+        "statistic",
+        "currency",
+        "unit",
+        "basis_code",
+        "analyst_count",
+        "raw_response_ref",
+        "raw_response_sha256",
+        "snapshot_status",
+        "reason"
+      ],
+      "properties": {
+        "snapshot_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "event_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ticker": {
+          "type": "string",
+          "minLength": 1
+        },
+        "metric": {
+          "enum": [
+            "EPS",
+            "REVENUE"
+          ]
+        },
+        "source_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        },
+        "provider": {
+          "enum": [
+            "LSEG I/B/E/S",
+            "FactSet Estimates",
+            "Investing.com"
+          ]
+        },
+        "source_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observed_at": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_as_of": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provider_recalculated_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "event_date": {
+          "type": "string",
+          "minLength": 1
+        },
+        "period": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "period_end_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "statistic": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z]{3}$"
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "basis_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "analyst_count": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "raw_response_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "raw_response_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "snapshot_status": {
+          "enum": [
+            "pre_release_eligible",
+            "pending_cutoff_time",
+            "pending_required_fields",
+            "not_pre_release"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
       },
       "additionalProperties": true
     }

@@ -229,3 +229,11 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
   - https://public.ortex.com/
   - https://docs.ortex.com/reference/stock_estimates_consensus_retrieve
 - 裁決：目前授權狀態為 **未確認／未獲准**；禁止將 TEST 回應或任何個人 API 訂閱資料接入 TAC 公開頁、長期資料庫或向讀者再散布。技術可用性與授權可用性必須分開驗收。
+
+
+## 2026-11-13 19:xx Taipei｜append-only PIT 快照缺口與 audit count 更正
+
+- 直接回讀 main W46 JSON（blob SHA 仍為 `ec246b8a765c64b798e348ce8df2760ea89cc5e1`）後，實際 `audit` 陣列長度為 **132**，不是本文件前段所列 129；新增的 3 筆為 11/13 14:00 manual incremental update、17:07 source-priority recheck、17:12 clear unverified lower-priority consensus。舊 129 是較早截點，應以本次直接讀取為準。
+- 同一份 W46 中，45 筆 released 每個 metric 各有 3 筆最新來源階梯 attempt（EPS 135、Revenue 135）；這些 attempts 是一次查找紀錄，沒有每日 append-only 共識值歷史。
+- 已確認目前事件記錄尚無 `eps_consensus_snapshots`／`revenue_consensus_snapshots` 陣列；也未見逐日不可覆寫的 raw response evidence ref。故未來公告前共識快照機制尚未建立，不能只靠現有 attempts 陣列宣稱已完成。
+- 在 simulation 新增 append-only snapshot store 原型、JSON Schema 欄位及 deterministic tests；正式 main、正式 JSON、WR 與排程未修改。原型通過前不得修改唯一 updater automation。

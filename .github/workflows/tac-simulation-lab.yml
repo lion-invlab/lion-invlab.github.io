@@ -49,6 +49,10 @@ jobs:
           set -euo pipefail
           python simulation-lab/runner/probe_ortex_test.py --output simulation-lab/output/ortex-test-probe.json
 
+      - name: Test append-only PIT consensus snapshot store
+        shell: bash
+        run: python simulation-lab/runner/test_consensus_snapshot_store.py
+
       - name: Run deterministic self-tests
         shell: bash
         run: |

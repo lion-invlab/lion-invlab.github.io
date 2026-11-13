@@ -86,3 +86,15 @@
 - [x] Raw TEST response evidence archived and read back: `simulation-lab/runs/ortex-test-probe-43416810131.json` (blob SHA `b082a2ca778521fcdb2b383935d8f4f4c599fd03`); follow-up run `43416810131` success.
 
 - [ ] ORTEX 書面確認 Professional／Institutional licence 可涵蓋 TAC 公開展示、PIT 歷史保存及再散布；個人／TEST key 不得用於 TAC 公開產品。
+
+
+## Append-only PIT snapshot history — required before production cutover
+
+- [ ] 每筆事件具獨立 `eps_consensus_snapshots` 與 `revenue_consensus_snapshots` 歷史陣列；不得以當日 attempts 取代歷史 snapshots。
+- [ ] 每筆 snapshot 保存 data_as_of、observed_at、event_date、period、basis、currency、unit、analyst_count、raw response ref／SHA-256。
+- [ ] 同日只有 date、沒有時間戳的 data_as_of 不得自行推定為公告前。
+- [ ] 同一 snapshot id 冪等去重；新值／新原始 payload 只 append，不覆寫舊證據。
+- [ ] Simulation prototype + deterministic tests pass；再做連續多日增量演練，確認歷史陣列不被覆蓋。
+- [ ] 正式 WR／唯一 updater automation／raw evidence archive 權限及保留政策須經審核後才可變更；目前 production 未部署。
+
+**Main W46 audit count correction:** 直接回讀 JSON 的 `audit.length=132`；先前 129 是較早統計截點。
