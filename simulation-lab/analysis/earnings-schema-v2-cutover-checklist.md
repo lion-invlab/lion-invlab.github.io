@@ -98,3 +98,7 @@
 - [ ] 正式 WR／唯一 updater automation／raw evidence archive 權限及保留政策須經審核後才可變更；目前 production 未部署。
 
 **Main W46 audit count correction:** 直接回讀 JSON 的 `audit.length=132`；先前 129 是較早統計截點。
+
+- [x] Simulation append-only snapshot helper + 12 deterministic tests passed in workflow `43417361875`.
+- [x] TEST raw response evidence archived in simulation branch: `simulation-lab/runs/ortex-test-probe-43417361875.json` (blob SHA `3e38b54c89a9bcfed043289a4348984bea3e298d`).
+- [ ] Integrate the snapshot helper with the single authorised production writer only after full simulation multi-day regression, licence review, WR update approval and explicit production deployment approval.
