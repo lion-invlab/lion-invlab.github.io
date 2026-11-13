@@ -903,3 +903,15 @@
 - 新增回歸測試，涵蓋舊資料方向性評論、EPS polarity conflict、Revenue Pending 被宣稱 Beat。修正句子分割不應破壞小數數值。
 - CI 仍未回報最新 commits 的 check-run；需通過 CI 及重建 11/13 fixture 才能驗收。
 - 另確認 simulation branch 相對 main 已 681 ahead／175 behind，含多項非本次工作內容，禁止整支分支直接合併；正式切換需乾淨 main-based branch。
+
+
+## 2026-11-13｜Clean cutover branch 與 W45/W46 全量遷移試算 PASS
+
+- 建立 `earnings-schema-v2-cutover-2026-11-13`，以 main HEAD `d271d1226ba1c19b431118c9967d57d2bce678fa` 為 base；沒有把原本 681 ahead／175 behind 的 simulation branch 直接合併。
+- clean branch 相對 main ahead 13 commits／behind 0，只有 9 個新增檔案（8 個實作檔＋1 份切換說明），沒有修改既有 main 檔案。
+- CI run `43381382184` completed/success：engine tests、render commentary consistency、JSON Schema validator、read-only migration preview tests 全 PASS。
+- W45/W46 共 83 筆已公布財報純記憶體試算，來源不變：
+  - W45 41 筆 EPS／Revenue 全部 Pending。
+  - W46 EPS 11 Beat／1 Miss／3 Incomparable／27 Pending；Revenue 2 Beat／40 Pending。
+- 切換說明位於 clean branch `research/tac-earnings-schema-v2/IMPLEMENTATION-AND-CUTOVER.md`。
+- 正式 main 尚未修改；04:35 automation disabled。後續需解決唯一 writer 執行 Python engine 的方式、正式 assembler 接線、逐筆補證據及隔日演練。
