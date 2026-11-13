@@ -139,6 +139,8 @@ def main():
     all_unavailable["eps_consensus_attempts"] = unavailable_attempts
     all_unavailable["consensus_source"] = None
     check(evaluate_metric(all_unavailable, "eps")["reason"], "no_usable_consensus_after_all_priority_sources", "three unavailable sources must be recorded before consensus-not-found conclusion")
+    all_unavailable["consensus_source"] = consensus_source("eps")
+    check(evaluate_metric(all_unavailable, "eps")["reason"], "selected_consensus_source_present_without_adopted_attempt", "stale selected source cannot survive after all tiers fail")
 
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
