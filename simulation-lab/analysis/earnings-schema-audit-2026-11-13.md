@@ -217,3 +217,15 @@ ORTEX TEST 的技術連線與基本欄位可用性已實測成功；但 TEST 的
 - Raw probe JSON archived in the simulation branch at `simulation-lab/runs/ortex-test-probe-43416810131.json`; blob SHA `b082a2ca778521fcdb2b383935d8f4f4c599fd03`; 49,835 bytes; read-back confirmed the raw response bodies are included.
 - Archive commit advanced simulation HEAD to `d47ee45a4a73f269305836a004e7206b45150929`.
 - After the simulation changes, main HEAD remained `68223e3aa384ae4d75311a243eb029da3c55b32c` and W46 JSON blob remained `ec246b8a765c64b798e348ce8df2760ea89cc5e1`; no production data was modified.
+
+
+### ORTEX 公開展示與再散布授權核查（官方條款）
+
+- ORTEX Standard Consumer Terms（last updated 2026-07-06）將非專業用戶服務限於個人／直系家庭投資用途；條款 4.4 禁止向第三方分發服務或其摘錄／衍生內容，條款 5.4(e) 禁止商業利用或向第三方提供服務，條款 6.4(b) 禁止將 API／Data Services 資料再散布、轉售、再授權或提供第三方。
+- 因 TAC 是公開展示的產品，不能假設一般個人 API 訂閱或 TEST key 可授權 TAC 網站展示。須由 ORTEX 確認 Professional／Institutional data licence 或平台／OEM redistribution 條款，並以書面確認可展示 EPS／Revenue estimates、歷史 PIT 快照、保存期限及公開頁面展示範圍。
+- ORTEX 官方機構頁面將資料授權按 dataset／coverage／delivery 定價，並列出 redistribution／OEM 與 trials；因此下一步若要商業評估，應走機構資料授權／平台整合洽詢，而非使用個人訂閱或 TEST key 上線。
+- 官方依據：
+  - https://public.ortex.com/terms-and-conditions
+  - https://public.ortex.com/
+  - https://docs.ortex.com/reference/stock_estimates_consensus_retrieve
+- 裁決：目前授權狀態為 **未確認／未獲准**；禁止將 TEST 回應或任何個人 API 訂閱資料接入 TAC 公開頁、長期資料庫或向讀者再散布。技術可用性與授權可用性必須分開驗收。
