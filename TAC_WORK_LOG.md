@@ -1037,3 +1037,18 @@
 - 本輪修正並核對：11 檔產業 ETF 11/12 歷史列；WTI 88.74（+2.55%）、Brent 95.82（+3.30%）、VIX 18.70（+6.92%）；2Y 4.864（+1.90%）、10Y 5.103（+2.39%）、30Y 5.433（+1.94%）；Gold 3,885.30（-2.88%）、Silver 50.065（-3.72%）；DXY 103.17、USD/TWD 32.996；S&P 500 7,592.40、Russell 2000 2,799.06，兩者以現貨指數口徑處理。FedWatch 05:05 快照：12月升息機率合計 100%（25bp 88.3%、50bp 11.7%）。
 - main 邊界核對：`index.html` SHA `193644d363c8f590b4b2c8d07292b01337e3dee0` 未改；W46 JSON SHA `a7bab78c8c4a254e2081d89693571c41897f8243` 未改；週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef` 未改；Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55` 未改。
 - 狀態：審核版已交付；未更新正式首頁，等待使用者審核授權。
+
+
+## 2026-11-13｜SIM-1.2 重新完整製作 main 11/13 審核版（最終交付）
+- 本次依使用者明確指示，以唯一模擬區 WR `simulation-lab/TAC_WORK_RULES_SIM.md`（SIM-1.2，blob SHA `3a5540aca30aa760877951ce47786d2574e4f1a7`）重新執行；報告日 2026-11-13（週五），行情基準日 2026-11-12。
+- 使用週二至週五核准母版：`simulation-lab/baseline/weekday-mother-template.html`，SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；模擬 Manifest SHA `0866bdc7995edec10a33e78a9fb146ebe74e4d93`；QA contract SHA `6e4c4c43da2407911dfcbaea80c439d8ae785e8f`。
+- 日期對應資料 fixture SHA `8bbe3d2540f8faa69143ce676279bdeebc43556e`。重讀 main W46 JSON SHA `a7bab78c8c4a254e2081d89693571c41897f8243`（更新時間 2026-11-13 17:12 +08:00），全程唯讀；本週經濟事件 16 筆、財報事件 48 筆。
+- 重新擷取五個現貨指數 OHLC、已公布財報股價反應資料，執行 DOM 組裝及完整 QA。最終 workflow run `43407595622` success；workflow event commit `13da5a3e9f8f424ca1e92f02c33cc01ff79b4add`；輸出保存 commit `a49c23dc`；artifact ID `14027099426`。
+- 最終輸出 `simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html` blob SHA `dc61398dc28cf08b395ae803e1481ec3ed537fad`（427,420 bytes）。
+- 資料更正：道瓊 2026-11-12 收盤修正為 52,297.09（-0.36%），與 Yahoo Finance ^DJI、FRED DJIA、Investing.com 歷史列一致；移除舊錯值 52,299.11。道瓊 pivot OHLC／價位同步更正。Footer／資料警示日期改為依 trading_date 動態顯示 11/12，不再硬編碼 11/11。
+- QA 全 PASS：確定性測試、main earnings schema 唯讀稽核、現貨 OHLC 擷取、財報股價反應擷取、DOM 組裝、互動測試（10 個導覽目標；經濟／財報／產業卡展開還原；焦點新聞 5 個連結、頭條 10 個連結；Investing.com 112 個連結、鉅亨 3 個連結；Fear & Greed 40 白點位置 40%；page errors 0）、母版視覺比對（1440／768／360，核准母版 SHA 正確）、日期／行事曆／44 指標／新聞數量驗收（16/16、48/48、44、5、10）。
+- 交付前回讀最終 HTML，確認道瓊正確值存在、舊值不存在、Footer 為 11/12、TAC_CALENDAR_SOURCE provenance 存在。
+- 已將完全相同 HTML 寫入 main `preview/2026-11-13-simulation.html`；main commit `2b87cbc609e09fbcb00a6a69bfe4005a9b33a7aa`；回讀 blob SHA `dc61398dc28cf08b395ae803e1481ec3ed537fad`，與 simulation 輸出完全一致。
+- main 保護資產未變：`index.html` SHA `193644d363c8f590b4b2c8d07292b01337e3dee0`；W46 JSON SHA `a7bab78c8c4a254e2081d89693571c41897f8243`；正式 Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；正式週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。未修改首頁、母版、Manifest、行事曆 JSON。
+- 資料完整性註記：市場行情、新聞及行事曆內容使用 05:25 前人工查核快照；本次 workflow 重新執行 OHLC／股價反應擷取、DOM 組裝與 QA，但不宣稱全部 44 項行情為即時 API 全自動 E2E。
+- 狀態：11/13 main 審核版已完成並可供使用者審核；未發布至正式首頁。
