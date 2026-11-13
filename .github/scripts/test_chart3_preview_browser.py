@@ -95,6 +95,38 @@ def validate_chart(page, label):
     check(label + "_select_all_history_checkboxes", page.locator("#event-drawdown-key input:checked").count() == 35)
     check(label + "_select_all_event_bands", page.locator("#combined-chart svg rect[data-event]:visible").count() == 17)
     check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 18)
+    # Verify the percentile warm-up and synchronized timeline controls.
+    stl = page.locator('#combined-chart svg path[data-series="STLFSI4"]')
+    first_valid = stl.get_attribute("data-first-valid-date") or ""
+    check(label + "_full_520_week_window", stl.get_attribute("data-percentile-window") == "520" and first_valid >= "2000-01-01", first_valid)
+    check(label + "_timeline_controls_present", page.locator("#timeline-zoom-in").count() == 1 and page.locator("#timeline-zoom-out").count() == 1 and page.locator("#timeline-reset").count() == 1)
+    initial = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+    initial_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", initial)
+    page.locator("#timeline-zoom-in").click()
+    zoomed = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+    zoomed_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", zoomed)
+    check(label + "_button_zoom_in_reduces_time_span", zoomed_span < initial_span)
+    page.locator("#timeline-zoom-out").click()
+    page.locator("#timeline-reset").click()
+    reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-10"], reset)
+    svg_box = page.locator("#combined-chart svg").bounding_box()
+    if svg_box:
+        cx = svg_box["x"] + svg_box["width"] * 0.55
+        cy = svg_box["y"] + svg_box["height"] * 0.45
+        page.mouse.move(cx, cy)
+        page.mouse.wheel(0, -250)
+        wheel_zoom = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+        wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
+        check(label + "_mouse_wheel_zoom", wheel_span < initial_span, wheel_zoom)
+        page.locator("#timeline-reset").click()
+        page.mouse.move(cx, cy)
+        page.mouse.down()
+        page.mouse.move(cx + 55, cy, steps=4)
+        page.mouse.up()
+        dragged = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+        check(label + "_mouse_drag_pans_timeline", dragged != ["1993-12-31", "2026-11-10"], dragged)
+        page.locator("#timeline-reset").click()
 
 try:
     with sync_playwright() as p:
