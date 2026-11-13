@@ -68,3 +68,18 @@
 - [x] Strict validator 對每筆已公布財報的 EPS／營收分別檢查來源歷程；已採用必須唯一且在找到後停止，未採用必須完整查完三級，否則 Gate fail。
 - [x] 最新程式／Schema CI：run `43410484429`，commit `506416ab143f8b161ab8c8076f2d860b2f7a8f9d`，結果 success。
 - [ ] 將新增的 attempts 欄位納入正式 writer 的擷取與 merge/upsert；目前只完成 Schema／engine／測試契約，尚未接入正式 04:35 writer。
+
+### 2026-11-13｜main W46 唯讀基線重驗
+
+來源：`origin/main:data/calendar/weeks/2026-W46.json`；main commit `2b87cbc609e09fbcb00a6a69bfe4005a9b33a7aa`；JSON blob `a7bab78c8c4a254e2081d89693571c41897f8243`；WR v5.19；schema_version=1；updated_at=2026-11-13 17:12 台灣時間。
+
+- 已公布財報：45 筆。
+- EPS 舊狀態：Beat 17、Miss 3、空值 25；實際值 38 筆、預期值 36 筆。
+- Revenue 舊狀態：Beat 19、Miss 8、空值 18；實際值 44 筆、預期值 36 筆。
+- 45 筆全部沒有 `eps_consensus_attempts` 或 `revenue_consensus_attempts`；兩指標的 source attempt coverage 都是 0／45。
+- EPS／Revenue 的 actual／estimate normalized basis code、分離幣別、分離期間欄位 coverage 均為 0；Revenue actual／estimate unit coverage 也均為 0。
+- 37／45 筆有 consensus source object，但沒有逐級來源嘗試紀錄，無法證明採用來源符合 SIM-1.2 First Available Wins。
+- 以目前嚴格 v2 引擎做唯讀 in-memory preview：EPS 為 Pending 41、Incomparable 4；Revenue 為 Pending 44、Incomparable 1。這不是宣稱舊 Beat／Miss 一定錯，而是舊資料沒有足夠證據讓新引擎驗證它們。
+- 執行紀錄：run `43411434859`，commit `5f424f78ed9b69f922a8e51ba2bf13987978f736`，read-only baseline audit success。
+
+**結論：** 目前 main W46 並非只缺幾個小卡判讀文字，而是整體缺少標準化比較欄位及來源階梯歷程。必須先完成 45 筆已公布財報的 EPS／Revenue 獨立補查與欄位填充，再談 Schema v2 遷移；不可把舊狀態批次複製成新制判讀。
