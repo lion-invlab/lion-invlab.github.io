@@ -1597,3 +1597,16 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 新檔回讀驗證：日期標題正確；修正後行情存在、已知舊錯值不存在；44 指標／日曆／新聞結構、母版、瀏覽器互動 QA 全數通過。
 - main `index.html`、W46 JSON、正式週二至週五母版、Manifest 均維持原 SHA，未發布首頁。
 - 下一步只等使用者審核；未收到授權前不得把 v2 preview 發布至 index.html。
+
+
+## 2026-11-13｜最終工作錨點：SIM-1.2 11/13 審核版已重新製作並交付
+- 當前唯一模擬 WR：SIM-1.2，`simulation-lab/TAC_WORK_RULES_SIM.md`，blob SHA `3a5540aca30aa760877951ce47786d2574e4f1a7`。
+- 最終完整 build workflow：run `43407595622`（success）；輸出保存於 simulation branch commit `a49c23dc`。
+- 報告日期 2026-11-13（週五）；行情基準日 2026-11-12；weekday mother SHA `3785405e331b10ec6189002e480be2a1edbe20ef`；模擬 Manifest SHA `0866bdc7995edec10a33e78a9fb146ebe74e4d93`；QA contract SHA `6e4c4c43da2407911dfcbaea80c439d8ae785e8f`。
+- fixture SHA `8bbe3d2540f8faa69143ce676279bdeebc43556e`；main W46 JSON SHA `a7bab78c8c4a254e2081d89693571c41897f8243`（只讀）。
+- 最終 simulation HTML：`simulation-lab/output/TAC_投資早報_2026-11-13_審核版.html`；blob SHA `dc61398dc28cf08b395ae803e1481ec3ed537fad`。
+- 最終 main preview：`preview/2026-11-13-simulation.html`；建立 commit `2b87cbc609e09fbcb00a6a69bfe4005a9b33a7aa`；回讀 blob SHA 與 simulation HTML 完全一致。
+- 重要更正：道瓊 11/12 收盤 52,297.09（-0.36%），舊錯值 52,299.11 已不存在；Footer 關鍵價位日期正確顯示 11/12。
+- 最終 QA：deterministic tests、main earnings schema read-only audit、OHLC capture、earnings price reaction capture、DOM assembly、browser interaction、mother visual regression 1440／768／360、calendar／44 indicators／news shape 全 PASS。經濟 16/16、財報 48/48、指標 44、焦點新聞 5、頭條 10；interaction page errors 0。
+- main 保護資產未變：`index.html` SHA `193644d363c8f590b4b2c8d07292b01337e3dee0`；W46 SHA `a7bab78c8c4a254e2081d89693571c41897f8243`；正式 Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；正式 weekday mother SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。
+- 狀態：審核版已交付，未發布至正式首頁；等待使用者審核。市場行情／新聞／行事曆資料來源為 05:25 前人工查核快照；不可描述成 44 項全部 live-data E2E。
