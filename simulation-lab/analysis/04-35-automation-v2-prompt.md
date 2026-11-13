@@ -108,3 +108,30 @@
 - 04:35 automation prompt 已替換為本契約。
 - 端到端模擬通過，且隔日更新不會覆蓋 v2 欄位。
 - 使用者確認正式恢復 04:35 排程。
+
+## 2026-11-13｜共識來源階梯證據欄位補強（待正式部署）
+
+EPS 與營收必須各自保存來源查找歷程，不得只留下最後採用來源：
+
+- `eps_consensus_attempts[]`
+- `revenue_consensus_attempts[]`
+
+每次來源查找至少記錄：
+- `source_level`：1／2／3，分別固定對應 LSEG I/B/E/S、FactSet Estimates、Investing.com。
+- `provider`、`metric`、`url`、`observed_at`。
+- `data_as_of`：共識數據本身的有效／截點時間，與查核時間分開；採用來源必須能證明此時間早於公司財報公布時間。
+- `period`、`value`、`currency`、`unit`、`basis_code)、`statistic`（primary_consensus／mean／median／other）、`analyst_count)（若可取得）。
+- `outcome)：adopted／unavailable／unreadable／not_pre_release／missing_required_fields／incompatible。
+- `reason)：採用或跳過的具體原因。
+
+執行約束：
+1. 查找必須從 source_level=1 開始；每次只可依序增加一級，不可跳級。
+2. 一旦某級找到有效、公布前、期間正確且同口徑的共識，該筆 attempt 標記 adopted，立即停止，不得再查下一級。
+3. 若第一級不可用，必須保留其失敗原因，再查第二級；第二級不可用才查第三級。
+4. 最後採用的 `consensus_source`／`revenue_consensus_source` URL、provider、source_level、value、period、currency、unit、basis_code 必須與唯一一筆 adopted attempt 完全一致。
+5. 不得將不同來源的 estimate、幣別、單位、口徑或統計值拼接；EPS 與營收各有自己的 attempts array。
+6. `reporting_period` 僅代表公司實際公布期間，不得填入 estimate period。Estimate period 必須由採用的共識來源明確提供。
+7. 沒有足夠證據證明 data_as_of 早於公告時間，不得採用為公布前共識；可保留來源嘗試紀錄，但判讀不得為 Beat／Miss／Inline。
+8. 三級均不可用時，保存三筆失敗紀錄；只有此時才能將「市場共識未取得」作為已完成查找的結案狀態。若資料尚未查完，狀態維持待處理，不得假稱已完成。
+
+以上為隔離分支新增的資料契約補強，尚未部署 main，也不授權啟用 04:35 automation。
