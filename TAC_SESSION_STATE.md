@@ -1388,3 +1388,25 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 從 run `43331347462` artifact 直接以 BeautifulSoup 回讀 42 張已公布財報卡：股價反應 37 家已填入公告後首個交易日收盤變化；5 家保留待核（Vodafone Group、Franco-Nevada、Vylor、Joint Stock Company Kaspi.kz、CNH Industrial N.V.），沒有用未知公告時間推測。
 - 最新 HTML SHA/blob：`902997848aa212d487ce8fcbe3dffb396995723e`，431,970 chars。Visual regression failures=[]；Fear & Greed 40% marker；油價 WTI 88.92/+2.76%、Brent 94.54/+1.92%。
 - main 審核版已更新 commit `048d58b0abf3ad4080b0a1e76a62ab07289a8add`；main preview blob SHA `902997848aa212d487ce8fcbe3dffb396995723e`。main index blob SHA `daae9c236c566662e83c937375e8e038dfcb1c37`，未修改。
+
+
+## 2026-11-13｜財報比較 Schema v2 盤點與隔離引擎（本輪最新）
+
+- 使用者要求自動連續推進已公布財報小卡／資料庫判讀架構，不得每一步等待「繼續」。
+- 正式基準只讀核對：main HEAD `d271d1226ba1c19b431118c9967d57d2bce678fa`；WR v5.15；W46 `data/calendar/weeks/2026-W46.json` blob SHA `85edcefb1f7b86112e55d43a324c6cb5c8c2fdab`；updated_at `2026-11-13T04:30:43+08:00`；schema_version=1；16 economic / 48 earnings / 129 audit；released earnings=42。
+- 已用 Automations peek 確認 04:35 唯一 writer 是 ChatGPT automation `TAC 行事曆資料庫｜每日 04:35 預更新`，ID `6ae6dff2200c81919ba2cee4db78f8a5`，不是 GitHub Actions workflow；目前 is_enabled=false。最近 run `3db31e2d-2b68-832f-94ea-c4dda4bbd91e`，scheduled 2026-11-13 04:35 Asia/Taipei，實際 04:30:35 啟動、04:52:16 完成。其 prompt 明確要求「schema 未變」，沒有唯一、可執行的判讀引擎規格；因此它無法自行完成 Schema v2 遷移。
+- main `.github/workflows/` 沒有行事曆 JSON writer；`.github/workflows/main.yml` 是 S&P 500 volatility updater。不得把 ChatGPT automation 說成 GitHub Actions。
+- W46 42 筆已公布財報實測：EPS actual 36、estimate 34、both 30；EPS actual／estimate basis free-text 各 18；EPS statuses Beat 15、Miss 3、null 24。Revenue actual 41、estimate 34、both 34；Revenue actual／estimate basis free-text 各 3；Revenue statuses Beat 17、Miss 8、null 17。22 筆已有 Revenue directional status 但缺 actual／estimate basis 描述。42 筆均無 judgment_engine_version。W45 與 W46 同為 schema_version=1，但 W45 缺少 W46 新增 basis 欄位，確認 schema drift。
+- 另發現共用 `eps_currency`／`revenue_currency` 不能清楚分開 actual 與 estimate；`revenue_unit` 也是共用欄位。來源物件已有 URL／observed_at／notes，應沿用，不建立平行來源台帳。42 筆 stock_price_reaction 及 price_reaction_source 均缺值，列為獨立資料議題。
+- 隔離分支已新增：
+  - `simulation-lab/runner/earnings_judgment.py`：唯一判讀引擎，ENGINE_VERSION=1.0.0；受控 EPS／Revenue basis registry；分開檢查 basis、currency、period、revenue unit、actual/consensus source；輸出 Beat/Miss/Inline/Pending/Incomparable/Consensus Divergent、surprise、reason、engine version。
+  - `simulation-lab/runner/build_review_html.py`：移除數字方向及自由文字 basis fallback，改為只讀取帶版本的判讀狀態；增加 Incomparable／Consensus Divergent 中性標籤。
+  - `simulation-lab/runner/calendar_source_guard.py`：新版本才顯示 `earnings_comparison_summary` 與 `earnings_commentary`；舊版 `financial_judgment` 不再冒充已驗證的 Beat/Miss 結論。
+  - `simulation-lab/runner/test_earnings_judgment_engine.py`、`test_earnings_comparison_status.py`：涵蓋 basis／currency／period／unit mismatch、缺來源、負 EPS、容忍範圍、共識分歧、舊版狀態不可覆蓋新規則。
+  - `simulation-lab/runner/audit_earnings_schema.py`：只讀 audit main 當週 JSON，輸出欄位覆蓋及 legacy unversioned statuses。
+  - `simulation-lab/analysis/earnings-schema-v2-proposal.md`、`earnings-schema-audit-2026-11-13.md`、`earnings-migration-audit-W46.csv`：正式欄位契約、W46 盤點與 42 筆逐公司遷移清單。
+  - `.github/workflows/tac-simulation-lab.yml`：加入判讀引擎測試及 main JSON 唯讀稽核。
+- GitHub Actions run `43378063934`（job `131729123225`，commit `e91ef1ec174c35fcd23781e409de8bd7c25c0193`）completed/success；判讀引擎與 renderer 測試 PASS；main W46 唯讀 audit PASS，確認 42 筆全部 unversioned，所有 v2 basis code／separate currency／period／unit 欄位覆蓋均為 0。組裝／瀏覽器 QA steps 因本次是 push smoke test 而 skipped，不得宣稱早報組裝或視覺 QA 通過。
+- 曾有一次 enum registry 呼叫漏傳 metric 參數，Actions run `43377982688` 失敗；已根據日誌修正並以 `43378063934` 成功重跑。錯誤及修復均保留紀錄。
+- 本輪所有寫入只發生在 `simulation/tac-process-lab-2026-11-06`；main HEAD、正式 W46 JSON、正式 WR、母版、Manifest、index.html、preview 均未修改。04:35 automation 未更新、未啟用；沒有建立第二個 JSON writer。
+- 下一步：完成 W46 42 家的 basis-code evidence mapping 與舊資料遷移測試；正式上線前須先決定唯一 writer 的遷移方式，更新 04:35 automation prompt（取消「schema 未變」限制，接入 v2 欄位與判讀契約），完成完整回歸後再恢復排程。未完成前不得直接寫 main JSON 或宣稱 production ready。
