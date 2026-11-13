@@ -111,6 +111,9 @@ def main():
 
     legacy_f = {
         "ticker": "FERG",
+        # This synthetic case explicitly supplies the consensus fiscal period;
+        # without it the corrected migration must leave the judgment pending.
+        "eps_estimate_period": "Q3 2026",
         "eps_actual": 3.43,
         "eps_estimate": 3.31,
         "eps_actual_basis": "Adjusted diluted EPS (non-GAAP; USD/share)",
