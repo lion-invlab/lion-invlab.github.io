@@ -2,11 +2,69 @@
 """Renderer contract: display persisted judgment only and guard editorial claims."""
 from earnings_judgment import ENGINE_VERSION
 from build_review_html import earnings_comparison_status, earnings_commentary
+from calendar_source_guard import _earnings_records
 
 
 def check(item, metric, expected):
     actual = earnings_comparison_status(item, metric)
     assert actual == expected, f"{metric}: expected {expected!r}, got {actual!r}"
+
+
+
+def test_calendar_projection_migrates_legacy_records():
+    def evidence_source(name):
+        return {
+            "name": name,
+            "url": "https://example.com/earnings-evidence",
+            "observed_at": "2026-11-13T12:00:00+08:00",
+        }
+
+    record = {
+        "id": "earn-test-1",
+        "company": "Example Corp",
+        "ticker": "EX",
+        "event_date": "2026-11-12T21:00:00+08:00",
+        "status": "released",
+        "reporting_period": "Q3 2026",
+        "eps_actual": 1.20,
+        "eps_estimate": 1.00,
+        "eps_actual_basis": "US GAAP diluted EPS (USD/share)",
+        "eps_estimate_basis": "US GAAP diluted EPS consensus (USD/share)",
+        "eps_currency": "USD",
+        "revenue_actual": 9.2,
+        "revenue_estimate": 8.7,
+        "revenue_actual_basis": "GAAP total revenue (USD billions)",
+        "revenue_estimate_basis": "GAAP total revenue consensus (USD billions)",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "source": evidence_source("Issuer"),
+        "consensus_source": evidence_source("EPS consensus"),
+        "revenue_consensus_source": evidence_source("Revenue consensus"),
+    }
+    payload = {"events": {"earnings": [record]}}
+    projected = _earnings_records(payload, observed_at="2026-11-13T13:00:00+08:00")
+    result = projected[0]
+    assert result["judgment_engine_version"] == ENGINE_VERSION
+    assert result["eps_comparison_status"] == "beat"
+    assert result["revenue_comparison_status"] == "beat"
+    assert result["eps_actual_currency"] == "USD"
+    assert result["revenue_actual_unit"] == "USD_BILLION"
+    assert result["source"]["name"] == "Issuer"
+    assert result["consensus_source"]["name"] == "EPS consensus"
+    assert result["revenue_consensus_source"]["name"] == "Revenue consensus"
+    assert "judgment_engine_version" not in record, "projection must not mutate calendar source data"
+
+    # A single shared currency label is display metadata, not proof that both
+    # actual and estimate values use the same currency for comparison.
+    unsafe = dict(record)
+    unsafe["eps_actual_basis"] = "US GAAP diluted EPS"
+    unsafe["eps_estimate_basis"] = "US GAAP diluted EPS consensus"
+    unsafe["eps_currency"] = "USD"
+    unsafe_payload = {"events": {"earnings": [unsafe]}}
+    unsafe_result = _earnings_records(
+        unsafe_payload, observed_at="2026-11-13T13:00:00+08:00"
+    )[0]
+    assert unsafe_result["eps_comparison_status"] == "pending"
 
 
 def main():
@@ -50,7 +108,8 @@ def main():
     assert "EPS：優於預期" in safe_contradictory
     assert "營收：比較口徑待核實" in safe_contradictory
 
-    print("PASS: renderer version gating and earnings commentary consistency guard")
+    test_calendar_projection_migrates_legacy_records()
+    print("PASS: renderer guard, calendar-to-v2 migration adapter, and earnings commentary consistency")
 
 
 if __name__ == "__main__":
