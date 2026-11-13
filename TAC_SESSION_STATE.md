@@ -1440,3 +1440,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
   - `simulation-lab/analysis/04-35-automation-v2-prompt.md`：替換舊「schema 未變」要求，改為 v2 欄位、來源、唯一引擎及 fail-closed 驗收；草案尚未套用到實際 automation。
   - `simulation-lab/analysis/earnings-schema-v2-cutover-checklist.md`：列出 main 部署、W45/W46 遷移、automation prompt 更新、隔日演練及恢復排程的 Gate。
 - 正式 automation 仍 disabled，未修改其 prompt，未重新啟用；main、W46 JSON、WR、首頁、母版及正式排程均未修改。
+
+
+## 2026-11-13｜04:35 唯一 writer 執行契約已更新（仍停用）
+
+- 已將 `simulation-lab/analysis/04-35-automation-v2-prompt.md` 的 Schema v2 執行契約套用至正式 ChatGPT automation：`TAC 行事曆資料庫｜每日 04:35 預更新`（ID `6ae6dff2200c81919ba2cee4db78f8a5`）。
+- 更新時間：2026-11-13T06:36:11.864333+00:00。重新 peek 確認 prompt 已含 Schema v2 規則，舊的「schema 未變」限制已改成「schema_version 必須與正式部署版本一致」；schedule 仍是週一至週五 04:35 Asia/Taipei。
+- **is_enabled 仍為 false**。沒有重新啟用，因正式 main 尚未部署 Schema v2／判讀引擎，且 W45/W46 歷史遷移尚未完成。若現在啟用，v2 prompt 會按 fail-closed 規則停止正式寫入，不會沿用舊格式。
+- Cutover checklist 已將「更新 04:35 automation prompt」標為完成；剩餘 main 部署、42 筆遷移、正式 engine runtime 能力驗證、隔日演練及使用者核准後恢復排程。
+- 未修改 automation schedule；未修改 main JSON、正式 WR、首頁、母版或 preview。
