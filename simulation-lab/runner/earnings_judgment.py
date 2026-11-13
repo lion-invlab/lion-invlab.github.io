@@ -276,6 +276,11 @@ def migrate_legacy_record(record: dict, observed_at: str = "migration-preview") 
 
     for metric in ("eps", "revenue"):
         actual_label = record.get(f"{metric}_actual_basis")
+        # Legacy calendar records store the reported EPS definition in the
+        # shared eps_basis field. Use it only as the actual-result basis;
+        # never copy it to the analyst-consensus side.
+        if metric == "eps" and not (isinstance(actual_label, str) and actual_label.strip()):
+            actual_label = record.get("eps_basis")
         estimate_label = record.get(f"{metric}_estimate_basis")
         migrated.setdefault(
             f"{metric}_actual_basis_code",
