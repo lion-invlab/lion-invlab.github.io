@@ -87,6 +87,19 @@ def test_calendar_projection_migrates_legacy_records():
         "an explicit metric-specific actual basis must take precedence over legacy eps_basis"
     )
 
+    ambiguous_basis = dict(legacy_actual_basis_only)
+    ambiguous_basis["eps_basis"] = (
+        "Adjusted EPS US$0.82; GAAP diluted EPS US$0.80 also disclosed"
+    )
+    ambiguous_basis_result = _earnings_records(
+        {"events": {"earnings": [ambiguous_basis]}},
+        observed_at="2026-11-13T13:00:00+08:00",
+    )[0]
+    assert ambiguous_basis_result["eps_actual_basis_code"] is None, (
+        "mixed GAAP and adjusted narrative must not be collapsed into one basis"
+    )
+    assert ambiguous_basis_result["eps_comparison_status"] == "pending"
+
     # A single shared currency label is display metadata, not proof that both
     # actual and estimate values use the same currency for comparison.
     unsafe = dict(record)
