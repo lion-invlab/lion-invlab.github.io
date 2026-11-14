@@ -115,45 +115,99 @@ try {
     throw new Error("navigation click did not move to #earnings");
   }
 
-  async function toggleDetails(selector, iconSelector) {
-  const details = page.locator(selector).first();
-  if (await details.count() < 1) throw new Error("accordion not found: " + selector);
+  async function toggleDetails(selector, iconSelector = null) {
+    const details = page.locator(selector).first();
+    if (await details.count() !== 1) throw new Error("missing details element: " + selector);
 
-  // Previous-week sections are nested inside a collapsed outer disclosure.
-  // Open ancestor details first so the inner control is actually visible.
-  const ancestor = details.locator("xpath=ancestor::details").first();
-  const hasAncestor = await ancestor.count() > 0;
-  let ancestorWasOpen = false;
-  if (hasAncestor) {
-    ancestorWasOpen = await ancestor.evaluate(el => el.open);
-    const ancestorSummary = ancestor.locator("summary").first();
-    if (!(await ancestorSummary.isVisible()) || !(await ancestorSummary.boundingBox())) {
-      throw new Error("outer disclosure control is not visible: " + selector);
-    }
-    if (!ancestorWasOpen) {
-      await ancestorSummary.click();
+    // The first previous-week event/card is nested inside a collapsed outer
+    // disclosure. Open that parent before checking the inner control.
+    const ancestor = details.locator("xpath=ancestor::details").first();
+    const hasAncestor = await ancestor.count() > 0;
+    const ancestorBefore = hasAncestor ? await ancestor.evaluate(el => el.open) : null;
+    if (hasAncestor && !ancestorBefore) {
+      const outerSummary = ancestor.locator(":scope > summary").first();
+      if (!(await outerSummary.isVisible()) || !(await outerSummary.boundingBox())) {
+        throw new Error("outer disclosure summary missing: " + selector);
+      }
+      await outerSummary.click();
       if (!(await ancestor.evaluate(el => el.open))) {
         throw new Error("outer disclosure did not open: " + selector);
       }
     }
-  }
 
-  const icon = details.locator(iconSelector).first();
-  if (await icon.count() !== 1 || !(await icon.boundingBox())) {
-    if (hasAncestor && !ancestorWasOpen) await ancestor.locator("summary").click();
-    throw new Error("toggle icon missing or not visible: " + iconSelector);
-  }
-  const summary = details.locator("summary").first();
-  if (!(await summary.isVisible())) throw new Error("accordion summary is not visible: " + selector);
-  await summary.click();
-  if (!(await details.evaluate(el => el.open))) throw new Error("accordion did not open: " + selector);
-  await summary.click();
-  if (await details.evaluate(el => el.open)) throw new Error("accordion did not close: " + selector);
-
-  if (hasAncestor && !ancestorWasOpen) {
-    await ancestor.locator("summary").click();
-    if (await ancestor.evaluate(el => el.open)) {
-      throw new Error("outer disclosure did not return to collapsed state: " + selector);
+    const summary = details.locator(":scope > summary").first();
+    const before = await details.evaluate(el => el.open);
+    if (iconSelector) {
+      const icon = details.locator(iconSelector).first();
+      if (await icon.count() !== 1 || !(await icon.boundingBox())) {
+        if (hasAncestor && !ancestorBefore) await ancestor.locator(":scope > summary").click();
+        throw new Error("toggle icon missing or not visible: " + iconSelector);
+      }
     }
+    if (!(await summary.isVisible())) throw new Error("accordion summary is not visible: " + selector);
+    await summary.click();
+    const after = await details.evaluate(el => el.open);
+    if (after === before) throw new Error("summary did not toggle details: " + selector);
+    await summary.click();
+    const restored = await details.evaluate(el => el.open);
+    if (restored !== before) throw new Error("details did not restore original state: " + selector);
+
+    if (hasAncestor && !ancestorBefore) {
+      await ancestor.locator(":scope > summary").click();
+      if (await ancestor.evaluate(el => el.open)) {
+        throw new Error("outer disclosure did not return to collapsed state: " + selector);
+      }
+    }
+    return { selector, before, after, restored, ancestor_was_open: ancestorBefore };
   }
+
+  const detailsTests = [
+    await toggleDetails("details.earnings-accordion", ".earnings-accordion-toggle"),
+    await toggleDetails("details.econ-event", ".econ-toggle"),
+    await toggleDetails("details.sector-collapse")
+  ];
+
+  const focusLinks = await page.locator("#global-focus .newsmeta a[href]").evaluateAll(
+    nodes => nodes.map(a => a.href)
+  );
+  if (focusLinks.length !== 5) throw new Error(`expected 5 focus news links, got ${focusLinks.length}`);
+  if (!focusLinks.every(url => url.startsWith("https://hk.investing.com/") || url.includes(".cnyes.com/"))) {
+    throw new Error("focus news contains a source outside Investing.com HK / Cnyes");
+  }
+
+  const headlineLinks = await page.locator("#headlines .newsmeta a[href]").evaluateAll(
+    nodes => nodes.map(a => a.href)
+  );
+  if (headlineLinks.length !== 10) throw new Error(`expected 10 market headline links, got ${headlineLinks.length}`);
+  if (!headlineLinks[9].startsWith("https://") || headlineLinks[9].includes("undefined")) {
+    throw new Error("last market headline has an invalid source URL");
+  }
+
+  const investingLinks = await page.locator('a[href^="https://hk.investing.com/"], a[href^="https://www.investing.com/"]').count();
+  // Count every official Cnyes subdomain (news, mobile, and Anue), not one hostname only.
+  const cnyesLinks = await page.locator('a[href*=".cnyes.com/"], a[href^="https://cnyes.com/"]').count();
+  if (investingLinks < 10 || cnyesLinks < 2) {
+    throw new Error(`source links unexpectedly low: Investing.com=${investingLinks}, Cnyes=${cnyesLinks}`);
+  }
+
+  if (pageErrors.length) throw new Error(`uncaught page errors: ${pageErrors.join(" | ")}`);
+
+  const result = {
+    status: "PASS",
+    nav_count: navCount,
+    nav_targets: navTargets,
+    details_tests: detailsTests,
+    focus_news_links: focusLinks.length,
+    headline_links: headlineLinks.length,
+    investing_links: investingLinks,
+    cnyes_links: cnyesLinks,
+    fear_greed_marker_test: fearGreedMarkerTest,
+    page_errors: pageErrors
+  };
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, JSON.stringify(result, null, 2) + "\n", "utf8");
+  console.log("Interaction smoke test: PASS");
+  console.log(JSON.stringify(result));
+} finally {
+  await browser.close();
 }
