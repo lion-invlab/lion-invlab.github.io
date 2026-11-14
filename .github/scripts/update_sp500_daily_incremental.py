@@ -207,7 +207,7 @@ def main():
     (root / "sp500_incremental_qa.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
     # Append-only audit trail: preserve every retrieval hash and every corrected close.
     with (root / "sp500_update_log.jsonl").open("a", encoding="utf-8") as audit:
-        audit.write(json.dumps(report, ensure_ascii=False, sort_keys=True) + "\\n")
+        audit.write(json.dumps(report, ensure_ascii=False, sort_keys=True) + "\n")
     manifest = {
         "dataset_id": "TAC_CHART3_SP500_DAILY_CLOSE",
         "instrument": "^GSPC",
