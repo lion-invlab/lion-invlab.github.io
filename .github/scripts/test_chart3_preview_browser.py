@@ -31,6 +31,9 @@ check("manifest_release_gate_blocked_until_rights_confirmed", manifest.get("rele
 check("manifest_contains_four_risk_series", {x.get("id") for x in manifest.get("risk_series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
 check("manifest_sp500_history_matches_chart_payload", manifest.get("sp500_data", {}).get("rows") == 24833 and manifest.get("sp500_data", {}).get("start") == "1927-12-30" and manifest.get("sp500_data", {}).get("end") == "2026-11-10")
 check("manifest_does_not_mislabel_git_blob_as_sha256", "sha256" not in manifest.get("risk_data", {}))
+check("manifest_vix_copyright_status_documented", "copyrighted_citation_required" in manifest.get("risk_series", [])[0].get("rights_status", ""))
+check("manifest_sp500_upstream_rights_not_assumed", "unverified" in manifest.get("sp500_data", {}).get("rights_status", ""))
+check("manifest_provenance_identifies_recent_snapshot_lineage_gap", "not been fully recorded" in manifest.get("sp500_data", {}).get("recent_snapshot_source", ""))
 
 def validate_chart(page, label):
     # Wait for either a successful chart initialization or an explicit data-load error.
