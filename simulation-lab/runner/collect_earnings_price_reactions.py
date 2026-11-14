@@ -13,6 +13,11 @@ from calendar_source_guard import load_authoritative_calendar
 NY = ZoneInfo("America/New_York")
 
 
+def calendar_side_for_report(report_date: str) -> str:
+    """Monday retrospectives use the previous ISO week; other reports use the current week."""
+    return "previous" if date.fromisoformat(report_date).weekday() == 0 else "current"
+
+
 def reaction_window(event: dict) -> tuple[date, str] | None:
     if event.get("status") != "released":
         return None
@@ -104,7 +109,12 @@ def collect(report_date: str, output: str):
     import yfinance as yf
 
     bundle = load_authoritative_calendar(report_date)
-    events = bundle["current"]["payload"]["events"]["earnings"]
+    calendar_side = calendar_side_for_report(report_date)
+    calendar_week = bundle[calendar_side]
+    events = calendar_week["payload"]["events"]["earnings"]
+    if calendar_side == "previous":
+        events = [event for event in events if int(event.get("importance_stars") or 0) == 5]
+    calendar_blob_sha = calendar_week["blob_sha"]
     candidates = []
     for event in events:
         window = reaction_window(event)
@@ -165,7 +175,7 @@ def collect(report_date: str, output: str):
     override_path = Path(f"simulation-lab/fixtures/earnings-price-reaction-overrides-{report_date}.json")
     if override_path.exists():
         override_doc = json.loads(override_path.read_text(encoding="utf-8"))
-        if override_doc.get("report_date") != report_date or override_doc.get("calendar_blob_sha") != bundle["current"]["blob_sha"]:
+        if override_doc.get("report_date") != report_date or override_doc.get("calendar_blob_sha") != calendar_blob_sha:
             raise RuntimeError("manual price-reaction override does not match report date/main calendar blob SHA")
         event_map = {event["id"]: event for event in events}
         for override in override_doc.get("overrides", []):
@@ -217,7 +227,9 @@ def collect(report_date: str, output: str):
         "repository": "lion-invlab/lion-invlab.github.io",
         "branch": "main",
         "main_commit_sha": bundle["main_commit_sha"],
-        "calendar_blob_sha": bundle["current"]["blob_sha"],
+        "calendar_blob_sha": calendar_blob_sha,
+        "calendar_side": calendar_side,
+        "calendar_week_id": calendar_week.get("week_id"),
         "source": "Yahoo Finance historical daily close",
         "method": "before_market: release-day close vs previous trading-day close; after_market: next trading-day close vs release-day close",
         "eligible_count": len(candidates),
@@ -244,7 +256,9 @@ def self_test():
     assert pre and pre["change_pct"] == 2.0
     assert post and post["change_pct"] == -0.98
     assert reaction_window({"status":"upcoming","us_exchange_listed":True,"us_listing_ticker":"ABC","session":"before_market","event_date":"2026-11-12T08:00:00-05:00"}) is None
-    print("PASS: earnings reaction window and close-to-close calculation")
+    assert calendar_side_for_report("2026-11-16") == "previous"
+    assert calendar_side_for_report("2026-11-17") == "current"
+    print("PASS: earnings reaction window, Monday prior-week routing, and close-to-close calculation")
 
 
 if __name__ == "__main__":
