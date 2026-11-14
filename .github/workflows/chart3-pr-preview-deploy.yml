@@ -22,7 +22,7 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     environment:
-      name: github-pages
+      name: chart3-preview
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout unchanged main site
