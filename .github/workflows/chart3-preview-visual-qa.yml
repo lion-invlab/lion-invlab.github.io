@@ -13,6 +13,9 @@ on:
     paths:
       - ".github/workflows/chart3-preview-visual-qa.yml"
       - ".github/scripts/test_chart3_preview_browser.py"
+      - ".github/scripts/analyze_tac_chart3_historical_asof.py"
+      - ".github/scripts/test_analyze_tac_chart3_historical_asof.py"
+      - ".github/scripts/analyze_tac_chart3_stress_episodes.py"
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
       - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
@@ -63,6 +66,8 @@ jobs:
           out.write_text(html, encoding="utf-8")
           print(f"Standalone preview generated: {out} ({out.stat().st_size} bytes)")
           PY
+      - name: Run historical point-in-time reconstruction unit tests
+        run: python .github/scripts/test_analyze_tac_chart3_historical_asof.py
       - name: Render and validate desktop, mobile and 320px previews
         run: python .github/scripts/test_chart3_preview_browser.py
       - name: Upload screenshots and QA report
