@@ -23,8 +23,8 @@
 
 | 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `d10db54218881c1f2530d33b9304d753ccaacbf9` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183；ID 無重複 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `74f393a08c242d234f3b1e643edb7a63d5e3cedf` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `1ac39d50b138e59f4aabf55fc68560ee277ba6f8` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 183；ID 無重複 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `f010ff118d7a5a2c1f6e834aa24f832766383c2b` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 174；ID 無重複 |
 
 以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.2 寫入權限的明確授權。
 
@@ -54,7 +54,7 @@
 - 入口：`#calendar`；三個 radio 為 `#week-econ-today`、`#week-econ-upcoming`、`#week-econ-published`，由 `.week-econ-tab-labels` 與 `.week-econ-panels` 對應。
 - 狀態容器：`.calendar-status-group`；事件清單：`.econ-event-list`；事件節點：`details.econ-event`。
 - 卡片標頭：`details.econ-event > summary > .econ-meta`，內含 `.econ-date`、`.econ-time`、`.econ-country`、`.econ-name`、`.econ-stars`。
-- 卡片內容：`details.econ-event > .econ-details > .econ-field`；欄位值為 `.econ-value`。來源連結必須保留在相應欄位內。
+- 卡片內容：`details.econ-event > .econ-details`。五區結構固定為：`.econ-primary-grid`（僅含 `.econ-prev`、`.econ-forecast`、`.econ-actual` 三欄），其後同層依序為 `.econ-field.econ-impact.wide`（市場影響）及 `.econ-field.econ-source.wide`（資料來源）；五區各自保留 `.econ-value`，來源連結必須位於資料來源欄位內。
 - **母版差異不可抹平：** 週一與週二至週五的本週經濟卡均使用 `.econ-toggle`；週一上週經濟卡使用 `.econ-event-toggle`。不得把上週卡片 selector 套用到本週卡片，也不得為統一 selector 改寫其他結構。
 - 展開控制定位：`#calendar details.econ-event > summary > span.econ-toggle`；週一正式母版已逐張補齊 12 張本週事件卡，週二至週五母版原有 16 張控制。
 
