@@ -4482,6 +4482,26 @@
         "listing_evidence_links_match_official_sources": true
       },
       "notes": "修正 JD 與 Alibaba listing_evidence 連結，使掛牌證據直接指向已核實的發行人官方公告。"
+    },
+    {
+      "at": "2026-11-14T13:22:49+08:00",
+      "action": "W47_final_coverage_and_schema_validation",
+      "event_id": "2026-W47",
+      "before": {
+        "blob_sha": "21075e19fea530101fd76626d7fffc4a3218d7b1"
+      },
+      "after": {
+        "economic_events": 12,
+        "earnings_events": 21,
+        "eps_attempts": 63,
+        "revenue_attempts": 63,
+        "schema_version": 1,
+        "field_key_parity_with_W46": true,
+        "unique_event_ids": true,
+        "chronological_order": true,
+        "official_issuer_and_listing_sources": true
+      },
+      "notes": "最終驗收：W47 與 W46 schema_version=1 的 root、economic、earnings 欄位集合完全一致；12 經濟事件、21 財報事件；11 個經濟事件有精確時間、1 個只確認日期；21 家財報事件均有官方時程與美國掛牌證據；EPS／Revenue 各63筆來源階梯紀錄，來源順序1→2→3；0採用共識、0 PIT snapshot。"
     }
   ],
   "last_update_audit": {
@@ -4617,7 +4637,6 @@
     ],
     "economic_sorted": true,
     "earnings_sorted": true,
-    "updated_blob_sha_before": "2f6dc3ffa012140ca322a33a48e18d0c09918ab3",
     "earnings_events_total": 21,
     "earnings_events_added_total": 21,
     "source_outcomes": {
@@ -4632,6 +4651,9 @@
       "EPS:Investing.com:unavailable": 1,
       "REVENUE:Investing.com:unavailable": 1
     },
-    "updated_blob_sha_after": "c3257841b3ff54a83a2402c0444e67d5ad644f75"
+    "final_file_path": "data/calendar/weeks/2026-W47.json",
+    "final_validation_status": "passed_before_final_audit_append",
+    "last_verified_at": "2026-11-14T13:22:49+08:00",
+    "economic_events_total": 12
   }
 }
