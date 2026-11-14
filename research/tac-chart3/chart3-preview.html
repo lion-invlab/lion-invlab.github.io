@@ -143,7 +143,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="note"><strong>避免重複計算</strong>NFCI Credit（金融狀況信用子指數）是 NFCI 的信用子指標，不應當成與 NFCI 完全獨立的風險來源。</div>
  <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
 </div>
-<details class="method-details" id="percentile-reading"><summary>百分位讀法與投資判讀限制 <span>點此展開</span></summary><div class="method-details-content"><div class="desc">四項壓力指標以各自近 520 週有效觀測計算百分位，50 約為自身歷史中位數，80 代表高於約 80% 的歷史觀測。不同指標的百分位只比較各自歷史相對位置，不代表原始幅度相同；NFCI Credit 為 NFCI 子指標，不作獨立壓力確認。買賣建議依本頁列明的風險門檻與 S&amp;P 500 趨勢共同判斷，不因單一指標直接全數清倉。</div></div></details>
+<details class="method-details" id="percentile-reading"><summary>百分位讀法與投資判讀限制 <span>點此展開</span></summary><div class="method-details-content"><div class="desc">四項壓力指標以各自近 520 週有效觀測計算歷史百分位；色標僅表示該指標在自身歷史分布中的相對位置：0–25 為歷史低位、25–50 為低於中位、50–75 為高於中位、75–100 為歷史高位，並非經校準的絕對風險等級或發生機率。不同指標的百分位只比較各自歷史相對位置，不代表原始幅度相同；NFCI Credit 為 NFCI 子指標，不作獨立壓力確認。</div></div></details>
 <footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 週頻走勢：FJA Yahoo-derived 長歷史價格（圖中價格線起點 1993-12-31；2016-11-10 以前）與 FRED SP500（2016-11-11 起；S&P Dow Jones Indices LLC，retrieved from FRED）；圖中僅嵌入螢幕解析度的視覺曲線，不公開每日／週頻原始價格檔。Dataquest vs FRED：1,467 日重疊，7 日差異 >0.02 點（0.4772%），最大差異 5.2898 點；差異日期為 2018-11-29、2019-08-12、2020-05-11、2020-10-02、2020-10-05、2021-08-11、2022-09-12，均保留稽核紀錄，重疊日採 FRED 官方值覆蓋。FJA vs FRED 為另一組比較：783 日重疊、2 日差異 >0.02 點，不與前述 7 日混為一談。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
 </main>
 <script>
@@ -347,7 +347,7 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  else if(calm){state='金融壓力相對平穩';grade='相對平穩';riskBand=0;}
  const fmtP=x=>x===null?'資料不足':Math.round(x).toString()+'%';
  const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
- const riskTier=x=>x===null?{label:'缺值',cls:'missing'}:x<25?{label:'安全',cls:'safe'}:x<50?{label:'中性',cls:'neutral'}:x<75?{label:'偏高',cls:'elevated'}:{label:'極端風險',cls:'extreme'};
+ const riskTier=x=>x===null?{label:'缺值',cls:'missing'}:x<25?{label:'歷史低位',cls:'safe'}:x<50?{label:'低於中位',cls:'neutral'}:x<75?{label:'高於中位',cls:'elevated'}:{label:'歷史高位',cls:'extreme'};
  const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
  document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>{const tier=riskTier(m[id].value);return '<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'<br><small class="metric-risk-tier '+tier.cls+'">'+tier.label+'</small></span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>';}).join('');
  const dateList=Object.values(m).map(x=>x.date).filter(Boolean).sort();
