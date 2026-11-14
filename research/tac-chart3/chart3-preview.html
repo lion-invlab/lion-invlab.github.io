@@ -90,7 +90,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 
 
 <section class="daily-brief" id="daily-risk-brief" hidden aria-label="每日市場風險判讀">
- <div class="daily-brief-head"><strong>每日市場風險判讀｜從數據到投資決策</strong><small id="decision-asof">資料計算中…</small></div>
+ <div class="daily-brief-head"><strong>每日市場風險判讀｜從數據到投資決策</strong><small id="decision-asof">下次資料更新日期載入中…</small></div>
  <div class="daily-state">
   <div class="daily-state-main"><div class="daily-state-label">目前市場狀態</div><h2 id="risk-state">風險訊號分歧，持續觀察</h2><p class="daily-thesis" id="risk-thesis"></p></div>
   <div class="risk-level"><strong>綜合風險等級（依明確門檻判定）</strong><div class="risk-scale-wrap"><div class="risk-scale-marker" id="risk-scale-marker" aria-hidden="true" hidden></div><div class="risk-scale" role="img" aria-label="風險區間由低至高"><span>安全</span><span>中性</span><span>偏高</span><span>極端</span></div></div><em id="risk-grade">計算中</em><small class="risk-scale-caption" id="risk-scale-caption">白色三角形：四項指標等權平均百分位</small></div>
@@ -325,7 +325,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null),label=SERIES_DISPLAY_NAMES[s.series_id]||s.label;return o?label+'｜'+o.date+'｜'+fmt(o.value):label+'｜無有效值'}
 
-function renderDailyRiskBrief(byId,weekly,generatedAt){
+function renderDailyRiskBrief(byId,weekly,generatedAt,releaseSchedule){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
  const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
@@ -403,7 +403,7 @@ fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HT
  const visible={VIXCLS:true,NFCI:true,NFCICREDIT:true,STLFSI4:true,SP500:true};
  const weekly={};
  for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4'])weekly[id]=expandingPercentile(weeklyLast(byId[id]));
- renderDailyRiskBrief(byId,weekly,data.generated_at);
+ renderDailyRiskBrief(byId,weekly,data.generated_at,data.release_schedule);
  const controls=document.getElementById('series-filters');
  controls.innerHTML=SERIES_CONFIG.map(c=>'<label class="series-toggle"><input type="checkbox" data-series-toggle="'+c.id+'" checked><span class="dot" style="background:'+c.color+'"></span>'+c.name+'</label>').join('');
  document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
