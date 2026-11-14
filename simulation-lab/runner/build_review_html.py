@@ -1093,18 +1093,31 @@ def main():
     def startext(x):
         n=max(0,min(5,int(x.get("stars") or 0))); return "★"*n+"☆"*(5-n)
     def putfield(card,label,value):
+        aliases={"市場影響":{"市場影響","觀察重點"}}
+        candidates=aliases.get(label,{label})
+        matched=False
         for field in card.select(".econ-field"):
             lab=field.select_one("label")
-            if lab and lab.get_text(strip=True)==label: set_text(field.select_one(".econ-value"),value if value is not None else "不適用／待核實")
+            if lab and lab.get_text(strip=True) in candidates:
+                if lab.get_text(strip=True)=="觀察重點": set_text(lab,"市場影響")
+                set_text(field.select_one(".econ-value"),value if value is not None else "不適用／待核實")
+                matched=True
+        if not matched: raise ValueError("economic card required field missing: "+label)
     cal=unique(soup,"#calendar","economic calendar")
     econ=data.get("calendar",{}).get("events",[])
     if not econ: raise ValueError("current-week economic calendar data missing")
     title=cal.select_one(".title small")
     if title: set_text(title,"%s～%s｜%s｜資料截點 %s 台灣時間" % (data["calendar"]["week_start"],data["calendar"]["week_end"],data["calendar"]["week_id"],report_cutoff))
     panels=unique(cal,".week-econ-panels","economic panels")
-    template=panels.select_one("details.econ-event")
+    econ_templates=panels.select("details.econ-event")
+    template=next((c for c in econ_templates if len(c.select(".econ-field"))>=5 and any(
+        f.select_one("label") and f.select_one("label").get_text(strip=True) in {"市場影響","觀察重點"}
+        for f in c.select(".econ-field")
+    )),None)
+    if template is None: raise ValueError("five-zone economic calendar template missing from approved Monday mother")
+    impact_template_field=next(f for f in template.select(".econ-field") if f.select_one("label") and f.select_one("label").get_text(strip=True) in {"市場影響","觀察重點"})
     group_template=next((g for g in panels.select(".calendar-status-group") if g.select_one(".econ-event-list")),None)
-    if not template or not group_template: raise ValueError("economic calendar template missing")
+    if not group_template: raise ValueError("economic calendar status-group template missing")
     panels.clear()
     for key,label in [("today","今日事件"),("upcoming","即將公布"),("published","已公布")]:
         items=[x for x in econ if groupkey(x)==key]
@@ -1121,6 +1134,9 @@ def main():
             for sel,val in [(".econ-date",day),(".econ-time",clock),(".econ-country",x.get("region","")),(".econ-name",x.get("name","")),(".econ-stars",startext(x))]:
                 node=card.select_one(sel)
                 if node: set_text(node,val)
+            for field in card.select(".econ-field"):
+                lab=field.select_one("label")
+                if lab and lab.get_text(strip=True)=="觀察重點": set_text(lab,"市場影響")
             card["class"]=["econ-event","five-star" if int(x.get("stars") or 0)>=5 else "four-star"]
             putfield(card,"前值",x.get("previous")); putfield(card,"市場預估",x.get("forecast"))
             putfield(card,"實際",x.get("actual") if x.get("status")=="released" else f"尚未公布（資料截點 {report_cutoff}）")
@@ -1307,13 +1323,25 @@ def main():
             for sel, val in [(".econ-date", day), (".econ-time", clock), (".econ-country", x.get("region", "")), (".econ-name", x.get("name", "")), (".econ-stars", startext(x))]:
                 node = card.select_one(sel)
                 if node: set_text(node, val)
-            fields = {"前值": x.get("previous"), "預估": x.get("forecast"), "實際": x.get("actual"), "市場影響": x.get("impact")}
+            # Monday's locked retrospective placeholder has four fields. Add the
+            # fifth impact field using the approved five-zone field fragment from
+            # the same mother; do not alter the mother template file itself.
+            source_field = next((f for f in card.select(".econ-field") if f.select_one("label") and f.select_one("label").get_text(strip=True) in {"來源", "資料來源"}), None)
+            if source_field is None: raise ValueError("Monday retrospective source field missing")
+            impact_field = BeautifulSoup(str(impact_template_field), "html.parser").select_one(".econ-field")
+            set_text(impact_field.select_one("label"), "市場影響")
+            impact_field["class"] = ["econ-field", "wide"]
+            set_text(impact_field.select_one(".econ-value"), x.get("impact") or "待核實")
+            source_field.insert_before(impact_field)
+            fields = {"前值": x.get("previous"), "市場預估": x.get("forecast"), "實際": x.get("actual"), "市場影響": x.get("impact")}
             for field in card.select(".econ-field"):
                 label = field.select_one("label"); value = field.select_one(".econ-value")
                 if not label or not value: continue
                 key = label.get_text(strip=True)
+                if key == "預估": set_text(label, "市場預估"); key = "市場預估"
+                if key == "來源": set_text(label, "資料來源"); key = "資料來源"
                 if key in fields: set_text(value, fields[key] if fields[key] is not None else "不適用／待核實")
-                if key == "來源":
+                if key == "資料來源":
                     value.clear()
                     if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
                     else: value.append("來源待核實")
