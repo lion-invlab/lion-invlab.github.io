@@ -285,6 +285,86 @@ try {
         path: path.join(output, `${v.name}-published-earnings.png`)
       });
     }
+    // Compare the actual economic-card component against the selected approved mother,
+    // not only the outer calendar section. Reveal hidden tabs/disclosures in QA after the
+    // initial screenshots; this changes browser state only, never the source HTML.
+    const revealEconomicCards = async page => {
+      await page.evaluate(() => {
+        document.querySelectorAll("#last-week-calendar details.last-week-calendar-collapse").forEach(node => { node.open = true; });
+        document.querySelectorAll("#calendar .calendar-status-group, #last-week-calendar .calendar-status-group").forEach(node => {
+          node.hidden = false;
+          node.style.display = "block";
+        });
+        document.querySelectorAll("#calendar details.econ-event, #last-week-calendar details.econ-event").forEach(node => { node.open = true; });
+      });
+      await page.waitForTimeout(60);
+    };
+    await revealEconomicCards(masterPage);
+    await revealEconomicCards(reportPage);
+    const readEconomicCardStyle = async page => page.evaluate(() => {
+      const card = document.querySelector("#calendar details.econ-event, #last-week-calendar details.econ-event");
+      if (!card) return { exists: false };
+      const selectors = {
+        card: ":scope",
+        summary: ":scope > summary",
+        meta: ":scope > summary .econ-meta",
+        date: ":scope > summary .econ-date",
+        time: ":scope > summary .econ-time",
+        country: ":scope > summary .econ-country",
+        name: ":scope > summary .econ-name",
+        stars: ":scope > summary .econ-stars",
+        toggle: ":scope > summary .econ-toggle, :scope > summary .econ-event-toggle",
+        details: ":scope > .econ-details",
+        primary: ":scope > .econ-details > .econ-primary-grid",
+        prev: ":scope > .econ-details > .econ-primary-grid > .econ-prev",
+        forecast: ":scope > .econ-details > .econ-primary-grid > .econ-forecast",
+        actual: ":scope > .econ-details > .econ-primary-grid > .econ-actual",
+        impact: ":scope > .econ-details > .econ-impact",
+        source: ":scope > .econ-details > .econ-source"
+      };
+      const properties = ["display","fontFamily","fontSize","fontWeight","lineHeight","color","backgroundColor","borderTopWidth","borderTopStyle","borderTopColor","borderRadius","paddingTop","paddingRight","paddingBottom","paddingLeft","marginTop","gap","gridTemplateColumns","gridTemplateRows","gridArea","width","minHeight"];
+      const result = {};
+      for (const [key, selector] of Object.entries(selectors)) {
+        const node = key === "card" ? card : card.querySelector(selector);
+        if (!node) { result[key] = null; continue; }
+        const css = getComputedStyle(node), rect = node.getBoundingClientRect();
+        result[key] = Object.fromEntries(properties.map(prop => [prop, css[prop]]));
+        result[key].rect = { x:Math.round(rect.x), y:Math.round(rect.y), width:Math.round(rect.width), height:Math.round(rect.height) };
+      }
+      return { exists: true, parts: result };
+    });
+    const masterEconomicStyle = await readEconomicCardStyle(masterPage);
+    const reportEconomicStyle = await readEconomicCardStyle(reportPage);
+    const economicStyleDifferences = [];
+    if (!masterEconomicStyle.exists || !reportEconomicStyle.exists) {
+      economicStyleDifferences.push("approved mother or review has no measurable economic card");
+    } else {
+      for (const [part, masterPart] of Object.entries(masterEconomicStyle.parts)) {
+        const reportPart = reportEconomicStyle.parts[part];
+        if (!masterPart || !reportPart) {
+          if (!!masterPart !== !!reportPart) economicStyleDifferences.push(part + ": element presence differs from approved mother");
+          continue;
+        }
+        for (const [property, expected] of Object.entries(masterPart)) {
+          if (property === "rect") {
+            for (const dimension of ["width","height"]) {
+              if (Math.abs(expected[dimension] - reportPart.rect[dimension]) > 3) {
+                economicStyleDifferences.push(part + " " + dimension + " differs: mother=" + expected[dimension] + ", review=" + reportPart.rect[dimension]);
+              }
+            }
+          } else if (expected !== reportPart[property]) {
+            economicStyleDifferences.push(part + " " + property + " differs: mother=" + expected + ", review=" + reportPart[property]);
+          }
+        }
+      }
+    }
+    snapshots[v.name].economic_card_mother_parity = {
+      master: masterEconomicStyle, report: reportEconomicStyle, differences: economicStyleDifferences
+    };
+    if (economicStyleDifferences.length) {
+      failures.push(v.name + ": 經濟卡片與核准母版樣式不一致：" + economicStyleDifferences.join("; "));
+    }
+
     // Economic cards must be measured while their details and calendar status groups
     // are actually rendered. The three radio tabs otherwise leave two-thirds of the
     // cards display:none, and closed <details> produce zero-sized child geometry.
