@@ -112,7 +112,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
 <section class="card" id="combined-stress-card" hidden>
  <div class="card-head">
   <div><h2>市場恐慌 × 金融壓力 × S&P 500｜五合一互動走勢</h2>
-  <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的最近 520 筆週頻觀測百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。</div></div>
+  <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的最近 520 筆週頻觀測百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。 歷史曲線採目前最新修訂快照，並非各歷史決策日當時可得值（非 PIT）。</div></div>
   <div class="latest" id="combined-asof"></div>
  </div>
  <div class="legend" id="combined-legend"></div>
@@ -135,7 +135,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="event-filter-panel"><div class="event-filter-heading"><strong>歷史事件／市場回檔篩選</strong><span>預設全選；可分別控制事件區帶與回檔標記</span></div><div class="event-filter-actions"><button type="button" id="select-all-history">全選</button><button type="button" id="clear-all-history">全部取消</button></div><div class="event-key" id="event-drawdown-key" aria-label="可勾選的歷史重大事件與標普500回檔清單"></div></div>
  <details class="method-details" id="method-details">
   <summary>資料計算與觀測方法 <span>點此展開</span></summary>
-  <div class="method-details-content"><div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div></div>
+  <div class="method-details-content"><div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。 本圖採 FRED/ALFRED output_type=1 現行最新修訂快照；如作歷史決策日 PIT 分析，必須改用 output_type=3 vintage 重建，不可把本圖曲線視為當時已知數值。現有 vintage 歷史起點依序為 VIXCLS 2010-11-22、NFCI 2011-05-25、NFCICREDIT 2012-07-05、STLFSI4 2022-11-10；各序列起點以前不具備本資料庫的 vintage PIT 覆蓋。</div></div>
  </details>
 </section>
 <div class="notegrid">
@@ -144,7 +144,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
 </div>
 <details class="method-details" id="percentile-reading"><summary>百分位讀法與投資判讀限制 <span>點此展開</span></summary><div class="method-details-content"><div class="desc">四項壓力指標以各自近 520 週有效觀測計算歷史百分位；50 約為自身歷史中位數，80 代表高於約 80% 的歷史觀測。色標僅表示該指標在自身歷史分布中的相對位置：0–25 為歷史低位、25–50 為低於中位、50–75 為高於中位、75–100 為歷史高位，並非經校準的絕對風險等級或發生機率。不同指標的百分位只比較各自歷史相對位置，不代表原始幅度相同；NFCI Credit 為 NFCI 子指標，不作獨立壓力確認。</div></div></details>
-<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 價格指數日收盤資料：FJA Yahoo-derived 長歷史資料（1993-12-31 至 2016-11-10）與 FRED SP500（2016-11-11 至 2026-11-10；S&P Dow Jones Indices LLC）。兩來源重疊 783 個交易日，重疊區間採 FRED 值；2 筆差異超過 0.02 點：2018-11-29（0.0400 點）、2019-08-12（1.0500 點）。圖表使用 8,271 筆實際交易日收盤價，以真實日期時間戳定位 X 座標；價格指數不含股息，壓縮資料嵌入研究分支，非即時報價。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為研究分支預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
+<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 價格指數日收盤資料：FJA Yahoo-derived 長歷史資料（1993-12-31 至 2016-11-10）與 FRED SP500（2016-11-11 至 2026-11-10；S&P Dow Jones Indices LLC）。兩來源重疊 783 個交易日，重疊區間採 FRED 值；2 筆差異超過 0.02 點：2018-11-29（0.0400 點）、2019-08-12（1.0500 點）。圖表使用 8,271 筆實際交易日收盤價，以真實日期時間戳定位 X 座標；價格指數不含股息，壓縮資料嵌入研究分支，非即時報價。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。This product uses the FRED® API but is not endorsed or certified by the Federal Reserve Bank of St. Louis. <a href="https://fred.stlouisfed.org/docs/api/terms_of_use.html" target="_blank" rel="noopener">FRED® API Terms of Use</a>。此頁為研究分支預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
 </main>
 <script>
 const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
