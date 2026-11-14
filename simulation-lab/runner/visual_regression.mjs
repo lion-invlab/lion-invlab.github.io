@@ -410,5 +410,5 @@ fs.writeFileSync(path.join(output, "visual-regression.json"), JSON.stringify({
   report_date: reportDate, report_path: reportPath, master_path: masterPath,
   master_blob_sha: gitBlobSha, template: templateKey, viewports, failures, snapshots
 }, null, 2));
-console.log(`視覺基準比對：${failures.length ? "FAIL" : "PASS"}；視窗：1440 / 768 / 360；母版 SHA：${gitBlobSha}`);
+console.log(`視覺基準比對：${failures.length ? "FAIL" : "PASS"}；視窗：${viewports.map(v => v.width).join(" / ")}；母版 SHA：${gitBlobSha}`);
 if (failures.length) { console.error(failures.join("\n")); process.exit(1); }
