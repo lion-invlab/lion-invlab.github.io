@@ -348,11 +348,11 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const vixSpike=enough&&val('VIXCLS')>=75&&delta('VIXCLS')>=10;
  const financialTight=enough&&val('NFCI')>=70&&val('STLFSI4')>=70&&(delta('NFCI')>0||delta('STLFSI4')>0);
  const calm=enough&&val('VIXCLS')<60&&val('NFCI')<60&&val('STLFSI4')<60&&delta('VIXCLS')<=5&&delta('NFCI')<=5&&delta('STLFSI4')<=5;
- let state='風險訊號分歧，持續觀察',grade='中性偏高',riskBand=1;
- if(systemic){state='金融壓力同步升高，啟動防禦';grade=systemicExtreme?'高壓':'風險升溫';riskBand=systemicExtreme?3:2;}
- else if(vixSpike){state='風險訊號分歧，持續觀察';grade='中性偏高';riskBand=1;}
- else if(financialTight){state='金融環境轉緊，降低追價';grade='風險升溫';riskBand=2;}
- else if(calm){state='金融壓力相對平穩';grade='相對平穩';riskBand=0;}
+ let state='風險訊號分歧，持續觀察',grade='中性偏高';
+ if(systemic){state='金融壓力同步升高，啟動防禦';grade=systemicExtreme?'高壓':'風險升溫';}
+ else if(vixSpike){state='風險訊號分歧，持續觀察';grade='中性偏高';}
+ else if(financialTight){state='金融環境轉緊，降低追價';grade='風險升溫';}
+ else if(calm){state='金融壓力相對平穩';grade='相對平穩';}
  const fmtP=x=>x===null?'資料不足':Math.round(x).toString()+'%';
  const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
  const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
