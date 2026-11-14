@@ -188,7 +188,7 @@ def validate_chart(page, label):
     check(label + "_sp500_path_uses_plot_clip", page.locator("#combined-chart svg").evaluate("(svg)=>{const p=svg.querySelector('path[data-series=SP500]'),c=svg.querySelector('clipPath#plot-clip');return !!p&&p.getAttribute('clip-path')==='url(#plot-clip)'&&c?.getAttribute('clipPathUnits')==='userSpaceOnUse'&&p.getAttribute('transform')===null}"))
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
-    for _ in range(3):
+    for _ in range(7):
         page.locator("#timeline-zoom-in").click()
         page.wait_for_timeout(40)
     weekly_meta = page.locator('#combined-chart svg path[data-series="STLFSI4"]').evaluate("(e)=>({mode:e.dataset.percentileDisplay,raw:Number(e.dataset.validPoints),rendered:Number(e.dataset.renderedPoints)})")
