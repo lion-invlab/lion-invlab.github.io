@@ -3603,5 +3603,110 @@
   },
   "source_branch": "simulation/tac-process-lab-2026-11-06",
   "deployment_branch": "main",
-  "provenance_note": "原始基線資料曾於 simulation/tac-process-lab-2026-11-06 建置；此資料集已遷移並由 main 正式分支維護。source_branch 僅記錄歷史來源，branch/deployment_branch 表示目前正式維護與部署分支。"
+  "provenance_note": "原始基線資料曾於 simulation/tac-process-lab-2026-11-06 建置；此資料集已遷移並由 main 正式分支維護。source_branch 僅記錄歷史來源，branch/deployment_branch 表示目前正式維護與部署分支。",
+  "schema_version": "2.0.0",
+  "migration": {
+    "source_branch": "fix/chart3-full-migration-20261114",
+    "source_head": "870125a8ff49219f10a65e1d9937e06205e036c8",
+    "integrated_on_base": "main",
+    "preserved_main_snapshot": {
+      "run_id": 43026998120,
+      "chart_dataset": {
+        "file": "chart3_market_stress.json",
+        "sha256": "0380f3c178b0aa9579ab615b77902e193affb488e44cd529f969a4cf8e1a292a",
+        "bytes": 1493684,
+        "qa_file": "chart3_market_stress_qa.json",
+        "status": "PASS",
+        "generated_at": "2026-11-13T22:47:07+00:00"
+      },
+      "artifacts": {
+        "VIXCLS": {
+          "artifact_id": 13859041307,
+          "artifact_name": "tac-chart3-VIXCLS-43026998120-1",
+          "artifact_sha256": "6d653f79661a8dbf169b402e27dbb84c4d606d9004332e97854fee98df5faf65",
+          "artifact_bytes": 452698,
+          "run_id": 43026998120
+        },
+        "NFCI": {
+          "artifact_id": 13859024693,
+          "artifact_name": "tac-chart3-NFCI-43026998120-1",
+          "artifact_sha256": "649cc2f38a07c7619e3bc1a33af332e33861defe06162ca990582797311019cb",
+          "artifact_bytes": 4778450,
+          "run_id": 43026998120
+        },
+        "NFCICREDIT": {
+          "artifact_id": 13860389018,
+          "artifact_name": "tac-chart3-NFCICREDIT-43026998120-1",
+          "artifact_sha256": "f326a81adc05e84a2d0f500127f417f3f40f7374985d9a49c5322d3fe9d97440",
+          "artifact_bytes": 4738918,
+          "run_id": 43026998120
+        },
+        "STLFSI4": {
+          "artifact_id": 13858851611,
+          "artifact_name": "tac-chart3-STLFSI4-43026998120-1",
+          "artifact_sha256": "ecdf384b5f3120e4869121fb05bb81e4546e29e499f4aad1e1382ed3ea5de599",
+          "artifact_bytes": 1597294,
+          "run_id": 43026998120
+        }
+      }
+    },
+    "note": "Main's four-series risk data snapshots and provenance retained; full-history S&P 500 migration metadata and browser QA appended."
+  },
+  "sp500_data": {
+    "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
+    "git_blob_sha1": "f3789b56e4190e488e5a2a66f772602028ef8516",
+    "dataset_sha256": "2b5eb64566d624da8e412324300860b4f9d2aa225bc775bc15725119ba58e41d",
+    "start": "1927-12-30",
+    "end": "2026-11-10",
+    "rows": 24833,
+    "encoding": "zlib+base64",
+    "long_history_source": "FJA pinned repository commit f50e4612d69cf14e4ac8a20b7a42d29f0f081825; repository README identifies SP500.csv source as Yahoo Finance.",
+    "long_history_license": "Repository contains MIT LICENSE for repository contents; upstream Yahoo Finance data rights/terms are separate and remain unverified for redistribution.",
+    "recent_snapshot_source": "The recent compact snapshot metadata describes the 1993-12-31–2026-11-10 segment as a previously validated FJA/FRED merged snapshot; row-level source lineage and rights have not been fully recorded in this migration manifest.",
+    "merge_rule": "Use FJA observations strictly before 1993-12-31; retain recent validated compact observations from 1993-12-31 onward; no interpolation or forward-fill.",
+    "boundary_overlap_date": "1993-12-31",
+    "boundary_abs_difference_points": 0,
+    "rights_status": "upstream_terms_not_independently_audited; retained as source metadata, not a technical migration gate."
+  },
+  "drawdown_validation": {
+    "count": 29,
+    "method": "For each configured peak/trough interval, compute the maximum and minimum actual S&P 500 daily closes within the interval and compare dates, percent decline, and configured close values where present.",
+    "latest_qa_run": 43559854240,
+    "latest_qa_commit": "2a3fe41dd542ae1a9c9780daef848d7f1cfcf1d5",
+    "result": "PASS"
+  },
+  "qa": {
+    "run_id": 43559854240,
+    "commit": "2a3fe41dd542ae1a9c9780daef848d7f1cfcf1d5",
+    "checks": 505,
+    "conclusion": "success",
+    "artifact_id": 14099444210,
+    "coverage": "Desktop and emulated mobile Chromium, including 320px viewport; not a physical iPhone Safari test."
+  },
+  "release_gate": {
+    "status": "TECHNICAL_QA_PASSED",
+    "required": [
+      "Keep source attribution visible in the chart page.",
+      "Keep this manifest alongside the deployed chart assets."
+    ],
+    "note": "Source and upstream terms fields are informational provenance metadata. They do not block migration, preview, browser QA, or technical delivery."
+  },
+  "references": {
+    "fred_terms": "https://fred.stlouisfed.org/legal/terms/",
+    "fja_repo": "https://github.com/fja05680/dow-sp500-100-years",
+    "vix_series": "https://fred.stlouisfed.org/series/VIXCLS",
+    "nfci_series": "https://fred.stlouisfed.org/series/NFCI",
+    "nfcicredit_series": "https://fred.stlouisfed.org/series/NFCICREDIT",
+    "stlfsi4_series": "https://fred.stlouisfed.org/series/STLFSI4"
+  },
+  "compatibility": {
+    "legacy_pipeline_fields": [
+      "series",
+      "chart_dataset",
+      "overall_status",
+      "last_incremental_at",
+      "last_incremental_results"
+    ],
+    "note": "Schema v2 adds migration provenance while retaining legacy top-level fields consumed by existing TAC Chart 3 bootstrap, incremental, visualization and point-in-time snapshot scripts. Legacy series metadata is retained as the pipeline baseline and refreshed by the existing incremental updater."
+  }
 }
