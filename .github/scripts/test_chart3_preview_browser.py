@@ -95,7 +95,7 @@ def validate_chart(page, label):
         });
         return {count: results.length, failures: results.filter(x => !x.pctMatches || !x.datesMatch || !x.peakCloseMatches || !x.troughCloseMatches), results};
     }""")
-    check(label + "_all_drawdown_labels_match_sp500_daily_data", drawdown_audit.count == 29 and len(drawdown_audit["failures"]) == 0, drawdown_audit)
+    check(label + "_all_drawdown_labels_match_sp500_daily_data", drawdown_audit["count"] == 29 and len(drawdown_audit["failures"]) == 0, drawdown_audit)
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
