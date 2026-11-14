@@ -1,4 +1,5 @@
-import unittest
+import unittest, json, tempfile
+from pathlib import Path
 import analyze_tac_chart3_historical_asof as m
 
 class HistoricalAsOfTests(unittest.TestCase):
@@ -19,6 +20,19 @@ class HistoricalAsOfTests(unittest.TestCase):
         d={"X":{"2020-01-01":{"2020-01-02":"3.0"},"2020-01-08":{"2020-01-10":"6.0"},"2020-01-15":{"2020-01-20":"9.0"}}}
         got=m.asof_latest(d,"X","2020-01-12")
         self.assertEqual((got["observation_date"],got["vintage_date"],got["value"]),("2020-01-08","2020-01-10",6.0))
+
+    def test_load_initial_release_reads_realtime_start(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)
+            for series in m.SERIES:
+                payload={"series_id":series,"observations":[
+                    {"date":"2020-01-03","realtime_start":"2020-01-08","value":"1.25"},
+                    {"date":"2020-01-10","realtime_start":"2020-01-15","value":"."}
+                ]}
+                (root/f"{series}_initial_release_output_type4.json").write_text(json.dumps(payload))
+            got, meta=m.load_initial_release(root)
+            self.assertEqual(got["VIXCLS"],{"2020-01-03":"2020-01-08"})
+            self.assertEqual(meta["VIXCLS"]["rows"],1)
 
     def test_output_type4_initial_release_dates_and_uncovered_period(self):
         d={"X":{"2020-01-01":"2020-01-03","2020-01-08":"2020-01-12"}}
