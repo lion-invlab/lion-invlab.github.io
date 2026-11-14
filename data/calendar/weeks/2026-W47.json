@@ -255,6 +255,34 @@
         "time_known": true
       },
       {
+        "id": "current-ecb-financial-stability-review-20261118",
+        "event_date": "2026-11-18T17:00:00+08:00",
+        "region": "歐元區／ECB",
+        "event_name": "ECB《金融穩定評估報告》（Financial Stability Review）— 2026 年 11 月版",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：ECB 半年金融穩定報告評估銀行體系、非銀行金融機構、資產估值、槓桿與市場流動性風險，可能影響歐洲銀行股、信用利差及整體風險溢酬。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "留意 ECB 對銀行資產品質、非銀行金融機構槓桿、商業不動產、主權債券及市場流動性的風險評估；若系統性風險警示升高，可能影響歐洲金融股與信用市場風險溢酬。",
+        "source": {
+          "name": "ECB｜Weekly Schedule: Financial Stability Review November 2026",
+          "url": "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "European Central Bank",
+          "notes": "ECB 官方週行程列示 11/18 10:00 CET 發布 November 2026 Financial Stability Review，換算台灣時間 17:00。",
+          "secondary_refs": []
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": "2026年11月",
+        "time_known": true
+      },
+      {
         "id": "current-eurozone-hicp-20261117",
         "event_date": "2026-11-18T19:00:00+08:00",
         "region": "歐元區",
@@ -273,7 +301,7 @@
           "published_at": null,
           "observed_at": "2026-11-14T13:27:47+08:00",
           "publisher": "European Central Bank",
-          "notes": "ECB 專屬統計日曆確認 10 月 HICP 於 11/18 12:00 CET 發布，換算台灣時間 19:00。Eurostat 一般 release calendar 頁面曾列 11/17，與 ECB 專屬 HICP 日曆不同；本事件採用直接對應 HICP dataset 的 ECB 專屬時程，並保留差異供稽核。",
+          "notes": "ECB 專屬統計日曆確認 10 月 HICP 於 11/18 12:00 CET 發布，換算台灣時間 19:00。Eurostat 一般 release calendar 頁面曾列 11/17，與 ECB 專屬 HICP 日曆不同；本事件採用直接對應 HICP dataset 的 ECB 專屬時程，並保留差異供稽核。 Event ID 保留初次建檔時的 11/17 日期尾碼，以維持既有 audit 引用穩定；正式 event_date 已依 ECB 專屬日曆校正為 11/18。",
           "secondary_refs": [
             "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/sthicp.en.html",
             "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
@@ -4398,6 +4426,7 @@
         "https://www.ons.gov.uk/releases/consumerpriceinflationukoctober2026",
         "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
         "https://tradingeconomics.com/united-kingdom/inflation-cpi",
+        "https://www.ecb.europa.eu/press/calendars/weekly/html/index.en.html",
         "https://www.ecb.europa.eu/press/calendars/statscal/html/index.en.html",
         "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/sthicp.en.html",
         "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
@@ -4419,7 +4448,7 @@
         "https://www.sca.isr.umich.edu/",
         "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320"
       ],
-      "notes": "W47 目前列入 17 項經官方發布日程確認且 TAC 評級四／五星的主要事件。15 項有精確發布時間，Canada CPI 與 Canada Retail Trade 僅確認日期而無官方時刻。前值已補至 15 項；市場共識／機構預測已補至 8 項，其餘無可靠預期者保持 null。China NBS 日程屬初步計畫；Eurostat 一般日曆與 ECB HICP 專屬日曆存在日期差異，採用 ECB 專屬 HICP 時程。"
+      "notes": "W47 目前列入 18 項經官方發布日程確認且 TAC 評級四／五星的主要事件。16 項有精確發布時間，Canada CPI 與 Canada Retail Trade 僅確認日期而無官方時刻。前值已補至 15 項；市場共識／機構預測已補至 8 項，其餘無可靠預期者保持 null。China NBS 日程屬初步計畫；Eurostat 一般日曆與 ECB HICP 專屬日曆存在日期差異，採用 ECB 專屬 HICP 時程。另納入 ECB Financial Stability Review。"
     },
     "earnings": {
       "status": "incomplete",
@@ -4681,6 +4710,19 @@
         "forecast_values": 8
       },
       "notes": "依 ABS、Japan Statistics Bureau、Statistics Canada、ECB 官方發布日曆新增5項四星事件。Australia WPI、Australia Labour Force、Japan CPI、Euro Area negotiated wages有精確時刻；Canada Retail Trade僅官方確認日期。同步更正 Eurostat HICP來源說明：以ECB dataset-specific schedule優先，保留一般日曆日期差異。"
+    },
+    {
+      "at": "2026-11-14T13:27:47+08:00",
+      "action": "W47_add_ECB_financial_stability_review_and_preserve_HICP_id",
+      "event_id": "current-ecb-financial-stability-review-20261118,current-eurozone-hicp-20261117",
+      "before": {
+        "economic_events": 17
+      },
+      "after": {
+        "economic_events": 18,
+        "exact_times": 16
+      },
+      "notes": "新增 ECB Financial Stability Review 11/18 10:00 CET；HICP 的正式 event_date 維持 ECB 專屬日曆確認的 11/18 12:00 CET，保留舊 event_id 以避免破壞先前 append-only audit 引用。"
     }
   ],
   "last_update_audit": {
@@ -4701,7 +4743,7 @@
     "files_modified": [
       "data/calendar/weeks/2026-W47.json"
     ],
-    "economic_events_added": 17,
+    "economic_events_added": 18,
     "earnings_events_added": 21,
     "earnings_upcoming": 21,
     "eps_attempts_added": 63,
@@ -4755,9 +4797,9 @@
     "legacy_comparison_statuses_recomputed": 0,
     "coverage_matrix": {
       "economic": {
-        "events": 17,
-        "with_official_schedule": 17,
-        "with_verified_time": 15,
+        "events": 18,
+        "with_official_schedule": 18,
+        "with_verified_time": 16,
         "with_previous": 15,
         "with_forecast": 8,
         "actuals": 0
@@ -4796,7 +4838,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。 新增 Australia WPI、Australia Labour Force、Japan CPI、Canada Retail Trade、Euro Area negotiated wage rates；HICP 時程採 ECB 專屬日曆，已記錄與 Eurostat 一般日曆的日期差異。",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。 新增 Australia WPI、Australia Labour Force、Japan CPI、Canada Retail Trade、Euro Area negotiated wage rates；HICP 時程採 ECB 專屬日曆，已記錄與 Eurostat 一般日曆的日期差異。 新增 ECB Financial Stability Review（11/18 10:00 CET）；Eurostat HICP event ID 保留原始後綴以維持 audit 引用穩定，正式日期為11/18。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
@@ -4833,6 +4875,6 @@
     "final_file_path": "data/calendar/weeks/2026-W47.json",
     "final_validation_status": "passed_before_final_audit_append",
     "last_verified_at": "2026-11-14T13:22:49+08:00",
-    "economic_events_total": 17
+    "economic_events_total": 18
   }
 }
