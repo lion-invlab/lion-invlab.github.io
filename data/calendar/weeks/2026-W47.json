@@ -12,10 +12,41 @@
   "events": {
     "economic": [
       {
+        "id": "current-china-oct-home-prices-20261116",
+        "event_date": "2026-11-16T09:30:00+08:00",
+        "region": "中國",
+        "event_name": "中國 10 月 70 城商品住宅銷售價格指數（新房／二手房）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：中國房地產價格與銷售是觀察房市去庫存、居民財富效應、房企資產負債表及建築投資的重要指標，對中國金融與原物料需求具影響。",
+        "previous": "9月70城新建商品住宅價格年減2.8%、月減0.1%；一線城市新房價格年減0.5%。",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "若新房與二手房價格跌幅持續收斂，可能代表房市政策支持開始穩定部分城市需求；若跌幅再擴大，將延長房地產投資與居民信心的拖累。",
+        "source": {
+          "name": "中國國家統計局｜2026 年主要統計信息發布日程表",
+          "url": "https://www.stats.gov.cn/sj/fbrc/bnxxfb/",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:22:49+08:00",
+          "publisher": "National Bureau of Statistics of China",
+          "notes": "國家統計局官方 2026 年發布日程表列示 11/16 09:30 發布商品住宅銷售價格指數月度報告；採北京時間，與台灣同為 UTC+8。前值以 9 月 NBS 數據核對；未取得可靠 10 月市場共識，forecast 保持 null。",
+          "secondary_refs": [
+            "https://tradingeconomics.com/china/housing-index",
+            "https://english.scio.gov.cn/m/pressroom/2026-10/19/content_118739534.html"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% y/y; % m/m",
+        "data_reference": "2026年10月",
+        "time_known": true
+      },
+      {
         "id": "current-china-oct-activity-20261116",
         "event_date": "2026-11-16T10:00:00+08:00",
         "region": "中國",
-        "event_name": "中國 10 月工業增加值、社會消費品零售總額、固定資產投資及城鎮調查失業率",
+        "event_name": "中國 10 月工業增加值、能源生產、社會消費品零售總額、固定資產投資及城鎮調查失業率",
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：中國主要月度成長與需求指標集中發布，能同步反映工業景氣、內需消費及投資動能，對中國資產、原物料與亞洲供應鏈具明顯影響。",
@@ -30,7 +61,7 @@
           "published_at": null,
           "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "国家统计局官方日程确认 11/16 10:00 发布 10 月国民经济运行情况；该场发布会将同步公布工业生产、固定资产投资、房地产开发与销售、社会消费品零售等月度数据。前值与市场共识由 Trading Economics 日历补充，非官方预测。",
+          "notes": "國家統計局官方日程確認 11/16 10:00 發布 10 月國民經濟運行情況；同時發布工業生產、能源生產、固定資產投資、房地產開發與銷售、社會消費品零售等月度數據。前值與市場共識由 Trading Economics 日曆補充，屬聚合日曆數值，非官方預測。",
           "secondary_refs": [
             "https://tradingeconomics.com/china/calendar/api"
           ]
@@ -4197,6 +4228,8 @@
       "status": "incomplete",
       "source_refs": [
         "https://www.stats.gov.cn/sj/fbrc/bnxxfb/",
+        "https://tradingeconomics.com/china/housing-index",
+        "https://english.scio.gov.cn/m/pressroom/2026-10/19/content_118739534.html",
         "https://tradingeconomics.com/china/calendar/api",
         "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf",
         "https://www.rbc.com/en/economics/forward-guidance/last-canadian-inflation-report-before-december-boc-meeting/",
@@ -4222,7 +4255,7 @@
         "https://www.sca.isr.umich.edu/",
         "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320"
       ],
-      "notes": "W47 目前列入 11 項經官方發布日程確認且 TAC 評級四／五星的主要事件。10 項有精確發布時間，Canada CPI 僅確認日期而無官方時刻。前值已補至 10 項；市場共識／機構預測已補至 7 項，其餘無可靠預期者保持 null。所有前值、預期值均附來源；Eurostat 10 月完整 HICP 已更正為 11/18 12:00 CET（台灣19:00），非11/17。"
+      "notes": "W47 目前列入 12 項經官方發布日程確認且 TAC 評級四／五星的主要事件。11 項有精確發布時間，Canada CPI 僅確認日期而無官方時刻。前值已補至 11 項；市場共識／機構預測已補至 7 項，其餘無可靠預期者保持 null。中國 70 城房價指數獨立列為 11/16 09:30；10:00 國民經濟運行情況另列工業、能源、消費、投資等月度數據。Eurostat 10 月完整 HICP 為 11/18 12:00 CET（台灣19:00）。"
     },
     "earnings": {
       "status": "incomplete",
@@ -4396,6 +4429,21 @@
         "with_forecast": 7
       },
       "notes": "依官方來源更正 Eurostat HICP 為 11/18 12:00 CET（台灣19:00）；補入中國、加拿大、英國、美國及密西根大學可核實之前值與市場／機構預期。未有可靠資料者保持 null。"
+    },
+    {
+      "at": "2026-11-14T13:22:49+08:00",
+      "action": "W47_add_china_october_house_price_release",
+      "event_id": "current-china-oct-home-prices-20261116",
+      "before": {
+        "economic_events": 11
+      },
+      "after": {
+        "economic_events": 12,
+        "exact_times": 11,
+        "previous_values": 11,
+        "forecast_values": 7
+      },
+      "notes": "依 NBS 2026 官方發布日程新增 11/16 09:30 的 70 城商品住宅銷售價格指數；前值為 9 月新房年減2.8%、月減0.1%，未取得可靠市場共識故 forecast=null。10:00 國民經濟數據包標題補列能源生產。"
     }
   ],
   "last_update_audit": {
@@ -4416,7 +4464,7 @@
     "files_modified": [
       "data/calendar/weeks/2026-W47.json"
     ],
-    "economic_events_added": 11,
+    "economic_events_added": 12,
     "earnings_events_added": 21,
     "earnings_upcoming": 21,
     "eps_attempts_added": 63,
@@ -4470,10 +4518,10 @@
     "legacy_comparison_statuses_recomputed": 0,
     "coverage_matrix": {
       "economic": {
-        "events": 11,
-        "with_official_schedule": 11,
-        "with_verified_time": 10,
-        "with_previous": 10,
+        "events": 12,
+        "with_official_schedule": 12,
+        "with_verified_time": 11,
+        "with_previous": 11,
         "with_forecast": 7,
         "actuals": 0
       },
@@ -4511,7 +4559,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
