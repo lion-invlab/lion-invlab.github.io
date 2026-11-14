@@ -192,7 +192,7 @@ def main():
         if day in merged and merged[day] != close:
             changed.append({"date": day, "old_close": merged[day]/100, "new_close": close/100})
         merged[day] = close
-    # Yahoo must return the current recent window, including at least one observation in the last 10 calendar days.
+    # Investing.com must return the current recent window, including at least one observation in the last 10 calendar days.
     latest = max(fresh)
     if (today_et - dt.date.fromisoformat(latest)).days > 10:
         raise RuntimeError(f"Investing.com data stale: latest={latest}, today_ET={today_et}")
