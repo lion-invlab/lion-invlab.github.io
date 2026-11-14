@@ -117,7 +117,7 @@ try {
 
   async function toggleDetails(selector, iconSelector) {
   const details = page.locator(selector).first();
-  if (await details.count() !== 1) throw new Error("accordion not found: " + selector);
+  if (await details.count() < 1) throw new Error("accordion not found: " + selector);
 
   // Previous-week sections are nested inside a collapsed outer disclosure.
   // Open ancestor details first so the inner control is actually visible.
