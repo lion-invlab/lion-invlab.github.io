@@ -5,7 +5,7 @@
   "week_start": "2026-11-16",
   "week_end": "2026-11-22",
   "created_at": "2026-11-14T13:13:57+08:00",
-  "updated_at": "2026-11-14T13:22:49+08:00",
+  "updated_at": "2026-11-14T13:27:47+08:00",
   "source_report_date": "2026-11-14",
   "wr_version": "5.15",
   "status": "incomplete",
@@ -30,7 +30,7 @@
           "published_at": null,
           "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "國家統計局官方 2026 年發布日程表列示 11/16 09:30 發布商品住宅銷售價格指數月度報告；採北京時間，與台灣同為 UTC+8。前值以 9 月 NBS 數據核對；未取得可靠 10 月市場共識，forecast 保持 null。",
+          "notes": "國家統計局官方 2026 年發布日程表列示 11/16 09:30 發布商品住宅銷售價格指數月度報告；採北京時間，與台灣同為 UTC+8。前值以 9 月 NBS 數據核對；未取得可靠 10 月市場共識，forecast 保持 null。 NBS 發布日程屬初步計畫，官方註明可能調整。",
           "secondary_refs": [
             "https://tradingeconomics.com/china/housing-index",
             "https://english.scio.gov.cn/m/pressroom/2026-10/19/content_118739534.html"
@@ -61,7 +61,7 @@
           "published_at": null,
           "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "國家統計局官方日程確認 11/16 10:00 發布 10 月國民經濟運行情況；同時發布工業生產、能源生產、固定資產投資、房地產開發與銷售、社會消費品零售等月度數據。前值與市場共識由 Trading Economics 日曆補充，屬聚合日曆數值，非官方預測。",
+          "notes": "國家統計局官方日程確認 11/16 10:00 發布 10 月國民經濟運行情況；同時發布工業生產、能源生產、固定資產投資、房地產開發與銷售、社會消費品零售等月度數據。前值與市場共識由 Trading Economics 日曆補充，屬聚合日曆數值，非官方預測。 NBS 發布日程屬初步計畫，官方註明可能調整。",
           "secondary_refs": [
             "https://tradingeconomics.com/china/calendar/api"
           ]
@@ -194,6 +194,36 @@
         "time_known": true
       },
       {
+        "id": "current-australia-wpi-202609-quarter",
+        "event_date": "2026-11-18T08:30:00+08:00",
+        "region": "澳洲",
+        "event_name": "澳洲第 3 季薪資價格指數（Wage Price Index）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：薪資增長是澳洲服務通膨與單位勞動成本的重要來源，對 RBA 利率路徑、澳幣及澳洲公債具直接影響。",
+        "previous": "Q2 2026 WPI 季增0.8%、年增3.2%。",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "若薪資增速仍高於通膨回落所需水準，將提高服務通膨黏著風險；若降溫，則支持 RBA 維持或轉向寬鬆。",
+        "source": {
+          "name": "Australian Bureau of Statistics｜Wage Price Index release calendar",
+          "url": "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/wage-price-index-australia",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "Australian Bureau of Statistics",
+          "notes": "ABS 官方未來發布清單確認 9 月季度 WPI 於 11/18 11:30 AEDT 發布，換算台灣時間 08:30。前值採 Q2 2026 官方結果；本輪未取得可靠市場共識，forecast 保持 null。",
+          "secondary_refs": [
+            "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/wage-price-index-australia/jun-2026"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% q/q; % y/y",
+        "data_reference": "2026年9月季度",
+        "time_known": true
+      },
+      {
         "id": "current-uk-cpi-20261118",
         "event_date": "2026-11-18T15:00:00+08:00",
         "region": "英國",
@@ -238,14 +268,15 @@
         "status": "upcoming",
         "impact_judgment": "完整10月HICP於11/18發布；須觀察整體與核心價格、能源及服務通膨是否延續升溫。9月前值為年增3.8%、月增0.6%；10月flash estimate已於11/4公布，但本欄不將flash值冒充市場共識。",
         "source": {
-          "name": "Eurostat｜Inflation (HICP), October 2026 release calendar",
-          "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
+          "name": "ECB｜Statistical Calendar: Euro area seasonally adjusted HICP",
+          "url": "https://www.ecb.europa.eu/press/calendars/statscal/html/index.en.html",
           "published_at": null,
-          "observed_at": "2026-11-14T13:22:49+08:00",
-          "publisher": "Eurostat",
-          "notes": "Eurostat 官方日程列示 10 月 HICP 完整數據於 11/18 發布；ECB HICP release calendar 列示 11/18 12:00 CET，換算台灣時間 19:00。9 月前值由 Eurostat／Trading Economics 歷史資料核對；未取得10月市場共識，forecast維持null。",
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "European Central Bank",
+          "notes": "ECB 專屬統計日曆確認 10 月 HICP 於 11/18 12:00 CET 發布，換算台灣時間 19:00。Eurostat 一般 release calendar 頁面曾列 11/17，與 ECB 專屬 HICP 日曆不同；本事件採用直接對應 HICP dataset 的 ECB 專屬時程，並保留差異供稽核。",
           "secondary_refs": [
             "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/sthicp.en.html",
+            "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
             "https://ec.europa.eu/eurostat/en/web/products-euro-indicators/w/2-04112026-ap",
             "https://tradingeconomics.com/euro-area/inflation-rate-mom"
           ]
@@ -316,6 +347,98 @@
         "time_known": true
       },
       {
+        "id": "current-australia-employment-202610",
+        "event_date": "2026-11-19T08:30:00+08:00",
+        "region": "澳洲",
+        "event_name": "澳洲 10 月勞動力統計（就業變化、失業率）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：澳洲就業與薪資是 RBA 評估需求韌性、工資壓力及政策限制的重要指標，對澳幣與澳洲利率定價具影響。",
+        "previous": "9月就業人數減少39.3千人。",
+        "forecast": "10月就業變化市場共識增加29.3千人（Trading Economics 聚合日曆）。",
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "若就業反彈且失業率維持低檔，可能延後市場對 RBA 降息的定價；若再度負成長，將強化勞動市場降溫訊號。",
+        "source": {
+          "name": "Australian Bureau of Statistics｜Labour Force release calendar",
+          "url": "https://www.abs.gov.au/release-calendar/future-releases/202611",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "Australian Bureau of Statistics",
+          "notes": "ABS 官方未來發布日曆確認 10 月 Labour Force 於 11/19 11:30 AEDT 發布，換算台灣時間 08:30。前值採 ABS 9 月數據；市場共識採 Trading Economics 聚合日曆。",
+          "secondary_refs": [
+            "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia/sep-2026",
+            "https://tradingeconomics.com/australia/employment-change"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "人；失業率%",
+        "data_reference": "2026年10月",
+        "time_known": true
+      },
+      {
+        "id": "current-japan-cpi-202610",
+        "event_date": "2026-11-20T07:30:00+08:00",
+        "region": "日本",
+        "event_name": "日本 10 月全國消費者物價指數（CPI／核心 CPI）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：日本通膨是 BOJ 政策正常化與日圓利率定價的核心依據，核心及核心核心通膨對日本國債與日圓尤其重要。",
+        "previous": "9月全國CPI年增2.1%；剔除生鮮食品核心CPI年增2.1%；剔除生鮮食品與能源年增2.4%。",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "若核心通膨維持韌性，可能支持 BOJ 進一步正常化；若明顯降溫，則可能降低近期升息預期並影響日圓。",
+        "source": {
+          "name": "Statistics Bureau of Japan｜CPI Schedule of Release",
+          "url": "https://www.stat.go.jp/english/data/cpi/1582.htm",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "Statistics Bureau of Japan",
+          "notes": "日本官方發布表確認 10 月全國 CPI 於 11/20 發布；官方 CPI Q&A 指明全國前月指數於含 19 日之週五 08:30 JST 公布，換算台灣時間 07:30。",
+          "secondary_refs": [
+            "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html",
+            "https://www.stat.go.jp/english/data/cpi/1585.htm"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% y/y",
+        "data_reference": "2026年10月",
+        "time_known": true
+      },
+      {
+        "id": "current-canada-retail-sales-202609",
+        "event_date": "2026-11-20T12:00:00+08:00",
+        "region": "加拿大",
+        "event_name": "加拿大 9 月零售貿易（Retail Trade）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：零售銷售反映加拿大家庭消費與實質需求，對加拿大 GDP 消費分項及加拿大央行政策判斷具影響。",
+        "previous": "8月零售銷售月增1.2%；9月初步估計月增0.7%（初值，可能修訂）。",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "若零售銷售在前月回升後仍具韌性，將支持加拿大消費與經濟成長；若轉弱，則顯示高利率與家庭負債壓力仍在。",
+        "source": {
+          "name": "Statistics Canada｜2026–2027 Major Economic Release Dates",
+          "url": "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "Statistics Canada",
+          "notes": "官方發布日程列示 9 月 Retail Trade 於 11/20 發布；官方日程未列精確時刻，故 time_known=false。前值包括8月正式值及9月 advance estimate，後者為初步估計、非正式月度完整數據。",
+          "secondary_refs": [
+            "https://www150.statcan.gc.ca/n1/daily-quotidien/261023/dq261023a-eng.htm"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% m/m; CAD million",
+        "data_reference": "2026年9月",
+        "time_known": false
+      },
+      {
         "id": "current-uk-retail-sales-20261120",
         "event_date": "2026-11-20T15:00:00+08:00",
         "region": "英國",
@@ -343,6 +466,36 @@
         "forecast_applicable": true,
         "data_unit": "% m/m; % y/y",
         "data_reference": "2026年10月",
+        "time_known": true
+      },
+      {
+        "id": "current-eurozone-negotiated-wages-2026q3",
+        "event_date": "2026-11-20T18:00:00+08:00",
+        "region": "歐元區",
+        "event_name": "歐元區第 3 季協商薪資指標（Indicator of Negotiated Wage Rates）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：協商薪資是 ECB 評估服務通膨及勞動成本傳導的重要指標，對歐元區核心通膨與利率路徑具政策意義。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "若協商薪資增速高於預期，可能延長服務通膨黏著並限制 ECB 寬鬆空間；若降溫，則支持工資成本壓力緩解。",
+        "source": {
+          "name": "ECB｜Statistical Calendar: Euro Area Indicator of Negotiated Wage Rates",
+          "url": "https://www.ecb.europa.eu/press/calendars/statscal/html/index.en.html",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:27:47+08:00",
+          "publisher": "European Central Bank",
+          "notes": "ECB 官方統計日曆列示 11/20 11:00 CET 發布 Q3 2026 協商薪資指標，換算台灣時間 18:00；該項在專屬日曆標示 Tentative，須於發布前再次核對。",
+          "secondary_refs": [
+            "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/stnwag.el.html"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% y/y",
+        "data_reference": "2026年Q3",
         "time_known": true
       },
       {
@@ -4240,22 +4393,33 @@
         "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-13/upcoming.htm",
         "https://www.federalreserve.gov/newsevents/2026-November.htm",
         "https://tradingeconomics.com/united-states/industrial-production-mom",
+        "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/wage-price-index-australia",
+        "https://www.abs.gov.au/statistics/economy/price-indexes-and-inflation/wage-price-index-australia/jun-2026",
         "https://www.ons.gov.uk/releases/consumerpriceinflationukoctober2026",
         "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
         "https://tradingeconomics.com/united-kingdom/inflation-cpi",
-        "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
+        "https://www.ecb.europa.eu/press/calendars/statscal/html/index.en.html",
         "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/sthicp.en.html",
+        "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
         "https://ec.europa.eu/eurostat/en/web/products-euro-indicators/w/2-04112026-ap",
         "https://tradingeconomics.com/euro-area/inflation-rate-mom",
         "https://www.census.gov/construction/bps/schedule.html",
         "https://tradingeconomics.com/united-states/housing-starts",
         "https://www.census.gov/construction/nrc/pdf/newresconst.pdf",
+        "https://www.abs.gov.au/release-calendar/future-releases/202611",
+        "https://www.abs.gov.au/statistics/labour/employment-and-unemployment/labour-force-australia/sep-2026",
+        "https://tradingeconomics.com/australia/employment-change",
+        "https://www.stat.go.jp/english/data/cpi/1582.htm",
+        "https://www.stat.go.jp/data/cpi/sokuhou/tsuki/index-z.html",
+        "https://www.stat.go.jp/english/data/cpi/1585.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/261023/dq261023a-eng.htm",
         "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
         "https://www.forexfactory.com/calendar/105-uk-retail-sales-mm",
+        "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/stnwag.el.html",
         "https://www.sca.isr.umich.edu/",
         "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320"
       ],
-      "notes": "W47 目前列入 12 項經官方發布日程確認且 TAC 評級四／五星的主要事件。11 項有精確發布時間，Canada CPI 僅確認日期而無官方時刻。前值已補至 11 項；市場共識／機構預測已補至 7 項，其餘無可靠預期者保持 null。中國 70 城房價指數獨立列為 11/16 09:30；10:00 國民經濟運行情況另列工業、能源、消費、投資等月度數據。Eurostat 10 月完整 HICP 為 11/18 12:00 CET（台灣19:00）。"
+      "notes": "W47 目前列入 17 項經官方發布日程確認且 TAC 評級四／五星的主要事件。15 項有精確發布時間，Canada CPI 與 Canada Retail Trade 僅確認日期而無官方時刻。前值已補至 15 項；市場共識／機構預測已補至 8 項，其餘無可靠預期者保持 null。China NBS 日程屬初步計畫；Eurostat 一般日曆與 ECB HICP 專屬日曆存在日期差異，採用 ECB 專屬 HICP 時程。"
     },
     "earnings": {
       "status": "incomplete",
@@ -4502,6 +4666,21 @@
         "official_issuer_and_listing_sources": true
       },
       "notes": "最終驗收：W47 與 W46 schema_version=1 的 root、economic、earnings 欄位集合完全一致；12 經濟事件、21 財報事件；11 個經濟事件有精確時間、1 個只確認日期；21 家財報事件均有官方時程與美國掛牌證據；EPS／Revenue 各63筆來源階梯紀錄，來源順序1→2→3；0採用共識、0 PIT snapshot。"
+    },
+    {
+      "at": "2026-11-14T13:27:47+08:00",
+      "action": "W47_add_Australia_Japan_Canada_and_Euro_wage_events",
+      "event_id": "current-australia-wpi-202609-quarter,current-australia-employment-202610,current-japan-cpi-202610,current-canada-retail-sales-202609,current-eurozone-negotiated-wages-2026q3",
+      "before": {
+        "economic_events": 12
+      },
+      "after": {
+        "economic_events": 17,
+        "exact_times": 15,
+        "previous_values": 15,
+        "forecast_values": 8
+      },
+      "notes": "依 ABS、Japan Statistics Bureau、Statistics Canada、ECB 官方發布日曆新增5項四星事件。Australia WPI、Australia Labour Force、Japan CPI、Euro Area negotiated wages有精確時刻；Canada Retail Trade僅官方確認日期。同步更正 Eurostat HICP來源說明：以ECB dataset-specific schedule優先，保留一般日曆日期差異。"
     }
   ],
   "last_update_audit": {
@@ -4522,7 +4701,7 @@
     "files_modified": [
       "data/calendar/weeks/2026-W47.json"
     ],
-    "economic_events_added": 12,
+    "economic_events_added": 17,
     "earnings_events_added": 21,
     "earnings_upcoming": 21,
     "eps_attempts_added": 63,
@@ -4576,11 +4755,11 @@
     "legacy_comparison_statuses_recomputed": 0,
     "coverage_matrix": {
       "economic": {
-        "events": 12,
-        "with_official_schedule": 12,
-        "with_verified_time": 11,
-        "with_previous": 11,
-        "with_forecast": 7,
+        "events": 17,
+        "with_official_schedule": 17,
+        "with_verified_time": 15,
+        "with_previous": 15,
+        "with_forecast": 8,
         "actuals": 0
       },
       "earnings": {
@@ -4617,7 +4796,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。 新增 Australia WPI、Australia Labour Force、Japan CPI、Canada Retail Trade、Euro Area negotiated wage rates；HICP 時程採 ECB 專屬日曆，已記錄與 Eurostat 一般日曆的日期差異。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
@@ -4654,6 +4833,6 @@
     "final_file_path": "data/calendar/weeks/2026-W47.json",
     "final_validation_status": "passed_before_final_audit_append",
     "last_verified_at": "2026-11-14T13:22:49+08:00",
-    "economic_events_total": 12
+    "economic_events_total": 17
   }
 }
