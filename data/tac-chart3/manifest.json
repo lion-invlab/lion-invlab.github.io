@@ -1,7 +1,7 @@
 {
   "project": "TAC Chart 3",
   "run_id": 43026998120,
-  "branch": "simulation/tac-process-lab-2026-11-06",
+  "branch": "main",
   "retrieved_at": "2026-11-13T22:45:00+00:00",
   "status": "PASS_WITH_DOCUMENTED_COVERAGE_LIMITATIONS",
   "series": [
@@ -3600,5 +3600,8 @@
     "qa_file": "chart3_market_stress_qa.json",
     "status": "PASS",
     "generated_at": "2026-11-13T22:47:07+00:00"
-  }
+  },
+  "source_branch": "simulation/tac-process-lab-2026-11-06",
+  "deployment_branch": "main",
+  "provenance_note": "原始基線資料曾於 simulation/tac-process-lab-2026-11-06 建置；此資料集已遷移並由 main 正式分支維護。source_branch 僅記錄歷史來源，branch/deployment_branch 表示目前正式維護與部署分支。"
 }
