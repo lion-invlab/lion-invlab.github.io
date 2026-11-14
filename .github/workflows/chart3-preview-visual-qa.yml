@@ -15,7 +15,7 @@ on:
       - ".github/scripts/test_chart3_preview_browser.py"
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
-      - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
+      - ".github/scripts/build_sp500_daily_compact.py"
 
 permissions:
   contents: read
@@ -48,6 +48,8 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
+          import subprocess
+          subprocess.run(["python", ".github/scripts/build_sp500_daily_compact.py", "--output", "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"], check=True)
           html_path = Path("research/tac-chart3/chart3-preview.html")
           data_path = Path("data/tac-chart3/chart3_market_stress.json")
           html = html_path.read_text(encoding="utf-8")
