@@ -103,11 +103,11 @@ try {
     if (specialAudit.exists && !["0.4%", "0.3%", "未公布", "Waller"].every(x => specialAudit.text.includes(x))) failures.push(`${v.name}: CPI special focus missing key data/analysis`);
     const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
-        // Validate stable section semantics and daily market-data anchors, not
-        // one specific report's CPI/Fed-speaker wording. Daily event text changes.
-        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點", "SOX", "MOVE", "VIX", "WTI", "Brent", "FedWatch"] },
-        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "關鍵價位計算方式與資料來源"] },
-        { id: "focus-tab-core", panel: ".focus-core", needles: ["盤面觀察重點", "關鍵觀察"] }
+        // Validate the actual approved tab semantics: market narrative, full
+        // OHLC level set with source/date disclosure, and three weekly catalysts.
+        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點"], minLength: 80 },
+        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"], minLength: 200 },
+        { id: "focus-tab-core", panel: ".focus-core", needles: ["盤面觀察重點", "本週三大催化劑"], minLength: 100 }
       ];
       const results = [], invalid = [];
       for (const item of cases) {
@@ -122,8 +122,10 @@ try {
         if (!input.checked) invalid.push(item.id + ": radio did not become checked after label click");
         if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
         for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
+        if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
+        if (item.id === "focus-tab-core" && panel.querySelectorAll("li").length < 3) invalid.push(item.id + ": fewer than three weekly catalyst items");
         if (item.id === "focus-tab-levels") {
-          const source = panel.querySelector("details.source-details .source")?.textContent || "";
+          const source = panel.querySelector("details.compact-disclosure")?.textContent || "";
       const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
           if (!sourceDateMatch) invalid.push(item.id + ": missing OHLC source trading date");
           else if (!(sourceDateMatch[1] < reportDate)) invalid.push(item.id + ": OHLC trading date is not before report date");
@@ -289,10 +291,7 @@ try {
       for (const [i, card] of cards.entries()) {
         const details = card.querySelector(":scope > .econ-details");
         if (!details) { invalid.push("card " + (i+1) + ": .econ-details missing"); continue; }
-        const lastWeek = !!card.closest("#last-week-calendar");
-        const expected = lastWeek
-          ? ["前值", "預估", "實際", "來源"]
-          : ["前值", "市場預估", "實際", "市場影響", "資料來源"];
+        const expected = ["前值", "市場預估", "實際", "市場影響", "資料來源"];
         const fields = [...details.children].filter(node => node.classList.contains("econ-field"));
         const labels = fields.map(field => field.querySelector(":scope > label")?.textContent.trim() || "");
         if (fields.length !== expected.length) {
@@ -305,6 +304,9 @@ try {
         for (const [j, field] of fields.entries()) {
           if (!field.querySelector(":scope > .econ-value")) invalid.push("card " + (i+1) + ": field " + (j+1) + " value missing");
         }
+        const impactField = fields.find(field => field.querySelector(":scope > label")?.textContent.trim() === "市場影響");
+        const impactText = impactField?.querySelector(":scope > .econ-value")?.textContent.trim() || "";
+        if (!impactText || ["待核實", "不適用／待核實"].includes(impactText)) invalid.push("card " + (i+1) + ": market impact judgment missing");
         const source = fields.at(-1)?.querySelector(":scope > .econ-value");
         if (!source?.querySelector("a[href^='https://']")) invalid.push("card " + (i+1) + ": HTTPS source link missing");
       }
