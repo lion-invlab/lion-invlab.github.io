@@ -16,7 +16,7 @@
       ],
       "forbidden_calendar_sections": [],
       "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。",
-      "simulation_blob_sha": "d10db54218881c1f2530d33b9304d753ccaacbf9",
+      "simulation_blob_sha": "1ac39d50b138e59f4aabf55fc68560ee277ba6f8",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
@@ -28,7 +28,7 @@
         "上週財報行事曆"
       ],
       "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。",
-      "simulation_blob_sha": "74f393a08c242d234f3b1e643edb7a63d5e3cedf",
+      "simulation_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
       "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
@@ -77,6 +77,10 @@
     {
       "date": "2026-11-15",
       "change": "依使用者明確授權，雙母版經濟事件卡統一為五區 DOM：前值左上、預估左下、實際右側跨兩列、市場影響與資料來源各自全寬；週一上週回顧及本週卡均套用，保留各情境既有展開控制與互動。同步更新 Manifest SHA 與 QA 契約。"
+    },
+    {
+      "date": "2026-11-15",
+      "change": "依使用者指示，僅於週一及週二至週五雙母版 QUICK ACCESS 工具欄的「專題報導」與「歷史早報」之間新增「📈 互動式圖表」連結，目標為 https://lion-invlab.github.io/interactive-charts/；同步更新模擬母版 SHA 與工具欄驗收。未修改 main、正式首頁或其他區塊。"
     }
   ]
 }

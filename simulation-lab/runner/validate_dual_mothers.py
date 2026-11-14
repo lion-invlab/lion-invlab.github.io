@@ -98,6 +98,20 @@ def validate(key: str) -> dict:
         if expected_toggle not in toggle_classes:
             raise SystemExit(f"{key} card {i}: {scope} card requires {expected_toggle}")
 
+    # Validate the persistent QUICK ACCESS toolbar and interactive charts link.
+    toolbar = soup.select("aside#tac-side-tools")
+    if len(toolbar) != 1:
+        raise SystemExit(f"{key}: expected exactly one TAC toolbar")
+    links = toolbar[0].select("a.tac-side-link")
+    labels = [link.get_text(" ", strip=True) for link in links]
+    expected = ["美股個股波動率", "Q4 精選基金", "專題報導", "互動式圖表", "歷史早報"]
+    positions = [labels.index(label) if label in labels else -1 for label in expected]
+    if any(p < 0 for p in positions) or positions != sorted(positions):
+        raise SystemExit(f"{key}: toolbar link order/content mismatch: {labels}")
+    chart_links = [link for link in links if link.get_text(" ", strip=True) == "互動式圖表"]
+    if len(chart_links) != 1 or chart_links[0].get("href") != "https://lion-invlab.github.io/interactive-charts/":
+        raise SystemExit(f"{key}: interactive charts link missing, duplicated, or incorrect")
+
     # Baselines are byte-for-byte copies of the approved main mothers; no simulation-only CSS is required.
     ids = [node.get("id") for node in soup.select("[id]")]
     if len(ids) != len(set(ids)):
