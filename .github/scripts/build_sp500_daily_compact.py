@@ -3,7 +3,7 @@ from __future__ import annotations
 import argparse, base64, csv, datetime as dt, hashlib, io, json, urllib.request, zlib
 from pathlib import Path
 
-FJA_URL = "https://raw.githubusercontent.com/fja05680/dow-sp500-100-years/master/SP500.csv"
+FJA_URL = "https://raw.githubusercontent.com/fja05680/dow-sp500-100-years/f50e4612d69cf14e4ac8a20b7a42d29f0f081825/SP500.csv"
 EXPECTED_START = "1927-12-30"
 EXPECTED_RECENT_START = "1993-12-31"
 MIN_ROWS = 24000
