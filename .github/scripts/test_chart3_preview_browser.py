@@ -175,9 +175,9 @@ def validate_chart(page, label):
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
-    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
-    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-10"], reset)
+    check(label + "_timeline_reset_restores_full_range", reset == ["1927-12-30", "2026-11-10"], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
     if svg_box and label == "desktop":
         cx = svg_box["x"] + svg_box["width"] * 0.55
@@ -215,7 +215,7 @@ def validate_chart(page, label):
         pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
         check(label + "_two_finger_pinch_zoom", pinch_span < initial_span, pinch)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
         page.locator("#timeline-zoom-in").click()
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
         before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
@@ -233,7 +233,7 @@ def validate_chart(page, label):
         panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
 
 try:
     with sync_playwright() as p:
