@@ -19,14 +19,14 @@
 
 ### A2.1 結構基準與有效範圍
 
-本節是兩份模擬母版的固定結構定位契約；模擬母版與 main Manifest 核准的正式母版逐位元相同，已依核准 HTML 的實際標記、ID、父子層級與重複卡片結構建立。定位契約只對下列精確 blob SHA 有效：
+本節是兩份模擬母版的固定結構定位契約。官方母版 SHA 是 main Manifest 的唯讀正式基準；本次依使用者授權，僅更新 simulation branch 的隔離基準副本，故兩者 SHA 可不同。每日模擬只使用下列 simulation blob SHA；不得把模擬副本 SHA 冒充 main 正式母版 SHA。
 
-| 情境 | 母版路徑 | 核准 blob SHA | 基準結構統計 |
+| 情境 | 正式母版路徑 | main 正式 blob SHA（唯讀） | simulation baseline 路徑 | simulation blob SHA（實際執行） | 基準結構統計 |
 |---|---|---|---|
-| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `d10db54218881c1f2530d33b9304d753ccaacbf9` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184；ID 無重複 |
-| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `74f393a08c242d234f3b1e643edb7a63d5e3cedf` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 175；ID 無重複 |
+| 週一 | `母版專區/TAC_母版_週一_2026-10-28_最終定版.html` | `a568e594e55909041d51d8eae7e6fe5f7986c096` | `simulation-lab/baseline/monday-mother-template.html` | `d10db54218881c1f2530d33b9304d753ccaacbf9` | DOCTYPE 1、html/head/body 各 1、style 124、script 25、ID 184；ID 無重複 |
+| 週二至週五 | `母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html` | `3785405e331b10ec6189002e480be2a1edbe20ef` | `simulation-lab/baseline/weekday-mother-template.html` | `74f393a08c242d234f3b1e643edb7a63d5e3cedf` | DOCTYPE 1、html/head/body 各 1、style 120、script 24、ID 175；ID 無重複 |
 
-以上統計是版本基準，不是要求每日重新逐項分析的工作。母版 SHA 未變時，直接使用本節定位契約；不得每天重新推導 selector、搜尋標題文字或重新決定替換邊界。
+以上統計是原始正式母版的結構基準，不是要求每日重新逐項分析的工作。模擬執行時必須以 Manifest 的 simulation_blob_sha 鎖定隔離副本；副本 SHA 未變時，直接使用本節定位契約。main 正式母版仍唯讀，除非另有符合 SIM-1.2 寫入權限的明確授權。
 
 ### A2.2 共用主要區塊錨點
 
