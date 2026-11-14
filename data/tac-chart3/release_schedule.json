@@ -1,0 +1,38 @@
+{
+  "source": "FRED official release calendar",
+  "retrieved_at": "2026-11-14T06:46:41+00:00",
+  "series": [
+    {
+      "series_id": "VIXCLS",
+      "release_id": 200,
+      "release_name": "CBOE Market Statistics",
+      "next_release_date": "2026-11-16",
+      "source": "FRED API series/release + release/dates",
+      "retrieved_at": "2026-11-14T06:46:41+00:00"
+    },
+    {
+      "series_id": "NFCI",
+      "release_id": 221,
+      "release_name": "Chicago Fed National Financial Conditions Index",
+      "next_release_date": "2026-11-18",
+      "source": "FRED API series/release + release/dates",
+      "retrieved_at": "2026-11-14T06:46:41+00:00"
+    },
+    {
+      "series_id": "NFCICREDIT",
+      "release_id": 221,
+      "release_name": "Chicago Fed National Financial Conditions Index",
+      "next_release_date": "2026-11-18",
+      "source": "FRED API series/release + release/dates",
+      "retrieved_at": "2026-11-14T06:46:41+00:00"
+    },
+    {
+      "series_id": "STLFSI4",
+      "release_id": 187,
+      "release_name": "St. Louis Fed Financial Stress Index",
+      "next_release_date": "2026-11-18",
+      "source": "FRED API series/release + release/dates",
+      "retrieved_at": "2026-11-14T06:46:41+00:00"
+    }
+  ]
+}
