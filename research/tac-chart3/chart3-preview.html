@@ -92,7 +92,14 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="daily-brief-head"><strong>每日市場風險判讀｜從數據到投資決策</strong><small id="decision-asof">資料計算中…</small></div>
  <div class="daily-state">
   <div class="daily-state-main"><div class="daily-state-label">目前市場狀態</div><h2 id="risk-state">風險訊號分歧，持續觀察</h2><p class="daily-thesis" id="risk-thesis"></p></div>
-.risk-level strong{font-size:12px;color:#d8e0eb}.risk-scale-wrap{position:relative;padding-top:13px}.risk-scale{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px}.risk-scale span{height:27px;border-radius:5px;background:#344054;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;letter-spacing:.01em;white-space:nowrap;text-shadow:0 1px 2px rgba(0,0,0,.35)}.risk-scale span:nth-child(1){background:#21865a}.risk-scale span:nth-child(2){background:#c39a38}.risk-scale span:nth-child(3){background:#d97736}.risk-scale span:nth-child(4){background:#b9363e}.risk-scale-marker{position:absolute;z-index:2;top:0;left:50%;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:11px solid #fff;transform:translateX(-50%);filter:drop-shadow(0 1px 2px rgba(0,0,0,.75));transition:left .45s ease}.risk-scale-caption{font-size:10px;line-height:1.4;color:#aebbd0}.risk-level em{font-style:normal;font-size:16px;font-weight:800;color:#f0c66f}
+  <div class="risk-level">
+   <strong>綜合風險等級</strong>
+   <em id="risk-grade">計算中</em>
+   <div class="risk-scale">
+    <span>安全</span><span>留意</span><span>偏高</span><span>極端風險</span>
+   </div>
+   <div class="risk-scale-caption">依四項金融壓力指標的百分位與變化判讀</div>
+  </div>
  </div>
  <div class="brief-grid">
   <div class="brief-box"><h3>四項關鍵觀察｜近 520 週百分位</h3><div id="risk-metrics"></div></div>
