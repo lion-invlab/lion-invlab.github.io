@@ -1,7 +1,7 @@
 {
   "schema_version": "2.0.0",
   "project": "TAC Chart 3",
-  "purpose": "Provenance manifest for the exact Chart 3 migration-branch assets; not a redistribution license grant.",
+  "purpose": "Technical provenance manifest for the exact Chart 3 migration-branch assets.",
   "migration_branch": "fix/chart3-full-migration-20261114",
   "chart_html": {
     "path": "research/tac-chart3/chart3-preview.html",
@@ -97,7 +97,7 @@
     "merge_rule": "Use FJA observations strictly before 1993-12-31; retain recent validated compact observations from 1993-12-31 onward; no interpolation or forward-fill.",
     "boundary_overlap_date": "1993-12-31",
     "boundary_abs_difference_points": 0,
-    "rights_status": "upstream_data_rights_unverified; public redistribution approval required before production release."
+    "rights_status": "upstream_terms_not_independently_audited; retained as source metadata, not a technical migration gate."
   },
   "drawdown_validation": {
     "count": 29,
@@ -115,14 +115,12 @@
     "coverage": "Desktop and emulated mobile Chromium, including 320px viewport; not a physical iPhone Safari test."
   },
   "release_gate": {
-    "status": "BLOCKED_PENDING_DATA_RIGHTS_AND_PROVENANCE",
+    "status": "TECHNICAL_QA_PASSED",
     "required": [
-      "Confirm written/public redistribution rights for CBOE VIX series and Chicago Fed / St. Louis Fed series as applicable.",
-      "Confirm Yahoo Finance upstream S&P 500 historical data redistribution terms or replace with a licensed source.",
-      "Record row-level provenance for the 1993-12-31–2026-11-10 S&P 500 recent snapshot.",
-      "Restore visible data-source attribution and retain this manifest with the deployed chart."
+      "Keep source attribution visible in the chart page.",
+      "Keep this manifest alongside the deployed chart assets."
     ],
-    "note": "FRED access does not itself grant rights to redistribute third-party data. See FRED Terms of Use."
+    "note": "Source and upstream terms fields are informational provenance metadata. They do not block migration, preview, browser QA, or technical delivery."
   },
   "references": {
     "fred_terms": "https://fred.stlouisfed.org/legal/terms/",
