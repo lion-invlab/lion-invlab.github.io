@@ -190,7 +190,10 @@ def validate_chart(page, label):
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
         check(label + "_mouse_wheel_zoom", wheel_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", reset), wheel_zoom)
         page.locator("#timeline-reset").click()
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        reset_before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.locator("#timeline-zoom-in").click()
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset_before_drag, timeout=3000)
         before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.mouse.move(cx, cy)
         page.mouse.down()
@@ -218,8 +221,9 @@ def validate_chart(page, label):
         check(label + "_two_finger_pinch_zoom", pinch_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", ["1927-12-30","2026-11-10"]), pinch)
         page.locator("#timeline-reset").click()
         page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        reset_before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.locator("#timeline-zoom-in").click()
-        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset_before_pan, timeout=3000)
         before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         panned = page.evaluate("""() => {
           const el=document.querySelector('#combined-svg');
