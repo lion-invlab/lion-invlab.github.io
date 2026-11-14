@@ -22,7 +22,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: tac-chart3-preview-visual-qa
+  group: tac-chart3-preview-visual-qa-full-history
   cancel-in-progress: true
 
 jobs:
