@@ -84,7 +84,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="eyebrow">TAC INVESTMENT DECISION CHARTS · CHART 03</div>
  <h1>市場恐慌與金融壓力</h1>
  <div class="sub">以市場隱含波動率、金融條件與金融壓力指標，觀察風險偏好變化及金融環境收緊程度。</div>
- <div class="meta"><span class="pill">FRED / ALFRED</span><span class="pill">VIX · NFCI · NFCICREDIT · STLFSI4</span><span class="pill">保留原生頻率與缺值</span><span class="pill">S&amp;P 500 日線 1927–2026</span><span class="pill" id="asof">資料讀取中…</span></div>
+ 
 </header>
 
 
@@ -395,8 +395,16 @@ function renderDailyRiskBrief(byId,weekly,generatedAt,sp500Snapshot){
  const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
  const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
  document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>'<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'</span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>').join('');
- const dateList=Object.values(m).map(x=>x.date).filter(Boolean).sort();
- document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜各指標最新觀測 '+(dateList[0]===dateList.at(-1)?dateList.at(-1):(dateList[0]+' 至 '+dateList.at(-1)));
+ const nextUpdate=new Date();
+ const taipeiParts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(nextUpdate);
+ const tp=Object.fromEntries(taipeiParts.map(p=>[p.type,p.value]));
+ const weekdayMap={Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6,Sun:0};
+ let updateDate=new Date(Date.UTC(Number(tp.year),Number(tp.month)-1,Number(tp.day)));
+ let updateWeekday=weekdayMap[tp.weekday];
+ if(updateWeekday===0||updateWeekday===6||(Number(tp.hour)*60+Number(tp.minute)>=330)){do{updateDate.setUTCDate(updateDate.getUTCDate()+1);updateWeekday=(updateWeekday+1)%7;}while(updateWeekday===0||updateWeekday===6);}
+ const nextDate=updateDate.toISOString().slice(0,10);
+ const weekdayLabel=['週日','週一','週二','週三','週四','週五','週六'][updateDate.getUTCDay()];
+ document.getElementById('decision-asof').textContent='下次更新：'+nextDate+'（'+weekdayLabel+'）05:30（台灣時間）';
  document.getElementById('risk-state').textContent=state;
  document.getElementById('risk-grade').textContent=grade;
  const riskPosition=enough?Object.values(m).reduce((sum,item)=>sum+item.value,0)/4:null;
