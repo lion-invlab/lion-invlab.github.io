@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-      - fix/chart3-full-migration-20261114
     paths:
       - ".github/workflows/chart3-preview-visual-qa.yml"
       - ".github/scripts/test_chart3_preview_browser.py"
@@ -18,6 +17,7 @@ on:
       - "data/tac-chart3/manifest.json"
       - ".github/scripts/build_sp500_daily_compact.py"
       - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
+      - "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"
 
 permissions:
   contents: read
