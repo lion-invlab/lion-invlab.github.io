@@ -3441,6 +3441,189 @@
         "revenue_consensus_snapshots": []
       },
       {
+        "id": "current-wsm-20261119",
+        "company": "Williams-Sonoma, Inc.",
+        "ticker": "WSM",
+        "event_date": "2026-11-19T23:00:00+08:00",
+        "session": "before_market",
+        "status": "upcoming",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星獨立評估：S&P 500 成分股及大型家居用品零售商，品牌零售、住房相關消費、可選消費需求與關稅／毛利率變化對美國消費產業具代表性。",
+        "importance_rating_source": null,
+        "industry": "家居用品／家具與生活風格零售",
+        "reporting_period": "FY2026 Q3",
+        "time_known": true,
+        "time_type": "call_time",
+        "eps_basis": null,
+        "eps_estimate": null,
+        "eps_actual": null,
+        "revenue_estimate": null,
+        "revenue_actual": null,
+        "eps_currency": "USD",
+        "revenue_currency": "USD",
+        "revenue_unit": "B",
+        "eps_comparison_status": null,
+        "revenue_comparison_status": null,
+        "financial_judgment": null,
+        "stock_price_reaction": null,
+        "stock_price_reaction_window": null,
+        "source": {
+          "name": "Williams-Sonoma｜Q3 2026 earnings release notice",
+          "url": "https://www.businesswire.com/news/home/20261112522328/en/",
+          "published_at": "2026-11-12",
+          "observed_at": "2026-11-14T13:18:56+08:00",
+          "publisher": "Williams-Sonoma, Inc. (issuer release via Business Wire)",
+          "notes": "發行人公告確認 11/19 美股開盤前發布 Q3 2026 結果，電話會議 10:00 ET（台灣時間 23:00）；此為公司發布的 Business Wire 原始公告。",
+          "secondary_refs": []
+        },
+        "consensus_source": null,
+        "revenue_consensus_source": null,
+        "price_reaction_source": null,
+        "issuer_country": "United States",
+        "us_exchange_listed": true,
+        "us_listing_exchange": "NYSE",
+        "us_listing_ticker": "WSM",
+        "listing_evidence": {
+          "name": "Williams-Sonoma Investor Relations｜Stock Performance",
+          "url": "https://ir.williams-sonomainc.com/investor-information/stock-performance/",
+          "publisher": "Williams-Sonoma, Inc.",
+          "notes": "公司官方投資人關係頁明列 NYSE: WSM；官方 Business Wire 發行人公告確認本次財報日期及時段。"
+        },
+        "eps_actual_basis": null,
+        "eps_estimate_basis": null,
+        "legacy_eps_comparison_status": null,
+        "legacy_revenue_comparison_status": null,
+        "legacy_eps_estimate": null,
+        "legacy_revenue_estimate": null,
+        "legacy_consensus_source": null,
+        "legacy_revenue_consensus_source": null,
+        "eps_actual_basis_code": null,
+        "eps_estimate_basis_code": null,
+        "eps_actual_currency": null,
+        "eps_estimate_currency": null,
+        "eps_actual_period": null,
+        "revenue_actual_basis_code": null,
+        "revenue_estimate_basis_code": null,
+        "revenue_actual_currency": null,
+        "revenue_estimate_currency": null,
+        "revenue_actual_period": null,
+        "revenue_actual_unit": null,
+        "revenue_estimate_unit": null,
+        "eps_consensus_attempts": [
+          {
+            "source_level": 1,
+            "provider": "LSEG I/B/E/S",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-14T13:18:56+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本次執行環境未提供 LSEG I/B/E/S 登入或 API 權限，未能讀取該公司該期公布前共識。"
+          },
+          {
+            "source_level": 2,
+            "provider": "FactSet Estimates",
+            "metric": "EPS",
+            "url": null,
+            "observed_at": "2026-11-14T13:18:56+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本次執行環境未提供 FactSet Estimates 登入或 API 權限，未能讀取該公司該期公布前共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "Investing.com",
+            "metric": "EPS",
+            "url": "https://www.investing.com/equities/williams-sonoma-inc-earnings",
+            "observed_at": "2026-11-14T13:18:56+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "incompatible",
+            "reason": "Investing.com 頁面顯示最近一次 Release 為 2026-11-13，未呈現與發行人正式公告相符的 11/19 upcoming release；事件日期對應衝突，且缺乏可核實的公布前 data_as_of／basis，故不採用。"
+          }
+        ],
+        "revenue_consensus_attempts": [
+          {
+            "source_level": 1,
+            "provider": "LSEG I/B/E/S",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-14T13:18:56+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本次執行環境未提供 LSEG I/B/E/S 登入或 API 權限，未能讀取該公司該期公布前共識。"
+          },
+          {
+            "source_level": 2,
+            "provider": "FactSet Estimates",
+            "metric": "REVENUE",
+            "url": null,
+            "observed_at": "2026-11-14T13:18:56+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "unavailable",
+            "reason": "本次執行環境未提供 FactSet Estimates 登入或 API 權限，未能讀取該公司該期公布前共識。"
+          },
+          {
+            "source_level": 3,
+            "provider": "Investing.com",
+            "metric": "REVENUE",
+            "url": "https://www.investing.com/equities/williams-sonoma-inc-earnings",
+            "observed_at": "2026-11-14T13:18:56+08:00",
+            "data_as_of": null,
+            "period": null,
+            "value": null,
+            "currency": null,
+            "unit": null,
+            "basis_code": null,
+            "statistic": null,
+            "analyst_count": null,
+            "outcome": "incompatible",
+            "reason": "Investing.com 頁面顯示最近一次 Release 為 2026-11-13，未呈現與發行人正式公告相符的 11/19 upcoming release；事件日期對應衝突，且缺乏可核實的公布前 data_as_of／basis，故不採用。"
+          }
+        ],
+        "eps_estimate_period": null,
+        "revenue_actual_basis": null,
+        "revenue_estimate_basis": null,
+        "revenue_estimate_period": null,
+        "eps_consensus_snapshots": [],
+        "revenue_consensus_snapshots": []
+      },
+      {
         "id": "current-rost-20261120",
         "company": "Ross Stores, Inc.",
         "ticker": "ROST",
@@ -4049,6 +4232,9 @@
         "https://www.investing.com/equities/netease-inc-earnings",
         "https://investor.pddholdings.com/news-releases/news-release-details/pdd-holdings-report-third-quarter-2026-unaudited-financial",
         "https://www.investing.com/equities/pinduoduo-earnings",
+        "https://www.businesswire.com/news/home/20261112522328/en/",
+        "https://ir.williams-sonomainc.com/investor-information/stock-performance/",
+        "https://www.investing.com/equities/williams-sonoma-inc-earnings",
         "https://investors.rossstores.com/news-releases/news-release-details/ross-stores-inc-announces-third-quarter-2026-earnings-release",
         "https://www.investing.com/equities/ross-stores-inc-earnings",
         "https://investors.intuit.com/news-events/press-releases/detail/1330/intuit-to-announce-first-quarter-fiscal-year-2027-results-on-nov-19",
@@ -4056,7 +4242,7 @@
         "https://investor.keysight.com/investor-news-and-events/financial-press-releases/press-release-details/2026/Keysight-Technologies-to-Report-Fourth-Quarter-and-Fiscal-Year-2026-Results-on-November-19-2026/default.aspx",
         "https://www.investing.com/equities/keysight-technologies-earnings"
       ],
-      "notes": "W47 首次建檔後補強至 20 家官方公告／美國交易所掛牌可核實的 TAC 四星／五星企業。仍非全市場公司名單；所有事件均保留 EPS／Revenue 獨立欄位及來源階梯。LSEG／FactSet 本輪不可存取；Investing.com 頁面若缺 data_as_of、basis／definition 或與發行人日期衝突，不採用、不複製估值；無核准公開儲存授權時 estimate 欄位維持 null。"
+      "notes": "W47 首次建檔後補強至 21 家有發行人官方財報時程及美國交易所掛牌證據的 TAC 四星／五星企業。Copart 等僅有第三方推估日期、尚未取得發行人正式日期者暫不納入已確認事件。所有事件保留 EPS／Revenue 獨立欄位及來源階梯 attempts。LSEG／FactSet 本輪不可存取；Investing.com 頁面若缺 data_as_of、basis／definition 或與發行人日期衝突，不採用、不複製估值；無核准公開儲存授權時 estimate 欄位維持 null。"
     }
   },
   "audit": [
@@ -4136,6 +4322,20 @@
         "all_events_have_issuer_source": true
       },
       "notes": "將 NVIDIA、Home Depot、Baidu、Tyson、JD.com、Intuit 的來源 URL 更正為本輪可直接核實的官方發行人頁面；更新來源觀察時間及 audit coverage。"
+    },
+    {
+      "at": "2026-11-14T13:18:56+08:00",
+      "action": "W47_add_WSM_official_confirmed_earnings",
+      "event_id": "current-wsm-20261119",
+      "before": {
+        "earnings_events": 20
+      },
+      "after": {
+        "earnings_events": 21,
+        "eps_attempts_added": 3,
+        "revenue_attempts_added": 3
+      },
+      "notes": "WSM 已取得 11/12 發行人官方 Business Wire 財報時程公告，11/19 盤前發布、10:00 ET 電話會議；Investing.com 顯示 11/13 最近一次 release，與官方日程不一致，attempt 標記 incompatible。Copart 目前僅有第三方估計日期，未納入。"
     }
   ],
   "last_update_audit": {
@@ -4157,10 +4357,10 @@
       "data/calendar/weeks/2026-W47.json"
     ],
     "economic_events_added": 11,
-    "earnings_events_added": 20,
-    "earnings_upcoming": 20,
-    "eps_attempts_added": 60,
-    "revenue_attempts_added": 60,
+    "earnings_events_added": 21,
+    "earnings_upcoming": 21,
+    "eps_attempts_added": 63,
+    "revenue_attempts_added": 63,
     "source_priority": [
       "LSEG I/B/E/S",
       "FactSet Estimates",
@@ -4168,18 +4368,18 @@
     ],
     "source_outcomes_per_metric": {
       "EPS": {
-        "lseg_unavailable": 20,
-        "factset_unavailable": 20,
+        "lseg_unavailable": 21,
+        "factset_unavailable": 21,
         "investing_missing_required_fields": 14,
-        "investing_incompatible": 5,
+        "investing_incompatible": 6,
         "investing_unavailable": 1,
         "adopted": 0
       },
       "REVENUE": {
-        "lseg_unavailable": 20,
-        "factset_unavailable": 20,
+        "lseg_unavailable": 21,
+        "factset_unavailable": 21,
         "investing_missing_required_fields": 14,
-        "investing_incompatible": 5,
+        "investing_incompatible": 6,
         "investing_unavailable": 1,
         "adopted": 0
       }
@@ -4201,8 +4401,8 @@
       "REVENUE": 0
     },
     "snapshot_arrays_initialized": {
-      "EPS": 20,
-      "REVENUE": 20
+      "EPS": 21,
+      "REVENUE": 21
     },
     "snapshot_block_reason": "No raw provider response body suitable for SHA-256 and no authorized private raw-response archive; no PIT snapshot written.",
     "legacy_estimates_overwritten": 0,
@@ -4218,11 +4418,11 @@
         "actuals": 0
       },
       "earnings": {
-        "issuer_schedule_and_listing_verified": 20,
+        "issuer_schedule_and_listing_verified": 21,
         "EPS_estimate_adopted": 0,
         "Revenue_estimate_adopted": 0,
-        "EPS_attempts_completed": 60,
-        "Revenue_attempts_completed": 60,
+        "EPS_attempts_completed": 63,
+        "Revenue_attempts_completed": 63,
         "EPS_pre_release_PIT_complete": 0,
         "Revenue_pre_release_PIT_complete": 0,
         "snapshot_records": 0
@@ -4246,11 +4446,12 @@
       "BABA",
       "NTES",
       "PDD",
+      "WSM",
       "ROST",
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 20 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com部分事件日期衝突，部分缺 data_as_of／basis，故無採用共識；沒有寫入任何共識數值或PIT snapshot。",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
@@ -4272,14 +4473,14 @@
     "earnings_sorted": true,
     "updated_blob_sha_before": "19ac0573feb1b3a21eacdf28bea534564667ece0",
     "earnings_events_total": 20,
-    "earnings_events_added_total": 20,
+    "earnings_events_added_total": 21,
     "source_outcomes": {
-      "EPS:LSEG I/B/E/S:unavailable": 20,
-      "EPS:FactSet Estimates:unavailable": 20,
-      "EPS:Investing.com:incompatible": 5,
-      "REVENUE:LSEG I/B/E/S:unavailable": 20,
-      "REVENUE:FactSet Estimates:unavailable": 20,
-      "REVENUE:Investing.com:incompatible": 5,
+      "EPS:LSEG I/B/E/S:unavailable": 21,
+      "EPS:FactSet Estimates:unavailable": 21,
+      "EPS:Investing.com:incompatible": 6,
+      "REVENUE:LSEG I/B/E/S:unavailable": 21,
+      "REVENUE:FactSet Estimates:unavailable": 21,
+      "REVENUE:Investing.com:incompatible": 6,
       "EPS:Investing.com:missing_required_fields": 14,
       "REVENUE:Investing.com:missing_required_fields": 14,
       "EPS:Investing.com:unavailable": 1,
