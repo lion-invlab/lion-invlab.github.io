@@ -135,7 +135,8 @@ def main():
         "executed_at_utc": datetime.now(timezone.utc).isoformat(),
         "as_of_rule": "Decision date T: observation_date <= T and vintage_date < T; same-day vintages excluded due unavailable intraday release clock.",
         "source": "Existing ALFRED output_type=3 chunks only; no new download.",
-        "input_chunk_file_count": len(files), "input_chunk_files": files,\n        "initial_release_source": "FRED output_type=4 realtime_start", "initial_release_files": initial_release_files,
+        "input_chunk_file_count": len(files), "input_chunk_files": files,
+        "initial_release_source": "FRED output_type=4 realtime_start", "initial_release_files": initial_release_files,
         "episodes": {},
         "limitations": [
             "Date-level, conservative reconstruction; not intraday release-time reconstruction.",
