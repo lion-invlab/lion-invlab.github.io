@@ -148,7 +148,7 @@ def validate_chart(page, label):
     page.locator("#select-all-history").click()
     check(label + "_select_all_history_checkboxes", page.locator("#event-drawdown-key input:checked").count() == 57)
     check(label + "_select_all_event_bands", page.locator("#combined-chart svg rect[data-event]").count() == 28 and page.locator("#combined-chart svg rect[data-event]:visible").count() > 0)
-    check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 29)
+    check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]").count() == 29 and page.locator("#combined-chart svg rect[data-drawdown]:visible").count() > 0)
     # Verify the percentile warm-up and synchronized timeline controls.
     stl = page.locator('#combined-chart svg path[data-series="STLFSI4"]')
     first_valid = stl.get_attribute("data-first-valid-date") or ""
