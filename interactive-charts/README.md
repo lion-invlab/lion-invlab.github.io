@@ -15,4 +15,4 @@
 
 ## 發布原則
 
-本次修改位於 `simulation/tac-process-lab-2026-11-06`，完成驗收及使用者確認前，不合併 main、不發布正式首頁。
+Chart 3 已完成驗收並正式發布於 main。正式入口為 `https://lion-invlab.github.io/interactive-charts/`，圖表本體維護於 `research/tac-chart3/chart3-preview.html`，索引頁僅連結圖表本體，不複製程式。
