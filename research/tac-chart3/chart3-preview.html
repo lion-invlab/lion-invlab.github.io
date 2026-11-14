@@ -134,7 +134,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
   <div class="series-filters" id="series-filters"></div>
  </div>
  <details class="history-info-details" id="history-info-details">
-  <summary>歷史資料說明與早期回檔註記 <span>點此展開</span></summary>
+  <summary>完整歷史資料與重大回檔說明 <span>點此展開</span></summary>
   <div class="history-info-content">
    <div class="pre-series-note" id="pre-series-history-note" role="note" aria-live="polite" hidden></div>
    <div class="desc" style="margin-top:10px"><strong>重大事件區間</strong>｜灰色半透明區帶標示歷史事件影響期間；深色跌幅標籤標示標普 500 收盤價由波段高點至後續低點的最大回檔幅度。兩者分開呈現，避免把事件期間誤當成跌幅計算期間。</div>
@@ -144,7 +144,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="event-filter-panel"><div class="event-filter-heading"><strong>歷史事件／市場回檔篩選</strong><span>預設全選；可分別控制事件區帶與回檔標記</span></div><div class="event-filter-actions"><button type="button" id="select-all-history">全選</button><button type="button" id="clear-all-history">全部取消</button></div><div class="event-key" id="event-drawdown-key" aria-label="可勾選的歷史重大事件與標普500回檔清單"></div></div>
  <details class="method-details" id="method-details">
   <summary>資料計算與觀測方法 <span>點此展開</span></summary>
-  <div class="method-details-content"><div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 為週頻最後一個實際交易日收盤，最新觀測 2026/11/10（未完成週）。四項金融壓力指標仍各自獨立，不合成綜合分數。</div></div>
+  <div class="method-details-content"><div class="desc combined-note">壓力指標百分位只在累積滿 520 筆有效週頻觀測後才開始顯示；每週使用當週及以前最近 520 筆，不使用未來資料。樣本不足期間保留空白，不插值、不補值、不 forward-fill。S&P 500 使用日收盤價序列（1927/12/30–2026/11/10）；四項金融壓力指標仍使用週頻觀測。四項金融壓力指標仍各自獨立，不合成綜合分數。</div></div>
  </details>
 </section>
 <div class="notegrid">
