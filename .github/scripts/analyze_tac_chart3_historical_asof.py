@@ -69,17 +69,28 @@ def snapshot_summary(data, series, start, end):
 
 def release_summary(data, series, start, end):
     obs_dates = sorted(o for o in data[series] if start <= o <= end)
+    archive_vintage_start = min(
+        (v for versions in data[series].values() for v in versions),
+        default=None
+    )
     records = []
     for o in obs_dates:
-        first = first_numeric_vintage(data, series, o)
+        # If the observation predates the first archived vintage, its true first
+        # release may be outside this archive. Do not misreport the first retained
+        # vintage as the original release or calculate a false release lag.
+        left_censored = bool(archive_vintage_start and o < archive_vintage_start)
+        first = None if left_censored else first_numeric_vintage(data, series, o)
         lag = (date.fromisoformat(first) - date.fromisoformat(o)).days if first else None
         records.append({"observation_date": o, "first_numeric_vintage_date": first,
                         "release_lag_calendar_days": lag,
+                        "release_timing_status": "left_censored_by_archive_start" if left_censored else ("numeric_vintage_found" if first else "no_numeric_vintage_in_archive"),
                         "available_before_episode_end": bool(first and first < end)})
     released = [x for x in records if x["first_numeric_vintage_date"]]
     lags = [x["release_lag_calendar_days"] for x in released]
     return {
         "event_observation_dates_in_archive": len(obs_dates),
+        "archive_first_vintage_date": archive_vintage_start,
+        "event_observations_left_censored_before_archive_start": sum(x["release_timing_status"] == "left_censored_by_archive_start" for x in records),
         "event_observations_with_any_numeric_vintage": len(released),
         "event_observations_first_released_strictly_before_episode_end": sum(x["available_before_episode_end"] for x in records),
         "event_observations_first_released_during_episode": sum(bool(x["first_numeric_vintage_date"] and start <= x["first_numeric_vintage_date"] < end) for x in records),
@@ -87,7 +98,7 @@ def release_summary(data, series, start, end):
         "median_initial_release_lag_calendar_days": statistics.median(lags) if lags else None,
         "max_initial_release_lag_calendar_days": max(lags) if lags else None,
         "observation_release_records": records,
-        "rule": "First vintage with numeric value; available by episode end only if vintage_date < episode_end."
+        "rule": "First numeric vintage is treated as an initial release only when the observation is not left-censored by the archive start; same-day release timing remains date-level only."
     }
 
 def main():
