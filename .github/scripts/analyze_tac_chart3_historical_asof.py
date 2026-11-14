@@ -128,7 +128,8 @@ def main():
     p.add_argument("--artifact-dir", type=Path, required=True)
     p.add_argument("--output-json", type=Path, default=Path("tac_chart3_historical_asof.json"))
     args = p.parse_args()
-    data, files = base.load(args.artifact_dir)\n    initial_release, initial_release_files = load_initial_release(args.artifact_dir)
+    data, files = base.load(args.artifact_dir)
+    initial_release, initial_release_files = load_initial_release(args.artifact_dir)
     out = {
         "project": "TAC Chart 3 historical as-of availability reconstruction",
         "executed_at_utc": datetime.now(timezone.utc).isoformat(),
