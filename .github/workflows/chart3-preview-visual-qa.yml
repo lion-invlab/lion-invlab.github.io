@@ -15,6 +15,7 @@ on:
       - ".github/scripts/test_chart3_preview_browser.py"
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
+      - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
 
 permissions:
   contents: read
@@ -51,10 +52,10 @@ jobs:
           data_path = Path("data/tac-chart3/chart3_market_stress.json")
           html = html_path.read_text(encoding="utf-8")
           data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
-          fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
+          fetch_call = "Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)])"
           if fetch_call not in html:
-              raise SystemExit("Expected data fetch call not found; standalone preview not generated")
-          html = html.replace(fetch_call, "Promise.resolve(" + data + ")")
+              raise SystemExit("Expected dual data fetch call not found; standalone preview not generated")
+          html = html.replace(fetch_call, "Promise.all([Promise.resolve(" + data + "),fetchJson(SP500_DATA_URL)])")
           out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")
