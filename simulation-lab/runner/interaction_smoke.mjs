@@ -79,17 +79,34 @@ try {
     marker.style.setProperty("left", `${score}%`, "important");
   }, await page.locator(".cnn-fg-preview .fg6-score").textContent().then(t => Number.parseFloat(t.trim())));
 
+  // Navigation is locked to the approved mother. Monday and weekday mothers
+  // have different anchor counts; compare the output against the selected mother.
+  const templateKey = process.env.TEMPLATE_KEY || "weekday";
+  const templateName = templateKey === "monday" ? "monday-mother-template.html" : "weekday-mother-template.html";
+  const templatePath = path.resolve("simulation-lab/baseline", templateName);
+  if (!fs.existsSync(templatePath)) throw new Error(\`approved mother template not found: \${templatePath}\`);
+  const templateHtml = fs.readFileSync(templatePath, "utf8");
+  const templateNavTargets = await page.evaluate(html => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    return Array.from(doc.querySelectorAll("nav.nav a[href^='#']")).map(a => a.getAttribute("href"));
+  }, templateHtml);
+
   const nav = page.locator("nav.nav a[href^='#']");
   const navCount = await nav.count();
-  if (navCount !== 10) throw new Error(`expected 10 in-page navigation links, got ${navCount}`);
+  if (navCount !== templateNavTargets.length) {
+    throw new Error(\`expected \${templateNavTargets.length} in-page navigation links from approved \${templateKey} mother, got \${navCount}\`);
+  }
   const navTargets = [];
   for (let i = 0; i < navCount; i++) {
     const href = await nav.nth(i).getAttribute("href");
     const targetId = href.slice(1);
-    if (await page.locator(`[id="${targetId}"]`).count() !== 1) {
-      throw new Error(`navigation target missing or duplicated: ${href}`);
+    if (await page.locator(\`[id="\${targetId}"]\`).count() !== 1) {
+      throw new Error(\`navigation target missing or duplicated: \${href}\`);
     }
     navTargets.push(href);
+  }
+  if (JSON.stringify(navTargets) !== JSON.stringify(templateNavTargets)) {
+    throw new Error("rendered navigation anchors differ from the approved mother template");
   }
   const earningsNav = nav.filter({ hasText: "本週財報行事曆" });
   if (await earningsNav.count() !== 1) throw new Error("財報行事曆 navigation anchor missing");
