@@ -112,6 +112,8 @@ def validate_chart(page, label):
     left_axis_ticks = page.locator("#combined-chart svg text[data-axis='left']").evaluate_all("(es)=>es.map(e=>Number(e.dataset.axisValue))")
     check(label + "_left_percentile_axis_six_ticks", left_axis_ticks == [0, 20, 40, 60, 80, 100], left_axis_ticks)
     check(label + "_left_axis_labels_match_tick_values", page.locator("#combined-chart svg text[data-axis='left']").evaluate_all("(es)=>es.every(e=>e.textContent.trim()===e.dataset.axisValue)"))
+    check(label + "_left_axis_labels_fully_inside_svg", page.locator("#combined-chart svg text[data-axis='left']").evaluate_all("(es)=>es.every(e=>{const b=e.getBBox();return b.x>=0 && b.x+b.width<=e.ownerSVGElement.viewBox.baseVal.width})"))
+    check(label + "_left_axis_labels_have_full_expected_text", page.locator("#combined-chart svg text[data-axis='left']").evaluate_all("(es)=>es.map(e=>e.textContent.trim()).join(\",\")==\"0,20,40,60,80,100\""))
     check(label + "_header_metadata_pills_removed", page.locator("header .meta, header .pill").count() == 0)
     check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 6)
     legend_text = page.locator("#combined-legend").inner_text()
