@@ -164,6 +164,9 @@ def validate_chart(page, label):
     stl = page.locator('#combined-chart svg path[data-series="STLFSI4"]')
     first_valid = stl.get_attribute("data-first-valid-date") or ""
     check(label + "_full_520_week_window", stl.get_attribute("data-percentile-window") == "520" and first_valid >= "2000-01-01", first_valid)
+    stress_path = page.locator('#combined-chart svg path[data-series="STLFSI4"]')
+    monthly_meta = stress_path.evaluate("(e)=>({mode:e.dataset.percentileDisplay,raw:Number(e.dataset.validPoints),rendered:Number(e.dataset.renderedPoints)})")
+    check(label + "_long_range_uses_monthly_median_display_only", monthly_meta["mode"] == "monthly-median" and monthly_meta["rendered"] < monthly_meta["raw"] and monthly_meta["rendered"] <= 400, monthly_meta)
     check(label + "_timeline_controls_present", page.locator("#timeline-zoom-in").count() == 1 and page.locator("#timeline-zoom-out").count() == 1 and page.locator("#timeline-reset").count() == 1)
     initial = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
     initial_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", initial)
@@ -185,6 +188,11 @@ def validate_chart(page, label):
     check(label + "_sp500_path_uses_plot_clip", page.locator("#combined-chart svg").evaluate("(svg)=>{const p=svg.querySelector('path[data-series=SP500]'),c=svg.querySelector('clipPath#plot-clip');return !!p&&p.getAttribute('clip-path')==='url(#plot-clip)'&&c?.getAttribute('clipPathUnits')==='userSpaceOnUse'&&p.getAttribute('transform')===null}"))
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
+    for _ in range(3):
+        page.locator("#timeline-zoom-in").click()
+        page.wait_for_timeout(40)
+    weekly_meta = page.locator('#combined-chart svg path[data-series="STLFSI4"]').evaluate("(e)=>({mode:e.dataset.percentileDisplay,raw:Number(e.dataset.validPoints),rendered:Number(e.dataset.renderedPoints)})")
+    check(label + "_zoomed_view_restores_weekly_detail", weekly_meta["mode"] == "weekly" and weekly_meta["rendered"] == weekly_meta["raw"], weekly_meta)
     page.locator("#timeline-reset").click()
     page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
