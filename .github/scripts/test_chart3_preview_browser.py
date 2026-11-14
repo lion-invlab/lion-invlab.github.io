@@ -54,6 +54,12 @@ def validate_chart(page, label):
     check(label + "_daily_risk_headline_red", page.locator("#risk-state").evaluate("(e)=>getComputedStyle(e).color==='rgb(255, 90, 84)'"))
     check(label + "_daily_risk_metrics_four", page.locator("#risk-metrics .risk-metric").count() == 4)
     check(label + "_daily_risk_values_populated", all(v not in ["", "計算中", "資料不足"] for v in page.locator("#risk-metrics .risk-metric-value").all_text_contents()))
+    risk_marker = page.locator("#risk-scale-marker")
+    check(label + "_daily_risk_percentile_marker_visible", risk_marker.is_visible())
+    marker_label = risk_marker.get_attribute("aria-label") or ""
+    check(label + "_daily_risk_percentile_marker_data_linked", marker_label.startswith("目前綜合風險百分位 ") and marker_label.endswith(")")==False)
+    check(label + "_daily_risk_scale_labels", page.locator(".risk-scale span").all_text_contents() == ["安全", "留意", "偏高", "極端風險"])
+    check(label + "_daily_risk_marker_caption_matches", "四項指標等權平均" in page.locator("#risk-scale-caption").inner_text())
     check(label + "_daily_equity_action_specific", page.locator("#equity-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_defensive_action_specific", page.locator("#defensive-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_triggers_three", page.locator("#decision-triggers li").count() == 3)
