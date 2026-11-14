@@ -84,10 +84,12 @@ def validate(key: str) -> dict:
     # A mobile override that changes the comparison grid to a single column
     # would violate the contract even if the base CSS were correct.
     for media_block in __import__("re").findall(r"@media[^\\{]*\\{([^{}]*(?:\\{[^{}]*\\}[^{}]*)*)\\}", styles, flags=__import__("re").I):
+        compact_media = "".join(media_block.split())
         if ".econ-primary-grid" in media_block and (
-            "grid-template-columns:1fr" in "".join(media_block.split())
-            or "grid-template-areas" in "".join(media_block.split()) and
-               '"prev"' in "".join(media_block.split())
+            "grid-template-columns:1fr;" in compact_media
+            or "grid-template-columns:repeat(1," in compact_media
+            or ('grid-template-areas:' in compact_media and
+                '"prevactual""forecastactual"' not in compact_media)
         ):
             raise SystemExit(f"{key}: responsive CSS overrides the fixed two-column comparison grid")
 
