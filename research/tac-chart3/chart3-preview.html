@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>TAC Chart 3｜市場恐慌與金融壓力</title>
 <style>
-:root{color-scheme:light;--ink:#172033;--muted:#4f5b70;--line:#c7cfdb;--paper:#e7ebf1;--card:#f7f8fa;--navy:#101c35;--gold:#c8a45b}
+:root{color-scheme:light;--ink:#111827;--muted:#39465a;--line:#9ca9ba;--paper:#cbd2dc;--card:#e3e7ed;--navy:#101c35;--gold:#c8a45b}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif}
 main{max-width:1180px;margin:0 auto;padding:28px 20px 56px}
 header{background:var(--navy);color:#fff;border-radius:18px;padding:26px 28px;margin-bottom:18px;position:relative;overflow:hidden}
@@ -29,7 +29,7 @@ h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-he
 .history-info-details[open]>summary:after{content:'－'}
 .history-info-details>summary span{font-size:12px;font-weight:500;color:var(--muted,#64748b);white-space:nowrap}
 .history-info-content{padding:0 12px 12px;border-top:1px solid var(--line,#dbe2ec)}
-.pre-series-note{margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#e9edf2;color:#3f4b5e;font-size:12px;line-height:1.6}.pre-series-note strong{color:#29364b}.pre-series-note a{color:#315f9d;text-decoration:underline}
+.pre-series-note{margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#d5dbe4;color:#303d50;font-size:12px;line-height:1.6}.pre-series-note strong{color:#29364b}.pre-series-note a{color:#315f9d;text-decoration:underline}
 .filter-panel{border-top:1px solid var(--line);margin-top:12px;padding-top:14px}.filter-heading{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.filter-heading span{font-size:12px;color:var(--muted)}
 .filter-actions{display:flex;gap:8px;margin:10px 0}.filter-actions button{border:1px solid #cbd3df;background:#fff;border-radius:8px;padding:6px 12px;color:#33415b;font-size:12px;cursor:pointer}
 .series-filters{display:flex;gap:9px;flex-wrap:wrap}.series-toggle{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:10px;padding:8px 11px;background:#fff;font-size:13px;cursor:pointer}.series-toggle input{width:16px;height:16px;accent-color:#315f9d}.series-toggle .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
@@ -37,14 +37,14 @@ h2{font-size:18px;margin:0 0 5px}.desc{color:var(--muted);font-size:13px;line-he
 .legend{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 2px;font-size:12px;color:#4f5b70}
 .legend span{display:inline-flex;align-items:center;gap:6px}.swatch{width:18px;height:3px;border-radius:4px;display:inline-block}
 .notegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-.note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:12px;line-height:1.6;color:#526077}
+.note{background:#e3e7ed;border:1px solid var(--line);border-radius:12px;padding:13px 14px;font-size:12px;line-height:1.6;color:#39465a}
 .note strong{display:block;color:#202c43;font-size:13px;margin-bottom:4px}
-.guide{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px}.guide h2{margin-bottom:12px}.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.guide-item{background:#e9edf2;border:1px solid #cbd3df;border-radius:11px;padding:12px 13px}.guide-item strong{font-size:13px;color:#24334d}.guide-item p{font-size:12px;line-height:1.65;color:#526077;margin:5px 0 0}.guide-caution{font-size:11px;color:#7a8496;margin-top:12px;line-height:1.6}.guide a,footer a{color:#315f9d;text-decoration:underline}
-.status{padding:18px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--muted)}
-footer{margin-top:18px;color:#596579;font-size:11px;line-height:1.7}
-svg text{font-family:inherit;fill:#4b5668;font-size:11px}
+.guide{margin-top:16px;background:#e3e7ed;border:1px solid var(--line);border-radius:16px;padding:18px}.guide h2{margin-bottom:12px}.guide-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.guide-item{background:#cbd2dc;border:1px solid #9ca9ba;border-radius:11px;padding:12px 13px}.guide-item strong{font-size:13px;color:#24334d}.guide-item p{font-size:12px;line-height:1.65;color:#526077;margin:5px 0 0}.guide-caution{font-size:11px;color:#7a8496;margin-top:12px;line-height:1.6}.guide a,footer a{color:#315f9d;text-decoration:underline}
+.status{padding:18px;border-radius:12px;background:#e3e7ed;border:1px solid var(--line);color:var(--muted)}
+footer{margin-top:18px;color:#3d4a5e;font-size:11px;line-height:1.7}
+svg text{font-family:inherit;fill:#354256;font-size:11px}
 @media(max-width:700px){main{padding:14px 10px 34px}header{padding:22px 18px;border-radius:14px}.card{padding:14px 10px}.notegrid{grid-template-columns:1fr}.guide{padding:14px 12px}.guide-grid{grid-template-columns:1fr}.latest{text-align:left}.chart svg{min-width:760px}.combined-chart svg{min-width:0}.combined-chart:after{display:none}.dual-chart svg{min-width:760px}.dual-chart:after{display:block;content:'手機可左右滑動查看雙軸走勢';font-size:11px;color:var(--muted);padding:4px 0}.chart:not(.combined-chart):after{display:block;content:'手機可左右滑動查看完整時間軸';font-size:11px;color:var(--muted);padding:4px 0}}
-.method-details{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}
+.method-details{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:#e3e7ed;overflow:hidden}
 .method-details>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:pointer;list-style:none;font-size:12px;font-weight:700;color:#33415b}
 .method-details>summary::-webkit-details-marker{display:none}
 .method-details>summary:after{content:'＋';font-size:16px;color:var(--muted)}
