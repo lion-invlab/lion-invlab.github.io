@@ -99,10 +99,6 @@ def validate(key: str) -> dict:
         if not source_links:
             raise SystemExit(f"{key} card {i}: source field must contain an HTTPS source link")
 
-        source_value = fields[-1].select_one(":scope > .econ-value")
-        if not source_value or not source_value.select_one("a[href^='https://']"):
-            raise SystemExit(f"{key} card {i}: source field must contain an HTTPS source link")
-
         # Validate the card's matching expand control without normalizing the
         # existing distinction between current-week and Monday retrospective cards.
         toggles = card.select("summary > span.econ-toggle, summary > span.econ-event-toggle")
