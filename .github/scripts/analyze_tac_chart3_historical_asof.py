@@ -67,38 +67,60 @@ def snapshot_summary(data, series, start, end):
         "interpretation": "Daily as-of queries; repeated snapshots are not new observations or a forward-filled source series."
     }
 
-def release_summary(data, series, start, end):
-    obs_dates = sorted(o for o in data[series] if start <= o <= end)
-    archive_vintage_start = min(
-        (v for versions in data[series].values() for v in versions),
-        default=None
-    )
+def load_initial_release(root):
+    """Load FRED output_type=4 first-release observations; realtime_start is the first release date."""
+    out = {}
+    files = {}
+    for series in SERIES:
+        path = root / f"{series}_initial_release_output_type4.json"
+        if not path.exists():
+            raise FileNotFoundError(f"Missing output_type=4 initial-release archive: {path.name}")
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        if raw.get("series_id") != series:
+            raise ValueError(f"{path.name}: unexpected series_id")
+        records = {}
+        for row in raw.get("observations", []):
+            obs, release, value = row.get("date"), row.get("realtime_start"), row.get("value")
+            if not obs or not release:
+                continue
+            if base.num(value) is None:
+                continue
+            if obs in records and records[obs] != release:
+                raise ValueError(f"{path.name}: conflicting first release for {obs}")
+            records[obs] = release
+        out[series] = records
+        files[series] = {"file": path.name, "sha256": base.sha(path), "bytes": path.stat().st_size,
+                         "rows": len(records), "first_observation": min(records, default=None),
+                         "last_observation": max(records, default=None)}
+    return out, files
+
+
+def release_summary(initial_release, series, start, end):
+    # output_type=4 provides the initial realtime_start for each observation.
+    # Observations outside its archive are explicitly uncovered, not assigned a
+    # fabricated release date from the first retained output_type=3 vintage.
+    obs_dates = sorted(o for o in initial_release[series] if start <= o <= end)
+    all_event_obs = sorted(o for o in initial_release[series] if start <= o <= end)
     records = []
     for o in obs_dates:
-        # If the observation predates the first archived vintage, its true first
-        # release may be outside this archive. Do not misreport the first retained
-        # vintage as the original release or calculate a false release lag.
-        left_censored = bool(archive_vintage_start and o < archive_vintage_start)
-        first = None if left_censored else first_numeric_vintage(data, series, o)
-        lag = (date.fromisoformat(first) - date.fromisoformat(o)).days if first else None
+        first = initial_release[series][o]
+        lag = (date.fromisoformat(first) - date.fromisoformat(o)).days
         records.append({"observation_date": o, "first_numeric_vintage_date": first,
                         "release_lag_calendar_days": lag,
-                        "release_timing_status": "left_censored_by_archive_start" if left_censored else ("numeric_vintage_found" if first else "no_numeric_vintage_in_archive"),
-                        "available_before_episode_end": bool(first and first < end)})
-    released = [x for x in records if x["first_numeric_vintage_date"]]
-    lags = [x["release_lag_calendar_days"] for x in released]
+                        "release_timing_status": "output_type4_initial_release",
+                        "available_before_episode_end": first < end})
+    lags = [x["release_lag_calendar_days"] for x in records]
     return {
-        "event_observation_dates_in_archive": len(obs_dates),
-        "archive_first_vintage_date": archive_vintage_start,
-        "event_observations_left_censored_before_archive_start": sum(x["release_timing_status"] == "left_censored_by_archive_start" for x in records),
-        "event_observations_with_any_numeric_vintage": len(released),
+        "event_observation_dates_with_output_type4_coverage": len(obs_dates),
+        "event_observation_dates_with_output_type4_coverage_span": [min(obs_dates), max(obs_dates)] if obs_dates else None,
+        "event_observations_with_any_numeric_vintage": len(records),
         "event_observations_first_released_strictly_before_episode_end": sum(x["available_before_episode_end"] for x in records),
-        "event_observations_first_released_during_episode": sum(bool(x["first_numeric_vintage_date"] and start <= x["first_numeric_vintage_date"] < end) for x in records),
-        "first_numeric_release_date": min((x["first_numeric_vintage_date"] for x in released), default=None),
+        "event_observations_first_released_during_episode": sum(start <= x["first_numeric_vintage_date"] < end for x in records),
+        "first_numeric_release_date": min((x["first_numeric_vintage_date"] for x in records), default=None),
         "median_initial_release_lag_calendar_days": statistics.median(lags) if lags else None,
         "max_initial_release_lag_calendar_days": max(lags) if lags else None,
         "observation_release_records": records,
-        "rule": "First numeric vintage is treated as an initial release only when the observation is not left-censored by the archive start; same-day release timing remains date-level only."
+        "rule": "First release date is output_type=4 realtime_start. Date-level only; no intraday release clock. Observations absent from output_type=4 are not assigned a first-release date."
     }
 
 def main():
@@ -106,13 +128,13 @@ def main():
     p.add_argument("--artifact-dir", type=Path, required=True)
     p.add_argument("--output-json", type=Path, default=Path("tac_chart3_historical_asof.json"))
     args = p.parse_args()
-    data, files = base.load(args.artifact_dir)
+    data, files = base.load(args.artifact_dir)\n    initial_release, initial_release_files = load_initial_release(args.artifact_dir)
     out = {
         "project": "TAC Chart 3 historical as-of availability reconstruction",
         "executed_at_utc": datetime.now(timezone.utc).isoformat(),
         "as_of_rule": "Decision date T: observation_date <= T and vintage_date < T; same-day vintages excluded due unavailable intraday release clock.",
         "source": "Existing ALFRED output_type=3 chunks only; no new download.",
-        "input_chunk_file_count": len(files), "input_chunk_files": files,
+        "input_chunk_file_count": len(files), "input_chunk_files": files,\n        "initial_release_source": "FRED output_type=4 realtime_start", "initial_release_files": initial_release_files,
         "episodes": {},
         "limitations": [
             "Date-level, conservative reconstruction; not intraday release-time reconstruction.",
@@ -129,7 +151,7 @@ def main():
             out["episodes"][episode][series] = {
                 "event_window": [start, end],
                 "daily_asof_snapshot_summary": snapshot_summary(data, series, start, end),
-                "event_observation_initial_release_summary": release_summary(data, series, start, end)
+                "event_observation_initial_release_summary": release_summary(initial_release, series, start, end)
             }
     args.output_json.parent.mkdir(parents=True, exist_ok=True)
     args.output_json.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -137,7 +159,7 @@ def main():
         "days_with_data": v["daily_asof_snapshot_summary"]["days_with_numeric_latest_known_observation"],
         "evaluation_days": v["daily_asof_snapshot_summary"]["evaluation_days"],
         "median_age_days": v["daily_asof_snapshot_summary"]["median_observation_age_days"],
-        "event_observations": v["event_observation_initial_release_summary"]["event_observation_dates_in_archive"],
+        "event_observations": v["event_observation_initial_release_summary"]["event_observations_with_any_numeric_vintage"],
         "released_by_episode_end": v["event_observation_initial_release_summary"]["event_observations_first_released_strictly_before_episode_end"],
         "median_release_lag_days": v["event_observation_initial_release_summary"]["median_initial_release_lag_calendar_days"],
         "first_release": v["event_observation_initial_release_summary"]["first_numeric_release_date"]
