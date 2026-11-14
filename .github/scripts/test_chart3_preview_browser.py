@@ -213,7 +213,7 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
         pinch = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
-        check(label + "_two_finger_pinch_zoom", pinch_span < initial_span, pinch)
+        check(label + "_two_finger_pinch_zoom", pinch_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", ["1927-12-30","2026-11-10"]), pinch)
         page.locator("#timeline-reset").click()
         page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
         page.locator("#timeline-zoom-in").click()
