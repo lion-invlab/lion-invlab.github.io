@@ -4336,6 +4336,22 @@
         "revenue_attempts_added": 3
       },
       "notes": "WSM 已取得 11/12 發行人官方 Business Wire 財報時程公告，11/19 盤前發布、10:00 ET 電話會議；Investing.com 顯示 11/13 最近一次 release，與官方日程不一致，attempt 標記 incompatible。Copart 目前僅有第三方估計日期，未納入。"
+    },
+    {
+      "at": "2026-11-14T13:18:56+08:00",
+      "action": "W47_final_readback_and_schema_parity_verification",
+      "event_id": "2026-W47",
+      "before": {
+        "blob_sha": "c3257841b3ff54a83a2402c0444e67d5ad644f75"
+      },
+      "after": {
+        "blob_sha": "c3257841b3ff54a83a2402c0444e67d5ad644f75",
+        "economic_events": 11,
+        "earnings_events": 21,
+        "eps_attempts": 63,
+        "revenue_attempts": 63
+      },
+      "notes": "最終回讀確認 W47 JSON 與 W46 schema_version=1 的 economic／earnings 欄位集合完全一致；21 筆財報事件均有美股掛牌證據、EPS／Revenue 各 3 層 attempts、空 snapshot 陣列；事件 ID 唯一且排序正確。未取得有效 consensus 或 PIT snapshot。"
     }
   ],
   "last_update_audit": {
@@ -4451,7 +4467,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
@@ -4471,8 +4487,8 @@
     ],
     "economic_sorted": true,
     "earnings_sorted": true,
-    "updated_blob_sha_before": "19ac0573feb1b3a21eacdf28bea534564667ece0",
-    "earnings_events_total": 20,
+    "updated_blob_sha_before": "2f6dc3ffa012140ca322a33a48e18d0c09918ab3",
+    "earnings_events_total": 21,
     "earnings_events_added_total": 21,
     "source_outcomes": {
       "EPS:LSEG I/B/E/S:unavailable": 21,
@@ -4485,6 +4501,7 @@
       "REVENUE:Investing.com:missing_required_fields": 14,
       "EPS:Investing.com:unavailable": 1,
       "REVENUE:Investing.com:unavailable": 1
-    }
+    },
+    "updated_blob_sha_after": "c3257841b3ff54a83a2402c0444e67d5ad644f75"
   }
 }
