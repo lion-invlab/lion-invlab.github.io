@@ -84,7 +84,9 @@ def build(root):
   })
   qa.append({'series_id':sid,'status':'PASS','current_rows':len(rows),'valid_rows':len(valid),'missing_rows':missing,'vintage_event_rows':event_count,'initial_release_rows':initial_count,'current_sha256':state['current_sha256'],'vintage_events_sha256':state['events_sha256'],'initial_release_sha256':state['initial_release_sha256'],'vintage_coverage':{'first':dates[0],'last':dates[-1],'count':len(dates)},'hash_checks':checks})
  generated=max(x['retrieved_at'] for x in series)
- obj={'schema_version':'1.0','dataset_id':'TAC_CHART3_MARKET_STRESS','generated_at':generated,
+ schedule_path=root/'release_schedule.json'
+ release_schedule=json.loads(schedule_path.read_text(encoding='utf-8')) if schedule_path.exists() else {'source':'FRED official release calendar','retrieved_at':None,'series':[]}
+ obj={'schema_version':'1.0','dataset_id':'TAC_CHART3_MARKET_STRESS','generated_at':generated,'release_schedule':release_schedule,
   'method':{'current_snapshot':'FRED observations output_type=1','vintage_history':'ALFRED observations output_type=3 new/revised events only','initial_release':'FRED observations output_type=4','date_alignment':'native observation dates; no resampling or interpolation','missing_values':'preserved as null with source_missing_value status','forward_fill':False,'interpolation':False},
   'panels':[{'panel_id':'volatility','title':'Market Volatility','series_ids':['VIXCLS']},{'panel_id':'financial_conditions','title':'Financial Conditions & Stress','series_ids':['NFCI','NFCICREDIT','STLFSI4']}],
   'series':series}
