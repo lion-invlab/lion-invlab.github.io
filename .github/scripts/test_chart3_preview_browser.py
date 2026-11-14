@@ -198,6 +198,7 @@ def validate_chart(page, label):
         page.mouse.up()
         dragged = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_mouse_drag_pans_timeline", dragged != before_drag, dragged)
+        check(label + "_mouse_drag_reveals_earlier_history", dragged[0] < before_drag[0], {"before":before_drag,"after":dragged})
         page.locator("#timeline-reset").click()
     elif svg_box:
         # Simulate two-finger pinch zoom and one-finger horizontal pan on mobile.
@@ -233,6 +234,7 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=before_pan, timeout=3000)
         panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
+        check(label + "_one_finger_drag_reveals_earlier_history", panned[0] < before_pan[0], {"before":before_pan,"after":panned})
         page.locator("#timeline-reset").click()
         page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
 
