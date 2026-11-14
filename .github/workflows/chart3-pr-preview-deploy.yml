@@ -1,0 +1,64 @@
+name: TAC Chart 3 PR preview deployment
+
+on:
+  push:
+    branches:
+      - fix/chart3-full-migration-20261114
+    paths:
+      - "research/tac-chart3/chart3-preview.html"
+      - "data/tac-chart3/chart3_market_stress.json"
+      - ".github/workflows/chart3-pr-preview-deploy.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout unchanged main site
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Fetch migration branch snapshot
+        env:
+          PREVIEW_SHA: ${{ github.sha }}
+        run: |
+          git fetch origin "$PREVIEW_SHA"
+          mkdir -p /tmp/chart3-preview
+          git show "$PREVIEW_SHA:research/tac-chart3/chart3-preview.html" > /tmp/chart3-preview/chart3-preview.html
+          git show "$PREVIEW_SHA:data/tac-chart3/chart3_market_stress.json" > /tmp/chart3-preview/chart3_market_stress.json
+      - name: Build self-contained preview page
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          html = Path("/tmp/chart3-preview/chart3-preview.html").read_text(encoding="utf-8")
+          data = json.loads(Path("/tmp/chart3-preview/chart3_market_stress.json").read_text(encoding="utf-8"))
+          fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
+          if fetch_call not in html:
+              raise SystemExit("Chart 3 data loader signature not found; refusing to publish preview")
+          html = html.replace(fetch_call, "Promise.resolve(" + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ")")
+          out = Path("preview/chart3-pr-346/index.html")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_text(html, encoding="utf-8")
+          print(f"Built standalone preview: {out} ({out.stat().st_size} bytes)")
+          PY
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site snapshot with isolated PR preview
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "."
+      - name: Deploy preview
+        id: deployment
+        uses: actions/deploy-pages@v4
