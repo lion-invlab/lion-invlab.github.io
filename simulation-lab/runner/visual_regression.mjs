@@ -285,6 +285,20 @@ try {
         path: path.join(output, `${v.name}-published-earnings.png`)
       });
     }
+    // Economic cards must be measured while their details and calendar status groups
+    // are actually rendered. The three radio tabs otherwise leave two-thirds of the
+    // cards display:none, and closed <details> produce zero-sized child geometry.
+    // This QA-only reveal happens after the initial-state screenshots and never edits source HTML.
+    await reportPage.evaluate(() => {
+      document.querySelectorAll("#calendar .calendar-status-group, #last-week-calendar .calendar-status-group").forEach(node => {
+        node.hidden = false;
+        node.style.display = "block";
+      });
+      document.querySelectorAll("#calendar details.econ-event, #last-week-calendar details.econ-event").forEach(node => {
+        node.open = true;
+      });
+    });
+    await reportPage.waitForTimeout(80);
     const economicAudit = await reportPage.evaluate(() => {
       const cards = [...document.querySelectorAll("#calendar details.econ-event, #last-week-calendar details.econ-event")];
       const invalid = [];
@@ -329,8 +343,9 @@ try {
           invalid.push("card " + (i+1) + ": source field class/label/order mismatch");
         }
         const impactText = impactField.querySelector(":scope > .econ-value")?.textContent.trim() || "";
-        if (!impactText || ["待核實", "不適用／待核實"].includes(impactText)) {
-          invalid.push("card " + (i+1) + ": market impact judgment missing");
+        if (!impactText || ["待核實", "不適用／待核實"].includes(impactText) ||
+            /依當次事件公布結果|待填|待補判讀/.test(impactText)) {
+          invalid.push("card " + (i+1) + ": market impact judgment missing or still a template placeholder");
         }
         const source = sourceField.querySelector(":scope > .econ-value");
         if (!source?.querySelector("a[href^='https://']")) invalid.push("card " + (i+1) + ": HTTPS source link missing");
