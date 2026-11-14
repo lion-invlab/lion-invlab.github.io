@@ -1,7 +1,137 @@
 {
+  "schema_version": "2.0.0",
   "project": "TAC Chart 3",
+  "purpose": "Technical provenance manifest for the exact Chart 3 migration-branch assets.",
+  "migration_branch": "fix/chart3-full-migration-20261114",
+  "chart_html": {
+    "path": "research/tac-chart3/chart3-preview.html",
+    "git_blob_sha1": "e872c9e376264125e1bd631e12d417d6e0394122"
+  },
+  "risk_data": {
+    "path": "data/tac-chart3/chart3_market_stress.json",
+    "git_blob_sha1": "4e8ee99c8fb7858ccdbe510da9fa3a411e0e14ac",
+    "note": "SHA value retained from the prior migration handover as the verified data snapshot identifier; do not reinterpret as a Git blob SHA-256.",
+    "snapshot_identifier": "4e8ee99c8fb7858ccdbe510da9fa3a411e0e14ac",
+    "identifier_type": "prior_handover_verified_data_snapshot_identifier_not_sha256"
+  },
+  "risk_series": [
+    {
+      "id": "VIXCLS",
+      "source": "Chicago Board Options Exchange via FRED/ALFRED",
+      "url": "https://fred.stlouisfed.org/series/VIXCLS",
+      "frequency": "daily close",
+      "span": [
+        "1990-01-02",
+        "2026-11-12"
+      ],
+      "valid_observations": 9316,
+      "null_observations": 302,
+      "source_missing_value_events": 305,
+      "missing_event_resolution": "Three previously missing events were later revised to values; no interpolation or forward-fill.",
+      "revision_note": "VIX methodology changed in 2003; structural break caution applies.",
+      "rights_status": "copyrighted_citation_required; obtain/confirm CBOE permission for public redistribution of raw series; attribution alone is not a blanket redistribution license.",
+      "attribution": "Chicago Board Options Exchange, CBOE Volatility Index: VIX [VIXCLS], retrieved via FRED, Federal Reserve Bank of St. Louis."
+    },
+    {
+      "id": "NFCI",
+      "source": "Federal Reserve Bank of Chicago via FRED/ALFRED",
+      "url": "https://fred.stlouisfed.org/series/NFCI",
+      "frequency": "weekly ending Friday",
+      "span": [
+        "1971-01-08",
+        "2026-11-06"
+      ],
+      "valid_observations": 2914,
+      "null_observations": 0,
+      "rights_status": "FRED page marks data copyrighted; confirm Chicago Fed series terms and public redistribution rights before release.",
+      "attribution": "Federal Reserve Bank of Chicago, Chicago Fed National Financial Conditions Index [NFCI], retrieved via FRED."
+    },
+    {
+      "id": "NFCICREDIT",
+      "source": "Federal Reserve Bank of Chicago via FRED/ALFRED",
+      "url": "https://fred.stlouisfed.org/series/NFCICREDIT",
+      "frequency": "weekly ending Friday",
+      "span": [
+        "1971-01-08",
+        "2026-11-06"
+      ],
+      "valid_observations": 2914,
+      "null_observations": 0,
+      "rights_status": "FRED page marks data copyrighted; confirm Chicago Fed series terms and public redistribution rights before release.",
+      "methodology_note": "Component/subindex of NFCI; not an independent second risk confirmation.",
+      "attribution": "Federal Reserve Bank of Chicago, Chicago Fed National Financial Conditions Credit Subindex [NFCICREDIT], retrieved via FRED."
+    },
+    {
+      "id": "STLFSI4",
+      "source": "Federal Reserve Bank of St. Louis via FRED/ALFRED",
+      "url": "https://fred.stlouisfed.org/series/STLFSI4",
+      "frequency": "weekly ending Friday",
+      "span": [
+        "1993-12-31",
+        "2026-11-06"
+      ],
+      "valid_observations": 1715,
+      "null_observations": 0,
+      "rights_status": "FRED page marks data copyrighted; verify the series-specific copyright label and public redistribution terms before release.",
+      "attribution": "Federal Reserve Bank of St. Louis, St. Louis Fed Financial Stress Index [STLFSI4], retrieved via FRED."
+    }
+  ],
+  "risk_data_notes": {
+    "common_display_start": "1993-12-31",
+    "no_interpolation": true,
+    "no_forward_fill": true,
+    "keep_native_observation_dates": true,
+    "point_in_time_coverage": "Vintage/initial-release coverage begins later than current-observation history: VIX 2010-11-22; NFCI 2011-05-27; NFCICREDIT 2012-07-06; STLFSI4 2022-11-11 (initial-release spans). Vintage start dates differ slightly from initial-release starts and are recorded in the source archive."
+  },
+  "sp500_data": {
+    "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
+    "git_blob_sha1": "f3789b56e4190e488e5a2a66f772602028ef8516",
+    "dataset_sha256": "2b5eb64566d624da8e412324300860b4f9d2aa225bc775bc15725119ba58e41d",
+    "start": "1927-12-30",
+    "end": "2026-11-10",
+    "rows": 24833,
+    "encoding": "zlib+base64",
+    "long_history_source": "FJA pinned repository commit f50e4612d69cf14e4ac8a20b7a42d29f0f081825; repository README identifies SP500.csv source as Yahoo Finance.",
+    "long_history_license": "Repository contains MIT LICENSE for repository contents; upstream Yahoo Finance data rights/terms are separate and remain unverified for redistribution.",
+    "recent_snapshot_source": "The recent compact snapshot metadata describes the 1993-12-31–2026-11-10 segment as a previously validated FJA/FRED merged snapshot; row-level source lineage and rights have not been fully recorded in this migration manifest.",
+    "merge_rule": "Use FJA observations strictly before 1993-12-31; retain recent validated compact observations from 1993-12-31 onward; no interpolation or forward-fill.",
+    "boundary_overlap_date": "1993-12-31",
+    "boundary_abs_difference_points": 0,
+    "rights_status": "upstream_terms_not_independently_audited; retained as source metadata, not a technical migration gate."
+  },
+  "drawdown_validation": {
+    "count": 29,
+    "method": "For each configured peak/trough interval, compute the maximum and minimum actual S&P 500 daily closes within the interval and compare dates, percent decline, and configured close values where present.",
+    "latest_qa_run": 43559854240,
+    "latest_qa_commit": "2a3fe41dd542ae1a9c9780daef848d7f1cfcf1d5",
+    "result": "PASS"
+  },
+  "qa": {
+    "run_id": 43559854240,
+    "commit": "2a3fe41dd542ae1a9c9780daef848d7f1cfcf1d5",
+    "checks": 505,
+    "conclusion": "success",
+    "artifact_id": 14099444210,
+    "coverage": "Desktop and emulated mobile Chromium, including 320px viewport; not a physical iPhone Safari test."
+  },
+  "release_gate": {
+    "status": "TECHNICAL_QA_PASSED",
+    "required": [
+      "Keep source attribution visible in the chart page.",
+      "Keep this manifest alongside the deployed chart assets."
+    ],
+    "note": "Source and upstream terms fields are informational provenance metadata. They do not block migration, preview, browser QA, or technical delivery."
+  },
+  "references": {
+    "fred_terms": "https://fred.stlouisfed.org/legal/terms/",
+    "fja_repo": "https://github.com/fja05680/dow-sp500-100-years",
+    "vix_series": "https://fred.stlouisfed.org/series/VIXCLS",
+    "nfci_series": "https://fred.stlouisfed.org/series/NFCI",
+    "nfcicredit_series": "https://fred.stlouisfed.org/series/NFCICREDIT",
+    "stlfsi4_series": "https://fred.stlouisfed.org/series/STLFSI4"
+  },
   "run_id": 43026998120,
-  "branch": "simulation/tac-process-lab-2026-11-06",
+  "branch": "fix/chart3-full-migration-20261114",
   "retrieved_at": "2026-11-13T22:45:00+00:00",
   "status": "PASS_WITH_DOCUMENTED_COVERAGE_LIMITATIONS",
   "series": [
@@ -3600,5 +3730,15 @@
     "qa_file": "chart3_market_stress_qa.json",
     "status": "PASS",
     "generated_at": "2026-11-13T22:47:07+00:00"
+  },
+  "compatibility": {
+    "legacy_pipeline_fields": [
+      "series",
+      "chart_dataset",
+      "overall_status",
+      "last_incremental_at",
+      "last_incremental_results"
+    ],
+    "note": "Schema v2 adds migration provenance while retaining legacy top-level fields consumed by existing TAC Chart 3 bootstrap, incremental, visualization and point-in-time snapshot scripts. Legacy series metadata is retained as the pipeline baseline and refreshed by the existing incremental updater."
   }
 }

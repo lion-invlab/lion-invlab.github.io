@@ -1,0 +1,49 @@
+name: TAC Chart 3 full-history S&P 500 data build
+
+on:
+  push:
+    branches:
+      - fix/chart3-full-migration-20261114
+    paths:
+      - ".github/scripts/build_sp500_daily_compact.py"
+      - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
+      - ".github/workflows/chart3-sp500-history-data-build.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tac-chart3-sp500-history-data-build
+  cancel-in-progress: true
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout migration branch
+        uses: actions/checkout@v4
+        with:
+          ref: fix/chart3-full-migration-20261114
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build complete 1927-present compact daily series
+        run: |
+          python .github/scripts/build_sp500_daily_compact.py \
+            --recent-compact data/tac-chart3/sp500_daily_close_1993-2026.compact.json \
+            --output data/tac-chart3/sp500_daily_close_1927-2026.compact.json
+      - name: Commit generated data to migration branch
+        env:
+          BRANCH_NAME: fix/chart3-full-migration-20261114
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/tac-chart3/sp500_daily_close_1927-2026.compact.json
+          if git diff --cached --quiet; then
+            echo "Full-history compact data is already current."
+          else
+            git commit -m "Add complete 1927-present S&P 500 daily data"
+            git push origin "HEAD:$BRANCH_NAME"
+          fi

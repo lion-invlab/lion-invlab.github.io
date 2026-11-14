@@ -2,31 +2,39 @@ name: TAC Chart 3 preview visual QA
 # Re-run browser QA after history overlay checkbox changes
 
 on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
+      - fix/chart3-full-migration-20261114
     paths:
       - ".github/workflows/chart3-preview-visual-qa.yml"
       - ".github/scripts/test_chart3_preview_browser.py"
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
+      - "data/tac-chart3/manifest.json"
+      - ".github/scripts/build_sp500_daily_compact.py"
+      - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
 
 permissions:
   contents: read
 
 concurrency:
-  group: tac-chart3-preview-visual-qa
-  cancel-in-progress: true
+  group: tac-chart3-preview-visual-qa-full-history
+  cancel-in-progress: false
 
 jobs:
   browser-qa:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout main branch
+      - name: Checkout tested branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -37,19 +45,20 @@ jobs:
           python -m pip install playwright
           python -m playwright install --with-deps chromium
       - name: Build standalone preview artifact
-        if: always()
         run: |
           python - <<'PY'
           import json
           from pathlib import Path
+          import subprocess
+          subprocess.run(["python", ".github/scripts/build_sp500_daily_compact.py", "--recent-compact", "data/tac-chart3/sp500_daily_close_1993-2026.compact.json", "--output", "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"], check=True)
           html_path = Path("research/tac-chart3/chart3-preview.html")
           data_path = Path("data/tac-chart3/chart3_market_stress.json")
           html = html_path.read_text(encoding="utf-8")
           data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
-          fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
+          fetch_call = "Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)])"
           if fetch_call not in html:
-              raise SystemExit("Expected data fetch call not found; standalone preview not generated")
-          html = html.replace(fetch_call, "Promise.resolve(" + data + ")")
+              raise SystemExit("Expected dual data fetch call not found; standalone preview not generated")
+          html = html.replace(fetch_call, "Promise.all([Promise.resolve(" + data + "),fetchJson(SP500_DATA_URL)])")
           out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")

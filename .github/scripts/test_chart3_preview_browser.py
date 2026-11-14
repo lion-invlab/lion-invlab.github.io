@@ -24,8 +24,28 @@ def check(name, ok, detail=None):
     if not ok:
         raise AssertionError(f"{name}: {detail}")
 
+manifest_path = ROOT / "data" / "tac-chart3" / "manifest.json"
+manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+check("manifest_schema_v2", manifest.get("schema_version") == "2.0.0")
+check("manifest_technical_delivery_ready", manifest.get("release_gate", {}).get("status") == "TECHNICAL_QA_PASSED")
+check("manifest_contains_four_risk_series", {x.get("id") for x in manifest.get("risk_series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
+check("manifest_sp500_history_matches_chart_payload", manifest.get("sp500_data", {}).get("rows") == 24833 and manifest.get("sp500_data", {}).get("start") == "1927-12-30" and manifest.get("sp500_data", {}).get("end") == "2026-11-10")
+check("manifest_does_not_mislabel_git_blob_as_sha256", "sha256" not in manifest.get("risk_data", {}))
+check("manifest_preserves_legacy_pipeline_series", {x.get("series_id") for x in manifest.get("series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
+check("manifest_preserves_legacy_chart_dataset_sha256", isinstance(manifest.get("chart_dataset", {}).get("sha256"), str) and len(manifest["chart_dataset"]["sha256"]) == 64)
+check("manifest_preserves_incremental_pipeline_state", all(k in manifest for k in ["overall_status", "last_incremental_at", "last_incremental_results"]))
+
 def validate_chart(page, label):
-    page.wait_for_function("document.querySelector('#combined-stress-card') && !document.querySelector('#combined-stress-card').hidden", timeout=60000)
+    # Wait for either a successful chart initialization or an explicit data-load error.
+    page.wait_for_function("""() => {
+        const card = document.querySelector('#combined-stress-card');
+        const status = document.querySelector('#status');
+        return (card && !card.hidden) || (status && status.textContent.trim() !== '正在載入已驗證的圖表資料…');
+    }""", timeout=60000)
+    card_visible = page.locator("#combined-stress-card").evaluate("(e)=>!e.hidden")
+    if not card_visible:
+        status_text = page.locator("#status").inner_text()
+        raise AssertionError(f"{label}_chart_initialization_failed: {status_text}")
     check(label + "_one_combined_svg", page.locator("#combined-chart svg").count() == 1)
     chart_bottom_space = page.locator("#combined-chart svg").evaluate("(e)=>{const h=e.viewBox.baseVal.height,b=Number(e.dataset.plotBottom);return {height:h,plotBottom:b,bottomGap:h-b,yearLabels:[...e.querySelectorAll('text')].filter(t=>/^20\\d{2}$/.test(t.textContent.trim())).map(t=>Number(t.getAttribute('y')))}}")
     check(label + "_chart_bottom_whitespace_compact", chart_bottom_space["bottomGap"] <= (72 if "desktop" in label.lower() else 56) + 1, chart_bottom_space)
@@ -45,11 +65,50 @@ def validate_chart(page, label):
     check(label + "_daily_risk_headline_red", page.locator("#risk-state").evaluate("(e)=>getComputedStyle(e).color==='rgb(255, 90, 84)'"))
     check(label + "_daily_risk_metrics_four", page.locator("#risk-metrics .risk-metric").count() == 4)
     check(label + "_daily_risk_values_populated", all(v not in ["", "計算中", "資料不足"] for v in page.locator("#risk-metrics .risk-metric-value").all_text_contents()))
+    risk_marker = page.locator("#risk-scale-marker")
+    check(label + "_daily_risk_percentile_marker_visible", risk_marker.is_visible())
+    marker_label = risk_marker.get_attribute("aria-label") or ""
+    check(label + "_daily_risk_percentile_marker_data_linked", risk_marker.evaluate("(e)=>{const n=Number((e.getAttribute('aria-label')||'').replace('目前綜合風險百分位 ',''));const p=parseFloat(e.style.left);return Number.isFinite(n)&&Number.isFinite(p)&&Math.abs(n-p)<0.05}"))
+    check(label + "_daily_risk_scale_labels", page.locator(".risk-scale span").all_text_contents() == ["安全", "留意", "偏高", "極端風險"])
+    check(label + "_daily_risk_marker_caption_matches", "四項指標等權平均" in page.locator("#risk-scale-caption").inner_text())
     check(label + "_daily_equity_action_specific", page.locator("#equity-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_defensive_action_specific", page.locator("#defensive-decision").inner_text().strip() not in ["", "計算中"])
     check(label + "_daily_triggers_three", page.locator("#decision-triggers li").count() == 3)
+    check(label + "_data_provenance_visible", page.locator("#data-provenance").is_visible())
+    check(label + "_data_provenance_identifies_all_four_series", all(name in page.locator("#data-provenance").inner_text() for name in ["VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"]))
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
-    check(label + "_no_unverified_sp500_return_claim", "價格序列待接入" in page.locator("#sp500-return").inner_text() and "不虛報近 13 週報酬" in page.locator("#sp500-detail").inner_text())
+    check(label + "_sp500_daily_snapshot_populated", "13 週" in page.locator("#sp500-return").inner_text() and "收盤" in page.locator("#sp500-return").inner_text() and "24,833 筆真實交易日收盤價" in page.locator("#sp500-detail").inner_text())
+    check(label + "_sp500_daily_observation_count", page.locator("#combined-chart svg path[data-series=SP500]").get_attribute("data-observations") == "24833")
+    drawdown_audit = page.evaluate("""() => {
+        const results = DRAWDOWNS.map(dd => {
+            const start = Date.parse(dd.peak + "T00:00:00Z");
+            const end = Date.parse(dd.trough + "T00:00:00Z");
+            let high = -Infinity, low = Infinity, highDate = "", lowDate = "";
+            for (let i = 0; i < SP500_DATES.length; i++) {
+                const day = SP500_DATES[i];
+                if (day < start || day > end) continue;
+                const value = SP500_PRICES[i];
+                if (value > high) { high = value; highDate = new Date(day).toISOString().slice(0, 10); }
+                if (value < low) { low = value; lowDate = new Date(day).toISOString().slice(0, 10); }
+            }
+            const calculatedPct = (low / high - 1) * 100;
+            return {
+                id: dd.id,
+                configuredPct: dd.pct,
+                calculatedPct: Number(calculatedPct.toFixed(1)),
+                configuredPeak: dd.peak,
+                actualPeak: highDate,
+                configuredTrough: dd.trough,
+                actualTrough: lowDate,
+                peakCloseMatches: dd.peakClose == null || Math.abs(dd.peakClose - high) <= 0.011,
+                troughCloseMatches: dd.troughClose == null || Math.abs(dd.troughClose - low) <= 0.011,
+                pctMatches: Math.abs(dd.pct - calculatedPct) <= 0.15,
+                datesMatch: highDate === dd.peak && lowDate === dd.trough
+            };
+        });
+        return {count: results.length, failures: results.filter(x => !x.pctMatches || !x.datesMatch || !x.peakCloseMatches || !x.troughCloseMatches), results};
+    }""")
+    check(label + "_all_drawdown_labels_match_sp500_daily_data", drawdown_audit["count"] == 29 and len(drawdown_audit["failures"]) == 0, drawdown_audit)
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
@@ -58,41 +117,32 @@ def validate_chart(page, label):
     check(label + "_guide_explains_percentile_80", "80 代表高於約 80% 的歷史觀測" in guide_text)
     check(label + "_guide_warns_percentiles_not_raw_values", "不代表原始幅度相同" in guide_text)
     check(label + "_guide_mentions_credit_subindex_dependency", "不作獨立壓力確認" in guide_text)
-    check(label + "_seventeen_event_bands", page.locator("#combined-chart svg rect[data-event]").count() == 17)
-    check(label + "_seventeen_event_legend_items", page.locator("#event-drawdown-key [data-event-entry]").count() == 17)
-    check(label + "_eighteen_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]").count() == 18)
-    check(label + "_eighteen_drawdown_percentage_labels", page.locator("#combined-chart svg text[data-drawdown-label]").count() == 18)
-    check(label + "_eighteen_drawdown_ledger_items", page.locator("#event-drawdown-key [data-drawdown-entry]").count() == 18)
-    check(label + "_35_history_checkboxes_default_checked", page.locator("#event-drawdown-key input[type=checkbox]:checked").count() == 35)
-    check(label + "_17_event_checkboxes", page.locator("#event-drawdown-key input[data-history-event]").count() == 17)
-    check(label + "_18_drawdown_checkboxes", page.locator("#event-drawdown-key input[data-history-drawdown]").count() == 18)
+    check(label + "_twenty_eight_event_bands", page.locator("#combined-chart svg rect[data-event]").count() == 28)
+    check(label + "_twenty_eight_event_legend_items", page.locator("#event-drawdown-key [data-event-entry]").count() == 28)
+    check(label + "_twenty_nine_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]").count() == 29)
+    check(label + "_twenty_nine_drawdown_percentage_labels", page.locator("#combined-chart svg text[data-drawdown-label]").count() == 29)
+    check(label + "_twenty_nine_drawdown_ledger_items", page.locator("#event-drawdown-key [data-drawdown-entry]").count() == 29)
+    check(label + "_57_history_checkboxes_default_checked", page.locator("#event-drawdown-key input[type=checkbox]:checked").count() == 57)
+    check(label + "_28_event_checkboxes", page.locator("#event-drawdown-key input[data-history-event]").count() == 28)
+    check(label + "_29_drawdown_checkboxes", page.locator("#event-drawdown-key input[data-history-drawdown]").count() == 29)
     drawdown_ledger_text = page.locator("#event-drawdown-key").inner_text()
     history_details = page.locator("#history-info-details")
     check(label + "_history_explanations_collapsed_by_default", not history_details.evaluate("(e)=>e.open"))
     check(label + "_history_explanations_summary_visible", history_details.locator("summary").is_visible())
     legacy_note = page.locator("#pre-series-history-note")
-    check(label + "_pre_series_1990_note_hidden_until_expanded", not legacy_note.is_visible())
+    check(label + "_full_history_removes_pre_series_gap", not legacy_note.is_visible())
     history_details.locator("summary").click()
     check(label + "_history_explanations_expand_on_demand", history_details.evaluate("(e)=>e.open"))
-    check(label + "_pre_series_1990_note_visible", legacy_note.is_visible())
-    legacy_text = legacy_note.inner_text()
-    check(label + "_pre_series_1990_note_has_dates_closes_and_method", all(value in legacy_text for value in ["1990-07-16", "1990-10-11", "-19.9%", "368.95", "295.46", "1993-12-31", "不補畫價格線"]))
-    check(label + "_pre_series_1990_source_links", "sec.gov/Archives" in legacy_note.locator("a").nth(0).get_attribute("href") and "bmogamhub.com" in legacy_note.locator("a").nth(1).get_attribute("href"))
-    legacy_marker = page.locator('#combined-chart svg rect[data-drawdown="dd-1990"]')
-    check(label + "_pre_series_1990_boundary_marker", legacy_marker.get_attribute("data-drawdown-before-series") == "true" and legacy_marker.evaluate("(e)=>Math.abs(e.getBBox().width-2)<0.01"))
-    legacy_checkbox = page.locator('#event-drawdown-key input[data-history-drawdown="dd-1990"]')
-    legacy_checkbox.uncheck()
-    check(label + "_pre_series_1990_note_hides_with_drawdown", legacy_note.evaluate("(e)=>e.hidden"))
-    legacy_checkbox.check()
-    check(label + "_pre_series_1990_note_restores_with_drawdown", legacy_note.is_visible())
+    check(label + "_no_pre_series_1990_note_needed", not legacy_note.is_visible())
+    check(label + "_1929_great_depression_drawdown_in_ledger", "1929-09-16 → 1932-06-01" in drawdown_ledger_text and "-86.2%" in drawdown_ledger_text)
+    check(label + "_1937_recession_drawdown_in_ledger", "1937-03-10 → 1938-03-31" in drawdown_ledger_text and "-54.5%" in drawdown_ledger_text)
     history_details.locator("summary").click()
     check(label + "_history_explanations_collapse_on_demand", not history_details.evaluate("(e)=>e.open"))
-    check(label + "_pre_series_1990_note_hidden_after_collapse", not legacy_note.is_visible())
     check(label + "_drawdown_labels_include_2011_and_2022", all(value in drawdown_ledger_text for value in ["-19.4%", "-25.4%", "-16.0%", "-12.4%", "-14.7%"]))
-    check(label + "_event_dates_and_sources", all(value in page.locator("#event-drawdown-key").inner_text() for value in ["1990-07-16 → 1990-10-11", "1997-07-02 → 1998-12-31", "2002-11-27 → 2003-03-11", "2011-04-29 → 2011-10-03", "2025-02-19 → 2025-04-08"]) and page.locator("#event-drawdown-key a").count() >= 35)
-    check(label + "_event_bands_inside_plot", page.locator("#combined-chart svg").evaluate("(svg)=>[...svg.querySelectorAll('rect[data-event]')].every(e=>{const b=e.getBBox(),top=Number(svg.dataset.plotTop),bottom=Number(svg.dataset.plotBottom);return b.y===top&&b.height===bottom-top&&b.width>=2})"))
+    check(label + "_event_dates_and_sources", all(value in page.locator("#event-drawdown-key").inner_text() for value in ["1929-08-01 → 1933-03-31", "1937-05-01 → 1938-06-30", "1939-09-01 → 1942-04-28", "1966-02-09 → 1966-10-07", "1973-10-19 → 1975-03-31", "1987-10-14 → 1987-12-04", "1990-07-16 → 1990-10-11", "1997-07-02 → 1998-12-31", "2002-11-27 → 2003-03-11", "2011-04-29 → 2011-10-03", "2025-02-19 → 2025-04-08"]) and page.locator("#event-drawdown-key a").count() >= 57)
+    check(label + "_event_bands_inside_plot", page.locator("#combined-chart svg").evaluate("(svg)=>[...svg.querySelectorAll('rect[data-event]')].filter(e=>e.getAttribute('display')!=='none').every(e=>{const b=e.getBBox(),top=Number(svg.dataset.plotTop),bottom=Number(svg.dataset.plotBottom),left=Number(svg.dataset.plotLeft),right=Number(svg.dataset.plotRight);return b.y===top&&b.height===bottom-top&&b.width>=2&&b.x>=left&&b.x+b.width<=right})"))
     check(label + "_event_bands_behind_series", page.locator("#combined-chart svg").evaluate("(svg)=>{const a=[...svg.children].findIndex(e=>e.matches('rect[data-event]'));const b=[...svg.children].findIndex(e=>e.matches('path[data-series]'));return a>=0&&b>a}"))
-    check(label + "_drawdown_bands_inside_plot", page.locator("#combined-chart svg").evaluate("(svg)=>{const top=Number(svg.dataset.plotTop),bottom=Number(svg.dataset.plotBottom),els=[...svg.querySelectorAll('rect[data-drawdown]')];return els.length===18&&els.every(e=>{const b=e.getBBox();return b.y===top&&b.height===bottom-top&&b.width>=2})}"))
+    check(label + "_drawdown_bands_inside_plot", page.locator("#combined-chart svg").evaluate("(svg)=>{const top=Number(svg.dataset.plotTop),bottom=Number(svg.dataset.plotBottom),left=Number(svg.dataset.plotLeft),right=Number(svg.dataset.plotRight),els=[...svg.querySelectorAll('rect[data-drawdown]')];return els.length===29&&els.filter(e=>e.getAttribute('display')!=='none').every(e=>{const b=e.getBBox();return b.y===top&&b.height===bottom-top&&b.width>=2&&b.x>=left&&b.x+b.width<=right})}"))
     check(label + "_drawdown_labels_inside_plot", page.locator("#combined-chart svg").evaluate("(svg)=>{const l=Number(svg.dataset.plotLeft),r=Number(svg.dataset.plotRight),t=Number(svg.dataset.plotTop),b=Number(svg.dataset.plotBottom),els=[...svg.querySelectorAll('text[data-drawdown-label]')].filter(e=>e.getAttribute('display')!=='none');return els.every(e=>{const box=e.getBBox();return box.x>=l&&box.x+box.width<=r&&box.y>=t&&box.y+box.height<=b})}"))
     if label.startswith("mobile"):
         check(label + "_overlapping_drawdown_labels_suppressed", page.locator("#combined-chart svg text[data-drawdown-label]:visible").count() == 0)
@@ -139,15 +189,16 @@ def validate_chart(page, label):
     check(label + "_clear_all_event_bands", page.locator("#combined-chart svg rect[data-event]:visible").count() == 0)
     check(label + "_clear_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 0)
     page.locator("#select-all-history").click()
-    check(label + "_select_all_history_checkboxes", page.locator("#event-drawdown-key input:checked").count() == 35)
-    check(label + "_select_all_event_bands", page.locator("#combined-chart svg rect[data-event]:visible").count() == 17)
-    check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 18)
+    check(label + "_select_all_history_checkboxes", page.locator("#event-drawdown-key input:checked").count() == 57)
+    check(label + "_select_all_event_bands", page.locator("#combined-chart svg rect[data-event]").count() == 28 and page.locator("#combined-chart svg rect[data-event]:visible").count() > 0)
+    check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]").count() == 29 and page.locator("#combined-chart svg rect[data-drawdown]:visible").count() > 0)
     # Verify the percentile warm-up and synchronized timeline controls.
     stl = page.locator('#combined-chart svg path[data-series="STLFSI4"]')
     first_valid = stl.get_attribute("data-first-valid-date") or ""
     check(label + "_full_520_week_window", stl.get_attribute("data-percentile-window") == "520" and first_valid >= "2000-01-01", first_valid)
     check(label + "_timeline_controls_present", page.locator("#timeline-zoom-in").count() == 1 and page.locator("#timeline-zoom-out").count() == 1 and page.locator("#timeline-reset").count() == 1)
     initial = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+    check(label + "_default_view_starts_1993_12_31", initial[0] == "1993-12-31", initial)
     initial_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", initial)
     initial_axis = page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>[Number(e.dataset.axisMin),Number(e.dataset.axisMax)]")
     page.locator("#timeline-zoom-in").click()
@@ -168,9 +219,9 @@ def validate_chart(page, label):
     page.locator("#timeline-zoom-out").click()
     page.wait_for_timeout(40)
     page.locator("#timeline-reset").click()
-    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+    page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
     reset = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
-    check(label + "_timeline_reset_restores_full_range", reset == ["1993-12-31", "2026-11-10"], reset)
+    check(label + "_timeline_reset_restores_full_range", reset == ["1927-12-30", "2026-11-10"], reset)
     svg_box = page.locator("#combined-chart svg").bounding_box()
     if svg_box and label == "desktop":
         cx = svg_box["x"] + svg_box["width"] * 0.55
@@ -180,9 +231,12 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset, timeout=3000)
         wheel_zoom = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
-        check(label + "_mouse_wheel_zoom", wheel_span < initial_span, wheel_zoom)
+        check(label + "_mouse_wheel_zoom", wheel_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", reset), wheel_zoom)
         page.locator("#timeline-reset").click()
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        reset_before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.locator("#timeline-zoom-in").click()
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset_before_drag, timeout=3000)
         before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.mouse.move(cx, cy)
         page.mouse.down()
@@ -190,6 +244,7 @@ def validate_chart(page, label):
         page.mouse.up()
         dragged = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_mouse_drag_pans_timeline", dragged != before_drag, dragged)
+        check(label + "_mouse_drag_reveals_earlier_history", dragged[0] < before_drag[0], {"before":before_drag,"after":dragged})
         page.locator("#timeline-reset").click()
     elif svg_box:
         # Simulate two-finger pinch zoom and one-finger horizontal pan on mobile.
@@ -206,11 +261,12 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
         pinch = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         pinch_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", pinch)
-        check(label + "_two_finger_pinch_zoom", pinch_span < initial_span, pinch)
+        check(label + "_two_finger_pinch_zoom", pinch_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", ["1927-12-30","2026-11-10"]), pinch)
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        reset_before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         page.locator("#timeline-zoom-in").click()
-        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=initial, timeout=3000)
+        page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset_before_pan, timeout=3000)
         before_pan = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         panned = page.evaluate("""() => {
           const el=document.querySelector('#combined-svg');
@@ -225,8 +281,9 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=before_pan, timeout=3000)
         panned = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         check(label + "_one_finger_drag_pans_timeline", panned != before_pan, panned)
+        check(label + "_one_finger_drag_reveals_earlier_history", panned[0] < before_pan[0], {"before":before_pan,"after":panned})
         page.locator("#timeline-reset").click()
-        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1993-12-31'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
+        page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart==='1927-12-30'&&e.dataset.viewEnd==='2026-11-10'}", timeout=3000)
 
 try:
     with sync_playwright() as p:
@@ -239,10 +296,11 @@ try:
             response = page.goto("http://127.0.0.1:8765/research/tac-chart3/chart3-preview.html", wait_until="networkidle", timeout=60000)
             check(label + "_http_200", response is not None and response.status == 200, response.status if response else None)
             validate_chart(page, label)
+            page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return !!e&&!!e.parentElement&&e.parentElement.clientWidth>0}", timeout=5000)
             chart_box = page.locator("#combined-chart").evaluate("(e)=>({client:e.clientWidth,scroll:e.scrollWidth})")
             check(label + "_no_chart_horizontal_overflow", chart_box["scroll"] <= chart_box["client"] + 2, chart_box)
-            svg_layout = page.locator("#combined-chart svg").evaluate("(e)=>({width:e.getBoundingClientRect().width,container:e.parentElement.clientWidth,viewWidth:Number(e.viewBox.baseVal.width)})")
-            check(label + "_responsive_svg_fits_container", abs(svg_layout["width"]-svg_layout["container"]) <= 2 and svg_layout["viewWidth"] <= 1100, svg_layout)
+            svg_layout = page.locator("#combined-chart").evaluate("(root)=>{const e=root.querySelector('svg');if(!e)return null;const parent=e.parentElement;return {width:e.getBoundingClientRect().width,container:parent?.clientWidth||root.clientWidth,viewWidth:Number(e.viewBox.baseVal.width)}}")
+            check(label + "_responsive_svg_fits_container", svg_layout is not None and abs(svg_layout["width"]-svg_layout["container"]) <= 2 and svg_layout["viewWidth"] <= 1100, svg_layout)
             axis_layout = page.locator("#combined-chart svg").evaluate("(e)=>{const w=e.viewBox.baseVal.width,ticks=[...e.querySelectorAll('text[data-axis=right]')].map(t=>t.getBBox());return {viewWidth:w,minLeft:Math.min(...ticks.map(t=>t.x)),maxRight:Math.max(...ticks.map(t=>t.x+t.width)),tickCount:ticks.length}}")
             check(label + "_right_price_axis_visible_without_horizontal_scroll", axis_layout["minLeft"] >= 0 and axis_layout["maxRight"] <= axis_layout["viewWidth"] and axis_layout["tickCount"] == 6, axis_layout)
             page_widths = page.evaluate("({client:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth})")
