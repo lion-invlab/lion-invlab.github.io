@@ -481,41 +481,44 @@
       "change_display": "Fear",
       "source": {
         "name": "FGScore｜CNN Fear & Greed backup index",
-        "url": "https://fgscore.com/",
+        "url": "https://fgscore.com/en/markets/sp500",
         "data_date": "2026-11-14",
         "quote_type": "sentiment_index",
-        "note": "CNN官方頁面未能直接讀取；採FGScore備援值39，Fcontext鏡像同為39，前一收盤40。"
+        "note": "CNN官方頁面被robots限制無法直接讀取；FGScore備援值39（Fear），Fcontext鏡像同為39、前一收盤40。"
       },
       "band": "Fear"
     }
   },
   "fedwatch": {
-    "updated_at_tw": "2026/11/14 13:35",
+    "updated_at_tw": "2026/11/14 12:05",
     "target_meeting": "2026-12-09",
     "current_target_range": "3.75-4.00%",
     "probabilities": [
       {
+        "outcome": "hold",
         "rate_range": "3.75-4.00%",
         "probability": 0,
-        "change_1d": null,
-        "change_1w": null
+        "change_1d": 0,
+        "change_1w": -24.5
       },
       {
+        "outcome": "hike_25bp",
         "rate_range": "4.00-4.25%",
         "probability": 91.3,
-        "change_1d": null,
-        "change_1w": null
+        "change_1d": 1.4,
+        "change_1w": 15.8
       },
       {
+        "outcome": "hike_50bp",
         "rate_range": "4.25-4.50%",
         "probability": 8.7,
-        "change_1d": null,
+        "change_1d": -1.4,
         "change_1w": null
       }
     ],
-    "source_name": "Investing.com Fed Rate Monitor",
+    "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "11/14 13:35台灣時間快照；市場定價12/9升息25bp至4.00–4.25%機率91.3%，升息50bp至4.25–4.50%機率8.7%，持平機率0%；現行目標區間3.75–4.00%。"
+    "note": "11/14 12:05台灣時間快照：12/9升息25bp機率91.3%（較前日+1.4個百分點、較前週+15.8個百分點），升息50bp機率8.7%（較前日-1.4個百分點），持平機率0%（前週仍有24.5%）。CME FedWatch官方頁已查閱，但數值嵌入需登入API；本版數值採Investing.com Fed Rate Monitor，其定價基礎為CME 30-Day Fed Funds futures。"
   },
   "observation": "本週最重要的矛盾是：美股四大指數週線仍同步上漲，但週五半導體與科技股急跌；PPI月增降溫，年增卻升至6.5%，Fed官員又釋出偏鷹訊號。市場並非全面risk-off，而是從高估值AI題材轉向檢驗利率、管理層交接與自由現金流。",
   "calendar": {
@@ -682,7 +685,7 @@
     "heading": "盤面觀察重點",
     "text": "本週三大催化劑：① 11/17 21:30–22:15（台灣時間）美國零售銷售與工業生產，並留意當日01:00 Fed主席Warsh開幕致詞，檢驗消費、製造與政策訊號。② 11/19 03:00 FOMC 10月會議紀要，觀察委員對通膨與升息路徑的分歧。③ 11/18 05:20 NVIDIA盤後財報，檢驗資料中心需求、毛利率、資本支出與接班後管理層指引。"
   },
-  "qa_run_revision": "2026-11-16-SIM1.2-pre-review-v2",
+  "qa_run_revision": "2026-11-16-SIM1.2-pre-review-v3",
   "market_sentiment": "Fear & Greed 39（Fear）｜VIX 19.30（+3.21%）｜MOVE 98.79（+0.37%）｜FedWatch：12/9升息25bp機率91.3%。股市波動尚未極端，但高殖利率與美元走強使風險承擔意願下降。",
   "quality_note": "固定44項指標已全部填值，行情基準統一為2026-11-13。美股S&P 500、Nasdaq Composite、Russell 2000採AP現貨收盤；Dow與SOX以Investing.com HK歷史頁為主，SOX OHLC另以Nasdaq官方覆核；其餘全球指數及產業ETF以Investing.com歷史頁為主（XLRE使用Global備援）；美債殖利率採U.S. Treasury官方日曲線；外匯採Investing.com HK歷史頁，DXY使用USD Index代理值；能源與金屬採指定CME/ICE合約歷史頁；VIX/MOVE採Investing.com、Fear & Greed採FGScore備援。W47資料庫尚未完成最終更新，故本版為預審而非最終版。",
   "report_cutoff_taipei": "2026-11-15 02:13（預審快照）",
