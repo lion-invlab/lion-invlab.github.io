@@ -104,6 +104,9 @@ def validate_chart(page, label):
     if label.startswith("mobile"):
         check(label + "_overlapping_drawdown_labels_suppressed", page.locator("#combined-chart svg text[data-drawdown-label]:visible").count() == 0)
     check(label + "_all_selected_by_default", page.locator("#series-filters input[data-series-toggle]:checked").count() == 5)
+    check(label + "_left_percentile_axis_six_ticks", page.locator("#combined-chart svg text[data-axis='left']").count() == 6 && JSON.stringify(page.locator("#combined-chart svg text[data-axis='left']").evaluateAll("(es)=>es.map(e=>Number(e.dataset.axisValue))")) === JSON.stringify([0,20,40,60,80,100]), page.locator("#combined-chart svg text[data-axis='left']").all_text_contents())
+    check(label + "_left_axis_labels_match_tick_values", page.locator("#combined-chart svg text[data-axis='left']").evaluateAll("(es)=>es.every(e=>e.textContent.trim()===e.dataset.axisValue)") )
+    check(label + "_header_metadata_pills_removed", page.locator("header .meta, header .pill").count() === 0)
     check(label + "_right_price_axis", page.locator("#combined-chart svg text[data-axis='right']").count() == 6)
     legend_text = page.locator("#combined-legend").inner_text()
     filter_text = page.locator("#series-filters").inner_text()
