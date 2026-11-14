@@ -216,15 +216,16 @@ function weeklyLast(s){
  return [...weeks.values()].sort((a,b)=>a.date.localeCompare(b.date));
 }
 function displayPercentilePoints(points,viewStart,viewEnd){
-  // Long-range overview is display-only monthly median; source observations and rolling 520-week percentiles remain unchanged.
-  const monthly=(viewEnd-viewStart)>8*365.25*86400000;
-  if(!monthly)return {points,mode:'weekly'};
+  // Adaptive display aggregation only; source observations and trailing 520-week percentiles are never altered.
+  const span=viewEnd-viewStart;
+  const mode=span>8*365.25*86400000?'quarterly-median':span>2*365.25*86400000?'monthly-median':'weekly';
+  if(mode==='weekly')return {points,mode};
   const buckets=new Map();
-  for(const p of points){if(!Number.isFinite(p.value))continue;const key=p.date.slice(0,7);if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(p);}
+  for(const p of points){if(!Number.isFinite(p.value))continue;const d=new Date(p.date+'T00:00:00Z');const key=mode==='quarterly-median'?d.getUTCFullYear()+'-Q'+(Math.floor(d.getUTCMonth()/3)+1):p.date.slice(0,7);if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(p);}
   const out=[];
-  for(const [month,items] of buckets){items.sort((a,b)=>a.date.localeCompare(b.date));const values=items.map(p=>p.value).sort((a,b)=>a-b),mid=Math.floor(values.length/2),median=values.length%2?values[mid]:(values[mid-1]+values[mid])/2;out.push({date:items[Math.floor(items.length/2)].date,value:median});}
+  for(const [period,items] of buckets){items.sort((a,b)=>a.date.localeCompare(b.date));const values=items.map(p=>p.value).sort((a,b)=>a-b),mid=Math.floor(values.length/2),median=values.length%2?values[mid]:(values[mid-1]+values[mid])/2;out.push({date:items[Math.floor(items.length/2)].date,value:median});}
   out.sort((a,b)=>a.date.localeCompare(b.date));
-  return {points:out,mode:'monthly-median'};
+  return {points:out,mode};
 }
 function expandingPercentile(points){
  // 完整累積 520 筆有效週頻樣本後才開始計算，樣本不足時保留空白。
@@ -317,7 +318,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4']){if(!visible[id])continue;const rawPts=data[id],display=displayPercentilePoints(rawPts,minX,maxX),pts=display.points;let d='',open=false;
   for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
   const cfg=SERIES_CONFIG.find(s=>s.id===id),first=rawPts.find(p=>Number.isFinite(p.value)),valid=rawPts.filter(p=>Number.isFinite(p.value)).length;
-  parts.push('<path id="path-'+id+'" data-series="'+id+'" data-first-valid-date="'+(first?.date||'')+'" data-valid-points="'+valid+'" data-rendered-points="'+pts.filter(p=>Number.isFinite(p.value)).length+'" data-percentile-display="'+display.mode+'" data-percentile-window="520" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜trailing 520-week percentile｜'+(display.mode==='monthly-median'?'long-range view uses monthly median of weekly percentiles; zoom in for weekly detail':'weekly percentile detail')+'</title></path>');
+  parts.push('<path id="path-'+id+'" data-series="'+id+'" data-first-valid-date="'+(first?.date||'')+'" data-valid-points="'+valid+'" data-rendered-points="'+pts.filter(p=>Number.isFinite(p.value)).length+'" data-percentile-display="'+display.mode+'" data-percentile-window="520" d="'+d+'" fill="none" stroke="'+cfg.color+'" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"><title>'+cfg.name+'｜trailing 520-week percentile｜'+(display.mode==='quarterly-median'?'long-range view uses quarterly median of weekly percentiles':display.mode==='monthly-median'?'medium-range view uses monthly median of weekly percentiles':'weekly percentile detail')+'</title></path>');
  }
  parts.push('<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+(W-R)+'" y1="'+T+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/><line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#aab4c3"/>');
  parts.push('<text x="'+L+'" y="17" font-size="'+(mobile?10:12)+'" font-weight="600">'+(mobile?'壓力指標百分位（左軸）':'金融壓力指標｜歷史百分位（左軸）')+'</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="'+(mobile?10:12)+'" font-weight="600">'+(mobile?'S&P 500（右軸）':'S&P 500 點數（右軸）')+'</text>');
