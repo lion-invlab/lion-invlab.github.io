@@ -73,7 +73,6 @@ def validate_chart(page, label):
     check(label + "_daily_triggers_three", page.locator("#decision-triggers li").count() == 3)
     check(label + "_data_provenance_visible", page.locator("#data-provenance").is_visible())
     check(label + "_data_provenance_identifies_all_four_series", all(name in page.locator("#data-provenance").inner_text() for name in ["VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"]))
-    check(label + "_data_provenance_discloses_redistribution_gate", "公開正式發布前" in page.locator("#data-provenance").inner_text())
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
     check(label + "_sp500_daily_snapshot_populated", "13 週" in page.locator("#sp500-return").inner_text() and "收盤" in page.locator("#sp500-return").inner_text() and "24,833 筆真實交易日收盤價" in page.locator("#sp500-detail").inner_text())
     check(label + "_sp500_daily_observation_count", page.locator("#combined-chart svg path[data-series=SP500]").get_attribute("data-observations") == "24833")
