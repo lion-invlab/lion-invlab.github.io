@@ -179,10 +179,14 @@ def main():
     data.update(project_calendar_data(calendar_source))
     if args.price_reactions:
         reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
-        if reaction_doc.get("main_commit_sha") != calendar_source["main_commit_sha"] or reaction_doc.get("calendar_blob_sha") != calendar_source["current"]["blob_sha"]:
-            raise ValueError("earnings price reaction snapshot does not match the authoritative main calendar SHA")
+        reaction_calendar_side = "previous" if datetime.fromisoformat(data["report_date"]).weekday() == 0 else "current"
+        if (reaction_doc.get("main_commit_sha") != calendar_source["main_commit_sha"]
+                or reaction_doc.get("calendar_blob_sha") != calendar_source[reaction_calendar_side]["blob_sha"]
+                or reaction_doc.get("calendar_side", reaction_calendar_side) != reaction_calendar_side):
+            raise ValueError("earnings price reaction snapshot does not match the authoritative report-week calendar SHA")
         reaction_map=reaction_doc.get("reactions",{})
-        for event in data.get("earnings",{}).get("events",[]):
+        reaction_target = "last_week_earnings" if reaction_calendar_side == "previous" else "earnings"
+        for event in data.get(reaction_target,{}).get("events",[]):
             reaction=reaction_map.get(event.get("id"))
             if reaction:
                 event["price_reaction"]=reaction.get("display")
@@ -1369,7 +1373,11 @@ def main():
                     if name in ("財報判讀","財報判讀與股價反應"):
                         set_text(value, earnings_commentary(x)+"；股價反應："+str(x.get("price_reaction") or "待核實"))
                     elif name in ("公布時段","股價當日表現"):
-                        set_text(value, "公布時段："+clock+"；股價反應："+str(x.get("price_reaction") or "待核實"))
+                        value.clear()
+                        value.append("公布時段："+clock+"；股價反應："+str(x.get("price_reaction") or "待核實"))
+                        if x.get("price_reaction_source_url"):
+                            value.append("；")
+                            value.append(source_link(x["price_reaction_source_url"], x.get("price_reaction_source") or "股價來源"))
                     elif name in ("來源","資料來源"):
                         value.clear()
                         if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
