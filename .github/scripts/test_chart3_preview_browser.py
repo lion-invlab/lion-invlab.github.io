@@ -246,6 +246,7 @@ try:
             response = page.goto("http://127.0.0.1:8765/research/tac-chart3/chart3-preview.html", wait_until="networkidle", timeout=60000)
             check(label + "_http_200", response is not None and response.status == 200, response.status if response else None)
             validate_chart(page, label)
+            page.wait_for_function("()=>{const e=document.querySelector('#combined-chart svg');return !!e&&!!e.parentElement&&e.parentElement.clientWidth>0}", timeout=5000)
             chart_box = page.locator("#combined-chart").evaluate("(e)=>({client:e.clientWidth,scroll:e.scrollWidth})")
             check(label + "_no_chart_horizontal_overflow", chart_box["scroll"] <= chart_box["client"] + 2, chart_box)
             svg_layout = page.locator("#combined-chart svg").evaluate("(e)=>({width:e.getBoundingClientRect().width,container:e.parentElement.clientWidth,viewWidth:Number(e.viewBox.baseVal.width)})")
