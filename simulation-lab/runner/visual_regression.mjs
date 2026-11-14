@@ -290,6 +290,11 @@ try {
     // cards display:none, and closed <details> produce zero-sized child geometry.
     // This QA-only reveal happens after the initial-state screenshots and never edits source HTML.
     await reportPage.evaluate(() => {
+      // Monday retrospective cards sit inside a separate outer disclosure.
+      // Open it only after the initial-state screenshot so its descendants can be measured.
+      document.querySelectorAll("#last-week-calendar details.last-week-calendar-collapse").forEach(node => {
+        node.open = true;
+      });
       document.querySelectorAll("#calendar .calendar-status-group, #last-week-calendar .calendar-status-group").forEach(node => {
         node.hidden = false;
         node.style.display = "block";
