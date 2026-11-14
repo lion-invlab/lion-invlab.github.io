@@ -123,7 +123,7 @@ try {
         if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
         for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
         if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
-        if (item.id === "focus-tab-core" && panel.querySelectorAll("li").length < 3) invalid.push(item.id + ": fewer than three weekly catalyst items");
+        if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly catalyst markers are incomplete");
         if (item.id === "focus-tab-levels") {
           const source = panel.querySelector("details.compact-disclosure")?.textContent || "";
       const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
