@@ -288,29 +288,81 @@ try {
     const economicAudit = await reportPage.evaluate(() => {
       const cards = [...document.querySelectorAll("#calendar details.econ-event, #last-week-calendar details.econ-event")];
       const invalid = [];
+      const geometrySamples = [];
+      const expectedComparisons = [
+        ["econ-prev", "前值"],
+        ["econ-forecast", "市場預估"],
+        ["econ-actual", "實際"]
+      ];
       for (const [i, card] of cards.entries()) {
         const details = card.querySelector(":scope > .econ-details");
         if (!details) { invalid.push("card " + (i+1) + ": .econ-details missing"); continue; }
-        const expected = ["前值", "市場預估", "實際", "市場影響", "資料來源"];
-        const fields = [...details.children].filter(node => node.classList.contains("econ-field"));
-        const labels = fields.map(field => field.querySelector(":scope > label")?.textContent.trim() || "");
-        if (fields.length !== expected.length) {
-          invalid.push("card " + (i+1) + ": expected " + expected.length + " direct econ-field zones, got " + fields.length);
+        const primary = details.querySelector(":scope > .econ-primary-grid");
+        if (!primary) { invalid.push("card " + (i+1) + ": direct .econ-primary-grid missing"); continue; }
+        const comparisonFields = [...primary.children].filter(node => node.classList.contains("econ-field"));
+        if (comparisonFields.length !== 3) {
+          invalid.push("card " + (i+1) + ": primary grid must contain exactly 3 comparison fields");
           continue;
         }
-        if (labels.join("|") !== expected.join("|")) {
-          invalid.push("card " + (i+1) + ": field labels mismatch " + labels.join("|"));
+        for (const [j, [requiredClass, requiredLabel]] of expectedComparisons.entries()) {
+          const field = comparisonFields[j];
+          const label = field.querySelector(":scope > label")?.textContent.trim() || "";
+          if (!field.classList.contains(requiredClass) || label !== requiredLabel) {
+            invalid.push("card " + (i+1) + ": comparison field " + (j+1) + " class/label mismatch");
+          }
+          if (!field.querySelector(":scope > .econ-value")) invalid.push("card " + (i+1) + ": " + requiredLabel + " value missing");
         }
-        for (const [j, field] of fields.entries()) {
-          if (!field.querySelector(":scope > .econ-value")) invalid.push("card " + (i+1) + ": field " + (j+1) + " value missing");
+        const wideFields = [...details.children].filter(node =>
+          node.classList.contains("econ-field") && node.classList.contains("wide")
+        );
+        if (wideFields.length !== 2) {
+          invalid.push("card " + (i+1) + ": expected two full-width sibling fields after primary grid");
+          continue;
         }
-        const impactField = fields.find(field => field.querySelector(":scope > label")?.textContent.trim() === "市場影響");
-        const impactText = impactField?.querySelector(":scope > .econ-value")?.textContent.trim() || "";
-        if (!impactText || ["待核實", "不適用／待核實"].includes(impactText)) invalid.push("card " + (i+1) + ": market impact judgment missing");
-        const source = fields.at(-1)?.querySelector(":scope > .econ-value");
+        const impactField = wideFields[0], sourceField = wideFields[1];
+        const impactLabel = impactField.querySelector(":scope > label")?.textContent.trim() || "";
+        const sourceLabel = sourceField.querySelector(":scope > label")?.textContent.trim() || "";
+        if (!impactField.classList.contains("econ-impact") || impactLabel !== "市場影響") {
+          invalid.push("card " + (i+1) + ": market impact field class/label/order mismatch");
+        }
+        if (!sourceField.classList.contains("econ-source") || sourceLabel !== "資料來源") {
+          invalid.push("card " + (i+1) + ": source field class/label/order mismatch");
+        }
+        const impactText = impactField.querySelector(":scope > .econ-value")?.textContent.trim() || "";
+        if (!impactText || ["待核實", "不適用／待核實"].includes(impactText)) {
+          invalid.push("card " + (i+1) + ": market impact judgment missing");
+        }
+        const source = sourceField.querySelector(":scope > .econ-value");
         if (!source?.querySelector("a[href^='https://']")) invalid.push("card " + (i+1) + ": HTTPS source link missing");
+
+        // Verify actual rendered geometry at every viewport: left-side prev/forecast
+        // stack, right-side actual spanning both rows, then two full-width siblings.
+        const rect = node => {
+          const r = node.getBoundingClientRect();
+          return { left:r.left, top:r.top, right:r.right, bottom:r.bottom, width:r.width, height:r.height };
+        };
+        const p = rect(comparisonFields[0]), f = rect(comparisonFields[1]), a = rect(comparisonFields[2]);
+        const impact = rect(impactField), sourceBox = rect(sourceField);
+        const eps = 2;
+        if (!(p.width > 0 && f.width > 0 && a.width > 0)) invalid.push("card " + (i+1) + ": comparison grid has zero-sized field");
+        if (!(Math.abs(p.left - f.left) <= eps && f.top > p.top + eps)) {
+          invalid.push("card " + (i+1) + ": prev/forecast are not vertically stacked in left column");
+        }
+        if (!(a.left > p.left + eps && a.top <= p.top + eps && a.bottom >= f.bottom - eps)) {
+          invalid.push("card " + (i+1) + ": actual field does not occupy right column across both rows");
+        }
+        const detailsRect = rect(details);
+        if (!(Math.abs(impact.left - detailsRect.left) <= 3 &&
+              Math.abs(sourceBox.left - detailsRect.left) <= 3 &&
+              Math.abs(impact.width - detailsRect.width) <= 6 &&
+              Math.abs(sourceBox.width - detailsRect.width) <= 6 &&
+              impact.top >= Math.max(p.bottom, f.bottom, a.bottom) - eps &&
+              sourceBox.top >= impact.bottom - eps)) {
+          invalid.push("card " + (i+1) + ": impact/source fields are not consecutive full-width rows");
+        }
+        if (i === 0) geometrySamples.push({ prev:p, forecast:f, actual:a, impact, source:sourceBox });
       }
-      return { count: cards.length, invalid };
+      return { count: cards.length, invalid, geometry_samples: geometrySamples };
     });
     snapshots[v.name].economic_component = economicAudit;
     if (economicAudit.count === 0 || economicAudit.invalid.length) {
