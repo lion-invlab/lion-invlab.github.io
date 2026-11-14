@@ -227,6 +227,18 @@ function weeklyLast(s){
  }
  return [...weeks.values()].sort((a,b)=>a.date.localeCompare(b.date));
 }
+function displayPercentilePoints(points,viewStart,viewEnd){
+  // Adaptive display aggregation only; source observations and trailing 520-week percentiles are never altered.
+  const span=viewEnd-viewStart;
+  const mode=span>8*365.25*86400000?'quarterly-median':span>2*365.25*86400000?'monthly-median':'weekly';
+  if(mode==='weekly')return {points,mode};
+  const buckets=new Map();
+  for(const p of points){if(!Number.isFinite(p.value))continue;const d=new Date(p.date+'T00:00:00Z');const key=mode==='quarterly-median'?d.getUTCFullYear()+'-Q'+(Math.floor(d.getUTCMonth()/3)+1):p.date.slice(0,7);if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(p);}
+  const out=[];
+  for(const [period,items] of buckets){items.sort((a,b)=>a.date.localeCompare(b.date));const values=items.map(p=>p.value).sort((a,b)=>a-b),mid=Math.floor(values.length/2),median=values.length%2?values[mid]:(values[mid-1]+values[mid])/2;out.push({date:items[Math.floor(items.length/2)].date,value:median});}
+  out.sort((a,b)=>a.date.localeCompare(b.date));
+  return {points:out,mode};
+}
 function expandingPercentile(points){
  // 完整累積 520 筆有效週頻樣本後才開始計算，樣本不足時保留空白。
  const out=[];const history=[];
