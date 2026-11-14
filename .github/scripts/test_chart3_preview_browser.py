@@ -34,6 +34,8 @@ check("manifest_does_not_mislabel_git_blob_as_sha256", "sha256" not in manifest.
 check("manifest_preserves_legacy_pipeline_series", {x.get("series_id") for x in manifest.get("series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
 check("manifest_preserves_legacy_chart_dataset_sha256", isinstance(manifest.get("chart_dataset", {}).get("sha256"), str) and len(manifest["chart_dataset"]["sha256"]) == 64)
 check("manifest_preserves_incremental_pipeline_state", all(k in manifest for k in ["overall_status", "last_incremental_at", "last_incremental_results"]))
+w47_path = ROOT / "data" / "calendar" / "weeks" / "2026-W47.json"
+check("main_calendar_w47_preserved_during_branch_sync", w47_path.is_file() and isinstance(json.loads(w47_path.read_text(encoding="utf-8")), dict))
 
 def validate_chart(page, label):
     # Wait for either a successful chart initialization or an explicit data-load error.
