@@ -205,6 +205,28 @@ def main():
         "source_response_sha256": response["raw_sha256"], "retrieved_at_utc": source_meta["retrieved_at_utc"]
     }
     (root / "sp500_incremental_qa.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    # Append-only audit trail: preserve every retrieval hash and every corrected close.
+    with (root / "sp500_update_log.jsonl").open("a", encoding="utf-8") as audit:
+        audit.write(json.dumps(report, ensure_ascii=False, sort_keys=True) + "\\n")
+    manifest = {
+        "dataset_id": "TAC_CHART3_SP500_DAILY_CLOSE",
+        "instrument": "^GSPC",
+        "measure": "unadjusted S&P 500 price index close",
+        "start": min(merged), "end": max(merged), "rows": len(merged),
+        "recent_file": "sp500_daily_close_1993-2026.compact.json",
+        "recent_file_sha256": report["recent_file_sha256"],
+        "full_history_file": "sp500_daily_close_1927-2026.compact.json",
+        "source": "Yahoo Finance chart API (^GSPC), unofficial endpoint",
+        "long_history_source": "Pinned FJA historical CSV for dates before 1993-12-31",
+        "latest_source_date": latest,
+        "retrieved_at_utc": source_meta["retrieved_at_utc"],
+        "latest_response_sha256": response["raw_sha256"],
+        "update_log": "sp500_update_log.jsonl",
+        "qa_report": "sp500_incremental_qa.json",
+        "method": "30-calendar-day overlap; date-keyed upsert; changed closes recorded; no interpolation or forward-fill",
+        "licensing": "Public redistribution rights require separate review; source provenance is recorded but no licence is implied."
+    }
+    (root / "sp500_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     print(json.dumps(report, indent=2))
 
 if __name__ == "__main__":
