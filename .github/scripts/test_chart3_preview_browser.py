@@ -88,7 +88,8 @@ def validate_chart(page, label):
     check(label + "_history_explanations_summary_visible", history_details.locator("summary").is_visible())
     legacy_note = page.locator("#pre-series-history-note")
     check(label + "_full_history_removes_pre_series_gap", not legacy_note.is_visible())
-    check(label + "_history_explanations_expand_on_demand", (history_details.locator("summary").click() is None) and history_details.evaluate("(e)=>e.open"))
+    history_details.locator("summary").click()
+    check(label + "_history_explanations_expand_on_demand", history_details.evaluate("(e)=>e.open"))
     check(label + "_no_pre_series_1990_note_needed", not legacy_note.is_visible())
     check(label + "_1929_great_depression_drawdown_in_ledger", "1929-09-16 → 1932-06-01" in drawdown_ledger_text and "-86.2%" in drawdown_ledger_text)
     check(label + "_1937_recession_drawdown_in_ledger", "1937-03-10 → 1938-03-31" in drawdown_ledger_text and "-54.5%" in drawdown_ledger_text)
@@ -146,8 +147,8 @@ def validate_chart(page, label):
     check(label + "_clear_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 0)
     page.locator("#select-all-history").click()
     check(label + "_select_all_history_checkboxes", page.locator("#event-drawdown-key input:checked").count() == 57)
-    check(label + "_select_all_event_bands", page.locator("#combined-chart svg rect[data-event]:visible").count() == 17)
-    check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 18)
+    check(label + "_select_all_event_bands", page.locator("#combined-chart svg rect[data-event]:visible").count() == 28)
+    check(label + "_select_all_drawdown_bands", page.locator("#combined-chart svg rect[data-drawdown]:visible").count() == 29)
     # Verify the percentile warm-up and synchronized timeline controls.
     stl = page.locator('#combined-chart svg path[data-series="STLFSI4"]')
     first_valid = stl.get_attribute("data-first-valid-date") or ""
