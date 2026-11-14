@@ -9,26 +9,26 @@
   "templates": {
     "monday": {
       "path": "母版專區/TAC_母版_週一_2026-10-28_最終定版.html",
-      "blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
+      "blob_sha": "d10db54218881c1f2530d33b9304d753ccaacbf9",
       "required_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
       "forbidden_calendar_sections": [],
       "notes": "週一專用；保留上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。",
-      "simulation_blob_sha": "a568e594e55909041d51d8eae7e6fe5f7986c096",
+      "simulation_blob_sha": "d10db54218881c1f2530d33b9304d753ccaacbf9",
       "simulation_path": "simulation-lab/baseline/monday-mother-template.html"
     },
     "weekdays": {
       "path": "母版專區/TAC_母版_週二至週五_2026-10-28_最終定版.html",
-      "blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
+      "blob_sha": "74f393a08c242d234f3b1e643edb7a63d5e3cedf",
       "required_calendar_sections": [],
       "forbidden_calendar_sections": [
         "上週經濟行事曆",
         "上週財報行事曆"
       ],
       "notes": "週二至週五專用；不得顯示上週經濟與財報行事曆及對應導航；全球市場固定 17 項，含 STI、S&P/ASX 200、STOXX Europe 600。",
-      "simulation_blob_sha": "3785405e331b10ec6189002e480be2a1edbe20ef",
+      "simulation_blob_sha": "74f393a08c242d234f3b1e643edb7a63d5e3cedf",
       "simulation_path": "simulation-lab/baseline/weekday-mother-template.html"
     }
   },
@@ -73,6 +73,10 @@
     {
       "date": "2026-11-12",
       "change": "修正模擬母版基準漂移：simulation baseline 改為與 main Manifest 核准的週一／週二至週五正式母版逐位元相同；視覺回歸直接以正式母版 SHA 比較，不再以含 simulation-only CSS 的副本作基準。"
+    },
+    {
+      "date": "2026-11-15",
+      "change": "依使用者明確授權，雙母版經濟事件卡統一為五區 DOM：前值左上、預估左下、實際右側跨兩列、市场影響與資料來源各自全寬；週一上週回顧及本週卡均套用，保留各情境既有展開控制與互動。同步更新 Manifest SHA 與 QA 契約。"
     }
   ]
 }
