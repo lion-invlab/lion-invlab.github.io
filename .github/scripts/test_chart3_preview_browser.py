@@ -155,6 +155,7 @@ def validate_chart(page, label):
     check(label + "_full_520_week_window", stl.get_attribute("data-percentile-window") == "520" and first_valid >= "2000-01-01", first_valid)
     check(label + "_timeline_controls_present", page.locator("#timeline-zoom-in").count() == 1 and page.locator("#timeline-zoom-out").count() == 1 and page.locator("#timeline-reset").count() == 1)
     initial = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
+    check(label + "_default_view_starts_1993_12_31", initial[0] == "1993-12-31", initial)
     initial_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", initial)
     initial_axis = page.locator("#combined-chart svg path[data-series='SP500']").evaluate("(e)=>[Number(e.dataset.axisMin),Number(e.dataset.axisMax)]")
     page.locator("#timeline-zoom-in").click()
