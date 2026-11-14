@@ -329,8 +329,9 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
  const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
- // S&P 500 僅以壓縮視覺路徑嵌入本頁，並非可重算的原始收盤價序列；不從繪圖像素推導報酬或均線。
- const last=null,ret13=null,dd13=null,above13=null;
+ // S&P 500 指標快照：由合併後日收盤價序列計算；資料截至 2026-11-10，尚非自動增量更新。
+ const sp500Snapshot={date:'2026-11-10',close:7520.93,ma13:7681.566923076923,ma26:7583.223846153846,ret13:-2.994669235958203,dd13:-3.8112631779540163};
+ const last=sp500Snapshot.close,ret13=sp500Snapshot.ret13,dd13=sp500Snapshot.dd13,above13=last>=sp500Snapshot.ma13;
  const val=id=>m[id].value;
  const delta=id=>m[id].delta??0;
  const coreRiskIds=['VIXCLS','NFCI','STLFSI4'];
@@ -360,11 +361,11 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const riskMarker=document.getElementById('risk-scale-marker');
  if(riskPosition!==null&&Number.isFinite(riskPosition)){riskMarker.style.left=Math.max(0,Math.min(100,riskPosition))+'%';riskMarker.hidden=false;riskMarker.setAttribute('aria-label','目前綜合風險百分位 '+riskPosition.toFixed(1));document.getElementById('risk-scale-caption').textContent='目前定位 '+riskPosition.toFixed(1)+' 百分位｜VIX、NFCI、STLFSI4 三項核心指標等權平均；NFCI Credit 僅作信用風險診斷';}
  else{riskMarker.hidden=true;document.getElementById('risk-scale-caption').textContent='資料不足：VIX、NFCI、STLFSI4 三項核心指標需具備有效百分位，才顯示定位';}
- const trend='本頁 S&P 500 僅嵌入壓縮後的視覺曲線，沒有可供重算的原始收盤價；因此不虛報近 13 週報酬、均線位置或回檔幅度。';
+ const trend='S&P 500 指標快照截至 '+sp500Snapshot.date+'：收盤 '+fmt(last)+'；13 週報酬 '+ret13.toFixed(2)+'%；距 252 交易日高點 '+dd13.toFixed(2)+'%；收盤'+(above13?'高於':'低於')+' 13 週均線（'+fmt(sp500Snapshot.ma13)+'），'+(last>=sp500Snapshot.ma26?'高於':'低於')+' 26 週均線（'+fmt(sp500Snapshot.ma26)+'）。此為已核算快照，非即時更新。';
  const thesis=enough?'VIX '+fmtP(val('VIXCLS'))+'（四週 '+fmtDelta(m.VIXCLS.delta)+'）；NFCI '+fmtP(val('NFCI'))+'、STLFSI4 '+fmtP(val('STLFSI4'))+'。'+(systemic?'兩項整體金融壓力指標均達 80 百分位以上，防禦優先。':vixSpike?'VIX 已升至高檔，但 NFCI／STLFSI4 尚未同時達 80 百分位；不因避險需求單獨清倉，新增資金改採分批與回檔進場。':financialTight?'金融環境與壓力指標已轉緊；停止追價，等待市場回檔與指標降溫再提高曝險。':calm?'三項主要風險指標均低於 60 百分位且近期未明顯升高；可按計畫分批投入，仍不一次押滿。':'目前未達系統性壓力門檻；維持核心部位，新增資金分批部署，等待價格與金融壓力訊號進一步確認。'):'部分壓力指標尚無足夠有效觀測，暫不生成完整風險結論，避免以缺值推測。';
  document.getElementById('risk-thesis').textContent=thesis;
- document.getElementById('sp500-return').textContent='價格序列待接入';
- document.getElementById('sp500-detail').textContent=trend+' 今日買賣建議不會使用未核實的價格觸發條件。';
+ document.getElementById('sp500-return').textContent='13 週 '+(ret13>0?'+':'')+ret13.toFixed(2)+'%｜收盤 '+fmt(last);
+ document.getElementById('sp500-detail').textContent=trend+'（指標快照；歷史價格線與每日增量更新尚未接通。）';
  let eqTitle,eqDetail,defTitle,defDetail,triggers=[];
  if(systemic){
   eqTitle=systemicExtreme?'分批減碼現有股票部位 30–50%':'分批減碼現有股票部位 20–30%';
