@@ -248,6 +248,18 @@ function expandingPercentile(points){
  }return out;
 }
 const DRAWDOWNS=[
+ {id:'dd-1929',peak:'1929-09-16',trough:'1932-06-01',pct:-86.2,peakClose:31.86,troughClose:4.40,source:'https://www.federalreservehistory.org/essays/great-depression',sourceLabel:'Federal Reserve History：大蕭條'},
+ {id:'dd-1937',peak:'1937-03-10',trough:'1938-03-31',pct:-54.5,peakClose:18.67,troughClose:8.50,source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER：1937–38 recession chronology'},
+ {id:'dd-wwii',peak:'1939-10-25',trough:'1942-04-28',pct:-43.5,peakClose:13.21,troughClose:7.47,source:'https://history.state.gov/milestones/1937-1945/wwii',sourceLabel:'U.S. Department of State：World War II'},
+ {id:'dd-1946',peak:'1946-05-29',trough:'1949-06-13',pct:-29.6,peakClose:19.25,troughClose:13.55,source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER：1948–49 recession chronology'},
+ {id:'dd-1957',peak:'1956-08-03',trough:'1957-10-22',pct:-21.5,peakClose:49.64,troughClose:38.98,source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER：1957–58 recession chronology'},
+ {id:'dd-1962',peak:'1961-12-12',trough:'1962-06-26',pct:-28.0,peakClose:72.64,troughClose:52.32,source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER：前期景氣循環背景'},
+ {id:'dd-1966',peak:'1966-02-09',trough:'1966-10-07',pct:-22.2,peakClose:94.06,troughClose:73.20,source:'https://www.federalreservehistory.org/essays/regulation-q',sourceLabel:'Federal Reserve History：1966 信用緊縮'},
+ {id:'dd-1968',peak:'1968-11-29',trough:'1970-05-26',pct:-36.1,peakClose:108.37,troughClose:69.29,source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER：1969–70 recession chronology'},
+ {id:'dd-1973',peak:'1973-01-11',trough:'1974-10-03',pct:-48.2,peakClose:120.24,troughClose:62.28,source:'https://www.federalreservehistory.org/essays/oil-shock-of-1973-74',sourceLabel:'Federal Reserve History：1973–74 oil shock'},
+ {id:'dd-1980',peak:'1980-11-28',trough:'1982-08-12',pct:-27.1,peakClose:140.52,troughClose:102.42,source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER：1981–82 recession chronology'},
+ {id:'dd-1987',peak:'1987-08-25',trough:'1987-12-04',pct:-33.5,peakClose:336.77,troughClose:223.92,source:'https://www.federalreservehistory.org/essays/stock-market-crash-of-1987',sourceLabel:'Federal Reserve History：Black Monday'},
+
  {id:'dd-1990',peak:'1990-07-16',trough:'1990-10-11',pct:-19.9,peakClose:368.95,troughClose:295.46,source:'https://www.sec.gov/Archives/edgar/data/357298/000035729801500016/sp500.html',sourceLabel:'SEC 歸檔：S&P 500 每日收盤價',crossCheckSource:'https://bmogamhub.com/system/files/sp_500_drawdowns_and_recoveries.pdf?file=1&id=118272&type=node',crossCheckSourceLabel:'BMO S&P 500 歷史跌幅表'},
  {id:'dd-1997a',peak:'1997-02-18',trough:'1997-04-11',pct:-10.4,basis:'SPY close proxy; not exact S&P 500 index series',source:'https://shibui.finance/sp500-drawdown-history',sourceLabel:'S&P 500 / SPY 歷史回檔表'},
  {id:'dd-1997b',peak:'1997-10-07',trough:'1997-10-27',pct:-10.8,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'},
@@ -268,6 +280,18 @@ const DRAWDOWNS=[
  {id:'dd-2025',peak:'2025-02-19',trough:'2025-04-08',pct:-18.9,source:'https://download.dws.com/download/asset/inline/b24f3983-1ee9-4ef2-99ea-fab726d69bac?tenant=Dwscom',sourceLabel:'DWS S&P 500 corrections study'}
 ];
 const MAJOR_EVENTS=[
+ {id:'great-depression-1929',name:'1929 股災 × 大蕭條',start:'1929-08-01',end:'1933-03-31',source:'https://www.federalreservehistory.org/essays/great-depression',sourceLabel:'Federal Reserve History'},
+ {id:'recession-1937',name:'1937–38 經濟衰退',start:'1937-05-01',end:'1938-06-30',source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER 景氣循環日期'},
+ {id:'world-war-ii',name:'第二次世界大戰 × 全球戰爭風險',start:'1939-09-01',end:'1942-04-28',source:'https://history.state.gov/milestones/1937-1945/wwii',sourceLabel:'U.S. Department of State'},
+ {id:'postwar-recession',name:'戰後經濟調整 × 1948–49 衰退',start:'1946-05-29',end:'1949-10-31',source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER 景氣循環日期'},
+ {id:'recession-1957',name:'1957–58 美國經濟衰退',start:'1957-08-01',end:'1958-04-30',source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER 景氣循環日期'},
+ {id:'market-slump-1962',name:'1962 年美股急跌 × 估值修正',start:'1961-12-12',end:'1962-06-26',source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER 景氣循環背景'},
+ {id:'credit-crunch-1966',name:'1966 信用緊縮 × 房貸市場壓力',start:'1966-02-09',end:'1966-10-07',source:'https://www.federalreservehistory.org/essays/regulation-q',sourceLabel:'Federal Reserve History'},
+ {id:'recession-1969',name:'1969–70 衰退 × 通膨與貨幣緊縮',start:'1969-12-01',end:'1970-11-30',source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER 景氣循環日期'},
+ {id:'oil-shock-1973',name:'石油禁運 × 停滯性通膨',start:'1973-10-19',end:'1975-03-31',source:'https://www.federalreservehistory.org/essays/oil-shock-of-1973-74',sourceLabel:'Federal Reserve History'},
+ {id:'volcker-recession-1981',name:'Volcker 緊縮 × 1981–82 衰退',start:'1981-07-01',end:'1982-11-30',source:'https://www.nber.org/research/data/us-business-cycle-expansions-and-contractions',sourceLabel:'NBER 景氣循環日期'},
+ {id:'black-monday-1987',name:'1987 黑色星期一 × 全球市場震盪',start:'1987-10-14',end:'1987-12-04',source:'https://www.federalreservehistory.org/essays/stock-market-crash-of-1987',sourceLabel:'Federal Reserve History'},
+
  {id:'gulf-war-1990',name:'儲貸危機 × 波灣戰爭／油價衝擊',start:'1990-07-16',end:'1990-10-11',source:'https://andramarkets.com/market-history/1989-savings-and-loan-crisis-and-the-gulf-war/',sourceLabel:'S&P 500 daily close / Gulf War history'},
  {id:'asian-crisis',name:'亞洲金融風暴',start:'1997-07-02',end:'1998-12-31',source:'https://www.federalreservehistory.org/essays/asian-financial-crisis',sourceLabel:'Federal Reserve History'},
  {id:'russia-default',name:'俄羅斯政府債務違約',start:'1998-08-17',end:'1998-12-31',source:'https://www.rbnz.govt.nz/-/media/project/sites/rbnz/files/events/december2010/4230331.pdf',sourceLabel:'Reserve Bank of New Zealand research'},
