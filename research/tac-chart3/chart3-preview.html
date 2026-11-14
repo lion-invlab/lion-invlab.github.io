@@ -395,7 +395,7 @@ function renderDailyRiskBrief(byId,weekly,generatedAt,sp500Snapshot){
  const fmtDelta=x=>x===null?'變化不足':(x>0?'▲ +':x<0?'▼ ':'→ ')+Math.abs(x).toFixed(1)+' 百分點';
  const metricNames={VIXCLS:'VIX｜市場避險需求',NFCI:'NFCI｜金融環境',NFCICREDIT:'NFCI Credit｜信用風險',STLFSI4:'STLFSI4｜金融壓力'};
  document.getElementById('risk-metrics').innerHTML=Object.keys(metricNames).map(id=>'<div class="risk-metric"><span class="risk-metric-name">'+metricNames[id]+'<br><small style="color:#91a2ba">'+(m[id].date||'無有效觀測')+'</small></span><span class="risk-metric-value">'+fmtP(m[id].value)+'</span><span class="risk-metric-delta '+(m[id].delta>0?'up':m[id].delta<0?'down':'')+'">'+fmtDelta(m[id].delta)+'</span></div>').join('');
- document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜下次更新：VIX 2026-11-16；NFCI／NFCICREDIT、STLFSI4 2026-11-18（依 FRED 公布日）';
+ document.getElementById('decision-asof').textContent='資料版本 '+generatedAt.slice(0,10)+'｜四項指標下次共同更新：2026-11-18（週三，依 FRED 公布行事曆）';
  document.getElementById('risk-state').textContent=state;
  document.getElementById('risk-grade').textContent=grade;
  const riskPosition=enough?Object.values(m).reduce((sum,item)=>sum+item.value,0)/4:null;
