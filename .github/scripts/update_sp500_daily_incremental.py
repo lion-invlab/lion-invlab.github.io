@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Incremental S&P 500 price-index close updater for TAC Chart 3.
 
-Primary refresh endpoint: Yahoo Finance chart API (^GSPC), unadjusted close.
+Primary refresh endpoint: Investing.com Finance chart API (^GSPC), unadjusted close.
 This is an unofficial endpoint, so every response is schema- and freshness-checked.
 Long-history pre-1993 base is assembled separately from a pinned FJA snapshot.
 """
@@ -22,56 +22,77 @@ def sha256(data: bytes) -> str:
 
 def fetch_chart(start: dt.date, end_exclusive: dt.date, retries: int = 5) -> dict:
     params = urllib.parse.urlencode({
-        "period1": int(dt.datetime.combine(start, dt.time(), ET).timestamp()),
-        "period2": int(dt.datetime.combine(end_exclusive, dt.time(), ET).timestamp()),
-        "interval": "1d", "events": "history", "includeAdjustedClose": "false"
+        "start-date": start.isoformat(),
+        "end-date": (end_exclusive - dt.timedelta(days=1)).isoformat(),
+        "time-frame": "Daily", "add-missing-rows": "false"
     })
-    url = YAHOO_URL + "?" + params
+    url = INVESTING_URL + "?" + params
     last = None
     for attempt in range(retries):
         try:
             req = urllib.request.Request(url, headers={
-                "User-Agent": "Mozilla/5.0 TAC-Chart3/1.0",
-                "Accept": "application/json"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/128.0.0.0 Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "domain-id": "www",
+                "Origin": "https://www.investing.com",
+                "Referer": "https://www.investing.com/indices/us-spx-500-historical-data"
             })
             with urllib.request.urlopen(req, timeout=60) as response:
                 raw = response.read()
             payload = json.loads(raw.decode("utf-8"))
-            result = payload.get("chart", {}).get("result")
-            error = payload.get("chart", {}).get("error")
-            if error or not result or len(result) != 1:
-                raise RuntimeError(f"Yahoo chart API returned no unique result: {error}")
-            return {"result": result[0], "raw_sha256": sha256(raw), "url": url}
+            if not isinstance(payload, (dict, list)):
+                raise RuntimeError("Investing.com response is not a JSON object/array")
+            return {"payload": payload, "raw_sha256": sha256(raw), "url": url}
         except Exception as exc:
             last = exc
             if attempt + 1 < retries:
                 time.sleep(min(2 ** attempt * 3, 30))
-    raise RuntimeError(f"Yahoo chart API failed after {retries} attempts: {last}")
+    raise RuntimeError(f"Investing.com historical endpoint failed after {retries} attempts: {last}")
 
-def parse_chart(payload: dict) -> dict[str, int]:
-    result = payload["result"]
-    timestamps = result.get("timestamp") or []
-    indicators = result.get("indicators") or {}
-    quotes = indicators.get("quote") or []
-    if len(quotes) != 1 or len(timestamps) != len(quotes[0].get("close") or []):
-        raise RuntimeError("Yahoo chart response schema mismatch (timestamps/close)")
-    meta = result.get("meta") or {}
-    if meta.get("symbol") not in (SYMBOL, "SPX"):
-        raise RuntimeError(f"Unexpected Yahoo instrument: {meta.get('symbol')}")
+def parse_chart(response: dict) -> dict[str, int]:
+    payload = response["payload"]
+    rows = payload if isinstance(payload, list) else (payload.get("data") or payload.get("historical") or payload.get("prices"))
+    if isinstance(rows, dict):
+        rows = rows.get("historical") or rows.get("data")
+    if not isinstance(rows, list) or not rows:
+        raise RuntimeError("Investing.com response has no historical rows; verify S&P 500 instrument ID/schema")
     out = {}
-    for ts, close in zip(timestamps, quotes[0]["close"]):
-        if close is None:
+    for row in rows:
+        if isinstance(row, dict):
+            raw_day = row.get("date") or row.get("datetime") or row.get("time")
+            close = row.get("close") or row.get("last")
+        elif isinstance(row, (list, tuple)) and len(row) >= 5:
+            raw_day, close = row[0], row[4]
+        else:
+            raise RuntimeError(f"Unrecognized Investing.com historical row: {row!r}")
+        if raw_day is None or close in (None, "", "."):
             continue
-        day = dt.datetime.fromtimestamp(int(ts), ET).date().isoformat()
-        value = float(close)
+        if isinstance(raw_day, (int, float)):
+            day = dt.datetime.fromtimestamp(int(raw_day), dt.timezone.utc).date().isoformat()
+        else:
+            raw_text = str(raw_day).strip()
+            try:
+                day = dt.date.fromisoformat(raw_text[:10]).isoformat()
+            except ValueError:
+                parsed = None
+                for fmt in ("%d/%m/%Y", "%m/%d/%Y", "%b %d, %Y", "%d %b %Y"):
+                    try:
+                        parsed = dt.datetime.strptime(raw_text, fmt).date()
+                        break
+                    except ValueError:
+                        pass
+                if parsed is None:
+                    raise RuntimeError(f"Unrecognized Investing.com date: {raw_day!r}")
+                day = parsed.isoformat()
+        value = float(str(close).replace(",", "").strip())
         if not math.isfinite(value) or value <= 0:
             raise RuntimeError(f"Invalid S&P 500 close {close!r} on {day}")
         cents = int(round(value * 100))
-        if day in out:
-            raise RuntimeError(f"Duplicate Yahoo observation date: {day}")
+        if day in out and out[day] != cents:
+            raise RuntimeError(f"Conflicting duplicate Investing.com observation: {day}")
         out[day] = cents
     if not out:
-        raise RuntimeError("Yahoo chart response contains no valid closes")
+        raise RuntimeError("Investing.com historical response contains no valid closes")
     return out
 
 def decode_compact(path: Path) -> dict[str, int]:
@@ -174,11 +195,11 @@ def main():
     # Yahoo must return the current recent window, including at least one observation in the last 10 calendar days.
     latest = max(fresh)
     if (today_et - dt.date.fromisoformat(latest)).days > 10:
-        raise RuntimeError(f"Yahoo data stale: latest={latest}, today_ET={today_et}")
+        raise RuntimeError(f"Investing.com data stale: latest={latest}, today_ET={today_et}")
     if old and not set(old).intersection(fresh):
-        raise RuntimeError("No overlap between stored and fetched Yahoo dates; refusing blind append")
+        raise RuntimeError("No overlap between stored and fetched Investing.com dates; refusing blind append")
     source_meta = {
-        "daily_source": "Yahoo Finance chart API (^GSPC), unadjusted close; unofficial endpoint",
+        "daily_source": "Investing.com historical data endpoint; S&P 500 index close",
         "daily_source_url": response["url"],
         "daily_response_sha256": response["raw_sha256"],
         "retrieved_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
@@ -216,7 +237,7 @@ def main():
         "recent_file": "sp500_daily_close_1993-2026.compact.json",
         "recent_file_sha256": report["recent_file_sha256"],
         "full_history_file": "sp500_daily_close_1927-2026.compact.json",
-        "source": "Yahoo Finance chart API (^GSPC), unofficial endpoint",
+        "source": "Investing.com historical data endpoint (instrument ID configurable)",
         "long_history_source": "Pinned FJA historical CSV for dates before 1993-12-31",
         "latest_source_date": latest,
         "retrieved_at_utc": source_meta["retrieved_at_utc"],
