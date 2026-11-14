@@ -1,0 +1,34 @@
+name: TAC Chart 3 S&P 500 updater tests
+
+on:
+  pull_request:
+    paths:
+      - ".github/scripts/update_sp500_daily_incremental.py"
+      - ".github/scripts/build_sp500_daily_compact.py"
+      - ".github/scripts/test_sp500_daily_incremental.py"
+      - ".github/workflows/tac-chart3-incremental.yml"
+  push:
+    branches:
+      - feat/chart3-sp500-incremental-20261114
+    paths:
+      - ".github/scripts/update_sp500_daily_incremental.py"
+      - ".github/scripts/build_sp500_daily_compact.py"
+      - ".github/scripts/test_sp500_daily_incremental.py"
+
+permissions:
+  contents: read
+
+jobs:
+  offline-invariants:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile updater and builder
+        run: |
+          python -m py_compile .github/scripts/update_sp500_daily_incremental.py
+          python -m py_compile .github/scripts/build_sp500_daily_compact.py
+      - name: Run offline invariants
+        run: python .github/scripts/test_sp500_daily_incremental.py
