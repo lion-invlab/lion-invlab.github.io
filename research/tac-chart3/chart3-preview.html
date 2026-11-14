@@ -316,7 +316,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  parts.push('<text x="'+L+'" y="17" font-size="'+(mobile?10:12)+'" font-weight="600">'+(mobile?'壓力指標百分位（左軸）':'金融壓力指標｜歷史百分位（左軸）')+'</text><text x="'+(W-R)+'" y="17" text-anchor="end" font-size="'+(mobile?10:12)+'" font-weight="600">'+(mobile?'S&P 500（右軸）':'S&P 500 點數（右軸）')+'</text>');
  document.getElementById('combined-chart').innerHTML='<svg id="combined-svg" data-view-start="'+new Date(minX).toISOString().slice(0,10)+'" data-view-end="'+new Date(maxX).toISOString().slice(0,10)+'" data-plot-left="'+L+'" data-plot-right="'+(W-R)+'" data-plot-top="'+T+'" data-plot-bottom="'+(H-B)+'" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="VIX、NFCI、NFCI Credit、STLFSI4 與 S&P 500 五合一互動式走勢圖">'+parts.join('')+'</svg>';
  if(skipLedger)return;
- const preSeriesItems=minX<SP500_START?DRAWDOWNS.filter(dd=>drawdownVisible[dd.id]&&Date.parse(dd.trough+'T23:59:59Z')<SP500_START&&Date.parse(dd.trough+'T23:59:59Z')>=minX):[];
+ const preSeriesItems=minX<=SP500_START?DRAWDOWNS.filter(dd=>drawdownVisible[dd.id]&&Date.parse(dd.trough+'T23:59:59Z')<SP500_START):[];
  const preSeriesNote=document.getElementById('pre-series-history-note');preSeriesNote.hidden=preSeriesItems.length===0;
  preSeriesNote.innerHTML=preSeriesItems.map(dd=>'<strong>'+dd.peak+' 至 '+dd.trough+'｜S&P 500 收盤回檔 '+dd.pct.toFixed(1)+'%</strong>（峰值 '+fmt(dd.peakClose)+' → 谷底 '+fmt(dd.troughClose)+'）。此期間早於 S&P 500 主圖價格線起點（1993-12-31）；僅顯示歷史回檔標記，不補畫價格線。收盤價核對：<a href="'+dd.source+'" target="_blank" rel="noopener">SEC 歷史收盤價表</a> · <a href="'+dd.crossCheckSource+'" target="_blank" rel="noopener">BMO 跌幅交叉查核</a>。').join('');
  const ledgerRows=[
