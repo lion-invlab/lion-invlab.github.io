@@ -22,6 +22,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: tac-chart3-preview-visual-qa-${{ github.ref }}
@@ -68,6 +69,21 @@ jobs:
           PY
       - name: Run historical point-in-time reconstruction unit tests
         run: python .github/scripts/test_analyze_tac_chart3_historical_asof.py
+      - name: Download archived ALFRED vintage and initial-release artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/tac-chart3-artifacts
+          gh run download 43026998120 --repo "$GITHUB_REPOSITORY" --name tac-chart3-VIXCLS-43026998120-1 --dir /tmp/tac-chart3-artifacts
+          gh run download 43026998120 --repo "$GITHUB_REPOSITORY" --name tac-chart3-NFCI-43026998120-1 --dir /tmp/tac-chart3-artifacts
+          gh run download 43026998120 --repo "$GITHUB_REPOSITORY" --name tac-chart3-NFCICREDIT-43026998120-1 --dir /tmp/tac-chart3-artifacts
+          gh run download 43026998120 --repo "$GITHUB_REPOSITORY" --name tac-chart3-STLFSI4-43026998120-1 --dir /tmp/tac-chart3-artifacts
+      - name: Build historical PIT reconstruction report
+        run: |
+          python .github/scripts/analyze_tac_chart3_historical_asof.py \
+            --artifact-dir /tmp/tac-chart3-artifacts \
+            --output-json artifacts/chart3-preview-visual-qa/historical-asof-report.json \
+            --output-csv artifacts/chart3-preview-visual-qa/historical-asof-summary.csv
       - name: Render and validate desktop, mobile and 320px previews
         run: python .github/scripts/test_chart3_preview_browser.py
       - name: Upload screenshots and QA report
