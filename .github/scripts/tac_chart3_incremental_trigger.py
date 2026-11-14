@@ -31,3 +31,5 @@
 # Scheduled incremental trigger: 2026-11-13T05:28:14+08:00; branch-isolated; five-vintage overlap; no full-history vintage reload.
 
 # Main-branch migration smoke trigger: rebuild chart-ready JSON after baseline bootstrap.
+
+# Main-branch incremental execution trigger: 2026-11-14T13:xx:xx+08:00; provenance manifest corrected; verify current snapshots and ALFRED vintages.
