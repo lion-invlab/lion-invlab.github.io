@@ -115,11 +115,16 @@ def validate(key: str) -> dict:
         raise SystemExit(f"{key}: expected exactly one TAC toolbar")
     links = toolbar[0].select("a.tac-side-link")
     labels = [link.get_text(" ", strip=True) for link in links]
+    # Labels may include the approved decorative emoji; validate the stable
+    # human-readable title as a substring rather than requiring emoji-free text.
     expected = ["美股個股波動率", "Q4 精選基金", "專題報導", "互動式圖表", "歷史早報"]
-    positions = [labels.index(label) if label in labels else -1 for label in expected]
+    positions = [
+        next((i for i, label in enumerate(labels) if title in label), -1)
+        for title in expected
+    ]
     if any(p < 0 for p in positions) or positions != sorted(positions):
         raise SystemExit(f"{key}: toolbar link order/content mismatch: {labels}")
-    chart_links = [link for link in links if link.get_text(" ", strip=True) == "互動式圖表"]
+    chart_links = [link for link in links if "互動式圖表" in link.get_text(" ", strip=True)]
     if len(chart_links) != 1 or chart_links[0].get("href") != "https://lion-invlab.github.io/interactive-charts/":
         raise SystemExit(f"{key}: interactive charts link missing, duplicated, or incorrect")
 
