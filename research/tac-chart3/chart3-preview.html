@@ -115,7 +115,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
   <div class="desc">五條走勢共用同一時間軸。四項壓力指標以截至當週的最近 520 筆週頻觀測百分位（0–100）呈現；S&P 500 使用右側點數軸。原始指標數值及計算不變。 歷史曲線採目前最新修訂快照，並非各歷史決策日當時可得值（非 PIT）。</div></div>
   <div class="latest" id="combined-asof"></div>
  </div>
- <div class="desc combined-note"><strong>歷史 PIT 覆蓋限制（依首次發布資料重建，非盤中時間重建）</strong><br>2007–2009 金融海嘯：VIX、NFCI、NFCI Credit、STLFSI4 均無可驗證的首次發布 PIT 覆蓋，不能用目前修訂值回填當時風險。<br>2020 COVID 期間：VIX 104 個不同觀測日；NFCI 與 NFCI Credit 各 21 個；STLFSI4 無覆蓋。<br>2022 升息期間：VIX 256 個不同觀測日；NFCI 與 NFCI Credit 各 52 個；STLFSI4 8 個。上述為事件區間內可核實的首次發布觀測日期數，不是每日連續資料，也不代表每日都有新發布。NFCI Credit 是 NFCI 子指標，不是獨立佐證。<br>本互動走勢仍使用目前最新修訂快照（非歷史決策日 PIT）；下列 PIT 數字只用來界定歷史資料可得性，不得視為回測或預測能力證據。</div>
+ <div class="desc combined-note"><strong>歷史資料與 PIT 資料須分開理解</strong><br>四項指標的現行歷史序列並非從 2010／2011／2012／2022 才開始：VIXCLS 自 1990/01/02、NFCI 與 NFCICREDIT 自 1971/01/08、STLFSI4 自 1993/12/31 已有現行歷史觀測。本圖畫出的就是這些歷史序列的目前最新修訂值，因此金融海嘯、COVID 等期間有歷史曲線可看。<br>較晚的日期是目前已保存的 ALFRED Vintage／首次發布封存資料覆蓋起點；它限制的是「能否還原當時決策日已知的版本」，不是原始歷史資料不存在。現有首次發布封存檔在 2007–2009 區間沒有可用 PIT 版本；2020 區間可核實首次發布觀測日為 VIX 104、NFCI 21、NFCI Credit 21、STLFSI4 0；2022 區間為 VIX 256、NFCI 52、NFCI Credit 52、STLFSI4 8。這些數字只描述目前封存檔的 PIT 可還原程度，不代表該指標當年沒有發布或沒有歷史資料。<br>因此，歷史曲線可用於回顧當期市場狀況，但在缺少當時 Vintage 的區段，不可宣稱是嚴格 PIT 回測或把最新修訂值冒充當時已知值。NFCI Credit 是 NFCI 子指標，不是獨立佐證。</div>
  <div class="legend" id="combined-legend"></div>
  <div class="timeline-controls" aria-label="時間軸操作"><button type="button" id="timeline-zoom-in">＋ 放大</button><button type="button" id="timeline-zoom-out">－ 縮小</button><button type="button" id="timeline-reset">重設全期間</button><span class="range" id="timeline-range">1993–2026</span></div>
  <div class="timeline-hint">電腦：滑鼠滾輪縮放、按住左鍵拖曳平移。手機：雙指縮放、單指左右拖曳；上下滑動頁面仍可正常使用。</div>
