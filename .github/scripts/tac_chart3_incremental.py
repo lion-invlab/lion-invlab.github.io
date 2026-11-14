@@ -221,6 +221,19 @@ def update_series(sid,root,key,retrieved,overlap=5):
   (sd/'state.json').write_text(json.dumps(state,ensure_ascii=False,indent=2))
  return {'series_id':sid,'new_vintage_dates':len(new_dates),'queried_vintage_dates':len(selected),'new_event_rows_fetched':len(new_events),'added_event_rows':merge_stats['added'],'overlap_duplicate_rows':merge_stats['overlap_duplicates'],'current_rows':checked,'current_sha256':current_sha,'event_count':sum(1 for _ in gzip.open(sd/'vintage_events.csv.gz','rt',encoding='utf-8-sig'))-1,'events_sha256':event_sha,'initial_release_rows':initial_count,'initial_release_sha256':initial_sha,'initial_release_added_rows':initial_added,'vintage_date_count':len(dates),'vintage_dates_sha256':dates_sha,'latest_vintage_date':dates[-1],'changed':changed}
 
+def fetch_release_schedule(key, retrieved):
+ """Fetch the next officially scheduled FRED release date for each chart series."""
+ today=datetime.now(timezone.utc).date().isoformat();items=[]
+ for sid in SERIES_START:
+  meta=request_json('series/release',{'series_id':sid},key)
+  release=meta.get('releases',[{}])[0]
+  rid=release.get('id')
+  if rid is None:raise RuntimeError(f'{sid}: FRED series/release did not return a release id')
+  dates=request_json('release/dates',{'release_id':rid,'realtime_start':today,'realtime_end':'9999-12-31','include_release_dates_with_no_data':'true','sort_order':'asc','limit':10000,'offset':0},key)
+  upcoming=sorted({x.get('date') for x in dates.get('release_dates',[]) if x.get('date') and x['date']>=today})
+  items.append({'series_id':sid,'release_id':rid,'release_name':release.get('name',''),'next_release_date':upcoming[0] if upcoming else None,'source':'FRED API series/release + release/dates','retrieved_at':retrieved})
+ return {'source':'FRED official release calendar','retrieved_at':retrieved,'series':items}
+
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--data-dir',default='data/tac-chart3');ap.add_argument('--overlap',type=int,default=5);args=ap.parse_args()
  key=os.environ.get('FRED_API_KEY','').strip()
@@ -235,6 +248,8 @@ def main():
  retrieved=datetime.now(timezone.utc).isoformat(timespec='seconds');results=[]
  try:
   for sid in SERIES_START:results.append(update_series(sid,stage,key,retrieved,args.overlap))
+  schedule=fetch_release_schedule(key,retrieved)
+  (stage/'release_schedule.json').write_text(json.dumps(schedule,ensure_ascii=False,indent=2))
   if any(x['changed'] for x in results):
    manifest=json.loads((stage/'manifest.json').read_text());manifest['last_incremental_at']=retrieved;manifest['last_incremental_results']=results;manifest['overall_status']='PASS'
    for item in manifest.get('series',[]):
