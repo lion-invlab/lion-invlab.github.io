@@ -25,7 +25,72 @@ def validate(key: str) -> dict:
             f"expected={record['simulation_blob_sha']}"
         )
 
+    if record.get("simulation_path") != str(isolated_path.relative_to(ROOT)):
+        raise SystemExit(
+            f"{key}: manifest simulation_path mismatch "
+            f"{record.get('simulation_path')!r} != {str(isolated_path.relative_to(ROOT))!r}"
+        )
+
     soup = BeautifulSoup(raw, "html.parser")
+
+    # Validate the fixed structural anchors and weekday-specific sections
+    # documented by mother-template-qa-contract.md.
+    required_ids = [
+        "overview", "sentiment", "news-scan", "global-markets",
+        "industry-bonds-fx-commodities", "calendar", "earnings",
+        "sp500-earnings-health", "fed", "view",
+        "tac-news-0", "tac-news-1", "tac-news-panel-0", "tac-news-panel-1",
+        "tac-global-0", "tac-global-1", "tac-global-2",
+        "tac-global-panel-0", "tac-global-panel-1", "tac-global-panel-2",
+        "tac-assets-0", "tac-assets-1", "tac-assets-2", "tac-assets-3", "tac-assets-4",
+        "tac-assets-panel-0", "tac-assets-panel-1", "tac-assets-panel-2",
+        "tac-assets-panel-3", "tac-assets-panel-4",
+        "week-econ-today", "week-econ-upcoming", "week-econ-published",
+        "week-earnings-today", "week-earnings-upcoming", "week-earnings-published",
+        "fed-live-tab-watch", "fed-live-tab-fomc",
+    ]
+    for element_id in required_ids:
+        if len(soup.select(f"#{element_id}")) != 1:
+            raise SystemExit(f"{key}: required anchor #{element_id} must exist exactly once")
+
+    monday_only = ["last-week-calendar", "last-week-earnings"]
+    if key == "monday":
+        for element_id in monday_only:
+            nodes = soup.select(f"section#{element_id}")
+            if len(nodes) != 1:
+                raise SystemExit(f"{key}: required Monday section #{element_id} missing or duplicated")
+        for selector in ("#last-week-calendar > details.last-week-calendar-collapse",
+                         "#last-week-earnings > details.last-week-earnings-collapse"):
+            nodes = soup.select(selector)
+            if len(nodes) != 1 or nodes[0].has_attr("open"):
+                raise SystemExit(f"{key}: {selector} must exist once and default to collapsed")
+    else:
+        for element_id in monday_only:
+            if soup.select(f"#{element_id}"):
+                raise SystemExit(f"{key}: weekday mother must not contain #{element_id}")
+
+    # Check the actual CSS layout contract, not just the presence of DOM classes.
+    styles = "\\n".join(node.get_text() for node in soup.find_all("style"))
+    required_css = [
+        'grid-template-areas:"prev actual" "forecast actual"',
+        ".econ-event .econ-prev{grid-area:prev}",
+        ".econ-event .econ-forecast{grid-area:forecast}",
+        ".econ-event .econ-actual{grid-area:actual}",
+    ]
+    normalized_styles = "".join(styles.split())
+    for declaration in required_css:
+        if "".join(declaration.split()) not in normalized_styles:
+            raise SystemExit(f"{key}: required five-zone CSS layout missing: {declaration}")
+    # A mobile override that changes the comparison grid to a single column
+    # would violate the contract even if the base CSS were correct.
+    for media_block in __import__("re").findall(r"@media[^\\{]*\\{([^{}]*(?:\\{[^{}]*\\}[^{}]*)*)\\}", styles, flags=__import__("re").I):
+        if ".econ-primary-grid" in media_block and (
+            "grid-template-columns:1fr" in "".join(media_block.split())
+            or "grid-template-areas" in "".join(media_block.split()) and
+               '"prev"' in "".join(media_block.split())
+        ):
+            raise SystemExit(f"{key}: responsive CSS overrides the fixed two-column comparison grid")
+
     scopes = [("#calendar", "current"), ("#last-week-calendar", "last-week")]
     cards = []
     for selector, scope in scopes:
@@ -118,11 +183,14 @@ def validate(key: str) -> dict:
     # Labels may include the approved decorative emoji; validate the stable
     # human-readable title as a substring rather than requiring emoji-free text.
     expected = ["美股個股波動率", "Q4 精選基金", "專題報導", "互動式圖表", "歷史早報"]
-    positions = [
-        next((i for i, label in enumerate(labels) if title in label), -1)
+    matches = [
+        [i for i, label in enumerate(labels) if title in label]
         for title in expected
     ]
-    if any(p < 0 for p in positions) or positions != sorted(positions):
+    if any(len(found) != 1 for found in matches):
+        raise SystemExit(f"{key}: each required toolbar title must appear exactly once: {labels}")
+    positions = [found[0] for found in matches]
+    if positions != sorted(positions):
         raise SystemExit(f"{key}: toolbar link order/content mismatch: {labels}")
     chart_links = [link for link in links if "互動式圖表" in link.get_text(" ", strip=True)]
     if len(chart_links) != 1 or chart_links[0].get("href") != "https://lion-invlab.github.io/interactive-charts/":
