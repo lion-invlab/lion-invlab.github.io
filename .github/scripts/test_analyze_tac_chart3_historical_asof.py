@@ -20,19 +20,13 @@ class HistoricalAsOfTests(unittest.TestCase):
         got=m.asof_latest(d,"X","2020-01-12")
         self.assertEqual((got["observation_date"],got["vintage_date"],got["value"]),("2020-01-08","2020-01-10",6.0))
 
-    def test_pre_archive_observation_is_left_censored_not_false_initial_release(self):
-        d={"X":{"2007-07-01":{"2010-11-22":"20.0"},"2010-11-23":{"2010-11-24":"21.0"}}}
-        got=m.release_summary(d,"X","2007-07-01","2009-06-30")
-        self.assertEqual(got["event_observations_left_censored_before_archive_start"],1)
-        self.assertEqual(got["event_observations_with_any_numeric_vintage"],0)
-        self.assertIsNone(got["median_initial_release_lag_calendar_days"])
-
-    def test_release_lag_and_by_end(self):
-        d={"X":{"2020-01-01":{"2020-01-03":"1.0"},"2020-01-08":{"2020-01-12":"2.0"}}}
-        got=m.release_summary(d,"X","2020-01-01","2020-01-15")
-        self.assertEqual(got["median_initial_release_lag_calendar_days"],4.0)
-        self.assertEqual(got["event_observations_left_censored_before_archive_start"],1)
-        self.assertEqual(got["event_observations_first_released_strictly_before_episode_end"],1)
+    def test_output_type4_initial_release_dates_and_uncovered_period(self):
+        d={"X":{"2020-01-01":"2020-01-03","2020-01-08":"2020-01-12"}}
+        got=m.release_summary(d,"X","2019-12-01","2020-01-15")
+        self.assertEqual(got["event_observations_with_any_numeric_vintage"],2)
+        self.assertEqual(got["median_initial_release_lag_calendar_days"],3.0)
+        self.assertEqual(got["event_observations_first_released_strictly_before_episode_end"],2)
+        self.assertEqual(got["rule"].split(".")[0],"First release date is output_type=4 realtime_start")
 
 if __name__ == "__main__":
     unittest.main()
