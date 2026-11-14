@@ -1156,9 +1156,9 @@
         "us_listing_ticker": "JD",
         "listing_evidence": {
           "name": "JD.com, Inc.｜Official investor relations / issuer announcement",
-          "url": "https://ir.jd.com/news-releases/news-release-details/jdcom-report-third-quarter-2026-financial-results-november-17",
+          "url": "https://ir.jd.com/node/12396/pdf",
           "publisher": "JD.com, Inc.",
-          "notes": "JD.com 官方公告明列 JD.com, Inc. (NASDAQ: JD)。"
+          "notes": "JD.com 發行人官方 6-K／財報時程公告明列 JD.com, Inc. (NASDAQ: JD)，並確認 11/17/2026 Q3 財報日期。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -2986,9 +2986,9 @@
         "us_listing_ticker": "BABA",
         "listing_evidence": {
           "name": "Alibaba Group Holding Limited｜Official investor relations / issuer announcement",
-          "url": "https://home.alibabagroup.com/en-US/document-2054756418245885952",
+          "url": "https://www.alibabagroup.com/en-US/document-2054756418245885952",
           "publisher": "Alibaba Group Holding Limited",
-          "notes": "發行人公告明列 Alibaba Group Holding Limited (NYSE: BABA)。"
+          "notes": "Alibaba Group 發行人官方公告明列 NYSE: BABA，並確認 11/19/2026 September Quarter 2026 財報日期。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -4269,7 +4269,6 @@
         "https://ir.tyson.com/news/news-details/2026/Tyson-Foods-Announces-Fourth-Quarter-Earnings-Conference-Call-and-Webcast/default.aspx",
         "https://www.investing.com/equities/tyson-foods-earnings",
         "https://ir.jd.com/node/12396/pdf",
-        "https://ir.jd.com/news-releases/news-release-details/jdcom-report-third-quarter-2026-financial-results-november-17",
         "https://www.investing.com/equities/jd.com-inc-adr-earnings",
         "https://investors.thewaltdisneycompany.com/news/news-details/2026/The-Walt-Disney-Company-Executives-to-Discuss-Fiscal-Full-Year-and-Fourth-Quarter-2026-Financial-Results-via-Webcast/default.aspx",
         "https://investors.thewaltdisneycompany.com/overview/default.aspx",
@@ -4290,7 +4289,6 @@
         "https://corporate.walmart.com/news/2026/11/Walmart-To-Host-Q3-Earnings-Call-Nov-19-2026",
         "https://www.investing.com/equities/wal-mart-stores-earnings",
         "https://www.alibabagroup.com/en-US/document-2054756418245885952",
-        "https://home.alibabagroup.com/en-US/document-2054756418245885952",
         "https://www.investing.com/equities/alibaba-earnings",
         "https://ir.netease.com/node/15911",
         "https://ir.netease.com/",
@@ -4472,6 +4470,18 @@
         "source_urls_verified": true
       },
       "notes": "將 JD、Alibaba、NetEase 財報來源連結更正為已檢索到的官方發行人公告頁；NetEase 掛牌證據改用官方 IR 首頁，明列 NASDAQ: NTES。"
+    },
+    {
+      "at": "2026-11-14T13:22:49+08:00",
+      "action": "W47_correct_JD_Alibaba_listing_evidence_links",
+      "event_id": "current-jd-20261117,current-baba-20261119",
+      "before": {
+        "blob_sha": "e2b4920799ac800073bc7d933abad0e2a938da4f"
+      },
+      "after": {
+        "listing_evidence_links_match_official_sources": true
+      },
+      "notes": "修正 JD 與 Alibaba listing_evidence 連結，使掛牌證據直接指向已核實的發行人官方公告。"
     }
   ],
   "last_update_audit": {
