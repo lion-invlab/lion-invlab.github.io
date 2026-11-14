@@ -30,7 +30,7 @@ def validate_chart(page, label):
     chart_bottom_space = page.locator("#combined-chart svg").evaluate("(e)=>{const h=e.viewBox.baseVal.height,b=Number(e.dataset.plotBottom);return {height:h,plotBottom:b,bottomGap:h-b,yearLabels:[...e.querySelectorAll('text')].filter(t=>/^20\\d{2}$/.test(t.textContent.trim())).map(t=>Number(t.getAttribute('y')))}}")
     check(label + "_chart_bottom_whitespace_compact", chart_bottom_space["bottomGap"] <= (72 if "desktop" in label.lower() else 56) + 1, chart_bottom_space)
     check(label + "_five_series_default", page.locator("#combined-chart svg path[data-series]").count() == 5)
-    check(label + "_current_snapshot_not_mislabeled_as_historical_pit", "非 PIT" in page.locator(".card-head .desc").first.inner_text() and all(v in page.locator("#method-details").inner_text() for v in ["2010-11-22","2011-05-25","2012-07-05","2022-11-10"]))
+    check(label + "_current_snapshot_not_mislabeled_as_historical_pit", "非 PIT" in page.locator("#combined-stress-card").inner_text() and all(v in page.locator("#method-details").inner_text() for v in ["2010-11-22","2011-05-25","2012-07-05","2022-11-10"]))
     left_axis = page.locator("#combined-chart svg text[data-axis='left']").evaluate_all("(els)=>els.map(e=>Number(e.getAttribute('data-axis-value')))")
     check(label + "_left_percentile_axis_has_real_ticks", left_axis == [0, 20, 40, 60, 80, 100], left_axis)
     check(label + "_header_metadata_pills_removed", page.locator("header .meta, header .pill").count() == 0)
