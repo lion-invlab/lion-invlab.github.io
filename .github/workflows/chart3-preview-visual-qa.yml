@@ -1,21 +1,23 @@
 name: TAC Chart 3 preview visual QA
-# Re-run browser QA after history overlay checkbox changes
+# Validate the exact pushed branch; never silently fall back to main.
 
 on:
   push:
     branches:
       - main
+      - research/chart3-sp500-integration-20261114
     paths:
       - ".github/workflows/chart3-preview-visual-qa.yml"
       - ".github/scripts/test_chart3_preview_browser.py"
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
+      - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
 
 permissions:
   contents: read
 
 concurrency:
-  group: tac-chart3-preview-visual-qa
+  group: tac-chart3-preview-visual-qa-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -23,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout main branch
+      - name: Checkout triggering branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.ref }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -48,14 +50,14 @@ jobs:
           data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
           fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
           if fetch_call not in html:
-              raise SystemExit("Expected data fetch call not found; standalone preview not generated")
+              raise SystemExit("Expected stress-data fetch call not found; standalone preview not generated")
           html = html.replace(fetch_call, "Promise.resolve(" + data + ")")
           out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")
           print(f"Standalone preview generated: {out} ({out.stat().st_size} bytes)")
           PY
-      - name: Render and validate desktop and mobile previews
+      - name: Render and validate desktop, mobile and 320px previews
         run: python .github/scripts/test_chart3_preview_browser.py
       - name: Upload screenshots and QA report
         if: always()
