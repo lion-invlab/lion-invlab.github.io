@@ -3649,8 +3649,7 @@
           "run_id": 43026998120
         }
       }
-    },
-    "note": "Main's four-series risk data snapshots and provenance retained; full-history S&P 500 migration metadata and browser QA appended."
+    }
   },
   "sp500_data": {
     "path": "data/tac-chart3/sp500_daily_close_1927-2026.compact.json",
