@@ -66,6 +66,36 @@ def validate_chart(page, label):
     check(label + "_daily_brief_has_dark_image_overlay", "data:image/svg+xml" in page.locator("#daily-risk-brief").evaluate("(e)=>getComputedStyle(e).backgroundImage"))
     check(label + "_sp500_daily_snapshot_populated", "13 週" in page.locator("#sp500-return").inner_text() and "收盤" in page.locator("#sp500-return").inner_text() and "24,833 筆真實交易日收盤價" in page.locator("#sp500-detail").inner_text())
     check(label + "_sp500_daily_observation_count", page.locator("#combined-chart svg path[data-series=SP500]").get_attribute("data-observations") == "24833")
+    drawdown_audit = page.evaluate("""() => {
+        const results = DRAWDOWNS.map(dd => {
+            const start = Date.parse(dd.peak + "T00:00:00Z");
+            const end = Date.parse(dd.trough + "T00:00:00Z");
+            let high = -Infinity, low = Infinity, highDate = "", lowDate = "";
+            for (let i = 0; i < SP500_DATES.length; i++) {
+                const day = SP500_DATES[i];
+                if (day < start || day > end) continue;
+                const value = SP500_PRICES[i];
+                if (value > high) { high = value; highDate = new Date(day).toISOString().slice(0, 10); }
+                if (value < low) { low = value; lowDate = new Date(day).toISOString().slice(0, 10); }
+            }
+            const calculatedPct = (low / high - 1) * 100;
+            return {
+                id: dd.id,
+                configuredPct: dd.pct,
+                calculatedPct: Number(calculatedPct.toFixed(1)),
+                configuredPeak: dd.peak,
+                actualPeak: highDate,
+                configuredTrough: dd.trough,
+                actualTrough: lowDate,
+                peakCloseMatches: dd.peakClose == null || Math.abs(dd.peakClose - high) <= 0.011,
+                troughCloseMatches: dd.troughClose == null || Math.abs(dd.troughClose - low) <= 0.011,
+                pctMatches: Math.abs(dd.pct - calculatedPct) <= 0.15,
+                datesMatch: highDate === dd.peak && lowDate === dd.trough
+            };
+        });
+        return {count: results.length, failures: results.filter(x => !x.pctMatches || !x.datesMatch || !x.peakCloseMatches || !x.troughCloseMatches), results};
+    }""")
+    check(label + "_all_drawdown_labels_match_sp500_daily_data", drawdown_audit.count == 29 and len(drawdown_audit["failures"]) == 0, drawdown_audit)
     guide = page.locator("#percentile-reading")
     check(label + "_percentile_method_collapsed_by_default", not guide.evaluate("(e)=>e.open"))
     guide.locator("summary").click()
