@@ -5,7 +5,7 @@
   "week_start": "2026-11-16",
   "week_end": "2026-11-22",
   "created_at": "2026-11-14T13:13:57+08:00",
-  "updated_at": "2026-11-14T13:18:56+08:00",
+  "updated_at": "2026-11-14T13:22:49+08:00",
   "source_report_date": "2026-11-14",
   "wr_version": "5.15",
   "status": "incomplete",
@@ -19,8 +19,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：中國主要月度成長與需求指標集中發布，能同步反映工業景氣、內需消費及投資動能，對中國資產、原物料與亞洲供應鏈具明顯影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "10月前值：工业增加值年增5.5%；社会消费品零售总额年增1.1%；固定资产投资（年初至今）年减7.2%；城镇调查失业率5.2%。",
+        "forecast": "市场共识：工业增加值年增5.3%；社会消费品零售总额年增0.8%；固定资产投资（年初至今）年减7.0%；城镇调查失业率未取得一致预期。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "工業增加值、零售銷售與固定資產投資的組合將協助判斷中國政策刺激是否轉化為實體需求；須分辨生產端改善與消費端修復是否同步。",
@@ -28,10 +28,12 @@
           "name": "中國國家統計局｜2026 年主要統計信息發布日程表",
           "url": "https://www.stats.gov.cn/sj/fbrc/bnxxfb/",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "National Bureau of Statistics of China",
-          "notes": "官方日程表列示 11 月 16 日 10:00 發布 10 月國民經濟運行情況；採北京時間，與台灣同為 UTC+8。",
-          "secondary_refs": []
+          "notes": "国家统计局官方日程确认 11/16 10:00 发布 10 月国民经济运行情况；该场发布会将同步公布工业生产、固定资产投资、房地产开发与销售、社会消费品零售等月度数据。前值与市场共识由 Trading Economics 日历补充，非官方预测。",
+          "secondary_refs": [
+            "https://tradingeconomics.com/china/calendar/api"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -47,8 +49,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：加拿大通膨是加拿大央行政策路徑的重要輸入，若核心與服務通膨黏著，將影響加幣及北美利率定價。",
-        "previous": null,
-        "forecast": null,
+        "previous": "9月CPI年增3.1%；核心CPI（剔除食品与能源）年增2.1%；CPI月增0.1%。",
+        "forecast": "RBC Economics预期：10月headline CPI年增3.0%；核心CPI（剔除食品与能源）年增1.9%；CPI-trim／CPI-median平均年增率大致持平，核心月增约0.2%。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "觀察整體與核心通膨是否延續降溫，以及住房、服務價格壓力；官方日程只確認日期，未提供精確發布時間，因此不推定時刻。",
@@ -56,38 +58,13 @@
           "name": "Statistics Canada｜2026–2027 Major Economic Release Dates",
           "url": "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "Statistics Canada",
-          "notes": "官方發布日程列示 CPI 於 2026-11-16 發布，參考期間為 2026 年 10 月；官方 PDF 未列具體時刻，event_date 使用日期佔位，time_known=false。",
-          "secondary_refs": []
-        },
-        "previous_applicable": true,
-        "forecast_applicable": true,
-        "data_unit": "% y/y; % m/m",
-        "data_reference": "2026年10月",
-        "time_known": false
-      },
-      {
-        "id": "current-eurozone-hicp-20261117",
-        "event_date": "2026-11-17T12:00:00+08:00",
-        "region": "歐元區",
-        "event_name": "歐元區 10 月調和消費者物價指數（HICP）",
-        "importance_stars": 4,
-        "importance_basis": "major_event_assessment",
-        "importance_basis_source": "TAC四星：歐元區通膨是 ECB 政策路徑與歐元利率定價的核心資料，對歐元及歐洲債市具跨市場影響。",
-        "previous": null,
-        "forecast": null,
-        "actual": null,
-        "status": "upcoming",
-        "impact_judgment": "須留意整體與核心通膨是否持續回落，以及服務價格是否黏著；官方日程確認發布日期但未在該頁標示具體時刻，故不推定時間。",
-        "source": {
-          "name": "Eurostat｜Release Calendar for Euro Indicators, 16–20 November 2026",
-          "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
-          "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
-          "publisher": "Eurostat",
-          "notes": "官方 release calendar 將 Inflation (HICP), October 2026 列於 11 月 17 日；未由該頁取得精確發布時刻，time_known=false。",
-          "secondary_refs": []
+          "notes": "Statistics Canada 官方日程确认 11/16 发布 10 月 CPI；官方 PDF 未列具体时刻，因此 time_known=false。前值与预测补充采用 RBC Economics 11/13 前瞻报告，明确标注为单一机构预测，不当作市场一致预期。",
+          "secondary_refs": [
+            "https://www.rbc.com/en/economics/forward-guidance/last-canadian-inflation-report-before-december-boc-meeting/",
+            "https://www.forexfactory.com/calendar/80-ca-cpi-mm"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -103,7 +80,7 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：就業與薪資是英格蘭銀行判斷服務通膨與政策限制的重要依據，對英鎊及英國短端利率具明顯影響。",
-        "previous": null,
+        "previous": "6–8月失业率4.7%；就业率75.3%；regular earnings年增3.7%；total earnings年增3.7%。",
         "forecast": null,
         "actual": null,
         "status": "upcoming",
@@ -112,10 +89,12 @@
           "name": "UK Office for National Statistics｜Release Calendar",
           "url": "https://www.ons.gov.uk/releasecalendar?keywords=uk+labour+market&release-type=type-upcoming",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "Office for National Statistics",
-          "notes": "官方 release calendar 將 UK Labour Market: November 2026 列為 11 月 17 日 07:00 發布，換算台灣時間 15:00。",
-          "secondary_refs": []
+          "notes": "ONS 官方日历确认 11/17 07:00 GMT 发布。前值采用 ONS 10 月劳动力市场报告（参考期 6–8 月）；本轮未取得可核实市场共识，forecast 保持 null。",
+          "secondary_refs": [
+            "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/october2026"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -161,8 +140,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：工業生產及產能利用率可檢驗美國製造業、能源與公用事業活動，補足零售消費以外的成長訊號。",
-        "previous": null,
-        "forecast": null,
+        "previous": "9月工業生產月增0.7%；產能利用率76.9%。",
+        "forecast": "10月工業生產月增市場共識0.1%。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若工業產出走弱，可能反映製造業與實體需求降溫；產能利用率則有助判斷供給限制與成本壓力。",
@@ -170,11 +149,11 @@
           "name": "Federal Reserve｜November 2026 Calendar / G.17 Release",
           "url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "Federal Reserve Board",
-          "notes": "Fed 官方行事曆列示 G.17 於 11 月 17 日發布；Fed G.17 排程時間為 09:15 ET，換算台灣時間 22:15。",
+          "notes": "Federal Reserve 官方行事曆列示 11/17 發布 G.17；標準發布時間 09:15 ET（台灣22:15）。前值採9月官方數據；市場共識採 Trading Economics 日曆。",
           "secondary_refs": [
-            "https://www.federalreserve.gov/feeds/g17.html"
+            "https://tradingeconomics.com/united-states/industrial-production-mom"
           ]
         },
         "previous_applicable": true,
@@ -191,7 +170,7 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：英國通膨直接影響英格蘭銀行利率路徑，尤其服務通膨及薪資黏著度對英鎊與英國公債定價重要。",
-        "previous": "9 月 CPI 年增 3.5%、月增 0.4%；核心 CPI 年增 2.8%。",
+        "previous": "9月CPI年增3.5%、月增0.4%；核心CPI年增2.8%。",
         "forecast": null,
         "actual": null,
         "status": "upcoming",
@@ -200,11 +179,44 @@
           "name": "UK Office for National Statistics｜Consumer Price Inflation, UK: October 2026",
           "url": "https://www.ons.gov.uk/releases/consumerpriceinflationukoctober2026",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "Office for National Statistics",
-          "notes": "官方頁確認 2026-11-18 07:00 發布，換算台灣時間 15:00。",
+          "notes": "ONS 官方頁確認 11/18 07:00 GMT 發布，換算台灣時間 15:00。前值採 ONS 9 月 CPI 官方公報；本輪未取得可靠市場一致預期，forecast 保持 null。",
           "secondary_refs": [
-            "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026"
+            "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+            "https://tradingeconomics.com/united-kingdom/inflation-cpi"
+          ]
+        },
+        "previous_applicable": true,
+        "forecast_applicable": true,
+        "data_unit": "% y/y; % m/m",
+        "data_reference": "2026年10月",
+        "time_known": true
+      },
+      {
+        "id": "current-eurozone-hicp-20261117",
+        "event_date": "2026-11-18T19:00:00+08:00",
+        "region": "歐元區",
+        "event_name": "歐元區 10 月調和消費者物價指數（HICP）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：歐元區通膨是 ECB 政策路徑與歐元利率定價的核心資料，對歐元及歐洲債市具跨市場影響。",
+        "previous": "9月HICP年增3.8%；月增0.6%。",
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "完整10月HICP於11/18發布；須觀察整體與核心價格、能源及服務通膨是否延續升溫。9月前值為年增3.8%、月增0.6%；10月flash estimate已於11/4公布，但本欄不將flash值冒充市場共識。",
+        "source": {
+          "name": "Eurostat｜Inflation (HICP), October 2026 release calendar",
+          "url": "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
+          "published_at": null,
+          "observed_at": "2026-11-14T13:22:49+08:00",
+          "publisher": "Eurostat",
+          "notes": "Eurostat 官方日程列示 10 月 HICP 完整數據於 11/18 發布；ECB HICP release calendar 列示 11/18 12:00 CET，換算台灣時間 19:00。9 月前值由 Eurostat／Trading Economics 歷史資料核對；未取得10月市場共識，forecast維持null。",
+          "secondary_refs": [
+            "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/sthicp.en.html",
+            "https://ec.europa.eu/eurostat/en/web/products-euro-indicators/w/2-04112026-ap",
+            "https://tradingeconomics.com/euro-area/inflation-rate-mom"
           ]
         },
         "previous_applicable": true,
@@ -221,8 +233,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：住宅建設對利率敏感，可反映高房貸利率對房市、建築活動及相關產業的傳導。",
-        "previous": "9 月新屋開工年化 1.221 百萬戶；建築許可年化 1.400 百萬戶。",
-        "forecast": null,
+        "previous": "9月新屋開工年化1.221百萬戶；建築許可年化1.400百萬戶。",
+        "forecast": "10月新屋開工市場共識年化1.23百萬戶；建築許可市場共識年化1.36百萬戶。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若開工與許可同步回升，代表住宅活動可能築底；若續弱，則顯示融資成本仍壓抑住宅需求與建築投資。",
@@ -230,10 +242,11 @@
           "name": "U.S. Census Bureau｜New Residential Construction Release Schedule",
           "url": "https://www.census.gov/construction/bps/schedule.html",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "U.S. Census Bureau",
-          "notes": "官方排程確認 10 月 New Residential Construction 於 11 月 18 日 08:30 ET 發布；前值採 9 月官方報告。",
+          "notes": "Census Bureau 官方排程確認 11/18 08:30 ET 發布；前值採9月 Census／HUD 官方報告。10月共識值採 Trading Economics 日曆，建築許可為預估值，並與開工分列。",
           "secondary_refs": [
+            "https://tradingeconomics.com/united-states/housing-starts",
             "https://www.census.gov/construction/nrc/pdf/newresconst.pdf"
           ]
         },
@@ -279,8 +292,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：零售銷售可驗證英國家庭實質消費及高利率環境下的需求韌性，對英鎊、英國零售與利率預期具影響。",
-        "previous": null,
-        "forecast": null,
+        "previous": "9月零售銷售量月減0.4%。",
+        "forecast": "10月零售銷售量市場預期月增0.0%。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "若零售量持續疲弱，將加深英國內需放緩疑慮；若回升，則需與薪資及通膨資料交叉判斷消費是否真正改善。",
@@ -288,10 +301,12 @@
           "name": "UK Office for National Statistics｜Release Calendar",
           "url": "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "Office for National Statistics",
-          "notes": "官方 release calendar 將 Retail sales, Great Britain: October 2026 列為 11 月 20 日 07:00，換算台灣時間 15:00。",
-          "secondary_refs": []
+          "notes": "ONS 官方日曆確認 11/20 07:00 GMT 發布，換算台灣時間 15:00。前值與市場預期由 Forex Factory 經濟日曆補充；本數據仍以 ONS 正式發布為準。",
+          "secondary_refs": [
+            "https://www.forexfactory.com/calendar/105-uk-retail-sales-mm"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -307,8 +322,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：消費者信心及短長期通膨預期是家庭需求與通膨預期的重要補充指標，可能影響 Fed 政策定價及消費相關產業。",
-        "previous": null,
-        "forecast": null,
+        "previous": "10月消費者信心終值48.0；11月初值已於11/6公布為51.0。",
+        "forecast": "11月消費者信心終值市場預期51.0。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "除信心終值外，市場將關注一年與長期通膨預期是否回落；若通膨預期再度上升，可能抵銷信心改善對風險資產的正面效果。",
@@ -316,10 +331,13 @@
           "name": "University of Michigan｜Surveys of Consumers Release Schedule",
           "url": "https://www.sca.isr.umich.edu/",
           "published_at": null,
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:22:49+08:00",
           "publisher": "University of Michigan",
-          "notes": "官方頁確認 11 月終值於 11 月 20 日 10:00 ET 發布，換算台灣時間 23:00。",
-          "secondary_refs": []
+          "notes": "University of Michigan 官方頁確認 11/20 10:00 ET 發布 11 月終值，換算台灣時間23:00。11月初值51.0已於11/6公布；Investing.com日曆列示終值預期51.0、前值48.0。",
+          "secondary_refs": [
+            "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320",
+            "https://www.sca.isr.umich.edu/"
+          ]
         },
         "previous_applicable": true,
         "forecast_applicable": true,
@@ -4179,21 +4197,32 @@
       "status": "incomplete",
       "source_refs": [
         "https://www.stats.gov.cn/sj/fbrc/bnxxfb/",
+        "https://tradingeconomics.com/china/calendar/api",
         "https://www150.statcan.gc.ca/n1/en/release-diffusion/2026-eng.pdf",
-        "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
+        "https://www.rbc.com/en/economics/forward-guidance/last-canadian-inflation-report-before-december-boc-meeting/",
+        "https://www.forexfactory.com/calendar/80-ca-cpi-mm",
         "https://www.ons.gov.uk/releasecalendar?keywords=uk+labour+market&release-type=type-upcoming",
+        "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/october2026",
         "https://www.census.gov/retail/release_schedule.html",
         "https://economics.td.com/domains/economics.td.com/documents/reports/bottom-line/tables/2026-11-13/upcoming.htm",
         "https://www.federalreserve.gov/newsevents/2026-November.htm",
-        "https://www.federalreserve.gov/feeds/g17.html",
+        "https://tradingeconomics.com/united-states/industrial-production-mom",
         "https://www.ons.gov.uk/releases/consumerpriceinflationukoctober2026",
         "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/september2026",
+        "https://tradingeconomics.com/united-kingdom/inflation-cpi",
+        "https://ec.europa.eu/eurostat/web/main/news/euro-indicators/release-calendar?start=1794783600000&type=dayGridWeek",
+        "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/sthicp.en.html",
+        "https://ec.europa.eu/eurostat/en/web/products-euro-indicators/w/2-04112026-ap",
+        "https://tradingeconomics.com/euro-area/inflation-rate-mom",
         "https://www.census.gov/construction/bps/schedule.html",
+        "https://tradingeconomics.com/united-states/housing-starts",
         "https://www.census.gov/construction/nrc/pdf/newresconst.pdf",
         "https://www.ons.gov.uk/releasecalendar?page=2&release-type=type-upcoming",
-        "https://www.sca.isr.umich.edu/"
+        "https://www.forexfactory.com/calendar/105-uk-retail-sales-mm",
+        "https://www.sca.isr.umich.edu/",
+        "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320"
       ],
-      "notes": "W47 首次建檔：只納入經官方日程確認且經 TAC 獨立評估達四／五星的主要事件。官方只提供日期而未提供時刻者保留 time_known=false 與台灣日期佔位；forecast／previous 未取得可靠可比值者維持 null。候選掃描仍需後續增量核對，coverage 不宣稱 complete。"
+      "notes": "W47 目前列入 11 項經官方發布日程確認且 TAC 評級四／五星的主要事件。10 項有精確發布時間，Canada CPI 僅確認日期而無官方時刻。前值已補至 10 項；市場共識／機構預測已補至 7 項，其餘無可靠預期者保持 null。所有前值、預期值均附來源；Eurostat 10 月完整 HICP 已更正為 11/18 12:00 CET（台灣19:00），非11/17。"
     },
     "earnings": {
       "status": "incomplete",
@@ -4352,10 +4381,25 @@
         "revenue_attempts": 63
       },
       "notes": "最終回讀確認 W47 JSON 與 W46 schema_version=1 的 economic／earnings 欄位集合完全一致；21 筆財報事件均有美股掛牌證據、EPS／Revenue 各 3 層 attempts、空 snapshot 陣列；事件 ID 唯一且排序正確。未取得有效 consensus 或 PIT snapshot。"
+    },
+    {
+      "at": "2026-11-14T13:22:49+08:00",
+      "action": "W47_economic_calendar_value_and_time_correction",
+      "event_id": "current-china-oct-activity-20261116,current-canada-cpi-20261116,current-uk-labour-20261117,current-us-retail-sales-20261117,current-us-industrial-production-20261117,current-uk-cpi-20261118,current-eurozone-hicp-20261117,current-us-housing-starts-20261118,current-fomc-minutes-20261119,current-uk-retail-sales-20261120,current-us-michigan-sentiment-20261120",
+      "before": {
+        "blob_sha": "6d5a0219022d71cc45cf2158b53d4fe489eb8788"
+      },
+      "after": {
+        "economic_events": 11,
+        "with_exact_time": 10,
+        "with_previous": 10,
+        "with_forecast": 7
+      },
+      "notes": "依官方來源更正 Eurostat HICP 為 11/18 12:00 CET（台灣19:00）；補入中國、加拿大、英國、美國及密西根大學可核實之前值與市場／機構預期。未有可靠資料者保持 null。"
     }
   ],
   "last_update_audit": {
-    "at": "2026-11-14T13:18:56+08:00",
+    "at": "2026-11-14T13:22:49+08:00",
     "run_status": "partial_success_official_schedule_build_consensus_unresolved",
     "week": "2026-W47",
     "main_wr_version": "5.15",
@@ -4428,9 +4472,9 @@
       "economic": {
         "events": 11,
         "with_official_schedule": 11,
-        "with_verified_time": 9,
-        "with_previous": 3,
-        "with_forecast": 1,
+        "with_verified_time": 10,
+        "with_previous": 10,
+        "with_forecast": 7,
         "actuals": 0
       },
       "earnings": {
@@ -4467,7 +4511,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
