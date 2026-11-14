@@ -23,7 +23,7 @@ permissions:
 
 concurrency:
   group: tac-chart3-preview-visual-qa-full-history
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   browser-qa:
@@ -44,7 +44,6 @@ jobs:
           python -m pip install playwright
           python -m playwright install --with-deps chromium
       - name: Build standalone preview artifact
-        if: always()
         run: |
           python - <<'PY'
           import json
