@@ -2,9 +2,11 @@ name: TAC Chart 3 preview visual QA
 # Re-run browser QA after history overlay checkbox changes
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
+      - fix/chart3-full-migration-20261114
     paths:
       - ".github/workflows/chart3-preview-visual-qa.yml"
       - ".github/scripts/test_chart3_preview_browser.py"
@@ -23,10 +25,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout main branch
+      - name: Checkout tested branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.ref }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
