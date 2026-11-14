@@ -9,6 +9,7 @@ on:
       - "preview/**"
       - "history/**"
       - "research/**"
+      - "interactive-charts/**"
       - "data/tac-chart3/**"
       - "index.html"
       - "special-reports.html"
