@@ -680,9 +680,9 @@
   },
   "core_observation": {
     "heading": "盤面觀察重點",
-    "text": "本週三大催化劑：① 11/17美國零售銷售與工業生產，搭配Fed官員發言，檢驗消費、製造與政策訊號。② 11/19 FOMC會議紀要，確認委員對通膨與升息路徑的分歧。③ 11/18 NVIDIA財報，這是接班後首份關鍵業績，觀察資料中心需求、毛利率、資本支出與管理層指引。"
+    "text": "本週三大催化劑：① 11/17 21:30–22:15（台灣時間）美國零售銷售與工業生產，並留意當日01:00 Fed主席Warsh開幕致詞，檢驗消費、製造與政策訊號。② 11/19 03:00 FOMC 10月會議紀要，觀察委員對通膨與升息路徑的分歧。③ 11/18 05:20 NVIDIA盤後財報，檢驗資料中心需求、毛利率、資本支出與接班後管理層指引。"
   },
-  "qa_run_revision": "2026-11-16-SIM1.2-pre-review-v1",
+  "qa_run_revision": "2026-11-16-SIM1.2-pre-review-v2",
   "market_sentiment": "Fear & Greed 39（Fear）｜VIX 19.30（+3.21%）｜MOVE 98.79（+0.37%）｜FedWatch：12/9升息25bp機率91.3%。股市波動尚未極端，但高殖利率與美元走強使風險承擔意願下降。",
   "quality_note": "固定44項指標已全部填值，行情基準統一為2026-11-13。美股S&P 500、Nasdaq Composite、Russell 2000採AP現貨收盤；Dow與SOX以Investing.com HK歷史頁為主，SOX OHLC另以Nasdaq官方覆核；其餘全球指數及產業ETF以Investing.com歷史頁為主（XLRE使用Global備援）；美債殖利率採U.S. Treasury官方日曲線；外匯採Investing.com HK歷史頁，DXY使用USD Index代理值；能源與金屬採指定CME/ICE合約歷史頁；VIX/MOVE採Investing.com、Fear & Greed採FGScore備援。W47資料庫尚未完成最終更新，故本版為預審而非最終版。",
   "report_cutoff_taipei": "2026-11-15 02:13（預審快照）",
