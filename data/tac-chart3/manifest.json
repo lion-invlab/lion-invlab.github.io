@@ -10,8 +10,9 @@
   "risk_data": {
     "path": "data/tac-chart3/chart3_market_stress.json",
     "git_blob_sha1": "4e8ee99c8fb7858ccdbe510da9fa3a411e0e14ac",
-    "sha256": "4e8ee99c8fb7858ccdbe510da9fa3a411e0e14ac",
-    "note": "SHA value retained from the prior migration handover as the verified data snapshot identifier; do not reinterpret as a Git blob SHA-256."
+    "note": "SHA value retained from the prior migration handover as the verified data snapshot identifier; do not reinterpret as a Git blob SHA-256.",
+    "snapshot_identifier": "4e8ee99c8fb7858ccdbe510da9fa3a411e0e14ac",
+    "identifier_type": "prior_handover_verified_data_snapshot_identifier_not_sha256"
   },
   "risk_series": [
     {
