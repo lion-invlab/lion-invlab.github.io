@@ -8,14 +8,14 @@
     {
       "title": "美國10月PPI月增放緩、年增仍達6.5%，通膨壓力未解除",
       "summary": "美國10月最終需求PPI月增0.3%，低於市場預期的0.4%；但年增率升至6.5%，為2022年11月以來最大升幅。月度增速降溫與年增續升並存，尚不足以支持Fed迅速轉向寬鬆。",
-      "url": "https://www.investing.com/news/economic-indicators/us-producer-prices-rise-by-65-yearoveryear-in-october-5025495",
+      "url": "https://hk.investing.com/news/economic-indicators/article-1757851",
       "published_at_tw": "2026-11-13 21:37"
     },
     {
-      "title": "Fed官員轉向偏鷹，Daly與Collins認為仍需進一步緊縮",
-      "summary": "Daly指出服務業通膨黏著，若價格壓力持續，利率仍可能需要上調；Collins也認為近期額外緊縮具有合理性。市場對12月政策路徑重新定價，與PPI月增降溫形成拉鋸。",
-      "url": "https://www.investing.com/news/stock-market-news/fed-turns-hawkish-as-cpi-beats-and-officials-back-further-rate-hikes-93CH-5026435",
-      "published_at_tw": "2026-11-14 04:21"
+      "title": "Fed戴利：服務業通膨黏著，利率可能仍需進一步上調",
+      "summary": "戴利指出服務業通膨尚未朝正確方向發展，企業也開始考慮將成本轉嫁給消費者；她認為目前利率未必已具足夠限制性，進一步升息仍可能必要。市場因此在PPI月增降溫與官員偏鷹訊號之間拉鋸。",
+      "url": "https://hk.investing.com/news/economy-news/article-1758325",
+      "published_at_tw": "2026-11-14 01:53"
     },
     {
       "title": "美元升至近19個月高點，日圓逼近160關卡",
@@ -32,16 +32,16 @@
     {
       "title": "Fed金融穩定報告將AI列為首要風險，相關債務融資快速擴大",
       "summary": "Fed調查中87%受訪者將AI列為金融穩定的重要風險，較前次調查明顯上升；先進運算相關債務發行額約6,800億美元，已占投資級企業債發行相當比重。這不是對AI需求的否定，而是提醒市場檢視資本支出回收、融資集中與估值風險。",
-      "url": "https://uk.investing.com/news/stock-market-news/ai-risks-top-financial-stability-concerns-fed-reports-93CH-4981944",
-      "published_at_tw": "2026-11-14 05:28"
+      "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1758398",
+      "published_at_tw": "2026-11-14 05:26"
     }
   ],
   "headlines": [
     {
-      "title": "NVIDIA董事會仍未正式接觸CEO候選人，接班程序尚未明朗",
-      "summary": "董事會仍在挑選獵頭公司，尚未正式接觸永久CEO候選人；財務長Colette Kress暫代執行長。接班速度、董事會治理與資本配置方向，將成為11/17財報前市場評估關鍵。",
-      "url": "https://hk.investing.com/news/stock-market-news/article-1758521",
-      "published_at_tw": "2026-11-14 08:28"
+      "title": "NVIDIA否認已接觸黃仁勳接班人，董事會仍在尋找獵頭公司",
+      "summary": "NVIDIA否認已正式接觸永久CEO候選人，董事會仍在評估獵頭公司與接班程序；財務長Colette Kress暫代執行長。接班速度、董事會治理與資本配置方向，將成為11/18財報前市場評估關鍵。",
+      "url": "https://m.cnyes.com/news/id/6662469",
+      "published_at_tw": "2026-11-14 16:11"
     },
     {
       "title": "富國銀行維持NVIDIA增持評級，但分析師對接班風險看法分歧",
@@ -92,10 +92,10 @@
       "published_at_tw": "2026-11-14 08:08"
     },
     {
-      "title": "Richemont第二季銷售增速放緩，奢侈品需求呈現分化",
-      "summary": "Richemont第二季銷售按固定匯率增長13%，低於前季20%；珠寶品牌仍具韌性，但不同品類與地區需求分化。高端消費並非全面同步復甦，市場仍需觀察中國與歐洲消費動能。",
-      "url": "https://www.richemont.com/news-media/press-releases-news/richemont-posts-strong-results-for-the-six-month-period-ended-30-september-2026-driven-by-sustained-double-digit-sales-growth/",
-      "published_at_tw": "2026-11-13"
+      "title": "Richemont銷售增速放緩，歐洲奢侈品股承壓",
+      "summary": "Richemont第二季銷售按固定匯率增長13%，低於前季20%；珠寶品牌仍具韌性，但不同品類與地區需求分化，消息拖累股價。高端消費並非全面同步復甦，市場仍需觀察中國與歐洲消費動能。",
+      "url": "https://live.euronext.com/en/financial-news/european-shares-retreat-record-highs-ai-uncertainty-weighs",
+      "published_at_tw": "2026-11-13 17:25"
     }
   ],
   "global_markets": {
@@ -337,14 +337,14 @@
   },
   "fx": {
     "美元指數": {
-      "display": "103.40",
-      "change_display": "+0.20%",
+      "display": "103.41",
+      "change_display": "+0.19%",
       "source": {
-        "name": "Investing.com HK｜Investing.com USD Index (=USD), DXY proxy",
-        "url": "https://hk.investing.com/indices/investing.com-usd-index-historical-data?cid=1221800",
+        "name": "鉅亨網｜ICE US Dollar Index (DXY) close；Investing.com HK交叉核對",
+        "url": "https://anuenews.cnyes.com/news/id/6661753",
         "data_date": "2026-11-13",
-        "quote_type": "index_daily_close",
-        "note": "11/13收盤103.40；與鉅亨網DXY 103.41及Yahoo DX-Y.NYB交叉核對。Investing.com另一個DXY CFD頁103.18屬不同feed，不混用。"
+        "quote_type": "cash_index_close",
+        "note": "鉅亨網報導11/13 DXY收盤103.41、單日+0.19%；Investing.com HK USD Index (=USD)為103.40、+0.20%作交叉參考。兩者頁面標示不同feed/指數名稱，故採DXY直接報價，不混用。"
       }
     },
     "美元／新台幣": {
@@ -540,7 +540,7 @@
     ],
     "sectors": "消費必需品+1.42%、通訊服務+1.05%、能源+0.98%、金融+0.81%居前；科技-2.01%最弱，消費非必需、工業與材料亦跌。防禦與現金流型產業相對占優，科技股承受領導權事件與高利率雙重壓力。",
     "bonds": "美債2Y 4.88%、10Y 5.15%、30Y 5.47%，殖利率曲線全線上移；10Y站上5.1%提高成長股折現壓力。FedWatch對12/9升息25bp定價91.3%，利率仍是估值核心變數。",
-    "fx": "美元指數代理值103.40，鉅亨網DXY交叉報價103.41；日圓靠近160、台幣收32.891。強美元提高亞洲貨幣與美元負債者壓力，需留意日本干預風險。",
+    "fx": "DXY收在103.41、美元/日圓159.69、美元/新台幣32.891。強美元提高亞洲貨幣與美元負債者壓力，日圓接近160亦使日本干預風險升高。",
     "energy": "WTI與Brent指定近月合約週五小幅收高，但週線仍受供給過剩預期牽制；地緣風險提供下檔支撐，供需平衡決定中期方向。",
     "metals": "黃金小幅收高至3,887.60，白銀跌至48.650；美元與殖利率走高削弱貴金屬避險需求，金銀分化反映資金更偏向利率與流動性定價。"
   },
@@ -567,14 +567,14 @@
     },
     {
       "label": "跨資產壓力",
-      "text": "10Y殖利率5.15%、DXY代理值103.40、VIX 19.30、MOVE 98.79，市場尚非極端恐慌，但折現與匯率壓力仍在。"
+      "text": "10Y殖利率5.15%、DXY 103.41、VIX 19.30、MOVE 98.79，市場尚非極端恐慌，但折現與匯率壓力仍在。"
     },
     {
       "label": "區域分歧",
       "text": "美股週線全數收紅、歐股週線較強，亞洲表現分化；中國11/16數據將影響本週亞股風險情緒。"
     }
   ],
-  "warning_note": "本版為11/16預審快照，資料截止2026-11-15 02:13台灣時間。W47行事曆資料庫目前標記incomplete（22筆經濟／21筆財報）；11/16 04:35更新排程後，須重讀W47並重跑05:25最終審核版。Nasdaq採AP現貨指數值以避開Investing.com HK歷史列不一致；DXY採Investing.com USD Index (=USD)代理值並與鉅亨網103.41交叉；XLRE採Investing.com Global備援；CNN Fear & Greed採FGScore備援。",
+  "warning_note": "本版為11/16預審快照，資料截止2026-11-15 02:13台灣時間。W47行事曆資料庫目前標記incomplete（22筆經濟／21筆財報）；11/16 04:35更新排程後，須重讀W47並重跑05:25最終審核版。Nasdaq採AP現貨指數值以避開Investing.com HK歷史列不一致；DXY採鉅亨網ICE DXY收盤103.41，Investing.com HK USD Index (=USD) 103.40僅作交叉參考；XLRE採Investing.com Global備援；CNN Fear & Greed採FGScore備援。",
   "sector_sources": {
     "XLE": {
       "name": "Investing.com HK｜SPDR sector ETF historical data",
@@ -685,9 +685,9 @@
     "heading": "盤面觀察重點",
     "text": "本週三大催化劑：① 11/17 21:30–22:15（台灣時間）美國零售銷售與工業生產，並留意當日01:00 Fed主席Warsh開幕致詞，檢驗消費、製造與政策訊號。② 11/19 03:00 FOMC 10月會議紀要，觀察委員對通膨與升息路徑的分歧。③ 11/18 05:20 NVIDIA盤後財報，檢驗資料中心需求、毛利率、資本支出與接班後管理層指引。"
   },
-  "qa_run_revision": "2026-11-16-SIM1.2-pre-review-v4",
+  "qa_run_revision": "2026-11-16-SIM1.2-pre-review-v5",
   "market_sentiment": "Fear & Greed 39（Fear）｜VIX 19.30（+3.21%）｜MOVE 98.79（+0.37%）｜FedWatch：12/9升息25bp機率91.3%。股市波動尚未極端，但高殖利率與美元走強使風險承擔意願下降。",
-  "quality_note": "固定44項指標已全部填值，行情基準統一為2026-11-13。美股S&P 500、Nasdaq Composite、Russell 2000採AP現貨收盤；Dow與SOX以Investing.com HK歷史頁為主，SOX OHLC另以Nasdaq官方覆核；其餘全球指數及產業ETF以Investing.com歷史頁為主（XLRE使用Global備援）；美債殖利率採U.S. Treasury官方日曲線；外匯採Investing.com HK歷史頁，DXY使用USD Index代理值；能源與金屬採指定CME/ICE合約歷史頁；VIX/MOVE採Investing.com、Fear & Greed採FGScore備援。W47資料庫尚未完成最終更新，故本版為預審而非最終版。",
+  "quality_note": "固定44項指標已全部填值，行情基準統一為2026-11-13。美股S&P 500、Nasdaq Composite、Russell 2000採AP現貨收盤；Dow與SOX以Investing.com HK歷史頁為主，SOX OHLC另以Nasdaq官方覆核；其餘全球指數及產業ETF以Investing.com歷史頁為主（XLRE使用Global備援）；美債殖利率採U.S. Treasury官方日曲線；外匯五組貨幣對採Investing.com HK歷史頁，DXY採鉅亨網ICE DXY 103.41並以Investing.com HK USD Index (=USD) 103.40交叉參考；能源與金屬採指定CME/ICE合約歷史頁；VIX/MOVE採Investing.com、Fear & Greed採FGScore備援。W47資料庫尚未完成最終更新，故本版為預審而非最終版。",
   "report_cutoff_taipei": "2026-11-15 02:13（預審快照）",
   "news_window_taipei": "2026-11-13 12:00–2026-11-15 02:13（台灣時間；週一最終版需延伸至05:25）",
   "key_levels_overrides": {
