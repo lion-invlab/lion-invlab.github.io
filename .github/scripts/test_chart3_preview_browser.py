@@ -57,7 +57,7 @@ def validate_chart(page, label):
     risk_marker = page.locator("#risk-scale-marker")
     check(label + "_daily_risk_percentile_marker_visible", risk_marker.is_visible())
     marker_label = risk_marker.get_attribute("aria-label") or ""
-    check(label + "_daily_risk_percentile_marker_data_linked", marker_label.startswith("目前綜合風險百分位 ") and marker_label.endswith(")")==False)
+    check(label + "_daily_risk_percentile_marker_data_linked", risk_marker.evaluate("(e)=>{const n=Number((e.getAttribute('aria-label')||'').replace('目前綜合風險百分位 ',''));const p=parseFloat(e.style.left);return Number.isFinite(n)&&Number.isFinite(p)&&Math.abs(n-p)<0.05}"))
     check(label + "_daily_risk_scale_labels", page.locator(".risk-scale span").all_text_contents() == ["安全", "留意", "偏高", "極端風險"])
     check(label + "_daily_risk_marker_caption_matches", "四項指標等權平均" in page.locator("#risk-scale-caption").inner_text())
     check(label + "_daily_equity_action_specific", page.locator("#equity-decision").inner_text().strip() not in ["", "計算中"])
