@@ -144,14 +144,17 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="note"><strong>資料處理原則</strong>保留原始缺值與各系列原生日期，不做插值、補值、前值填補或頻率重採樣。</div>
 </div>
 <details class="method-details" id="percentile-reading"><summary>百分位讀法與投資判讀限制 <span>點此展開</span></summary><div class="method-details-content"><div class="desc">四項壓力指標以各自近 520 週有效觀測計算歷史百分位；色標僅表示該指標在自身歷史分布中的相對位置：0–25 為歷史低位、25–50 為低於中位、50–75 為高於中位、75–100 為歷史高位，並非經校準的絕對風險等級或發生機率。不同指標的百分位只比較各自歷史相對位置，不代表原始幅度相同；NFCI Credit 為 NFCI 子指標，不作獨立壓力確認。</div></div></details>
-<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 週頻走勢：FJA Yahoo-derived 長歷史價格（圖中價格線起點 1993-12-31；2016-11-10 以前）與 FRED SP500（2016-11-11 起；S&P Dow Jones Indices LLC，retrieved from FRED）；圖中僅嵌入螢幕解析度的視覺曲線，不公開每日／週頻原始價格檔。Dataquest vs FRED：1,467 日重疊，7 日差異 >0.02 點（0.4772%），最大差異 5.2898 點；差異日期為 2018-11-29、2019-08-12、2020-05-11、2020-10-02、2020-10-05、2021-08-11、2022-09-12，均保留稽核紀錄，重疊日採 FRED 官方值覆蓋。FJA vs FRED 為另一組比較：783 日重疊、2 日差異 >0.02 點，不與前述 7 日混為一談。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
+<footer>資料來源：Federal Reserve Bank of St. Louis FRED / ALFRED。S&P 500 週頻走勢：FJA Yahoo-derived 長歷史價格（圖中價格線起點 1993-12-31；2016-11-10 以前）與 FRED SP500（2016-11-11 起；S&P Dow Jones Indices LLC，retrieved from FRED）；S&P 500 主線使用 8,271 筆實際交易日收盤價（1993-12-31 至 2026-11-10），以真實日期時間戳定位 X 座標；價格資料採壓縮編碼嵌入研究分支，不代表即時更新。Dataquest vs FRED：1,467 日重疊，7 日差異 >0.02 點（0.4772%），最大差異 5.2898 點；差異日期為 2018-11-29、2019-08-12、2020-05-11、2020-10-02、2020-10-05、2021-08-11、2022-09-12，均保留稽核紀錄，重疊日採 FRED 官方值覆蓋。FJA vs FRED 為另一組比較：783 日重疊、2 日差異 >0.02 點，不與前述 7 日混為一談。判讀參考：<a href="https://www.stlouisfed.org/publications/page-one-economics/2020/09/15/measuring-financial-and-economic-risk-with-fred" target="_blank" rel="noopener">St. Louis Fed：VIX 與金融風險</a>、<a href="https://www.chicagofed.org/publications/chicago-fed-letter/2017/386" target="_blank" rel="noopener">Chicago Fed：NFCI 解讀</a>、<a href="https://www.stlouisfed.org/on-the-economy/2014/june/what-is-the-st-louis-fed-financial-stress-index" target="_blank" rel="noopener">St. Louis Fed：STLFSI 解讀</a>。資料授權狀態：review_required_before_redistribution。此頁為模擬分支圖表預覽，不會修改 TAC 正式首頁。Release date 未由 observations endpoint 提供時維持空白，不以觀測日期代替發布日期。</footer>
 </main>
 <script>
 const DATA_URL='../../data/tac-chart3/chart3_market_stress.json';
+const SP500_DATA_URL='../../data/tac-chart3/sp500_daily_close_1993-2026.compact.json';
+let SP500_DATES=[],SP500_PRICES=[];let CHART_START=0,CHART_END=0;
+async function fetchJson(url){const r=await fetch(url);if(!r.ok)throw new Error('資料讀取失敗：'+url+'｜HTTP '+r.status);return r.json();}
+async function decodeSp500Compact(compact){if(compact.schema_version!=='1.0.0'||compact.encoding!=='zlib+base64'||!Number.isInteger(compact.rows)||compact.rows<252)throw new Error('S&P 500 壓縮資料格式或觀測筆數不符');if(typeof DecompressionStream!=='function')throw new Error('瀏覽器不支援 zlib 解壓縮，無法載入 S&P 500 日線');const compressed=Uint8Array.from(atob(compact.payload),c=>c.charCodeAt(0));const stream=new Blob([compressed]).stream().pipeThrough(new DecompressionStream('deflate'));const raw=new Uint8Array(await new Response(stream).arrayBuffer());let offset=0,day=Date.parse(compact.start+'T00:00:00Z'),closeCents=0;const readVarint=()=>{let value=0,shift=0;while(true){if(offset>=raw.length||shift>49)throw new Error('S&P 500 壓縮資料 varint 截斷或溢位');const b=raw[offset++];value+=(b&127)*Math.pow(2,shift);if(!(b&128))return value;shift+=7;}};const dates=new Float64Array(compact.rows),prices=new Float64Array(compact.rows);for(let i=0;i<compact.rows;i++){day+=readVarint()*86400000;const z=readVarint();closeCents+=(z%2?-(Math.floor(z/2)+1):Math.floor(z/2));dates[i]=day;prices[i]=closeCents/compact.close_scale;if(!Number.isFinite(prices[i])||prices[i]<=0||(i&&dates[i]<=dates[i-1]))throw new Error('S&P 500 日線日期或價格驗證失敗，索引 '+i);}if(offset!==raw.length||new Date(dates[0]).toISOString().slice(0,10)!==compact.start||new Date(dates[dates.length-1]).toISOString().slice(0,10)!==compact.end)throw new Error('S&P 500 日線筆數、首末日期或壓縮長度不一致');return {dates,prices,rows:compact.rows};}
+function calculateSp500Snapshot(dates,prices){const n=prices.length;if(n<252||dates.length!==n)throw new Error('S&P 500 日線不足 252 個交易日，無法計算完整指標');const mean=(a,b)=>{let s=0;for(let i=a;i<b;i++)s+=prices[i];return s/(b-a);};const last=prices[n-1],ma13=mean(n-65,n),ma26=mean(n-130,n);let high252=-Infinity;for(let i=n-252;i<n;i++)high252=Math.max(high252,prices[i]);return {date:new Date(dates[n-1]).toISOString().slice(0,10),close:last,ma13,ma26,ret13:(last/prices[n-66]-1)*100,dd13:(last/high252-1)*100,high252,observations:n,firstDate:new Date(dates[0]).toISOString().slice(0,10)};}
+function lowerBoundDate(a,t){let l=0,r=a.length;while(l<r){const m=(l+r)>>1;if(a[m]<t)l=m+1;else r=m;}return l;}function upperBoundDate(a,t){let l=0,r=a.length;while(l<r){const m=(l+r)>>1;if(a[m]<=t)l=m+1;else r=m;}return l;}
 const COLORS={VIXCLS:'#c84b4b',NFCI:'#315f9d',NFCICREDIT:'#c49a43',STLFSI4:'#8064a8'};
-const SP500_Y36='hzhyhyhzhzhzhzi0i0i0i1i0i0i1i0i0i0hzhzhzhzi0hzhzhzi0i0hzhzhzhyhyhxhxhwhwhvhuhuhuhththrhrhshrhqhqhqhqhqhphohnhnhnhnhlhkhkhmhkhkhlhlhjhjhjhjhkhlhjhjhkhihhhghghehdhchehchchbh9h8h8hahahdhbh6h5h4h1gzgzgxgygzgygwgvgxgzgygwgwgxgugwgugrgpgnglgkgkgjgkglglgigfghglgmgqgsgpgugnghgfgegegag7gbg9g9g7g5g5g3g2g2g2g2g1fxfvg2g2g1g1g6g6g9g0fxfvfvfsftftfvfyg2fxfnfnfufufwfrfsftfqfqfsfpfnfrfufzfyfvfzg3g4g3g3g0g3g9gaghgggeg8g9g6g7gbgdgbgcgdgeglgvgngngmghghggghgfgigjgkgigfghgjgjgngkgngsgtgzh4h0gygzh1h6h6h1h1gygzh1h2gyh4h6h5h6h1h2h1gygygygtgtgugtgugtgsgrgqgqgpgogogognglgjghgighghgjgkghghglglgjgigigkgmgnglgjgigigjglgfgfgdgdgcgegfgcgcgbgdgfghgggggdgdgdgdgagagagcg9gbgdgegbgag7g8g7g6g8g8g6g6g4g4g5g4g3g7g6g9g7gag6g6g4g4g3g2fzfzfyfxfwfvfvfufvfuftfwfuftfsfpfofnfofpfmfmfuftfqfsfnfkfpfofsfqfrfqfwg3fxg1g2g6g3g2fxfyfvfxg0g6g9g8g5g5g9g8gch1h2gyh8h2h1gyh4h6h3hbhihbh5h3h2h2gzgxgzh1gxgtgsgqgpgpgngmgqglglgkgighglgngkgkghgfgdgbgkgmgngjgrgmgkgjgngkgjghgegegdgdgbg9g8g5g7g2g3g4g4g2g3g0g2g2g7g7g1g1gdgegegggigggag8gbg9gbg7g6g3g1g0fzfwfwfzfwfzg5g6g1g0g0fyfwfwfufrftfufwfyfwfvfufrfrfpfnfoflfkflfkfgfbfdfdfhfef9f8fcfefafafaf5f4f1f0f3eyeyf2f1eyeweyewf0ewevetepeoemeoeneqemekekeoeuekeiegefefegejelededehecegefecebeceeedefefedeeemeoeqekefedeeeeekegereseveselehefeheeegehedefede8e7e6e6e7eae8eaebe8e4e0e0e2dzdydwdsdrdudtdtdpdqdodndmdndjdjdndjdhdhdddbdadbd6d3d3cucocwczd2cxd6d5d4czd0cvcvd0ctcscrcncocjcncwd5cvd7d7dodfd4d1cvcucyctcmclcicpcxcmcicecfcjcmcjcdchcgccc6c4c2c0bubsbqbnbncgdxdecucqcjchbyc6c3bwbsbmbibgbobmbbbsb3azaxauapaoatabalaba89w9s9s9s9q9m9k9d9997979296969b8z8n8n8z8t8h8o9a929e9g958z9b9wa4ae9xawakah9w9ka1a1aub3b3aea7a4abaiaea89v9za8aha89y9v9v9r9k999e9a8z949d91969j9g9x9e918v8l8h8g877w7r7p7p7e7p7r7h7a776y6p6u6y776k726f6b626d615t5k5w5w5r5o5i5v6k6o7t7c6g5u5y5t5d564w4w4r4q4h4c4j40454f3u3x3p3m3q3p3r444n4h39312o2i2p2g2h2j2h1t1z23241y23292e';
-function sp500VisualPath(){let d='';for(let i=0;i<SP500_Y36.length/2;i++){const yy=parseInt(SP500_Y36.slice(i*2,i*2+2),36)/2;d+=(i?' L':'M')+(72+i)+','+yy.toFixed(1);}return d;}
-const SP500_PATH=sp500VisualPath();
 const fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:2});
 const year=d=>String(d).slice(0,4);
 function drawChart(targetId,seriesList,{zeroLine=false,xBounds=null}={}){
@@ -259,20 +262,15 @@ const MAJOR_EVENTS=[
  {id:'covid',name:'COVID-19 市場衝擊',start:'2020-02-19',end:'2020-03-23',source:'https://www.ici.org/system/files/attachments/pdf/20_rpt_covid1.pdf',sourceLabel:'Investment Company Institute'},
  {id:'banking-2023',name:'美國區域銀行壓力',start:'2023-03-08',end:'2023-05-01',source:'https://www.fdic.gov/news/speeches/2024/lessons-learned-us-regional-bank-failures-2023',sourceLabel:'FDIC'}
 ];
-const CHART_START=Date.parse('1993-12-31T00:00:00Z');
-const CHART_END=Date.parse('2026-11-10T00:00:00Z');
 const MIN_VIEW_SPAN=365*86400000;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-// Decode the compact S&P 500 visual series once, not on every drag/zoom frame.
-const SP500_PRICES=(()=>{const n=SP500_Y36.length/2,a=new Float32Array(n);for(let i=0;i<n;i++){const py=parseInt(SP500_Y36.slice(i*2,i*2+2),36)/2;a[i]=8000-(py-34)/352*8000;}return a;})();
 function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END,skipLedger=false){
  const chartEl=document.getElementById('combined-chart');
  const availableWidth=chartEl.clientWidth||Math.max(260,window.innerWidth-48);
  const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<900,H=mobile?430:550,L=mobile?20:32,R=mobile?40:42,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
  const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
- const nPath=SP500_PRICES.length,fullSpan=CHART_END-CHART_START;
- const rawI0=clamp(Math.floor((minX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
- const rawI1=clamp(Math.ceil((maxX-CHART_START)/fullSpan*(nPath-1)),0,nPath-1);
+ const nPath=SP500_PRICES.length;if(!nPath||SP500_DATES.length!==nPath)throw new Error('S&P 500 真實日線尚未載入');
+ const rawI0=clamp(lowerBoundDate(SP500_DATES,minX),0,nPath-1),rawI1=clamp(upperBoundDate(SP500_DATES,maxX)-1,0,nPath-1);
  const i0=Math.max(0,rawI0-1),i1=Math.min(nPath-1,rawI1+1);
  let visibleMin=Infinity,visibleMax=-Infinity;
  for(let i=rawI0;i<=rawI1;i++){const price=SP500_PRICES[i];if(Number.isFinite(price)){visibleMin=Math.min(visibleMin,price);visibleMax=Math.max(visibleMax,price);}}
@@ -302,9 +300,9 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  const sortedEvents=[...MAJOR_EVENTS].sort((a,b)=>a.start.localeCompare(b.start));
  for(const ev of sortedEvents){const st=Date.parse(ev.start+'T00:00:00Z'),en=Date.parse(ev.end+'T23:59:59Z'),beforeRange=en<CHART_START&&minX===CHART_START,inside=(en>=minX&&st<=maxX)||beforeRange,xx1=Math.max(L,Math.min(W-R,x(st))),xx2=Math.max(L,Math.min(W-R,x(en)));parts.push('<rect data-event="'+ev.id+'" display="'+(eventVisible[ev.id]&&inside?'':'none')+'" x="'+xx1.toFixed(2)+'" y="'+T+'" width="'+(inside?Math.max(2,xx2-xx1):0).toFixed(2)+'" height="'+ih+'" fill="#8792a2" fill-opacity=".075" stroke="#7b8794" stroke-opacity=".22" stroke-width="1"><title>'+ev.name+'｜'+ev.start+' 至 '+ev.end+'</title></rect>');}
  let spD='';
- for(let i=i0;i<=i1;i++){const t=CHART_START+i/(nPath-1)*fullSpan,xx=x(t),yy=priceY(SP500_PRICES[i]);spD+=(i===i0?'M':' L')+xx.toFixed(2)+' '+yy.toFixed(2);}
+ for(let i=i0;i<=i1;i++){const t=SP500_DATES[i],xx=x(t),yy=priceY(SP500_PRICES[i]);spD+=(i===i0?'M':' L')+xx.toFixed(2)+' '+yy.toFixed(2);}
  parts.push('<defs><clipPath id="plot-clip" clipPathUnits="userSpaceOnUse"><rect x="'+L+'" y="'+T+'" width="'+iw+'" height="'+ih+'"/></clipPath></defs>');
- if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" data-price-min="'+visibleMin.toFixed(2)+'" data-price-max="'+visibleMax.toFixed(2)+'" data-axis-min="'+priceMin.toFixed(2)+'" data-axis-max="'+priceMax.toFixed(2)+'" data-visible-points="'+(i1-i0+1)+'" clip-path="url(#plot-clip)" d="'+spD+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜dynamic right axis</title></path>');
+ if(visible.SP500)parts.push('<path id="path-SP500" data-series="SP500" data-price-min="'+visibleMin.toFixed(2)+'" data-price-max="'+visibleMax.toFixed(2)+'" data-axis-min="'+priceMin.toFixed(2)+'" data-axis-max="'+priceMax.toFixed(2)+'" data-visible-points="'+(i1-i0+1)+'" data-observations="'+SP500_PRICES.length+'" data-first-date="'+new Date(SP500_DATES[0]).toISOString().slice(0,10)+'" data-last-date="'+new Date(SP500_DATES[SP500_DATES.length-1]).toISOString().slice(0,10)+'" data-last-close="'+SP500_PRICES[SP500_PRICES.length-1].toFixed(2)+'" data-x-coordinate="actual-date" clip-path="url(#plot-clip)" d="'+spD+'" fill="none" stroke="#0f766e" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"><title>S&P 500 weekly close｜dynamic right axis</title></path>');
  for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4']){if(!visible[id])continue;const pts=data[id];let d='',open=false;
   for(const p of pts){if(!Number.isFinite(p.value)){open=false;continue;}const xx=x(Date.parse(p.date+'T00:00:00Z'));if(xx<L||xx>W-R){open=false;continue;}d+=(open?' L':' M')+xx.toFixed(2)+' '+ys(p.value).toFixed(2);open=true;}
   const cfg=SERIES_CONFIG.find(s=>s.id===id),first=pts.find(p=>Number.isFinite(p.value)),valid=pts.filter(p=>Number.isFinite(p.value)).length;
@@ -325,12 +323,10 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
 }
 function latestLine(s){const o=[...s.observations].reverse().find(x=>x.value!==null),label=SERIES_DISPLAY_NAMES[s.series_id]||s.label;return o?label+'｜'+o.date+'｜'+fmt(o.value):label+'｜無有效值'}
 
-function renderDailyRiskBrief(byId,weekly,generatedAt){
+function renderDailyRiskBrief(byId,weekly,generatedAt,sp500Snapshot){
  const latestFinite=arr=>{const a=arr.filter(p=>Number.isFinite(p.value));return a.length?a[a.length-1]:null;};
  const metric=(id)=>{const arr=weekly[id]||[],valid=arr.filter(p=>Number.isFinite(p.value)),last=valid.at(-1),prior=valid.length>=5?valid[valid.length-5]:null;return {value:last?.value??null,date:last?.date||'',delta:last&&prior?last.value-prior.value:null};};
  const m={VIXCLS:metric('VIXCLS'),NFCI:metric('NFCI'),NFCICREDIT:metric('NFCICREDIT'),STLFSI4:metric('STLFSI4')};
- // S&P 500 指標快照：由合併後日收盤價序列計算；資料截至 2026-11-10，尚非自動增量更新。
- const sp500Snapshot={date:'2026-11-10',close:7520.93,ma13:7681.566923076923,ma26:7583.223846153846,ret13:-2.994669235958203,dd13:-3.8112631779540163};
  const last=sp500Snapshot.close,ret13=sp500Snapshot.ret13,dd13=sp500Snapshot.dd13,above13=last>=sp500Snapshot.ma13;
  const val=id=>m[id].value;
  const delta=id=>m[id].delta??0;
@@ -361,11 +357,11 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  const riskMarker=document.getElementById('risk-scale-marker');
  if(riskPosition!==null&&Number.isFinite(riskPosition)){riskMarker.style.left=Math.max(0,Math.min(100,riskPosition))+'%';riskMarker.hidden=false;riskMarker.setAttribute('aria-label','目前綜合風險百分位 '+riskPosition.toFixed(1));document.getElementById('risk-scale-caption').textContent='目前定位 '+riskPosition.toFixed(1)+' 百分位｜VIX、NFCI、STLFSI4 三項核心指標等權平均；NFCI Credit 僅作信用風險診斷';}
  else{riskMarker.hidden=true;document.getElementById('risk-scale-caption').textContent='資料不足：VIX、NFCI、STLFSI4 三項核心指標需具備有效百分位，才顯示定位';}
- const trend='S&P 500 指標快照截至 '+sp500Snapshot.date+'：收盤 '+fmt(last)+'；13 週報酬 '+ret13.toFixed(2)+'%；252 交易日高點 '+fmt(sp500Snapshot.high252)+'，距高點回檔 '+dd13.toFixed(2)+'%；收盤'+(above13?'高於':'低於')+' 13 週均線（'+fmt(sp500Snapshot.ma13)+'），'+(last>=sp500Snapshot.ma26?'高於':'低於')+' 26 週均線（'+fmt(sp500Snapshot.ma26)+'）。此為已核算快照，非即時更新。';
+ const trend='S&P 500 指標快照截至 '+sp500Snapshot.date+'：收盤 '+fmt(last)+'；13 週報酬 '+ret13.toFixed(2)+'%；252 交易日高點 '+fmt(sp500Snapshot.high252)+'，距高點回檔 '+dd13.toFixed(2)+'%；收盤'+(above13?'高於':'低於')+' 13 週均線（'+fmt(sp500Snapshot.ma13)+'），'+(last>=sp500Snapshot.ma26?'高於':'低於')+' 26 週均線（'+fmt(sp500Snapshot.ma26)+'）。';
  const thesis=enough?'VIX '+fmtP(val('VIXCLS'))+'（四週 '+fmtDelta(m.VIXCLS.delta)+'）；NFCI '+fmtP(val('NFCI'))+'、STLFSI4 '+fmtP(val('STLFSI4'))+'。'+(systemic?'兩項整體金融壓力指標均達 80 百分位以上，防禦優先。':vixSpike?'VIX 已升至高檔，但 NFCI／STLFSI4 尚未同時達 80 百分位；不因避險需求單獨清倉，新增資金改採分批與回檔進場。':financialTight?'金融環境與壓力指標已轉緊；停止追價，等待市場回檔與指標降溫再提高曝險。':calm?'三項主要風險指標均低於 60 百分位且近期未明顯升高；可按計畫分批投入，仍不一次押滿。':'目前未達系統性壓力門檻；維持核心部位，新增資金分批部署，等待價格與金融壓力訊號進一步確認。'):'部分壓力指標尚無足夠有效觀測，暫不生成完整風險結論，避免以缺值推測。';
  document.getElementById('risk-thesis').textContent=thesis;
  document.getElementById('sp500-return').textContent='13 週 '+(ret13>0?'+':'')+ret13.toFixed(2)+'%｜收盤 '+fmt(last);
- document.getElementById('sp500-detail').textContent=trend+'（指標快照；歷史價格線與每日增量更新尚未接通。）';
+ document.getElementById('sp500-detail').textContent=trend+'（依已載入的 '+sp500Snapshot.observations.toLocaleString('en-US')+' 筆真實交易日收盤價計算；資料截至 '+sp500Snapshot.date+'，非即時報價。）';
  let eqTitle,eqDetail,defTitle,defDetail,triggers=[];
  if(systemic){
   eqTitle=systemicExtreme?'分批減碼現有股票部位 30–50%':'分批減碼現有股票部位 20–30%';
@@ -402,13 +398,13 @@ function renderDailyRiskBrief(byId,weekly,generatedAt){
  document.getElementById('daily-risk-brief').hidden=false;
 }
 
-fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()}).then(data=>{
+Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)]).then(async ([data,compact])=>{const sp500=await decodeSp500Compact(compact);SP500_DATES=sp500.dates;SP500_PRICES=sp500.prices;CHART_START=SP500_DATES[0];CHART_END=SP500_DATES[SP500_DATES.length-1];
 
  const byId=Object.fromEntries(data.series.map(s=>[s.series_id,s]));
  const visible={VIXCLS:true,NFCI:true,NFCICREDIT:true,STLFSI4:true,SP500:true};
  const weekly={};
  for(const id of ['VIXCLS','NFCI','NFCICREDIT','STLFSI4'])weekly[id]=expandingPercentile(weeklyLast(byId[id]));
- renderDailyRiskBrief(byId,weekly,data.generated_at);
+ renderDailyRiskBrief(byId,weekly,data.generated_at,calculateSp500Snapshot(SP500_DATES,SP500_PRICES));
  const controls=document.getElementById('series-filters');
  controls.innerHTML=SERIES_CONFIG.map(c=>'<label class="series-toggle"><input type="checkbox" data-series-toggle="'+c.id+'" checked><span class="dot" style="background:'+c.color+'"></span>'+c.name+'</label>').join('');
  document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
@@ -445,7 +441,7 @@ fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HT
  document.getElementById('status').hidden=true;document.getElementById('combined-stress-card').hidden=false;
  render(true);
  window.addEventListener('resize',()=>render(false),{passive:true});
-}).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與 data/tac-chart3/chart3_market_stress.json 位於同一分支。'});
+}).catch(e=>{document.getElementById('status').textContent=e.message+'。請確認此頁與兩份 data/tac-chart3 資料檔位於同一分支。';document.getElementById('status').hidden=false;});
 </script>
 </body>
 </html>
