@@ -85,7 +85,7 @@ svg text{font-family:inherit;fill:#718096;font-size:11px}
  <div class="eyebrow">TAC INVESTMENT DECISION CHARTS · CHART 03</div>
  <h1>市場恐慌與金融壓力</h1>
  <div class="sub">以市場隱含波動率、金融條件與金融壓力指標，觀察風險偏好變化及金融環境收緊程度。</div>
- <div class="meta"><span class="pill">FRED / ALFRED</span><span class="pill">歷史觀測＋修訂版本</span><span class="pill">不補值・不前值填補</span><span class="pill" id="asof">資料讀取中…</span></div>
+ 
 </header>
 
 
@@ -283,7 +283,7 @@ function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_
  const priceY=v=>T+(priceMax-v)/(priceMax-priceMin)*ih;
  const sourceYMax=T+(8000-visibleMax)/8000*ih,sourceYMin=T+(8000-visibleMin)/8000*ih;
  const priceScaleY=ih/(sourceYMin-sourceYMax),priceTranslateY=T-priceScaleY*sourceYMax;
- for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+v+'</text>');}
+ for(let i=0;i<=5;i++){const v=i*20,yy=ys(v);parts.push('<line x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'" stroke="#e9edf3"/>');parts.push('<text data-axis="left" data-axis-value="'+v+'" x="'+(L-13)+'" y="'+(yy+4)+'" text-anchor="end">'+String(v)+'</text>');}
  for(let i=0;i<=5;i++){const v=priceMin+(priceMax-priceMin)*i/5,yy=priceY(v);parts.push('<text data-axis="right" data-axis-value="'+v.toFixed(2)+'" x="'+(W-R+12)+'" y="'+(yy+4)+'" text-anchor="start">'+fmt(v)+'</text>');}
  const startYear=new Date(minX).getUTCFullYear(),endYear=new Date(maxX).getUTCFullYear(),yearStep=Math.max(1,Math.ceil((endYear-startYear)/6));
  for(let yr=Math.ceil(startYear/yearStep)*yearStep;yr<=endYear;yr+=yearStep){const xx=x(Date.parse(yr+'-01-01T00:00:00Z'));if(xx<L||xx>W-R)continue;parts.push('<line x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(H-B)+'" stroke="#f1f3f7"/>');parts.push('<text x="'+xx+'" y="'+(H-B+24)+'" text-anchor="middle">'+yr+'</text>');}
