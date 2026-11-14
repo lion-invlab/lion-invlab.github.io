@@ -267,7 +267,7 @@ const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function drawCombined(data,visible,eventVisible,drawdownVisible,viewStart=CHART_START,viewEnd=CHART_END,skipLedger=false){
  const chartEl=document.getElementById('combined-chart');
  const availableWidth=chartEl.clientWidth||Math.max(260,window.innerWidth-48);
- const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<900,H=mobile?430:550,L=mobile?42:32,R=mobile?62:66,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
+ const W=Math.max(260,Math.min(1100,availableWidth)),mobile=W<900,H=mobile?430:550,L=mobile?52:32,R=mobile?62:66,T=34,B=mobile?56:72,iw=W-L-R,ih=H-T-B,minX=viewStart,maxX=viewEnd;
  const x=t=>L+(t-minX)/(maxX-minX)*iw,ys=v=>T+(100-v)/100*ih,parts=[];
  const nPath=SP500_PRICES.length;if(!nPath||SP500_DATES.length!==nPath)throw new Error('S&P 500 真實日線尚未載入');
  const rawI0=clamp(lowerBoundDate(SP500_DATES,minX),0,nPath-1),rawI1=clamp(upperBoundDate(SP500_DATES,maxX)-1,0,nPath-1);
@@ -445,4 +445,4 @@ Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)]).then(async ([data,c
 </script>
 </body>
 </html>
-<!-- visual QA rerun: mobile chart container sizing fix -->
+<!-- visual QA rerun: mobile axis label safe area and tick-bound regression -->
