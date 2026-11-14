@@ -31,6 +31,9 @@ check("manifest_technical_delivery_ready", manifest.get("release_gate", {}).get(
 check("manifest_contains_four_risk_series", {x.get("id") for x in manifest.get("risk_series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
 check("manifest_sp500_history_matches_chart_payload", manifest.get("sp500_data", {}).get("rows") == 24833 and manifest.get("sp500_data", {}).get("start") == "1927-12-30" and manifest.get("sp500_data", {}).get("end") == "2026-11-10")
 check("manifest_does_not_mislabel_git_blob_as_sha256", "sha256" not in manifest.get("risk_data", {}))
+check("manifest_preserves_legacy_pipeline_series", {x.get("series_id") for x in manifest.get("series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
+check("manifest_preserves_legacy_chart_dataset_sha256", isinstance(manifest.get("chart_dataset", {}).get("sha256"), str) and len(manifest["chart_dataset"]["sha256"]) == 64)
+check("manifest_preserves_incremental_pipeline_state", all(k in manifest for k in ["overall_status", "last_incremental_at", "last_incremental_results"]))
 
 def validate_chart(page, label):
     # Wait for either a successful chart initialization or an explicit data-load error.
