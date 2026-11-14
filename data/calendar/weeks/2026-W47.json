@@ -542,11 +542,11 @@
         "stock_price_reaction_window": null,
         "source": {
           "name": "Baidu｜Q3 2026 results announcement",
-          "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-report-third-quarter-2026-financial-results-november-16",
+          "url": "https://ir.baidu.com/index.php/news-releases/news-release-details/baidu-report-third-quarter-2026-financial-results-november-16",
           "published_at": "2026-10-27",
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:18:56+08:00",
           "publisher": "Baidu, Inc.",
-          "notes": "發行人公告確認 11/16 美股開盤前發布 Q3 2026 結果；電話會議 07:30 ET（台灣 20:30）。Investing.com ADR 頁將下一次財報日列為 11/24，與發行人公告 11/16 不符，故該頁共識不採用。官方公告明列 Nasdaq: BIDU。",
+          "notes": "官方公告確認 11/16 美股開盤前發布 Q3 2026 結果；電話會議 07:30 ET（台灣 20:30）。Investing.com ADR 頁將下一次財報日列為 11/24，與發行人公告 11/16 不符，故該頁共識不採用。官方公告明列 Nasdaq: BIDU。",
           "secondary_refs": []
         },
         "consensus_source": null,
@@ -558,9 +558,9 @@
         "us_listing_ticker": "BIDU",
         "listing_evidence": {
           "name": "Baidu, Inc.｜Official investor relations / issuer announcement",
-          "url": "https://ir.baidu.com/news-releases/news-release-details/baidu-report-third-quarter-2026-financial-results-november-16",
+          "url": "https://ir.baidu.com/index.php/news-releases/news-release-details/baidu-report-third-quarter-2026-financial-results-november-16",
           "publisher": "Baidu, Inc.",
-          "notes": "發行人公告明列 Baidu, Inc. (Nasdaq: BIDU)。"
+          "notes": "Baidu 官方公告明列 Baidu, Inc. (Nasdaq: BIDU)。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -910,9 +910,9 @@
           "name": "Tyson Foods｜Q4 FY2026 results call notice",
           "url": "https://ir.tyson.com/news/news-details/2026/Tyson-Foods-Announces-Fourth-Quarter-Earnings-Conference-Call-and-Webcast/default.aspx",
           "published_at": "2026-09-24",
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:18:56+08:00",
           "publisher": "Tyson Foods, Inc.",
-          "notes": "公司公告確認 11/16 開盤前發布 FY2026 Q4 財報；電話會議 09:00 ET（台灣 22:00）。官方公告明列 NYSE: TSN。",
+          "notes": "公司公告確認 11/16 發布 FY2026 Q4 財報，電話會議 09:00 ET／08:00 CT，換算台灣時間 22:00；新聞稿及補充資料於美股開盤前發布。官方公告明列 NYSE: TSN。",
           "secondary_refs": []
         },
         "consensus_source": null,
@@ -1091,11 +1091,11 @@
         "stock_price_reaction_window": null,
         "source": {
           "name": "JD.com｜Q3 2026 results announcement",
-          "url": "https://ir.jd.com/node/12396/pdf",
+          "url": "https://ir.jd.com/news-releases/news-release-details/jdcom-report-third-quarter-2026-financial-results-november-17",
           "published_at": "2026-11-04",
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:18:56+08:00",
           "publisher": "JD.com, Inc.",
-          "notes": "發行人公告確認 11/17 美股開盤前發布 Q3 2026 結果；電話會議 07:00 ET（台灣 20:00）。Investing.com ADR 頁面幣別與 EPS／Revenue estimate 口徑不一致，且缺 data_as_of／basis，未採用。官方文件確認 Nasdaq: JD。",
+          "notes": "發行人公告確認 11/17 美股開盤前發布 Q3 2026 結果；電話會議 07:00 ET（台灣 20:00）。Investing.com ADR 頁面貨幣與估值口徑不一致，且缺 data_as_of／basis，未採用。官方公告明列 NASDAQ: JD。",
           "secondary_refs": []
         },
         "consensus_source": null,
@@ -1107,9 +1107,9 @@
         "us_listing_ticker": "JD",
         "listing_evidence": {
           "name": "JD.com, Inc.｜Official investor relations / issuer announcement",
-          "url": "https://ir.jd.com/node/12396/pdf",
+          "url": "https://ir.jd.com/news-releases/news-release-details/jdcom-report-third-quarter-2026-financial-results-november-17",
           "publisher": "JD.com, Inc.",
-          "notes": "發行人公告明列 JD.com, Inc. (NASDAQ: JD)。"
+          "notes": "JD.com 官方公告明列 JD.com, Inc. (NASDAQ: JD)。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -1457,11 +1457,11 @@
         "stock_price_reaction_window": null,
         "source": {
           "name": "The Home Depot｜Q3 2026 earnings release event",
-          "url": "https://ir.homedepot.com/events-and-presentations?page=10",
+          "url": "https://ir.homedepot.com/events-and-presentations",
           "published_at": "2026-11-03",
-          "observed_at": "2026-11-14T13:17:10+08:00",
+          "observed_at": "2026-11-14T13:18:56+08:00",
           "publisher": "The Home Depot, Inc.",
-          "notes": "官方投資人活動頁確認 11/17 09:00 ET 發布 Q3 2026 earnings release，換算台灣時間 22:00；發行人 11/03 公告確認會議日期。",
+          "notes": "官方投資人活動頁確認 11/17 09:00 ET 發布 Q3 2026 earnings release，換算台灣時間 22:00。",
           "secondary_refs": []
         },
         "consensus_source": null,
@@ -1473,9 +1473,9 @@
         "us_listing_ticker": "HD",
         "listing_evidence": {
           "name": "The Home Depot, Inc.｜Official investor relations / issuer announcement",
-          "url": "https://www.nyse.com/quote/XNYS:HD",
+          "url": "https://ir.homedepot.com/events-and-presentations",
           "publisher": "The Home Depot, Inc.",
-          "notes": "NYSE 官方報價頁 XNYS:HD；Home Depot 官方 IR 活動頁確認同一公司於 11/17 發布 Q3 2026 財報。"
+          "notes": "NYSE 官方報價頁 XNYS:HD；Home Depot 官方 IR 活動頁確認同一公司於 11/17 09:00 ET 發布 Q3 2026 財報。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -1639,12 +1639,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "NVIDIA｜Q3 FY2027 results and conference call notice",
-          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/default.aspx",
+          "name": "NVIDIA｜Q3 FY2027 results conference call notice",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
           "published_at": "2026-10-28",
-          "observed_at": "2026-11-14T13:17:10+08:00",
+          "observed_at": "2026-11-14T13:18:56+08:00",
           "publisher": "NVIDIA Corporation",
-          "notes": "公司公告財報預計於 11/17 13:20 PT 公開，換算台灣時間 11/18 05:20；電話會議 14:00 PT（台灣 06:00）。官方公告明列 NASDAQ: NVDA。",
+          "notes": "公司官方公告確認 11/17 14:00 PT／17:00 ET 財報電話會議；財務長書面評論於約 13:20 PT（台灣 11/18 05:20）公開。官方公告明列 NASDAQ: NVDA。",
           "secondary_refs": []
         },
         "consensus_source": null,
@@ -1656,9 +1656,9 @@
         "us_listing_ticker": "NVDA",
         "listing_evidence": {
           "name": "NVIDIA Corporation｜Official investor relations / issuer announcement",
-          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/default.aspx",
+          "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
           "publisher": "NVIDIA Corporation",
-          "notes": "發行人公告明列 NVIDIA (NASDAQ: NVDA)。"
+          "notes": "NVIDIA 官方公告明列 NVIDIA (NASDAQ: NVDA)。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -3652,12 +3652,12 @@
         "stock_price_reaction": null,
         "stock_price_reaction_window": null,
         "source": {
-          "name": "Intuit｜Q1 FY2027 results announcement and conference call",
-          "url": "https://investors.intuit.com/",
+          "name": "Intuit｜Q1 FY2027 results announcement",
+          "url": "https://investors.intuit.com/news-events/press-releases/detail/1330/intuit-to-announce-first-quarter-fiscal-year-2027-results-on-nov-19",
           "published_at": "2026-10-29",
-          "observed_at": "2026-11-14T13:13:57+08:00",
+          "observed_at": "2026-11-14T13:18:56+08:00",
           "publisher": "Intuit Inc.",
-          "notes": "官方 IR 首頁列示 11/19 16:30 ET Q1 FY2027 results conference call，換算台灣時間 11/20 05:30；官方新聞列示 10/29 公告將於 11/19 發布結果。",
+          "notes": "公司公告確認 11/19 美股收盤後發布 FY2027 Q1 結果；電話會議 13:30 PT／16:30 ET，換算台灣時間 11/20 05:30。官方公告明列 Nasdaq: INTU。",
           "secondary_refs": []
         },
         "consensus_source": null,
@@ -3669,9 +3669,9 @@
         "us_listing_ticker": "INTU",
         "listing_evidence": {
           "name": "Intuit Inc.｜Official investor relations / issuer announcement",
-          "url": "https://investors.intuit.com/",
+          "url": "https://investors.intuit.com/news-events/press-releases/detail/1330/intuit-to-announce-first-quarter-fiscal-year-2027-results-on-nov-19",
           "publisher": "Intuit Inc.",
-          "notes": "Intuit Investor Relations 官方頁面確認 Intuit Inc.，NASDAQ: INTU。"
+          "notes": "Intuit 官方公告明列 Intuit Inc. (Nasdaq: INTU)。"
         },
         "eps_actual_basis": null,
         "eps_estimate_basis": null,
@@ -4017,21 +4017,20 @@
       "source_refs": [
         "https://investors.ke.com/node/11026/pdf",
         "https://www.investing.com/equities/ke-holdings-inc-earnings",
-        "https://ir.baidu.com/news-releases/news-release-details/baidu-report-third-quarter-2026-financial-results-november-16",
+        "https://ir.baidu.com/index.php/news-releases/news-release-details/baidu-report-third-quarter-2026-financial-results-november-16",
         "https://www.investing.com/equities/baidu.com-earnings",
         "https://aramark.gcs-web.com/news-releases/news-release-details/aramark-host-conference-call-fourth-quarter-and-full-year-4",
         "https://www.investing.com/equities/aramark-holdings-earnings",
         "https://ir.tyson.com/news/news-details/2026/Tyson-Foods-Announces-Fourth-Quarter-Earnings-Conference-Call-and-Webcast/default.aspx",
         "https://www.investing.com/equities/tyson-foods-earnings",
-        "https://ir.jd.com/node/12396/pdf",
+        "https://ir.jd.com/news-releases/news-release-details/jdcom-report-third-quarter-2026-financial-results-november-17",
         "https://www.investing.com/equities/jd.com-inc-adr-earnings",
         "https://investors.thewaltdisneycompany.com/news/news-details/2026/The-Walt-Disney-Company-Executives-to-Discuss-Fiscal-Full-Year-and-Fourth-Quarter-2026-Financial-Results-via-Webcast/default.aspx",
         "https://investors.thewaltdisneycompany.com/overview/default.aspx",
         "https://www.investing.com/equities/disney-earnings",
-        "https://ir.homedepot.com/events-and-presentations?page=10",
-        "https://www.nyse.com/quote/XNYS:HD",
+        "https://ir.homedepot.com/events-and-presentations",
         "https://www.investing.com/equities/home-depot-earnings",
-        "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/default.aspx",
+        "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Sets-Conference-Call-for-Third-Quarter-Financial-Results/",
         "https://www.investing.com/equities/nvidia-corp-earnings",
         "https://corporate.target.com/investors/events-presentations",
         "https://www.investing.com/equities/target-earnings",
@@ -4052,7 +4051,7 @@
         "https://www.investing.com/equities/pinduoduo-earnings",
         "https://investors.rossstores.com/news-releases/news-release-details/ross-stores-inc-announces-third-quarter-2026-earnings-release",
         "https://www.investing.com/equities/ross-stores-inc-earnings",
-        "https://investors.intuit.com/",
+        "https://investors.intuit.com/news-events/press-releases/detail/1330/intuit-to-announce-first-quarter-fiscal-year-2027-results-on-nov-19",
         "https://www.investing.com/equities/intuit-earnings",
         "https://investor.keysight.com/investor-news-and-events/financial-press-releases/press-release-details/2026/Keysight-Technologies-to-Report-Fourth-Quarter-and-Fiscal-Year-2026-Results-on-November-19-2026/default.aspx",
         "https://www.investing.com/equities/keysight-technologies-earnings"
@@ -4123,6 +4122,20 @@
         "revenue_attempts_added": 21
       },
       "notes": "依官方發行人公告擴充 PANW、P、KEYS、ROST、ARMK、BEKE、PDD。保留Investing.com日期衝突／缺欄結果；不複製估值。"
+    },
+    {
+      "at": "2026-11-14T13:18:56+08:00",
+      "action": "W47_official_source_url_final_verification",
+      "event_id": "NVDA,HD,BIDU,TSN,JD,INTU",
+      "before": {
+        "blob_sha": "05911c053845cd0dcfddac38185c95fdc8024829"
+      },
+      "after": {
+        "official_source_urls_verified": true,
+        "source_refs_refreshed": true,
+        "all_events_have_issuer_source": true
+      },
+      "notes": "將 NVIDIA、Home Depot、Baidu、Tyson、JD.com、Intuit 的來源 URL 更正為本輪可直接核實的官方發行人頁面；更新來源觀察時間及 audit coverage。"
     }
   ],
   "last_update_audit": {
@@ -4144,8 +4157,8 @@
       "data/calendar/weeks/2026-W47.json"
     ],
     "economic_events_added": 11,
-    "earnings_events_added": 13,
-    "earnings_upcoming": 13,
+    "earnings_events_added": 20,
+    "earnings_upcoming": 20,
     "eps_attempts_added": 60,
     "revenue_attempts_added": 60,
     "source_priority": [
@@ -4154,11 +4167,22 @@
       "Investing.com"
     ],
     "source_outcomes_per_metric": {
-      "lseg_unavailable": 13,
-      "factset_unavailable": 13,
-      "investing_missing_required_fields": 11,
-      "investing_incompatible": 2,
-      "adopted": 0
+      "EPS": {
+        "lseg_unavailable": 20,
+        "factset_unavailable": 20,
+        "investing_missing_required_fields": 14,
+        "investing_incompatible": 5,
+        "investing_unavailable": 1,
+        "adopted": 0
+      },
+      "REVENUE": {
+        "lseg_unavailable": 20,
+        "factset_unavailable": 20,
+        "investing_missing_required_fields": 14,
+        "investing_incompatible": 5,
+        "investing_unavailable": 1,
+        "adopted": 0
+      }
     },
     "source_adoptions_per_metric": {
       "EPS": {
@@ -4177,8 +4201,8 @@
       "REVENUE": 0
     },
     "snapshot_arrays_initialized": {
-      "EPS": 13,
-      "REVENUE": 13
+      "EPS": 20,
+      "REVENUE": 20
     },
     "snapshot_block_reason": "No raw provider response body suitable for SHA-256 and no authorized private raw-response archive; no PIT snapshot written.",
     "legacy_estimates_overwritten": 0,
@@ -4226,7 +4250,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 現有20家四／五星候選事件，均有官方時程及美國交易所掛牌依據；LSEG／FactSet不可存取，Investing.com結果缺PIT/basis或日期衝突者未採用。無共識採用，無snapshot。",
+    "notes": "W47 20 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com部分事件日期衝突，部分缺 data_as_of／basis，故無採用共識；沒有寫入任何共識數值或PIT snapshot。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
