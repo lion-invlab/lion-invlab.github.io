@@ -3,6 +3,9 @@ name: TAC Chart 3 preview visual QA
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -28,7 +31,7 @@ jobs:
       - name: Checkout tested branch
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.event.pull_request.head.sha || github.ref }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
