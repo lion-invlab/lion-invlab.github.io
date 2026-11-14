@@ -25,7 +25,16 @@ def check(name, ok, detail=None):
         raise AssertionError(f"{name}: {detail}")
 
 def validate_chart(page, label):
-    page.wait_for_function("document.querySelector('#combined-stress-card') && !document.querySelector('#combined-stress-card').hidden", timeout=60000)
+    # Wait for either a successful chart initialization or an explicit data-load error.
+    page.wait_for_function("""() => {
+        const card = document.querySelector('#combined-stress-card');
+        const status = document.querySelector('#status');
+        return (card && !card.hidden) || (status && status.textContent.trim() !== '正在載入已驗證的圖表資料…');
+    }""", timeout=60000)
+    card_visible = page.locator("#combined-stress-card").evaluate("(e)=>!e.hidden")
+    if not card_visible:
+        status_text = page.locator("#status").inner_text()
+        raise AssertionError(f"{label}_chart_initialization_failed: {status_text}")
     check(label + "_one_combined_svg", page.locator("#combined-chart svg").count() == 1)
     chart_bottom_space = page.locator("#combined-chart svg").evaluate("(e)=>{const h=e.viewBox.baseVal.height,b=Number(e.dataset.plotBottom);return {height:h,plotBottom:b,bottomGap:h-b,yearLabels:[...e.querySelectorAll('text')].filter(t=>/^20\\d{2}$/.test(t.textContent.trim())).map(t=>Number(t.getAttribute('y')))}}")
     check(label + "_chart_bottom_whitespace_compact", chart_bottom_space["bottomGap"] <= (72 if "desktop" in label.lower() else 56) + 1, chart_bottom_space)
