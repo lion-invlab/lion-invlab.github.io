@@ -7,6 +7,7 @@ on:
     paths:
       - "research/tac-chart3/chart3-preview.html"
       - "data/tac-chart3/chart3_market_stress.json"
+      - "data/tac-chart3/sp500_daily_close_1993-2026.compact.json"
       - ".github/workflows/chart3-pr-preview-deploy.yml"
 
 permissions:
@@ -45,10 +46,10 @@ jobs:
           from pathlib import Path
           html = Path("/tmp/chart3-preview/chart3-preview.html").read_text(encoding="utf-8")
           data = json.loads(Path("/tmp/chart3-preview/chart3_market_stress.json").read_text(encoding="utf-8"))
-          fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
+          fetch_call = "Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)])"
           if fetch_call not in html:
-              raise SystemExit("Chart 3 data loader signature not found; refusing to publish preview")
-          html = html.replace(fetch_call, "Promise.resolve(" + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ")")
+              raise SystemExit("Chart 3 dual data loader signature not found; refusing to publish preview")
+          html = html.replace(fetch_call, "Promise.all([Promise.resolve(" + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "),fetchJson(SP500_DATA_URL)])")
           out = Path("preview/chart3-pr-346/index.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")
