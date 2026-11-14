@@ -2,6 +2,7 @@ name: TAC Chart 3 preview visual QA
 # Validate the exact pushed branch; never silently fall back to main.
 # Regression coverage includes responsive axis bounds and long-range percentile display density.
 # Zoom regression now crosses the eight-year weekly-detail threshold before asserting.
+# Adaptive aggregation regression: quarterly >8y, monthly 2-8y, weekly <=2y.
 
 on:
   push:
