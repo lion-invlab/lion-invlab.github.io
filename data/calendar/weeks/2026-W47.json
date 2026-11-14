@@ -5,7 +5,7 @@
   "week_start": "2026-11-16",
   "week_end": "2026-11-22",
   "created_at": "2026-11-14T13:13:57+08:00",
-  "updated_at": "2026-11-14T13:27:47+08:00",
+  "updated_at": "2026-11-14T14:40:00+08:00",
   "source_report_date": "2026-11-14",
   "wr_version": "5.15",
   "status": "incomplete",
@@ -104,6 +104,66 @@
         "time_known": false
       },
       {
+        "id": "current-fed-barr-ai-financial-stability-20261116",
+        "event_date": "2026-11-16T18:00:00+08:00",
+        "region": "美國／聯準會",
+        "event_name": "聯準會理事 Michael S. Barr 演講：人工智慧與金融穩定（Artificial Intelligence and Financial Stability）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：聯準會理事就 AI 對金融穩定的影響發表演講，涉及金融機構風險管理、金融系統韌性與監理觀點，值得留意政策訊號。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "觀察 Barr 對 AI 模型風險、金融機構曝險、系統性風險與監理框架的表述；若提出新的風險警示，可能影響金融股、金融科技及相關監理預期。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
+          "published_at": null,
+          "observed_at": "2026-11-14T14:40:00+08:00",
+          "publisher": "Federal Reserve Board",
+          "notes": "Fed 官方日曆列示 11/16 05:00 ET 演講，換算台灣時間 11/16 18:00。",
+          "secondary_refs": [
+            "https://www.federalreserve.gov/newsevents/2026-speeches.htm"
+          ]
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": "2026年11月聯準會官員公開談話",
+        "time_known": true
+      },
+      {
+        "id": "current-fed-warsh-productivity-jobs-20261117",
+        "event_date": "2026-11-17T01:00:00+08:00",
+        "region": "美國／聯準會",
+        "event_name": "聯準會主席 Kevin Warsh 開幕致詞：生產力與就業（Productivity and Jobs）",
+        "importance_stars": 5,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC五星：聯準會主席公開談論生產力與就業，可能提供其對供給面成長、勞動市場及政策反應函數的高層訊號，具跨資產定價重要性。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "重點辨識主席對生產力成長、AI 投資、就業市場與通膨供給面的看法；若政策訊號偏向更高潛在成長或更寬鬆的供給面通膨判斷，可能牽動美債殖利率、美元與成長股估值。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
+          "published_at": null,
+          "observed_at": "2026-11-14T14:40:00+08:00",
+          "publisher": "Federal Reserve Board",
+          "notes": "Fed 官方日曆列示 11/16 12:00 ET 開幕致詞，換算台灣時間 11/17 01:00。",
+          "secondary_refs": [
+            "https://www.federalreserve.gov/newsevents/2026-speeches.htm"
+          ]
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": "2026年11月聯準會官員公開談話",
+        "time_known": true
+      },
+      {
         "id": "current-uk-labour-20261117",
         "event_date": "2026-11-17T15:00:00+08:00",
         "region": "英國",
@@ -161,6 +221,36 @@
         "forecast_applicable": true,
         "data_unit": "% m/m",
         "data_reference": "2026年10月",
+        "time_known": true
+      },
+      {
+        "id": "current-fed-waller-payments-20261117",
+        "event_date": "2026-11-17T22:10:00+08:00",
+        "region": "美國／聯準會",
+        "event_name": "聯準會理事 Christopher J. Waller 演講：支付系統（Payments）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：聯準會理事在支付產業年度會議發表演講，可能涉及支付基礎設施、金融創新與監理方向，對金融業及支付生態具政策參考價值。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "留意 Waller 對支付系統現代化、即時支付、數位資產或金融創新的政策表述；若觸及監理方向，可能影響銀行、支付服務商及金融科技業者。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
+          "published_at": null,
+          "observed_at": "2026-11-14T14:40:00+08:00",
+          "publisher": "Federal Reserve Board",
+          "notes": "Fed 官方日曆列示 11/17 09:10 ET 演講，換算台灣時間 11/17 22:10。",
+          "secondary_refs": [
+            "https://www.federalreserve.gov/newsevents/2026-speeches.htm"
+          ]
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": "2026年11月聯準會官員公開談話",
         "time_known": true
       },
       {
@@ -555,6 +645,36 @@
         "forecast_applicable": true,
         "data_unit": "指數；%",
         "data_reference": "2026年11月終值",
+        "time_known": true
+      },
+      {
+        "id": "current-fed-cook-us-economy-global-20261121",
+        "event_date": "2026-11-21T01:15:00+08:00",
+        "region": "美國／聯準會",
+        "event_name": "聯準會理事 Lisa D. Cook 演講：全球脈絡下的美國經濟（The U.S. Economy in Global Context）",
+        "importance_stars": 4,
+        "importance_basis": "major_event_assessment",
+        "importance_basis_source": "TAC四星：聯準會理事直接討論美國經濟與全球經濟脈絡，可能提供對成長、通膨、國際傳導及貨幣政策環境的判斷。",
+        "previous": null,
+        "forecast": null,
+        "actual": null,
+        "status": "upcoming",
+        "impact_judgment": "觀察 Cook 對美國需求、勞動市場、通膨與全球經濟風險的評估；若對經濟前景或政策風險提出新判斷，可能影響美元、美債及風險資產。",
+        "source": {
+          "name": "Federal Reserve Board｜November 2026 Calendar",
+          "url": "https://www.federalreserve.gov/newsevents/2026-November.htm",
+          "published_at": null,
+          "observed_at": "2026-11-14T14:40:00+08:00",
+          "publisher": "Federal Reserve Board",
+          "notes": "Fed 官方日曆列示 11/20 12:15 ET 演講，換算台灣時間 11/21 01:15。",
+          "secondary_refs": [
+            "https://www.federalreserve.gov/newsevents/2026-speeches.htm"
+          ]
+        },
+        "previous_applicable": false,
+        "forecast_applicable": false,
+        "data_unit": null,
+        "data_reference": "2026年11月聯準會官員公開談話",
         "time_known": true
       }
     ],
@@ -4446,9 +4566,10 @@
         "https://www.forexfactory.com/calendar/105-uk-retail-sales-mm",
         "https://www.ecb.europa.eu/press/calendars/statscal/ges/html/stnwag.el.html",
         "https://www.sca.isr.umich.edu/",
-        "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320"
+        "https://www.investing.com/economic-calendar/ndice-michigan-de-percepo-do-consumidor-320",
+        "https://www.federalreserve.gov/newsevents/2026-speeches.htm"
       ],
-      "notes": "W47 目前列入 18 項經官方發布日程確認且 TAC 評級四／五星的主要事件。16 項有精確發布時間，Canada CPI 與 Canada Retail Trade 僅確認日期而無官方時刻。前值已補至 15 項；市場共識／機構預測已補至 8 項，其餘無可靠預期者保持 null。China NBS 日程屬初步計畫；Eurostat 一般日曆與 ECB HICP 專屬日曆存在日期差異，採用 ECB 專屬 HICP 時程。另納入 ECB Financial Stability Review。"
+      "notes": "W47 目前列入 18 項經官方發布日程確認且 TAC 評級四／五星的主要事件。16 項有精確發布時間，Canada CPI 與 Canada Retail Trade 僅確認日期而無官方時刻。前值已補至 15 項；市場共識／機構預測已補至 8 項，其餘無可靠預期者保持 null。China NBS 日程屬初步計畫；Eurostat 一般日曆與 ECB HICP 專屬日曆存在日期差異，採用 ECB 專屬 HICP 時程。另納入 ECB Financial Stability Review。 另依聯準會官方 2026 年 11 月行事曆補入 4 場具較高市場／政策關聯的官員談話（Barr、主席 Warsh、Waller、Cook）；其餘較偏專題或禮節性活動未列為 TAC 四／五星主要事件。"
     },
     "earnings": {
       "status": "incomplete",
@@ -4745,10 +4866,23 @@
         "chronological_order": true
       },
       "notes": "最終欄位驗收通過。所有欄位集合與 W46 schema_version=1 完全一致；未宣稱財報共識或 PIT 已完成。"
+    },
+    {
+      "at": "2026-11-14T14:40:00+08:00",
+      "action": "W47_add_material_Federal_Reserve_official_speeches",
+      "event_id": "current-fed-barr-ai-financial-stability-20261116,current-fed-warsh-productivity-jobs-20261117,current-fed-waller-payments-20261117,current-fed-cook-us-economy-global-20261121",
+      "before": {
+        "economic_events": 18
+      },
+      "after": {
+        "economic_events": 22,
+        "fed_official_speeches_added": 4
+      },
+      "notes": "依 Federal Reserve Board 官方 November 2026 calendar 補入四場具較高市場／政策關聯的聯準會官員談話：Barr（AI與金融穩定）、主席 Warsh（生產力與就業）、Waller（支付系統）、Cook（美國經濟與全球脈絡）。均依美東時間換算台灣時間。其他官方日曆活動如社區發展投資、AI symposium discussion、Fed Challenge welcome remarks，因議題屬較低市場傳導層級，未列入 TAC 四／五星主要事件。"
     }
   ],
   "last_update_audit": {
-    "at": "2026-11-14T13:22:49+08:00",
+    "at": "2026-11-14T14:40:00+08:00",
     "run_status": "partial_success_official_schedule_build_consensus_unresolved",
     "week": "2026-W47",
     "main_wr_version": "5.15",
@@ -4765,7 +4899,7 @@
     "files_modified": [
       "data/calendar/weeks/2026-W47.json"
     ],
-    "economic_events_added": 18,
+    "economic_events_added": 22,
     "earnings_events_added": 21,
     "earnings_upcoming": 21,
     "eps_attempts_added": 63,
@@ -4819,9 +4953,9 @@
     "legacy_comparison_statuses_recomputed": 0,
     "coverage_matrix": {
       "economic": {
-        "events": 18,
-        "with_official_schedule": 18,
-        "with_verified_time": 16,
+        "events": 22,
+        "with_official_schedule": 22,
+        "with_verified_time": 20,
         "with_previous": 15,
         "with_forecast": 8,
         "actuals": 0
@@ -4860,7 +4994,7 @@
       "INTU",
       "KEYS"
     ],
-    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。 新增 Australia WPI、Australia Labour Force、Japan CPI、Canada Retail Trade、Euro Area negotiated wage rates；HICP 時程採 ECB 專屬日曆，已記錄與 Eurostat 一般日曆的日期差異。 新增 ECB Financial Stability Review（11/18 10:00 CET）；Eurostat HICP event ID 保留原始後綴以維持 audit 引用穩定，正式日期為11/18。 Final QA passed: W47 root/economic/earnings key parity exactly matches W46 schema_version=1; 18 economic +21 earnings events; no duplicate IDs; all event dates in W47 and chronologically sorted; 21 issuer/listing sources; EPS/Revenue attempts 1→2→3; 0 adopted consensus and 0 PIT snapshots.",
+    "notes": "W47 21 家四／五星企業均有發行人官方財報時程及美國交易所掛牌證據。LSEG／FactSet不可存取；Investing.com 14筆缺必要欄位、6筆日期衝突、1筆無對應頁面；無採用共識，無PIT snapshot。Copart 尚無發行人正式日期，未納入。 已完成 schema key parity 與完整回讀；W46/W47 economic、earnings event 欄位集合完全一致。Plugin discovery 未找到 LSEG I/B/E/S 或 FactSet Estimates 連接器，未改用非契約來源。 經濟事件前值／預期值補強：previous 10/11、forecast 7/11；未取得可靠預期者保留 null。Eurostat HICP 更正為 11/18 19:00 台灣時間。 新增中國10月70城商品住宅價格指數（11/16 09:30），並將能源生產納入10:00國民經濟數據包。 新增 Australia WPI、Australia Labour Force、Japan CPI、Canada Retail Trade、Euro Area negotiated wage rates；HICP 時程採 ECB 專屬日曆，已記錄與 Eurostat 一般日曆的日期差異。 新增 ECB Financial Stability Review（11/18 10:00 CET）；Eurostat HICP event ID 保留原始後綴以維持 audit 引用穩定，正式日期為11/18。 Final QA passed: W47 root/economic/earnings key parity exactly matches W46 schema_version=1; 18 economic +21 earnings events; no duplicate IDs; all event dates in W47 and chronologically sorted; 21 issuer/listing sources; EPS/Revenue attempts 1→2→3; 0 adopted consensus and 0 PIT snapshots. 補入 4 場具較高市場／政策關聯的聯準會官員公開談話，時間均由官方 ET 日程換算為台灣時間；財報共識與 PIT 狀態仍 incomplete。",
     "official_source_url_time_corrections": [
       "NVDA",
       "HD",
@@ -4896,7 +5030,7 @@
     },
     "final_file_path": "data/calendar/weeks/2026-W47.json",
     "final_validation_status": "passed",
-    "last_verified_at": "2026-11-14T13:27:47+08:00",
-    "economic_events_total": 18
+    "last_verified_at": "2026-11-14T14:40:00+08:00",
+    "economic_events_total": 22
   }
 }
