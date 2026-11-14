@@ -163,7 +163,7 @@ try {
 
   const detailsTests = [
     await toggleDetails("details.earnings-accordion", ".earnings-accordion-toggle"),
-    await toggleDetails("details.econ-event", ".econ-toggle"),
+    await toggleDetails("details.econ-event", ".econ-toggle, .econ-event-toggle"),
     await toggleDetails("details.sector-collapse")
   ];
 
