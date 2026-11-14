@@ -84,7 +84,7 @@ try {
   const templateKey = process.env.TEMPLATE_KEY || "weekday";
   const templateName = templateKey === "monday" ? "monday-mother-template.html" : "weekday-mother-template.html";
   const templatePath = path.resolve("simulation-lab/baseline", templateName);
-  if (!fs.existsSync(templatePath)) throw new Error(\`approved mother template not found: \${templatePath}\`);
+  if (!fs.existsSync(templatePath)) throw new Error("approved mother template not found: " + templatePath);
   const templateHtml = fs.readFileSync(templatePath, "utf8");
   const templateNavTargets = await page.evaluate(html => {
     const doc = new DOMParser().parseFromString(html, "text/html");
@@ -94,14 +94,14 @@ try {
   const nav = page.locator("nav.nav a[href^='#']");
   const navCount = await nav.count();
   if (navCount !== templateNavTargets.length) {
-    throw new Error(\`expected \${templateNavTargets.length} in-page navigation links from approved \${templateKey} mother, got \${navCount}\`);
+    throw new Error("expected " + templateNavTargets.length + " in-page navigation links from approved " + templateKey + " mother, got " + navCount);
   }
   const navTargets = [];
   for (let i = 0; i < navCount; i++) {
     const href = await nav.nth(i).getAttribute("href");
     const targetId = href.slice(1);
-    if (await page.locator(\`[id="\${targetId}"]\`).count() !== 1) {
-      throw new Error(\`navigation target missing or duplicated: \${href}\`);
+    if (await page.locator('[id="' + targetId + '"]').count() !== 1) {
+      throw new Error("navigation target missing or duplicated: " + href);
     }
     navTargets.push(href);
   }
