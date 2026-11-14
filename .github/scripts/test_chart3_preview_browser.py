@@ -24,6 +24,14 @@ def check(name, ok, detail=None):
     if not ok:
         raise AssertionError(f"{name}: {detail}")
 
+manifest_path = ROOT / "data" / "tac-chart3" / "manifest.json"
+manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+check("manifest_schema_v2", manifest.get("schema_version") == "2.0.0")
+check("manifest_release_gate_blocked_until_rights_confirmed", manifest.get("release_gate", {}).get("status") == "BLOCKED_PENDING_DATA_RIGHTS_AND_PROVENANCE")
+check("manifest_contains_four_risk_series", {x.get("id") for x in manifest.get("risk_series", [])} == {"VIXCLS", "NFCI", "NFCICREDIT", "STLFSI4"})
+check("manifest_sp500_history_matches_chart_payload", manifest.get("sp500_data", {}).get("rows") == 24833 and manifest.get("sp500_data", {}).get("start") == "1927-12-30" and manifest.get("sp500_data", {}).get("end") == "2026-11-10")
+check("manifest_does_not_mislabel_git_blob_as_sha256", "sha256" not in manifest.get("risk_data", {}))
+
 def validate_chart(page, label):
     # Wait for either a successful chart initialization or an explicit data-load error.
     page.wait_for_function("""() => {
