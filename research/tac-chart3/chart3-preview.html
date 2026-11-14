@@ -463,7 +463,8 @@ Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)]).then(async ([data,c
  document.getElementById('combined-legend').innerHTML=SERIES_CONFIG.map(c=>'<span><i class="swatch" style="background:'+c.color+'"></i>'+c.name+(c.kind==='price'?'｜右軸':'｜左軸')+'</span>').join('');
  const eventVisible=Object.fromEntries(MAJOR_EVENTS.map(ev=>[ev.id,true]));
  const drawdownVisible=Object.fromEntries(DRAWDOWNS.map(dd=>[dd.id,true]));
- let viewStart=CHART_START,viewEnd=CHART_END,renderFrame=0;
+ const DEFAULT_VIEW_START=Math.max(CHART_START,Date.parse('1993-12-31T00:00:00Z'));
+ let viewStart=DEFAULT_VIEW_START,viewEnd=CHART_END,renderFrame=0;
  const normalize=(a,b)=>{const span=clamp(b-a,MIN_VIEW_SPAN,CHART_END-CHART_START);a=clamp(a,CHART_START,CHART_END-span);return [a,a+span];};
  const paint=(skipLedger)=>{const t0=performance.now();drawCombined(weekly,visible,eventVisible,drawdownVisible,viewStart,viewEnd,skipLedger);document.getElementById('timeline-range').textContent=new Date(viewStart).getUTCFullYear()+'–'+new Date(viewEnd).getUTCFullYear();document.getElementById('combined-chart').dataset.renderMs=(performance.now()-t0).toFixed(1);};
  // Filter/ledger changes paint immediately. High-frequency timeline gestures are coalesced to one paint per animation frame.
