@@ -187,7 +187,7 @@ def validate_chart(page, label):
         page.wait_for_function("(v)=>{const e=document.querySelector('#combined-chart svg');return e&&e.dataset.viewStart!==v[0]&&e.dataset.viewEnd!==v[1]}", arg=reset, timeout=3000)
         wheel_zoom = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
         wheel_span = page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", wheel_zoom)
-        check(label + "_mouse_wheel_zoom", wheel_span < initial_span, wheel_zoom)
+        check(label + "_mouse_wheel_zoom", wheel_span < page.evaluate("(v)=>Date.parse(v[1])-Date.parse(v[0])", reset), wheel_zoom)
         page.locator("#timeline-reset").click()
         page.locator("#timeline-zoom-in").click()
         before_drag = page.locator("#combined-chart svg").evaluate("(e)=>[e.dataset.viewStart,e.dataset.viewEnd]")
