@@ -47,11 +47,13 @@ jobs:
           html_path = Path("research/tac-chart3/chart3-preview.html")
           data_path = Path("data/tac-chart3/chart3_market_stress.json")
           html = html_path.read_text(encoding="utf-8")
-          data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
-          fetch_call = "fetch(DATA_URL).then(r=>{if(!r.ok)throw new Error('圖表資料讀取失敗：HTTP '+r.status);return r.json()})"
-          if fetch_call not in html:
-              raise SystemExit("Expected stress-data fetch call not found; standalone preview not generated")
-          html = html.replace(fetch_call, "Promise.resolve(" + data + ")")
+          stress_data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
+          sp500_path = Path("data/tac-chart3/sp500_daily_close_1993-2026.compact.json")
+          sp500_data = json.dumps(json.loads(sp500_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
+          for token, payload in [("fetchJson(DATA_URL)", stress_data), ("fetchJson(SP500_DATA_URL)", sp500_data)]:
+              if token not in html:
+                  raise SystemExit(f"Expected {token} call not found; standalone preview not generated")
+              html = html.replace(token, "Promise.resolve(" + payload + ")")
           out = Path("artifacts/chart3-preview-visual-qa/chart3-preview-standalone.html")
           out.parent.mkdir(parents=True, exist_ok=True)
           out.write_text(html, encoding="utf-8")
