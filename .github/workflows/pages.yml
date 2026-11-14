@@ -9,6 +9,7 @@ on:
       - "preview/**"
       - "history/**"
       - "research/**"
+      - "data/tac-chart3/**"
       - "index.html"
       - "special-reports.html"
       - "scripts/build-special-reports-index.py"
