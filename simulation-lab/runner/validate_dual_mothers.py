@@ -50,40 +50,55 @@ def validate(key: str) -> dict:
         if len(details_nodes) != 1:
             raise SystemExit(f"{key} card {i}: expected one direct .econ-details container")
         details = details_nodes[0]
-        fields = [
+        # Five-zone contract: three comparison fields live inside the primary
+        # grid; impact and source are two following full-width sibling fields.
+        primary_grids = [
             node for node in details.find_all("div", recursive=False)
+            if "econ-primary-grid" in node.get("class", [])
+        ]
+        if len(primary_grids) != 1:
+            raise SystemExit(f"{key} card {i}: expected exactly one direct .econ-primary-grid")
+        primary = primary_grids[0]
+        primary_fields = [
+            node for node in primary.find_all("div", recursive=False)
             if "econ-field" in node.get("class", [])
         ]
-        if scope == "last-week":
-            allowed_counts = [4]
-        else:
-            allowed_counts = [4, 5]
-        if len(fields) not in allowed_counts:
+        if len(primary_fields) != 3:
             raise SystemExit(
-                f"{key} card {i}: {scope} mother allows {allowed_counts} direct econ-field zones, got {len(fields)}"
+                f"{key} card {i}: primary grid must contain exactly 3 comparison fields, got {len(primary_fields)}"
             )
-        labels = []
-        for field in fields:
-            label = field.select_one(":scope > label")
-            value = field.select_one(":scope > .econ-value")
-            if not label or not value:
-                raise SystemExit(f"{key} card {i}: econ-field label/value structure incomplete")
-            labels.append(label.get_text(strip=True))
-        if scope == "last-week":
-            valid_labels = (
-                len(labels) == 4
-                and labels[:3] == ["前值", "預估", "實際"]
-                and labels[3] in ("來源", "資料來源")
+        expected_classes = ["econ-prev", "econ-forecast", "econ-actual"]
+        expected_labels = ["前值", "市場預估", "實際"]
+        for field, required_class, required_label in zip(primary_fields, expected_classes, expected_labels):
+            if required_class not in field.get("class", []):
+                raise SystemExit(f"{key} card {i}: comparison field class mismatch, expected {required_class}")
+            label = field.find("label", recursive=False)
+            value = field.find("div", class_="econ-value", recursive=False)
+            if not label or label.get_text(strip=True) != required_label or not value:
+                raise SystemExit(f"{key} card {i}: {required_label} field label/value structure incomplete")
+
+        wide_fields = [
+            node for node in details.find_all("div", recursive=False)
+            if "econ-field" in node.get("class", []) and "wide" in node.get("class", [])
+        ]
+        if len(wide_fields) != 2:
+            raise SystemExit(
+                f"{key} card {i}: expected exactly 2 direct full-width fields (impact/source), got {len(wide_fields)}"
             )
-        else:
-            valid_labels = (
-                len(labels) in (4, 5)
-                and labels[:3] == ["前值", "市場預估", "實際"]
-                and labels[-1] in ("來源", "資料來源")
-                and (len(labels) == 4 or labels[3] in ("市場影響", "觀察重點"))
-            )
-        if not valid_labels:
-            raise SystemExit(f"{key} card {i}: {scope} field labels mismatch: {labels}")
+        if "econ-impact" not in wide_fields[0].get("class", []) or "econ-source" not in wide_fields[1].get("class", []):
+            raise SystemExit(f"{key} card {i}: full-width impact/source order or classes mismatch")
+        impact_label = wide_fields[0].find("label", recursive=False)
+        source_label = wide_fields[1].find("label", recursive=False)
+        impact_value = wide_fields[0].find("div", class_="econ-value", recursive=False)
+        source_value = wide_fields[1].find("div", class_="econ-value", recursive=False)
+        if not impact_label or impact_label.get_text(strip=True) != "市場影響" or not impact_value:
+            raise SystemExit(f"{key} card {i}: market impact field incomplete")
+        if not source_label or source_label.get_text(strip=True) != "資料來源" or not source_value:
+            raise SystemExit(f"{key} card {i}: source field incomplete")
+        source_links = source_value.select("a[href^='https://']")
+        if not source_links:
+            raise SystemExit(f"{key} card {i}: source field must contain an HTTPS source link")
+
         source_value = fields[-1].select_one(":scope > .econ-value")
         if not source_value or not source_value.select_one("a[href^='https://']"):
             raise SystemExit(f"{key} card {i}: source field must contain an HTTPS source link")
