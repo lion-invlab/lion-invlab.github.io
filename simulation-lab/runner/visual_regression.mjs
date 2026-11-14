@@ -351,11 +351,11 @@ try {
         if (!(a.left > p.left + eps && a.top <= p.top + eps && a.bottom >= f.bottom - eps)) {
           invalid.push("card " + (i+1) + ": actual field does not occupy right column across both rows");
         }
-        const detailsRect = rect(details);
-        if (!(Math.abs(impact.left - detailsRect.left) <= 3 &&
-              Math.abs(sourceBox.left - detailsRect.left) <= 3 &&
-              Math.abs(impact.width - detailsRect.width) <= 6 &&
-              Math.abs(sourceBox.width - detailsRect.width) <= 6 &&
+        const primaryRect = rect(primary);
+        if (!(Math.abs(impact.left - primaryRect.left) <= 3 &&
+              Math.abs(sourceBox.left - primaryRect.left) <= 3 &&
+              Math.abs(impact.width - primaryRect.width) <= 6 &&
+              Math.abs(sourceBox.width - primaryRect.width) <= 6 &&
               impact.top >= Math.max(p.bottom, f.bottom, a.bottom) - eps &&
               sourceBox.top >= impact.bottom - eps)) {
           invalid.push("card " + (i+1) + ": impact/source fields are not consecutive full-width rows");
