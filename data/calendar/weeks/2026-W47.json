@@ -19,7 +19,7 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：中國房地產價格與銷售是觀察房市去庫存、居民財富效應、房企資產負債表及建築投資的重要指標，對中國金融與原物料需求具影響。",
-        "previous": "9月70城新建商品住宅價格年減2.8%、月減0.1%；一線城市新房價格年減0.5%。",
+        "previous": "9月70城新建商品住宅價格年減2.8%、月減0.1%；二手住宅價格以70城分城市明細發布，未取得單一全國可比同比值。",
         "forecast": null,
         "actual": null,
         "status": "upcoming",
@@ -50,8 +50,8 @@
         "importance_stars": 4,
         "importance_basis": "major_event_assessment",
         "importance_basis_source": "TAC四星：中國主要月度成長與需求指標集中發布，能同步反映工業景氣、內需消費及投資動能，對中國資產、原物料與亞洲供應鏈具明顯影響。",
-        "previous": "10月前值：工业增加值年增5.5%；社会消费品零售总额年增1.1%；固定资产投资（年初至今）年减7.2%；城镇调查失业率5.2%。",
-        "forecast": "市场共识：工业增加值年增5.3%；社会消费品零售总额年增0.8%；固定资产投资（年初至今）年减7.0%；城镇调查失业率未取得一致预期。",
+        "previous": "9月前值：工业增加值年增5.5%；社会消费品零售总额年增1.1%；固定资产投资（年初至今）年减7.2%；城镇调查失业率5.2%。",
+        "forecast": "Trading Economics 聚合日曆 consensus 欄：工業增加值年增5.3%；社會消費品零售總額年增0.8%；固定資產投資（年初至今）年減7.0%；失業率未列一致預期。此為聚合來源數值，不代表 Reuters 調查。",
         "actual": null,
         "status": "upcoming",
         "impact_judgment": "工業增加值、零售銷售與固定資產投資的組合將協助判斷中國政策刺激是否轉化為實體需求；須分辨生產端改善與消費端修復是否同步。",
@@ -4444,6 +4444,19 @@
         "forecast_values": 7
       },
       "notes": "依 NBS 2026 官方發布日程新增 11/16 09:30 的 70 城商品住宅銷售價格指數；前值為 9 月新房年減2.8%、月減0.1%，未取得可靠市場共識故 forecast=null。10:00 國民經濟數據包標題補列能源生產。"
+    },
+    {
+      "at": "2026-11-14T13:22:49+08:00",
+      "action": "W47_correct_china_previous_period_label_and_consensus_attribution",
+      "event_id": "current-china-oct-activity-20261116,current-china-oct-home-prices-20261116",
+      "before": {
+        "blob_sha": "9c87131d83939bc7bbe626e3d93ea41b246a85bc"
+      },
+      "after": {
+        "china_previous_period": "September 2026",
+        "consensus_attribution": "Trading Economics aggregated calendar, not Reuters poll"
+      },
+      "notes": "將中國10月活動數據的 previous 標籤明確修正為9月前值；把預期來源標示為 Trading Economics 聚合日曆 consensus，而非 Reuters 調查；房價前值說明限於可核實的新建住宅彙總值。"
     }
   ],
   "last_update_audit": {
