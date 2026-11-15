@@ -1078,3 +1078,11 @@
 - push 後再 fetch simulation branch，直接從遠端 Git tree 讀回 HTML 與 .qa.json，分別核對 Git blob SHA；遠端回讀不一致即失敗。
 - 最新 workflow commit：dbafdd2583df8c4463130bc30b1904e508a67a4c；workflow blob SHA：ff1fd5a6a5e9053694f56ea863934b39eca2cd54。
 - 本輪仍未取得 GitHub Actions push run 的可讀 run ID／job logs，故整合執行與最終 preview／sidecar 尚未驗收。
+
+
+## 2026-11-15｜GitHub Actions 真實失敗根因修正
+- Run 43662993185（commit dbafdd2583df8c4463130bc30b1904e508a67a4c）實際失敗於既有 `validate_dual_mothers.py`：驗證器錯把 `details.last-week-calendar-collapse`／`details.last-week-earnings-collapse` 假設為 section 的直接子節點；核准母版實際結構是 `section > article.card.calendar-card > details`，QA 契約描述的是 section 內含 details，並未要求直接子節點。故屬驗證器 selector 過度嚴格，不是母版缺漏；未修改唯讀母版。
+- 修正 `simulation-lab/runner/validate_dual_mothers.py`：改為在各自 section 範圍內唯一定位 details，仍檢查數量及預設收折。
+- 修正 workflow 歸檔步驟：失敗 QA run 不再執行 branch archive writer（失敗證據由 always() artifact upload 保存）；成功時使用 fetch/rebase/push 最多三次安全重試，不 force push。
+- 變更 commits：validator `c042aa4bc1a3ed4c0e03f133c1fa398f06b7adb4`；workflow `24be3852d3f3c2f06cc554f5f90ac70450b3ab2c`。
+- 尚待下一輪 Actions 證明：雙母版自測、完整組裝、Playwright、視覺回歸、獨立 provenance validator、HTML/evidence remote read-back。未取得結果前一律標示未測試。
