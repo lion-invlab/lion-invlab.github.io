@@ -3,6 +3,13 @@ name: TAC Chart 3 preview visual QA
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - "TAC Chart 3 incremental update (main branch trigger)"
+    branches:
+      - main
+    types:
+      - completed
   pull_request:
     branches:
       - main
@@ -28,6 +35,7 @@ concurrency:
 
 jobs:
   browser-qa:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -49,10 +57,11 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-          import subprocess
-          subprocess.run(["python", ".github/scripts/build_sp500_daily_compact.py", "--recent-compact", "data/tac-chart3/sp500_daily_close_1993-2026.compact.json", "--output", "data/tac-chart3/sp500_daily_close_1927-2026.compact.json"], check=True)
           html_path = Path("research/tac-chart3/chart3-preview.html")
           data_path = Path("data/tac-chart3/chart3_market_stress.json")
+          sp500_path = Path("data/tac-chart3/sp500_daily_close_1927-2026.compact.json")
+          if not sp500_path.is_file():
+              raise SystemExit("Checked-in S&P 500 snapshot is missing; visual QA will not download or substitute another source.")
           html = html_path.read_text(encoding="utf-8")
           data = json.dumps(json.loads(data_path.read_text(encoding="utf-8")), ensure_ascii=False, separators=(",", ":"))
           fetch_call = "Promise.all([fetchJson(DATA_URL),fetchJson(SP500_DATA_URL)])"
