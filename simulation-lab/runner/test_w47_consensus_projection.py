@@ -48,7 +48,7 @@ def main():
         event = expected[entry["ticker"]]
         assert entry["event_id"] == event["id"]
         assert entry["event_date"] == event["event_date"]
-        assert entry["reporting_period"] == event["period"]
+        assert entry["reporting_period"] == event["reporting_period"]
         observed = datetime.fromisoformat(entry["observed_at"].replace("Z", "+00:00"))
         release = datetime.fromisoformat(entry["event_date"])
         assert observed < release, f"{entry['ticker']} capture is not pre-release"
