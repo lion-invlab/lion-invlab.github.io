@@ -2,7 +2,7 @@
 """Simulation-only DOM updater. Never edits formal scripts or approved master."""
 from __future__ import annotations
 import argparse, hashlib, json, re, sys, subprocess
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
@@ -1386,6 +1386,7 @@ def main():
                     ("EPS 預估",eps_est),
                     ("EPS 口徑",x.get("eps_basis_display") or "平台 EPS 預期口徑（細項未完整揭露）"),
                     ("EPS 共識證據",x.get("eps_evidence_label") or "平台共識參考"),
+                    ("共識觀測時間", datetime.fromisoformat(x["consensus_observed_at"].replace("Z","+00:00")).astimezone(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M") + " 台灣時間" if x.get("consensus_observed_at") else "觀測時間未提供"),
                     ("營收預估",rev_est),
                     ("營收口徑",x.get("revenue_basis_display") or "平台 Revenue 預期口徑（細項未完整揭露）"),
                     ("營收共識證據",x.get("revenue_evidence_label") or "平台共識參考"),
