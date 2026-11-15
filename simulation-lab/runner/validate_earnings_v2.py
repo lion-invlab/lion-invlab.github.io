@@ -70,7 +70,7 @@ def self_test(schema: dict) -> None:
         }],
         "judgment_engine_version": ENGINE_VERSION,
         "judgment_timestamp": "2026-11-13T13:00:00+08:00",
-        "earnings_comparison_summary": "EPS：優於預期；營收：資料／比較口徑待核實",
+        "earnings_comparison_summary": "EPS：優於預期；營收：尚未公布／數值尚未齊備",
         "eps_actual": 1.2, "eps_estimate": 1.0,
         "eps_actual_basis_code": "US_GAAP_DILUTED_EPS",
         "eps_estimate_basis_code": "US_GAAP_DILUTED_EPS",
