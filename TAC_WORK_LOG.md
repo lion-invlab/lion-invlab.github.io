@@ -1086,3 +1086,6 @@
 - 修正 workflow 歸檔步驟：失敗 QA run 不再執行 branch archive writer（失敗證據由 always() artifact upload 保存）；成功時使用 fetch/rebase/push 最多三次安全重試，不 force push。
 - 變更 commits：validator `c042aa4bc1a3ed4c0e03f133c1fa398f06b7adb4`；workflow `24be3852d3f3c2f06cc554f5f90ac70450b3ab2c`。
 - 尚待下一輪 Actions 證明：雙母版自測、完整組裝、Playwright、視覺回歸、獨立 provenance validator、HTML/evidence remote read-back。未取得結果前一律標示未測試。
+
+
+- 觸發驗證：本次修正已完成，透過本工作紀錄的 simulation-only commit 啟動完整 Actions 重跑（[build-tac-report]）。
