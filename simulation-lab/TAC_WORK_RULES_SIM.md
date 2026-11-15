@@ -731,3 +731,11 @@
 4. Yahoo Finance 未明確揭露 Revenue 精確指標定義時，Revenue estimate 可供讀者參考，但 comparison status 必須 pending；不得僅因欄位名稱為 revenue_estimate 就推定與公司公布的 GAAP revenue／net sales 同口徑。
 5. 若公告前原始回應、來源 URL、ticker、事件時間、財報期間、數值、幣別、統計類型與必要單位均可核對，但會計／營收比較口徑缺漏，卡片可顯示「TAC 公告前觀測共識｜比較口徑待核實」及 estimate／analyst count；方向性判讀仍由唯一引擎禁止輸出。
 6. 此來源新增不代表購買任何訂閱，也不得使用付費歷史資料或聲稱具供應商歷史 PIT。僅使用當次實際可取得的公開資料及 TAC 自行保存的公告前回應。
+
+### F3-補充6｜Yahoo EPS GAAP／Normalized 方法辨識（2026-11-15｜SIM-1.3）
+
+1. Yahoo Finance 的 EPS estimate 預設值不可一律視為 GAAP。TAC 必須另行擷取 yfinance earnings estimate 的 methodology 欄位；其定義為 gaap 或 normalized（non-GAAP），且必須與公告前主共識數值、幣別、期間及分析師數相符。
+2. 另保存 GAAP 與 normalized 兩種估值輸出及原始回應 SHA-256；不可把 normalized 平均值當作 GAAP EPS，也不可把 GAAP 平均值覆蓋 Yahoo 預設共識。
+3. 即使 methodology 已確認，若 Basic／Diluted 股數口徑仍未揭露，EPS 方向性判讀仍為 pending。卡片可明示 GAAP 或 Normalized（非 GAAP），並註明 Basic／Diluted 股數口徑未揭露。
+4. Revenue estimate 目前未取得可驗證的精確指標定義，必須明示「Revenue 指標定義未揭露」，不得以 GAAP／Adjusted Revenue、Net Sales 或 Total Revenue 名稱自行補足。
+5. yfinance 擷取時間只代表 TAC 觀測時間，不是供應商歷史 data_as_of；必須保留原始回應、SHA、來源網址及公告前時間驗證。
