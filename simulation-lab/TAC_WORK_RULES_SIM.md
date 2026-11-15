@@ -413,6 +413,18 @@
 9. **舊規則衝突處理：** 本條取代 F3-補充第 2 點所列多來源並列查找方式，以及第 7 點「至少兩個以上來源」的要求。自本條生效後，不得為了形式上的交叉查核而在已取得有效優先來源後繼續搜尋；不得將「來源查詢數量」當作品質指標，應改以有效共識取得率、來源可追溯率及同口徑可比較率驗收。
 10. 本規則適用所有模擬區財報事件、行事曆資料庫更新、已公布財報卡及 HTML 預覽。HTML 組裝器只呈現資料庫已保存的共識及判讀結果，不得自行搜尋、換源或重新計算。
 
+### F3-補充3｜公告前 PIT 快照資格與判讀連結（2026-11-15｜SIM-1.2 執行補充）
+
+1. **方向性判讀必須連結不可變快照：** EPS 的 beat／miss／inline 必須由 consensus_source.snapshot_id 指向同一事件的 eps_consensus_snapshots[]；Revenue 必須由 revenue_consensus_source.snapshot_id 指向 revenue_consensus_snapshots[]。不得只憑 consensus_source.url、observed_at 或自由文字備註作方向性判讀。
+2. **快照一致性核對：** 被引用快照必須逐項匹配事件 id、ticker、event_date、指標、estimate 數值、幣別、單位（Revenue）、財報期間、basis code、來源層級與供應商；原始回應必須有封存路徑及 SHA-256。任何欄位不一致、缺漏或快照 ID 找不到，該指標狀態只能是待核實。
+3. **observed_at 定義：** TAC collector 實際取得並封存該份原始頁面／回應的時間，必須是含時區的時間戳。它證明 TAC 在何時看到了該資料，不代表供應商資料本身的更新日期。
+4. **data_as_of 定義：** 供應商明確聲明該筆共識所代表的資料日期／時間。不得直接複製 observed_at、網頁通用 Last Updated、財報公告日或系統執行日期填入。供應商未揭露時保留 null，快照不得標記 pre_release_eligible。
+5. **PIT 時間順序：** data_as_of 與 observed_at 均必須能證明早於 event_date；data_as_of 不得晚於 observed_at。若 published_at 有明確資料且晚於／等於公告時間，快照不得作為公告前證據。只有日期、且與公告同日而無法判定先後時，一律 pending_cutoff_time。
+6. **唯一合格狀態：** 只有必要欄位齊全、原始回應可驗證、data_as_of／observed_at／已知 published_at 時間條件全部通過，才可標記 pre_release_eligible。pending_cutoff_time、pending_required_fields、not_pre_release 均不得產生方向性 Beat／Miss。
+7. **快照不可覆寫：** 每次輪詢均保存原始回應及 SHA-256；歷史快照 append-only。相同快照可去重，不同快照不得覆蓋。公告後取得的文章即使回述當時共識，也不能取代公告前原始快照。
+8. **舊資料處理：** 沒有可追溯公告前快照連結的舊方向性狀態，不得沿用為已驗證 Beat／Miss；投影至新版判讀引擎時降為「資料／比較口徑待核實」。不得偽造歷史快照或補寫無法證明的 data_as_of。
+9. 本補充只定義 PIT 快照的資格與連結，不改變 F3-補充2 的 LSEG I/B/E/S → FactSet Estimates → Investing.com 來源優先順序，也不授權寫入 main。
+
 ### F4. 事件保留、搬移與排序
 - 已公布且欄位完整、來源可追溯、狀態正確的卡片採保留制；有新修正、已知錯誤或欄位缺漏才重新查證／更新。
 - 更新事件優先沿用穩定識別碼，移動完整卡片；不得新增重複卡而保留舊卡。狀態搬移後檢查原分頁無殘留、目的分頁正確、事件無遺失／重複。
