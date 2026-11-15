@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Project immutable Yahoo Finance TAC-observed captures onto W47 events (simulation only)."""
 from __future__ import annotations
-import argparse, copy, json, sys
+import argparse, copy, hashlib, json, sys
 from pathlib import Path
 from consensus_snapshot_store import build_consensus_snapshot
 from earnings_judgment import consensus_evidence_label, evaluate_metric
@@ -22,6 +22,10 @@ def main():
         event=events.get(item["ticker"])
         if not event or event.get("id")!=item.get("event_id") or event.get("event_date")!=item.get("event_date"):
             raise SystemExit(f"event identity/time mismatch for {item['ticker']}")
+        raw=json.dumps(item["raw_response"],ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
+        digest=hashlib.sha256(raw).hexdigest()
+        if digest != item.get("raw_response_sha256"):
+            raise SystemExit(f"raw response SHA-256 mismatch for {item['ticker']}")
         if event.get("reporting_period") not in (item.get("reporting_period"), "2026 Q3" if item["ticker"]=="BIDU" else "FY2027 Q3"):
             raise SystemExit(f"fiscal period mismatch for {item['ticker']}")
         projected=copy.deepcopy(event)
