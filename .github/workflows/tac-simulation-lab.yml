@@ -56,6 +56,14 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars
 
+      - name: Probe Equibles analyst estimates API (read-only, simulation only)
+        shell: bash
+        env:
+          EQUIBLES_API_KEY: ${{ secrets.EQUIBLES_API_KEY }}
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/equibles_analyst_estimates_probe.py
+
       - name: Probe ORTEX TEST consensus API (read-only, simulation only)
         shell: bash
         run: |
