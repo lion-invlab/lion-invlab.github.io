@@ -1,0 +1,575 @@
+{
+  "schema_version": "tac-yahoo-earnings-capture-v1",
+  "captured_at": "2026-11-15T05:50:46.479Z",
+  "branch_scope": "simulation/tac-process-lab-2026-11-06",
+  "purpose": "prospective TAC-observed pre-release consensus reference; not provider PIT",
+  "entries": [
+    {
+      "ticker": "BIDU",
+      "company": "Baidu, Inc.",
+      "event_date": "2026-11-16",
+      "reporting_period": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/BIDU/analysis/",
+      "observed_at": "2026-11-15T05:50:45.596Z",
+      "observed_at_taipei": "2026-11-15T13:50:45+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 6.16243,
+        "high": 8.14,
+        "low": 4.58,
+        "analyst_count": 15,
+        "currency": "CNY",
+        "basis_code": null,
+        "statistic": "average"
+      },
+      "revenue": {
+        "estimate": 30629578930,
+        "high": 31842000000,
+        "low": 24853000000,
+        "analyst_count": 21,
+        "currency": "CNY",
+        "unit": "currency units",
+        "basis_code": null,
+        "statistic": "average"
+      },
+      "raw_response_sha256": "c401fc279d8da6e60ee3fb1c57543301b86ae865f11724be6b595ebe614cebe8",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "CNY",
+            "eps_actual": 11.12,
+            "eps_difference": 2.92,
+            "eps_estimate": 8.20424,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": 0.3554
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 10.62,
+            "eps_difference": 0.97,
+            "eps_estimate": 9.64644,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": 0.1009
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 12.06,
+            "eps_difference": 0.63,
+            "eps_estimate": 11.42943,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.0552
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 7.22,
+            "eps_difference": -2.62,
+            "eps_estimate": 9.83686,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": -0.266
+          }
+        ],
+        "history_count": 4,
+        "name": "Baidu, Inc.",
+        "next_earnings": {
+          "date": "2026-11-16",
+          "date_ms": 1794835800000,
+          "earnings_call": {
+            "date": "2026-11-16",
+            "ms": 1794832200000
+          },
+          "eps_estimate": {
+            "average": 6.16243,
+            "high": 8.14,
+            "low": 4.58
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 30629578930,
+            "high": 31842000000,
+            "low": 24853000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794721845596,
+        "source_url": "https://finance.yahoo.com/quote/BIDU/analysis/",
+        "symbol": "BIDU",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 6.16243,
+              "high": 8.14,
+              "low": 4.58,
+              "number_of_analysts": 15,
+              "year_ago": 11.12
+            },
+            "growth": -0.4458,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 30629578930,
+              "high": 31842000000,
+              "low": 24853000000,
+              "number_of_analysts": 21,
+              "year_ago": 31174000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 8.67825,
+              "high": 12.142,
+              "low": 6.436,
+              "number_of_analysts": 12,
+              "year_ago": 10.62
+            },
+            "growth": -0.18280001,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 32997529680,
+              "high": 34995000000,
+              "low": 31900000000,
+              "number_of_analysts": 16,
+              "year_ago": 32740000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 35.62527,
+              "high": 43.43,
+              "low": 31.74,
+              "number_of_analysts": 22,
+              "year_ago": 53.41
+            },
+            "growth": -0.333,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 127292507660,
+              "high": 130169000000,
+              "low": 125000000000,
+              "number_of_analysts": 31,
+              "year_ago": 129079000000
+            }
+          },
+          {
+            "end_date": "2027-12-31",
+            "eps_estimate": {
+              "average": 45.44425,
+              "high": 65.75,
+              "low": 29.906,
+              "number_of_analysts": 23,
+              "year_ago": 35.62527
+            },
+            "growth": 0.2756,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 135275502550,
+              "high": 152232000000,
+              "low": 127795700000,
+              "number_of_analysts": 31,
+              "year_ago": 127292507660
+            }
+          }
+        ]
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "company": "NVIDIA Corporation",
+      "event_date": "2026-11-17",
+      "reporting_period": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/NVDA/analysis/",
+      "observed_at": "2026-11-15T05:50:45.889Z",
+      "observed_at_taipei": "2026-11-15T13:50:45+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 2.47121,
+        "high": 2.7,
+        "low": 2.25754,
+        "analyst_count": 43,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average"
+      },
+      "revenue": {
+        "estimate": 108731903900,
+        "high": 116251000000,
+        "low": 100481000000,
+        "analyst_count": 45,
+        "currency": "USD",
+        "unit": "currency units",
+        "basis_code": null,
+        "statistic": "average"
+      },
+      "raw_response_sha256": "5b359a485f1c8c004eb988bd4894113968f7572ede1c8e4d8a763391db1338a8",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.3,
+            "eps_difference": 0.04,
+            "eps_estimate": 1.25647,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0346
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.62,
+            "eps_difference": 0.08,
+            "eps_estimate": 1.53812,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.053200003
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.87,
+            "eps_difference": 0.1,
+            "eps_estimate": 1.77191,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.0554
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.22,
+            "eps_difference": 0.13,
+            "eps_estimate": 2.09113,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.0616
+          }
+        ],
+        "history_count": 4,
+        "name": "NVIDIA Corporation",
+        "next_earnings": {
+          "date": "2026-11-17",
+          "date_ms": 1794949200000,
+          "earnings_call": {
+            "date": "2026-11-17",
+            "ms": 1794952800000
+          },
+          "eps_estimate": {
+            "average": 2.47121,
+            "high": 2.7,
+            "low": 2.25754
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 108731903900,
+            "high": 116251000000,
+            "low": 100481000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794721845889,
+        "source_url": "https://finance.yahoo.com/quote/NVDA/analysis/",
+        "symbol": "NVDA",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 2.47121,
+              "high": 2.7,
+              "low": 2.25754,
+              "number_of_analysts": 43,
+              "year_ago": 1.3
+            },
+            "growth": 0.90089995,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 108731903900,
+              "high": 116251000000,
+              "low": 100481000000,
+              "number_of_analysts": 45,
+              "year_ago": 57006000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 2.75834,
+              "high": 3.117,
+              "low": 2.44049,
+              "number_of_analysts": 41,
+              "year_ago": 1.62
+            },
+            "growth": 0.70269996,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 124916937190,
+              "high": 138490000000,
+              "low": 111913000000,
+              "number_of_analysts": 42,
+              "year_ago": 68127000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 9.32703,
+              "high": 10.1,
+              "low": 8.78387,
+              "number_of_analysts": 50,
+              "year_ago": 4.77
+            },
+            "growth": 0.9554,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 411886935280,
+              "high": 426885000000,
+              "low": 390230475380,
+              "number_of_analysts": 54,
+              "year_ago": 215938000000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 15.85369,
+              "high": 18.746,
+              "low": 11.85,
+              "number_of_analysts": 51,
+              "year_ago": 9.32703
+            },
+            "growth": 0.6998,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 688738452360,
+              "high": 778471000000,
+              "low": 506483000000,
+              "number_of_analysts": 56,
+              "year_ago": 411886935280
+            }
+          }
+        ]
+      }
+    },
+    {
+      "ticker": "WMT",
+      "company": "Walmart Inc.",
+      "event_date": "2026-11-19",
+      "reporting_period": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/WMT/analysis/",
+      "observed_at": "2026-11-15T05:50:45.631Z",
+      "observed_at_taipei": "2026-11-15T13:50:45+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 0.63531,
+        "high": 0.66,
+        "low": 0.61,
+        "analyst_count": 35,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average"
+      },
+      "revenue": {
+        "estimate": 187238713120,
+        "high": 189775000000,
+        "low": 185607000000,
+        "analyst_count": 28,
+        "currency": "USD",
+        "unit": "currency units",
+        "basis_code": null,
+        "statistic": "average"
+      },
+      "raw_response_sha256": "6018ec52010a7eca600ffcceee4ad94c663372ebd40e9fee0555efcbdcb827a1",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 0.62,
+            "eps_difference": 0.02,
+            "eps_estimate": 0.60128,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0311
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.74,
+            "eps_difference": 0.01,
+            "eps_estimate": 0.727,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.0179
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.66,
+            "eps_difference": 0.001,
+            "eps_estimate": 0.65872,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.0019
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.81,
+            "eps_difference": 0.07,
+            "eps_estimate": 0.74126,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.092700005
+          }
+        ],
+        "history_count": 4,
+        "name": "Walmart Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795095000000,
+          "earnings_call": {
+            "date": "2026-11-19",
+            "ms": 1795093200000
+          },
+          "eps_estimate": {
+            "average": 0.63531,
+            "high": 0.66,
+            "low": 0.61
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 187238713120,
+            "high": 189775000000,
+            "low": 185607000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794721845631,
+        "source_url": "https://finance.yahoo.com/quote/WMT/analysis/",
+        "symbol": "WMT",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 0.63531,
+              "high": 0.66,
+              "low": 0.61,
+              "number_of_analysts": 35,
+              "year_ago": 0.62
+            },
+            "growth": 0.0247,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 187238713120,
+              "high": 189775000000,
+              "low": 185607000000,
+              "number_of_analysts": 28,
+              "year_ago": 177769000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 0.78522,
+              "high": 0.85,
+              "low": 0.75,
+              "number_of_analysts": 35,
+              "year_ago": 0.74
+            },
+            "growth": 0.061100002,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 200293264150,
+              "high": 203516859060,
+              "low": 196000000000,
+              "number_of_analysts": 28,
+              "year_ago": 188913000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 2.88338,
+              "high": 3.08,
+              "low": 2.79903,
+              "number_of_analysts": 39,
+              "year_ago": 2.64
+            },
+            "growth": 0.0922,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 752778649020,
+              "high": 757939702560,
+              "low": 746618000000,
+              "number_of_analysts": 36,
+              "year_ago": 706413000000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 3.22183,
+              "high": 3.56,
+              "low": 3.09,
+              "number_of_analysts": 42,
+              "year_ago": 2.88338
+            },
+            "growth": 0.1174,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 784988190460,
+              "high": 795586000000,
+              "low": 769200000000,
+              "number_of_analysts": 36,
+              "year_ago": 752778649020
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
