@@ -11,8 +11,13 @@ def main():
     p.add_argument("--calendar",required=True)
     p.add_argument("--capture",required=True)
     p.add_argument("--output",required=True)
+    p.add_argument("--expected-calendar-blob-sha",required=True)
     a=p.parse_args()
-    calendar=json.loads(Path(a.calendar).read_text(encoding="utf-8"))
+    calendar_bytes=Path(a.calendar).read_bytes()
+    git_blob_sha=hashlib.sha1(b"blob "+str(len(calendar_bytes)).encode()+bytes([0])+calendar_bytes).hexdigest()
+    if git_blob_sha != a.expected_calendar_blob_sha:
+        raise SystemExit(f"source W47 calendar blob SHA mismatch: {git_blob_sha}")
+    calendar=json.loads(calendar_bytes.decode("utf-8"))
     capture=json.loads(Path(a.capture).read_text(encoding="utf-8"))
     if calendar.get("week_id")!="2026-W47" or capture.get("branch_scope")!="simulation/tac-process-lab-2026-11-06":
         raise SystemExit("refusing non-W47 calendar or non-simulation capture")
