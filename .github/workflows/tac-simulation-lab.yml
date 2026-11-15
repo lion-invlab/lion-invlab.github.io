@@ -57,6 +57,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check jsonschema beautifulsoup4 pandas yfinance pandas-market-calendars
 
       - name: Probe Equibles analyst estimates API (read-only, simulation only)
+        if: false # Latest snapshot probe already completed; avoid spending quota again during history pagination.
         shell: bash
         env:
           EQUIBLES_API_KEY: ${{ secrets.EQUIBLES_API_KEY }}
