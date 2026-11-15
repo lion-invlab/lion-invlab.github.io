@@ -71,6 +71,13 @@ def main():
     assert earnings_comparison_status(item,"eps") == "incomparable"
     assert earnings_comparison_status(item,"revenue") == "incomparable"
 
+    # FNV explicitly withholds only EPS comparison; its revenue pair remains usable.
+    item=make(2.05,1.74,549.3,568.44)
+    item["financial_judgment"]="EPS consensus basis 未揭露，不判 beat/miss；Q3 revenue US$549.3M 低於 estimate US$568.44M。"
+    apply_judgment(item,"2026-11-15T13:00:00+08:00")
+    assert earnings_comparison_status(item,"eps") == "incomparable"
+    assert earnings_comparison_status(item,"revenue") == "miss"
+
     # Ordinary numeric pairs continue to use the 1% practical threshold.
     item=make(1.02,1.00,8.0,8.7)
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
