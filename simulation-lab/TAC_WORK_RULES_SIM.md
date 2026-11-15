@@ -1,7 +1,7 @@
 # TAC 投資早報｜統一隔離模擬工作規則（SIMULATION ONLY）
 
-版本：SIM-1.2（2026-11-13｜整合 SIM-1.1 與模擬區 v5.19）
-更新日期：2026-11-13
+版本：SIM-1.3（2026-11-15｜財報共識雙軌 PIT 證據）
+更新日期：2026-11-15
 整合基準：
 - SIM-1.1 blob SHA：`4c8e493dc7b96c345970469ccd1d418e5273d273`
 - 模擬區根目錄 v5.19 blob SHA：`ec86a8ca0bca11b35f18e24087bcd5fc98e7c8d1`
@@ -679,3 +679,46 @@
 - 明定 GAAP、Adjusted／Non-GAAP、Operating EPS 分別比對；禁止只看數值大小推定 beat／miss。
 - 明定 EPS 與營收獨立判讀，並規範待核實狀態的中性文案及最少查核證據。
 - 適用既有行事曆 JSON 與每日 HTML 預覽，只修受影響欄位，不重製小卡或改動版型。
+
+
+---
+
+## F3-補充4｜SIM-1.3 財報共識雙軌 PIT 證據資格（2026-11-15）
+
+### 目的
+不得把「供應商是否提供歷史 data_as_of」與「TAC 是否在公告前實際觀測並保存共識」混為同一個門檻。兩種證據均可支持其各自明確標示的公告前判讀，但不得互相冒名。
+
+### A 軌｜Provider PIT
+同時符合下列條件時，資格為 `pre_release_eligible`：
+1. 供應商明確提供 `data_as_of`，且該時點早於財報公告時點。
+2. TAC `observed_at` 早於公告，且 `data_as_of` 不晚於 TAC 擷取時間。
+3. 若來源另提供 `published_at`，該時間亦須早於公告。
+4. 原始回應不可變保存，具 raw response SHA-256、來源 URL、ticker、事件、財報期間、metric、統計值、幣別、單位及可核實的會計／營收口徑。
+5. EPS 與 Revenue 各自獨立綁定自己的 snapshot，不得共用另一指標快照。
+
+### B 軌｜TAC Observed PIT
+供應商未提供 `data_as_of` 時，不得將 TAC `observed_at` 複製到 `data_as_of`。但若同時符合下列條件，得標記 `tac_observed_pre_release_eligible`：
+1. TAC 有帶明確時區的實際擷取時間，且嚴格早於已知財報公告時間。
+2. 保存當次完整原始回應或頁面內容，具不可變 raw response reference 與 SHA-256；同一內容重跑不得覆寫既有內容。
+3. 來源 URL、ticker、事件日期、財報期間、EPS／Revenue 指標、數值、統計類型、幣別、單位及口徑欄位均可辨識；不可辨識欄位維持 null 並使該指標待核實。
+4. 若來源提供 `published_at` 且時間不早於公告，拒絕 PIT 資格；若沒有該欄位，僅能聲稱「TAC 在公告前觀測到此內容」，不得聲稱供應商首次發布時間或資料有效時點已獲證明。
+5. 畫面與稽核資料必須標示「TAC 公告前觀測共識」，不得與 Provider PIT 混成同一種來源聲明。
+
+### C 軌｜不具公告前資格
+- 擷取時間晚於或等於公告時間：`not_pre_release`。
+- 只有日期、公告日同日而無法證明先後：`pending_cutoff_time`。
+- 缺少必要的比較口徑、原始內容或來源識別：`pending_required_fields`。
+- 事後現行共識、事後回補值或沒有公告前原始證據者，只能作參考，不得回填歷史 Beat／Miss。
+
+### 判讀與呈現
+- A 軌與 B 軌均可在 EPS／Revenue 各自的實際值、預估值、期間、幣別、單位及會計／營收口徑完全可比時，交由唯一判讀引擎計算 Beat／Miss／Inline。
+- B 軌結果必須帶有「TAC 公告前觀測共識」證據標籤；不得呈現成供應商歷史 PIT 或機構級歷史共識。
+- Analyst count 是共識代表性資訊，不是基本可比性的必要條件。來源未提供時存 null 並顯示「未提供」，不得推估或以評級分析師數代替。
+- EPS GAAP／Adjusted、Basic／Diluted 無法確認同口徑時，不得方向性判讀；Revenue 期間、幣別、單位或指標定義不一致時，不得直接比較。
+- EPS 與 Revenue 的資格及判讀完全獨立；其中一項合格不得替另一項背書。
+
+### 稽核要求
+- snapshot 必須保存 `snapshot_status`、`reason`、`observed_at`、原始回應 SHA-256 及 raw reference。
+- `data_as_of` 在 B 軌必須維持 null；禁止用觀測時間填補。
+- 測試必須涵蓋 A 軌正向、B 軌正向、公告後擷取拒絕、同日日期不明拒絕、已知公告後 published_at 拒絕、缺少比較口徑拒絕、EPS／Revenue 分離及舊資料不得繼承方向性結論。
+- SIM-1.3 僅適用模擬分支；未完成回歸測試及實際財報案例驗收前，不得宣稱已正式取代其他分支規則。
