@@ -495,38 +495,35 @@
   },
   "fedwatch": {
     "updated_at_tw": "2026/11/14 13:35",
+    "read_at_taipei": "2026/11/16 05:38",
     "target_meeting": "2026-12-09",
     "current_target_range": "3.75-4.00%",
     "probabilities": [
       {
-        "label": "降息 25bp",
-        "probability": 0,
-        "change_1d": null,
-        "change_1w": null
-      },
-      {
-        "label": "維持利率",
+        "outcome": "hold",
+        "rate_range": "3.75-4.00%",
         "probability": 0,
         "change_1d": 0,
         "change_1w": -24.5
       },
       {
-        "label": "升息 25bp",
+        "outcome": "hike",
+        "rate_range": "4.00-4.25%",
         "probability": 91.3,
         "change_1d": 1.4,
         "change_1w": 15.8
       },
       {
-        "label": "升息 50bp",
+        "outcome": "hike",
+        "rate_range": "4.25-4.50%",
         "probability": 8.7,
         "change_1d": -1.4,
         "change_1w": null
       }
     ],
-    "source_name": "Investing.com Fed Rate Monitor｜CME 30-Day Fed Funds Futures",
+    "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
     "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
-    "note": "頁面最新可用快照為2026-11-14 00:35 EST（台北時間13:35）；本次於11/16 05:38回讀。12/9會議升息25bp機率91.3%、升息50bp機率8.7%，維持與降息均為0%；前一日為89.9%／10.1%／0%，前一週為75.5%／0%／24.5%。週末無新交易快照，不標示為即時盤中值。",
-    "read_at_taipei": "2026/11/16 05:38"
+    "note": "11/14 13:35台灣時間可用快照：12/9會議升息25bp機率91.3%（較前日+1.4個百分點、較前週+15.8個百分點），升息50bp機率8.7%（較前日-1.4個百分點），持平機率0%（前週仍有24.5%）。市場定價已集中於升息，不是降息。CME FedWatch官方頁已查閱，但本次可讀數值採Investing.com Fed Rate Monitor，其定價基礎為CME 30-Day Fed Funds futures；週末無新交易快照。"
   },
   "observation": "盤面最重要的分歧是：週五科技與半導體賣壓明顯，但主要指數週線仍收高，防禦及現金流型產業相對抗跌。這更像資金重新定價AI資本回報與高利率折現風險，而非AI需求全面消失；後續應看財報能否把資本支出轉成可持續現金流。",
   "calendar": {
