@@ -301,7 +301,6 @@
     "revenue_comparison_status",
     "revenue_comparison_reason"
   ],
-  "allOf": [],
   "$defs": {
     "source": {
       "type": "object",
