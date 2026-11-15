@@ -1,7 +1,7 @@
 {
   "project": "TAC Chart 2｜股債相對估值",
   "branch": "main",
-  "status": "data-baseline-seeded; browser-chart-not-yet-built",
+  "status": "preview-built-browser-qa-passed-awaiting-user-visual-review",
   "snapshot_date": "2026-11-15",
   "conventions": {
     "shiller_month": "Shiller date tokens 1871.1 through .12 are parsed using the source convention: .01-.09 = Jan-Sep; .1=.Oct; .11=Nov; .12=Dec",
@@ -131,7 +131,17 @@
     "script": ".github/scripts/test_chart2_preview_browser.py",
     "workflow_run_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43716489775",
     "initial_run_status": "success",
-    "latest_timeline_test_run": "pending",
+    "latest_timeline_test_run": {
+      "status": "success",
+      "run_id": 43716584525,
+      "url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43716584525",
+      "checks_passed": 98,
+      "checks_failed": 0,
+      "console_errors": 0,
+      "page_errors": 0,
+      "failed_requests": 0,
+      "artifact_sha256": "8e1aa827688bc12c214bbcf31cc49a60b706faf40352c956d2627ddf0c259888"
+    },
     "viewports": [
       1440,
       390,
