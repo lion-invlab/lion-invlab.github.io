@@ -314,23 +314,15 @@ try {
     const readEconomicCardStyle = async page => page.evaluate(() => {
       const card = document.querySelector("#last-week-calendar details.econ-event");
       if (!card) return { exists: false };
+      // Compare only the shared outer shell against the immutable formal mother.
+      // The five-zone economic detail layout is a separately approved simulation
+      // contract and is validated below for DOM order, labels, source and geometry.
+      // Text-dependent meta widths and the detail grid must not be compared to
+      // the older four-zone formal mother baseline.
       const selectors = {
         card: ":scope",
         summary: ":scope > summary",
-        meta: ":scope > summary .econ-meta",
-        date: ":scope > summary .econ-date",
-        time: ":scope > summary .econ-time",
-        country: ":scope > summary .econ-country",
-        name: ":scope > summary .econ-name",
-        stars: ":scope > summary .econ-stars",
-        toggle: ":scope > summary .econ-toggle, :scope > summary .econ-event-toggle",
-        details: ":scope > .econ-details",
-        primary: ":scope > .econ-details > .econ-primary-grid",
-        prev: ":scope > .econ-details > .econ-primary-grid > .econ-prev",
-        forecast: ":scope > .econ-details > .econ-primary-grid > .econ-forecast",
-        actual: ":scope > .econ-details > .econ-primary-grid > .econ-actual",
-        impact: ":scope > .econ-details > .econ-impact",
-        source: ":scope > .econ-details > .econ-source"
+        toggle: ":scope > summary .econ-toggle, :scope > summary .econ-event-toggle"
       };
       const properties = ["display","fontFamily","fontSize","fontWeight","lineHeight","color","backgroundColor","borderTopWidth","borderTopStyle","borderTopColor","borderRadius","paddingTop","paddingRight","paddingBottom","paddingLeft","marginTop","gap","gridTemplateColumns","gridTemplateRows","gridArea","width","minHeight"];
       const result = {};
