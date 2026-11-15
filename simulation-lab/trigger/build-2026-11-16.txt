@@ -1,0 +1,1 @@
+Build request: 2026-11-16 simulation review. Use the existing approved simulation fixture and Monday mother; do not write to main or publish.
