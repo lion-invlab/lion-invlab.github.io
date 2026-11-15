@@ -1069,3 +1069,12 @@
 - 11/16 資料庫來源確認：main W47 22 筆經濟、21 筆財報；main W46 16 筆經濟、48 筆財報。W46 contents API 回傳空字串是大型 blob 讀取限制；以 blob SHA edf33bdd3b9573b08a9381f617ac3ad4357a1c2d 取回完整 928,435 bytes 後確認並非空資料庫。W47 blob SHA 4a85e0cb9db029e663a2422ce691603bbe9e871a。
 - 變更僅位於 simulation branch：build_review_html.py、新增 validate_review_artifact.py、.github/workflows/tac-simulation-lab.yml。未修改 main、正式首頁、母版、Manifest、QA contract、W46/W47 JSON。
 - 完整 workflow 由提交 363f67b68ad778360d31a3bd62c873db23123d1d 觸發；目前無可讀取的 workflow run/job logs，尚未取得 Python compile、build、browser interaction、visual regression、獨立 validator、HTML／sidecar commit 回讀的執行證據。不得把程式寫入或 push 成功當成測試通過。
+
+
+
+### 2026-11-15｜交付競態最後一道防線補強
+
+- workflow 在 rebase 後、push 前再次執行 validate_review_artifact.py；若遠端 branch 在 QA 期間改動母版或 Manifest，重新驗證會 fail closed。
+- push 後再 fetch simulation branch，直接從遠端 Git tree 讀回 HTML 與 .qa.json，分別核對 Git blob SHA；遠端回讀不一致即失敗。
+- 最新 workflow commit：dbafdd2583df8c4463130bc30b1904e508a67a4c；workflow blob SHA：ff1fd5a6a5e9053694f56ea863934b39eca2cd54。
+- 本輪仍未取得 GitHub Actions push run 的可讀 run ID／job logs，故整合執行與最終 preview／sidecar 尚未驗收。
