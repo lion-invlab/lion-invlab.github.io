@@ -165,8 +165,6 @@ def earnings_commentary(item):
         "miss": "低於預期",
         "inline": "符合預期",
         "pending": "尚未公布／數值尚未齊備",
-        "incomparable": "比較口徑不相容",
-        "consensus_divergent": "市場共識來源分歧",
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
@@ -1297,7 +1295,7 @@ def main():
                     ("EPS", x.get("eps_actual"), x.get("eps_estimate"), x.get("eps_actual_display"), x.get("eps_estimate_display"), earnings_comparison_status(x, "eps")),
                     ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
-                    state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
+                    state = comparison if comparison in ("beat","miss","inline") else "pending"
                     status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
                     # The single TAC engine has already persisted the numerical comparison; render its result only.
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
