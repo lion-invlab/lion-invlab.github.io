@@ -722,3 +722,12 @@
 - `data_as_of` 在 B 軌必須維持 null；禁止用觀測時間填補。
 - 測試必須涵蓋 A 軌正向、B 軌正向、公告後擷取拒絕、同日日期不明拒絕、已知公告後 published_at 拒絕、缺少比較口徑拒絕、EPS／Revenue 分離及舊資料不得繼承方向性結論。
 - SIM-1.3 僅適用模擬分支；未完成回歸測試及實際財報案例驗收前，不得宣稱已正式取代其他分支規則。
+
+### F3-補充5｜Yahoo Finance 第四順位與觀測證據分層（2026-11-15｜SIM-1.3）
+
+1. 共識來源階梯擴充為：LSEG I/B/E/S → FactSet Estimates → Investing.com → Yahoo Finance。Yahoo Finance 僅在前三順位無法取得可追溯、期間正確且可比較的來源時作為第四順位；不得覆蓋較高順位已取得的有效共識。
+2. Yahoo Finance earnings capability 可提供當季 EPS／Revenue average、high、low、分析師數及季度期間，但 observed_at_ms 是 TAC 本次讀取時間，不是 Yahoo 宣告的 data_as_of。必須將 data_as_of 保持 null，並將原始回應不可變保存及計算 SHA-256。
+3. Yahoo Finance 未明確揭露 EPS GAAP／Adjusted 與 Basic／Diluted 口徑時，EPS estimate 可供讀者參考，但 comparison status 必須 pending；不得由歷史實際 EPS、數值大小或其他網站推定其口徑。
+4. Yahoo Finance 未明確揭露 Revenue 精確指標定義時，Revenue estimate 可供讀者參考，但 comparison status 必須 pending；不得僅因欄位名稱為 revenue_estimate 就推定與公司公布的 GAAP revenue／net sales 同口徑。
+5. 若公告前原始回應、來源 URL、ticker、事件時間、財報期間、數值、幣別、統計類型與必要單位均可核對，但會計／營收比較口徑缺漏，卡片可顯示「TAC 公告前觀測共識｜比較口徑待核實」及 estimate／analyst count；方向性判讀仍由唯一引擎禁止輸出。
+6. 此來源新增不代表購買任何訂閱，也不得使用付費歷史資料或聲稱具供應商歷史 PIT。僅使用當次實際可取得的公開資料及 TAC 自行保存的公告前回應。
