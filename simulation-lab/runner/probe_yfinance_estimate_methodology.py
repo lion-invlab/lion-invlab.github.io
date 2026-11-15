@@ -31,8 +31,8 @@ def main():
             t=yf.Ticker(symbol)
             eps=clean(t.get_earnings_estimate(as_dict=True))
             rev=clean(t.get_revenue_estimate(as_dict=True))
-            qeps=eps.get("0q",{}) if isinstance(eps,dict) else {}
-            qrev=rev.get("0q",{}) if isinstance(rev,dict) else {}
+            qeps={k:v.get("0q") for k,v in eps.items()} if isinstance(eps,dict) else {}
+            qrev={k:v.get("0q") for k,v in rev.items()} if isinstance(rev,dict) else {}
             captured=by_ticker.get(symbol,{})
             captured_eps=captured.get("eps",{}).get("estimate")
             captured_rev=captured.get("revenue",{}).get("estimate")
@@ -40,7 +40,11 @@ def main():
             rev_avg=qrev.get("avg")
             eps_match=(eps_avg is not None and captured_eps is not None and abs(float(eps_avg)-float(captured_eps))<=max(1e-8,abs(float(captured_eps))*1e-8))
             rev_match=(rev_avg is not None and captured_rev is not None and abs(float(rev_avg)-float(captured_rev))<=max(1e-4,abs(float(captured_rev))*1e-8))
-            row.update({"status":"ok","eps_0q":qeps,"revenue_0q":qrev,"eps_matches_captured_value":eps_match,"revenue_matches_captured_value":rev_match,"eps_methodology":qeps.get("methodology"),"raw_response":{"earnings_estimate":eps,"revenue_estimate":rev}})
+            gaap_eps=clean(t.get_earnings_estimate(as_dict=True,methodology="gaap"))
+            normalized_eps=clean(t.get_earnings_estimate(as_dict=True,methodology="normalized"))
+            gaap_q={k:v.get("0q") for k,v in gaap_eps.items()} if isinstance(gaap_eps,dict) else {}
+            normalized_q={k:v.get("0q") for k,v in normalized_eps.items()} if isinstance(normalized_eps,dict) else {}
+            row.update({"status":"ok","eps_0q":qeps,"revenue_0q":qrev,"gaap_eps_0q":gaap_q,"normalized_eps_0q":normalized_q,"eps_matches_captured_value":eps_match,"revenue_matches_captured_value":rev_match,"eps_methodology":qeps.get("methodology"),"raw_response":{"earnings_estimate_default":eps,"earnings_estimate_gaap":gaap_eps,"earnings_estimate_normalized":normalized_eps,"revenue_estimate":rev}})
             raw=json.dumps(row["raw_response"],ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")
             row["raw_response_sha256"]=hashlib.sha256(raw).hexdigest()
         except Exception as exc:
