@@ -164,7 +164,7 @@ def earnings_commentary(item):
         "beat": "優於預期",
         "miss": "低於預期",
         "inline": "符合預期",
-        "pending": "比較口徑待核實",
+        "pending": "尚未公布／數值尚未齊備",
         "incomparable": "比較口徑不相容",
         "consensus_divergent": "市場共識來源分歧",
     }
