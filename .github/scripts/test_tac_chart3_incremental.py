@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import csv, gzip, importlib.util, tempfile, unittest
+import csv, gzip, importlib.util, json, tempfile, unittest
 from pathlib import Path
 
 SCRIPT=Path(__file__).with_name("tac_chart3_incremental.py")
@@ -110,5 +110,36 @@ class IncrementalTests(unittest.TestCase):
             INC.write_gzip_csv(old,INC.EVENT_FIELDS,[event("2026-02-01","2026-02-05",".")])
             INC.merge_event_gzip(old,[],merged)
             self.assertEqual(INC.sha_file(old),INC.sha_file(merged))
+
+    def test_release_schedule_noop_ignores_retrieval_timestamps(self):
+        previous={"source":"FRED official release calendar","retrieved_at":"2026-11-14T00:00:00Z","series":[
+            {"series_id":"VIXCLS","release_id":200,"release_name":"CBOE Market Statistics","next_release_date":"2026-11-16","source":"FRED API series/release + release/dates","retrieved_at":"2026-11-14T00:00:00Z"}
+        ]}
+        refreshed={"source":"FRED official release calendar","retrieved_at":"2026-11-16T00:00:00Z","series":[
+            {"series_id":"VIXCLS","release_id":200,"release_name":"CBOE Market Statistics","next_release_date":"2026-11-16","source":"FRED API series/release + release/dates","retrieved_at":"2026-11-16T00:00:00Z"}
+        ]}
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/"release_schedule.json"
+            original=json.dumps(previous,ensure_ascii=False,indent=2)
+            path.write_text(original,encoding="utf-8")
+            changed=INC.write_release_schedule_if_changed(path,refreshed)
+            self.assertFalse(changed)
+            self.assertEqual(path.read_text(encoding="utf-8"),original)
+
+    def test_release_schedule_fact_change_is_written(self):
+        previous={"source":"FRED official release calendar","retrieved_at":"2026-11-14T00:00:00Z","series":[
+            {"series_id":"NFCI","release_id":221,"release_name":"Chicago Fed National Financial Conditions Index","next_release_date":"2026-11-18","source":"FRED API series/release + release/dates","retrieved_at":"2026-11-14T00:00:00Z"}
+        ]}
+        refreshed={"source":"FRED official release calendar","retrieved_at":"2026-11-16T00:00:00Z","series":[
+            {"series_id":"NFCI","release_id":221,"release_name":"Chicago Fed National Financial Conditions Index","next_release_date":"2026-11-19","source":"FRED API series/release + release/dates","retrieved_at":"2026-11-16T00:00:00Z"}
+        ]}
+        with tempfile.TemporaryDirectory() as td:
+            path=Path(td)/"release_schedule.json"
+            path.write_text(json.dumps(previous,ensure_ascii=False,indent=2),encoding="utf-8")
+            changed=INC.write_release_schedule_if_changed(path,refreshed)
+            self.assertTrue(changed)
+            saved=json.loads(path.read_text(encoding="utf-8"))
+            self.assertEqual(saved["series"][0]["next_release_date"],"2026-11-19")
+            self.assertEqual(saved["retrieved_at"],"2026-11-16T00:00:00Z")
 
 if __name__=="__main__":unittest.main(verbosity=2)
