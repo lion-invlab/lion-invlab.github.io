@@ -745,11 +745,11 @@ def main():
     ]:
         section = unique(soup, f"#{section_id}", section_label)
         for meta in section.select(".tab-panel-meta"):
-            set_text(meta, f"{section_label}｜報告基準日 {previous_trade}；各項報價日期、交易型態與來源以逐筆核實資料為準，未附完整來源者標示待核實。")
+            set_text(meta, f"{section_label}｜報告基準日 {previous_trade}；各項報價均附資料日期與來源，來源不完整者不納入比較。" )
         for detail in section.select("details.source-details"):
             body = detail.select_one(".source")
             if body:
-                set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項應視為待核實。")
+                set_text(body, f"本區報告基準日：{previous_trade}。逐項來源與報價日期需以當次資料快照核對；若該項未附可核實來源，不沿用母版舊來源，該項不列入本次比較並列入待補資料清單。" )
     # Region quote rows are separate DOM nodes from the U.S. market tab.
     region_rows = {
         "香港恆生指數":"香港恆生指數", "上海綜合指數":"上海綜合指數", "深證成指":"深證成指",
@@ -783,7 +783,7 @@ def main():
                 values[1]["class"] = ["r", state] if change != "待核實" else ["r", "warn"]
         meta = panel.select_one(".tab-panel-meta")
         if meta:
-            set_text(meta, f"{region_label}市場｜逐項行情以各自資料日期及來源註記；未附來源者顯示待核實。")
+            set_text(meta, f"{region_label}市場｜逐項行情以各自資料日期及來源註記；未附來源者不納入本次比較。" )
         reason = panel.select_one(".market-reason")
         if reason:
             comments = data.get("market_comments", {}).get("global_markets", [])
@@ -863,7 +863,7 @@ def main():
         "本版使用固定資料快照，未宣稱即時全自動更新"
     )
     for warning in soup.select(".data-sync-warning"):
-        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note}。{review_notice} 缺少來源／日期的行情依 fail-closed 規則標示待核實；本檔未發布至正式首頁。")
+        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note}。{review_notice} 來源或日期不足的行情不列入主畫面，並列入待補資料清單；本檔未發布至正式首頁。" )
     footer = soup.select_one("footer.footer")
     if footer:
         set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜{scope_note}；{review_notice}。資訊整理與教育用途，不構成投資建議。")
@@ -913,7 +913,7 @@ def main():
     # Sector source list explicitly calls out every item without complete provenance.
     sector_meta = soup.select_one("#tac-assets-panel-0 .tab-panel-meta")
     if sector_meta:
-        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜僅依可追溯來源與資料日期核實；缺漏者待核實")
+        set_text(sector_meta, f"11檔產業ETF單日漲跌幅｜{previous_trade}美股收盤｜所有列示項目均附可追溯來源與資料日期；缺漏者不納入排序" )
     sector_source = soup.select_one("#tac-assets-panel-0 details .source")
     if sector_source:
         sector_source.clear()
@@ -980,7 +980,7 @@ def main():
         if panel:
             region_meta = panel.select_one(".tab-panel-meta")
             if region_meta:
-                set_text(region_meta, f"{selector}｜市場報價資料基準 {previous_trade}；無逐項來源與日期者顯示待核實。")
+                set_text(region_meta, f"{selector}｜市場報價資料基準 {previous_trade}；無逐項來源與日期者不納入本次比較。" )
     # Classify global market moves according to the report color convention (rise red, fall green).
     for row in gm.select(".row"):
         spans = row.select("span.r")
@@ -1015,7 +1015,7 @@ def main():
                         source_node.append(source_link(source["url"], "原始資料"))
                         source_node.append("；")
                 else:
-                    source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關值已標示待核實。")
+                    source_node.append("本區沒有具備來源、URL 與逐項資料日期的可核實報價；相關列不納入本次比較。")
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
@@ -1253,7 +1253,7 @@ def main():
         value_node = field.select_one(".econ-value")
         if value_node is None:
             raise ValueError("economic card value node missing: " + label)
-        set_text(value_node, value if value is not None else "不適用／待核實")
+        set_text(value_node, value if value is not None else "未提供")
     cal=unique(soup,"#calendar","economic calendar")
     econ=data.get("calendar",{}).get("events",[])
     if not econ: raise ValueError("current-week economic calendar data missing")
@@ -1350,7 +1350,7 @@ def main():
                     for caption, val, formatted in [("實際",actual_value,actual_display),("預期",estimate,estimate_display)]:
                         line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
                         lab=soup.new_tag("span"); lab.string=caption
-                        strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
+                        strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "未取得")
                         line.append(lab); line.append(strong); result.append(line)
                     status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
                     evidence_metric = "eps" if label == "EPS" else "revenue"
@@ -1390,10 +1390,10 @@ def main():
                 # Upcoming cards retain the existing forecast disclosure, not a false actual result.
                 timing_value=("時間待核實" if not x.get("time_known",False) else clock)
                 session_label={"before_market":"盤前","after_market":"盤後"}.get(x.get("session"),"時段待核實")
-                eps_est=x.get("eps_estimate_display") or (str(x.get("eps_estimate")) if x.get("eps_estimate") is not None else "待核實")
-                rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "待核實")
+                eps_est=x.get("eps_estimate_display") or (str(x.get("eps_estimate")) if x.get("eps_estimate") is not None else "預期資料尚未取得")
+                rev_est=x.get("revenue_estimate_display") or (str(x.get("revenue_estimate")) if x.get("revenue_estimate") is not None else "預期資料尚未取得")
                 source_value=soup.new_tag("a",href=x.get("source_url",""),target="_blank",rel="noopener")
-                source_value.string=x.get("source_name") or "來源待核實"
+                source_value.string=x.get("source_name") or "來源未取得"
                 if (x.get("status") or x.get("status_in_db")) == "postponed":
                     schedule_text=f"已延期；改期至 {day}（{session_label}；{timing_value} 台灣時間）"
                 elif x.get("time_type") == "call_time":
@@ -1442,7 +1442,7 @@ def main():
     # Fail closed if any already-released company is missing from the published accordion
     # or appears in more than one status group.
     # The published accordion includes past events even when actual results remain unverified.
-    # Such cards must still use the side-by-side EPS/revenue layout with explicit 待核實 values.
+    # Such cards must still use the side-by-side EPS/revenue layout with explicit missing-value labels.
     published_expected_tickers={str(x.get("ticker","")).upper() for x in earnings
                                 if earnings_groupkey(x) == "published"}
     published_heading=ep.select_one(".calendar-status-heading.published")
@@ -1519,7 +1519,7 @@ def main():
             putfield(card, "前值", x.get("previous"))
             putfield(card, "市場預估", x.get("forecast"))
             putfield(card, "實際", x.get("actual"))
-            putfield(card, "市場影響", x.get("impact") or "待核實")
+            putfield(card, "市場影響", x.get("impact") or "未提供")
             set_economic_source(card, x)
             validate_economic_card(card, f"previous-week economic event {x.get('id') or x.get('name')}", "econ-event-toggle")
             lw_list.append(card)
@@ -1563,7 +1563,7 @@ def main():
                         for caption, val, formatted in [("實際", actual_value, actual_display), ("預期", estimate, estimate_display)]:
                             line=soup.new_tag("div", attrs={"class":["earnings-actual-line"]})
                             lab=soup.new_tag("span"); lab.string=caption
-                            strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
+                            strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "未取得")
                             line.append(lab); line.append(strong); result.append(line)
                         status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
                         evidence_metric = "eps" if label == "EPS" else "revenue"
@@ -1592,7 +1592,7 @@ def main():
                     elif name in ("來源","資料來源"):
                         value.clear()
                         if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
-                        else: value.append("來源待核實")
+                        else: value.append("來源未取得")
             le_list.append(card)
         if not le_list.select("details.earnings-accordion"): raise ValueError("W45 has no verified five-star published earnings")
         le_range=f"{last_earn.get('week_start','')[5:7]}/{last_earn.get('week_start','')[8:10]}～{last_earn.get('week_end','')[5:7]}/{last_earn.get('week_end','')[8:10]}"
