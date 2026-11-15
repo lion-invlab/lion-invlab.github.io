@@ -83,19 +83,39 @@ def _before_event(value, event, field: str) -> tuple[str, str]:
     return "pending_cutoff_time", f"{field}_same_day_time_not_proven"
 
 
-def _cutoff_status(data_as_of: str | None, event_date: str, observed_at: str) -> tuple[str, str]:
-    """Both provider data time and our capture time must precede the event."""
+def _cutoff_status(
+    data_as_of: str | None,
+    event_date: str,
+    observed_at: str,
+    published_at: str | None = None,
+) -> tuple[str, str]:
+    """Provider as-of, capture time, and any known publication time must support PIT."""
     if not data_as_of:
         return "pending_cutoff_time", "missing_data_as_of"
     asof = _parse_temporal(data_as_of, "data_as_of")
     observed = _parse_temporal(observed_at, "observed_at")
     event = _parse_temporal(event_date, "event_date")
+
+    # A provider cannot have supplied data dated after TAC observed the page.
+    asof_day = asof.date() if isinstance(asof, datetime) else asof
+    observed_day = observed.date() if isinstance(observed, datetime) else observed
+    if asof_day > observed_day:
+        return "not_pre_release", "data_as_of_after_observed_at"
+    if isinstance(asof, datetime) and isinstance(observed, datetime):
+        if asof.astimezone(timezone.utc) > observed.astimezone(timezone.utc):
+            return "not_pre_release", "data_as_of_after_observed_at"
+
     data_status, data_reason = _before_event(asof, event, "data_as_of")
     if data_status != "pre_release_eligible":
         return data_status, data_reason
     observed_status, observed_reason = _before_event(observed, event, "observed_at")
     if observed_status != "pre_release_eligible":
         return observed_status, observed_reason
+    if published_at:
+        published = _parse_temporal(published_at, "published_at")
+        published_status, published_reason = _before_event(published, event, "published_at")
+        if published_status != "pre_release_eligible":
+            return published_status, published_reason
     return "pre_release_eligible", "data_as_of_and_observed_at_before_event"
 
 
@@ -135,7 +155,7 @@ def build_consensus_snapshot(
     if not SHA256_RE.fullmatch(raw_sha):
         raise ValueError("raw response SHA-256 calculation failed")
 
-    status, reason = _cutoff_status(data_as_of, event_date, observed_at)
+    status, reason = _cutoff_status(data_as_of, event_date, observed_at, published_at)
     value = attempt.get("value")
     if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):
         value = None
