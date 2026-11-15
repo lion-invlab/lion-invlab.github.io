@@ -3,6 +3,8 @@
 from __future__ import annotations
 import argparse, copy, hashlib, json, sys
 from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
 from consensus_snapshot_store import build_consensus_snapshot
 from earnings_judgment import consensus_evidence_label, evaluate_metric
 
@@ -31,8 +33,14 @@ def main():
         digest=hashlib.sha256(raw).hexdigest()
         if digest != item.get("raw_response_sha256"):
             raise SystemExit(f"raw response SHA-256 mismatch for {item['ticker']}")
-        if event.get("reporting_period") not in (item.get("reporting_period"), "2026 Q3" if item["ticker"]=="BIDU" else "FY2027 Q3"):
+        if event.get("reporting_period") != item.get("reporting_period"):
             raise SystemExit(f"fiscal period mismatch for {item['ticker']}")
+        ny_date=datetime.fromisoformat(event["event_date"]).astimezone(ZoneInfo("America/New_York")).date().isoformat()
+        if item.get("next_earnings_date") != ny_date:
+            raise SystemExit(f"Yahoo next earnings date mismatch for {item['ticker']}: {item.get('next_earnings_date')} != {ny_date}")
+        current_quarter=next((x for x in item["raw_response"].get("trend",[]) if x.get("period")=="0q"),None)
+        if not current_quarter or current_quarter.get("end_date") != item.get("period_end_date"):
+            raise SystemExit(f"Yahoo fiscal period-end mismatch for {item['ticker']}")
         projected=copy.deepcopy(event)
         projected["eps_estimate"]=item["eps"]["estimate"]
         projected["eps_estimate_currency"]=item["eps"]["currency"]
@@ -80,7 +88,7 @@ def main():
             "source_url":item["source_url"],"source_name":"Yahoo Finance",
             "revenue_snapshot":snapshots["REVENUE"],"revenue_evidence_label":labels["revenue"],"revenue_status":statuses["revenue"],
         })
-    report={"schema_version":"tac-w47-consensus-projection-v1","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
+    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
     Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(report["counts"],ensure_ascii=False))
