@@ -196,7 +196,8 @@
       },
       "event_id": "current-bidu-20261116",
       "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/BIDU/raw_response",
-      "next_earnings_date": "2026-11-16"
+      "next_earnings_date": "2026-11-16",
+      "period_end_date": "2026-09-30"
     },
     {
       "ticker": "NVDA",
@@ -390,7 +391,8 @@
       },
       "event_id": "current-nvda-20261118",
       "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/NVDA/raw_response",
-      "next_earnings_date": "2026-11-17"
+      "next_earnings_date": "2026-11-17",
+      "period_end_date": "2026-10-31"
     },
     {
       "ticker": "WMT",
@@ -584,7 +586,8 @@
       },
       "event_id": "current-wmt-20261119",
       "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/WMT/raw_response",
-      "next_earnings_date": "2026-11-19"
+      "next_earnings_date": "2026-11-19",
+      "period_end_date": "2026-10-31"
     },
     {
       "ticker": "BEKE",
