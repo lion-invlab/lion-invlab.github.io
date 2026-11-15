@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Project immutable Yahoo Finance TAC-observed captures onto W47 events (simulation only)."""
+# Validates quarter-end, fiscal period, exact New York release date and raw SHA for every ticker.
 from __future__ import annotations
 import argparse, copy, hashlib, json, sys
 from pathlib import Path
