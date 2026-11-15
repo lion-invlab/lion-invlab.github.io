@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+"""Independent fail-closed validation for the exact simulation review HTML artifact."""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import re
+import subprocess
+from datetime import date
+from pathlib import Path
+from bs4 import BeautifulSoup
+
+ROOT = Path(__file__).resolve().parents[2]
+MANIFEST_PATH = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
+BUILDER_PATH = ROOT / "simulation-lab/runner/build_review_html.py"
+
+
+def git_blob_sha(raw: bytes) -> str:
+    return hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
+
+
+def git_show(commit: str, path: str) -> bytes:
+    return subprocess.run(
+        ["git", "show", f"{commit}:{path}"], check=True, capture_output=True
+    ).stdout
+
+
+def direct_child(node, tag: str, cls: str):
+    return [x for x in node.find_all(tag, recursive=False) if cls in x.get("class", [])]
+
+
+def validate_card(card, context: str, toggle_class: str):
+    details = direct_child(card, "div", "econ-details")
+    if len(details) != 1:
+        raise ValueError(f"{context}: expected one direct .econ-details, got {len(details)}")
+    detail = details[0]
+    children = detail.find_all("div", recursive=False)
+    if len(children) != 3 or "econ-primary-grid" not in children[0].get("class", []):
+        raise ValueError(f"{context}: details must contain primary-grid, impact, source as three direct children")
+    grid, impact, source = children
+    expected = [
+        ("econ-prev", "前值"),
+        ("econ-forecast", "市場預估"),
+        ("econ-actual", "實際"),
+    ]
+    fields = direct_child(grid, "div", "econ-field")
+    actual = []
+    for field in fields:
+        actual.append(next((c for c, _ in expected if c in field.get("class", [])), "unknown"))
+    if actual != [c for c, _ in expected]:
+        raise ValueError(f"{context}: comparison field order/classes invalid: {actual}")
+    for field, (_, label) in zip(fields, expected):
+        label_node = field.find("label", recursive=False)
+        if label_node is None or label_node.get_text(strip=True) != label:
+            raise ValueError(f"{context}: label mismatch for {label}")
+        if len(direct_child(field, "div", "econ-value")) != 1:
+            raise ValueError(f"{context}: .econ-value missing/duplicated for {label}")
+    for field, cls, label in (
+        (impact, "econ-impact", "市場影響"),
+        (source, "econ-source", "資料來源"),
+    ):
+        label_node = field.find("label", recursive=False)
+        if cls not in field.get("class", []) or "wide" not in field.get("class", []):
+            raise ValueError(f"{context}: {label} must use .{cls}.wide")
+        if label_node is None or label_node.get_text(strip=True) != label:
+            raise ValueError(f"{context}: {label} label missing or out of order")
+        if len(direct_child(field, "div", "econ-value")) != 1:
+            raise ValueError(f"{context}: {label} .econ-value missing/duplicated")
+    source_value = direct_child(source, "div", "econ-value")[0]
+    if not source_value.find("a", href=re.compile(r"^https://")):
+        raise ValueError(f"{context}: HTTPS source link missing")
+    summary = direct_child(card, "summary", "")
+    if len(summary) != 1:
+        raise ValueError(f"{context}: summary missing")
+    toggles = [x for x in summary[0].find_all("span", recursive=False) if toggle_class in x.get("class", [])]
+    if len(toggles) != 1:
+        raise ValueError(f"{context}: expected one direct .{toggle_class} control")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--report", required=True)
+    ap.add_argument("--report-date", required=True)
+    args = ap.parse_args()
+    report_date = date.fromisoformat(args.report_date)
+    if report_date.weekday() > 4:
+        raise SystemExit("weekend report date rejected")
+    expected_path = f"preview/{report_date.isoformat()}-simulation.html"
+    if args.report != expected_path:
+        raise SystemExit(f"review path must be the canonical simulation preview: {expected_path}")
+    report_path = ROOT / args.report
+    if not report_path.is_file():
+        raise SystemExit(f"review artifact missing: {args.report}")
+    raw = report_path.read_bytes()
+    soup = BeautifulSoup(raw, "html.parser")
+    meta = soup.select_one('meta[name="report-date"]')
+    if meta is None or meta.get("content") != report_date.isoformat():
+        raise SystemExit("report-date metadata missing or mismatched")
+    template_key = "monday" if report_date.weekday() == 0 else "weekdays"
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    template = manifest["templates"][template_key]
+    template_path = template["simulation_path"]
+    template_bytes = (ROOT / template_path).read_bytes()
+    template_sha = git_blob_sha(template_bytes)
+    if template_sha != template["simulation_blob_sha"]:
+        raise SystemExit("approved simulation mother SHA mismatch")
+    comments = "\n".join(str(x) for x in soup.find_all(string=lambda x: isinstance(x, type(soup.Comment)) if False else False))
+    provenance_comment = next(
+        (str(x) for x in soup.find_all(string=lambda x: "TAC_BUILD_PROVENANCE" in str(x))),
+        None,
+    )
+    if not provenance_comment:
+        raise SystemExit("TAC_BUILD_PROVENANCE comment missing; this artifact is not traceably assembled")
+    match = re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})", provenance_comment, re.S)
+    if not match:
+        raise SystemExit("TAC_BUILD_PROVENANCE JSON malformed")
+    provenance = json.loads(match.group(1))
+    expected_provenance = {
+        "report_date": report_date.isoformat(),
+        "template_key": template_key,
+        "template_path": template_path,
+        "template_blob_sha": template_sha,
+        "builder_path": str(BUILDER_PATH.relative_to(ROOT)),
+        "builder_blob_sha": git_blob_sha(BUILDER_PATH.read_bytes()),
+        "mode": "simulation-only",
+    }
+    for key, value in expected_provenance.items():
+        if provenance.get(key) != value:
+            raise SystemExit(f"provenance mismatch {key}: {provenance.get(key)!r} != {value!r}")
+    fixture_path = provenance.get("fixture_path", "")
+    if not fixture_path.startswith("simulation-lab/fixtures/report-data-"):
+        raise SystemExit("fixture provenance path outside approved simulation fixtures")
+    fixture_bytes = git_show("HEAD", fixture_path)
+    if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
+        raise SystemExit("fixture provenance SHA does not match checked-out simulation branch")
+    main_commit = provenance.get("calendar_main_commit_sha", "")
+    if not re.fullmatch(r"[0-9a-f]{40}", main_commit):
+        raise SystemExit("authoritative main calendar commit SHA missing")
+    current_path = provenance.get("calendar_current_path", "")
+    previous_path = provenance.get("calendar_previous_path", "")
+    current_payload = json.loads(git_show(main_commit, current_path))
+    previous_payload = json.loads(git_show(main_commit, previous_path))
+    if git_blob_sha(git_show(main_commit, current_path)) != provenance.get("calendar_current_blob_sha"):
+        raise SystemExit("current calendar database SHA mismatch")
+    if git_blob_sha(git_show(main_commit, previous_path)) != provenance.get("calendar_previous_blob_sha"):
+        raise SystemExit("previous calendar database SHA mismatch")
+    expected_econ = len(current_payload["events"]["economic"])
+    expected_earnings = len(current_payload["events"]["earnings"])
+    actual_econ = len(soup.select("#calendar .econ-event"))
+    actual_earnings = len(soup.select("#earnings .earnings-accordion"))
+    if actual_econ != expected_econ or actual_earnings != expected_earnings:
+        raise SystemExit(f"calendar count mismatch: economic {actual_econ}/{expected_econ}; earnings {actual_earnings}/{expected_earnings}")
+    cards = soup.select("#calendar .week-econ-panels details.econ-event")
+    if not cards:
+        raise SystemExit("current-week economic cards missing")
+    for i, card in enumerate(cards, 1):
+        validate_card(card, f"current-week card #{i}", "econ-toggle")
+    previous_cards = []
+    if template_key == "monday":
+        if not soup.select_one("#last-week-calendar .last-week-calendar-collapse"):
+            raise SystemExit("Monday previous-week economic section missing")
+        previous_cards = soup.select("#last-week-calendar .last-week-calendar-collapse .econ-event-list details.econ-event")
+        if not previous_cards:
+            raise SystemExit("Monday previous-week economic cards missing")
+        for i, card in enumerate(previous_cards, 1):
+            validate_card(card, f"previous-week card #{i}", "econ-event-toggle")
+        if soup.select("#last-week-calendar .last-week-calendar-collapse[open]"):
+            raise SystemExit("Monday previous-week calendar must be collapsed by default")
+    elif soup.select("#last-week-calendar, #last-week-earnings"):
+        raise SystemExit("weekday report must not contain Monday-only sections")
+    ids = [node.get("id") for node in soup.select("[id]")]
+    if len(ids) != len(set(ids)):
+        raise SystemExit("duplicate HTML IDs detected")
+    css = "\n".join(node.get_text() for node in soup.select("style"))
+    normalized_css = re.sub(r"\s+", " ", css)
+    if not re.search(r'grid-template-areas\s*:\s*["\']prev actual["\']\s*["\']forecast actual["\']', normalized_css):
+        raise SystemExit("approved five-zone grid areas missing from report CSS")
+    required = ["#overview", "#sentiment", "#news-scan", "#global-markets", "#industry-bonds-fx-commodities", "#calendar", "#earnings", "#fed", "#view"]
+    missing = [selector for selector in required if not soup.select_one(selector)]
+    if missing:
+        raise SystemExit("required mother sections missing: " + ", ".join(missing))
+    print(json.dumps({
+        "status": "PASS",
+        "report": args.report,
+        "report_date": report_date.isoformat(),
+        "template": template_key,
+        "template_sha": template_sha,
+        "builder_sha": provenance["builder_blob_sha"],
+        "fixture_sha": provenance["fixture_blob_sha"],
+        "calendar_main_commit_sha": main_commit,
+        "calendar_current_blob_sha": provenance["calendar_current_blob_sha"],
+        "calendar_previous_blob_sha": provenance["calendar_previous_blob_sha"],
+        "economic_cards": actual_econ,
+        "earnings_cards": actual_earnings,
+        "previous_week_economic_cards": len(previous_cards),
+        "report_git_blob_sha": git_blob_sha(raw),
+    }, ensure_ascii=False, indent=2))
+
+
+if __name__ == "__main__":
+    main()
