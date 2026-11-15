@@ -95,7 +95,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py
+          python -m py_compile simulation-lab/runner/build_review_html.py simulation-lab/runner/validate_review_artifact.py simulation-lab/runner/project_w47_yahoo_consensus.py
 
       - name: Run deterministic self-tests
         shell: bash
@@ -117,6 +117,12 @@ jobs:
       - name: Audit W46 PIT projection (read-only, simulation data only)
         shell: bash
         run: python simulation-lab/runner/audit_simulation_pit_projection.py --input data/calendar/weeks/2026-W46.json --output simulation-lab/output/w46-pit-projection-audit.json
+
+      - name: Project W47 Yahoo TAC-observed consensus (simulation only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/project_w47_yahoo_consensus.py --calendar data/calendar/weeks/2026-W47.json --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json --output simulation-lab/output/w47-yahoo-consensus-projection.json
 
       - name: Audit authoritative main earnings schema (read-only)
         shell: bash
