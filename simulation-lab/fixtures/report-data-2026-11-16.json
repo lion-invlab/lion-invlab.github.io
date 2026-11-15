@@ -21,7 +21,7 @@
       "title": "Fed金融穩定報告：AI成首要風險，先進運算債務已達6,800億美元",
       "published_at_tw": "2026-11-14 05:26",
       "url": "https://hk.investing.com/news/stock-market-news/article-93CH-1758398",
-      "summary": "Fed半年度報告顯示，87%受訪市場聯絡人將AI列為金融穩定風險，高於5月的50%；截至10月，先進運算相關債務發行達6,800億美元，債務、擔保與租約曝險合計可能超過3兆美元。調查在NVIDIA接班風波前完成，最新治理事件尚未納入這份風險評估。"
+      "summary": "Fed半年度金融穩定報告指出，87%受訪市場聯絡人將AI列為金融穩定風險，高於5月的50%；截至10月，先進運算相關債務發行達6,800億美元，約占非金融投資級企業債發行近三分之一。報告並提醒資料中心融資仰賴長約、租約與擔保等複雜安排，可能使風險不完全反映在資產負債表；這份調查在NVIDIA接班風波前完成。"
     },
     {
       "title": "中美討論約600億美元關稅削減方案，尚未達成新協議",
@@ -30,36 +30,36 @@
       "summary": "中美貿易委員會討論雙方各自削減約300億美元關稅及農產品採購安排；雙方稱會談具建設性，但尚未宣布協議。特朗普與習近平預計下週在APEC期間會面，農產品採購仍是障礙，不能把方案當成已落地的貿易協定。"
     },
     {
-      "title": "美元創9月來最大單週漲幅，日圓再度觸及160干預警戒區",
+      "title": "美元創9月來最大單週漲幅，日圓連續兩日跌破160",
       "published_at_tw": "2026-11-14 05:46",
-      "url": "https://anuenews.cnyes.com/news/id/6661753",
-      "summary": "美元指數單週走強，市場幾乎完全定價12月升息；日圓盤中一度跌破160，東京當局曾在該區間附近出手干預。美元走強提高亞洲貨幣壓力，也使黃金等無息資產承受折現率壓力。"
+      "url": "https://news.cnyes.com/news/id/6661753",
+      "summary": "鉅亨網指出，美元指數創2025年4月以來新高，單週上漲1.1%，反映市場對12月升息預期升溫；日圓連續兩個交易日跌破160，日本財務省官員提醒市場勿忽視單邊走勢與可能干預。這是匯率政策風險訊號，並非已確認的新一輪干預。"
     }
   ],
   "headlines": [
     {
-      "title": "NVIDIA接班進入過渡期：黃仁勳辭任獲官方確認，Bessent主張外部CEO",
+      "title": "Bessent要求NVIDIA外聘CEO，黃仁勳離任後接班與出口合規受關注",
       "published_at_tw": "2026-11-15 23:50",
       "url": "https://www.reuters.com/world/bessent-says-nvidia-must-go-outside-company-find-new-ceo-2026-11-15/",
-      "summary": "NVIDIA官方公告已確認黃仁勳辭任，CFO Colette Kress暫代CEO；Reuters報導美國財政部長Bessent主張向外部尋找永久接班人，董事會尚未公布永久人選。公司公告確認的是職務交接，Reuters報導中的個人傳聞與指控未獲公司公告證實，不列為既定原因。"
+      "summary": "NVIDIA 11/12公告已確認黃仁勳辭任，CFO Colette Kress暫代CEO，董事會啟動永久接班人搜尋；Reuters 11/15報導美國財長Bessent主張外聘候選人，並要求董事會與外部律師在10日內說明出口管制合規文化。公司公告確認的是職務交接；報導中的個人指控不作為本報告已證實原因。"
     },
     {
-      "title": "葉門反胡塞部隊撤退、巴林遭伊朗攻擊，荷姆茲與紅海航運風險升高",
+      "title": "葉門反胡塞部隊撤退，巴林稱攔截伊朗無人機，波斯灣航運風險升高",
       "published_at_tw": "2026-11-15 23:56",
       "url": "https://www.reuters.com/world/middle-east/anti-houthi-forces-retreat-yemen-iran-strikes-bahrain-2026-11-15/",
-      "summary": "Reuters報導，葉門反胡塞部隊向南撤退，巴林通報遭伊朗無人機攻擊；伊朗方面另聲稱兩艘油輪遭水雷擊中起火，但Reuters無法獨立核實。事件提高荷姆茲與紅海航運風險溢價，現階段仍不能等同已確認的實際供應中斷。"
+      "summary": "Reuters報導，沙烏地支持的葉門政府部隊從Bab el-Mandeb一帶撤向Aden；巴林稱攔截數波伊朗無人機。伊朗革命衛隊另稱荷姆茲海峽有兩艘船舶起火，但Reuters未能獨立核實；不把該說法寫成已確認油輪受損或供應中斷。"
     },
     {
       "title": "美股週五科技股賣壓擴大，主要指數週線仍同步收高",
       "published_at_tw": "2026-11-14 05:19",
       "url": "https://apnews.com/article/12c1e8155fb85c3c7b09e058ed6d3c74",
-      "summary": "週五大型科技股與半導體回落拖累美股收低，但主要指數週線仍收高，顯示調整集中於高估值與AI曝險，而非全面風險資產撤退。投資人正重新檢視AI資本支出回報、融資結構與企業獲利能否跟上估值。"
+      "summary": "週五科技與半導體股回落，使美股主要指數收低；但全週仍同步收高，為10月初以來首次。市場焦點從單日漲跌轉向AI資本支出回報、企業獲利能否跟上估值，以及升息定價對高估值股的壓力。"
     },
     {
       "title": "FAA全美地面停飛約五小時，航班恢復仍需數日",
-      "published_at_tw": "2026-11-14",
-      "url": "https://apnews.com/article/flights-halted-airports-faa-f81b0904331dafad6133f291e5f531a8",
-      "summary": "FAA因新技術導入使老舊通訊系統超載，造成通訊與雷達訊號間歇中斷；全美地面停飛約五小時後解除，數千航班及逾百萬旅客受影響，飛機與機組人員錯位可能使恢復需數日。官員表示目前沒有網攻跡象，系統原因仍在調查。"
+      "published_at_tw": "2026-11-14（AP原文頁未列精確發布時刻）",
+      "url": "https://apnews.com/article/f81b0904331dafad6133f291e5f531a8",
+      "summary": "AP報導，FAA全美地面停飛約五小時後解除，原因涉及新技術資料流量使老舊通訊設備失穩，通訊與雷達訊號一度受影響；數千航班與逾百萬旅客受波及，機組與飛機調度重置可能需數日。官方表示目前沒有網攻跡象，系統原因仍在調查。"
     },
     {
       "title": "比特幣跌至三個月低點，爆倉與ETF資金流出加劇去槓桿",
@@ -80,22 +80,22 @@
       "summary": "黃金週五大致持平，但全週跌幅擴大至四個月來最差；美元走強與市場對12月升息的定價，使無息資產承受壓力。短線應區分避險需求與利率折現率，不能只因地緣風險升高就假設金價必漲。"
     },
     {
-      "title": "油價連續第二週下跌，供給過剩預期壓過地緣風險",
-      "published_at_tw": "2026-11-14 06:01",
-      "url": "https://live.euronext.com/en/financial-news/oil-prices-set-second-straight-weekly-drop-signs-growing-supply-surplus",
-      "summary": "WTI與Brent週線連續第二週下跌，市場仍在消化供給增長與需求放緩；荷姆茲海峽緊張情勢則可能造成短線風險溢價。基本供需與地緣事件方向相反，油價波動風險仍高。"
+      "title": "IEA預估第四季全球石油供給高於需求，波斯灣出口恢復快於需求",
+      "published_at_tw": "2026-11-13 17:13",
+      "url": "https://www.reuters.com/business/energy/world-oil-market-is-returning-surplus-gulf-exports-recover-iea-says-2026-11-13/",
+      "summary": "Reuters引述IEA 11月油市報告，波斯灣出口恢復速度快於需求，全球石油市場第四季可能出現每日約170萬桶供給過剩；供應復原與需求增速放緩，形成中期價格壓力。這項基本供需訊號須與荷姆茲海峽的短線航運風險分開判讀。"
     },
     {
-      "title": "歐股錄得6月以來最佳單週表現，AI不確定性拖累部分科技股",
-      "published_at_tw": "2026-11-14 08:08",
-      "url": "https://www.brecorder.com/news/40448833",
-      "summary": "歐洲股市週五自高點回落，但週線仍錄得6月以來最佳表現；科技與AI估值疑慮壓抑部分大型股，金融、工業等板塊提供支撐。市場並非全面撤出歐股，而是產業表現分化。"
+      "title": "歐股錄得6月以來最佳單週表現，AI不確定性壓抑部分科技股",
+      "published_at_tw": "2026-11-13 16:25",
+      "url": "https://www.reuters.com/markets/europe/european-shares-retreat-record-highs-ai-uncertainty-weighs-2026-11-13/",
+      "summary": "Reuters報導，歐股週五自盤中高點回落，科技與AI估值疑慮拖累部分大型股；但金融與工業股提供支撐，歐洲主要股指仍錄得6月以來最佳單週表現。這反映板塊輪動與估值重估，不是全面撤出歐洲市場。"
     },
     {
-      "title": "Richemont季度銷售成長13%優於預期，珠寶成長放緩引發市場疑慮",
+      "title": "Richemont第二季銷售成長13%，珠寶增速低於市場預期",
       "published_at_tw": "2026-11-13 14:55",
       "url": "https://www.reuters.com/business/retail-consumer/cartier-owner-richemont-quarterly-sales-beat-estimates-jewellery-demand-persists-2026-11-13/",
-      "summary": "Richemont上半年銷售按固定匯率成長17%，第二季銷售成長13%至59.5億歐元，略優於預期；但珠寶部門成長14%，低於市場預期16%，公司股價盤中一度下跌9%。高金價與中國需求偏弱，使市場更關注珠寶成長與毛利率能否維持。"
+      "summary": "Richemont上半年銷售按固定匯率成長17%，第二季銷售成長13%至59.5億歐元，略優於整體預期；但珠寶部門成長14%，低於市場預期16%，股價盤中一度下跌約9%。高金價與中國需求偏弱，使市場更關注珠寶成長與毛利率能否維持。"
     }
   ],
   "global_markets": {
@@ -158,8 +158,8 @@
       "display": "23,637.60",
       "change_display": "-1.55%",
       "source": {
-        "name": "Investing.com HK｜Hang Seng CFD historical daily close",
-        "url": "https://hk.investing.com/indices/hang-sen-40-historical-data",
+        "name": "Investing.com Global｜Hang Seng Index historical data（Real-time derived；現貨指數）",
+        "url": "https://www.investing.com/indices/hang-sen-40-historical-data",
         "data_date": "2026-11-13",
         "quote_type": "cfd_daily_close",
         "note": "Investing.com頁面明確標示即時差價合約（CFD）；此數值為平台CFD日收盤，不冒充交易所現貨指數結算價。"
@@ -191,8 +191,8 @@
       "display": "61,142.35",
       "change_display": "+0.53%",
       "source": {
-        "name": "Investing.com HK｜Nikkei 225 CFD historical daily close",
-        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "name": "Investing.com Global｜Nikkei 225 historical data（Real-time derived；現貨指數）",
+        "url": "https://www.investing.com/indices/japan-ni225-historical-data",
         "data_date": "2026-11-13",
         "quote_type": "cfd_daily_close",
         "note": "Investing.com頁面明確標示即時差價合約（CFD）；此數值為平台CFD日收盤，不冒充交易所現貨指數結算價。"
@@ -246,8 +246,8 @@
       "display": "10,902.56",
       "change_display": "+0.36%",
       "source": {
-        "name": "Investing.com HK｜FTSE 100 CFD historical daily close",
-        "url": "https://hk.investing.com/indices/uk-100-historical-data",
+        "name": "Investing.com Global｜FTSE 100 historical data（Real-time derived；現貨指數）",
+        "url": "https://www.investing.com/indices/uk-100-historical-data",
         "data_date": "2026-11-13",
         "quote_type": "cfd_daily_close",
         "note": "Investing.com頁面明確標示即時差價合約（CFD）；此數值為平台CFD日收盤，不冒充交易所現貨指數結算價。"
@@ -257,8 +257,8 @@
       "display": "26,749.95",
       "change_display": "-0.08%",
       "source": {
-        "name": "Investing.com HK｜DAX CFD historical daily close",
-        "url": "https://hk.investing.com/indices/germany-30-historical-data",
+        "name": "Investing.com Global｜DAX historical data（Real-time derived；現貨指數）",
+        "url": "https://www.investing.com/indices/germany-30-historical-data",
         "data_date": "2026-11-13",
         "quote_type": "cfd_daily_close",
         "note": "Investing.com頁面明確標示即時差價合約（CFD）；此數值為平台CFD日收盤，不冒充交易所現貨指數結算價。"
@@ -279,8 +279,8 @@
       "display": "664.14",
       "change_display": "+0.02%",
       "source": {
-        "name": "Investing.com HK｜STOXX Europe 600 CFD historical daily close",
-        "url": "https://hk.investing.com/indices/stoxx-600-historical-data",
+        "name": "Investing.com Global｜STOXX Europe 600 historical data（Real-time derived；現貨指數）",
+        "url": "https://www.investing.com/indices/stoxx-600-historical-data",
         "data_date": "2026-11-13",
         "quote_type": "cfd_daily_close",
         "note": "Investing.com頁面明確標示即時差價合約（CFD）；此數值為平台CFD日收盤，不冒充交易所現貨指數結算價。"
@@ -537,9 +537,11 @@
   "summary_title": "升息定價加深、NVIDIA接班變動，市場轉向防禦",
   "market_comments": {
     "global_markets": [
-      "📌 亞洲｜11/13台股與日股相對抗跌，港股、韓股、中國及新加坡偏弱，區域表現分化；截至06:17，11/16亞洲現貨市場尚未開盤，無法判斷週五美股回落的實際反映。",
-      "📌 歐洲｜主要指數週線仍具韌性，週五大型科技股受AI估值不確定性壓抑，金融與工業提供支撐；英、德與STOXX 600報價採Investing.com頁面標示的CFD日收盤，非交易所現貨結算。",
-      "📌 美國｜道瓊、標普、那指與Russell週線仍收高，週五賣壓集中科技與半導體；防禦及現金流產業相對強，較像高估值AI曝險再定價，而非全面去風險。"
+      "📌 亞洲｜11/13台股與日股相對抗跌，港股、韓股、中國及新加坡偏弱，區域表現分化；截至06:17，11/16亞洲現貨市場尚未開盤，無法判斷週五美股回落的實際反映。港股與日股採Investing.com全球站標示Real-time derived的現貨指數歷史列，未以同名CFD代替。",
+      "📌 歐洲｜主要指數週線仍具韌性，週五大型科技股受AI估值不確定性壓抑，金融與工業提供支撐；FTSE 100、DAX及STOXX Europe 600改採Investing.com全球站標示Real-time derived的現貨指數歷史列，不使用HK站同名CFD收盤。",
+      "📌 美國｜道瓊、標普、那指與Russell週線仍收高，週五賣壓集中科技與半導體；防禦及現金流產業相對強，較像高估值AI曝險再定價，而非全面去風險。",
+      "📌 亞洲｜11/13台股與日股相對抗跌，港股、韓股、中國及新加坡偏弱，區域表現分化；截至06:17，11/16亞洲現貨市場尚未開盤，無法判斷週五美股回落的實際反映。港股與日股採Investing.com全球站標示Real-time derived的現貨指數歷史列，未以同名CFD代替。",
+      "📌 歐洲｜主要指數週線仍具韌性，週五大型科技股受AI估值不確定性壓抑，金融與工業提供支撐；FTSE 100、DAX及STOXX Europe 600改採Investing.com全球站標示Real-time derived的現貨指數歷史列，不使用HK站同名CFD收盤。"
     ],
     "sectors": "消費必需品、通訊服務、能源、金融、醫療保健與公用事業相對強勢，科技板塊明顯落後；顯示資金短線轉向現金流與防禦特徵，尚不足以證明AI長期需求反轉。",
     "bonds": "殖利率曲線全線上移，長端升幅較大，呈現偏熊陡峭化；若高位持續，將提高高久期股票折現率，市場焦點已由降息轉向升息幅度與維持時間。",
@@ -562,7 +564,7 @@
     },
     {
       "label": "風險觀察",
-      "text": "12/9 FedWatch最新可用快照（11/14 13:35台北時間；06:17重讀仍無新快照）顯示升息25bp機率91.3%、升息50bp為8.7%、維持利率為0；市場基準情境已不是降息。美國10月PPI月增0.3%、低於0.4%預期，但年增仍達6.5%。Fed金融穩定報告指出87%受訪市場聯絡人將AI列為風險，先進運算相關債務發行達6,800億美元，租約與擔保曝險可能超過3兆美元；本週零售銷售、工業生產、FOMC紀要及NVIDIA財報將檢驗需求與資本回報。"
+      "text": "12/9 FedWatch最新可用快照（11/14 13:35台北時間；06:17重讀仍無新快照）顯示升息25bp機率91.3%、升息50bp為8.7%、維持利率為0；市場基準情境已不是降息。美國10月PPI月增0.3%、低於0.4%預期，但年增仍達6.5%。Fed金融穩定報告指出87%受訪市場聯絡人將AI列為風險，先進運算相關債務發行達6,800億美元；報告亦提醒長約、租約與擔保等複雜融資安排，可能使企業實際曝險高於資產負債表所列負債。本週零售銷售、工業生產、FOMC紀要及NVIDIA財報將檢驗需求與資本回報。"
     },
     {
       "label": "操作建議",
@@ -680,9 +682,9 @@
     "heading": "本週三大觀察焦點",
     "text": "① 11/17 21:30 美國零售銷售、22:15 工業生產；另留意 11/17 01:00 Fed 主席 Warsh 發言，觀察需求與政策訊號。② 11/18 05:20 NVIDIA 財報，檢驗AI訂單、毛利、資本支出與現金流是否匹配。③ 11/19 03:00 FOMC會議紀要，確認聯準會對通膨與進一步升息的內部分歧。"
   },
-  "qa_run_revision": "2026-11-16-SIM1.3-manual-0617",
+  "qa_run_revision": "2026-11-16-SIM1.3-manual-0627-v2",
   "market_sentiment": "市場情緒偏防禦，恐懼升溫但尚未進入極端；債券利率與政策定價偏鷹，和高估值科技股修正互相印證。市場目前並未以降息作為基準情境。",
-  "quality_note": "行情基準日2026-11-13；44/44市場欄位及11檔ETF均有同日數值與可追溯來源，ETF只呈現單日漲跌幅。Hang Seng、Nikkei 225、FTSE 100、DAX、STOXX Europe 600及DXY明確標示為Investing.com頁面所列CFD日收盤；Shanghai、Shenzhen、KOSPI、Taiwan、STI、ASX、CAC、Dow、Nasdaq Composite及SOX採現金指數歷史列；S&P 500與Russell 2000採AP現金收盤，OHLC以MarketWatch/FactSet及Yahoo Finance交叉核對。WTI採CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ26合約月資料；五項關鍵價位使用同日現金指數OHLC，依傳統樞紐點公式計算S2/S1/P/R1/R2。W47 21筆財報事件已與Yahoo 11/15 capture逐筆核對事件ID、日期及報告期間，包含21組EPS與21組營收預估；部分EPS GAAP/Normalized口徑未完整揭露，僅作公告前觀測共識、不作方向性判讀。",
+  "quality_note": "行情基準日2026-11-13；44/44市場欄位及11檔ETF均有同日數值與可追溯來源，ETF只呈現單日漲跌幅。Hang Seng、Nikkei 225、FTSE 100、DAX、STOXX Europe 600改用Investing.com全球站明確標示Real-time derived的現貨指數歷史頁，未以HK站同名CFD代替；DXY仍採Investing.com CFD指數參考價並明確標示。Shanghai、Shenzhen、KOSPI、Taiwan、STI、ASX、CAC、Dow、Nasdaq Composite及SOX採現金指數歷史列；S&P 500與Russell 2000採AP現金收盤，OHLC以MarketWatch/FactSet及Yahoo Finance交叉核對。WTI採CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ26合約月資料；五項關鍵價位使用同日現金指數OHLC，依傳統樞紐點公式計算S2/S1/P/R1/R2。W47 21筆財報事件已與Yahoo 11/15 capture逐筆核對事件ID、日期及報告期間，包含21組EPS與21組營收預估；部分EPS GAAP/Normalized口徑未完整揭露，僅作公告前觀測共識、不作方向性判讀。",
   "report_cutoff_taipei": "2026-11-16 06:17（台灣時間；本次資料查核截止）",
   "news_window_taipei": "2026-11-13 12:00–2026-11-16 06:17（台灣時間；週一規則）",
   "key_levels_overrides": {
@@ -744,7 +746,10 @@
     "FedWatch最新可用快照為2026-11-14 13:35台北時間；截至06:17無新交易快照。",
     "CNN官方Fear & Greed頁本次無法讀取；採FGScore 39備援，來源差異已標示。",
     "亞洲市場於06:17尚未開盤，週一開盤反應未納入。",
-    "SIM-1.3 F3-補充9禁止main寫入及部署；本次僅提供模擬分支檔案，無正式Pages預覽。"
+    "SIM-1.3 F3-補充9禁止main寫入及部署；本次僅提供模擬分支檔案，無正式Pages預覽。",
+    "Investing.com英文版AI金融穩定報導於台北時間2026-11-14 06:30更新，晚於本報告06:17截稿；更新版新增的3兆美元曝險數字本次不納入，僅採截稿前可讀的87%與6,800億美元資訊。",
+    "AP FAA地面停飛報導頁面只顯示2026-11-14日期，未列可核對的精確發布時刻；審核版以日期註記，不臆測時區換算。",
+    "DXY仍採Investing.com CFD衍生指數參考價，與股票現貨指數分開標示；其餘五項原先被標成CFD的主要股價指數已改用現貨指數歷史頁。"
   ],
   "review_ready_blockers": [
     "2026-11-16亞洲市場尚未開盤，週一必要的開盤後盤面反應未納入。",
