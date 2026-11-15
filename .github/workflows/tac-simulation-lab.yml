@@ -119,17 +119,17 @@ jobs:
         shell: bash
         run: python simulation-lab/runner/audit_simulation_pit_projection.py --input data/calendar/weeks/2026-W46.json --output simulation-lab/output/w46-pit-projection-audit.json
 
+      - name: Probe Yahoo EPS methodology metadata (simulation only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/probe_yfinance_estimate_methodology.py --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json --output simulation-lab/output/yfinance-methodology-probe.json --tickers BIDU,NVDA,WMT,BEKE,ARMK,TSN,JD,DIS,HD,TGT,LOW,TJX,PANW,P,BABA,NTES,PDD,WSM,ROST,INTU,KEYS
+
       - name: Project W47 Yahoo TAC-observed consensus (simulation only)
         shell: bash
         run: |
           set -euo pipefail
           python simulation-lab/runner/project_w47_yahoo_consensus.py --calendar simulation-lab/fixtures/source-calendar-2026-W47.json --expected-calendar-blob-sha 4a85e0cb9db029e663a2422ce691603bbe9e871a --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json --output simulation-lab/output/w47-yahoo-consensus-projection.json
-
-      - name: Probe Yahoo EPS methodology metadata (simulation only)
-        shell: bash
-        run: |
-          set -euo pipefail
-          python simulation-lab/runner/probe_yfinance_estimate_methodology.py --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json --output simulation-lab/output/yfinance-methodology-probe.json --tickers BIDU,NVDA,WMT
 
       - name: Audit authoritative main earnings schema (read-only)
         shell: bash
