@@ -1,19 +1,41 @@
 {
   "status": "QA_PASSED",
+  "review_ready": false,
+  "review_ready_blockers": [
+    "2026-11-16亞洲市場尚未開盤，週一必要的開盤後盤面反應未納入。",
+    "SIM-1.3 F3-補充9明定本次審核版不寫main、不部署，無法提供正式Pages預覽網址。"
+  ],
+  "data_audit": {
+    "quality_note": "行情基準日2026-11-13；44/44市場欄位及11檔ETF均有同日數值與可追溯來源，ETF只呈現單日漲跌幅。Hang Seng、Nikkei 225、FTSE 100、DAX、STOXX Europe 600改用Investing.com全球站明確標示Real-time derived的現貨指數歷史頁，未以HK站同名CFD代替；DXY仍採Investing.com CFD指數參考價並明確標示。Shanghai、Shenzhen、KOSPI、Taiwan、STI、ASX、CAC、Dow、Nasdaq Composite及SOX採現金指數歷史列；S&P 500與Russell 2000採AP現金收盤，OHLC以MarketWatch/FactSet及Yahoo Finance交叉核對。WTI採CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ26合約月資料；五項關鍵價位使用同日現金指數OHLC，依傳統樞紐點公式計算S2/S1/P/R1/R2。W47 21筆財報事件已與Yahoo 11/15 capture逐筆核對事件ID、日期及報告期間，包含21組EPS與21組營收預估；部分EPS GAAP/Normalized口徑未完整揭露，僅作公告前觀測共識、不作方向性判讀。",
+    "warning_note": "本次只唯讀讀取main W47與W46週JSON，未建立、修改或回寫任何行事曆資料。W47於04:44:57更新，共25筆經濟事件、21筆財報事件，coverage仍為incomplete；21檔即將公布財報已用11/15 Yahoo Finance公告前capture逐筆對上main W47事件ID、日期及報告期間，產生21組EPS與21組營收預估；部分EPS會計口徑未完整揭露，依SIM-1.3僅標示TAC公告前觀測共識，不做beat/miss方向判讀。W46已公布五星財報由TAC 1.3.0單一引擎重算。FedWatch最新可用快照為11/14 13:35台北時間，06:17重讀仍無週末新快照。CNN官方Fear & Greed頁無法讀取，採FGScore 39備援。資料與新聞截止11/16 06:17；亞洲市場尚未開盤。SIM-1.3 F3-補充9禁止main寫入及部署，僅留模擬分支。",
+    "pending_items": [
+      "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，留待04:35唯一寫入者。",
+      "W47 21檔財報已匹配Yahoo公告前觀測共識（21組EPS、21組營收）；部分EPS GAAP/Normalized口徑未揭露，僅作數值參考，實際公布後再以TAC 1.3.0判斷。",
+      "FedWatch最新可用快照為2026-11-14 13:35台北時間；截至06:17無新交易快照。",
+      "CNN官方Fear & Greed頁本次無法讀取；採FGScore 39備援，來源差異已標示。",
+      "亞洲市場於06:17尚未開盤，週一開盤反應未納入。",
+      "SIM-1.3 F3-補充9禁止main寫入及部署；本次僅提供模擬分支檔案，無正式Pages預覽。",
+      "Investing.com英文版AI金融穩定報導於台北時間2026-11-14 06:30更新，晚於本報告06:17截稿；更新版新增的3兆美元曝險數字本次不納入，僅採截稿前可讀的87%與6,800億美元資訊。",
+      "AP FAA地面停飛報導頁面只顯示2026-11-14日期，未列可核對的精確發布時刻；審核版以日期註記，不臆測時區換算。",
+      "DXY仍採Investing.com CFD衍生指數參考價，與股票現貨指數分開標示；其餘五項原先被標成CFD的主要股價指數已改用現貨指數歷史頁。"
+    ],
+    "report_cutoff_taipei": "2026-11-16 06:17（台灣時間；本次資料查核截止）",
+    "news_window_taipei": "2026-11-13 12:00–2026-11-16 06:17（台灣時間；週一規則）"
+  },
   "branch": "simulation/tac-process-lab-2026-11-06",
   "report_path": "preview/2026-11-16-simulation.html",
   "report_date": "2026-11-16",
-  "report_git_blob_sha": "fb528fa61461486ac7a8564f406d202145ad9564",
-  "report_sha256": "7c6bf68bb283919271706adfa6f34e00cacf11b42589623e8a5485a17033c967",
-  "build_commit_sha": "bc6641b943616f7c0e187380bafdd239ca27f263",
-  "builder_blob_sha": "35b541495475773458a35ac3951c8aba16e1d78d",
-  "fixture_blob_sha": "7c4dfbfc81947f343633bf272405e404616cfdf0",
+  "report_git_blob_sha": "1b010beadfb50a4812ab9bb85108054c8c762dee",
+  "report_sha256": "13d98172af97d4620262b38471e8b1b05a810220c547a26dd981ab5a08542b1d",
+  "build_commit_sha": "3581ba4193a7acd5ee78430722e1446696a1222d",
+  "builder_blob_sha": "151104ea7c662a452390e93ae09b3ae3c9ee14c0",
+  "fixture_blob_sha": "b4238daf13d22725195e42ba32367447d7bae4fb",
   "template_blob_sha": "1ac39d50b138e59f4aabf55fc68560ee277ba6f8",
-  "calendar_main_commit_sha": "51c95f6966ac56f60f6b22fd145e465ef563e9c6",
-  "calendar_current_blob_sha": "4a85e0cb9db029e663a2422ce691603bbe9e871a",
+  "calendar_main_commit_sha": "870ccb1caeb81491a610daa36dcff6e1255354f9",
+  "calendar_current_blob_sha": "686e61ad128162a0f444e4981661145371bea4a7",
   "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
-  "interaction_evidence_sha256": "af55dfc1b10072eebd4ece7327ab11acee0ceb933267e8e80703a5269314c005",
-  "visual_evidence_sha256": "92a4d38e022cfaa3ae0777a8e9675f3a2f9bf692b301a38263590576900cec1e",
+  "interaction_evidence_sha256": "11e5c0b561c5926a01b99a8bbe97d6224407c388a320137d751061f96968b996",
+  "visual_evidence_sha256": "a63edda47b7b972a943ec8068a0d834f58fbc80fa60786c7923c2815912e3bb1",
   "viewports": [
     1440,
     768,
@@ -21,6 +43,6 @@
     390,
     360
   ],
-  "workflow_run_id": "43700757642",
+  "workflow_run_id": "43770671259",
   "workflow_run_attempt": "1"
 }
