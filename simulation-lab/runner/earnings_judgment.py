@@ -252,7 +252,7 @@ def _explicitly_incomparable(record: dict, metric: str) -> str | None:
     note = str(record.get("financial_judgment") or "")
     if metric == "eps" and "EPS" in note and "不判 beat/miss" in note:
         return "issuer_note_explicitly_withholds_eps_comparison"
-    if metric == "revenue" and ("revenue" in note.casefold() or "營收" in note) and "不判 beat/miss" in note:
+    if metric == "revenue" and (("revenue estimates" in note.casefold() and "consolidated revenue" in note.casefold()) or ("營收預期" in note and "實際營收" in note)) and "不判 beat/miss" in note:
         return "issuer_note_explicitly_withholds_revenue_comparison"
     return None
 
