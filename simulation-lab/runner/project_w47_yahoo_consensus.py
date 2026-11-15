@@ -73,10 +73,23 @@ def main():
             source_key="consensus_source" if metric=="EPS" else "revenue_consensus_source"
             projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，僅作預估參考，不得方向性判讀。"}
         method_row=methodology_by_ticker.get(item["ticker"],{})
-        eps_method=method_row.get("eps_methodology")
-        eps_method_verified=(method_row.get("status")=="ok" and method_row.get("eps_matches_captured_value") is True)
-        if eps_method_verified and eps_method not in ("gaap","normalized"):
-            eps_method_verified=False
+        method_raw=method_row.get("raw_response") if isinstance(method_row,dict) else None
+        method_digest=hashlib.sha256(json.dumps(method_raw,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest() if isinstance(method_raw,dict) else None
+        default_eps=method_raw.get("earnings_estimate_default",{}) if isinstance(method_raw,dict) else {}
+        eps_method=(default_eps.get("methodology",{}).get("0q") if isinstance(default_eps,dict) else None)
+        method_observed=method_row.get("observed_at")
+        method_pre_release=False
+        if method_observed:
+            method_pre_release=datetime.fromisoformat(method_observed.replace("Z","+00:00")) < datetime.fromisoformat(event["event_date"])
+        eps_method_verified=(
+            method_row.get("status")=="ok"
+            and method_row.get("eps_matches_captured_value") is True
+            and method_row.get("revenue_matches_captured_value") is True
+            and method_row.get("raw_response_sha256")==method_digest
+            and method_row.get("source_url")==item["source_url"]
+            and method_pre_release
+            and eps_method in ("gaap","normalized")
+        )
         eps_basis_display=(
             ("GAAP" if eps_method=="gaap" else "Normalized（非 GAAP）")+
             "；Basic／Diluted 股數口徑未揭露"
@@ -98,6 +111,8 @@ def main():
             "eps_evidence_label":labels["eps"],"eps_status":statuses["eps"],
             "eps_methodology":eps_method if eps_method_verified else None,
             "eps_basis_display":eps_basis_display,"eps_methodology_matches_capture":eps_method_verified,
+            "eps_methodology_observed_at":method_observed if eps_method_verified else None,
+            "eps_methodology_sha256":method_digest if eps_method_verified else None,
             "revenue_estimate":projected["revenue_estimate"],"revenue_currency":projected["revenue_estimate_currency"],
             "revenue_unit":projected["revenue_estimate_unit"],
             "revenue_estimate_display":f'{projected["revenue_estimate_currency"]} {projected["revenue_estimate"]/1_000_000_000:.2f}B',
@@ -110,7 +125,7 @@ def main():
     captured_tickers={x.get("ticker") for x in output}
     if expected_tickers != captured_tickers:
         raise SystemExit(f"W47 consensus coverage mismatch; missing={sorted(expected_tickers-captured_tickers)} unexpected={sorted(captured_tickers-expected_tickers)}")
-    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"yfinance_methodology_file":a.yfinance_methodology,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
+    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"yfinance_methodology_file":a.yfinance_methodology,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output),"eps_methodology_verified":sum(x.get("eps_methodology_matches_capture") is True for x in output),"eps_gaap":sum(x.get("eps_methodology")=="gaap" for x in output),"eps_normalized":sum(x.get("eps_methodology")=="normalized" for x in output)}}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
     Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(report["counts"],ensure_ascii=False))
