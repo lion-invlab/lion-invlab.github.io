@@ -1,0 +1,1 @@
+Rebuild 2026-11-16 simulation review after adding explicit Yahoo consensus observation time to upcoming earnings cards. Keep main read-only; do not publish.
