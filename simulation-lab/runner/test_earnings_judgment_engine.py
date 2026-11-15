@@ -89,6 +89,10 @@ def main():
 
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
+    adjusted_snapshot_id = "d" * 64
+    item["eps_consensus_snapshots"][0]["snapshot_id"] = adjusted_snapshot_id
+    item["eps_consensus_snapshots"][0]["value"] = -0.72
+    item["consensus_source"]["snapshot_id"] = adjusted_snapshot_id
     check(evaluate_metric(item, "eps")["status"], "beat", "smaller loss is beat")
 
     item = base_record()
