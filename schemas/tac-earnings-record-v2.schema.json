@@ -270,7 +270,8 @@
             }
           }
         ]
-      }
+      },
+      "minItems": 1
     },
     "revenue_consensus_snapshots": {
       "type": "array",
@@ -287,7 +288,8 @@
             }
           }
         ]
-      }
+      },
+      "minItems": 1
     }
   },
   "required": [
@@ -326,8 +328,17 @@
           "eps_actual_period",
           "eps_estimate_period",
           "source",
-          "consensus_source"
-        ]
+          "consensus_source",
+          "eps_consensus_snapshots"
+        ],
+        "properties": {
+          "consensus_source": {
+            "type": "object",
+            "required": [
+              "snapshot_id"
+            ]
+          }
+        }
       }
     },
     {
@@ -358,8 +369,17 @@
           "revenue_actual_period",
           "revenue_estimate_period",
           "source",
-          "revenue_consensus_source"
-        ]
+          "revenue_consensus_source",
+          "revenue_consensus_snapshots"
+        ],
+        "properties": {
+          "revenue_consensus_source": {
+            "type": "object",
+            "required": [
+              "snapshot_id"
+            ]
+          }
+        }
       }
     }
   ],
@@ -403,6 +423,10 @@
             "type": "string",
             "pattern": "^https://"
           }
+        },
+        "snapshot_id": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
         }
       },
       "additionalProperties": true
