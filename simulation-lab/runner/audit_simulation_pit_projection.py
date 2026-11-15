@@ -7,6 +7,7 @@ from earnings_judgment import ENGINE_VERSION, migrate_legacy_record
 from calendar_source_guard import load_authoritative_calendar
 
 DIRECTIONAL = {"beat", "miss", "inline"}
+RESOLVED = DIRECTIONAL | {"incomparable"}
 
 def observed_after_event(record: dict, source_key: str) -> bool:
     source=record.get(source_key) or {}
@@ -52,7 +53,9 @@ def main() -> int:
             "revenue_data_as_of_present":bool((item.get("revenue_consensus_source") or {}).get("data_as_of")),
         })
     pairs=sum(x["eps_numeric_pair_present"]+x["revenue_numeric_pair_present"] for x in rows)
-    judged=sum(int(x["eps_numeric_pair_present"] and x["new_eps_status"] in DIRECTIONAL)+int(x["revenue_numeric_pair_present"] and x["new_revenue_status"] in DIRECTIONAL) for x in rows)
+    directional=sum(int(x["eps_numeric_pair_present"] and x["new_eps_status"] in DIRECTIONAL)+int(x["revenue_numeric_pair_present"] and x["new_revenue_status"] in DIRECTIONAL) for x in rows)
+    incomparable=sum(int(x["eps_numeric_pair_present"] and x["new_eps_status"] == "incomparable")+int(x["revenue_numeric_pair_present"] and x["new_revenue_status"] == "incomparable") for x in rows)
+    judged=directional+incomparable
     summary={
         "engine_version":ENGINE_VERSION,"input":args.input,"source_metadata":source_metadata,"released_events":len(released),
         "old_eps_directional":sum(x["old_eps_status"] in DIRECTIONAL for x in rows),
@@ -62,10 +65,10 @@ def main() -> int:
         "eps_without_linked_snapshot":sum(not x["eps_has_linked_snapshot"] for x in rows),
         "revenue_without_linked_snapshot":sum(not x["revenue_has_linked_snapshot"] for x in rows),
         "directional_without_pit_snapshot":sum(int(x["new_eps_status"] in DIRECTIONAL and not x["eps_has_linked_snapshot"])+int(x["new_revenue_status"] in DIRECTIONAL and not x["revenue_has_linked_snapshot"]) for x in rows),
-        "comparison_pairs_present":pairs,"comparison_pairs_judged":judged,
+        "comparison_pairs_present":pairs,"comparison_pairs_judged":judged,"comparison_pairs_directional":directional,"comparison_pairs_incomparable":incomparable,
         "calendar_write":False,"html_write":False,"main_write":False,"records":rows,
     }
-    summary["verdict"]="PASS_PRACTICAL_NUMERICAL_JUDGMENT" if pairs==judged else "FAIL_NUMERICAL_PAIR_NOT_JUDGED"
+    summary["verdict"]="PASS_PRACTICAL_NUMERICAL_JUDGMENT_WITH_EXPLICIT_INCOMPARABLES" if pairs==judged else "FAIL_NUMERICAL_PAIR_NOT_JUDGED"
     out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(summary,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps({k:v for k,v in summary.items() if k!="records"},ensure_ascii=False,indent=2))
