@@ -43,7 +43,7 @@ def main() -> int:
             "revenue_data_as_of_present":bool(item.get("revenue_consensus_source",{}).get("data_as_of")),
         })
     pairs=sum(x["eps_numeric_pair_present"]+x["revenue_numeric_pair_present"] for x in rows)
-    judged=sum((x["new_eps_status"] in DIRECTIONAL if x["eps_numeric_pair_present"] else True) and (x["new_revenue_status"] in DIRECTIONAL if x["revenue_numeric_pair_present"] else True) for x in rows)
+    judged=sum(int(x["eps_numeric_pair_present"] and x["new_eps_status"] in DIRECTIONAL)+int(x["revenue_numeric_pair_present"] and x["new_revenue_status"] in DIRECTIONAL) for x in rows)
     summary={
         "engine_version":ENGINE_VERSION,"input":args.input,"released_events":len(released),
         "old_eps_directional":sum(x["old_eps_status"] in DIRECTIONAL for x in rows),
