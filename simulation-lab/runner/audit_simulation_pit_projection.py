@@ -52,7 +52,7 @@ def main() -> int:
         "new_revenue_directional":sum(x["new_revenue_status"] in DIRECTIONAL for x in rows),
         "eps_without_linked_snapshot":sum(not x["eps_has_linked_snapshot"] for x in rows),
         "revenue_without_linked_snapshot":sum(not x["revenue_has_linked_snapshot"] for x in rows),
-        "directional_without_pit_snapshot":sum((x["new_eps_status"] in DIRECTIONAL and not x["eps_has_linked_snapshot"])+(x["new_revenue_status"] in DIRECTIONAL and not x["revenue_has_linked_snapshot"] for x in rows),
+        "directional_without_pit_snapshot":sum(int(x["new_eps_status"] in DIRECTIONAL and not x["eps_has_linked_snapshot"])+int(x["new_revenue_status"] in DIRECTIONAL and not x["revenue_has_linked_snapshot"]) for x in rows),
         "comparison_pairs_present":pairs,"comparison_pairs_judged":judged,
         "calendar_write":False,"html_write":False,"main_write":False,"records":rows,
     }
