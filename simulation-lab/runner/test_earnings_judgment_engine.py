@@ -137,6 +137,16 @@ def main():
     check(evaluate_metric(missing_snapshot, "eps")["status"], "pending", "directional status requires linked PIT snapshot")
 
     item = base_record()
+    published_after_event = dict(item["eps_consensus_snapshots"][0], published_at="2026-11-15T00:00:00+08:00")
+    item["eps_consensus_snapshots"] = [published_after_event]
+    check(evaluate_metric(item, "eps")["status"], "pending", "known post-release publication cannot authorize Beat/Miss")
+
+    item = base_record()
+    future_asof = dict(item["eps_consensus_snapshots"][0], data_as_of="2026-11-14T12:00:00+08:00")
+    item["eps_consensus_snapshots"] = [future_asof]
+    check(evaluate_metric(item, "eps")["status"], "pending", "provider as-of cannot postdate collector observation")
+
+    item = base_record()
     late_snapshot = dict(item["eps_consensus_snapshots"][0], observed_at="2026-11-15T04:30:00+08:00")
     item["eps_consensus_snapshots"] = [late_snapshot]
     check(evaluate_metric(item, "eps")["status"], "pending", "post-release capture cannot authorize Beat/Miss")
