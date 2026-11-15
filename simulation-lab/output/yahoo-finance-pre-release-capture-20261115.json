@@ -7,7 +7,7 @@
     {
       "ticker": "BIDU",
       "company": "Baidu, Inc.",
-      "event_date": "2026-11-16",
+      "event_date": "2026-11-16T20:30:00+08:00",
       "reporting_period": "2026-09-30",
       "provider": "Yahoo Finance",
       "source_level": 4,
@@ -23,7 +23,8 @@
         "analyst_count": 15,
         "currency": "CNY",
         "basis_code": null,
-        "statistic": "average"
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
       },
       "revenue": {
         "estimate": 30629578930,
@@ -31,11 +32,12 @@
         "low": 24853000000,
         "analyst_count": 21,
         "currency": "CNY",
-        "unit": "currency units",
+        "unit": "CNY",
         "basis_code": null,
-        "statistic": "average"
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
       },
-      "raw_response_sha256": "c401fc279d8da6e60ee3fb1c57543301b86ae865f11724be6b595ebe614cebe8",
+      "raw_response_sha256": "b5eae9992ec475e58d7e925387e2212447edda0cd9b74d9d3ee73d61e11eb017",
       "raw_response": {
         "history": [
           {
@@ -191,12 +193,14 @@
             }
           }
         ]
-      }
+      },
+      "event_id": "current-bidu-20261116",
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/BIDU/raw_response"
     },
     {
       "ticker": "NVDA",
       "company": "NVIDIA Corporation",
-      "event_date": "2026-11-17",
+      "event_date": "2026-11-18T05:20:00+08:00",
       "reporting_period": "2026-10-31",
       "provider": "Yahoo Finance",
       "source_level": 4,
@@ -212,7 +216,8 @@
         "analyst_count": 43,
         "currency": "USD",
         "basis_code": null,
-        "statistic": "average"
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
       },
       "revenue": {
         "estimate": 108731903900,
@@ -220,11 +225,12 @@
         "low": 100481000000,
         "analyst_count": 45,
         "currency": "USD",
-        "unit": "currency units",
+        "unit": "USD",
         "basis_code": null,
-        "statistic": "average"
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
       },
-      "raw_response_sha256": "5b359a485f1c8c004eb988bd4894113968f7572ede1c8e4d8a763391db1338a8",
+      "raw_response_sha256": "5a20857e65c628b2ce0236b48a1414e8b361eef6e90c446a875b8ed1e3773a2a",
       "raw_response": {
         "history": [
           {
@@ -380,12 +386,14 @@
             }
           }
         ]
-      }
+      },
+      "event_id": "current-nvda-20261118",
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/NVDA/raw_response"
     },
     {
       "ticker": "WMT",
       "company": "Walmart Inc.",
-      "event_date": "2026-11-19",
+      "event_date": "2026-11-19T20:00:00+08:00",
       "reporting_period": "2026-10-31",
       "provider": "Yahoo Finance",
       "source_level": 4,
@@ -401,7 +409,8 @@
         "analyst_count": 35,
         "currency": "USD",
         "basis_code": null,
-        "statistic": "average"
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
       },
       "revenue": {
         "estimate": 187238713120,
@@ -409,11 +418,12 @@
         "low": 185607000000,
         "analyst_count": 28,
         "currency": "USD",
-        "unit": "currency units",
+        "unit": "USD",
         "basis_code": null,
-        "statistic": "average"
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
       },
-      "raw_response_sha256": "6018ec52010a7eca600ffcceee4ad94c663372ebd40e9fee0555efcbdcb827a1",
+      "raw_response_sha256": "867e4fefb86756972e3c84f5fa293e82402d47ce449245da190cc9f56e3375b5",
       "raw_response": {
         "history": [
           {
@@ -569,7 +579,9 @@
             }
           }
         ]
-      }
+      },
+      "event_id": "current-wmt-20261119",
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/WMT/raw_response"
     }
   ]
 }
