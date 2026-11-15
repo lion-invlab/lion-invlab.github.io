@@ -116,8 +116,8 @@ def parse_earnings_row(html: bytes, target: dict) -> dict:
         "revenue_estimate_raw": match_cells[5] if len(match_cells) > 5 else None,
         "revenue_estimate": _first_number(match_cells[5]) if len(match_cells) > 5 else None,
         "revenue_unit": None,
-        "eps_basis_code": _basis_code(page_text, "EPS"),
-        "revenue_basis_code": _basis_code(page_text, "REVENUE"),
+        "eps_basis_code": _basis_code(match_row or "", "EPS"),
+        "revenue_basis_code": _basis_code(match_row or "", "REVENUE"),
         "statistic": "mean" if re.search(r"\b(mean|average consensus)\b", page_text, re.I) else None,
         "analyst_count": None,
         # Do not mistake a generic "Last Updated" for the estimate's as-of time.
