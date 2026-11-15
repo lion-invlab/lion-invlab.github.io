@@ -61,6 +61,14 @@ jobs:
           set -euo pipefail
           python simulation-lab/runner/probe_ortex_test.py --output simulation-lab/output/ortex-test-probe.json
 
+      - name: Test Investing.com earnings page parser
+        shell: bash
+        run: python simulation-lab/runner/investing_earnings_probe.py --self-test --output /tmp/investing-probe.json --archive-dir /tmp/investing-raw
+
+      - name: Probe Investing.com earnings pages (read-only, simulation only)
+        shell: bash
+        run: python simulation-lab/runner/investing_earnings_probe.py --output simulation-lab/output/investing-earnings-probe.json --archive-dir simulation-lab/output/investing-raw
+
       - name: Test append-only PIT consensus snapshot store
         shell: bash
         run: python simulation-lab/runner/test_consensus_snapshot_store.py
