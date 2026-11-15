@@ -230,8 +230,26 @@ try {
             for (const [metricIndex, resultCard] of resultCards.entries()) {
               const state = Object.keys(expectedLabels).find(value => resultCard.classList.contains(value));
               const status = resultCard.querySelector(".earnings-actual-status");
+              const expectedTitle = metricIndex === 0 ? "EPS" : "營收";
+              const title = resultCard.querySelector(":scope > .earnings-actual-card-title")?.textContent.trim() || "";
+              if (title !== expectedTitle) invalid.push("card " + (i+1) + ": expected one " + expectedTitle + " card, found " + title);
               if (!state || !status || !status.classList.contains(state) || status.textContent.trim() !== expectedLabels[state]) {
                 invalid.push("card " + (i+1) + ": EPS/revenue comparison badge state and label mismatch at metric " + (metricIndex+1));
+              }
+              const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
+              const rowLabels = rows.map(row => row.querySelector(":scope > span")?.textContent.trim() || "");
+              if (JSON.stringify(rowLabels) !== JSON.stringify(["實際", "預期"])) {
+                invalid.push("card " + (i+1) + ": " + expectedTitle + " must show exactly one 實際 and one 預期 row");
+              }
+              for (const row of rows) {
+                const value = row.querySelector(":scope > strong");
+                if (!value || !value.textContent.trim()) invalid.push("card " + (i+1) + ": " + expectedTitle + " value missing");
+                else {
+                  const vr = value.getBoundingClientRect(), cr = resultCard.getBoundingClientRect();
+                  if (value.scrollWidth > value.clientWidth + 1 || vr.left < cr.left - 1 || vr.right > cr.right + 1) {
+                    invalid.push("card " + (i+1) + ": " + expectedTitle + " " + row.querySelector(":scope > span")?.textContent.trim() + " value clipped/overflowing");
+                  }
+                }
               }
             }
           }
@@ -278,7 +296,10 @@ try {
         columns = sample?.columns || 0;
         pairedGeometry = sample?.pairedGeometry || null;
         if (!sample) invalid.push("visible published EPS/revenue result grid with two measurable cards missing");
-        else if (columns !== 2) invalid.push("visible EPS/revenue cards are not in two side-by-side columns");
+        else {
+          const expectedColumns = innerWidth <= 640 ? 1 : 2;
+          if (columns !== expectedColumns) invalid.push("visible EPS/revenue cards layout mismatch: expected " + expectedColumns + " column(s), found " + columns);
+        }
       }
       return { mode, count: cards.length, invalid, columns, pairedGeometry, visible_result_grids: measured.length };
     });
