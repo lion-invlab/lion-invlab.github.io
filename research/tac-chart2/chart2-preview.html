@@ -94,72 +94,74 @@ footer strong{color:#5d6878}
  <header class="hero">
   <div class="eyebrow">TAC INVESTMENT DECISION CHARTS · 02</div>
   <h1>股債相對估值</h1>
-  <p>從長期週期與前瞻盈餘兩個角度，觀察股票盈餘殖利率相對於美國公債實質殖利率的位置。數據用來理解估值環境，不是單一買賣訊號。</p>
-  <div class="hero-meta"><span class="meta-chip">Shiller CAPE</span><span class="meta-chip">10Y TIPS Real Yield</span><span class="meta-chip">Fed Forward P/E</span><span class="meta-chip">Fed Equity Premium</span></div>
+  <p>從長期週期與前瞻盈餘兩個角度，觀察股票長期盈餘殖利率相對於美國公債實質殖利率的位置。數據用來理解估值環境，不是單一買賣訊號。</p>
+  <div class="hero-meta"><span class="meta-chip">席勒循環調整本益比（CAPE）</span><span class="meta-chip">美國 10 年期抗通膨公債實質殖利率</span><span class="meta-chip">Fed 預估本益比</span><span class="meta-chip">聯準會估算股票風險溢酬</span></div>
  </header>
  <nav class="modebar" aria-label="估值模式">
-  <button class="mode-btn active" data-mode="long">長期估值｜CAPE × 實質利率</button>
-  <button class="mode-btn" data-mode="forward">Forward 估值｜預期盈餘 × 實質利率</button>
+  <button class="mode-btn active" data-mode="long">長期估值｜席勒本益比 × 實質利率</button>
+  <button class="mode-btn" data-mode="forward">預估本益比｜預期盈餘 × 實質利率</button>
  </nav>
  <section class="panel active" id="panel-long">
-  <div class="section-head"><div><h2 class="section-title">長期股債相對估值</h2><div class="section-sub">以 Shiller 傳統 CAPE 推算盈餘殖利率，對比 Treasury 10 年期 TIPS 實質殖利率</div></div><div class="asof" id="long-asof">資料載入中…</div></div>
+  <div class="section-head"><div><h2 class="section-title">股票與抗通膨公債，現在誰的估值條件更有利？</h2><div class="section-sub">以 Shiller 傳統 CAPE 推算盈餘殖利率，對比 Treasury 10 年期 抗通膨公債實質殖利率</div></div><div class="asof" id="long-asof">資料載入中…</div></div>
   <div class="kpis">
-   <article class="kpi"><div class="kpi-label">Shiller CAPE</div><div class="kpi-value" id="k-cape">—</div><div class="kpi-unit">倍</div><div class="kpi-note" id="k-cape-date">最新完整月份</div></article>
-   <article class="kpi"><div class="kpi-label">CAPE Earnings Yield</div><div class="kpi-value" id="k-ey">—</div><div class="kpi-unit">%</div><div class="kpi-note">100 ÷ 傳統 CAPE</div></article>
-   <article class="kpi"><div class="kpi-label">10Y TIPS 實質殖利率</div><div class="kpi-value" id="k-real">—</div><div class="kpi-unit">%</div><div class="kpi-note" id="k-real-note">月內交易日算術平均</div></article>
-   <article class="kpi spread"><div class="kpi-label">股債估值對照差</div><div class="kpi-value" id="k-spread">—</div><div class="kpi-unit">百分點（pp）</div><div class="kpi-note">CAPE EY − 10Y TIPS Real Yield</div></article>
+   <article class="kpi"><div class="kpi-label">席勒循環調整本益比（CAPE）</div><div class="kpi-value" id="k-cape">—</div><div class="kpi-unit">倍</div><div class="kpi-note" id="k-cape-date">最新完整月份</div></article>
+   <article class="kpi"><div class="kpi-label">長期盈餘殖利率（CAPE）</div><div class="kpi-value" id="k-ey">—</div><div class="kpi-unit">%</div><div class="kpi-note">100 ÷ 傳統 CAPE</div></article>
+   <article class="kpi"><div class="kpi-label">10Y 抗通膨公債實質殖利率</div><div class="kpi-value" id="k-real">—</div><div class="kpi-unit">%</div><div class="kpi-note" id="k-real-note">月內交易日算術平均</div></article>
+   <article class="kpi spread"><div class="kpi-label">股票與公債殖利率差</div><div class="kpi-value" id="k-spread">—</div><div class="kpi-unit">百分點（pp）</div><div class="kpi-note">CAPE EY − 美國 10 年期抗通膨公債實質殖利率</div></article>
   </div>
   <div class="chart-card">
-   <div class="chart-head"><div><h3 class="chart-title" id="long-chart-title">股票盈餘殖利率 vs. TIPS 實質殖利率</h3><div class="chart-desc" id="long-chart-desc">兩條殖利率使用相同百分比縱軸；資料按月份配對。</div></div>
-    <div class="chart-controls"><button class="view-btn active" data-view="yields">殖利率比較</button><button class="view-btn" data-view="spread">估值對照差</button><button class="view-btn" data-view="cape-history">CAPE 長期歷史</button><button class="range-btn" data-range="10">10年</button><button class="range-btn" data-range="20">20年</button><button class="range-btn active" data-range="max">全期間</button></div>
+   <div class="chart-head"><div><h3 class="chart-title" id="long-chart-title">股票長期盈餘殖利率 vs. 抗通膨公債實質殖利率</h3><div class="chart-desc" id="long-chart-desc">兩條殖利率使用相同百分比縱軸；資料按月份配對。</div></div>
+    <div class="chart-controls"><button class="view-btn active" data-view="yields">殖利率比較</button><button class="view-btn" data-view="spread">股票與公債殖利率差</button><button class="view-btn" data-view="cape-history">CAPE 長期歷史</button><button class="range-btn" data-range="10">10年</button><button class="range-btn" data-range="20">20年</button><button class="range-btn active" data-range="max">全期間</button></div>
    </div>
-   <div class="chart-wrap"><div class="tooltip" id="long-tooltip"></div><svg id="long-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="CAPE 盈餘殖利率與十年期 TIPS 實質殖利率歷史走勢"><text x="550" y="190" text-anchor="middle">資料載入中…</text></svg></div>
-   <div class="legend" id="long-legend"><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>CAPE Earnings Yield</span><span class="legend-item"><i class="swatch" style="background:#2879a8"></i>10Y TIPS Real Yield</span></div>
-   <div class="note" id="long-range-note">共同歷史資料自 2003 年起；Shiller CAPE 更早期資料保留於來源資料集。</div>
+   <div class="chart-wrap"><div class="tooltip" id="long-tooltip"></div><svg id="long-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="CAPE 盈餘殖利率與十年期 抗通膨公債實質殖利率歷史走勢"><text x="550" y="190" text-anchor="middle">資料載入中…</text></svg></div>
+   <div class="legend" id="long-legend"><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>長期盈餘殖利率（CAPE）</span><span class="legend-item"><i class="swatch" style="background:#2879a8"></i>美國 10 年期抗通膨公債實質殖利率</span></div>
+   <div class="note" id="long-range-note">共同歷史資料自 2003 年起；席勒循環調整本益比（CAPE） 更早期資料保留於來源資料集。</div>
   </div>
   <div class="interpret">
-   <div class="insight"><strong>如何閱讀</strong><p>當 CAPE Earnings Yield 高於 TIPS 實質殖利率，兩者差值為正；反之為負。這是估值對照，不等同完整股票風險溢酬。</p></div>
-   <div class="insight"><strong>方法限制</strong><p>CAPE Earnings Yield 是長期平滑盈餘的倒數殖利率，未直接納入股利、未來盈餘成長或股票風險；不可單獨作為買賣依據。</p></div>
+   <div class="insight"><strong>如何閱讀</strong><p>當 長期盈餘殖利率（CAPE） 高於 抗通膨公債實質殖利率，兩者差值為正；反之為負。這是估值對照，不等同完整股票風險溢酬。</p></div>
+   <div class="insight"><strong>方法限制</strong><p>長期盈餘殖利率（CAPE） 是長期平滑盈餘的倒數殖利率，未直接納入股利、未來盈餘成長或股票風險；不可單獨作為買賣依據。</p></div>
   </div>
   <section class="teaching" aria-labelledby="long-teaching-title">
-   <div class="teaching-head"><span class="teaching-kicker">INVESTMENT READING GUIDE</span><h3 id="long-teaching-title">判讀教學｜長期股債估值怎麼看？</h3><p>先看兩條殖利率的相對位置，再看估值對照差，最後回到經濟與企業獲利環境，不要只憑單一數字決定進出場。</p></div>
+   <div class="teaching-head"><span class="teaching-kicker">INVESTMENT READING GUIDE</span><h3 id="long-teaching-title">判讀教學｜股票與抗通膨公債怎麼比較？</h3><p>先看兩條殖利率的相對位置，再看股票與公債殖利率差，最後回到經濟與企業獲利環境，不要只憑單一數字決定進出場。</p></div>
+
+  <div class="teaching-example"><strong>先認識圖表中的三個名詞</strong><p><b>席勒循環調整本益比（CAPE）</b>：用過去 10 年經通膨調整後的平均盈餘計算本益比，降低景氣高低起伏的影響。<br><b>抗通膨公債（TIPS）</b>：本金會隨通膨調整的美國政府公債；實質殖利率是扣除通膨因素後的利率。<br><b>盈餘殖利率</b>：把本益比反過來看，表示每一元股價對應多少比例的盈餘，不等於實際領到的現金收益。</p></div>
    <div class="teach-steps">
-    <article class="teach-step"><span class="step-no">01</span><div><strong>先看兩條線誰比較高</strong><p>紅線是 CAPE Earnings Yield，代表以過去十年實質盈餘平滑後換算的股票盈餘殖利率；藍線是 10 年期 TIPS 實質殖利率，代表持有美國抗通膨公債的實質報酬率。紅線高於藍線，表示股票盈餘殖利率相對較高；藍線高於紅線，表示公債實質殖利率相對更有吸引力。</p></div></article>
-    <article class="teach-step"><span class="step-no">02</span><div><strong>再看估值對照差的正負與幅度</strong><p>估值對照差＝CAPE Earnings Yield − 10Y TIPS Real Yield。正值代表股票盈餘殖利率較高；負值代表 TIPS 實質殖利率較高。差距擴大代表兩者相對報酬率的落差擴大，但不等於股票必然便宜或昂貴。</p></div></article>
+    <article class="teach-step"><span class="step-no">01</span><div><strong>先看兩條線誰比較高</strong><p>紅線是 長期盈餘殖利率（CAPE），代表以過去十年實質盈餘平滑後換算的股票長期盈餘殖利率；藍線是 10 年期 抗通膨公債實質殖利率，代表持有美國抗通膨公債的實質報酬率。紅線高於藍線，表示股票長期盈餘殖利率相對較高；藍線高於紅線，表示公債實質殖利率相對更有吸引力。</p></div></article>
+    <article class="teach-step"><span class="step-no">02</span><div><strong>再看股票與公債殖利率差的正負與幅度</strong><p>股票與公債殖利率差＝長期盈餘殖利率（CAPE） − 美國 10 年期抗通膨公債實質殖利率。正值代表股票長期盈餘殖利率較高；負值代表 抗通膨公債實質殖利率較高。差距擴大代表兩者相對報酬率的落差擴大，但不等於股票必然便宜或昂貴。</p></div></article>
     <article class="teach-step"><span class="step-no">03</span><div><strong>判斷變化是誰造成的</strong><p>若差值轉負，可能是股票估值提高、盈餘殖利率下降，也可能是實質利率上升；三者的市場含意不同。務必同時觀察 CAPE 與 TIPS 的走勢，不能只看差值。</p></div></article>
    </div>
-   <div class="teaching-example"><strong>目前數值示範</strong><p>2026 年 10 月：CAPE Earnings Yield 約 2.46%，10Y TIPS 實質殖利率約 2.78%，估值對照差約 <b>−0.33 個百分點</b>。意思是當時 TIPS 實質殖利率高於 CAPE 盈餘殖利率約 0.33 個百分點；這是相對比較，不代表標普 500 必然下跌，也不是完整股權風險溢酬。</p></div>
-   <div class="teach-caution"><b>常見誤讀：</b>不要把 CAPE Earnings Yield 當成股票未來報酬率；不要把本圖的估值對照差直接稱為 Fed Equity Premium；也不要把正值／負值直接翻譯成買進／賣出訊號。</div>
+   <div class="teaching-example"><strong>目前數值示範</strong><p>2026 年 10 月：長期盈餘殖利率（CAPE） 約 2.46%，10Y 抗通膨公債實質殖利率約 2.78%，股票與公債殖利率差約 <b>−0.33 個百分點</b>。意思是當時 抗通膨公債實質殖利率高於 CAPE 盈餘殖利率約 0.33 個百分點；這是相對比較，不代表標普 500 必然下跌，也不是完整股權風險溢酬。</p></div>
+   <div class="teach-caution"><b>常見誤讀：</b>不要把 長期盈餘殖利率（CAPE） 當成股票未來報酬率；不要把本圖的股票與公債殖利率差直接稱為 聯準會估算股票風險溢酬；也不要把正值／負值直接翻譯成買進／賣出訊號。</div>
   </section>
  </section>
  <section class="panel" id="panel-forward">
   <div class="section-head"><div><h2 class="section-title">Forward 估值與風險溢酬</h2><div class="section-sub">採 Federal Reserve Financial Stability Report 公布的歷史月資料；各報告版本分開保存</div></div><div class="asof" id="forward-asof">資料載入中…</div></div>
   <div class="forward-kpis">
-   <article class="kpi"><div class="kpi-label">Forward P/E</div><div class="kpi-value" id="f-pe">—</div><div class="kpi-unit">倍</div><div class="kpi-note" id="f-pe-date">最新可核實月份</div></article>
-   <article class="kpi"><div class="kpi-label">Forward Earnings Yield</div><div class="kpi-value" id="f-ey">—</div><div class="kpi-unit">%</div><div class="kpi-note">依 Forward P/E 倒數換算</div></article>
-   <article class="kpi"><div class="kpi-label">Fed Equity Premium</div><div class="kpi-value" id="f-ep">—</div><div class="kpi-unit">百分點（pp）</div><div class="kpi-note" id="f-ep-date">Fed 官方定義序列</div></article>
+   <article class="kpi"><div class="kpi-label">預估本益比</div><div class="kpi-value" id="f-pe">—</div><div class="kpi-unit">倍</div><div class="kpi-note" id="f-pe-date">最新可核實月份</div></article>
+   <article class="kpi"><div class="kpi-label">預估盈餘殖利率</div><div class="kpi-value" id="f-ey">—</div><div class="kpi-unit">%</div><div class="kpi-note">依 預估本益比 倒數換算</div></article>
+   <article class="kpi"><div class="kpi-label">聯準會估算股票風險溢酬</div><div class="kpi-value" id="f-ep">—</div><div class="kpi-unit">百分點（pp）</div><div class="kpi-note" id="f-ep-date">Fed 官方定義序列</div></article>
   </div>
   <div class="status-note" id="forward-status">Forward 估值資料版本載入中…</div>
   <div class="forward-grid">
    <div class="chart-card">
-    <div class="chart-head"><div><h3 class="chart-title">S&amp;P 500 Forward P/E</h3><div class="chart-desc">12 個月預期盈餘口徑，單位：倍</div></div><div class="chart-controls"><select id="fed-vintage"><option value="2026-05">Fed 2026-05 版本</option><option value="2025-11">Fed 2025-11 版本</option></select></div></div>
-    <div class="chart-wrap"><div class="tooltip" id="pe-tooltip"></div><svg id="pe-chart" class="chart-svg" viewBox="0 0 1100 330" role="img" aria-label="S&P 500 Forward P/E 歷史走勢"><text x="550" y="160" text-anchor="middle">資料載入中…</text></svg></div>
+    <div class="chart-head"><div><h3 class="chart-title">S&amp;P 500 預估本益比</h3><div class="chart-desc">12 個月預期盈餘口徑，單位：倍</div></div><div class="chart-controls"><select id="fed-vintage"><option value="2026-05">Fed 2026-05 版本</option><option value="2025-11">Fed 2025-11 版本</option></select></div></div>
+    <div class="chart-wrap"><div class="tooltip" id="pe-tooltip"></div><svg id="pe-chart" class="chart-svg" viewBox="0 0 1100 330" role="img" aria-label="S&P 500 預估本益比 歷史走勢"><text x="550" y="160" text-anchor="middle">資料載入中…</text></svg></div>
    </div>
    <div class="chart-card">
-    <div class="chart-head"><div><h3 class="chart-title">Fed Equity Premium</h3><div class="chart-desc">Forward E/P − Fed Expected Real Treasury Yield，單位：pp</div></div></div>
-    <div class="chart-wrap"><div class="tooltip" id="ep-tooltip"></div><svg id="ep-chart" class="chart-svg" viewBox="0 0 1100 330" role="img" aria-label="Fed Equity Premium 歷史走勢"><text x="550" y="160" text-anchor="middle">資料載入中…</text></svg></div>
+    <div class="chart-head"><div><h3 class="chart-title">聯準會估算股票風險溢酬</h3><div class="chart-desc">Forward E/P − 聯準會估算的預期公債實質殖利率，單位：pp</div></div></div>
+    <div class="chart-wrap"><div class="tooltip" id="ep-tooltip"></div><svg id="ep-chart" class="chart-svg" viewBox="0 0 1100 330" role="img" aria-label="聯準會估算股票風險溢酬 歷史走勢"><text x="550" y="160" text-anchor="middle">資料載入中…</text></svg></div>
    </div>
   </div>
-  <div class="note">Fed Expected Real Treasury Yield 依 10 年期 CPI 通膨預測與平滑名目殖利率曲線估計；不得以名目 10Y Treasury yield 或 DFII10 直接代替。Forward P/E 與 Equity Premium 的歷史值會隨報告版本修訂。</div>
+  <div class="note">聯準會估算的預期公債實質殖利率 依 10 年期 CPI 通膨預測與平滑名目殖利率曲線估計；不得以名目 10Y Treasury yield 或 DFII10 直接代替。預估本益比 與 Equity Premium 的歷史值會隨報告版本修訂。</div>
   <section class="teaching" aria-labelledby="forward-teaching-title">
-   <div class="teaching-head"><span class="teaching-kicker">INVESTMENT READING GUIDE</span><h3 id="forward-teaching-title">判讀教學｜Forward 估值與 Fed Equity Premium</h3><p>這組指標使用未來 12 個月預期盈餘，與長期 CAPE 視角不同；它更貼近分析師對近期企業獲利的估計，但也更容易受到預期修正影響。</p></div>
+   <div class="teaching-head"><span class="teaching-kicker">INVESTMENT READING GUIDE</span><h3 id="forward-teaching-title">判讀教學｜Forward 估值與 聯準會估算股票風險溢酬</h3><p>這組指標使用未來 12 個月預期盈餘，與長期 CAPE 視角不同；它更貼近分析師對近期企業獲利的估計，但也更容易受到預期修正影響。</p></div>
    <div class="teach-steps">
-    <article class="teach-step"><span class="step-no">01</span><div><strong>Forward P/E：市場為預期盈餘付出多少倍數</strong><p>Forward P/E 越高，代表投資人為每一元未來 12 個月預期盈餘支付的價格越高。需搭配利率、獲利成長與預期是否過度樂觀判讀；倍數高不代表市場必然立即下跌。</p></div></article>
-    <article class="teach-step"><span class="step-no">02</span><div><strong>Forward Earnings Yield：把本益比換成殖利率語言</strong><p>計算方式為 100 ÷ Forward P/E。它是預期盈餘相對股價的比率，方便與利率比較，但不是股東實際收到的現金殖利率，也不是保證報酬。</p></div></article>
-    <article class="teach-step"><span class="step-no">03</span><div><strong>Fed Equity Premium：看預期盈餘殖利率相對實質利率的補償</strong><p>依 Fed 報告定義，為 Forward Earnings Yield 減去 Fed Expected Real Treasury Yield。數值較高，表示股票預期盈餘殖利率相對實質公債利率的差距較大；數值較低或轉負，代表這項相對補償縮小。但它仍不是完整風險模型，也不能單獨預測股市方向。</p></div></article>
+    <article class="teach-step"><span class="step-no">01</span><div><strong>預估本益比：市場為預期盈餘付出多少倍數</strong><p>預估本益比 越高，代表投資人為每一元未來 12 個月預期盈餘支付的價格越高。需搭配利率、獲利成長與預期是否過度樂觀判讀；倍數高不代表市場必然立即下跌。</p></div></article>
+    <article class="teach-step"><span class="step-no">02</span><div><strong>預估盈餘殖利率：把本益比換成殖利率語言</strong><p>計算方式為 100 ÷ 預估本益比。它是預期盈餘相對股價的比率，方便與利率比較，但不是股東實際收到的現金殖利率，也不是保證報酬。</p></div></article>
+    <article class="teach-step"><span class="step-no">03</span><div><strong>聯準會估算股票風險溢酬：看預期盈餘殖利率相對實質利率的補償</strong><p>依 Fed 報告定義，為 預估盈餘殖利率 減去 聯準會估算的預期公債實質殖利率。數值較高，表示股票預期盈餘殖利率相對實質公債利率的差距較大；數值較低或轉負，代表這項相對補償縮小。但它仍不是完整風險模型，也不能單獨預測股市方向。</p></div></article>
     <article class="teach-step"><span class="step-no">04</span><div><strong>切換報告版本：辨認歷史資料修訂</strong><p>同一歷史月份在不同 Fed 報告版本可能不同，這反映資料更新或估計修訂。比較時先確認所選報告版本與資料截止日，不要把不同版本拼接成一條看似連續、實際口徑不一致的序列。</p></div></article>
    </div>
-   <div class="teaching-example"><strong>目前可核實版本示範</strong><p>Fed 2026 年 5 月報告版本的資料截至 2026 年 4 月：Forward P/E 約 20.85 倍，換算 Forward Earnings Yield 約 4.80%，Fed Equity Premium 約 +2.80 個百分點。這代表該版本估計的預期盈餘殖利率高於 Fed 預期實質公債殖利率約 2.80 個百分點；不是預測股市將上漲 2.80%。</p></div>
+   <div class="teaching-example"><strong>目前可核實版本示範</strong><p>Fed 2026 年 5 月報告版本的資料截至 2026 年 4 月：預估本益比 約 20.85 倍，換算 預估盈餘殖利率 約 4.80%，聯準會估算股票風險溢酬 約 +2.80 個百分點。這代表該版本估計的預期盈餘殖利率高於 Fed 預期實質公債殖利率約 2.80 個百分點；不是預測股市將上漲 2.80%。</p></div>
    <div class="teach-caution"><b>資料提醒：</b>Fed 2026 年 11 月報告雖已發布，但目前沒有可解析的精確數值表，因此本頁不以圖表目測值補造最新 Forward 數字。請以畫面所示報告版本及資料截止日為準。</div>
   </section>
  </section>
@@ -215,18 +217,18 @@ function drawLong(){
  let data=subsetRange(state.long,state.range);
  if(state.view==="cape-history"){
   let history=subsetRange(state.capeHistory,state.range);
-  setText("long-chart-title","Shiller CAPE｜長期估值歷史");
-  setText("long-chart-desc","保留 Shiller 傳統 CAPE 自 1881 年起的月資料；此圖不代表同期間已有 TIPS 實質殖利率對照。");
-  renderSvg("long-chart","long-tooltip",history,[{key:"cape",label:"Shiller CAPE",color:COLORS.ey,unit:"x",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.capeHistory.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.view==="cape-history"?state.capeHistory.length:state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
-  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>Shiller CAPE</span>';
+  setText("long-chart-title","席勒循環調整本益比（CAPE）｜長期估值歷史");
+  setText("long-chart-desc","保留 Shiller 傳統 CAPE 自 1881 年起的月資料；此圖不代表同期間已有 抗通膨公債實質殖利率對照。");
+  renderSvg("long-chart","long-tooltip",history,[{key:"cape",label:"席勒循環調整本益比（CAPE）",color:COLORS.ey,unit:"x",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.capeHistory.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.view==="cape-history"?state.capeHistory.length:state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
+  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>席勒循環調整本益比（CAPE）</span>';
  }else if(state.view==="yields"){
-  setText("long-chart-title","股票盈餘殖利率 vs. TIPS 實質殖利率");
+  setText("long-chart-title","股票長期盈餘殖利率 vs. 抗通膨公債實質殖利率");
   setText("long-chart-desc","兩條殖利率使用相同百分比縱軸；每月按日期配對，缺值不補值。可用滾輪縮放、水平拖曳平移。");
-  renderSvg("long-chart","long-tooltip",data,[{key:"ey",label:"CAPE Earnings Yield",color:COLORS.ey,unit:"%",decimals:2},{key:"real",label:"10Y TIPS Real Yield",color:COLORS.real,unit:"%",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.long.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
-  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>CAPE Earnings Yield</span><span class="legend-item"><i class="swatch" style="background:'+COLORS.real+'"></i>10Y TIPS Real Yield</span>';
+  renderSvg("long-chart","long-tooltip",data,[{key:"ey",label:"長期盈餘殖利率（CAPE）",color:COLORS.ey,unit:"%",decimals:2},{key:"real",label:"美國 10 年期抗通膨公債實質殖利率",color:COLORS.real,unit:"%",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.long.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
+  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>長期盈餘殖利率（CAPE）</span><span class="legend-item"><i class="swatch" style="background:'+COLORS.real+'"></i>美國 10 年期抗通膨公債實質殖利率</span>';
  }else{
-  setText("long-chart-title","CAPE 盈餘殖利率 − 10Y TIPS 實質殖利率");
-  setText("long-chart-desc","正值代表 CAPE 盈餘殖利率高於 TIPS 實質殖利率；負值代表低於。");
+  setText("long-chart-title","CAPE 盈餘殖利率 − 10Y 抗通膨公債實質殖利率");
+  setText("long-chart-desc","正值代表 CAPE 盈餘殖利率高於 抗通膨公債實質殖利率；負值代表低於。");
   renderSvg("long-chart","long-tooltip",data,[{key:"spread",label:"Equity–Real Yield Spread",color:COLORS.spread,unit:" pp",decimals:2}],{height:390,zero:true,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.long.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
   document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.spread+'"></i>Equity–Real Yield Spread</span>';
  }
@@ -241,8 +243,8 @@ function drawForward(){
  setText("f-ey",(100/p.value).toFixed(2));setText("f-ep",signed(e.value,2));setText("f-ep-date",e.date+"｜Fed 官方序列");
  setText("forward-asof","數值資料截至 "+p.date+"｜報告版本 "+vintage);
  setText("forward-status",vintage==="2026-05"?"目前最新可核實數值表：Fed 2026-05 報告（發布 2026-05-08，資料截至 2026-04）。Fed 2026-11 報告已發布、資料截至 2026-10-28，但目前沒有可解析的數值表；此處不以圖形估讀補值。":"歷史版本：Fed 2025-11 報告（發布 2025-11-07，資料截至 2025-10）。此版本保留供歷史修訂比較，不代表最新數值。");
- renderSvg("pe-chart","pe-tooltip",pe,[{key:"value",label:"Forward P/E",color:COLORS.pe,unit:"x",decimals:2}],{height:330});
- renderSvg("ep-chart","ep-tooltip",ep,[{key:"value",label:"Fed Equity Premium",color:COLORS.ep,unit:" pp",decimals:2}],{height:330,zero:true});
+ renderSvg("pe-chart","pe-tooltip",pe,[{key:"value",label:"預估本益比",color:COLORS.pe,unit:"x",decimals:2}],{height:330});
+ renderSvg("ep-chart","ep-tooltip",ep,[{key:"value",label:"聯準會估算股票風險溢酬",color:COLORS.ep,unit:" pp",decimals:2}],{height:330,zero:true});
 }
 function activateMode(mode){state.mode=mode;document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+mode));}
 document.querySelectorAll(".mode-btn").forEach(b=>b.addEventListener("click",()=>activateMode(b.dataset.mode)));
