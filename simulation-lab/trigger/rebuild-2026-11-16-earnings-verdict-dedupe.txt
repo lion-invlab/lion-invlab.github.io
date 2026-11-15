@@ -1,0 +1,1 @@
+Rebuild the 2026-11-16 simulation review after removing duplicate EPS/revenue verdict prose. Verify the final HTML contains exactly one canonical EPS and one revenue judgment per released card. Simulation branch only; never write main or deploy.
