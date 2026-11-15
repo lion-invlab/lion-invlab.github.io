@@ -1610,3 +1610,20 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最終 QA：deterministic tests、main earnings schema read-only audit、OHLC capture、earnings price reaction capture、DOM assembly、browser interaction、mother visual regression 1440／768／360、calendar／44 indicators／news shape 全 PASS。經濟 16/16、財報 48/48、指標 44、焦點新聞 5、頭條 10；interaction page errors 0。
 - main 保護資產未變：`index.html` SHA `193644d363c8f590b4b2c8d07292b01337e3dee0`；W46 SHA `a7bab78c8c4a254e2081d89693571c41897f8243`；正式 Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；正式 weekday mother SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。
 - 狀態：審核版已交付，未發布至正式首頁；等待使用者審核。市場行情／新聞／行事曆資料來源為 05:25 前人工查核快照；不可描述成 44 項全部 live-data E2E。
+
+
+
+## 2026-11-15｜五區經濟卡產製鏈根因修正（SIM-1.2，尚待 Actions 實測）
+
+- 工作範圍：僅 simulation/tac-process-lab-2026-11-06；main、正式首頁、雙母版、Manifest、QA 契約及 main 行事曆 JSON 均唯讀。
+- 根因：build_review_html.py 的週一上週經濟卡仍以舊回顧卡 prototype 為基礎，只有四區，再插入市場影響欄作第五區；沒有建立 econ-primary-grid。先前提交 218f9562ee9d2ed4b4a112b866d5c410c06a4165 只修單份 preview，沒有修產生器。
+- 修正：組裝器的週一上週卡改以同一核准週一母版內符合五區契約的本週卡 DOM 為內容原型，保留上週母版的 summary／econ-event-toggle 外殼；五欄逐欄填入。來源欄先清空再重建，避免殘留母版示範連結。putfield 改為唯一欄位匹配，序列化前逐張驗證本週與上週卡 DOM。
+- 產製與交付路徑：workflow 建置輸出改為唯一預覽路徑 preview/YYYY-MM-DD-simulation.html；互動測試、視覺回歸、獨立驗證及最終 commit 均使用同一 REPORT_OUTPUT。
+- 流程拆分：workflow_dispatch 新增 build 與 qa-only。qa-only 僅接受指定日期的 canonical preview，執行互動、視覺及 provenance／結構驗證，不擷取行情、不組裝、不寫回 branch。
+- 來源追溯：審核版 HTML 新增 TAC_BUILD_PROVENANCE，記錄 build commit、builder blob SHA、fixture blob SHA、核准母版 SHA、main calendar commit 與 Wxx JSON blob SHA。新增 validate_review_artifact.py，獨立核對 SHA、日期、行事曆筆數、星期情境、ID 唯一性及經濟卡五區 DOM。
+- 交付證據：build 模式在所有 QA 通過後產生 .qa.json sidecar，綁定 HTML Git blob SHA／SHA-256、互動與視覺證據 SHA、五個 viewport 及 workflow run ID；提交前後核對 HTML 與 sidecar blob SHA。
+- 相關提交：builder 五區修正 0f065e76f73bb3b2e0183048097b651f02697504；builder provenance d0c362bc23e068cbfc03e9529fa49e1294869bbf；validator 9b023d5f1687d03a46a1e2a711a81662f25edfff／後續修正 86f23ab765eb8f0eccb3192869e84a7ae105581b；workflow canonical path／qa-only 48abfb95b3572359067e01919209bc8bbc9b7041；workflow evidence seal 363f67b68ad778360d31a3bd62c873db23123d1d。
+- 當前檔案 blob SHA：SIM WR 3a5540aca30aa760877951ce47786d2574e4f1a7；Manifest dc6090c895e2abc17bb16225f4a581ddee5821b1；QA contract 824c327fb66fc8c5d4107b69abd9316c00bfe903；builder eb5ad403292532487f2d5c4e4e102a6eb20e7021；validator 5cf9bcb9d06277365e4ec33c039a3a206466a92d；workflow a534ff035f76ec1e08ccc37d99709cc792b68f32。
+- 資料前置核對：main W47 有 22 筆經濟、21 筆財報，blob SHA 4a85e0cb9db029e663a2422ce691603bbe9e871a；main W46 有 16 筆經濟、48 筆財報，blob SHA edf33bdd3b9573b08a9381f617ac3ad4357a1c2d（大型 JSON 需以 blob API 讀取；contents API 回空不代表資料庫為空）。W46 已公布五星經濟事件 1 筆，來源與影響欄均有值；W47 22 筆經濟事件來源與影響欄均有值。
+- 驗收狀態：已寫入程式與 workflow，並加入 Python compile gate；已觸發 [build-tac-report] 完整整合流程提交 363f67b68ad778360d31a3bd62c873db23123d1d。目前 connector 未提供可讀取該 push workflow run 的 run ID／job logs；Python compile、完整 build、Playwright、五尺寸視覺、sidecar seal 仍標示待 Actions 實測，不宣稱 PASS。simulation branch 的 preview/2026-11-16-simulation.html 與 .qa.json 尚未回讀確認存在。
+- 下一個恢復點：讀取本分支最新 workflow run 與 job logs；若成功，回讀 preview HTML／sidecar 並比對 blob SHA；若失敗，依第一個失敗步驟修復，不重抓已核實資料、不碰 main。
