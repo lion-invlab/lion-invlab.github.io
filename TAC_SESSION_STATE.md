@@ -1636,3 +1636,9 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - push 後再 fetch simulation branch，直接從遠端 Git tree 讀回 HTML 與 .qa.json，分別核對 Git blob SHA；遠端回讀不一致即失敗。
 - 最新 workflow commit：dbafdd2583df8c4463130bc30b1904e508a67a4c；workflow blob SHA：ff1fd5a6a5e9053694f56ea863934b39eca2cd54。
 - 本輪仍未取得 GitHub Actions push run 的可讀 run ID／job logs，故整合執行與最終 preview／sidecar 尚未驗收。
+
+
+## 2026-11-15｜目前修復狀態更新
+- 最新 Actions Run 43662993185 已取得 job logs；失敗點明確為 Monday disclosure selector 過度要求 direct-child，實際 approved DOM 有 article wrapper。
+- 已在 simulation branch 修正 validator selector，並修正失敗流程的 ORTEX 歸檔 writer 及安全 push retry。
+- 下一步：以 `[build-tac-report]` 觸發完整 workflow，確認所有 gates 及 preview/evidence 是否成功回寫；main、正式首頁、母版及 main calendar JSON 均維持唯讀。
