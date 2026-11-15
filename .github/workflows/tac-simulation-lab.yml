@@ -117,7 +117,7 @@ jobs:
 
       - name: Audit W46 PIT projection (read-only, simulation data only)
         shell: bash
-        run: python simulation-lab/runner/audit_simulation_pit_projection.py --input data/calendar/weeks/2026-W46.json --output simulation-lab/output/w46-pit-projection-audit.json
+        run: python simulation-lab/runner/audit_simulation_pit_projection.py --report-date 2026-11-16 --output simulation-lab/output/w46-pit-projection-audit.json
 
       - name: Probe Yahoo EPS methodology metadata (simulation only)
         shell: bash
