@@ -305,7 +305,17 @@ try {
           if (columns !== expectedColumns) invalid.push("visible EPS/revenue cards layout mismatch: expected " + expectedColumns + " column(s), found " + columns);
         }
       }
-      return { mode, count: cards.length, invalid, columns, pairedGeometry, visible_result_grids: measured.length };
+      return {
+        mode, count: cards.length, invalid, columns, pairedGeometry,
+        viewport_inner_width: innerWidth,
+        diagnostic_sample: measured[0] ? {
+          media_max_640_matches: measured[0].media_max_640_matches,
+          computed_grid_template_columns: measured[0].computed_grid_template_columns,
+          mobile_override_present: measured[0].mobile_override_present,
+          grid_client_width: measured[0].grid_client_width
+        } : null,
+        visible_result_grids: measured.length
+      };
     });
     snapshots[v.name].earnings_component = earningsAudit;
     // Save a focused, unobscured screenshot of the actual published cards after
