@@ -8428,7 +8428,29 @@
       "files_modified": [
         "data/calendar/weeks/2026-W47.json"
       ],
-      "run_status": "partial_success_economic_updated_consensus_pending"
+      "run_status": "partial_success_economic_updated_consensus_pending",
+      "postwrite_readback": {
+        "verified_at": "2026-11-16T04:46:02+08:00",
+        "data_commit_sha": "878fbfee3eefa7ac2063df5670bf55eea0248c39",
+        "data_commit_blob_sha": "f59d7c511831647715390b952ca3491d6609c9cf",
+        "checks": {
+          "same_week_path": true,
+          "schema_version_1_retained": true,
+          "economic_events_25": true,
+          "earnings_events_21": true,
+          "eps_snapshots_21": true,
+          "revenue_snapshots_21": true,
+          "eps_attempts_126": true,
+          "revenue_attempts_126": true,
+          "snapshot_ids_unique": true,
+          "all_snapshots_pending_required_fields": true,
+          "raw_response_ref_null": true,
+          "old_attempts_and_snapshots_preserved": true,
+          "legacy_fields_and_judgments_unchanged": true,
+          "economic_ids_unique_and_sorted": true,
+          "only_authorized_file_modified": true
+        }
+      }
     }
   ],
   "last_update_audit": {
@@ -8588,7 +8610,29 @@
     ],
     "economic_sorted": true,
     "earnings_sorted": true,
-    "final_validation_status": "prewrite_checks_passed_postwrite_readback_required",
-    "last_verified_at": "2026-11-16T04:44:57+08:00"
+    "final_validation_status": "passed",
+    "last_verified_at": "2026-11-16T04:46:02+08:00",
+    "data_commit_sha": "878fbfee3eefa7ac2063df5670bf55eea0248c39",
+    "data_commit_blob_sha": "f59d7c511831647715390b952ca3491d6609c9cf",
+    "postwrite_readback": {
+      "verified_at": "2026-11-16T04:46:02+08:00",
+      "checks": {
+        "same_week_path": true,
+        "schema_version_1_retained": true,
+        "economic_events_25": true,
+        "earnings_events_21": true,
+        "eps_snapshots_21": true,
+        "revenue_snapshots_21": true,
+        "eps_attempts_126": true,
+        "revenue_attempts_126": true,
+        "snapshot_ids_unique": true,
+        "all_snapshots_pending_required_fields": true,
+        "raw_response_ref_null": true,
+        "old_attempts_and_snapshots_preserved": true,
+        "legacy_fields_and_judgments_unchanged": true,
+        "economic_ids_unique_and_sorted": true,
+        "only_authorized_file_modified": true
+      }
+    }
   }
 }
