@@ -293,7 +293,15 @@ def main():
         consensus_projection=json.loads(Path(args.earnings_consensus_projection).read_text(encoding="utf-8"))
         apply_consensus_projection(data, consensus_projection, calendar_source)
     elif data.get("report_date") == "2026-11-16":
-        raise ValueError("2026-11-16 W47 simulation build requires the TAC-observed consensus projection")
+        data["earnings_consensus_projection_status"] = {
+            "status": "not_available",
+            "source": "main_calendar_only",
+            "reason": (
+                "The authoritative main W47 calendar contains no accepted EPS/revenue "
+                "consensus values. Per SIM-1.3, upcoming earnings cards must display "
+                "預期資料尚未取得. Do not read simulation-branch calendar snapshots or infer estimates."
+            ),
+        }
     if args.price_reactions:
         reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
         reaction_calendar_side = "previous" if datetime.fromisoformat(data["report_date"]).weekday() == 0 else "current"

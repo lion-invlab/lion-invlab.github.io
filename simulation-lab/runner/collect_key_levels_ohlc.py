@@ -45,8 +45,9 @@ def apply_ohlc_override(key: str, values: dict[str, float], override: dict | Non
     if str(override.get("trading_date", "")) != trading_date:
         raise ValueError(f"{key}: OHLC override trading date does not match {trading_date}")
     adjusted = dict(values)
-    for field in ("high", "low", "close"):
-        adjusted[field.title()] = number(override[field], f"{key}.override.{field}")
+    for field in ("open", "high", "low", "close"):
+        if field in override:
+            adjusted[field.title()] = number(override[field], f"{key}.override.{field}")
     if adjusted["High"] < adjusted["Low"]:
         raise ValueError(f"{key}: override High is below Low")
     if not adjusted["Low"] <= adjusted["Close"] <= adjusted["High"]:
@@ -99,27 +100,42 @@ def collect(now: datetime | None = None, allow_manual: bool = False, report_date
         symbol, url_symbol = SYMBOLS[key]
         start = (date.fromisoformat(trading_date) - timedelta(days=2)).isoformat()
         end = (date.fromisoformat(trading_date) + timedelta(days=1)).isoformat()
+        override = overrides.get(key)
         frame = yf.Ticker(symbol).history(
             start=start, end=end, interval="1d",
             auto_adjust=False, actions=False
         )
-        if frame is None or frame.empty:
-            raise ValueError(f"{key}: Yahoo Finance returned no daily bars")
-        rows = [(idx.date().isoformat(), row) for idx, row in frame.iterrows()]
+        rows = [] if frame is None or frame.empty else [
+            (idx.date().isoformat(), row) for idx, row in frame.iterrows()
+        ]
         matches = [(day, row) for day, row in rows if day == trading_date]
-        if len(matches) != 1:
+        if len(matches) == 1:
+            _, row = matches[0]
+            values = {
+                field: number(row[field], f"{key}.{field}")
+                for field in ("Open", "High", "Low", "Close")
+            }
+            values, override_source_name, override_source_url = apply_ohlc_override(
+                key, values, override, trading_date
+            )
+        elif (
+            override
+            and allow_manual
+            and all(field in override for field in ("open", "high", "low", "close"))
+        ):
+            values = {
+                field: number(override[field.lower()], f"{key}.override.{field.lower()}")
+                for field in ("Open", "High", "Low", "Close")
+            }
+            values, override_source_name, override_source_url = apply_ohlc_override(
+                key, values, override, trading_date
+            )
+        else:
             available = [day for day, _ in rows]
             raise ValueError(
-                f"{key}: expected exactly one bar for {trading_date}; got {available}"
+                f"{key}: expected exactly one Yahoo bar for {trading_date} or a complete "
+                f"same-session manual OHLC override; Yahoo dates={available}"
             )
-        _, row = matches[0]
-        values = {
-            field: number(row[field], f"{key}.{field}")
-            for field in ("Open", "High", "Low", "Close")
-        }
-        values, override_source_name, override_source_url = apply_ohlc_override(
-            key, values, overrides.get(key), trading_date
-        )
         if values["High"] < values["Low"]:
             raise ValueError(f"{key}: High is below Low")
         if not values["Low"] <= values["Open"] <= values["High"]:

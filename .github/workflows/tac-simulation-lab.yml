@@ -101,7 +101,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # SIM-1.2 retires WR-lock / daily-snapshot / legacy renderer prerequisites.
+          # SIM-1.3 retires WR-lock / daily-snapshot / legacy renderer prerequisites.
           python simulation-lab/runner/calendar_source_guard.py --self-test
           python simulation-lab/runner/collect_earnings_price_reactions.py --self-test
           python simulation-lab/runner/key_levels_builder.py --ohlc simulation-lab/fixtures/key-levels-ohlc-2026-11-09.json --data simulation-lab/fixtures/report-data-2026-11-09.json --report-date 2026-11-09 --self-test
@@ -113,7 +113,6 @@ jobs:
           python simulation-lab/runner/test_earnings_judgment_engine.py
           python simulation-lab/runner/test_earnings_schema_audit.py
           python simulation-lab/runner/validate_earnings_v2.py --self-test
-          python simulation-lab/runner/test_w47_consensus_projection.py
 
       - name: Audit W46 PIT projection (read-only, simulation data only)
         shell: bash
@@ -124,12 +123,6 @@ jobs:
         run: |
           set -euo pipefail
           python simulation-lab/runner/probe_yfinance_estimate_methodology.py --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json --output simulation-lab/output/yfinance-methodology-probe.json --tickers BIDU,NVDA,WMT,BEKE,ARMK,TSN,JD,DIS,HD,TGT,LOW,TJX,PANW,P,BABA,NTES,PDD,WSM,ROST,INTU,KEYS
-
-      - name: Project W47 Yahoo TAC-observed consensus (simulation only)
-        shell: bash
-        run: |
-          set -euo pipefail
-          python simulation-lab/runner/project_w47_yahoo_consensus.py --calendar simulation-lab/fixtures/source-calendar-2026-W47.json --expected-calendar-blob-sha 4a85e0cb9db029e663a2422ce691603bbe9e871a --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json --yfinance-methodology simulation-lab/output/yfinance-methodology-probe.json --output simulation-lab/output/w47-yahoo-consensus-projection.json
 
       - name: Audit authoritative main earnings schema (read-only)
         shell: bash
@@ -247,11 +240,7 @@ jobs:
       - name: Assemble date-driven review from the matching fixture and approved mother
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
-          CONSENSUS_ARGS=()
-          if [[ "${REPORT_DATE}" == "2026-11-16" ]]; then
-            CONSENSUS_ARGS+=(--earnings-consensus-projection simulation-lab/output/w47-yahoo-consensus-projection.json)
-          fi
-          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
+          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}"
 
       - name: Set up Node for browser QA
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
