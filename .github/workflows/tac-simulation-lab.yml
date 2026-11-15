@@ -148,6 +148,7 @@ jobs:
           echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
           echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
           echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html" >> "$GITHUB_ENV"
+          echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
       - name: Resolve QA-only existing review target
@@ -184,6 +185,7 @@ jobs:
           test -s "${REPORT_OUTPUT}" || { echo "Existing review HTML not found: ${REPORT_OUTPUT}"; exit 1; }
           echo "REPORT_DATE=${REPORT_DATE}" >> "$GITHUB_ENV"
           echo "REPORT_OUTPUT=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
+          echo "REPORT_EVIDENCE=preview/${REPORT_DATE}-simulation.qa.json" >> "$GITHUB_ENV"
           echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
           echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
           echo "QA_ONLY=true" >> "$GITHUB_ENV"
@@ -265,6 +267,59 @@ jobs:
           print(f"PASS: report_date={report_date}; calendar={actual_econ}/{expected_econ}; earnings={actual_earnings}/{expected_earnings}; indicators=44; focus=5; headlines=10")
           PY
 
+      - name: Seal QA evidence to the exact review HTML blob
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - "${REPORT_OUTPUT}" "${REPORT_DATE}" "${REPORT_EVIDENCE}" <<'PY'
+          import hashlib, json, re, subprocess, sys
+          from pathlib import Path
+          from bs4 import BeautifulSoup, Comment
+          report_path, report_date, evidence_path = sys.argv[1:]
+          raw = Path(report_path).read_bytes()
+          soup = BeautifulSoup(raw, "html.parser")
+          comment = next((str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x)), None)
+          if not comment: raise SystemExit("missing TAC_BUILD_PROVENANCE")
+          match = re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})", comment, re.S)
+          if not match: raise SystemExit("malformed TAC_BUILD_PROVENANCE")
+          provenance = json.loads(match.group(1))
+          interaction_path = Path("simulation-lab/output/interaction-smoke.json")
+          visual_path = Path("simulation-lab/output/visual/visual-regression.json")
+          interaction = json.loads(interaction_path.read_text(encoding="utf-8"))
+          visual = json.loads(visual_path.read_text(encoding="utf-8"))
+          if interaction.get("status") != "PASS" or interaction.get("page_errors"):
+              raise SystemExit("interaction evidence is not PASS")
+          if visual.get("failures") or visual.get("report_date") != report_date:
+              raise SystemExit("visual evidence is not PASS or report date mismatch")
+          expected_widths = [1440, 768, 412, 390, 360]
+          actual_widths = [v.get("width") for v in visual.get("viewports", [])]
+          if actual_widths != expected_widths:
+              raise SystemExit(f"visual viewport evidence mismatch: {actual_widths}")
+          evidence = {
+              "status": "QA_PASSED",
+              "branch": "simulation/tac-process-lab-2026-11-06",
+              "report_path": report_path,
+              "report_date": report_date,
+              "report_git_blob_sha": subprocess.check_output(["git", "hash-object", report_path], text=True).strip(),
+              "report_sha256": hashlib.sha256(raw).hexdigest(),
+              "build_commit_sha": provenance["build_commit_sha"],
+              "builder_blob_sha": provenance["builder_blob_sha"],
+              "fixture_blob_sha": provenance["fixture_blob_sha"],
+              "template_blob_sha": provenance["template_blob_sha"],
+              "calendar_main_commit_sha": provenance["calendar_main_commit_sha"],
+              "calendar_current_blob_sha": provenance["calendar_current_blob_sha"],
+              "calendar_previous_blob_sha": provenance["calendar_previous_blob_sha"],
+              "interaction_evidence_sha256": hashlib.sha256(interaction_path.read_bytes()).hexdigest(),
+              "visual_evidence_sha256": hashlib.sha256(visual_path.read_bytes()).hexdigest(),
+              "viewports": actual_widths,
+              "workflow_run_id": "${{ github.run_id }}",
+              "workflow_run_attempt": "${{ github.run_attempt }}"
+          }
+          Path(evidence_path).write_text(json.dumps(evidence, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(evidence, ensure_ascii=False, indent=2))
+          PY
+
       - name: Keep review output isolated to simulation branch artifact
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: test -s "${REPORT_OUTPUT}"
@@ -276,8 +331,9 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f "${REPORT_OUTPUT}"
+          git add -f "${REPORT_OUTPUT}" "${REPORT_EVIDENCE}"
           REVIEW_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
+          EVIDENCE_BLOB_SHA="$(git hash-object "${REPORT_EVIDENCE}")"
           if git diff --cached --quiet; then
             echo "No review HTML changes to persist"
             exit 0
@@ -286,8 +342,10 @@ jobs:
           git fetch origin simulation/tac-process-lab-2026-11-06
           git rebase origin/simulation/tac-process-lab-2026-11-06
           RECHECK_BLOB_SHA="$(git show "HEAD:${REPORT_OUTPUT}" | git hash-object --stdin)"
+          RECHECK_EVIDENCE_SHA="$(git show "HEAD:${REPORT_EVIDENCE}" | git hash-object --stdin)"
           test "${REVIEW_BLOB_SHA}" = "${RECHECK_BLOB_SHA}" || { echo "Review artifact SHA changed during persistence"; exit 1; }
-          echo "QA-passed review artifact committed; blob_sha=${RECHECK_BLOB_SHA}"
+          test "${EVIDENCE_BLOB_SHA}" = "${RECHECK_EVIDENCE_SHA}" || { echo "QA evidence SHA changed during persistence"; exit 1; }
+          echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}"
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
 
       - name: Record isolated run metadata
@@ -332,6 +390,7 @@ jobs:
           path: |
             simulation-lab/output/
             ${{ env.REPORT_OUTPUT }}
+            ${{ env.REPORT_EVIDENCE }}
 
           if-no-files-found: warn
           retention-days: 7
