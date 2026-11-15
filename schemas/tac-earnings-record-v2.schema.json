@@ -496,19 +496,22 @@
         },
         "observed_at": {
           "type": "string",
-          "minLength": 1
+          "minLength": 1,
+          "description": "TAC collector capture timestamp with explicit timezone. Proves when this exact raw response was observed; it is not the provider's data date."
         },
         "data_as_of": {
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "description": "Provider-declared date/time represented by this consensus value. Never copy observed_at into this field; leave null when the provider does not disclose it."
         },
         "provider_recalculated_at": {
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "description": "Provider-declared last recalculation timestamp, distinct from data_as_of and observed_at."
         },
         "event_date": {
           "type": "string",
@@ -591,7 +594,7 @@
             "string",
             "null"
           ],
-          "description": "Source publication timestamp/date, distinct from data_as_of, observed_at and provider_recalculated_at."
+          "description": "Provider/source publication timestamp/date, distinct from data_as_of and observed_at. If known and at/after event_date, the snapshot is not PIT-eligible."
         }
       },
       "additionalProperties": true
