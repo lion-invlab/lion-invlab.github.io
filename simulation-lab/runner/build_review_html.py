@@ -175,6 +175,7 @@ def earnings_commentary(item):
         "miss": "低於預期",
         "inline": "符合預期",
         "pending": "尚未公布／數值尚未齊備",
+        "incomparable": "比較口徑不相容",
     }
     raw = str(item.get("judgment") or "").strip()
     kept = []
