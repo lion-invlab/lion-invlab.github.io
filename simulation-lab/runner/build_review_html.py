@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
-from earnings_judgment import render_status
+from earnings_judgment import render_status, consensus_evidence_label
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
@@ -1250,6 +1250,12 @@ def main():
                         strong=soup.new_tag("strong"); strong.string=formatted or (str(val) if val is not None else "待核實")
                         line.append(lab); line.append(strong); result.append(line)
                     status=soup.new_tag("div", attrs={"class":["earnings-actual-status",state]}); status.string=status_text; result.append(status)
+                    evidence_metric = "eps" if label == "EPS" else "revenue"
+                    evidence_label = consensus_evidence_label(x, evidence_metric)
+                    if evidence_label:
+                        evidence=soup.new_tag("div", attrs={"class":["earnings-actual-note","consensus-evidence-tier"]})
+                        evidence.string=evidence_label
+                        result.append(evidence)
                     if label=="EPS" and state=="pending" and x.get("eps_basis"):
                         note=soup.new_tag("div", attrs={"class":["earnings-actual-note"]}); note.string="EPS口徑："+str(x.get("eps_basis")); result.append(note)
                     grid.append(result)
