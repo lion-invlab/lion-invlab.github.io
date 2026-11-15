@@ -8,9 +8,11 @@ def main():
         "event_id":"earn-1","event_date":"2026-11-18T05:20:00+08:00","ticker":"NVDA",
         "eps_estimate":2.47,"eps_estimate_display":"USD 2.47","eps_currency":"USD",
         "eps_analyst_count":43,"eps_evidence_label":"TAC 公告前觀測共識｜比較口徑待核實",
+        "eps_basis_display":"Normalized（非 GAAP）；Basic／Diluted 股數口徑未揭露",
         "revenue_estimate":108731903900,"revenue_estimate_display":"USD 108.73B",
         "revenue_currency":"USD","revenue_unit":"USD","revenue_analyst_count":45,
         "revenue_evidence_label":"TAC 公告前觀測共識｜比較口徑待核實",
+        "revenue_basis_display":"Revenue 指標定義未揭露；暫不與實際營收方向比較",
         "source_url":"https://finance.yahoo.com/quote/NVDA/analysis/","source_name":"Yahoo Finance",
         "eps_snapshot":{"observed_at":"2026-11-15T05:50:45Z"},
     }
@@ -23,6 +25,8 @@ def main():
     assert got["revenue_estimate"]==108731903900 and got["revenue_analyst_count"]==45
     assert got["eps_estimate_basis_code"] is None and got["revenue_estimate_basis_code"] is None
     assert got["eps_evidence_label"].endswith("比較口徑待核實")
+    assert got["eps_basis_display"].startswith("Normalized")
+    assert got["revenue_basis_display"].startswith("Revenue 指標定義未揭露")
     bad={"current":{"blob_sha":"different"}}
     try: apply_consensus_projection(data,projection,bad)
     except ValueError as exc: assert "blob SHA" in str(exc)
