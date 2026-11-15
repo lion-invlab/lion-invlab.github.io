@@ -90,11 +90,21 @@ def _cutoff_status(
     published_at: str | None = None,
 ) -> tuple[str, str]:
     """Provider as-of, capture time, and any known publication time must support PIT."""
-    if not data_as_of:
-        return "pending_cutoff_time", "missing_data_as_of"
-    asof = _parse_temporal(data_as_of, "data_as_of")
     observed = _parse_temporal(observed_at, "observed_at")
     event = _parse_temporal(event_date, "event_date")
+    # TAC-observed PIT proves what TAC captured before release, not the
+    # provider's data date. Keep this evidence tier explicitly distinct.
+    if not data_as_of:
+        observed_status, observed_reason = _before_event(observed, event, "observed_at")
+        if observed_status != "pre_release_eligible":
+            return observed_status, observed_reason
+        if published_at:
+            published = _parse_temporal(published_at, "published_at")
+            published_status, published_reason = _before_event(published, event, "published_at")
+            if published_status != "pre_release_eligible":
+                return published_status, published_reason
+        return "tac_observed_pre_release_eligible", "immutable_tac_capture_before_event_without_provider_as_of"
+    asof = _parse_temporal(data_as_of, "data_as_of")
 
     # A provider cannot have supplied data dated after TAC observed the page.
     asof_day = asof.date() if isinstance(asof, datetime) else asof
@@ -188,7 +198,7 @@ def build_consensus_snapshot(
         missing.append("unit")
     if not isinstance(raw_response_ref, str) or not raw_response_ref.strip():
         missing.append("raw_response_ref")
-    if status == "pre_release_eligible" and missing:
+    if status in {"pre_release_eligible", "tac_observed_pre_release_eligible"} and missing:
         status, reason = "pending_required_fields", "missing:" + ",".join(missing)
 
     identity = {
