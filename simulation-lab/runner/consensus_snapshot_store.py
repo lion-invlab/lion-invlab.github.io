@@ -14,6 +14,7 @@ PROVIDER_BY_LEVEL = {
     1: "LSEG I/B/E/S",
     2: "FactSet Estimates",
     3: "Investing.com",
+    4: "Yahoo Finance",
 }
 LEVEL_BY_PROVIDER = {v: k for k, v in PROVIDER_BY_LEVEL.items()}
 CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
@@ -148,7 +149,7 @@ def build_consensus_snapshot(
     level = attempt.get("source_level")
     provider = attempt.get("provider")
     if isinstance(level, bool) or not isinstance(level, int) or level not in PROVIDER_BY_LEVEL or PROVIDER_BY_LEVEL[level] != provider:
-        raise ValueError("provider must match the fixed SIM-1.2 source level")
+        raise ValueError("provider must match the fixed SIM-1.3 source level")
     observed_at = attempt.get("observed_at")
     parsed_observed_at = _parse_temporal(observed_at, "observed_at")
     if not isinstance(parsed_observed_at, datetime):
