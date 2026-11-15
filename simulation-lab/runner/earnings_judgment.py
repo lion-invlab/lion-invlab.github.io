@@ -12,7 +12,7 @@ from datetime import date, datetime, timezone
 import re
 from typing import Any
 
-ENGINE_VERSION = "1.1.1"
+ENGINE_VERSION = "1.2.0"
 VALID_STATUSES = {
     "beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"
 }
@@ -161,13 +161,21 @@ def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
         return False
     if level not in providers or snapshot.get("provider") != providers[level]:
         return False
-    if snapshot.get("snapshot_status") != "pre_release_eligible":
-        return False
-    if not _precedes_event(snapshot.get("data_as_of"), event_date):
+    status = snapshot.get("snapshot_status")
+    if status == "pre_release_eligible":
+        # Provider PIT: provider-declared as-of and TAC capture both precede release.
+        if not _precedes_event(snapshot.get("data_as_of"), event_date):
+            return False
+        if not _not_after(snapshot.get("data_as_of"), snapshot.get("observed_at")):
+            return False
+    elif status == "tac_observed_pre_release_eligible":
+        # TAC-observed PIT: exact immutable source content was captured before
+        # release. This does not assert when the provider first published it.
+        if snapshot.get("data_as_of") not in (None, ""):
+            return False
+    else:
         return False
     if not _precedes_event(snapshot.get("observed_at"), event_date):
-        return False
-    if not _not_after(snapshot.get("data_as_of"), snapshot.get("observed_at")):
         return False
     if snapshot.get("published_at") and not _precedes_event(snapshot.get("published_at"), event_date):
         return False
