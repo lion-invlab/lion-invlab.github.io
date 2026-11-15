@@ -31,6 +31,34 @@ def main():
     try: apply_consensus_projection(released,projection,calendar)
     except ValueError as exc: assert "post-release" in str(exc)
     else: raise AssertionError("post-release event must not be overwritten")
-    print("PASS: W47 estimates and analyst counts project to upcoming cards; basis stays pending; wrong SHA/post-release rejected")
+    print("PASS: synthetic projection assigns estimates and analyst counts; wrong SHA/post-release rejected")
+    # Real W47 capture regression: all 21 events have immutable, pre-release
+    # TAC observations. Yahoo does not declare EPS accounting basis or exact
+    # revenue metric basis, so the projection must remain non-directional.
+    import hashlib, json
+    from datetime import datetime
+    from pathlib import Path
+    capture = json.loads(Path("simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json").read_text(encoding="utf-8"))
+    source_calendar = json.loads(Path("simulation-lab/fixtures/source-calendar-2026-W47.json").read_text(encoding="utf-8"))
+    entries = capture["entries"]
+    expected = {x["ticker"]: x for x in source_calendar["events"]}
+    assert capture["branch_scope"] == "simulation/tac-process-lab-2026-11-06"
+    assert len(entries) == 21 and {x["ticker"] for x in entries} == set(expected)
+    for entry in entries:
+        event = expected[entry["ticker"]]
+        assert entry["event_id"] == event["id"]
+        assert entry["event_date"] == event["event_date"]
+        assert entry["reporting_period"] == event["period"]
+        observed = datetime.fromisoformat(entry["observed_at"].replace("Z", "+00:00"))
+        release = datetime.fromisoformat(entry["event_date"])
+        assert observed < release, f"{entry['ticker']} capture is not pre-release"
+        raw = json.dumps(entry["raw_response"], ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        assert hashlib.sha256(raw).hexdigest() == entry["raw_response_sha256"], entry["ticker"]
+        assert entry["eps"]["basis_code"] is None
+        assert entry["revenue"]["basis_code"] is None
+        assert entry["eps"]["estimate"] is not None and entry["revenue"]["estimate"] is not None
+        assert entry["eps"]["analyst_count"] and entry["revenue"]["analyst_count"]
+    print("PASS: actual W47 capture covers 21/21 events with pre-release immutable evidence; unresolved bases remain non-directional")
+
 
 if __name__=="__main__": main()
