@@ -373,7 +373,9 @@ jobs:
           } > simulation-lab/output/runner-metadata.txt
 
       - name: Archive ORTEX TEST raw probe evidence on simulation branch
-        if: always() && hashFiles('simulation-lab/output/ortex-test-probe.json') != ''
+        # Failed QA runs are already preserved by the always() artifact upload;
+        # never create a second branch writer while a failed run is unwinding.
+        if: success() && hashFiles('simulation-lab/output/ortex-test-probe.json') != ''
         shell: bash
         run: |
           set -euo pipefail
@@ -387,9 +389,20 @@ jobs:
             exit 0
           fi
           git commit -m "[skip ci] Archive ORTEX TEST probe ${GITHUB_RUN_ID}"
-          git fetch origin simulation/tac-process-lab-2026-11-06
-          git rebase origin/simulation/tac-process-lab-2026-11-06
-          git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
+          # Rebase against the freshest remote head and retry a non-fast-forward
+          # race without force-pushing or overwriting another writer.
+          for attempt in 1 2 3; do
+            git fetch origin simulation/tac-process-lab-2026-11-06
+            git rebase origin/simulation/tac-process-lab-2026-11-06
+            if git push origin "HEAD:simulation/tac-process-lab-2026-11-06"; then
+              exit 0
+            fi
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Archive push failed after 3 safe rebase attempts" >&2
+              exit 1
+            fi
+            sleep 2
+          done
 
       - name: Upload simulation evidence
         if: always()
