@@ -1958,10 +1958,34 @@ def main():
             raise ValueError("no five-star previous-week economic cards rendered")
         for index, card in enumerate(previous_cards, 1):
             validate_economic_card(card, f"final previous-week card #{index}", "econ-event-toggle")
+    # Embed immutable source identities into the exact HTML that will be QA'd and delivered.
+    report_meta = soup.select_one('meta[name="report-date"]')
+    if report_meta is None or report_meta.get("content") != report_iso:
+        raise ValueError("approved mother report-date metadata missing or mismatched")
+    build_provenance = {
+        "report_date": report_iso,
+        "template_key": "monday" if monday else "weekdays",
+        "template_path": str(master_path.relative_to(ROOT)),
+        "template_blob_sha": actual,
+        "fixture_path": str(Path(args.data)),
+        "fixture_blob_sha": sha_blob(Path(args.data).read_text(encoding="utf-8")),
+        "builder_path": str(Path(__file__).relative_to(ROOT)),
+        "builder_blob_sha": sha_blob(Path(__file__).read_text(encoding="utf-8")),
+        "calendar_repository": calendar_source["repository"],
+        "calendar_branch": calendar_source["branch"],
+        "calendar_main_commit_sha": calendar_source["main_commit_sha"],
+        "calendar_current_path": calendar_source["current"]["path"],
+        "calendar_current_blob_sha": calendar_source["current"]["blob_sha"],
+        "calendar_previous_path": calendar_source["previous"]["path"],
+        "calendar_previous_blob_sha": calendar_source["previous"]["blob_sha"],
+        "mode": "simulation-only"
+    }
+    provenance_comment = Comment(" TAC_BUILD_PROVENANCE " + json.dumps(build_provenance, ensure_ascii=False, separators=(",", ":")) + " ")
+    soup.head.append(provenance_comment)
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False,"calendar_source":provenance},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False,"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()
