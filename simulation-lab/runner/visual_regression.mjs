@@ -312,7 +312,7 @@ try {
     await revealEconomicCards(masterPage);
     await revealEconomicCards(reportPage);
     const readEconomicCardStyle = async page => page.evaluate(() => {
-      const card = document.querySelector("#calendar details.econ-event, #last-week-calendar details.econ-event");
+      const card = document.querySelector("#last-week-calendar details.econ-event");
       if (!card) return { exists: false };
       const selectors = {
         card: ":scope",
@@ -371,7 +371,7 @@ try {
     snapshots[v.name].economic_card_mother_parity = {
       master: masterEconomicStyle, report: reportEconomicStyle, differences: economicStyleDifferences
     };
-    const economicCardSelector = "#calendar details.econ-event, #last-week-calendar details.econ-event";
+    const economicCardSelector = "#last-week-calendar details.econ-event";
     if (await masterPage.locator(economicCardSelector).count()) {
       await masterPage.locator(economicCardSelector).first().screenshot({
         path: path.join(output, `${v.name}-economic-card-master.png`)
