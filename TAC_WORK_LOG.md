@@ -1089,3 +1089,10 @@
 
 
 - 觸發驗證：本次修正已完成，透過本工作紀錄的 simulation-only commit 啟動完整 Actions 重跑（[build-tac-report]）。
+
+
+## 2026-11-15｜11/16 完整組裝第二個根因
+- Run 43664098570：雙母版自測與前置資料擷取均通過；11/16（週一）選中正確母版 SHA `1ac39d50b138e59f4aabf55fc68560ee277ba6f8`。關鍵價位擷取成功（5 項），上週財報價格反應擷取成功（6/6，無 unavailable）。
+- 組裝器失敗 traceback：`KeyError: 'repository'`，位於 build_review_html.py 產生 TAC_BUILD_PROVENANCE 時，錯誤從 calendar_source 頂層讀取 repository/branch；實際 load_authoritative_calendar() 回傳 envelope 只含 main_commit_sha/current/previous，repository/branch 位於 current/previous week record。
+- 已修正 builder provenance 改讀 `calendar_source["current"]["repository"]` 與 `["branch"]`，不改資料來源與任何正式資料。修正 commit `bc458118c566beddb37baeaa1743ba5b5419563c`。
+- 尚待重新完整執行組裝與後續瀏覽器、視覺、獨立驗證 gates；本次失敗前未產生可交付 HTML。
