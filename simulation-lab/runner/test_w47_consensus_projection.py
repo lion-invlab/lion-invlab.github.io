@@ -41,7 +41,7 @@ def main():
     capture = json.loads(Path("simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json").read_text(encoding="utf-8"))
     source_calendar = json.loads(Path("simulation-lab/fixtures/source-calendar-2026-W47.json").read_text(encoding="utf-8"))
     entries = capture["entries"]
-    expected = {x["ticker"]: x for x in source_calendar["events"]}
+    expected = {x["ticker"]: x for x in source_calendar["events"]["earnings"]}
     assert capture["branch_scope"] == "simulation/tac-process-lab-2026-11-06"
     assert len(entries) == 21 and {x["ticker"] for x in entries} == set(expected)
     for entry in entries:
