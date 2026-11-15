@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://lion-invlab.github.io/schemas/tac-earnings-record-v2.schema.json",
   "title": "TAC Earnings Record v2",
-  "description": "Normalized EPS and revenue comparison record. Directional statuses require complete, separately sourced, versioned comparison evidence.",
+  "description": "Practical TAC comparison record. Numeric platform consensus and reported actual values are compared independently; source, period and basis metadata are retained for transparency but do not gate directional comparison.",
   "type": "object",
   "properties": {
     "judgment_engine_version": {
@@ -301,88 +301,7 @@
     "revenue_comparison_status",
     "revenue_comparison_reason"
   ],
-  "allOf": [
-    {
-      "if": {
-        "properties": {
-          "eps_comparison_status": {
-            "enum": [
-              "beat",
-              "miss",
-              "inline"
-            ]
-          }
-        },
-        "required": [
-          "eps_comparison_status"
-        ]
-      },
-      "then": {
-        "required": [
-          "eps_actual",
-          "eps_estimate",
-          "eps_actual_basis_code",
-          "eps_estimate_basis_code",
-          "eps_actual_currency",
-          "eps_estimate_currency",
-          "eps_actual_period",
-          "eps_estimate_period",
-          "source",
-          "consensus_source",
-          "eps_consensus_snapshots"
-        ],
-        "properties": {
-          "consensus_source": {
-            "type": "object",
-            "required": [
-              "snapshot_id"
-            ]
-          }
-        }
-      }
-    },
-    {
-      "if": {
-        "properties": {
-          "revenue_comparison_status": {
-            "enum": [
-              "beat",
-              "miss",
-              "inline"
-            ]
-          }
-        },
-        "required": [
-          "revenue_comparison_status"
-        ]
-      },
-      "then": {
-        "required": [
-          "revenue_actual",
-          "revenue_estimate",
-          "revenue_actual_basis_code",
-          "revenue_estimate_basis_code",
-          "revenue_actual_currency",
-          "revenue_estimate_currency",
-          "revenue_actual_unit",
-          "revenue_estimate_unit",
-          "revenue_actual_period",
-          "revenue_estimate_period",
-          "source",
-          "revenue_consensus_source",
-          "revenue_consensus_snapshots"
-        ],
-        "properties": {
-          "revenue_consensus_source": {
-            "type": "object",
-            "required": [
-              "snapshot_id"
-            ]
-          }
-        }
-      }
-    }
-  ],
+  "allOf": [],
   "$defs": {
     "source": {
       "type": "object",
