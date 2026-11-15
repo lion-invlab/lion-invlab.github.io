@@ -68,22 +68,35 @@ def _parse_temporal(value: Any, field: str):
         raise ValueError(f"{field} must be ISO-8601 date or timezone-aware datetime") from exc
 
 
-def _cutoff_status(data_as_of: str | None, event_date: str) -> tuple[str, str]:
+def _before_event(value, event, field: str) -> tuple[str, str]:
+    """Conservatively prove a timestamp/date precedes the scheduled release."""
+    if isinstance(value, datetime) and isinstance(event, datetime):
+        if value.astimezone(timezone.utc) < event.astimezone(timezone.utc):
+            return "pre_release_eligible", f"{field}_before_event"
+        return "not_pre_release", f"{field}_at_or_after_event"
+    value_day = value.date() if isinstance(value, datetime) else value
+    event_day = event.date() if isinstance(event, datetime) else event
+    if value_day < event_day:
+        return "pre_release_eligible", f"{field}_date_before_event_date"
+    if value_day > event_day:
+        return "not_pre_release", f"{field}_date_after_event_date"
+    return "pending_cutoff_time", f"{field}_same_day_time_not_proven"
+
+
+def _cutoff_status(data_as_of: str | None, event_date: str, observed_at: str) -> tuple[str, str]:
+    """Both provider data time and our capture time must precede the event."""
     if not data_as_of:
         return "pending_cutoff_time", "missing_data_as_of"
     asof = _parse_temporal(data_as_of, "data_as_of")
+    observed = _parse_temporal(observed_at, "observed_at")
     event = _parse_temporal(event_date, "event_date")
-    if isinstance(asof, datetime) and isinstance(event, datetime):
-        if asof.astimezone(timezone.utc) < event.astimezone(timezone.utc):
-            return "pre_release_eligible", "data_as_of_before_event"
-        return "not_pre_release", "data_as_of_at_or_after_event"
-    asof_date = asof.date() if isinstance(asof, datetime) else asof
-    event_day = event.date() if isinstance(event, datetime) else event
-    if asof_date < event_day:
-        return "pre_release_eligible", "data_as_of_date_before_event_date"
-    if asof_date > event_day:
-        return "not_pre_release", "data_as_of_date_after_event_date"
-    return "pending_cutoff_time", "same_day_date_only_cannot_prove_pre_release"
+    data_status, data_reason = _before_event(asof, event, "data_as_of")
+    if data_status != "pre_release_eligible":
+        return data_status, data_reason
+    observed_status, observed_reason = _before_event(observed, event, "observed_at")
+    if observed_status != "pre_release_eligible":
+        return observed_status, observed_reason
+    return "pre_release_eligible", "data_as_of_and_observed_at_before_event"
 
 
 def build_consensus_snapshot(
@@ -122,7 +135,7 @@ def build_consensus_snapshot(
     if not SHA256_RE.fullmatch(raw_sha):
         raise ValueError("raw response SHA-256 calculation failed")
 
-    status, reason = _cutoff_status(data_as_of, event_date)
+    status, reason = _cutoff_status(data_as_of, event_date, observed_at)
     value = attempt.get("value")
     if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(float(value)):
         value = None
