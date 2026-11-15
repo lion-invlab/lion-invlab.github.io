@@ -38,7 +38,36 @@ def validate_payload(payload: dict, schema: dict) -> dict:
 
 
 def self_test(schema: dict) -> None:
+    eps_snapshot_id = "a" * 64
     good = {
+        "id": "earnings-self-test",
+        "ticker": "TEST",
+        "event_date": "2026-11-14T10:00:00+08:00",
+        "eps_consensus_snapshots": [{
+            "snapshot_id": eps_snapshot_id,
+            "event_id": "earnings-self-test",
+            "ticker": "TEST",
+            "metric": "EPS",
+            "source_level": 3,
+            "provider": "Investing.com",
+            "source_url": "https://consensus.example/eps",
+            "observed_at": "2026-11-13T11:00:00+08:00",
+            "data_as_of": "2026-11-12",
+            "published_at": None,
+            "event_date": "2026-11-14T10:00:00+08:00",
+            "period": "Q3 2026",
+            "period_end_date": "2026-09-30",
+            "value": 1.0,
+            "statistic": "mean",
+            "currency": "USD",
+            "unit": None,
+            "basis_code": "US_GAAP_DILUTED_EPS",
+            "analyst_count": 12,
+            "raw_response_ref": "raw/eps/test.json",
+            "raw_response_sha256": "c" * 64,
+            "snapshot_status": "pre_release_eligible",
+            "reason": "data_as_of_and_observed_at_before_event"
+        }],
         "judgment_engine_version": ENGINE_VERSION,
         "judgment_timestamp": "2026-11-13T13:00:00+08:00",
         "earnings_comparison_summary": "EPS：優於預期；營收：資料／比較口徑待核實",
@@ -51,7 +80,7 @@ def self_test(schema: dict) -> None:
         "eps_comparison_status": "beat", "eps_comparison_reason": "actual_above_comparable_consensus",
         "revenue_comparison_status": "pending", "revenue_comparison_reason": "missing_or_invalid_actual_or_consensus",
         "source": {"url": "https://issuer.example/results", "observed_at": "2026-11-13T12:00:00+08:00"},
-        "consensus_source": {"url": "https://consensus.example/eps", "observed_at": "2026-11-13T11:00:00+08:00"}
+        "consensus_source": {"url": "https://consensus.example/eps", "observed_at": "2026-11-13T11:00:00+08:00", "snapshot_id": eps_snapshot_id}
     }
     assert validate_record(good, schema) == [], validate_record(good, schema)
     bad = dict(good)
