@@ -8,6 +8,7 @@ comparison from raw numbers or free-text basis descriptions.
 from __future__ import annotations
 
 from decimal import Decimal, InvalidOperation
+from datetime import date, datetime, timezone
 import re
 from typing import Any
 
@@ -82,6 +83,93 @@ def _valid_source(value: Any) -> bool:
         and isinstance(observed_at, str)
         and bool(observed_at.strip())
     )
+
+def _parse_pit_time(value: Any):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    raw = value.strip().replace("Z", "+00:00")
+    try:
+        if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", raw):
+            return date.fromisoformat(raw)
+        parsed = datetime.fromisoformat(raw)
+        if parsed.tzinfo is None or parsed.utcoffset() is None:
+            return None
+        return parsed
+    except ValueError:
+        return None
+
+
+def _precedes_event(value: Any, event_value: Any) -> bool:
+    parsed = _parse_pit_time(value)
+    event = _parse_pit_time(event_value)
+    if parsed is None or event is None:
+        return False
+    if isinstance(parsed, datetime) and isinstance(event, datetime):
+        return parsed.astimezone(timezone.utc) < event.astimezone(timezone.utc)
+    parsed_day = parsed.date() if isinstance(parsed, datetime) else parsed
+    event_day = event.date() if isinstance(event, datetime) else event
+    return parsed_day < event_day
+
+
+def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
+    """A directional judgment must be backed by the exact immutable pre-release snapshot."""
+    key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    source = record.get(key)
+    if not isinstance(source, dict):
+        return False
+    snapshot_id = source.get("snapshot_id")
+    if not isinstance(snapshot_id, str) or not re.fullmatch(r"[0-9a-f]{64}", snapshot_id):
+        return False
+    array_key = "eps_consensus_snapshots" if metric == "eps" else "revenue_consensus_snapshots"
+    snapshots = record.get(array_key)
+    if not isinstance(snapshots, list):
+        return False
+    snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
+    if not isinstance(snapshot, dict):
+        return False
+
+    level = snapshot.get("source_level")
+    providers = {1: "LSEG I/B/E/S", 2: "FactSet Estimates", 3: "Investing.com"}
+    event_date = record.get("event_date")
+    estimate_key = f"{metric}_estimate"
+    basis_key = f"{metric}_estimate_basis_code"
+    currency_key = f"{metric}_estimate_currency"
+    period_key = f"{metric}_estimate_period"
+    required_equal = {
+        "event_id": record.get("id"),
+        "ticker": record.get("ticker"),
+        "metric": "EPS" if metric == "eps" else "REVENUE",
+        "event_date": event_date,
+        "value": record.get(estimate_key),
+        "basis_code": record.get(basis_key),
+        "currency": record.get(currency_key),
+        "period": record.get(period_key),
+    }
+    if any(snapshot.get(k) != v for k, v in required_equal.items()):
+        return False
+    if level not in providers or snapshot.get("provider") != providers[level]:
+        return False
+    if snapshot.get("snapshot_status") != "pre_release_eligible":
+        return False
+    if not _precedes_event(snapshot.get("data_as_of"), event_date):
+        return False
+    if not _precedes_event(snapshot.get("observed_at"), event_date):
+        return False
+    if not isinstance(snapshot.get("period_end_date"), str) or not snapshot["period_end_date"].strip():
+        return False
+    if not isinstance(snapshot.get("statistic"), str) or not snapshot["statistic"].strip():
+        return False
+    if not isinstance(snapshot.get("raw_response_ref"), str) or not snapshot["raw_response_ref"].strip():
+        return False
+    if not isinstance(snapshot.get("raw_response_sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", snapshot["raw_response_sha256"]):
+        return False
+    if not isinstance(snapshot.get("source_url"), str) or not snapshot["source_url"].startswith("https://"):
+        return False
+    if source.get("url") != snapshot.get("source_url") or source.get("observed_at") != snapshot.get("observed_at"):
+        return False
+    if metric == "revenue" and snapshot.get("unit") != record.get("revenue_estimate_unit"):
+        return False
+    return True
 
 
 def _has_explicit_revenue_consensus_divergence(record: dict) -> bool:
@@ -201,8 +289,8 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     consensus_source = record.get(consensus_key)
     if not _valid_source(actual_source):
         return _result("pending", "missing_actual_source_url_or_observed_at", actual, estimate)
-    if not _valid_source(consensus_source):
-        return _result("pending", "missing_consensus_source_url_or_observed_at", actual, estimate)
+    if not _valid_consensus_snapshot(record, metric):
+        return _result("pending", "missing_or_invalid_pre_release_consensus_snapshot", actual, estimate)
 
     tolerance = _decimal(record.get(f"{metric}_inline_tolerance_abs"))
     if tolerance is None:
