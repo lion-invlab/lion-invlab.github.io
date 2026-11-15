@@ -126,12 +126,19 @@ def main():
     for key, value in expected_provenance.items():
         if provenance.get(key) != value:
             raise SystemExit(f"provenance mismatch {key}: {provenance.get(key)!r} != {value!r}")
+    build_commit = provenance.get("build_commit_sha", "")
+    if not re.fullmatch(r"[0-9a-f]{40}", build_commit):
+        raise SystemExit("immutable build commit SHA missing from provenance")
+    subprocess.run(["git", "merge-base", "--is-ancestor", build_commit, "HEAD"], check=True)
     fixture_path = provenance.get("fixture_path", "")
     if not fixture_path.startswith("simulation-lab/fixtures/report-data-"):
         raise SystemExit("fixture provenance path outside approved simulation fixtures")
-    fixture_bytes = git_show("HEAD", fixture_path)
+    fixture_bytes = git_show(build_commit, fixture_path)
     if git_blob_sha(fixture_bytes) != provenance.get("fixture_blob_sha"):
-        raise SystemExit("fixture provenance SHA does not match checked-out simulation branch")
+        raise SystemExit("fixture provenance SHA does not match immutable build commit")
+    builder_bytes = git_show(build_commit, provenance["builder_path"])
+    if git_blob_sha(builder_bytes) != provenance.get("builder_blob_sha"):
+        raise SystemExit("builder provenance SHA does not match immutable build commit")
     main_commit = provenance.get("calendar_main_commit_sha", "")
     if not re.fullmatch(r"[0-9a-f]{40}", main_commit):
         raise SystemExit("authoritative main calendar commit SHA missing")
@@ -184,6 +191,7 @@ def main():
         "report_date": report_date.isoformat(),
         "template": template_key,
         "template_sha": template_sha,
+        "build_commit_sha": build_commit,
         "builder_sha": provenance["builder_blob_sha"],
         "fixture_sha": provenance["fixture_blob_sha"],
         "calendar_main_commit_sha": main_commit,
