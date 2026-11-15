@@ -196,7 +196,7 @@ def fetch_one(target: dict, archive_dir: Path) -> dict:
         if parsed.get("row_found"):
             chosen = (parsed, status, headers, raw, digest, raw_ref, observed_at, error, url)
             break
-        if raw:
+        if raw and (chosen is None or (status == 200 and chosen[1] != 200)):
             chosen = (parsed, status, headers, raw, digest, raw_ref, observed_at, error, url)
 
     if chosen:
