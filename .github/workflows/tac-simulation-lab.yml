@@ -341,12 +341,21 @@ jobs:
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
           git fetch origin simulation/tac-process-lab-2026-11-06
           git rebase origin/simulation/tac-process-lab-2026-11-06
+          # Revalidate after rebase so a concurrent mother/manifest change cannot
+          # leave a QA-passed HTML artifact attached to a different approved baseline.
+          python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
           RECHECK_BLOB_SHA="$(git show "HEAD:${REPORT_OUTPUT}" | git hash-object --stdin)"
           RECHECK_EVIDENCE_SHA="$(git show "HEAD:${REPORT_EVIDENCE}" | git hash-object --stdin)"
           test "${REVIEW_BLOB_SHA}" = "${RECHECK_BLOB_SHA}" || { echo "Review artifact SHA changed during persistence"; exit 1; }
           test "${EVIDENCE_BLOB_SHA}" = "${RECHECK_EVIDENCE_SHA}" || { echo "QA evidence SHA changed during persistence"; exit 1; }
           echo "QA-passed review artifact committed; html_blob_sha=${RECHECK_BLOB_SHA}; evidence_blob_sha=${RECHECK_EVIDENCE_SHA}"
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
+          git fetch origin simulation/tac-process-lab-2026-11-06
+          REMOTE_HTML_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_OUTPUT}" | git hash-object --stdin)"
+          REMOTE_EVIDENCE_SHA="$(git show "origin/simulation/tac-process-lab-2026-11-06:${REPORT_EVIDENCE}" | git hash-object --stdin)"
+          test "${REVIEW_BLOB_SHA}" = "${REMOTE_HTML_SHA}" || { echo "Remote preview HTML read-back SHA mismatch"; exit 1; }
+          test "${EVIDENCE_BLOB_SHA}" = "${REMOTE_EVIDENCE_SHA}" || { echo "Remote QA sidecar read-back SHA mismatch"; exit 1; }
+          echo "Remote read-back PASS; html_blob_sha=${REMOTE_HTML_SHA}; evidence_blob_sha=${REMOTE_EVIDENCE_SHA}"
 
       - name: Record isolated run metadata
         if: always()
