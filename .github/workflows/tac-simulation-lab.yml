@@ -6,6 +6,7 @@ on:
       - simulation/tac-process-lab-2026-11-06
     paths:
       - "simulation-lab/**"
+      - "schemas/tac-earnings-record-v2.schema.json"
       - "!simulation-lab/runs/**"
       - "!simulation-lab/output/**"
       - "!simulation-lab/analysis/**"
