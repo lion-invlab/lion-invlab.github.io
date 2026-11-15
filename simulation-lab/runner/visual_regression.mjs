@@ -5,9 +5,14 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 
-const reportPath = process.argv[2] || "simulation-lab/fixtures/existing-preview-2026-11-06.html";
-const templateKey = process.argv[3] || "weekdays";
-const reportDate = process.argv[4] || "2026-11-06";
+const [reportPath, templateKey, reportDate] = process.argv.slice(2);
+if (!reportPath || !templateKey || !reportDate) {
+  throw new Error("用法：node simulation-lab/runner/visual_regression.mjs <審核版HTML路徑> <monday|weekdays> <YYYY-MM-DD>；禁止回退至舊版 fixture。");
+}
+if (!["monday", "weekdays"].includes(templateKey)) throw new Error(`未知母版類型：${templateKey}`);
+if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(reportDate) || Number.isNaN(Date.parse(reportDate))) {
+  throw new Error(`報告日期格式錯誤：${reportDate}`);
+}
 const manifest = JSON.parse(fs.readFileSync("simulation-lab/baseline/mother-template-manifest.json", "utf8"));
 const master = manifest.templates[templateKey];
 const masterPath = master.simulation_path;
@@ -17,6 +22,11 @@ const gitBlobSha = crypto.createHash("sha1").update(Buffer.concat([
 ])).digest("hex");
 if (gitBlobSha !== master.simulation_blob_sha) throw new Error(`模擬母版 SHA 不符：Manifest=${master.simulation_blob_sha} actual=${gitBlobSha}`);
 if (!fs.existsSync(reportPath)) throw new Error(`審核版不存在：${reportPath}`);
+const reportHtml = fs.readFileSync(reportPath, "utf8");
+const reportDateTag = reportHtml.match(/<meta\\b[^>]*\\bname=["']report-date["'][^>]*>/i)?.[0] || "";
+const embeddedDate = reportDateTag.match(/\\bcontent=["']([^"']+)["']/i)?.[1];
+if (!embeddedDate) throw new Error("審核版缺少 meta[name=report-date]；拒絕執行日期未核實的視覺 QA。");
+if (embeddedDate !== reportDate) throw new Error(`審核版日期不符：HTML=${embeddedDate}，參數=${reportDate}`);
 
 const output = "simulation-lab/output/visual";
 fs.mkdirSync(output, { recursive: true });
