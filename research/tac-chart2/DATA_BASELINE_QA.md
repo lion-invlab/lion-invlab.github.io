@@ -43,3 +43,20 @@
 4. Fed 2026-11 報告的資料截止日為 2026-10-28，但沒有可直接使用的數值表；不可從圖形目測反推數值。
 5. Treasury 原始 XML 可由官方年度 URL 重建；本次已提交標準化日資料，未另存每份 XML 原始檔。
 6. 此 QA 只代表資料基準 Gate；圖表功能、瀏覽器視覺與 GitHub Pages 上線 Gate 尚未執行。
+
+
+## Chart 頁面與瀏覽器 QA（2026-11-15）
+
+- 預覽頁：`research/tac-chart2/chart2-preview.html`
+- GitHub Pages：`https://lion-invlab.github.io/research/tac-chart2/chart2-preview.html`
+- Browser QA workflow：`TAC Chart 2 browser QA`
+- 最終測試 commit：`d308107445f7ba7565c44b5831378c23be9fd9ef`
+- Workflow run：`https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43716584525`
+- 結果：**PASS，98 項檢查全部通過**
+- 視窗：桌面 1440px、手機 390px、窄螢幕 320px
+- 檢查：資料載入、四項長期估值 KPI、286 筆共同歷史、1,750 筆 Shiller CAPE 長期歷史、殖利率／利差切換、Fed 兩個 vintage 切換、Forward P/E 與 Equity Premium 圖、頁面橫向溢出、SVG 寬度、來源註記。
+- 互動：滑鼠滾輪縮放通過（286 個月縮至 229 個月）；水平拖曳平移通過（視窗末端由 2026-10 移至 2024-12）。
+- Console errors：0；page errors：0；failed requests：0。
+- QA 截圖與 report.json 已上傳為 GitHub Actions artifact，artifact SHA-256：`8e1aa827688bc12c214bbcf31cc49a60b706faf40352c956d2627ddf0c259888`。
+
+此 Gate 代表目前 Chart 2 預覽頁在三種視窗下的瀏覽器功能與版面測試通過；尚未代表已加入互動式圖表正式索引或完成使用者視覺驗收。
