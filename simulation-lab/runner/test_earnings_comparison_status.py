@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tests for the TAC practical earnings status renderer."""
-from build_review_html import earnings_comparison_status, earnings_commentary
+from build_review_html import earnings_comparison_status, earnings_commentary, recalculate_released_earnings
 from earnings_judgment import ENGINE_VERSION, apply_judgment
 
 def make(actual_eps, estimate_eps, actual_rev, estimate_rev):
@@ -36,7 +36,21 @@ def main():
     assert "EPS：優於預期" in commentary
     assert "營收：尚未公布／數值尚未齊備" in commentary
     assert "待核實" not in commentary
-    print("PASS: renderer uses practical numerical judgments; no basis/PIT gate or pending-verification copy")
+    # Monday's previous-week cards must be recalculated too; they were previously
+    # rendered from stale legacy statuses because only the current week was processed.
+    prior = make(4.56, 2.66, 6.77, 6.80)
+    prior["eps_comparison_status"] = "pending"
+    prior["revenue_comparison_status"] = "miss"
+    data = {
+        "earnings": {"events": [make(1.20, 1.00, 8.0, 8.7)]},
+        "last_week_earnings": {"events": [prior]},
+    }
+    counts = recalculate_released_earnings(data, "2026-11-16T05:00:00+08:00")
+    assert counts == {"earnings": 1, "last_week_earnings": 1}
+    assert earnings_comparison_status(data["last_week_earnings"]["events"][0], "eps") == "beat"
+    assert earnings_comparison_status(data["last_week_earnings"]["events"][0], "revenue") == "inline"
+
+    print("PASS: current and prior-week released cards both use practical numerical judgments; no basis/PIT gate or pending-verification copy")
 
 if __name__ == "__main__":
     main()
