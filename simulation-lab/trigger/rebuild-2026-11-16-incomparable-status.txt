@@ -1,0 +1,1 @@
+Rebuild the 2026-11-16 simulation review with engine support for explicit non-comparable EPS/revenue pairs. Simulation branch only; main remains read-only.
