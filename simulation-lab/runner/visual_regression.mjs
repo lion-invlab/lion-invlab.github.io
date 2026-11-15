@@ -283,6 +283,10 @@ try {
           const b = visibleCards[1].getBoundingClientRect();
           return {
             columns: Math.abs(a.left - b.left) > 2 && Math.abs(a.top - b.top) <= 2 ? 2 : 1,
+            media_max_640_matches: matchMedia("(max-width: 640px)").matches,
+            computed_grid_template_columns: getComputedStyle(grid).gridTemplateColumns,
+            mobile_override_present: !!document.querySelector("#tac-published-earnings-mobile-v1"),
+            grid_client_width: grid.clientWidth,
             pairedGeometry: {
               firstLeft: Math.round(a.left), secondLeft: Math.round(b.left),
               firstTop: Math.round(a.top), secondTop: Math.round(b.top),
