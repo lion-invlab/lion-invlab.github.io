@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse, json
 from pathlib import Path
 from earnings_judgment import ENGINE_VERSION, migrate_legacy_record
+from calendar_source_guard import load_authoritative_calendar
 
 DIRECTIONAL = {"beat", "miss", "inline"}
 
@@ -20,10 +21,18 @@ def observed_after_event(record: dict, source_key: str) -> bool:
 
 def main() -> int:
     parser=argparse.ArgumentParser()
-    parser.add_argument("--input",required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--input")
+    source.add_argument("--report-date", help="Load the previous ISO week directly from authoritative origin/main")
     parser.add_argument("--output",required=True)
     args=parser.parse_args()
-    payload=json.loads(Path(args.input).read_text(encoding="utf-8"))
+    source_metadata = None
+    if args.report_date:
+        bundle = load_authoritative_calendar(args.report_date)
+        payload = bundle["previous"]["payload"]
+        source_metadata = {k: bundle["previous"][k] for k in ("repository", "branch", "path", "commit_sha", "blob_sha", "week_id", "week_start", "week_end", "updated_at")}
+    else:
+        payload=json.loads(Path(args.input).read_text(encoding="utf-8"))
     released=[x for x in payload.get("events",{}).get("earnings",[]) if str(x.get("status","")).lower()=="released"]
     rows=[]
     for item in released:
@@ -45,7 +54,7 @@ def main() -> int:
     pairs=sum(x["eps_numeric_pair_present"]+x["revenue_numeric_pair_present"] for x in rows)
     judged=sum(int(x["eps_numeric_pair_present"] and x["new_eps_status"] in DIRECTIONAL)+int(x["revenue_numeric_pair_present"] and x["new_revenue_status"] in DIRECTIONAL) for x in rows)
     summary={
-        "engine_version":ENGINE_VERSION,"input":args.input,"released_events":len(released),
+        "engine_version":ENGINE_VERSION,"input":args.input,"source_metadata":source_metadata,"released_events":len(released),
         "old_eps_directional":sum(x["old_eps_status"] in DIRECTIONAL for x in rows),
         "new_eps_directional":sum(x["new_eps_status"] in DIRECTIONAL for x in rows),
         "old_revenue_directional":sum(x["old_revenue_status"] in DIRECTIONAL for x in rows),
