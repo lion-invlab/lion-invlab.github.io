@@ -64,6 +64,14 @@ jobs:
           set -euo pipefail
           python simulation-lab/runner/equibles_analyst_estimates_probe.py
 
+      - name: Probe remaining Equibles historical snapshots (read-only, simulation only)
+        shell: bash
+        env:
+          EQUIBLES_API_KEY: ${{ secrets.EQUIBLES_API_KEY }}
+        run: |
+          set -euo pipefail
+          python simulation-lab/runner/equibles_historical_snapshot_remainder_probe.py
+
       - name: Probe ORTEX TEST consensus API (read-only, simulation only)
         shell: bash
         run: |
