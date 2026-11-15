@@ -99,6 +99,18 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         self.assertEqual(snap["snapshot_status"], "not_pre_release")
         self.assertEqual(snap["reason"], "observed_at_at_or_after_event")
 
+    def test_provider_as_of_cannot_be_after_capture_time(self):
+        attempt = dict(self.attempt, data_as_of="2026-11-11")
+        snap = self.build(attempt=attempt)
+        self.assertEqual(snap["snapshot_status"], "not_pre_release")
+        self.assertEqual(snap["reason"], "data_as_of_after_observed_at")
+
+    def test_known_publication_after_release_rejects_pit_snapshot(self):
+        attempt = dict(self.attempt, published_at="2026-11-11T00:00:00+08:00")
+        snap = self.build(attempt=attempt)
+        self.assertEqual(snap["snapshot_status"], "not_pre_release")
+        self.assertEqual(snap["reason"], "published_at_at_or_after_event")
+
     def test_observation_on_date_only_release_day_is_not_proven_pre_release(self):
         event = dict(self.event, event_date="2026-11-10")
         snap = build_consensus_snapshot(
