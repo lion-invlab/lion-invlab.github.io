@@ -33,6 +33,8 @@ def validate(key: str) -> dict:
 
     soup = BeautifulSoup(raw, "html.parser")
 
+    # The Monday retrospective disclosure is nested under article.card.calendar-card.
+    # Validate the approved section-scoped structure without imposing direct-child placement.
     # Validate the fixed structural anchors and weekday-specific sections
     # documented by mother-template-qa-contract.md.
     required_ids = [
