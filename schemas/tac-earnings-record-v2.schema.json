@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "judgment_engine_version": {
-      "const": "1.1.1"
+      "const": "1.2.0"
     },
     "judgment_timestamp": {
       "type": "string",
@@ -580,6 +580,7 @@
         "snapshot_status": {
           "enum": [
             "pre_release_eligible",
+            "tac_observed_pre_release_eligible",
             "pending_cutoff_time",
             "pending_required_fields",
             "not_pre_release"
