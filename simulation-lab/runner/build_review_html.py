@@ -150,6 +150,16 @@ def set_economic_source(card, item):
     else:
         field.append("來源待核實")
 
+def recalculate_released_earnings(data, observed_at):
+    """Recalculate released cards in both current and Monday retrospective sections."""
+    counts = {"earnings": 0, "last_week_earnings": 0}
+    for section in counts:
+        for item in data.get(section, {}).get("events", []):
+            if item.get("status") in ("released", "published", "completed"):
+                apply_judgment(item, observed_at)
+                counts[section] += 1
+    return counts
+
 def earnings_comparison_status(item, metric):
     """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
     return render_status(item, metric)
@@ -268,11 +278,11 @@ def main():
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
-    # Recalculate every released earnings card with the practical TAC engine.
+    # Recalculate released cards in both the current week and Monday's prior-week section.
     # Numeric consensus/actual pairs are sufficient; PIT and basis metadata remain disclosures.
-    for earnings_item in data.get("earnings", {}).get("events", []):
-        if earnings_item.get("status") in ("released", "published", "completed"):
-            apply_judgment(earnings_item, data.get("report_cutoff_taipei") or data["report_date"])
+    recalculate_released_earnings(
+        data, data.get("report_cutoff_taipei") or data["report_date"]
+    )
     if args.earnings_consensus_projection:
         consensus_projection=json.loads(Path(args.earnings_consensus_projection).read_text(encoding="utf-8"))
         apply_consensus_projection(data, consensus_projection, calendar_source)
