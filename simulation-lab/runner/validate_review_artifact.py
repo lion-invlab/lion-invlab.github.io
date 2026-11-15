@@ -8,7 +8,7 @@ import re
 import subprocess
 from datetime import date
 from pathlib import Path
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
@@ -69,7 +69,7 @@ def validate_card(card, context: str, toggle_class: str):
     source_value = direct_child(source, "div", "econ-value")[0]
     if not source_value.find("a", href=re.compile(r"^https://")):
         raise ValueError(f"{context}: HTTPS source link missing")
-    summary = direct_child(card, "summary", "")
+    summary = card.find_all("summary", recursive=False)
     if len(summary) != 1:
         raise ValueError(f"{context}: summary missing")
     toggles = [x for x in summary[0].find_all("span", recursive=False) if toggle_class in x.get("class", [])]
@@ -104,9 +104,8 @@ def main():
     template_sha = git_blob_sha(template_bytes)
     if template_sha != template["simulation_blob_sha"]:
         raise SystemExit("approved simulation mother SHA mismatch")
-    comments = "\n".join(str(x) for x in soup.find_all(string=lambda x: isinstance(x, type(soup.Comment)) if False else False))
     provenance_comment = next(
-        (str(x) for x in soup.find_all(string=lambda x: "TAC_BUILD_PROVENANCE" in str(x))),
+        (str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x)),
         None,
     )
     if not provenance_comment:
