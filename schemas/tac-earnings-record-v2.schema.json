@@ -479,13 +479,14 @@
         "source_level": {
           "type": "integer",
           "minimum": 1,
-          "maximum": 3
+          "maximum": 4
         },
         "provider": {
           "enum": [
             "LSEG I/B/E/S",
             "FactSet Estimates",
-            "Investing.com"
+            "Investing.com",
+            "Yahoo Finance"
           ]
         },
         "source_url": {
