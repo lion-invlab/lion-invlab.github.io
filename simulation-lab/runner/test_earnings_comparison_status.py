@@ -20,6 +20,13 @@ def main():
     assert "EPS：優於預期" in commentary
     assert "營收：低於預期" in commentary
 
+    # Recalculation must replace stale directional prose rather than append
+    # a second copy of the current engine verdicts.
+    item["judgment"] = "EPS：優於預期；營收：低於預期；EPS：優於預期"
+    commentary = earnings_commentary(item)
+    assert commentary.count("EPS：優於預期") == 1
+    assert commentary.count("營收：低於預期") == 1
+
     # Undisclosed GAAP/Adjusted or PIT metadata does not suppress comparison.
     item=make(-0.13,-0.72,108.73,105.0)
     apply_judgment(item,"2026-11-15T13:00:00+08:00")
