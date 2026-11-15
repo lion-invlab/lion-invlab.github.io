@@ -77,6 +77,13 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         validator = jsonschema.Draft202012Validator(schema["$defs"]["consensusSnapshot"])
         validator.validate(self.build())
 
+    def test_missing_provider_as_of_uses_tac_observed_pit_track(self):
+        attempt = dict(self.attempt, data_as_of=None)
+        snap = self.build(attempt=attempt)
+        self.assertEqual(snap["snapshot_status"], "tac_observed_pre_release_eligible")
+        self.assertEqual(snap["data_as_of"], None)
+        self.assertEqual(snap["reason"], "immutable_tac_capture_before_event_without_provider_as_of")
+
     def test_same_day_date_only_is_not_proven_pre_release(self):
         attempt = dict(self.attempt, data_as_of="2026-11-10")
         snap = self.build(attempt=attempt)
