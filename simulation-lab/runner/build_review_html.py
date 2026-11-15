@@ -1972,8 +1972,10 @@ def main():
         "fixture_blob_sha": sha_blob(Path(args.data).read_text(encoding="utf-8")),
         "builder_path": str(Path(__file__).relative_to(ROOT)),
         "builder_blob_sha": sha_blob(Path(__file__).read_text(encoding="utf-8")),
-        "calendar_repository": calendar_source["repository"],
-        "calendar_branch": calendar_source["branch"],
+        # Repository and branch metadata live on each week record, not the
+        # top-level calendar envelope returned by load_authoritative_calendar().
+        "calendar_repository": calendar_source["current"]["repository"],
+        "calendar_branch": calendar_source["current"]["branch"],
         "calendar_main_commit_sha": calendar_source["main_commit_sha"],
         "calendar_current_path": calendar_source["current"]["path"],
         "calendar_current_blob_sha": calendar_source["current"]["blob_sha"],
