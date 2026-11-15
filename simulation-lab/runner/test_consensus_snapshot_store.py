@@ -81,7 +81,7 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         attempt = dict(self.attempt, data_as_of="2026-11-10")
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["snapshot_status"], "pending_cutoff_time")
-        self.assertEqual(snap["reason"], "same_day_date_only_cannot_prove_pre_release")
+        self.assertEqual(snap["reason"], "data_as_of_same_day_time_not_proven")
 
     def test_same_day_timestamp_can_be_pre_release(self):
         attempt = dict(self.attempt, data_as_of="2026-11-10T07:00:00-05:00")
