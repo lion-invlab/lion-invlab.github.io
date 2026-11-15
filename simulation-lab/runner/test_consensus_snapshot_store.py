@@ -93,6 +93,20 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         snap = self.build(attempt=attempt)
         self.assertEqual(snap["snapshot_status"], "not_pre_release")
 
+    def test_observation_after_release_is_rejected_even_if_provider_data_is_older(self):
+        attempt = dict(self.attempt, observed_at="2026-11-11T04:00:00+08:00", data_as_of="2026-11-09")
+        snap = self.build(attempt=attempt)
+        self.assertEqual(snap["snapshot_status"], "not_pre_release")
+        self.assertEqual(snap["reason"], "observed_at_at_or_after_event")
+
+    def test_observation_on_date_only_release_day_is_not_proven_pre_release(self):
+        event = dict(self.event, event_date="2026-11-10")
+        snap = build_consensus_snapshot(
+            event, "EPS", self.attempt, self.raw, "raw/abc.json"
+        )
+        self.assertEqual(snap["snapshot_status"], "pending_cutoff_time")
+        self.assertEqual(snap["reason"], "observed_at_same_day_time_not_proven")
+
     def test_missing_raw_response_reference_is_not_eligible(self):
         snap = self.build(ref=None)
         self.assertEqual(snap["snapshot_status"], "pending_required_fields")
