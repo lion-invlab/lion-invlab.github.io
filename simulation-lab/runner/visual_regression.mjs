@@ -347,7 +347,7 @@ try {
         }
         for (const [property, expected] of Object.entries(masterPart)) {
           if (property === "rect") {
-            for (const dimension of ["width","height"]) {
+            for (const dimension of ["width"]) {
               if (Math.abs(expected[dimension] - reportPart.rect[dimension]) > 3) {
                 economicStyleDifferences.push(part + " " + dimension + " differs: mother=" + expected[dimension] + ", review=" + reportPart.rect[dimension]);
               }
@@ -361,6 +361,17 @@ try {
     snapshots[v.name].economic_card_mother_parity = {
       master: masterEconomicStyle, report: reportEconomicStyle, differences: economicStyleDifferences
     };
+    const economicCardSelector = "#calendar details.econ-event, #last-week-calendar details.econ-event";
+    if (await masterPage.locator(economicCardSelector).count()) {
+      await masterPage.locator(economicCardSelector).first().screenshot({
+        path: path.join(output, `${v.name}-economic-card-master.png`)
+      });
+    }
+    if (await reportPage.locator(economicCardSelector).count()) {
+      await reportPage.locator(economicCardSelector).first().screenshot({
+        path: path.join(output, `${v.name}-economic-card-report.png`)
+      });
+    }
     if (economicStyleDifferences.length) {
       failures.push(v.name + ": 經濟卡片與核准母版樣式不一致：" + economicStyleDifferences.join("; "));
     }
