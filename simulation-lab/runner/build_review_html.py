@@ -1592,8 +1592,8 @@ def main():
 #earnings .earnings-actual-status.inline,#earnings .earnings-actual-status.pending,#earnings .earnings-actual-status.incomparable,#earnings .earnings-actual-status.consensus_divergent{color:#596170!important;background:#f0f2f5!important}
 #earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
 #earnings .earnings-detail-field.wide{border:1px solid #e5e7eb!important;border-radius:11px!important;padding:11px 12px!important;background:#fbfcfe!important;width:100%!important;box-sizing:border-box!important}
-/* Mobile earnings cards: stack EPS/revenue and keep currency values within viewport. */
- @media screen and (max-width: 640px){#earnings .earnings-accordion-details > .earnings-results-grid{grid-template-columns:minmax(0,1fr)!important;grid-auto-flow:row!important;gap:9px!important}#earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card{padding:11px!important;width:100%!important}#earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}#earnings .earnings-actual-line span{flex:0 0 auto!important}#earnings .earnings-actual-line strong{display:block!important;flex:0 1 auto!important;min-width:0!important;max-width:100%!important;font-size:14px!important;text-align:right!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important}#earnings .earnings-detail-value{font-size:13px!important}}
+/* Mobile earnings cards: retain side-by-side EPS/revenue comparison. */
+ @media screen and (max-width: 640px){#earnings .earnings-accordion-details > .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-flow:row!important;gap:8px!important}#earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card{padding:9px!important;width:100%!important}#earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}#earnings .earnings-actual-line span{flex:0 0 auto!important}#earnings .earnings-actual-line strong{display:block!important;flex:0 1 auto!important;min-width:0!important;max-width:100%!important;font-size:14px!important;text-align:right!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important}#earnings .earnings-detail-value{font-size:13px!important}}
 </style>
 """
     existing_earnings_css=soup.select_one("#tac-published-earnings-card-v2")
@@ -1611,15 +1611,15 @@ def main():
   #earnings .earnings-accordion-details > .earnings-results-grid,
   #last-week-earnings .earnings-accordion-details > .earnings-results-grid {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     grid-auto-flow: row !important;
-    gap: 9px !important;
+    gap: 8px !important;
   }
   #earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card,
   #last-week-earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card {
     width: 100% !important;
     min-width: 0 !important;
-    padding: 11px !important;
+    padding: 9px !important;
   }
   #earnings .earnings-actual-line { display:flex !important; justify-content:space-between !important; align-items:center !important; gap:12px !important; }
   #earnings .earnings-actual-line span { flex:0 0 auto !important; }
