@@ -539,6 +539,10 @@ def consensus_evidence_label(record: dict, metric: str) -> str | None:
     snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
     if not isinstance(snapshot, dict):
         return None
+    # Never display a qualified evidence badge unless the same complete
+    # snapshot also passes the engine's identity, time, basis and raw-proof gate.
+    if not _valid_consensus_snapshot(record, metric):
+        return None
     if snapshot.get("snapshot_status") == "pre_release_eligible":
         return "Provider PIT 公告前共識"
     if snapshot.get("snapshot_status") == "tac_observed_pre_release_eligible":
