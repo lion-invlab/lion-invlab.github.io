@@ -12,7 +12,7 @@ from datetime import date, datetime, timezone
 import re
 from typing import Any
 
-ENGINE_VERSION = "1.1.0"
+ENGINE_VERSION = "1.1.1"
 VALID_STATUSES = {
     "beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"
 }
@@ -111,6 +111,18 @@ def _precedes_event(value: Any, event_value: Any) -> bool:
     return parsed_day < event_day
 
 
+def _not_after(value: Any, reference: Any) -> bool:
+    parsed = _parse_pit_time(value)
+    ref = _parse_pit_time(reference)
+    if parsed is None or ref is None:
+        return False
+    if isinstance(parsed, datetime) and isinstance(ref, datetime):
+        return parsed.astimezone(timezone.utc) <= ref.astimezone(timezone.utc)
+    parsed_day = parsed.date() if isinstance(parsed, datetime) else parsed
+    ref_day = ref.date() if isinstance(ref, datetime) else ref
+    return parsed_day <= ref_day
+
+
 def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
     """A directional judgment must be backed by the exact immutable pre-release snapshot."""
     key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
@@ -154,6 +166,10 @@ def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
     if not _precedes_event(snapshot.get("data_as_of"), event_date):
         return False
     if not _precedes_event(snapshot.get("observed_at"), event_date):
+        return False
+    if not _not_after(snapshot.get("data_as_of"), snapshot.get("observed_at")):
+        return False
+    if snapshot.get("published_at") and not _precedes_event(snapshot.get("published_at"), event_date):
         return False
     if not isinstance(snapshot.get("period_end_date"), str) or not snapshot["period_end_date"].strip():
         return False
