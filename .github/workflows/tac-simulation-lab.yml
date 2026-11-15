@@ -227,6 +227,23 @@ jobs:
           echo "QA_ONLY=true" >> "$GITHUB_ENV"
           echo "QA-only target locked: ${REPORT_OUTPUT}"
 
+      - name: Project Yahoo pre-release consensus onto main W47 (read-only)
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && env.REPORT_DATE == '2026-11-16') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]') && env.REPORT_DATE == '2026-11-16')
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json
+          test -s simulation-lab/output/yfinance-methodology-probe.json
+          git fetch --no-tags origin main
+          MAIN_W47="$RUNNER_TEMP/2026-W47.json"
+          git show FETCH_HEAD:data/calendar/weeks/2026-W47.json > "$MAIN_W47"
+          python simulation-lab/runner/project_w47_yahoo_consensus.py \
+            --calendar "$MAIN_W47" \
+            --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json \
+            --yfinance-methodology simulation-lab/output/yfinance-methodology-probe.json \
+            --output simulation-lab/output/w47-yahoo-consensus-projection.json \
+            --expected-calendar-blob-sha 686e61ad128162a0f444e4981661145371bea4a7
+
       - name: Capture cash-index OHLC for the selected report date
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
@@ -239,8 +256,14 @@ jobs:
 
       - name: Assemble date-driven review from the matching fixture and approved mother
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        shell: bash
         run: |
-          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}"
+          set -euo pipefail
+          CONSENSUS_ARGS=()
+          if [[ -s simulation-lab/output/w47-yahoo-consensus-projection.json ]]; then
+            CONSENSUS_ARGS=(--earnings-consensus-projection simulation-lab/output/w47-yahoo-consensus-projection.json)
+          fi
+          python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}" "${CONSENSUS_ARGS[@]}"
 
       - name: Set up Node for browser QA
         if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
