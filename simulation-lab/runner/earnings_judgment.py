@@ -525,6 +525,27 @@ def render_status(record: dict, metric: str) -> str:
     return status if status in VALID_STATUSES else "pending"
 
 
+def consensus_evidence_label(record: dict, metric: str) -> str | None:
+    """Return an explicit evidence label for the exact snapshot linked to a metric."""
+    if metric not in {"eps", "revenue"}:
+        raise ValueError(f"unsupported earnings metric: {metric!r}")
+    source_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
+    snapshots_key = "eps_consensus_snapshots" if metric == "eps" else "revenue_consensus_snapshots"
+    source = record.get(source_key)
+    snapshots = record.get(snapshots_key)
+    snapshot_id = source.get("snapshot_id") if isinstance(source, dict) else None
+    if not isinstance(snapshots, list) or not snapshot_id:
+        return None
+    snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
+    if not isinstance(snapshot, dict):
+        return None
+    if snapshot.get("snapshot_status") == "pre_release_eligible":
+        return "Provider PIT 公告前共識"
+    if snapshot.get("snapshot_status") == "tac_observed_pre_release_eligible":
+        return "TAC 公告前觀測共識"
+    return None
+
+
 def render_summary(record: dict) -> str:
     """Render only a summary persisted by this engine version."""
     if record.get("judgment_engine_version") != ENGINE_VERSION:
