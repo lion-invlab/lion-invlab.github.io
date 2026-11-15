@@ -14,7 +14,7 @@ from typing import Any
 
 ENGINE_VERSION = "1.3.0"
 VALID_STATUSES = {
-    "beat", "miss", "inline", "pending"
+    "beat", "miss", "inline", "pending", "incomparable"
 }
 DIRECTIONAL_STATUSES = {"beat", "miss", "inline"}
 STATUS_LABELS = {
@@ -22,6 +22,7 @@ STATUS_LABELS = {
     "miss": "低於預期",
     "inline": "符合預期",
     "pending": "尚未公布／數值尚未齊備",
+    "incomparable": "比較口徑不相容",
 }
 _CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
 EPS_BASIS_CODES = frozenset({
@@ -232,6 +233,30 @@ def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
     }
 
 
+def _explicitly_incomparable(record: dict, metric: str) -> str | None:
+    """Block only explicit currency/unit mismatches or a documented non-comparable basis."""
+    actual_currency = record.get(f"{metric}_actual_currency")
+    estimate_currency = record.get(f"{metric}_estimate_currency")
+    if actual_currency and estimate_currency and actual_currency != estimate_currency:
+        return "actual_and_estimate_currencies_differ"
+
+    if metric == "revenue":
+        actual_unit = record.get("revenue_actual_unit")
+        estimate_unit = record.get("revenue_estimate_unit")
+        if actual_unit and estimate_unit and actual_unit != estimate_unit:
+            return "actual_and_estimate_revenue_units_differ"
+        currency_text = str(record.get("revenue_currency") or "")
+        if "(not comparable)" in currency_text.casefold() or "not comparable" in currency_text.casefold():
+            return "source_marks_revenue_currency_as_not_comparable"
+
+    note = str(record.get("financial_judgment") or "")
+    if metric == "eps" and "EPS" in note and "不判 beat/miss" in note:
+        return "issuer_note_explicitly_withholds_eps_comparison"
+    if metric == "revenue" and ("revenue" in note.casefold() or "營收" in note) and "不判 beat/miss" in note:
+        return "issuer_note_explicitly_withholds_revenue_comparison"
+    return None
+
+
 def evaluate_metric(record: dict, metric: str) -> dict:
     """Practical TAC comparison: compare the platform consensus with the reported actual.
 
@@ -247,6 +272,9 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     estimate = _decimal(record.get(f"{metric}_estimate"))
     if actual is None or estimate is None:
         return _result("pending", "actual_or_consensus_not_yet_available", actual, estimate)
+    incomparable_reason = _explicitly_incomparable(record, metric)
+    if incomparable_reason:
+        return _result("incomparable", incomparable_reason, actual, estimate)
 
     # A user-supplied absolute tolerance wins. Otherwise, values within 1% of
     # the absolute consensus are treated as broadly in line, avoiding noise
