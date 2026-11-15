@@ -301,7 +301,7 @@ try {
         pairedGeometry = sample?.pairedGeometry || null;
         if (!sample) invalid.push("visible published EPS/revenue result grid with two measurable cards missing");
         else {
-          const expectedColumns = innerWidth <= 640 ? 1 : 2;
+          const expectedColumns = 2; // TAC published EPS/revenue comparison remains side-by-side on mobile and desktop.
           if (columns !== expectedColumns) invalid.push("visible EPS/revenue cards layout mismatch: expected " + expectedColumns + " column(s), found " + columns);
         }
       }
