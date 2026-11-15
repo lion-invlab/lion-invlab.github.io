@@ -1345,8 +1345,12 @@ def main():
                 else: eps_est += "（分析師數未提供）"
                 if revenue_count is not None: rev_est += f"（{revenue_count} 位分析師）"
                 else: rev_est += "（分析師數未提供）"
-                consensus_source_value=soup.new_tag("a",href=x.get("consensus_source_url",""),target="_blank",rel="noopener")
-                consensus_source_value.string=x.get("consensus_source_name") or "共識來源待核實"
+                if x.get("consensus_source_url"):
+                    consensus_source_value=soup.new_tag("a",href=x["consensus_source_url"],target="_blank",rel="noopener")
+                    consensus_source_value.string=x.get("consensus_source_name") or "共識來源"
+                else:
+                    consensus_source_value=soup.new_tag("span")
+                    consensus_source_value.string="共識來源待核實"
                 field_specs=[
                     ("公布時段／狀態",schedule_text),
                     ("EPS 預估",eps_est),
