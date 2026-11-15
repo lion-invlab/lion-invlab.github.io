@@ -118,18 +118,18 @@ def parse_earnings_row(html: bytes, target: dict) -> dict:
         "revenue_unit": None,
         "eps_basis_code": _basis_code(match_row or "", "EPS"),
         "revenue_basis_code": _basis_code(match_row or "", "REVENUE"),
-        "statistic": "mean" if re.search(r"\b(mean|average consensus)\b", page_text, re.I) else None,
+        "statistic": "mean" if re.search(r"\b(mean|average consensus)\b", match_row or "", re.I) else None,
         "analyst_count": None,
         # Do not mistake a generic "Last Updated" for the estimate's as-of time.
         "data_as_of": None,
         "published_at": None,
     }
     raw_rev = result["revenue_estimate_raw"] or ""
-    if re.search(r"\bB\b|billion", raw_rev, re.I):
+    if re.search(r"(?:B|billion)\s*$", raw_rev, re.I):
         result["revenue_unit"] = f"{currency}_BILLION" if currency else None
-    elif re.search(r"\bM\b|million", raw_rev, re.I):
+    elif re.search(r"(?:M|million)\s*$", raw_rev, re.I):
         result["revenue_unit"] = f"{currency}_MILLION" if currency else None
-    elif re.search(r"\bK\b|thousand", raw_rev, re.I):
+    elif re.search(r"(?:K|thousand)\s*$", raw_rev, re.I):
         result["revenue_unit"] = f"{currency}_THOUSAND" if currency else None
 
     # Only explicit estimate-specific metadata may populate data_as_of.
