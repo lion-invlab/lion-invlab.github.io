@@ -47,8 +47,8 @@ def test_calendar_projection_migrates_legacy_records():
     projected = _earnings_records(payload, observed_at="2026-11-13T13:00:00+08:00")
     result = projected[0]
     assert result["judgment_engine_version"] == ENGINE_VERSION
-    assert result["eps_comparison_status"] == "beat"
-    assert result["revenue_comparison_status"] == "beat"
+    assert result["eps_comparison_status"] == "pending", "legacy estimate without an immutable PIT snapshot must not be directional"
+    assert result["revenue_comparison_status"] == "pending", "legacy estimate without an immutable PIT snapshot must not be directional"
     assert result["eps_actual_currency"] == "USD"
     assert result["revenue_actual_unit"] == "USD_BILLION"
     assert result["source"]["name"] == "Issuer"
@@ -178,7 +178,7 @@ def test_calendar_projection_migrates_legacy_records():
         observed_at="2026-11-13T13:00:00+08:00",
     )[0]
     assert same_basis_result["eps_estimate_basis_code"] == "US_GAAP_DILUTED_EPS"
-    assert same_basis_result["eps_comparison_status"] == "miss"
+    assert same_basis_result["eps_comparison_status"] == "pending", "post-release consensus article without a linked PIT snapshot cannot authorize Miss"
 
     # A single shared currency label is display metadata, not proof that both
     # actual and estimate values use the same currency for comparison.
