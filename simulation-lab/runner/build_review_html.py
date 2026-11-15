@@ -855,13 +855,18 @@ def main():
     for node in soup.select(".top .status, header .status, .status"):
         if node.get_text(strip=True):
             set_text(node, f"{report_label}（{report_weekday}）｜{'週一審核版' if monday else '週二至週五審核版'}；行情資料基準 {previous_trade}，各指標依項目日期與來源判讀")
+    review_notice = str(data.get("review_notice", "")).strip()
+    scope_note = (
+        f"五項關鍵價位採 {key_levels_date_label} 同日現金指數 OHLC 人工覆核，依傳統樞紐點公式計算 S2/S1/P/R1/R2；"
+        f"其餘44項行情、新聞與行事曆為 {report_cutoff} 查核快照"
+        if is_live_key_levels else
+        "本版使用固定資料快照，未宣稱即時全自動更新"
+    )
     for warning in soup.select(".data-sync-warning"):
-        scope_note = f"五項關鍵價位採 {key_levels_date_label} 歷史 OHLC；SOX H/L/C 以 Nasdaq 官方歷史資料覆核。其餘行情、新聞與行事曆為 {report_cutoff} 人工查核快照，尚非全自動 live-data E2E。" if is_live_key_levels else "資料流為固定 JSON fixture → HTML 組裝器，並非 live data E2E。"
-        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note} 缺少來源／日期的行情依 fail-closed 規則顯示待核實；本檔僅供模擬區審核，未發布至正式首頁。")
+        set_text(warning, f"模擬審核版｜報告日期 {report_iso}｜{scope_note}。{review_notice} 缺少來源／日期的行情依 fail-closed 規則標示待核實；本檔未發布至正式首頁。")
     footer = soup.select_one("footer.footer")
     if footer:
-        scope_note = f"五項關鍵價位採 {key_levels_date_label} 歷史 OHLC，SOX H/L/C 以 Nasdaq 官方歷史資料覆核；其餘行情、新聞與行事曆為 {report_cutoff} 人工查核快照，非全自動 live-data E2E" if is_live_key_levels else "本版由固定 JSON fixture 組裝，非 live data E2E"
-        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜缺少來源或日期的項目明確標示待核實；{scope_note}。資訊整理與教育用途，不構成投資建議。")
+        set_text(footer, f"TAC 投資早報｜{report_label}（{report_weekday}）審核版｜行情資料基準 {previous_trade}｜{scope_note}；{review_notice}。資訊整理與教育用途，不構成投資建議。")
     # Remove duplicate timezone suffix from preformatted window label.
     news_window_label = news_window_label.replace("（台灣時間）", "")
     # The three Today Focus tabs are updated atomically below; do not clear their approved DOM here.
@@ -1014,6 +1019,13 @@ def main():
     # Bonds, FX, oil and metals are exact-label bindings.
     for container_id,records in [("bonds",data["bonds"]),("fx",data["fx"]),("tac-assets-panel-3",data["energy"]),("tac-assets-panel-4",data["metals"])]:
         container=unique(soup,f"#{container_id}",container_id)
+        contract_items = [(label, record.get("contract_label")) for label, record in records.items() if record.get("contract_label")]
+        if contract_items:
+            meta = container.select_one(".tab-panel-meta")
+            if meta:
+                contract_text = "；".join(f"{label} {contract}" for label, contract in contract_items)
+                rollover_note = "；WTI近月成交量仍領先，但未平倉量已轉向次月，需留意轉倉與到期" if container_id == "tac-assets-panel-3" else "；依同日成交量並以未平倉量交叉確認合約月"
+                set_text(meta, f"{previous_trade} 期貨收盤｜{contract_text}；非現貨報價{rollover_note}。")
         for label,record in records.items():
             # Display labels may add Latin/Chinese spacing (e.g. "WTI 原油期貨").
             # Match the stable semantic label independent of presentation whitespace.
@@ -1021,6 +1033,17 @@ def main():
             rows=[r for r in container.select(".row")
                   if normalized_label in "".join(r.get_text(" ",strip=True).split())]
             if len(rows)!=1: raise ValueError(f"{container_id}/{label}: rows={len(rows)}")
+            contract_label = record.get("contract_label")
+            if contract_label:
+                label_link = rows[0].select_one("b a")
+                if label_link:
+                    base_label = label_link.get_text(" ", strip=True).split("（", 1)[0]
+                    set_text(label_link, f"{base_label}（{contract_label}）")
+                    source_meta = record.get("source") or {}
+                    if source_meta.get("url", "").startswith("http"):
+                        label_link["href"] = source_meta["url"]
+                        label_link["target"] = "_blank"
+                        label_link["rel"] = "noopener"
             vals=rows[0].select("span.r")
             if not vals: raise ValueError(f"missing value {container_id}/{label}")
             set_text(vals[0],record.get("display","待核實"))
@@ -2133,14 +2156,23 @@ def main():
         "calendar_current_blob_sha": calendar_source["current"]["blob_sha"],
         "calendar_previous_path": calendar_source["previous"]["path"],
         "calendar_previous_blob_sha": calendar_source["previous"]["blob_sha"],
-        "mode": "simulation-only"
+        "mode": "simulation-only",
+        "review_ready": not bool(data.get("review_ready_blockers", [])),
+        "review_ready_blockers": data.get("review_ready_blockers", []),
+        "data_audit": {
+            "quality_note": data.get("quality_note", ""),
+            "warning_note": data.get("warning_note", ""),
+            "pending_items": data.get("pending_items", []),
+            "report_cutoff_taipei": data.get("report_cutoff_taipei", ""),
+            "news_window_taipei": data.get("news_window_taipei", "")
+        }
     }
     provenance_comment = Comment(" TAC_BUILD_PROVENANCE " + json.dumps(build_provenance, ensure_ascii=False, separators=(",", ":")) + " ")
     soup.head.append(provenance_comment)
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
-    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings"],"review_ready":False,"calendar_source":provenance},ensure_ascii=False,indent=2))
+    print(json.dumps({"output":str(out),"master_sha":actual,"report_date":report_iso,"template":"monday" if monday else "weekdays","builder_sha":build_provenance["builder_blob_sha"],"fixture_sha":build_provenance["fixture_blob_sha"],"calendar_main_commit_sha":calendar_source["main_commit_sha"],"calendar_current_blob_sha":calendar_source["current"]["blob_sha"],"calendar_previous_blob_sha":calendar_source["previous"]["blob_sha"],"sections_updated":["title","summary","sentiment","news","global_markets","sectors","bonds","fx","energy","metals","risk","fedwatch","calendar headings","five-index OHLC key levels","commodity contract labels","review readiness and data audit"],"review_ready":not bool(data.get("review_ready_blockers", [])),"calendar_source":provenance},ensure_ascii=False,indent=2))
 
 if __name__=="__main__":
     main()

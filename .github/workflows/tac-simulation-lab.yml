@@ -332,8 +332,13 @@ jobs:
           actual_widths = [v.get("width") for v in visual.get("viewports", [])]
           if actual_widths != expected_widths:
               raise SystemExit(f"visual viewport evidence mismatch: {actual_widths}")
+          blockers = provenance.get("review_ready_blockers", [])
+          data_audit = provenance.get("data_audit", {})
           evidence = {
               "status": "QA_PASSED",
+              "review_ready": bool(provenance.get("review_ready", not blockers)),
+              "review_ready_blockers": blockers,
+              "data_audit": data_audit,
               "branch": "simulation/tac-process-lab-2026-11-06",
               "report_path": report_path,
               "report_date": report_date,
