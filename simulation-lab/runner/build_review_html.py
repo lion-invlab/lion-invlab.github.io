@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Simulation-only DOM updater. Never edits formal scripts or approved master."""
 from __future__ import annotations
-import argparse, hashlib, json, re, sys
+import argparse, hashlib, json, re, sys, subprocess
 from datetime import datetime, timedelta
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
@@ -1964,6 +1964,7 @@ def main():
         raise ValueError("approved mother report-date metadata missing or mismatched")
     build_provenance = {
         "report_date": report_iso,
+        "build_commit_sha": subprocess.run(["git", "rev-parse", "HEAD"], check=True, text=True, capture_output=True).stdout.strip(),
         "template_key": "monday" if monday else "weekdays",
         "template_path": str(master_path.relative_to(ROOT)),
         "template_blob_sha": actual,
