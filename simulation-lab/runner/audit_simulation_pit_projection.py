@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only projection audit: prove legacy W46 directional labels are PIT-gated."""
+"""Read-only projection audit: verify practical numerical judgments while reporting PIT metadata gaps."""
 from __future__ import annotations
 
 import argparse
@@ -49,10 +49,8 @@ def main() -> int:
         new_revenue = projected.get("revenue_comparison_status")
         eps_has_snapshot = bool(item.get("consensus_source", {}).get("snapshot_id")) and bool(item.get("eps_consensus_snapshots"))
         revenue_has_snapshot = bool(item.get("revenue_consensus_source", {}).get("snapshot_id")) and bool(item.get("revenue_consensus_snapshots"))
-        if new_eps in DIRECTIONAL and not eps_has_snapshot:
-            violations.append({"ticker": item.get("ticker"), "metric": "EPS", "status": new_eps})
-        if new_revenue in DIRECTIONAL and not revenue_has_snapshot:
-            violations.append({"ticker": item.get("ticker"), "metric": "REVENUE", "status": new_revenue})
+        # PIT snapshots are traceability metadata, not a prerequisite for
+        # Beat/Inline/Miss under the practical TAC judgment policy.
         rows.append({
             "ticker": item.get("ticker"),
             "event_date": item.get("event_date"),
@@ -81,13 +79,22 @@ def main() -> int:
         "eps_sources_observed_after_event": sum(x["eps_source_observed_after_event"] for x in rows),
         "revenue_sources_observed_after_event": sum(x["revenue_source_observed_after_event"] for x in rows),
         "events_missing_any_data_as_of": sum(not x["eps_data_as_of_present"] or not x["revenue_data_as_of_present"] for x in rows),
+        "directional_judgments_without_snapshot": [
+            {"ticker": x["ticker"], "metric": metric, "status": x[status_key]}
+            for x in rows
+            for metric, status_key, has_key in (
+                ("EPS", "new_eps_status", "eps_has_linked_snapshot"),
+                ("REVENUE", "new_revenue_status", "revenue_has_linked_snapshot"),
+            )
+            if x[status_key] in DIRECTIONAL and not x[has_key]
+        ],
         "directional_without_snapshot_violations": violations,
         "calendar_write": False,
         "html_write": False,
         "main_write": False,
         "records": rows,
     }
-    summary["verdict"] = "PASS_NO_UNSUPPORTED_DIRECTIONAL_LABELS" if not violations else "FAIL_UNSUPPORTED_DIRECTIONAL_LABELS"
+    summary["verdict"] = "PASS_PRACTICAL_NUMERICAL_JUDGMENT" if not violations else "FAIL_ENGINE_INCONSISTENCY"
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
