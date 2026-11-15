@@ -87,6 +87,23 @@ def main():
     check(evaluate_metric(item, "eps")["status"], "beat", "EPS beat")
     check(evaluate_metric(item, "revenue")["status"], "beat", "revenue beat")
 
+    tac_item = base_record()
+    tac_observed = dict(tac_item["eps_consensus_snapshots"][0], data_as_of=None,
+                        snapshot_status="tac_observed_pre_release_eligible",
+                        reason="immutable_tac_capture_before_event_without_provider_as_of")
+    tac_item["eps_consensus_snapshots"] = [tac_observed]
+    check(evaluate_metric(tac_item, "eps")["status"], "beat",
+          "immutable TAC-observed pre-release capture can support a tiered judgment")
+
+    late_item = base_record()
+    post_release_tac_capture = dict(late_item["eps_consensus_snapshots"][0],
+                                    data_as_of=None,
+                                    observed_at="2026-11-15T04:30:00+08:00",
+                                    snapshot_status="tac_observed_pre_release_eligible")
+    late_item["eps_consensus_snapshots"] = [post_release_tac_capture]
+    check(evaluate_metric(late_item, "eps")["status"], "pending",
+          "post-release TAC capture cannot support a directional judgment")
+
     item["eps_actual"] = -0.13
     item["eps_estimate"] = -0.72
     adjusted_snapshot_id = "d" * 64
