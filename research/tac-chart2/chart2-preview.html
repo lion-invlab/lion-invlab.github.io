@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111d30">
+<title>TAC Chart 2｜股債相對估值</title>
+<style>
+:root{--red:#b8202f;--navy:#111d30;--navy2:#1c2d46;--ink:#202a38;--muted:#758195;--line:#e5e9ef;--paper:#f4f6f8;--gold:#c7a66a;--teal:#16877d;--blue:#4779b8;--green:#3d8a69;--white:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+main{max-width:1240px;margin:0 auto;padding:28px 28px 64px}
+a{color:inherit}
+.topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;font-size:11px;color:#8b95a3}
+.brand{font-weight:900;letter-spacing:.5px;color:var(--red)}
+.breadcrumb{color:#8b95a3}
+.hero{position:relative;overflow:hidden;border-radius:17px;padding:27px 30px 25px;background:radial-gradient(circle at 86% 20%,#314765 0,transparent 34%),linear-gradient(115deg,#101a2b,#1d304b 68%,#111d30);color:#fff;box-shadow:0 12px 30px #101d3020}
+.hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #c7a66a50;border-radius:50%;right:-72px;top:-156px;box-shadow:0 0 0 24px #c7a66a0c,0 0 0 52px #c7a66a08;pointer-events:none}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#d8bd83;font-weight:900}
+h1{font-size:29px;line-height:1.25;margin:9px 0 8px;font-weight:950;letter-spacing:.2px}
+.hero p{max-width:780px;margin:0;color:#c8d1de;font-size:13px;line-height:1.8}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.meta-chip{font-size:10px;color:#e5eaf0;border:1px solid #ffffff2b;background:#ffffff0d;border-radius:99px;padding:5px 10px}
+.modebar{display:flex;gap:8px;margin:22px 0 14px;flex-wrap:wrap}
+.mode-btn,.range-btn,.view-btn{border:1px solid #dce2e9;background:#fff;color:#596579;border-radius:9px;padding:9px 14px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;transition:.15s}
+.mode-btn.active,.view-btn.active,.range-btn.active{background:#fff3f4;border-color:#e7c7cb;color:#a71f30}
+.panel{display:none}.panel.active{display:block}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin:19px 2px 12px}
+.section-title{font-size:16px;font-weight:950;margin:0;color:#263348}
+.section-sub{font-size:11px;color:#8993a1;margin-top:4px;line-height:1.5}
+.asof{font-size:10px;color:#8993a1;text-align:right;line-height:1.7}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 16px;min-width:0;box-shadow:0 4px 16px #17253a08}
+.kpi-label{font-size:11px;color:#7c8796;font-weight:750}
+.kpi-value{font-size:25px;line-height:1.25;font-weight:900;letter-spacing:-.5px;color:#1f2b3c;margin:8px 0 4px;font-variant-numeric:tabular-nums}
+.kpi-unit{font-size:11px;color:#7c8796;font-weight:650}
+.kpi-note{font-size:10px;color:#98a1ad;line-height:1.5;margin-top:7px}
+.kpi.spread .kpi-value{color:#a92332}
+.chart-card{margin-top:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;box-shadow:0 4px 18px #17253a08}
+.chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.chart-title{font-size:14px;font-weight:900;color:#29364a;margin:0}
+.chart-desc{font-size:10px;color:#8b95a3;margin-top:5px;line-height:1.55}
+.chart-controls{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.range-btn,.view-btn{padding:6px 10px;font-size:10px;border-radius:7px}
+.chart-wrap{position:relative;margin-top:12px;width:100%;overflow:hidden}
+.chart-svg{display:block;width:100%;height:auto;min-height:260px;touch-action:pan-y;user-select:none}
+.chart-svg text{font-family:inherit;fill:#778397;font-size:10px}
+.chart-svg .gridline{stroke:#edf0f4;stroke-width:1}
+.chart-svg .axisline{stroke:#dce2e9;stroke-width:1}
+.chart-svg .zero{stroke:#8b95a3;stroke-width:1.1;stroke-dasharray:5 4}
+.chart-svg .series{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart-svg .focus-line{stroke:#9aa4b2;stroke-width:1;stroke-dasharray:3 4}
+.chart-svg .focus-dot{stroke:#fff;stroke-width:2}
+.tooltip{position:absolute;display:none;z-index:4;pointer-events:none;background:#17243a;color:#fff;border:1px solid #ffffff22;border-radius:8px;padding:8px 10px;box-shadow:0 8px 24px #111d3030;font-size:10px;line-height:1.65;min-width:145px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin:7px 2px 0;font-size:10px;color:#647185}
+.legend-item{display:flex;align-items:center;gap:6px}.swatch{width:17px;height:3px;border-radius:2px}
+.note{font-size:10px;line-height:1.7;color:#8792a0;margin:11px 2px 0}
+.interpret{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.insight{border:1px solid var(--line);border-radius:12px;background:#fff;padding:14px 16px}
+.insight strong{display:block;font-size:11px;color:#35445a;margin-bottom:5px}
+.insight p{font-size:11px;line-height:1.75;color:#758195;margin:0}
+select{border:1px solid #dce2e9;background:#fff;color:#4e5c70;border-radius:7px;padding:7px 9px;font:inherit;font-size:10px;font-weight:750}
+.forward-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.forward-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.forward-kpis .kpi-value{font-size:22px}
+.status-note{border-left:3px solid var(--gold);background:#fbf9f4;padding:10px 13px;margin-top:13px;color:#75664b;font-size:10px;line-height:1.7;border-radius:0 8px 8px 0}
+footer{margin-top:20px;padding:15px 3px;border-top:1px solid #dfe4ea;font-size:10px;line-height:1.8;color:#8993a1}
+footer strong{color:#5d6878}
+.loading{padding:30px;text-align:center;color:#8993a1;font-size:12px}
+.error{color:#a92332;background:#fff5f5;border:1px solid #f0d6d9;border-radius:9px;padding:12px;font-size:11px;line-height:1.6}
+@media(max-width:800px){main{padding:17px 13px 45px}.hero{padding:22px 19px}.hero h1,h1{font-size:24px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.kpi{padding:12px}.kpi-value{font-size:22px}.forward-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.forward-grid,.interpret{grid-template-columns:1fr}.chart-card{padding:14px 11px 12px}.chart-svg{min-height:230px}.section-head{align-items:flex-start;flex-direction:column}.asof{text-align:left}}
+@media(max-width:420px){.kpi-value{font-size:20px}.kpi-label{font-size:10px}.meta-chip{font-size:9px}.mode-btn{padding:8px 11px}.chart-controls{width:100%}.chart-head{display:block}.chart-controls{margin-top:9px}}
+</style>
+</head>
+<body>
+<main>
+ <div class="topline"><div class="brand">TAC｜INVESTMENT RESEARCH</div><div class="breadcrumb">互動式圖表　/　Chart 02</div></div>
+ <header class="hero">
+  <div class="eyebrow">TAC INVESTMENT DECISION CHARTS · 02</div>
+  <h1>股債相對估值</h1>
+  <p>從長期週期與前瞻盈餘兩個角度，觀察股票盈餘殖利率相對於美國公債實質殖利率的位置。數據用來理解估值環境，不是單一買賣訊號。</p>
+  <div class="hero-meta"><span class="meta-chip">Shiller CAPE</span><span class="meta-chip">10Y TIPS Real Yield</span><span class="meta-chip">Fed Forward P/E</span><span class="meta-chip">Fed Equity Premium</span></div>
+ </header>
+ <nav class="modebar" aria-label="估值模式">
+  <button class="mode-btn active" data-mode="long">長期估值｜CAPE × 實質利率</button>
+  <button class="mode-btn" data-mode="forward">Forward 估值｜預期盈餘 × 實質利率</button>
+ </nav>
+ <section class="panel active" id="panel-long">
+  <div class="section-head"><div><h2 class="section-title">長期股債相對估值</h2><div class="section-sub">以 Shiller 傳統 CAPE 推算盈餘殖利率，對比 Treasury 10 年期 TIPS 實質殖利率</div></div><div class="asof" id="long-asof">資料載入中…</div></div>
+  <div class="kpis">
+   <article class="kpi"><div class="kpi-label">Shiller CAPE</div><div class="kpi-value" id="k-cape">—</div><div class="kpi-unit">倍</div><div class="kpi-note" id="k-cape-date">最新完整月份</div></article>
+   <article class="kpi"><div class="kpi-label">CAPE Earnings Yield</div><div class="kpi-value" id="k-ey">—</div><div class="kpi-unit">%</div><div class="kpi-note">100 ÷ 傳統 CAPE</div></article>
+   <article class="kpi"><div class="kpi-label">10Y TIPS 實質殖利率</div><div class="kpi-value" id="k-real">—</div><div class="kpi-unit">%</div><div class="kpi-note" id="k-real-note">月內交易日算術平均</div></article>
+   <article class="kpi spread"><div class="kpi-label">股債估值對照差</div><div class="kpi-value" id="k-spread">—</div><div class="kpi-unit">百分點（pp）</div><div class="kpi-note">CAPE EY − 10Y TIPS Real Yield</div></article>
+  </div>
+  <div class="chart-card">
+   <div class="chart-head"><div><h3 class="chart-title" id="long-chart-title">股票盈餘殖利率 vs. TIPS 實質殖利率</h3><div class="chart-desc" id="long-chart-desc">兩條殖利率使用相同百分比縱軸；資料按月份配對。</div></div>
+    <div class="chart-controls"><button class="view-btn active" data-view="yields">殖利率比較</button><button class="view-btn" data-view="spread">估值對照差</button><button class="range-btn" data-range="10">10年</button><button class="range-btn" data-range="20">20年</button><button class="range-btn active" data-range="max">全期間</button></div>
+   </div>
+   <div class="chart-wrap"><div class="tooltip" id="long-tooltip"></div><svg id="long-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="CAPE 盈餘殖利率與十年期 TIPS 實質殖利率歷史走勢"><text x="550" y="190" text-anchor="middle">資料載入中…</text></svg></div>
+   <div class="legend" id="long-legend"><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>CAPE Earnings Yield</span><span class="legend-item"><i class="swatch" style="background:#2879a8"></i>10Y TIPS Real Yield</span></div>
+   <div class="note" id="long-range-note">共同歷史資料自 2003 年起；Shiller CAPE 更早期資料保留於來源資料集。</div>
+  </div>
+  <div class="interpret">
+   <div class="insight"><strong>如何閱讀</strong><p>當 CAPE Earnings Yield 高於 TIPS 實質殖利率，兩者差值為正；反之為負。這是估值對照，不等同完整股票風險溢酬。</p></div>
+   <div class="insight"><strong>方法限制</strong><p>CAPE Earnings Yield 是長期平滑盈餘的倒數殖利率，未直接納入股利、未來盈餘成長或股票風險；不可單獨作為買賣依據。</p></div>
+  </div>
+ </section>
+ <section class="panel" id="panel-forward">
+  <div class="section-head"><div><h2 class="section-title">Forward 估值與風險溢酬</h2><div class="section-sub">採 Federal Reserve Financial Stability Report 公布的歷史月資料；各報告版本分開保存</div></div><div class="asof" id="forward-asof">資料載入中…</div></div>
+  <div class="forward-kpis">
+   <article class="kpi"><div class="kpi-label">Forward P/E</div><div class="kpi-value" id="f-pe">—</div><div class="kpi-unit">倍</div><div class="kpi-note" id="f-pe-date">最新可核實月份</div></article>
+   <article class="kpi"><div class="kpi-label">Forward Earnings Yield</div><div class="kpi-value" id="f-ey">—</div><div class="kpi-unit">%</div><div class="kpi-note">依 Forward P/E 倒數換算</div></article>
+   <article class="kpi"><div class="kpi-label">Fed Equity Premium</div><div class="kpi-value" id="f-ep">—</div><div class="kpi-unit">百分點（pp）</div><div class="kpi-note" id="f-ep-date">Fed 官方定義序列</div></article>
+  </div>
+  <div class="status-note" id="forward-status">Forward 估值資料版本載入中…</div>
+  <div class="forward-grid">
+   <div class="chart-card">
+    <div class="chart-head"><div><h3 class="chart-title">S&amp;P 500 Forward P/E</h3><div class="chart-desc">12 個月預期盈餘口徑，單位：倍</div></div><div class="chart-controls"><select id="fed-vintage"><option value="2026-05">Fed 2026-05 版本</option><option value="2025-11">Fed 2025-11 版本</option></select></div></div>
+    <div class="chart-wrap"><div class="tooltip" id="pe-tooltip"></div><svg id="pe-chart" class="chart-svg" viewBox="0 0 1100 330" role="img" aria-label="S&P 500 Forward P/E 歷史走勢"><text x="550" y="160" text-anchor="middle">資料載入中…</text></svg></div>
+   </div>
+   <div class="chart-card">
+    <div class="chart-head"><div><h3 class="chart-title">Fed Equity Premium</h3><div class="chart-desc">Forward E/P − Fed Expected Real Treasury Yield，單位：pp</div></div></div>
+    <div class="chart-wrap"><div class="tooltip" id="ep-tooltip"></div><svg id="ep-chart" class="chart-svg" viewBox="0 0 1100 330" role="img" aria-label="Fed Equity Premium 歷史走勢"><text x="550" y="160" text-anchor="middle">資料載入中…</text></svg></div>
+   </div>
+  </div>
+  <div class="note">Fed Expected Real Treasury Yield 依 10 年期 CPI 通膨預測與平滑名目殖利率曲線估計；不得以名目 10Y Treasury yield 或 DFII10 直接代替。Forward P/E 與 Equity Premium 的歷史值會隨報告版本修訂。</div>
+ </section>
+ <footer id="provenance"><strong>資料來源與口徑</strong><br>長期估值：Robert J. Shiller 官方資料（傳統 CAPE）；美國財政部 Daily Treasury Real Yield Curve（tc_10year）。Treasury 日資料轉為月平均，使用該月所有可取得交易日的算術平均。<br>Forward 估值：Federal Reserve Financial Stability Report accessibility tables；底層估計來源標示為 LSEG I/B/E/S North American Summary &amp; Detail Estimates Level 2。2026-05 版本發布日 2026-05-08，資料截至 2026-04；2025-11 版本發布日 2025-11-07，資料截至 2025-10。Fed 2026-11 報告雖已發布，但目前沒有可解析的數值表，因此不將圖形目測值當作精確觀測。<br>本頁供個人研究與內部分析。估值差值不是完整股票風險溢酬，亦非投資建議。各來源原始定義及限制請參閱 <a href="./CHART2_SPEC.md">Chart 2 設計規格</a> 與 <a href="../../data/tac-chart2/manifest.json">資料 manifest</a>。</footer>
+</main>
+<script>
+const DATA={
+ long:"../../data/tac-chart2/normalized/long_term_valuation_monthly.csv",
+ fed25:"../../data/tac-chart2/normalized/fed_forward_valuation_vintage_2025-11.csv",
+ fed26:"../../data/tac-chart2/normalized/fed_forward_valuation_vintage_2026-05.csv"
+};
+const COLORS={ey:"#b8202f",real:"#2879a8",spread:"#a17a36",pe:"#16877d",ep:"#6d68a8"};
+const state={mode:"long",view:"yields",range:"max",long:[],fed25:[],fed26:[]};
+function csv(text){const lines=text.trim().split(/\r?\n/);return lines.slice(1).map(line=>line.split(","));}
+function n(v){return Number(v);}
+function pct(v,d=2){return Number(v).toFixed(d)+"%";}
+function signed(v,d=2){return (v>0?"+":"")+Number(v).toFixed(d);}
+function setText(id,v){document.getElementById(id).textContent=v;}
+function dateLabel(s){return s.slice(0,4)+"/"+s.slice(5,7);}
+function parseLong(rows){return rows.map(r=>({date:r[0],cape:n(r[1]),ey:n(r[2]),real:n(r[3]),spread:n(r[4]),days:n(r[5])})).filter(x=>Number.isFinite(x.ey)&&Number.isFinite(x.real)&&Number.isFinite(x.spread));}
+function parseFed(rows,vintage){return rows.filter(r=>r[5]===vintage).map(r=>({date:r[0],series:r[1],value:n(r[2])}));}
+function latest(a){return a[a.length-1];}
+function monthDiff(a,b){return (Number(b.slice(0,4))-Number(a.slice(0,4)))*12+Number(b.slice(5,7))-Number(a.slice(5,7));}
+function subsetRange(data,range){if(range==="max"||!data.length)return data;const end=data[data.length-1].date;const cutoffMonth=Number(range);return data.filter(x=>monthDiff(x.date,end)<=cutoffMonth*12);}
+function renderSvg(svgId,tooltipId,data,series,opts={}){
+ const svg=document.getElementById(svgId),tip=document.getElementById(tooltipId);
+ const W=1100,H=opts.height||390,L=70,R=22,T=20,B=45,iw=W-L-R,ih=H-T-B;
+ if(!data.length){svg.innerHTML='<text x="550" y="180" text-anchor="middle">沒有可顯示的資料</text>';return;}
+ const vals=data.flatMap(d=>series.map(s=>d[s.key])).filter(Number.isFinite);
+ let min=Math.min(...vals),max=Math.max(...vals);
+ if(opts.zero){min=Math.min(min,0);max=Math.max(max,0);}
+ const pad=(max-min||1)*.12;min-=pad;max+=pad;
+ const t0=Date.parse(data[0].date+"-01T00:00:00Z"),t1=Date.parse(data[data.length-1].date+"-01T00:00:00Z");
+ const x=d=>L+(Date.parse(d+"-01T00:00:00Z")-t0)/(t1-t0||1)*iw;
+ const y=v=>T+(max-v)/(max-min)*ih;
+ let p=[];
+ for(let i=0;i<=5;i++){const v=min+(max-min)*i/5,yy=y(v);p.push('<line class="gridline" x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'"/><text x="'+(L-10)+'" y="'+(yy+3)+'" text-anchor="end">'+v.toFixed(1)+'</text>');}
+ for(let i=0;i<=6;i++){const xx=L+iw*i/6,dt=new Date(t0+(t1-t0)*i/6),lab=dt.getUTCFullYear()+(opts.monthly?"-"+String(dt.getUTCMonth()+1).padStart(2,"0"):"");p.push('<line class="gridline" x1="'+xx+'" y1="'+T+'" x2="'+xx+'" y2="'+(T+ih)+'"/><text x="'+xx+'" y="'+(H-15)+'" text-anchor="middle">'+lab+'</text>');}
+ if(opts.zero&&min<0&&max>0){const yy=y(0);p.push('<line class="zero" x1="'+L+'" y1="'+yy+'" x2="'+(W-R)+'" y2="'+yy+'"/>');}
+ p.push('<line class="axisline" x1="'+L+'" y1="'+(T+ih)+'" x2="'+(W-R)+'" y2="'+(T+ih)+'"/>');
+ series.forEach(s=>{let d="";data.forEach((row,i)=>{const xx=x(row.date),yy=y(row[s.key]);d+=(i?"L":"M")+xx.toFixed(2)+" "+yy.toFixed(2)+" ";});p.push('<path class="series" data-key="'+s.key+'" d="'+d+'" stroke="'+s.color+'"/>');});
+ p.push('<line id="'+svgId+'-focus" class="focus-line" x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(T+ih)+'" visibility="hidden"/>');
+ series.forEach(s=>p.push('<circle id="'+svgId+'-dot-'+s.key+'" class="focus-dot" r="4.5" fill="'+s.color+'" cx="'+L+'" cy="'+T+'" visibility="hidden"/>'));
+ svg.setAttribute("viewBox","0 0 "+W+" "+H);svg.innerHTML=p.join("");
+ const getAt=clientX=>{const rect=svg.getBoundingClientRect(),sx=(clientX-rect.left)/rect.width*W;let idx=Math.round((sx-L)/iw*(data.length-1));return Math.max(0,Math.min(data.length-1,idx));};
+ const show=(clientX,clientY)=>{const i=getAt(clientX),row=data[i],xx=x(row.date);const focus=document.getElementById(svgId+"-focus");focus.setAttribute("x1",xx);focus.setAttribute("x2",xx);focus.setAttribute("visibility","visible");let lines=["<b>"+dateLabel(row.date)+"</b>"];series.forEach(s=>{const val=row[s.key];const dot=document.getElementById(svgId+"-dot-"+s.key);dot.setAttribute("cx",xx);dot.setAttribute("cy",y(val));dot.setAttribute("visibility","visible");lines.push('<span style="color:'+s.color+'">●</span> '+s.label+"："+Number(val).toFixed(s.decimals??2)+(s.unit||""));});tip.innerHTML=lines.join("<br>");tip.style.display="block";const wrap=svg.parentElement.getBoundingClientRect();tip.style.left=Math.min(Math.max(4,clientX-wrap.left+12),wrap.width-165)+"px";tip.style.top=Math.max(4,clientY-wrap.top-12)+"px";};
+ const hide=()=>{tip.style.display="none";document.getElementById(svgId+"-focus").setAttribute("visibility","hidden");series.forEach(s=>document.getElementById(svgId+"-dot-"+s.key).setAttribute("visibility","hidden"));};
+ svg.onpointermove=e=>show(e.clientX,e.clientY);svg.onpointerleave=hide;svg.onpointerdown=e=>{svg.setPointerCapture(e.pointerId);show(e.clientX,e.clientY);};svg.onpointerup=hide;
+}
+function drawLong(){
+ let data=subsetRange(state.long,state.range);
+ if(state.view==="yields"){
+  setText("long-chart-title","股票盈餘殖利率 vs. TIPS 實質殖利率");
+  setText("long-chart-desc","兩條殖利率使用相同百分比縱軸；每月按日期配對，缺值不補值。");
+  renderSvg("long-chart","long-tooltip",data,[{key:"ey",label:"CAPE Earnings Yield",color:COLORS.ey,unit:"%",decimals:2},{key:"real",label:"10Y TIPS Real Yield",color:COLORS.real,unit:"%",decimals:2}],{height:390});
+  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>CAPE Earnings Yield</span><span class="legend-item"><i class="swatch" style="background:'+COLORS.real+'"></i>10Y TIPS Real Yield</span>';
+ }else{
+  setText("long-chart-title","CAPE 盈餘殖利率 − 10Y TIPS 實質殖利率");
+  setText("long-chart-desc","正值代表 CAPE 盈餘殖利率高於 TIPS 實質殖利率；負值代表低於。");
+  renderSvg("long-chart","long-tooltip",data,[{key:"spread",label:"Equity–Real Yield Spread",color:COLORS.spread,unit:" pp",decimals:2}],{height:390,zero:true});
+  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.spread+'"></i>Equity–Real Yield Spread</span>';
+ }
+}
+function drawForward(){
+ const vintage=document.getElementById("fed-vintage").value;
+ const source=vintage==="2026-05"?state.fed26:state.fed25;
+ const pe=source.filter(x=>x.series==="forward_pe").map(x=>({date:x.date,value:x.value}));
+ const ep=source.filter(x=>x.series==="equity_premium_pp").map(x=>({date:x.date,value:x.value}));
+ const p=latest(pe),e=latest(ep);
+ setText("f-pe",p.value.toFixed(2));setText("f-pe-date",p.date+"｜報告版本 "+vintage);
+ setText("f-ey",(100/p.value).toFixed(2));setText("f-ep",signed(e.value,2));setText("f-ep-date",e.date+"｜Fed 官方序列");
+ setText("forward-asof","數值資料截至 "+p.date+"｜報告版本 "+vintage);
+ setText("forward-status",vintage==="2026-05"?"目前最新可核實數值表：Fed 2026-05 報告（發布 2026-05-08，資料截至 2026-04）。Fed 2026-11 報告已發布、資料截至 2026-10-28，但目前沒有可解析的數值表；此處不以圖形估讀補值。":"歷史版本：Fed 2025-11 報告（發布 2025-11-07，資料截至 2025-10）。此版本保留供歷史修訂比較，不代表最新數值。");
+ renderSvg("pe-chart","pe-tooltip",pe,[{key:"value",label:"Forward P/E",color:COLORS.pe,unit:"x",decimals:2}],{height:330});
+ renderSvg("ep-chart","ep-tooltip",ep,[{key:"value",label:"Fed Equity Premium",color:COLORS.ep,unit:" pp",decimals:2}],{height:330,zero:true});
+}
+function activateMode(mode){state.mode=mode;document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+mode));}
+document.querySelectorAll(".mode-btn").forEach(b=>b.addEventListener("click",()=>activateMode(b.dataset.mode)));
+document.querySelectorAll(".view-btn").forEach(b=>b.addEventListener("click",()=>{state.view=b.dataset.view;document.querySelectorAll(".view-btn").forEach(x=>x.classList.toggle("active",x===b));drawLong();}));
+document.querySelectorAll(".range-btn").forEach(b=>b.addEventListener("click",()=>{state.range=b.dataset.range;document.querySelectorAll(".range-btn").forEach(x=>x.classList.toggle("active",x===b));drawLong();}));
+document.getElementById("fed-vintage").addEventListener("change",drawForward);
+async function init(){
+ try{
+  const [l,f25,f26]=await Promise.all([fetch(DATA.long),fetch(DATA.fed25),fetch(DATA.fed26)]);
+  if(!l.ok||!f25.ok||!f26.ok)throw new Error("資料檔讀取失敗，請確認 GitHub Pages 路徑。");
+  state.long=parseLong(csv(await l.text()));
+  state.fed25=parseFed(csv(await f25.text()),"2025-11");
+  state.fed26=parseFed(csv(await f26.text()),"2026-05");
+  if(state.long.length<250||state.fed25.length<800||state.fed26.length<800)throw new Error("資料筆數未達預期，停止繪圖以避免顯示不完整資料。");
+  const z=latest(state.long);
+  setText("k-cape",z.cape.toFixed(2));setText("k-ey",pct(z.ey));setText("k-real",pct(z.real));setText("k-spread",signed(z.spread,2));
+  setText("k-cape-date",z.date+"｜Shiller 官方月資料");
+  setText("k-real-note",z.days+" 個交易日平均");
+  setText("long-asof","共同資料截至 "+z.date+"｜共同歷史起點 "+state.long[0].date);
+  setText("long-range-note","共同歷史資料自 "+state.long[0].date+" 起；Shiller CAPE 單獨歷史則可回溯至 1881-01。當月 Treasury 月平均以 "+z.days+" 個交易日計算。");
+  drawLong();drawForward();
+ }catch(err){
+  document.querySelectorAll(".chart-wrap").forEach(x=>x.innerHTML='<div class="error">'+String(err.message||err)+'</div>');
+  setText("long-asof","資料載入失敗");setText("forward-asof","資料載入失敗");
+ }
+}
+init();
+</script>
+</body>
+</html>
