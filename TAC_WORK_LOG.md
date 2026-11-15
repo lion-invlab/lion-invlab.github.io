@@ -1052,3 +1052,20 @@
 - main 保護資產未變：`index.html` SHA `193644d363c8f590b4b2c8d07292b01337e3dee0`；W46 JSON SHA `a7bab78c8c4a254e2081d89693571c41897f8243`；正式 Manifest SHA `fade5e3d88de76a79cb5c1656cc592b98827ab55`；正式週二至週五母版 SHA `3785405e331b10ec6189002e480be2a1edbe20ef`。未修改首頁、母版、Manifest、行事曆 JSON。
 - 資料完整性註記：市場行情、新聞及行事曆內容使用 05:25 前人工查核快照；本次 workflow 重新執行 OHLC／股價反應擷取、DOM 組裝與 QA，但不宣稱全部 44 項行情為即時 API 全自動 E2E。
 - 狀態：11/13 main 審核版已完成並可供使用者審核；未發布至正式首頁。
+
+
+
+## 2026-11-15｜五區經濟卡產製鏈根因修正與交付 QA 閉環
+
+- 根因確認：週一 build_review_html.py 的 previous-week economic card builder 使用舊回顧卡原型（四欄），再將市場影響欄插入來源欄之前；但沒有把前值／市場預估／實際三欄放入 econ-primary-grid。這與 QA contract 的五區 DOM／網格位置要求不符。過去只修改單份 preview/2026-11-16-simulation.html 的提交 218f9562...，沒有修復 builder，因此無法保證下一次產製。
+- 修正內容：
+  1. 週一上週經濟卡以核准母版本週五區卡片作為內容 DOM，沿用上週卡的 summary 與 econ-event-toggle，確保上週／本週皆為相同五區結構但保留不同控制器。
+  2. 經濟欄位寫入改為唯一匹配；來源欄清空後依當筆權威事件 source URL 重建，避免留下 prototype 的舊連結。
+  3. 本週與上週卡在 HTML 序列化前逐張驗證 direct-child 層級、三欄 class／順序、impact/source full-width class／順序、value 節點與正確 toggle。
+  4. HTML 內嵌 build provenance，鎖定 build commit、fixture、builder、母版與 main calendar commit／兩週 JSON blob SHA。
+  5. 新增獨立 validate_review_artifact.py，只接受 canonical preview/YYYY-MM-DD-simulation.html，核對日期、母版 Manifest SHA、不可變 build commit、fixture／builder blob SHA、main calendar blob SHA、事件數、五區 DOM、source HTTPS、週一收折狀態、重複 ID及必要區塊。
+  6. workflow 輸出改為 canonical preview path；新增 qa-only 入口，能對已存在的同日 preview 單獨執行 interaction／visual／provenance QA，不會重抓資料或重建 HTML；只有 build 模式在所有 gate 通過後才可提交。
+  7. 新增 .qa.json sidecar，記錄 HTML Git blob SHA、SHA-256、build／source SHA、interaction／visual evidence SHA、1440／768／412／390／360 viewport 及 run ID。commit 後重新從 Git tree 讀取 HTML 與 sidecar 並核對 blob SHA。
+- 11/16 資料庫來源確認：main W47 22 筆經濟、21 筆財報；main W46 16 筆經濟、48 筆財報。W46 contents API 回傳空字串是大型 blob 讀取限制；以 blob SHA edf33bdd3b9573b08a9381f617ac3ad4357a1c2d 取回完整 928,435 bytes 後確認並非空資料庫。W47 blob SHA 4a85e0cb9db029e663a2422ce691603bbe9e871a。
+- 變更僅位於 simulation branch：build_review_html.py、新增 validate_review_artifact.py、.github/workflows/tac-simulation-lab.yml。未修改 main、正式首頁、母版、Manifest、QA contract、W46/W47 JSON。
+- 完整 workflow 由提交 363f67b68ad778360d31a3bd62c873db23123d1d 觸發；目前無可讀取的 workflow run/job logs，尚未取得 Python compile、build、browser interaction、visual regression、獨立 validator、HTML／sidecar commit 回讀的執行證據。不得把程式寫入或 push 成功當成測試通過。
