@@ -113,11 +113,11 @@ try {
     if (specialAudit.exists && !["0.4%", "0.3%", "未公布", "Waller"].every(x => specialAudit.text.includes(x))) failures.push(`${v.name}: CPI special focus missing key data/analysis`);
     const focusAudit = await reportPage.evaluate((reportDate) => {
       const cases = [
-        // Validate the actual approved tab semantics: market narrative, full
-        // OHLC level set with source/date disclosure, and three weekly catalysts.
-        { id: "focus-tab-market", panel: ".focus-market", needles: ["市場觀點"], minLength: 80 },
-        { id: "focus-tab-levels", panel: ".focus-levels", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"], minLength: 200 },
-        { id: "focus-tab-core", panel: ".focus-core", needles: ["盤面觀察重點", "本週三大催化劑"], minLength: 100 }
+        // Validate the approved tab semantics: 盤面觀察重點, the full
+        // OHLC level set with source/date disclosure, and three weekly observation points.
+        { id: "focus-tab-market", panel: ".focus-market", expectedLabel: "盤面觀察重點", needles: ["盤面觀察重點"], minLength: 80 },
+        { id: "focus-tab-levels", panel: ".focus-levels", expectedLabel: "今日關鍵價位", needles: ["道瓊工業指數", "支撐 S2：", "支撐 S1：", "中樞 P：", "壓力 R1：", "壓力 R2：", "S&P 500", "Nasdaq Composite", "費城半導體指數（SOX）", "Russell 2000", "價位計算方式與資料來源"], minLength: 200 },
+        { id: "focus-tab-core", panel: ".focus-core", expectedLabel: "今日核心觀察", needles: ["本週三大觀察焦點"], minLength: 100 }
       ];
       const results = [], invalid = [];
       for (const item of cases) {
@@ -125,6 +125,7 @@ try {
         const label = document.querySelector(`label[for="${item.id}"]`);
         const panel = document.querySelector("#view " + item.panel);
         if (!input || !label || !panel) { invalid.push(item.id + ": input/label/panel missing"); continue; }
+        if (item.expectedLabel && label.textContent.trim() !== item.expectedLabel) invalid.push(item.id + ": tab label mismatch (expected " + item.expectedLabel + ", got " + label.textContent.trim() + ")");
         label.click();
         const rect = panel.getBoundingClientRect();
         const visible = getComputedStyle(panel).display !== "none" && rect.width > 0 && rect.height > 0;
@@ -133,7 +134,7 @@ try {
         if (!visible) invalid.push(item.id + ": target panel is not visible after tab click");
         for (const needle of item.needles) if (!text.includes(needle)) invalid.push(item.id + ": missing expected content " + needle);
         if (text.trim().length < (item.minLength || 0)) invalid.push(item.id + ": tab content is too short (" + text.trim().length + " chars)");
-        if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly catalyst markers are incomplete");
+        if (item.id === "focus-tab-core" && !["①", "②", "③"].every(marker => text.includes(marker))) invalid.push(item.id + ": three weekly observation markers are incomplete");
         if (item.id === "focus-tab-levels") {
           const source = panel.querySelector("details.compact-disclosure")?.textContent || "";
       const sourceDateMatch = source.match(/基準交易日：(\d{4}-\d{2}-\d{2})/);
