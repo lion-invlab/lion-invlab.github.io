@@ -92,16 +92,16 @@ def main():
         )
         eps_basis_display=(
             ("GAAP" if eps_method=="gaap" else "Normalized（非 GAAP）")+
-            "；Basic／Diluted 股數口徑未揭露"
-            if eps_method_verified else "EPS 會計方法待核實"
+            "；Basic／Diluted 細節未完整揭露"
+            if eps_method_verified else "Yahoo 平台 EPS 預期（GAAP／Normalized 細節未完整揭露）"
         )
-        revenue_basis_display="Revenue 指標定義未揭露；暫不與實際營收方向比較"
+        revenue_basis_display="Yahoo 平台 Revenue 預期（營收細項定義未完整揭露）"
         labels={k.lower():consensus_evidence_label(projected,k.lower()) for k in ("EPS","REVENUE")}
         statuses={k.lower():evaluate_metric(projected,k.lower())["status"] for k in ("EPS","REVENUE")}
-        if any(v not in (None,"TAC 公告前觀測共識｜比較口徑待核實") for v in labels.values()):
+        if any(v not in (None,"TAC 公告前觀測共識") for v in labels.values()):
             raise SystemExit(f"unexpected evidence label for {item['ticker']}: {labels}")
         if any(v in {"beat","miss","inline"} for v in statuses.values()):
-            raise SystemExit(f"directional judgment without basis unexpectedly emitted for {item['ticker']}")
+            raise SystemExit(f"upcoming event unexpectedly has actual-result judgment for {item['ticker']}")
         output.append({
             "ticker":item["ticker"],"event_id":event["id"],"event_date":event["event_date"],
             "reporting_period":event["reporting_period"],
