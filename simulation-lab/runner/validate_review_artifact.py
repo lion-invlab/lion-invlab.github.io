@@ -120,7 +120,6 @@ def main():
         "template_path": template_path,
         "template_blob_sha": template_sha,
         "builder_path": str(BUILDER_PATH.relative_to(ROOT)),
-        "builder_blob_sha": git_blob_sha(BUILDER_PATH.read_bytes()),
         "mode": "simulation-only",
     }
     for key, value in expected_provenance.items():
