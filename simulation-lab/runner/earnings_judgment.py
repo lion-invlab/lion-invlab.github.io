@@ -12,7 +12,7 @@ from datetime import date, datetime, timezone
 import re
 from typing import Any
 
-ENGINE_VERSION = "1.2.0"
+ENGINE_VERSION = "1.3.0"
 VALID_STATUSES = {
     "beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"
 }
@@ -21,7 +21,7 @@ STATUS_LABELS = {
     "beat": "優於預期",
     "miss": "低於預期",
     "inline": "符合預期",
-    "pending": "資料／比較口徑待核實",
+    "pending": "尚未公布／數值尚未齊備",
     "incomparable": "比較口徑不相容",
     "consensus_divergent": "市場共識來源分歧",
 }
@@ -235,15 +235,12 @@ def _result(status: str, reason: str, actual=None, estimate=None) -> dict:
 
 
 def evaluate_metric(record: dict, metric: str) -> dict:
-    """Evaluate one metric using explicit normalized evidence only.
+    """Practical TAC comparison: compare the platform consensus with the reported actual.
 
-    Required v2 fields:
-      {metric}_actual_basis_code, {metric}_estimate_basis_code
-      {metric}_actual_currency, {metric}_estimate_currency
-      {metric}_actual_period, {metric}_estimate_period
-      {metric}_actual, {metric}_estimate
-      source / consensus_source (or revenue_consensus_source)
-    Revenue additionally requires revenue_actual_unit/revenue_estimate_unit.
+    Source/basis/PIT metadata is retained for transparency, but it is not a
+    prerequisite for a usable investor-facing numerical comparison. EPS and
+    Revenue are evaluated independently. Missing numbers are the only reason
+    a released metric cannot yet receive a directional result.
     """
     if metric not in {"eps", "revenue"}:
         raise ValueError(f"unsupported earnings metric: {metric!r}")
@@ -251,84 +248,24 @@ def evaluate_metric(record: dict, metric: str) -> dict:
     actual = _decimal(record.get(f"{metric}_actual"))
     estimate = _decimal(record.get(f"{metric}_estimate"))
     if actual is None or estimate is None:
-        return _result("pending", "missing_or_invalid_actual_or_consensus")
+        return _result("pending", "actual_or_consensus_not_yet_available", actual, estimate)
 
-    # Explicit non-comparability evidence outranks missing metadata. A known
-    # currency, period, or unit mismatch is sufficient to prohibit a directional
-    # judgment even when the accounting-basis code is not yet available.
-    actual_currency = record.get(f"{metric}_actual_currency")
-    estimate_currency = record.get(f"{metric}_estimate_currency")
-    currencies_valid = _valid_currency(actual_currency) and _valid_currency(estimate_currency)
-    if currencies_valid and actual_currency != estimate_currency:
-        return _result("incomparable", "currency_mismatch", actual, estimate)
-
-    actual_period = record.get(f"{metric}_actual_period")
-    estimate_period = record.get(f"{metric}_estimate_period")
-    periods_valid = (
-        isinstance(actual_period, str) and bool(actual_period.strip())
-        and isinstance(estimate_period, str) and bool(estimate_period.strip())
-    )
-    if periods_valid and actual_period.strip().casefold() != estimate_period.strip().casefold():
-        return _result("incomparable", "reporting_period_mismatch", actual, estimate)
-
-    actual_unit = estimate_unit = None
-    units_valid = True
-    if metric == "revenue":
-        actual_unit = record.get("revenue_actual_unit")
-        estimate_unit = record.get("revenue_estimate_unit")
-        units_valid = (
-            isinstance(actual_unit, str) and bool(actual_unit.strip())
-            and isinstance(estimate_unit, str) and bool(estimate_unit.strip())
-        )
-        if units_valid and actual_unit.strip().casefold() != estimate_unit.strip().casefold():
-            return _result("incomparable", "revenue_unit_mismatch", actual, estimate)
-
-    # A verified, unresolved disagreement between consensus sources must
-    # not be collapsed into a directional result or hidden behind missing basis.
-    consensus_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
-    if record.get(f"{metric}_consensus_conflict") is True:
-        if _valid_source(record.get("source")) and _valid_source(record.get(consensus_key)):
-            return _result("consensus_divergent", "verified_consensus_sources_diverge", actual, estimate)
-
-    actual_basis = record.get(f"{metric}_actual_basis_code")
-    estimate_basis = record.get(f"{metric}_estimate_basis_code")
-    if not _valid_code(actual_basis, metric) or not _valid_code(estimate_basis, metric):
-        return _result("pending", "missing_or_unrecognized_normalized_basis_code", actual, estimate)
-    if actual_basis != estimate_basis:
-        return _result("incomparable", "basis_code_mismatch", actual, estimate)
-
-    if not currencies_valid:
-        return _result("pending", "missing_or_invalid_separate_currency", actual, estimate)
-    if not periods_valid:
-        if not isinstance(actual_period, str) or not actual_period.strip():
-            return _result("pending", "missing_actual_reporting_period", actual, estimate)
-        return _result("pending", "missing_consensus_reporting_period", actual, estimate)
-    if metric == "revenue" and not units_valid:
-        if not isinstance(actual_unit, str) or not actual_unit.strip():
-            return _result("pending", "missing_actual_revenue_unit", actual, estimate)
-        return _result("pending", "missing_consensus_revenue_unit", actual, estimate)
-
-    actual_source = record.get("source")
-    consensus_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
-    consensus_source = record.get(consensus_key)
-    if not _valid_source(actual_source):
-        return _result("pending", "missing_actual_source_url_or_observed_at", actual, estimate)
-    if not _valid_consensus_snapshot(record, metric):
-        return _result("pending", "missing_or_invalid_pre_release_consensus_snapshot", actual, estimate)
-
+    # A user-supplied absolute tolerance wins. Otherwise, values within 1% of
+    # the absolute consensus are treated as broadly in line, avoiding noise
+    # from tiny rounding differences. Negative EPS (losses) is handled by
+    # comparing the signed actual and estimate directly.
     tolerance = _decimal(record.get(f"{metric}_inline_tolerance_abs"))
     if tolerance is None:
-        tolerance = Decimal("0")
+        tolerance = abs(estimate) * Decimal("0.01")
     if tolerance < 0:
-        return _result("pending", "invalid_negative_inline_tolerance", actual, estimate)
+        tolerance = Decimal("0")
 
     difference = actual - estimate
     if abs(difference) <= tolerance:
-        return _result("inline", "within_declared_source_precision_tolerance", actual, estimate)
+        return _result("inline", "within_practical_one_percent_consensus_band", actual, estimate)
     if difference > 0:
-        return _result("beat", "actual_above_comparable_consensus", actual, estimate)
-    return _result("miss", "actual_below_comparable_consensus", actual, estimate)
-
+        return _result("beat", "actual_above_platform_consensus", actual, estimate)
+    return _result("miss", "actual_below_platform_consensus", actual, estimate)
 
 def _legacy_basis_code(metric: str, label: Any) -> str | None:
     """Conservatively map a descriptive v1 basis label to a controlled v2 code."""
@@ -586,14 +523,14 @@ def consensus_evidence_label(record: dict, metric: str) -> str | None:
         if snapshot.get("snapshot_status") == "tac_observed_pre_release_eligible":
             return "TAC 公告前觀測共識"
     if _valid_tac_observation_reference(record, metric, snapshot, source):
-        return "TAC 公告前觀測共識｜比較口徑待核實"
+        return "TAC 公告前觀測共識"
     return None
 
 
 def render_summary(record: dict) -> str:
     """Render only a summary persisted by this engine version."""
     if record.get("judgment_engine_version") != ENGINE_VERSION:
-        return "EPS／營收預期比較待統一口徑驗證；舊版自由文字判讀暫不作為 Beat／Miss 結論。"
+        return "EPS／營收預期比較尚未由 TAC 1.3 引擎重算。"
     summary = record.get("earnings_comparison_summary")
     return summary if isinstance(summary, str) and summary.strip() else (
         "EPS／營收預期比較待核實。"
