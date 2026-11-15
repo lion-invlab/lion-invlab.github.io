@@ -37,8 +37,8 @@ def main() -> int:
     rows=[]
     for item in released:
         projected=migrate_legacy_record(item)
-        eps_snapshot=bool(item.get("consensus_source",{}).get("snapshot_id")) and bool(item.get("eps_consensus_snapshots"))
-        rev_snapshot=bool(item.get("revenue_consensus_source",{}).get("snapshot_id")) and bool(item.get("revenue_consensus_snapshots"))
+        eps_snapshot=bool((item.get("consensus_source") or {}).get("snapshot_id")) and bool(item.get("eps_consensus_snapshots"))
+        rev_snapshot=bool((item.get("revenue_consensus_source") or {}).get("snapshot_id")) and bool(item.get("revenue_consensus_snapshots"))
         rows.append({
             "ticker":item.get("ticker"),"event_date":item.get("event_date"),
             "old_eps_status":item.get("eps_comparison_status"),"new_eps_status":projected.get("eps_comparison_status"),
@@ -48,8 +48,8 @@ def main() -> int:
             "eps_has_linked_snapshot":eps_snapshot,"revenue_has_linked_snapshot":rev_snapshot,
             "eps_source_observed_after_event":observed_after_event(item,"consensus_source"),
             "revenue_source_observed_after_event":observed_after_event(item,"revenue_consensus_source"),
-            "eps_data_as_of_present":bool(item.get("consensus_source",{}).get("data_as_of")),
-            "revenue_data_as_of_present":bool(item.get("revenue_consensus_source",{}).get("data_as_of")),
+            "eps_data_as_of_present":bool((item.get("consensus_source") or {}).get("data_as_of")),
+            "revenue_data_as_of_present":bool((item.get("revenue_consensus_source") or {}).get("data_as_of")),
         })
     pairs=sum(x["eps_numeric_pair_present"]+x["revenue_numeric_pair_present"] for x in rows)
     judged=sum(int(x["eps_numeric_pair_present"] and x["new_eps_status"] in DIRECTIONAL)+int(x["revenue_numeric_pair_present"] and x["new_revenue_status"] in DIRECTIONAL) for x in rows)
