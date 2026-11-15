@@ -1299,8 +1299,7 @@ def main():
                 ]:
                     state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
                     status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
-                    # Never imply EPS beat/miss from raw numeric direction when consensus basis is unverified.
-                    # A pending comparison must remain explicitly non-directional.
+                    # The single TAC engine has already persisted the numerical comparison; render its result only.
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                     h=soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
                     for caption, val, formatted in [("實際",actual_value,actual_display),("預期",estimate,estimate_display)]:
@@ -1500,7 +1499,7 @@ def main():
                     ]:
                         state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
                         status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
-                        # Keep pending EPS comparisons non-directional until consensus basis is verified.
+                        # The single TAC engine has already persisted the numerical comparison; render its result only.
                         result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
                         for caption, val, formatted in [("實際", actual_value, actual_display), ("預期", estimate, estimate_display)]:
