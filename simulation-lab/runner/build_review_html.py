@@ -1592,7 +1592,7 @@ def main():
 #earnings .earnings-actual-status.inline,#earnings .earnings-actual-status.pending,#earnings .earnings-actual-status.incomparable,#earnings .earnings-actual-status.consensus_divergent{color:#596170!important;background:#f0f2f5!important}
 #earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
 #earnings .earnings-detail-field.wide{border:1px solid #e5e7eb!important;border-radius:11px!important;padding:11px 12px!important;background:#fbfcfe!important;width:100%!important;box-sizing:border-box!important}
-        "/* Mobile earnings cards: stack EPS/revenue and keep currency values within viewport. */"
+/* Mobile earnings cards: stack EPS/revenue and keep currency values within viewport. */
  @media(max-width:640px){#earnings .earnings-results-grid{grid-template-columns:minmax(0,1fr)!important;gap:9px!important}#earnings .earnings-actual-card{padding:11px!important;width:100%!important}#earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}#earnings .earnings-actual-line span{flex:0 0 auto!important}#earnings .earnings-actual-line strong{display:block!important;flex:0 1 auto!important;min-width:0!important;max-width:100%!important;font-size:14px!important;text-align:right!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important}#earnings .earnings-detail-value{font-size:13px!important}}
 </style>
 """
