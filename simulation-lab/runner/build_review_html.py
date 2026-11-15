@@ -1603,6 +1603,33 @@ def main():
         if head is None: raise ValueError("HTML head missing; cannot install published earnings-card styles")
         head.append(BeautifulSoup(earnings_css,"html.parser").style)
 
+    # Keep the mobile override in its own final stylesheet so no legacy mother CSS
+    # can swallow or supersede the responsive rule during parsing.
+    mobile_earnings_css = soup.new_tag("style", id="tac-published-earnings-mobile-v1")
+    mobile_earnings_css.string = """
+@media screen and (max-width: 640px) {
+  #earnings .earnings-accordion-details > .earnings-results-grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-flow: row !important;
+    gap: 9px !important;
+  }
+  #earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 11px !important;
+  }
+  #earnings .earnings-actual-line { display:flex !important; justify-content:space-between !important; align-items:center !important; gap:12px !important; }
+  #earnings .earnings-actual-line span { flex:0 0 auto !important; }
+  #earnings .earnings-actual-line strong { display:block !important; flex:0 1 auto !important; min-width:0 !important; max-width:100% !important; font-size:14px !important; text-align:right !important; white-space:normal !important; overflow-wrap:anywhere !important; word-break:normal !important; }
+}
+"""
+    existing_mobile_earnings_css = soup.select_one("#tac-published-earnings-mobile-v1")
+    if existing_mobile_earnings_css:
+        existing_mobile_earnings_css.replace_with(mobile_earnings_css)
+    else:
+        soup.select_one("head").append(mobile_earnings_css)
+
     # Remove stale mother-template dates from news, CNN, FactSet and FedWatch panels.
     news_window = soup.select_one("#news-scan .news-window-warning")
     if news_window:
