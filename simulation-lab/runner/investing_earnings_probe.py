@@ -29,8 +29,8 @@ TARGETS = [
         "company": "NVIDIA",
         "url": "https://www.investing.com/equities/nvidia-corp-earnings",
         "event_date": "2026-11-17",
-        "period_markers": ("10/2026", "2026/10"),
-        "date_markers": ("Nov 17, 2026", "17/11/2026", "2026-11-17"),
+        "period_markers": ("10/2026", "2026/10", "2026-10"),
+        "date_markers": ("Nov 17, 2026", "17/11/2026", "2026-11-17", "2026年11月17日"),
     },
     {
         "ticker": "WMT",
@@ -38,7 +38,7 @@ TARGETS = [
         "url": "https://www.investing.com/equities/wal-mart-stores-earnings",
         "event_date": "2026-11-19",
         "period_markers": ("10/2026", "2026/10"),
-        "date_markers": ("Nov 19, 2026", "19/11/2026", "2026-11-19"),
+        "date_markers": ("Nov 19, 2026", "19/11/2026", "2026-11-19", "2026年11月19日"),
     },
     {
         "ticker": "BIDU",
@@ -46,7 +46,7 @@ TARGETS = [
         "url": "https://www.investing.com/equities/baidu.com-earnings",
         "event_date": "2026-11-16",
         "period_markers": ("09/2026", "2026/09", "2026-09"),
-        "date_markers": ("Nov 16, 2026", "16/11/2026", "2026-11-16"),
+        "date_markers": ("Nov 16, 2026", "16/11/2026", "2026-11-16", "2026年11月16日"),
     },
 ]
 
@@ -61,8 +61,8 @@ def _first_number(text: str):
 def _currency_and_units(text: str):
     # The earnings-table note ("All numbers in ...") takes precedence over
     # the quote-header trading currency, which can differ for ADRs.
-    all_numbers = re.search(r"All numbers in (USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
-    header = re.search(r"Currency in (USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
+    all_numbers = re.search(r"(?:All numbers in|數字皆以)\\s*(USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
+    header = re.search(r"(?:Currency in|貨幣)\\s*(USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
     currency = (all_numbers or header).group(1).upper() if (all_numbers or header) else None
     return currency
 
@@ -143,81 +143,94 @@ def parse_earnings_row(html: bytes, target: dict) -> dict:
 
 
 def fetch_one(target: dict, archive_dir: Path) -> dict:
-    request = urllib.request.Request(
-        target["url"],
-        headers={
-            "User-Agent": UA,
-            "Accept": "text/html,application/xhtml+xml",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cache-Control": "no-cache",
-        },
-    )
-    status, headers, raw = None, {}, b""
-    error = None
-    try:
-        with urllib.request.urlopen(request, timeout=35) as response:
-            status = response.status
-            headers = {k.lower(): v for k, v in response.headers.items()}
-            raw = response.read()
-    except urllib.error.HTTPError as exc:
-        status = exc.code
-        headers = {k.lower(): v for k, v in exc.headers.items()} if exc.headers else {}
-        raw = exc.read()
-        error = f"HTTPError: {exc}"
-    except Exception as exc:
-        error = f"{type(exc).__name__}: {exc}"
+    path = target["url"].split("://", 1)[1].split("/", 1)[1]
+    hosts = ("hk.investing.com", "ca.investing.com", "uk.investing.com", "www.investing.com")
+    attempts = []
+    chosen = None
+    for host in hosts:
+        url = f"https://{host}/{path}"
+        request = urllib.request.Request(
+            url,
+            headers={
+                "User-Agent": UA,
+                "Accept": "text/html,application/xhtml+xml",
+                "Accept-Language": "zh-HK,zh;q=0.9,en-US,en;q=0.8",
+                "Cache-Control": "no-cache",
+            },
+        )
+        status, headers, raw, error = None, {}, b"", None
+        try:
+            with urllib.request.urlopen(request, timeout=35) as response:
+                status = response.status
+                headers = {k.lower(): v for k, v in response.headers.items()}
+                raw = response.read()
+        except urllib.error.HTTPError as exc:
+            status = exc.code
+            headers = {k.lower(): v for k, v in exc.headers.items()} if exc.headers else {}
+            raw = exc.read()
+            error = f"HTTPError: {exc}"
+        except Exception as exc:
+            error = f"{type(exc).__name__}: {exc}"
 
-    observed_at = datetime.now(TAIPEI).isoformat(timespec="seconds")
-    digest = hashlib.sha256(raw).hexdigest() if raw else None
-    raw_ref = None
-    if raw:
-        folder = archive_dir / target["ticker"]
-        folder.mkdir(parents=True, exist_ok=True)
-        raw_path = folder / f"{digest}.html"
-        if raw_path.exists() and raw_path.read_bytes() != raw:
-            raise RuntimeError(f"raw HTML hash collision: {raw_path}")
-        if not raw_path.exists():
-            raw_path.write_bytes(raw)
-        raw_ref = str(raw_path)
+        observed_at = datetime.now(TAIPEI).isoformat(timespec="seconds")
+        digest = hashlib.sha256(raw).hexdigest() if raw else None
+        raw_ref = None
+        if raw:
+            folder = archive_dir / target["ticker"]
+            folder.mkdir(parents=True, exist_ok=True)
+            raw_path = folder / f"{host.replace('.', '-')}-{digest}.html"
+            if raw_path.exists() and raw_path.read_bytes() != raw:
+                raise RuntimeError(f"raw HTML hash collision: {raw_path}")
+            if not raw_path.exists():
+                raw_path.write_bytes(raw)
+            raw_ref = str(raw_path)
+        parsed = parse_earnings_row(raw, {**target, "url": url}) if raw else {"row_found": False}
+        attempts.append({
+            "host": host, "url": url, "http_status": status,
+            "observed_at": observed_at, "raw_response_sha256": digest,
+            "raw_response_ref": raw_ref, "row_found": parsed.get("row_found", False),
+            "transport_error": error,
+        })
+        if parsed.get("row_found"):
+            chosen = (parsed, status, headers, raw, digest, raw_ref, observed_at, error, url)
+            break
+        if raw:
+            chosen = (parsed, status, headers, raw, digest, raw_ref, observed_at, error, url)
 
-    parsed = parse_earnings_row(raw, target) if raw else {
-        "ticker": target["ticker"], "company": target["company"], "url": target["url"],
-        "row_found": False, "row_text": None, "currency": None,
-        "eps_estimate": None, "revenue_estimate": None,
-        "revenue_estimate_raw": None, "revenue_unit": None,
-        "period": None, "period_end_date": None, "eps_basis_code": None,
-        "revenue_basis_code": None, "statistic": None, "analyst_count": None,
-        "data_as_of": None, "published_at": None, "page_title": None,
-    }
+    if chosen:
+        parsed, status, headers, raw, digest, raw_ref, observed_at, error, url = chosen
+        parsed["url"] = url
+    else:
+        parsed, status, headers, raw, digest, raw_ref, observed_at, error, url = (
+            {"ticker": target["ticker"], "company": target["company"], "url": target["url"],
+             "row_found": False, "row_text": None, "currency": None, "eps_estimate": None,
+             "revenue_estimate": None, "revenue_estimate_raw": None, "revenue_unit": None,
+             "period": None, "period_end_date": None, "eps_basis_code": None,
+             "revenue_basis_code": None, "statistic": None, "analyst_count": None,
+             "data_as_of": None, "published_at": None, "page_title": None},
+            None, {}, b"", None, None, datetime.now(TAIPEI).isoformat(timespec="seconds"),
+            "all Investing.com locale hosts failed", target["url"]
+        )
 
     snapshots = {}
     if raw:
         for metric in ("EPS", "REVENUE"):
             attempt = {
-                "source_level": 3,
-                "provider": "Investing.com",
-                "url": target["url"],
-                "observed_at": observed_at,
-                "data_as_of": parsed.get("data_as_of"),
-                "published_at": parsed.get("published_at"),
-                "period": parsed.get("period"),
+                "source_level": 3, "provider": "Investing.com", "url": url,
+                "observed_at": observed_at, "data_as_of": parsed.get("data_as_of"),
+                "published_at": parsed.get("published_at"), "period": parsed.get("period"),
                 "period_end_date": parsed.get("period_end_date"),
                 "value": parsed.get("eps_estimate") if metric == "EPS" else parsed.get("revenue_estimate"),
                 "currency": parsed.get("currency"),
                 "unit": None if metric == "EPS" else parsed.get("revenue_unit"),
                 "basis_code": parsed.get("eps_basis_code") if metric == "EPS" else parsed.get("revenue_basis_code"),
-                "statistic": parsed.get("statistic"),
-                "analyst_count": parsed.get("analyst_count"),
+                "statistic": parsed.get("statistic"), "analyst_count": parsed.get("analyst_count"),
             }
-            event = {
-                "id": f"probe-{target['ticker']}-{target['event_date']}",
-                "ticker": target["ticker"],
-                "event_date": target["event_date"],
-            }
+            event = {"id": f"probe-{target['ticker']}-{target['event_date']}",
+                     "ticker": target["ticker"], "event_date": target["event_date"]}
             snapshot = build_consensus_snapshot(event, metric, attempt, raw, raw_ref)
             snapshots[metric] = {
-                "snapshot_status": snapshot["snapshot_status"],
-                "reason": snapshot["reason"],
+                "snapshot_status": snapshot["snapshot_status"], "reason": snapshot["reason"],
                 "missing_data_as_of": not bool(parsed.get("data_as_of")),
                 "missing_basis_code": not bool(attempt.get("basis_code")),
                 "missing_statistic": not bool(attempt.get("statistic")),
@@ -226,16 +239,10 @@ def fetch_one(target: dict, archive_dir: Path) -> dict:
             }
 
     return {
-        **parsed,
-        "observed_at": observed_at,
-        "http_status": status,
-        "content_type": headers.get("content-type"),
-        "raw_response_sha256": digest,
-        "raw_response_ref": raw_ref,
-        "transport_error": error,
-        "snapshots": snapshots,
-        "calendar_write": False,
-        "production_write": False,
+        **parsed, "observed_at": observed_at, "http_status": status,
+        "content_type": headers.get("content-type"), "raw_response_sha256": digest,
+        "raw_response_ref": raw_ref, "transport_error": error, "host_attempts": attempts,
+        "snapshots": snapshots, "calendar_write": False, "production_write": False,
     }
 
 
