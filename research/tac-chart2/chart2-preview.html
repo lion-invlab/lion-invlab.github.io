@@ -177,16 +177,15 @@ function renderSvg(svgId,tooltipId,data,series,opts={}){
 function drawLong(){
  let data=subsetRange(state.long,state.range);
  if(state.view==="cape-history"){
-  let history=state.capeHistory;
-  if(state.range!=="max"){const end=history[history.length-1].date;history=history.filter(x=>monthDiff(x.date,end)<=Number(state.range)*12);}
+  let history=subsetRange(state.capeHistory,state.range);
   setText("long-chart-title","Shiller CAPE｜長期估值歷史");
   setText("long-chart-desc","保留 Shiller 傳統 CAPE 自 1881 年起的月資料；此圖不代表同期間已有 TIPS 實質殖利率對照。");
-  renderSvg("long-chart","long-tooltip",history,[{key:"cape",label:"Shiller CAPE",color:COLORS.ey,unit:"x",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.long.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.view==="cape-history"?state.capeHistory.length:state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
+  renderSvg("long-chart","long-tooltip",history,[{key:"cape",label:"Shiller CAPE",color:COLORS.ey,unit:"x",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.capeHistory.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.view==="cape-history"?state.capeHistory.length:state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
   document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>Shiller CAPE</span>';
  }else if(state.view==="yields"){
   setText("long-chart-title","股票盈餘殖利率 vs. TIPS 實質殖利率");
   setText("long-chart-desc","兩條殖利率使用相同百分比縱軸；每月按日期配對，缺值不補值。可用滾輪縮放、水平拖曳平移。");
-  renderSvg("long-chart","long-tooltip",data,[{key:"ey",label:"CAPE Earnings Yield",color:COLORS.ey,unit:"%",decimals:2},{key:"real",label:"10Y TIPS Real Yield",color:COLORS.real,unit:"%",decimals:2}],{height:390});
+  renderSvg("long-chart","long-tooltip",data,[{key:"ey",label:"CAPE Earnings Yield",color:COLORS.ey,unit:"%",decimals:2},{key:"real",label:"10Y TIPS Real Yield",color:COLORS.real,unit:"%",decimals:2}],{height:390,timeline:true,onPan:(dx,width,count)=>{const step=Math.round(dx/Math.max(width,1)*count);state.panMonths=Math.max(0,Math.min(state.long.length-count,state.panMonths+step));drawLong();},onZoom:delta=>{const count=state.long.length;const current=state.windowMonths||Math.min(count,state.range==="max"?count:Number(state.range)*12);state.windowMonths=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state.panMonths=0;drawLong();}});
   document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>CAPE Earnings Yield</span><span class="legend-item"><i class="swatch" style="background:'+COLORS.real+'"></i>10Y TIPS Real Yield</span>';
  }else{
   setText("long-chart-title","CAPE 盈餘殖利率 − 10Y TIPS 實質殖利率");
