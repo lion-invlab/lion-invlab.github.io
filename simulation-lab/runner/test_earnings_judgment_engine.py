@@ -92,6 +92,28 @@ def main():
     tac_label_item["eps_consensus_snapshots"][0]["data_as_of"] = None
     check(consensus_evidence_label(tac_label_item, "eps"), "TAC 公告前觀測共識", "TAC observed evidence label")
 
+    # A real pre-release capture can be traceable while its EPS basis remains
+    # undisclosed. Show the observation label, but never authorize Beat/Miss.
+    reference_item = base_record()
+    reference_snapshot = dict(reference_item["eps_consensus_snapshots"][0])
+    reference_snapshot.update({
+        "snapshot_id": "e" * 64, "source_level": 4, "provider": "Yahoo Finance",
+        "data_as_of": None, "basis_code": None,
+        "observed_at": "2026-11-13T04:30:00+08:00",
+        "raw_response_ref": "simulation-lab/output/yahoo-capture.json#entries/EX/raw_response",
+        "snapshot_status": "pending_required_fields", "reason": "missing:basis_code",
+    })
+    reference_item["eps_consensus_snapshots"] = [reference_snapshot]
+    reference_item["consensus_source"] = {
+        **source("Yahoo Finance"), "snapshot_id": "e" * 64,
+        "observed_at": reference_snapshot["observed_at"],
+    }
+    reference_item["eps_estimate_basis_code"] = None
+    check(consensus_evidence_label(reference_item, "eps"),
+          "TAC 公告前觀測共識｜比較口徑待核實", "observed reference label without basis")
+    check(evaluate_metric(reference_item, "eps")["status"], "pending",
+          "undisclosed EPS basis cannot authorize directional judgment")
+
     tac_item = base_record()
     tac_observed = dict(tac_item["eps_consensus_snapshots"][0], data_as_of=None,
                         snapshot_status="tac_observed_pre_release_eligible",
