@@ -1429,6 +1429,18 @@ def main():
         if published_details is None or len(actual_cards) != 2:
             detail_html=str(published_details)[:1200] if published_details is not None else "missing details container"
             raise ValueError(f"published earnings card missing side-by-side EPS/revenue result cards: {ticker}; details={detail_html}")
+        # Guard both the outer card count and the individual Actual/Estimate rows.
+        card_titles=[node.select_one(".earnings-actual-card-title").get_text(" ",strip=True)
+                     if node.select_one(".earnings-actual-card-title") else ""
+                     for node in actual_cards]
+        if card_titles != ["EPS","營收"]:
+            raise ValueError(f"published earnings result card titles/order invalid: {ticker}; {card_titles}")
+        for result_card in actual_cards:
+            row_labels=[row.find("span",recursive=False).get_text(" ",strip=True)
+                        if row.find("span",recursive=False) else ""
+                        for row in result_card.find_all("div",class_="earnings-actual-line",recursive=False)]
+            if row_labels != ["實際","預期"]:
+                raise ValueError(f"published earnings value rows must be exactly 實際/預期 once each: {ticker}; {row_labels}")
         direct_fields=published_details.find_all("div", class_="earnings-detail-field", recursive=False)
         required_labels={label.get_text(" ",strip=True) for field in direct_fields for label in field.find_all("label", recursive=False)}
         if not {"財報判讀","股價當日表現","來源"}.issubset(required_labels):
@@ -1580,7 +1592,7 @@ def main():
 #earnings .earnings-actual-status.inline,#earnings .earnings-actual-status.pending,#earnings .earnings-actual-status.incomparable,#earnings .earnings-actual-status.consensus_divergent{color:#596170!important;background:#f0f2f5!important}
 #earnings .earnings-actual-note{font-size:11px!important;line-height:1.5!important;color:#6b7280!important;margin-top:9px!important}
 #earnings .earnings-detail-field.wide{border:1px solid #e5e7eb!important;border-radius:11px!important;padding:11px 12px!important;background:#fbfcfe!important;width:100%!important;box-sizing:border-box!important}
-@media(max-width:640px){#earnings .earnings-results-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}#earnings .earnings-actual-card{padding:10px!important}#earnings .earnings-actual-line strong{font-size:13px!important}#earnings .earnings-detail-value{font-size:13px!important}}
+ @media(max-width:640px){#earnings .earnings-results-grid{grid-template-columns:minmax(0,1fr)!important;gap:9px!important}#earnings .earnings-actual-card{padding:11px!important;width:100%!important}#earnings .earnings-actual-line{display:flex!important;flex-direction:row!important;justify-content:space-between!important;align-items:center!important;gap:12px!important}#earnings .earnings-actual-line span{flex:0 0 auto!important}#earnings .earnings-actual-line strong{display:block!important;flex:0 1 auto!important;min-width:0!important;max-width:100%!important;font-size:14px!important;text-align:right!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important}#earnings .earnings-detail-value{font-size:13px!important}}
 </style>
 """
     existing_earnings_css=soup.select_one("#tac-published-earnings-card-v2")
