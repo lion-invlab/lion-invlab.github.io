@@ -1882,8 +1882,11 @@ def main():
     # Observation content is preserved as source text, and overwritten only when full copy provided.
     view=unique(soup,"#view","market observation")
     if data.get("observation"):
+        market_tab_label = unique(view, 'label[for="focus-tab-market"]', "market observation tab label")
+        market_tab_label.clear()
+        market_tab_label.append("盤面觀察重點")
         panel=unique(view,".focus-panel.focus-market","market observation text")
-        set_market_observation(panel.select_one(".key") or panel, "市場觀點", data["observation"])
+        set_market_observation(panel.select_one(".key") or panel, "盤面觀察重點", data["observation"])
 
     # Populate all three existing Today Focus tabs; never leave stale mother-template text.
     levels_panel = unique(view, ".focus-panel.focus-levels", "key levels tab")
