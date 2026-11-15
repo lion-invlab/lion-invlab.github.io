@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tests that the SHA-pinned W47 consensus projection reaches upcoming cards only."""
-# [build-tac-report] simulation-only visual integration verification; assert estimate values remain neutral.
+# [build-tac-report] simulation-only visual integration verification; assert estimate values and methodology disclosures remain neutral.
 from build_review_html import apply_consensus_projection
 
 def main():
