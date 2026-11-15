@@ -77,6 +77,18 @@ class ConsensusSnapshotStoreTests(unittest.TestCase):
         validator = jsonschema.Draft202012Validator(schema["$defs"]["consensusSnapshot"])
         validator.validate(self.build())
 
+    def test_yahoo_finance_fourth_tier_capture_is_stored_but_basis_gap_blocks_eligibility(self):
+        attempt = dict(self.attempt, source_level=4, provider="Yahoo Finance",
+                       data_as_of=None, basis_code=None,
+                       observed_at="2026-11-09T13:00:00+08:00",
+                       url="https://finance.yahoo.com/quote/ABC/analysis/")
+        snap = self.build(attempt=attempt)
+        self.assertEqual(snap["source_level"], 4)
+        self.assertEqual(snap["provider"], "Yahoo Finance")
+        self.assertEqual(snap["snapshot_status"], "pending_required_fields")
+        self.assertIn("basis_code", snap["reason"])
+        self.assertIsNone(snap["data_as_of"])
+
     def test_missing_provider_as_of_uses_tac_observed_pit_track(self):
         attempt = dict(self.attempt, data_as_of=None)
         snap = self.build(attempt=attempt)
