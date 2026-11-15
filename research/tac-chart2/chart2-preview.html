@@ -95,7 +95,7 @@ footer strong{color:#5d6878}
   </div>
   <div class="chart-card">
    <div class="chart-head"><div><h3 class="chart-title" id="long-chart-title">股票盈餘殖利率 vs. TIPS 實質殖利率</h3><div class="chart-desc" id="long-chart-desc">兩條殖利率使用相同百分比縱軸；資料按月份配對。</div></div>
-    <div class="chart-controls"><button class="view-btn active" data-view="yields">殖利率比較</button><button class="view-btn" data-view="spread">估值對照差</button><button class="range-btn" data-range="10">10年</button><button class="range-btn" data-range="20">20年</button><button class="range-btn active" data-range="max">全期間</button></div>
+    <div class="chart-controls"><button class="view-btn active" data-view="yields">殖利率比較</button><button class="view-btn" data-view="spread">估值對照差</button><button class="view-btn" data-view="cape-history">CAPE 長期歷史</button><button class="range-btn" data-range="10">10年</button><button class="range-btn" data-range="20">20年</button><button class="range-btn active" data-range="max">全期間</button></div>
    </div>
    <div class="chart-wrap"><div class="tooltip" id="long-tooltip"></div><svg id="long-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="CAPE 盈餘殖利率與十年期 TIPS 實質殖利率歷史走勢"><text x="550" y="190" text-anchor="middle">資料載入中…</text></svg></div>
    <div class="legend" id="long-legend"><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>CAPE Earnings Yield</span><span class="legend-item"><i class="swatch" style="background:#2879a8"></i>10Y TIPS Real Yield</span></div>
@@ -131,11 +131,12 @@ footer strong{color:#5d6878}
 <script>
 const DATA={
  long:"../../data/tac-chart2/normalized/long_term_valuation_monthly.csv",
+ cape:"../../data/tac-chart2/normalized/shiller_monthly.csv",
  fed25:"../../data/tac-chart2/normalized/fed_forward_valuation_vintage_2025-11.csv",
  fed26:"../../data/tac-chart2/normalized/fed_forward_valuation_vintage_2026-05.csv"
 };
 const COLORS={ey:"#b8202f",real:"#2879a8",spread:"#a17a36",pe:"#16877d",ep:"#6d68a8"};
-const state={mode:"long",view:"yields",range:"max",long:[],fed25:[],fed26:[]};
+const state={mode:"long",view:"yields",range:"max",long:[],capeHistory:[],fed25:[],fed26:[]};
 function csv(text){const lines=text.trim().split(/\r?\n/);return lines.slice(1).map(line=>line.split(","));}
 function n(v){return Number(v);}
 function pct(v,d=2){return Number(v).toFixed(d)+"%";}
@@ -143,6 +144,7 @@ function signed(v,d=2){return (v>0?"+":"")+Number(v).toFixed(d);}
 function setText(id,v){document.getElementById(id).textContent=v;}
 function dateLabel(s){return s.slice(0,4)+"/"+s.slice(5,7);}
 function parseLong(rows){return rows.map(r=>({date:r[0],cape:n(r[1]),ey:n(r[2]),real:n(r[3]),spread:n(r[4]),days:n(r[5])})).filter(x=>Number.isFinite(x.ey)&&Number.isFinite(x.real)&&Number.isFinite(x.spread));}
+function parseCAPE(rows){return rows.map(r=>({date:r[0],cape:n(r[1])})).filter(x=>Number.isFinite(x.cape));}
 function parseFed(rows,vintage){return rows.filter(r=>r[5]===vintage).map(r=>({date:r[0],series:r[1],value:n(r[2])}));}
 function latest(a){return a[a.length-1];}
 function monthDiff(a,b){return (Number(b.slice(0,4))-Number(a.slice(0,4)))*12+Number(b.slice(5,7))-Number(a.slice(5,7));}
@@ -174,7 +176,14 @@ function renderSvg(svgId,tooltipId,data,series,opts={}){
 }
 function drawLong(){
  let data=subsetRange(state.long,state.range);
- if(state.view==="yields"){
+ if(state.view==="cape-history"){
+  let history=state.capeHistory;
+  if(state.range!=="max"){const end=history[history.length-1].date;history=history.filter(x=>monthDiff(x.date,end)<=Number(state.range)*12);}
+  setText("long-chart-title","Shiller CAPE｜長期估值歷史");
+  setText("long-chart-desc","保留 Shiller 傳統 CAPE 自 1881 年起的月資料；此圖不代表同期間已有 TIPS 實質殖利率對照。");
+  renderSvg("long-chart","long-tooltip",history,[{key:"cape",label:"Shiller CAPE",color:COLORS.ey,unit:"x",decimals:2}],{height:390});
+  document.getElementById("long-legend").innerHTML='<span class="legend-item"><i class="swatch" style="background:'+COLORS.ey+'"></i>Shiller CAPE</span>';
+ }else if(state.view==="yields"){
   setText("long-chart-title","股票盈餘殖利率 vs. TIPS 實質殖利率");
   setText("long-chart-desc","兩條殖利率使用相同百分比縱軸；每月按日期配對，缺值不補值。");
   renderSvg("long-chart","long-tooltip",data,[{key:"ey",label:"CAPE Earnings Yield",color:COLORS.ey,unit:"%",decimals:2},{key:"real",label:"10Y TIPS Real Yield",color:COLORS.real,unit:"%",decimals:2}],{height:390});
@@ -206,18 +215,19 @@ document.querySelectorAll(".range-btn").forEach(b=>b.addEventListener("click",()
 document.getElementById("fed-vintage").addEventListener("change",drawForward);
 async function init(){
  try{
-  const [l,f25,f26]=await Promise.all([fetch(DATA.long),fetch(DATA.fed25),fetch(DATA.fed26)]);
-  if(!l.ok||!f25.ok||!f26.ok)throw new Error("資料檔讀取失敗，請確認 GitHub Pages 路徑。");
+  const [l,cape,f25,f26]=await Promise.all([fetch(DATA.long),fetch(DATA.cape),fetch(DATA.fed25),fetch(DATA.fed26)]);
+  if(!l.ok||!cape.ok||!f25.ok||!f26.ok)throw new Error("資料檔讀取失敗，請確認 GitHub Pages 路徑。");
   state.long=parseLong(csv(await l.text()));
+  state.capeHistory=parseCAPE(csv(await cape.text()));
   state.fed25=parseFed(csv(await f25.text()),"2025-11");
   state.fed26=parseFed(csv(await f26.text()),"2026-05");
-  if(state.long.length<250||state.fed25.length<800||state.fed26.length<800)throw new Error("資料筆數未達預期，停止繪圖以避免顯示不完整資料。");
+  if(state.long.length<250||state.capeHistory.length<1700||state.fed25.length<800||state.fed26.length<800)throw new Error("資料筆數未達預期，停止繪圖以避免顯示不完整資料。");
   const z=latest(state.long);
   setText("k-cape",z.cape.toFixed(2));setText("k-ey",pct(z.ey));setText("k-real",pct(z.real));setText("k-spread",signed(z.spread,2));
   setText("k-cape-date",z.date+"｜Shiller 官方月資料");
   setText("k-real-note",z.days+" 個交易日平均");
   setText("long-asof","共同資料截至 "+z.date+"｜共同歷史起點 "+state.long[0].date);
-  setText("long-range-note","共同歷史資料自 "+state.long[0].date+" 起；Shiller CAPE 單獨歷史則可回溯至 1881-01。當月 Treasury 月平均以 "+z.days+" 個交易日計算。");
+  setText("long-range-note","共同歷史資料自 "+state.long[0].date+" 起；切換「CAPE 長期歷史」可查看 "+state.capeHistory[0].date+" 起的 Shiller 月資料。當月 Treasury 月平均以 "+z.days+" 個交易日計算。");
   drawLong();drawForward();
  }catch(err){
   document.querySelectorAll(".chart-wrap").forEach(x=>x.innerHTML='<div class="error">'+String(err.message||err)+'</div>');
