@@ -70,13 +70,17 @@ def main():
             "ticker":item["ticker"],"event_id":event["id"],"event_date":event["event_date"],
             "reporting_period":event["reporting_period"],
             "eps_estimate":projected["eps_estimate"],"eps_currency":projected["eps_estimate_currency"],
+            "eps_estimate_display":f'{projected["eps_estimate_currency"]} {projected["eps_estimate"]:.2f}',
             "eps_analyst_count":item["eps"]["analyst_count"],"eps_snapshot":snapshots["EPS"],
             "eps_evidence_label":labels["eps"],"eps_status":statuses["eps"],
             "revenue_estimate":projected["revenue_estimate"],"revenue_currency":projected["revenue_estimate_currency"],
-            "revenue_unit":projected["revenue_estimate_unit"],"revenue_analyst_count":item["revenue"]["analyst_count"],
+            "revenue_unit":projected["revenue_estimate_unit"],
+            "revenue_estimate_display":f'{projected["revenue_estimate_currency"]} {projected["revenue_estimate"]/1_000_000_000:.2f}B',
+            "revenue_analyst_count":item["revenue"]["analyst_count"],
+            "source_url":item["source_url"],"source_name":"Yahoo Finance",
             "revenue_snapshot":snapshots["REVENUE"],"revenue_evidence_label":labels["revenue"],"revenue_status":statuses["revenue"],
         })
-    report={"schema_version":"tac-w47-consensus-projection-v1","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","capture_file":a.capture,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
+    report={"schema_version":"tac-w47-consensus-projection-v1","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
     Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(report["counts"],ensure_ascii=False))
