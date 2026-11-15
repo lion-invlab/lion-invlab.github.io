@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from bs4 import BeautifulSoup, Comment
 from calendar_source_guard import load_authoritative_calendar, project_calendar_data
-from earnings_judgment import render_status, consensus_evidence_label
+from earnings_judgment import render_status, consensus_evidence_label, apply_judgment
 
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / "simulation-lab/baseline/mother-template-manifest.json"
@@ -270,6 +270,11 @@ def main():
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
+    # Recalculate every released earnings card with the practical TAC engine.
+    # Numeric consensus/actual pairs are sufficient; PIT and basis metadata remain disclosures.
+    for earnings_item in data.get("earnings", {}).get("events", []):
+        if earnings_item.get("status") in ("released", "published", "completed"):
+            apply_judgment(earnings_item, data.get("report_cutoff_taipei") or data["report_date"])
     if args.earnings_consensus_projection:
         consensus_projection=json.loads(Path(args.earnings_consensus_projection).read_text(encoding="utf-8"))
         apply_consensus_projection(data, consensus_projection, calendar_source)
