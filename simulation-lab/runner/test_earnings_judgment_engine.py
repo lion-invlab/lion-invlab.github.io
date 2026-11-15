@@ -2,7 +2,7 @@
 """Deterministic tests for the single-source earnings judgment engine."""
 from earnings_judgment import (
     ENGINE_VERSION, apply_judgment, audit_record, evaluate_metric,
-    migrate_legacy_record, render_status, render_summary,
+    migrate_legacy_record, render_status, render_summary, consensus_evidence_label,
 )
 
 
@@ -86,6 +86,10 @@ def main():
     item = base_record()
     check(evaluate_metric(item, "eps")["status"], "beat", "EPS beat")
     check(evaluate_metric(item, "revenue")["status"], "beat", "revenue beat")
+    check(consensus_evidence_label(item, "eps"), "Provider PIT 公告前共識", "provider evidence label")
+    tac_label_item = base_record()
+    tac_label_item["eps_consensus_snapshots"][0]["snapshot_status"] = "tac_observed_pre_release_eligible"
+    check(consensus_evidence_label(tac_label_item, "eps"), "TAC 公告前觀測共識", "TAC observed evidence label")
 
     tac_item = base_record()
     tac_observed = dict(tac_item["eps_consensus_snapshots"][0], data_as_of=None,
