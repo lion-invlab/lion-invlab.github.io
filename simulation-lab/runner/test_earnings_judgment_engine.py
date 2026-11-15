@@ -114,6 +114,24 @@ def main():
     check(evaluate_metric(reference_item, "eps")["status"], "pending",
           "undisclosed EPS basis cannot authorize directional judgment")
 
+    qualified_yahoo = base_record()
+    yahoo_snapshot = dict(qualified_yahoo["eps_consensus_snapshots"][0])
+    yahoo_snapshot.update({
+        "snapshot_id": "f" * 64, "source_level": 4, "provider": "Yahoo Finance",
+        "data_as_of": None, "observed_at": "2026-11-13T04:30:00+08:00",
+        "snapshot_status": "tac_observed_pre_release_eligible",
+        "reason": "immutable_tac_capture_before_event_without_provider_as_of",
+    })
+    qualified_yahoo["eps_consensus_snapshots"] = [yahoo_snapshot]
+    qualified_yahoo["consensus_source"] = {
+        **source("Yahoo Finance"), "snapshot_id": "f" * 64,
+        "observed_at": yahoo_snapshot["observed_at"],
+    }
+    check(evaluate_metric(qualified_yahoo, "eps")["status"], "beat",
+          "Yahoo fourth-tier snapshot can support direction only when basis is explicit")
+    check(consensus_evidence_label(qualified_yahoo, "eps"), "TAC 公告前觀測共識",
+          "qualified Yahoo observation label")
+
     tac_item = base_record()
     tac_observed = dict(tac_item["eps_consensus_snapshots"][0], data_as_of=None,
                         snapshot_status="tac_observed_pre_release_eligible",
