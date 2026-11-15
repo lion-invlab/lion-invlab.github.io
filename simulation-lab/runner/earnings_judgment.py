@@ -525,8 +525,49 @@ def render_status(record: dict, metric: str) -> str:
     return status if status in VALID_STATUSES else "pending"
 
 
+def _valid_tac_observation_reference(record: dict, metric: str, snapshot: dict, source: dict) -> bool:
+    """Validate a pre-release captured reference even when comparison basis is unresolved."""
+    providers = {1: "LSEG I/B/E/S", 2: "FactSet Estimates", 3: "Investing.com", 4: "Yahoo Finance"}
+    expected_metric = "EPS" if metric == "eps" else "REVENUE"
+    value = record.get(f"{metric}_estimate")
+    period = record.get(f"{metric}_estimate_period")
+    currency = record.get(f"{metric}_estimate_currency")
+    if any(snapshot.get(k) != v for k, v in {
+        "event_id": record.get("id"), "ticker": record.get("ticker"),
+        "metric": expected_metric, "event_date": record.get("event_date"),
+        "value": value, "period": period, "currency": currency,
+    }.items()):
+        return False
+    level = snapshot.get("source_level")
+    if level not in providers or snapshot.get("provider") != providers[level]:
+        return False
+    if snapshot.get("data_as_of") not in (None, ""):
+        return False
+    if not _precedes_event(snapshot.get("observed_at"), record.get("event_date")):
+        return False
+    if snapshot.get("published_at") and not _precedes_event(snapshot.get("published_at"), record.get("event_date")):
+        return False
+    if not isinstance(snapshot.get("raw_response_ref"), str) or not snapshot["raw_response_ref"].strip():
+        return False
+    if not isinstance(snapshot.get("raw_response_sha256"), str) or not re.fullmatch(r"[0-9a-f]{64}", snapshot["raw_response_sha256"]):
+        return False
+    if not isinstance(snapshot.get("source_url"), str) or not snapshot["source_url"].startswith("https://"):
+        return False
+    if source.get("url") != snapshot.get("source_url") or source.get("observed_at") != snapshot.get("observed_at"):
+        return False
+    if not isinstance(snapshot.get("period_end_date"), str) or not snapshot["period_end_date"].strip():
+        return False
+    if not isinstance(snapshot.get("statistic"), str) or not snapshot["statistic"].strip():
+        return False
+    if metric == "revenue":
+        unit = record.get("revenue_estimate_unit")
+        if snapshot.get("unit") != unit or not isinstance(unit, str) or not unit.strip():
+            return False
+    return True
+
+
 def consensus_evidence_label(record: dict, metric: str) -> str | None:
-    """Return an explicit evidence label for the exact snapshot linked to a metric."""
+    """Label the exact linked capture; distinguish evidence existence from comparison eligibility."""
     if metric not in {"eps", "revenue"}:
         raise ValueError(f"unsupported earnings metric: {metric!r}")
     source_key = "consensus_source" if metric == "eps" else "revenue_consensus_source"
@@ -539,14 +580,13 @@ def consensus_evidence_label(record: dict, metric: str) -> str | None:
     snapshot = next((x for x in snapshots if isinstance(x, dict) and x.get("snapshot_id") == snapshot_id), None)
     if not isinstance(snapshot, dict):
         return None
-    # Never display a qualified evidence badge unless the same complete
-    # snapshot also passes the engine's identity, time, basis and raw-proof gate.
-    if not _valid_consensus_snapshot(record, metric):
-        return None
-    if snapshot.get("snapshot_status") == "pre_release_eligible":
-        return "Provider PIT 公告前共識"
-    if snapshot.get("snapshot_status") == "tac_observed_pre_release_eligible":
-        return "TAC 公告前觀測共識"
+    if _valid_consensus_snapshot(record, metric):
+        if snapshot.get("snapshot_status") == "pre_release_eligible":
+            return "Provider PIT 公告前共識"
+        if snapshot.get("snapshot_status") == "tac_observed_pre_release_eligible":
+            return "TAC 公告前觀測共識"
+    if _valid_tac_observation_reference(record, metric, snapshot, source):
+        return "TAC 公告前觀測共識｜比較口徑待核實"
     return None
 
 
