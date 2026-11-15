@@ -1577,7 +1577,7 @@ def main():
     earnings_css = """
 <style id="tac-published-earnings-card-v2">
 #earnings .earnings-accordion-details{display:flex!important;flex-direction:column!important;align-items:stretch!important;background:#fff;padding:12px!important;gap:10px!important;min-width:0!important}
-#earnings .earnings-results-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;padding:0!important;background:transparent!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
+#earnings .earnings-results-grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))!important;gap:12px!important;padding:0!important;background:transparent!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
 #earnings .earnings-actual-card{border:1px solid #e1e5e9!important;border-radius:14px!important;padding:12px!important;background:#fff!important;box-shadow:0 3px 12px rgba(20,30,40,.045);min-width:0!important;box-sizing:border-box!important}
 #earnings .earnings-actual-card.beat{border-top:3px solid #16834c!important}
 #earnings .earnings-actual-card.miss{border-top:3px solid #a56b13!important}
