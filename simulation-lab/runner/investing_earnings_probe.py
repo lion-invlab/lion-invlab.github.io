@@ -262,7 +262,21 @@ def self_test():
     assert parsed["revenue_estimate"] == 108.85
     assert parsed["currency"] == "USD"
     assert parsed["data_as_of"] is None
-    print("PASS: Investing.com row parser; absent provider as-of metadata remains null")
+
+    hk_sample = """
+    <html><head><title>NVDA 收益</title></head><body>
+    <div>貨幣 USD</div><div>數字皆以USD計</div>
+    <table><tr><th>公佈日期</th><th>截止</th><th>EPS</th><th>/預測</th><th>營收</th><th>/預測</th></tr>
+    <tr><td>2026年11月17日</td><td>2026-10</td><td>--</td><td>/2.47</td><td>--</td><td>/1,088.00億</td></tr></table>
+    </body></html>
+    """.encode("utf-8")
+    hk_parsed = parse_earnings_row(hk_sample, TARGETS[0])
+    assert hk_parsed["row_found"]
+    assert hk_parsed["eps_estimate"] == 2.47
+    assert hk_parsed["revenue_estimate"] == 108.8
+    assert hk_parsed["revenue_unit"] == "USD_BILLION"
+    assert hk_parsed["currency"] == "USD"
+    print("PASS: Investing.com English/HK locale parser; 億 converted to billions; missing as-of stays null")
 
 
 def main():
