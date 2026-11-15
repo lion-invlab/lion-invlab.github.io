@@ -1627,3 +1627,12 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 資料前置核對：main W47 有 22 筆經濟、21 筆財報，blob SHA 4a85e0cb9db029e663a2422ce691603bbe9e871a；main W46 有 16 筆經濟、48 筆財報，blob SHA edf33bdd3b9573b08a9381f617ac3ad4357a1c2d（大型 JSON 需以 blob API 讀取；contents API 回空不代表資料庫為空）。W46 已公布五星經濟事件 1 筆，來源與影響欄均有值；W47 22 筆經濟事件來源與影響欄均有值。
 - 驗收狀態：已寫入程式與 workflow，並加入 Python compile gate；已觸發 [build-tac-report] 完整整合流程提交 363f67b68ad778360d31a3bd62c873db23123d1d。目前 connector 未提供可讀取該 push workflow run 的 run ID／job logs；Python compile、完整 build、Playwright、五尺寸視覺、sidecar seal 仍標示待 Actions 實測，不宣稱 PASS。simulation branch 的 preview/2026-11-16-simulation.html 與 .qa.json 尚未回讀確認存在。
 - 下一個恢復點：讀取本分支最新 workflow run 與 job logs；若成功，回讀 preview HTML／sidecar 並比對 blob SHA；若失敗，依第一個失敗步驟修復，不重抓已核實資料、不碰 main。
+
+
+
+### 2026-11-15｜交付競態最後一道防線補強
+
+- workflow 在 rebase 後、push 前再次執行 validate_review_artifact.py；若遠端 branch 在 QA 期間改動母版或 Manifest，重新驗證會 fail closed。
+- push 後再 fetch simulation branch，直接從遠端 Git tree 讀回 HTML 與 .qa.json，分別核對 Git blob SHA；遠端回讀不一致即失敗。
+- 最新 workflow commit：dbafdd2583df8c4463130bc30b1904e508a67a4c；workflow blob SHA：ff1fd5a6a5e9053694f56ea863934b39eca2cd54。
+- 本輪仍未取得 GitHub Actions push run 的可讀 run ID／job logs，故整合執行與最終 preview／sidecar 尚未驗收。
