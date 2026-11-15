@@ -7,7 +7,7 @@ def main():
     row={
         "event_id":"earn-1","event_date":"2026-11-18T05:20:00+08:00","ticker":"NVDA",
         "eps_estimate":2.47,"eps_estimate_display":"USD 2.47","eps_currency":"USD",
-        "eps_analyst_count":43,"eps_evidence_label":"TAC 公告前觀測共識｜比較口徑待核實",
+        "eps_analyst_count":43,"eps_evidence_label":"TAC 公告前觀測共識",
         "eps_basis_display":"Yahoo 平台 EPS 預期（GAAP／Normalized 細節未完整揭露）",
         "revenue_estimate":108731903900,"revenue_estimate_display":"USD 108.73B",
         "revenue_currency":"USD","revenue_unit":"USD","revenue_analyst_count":45,
@@ -38,7 +38,7 @@ def main():
     print("PASS: synthetic projection assigns estimates and analyst counts; wrong SHA/post-release rejected")
     # Real W47 capture regression: all 21 events have immutable, pre-release
     # TAC observations. Yahoo does not declare EPS accounting basis or exact
-    # revenue metric basis, so the projection must remain non-directional.
+    # revenue metric basis, so the projection must remain a reference until the actual results are released.
     import hashlib, json
     from datetime import datetime
     from pathlib import Path
@@ -62,7 +62,7 @@ def main():
         assert entry["revenue"]["basis_code"] is None
         assert entry["eps"]["estimate"] is not None and entry["revenue"]["estimate"] is not None
         assert entry["eps"]["analyst_count"] and entry["revenue"]["analyst_count"]
-    print("PASS: actual W47 capture covers 21/21 events with pre-release immutable evidence; missing actual results remain non-directional until publication")
+    print("PASS: actual W47 capture covers 21/21 events with pre-release immutable evidence; upcoming events have estimates only; no actual-result judgment is expected")
 
 
 if __name__=="__main__": main()
