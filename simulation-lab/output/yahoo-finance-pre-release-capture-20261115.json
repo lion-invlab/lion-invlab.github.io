@@ -1,6 +1,6 @@
 {
   "schema_version": "tac-yahoo-earnings-capture-v1",
-  "captured_at": "2026-11-15T05:50:46.479Z",
+  "captured_at": "2026-11-15T06:01:38.226Z",
   "branch_scope": "simulation/tac-process-lab-2026-11-06",
   "purpose": "prospective TAC-observed pre-release consensus reference; not provider PIT",
   "entries": [
@@ -582,6 +582,3483 @@
       },
       "event_id": "current-wmt-20261119",
       "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/WMT/raw_response"
+    },
+    {
+      "ticker": "BEKE",
+      "company": "KE Holdings Inc.",
+      "event_id": "current-beke-20261116",
+      "event_date": "2026-11-16T20:00:00+08:00",
+      "reporting_period": "2026 Q3",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/BEKE/analysis/",
+      "observed_at": "2026-11-15T06:01:32.913Z",
+      "observed_at_taipei": "2026-11-15T14:01:32+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 1.71442,
+        "high": 1.98055,
+        "low": 1.556,
+        "analyst_count": 6,
+        "currency": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 20762340230,
+        "high": 21116289640,
+        "low": 20506000000,
+        "analyst_count": 7,
+        "currency": "CNY",
+        "unit": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "4844d4f95e6f5e04105a728f26555df532bb7a39330e7d7fee169445d8bf1b9f",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "CNY",
+            "eps_actual": 1.12,
+            "eps_difference": 0.02,
+            "eps_estimate": 1.10357,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": 0.0149
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 0.46,
+            "eps_difference": -0.28,
+            "eps_estimate": 0.73625,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": -0.3752
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 1.42,
+            "eps_difference": 0.51,
+            "eps_estimate": 0.91371,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.5541
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 2.85,
+            "eps_difference": 0.73,
+            "eps_estimate": 2.11858,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": 0.3452
+          }
+        ],
+        "history_count": 4,
+        "name": "KE Holdings Inc.",
+        "next_earnings": {
+          "date": "2026-11-16",
+          "date_ms": 1794835800000,
+          "earnings_call": {
+            "date": "2026-11-16",
+            "ms": 1794830400000
+          },
+          "eps_estimate": {
+            "average": 1.71442,
+            "high": 1.98055,
+            "low": 1.556
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 20762340230,
+            "high": 21116289640,
+            "low": 20506000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722492913,
+        "source_url": "https://finance.yahoo.com/quote/BEKE/analysis/",
+        "symbol": "BEKE",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 1.71442,
+              "high": 1.98055,
+              "low": 1.556,
+              "number_of_analysts": 6,
+              "year_ago": 1.12
+            },
+            "growth": 0.53069997,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 20762340230,
+              "high": 21116289640,
+              "low": 20506000000,
+              "number_of_analysts": 7,
+              "year_ago": 23052457000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 1.82079,
+              "high": 2.167,
+              "low": 1.6,
+              "number_of_analysts": 4,
+              "year_ago": 0.46
+            },
+            "growth": 2.9582,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 22167551150,
+              "high": 24084000000,
+              "low": 21083073590,
+              "number_of_analysts": 4,
+              "year_ago": 22188765000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 7.58013,
+              "high": 8.07737,
+              "low": 6.52,
+              "number_of_analysts": 15,
+              "year_ago": 4.34
+            },
+            "growth": 0.74660003,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 86350399450,
+              "high": 89394000000,
+              "low": 84287000000,
+              "number_of_analysts": 23,
+              "year_ago": 94580205000
+            }
+          },
+          {
+            "end_date": "2027-12-31",
+            "eps_estimate": {
+              "average": 8.49158,
+              "high": 9.87734,
+              "low": 6.35,
+              "number_of_analysts": 16,
+              "year_ago": 7.58013
+            },
+            "growth": 0.12020001,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 90125904130,
+              "high": 105842000000,
+              "low": 80065000000,
+              "number_of_analysts": 25,
+              "year_ago": 86350399450
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/BEKE/raw_response"
+    },
+    {
+      "ticker": "ARMK",
+      "company": "Aramark",
+      "event_id": "current-armk-20261116",
+      "event_date": "2026-11-16T21:30:00+08:00",
+      "reporting_period": "FY2026 Q4",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/ARMK/analysis/",
+      "observed_at": "2026-11-15T06:01:32.868Z",
+      "observed_at_taipei": "2026-11-15T14:01:32+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 0.75452,
+        "high": 0.84,
+        "low": 0.7,
+        "analyst_count": 12,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 5290123380,
+        "high": 5365290000,
+        "low": 5148000000,
+        "analyst_count": 10,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "66e776f08cecbb3f52b3b1fd9224e92972a935608a7dd20fe8e244c0cda7e3dc",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 0.57,
+            "eps_difference": -0.08,
+            "eps_estimate": 0.65321,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": -0.1274
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.51,
+            "eps_difference": 0.002,
+            "eps_estimate": 0.50837,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": 0.0032
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.49,
+            "eps_difference": 0.01,
+            "eps_estimate": 0.47714,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.027
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.52,
+            "eps_difference": 0.04,
+            "eps_estimate": 0.48497,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": 0.0722
+          }
+        ],
+        "history_count": 4,
+        "name": "Aramark",
+        "next_earnings": {
+          "date": "2026-11-16",
+          "date_ms": 1794835800000,
+          "earnings_call": {
+            "date": "2026-11-16",
+            "ms": 1794835800000
+          },
+          "eps_estimate": {
+            "average": 0.75452,
+            "high": 0.84,
+            "low": 0.7
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 5290123380,
+            "high": 5365290000,
+            "low": 5148000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722492868,
+        "source_url": "https://finance.yahoo.com/quote/ARMK/analysis/",
+        "symbol": "ARMK",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 0.75452,
+              "high": 0.84,
+              "low": 0.7,
+              "number_of_analysts": 12,
+              "year_ago": 0.57
+            },
+            "growth": 0.32369998,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 5290123380,
+              "high": 5365290000,
+              "low": 5148000000,
+              "number_of_analysts": 10,
+              "year_ago": 5048464000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 0.63538,
+              "high": 0.68,
+              "low": 0.59,
+              "number_of_analysts": 9,
+              "year_ago": 0.51
+            },
+            "growth": 0.2458,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 5276655980,
+              "high": 5322718000,
+              "low": 5200000000,
+              "number_of_analysts": 7,
+              "year_ago": 4831549000
+            }
+          },
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 2.2785,
+              "high": 2.36,
+              "low": 2.23,
+              "number_of_analysts": 15,
+              "year_ago": 1.82
+            },
+            "growth": 0.25190002,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 20111586970,
+              "high": 20214000000,
+              "low": 19944000000,
+              "number_of_analysts": 16,
+              "year_ago": 18506299000
+            }
+          },
+          {
+            "end_date": "2027-09-30",
+            "eps_estimate": {
+              "average": 2.80892,
+              "high": 2.93,
+              "low": 2.6,
+              "number_of_analysts": 15,
+              "year_ago": 2.2785
+            },
+            "growth": 0.2328,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 21922076560,
+              "high": 22519000000,
+              "low": 21160000000,
+              "number_of_analysts": 16,
+              "year_ago": 20111586970
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/ARMK/raw_response"
+    },
+    {
+      "ticker": "TSN",
+      "company": "Tyson Foods, Inc.",
+      "event_id": "current-tsn-20261116",
+      "event_date": "2026-11-16T22:00:00+08:00",
+      "reporting_period": "FY2026 Q4",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/TSN/analysis/",
+      "observed_at": "2026-11-15T06:01:33.089Z",
+      "observed_at_taipei": "2026-11-15T14:01:33+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 0.59996,
+        "high": 1.12965,
+        "low": 0.49,
+        "analyst_count": 8,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 14096286810,
+        "high": 15105665000,
+        "low": 12690000000,
+        "analyst_count": 9,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "4e1f2d3c32d06690ea4acfd488b7cfd272847a77eab199fd676a62106ddeb12f",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.15,
+            "eps_difference": 0.32,
+            "eps_estimate": 0.83474,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": 0.3777
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.97,
+            "eps_difference": 0.03,
+            "eps_estimate": 0.94098,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": 0.0308
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.87,
+            "eps_difference": 0.09,
+            "eps_estimate": 0.7796,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.116000004
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.99,
+            "eps_difference": 0.003,
+            "eps_estimate": 0.98669,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": 0.0034
+          }
+        ],
+        "history_count": 4,
+        "name": "Tyson Foods, Inc.",
+        "next_earnings": {
+          "date": "2026-11-16",
+          "date_ms": 1794835800000,
+          "earnings_call": {
+            "date": "2026-11-16",
+            "ms": 1794837600000
+          },
+          "eps_estimate": {
+            "average": 0.59996,
+            "high": 1.12965,
+            "low": 0.49
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 14096286810,
+            "high": 15105665000,
+            "low": 12690000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722493089,
+        "source_url": "https://finance.yahoo.com/quote/TSN/analysis/",
+        "symbol": "TSN",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 0.59996,
+              "high": 1.12965,
+              "low": 0.49,
+              "number_of_analysts": 8,
+              "year_ago": 1.15
+            },
+            "growth": -0.4783,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 14096286810,
+              "high": 15105665000,
+              "low": 12690000000,
+              "number_of_analysts": 9,
+              "year_ago": 13860000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 0.97403,
+              "high": 1.17419,
+              "low": 0.89,
+              "number_of_analysts": 6,
+              "year_ago": 0.97
+            },
+            "growth": 0.0042,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 14270679650,
+              "high": 14831500000,
+              "low": 13922400000,
+              "number_of_analysts": 5,
+              "year_ago": 14313000000
+            }
+          },
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 3.50612,
+              "high": 3.9657,
+              "low": 3.32,
+              "number_of_analysts": 10,
+              "year_ago": 4.12
+            },
+            "growth": -0.14899999,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 56147660830,
+              "high": 56928863470,
+              "low": 55334000000,
+              "number_of_analysts": 7,
+              "year_ago": 54441000000
+            }
+          },
+          {
+            "end_date": "2027-09-30",
+            "eps_estimate": {
+              "average": 3.83853,
+              "high": 4.99166,
+              "low": 3.33,
+              "number_of_analysts": 10,
+              "year_ago": 3.50612
+            },
+            "growth": 0.094799995,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 55444641690,
+              "high": 58295535340,
+              "low": 49995235010,
+              "number_of_analysts": 11,
+              "year_ago": 56147660830
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/TSN/raw_response"
+    },
+    {
+      "ticker": "JD",
+      "company": "JD.com, Inc.",
+      "event_id": "current-jd-20261117",
+      "event_date": "2026-11-17T20:00:00+08:00",
+      "reporting_period": "2026 Q3",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/JD/analysis/",
+      "observed_at": "2026-11-15T06:01:33.550Z",
+      "observed_at_taipei": "2026-11-15T14:01:33+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 5.8799,
+        "high": 6.87489,
+        "low": 5.00259,
+        "analyst_count": 19,
+        "currency": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 309801336060,
+        "high": 325193100000,
+        "low": 305866000000,
+        "analyst_count": 25,
+        "currency": "CNY",
+        "unit": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "9f243b38c19c935a80a0d1d2647fd326c73c6327f4a7714d248a02762d04e939",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "CNY",
+            "eps_actual": 3.73,
+            "eps_difference": 0.84,
+            "eps_estimate": 2.88717,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": 0.2919
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 0.57,
+            "eps_difference": -0.1,
+            "eps_estimate": 0.66704,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": -0.1455
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 5.12,
+            "eps_difference": 1.48,
+            "eps_estimate": 3.63764,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.4075
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 6.29,
+            "eps_difference": 0.68,
+            "eps_estimate": 5.61488,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": 0.12020001
+          }
+        ],
+        "history_count": 4,
+        "name": "JD.com, Inc.",
+        "next_earnings": {
+          "date": "2026-11-17",
+          "date_ms": 1794922200000,
+          "earnings_call": {
+            "date": "2026-11-17",
+            "ms": 1794916800000
+          },
+          "eps_estimate": {
+            "average": 5.8799,
+            "high": 6.87489,
+            "low": 5.00259
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 309801336060,
+            "high": 325193100000,
+            "low": 305866000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722493550,
+        "source_url": "https://finance.yahoo.com/quote/JD/analysis/",
+        "symbol": "JD",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 5.8799,
+              "high": 6.87489,
+              "low": 5.00259,
+              "number_of_analysts": 19,
+              "year_ago": 3.73
+            },
+            "growth": 0.5764,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 309801336060,
+              "high": 325193100000,
+              "low": 305866000000,
+              "number_of_analysts": 25,
+              "year_ago": 299059000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 4.15721,
+              "high": 5.15442,
+              "low": 2.59,
+              "number_of_analysts": 16,
+              "year_ago": 0.57
+            },
+            "growth": 6.2934003,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 371799876540,
+              "high": 401807600000,
+              "low": 355828900000,
+              "number_of_analysts": 17,
+              "year_ago": 352284000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 21.50591,
+              "high": 25.76,
+              "low": 18.458,
+              "number_of_analysts": 29,
+              "year_ago": 17.82
+            },
+            "growth": 0.2068,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 1346855502610,
+              "high": 1415538190000,
+              "low": 1332129000000,
+              "number_of_analysts": 37,
+              "year_ago": 1309085000000
+            }
+          },
+          {
+            "end_date": "2027-12-31",
+            "eps_estimate": {
+              "average": 26.78427,
+              "high": 32.14,
+              "low": 18.257,
+              "number_of_analysts": 29,
+              "year_ago": 21.50591
+            },
+            "growth": 0.24540001,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 1420575098860,
+              "high": 1491100000000,
+              "low": 1349682400000,
+              "number_of_analysts": 37,
+              "year_ago": 1346855502610
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/JD/raw_response"
+    },
+    {
+      "ticker": "DIS",
+      "company": "The Walt Disney Company",
+      "event_id": "current-dis-20261117",
+      "event_date": "2026-11-17T21:30:00+08:00",
+      "reporting_period": "FY2026 Q4",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/DIS/analysis/",
+      "observed_at": "2026-11-15T06:01:32.922Z",
+      "observed_at_taipei": "2026-11-15T14:01:32+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 1.681,
+        "high": 1.93,
+        "low": 1.56,
+        "analyst_count": 23,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 25148666760,
+        "high": 25975000000,
+        "low": 24351028630,
+        "analyst_count": 22,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "7e152be024e97c6709b34ba4b33a14847e25469ab1a51464727981d51274b478",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.11,
+            "eps_difference": 0.09,
+            "eps_estimate": 1.02382,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": 0.0842
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.63,
+            "eps_difference": 0.05,
+            "eps_estimate": 1.5758,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": 0.0344
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.57,
+            "eps_difference": 0.07,
+            "eps_estimate": 1.49547,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.0498
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.06,
+            "eps_difference": 0.21,
+            "eps_estimate": 1.8544,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": 0.1109
+          }
+        ],
+        "history_count": 4,
+        "name": "The Walt Disney Company",
+        "next_earnings": {
+          "date": "2026-11-17",
+          "date_ms": 1794922200000,
+          "earnings_call": {
+            "date": "2026-11-17",
+            "ms": 1794922200000
+          },
+          "eps_estimate": {
+            "average": 1.681,
+            "high": 1.93,
+            "low": 1.56
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 25148666760,
+            "high": 25975000000,
+            "low": 24351028630
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722492922,
+        "source_url": "https://finance.yahoo.com/quote/DIS/analysis/",
+        "symbol": "DIS",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 1.681,
+              "high": 1.93,
+              "low": 1.56,
+              "number_of_analysts": 23,
+              "year_ago": 1.11
+            },
+            "growth": 0.5144,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 25148666760,
+              "high": 25975000000,
+              "low": 24351028630,
+              "number_of_analysts": 22,
+              "year_ago": 22464000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 1.95927,
+              "high": 2.11,
+              "low": 1.77,
+              "number_of_analysts": 12,
+              "year_ago": 1.63
+            },
+            "growth": 0.202,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 27605639360,
+              "high": 28651199000,
+              "low": 26987000000,
+              "number_of_analysts": 9,
+              "year_ago": 25981000000
+            }
+          },
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 6.93401,
+              "high": 7.19,
+              "low": 6.79,
+              "number_of_analysts": 28,
+              "year_ago": 5.93
+            },
+            "growth": 0.1693,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 101494540210,
+              "high": 102371631820,
+              "low": 100136000000,
+              "number_of_analysts": 29,
+              "year_ago": 94425000000
+            }
+          },
+          {
+            "end_date": "2027-09-30",
+            "eps_estimate": {
+              "average": 7.49241,
+              "high": 7.70039,
+              "low": 7.19,
+              "number_of_analysts": 25,
+              "year_ago": 6.93401
+            },
+            "growth": 0.0805,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 106193072090,
+              "high": 108591200000,
+              "low": 103561000000,
+              "number_of_analysts": 26,
+              "year_ago": 101494540210
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/DIS/raw_response"
+    },
+    {
+      "ticker": "HD",
+      "company": "The Home Depot, Inc.",
+      "event_id": "current-hd-20261117",
+      "event_date": "2026-11-17T22:00:00+08:00",
+      "reporting_period": "FY2026 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/HD/analysis/",
+      "observed_at": "2026-11-15T06:01:32.901Z",
+      "observed_at_taipei": "2026-11-15T14:01:32+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 3.83729,
+        "high": 4.04949,
+        "low": 3.71,
+        "analyst_count": 30,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 42778385490,
+        "high": 43691000000,
+        "low": 41963000000,
+        "analyst_count": 26,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "697d949753603cd365ebe43c5cd73b7db43bffd221b12eabf02b9003c46922a0",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 3.74,
+            "eps_difference": -0.09,
+            "eps_estimate": 3.83395,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": -0.024500001
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.72,
+            "eps_difference": 0.2,
+            "eps_estimate": 2.5232,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.078
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 3.43,
+            "eps_difference": 0.02,
+            "eps_estimate": 3.40647,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.0069
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 4.92,
+            "eps_difference": 0.19,
+            "eps_estimate": 4.73227,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.0397
+          }
+        ],
+        "history_count": 4,
+        "name": "The Home Depot, Inc.",
+        "next_earnings": {
+          "date": "2026-11-17",
+          "date_ms": 1794922200000,
+          "earnings_call": null,
+          "eps_estimate": {
+            "average": 3.83729,
+            "high": 4.04949,
+            "low": 3.71
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 42778385490,
+            "high": 43691000000,
+            "low": 41963000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722492901,
+        "source_url": "https://finance.yahoo.com/quote/HD/analysis/",
+        "symbol": "HD",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 3.83729,
+              "high": 4.04949,
+              "low": 3.71,
+              "number_of_analysts": 30,
+              "year_ago": 3.74
+            },
+            "growth": 0.025999999,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 42778385490,
+              "high": 43691000000,
+              "low": 41963000000,
+              "number_of_analysts": 26,
+              "year_ago": 41352000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 2.82227,
+              "high": 2.94,
+              "low": 2.7,
+              "number_of_analysts": 30,
+              "year_ago": 2.72
+            },
+            "growth": 0.0376,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 39164116170,
+              "high": 39579900000,
+              "low": 38671848000,
+              "number_of_analysts": 25,
+              "year_ago": 38198000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 15.01427,
+              "high": 15.2376,
+              "low": 14.826,
+              "number_of_analysts": 34,
+              "year_ago": 14.69
+            },
+            "growth": 0.0221,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 171566476070,
+              "high": 172856000000,
+              "low": 170397137000,
+              "number_of_analysts": 33,
+              "year_ago": 164683000000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 15.90985,
+              "high": 16.59893,
+              "low": 15.18,
+              "number_of_analysts": 34,
+              "year_ago": 15.01427
+            },
+            "growth": 0.0596,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 177101938270,
+              "high": 179888000000,
+              "low": 174356561290,
+              "number_of_analysts": 33,
+              "year_ago": 171566476070
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/HD/raw_response"
+    },
+    {
+      "ticker": "TGT",
+      "company": "Target Corporation",
+      "event_id": "current-tgt-20261118",
+      "event_date": "2026-11-18T21:00:00+08:00",
+      "reporting_period": "FY2026 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/TGT/analysis/",
+      "observed_at": "2026-11-15T06:01:33.231Z",
+      "observed_at_taipei": "2026-11-15T14:01:33+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 2.06829,
+        "high": 2.3,
+        "low": 1.91,
+        "analyst_count": 31,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 26515057420,
+        "high": 26899000000,
+        "low": 26277000000,
+        "analyst_count": 29,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "6a1a92fac0ce1fc124be87d863e8c577ae8bf561c898e1c6946785d70d0b782f",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.78,
+            "eps_difference": 0.07,
+            "eps_estimate": 1.71013,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.040900003
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.44,
+            "eps_difference": 0.28,
+            "eps_estimate": 2.15979,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.1297
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.71,
+            "eps_difference": 0.25,
+            "eps_estimate": 1.45765,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.1731
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 4.11,
+            "eps_difference": 1.77,
+            "eps_estimate": 2.33743,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.7583
+          }
+        ],
+        "history_count": 4,
+        "name": "Target Corporation",
+        "next_earnings": {
+          "date": "2026-11-18",
+          "date_ms": 1795008600000,
+          "earnings_call": null,
+          "eps_estimate": {
+            "average": 2.06829,
+            "high": 2.3,
+            "low": 1.91
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 26515057420,
+            "high": 26899000000,
+            "low": 26277000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722493231,
+        "source_url": "https://finance.yahoo.com/quote/TGT/analysis/",
+        "symbol": "TGT",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 2.06829,
+              "high": 2.3,
+              "low": 1.91,
+              "number_of_analysts": 31,
+              "year_ago": 1.78
+            },
+            "growth": 0.162,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 26515057420,
+              "high": 26899000000,
+              "low": 26277000000,
+              "number_of_analysts": 29,
+              "year_ago": 25270000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 2.68487,
+              "high": 2.90126,
+              "low": 2.55,
+              "number_of_analysts": 31,
+              "year_ago": 2.44
+            },
+            "growth": 0.1004,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 31860829330,
+              "high": 32183854630,
+              "low": 31677000000,
+              "number_of_analysts": 29,
+              "year_ago": 30453000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 10.45153,
+              "high": 10.90383,
+              "low": 9.23373,
+              "number_of_analysts": 31,
+              "year_ago": 7.57
+            },
+            "growth": 0.3807,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 110288206650,
+              "high": 111134000000,
+              "low": 108978000000,
+              "number_of_analysts": 36,
+              "year_ago": 104780000000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 9.58021,
+              "high": 10.37,
+              "low": 8.48,
+              "number_of_analysts": 36,
+              "year_ago": 10.45153
+            },
+            "growth": -0.0834,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 113929222340,
+              "high": 115572000000,
+              "low": 111350000000,
+              "number_of_analysts": 35,
+              "year_ago": 110288206650
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/TGT/raw_response"
+    },
+    {
+      "ticker": "LOW",
+      "company": "Lowe's Companies, Inc.",
+      "event_id": "current-low-20261118",
+      "event_date": "2026-11-18T22:00:00+08:00",
+      "reporting_period": "FY2026 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/LOW/analysis/",
+      "observed_at": "2026-11-15T06:01:32.887Z",
+      "observed_at_taipei": "2026-11-15T14:01:32+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 2.88063,
+        "high": 3.25,
+        "low": 2.8,
+        "analyst_count": 28,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 22359573420,
+        "high": 22732000000,
+        "low": 21346000000,
+        "analyst_count": 27,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "03e917eb3f15aabc78cf3112e022f691de7cf02c42b4f2a7e6c3275906c40678",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 3.06,
+            "eps_difference": 0.11,
+            "eps_estimate": 2.9534,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0361
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.98,
+            "eps_difference": 0.04,
+            "eps_estimate": 1.94244,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.019299999
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 3.03,
+            "eps_difference": 0.06,
+            "eps_estimate": 2.967,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.0212
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 4.4,
+            "eps_difference": 0.18,
+            "eps_estimate": 4.22324,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.0419
+          }
+        ],
+        "history_count": 4,
+        "name": "Lowe's Companies, Inc.",
+        "next_earnings": {
+          "date": "2026-11-18",
+          "date_ms": 1795008600000,
+          "earnings_call": null,
+          "eps_estimate": {
+            "average": 2.88063,
+            "high": 3.25,
+            "low": 2.8
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 22359573420,
+            "high": 22732000000,
+            "low": 21346000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722492887,
+        "source_url": "https://finance.yahoo.com/quote/LOW/analysis/",
+        "symbol": "LOW",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 2.88063,
+              "high": 3.25,
+              "low": 2.8,
+              "number_of_analysts": 28,
+              "year_ago": 3.06
+            },
+            "growth": -0.0586,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 22359573420,
+              "high": 22732000000,
+              "low": 21346000000,
+              "number_of_analysts": 27,
+              "year_ago": 20813000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 1.97374,
+              "high": 2.12,
+              "low": 1.91,
+              "number_of_analysts": 28,
+              "year_ago": 1.98
+            },
+            "growth": -0.0032,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 20635739980,
+              "high": 21341000000,
+              "low": 20275000000,
+              "number_of_analysts": 25,
+              "year_ago": 20584000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 12.2892,
+              "high": 12.6,
+              "low": 12.14,
+              "number_of_analysts": 32,
+              "year_ago": 12.28
+            },
+            "growth": 0.0007,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 92028334610,
+              "high": 92448000000,
+              "low": 91165000000,
+              "number_of_analysts": 30,
+              "year_ago": 86286000000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 12.91701,
+              "high": 13.62787,
+              "low": 11.79,
+              "number_of_analysts": 32,
+              "year_ago": 12.2892
+            },
+            "growth": 0.0511,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 94189272950,
+              "high": 96869654050,
+              "low": 93103000000,
+              "number_of_analysts": 33,
+              "year_ago": 92028334610
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/LOW/raw_response"
+    },
+    {
+      "ticker": "TJX",
+      "company": "The TJX Companies, Inc.",
+      "event_id": "current-tjx-20261118",
+      "event_date": "2026-11-19T00:00:00+08:00",
+      "reporting_period": "FY2027 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/TJX/analysis/",
+      "observed_at": "2026-11-15T06:01:33.813Z",
+      "observed_at_taipei": "2026-11-15T14:01:33+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 1.33214,
+        "high": 1.41,
+        "low": 1.19,
+        "analyst_count": 18,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 15854598440,
+        "high": 16119000000,
+        "low": 15703000000,
+        "analyst_count": 17,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "549bc202c5aed5852eb16aa5a57333c69a99deaf7662a80c03002a58b6016079",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.28,
+            "eps_difference": 0.06,
+            "eps_estimate": 1.21881,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0502
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.43,
+            "eps_difference": 0.04,
+            "eps_estimate": 1.38656,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.0313
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.19,
+            "eps_difference": 0.17,
+            "eps_estimate": 1.01507,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.1723
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.22,
+            "eps_difference": 0.03,
+            "eps_estimate": 1.18661,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.028099999
+          }
+        ],
+        "history_count": 4,
+        "name": "The TJX Companies, Inc.",
+        "next_earnings": {
+          "date": "2026-11-18",
+          "date_ms": 1795008600000,
+          "earnings_call": {
+            "date": "2026-11-18",
+            "ms": 1795017600000
+          },
+          "eps_estimate": {
+            "average": 1.33214,
+            "high": 1.41,
+            "low": 1.19
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 15854598440,
+            "high": 16119000000,
+            "low": 15703000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722493813,
+        "source_url": "https://finance.yahoo.com/quote/TJX/analysis/",
+        "symbol": "TJX",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 1.33214,
+              "high": 1.41,
+              "low": 1.19,
+              "number_of_analysts": 18,
+              "year_ago": 1.28
+            },
+            "growth": 0.040700004,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 15854598440,
+              "high": 16119000000,
+              "low": 15703000000,
+              "number_of_analysts": 17,
+              "year_ago": 15117000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 1.49353,
+              "high": 1.55,
+              "low": 1.44,
+              "number_of_analysts": 17,
+              "year_ago": 1.43
+            },
+            "growth": 0.0444,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 18616652050,
+              "high": 18957442990,
+              "low": 18377200000,
+              "number_of_analysts": 16,
+              "year_ago": 17743000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 5.23058,
+              "high": 5.30445,
+              "low": 5.17,
+              "number_of_analysts": 18,
+              "year_ago": 4.73
+            },
+            "growth": 0.1058,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 63993128940,
+              "high": 64528275860,
+              "low": 63614100000,
+              "number_of_analysts": 21,
+              "year_ago": 60372000000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 5.74279,
+              "high": 6.05,
+              "low": 5.38,
+              "number_of_analysts": 19,
+              "year_ago": 5.23058
+            },
+            "growth": 0.0979,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 67951469800,
+              "high": 69290000000,
+              "low": 66628000000,
+              "number_of_analysts": 21,
+              "year_ago": 63993128940
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/TJX/raw_response"
+    },
+    {
+      "ticker": "PANW",
+      "company": "Palo Alto Networks, Inc.",
+      "event_id": "current-panw-20261119",
+      "event_date": "2026-11-19T05:30:00+08:00",
+      "reporting_period": "FY2027 Q1",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/PANW/analysis/",
+      "observed_at": "2026-11-15T06:01:33.137Z",
+      "observed_at_taipei": "2026-11-15T14:01:33+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 0.97062,
+        "high": 0.98,
+        "low": 0.95,
+        "analyst_count": 44,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 3307502950,
+        "high": 3367100000,
+        "low": 3292425750,
+        "analyst_count": 45,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "6ad57d8036387d7804bd196c74529d5a8626c803159a3850f2fe4a5a96509eca",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 0.93,
+            "eps_difference": 0.04,
+            "eps_estimate": 0.89116,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0436
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.03,
+            "eps_difference": 0.09,
+            "eps_estimate": 0.93741,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.0988
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.85,
+            "eps_difference": 0.05,
+            "eps_estimate": 0.7972,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.066199996
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.02,
+            "eps_difference": 0.04,
+            "eps_estimate": 0.97745,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.0435
+          }
+        ],
+        "history_count": 4,
+        "name": "Palo Alto Networks, Inc.",
+        "next_earnings": {
+          "date": "2026-11-18",
+          "date_ms": 1795035600000,
+          "earnings_call": {
+            "date": "2026-11-18",
+            "ms": 1795037400000
+          },
+          "eps_estimate": {
+            "average": 0.97062,
+            "high": 0.98,
+            "low": 0.95
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 3307502950,
+            "high": 3367100000,
+            "low": 3292425750
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722493137,
+        "source_url": "https://finance.yahoo.com/quote/PANW/analysis/",
+        "symbol": "PANW",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 0.97062,
+              "high": 0.98,
+              "low": 0.95,
+              "number_of_analysts": 44,
+              "year_ago": 0.93
+            },
+            "growth": 0.0437,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 3307502950,
+              "high": 3367100000,
+              "low": 3292425750,
+              "number_of_analysts": 45,
+              "year_ago": 2474000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 0.3936,
+              "high": 0.59,
+              "low": 0.23886,
+              "number_of_analysts": 15,
+              "year_ago": 0.61
+            },
+            "growth": -0.0241,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 3419707370,
+              "high": 3570000000,
+              "low": 3284000000,
+              "number_of_analysts": 44,
+              "year_ago": 2594000000
+            }
+          },
+          {
+            "end_date": "2027-07-31",
+            "eps_estimate": {
+              "average": 4.17948,
+              "high": 4.24,
+              "low": 4.15,
+              "number_of_analysts": 52,
+              "year_ago": 3.84
+            },
+            "growth": 0.0884,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 14173692370,
+              "high": 14604500000,
+              "low": 14116800000,
+              "number_of_analysts": 52,
+              "year_ago": 11480000000
+            }
+          },
+          {
+            "end_date": "2028-07-31",
+            "eps_estimate": {
+              "average": 2.14557,
+              "high": 3.03,
+              "low": 1.32,
+              "number_of_analysts": 18,
+              "year_ago": 1.54105
+            },
+            "growth": 0.1685,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 16224938190,
+              "high": 17595000000,
+              "low": 15642500000,
+              "number_of_analysts": 47,
+              "year_ago": 14173692370
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/PANW/raw_response"
+    },
+    {
+      "ticker": "P",
+      "company": "Everpure, Inc.",
+      "event_id": "current-p-20261119",
+      "event_date": "2026-11-19T06:00:00+08:00",
+      "reporting_period": "FY2027 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/P/analysis/",
+      "observed_at": "2026-11-15T06:01:35.720Z",
+      "observed_at_taipei": "2026-11-15T14:01:35+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 0.77166,
+        "high": 0.842,
+        "low": 0.66,
+        "analyst_count": 19,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 1331770670,
+        "high": 1354116800,
+        "low": 1321200000,
+        "analyst_count": 17,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "974d0478f78eb376d88cc96478dde1f653d80b62d368da58cb1ac7c839f94fde",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 0.58,
+            "eps_difference": -0.004,
+            "eps_estimate": 0.58423,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": -0.0072000003
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.69,
+            "eps_difference": 0.05,
+            "eps_estimate": 0.64494,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.0699
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.47,
+            "eps_difference": 0.07,
+            "eps_estimate": 0.39544,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.1885
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 0.7,
+            "eps_difference": 0.12,
+            "eps_estimate": 0.57865,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.20969999
+          }
+        ],
+        "history_count": 4,
+        "name": "Everpure, Inc.",
+        "next_earnings": {
+          "date": "2026-11-18",
+          "date_ms": 1795035600000,
+          "earnings_call": {
+            "date": "2026-11-18",
+            "ms": 1795039200000
+          },
+          "eps_estimate": {
+            "average": 0.77166,
+            "high": 0.842,
+            "low": 0.66
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 1331770670,
+            "high": 1354116800,
+            "low": 1321200000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722495720,
+        "source_url": "https://finance.yahoo.com/quote/P/analysis/",
+        "symbol": "P",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 0.77166,
+              "high": 0.842,
+              "low": 0.66,
+              "number_of_analysts": 19,
+              "year_ago": 0.58
+            },
+            "growth": 0.33040002,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 1331770670,
+              "high": 1354116800,
+              "low": 1321200000,
+              "number_of_analysts": 17,
+              "year_ago": 964453000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 0.84609,
+              "high": 1.01,
+              "low": 0.71,
+              "number_of_analysts": 19,
+              "year_ago": 0.69
+            },
+            "growth": 0.22620001,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 1485352940,
+              "high": 1516110450,
+              "low": 1466000000,
+              "number_of_analysts": 17,
+              "year_ago": 1058903000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 2.78775,
+              "high": 3.03,
+              "low": 2.54,
+              "number_of_analysts": 19,
+              "year_ago": 1.9858
+            },
+            "growth": 0.4038,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 5056618770,
+              "high": 5109021250,
+              "low": 5030000000,
+              "number_of_analysts": 18,
+              "year_ago": 3662843000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 4.21128,
+              "high": 4.43,
+              "low": 3.22,
+              "number_of_analysts": 19,
+              "year_ago": 2.78775
+            },
+            "growth": 0.51060003,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 7024038500,
+              "high": 7225149000,
+              "low": 6041800000,
+              "number_of_analysts": 18,
+              "year_ago": 5056618770
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/P/raw_response"
+    },
+    {
+      "ticker": "BABA",
+      "company": "Alibaba Group Holding Limited",
+      "event_id": "current-baba-20261119",
+      "event_date": "2026-11-19T20:00:00+08:00",
+      "reporting_period": "2026 Q3",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/BABA/analysis/",
+      "observed_at": "2026-11-15T06:01:36.272Z",
+      "observed_at_taipei": "2026-11-15T14:01:36+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 11.02539,
+        "high": 14.191,
+        "low": 8.59,
+        "analyst_count": 17,
+        "currency": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 269849229899,
+        "high": 275480000000,
+        "low": 265137000000,
+        "analyst_count": 22,
+        "currency": "CNY",
+        "unit": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "131fd1040eff4439de226ae900afb0c18720e164c5ef8d37de1395d1e09abc29",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "CNY",
+            "eps_actual": 4.36,
+            "eps_difference": -1.42,
+            "eps_estimate": 5.77853,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": -0.2455
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 7.09,
+            "eps_difference": -3.85,
+            "eps_estimate": 10.93826,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": -0.3518
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 0.62,
+            "eps_difference": -5.12,
+            "eps_estimate": 5.73836,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": -0.89199996
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 8.52,
+            "eps_difference": -2.3,
+            "eps_estimate": 10.82038,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": -0.21260001
+          }
+        ],
+        "history_count": 4,
+        "name": "Alibaba Group Holding Limited",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795095000000,
+          "earnings_call": {
+            "date": "2026-11-19",
+            "ms": 1795089600000
+          },
+          "eps_estimate": {
+            "average": 11.02539,
+            "high": 14.191,
+            "low": 8.59
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 269849229899,
+            "high": 275480000000,
+            "low": 265137000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722496272,
+        "source_url": "https://finance.yahoo.com/quote/BABA/analysis/",
+        "symbol": "BABA",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 11.02539,
+              "high": 14.191,
+              "low": 8.59,
+              "number_of_analysts": 17,
+              "year_ago": 4.36
+            },
+            "growth": 1.5288,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 269849229899,
+              "high": 275480000000,
+              "low": 265137000000,
+              "number_of_analysts": 22,
+              "year_ago": 247795000000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 15.00749,
+              "high": 17.8,
+              "low": 10.48,
+              "number_of_analysts": 16,
+              "year_ago": 7.09
+            },
+            "growth": 1.1166999,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 308859067510,
+              "high": 319662000000,
+              "low": 269907000000,
+              "number_of_analysts": 18,
+              "year_ago": 284843000000
+            }
+          },
+          {
+            "end_date": "2027-03-31",
+            "eps_estimate": {
+              "average": 44.24924,
+              "high": 53.084,
+              "low": 34.273,
+              "number_of_analysts": 30,
+              "year_ago": 26.8
+            },
+            "growth": 0.6511,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 1120194003220,
+              "high": 1162000000000,
+              "low": 1023683000000,
+              "number_of_analysts": 44,
+              "year_ago": 1023670000000
+            }
+          },
+          {
+            "end_date": "2028-03-31",
+            "eps_estimate": {
+              "average": 61.6519,
+              "high": 80.463,
+              "low": 40.944,
+              "number_of_analysts": 30,
+              "year_ago": 44.24924
+            },
+            "growth": 0.39330003,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 1262899617420,
+              "high": 1339541000000,
+              "low": 1097892000000,
+              "number_of_analysts": 44,
+              "year_ago": 1120194003220
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/BABA/raw_response"
+    },
+    {
+      "ticker": "NTES",
+      "company": "NetEase, Inc.",
+      "event_id": "current-ntes-20261119",
+      "event_date": "2026-11-19T20:00:00+08:00",
+      "reporting_period": "2026 Q3",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/NTES/analysis/",
+      "observed_at": "2026-11-15T06:01:36.786Z",
+      "observed_at_taipei": "2026-11-15T14:01:36+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 16.13125,
+        "high": 17.824,
+        "low": 14.342,
+        "analyst_count": 11,
+        "currency": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 30270401650,
+        "high": 31197000000,
+        "low": 28724639000,
+        "analyst_count": 17,
+        "currency": "CNY",
+        "unit": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "aaaaa6bbe53ed71a5883827882d7fb15908d38035f824a8739ddea8d713ec69e",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "CNY",
+            "eps_actual": 14.73,
+            "eps_difference": -0.08,
+            "eps_estimate": 14.81191,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": -0.0055
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 10.95,
+            "eps_difference": -3.17,
+            "eps_estimate": 14.11545,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": -0.2243
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 17.46,
+            "eps_difference": 2.07,
+            "eps_estimate": 15.39198,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": 0.1344
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 12.02,
+            "eps_difference": -3.52,
+            "eps_estimate": 15.54257,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": -0.22659999
+          }
+        ],
+        "history_count": 4,
+        "name": "NetEase, Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795095000000,
+          "earnings_call": {
+            "date": "2026-11-19",
+            "ms": 1795089600000
+          },
+          "eps_estimate": {
+            "average": 16.13125,
+            "high": 17.824,
+            "low": 14.342
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 30270401650,
+            "high": 31197000000,
+            "low": 28724639000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722496786,
+        "source_url": "https://finance.yahoo.com/quote/NTES/analysis/",
+        "symbol": "NTES",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 16.13125,
+              "high": 17.824,
+              "low": 14.342,
+              "number_of_analysts": 11,
+              "year_ago": 14.73
+            },
+            "growth": 0.0951,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 30270401650,
+              "high": 31197000000,
+              "low": 28724639000,
+              "number_of_analysts": 17,
+              "year_ago": 28358625000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 15.50297,
+              "high": 16.726,
+              "low": 14.04112,
+              "number_of_analysts": 9,
+              "year_ago": 10.95
+            },
+            "growth": 0.4158,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 29507549040,
+              "high": 30705484950,
+              "low": 27967161000,
+              "number_of_analysts": 11,
+              "year_ago": 27546973000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 61.43187,
+              "high": 64.637,
+              "low": 57.367,
+              "number_of_analysts": 22,
+              "year_ago": 57.99
+            },
+            "growth": 0.0594,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 120514116000,
+              "high": 124871447590,
+              "low": 112796783000,
+              "number_of_analysts": 35,
+              "year_ago": 112625807000
+            }
+          },
+          {
+            "end_date": "2027-12-31",
+            "eps_estimate": {
+              "average": 71.80827,
+              "high": 81.25,
+              "low": 65.66,
+              "number_of_analysts": 24,
+              "year_ago": 61.43187
+            },
+            "growth": 0.1689,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 129605610700,
+              "high": 139850381880,
+              "low": 118461700000,
+              "number_of_analysts": 35,
+              "year_ago": 120514116000
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/NTES/raw_response"
+    },
+    {
+      "ticker": "PDD",
+      "company": "PDD Holdings Inc.",
+      "event_id": "current-pdd-20261119",
+      "event_date": "2026-11-19T20:30:00+08:00",
+      "reporting_period": "2026 Q3",
+      "period_end_date": "2026-09-30",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/PDD/analysis/",
+      "observed_at": "2026-11-15T06:01:35.701Z",
+      "observed_at_taipei": "2026-11-15T14:01:35+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 18.84143,
+        "high": 21.22954,
+        "low": 16.789,
+        "analyst_count": 11,
+        "currency": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "revenue": {
+        "estimate": 115509319140,
+        "high": 119104000000,
+        "low": 107748197330,
+        "analyst_count": 13,
+        "currency": "CNY",
+        "unit": "CNY",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-09-30"
+      },
+      "raw_response_sha256": "8d5e6200bd34f51a7464b5b53bfc67593553195d1bb4a9531f80df4bab31f8f2",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "CNY",
+            "eps_actual": 21.08,
+            "eps_difference": 4.51,
+            "eps_estimate": 16.56985,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-09-30",
+              "ms": 1759190400000
+            },
+            "surprise_percent": 0.2722
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 17.69,
+            "eps_difference": -3.33,
+            "eps_estimate": 21.01881,
+            "period": "-3q",
+            "quarter": {
+              "date": "2025-12-31",
+              "ms": 1767139200000
+            },
+            "surprise_percent": -0.1584
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 9.51,
+            "eps_difference": -6.86,
+            "eps_estimate": 16.3658,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-03-31",
+              "ms": 1774915200000
+            },
+            "surprise_percent": -0.41889998
+          },
+          {
+            "currency": "CNY",
+            "eps_actual": 19.33,
+            "eps_difference": 0.98,
+            "eps_estimate": 18.3495,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-06-30",
+              "ms": 1782777600000
+            },
+            "surprise_percent": 0.053400002
+          }
+        ],
+        "history_count": 4,
+        "name": "PDD Holdings Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795095000000,
+          "earnings_call": {
+            "date": "2026-11-19",
+            "ms": 1795091400000
+          },
+          "eps_estimate": {
+            "average": 18.84143,
+            "high": 21.22954,
+            "low": 16.789
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 115509319140,
+            "high": 119104000000,
+            "low": 107748197330
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722495701,
+        "source_url": "https://finance.yahoo.com/quote/PDD/analysis/",
+        "symbol": "PDD",
+        "trend": [
+          {
+            "end_date": "2026-09-30",
+            "eps_estimate": {
+              "average": 18.84143,
+              "high": 21.22954,
+              "low": 16.789,
+              "number_of_analysts": 11,
+              "year_ago": 21.08
+            },
+            "growth": -0.1062,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 115509319140,
+              "high": 119104000000,
+              "low": 107748197330,
+              "number_of_analysts": 13,
+              "year_ago": 108276512000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 20.27226,
+              "high": 24.32,
+              "low": 17.549,
+              "number_of_analysts": 9,
+              "year_ago": 17.69
+            },
+            "growth": 0.146,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 131371451510,
+              "high": 142011000000,
+              "low": 117919383180,
+              "number_of_analysts": 10,
+              "year_ago": 123912194000
+            }
+          },
+          {
+            "end_date": "2026-12-31",
+            "eps_estimate": {
+              "average": 68.34865,
+              "high": 78.28,
+              "low": 61.281,
+              "number_of_analysts": 28,
+              "year_ago": 72.38
+            },
+            "growth": -0.0557,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 465612090150,
+              "high": 479403000000,
+              "low": 444254580510,
+              "number_of_analysts": 32,
+              "year_ago": 431845713000
+            }
+          },
+          {
+            "end_date": "2027-12-31",
+            "eps_estimate": {
+              "average": 82.47836,
+              "high": 96.2,
+              "low": 61.953,
+              "number_of_analysts": 29,
+              "year_ago": 68.34865
+            },
+            "growth": 0.2067,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 516249400640,
+              "high": 587723000000,
+              "low": 481000000000,
+              "number_of_analysts": 35,
+              "year_ago": 465612090150
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/PDD/raw_response"
+    },
+    {
+      "ticker": "WSM",
+      "company": "Williams-Sonoma, Inc.",
+      "event_id": "current-wsm-20261119",
+      "event_date": "2026-11-19T23:00:00+08:00",
+      "reporting_period": "FY2026 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/WSM/analysis/",
+      "observed_at": "2026-11-15T06:01:35.756Z",
+      "observed_at_taipei": "2026-11-15T14:01:35+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 2.20273,
+        "high": 2.34,
+        "low": 2.12,
+        "analyst_count": 11,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 1997705000,
+        "high": 2021157000,
+        "low": 1968700000,
+        "analyst_count": 19,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "f2b66f5d390d55d12b3c242ff7d43419fbdb9678f9a4465b3fe044bab42a87ee",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.96,
+            "eps_difference": 0.09,
+            "eps_estimate": 1.86898,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.048699997
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 3.04,
+            "eps_difference": 0.13,
+            "eps_estimate": 2.91014,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.0446
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 1.93,
+            "eps_difference": 0.13,
+            "eps_estimate": 1.79797,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.0734
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.84,
+            "eps_difference": 0.78,
+            "eps_estimate": 2.05984,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.3787
+          }
+        ],
+        "history_count": 4,
+        "name": "Williams-Sonoma, Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795095000000,
+          "earnings_call": null,
+          "eps_estimate": {
+            "average": 2.17963,
+            "high": 2.29,
+            "low": 2
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 1997705000,
+            "high": 2021157000,
+            "low": 1968700000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722495756,
+        "source_url": "https://finance.yahoo.com/quote/WSM/analysis/",
+        "symbol": "WSM",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 2.20273,
+              "high": 2.34,
+              "low": 2.12,
+              "number_of_analysts": 11,
+              "year_ago": 1.96
+            },
+            "growth": 0.1121,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 1997705000,
+              "high": 2021157000,
+              "low": 1968700000,
+              "number_of_analysts": 19,
+              "year_ago": 1882814000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 3.29636,
+              "high": 3.38,
+              "low": 3.08,
+              "number_of_analysts": 11,
+              "year_ago": 3.04
+            },
+            "growth": 0.08939999,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 2510787690,
+              "high": 2563605000,
+              "low": 2441600000,
+              "number_of_analysts": 19,
+              "year_ago": 2357129000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 10.29167,
+              "high": 10.42,
+              "low": 10.2,
+              "number_of_analysts": 6,
+              "year_ago": 8.84
+            },
+            "growth": 0.0762,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 8272450390,
+              "high": 8349974000,
+              "low": 8180600000,
+              "number_of_analysts": 21,
+              "year_ago": 7806816000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 10.5125,
+              "high": 10.82,
+              "low": 10.3,
+              "number_of_analysts": 12,
+              "year_ago": 10.29167
+            },
+            "growth": 0.104899995,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 8706757320,
+              "high": 8872420790,
+              "low": 8562799999,
+              "number_of_analysts": 21,
+              "year_ago": 8272450390
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/WSM/raw_response"
+    },
+    {
+      "ticker": "ROST",
+      "company": "Ross Stores, Inc.",
+      "event_id": "current-rost-20261120",
+      "event_date": "2026-11-20T05:00:00+08:00",
+      "reporting_period": "2026 Q3",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/ROST/analysis/",
+      "observed_at": "2026-11-15T06:01:36.777Z",
+      "observed_at_taipei": "2026-11-15T14:01:36+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 1.85954,
+        "high": 1.99,
+        "low": 1.8,
+        "analyst_count": 12,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 6244734920,
+        "high": 6396000000,
+        "low": 6141000000,
+        "analyst_count": 16,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "f8cf6696cc4d99971cf32b20cf63edc4d13221cc80bddf67be5b0fd8a000e564",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.58,
+            "eps_difference": 0.16,
+            "eps_estimate": 1.42473,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.109
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2,
+            "eps_difference": 0.09,
+            "eps_estimate": 1.90645,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.049099997
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.02,
+            "eps_difference": 0.3,
+            "eps_estimate": 1.72037,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.1742
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.66,
+            "eps_difference": 0.71,
+            "eps_estimate": 1.94535,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.36740002
+          }
+        ],
+        "history_count": 4,
+        "name": "Ross Stores, Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795122000000,
+          "earnings_call": null,
+          "eps_estimate": {
+            "average": 1.86275,
+            "high": 1.99,
+            "low": 1.8
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 6244734920,
+            "high": 6396000000,
+            "low": 6141000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722496777,
+        "source_url": "https://finance.yahoo.com/quote/ROST/analysis/",
+        "symbol": "ROST",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 1.85954,
+              "high": 1.99,
+              "low": 1.8,
+              "number_of_analysts": 12,
+              "year_ago": 1.58
+            },
+            "growth": 0.17899999,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 6244734920,
+              "high": 6396000000,
+              "low": 6141000000,
+              "number_of_analysts": 16,
+              "year_ago": 5600946000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 2.26664,
+              "high": 2.44591,
+              "low": 2.2,
+              "number_of_analysts": 11,
+              "year_ago": 2
+            },
+            "growth": 0.1317,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 7226150780,
+              "high": 7437784760,
+              "low": 7083000000,
+              "number_of_analysts": 15,
+              "year_ago": 6635490000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 8.8161,
+              "high": 9.11532,
+              "low": 8.7,
+              "number_of_analysts": 12,
+              "year_ago": 6.61
+            },
+            "growth": 0.2517,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 25754887300,
+              "high": 26085886330,
+              "low": 25528000000,
+              "number_of_analysts": 19,
+              "year_ago": 22750559000
+            }
+          },
+          {
+            "end_date": "2028-01-31",
+            "eps_estimate": {
+              "average": 8.99692,
+              "high": 9.40265,
+              "low": 8.54,
+              "number_of_analysts": 13,
+              "year_ago": 8.8161
+            },
+            "growth": 0.0912,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 27529581730,
+              "high": 28438454950,
+              "low": 27021211880,
+              "number_of_analysts": 19,
+              "year_ago": 25754887300
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/ROST/raw_response"
+    },
+    {
+      "ticker": "INTU",
+      "company": "Intuit Inc.",
+      "event_id": "current-intu-20261120",
+      "event_date": "2026-11-20T05:30:00+08:00",
+      "reporting_period": "FY2027 Q1",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/INTU/analysis/",
+      "observed_at": "2026-11-15T06:01:36.290Z",
+      "observed_at_taipei": "2026-11-15T14:01:36+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 2.63975,
+        "high": 4.13,
+        "low": 2.42,
+        "analyst_count": 26,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 4305869380,
+        "high": 4352000000,
+        "low": 4290000000,
+        "analyst_count": 23,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "aa970443acbdff96d0d1a8920d6aaeb5c1dcb98d4df6cb881a7ca5d55d15619e",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 3.34,
+            "eps_difference": 0.25,
+            "eps_estimate": 3.09288,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0799
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 4.15,
+            "eps_difference": 0.47,
+            "eps_estimate": 3.6826,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.1269
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 12.8,
+            "eps_difference": 0.23,
+            "eps_estimate": 12.56873,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.0184
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 4.03,
+            "eps_difference": 0.44,
+            "eps_estimate": 3.58739,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.1234
+          }
+        ],
+        "history_count": 4,
+        "name": "Intuit Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795122000000,
+          "earnings_call": {
+            "date": "2026-11-19",
+            "ms": 1795123800000
+          },
+          "eps_estimate": {
+            "average": 2.63975,
+            "high": 4.13,
+            "low": 2.42
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 4305869380,
+            "high": 4352000000,
+            "low": 4290000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722496290,
+        "source_url": "https://finance.yahoo.com/quote/INTU/analysis/",
+        "symbol": "INTU",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 2.63975,
+              "high": 4.13,
+              "low": 2.42,
+              "number_of_analysts": 26,
+              "year_ago": 3.34
+            },
+            "growth": -0.20969999,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 4305869380,
+              "high": 4352000000,
+              "low": 4290000000,
+              "number_of_analysts": 23,
+              "year_ago": 3885000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 3.96214,
+              "high": 5.59,
+              "low": 3.41,
+              "number_of_analysts": 26,
+              "year_ago": 4.15
+            },
+            "growth": -0.045300003,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 5110876660,
+              "high": 5153000000,
+              "low": 5055500000,
+              "number_of_analysts": 23,
+              "year_ago": 4651000000
+            }
+          },
+          {
+            "end_date": "2027-07-31",
+            "eps_estimate": {
+              "average": 23.80421,
+              "high": 29.21,
+              "low": 21.82521,
+              "number_of_analysts": 32,
+              "year_ago": 24.27
+            },
+            "growth": -0.019199999,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 23410903940,
+              "high": 23541415760,
+              "low": 23282370000,
+              "number_of_analysts": 29,
+              "year_ago": 21448000000
+            }
+          },
+          {
+            "end_date": "2028-07-31",
+            "eps_estimate": {
+              "average": 26.90769,
+              "high": 32.92,
+              "low": 21.32,
+              "number_of_analysts": 31,
+              "year_ago": 23.80421
+            },
+            "growth": 0.1304,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 25496075150,
+              "high": 25971817940,
+              "low": 24281043000,
+              "number_of_analysts": 28,
+              "year_ago": 23410903940
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/INTU/raw_response"
+    },
+    {
+      "ticker": "KEYS",
+      "company": "Keysight Technologies, Inc.",
+      "event_id": "current-keys-20261120",
+      "event_date": "2026-11-20T05:30:00+08:00",
+      "reporting_period": "FY2026 Q4",
+      "period_end_date": "2026-10-31",
+      "provider": "Yahoo Finance",
+      "source_level": 4,
+      "source_url": "https://finance.yahoo.com/quote/KEYS/analysis/",
+      "observed_at": "2026-11-15T06:01:36.812Z",
+      "observed_at_taipei": "2026-11-15T14:01:36+08:00",
+      "data_as_of": null,
+      "published_at": null,
+      "eps": {
+        "estimate": 3.38046,
+        "high": 3.48,
+        "low": 3.34,
+        "analyst_count": 12,
+        "currency": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "revenue": {
+        "estimate": 1949522980,
+        "high": 1983000000,
+        "low": 1940000000,
+        "analyst_count": 10,
+        "currency": "USD",
+        "unit": "USD",
+        "basis_code": null,
+        "statistic": "average",
+        "period_end_date": "2026-10-31"
+      },
+      "raw_response_sha256": "543f000dae1714b01445ea1dd1582caa091b9bf237120d6af0b079e37cc6bdb9",
+      "raw_response": {
+        "history": [
+          {
+            "currency": "USD",
+            "eps_actual": 1.91,
+            "eps_difference": 0.06,
+            "eps_estimate": 1.85411,
+            "period": "-4q",
+            "quarter": {
+              "date": "2025-10-31",
+              "ms": 1761868800000
+            },
+            "surprise_percent": 0.0301
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.17,
+            "eps_difference": 0.17,
+            "eps_estimate": 1.9954,
+            "period": "-3q",
+            "quarter": {
+              "date": "2026-01-31",
+              "ms": 1769817600000
+            },
+            "surprise_percent": 0.0875
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 2.87,
+            "eps_difference": 0.55,
+            "eps_estimate": 2.32041,
+            "period": "-2q",
+            "quarter": {
+              "date": "2026-04-30",
+              "ms": 1777507200000
+            },
+            "surprise_percent": 0.2369
+          },
+          {
+            "currency": "USD",
+            "eps_actual": 3.07,
+            "eps_difference": 0.59,
+            "eps_estimate": 2.48193,
+            "period": "-1q",
+            "quarter": {
+              "date": "2026-07-31",
+              "ms": 1785456000000
+            },
+            "surprise_percent": 0.2369
+          }
+        ],
+        "history_count": 4,
+        "name": "Keysight Technologies, Inc.",
+        "next_earnings": {
+          "date": "2026-11-19",
+          "date_ms": 1795122000000,
+          "earnings_call": {
+            "date": "2026-11-19",
+            "ms": 1795123800000
+          },
+          "eps_estimate": {
+            "average": 3.38046,
+            "high": 3.48,
+            "low": 3.34
+          },
+          "is_estimate": false,
+          "revenue_estimate": {
+            "average": 1949522980,
+            "high": 1983000000,
+            "low": 1940000000
+          },
+          "window_end_date": null,
+          "window_end_ms": null
+        },
+        "observed_at_ms": 1794722496812,
+        "source_url": "https://finance.yahoo.com/quote/KEYS/analysis/",
+        "symbol": "KEYS",
+        "trend": [
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 3.38046,
+              "high": 3.48,
+              "low": 3.34,
+              "number_of_analysts": 12,
+              "year_ago": 1.91
+            },
+            "growth": 0.76989996,
+            "period": "0q",
+            "revenue_estimate": {
+              "average": 1949522980,
+              "high": 1983000000,
+              "low": 1940000000,
+              "number_of_analysts": 10,
+              "year_ago": 1419000000
+            }
+          },
+          {
+            "end_date": "2027-01-31",
+            "eps_estimate": {
+              "average": 3.25082,
+              "high": 3.69,
+              "low": 2.81671,
+              "number_of_analysts": 11,
+              "year_ago": 2.17
+            },
+            "growth": 0.4981,
+            "period": "+1q",
+            "revenue_estimate": {
+              "average": 1976808810,
+              "high": 2073000000,
+              "low": 1887440000,
+              "number_of_analysts": 8,
+              "year_ago": 1600000000
+            }
+          },
+          {
+            "end_date": "2026-10-31",
+            "eps_estimate": {
+              "average": 11.49984,
+              "high": 11.64,
+              "low": 11.45,
+              "number_of_analysts": 11,
+              "year_ago": 7.16
+            },
+            "growth": 0.6061,
+            "period": "0y",
+            "revenue_estimate": {
+              "average": 7115272010,
+              "high": 7149785670,
+              "low": 7101762250,
+              "number_of_analysts": 11,
+              "year_ago": 5375000000
+            }
+          },
+          {
+            "end_date": "2027-10-31",
+            "eps_estimate": {
+              "average": 13.93407,
+              "high": 15.76,
+              "low": 12.76602,
+              "number_of_analysts": 12,
+              "year_ago": 11.49984
+            },
+            "growth": 0.2117,
+            "period": "+1y",
+            "revenue_estimate": {
+              "average": 8210009560,
+              "high": 8774000000,
+              "low": 7844232550,
+              "number_of_analysts": 11,
+              "year_ago": 7115272010
+            }
+          }
+        ]
+      },
+      "raw_response_ref": "simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json#entries/KEYS/raw_response"
     }
   ]
 }
