@@ -37,7 +37,7 @@ TARGETS = [
         "company": "Walmart",
         "url": "https://www.investing.com/equities/wal-mart-stores-earnings",
         "event_date": "2026-11-19",
-        "period_markers": ("10/2026", "2026/10"),
+        "period_markers": ("10/2026", "2026/10", "2026-10"),
         "date_markers": ("Nov 19, 2026", "19/11/2026", "2026-11-19", "2026年11月19日"),
     },
     {
@@ -61,8 +61,8 @@ def _first_number(text: str):
 def _currency_and_units(text: str):
     # The earnings-table note ("All numbers in ...") takes precedence over
     # the quote-header trading currency, which can differ for ADRs.
-    all_numbers = re.search(r"(?:All numbers in|數字皆以)\\s*(USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
-    header = re.search(r"(?:Currency in|貨幣)\\s*(USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
+    all_numbers = re.search(r"(?:All numbers in|數字皆以)\s*(USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
+    header = re.search(r"(?:Currency in|貨幣)\s*(USD|CNY|HKD|EUR|GBP|JPY)", text, re.I)
     currency = (all_numbers or header).group(1).upper() if (all_numbers or header) else None
     return currency
 
@@ -125,8 +125,10 @@ def parse_earnings_row(html: bytes, target: dict) -> dict:
         "published_at": None,
     }
     raw_rev = result["revenue_estimate_raw"] or ""
-    if re.search(r"(?:B|billion)\s*$", raw_rev, re.I):
+    if re.search(r"(?:B|billion|億)\s*$", raw_rev, re.I):
         result["revenue_unit"] = f"{currency}_BILLION" if currency else None
+        if "億" in raw_rev and result["revenue_estimate"] is not None:
+            result["revenue_estimate"] = result["revenue_estimate"] / 10
     elif re.search(r"(?:M|million)\s*$", raw_rev, re.I):
         result["revenue_unit"] = f"{currency}_MILLION" if currency else None
     elif re.search(r"(?:K|thousand)\s*$", raw_rev, re.I):
