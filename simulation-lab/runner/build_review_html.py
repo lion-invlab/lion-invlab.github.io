@@ -1608,13 +1608,15 @@ def main():
     mobile_earnings_css = soup.new_tag("style", id="tac-published-earnings-mobile-v1")
     mobile_earnings_css.string = """
 @media screen and (max-width: 640px) {
-  #earnings .earnings-accordion-details > .earnings-results-grid {
+  #earnings .earnings-accordion-details > .earnings-results-grid,
+  #last-week-earnings .earnings-accordion-details > .earnings-results-grid {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) !important;
     grid-auto-flow: row !important;
     gap: 9px !important;
   }
-  #earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card {
+  #earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card,
+  #last-week-earnings .earnings-accordion-details > .earnings-results-grid > .earnings-actual-card {
     width: 100% !important;
     min-width: 0 !important;
     padding: 11px !important;
