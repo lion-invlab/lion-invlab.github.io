@@ -14,7 +14,7 @@ from typing import Any
 
 ENGINE_VERSION = "1.3.0"
 VALID_STATUSES = {
-    "beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"
+    "beat", "miss", "inline", "pending"
 }
 DIRECTIONAL_STATUSES = {"beat", "miss", "inline"}
 STATUS_LABELS = {
@@ -22,8 +22,6 @@ STATUS_LABELS = {
     "miss": "低於預期",
     "inline": "符合預期",
     "pending": "尚未公布／數值尚未齊備",
-    "incomparable": "比較口徑不相容",
-    "consensus_divergent": "市場共識來源分歧",
 }
 _CURRENCY_RE = re.compile(r"^[A-Z]{3}$")
 EPS_BASIS_CODES = frozenset({
@@ -533,7 +531,7 @@ def render_summary(record: dict) -> str:
         return "EPS／營收預期比較尚未由 TAC 1.3 引擎重算。"
     summary = record.get("earnings_comparison_summary")
     return summary if isinstance(summary, str) and summary.strip() else (
-        "EPS／營收預期比較待核實。"
+        "EPS／營收比較結果尚未產生。"
     )
 
 
