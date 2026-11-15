@@ -193,6 +193,11 @@ def earnings_commentary(item):
         if not directional:
             kept.append(part)
             continue
+        # Directional verdicts are regenerated below from the single-source
+        # judgment engine. Never retain an old matching verdict: doing so
+        # duplicates EPS/revenue labels each time a Monday retrospective card
+        # is recalculated.
+        continue
         has_eps = bool(re.search(r"\bEPS\b|每股|per[- ]share", part, flags=re.IGNORECASE))
         has_revenue = bool(re.search(r"營收|revenue|net sales", part, flags=re.IGNORECASE))
         # An unqualified directional sentence is ambiguous; do not preserve it.
