@@ -89,7 +89,7 @@ def _parse_pit_time(value: Any):
         return None
     raw = value.strip().replace("Z", "+00:00")
     try:
-        if re.fullmatch(r"\\d{4}-\\d{2}-\\d{2}", raw):
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw):
             return date.fromisoformat(raw)
         parsed = datetime.fromisoformat(raw)
         if parsed.tzinfo is None or parsed.utcoffset() is None:
