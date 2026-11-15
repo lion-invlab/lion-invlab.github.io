@@ -14,8 +14,45 @@ def source(name):
     }
 
 
-def base_record():
+def pit_snapshot(metric, value, basis, unit=None, snapshot_id="a" * 64):
+    source_url = "https://example.com/earnings"
+    observed_at = "2026-11-13T04:30:00+08:00"
     return {
+        "snapshot_id": snapshot_id,
+        "event_id": "earn-test-1",
+        "ticker": "EX",
+        "metric": metric,
+        "source_level": 3,
+        "provider": "Investing.com",
+        "source_url": source_url,
+        "observed_at": observed_at,
+        "data_as_of": "2026-11-12",
+        "published_at": None,
+        "event_date": "2026-11-14T10:00:00+08:00",
+        "period": "Q3 2026",
+        "period_end_date": "2026-09-30",
+        "value": value,
+        "statistic": "mean",
+        "currency": "USD",
+        "unit": unit,
+        "basis_code": basis,
+        "analyst_count": 12,
+        "raw_response_ref": "raw/earnings/example.json",
+        "raw_response_sha256": "c" * 64,
+        "snapshot_status": "pre_release_eligible",
+        "reason": "data_as_of_and_observed_at_before_event",
+    }
+
+
+def base_record():
+    eps_id = "a" * 64
+    revenue_id = "b" * 64
+    return {
+        "id": "earn-test-1",
+        "ticker": "EX",
+        "event_date": "2026-11-14T10:00:00+08:00",
+        "eps_consensus_snapshots": [pit_snapshot("EPS", 1.00, "US_GAAP_DILUTED_EPS", snapshot_id=eps_id)],
+        "revenue_consensus_snapshots": [pit_snapshot("REVENUE", 8.7, "US_GAAP_NET_SALES", "USD_BILLION", revenue_id)],
         "reporting_period": "Q3 2026",
         "eps_actual": 1.20,
         "eps_estimate": 1.00,
@@ -26,7 +63,7 @@ def base_record():
         "eps_actual_period": "Q3 2026",
         "eps_estimate_period": "Q3 2026",
         "source": source("Issuer"),
-        "consensus_source": source("Consensus provider"),
+        "consensus_source": {**source("Consensus provider"), "snapshot_id": eps_id},
         "revenue_actual": 9.2,
         "revenue_estimate": 8.7,
         "revenue_actual_basis_code": "US_GAAP_NET_SALES",
@@ -37,7 +74,7 @@ def base_record():
         "revenue_estimate_period": "Q3 2026",
         "revenue_actual_unit": "USD_BILLION",
         "revenue_estimate_unit": "USD_BILLION",
-        "revenue_consensus_source": source("Revenue consensus provider"),
+        "revenue_consensus_source": {**source("Revenue consensus provider"), "snapshot_id": revenue_id},
     }
 
 
@@ -91,6 +128,21 @@ def main():
     check(evaluate_metric(item, "revenue")["status"], "pending", "missing consensus source")
 
     item = base_record()
+    missing_snapshot = dict(item)
+    missing_snapshot.pop("eps_consensus_snapshots")
+    check(evaluate_metric(missing_snapshot, "eps")["status"], "pending", "directional status requires linked PIT snapshot")
+
+    item = base_record()
+    late_snapshot = dict(item["eps_consensus_snapshots"][0], observed_at="2026-11-15T04:30:00+08:00")
+    item["eps_consensus_snapshots"] = [late_snapshot]
+    check(evaluate_metric(item, "eps")["status"], "pending", "post-release capture cannot authorize Beat/Miss")
+
+    item = base_record()
+    mismatched_snapshot = dict(item["eps_consensus_snapshots"][0], value=1.01)
+    item["eps_consensus_snapshots"] = [mismatched_snapshot]
+    check(evaluate_metric(item, "eps")["status"], "pending", "snapshot value must match rendered estimate")
+
+    item = base_record()
     item["eps_consensus_conflict"] = True
     check(evaluate_metric(item, "eps")["status"], "consensus_divergent", "consensus divergence")
 
@@ -132,7 +184,7 @@ def main():
     }
     migrated_f = migrate_legacy_record(legacy_f)
     check(migrated_f["eps_actual_basis_code"], "NON_GAAP_ADJUSTED_DILUTED_EPS", "legacy EPS basis mapped")
-    check(migrated_f["eps_comparison_status"], "beat", "legacy EPS comparison migrated only after evidence checks")
+    check(migrated_f["eps_comparison_status"], "pending", "legacy consensus without immutable PIT snapshot cannot authorize Beat/Miss")
     check(migrated_f["revenue_comparison_status"], "pending", "ambiguous legacy revenue basis remains pending")
     check(migrated_f["eps_actual_currency"], "USD", "EPS actual currency parsed from basis evidence")
     check(migrated_f["eps_estimate_currency"], "USD", "EPS estimate currency parsed from basis evidence")
