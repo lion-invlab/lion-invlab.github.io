@@ -1293,7 +1293,7 @@ def main():
                     ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                 ]:
                     state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
-                    status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
+                    status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
                     # Never imply EPS beat/miss from raw numeric direction when consensus basis is unverified.
                     # A pending comparison must remain explicitly non-directional.
                     result=soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
@@ -1362,15 +1362,15 @@ def main():
                     consensus_source_value.string=x.get("consensus_source_name") or "共識來源"
                 else:
                     consensus_source_value=soup.new_tag("span")
-                    consensus_source_value.string="共識來源待核實"
+                    consensus_source_value.string="平台共識參考"
                 field_specs=[
                     ("公布時段／狀態",schedule_text),
                     ("EPS 預估",eps_est),
-                    ("EPS 口徑",x.get("eps_basis_display") or "EPS 會計方法待核實"),
-                    ("EPS 共識證據",x.get("eps_evidence_label") or "共識來源待核實"),
+                    ("EPS 口徑",x.get("eps_basis_display") or "平台 EPS 預期口徑（細項未完整揭露）"),
+                    ("EPS 共識證據",x.get("eps_evidence_label") or "平台共識參考"),
                     ("營收預估",rev_est),
-                    ("營收口徑",x.get("revenue_basis_display") or "營收指標定義待核實"),
-                    ("營收共識證據",x.get("revenue_evidence_label") or "共識來源待核實"),
+                    ("營收口徑",x.get("revenue_basis_display") or "平台 Revenue 預期口徑（細項未完整揭露）"),
+                    ("營收共識證據",x.get("revenue_evidence_label") or "平台共識參考"),
                     ("共識來源",consensus_source_value),
                     ("資料來源",source_value),
                 ]
@@ -1494,7 +1494,7 @@ def main():
                         ("營收", x.get("revenue_actual"), x.get("revenue_estimate"), x.get("revenue_actual_display"), x.get("revenue_estimate_display"), earnings_comparison_status(x, "revenue"))
                     ]:
                         state = comparison if comparison in ("beat","miss","inline","incomparable","consensus_divergent") else "pending"
-                        status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"比較口徑待核實","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
+                        status_text = {"beat":"優於預期","miss":"低於預期","inline":"符合預期","pending":"尚未公布／數值尚未齊備","incomparable":"比較口徑不相容","consensus_divergent":"市場共識來源分歧"}[state]
                         # Keep pending EPS comparisons non-directional until consensus basis is verified.
                         result = soup.new_tag("div", attrs={"class":["earnings-actual-card",state]})
                         h = soup.new_tag("div", attrs={"class":["earnings-actual-card-title"]}); h.string=label; result.append(h)
