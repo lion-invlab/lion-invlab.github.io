@@ -38,59 +38,25 @@ def validate_payload(payload: dict, schema: dict) -> dict:
 
 
 def self_test(schema: dict) -> None:
-    eps_snapshot_id = "a" * 64
+    # Numerical comparisons are valid without PIT snapshots or detailed basis codes.
     good = {
-        "id": "earnings-self-test",
-        "ticker": "TEST",
-        "event_date": "2026-11-14T10:00:00+08:00",
-        "eps_consensus_snapshots": [{
-            "snapshot_id": eps_snapshot_id,
-            "event_id": "earnings-self-test",
-            "ticker": "TEST",
-            "metric": "EPS",
-            "source_level": 3,
-            "provider": "Investing.com",
-            "source_url": "https://consensus.example/eps",
-            "observed_at": "2026-11-13T11:00:00+08:00",
-            "data_as_of": "2026-11-12",
-            "published_at": None,
-            "event_date": "2026-11-14T10:00:00+08:00",
-            "period": "Q3 2026",
-            "period_end_date": "2026-09-30",
-            "value": 1.0,
-            "statistic": "mean",
-            "currency": "USD",
-            "unit": None,
-            "basis_code": "US_GAAP_DILUTED_EPS",
-            "analyst_count": 12,
-            "raw_response_ref": "raw/eps/test.json",
-            "raw_response_sha256": "c" * 64,
-            "snapshot_status": "pre_release_eligible",
-            "reason": "data_as_of_and_observed_at_before_event"
-        }],
         "judgment_engine_version": ENGINE_VERSION,
         "judgment_timestamp": "2026-11-13T13:00:00+08:00",
         "earnings_comparison_summary": "EPS：優於預期；營收：尚未公布／數值尚未齊備",
         "eps_actual": 1.2, "eps_estimate": 1.0,
-        "eps_actual_basis_code": "US_GAAP_DILUTED_EPS",
-        "eps_estimate_basis_code": "US_GAAP_DILUTED_EPS",
-        "eps_actual_currency": "USD", "eps_estimate_currency": "USD",
-        "eps_actual_period": "Q3 2026", "eps_estimate_period": "Q3 2026",
+        "eps_comparison_status": "beat",
+        "eps_comparison_reason": "actual_above_platform_consensus",
         "eps_surprise": 0.2, "eps_surprise_pct": 20.0,
-        "eps_comparison_status": "beat", "eps_comparison_reason": "actual_above_comparable_consensus",
-        "revenue_comparison_status": "pending", "revenue_comparison_reason": "missing_or_invalid_actual_or_consensus",
-        "source": {"url": "https://issuer.example/results", "observed_at": "2026-11-13T12:00:00+08:00"},
-        "consensus_source": {"url": "https://consensus.example/eps", "observed_at": "2026-11-13T11:00:00+08:00", "snapshot_id": eps_snapshot_id}
+        "revenue_actual": None, "revenue_estimate": 8.0,
+        "revenue_comparison_status": "pending",
+        "revenue_comparison_reason": "actual_or_consensus_not_yet_available",
     }
     assert validate_record(good, schema) == [], validate_record(good, schema)
     bad = dict(good)
-    bad.pop("eps_actual_currency")
-    assert validate_record(bad, schema), "directional record without separate currency must fail"
-    bad = dict(good)
     bad["eps_comparison_status"] = "miss"
-    assert any("stored_status_differs_from_engine_result" in x for x in validate_record(bad, schema)), "status inconsistent with engine must fail"
+    assert any("stored_status_differs_from_engine_result" in x for x in validate_record(bad, schema)), "status inconsistent with numerical engine result must fail"
     assert validate_record({"judgment_engine_version": "legacy"}, schema) == [], "legacy records are outside v2 validation"
-    print("PASS: earnings v2 JSON Schema, directional evidence gate, engine consistency, legacy compatibility")
+    print("PASS: practical earnings schema, numerical engine consistency, no PIT/basis evidence gate, legacy compatibility")
 
 
 def main() -> None:
