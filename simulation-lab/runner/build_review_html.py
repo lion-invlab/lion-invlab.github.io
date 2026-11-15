@@ -386,6 +386,10 @@ def main():
     key_levels_date_label = previous_trade[5:].replace("-", "/") if len(previous_trade) == 10 else previous_trade
     report_context=f"週一版；美股行情採 {previous_trade} 正式收盤，其他市場依各自最近交易日核對。" if monday else f"週二至週五版；行情採 {previous_trade} 最近正式收盤。"
     soup=BeautifulSoup(raw,"html.parser")
+    # Remove a legacy hidden test meta tag whose stale text says key levels are unverified.
+    # The generated report now includes source-checked five-index S2/S1/P/R1/R2 levels.
+    for stale_meta in soup.find_all("meta", attrs={"name": "tac-correction-test"}):
+        stale_meta.decompose()
     # The summary card title is nested under article.card.bluf, unlike the old #overview > .title selector.
     # Bind its type scale to the other primary section headings at the DOM assembly stage.
     summary_heading_style = soup.new_tag("style", id="tac-summary-heading-size-alignment")
