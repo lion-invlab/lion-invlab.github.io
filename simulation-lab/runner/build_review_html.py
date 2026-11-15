@@ -30,6 +30,7 @@ def apply_consensus_projection(data, projection, calendar_source):
     if data.get("earnings", {}).get("week_id") != projection.get("week_id", "2026-W47"):
         raise ValueError("consensus projection week does not match report earnings week")
     by_id = {x.get("id"): x for x in data.get("earnings", {}).get("events", [])}
+    applied = 0
     for row in projection.get("records", []):
         target = by_id.get(row.get("event_id"))
         if target is None or target.get("event_date") != row.get("event_date"):
@@ -56,6 +57,12 @@ def apply_consensus_projection(data, projection, calendar_source):
             "consensus_source_name": row.get("source_name"),
             "consensus_observed_at": row.get("eps_snapshot", {}).get("observed_at"),
         })
+        if target.get("eps_estimate") != row.get("eps_estimate") or target.get("revenue_estimate") != row.get("revenue_estimate"):
+            raise ValueError(f"consensus projection assignment failed for {row.get('ticker')}")
+        applied += 1
+    if applied != len(projection.get("records", [])):
+        raise ValueError("consensus projection did not apply every record")
+    print(f"PASS: applied TAC-observed consensus projection to {applied} W47 earnings cards")
     return data
 
 
@@ -263,6 +270,8 @@ def main():
     if args.earnings_consensus_projection:
         consensus_projection=json.loads(Path(args.earnings_consensus_projection).read_text(encoding="utf-8"))
         apply_consensus_projection(data, consensus_projection, calendar_source)
+    elif data.get("report_date") == "2026-11-16":
+        raise ValueError("2026-11-16 W47 simulation build requires the TAC-observed consensus projection")
     if args.price_reactions:
         reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
         reaction_calendar_side = "previous" if datetime.fromisoformat(data["report_date"]).weekday() == 0 else "current"
