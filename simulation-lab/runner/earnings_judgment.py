@@ -12,7 +12,7 @@ from datetime import date, datetime, timezone
 import re
 from typing import Any
 
-ENGINE_VERSION = "1.0.0"
+ENGINE_VERSION = "1.1.0"
 VALID_STATUSES = {
     "beat", "miss", "inline", "pending", "incomparable", "consensus_divergent"
 }
