@@ -176,7 +176,7 @@ const DATA={
  fed26:"../../data/tac-chart2/normalized/fed_forward_valuation_vintage_2026-05.csv"
 };
 const COLORS={ey:"#b8202f",real:"#2879a8",spread:"#a17a36",pe:"#16877d",ep:"#6d68a8"};
-const state={mode:"long",view:"yields",range:"max",panMonths:0,windowMonths:null,long:[],capeHistory:[],fed25:[],fed26:[]};
+const state={mode:"long",view:"yields",range:"max",panMonths:0,windowMonths:null,long:[],capeHistory:[],fed25:[],fed26:[],fedPePan:0,fedPeWindow:null,fedEpPan:0,fedEpWindow:null};
 function csv(text){const lines=text.trim().split(/\r?\n/);return lines.slice(1).map(line=>line.split(","));}
 function n(v){return Number(v);}
 function pct(v,d=2){return Number(v).toFixed(d)+"%";}
@@ -244,8 +244,15 @@ function drawForward(){
  setText("f-ey",(100/p.value).toFixed(2));setText("f-ep",signed(e.value,2));setText("f-ep-date",e.date+"｜Fed 官方序列");
  setText("forward-asof","數值資料截至 "+p.date+"｜報告版本 "+vintage);
  setText("forward-status",vintage==="2026-05"?"目前最新可核實數值表：聯準會 2026-05 報告（發布 2026-05-08，資料截至 2026-04）。Fed 2026-11 報告已發布、資料截至 2026-10-28，但目前沒有可解析的數值表；此處不以圖形估讀補值。":"歷史版本：聯準會 2025-11 報告（發布 2025-11-07，資料截至 2025-10）。此版本保留供歷史修訂比較，不代表最新數值。");
- renderSvg("pe-chart","pe-tooltip",pe,[{key:"value",label:"預估本益比",color:COLORS.pe,unit:"x",decimals:2}],{height:330});
- renderSvg("ep-chart","ep-tooltip",ep,[{key:"value",label:"聯準會估算股票風險溢酬",color:COLORS.ep,unit:" pp",decimals:2}],{height:330,zero:true});
+ const drawFedTimeline=(id,tip,data,series,panKey,windowKey,zero=false)=>{
+  const count=data.length,window=state[windowKey]||count,end=Math.max(window-1,count-1-state[panKey]),start=Math.max(0,end-window+1),visible=data.slice(start,end+1);
+  renderSvg(id,tip,visible,series,{height:330,zero,timeline:true,
+   onPan:(dx,width,visibleCount)=>{const step=Math.round(dx/Math.max(width,1)*visibleCount);state[panKey]=Math.max(0,Math.min(count-(state[windowKey]||count),state[panKey]+step));drawForward();},
+   onZoom:delta=>{const current=state[windowKey]||count;state[windowKey]=Math.max(24,Math.min(count,Math.round(current*(delta<0?.8:1.25))));state[panKey]=0;drawForward();}
+  });
+ };
+ drawFedTimeline("pe-chart","pe-tooltip",pe,[{key:"value",label:"預估本益比",color:COLORS.pe,unit:"x",decimals:2}],"fedPePan","fedPeWindow");
+ drawFedTimeline("ep-chart","ep-tooltip",ep,[{key:"value",label:"聯準會估算股票風險溢酬",color:COLORS.ep,unit:" pp",decimals:2}],"fedEpPan","fedEpWindow",true);
 }
 function activateMode(mode){state.mode=mode;document.querySelectorAll(".mode-btn").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id==="panel-"+mode));}
 document.querySelectorAll(".mode-btn").forEach(b=>b.addEventListener("click",()=>activateMode(b.dataset.mode)));
