@@ -59,8 +59,14 @@ def validate(key: str) -> dict:
             nodes = soup.select(f"section#{element_id}")
             if len(nodes) != 1:
                 raise SystemExit(f"{key}: required Monday section #{element_id} missing or duplicated")
-        for selector in ("#last-week-calendar > details.last-week-calendar-collapse",
-                         "#last-week-earnings > details.last-week-earnings-collapse"):
+        # The approved Monday mother wraps each disclosure in its existing
+        # article.card calendar-card. Validate the unique disclosure anywhere
+        # inside its owning section; do not incorrectly require a direct child.
+        for section_id, details_class in (
+            ("last-week-calendar", "last-week-calendar-collapse"),
+            ("last-week-earnings", "last-week-earnings-collapse"),
+        ):
+            selector = f"section#{section_id} details.{details_class}"
             nodes = soup.select(selector)
             if len(nodes) != 1 or nodes[0].has_attr("open"):
                 raise SystemExit(f"{key}: {selector} must exist once and default to collapsed")
