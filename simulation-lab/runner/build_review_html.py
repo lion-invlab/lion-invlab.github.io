@@ -21,6 +21,44 @@ def set_text(node, value):
 
 SUMMARY_HEADING_LABELS = {"總結", "摘要", "市場情緒", "Summary", "Market Summary"}
 
+def apply_consensus_projection(data, projection, calendar_source):
+    """Attach SHA-pinned TAC-observed consensus references to upcoming cards only."""
+    if projection.get("calendar_blob_sha") != calendar_source["current"]["blob_sha"]:
+        raise ValueError("W47 consensus projection does not match the authoritative main calendar blob SHA")
+    if projection.get("branch_scope") != "simulation/tac-process-lab-2026-11-06":
+        raise ValueError("consensus projection is not from the isolated simulation branch")
+    if data.get("earnings", {}).get("week_id") != projection.get("week_id", "2026-W47"):
+        raise ValueError("consensus projection week does not match report earnings week")
+    by_id = {x.get("id"): x for x in data.get("earnings", {}).get("events", [])}
+    for row in projection.get("records", []):
+        target = by_id.get(row.get("event_id"))
+        if target is None or target.get("event_date") != row.get("event_date"):
+            raise ValueError(f"consensus projection event identity mismatch: {row.get('ticker')}")
+        if target.get("status") in ("released", "published", "completed"):
+            raise ValueError(f"refusing to overwrite post-release consensus fields: {row.get('ticker')}")
+        target.update({
+            "eps_estimate": row.get("eps_estimate"),
+            "eps_estimate_display": row.get("eps_estimate_display"),
+            "eps_estimate_currency": row.get("eps_currency"),
+            "eps_estimate_period": row.get("reporting_period"),
+            "eps_estimate_basis_code": None,
+            "eps_analyst_count": row.get("eps_analyst_count"),
+            "eps_evidence_label": row.get("eps_evidence_label"),
+            "revenue_estimate": row.get("revenue_estimate"),
+            "revenue_estimate_display": row.get("revenue_estimate_display"),
+            "revenue_estimate_currency": row.get("revenue_currency"),
+            "revenue_estimate_unit": row.get("revenue_unit"),
+            "revenue_estimate_period": row.get("reporting_period"),
+            "revenue_estimate_basis_code": None,
+            "revenue_analyst_count": row.get("revenue_analyst_count"),
+            "revenue_evidence_label": row.get("revenue_evidence_label"),
+            "consensus_source_url": row.get("source_url"),
+            "consensus_source_name": row.get("source_name"),
+            "consensus_observed_at": row.get("eps_snapshot", {}).get("observed_at"),
+        })
+    return data
+
+
 def validate_summary_title(value):
     """Require the black h1 slot to contain a concise market-takeaway, not a section label."""
     raw = str(value or "")
@@ -215,12 +253,16 @@ def main():
     ap.add_argument("--expected-master-sha", required=True)
     ap.add_argument("--key-levels-live", help="optional live OHLC capture envelope produced by collect_key_levels_ohlc.py")
     ap.add_argument("--price-reactions", help="optional Yahoo Finance earnings reaction capture JSON")
+    ap.add_argument("--earnings-consensus-projection", help="optional SHA-pinned TAC-observed earnings consensus projection")
     args=ap.parse_args()
     data=json.loads(Path(args.data).read_text())
     # Gate 0: never trust calendar copies embedded in fixtures or the simulation branch.
     # Fetch origin/main and read both ISO weeks from that immutable main commit only.
     calendar_source = load_authoritative_calendar(data["report_date"])
     data.update(project_calendar_data(calendar_source))
+    if args.earnings_consensus_projection:
+        consensus_projection=json.loads(Path(args.earnings_consensus_projection).read_text(encoding="utf-8"))
+        apply_consensus_projection(data, consensus_projection, calendar_source)
     if args.price_reactions:
         reaction_doc=json.loads(Path(args.price_reactions).read_text(encoding="utf-8"))
         reaction_calendar_side = "previous" if datetime.fromisoformat(data["report_date"]).weekday() == 0 else "current"
@@ -1297,10 +1339,21 @@ def main():
                     schedule_text=f"財報發布：{session_label}（發布時間待核實）；電話會議：{clock}"
                 else:
                     schedule_text=f"即將公布；{day}（{session_label}；{timing_value} 台灣時間）"
+                eps_count=x.get("eps_analyst_count")
+                revenue_count=x.get("revenue_analyst_count")
+                if eps_count is not None: eps_est += f"（{eps_count} 位分析師）"
+                else: eps_est += "（分析師數未提供）"
+                if revenue_count is not None: rev_est += f"（{revenue_count} 位分析師）"
+                else: rev_est += "（分析師數未提供）"
+                consensus_source_value=soup.new_tag("a",href=x.get("consensus_source_url",""),target="_blank",rel="noopener")
+                consensus_source_value.string=x.get("consensus_source_name") or "共識來源待核實"
                 field_specs=[
                     ("公布時段／狀態",schedule_text),
                     ("EPS 預估",eps_est),
+                    ("EPS 共識證據",x.get("eps_evidence_label") or "共識來源待核實"),
                     ("營收預估",rev_est),
+                    ("營收共識證據",x.get("revenue_evidence_label") or "共識來源待核實"),
+                    ("共識來源",consensus_source_value),
                     ("資料來源",source_value),
                 ]
                 prototype=details.select_one(".earnings-detail-field")
