@@ -13,6 +13,7 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--calendar",required=True)
     p.add_argument("--capture",required=True)
+    p.add_argument("--yfinance-methodology",required=True)
     p.add_argument("--output",required=True)
     p.add_argument("--expected-calendar-blob-sha",required=True)
     a=p.parse_args()
@@ -22,6 +23,8 @@ def main():
         raise SystemExit(f"source W47 calendar blob SHA mismatch: {git_blob_sha}")
     calendar=json.loads(calendar_bytes.decode("utf-8"))
     capture=json.loads(Path(a.capture).read_text(encoding="utf-8"))
+    methodology_doc=json.loads(Path(a.yfinance_methodology).read_text(encoding="utf-8"))
+    methodology_by_ticker={x.get("ticker"):x for x in methodology_doc.get("records",[])}
     if calendar.get("week_id")!="2026-W47" or capture.get("branch_scope")!="simulation/tac-process-lab-2026-11-06":
         raise SystemExit("refusing non-W47 calendar or non-simulation capture")
     events={x.get("ticker"):x for x in calendar.get("events",{}).get("earnings",[])}
@@ -69,6 +72,17 @@ def main():
             projected[skey]=[snap]
             source_key="consensus_source" if metric=="EPS" else "revenue_consensus_source"
             projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，僅作預估參考，不得方向性判讀。"}
+        method_row=methodology_by_ticker.get(item["ticker"],{})
+        eps_method=method_row.get("eps_methodology")
+        eps_method_verified=(method_row.get("status")=="ok" and method_row.get("eps_matches_captured_value") is True)
+        if eps_method_verified and eps_method not in ("gaap","normalized"):
+            eps_method_verified=False
+        eps_basis_display=(
+            ("GAAP" if eps_method=="gaap" else "Normalized（非 GAAP）")+
+            "；Basic／Diluted 股數口徑未揭露"
+            if eps_method_verified else "EPS 會計方法待核實"
+        )
+        revenue_basis_display="Revenue 指標定義未揭露；暫不與實際營收方向比較"
         labels={k.lower():consensus_evidence_label(projected,k.lower()) for k in ("EPS","REVENUE")}
         statuses={k.lower():evaluate_metric(projected,k.lower())["status"] for k in ("EPS","REVENUE")}
         if any(v not in (None,"TAC 公告前觀測共識｜比較口徑待核實") for v in labels.values()):
@@ -82,18 +96,21 @@ def main():
             "eps_estimate_display":f'{projected["eps_estimate_currency"]} {projected["eps_estimate"]:.2f}',
             "eps_analyst_count":item["eps"]["analyst_count"],"eps_snapshot":snapshots["EPS"],
             "eps_evidence_label":labels["eps"],"eps_status":statuses["eps"],
+            "eps_methodology":eps_method if eps_method_verified else None,
+            "eps_basis_display":eps_basis_display,"eps_methodology_matches_capture":eps_method_verified,
             "revenue_estimate":projected["revenue_estimate"],"revenue_currency":projected["revenue_estimate_currency"],
             "revenue_unit":projected["revenue_estimate_unit"],
             "revenue_estimate_display":f'{projected["revenue_estimate_currency"]} {projected["revenue_estimate"]/1_000_000_000:.2f}B',
             "revenue_analyst_count":item["revenue"]["analyst_count"],
             "source_url":item["source_url"],"source_name":"Yahoo Finance",
+            "revenue_basis_display":revenue_basis_display,
             "revenue_snapshot":snapshots["REVENUE"],"revenue_evidence_label":labels["revenue"],"revenue_status":statuses["revenue"],
         })
     expected_tickers={x.get("ticker") for x in calendar.get("events",{}).get("earnings",[])}
     captured_tickers={x.get("ticker") for x in output}
     if expected_tickers != captured_tickers:
         raise SystemExit(f"W47 consensus coverage mismatch; missing={sorted(expected_tickers-captured_tickers)} unexpected={sorted(captured_tickers-expected_tickers)}")
-    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
+    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"yfinance_methodology_file":a.yfinance_methodology,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output)}}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
     Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(report["counts"],ensure_ascii=False))
