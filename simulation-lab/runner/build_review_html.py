@@ -58,6 +58,50 @@ def source_link(url, label):
     a.string=label
     return a
 
+
+def validate_economic_card(card, context, expected_toggle):
+    """Enforce the approved five-zone DOM contract on every rendered economic card."""
+    details = card.find("div", class_="econ-details", recursive=False)
+    if details is None:
+        raise ValueError(f"{context}: .econ-details missing or not a direct child")
+    children = [node for node in details.find_all("div", recursive=False)]
+    if len(children) != 3:
+        raise ValueError(f"{context}: expected exactly three direct detail zones, got {len(children)}")
+    grid, impact, source = children
+    if "econ-primary-grid" not in grid.get("class", []):
+        raise ValueError(f"{context}: first detail zone must be .econ-primary-grid")
+    expected = ["econ-prev", "econ-forecast", "econ-actual"]
+    fields = grid.find_all("div", class_="econ-field", recursive=False)
+    actual = [next((c for c in f.get("class", []) if c in expected), None) for f in fields]
+    if actual != expected:
+        raise ValueError(f"{context}: primary grid fields must be {expected}, got {actual}")
+    for field, label in zip(fields, ("前值", "市場預估", "實際")):
+        label_node = field.find("label", recursive=False)
+        if label_node is None or label_node.get_text(strip=True) != label or field.select_one(".econ-value") is None:
+            raise ValueError(f"{context}: malformed {label} field")
+    for field, cls, label in ((impact, "econ-impact", "市場影響"), (source, "econ-source", "資料來源")):
+        classes = field.get("class", [])
+        label_node = field.find("label", recursive=False)
+        if cls not in classes or "wide" not in classes or label_node is None or label_node.get_text(strip=True) != label or field.select_one(".econ-value") is None:
+            raise ValueError(f"{context}: malformed full-width {label} field")
+    grid_style = " ".join(str(x) for x in card.find_all("style"))
+    # CSS is owned by the approved mother; validate the corresponding rule in the document separately.
+    summary = card.find("summary", recursive=False)
+    if summary is None or len(summary.find_all("span", class_=expected_toggle, recursive=False)) != 1:
+        raise ValueError(f"{context}: expected exactly one {expected_toggle} control in summary")
+    return True
+
+
+def set_economic_source(card, item):
+    field = card.select_one(".econ-source .econ-value")
+    if field is None:
+        raise ValueError("economic card source value node missing")
+    field.clear()
+    if item.get("source_url") and str(item["source_url"]).startswith("https://"):
+        field.append(source_link(item["source_url"], item.get("source_name") or "來源"))
+    else:
+        field.append("來源待核實")
+
 def earnings_comparison_status(item, metric):
     """Read the persisted, versioned judgment; HTML assembly never infers Beat/Miss."""
     return render_status(item, metric)
@@ -1093,16 +1137,19 @@ def main():
     def startext(x):
         n=max(0,min(5,int(x.get("stars") or 0))); return "★"*n+"☆"*(5-n)
     def putfield(card,label,value):
-        aliases={"市場影響":{"市場影響","觀察重點"}}
-        candidates=aliases.get(label,{label})
-        matched=False
-        for field in card.select(".econ-field"):
-            lab=field.select_one("label")
-            if lab and lab.get_text(strip=True) in candidates:
-                if lab.get_text(strip=True)=="觀察重點": set_text(lab,"市場影響")
-                set_text(field.select_one(".econ-value"),value if value is not None else "不適用／待核實")
-                matched=True
-        if not matched: raise ValueError("economic card required field missing: "+label)
+        candidates = {"市場影響": {"市場影響", "觀察重點"}}.get(label, {label})
+        matches = [field for field in card.select(".econ-field")
+                   if field.select_one("label") and field.select_one("label").get_text(strip=True) in candidates]
+        if len(matches) != 1:
+            raise ValueError(f"economic card field {label!r}: expected exactly one match, got {len(matches)}")
+        field = matches[0]
+        lab = field.select_one("label")
+        if lab.get_text(strip=True) == "觀察重點":
+            set_text(lab, "市場影響")
+        value_node = field.select_one(".econ-value")
+        if value_node is None:
+            raise ValueError("economic card value node missing: " + label)
+        set_text(value_node, value if value is not None else "不適用／待核實")
     cal=unique(soup,"#calendar","economic calendar")
     econ=data.get("calendar",{}).get("events",[])
     if not econ: raise ValueError("current-week economic calendar data missing")
@@ -1115,7 +1162,7 @@ def main():
         for f in c.select(".econ-field")
     )),None)
     if template is None: raise ValueError("five-zone economic calendar template missing from approved Monday mother")
-    impact_template_field=next(f for f in template.select(".econ-field") if f.select_one("label") and f.select_one("label").get_text(strip=True) in {"市場影響","觀察重點"})
+    validate_economic_card(template, "approved current-week economic prototype", "econ-toggle")
     group_template=next((g for g in panels.select(".calendar-status-group") if g.select_one(".econ-event-list")),None)
     if not group_template: raise ValueError("economic calendar status-group template missing")
     panels.clear()
@@ -1141,8 +1188,8 @@ def main():
             putfield(card,"前值",x.get("previous")); putfield(card,"市場預估",x.get("forecast"))
             putfield(card,"實際",x.get("actual") if x.get("status")=="released" else f"尚未公布（資料截點 {report_cutoff}）")
             putfield(card,"市場影響",x.get("impact") or "待核實")
-            link=card.select_one(".econ-field a")
-            if link: link["href"]=x.get("source_url",""); set_text(link,x.get("source_name") or "來源")
+            set_economic_source(card, x)
+            validate_economic_card(card, f"current-week economic event {x.get('id') or x.get('name')}", "econ-toggle")
             listing.append(card)
         panels.append(group)
     earn=unique(soup,"#earnings","earnings calendar")
@@ -1314,37 +1361,28 @@ def main():
         lw_list = unique(lw_details, ".econ-event-list", "last-week economic list")
         lw_template = lw_list.select_one("details.econ-event")
         if lw_template is None: raise ValueError("Monday mother last-week economic card template missing")
+        # Reuse the approved five-zone current-week card DOM, but retain the
+        # retrospective summary/toggle shell from the Monday mother.
+        lw_summary_template = lw_template.select_one("summary")
+        if lw_summary_template is None: raise ValueError("Monday retrospective summary prototype missing")
         lw_list.clear()
         for x in last_econ.get("events", []):
             if int(x.get("stars") or 0) < 5 or x.get("status") != "released": continue
-            card = BeautifulSoup(str(lw_template), "html.parser").select_one("details.econ-event")
+            card = BeautifulSoup(str(template), "html.parser").select_one("details.econ-event")
+            summary_clone = BeautifulSoup(str(lw_summary_template), "html.parser").select_one("summary")
+            card.select_one("summary").replace_with(summary_clone)
             day, clock = dateparts(x.get("date", ""))
             if not x.get("time_known", False): clock = "時間未確認"
             for sel, val in [(".econ-date", day), (".econ-time", clock), (".econ-country", x.get("region", "")), (".econ-name", x.get("name", "")), (".econ-stars", startext(x))]:
                 node = card.select_one(sel)
                 if node: set_text(node, val)
-            # Monday's locked retrospective placeholder has four fields. Add the
-            # fifth impact field using the approved five-zone field fragment from
-            # the same mother; do not alter the mother template file itself.
-            source_field = next((f for f in card.select(".econ-field") if f.select_one("label") and f.select_one("label").get_text(strip=True) in {"來源", "資料來源"}), None)
-            if source_field is None: raise ValueError("Monday retrospective source field missing")
-            impact_field = BeautifulSoup(str(impact_template_field), "html.parser").select_one(".econ-field")
-            set_text(impact_field.select_one("label"), "市場影響")
-            impact_field["class"] = ["econ-field", "wide"]
-            set_text(impact_field.select_one(".econ-value"), x.get("impact") or "待核實")
-            source_field.insert_before(impact_field)
-            fields = {"前值": x.get("previous"), "市場預估": x.get("forecast"), "實際": x.get("actual"), "市場影響": x.get("impact")}
-            for field in card.select(".econ-field"):
-                label = field.select_one("label"); value = field.select_one(".econ-value")
-                if not label or not value: continue
-                key = label.get_text(strip=True)
-                if key == "預估": set_text(label, "市場預估"); key = "市場預估"
-                if key == "來源": set_text(label, "資料來源"); key = "資料來源"
-                if key in fields: set_text(value, fields[key] if fields[key] is not None else "不適用／待核實")
-                if key == "資料來源":
-                    value.clear()
-                    if x.get("source_url"): value.append(source_link(x["source_url"], x.get("source_name") or "來源"))
-                    else: value.append("來源待核實")
+            card["class"] = ["econ-event", "five-star"]
+            putfield(card, "前值", x.get("previous"))
+            putfield(card, "市場預估", x.get("forecast"))
+            putfield(card, "實際", x.get("actual"))
+            putfield(card, "市場影響", x.get("impact") or "待核實")
+            set_economic_source(card, x)
+            validate_economic_card(card, f"previous-week economic event {x.get('id') or x.get('name')}", "econ-event-toggle")
             lw_list.append(card)
         if not lw_list.select("details.econ-event"): raise ValueError("W45 has no verified five-star published economic events")
         lw_range=f"{last_econ.get('week_start','')[5:7]}/{last_econ.get('week_start','')[8:10]}～{last_econ.get('week_end','')[5:7]}/{last_econ.get('week_end','')[8:10]}"
@@ -1907,6 +1945,19 @@ def main():
         rendered = unique(soup, selector, heading + " final panel").select_one(".market-reason")
         if heading not in rendered.get_text(" ", strip=True) or len(rendered.get_text(" ", strip=True)) < len(heading) + 10:
             raise ValueError(heading + " final observation failed DOM verification")
+    # Final whole-report economic card gate: current-week and Monday retrospective
+    # cards must all satisfy the same five-zone DOM contract before serialization.
+    current_cards = soup.select("#calendar .week-econ-panels details.econ-event")
+    if not current_cards:
+        raise ValueError("no current-week economic cards rendered")
+    for index, card in enumerate(current_cards, 1):
+        validate_economic_card(card, f"final current-week card #{index}", "econ-toggle")
+    if monday:
+        previous_cards = soup.select("#last-week-calendar .last-week-calendar-collapse .econ-event-list details.econ-event")
+        if not previous_cards:
+            raise ValueError("no five-star previous-week economic cards rendered")
+        for index, card in enumerate(previous_cards, 1):
+            validate_economic_card(card, f"final previous-week card #{index}", "econ-event-toggle")
     out=Path(args.output)
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(str(soup),encoding="utf-8")
