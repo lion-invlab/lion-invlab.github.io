@@ -141,7 +141,7 @@ def _valid_consensus_snapshot(record: dict, metric: str) -> bool:
         return False
 
     level = snapshot.get("source_level")
-    providers = {1: "LSEG I/B/E/S", 2: "FactSet Estimates", 3: "Investing.com"}
+    providers = {1: "LSEG I/B/E/S", 2: "FactSet Estimates", 3: "Investing.com", 4: "Yahoo Finance"}
     event_date = record.get("event_date")
     estimate_key = f"{metric}_estimate"
     basis_key = f"{metric}_estimate_basis_code"
