@@ -8,11 +8,11 @@ def main():
         "event_id":"earn-1","event_date":"2026-11-18T05:20:00+08:00","ticker":"NVDA",
         "eps_estimate":2.47,"eps_estimate_display":"USD 2.47","eps_currency":"USD",
         "eps_analyst_count":43,"eps_evidence_label":"TAC 公告前觀測共識｜比較口徑待核實",
-        "eps_basis_display":"Normalized（非 GAAP）；Basic／Diluted 股數口徑未揭露",
+        "eps_basis_display":"Yahoo 平台 EPS 預期（GAAP／Normalized 細節未完整揭露）",
         "revenue_estimate":108731903900,"revenue_estimate_display":"USD 108.73B",
         "revenue_currency":"USD","revenue_unit":"USD","revenue_analyst_count":45,
-        "revenue_evidence_label":"TAC 公告前觀測共識｜比較口徑待核實",
-        "revenue_basis_display":"Revenue 指標定義未揭露；暫不與實際營收方向比較",
+        "revenue_evidence_label":"TAC 公告前觀測共識",
+        "revenue_basis_display":"Yahoo 平台 Revenue 預期（營收細項定義未完整揭露）",
         "source_url":"https://finance.yahoo.com/quote/NVDA/analysis/","source_name":"Yahoo Finance",
         "eps_snapshot":{"observed_at":"2026-11-15T05:50:45Z"},
     }
@@ -23,10 +23,10 @@ def main():
     got=data["earnings"]["events"][0]
     assert got["eps_estimate"]==2.47 and got["eps_analyst_count"]==43
     assert got["revenue_estimate"]==108731903900 and got["revenue_analyst_count"]==45
-    assert got["eps_estimate_basis_code"] is None and got["revenue_estimate_basis_code"] is None
-    assert got["eps_evidence_label"].endswith("比較口徑待核實")
-    assert got["eps_basis_display"].startswith("Normalized")
-    assert got["revenue_basis_display"].startswith("Revenue 指標定義未揭露")
+    assert got["eps_estimate_basis_code"] is None and got["revenue_estimate_basis_code"] is None  # disclosures remain optional
+    assert got["eps_evidence_label"] == "TAC 公告前觀測共識"
+    assert "Yahoo 平台 EPS 預期" in got["eps_basis_display"]
+    assert "Yahoo 平台 Revenue 預期" in got["revenue_basis_display"]
     bad={"current":{"blob_sha":"different"}}
     try: apply_consensus_projection(data,projection,bad)
     except ValueError as exc: assert "blob SHA" in str(exc)
@@ -62,7 +62,7 @@ def main():
         assert entry["revenue"]["basis_code"] is None
         assert entry["eps"]["estimate"] is not None and entry["revenue"]["estimate"] is not None
         assert entry["eps"]["analyst_count"] and entry["revenue"]["analyst_count"]
-    print("PASS: actual W47 capture covers 21/21 events with pre-release immutable evidence; unresolved bases remain non-directional")
+    print("PASS: actual W47 capture covers 21/21 events with pre-release immutable evidence; missing actual results remain non-directional until publication")
 
 
 if __name__=="__main__": main()
