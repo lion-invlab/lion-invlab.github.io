@@ -279,7 +279,7 @@ jobs:
           report_path, report_date, evidence_path = sys.argv[1:]
           raw = Path(report_path).read_bytes()
           soup = BeautifulSoup(raw, "html.parser")
-          comment = next((str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x)), None)
+          comment = next((str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))), None)
           if not comment: raise SystemExit("missing TAC_BUILD_PROVENANCE")
           match = re.search(r"TAC_BUILD_PROVENANCE\s+(\{.*\})", comment, re.S)
           if not match: raise SystemExit("malformed TAC_BUILD_PROVENANCE")
