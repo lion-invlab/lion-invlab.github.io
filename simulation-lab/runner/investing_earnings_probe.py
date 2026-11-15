@@ -215,7 +215,15 @@ def fetch_one(target: dict, archive_dir: Path) -> dict:
         )
 
     snapshots = {}
-    if raw:
+    if not parsed.get("row_found"):
+        for metric in ("EPS", "REVENUE"):
+            snapshots[metric] = {
+                "snapshot_status": "pending_required_fields",
+                "reason": "investing_page_unavailable_or_target_row_not_found",
+                "source_row_available": False,
+                "raw_response_sha256": None,
+            }
+    elif raw:
         for metric in ("EPS", "REVENUE"):
             attempt = {
                 "source_level": 3, "provider": "Investing.com", "url": url,
@@ -233,6 +241,7 @@ def fetch_one(target: dict, archive_dir: Path) -> dict:
             snapshot = build_consensus_snapshot(event, metric, attempt, raw, raw_ref)
             snapshots[metric] = {
                 "snapshot_status": snapshot["snapshot_status"], "reason": snapshot["reason"],
+                "source_row_available": True,
                 "missing_data_as_of": not bool(parsed.get("data_as_of")),
                 "missing_basis_code": not bool(attempt.get("basis_code")),
                 "missing_statistic": not bool(attempt.get("statistic")),
