@@ -36,3 +36,5 @@
 # Trigger the scheduled FRED/ALFRED incremental refresh after release-calendar support.
 
 # Main-branch scheduled incremental trigger: 2026-11-16T05:33:16+08:00; ALFRED four-series; five-vintage overlap; no full-history vintage reload.
+
+# Main-branch follow-up trigger: verify release-schedule no-op idempotency and workflow_run Pages/visual QA; ALFRED only; five-vintage overlap; no full-history vintage reload.
