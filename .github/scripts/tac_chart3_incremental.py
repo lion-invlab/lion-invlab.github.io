@@ -234,6 +234,21 @@ def fetch_release_schedule(key, retrieved):
   items.append({'series_id':sid,'release_id':rid,'release_name':release.get('name',''),'next_release_date':upcoming[0] if upcoming else None,'source':'FRED API series/release + release/dates','retrieved_at':retrieved})
  return {'source':'FRED official release calendar','retrieved_at':retrieved,'series':items}
 
+def release_schedule_signature(schedule):
+ series=[]
+ for item in schedule.get('series',[]):
+  series.append((item.get('series_id'),item.get('release_id'),item.get('release_name'),item.get('next_release_date'),item.get('source')))
+ return (schedule.get('source'),tuple(series))
+
+def write_release_schedule_if_changed(path,schedule):
+ """Persist the schedule only when its actual release facts change; ignore retrieval timestamps."""
+ if path.exists():
+  previous=json.loads(path.read_text(encoding='utf-8'))
+  if release_schedule_signature(previous)==release_schedule_signature(schedule):
+   return False
+ path.write_text(json.dumps(schedule,ensure_ascii=False,indent=2),encoding='utf-8')
+ return True
+
 def main():
  ap=argparse.ArgumentParser();ap.add_argument('--data-dir',default='data/tac-chart3');ap.add_argument('--overlap',type=int,default=5);args=ap.parse_args()
  key=os.environ.get('FRED_API_KEY','').strip()
@@ -249,7 +264,7 @@ def main():
  try:
   for sid in SERIES_START:results.append(update_series(sid,stage,key,retrieved,args.overlap))
   schedule=fetch_release_schedule(key,retrieved)
-  (stage/'release_schedule.json').write_text(json.dumps(schedule,ensure_ascii=False,indent=2))
+  schedule_changed=write_release_schedule_if_changed(stage/'release_schedule.json',schedule)
   if any(x['changed'] for x in results):
    manifest=json.loads((stage/'manifest.json').read_text());manifest['last_incremental_at']=retrieved;manifest['last_incremental_results']=results;manifest['overall_status']='PASS'
    for item in manifest.get('series',[]):
@@ -272,6 +287,6 @@ def main():
  except Exception:
   if stage.exists():shutil.rmtree(stage)
   raise
- print(json.dumps({'status':'PASS','updated_at':retrieved,'results':results},ensure_ascii=False,indent=2))
+ print(json.dumps({'status':'PASS','updated_at':retrieved,'release_schedule_changed':schedule_changed,'results':results},ensure_ascii=False,indent=2))
 
 if __name__=='__main__':main()
