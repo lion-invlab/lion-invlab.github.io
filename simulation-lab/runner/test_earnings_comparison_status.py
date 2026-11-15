@@ -57,7 +57,27 @@ def main():
     assert earnings_comparison_status(data["last_week_earnings"]["events"][0], "eps") == "beat"
     assert earnings_comparison_status(data["last_week_earnings"]["events"][0], "revenue") == "inline"
 
-    print("PASS: current and prior-week released cards both use practical numerical judgments; no basis/PIT gate or pending-verification copy")
+    # Explicitly mismatched currencies must not be mechanically compared.
+    item=make(0.54,0.69,0.9314,1.14)
+    item["revenue_currency"]="CHF actual; USD estimate (not comparable)"
+    apply_judgment(item,"2026-11-15T13:00:00+08:00")
+    assert earnings_comparison_status(item,"revenue") == "incomparable"
+
+    # Brookfield's official note explicitly says the legacy EPS/revenue
+    # estimates are not proven comparable with reported IFRS/consolidated values.
+    item=make(0.54,0.69,20.691,1.8)
+    item["financial_judgment"]="EPS／revenue estimates 未證明與 IFRS diluted EPS／consolidated revenue 同口徑，不判 beat/miss。"
+    apply_judgment(item,"2026-11-15T13:00:00+08:00")
+    assert earnings_comparison_status(item,"eps") == "incomparable"
+    assert earnings_comparison_status(item,"revenue") == "incomparable"
+
+    # Ordinary numeric pairs continue to use the 1% practical threshold.
+    item=make(1.02,1.00,8.0,8.7)
+    apply_judgment(item,"2026-11-15T13:00:00+08:00")
+    assert earnings_comparison_status(item,"eps") == "beat"
+    assert earnings_comparison_status(item,"revenue") == "miss"
+
+    print("PASS: practical numerical judgment, explicit non-comparable exceptions, and retrospective recalculation")
 
 if __name__ == "__main__":
     main()
