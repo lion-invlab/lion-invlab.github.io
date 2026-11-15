@@ -146,7 +146,7 @@ def parse_earnings_row(html: bytes, target: dict) -> dict:
 
 def fetch_one(target: dict, archive_dir: Path) -> dict:
     path = target["url"].split("://", 1)[1].split("/", 1)[1]
-    hosts = ("hk.investing.com", "ca.investing.com", "uk.investing.com", "www.investing.com")
+    hosts = ("hk.investing.com", "www.investing.com", "ca.investing.com", "uk.investing.com")
     attempts = []
     chosen = None
     for host in hosts:
