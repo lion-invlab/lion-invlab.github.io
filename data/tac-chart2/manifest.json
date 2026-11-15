@@ -112,5 +112,38 @@
     "Shiller original XLS binary was validated and its SHA-256 recorded in prior ingestion; the committed working dataset is normalized CSV.",
     "Forward valuation numeric data are current through 2026-04 in the latest accessible table; 2026-11 report has no accessible numeric table.",
     "Do not present the 2026-04 Fed table as a 2026-10 numerical observation."
-  ]
+  ],
+  "page": {
+    "path": "research/tac-chart2/chart2-preview.html",
+    "git_blob_sha": "94a5a6208db31c58113348c68325f53fa1635d4c",
+    "features": [
+      "long-term yields comparison",
+      "equity-real-yield spread view",
+      "full Shiller CAPE history from 1881-01",
+      "Fed Forward P/E and Equity Premium",
+      "Fed vintage selector",
+      "10Y/20Y/full-range buttons",
+      "mouse-wheel zoom and horizontal drag pan"
+    ]
+  },
+  "browser_qa": {
+    "workflow": ".github/workflows/chart2-preview-browser-qa.yml",
+    "script": ".github/scripts/test_chart2_preview_browser.py",
+    "workflow_run_url": "https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43716489775",
+    "initial_run_status": "success",
+    "latest_timeline_test_run": "pending",
+    "viewports": [
+      1440,
+      390,
+      320
+    ],
+    "checks": [
+      "data loading and KPI values",
+      "Shiller full-history range",
+      "yield/spread view switch",
+      "Fed vintage switch",
+      "horizontal overflow",
+      "wheel zoom and drag pan"
+    ]
+  }
 }
