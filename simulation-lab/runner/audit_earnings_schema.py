@@ -9,7 +9,7 @@ from pathlib import Path
 from collections import Counter
 
 from calendar_source_guard import load_authoritative_calendar
-from earnings_judgment import migrate_legacy_record
+from earnings_judgment import ENGINE_VERSION, migrate_legacy_record
 
 
 def present(record, key):
@@ -77,7 +77,7 @@ def audit(report_date: str) -> dict:
         result["legacy_directional_status_without_v2_engine"][metric] = [
             e.get("ticker") for e in released
             if e.get(status_key) in {"beat", "miss", "inline"}
-            and e.get("judgment_engine_version") != "1.0.0"
+            and e.get("judgment_engine_version") != ENGINE_VERSION
         ]
         result["directional_status_without_normalized_basis"][metric] = [
             e.get("ticker") for e in released
@@ -86,7 +86,7 @@ def audit(report_date: str) -> dict:
         ]
 
     result["unversioned_records"] = sum(
-        1 for e in released if e.get("judgment_engine_version") != "1.0.0"
+        1 for e in released if e.get("judgment_engine_version") != ENGINE_VERSION
     )
 
     migrated = [migrate_legacy_record(e, observed_at="read-only-migration-preview") for e in released]
