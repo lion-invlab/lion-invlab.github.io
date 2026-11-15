@@ -12,8 +12,20 @@ on:
       - ".github/workflows/tac-simulation-lab.yml"
   workflow_dispatch:
     inputs:
+      mode:
+        description: "build：組裝並驗收；qa-only：只驗收既有同日 preview，不抓資料、不重建"
+        required: true
+        default: build
+        type: choice
+        options:
+          - build
+          - qa-only
       report_date:
-        description: "台灣報告日期 YYYY-MM-DD；留白時自動選最新 fixture"
+        description: "台灣報告日期 YYYY-MM-DD；build 可留白使用最新 fixture，qa-only 必填"
+        required: false
+        type: string
+      report_path:
+        description: "qa-only 目標；必須是 preview/YYYY-MM-DD-simulation.html"
         required: false
         type: string
 
@@ -78,7 +90,7 @@ jobs:
           python simulation-lab/runner/audit_earnings_schema.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-schema-audit.json --migration-csv simulation-lab/output/earnings-migration-preview.csv
 
       - name: Resolve report date, fixture, weekday mother and SHA
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         shell: bash
         env:
           INPUT_REPORT_DATE: ${{ github.event.inputs.report_date }}
@@ -129,46 +141,89 @@ jobs:
           echo "REPORT_DATA=simulation-lab/fixtures/report-data-${REPORT_DATE}.json" >> "$GITHUB_ENV"
           echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
           echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
-          echo "REPORT_OUTPUT=simulation-lab/output/TAC_投資早報_${REPORT_DATE}_審核版.html" >> "$GITHUB_ENV"
+          echo "REPORT_OUTPUT=preview/${REPORT_DATE}-simulation.html" >> "$GITHUB_ENV"
           echo "Resolved report_date=${REPORT_DATE}; template=${TEMPLATE_KEY}; master_sha=${EXPECTED_SHA}"
 
+      - name: Resolve QA-only existing review target
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'qa-only'
+        shell: bash
+        env:
+          INPUT_REPORT_DATE: ${{ github.event.inputs.report_date }}
+          INPUT_REPORT_PATH: ${{ github.event.inputs.report_path }}
+        run: |
+          set -euo pipefail
+          [[ -n "${INPUT_REPORT_DATE}" ]] || { echo "qa-only requires report_date"; exit 1; }
+          python - "${INPUT_REPORT_DATE}" <<'PY'
+          from datetime import date
+          import sys
+          d=date.fromisoformat(sys.argv[1])
+          if d.weekday()>4: raise SystemExit("Weekend report date is not allowed")
+          PY
+          REPORT_DATE="${INPUT_REPORT_DATE}"
+          EXPECTED_PATH="preview/${REPORT_DATE}-simulation.html"
+          REPORT_OUTPUT="${INPUT_REPORT_PATH:-${EXPECTED_PATH}}"
+          [[ "${REPORT_OUTPUT}" == "${EXPECTED_PATH}" ]] || { echo "qa-only path must be ${EXPECTED_PATH}"; exit 1; }
+          TEMPLATE_KEY="$(python - "${REPORT_DATE}" <<'PY'
+          from datetime import date
+          import sys
+          print("monday" if date.fromisoformat(sys.argv[1]).weekday()==0 else "weekdays")
+          PY
+          )"
+          EXPECTED_SHA="$(python - "${TEMPLATE_KEY}" <<'PY'
+          import json,sys
+          m=json.loads(open("simulation-lab/baseline/mother-template-manifest.json",encoding="utf-8").read())
+          print(m["templates"][sys.argv[1]]["simulation_blob_sha"])
+          PY
+          )"
+          test -s "${REPORT_OUTPUT}" || { echo "Existing review HTML not found: ${REPORT_OUTPUT}"; exit 1; }
+          echo "REPORT_DATE=${REPORT_DATE}" >> "$GITHUB_ENV"
+          echo "REPORT_OUTPUT=${REPORT_OUTPUT}" >> "$GITHUB_ENV"
+          echo "TEMPLATE_KEY=${TEMPLATE_KEY}" >> "$GITHUB_ENV"
+          echo "EXPECTED_MASTER_SHA=${EXPECTED_SHA}" >> "$GITHUB_ENV"
+          echo "QA_ONLY=true" >> "$GITHUB_ENV"
+          echo "QA-only target locked: ${REPORT_OUTPUT}"
+
       - name: Capture cash-index OHLC for the selected report date
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
           python simulation-lab/runner/collect_key_levels_ohlc.py --allow-manual --report-date "${REPORT_DATE}" --report-data "${REPORT_DATA}" --output simulation-lab/output/key-levels-live.json
 
       - name: Capture released earnings price reactions for the selected report date
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
           python simulation-lab/runner/collect_earnings_price_reactions.py --report-date "${REPORT_DATE}" --output simulation-lab/output/earnings-price-reactions.json
 
       - name: Assemble date-driven review from the matching fixture and approved mother
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
           python simulation-lab/runner/build_review_html.py --data "${REPORT_DATA}" --key-levels-live simulation-lab/output/key-levels-live.json --price-reactions simulation-lab/output/earnings-price-reactions.json --output "${REPORT_OUTPUT}" --expected-master-sha "${EXPECTED_MASTER_SHA}"
 
       - name: Set up Node for browser QA
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         uses: actions/setup-node@v4
         with:
           node-version: "22"
 
       - name: Install Playwright Chromium for browser QA
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
           npm install --no-save playwright
           npx playwright install --with-deps chromium
       - name: Test navigation tabs accordions and source links
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: node simulation-lab/runner/interaction_smoke.mjs "${REPORT_OUTPUT}" simulation-lab/output/interaction-smoke.json
 
       # Includes the summary section-heading font-size parity audit at desktop, tablet and mobile widths.
       - name: Compare review against the date-selected approved mother
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: node simulation-lab/runner/visual_regression.mjs "${REPORT_OUTPUT}" "${TEMPLATE_KEY}" "${REPORT_DATE}"
 
+      - name: Independently validate exact review artifact and provenance
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        run: python simulation-lab/runner/validate_review_artifact.py --report "${REPORT_OUTPUT}" --report-date "${REPORT_DATE}"
+
       - name: Validate date, authoritative calendar counts, 44 indicators and news shape
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: |
           python - "${REPORT_DATE}" "${REPORT_DATA}" "${REPORT_OUTPUT}" <<'PY'
           import json, sys
@@ -205,17 +260,18 @@ jobs:
           PY
 
       - name: Keep review output isolated to simulation branch artifact
-        if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
+        if: (github.event_name == 'workflow_dispatch' && (inputs.mode == 'build' || inputs.mode == 'qa-only')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))
         run: test -s "${REPORT_OUTPUT}"
 
       - name: Persist QA-passed review HTML on simulation branch
-        if: success() && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]')))
+        if: success() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]')))
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "${REPORT_OUTPUT}"
+          REVIEW_BLOB_SHA="$(git hash-object "${REPORT_OUTPUT}")"
           if git diff --cached --quiet; then
             echo "No review HTML changes to persist"
             exit 0
@@ -223,6 +279,9 @@ jobs:
           git commit -m "[skip ci] Store QA-passed ${REPORT_DATE} review HTML"
           git fetch origin simulation/tac-process-lab-2026-11-06
           git rebase origin/simulation/tac-process-lab-2026-11-06
+          RECHECK_BLOB_SHA="$(git show "HEAD:${REPORT_OUTPUT}" | git hash-object --stdin)"
+          test "${REVIEW_BLOB_SHA}" = "${RECHECK_BLOB_SHA}" || { echo "Review artifact SHA changed during persistence"; exit 1; }
+          echo "QA-passed review artifact committed; blob_sha=${RECHECK_BLOB_SHA}"
           git push origin "HEAD:simulation/tac-process-lab-2026-11-06"
 
       - name: Record isolated run metadata
@@ -264,6 +323,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tac-simulation-${{ github.run_id }}-${{ github.run_attempt }}
-          path: simulation-lab/output/
+          path: |
+            simulation-lab/output/
+            ${{ env.REPORT_OUTPUT }}
+
           if-no-files-found: warn
           retention-days: 7
