@@ -105,7 +105,7 @@ def main():
     if template_sha != template["simulation_blob_sha"]:
         raise SystemExit("approved simulation mother SHA mismatch")
     provenance_comment = next(
-        (str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x)),
+        (str(x) for x in soup.find_all(string=lambda x: isinstance(x, Comment) and "TAC_BUILD_PROVENANCE" in str(x))),
         None,
     )
     if not provenance_comment:
