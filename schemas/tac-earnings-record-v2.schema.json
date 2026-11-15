@@ -6,7 +6,7 @@
   "type": "object",
   "properties": {
     "judgment_engine_version": {
-      "const": "1.0.0"
+      "const": "1.1.0"
     },
     "judgment_timestamp": {
       "type": "string",
