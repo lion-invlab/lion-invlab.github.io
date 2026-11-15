@@ -89,6 +89,7 @@ def main():
     check(consensus_evidence_label(item, "eps"), "Provider PIT 公告前共識", "provider evidence label")
     tac_label_item = base_record()
     tac_label_item["eps_consensus_snapshots"][0]["snapshot_status"] = "tac_observed_pre_release_eligible"
+    tac_label_item["eps_consensus_snapshots"][0]["data_as_of"] = None
     check(consensus_evidence_label(tac_label_item, "eps"), "TAC 公告前觀測共識", "TAC observed evidence label")
 
     tac_item = base_record()
