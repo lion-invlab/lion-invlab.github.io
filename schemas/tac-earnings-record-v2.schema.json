@@ -115,9 +115,7 @@
         "beat",
         "miss",
         "inline",
-        "pending",
-        "incomparable",
-        "consensus_divergent"
+        "pending"
       ]
     },
     "eps_comparison_reason": {
@@ -227,9 +225,7 @@
         "beat",
         "miss",
         "inline",
-        "pending",
-        "incomparable",
-        "consensus_divergent"
+        "pending"
       ]
     },
     "revenue_comparison_reason": {
