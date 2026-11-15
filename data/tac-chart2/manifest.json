@@ -1,0 +1,116 @@
+{
+  "project": "TAC Chart 2｜股債相對估值",
+  "branch": "main",
+  "status": "data-baseline-seeded; browser-chart-not-yet-built",
+  "snapshot_date": "2026-11-15",
+  "conventions": {
+    "shiller_month": "Shiller date tokens 1871.1 through .12 are parsed using the source convention: .01-.09 = Jan-Sep; .1=.Oct; .11=Nov; .12=Dec",
+    "treasury_monthly": "Arithmetic mean of all available daily observations in each calendar month; partial current month retained in source daily data but excluded from complete-month comparison",
+    "spread": "100 / Shiller traditional CAPE - Treasury 10Y TIPS real-yield monthly arithmetic mean; percentage points",
+    "fed": "Preserve each report vintage separately; never overwrite prior versions"
+  },
+  "sources": {
+    "shiller": {
+      "url": "https://img1.wsimg.com/blobby/go/e5e77e0b-59d1-44d9-ab25-4763ac982e53/downloads/1449043e-a1ed-4e2e-8e9c-7b9a2a064493/ie_data.xls?ver=1791297298731",
+      "source_file_sha256": "98a54927942e842ec07ffe73000998e793953708c345b6b27bb363e9ada8366a",
+      "source_bytes": 1675264,
+      "extraction": "Firecrawl XLS table extraction; source columns retained for CAPE, TR CAPE and Excess CAPE Yield",
+      "coverage": "1871-01..2026-10",
+      "rows": 1870,
+      "cape_valid_rows": 1750,
+      "cape_coverage": "1881-01..2026-10",
+      "normalized_file": "normalized/shiller_monthly.csv",
+      "git_blob_sha": "5028633912070c324b2afae85aa4420afd59ea08"
+    },
+    "treasury_real": {
+      "url_template": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/pages/xml?data=daily_treasury_real_yield_curve&field_tdr_date_value={year}",
+      "series": "tc_10year",
+      "retrieved_at_utc": "2026-11-15T01:15Z",
+      "coverage": "2003-01-02..2026-11-13",
+      "rows": 5971,
+      "unique_dates": 5971,
+      "monthly_aggregation": "Arithmetic mean by YYYY-MM",
+      "files": [
+        {
+          "path": "normalized/treasury_real_2003_2010.csv",
+          "rows": 2003,
+          "git_blob_sha": "bd5b70dcabef49af1157f65c2482685b8ee5833e"
+        },
+        {
+          "path": "normalized/treasury_real_2011_2018.csv",
+          "rows": 2000,
+          "git_blob_sha": "2148be2413269b68da67a31ead6b745e369e8ff4"
+        },
+        {
+          "path": "normalized/treasury_real_2019_2026.csv",
+          "rows": 1968,
+          "git_blob_sha": "43cb49ac7380049717298bbf3d30493dcfd17a81"
+        }
+      ]
+    },
+    "fed": {
+      "source": "Federal Reserve Financial Stability Report accessibility tables; underlying data source stated as LSEG I/B/E/S North American Summary & Detail Estimates Level 2",
+      "may_2026": {
+        "url": "https://www.federalreserve.gov/publications/2026-may-financial-stability-report-accessibility-tables.htm",
+        "release_date": "2026-05-08",
+        "data_asof": "2026-04-30",
+        "forward_pe_rows": 436,
+        "equity_premium_rows": 415,
+        "file": "normalized/fed_forward_valuation_vintage_2026-05.csv",
+        "git_blob_sha": "47ff772fd2e94d5935422db6a24bc25a48b54197"
+      },
+      "nov_2025": {
+        "url": "https://www.federalreserve.gov/publications/november-2025-financial-stability-report-accessibility-tables.htm",
+        "release_date": "2025-11-07",
+        "data_asof": "2025-10-31",
+        "forward_pe_rows": 442,
+        "equity_premium_rows": 409,
+        "file": "normalized/fed_forward_valuation_vintage_2025-11.csv",
+        "git_blob_sha": "3fa4b40288fddeba39ad71b0953bad467c7b092d"
+      },
+      "nov_2026": {
+        "url": "https://www.federalreserve.gov/publications/files/financial-stability-report-20261113.pdf",
+        "release_date": "2026-11-13",
+        "data_asof": "2026-10-28",
+        "numeric_accessible_tables": false,
+        "note": "PDF chart/qualitative update only; do not digitize chart graphics as exact values"
+      }
+    }
+  },
+  "normalized": {
+    "long_term_monthly": {
+      "file": "normalized/long_term_valuation_monthly.csv",
+      "rows": 286,
+      "coverage": "2003-01..2026-10",
+      "git_blob_sha": "2dc6df25bb9ef364bc1f254e6b917461af8ee229"
+    },
+    "current_long_term_reference": {
+      "month": "2026-10",
+      "cape": 40.71,
+      "cape_earnings_yield_pct": 2.45639892,
+      "treasury_real_yield_monthly_mean_pct": 2.78238095,
+      "spread_pp": -0.32598203,
+      "treasury_trading_days": 21
+    }
+  },
+  "known_revisions": {
+    "forward_pe": {
+      "overlap_months": 430,
+      "changed_months": 430,
+      "mean_absolute_revision": 0.26958299303959465,
+      "max_absolute_revision": 1.1992418388425001
+    },
+    "equity_premium_pp": {
+      "overlap_months": 409,
+      "changed_months": 323,
+      "mean_absolute_revision": 0.0002098680481664005,
+      "max_absolute_revision": 0.0708718108
+    }
+  },
+  "limitations": [
+    "Normalized source extracts are committed; original Treasury XML responses are reproducible from annual official URLs but are not stored as separate binary/XML files.",
+    "Shiller original XLS binary was validated and its SHA-256 recorded in prior ingestion; the committed working dataset is normalized CSV.",
+    "Forward valuation numeric data are current through 2026-04 in the latest accessible table; 2026-11 report has no accessible numeric table.",
+    "Do not present the 2026-04 Fed table as a 2026-10 numerical observation."
+  ]
+}
