@@ -1695,3 +1695,22 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - 最新 Actions Run 43662993185 已取得 job logs；失敗點明確為 Monday disclosure selector 過度要求 direct-child，實際 approved DOM 有 article wrapper。
 - 已在 simulation branch 修正 validator selector，並修正失敗流程的 ORTEX 歸檔 writer 及安全 push retry。
 - 下一步：以 `[build-tac-report]` 觸發完整 workflow，確認所有 gates 及 preview/evidence 是否成功回寫；main、正式首頁、母版及 main calendar JSON 均維持唯讀。
+
+
+
+
+## 2026-11-17｜階段⑤ QA 與預覽交付結論（未通過）
+
+- 本次唯一模擬 WR：SIM-1.3，blob SHA `6f35be118830948880d2dbed2e73eff6eec09413`；simulation branch 本次檢查 HEAD `f56eaaf8bbf5517c206b38a754ce7050d567a350`。
+- main 只讀資料：W47 `data/calendar/weeks/2026-W47.json` blob SHA `1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5`，更新時間 2026-11-17 04:56:03 +08:00，25 經濟事件、23 財報事件，status=incomplete。未修改任何行事曆 JSON。
+- report fixture SHA `915fec1abe0f027407fc0bfbdd5d377cc53ebd34`；Yahoo 公告前共識 capture SHA `46f9a7cc59b5fb6714219f053ce48b0da7dc9e52`，21 筆。已公布的 BIDU、BEKE、ARMK、TSN 各有公告前 Yahoo 平均預期快照（raw SHA 分別為 `b5eae9992ec475e58d7e925387e2212447edda0cd9b74d9d3ee73d61e11eb017`、`4844d4f95e6f5e04105a728f26555df532bb7a39330e7d7fee169445d8bf1b9f`、`66e776f08cecbb3f52b3b1fd9224e92972a935608a7dd20fe8e244c0cda7e3dc`、`4e1f2d3c32d06690ea4acfd488b7cfd272847a77eab199fd676a62106ddeb12f`）；HTHT 無對應 Yahoo capture。這些快照尚未成功投影到審核版。
+- 最新 Actions run `43966223240`（head `f56eaaf8bbf5517c206b38a754ce7050d567a350`）結論 failure，未進入組裝階段；失敗點為 `test_earnings_comparison_status.py:58`，測試仍預期 `預期資料尚未取得` 出現兩次，但 builder 已移除舊版重複文案，實際應為一次。前一個 run `43963718351` 的 Playwright interaction smoke PASS（10 個導航、details 互動、5 則焦點新聞、10 則頭條、109 個 Investing 連結、6 個鉅亨連結、無 page errors），但 visual regression FAIL。
+- 前一版視覺 QA 的可定位程式問題：`visual_regression.mjs` 已計算並驗證 `master.simulation_path` 的 SHA，實際載入 master 卻仍使用 `master.path`，導致比對錯誤母版；另需核對焦點價位來源揭露 selector 與新 builder 輸出。此問題尚未完成修復與重跑。
+- 財報投影程式尚有三個阻塞：只接受 capture ticker 完整覆蓋 W47 23 檔（目前 21 檔）；拒絕已公布事件的公告前快照；Revenue estimate 原始值仍以完整貨幣單位存入，而實際值為十億單位，若不先統一單位會造成錯誤比較。builder 亦拒絕將公告前快照投影到已公布卡片。未修改 main W47 JSON。
+- 行情：report fixture 原始 44 項中 41 項具同日來源，S&P 500、Russell 2000、MOVE 仍列待核實；key-level live collector 產物不視為 ChatGPT 直接查核，且 Russell close 與 Yahoo 歷史頁有差異，五指數 OHLC 不予放行。
+- workflow artifact 內暫存 HTML：`/mnt/data/tac-run/preview/2026-11-17-simulation.html`，431,395 bytes，SHA-256 `939d8c9b1e26ce0ecb3d1b8b95ff70127a5a4bf3a1f8eadfd570319ab12b4d8b`。這只是失敗 run 的本機 artifact，非 GitHub 審核版。
+- main `preview/2026-11-17-simulation.html` 回傳 404；simulation branch 亦無 `simulation-lab/output/TAC_投資早報_2026-11-17_審核版.html`。因此沒有可開啟的正式預覽 URL，`review_ready=false`。
+- 本輪未修改 main/index.html、正式母版、WR、Manifest、任何 calendar JSON；未發布首頁。所有必要交付 Gate 未通過，不寫入 main preview。
+
+### 通知結果（五階段）
+- 啟動通知、階段①、②、③、④、⑤：均未送達；notify_parent 呼叫回傳 404 Action not found，每次均重試一次仍失敗。狀態統一記為 `NOT_AVAILABLE`，不得視為 notified。階段①–④嘗試時間沿用本次執行紀錄（05:29、05:32、05:33、05:50）；階段⑤為本輪末段，通知端未提供可記錄的時間戳。
