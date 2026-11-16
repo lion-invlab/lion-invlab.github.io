@@ -1,4 +1,4 @@
-// [build-tac-report] Full simulation browser QA; includes summary heading typography parity.
+// [build-tac-report] Full simulation browser QA; includes summary heading typography parity and explicit WTI/Brent energy tab geometry.
 import { chromium } from "playwright";
 import fs from "node:fs";
 import path from "node:path";
