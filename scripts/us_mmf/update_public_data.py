@@ -180,7 +180,7 @@ def normalize_ofr_mmf_portfolio(ofr_obj: dict) -> tuple[bytes, dict]:
     if len(dates) != 191 or dates[0] != "2010-11-30" or dates[-1] != "2026-09-30":
         raise ValueError(f"Unexpected OFR MMF portfolio coverage: {len(dates)} months, {dates[:1]} to {dates[-1:]}")
     out = io.StringIO()
-    writer = csv.writer(out, lineterminator="\\n")
+    writer = csv.writer(out, lineterminator="\n")
     writer.writerow(["date", "asset_class", "mnemonic", "series_name", "value_usd", "value_usd_trillion", "share_of_total"])
     max_diff = 0.0
     for d in dates:
