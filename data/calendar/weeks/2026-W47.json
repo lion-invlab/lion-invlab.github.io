@@ -42,15 +42,13 @@
         "data_reference": "2026年10月",
         "time_known": true,
         "actual_source": {
-          "name": "中國國家統計局｜2026年10月70城商品住宅銷售價格變動情況",
-          "url": "https://www.stats.gov.cn/zwfwck/sjfb/202611/t20261116_1965836.html",
+          "name": "中國國家統計局｜2026年10月份70城商品住宅銷售價格變動情況解讀",
+          "url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261116_1965838.html",
           "publisher": "National Bureau of Statistics of China",
           "published_at": "2026-11-16T09:30:00+08:00",
           "observed_at": "2026-11-17T04:39:07+08:00",
-          "notes": "官方發布 2026 年 10 月 70 城新房／二手房價格指數；另以統計局解讀稿核對各線城市月比與年比變化。",
-          "secondary_refs": [
-            "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261116_1965838.html"
-          ]
+          "notes": "官方頁面於 2026-11-16 09:30（北京時間）發布，明列一二三線新房及二手房月比、年比變化與上漲城市數。",
+          "secondary_refs": []
         },
         "actual_published_at": "2026-11-16T09:30:00+08:00",
         "actual_observed_at": "2026-11-17T04:39:07+08:00"
@@ -65,9 +63,9 @@
         "importance_basis_source": "TAC四星：中國主要月度成長與需求指標集中發布，能同步反映工業景氣、內需消費及投資動能，對中國資產、原物料與亞洲供應鏈具明顯影響。",
         "previous": "9月前值：工业增加值年增5.5%；社会消费品零售总额年增1.1%；固定资产投资（年初至今）年减7.2%；城镇调查失业率5.2%。",
         "forecast": "Trading Economics 聚合日曆 consensus 欄：工業增加值年增5.3%；社會消費品零售總額年增0.8%；固定資產投資（年初至今）年減7.0%；失業率未列一致預期。此為聚合來源數值，不代表 Reuters 調查。",
-        "actual": "10月規模以上工業增加值年增 4.8%（月增 0.21%）；社會消費品零售總額年增 0.4%；1–10月固定資產投資年減 8.1%，其中房地產開發投資年減 21.6%；城鎮調查失業率 5.1%。工業增加值、零售及固定投資均低於既有 TE 聚合預期 5.3%、0.8% 及 -7.0%。",
+        "actual": "10月規模以上工業增加值年增 4.8%；社會消費品零售總額年增 0.4%；1–10月固定資產投資年減 8.1%，其中房地產開發投資年減 21.6%。工業增加值、零售及固定投資均低於既有 Trading Economics 聚合預期 5.3%、0.8% 及 -7.0%。",
         "status": "released",
-        "impact_judgment": "供給端仍正成長，但工業生產低於聚合預期；消費與投資更弱，房地產開發投資年減 21.6% 仍是主要拖累。失業率維持 5.1% 未見惡化。整體反映中國成長動能不均，政策托底需求仍高。",
+        "impact_judgment": "供給端仍正成長，但工業增加值 4.8% 低於聚合預期 5.3%；零售 0.4% 低於 0.8%；1–10月固定資產投資 -8.1% 亦弱於 -7.0% 預期，房地產開發投資年減 21.6% 仍是主要拖累。整體反映中國成長動能不均，政策托底需求仍高。",
         "source": {
           "name": "中國國家統計局｜2026 年主要統計信息發布日程表",
           "url": "https://www.stats.gov.cn/sj/fbrc/bnxxfb/",
@@ -90,7 +88,7 @@
           "publisher": "National Bureau of Statistics of China",
           "published_at": "2026-11-16T10:00:00+08:00",
           "observed_at": "2026-11-17T04:39:07+08:00",
-          "notes": "官方 10 月月度數據：工業增加值、零售、固定資產投資、房地產開發投資及城鎮調查失業率。",
+          "notes": "官方 10 月月度數據：工業增加值 4.8% y/y、社會消費品零售總額 0.4% y/y、1–10月固定資產投資 -8.1%、房地產開發投資 -21.6%。不納入未在此發布頁面核實的失業率數字。",
           "secondary_refs": []
         },
         "actual_published_at": "2026-11-16T10:00:00+08:00",
@@ -2391,8 +2389,10 @@
           "publisher": "Aramark",
           "published_at": "2026-11-16",
           "observed_at": "2026-11-17T04:39:07+08:00",
-          "notes": "Issuer statement of income reports Q4 revenue USD5,293.209 million and EPS USD0.51; adjusted EPS USD0.71 is separately disclosed.",
-          "secondary_refs": []
+          "notes": "Issuer reports Q4 revenue USD5,293.209 million and GAAP diluted EPS USD0.51; SEC exhibit explicitly labels diluted EPS. Adjusted EPS USD0.71 is separately disclosed.",
+          "secondary_refs": [
+            "https://www.sec.gov/Archives/edgar/data/1584509/000158450926000152/ex991armkq4fy2026.htm"
+          ]
         }
       },
       {
@@ -10665,7 +10665,6 @@
         "https://www.federalreserve.gov/newsevents/2026-speeches.htm",
         "https://www.bls.gov/schedule/2026/11_sched.htm",
         "https://www.bea.gov/news/schedule/",
-        "https://www.stats.gov.cn/zwfwck/sjfb/202611/t20261116_1965836.html",
         "https://www.stats.gov.cn/sj/xwfbh/fbhwd/202611/t20261116_1965844.html",
         "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261116_1965838.html",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/261116/dq261116a-eng.htm",
@@ -11226,7 +11225,35 @@
         "eps_snapshots": 21,
         "revenue_snapshots": 21
       },
-      "notes": "只修改本週 W47 JSON。更新中國／加拿大已發布經濟數據及兩場 Fed 演講實際內容；補齊五家公司實際財報欄位；新增 HTHT、ZTO 官方財報時程。LSEG/FactSet 不可存取、Investing.com 日曆頁不可讀，逐公司逐指標記錄三層失敗；沒有新 raw response，未新增 snapshots；既有 snapshots、legacy estimates、selected sources 與 comparison statuses 保留。"
+      "notes": "只修改本週 W47 JSON。更新中國／加拿大已發布經濟數據及兩場 Fed 演講實際內容；補齊五家公司實際財報欄位；新增 HTHT、ZTO 官方財報時程。LSEG/FactSet 不可存取、Investing.com 日曆頁不可讀，逐公司逐指標記錄三層失敗；沒有新 raw response，未新增 snapshots；既有 snapshots、legacy estimates、selected sources 與 comparison statuses 保留。",
+      "data_commit_sha": "30a945269d0400617dfdd6b8d3b857b1dcebda6b",
+      "data_commit_blob_sha": "d4ca6d3208bbf80bb3234fbc850306b9f6c8f764",
+      "postwrite_checks": {
+        "same_week_path": true,
+        "schema_version_1_retained": true,
+        "economic_count": true,
+        "earnings_count": true,
+        "economic_status_counts": true,
+        "earnings_status_counts": true,
+        "economic_event_ids_unique": true,
+        "earnings_event_ids_unique": true,
+        "economic_chronological": true,
+        "earnings_chronological": true,
+        "eps_attempts_total": true,
+        "revenue_attempts_total": true,
+        "attempt_sequences": true,
+        "released_eps_actual_complete": true,
+        "released_revenue_actual_complete": true,
+        "prior_snapshots_unchanged": true,
+        "eps_snapshot_count": true,
+        "revenue_snapshot_count": true,
+        "snapshot_ids_unique": true,
+        "selected_sources_null": true,
+        "schema_version_not_upgraded": true,
+        "judgment_engine_version_absent": true,
+        "no_new_snapshot": true,
+        "raw_response_hash_not_fabricated": true
+      }
     }
   ],
   "last_update_audit": {
@@ -11460,10 +11487,46 @@
     "ids_unique": true,
     "snapshots_preserved": true,
     "attempt_sequences_verified": true,
-    "final_validation_status": "prewrite_checks_passed_consensus_access_blocked",
-    "last_verified_at": null,
-    "data_commit_sha": null,
-    "data_commit_blob_sha": null,
-    "postwrite_readback": null
+    "final_validation_status": "passed_partial_consensus_sources_unreadable",
+    "last_verified_at": "2026-11-17T04:39:07+08:00",
+    "data_commit_sha": "30a945269d0400617dfdd6b8d3b857b1dcebda6b",
+    "data_commit_blob_sha": "d4ca6d3208bbf80bb3234fbc850306b9f6c8f764",
+    "postwrite_readback": {
+      "verified_at": "2026-11-17T04:39:07+08:00",
+      "first_data_commit_sha": "30a945269d0400617dfdd6b8d3b857b1dcebda6b",
+      "first_data_commit_blob_sha": "d4ca6d3208bbf80bb3234fbc850306b9f6c8f764",
+      "checks": {
+        "same_week_path": true,
+        "schema_version_1_retained": true,
+        "economic_count": true,
+        "earnings_count": true,
+        "economic_status_counts": true,
+        "earnings_status_counts": true,
+        "economic_event_ids_unique": true,
+        "earnings_event_ids_unique": true,
+        "economic_chronological": true,
+        "earnings_chronological": true,
+        "eps_attempts_total": true,
+        "revenue_attempts_total": true,
+        "attempt_sequences": true,
+        "released_eps_actual_complete": true,
+        "released_revenue_actual_complete": true,
+        "prior_snapshots_unchanged": true,
+        "eps_snapshot_count": true,
+        "revenue_snapshot_count": true,
+        "snapshot_ids_unique": true,
+        "selected_sources_null": true,
+        "schema_version_not_upgraded": true,
+        "judgment_engine_version_absent": true,
+        "no_new_snapshot": true,
+        "raw_response_hash_not_fabricated": true
+      }
+    },
+    "source_url_correction": {
+      "event_id": "current-china-oct-home-prices-20261116",
+      "verified_url": "https://www.stats.gov.cn/sj/zxfbhjd/202611/t20261116_1965838.html",
+      "incorrect_unverified_url_removed": "https://www.stats.gov.cn/zwfwck/sjfb/202611/t20261116_1965836.html"
+    },
+    "data_commit_readback_blob_sha": "d4ca6d3208bbf80bb3234fbc850306b9f6c8f764"
   }
 }
