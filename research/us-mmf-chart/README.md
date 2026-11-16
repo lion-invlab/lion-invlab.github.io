@@ -210,3 +210,13 @@ Status: source validation and data architecture. No production chart, no homepag
 - Latest OFR observation (2026-09-30): repo total USD 2.871495tn. Counterparty: FICC USD 1.137273tn (39.61%), foreign financial institutions USD 0.890164tn (31.00%), U.S. financial institutions USD 0.832636tn (29.00%), Federal Reserve USD 6.114bn (0.21%), other counterparties USD 5.308bn (0.18%). Tenor: overnight/open 81.08%, 2–30 days 17.09%, >30 days 1.83%. Collateral: Treasury 59.72%, Agency/GSE 34.22%, other 6.06%.
 - Counterparty methodology: OFR identifies counterparties using Form N-MFP2 names and identifiers and consolidates financial institutions to ultimate parents. Repo positions are cash-providing investments by MMFs. Source methodology: https://www.financialresearch.gov/short-term-funding-monitor/files/methodologies/2020-04--Methodology-MMF.pdf
 - No additional chart has been added yet; next decision is whether a compact Repo structure drill-down improves the current four-chart page without overcrowding it.
+
+
+## Interactive Repo structure drill-down (2026-11-16)
+- [x] Added a Repo structure section inside the existing EFA portfolio card; no fifth standalone chart card was added.
+- Three tabs show monthly category shares of the same OFR Repo total: counterparty, collateral, and tenor. Lines are percentages of repo total, not independent AUM series.
+- Counterparty view uses five series and is restricted to complete monthly coverage from 2016-04; collateral and tenor views each use three series from 2010-11.
+- D3 zoom, pan, pointer tooltips, responsive mobile chart sizing, and touch gestures inherit the same interaction model as the EFA panel.
+- Data source file: `data/us-mmf/fed_mmf_ofr_repo_dimensions_latest.csv`; generated from the archived OFR gzip JSON by `scripts/us_mmf/normalize_ofr_repo_dimensions.py` and checked by `scripts/us_mmf/test_ofr_repo_dimensions.py`.
+- Browser QA now checks all three dimension switches, series counts, zoom support, and viewport fit for the Repo panel on desktop and mobile.
+- Critical interpretation: each dimension is a separate view of the same Repo positions. Never add counterparty, collateral, and tenor categories together.
