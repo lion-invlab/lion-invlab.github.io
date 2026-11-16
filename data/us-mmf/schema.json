@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "project": "us-mmf",
+  "datasets": {
+    "fed_aum_quarterly": {
+      "series_id": "MMMFFAQ027S",
+      "frequency": "quarterly",
+      "units_raw": "Millions of U.S. Dollars",
+      "seasonal_adjustment": "Not Seasonally Adjusted",
+      "fields": [
+        "fred_observation_date",
+        "quarter_label",
+        "value_raw_millions_usd",
+        "value_usd_trillion",
+        "source_updated_at",
+        "retrieved_at_utc",
+        "vintage_date",
+        "source_url",
+        "sha256"
+      ]
+    },
+    "fed_transactions_quarterly": {
+      "series_id": "MMMFTAQ027S",
+      "frequency": "quarterly",
+      "units_raw": "Millions of U.S. Dollars, Seasonally Adjusted Annual Rate",
+      "seasonal_adjustment": "Seasonally Adjusted Annual Rate",
+      "fields": [
+        "fred_observation_date",
+        "quarter_label",
+        "value_raw_millions_usd_saar",
+        "source_updated_at",
+        "retrieved_at_utc",
+        "vintage_date",
+        "source_url",
+        "sha256"
+      ],
+      "display_warning": "Do not label as simple net subscriptions/redemptions or non-annualized quarterly flows."
+    },
+    "ofr_monthly_category": {
+      "source": "SEC Form N-MFP / OFR aggregation",
+      "frequency": "monthly",
+      "expected_categories": [
+        "Government",
+        "Prime",
+        "Tax Exempt"
+      ],
+      "fields": [
+        "reporting_month",
+        "category",
+        "value_raw_usd",
+        "value_usd_trillion",
+        "methodology_version",
+        "source_url",
+        "retrieved_at_utc",
+        "sha256"
+      ],
+      "coverage_start": "2011-01",
+      "coverage_end_in_verified_snapshot": "2026-09"
+    },
+    "ici_weekly_context": {
+      "frequency": "weekly",
+      "role": "latest_market_context_only",
+      "historical_window_note": "Public page provides latest 20 weeks only; do not use as long-run historical source."
+    },
+    "fed_efa_monthly_holdings_by_type": {
+      "source": "Federal Reserve Enhanced Financial Accounts (EFA), SEC Form N-MFP holdings",
+      "frequency": "monthly",
+      "coverage_start": "2010-12",
+      "categories": [
+        "total",
+        "prime",
+        "government",
+        "tax_exempt"
+      ],
+      "fields": [
+        "reporting_month",
+        "category",
+        "instrument",
+        "value_raw_millions_usd",
+        "source_url",
+        "retrieved_at_utc",
+        "sha256"
+      ],
+      "interpretation": "Portfolio investment holdings by fund type. Not identical to Z.1 total financial assets; do not add to or substitute for the Z.1 AUM series.",
+      "qa_rule": "Sum instrument holdings within each category; verify Prime + Government + Tax-exempt equals Total within rounding before use."
+    },
+    "fed_z1_quarterly_fund_type_aum": {
+      "source": "Federal Reserve Z.1 Financial Accounts, table S123.s",
+      "frequency": "quarterly",
+      "units_raw": "Millions of U.S. Dollars",
+      "seasonal_adjustment": "Not Seasonally Adjusted",
+      "coverage_start": "2010-10",
+      "coverage_end_verified": "2026-04",
+      "series": {
+        "total_aum": "MMMFFAQ027S / FL634090005",
+        "government": "BOGZ1FL634090033Q / FL634090033",
+        "prime": "BOGZ1FL634090043Q / FL634090043",
+        "tax_exempt": "BOGZ1FL634090053Q / FL634090053"
+      },
+      "fields": [
+        "fred_observation_date",
+        "quarter_label",
+        "total_aum_millions_usd",
+        "government_millions_usd",
+        "prime_millions_usd",
+        "tax_exempt_millions_usd",
+        "category_sum_millions_usd",
+        "difference_millions_usd",
+        "source_url",
+        "retrieved_at_utc",
+        "vintage_date",
+        "sha256"
+      ],
+      "reconciliation_tolerance_millions_usd": 1,
+      "interpretation": "Government + Prime + Tax-exempt reconcile to total AUM within USD 1 million due to rounding for the archived 2010 Q4–2026 Q2 history. Use this for the quarterly fund-type stacked chart."
+    }
+  },
+  "global_rules": {
+    "no_paid_sources": true,
+    "no_interpolation": true,
+    "preserve_raw_values": true,
+    "keep_sources_separate": true,
+    "aums_are_not_flows": true,
+    "store_sha256": true
+  }
+}
