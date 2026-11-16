@@ -1,3 +1,4 @@
+# [build-tac-report] Rebuild the 2026-11-17 review after accepting dated screenshot evidence for MOVE.
 #!/usr/bin/env python3
 """Simulation-only DOM updater. Never edits formal scripts or approved master."""
 from __future__ import annotations
