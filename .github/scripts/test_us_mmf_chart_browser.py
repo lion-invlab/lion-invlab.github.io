@@ -72,7 +72,7 @@ def validate(page, label):
     page.wait_for_timeout(120)
     after_zoom_in = repo_snapshot()
     check(label + "_repo_wheel_zoom_changes_paths", any(a["d"] != b["d"] for a, b in zip(before_wheel, after_zoom_in)), [a["d"][:80] if a["d"] else "" for a in after_zoom_in])
-    check(label + "_repo_paths_survive_zoom_in", len(after_zoom_in) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) and p["box"]["width"] > 0 for p in after_zoom_in), after_zoom_in)
+    check(label + "_repo_paths_survive_zoom_in", len(after_zoom_in) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) and p["box"]["width"] > 0 for p in after_zoom_in), {"paths":after_zoom_in,"svg":repo_svg.evaluate("(e)=>({domain:e.dataset.domainStart+\"..\"+e.dataset.domainEnd,full:e.dataset.fullDomainStart+\"..\"+e.dataset.fullDomainEnd,points:e.dataset.repoPointCount,keys:e.dataset.repoKeyCount,y:e.dataset.repoYDomain,finite:e.dataset.repoFinitePoints})"),"legend":page.locator("#repo-legend").inner_text()})
     domain = repo_domain()
     check(label + "_repo_zoom_domain_bounded", domain["start"] >= domain["fullStart"] and domain["end"] <= domain["fullEnd"] and domain["start"] < domain["end"], domain)
     page.mouse.wheel(0, 160)
