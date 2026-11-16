@@ -46,7 +46,7 @@ def validate(page, label):
     check(label + "_holding_zoom_enabled", page.locator("#holding-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
     check(label + "_repo_dimension_data_loaded", "Repo 維度" in page.locator("#load-status").inner_text(), page.locator("#load-status").inner_text())
     check(label + "_repo_chart_rendered", page.locator("#repo-chart path.repo-series").count() == 5)
-    check(label + "_repo_zoom_enabled", page.locator("#repo-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
+    check(label + "_repo_zoom_enabled", page.locator("#repo-chart .repo-zoom-hitarea").evaluate("(e)=>!!e && getComputedStyle(e).touchAction===\"none\""))
     page.locator("#repo-dimension-controls button[data-dimension='collateral']").click()
     check(label + "_repo_collateral_switch", page.locator("#repo-chart path.repo-series").count() == 3)
     page.locator("#repo-dimension-controls button[data-dimension='tenor']").click()
@@ -79,7 +79,11 @@ def validate(page, label):
     page.wait_for_timeout(120)
     after_zoom_out = repo_snapshot()
     check(label + "_repo_paths_survive_zoom_out", len(after_zoom_out) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) for p in after_zoom_out), after_zoom_out)
-    before_drag = after_zoom_out
+    # Zoom back in before dragging; a full-range domain cannot pan by design.
+    page.mouse.wheel(0, -160)
+    page.wait_for_timeout(120)
+    before_drag = repo_snapshot()
+    domain_before_drag = repo_domain()
     page.mouse.move(wheel_x, wheel_y)
     page.mouse.down()
     page.mouse.move(wheel_x - 55, wheel_y, steps=5)
@@ -90,6 +94,22 @@ def validate(page, label):
     check(label + "_repo_paths_survive_drag", len(after_drag) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) for p in after_drag), after_drag)
     domain = repo_domain()
     check(label + "_repo_drag_domain_bounded", domain["start"] >= domain["fullStart"] and domain["end"] <= domain["fullEnd"] and domain["start"] < domain["end"], domain)
+    check(label + "_repo_drag_changes_domain", domain["start"] != domain_before_drag["start"] or domain["end"] != domain_before_drag["end"], {"before":domain_before_drag,"after":domain})
+    if label == "mobile":
+        # Verify a real one-finger touch drag on the Repo hit area.
+        page.locator("#repo-chart").scroll_into_view_if_needed()
+        page.wait_for_timeout(150)
+        mobile_box = page.locator("#repo-chart .repo-zoom-hitarea").bounding_box()
+        tx = mobile_box["x"] + mobile_box["width"] * 0.58
+        ty = mobile_box["y"] + mobile_box["height"] * 0.45
+        cdp = page.context.new_cdp_session(page)
+        cdp.send("Input.dispatchTouchEvent", {"type":"touchStart","touchPoints":[{"x":tx,"y":ty,"id":11,"radiusX":7,"radiusY":7,"force":1}]})
+        cdp.send("Input.dispatchTouchEvent", {"type":"touchMove","touchPoints":[{"x":tx-45,"y":ty,"id":11,"radiusX":7,"radiusY":7,"force":1}]})
+        cdp.send("Input.dispatchTouchEvent", {"type":"touchEnd","touchPoints":[]})
+        page.wait_for_timeout(150)
+        touch_domain = repo_domain()
+        check(label + "_repo_touch_drag_changes_domain", touch_domain["start"] != domain["start"] or touch_domain["end"] != domain["end"], {"before":domain,"after":touch_domain})
+        check(label + "_repo_touch_drag_bounded", touch_domain["start"] >= touch_domain["fullStart"] and touch_domain["end"] <= touch_domain["fullEnd"] and touch_domain["start"] < touch_domain["end"], touch_domain)
     page.locator("#repo-dimension-controls button[data-dimension='collateral']").click()
     reset_domain = repo_domain()
     check(label + "_repo_dimension_switch_resets_domain", reset_domain["start"] == reset_domain["fullStart"] and reset_domain["end"] == reset_domain["fullEnd"], reset_domain)
