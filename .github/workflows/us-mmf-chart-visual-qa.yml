@@ -7,6 +7,7 @@ on:
       - research/us-mmf-chart-20261116
     paths:
       - "research/us-mmf-chart/chart-preview.html"
+      - "research/us-mmf-chart/README.md"
       - "data/us-mmf/fed_mmmffaq027s_latest.csv"
       - "data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv"
       - "data/us-mmf/fed_mmf_transactions_latest.csv"
