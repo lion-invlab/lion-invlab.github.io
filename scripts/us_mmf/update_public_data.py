@@ -9,9 +9,11 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import gzip
 import io
 import json
 import os
+import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -24,6 +26,7 @@ FRED_URL = (
     "https://fred.stlouisfed.org/graph/fredgraph.csv"
     f"?id={FRED_SERIES}&cosd=1974-01-01"
 )
+Z1_CSV_URL = "https://www.federalreserve.gov/releases/z1/current/z1_csv_files.zip"
 OFR_URL = "https://data.financialresearch.gov/v1/series/dataset?dataset=mmf"
 FED_EFA_URLS = {
     "total": "https://www.federalreserve.gov/releases/efa/total-money-market-funds-investment-holdings-historical.csv",
@@ -111,36 +114,47 @@ def main() -> None:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-    fred_raw_path = RAW_DIR / f"fred_{FRED_SERIES}_{stamp}.csv"
+    # Archive the Federal Reserve's official Z.1 CSV package. FRED's graph CSV
+    # endpoint has timed out from the runner, so use the Board's own release files.
+    z1_raw = fetch(Z1_CSV_URL)
+    z1_path = RAW_DIR / f"fed_z1_csv_package_{stamp}.zip"
+    write_bytes(z1_path, z1_raw)
+    with zipfile.ZipFile(io.BytesIO(z1_raw)) as archive:
+        z1_names = archive.namelist()
+        s123_candidates = [
+            name for name in z1_names
+            if "S123" in Path(name).name.upper() and name.lower().endswith(".csv")
+        ]
+        extracted_s123 = []
+        for name in s123_candidates:
+            target = RAW_DIR / f"fed_z1_{Path(name).name}_{stamp}"
+            write_bytes(target, archive.read(name))
+            extracted_s123.append(str(target.relative_to(ROOT)))
+
+    # Until the official Z.1 CSV table is parsed into the normalized series,
+    # retain the independently checked 1974Q1-2026Q2 FRED table snapshot.
+    fallback = DATA_DIR / "fed_mmmffaq027s_1974q1_2026q2.csv"
+    fallback_bytes = fallback.read_bytes()
     fred_clean_path = DATA_DIR / "fed_mmmffaq027s_latest.csv"
-    try:
-        fred_raw = fetch(FRED_URL)
-        fred_clean, fred_info = build_fred_clean_csv(fred_raw)
-        write_bytes(fred_raw_path, fred_raw)
-        write_bytes(fred_clean_path, fred_clean)
-        fred_info.update({
-            "status": "downloaded",
-            "raw_snapshot": str(fred_raw_path.relative_to(ROOT)),
-            "processed_file": str(fred_clean_path.relative_to(ROOT)),
-            "raw_sha256": sha256(fred_raw),
-            "processed_sha256": sha256(fred_clean),
-        })
-    except Exception as exc:
-        # FRED's HTML table was independently archived in the research branch;
-        # retain it as a fallback while the live CSV endpoint is inaccessible.
-        fallback = DATA_DIR / "fed_mmmffaq027s_1974q1_2026q2.csv"
-        if not fallback.exists():
-            raise
-        fallback_bytes = fallback.read_bytes()
-        write_bytes(fred_clean_path, fallback_bytes)
-        fred_info = {
-            "status": "live_download_failed_using_verified_branch_snapshot",
-            "error": repr(exc),
-            "series_id": FRED_SERIES,
-            "processed_file": str(fred_clean_path.relative_to(ROOT)),
-            "processed_sha256": sha256(fallback_bytes),
-            "note": "Fallback is the existing manually transcribed 1974Q1-2026Q2 FRED table snapshot; not a new live pull.",
-        }
+    write_bytes(fred_clean_path, fallback_bytes)
+    fred_info = {
+        "status": "verified_branch_snapshot_pending_z1_csv_parser",
+        "series_id": FRED_SERIES,
+        "source_url": FRED_URL,
+        "processed_file": str(fred_clean_path.relative_to(ROOT)),
+        "processed_sha256": sha256(fallback_bytes),
+        "note": "Existing historical snapshot retained; live FRED graph CSV endpoint timed out. Official Z.1 CSV package archived separately.",
+    }
+    z1_info = {
+        "status": "downloaded",
+        "source_url": Z1_CSV_URL,
+        "raw_snapshot": str(z1_path.relative_to(ROOT)),
+        "raw_sha256": sha256(z1_raw),
+        "size_bytes": len(z1_raw),
+        "archive_member_count": len(z1_names),
+        "s123_csv_members": s123_candidates,
+        "extracted_s123_files": extracted_s123,
+    }
 
     fed_efa_info = {}
     for category, url in FED_EFA_URLS.items():
@@ -166,8 +180,9 @@ def main() -> None:
     ofr_info = {"dataset_key": "mmf", "source_url": OFR_URL}
     try:
         ofr_raw = fetch(OFR_URL)
-        # Validate JSON before archiving; retain the complete payload unchanged.
-        ofr_obj = json.loads(ofr_raw.decode("utf-8"))
+        # OFR serves the API payload with gzip content encoding.
+        ofr_json_bytes = gzip.decompress(ofr_raw) if ofr_raw[:2] == b"\\x1f\\x8b" else ofr_raw
+        ofr_obj = json.loads(ofr_json_bytes.decode("utf-8"))
         if not isinstance(ofr_obj, dict) or "timeseries" not in ofr_obj:
             raise ValueError("OFR API response does not contain the expected dataset timeseries object")
         ofr_path = RAW_DIR / f"ofr_mmf_dataset_{stamp}.json"
@@ -176,6 +191,7 @@ def main() -> None:
             "status": "downloaded",
             "raw_snapshot": str(ofr_path.relative_to(ROOT)),
             "raw_sha256": sha256(ofr_raw),
+            "decompressed_sha256": sha256(ofr_json_bytes),
             "top_level_keys": sorted(ofr_obj.keys()),
             "series_count": len(ofr_obj.get("timeseries", {})),
         })
@@ -186,10 +202,8 @@ def main() -> None:
     manifest = {
         "retrieved_at_utc": fetched_at,
         "policy": "free_public_sources_only",
-        "fred": {
-            **fred_info,
-            "source_url": FRED_URL,
-        },
+        "fed_z1_release": z1_info,
+        "fred_reference_series": fred_info,
         "fed_efa_monthly_holdings_by_type": {
             "source_page": "https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm",
             "coverage_expected_from": "2010-12",
