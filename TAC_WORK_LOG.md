@@ -1096,3 +1096,12 @@
 - 組裝器失敗 traceback：`KeyError: 'repository'`，位於 build_review_html.py 產生 TAC_BUILD_PROVENANCE 時，錯誤從 calendar_source 頂層讀取 repository/branch；實際 load_authoritative_calendar() 回傳 envelope 只含 main_commit_sha/current/previous，repository/branch 位於 current/previous week record。
 - 已修正 builder provenance 改讀 `calendar_source["current"]["repository"]` 與 `["branch"]`，不改資料來源與任何正式資料。修正 commit `bc458118c566beddb37baeaa1743ba5b5419563c`。
 - 尚待重新完整執行組裝與後續瀏覽器、視覺、獨立驗證 gates；本次失敗前未產生可交付 HTML。
+
+
+## 2026-11-17 05:29｜早報人工流程啟動與階段①基準鎖定
+
+- 依使用者當次要求先讀取模擬唯一 WR：SIM-1.3，blob SHA 6f35be118830948880d2dbed2e73eff6eec09413。使用者 prompt 預期 SIM-1.2，但實際檔案已更新為 SIM-1.3；依當次實際內容執行，未讀取已退役根目錄 WR 或 main WR。
+- Manifest SHA dc6090c895e2abc17bb16225f4a581ddee5821b；weekday simulation mother SHA f010ff118d7a5a2c1f6e834aa24f832766383c2b，與 Manifest 相符；QA contract v1.4 SHA 824c327fb66fc8c5d4107b69abd9316c00bfe903。
+- main HEAD db70b4023fe718b7faf1b7266207949717caeb8d；main W47 JSON SHA 1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5。W47 audit 04:39:07 partial_success_actuals_and_events_updated_consensus_sources_unreadable；25 經濟、23 財報。資料庫唯讀。
+- 啟動及階段①兩次通知均回傳 NOT_FOUND（每次均重試一次），狀態 FAILED，未送達；無可用 notify_parent action endpoint。
+- 目前未寫入任何 main 資產或行事曆 JSON；未觸發舊端到端排程。
