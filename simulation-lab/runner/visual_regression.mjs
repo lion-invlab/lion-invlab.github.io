@@ -365,7 +365,10 @@ try {
         summary: ":scope > summary",
         toggle: ":scope > summary .econ-toggle, :scope > summary .econ-event-toggle"
       };
-      const properties = ["display","fontFamily","fontSize","fontWeight","lineHeight","color","backgroundColor","borderTopWidth","borderTopStyle","borderTopColor","borderRadius","paddingTop","paddingRight","paddingBottom","paddingLeft","marginTop","gap","gridTemplateColumns","gridTemplateRows","gridArea","width","minHeight"];
+      // Border color is intentionally status-coded (published/upcoming); row
+      // tracks and heights are content-dependent. Compare invariant shell/layout
+      // properties while the five-zone DOM and geometry are validated separately.
+      const properties = ["display","fontFamily","fontSize","fontWeight","lineHeight","color","backgroundColor","borderTopWidth","borderTopStyle","borderRadius","paddingTop","paddingRight","paddingBottom","paddingLeft","marginTop","gap","gridTemplateColumns","gridArea","width","minHeight"];
       const result = {};
       for (const [key, selector] of Object.entries(selectors)) {
         const node = key === "card" ? card : card.querySelector(selector);
