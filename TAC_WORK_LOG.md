@@ -1122,3 +1122,11 @@
 - 5則宏觀焦點、10則市場頭條均符合 11/16 12:00 至 11/17 05:25 台北時間窗口。部分來源原文頁存取受限，僅使用可讀搜尋摘要/其他官方交叉資料，將在品質註記揭露。
 - 5檔已公布財報有實際 EPS/Revenue，但市場共識及股價反應仍未取得，不作 Beat/Miss 判斷。
 - 階段③通知兩次均 404 Action not found，狀態 FAILED / NOT_AVAILABLE。
+
+
+## 2026-11-17 05:50｜階段④分析與HTML組裝完成
+
+- 使用既有 weekday mother 與 build_review_html.py；未改寫pipeline、未建立替代assembler。
+- workflow run 43963718351：OHLC collector成功、earnings price-reaction collector成功、HTML組裝成功；Playwright及母版／產物QA仍進行中。
+- S&P/Russell手動CFD OHLC override已移除，避免collector錯誤標成cash_index；待本輪Yahoo現金指數OHLC輸出核對後回填主表。
+- 階段④notify_parent兩次均NOT_FOUND 404，狀態FAILED／NOT_AVAILABLE。
