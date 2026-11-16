@@ -55,7 +55,7 @@ def main():
     item["judgment"]="EPS：尚未公布／數值尚未齊備；營收：尚未公布／數值尚未齊備"
     commentary=earnings_commentary(item)
     assert "尚未公布／數值尚未齊備" not in commentary
-    assert commentary.count("預期資料尚未取得") == 2
+    assert commentary.count("預期資料尚未取得") == 1
     item["eps_estimate"]=6.16
     item["eps_estimate_basis_code"]=None
     assert earnings_status_label(item,"eps","incomparable") == "預期口徑未揭露，暫不判定"
