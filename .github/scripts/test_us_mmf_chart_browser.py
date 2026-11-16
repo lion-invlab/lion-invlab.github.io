@@ -53,6 +53,48 @@ def validate(page, label):
     check(label + "_repo_tenor_switch", page.locator("#repo-chart path.repo-series").count() == 3)
     page.locator("#repo-dimension-controls button[data-dimension='counterparty']").click()
     check(label + "_repo_counterparty_switch", page.locator("#repo-chart path.repo-series").count() == 5)
+
+    # Regression: exercise actual wheel zoom in/out and drag, then verify every
+    # series still has a finite SVG path and the date window remains bounded.
+    repo_svg = page.locator("#repo-chart")
+    def repo_snapshot():
+        return repo_svg.locator("path.repo-series").evaluate_all(
+            "(els)=>els.map(e=>({d:e.getAttribute('d'),box:(()=>{const b=e.getBBox();return {x:b.x,y:b.y,width:b.width,height:b.height}})()}))"
+        )
+    def repo_domain():
+        return repo_svg.evaluate("(e)=>({start:e.dataset.domainStart,end:e.dataset.domainEnd,fullStart:e.dataset.fullDomainStart,fullEnd:e.dataset.fullDomainEnd})")
+    before_wheel = repo_snapshot()
+    repo_box = repo_svg.bounding_box()
+    wheel_x = repo_box["x"] + repo_box["width"] * 0.52
+    wheel_y = repo_box["y"] + repo_box["height"] * 0.48
+    page.mouse.move(wheel_x, wheel_y)
+    page.mouse.wheel(0, -160)
+    page.wait_for_timeout(120)
+    after_zoom_in = repo_snapshot()
+    check(label + "_repo_wheel_zoom_changes_paths", any(a["d"] != b["d"] for a, b in zip(before_wheel, after_zoom_in)), [a["d"][:80] if a["d"] else "" for a in after_zoom_in])
+    check(label + "_repo_paths_survive_zoom_in", len(after_zoom_in) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) and p["box"]["width"] > 0 for p in after_zoom_in), after_zoom_in)
+    domain = repo_domain()
+    check(label + "_repo_zoom_domain_bounded", domain["start"] >= domain["fullStart"] and domain["end"] <= domain["fullEnd"] and domain["start"] < domain["end"], domain)
+    page.mouse.wheel(0, 160)
+    page.wait_for_timeout(120)
+    after_zoom_out = repo_snapshot()
+    check(label + "_repo_paths_survive_zoom_out", len(after_zoom_out) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) for p in after_zoom_out), after_zoom_out)
+    before_drag = after_zoom_out
+    page.mouse.move(wheel_x, wheel_y)
+    page.mouse.down()
+    page.mouse.move(wheel_x - 55, wheel_y, steps=5)
+    page.mouse.up()
+    page.wait_for_timeout(120)
+    after_drag = repo_snapshot()
+    check(label + "_repo_drag_changes_paths", any(a["d"] != b["d"] for a, b in zip(before_drag, after_drag)), [a["d"][:80] if a["d"] else "" for a in after_drag])
+    check(label + "_repo_paths_survive_drag", len(after_drag) == 5 and all(p["d"] and not any(v in p["d"] for v in ("NaN","Infinity","undefined")) for p in after_drag), after_drag)
+    domain = repo_domain()
+    check(label + "_repo_drag_domain_bounded", domain["start"] >= domain["fullStart"] and domain["end"] <= domain["fullEnd"] and domain["start"] < domain["end"], domain)
+    page.locator("#repo-dimension-controls button[data-dimension='collateral']").click()
+    reset_domain = repo_domain()
+    check(label + "_repo_dimension_switch_resets_domain", reset_domain["start"] == reset_domain["fullStart"] and reset_domain["end"] == reset_domain["fullEnd"], reset_domain)
+    page.locator("#repo-dimension-controls button[data-dimension='counterparty']").click()
+
     check(label + "_holding_total_188_months", page.locator("#holding-legend .legend-item").count() == 6)
     page.locator("#holding-type-controls button[data-type=\"Government\"]").click()
     check(label + "_holding_government_switch", page.locator("#holding-chart path.area-holding").count() == 5)
