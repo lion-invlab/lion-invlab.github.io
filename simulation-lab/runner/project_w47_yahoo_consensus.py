@@ -100,7 +100,7 @@ def main():
         statuses={k.lower():evaluate_metric(projected,k.lower())["status"] for k in ("EPS","REVENUE")}
         if any(v not in (None,"TAC 公告前觀測共識") for v in labels.values()):
             raise SystemExit(f"unexpected evidence label for {item['ticker']}: {labels}")
-        if any(v in {"beat","miss","inline"} for v in statuses.values()):
+        if event.get("status") in {"upcoming", "scheduled"} and any(v in {"beat","miss","inline"} for v in statuses.values()):
             raise SystemExit(f"upcoming event unexpectedly has actual-result judgment for {item['ticker']}")
         output.append({
             "ticker":item["ticker"],"event_id":event["id"],"event_date":event["event_date"],
@@ -121,11 +121,12 @@ def main():
             "revenue_basis_display":revenue_basis_display,
             "revenue_snapshot":snapshots["REVENUE"],"revenue_evidence_label":labels["revenue"],"revenue_status":statuses["revenue"],
         })
-    expected_tickers={x.get("ticker") for x in calendar.get("events",{}).get("earnings",[])}
+    source_calendar=json.loads(Path("simulation-lab/fixtures/source-calendar-2026-W47.json").read_text(encoding="utf-8"))
+    expected_tickers={x.get("ticker") for x in source_calendar.get("events",{}).get("earnings",[])}
     captured_tickers={x.get("ticker") for x in output}
     if expected_tickers != captured_tickers:
-        raise SystemExit(f"W47 consensus coverage mismatch; missing={sorted(expected_tickers-captured_tickers)} unexpected={sorted(captured_tickers-expected_tickers)}")
-    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"yfinance_methodology_file":a.yfinance_methodology,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output),"eps_methodology_verified":sum(x.get("eps_methodology_matches_capture") is True for x in output),"eps_gaap":sum(x.get("eps_methodology")=="gaap" for x in output),"eps_normalized":sum(x.get("eps_methodology")=="normalized" for x in output)}}
+        raise SystemExit(f"W47 source-capture coverage mismatch; missing={sorted(expected_tickers-captured_tickers)} unexpected={sorted(captured_tickers-expected_tickers)}")
+    report={"schema_version":"tac-w47-consensus-projection-v1","week_id":"2026-W47","branch_scope":capture["branch_scope"],"source_calendar":"main:data/calendar/weeks/2026-W47.json (read-only)","calendar_blob_sha":a.expected_calendar_blob_sha,"capture_file":a.capture,"yfinance_methodology_file":a.yfinance_methodology,"records":output,"counts":{"events":len(output),"eps_reference":sum(x["eps_estimate"] is not None for x in output),"revenue_reference":sum(x["revenue_estimate"] is not None for x in output),"released_events":sum(events[x["ticker"]].get("status") in {"released","published","completed"} for x in output),"upcoming_events":sum(events[x["ticker"]].get("status") in {"upcoming","scheduled"} for x in output),"directional_eps":sum(x["eps_status"] in {"beat","miss","inline"} for x in output),"directional_revenue":sum(x["revenue_status"] in {"beat","miss","inline"} for x in output),"eps_methodology_verified":sum(x.get("eps_methodology_matches_capture") is True for x in output),"eps_gaap":sum(x.get("eps_methodology")=="gaap" for x in output),"eps_normalized":sum(x.get("eps_methodology")=="normalized" for x in output)}}
     Path(a.output).parent.mkdir(parents=True,exist_ok=True)
     Path(a.output).write_text(json.dumps(report,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print(json.dumps(report["counts"],ensure_ascii=False))

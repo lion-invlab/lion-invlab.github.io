@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Tests for the TAC practical earnings status renderer."""
-from build_review_html import earnings_comparison_status, earnings_commentary, recalculate_released_earnings
+from build_review_html import earnings_comparison_status, earnings_commentary, earnings_status_label, recalculate_released_earnings
 from earnings_judgment import ENGINE_VERSION, apply_judgment
 
 def make(actual_eps, estimate_eps, actual_rev, estimate_rev):
@@ -56,6 +56,9 @@ def main():
     commentary=earnings_commentary(item)
     assert "尚未公布／數值尚未齊備" not in commentary
     assert commentary.count("預期資料尚未取得") == 2
+    item["eps_estimate"]=6.16
+    item["eps_estimate_basis_code"]=None
+    assert earnings_status_label(item,"eps","incomparable") == "預期口徑未揭露，暫不判定"
     # Monday's previous-week cards must be recalculated too; they were previously
     # rendered from stale legacy statuses because only the current week was processed.
     prior = make(4.56, 2.66, 6.77, 6.80)

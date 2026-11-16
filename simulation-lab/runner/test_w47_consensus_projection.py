@@ -31,11 +31,18 @@ def main():
     try: apply_consensus_projection(data,projection,bad)
     except ValueError as exc: assert "blob SHA" in str(exc)
     else: raise AssertionError("wrong source calendar SHA must be rejected")
-    released={"earnings":{"week_id":"2026-W47","events":[{"id":"earn-1","event_date":row["event_date"],"status":"released"}]}}
-    try: apply_consensus_projection(released,projection,calendar)
-    except ValueError as exc: assert "post-release" in str(exc)
-    else: raise AssertionError("post-release event must not be overwritten")
-    print("PASS: synthetic projection assigns estimates and analyst counts; wrong SHA/post-release rejected")
+    released_event={"id":"earn-1","event_date":row["event_date"],"status":"released","eps_actual":2.61,"revenue_actual":112000000000,"financial_judgment":"issuer actuals preserved"}
+    released={"earnings":{"week_id":"2026-W47","events":[released_event]}}
+    apply_consensus_projection(released,projection,calendar)
+    got=released["earnings"]["events"][0]
+    assert got["eps_estimate"]==2.47 and got["revenue_estimate"]==108731903900
+    assert got["eps_actual"]==2.61 and got["revenue_actual"]==112000000000
+    assert got["financial_judgment"]=="issuer actuals preserved"
+    existing={"earnings":{"week_id":"2026-W47","events":[{"id":"earn-1","event_date":row["event_date"],"status":"released","eps_estimate":2.3,"revenue_actual":112000000000}]}}
+    try: apply_consensus_projection(existing,projection,calendar)
+    except ValueError as exc: assert "existing post-release consensus" in str(exc)
+    else: raise AssertionError("existing post-release estimates must not be overwritten")
+    print("PASS: pre-release estimates may be attached to released events; actuals and existing estimates are immutable; wrong SHA rejected")
     # Real W47 capture regression: all 21 events have immutable, pre-release
     # TAC observations. Yahoo does not declare EPS accounting basis or exact
     # revenue metric basis, so the projection must remain a reference until the actual results are released.
@@ -62,7 +69,7 @@ def main():
         assert entry["revenue"]["basis_code"] is None
         assert entry["eps"]["estimate"] is not None and entry["revenue"]["estimate"] is not None
         assert entry["eps"]["analyst_count"] and entry["revenue"]["analyst_count"]
-    print("PASS: actual W47 capture covers 21/21 events with pre-release immutable evidence; upcoming events have estimates only; no actual-result judgment is expected")
+    print("PASS: actual W47 capture covers the original 21/21 source events with immutable pre-release evidence; newly released events can receive only missing estimate fields; actuals remain immutable")
 
 
 if __name__=="__main__": main()

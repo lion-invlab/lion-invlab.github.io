@@ -35,8 +35,13 @@ def apply_consensus_projection(data, projection, calendar_source):
         target = by_id.get(row.get("event_id"))
         if target is None or target.get("event_date") != row.get("event_date"):
             raise ValueError(f"consensus projection event identity mismatch: {row.get('ticker')}")
-        if target.get("status") in ("released", "published", "completed"):
-            raise ValueError(f"refusing to overwrite post-release consensus fields: {row.get('ticker')}")
+        released = target.get("status") in ("released", "published", "completed")
+        if released and any(target.get(key) not in (None, "") for key in ("eps_estimate", "revenue_estimate")):
+            raise ValueError(f"refusing to overwrite existing post-release consensus fields: {row.get('ticker')}")
+        actual_before = {
+            key: target.get(key)
+            for key in ("eps_actual", "revenue_actual", "actual", "financial_judgment")
+        }
         target.update({
             "eps_estimate": row.get("eps_estimate"),
             "eps_estimate_display": row.get("eps_estimate_display"),
@@ -62,6 +67,8 @@ def apply_consensus_projection(data, projection, calendar_source):
         })
         if target.get("eps_estimate") != row.get("eps_estimate") or target.get("revenue_estimate") != row.get("revenue_estimate"):
             raise ValueError(f"consensus projection assignment failed for {row.get('ticker')}")
+        if any(target.get(key) != value for key, value in actual_before.items()):
+            raise ValueError(f"consensus projection changed actual-result fields for {row.get('ticker')}")
         applied += 1
     if applied != len(projection.get("records", [])):
         raise ValueError("consensus projection did not apply every record")
@@ -183,6 +190,8 @@ def earnings_status_label(item, metric, state):
         if actual not in (None, "") and estimate in (None, ""):
             return "預期資料尚未取得"
         return "尚未公布"
+    if state == "incomparable" and item.get(f"{metric}_estimate_basis_code") in (None, ""):
+        return "預期口徑未揭露，暫不判定"
     return labels.get(state, "尚未公布")
 
 

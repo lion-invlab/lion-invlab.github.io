@@ -1150,3 +1150,10 @@
 - 審閱 QA-passed HTML 後發現 published earnings card 的原始 judgment 欄仍保留舊版「尚未公布／數值尚未齊備」，新 renderer 又產生「預期資料尚未取得」，造成重複判讀。
 - Builder 現在丟棄舊版 pending 狀態片語，統一依實際值／預期值欄位重算單一判讀；新增回歸測試。正式 W47 JSON 保持唯讀。
 - 以 [build-tac-report] 重新觸發 11/17 完整審核版產製。
+
+
+## 2026-11-17｜公告前 Yahoo 共識套用至已公布財報卡
+- W47 21 筆公告前 Yahoo snapshot 對應原始 source-calendar；主 W47 JSON 後續增加兩筆事件並將其中五筆改為 released，原 projection 因錯把「只可套用 upcoming」當成不可更新已公布卡而中止。
+- 修正 projection：只要求 capture 完整覆蓋原始 21 筆 source-calendar，逐筆仍需對上 main W47 event id／date／period；允許把公告前 snapshot 的 estimate 欄補入已公布卡，但絕不覆寫 actual、financial_judgment 或既有 estimate。Upcoming 事件仍不得產生 Beat／Miss。
+- basis 未揭露時，卡片顯示「預期口徑未揭露，暫不判定」；仍展示可追溯的公告前參考值，不偽造方向性判讀。所有修改只在 simulation branch，main W47 JSON 唯讀。
+- 新增 released-card immutability／projection coverage tests；以 [build-tac-report] 重新執行完整 11/17 產製。

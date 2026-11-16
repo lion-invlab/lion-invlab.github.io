@@ -237,9 +237,10 @@ try {
               const rows = [...resultCard.querySelectorAll(":scope > .earnings-actual-line")];
               const actualValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "實際")?.querySelector(":scope > strong")?.textContent.trim() || "";
               const estimateValue = rows.find(row => row.querySelector(":scope > span")?.textContent.trim() === "預期")?.querySelector(":scope > strong")?.textContent.trim() || "";
+              const hasUndisclosedBasis = resultCard.textContent.includes("未完整揭露");
               const expectedStatusLabel = state === "pending"
                 ? (actualValue && actualValue !== "未取得" && estimateValue === "未取得" ? "預期資料尚未取得" : "尚未公布")
-                : expectedLabels[state];
+                : (state === "incomparable" && hasUndisclosedBasis ? "預期口徑未揭露，暫不判定" : expectedLabels[state]);
               if (!state || !status || !status.classList.contains(state) || status.textContent.trim() !== expectedStatusLabel) {
                 invalid.push("card " + (i+1) + ": EPS/revenue comparison badge state and label mismatch at metric " + (metricIndex+1));
               }
