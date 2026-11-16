@@ -168,7 +168,10 @@ Status: source validation and data architecture. No production chart, no homepag
 - Useful series groups include total investments, U.S. Treasury securities, repo investments, repo collateral types and repo counterparty categories. Median repo yields are also available from 2016-04 onward.
 - Selected series for future liquidity research: `MMF-MMF_TOT-M` (total investments), `MMF-MMF_T_TOT-M` (U.S. Treasury securities), `MMF-MMF_RP_TOT-M` (repo total), `MMF-MMF_RP_wDFI-M` (repo with U.S. financial institutions), `MMF-MMF_RP_wFFI-M` (repo with foreign financial institutions), and `MMF-MMF_RP_wFR-M` (repo with Federal Reserve).
 - Do not sum overlapping repo collateral, tenor and counterparty series; they are alternative cuts of the same underlying repo positions. The OFR series are holdings snapshots, not flows.
-- OFR dataset is retained as compressed raw JSON with SHA-256 in the source snapshot artifact. Further charting is deferred until definitions and overlaps are mapped.
+- Normalized broad portfolio file: `data/us-mmf/fed_mmf_ofr_portfolio_latest.csv`; six series (total plus five non-overlapping asset classes), 191 monthly observations from 2010-11 to 2026-09.
+- The five broad classes reconcile to total in every month; maximum absolute difference is less than USD 0.001. Latest 2026-09 total is USD 8.396822T: U.S. Treasury securities USD 3.483974T (41.49%), repo USD 2.871495T (34.20%), agency/GSE USD 1.194287T (14.22%), bank-related assets USD 0.495239T (5.90%), and other assets USD 0.351828T (4.19%).
+- QA: `scripts/us_mmf/test_ofr_portfolio.py` validates 191 monthly observations, unique categories, units, and monthly reconciliation.
+- OFR dataset is retained as compressed raw JSON with SHA-256 in the source snapshot artifact. Detailed repo tenor/collateral/counterparty series remain separate research inputs; do not add overlapping cuts together.
 
 ## Z.1 transactions ingestion and third chart panel (2026-11-16)
 - [x] Parse the official Z.1 CSV package table S123.t alongside S123.s.
