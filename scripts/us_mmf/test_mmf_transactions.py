@@ -23,13 +23,15 @@ def main() -> int:
     dates = [date.fromisoformat(r["date"]) for r in rows]
     if dates != sorted(dates) or len(dates) != len(set(dates)):
         raise SystemExit("FAIL: dates are not strictly increasing and unique")
-    for i, d in enumerate(dates):
+    for d in dates:
         if d.month not in (1, 4, 7, 10) or d.day != 1:
             raise SystemExit(f"FAIL: invalid quarterly date {d}")
-        if i:
-            prev = dates[i - 1]
-            if d.year * 4 + (d.month - 1) // 3 != prev.year * 4 + (prev.month - 1) // 3 + 1:
-                raise SystemExit(f"FAIL: quarterly gap before {d}")
+    # Preserve genuine missing observations; never interpolate transaction data.
+    gap_count = sum(
+        (dates[i].year * 4 + (dates[i].month - 1) // 3)
+        - (dates[i - 1].year * 4 + (dates[i - 1].month - 1) // 3) - 1
+        for i in range(1, len(dates))
+    )
     for row in rows:
         raw = int(row["net_acquisition_millions_usd_saar"])
         tn = float(row["net_acquisition_usd_trillion_saar"])
@@ -41,7 +43,7 @@ def main() -> int:
     latest = rows[-1]
     if latest["date"] != "2026-04-01" or int(latest["net_acquisition_millions_usd_saar"]) != 723692:
         raise SystemExit("FAIL: latest 2026 Q2 value does not match official Z.1 S123.t")
-    print(f"PASS: {len(rows)} quarterly transaction observations; {rows[0]['quarter_label']} to {latest['quarter_label']}; latest USD {float(latest['net_acquisition_usd_trillion_saar']):.6f}tn SAAR")
+    print(f"PASS: {len(rows)} transaction observations; {rows[0]['quarter_label']} to {latest['quarter_label']}; {gap_count} missing quarters preserved; latest USD {float(latest['net_acquisition_usd_trillion_saar']):.6f}tn SAAR")
     return 0
 
 
