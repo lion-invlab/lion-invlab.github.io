@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """QA for Federal Reserve EFA monthly MMF investment holdings."""
 from __future__ import annotations
-import csv, sys
+import csv, sys, calendar
 from collections import defaultdict
 from datetime import date
 from pathlib import Path
@@ -17,7 +17,10 @@ def main() -> int:
     by_month = defaultdict(lambda: defaultdict(list))
     for r in rows:
         d = date.fromisoformat(r["date"])
-        if d.day not in (28, 29, 30, 31): raise SystemExit(f"FAIL: not month-end date {d}")
+        last_day = date(d.year, d.month, calendar.monthrange(d.year, d.month)[1])
+        while last_day.weekday() >= 5:
+            last_day = date.fromordinal(last_day.toordinal() - 1)
+        if d != last_day: raise SystemExit(f"FAIL: not last business day of month {d}")
         value, share = float(r["value_millions_usd"]), float(r["share_of_fund_type"])
         if value < 0 or share < 0 or share > 1.000001: raise SystemExit(f"FAIL: invalid value/share at {d}")
         if abs(float(r["value_usd_trillion"]) - value / 1_000_000) > 0.000000001: raise SystemExit(f"FAIL: unit conversion mismatch at {d}")
