@@ -31,6 +31,7 @@ def validate(page, label):
     check(label + "_total_210_quarters", page.locator("#load-status").inner_text().find("總規模 210 季") >= 0)
     check(label + "_category_63_quarters", page.locator("#load-status").inner_text().find("基金類型 63 季") >= 0)
     check(label + "_transaction_304_observations", page.locator("#load-status").inner_text().find("交易資料 304 筆") >= 0)
+    check(label + "_efa_188_months", page.locator("#load-status").inner_text().find("EFA 持倉 188 月") >= 0)
     check(label + "_latest_total_kpi", page.locator("#kpi-total").inner_text() == "$8.44T")
     check(label + "_latest_quarter", "2026 Q2" in page.locator("#kpi-quarter").inner_text())
     check(label + "_government_kpi", page.locator("#kpi-gov").inner_text() == "$6.89T")
@@ -41,6 +42,16 @@ def validate(page, label):
     check(label + "_transaction_line_rendered", page.locator("#flow-chart path.line-flow").count() == 1)
     check(label + "_transaction_zero_baseline", page.locator("#flow-chart line.zero-line").count() == 1)
     check(label + "_transaction_zoom_enabled", page.locator("#flow-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
+    check(label + "_holding_stack_rendered", page.locator("#holding-chart path.area-holding").count() == 6)
+    check(label + "_holding_zoom_enabled", page.locator("#holding-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction===\"none\""))
+    check(label + "_holding_total_188_months", page.locator("#holding-legend .legend-item").count() == 6)
+    page.locator("#holding-type-controls button[data-type=\"Government\"]").click()
+    check(label + "_holding_government_switch", page.locator("#holding-chart path.area-holding").count() == 5)
+    page.locator("#holding-type-controls button[data-type=\"Prime\"]").click()
+    check(label + "_holding_prime_switch", page.locator("#holding-chart path.area-holding").count() == 6)
+    page.locator("#holding-type-controls button[data-type=\"Tax-exempt\"]").click()
+    check(label + "_holding_tax_exempt_switch", page.locator("#holding-chart path.area-holding").count() == 3)
+    page.locator("#holding-type-controls button[data-type=\"Total\"]").click()
     check(label + "_total_zoom_enabled", page.locator("#total-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
     check(label + "_type_zoom_enabled", page.locator("#type-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
 
@@ -80,7 +91,7 @@ def validate(page, label):
         page.locator("#total-controls button[data-years='all']").click()
         page.wait_for_timeout(450)
 
-    for chart_id in ("total-chart", "type-chart", "flow-chart"):
+    for chart_id in ("total-chart", "type-chart", "flow-chart", "holding-chart"):
         box = page.locator("#" + chart_id).bounding_box()
         check(label + "_" + chart_id + "_fits_viewport", box is not None and box["width"] <= page.evaluate("window.innerWidth") + 1, box)
         if label == "mobile":
