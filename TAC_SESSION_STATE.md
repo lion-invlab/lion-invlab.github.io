@@ -1730,3 +1730,16 @@ WR v4.0 明確要求：擷取器、Renderer、Orchestrator 必須經實際整合
 - **最終交付 Gate：`review_ready=false`。** 雖然HTML、內容及瀏覽器／視覺QA通過，Pages部署亦成功，但目前工具環境無法直接開啟 `https://lion-invlab.github.io/preview/2026-11-17-simulation.html`（外部網域存取不可用），依規則不把部署成功冒充為URL已驗證。QA sidecar已同步標記 `review_ready=false`，只待實際URL開啟確認。
 - 剩餘資料註記：W47 coverage incomplete；CNN Fear & Greed採FGScore備援；FedWatch採Investing.com Fed Rate Monitor備援；11檔ETF採Investing.com Global歷史頁備援；部分新聞原文頁無法直接開啟；HTHT無公告前Yahoo預期快照。這些均已在審核版pending_items透明揭露。
 - 通知：啟動通知與階段①–⑤均為 `NOT_AVAILABLE`；notify_parent回傳404 Action not found，每次依規則重試一次，沒有任何一次回傳 `status=notified`。階段①–④時間沿用執行紀錄05:29／05:32／05:33／05:50；階段⑤工具未回傳可用時間戳。不得視為已送達。
+
+
+## 2026-11-17｜06:26–06:30 排程接續驗證（本輪）
+
+- 本輪重新讀取唯一模擬 WR：SIM-1.3，blob SHA `6f35be118830948880d2dbed2e73eff6eec09413`；Manifest `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA 契約 v1.4 `824c327fb66fc8c5d4107b69abd9316c00bfe903`；weekday 模擬母版 `f010ff118d7a5a2c1f6e834aa24f832766383c2b`，與 Manifest 一致。QA 契約標頭仍引用 SIM-1.2，僅記為附件標頭版本文字，不覆寫現行 WR。
+- 報告日期 2026-11-17（週二），行情基準日 2026-11-16。接續前次已完成的行情、行事曆、新聞、分析與 HTML 成果，未重抓已鎖定行情、未重建 HTML。
+- main W47 JSON 僅唯讀，blob SHA `1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5`，updated_at `2026-11-17T04:56:03+08:00`，25 筆經濟、23 筆財報；HTML 內 TAC_CALENDAR_SOURCE 與該 SHA／main data commit 一致。未讀取 simulation branch 舊週 JSON，未修改任何 calendar JSON。
+- main 審核版重新讀回：`preview/2026-11-17-simulation.html`，blob SHA `c9546bded696b463851c4e83ba564cd3bf7f2a54`，398,564 bytes；title 為 TAC 投資早報｜2026/11/17。main HEAD `64a9c0dcb14602efccf9edc9635610c301df664f` 的唯一檔案變更為新增此 preview；main/index.html SHA `0f5940c2e50e7ec7be8dd6e8535fd42d08190fcc` 未變。
+- 靜態重讀：DOCTYPE/html/head/body 各 1、181 個 ID 無重複、222 個 anchor 無空或危險 href、週二至週五版未含上週兩個禁用區塊、永久警語及互動式圖表入口存在。既有 Playwright interaction smoke 與 360/390/412/768/1440px 視覺回歸紀錄為 PASS；Pages deploy run 43968681241 的部署 job 為 success。
+- **交付仍未 ready：** 本輪再次用網頁開啟預覽 URL 失敗（工具回報 URL inaccessible），container 網路 DNS 亦失敗；無法實際確認 Pages URL 載入，因此維持 `review_ready=false`。URL `https://lion-invlab.github.io/preview/2026-11-17-simulation.html` 僅為已部署目標，不宣稱已驗證可開啟。
+- **流程合規疑義：** 本次實際 WR SIM-1.3 的 A1 補充要求 ChatGPT 直接填入核准母版，不經 Assembler／Renderer；既有 05:50 Work Log 卻記載使用 `build_review_html.py`。本輪未重新執行該 builder，亦未用字串替換或重建 DOM；此流程差異列為 review_ready=false 的另一待處理項，需在可安全使用 DOM parser 的環境依現行 WR 核實／修正。
+- 通知：本輪啟動通知、階段①至⑤均兩次呼叫後仍回傳 HTTP 404 `Action not found`，無任何一次取得 `status=notified`；本輪狀態記為 `FAILED`，不可視為送達。錯誤時間約 2026-11-17 06:26–06:30 +08:00。
+- 本輪未修改 main/index.html、正式母版、WR、Manifest 或任何 calendar JSON；未發布首頁。
