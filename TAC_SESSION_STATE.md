@@ -1,5 +1,20 @@
 # TAC 投資早報｜工作狀態錨點
 
+## 2026-11-17｜階段②行情查核（完成，2 項待核實）
+
+- 行情基準日：2026-11-16；已核對 44 項清單，42 項取得 11/16 對應資料，2 項保留待核實，不沿用 11/13 舊值。
+- 17 指數：16 項有當日資料；Russell 2000 現金指數待核實（Investing.com HK 對應頁為 CFD；Yahoo／MarketWatch 目前可見資料未能確認為最終現金收盤）。美股 Dow 51,555.33（-1.51%）、S&P 500 7,416.59（-1.92%，MarketWatch 16:11 ET 收盤後報價）、Nasdaq Composite 24,496.90（-2.54%）、SOX 9,610.65（-5.28%，Nasdaq 官方交叉核對）；亞洲／歐洲頁面已逐項確認 11/16 日期。Hang Seng／Nikkei 採 Investing.com Global 衍生報價並保留 CFD/derived 註記，Nikkei 使用頁面 cash-session 變動 -2.42%（歷史 CFD 行曾受 11/15 週日 session 影響，故不採該列 -2.75%）。
+- 11 檔 S&P 產業 ETF：XLE -2.10%、XLF -1.08%、XLK -3.24%、XLI -1.85%、XLY -1.53%、XLP +0.27%、XLU +0.20%、XLV -0.50%、XLB -1.46%、XLRE -0.27%、XLC -1.72%。HK 頁仍顯示 11/13，第三輪改用同一 Investing.com 系統 Global 歷史頁，11/16 行均已取得；報告須註明同系統區域頁備援。
+- 3 項美債殖利率（U.S. Treasury Daily Treasury Par Yield Curve）：2Y 4.62%、10Y 5.12%、30Y 5.46%。
+- 6 項 FX（Investing.com HK）：DXY 103.57（+0.16%）、USD/TWD 32.963（+0.22%）、EUR/USD 1.0997（-0.24%）、GBP/USD 1.3183（-0.25%）、AUD/USD 0.6737（-0.62%）、USD/JPY 159.46（-0.21%）。CBC 另見銀行間收盤 32.886，口徑不同，主表依固定 Investing.com HK 口徑，另註來源差異。
+- 能源／貴金屬（Investing.com HK 指定合約歷史頁）：WTI Dec-26 CLZ6 85.37（-3.60%，成交量174.93K）；Brent Jan-27 LCOF7 92.16（-3.53%，248.43K）；Gold Dec-26 GCZ6 3,855.40（-0.80%，160.59K）；Silver Dec-26 SIZ6 46.925（-4.47%，70.47K）。合約月份、11/16 收市列及成交量已核對；Brent Jan-27 為 Dec-26 合約到期後最近有效月。
+- 3 項風險指標：VIX 22.91（+18.70%，11/16）；CNN Fear & Greed 30（Fear，CNN 原始數據由 FGScore 顯示，時間 11/16 15:59 ET）；MOVE 待核實，Investing.com HK/Yahoo/CNBC/EODData 本輪均未取得 11/16 收盤，不沿用 11/13 的 98.79。
+- 目前 42/44 有數值，待核實 2/44：Russell 2000 cash close、MOVE。五大指數 OHLC／關鍵價位尚待專用收盤資料核驗，不能先產生支撐壓力值。
+- 通知：階段② notify_parent 兩次皆回傳 NOT_FOUND / HTTP 404 Action not found，狀態 FAILED，未送達。
+
+---
+
+
 ## 2026-11-17｜早報人工流程接手（階段①完成）
 
 - 啟動時間：2026-11-17 05:29:04 Asia/Taipei；報告日期：2026-11-17（週二）；預定行情基準日：2026-11-16（待逐項核實）。
