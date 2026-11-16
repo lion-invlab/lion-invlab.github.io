@@ -11,6 +11,7 @@ import gzip
 import hashlib
 import io
 import json
+import os
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -240,6 +241,11 @@ def main() -> None:
 
     manifest = {
         "retrieved_at_utc": fetched_at,
+        "github_actions_run_id": os.environ.get("GITHUB_RUN_ID"),
+        "github_actions_run_url": (
+            f"https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/{os.environ.get('GITHUB_RUN_ID')}"
+            if os.environ.get("GITHUB_RUN_ID") else None
+        ),
         "policy": "free_public_sources_only",
         "fed_z1_release": z1_info,
         "fred_crosscheck_reference": {
