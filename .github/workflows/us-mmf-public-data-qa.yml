@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Compile data scripts
-        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py scripts/us_mmf/test_fund_type_breakdown.py scripts/us_mmf/test_mmf_transactions.py scripts/us_mmf/test_efa_holdings.py scripts/us_mmf/test_ofr_portfolio.py
+        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py scripts/us_mmf/test_fund_type_breakdown.py scripts/us_mmf/test_mmf_transactions.py scripts/us_mmf/test_efa_holdings.py scripts/us_mmf/test_ofr_portfolio.py scripts/us_mmf/normalize_ofr_repo_dimensions.py scripts/us_mmf/test_ofr_repo_dimensions.py
 
       - name: Download free public source snapshots
         run: python scripts/us_mmf/update_public_data.py
@@ -48,11 +48,17 @@ jobs:
       - name: Validate normalized OFR MMF broad asset allocation
         run: python scripts/us_mmf/test_ofr_portfolio.py data/us-mmf/fed_mmf_ofr_portfolio_latest.csv
 
+      - name: Normalize OFR repo collateral, tenor, and counterparty dimensions
+        run: python scripts/us_mmf/normalize_ofr_repo_dimensions.py
+
+      - name: Validate OFR repo dimensions and reconciliation
+        run: python scripts/us_mmf/test_ofr_repo_dimensions.py data/us-mmf/fed_mmf_ofr_repo_dimensions_latest.csv
+
       - name: Commit normalized data and provenance to research branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/us-mmf/fed_mmmffaq027s_latest.csv data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv data/us-mmf/fed_mmf_transactions_latest.csv data/us-mmf/fed_mmf_holdings_by_type_latest.csv data/us-mmf/fed_mmf_ofr_portfolio_latest.csv data/us-mmf/latest_manifest.json
+          git add data/us-mmf/fed_mmmffaq027s_latest.csv data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv data/us-mmf/fed_mmf_transactions_latest.csv data/us-mmf/fed_mmf_holdings_by_type_latest.csv data/us-mmf/fed_mmf_ofr_portfolio_latest.csv data/us-mmf/fed_mmf_ofr_repo_dimensions_latest.csv data/us-mmf/latest_manifest.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh U.S. MMF public data snapshots"
             git pull --rebase origin research/us-mmf-chart-20261116
@@ -71,5 +77,6 @@ jobs:
             data/us-mmf/fed_mmf_transactions_latest.csv
             data/us-mmf/fed_mmf_holdings_by_type_latest.csv
             data/us-mmf/fed_mmf_ofr_portfolio_latest.csv
+            data/us-mmf/fed_mmf_ofr_repo_dimensions_latest.csv
           if-no-files-found: error
           retention-days: 90
