@@ -93,14 +93,14 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
 
 
   function setupRepoDimensions(raw){
-   const parsed=raw.map(d=>({date:parseDate(d.date),dimension:d.dimension,category:d.category,share:+d.share_of_repo_total})).filter(d=>d.date&&Number.isFinite(d.share));
+   const parsed=raw.map(d=>({date:parseDate(d.date),dimension:d.dimension,category:d.category,share:+d.share_of_repo_total,completeDimensionMonth:d.complete_dimension_month==="true"})).filter(d=>d.date&&Number.isFinite(d.share));
    const svg=d3.select("#repo-chart"),mobile=window.matchMedia("(max-width:800px)").matches,width=mobile?700:1100,height=mobile?430:390,margin={top:18,right:28,bottom:42,left:92},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;
    svg.attr("viewBox","0 0 "+width+" "+height);
    const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")"),grid=root.append("g").attr("class","grid"),xAxis=root.append("g").attr("class","axis").attr("transform","translate(0,"+innerH+")"),yAxis=root.append("g").attr("class","axis");
    const plot=root.append("g"),x0=d3.scaleTime().range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().domain([0,1]).range([innerH,0]),tip=d3.select("#repo-tip"),wrap=$("repo-wrap"),legend=$("repo-legend");
    const palette=["#1c7184","#b8202f","#c7a66a","#54708f","#7d6a91","#8b9c68"];let data=[],keys=[],paths=[];
    function selectDimension(dim){
-    const subset=parsed.filter(d=>d.dimension===dim),grouped=d3.group(subset,d=>d.date.toISOString().slice(0,10));
+    const subset=parsed.filter(d=>d.dimension===dim&&(dim!=="counterparty"||d.completeDimensionMonth)),grouped=d3.group(subset,d=>d.date.toISOString().slice(0,10));
     data=[...grouped].map(([date,items])=>{const p={date:parseDate(date)};items.forEach(v=>p[v.category]=v.share);return p;}).sort((a,b)=>a.date-b.date);
     keys=[...new Set(subset.map(d=>d.category))];data=data.filter(d=>keys.every(k=>Number.isFinite(d[k])));
     x0.domain(d3.extent(data,d=>d.date));x.domain(x0.domain());
