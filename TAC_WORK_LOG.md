@@ -1130,3 +1130,11 @@
 - workflow run 43963718351：OHLC collector成功、earnings price-reaction collector成功、HTML組裝成功；Playwright及母版／產物QA仍進行中。
 - S&P/Russell手動CFD OHLC override已移除，避免collector錯誤標成cash_index；待本輪Yahoo現金指數OHLC輸出核對後回填主表。
 - 階段④notify_parent兩次均NOT_FOUND 404，狀態FAILED／NOT_AVAILABLE。
+
+
+## 2026-11-17｜早報 QA 根因修正與完整重建觸發
+- 修正週二至週五審核版 QA selector：OHLC 來源揭露支援核准 weekday mother 的 details.source-details；經濟卡樣式比對改讀本週 #calendar，週一則仍可讀 #last-week-calendar。
+- 修正已公布財報缺少市場預期值時的呈現：若實際值已公布但預期值缺失，明確顯示「預期資料尚未取得」；若實際值尚未公布則顯示「尚未公布」。不把缺少共識誤判成 Beat/Miss，也不阻斷整份報告。
+- 比較狀態保留 incomparable／consensus_divergent，避免被錯誤降級成 pending；新增對應測試。
+- 本次所有程式修改僅在 simulation branch；main、正式首頁、正式母版、Manifest 與 W47 行事曆 JSON 唯讀。以 [build-tac-report] commit 觸發 2026-11-17 完整 build／Playwright／視覺／provenance QA。
+- 通知通道 notify_parent 回傳 404 Action not found，狀態 NOT_AVAILABLE；不影響早報產製。
