@@ -19,6 +19,7 @@ on:
 permissions:
   contents: read
 
+# EFA holdings chart mobile pinch QA uses viewport-aware touch coordinates.
 concurrency:
   group: us-mmf-chart-visual-qa
   cancel-in-progress: false
