@@ -79,7 +79,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
   const holdingSeries={};
   for(const fundType of ["Total","Government","Prime","Tax-exempt"]){
    const subset=holdingRows.filter(d=>d.fundType===fundType),keys=[...new Set(subset.map(d=>d.instrument))],byDate=d3.group(subset,d=>d.date.toISOString().slice(0,10));
-   holdingSeries[fundType]={keys,data:[...byDate].map(([date,items])=>{const point={date:parseDate(date),quarter:date.slice(0,7)};for(const item of items)point[item.instrument]=item.value;return point;}).sort((a,b)=>a.date-b.date)};
+   holdingSeries[fundType]={keys,data:[...byDate].map(([date,items])=>{const point={date:parseDate(date),quarter:date.slice(0,7)};for(const item of items)point[item.instrument]=item.value;keys.forEach(key=>{if(!Number.isFinite(point[key]))point[key]=0;});return point;}).sort((a,b)=>a.date-b.date)};
   }
 
   const latest=types[types.length-1];
