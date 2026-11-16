@@ -159,17 +159,28 @@ const US_MMF_EMBEDDED = {"total":"fred_observation_date,value_raw_millions_usd,v
     x0.domain(d3.extent(data,d=>d.date));x.domain(x0.domain());
     paths=plot.selectAll("path.repo-series").data(keys,k=>k).join("path").attr("class","repo-series").attr("fill","none").attr("stroke",(k,i)=>palette[i%palette.length]).attr("stroke-width",2.4);
     const repoLabels={"Agency / GSE collateral":"機構債／政府支持企業抵押品（Agency / GSE collateral）","Other collateral":"其他抵押品（Other collateral）","U.S. Treasury collateral":"美國國債抵押品（U.S. Treasury collateral）","Foreign financial institutions":"外國金融機構（Foreign financial institutions）","U.S. financial institutions":"美國金融機構（U.S. financial institutions）","Other counterparties":"其他交易對手（Other counterparties）","Federal Reserve":"美國聯準會（Federal Reserve）","FICC-cleared":"FICC 集中清算（FICC-cleared）","Overnight / open":"隔夜／未指定期限（Overnight / open）","Term: 2–30 days":"定期：2–30 天（Term: 2–30 days）","Term: >30 days":"定期：超過 30 天（Term: >30 days）"};legend.innerHTML=keys.map((k,i)=>'<span class="legend-item"><i class="swatch" style="background:'+palette[i%palette.length]+'"></i>'+((repoLabels[k])||k)+'</span>').join("");
-    document.querySelectorAll("#repo-dimension-controls button").forEach(b=>b.classList.toggle("active",b.dataset.dimension===dim));render(d3.zoomIdentity);
+    document.querySelectorAll("#repo-dimension-controls button").forEach(b=>b.classList.toggle("active",b.dataset.dimension===dim));render();
    }
-   function render(transform){
-    x.domain(transform.rescaleX(x0).domain());const line=d3.line().defined(d=>d.date instanceof Date&&Number.isFinite(+d.date)&&Number.isFinite(d.value)&&Number.isFinite(x(d.date))&&Number.isFinite(y(d.value))).x(d=>x(d.date)).y(d=>y(d.value)).curve(d3.curveMonotoneX);
+   function render(){
+    const line=d3.line().defined(d=>d.date instanceof Date&&Number.isFinite(+d.date)&&Number.isFinite(d.value)&&Number.isFinite(x(d.date))&&Number.isFinite(y(d.value))).x(d=>x(d.date)).y(d=>y(d.value)).curve(d3.curveMonotoneX);
     paths.each(function(key){d3.select(this).datum(data.map(d=>({date:d.date,value:d[key]}))).attr("d",line);});
     xAxis.call(d3.axisBottom(x).ticks(innerW/115).tickFormat(d3.timeFormat("%Y")));yAxis.call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")));
     grid.call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat("")).selectAll("line").attr("class","gridline");grid.select(".domain").remove();
    }
-   const zoom=d3.zoom().scaleExtent([1,18]).extent([[0,0],[innerW,innerH]]).translateExtent([[0,0],[innerW,innerH]]).on("zoom",e=>render(e.transform));zoomLayer.call(zoom).on("dblclick.zoom",null);
+   let dragDomain=null;
+   function clampDomain(start,end){
+    const full=x0.domain(),lo=+full[0],hi=+full[1],span=Math.max(1,Math.min(hi-lo,end-start));
+    const a=Math.max(lo,Math.min(hi-span,start));return [new Date(a),new Date(a+span)];
+   }
+   zoomLayer.on("wheel.repo",function(event){
+    event.preventDefault();const domain=x.domain(),span=+domain[1]- +domain[0],fullSpan=+x0.domain()[1]- +x0.domain()[0];if(!(span>0&&fullSpan>0))return;
+    const [px]=d3.pointer(event,this),anchor=x.invert(Math.max(0,Math.min(innerW,px))),factor=Math.exp(-event.deltaY*0.002),nextSpan=Math.max(fullSpan/18,Math.min(fullSpan,span/factor)),ratio=(+anchor- +domain[0])/span,nextStart=+anchor-ratio*nextSpan;
+    x.domain(clampDomain(nextStart,nextStart+nextSpan));render();
+   },{passive:false}).call(d3.drag().on("start",function(){dragDomain=x.domain().map(Number);}).on("drag",function(event){
+    if(!dragDomain)return;const span=dragDomain[1]-dragDomain[0],shift=-event.dx/innerW*span;x.domain(clampDomain(dragDomain[0]+shift,dragDomain[1]+shift));render();
+   }).on("end",function(){dragDomain=null;}));
    svg.on("pointermove.tooltip",function(event){if(event.pointerType==="touch"||event.buttons)return;const [px,py]=d3.pointer(event,root.node());if(px<0||px>innerW||py<0||py>innerH){tip.style("display","none");return;}const date=x.invert(px),i=d3.bisector(d=>d.date).center(data,date),d=data[Math.max(0,Math.min(data.length-1,i))];if(!d)return;tip.html("<strong>"+d3.timeFormat("%Y/%m")(d.date)+"</strong>"+keys.map(k=>k+"："+d3.format(".1%")(d[k])).join("<br>")).style("display","block");const wr=wrap.getBoundingClientRect();tip.style("left",Math.max(8,Math.min(wr.width-210,event.clientX-wr.left+12))+"px").style("top",Math.max(8,event.clientY-wr.top-90)+"px");}).on("pointerleave.tooltip",()=>tip.style("display","none"));
-   d3.selectAll("#repo-dimension-controls button").on("click",function(){zoomLayer.call(zoom.transform,d3.zoomIdentity);selectDimension(this.dataset.dimension);});selectDimension("counterparty");
+   d3.selectAll("#repo-dimension-controls button").on("click",function(){selectDimension(this.dataset.dimension);});selectDimension("counterparty");
   }
 
   function setupHoldings(){
