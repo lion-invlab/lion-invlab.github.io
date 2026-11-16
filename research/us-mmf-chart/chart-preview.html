@@ -116,7 +116,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
    }
    const zoom=d3.zoom().scaleExtent([1,18]).extent([[0,0],[innerW,innerH]]).translateExtent([[0,0],[innerW,innerH]]).on("zoom",e=>render(e.transform));svg.call(zoom).on("dblclick.zoom",null);
    svg.on("pointermove.tooltip",function(event){if(event.pointerType==="touch"||event.buttons)return;const [px,py]=d3.pointer(event,root.node());if(px<0||px>innerW||py<0||py>innerH){tip.style("display","none");return;}const date=x.invert(px),i=d3.bisector(d=>d.date).center(data,date),d=data[Math.max(0,Math.min(data.length-1,i))];if(!d)return;tip.html("<strong>"+d3.timeFormat("%Y/%m")(d.date)+"</strong>"+keys.map(k=>k+"："+d3.format(".1%")(d[k])).join("<br>")).style("display","block");const wr=wrap.getBoundingClientRect();tip.style("left",Math.max(8,Math.min(wr.width-210,event.clientX-wr.left+12))+"px").style("top",Math.max(8,event.clientY-wr.top-90)+"px");}).on("pointerleave.tooltip",()=>tip.style("display","none"));
-   d3.selectAll("#repo-dimension-controls button").on("click",function(){svg.transition().duration(200).call(zoom.transform,d3.zoomIdentity);selectDimension(this.dataset.dimension);});selectDimension("counterparty");
+   d3.selectAll("#repo-dimension-controls button").on("click",function(){svg.call(zoom.transform,d3.zoomIdentity);selectDimension(this.dataset.dimension);});selectDimension("counterparty");
   }
 
   function setupHoldings(){
