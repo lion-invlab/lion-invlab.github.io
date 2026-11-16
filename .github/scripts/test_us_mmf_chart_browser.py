@@ -58,6 +58,10 @@ def validate(page, label):
     for chart_id in ("total-chart", "type-chart"):
         box = page.locator("#" + chart_id).bounding_box()
         check(label + "_" + chart_id + "_fits_viewport", box is not None and box["width"] <= page.evaluate("window.innerWidth") + 1, box)
+        if label == "mobile":
+            check(label + "_" + chart_id + "_readable_height", box is not None and box["height"] >= 220, box)
+            font_size = page.locator("#" + chart_id + " .axis text").first.evaluate("(e)=>parseFloat(getComputedStyle(e).fontSize)")
+            check(label + "_" + chart_id + "_axis_font_size", font_size >= 15, font_size)
     check(label + "_no_horizontal_page_overflow", page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1"))
     page.screenshot(path=str(OUT / (label + ".png")), full_page=True)
 
