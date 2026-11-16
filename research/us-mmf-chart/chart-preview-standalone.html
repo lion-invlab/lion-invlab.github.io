@@ -150,7 +150,7 @@ const US_MMF_EMBEDDED = {"total":"fred_observation_date,value_raw_millions_usd,v
    const svg=d3.select("#repo-chart"),mobile=window.matchMedia("(max-width:800px)").matches,width=mobile?700:1100,height=mobile?430:390,margin={top:18,right:28,bottom:42,left:92},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;
    svg.attr("viewBox","0 0 "+width+" "+height);
    const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")"),grid=root.append("g").attr("class","grid"),xAxis=root.append("g").attr("class","axis").attr("transform","translate(0,"+innerH+")"),yAxis=root.append("g").attr("class","axis");
-   const plot=root.append("g"),zoomLayer=root.append("rect").attr("class","repo-zoom-hitarea").attr("width",innerW).attr("height",innerH).attr("fill","transparent").attr("pointer-events","all"),x0=d3.scaleTime().range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().domain([0,1]).range([innerH,0]),tip=d3.select("#repo-tip"),wrap=$("repo-wrap"),legend=$("repo-legend");
+   const clipId="repo-plot-clip";root.append("defs").append("clipPath").attr("id",clipId).append("rect").attr("width",innerW).attr("height",innerH);const plot=root.append("g").attr("clip-path","url(#"+clipId+")"),zoomLayer=root.append("rect").attr("class","repo-zoom-hitarea").attr("width",innerW).attr("height",innerH).attr("fill","transparent").attr("pointer-events","all").style("touch-action","none"),x0=d3.scaleTime().range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().domain([0,1]).range([innerH,0]),tip=d3.select("#repo-tip"),wrap=$("repo-wrap"),legend=$("repo-legend");
    const palette=["#1c7184","#b8202f","#c7a66a","#54708f","#7d6a91","#8b9c68"];let data=[],keys=[],paths=[];
    function selectDimension(dim){
     const subset=parsed.filter(d=>d.dimension===dim&&(dim!=="counterparty"||d.completeDimensionMonth)),grouped=d3.group(subset,d=>d.date.toISOString().slice(0,10));
@@ -158,7 +158,7 @@ const US_MMF_EMBEDDED = {"total":"fred_observation_date,value_raw_millions_usd,v
     keys=[...new Set(subset.map(d=>d.category))];data=data.filter(d=>keys.every(k=>Number.isFinite(d[k])));
     x0.domain(d3.extent(data,d=>d.date));x.domain(x0.domain());
     paths=plot.selectAll("path.repo-series").data(keys,k=>k).join("path").attr("class","repo-series").attr("fill","none").attr("stroke",(k,i)=>palette[i%palette.length]).attr("stroke-width",2.4);
-    legend.innerHTML=keys.map((k,i)=>'<span class="legend-item"><i class="swatch" style="background:'+palette[i%palette.length]+'"></i>'+k+'</span>').join("");
+    const repoLabels={"Agency / GSE collateral":"機構債／政府支持企業抵押品（Agency / GSE collateral）","Other collateral":"其他抵押品（Other collateral）","U.S. Treasury collateral":"美國國債抵押品（U.S. Treasury collateral）","Foreign financial institutions":"外國金融機構（Foreign financial institutions）","U.S. financial institutions":"美國金融機構（U.S. financial institutions）","Other counterparties":"其他交易對手（Other counterparties）","Federal Reserve":"美國聯準會（Federal Reserve）","FICC-cleared":"FICC 集中清算（FICC-cleared）","Overnight / open":"隔夜／未指定期限（Overnight / open）","Term: 2–30 days":"定期：2–30 天（Term: 2–30 days）","Term: >30 days":"定期：超過 30 天（Term: >30 days）"};legend.innerHTML=keys.map((k,i)=>'<span class="legend-item"><i class="swatch" style="background:'+palette[i%palette.length]+'"></i>'+((repoLabels[k])||k)+'</span>').join("");
     document.querySelectorAll("#repo-dimension-controls button").forEach(b=>b.classList.toggle("active",b.dataset.dimension===dim));render(d3.zoomIdentity);
    }
    function render(transform){
