@@ -149,6 +149,17 @@ Status: source validation and data architecture. No production chart, no homepag
 - Structural break confirmation: OFR category chart notes six categories from April 2016 and a June 2024 reporting change removing the Government fee/no-fee distinction. Source: https://www.financialresearch.gov/money-market-funds/us-mmfs-investments-by-fund-category/
 - QA script: `scripts/us_mmf/test_fed_aum_data.py` checks required columns, positive values, quarterly date continuity, unique/sorted dates, USD conversion, quarter labels, and the latest 2026 Q2 value.
 
+## Z.1 transactions ingestion and third chart panel (2026-11-16)
+- [x] Parse the official Z.1 CSV package table S123.t alongside S123.s.
+- [x] Archive the raw S123.t table and SHA-256 in the public-data workflow artifact.
+- [x] Normalize series FA634090005 / FRED MMMFTAQ027S to `data/us-mmf/fed_mmf_transactions_latest.csv`.
+- [x] Preserve original quarterly date labels, negative values, and missing quarters without interpolation.
+- [x] Validate 304 observations from 1946 Q4 through 2026 Q2; latest value USD 723,692 million SAAR (USD 0.723692tn SAAR). QA checks units, quarter labels, date order/uniqueness, and official latest value.
+- [x] Add an interactive third chart panel with zero baseline, signed positive/negative values, pan/zoom and tooltip.
+- [ ] Complete desktop/mobile browser visual QA for the third panel.
+- Interpretation warning: S123.t is net acquisition of financial assets by the MMF sector, seasonally adjusted annual rate. It is not direct investor net subscriptions/redemptions and must not be labeled “資金淨流入”.
+- The transaction history has genuine gaps in earlier decades; the data and chart preserve these gaps instead of filling them.
+
 ## Automated research-branch data refresh
 - Workflow: `.github/workflows/us-mmf-public-data-qa.yml` (push / manual dispatch on the research branch only).
 - Downloads official Z.1 CSV package, EFA monthly CSVs and OFR API data; creates SHA-256 manifest; validates both normalized quarterly datasets; commits only the normalized CSVs and manifest to `research/us-mmf-chart-20261116`; uploads raw snapshots as a 90-day workflow artifact.
