@@ -246,44 +246,44 @@
       "display": "10,892.93",
       "change_display": "+0.09%",
       "source": {
-        "name": "BNY/StreetAccount｜FTSE 100現貨收盤",
-        "url": "https://www.bny.com/",
+        "name": "BNY｜StreetAccount 2026-11-16 EU Market Recap",
+        "url": "https://www.adrbny.com/market-analysis/daily-dr-market-summary/adrnews.2026-11-16-streetaccount-summary-eu-market-recap-ftse-100-009-to-1089293-dax-057-to-2659864-cac40-020-to-835200-stoxx-600-028-to-66231.html",
         "data_date": "2026-11-16",
         "quote_type": "cash_index_close",
-        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+        "note": "BNY/StreetAccount 11/16歐洲現貨市場收盤摘要，具名列出FTSE 100、DAX、CAC 40及STOXX 600收盤價與漲跌幅。"
       }
     },
     "德國 DAX": {
       "display": "26,598.64",
       "change_display": "-0.57%",
       "source": {
-        "name": "BNY/StreetAccount｜DAX現貨收盤",
-        "url": "https://www.bny.com/",
+        "name": "BNY｜StreetAccount 2026-11-16 EU Market Recap",
+        "url": "https://www.adrbny.com/market-analysis/daily-dr-market-summary/adrnews.2026-11-16-streetaccount-summary-eu-market-recap-ftse-100-009-to-1089293-dax-057-to-2659864-cac40-020-to-835200-stoxx-600-028-to-66231.html",
         "data_date": "2026-11-16",
         "quote_type": "cash_index_close",
-        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+        "note": "BNY/StreetAccount 11/16歐洲現貨市場收盤摘要，具名列出FTSE 100、DAX、CAC 40及STOXX 600收盤價與漲跌幅。"
       }
     },
     "法國 CAC 40": {
       "display": "8,352.00",
       "change_display": "-0.20%",
       "source": {
-        "name": "BNY/StreetAccount｜CAC 40現貨收盤",
-        "url": "https://www.bny.com/",
+        "name": "BNY｜StreetAccount 2026-11-16 EU Market Recap",
+        "url": "https://www.adrbny.com/market-analysis/daily-dr-market-summary/adrnews.2026-11-16-streetaccount-summary-eu-market-recap-ftse-100-009-to-1089293-dax-057-to-2659864-cac40-020-to-835200-stoxx-600-028-to-66231.html",
         "data_date": "2026-11-16",
         "quote_type": "cash_index_close",
-        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+        "note": "BNY/StreetAccount 11/16歐洲現貨市場收盤摘要，具名列出FTSE 100、DAX、CAC 40及STOXX 600收盤價與漲跌幅。"
       }
     },
     "STOXX Europe 600": {
       "display": "662.31",
       "change_display": "-0.28%",
       "source": {
-        "name": "BNY/StreetAccount｜STOXX Europe 600現貨收盤",
-        "url": "https://www.bny.com/",
+        "name": "BNY｜StreetAccount 2026-11-16 EU Market Recap",
+        "url": "https://www.adrbny.com/market-analysis/daily-dr-market-summary/adrnews.2026-11-16-streetaccount-summary-eu-market-recap-ftse-100-009-to-1089293-dax-057-to-2659864-cac40-020-to-835200-stoxx-600-028-to-66231.html",
         "data_date": "2026-11-16",
         "quote_type": "cash_index_close",
-        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+        "note": "BNY/StreetAccount 11/16歐洲現貨市場收盤摘要，具名列出FTSE 100、DAX、CAC 40及STOXX 600收盤價與漲跌幅。"
       }
     }
   },
