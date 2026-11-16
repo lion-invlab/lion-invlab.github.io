@@ -109,7 +109,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
     document.querySelectorAll("#repo-dimension-controls button").forEach(b=>b.classList.toggle("active",b.dataset.dimension===dim));render(d3.zoomIdentity);
    }
    function render(transform){
-    x.domain(transform.rescaleX(x0).domain());const line=d3.line().x(d=>x(d.date)).y(d=>y(d.value)).curve(d3.curveMonotoneX);
+    x.domain(transform.rescaleX(x0).domain());const line=d3.line().defined(d=>d.date instanceof Date&&Number.isFinite(+d.date)&&Number.isFinite(d.value)&&Number.isFinite(x(d.date))&&Number.isFinite(y(d.value))).x(d=>x(d.date)).y(d=>y(d.value)).curve(d3.curveMonotoneX);
     paths.each(function(key){d3.select(this).datum(data.map(d=>({date:d.date,value:d[key]}))).attr("d",line);});
     xAxis.call(d3.axisBottom(x).ticks(innerW/115).tickFormat(d3.timeFormat("%Y")));yAxis.call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")));
     grid.call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat("")).selectAll("line").attr("class","gridline");grid.select(".domain").remove();
