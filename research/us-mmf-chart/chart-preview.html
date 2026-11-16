@@ -74,7 +74,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
   $("kpi-prime-share").textContent="占總資產 "+d3.format(".1%")(latest.prime/latest.total);
   $("kpi-tax-share").textContent="占總資產 "+d3.format(".1%")(latest.tax/latest.total);
   $("update-pill").textContent="資料擷取："+((manifest.retrieved_at_utc||"").slice(0,10).replaceAll("-","/")||"日期未提供");
-  $("load-status").textContent="資料載入完成｜總規模 "+total.length+" 季｜基金類型 "+types.length+" 季｜最新："+latest.quarter;
+  $("load-status").textContent="資料載入完成｜總規模 "+total.length+" 季｜基金類型 "+types.length+" 季｜交易資料 "+flows.length+" 筆｜最新："+latest.quarter+"｜交易最新："+flows[flows.length-1].quarter;
 
   function setupTransactions(data){
    const svg=d3.select("#flow-chart"),mobile=window.matchMedia("(max-width:800px)").matches,width=mobile?700:1100,height=mobile?430:390,margin={top:18,right:28,bottom:42,left:92},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;svg.attr("viewBox","0 0 "+width+" "+height);
