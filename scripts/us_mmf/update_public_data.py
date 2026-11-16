@@ -48,11 +48,18 @@ def write_bytes(path: Path, data: bytes) -> None:
 def build_fred_clean_csv(raw: bytes) -> tuple[bytes, dict]:
     text = raw.decode("utf-8-sig")
     reader = csv.DictReader(io.StringIO(text))
-    if not reader.fieldnames or "DATE" not in reader.fieldnames:
-        raise ValueError(f"Unexpected FRED CSV header: {reader.fieldnames}")
-    value_col = FRED_SERIES if FRED_SERIES in reader.fieldnames else next(
-        (x for x in reader.fieldnames if x != "DATE"), None
+    if not reader.fieldnames:
+        raise ValueError("FRED CSV is missing its header")
+    date_col = next(
+        (x for x in reader.fieldnames if x.strip().lower() in ("date", "observation_date")),
+        None,
     )
+    if not date_col:
+        raise ValueError(f"Unexpected FRED CSV date column: {reader.fieldnames}")
+    value_col = next(
+        (x for x in reader.fieldnames if x != date_col and x.strip() == FRED_SERIES),
+        None,
+    ) or next((x for x in reader.fieldnames if x != date_col), None)
     if not value_col:
         raise ValueError("FRED CSV has no value column")
 
@@ -64,7 +71,7 @@ def build_fred_clean_csv(raw: bytes) -> tuple[bytes, dict]:
     ])
     rows = []
     for row in reader:
-        date = (row.get("DATE") or "").strip()
+        date = (row.get(date_col) or "").strip()
         raw_value = (row.get(value_col) or "").strip()
         if not date or raw_value in ("", ".", "NA", "nan"):
             continue
