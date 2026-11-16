@@ -39,7 +39,11 @@
     "ofr_monthly_category": {
       "source": "SEC Form N-MFP / OFR aggregation",
       "frequency": "monthly",
-      "expected_categories": ["Government", "Prime", "Tax Exempt"],
+      "expected_categories": [
+        "Government",
+        "Prime",
+        "Tax Exempt"
+      ],
       "fields": [
         "reporting_month",
         "category",
@@ -57,6 +61,28 @@
       "frequency": "weekly",
       "role": "latest_market_context_only",
       "historical_window_note": "Public page provides latest 20 weeks only; do not use as long-run historical source."
+    },
+    "fed_efa_monthly_holdings_by_type": {
+      "source": "Federal Reserve Enhanced Financial Accounts (EFA), SEC Form N-MFP holdings",
+      "frequency": "monthly",
+      "coverage_start": "2010-12",
+      "categories": [
+        "total",
+        "prime",
+        "government",
+        "tax_exempt"
+      ],
+      "fields": [
+        "reporting_month",
+        "category",
+        "instrument",
+        "value_raw_millions_usd",
+        "source_url",
+        "retrieved_at_utc",
+        "sha256"
+      ],
+      "interpretation": "Portfolio investment holdings by fund type. Not identical to Z.1 total financial assets; do not add to or substitute for the Z.1 AUM series.",
+      "qa_rule": "Sum instrument holdings within each category; verify Prime + Government + Tax-exempt equals Total within rounding before use."
     }
   },
   "global_rules": {
