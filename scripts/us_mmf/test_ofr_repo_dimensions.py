@@ -16,12 +16,12 @@ expected = {
     "counterparty": {"MMF-MMF_RP_wDFI-M", "MMF-MMF_RP_wFFI-M", "MMF-MMF_RP_wFICC-M", "MMF-MMF_RP_wFR-M", "MMF-MMF_RP_wOCP-M"},
 }
 for dim, members in expected.items():
-    dates = sorted(d for d in {date for d, x in by_dim_date if d == dim} if set(by_dim_date[(dim,d)]) == members)
+    candidate_dates = {date for (dimension, date) in by_dim_date if dimension == dim}
+    dates = sorted(date for date in candidate_dates if set(by_dim_date[(dim, date)]) == members)
     assert dates, f"No complete dates for {dim}"
     assert dates[-1] == "2026-09-30", f"{dim} latest date mismatch: {dates[-1]}"
     for date in dates:
-        total = sum(by_dim_date[(dim,date)].values())
-        # Compare with the canonical repo total stored in the row shares.
+        total = sum(by_dim_date[(dim, date)].values())
         dim_rows = [r for r in rows if r["dimension"] == dim and r["date"] == date]
         implied = [float(r["value_usd"]) / float(r["share_of_repo_total"]) for r in dim_rows if float(r["share_of_repo_total"]) > 0]
         assert implied and max(implied) - min(implied) <= 2.0, f"Inconsistent repo total implied by {dim} at {date}"
