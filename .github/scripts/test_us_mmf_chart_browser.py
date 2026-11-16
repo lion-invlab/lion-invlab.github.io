@@ -90,6 +90,23 @@ def validate(page, label):
         check(label + "_two_finger_pinch_zoom", pinch_k > 1.05, pinch_k)
         page.locator("#total-controls button[data-years='all']").click()
         page.wait_for_timeout(450)
+        hbox = page.locator("#holding-chart").bounding_box()
+        hcx = hbox["x"] + hbox["width"] * 0.55
+        hcy = hbox["y"] + hbox["height"] * 0.48
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchStart", "touchPoints": [
+            {"x": hcx - 28, "y": hcy, "id": 3, "radiusX": 8, "radiusY": 8, "force": 1},
+            {"x": hcx + 28, "y": hcy, "id": 4, "radiusX": 8, "radiusY": 8, "force": 1},
+        ]})
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchMove", "touchPoints": [
+            {"x": hcx - 58, "y": hcy, "id": 3, "radiusX": 8, "radiusY": 8, "force": 1},
+            {"x": hcx + 58, "y": hcy, "id": 4, "radiusX": 8, "radiusY": 8, "force": 1},
+        ]})
+        cdp.send("Input.dispatchTouchEvent", {"type": "touchEnd", "touchPoints": []})
+        page.wait_for_timeout(300)
+        holding_pinch_k = page.locator("#holding-chart").evaluate("(e)=>e.__zoom.k")
+        check(label + "_holding_two_finger_pinch_zoom", holding_pinch_k > 1.05, holding_pinch_k)
+        page.locator("#holding-type-controls button[data-type='Total']").click()
+        page.wait_for_timeout(300)
 
     for chart_id in ("total-chart", "type-chart", "flow-chart", "holding-chart"):
         box = page.locator("#" + chart_id).bounding_box()
