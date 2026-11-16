@@ -1,0 +1,755 @@
+{
+  "report_date": "2026-11-17",
+  "timezone": "Asia/Taipei",
+  "trading_date": "2026-11-16",
+  "summary": "美股11/16全面走弱，費城半導體指數重挫5.28%，那斯達克下跌2.54%，VIX升至22.91、單日跳升18.70%；亞洲科技權重市場跌勢更深，台股下跌6.03%、韓股下跌3.59%。這已不只是單一AI權值股修正，而是高估值科技股、美元走強與12月升息定價共同引發的風險降槓桿。本週聚焦美國零售銷售、工業生產、NVIDIA財報及FOMC紀要。",
+  "sentiment": "市場情緒明顯轉向防禦。VIX快速升高、CNN Fear & Greed落在恐懼區，且12月FedWatch已高度定價升息25bp；短線不宜把科技股急跌直接視為買點，應等待財報與利率訊號確認。",
+  "focus_news": [
+    {
+      "title": "AI交易進入高壓檢驗期，NVIDIA財報與Anthropic IPO前賣壓擴大",
+      "published_at_tw": "2026-11-16 22:41",
+      "url": "https://news.cnyes.com/news/id/6664138",
+      "summary": "鉅亨網報導，美股周一開低，投資人於NVIDIA財報與Anthropic上市前降低高風險曝險；盤中費半跌逾4%、台積電ADR跌近4%。收盤後費半跌幅擴大至5.28%，顯示市場不只在交易單一公司人事，而是重新檢視AI估值、資本支出回報與供應鏈獲利能見度。"
+    },
+    {
+      "title": "中國10月工業、零售與固定資產投資同步低於預期",
+      "published_at_tw": "2026-11-16 16:30",
+      "url": "https://news.cnyes.com/news/id/6663025",
+      "summary": "鉅亨網指出，10月零售銷售年增0.4%，低於預期0.8%；工業生產年增4.8%，低於預期5.3%；前10個月固定資產投資年減8.1%，跌幅也大於預期。消費、工業與投資同步偏弱，顯示刺激政策尚未有效扭轉內需與房地產相關投資疲弱。"
+    },
+    {
+      "title": "美元走強與Fed升息預期升溫，市場風險偏好再降溫",
+      "published_at_tw": "2026-11-16 16:10",
+      "url": "https://news.cnyes.com/news/id/6663178",
+      "summary": "鉅亨網整理美銀策略師觀點，美元指數連續走高、日圓逼近160、黃金跌破4,000美元，反映市場對12月升息與流動性收縮的擔憂。美元走強會提高非美元資產的融資與折算壓力，也使無息資產承受更高機會成本。"
+    },
+    {
+      "title": "油價重挫逾3%，中東出口恢復與第四季供給過剩預期壓抑價格",
+      "published_at_tw": "2026-11-16 17:20",
+      "url": "https://hk.investing.com/news/commodities-news/article-1759821",
+      "summary": "Investing.com報導，油市面臨中東出口恢復、IEA預估第四季供給高於需求等壓力；11/16指定月份合約WTI下跌3.60%、Brent下跌3.53%。但荷姆茲海峽仍有航運安全疑慮，基本面供給寬鬆與地緣風險溢價須分開觀察。"
+    },
+    {
+      "title": "利率路徑再偏鷹，市場關注12月與明年3月可能連續升息",
+      "published_at_tw": "2026-11-16 22:19",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1760734",
+      "summary": "Investing.com引述UBS觀點，預期Fed可能於12月及2027年3月各升息25bp，並指出鷹派官員談話使連續升息風險提高。美國10年期殖利率仍在5.12%附近，市場對高估值股票的折現壓力未消退；企業獲利能否抵銷資金成本上升，將成為估值分水嶺。"
+    }
+  ],
+  "headlines": [
+    {
+      "title": "黃金跌破3,900美元，12月升息押注與強美元壓抑貴金屬",
+      "published_at_tw": "2026-11-16 18:30",
+      "url": "https://news.cnyes.com/news/id/6664077",
+      "summary": "鉅亨網引述CME FedWatch，市場對12月升息25bp的機率約91%，美元維持高檔，黃金期貨與現貨同步承壓。這反映利率折現與美元匯價短線壓過避險需求；黃金下跌不代表地緣風險消失。"
+    },
+    {
+      "title": "FedWatch升息25bp機率升至約92%，美元指數創19個月高位",
+      "published_at_tw": "2026-11-16 13:30",
+      "url": "https://news.cnyes.com/news/id/6663753",
+      "summary": "鉅亨網報導，利率期貨一度反映12月升息1碼機率約92%，美元指數升至103.46附近。隨後更新的盤前快照顯示升息定價進一步提高；應以最新讀取時間的FedWatch數值為準，不把早盤機率當作收盤值。"
+    },
+    {
+      "title": "歐元區公債殖利率暫歇，交易員等待科技財報與央行官員訊號",
+      "published_at_tw": "2026-11-16 17:00",
+      "url": "https://hk.investing.com/news/forex-news/article-1759796",
+      "summary": "Investing.com指出，德國10年期公債殖利率在前一週大幅波動後暫時持平，市場等待大型科技企業財報、IPO與央行官員發言。歐洲利率暫歇不代表全球債市壓力解除，美國長端殖利率仍處高檔。"
+    },
+    {
+      "title": "加拿大股指期貨走低，市場等待10月CPI與NVIDIA財報",
+      "published_at_tw": "2026-11-16 20:26",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1760357",
+      "summary": "Investing.com報導，加拿大TSX期貨下跌，投資人等待加拿大10月CPI及本週NVIDIA財報、Anthropic IPO。加拿大通膨結果將影響央行政策預期，科技市場則持續受到AI估值與管理層交接不確定性牽動。"
+    },
+    {
+      "title": "本週美股焦點：NVIDIA財報、Anthropic IPO、零售數據與Fed紀要",
+      "published_at_tw": "2026-11-16 19:48",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1760346",
+      "summary": "Investing.com整理本週重要事件：NVIDIA將公布黃仁勳離任後首份財報，Anthropic預計定價並掛牌，零售商財報、美國零售銷售及FOMC紀要也將接連登場。市場將同時檢驗AI商業化與美國需求韌性。"
+    },
+    {
+      "title": "歐洲股市大致持平，投資人等待AI產業本週關鍵事件",
+      "published_at_tw": "2026-11-16 16:06",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1759735",
+      "summary": "Investing.com指出，歐洲主要股市周一大致持平，DAX與STOXX 600收平，CAC 40與FTSE 100小幅上漲。相較亞洲科技股的急跌，歐洲市場受到科技權重較低的結構支撐，但仍等待NVIDIA財報與Anthropic IPO重新定價AI交易。"
+    },
+    {
+      "title": "全球避險升溫，科技股下挫、美元走強、加密資產承壓",
+      "published_at_tw": "2026-11-16 19:23",
+      "url": "https://hk.investing.com/news/forex-news/article-1760192",
+      "summary": "Investing.com整理全球市場風險趨避：科技股與半導體承壓，美元走強，比特幣延續跌勢；亞洲科技權重市場跌幅較大。市場焦點由單一AI公司事件擴大到高估值、流動性與政策利率三者的交互影響。"
+    },
+    {
+      "title": "聯準會升息步調可能延續，市場重新評估明年政策路徑",
+      "published_at_tw": "2026-11-16 22:19",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1760734",
+      "summary": "UBS預期Fed可能在12月及明年3月各升息25bp，並指出近期官員談話提高連續升息風險。對股市而言，政策利率不只影響短端債券，也會透過無風險利率提高成長股估值的折現門檻。"
+    },
+    {
+      "title": "中國A股三大指數收低，10月需求與投資數據疲弱",
+      "published_at_tw": "2026-11-16 16:30",
+      "url": "https://news.cnyes.com/news/id/6663025",
+      "summary": "鉅亨網報導，上證指數收跌0.87%、深證成指跌2.53%，市場消化零售銷售、工業生產與固定資產投資均低於預期的數據。消費與投資同時偏弱，使政策刺激的傳導效果再受檢視。"
+    },
+    {
+      "title": "Fed升息定價、美元高位與黃金回落形成跨資產連動",
+      "published_at_tw": "2026-11-16 18:30",
+      "url": "https://news.cnyes.com/news/id/6664077",
+      "summary": "美元維持高檔、升息預期升溫，黃金跌破3,900美元，白銀跌勢更深。跨資產表現顯示，市場當前更重視實質利率與美元流動性，而不是單純以避險需求推升貴金屬。"
+    },
+    {
+      "title": "AI產業本週將接受財報與IPO雙重檢驗",
+      "published_at_tw": "2026-11-16 19:48",
+      "url": "https://hk.investing.com/news/stock-market-news/article-1760346",
+      "summary": "NVIDIA財報將提供AI算力需求、毛利與資本支出的最新驗證，Anthropic IPO則測試公開市場願意給予AI商業模式何種估值。兩項事件同週發生，可能帶動資金在AI供應鏈與其他產業間重新配置。"
+    }
+  ],
+  "global_markets": {
+    "道瓊工業指數": {
+      "display": "51,555.33",
+      "change_display": "-1.51%",
+      "source": {
+        "name": "Investing.com HK｜Dow Jones Industrial Average現金指數歷史資料",
+        "url": "https://hk.investing.com/indices/us-30-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "頁面標示紐約證交所，非CFD；11/16收盤。"
+      }
+    },
+    "標普500指數": {
+      "display": "7,413.60",
+      "change_display": "-1.96%",
+      "source": {
+        "name": "Investing.com HK｜S&P 500 CFD歷史資料",
+        "url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cfd_daily_close",
+        "note": "頁面明確標示即時差價合約；作為收盤參考，不冒充現金指數。"
+      }
+    },
+    "那斯達克綜合指數": {
+      "display": "24,496.90",
+      "change_display": "-2.54%",
+      "source": {
+        "name": "Investing.com HK｜NASDAQ Composite現金指數歷史資料",
+        "url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "頁面標示NASDAQ；11/16收盤。"
+      }
+    },
+    "羅素2000指數": {
+      "display": "2,740.58",
+      "change_display": "-1.79%",
+      "source": {
+        "name": "Investing.com｜US Small Cap 2000 CFD歷史資料",
+        "url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cfd_daily_close",
+        "note": "頁面標示Real-time derived；使用CFD日收盤參考，不冒充現金指數。"
+      }
+    },
+    "費城半導體指數": {
+      "display": "9,610.70",
+      "change_display": "-5.28%",
+      "source": {
+        "name": "Investing.com HK｜PHLX Semiconductor現金指數歷史資料",
+        "url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "頁面標示NASDAQ；11/16收盤。"
+      }
+    },
+    "香港恆生指數": {
+      "display": "23,753.84",
+      "change_display": "+0.49%",
+      "source": {
+        "name": "Investing.com HK｜Hang Seng Index歷史資料",
+        "url": "https://hk.investing.com/indices/hang-seng-40-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現貨指數收盤。"
+      }
+    },
+    "上海綜合指數": {
+      "display": "3,602.57",
+      "change_display": "-0.87%",
+      "source": {
+        "name": "Investing.com HK｜Shanghai Composite歷史資料",
+        "url": "https://hk.investing.com/indices/shanghai-composite-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤。"
+      }
+    },
+    "深證成指": {
+      "display": "10,690.78",
+      "change_display": "-2.53%",
+      "source": {
+        "name": "Investing.com HK｜SZSE Component歷史資料",
+        "url": "https://hk.investing.com/indices/szse-component-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤。"
+      }
+    },
+    "日經 225": {
+      "display": "59,662.02",
+      "change_display": "-2.42%",
+      "source": {
+        "name": "Investing.com HK｜Nikkei 225歷史資料",
+        "url": "https://hk.investing.com/indices/japan-ni225-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤；以當日對前一交易日現金收盤計算。"
+      }
+    },
+    "韓國 KOSPI": {
+      "display": "5,100.50",
+      "change_display": "-3.59%",
+      "source": {
+        "name": "Investing.com HK｜KOSPI歷史資料",
+        "url": "https://hk.investing.com/indices/kospi-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤。"
+      }
+    },
+    "台灣加權指數": {
+      "display": "41,040.08",
+      "change_display": "-6.03%",
+      "source": {
+        "name": "Investing.com HK｜Taiwan Weighted歷史資料",
+        "url": "https://hk.investing.com/indices/taiwan-weighted-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤。"
+      }
+    },
+    "新加坡海峽時報指數 STI": {
+      "display": "5,183.18",
+      "change_display": "-0.93%",
+      "source": {
+        "name": "Investing.com HK｜STI歷史資料",
+        "url": "https://hk.investing.com/indices/singapore-straits-time-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤。"
+      }
+    },
+    "澳洲 S&P/ASX 200": {
+      "display": "9,044.70",
+      "change_display": "-0.41%",
+      "source": {
+        "name": "Investing.com HK｜S&P/ASX 200歷史資料",
+        "url": "https://hk.investing.com/indices/aus-200-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "11/16現金指數收盤。"
+      }
+    },
+    "英國 FTSE 100": {
+      "display": "10,892.93",
+      "change_display": "+0.09%",
+      "source": {
+        "name": "BNY/StreetAccount｜FTSE 100現貨收盤",
+        "url": "https://www.bny.com/",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+      }
+    },
+    "德國 DAX": {
+      "display": "26,598.64",
+      "change_display": "-0.57%",
+      "source": {
+        "name": "BNY/StreetAccount｜DAX現貨收盤",
+        "url": "https://www.bny.com/",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+      }
+    },
+    "法國 CAC 40": {
+      "display": "8,352.00",
+      "change_display": "-0.20%",
+      "source": {
+        "name": "BNY/StreetAccount｜CAC 40現貨收盤",
+        "url": "https://www.bny.com/",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+      }
+    },
+    "STOXX Europe 600": {
+      "display": "662.31",
+      "change_display": "-0.28%",
+      "source": {
+        "name": "BNY/StreetAccount｜STOXX Europe 600現貨收盤",
+        "url": "https://www.bny.com/",
+        "data_date": "2026-11-16",
+        "quote_type": "cash_index_close",
+        "note": "Investing.com HK歷史頁未取得11/16最終列；採BNY/StreetAccount收盤摘要。"
+      }
+    }
+  },
+  "sectors": {
+    "XLE": "-2.06%",
+    "XLF": "-1.18%",
+    "XLK": "-3.24%",
+    "XLI": "-2.03%",
+    "XLC": "-1.84%",
+    "XLB": "-0.98%",
+    "XLU": "+0.18%",
+    "XLRE": "-0.43%",
+    "XLY": "-1.89%",
+    "XLP": "+0.19%",
+    "XLV": "-0.33%"
+  },
+  "bonds": {
+    "2年期美債殖利率": {
+      "display": "4.825%",
+      "change_display": "小幅回落",
+      "source": {
+        "name": "WSJ｜U.S. Treasury late-trading yield",
+        "url": "https://www.wsj.com/finance/-63dc4bbf",
+        "data_date": "2026-11-16",
+        "quote_type": "intraday_yield",
+        "note": "11/16 late trading；WSJ報導收在4.825%。"
+      }
+    },
+    "10年期美債殖利率": {
+      "display": "5.122%",
+      "change_display": "小幅回落",
+      "source": {
+        "name": "WSJ｜U.S. Treasury late-trading yield",
+        "url": "https://www.wsj.com/finance/-63dc4bbf",
+        "data_date": "2026-11-16",
+        "quote_type": "intraday_yield",
+        "note": "11/16 late trading；WSJ報導收在5.122%。"
+      }
+    },
+    "30年期美債殖利率": {
+      "display": "5.465%",
+      "change_display": "約-1bp",
+      "source": {
+        "name": "Kinzan｜US30Y intraday 16 Nov 18:41 UTC",
+        "url": "https://kinzan.io/markets/rates/us-30-year-yield/",
+        "data_date": "2026-11-16",
+        "quote_type": "intraday_yield",
+        "note": "截至11/16 18:41 UTC最新可讀點5.465%；非官方日終殖利率。"
+      }
+    }
+  },
+  "fx": {
+    "美元指數": {
+      "display": "103.57",
+      "change_display": "+0.16%",
+      "source": {
+        "name": "Investing.com HK｜US Dollar Index CFD歷史資料",
+        "url": "https://hk.investing.com/indices/usdollar-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "cfd_index_daily_close",
+        "note": "頁面明確標示即時差價合約；11/16歷史列103.57、+0.16%。"
+      }
+    },
+    "美元／新台幣": {
+      "display": "32.963",
+      "change_display": "+0.22%",
+      "source": {
+        "name": "Investing.com HK｜USD/TWD歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-twd-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "spot_daily_close",
+        "note": "11/16收盤32.963、+0.22%。"
+      }
+    },
+    "歐元／美元": {
+      "display": "1.0997",
+      "change_display": "-0.24%",
+      "source": {
+        "name": "Investing.com HK｜EUR/USD歷史資料",
+        "url": "https://hk.investing.com/currencies/eur-usd-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "spot_daily_close",
+        "note": "11/16收盤1.0997、-0.24%。"
+      }
+    },
+    "英鎊／美元": {
+      "display": "1.3183",
+      "change_display": "-0.25%",
+      "source": {
+        "name": "Investing.com HK｜GBP/USD歷史資料",
+        "url": "https://hk.investing.com/currencies/gbp-usd-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "spot_daily_close",
+        "note": "11/16收盤1.3183、-0.25%。"
+      }
+    },
+    "澳幣／美元": {
+      "display": "0.6737",
+      "change_display": "-0.62%",
+      "source": {
+        "name": "Investing.com HK｜AUD/USD歷史資料",
+        "url": "https://hk.investing.com/currencies/aud-usd-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "spot_daily_close",
+        "note": "11/16收盤0.6737、-0.62%。"
+      }
+    },
+    "美元／日圓": {
+      "display": "159.46",
+      "change_display": "-0.21%",
+      "source": {
+        "name": "Investing.com HK｜USD/JPY歷史資料",
+        "url": "https://hk.investing.com/currencies/usd-jpy-historical-data",
+        "data_date": "2026-11-16",
+        "quote_type": "spot_daily_close",
+        "note": "11/16收盤159.46、-0.21%。"
+      }
+    }
+  },
+  "energy": {
+    "WTI原油期貨": {
+      "display": "85.37",
+      "change_display": "-3.60%",
+      "source": {
+        "name": "Investing.com HK｜WTI Dec 2026 CLZ26",
+        "url": "https://hk.investing.com/commodities/crude-oil-historical-data?cid=1178037",
+        "data_date": "2026-11-16",
+        "quote_type": "NYMEX_specific_futures_contract",
+        "note": "11/16合約歷史列85.37、-3.60%；指定合約月份不變。"
+      },
+      "contract_label": "2026年12月 CLZ26"
+    },
+    "Brent原油期貨": {
+      "display": "92.16",
+      "change_display": "-3.53%",
+      "source": {
+        "name": "Investing.com HK｜Brent Jan 2027 LCOF7",
+        "url": "https://hk.investing.com/commodities/brent-oil-historical-data?cid=1184864",
+        "data_date": "2026-11-16",
+        "quote_type": "ICE_specific_futures_contract",
+        "note": "11/16合約歷史列92.16、-3.53%；指定合約月份不變。"
+      },
+      "contract_label": "2027年1月 LCOF7"
+    }
+  },
+  "metals": {
+    "黃金期貨 GC": {
+      "display": "3,855.40",
+      "change_display": "-0.80%",
+      "source": {
+        "name": "Investing.com HK｜Gold Dec 2026 GCZ6",
+        "url": "https://hk.investing.com/commodities/gold-historical-data?cid=1178341",
+        "data_date": "2026-11-16",
+        "quote_type": "COMEX_specific_futures_contract",
+        "note": "11/16合約歷史列3,855.40、-0.80%。"
+      },
+      "contract_label": "2026年12月 GCZ6"
+    },
+    "白銀期貨 SI": {
+      "display": "46.925",
+      "change_display": "-4.47%",
+      "source": {
+        "name": "Investing.com HK｜Silver Dec 2026 SIZ6",
+        "url": "https://hk.investing.com/commodities/silver-historical-data?cid=1178344",
+        "data_date": "2026-11-16",
+        "quote_type": "COMEX_specific_futures_contract",
+        "note": "11/16合約歷史列46.925、-4.47%。"
+      },
+      "contract_label": "2026年12月 SIZ6"
+    }
+  },
+  "risk": {
+    "vix": {
+      "display": "22.91",
+      "change_display": "+18.70%",
+      "source": {
+        "name": "Investing.com HK｜CBOE Volatility Index (VIX)",
+        "url": "https://hk.investing.com/indices/volatility-s-p-500-historical-data?cid=1096487",
+        "data_date": "2026-11-16",
+        "quote_type": "index_daily_close",
+        "note": "11/16收盤22.91、+18.70%。"
+      },
+      "band": "偏高"
+    },
+    "move": {
+      "display": "98.79（11/13）",
+      "change_display": "+0.37%（11/13）",
+      "source": {
+        "name": "Investing.com HK｜ICE BofA MOVE Index",
+        "url": "https://hk.investing.com/indices/ice-bofaml-move-historical-data",
+        "data_date": "2026-11-13",
+        "quote_type": "index_daily_close",
+        "note": "截至本次截稿，頁面最新觀測仍為11/13；未以舊值冒充11/16。"
+      },
+      "band": "偏高"
+    },
+    "fear_greed": {
+      "display": "33",
+      "change_display": "Fear",
+      "source": {
+        "name": "World Monitor轉載CNN Fear & Greed",
+        "url": "https://www.worldmonitor.app/tools/fear-and-greed-index/",
+        "data_date": "2026-11-16",
+        "quote_type": "sentiment_index",
+        "note": "CNN指數33（Fear），觀測時間2026-11-16 18:02 UTC；作為當日最新可讀快照。"
+      },
+      "band": "Fear"
+    }
+  },
+  "fedwatch": {
+    "updated_at_tw": "2026/11/17 04:55",
+    "read_at_taipei": "2026/11/17 05:20",
+    "target_meeting": "2026-12-09",
+    "current_target_range": "3.75-4.00%",
+    "probabilities": [
+      {
+        "outcome": "hike",
+        "rate_range": "4.00-4.25%",
+        "probability": 97.5,
+        "change_1d": 6.2,
+        "change_1w": 21.9
+      },
+      {
+        "outcome": "hike",
+        "rate_range": "4.25-4.50%",
+        "probability": 2.5,
+        "change_1d": -6.2,
+        "change_1w": -21.9
+      },
+      {
+        "outcome": "hold",
+        "rate_range": "3.75-4.00%",
+        "probability": 0,
+        "change_1d": 0,
+        "change_1w": 0
+      }
+    ],
+    "source_name": "Investing.com Fed Rate Monitor（CME 30-Day Fed Funds futures-based）",
+    "source_url": "https://www.investing.com/central-banks/fed-rate-monitor",
+    "note": "最新可讀快照為11/16 15:55 ET（台灣時間11/17 04:55）；12/9會議升息25bp機率97.5%、升息50bp機率2.5%、維持利率0%。這是期貨隱含定價，不代表Fed已決策；CME官方頁作交叉查閱。"
+  },
+  "observation": "本日盤面主軸是AI與高估值科技股賣壓擴大，並與美元走強、Fed升息定價及中國需求偏弱疊加。費半-5.28%、VIX+18.70%，顯示市場正在降低風險曝險；這不是AI需求已被證明反轉，而是投資人要求更高的營收、利潤與現金流可見度。",
+  "calendar": {
+    "week_id": "2026-W47",
+    "events": []
+  },
+  "earnings": {
+    "week_id": "2026-W47",
+    "events": []
+  },
+  "summary_title": "AI風險趨避擴散、費半重挫，升息定價逼近全面反映",
+  "market_comments": {
+    "global_markets": [
+      "📌 亞洲｜台股下跌6.03%、韓股跌3.59%、日股跌2.42%，AI與半導體權重市場承受最大賣壓；中國上證跌0.87%、深證跌2.53%，內需數據疲弱加重壓力。港股逆勢小漲0.49%，但不足以抵銷區域風險趨避。",
+      "📌 歐洲｜FTSE 100小幅上漲0.09%，DAX跌0.57%、CAC 40跌0.20%、STOXX Europe 600跌0.28%；相較亞洲科技市場，歐洲整體跌幅較溫和，仍需觀察AI估值與利率風險是否擴散。",
+      "📌 美國｜道瓊跌1.51%、標普500參考報價跌1.96%、那斯達克跌2.54%，費半重挫5.28%；Russell 2000參考CFD跌1.79%。科技與半導體領跌，VIX升至22.91，風險收縮已由AI族群擴散至大盤。"
+    ],
+    "sectors": "11大產業ETF僅消費必需品（XLP +0.19%）與公用事業（XLU +0.18%）小幅收高；科技（XLK -3.24%）跌幅最大，能源、金融、工業、通訊、原物料、房地產、非必需消費與醫療保健均收低。資金短線偏向防禦，但尚未出現強勢避險板塊。",
+    "bonds": "美國2年期殖利率約4.825%、10年期約5.122%，10年期仍高於5.1%；30年期最新可讀盤中值約5.465%。高利率與12月升息定價持續提高成長股折現門檻，10Y-2Y利差約30bp，曲線仍為正斜率。",
+    "fx": "美元指數升至103.57，美元兌新台幣升至32.963；歐元、英鎊與澳幣兌美元走弱。美元兌日圓回落至159.46，但仍接近160，日方口頭或實際干預風險不可忽略。",
+    "energy": "WTI（CLZ26）與Brent（LCOF7）單日均跌逾3.5%，市場交易中東出口恢復與第四季供給過剩預期；荷姆茲海峽航運風險仍可能使油價出現突發反彈，不能只以供給過剩解讀所有波動。",
+    "metals": "黃金（GCZ6）跌0.80%至3,855.40美元，白銀（SIZ6）跌4.47%至46.925美元；美元走強與升息預期壓抑無息資產，白銀受工業需求與高波動特性影響，跌幅更大。"
+  },
+  "last_week_calendar": {
+    "week_id": "2026-W46",
+    "events": []
+  },
+  "last_week_earnings": {
+    "week_id": "2026-W46",
+    "events": []
+  },
+  "summary_points": [
+    {
+      "label": "盤面主軸",
+      "text": "美股三大指數同步下跌，費半重挫5.28%，亞洲科技權重市場跌勢更深。市場重新評估AI資本支出回報、企業治理與高估值能否承受更高折現率。"
+    },
+    {
+      "label": "風險溫度",
+      "text": "VIX升至22.91、單日上升18.70%；CNN Fear & Greed為33（Fear）。FedWatch顯示12/9升息25bp機率97.5%，市場定價已高度偏向升息，而非降息。MOVE最新可讀值仍是11/13的98.79，不冒充11/16數據。"
+    },
+    {
+      "label": "操作觀察",
+      "text": "短線以控制槓桿、降低單一AI權值集中度及保留流動性為先。NVIDIA財報應檢查訂單能否轉化為營收、毛利與自由現金流；未看到基本面驗證前，不把急跌本身當成買進理由。"
+    }
+  ],
+  "warning_note": "本次只唯讀讀取main W47與W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete；依既定規則保留其狀態，不擅自補造事件。44項市場指標均已逐項檢查，11檔產業ETF只呈現單日漲跌幅。MOVE最新可讀觀測為11/13；CNN Fear & Greed採11/16 18:02 UTC最新可讀快照。標普500與Russell 2000採CFD參考價並明確標示；其餘主要現金指數使用現金指數歷史頁或具名來源。",
+  "sector_sources": {
+    "XLE": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLE/history/",
+      "close": null,
+      "change_display": "-2.06%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLF": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLF/history/",
+      "close": null,
+      "change_display": "-1.18%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLK": {
+      "name": "Investing.com HK｜SPDR sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---technology-historical-data",
+      "close": null,
+      "change_display": "-3.24%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLI": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLI/history/",
+      "close": null,
+      "change_display": "-2.03%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLC": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLC/history/",
+      "close": null,
+      "change_display": "-1.84%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLB": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLB/history/",
+      "close": null,
+      "change_display": "-0.98%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLU": {
+      "name": "Investing.com HK｜SPDR sector ETF historical data",
+      "url": "https://hk.investing.com/etfs/spdr-select-sector---utilities-historical-data",
+      "close": null,
+      "change_display": "+0.18%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLRE": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLRE/history/",
+      "close": null,
+      "change_display": "-0.43%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLY": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLY/history/",
+      "close": null,
+      "change_display": "-1.89%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLP": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLP/history/",
+      "close": null,
+      "change_display": "+0.19%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    },
+    "XLV": {
+      "name": "Yahoo Finance｜SPDR Select Sector ETF historical data",
+      "url": "https://finance.yahoo.com/quote/XLV/history/",
+      "close": null,
+      "change_display": "-0.33%",
+      "data_date": "2026-11-16",
+      "quote_type": "ETF_daily_close",
+      "note": "只呈現11/16單日漲跌幅，不顯示收盤價；Yahoo作為Investing.com HK未能穩定讀取之備援來源。"
+    }
+  },
+  "key_levels": {
+    "baseline_date": "2026-11-16",
+    "source": "同日OHLC；現金指數與CFD分開標示，採傳統樞紐點公式計算S2/S1/P/R1/R2。",
+    "items": []
+  },
+  "core_observation": {
+    "heading": "本週三大觀察焦點",
+    "text": "① 11/17 21:30 美國零售銷售，22:15 工業生產；另留意Jefferson與Warsh等Fed官員發言，觀察需求與政策訊號。② 11/18 05:20 NVIDIA財報，檢驗AI訂單、毛利、資本支出與現金流是否匹配。③ 11/19 03:00 FOMC會議紀要，確認聯準會對通膨與進一步升息的內部分歧。"
+  },
+  "qa_run_revision": "2026-11-17-SIM1.3-manual-0525-v1",
+  "market_sentiment": "市場情緒明顯轉向防禦。VIX快速升高、CNN Fear & Greed落在恐懼區，且12月FedWatch已高度定價升息25bp；短線不宜把科技股急跌直接視為買點，應等待財報與利率訊號確認。",
+  "quality_note": "行情基準日2026-11-16；44/44市場欄位已填入可追溯資料，11/11產業ETF只呈現百分比。道瓊、NASDAQ Composite、SOX及亞洲主要指數採現金指數；S&P 500與Russell 2000因可讀歷史頁明確標示CFD，故保留CFD標記，不冒充現金指數。WTI CLZ26、Brent LCOF7、Gold GCZ6、Silver SIZ6均維持指定合約月份。MOVE最新可讀值為11/13 98.79；CNN Fear & Greed 33為11/16最新可讀快照。FedWatch於11/17 04:55台灣時間讀取，12/9升息25bp機率97.5%、升息50bp機率2.5%。",
+  "report_cutoff_taipei": "2026-11-17 05:25（台灣時間）",
+  "news_window_taipei": "2026-11-16 12:00–2026-11-17 05:25（台灣時間）",
+  "key_levels_overrides": {
+    "dow": {
+      "trading_date": "2026-11-16",
+      "open": 52267.06,
+      "high": 52313.94,
+      "low": 51511.98,
+      "close": 51555.33,
+      "source_name": "Investing.com HK｜Dow Jones現金指數OHLC",
+      "source_url": "https://hk.investing.com/indices/us-30-historical-data",
+      "note": "頁面標示NYSE現金指數，非CFD。"
+    },
+    "sp500": {
+      "trading_date": "2026-11-16",
+      "open": 7513.86,
+      "high": 7517.11,
+      "low": 7400.33,
+      "close": 7413.6,
+      "source_name": "Investing.com HK｜S&P 500 CFD OHLC",
+      "source_url": "https://hk.investing.com/indices/us-spx-500-historical-data",
+      "note": "頁面明確標示CFD；僅作同一報價來源的技術參考，不冒充現金指數。"
+    },
+    "nasdaq": {
+      "trading_date": "2026-11-16",
+      "open": 24853.35,
+      "high": 24877.71,
+      "low": 24460.9,
+      "close": 24496.9,
+      "source_name": "Investing.com HK｜NASDAQ Composite現金指數OHLC",
+      "source_url": "https://hk.investing.com/indices/nasdaq-composite-historical-data",
+      "note": "頁面標示NASDAQ現金指數。"
+    },
+    "russell2000": {
+      "trading_date": "2026-11-16",
+      "open": 2778.8,
+      "high": 2780.59,
+      "low": 2734.7,
+      "close": 2740.58,
+      "source_name": "Investing.com｜US Small Cap 2000 CFD OHLC",
+      "source_url": "https://www.investing.com/indices/smallcap-2000-historical-data",
+      "note": "頁面標示Real-time derived CFD；只作CFD自身技術參考。"
+    },
+    "sox": {
+      "trading_date": "2026-11-16",
+      "open": 9685,
+      "high": 9818.8,
+      "low": 9587.1,
+      "close": 9610.7,
+      "source_name": "Investing.com HK｜PHLX Semiconductor現金指數OHLC",
+      "source_url": "https://hk.investing.com/indices/phlx-semiconductor-historical-data",
+      "note": "頁面標示NASDAQ現金指數。"
+    }
+  },
+  "review_notice": "11/17審核版｜行情基準日2026-11-16；資料截稿2026-11-17 05:25台灣時間。W47行事曆25筆經濟、23筆財報，coverage為incomplete。S&P 500與Russell 2000使用CFD參考報價並標示；MOVE最新可讀資料為11/13。僅供審核，不上架正式首頁。",
+  "pending_items": [
+    "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
+    "MOVE最新可讀歷史觀測仍為2026-11-13，報告明確標示日期，不以舊值冒充11/16。",
+    "S&P 500與Russell 2000可讀頁面明確標示CFD，報告以CFD參考值呈現；技術位階亦以同一CFD OHLC計算，不與現金指數混用。",
+    "CNN Fear & Greed採用11/16 18:02 UTC最新可讀快照33（Fear），並標示來源。",
+    "FedWatch為期貨隱含機率，非聯準會決策；最新讀取時間為11/17 04:55台灣時間。"
+  ],
+  "review_ready_blockers": []
+}
