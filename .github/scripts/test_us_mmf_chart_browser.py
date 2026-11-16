@@ -90,6 +90,8 @@ def validate(page, label):
         check(label + "_two_finger_pinch_zoom", pinch_k > 1.05, pinch_k)
         page.locator("#total-controls button[data-years='all']").click()
         page.wait_for_timeout(450)
+        page.locator("#holding-chart").scroll_into_view_if_needed()
+        page.wait_for_timeout(250)
         hbox = page.locator("#holding-chart").bounding_box()
         hcx = hbox["x"] + hbox["width"] * 0.55
         hcy = hbox["y"] + hbox["height"] * 0.48
