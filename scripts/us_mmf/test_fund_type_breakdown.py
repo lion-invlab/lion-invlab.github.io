@@ -7,7 +7,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-DEFAULT = ROOT / "data/us-mmf/fed_mmf_aum_by_fund_type_2010q4_2026q2.csv"
+DEFAULT = ROOT / "data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv"
 CATEGORIES = (
     "government_millions_usd",
     "prime_millions_usd",
