@@ -97,3 +97,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# 2026-11-17 full-report rebuild trigger; test logic above remains unchanged.
