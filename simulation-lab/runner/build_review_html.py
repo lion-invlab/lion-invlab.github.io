@@ -405,7 +405,7 @@ def main():
         record = data.get("risk", {}).get(key, {})
         source = record.get("source") if isinstance(record, dict) else None
         item_date = (source or {}).get("data_date") or record.get("as_of_date") or record.get("as_of")
-        if not isinstance(source, dict) or not source.get("name") or not source.get("url") or not item_date:
+        if not isinstance(source, dict) or not source.get("name") or (not source.get("url") and source.get("quote_type") != "user_supplied_market_quote_screenshot") or not item_date:
             record["display"] = "待核實"
             record["change_display"] = "待核實"
             record["qa_status"] = "missing_item_source_or_date"
@@ -1188,7 +1188,7 @@ html body #industry-bonds-fx-commodities #tac-assets-panel-3 .energy-card .row>.
         rows=[r for r in sent.select(".sbox") if (r.select_one(".label-en") and r.select_one(".label-en").get_text(" ",strip=True).strip()==label)]
         if not rows: raise ValueError(f"{label} row not found")
         source = record.get("source") or {}
-        is_verified = bool(source.get("name") and source.get("url") and source.get("data_date"))
+        is_verified = bool(source.get("name") and source.get("data_date") and (source.get("url") or source.get("quote_type") == "user_supplied_market_quote_screenshot"))
         if key == "move" and str(record.get("as_of_date", "")).startswith("未取得"):
             is_verified = False
         if not is_verified:
