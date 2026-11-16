@@ -185,7 +185,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
   function setupHoldings(){
    const svg=d3.select("#holding-chart"),mobile=window.matchMedia("(max-width:800px)").matches,width=mobile?700:1100,height=mobile?430:390,margin={top:18,right:28,bottom:42,left:92},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;svg.attr("viewBox","0 0 "+width+" "+height);
    const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")");
-   const x0=d3.scaleTime().domain(d3.extent(holdingSeries.Total.data,d=>d.date)).range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().range([innerH,0]);
+   const x0=d3.scaleTime().domain(d3.extent(holdingSeries.Total.data,d=>d.date)).range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().domain([0,1]).range([innerH,0]);
    root.append("defs").append("clipPath").attr("id","clip-holding").append("rect").attr("width",innerW).attr("height",innerH);
    const grid=root.append("g").attr("class","grid"),xAxis=root.append("g").attr("class","axis").attr("transform","translate(0,"+innerH+")"),yAxis=root.append("g").attr("class","axis"),plot=root.append("g").attr("clip-path","url(#clip-holding)");
    const tip=d3.select("#holding-tip"),wrap=$("holding-wrap"),legend=$("holding-legend"),palette=["#1c7184","#b8202f","#c7a66a","#54708f","#7d6a91","#8b9c68"];
