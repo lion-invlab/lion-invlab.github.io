@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests that the SHA-pinned W47 consensus projection reaches upcoming cards only."""
+"""Tests that SHA-pinned pre-release consensus reaches upcoming and released W47 cards."""
 # [build-tac-report] simulation-only visual integration verification; assert estimate values and methodology disclosures remain neutral.
 from build_review_html import apply_consensus_projection
 
@@ -9,8 +9,8 @@ def main():
         "eps_estimate":2.47,"eps_estimate_display":"USD 2.47","eps_currency":"USD",
         "eps_analyst_count":43,"eps_evidence_label":"TAC 公告前觀測共識",
         "eps_basis_display":"Yahoo 平台 EPS 預期（GAAP／Normalized 細節未完整揭露）",
-        "revenue_estimate":108731903900,"revenue_estimate_display":"USD 108.73B",
-        "revenue_currency":"USD","revenue_unit":"USD","revenue_analyst_count":45,
+        "revenue_estimate":108.7319039,"revenue_estimate_display":"USD 108.73B",
+        "revenue_currency":"USD","revenue_unit":"B","revenue_analyst_count":45,
         "revenue_evidence_label":"TAC 公告前觀測共識",
         "revenue_basis_display":"Yahoo 平台 Revenue 預期（營收細項定義未完整揭露）",
         "source_url":"https://finance.yahoo.com/quote/NVDA/analysis/","source_name":"Yahoo Finance",
@@ -22,7 +22,7 @@ def main():
     apply_consensus_projection(data,projection,calendar)
     got=data["earnings"]["events"][0]
     assert got["eps_estimate"]==2.47 and got["eps_analyst_count"]==43
-    assert got["revenue_estimate"]==108731903900 and got["revenue_analyst_count"]==45
+    assert got["revenue_estimate"]==108.7319039 and got["revenue_estimate_unit"]=="B" and got["revenue_analyst_count"]==45
     assert got["eps_estimate_basis_code"] is None and got["revenue_estimate_basis_code"] is None  # disclosures remain optional
     assert got["eps_evidence_label"] == "TAC 公告前觀測共識"
     assert "Yahoo 平台 EPS 預期" in got["eps_basis_display"]

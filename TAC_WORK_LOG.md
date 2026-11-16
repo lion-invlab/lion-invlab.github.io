@@ -1157,3 +1157,12 @@
 - 修正 projection：只要求 capture 完整覆蓋原始 21 筆 source-calendar，逐筆仍需對上 main W47 event id／date／period；允許把公告前 snapshot 的 estimate 欄補入已公布卡，但絕不覆寫 actual、financial_judgment 或既有 estimate。Upcoming 事件仍不得產生 Beat／Miss。
 - basis 未揭露時，卡片顯示「預期口徑未揭露，暫不判定」；仍展示可追溯的公告前參考值，不偽造方向性判讀。所有修改只在 simulation branch，main W47 JSON 唯讀。
 - 新增 released-card immutability／projection coverage tests；以 [build-tac-report] 重新執行完整 11/17 產製。
+
+
+## 2026-11-17｜W47 數據缺口收斂與財報比較修正
+- 前一版 simulation preview `preview/2026-11-17-simulation.html` 已存在，HTML blob SHA `e11bb236261dae0dd9906a34a2d4e58cac954cc7`；QA sidecar `488278127884f15309bdace634557b667de3bd1e` 為 QA_PASSED，但 review_ready=false，因 S&P/Russell cash close 與財報比較狀態未完成。
+- 依 Yahoo Finance 2026-11-16 現金指數歷史列，S&P 500 (^SPX) 收 7,416.59（-1.92%），Russell 2000 (^RUT) 收 2,741.68（-1.75%）；補入 simulation fixture 主表與 OHLC override。S&P collector symbol 改為 ^SPX，避免 ^GSPC／^SPX feed 混淆。Investing.com HK 同名頁仍標示 CFD，不作現金指數替代。
+- MOVE 已採使用者提供之 11/16 16:17 ET 截圖 101.28（+2.52%），前收98.79；不再沿用11/13舊值。
+- Yahoo W47公告前快照：4/5已公布事件（BEKE、BIDU、ARMK、TSN）有估值；HTHT無快照。修正 projection 將 Yahoo Revenue 原始貨幣金額轉為十億單位（B），保留 snapshot 原始值／幣別供追溯；builder 在 projection 後重新計算已公布事件 EPS／Revenue，避免估值已套入但狀態仍停留 pending。
+- 將 HTHT 缺少預期值列為透明 pending item；其餘4檔使用公告前Yahoo平均預期作數值比較，5檔股價反應已擷取。review_ready_blockers 清空前仍須等待本輪 QA 與實際 URL 驗證，不能先宣稱 ready。
+- 本次所有變更限 simulation branch；main W47/W46 JSON、main/index.html、正式母版、WR、Manifest均唯讀。待本輪 Actions 全部 Gate 通過且 review_ready=true 後，才依授權僅寫入 main/preview/2026-11-17-simulation.html。

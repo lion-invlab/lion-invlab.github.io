@@ -336,6 +336,10 @@ def main():
     if args.earnings_consensus_projection:
         consensus_projection=json.loads(Path(args.earnings_consensus_projection).read_text(encoding="utf-8"))
         apply_consensus_projection(data, consensus_projection, calendar_source)
+        # Apply pre-release estimates first, then recalculate already-released cards.
+        recalculate_released_earnings(
+            data, data.get("report_cutoff_taipei") or data["report_date"]
+        )
     elif data.get("report_date") == "2026-11-16":
         data["earnings_consensus_projection_status"] = {
             "status": "not_available",

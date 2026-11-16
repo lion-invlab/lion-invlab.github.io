@@ -50,10 +50,10 @@ def main():
         projected["eps_estimate_currency"]=item["eps"]["currency"]
         projected["eps_estimate_period"]=event["reporting_period"]
         projected["eps_estimate_basis_code"]=None
-        projected["revenue_estimate"]=item["revenue"]["estimate"]
+        projected["revenue_estimate"]=item["revenue"]["estimate"]/1_000_000_000
         projected["revenue_estimate_currency"]=item["revenue"]["currency"]
         projected["revenue_estimate_period"]=event["reporting_period"]
-        projected["revenue_estimate_unit"]=item["revenue"]["unit"]
+        projected["revenue_estimate_unit"]="B"
         projected["revenue_estimate_basis_code"]=None
         snapshots={}
         for metric,key in (("EPS","eps"),("REVENUE","revenue")):
@@ -71,7 +71,7 @@ def main():
             skey="eps_consensus_snapshots" if metric=="EPS" else "revenue_consensus_snapshots"
             projected[skey]=[snap]
             source_key="consensus_source" if metric=="EPS" else "revenue_consensus_source"
-            projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，僅作預估參考，不得方向性判讀。"}
+            projected[source_key]={"snapshot_id":snap["snapshot_id"],"url":item["source_url"],"observed_at":item["observed_at"],"notes":"TAC公告前觀測；Yahoo Finance未揭露EPS會計口徑／Revenue精確指標定義，依SIM-1.3仍以同期間實際值與平均預期值作數值比較，來源口徑保留註記。"}
         method_row=methodology_by_ticker.get(item["ticker"],{})
         method_raw=method_row.get("raw_response") if isinstance(method_row,dict) else None
         method_digest=hashlib.sha256(json.dumps(method_raw,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest() if isinstance(method_raw,dict) else None
@@ -115,7 +115,7 @@ def main():
             "eps_methodology_sha256":method_digest if eps_method_verified else None,
             "revenue_estimate":projected["revenue_estimate"],"revenue_currency":projected["revenue_estimate_currency"],
             "revenue_unit":projected["revenue_estimate_unit"],
-            "revenue_estimate_display":f'{projected["revenue_estimate_currency"]} {projected["revenue_estimate"]/1_000_000_000:.2f}B',
+            "revenue_estimate_display":f'{projected["revenue_estimate_currency"]} {projected["revenue_estimate"]:.2f}B',
             "revenue_analyst_count":item["revenue"]["analyst_count"],
             "source_url":item["source_url"],"source_name":"Yahoo Finance",
             "revenue_basis_display":revenue_basis_display,

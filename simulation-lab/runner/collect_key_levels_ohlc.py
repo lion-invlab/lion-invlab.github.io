@@ -22,7 +22,7 @@ from key_levels_builder import REQUIRED, EXPECTED, build
 
 SYMBOLS = {
     "dow": ("^DJI", "%5EDJI"),
-    "sp500": ("^GSPC", "%5EGSPC"),
+    "sp500": ("^SPX", "%5ESPX"),
     "nasdaq": ("^IXIC", "%5EIXIC"),
     "sox": ("^SOX", "%5ESOX"),
     "russell2000": ("^RUT", "%5ERUT"),
