@@ -141,3 +141,12 @@ Status: source validation and data architecture. No production chart, no homepag
 - Workflow: `.github/workflows/us-mmf-public-data-qa.yml` (push / manual dispatch on the research branch only).
 - Downloads official Z.1 CSV package, EFA monthly CSVs and OFR API data; creates SHA-256 manifest; validates both normalized quarterly datasets; commits only the normalized CSVs and manifest to `research/us-mmf-chart-20261116`; uploads raw snapshots as a 90-day workflow artifact.
 - Workflow permissions are limited to repository contents on this research branch. It does not target `main`, the homepage, or the interactive-chart index.
+
+## Interactive preview
+- Preview source: `research/us-mmf-chart/chart-preview.html`.
+- Main chart: 1974 Q1–latest quarterly total AUM.
+- Secondary chart: Government / Prime / Tax-exempt stacked AUM, 2010 Q4–latest.
+- Interactions: drag/pan, mouse-wheel zoom, touch pinch zoom, quick range buttons; y-axis auto-adjusts to visible data.
+- Data files loaded by the preview: `data/us-mmf/fed_mmmffaq027s_latest.csv`, `data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv`, and `data/us-mmf/latest_manifest.json`.
+- Browser QA: `.github/workflows/us-mmf-chart-visual-qa.yml`; tests desktop and 390px mobile layout, data load, KPI values, chart series rendering, zoom controls and horizontal overflow. Screenshots and report are retained as workflow artifacts.
+- This preview is research-only. It is not linked from the main interactive-chart index and has not been published to main.
