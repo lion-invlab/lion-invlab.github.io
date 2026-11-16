@@ -113,6 +113,7 @@ try {
         if (!(rowBox.width > 0 && label.width > 0 && price.width > 0 && change.width > 0)) invalid.push(`row ${index + 1}: zero-sized child`);
         if (label.right > price.left + 1 || price.right > change.left + 1) invalid.push(`row ${index + 1}: label/price/change overlap`);
         if (label.left < rowBox.left - 1 || change.right > rowBox.right + 1) invalid.push(`row ${index + 1}: child exceeds row bounds`);
+        // Energy quote alignment is measured by visual cell centers, not text top edges.
         const centerY = box => (box.top + box.bottom) / 2;
         if (Math.abs(centerY(label) - centerY(price)) > 3 || Math.abs(centerY(price) - centerY(change)) > 3) invalid.push(`row ${index + 1}: quote columns are vertically misaligned`);
         return { index, text:row.innerText, row:rowBox, label, price, change };
