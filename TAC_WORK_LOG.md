@@ -1166,3 +1166,19 @@
 - Yahoo W47公告前快照：4/5已公布事件（BEKE、BIDU、ARMK、TSN）有估值；HTHT無快照。修正 projection 將 Yahoo Revenue 原始貨幣金額轉為十億單位（B），保留 snapshot 原始值／幣別供追溯；builder 在 projection 後重新計算已公布事件 EPS／Revenue，避免估值已套入但狀態仍停留 pending。
 - 將 HTHT 缺少預期值列為透明 pending item；其餘4檔使用公告前Yahoo平均預期作數值比較，5檔股價反應已擷取。review_ready_blockers 清空前仍須等待本輪 QA 與實際 URL 驗證，不能先宣稱 ready。
 - 本次所有變更限 simulation branch；main W47/W46 JSON、main/index.html、正式母版、WR、Manifest均唯讀。待本輪 Actions 全部 Gate 通過且 review_ready=true 後，才依授權僅寫入 main/preview/2026-11-17-simulation.html。
+
+
+
+
+## 2026-11-17｜最終交付狀態（Pages 已部署；URL 開啟驗證未完成）
+
+- 模擬審核版：`preview/2026-11-17-simulation.html`，simulation blob SHA `c9546bded696b463851c4e83ba564cd3bf7f2a54`，SHA-256 `50ae90d2ab7d4c2e63329eb4b8619f45c1d51534de676e722f25eef155d2655b`。
+- QA：`QA_PASSED`；Playwright navigation/details/source-link smoke PASS（10個導航目標、5則焦點新聞、10則頭條、109個Investing連結、6個鉅亨連結、無page errors）；視覺回歸無failures，視窗 1440／768／412／390／360px；母版比對、日期、W47事件數、44項行情、新聞結構及SHA封存均通過。
+- 財報：BEKE EPS／Revenue優於預期；BIDU EPS低於、Revenue符合；ARMK EPS低於、Revenue符合；TSN EPS低於、Revenue優於；HTHT實際值已列，公告前預期快照未取得，顯示「預期資料尚未取得」且不作方向判斷。五檔股價反應已擷取。
+- 行情：基準日2026-11-16，44項均有可用數值；MOVE採使用者提供截圖101.28（+2.52%）；S&P 500 ^SPX 7,416.59（-1.92%）、Russell 2000 ^RUT 2,741.68（-1.75%）採Yahoo Finance現金指數歷史資料；五項關鍵價位均有同日OHLC與來源。
+- 行事曆：main W47 blob SHA `1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5`，W46 SHA `edf33bdd3b9573b08a9381f617ac3ad4357a1c2d`；W47 25經濟事件、23財報事件、coverage incomplete。兩份JSON全程唯讀。
+- WR：SIM-1.3，SHA `6f35be118830948880d2dbed2e73eff6eec09413`；Manifest SHA `dc6090c895e2abc17bb16225f4a581ddee5821b1`；QA contract SHA `824c327fb66fc8c5d4107b69abd9316c00bfe903`；週二至週五模擬母版 SHA `f010ff118d7a5a2c1f6e834aa24f832766383c2b`。
+- 依使用者授權，僅將同一HTML寫入main `preview/2026-11-17-simulation.html`；main blob SHA同為 `c9546bded696b463851c4e83ba564cd3bf7f2a54`；commit `64a9c0dcb14602efccf9edc9635610c301df664f`，該commit僅新增此檔。GitHub Pages部署run `43968681241` 成功。main `index.html` SHA `0f5940c2e50e7ec7be8dd6e8535fd42d08190fcc` 未變；main W47 SHA未變；未發布首頁。
+- **最終交付 Gate：`review_ready=false`。** 雖然HTML、內容及瀏覽器／視覺QA通過，Pages部署亦成功，但目前工具環境無法直接開啟 `https://lion-invlab.github.io/preview/2026-11-17-simulation.html`（外部網域存取不可用），依規則不把部署成功冒充為URL已驗證。QA sidecar已同步標記 `review_ready=false`，只待實際URL開啟確認。
+- 剩餘資料註記：W47 coverage incomplete；CNN Fear & Greed採FGScore備援；FedWatch採Investing.com Fed Rate Monitor備援；11檔ETF採Investing.com Global歷史頁備援；部分新聞原文頁無法直接開啟；HTHT無公告前Yahoo預期快照。這些均已在審核版pending_items透明揭露。
+- 通知：啟動通知與階段①–⑤均為 `NOT_AVAILABLE`；notify_parent回傳404 Action not found，每次依規則重試一次，沒有任何一次回傳 `status=notified`。階段①–④時間沿用執行紀錄05:29／05:32／05:33／05:50；階段⑤工具未回傳可用時間戳。不得視為已送達。
