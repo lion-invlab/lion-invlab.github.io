@@ -82,6 +82,54 @@ try {
     await load(reportPage, reportPath);
     await masterPage.screenshot({ path: path.join(output, `${v.name}-master.png`), fullPage: true });
     await reportPage.screenshot({ path: path.join(output, `${v.name}-report.png`), fullPage: true });
+
+    // Explicitly exercise the Energy tab at every viewport; the default screenshot
+    // only captures the initially selected S&P 11 tab.
+    const energyTab = reportPage.locator('label[for="tac-assets-3"]');
+    if (await energyTab.count() !== 1) throw new Error(`${v.name}: Energy tab label missing or duplicated`);
+    await energyTab.click();
+    await reportPage.waitForFunction(() => {
+      const radio = document.querySelector("#tac-assets-3");
+      const panel = document.querySelector("#tac-assets-panel-3");
+      return !!radio?.checked && !!panel && getComputedStyle(panel).display !== "none";
+    });
+    const energyAudit = await reportPage.evaluate(() => {
+      const panel = document.querySelector("#tac-assets-panel-3");
+      const card = panel?.querySelector(".energy-card");
+      const rows = [...(card?.querySelectorAll(":scope .row") || [])];
+      const invalid = [];
+      const measured = rows.map((row, index) => {
+        const children = [...row.children];
+        if (children.length !== 3 || !children[0].matches("b") ||
+            !children[1].classList.contains("r") || !children[2].classList.contains("r")) {
+          invalid.push(`row ${index + 1}: expected label, price and change as three direct children`);
+          return { index, child_count: children.length };
+        }
+        const box = node => {
+          const r = node.getBoundingClientRect();
+          return { left:r.left, right:r.right, top:r.top, bottom:r.bottom, width:r.width, height:r.height };
+        };
+        const rowBox = box(row), label = box(children[0]), price = box(children[1]), change = box(children[2]);
+        if (!(rowBox.width > 0 && label.width > 0 && price.width > 0 && change.width > 0)) invalid.push(`row ${index + 1}: zero-sized child`);
+        if (label.right > price.left + 1 || price.right > change.left + 1) invalid.push(`row ${index + 1}: label/price/change overlap`);
+        if (label.left < rowBox.left - 1 || change.right > rowBox.right + 1) invalid.push(`row ${index + 1}: child exceeds row bounds`);
+        if (Math.abs(label.top - price.top) > 12 || Math.abs(price.top - change.top) > 12) invalid.push(`row ${index + 1}: quote columns are vertically misaligned`);
+        return { index, text:row.innerText, row:rowBox, label, price, change };
+      });
+      const gridDisplay = rows.map(row => getComputedStyle(row).display);
+      if (!card) invalid.push("energy card missing");
+      if (rows.length !== 2) invalid.push(`expected exactly WTI and Brent rows, found ${rows.length}`);
+      if (gridDisplay.some(value => value !== "grid")) invalid.push(`energy quote rows are not CSS grid: ${gridDisplay.join(",")}`);
+      const text = card?.innerText || "";
+      if (!text.includes("WTI 原油期貨") || !text.includes("Brent 原油期貨")) invalid.push("WTI/Brent labels missing");
+      return { visible:!!card && card.getBoundingClientRect().width > 0, rows:measured, grid_display:gridDisplay, invalid, text };
+    });
+    snapshots[v.name] = snapshots[v.name] || {};
+    snapshots[v.name].energy_tab = energyAudit;
+    if (!energyAudit.visible || energyAudit.rows.length !== 2 || energyAudit.invalid.length) {
+      failures.push(`${v.name}: WTI/Brent energy tab QA FAIL: ${energyAudit.invalid.join("; ") || "energy panel not visible"}`);
+    }
+    await reportPage.locator("#tac-assets-panel-3").screenshot({ path:path.join(output, `${v.name}-energy-report.png`) });
     const a = await inspect(masterPage), b = await inspect(reportPage);
     snapshots[v.name] = { master: a, report: b };
     const summaryHeadingAudit = await reportPage.evaluate(() => {
