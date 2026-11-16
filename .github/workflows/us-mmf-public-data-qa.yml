@@ -57,5 +57,6 @@ jobs:
             data/us-mmf/raw/*
             data/us-mmf/latest_manifest.json
             data/us-mmf/fed_mmmffaq027s_latest.csv
+            data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv
           if-no-files-found: error
           retention-days: 90
