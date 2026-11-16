@@ -78,6 +78,7 @@ for dimension, members in groups.items():
                 "dimension": dimension,
                 "category": label,
                 "mnemonic": key,
+                "repo_total_usd": f"{total:.2f}",
                 "value_usd": f"{value:.2f}",
                 "value_usd_trillion": f"{value / 1e12:.9f}",
                 "share_of_repo_total": f"{value / total:.9f}" if total else "0",
