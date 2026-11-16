@@ -111,12 +111,36 @@ def main() -> None:
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-    fred_raw = fetch(FRED_URL)
-    fred_clean, fred_info = build_fred_clean_csv(fred_raw)
     fred_raw_path = RAW_DIR / f"fred_{FRED_SERIES}_{stamp}.csv"
     fred_clean_path = DATA_DIR / "fed_mmmffaq027s_latest.csv"
-    write_bytes(fred_raw_path, fred_raw)
-    write_bytes(fred_clean_path, fred_clean)
+    try:
+        fred_raw = fetch(FRED_URL)
+        fred_clean, fred_info = build_fred_clean_csv(fred_raw)
+        write_bytes(fred_raw_path, fred_raw)
+        write_bytes(fred_clean_path, fred_clean)
+        fred_info.update({
+            "status": "downloaded",
+            "raw_snapshot": str(fred_raw_path.relative_to(ROOT)),
+            "processed_file": str(fred_clean_path.relative_to(ROOT)),
+            "raw_sha256": sha256(fred_raw),
+            "processed_sha256": sha256(fred_clean),
+        })
+    except Exception as exc:
+        # FRED's HTML table was independently archived in the research branch;
+        # retain it as a fallback while the live CSV endpoint is inaccessible.
+        fallback = DATA_DIR / "fed_mmmffaq027s_1974q1_2026q2.csv"
+        if not fallback.exists():
+            raise
+        fallback_bytes = fallback.read_bytes()
+        write_bytes(fred_clean_path, fallback_bytes)
+        fred_info = {
+            "status": "live_download_failed_using_verified_branch_snapshot",
+            "error": repr(exc),
+            "series_id": FRED_SERIES,
+            "processed_file": str(fred_clean_path.relative_to(ROOT)),
+            "processed_sha256": sha256(fallback_bytes),
+            "note": "Fallback is the existing manually transcribed 1974Q1-2026Q2 FRED table snapshot; not a new live pull.",
+        }
 
     fed_efa_info = {}
     for category, url in FED_EFA_URLS.items():
@@ -165,10 +189,6 @@ def main() -> None:
         "fred": {
             **fred_info,
             "source_url": FRED_URL,
-            "raw_snapshot": str(fred_raw_path.relative_to(ROOT)),
-            "processed_file": str(fred_clean_path.relative_to(ROOT)),
-            "raw_sha256": sha256(fred_raw),
-            "processed_sha256": sha256(fred_clean),
         },
         "fed_efa_monthly_holdings_by_type": {
             "source_page": "https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm",
