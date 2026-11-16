@@ -44,26 +44,8 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
 <section class="card"><div class="card-head"><div><h2>美國 MMF 總資產規模｜1974–至今</h2><div class="desc">以聯準會 Z.1 Financial Accounts 的 Total Financial Assets 為主序列，單位為美元兆。可拖曳平移、滾輪縮放；手機可用雙指縮放。</div></div>
 <div class="controls" id="total-controls"><button data-years="all" class="active">全期間</button><button data-years="20">近 20 年</button><button data-years="10">近 10 年</button><button data-years="5">近 5 年</button></div></div>
 <div class="chart-wrap" id="total-wrap"><div class="tooltip" id="total-tip"></div><svg id="total-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金總資產長期走勢"></svg></div>
-<div class="chart-note">資料：Federal Reserve Z.1，S123.s，Line 1｜季末、未季節調整。歷史序列從 1974 Q1 首次出現正值開始；更早的零值不視為實際市場規模。</div></section>
-<section class="card"><div class="card-head"><div><h2>基金類型結構｜2010 Q4–至今</h2><div class="desc">Government、Prime、Tax-exempt 三類資產堆疊。三類合計與同一張 Z.1 表格的總 AUM 對帳，避免混接不同來源的分類口徑。</div></div>
-<div class="controls" id="type-controls"><button data-years="all" class="active">全期間</button><button data-years="10">近 10 年</button><button data-years="5">近 5 年</button></div></div>
-<div class="chart-wrap" id="type-wrap"><div class="tooltip" id="type-tip"></div><svg id="type-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金類型資產結構"></svg></div>
-<div class="legend"><span class="legend-item"><i class="swatch" style="background:#1c7184"></i>Government 政府型</span><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>Prime 優質型</span><span class="legend-item"><i class="swatch" style="background:#c7a66a"></i>Tax-exempt 免稅型</span></div>
-<div class="chart-note">資料：Federal Reserve Z.1，S123.s，Memo Lines 15–17｜分類序列自 2010 Q4 起可完整對帳。類別數值與總資產的最大差異為 USD 1 million，屬四捨五入差異。</div></section>
-<section class="card"><div class="card-head"><div><h2>MMF 金融資產淨取得額｜1946–至今</h2><div class="desc">聯準會 Z.1 S123.t 的金融帳戶交易資料。正值代表 MMF 部門淨取得金融資產，負值代表淨處分；單位為美元兆、季調年率（SAAR）。</div></div></div>
-<div class="chart-wrap" id="flow-wrap"><div class="tooltip" id="flow-tip"></div><svg id="flow-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金金融資產淨取得額"></svg></div>
-<div class="chart-note" id="flow-note">資料：Federal Reserve Z.1，S123.t，Line 1｜金融資產淨取得額。缺漏季度保留為缺漏，不插值；SAAR 為季調年率，並非該季實際現金流量。</div></section>
-<section class="card"><div class="card-head"><div><h2>MMF 投資組合配置｜2010–至今</h2><div class="desc">聯準會 Enhanced Financial Accounts（EFA）月頻證券持倉資料。切換總體、Government、Prime 與 Tax-exempt，查看各類基金的投資工具配置與占比變化。</div></div><div class="controls" id="holding-type-controls"><button data-type="Total" class="active">全體 MMF</button><button data-type="Government">Government</button><button data-type="Prime">Prime</button><button data-type="Tax-exempt">Tax-exempt</button></div></div><div class="chart-wrap" id="holding-wrap"><div class="tooltip" id="holding-tip"></div><svg id="holding-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金投資組合配置"></svg></div><div class="legend" id="holding-legend"></div><div class="chart-note" id="holding-note">資料：Federal Reserve Enhanced Financial Accounts（EFA），SEC Form N-MFP security-level holdings。月頻、美元兆；每一基金類別內各工具占比合計 100%。EFA 總額與 Z.1 Financial Accounts 口徑略有差異，不可混為同一序列。</div><div style="border-top:1px solid var(--line);margin-top:18px;padding-top:16px">
-<div class="card-head"><div><h2 style="font-size:16px">Repo 部位深入分析｜交易對手・抵押品・期限</h2><div class="desc">同一筆 Repo 部位的三種獨立分類視角。切換檢視月度占 Repo 總額比重；不可跨維度加總。</div></div><div class="controls" id="repo-dimension-controls"><button data-dimension="counterparty" class="active">交易對手</button><button data-dimension="collateral">抵押品</button><button data-dimension="tenor">期限</button></div></div>
-<div class="chart-wrap" id="repo-wrap"><div class="tooltip" id="repo-tip"></div><svg id="repo-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="貨幣市場基金 Repo 部位結構"></svg></div><div class="legend" id="repo-legend"></div>
-<div class="chart-note">資料：OFR／SEC Form N-MFP 月末資料。各維度占比以當月 Repo 總額為分母。交易對手分類自 2016 年 4 月起完整，抵押品與期限自 2010 年 11 月起完整。</div>
-</div>
-</section>
-<div class="notice"><strong>重要判讀：</strong>資產規模（AUM）增加不等於同額資金淨流入。AUM 變化還可能受到投資組合估值、應計利息、資產負債調整及統計修訂影響。本圖先呈現資產存量；資金交易量將以獨立指標、明確標示其季調及年化口徑後再加入。</div>
-
-<section class="card tutorial-card" id="reading-guide">
- <div class="card-head"><div><h2>圖表判讀教室｜零金融背景入門</h2><div class="desc">不用先懂金融術語。先理解每張圖在回答什麼問題，再學會辨認訊號與限制。</div></div><span class="pill" style="background:#f8f1e5;color:#7c5c25;border-color:#e7d8b8">新手教學</span></div>
- <details class="guide-item"><summary>① 美國 MMF 總資產規模｜1974–至今</summary>
+<div class="chart-note">資料：Federal Reserve Z.1，S123.s，Line 1｜季末、未季節調整。歷史序列從 1974 Q1 首次出現正值開始；更早的零值不視為實際市場規模。</div>
+<div class="card-teaching"><div class="teaching-heading"><span>圖表判讀教室</span><span class="teaching-subtitle">零金融背景入門</span></div><details class="guide-item"><summary>① 美國 MMF 總資產規模｜1974–至今</summary>
   <div class="guide-body">
    <p><b>這張圖在看什麼？</b> 美國貨幣市場基金這個「短期資金停車場」裡，累積管理了多少資產。它看的是某個季度結束時的資產存量，不是當季有多少人新投入資金。</p>
    <p><b>先看哪裡？</b> 看紅線的長期方向，再找突然加速或停滯的區段。橫軸是季度時間，縱軸是美元兆（T）；例如 8T 就是 8 兆美元。</p>
@@ -71,32 +53,46 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
    <p><b>最重要的限制</b> AUM 是「水池裡有多少水」，不是「這一季流進多少水」。估值、利息、資產負債調整與統計修訂也會影響數字。要研究交易變化，請搭配第三張「金融資產淨取得額」。</p>
    <p class="guide-example"><b>讀圖練習：</b>把「近 5 年」和「全期間」切換，觀察近期變化放在 50 年脈絡下有多大；不要只看最近一段就判斷是歷史級異常。</p>
   </div>
- </details>
- <details class="guide-item"><summary>② 基金類型結構｜Government、Prime、Tax-exempt</summary>
+ </details></div>
+</section>
+<section class="card"><div class="card-head"><div><h2>基金類型結構｜2010 Q4–至今</h2><div class="desc">Government、Prime、Tax-exempt 三類資產堆疊。三類合計與同一張 Z.1 表格的總 AUM 對帳，避免混接不同來源的分類口徑。</div></div>
+<div class="controls" id="type-controls"><button data-years="all" class="active">全期間</button><button data-years="10">近 10 年</button><button data-years="5">近 5 年</button></div></div>
+<div class="chart-wrap" id="type-wrap"><div class="tooltip" id="type-tip"></div><svg id="type-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金類型資產結構"></svg></div>
+<div class="legend"><span class="legend-item"><i class="swatch" style="background:#1c7184"></i>Government 政府型</span><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>Prime 優質型</span><span class="legend-item"><i class="swatch" style="background:#c7a66a"></i>Tax-exempt 免稅型</span></div>
+<div class="chart-note">資料：Federal Reserve Z.1，S123.s，Memo Lines 15–17｜分類序列自 2010 Q4 起可完整對帳。類別數值與總資產的最大差異為 USD 1 million，屬四捨五入差異。</div>
+<div class="card-teaching"><div class="teaching-heading"><span>圖表判讀教室</span><span class="teaching-subtitle">零金融背景入門</span></div><details class="guide-item"><summary>② 基金類型結構｜Government、Prime、Tax-exempt</summary>
   <div class="guide-body">
    <p><b>這張圖在看什麼？</b> 同一個資金池由哪三種基金組成，以及每一類的規模如何改變。堆疊面積的總高度是三類合計；每一色帶的厚度代表該類基金的資產規模。</p>
    <p><b>三種類型白話解釋</b> Government 主要投資美國政府相關證券與回購；Prime 可投資較多銀行及企業短期信用工具；Tax-exempt 主要持有具有免稅特性的市政相關工具。名稱是基金投資類型，不是保本或風險保證。</p>
    <p><b>怎麼看變化？</b> 某色帶變厚，表示該類資產規模增加；變薄表示縮小。若總高度差不多、不同色帶此消彼長，代表資金池內部的組成正在改變。</p>
    <p><b>不能誤讀</b> 面積圖顯示的是金額，不是百分比。要比較占比，需用該類金額除以同一季度總 AUM。基金類型不同，投資工具與風險來源也不同，不能只按規模大小判斷安全程度。</p>
   </div>
- </details>
- <details class="guide-item"><summary>③ MMF 金融資產淨取得額｜1946–至今</summary>
+ </details></div>
+</section>
+<section class="card"><div class="card-head"><div><h2>MMF 金融資產淨取得額｜1946–至今</h2><div class="desc">聯準會 Z.1 S123.t 的金融帳戶交易資料。正值代表 MMF 部門淨取得金融資產，負值代表淨處分；單位為美元兆、季調年率（SAAR）。</div></div></div>
+<div class="chart-wrap" id="flow-wrap"><div class="tooltip" id="flow-tip"></div><svg id="flow-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金金融資產淨取得額"></svg></div>
+<div class="chart-note" id="flow-note">資料：Federal Reserve Z.1，S123.t，Line 1｜金融資產淨取得額。缺漏季度保留為缺漏，不插值；SAAR 為季調年率，並非該季實際現金流量。</div>
+<div class="card-teaching"><div class="teaching-heading"><span>圖表判讀教室</span><span class="teaching-subtitle">零金融背景入門</span></div><details class="guide-item"><summary>③ MMF 金融資產淨取得額｜1946–至今</summary>
   <div class="guide-body">
    <p><b>這張圖在看什麼？</b> 貨幣市場基金部門在金融帳戶中，某季淨取得了多少金融資產。它是交易統計，不是資產池總規模。</p>
    <p><b>正負值怎麼看？</b> 零線上方代表該部門淨取得金融資產；零線下方代表淨處分。離零線越遠，表示該季交易變化幅度越大。</p>
    <p><b>SAAR 是什麼？</b> 季調年率：把單季速度換算成「若全年維持這個速度」的年化尺度，並調整季節性。它不是該季實際發生的現金金額，不能直接把圖上數字當成單季流入。</p>
    <p><b>最重要的限制</b> 這是金融帳戶的金融資產淨取得額，不是投資人申購減贖的直接統計，也不等於股市流出的資金。請與 AUM 存量圖交叉閱讀，不要把兩者當成同一件事。</p>
   </div>
- </details>
- <details class="guide-item"><summary>④ MMF 投資組合配置｜基金把錢投去哪裡？</summary>
+ </details></div>
+</section>
+<section class="card"><div class="card-head"><div><h2>MMF 投資組合配置｜2010–至今</h2><div class="desc">聯準會 Enhanced Financial Accounts（EFA）月頻證券持倉資料。切換總體、Government、Prime 與 Tax-exempt，查看各類基金的投資工具配置與占比變化。</div></div><div class="controls" id="holding-type-controls"><button data-type="Total" class="active">全體 MMF</button><button data-type="Government">Government</button><button data-type="Prime">Prime</button><button data-type="Tax-exempt">Tax-exempt</button></div></div><div class="chart-wrap" id="holding-wrap"><div class="tooltip" id="holding-tip"></div><svg id="holding-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金投資組合配置"></svg></div><div class="legend" id="holding-legend"></div><div class="chart-note" id="holding-note">資料：Federal Reserve Enhanced Financial Accounts（EFA），SEC Form N-MFP security-level holdings。月頻、美元兆；每一基金類別內各工具占比合計 100%。EFA 總額與 Z.1 Financial Accounts 口徑略有差異，不可混為同一序列。</div>
+<div class="card-teaching"><div class="teaching-heading"><span>圖表判讀教室</span><span class="teaching-subtitle">零金融背景入門</span></div><details class="guide-item"><summary>④ MMF 投資組合配置｜基金把錢投去哪裡？</summary>
   <div class="guide-body">
    <p><b>這張圖在看什麼？</b> 貨幣市場基金把資產配置到哪些短期金融工具，以及配置比例如何隨時間改變。切換「全體、Government、Prime、Tax-exempt」可比較不同基金類型。</p>
    <p><b>先看顏色與圖例</b> 每一色代表一種投資工具；堆疊高度呈現該工具在該基金類型投資組合中的占比。某色帶擴大，代表配置比重提高，不一定代表該工具的絕對金額同步增加。</p>
    <p><b>如何比較？</b> 先固定同一基金類型，沿時間看配置是否改變；再切換基金類型，比較它們持有工具的差異。不要在不同類型之間混用分母。</p>
    <p><b>資料口徑提醒</b> 這張圖使用聯準會 EFA 月頻持倉資料，與前面 Z.1 季頻 AUM 的涵蓋範圍略有差異，因此總額不會完全相同；這是資料定義不同，不應強行拼接成一條線。</p>
   </div>
- </details>
- <details class="guide-item"><summary>⑤ Repo 深入分析｜交易對手、抵押品、期限</summary>
+ </details></div>
+</section>
+<section class="card"><div class="card-head"><div><h2>Repo 部位深入分析｜交易對手・抵押品・期限</h2><div class="desc">同一筆 Repo 部位的三種獨立分類視角。切換檢視月度占 Repo 總額比重；不可跨維度加總。</div></div><div class="controls" id="repo-dimension-controls"><button data-dimension="counterparty" class="active">交易對手</button><button data-dimension="collateral">抵押品</button><button data-dimension="tenor">期限</button></div></div><div class="chart-wrap" id="repo-wrap"><div class="tooltip" id="repo-tip"></div><svg id="repo-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="貨幣市場基金 Repo 部位結構"></svg></div><div class="legend" id="repo-legend"></div><div class="chart-note">資料：OFR／SEC Form N-MFP 月末資料。各維度占比以當月 Repo 總額為分母。交易對手分類自 2016 年 4 月起完整，抵押品與期限自 2010 年 11 月起完整。</div>
+<div class="card-teaching"><div class="teaching-heading"><span>圖表判讀教室</span><span class="teaching-subtitle">零金融背景入門</span></div><details class="guide-item"><summary>⑤ Repo 深入分析｜交易對手、抵押品、期限</summary>
   <div class="guide-body">
    <p><b>Repo 是什麼？</b> 可以先把它想成「有擔保的短期借貸」：一方提供現金，另一方提供證券作為擔保，並約定日後買回。貨幣市場基金常透過 Repo 配置短期資金。</p>
    <p><b>交易對手</b> 看基金把 Repo 資金提供給哪一類機構，例如 FICC、美國金融機構或外國金融機構。這是在看對手方分布，不是直接的違約機率排名。</p>
@@ -104,9 +100,11 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
    <p><b>期限</b> 看資金約定多久到期：隔夜／開放式、2–30 天、超過 30 天。隔夜占比高，表示這部分配置較短期、需較頻繁續作；不代表沒有風險。</p>
    <p><b>非常重要</b> 三個按鈕是同一批 Repo 部位的三種分類角度，不能把三個維度的金額或百分比相加。交易對手資料完整起點較晚，與抵押品、期限的歷史長度不同。</p>
   </div>
- </details>
- <div class="notice"><b>新手讀圖順序：</b>先看總資產（資金池大小）→再看基金類型（資金池由誰組成）→看淨取得額（金融帳戶交易變化）→看投資組合與 Repo（資金實際配置在哪些工具、對手方與期限）。單一圖表都不能獨立回答「資金是否正在撤離股市」。</div>
+ </details></div>
 </section>
+<div class="notice"><strong>重要判讀：</strong>資產規模（AUM）增加不等於同額資金淨流入。AUM 變化還可能受到投資組合估值、應計利息、資產負債調整及統計修訂影響。本圖先呈現資產存量；資金交易量將以獨立指標、明確標示其季調及年化口徑後再加入。</div>
+
+<div class="notice"><b>新手讀圖順序：</b>先看總資產（資金池大小）→再看基金類型（資金池由誰組成）→看淨取得額（金融帳戶交易變化）→看投資組合與 Repo（資金實際配置在哪些工具、對手方與期限）。單一圖表都不能獨立回答「資金是否正在撤離股市」。</div>
 <div class="status" id="load-status">正在載入聯準會官方資料…</div>
 <footer class="footer">資料來源：<a href="https://www.federalreserve.gov/releases/z1/current/html/S123_s.htm" target="_blank" rel="noopener">Federal Reserve Z.1｜S123.s Money Market Funds</a> · <a href="https://fred.stlouisfed.org/data/MMMFFAQ027S" target="_blank" rel="noopener">FRED｜MMMFFAQ027S</a><br>基礎資料保留百萬美元原始值，圖表轉換為美元兆；統計日期以季度標籤呈現。原始來源快照、SHA-256 與 QA 紀錄保存在獨立研究分支。</footer>
 </main>
