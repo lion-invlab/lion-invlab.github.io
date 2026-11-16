@@ -81,8 +81,9 @@ Status: source validation and data architecture. No production chart, no homepag
 - [x] OFR monitor coverage and category definitions verified.
 - [x] SEC raw monthly dataset availability verified.
 - [x] April 2016 category reporting break identified.
-- [x] Download and archive full FRED AUM quarterly series snapshot (210 observations, 1974 Q1–2026 Q2) at `data/us-mmf/fed_mmmffaq027s_1974q1_2026q2.csv`; validated row count, unique dates, uninterrupted quarterly cadence, and latest value against FRED.
-- [ ] Download OFR CSV exports for monthly total and category series.
+- [x] Create an initial FRED AUM quarterly data snapshot (210 observations, 1974 Q1–2026 Q2) at `data/us-mmf/fed_mmmffaq027s_1974q1_2026q2.csv`; validated row count, unique dates, uninterrupted quarterly cadence, and latest value against FRED. This first snapshot was transcribed from the official FRED table; replace it with the raw-download output before production use.
+- [x] Identify OFR's public no-token API and its `mmf` dataset endpoint; raw response can be archived with provenance.
+- [ ] Retrieve and inspect the OFR API payload and OFR Monitor category chart CSV exports; map the exact series for total AUM and Government / Prime / Tax Exempt before building category history.
 - [ ] Build monthly/quarterly reconciliation and revision-aware data snapshots.
 - [ ] Finalize UI and implement interactive chart.
 - [ ] Browser QA on desktop and mobile.
@@ -98,3 +99,13 @@ Status: source validation and data architecture. No production chart, no homepag
 - Pre-1974 zero/missing records intentionally excluded from the plotted AUM dataset.
 - FRED date labels are quarter-start encodings; the CSV retains the original observation date and a separate human-readable quarter label.
 - Source table: https://fred.stlouisfed.org/data/MMMFFAQ027S
+
+## OFR public data retrieval
+- OFR API documentation: https://www.financialresearch.gov/short-term-funding-monitor/api/
+- Public API base: `https://data.financialresearch.gov/v1`; documentation states no token or registration is required.
+- Dataset endpoint: `/series/dataset?dataset=mmf`; supports start_date, end_date, vintage and periodicity parameters.
+- The dataset endpoint returns metadata plus a `timeseries` object. Its exact series inventory still needs inspection; do not assume it directly contains the OFR Monitor's category-level AUM chart.
+- OFR Monitor provides a visible Data button that downloads the current chart view as CSV. Category chart: https://www.financialresearch.gov/money-market-funds/us-mmfs-investments-by-fund-category/
+- The monitor currently reports data through 2026-09-30 and notes that its aggregates are OFR-derived on an ultimate-parent basis. This differs from raw SEC fund-level totals.
+- SEC Form N-MFP raw data sets are public from September 2010 through October 2026, updated monthly; SEC warns that filings/extraction can contain errors and that the data are provided as-filed.
+- Downloader: `scripts/us_mmf/update_public_data.py`. It downloads the FRED CSV and complete OFR `mmf` JSON dataset, archives raw snapshots, produces a cleaned positive-observation FRED CSV, and writes SHA-256 metadata. It has been committed but not yet executed against live endpoints; no successful live-download claim is made.
