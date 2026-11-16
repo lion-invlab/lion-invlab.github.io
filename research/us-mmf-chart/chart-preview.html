@@ -24,7 +24,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
 .legend{display:flex;gap:15px;flex-wrap:wrap;margin:8px 2px 0;font-size:11px;color:#5d6878}.legend-item{display:flex;align-items:center;gap:6px}.swatch{width:11px;height:11px;border-radius:3px;display:inline-block}
 .chart-note{font-size:10px;color:#8993a1;margin-top:10px;line-height:1.7}.notice{margin-top:14px;padding:13px 15px;border-left:3px solid var(--gold);background:#faf8f3;border-radius:0 9px 9px 0;font-size:11px;line-height:1.8;color:#5d6673}
 .footer{margin-top:20px;padding:14px 2px;border-top:1px solid #dfe4eb;color:#8791a0;font-size:10px;line-height:1.8}.footer a{color:#69788d;text-decoration:none}.footer a:hover{text-decoration:underline}.status{font-size:11px;color:#7b8797;margin-top:10px}
-@media(max-width:800px){main{padding:17px 13px 45px}.hero{padding:22px 20px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:12px}.card{padding:15px 11px 12px}.chart-svg{min-height:230px}.controls button{padding:7px 8px}.topline{font-size:10px}}@media(max-width:390px){.kpi .value{font-size:20px}.card-head{gap:9px}}
+@media(max-width:800px){main{padding:17px 13px 45px}.hero{padding:22px 20px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:12px}.card{padding:15px 11px 12px}.chart-svg{min-height:230px}.chart-svg text{font-size:18px}.chart-svg .axis text{font-size:16px}.controls button{padding:7px 8px}.topline{font-size:10px}}@media(max-width:390px){.kpi .value{font-size:20px}.card-head{gap:9px}}
 </style>
 </head>
 <body><main>
@@ -72,7 +72,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
   $("load-status").textContent="資料載入完成｜總規模 "+total.length+" 季｜基金類型 "+types.length+" 季｜最新："+latest.quarter;
 
   function setupLine(data){
-   const svg=d3.select("#total-chart"),width=1100,height=390,margin={top:18,right:28,bottom:42,left:82},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;
+   const svg=d3.select("#total-chart"),mobile=window.matchMedia("(max-width:800px)").matches,width=mobile?700:1100,height=mobile?430:390,margin={top:18,right:28,bottom:42,left:82},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;svg.attr("viewBox","0 0 "+width+" "+height);
    const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")");
    const x0=d3.scaleTime().domain(d3.extent(data,d=>d.date)).range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().range([innerH,0]);
    root.append("defs").append("clipPath").attr("id","clip-total").append("rect").attr("width",innerW).attr("height",innerH);
@@ -105,7 +105,7 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
   }
 
   function setupArea(data){
-   const svg=d3.select("#type-chart"),width=1100,height=390,margin={top:18,right:28,bottom:42,left:82},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;
+   const svg=d3.select("#type-chart"),mobile=window.matchMedia("(max-width:800px)").matches,width=mobile?700:1100,height=mobile?430:390,margin={top:18,right:28,bottom:42,left:82},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;svg.attr("viewBox","0 0 "+width+" "+height);
    const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")");
    const x0=d3.scaleTime().domain(d3.extent(data,d=>d.date)).range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().range([innerH,0]);
    root.append("defs").append("clipPath").attr("id","clip-type").append("rect").attr("width",innerW).attr("height",innerH);
