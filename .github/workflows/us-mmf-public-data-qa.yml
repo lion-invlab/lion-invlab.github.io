@@ -28,7 +28,7 @@ jobs:
           python-version: "3.12"
 
       - name: Compile data scripts
-        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py scripts/us_mmf/test_fund_type_breakdown.py
+        run: python -m py_compile scripts/us_mmf/update_public_data.py scripts/us_mmf/test_fed_aum_data.py scripts/us_mmf/test_fund_type_breakdown.py scripts/us_mmf/test_mmf_transactions.py
 
       - name: Download free public source snapshots
         run: python scripts/us_mmf/update_public_data.py
@@ -39,11 +39,14 @@ jobs:
       - name: Validate quarterly Government / Prime / Tax-exempt split
         run: python scripts/us_mmf/test_fund_type_breakdown.py data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv
 
+      - name: Validate quarterly MMF financial-account transactions
+        run: python scripts/us_mmf/test_mmf_transactions.py data/us-mmf/fed_mmf_transactions_latest.csv
+
       - name: Commit normalized data and provenance to research branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/us-mmf/fed_mmmffaq027s_latest.csv data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv data/us-mmf/latest_manifest.json
+          git add data/us-mmf/fed_mmmffaq027s_latest.csv data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv data/us-mmf/fed_mmf_transactions_latest.csv data/us-mmf/latest_manifest.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh U.S. MMF public data snapshots"
             git pull --rebase origin research/us-mmf-chart-20261116
@@ -59,5 +62,6 @@ jobs:
             data/us-mmf/latest_manifest.json
             data/us-mmf/fed_mmmffaq027s_latest.csv
             data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv
+            data/us-mmf/fed_mmf_transactions_latest.csv
           if-no-files-found: error
           retention-days: 90
