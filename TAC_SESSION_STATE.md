@@ -1,5 +1,17 @@
 # TAC 投資早報｜工作狀態錨點
 
+## 2026-11-17｜階段③新聞與行事曆（完成）
+
+- 行事曆唯讀來源：main W47 blob SHA 1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5；main W46 blob SHA edf33bdd3b9573b08a9381f617ac3ad4357a1c2d（僅供既有 calendar_source_guard 的前週來源驗證，不作本日事件依據）；main commit db70b4023fe718b7faf1b7266207949717caeb8d。沒有讀取 simulation branch 舊週 JSON，也沒有寫入任何 calendar JSON。
+- W47：25 經濟事件、23 財報事件；5 項經濟已公布、20 項今日／後續；5 檔財報已公布、18 檔今日／後續。已公布經濟實際值包括中國10月70城房價、中國10月工業增加值／零售／固定投資、加拿大10月CPI、Fed Barr及Warsh發言。已公布財報實際值包括 HTHT、BEKE、BIDU、ARMK、TSN；EPS／Revenue consensus 未取得，沒有做 Beat/Miss 判斷；股價反應尚待專用擷取。
+- W47 coverage 為 incomplete，最新 audit 仍記錄 consensus sources unreadable。資料庫缺漏與矛盾只列入報告待核實，不回寫 JSON。
+- 新聞窗口：2026-11-16 12:00 至 2026-11-17 05:25 Asia/Taipei。5 則宏觀焦點：Fed Schmid 通膨／升息訊號（Cnyes）、Fed Barr AI 金融穩定風險（Cnyes）、Goldman 2027 油市供給過剩（Investing.com）、Warsh 生產力與就業會議（Investing.com）、美國航運豁免與歐洲天然氣供給（Investing.com）。10 則熱門頭條：A股收市、亞洲股市收市、港股收市、美股前瞻、摩根士丹利AI資本支出展望、A股晚間熱點、Bitcoin流動性、德銀連續升息預測、全球股市AI投資考驗、Bernstein AI股賣壓分析。出版時間均在規定窗口內；部分原文頁不可直接讀取，已標記以搜尋摘要／可讀來源交叉核對，不宣稱全部原文全文可讀。
+- 通知：階段③ notify_parent 兩次均回傳 NOT_FOUND / HTTP 404 Action not found，狀態 FAILED；工具清單亦無可用 notify_parent action，屬 NOT_AVAILABLE。未宣稱已送達。
+- 下一步：整理分析與報告 fixture，執行既有組裝器及 QA；需保留 earnings consensus、Russell cash close、MOVE 缺漏的明確揭露。
+
+---
+
+
 ## 2026-11-17｜階段②行情查核（完成，2 項待核實）
 
 - 行情基準日：2026-11-16；已核對 44 項清單，42 項取得 11/16 對應資料，2 項保留待核實，不沿用 11/13 舊值。
