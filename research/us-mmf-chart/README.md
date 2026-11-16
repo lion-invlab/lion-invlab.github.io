@@ -53,6 +53,16 @@ Status: source validation and data architecture. No production chart, no homepag
 - Data are provided as-filed and SEC warns that registrant data and extraction may contain errors; use for audit/reconstruction, not as an unqualified error-free aggregate.
 - SEC page notes updates to include N-MFP3 submissions in July 2025 and prior updates to NT filings and series/class names in May 2023.
 
+
+### 6. Federal Reserve Enhanced Financial Accounts — monthly holdings by fund type
+- Official page: https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm
+- Monthly security-level holdings dataset from SEC Form N-MFP, available beginning December 2010; page last updated 2026-09-18.
+- Separate CSV files are published for Total, Prime, Government, and Tax-exempt MMF investment holdings.
+- Each file breaks the fund type into instrument holdings. Sum the instrument columns within each file to derive that category's total portfolio investment holdings; check Prime + Government + Tax-exempt against Total within rounding.
+- The Fed explicitly states that these monthly holdings totals differ slightly from Z.1 Table S123.s total financial assets because they exclude fund-of-funds and include some non-portfolio assets.
+- Therefore use Z.1 `MMMFFAQ027S` as the long-run total AUM backbone (1974 Q1 onward), and use EFA as a separate monthly fund-type composition panel (2010-12 onward). Do not splice or force equality between the two.
+- The downloader archives the four raw EFA CSV files and their SHA-256 hashes. Instrument-level parsing and reconciliation are still pending.
+
 ### 5. ICI weekly MMF assets — optional current-market context only
 - Source: https://www.ici.org/research/stats/mmf
 - Public page provides weekly aggregate assets and category split, but only the most recent 20 weeks.
