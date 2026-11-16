@@ -1,0 +1,48 @@
+{
+  "status": "QA_PASSED",
+  "review_ready": false,
+  "review_ready_blockers": [
+    "S&P 500與Russell 2000的11/16現金指數收盤尚未取得可核實資料；不得以CFD數字冒充現金收盤。",
+    "MOVE 11/16收盤尚未取得；不得沿用11/13舊值。",
+    "5檔已公布財報的可比市場共識與第一個完整交易時段股價反應尚未取得，不能完成Beat/Miss與股價反應判讀。"
+  ],
+  "data_audit": {
+    "quality_note": "行情基準日2026-11-16。44項行情已逐項查核；41項取得可用的11/16資料，3項暫待核實（S&P 500現金收盤、Russell 2000現金收盤、MOVE）。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ26均為指定合約歷史列。五項關鍵價位只採同日現金指數OHLC；缺資料不以CFD替代。",
+    "warning_note": "本次只唯讀main W47與W46行事曆資料，未回寫任何正式資料。W47於11/17 04:56更新，共25筆經濟事件、23筆財報事件，coverage仍為incomplete。S&P 500現金收盤、Russell 2000現金收盤與MOVE 11/16收盤待核實；不以CFD或11/13舊值冒充。5檔已公布財報實際EPS/Revenue可讀，但市場共識及股價反應尚未完成。",
+    "pending_items": [
+      "W47 coverage仍為incomplete；本次只讀取main W47，不直接修補，維持行事曆資料庫唯一寫入者規則。",
+      "S&P 500與Russell 2000的Investing.com HK歷史頁為CFD；為避免將CFD冒充現金指數，主表暫待同日現金收盤資料。其餘已明確標示的CFD不與現金指數混用。",
+      "MOVE最新可讀歷史觀測仍為2026-11-13；本次不沿用舊值，11/16欄位標示待核實。",
+      "CNN Fear & Greed採用FGScore 11/16 15:59 ET快照30（Fear）；CNN官方頁與圖表端點本輪無法直接讀取。",
+      "5檔已公布財報（HTHT、BEKE、BIDU、ARMK、TSN）有實際EPS／Revenue，但市場共識與第一個完整交易時段股價反應仍未取得；不作Beat/Miss判讀。",
+      "CME FedWatch官方嵌入QuikStrike頁因referrer拒絕存取；採Investing.com Fed Rate Monitor（頁面明確以CME 30-Day Fed Funds futures推算），未取得獨立CME畫面快照。",
+      "11檔產業ETF的HK歷史頁本輪未更新至11/16；依D2第三輪改讀同一Investing.com來源系統Global歷史頁，已取得11/16資料並保留備援註記。",
+      "部分Cnyes與Investing.com原文頁本輪無法直接開啟；以搜尋結果的標題／時間／摘要及可讀來源交叉核對，未宣稱所有原文全文均已讀取。"
+    ],
+    "report_cutoff_taipei": "2026-11-17 05:25（台灣時間）",
+    "news_window_taipei": "2026-11-16 12:00–2026-11-17 05:25（台灣時間）"
+  },
+  "branch": "simulation/tac-process-lab-2026-11-06",
+  "report_path": "preview/2026-11-17-simulation.html",
+  "report_date": "2026-11-17",
+  "report_git_blob_sha": "31ced885c23f35b29239ce6a321a2e5d305830cc",
+  "report_sha256": "37d47d17cc8222331a354beb32e63a10ebe1844ba06c07384a06117147f9bbd3",
+  "build_commit_sha": "7229047b748e48ecdaa6f1f25554e618ef964971",
+  "builder_blob_sha": "1563b4d2ba90e91a4f10a3ebc0e0f5b1d953a21f",
+  "fixture_blob_sha": "915fec1abe0f027407fc0bfbdd5d377cc53ebd34",
+  "template_blob_sha": "f010ff118d7a5a2c1f6e834aa24f832766383c2b",
+  "calendar_main_commit_sha": "2e57b1372300689a5f0a278d79d5b9bce3452f1b",
+  "calendar_current_blob_sha": "1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5",
+  "calendar_previous_blob_sha": "edf33bdd3b9573b08a9381f617ac3ad4357a1c2d",
+  "interaction_evidence_sha256": "3e04908897539aefcb6d2b434e675172ef1f2075497f4e2be78590a52d3b7895",
+  "visual_evidence_sha256": "e594aba3e03597820f22b5ddfb09d40ae4b568074957aa77d9d07a373ed1ea83",
+  "viewports": [
+    1440,
+    768,
+    412,
+    390,
+    360
+  ],
+  "workflow_run_id": "43966995043",
+  "workflow_run_attempt": "1"
+}
