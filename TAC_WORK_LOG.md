@@ -1105,3 +1105,12 @@
 - main HEAD db70b4023fe718b7faf1b7266207949717caeb8d；main W47 JSON SHA 1e2ef9e137dd34d7f46a1ac20b498a6dfca598f5。W47 audit 04:39:07 partial_success_actuals_and_events_updated_consensus_sources_unreadable；25 經濟、23 財報。資料庫唯讀。
 - 啟動及階段①兩次通知均回傳 NOT_FOUND（每次均重試一次），狀態 FAILED，未送達；無可用 notify_parent action endpoint。
 - 目前未寫入任何 main 資產或行事曆 JSON；未觸發舊端到端排程。
+
+
+## 2026-11-17 05:32｜階段②行情查核完成
+
+- 行情基準日 2026-11-16。44 項中 42 項有同日來源，待核實 Russell 2000 現金收盤與 MOVE；VIX 22.91 +18.70%，CNN Fear & Greed 30（Fear，CNN 原始資料鏡像，11/16 15:59 ET）。
+- 11 個 S&P 產業 ETF 由 Investing.com HK 頁 stale 11/13 後，依 D2 第三輪改讀同一來源系統 Global 歷史頁，取得 11/16 收盤百分比。
+- WTI Dec-26 CLZ6 85.37 (-3.60%, vol 174.93K)；Brent Jan-27 LCOF7 92.16 (-3.53%, vol 248.43K)；Gold Dec-26 GCZ6 3,855.40 (-0.80%, vol 160.59K)；Silver Dec-26 SIZ6 46.925 (-4.47%, vol 70.47K)。
+- UST 2Y/10Y/30Y 4.62%/5.12%/5.46%；FX DXY 103.57, USD/TWD 32.963, EUR/USD 1.0997, GBP/USD 1.3183, AUD/USD 0.6737, USD/JPY 159.46。
+- 關鍵價位 OHLC 仍待 collector／同日 cash OHLC 驗證。通知兩次皆 NOT_FOUND，階段② FAILED。
