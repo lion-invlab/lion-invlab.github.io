@@ -199,3 +199,14 @@ Status: source validation and data architecture. No production chart, no homepag
 - This preview is research-only. It is not linked from the main interactive-chart index and has not been published to main.
 
 - Latest browser QA: PASS on desktop and 390px mobile. Verified chart data loading, latest KPIs, line/stacked-area rendering, zoom presets, zoom reset, no horizontal overflow, no console/page errors, and an actual two-finger pinch gesture (zoom scale increased to 2.07x). Workflow run: https://github.com/lion-invlab/lion-invlab.github.io/actions/runs/43793626168
+
+
+## OFR repo structure analysis (2026-11-16)
+- [x] Mapped three independent repo dimensions from the same OFR MMF monthly holdings dataset: counterparty, collateral, and tenor. These are alternative cuts of the same repo book and must never be added across dimensions.
+- [x] Counterparty series: U.S. financial institutions, foreign financial institutions, FICC-cleared, Federal Reserve, and other counterparties. The five-way split reconciles exactly to repo total on all 90 common monthly observations from 2016-04-30 through 2026-09-30. Earlier observations are retained per series but are not presented as a complete five-way split because series availability differs.
+- [x] Collateral series: U.S. Treasury, Agency/GSE, and other collateral. All three reconcile to repo total across 191 months, 2010-11-30 through 2026-09-30.
+- [x] Tenor series: Overnight/open, term 2–30 days, and term >30 days. All three reconcile to repo total across 191 months, 2010-11-30 through 2026-09-30. OFR defines overnight as fixed one-business-day or open with no notice period; term buckets use calendar-day differences.
+- [x] Added scripts/us_mmf/normalize_ofr_repo_dimensions.py and scripts/us_mmf/test_ofr_repo_dimensions.py; the public-data workflow now regenerates, validates, commits, and archives data/us-mmf/fed_mmf_ofr_repo_dimensions_latest.csv on the research branch.
+- Latest OFR observation (2026-09-30): repo total USD 2.871495tn. Counterparty: FICC USD 1.137273tn (39.61%), foreign financial institutions USD 0.890164tn (31.00%), U.S. financial institutions USD 0.832636tn (29.00%), Federal Reserve USD 6.114bn (0.21%), other counterparties USD 5.308bn (0.18%). Tenor: overnight/open 81.08%, 2–30 days 17.09%, >30 days 1.83%. Collateral: Treasury 59.72%, Agency/GSE 34.22%, other 6.06%.
+- Counterparty methodology: OFR identifies counterparties using Form N-MFP2 names and identifiers and consolidates financial institutions to ultimate parents. Repo positions are cash-providing investments by MMFs. Source methodology: https://www.financialresearch.gov/short-term-funding-monitor/files/methodologies/2020-04--Methodology-MMF.pdf
+- No additional chart has been added yet; next decision is whether a compact Repo structure drill-down improves the current four-chart page without overcrowding it.
