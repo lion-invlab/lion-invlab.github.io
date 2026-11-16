@@ -228,7 +228,7 @@ jobs:
           echo "QA-only target locked: ${REPORT_OUTPUT}"
 
       - name: Project Yahoo pre-release consensus onto main W47 (read-only)
-        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && env.REPORT_DATE == '2026-11-16') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]') && env.REPORT_DATE == '2026-11-16')
+        if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build' && (env.REPORT_DATE == '2026-11-16' || env.REPORT_DATE == '2026-11-17' || env.REPORT_DATE == '2026-11-18' || env.REPORT_DATE == '2026-11-19' || env.REPORT_DATE == '2026-11-20')) || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]') && (env.REPORT_DATE == '2026-11-16' || env.REPORT_DATE == '2026-11-17' || env.REPORT_DATE == '2026-11-18' || env.REPORT_DATE == '2026-11-19' || env.REPORT_DATE == '2026-11-20'))
         shell: bash
         run: |
           set -euo pipefail
@@ -242,7 +242,7 @@ jobs:
             --capture simulation-lab/output/yahoo-finance-pre-release-capture-20261115.json \
             --yfinance-methodology simulation-lab/output/yfinance-methodology-probe.json \
             --output simulation-lab/output/w47-yahoo-consensus-projection.json \
-            --expected-calendar-blob-sha 686e61ad128162a0f444e4981661145371bea4a7
+            --expected-calendar-blob-sha "$(git rev-parse FETCH_HEAD:data/calendar/weeks/2026-W47.json)"
 
       - name: Capture cash-index OHLC for the selected report date
         if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'build') || (github.event_name == 'push' && contains(github.event.head_commit.message, '[build-tac-report]'))

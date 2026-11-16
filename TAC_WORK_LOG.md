@@ -1138,3 +1138,9 @@
 - 比較狀態保留 incomparable／consensus_divergent，避免被錯誤降級成 pending；新增對應測試。
 - 本次所有程式修改僅在 simulation branch；main、正式首頁、正式母版、Manifest 與 W47 行事曆 JSON 唯讀。以 [build-tac-report] commit 觸發 2026-11-17 完整 build／Playwright／視覺／provenance QA。
 - 通知通道 notify_parent 回傳 404 Action not found，狀態 NOT_AVAILABLE；不影響早報產製。
+
+
+## 2026-11-17｜W47 財報共識投影條件修正
+- 發現 workflow 的 Yahoo pre-release consensus projection 僅限 REPORT_DATE=2026-11-16，導致週二 11/17 報告不會載入 11/15 PIT 快照中的 W47 預期值；同時 expected calendar blob SHA 寫死舊版，與 main W47 最新 blob SHA 不符。
+- simulation workflow 修正為 W47 週內 11/16–11/20 均執行 read-only projection，並由當次 fetch 的 main W47 Git tree 動態取得 JSON blob SHA 作為驗證參數。只產生 simulation-lab/output 投影檔，不修改 main W47 JSON。
+- 本次變更僅 simulation branch workflow 與工作紀錄；重新觸發完整 11/17 build。
