@@ -1723,26 +1723,44 @@ def main():
         set_text(news_window, f"新聞時間窗｜{news_window_label}（台灣時間）。焦點新聞與市場熱門頭條均逐則核對原始報導及發布時間；未符合時間窗的資料不納入。")
     health = soup.select_one("#sp500-earnings-health")
     if health:
-        # FactSet's latest official Q3 2026 earnings-season update (published 11/06).
-        # Preserve the existing health-dashboard card and visual system; replace only its content.
+        # The panel must be driven by the dated fixture snapshot, never a hard-coded mother-template fallback.
         from bs4 import BeautifulSoup as _BS
+        from html import escape as _esc
+        eh = data.get("earnings_health") or {}
+        required_health = ["as_of_date", "reported_pct", "eps_beat_pct", "revenue_beat_pct",
+                           "blended_eps_yoy", "blended_revenue_yoy", "eps_surprise", "forward_pe"]
+        missing_health = [key for key in required_health if not str(eh.get(key, "")).strip()]
+        if missing_health:
+            raise ValueError("FactSet earnings-health snapshot missing fields: " + ", ".join(missing_health))
+        if eh["as_of_date"] < "2026-11-13":
+            raise ValueError("FactSet earnings-health snapshot is stale for 2026-11-17 report")
+        e = {k: _esc(str(v)) for k, v in eh.items()}
+        cards = [
+            ("混合盈餘年增率", e["blended_eps_yoy"], f"前週 {e.get('prior_blended_eps_yoy','')}；連續第三季高於25%"),
+            ("EPS 優於預期公司比例", e["eps_beat_pct"], f"高於5年均值 {e.get('eps_beat_avg_5y','')}／10年均值 {e.get('eps_beat_avg_10y','')}"),
+            ("EPS 聚合超預期幅度", e["eps_surprise"], f"低於5年均值 {e.get('eps_surprise_avg_5y','')}／10年均值 {e.get('eps_surprise_avg_10y','')}"),
+            ("混合營收年增率", e["blended_revenue_yoy"], f"前週 {e.get('prior_blended_revenue_yoy','')}；維持雙位數成長"),
+            ("營收優於預期公司比例", e["revenue_beat_pct"], f"高於5年均值 {e.get('revenue_beat_avg_5y','')}／10年均值 {e.get('revenue_beat_avg_10y','')}"),
+            ("Forward 12M P/E", e["forward_pe"], f"低於5年均值 {e.get('forward_pe_avg_5y','')}／10年均值 {e.get('forward_pe_avg_10y','')}"),
+        ]
+        card_html = "".join(
+            f'<div style="padding:11px 12px;background:#f5f7fa;border:1px solid #dce3e9;border-radius:10px;color:#202124">'
+            f'<div style="font-size:11px;font-weight:800;color:#626a73">{label}</div>'
+            f'<div style="font-size:25px;font-weight:950;color:#202124;margin:3px 0">{value}</div>'
+            f'<div style="font-size:11px;line-height:1.45;color:#30343a">{note}</div></div>'
+            for label, value, note in cards
+        )
         health.clear()
-        _health_fragment = _BS("""
-<div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet｜2026/11/06（Q3 2026，88% 成份股已公布）</small></div>
+        _health_fragment = _BS(f"""
+<div class="title">S&amp;P 500｜本季盈餘健康度 <small>FactSet｜{e['as_of_date']}（Q3 2026，{e['reported_pct']} 成份股已公布）</small></div>
 <div style="margin-top:10px;padding:14px 15px;background:#f1f6fb;border:1px solid #d6e3ee;border-left:5px solid #c62828;border-radius:11px;color:#202124">
 <div style="font-size:11px;font-weight:850;color:#626a73;margin-bottom:5px">TAC 核心判讀</div>
-<div style="font-size:18px;line-height:1.45;font-weight:950;margin-bottom:6px;color:#202124">獲利成長強勁，但超預期幅度偏低；企業基本面呈現「高成長、低驚喜」。</div>
-<div style="font-size:13px;line-height:1.7;color:#30343a">截至 11/06，標普 500 有 88% 成份股公布 Q3 財報；84% EPS 優於預期，高於五年均值 78%，但平均僅超預期 2.7%，遠低於五年均值 7.5%。混合盈餘年增 31.4%，已連續第三季高於 25%。</div></div>
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px">
-<div style="padding:11px 12px;background:#fff5f4;border:1px solid #f0d6d4;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">混合盈餘年增率</div><div style="font-size:25px;font-weight:950;color:#c62828;margin:3px 0">+31.4%</div><div style="font-size:11px;line-height:1.45;color:#30343a">前週 30.1%；連續第三季高於 25%</div></div>
-<div style="padding:11px 12px;background:#eff8f2;border:1px solid #d3e8da;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">EPS 優於預期公司比例</div><div style="font-size:25px;font-weight:950;color:#16804a;margin:3px 0">84%</div><div style="font-size:11px;line-height:1.45;color:#30343a">高於 5 年均值 78%／10 年均值 77%</div></div>
-<div style="padding:11px 12px;background:#fff7eb;border:1px solid #f0dfc2;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">EPS 平均超預期幅度</div><div style="font-size:25px;font-weight:950;color:#ad7427;margin:3px 0">+2.7%</div><div style="font-size:11px;line-height:1.45;color:#30343a">低於 5 年均值 7.5%／10 年均值 8.0%</div></div>
-<div style="padding:11px 12px;background:#f1f6fb;border:1px solid #d6e3ee;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">混合營收年增率</div><div style="font-size:25px;font-weight:950;color:#c62828;margin:3px 0">+14.3%</div><div style="font-size:11px;line-height:1.45;color:#30343a">前週 13.6%；連續第三季雙位數成長</div></div>
-<div style="padding:11px 12px;background:#eff8f2;border:1px solid #d3e8da;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">營收優於預期公司比例</div><div style="font-size:25px;font-weight:950;color:#16804a;margin:3px 0">74%</div><div style="font-size:11px;line-height:1.45;color:#30343a">高於 5 年均值 70%／10 年均值 68%</div></div>
-<div style="padding:11px 12px;background:#f1f6fb;border:1px solid #d6e3ee;border-radius:10px;color:#202124"><div style="font-size:11px;font-weight:800;color:#626a73">Forward 12M P/E</div><div style="font-size:25px;font-weight:950;color:#202124;margin:3px 0">17.7 倍</div><div style="font-size:11px;line-height:1.45;color:#30343a">低於 5 年均值 19.8 倍／10 年均值 19.1 倍</div></div></div>
-<div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>獲利年增 31.4%，11 個產業全數呈現獲利年增；營收年增 14.3%，11 個產業營收亦全數年增。<br><b style="color:#ad7427">保留：</b>EPS 優於預期比例雖達 84%，但平均超預期幅度僅 2.7%，若此數字成為最終值，將是 2022 年 Q4 以來最低。<br><b style="color:#202124">估值：</b>Forward P/E 17.7 倍，低於五年與十年均值，亦低於 Q3 季底的 19.0 倍。</div></div>
-<div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65;color:#30343a"><b style="color:#202124">接下來看三件事：</b>EPS 超預期幅度能否回升、Q3 財報季收官後獲利增速是否維持 30% 以上、Q4 分析師預估獲利成長 28.4% 是否開始下修。</div>
-<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">FactSet《S&amp;P 500 Earnings Season Update: November 6, 2026》，John Butters，發布日期 2026/11/06。混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估；截至報告日 88% 的標普 500 成份股已公布 Q3 財報。數值為 FactSet 報告當週快照，非即時盤中更新。<br><a href="https://insight.factset.com/sp-500-earnings-season-update-november-6-2026" target="_blank" rel="noopener" style="color:#1d4ed8">FactSet 11/06 官方報告</a></div></details>
+<div style="font-size:18px;line-height:1.45;font-weight:950;margin-bottom:6px;color:#202124">盈餘與營收成長維持強勁，但聚合 EPS 驚喜幅度低於歷史均值；市場開始更重視成長品質。</div>
+<div style="font-size:13px;line-height:1.7;color:#30343a">截至 11/13，標普 500 有 {e['reported_pct']} 成份股公布 Q3 財報；{e['eps_beat_pct']} EPS、{e['revenue_beat_pct']} 營收優於預期。混合 EPS 年增 {e['blended_eps_yoy']}、營收年增 {e['blended_revenue_yoy']}，但聚合 EPS 僅高於預估 {e['eps_surprise']}，低於五年均值 {e.get('eps_surprise_avg_5y','')} 與十年均值 {e.get('eps_surprise_avg_10y','')}。</div></div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px">{card_html}</div>
+<div style="margin-top:10px;padding:12px 14px;border:1px solid #e1e5e9;border-radius:10px;color:#202124"><div style="font-size:13px;font-weight:900;margin-bottom:6px;color:#202124">如何解讀</div><div style="font-size:13px;line-height:1.75;color:#30343a"><b style="color:#16804a">正面：</b>Q3 混合 EPS 與營收均維持雙位數成長，且多數公司優於市場預期。<br><b style="color:#ad7427">保留：</b>聚合 EPS 超預期幅度僅 {e['eps_surprise']}，低於五年與十年均值；優於預期的公司比例高，不代表驚喜幅度同樣強。<br><b style="color:#202124">估值：</b>Forward 12M P/E 為 {e['forward_pe']}，低於五年與十年均值，仍須搭配利率與獲利預估觀察。</div></div>
+<div style="margin-top:9px;padding:10px 12px;background:#fff8ed;border:1px solid #efdfc7;border-radius:9px;font-size:12px;line-height:1.65;color:#30343a"><b style="color:#202124">接下來看三件事：</b>EPS 超預期幅度能否回升、Q4 獲利成長預估是否下修，以及大型科技公司能否把 AI 資本支出轉化為營收、利潤與現金流。</div>
+<details style="margin-top:8px;font-size:11px;color:#626a73"><summary style="cursor:pointer;font-weight:800">資料來源與統計口徑</summary><div style="padding:8px 0;line-height:1.6">來源：FactSet Q3 2026 Earnings Season Update；統計截點 {e['as_of_date']}。本次數據由使用者提供之 2026/11/16 早報截圖核對，為該日已發布的 FactSet 快照；混合盈餘／營收成長率結合已公布實績與尚未公布公司的分析師預估，不代表全部成份股均已公布。</div></details>
 """, "html.parser")
         for _node in list(_health_fragment.contents):
             health.append(_node)
@@ -2046,6 +2064,46 @@ def main():
 }
 </style>
 """
+    energy_layout_css = soup.new_tag("style", id="tac-energy-row-mobile-layout-v1")
+    energy_layout_css.string = """
+#industry-bonds-fx-commodities .energy-card .row {
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto auto !important;
+  align-items:start !important;
+  column-gap:10px !important;
+  row-gap:2px !important;
+}
+#industry-bonds-fx-commodities .energy-card .row > b {
+  min-width:0 !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+  word-break:normal !important;
+}
+#industry-bonds-fx-commodities .energy-card .row > b a {
+  display:inline !important;
+  white-space:normal !important;
+  overflow-wrap:anywhere !important;
+}
+#industry-bonds-fx-commodities .energy-card .row > span.r {
+  white-space:nowrap !important;
+  justify-self:end !important;
+}
+@media(max-width:700px) {
+  #industry-bonds-fx-commodities .energy-card .row {
+    grid-template-columns:minmax(0,1fr) auto auto !important;
+    column-gap:7px !important;
+  }
+  #industry-bonds-fx-commodities .energy-card .row > b,
+  #industry-bonds-fx-commodities .energy-card .row > b a {
+    font-size:14px !important;
+    line-height:1.35 !important;
+  }
+  #industry-bonds-fx-commodities .energy-card .row > span.r {
+    font-size:14px !important;
+  }
+}
+"""
+    soup.head.append(energy_layout_css)
     existing_typography = soup.select_one("#tac-market-instrument-name-unified-v2")
     if existing_typography:
         existing_typography.replace_with(BeautifulSoup(instrument_css, "html.parser").style)
@@ -2154,6 +2212,14 @@ def main():
         raise ValueError("Fed live panel missing required speakers: " + ", ".join(missing_speakers))
     if not fed_final_events:
         raise ValueError("No verified Fed speaking events found for Fed live panel")
+    # Final FactSet freshness gate: prevent a stale hard-coded earnings panel from passing QA.
+    final_health = unique(soup, "#sp500-earnings-health", "S&P 500 earnings health")
+    health_text = final_health.get_text(" ", strip=True)
+    expected_health = data.get("earnings_health", {})
+    if expected_health.get("as_of_date") not in health_text or "31.9%" not in health_text or "14.4%" not in health_text or "3.1%" not in health_text or "18.3" not in health_text:
+        raise ValueError("S&P 500 earnings-health panel is stale or does not match the 2026-11-13 FactSet fixture")
+    if "2026/11/06" in health_text or "88%" in health_text or "2.7%" in health_text:
+        raise ValueError("stale 2026-11-06 FactSet values remain in the current earnings-health panel")
     # Commodity commentary must match the settlement values actually displayed.
     energy_text = soup.select_one("#tac-assets-panel-3 .market-reason")
     if energy_text and "延遲 Last" in energy_text.get_text(" ", strip=True):
