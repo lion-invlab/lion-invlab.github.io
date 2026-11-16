@@ -37,7 +37,7 @@ def validate(page, label):
     check(label + "_total_line_rendered", page.locator("#total-chart path.line-total").count() == 1)
     check(label + "_fund_type_areas_rendered", page.locator("#type-chart path.area").count() == 3)
     check(label + "_total_zoom_enabled", page.locator("#total-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
-    check(label + "_type_zoom_enabled", page.locator("#type-chart").evaluate("(e)=>!!e.__zoom && e.style.touchAction==='none'"))
+    check(label + "_type_zoom_enabled", page.locator("#type-chart").evaluate("(e)=>!!e.__zoom && getComputedStyle(e).touchAction==='none'"))
 
     page.locator("#total-controls button[data-years='10']").click()
     page.wait_for_timeout(450)
