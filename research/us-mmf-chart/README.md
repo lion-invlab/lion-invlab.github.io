@@ -81,9 +81,20 @@ Status: source validation and data architecture. No production chart, no homepag
 - [x] OFR monitor coverage and category definitions verified.
 - [x] SEC raw monthly dataset availability verified.
 - [x] April 2016 category reporting break identified.
-- [ ] Download and archive full FRED AUM and transactions series.
+- [x] Download and archive full FRED AUM quarterly series snapshot (210 observations, 1974 Q1–2026 Q2) at `data/us-mmf/fed_mmmffaq027s_1974q1_2026q2.csv`; validated row count, unique dates, uninterrupted quarterly cadence, and latest value against FRED.
 - [ ] Download OFR CSV exports for monthly total and category series.
 - [ ] Build monthly/quarterly reconciliation and revision-aware data snapshots.
 - [ ] Finalize UI and implement interactive chart.
 - [ ] Browser QA on desktop and mobile.
 - [ ] User review before any main-branch or public index update.
+
+
+## Archived Fed AUM snapshot validation
+- File: `data/us-mmf/fed_mmmffaq027s_1974q1_2026q2.csv`
+- Snapshot source: FRED table data page, retrieved 2026-11-16.
+- Source metadata: last updated 2026-09-11; date range shown by FRED 1945-10-01 to 2026-04-01.
+- Stored valid observations: 210 quarterly rows, 1974 Q1 through 2026 Q2.
+- QA: zero duplicate dates; zero quarterly gaps; all included observations positive; final value 8,441,374 million USD (8.441374 trillion USD).
+- Pre-1974 zero/missing records intentionally excluded from the plotted AUM dataset.
+- FRED date labels are quarter-start encodings; the CSV retains the original observation date and a separate human-readable quarter label.
+- Source table: https://fred.stlouisfed.org/data/MMMFFAQ027S
