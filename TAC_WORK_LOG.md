@@ -1144,3 +1144,9 @@
 - 發現 workflow 的 Yahoo pre-release consensus projection 僅限 REPORT_DATE=2026-11-16，導致週二 11/17 報告不會載入 11/15 PIT 快照中的 W47 預期值；同時 expected calendar blob SHA 寫死舊版，與 main W47 最新 blob SHA 不符。
 - simulation workflow 修正為 W47 週內 11/16–11/20 均執行 read-only projection，並由當次 fetch 的 main W47 Git tree 動態取得 JSON blob SHA 作為驗證參數。只產生 simulation-lab/output 投影檔，不修改 main W47 JSON。
 - 本次變更僅 simulation branch workflow 與工作紀錄；重新觸發完整 11/17 build。
+
+
+## 2026-11-17｜財報判讀舊狀態重複清除
+- 審閱 QA-passed HTML 後發現 published earnings card 的原始 judgment 欄仍保留舊版「尚未公布／數值尚未齊備」，新 renderer 又產生「預期資料尚未取得」，造成重複判讀。
+- Builder 現在丟棄舊版 pending 狀態片語，統一依實際值／預期值欄位重算單一判讀；新增回歸測試。正式 W47 JSON 保持唯讀。
+- 以 [build-tac-report] 重新觸發 11/17 完整審核版產製。

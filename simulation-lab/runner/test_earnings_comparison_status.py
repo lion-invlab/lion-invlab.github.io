@@ -52,6 +52,10 @@ def main():
     commentary=earnings_commentary(item)
     assert "EPS：優於預期" in commentary
     assert "營收：預期資料尚未取得" in commentary
+    item["judgment"]="EPS：尚未公布／數值尚未齊備；營收：尚未公布／數值尚未齊備"
+    commentary=earnings_commentary(item)
+    assert "尚未公布／數值尚未齊備" not in commentary
+    assert commentary.count("預期資料尚未取得") == 2
     # Monday's previous-week cards must be recalculated too; they were previously
     # rendered from stale legacy statuses because only the current week was processed.
     prior = make(4.56, 2.66, 6.77, 6.80)

@@ -206,6 +206,15 @@ def earnings_commentary(item):
         part = fragment.strip()
         if not part:
             continue
+        # Drop stale legacy "not yet published / values incomplete" labels;
+        # the current status is regenerated below from actual/estimate fields.
+        legacy_pending = bool(re.search(
+            r"(?:EPS|營收|revenue).{0,40}(?:尚未公布／數值尚未齊備|預期資料尚未取得|尚未公布)",
+            part,
+            flags=re.IGNORECASE,
+        ))
+        if legacy_pending:
+            continue
         directional = bool(re.search(
             r"符合預期|(?:高於|低於|優於|超過|不及).{0,40}(?:共識|預期)|"
             r"Beat|Miss|(?:above|below|higher|lower).{0,35}(?:consensus|expectations)|"
