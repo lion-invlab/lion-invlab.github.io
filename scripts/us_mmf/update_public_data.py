@@ -181,7 +181,7 @@ def main() -> None:
     try:
         ofr_raw = fetch(OFR_URL)
         # OFR serves the API payload with gzip content encoding.
-        ofr_json_bytes = gzip.decompress(ofr_raw) if ofr_raw[:2] == b"\\x1f\\x8b" else ofr_raw
+        ofr_json_bytes = gzip.decompress(ofr_raw) if ofr_raw.startswith(bytes([31, 139])) else ofr_raw
         ofr_obj = json.loads(ofr_json_bytes.decode("utf-8"))
         if not isinstance(ofr_obj, dict) or "timeseries" not in ofr_obj:
             raise ValueError("OFR API response does not contain the expected dataset timeseries object")
