@@ -159,6 +159,8 @@ main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex
     document.querySelectorAll("#repo-dimension-controls button").forEach(b=>b.classList.toggle("active",b.dataset.dimension===dim));render();
    }
    function render(){
+    const currentDomain=x.domain(),fullDomain=x0.domain();
+    svg.attr("data-domain-start",currentDomain[0].toISOString()).attr("data-domain-end",currentDomain[1].toISOString()).attr("data-full-domain-start",fullDomain[0].toISOString()).attr("data-full-domain-end",fullDomain[1].toISOString());
     const line=d3.line().defined(d=>d.date instanceof Date&&Number.isFinite(+d.date)&&Number.isFinite(d.value)&&Number.isFinite(x(d.date))&&Number.isFinite(y(d.value))).x(d=>x(d.date)).y(d=>y(d.value)).curve(d3.curveMonotoneX);
     paths.each(function(key){d3.select(this).datum(data.map(d=>({date:d.date,value:d[key]}))).attr("d",line);});
     xAxis.call(d3.axisBottom(x).ticks(innerW/115).tickFormat(d3.timeFormat("%Y")));yAxis.call(d3.axisLeft(y).ticks(5).tickFormat(d3.format(".0%")));
