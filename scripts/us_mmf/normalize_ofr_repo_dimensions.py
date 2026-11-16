@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Normalize OFR MMF repo collateral, tenor, and counterparty dimensions."""
 from __future__ import annotations
-import csv, gzip, json, sys
+import csv, gzip, json, sys, hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -89,4 +89,17 @@ with OUT.open("w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=list(rows[0]))
     writer.writeheader()
     writer.writerows(sorted(rows, key=lambda r: (r["dimension"], r["date"], r["category"])))
+manifest_path = ROOT / "data" / "us-mmf" / "latest_manifest.json"
+manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+manifest.setdefault("ofr", {})["repo_dimensions"] = {
+    "status": "downloaded_normalized_and_reconciled",
+    "normalized_file": str(OUT.relative_to(ROOT)),
+    "normalized_sha256": hashlib.sha256(OUT.read_bytes()).hexdigest(),
+    "raw_source_snapshot": str(raw_path.relative_to(ROOT)),
+    "rows": len(rows),
+    "repo_total_observations": len(total_dates),
+    "dimensions": qa,
+    "note": "Counterparty, collateral, and tenor are separate overlapping classifications of the same repo holdings; never sum across dimensions.",
+}
+manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + chr(10), encoding="utf-8")
 print(json.dumps({"source": raw_path.name, "output": str(OUT.relative_to(ROOT)), "rows": len(rows), "repo_total_observations": len(total_dates), "qa": qa}, indent=2))
