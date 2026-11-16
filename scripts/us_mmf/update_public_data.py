@@ -25,6 +25,12 @@ FRED_URL = (
     f"?id={FRED_SERIES}&cosd=1974-01-01"
 )
 OFR_URL = "https://data.financialresearch.gov/v1/series/dataset?dataset=mmf"
+FED_EFA_URLS = {
+    "total": "https://www.federalreserve.gov/releases/efa/total-money-market-funds-investment-holdings-historical.csv",
+    "prime": "https://www.federalreserve.gov/releases/efa/prime-money-market-funds-investment-holdings-historical.csv",
+    "government": "https://www.federalreserve.gov/releases/efa/government-money-market-funds-investment-holdings-historical.csv",
+    "tax_exempt": "https://www.federalreserve.gov/releases/efa/exempt-money-market-funds-investment-holdings-historical.csv",
+}
 USER_AGENT = "TAC-US-MMF-Research/1.0 (public-data archival)"
 
 
@@ -112,6 +118,27 @@ def main() -> None:
     write_bytes(fred_raw_path, fred_raw)
     write_bytes(fred_clean_path, fred_clean)
 
+    fed_efa_info = {}
+    for category, url in FED_EFA_URLS.items():
+        try:
+            payload = fetch(url)
+            # Preserve the source CSV bytes unchanged; parsing and summation are a later QA stage.
+            path = RAW_DIR / f"fed_efa_{category}_{stamp}.csv"
+            write_bytes(path, payload)
+            fed_efa_info[category] = {
+                "status": "downloaded",
+                "source_url": url,
+                "raw_snapshot": str(path.relative_to(ROOT)),
+                "raw_sha256": sha256(payload),
+                "size_bytes": len(payload),
+            }
+        except Exception as exc:
+            fed_efa_info[category] = {
+                "status": "download_failed",
+                "source_url": url,
+                "error": repr(exc),
+            }
+
     ofr_info = {"dataset_key": "mmf", "source_url": OFR_URL}
     try:
         ofr_raw = fetch(OFR_URL)
@@ -142,6 +169,12 @@ def main() -> None:
             "processed_file": str(fred_clean_path.relative_to(ROOT)),
             "raw_sha256": sha256(fred_raw),
             "processed_sha256": sha256(fred_clean),
+        },
+        "fed_efa_monthly_holdings_by_type": {
+            "source_page": "https://www.federalreserve.gov/releases/efa/efa-project-money-market-funds-investment-holdings-detail.htm",
+            "coverage_expected_from": "2010-12",
+            "files": fed_efa_info,
+            "note": "These are portfolio investment holdings by type, not the Z.1 total financial assets series; Federal Reserve notes scope differences.",
         },
         "ofr": ofr_info,
     }
