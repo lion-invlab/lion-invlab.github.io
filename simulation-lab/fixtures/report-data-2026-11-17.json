@@ -682,7 +682,7 @@
     "heading": "本週三大觀察焦點",
     "text": "① 11/17 21:30 美國零售銷售，22:15 工業生產；另留意Jefferson與Warsh等Fed官員發言，觀察需求與政策訊號。② 11/18 05:20 NVIDIA財報，檢驗AI訂單、毛利、資本支出與現金流是否匹配。③ 11/19 03:00 FOMC會議紀要，確認聯準會對通膨與進一步升息的內部分歧。"
   },
-  "qa_run_revision": "SIM-1.3",
+  "qa_run_revision": "2026-11-17-factset-113-tradingview-move-mobile-energy-analysis-v2",
   "market_sentiment": "市場情緒明顯轉向防禦。VIX快速升高、CNN Fear & Greed落在恐懼區，且12月FedWatch已高度定價升息25bp；短線不宜把科技股急跌直接視為買點，應等待財報與利率訊號確認。",
   "quality_note": "行情基準日2026-11-16。44項行情已逐項查核，均取得可用的11/16數值；MOVE採使用者提供的Merrill Lynch MOVE畫面截圖（101.28、+2.52%、前收98.79）。S&P 500（^SPX）與Russell 2000（^RUT）採Yahoo Finance現金指數歷史資料作備援；Investing.com HK同名頁為CFD，不混用。11檔產業ETF採Investing.com HK優先，HK頁未更新時使用同一來源系統Global歷史頁第三輪備援，只呈現百分比。WTI CLZ26、Brent LCOF7、Gold GCZ26、Silver SIZ6均為指定合約歷史列。五項關鍵價位：道瓊、Nasdaq、SOX採Investing.com HK現金指數；S&P 500與Russell 2000採Yahoo Finance現金指數。 FactSet盈餘健康度採使用者提供之11/16早報截圖，統計截點2026-11-13；包含91%公布率、EPS/營收優於預期比例、混合成長率、聚合EPS超預期幅度及Forward P/E。",
   "report_cutoff_taipei": "2026-11-17 05:25（台灣時間）",
