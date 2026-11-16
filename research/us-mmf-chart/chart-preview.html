@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#111d30">
+<title>TAC｜美國貨幣市場基金規模</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<style>
+:root{--red:#b8202f;--navy:#111d30;--ink:#202a38;--muted:#758195;--line:#e3e8ef;--paper:#f4f6f8;--gold:#c7a66a}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+main{max-width:1240px;margin:0 auto;padding:26px 24px 60px}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:17px;color:#8a95a4;font-size:11px}.brand{font-weight:950;color:var(--red);letter-spacing:.5px}
+.hero{position:relative;overflow:hidden;border-radius:17px;padding:27px 30px 24px;background:radial-gradient(circle at 87% 18%,#314765 0,transparent 34%),linear-gradient(115deg,#101a2b,#1d304b 68%,#111d30);color:#fff;box-shadow:0 12px 30px #101d3020}
+.hero:after{content:"";position:absolute;width:300px;height:300px;border:1px solid #c7a66a50;border-radius:50%;right:-72px;top:-156px;box-shadow:0 0 0 24px #c7a66a0c,0 0 0 52px #c7a66a08;pointer-events:none}
+.eyebrow{font-size:10px;letter-spacing:2px;color:#d8bd83;font-weight:900}h1{font-size:clamp(25px,3.4vw,34px);line-height:1.25;margin:10px 0 8px;font-weight:950}
+.hero p{max-width:790px;margin:0;color:#c8d1de;font-size:13px;line-height:1.8}.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.pill{font-size:10px;color:#e5eaf0;border:1px solid #ffffff2b;background:#ffffff0d;border-radius:99px;padding:5px 10px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:16px 0}.kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px 16px;min-width:0;box-shadow:0 4px 18px #17243a08}
+.kpi .label{font-size:11px;color:var(--muted);font-weight:750}.kpi .value{font-size:clamp(20px,2.4vw,27px);font-weight:950;letter-spacing:-.5px;margin:6px 0 2px;font-variant-numeric:tabular-nums}.kpi .sub{font-size:10px;color:#8a95a4}
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 18px 15px;margin-top:15px;box-shadow:0 6px 22px #15203308;min-width:0}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}h2{font-size:18px;margin:0 0 5px;font-weight:950}.desc{font-size:12px;line-height:1.7;color:#6d7888;max-width:760px}
+.controls{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.controls button{border:1px solid #dbe1e9;background:#fff;color:#4b5668;border-radius:7px;padding:7px 10px;font-size:11px;font-weight:800;cursor:pointer}.controls button:hover{border-color:#c6a66a;color:#8b6b30}.controls button.active{background:#f8f1e5;border-color:#d8c49d;color:#7c5c25}
+.chart-wrap{position:relative;width:100%;margin-top:10px;overflow:hidden}.chart-svg{display:block;width:100%;height:auto;min-height:280px;touch-action:none;user-select:none;-webkit-user-select:none}
+.chart-svg text{font-family:inherit;fill:#596577;font-size:12px;font-weight:600}.gridline{stroke:#e6eaf0;stroke-width:1}.axisline{stroke:#aeb8c6;stroke-width:1.2}.line-total{fill:none;stroke:var(--red);stroke-width:3.1;stroke-linecap:round;stroke-linejoin:round}
+.area-government{fill:#1c7184;opacity:.92}.area-prime{fill:#b8202f;opacity:.82}.area-tax{fill:#c7a66a;opacity:.96}.chart-svg .axis path,.chart-svg .axis line{stroke:#aeb8c6}.chart-svg .axis text{fill:#697588;font-size:11px}
+.tooltip{position:absolute;display:none;pointer-events:none;z-index:5;background:#101b2e;color:#fff;border:1px solid #ffffff22;border-radius:9px;padding:9px 11px;font-size:11px;line-height:1.6;box-shadow:0 8px 24px #0002;min-width:145px}.tooltip strong{display:block;color:#e2c98f;margin-bottom:3px}
+.legend{display:flex;gap:15px;flex-wrap:wrap;margin:8px 2px 0;font-size:11px;color:#5d6878}.legend-item{display:flex;align-items:center;gap:6px}.swatch{width:11px;height:11px;border-radius:3px;display:inline-block}
+.chart-note{font-size:10px;color:#8993a1;margin-top:10px;line-height:1.7}.notice{margin-top:14px;padding:13px 15px;border-left:3px solid var(--gold);background:#faf8f3;border-radius:0 9px 9px 0;font-size:11px;line-height:1.8;color:#5d6673}
+.footer{margin-top:20px;padding:14px 2px;border-top:1px solid #dfe4eb;color:#8791a0;font-size:10px;line-height:1.8}.footer a{color:#69788d;text-decoration:none}.footer a:hover{text-decoration:underline}.status{font-size:11px;color:#7b8797;margin-top:10px}
+@media(max-width:800px){main{padding:17px 13px 45px}.hero{padding:22px 20px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:12px}.card{padding:15px 11px 12px}.chart-svg{min-height:230px}.controls button{padding:7px 8px}.topline{font-size:10px}}@media(max-width:390px){.kpi .value{font-size:20px}.card-head{gap:9px}}
+</style>
+</head>
+<body><main>
+<div class="topline"><div class="brand">TAC INVESTMENT RESEARCH</div><div>互動式圖表　/　美國貨幣市場基金</div></div>
+<header class="hero"><div class="eyebrow">U.S. MONEY MARKET FUNDS</div><h1>美國貨幣市場基金｜資產規模與結構</h1>
+<p>從 1974 年以來的長期資產規模，到 Government、Prime 與 Tax-exempt 三大基金類型，觀察美國短期流動性資金池的擴張與結構變化。</p>
+<div class="hero-meta"><span class="pill">Federal Reserve Z.1｜S123.s</span><span class="pill">季度資料｜季末</span><span class="pill">免費官方資料</span><span class="pill" id="update-pill">資料更新日期讀取中</span></div></header>
+<section class="kpis">
+<div class="kpi"><div class="label">美國 MMF 總資產</div><div class="value" id="kpi-total">—</div><div class="sub" id="kpi-quarter">最新統計季度</div></div>
+<div class="kpi"><div class="label">Government 政府型</div><div class="value" id="kpi-gov">—</div><div class="sub" id="kpi-gov-share">占總資產 —</div></div>
+<div class="kpi"><div class="label">Prime 優質型</div><div class="value" id="kpi-prime">—</div><div class="sub" id="kpi-prime-share">占總資產 —</div></div>
+<div class="kpi"><div class="label">Tax-exempt 免稅型</div><div class="value" id="kpi-tax">—</div><div class="sub" id="kpi-tax-share">占總資產 —</div></div>
+</section>
+<section class="card"><div class="card-head"><div><h2>美國 MMF 總資產規模｜1974–至今</h2><div class="desc">以聯準會 Z.1 Financial Accounts 的 Total Financial Assets 為主序列，單位為美元兆。可拖曳平移、滾輪縮放；手機可用雙指縮放。</div></div>
+<div class="controls" id="total-controls"><button data-years="all" class="active">全期間</button><button data-years="20">近 20 年</button><button data-years="10">近 10 年</button><button data-years="5">近 5 年</button></div></div>
+<div class="chart-wrap" id="total-wrap"><div class="tooltip" id="total-tip"></div><svg id="total-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金總資產長期走勢"></svg></div>
+<div class="chart-note">資料：Federal Reserve Z.1，S123.s，Line 1｜季末、未季節調整。歷史序列從 1974 Q1 首次出現正值開始；更早的零值不視為實際市場規模。</div></section>
+<section class="card"><div class="card-head"><div><h2>基金類型結構｜2010 Q4–至今</h2><div class="desc">Government、Prime、Tax-exempt 三類資產堆疊。三類合計與同一張 Z.1 表格的總 AUM 對帳，避免混接不同來源的分類口徑。</div></div>
+<div class="controls" id="type-controls"><button data-years="all" class="active">全期間</button><button data-years="10">近 10 年</button><button data-years="5">近 5 年</button></div></div>
+<div class="chart-wrap" id="type-wrap"><div class="tooltip" id="type-tip"></div><svg id="type-chart" class="chart-svg" viewBox="0 0 1100 390" role="img" aria-label="美國貨幣市場基金類型資產結構"></svg></div>
+<div class="legend"><span class="legend-item"><i class="swatch" style="background:#1c7184"></i>Government 政府型</span><span class="legend-item"><i class="swatch" style="background:#b8202f"></i>Prime 優質型</span><span class="legend-item"><i class="swatch" style="background:#c7a66a"></i>Tax-exempt 免稅型</span></div>
+<div class="chart-note">資料：Federal Reserve Z.1，S123.s，Memo Lines 15–17｜分類序列自 2010 Q4 起可完整對帳。類別數值與總資產的最大差異為 USD 1 million，屬四捨五入差異。</div></section>
+<div class="notice"><strong>重要判讀：</strong>資產規模（AUM）增加不等於同額資金淨流入。AUM 變化還可能受到投資組合估值、應計利息、資產負債調整及統計修訂影響。本圖先呈現資產存量；資金交易量將以獨立指標、明確標示其季調及年化口徑後再加入。</div>
+<div class="status" id="load-status">正在載入聯準會官方資料…</div>
+<footer class="footer">資料來源：<a href="https://www.federalreserve.gov/releases/z1/current/html/S123_s.htm" target="_blank" rel="noopener">Federal Reserve Z.1｜S123.s Money Market Funds</a> · <a href="https://fred.stlouisfed.org/data/MMMFFAQ027S" target="_blank" rel="noopener">FRED｜MMMFFAQ027S</a><br>基礎資料保留百萬美元原始值，圖表轉換為美元兆；統計日期以季度標籤呈現。原始來源快照、SHA-256 與 QA 紀錄保存在獨立研究分支。</footer>
+</main>
+<script>
+(async function(){
+ const $=id=>document.getElementById(id),fmtT=v=>"$"+d3.format(",.2f")(v)+"T",parseDate=d3.timeParse("%Y-%m-%d");
+ try{
+  const [totalRaw,typeRaw,manifest]=await Promise.all([
+   d3.csv("../../data/us-mmf/fed_mmmffaq027s_latest.csv"),
+   d3.csv("../../data/us-mmf/fed_mmf_aum_by_fund_type_latest.csv"),
+   d3.json("../../data/us-mmf/latest_manifest.json")
+  ]);
+  const total=totalRaw.map(d=>({date:parseDate(d.fred_observation_date),value:+d.value_usd_trillion,quarter:d.quarter_label})).filter(d=>d.date&&Number.isFinite(d.value));
+  const types=typeRaw.map(d=>({date:parseDate(d.date),quarter:d.quarter_label,total:+d.total_aum_millions_usd/1e6,government:+d.government_millions_usd/1e6,prime:+d.prime_millions_usd/1e6,tax:+d.tax_exempt_millions_usd/1e6})).filter(d=>d.date&&Number.isFinite(d.total));
+  const latest=types[types.length-1];
+  $("kpi-total").textContent=fmtT(latest.total);$("kpi-quarter").textContent=latest.quarter+"｜最新統計季度";
+  $("kpi-gov").textContent=fmtT(latest.government);$("kpi-prime").textContent=fmtT(latest.prime);$("kpi-tax").textContent=fmtT(latest.tax);
+  $("kpi-gov-share").textContent="占總資產 "+d3.format(".1%")(latest.government/latest.total);
+  $("kpi-prime-share").textContent="占總資產 "+d3.format(".1%")(latest.prime/latest.total);
+  $("kpi-tax-share").textContent="占總資產 "+d3.format(".1%")(latest.tax/latest.total);
+  $("update-pill").textContent="資料擷取："+((manifest.retrieved_at_utc||"").slice(0,10).replaceAll("-","/")||"日期未提供");
+  $("load-status").textContent="資料載入完成｜總規模 "+total.length+" 季｜基金類型 "+types.length+" 季｜最新："+latest.quarter;
+
+  function setupLine(data){
+   const svg=d3.select("#total-chart"),width=1100,height=390,margin={top:18,right:28,bottom:42,left:82},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;
+   const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")");
+   const x0=d3.scaleTime().domain(d3.extent(data,d=>d.date)).range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().range([innerH,0]);
+   root.append("defs").append("clipPath").attr("id","clip-total").append("rect").attr("width",innerW).attr("height",innerH);
+   const grid=root.append("g").attr("class","grid"),xAxis=root.append("g").attr("class","axis").attr("transform","translate(0,"+innerH+")"),yAxis=root.append("g").attr("class","axis");
+   const plot=root.append("g").attr("clip-path","url(#clip-total)"),line=plot.append("path").datum(data).attr("class","line-total"),dot=plot.append("circle").attr("r",5).attr("fill","#b8202f").attr("stroke","#fff").attr("stroke-width",2).style("display","none");
+   const bisect=d3.bisector(d=>d.date).center,tip=d3.select("#total-tip"),wrap=$("total-wrap"),lineGen=d3.line().x(d=>x(d.date)).y(d=>y(d.value)).curve(d3.curveMonotoneX);
+   function render(transform){
+    x.domain(transform.rescaleX(x0).domain());
+    const visible=data.filter(d=>d.date>=x.domain()[0]&&d.date<=x.domain()[1]),ymax=Math.max(1,d3.max(visible.length?visible:data,d=>d.value)*1.1);
+    y.domain([0,ymax]).nice(5);line.attr("d",lineGen);
+    xAxis.call(d3.axisBottom(x).ticks(innerW/115).tickFormat(d3.timeFormat("%Y")));
+    yAxis.call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+d3.format(".1f")(d)+"T"));
+    grid.call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat("")).selectAll("line").attr("class","gridline");grid.select(".domain").remove();
+   }
+   const zoom=d3.zoom().scaleExtent([1,24]).extent([[0,0],[innerW,innerH]]).translateExtent([[0,0],[innerW,innerH]]).on("zoom",e=>render(e.transform));
+   svg.call(zoom).on("dblclick.zoom",null);render(d3.zoomIdentity);
+   svg.on("pointermove.tooltip",function(event){
+    if(event.pointerType==="touch"||event.buttons)return;const [px,py]=d3.pointer(event,root.node());
+    if(px<0||px>innerW||py<0||py>innerH){tip.style("display","none");dot.style("display","none");return;}
+    const idx=bisect(data,x.invert(px)),d=data[Math.max(0,Math.min(data.length-1,idx))];if(!d)return;
+    dot.attr("cx",x(d.date)).attr("cy",y(d.value)).style("display",null);tip.html("<strong>"+d.quarter+"</strong>總資產："+fmtT(d.value)).style("display","block");
+    const wr=wrap.getBoundingClientRect();tip.style("left",Math.max(8,Math.min(wr.width-160,event.clientX-wr.left+12))+"px").style("top",Math.max(8,event.clientY-wr.top-54)+"px");
+   }).on("pointerleave.tooltip",()=>{tip.style("display","none");dot.style("display","none");});
+   function setRange(years){
+    if(years==="all"){svg.transition().duration(350).call(zoom.transform,d3.zoomIdentity);return;}
+    const maxDate=x0.domain()[1],start=d3.timeYear.offset(maxDate,-(+years)),span=x0.domain()[1]-x0.domain()[0],target=maxDate-start,k=span/target,tx=-k*x0(start);
+    svg.transition().duration(350).call(zoom.transform,d3.zoomIdentity.translate(tx,0).scale(k));
+   }
+   d3.selectAll("#total-controls button").on("click",function(){d3.selectAll("#total-controls button").classed("active",false);d3.select(this).classed("active",true);setRange(this.dataset.years);});
+  }
+
+  function setupArea(data){
+   const svg=d3.select("#type-chart"),width=1100,height=390,margin={top:18,right:28,bottom:42,left:82},innerW=width-margin.left-margin.right,innerH=height-margin.top-margin.bottom;
+   const root=svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")");
+   const x0=d3.scaleTime().domain(d3.extent(data,d=>d.date)).range([0,innerW]),x=x0.copy(),y=d3.scaleLinear().range([innerH,0]);
+   root.append("defs").append("clipPath").attr("id","clip-type").append("rect").attr("width",innerW).attr("height",innerH);
+   const grid=root.append("g").attr("class","grid"),xAxis=root.append("g").attr("class","axis").attr("transform","translate(0,"+innerH+")"),yAxis=root.append("g").attr("class","axis");
+   const plot=root.append("g").attr("clip-path","url(#clip-type)"),keys=["government","prime","tax"],stack=d3.stack().keys(keys)(data);
+   const colors={government:"area-government",prime:"area-prime",tax:"area-tax"},areas=plot.selectAll("path.area").data(stack).join("path").attr("class",d=>"area "+colors[d.key]);
+   const bisect=d3.bisector(d=>d.date).center,tip=d3.select("#type-tip"),wrap=$("type-wrap"),areaGen=d3.area().x(d=>x(d.data.date)).y0(d=>y(d[0])).y1(d=>y(d[1])).curve(d3.curveMonotoneX);
+   function render(transform){
+    x.domain(transform.rescaleX(x0).domain());const visible=data.filter(d=>d.date>=x.domain()[0]&&d.date<=x.domain()[1]),ymax=Math.max(1,d3.max(visible.length?visible:data,d=>d.total)*1.1);
+    y.domain([0,ymax]).nice(5);areas.attr("d",areaGen);
+    xAxis.call(d3.axisBottom(x).ticks(innerW/115).tickFormat(d3.timeFormat("%Y")));
+    yAxis.call(d3.axisLeft(y).ticks(5).tickFormat(d=>"$"+d3.format(".1f")(d)+"T"));
+    grid.call(d3.axisLeft(y).ticks(5).tickSize(-innerW).tickFormat("")).selectAll("line").attr("class","gridline");grid.select(".domain").remove();
+   }
+   const zoom=d3.zoom().scaleExtent([1,12]).extent([[0,0],[innerW,innerH]]).translateExtent([[0,0],[innerW,innerH]]).on("zoom",e=>render(e.transform));
+   svg.call(zoom).on("dblclick.zoom",null);render(d3.zoomIdentity);
+   svg.on("pointermove.tooltip",function(event){
+    if(event.pointerType==="touch"||event.buttons)return;const [px,py]=d3.pointer(event,root.node());
+    if(px<0||px>innerW||py<0||py>innerH){tip.style("display","none");return;}
+    const idx=bisect(data,x.invert(px)),d=data[Math.max(0,Math.min(data.length-1,idx))];if(!d)return;
+    tip.html("<strong>"+d.quarter+"</strong>Government："+fmtT(d.government)+"<br>Prime："+fmtT(d.prime)+"<br>Tax-exempt："+fmtT(d.tax)+"<br>合計："+fmtT(d.total)).style("display","block");
+    const wr=wrap.getBoundingClientRect();tip.style("left",Math.max(8,Math.min(wr.width-165,event.clientX-wr.left+12))+"px").style("top",Math.max(8,event.clientY-wr.top-94)+"px");
+   }).on("pointerleave.tooltip",()=>tip.style("display","none"));
+   function setRange(years){
+    if(years==="all"){svg.transition().duration(350).call(zoom.transform,d3.zoomIdentity);return;}
+    const maxDate=x0.domain()[1],start=d3.timeYear.offset(maxDate,-(+years)),span=x0.domain()[1]-x0.domain()[0],target=maxDate-start,k=span/target,tx=-k*x0(start);
+    svg.transition().duration(350).call(zoom.transform,d3.zoomIdentity.translate(tx,0).scale(k));
+   }
+   d3.selectAll("#type-controls button").on("click",function(){d3.selectAll("#type-controls button").classed("active",false);d3.select(this).classed("active",true);setRange(this.dataset.years);});
+  }
+  setupLine(total);setupArea(types);
+ }catch(err){
+  console.error(err);$("load-status").textContent="資料載入失敗："+err.message+"。請確認資料檔已部署且網路可連線。";
+  $("total-chart").innerHTML='<text x="550" y="190" text-anchor="middle">資料載入失敗</text>';
+  $("type-chart").innerHTML='<text x="550" y="190" text-anchor="middle">資料載入失敗</text>';
+ }
+})();
+</script>
+</body></html>
